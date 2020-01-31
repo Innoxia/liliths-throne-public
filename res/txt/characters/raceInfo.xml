@@ -140,7 +140,7 @@
 
 	<htmlContent tag="IMP_BASIC"><![CDATA[
 	<p>
-		Other than their diminutive height (with most individuals standing at around three feet tall), an imp's appearance is identical to that of a demon.
+		Other than their diminutive height (with most individuals standing at around [units.size(92)] tall), an imp's appearance is identical to that of a demon.
 		 Despite their similar appearances, however, imps are far more mischievous and aggressive than their larger counterparts.
 		 Due to these antisocial personality traits, Dominion's Enforcers always drive imps out of the city at first sight, with the vast majority of them ending up down in the undercity of Submission.
 	</p>
@@ -246,17 +246,14 @@
 
 	<htmlContent tag="FOX_MORPH_BASIC"><![CDATA[
 	<p>
-		Fox-morphs are a common anthropomorphic race, spread through both Dominion and the forested areas nearby.
-		 Fox-morphs are very cunning and mischievous, and love nothing more than playing practical jokes on others.
+		Fox-morphs are a common anthropomorphic race, spread through both Dominion and the Foloi Fields. The fennec-fox-morph subspecies is primarily found in the more arid regions to the south of Dominion, while the arctic-fox-morph subspecies is found almost exclusively in the aptly-named 'Snowstorm valley'. No matter their subspecies, fox-morphs have a tendency to be very cunning and mischievous, and often love nothing more than playing practical jokes on others.
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="FOX_MORPH_ADVANCED"><![CDATA[
 	<p>
-		Due to their love for trickery, fox-morphs are believed to be insensitive to the feelings of others, but they see their own behavior as little more than a harmless prank.
-		 Despite this, there's little trust ever placed in the fox-morphs of Dominion.
-		 Often enough, some of them move out of the city, so they can live freely, and there exists some places in the nearby forests which are inhabited almost entirely by fox-morphs and related races.
+		Due to their love for trickery, fox-morphs are believed to be insensitive to the feelings of others, but they see their own behaviour as little more than a harmless prank. Despite this, there's little trust ever placed in the fox-morphs of Dominion. Often enough, some of them move out of the city, so they can live freely, and there exists some places in the nearby forests which are inhabited almost entirely by fox-morphs and related races.
 	</p>
 	<p>
 		Fox-morphs, like the other common races, get heavily affected by arcane storms.

@@ -15,7 +15,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
@@ -235,7 +234,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "You're not at all interested in having sex with a prostitute. Walk around [npc.herHim] and continue on your way.", Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("Leave", "You're not at all interested in having sex with a prostitute. Walk around [npc.herHim] and continue on your way.", Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
 						if(getProstitute().isVisiblyPregnant()){
@@ -458,7 +457,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Continue on your way through Dominion's alleyways...", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Continue", "Continue on your way through Dominion's alleyways...", Main.game.getDefaultDialogue(false));
 				
 			} else {
 				return null;
@@ -528,7 +527,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Leave [npc.name] and carry on your way. <b>[npc.Name] will disappear from this area!</b>", Main.game.getDefaultDialogueNoEncounter()){
+				return new Response("Leave", "Leave [npc.name] and carry on your way. <b>[npc.Name] will disappear from this area!</b>", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						Main.game.banishNPC(getProstitute());
@@ -721,7 +720,7 @@ public class AlleywayProstituteDialogue {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 						@Override
 						public DialogueNode getNextDialogue() {
-							return Main.game.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogue(false);
 						}
 					};
 					
@@ -741,10 +740,10 @@ public class AlleywayProstituteDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getProstitute()) >= getProstitute().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getProstitute()) >= getProstitute().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parse(getProstitute(),
 						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks back onto [npc.her] bed, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(getProstitute()) > 1?"s":"")+"."
+							+ "As you step back from [npc.name], [npc.she] sinks back onto [npc.her] bed, totally worn out from [npc.her] orgasm"+(Main.sex.getNumberOfOrgasms(getProstitute()) > 1?"s":"")+"."
 							+ " Looking up at you, a satisfied smile settles across [npc.her] face, and [npc.she] sighs,"
 							+ " [npc.speech(Damn, you're good! It looks like I've got a new favourite customer! Please come back again soon!)]"
 						+ "</p>");
@@ -761,7 +760,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()){
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -887,7 +886,7 @@ public class AlleywayProstituteDialogue {
 				return new Response(
 						"Continue",
 						"Continue on your way.",
-						Main.game.getDefaultDialogueNoEncounter()){
+						Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						Main.game.banishNPC(getProstitute());
@@ -909,10 +908,10 @@ public class AlleywayProstituteDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getProstitute()) >= getProstitute().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getProstitute()) >= getProstitute().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parse(getProstitute(),
 						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(getProstitute()) > 1?"s":"")+"."
+							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Main.sex.getNumberOfOrgasms(getProstitute()) > 1?"s":"")+"."
 							+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
 						+ "</p>"
 						+ "<p>"
@@ -934,7 +933,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Leave [npc.name] and carry on your way. <b>[npc.Name] will disappear from this area!</b>", Main.game.getDefaultDialogueNoEncounter()){
+				return new Response("Leave", "Leave [npc.name] and carry on your way. <b>[npc.Name] will disappear from this area!</b>", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						Main.game.banishNPC(getProstitute());
@@ -988,7 +987,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogueNoEncounter()){
+				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						Main.game.banishNPC(getProstitute());

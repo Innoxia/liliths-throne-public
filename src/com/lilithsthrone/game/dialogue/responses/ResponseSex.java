@@ -387,7 +387,7 @@ public class ResponseSex extends Response {
 	}
 	
 	public DialogueNode initSex() {
-		return Main.sexEngine.initialiseSex(consensual, subHasEqualControl, sexManager, dominantSpectators, submissiveSpectators, postSexDialogue, sexStartDescription, getInitialSexActions());
+		return Main.sex.initialiseSex(consensual, subHasEqualControl, sexManager, dominantSpectators, submissiveSpectators, postSexDialogue, sexStartDescription, getInitialSexActions());
 	}
 	
 	/**

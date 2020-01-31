@@ -21,7 +21,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
@@ -35,7 +35,6 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -77,7 +76,7 @@ public class SALyssiethSpecials {
 	public static final void playerGrowDemonicPenis() {
 		Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
 		Main.game.getPlayer().setPenisSize(20);
-		Main.game.getPlayer().setPenisGirth(PenisGirth.THREE_THICK.getValue());
+		Main.game.getPlayer().setPenisGirth(PenetrationGirth.THREE_THICK.getValue());
 		Main.game.getPlayer().setTesticleSize(TesticleSize.THREE_LARGE);
 		Main.game.getPlayer().setPenisCumStorage(750);
 		Main.game.getPlayer().setPenisCumExpulsion(FluidExpulsion.FOUR_HUGE.getMedianValue());
@@ -121,10 +120,10 @@ public class SALyssiethSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager() instanceof SMLyssiethDemonTF
-					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
-					&& Sex.getPosition()==SexPosition.STANDING
-					&& Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
+					&& Main.sex.getPosition()==SexPosition.STANDING
+					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -173,7 +172,7 @@ public class SALyssiethSpecials {
 			Main.game.getPlayer().setPenisType(PenisType.NONE);
 			playerGrowDemonicVagina();
 			
-			Sex.setSexManager(
+			Main.sex.setSexManager(
 					new SMLyssiethDemonTF(
 							SexPosition.OVER_DESK,
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.BETWEEN_LEGS)),
@@ -193,10 +192,10 @@ public class SALyssiethSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager() instanceof SMLyssiethDemonTF
-					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
-					&& Sex.getPosition()==SexPosition.STANDING
-					&& Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
+					&& Main.sex.getPosition()==SexPosition.STANDING
+					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -263,7 +262,7 @@ public class SALyssiethSpecials {
 				playerGrowDemonicVagina();
 			}
 			
-			Sex.setSexManager(
+			Main.sex.setSexManager(
 					new SMLyssiethDemonTF(
 							SexPosition.OVER_DESK,
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.BETWEEN_LEGS)),
@@ -283,10 +282,10 @@ public class SALyssiethSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager() instanceof SMLyssiethDemonTF
-					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
-					&& Sex.getPosition()==SexPosition.STANDING
-					&& Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==1
+					&& Main.sex.getPosition()==SexPosition.STANDING
+					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -350,7 +349,7 @@ public class SALyssiethSpecials {
 				}
 			}
 			
-			Sex.setSexManager(
+			Main.sex.setSexManager(
 					new SMLyssiethDemonTF(
 							SexPosition.OVER_DESK,
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.BETWEEN_LEGS)),
@@ -374,11 +373,11 @@ public class SALyssiethSpecials {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager() instanceof SMLyssiethDemonTF
-					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
+			return Main.sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
 					&& !specialActionTriggered
-					&& Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))==0;
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.getSexTypeCount(Main.sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))==0;
 		}
 		
 		@Override
@@ -418,7 +417,7 @@ public class SALyssiethSpecials {
 				playerGrowDemonicPenis();
 			}
 
-			Sex.setSexManager(
+			Main.sex.setSexManager(
 					new SMLyssiethDemonTF(
 							SexPosition.ALL_FOURS,
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.BEHIND)),
@@ -439,11 +438,11 @@ public class SALyssiethSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager() instanceof SMLyssiethDemonTF
-					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
+			return Main.sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
 					&& !specialActionTriggered
-					&& Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))==0;
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.getSexTypeCount(Main.sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))==0;
 		}
 		
 		@Override
@@ -480,7 +479,7 @@ public class SALyssiethSpecials {
 			}
 			specialActionTriggered = true;
 			
-			Sex.setSexManager(
+			Main.sex.setSexManager(
 					new SMLyssiethDemonTF(
 							SexPosition.SITTING,
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotSitting.PERFORMING_ORAL)),
@@ -500,11 +499,11 @@ public class SALyssiethSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager() instanceof SMLyssiethDemonTF
-					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
+			return Main.sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
 					&& !specialActionTriggered
-					&& Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))==0;
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.getSexTypeCount(Main.sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))==0;
 		}
 		
 		@Override
@@ -593,7 +592,7 @@ public class SALyssiethSpecials {
 				}
 			}
 			
-			Sex.setSexManager(
+			Main.sex.setSexManager(
 					new SMLyssiethDemonTF(
 							SexPosition.ALL_FOURS,
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotAllFours.BEHIND)),
@@ -615,11 +614,11 @@ public class SALyssiethSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager() instanceof SMLyssiethDemonTF
-					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
+			return Main.sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
 					&& !specialActionTriggered
-					&& Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.getSexTypeCount(Main.sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
 		}
 		
 		@Override
@@ -664,7 +663,7 @@ public class SALyssiethSpecials {
 			playerGrowDemonicBreasts(CupSize.F);
 			playerGrowDemonicVagina();
 			
-			Sex.setSexManager(
+			Main.sex.setSexManager(
 					new SMLyssiethDemonTF(
 							SexPosition.OVER_DESK,
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.BETWEEN_LEGS)),
@@ -684,11 +683,11 @@ public class SALyssiethSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager() instanceof SMLyssiethDemonTF
-					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
+			return Main.sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
 					&& !specialActionTriggered
-					&& Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.getSexTypeCount(Main.sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
 		}
 		
 		@Override
@@ -743,7 +742,7 @@ public class SALyssiethSpecials {
 				playerGrowDemonicBreasts(CupSize.AA);
 			}
 			
-			Sex.setSexManager(
+			Main.sex.setSexManager(
 					new SMLyssiethDemonTF(
 							SexPosition.OVER_DESK,
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotDesk.BETWEEN_LEGS)),
@@ -768,11 +767,11 @@ public class SALyssiethSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager() instanceof SMLyssiethDemonTF
-					&& Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
+			return Main.sex.getSexManager() instanceof SMLyssiethDemonTF
+					&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))==2
 					&& !specialActionTriggered
-					&& Sex.getCharacterPerformingAction().isPlayer()
-					&& Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.getSexTypeCount(Main.sex.getCharacterPerformingAction(), Main.game.getNpc(Lyssieth.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
 		}
 		
 		@Override
@@ -817,13 +816,13 @@ public class SALyssiethSpecials {
 			Main.game.getNpc(Lyssieth.class).setPenisType(PenisType.NONE);
 			Main.game.getPlayer().fillCumToMaxStorage();
 			
-			Sex.setSexManager(
+			Main.sex.setSexManager(
 					new SMLyssiethDemonTF(
 							SexPosition.LYING_DOWN,
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MATING_PRESS)),
 							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), SexSlotLyingDown.LYING_DOWN))));
 			
-			Sex.applyOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, Main.game.getNpc(Lyssieth.class), SexAreaOrifice.VAGINA, true);
+			Main.sex.applyOngoingAction(Main.game.getPlayer(), SexAreaPenetration.PENIS, Main.game.getNpc(Lyssieth.class), SexAreaOrifice.VAGINA, true);
 		}
 	};
 }

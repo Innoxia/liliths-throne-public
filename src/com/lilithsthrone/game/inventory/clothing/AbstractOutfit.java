@@ -20,6 +20,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
@@ -243,7 +244,11 @@ public abstract class AbstractOutfit {
 							weapons.add(getWeapon(e));
 						}
 						if(!weapons.isEmpty()) {
-							character.equipMainWeaponFromNowhere(Util.randomItemFrom(weapons));
+							AbstractWeapon wep = Util.randomItemFrom(weapons);
+							character.equipMainWeaponFromNowhere(wep);
+							if(wep.getWeaponType().getArcaneCost()>0) {
+								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(2+Util.random.nextInt(9)), false); // GIve them enough essences for 2-10 shots
+							}
 						}
 					} catch(Exception e){
 						e.printStackTrace();
@@ -263,7 +268,11 @@ public abstract class AbstractOutfit {
 							weapons.add(getWeapon(e));
 						}
 						if(!weapons.isEmpty()) {
-							character.equipOffhandWeaponFromNowhere(Util.randomItemFrom(weapons));
+							AbstractWeapon wep = Util.randomItemFrom(weapons);
+							character.equipOffhandWeaponFromNowhere(wep);
+							if(wep.getWeaponType().getArcaneCost()>0) {
+								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(2+Util.random.nextInt(9)), false); // GIve them enough essences for 2-10 shots
+							}
 						}
 					} catch(Exception e){
 						e.printStackTrace();

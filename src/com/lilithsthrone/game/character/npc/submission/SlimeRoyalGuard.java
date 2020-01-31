@@ -30,7 +30,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -76,7 +76,7 @@ public class SlimeRoyalGuard extends NPC {
 	}
 	
 	public SlimeRoyalGuard(boolean isImported) {
-		super(isImported, new NameTriplet("Maximilian", "Max", "Maxine"), "Klinge",
+		super(isImported, new NameTriplet("Maximilian", "Max", "Maxine"), "Lunettemartu",
 				"An incredibly rare and powerful demonic slime, [npc.name] prides [npc.herself] on [npc.her] skill with the sword.",
 				35, Month.APRIL, 14,
 				20, Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER,
@@ -104,6 +104,9 @@ public class SlimeRoyalGuard extends NPC {
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.KIND,
 					PersonalityTrait.CONFIDENT);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
+			this.setSurname("Lunettemartu");
 		}
 		setStartingCombatMoves();
 	}
@@ -223,7 +226,7 @@ public class SlimeRoyalGuard extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenisGirth.FOUR_FAT.getValue());
+		this.setPenisGirth(PenetrationGirth.FOUR_FAT.getValue());
 		this.setPenisSize(25);
 		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
 		this.fillCumToMaxStorage();
@@ -247,7 +250,7 @@ public class SlimeRoyalGuard extends NPC {
 		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_ZWEIHANDER, DamageType.PHYSICAL));
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_CROTCHLESS_CHAPS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_crotchless_chaps", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_work_boots", Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_SARASHI, Colour.CLOTHING_BLACK, false), true, this);

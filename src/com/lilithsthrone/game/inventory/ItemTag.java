@@ -7,7 +7,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.1
- * @version 0.3.4
+ * @version 0.3.6
  * @author Innoxia
  */
 public enum ItemTag {
@@ -48,8 +48,15 @@ public enum ItemTag {
 	
 	WEAPON_BLADE(false), // Should be added to all weapons that use an arcane blade
 	
+	WEAPON_UNARMED(false), // Should be added to all weapons that should use unarmed damage calculations instead of melee
+	
 	DRESS(false), // For helping to generate clothing in CharacterUtils
 
+	PROVIDES_KEY( // The person whi equips this clothing will get an unlock key, making the removal cost for jinxes equal to 0
+			Util.newArrayListOfValues(
+					"[style.colourGood(Provides equipper with key)]"),
+			false),
+	
 	SPREADS_FEET( // Prevents double foot actions, like wrap-around footjobs
 			Util.newArrayListOfValues(
 					"[style.colourBad(Restricts sex actions)]"),
@@ -123,11 +130,27 @@ public enum ItemTag {
 					"[style.colourBestial(Fits talons)]"),
 			false),
 	
-	FITS_HARPY_WINGS_EXCLUSIVE(
+	FITS_FEATHERED_ARM_WINGS_EXCLUSIVE(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Only fits feathered arm-wings)]"),
+			false),
+	FITS_FEATHERED_ARM_WINGS(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Fits feathered arm-wings)]"),
+			false),
+	FITS_LEATHERY_ARM_WINGS_EXCLUSIVE(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Only fits leathery arm-wings)]"),
+			false),
+	FITS_LEATHERY_ARM_WINGS(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Fits leathery arm-wings)]"),
+			false),
+	FITS_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
 					"[style.colourBestial(Only fits arm-wings)]"),
 			false),
-	FITS_HARPY_WINGS(
+	FITS_ARM_WINGS(
 			Util.newArrayListOfValues(
 					"[style.colourBestial(Fits arm-wings)]"),
 			false),

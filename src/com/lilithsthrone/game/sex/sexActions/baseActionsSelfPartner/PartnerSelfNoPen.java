@@ -8,13 +8,13 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -39,7 +39,7 @@ public class PartnerSelfNoPen {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.HANDS);
+			return Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.HANDS);
 		}
 
 		@Override
@@ -54,7 +54,7 @@ public class PartnerSelfNoPen {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.VAGINA)) {
+			if(Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.VAGINA)) {
 				return UtilText.returnStringAtRandom(
 						"Reaching down between [npc.her] legs, [npc.name] teases [npc.her] fingers over the entrance to [npc.her] [npc.pussy+], letting out [npc.a_moan+] as [npc.she] stimulates [npc.her] outer folds.",
 						"[npc.Name] probes [npc.her] fingers down between [npc.her] legs, moaning softly as [npc.she] teases [npc.her] fingers over the entrance to [npc.her] inviting [npc.pussy].",
@@ -63,21 +63,21 @@ public class PartnerSelfNoPen {
 
 			} else {
 				return UtilText.returnStringAtRandom(
-						"[npc.Name] runs [npc.her] hand down over [npc.her] groin, pressing [npc.her] "+Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()
+						"[npc.Name] runs [npc.her] hand down over [npc.her] groin, pressing [npc.her] "+Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()
 							+" down hard against [npc.her] needy [npc.pussy] as [npc.she] lets out a little whimper.",
-						"[npc.Name] pushes [npc.her] fingers down between [npc.her] legs, [npc.moaning+] as [npc.she] rubs [npc.her] "+Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()
+						"[npc.Name] pushes [npc.her] fingers down between [npc.her] legs, [npc.moaning+] as [npc.she] rubs [npc.her] "+Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()
 							+" against [npc.her] pussy lips.",
-						"[npc.Name] slides [npc.her] fingertips over [npc.her] "+Sex.getCharacterPerformingAction().getHighestZLayerCoverableArea(CoverableArea.VAGINA).getName()
+						"[npc.Name] slides [npc.her] fingertips over [npc.her] "+Main.sex.getCharacterPerformingAction().getHighestZLayerCoverableArea(CoverableArea.VAGINA).getName()
 							+", letting out [npc.a_moan+] as [npc.she] presses down and tries to stimulate [npc.her] [npc.pussy+] through [npc.her] clothing.",
 						"Pushing down between [npc.her] legs with the palm of [npc.her] hand, [npc.name] squeezes [npc.her] thighs together as [npc.she] presses [npc.her] "
-								+Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName() +" tightly against [npc.her] neglected [npc.pussy].");
+								+Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName() +" tightly against [npc.her] neglected [npc.pussy].");
 			}
 		}
 		
 		@Override
 		public void applyEffects() {
-			if(Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.VAGINA)) {
-				Sex.transferLubrication(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER, Sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA);
+			if(Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.VAGINA)) {
+				Main.sex.transferLubrication(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER, Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA);
 			}
 		}
 		
@@ -99,7 +99,7 @@ public class PartnerSelfNoPen {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.HANDS);
+			return Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.HANDS);
 		}
 		
 		@Override
@@ -114,7 +114,7 @@ public class PartnerSelfNoPen {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.PENIS)) {
+			if(Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.PENIS)) {
 				return UtilText.returnStringAtRandom(
 						"Reaching down between [npc.her] legs, [npc.name] takes hold of [npc.her] [npc.cock+], stroking up and down its length as [npc.she] lets out a low groan.",
 						"[npc.Name] teases [npc.her] fingers over the [npc.cockHead+] of [npc.her] [npc.cock+], [npc.groaning+] as [npc.she] rubs [npc.her] thumb over the top.",
@@ -123,21 +123,21 @@ public class PartnerSelfNoPen {
 				
 			} else {
 				return UtilText.returnStringAtRandom(
-						"[npc.Name] runs [npc.her] [npc.hand] over [npc.her] groin, pressing [npc.her] "+Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()
+						"[npc.Name] runs [npc.her] [npc.hand] over [npc.her] groin, pressing [npc.her] "+Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()
 							+" down against [npc.her] [npc.cock+] as [npc.she] lets out a little [npc.groan].",
 						"[npc.Name] slides [npc.her] fingers down between [npc.her] [npc.legs], letting out a little [npc.groan] as [npc.she] presses [npc.her] "
-						 +Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()+" down against [npc.her] [npc.cock+].",
-						"[npc.Name] slides [npc.her] fingertips over [npc.her] "+Sex.getCharacterPerformingAction().getHighestZLayerCoverableArea(CoverableArea.PENIS).getName()
+						 +Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()+" down against [npc.her] [npc.cock+].",
+						"[npc.Name] slides [npc.her] fingertips over [npc.her] "+Main.sex.getCharacterPerformingAction().getHighestZLayerCoverableArea(CoverableArea.PENIS).getName()
 							+", before pressing down and trying to stimulate [npc.her] [npc.cock+] through [npc.her] clothing.",
-						"Pushing down between [npc.her] [npc.legs] with the palm of [npc.her] [npc.hand], [npc.name] rubs [npc.her] "+Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()
+						"Pushing down between [npc.her] [npc.legs] with the palm of [npc.her] [npc.hand], [npc.name] rubs [npc.her] "+Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()
 								+" tightly against [npc.her] concealed [npc.cock+].");
 			}
 		}
 		
 		@Override
 		public void applyEffects() {
-			if(Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.PENIS)) {
-				Sex.transferLubrication(Sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER, Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS);
+			if(Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.PENIS)) {
+				Main.sex.transferLubrication(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER, Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS);
 			}
 		}
 		
@@ -159,9 +159,9 @@ public class PartnerSelfNoPen {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().hasPenis()
-					&& !Sex.getCharacterPerformingAction().hasVagina()
-					&& Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.HANDS);
+			return !Main.sex.getCharacterPerformingAction().hasPenis()
+					&& !Main.sex.getCharacterPerformingAction().hasVagina()
+					&& Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.HANDS);
 		}
 		
 		@Override
@@ -176,7 +176,7 @@ public class PartnerSelfNoPen {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.PENIS)) {
+			if(Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.PENIS)) {
 				return UtilText.returnStringAtRandom(
 						"Reaching down between [npc.her] [npc.legs], [npc.name] runs [npc.her] fingertips over [npc.her] doll-like mound, [npc.moaning+] as [npc.she] teases the sensitive area.",
 						"[npc.Name] teases [npc.her] fingers over the sensitive doll-like mound between [npc.her] legs, [npc.moaning+] as [npc.she] stimulates [npc.herself].",
@@ -185,14 +185,14 @@ public class PartnerSelfNoPen {
 				
 			} else {
 				return UtilText.returnStringAtRandom(
-						"[npc.Name] runs [npc.her] [npc.hand] over [npc.her] groin, pressing [npc.her] "+Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()
+						"[npc.Name] runs [npc.her] [npc.hand] over [npc.her] groin, pressing [npc.her] "+Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()
 							+" down against [npc.her] doll-like mound as [npc.she] lets out a little sigh.",
-						"[npc.Name] pushes [npc.her] fingers down between [npc.her] legs, [npc.moaning+] as [npc.she] rubs [npc.her] "+Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()
+						"[npc.Name] pushes [npc.her] fingers down between [npc.her] legs, [npc.moaning+] as [npc.she] rubs [npc.her] "+Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()
 								+" against [npc.her] genderless crotch.",
-						"[npc.Name] slides [npc.her] fingertips over [npc.her] "+Sex.getCharacterPerformingAction().getHighestZLayerCoverableArea(CoverableArea.VAGINA).getName()
+						"[npc.Name] slides [npc.her] fingertips over [npc.her] "+Main.sex.getCharacterPerformingAction().getHighestZLayerCoverableArea(CoverableArea.VAGINA).getName()
 								+", before pressing down and trying to stimulate [npc.her] doll-like mound through [npc.her] clothing.",
 						"Pushing down between [npc.her] [npc.legs] with the palm of [npc.her] [npc.hand], [npc.name] squeezes [npc.her] thighs together as [npc.she] presses [npc.her] "
-								+Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+" tightly down against [npc.her] genderless mound.");
+								+Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+" tightly down against [npc.her] genderless mound.");
 				
 			}
 		}

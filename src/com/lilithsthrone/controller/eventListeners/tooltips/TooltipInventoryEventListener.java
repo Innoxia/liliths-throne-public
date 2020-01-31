@@ -53,7 +53,7 @@ import com.lilithsthrone.utils.Util;
  * Shows the tooltip at the given element's position.
  * 
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class TooltipInventoryEventListener implements EventListener {
@@ -177,15 +177,27 @@ public class TooltipInventoryEventListener implements EventListener {
 			
 			if(colour!=null) {
 				tooltipSB.append("<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
-						+ "<div class='picture full' style='position:relative;'>" + dyeWeapon.getWeaponType().getSVGImage(dyeWeapon.getDamageType(), colour, InventoryDialogue.dyePreviewSecondary) + "</div>");
+						+ "<div class='picture full' style='position:relative;'>"
+							+ dyeWeapon.getWeaponType().getSVGImage(dyeWeapon.getDamageType(), colour, InventoryDialogue.dyePreviewSecondary, InventoryDialogue.dyePreviewTertiary)
+						+ "</div>");
 			
 			} else if(secondaryColour!=null) {
 				tooltipSB.append("<div class='subTitle'>" + Util.capitaliseSentence(secondaryColour.getName()) + "</div>"
-						+ "<div class='picture full' style='position:relative;'>" + dyeWeapon.getWeaponType().getSVGImage(dyeWeapon.getDamageType(), InventoryDialogue.dyePreviewPrimary, secondaryColour) + "</div>");
+						+ "<div class='picture full' style='position:relative;'>"
+							+ dyeWeapon.getWeaponType().getSVGImage(dyeWeapon.getDamageType(), InventoryDialogue.dyePreviewPrimary, secondaryColour, InventoryDialogue.dyePreviewTertiary)
+						+ "</div>");
 				
-			} else if(damageType!=null) {
+			} else if(tertiaryColour!=null) {
+				tooltipSB.append("<div class='subTitle'>" + Util.capitaliseSentence(tertiaryColour.getName()) + "</div>"
+						+ "<div class='picture full' style='position:relative;'>"
+							+ dyeWeapon.getWeaponType().getSVGImage(dyeWeapon.getDamageType(), InventoryDialogue.dyePreviewPrimary, InventoryDialogue.dyePreviewSecondary, tertiaryColour)
+						+ "</div>");
+				
+			}  else if(damageType!=null) {
 				tooltipSB.append("<div class='subTitle'>" + Util.capitaliseSentence(damageType.getName()) + "</div>"
-						+ "<div class='picture full' style='position:relative;'>" + dyeWeapon.getWeaponType().getSVGImage(damageType, InventoryDialogue.dyePreviewPrimary, InventoryDialogue.dyePreviewSecondary) + "</div>");
+						+ "<div class='picture full' style='position:relative;'>"
+							+ dyeWeapon.getWeaponType().getSVGImage(damageType, InventoryDialogue.dyePreviewPrimary, InventoryDialogue.dyePreviewSecondary, InventoryDialogue.dyePreviewTertiary)
+						+ "</div>");
 			}
 			
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
@@ -231,7 +243,7 @@ public class TooltipInventoryEventListener implements EventListener {
 					+ "<div class='subTitle'>" + Util.capitaliseSentence(dt.getName()) + "</div>"
 
 					+ "<div class='picture'style='position:relative; width:"+(TOOLTIP_WIDTH-24)+"px; margin:8px; padding:0; height:"+(TOOLTIP_WIDTH-24)+"px;'>"
-						+ genericWeapon.getSVGImage(dt, null, null)
+						+ genericWeapon.getSVGImage(dt, null, null, null)
 					+ "</div>"
 					+ (author.isEmpty()?"":"<div class='description' style='height:48px;'>" + author + "</div>"));
 
@@ -737,6 +749,13 @@ public class TooltipInventoryEventListener implements EventListener {
 		return this;
 	}
 	
+	public TooltipInventoryEventListener setDyeWeaponTertiary(AbstractWeapon dyeWeapon, Colour tertiaryColour) {
+		resetVariables();
+		this.dyeWeapon = dyeWeapon;
+		this.tertiaryColour = tertiaryColour;
+		return this;
+	}
+	
 	public TooltipInventoryEventListener setDamageTypeWeapon(AbstractWeapon dyeWeapon, DamageType damageType) {
 		resetVariables();
 		this.dyeWeapon = dyeWeapon;
@@ -951,7 +970,12 @@ public class TooltipInventoryEventListener implements EventListener {
 		// Attribute modifiers:
 		tooltipSB.append("<div class='container-full-width'>"
 				+ "<div class='container-half-width titular' style='width:calc(66.6% - 16px);'>"
-				+ "<span style='color:" + absWep.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absWep.getRarity().getName())+"</span>"+ " | "+(absWep.getWeaponType().isMelee()?"Melee":"Ranged")+"</br>"
+				+ "<span style='color:" + absWep.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absWep.getRarity().getName())+"</span>"+ " | "
+				+(absWep.getWeaponType().isUsingUnarmedCalculation()
+						?"Unarmed"
+						:(absWep.getWeaponType().isMelee()
+							?"Melee"
+							:"Ranged"))+"</br>"
 				+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")+"</br>"
 				);
 

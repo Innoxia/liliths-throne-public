@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character;
 import java.io.File;
 import java.io.StringWriter;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -69,6 +70,7 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -78,6 +80,7 @@ import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
@@ -1141,6 +1144,7 @@ public class CharacterUtils {
 						case ELEMENTAL_FIRE:
 						case ELEMENTAL_WATER:
 						case FOX_ASCENDANT:
+						case FOX_ASCENDANT_ARCTIC:
 						case FOX_ASCENDANT_FENNEC:
 						case SLIME:
 						case ANGEL:
@@ -1586,18 +1590,26 @@ public class CharacterUtils {
 //				case BIMBO:
 //				case BRO:
 				case LISP:
+				case SLOVENLY:
+					break;
 				case STUTTER:
+					characterAdjectives.add("stuttering");
+					break;
+				case MUTE:
 					break;
 				case INNOCENT:
 					break;
 			}
 		}
 		
-		characterAdjectives.removeAll(exclusiveAdjectives);
-		
+		if(exclusiveAdjectives!=null) {
+			characterAdjectives.removeAll(exclusiveAdjectives);
+		}
 		if(characterAdjectives.isEmpty()) {
 			characterAdjectives = Util.newArrayListOfValues("cheeky", "excitable", "energetic", "cunning", "rude", "cocky", "smug");
-			characterAdjectives.removeAll(exclusiveAdjectives);
+			if(exclusiveAdjectives!=null) {
+				characterAdjectives.removeAll(exclusiveAdjectives);
+			}
 		}
 		
 		String adjective = Util.randomItemFrom(characterAdjectives);
@@ -1614,7 +1626,12 @@ public class CharacterUtils {
 	public static void randomiseBody(GameCharacter character, boolean randomiseAge) {
 		
 		if(randomiseAge) {
-			character.setBirthday(LocalDateTime.of(Main.game.getStartingDate().getYear()-AgeCategory.getAgeFromPreferences(character.getGender()), character.getBirthMonth(), character.getDayOfBirth(), 12, 0));
+			int dayOfMonth = character.getDayOfBirth();
+			if(character.getBirthMonth() == Month.FEBRUARY) { // Don't set a character's birthday to a leap day as otherwise it ends up causing messy issues.
+				dayOfMonth = Math.min(dayOfMonth, 28);
+			}
+			character.setBirthday(LocalDateTime.of(Main.game.getStartingDate().getYear()-AgeCategory.getAgeFromPreferences(character.getGender()), character.getBirthMonth(), dayOfMonth, 12, 0));
+			
 			if(character.getRace()==Race.DEMON || character.getRace()==Race.HARPY) {
 				character.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(9));
 			}
@@ -1683,6 +1700,10 @@ public class CharacterUtils {
 					character.addMilkModifier(FluidModifier.HALLUCINOGENIC);
 				}
 			}
+			if(character.getNippleShape()==NippleShape.NORMAL
+					&& Math.random()<0.025) {
+				character.setNippleShape(NippleShape.INVERTED);
+			}
 		}
 		
 		//BreastsCrotch:
@@ -1701,6 +1722,10 @@ public class CharacterUtils {
 				if(Math.random()<=0.025f) {
 					character.addMilkCrotchModifier(FluidModifier.HALLUCINOGENIC);
 				}
+			}
+			if(character.getNippleCrotchShape()==NippleShape.INVERTED
+					&& character.getBreastCrotchShape()!=BreastShape.UDDERS) {
+				character.setNippleCrotchShape(NippleShape.INVERTED);
 			}
 		}
 		
@@ -1851,6 +1876,11 @@ public class CharacterUtils {
 		 //TODO Set personality based on history. (Or vice-versa, but one should lead to the other.)
 		
 		if(lowlife) {
+			// High chance to be slovenly:
+			if(Math.random()<0.25f) {
+				character.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+			}
+			
 			double prostituteChance = 0.15f; // Base 0.15% chance for any random to be a prostitute.
 			 			
 			 if(character.isFeminine()) {

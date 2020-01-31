@@ -1,12 +1,14 @@
 package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -45,15 +47,18 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.CombatMove;
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -63,6 +68,10 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -92,13 +101,19 @@ public class Silence extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) { // Reset character
+			setupPerks(true);
+			setStartingBody(true);
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
+			setStartingCombatMoves();
+		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_ARCANE_TRAINING);
 		this.addSpecialPerk(Perk.SPECIAL_ARCANE_LIGHTNING);
-		this.addSpecialPerk(Perk.SPECIAL_SLUT);
+		this.addSpecialPerk(Perk.SPECIAL_MEGA_SLUT);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
@@ -109,12 +124,25 @@ public class Silence extends NPC {
 	}
 
 	@Override
+	public void resetDefaultMoves() {
+		this.clearEquippedMoves();
+		this.equipMove("strike");
+		this.equipMove("offhand-strike");
+		this.equipMove("twin-strike");
+		this.equipAllSpellMoves();
+	}
+	
+	@Override
 	public void setStartingBody(boolean setPersona) {
 		// Persona:
 		if(setPersona) {
+			this.clearPersonalityTraits();
+			this.clearFetishes();
+			this.clearFetishDesires();
+			
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND,
-					PersonalityTrait.STUTTER,
+					PersonalityTrait.MUTE,
 					PersonalityTrait.LEWD);
 			
 			this.addSpell(Spell.POISON_VAPOURS);
@@ -140,6 +168,7 @@ public class Silence extends NPC {
 			this.setHistory(Occupation.NPC_GANG_BODY_GUARD);
 	
 			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 			this.setFetishDesire(Fetish.FETISH_BREASTS_SELF, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
@@ -226,8 +255,20 @@ public class Silence extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), Colour.CLOTHING_BLACK_JET, Colour.CLOTHING_BLACK_JET, Colour.CLOTHING_BLACK_JET, false, null, null));
+		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
+			AbstractWeapon weapon = AbstractWeaponType.generateWeapon("innoxia_feather_epic", DamageType.POISON);
+			weapon.setEffects(new ArrayList<>());
+			this.equipMainWeaponFromNowhere(weapon);
+			
+			weapon = AbstractWeaponType.generateWeapon("innoxia_feather_epic", DamageType.POISON);
+			weapon.setEffects(new ArrayList<>());
+			this.equipOffhandWeaponFromNowhere(weapon);
+		}
 
+		if(settings.contains(EquipClothingSetting.ADD_TATTOOS)) {
+			this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), Colour.CLOTHING_BLACK_JET, Colour.CLOTHING_BLACK_JET, Colour.CLOTHING_BLACK_JET, false, null, null));
+		}
+		
 		this.setPiercedEar(true);
 		this.setPiercedVagina(true);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_HOOPS, Colour.CLOTHING_GOLD, false), true, this);
@@ -236,7 +277,7 @@ public class Silence extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_groin_lacy_thong", Colour.CLOTHING_PINK_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_SKIRT, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_skirt", Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, Colour.CLOTHING_WHITE, false), true, this);
 
 		
@@ -270,7 +311,26 @@ public class Silence extends NPC {
 
 	@Override
 	public String getDescription() {
-		return "";//TODO
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Having fur as white as snow, and skin as pale as a ghost, this albino rat-girl would strike an eye-catching figure even if not for the fact that her pink eyes emit a fierce luminescent glow."
+				+ " While her unusual eyes allude to the fact that she possesses exceptional arcane abilities, nobody has much of a chance of getting her to reveal the secrets of her past, for she is completely mute.");
+
+		sb.append("<br/>"
+				+ "Thanks to this inability of hers to talk, she's been given the name 'Silence', but what she lacks in verbal communication she more than compensates for in her sexual appetite."
+				+ " Seemingly in a perpetual state of horniness, this lewd rat-girl can often be found riding a stranger's cock, or even more commonly, forcing them to perform oral on her.");
+		
+		if(this.getHomeLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS) {
+			sb.append("<br/>"
+					+ "No longer a personal bodyguard for Vengar, Silence is now a professional bounty hunter."
+					+ " Joined by her long-time companion, Shadow, she can be found in Slaver Alley's 'Bounty Hunter Lodge'.");
+		} else {
+			sb.append("<br/>"
+					+"Silence is a personal bodyguard for the dangerous gang leader, 'Vengar'."
+					+ " Joined by her long-time companion, Shadow, she is sworn to protect the rat-boy from any harm that might befall him.");
+		}
+		
+		return sb.toString();
 	}
 	
 	@Override
@@ -288,27 +348,63 @@ public class Silence extends NPC {
 	}
 
 	@Override
+	public void hourlyUpdate() {
+		this.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
+	}
+	
+	@Override
 	public void turnUpdate() {
-		if(!Main.game.getCharactersPresent().contains(this) && !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
-			if(!Main.game.isExtendedWorkTime() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
-				this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_BEDROOM);
-			} else {
-				this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
+			if(!Main.game.getCharactersPresent().contains(this)
+					&& Main.game.getPlayer().isCaptive()
+					&& !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+				if(!Main.game.isExtendedWorkTime() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
+					this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+				} else {
+					this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+				}
 			}
+
+		} else {
+			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
 		}
 	}
 	
 	@Override
 	public boolean isAbleToBeImpregnated(){
-		return true;
+		return Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR);
 	}
 
 	@Override
+	public void endSex() {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveSilenceSatisfied, true);
+	}
+	
+	// Combat:
+
+	@Override
+	public Response interruptCombatSpecialCase() {
+		return Main.game.getNpc(Shadow.class).interruptCombatSpecialCase();
+	};
+	
+	@Override
+	public int getEscapeChance() {
+		return 0;
+	}
+	
+	@Override
 	public CombatBehaviour getCombatBehaviour() {
-		if(Main.game.isInCombat()
-				&& !getWeightedSpellsAvailable(Combat.getTargetedCombatant(this)).keySet().stream().filter(s->s!=Spell.ELEMENTAL_AIR).collect(Collectors.toList()).isEmpty()
-				&& Math.random()<0.75f) {
-			return CombatBehaviour.SPELLS;
+		if(Main.game.isInCombat()) {
+			boolean spellsAvailable = false;
+			for(GameCharacter character : Combat.getAllCombatants(true)) {
+				if(!getWeightedSpellsAvailable(character).keySet().stream().filter(s->s!=Spell.ELEMENTAL_AIR).collect(Collectors.toList()).isEmpty()) {
+					spellsAvailable = true;
+					break;
+				}
+			}
+			if(spellsAvailable) {
+				return CombatBehaviour.SPELLS;
+			}
 		}
 		return CombatBehaviour.ATTACK;
 	}
@@ -320,5 +416,14 @@ public class Silence extends NPC {
 		}
 		return super.getMoveWeight(move, enemies, allies);
 	}
-	
+
+	@Override
+	public Response endCombat(boolean applyEffects, boolean victory) {
+		if(this.isElementalSummoned()) {
+			NPC elemental = this.getElemental();
+			this.removeCompanion(elemental);
+			elemental.returnToHome();
+		}
+		return Main.game.getNpc(Shadow.class).endCombat(applyEffects, victory);
+	}
 }

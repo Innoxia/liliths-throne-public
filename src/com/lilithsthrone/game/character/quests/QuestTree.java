@@ -33,7 +33,7 @@ public class QuestTree {
 		node2.addChild(node1);
 		node2 = new TreeNode<Quest>(Quest.MAIN_1_D_SLAVERY);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_1_E_REPORT_TO_ALEXA);
+		node1 = new TreeNode<Quest>(Quest.MAIN_1_E_REPORT_TO_HELENA);
 		node2.addChild(node1);
 		node2 = new TreeNode<Quest>(Quest.MAIN_1_F_SCARLETTS_FATE);
 		node1.addChild(node2);
@@ -172,16 +172,23 @@ public class QuestTree {
 		node1 = new TreeNode<Quest>(Quest.VENGAR_ONE);
 		vengarTree.addChild(node1);
 
-		nodeBranchA = new TreeNode<Quest>(Quest.VENGAR_TWO_FIGHT);
+		nodeBranchA = new TreeNode<Quest>(Quest.VENGAR_TWO_CONFLICT);
 		node1.addChild(nodeBranchA);
-		nodeBranchB = new TreeNode<Quest>(Quest.VENGAR_TWO_JOIN);
-		nodeBranchB.addChild(nodeBranchB);
+		nodeBranchB = new TreeNode<Quest>(Quest.VENGAR_TWO_COOPERATION);
+		node1.addChild(nodeBranchB);
 		nodeBranchC = new TreeNode<Quest>(Quest.VENGAR_TWO_ENFORCERS);
-		nodeBranchC.addChild(nodeBranchC);
+		node1.addChild(nodeBranchC);
+		
+		node2 = new TreeNode<Quest>(Quest.VENGAR_THREE_END);
+		nodeBranchA.addChild(node2);
+		node2.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+
+		node2 = new TreeNode<Quest>(Quest.VENGAR_THREE_COOPERATION_END);
+		nodeBranchB.addChild(node2);
+		node2.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 
 		node2 = new TreeNode<Quest>(Quest.VENGAR_THREE_END);
-		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
-		node2.addChild(node1);
+		nodeBranchC.addChild(node2);
+		node2.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 	}
 }

@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -62,11 +61,11 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().equals(Sex.getCharacterTargetedForSexAction(this))
-					&& Sex.getSexManager().isSwapPositionAllowed(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this))
-					&& Sex.getCharacterPerformingAction().getLegConfiguration()==Sex.getCharacterTargetedForSexAction(this).getLegConfiguration() // Can only swap if have same body type
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getCharacterPerformingAction().isPlayer();
+			return !Main.sex.getCharacterPerformingAction().equals(Main.sex.getCharacterTargetedForSexAction(this))
+					&& Main.sex.getSexManager().isSwapPositionAllowed(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
+					&& Main.sex.getCharacterPerformingAction().getLegConfiguration()==Main.sex.getCharacterTargetedForSexAction(this).getLegConfiguration() // Can only swap if have same body type
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -87,44 +86,44 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
-			Sex.swapSexPositionSlots(Main.game.getPlayer(), Sex.getCharacterTargetedForSexAction(this));
+			Main.sex.swapSexPositionSlots(Main.game.getPlayer(), Main.sex.getCharacterTargetedForSexAction(this));
 		}
 	};
 	
 	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
-		return Sex.getInitialSexManager().getAllowedSexPositions().contains(data.getPosition())
-				&& Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-				&& !(Sex.getPosition() == data.getPosition()
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0)
-					&& Sex.getSexPositionSlot(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))==data.getPartnerSlots().get(0))
-				&& data.getPosition().getMaximumSlots()>=Sex.getTotalParticipantCount(false)
-				&& Sex.getTotalParticipantCount(false)<=(data.getPerformerSlots().size()+data.getPartnerSlots().size())
+		return Main.sex.getInitialSexManager().getAllowedSexPositions().contains(data.getPosition())
+				&& Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
+				&& !(Main.sex.getPosition() == data.getPosition()
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0)
+					&& Main.sex.getSexPositionSlot(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))==data.getPartnerSlots().get(0))
+				&& data.getPosition().getMaximumSlots()>=Main.sex.getTotalParticipantCount(false)
+				&& Main.sex.getTotalParticipantCount(false)<=(data.getPerformerSlots().size()+data.getPartnerSlots().size())
 				&& (request
-						?(Sex.getCharacterPerformingAction().isPlayer() && Sex.getSexControl(Sex.getCharacterPerformingAction())!=SexControl.FULL && !Sex.isPositioningRequestBlocked(Sex.getCharacterPerformingAction(), data.getPosition()))
-						:(Sex.getCharacterPerformingAction().isPlayer()
-							?Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-							:!Sex.isCharacterForbiddenByOthersFromPositioning(Sex.getCharacterPerformingAction())))
-				&& (!request && !Sex.getCharacterPerformingAction().isPlayer()
-						?((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()))
+						?(Main.sex.getCharacterPerformingAction().isPlayer() && Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())!=SexControl.FULL && !Main.sex.isPositioningRequestBlocked(Main.sex.getCharacterPerformingAction(), data.getPosition()))
+						:(Main.sex.getCharacterPerformingAction().isPlayer()
+							?Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+							:!Main.sex.isCharacterForbiddenByOthersFromPositioning(Main.sex.getCharacterPerformingAction())))
+				&& (!request && !Main.sex.getCharacterPerformingAction().isPlayer()
+						?((NPC) Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))
 						:true);
 	}
 
 	public static void setNewSexManager(PositioningData data, boolean requestAccepted) {
 		Map<GameCharacter, SexSlot> dominants = new HashMap<>();
 		Map<GameCharacter, SexSlot> submissives = new HashMap<>();
-		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
-		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
-		List<GameCharacter> dominantSpectators = new ArrayList<>(Sex.getDominantSpectators());
-		List<GameCharacter> submissiveSpectators = new ArrayList<>(Sex.getSubmissiveSpectators());
+		List<GameCharacter> doms = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
+		List<GameCharacter> subs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
+		List<GameCharacter> dominantSpectators = new ArrayList<>(Main.sex.getDominantSpectators());
+		List<GameCharacter> submissiveSpectators = new ArrayList<>(Main.sex.getSubmissiveSpectators());
 		
-		GameCharacter performer = Sex.getCharacterPerformingAction();
-		GameCharacter target = Sex.getTargetedPartner(performer);
+		GameCharacter performer = Main.sex.getCharacterPerformingAction();
+		GameCharacter target = Main.sex.getTargetedPartner(performer);
 		if(requestAccepted) {
-			target = Sex.getCharacterPerformingAction();
-			performer = Sex.getTargetedPartner(target);
+			target = Main.sex.getCharacterPerformingAction();
+			performer = Main.sex.getTargetedPartner(target);
 		}
 		
-		if(Sex.isDom(performer)) {
+		if(Main.sex.isDom(performer)) {
 			doms.remove(performer);
 			dominants.put(performer, data.getPerformerSlots().get(0));
 			for(int i=0; i<doms.size(); i++) {
@@ -164,14 +163,14 @@ public class GenericPositioning {
 				}
 			}
 		}
-		Sex.setSexManager(new SexManagerDefault(
+		Main.sex.setSexManager(new SexManagerDefault(
 						data.getPosition(),
 						dominants,
 						submissives){
 				},
 				dominantSpectators,
 				submissiveSpectators);
-		Sex.setPositionRequest(null);
+		Main.sex.setPositionRequest(null);
 	}
 
 	
@@ -180,15 +179,15 @@ public class GenericPositioning {
 	//--------------- ORAL ---------------//
 	
 	private static List<SexSlot> generatePerformerOralData(GameCharacter performer, GameCharacter receiver) {
-		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
+		List<GameCharacter> doms = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
 		doms.remove(receiver);
-		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+		List<GameCharacter> subs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
 		subs.remove(receiver);
 
 		boolean bipedalOral1 = !receiver.isTaur();
 		boolean doubleReceiving = false;
 		GameCharacter receiver2 = null;
-		if(Sex.isDom(receiver)) {
+		if(Main.sex.isDom(receiver)) {
 			doubleReceiving = doms.size()>=1;
 			if(doubleReceiving) {
 				receiver2 = doms.get(0);
@@ -205,7 +204,8 @@ public class GenericPositioning {
 		if(bipedalOral1) {
 			performerSlots.add(SexSlotStanding.PERFORMING_ORAL);
 		} else {
-			if(receiver.hasPenis() && (!Main.game.isInSex() || ((performer instanceof NPC) && ((NPC)performer).getCurrentSexPreference(receiver)!=null && ((NPC)performer).getCurrentSexPreference(receiver).getTargetedSexArea()==SexAreaPenetration.PENIS))) {
+			if(receiver.hasPenis()
+					&& (!Main.game.isInSex() || ((performer instanceof NPC) && ((NPC)performer).getCurrentSexPreference(receiver)!=null && ((NPC)performer).getCurrentSexPreference(receiver).getTargetedSexArea()==SexAreaPenetration.PENIS))) {
 				performerSlots.add(SexSlotStanding.PERFORMING_ORAL);
 			} else {
 				performerSlots.add(SexSlotStanding.PERFORMING_ORAL_BEHIND);
@@ -262,7 +262,7 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return checkBaseRequirements(generateReceivingOralData(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterPerformingAction()), false);
+			return checkBaseRequirements(generateReceivingOralData(Main.sex.getCharacterTargetedForSexAction(this), Main.sex.getCharacterPerformingAction()), false);
 		}
 		@Override
 		public String getActionTitle() {
@@ -270,7 +270,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 				return "Get [npc2.name] to perform oral on you. Once [npc2.sheHasFull] started, you can get [npc2.herHim] to switch between your front and back.";
 			} else {
 				return "Get [npc2.name] to perform oral on you. Once [npc2.sheHasFull] started, you can get [npc2.herHim] to switch between kneeling beneath or behind your animalistic body.";
@@ -278,9 +278,9 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) { // Biped body:
-				if(generatePerformerOralData(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterPerformingAction()).get(0)==SexSlotStanding.PERFORMING_ORAL) {
-					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterTargetedForSexAction(this))) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) { // Biped body:
+				if(generatePerformerOralData(Main.sex.getCharacterTargetedForSexAction(this), Main.sex.getCharacterPerformingAction()).get(0)==SexSlotStanding.PERFORMING_ORAL) {
+					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Main.sex.getCharacterTargetedForSexAction(this))) {
 						return "Wanting [npc2.name] to perform oral on [npc.herHim], [npc.name] [npc.verb(position)] [npc2.herHim] so that [npc2.sheIs] standing before [npc.herHim]."
 								+ " Grinning down at [npc2.herHim], [npc.name] [npc.verb(order)],"
 								+ " [npc.speech(Go on, put that mouth of yours to use!)]";
@@ -290,7 +290,7 @@ public class GenericPositioning {
 								+ " [npc.speech(Go on, put that mouth of yours to use!)]";
 					}
 				} else {
-					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterTargetedForSexAction(this))) {
+					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Main.sex.getCharacterTargetedForSexAction(this))) {
 						return "Wanting [npc2.name] to perform anilingus, [npc.name] [npc.verb(position)] [npc2.herHim] so that [npc2.sheIs] standing behind [npc.herHim]."
 								+ " Looking back over [npc.her] shoulder, [npc.she] [npc.verb(grin)] down at [npc2.herHim], before ordering,"
 								+ " [npc.speech(Go on, put that mouth of yours to use!)]";
@@ -302,8 +302,8 @@ public class GenericPositioning {
 				}
 				
 			} else { // Taur body:
-				if(generatePerformerOralData(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterPerformingAction()).get(0)==SexSlotStanding.PERFORMING_ORAL) {
-					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterTargetedForSexAction(this))) {
+				if(generatePerformerOralData(Main.sex.getCharacterTargetedForSexAction(this), Main.sex.getCharacterPerformingAction()).get(0)==SexSlotStanding.PERFORMING_ORAL) {
+					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Main.sex.getCharacterTargetedForSexAction(this))) {
 						return "Wanting [npc2.name] to perform oral on [npc.herHim], [npc.name] [npc.verb(position)] [npc2.herHim] so that [npc2.sheIs] standing beneath [npc.her] lower [npc.legRace]'s body."
 								+ " Stepping forwards and pushing [npc.herself] against [npc2.herHim], [npc.name] [npc.verb(call)] out,"
 								+ " [npc.speech(Go on, put that mouth of yours to use!)]";
@@ -313,7 +313,7 @@ public class GenericPositioning {
 								+ " [npc.speech(Go on, put that mouth of yours to use!)]";
 					}
 				} else {
-					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterTargetedForSexAction(this))) {
+					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Main.sex.getCharacterTargetedForSexAction(this))) {
 						return "Wanting [npc2.name] to perform oral on the rear part of [npc.her] lower [npc.legRace]'s body, [npc.name] [npc.verb(position)] [npc2.herHim] so that [npc2.sheIs] standing behind [npc.herHim]."
 								+ " Looking back over [npc.her] shoulder, [npc.she] [npc.verb(grin)] down at [npc2.herHim], before ordering,"
 								+ " [npc.speech(Go on, put that mouth of yours to use!)]";
@@ -327,7 +327,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			setNewSexManager(generateReceivingOralData(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterPerformingAction()), false);
+			setNewSexManager(generateReceivingOralData(Main.sex.getCharacterTargetedForSexAction(this), Main.sex.getCharacterPerformingAction()), false);
 		}
 		@Override
 		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
@@ -351,9 +351,9 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return checkBaseRequirements(generateReceivingOralData(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterPerformingAction()), true)
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT_TWO;
+			return checkBaseRequirements(generateReceivingOralData(Main.sex.getCharacterTargetedForSexAction(this), Main.sex.getCharacterPerformingAction()), true)
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT_TWO;
 		}
 		@Override
 		public String getActionTitle() {
@@ -361,7 +361,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 				return "Try and get [npc2.name] to perform oral on you. If [npc2.she] accepts, you can further request [npc2.herHim] to switch between your front and back.<br/>"
 						+ getRequestTooltipText();
 			} else {
@@ -371,8 +371,8 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) { // Biped body:
-				if(generatePerformerOralData(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterPerformingAction()).get(0)==SexSlotStanding.PERFORMING_ORAL) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) { // Biped body:
+				if(generatePerformerOralData(Main.sex.getCharacterTargetedForSexAction(this), Main.sex.getCharacterPerformingAction()).get(0)==SexSlotStanding.PERFORMING_ORAL) {
 					return "Wanting [npc2.name] to perform oral on [npc.herHim], [npc.name] [npc.verb(position)] [npc.herself] so that [npc.sheIs] standing before [npc2.herHim]."
 							+ " Gazing into [npc2.her] [npc2.eyes+], [npc.she] [npc.verb(plead)],"
 							+ " [npc.speech(Please, I want you to use your mouth!)]";
@@ -383,7 +383,7 @@ public class GenericPositioning {
 				}
 				
 			} else { // Taur body:
-				if(generatePerformerOralData(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterPerformingAction()).get(0)==SexSlotStanding.PERFORMING_ORAL) {
+				if(generatePerformerOralData(Main.sex.getCharacterTargetedForSexAction(this), Main.sex.getCharacterPerformingAction()).get(0)==SexSlotStanding.PERFORMING_ORAL) {
 					return "Wanting [npc2.name] to perform oral on [npc.herHim], [npc.name] [npc.verb(position)] [npc.herself] so that [npc.sheIs] presenting the underside of [npc.her] lower [npc.legRace]'s body to [npc2.herHim]."
 							+ " Gazing into [npc2.her] [npc2.eyes+], [npc.she] [npc.verb(plead)],"
 							+ " [npc.speech(Please, I want you to use your mouth!)]";
@@ -396,7 +396,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(generateReceivingOralData(Sex.getCharacterTargetedForSexAction(this), Sex.getCharacterPerformingAction()));
+			Main.sex.setPositionRequest(generateReceivingOralData(Main.sex.getCharacterTargetedForSexAction(this), Main.sex.getCharacterPerformingAction()));
 		}
 		@Override
 		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
@@ -414,16 +414,16 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPosition()==SexPosition.STANDING
-					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT
-					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT_TWO
-					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.PERFORMING_ORAL_BEHIND
-					&& (Sex.getCharacterInPosition(SexSlotStanding.STANDING_DOMINANT_TWO)!=null
-						|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO)
+			return Main.sex.getPosition()==SexPosition.STANDING
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT_TWO
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.PERFORMING_ORAL_BEHIND
+					&& (Main.sex.getCharacterInPosition(SexSlotStanding.STANDING_DOMINANT_TWO)!=null
+						|| Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO)
 					
-					&& Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getCharacterPerformingAction().isPlayer();
+					&& Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		@Override
 		public String getActionTitle() {
@@ -431,16 +431,16 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 				return "Get [npc2.name] to switch position so that [npc2.sheIsFull] behind you, and so able to perform oral on your [npc.asshole].";
 			} else {
-				return "Get [npc2.name] to switch position so that [npc2.sheIsFull] behind you, and so able to perform oral on your [npc.asshole]"+(Sex.getCharacterPerformingAction().hasVagina()?" and [npc.pussy]":"")+".";
+				return "Get [npc2.name] to switch position so that [npc2.sheIsFull] behind you, and so able to perform oral on your [npc.asshole]"+(Main.sex.getCharacterPerformingAction().hasVagina()?" and [npc.pussy]":"")+".";
 			}
 		}
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) { // Biped body:
-				if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterTargetedForSexAction(this))) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) { // Biped body:
+				if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Main.sex.getCharacterTargetedForSexAction(this))) {
 					return "Wanting [npc2.name] to perform anilingus on [npc.herHim], [npc.name] [npc.verb(reposition)] [npc2.herHim] so that [npc2.sheIs] standing behind [npc.herHim]."
 							+ " Pushing [npc.her] [npc.ass+] back against [npc2.her] [npc2.face], [npc.she] [npc.verb(order)],"
 							+ " [npc.speech(Go on, put your mouth to use!)]";
@@ -451,7 +451,7 @@ public class GenericPositioning {
 				}
 				
 			} else { // Taur body:
-				if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterTargetedForSexAction(this))) {
+				if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Main.sex.getCharacterTargetedForSexAction(this))) {
 					return "Wanting [npc2.name] to perform oral on the rear part of [npc.her] lower [npc.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc2.herHim] so that [npc2.sheIs] standing behind [npc.herHim]."
 							+ " Pushing [npc.her] [npc.ass+] back against [npc2.her] [npc2.face], [npc.she] [npc.verb(order)],"
 							+ " [npc.speech(Go on, put your mouth to use!)]";
@@ -464,21 +464,21 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
-			if(Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL_BEHIND)!=null) {
-				Sex.swapSexPositionSlots(target, Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL_BEHIND));
+			GameCharacter target = Main.sex.getCharacterTargetedForSexAction(this);
+			if(Main.sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL_BEHIND)!=null) {
+				Main.sex.swapSexPositionSlots(target, Main.sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL_BEHIND));
 			}
 
-			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants(true));
-			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants(true));
+			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Main.sex.getDominantParticipants(true));
+			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Main.sex.getSubmissiveParticipants(true));
 			
-			if(Sex.isDom(target)) {
+			if(Main.sex.isDom(target)) {
 				dominants.put(target, SexSlotStanding.PERFORMING_ORAL_BEHIND);
 			} else {
 				submissives.put(target, SexSlotStanding.PERFORMING_ORAL_BEHIND);
 			}
 
-			Sex.setSexManager(new SexManagerDefault(
+			Main.sex.setSexManager(new SexManagerDefault(
 					SexPosition.STANDING,
 					dominants,
 					submissives){
@@ -508,20 +508,20 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPosition()==SexPosition.STANDING
-					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.PERFORMING_ORAL
-					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT
-					&& Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT_TWO
-					&& (Sex.getCharacterInPosition(SexSlotStanding.STANDING_DOMINANT_TWO)!=null
-							|| Sex.getSexPositionSlot(Sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.PERFORMING_ORAL_TWO)
+			return Main.sex.getPosition()==SexPosition.STANDING
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.PERFORMING_ORAL
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.STANDING_DOMINANT_TWO
+					&& (Main.sex.getCharacterInPosition(SexSlotStanding.STANDING_DOMINANT_TWO)!=null
+							|| Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))!=SexSlotStanding.PERFORMING_ORAL_TWO)
 					
-					&& Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getCharacterPerformingAction().isPlayer();
+					&& Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 				return "Move [npc2.herHim] in front";
 			} else {
 				return "Move [npc2.herHim] beneath";
@@ -529,20 +529,20 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 				return "Get [npc2.name] to switch position so that [npc2.sheIsFull] in front of you, and so able to perform oral on your genitals.";
 			} else {
-				if(Sex.getCharacterPerformingAction().hasPenis()) {
-					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you, and so able to perform oral on your [npc.cock]"+(Sex.getCharacterPerformingAction().hasBreastsCrotch()?" and [npc.crotchBoobs]":"")+".";
+				if(Main.sex.getCharacterPerformingAction().hasPenis()) {
+					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you, and so able to perform oral on your [npc.cock]"+(Main.sex.getCharacterPerformingAction().hasBreastsCrotch()?" and [npc.crotchBoobs]":"")+".";
 				} else {
-					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you"+(Sex.getCharacterPerformingAction().hasBreastsCrotch()?", and so able to perform oral on your [npc.crotchBoobs]":"")+".";
+					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you"+(Main.sex.getCharacterPerformingAction().hasBreastsCrotch()?", and so able to perform oral on your [npc.crotchBoobs]":"")+".";
 				}
 			}
 		}
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) { // Biped body:
-				if(SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterTargetedForSexAction(this))) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) { // Biped body:
+				if(SexSlotStanding.PERFORMING_ORAL.isStanding(Main.sex.getCharacterTargetedForSexAction(this))) {
 					return "Wanting [npc2.name] to perform oral on [npc.herHim], [npc.name] [npc.verb(reposition)] [npc2.herHim] so that [npc2.sheIs] standing in front of [npc.herHim]."
 							+ " Grinning down at [npc2.herHim], [npc.name] [npc.verb(order)],"
 							+ " [npc.speech(Go on, put that mouth of yours to use!)]";
@@ -553,7 +553,7 @@ public class GenericPositioning {
 				}
 				
 			} else { // Taur body:
-				if(SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterTargetedForSexAction(this))) {
+				if(SexSlotStanding.PERFORMING_ORAL.isStanding(Main.sex.getCharacterTargetedForSexAction(this))) {
 					return "Wanting [npc2.name] to perform oral on the underside of [npc.her] lower [npc.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc2.herHim] so that [npc2.sheIs] standing beneath [npc.herHim]."
 							+ " Stepping forwards and pushing [npc.herself] against [npc2.herHim], [npc.name] [npc.verb(call)] out,"
 							+ " [npc.speech(Go on, put that mouth of yours to use!)]";
@@ -566,21 +566,21 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			GameCharacter target = Sex.getCharacterTargetedForSexAction(this);
-			if(Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL)!=null) {
-				Sex.swapSexPositionSlots(target, Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL));
+			GameCharacter target = Main.sex.getCharacterTargetedForSexAction(this);
+			if(Main.sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL)!=null) {
+				Main.sex.swapSexPositionSlots(target, Main.sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL));
 			}
 
-			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants(true));
-			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants(true));
+			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Main.sex.getDominantParticipants(true));
+			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Main.sex.getSubmissiveParticipants(true));
 			
-			if(Sex.isDom(target)) {
+			if(Main.sex.isDom(target)) {
 				dominants.put(target, SexSlotStanding.PERFORMING_ORAL);
 			} else {
 				submissives.put(target, SexSlotStanding.PERFORMING_ORAL);
 			}
 
-			Sex.setSexManager(new SexManagerDefault(
+			Main.sex.setSexManager(new SexManagerDefault(
 					SexPosition.STANDING,
 					dominants,
 					submissives){
@@ -608,7 +608,7 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return checkBaseRequirements(generatePerformingOralData(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this)), false);
+			return checkBaseRequirements(generatePerformingOralData(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)), false);
 		}
 		@Override
 		public String getActionTitle() {
@@ -616,7 +616,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 				return "Get down and perform oral on [npc2.name]. Once you have started, you can switch between [npc2.her] front and back.";
 			} else {
 				return "Get down and perform oral on [npc2.name]. Once you have started, you can switch between kneeling beneath or behind [npc2.her] animalistic body.";
@@ -624,9 +624,9 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) { // Biped body:
-				if(generatePerformerOralData(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this)).get(0)==SexSlotStanding.PERFORMING_ORAL) {
-					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction())) {
+			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) { // Biped body:
+				if(generatePerformerOralData(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)).get(0)==SexSlotStanding.PERFORMING_ORAL) {
+					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Main.sex.getCharacterPerformingAction())) {
 						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(move)] around so that [npc.sheIs] standing before [npc2.herHim]."
 								+ " Looking up into [npc2.her] [npc2.eyes+], [npc.she] [npc.moansVerb],"
 								+ " [npc.speech(That's right, let me put my mouth to use!)]";
@@ -636,7 +636,7 @@ public class GenericPositioning {
 								+ " [npc.speech(That's right, let me put my mouth to use!)]";
 					}
 				} else {
-					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction())) {
+					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Main.sex.getCharacterPerformingAction())) {
 						return "Wanting to perform anilingus on [npc2.name], [npc.name] [npc.verb(move)] around so that [npc.sheIs] standing behind [npc2.herHim]."
 								+ " Taking hold of [npc2.her] [npc2.hips+], [npc.she] [npc.moansVerb],"
 								+ " [npc.speech(Oh yes, let me eat your ass!)]";
@@ -648,8 +648,8 @@ public class GenericPositioning {
 				}
 				
 			} else { // Taur body:
-				if(generatePerformerOralData(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this)).get(0)==SexSlotStanding.PERFORMING_ORAL) {
-					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction())) {
+				if(generatePerformerOralData(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)).get(0)==SexSlotStanding.PERFORMING_ORAL) {
+					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Main.sex.getCharacterPerformingAction())) {
 						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(move)] around so that [npc.sheIs] standing beneath [npc2.her] lower [npc2.legRace]'s body."
 								+ " Running [npc.a_hand] up one of [npc2.her] rear [npc2.legs], [npc.she] [npc.moansVerb],"
 								+ " [npc.speech(Oh yes, time to put my mouth to use!)]";
@@ -659,7 +659,7 @@ public class GenericPositioning {
 								+ " [npc.speech(Oh yes, time to put my mouth to use!)]";
 					}
 				} else {
-					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction())) {
+					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Main.sex.getCharacterPerformingAction())) {
 						return "Wanting to perform oral on the rear part of [npc2.namePos] lower [npc2.legRace]'s body, [npc.name] [npc.verb(move)] around so that [npc.sheIs] standing behind [npc2.herHim]."
 								+ " Running [npc.a_hand] up and over [npc2.her] [npc2.ass+], [npc.she] [npc.moansVerb],"
 								+ " [npc.speech(Oh yes, time to put my mouth to use!)]";
@@ -673,7 +673,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			setNewSexManager(generatePerformingOralData(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this)), false);
+			setNewSexManager(generatePerformingOralData(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)), false);
 		}
 		@Override
 		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
@@ -697,11 +697,11 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return checkBaseRequirements(generatePerformingOralData(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this)), true)
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_TWO
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_BEHIND
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO;
+			return checkBaseRequirements(generatePerformingOralData(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)), true)
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_TWO
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_BEHIND
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO;
 		}
 		@Override
 		public String getActionTitle() {
@@ -709,7 +709,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 				return "Get down and try to convince [npc2.name] to let you perform oral on [npc2.herHim]. If [npc2.she] accepts, you can further request to switch between [npc2.her] front and back.<br/>"
 						+ getRequestTooltipText();
 			} else {
@@ -719,9 +719,9 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) { // Biped body:
-				if(generatePerformerOralData(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this)).get(0)==SexSlotStanding.PERFORMING_ORAL) {
-					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction())) {
+			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) { // Biped body:
+				if(generatePerformerOralData(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)).get(0)==SexSlotStanding.PERFORMING_ORAL) {
+					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Main.sex.getCharacterPerformingAction())) {
 						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(position)] [npc.herself] so that [npc.sheIs] standing before [npc2.herHim]."
 								+ " Looking up into [npc2.her] [npc2.eyes+], [npc.she] [npc.verb(plead)],"
 								+ " [npc.speech(Please, let me put my mouth to use!)]";
@@ -731,7 +731,7 @@ public class GenericPositioning {
 								+ " [npc.speech(Please, let me put my mouth to use!)]";
 					}
 				} else {
-					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction())) {
+					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Main.sex.getCharacterPerformingAction())) {
 						return "Wanting to perform anilingus on [npc2.name], [npc.name] [npc.verb(position)] [npc.herself] so that [npc.sheIs] standing behind [npc2.herHim]."
 								+ " Taking hold of [npc2.her] [npc2.hips+], [npc.she] [npc.verb(plead)],"
 								+ " [npc.speech(Please, let me put my mouth to use!)]";
@@ -743,8 +743,8 @@ public class GenericPositioning {
 				}
 				
 			} else { // Taur body:
-				if(generatePerformerOralData(Sex.getCharacterPerformingAction(), Sex.getCharacterPerformingAction()).get(0)==SexSlotStanding.PERFORMING_ORAL) {
-					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction())) {
+				if(generatePerformerOralData(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterPerformingAction()).get(0)==SexSlotStanding.PERFORMING_ORAL) {
+					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Main.sex.getCharacterPerformingAction())) {
 						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(position)] [npc.herself] so that [npc.sheIs] standing beneath [npc2.her] lower [npc2.legRace]'s body."
 								+ " Running [npc.a_hand] up one of [npc2.her] rear [npc2.legs], [npc.she] [npc.verb(plead)],"
 								+ " [npc.speech(Please, let me put my mouth to use!)]";
@@ -754,7 +754,7 @@ public class GenericPositioning {
 								+ " [npc.speech(Please, let me put my mouth to use!)]";
 					}
 				} else {
-					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction())) {
+					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Main.sex.getCharacterPerformingAction())) {
 						return "Wanting to perform oral on the rear part of [npc2.namePos] lower [npc2.legRace]'s body, [npc.name] [npc.verb(position)] [npc.herself] so that [npc.sheIs] standing behind [npc2.herHim]."
 								+ " Taking hold of [npc2.her] [npc2.hips+], [npc.she] [npc.verb(plead)],"
 								+ " [npc.speech(Please, let me put my mouth to use!)]";
@@ -768,7 +768,8 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(generatePerformingOralData(Sex.getCharacterPerformingAction(), Sex.getCharacterTargetedForSexAction(this)));
+			Main.sex.setPositionRequest(generatePerformingOralData(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)));
+//			System.out.println(Main.sex.getPositionRequest().getPosition().getName()+", "+Main.sex.getPositionRequest().getPerformerSlots().get(0).getName(null)+", "+Main.sex.getPositionRequest().getPartnerSlots().get(0).getName(null));
 		}
 		@Override
 		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
@@ -786,7 +787,7 @@ public class GenericPositioning {
 //		
 //		@Override
 //		public boolean isBaseRequirementsMet() {
-//			return checkBaseRequirements(generatePerformingOralData(Sex.getCharacterTargetedForSexAction(this)), false);
+//			return checkBaseRequirements(generatePerformingOralData(Main.sex.getCharacterTargetedForSexAction(this)), false);
 //		}
 //		@Override
 //		public String getActionTitle() {
@@ -794,17 +795,17 @@ public class GenericPositioning {
 //		}
 //		@Override
 //		public String getActionDescription() {
-//			if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+//			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 //				return "Get down behind [npc2.name], so that you're able to perform oral on [npc2.her] [npc2.asshole].";
 //			} else {
-//				return "Get down behind [npc2.name], so that you're able to perform oral on [npc2.her] [npc2.asshole]"+(Sex.getCharacterTargetedForSexAction(this).hasVagina()?" and [npc2.pussy]":"")+".";
+//				return "Get down behind [npc2.name], so that you're able to perform oral on [npc2.her] [npc2.asshole]"+(Main.sex.getCharacterTargetedForSexAction(this).hasVagina()?" and [npc2.pussy]":"")+".";
 //			}
 //		}
 //		@Override
 //		public String getDescription() {
-//			if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) { // Biped body:
-//				if(generatePerformerOralData(Sex.getCharacterTargetedForSexAction(this)).get(0)==SexSlotStanding.PERFORMING_ORAL) {
-//					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction())) {
+//			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) { // Biped body:
+//				if(generatePerformerOralData(Main.sex.getCharacterTargetedForSexAction(this)).get(0)==SexSlotStanding.PERFORMING_ORAL) {
+//					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Main.sex.getCharacterPerformingAction())) {
 //						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(move)] around so that [npc.sheIs] standing before [npc2.herHim]."
 //								+ " Looking up into [npc2.her] [npc2.eyes+], [npc.she] [npc.moansVerb],"
 //								+ " [npc.speech(That's right, let me put my mouth to use!)]";
@@ -814,7 +815,7 @@ public class GenericPositioning {
 //								+ " [npc.speech(That's right, let me put my mouth to use!)]";
 //					}
 //				} else {
-//					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction())) {
+//					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Main.sex.getCharacterPerformingAction())) {
 //						return "Wanting to perform anilingus on [npc2.name], [npc.name] [npc.verb(move)] around so that [npc.sheIs] standing behind [npc2.herHim]."
 //								+ " Taking hold of [npc2.her] [npc2.hips+], [npc.she] [npc.moansVerb],"
 //								+ " [npc.speech(Oh yes, let me eat your ass!)]";
@@ -826,8 +827,8 @@ public class GenericPositioning {
 //				}
 //				
 //			} else { // Taur body:
-//				if(generatePerformerOralData(Sex.getCharacterTargetedForSexAction(this)).get(0)==SexSlotStanding.PERFORMING_ORAL) {
-//					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction())) {
+//				if(generatePerformerOralData(Main.sex.getCharacterTargetedForSexAction(this)).get(0)==SexSlotStanding.PERFORMING_ORAL) {
+//					if(SexSlotStanding.PERFORMING_ORAL.isStanding(Main.sex.getCharacterPerformingAction())) {
 //						return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(move)] around so that [npc.sheIs] standing beneath [npc2.her] lower [npc2.legRace]'s body."
 //								+ " Running [npc.a_hand] up one of [npc2.her] rear [npc2.legs], [npc.she] [npc.moansVerb],"
 //								+ " [npc.speech(Oh yes, time to put my mouth to use!)]";
@@ -837,7 +838,7 @@ public class GenericPositioning {
 //								+ " [npc.speech(Oh yes, time to put my mouth to use!)]";
 //					}
 //				} else {
-//					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction())) {
+//					if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Main.sex.getCharacterPerformingAction())) {
 //						return "Wanting to perform oral on the rear part of [npc2.namePos] lower [npc2.legRace]'s body, [npc.name] [npc.verb(move)] around so that [npc.sheIs] standing behind [npc2.herHim]."
 //								+ " Running [npc.a_hand] up and over [npc2.her] [npc2.ass+], [npc.she] [npc.moansVerb],"
 //								+ " [npc.speech(Oh yes, time to put my mouth to use!)]";
@@ -851,7 +852,7 @@ public class GenericPositioning {
 //		}
 //		@Override
 //		public void applyEffects() {
-//			setNewSexManager(generatePerformingOralData(Sex.getCharacterTargetedForSexAction(this)), false);
+//			setNewSexManager(generatePerformingOralData(Main.sex.getCharacterTargetedForSexAction(this)), false);
 //		}
 //		@Override
 //		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
@@ -875,16 +876,16 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPosition()==SexPosition.STANDING
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT_TWO
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_BEHIND
-					&& (Sex.getCharacterInPosition(SexSlotStanding.STANDING_DOMINANT_TWO)!=null
-						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO)
+			return Main.sex.getPosition()==SexPosition.STANDING
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT_TWO
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_BEHIND
+					&& (Main.sex.getCharacterInPosition(SexSlotStanding.STANDING_DOMINANT_TWO)!=null
+						|| Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO)
 					
-					&& Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getCharacterPerformingAction().isPlayer();
+					&& Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		@Override
 		public String getActionTitle() {
@@ -892,17 +893,17 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 				return "Switch position so that you are behind [npc2.name], and so able to perform oral on [npc2.her] [npc2.asshole].";
 			} else {
-				return "Switch position so that you are behind [npc2.name], and so able to perform oral on [npc2.her] [npc2.asshole]"+(Sex.getCharacterTargetedForSexAction(this).hasVagina()?" and [npc2.pussy]":"")+".";
+				return "Switch position so that you are behind [npc2.name], and so able to perform oral on [npc2.her] [npc2.asshole]"+(Main.sex.getCharacterTargetedForSexAction(this).hasVagina()?" and [npc2.pussy]":"")+".";
 			}
 		}
 		@Override
 		public String getDescription() {
 			StringBuilder sb = new StringBuilder();
-			if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) { // Biped body:
-				if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction())) {
+			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) { // Biped body:
+				if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Main.sex.getCharacterPerformingAction())) {
 					sb.append("Wanting to perform anilingus on [npc2.name], [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] standing behind [npc2.herHim]."
 							+ " Taking hold of [npc2.her] [npc2.hips+], [npc.she] [npc.verb(plead)],");
 				} else {
@@ -911,7 +912,7 @@ public class GenericPositioning {
 				}
 				
 			} else { // Taur body:
-				if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction())) {
+				if(SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Main.sex.getCharacterPerformingAction())) {
 					sb.append("Wanting to perform oral on the rear part of [npc2.namePos] lower [npc2.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] standing behind [npc2.herHim]."
 							+ " Running [npc.a_hand] up and over [npc2.her] [npc2.ass+], [npc.she] [npc.verb(plead)],");
 				} else {
@@ -919,7 +920,7 @@ public class GenericPositioning {
 							+ " Running [npc.a_hand] up and over [npc2.her] [npc2.ass+], [npc.she] [npc.verb(plead)],");
 				}
 			}
-			if(Sex.isDom(Sex.getCharacterPerformingAction())) {
+			if(Main.sex.isDom(Main.sex.getCharacterPerformingAction())) {
 				sb.append(" [npc.speech(Now to get a taste of your ass!)]");
 			} else {
 				sb.append(" [npc.speech(Please, let me put my mouth to use!)]");
@@ -929,21 +930,21 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			GameCharacter target = Sex.getCharacterPerformingAction();
-			if(Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL_BEHIND)!=null) {
-				Sex.swapSexPositionSlots(target, Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL_BEHIND));
+			GameCharacter target = Main.sex.getCharacterPerformingAction();
+			if(Main.sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL_BEHIND)!=null) {
+				Main.sex.swapSexPositionSlots(target, Main.sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL_BEHIND));
 			}
 
-			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants(true));
-			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants(true));
+			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Main.sex.getDominantParticipants(true));
+			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Main.sex.getSubmissiveParticipants(true));
 			
-			if(Sex.isDom(target)) {
+			if(Main.sex.isDom(target)) {
 				dominants.put(target, SexSlotStanding.PERFORMING_ORAL_BEHIND);
 			} else {
 				submissives.put(target, SexSlotStanding.PERFORMING_ORAL_BEHIND);
 			}
 
-			Sex.setSexManager(new SexManagerDefault(
+			Main.sex.setSexManager(new SexManagerDefault(
 					SexPosition.STANDING,
 					dominants,
 					submissives){
@@ -973,20 +974,20 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPosition()==SexPosition.STANDING
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT_TWO
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL
-					&& (Sex.getCharacterInPosition(SexSlotStanding.STANDING_DOMINANT_TWO)!=null
-							|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_TWO)
+			return Main.sex.getPosition()==SexPosition.STANDING
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.STANDING_DOMINANT_TWO
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL
+					&& (Main.sex.getCharacterInPosition(SexSlotStanding.STANDING_DOMINANT_TWO)!=null
+							|| Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotStanding.PERFORMING_ORAL_TWO)
 					
-					&& Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
-					&& Sex.getSexControl(Sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Sex.getCharacterPerformingAction().isPlayer();
+					&& Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
+					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 				return "Move in front";
 			} else {
 				return "Move beneath [npc2.herHim]";
@@ -994,20 +995,20 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 				return "Get [npc2.name] to switch position so that [npc2.sheIsFull] in front of you, and so able to perform oral on your genitals.";
 			} else {
-				if(Sex.getCharacterTargetedForSexAction(this).hasPenis()) {
-					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you, and so able to perform oral on your [npc.cock]"+(Sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?" and [npc.crotchBoobs]":"")+".";
+				if(Main.sex.getCharacterTargetedForSexAction(this).hasPenis()) {
+					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you, and so able to perform oral on your [npc.cock]"+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?" and [npc.crotchBoobs]":"")+".";
 				} else {
-					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you"+(Sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?", and so able to perform oral on your [npc.crotchBoobs]":"")+".";
+					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you"+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?", and so able to perform oral on your [npc.crotchBoobs]":"")+".";
 				}
 			}
 		}
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) { // Biped body:
-				if(SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction())) {
+			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) { // Biped body:
+				if(SexSlotStanding.PERFORMING_ORAL.isStanding(Main.sex.getCharacterPerformingAction())) {
 					return "Wanting to perform oral on [npc2.name], [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] standing in front of [npc2.herHim]."
 							+ " Gazing up into [npc2.her] [npc2.eyes+], [npc.she] [npc.verb(plead)],"
 							+ " [npc.speech(Please, let me put my mouth to use!)]";
@@ -1018,7 +1019,7 @@ public class GenericPositioning {
 				}
 				
 			} else { // Taur body:
-				if(SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction())) {
+				if(SexSlotStanding.PERFORMING_ORAL.isStanding(Main.sex.getCharacterPerformingAction())) {
 					return "Wanting to perform oral on the underside of [npc2.namePos] lower [npc2.legRace]'s body, [npc.name] [npc.verb(reposition)] [npc.herself] so that [npc.sheIs] standing beneath [npc2.herHim]."
 							+ " Placing [npc.a_hand] on one of [npc2.her] rear [npc2.legs], [npc.she] [npc.verb(plead)],"
 							+ " [npc.speech(Please, let me put my mouth to use!)]";
@@ -1031,21 +1032,21 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			GameCharacter target = Sex.getCharacterPerformingAction();
-			if(Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL)!=null) {
-				Sex.swapSexPositionSlots(target, Sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL));
+			GameCharacter target = Main.sex.getCharacterPerformingAction();
+			if(Main.sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL)!=null) {
+				Main.sex.swapSexPositionSlots(target, Main.sex.getCharacterInPosition(SexSlotStanding.PERFORMING_ORAL));
 			}
 
-			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Sex.getDominantParticipants(true));
-			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Sex.getSubmissiveParticipants(true));
+			Map<GameCharacter, SexSlot> dominants = new HashMap<>(Main.sex.getDominantParticipants(true));
+			Map<GameCharacter, SexSlot> submissives = new HashMap<>(Main.sex.getSubmissiveParticipants(true));
 			
-			if(Sex.isDom(target)) {
+			if(Main.sex.isDom(target)) {
 				dominants.put(target, SexSlotStanding.PERFORMING_ORAL);
 			} else {
 				submissives.put(target, SexSlotStanding.PERFORMING_ORAL);
 			}
 
-			Sex.setSexManager(new SexManagerDefault(
+			Main.sex.setSexManager(new SexManagerDefault(
 					SexPosition.STANDING,
 					dominants,
 					submissives){
@@ -1105,9 +1106,9 @@ public class GenericPositioning {
 		}
 		@Override
 		public SexActionPriority getPriority() {
-			if((Sex.getCharacterPerformingAction() instanceof NPC)
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this))!=null
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this))!=null
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
 				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;
@@ -1147,7 +1148,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(data);
+			Main.sex.setPositionRequest(data);
 		}
 	};
 	
@@ -1188,9 +1189,9 @@ public class GenericPositioning {
 		}
 		@Override
 		public SexActionPriority getPriority() {
-			if((Sex.getCharacterPerformingAction() instanceof NPC)
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this))!=null
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this))!=null
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
 				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;
@@ -1230,7 +1231,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(data);
+			Main.sex.setPositionRequest(data);
 		}
 	};
 	
@@ -1277,9 +1278,9 @@ public class GenericPositioning {
 		}
 		@Override
 		public SexActionPriority getPriority() {
-			if((Sex.getCharacterPerformingAction() instanceof NPC)
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this))!=null
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this))!=null
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
 				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;
@@ -1318,7 +1319,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(data);
+			Main.sex.setPositionRequest(data);
 		}
 	};
 	
@@ -1359,9 +1360,9 @@ public class GenericPositioning {
 		}
 		@Override
 		public SexActionPriority getPriority() {
-			if((Sex.getCharacterPerformingAction() instanceof NPC)
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this))!=null
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isBeingPenetrated()) {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this))!=null
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this)).isBeingPenetrated()) {
 				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;
@@ -1400,7 +1401,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(data);
+			Main.sex.setPositionRequest(data);
 		}
 	};
 	
@@ -1476,7 +1477,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(data);
+			Main.sex.setPositionRequest(data);
 		}
 	};
 	
@@ -1496,9 +1497,9 @@ public class GenericPositioning {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return checkBaseRequirements(data, false)
-					&& (Sex.getCharacterPerformingAction().isPlayer()
-						|| !Sex.isDom(Sex.getCharacterPerformingAction())
-						|| Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive());
+					&& (Main.sex.getCharacterPerformingAction().isPlayer()
+						|| !Main.sex.isDom(Main.sex.getCharacterPerformingAction())
+						|| Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive());
 		}
 		@Override
 		public String getActionTitle() {
@@ -1553,7 +1554,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(data);
+			Main.sex.setPositionRequest(data);
 		}
 	};
 	
@@ -1595,9 +1596,9 @@ public class GenericPositioning {
 		}
 		@Override
 		public SexActionPriority getPriority() {
-			if((Sex.getCharacterPerformingAction() instanceof NPC)
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this))!=null
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isBeingPenetrated()) {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this))!=null
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this)).isBeingPenetrated()) {
 				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;
@@ -1637,7 +1638,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(data);
+			Main.sex.setPositionRequest(data);
 		}
 	};
 
@@ -1679,9 +1680,9 @@ public class GenericPositioning {
 		}
 		@Override
 		public SexActionPriority getPriority() {
-			if((Sex.getCharacterPerformingAction() instanceof NPC)
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this))!=null
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this))!=null
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
 				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;
@@ -1721,7 +1722,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(data);
+			Main.sex.setPositionRequest(data);
 		}
 	};
 	
@@ -1795,7 +1796,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(data);
+			Main.sex.setPositionRequest(data);
 		}
 	};
 	
@@ -1869,7 +1870,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(data);
+			Main.sex.setPositionRequest(data);
 		}
 	};
 
@@ -1889,14 +1890,14 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().hasPenis()
+			return Main.sex.getCharacterPerformingAction().hasPenis()
 					&& checkBaseRequirements(data, false);
 		}
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getCharacterTargetedForSexAction(this).hasVagina()
-					&& !Sex.getCharacterTargetedForSexAction(this).isVisiblyPregnant()
-					&& Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive()) {
+			if(Main.sex.getCharacterTargetedForSexAction(this).hasVagina()
+					&& !Main.sex.getCharacterTargetedForSexAction(this).isVisiblyPregnant()
+					&& Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive()) {
 				return SexActionPriority.HIGH;
 			} else {
 				return SexActionPriority.NORMAL;
@@ -1916,7 +1917,7 @@ public class GenericPositioning {
 					+ " Grabbing [npc2.her] [npc2.legs], [npc.name] [npc.verb(push)] them apart and back up towards [npc2.her] head, before lying down on top of [npc2.herHim] and bumping [npc.her] groin against [npc2.hers]."
 					+ " Pinning [npc2.namePos] wrists to the floor on either side of [npc2.her] head, [npc.name] [npc.moansVerb],"
 					+ " [npc.speech(It's time to"
-					+ UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
+					+ UtilText.parse(Main.sex.getCharacterTargetedForSexAction(this),
 							"#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN give you a good hard fuck!#ELSE breed you!#ENDIF")
 					+ ")]";
 		}
@@ -1941,7 +1942,7 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterTargetedForSexAction(this).hasPenis()
+			return Main.sex.getCharacterTargetedForSexAction(this).hasPenis()
 					&& checkBaseRequirements(data, true);
 		}
 		@Override
@@ -1958,12 +1959,12 @@ public class GenericPositioning {
 			return "Before [npc2.name] can react, you quickly drop down onto your back, before spreading your [npc.legs] and pulling them back up towards your head."
 					+ " Presenting your groin to [npc2.name], you [npc.moansVerb],"
 					+ " [npc.speech(Pin me down and"
-					+ UtilText.parse(Sex.getCharacterPerformingAction(), "#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN fuck me!#ELSE breed me!#ENDIF")
+					+ UtilText.parse(Main.sex.getCharacterPerformingAction(), "#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN fuck me!#ELSE breed me!#ENDIF")
 					+ ")]";
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(data);
+			Main.sex.setPositionRequest(data);
 		}
 	};
 	
@@ -1972,13 +1973,13 @@ public class GenericPositioning {
 	//--------------- ALL FOURS ---------------//
 	
 	private static List<SexSlot> generatePerformerAllFoursData(GameCharacter receiver) {
-		List<GameCharacter> doms = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
+		List<GameCharacter> doms = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
 		doms.remove(receiver);
-		List<GameCharacter> subs = new ArrayList<>(Sex.getSubmissiveParticipants(false).keySet());
+		List<GameCharacter> subs = new ArrayList<>(Main.sex.getSubmissiveParticipants(false).keySet());
 		subs.remove(receiver);
 
 		boolean doubleReceiving = false;
-		if(Sex.isDom(receiver)) {
+		if(Main.sex.isDom(receiver)) {
 			doubleReceiving = doms.size()>=1;
 		} else {
 			doubleReceiving = subs.size()>=1;
@@ -2042,13 +2043,13 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return checkBaseRequirements(generateReceivingAllFoursData(Sex.getCharacterPerformingAction()), false)
-					&& isAllFoursAvailable(Sex.getCharacterPerformingAction());
+			return checkBaseRequirements(generateReceivingAllFoursData(Main.sex.getCharacterPerformingAction()), false)
+					&& isAllFoursAvailable(Main.sex.getCharacterPerformingAction());
 		}
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
-				if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 					return "Doggy-style fucked";
 				} else {
 					return "Get fucked";
@@ -2059,8 +2060,8 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
-				if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 					return "Drop down onto all fours so that [npc2.name] can fuck you, doggy-style.";
 				} else {
 					return "Drop down onto all fours so that [npc2.name] can mount and rut you.";
@@ -2071,8 +2072,8 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
-				if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 					return "Wanting to get fucked by [npc2.name] in the doggy-style position, [npc.name] [npc.verb(drop)] down onto all fours before [npc2.herHim]."
 							+ " Crawling back and pushing [npc.her] [npc.ass+] against [npc2.namePos] groin, [npc.she] [npc.verb(look)] back over [npc.her] shoulder and [npc.moansVerb],"
 							+ " [npc.speech(Come on, fuck me like an animal!)]";
@@ -2083,7 +2084,7 @@ public class GenericPositioning {
 				}
 				
 			} else {
-				if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 					return "Wanting [npc2.name] to fuck [npc.herHim], [npc.name] [npc.verb(turn)] around and [npc.verb(present)] the rear end of [npc.her] feral [npc.legRace]'s body to [npc2.herHim]."
 							+ " Stepping back and pushing [npc.her] [npc.ass+] against [npc2.namePos] groin, [npc.she] [npc.verb(look)] back over [npc.her] shoulder and [npc.moansVerb],"
 							+ " [npc.speech(Come on, fuck me like an animal!)]";
@@ -2097,7 +2098,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			setNewSexManager(generateReceivingAllFoursData(Sex.getCharacterPerformingAction()), false);
+			setNewSexManager(generateReceivingAllFoursData(Main.sex.getCharacterPerformingAction()), false);
 		}
 		@Override
 		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
@@ -2108,11 +2109,11 @@ public class GenericPositioning {
 				}
 				fetishes.add(Fetish.FETISH_ANAL_RECEIVING);
 				fetishes.add(Fetish.FETISH_SUBMISSIVE);
-				if(Sex.getTargetedPartner(characterPerformingAction).hasPenis()) {
+				if(Main.sex.getTargetedPartner(characterPerformingAction).hasPenis()) {
 					fetishes.add(Fetish.FETISH_PENIS_RECEIVING);
 				}
 			} else {
-				if(Sex.getTargetedPartner(characterPerformingAction).hasVagina()) {
+				if(Main.sex.getTargetedPartner(characterPerformingAction).hasVagina()) {
 					fetishes.add(Fetish.FETISH_VAGINAL_GIVING);
 				}
 				fetishes.add(Fetish.FETISH_ANAL_GIVING);
@@ -2125,9 +2126,9 @@ public class GenericPositioning {
 		}
 		@Override
 		public SexActionPriority getPriority() {
-			if((Sex.getCharacterPerformingAction() instanceof NPC)
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this))!=null
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isBeingPenetrated()) {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this))!=null
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this)).isBeingPenetrated()) {
 				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;
@@ -2144,15 +2145,15 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return checkBaseRequirements(generateReceivingAllFoursData(Sex.getCharacterPerformingAction()), true)
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotAllFours.ALL_FOURS
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotAllFours.ALL_FOURS_TWO
-					&& isAllFoursAvailable(Sex.getCharacterPerformingAction());
+			return checkBaseRequirements(generateReceivingAllFoursData(Main.sex.getCharacterPerformingAction()), true)
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotAllFours.ALL_FOURS
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotAllFours.ALL_FOURS_TWO
+					&& isAllFoursAvailable(Main.sex.getCharacterPerformingAction());
 		}
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
-				if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 					return "Doggy-style fucked (R)";
 				} else {
 					return "Get fucked (R)";
@@ -2163,8 +2164,8 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
-				if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 					return "Drop down onto all fours and ask [npc2.name] to fuck you, doggy-style.<br/>"
 						+ getRequestTooltipText();
 				} else {
@@ -2178,8 +2179,8 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
-				if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 					return "Wanting to get fucked by [npc2.name] in the doggy-style position, [npc.name] [npc.verb(drop)] down onto all fours before [npc2.herHim]."
 							+ " Crawling back and pushing [npc.her] [npc.ass+] against [npc2.namePos] groin, [npc.she] [npc.verb(look)] back over [npc.her] shoulder and [npc.verb(plead)],"
 							+ " [npc.speech(Please, fuck me like an animal!)]";
@@ -2190,7 +2191,7 @@ public class GenericPositioning {
 				}
 				
 			} else {
-				if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 					return "Wanting [npc2.name] to fuck [npc.herHim], [npc.name] [npc.verb(turn)] around and [npc.verb(present)] the rear end of [npc.her] feral [npc.legRace]'s body to [npc2.herHim]."
 							+ " Stepping back and pushing [npc.her] [npc.ass+] against [npc2.namePos] groin, [npc.she] [npc.verb(look)] back over [npc.her] shoulder and [npc.verb(plead)],"
 							+ " [npc.speech(Please, fuck me like an animal!)]";
@@ -2203,7 +2204,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(generateReceivingAllFoursData(Sex.getCharacterPerformingAction()));
+			Main.sex.setPositionRequest(generateReceivingAllFoursData(Main.sex.getCharacterPerformingAction()));
 		}
 		@Override
 		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
@@ -2221,13 +2222,13 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return checkBaseRequirements(generatePerformingAllFoursData(Sex.getCharacterTargetedForSexAction(this)), false)
-					&& isAllFoursAvailable(Sex.getCharacterTargetedForSexAction(this));
+			return checkBaseRequirements(generatePerformingAllFoursData(Main.sex.getCharacterTargetedForSexAction(this)), false)
+					&& isAllFoursAvailable(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
-				if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 					return "Doggy-style [npc2.herHim]";
 				} else {
 					return "Fuck [npc2.herHim]";
@@ -2238,8 +2239,8 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
-				if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 					return "Make [npc2.name] get down on all fours so that you can fuck [npc2.herHim], doggy-style.";
 				} else {
 					return "Make [npc2.name] present [npc2.herself] to you so that you can fuck [npc2.herHim].";
@@ -2250,8 +2251,8 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
-				if(!Sex.getCharacterPerformingAction().isTaur()) {
+			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
+				if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 					return "Wanting to fuck [npc2.name] in the doggy-style position, [npc.name] [npc.verb(push)] [npc2.herHim] down onto all fours before [npc.herHim]."
 							+ " Kneeling down behind [npc2.herHim], [npc.she] [npc.verb(grip)] [npc2.her] [npc2.hips+] and [npc.verb(pull)] [npc.her] [npc.ass+] back against [npc.her] groin, [npc.moaning],"
 							+ " [npc.speech(Time to fuck you like an animal!)]";
@@ -2262,7 +2263,7 @@ public class GenericPositioning {
 				}
 				
 			} else {
-				if(!Sex.getCharacterPerformingAction().isTaur()) {
+				if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 					return "Wanting to fuck [npc2.name], [npc.name] [npc.verb(move)] around behind [npc2.her] feral [npc2.legRace]'s body."
 							+ " With [npc2.her] rear end now presented to [npc.herHim], [npc.she] [npc.verb(grip)] [npc2.her] [npc2.hips] and [npc.verb(push)] [npc.her] groin against [npc2.her] [npc2.ass+], [npc.moaning],"
 							+ " [npc.speech(Time to fuck you like an animal!)]";
@@ -2275,13 +2276,13 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			setNewSexManager(generatePerformingAllFoursData(Sex.getCharacterTargetedForSexAction(this)), false);
+			setNewSexManager(generatePerformingAllFoursData(Main.sex.getCharacterTargetedForSexAction(this)), false);
 		}
 		@Override
 		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
 			Set<Fetish> fetishes = new HashSet<>(super.getFetishesForEitherPartner(characterPerformingAction, characterPerformingActionFetishes));
 			if(characterPerformingActionFetishes) {
-				if(Sex.getTargetedPartner(characterPerformingAction).hasVagina()) {
+				if(Main.sex.getTargetedPartner(characterPerformingAction).hasVagina()) {
 					fetishes.add(Fetish.FETISH_VAGINAL_GIVING);
 				}
 				fetishes.add(Fetish.FETISH_ANAL_GIVING);
@@ -2295,7 +2296,7 @@ public class GenericPositioning {
 				}
 				fetishes.add(Fetish.FETISH_ANAL_RECEIVING);
 				fetishes.add(Fetish.FETISH_SUBMISSIVE);
-				if(Sex.getTargetedPartner(characterPerformingAction).hasPenis()) {
+				if(Main.sex.getTargetedPartner(characterPerformingAction).hasPenis()) {
 					fetishes.add(Fetish.FETISH_PENIS_RECEIVING);
 				}
 			}
@@ -2303,9 +2304,9 @@ public class GenericPositioning {
 		}
 		@Override
 		public SexActionPriority getPriority() {
-			if((Sex.getCharacterPerformingAction() instanceof NPC)
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this))!=null
-					&& ((NPC)Sex.getCharacterPerformingAction()).getCurrentSexPreference(Sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC)
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this))!=null
+					&& ((NPC)Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.sex.getCharacterTargetedForSexAction(this)).isPenetrating()) {
 				return SexActionPriority.HIGH;
 			}
 			return SexActionPriority.NORMAL;
@@ -2322,15 +2323,15 @@ public class GenericPositioning {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return checkBaseRequirements(generatePerformingAllFoursData(Sex.getCharacterTargetedForSexAction(this)), true)
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotAllFours.BEHIND
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotAllFours.BEHIND_TWO
-					&& isAllFoursAvailable(Sex.getCharacterTargetedForSexAction(this));
+			return checkBaseRequirements(generatePerformingAllFoursData(Main.sex.getCharacterTargetedForSexAction(this)), true)
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotAllFours.BEHIND
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotAllFours.BEHIND_TWO
+					&& isAllFoursAvailable(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		@Override
 		public String getActionTitle() {
-			if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
-				if(!Sex.getCharacterPerformingAction().isTaur()) {
+			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
+				if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 					return "Doggy-style [npc2.herHim] (R)";
 				} else {
 					return "Fuck [npc2.herHim] (R)";
@@ -2341,11 +2342,11 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getActionDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 				return "Try to get [npc2.name] down on all fours so that you can fuck [npc2.herHim], doggy-style.<br/>"
 						+ getRequestTooltipText();
 			} else {
-				if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
+				if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
 					return "Try to get [npc2.name] down on all fours so that you can mount [npc2.herHim].<br/>"
 						+ getRequestTooltipText();
 				} else {
@@ -2356,8 +2357,8 @@ public class GenericPositioning {
 		}
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterTargetedForSexAction(this).isTaur()) {
-				if(!Sex.getCharacterPerformingAction().isTaur()) {
+			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
+				if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 					return "Wanting to fuck [npc2.name] in the doggy-style position, [npc.name] [npc.verb(try)] to push [npc2.herHim] down onto all fours before [npc.herHim]."
 							+ " Gripping [npc2.her] shoulders and exerting a downwards pressure, [npc.she] [npc.verb(plead)],"
 							+ " [npc.speech(Please, get down and let me fuck you like an animal!)]";
@@ -2368,7 +2369,7 @@ public class GenericPositioning {
 				}
 				
 			} else {
-				if(!Sex.getCharacterPerformingAction().isTaur()) {
+				if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 					return "Wanting to fuck [npc2.name], [npc.name] [npc.verb(move)] around behind [npc2.her] feral [npc2.legRace]'s body."
 							+ " With [npc2.her] rear end now presented to [npc.herHim], [npc.she] [npc.verb(grip)] [npc2.her] [npc2.hips] and [npc.verb(plead)],"
 							+ " [npc.speech(Please, let me fuck you like an animal!)]";
@@ -2381,7 +2382,7 @@ public class GenericPositioning {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setPositionRequest(generatePerformingAllFoursData(Sex.getCharacterTargetedForSexAction(this)));
+			Main.sex.setPositionRequest(generatePerformingAllFoursData(Main.sex.getCharacterTargetedForSexAction(this)));
 		}
 		@Override
 		public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
@@ -2409,7 +2410,7 @@ public class GenericPositioning {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getCharacterPerformingAction().isTaur()
+			return !Main.sex.getCharacterPerformingAction().isTaur()
 					&& checkBaseRequirements(data, false);
 		}
 		@Override
@@ -2451,8 +2452,8 @@ public class GenericPositioning {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().isTaur()
-					&& !Sex.getCharacterTargetedForSexAction(this).isTaur()
+			return Main.sex.getCharacterPerformingAction().isTaur()
+					&& !Main.sex.getCharacterTargetedForSexAction(this).isTaur()
 					&& checkBaseRequirements(data, false);
 		}
 		@Override
@@ -2486,8 +2487,8 @@ public class GenericPositioning {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPositionRequest()!=null
-					&& !Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getPositionRequest()!=null
+					&& !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -2507,16 +2508,16 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			boolean isHappy = ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
-					Sex.getPositionRequest().getPosition(),
-					Sex.getPositionRequest().getPartnerSlots().get(0),
-					Sex.getPositionRequest().getPerformerSlots().get(0),
+			boolean isHappy = ((NPC)Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(
+					Main.sex.getPositionRequest().getPosition(),
+					Main.sex.getPositionRequest().getPartnerSlots().get(0),
+					Main.sex.getPositionRequest().getPerformerSlots().get(0),
 					Main.game.getPlayer());
 			
-			if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL) {
+			if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL) {
 				if(isHappy) {
-					boolean standing = SexSlotStanding.PERFORMING_ORAL.isStanding(Sex.getCharacterPerformingAction());
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					boolean standing = SexSlotStanding.PERFORMING_ORAL.isStanding(Main.sex.getCharacterPerformingAction());
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "[npc.speech(Don't think that this means you're the one in charge!)]"
 									+ " [npc.name] growls, before "+(standing?"stepping forwards":"kneeling down")+" and bringing [npc.her] [npc.face] to your groin."
@@ -2534,10 +2535,10 @@ public class GenericPositioning {
 							+ "[npc.speech(I'm <i>not</i> performing oral on you! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL_BEHIND) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL_BEHIND) {
 				if(isHappy) {
-					boolean standing = SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Sex.getCharacterPerformingAction());
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					boolean standing = SexSlotStanding.PERFORMING_ORAL_BEHIND.isStanding(Main.sex.getCharacterPerformingAction());
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "[npc.speech(Don't think that this means you're the one in charge!)]"
 									+ " [npc.name] growls, before "+(standing?"stepping forwards":"kneeling down")+" and bringing [npc.her] [npc.face] to your [pc.ass+]."
@@ -2555,11 +2556,11 @@ public class GenericPositioning {
 							+ "[npc.speech(I'm <i>not</i> performing oral on you! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotStanding.STANDING_DOMINANT
-					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotStanding.STANDING_DOMINANT
+					&& (Main.sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL || Main.sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotStanding.PERFORMING_ORAL_BEHIND)) {
 				if(isHappy) {
-					boolean biped = !Sex.getCharacterPerformingAction().isTaur();
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					boolean biped = !Main.sex.getCharacterPerformingAction().isTaur();
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "[npc.speech(Don't think that this means you're the one in charge!)]"
 									+ " [npc.name] growls, before roughly pressing "+(!biped?"[npc.her] feral [npc.legRace] body":"[npc.herself]")+" against your [pc.face]."
@@ -2577,13 +2578,13 @@ public class GenericPositioning {
 							+ "[npc.speech(I'm <i>not</i> interested in having you perform oral on me! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAllFours.ALL_FOURS) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAllFours.ALL_FOURS) {
 				if(isHappy) {
-					boolean biped = !Sex.getCharacterPerformingAction().isTaur();
+					boolean biped = !Main.sex.getCharacterPerformingAction().isTaur();
 					boolean bipedPlayer = !Main.game.getPlayer().isTaur();
 					boolean standingPlayer = SexSlotAllFours.BEHIND.isStanding(Main.game.getPlayer());
 					StringBuilder sb = new StringBuilder();
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							sb.append("[npc.speech(Don't think that this means you're the one in charge!)]"
 									+ " [npc.name] growls, before "+(!biped?"roughly pushing [npc.her] feral [npc.legRace] body":"dropping down onto all fours and pushing [npc.herself]")+" back against you."
@@ -2616,13 +2617,13 @@ public class GenericPositioning {
 							+ "[npc.speech(I'm <i>not</i> getting fucked by you! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAllFours.BEHIND) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAllFours.BEHIND) {
 				if(isHappy) {
-					boolean biped = !Sex.getCharacterPerformingAction().isTaur();
+					boolean biped = !Main.sex.getCharacterPerformingAction().isTaur();
 					boolean bipedPlayer = !Main.game.getPlayer().isTaur();
-					boolean standing = SexSlotAllFours.BEHIND.isStanding(Sex.getCharacterPerformingAction());
+					boolean standing = SexSlotAllFours.BEHIND.isStanding(Main.sex.getCharacterPerformingAction());
 					StringBuilder sb = new StringBuilder();
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							sb.append("[npc.speech(Don't think that this means you're the one in charge!)]"
 									+ " [npc.name] growls, before "
@@ -2657,9 +2658,9 @@ public class GenericPositioning {
 							+ "[npc.speech(I'm <i>not</i> fucking you like that! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.SIXTY_NINE) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.SIXTY_NINE) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Jumping down onto all fours, [npc.name] lowers [npc.herself] down over the top of you, bringing [npc.her] crotch down to your face as [npc.she] drops [npc.her] head down between your [pc.legs]."
 									+ " Turning [npc.her] head back to look at you, [npc.she] growls, "
@@ -2675,10 +2676,10 @@ public class GenericPositioning {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.LYING_DOWN
-					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotLyingDown.SIXTY_NINE) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.LYING_DOWN
+					&& Main.sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotLyingDown.SIXTY_NINE) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Allowing you to push [npc.herHim] down, [npc.name] reaches up and takes a firm grip on your [pc.hips], before roughly tugging you down so that you're over the top of [npc.herHim] in a reversed all-fours position."
 									+ " Pulling your groin down to [npc.her] face, [npc.she] growls, "
@@ -2694,9 +2695,9 @@ public class GenericPositioning {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.COWGIRL) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.COWGIRL) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Jumping down over the top of you, [npc.name] lowers [npc.herself] down over your groin, bringing [npc.her] crotch down to yours as [npc.she] straddles you in the cowgirl position."
 									+ " Leaning forwards a little, [npc.she] growls down at you, "
@@ -2712,10 +2713,10 @@ public class GenericPositioning {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.LYING_DOWN
-					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotLyingDown.COWGIRL) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.LYING_DOWN
+					&& Main.sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotLyingDown.COWGIRL) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Allowing you to push [npc.herHim] down, [npc.name] reaches up and takes a firm grip on your [pc.hips], before roughly pulling you down so that you're straddling [npc.herHim] in the cowgirl position."
 									+ " Looking up into your [pc.eyes], [npc.she] growls, "
@@ -2731,10 +2732,10 @@ public class GenericPositioning {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.LYING_DOWN
-					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotLyingDown.FACE_SITTING) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.LYING_DOWN
+					&& Main.sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotLyingDown.FACE_SITTING) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Slapping your [pc.hands] away from [npc.herHim], [npc.name] grabs you by the wrists and yanks you forwards, growling, "
 									+ "[npc.speech(Don't you <i>dare</i> try to take control here! I'll let you sit on my face, but only because <i>I</i> want it, understood?!)]"
@@ -2754,9 +2755,9 @@ public class GenericPositioning {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.FACE_SITTING) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.FACE_SITTING) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Jumping down over the top of you, [npc.name] lowers [npc.herself] down over you, bringing [npc.her] crotch down over your face before planting [npc.her] groin down onto your mouth."
 									+ " Grinding roughly down against your face, [npc.she] growls, "
@@ -2772,20 +2773,20 @@ public class GenericPositioning {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.MATING_PRESS) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.MATING_PRESS) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "With an eager, lustful grin on [npc.her] face, [npc.name] does just as you say, and drops [npc.her] full weight down on top of you."
 									+ " Roughly grinding [npc.her] crotch against yours, [npc.she] pins your wrists to the floor on either side of your head and growls, "
 									+ "[npc.speech(You filthy slut!"
-									+ UtilText.parse(Sex.getCharacterTargetedForSexAction(this), "#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN I'm going to fuck you real good!#ELSE I'm going to breed you real good!#ENDIF")
+									+ UtilText.parse(Main.sex.getCharacterTargetedForSexAction(this), "#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN I'm going to fuck you real good!#ELSE I'm going to breed you real good!#ENDIF")
 									+ ")]";
 						default:
 							return "With an eager, lustful smile on [npc.her] face, [npc.name] does just as you say, and lies down over the top of you."
 									+ " Desperately [npc.her] crotch against yours, [npc.she] pins your wrists to the floor on either side of your head and [npc.moansVerb], "
 									+ "[npc.speech(Good [pc.girl]!"
-									+ UtilText.parse(Sex.getCharacterTargetedForSexAction(this), "#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN I'm going to fuck you real good!#ELSE I'm going to breed you real good!#ENDIF")
+									+ UtilText.parse(Main.sex.getCharacterTargetedForSexAction(this), "#IFnpc.isVisiblyPregnant() || !npc.hasVagina()#THEN I'm going to fuck you real good!#ELSE I'm going to breed you real good!#ENDIF")
 									+ ")]";
 					}
 					
@@ -2794,10 +2795,10 @@ public class GenericPositioning {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.LYING_DOWN
-					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotLyingDown.MISSIONARY) {
+			} if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.LYING_DOWN
+					&& Main.sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotLyingDown.MISSIONARY) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, but as [npc.she] spreads [npc.her] [npc.legs] for you, [npc.she] growls in a menacing tone, "
 									+ "[npc.speech(Don't get carried away, bitch! I'm still the one in charge here!)]";
@@ -2810,9 +2811,9 @@ public class GenericPositioning {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.MISSIONARY) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotLyingDown.MISSIONARY) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Much to your delight, [npc.name] kneels down between your [pc.legs], and as [npc.she] grabs your [npc.legs] to push them apart, [npc.she] growls, "
 									+ "[npc.speech(That's right, bitch! Spread your legs like the slut you are!)]";
@@ -2825,10 +2826,10 @@ public class GenericPositioning {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAgainstWall.STANDING_WALL
-					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotAgainstWall.FACE_TO_WALL) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAgainstWall.STANDING_WALL
+					&& Main.sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotAgainstWall.FACE_TO_WALL) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "Much to your delight, you feel [npc.name] reach down and roughly grab your hips, and, grinding [npc.herself] into your back, [npc.she] growls into your ear, "
 									+ "[npc.speech(I love fucking bitches like you from behind! Now <i>stay still</i> like a good slut!)]";
@@ -2841,10 +2842,10 @@ public class GenericPositioning {
 							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
 				}
 				
-			} else if(Sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAgainstWall.STANDING_WALL
-					&& Sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotAgainstWall.BACK_TO_WALL) {
+			} else if(Main.sex.getPositionRequest().getPartnerSlots().get(0)==SexSlotAgainstWall.STANDING_WALL
+					&& Main.sex.getPositionRequest().getPerformerSlots().get(0)==SexSlotAgainstWall.BACK_TO_WALL) {
 				if(isHappy) {
-					switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 						case DOM_ROUGH:
 							return "[npc.Name] grins as you try to entice [npc.herHim] to come over and fuck you against the wall."
 									+ " Moving up to roughly grind [npc.her] body against yours, [npc.she] leans in over your shoulder and growls into your ear, "
@@ -2867,17 +2868,17 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
-			if((Sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Sex.getCharacterPerformingAction()).isHappyToBeInSlot(
-					Sex.getPositionRequest().getPosition(),
-					Sex.getPositionRequest().getPartnerSlots().get(0),
-					Sex.getPositionRequest().getPerformerSlots().get(0),
+			if((Main.sex.getCharacterPerformingAction() instanceof NPC) && ((NPC)Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(
+					Main.sex.getPositionRequest().getPosition(),
+					Main.sex.getPositionRequest().getPartnerSlots().get(0),
+					Main.sex.getPositionRequest().getPerformerSlots().get(0),
 					Main.game.getPlayer())) {
-				GenericPositioning.setNewSexManager(Sex.getPositionRequest(), true);
+				GenericPositioning.setNewSexManager(Main.sex.getPositionRequest(), true);
 			} else {
-				Sex.addPositioningRequestsBlocked(Main.game.getPlayer(), Sex.getPositionRequest().getPosition());
+				Main.sex.addPositioningRequestsBlocked(Main.game.getPlayer(), Main.sex.getPositionRequest().getPosition());
 			}
 			
-			Sex.setPositionRequest(null);
+			Main.sex.setPositionRequest(null);
 		}
 	};
 	

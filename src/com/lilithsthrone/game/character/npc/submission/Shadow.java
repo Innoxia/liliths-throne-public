@@ -6,8 +6,10 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -42,12 +44,17 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatBehaviour;
+import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
+import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -57,6 +64,8 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -87,6 +96,19 @@ public class Shadow extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.7")) { // Reset character
+			setupPerks(true);
+			setStartingBody(true);
+			setStartingCombatMoves();
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
+			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")
+				&& !this.hasItemType(ItemType.RESONANCE_STONE)) {
+			this.addItem(AbstractItemType.generateItem(ItemType.RESONANCE_STONE), false);
+		}
 	}
 
 	@Override
@@ -104,13 +126,28 @@ public class Shadow extends NPC {
 	}
 
 	@Override
+	public void resetDefaultMoves() {
+		this.clearEquippedMoves();
+		equipMove("strike");
+		equipMove("offhand-strike");
+		equipMove("twin-strike");
+		equipMove("block");
+		this.equipAllSpellMoves();
+	}
+
+	@Override
 	public void setStartingBody(boolean setPersona) {
 		// Persona:
 		if(setPersona) {
+			this.clearPersonalityTraits();
+			this.clearFetishes();
+			this.clearFetishDesires();
+			
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.CONFIDENT,
-					PersonalityTrait.LEWD);
+					PersonalityTrait.LEWD,
+					PersonalityTrait.SLOVENLY);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -118,17 +155,18 @@ public class Shadow extends NPC {
 
 			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_ORAL_GIVING);
 			this.setFetishDesire(Fetish.FETISH_BREASTS_OTHERS, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_ORAL_GIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ONE_DISLIKE);
 		}
 		
 		// Body:
 		// Core:
 		this.setHeight(173);
-		this.setFemininity(80);
+		this.setFemininity(70);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
 
@@ -202,14 +240,14 @@ public class Shadow extends NPC {
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
-		
-		if(settings.contains(EquipClothingSetting.ADD_TATTOOS)) {
-			this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), Colour.CLOTHING_GREEN, Colour.CLOTHING_GREEN, Colour.CLOTHING_GREEN, true, null, null));
-		}
-		
-		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
+
+		if(settings!=null && settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, Colour.CLOTHING_BLACK, Colour.CLOTHING_STEEL));
 			this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, Colour.CLOTHING_BLACK, Colour.CLOTHING_STEEL));
+		}
+		
+		if(settings!=null && settings.contains(EquipClothingSetting.ADD_TATTOOS)) {
+			this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), Colour.CLOTHING_GREEN, Colour.CLOTHING_GREEN, Colour.CLOTHING_GREEN, true, null, null));
 		}
 
 		this.setPiercedEar(true);
@@ -240,18 +278,42 @@ public class Shadow extends NPC {
 		
 		this.equipClothingFromNowhere(ring, true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_PURPLE_VERY_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_micro_skirt_belted", Colour.CLOTHING_BLACK, Colour.CLOTHING_STEEL, Colour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_TUBE_TOP, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_wraps", Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_SARASHI, Colour.CLOTHING_BLACK, false), true, this);
+
+		this.addItem(AbstractItemType.generateItem(ItemType.RESONANCE_STONE), false);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_fishnet_gloves", Colour.CLOTHING_GREEN_VERY_DARK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_fishnets", Colour.CLOTHING_GREEN_VERY_DARK, false), true, this);
+//		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_fishnet_gloves", Colour.CLOTHING_GREEN_VERY_DARK, false), true, this);
+//		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_fishnets", Colour.CLOTHING_GREEN_VERY_DARK, false), true, this);
 		
 	}
 
 	@Override
 	public String getDescription() {
-		return "";//TODO
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("As her adopted name, 'Shadow', suggests, this sneaky rat-girl is an unrivalled expert at sneaking around and remaining unseen when moving by cover of darkness."
+				+ " Her considerable stealth skills are greatly enhanced by the fact that she has pitch-black fur and ebony skin, making her nigh impossible to spot when in a poorly-illumanted area.");
+
+		sb.append("<br/>"
+				+ "While her lust is not quite as insatiable as her companion, Silence, Shadow does often find herself feeling extremely horny,"
+					+ " and thinks nothing of using her finely-honed stealth abilities to ambush innocent people and force herself upon them at blade-point."
+				+ " From this indiscriminate targeting of those around her, combined with rumours of her previous employers being stabbed in the back, Shadow has a reputation for being underhanded and treacherous.");
+		
+		if(this.getHomeLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS) {
+			sb.append("<br/>"
+					+ "No longer a personal bodyguard for Vengar, Shadow is now a professional bounty hunter."
+					+ " Joined by her long-time companion, Silence, she can be found in Slaver Alley's 'Bounty Hunter Lodge'.");
+		} else {
+			sb.append("<br/>"
+					+"Despite her ill repute, she has earned a place as a personal bodyguard for the dangerous gang leader, 'Vengar'."
+					+ " Joined by Silence, the one person she is unshakably loyal to, she is sworn to protect Vengar from any harm that might befall him.");
+		}
+		
+		return sb.toString();
 	}
 	
 	@Override
@@ -269,23 +331,102 @@ public class Shadow extends NPC {
 	}
 
 	@Override
+	public void hourlyUpdate() {
+		this.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
+	}
+	
+	@Override
 	public void turnUpdate() {
-		if(!Main.game.getCharactersPresent().contains(this) && !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
-			if(!Main.game.isExtendedWorkTime() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
-				this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_BEDROOM);
-			} else {
-				this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
+			if(!Main.game.getCharactersPresent().contains(this)
+					&& Main.game.getPlayer().isCaptive()
+					&& !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+				if(!Main.game.isExtendedWorkTime() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
+					this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+				} else {
+					this.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
+				}
 			}
+			
+		} else {
+			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_BOUNTY_HUNTERS, true);
 		}
 	}
 	
 	@Override
 	public boolean isAbleToBeImpregnated(){
-		return true;
+		return Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR);
 	}
 
 	@Override
+	public void endSex() {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveShadowSatisfied, true);
+	}
+	
+	// Combat:
+
+	@Override
+	public Response interruptCombatSpecialCase() {
+		if(Combat.getAllCombatants(false).contains(this)
+				&& Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))
+				&& Combat.isCombatantDefeated(this)
+				&& !Combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
+			return new Response("Silence",
+					"As she sees Shadow fall to the floor, Silence stumbles back, looking as though she's about to faint.",
+					RatWarrensDialogue.BODYGUARDS_COMBAT_SHADOW_DEFEATED){
+				@Override
+				public void effects() {
+					Main.game.setInCombat(false);
+				}
+			};
+			
+		} else if(Combat.getAllCombatants(false).contains(this)
+				&& Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))
+				&& !Combat.isCombatantDefeated(this)
+				&& Combat.isCombatantDefeated(Main.game.getNpc(Silence.class))) {
+			return new Response("Shadow",
+					"As she sees Silence fall to the floor, Shadow lets out a furious scream, looking as though she's about to completely lose her mind.",
+					RatWarrensDialogue.BODYGUARDS_COMBAT_SILENCE_DEFEATED){
+				@Override
+				public void effects() {
+					Main.game.setInCombat(false);
+				}
+			};
+		}
+		return null;
+	};
+	
+	@Override
+	public int getEscapeChance() {
+		return 0;
+	}
+	
+	@Override
 	public CombatBehaviour getCombatBehaviour() {
 		return CombatBehaviour.ATTACK;
+	}
+	
+	@Override
+	public float getMoveWeight(CombatMove move, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		if((move ==CombatMove.getMove("block") || move ==CombatMove.getMove("avert"))
+				&& !Combat.getAllCombatants(false).contains(Main.game.getNpc(Silence.class))) { // Shadow does not block when beserk
+			return 0;
+		}
+		return super.getMoveWeight(move, enemies, allies);
+	}
+
+	@Override
+	public Response endCombat(boolean applyEffects, boolean victory) {
+		if(victory) {
+			return new Response("", "", RatWarrensDialogue.BODYGUARDS_COMBAT_VICTORY);
+			
+		} else {
+			return new Response("", "", RatWarrensDialogue.BODYGUARDS_COMBAT_DEFEAT) {
+				@Override
+				public void effects() {
+					RatWarrensDialogue.applyCombatDefeatFlagsReset();
+				}
+			};
+		}
 	}
 }

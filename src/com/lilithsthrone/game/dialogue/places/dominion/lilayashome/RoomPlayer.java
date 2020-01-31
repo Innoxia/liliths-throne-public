@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
-import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +37,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -86,19 +84,6 @@ public class RoomPlayer {
 			}
 			character.addStatusEffect(restedEffect, ((neet?8:6)*60*60) + (240*60) + (sleepTimeInMinutes*60));
 		}
-	}
-
-	public static int getMinutesUntilMorningOrEvening() {
-		int minutesPassed = Main.game.getDayMinutes();
-		
-		LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
-		
-		return (Main.game.isDayTime()
-				? (sunriseSunset[1].get(ChronoField.MINUTE_OF_DAY) - minutesPassed)
-				: (minutesPassed<sunriseSunset[0].get(ChronoField.MINUTE_OF_DAY)
-					?sunriseSunset[0].get(ChronoField.MINUTE_OF_DAY)
-					:(24*60)+sunriseSunset[0].get(ChronoField.MINUTE_OF_DAY)) - minutesPassed)
-				+1;
 	}
 	
 	private static String applyWash(GameCharacter character, boolean washAllOrifices, boolean cleanAllClothing, StatusEffect effect, int additionalMinutes) {
@@ -163,7 +148,7 @@ public class RoomPlayer {
 				};
 	
 			} else if (index == 4) {
-				int timeUntilChange = getMinutesUntilMorningOrEvening();
+				int timeUntilChange = Main.game.getMinutesUntilNextMorningOrEvening();
 				LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
 				return new Response("Rest until " + (Main.game.isDayTime() ? "Sunset" : "Sunrise"),
 						"Rest for " + (timeUntilChange >= 60 ?timeUntilChange / 60 + " hours " : " ")
@@ -173,7 +158,7 @@ public class RoomPlayer {
 							AUNT_HOME_PLAYERS_ROOM_SLEEP){
 					@Override
 					public void effects() {
-						sleepTimeInMinutes = getMinutesUntilMorningOrEvening();
+						sleepTimeInMinutes = Main.game.getMinutesUntilNextMorningOrEvening();
 						applySleep(sleepTimeInMinutes);
 					}
 				};
@@ -531,8 +516,8 @@ public class RoomPlayer {
 								endGreetings.add("[npc.name] mutters in annoyance, before shuffling [npc.her] [npc.feet] and letting out another quiet curse.");
 								
 							} else if(npc.isSelfish()) {
-								speechGreetings.add("[npc.speech(Eugh, what do you want now, [pc.name)]?)]");
-								speechGreetings.add("[npc.speech(And what exactly do you want <i>this</i> time, [npc.name]?)]");
+								speechGreetings.add("[npc.speech(Eugh, what do you want now, [pc.name]?)]");
+								speechGreetings.add("[npc.speech(And what exactly do you want <i>this</i> time, [pc.name]?)]");
 								speechGreetings.add("[npc.speech(So, why are you back?)]");
 								speechGreetings.add("[npc.speech(Why did you have to come back?)]");
 								
@@ -541,17 +526,17 @@ public class RoomPlayer {
 								endGreetings.add("[npc.name] snaps, before glaring at you with resentment in [npc.her] [npc.eyes].");
 								
 							} else {
-								speechGreetings.add("[npc.speech(Just do whatever it is you're here to do, [pc.name)],)]");
-								speechGreetings.add("[npc.speech(Go on then, [npc.name], do whatever you want,)]");
+								speechGreetings.add("[npc.speech(Just do whatever it is you're here to do, [pc.name],)]");
+								speechGreetings.add("[npc.speech(Go on then, [pc.name], do whatever it is you're here to do,)]");
 								speechGreetings.add("[npc.speech(Let's just get this over with,)]");
 								speechGreetings.add("[npc.speech(Go on then, tell me what it is you want this time,)]");
 								
 								endGreetings.add("[npc.name] sighs, before rolling [npc.her] [npc.eyes] in annoyance.");
 								endGreetings.add("[npc.name] sighs in annoyance, crossing [npc.her] [npc.arms] and waiting for you to make the next move.");
 								endGreetings.add("[npc.name] sighs, clearly not at all happy with being assigned to your room.");
-								endGreetings.add("[npc.name] asks, before letting out a weary sigh and tapping [npc.her] [npc.foot] on the floor.");
-								endGreetings.add("[npc.name] asks, before sighing and rolling [npc.her] [npc.eyes] in a clear sign of displeasure.");
-								endGreetings.add("[npc.name] asks, crossing [npc.her] [npc.arms] and letting out an annoyed sigh.");
+								endGreetings.add("[npc.name] says, before letting out a weary sigh and tapping [npc.her] [npc.foot] on the floor.");
+								endGreetings.add("[npc.name] says, before sighing and rolling [npc.her] [npc.eyes] in a clear sign of displeasure.");
+								endGreetings.add("[npc.name] says, crossing [npc.her] [npc.arms] and letting out an annoyed sigh.");
 							}
 
 						sb.append(UtilText.parse(npc,Util.randomItemFrom(speechGreetings)));
@@ -567,9 +552,6 @@ public class RoomPlayer {
 
 		@Override
 		public String getResponseTabTitle(int index) {
-			if(index==2) {
-				return "Bathroom";
-			}
 			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
 		}
 		
@@ -1041,7 +1023,7 @@ public class RoomPlayer {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			List<GameCharacter> hornySlaves = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
+			List<GameCharacter> hornySlaves = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
 			boolean soloSex = hornySlaves.size()==1;
 			List<String> names = new ArrayList<>();
 			hornySlaves.stream().forEach((npc) -> names.add(npc.getName()));
@@ -1978,7 +1960,7 @@ public class RoomPlayer {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>=NightlifeDistrict.getPartner().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>=NightlifeDistrict.getPartner().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_CLUBBER_SEX", NightlifeDistrict.getClubbersPresent());
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_CLUBBER_SEX_NO_ORGASM", NightlifeDistrict.getClubbersPresent());

@@ -1094,9 +1094,11 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2)),
 			Util.newArrayListOfValues(
-					"All incoming <span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>"+Attribute.HEALTH_MAXIMUM.getName()+" damage</span> is reduced by 25%",
-					"Reduced damage is converted to <span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>",
-					"Gain [style.boldArcane(1 essence)] when you are critically hit"),
+					"25% of all incoming",
+					"<span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>"+Attribute.HEALTH_MAXIMUM.getName()+" damage</span>"+ " is converted",
+					" to <span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>",
+					"[style.boldArcane(+1 essence)] when you're",
+					" critically hit"),
 			null) {
 
 		@Override
@@ -1126,9 +1128,12 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues(
-					"All dealt [style.colourHealth("+Attribute.HEALTH_MAXIMUM.getName()+" damage)] is increased by 5%",
-					"You take 10% of dealt [style.colourHealth("+Attribute.HEALTH_MAXIMUM.getName()+" damage)] as <span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>",
-					"Gain [style.boldArcane(1 essence)] when you critically hit"),
+					"[style.boldExcellent(+5%)] to all [style.colourHealth("+Attribute.HEALTH_MAXIMUM.getName()+" damage)]",
+					"10% of all inflicted",
+					"[style.colourHealth("+Attribute.HEALTH_MAXIMUM.getName()+" damage)] is dealt",
+					"back to you as <span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>",
+					"[style.boldArcane(+1 essence)] when critically",
+					" hitting enemies"),
 			null) {
 
 		@Override
@@ -1226,6 +1231,14 @@ public enum Fetish {
 										+" <span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>with beneficial versions</span>"),
 			null) {
 
+		@Override
+		public String getShortDescriptor(GameCharacter target) {
+			if(target==null) {
+				return "exposing themself";
+			}
+			return UtilText.parse(target, "exposing [npc.herself]");
+		}
+		
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer())

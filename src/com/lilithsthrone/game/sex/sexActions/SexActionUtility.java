@@ -7,7 +7,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PositioningMenu;
@@ -46,13 +45,13 @@ public class SexActionUtility {
 		
 		@Override
 		public String getDescription() {
-			if(Sex.isMasturbation()) {
+			if(Main.sex.isMasturbation()) {
 				return "You remain still, not making a move...";
 			}
 			
-			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotGeneric.MISC_WATCHING) {
-				List<GameCharacter> characters = new ArrayList<>(Sex.getAllParticipants());
-				characters.remove(Sex.getCharacterPerformingAction());
+			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotGeneric.MISC_WATCHING) {
+				List<GameCharacter> characters = new ArrayList<>(Main.sex.getAllParticipants());
+				characters.remove(Main.sex.getCharacterPerformingAction());
 				if(characters.size()>=2) {
 					return UtilText.parse(characters,
 							UtilText.returnStringAtRandom(
@@ -62,7 +61,7 @@ public class SexActionUtility {
 				}
 			}
 			
-			switch(Sex.getSexPace(Main.game.getPlayer())) {
+			switch(Main.sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return UtilText.returnStringAtRandom(
 							"You remain in position, gently pressing yourself against [npc.name], but not making any sort of move on [npc.herHim].",
@@ -127,39 +126,39 @@ public class SexActionUtility {
 		
 		@Override
 		public String getDescription() {
-			switch(Sex.getSexPace(Main.game.getPlayer())) {
+			switch(Main.sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return UtilText.returnStringAtRandom(
-							Sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							Main.sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
 							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
 							"Taking a deep breath, you focus on calming yourself down a little.");
 				case DOM_NORMAL:
 					return UtilText.returnStringAtRandom(
-							Sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							Main.sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
 							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
 							"Taking a deep breath, you focus on calming yourself down a little.");
 				case DOM_ROUGH:
 					return UtilText.returnStringAtRandom(
-							Sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							Main.sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
 							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
 							"Taking a deep breath, you focus on calming yourself down a little.");
 				case SUB_EAGER:
 					return UtilText.returnStringAtRandom(
-							Sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							Main.sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
 							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
 							"Taking a deep breath, you focus on calming yourself down a little.");
 				case SUB_NORMAL:
 					return UtilText.returnStringAtRandom(
-							Sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							Main.sex.isMasturbation()?"":"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
 							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
 							"Taking a deep breath, you focus on calming yourself down a little.");
 				case SUB_RESISTING:
 					return UtilText.returnStringAtRandom(
-							Sex.isMasturbation()?"":"Still weakly struggling against [npc.name], you try to calm yourself down a little, reminding yourself that this will all be over soon.",
+							Main.sex.isMasturbation()?"":"Still weakly struggling against [npc.name], you try to calm yourself down a little, reminding yourself that this will all be over soon.",
 							"Scrunching your [pc.eyes] shut, you try to take a deep breath, pretending that this isn't happening as you seek to calm yourself down.",
-							Sex.isMasturbation()?"":"Taking a deep breath, you try to calm down a little, before continuing to struggle against [npc.name].");
+							Main.sex.isMasturbation()?"":"Taking a deep breath, you try to calm down a little, before continuing to struggle against [npc.name].");
 				default:
-					return Sex.isMasturbation()?"":"You try to focus on something other than the [npc.race] you're currently having sex with. By doing so, you manage to calm yourself down a little, reducing your arousal.";
+					return Main.sex.isMasturbation()?"":"You try to focus on something other than the [npc.race] you're currently having sex with. By doing so, you manage to calm yourself down a little, reducing your arousal.";
 			}
 		}
 	};
@@ -241,7 +240,7 @@ public class SexActionUtility {
 		
 		@Override
 		public String getDescription() {
-			return Sex.getUsingItemText();
+			return Main.sex.getUsingItemText();
 				
 		}
 	};
@@ -269,7 +268,7 @@ public class SexActionUtility {
 
 		@Override
 		public String getDescription() {
-			return Sex.getUnequipClothingText();
+			return Main.sex.getUnequipClothingText();
 		}
 	};
 	
@@ -296,7 +295,7 @@ public class SexActionUtility {
 
 		@Override
 		public String getDescription() {
-			return Sex.getDyeClothingText();
+			return Main.sex.getDyeClothingText();
 		}
 	};
 	
@@ -329,7 +328,7 @@ public class SexActionUtility {
 		@Override
 		public void applyEffects() {
 			PositioningMenu.setNewSexManager();
-			Sex.setSexStarted(true);
+			Main.sex.setSexStarted(true);
 		}
 	};
 }

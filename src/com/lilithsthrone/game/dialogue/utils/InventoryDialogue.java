@@ -41,7 +41,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Pattern;
@@ -151,28 +150,12 @@ public class InventoryDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (inventoryNPC!=null && interactionType == InventoryInteraction.TRADING) {
+			if(inventoryNPC!=null && interactionType==InventoryInteraction.TRADING) {
 				UtilText.nodeContentSB.append(inventoryNPC.getTraderDescription());
 				
 			} else if(interactionType==InventoryInteraction.CHARACTER_CREATION) {
 				return CharacterCreation.getCheckingClothingDescription();
 			}
-//			if(item!=null) {
-//				return ITEM_INVENTORY.getResponse(responseTab, index);
-//			} else if(clothing!=null) {
-//				if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(clothing) || (inventoryNPC!=null && inventoryNPC.getClothingCurrentlyEquipped().contains(clothing))) {
-//					return CLOTHING_EQUIPPED.getResponse(responseTab, index);
-//				} else {
-//					return CLOTHING_INVENTORY.getResponse(responseTab, index);
-//				}
-//			} else if(weapon!=null) {
-//				if((Main.game.getPlayer().getMainWeapon().equals(weapon) || Main.game.getPlayer().getOffhandWeapon().equals(weapon))
-//						 || (inventoryNPC!=null && (inventoryNPC.getMainWeapon().equals(weapon) || inventoryNPC.getOffhandWeapon().equals(weapon)))) {
-//					return WEAPON_EQUIPPED.getResponse(responseTab, index);
-//				} else {
-//					return WEAPON_INVENTORY.getResponse(responseTab, index);
-//				}
-//			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -183,9 +166,6 @@ public class InventoryDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			//TODO sex end
-			// What does that even mean? BlobSweats
-			
 			if (index == 0) {
 				return getCloseInventoryResponse();
 			}
@@ -193,12 +173,14 @@ public class InventoryDialogue {
 			if(responseTab==1) {
 				if(item!=null) {
 					return ITEM_INVENTORY.getResponse(responseTab, index);
+					
 				} else if(clothing!=null) {
 					if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(clothing) || (inventoryNPC!=null && inventoryNPC.getClothingCurrentlyEquipped().contains(clothing))) {
 						return CLOTHING_EQUIPPED.getResponse(responseTab, index);
 					} else {
 						return CLOTHING_INVENTORY.getResponse(responseTab, index);
 					}
+					
 				} else if(weapon!=null) {
 					if(Main.game.getPlayer().hasWeaponEquipped(weapon)
 							|| (inventoryNPC!=null && inventoryNPC.hasWeaponEquipped(weapon))) {
@@ -206,6 +188,7 @@ public class InventoryDialogue {
 					} else {
 						return WEAPON_INVENTORY.getResponse(responseTab, index);
 					}
+					
 				} else {
 					return null;
 				}
@@ -235,6 +218,17 @@ public class InventoryDialogue {
 						}
 						return new Response("Drop all", "You can't do this during combat!", null);
 
+					} else if(index==11) {
+						if(Main.game.getPlayer().getUnlockKeyMap().isEmpty()) {
+							return new Response("Keys", "You do not currently own any keys which are used for unlocking certain items of clothing.", null);
+							
+						} else if(Main.game.getCurrentDialogueNode()==INVENTORY_MENU_KEYS) {
+							return new Response("Keys", "You are already viewing a list of all the keys that you own which are used for unlocking certain items of clothing.", null);
+							
+						} else {
+							return new Response("Keys", "View a list of all the keys that you currently own which are used for unlocking certain items of clothing.", INVENTORY_MENU_KEYS);
+						}
+						
 					} else {
 						return null;
 					}
@@ -470,6 +464,17 @@ public class InventoryDialogue {
 					} else if (index == 10 && !Main.game.isInSex() && !Main.game.isInCombat()) {
 						return getQuickTradeResponse();
 
+					} else if(index==11) {
+						if(Main.game.getPlayer().getUnlockKeyMap().isEmpty()) {
+							return new Response("Keys", "You do not currently own any keys which are used for unlocking certain items of clothing.", null);
+							
+						} else if(Main.game.getCurrentDialogueNode()==INVENTORY_MENU_KEYS) {
+							return new Response("Keys", "You are already viewing a list of all the keys that you own which are used for unlocking certain items of clothing.", null);
+							
+						} else {
+							return new Response("Keys", "View a list of all the keys that you currently own which are used for unlocking certain items of clothing.", INVENTORY_MENU_KEYS);
+						}
+						
 					} else {
 						return null;
 					}
@@ -616,6 +621,17 @@ public class InventoryDialogue {
 					} else if (index == 10 && !Main.game.isInSex() && !Main.game.isInCombat()) {
 						return getQuickTradeResponse();
 
+					} else if(index==11) {
+						if(Main.game.getPlayer().getUnlockKeyMap().isEmpty()) {
+							return new Response("Keys", "You do not currently own any keys which are used for unlocking certain items of clothing.", null);
+							
+						} else if(Main.game.getCurrentDialogueNode()==INVENTORY_MENU_KEYS) {
+							return new Response("Keys", "You are already viewing a list of all the keys that you own which are used for unlocking certain items of clothing.", null);
+							
+						} else {
+							return new Response("Keys", "View a list of all the keys that you currently own which are used for unlocking certain items of clothing.", INVENTORY_MENU_KEYS);
+						}
+						
 					} else {
 						return null;
 					}
@@ -628,7 +644,7 @@ public class InventoryDialogue {
 							return new Response("Displace all", "You aren't wearing any clothing, so there's nothing to displace!", null);
 
 						} else {
-							return new Response("Displace all", "Displace as much of your clothing as possible.", Sex.SEX_DIALOGUE){
+							return new Response("Displace all", "Displace as much of your clothing as possible.", Main.sex.SEX_DIALOGUE){
 								@Override
 								public void effects(){
 									responseSB.setLength(0);
@@ -642,10 +658,10 @@ public class InventoryDialogue {
 										}
 									}
 
-									Sex.setUnequipClothingText(null, responseSB.toString());
+									Main.sex.setUnequipClothingText(null, responseSB.toString());
 									Main.mainController.openInventory();
-									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-									Sex.setSexStarted(true);
+									Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+									Main.sex.setSexStarted(true);
 								}
 							};
 						}
@@ -658,17 +674,17 @@ public class InventoryDialogue {
 							return new Response("Unequip all", "You aren't wearing any clothing, so there's nothing to remove!", null);
 
 						} else {
-							return new Response("Unequip all", "Remove as much of your clothing as possible.", Sex.SEX_DIALOGUE){
+							return new Response("Unequip all", "Remove as much of your clothing as possible.", Main.sex.SEX_DIALOGUE){
 								@Override
 								public void effects(){
 									responseSB.setLength(0);
 									
 									responseSB.append(unequipAll(Main.game.getPlayer()));
 									
-									Sex.setUnequipClothingText(null, responseSB.toString());
+									Main.sex.setUnequipClothingText(null, responseSB.toString());
 									Main.mainController.openInventory();
-									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-									Sex.setSexStarted(true);
+									Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+									Main.sex.setSexStarted(true);
 								}
 							};
 						}
@@ -683,14 +699,14 @@ public class InventoryDialogue {
 						return new Response("Drop all", "You can't do this during sex...", null);
 
 					} else if (index == 7 && inventoryNPC != null) {
-						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), null)) {
+						if(!Main.sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), null)) {
 							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "You can't displace [npc.namePos] clothing in this sex scene!"), null);
 
 						} else if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
 							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to displace!"), null);
 
 						} else {
-							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "Displace as much of [npc.namePos] clothing as possible."), Sex.SEX_DIALOGUE){
+							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "Displace as much of [npc.namePos] clothing as possible."), Main.sex.SEX_DIALOGUE){
 								@Override
 								public void effects(){
 									responseSB.setLength(0);
@@ -704,10 +720,10 @@ public class InventoryDialogue {
 										}
 									}
 
-									Sex.setUnequipClothingText(null, responseSB.toString());
+									Main.sex.setUnequipClothingText(null, responseSB.toString());
 									Main.mainController.openInventory();
-									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-									Sex.setSexStarted(true);
+									Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+									Main.sex.setSexStarted(true);
 								}
 							};
 						}
@@ -716,28 +732,39 @@ public class InventoryDialogue {
 						return new Response("Replace all (them)", "You can't replace clothing in sex!", null);
 
 					} else if (index == 9 && inventoryNPC != null) {
-						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), null)) {
+						if(!Main.sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), null)) {
 							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "You can't unequip [npc.namePos] clothing in this sex scene!"), null);
 
 						} else if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
 							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "[npc.Name] isn't wearing any clothing, so there's nothing to remove!"), null);
 
 						} else {
-							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "Remove as much of [npc.namePos] clothing as possible."), Sex.SEX_DIALOGUE){
+							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "Remove as much of [npc.namePos] clothing as possible."), Main.sex.SEX_DIALOGUE){
 								@Override
 								public void effects(){
 									responseSB.setLength(0);
 
 									responseSB.append(unequipAll(inventoryNPC));
 
-									Sex.setUnequipClothingText(null, responseSB.toString());
+									Main.sex.setUnequipClothingText(null, responseSB.toString());
 									Main.mainController.openInventory();
-									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-									Sex.setSexStarted(true);
+									Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+									Main.sex.setSexStarted(true);
 								}
 							};
 						}
 
+					} else if(index==11) {
+						if(Main.game.getPlayer().getUnlockKeyMap().isEmpty()) {
+							return new Response("Keys", "You do not currently own any keys which are used for unlocking certain items of clothing.", null);
+							
+						} else if(Main.game.getCurrentDialogueNode()==INVENTORY_MENU_KEYS) {
+							return new Response("Keys", "You are already viewing a list of all the keys that you own which are used for unlocking certain items of clothing.", null);
+							
+						} else {
+							return new Response("Keys", "View a list of all the keys that you currently own which are used for unlocking certain items of clothing.", INVENTORY_MENU_KEYS);
+						}
+						
 					} else {
 						return null;
 					}
@@ -751,7 +778,78 @@ public class InventoryDialogue {
 			return DialogueNodeType.INVENTORY;
 		}
 	};
+	
+	public static final DialogueNode INVENTORY_MENU_KEYS = new DialogueNode("Inventory", "Return to inventory menu.", true) {
+		@Override
+		public String getLabel() {
+			if(!Main.game.isInNewWorld()) {
+				return "Evening's Attire";
+			}
+			
+			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
+				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+			} else {
+				return "Inventory";
+			}
+		}
 
+		@Override
+		public String getHeaderContent() {
+			return inventoryView();
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("<p>");
+			UtilText.nodeContentSB.append("[style.boldMinorGood(Keys owned:)]");
+			if(Main.game.getPlayer().getUnlockKeyMap().isEmpty()) {
+				UtilText.nodeContentSB.append("<br/>[style.italicsDisabled(None...)]");
+				
+			} else {
+				for(Entry<String, List<InventorySlot>> entry : Main.game.getPlayer().getUnlockKeyMap().entrySet()) {
+					try {
+						GameCharacter npc = Main.game.getNPCById(entry.getKey());
+						List<String> slots = new ArrayList<>();
+						for(InventorySlot slot : entry.getValue()) {
+							AbstractClothing slotClothing = npc.getClothingInSlot(slot);
+							if(slotClothing!=null) {
+								slots.add(Util.capitaliseSentence(slotClothing.getName())+" ('"+slot.getName()+"' slot)");
+							}
+						}
+						if(!slots.isEmpty()) {
+							UtilText.nodeContentSB.append(UtilText.parse(npc, "<br/><b style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> ("+slots.size()+"): "));
+							int i=0;
+							for(String s : slots) {
+								UtilText.nodeContentSB.append((i>0?", ":"")+s);
+								i++;
+							}
+						}
+					} catch (Exception e) {
+					}
+				}
+			}
+			UtilText.nodeContentSB.append("</p>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		public String getResponseTabTitle(int index) {
+			return getGeneralResponseTabTitle(index);
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return INVENTORY_MENU.getResponse(responseTab, index);
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.INVENTORY;
+		}
+	};
+	
 	public static final DialogueNode ITEM_INVENTORY = new DialogueNode("Item", "", true) {
 
 		@Override
@@ -837,14 +935,14 @@ public class InventoryDialogue {
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
 											item.getItemType().getUseTooltipDescription(owner, owner),
-											Sex.SEX_DIALOGUE){
+											Main.sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false));
+											Main.sex.setUsingItemText(Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false));
 											resetPostAction();
 											Main.mainController.openInventory();
-											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
-											Sex.setSexStarted(true);
+											Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+											Main.sex.setSexStarted(true);
 										}
 									};
 								}
@@ -1483,14 +1581,14 @@ public class InventoryDialogue {
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
 											item.getItemType().getUseTooltipDescription(owner, owner),
-											Sex.SEX_DIALOGUE){
+											Main.sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(((NPC)Sex.getTargetedPartner(Main.game.getPlayer())).getItemUseEffects(item, owner, Main.game.getPlayer(), Main.game.getPlayer()));
+											Main.sex.setUsingItemText(((NPC)Main.sex.getTargetedPartner(Main.game.getPlayer())).getItemUseEffects(item, owner, Main.game.getPlayer(), Main.game.getPlayer()));
 											resetPostAction();
 											Main.mainController.openInventory();
-											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
-											Sex.setSexStarted(true);
+											Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+											Main.sex.setSexStarted(true);
 										}
 									};
 								}
@@ -1515,7 +1613,7 @@ public class InventoryDialogue {
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
 											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
-											Sex.SEX_DIALOGUE,
+											Main.sex.SEX_DIALOGUE,
 											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 											Fetish.FETISH_KINK_GIVING.getAssociatedCorruptionLevel(),
 											null,
@@ -1523,11 +1621,11 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
+											Main.sex.setUsingItemText(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 											Main.mainController.openInventory();
-											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
-											Sex.setSexStarted(true);
+											Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+											Main.sex.setSexStarted(true);
 										}
 									};
 									
@@ -1535,7 +1633,7 @@ public class InventoryDialogue {
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
 											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
-											Sex.SEX_DIALOGUE,
+											Main.sex.SEX_DIALOGUE,
 											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 											null,
@@ -1543,11 +1641,11 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
+											Main.sex.setUsingItemText(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 											Main.mainController.openInventory();
-											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
-											Sex.setSexStarted(true);
+											Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+											Main.sex.setSexStarted(true);
 										}
 									};
 									
@@ -1555,14 +1653,14 @@ public class InventoryDialogue {
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
 											item.getItemType().getUseTooltipDescription(owner, inventoryNPC),
-											Sex.SEX_DIALOGUE){
+											Main.sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
+											Main.sex.setUsingItemText(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 											Main.mainController.openInventory();
-											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
-											Sex.setSexStarted(true);
+											Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+											Main.sex.setSexStarted(true);
 										}
 									};
 								}
@@ -1732,7 +1830,7 @@ public class InventoryDialogue {
 					}
 				}
 				
-			// ****************************** ITEM DOES NOT BELONG TO PLAYER ****************************** TODO
+			// ****************************** ITEM DOES NOT BELONG TO PLAYER ******************************
 				
 			} else {
 				// ****************************** Interacting with the ground ******************************
@@ -1767,14 +1865,14 @@ public class InventoryDialogue {
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
 											item.getItemType().getUseTooltipDescription(Main.game.getPlayer(), Main.game.getPlayer()),
-											Sex.SEX_DIALOGUE){
+											Main.sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(Main.game.getPlayer().useItem(item, Main.game.getPlayer(), true));
+											Main.sex.setUsingItemText(Main.game.getPlayer().useItem(item, Main.game.getPlayer(), true));
 											resetPostAction();
 											Main.mainController.openInventory();
-											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
-											Sex.setSexStarted(true);
+											Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+											Main.sex.setSexStarted(true);
 										}
 									};
 								}
@@ -2208,14 +2306,14 @@ public class InventoryDialogue {
 //									
 //								} else {
 //									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)",
-//											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
+//											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", Main.sex.SEX_DIALOGUE){
 //										@Override
 //										public void effects(){
-//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, Main.game.getPlayer()));
+//											Main.sex.setUsingItemText(Main.sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, Main.game.getPlayer()));
 //											resetPostAction();
 //											Main.mainController.openInventory();
-//											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
-//											Sex.setSexStarted(true);
+//											Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+//											Main.sex.setSexStarted(true);
 //										}
 //									};
 //								}
@@ -2241,7 +2339,7 @@ public class InventoryDialogue {
 //								} else if(item.getItemType().isFetishGiving()) {
 //									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
 //											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
-//											Sex.SEX_DIALOGUE,
+//											Main.sex.SEX_DIALOGUE,
 //											Util.newArrayListOfValues(Fetish.FETISH_KINK_GIVING),
 //											Fetish.v.getAssociatedCorruptionLevel(),
 //											null,
@@ -2249,17 +2347,17 @@ public class InventoryDialogue {
 //											null){
 //										@Override
 //										public void effects(){
-//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, inventoryNPC));
+//											Main.sex.setUsingItemText(Main.sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, inventoryNPC));
 //											resetPostAction();
 //											Main.mainController.openInventory();
-//											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
-//											Sex.setSexStarted(true);
+//											Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+//											Main.sex.setSexStarted(true);
 //										}
 //									};
 //								} else if(item.getItemType().isTransformative()) {
 //									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
 //											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".",
-//											Sex.SEX_DIALOGUE,
+//											Main.sex.SEX_DIALOGUE,
 //											Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_GIVING),
 //											Fetish.FETISH_TRANSFORMATION_GIVING.getAssociatedCorruptionLevel(),
 //											null,
@@ -2267,24 +2365,24 @@ public class InventoryDialogue {
 //											null){
 //										@Override
 //										public void effects(){
-//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, inventoryNPC));
+//											Main.sex.setUsingItemText(Main.sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, inventoryNPC));
 //											resetPostAction();
 //											Main.mainController.openInventory();
-//											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
-//											Sex.setSexStarted(true);
+//											Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+//											Main.sex.setSexStarted(true);
 //										}
 //									};
 //									
 //								} else {
 //									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
-//											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
+//											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Main.sex.SEX_DIALOGUE){
 //										@Override
 //										public void effects(){
-//											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, inventoryNPC));
+//											Main.sex.setUsingItemText(Main.sex.getPartner().getItemUseEffects(item, owner, inventoryNPC, inventoryNPC));
 //											resetPostAction();
 //											Main.mainController.openInventory();
-//											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
-//											Sex.setSexStarted(true);
+//											Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
+//											Main.sex.setSexStarted(true);
 //										}
 //									};
 //								}
@@ -3569,22 +3667,22 @@ public class InventoryDialogue {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
 								if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 									if(clothing.getClothingType().isAbleToBeEquippedDuringSex(slot)) {
-										if(!Sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "As this is a special sex scene, you cannot equip clothing during it!", null);
 										}
-										if(!Sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
+										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "This slot is involved with an ongoing sex action, so you cannot equip clothing into it!", null);
 										}
 										if(Main.game.getPlayer().isAbleToEquip(clothing, slot, false, Main.game.getPlayer())) {
-											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "Equip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
+											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "Equip the " + clothing.getName() + ".", Main.sex.SEX_DIALOGUE){
 												@Override
 												public void effects(){
 													AbstractClothing c = clothing;
 													equipClothingFromInventory(Main.game.getPlayer(), slot, Main.game.getPlayer(), clothing);
-													Sex.setEquipClothingText(c, Main.game.getPlayer().getUnequipDescription());
+													Main.sex.setEquipClothingText(c, Main.game.getPlayer().getUnequipDescription());
 													Main.mainController.openInventory();
-													Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-													Sex.setSexStarted(true);
+													Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+													Main.sex.setSexStarted(true);
 												}
 											};
 										} else {
@@ -4071,22 +4169,22 @@ public class InventoryDialogue {
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
 								if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 									if(clothing.getClothingType().isAbleToBeEquippedDuringSex(slot)) {
-										if(!Sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "As this is a special sex scene, you cannot equip clothing during it!", null);
 										}
-										if(!Sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
+										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "This slot is involved with an ongoing sex action, so you cannot equip clothing into it!", null);
 										}
 										if (Main.game.getPlayer().isAbleToEquip(clothing, slot, false, Main.game.getPlayer())) {
-											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "Equip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
+											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "Equip the " + clothing.getName() + ".", Main.sex.SEX_DIALOGUE){
 												@Override
 												public void effects(){
 													AbstractClothing c = clothing;
 													equipClothingFromInventory(Main.game.getPlayer(), slot, Main.game.getPlayer(), clothing);
-													Sex.setEquipClothingText(c, Main.game.getPlayer().getUnequipDescription());
+													Main.sex.setEquipClothingText(c, Main.game.getPlayer().getUnequipDescription());
 													Main.mainController.openInventory();
-													Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-													Sex.setSexStarted(true);
+													Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+													Main.sex.setSexStarted(true);
 												}
 											};
 										} else {
@@ -4119,13 +4217,13 @@ public class InventoryDialogue {
 								}
 								if(clothing.isCanBeEquipped(inventoryNPC, slot)) {
 									if(clothing.getClothingType().isAbleToBeEquippedDuringSex(slot)) {
-										if(!Sex.getInitialSexManager().isAbleToEquipSexClothing(inventoryNPC)) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(inventoryNPC)) {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.Name])"),
 													"As this is a special sex scene, you cannot equip clothing during it!",
 													null);
 										}
-										if(!Sex.isClothingEquipAvailable(inventoryNPC, slot)) {
+										if(!Main.sex.isClothingEquipAvailable(inventoryNPC, slot)) {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.Name])"),
 													"This slot is involved with an ongoing sex action, so you cannot equip clothing into it!",
@@ -4135,15 +4233,15 @@ public class InventoryDialogue {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.Name])"),
 													UtilText.parse(inventoryNPC, "Get [npc.Name] to equip the " + clothing.getName() + "."),
-													Sex.SEX_DIALOGUE){
+													Main.sex.SEX_DIALOGUE){
 												@Override
 												public void effects(){
 													AbstractClothing c = clothing;
 													equipClothingFromInventory(inventoryNPC, slot, Main.game.getPlayer(), clothing);
-													Sex.setEquipClothingText(c, inventoryNPC.getUnequipDescription());
+													Main.sex.setEquipClothingText(c, inventoryNPC.getUnequipDescription());
 													Main.mainController.openInventory();
-													Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-													Sex.setSexStarted(true);
+													Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+													Main.sex.setSexStarted(true);
 												}
 											};
 										} else {
@@ -4443,22 +4541,22 @@ public class InventoryDialogue {
 							InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
 							if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 								if(clothing.getClothingType().isAbleToBeEquippedDuringSex(slot)) {
-									if(!Sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
+									if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
 										return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "As this is a special sex scene, you cannot equip clothing during it!", null);
 									}
-									if(!Sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
+									if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
 										return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "This slot is involved with an ongoing sex action, so you cannot equip clothing into it!", null);
 									}
 									if (Main.game.getPlayer().isAbleToEquip(clothing, slot, false, Main.game.getPlayer())) {
-										return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "Equip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
+										return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "Equip the " + clothing.getName() + ".", Main.sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
 												AbstractClothing c = clothing;
 												equipClothingFromGround(Main.game.getPlayer(), slot, Main.game.getPlayer(), clothing);
-												Sex.setEquipClothingText(c, Main.game.getPlayer().getUnequipDescription());
+												Main.sex.setEquipClothingText(c, Main.game.getPlayer().getUnequipDescription());
 												Main.mainController.openInventory();
-												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-												Sex.setSexStarted(true);
+												Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+												Main.sex.setSexStarted(true);
 											}
 										};
 									} else {
@@ -4778,26 +4876,26 @@ public class InventoryDialogue {
 								}
 								return new Response("Enchant", "You can't enchant someone else's clothing, especially not while having sex with them!", null);
 
-							} else if(index >= 6 && index <= 9 && index-6<clothing.getClothingType().getEquipSlots().size()) { //TODO
+							} else if(index >= 6 && index <= 9 && index-6<clothing.getClothingType().getEquipSlots().size()) { //TODO ???
 								InventorySlot slot = clothing.getClothingType().getEquipSlots().get(index-6);
 								if(clothing.isCanBeEquipped(Main.game.getPlayer(), slot)) {
 									if(clothing.getClothingType().isAbleToBeEquippedDuringSex(slot) && !inventoryNPC.isTrader()) {
-										if(!Sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "As this is a special sex scene, you cannot equip clothing during it!", null);
 										}
-										if(!Sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
+										if(!Main.sex.isClothingEquipAvailable(Main.game.getPlayer(), slot)) {
 											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "This slot is involved with an ongoing sex action, so you cannot equip clothing into it!", null);
 										}
 										if (Main.game.getPlayer().isAbleToEquip(clothing, slot, false, Main.game.getPlayer())) {
-											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "Equip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
+											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), "Equip the " + clothing.getName() + ".", Main.sex.SEX_DIALOGUE){
 												@Override
 												public void effects(){
 													AbstractClothing c = clothing;
 													equipClothingFromInventory(Main.game.getPlayer(), slot, Main.game.getPlayer(), clothing);
-													Sex.setEquipClothingText(c, Main.game.getPlayer().getUnequipDescription());
+													Main.sex.setEquipClothingText(c, Main.game.getPlayer().getUnequipDescription());
 													Main.mainController.openInventory();
-													Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-													Sex.setSexStarted(true);
+													Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+													Main.sex.setSexStarted(true);
 												}
 											};
 										} else {
@@ -4824,13 +4922,13 @@ public class InventoryDialogue {
 								}
 								if(clothing.isCanBeEquipped(inventoryNPC, slot)) {
 									if(clothing.getClothingType().isAbleToBeEquippedDuringSex(slot) && !inventoryNPC.isTrader()) {
-										if(!Sex.getInitialSexManager().isAbleToEquipSexClothing(inventoryNPC)) {
+										if(!Main.sex.getInitialSexManager().isAbleToEquipSexClothing(inventoryNPC)) {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.Name])"),
 													"As this is a special sex scene, you cannot equip clothing during it!",
 													null);
 										}
-										if(!Sex.isClothingEquipAvailable(inventoryNPC, slot)) {
+										if(!Main.sex.isClothingEquipAvailable(inventoryNPC, slot)) {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.Name])"), 
 													"This slot is involved with an ongoing sex action, so you cannot equip clothing into it!",
@@ -4840,15 +4938,15 @@ public class InventoryDialogue {
 											return new Response(
 													UtilText.parse(inventoryNPC, "Equip: "+Util.capitaliseSentence(slot.getName())+" ([npc.Name])"),
 													UtilText.parse(inventoryNPC, "Get [npc.Name] to equip the " + clothing.getName() + "."),
-													Sex.SEX_DIALOGUE){
+													Main.sex.SEX_DIALOGUE){
 												@Override
 												public void effects(){
 													AbstractClothing c = clothing;
 													equipClothingFromInventory(inventoryNPC, slot, Main.game.getPlayer(), clothing);
-													Sex.setEquipClothingText(c, inventoryNPC.getUnequipDescription());
+													Main.sex.setEquipClothingText(c, inventoryNPC.getUnequipDescription());
 													Main.mainController.openInventory();
-													Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-													Sex.setSexStarted(true);
+													Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+													Main.sex.setSexStarted(true);
 												}
 											};
 										} else {
@@ -5125,17 +5223,17 @@ public class InventoryDialogue {
 								} else if(areaFull) {
 									return new Response("Drop", "This area is full, so you can't drop your " + weapon.getName() + " here!", null);
 								} else {
-									return new Response("Drop", "Drop your " + weapon.getName() + ".", Sex.SEX_DIALOGUE){
+									return new Response("Drop", "Drop your " + weapon.getName() + ".", Main.sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUnequipWeaponText(weapon,
+											Main.sex.setUnequipWeaponText(weapon,
 													"<p style='text-align:center;'>"
 														+ (Main.game.getPlayer().unequipWeapon(weaponSlot, weapon, true, true))
 													+ "</p>");
 											resetPostAction();
 											Main.mainController.openInventory();
-											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-											Sex.setSexStarted(true);
+											Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+											Main.sex.setSexStarted(true);
 										}
 									};
 								}
@@ -5147,17 +5245,17 @@ public class InventoryDialogue {
 								} else if(areaFull) {
 									return new Response("Store", "This area is full, so you can't store your " + weapon.getName() + " here!", null);
 								} else {
-									return new Response("Store", "Store your " + weapon.getName() + " in this area.", Sex.SEX_DIALOGUE){
+									return new Response("Store", "Store your " + weapon.getName() + " in this area.", Main.sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUnequipWeaponText(weapon,
+											Main.sex.setUnequipWeaponText(weapon,
 													"<p style='text-align:center;'>"
 														+ (Main.game.getPlayer().unequipWeapon(weaponSlot, weapon, true, true))
 													+ "</p>");
 											resetPostAction();
 											Main.mainController.openInventory();
-											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-											Sex.setSexStarted(true);
+											Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+											Main.sex.setSexStarted(true);
 										}
 									};
 								}
@@ -5170,17 +5268,17 @@ public class InventoryDialogue {
 							return new Response("Enchant", "You can't enchant equipped weapons!", null);
 							
 						} else if(index == 6) {
-							return new Response("Unequip", "Unequip the " + weapon.getName() + ".", Sex.SEX_DIALOGUE){
+							return new Response("Unequip", "Unequip the " + weapon.getName() + ".", Main.sex.SEX_DIALOGUE){
 								@Override
 								public void effects(){
-									Sex.setUnequipWeaponText(weapon,
+									Main.sex.setUnequipWeaponText(weapon,
 											"<p style='text-align:center;'>"
 												+ (Main.game.getPlayer().unequipWeapon(weaponSlot, weapon, false, true))
 											+ "</p>");
 									resetPostAction();
 									Main.mainController.openInventory();
-									Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-									Sex.setSexStarted(true);
+									Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+									Main.sex.setSexStarted(true);
 								}
 							};
 							
@@ -5273,7 +5371,7 @@ public class InventoryDialogue {
 										INVENTORY_MENU){
 									@Override
 									public void effects(){
-										inventoryNPC.unequipWeaponIntoVoid(weaponSlot, weapon);
+										inventoryNPC.unequipWeaponIntoVoid(weaponSlot, weapon, true);
 										Main.game.getTextEndStringBuilder().append(
 												"<p style='text-align:center;'>"
 													+ (Main.game.getPlayer().addWeapon(weapon, false))
@@ -5444,11 +5542,8 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(isAbleToRemoveJinxes()) {
-									return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You can't unjinx clothing in combat!", null);
-								} else {
-									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
-								}
+								return getJinxRemovalResponse();
+									
 							} else {
 								if(clothing.isCondom()) {
 									if(clothing.getCondomEffect().getPotency().isNegative()) {
@@ -5536,29 +5631,8 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(isAbleToRemoveJinxes()) {
-									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
-										return new Response("Unjinx ([style.italicsArcane("+clothing.getJinxRemovalCost()+" Essences)])",
-												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.", INVENTORY_MENU) {
-											@Override
-											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												Main.game.getTextEndStringBuilder().append(
-														"<p>"
-															+ "You channel the power of your arcane essences into your "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
-														+ "</p>"
-														+ "<p style='text-align:center;'>"
-															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
-														+ "</p>");
-												clothing.setSealed(false);
-											}
-										};
-									} else {
-										return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx this piece of clothing!", null);
-									}
-								} else {
-									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
-								}
+								return getJinxRemovalResponse();
+								
 							} else {
 								if(clothing.isCondom()) {
 									if(clothing.getCondomEffect().getPotency().isNegative()) {
@@ -5684,16 +5758,16 @@ public class InventoryDialogue {
 												(clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)
 														?"Take off "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " and throw it away."
 														:"Drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + "."),
-												Sex.SEX_DIALOGUE){
+												Main.sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
 												GameCharacter unequipOwner = owner;
 												AbstractClothing c = clothing;
 												unequipClothingToFloor(Main.game.getPlayer(), clothing);
-												Sex.setUnequipClothingText(c, unequipOwner.getUnequipDescription());
+												Main.sex.setUnequipClothingText(c, unequipOwner.getUnequipDescription());
 												Main.mainController.openInventory();
-												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-												Sex.setSexStarted(true);
+												Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+												Main.sex.setSexStarted(true);
 											}
 										};
 									} else {
@@ -5713,16 +5787,16 @@ public class InventoryDialogue {
 												(clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)
 														?"Take off "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " and throw it away."
 														:"Drop "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + "."),
-												Sex.SEX_DIALOGUE){
+												Main.sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
 												GameCharacter unequipOwner = owner;
 												AbstractClothing c = clothing;
 												unequipClothingToFloor(Main.game.getPlayer(), clothing);
-												Sex.setUnequipClothingText(c, unequipOwner.getUnequipDescription());
+												Main.sex.setUnequipClothingText(c, unequipOwner.getUnequipDescription());
 												Main.mainController.openInventory();
-												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-												Sex.setSexStarted(true);
+												Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+												Main.sex.setSexStarted(true);
 											}
 										};
 									} else {
@@ -5736,33 +5810,8 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(isAbleToRemoveJinxes()) {
-									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
-										return new Response("Unjinx ([style.italicsArcane("+clothing.getJinxRemovalCost()+" Essences)])",
-												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.",
-												Sex.SEX_DIALOGUE) {
-											@Override
-											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												Sex.setJinxRemovalClothingText(clothing,
-														"<p>"
-															+ "You channel the power of your arcane essences into your "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
-														+ "</p>"
-														+ "<p style='text-align:center;'>"
-															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
-														+ "</p>");
-												clothing.setSealed(false);
-												Main.mainController.openInventory();
-												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-												Sex.setSexStarted(true);
-											}
-										};
-									} else {
-										return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx a piece of clothing!", null);
-									}
-								} else {
-									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
-								}
+								return getJinxRemovalResponse();
+								
 							} else {
 								if(clothing.isCondom()) {
 									if(clothing.getCondomEffect().getPotency().isNegative()) {
@@ -5774,20 +5823,20 @@ public class InventoryDialogue {
 							}
 							
 						} else if(index == 6 && !clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)) {
-							if(!Sex.getSexManager().isAbleToRemoveSelfClothing(Main.game.getPlayer())) {
+							if(!Main.sex.getSexManager().isAbleToRemoveSelfClothing(Main.game.getPlayer())) {
 								return new Response("Unequip", "You can't unequip the " + clothing.getName() + " in this sex scene!", null);
 							}
 							
 							if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
-								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
+								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Main.sex.SEX_DIALOGUE){
 									@Override
 									public void effects(){
 										AbstractClothing c = clothing;
 										unequipClothingToInventory(Main.game.getPlayer(), clothing);
-										Sex.setUnequipClothingText(c, owner.getUnequipDescription());
+										Main.sex.setUnequipClothingText(c, owner.getUnequipDescription());
 										Main.mainController.openInventory();
-										Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-										Sex.setSexStarted(true);
+										Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+										Main.sex.setSexStarted(true);
 									}
 								};
 							} else {
@@ -5805,7 +5854,7 @@ public class InventoryDialogue {
 												+ clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription() + "!", null);
 								
 							} else {
-								if(!Sex.getSexManager().isAbleToRemoveSelfClothing(Main.game.getPlayer())) {
+								if(!Main.sex.getSexManager().isAbleToRemoveSelfClothing(Main.game.getPlayer())) {
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11).getDescription()),
 											"You can't can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription()
 											+ " "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " in this sex scene!", null);
@@ -5820,14 +5869,14 @@ public class InventoryDialogue {
 															clothing.getSlotEquippedTo(),
 															" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
 															".</span>"),
-													Sex.SEX_DIALOGUE){
+													Main.sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
 											Main.game.getPlayer().isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11), true, true, Main.game.getPlayer());
-											Sex.setDisplaceClothingText(clothing, owner.getDisplaceDescription());
+											Main.sex.setDisplaceClothingText(clothing, owner.getDisplaceDescription());
 											Main.mainController.openInventory();
-											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-											Sex.setSexStarted(true);
+											Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+											Main.sex.setSexStarted(true);
 										}
 									};
 								
@@ -5857,11 +5906,8 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(isAbleToRemoveJinxes()) {
-									return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You can't unjinx someone's clothing while fighting them!", null);
-								} else {
-									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
-								}
+								return getJinxRemovalResponse();
+								
 							} else {
 								if(clothing.isCondom()) {
 									if(clothing.getCondomEffect().getPotency().isNegative()) {
@@ -5978,29 +6024,8 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(isAbleToRemoveJinxes()) {
-									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
-										return new Response("Unjinx ([style.italicsArcane("+clothing.getJinxRemovalCost()+" Essences)])",
-												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.", INVENTORY_MENU) {
-											@Override
-											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												Main.game.getTextEndStringBuilder().append(UtilText.parse(inventoryNPC,
-														"<p>"
-															+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
-														+ "</p>"
-														+ "<p style='text-align:center;'>"
-															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
-														+ "</p>"));
-												clothing.setSealed(false);
-											}
-										};
-									} else {
-										return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx this piece of clothing!", null);
-									}
-								} else {
-									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
-								}
+								return getJinxRemovalResponse();
+								
 							} else {
 								if(clothing.isCondom()) {
 									if(clothing.getCondomEffect().getPotency().isNegative()) {
@@ -6071,7 +6096,7 @@ public class InventoryDialogue {
 								if(!clothing.getClothingType().isAbleToBeDropped()) {
 									return new Response("Drop", "You cannot drop the " + clothing.getName() + "!", null);
 									
-								} else if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), clothing)) {
+								} else if(!Main.sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), clothing)) {
 									return new Response("Drop", UtilText.parse(inventoryNPC, "You can't unequip the " + clothing.getName() + " in this sex scene!"), null);
 									
 								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)) {
@@ -6083,15 +6108,15 @@ public class InventoryDialogue {
 											(clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)
 													?UtilText.parse(inventoryNPC, "Take off [npc.namePos] " + clothing.getName() + " and throw it away.")
 													:UtilText.parse(inventoryNPC, "Drop [npc.namePos] " + clothing.getName() + ".")),
-												Sex.SEX_DIALOGUE){
+												Main.sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
 												AbstractClothing c = clothing;
 												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + unequipClothingToFloor(Main.game.getPlayer(), clothing) + "</p>");
-												Sex.setUnequipClothingText(c, inventoryNPC.getUnequipDescription());
+												Main.sex.setUnequipClothingText(c, inventoryNPC.getUnequipDescription());
 												Main.mainController.openInventory();
-												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-												Sex.setSexStarted(true);
+												Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+												Main.sex.setSexStarted(true);
 											}
 										};
 									} else {
@@ -6103,7 +6128,7 @@ public class InventoryDialogue {
 								if(!clothing.getClothingType().isAbleToBeDropped()) {
 									return new Response("Store", "You cannot drop the " + clothing.getName() + "!", null);
 									
-								} else if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), clothing)) {
+								} else if(!Main.sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), clothing)) {
 									return new Response("Store", UtilText.parse(inventoryNPC, "You can't unequip the " + clothing.getName() + " in this sex scene!"), null);
 									
 								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)) {
@@ -6114,15 +6139,15 @@ public class InventoryDialogue {
 												(clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)
 														?UtilText.parse(inventoryNPC, "Take off [npc.namePos] " + clothing.getName() + " and throw it away.")
 														:UtilText.parse(inventoryNPC, "Store [npc.namePos] " + clothing.getName() + " in this area.")),
-												Sex.SEX_DIALOGUE){
+												Main.sex.SEX_DIALOGUE){
 											@Override
 											public void effects(){
 												AbstractClothing c = clothing;
 												Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>" + unequipClothingToFloor(Main.game.getPlayer(), clothing) + "</p>");
-												Sex.setUnequipClothingText(c, inventoryNPC.getUnequipDescription());
+												Main.sex.setUnequipClothingText(c, inventoryNPC.getUnequipDescription());
 												Main.mainController.openInventory();
-												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-												Sex.setSexStarted(true);
+												Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+												Main.sex.setSexStarted(true);
 											}
 										};
 									} else {
@@ -6136,32 +6161,8 @@ public class InventoryDialogue {
 							
 						} else if(index == 5) {
 							if(clothing.isSealed()) {
-								if(isAbleToRemoveJinxes()) {
-									if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE) >= clothing.getJinxRemovalCost()) {
-										return new Response("Unjinx ([style.italicsArcane("+clothing.getJinxRemovalCost()+" Essences)])",
-												"Spend "+clothing.getJinxRemovalCost()+" arcane essences on removing the jinx from this piece of clothing.", Sex.SEX_DIALOGUE) {
-											@Override
-											public void effects() {
-												Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -clothing.getJinxRemovalCost(), false);
-												Sex.setJinxRemovalClothingText(clothing, UtilText.parse(inventoryNPC,
-														"<p>"
-															+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
-														+ "</p>"
-														+ "<p style='text-align:center;'>"
-															+ "Removing the jinx has cost you [style.boldBad("+clothing.getJinxRemovalCost()+")] [style.boldArcane(Arcane Essences)]!"
-														+ "</p>"));
-												clothing.setSealed(false);
-												Main.mainController.openInventory();
-												Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-												Sex.setSexStarted(true);
-											}
-										};
-									} else {
-										return new Response("Unjinx (<i>"+clothing.getJinxRemovalCost()+" Essences</i>)", "You need at least "+clothing.getJinxRemovalCost()+" arcane essences in order to unjinx this piece of clothing!", null);
-									}
-								} else {
-									return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit...", null);
-								}
+								return getJinxRemovalResponse();
+								
 							} else {
 								if(clothing.isCondom()) {
 									if(clothing.getCondomEffect().getPotency().isNegative()) {
@@ -6173,20 +6174,20 @@ public class InventoryDialogue {
 							}
 							
 						} else if(index == 6 && !clothing.getClothingType().isDiscardedOnUnequip(slotEquippedTo)) {
-							if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), clothing)) {
+							if(!Main.sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), clothing)) {
 								return new Response("Unequip", "You can't unequip the " + clothing.getName() + " in this sex scene!", null);
 							}
 							
 							if (owner.isAbleToUnequip(clothing, false, Main.game.getPlayer())) {
-								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
+								return new Response("Unequip", "Unequip the " + clothing.getName() + ".", Main.sex.SEX_DIALOGUE){
 									@Override
 									public void effects(){
 										AbstractClothing c = clothing;
 										unequipClothingToInventory(Main.game.getPlayer(), clothing);
-										Sex.setUnequipClothingText(c, inventoryNPC.getUnequipDescription());
+										Main.sex.setUnequipClothingText(c, inventoryNPC.getUnequipDescription());
 										Main.mainController.openInventory();
-										Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-										Sex.setSexStarted(true);
+										Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+										Main.sex.setSexStarted(true);
 									}
 								};
 							} else {
@@ -6206,7 +6207,7 @@ public class InventoryDialogue {
 							} else {
 								if(owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11), false, false, Main.game.getPlayer())){
 									
-									if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), clothing)) {
+									if(!Main.sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), clothing)) {
 										return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index - 11).getDescription()),
 												"You "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescription() + " the " + clothing.getName() + " in this sex scene!", null);
 									}
@@ -6219,14 +6220,14 @@ public class InventoryDialogue {
 															clothing.getSlotEquippedTo(),
 															" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
 															".</span>"),
-													Sex.SEX_DIALOGUE){
+													Main.sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
 											owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index - 11), true, true, Main.game.getPlayer());
-											Sex.setDisplaceClothingText(clothing, owner.getDisplaceDescription());
+											Main.sex.setDisplaceClothingText(clothing, owner.getDisplaceDescription());
 											Main.mainController.openInventory();
-											Sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
-											Sex.setSexStarted(true);
+											Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+											Main.sex.setSexStarted(true);
 										}
 									};
 								
@@ -6313,6 +6314,7 @@ public class InventoryDialogue {
 	private static void resetWeaponDyeColours() {
 		dyePreviewPrimary = weapon.getPrimaryColour();
 		dyePreviewSecondary = weapon.getSecondaryColour();
+		dyePreviewTertiary = weapon.getTertiaryColour();
 		
 		damageTypePreview = weapon.getDamageType();
 	}
@@ -6486,18 +6488,17 @@ public class InventoryDialogue {
 				+ "<div class='container-full-width'>"
 					+ "<div class='inventoryImage'>"
 						+ "<div class='inventoryImage-content'>"
-							+ weapon.getWeaponType().getSVGImage(damageTypePreview, dyePreviewPrimary, dyePreviewSecondary)
+							+ weapon.getWeaponType().getSVGImage(damageTypePreview, dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary)
 						+ "</div>"
 					+ "</div>"
 					+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>");
 		
 		
-		inventorySB.append("<div class='container-quarter-width' style='text-align:center;'>"
-				+ "<b>Damage type:</b>");
+		inventorySB.append("<div class='container-quarter-width' style='text-align:center;width:calc(75% - 16px);'>"
+				+ "<b>Damage type:</b><br/>");
 		for(DamageType dt : weapon.getWeaponType().getAvailableDamageTypes()) {
-			inventorySB.append("<br/>"
-					+ "<div class='normal-button"+(damageTypePreview==dt?" selected":"")+"' id='DAMAGE_TYPE_" + weapon.getWeaponType().hashCode() + "_" + dt.toString() + "'"
-							+ "style='width:75%; color:"+(damageTypePreview==dt?dt.getColour().toWebHexString():dt.getColour().getShades(8)[0])+";'>"
+			inventorySB.append("<div class='normal-button"+(damageTypePreview==dt?" selected":"")+"' id='DAMAGE_TYPE_" + weapon.getWeaponType().hashCode() + "_" + dt.toString() + "'"
+							+ "style='width:20%; margin:0 2.5%; color:"+(damageTypePreview==dt?dt.getColour().toWebHexString():dt.getColour().getShades(8)[0])+";'>"
 						+ Util.capitaliseSentence(dt.getName())
 					+ "</div>");
 		}
@@ -6506,7 +6507,7 @@ public class InventoryDialogue {
 		boolean colourOptions = false;
 		if(!weapon.getWeaponType().getAllAvailablePrimaryColours().isEmpty()) {
 			colourOptions = true;
-			inventorySB.append("<div class='container-quarter-width'>"
+			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
 					+ "Primary:<br/>");
 			
 			for (Colour c : weapon.getWeaponType().getAllAvailablePrimaryColours()) {
@@ -6525,11 +6526,28 @@ public class InventoryDialogue {
 		
 		if(!weapon.getWeaponType().getAllAvailableSecondaryColours().isEmpty()) {
 			colourOptions = true;
-			inventorySB.append("<div class='container-quarter-width'>"
+			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
 					+ "Secondary:<br/>");
 			for (Colour c : weapon.getWeaponType().getAllAvailableSecondaryColours()) {
 				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (weapon.getWeaponType().hashCode() + "_" + c.toString()) + "'"
 									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+								+ "<div class='phone-item-colour' style='"
+									+ (c.isMetallic()
+											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+											:"background-color:" + c.toWebHexString() + ";")
+									+ "'></div>"
+					+ "</div>");
+			}
+			inventorySB.append("</div>");
+		}
+
+		if(!weapon.getWeaponType().getAllAvailableTertiaryColours().isEmpty()) {
+			colourOptions = true;
+			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
+					+ "Tertiary:<br/>");
+			for (Colour c : weapon.getWeaponType().getAllAvailableTertiaryColours()) {
+				inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (weapon.getWeaponType().hashCode() + "_" + c.toString()) + "'"
+									+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 								+ "<div class='phone-item-colour' style='"
 									+ (c.isMetallic()
 											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -6967,7 +6985,10 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", CLOTHING_INVENTORY);
 
 			} else if (index == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour() && dyePreviewPattern.equals(clothing.getPattern())) {
+				if(dyePreviewPrimary == clothing.getColour()
+						&& dyePreviewSecondary == clothing.getSecondaryColour()
+						&& dyePreviewTertiary == clothing.getTertiaryColour()
+						&& dyePreviewPattern.equals(clothing.getPattern())) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -7015,7 +7036,10 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", CLOTHING_EQUIPPED);
 
 			} else if (index  == 1) {
-				if(dyePreviewPrimary == clothing.getColour() && dyePreviewSecondary == clothing.getSecondaryColour() && dyePreviewTertiary == clothing.getTertiaryColour() && dyePreviewPattern.equals(clothing.getPattern())) {
+				if(dyePreviewPrimary == clothing.getColour()
+						&& dyePreviewSecondary == clothing.getSecondaryColour()
+						&& dyePreviewTertiary == clothing.getTertiaryColour()
+						&& dyePreviewPattern.equals(clothing.getPattern())) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -7066,7 +7090,9 @@ public class InventoryDialogue {
 							null); 
 				}
 				
-				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+				if(dyePreviewPrimary == weapon.getPrimaryColour()
+						&& dyePreviewSecondary == weapon.getSecondaryColour()
+						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -7108,6 +7134,7 @@ public class InventoryDialogue {
 							AbstractWeapon dyedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							dyedWeapon.setPrimaryColour(dyePreviewPrimary);
 							dyedWeapon.setSecondaryColour(dyePreviewSecondary);
+							dyedWeapon.setTertiaryColour(dyePreviewTertiary);
 							owner.addWeapon(dyedWeapon, false);
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
 
@@ -7116,6 +7143,7 @@ public class InventoryDialogue {
 							AbstractWeapon dyedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							dyedWeapon.setPrimaryColour(dyePreviewPrimary);
 							dyedWeapon.setSecondaryColour(dyePreviewSecondary);
+							dyedWeapon.setTertiaryColour(dyePreviewTertiary);
 							Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon);
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
 						}
@@ -7201,7 +7229,9 @@ public class InventoryDialogue {
 							null); 
 				}
 				
-				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+				if(dyePreviewPrimary == weapon.getPrimaryColour()
+						&& dyePreviewSecondary == weapon.getSecondaryColour()
+						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
 					return new Response("Dye & reforge",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -7271,7 +7301,9 @@ public class InventoryDialogue {
 				};
 
 			} else if (index == 6) {
-				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+				if(dyePreviewPrimary == weapon.getPrimaryColour()
+						&& dyePreviewSecondary == weapon.getSecondaryColour()
+						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
 					return new Response("Dye all (stack)",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -7455,7 +7487,9 @@ public class InventoryDialogue {
 							null); 
 				}
 				
-				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+				if(dyePreviewPrimary == weapon.getPrimaryColour()
+						&& dyePreviewSecondary == weapon.getSecondaryColour()
+						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
 					return new Response("Dye & reforge all (stack)",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -7560,7 +7594,9 @@ public class InventoryDialogue {
 				};
 
 			} else if (index == 11) {
-				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+				if(dyePreviewPrimary == weapon.getPrimaryColour()
+						&& dyePreviewSecondary == weapon.getSecondaryColour()
+						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
 					return new Response("Dye all",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -7779,7 +7815,9 @@ public class InventoryDialogue {
 							null); 
 				}
 				
-				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+				if(dyePreviewPrimary == weapon.getPrimaryColour()
+						&& dyePreviewSecondary == weapon.getSecondaryColour()
+						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
 					return new Response("Dye & reforge all",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -7930,7 +7968,9 @@ public class InventoryDialogue {
 							null); 
 				}
 				
-				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+				if(dyePreviewPrimary == weapon.getPrimaryColour()
+						&& dyePreviewSecondary == weapon.getSecondaryColour()
+						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -7968,22 +8008,20 @@ public class InventoryDialogue {
 						}
 						
 						
+
+						owner.unequipWeaponIntoVoid(weaponSlot, weapon, true);
+						AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+						modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+						modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+						modifiedWeapon.setTertiaryColour(dyePreviewTertiary);
 						
 						if(weaponSlot==InventorySlot.WEAPON_MAIN_1
 								|| weaponSlot==InventorySlot.WEAPON_MAIN_2
 								|| weaponSlot==InventorySlot.WEAPON_MAIN_3) {
-							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
-							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 							
 						} else {
-							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
-							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 						}
@@ -8038,20 +8076,18 @@ public class InventoryDialogue {
 											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to reforge the " + weapon.getName() + " without needing to use a reforging hammer!"
 										+ "</p>");
 						}
+
+						owner.unequipWeaponIntoVoid(weaponSlot, weapon, true);
+						AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+						modifiedWeapon.setDamageType(damageTypePreview);
 						
 						if(weaponSlot==InventorySlot.WEAPON_MAIN_1
 								|| weaponSlot==InventorySlot.WEAPON_MAIN_2
 								|| weaponSlot==InventorySlot.WEAPON_MAIN_3) {
-							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
-							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 							
 						} else {
-							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
-							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 						}
@@ -8074,7 +8110,9 @@ public class InventoryDialogue {
 							null); 
 				}
 				
-				if(dyePreviewPrimary == weapon.getPrimaryColour() && dyePreviewSecondary == weapon.getSecondaryColour()) {
+				if(dyePreviewPrimary == weapon.getPrimaryColour()
+						&& dyePreviewSecondary == weapon.getSecondaryColour()
+						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
 					return new Response("Dye & reforge",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -8119,24 +8157,20 @@ public class InventoryDialogue {
 											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye and reforge the " + weapon.getName() + " without needing to use a dye-brush or reforging hammer!"
 										+ "</p>");
 						}
+
+						owner.unequipWeaponIntoVoid(weaponSlot, weapon, true);
+						AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
+						modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
+						modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+						modifiedWeapon.setDamageType(damageTypePreview);
 						
 						if(weaponSlot==InventorySlot.WEAPON_MAIN_1
 								|| weaponSlot==InventorySlot.WEAPON_MAIN_2
 								|| weaponSlot==InventorySlot.WEAPON_MAIN_3) {
-							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
-							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
-							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 							
 						} else {
-							owner.unequipWeaponIntoVoid(weaponSlot, weapon);
-							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
-							modifiedWeapon.setDamageType(damageTypePreview);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(modifiedWeapon));
 						}
@@ -8269,8 +8303,75 @@ public class InventoryDialogue {
 //		}
 	}
 	
-	private static boolean isAbleToRemoveJinxes() {
-		return Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY);
+	private static Response getJinxRemovalResponse() {
+		boolean ownsKey = Main.game.getPlayer().getUnlockKeyMap().containsKey(owner.getId()) && Main.game.getPlayer().getUnlockKeyMap().get(owner.getId()).contains(clothing.getSlotEquippedTo());
+		int removalCost = clothing.getJinxRemovalCost();
+		
+		if(interactionType==InventoryInteraction.COMBAT) {
+			return new Response("Unjinx"+(ownsKey?"(Use key)":"(<i>"+removalCost+" Essences</i>)"),
+					"You can't unjinx clothing in combat!",
+					null);
+		}
+		
+		if(!ownsKey) {
+			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+				return new Response("Unjinx", "You don't know how to remove jinxes! Perhaps you should pay Lilaya a visit and ask her about it...", null);
+			}
+			if(Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSelfTransformationInhibiting())) {
+				return new Response("Unjinx",
+						"Although you are normally able to unjinx clothing, you cannot do so due to an enchantment on one or more pieces of your equipped clothing!"
+						+ "<br/>[style.italicsArcane(Visit Lilaya to get your jinxed clothing removed!)]",
+						null);
+			}
+			if(Main.game.getPlayer().getTattoos().values().stream().anyMatch(c -> c.isSelfTransformationInhibiting())) {
+				return new Response("Unjinx",
+						"Although you are normally able to unjinx clothing, you cannot do so due to an enchantment on one or more of your tattoos!"
+								+ "<br/>[style.italicsArcane(Visit Kate to get the tattoo removed!)]",
+						null);
+			}
+		}
+		
+		if(ownsKey || Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=removalCost) {
+			return new Response("Unjinx "+(ownsKey?"([style.italicsGood(Use key)])":"([style.italicsArcane("+removalCost+" Essences)])"),
+						ownsKey
+							?"As you own the key which unlocks this piece of clothing, you can remove it without having to spend any arcane essences!"
+							:"Spend "+removalCost+" arcane essences on removing the jinx from this piece of clothing.",
+						interactionType==InventoryInteraction.SEX
+							?Main.sex.SEX_DIALOGUE
+							:INVENTORY_MENU) {
+				@Override
+				public void effects() {
+					if(ownsKey) {
+						Main.game.getPlayer().removeFromUnlockKeyMap(owner.getId(), clothing.getSlotEquippedTo());
+						Main.game.getTextEndStringBuilder().append(
+								"<p>"
+									+ "Using the key which is in your possession, you unlock the "+clothing.getName()+"!"
+								+ "</p>");
+						
+					} else {
+						Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -removalCost, false);
+						Main.game.getTextEndStringBuilder().append(UtilText.parse(owner,
+								"<p>"
+									+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
+								+ "</p>"
+								+ "<p style='text-align:center;'>"
+									+ "Removing the jinx has cost you [style.boldBad("+removalCost+")] [style.boldArcane(Arcane Essences)]!"
+								+ "</p>"));
+					}
+					clothing.setSealed(false);
+					if(interactionType==InventoryInteraction.SEX) {
+						Main.mainController.openInventory();
+						Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
+						Main.sex.setSexStarted(true);
+					}
+				}
+			};
+			
+		} else {
+			return new Response("Unjinx (<i>"+removalCost+" Essences</i>)",
+					"You need at least "+removalCost+" arcane essences in order to unjinx this piece of clothing!",
+					null);
+		}
 	}
 	
 	

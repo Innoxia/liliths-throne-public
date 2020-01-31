@@ -19,7 +19,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -346,7 +345,7 @@ public class OccupantDialogue {
 					}
 					
 				} else if (index == 0) {
-					return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {
 							Main.game.setResponseTab(0);
@@ -779,7 +778,7 @@ public class OccupantDialogue {
 					}
 
 				} else if (index == 0) {
-					return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {
 							Main.game.setResponseTab(0);
@@ -1065,10 +1064,10 @@ public class OccupantDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getAllParticipants().size()>2) {
+			if(Main.sex.getAllParticipants().size()>2) {
 				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_THREESOME", occupant(), Main.game.getPlayer().getCompanions().get(0));
 				
-			} else if(Sex.getNumberOfOrgasms(occupant()) >= occupant().getOrgasmsBeforeSatisfied()) {
+			} else if(Main.sex.getNumberOfOrgasms(occupant()) >= occupant().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX", occupant());
 				
 			} else {
@@ -1079,7 +1078,7 @@ public class OccupantDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Give [npc.name] some time to rest.", Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("Leave", "Give [npc.name] some time to rest.", Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "LEAVE_AFTER_SEX", occupant()));
@@ -1101,7 +1100,7 @@ public class OccupantDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return Main.game.getDefaultDialogueNoEncounter().getResponse(responseTab, index);
+			return Main.game.getDefaultDialogue(false).getResponse(responseTab, index);
 		}
 	};
 	
@@ -1127,6 +1126,7 @@ public class OccupantDialogue {
 					public void effects() {
 						occupant().setRandomUnoccupiedLocation(WorldType.DOMINION, true, PlaceType.DOMINION_STREET, PlaceType.DOMINION_STREET_HARPY_NESTS, PlaceType.DOMINION_BOULEVARD);
 						occupant().setHomeLocation();
+						OccupantDialogue.isApartment = true;
 						Main.game.getPlayer().setLocation(occupant().getWorldLocation(), occupant().getLocation(), false);
 					}
 				};
@@ -1257,7 +1257,7 @@ public class OccupantDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(!occupant().isAtHome()) {
 				if (index == 1) {
-					return new Response("Leave", "As [npc.name] is not at home right now, there's nothing left to do but head back out into Dominion.", Main.game.getDefaultDialogueNoEncounter());
+					return new Response("Leave", "As [npc.name] is not at home right now, there's nothing left to do but head back out into Dominion.", Main.game.getDefaultDialogue(false));
 					
 				} else {
 					return null;
@@ -1317,7 +1317,7 @@ public class OccupantDialogue {
 					};
 
 				} else if (index == 4) {
-					int timeUntilChange = RoomPlayer.getMinutesUntilMorningOrEvening();
+					int timeUntilChange = Main.game.getMinutesUntilNextMorningOrEvening();
 					LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
 					return new Response("Rest until " + (Main.game.isDayTime() ? "Sunset" : "Sunrise"),
 							"Ask [npc.name] if you can crash on [npc.her] sofa for " + (timeUntilChange >= 60 ?timeUntilChange / 60 + " hours " : " ")
@@ -1327,7 +1327,7 @@ public class OccupantDialogue {
 								OCCUPANT_APARTMENT_SLEEP_OVER){
 						@Override
 						public void effects() {
-							sleepTimeInMinutes = RoomPlayer.getMinutesUntilMorningOrEvening();
+							sleepTimeInMinutes = Main.game.getMinutesUntilNextMorningOrEvening();
 							
 							Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 							Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
@@ -1420,7 +1420,7 @@ public class OccupantDialogue {
 					}
 					
 				} else if (index == 0) {
-					return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {
 							applyReactionReset();
@@ -1433,7 +1433,7 @@ public class OccupantDialogue {
 			
 			} else if(responseTab == 1) {
 				if (index == 0) {
-					return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogueNoEncounter()) {
+					return new Response("Leave", UtilText.parse(occupant(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_LEAVING", occupant()));
@@ -1588,7 +1588,7 @@ public class OccupantDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(!occupant().isAtHome()) {
 				if (index == 1) {
-					return new Response("Outside", "You find yourself back outside in the streets of Dominion.", Main.game.getDefaultDialogueNoEncounter());
+					return new Response("Outside", "You find yourself back outside in the streets of Dominion.", Main.game.getDefaultDialogue(false));
 					
 				} else {
 					return null;
@@ -1608,7 +1608,7 @@ public class OccupantDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return Main.game.getDefaultDialogueNoEncounter().getResponse(responseTab, index);
+			return Main.game.getDefaultDialogue(false).getResponse(responseTab, index);
 		}
 	};
 	
@@ -1621,10 +1621,10 @@ public class OccupantDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getAllParticipants().size()>2) {
+			if(Main.sex.getAllParticipants().size()>2) {
 				return UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_AFTER_SEX_THREESOME", occupant(), Main.game.getPlayer().getCompanions().get(0));
 
-			} else if(Sex.getNumberOfOrgasms(occupant()) >= occupant().getOrgasmsBeforeSatisfied()) {
+			} else if(Main.sex.getNumberOfOrgasms(occupant()) >= occupant().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_AFTER_SEX", occupant());
 				
 			} else {
@@ -1635,7 +1635,7 @@ public class OccupantDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Give [npc.name] some time to rest.", Main.game.getDefaultDialogueNoEncounter()) {
+				return new Response("Leave", "Give [npc.name] some time to rest.", Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "APARTMENT_LEAVE_AFTER_SEX", occupant()));

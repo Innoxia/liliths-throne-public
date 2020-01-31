@@ -80,4 +80,5 @@ public enum PenisSize {
 	public Colour getColour() {
 		return colour;
 	}
+	
 }

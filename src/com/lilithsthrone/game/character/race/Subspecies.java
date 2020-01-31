@@ -384,6 +384,16 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 		}
+
+		@Override
+		public String getFeralName(GameCharacter character) {
+			Race r = character.getLegType().getRace();
+			return character.getLegConfiguration()!=LegConfiguration.BIPEDAL
+					?r==Race.HUMAN
+						?"demonic-horse"
+						:"demonic-"+r.getName(character, true)
+					:"demon";
+		}
 		
 		@Override
 		public String getName(GameCharacter character) {
@@ -907,6 +917,17 @@ public enum Subspecies {
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
+			List<Colour> naturalWolfFurColours = Util.newArrayListOfValues(
+					Colour.COVERING_WHITE,
+					Colour.COVERING_GREY,
+					Colour.COVERING_BLACK,
+					Colour.COVERING_JET_BLACK);
+			
+			Colour c = Util.randomItemFrom(naturalWolfFurColours);
+			body.getCoverings().put(BodyCoveringType.LYCAN_FUR, new Covering(BodyCoveringType.LYCAN_FUR, c));
+			body.getCoverings().put(BodyCoveringType.HAIR_LYCAN_FUR, new Covering(BodyCoveringType.HAIR_LYCAN_FUR, c));
+			body.getCoverings().put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, c));
+			
 			if(body.getPenis().getType()==PenisType.LUPINE) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
 			}
@@ -962,6 +983,56 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Subspecies.applyFoxColoring(body);
+			if(body.getPenis().getType()==PenisType.VULPINE) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
+			}
+		}
+	},
+
+	FOX_MORPH_ARCTIC("statusEffects/race/raceFoxMorph",
+			"statusEffects/race/raceBackground",
+			"arctic-fox-morph",
+			"arctic-fox-morphs",
+			"arctic-fox-boy",
+			"arctic-fox-girl",
+			"arctic-fox-boys",
+			"arctic-fox-girls",
+			"arctic-fox",
+			"[npc.NameIsFull] very sly and nimble, and [npc.sheIs] able to use [npc.her] heightened senses to detect opportune moments in which to attack."
+					+ " As [npc.sheIsFull] adapted to arctic conditions, [npc.sheIs] also better able to resist incoming cold damage.",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 1f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f)),
+			null,
+			"Skulking Vulpines",
+			"Skulking Vulpines",
+			"FOX_MORPH_BASIC",
+			"FOX_MORPH_ADVANCED",
+			Race.FOX_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Colour.RACE_FOX_MORPH_ARCTIC,
+			SubspeciesPreference.ONE_LOW,
+			"An anthropomorphic fox with white fur, known as an 'arctic-fox-morph' when bipedal, and an 'arctic-foxtaur' when the lower body is that of a typically-oversized feral fox.",
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO_RARE))) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, Colour.SKIN_PALE, false, Colour.SKIN_PALE, true));
+			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, Colour.COVERING_WHITE, false, Colour.COVERING_WHITE, false));
+			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.HAIR_FOX_FUR, CoveringPattern.NONE, Colour.COVERING_WHITE, false, Colour.COVERING_WHITE, false));
+			body.getCoverings().put(BodyCoveringType.BODY_HAIR_FOX_FUR, new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, CoveringPattern.NONE, Colour.COVERING_WHITE, false, Colour.COVERING_WHITE, false));
 			if(body.getPenis().getType()==PenisType.VULPINE) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
 			}
@@ -1066,9 +1137,9 @@ public enum Subspecies {
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character.getTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
+				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
 			} else {
-				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
+				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
 		}
 
@@ -1114,6 +1185,87 @@ public enum Subspecies {
 			} else {
 				return getBipedBackground(youkoHalfDemonIconMap.get(character.getTailCount()), character, Colour.RACE_HALF_DEMON);
 			}
+		}
+	},
+
+	FOX_ASCENDANT_ARCTIC("statusEffects/race/raceFoxMorph",
+			"statusEffects/race/raceBackground",
+			"arctic-youko",
+			"arctic-youko",
+			"arctic-youko-boy",
+			"arctic-youko-girl",
+			"arctic-youko-boys",
+			"arctic-youko-girls",
+			"arctic-youko",
+			"",
+			null,
+			null,
+			"Nine-tails",
+			"Nine-tails'",
+			"FOX_MORPH_BASIC", "FOX_MORPH_ADVANCED",
+			Race.FOX_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 10)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			Colour.RACE_FOX_MORPH,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"An arctic-fox-morph, empowered by the gifts of a Lilin.",
+			Util.newHashMapOfValues()) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, Colour.SKIN_PALE, false, Colour.SKIN_PALE, true));
+			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, Colour.COVERING_WHITE, false, Colour.COVERING_WHITE, false));
+			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.HAIR_FOX_FUR, CoveringPattern.NONE, Colour.COVERING_WHITE, false, Colour.COVERING_WHITE, false));
+			body.getCoverings().put(BodyCoveringType.BODY_HAIR_FOX_FUR, new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, CoveringPattern.NONE, Colour.COVERING_WHITE, false, Colour.COVERING_WHITE, false));
+			if(body.getPenis().getType()==PenisType.VULPINE) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED));
+			}
+			if(body.getTail().getType()==TailType.FOX_MORPH) {
+				body.getTail().setType(null, TailType.FOX_MORPH_MAGIC);
+			}
+		}
+		
+		@Override
+		public String getStatusEffectDescription(GameCharacter character) {
+			if(character.getTailCount()<9) {
+				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
+			} else {
+				return UtilText.parse(character, "[npc.NameIsFull] an arctic-fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
+			}
+		}
+
+		@Override
+		public Map<Attribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
+			if(character!=null && character.getTailCount()<9) {
+				return Util.newHashMapOfValues(
+						new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+						new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, (float) (10*character.getTailCount())),
+						new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+						new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, (float) (10 + 5*character.getTailCount())),
+						new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, (float) (20 + 5*character.getTailCount())));
+			} else {
+				return Util.newHashMapOfValues(
+						new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+						new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 100f),
+						new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
+						new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 25f),
+						new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 100f));
+			}
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter character) {
+			return FOX_ASCENDANT.getSVGString(character);
+		}
+
+		@Override
+		public String getSVGStringDesaturated(GameCharacter character) {
+			return FOX_ASCENDANT.getSVGStringDesaturated(character);
 		}
 	},
 	
@@ -1170,9 +1322,9 @@ public enum Subspecies {
 		@Override
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character.getTailCount()<9) {
-				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
+				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] service to a particular Lilin having afforded [npc.him] [npc.tailCount] arcane tail"+(character.getTailCount()==1?"":"s")+".");
 			} else {
-				return UtilText.parse(character, "[npc.NameIsFull] fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
+				return UtilText.parse(character, "[npc.NameIsFull] a fox-morph, [npc.his] vast number of arcane tails a sign of [npc.her] unending devotion to a particular Lilin.");
 			}
 		}
 
@@ -1364,7 +1516,7 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 1f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f)),
 			null,
 			"Curious Kitties",
 			"Curious Kitties",
@@ -1429,7 +1581,7 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 1f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f)),
 			null,
 			"Curious Kitties",
 			"Curious Kitties",
@@ -1489,7 +1641,7 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 0f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 1f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f)),
 			null,
 			"Curious Kitties",
 			"Curious Kitties",
@@ -2185,7 +2337,7 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f)),
 			null,
 			"Equine Encyclopedia",
 			"Equine Encyclopedias",
@@ -2394,7 +2546,7 @@ public enum Subspecies {
 		public String getStatusEffectDescription(GameCharacter character) {
 			if(character!=null) {
 				Subspecies coreSubspecies = Subspecies.getFleshSubspecies(character);
-				if(character.getSubspeciesOverride()!=null && character.getSubspeciesOverride().getRace()==Race.DEMON) {
+				if(character.getSubspeciesOverrideRace()==Race.DEMON) {
 					return UtilText.parse(character,
 							"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any serious unarmed damage."
 							+ " [npc.Her] slime core is pulsating with an immense power, revealing the fact that [npc.sheIs] a true demonic slime.");
@@ -2878,6 +3030,65 @@ public enum Subspecies {
 					"furies"};
 		}
 	},
+
+	HARPY_PHOENIX("statusEffects/race/raceHarpy",
+			"statusEffects/race/raceBackgroundPhoenix",
+			"phoenix-harpy",
+			"phoenix-harpies",
+			"phoenix-harpy",
+			"phoenix-harpy",
+			"phoenix-harpies",
+			"phoenix-harpies",
+			"phoenix",
+			"While just as obsessed with [npc.her] looks as other harpies, [npc.name] is also naturally talented at harnessing the arcane, allowing [npc.herHim] to learn and cast spells with relative ease."
+				+ " In particular, [npc.she] [npc.has] an exceptionally high affinity with arcane fire...",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 25f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 75f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			null,
+			"All About Harpies",
+			"All About Harpies'",
+			"HARPY_BASIC",
+			"HARPY_ADVANCED",
+			Race.HARPY,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 3),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 3),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			Colour.BASE_ORANGE,
+			SubspeciesPreference.ONE_LOW,
+			"An anthropomorphic, bipedal, mythological bird, whose feathers are either glowing red, orange, or yellow, or are actually made out of arcane fire. They are extremely rare and typically only possess non-human arms, legs, eyes, ears, and hair.",
+			Util.newHashMapOfValues(
+					new Value<>(WorldType.HARPY_NEST, SubspeciesSpawnRarity.ZERO_EXTREMELY_RARE))) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			CoveringPattern pattern = CoveringPattern.OMBRE;
+			if(Math.random()<0.5f) {
+				pattern = CoveringPattern.HIGHLIGHTS;
+			}
+			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, pattern, Colour.COVERING_ORANGE, true, Colour.COVERING_YELLOW, true));
+			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, pattern, Colour.COVERING_RED, true, Colour.COVERING_ORANGE, true));
+			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, Colour.COVERING_RED, true, Colour.COVERING_RED, true));
+		}
+		@Override
+		public String[] getHalfDemonName(GameCharacter character) {
+			return new String[] {
+					"phoenix-fury",
+					"phoenix-furies",
+					"phoenix-fury",
+					"phoenix-fury",
+					"phoenix-furies",
+					"phoenix-furies"};
+		}
+	},
 	
 	// ELEMENTALS:
 
@@ -3083,9 +3294,7 @@ public enum Subspecies {
 	private String bookName;
 	private String bookNamePlural;
 	private String basicDescriptionId;
-	private String basicDescription;
 	private String advancedDescriptionId;
-	private String advancedDescription;
 	
 	private Race race;
 	private Colour colour;
@@ -3254,10 +3463,7 @@ public enum Subspecies {
 		this.bookNamePlural = bookNamePlural;
 		
 		this.basicDescriptionId = basicDescription;
-		this.basicDescription = UtilText.parseFromXMLFile("characters/raceInfo", basicDescription);
-
 		this.advancedDescriptionId = advancedDescription;
-		this.advancedDescription = UtilText.parseFromXMLFile("characters/raceInfo", advancedDescription);
 		
 		this.race = race;
 		this.colour = colour;
@@ -3411,6 +3617,9 @@ public enum Subspecies {
 		
 		switch(body.getBodyMaterial()) {
 			case FIRE:
+				if(race==Race.HARPY) {
+					return Subspecies.HARPY_PHOENIX;
+				}
 				return Subspecies.ELEMENTAL_FIRE;
 			case ICE:
 			case WATER:
@@ -3615,6 +3824,12 @@ public enum Subspecies {
 						&& body.getCoverings().get(BodyCoveringType.HAIR_HARPY).getPrimaryColour()==Colour.COVERING_WHITE) {
 					subspecies = Subspecies.HARPY_BALD_EAGLE;
 				}
+				if((body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.COVERING_RED
+						|| body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.COVERING_ORANGE
+						|| body.getCoverings().get(BodyCoveringType.FEATHERS).getPrimaryColour()==Colour.COVERING_YELLOW)
+					&& body.getCoverings().get(BodyCoveringType.FEATHERS).isPrimaryGlowing()) {
+					subspecies = Subspecies.HARPY_PHOENIX;
+				}
 				break;
 			case FOX_MORPH:
 				subspecies = Subspecies.FOX_MORPH;
@@ -3626,10 +3841,16 @@ public enum Subspecies {
 						&& (body.getEar().getType()==EarType.FOX_MORPH_BIG)) {
 					subspecies = body.getTail().getType() == TailType.FOX_MORPH_MAGIC
 							?Subspecies.FOX_ASCENDANT_FENNEC
-							: Subspecies.FOX_MORPH_FENNEC;
+							:Subspecies.FOX_MORPH_FENNEC;
+					
+				} else if (fox_fur.getPrimaryColour() == Colour.COVERING_WHITE) {
+					subspecies = body.getTail().getType() == TailType.FOX_MORPH_MAGIC
+							?Subspecies.FOX_ASCENDANT_ARCTIC
+							:Subspecies.FOX_MORPH_ARCTIC;
 					
 				} else if (body.getTail().getType() == TailType.FOX_MORPH_MAGIC) {
 					subspecies = Subspecies.FOX_ASCENDANT;
+					
 				}
 				break;
 			case HORSE_MORPH:
@@ -3905,17 +4126,17 @@ public enum Subspecies {
 		if(!isNonBiped() && character!=null) {
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:
-					return feralName+"-arachne";
+					return getFeralName(character)+"-arachne";
 				case BIPEDAL:
 					break;
 				case CEPHALOPOD:
-					return feralName+"-kraken";
+					return getFeralName(character)+"-kraken";
 				case TAIL:
-					return "mer"+feralName;
+					return "mer"+getFeralName(character);
 				case TAIL_LONG:
-					return feralName+"-lamia";
+					return getFeralName(character)+"-lamia";
 				case TAUR:
-					return feralName+getTaurEnding();
+					return getFeralName(character)+getTaurEnding();
 			}
 		}
 		return name;
@@ -3929,17 +4150,17 @@ public enum Subspecies {
 		if(!isNonBiped() && character!=null) {
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:
-					return feralName+"-arachnes";
+					return getFeralName(character)+"-arachnes";
 				case BIPEDAL:
 					break;
 				case CEPHALOPOD:
-					return feralName+"-krakens";
+					return getFeralName(character)+"-krakens";
 				case TAIL:
-					return "mer"+feralName;
+					return "mer"+getFeralName(character);
 				case TAIL_LONG:
-					return feralName+"-lamias";
+					return getFeralName(character)+"-lamias";
 				case TAUR:
-					return feralName+getTaurEnding()+"s";
+					return getFeralName(character)+getTaurEnding()+"s";
 			}
 		}
 		return namePlural;
@@ -3953,17 +4174,17 @@ public enum Subspecies {
 		if(!isNonBiped() && character!=null) {
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:
-					return feralName+"-arachne";
+					return getFeralName(character)+"-arachne";
 				case BIPEDAL:
 					break;
 				case CEPHALOPOD:
-					return feralName+"-kraken";
+					return getFeralName(character)+"-kraken";
 				case TAIL:
-					return "mer"+feralName;
+					return "mer"+getFeralName(character);
 				case TAIL_LONG:
-					return feralName+"-lamia";
+					return getFeralName(character)+"-lamia";
 				case TAUR:
-					return feralName+getTaurEnding();
+					return getFeralName(character)+getTaurEnding();
 			}
 		}
 
@@ -3987,17 +4208,17 @@ public enum Subspecies {
 		if(!isNonBiped() && character!=null) {
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:
-					return feralName+"-arachne";
+					return getFeralName(character)+"-arachne";
 				case BIPEDAL:
 					break;
 				case CEPHALOPOD:
-					return feralName+"-kraken";
+					return getFeralName(character)+"-kraken";
 				case TAIL:
-					return "mer"+feralName;
+					return "mer"+getFeralName(character);
 				case TAIL_LONG:
-					return feralName+"-lamia";
+					return getFeralName(character)+"-lamia";
 				case TAUR:
-					return feralName+getTaurEnding()+"ess";
+					return getFeralName(character)+getTaurEnding()+"ess";
 			}
 		}
 		
@@ -4022,17 +4243,17 @@ public enum Subspecies {
 		if(!isNonBiped() && character!=null) {
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:
-					return feralName+"-arachnes";
+					return getFeralName(character)+"-arachnes";
 				case BIPEDAL:
 					break;
 				case CEPHALOPOD:
-					return feralName+"-krakens";
+					return getFeralName(character)+"-krakens";
 				case TAIL:
-					return "mer"+feralName;
+					return "mer"+getFeralName(character);
 				case TAIL_LONG:
-					return feralName+"-lamias";
+					return getFeralName(character)+"-lamias";
 				case TAUR:
-					return feralName+getTaurEnding()+"s";
+					return getFeralName(character)+getTaurEnding()+"s";
 			}
 		}
 		return pluralMaleName;
@@ -4046,17 +4267,17 @@ public enum Subspecies {
 		if(!isNonBiped() && character!=null) {
 			switch(character.getLegConfiguration()) {
 				case ARACHNID:
-					return feralName+"-arachnes";
+					return getFeralName(character)+"-arachnes";
 				case BIPEDAL:
 					break;
 				case CEPHALOPOD:
-					return feralName+"-krakens";
+					return getFeralName(character)+"-krakens";
 				case TAIL:
-					return "mer"+feralName;
+					return "mer"+getFeralName(character);
 				case TAIL_LONG:
-					return feralName+"-lamias";
+					return getFeralName(character)+"-lamias";
 				case TAUR:
-					return feralName+getTaurEnding()+"esses";
+					return getFeralName(character)+getTaurEnding()+"esses";
 			}
 		}
 		return pluralFemaleName;
@@ -4108,11 +4329,11 @@ public enum Subspecies {
 	}
 
 	public String getBasicDescription(GameCharacter character) {
-		return basicDescription;
+		return UtilText.parseFromXMLFile("characters/raceInfo", getBasicDescriptionId());
 	}
 
 	public String getAdvancedDescription(GameCharacter character) {
-		return advancedDescription;
+		return UtilText.parseFromXMLFile("characters/raceInfo", getAdvancedDescriptionId());
 	}
 	
 	public String getBasicDescriptionId() {
@@ -4264,7 +4485,9 @@ public enum Subspecies {
 			case HARPY:
 				return this!=Subspecies.HARPY;
 			case FOX_MORPH:
-				return this!=Subspecies.FOX_ASCENDANT && this!=Subspecies.FOX_ASCENDANT_FENNEC;
+				return this!=Subspecies.FOX_ASCENDANT
+						&& this!=Subspecies.FOX_ASCENDANT_ARCTIC
+						&& this!=Subspecies.FOX_ASCENDANT_FENNEC;
 			case ALLIGATOR_MORPH:
 			case BAT_MORPH:
 			case CAT_MORPH:
@@ -4347,6 +4570,8 @@ public enum Subspecies {
 			case HARPY_BALD_EAGLE:
 			case HARPY_RAVEN:
 				return 12000;
+			case HARPY_PHOENIX:
+				return 50_000;
 			case HUMAN:
 				return 4000;
 			case SQUIRREL_MORPH:
@@ -4358,8 +4583,10 @@ public enum Subspecies {
 			case FOX_MORPH:
 			case FOX_MORPH_FENNEC:
 				return 8000;
+			case FOX_MORPH_ARCTIC:
+				return 10_000;
 			case FOX_ASCENDANT:
-				return 15000 * character.getTailCount();
+			case FOX_ASCENDANT_ARCTIC:
 			case FOX_ASCENDANT_FENNEC:
 				return 15000 * character.getTailCount();
 			case BAT_MORPH:
@@ -4392,6 +4619,7 @@ public enum Subspecies {
 					&& s.getRace()!=Race.ELEMENTAL
 					&& s!=Subspecies.FOX_ASCENDANT
 					&& s!=Subspecies.FOX_ASCENDANT_FENNEC
+					&& s!=Subspecies.FOX_ASCENDANT_ARCTIC
 					&& s!=Subspecies.SLIME) {
 				if(Subspecies.getMainSubspeciesOfRace(s.getRace())==s) {
 					addToSubspeciesMap(10, gender, s, availableRaces);

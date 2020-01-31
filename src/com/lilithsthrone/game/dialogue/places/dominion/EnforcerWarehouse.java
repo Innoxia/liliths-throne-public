@@ -9,15 +9,12 @@ import java.util.Map.Entry;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.EnforcerWarehouseGuard;
-import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.npc.dominion.Sean;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.persona.Occupation;
-import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.FurryPreference;
@@ -27,6 +24,7 @@ import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -190,32 +188,6 @@ public class EnforcerWarehouse {
 			guard.setLocation(WorldType.ENFORCER_WAREHOUSE, PlaceType.ENFORCER_WAREHOUSE_ENTRANCE, true);
 			usedAdjectives.add(CharacterUtils.setGenericName(guard, "SWORD guard", usedAdjectives));
 		}
-	}
-	
-	private static void generateRandomStocksPartners() {
-		randomSexPartners = new ArrayList<>();
-		NPC partner = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), WorldType.SLAVER_ALLEY, Main.game.getPlayer().getLocation(), false);
-		partner.setFetishDesire(Fetish.FETISH_EXHIBITIONIST, FetishDesire.THREE_LIKE);
-		partner.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
-		partner.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
-		partner.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
-		partner.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		try {
-			Main.game.addNPC(partner, false);
-			randomSexPartners.add(partner);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		partner = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), WorldType.SLAVER_ALLEY, Main.game.getPlayer().getLocation(), false);
-		partner.setFetishDesire(Fetish.FETISH_EXHIBITIONIST, FetishDesire.THREE_LIKE);
-		partner.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.THREE_LIKE);
-		partner.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		try {
-			Main.game.addNPC(partner, false);
-			randomSexPartners.add(partner);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	
 	}
 	
 	private static Response getClaireCratesSexResponse() {
@@ -534,13 +506,15 @@ public class EnforcerWarehouse {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Continue", "Continue travelling through the warehouse...", CLAIRE_WARNING) {
-					@Override
-					public void effects() {
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.claireWarning, true);
-					}
-				};
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.claireWarning)) {
+				if(index==1) {
+					return new Response("Continue", "Continue travelling through the warehouse...", CLAIRE_WARNING) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.claireWarning, true);
+						}
+					};
+				}
 			}
 			return null;
 		}
@@ -1007,6 +981,7 @@ public class EnforcerWarehouse {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELL, false);
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/enforcerWarehouse/generic", "AFTER_COMBAT_DEFEAT_SENT_TO_CELLS", arrestingGuard));
 							arrestingGuard.returnToHome();
 							Main.game.getNpc(Claire.class).returnToHome();
 							Main.game.getNpc(Claire.class).setLust(Main.game.getNpc(Claire.class).getRestingLust());
@@ -1246,6 +1221,11 @@ public class EnforcerWarehouse {
 	
 	public static final DialogueNode AFTER_COMBAT_DEFEAT_SENT_TO_STOCKS = new DialogueNode("", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, true);
+			Main.game.getPlayer().unequipAllClothingIntoHoldingInventory(Main.game.getNpc(Sean.class), false, false);
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 20*60;
 		}
@@ -1336,7 +1316,7 @@ public class EnforcerWarehouse {
 						STOCKS_RANDOMS) {
 					@Override
 					public void effects() {
-						generateRandomStocksPartners();
+						randomSexPartners = SlaverAlleyDialogue.generateRandomStocksPartners(true);
 					}
 				};
 			}
@@ -1465,7 +1445,13 @@ public class EnforcerWarehouse {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Continue on your way...", Main.game.getDefaultDialogue());
+				return new Response("Continue", "Continue on your way...", Main.game.getDefaultDialogue()) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, false);
+						Main.game.getPlayer().equipAllClothingFromHoldingInventory();
+					}
+				};
 			}
 			return null;
 		}
@@ -1474,19 +1460,23 @@ public class EnforcerWarehouse {
 
 	public static final DialogueNode AFTER_COMBAT_DEFEAT_SENT_TO_CELLS = new DialogueNode("", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, true);
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/enforcerWarehouse/generic", "AFTER_COMBAT_DEFEAT_SENT_TO_CELLS");
+			return "";
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Wait",
 						"There's nothing else to do but wait for someone to rescue you...",
-						CELLS_SET_FREE) {
+						AFTER_COMBAT_DEFEAT_CELLS_WAITING) {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Claire.class).setLocation(Main.game.getPlayer(), false);
@@ -1517,6 +1507,8 @@ public class EnforcerWarehouse {
 						Main.game.getNpc(Claire.class).returnToHome();
 						Main.game.getNpc(Claire.class).setLust(Main.game.getNpc(Claire.class).getRestingLust());
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_TELEPORTATION, Quest.SIDE_UTIL_COMPLETE));
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, false);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_ENFORCER_HQ, false);
 					}
 				};
 			}

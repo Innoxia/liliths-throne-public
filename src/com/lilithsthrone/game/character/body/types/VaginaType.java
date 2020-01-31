@@ -12,7 +12,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public enum VaginaType implements BodyPartTypeInterface {
@@ -23,7 +23,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 
 	ANGEL(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_ANGEL, Race.ANGEL, false, OrificeModifier.MUSCLE_CONTROL),
 
-	DEMON_COMMON(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DEMON, Race.DEMON, false, OrificeModifier.MUSCLE_CONTROL, OrificeModifier.TENTACLED),
+	DEMON_COMMON(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DEMON, Race.DEMON, false, OrificeModifier.MUSCLE_CONTROL),
 
 	DOG_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DOG_MORPH, Race.DOG_MORPH, false),
 

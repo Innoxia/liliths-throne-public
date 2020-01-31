@@ -3,7 +3,6 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -11,6 +10,7 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -56,7 +56,7 @@ public class PartnerSelfTailNipple {
 					"[npc.Name] eagerly thrusts [npc.her] [npc.tail+] deep into a needy [npc.nipple], letting out a series of [npc.moans+] as [npc.she] starts tail-fucking [npc.her] own [npc.breasts]."));
 			
 		
-			switch (Sex.getCharacterPerformingAction().getBreastStoredMilk()) {
+			switch (Main.sex.getCharacterPerformingAction().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" A small trickle of [npc.milk] leaks out around [npc.her] [npc.tail].");
 					break;
@@ -87,7 +87,7 @@ public class PartnerSelfTailNipple {
 		
 		@Override
 		public String applyEffectsString() {
-			return Sex.getCharacterPerformingAction().incrementBreastStoredMilk(-10);
+			return Main.sex.getCharacterPerformingAction().incrementBreastStoredMilk(-10);
 		}
 		
 	};

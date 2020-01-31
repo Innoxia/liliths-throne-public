@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.2.11
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public enum TFModifier {
@@ -267,6 +267,14 @@ public enum TFModifier {
 			"modifier_circle_sealing",
 			Colour.SEALED,
 			Rarity.LEGENDARY),
+	
+	//CLOTHING_ANTI_SELF_TRANSFORMATION
+	CLOTHING_SERVITUDE("servitude",
+			"Makes the wearer unable to self-transform or unjinx clothing.",
+			"servitude",
+			"modifier_circle_servitude",
+			Colour.BASE_PINK_LIGHT,
+			Rarity.LEGENDARY),
 
 	CLOTHING_CONDOM("condom strength",
 			"Provides underlying strength to the condom.",
@@ -274,6 +282,13 @@ public enum TFModifier {
 			"modifier_circle_resistance",
 			Colour.BASE_GREEN,
 			Rarity.COMMON),
+
+	CLOTHING_VIBRATION("vibration",
+			"Makes this piece of clothing vibrate when worn.",
+			"vibration",
+			"modifier_circle_vibration",
+			Colour.BASE_PINK,
+			Rarity.EPIC),
 	
 	// Racial parts:
 
@@ -835,6 +850,13 @@ public enum TFModifier {
 			"normal nipples",
 			"modifier_circle_nipple_normal",
 			Colour.BASE_PURPLE_LIGHT,
+			Rarity.COMMON),
+
+	TF_MOD_NIPPLE_INVERTED("inverted nipples",
+			"Applies an effect related to making nipples inverted.",
+			"inverted nipples",
+			"modifier_circle_nipple_normal",
+			Colour.BASE_RED_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_NIPPLE_VAGINA("nipple cunts",

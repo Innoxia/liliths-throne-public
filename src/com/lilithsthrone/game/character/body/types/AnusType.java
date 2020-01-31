@@ -19,9 +19,9 @@ public enum AnusType implements BodyPartTypeInterface {
 	
 	HUMAN(BodyCoveringType.ANUS, Race.HUMAN),
 	
-	ANGEL(BodyCoveringType.ANUS, Race.ANGEL, OrificeModifier.RIBBED, OrificeModifier.TENTACLED, OrificeModifier.MUSCLE_CONTROL),
+	ANGEL(BodyCoveringType.ANUS, Race.ANGEL),
 	
-	DEMON_COMMON(BodyCoveringType.ANUS, Race.DEMON, OrificeModifier.RIBBED, OrificeModifier.TENTACLED, OrificeModifier.MUSCLE_CONTROL),
+	DEMON_COMMON(BodyCoveringType.ANUS, Race.DEMON, OrificeModifier.MUSCLE_CONTROL),
 	
 	COW_MORPH(BodyCoveringType.ANUS, Race.COW_MORPH),
 	

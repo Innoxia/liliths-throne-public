@@ -165,18 +165,18 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	public String getName(boolean withDeterminer, boolean withRarityColour) {
 		return (withDeterminer
 				? (!itemType.getDeterminer().equalsIgnoreCase("a") && !itemType.getDeterminer().equalsIgnoreCase("an")
-					? itemType.getDeterminer() + " "
-					: (Util.isVowel(name.charAt(0)) ? "an " : "a "))
-				: " ")
-				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
+					? itemType.getDeterminer()
+					: UtilText.generateSingularDeterminer(name))
+				: "")
+				+ " "+(withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
 	}
 	
 	public String getDisplayName(boolean withRarityColour) {
 		return Util.capitaliseSentence(
 				(!itemType.getDeterminer().equalsIgnoreCase("a") && !itemType.getDeterminer().equalsIgnoreCase("an")
-						? itemType.getDeterminer() + " "
-						: (Util.isVowel(name.charAt(0)) ? "an " : "a "))
-				+ (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
+						? itemType.getDeterminer()
+						: UtilText.generateSingularDeterminer(name))
+				+ " "+ (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
 	}
 	
 	public String getDisplayNamePlural(boolean withRarityColour) {

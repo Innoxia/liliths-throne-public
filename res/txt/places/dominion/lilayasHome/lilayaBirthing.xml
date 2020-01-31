@@ -120,7 +120,7 @@
 	</p>
 	<p>
 		As Lilaya finishes speaking, a huge wave of relief washes over you. You sink back into the chair, sighing deeply, before you remember your last concern about this whole process; the part about actually giving birth. Before you can ask Lilaya about it again, she continues, 
-		#IF(pc.hasStatusEffect(StatusEffect.PREGNANT_3))
+		#IF(pc.hasStatusEffect(SE_PREGNANT_3))
 				 [lilaya.speech(Oh, and don't worry about the whole giving birth part. I see that your belly has already finished growing, so I can help you to give birth whenever you're ready!)]
 			</p>
 			<p>
@@ -310,7 +310,7 @@
 		<p>
 			You strain your neck to look down, and see Lilaya bring her hands up to hover over your pregnant belly. A huge wave of exhaustion crashes over you, and you remember what she said about how she was going to draw out your aura for this. You struggle to keep your eyes open, but as you feel an intense pushing sensation deep within your vagina, you're almost glad that you can't see what's happening. You start to slip in and out of consciousness, and you find yourself having a strange dream.
 		</p>
-	#END
+	#ENDIF
 	]]>
 	</htmlContent>
 	

@@ -5,11 +5,13 @@ import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventListener;
@@ -49,6 +51,7 @@ import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.Spell;
@@ -83,7 +86,6 @@ import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -111,6 +113,7 @@ import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
+import com.lilithsthrone.world.places.Population;
 
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
@@ -307,10 +310,10 @@ public class MainController implements Initializable {
 			openInventory(null, InventoryInteraction.CHARACTER_CREATION);
 			
 		} else if(Main.game.isInCombat()) {
-			if(Combat.getTargetedCombatant(Main.game.getPlayer()).isPlayer()) {
+			if(Combat.getTargetedCombatant().isPlayer()) {
 				openInventory((NPC) Combat.getEnemies(Main.game.getPlayer()).get(0), InventoryInteraction.COMBAT);
 			} else {
-				openInventory((NPC) Combat.getTargetedCombatant(Main.game.getPlayer()), InventoryInteraction.COMBAT);
+				openInventory((NPC) Combat.getTargetedCombatant(), InventoryInteraction.COMBAT);
 			}
 			
 		} else if(Main.game.isInSex()) {
@@ -318,9 +321,9 @@ public class MainController implements Initializable {
 				return;
 			}
 			openInventory(
-					Sex.isMasturbation()
+					Main.sex.isMasturbation()
 						?null
-						:(NPC) Sex.getTargetedPartner(Main.game.getPlayer()),
+						:(NPC) Main.sex.getTargetedPartner(Main.game.getPlayer()),
 					InventoryInteraction.SEX);
 			
 		} else if(Main.game.getDialogueFlags().getManagementCompanion() != null) {
@@ -487,6 +490,15 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
+							System.out.println(Main.isVersionOlderThan("0.3.5.9", "0.3.5.10"));
+//							for(NPC npc : Main.game.getAllNPCs()) {
+//								if(npc.isUnique()) {
+//									System.out.println(npc.getNameIgnoresPlayerKnowledge()+": "+npc.getAttributeValue(Attribute.MAJOR_CORRUPTION));
+//								}
+//							}
+//							Main.game.getNpc(Lyssieth.class).getSubspecies();
+							
+//							Main.game.getPlayer().setInventory(Main.game.getSavedInventories().get(Main.game.getPlayer().getId()));
 //							for(SolarElevationAngle sea : SolarElevationAngle.values()) {
 //								LocalDateTime[] ldt = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), sea, Game.DOMINION_LONGITUDE, Game.DOMINION_LATITUDE);
 //								System.out.println(sea+": "+ ldt[0] + " | " + ldt[1]);
@@ -1569,8 +1581,8 @@ public class MainController implements Initializable {
 		
 		List<GameCharacter> charactersBeingRendered = new ArrayList<>();
 		if(Main.game.isInSex()) {
-			charactersBeingRendered.addAll(Sex.getDominantParticipants(true).keySet());
-			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants(true).keySet());
+			charactersBeingRendered.addAll(Main.sex.getDominantParticipants(true).keySet());
+			charactersBeingRendered.addAll(Main.sex.getSubmissiveParticipants(true).keySet());
 		} else if(Main.game.isInCombat()) {
 			charactersBeingRendered.add(Main.game.getPlayer());
 			charactersBeingRendered.addAll(Combat.getAllies(Main.game.getPlayer()));
@@ -1655,8 +1667,8 @@ public class MainController implements Initializable {
 						
 					} else { //TODO display NPC perk tree
 						if(Main.game.isInSex()) {
-							Sex.setTargetedPartner(Main.game.getPlayer(), character);
-							Sex.recalculateSexActions();
+							Main.sex.setTargetedPartner(Main.game.getPlayer(), character);
+							Main.sex.recalculateSexActions();
 							updateUI();
 							Main.game.updateResponses();
 								
@@ -1788,12 +1800,12 @@ public class MainController implements Initializable {
 
 	private static void setStatusEffectSexTargetChangeListener(Document document, String id, GameCharacter character, SexAreaInterface si) {
 		((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-			GameCharacter target = Sex.getCharactersHavingOngoingActionWith(character, si).isEmpty()
+			GameCharacter target = Main.sex.getCharactersHavingOngoingActionWith(character, si).isEmpty()
 					?null
-					:Sex.getCharactersHavingOngoingActionWith(character, si).get(0);
+					:Main.sex.getCharactersHavingOngoingActionWith(character, si).get(0);
 			if(target!=null && target instanceof NPC) {
-				Sex.setTargetedPartner(Main.game.getPlayer(), target);
-				Sex.recalculateSexActions();
+				Main.sex.setTargetedPartner(Main.game.getPlayer(), target);
+				Main.sex.recalculateSexActions();
 				updateUI();
 				Main.game.updateResponses();
 			}
@@ -1926,8 +1938,8 @@ public class MainController implements Initializable {
 		
 		List<GameCharacter> charactersBeingRendered = new ArrayList<>();
 		if(Main.game.isInSex()) {
-			charactersBeingRendered.addAll(Sex.getDominantParticipants(true).keySet());
-			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants(true).keySet());
+			charactersBeingRendered.addAll(Main.sex.getDominantParticipants(true).keySet());
+			charactersBeingRendered.addAll(Main.sex.getSubmissiveParticipants(true).keySet());
 			
 		} else if(Main.game.isInCombat()) {
 			charactersBeingRendered.addAll(Combat.getEnemies(Main.game.getPlayer()));
@@ -1938,16 +1950,24 @@ public class MainController implements Initializable {
 		} else {
 			charactersBeingRendered.addAll(Main.game.getCharactersPresent());
 			
-			id = "PLACE_POPULATION";
-			if (((EventTarget) documentRight.getElementById(id)) != null) {
-				addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
-				addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-				
-				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
-						"Races Present",
-						Util.subspeciesToStringList(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies().keySet(), true)+".",
-						(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies().size()/3)*16);
-				addEventListener(documentRight, id, "mouseenter", el, false);
+			if(Main.game.isStarted()) {
+				int i=0;
+				for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
+					id = "PLACE_POPULATION_"+i;
+					if (((EventTarget) documentRight.getElementById(id)) != null) {
+						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
+						
+						Set<Subspecies> subspecies = new HashSet<>();
+						subspecies.addAll(pop.getSpecies().keySet());
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
+								"Races Present",
+								Util.subspeciesToStringList(subspecies, true)+".",
+								(subspecies.size()/3)*16);
+						addEventListener(documentRight, id, "mouseenter", el, false);
+					}
+					i++;
+				}
 			}
 		}
 		
@@ -1980,8 +2000,8 @@ public class MainController implements Initializable {
 					
 				} else if(Main.game.isInSex()) {
 					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
-						Sex.setTargetedPartner(Main.game.getPlayer(), character);
-						Sex.recalculateSexActions();
+						Main.sex.setTargetedPartner(Main.game.getPlayer(), character);
+						Main.sex.recalculateSexActions();
 						updateUI();
 						Main.game.updateResponses();
 					}, false);
@@ -2174,7 +2194,7 @@ public class MainController implements Initializable {
 		if (lastKeysEqual(KeyCode.B, KeyCode.U, KeyCode.G, KeyCode.G, KeyCode.Y)) {
 			if(Main.game!=null) {
 				if(Main.game.isStarted() && Main.game.isInNewWorld() && Main.game.isPrologueFinished()) {
-					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 					Main.game.saveDialogueNode();
 					Main.game.setContent(new Response("", "", DebugDialogue.DEBUG_MENU));
 				} else {
@@ -2206,13 +2226,14 @@ public class MainController implements Initializable {
 						&& Combat.getEnemies(Main.game.getPlayer()).get(0).isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 					GameCharacter target = Combat.getEnemies(Main.game.getPlayer()).get(0);
 					Combat.endCombat(true);
-//					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+//					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 					Main.game.setContent(new ResponseSex(
 							"Dominate",
 							"",
 							false,
 							false,
 							new SexManagerDefault(
+									true,
 									SexPosition.LYING_DOWN,
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MATING_PRESS)),
 									Util.newHashMapOfValues(new Value<>(target, SexSlotLyingDown.LYING_DOWN))) {
@@ -2284,13 +2305,14 @@ public class MainController implements Initializable {
 						&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 					GameCharacter target = Combat.getEnemies(Main.game.getPlayer()).get(0);
 					Combat.endCombat(false);
-//					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+//					Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 					Main.game.setContent(new ResponseSex(
 							"Dominated",
 							"",
 							false,
 							false,
 							new SexManagerDefault(
+									true,
 									SexPosition.LYING_DOWN,
 									Util.newHashMapOfValues(new Value<>(target, SexSlotLyingDown.MATING_PRESS)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))) {
@@ -2332,11 +2354,11 @@ public class MainController implements Initializable {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 								}
 							},

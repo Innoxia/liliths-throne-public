@@ -62,24 +62,12 @@ public class BatMorphCavernAttacker extends NPC {
 			// RACE & NAME:
 			
 			Subspecies species = Subspecies.BAT_MORPH;
-			
-			if(gender.isFeminine()) {
-				switch(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species)) {
-					case MAXIMUM:
-						setBody(gender, species, RaceStage.GREATER, true);
-						break;
-					default:
-						break;
-				}
-			} else {
-				switch(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species)) {
-					case MAXIMUM:
-						setBody(gender, species, RaceStage.GREATER, true);
-						break;
-					default:
-						break;
-				}
+
+			RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
+			if(!gender.isFeminine()) {
+				stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), gender, species);
 			}
+			setBody(gender, species, stage, true);
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	

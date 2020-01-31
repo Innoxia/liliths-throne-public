@@ -468,7 +468,7 @@ public class RalphsSnacks {
 		}
 	};
 	
-	public static final DialogueNode CANDI_LIPSTICK_PURCHASE = new DialogueNode("Ralph's Snacks", "-", false) {
+	public static final DialogueNode CANDI_LIPSTICK_PURCHASE = new DialogueNode("Ralph's Snacks", "-", true) {
 
 		@Override
 		public String getContent() {
@@ -522,7 +522,7 @@ public class RalphsSnacks {
 		}
 	};
 	
-	public static final DialogueNode CANDI_LIPSTICK_BACK_TO_INTERIOR = new DialogueNode("Ralph's Snacks", "-", false) {
+	public static final DialogueNode CANDI_LIPSTICK_BACK_TO_INTERIOR = new DialogueNode("Ralph's Snacks", "-", true) {
 
 		@Override
 		public String getContent() {

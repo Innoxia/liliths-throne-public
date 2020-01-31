@@ -93,7 +93,7 @@ public class EnchantmentDialogue {
 	private static String inventoryView() {
 		inventorySB.setLength(0);
 
-		ItemEffect effect = new ItemEffect(ingredient.getEnchantmentEffect(), primaryMod, secondaryMod, potency, limit);
+		ItemEffect effect = getCurrentEffect();
 		
 		// Primary mods:
 		inventorySB.append("<div class='container-half-width' style='padding-bottom:0;'>");
@@ -130,13 +130,13 @@ public class EnchantmentDialogue {
 		
 		// Secondary mods:
 		inventorySB.append("<div class='container-half-width' style='padding-bottom:0;'>");
-		for (TFModifier tfMod : ingredient.getEnchantmentEffect().getSecondaryModifiers(primaryMod)) {
+		for (TFModifier tfMod : ingredient.getEnchantmentEffect().getSecondaryModifiers(ingredient, primaryMod)) {
 			inventorySB.append("<div class='modifier-icon' style='width:11.5%; background-color:"+tfMod.getRarity().getBackgroundColour().toWebHexString()+";'>"
 					+ "<div class='modifier-icon-content'>"+tfMod.getSVGString()+"</div>"
 					+ "<div class='overlay' id='MOD_SECONDARY_"+tfMod.hashCode()+"'></div>"
 					+ "</div>");
 		}
-		for (int i = 32; i > ingredient.getEnchantmentEffect().getSecondaryModifiers(primaryMod).size(); i--) {
+		for (int i = 32; i > ingredient.getEnchantmentEffect().getSecondaryModifiers(ingredient, primaryMod).size(); i--) {
 			inventorySB.append("<div class='modifier-icon empty' style='width:11.5%;'></div>");
 		}
 		
@@ -249,7 +249,8 @@ public class EnchantmentDialogue {
 			inventorySB.append("<div class='container-half-width' style='width:18%; margin:0 1%;'>");
 				if(effects.size() >= ingredient.getEnchantmentLimit()
 						|| ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer())==null
-						|| ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer()).isEmpty()) {
+						|| ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer()).isEmpty()
+						|| getEnchantmentEffectBlockedReason(effect)!=null) {
 					inventorySB.append(
 							"<div class='normal-button disabled' style='width:100%; margin:auto 0;'>"
 							+ "<b>Add</b> | "
@@ -330,21 +331,28 @@ public class EnchantmentDialogue {
 							}
 						}
 						
+						int i=0;
 						for(String s : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
 							inventorySB.append(
-									"<div class='container-full-width' style='background:"+RenderingEngine.getEntryBackgroundColour(it%2==0)+"; width:98%; margin:0 1%; padding:2px;'>"
-										+Util.capitaliseSentence(s)
-										+(ingredient.getEffects().contains(ie)
-												?"<div class='normal-button' style='width:auto; min-width:64px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0 0 0 4px; float:right; text-align:left;'>"
-														+ "<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>X</b> "
-														+ (ingredient instanceof Tattoo
-																?UtilText.formatAsMoney(EnchantingUtils.getModifierEffectCost(false, ingredient, ie)*EnchantingUtils.FLAME_COST_MODIFER, "b")
-																:UtilText.formatAsEssences(EnchantingUtils.getModifierEffectCost(false, ingredient, ie), "b", false))
-														+ "<div class='overlay' id='DELETE_EFFECT_"+it+"'></div>"
-													+ "</div>"
-												:"<div class='normal-button' id='DELETE_EFFECT_"+it+"'"
-														+ " style='width:22px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0; float:right; color:"+Colour.GENERIC_BAD.toWebHexString()+";'><b>X</b></div>")
-									+"</div>");
+									"<div class='container-full-width'"
+											+ " style='background:"+RenderingEngine.getEntryBackgroundColour(it%2==0)+"; width:98%; margin:0 1%; padding:"+(i==0?"2px":"2px "+(ingredient.getEffects().contains(ie)?"64px":"22px")+" 2px 2px")+";'>"
+										+Util.capitaliseSentence(s));
+							if(i==0) {
+								inventorySB.append(
+									(ingredient.getEffects().contains(ie)
+										?"<div class='normal-button' style='width:auto; min-width:64px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0 0 0 4px; float:right; text-align:left;'>"
+												+ "<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>X</b> "
+												+ (ingredient instanceof Tattoo
+														?UtilText.formatAsMoney(EnchantingUtils.getModifierEffectCost(false, ingredient, ie)*EnchantingUtils.FLAME_COST_MODIFER, "b")
+														:UtilText.formatAsEssences(EnchantingUtils.getModifierEffectCost(false, ingredient, ie), "b", false))
+												+ "<div class='overlay' id='DELETE_EFFECT_"+it+"'></div>"
+											+ "</div>"
+										:"<div class='normal-button' id='DELETE_EFFECT_"+it+"' style='width:22px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0; float:right; color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
+											+ "<b>X</b>"
+										+ "</div>"));
+							}
+							inventorySB.append("</div>");
+							i++;
 						}
 					}
 					
@@ -655,8 +663,8 @@ public class EnchantmentDialogue {
 		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().contains(EnchantmentDialogue.primaryMod)) {
 			EnchantmentDialogue.primaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().get(0);
 		}
-		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.primaryMod).contains(EnchantmentDialogue.secondaryMod)) {
-			EnchantmentDialogue.secondaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.primaryMod).get(0);
+		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.ingredient, EnchantmentDialogue.primaryMod).contains(EnchantmentDialogue.secondaryMod)) {
+			EnchantmentDialogue.secondaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.ingredient, EnchantmentDialogue.primaryMod).get(0);
 		}
 		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPotencyModifiers(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod).contains(EnchantmentDialogue.potency)) {
 			EnchantmentDialogue.potency = TFPotency.MINOR_BOOST;
@@ -1074,8 +1082,25 @@ public class EnchantmentDialogue {
 		EnchantmentDialogue.previousIngredient = previousIngredient;
 	}
 
+	public static ItemEffect getCurrentEffect() {
+		return new ItemEffect(ingredient.getEnchantmentEffect(), primaryMod, secondaryMod, potency, limit);
+	}
+	
 	public static List<ItemEffect> getEffects() {
 		return effects;
+	}
+	
+	public static String getEnchantmentEffectBlockedReason(ItemEffect effect) {
+		if(ingredient instanceof AbstractClothing) {
+			if(effect.getSecondaryModifier()==TFModifier.CLOTHING_VIBRATION) {
+				for(ItemEffect ie : effects) {
+					if(ie.getSecondaryModifier()==TFModifier.CLOTHING_VIBRATION) {
+						return "Only one 'vibration' effect can be added to clothing!";
+					}
+				}
+			}
+		}
+		return null;
 	}
 	
 	public static boolean addEffect(ItemEffect effect) {

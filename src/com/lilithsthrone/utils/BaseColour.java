@@ -23,6 +23,7 @@ public enum BaseColour {
 	PINK_SALMON(Util.newColour(0xFF99C9), Util.newColour(0xFF57A5)),
 	PINK(Util.newColour(0xFF6BDA), Util.newColour(0xFF0FC3)),
 	PINK_LIGHT(Util.newColour(0xF5A8FF), Util.newColour(0xCF26BE)),
+	PINK_PALE(Util.newColour(0xf5d6ff), Util.newColour(0xd8ade2)),
 	PINK_DEEP(Util.newColour(0xFF33CC), Util.newColour(0xFF33CC)),
 		
 	MAGENTA(Util.newColour(0xFF1472), Util.newColour(0xFF1472)),

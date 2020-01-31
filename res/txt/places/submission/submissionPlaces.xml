@@ -299,7 +299,7 @@
 		[pc.speech(So you want me to find out if he's in there for you?)] you ask, picking up on what it is Claire is about to ask you.
 	</p>
 	<p>
-		[claire.speech(That's right,)] she confirms, before reaching into a pouch on her vest and producing a small, dark-purple sphere. Handing it towards you, she says, [claire.speech(This is a basic resonance stone, calibrated to send a signal to the one in the SWORD unit's possession. These are normally illegal for citizens to use, but you have special permission from the Inspector. Just twist the two halves in opposite directions to activate it and only use it once you're in the rat Warrens and have confirmed that Vengar is inside, ok?)]
+		[claire.speech(That's right,)] she confirms, before reaching into a pouch on her vest and producing a small, dark-purple sphere. Handing it towards you, she says, [claire.speech(This is a basic resonance stone, calibrated to send a signal to the one in the SWORD unit's possession. These are normally illegal for citizens to possess, let alone use, but you have special permission from the Inspector. Just twist the two halves in opposite directions to activate it. Oh, and obviously only use it once you're in the Rat Warrens and have confirmed that Vengar is inside, ok?)]
 	</p>
 	<p>
 		Taking the resonance stone from Claire, you see that there's a shallow groove running the entire way around its circumference, effectively splitting the sphere into two halves. Telling the busty cat-girl that you understand how it works, you put it away into your inventory.
@@ -312,7 +312,6 @@
 	</p>
 	]]>
 	</htmlContent>
-	
 	
 	
 	<!-- CLAIRE_TELEPORTATION_PADS -->
@@ -632,6 +631,29 @@
 	
 	<!-- RAT_WARREN -->
 	
+	<htmlContent tag="RAT_WARREN_CLOSED"><![CDATA[
+	<p>
+		This side tunnel looks just like all of the others that you've travelled through so far, but with one exception. Built into the wall nearest to where you're standing, a large stone archway has been constructed, which houses a pair of heavy oaken doors.
+	</p>
+	<p>
+		Having been cleared out by the SWORD raid, the Rat Warrens are now completely deserted, and to prevent any new gang from moving in and setting up shop, several iron bars have been bolted onto the doors in front of you, preventing them from being opened. Several identical pieces of paper have been plastered over the stonework to either side of the entrance, and, taking a closer look at one of them, you read:
+	</p>
+	<h6 style='text-align:center;'>Submission Enforcer Department</h6>
+	<h5 style='text-align:center;'>NOTICE OF ASSET SEIZURE</h5>
+	<p style='text-align:center;'>
+		Having been identified as being used, or suspected of being used, by criminal(s), this property has been seized by the Submission Enforcer Department.<br/>
+		Any unauthorised entry beyond this point is in violation of the law.
+		<br/><br/>
+		Officer in charge of investigation: <i>Inspector Powell</i>
+		<br/><br/>
+		Any complaints or inquiries should be made in person at the nearest Submission Enforcer Outpost. Thank you for your understanding.
+	</p>
+	<p>
+		With nothing more to be gained from loitering in this area, you step back from the doors and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="RAT_WARREN"><![CDATA[
 	<p>
 		This side tunnel looks just like all of the others that you've travelled through so far, but with one exception. Built into the wall nearest to where you're standing, a large stone archway has been constructed, which houses a pair of heavy oaken doors. Shut tight and bolted from within, these doors block access to whatever is on the other side.
@@ -646,13 +668,26 @@
 	<!-- RAT_WARREN_KNOCK_ON_DOOR -->
 	
 	<htmlContent tag="RAT_WARREN_KNOCK_ON_DOOR"><![CDATA[
-	#IF(pc.hasQuest(QUEST_LINE_SIDE_VENGAR))
+	<p>
+		Wanting to see if you can gain access to the Rat Warrens, you step up to the heavy oaken doors, before reaching out and giving them a sharp knock.
+	</p>
+	<p>
+		After just a few moments, you hear sounds of movement coming from beyond, followed by the noise of a heavy metal bolt sliding to one side. With a deafening creak of rusted hinges, the weathered doors slowly open inwards to reveal a small hallway, with yet another pair of wooden doors built into the far wall. Set into the stone on either side of this interior pair of doors, you see a couple of small, open hatches, and as you step forwards, cocked crossbows suddenly poke out from them, aiming in your general direction.
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensEntryWhore))
 		<p>
-			Knock on door, give password. Door unlocks.
+			[npc.speech('Ey, you's that whore wot was here ta get fucked by Vengar!)] the rough voice of [npc.name] calls out from one of the hatches, [npc.speech(Ya back ta get some more o' 'is cock? Come on in!)]
+		</p>
+	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensEntry))
+		<p>
+			[npc.speech('Ey, you's that person wot was here doin' business with Vengar!)] the rough voice of [npc.name] calls out from one of the hatches, [npc.speech(Ya back ta see 'im again? Come on in!)]
 		</p>
 	#ELSE
 		<p>
-			Knock on door, don't have password. Refused entry.
+			[npc.speech(Wot you wantin'?!)] a rough voice calls out from one of the hatches, [npc.speech(Speak up quick, or else yer gonna see wot these things can do!)]
+		</p>
+		<p>
+			[npc2.speech(That's right!)] a second voice chimes in, [npc2.speech(If ya ain't got any business 'ere, then fuck off!)]
 		</p>
 	#ENDIF
 	]]>
@@ -660,21 +695,26 @@
 	
 	<htmlContent tag="RAT_WARREN_ENTRY_STEP_BACK"><![CDATA[
 	<p>
-		You change your mind and step back.
+		Deciding against entering the Rat Warrens right now, you shout out to the guards that you've changed your mind, before stepping back into the tunnel.
+	</p>
+	<p>
+		[npc.speech(Wot a fuckin' waste o' our time!)] [npc.name] shouts out, [npc.speech(Don't bother fuckin' comin' back unless ya wantin' ta come in!)]
+	</p>
+	<p>
+		Seemingly powered by an internal mechanism, the exterior doors slowly start grinding shut, and after just a moment, you find yourself once again locked out in the tunnels of Submission.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="RAT_WARREN_STEP_BACK"><![CDATA[
 	<p>
-		You step back.
+		Without any reason to be here, you've go no choice but to shout out to the guards that you've changed your mind about wanting to enter, before stepping back into the tunnel.
 	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="RAT_WARREN_ENTRY"><![CDATA[
 	<p>
-		You enter the rat warrens. Rat guards.
+		[npc.speech(Wot a fuckin' waste o' our time!)] the rough voice shouts out, [npc.speech(Don't bother fuckin' comin' back unless ya got business ta be here!)]
+	</p>
+	<p>
+		Seemingly powered by an internal mechanism, the exterior doors slowly start grinding shut, and after just a moment, you find yourself once again locked out in the tunnels of Submission.
 	</p>
 	]]>
 	</htmlContent>
@@ -1001,7 +1041,7 @@
 		The sheer obsidian walls of Lyssieth's palace drop away into the inky blankness of the ravine below you, and with the sole exception of the massive wooden gates before you, there's not a single weak point to be seen in the entire face of the carved structure. The few windows that break up the smooth, glass-like surface take the form of narrow arrow-slits, and all but the very smallest of these are covered with what look to be iron bars.
 	</p>
 	<p>
-		A pair of masterfully-carved stone gargoyles, each one standing at well over eight feet tall, snarl down at anyone crossing the drawbridge. Every time you glance up at one of them, they seem to be wearing a slightly different expression, but whether this is some arcane-enchantment, or just your imagination, you can't tell. As you've come to expect from this world, the two sculptures are completely naked, and while each of the masculine figures are sporting balls large enough to put a horse to shame, it's what their cocks are buried in that catches your attention the most. Appearing to be carved out of the same jet-black obsidian, a rat-girl and succubus are being restrained in full-nelson holds; their legs lifted from the floor as the gargoyles' cocks slam deep into their exposed pussies.
+		A pair of masterfully-carved stone gargoyles, each one standing at well over [units.size(250)] in height, snarl down at anyone crossing the drawbridge. Every time you glance up at one of them, they seem to be wearing a slightly different expression, but whether this is some arcane-enchantment, or just your imagination, you can't tell. As you've come to expect from this world, the two sculptures are completely naked, and while each of the masculine figures are sporting balls large enough to put a horse to shame, it's what their cocks are buried in that catches your attention the most. Appearing to be carved out of the same jet-black obsidian, a rat-girl and succubus are being restrained in full-nelson holds; their legs lifted from the floor as the gargoyles' cocks slam deep into their exposed pussies.
 	</p>
 	<p>
 		Casting your gaze back down from the lewd expressions on each of the girls' faces, you turn your attention to the huge wooden gates before you. Set into the wall of the palace by about two or three feet, the only observable entrance boasts an extra line of defence, in the form of a thick metal portcullis. Thankfully, this has been raised, allowing Elizabeth to freely approach the doors before you.

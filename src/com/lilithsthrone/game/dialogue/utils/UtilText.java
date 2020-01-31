@@ -89,7 +89,6 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -182,11 +181,14 @@ public class UtilText {
 		
 		modifiedSentence = splitOnConditional[splitOnConditional.length-1];
 		
-		if(!parserTags.contains(ParserTag.SEX_ALLOW_MUFFLED_SPEECH)
+		if(target.hasPersonalityTrait(PersonalityTrait.MUTE)) {
+			modifiedSentence = Util.replaceWithMute(modifiedSentence, Main.game.isInSex() && Main.sex.getAllParticipants().contains(target));
+			
+		} else if(!parserTags.contains(ParserTag.SEX_ALLOW_MUFFLED_SPEECH)
 				&& Main.game.isInSex()
-				&& Sex.getAllParticipants().contains(target)
+				&& Main.sex.getAllParticipants().contains(target)
 				&& target.isSpeechMuffled()) {
-			if(Sex.isOngoingActionsBlockingSpeech(target)) {
+			if(Main.sex.isOngoingActionsBlockingSpeech(target)) {
 				modifiedSentence = Util.replaceWithMuffle(modifiedSentence, 2);// + " <i style='font-size:66%;'>("+modifiedSentence+")</i>";
 			}
 			
@@ -199,6 +201,10 @@ public class UtilText {
 				}
 			}
 			
+			if(target.hasPersonalityTrait(PersonalityTrait.SLOVENLY)) {
+				modifiedSentence = Util.applySlovenlySpeech(modifiedSentence);
+			}
+			
 			if(target.getAlcoholLevel().getSlurredSpeechFrequency()>0) {
 				modifiedSentence = Util.addDrunkSlur(modifiedSentence, target.getAlcoholLevel().getSlurredSpeechFrequency());
 			}
@@ -207,8 +213,8 @@ public class UtilText {
 			if(target.isSpeechMuffled()) {
 				modifiedSentence = Util.addMuffle(modifiedSentence, 5);
 				
-			} else if(Main.game.isInSex() && Sex.getAllParticipants().contains(target)) {
-				if(Sex.isCharacterEngagedInOngoingAction(target)) {
+			} else if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(target)) {
+				if(Main.sex.isCharacterEngagedInOngoingAction(target)) {
 					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 				}
 				
@@ -269,7 +275,7 @@ public class UtilText {
 
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
-			if(Sex.isCharacterEngagedInOngoingAction(target))
+			if(Main.sex.isCharacterEngagedInOngoingAction(target))
 				modifiedSentence = Util.addSexSounds(modifiedSentence, 5);
 		}
 
@@ -446,15 +452,15 @@ public class UtilText {
 	}
 	
 	public static String formatVirginityLoss(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'><i>"+s+"</i></p>";
 	}
 	
 	public static String formatTooLoose(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'><i>"+s+"</i></p>";
 	}
 	
 	public static String formatStretching(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'><i>"+s+"</i></p>";
 	}
 
 	public static boolean isVowel(char c) {
@@ -472,6 +478,7 @@ public class UtilText {
 				 && !word.startsWith("Unicorn") && !word.startsWith("unicorn")
 				 && !word.startsWith("Used") && !word.startsWith("used")) {
 			return "an";
+			
 		} else {
 			return "a";
 		}
@@ -636,6 +643,10 @@ public class UtilText {
 	
 	public static String parse(GameCharacter specialNPC1, GameCharacter specialNPC2, String input, ParserTag... tags) {
 		return parse(Util.newArrayListOfValues(specialNPC1, specialNPC2), input, tags);
+	}
+	
+	public static boolean isInSpeech() {
+		return speechTarget!=null && !speechTarget.isEmpty();
 	}
 	
 	private static String speechTarget = "";
@@ -1552,6 +1563,38 @@ public class UtilText {
 				}
 			}
 		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"companion"),
+				true,
+				true,
+				"",
+				"Prints out the most important name of this character's relation towards their party's leader (it will cut off multiple relation names) for half of the time. The other half will return 'companion' or 'slave' (if applicable)."
+				+ " e.g. If the player's companion is their daughter, then 'npc.companion' would print 'daughter', otherwise 'companion' or 'slave' (if applicable)."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				try {
+					GameCharacter targetedCharacter = character.getPartyLeader();
+					if(targetedCharacter==null) {
+						return "companion";
+					}
+					Set<Relationship> set = character.getRelationshipsTo(targetedCharacter);
+					if(set.size()>=1 && Math.random()<0.5f) {
+						return set.iterator().next().getName(character);
+					} else {
+						if(character.isSlave() && character.getOwner().equals(targetedCharacter) && Math.random()<0.5f) {
+							return "slave";
+						}
+						return "companion";
+					}
+					
+				} catch(Exception ex) {
+					ex.printStackTrace();
+					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: relation command character argument not found! ("+arguments+")</i>";
+				}
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -1565,7 +1608,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 				try {
-					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), null);
+					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), specialNPCs);
 					Set<Relationship> set = character.getRelationshipsTo(targetedCharacter);
 					if(set.size()>=1) {
 						return set.iterator().next().getName(character);
@@ -1593,7 +1636,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				ParserTarget parserTarget = findParserTargetWithTag(arguments.replaceAll("\u200b", ""));
 				try {
-					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), null);
+					GameCharacter targetedCharacter = parserTarget.getCharacter(arguments.toLowerCase(), specialNPCs);
 					return character.getRelationshipStrTo(targetedCharacter);
 					
 				} catch(Exception ex) {
@@ -1887,6 +1930,37 @@ public class UtilText {
 				return (parseCapitalise
 						?Util.capitaliseSentence(Femininity.getFemininityName(character.getFemininityValue(), pronoun))
 						:Femininity.getFemininityName(character.getFemininityValue(), pronoun))+" "+character.getRaceStage().getName()+" "+getSubspeciesName(character.getSubspecies(),character);
+			}
+			@Override
+			protected String applyDeterminer(String descriptor, String input) {
+				return input;
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"fullRaces",
+						"racesFull",
+						"femininityRaces"),
+				true,
+				true,
+				"(coloured)",
+				"Returns a full description of this characters pluralised race (including femininity). Pass in 'true' to colour the text."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				boolean pronoun = parseAddPronoun;
+				parseAddPronoun = false;
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					return "<span style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"
+							+ (parseCapitalise
+									?Util.capitaliseSentence(Femininity.getFemininityName(character.getFemininityValue(), pronoun))
+									:Femininity.getFemininityName(character.getFemininityValue(), pronoun))+"</span>"
+							+ " <span style='color:"+character.getRaceStage().getColour().toWebHexString()+";'>" +character.getRaceStage().getName()+"</span>"
+							+ " <span style='color:"+character.getSubspecies().getColour(character).toWebHexString()+";'>" +  getSubspeciesNamePlural(character.getSubspecies(),character) + "</span>";
+				}
+				return (parseCapitalise
+						?Util.capitaliseSentence(Femininity.getFemininityName(character.getFemininityValue(), pronoun))
+						:Femininity.getFemininityName(character.getFemininityValue(), pronoun))+" "+character.getRaceStage().getName()+" "+getSubspeciesNamePlural(character.getSubspecies(),character);
 			}
 			@Override
 			protected String applyDeterminer(String descriptor, String input) {
@@ -2755,7 +2829,7 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(Main.game.isInSex()) {
-					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+					if(Main.sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("sob", "scream", "cry");
 						} else {
@@ -2791,14 +2865,14 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(Main.game.isInSex()) {
-					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+					if(Main.sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("miserable", "pathetic", "distressed") + " " + returnStringAtRandom("sob", "scream", "cry");
 						} else {
 							return returnStringAtRandom("miserable", "pathetic", "distressed") + " " + returnStringAtRandom("shout", "cry");
 						}
 						
-					} else if(Sex.getSexPace(character)==SexPace.DOM_GENTLE) {
+					} else if(Main.sex.getSexPace(character)==SexPace.DOM_GENTLE) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("soft", "gentle", "quiet") + " " + returnStringAtRandom("moan", "sigh", "gasp");
 						} else {
@@ -2834,7 +2908,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(character.isPlayer()) {
 					if(Main.game.isInSex()) {
-						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+						if(Main.sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 							if(character.isFeminine()) {
 								return returnStringAtRandom("sob", "scream", "cry");
 							} else {
@@ -2850,7 +2924,7 @@ public class UtilText {
 					}
 				} else {
 					if(Main.game.isInSex()) {
-						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+						if(Main.sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 							if(character.isFeminine()) {
 								return returnStringAtRandom("sobs", "screams", "cries");
 							} else {
@@ -2896,14 +2970,14 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(character.isPlayer()) {
 					if(Main.game.isInSex()) {
-						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+						if(Main.sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 							if(character.isFeminine()) {
 								return returnStringAtRandom("miserably", "pathetically") + " " + returnStringAtRandom("sob", "scream", "cry");
 							} else {
 								return returnStringAtRandom("miserably", "pathetically") + " " + returnStringAtRandom("shout", "cry");
 							}
 							
-						} else if(Sex.getSexPace(character)==SexPace.DOM_GENTLE) {
+						} else if(Main.sex.getSexPace(character)==SexPace.DOM_GENTLE) {
 							if(character.isFeminine()) {
 								return returnStringAtRandom("softly", "gently", "quietly") + " " + returnStringAtRandom("moan", "sigh", "cry", "gasp");
 							} else {
@@ -2919,14 +2993,14 @@ public class UtilText {
 					}
 				} else {
 					if(Main.game.isInSex()) {
-						if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+						if(Main.sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 							if(character.isFeminine()) {
 								return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("sobs", "cries");
 							} else {
 								return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("shouts", "cries");
 							}
 							
-						} else if(Sex.getSexPace(character)==SexPace.DOM_GENTLE) {
+						} else if(Main.sex.getSexPace(character)==SexPace.DOM_GENTLE) {
 							if(character.isFeminine()) {
 								return returnStringAtRandom("softly", "gently", "quietly") + " " + returnStringAtRandom("moans", "sighs", "gasps");
 							} else {
@@ -2959,7 +3033,7 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(Main.game.isInSex()) {
-					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+					if(Main.sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("sobs", "cries");
 						} else {
@@ -2996,14 +3070,14 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(Main.game.isInSex()) {
-					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+					if(Main.sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("miserable", "pathetic", "distressed") + " " + returnStringAtRandom("sobs", "cries");
 						} else {
 							return returnStringAtRandom("miserable", "pathetic", "distressed") + " " + returnStringAtRandom("shouts", "cries");
 						}
 						
-					} else if(Sex.getSexPace(character)==SexPace.DOM_GENTLE) {
+					} else if(Main.sex.getSexPace(character)==SexPace.DOM_GENTLE) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("soft", "gentle", "quiet") + " " + returnStringAtRandom("moans", "sighs", "gasps");
 						} else {
@@ -3033,7 +3107,7 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(Main.game.isInSex()) {
-					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+					if(Main.sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("sobbing", "crying");
 						} else {
@@ -3067,14 +3141,14 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(Main.game.isInSex()) {
-					if(Sex.getSexPace(character)==SexPace.SUB_RESISTING) {
+					if(Main.sex.getSexPace(character)==SexPace.SUB_RESISTING) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("sobbing", "crying");
 						} else {
 							return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("shouting", "protesting");
 						}
 						
-					} else if(Sex.getSexPace(character)==SexPace.DOM_GENTLE) {
+					} else if(Main.sex.getSexPace(character)==SexPace.DOM_GENTLE) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("softly", "gently", "quietly") + " " + returnStringAtRandom("moaning", "sighing");
 						} else {
@@ -3095,7 +3169,8 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"eagerly",
 						"gently",
-						"roughly"),
+						"roughly",
+						"sexPaceVerb"),
 				true,
 				false,
 				"(Alternative start string)",
@@ -3104,7 +3179,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(Main.game.isInSex()) {
 					List<String> descriptors = new ArrayList<>();
-					switch(Sex.getSexPace(character)) {
+					switch(Main.sex.getSexPace(character)) {
 						case DOM_GENTLE:
 							descriptors = Util.newArrayListOfValues("gently", "softly", "lovingly");
 							break;
@@ -3388,6 +3463,7 @@ public class UtilText {
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(target.startsWith("npc") && arguments==null && character.isPlayer()) {
 					return "your";
+					
 				} else {
 					if(character.isFeminine()) {
 						if(character.isPlayer()) {
@@ -5828,6 +5904,21 @@ public class UtilText {
 			}
 		});
 		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tailGirth",
+						"tailsGirth"),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.TAIL){//TODO
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getTailGirthDescriptor();
+			}
+		});
+		
 		// Vagina:
 		
 		commandsList.add(new ParserCommand(
@@ -6380,6 +6471,15 @@ public class UtilText {
 				}
 			}
 			
+			if(Main.game.isStarted() && Main.game.getPlayer().hasCompanions()) {
+				for(int i = 0; i<Main.game.getPlayer().getCompanions().size(); i++) {
+					if(i==0) {
+						engine.put("com", Main.game.getPlayer().getCompanions().get(i));
+					}
+					engine.put("com"+(i+1), Main.game.getPlayer().getCompanions().get(i));
+				}
+			}
+			
 			try {
 				if(suppressOutput) {
 					engine.eval(command);
@@ -6410,6 +6510,15 @@ public class UtilText {
 					engine.put("npc", ParserTarget.NPC.getCharacter("npc", specialNPCs));
 				} catch(Exception ex) {
 //					System.err.println("Parsing error: Could not initialise npc 2");
+				}
+			}
+			
+			if(Main.game.getPlayer().hasCompanions()) {
+				for(int i = 0; i<Main.game.getPlayer().getCompanions().size(); i++) {
+					if(i==0) {
+						engine.put("com", Main.game.getPlayer().getCompanions().get(i));
+					}
+					engine.put("com"+(i+1), Main.game.getPlayer().getCompanions().get(i));
 				}
 			}
 		}
@@ -6526,7 +6635,7 @@ public class UtilText {
 			}
 		}
 		engine.put("game", Main.game);
-		engine.put("sex", Main.sexEngine);
+		engine.put("sex", Main.sex);
 		engine.put("properties", Main.getProperties());
 		
 		for(int i=0; i<specialParsingStrings.size(); i++) {
@@ -6753,6 +6862,15 @@ public class UtilText {
 			}
 		}
 		
+		if(Main.game.getPlayer().hasCompanions()) {
+			for(int i = 0; i<Main.game.getPlayer().getCompanions().size(); i++) {
+				if(i==0) {
+					engine.put("com", Main.game.getPlayer().getCompanions().get(i));
+				}
+				engine.put("com"+(i+1), Main.game.getPlayer().getCompanions().get(i));
+			}
+		}
+		
 		StringBuilder sb = new StringBuilder();
 		
 		for(Entry<String, String> entry : conditionals.entrySet()) {
@@ -6806,7 +6924,7 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				try {
-					return getBodyPartFromType(bodyPart,character).getType().getRace().getName(getBodyPartFromType(bodyPart,character).isBestial(character));
+					return getBodyPartFromType(bodyPart,character).getType().getRace().getName(character, getBodyPartFromType(bodyPart, character).isBestial(character));
 				} catch(Exception ex) {
 					return "null_body_part";
 				}
@@ -7172,21 +7290,24 @@ public class UtilText {
 	 * Some methods might return a null or empty string for a determiner. This method accounts for that, applying a special determiner if one is available and then returning the descriptor + name combination.
 	 */
 	private static String applyDeterminer(String descriptor, String input) {
-		if(descriptor==null)
+		if(descriptor==null) {
 			return input;
+		}
 		
-		return (descriptor.length() > 0 ? descriptor + " " : (UtilText.isVowel(input.charAt(0))?"an ":"a ")) + input;
+		return descriptor.length()>0
+				? descriptor + " "
+				: UtilText.generateSingularDeterminer(input) + input;
 	}
 
-	private static String getSubspeciesName(Subspecies race, GameCharacter character) {
-		if(race==null) {
+	private static String getSubspeciesName(Subspecies subspecies, GameCharacter character) {
+		if(subspecies==null) {
 			return "";
 		}
 		
 		if (character.isFeminine()) {
-			return race.getSingularFemaleName(character);
+			return subspecies.getSingularFemaleName(character);
 		} else {
-			return race.getSingularMaleName(character);
+			return subspecies.getSingularMaleName(character);
 		}
 	}
 	

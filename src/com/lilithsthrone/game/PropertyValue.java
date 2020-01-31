@@ -12,6 +12,7 @@ public enum PropertyValue {
 	concealedSlotsReveal(false),
 	
 	enchantmentLimits(true),
+	levelDrain(true),
 	
 	artwork(true),
 	thumbnail(true),
@@ -51,9 +52,14 @@ public enum PropertyValue {
 	nipplePenContent(true),
 	analContent(true),
 	footContent(true),
+	gapeContent(true),
+	
 	futanariTesticles(true),
 	bipedalCloaca(true),
-	voluntaryNTR(false),
+	
+	// I know a lot of people hate NTR, but this 'voluntary NTR' setting is just giving the player the option to give their companion to other people, rather than having their companion taken against their will.
+	// For this reason, it's on by default (to give the player more options), but involutary NTR will always be off by default.
+	voluntaryNTR(true),
 	involuntaryNTR(false),
 
 	spittingEnabled(true),

@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -107,6 +108,7 @@ public class DominionAlleywayAttacker extends NPC {
 					case IMP:
 					case IMP_ALPHA:
 					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_ARCTIC:
 					case FOX_ASCENDANT_FENNEC:
 					case ELEMENTAL_AIR:
 					case ELEMENTAL_ARCANE:
@@ -142,7 +144,7 @@ public class DominionAlleywayAttacker extends NPC {
 				}
 			}
 			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces, true);
+			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			
 			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
 				if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
@@ -150,7 +152,7 @@ public class DominionAlleywayAttacker extends NPC {
 				}
 			}
 			
-			if(Math.random()<0.05 && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { //5% chance for the NPC to be a taur
+			if(Main.getProperties().taurFurryLevel>0 && Math.random()<0.05 && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { //5% chance for the NPC to be a taur
 				int taurLevel = Main.getProperties().taurFurryLevel;
 				if(this.getRace()==Race.DEMON) {
 					taurLevel = 3; // Demons should always be untouched
@@ -277,12 +279,13 @@ public class DominionAlleywayAttacker extends NPC {
 	public void hourlyUpdate() {
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE && this.getLocationPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
 			// Remove client:
-			List<NPC> charactersPresent = Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation());
+			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation()));
 			charactersPresent.removeAll(Main.game.getPlayer().getCompanions());
 			if(charactersPresent.size()>1) {
 				for(NPC npc : charactersPresent) {
 					if(npc instanceof GenericSexualPartner) {
-	//					System.out.println("partner removed for "+slave.getName());
+//						System.out.println("partner removed for "+this.getName());
+//						System.out.println(npc.getId());
 						Main.game.banishNPC(npc);
 					}
 				}

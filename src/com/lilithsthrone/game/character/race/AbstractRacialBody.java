@@ -41,7 +41,7 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
@@ -197,7 +197,7 @@ public abstract class AbstractRacialBody {
 			HornLength maleHornLength,
 			HornLength femaleHornLength, List<AbstractHornType> hornTypes,
 			PenisType penisType,
-			int penisSize, PenisGirth penisGirth, TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction, List<TailType> tailTypes,
+			int penisSize, PenetrationGirth penisGirth, TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction, List<TailType> tailTypes,
 			TentacleType tentacleType,
 			VaginaType vaginaType,
 			Wetness vaginaWetness, Capacity vaginaCapacity, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity, List<WingType> wingTypes,
@@ -365,7 +365,11 @@ public abstract class AbstractRacialBody {
 		
 		for(PersonalityTrait trait : PersonalityTrait.values()) {
 			if(trait.getPersonalityCategory()==PersonalityCategory.SPEECH) {
-				map.put(trait, 0.01f); // Speech-related traits should be rare for a normal race.
+				if(trait==PersonalityTrait.MUTE) {
+					map.put(trait, 0.001f); // Mute should be very rare.
+				} else {
+					map.put(trait, 0.01f); // Speech-related traits should be rare for a normal race.
+				}
 				
 			} else if(trait.getPersonalityCategory()==PersonalityCategory.SEX && trait!=PersonalityTrait.LEWD) {
 				map.put(trait, 0.02f); // Smaller chance for people to be prude or innocent.
