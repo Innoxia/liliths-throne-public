@@ -42,7 +42,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
-import com.lilithsthrone.game.inventory.enchanting.PossibleTFEffect;
+import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -1216,7 +1216,7 @@ public class ImpCitadelDialogue {
 
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(1000));
 
-							Value<AbstractItemType, List<PossibleTFEffect>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+							Value<AbstractItemType, List<PossibleItemEffect>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
 							AbstractItem potion = EnchantingUtils.craftItem(
 								AbstractItemType.generateItem(effects.getKey()),
 								effects.getValue().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
@@ -1327,7 +1327,7 @@ public class ImpCitadelDialogue {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
 
-						Value<AbstractItemType, List<PossibleTFEffect>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+						Value<AbstractItemType, List<PossibleItemEffect>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
 						AbstractItem potion = EnchantingUtils.craftItem(
 							AbstractItemType.generateItem(effects.getKey()),
 							effects.getValue().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
@@ -1410,7 +1410,7 @@ public class ImpCitadelDialogue {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
 						
-						Value<AbstractItemType, List<PossibleTFEffect>> effects = ((NPC)getArcanist()).generateTransformativePotion(getMainCompanion());
+						Value<AbstractItemType, List<PossibleItemEffect>> effects = ((NPC)getArcanist()).generateTransformativePotion(getMainCompanion());
 						AbstractItem potion = EnchantingUtils.craftItem(
 							AbstractItemType.generateItem(effects.getKey()),
 							effects.getValue().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
@@ -1507,7 +1507,7 @@ public class ImpCitadelDialogue {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
 
-						Value<AbstractItemType, List<PossibleTFEffect>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+						Value<AbstractItemType, List<PossibleItemEffect>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
 						AbstractItem potion = EnchantingUtils.craftItem(
 							AbstractItemType.generateItem(effects.getKey()),
 							effects.getValue().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
