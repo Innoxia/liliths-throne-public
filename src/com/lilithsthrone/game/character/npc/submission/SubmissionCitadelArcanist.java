@@ -357,13 +357,8 @@ public class SubmissionCitadelArcanist extends NPC {
 				break;
 		}
 		
-		for(PossibleItemEffect e : minimumEffects) {
-			effects.add(e);
-		}
-		
-		for(PossibleItemEffect e : getFeminineEffects(target, itemType)) {
-			effects.add(e);
-		}
+		effects.addAll(minimumEffects);
+		effects.addAll(getFeminineEffects(target, itemType));
 		
 		// Remove penis:
 		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), ""));
@@ -374,12 +369,8 @@ public class SubmissionCitadelArcanist extends NPC {
 		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1), ""));
 		effects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1), ""));
 
-		for(PossibleItemEffect e : reducedEffects) {
-			effects.add(e);
-		}
-		for(PossibleItemEffect e : maximumEffects) {
-			effects.add(e);
-		}
+		effects.addAll(reducedEffects);
+		effects.addAll(maximumEffects);
 		
 		return new Value<>(itemType, effects);
 	}

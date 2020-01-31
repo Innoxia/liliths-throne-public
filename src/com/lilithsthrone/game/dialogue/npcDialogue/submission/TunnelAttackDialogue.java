@@ -1056,15 +1056,7 @@ public class TunnelAttackDialogue {
 						+ "[npc.Name] steps back, grinning down at [npc2.name] as [npc2.she] obediently [npc2.verb(swallow)] the strange liquid."
 						+ " [npc.speech(Good [npc2.girl]! I'm going to turn you into my perfect "+getMugger().getPreferredBodyDescription("b")+"!)]"
 					+ "</p>"));
-			for(PossibleItemEffect e : potion.getValue()) {
-				sb.append(UtilText.parse(getMugger(),
-						(e.getMessage()!=null && !e.getMessage().isEmpty()
-							?"<p>"
-								+ "[npc.speech("+e.getMessage()+")]"
-							+ "</p>"
-							:"")
-						+ e.getEffect().applyEffect(getMugger(), target, 1)));
-			}
+			sb.append(getMugger().applyPotion(potion, target));
 		}
 		
 		if(fetishPotion!=null && forcedFetish) {
@@ -1073,15 +1065,7 @@ public class TunnelAttackDialogue {
 						+ "With a look of fiendish delight in [npc.her] [npc.eyes], [npc.name] excitedly cries out,"
 						+ " [npc.speech(That's right, swallow it all down! These changes are all for the better!)]"
 					+ "</p>"));
-			for(PossibleItemEffect e : fetishPotion.getValue()) {
-				sb.append(UtilText.parse(getMugger(),
-						(e.getMessage()!=null && !e.getMessage().isEmpty()
-							?"<p>"
-								+ "[npc.speech("+e.getMessage()+")]"
-							+ "</p>"
-							:"")
-						+ e.getEffect().applyEffect(getMugger(), target, 1)));
-			}
+			sb.append(getMugger().applyPotion(fetishPotion, target));
 		}
 		return sb.toString();
 	}

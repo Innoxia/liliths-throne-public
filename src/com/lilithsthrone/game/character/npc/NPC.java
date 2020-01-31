@@ -1944,6 +1944,18 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return new Value<>(itemType, possibleEffects);
 	}
 	
+	public String applyPotion(Value<AbstractItemType, List<PossibleItemEffect>> potion, GameCharacter target) {
+		StringBuilder sb = new StringBuilder();
+		potion.getValue().forEach((e) -> {
+			sb.append(UtilText.parse(this,
+				(e.getMessage()!=null && !e.getMessage().isEmpty()
+					?"<p>[npc.speech("+e.getMessage()+")]</p>"
+					:"")
+					+ e.getEffect().applyEffect(this, target, 1)));
+		});
+		return sb.toString();
+	}
+	
 	private void generatePartnerPreferences() {
 		
 		// Preferred gender:

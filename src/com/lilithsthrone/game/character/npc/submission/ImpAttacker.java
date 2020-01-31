@@ -449,9 +449,7 @@ public class ImpAttacker extends NPC {
 		if(target.getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA)) {
 			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE
 					|| Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE_HEAVY) {
-				for(PossibleItemEffect e : getFeminineEffects(target, itemType)) {
-					effects.add(e);
-				}
+				effects.addAll(getFeminineEffects(target, itemType));
 			}
 			
 			// Add wet vagina:
@@ -489,14 +487,9 @@ public class ImpAttacker extends NPC {
 		} else if(target.getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_DEMON)) {
 			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE
 					|| Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE_HEAVY) {
-				for(PossibleItemEffect e : getMasculineEffects(target, itemType)) {
-					effects.add(e);
-				}
-				
+				effects.addAll(getMasculineEffects(target, itemType));
 			} else {
-				for(PossibleItemEffect e : getFeminineEffects(target, itemType)) {
-					effects.add(e);
-				}
+				effects.addAll(getFeminineEffects(target, itemType));
 			}
 
 			// Add penis:
@@ -540,9 +533,7 @@ public class ImpAttacker extends NPC {
 		} else if(target.getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)) {
 			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE
 					|| Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE_HEAVY) {
-				for(PossibleItemEffect e : getMasculineEffects(target, itemType)) {
-					effects.add(e);
-				}
+				effects.addAll(getMasculineEffects(target, itemType));
 			}
 			
 			// Add penis:
@@ -588,9 +579,7 @@ public class ImpAttacker extends NPC {
 		} else if(target.getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_MALES)) {
 			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE
 					|| Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE_HEAVY) {
-				for(PossibleItemEffect e : getFeminineEffects(target, itemType)) {
-					effects.add(e);
-				}
+				effects.addAll(getFeminineEffects(target, itemType));
 			}
 			
 			// Add wet vagina:
