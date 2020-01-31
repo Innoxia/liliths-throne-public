@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
-import java.time.Month;
+
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
@@ -126,7 +127,7 @@ public class EnforcerWarehouseGuard extends NPC {
 	
 	@Override
 	public String getDescription() {
-		return UtilText.parse(this, "[npc.Name]."); //TODO
+		return UtilText.parse(this, "One of the SWORD Enforcers tasked with guarding [npc.his] division's warehouse, [npc.name] is more than prepared to use an unreasonable amount of force to detain anyone [npc.she] catches..."); 
 	}
 	
 	@Override

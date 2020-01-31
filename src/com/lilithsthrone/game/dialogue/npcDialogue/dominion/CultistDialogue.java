@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
-import java.util.Set;
+
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;

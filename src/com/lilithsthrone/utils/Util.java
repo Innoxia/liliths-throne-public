@@ -1,5 +1,6 @@
 package com.lilithsthrone.utils;
-import java.awt.Desktop;
+
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +24,9 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -897,12 +900,13 @@ public class Util {
 //			.replaceAll("so", "sho");
 	}
 
-	private static Map<String, String> slovenlySpeechReplacementMap = new HashMap<>();
+	private static Map<String, String> slovenlySpeechReplacementMap = new LinkedHashMap<>();
 	static {
 		slovenlySpeechReplacementMap.put("Are", "Is");
 		slovenlySpeechReplacementMap.put("are", "is");
-		
-		slovenlySpeechReplacementMap.put("ou're", "er");
+
+		slovenlySpeechReplacementMap.put("You're", "Yer");
+		slovenlySpeechReplacementMap.put("you're", "yer");
 		
 		slovenlySpeechReplacementMap.put("Your", "Yer");
 		slovenlySpeechReplacementMap.put("your", "yer");
@@ -916,6 +920,9 @@ public class Util {
 		slovenlySpeechReplacementMap.put("You'd", "You's");
 		slovenlySpeechReplacementMap.put("you'd", "you's");
 		
+		slovenlySpeechReplacementMap.put("Going to", "Gonna");
+		slovenlySpeechReplacementMap.put("going to", "gonna");
+		
 		slovenlySpeechReplacementMap.put("To", "Ta");
 		slovenlySpeechReplacementMap.put("to", "ta");
 
@@ -923,7 +930,7 @@ public class Util {
 		slovenlySpeechReplacementMap.put("the", "da");
 
 		slovenlySpeechReplacementMap.put("Them", "Dem");
-		slovenlySpeechReplacementMap.put("them!", "dem");
+		slovenlySpeechReplacementMap.put("them", "dem");
 
 		slovenlySpeechReplacementMap.put("And", "'An");
 		slovenlySpeechReplacementMap.put("and", "an'");
@@ -944,19 +951,14 @@ public class Util {
 		slovenlySpeechReplacementMap.put("Aren't", "Ain't");
 		slovenlySpeechReplacementMap.put("aren't", "ain't");
 		
-		slovenlySpeechReplacementMap.put("One", "'Un");
-		slovenlySpeechReplacementMap.put("one", "'un");
+		slovenlySpeechReplacementMap.put("This one", "This 'un");
+		slovenlySpeechReplacementMap.put("this one", "this 'un");
 		
 		slovenlySpeechReplacementMap.put("Before", "'Afore");
 		slovenlySpeechReplacementMap.put("before", "'afore");
 		
 		slovenlySpeechReplacementMap.put("Give me", "Gimme");
 		slovenlySpeechReplacementMap.put("give me", "gimme");
-		
-		slovenlySpeechReplacementMap.put("Going to", "Gonna");
-		slovenlySpeechReplacementMap.put("going to", "gonna");
-		
-		slovenlySpeechReplacementMap.put("ing", "in'");
 		
 		slovenlySpeechReplacementMap.put("We're", "We's");
 		slovenlySpeechReplacementMap.put("we're", "we's");
@@ -1011,7 +1013,7 @@ public class Util {
 			<br/>Was -> Were
 			<br/>Isn't -> ain't
 			<br/>Aren't -> ain't
-			<br/>One -> 'Un
+			<br/>This one -> This 'un
 			<br/>Before -> 'afore
 			<br/>Give me -> Gimme
 			<br/>Going to -> gonna
@@ -1037,6 +1039,7 @@ public class Util {
 		for(Entry<String, String> entry : slovenlySpeechReplacementMap.entrySet()) {
 			modifiedSentence = modifiedSentence.replaceAll("([^A-Za-z0-9])"+entry.getKey()+"([^A-Za-z0-9])", "$1"+entry.getValue()+"$2");
 		}
+		modifiedSentence.replaceAll("ing ", "in' ");
 		return modifiedSentence;
 	}
 	
@@ -1269,5 +1272,15 @@ public class Util {
 	
 	public static String getFileIdentifier(String filePath) {
 		return filePath.substring(0, filePath.lastIndexOf('.')).replaceAll("'", "Q");
+	}
+
+	public static  <T extends Enum<T>> List<T> toEnumList(final Collection<Element> elements, final Class<T> enumType) {
+		return elements.stream()
+			.map(Element::getTextContent)
+			.map(x -> {
+				try { return T.valueOf(enumType, x); }
+				catch (Exception e) { return null; } })
+			.filter(x -> x != null)
+			.collect(Collectors.toList());
 	}
 }

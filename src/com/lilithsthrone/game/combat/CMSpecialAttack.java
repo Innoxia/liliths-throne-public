@@ -1,14 +1,17 @@
 package com.lilithsthrone.game.combat;
-import java.util.List;
+
+import java.util.Collections;
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.FootType;
 import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -194,7 +197,7 @@ public class CMSpecialAttack {
         
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
-            return new Value<>(source.getTailType().equals(TailType.ALLIGATOR_MORPH), "Available to characters who have an alligator tail.");
+            return new Value<>(source.getTailType().isPrehensile() && source.getTailGirth().getValue()>=PenetrationGirth.THREE_THICK.getValue(), "Available to characters who have a thick, prehensile tail.");
         }
 
         @Override
@@ -209,7 +212,7 @@ public class CMSpecialAttack {
         public String getDescription(GameCharacter source) {
             DamageType damageType = getDamageType(source);
             return UtilText.parse(source, 
-            		"[npc.Name] can use [npc.her] alligator tail to deliver a thunderous smack to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source), null, false) + " damage.");
+            		"[npc.Name] can use [npc.her] [npc.tailRace]-tail to deliver a thunderous smack to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source), null, false) + " damage.");
         }
 
         @Override
@@ -219,7 +222,7 @@ public class CMSpecialAttack {
             Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(source, target, false));
             
             return formatAttackOutcome(source, target,
-            		"[npc.Name] [npc.verb(turn)] to one side, using the momentum to smack [npc.her] huge, alligator-like tail straight into [npc2.name]!"+damageValue.getKey(),
+            		"[npc.Name] [npc.verb(turn)] to one side, using the momentum to smack [npc.her] huge [npc.tailRace]-tail straight into [npc2.name]!"+damageValue.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, damageValue.getValue(), target, true) + " damage!",
             		(isCrit
         				?"[npc.NamePos] tail swipe is particularly effective!"
@@ -533,11 +536,13 @@ public class CMSpecialAttack {
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(
-            		source.getFaceRace()!=Race.HUMAN
-						&& source.getFaceRace()!=Race.ANGEL
-						&& source.getFaceRace()!=Race.DEMON
-						&& source.getFaceRace()!=Race.ELEMENTAL,
-					"Available to characters with an anthropomorphic face.");
+				!Collections.disjoint(source.getFaceTypeTags(), Util.newArrayListOfValues(
+					FaceTypeTag.MUZZLE,
+					FaceTypeTag.FANGS,
+					FaceTypeTag.SHARK_TEETH,
+					FaceTypeTag.BEAK
+				)),
+				"Available to characters with an anthropomorphic face.");
         }
 
         @Override

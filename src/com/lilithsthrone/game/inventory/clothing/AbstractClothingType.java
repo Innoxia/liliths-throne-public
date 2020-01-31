@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.clothing;
-import java.io.File;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -26,7 +27,7 @@ import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.types.ArmType;
+import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
 import com.lilithsthrone.game.character.body.types.FootType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.TailType;
@@ -477,10 +478,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				if(itemTagsElement.getAttribute("slot").isEmpty()) {
 					for(InventorySlot slot : this.equipSlots) {
 						this.itemTags.putIfAbsent(slot, new ArrayList<>());
-						this.itemTags.get(slot).addAll(
-								itemTagsElement.getAllOf("tag").stream()
-									.map(Element::getTextContent).map(ItemTag::valueOf)
-									.collect(Collectors.toList()));
+						this.itemTags.get(slot).addAll(Util.toEnumList(itemTagsElement.getAllOf("tag"), ItemTag.class));
 						
 					}
 					
@@ -488,9 +486,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					InventorySlot relatedSlot = InventorySlot.valueOf(itemTagsElement.getAttribute("slot"));
 					this.itemTags.put(
 							relatedSlot,
-							itemTagsElement.getAllOf("tag").stream()
-								.map(Element::getTextContent).map(ItemTag::valueOf)
-								.collect(Collectors.toList()));
+							Util.toEnumList(itemTagsElement.getAllOf("tag"), ItemTag.class)
+						);
 				}
 			}
 
@@ -1800,8 +1797,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		if(tags.contains(ItemTag.FITS_CEPHALOPOD_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.CEPHALOPOD) {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for cephalopod bodies, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
 		}
-		if(tags.contains(ItemTag.FITS_HARPY_WINGS_EXCLUSIVE) && clothingOwner.getArmType()!=ArmType.HARPY) {
+		if(tags.contains(ItemTag.FITS_ARM_WINGS_EXCLUSIVE) && !clothingOwner.getArmTypeTags().contains(ArmTypeTag.WINGS)) {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for arm-wings, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_FEATHERED_ARM_WINGS_EXCLUSIVE) && !clothingOwner.getArmTypeTags().contains(ArmTypeTag.WINGS_FEATHERED)) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for feathered arm-wings, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_LEATHERY_ARM_WINGS_EXCLUSIVE) && !clothingOwner.getArmTypeTags().contains(ArmTypeTag.WINGS_LEATHERY)) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for leathery arm-wings, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));
 		}
 		if(tags.contains(ItemTag.FITS_HOOFS_EXCLUSIVE) && clothingOwner.getLegType().getFootType()!=FootType.HOOFS) {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(isPlural()?"are":"is")+" only suitable for hoofs, and as such, [npc.name] cannot wear "+(isPlural()?"them":"it")+"."));

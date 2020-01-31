@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.story;
-import com.lilithsthrone.game.character.body.types.PenisType;
+
+import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;

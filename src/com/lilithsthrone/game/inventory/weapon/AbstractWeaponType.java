@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.weapon;
-import java.io.File;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -325,11 +326,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 					coreAttributes = weaponElement.getMandatoryFirstOf("coreAttributes");
 				}
 				
-				this.itemTags = coreAttributes
-					.getMandatoryFirstOf("itemTags")
-					.getAllOf("tag").stream()
-					.map(Element::getTextContent).map(ItemTag::valueOf)
-					.collect(Collectors.toList());
+				this.itemTags = Util.toEnumList(coreAttributes.getMandatoryFirstOf("itemTags").getAllOf("tag"), ItemTag.class);
 				
 				this.isMod = true;
 				

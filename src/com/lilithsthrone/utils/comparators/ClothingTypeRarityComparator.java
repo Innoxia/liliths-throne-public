@@ -1,5 +1,6 @@
 package com.lilithsthrone.utils.comparators;
-import java.util.Comparator;
+
+import java.util.Comparator;
 
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 

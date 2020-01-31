@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.gender;
-import java.util.HashMap;
+
+import java.util.HashMap;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;

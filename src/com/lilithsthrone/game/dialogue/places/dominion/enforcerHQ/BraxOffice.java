@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ;
-import com.lilithsthrone.game.character.attributes.Attribute;
+
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.AntennaType;

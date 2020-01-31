@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.utils;
-import java.util.Map.Entry;
+
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.DialogueNode;

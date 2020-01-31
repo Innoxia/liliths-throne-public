@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.baseActions;
-import java.util.Map;
+
+import java.util.Map;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;

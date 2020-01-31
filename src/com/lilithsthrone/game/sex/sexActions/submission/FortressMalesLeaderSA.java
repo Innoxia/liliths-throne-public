@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.submission;
-import java.util.Map;
+
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;

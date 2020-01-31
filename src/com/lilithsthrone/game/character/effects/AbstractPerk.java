@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.effects;
-import java.io.IOException;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,10 +1,12 @@
 package com.lilithsthrone.game.character.body.types;
-import java.lang.reflect.Field;
+
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
@@ -353,6 +355,29 @@ public class ArmType {
 		public boolean allowsFlight() {
 			return true;
 		}
+
+		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
+				Util.newArrayListOfValues(
+						InventorySlot.HAND,
+						InventorySlot.WRIST,
+						InventorySlot.TORSO_OVER,
+						InventorySlot.TORSO_UNDER),
+				Race.BAT_MORPH,
+				"Due to the fact that [npc.nameHasFull] leathery wings instead of arms, only specialist clothing can be worn in this slot.",
+				Util.newArrayListOfValues(
+					ItemTag.FITS_LEATHERY_ARM_WINGS,
+					ItemTag.FITS_LEATHERY_ARM_WINGS_EXCLUSIVE,
+					ItemTag.FITS_ARM_WINGS,
+					ItemTag.FITS_ARM_WINGS_EXCLUSIVE
+				));
+		@Override
+		public BodyPartClothingBlock getBodyPartClothingBlock() {
+			return clothingBlock;
+		}
+		@Override
+		public List<ArmTypeTag> getTags() {
+			return Util.newArrayListOfValues(ArmTypeTag.WINGS, ArmTypeTag.WINGS_LEATHERY);
+		}
 	};
 
 	public static AbstractArmType HARPY = new AbstractArmType(BodyCoveringType.FEATHERS,
@@ -387,13 +412,24 @@ public class ArmType {
 		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
 				Util.newArrayListOfValues(
 						InventorySlot.HAND,
-						InventorySlot.WRIST),
+						InventorySlot.WRIST,
+						InventorySlot.TORSO_OVER,
+						InventorySlot.TORSO_UNDER),
 				Race.HARPY,
 				"Due to the fact that [npc.nameHasFull] bird-like wings instead of arms, only specialist clothing can be worn in this slot.",
-				Util.newArrayListOfValues(ItemTag.FITS_HARPY_WINGS_EXCLUSIVE, ItemTag.FITS_HARPY_WINGS));
+				Util.newArrayListOfValues(
+					ItemTag.FITS_FEATHERED_ARM_WINGS,
+					ItemTag.FITS_FEATHERED_ARM_WINGS_EXCLUSIVE,
+					ItemTag.FITS_ARM_WINGS,
+					ItemTag.FITS_ARM_WINGS_EXCLUSIVE
+				));
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock() {
 			return clothingBlock;
+		}
+		@Override
+		public List<ArmTypeTag> getTags() {
+			return Util.newArrayListOfValues(ArmTypeTag.WINGS, ArmTypeTag.WINGS_FEATHERED);
 		}
 	};
 	

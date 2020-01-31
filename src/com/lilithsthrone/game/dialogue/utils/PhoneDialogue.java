@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.utils;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -243,7 +244,7 @@ public class PhoneDialogue {
 					return new Response("Loiter", "You can only loiter to pass the time when in a safe area!", null);
 				}
 				if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
-					return new Response("Loiter", "This is not a suitable place in which to loitering about for four hours!", null);
+					return new Response("Loiter", "This is not a suitable place in which to loiter about for four hours!", null);
 				}
 				return new ResponseEffectsOnly("Loiter", "Loiter in this area for the next four hours.") {
 					@Override
@@ -280,7 +281,7 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNode AFTER_MASTURBATION = new DialogueNode("Finished", "You've had enough of maturbating for now.", true) {
+	public static final DialogueNode AFTER_MASTURBATION = new DialogueNode("Finished", "You've had enough of masturbating for now.", true) {
 
 		@Override
 		public String getContent() {
@@ -831,7 +832,7 @@ public class PhoneDialogue {
 						Colour.TEXT, Units.size(character.getHairRawLengthValue()),
 						character.getHairLength().getColour(), Util.capitaliseSentence(character.getHairLength().getDescriptor()),
 						true)
-				+ statRow(Colour.TRANSFORMATION_GENERIC, "Tongue length",
+				+ statRow(Colour.TRANSFORMATION_GENERIC, "Tongue Length",
 						Colour.TEXT, Units.size(character.getTongueLengthValue()),
 						Colour.TRANSFORMATION_GENERIC, Util.capitaliseSentence(character.getTongueLength().getDescriptor()),
 						false)
@@ -1096,9 +1097,9 @@ public class PhoneDialogue {
 							:"")
 					
 					+ sexStatRow(Colour.AROUSAL_STAGE_ONE, "Blowjobs",
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
 							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
 							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
 							true)
 					

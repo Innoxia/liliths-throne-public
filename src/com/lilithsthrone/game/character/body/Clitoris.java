@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body;
-import java.util.HashSet;
+
+import java.util.HashSet;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;

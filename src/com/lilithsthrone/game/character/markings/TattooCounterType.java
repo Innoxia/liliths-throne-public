@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.markings;
-import java.util.Objects;
+
+import java.util.Objects;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;

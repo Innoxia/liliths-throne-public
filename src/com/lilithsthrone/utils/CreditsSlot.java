@@ -1,5 +1,6 @@
 package com.lilithsthrone.utils;
-import com.lilithsthrone.game.character.race.Subspecies;
+
+import com.lilithsthrone.game.character.race.Subspecies;
 
 /**
  * @since 0.1.82

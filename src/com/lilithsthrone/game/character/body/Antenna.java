@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body;
-import com.lilithsthrone.game.character.GameCharacter;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;

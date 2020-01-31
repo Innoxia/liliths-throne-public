@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body;
-import com.lilithsthrone.game.character.body.types.PenisType;
+
+import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 

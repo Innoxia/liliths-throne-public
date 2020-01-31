@@ -1,5 +1,6 @@
 package com.lilithsthrone.utils.time;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.Colour;
 
 /**
  * https://en.wikipedia.org/wiki/Twilight
