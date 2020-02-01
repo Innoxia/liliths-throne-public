@@ -4807,7 +4807,7 @@ public class Body implements XMLSaving {
 		}
 		
 		if(viewedVagina.getOrificeVagina().isSquirter()) {
-			descriptionSB.append(" [npc.She] [npc.is] a [style.colourArcane(squirter)], and [style.colourWetness([npc.verb(procude)] a considerable amount of female ejaculate)] each time [npc.she] orgasms.");
+			descriptionSB.append(" [npc.She] [npc.is] a [style.colourArcane(squirter)], and [style.colourWetness([npc.verb(produce)] a considerable amount of female ejaculate)] each time [npc.she] orgasms.");
 		}
 		
 		// Elasticity & plasticity:
