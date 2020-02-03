@@ -21417,7 +21417,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(type==BodyMaterial.FLESH) {
 			tfDescription = UtilText.parse(this,
 					"<p>"
-						+ "[npc.NamePos] slimy body [npc.verb(start)] to tingle all over, and as [npc.she] [npc.verb(look)] down at [npc.her] [npc.arms], [npc.she] [npc.verb(see)] the slime that they're made up of starting to get more and more opaque."
+						+ "[npc.NamePos] slimy body starts to tingle all over, and as [npc.she] [npc.verb(look)] down at [npc.her] [npc.arms], [npc.she] [npc.verb(see)] the slime that they're made up of starting to get more and more opaque."
 						+ " As [npc.her] slime starts to solidify, the little glowing core in the place where [npc.her] heart should be starts to break up and disperse throughout [npc.her] torso."
 					+ "</p>"
 					+ "<p>"
@@ -21495,14 +21495,14 @@ public abstract class GameCharacter implements XMLSaving {
 				
 				if(resetAreas) {
 					this.getBody().calculateRace(this);
-					tfDescription = UtilText.parse(this,
+					tfDescription += UtilText.parse(this,
 							"<p>"
 								+ "[npc.NamePos] body parts all shift back into their [style.colourDemon(demonic counterparts)] as [npc.her] body returns to being made of flesh."
 							+ "</p>");
 				}
 				
 			} else if(this.getSubspeciesOverride()==Subspecies.HALF_DEMON) {
-				// If the character is a half-demon, revert some demon body parts to human:
+				// If the character is a half-demon, revert some demon body parts to their core race:
 				boolean resetAreas = false;
 				Race race = this.getHalfDemonSubspecies().getRace();
 				
@@ -21602,156 +21602,161 @@ public abstract class GameCharacter implements XMLSaving {
 				
 				if(resetAreas) {
 					this.getBody().calculateRace(this);
-					tfDescription = UtilText.parse(this,
+					tfDescription += UtilText.parse(this,
 							"<p>"
 								+ "[npc.NamePos] body parts all shift back into their [style.colourDemon(half-demonic counterparts)] as [npc.her] body returns to being made of flesh."
 							+ "</p>");
 				}
 				
-			} else if(this.getSubspeciesOverrideRace()!=Race.DEMON) {
-				// If the character is not a demon, revert all demonic body parts to human:
-				boolean resetAreas = false;
-				
-				if(this.getArmType().getRace()==Race.DEMON) {
-					this.setArmType(ArmType.HUMAN);
-					resetAreas = true;
+			} else {
+				// The character does not belong to any special race, so this else block needs to revert all special body parts, not just those of the first invalid race.
+				if(this.getSubspeciesOverrideRace()!=Race.DEMON) {
+					// If the character is not a demon, revert all demonic body parts to human:
+					boolean resetAreas = false;
+
+					if(this.getArmType().getRace()==Race.DEMON) {
+						this.setArmType(ArmType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getAssType().getRace()==Race.DEMON) {
+						this.setAssType(AssType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getBreastType().getRace()==Race.DEMON) {
+						this.setBreastType(BreastType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getBreastCrotchType().getRace()==Race.DEMON) {
+						this.setBreastCrotchType(BreastType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getEarType().getRace()==Race.DEMON) {
+						this.setEarType(EarType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getEyeType().getRace()==Race.DEMON) {
+						this.setEyeType(EyeType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getFaceType().getRace()==Race.DEMON) {
+						this.setFaceType(FaceType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getHairType().getRace()==Race.DEMON) {
+						this.setHairType(HairType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getHornType().getRace()==Race.DEMON) {
+						this.setHornType(HornType.NONE);
+						resetAreas = true;
+					}
+					if(this.getLegType().getRace()==Race.DEMON) {
+						this.setLegType(LegType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getPenisType().getRace()==Race.DEMON) {
+						this.setPenisType(PenisType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getSkinType().getRace()==Race.DEMON) {
+						this.setSkinType(SkinType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getTailType().getRace()==Race.DEMON) {
+						this.setTailType(TailType.NONE);
+						resetAreas = true;
+					}
+					if(this.getVaginaType().getRace()==Race.DEMON) {
+						this.setVaginaType(VaginaType.HUMAN, true);
+						resetAreas = true;
+					}
+					if(this.getWingType().getRace()==Race.DEMON) {
+						this.setWingType(WingType.NONE);
+						resetAreas = true;
+					}
+
+					if(resetAreas) {
+						this.getBody().calculateRace(this);
+						tfDescription += UtilText.parse(this,
+								"<p>"
+									+ "[npc.NamePos] [style.colourDemon(demonic)] body parts all shift into [style.colourHuman(human counterparts)] as [npc.her] body returns to being made of flesh."
+								+ "</p>");
+					}
+
 				}
-				if(this.getAssType().getRace()==Race.DEMON) {
-					this.setAssType(AssType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getBreastType().getRace()==Race.DEMON) {
-					this.setBreastType(BreastType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getBreastCrotchType().getRace()==Race.DEMON) {
-					this.setBreastCrotchType(BreastType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getEarType().getRace()==Race.DEMON) {
-					this.setEarType(EarType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getEyeType().getRace()==Race.DEMON) {
-					this.setEyeType(EyeType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getFaceType().getRace()==Race.DEMON) {
-					this.setFaceType(FaceType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getHairType().getRace()==Race.DEMON) {
-					this.setHairType(HairType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getHornType().getRace()==Race.DEMON) {
-					this.setHornType(HornType.NONE);
-					resetAreas = true;
-				}
-				if(this.getLegType().getRace()==Race.DEMON) {
-					this.setLegType(LegType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getPenisType().getRace()==Race.DEMON) {
-					this.setPenisType(PenisType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getSkinType().getRace()==Race.DEMON) {
-					this.setSkinType(SkinType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getTailType().getRace()==Race.DEMON) {
-					this.setTailType(TailType.NONE);
-					resetAreas = true;
-				}
-				if(this.getVaginaType().getRace()==Race.DEMON) {
-					this.setVaginaType(VaginaType.HUMAN, true);
-					resetAreas = true;
-				}
-				if(this.getWingType().getRace()==Race.DEMON) {
-					this.setWingType(WingType.NONE);
-					resetAreas = true;
-				}
-				
-				if(resetAreas) {
-					this.getBody().calculateRace(this);
-					tfDescription = UtilText.parse(this,
-							"<p>"
-								+ "[npc.NamePos] [style.colourDemon(demonic)] body parts all shift into [style.colourHuman(human counterparts)] as [npc.her] body returns to being made of flesh."
-							+ "</p>");
-				}
-				
-			} else if(this.getSubspeciesOverrideRace()!=Race.ANGEL) {
-				// If the character is not an angel, revert all angelic body parts to human:
-				boolean resetAreas = false;
-				
-				if(this.getArmType().getRace()==Race.ANGEL) {
-					this.setArmType(ArmType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getAssType().getRace()==Race.ANGEL) {
-					this.setAssType(AssType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getBreastType().getRace()==Race.ANGEL) {
-					this.setBreastType(BreastType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getBreastCrotchType().getRace()==Race.ANGEL) {
-					this.setBreastCrotchType(BreastType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getEarType().getRace()==Race.ANGEL) {
-					this.setEarType(EarType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getEyeType().getRace()==Race.ANGEL) {
-					this.setEyeType(EyeType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getFaceType().getRace()==Race.ANGEL) {
-					this.setFaceType(FaceType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getHairType().getRace()==Race.ANGEL) {
-					this.setHairType(HairType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getHornType().getRace()==Race.ANGEL) {
-					this.setHornType(HornType.NONE);
-					resetAreas = true;
-				}
-				if(this.getLegType().getRace()==Race.ANGEL) {
-					this.setLegType(LegType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getPenisType().getRace()==Race.ANGEL) {
-					this.setPenisType(PenisType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getSkinType().getRace()==Race.ANGEL) {
-					this.setSkinType(SkinType.HUMAN);
-					resetAreas = true;
-				}
-				if(this.getTailType().getRace()==Race.ANGEL) {
-					this.setTailType(TailType.NONE);
-					resetAreas = true;
-				}
-				if(this.getVaginaType().getRace()==Race.ANGEL) {
-					this.setVaginaType(VaginaType.HUMAN, true);
-					resetAreas = true;
-				}
-				if(this.getWingType().getRace()==Race.ANGEL) {
-					this.setWingType(WingType.NONE);
-					resetAreas = true;
-				}
-				
-				if(resetAreas) {
-					this.getBody().calculateRace(this);
-					tfDescription = UtilText.parse(this,
-							"<p>"
-								+ "[npc.NamePos] [style.colourAngel(angelic)] body parts all shift into [style.colourHuman(human counterparts)] as [npc.her] body returns to being made of flesh."
-							+ "</p>");
+
+				if(this.getSubspeciesOverrideRace()!=Race.ANGEL) {
+					// If the character is not an angel, revert all angelic body parts to human:
+					boolean resetAreas = false;
+
+					if(this.getArmType().getRace()==Race.ANGEL) {
+						this.setArmType(ArmType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getAssType().getRace()==Race.ANGEL) {
+						this.setAssType(AssType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getBreastType().getRace()==Race.ANGEL) {
+						this.setBreastType(BreastType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getBreastCrotchType().getRace()==Race.ANGEL) {
+						this.setBreastCrotchType(BreastType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getEarType().getRace()==Race.ANGEL) {
+						this.setEarType(EarType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getEyeType().getRace()==Race.ANGEL) {
+						this.setEyeType(EyeType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getFaceType().getRace()==Race.ANGEL) {
+						this.setFaceType(FaceType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getHairType().getRace()==Race.ANGEL) {
+						this.setHairType(HairType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getHornType().getRace()==Race.ANGEL) {
+						this.setHornType(HornType.NONE);
+						resetAreas = true;
+					}
+					if(this.getLegType().getRace()==Race.ANGEL) {
+						this.setLegType(LegType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getPenisType().getRace()==Race.ANGEL) {
+						this.setPenisType(PenisType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getSkinType().getRace()==Race.ANGEL) {
+						this.setSkinType(SkinType.HUMAN);
+						resetAreas = true;
+					}
+					if(this.getTailType().getRace()==Race.ANGEL) {
+						this.setTailType(TailType.NONE);
+						resetAreas = true;
+					}
+					if(this.getVaginaType().getRace()==Race.ANGEL) {
+						this.setVaginaType(VaginaType.HUMAN, true);
+						resetAreas = true;
+					}
+					if(this.getWingType().getRace()==Race.ANGEL) {
+						this.setWingType(WingType.NONE);
+						resetAreas = true;
+					}
+
+					if(resetAreas) {
+						this.getBody().calculateRace(this);
+						tfDescription += UtilText.parse(this,
+								"<p>"
+									+ "[npc.NamePos] [style.colourAngel(angelic)] body parts all shift into [style.colourHuman(human counterparts)] as [npc.her] body returns to being made of flesh."
+								+ "</p>");
+					}
 				}
 			}
 		}

@@ -74,6 +74,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed the phone menu sex stats display for blowjobs performed and received being the wrong way around. (PR#1270 by AceXP)
 		Fixed bug where CoverableArea.MOUTH could never be discovered, blocking knowledge of NPCs' oral skills. (PR#1260 by AceXP)
 		Altered race tooltip to better reflect knowledge from 'observant', and improved some of the related text in the full appearance description page. (PR#1236 by NoStepOnSneks)
+		Fixed bug where you could become an angel by self-transforming into the appearance of one while being a slime, and then solidifying into flesh via a TF potion. (PR#1292 by NoStepOnSneks)
+		
 	
 	Engine/Code:
 		Tidied up the default enslavement dialogue node and moved related text out into external txt files (into the txt/characters and txt/characters/offspring files).
@@ -155,8 +157,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	So I've gotten to where I would recruit Brax and, well, he's no longer here.
 	
 	considering towards having the Maid occupation trait effect the milkmaid's set as well as the other maid/servant sets?
-	
-	If you want to become an Angel, the easy way to do it is to go full slime, change all your visual appearance modifiers to Angel, then use an enchanted bioslime canister to reverse the slime transformation.
 	
 	debug menu setting demon sets to half-demon?
 	
