@@ -85,6 +85,10 @@ public class HarpyBimbo extends NPC {
 				7, Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW, true);
 		
+		if(!isImported) {
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 10);
+		}
+		
 	}
 	
 	@Override
@@ -108,7 +112,6 @@ public class HarpyBimbo extends NPC {
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_SLUT);
-		this.setAttribute(Attribute.MAJOR_CORRUPTION, 10);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
@@ -307,28 +310,14 @@ public class HarpyBimbo extends NPC {
 	}
 	
 	@Override
-	public String getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target){
-		if(user.isPlayer()
-				&& !target.isPlayer()
-				&& (item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED))){
-			if(Main.sex.isDom(Main.game.getPlayer())) {
-				return "<p>"
-							+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
-							+ " Seeing what you're offering [npc.herHim], [npc.she] lets out a little laugh, "
-							+ " [npc.speechNoEffects(I'm, like, totally not drinkin' that icky-lookin' potio~)]"
-						+ "</p>"
-							+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and rather unceremoniously shove the neck down [npc.her] throat."
-							+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to gulp down all of the liquid before finally letting [npc.her] go."
-							+ " [npc.She] coughs and splutters for a moment, before letting out a lewd little cry as [npc.she] wipes the liquid from [npc.her] mouth,"
-							+ " [npc.speechNoEffects(~Aah!~ I feel... like... all tingly inside...)]"
-						+ "</p>"
-						+ itemOwner.useItem(item, target, false);
-			} else {
-				return "<p>"
-							+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-							+ " [npc.speechNoEffects(Erm, do you, like, seriously expect me to drink that icky-lookin' potion?! That's, like, totally not happening!)]"
-						+ "</p>";
-			}
+	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
+		// You really shouldn't be able to alter this character's fetishes...
+		if(user.isPlayer() && !target.isPlayer() && (item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED))) {
+			return new Value<>(false,
+					"<p>"
+						+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+						+ " [npc.speechNoEffects(Erm, do you, like, seriously expect me to drink that icky-lookin' potion?! That's, like, totally not happening!)]"
+					+ "</p>");
 		}
 		
 		return super.getItemUseEffects(item, itemOwner, user, target);

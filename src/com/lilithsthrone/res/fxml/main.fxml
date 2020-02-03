@@ -47,7 +47,7 @@
             <WebView fx:id="webViewAttributes" prefHeight="-1.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <HBox alignment="CENTER" maxHeight="32.0" minHeight="32.0" prefHeight="32.0">
                <children>
-                  <WebView fx:id="webViewButtons" prefHeight="200.0" prefWidth="250.0" />
+                  <WebView fx:id="webViewButtonsLeft" prefHeight="200.0" prefWidth="250.0" />
                </children>
             </HBox>
          </children>
@@ -55,7 +55,10 @@
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
             <WebView fx:id="webViewRight" prefHeight="-1.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <HBox maxHeight="32.0" minHeight="32.0" prefHeight="32.0" prefWidth="200.0" />
+            <HBox maxHeight="32.0" minHeight="32.0" prefHeight="32.0" prefWidth="200.0">
+               <children>
+                  <WebView fx:id="webViewButtonsRight" prefHeight="200.0" prefWidth="250.0" />
+               </children></HBox>
          </children>
       </VBox>
    </children>

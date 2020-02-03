@@ -99,12 +99,13 @@ public class Rose extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.setStartingBody(false);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
-			this.setPersonalityTraits(
-					PersonalityTrait.PRUDE);
-		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.6")) {
+			this.setPersonalityTraits(
+					PersonalityTrait.COWARDLY,
+					PersonalityTrait.SELFISH);
 		}
 	}
 
@@ -127,7 +128,8 @@ public class Rose extends NPC {
 
 		if(setPersona) {
 			this.setPersonalityTraits(
-					PersonalityTrait.PRUDE);
+					PersonalityTrait.COWARDLY,
+					PersonalityTrait.SELFISH);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			

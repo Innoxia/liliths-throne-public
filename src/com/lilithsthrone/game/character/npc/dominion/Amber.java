@@ -137,7 +137,7 @@ public class Amber extends NPC {
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.BRAVE);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.6")) {
 			this.resetPerksMap(true);
 		}
 	}
@@ -612,6 +612,11 @@ public class Amber extends NPC {
 	public boolean isLevelDrainAvailableToUse() {
 		return Main.game.isLevelDrainContentEnabled()
 				&& Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).getClothingType()==ClothingType.AMBERS_BITCH_CHOKER;
+	}
+	
+	@Override
+	public boolean isWantingToLevelDrain(GameCharacter target) {
+		return target.isPlayer();
 	}
 
 	@Override

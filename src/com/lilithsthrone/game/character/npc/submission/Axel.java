@@ -83,7 +83,10 @@ public class Axel extends NPC {
 				36, Month.JANUARY, 10,
 				15, Gender.M_P_MALE, Subspecies.ALLIGATOR_MORPH, RaceStage.GREATER,
 				new CharacterInventory(30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE, true);
-
+		
+		if(!isImported) {
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 15);
+		}
 	}
 	
 	@Override
@@ -112,8 +115,6 @@ public class Axel extends NPC {
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		this.setAttribute(Attribute.MAJOR_CORRUPTION, 15);
-		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(

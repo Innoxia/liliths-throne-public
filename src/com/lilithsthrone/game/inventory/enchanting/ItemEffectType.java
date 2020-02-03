@@ -38,6 +38,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -134,7 +135,10 @@ public class ItemEffectType {
 					TFModifier.REMOVAL,
 					TFModifier.ORIENTATION_GYNEPHILIC,
 					TFModifier.ORIENTATION_AMBIPHILIC,
-					TFModifier.ORIENTATION_ANDROPHILIC);
+					TFModifier.ORIENTATION_ANDROPHILIC,
+					TFModifier.PERSONALITY_TRAIT_SPEECH_LISP,
+					TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER,
+					TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY);
 		}
 
 		@Override
@@ -145,6 +149,13 @@ public class ItemEffectType {
 
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP
+					|| primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER
+					|| primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
+				return Util.newArrayListOfValues(
+						TFPotency.MINOR_DRAIN,
+						TFPotency.MINOR_BOOST);
+			}
 			return Util.newArrayListOfValues(TFPotency.MINOR_BOOST);
 		}
 		
@@ -157,17 +168,39 @@ public class ItemEffectType {
 					descriptions.add("No effect.");
 					
 				} else if(primaryModifier==TFModifier.ORIENTATION_GYNEPHILIC) {
-					descriptions.add("Sets orientation to [style.boldFeminineStrong(gynephilic)].");
+					descriptions.add("Sets orientation to [style.boldFeminineStrong(gynephilic)]");
 					descriptions.add("[style.boldTerrible(+5)] [style.boldCorruption(corruption)]");
 					
 				} else if(primaryModifier==TFModifier.ORIENTATION_AMBIPHILIC) {
-					descriptions.add("Sets orientation to [style.boldAndrogynous(ambiphilic)].");
+					descriptions.add("Sets orientation to [style.boldAndrogynous(ambiphilic)]");
 					descriptions.add("[style.boldTerrible(+5)] [style.boldCorruption(corruption)]");
 					
-				} else {
-					descriptions.add("Sets orientation to [style.boldMasculineStrong(androphilic)].");
+				} else if(primaryModifier==TFModifier.ORIENTATION_ANDROPHILIC) {
+					descriptions.add("Sets orientation to [style.boldMasculineStrong(androphilic)]");
 					descriptions.add("[style.boldTerrible(+5)] [style.boldCorruption(corruption)]");
+					
+				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP) {
+					if(potency==TFPotency.MINOR_DRAIN) {
+						descriptions.add("Removes <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_LISP.getColour().toWebHexString()+";'>lisp</b>");
+					} else {
+						descriptions.add("Adds <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_LISP.getColour().toWebHexString()+";'>lisp</b>");
+					}
+					
+				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER) {
+					if(potency==TFPotency.MINOR_DRAIN) {
+						descriptions.add("Removes <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER.getColour().toWebHexString()+";'>stutter</b>");
+					} else {
+						descriptions.add("Adds <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER.getColour().toWebHexString()+";'>stutter</b>");
+					}
+					
+				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
+					if(potency==TFPotency.MINOR_DRAIN) {
+						descriptions.add("Removes <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY.getColour().toWebHexString()+";'>slovenly speech</b>");
+					} else {
+						descriptions.add("Adds <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY.getColour().toWebHexString()+";'>slovenly speech</b>");
+					}
 				}
+				
 			} else {
 				descriptions.add("Enchantable.");
 			}
@@ -211,7 +244,7 @@ public class ItemEffectType {
 									+ "</p>");
 					}
 					
-				} else {
+				} else if(primaryModifier==TFModifier.ORIENTATION_ANDROPHILIC) {
 					boolean alreadyAndrophilic = target.getSexualOrientation()==SexualOrientation.ANDROPHILIC;
 					target.setSexualOrientation(SexualOrientation.ANDROPHILIC);
 					if(target.isPlayer()) {//TODO
@@ -225,93 +258,133 @@ public class ItemEffectType {
 										+ (alreadyAndrophilic?"[style.colourDisabled([npc.Name] is already androphilic, so nothing happens...)]":"[npc.Name] is now [style.colourMasculinePlus(androphilic)]!")
 									+ "</p>");
 					}
+					
+				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP) {
+					boolean alreadyLisp = target.hasPersonalityTrait(PersonalityTrait.LISP);
+					if(potency==TFPotency.MINOR_DRAIN) {
+						target.removePersonalityTrait(PersonalityTrait.LISP);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadyLisp
+												?"[style.colourDisabled([npc.Name] already [npc.do]n't speak with a lisp, so nothing happens...)]"
+												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to speak without a lisp)]!")
+									+ "</p>");
+						
+					} else {
+						target.addPersonalityTrait(PersonalityTrait.LISP);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadyLisp
+												?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] with a lisp, so nothing happens...)]"
+												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a lisp)]!")
+									+ "</p>");
+					}
+					
+				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER) {
+					boolean alreadyStutter = target.hasPersonalityTrait(PersonalityTrait.STUTTER);
+					if(potency==TFPotency.MINOR_DRAIN) {
+						target.removePersonalityTrait(PersonalityTrait.STUTTER);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadyStutter
+												?"[style.colourDisabled([npc.Name] already [npc.do]n't with a stutter, so nothing happens...)]"
+												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to speak without stuttering)]!")
+									+ "</p>");
+						
+					} else {
+						target.addPersonalityTrait(PersonalityTrait.STUTTER);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadyStutter
+												?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] with a stutter, so nothing happens...)]"
+												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a stutter)]!")
+									+ "</p>");
+					}
+					
+				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
+					boolean alreadySlovenly = target.hasPersonalityTrait(PersonalityTrait.SLOVENLY);
+					if(potency==TFPotency.MINOR_DRAIN) {
+						target.removePersonalityTrait(PersonalityTrait.SLOVENLY);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadySlovenly
+												?"[style.colourDisabled([npc.Name] already [npc.do]n't speak in a slovenly manner, so nothing happens...)]"
+												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(no longer speaking in a slovenly manner)]!")
+									+ "</p>");
+						
+					} else {
+						target.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadySlovenly
+												?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] in a slovenly manner, so nothing happens...)]"
+												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking in a slovenly manner)]!")
+									+ "</p>");
+					}
 				}
 				
-			} else {
-				return "<p>"
-							+ "Nothing happens, as the Hypno-Watch has had its enchantment removed."
-							+ " You'll need to enchant it if you want to put it to use."
-						+ "</p>";
-			}
+			} 
 			
+			return "<p>"
+						+ "Nothing happens, as the Hypno-Watch has had its enchantment removed."
+						+ " You'll need to enchant it if you want to put it to use."
+					+ "</p>";
 		}
 	};
 	
 	public static AbstractItemEffectType VIXENS_VIRILITY = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Temporary fertility boost",
-			"Temporary virility boost"),
+			"[style.boldGood(+50)] [style.boldSex(Fertility)] for 24 hours",
+			"[style.boldGood(+50)] [style.boldSex(Virility)] for 24 hours",
+			"[style.boldBad(Removes status effect:)]",
+			"<i>'"+StatusEffect.PROMISCUITY_PILL.getName(null)+"'</i>"),
 			Colour.GENERIC_SEX) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
-			
 			target.addStatusEffect(StatusEffect.VIXENS_VIRILITY, 60*24*60);
-			
-			if(target.isPlayer()) {
-				return "<p>"
-						+ "The little pink pill easily slides down your throat, and within moments, you feel "
+			return UtilText.parse(target,
+					"<p style='margin-bottom:0; padding-bottom:0;'>"
+						+ "The little pink pill easily slides down [npc.her] throat, and within moments [npc.she] [npc.verb(feel)] "
 						+ ( target.hasVagina()
-								? "a strange, warm glow spreading from what you guess must be your ovaries."
-									+ " Your mind fogs over with an overwhelming desire to feel potent sperm spurting deep into your "+(target.isVisiblyPregnant()?"pussy":"womb")
-									+", and before you can stop it, a little whimper escapes from between your [pc.lips]."
+								? "a soothing, warm glow spreading out from [npc.her] ovaries into [npc.her] lower torso."
+									+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(target.isVisiblyPregnant()?"pussy":"womb")
+									+", and before [npc.she] can stop it, a horny whimper escapes from between [npc.her] [npc.lips]."
 									+ (target.hasPenisIgnoreDildo()
-											?" At the same time, your manhood begins to throb with need, and you feel "
+											?" At the same time, [npc.her] manhood begins to throb with need, and [npc.she] [npc.verb(feel)] "
 											:"") 
-							:"")
-						+ (target.hasPenisIgnoreDildo() 
-								? "an overpowering desire to sink deep into a fertile female's cunt and fill her with your [pc.cum+]."
+								:"")
+						+ (target.hasPenisIgnoreDildo()
+								? "an overpowering desire to sink deep into a fertile female's cunt and fill her with [npc.cum+]."
 								: "")
 						+ (!target.hasPenisIgnoreDildo() && !target.hasVagina()
 								?"a desperate heat in [npc.her] genderless mound."
 								:"")
-					+ "</p>";
-			
-			} else {
-				return UtilText.parse(target,
-						"<p>"
-							+ "The little pink pill easily slides down [npc.her] throat, and within moments, [npc.she] feels "
-							+ ( target.hasVagina()
-									? "a strange, warm glow spreading from [npc.her] ovaries."
-										+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(target.isVisiblyPregnant()?"pussy":"womb")
-										+", and before [npc.she] can stop it, a little whimper escapes from between [npc.her] [npc.lips]."
-										+ (target.hasPenisIgnoreDildo()
-												?" At the same time, [npc.her] manhood begins to throb with need, and [npc.she] feels "
-												:"") 
-									:"")
-							+ (target.hasPenisIgnoreDildo()
-									? "an overpowering desire to sink deep into a fertile female's cunt and fill her with [npc.cum+]."
-									: "")
-							+ (!target.hasPenisIgnoreDildo() && !target.hasVagina()
-									?"a desperate heat in [npc.her] genderless mound."
-									:"")
-						+ "</p>");
-			}
-			
+					+"</p>"
+					+ "<p style='text-align:center; margin-top:0; padding-top:0;'>"
+						+ "[style.colourPink([npc.Name] [npc.is] now experiencing <i>'"+StatusEffect.VIXENS_VIRILITY.getName(target)+"'</i> for the next 24 hours!)]"
+					+ "</p>");
 		}
 	};
 	
 	public static AbstractItemEffectType PROMISCUITY_PILL = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Temporarily reduces fertility."),
+			"[style.boldBad(-100)] [style.boldSex(Fertility)] for 24 hours",
+			"[style.boldBad(-100)] [style.boldSex(Virility)] for 24 hours",
+			"[style.boldBad(Removes status effect:)]",
+			"<i>'"+StatusEffect.VIXENS_VIRILITY.getName(null)+"'</i>"),
 			Colour.GENERIC_SEX) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.removeStatusEffect(StatusEffect.VIXENS_VIRILITY);
-			
 			target.addStatusEffect(StatusEffect.PROMISCUITY_PILL, 60*24*60);
-			
-			if(target.isPlayer()) {
-				return "<p>"
-							+ "The little blue pill easily slides down your throat, and after only a few moments, you feel a cool throbbing sensation taking root deep within your loins."
-						+ "</p>";
-			
-			} else {
-				return UtilText.parse(target,
-						"<p>"
-							+ "The little blue pill easily slides down [npc.her] throat, and after only a few moments, [npc.she] feels a cool throbbing sensation taking root deep within [npc.her] loins."
-						+ "</p>");
-			}
+			return UtilText.parse(target,
+					"<p>"
+						+ "The little blue pill easily slides down [npc.namePos] throat, and after only a few moments [npc.she] [npc.verb(feel)] a cool throbbing sensation taking root deep within [npc.her] loins."
+					+ "</p>"
+					+ "<p style='text-align:center; margin-top:0; padding-top:0;'>"
+						+ "[style.colourBlueLight([npc.Name] [npc.is] now experiencing <i>'"+StatusEffect.PROMISCUITY_PILL.getName(target)+"'</i> for the next 24 hours!)]"
+					+ "</p>");
 		}
 	};
 	

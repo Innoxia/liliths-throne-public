@@ -83,6 +83,10 @@ public class SlimeQueen extends NPC {
 				15, Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN,
 				new CharacterInventory(10),
 				WorldType.SLIME_QUEENS_LAIR_FIRST_FLOOR, PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN, true);
+		
+		if(!isImported) {
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 35);
+		}
 	}
 	
 
@@ -133,7 +137,7 @@ public class SlimeQueen extends NPC {
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_SLUT);
-		this.setAttribute(Attribute.MAJOR_CORRUPTION, 35);
+		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(

@@ -51,6 +51,7 @@ import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.Wing;
+import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -1195,6 +1196,9 @@ public class CharacterUtils {
 		
 //		System.out.println(species+", "+stage);
 		
+		boolean furryHairCheck = stage.isFaceFurry() && startingBodyType.getFaceType().getTags().contains(FaceTypeTag.NATURAL_BALDNESS_FURRY);
+		boolean scalyHairCheck = stage.isFaceFurry() && startingBodyType.getFaceType().getTags().contains(FaceTypeTag.NATURAL_BALDNESS_SCALY);
+		
 		Body body = new Body.BodyBuilder(
 				new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()),
 				new Ass(stage.isAssFurry()?startingBodyType.getAssType():AssType.HUMAN,
@@ -1224,11 +1228,11 @@ public class CharacterUtils {
 				new Eye(stage.isEyeFurry()?startingBodyType.getEyeType():EyeType.HUMAN),
 				new Ear(stage.isEarFurry()?startingBodyType.getEarType():EarType.HUMAN),
 				new Hair(stage.isHairFurry()?startingBodyType.getHairType():HairType.HUMAN,
-						(startingBodyType.isHairTypeLinkedToFaceType()
-							?(stage.isFaceFurry()
-									?(startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())
-									:(startingGender.isFeminine() ? RacialBody.HUMAN.getFemaleHairLength() : RacialBody.HUMAN.getMaleHairLength()))
-							:(startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())),
+						((scalyHairCheck && !Main.game.isScalyHairEnabled()) || (furryHairCheck && !Main.game.isFurryHairEnabled())
+							?0
+							:(startingGender.isFeminine()
+								? startingBodyType.getFemaleHairLength()
+								: startingBodyType.getMaleHairLength())),
 						HairStyle.getRandomHairStyle((startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))),
 				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN, startingBodyType.getLegConfiguration()),
 				new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN),
@@ -1372,12 +1376,14 @@ public class CharacterUtils {
 		
 		body.setEar(new Ear(stage.isEarFurry()?startingBodyType.getEarType():EarType.HUMAN));
 		
+		boolean furryHairCheck = stage.isFaceFurry() && startingBodyType.getFaceType().getTags().contains(FaceTypeTag.NATURAL_BALDNESS_FURRY);
+		boolean scalyHairCheck = stage.isFaceFurry() && startingBodyType.getFaceType().getTags().contains(FaceTypeTag.NATURAL_BALDNESS_SCALY);
 		body.setHair(new Hair(stage.isHairFurry()?startingBodyType.getHairType():HairType.HUMAN,
-				(startingBodyType.isHairTypeLinkedToFaceType()
-						?(stage.isFaceFurry()
-								?(startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())
-								:(startingGender.isFeminine() ? RacialBody.HUMAN.getFemaleHairLength() : RacialBody.HUMAN.getMaleHairLength()))
-						:(startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())),
+					((scalyHairCheck && !Main.game.isScalyHairEnabled()) || (furryHairCheck && !Main.game.isFurryHairEnabled())
+						?0
+						:(startingGender.isFeminine()
+							? startingBodyType.getFemaleHairLength()
+							: startingBodyType.getMaleHairLength())),
 					HairStyle.getRandomHairStyle((startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))));
 		
 		body.setLeg(new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN, startingBodyType.getLegConfiguration()));
@@ -1456,6 +1462,76 @@ public class CharacterUtils {
 		}
 		
 		return body;
+	}
+	
+	public static void applyTaurConversion(GameCharacter character) {
+		int taurLevel = Main.getProperties().taurFurryLevel;
+		if(character.getRace()==Race.DEMON) {
+			taurLevel = 3; // Demons should always be untouched
+		}
+		switch(taurLevel) {
+			case 1:
+				character.setLegConfiguration(LegConfiguration.TAUR, true);
+				character.setAntennaType(AntennaType.NONE);
+				character.setArmType(ArmType.HUMAN);
+				character.setBreastType(BreastType.HUMAN);
+				character.setEarType(EarType.HUMAN);
+				character.setEyeType(EyeType.HUMAN);
+				character.setFaceType(FaceType.HUMAN);
+				character.setHairType(HairType.HUMAN);
+				character.setHornType(HornType.NONE);
+				character.setSkinType(SkinType.HUMAN);
+				// Reset hair length:
+				character.setHairLength((character.isFeminine()
+						? RacialBody.valueOfRace(character.getRace()).getFemaleHairLength()
+						: RacialBody.valueOfRace(character.getRace()).getMaleHairLength()));
+				break;
+			case 2:
+				character.setLegConfiguration(LegConfiguration.TAUR, true);
+				character.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(character.getLegRace())));
+				character.setArmType(ArmType.HUMAN);
+				character.setBreastType(BreastType.HUMAN);
+				character.setEarType(Util.randomItemFrom(EarType.getEarTypes(character.getLegRace())));
+				character.setEyeType(Util.randomItemFrom(EyeType.getEyeTypes(character.getLegRace())));
+				character.setFaceType(FaceType.HUMAN);
+				character.setHairType(Util.randomItemFrom(HairType.getHairTypes(character.getLegRace())));
+				character.setHornType(Util.randomItemFrom(HornType.getHornTypes(character.getLegRace())));
+				character.setSkinType(SkinType.HUMAN);
+				// Reset hair length:
+				character.setHairLength((character.isFeminine()
+						? RacialBody.valueOfRace(character.getRace()).getFemaleHairLength()
+						: RacialBody.valueOfRace(character.getRace()).getMaleHairLength()));
+				break;
+			case 3:
+				character.setLegConfiguration(LegConfiguration.TAUR, true);
+				break;
+			case 4:
+				FaceType faceType = Util.randomItemFrom(FaceType.getFaceTypes(character.getLegRace()));
+				boolean furryHairCheck = faceType.getTags().contains(FaceTypeTag.NATURAL_BALDNESS_FURRY);
+				boolean scalyHairCheck = faceType.getTags().contains(FaceTypeTag.NATURAL_BALDNESS_SCALY);
+				
+				character.setLegConfiguration(LegConfiguration.TAUR, true);
+				character.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(character.getLegRace())));
+				character.setArmType(Util.randomItemFrom(ArmType.getArmTypes(character.getLegRace())));
+				character.setBreastType(Util.randomItemFrom(BreastType.getBreastTypes(character.getLegRace())));
+				character.setEarType(Util.randomItemFrom(EarType.getEarTypes(character.getLegRace())));
+				character.setEyeType(Util.randomItemFrom(EyeType.getEyeTypes(character.getLegRace())));
+				character.setFaceType(faceType);
+				character.setHairType(Util.randomItemFrom(HairType.getHairTypes(character.getLegRace())));
+				character.setHornType(Util.randomItemFrom(HornType.getHornTypes(character.getLegRace())));
+				character.setSkinType(Util.randomItemFrom(SkinType.getSkinTypes(character.getLegRace())));
+				// Reset hair length:
+				if((scalyHairCheck && !Main.game.isScalyHairEnabled()) || (furryHairCheck && !Main.game.isFurryHairEnabled())) {
+					character.setHairLength(0);
+				} else {
+					character.setHairLength((character.isFeminine()
+								? RacialBody.valueOfRace(character.getRace()).getFemaleHairLength()
+								: RacialBody.valueOfRace(character.getRace()).getMaleHairLength()));
+				}
+				break;
+			default:
+				break;
+		}
 	}
 	
 	private static void setBodyHair(Body body) {
@@ -1864,6 +1940,20 @@ public class CharacterUtils {
 					}
 				}
 			}
+		}
+		
+		if(character.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive() && !character.isPregnant() && character.hasVagina()) {
+			character.addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 2+Util.random.nextInt(4), false, false);
+		}
+		if(character.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive() && character.hasPenisIgnoreDildo()) {
+			character.addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 2+Util.random.nextInt(4), false, false);
+		}
+
+		if(character.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative() && !character.isPregnant() && character.hasVagina()) {
+			character.addItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), 2+Util.random.nextInt(4), false, false);
+		}
+		if(character.getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative() && character.hasPenisIgnoreDildo()) {
+			character.addItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), 2+Util.random.nextInt(4), false, false);
 		}
 	}
 	

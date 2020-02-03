@@ -902,6 +902,9 @@ public class Util {
 
 	private static Map<String, String> slovenlySpeechReplacementMap = new LinkedHashMap<>();
 	static {
+		slovenlySpeechReplacementMap.put("What are", "Wot's");
+		slovenlySpeechReplacementMap.put("what are", "wot's");
+		
 		slovenlySpeechReplacementMap.put("Are", "Is");
 		slovenlySpeechReplacementMap.put("are", "is");
 
@@ -1037,9 +1040,9 @@ public class Util {
 		//Use non-letter regex replacement ([^A-Za-z0-9]) 
 		String modifiedSentence = sentence;
 		for(Entry<String, String> entry : slovenlySpeechReplacementMap.entrySet()) {
-			modifiedSentence = modifiedSentence.replaceAll("([^A-Za-z0-9])"+entry.getKey()+"([^A-Za-z0-9])", "$1"+entry.getValue()+"$2");
+			modifiedSentence = modifiedSentence.replaceAll("([^A-Za-z0-9]|^)"+entry.getKey()+"([^A-Za-z0-9])", "$1"+entry.getValue()+"$2");
 		}
-		modifiedSentence.replaceAll("ing ", "in' ");
+		modifiedSentence = modifiedSentence.replaceAll("ing([^A-Za-z0-9])", "in'$1");
 		return modifiedSentence;
 	}
 	

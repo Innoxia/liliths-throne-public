@@ -91,6 +91,10 @@ public class Murk extends NPC {
 				36, Month.JANUARY, 12,
 				10, Gender.M_P_MALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
 				new CharacterInventory(2500), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE, true);
+		
+		if(!isImported) {
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 60);
+		}
 	}
 	
 	@Override
@@ -125,7 +129,6 @@ public class Murk extends NPC {
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
-		this.setAttribute(Attribute.MAJOR_CORRUPTION, 60);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),

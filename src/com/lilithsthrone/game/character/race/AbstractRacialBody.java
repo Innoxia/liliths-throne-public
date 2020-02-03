@@ -425,13 +425,6 @@ public abstract class AbstractRacialBody {
 	public HairType getHairType() {
 		return hairType;
 	}
-	
-	/**
-	 * @return true if this RacialBody requires FaceType to not be human in order to apply hair settings.
-	 */
-	public boolean isHairTypeLinkedToFaceType() {
-		return false;
-	}
 
 	public AbstractLegType getLegType() {
 		return legType;

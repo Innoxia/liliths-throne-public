@@ -2961,6 +2961,7 @@ public class SlaverAlleyDialogue {
 						PUBLIC_STOCKS) {
 					@Override
 					public void effects() {
+						banishRandomSexPartners();
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, false);
 						Main.game.getPlayer().equipAllClothingFromHoldingInventory();
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slaverAlleyCompanionInStocks)) {

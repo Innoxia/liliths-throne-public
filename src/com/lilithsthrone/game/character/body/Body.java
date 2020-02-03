@@ -569,7 +569,7 @@ public class Body implements XMLSaving {
 				CharacterUtils.addAttribute(doc, nippleModifiers, om.toString(), "true");
 			}
 			
-		this.breast.milk.saveAsXML(parentElement, doc);
+		this.breast.milk.saveAsXML("milk", parentElement, doc);
 		
 		// Crotch Breasts:
 		Element bodyCrotchBreast = doc.createElement("breastsCrotch");
@@ -601,7 +601,7 @@ public class Body implements XMLSaving {
 				CharacterUtils.addAttribute(doc, crotchNippleModifiers, om.toString(), "true");
 			}
 			
-		this.breastCrotch.milk.saveAsXML(parentElement, doc);
+		this.breastCrotch.milk.saveAsXML("milkCrotch", parentElement, doc);
 		
 		
 		// Ear:
@@ -982,7 +982,7 @@ public class Body implements XMLSaving {
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Milk:");
 		
-		importedBreast.milk = FluidMilk.loadFromXML(parentElement, doc, importedBreast.getType().getFluidType(), false);
+		importedBreast.milk = FluidMilk.loadFromXML("milk", parentElement, doc, importedBreast.getType().getFluidType(), false);
 		if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
 			importedBreast.milk.type = importedBreast.getType().getFluidType();
 		}
@@ -1599,7 +1599,11 @@ public class Body implements XMLSaving {
 
 			CharacterUtils.appendToImportLog(log, "<br/><br/>Milk:");
 
-			importedCrotchBreast.milk = FluidMilk.loadFromXML(parentElement, doc, importedCrotchBreast.getType().getFluidType(), true);
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.5")) {
+				importedCrotchBreast.milk = FluidMilk.loadFromXML("milk", parentElement, doc, importedCrotchBreast.getType().getFluidType(), true);
+			} else {
+				importedCrotchBreast.milk = FluidMilk.loadFromXML("milkCrotch", parentElement, doc, importedCrotchBreast.getType().getFluidType(), true);
+			}
 			if(Main.isVersionOlderThan(Main.VERSION_NUMBER, "0.2.5.1")) {
 				importedCrotchBreast.milk.type = importedCrotchBreast.getType().getFluidType();
 			}

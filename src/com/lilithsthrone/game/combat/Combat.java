@@ -1712,6 +1712,13 @@ public enum Combat {
 		setTotalDamageTaken(character, getTotalDamageTaken(character) + increment);
 	}
 
+	public static boolean isCharacterVictory(GameCharacter character) {
+		if(getEnemies(character).contains(Main.game.getPlayer())) {
+			return !playerVictory;
+		}
+		return playerVictory;
+	}
+	
 	/**
 	 * @return true if the last combat that took place resulted in the player's victory.
 	 */
