@@ -21502,7 +21502,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				
 			} else if(this.getSubspeciesOverride()==Subspecies.HALF_DEMON) {
-				// If the character is a half-demon, revert some demon body parts to human:
+				// If the character is a half-demon, revert some demon body parts to their core race:
 				boolean resetAreas = false;
 				Race race = this.getHalfDemonSubspecies().getRace();
 				
@@ -21609,7 +21609,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				
 			} else {
-				// The character does not belong to any special race, so this else block needs to revert all special body parts, not just those of the first invalid race
+				// The character does not belong to any special race, so this else block needs to revert all special body parts, not just those of the first invalid race.
 				if(this.getSubspeciesOverrideRace()!=Race.DEMON) {
 					// If the character is not a demon, revert all demonic body parts to human:
 					boolean resetAreas = false;
