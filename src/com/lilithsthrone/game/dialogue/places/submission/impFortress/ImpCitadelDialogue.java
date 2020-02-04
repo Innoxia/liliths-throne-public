@@ -46,6 +46,7 @@ import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexPace;
@@ -1216,18 +1217,18 @@ public class ImpCitadelDialogue {
 
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(1000));
 
-							Value<AbstractItemType, List<PossibleItemEffect>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+							TransformativePotion effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
 							AbstractItem potion = EnchantingUtils.craftItem(
-								AbstractItemType.generateItem(effects.getKey()),
-								effects.getValue().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+								AbstractItemType.generateItem(effects.getItemType()),
+								effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 							potion.setName("Foxy Fuck");
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(potion, 1, false, true));
 							
 							if(isCompanionDialogue()) {
 								effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer().getMainCompanion());
 								potion = EnchantingUtils.craftItem(
-									AbstractItemType.generateItem(effects.getKey()),
-									effects.getValue().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+									AbstractItemType.generateItem(effects.getItemType()),
+									effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 								potion.setName("Foxy Fuck");
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(potion, 1, false, true));
 							}
@@ -1327,10 +1328,10 @@ public class ImpCitadelDialogue {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
 
-						Value<AbstractItemType, List<PossibleItemEffect>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+						TransformativePotion effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
 						AbstractItem potion = EnchantingUtils.craftItem(
-							AbstractItemType.generateItem(effects.getKey()),
-							effects.getValue().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+							AbstractItemType.generateItem(effects.getItemType()),
+							effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, Main.game.getPlayer(), false));
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_SOLO_TF_OFFER_SEX", getAllCharacters()));
@@ -1410,10 +1411,10 @@ public class ImpCitadelDialogue {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
 						
-						Value<AbstractItemType, List<PossibleItemEffect>> effects = ((NPC)getArcanist()).generateTransformativePotion(getMainCompanion());
+						TransformativePotion effects = ((NPC)getArcanist()).generateTransformativePotion(getMainCompanion());
 						AbstractItem potion = EnchantingUtils.craftItem(
-							AbstractItemType.generateItem(effects.getKey()),
-							effects.getValue().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+							AbstractItemType.generateItem(effects.getItemType()),
+							effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, getMainCompanion(), false));
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_COMPANION_TF_OFFER_SEX", getAllCharacters()));
@@ -1507,18 +1508,18 @@ public class ImpCitadelDialogue {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
 
-						Value<AbstractItemType, List<PossibleItemEffect>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+						TransformativePotion effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
 						AbstractItem potion = EnchantingUtils.craftItem(
-							AbstractItemType.generateItem(effects.getKey()),
-							effects.getValue().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+							AbstractItemType.generateItem(effects.getItemType()),
+							effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, Main.game.getPlayer(), false));
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "ARCANIST_BOTH_TF", getAllCharacters()));
 
 						effects = ((NPC)getArcanist()).generateTransformativePotion(getMainCompanion());
 						potion = EnchantingUtils.craftItem(
-							AbstractItemType.generateItem(effects.getKey()),
-							effects.getValue().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+							AbstractItemType.generateItem(effects.getItemType()),
+							effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, getMainCompanion(), false));
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_BOTH_TF_OFFER_SEX", getAllCharacters()));

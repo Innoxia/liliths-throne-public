@@ -23,14 +23,12 @@ import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -43,8 +41,8 @@ public class TunnelImpsDialogue {
 
 	private static List<GameCharacter> impGroup = new ArrayList<>();
 
-	private static Value<AbstractItemType, List<PossibleItemEffect>> potion = null;
-	private static Value<AbstractItemType, List<PossibleItemEffect>> companionPotion = null;
+	private static TransformativePotion potion = null;
+	private static TransformativePotion companionPotion = null;
 	
 	public static void setImpGroup(List<GameCharacter> impGroup) {
 		TunnelImpsDialogue.impGroup = impGroup;

@@ -51,12 +51,12 @@ import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -364,19 +364,19 @@ public class ImpAttacker extends NPC {
 			
 		} else {
 			if (victory) {
-				Value<AbstractItemType, List<PossibleItemEffect>> effects = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer());
+				TransformativePotion effects = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer());
 				if(effects!=null) {
 					AbstractItem potion = EnchantingUtils.craftItem(
-						AbstractItemType.generateItem(effects.getKey()),
-						effects.getValue().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+						AbstractItemType.generateItem(effects.getItemType()),
+						effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 					TunnelImpsDialogue.getImpGroup().get(1).addItem(potion, false);
 				}
 				if(!Main.game.getPlayer().getNonElementalCompanions().isEmpty()) {
-					Value<AbstractItemType, List<PossibleItemEffect>> effects2 = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer().getMainCompanion());
+					TransformativePotion effects2 = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer().getMainCompanion());
 					if(effects2!=null) {
 						AbstractItem potion2 = EnchantingUtils.craftItem(
-							AbstractItemType.generateItem(effects2.getKey()),
-							effects2.getValue().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+							AbstractItemType.generateItem(effects2.getItemType()),
+							effects2.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						TunnelImpsDialogue.getImpGroup().get(1).addItem(potion2, false);
 					}
 				}
@@ -392,7 +392,7 @@ public class ImpAttacker extends NPC {
 	// TF potion:
 	
 	@Override
-	public Value<AbstractItemType, List<PossibleItemEffect>> generateTransformativePotion(GameCharacter target) {
+	public TransformativePotion generateTransformativePotion(GameCharacter target) {
 		AbstractItemType itemType = ItemType.RACE_INGREDIENT_HUMAN;
 		switch(target.getRace()) {
 			case ALLIGATOR_MORPH:
@@ -594,7 +594,7 @@ public class ImpAttacker extends NPC {
 				""));
 		}
 		
-		return new Value<>(itemType, effects);
+		return new TransformativePotion(itemType, effects);
 	}
 	
 	private static List<PossibleItemEffect> getMasculineEffects(GameCharacter target, AbstractItemType itemType) {

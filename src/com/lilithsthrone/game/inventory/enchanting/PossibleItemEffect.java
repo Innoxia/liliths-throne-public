@@ -9,16 +9,20 @@ package com.lilithsthrone.game.inventory.enchanting;
  */
 public class PossibleItemEffect {
 	private final ItemEffect effect;
-	private String message = "";
-	private int chance = 0;
+	private final String message;
+	private final int chance;
 
 	public PossibleItemEffect(ItemEffect effect, String message) {
-		this.effect = effect;
-		this.message = message;
+		this(effect, message, 0);
 	}
 
 	public PossibleItemEffect(ItemEffect effect, int chance) {
+		this(effect, "", chance);
+	}
+
+	public PossibleItemEffect(ItemEffect effect, String message, int chance) {
 		this.effect = effect;
+		this.message = message;
 		this.chance = chance;
 	}
 

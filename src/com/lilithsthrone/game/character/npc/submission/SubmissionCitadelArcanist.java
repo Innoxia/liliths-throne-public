@@ -62,6 +62,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.sexActions.submission.CitadelYoukoSA;
@@ -313,7 +314,7 @@ public class SubmissionCitadelArcanist extends NPC {
 	
 	@SuppressWarnings("fallthrough")
 	@Override
-	public Value<AbstractItemType, List<PossibleItemEffect>> generateTransformativePotion(GameCharacter target) {
+	public TransformativePotion generateTransformativePotion(GameCharacter target) {
 		
 		AbstractItemType itemType = ItemType.RACE_INGREDIENT_FOX_MORPH;
 		
@@ -372,7 +373,7 @@ public class SubmissionCitadelArcanist extends NPC {
 		effects.addAll(reducedEffects);
 		effects.addAll(maximumEffects);
 		
-		return new Value<>(itemType, effects);
+		return new TransformativePotion(itemType, effects);
 	}
 	
 	private static List<PossibleItemEffect> getFeminineEffects(GameCharacter target, AbstractItemType itemType) {

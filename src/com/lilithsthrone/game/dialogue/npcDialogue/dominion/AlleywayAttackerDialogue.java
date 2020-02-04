@@ -23,15 +23,14 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.FetishPotion;
+import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -1186,9 +1185,9 @@ public class AlleywayAttackerDialogue {
 	};
 
 	private static String applyTransformation(GameCharacter target,
-			Value<AbstractItemType, List<PossibleItemEffect>> potion,
+			TransformativePotion potion,
 			boolean forcedTF,
-			Value<AbstractItemType, List<PossibleItemEffect>> fetishPotion,
+			FetishPotion fetishPotion,
 			boolean forcedFetish) {
 		
 		StringBuilder sb = new StringBuilder();
@@ -1215,10 +1214,10 @@ public class AlleywayAttackerDialogue {
 	
 	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", "", true) {
 
-		Value<AbstractItemType, List<PossibleItemEffect>> potion = null;
-		Value<AbstractItemType, List<PossibleItemEffect>> companionPotion = null;
-		Value<AbstractItemType, List<PossibleItemEffect>> fetishPotion = null;
-		Value<AbstractItemType, List<PossibleItemEffect>> companionFetishPotion = null;
+		TransformativePotion potion = null;
+		TransformativePotion companionPotion = null;
+		FetishPotion fetishPotion = null;
+		FetishPotion companionFetishPotion = null;
 		
 		public void applyPreParsingEffects() {
 			transformationsApplied = false;
