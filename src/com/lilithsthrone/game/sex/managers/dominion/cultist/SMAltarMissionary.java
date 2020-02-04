@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
@@ -27,17 +28,17 @@ public class SMAltarMissionary extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
+	public SexActionInterface getPartnerSexAction(NPC partner, SexActionInterface sexActionPlayer) {
 		// If orgasming, use an orgasm action:
 		if (ArousalLevel.getArousalLevelFromValue(Main.sex.getCharacterPerformingAction().getArousal()) == ArousalLevel.FIVE_ORGASM_IMMINENT) {
-			return super.getPartnerSexAction(sexActionPlayer);
+			return super.getPartnerSexAction(partner, sexActionPlayer);
 		}
 		
 		if(Main.sex.isCharacterSealed(Main.sex.getCharacterPerformingAction())) {
 			return CultistSexActions.SEALED;
 			
 		} else {
-			return super.getPartnerSexAction(sexActionPlayer);
+			return super.getPartnerSexAction(partner, sexActionPlayer);
 		}
 	}
 	

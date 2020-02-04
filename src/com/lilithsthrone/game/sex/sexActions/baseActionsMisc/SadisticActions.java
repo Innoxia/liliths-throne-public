@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -32,12 +33,32 @@ public class SadisticActions {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.LOCKED_IN_STOCKS)
-						&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BEHIND_STOCKS))
-					|| (Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.ALL_FOURS)
-							&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BEHIND_ALL_FOURS))
-					|| (Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.OVER_DESK_FRONT)
-							&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.OVER_DESK_BETWEEN_LEGS));
+			boolean assFinger = false;
+			boolean assFingerReversed = false;
+			GameCharacter target = Main.sex.getCharacterTargetedForSexAction(this);
+			if(Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.LYING_DOWN)
+					|| Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.BACK_TO_WALL)
+					|| Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.OVER_DESK_BACK)
+					|| Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.SITTING)
+					|| Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.SITTING_IN_LAP)) {
+				return false;
+			}
+			try {
+				assFinger = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())).get(Main.sex.getSexPositionSlot(target))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.ASS);
+			} catch(Exception ex) {
+				// No available finger-ass actions, so can't reach face
+			}
+			try {
+				assFingerReversed = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(target)).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()))
+						.getInteractions().get(SexAreaOrifice.ASS).contains(SexAreaPenetration.FINGER);
+			} catch(Exception ex) {
+				// No available finger-ass actions, so can't reach face
+			}
+			return SexAreaPenetration.FINGER.isFree(Main.sex.getCharacterPerformingAction())
+					&& !Main.sex.isDom(target)
+					&& (assFinger || assFingerReversed)
+					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST));
 		}
 		
 		@Override
@@ -59,7 +80,7 @@ public class SadisticActions {
 		public String getDescription() {
 			String tailSpecial1 = "", tailSpecial2 = "";
 			
-			if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
+			if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
 				switch(Main.sex.getCharacterTargetedForSexAction(this).getTailType()) {
 					case NONE:
 						tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(reach)] down and roughly [npc.verb(grope)] [npc2.her] [npc2.ass+],"
@@ -92,7 +113,7 @@ public class SadisticActions {
 							"While [npc.name] [npc.verb(continue)] pounding away at [npc2.namePos] [npc2.pussy+], [npc.she] [npc.verb(reach)] down and [npc.verb(start)] to roughly slap [npc2.her] [npc2.ass+],"
 									+ " growling in glee as [npc2.she] [npc2.verb(squirm)] and [npc2.verb(squeal)] under [npc.her] stinging blows.");
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
 				switch(Main.sex.getCharacterTargetedForSexAction(this).getTailType()) {
 					case NONE:
 						tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(reach)] down and roughly [npc.verb(grope)] [npc2.her] [npc2.ass+],"
@@ -197,7 +218,6 @@ public class SadisticActions {
 					&& !Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))
 					&& (mouthFinger || mouthFingerReversed)
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST));
-			
 		}
 		
 		@Override

@@ -71,7 +71,6 @@ import com.lilithsthrone.game.character.npc.dominion.HarpyDominantCompanion;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
 import com.lilithsthrone.game.character.npc.dominion.Helena;
-import com.lilithsthrone.game.character.npc.dominion.Sean;
 import com.lilithsthrone.game.character.npc.dominion.Jules;
 import com.lilithsthrone.game.character.npc.dominion.Kalahari;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
@@ -87,6 +86,7 @@ import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.npc.dominion.Sean;
 import com.lilithsthrone.game.character.npc.dominion.SupplierLeader;
 import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
@@ -164,6 +164,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
+import com.lilithsthrone.game.occupantManagement.SlaveEvent;
 import com.lilithsthrone.game.occupantManagement.SlavePermission;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
@@ -1203,6 +1204,14 @@ public class Game implements XMLSaving {
 					}
 				}
 				
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.6.6")) {
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId()) && npc.getHistory().isLowlife()) {
+							npc.setHistory(Occupation.NPC_UNEMPLOYED);
+						}
+					}
+				}
+				
 				Main.game.pendingSlaveInStocksReset = false;
 				
 				
@@ -1247,7 +1256,6 @@ public class Game implements XMLSaving {
 //		}
 		
 		Main.game.endTurn(0);
-		
 		Main.game.started = true;
 	}
 
@@ -1735,7 +1743,7 @@ public class Game implements XMLSaving {
 				if(inGame) {
 					if(!Main.game.isInCombat() && !Main.game.isInSex() && Main.game.isPrologueFinished()) { // Do not alter values during combat, sex, or prologue
 						if(!Main.game.getPlayer().getCompanions().contains(npc)) {
-							if(!Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+							if(!Main.game.getCharactersPresent().contains(npc)) {
 								npc.setHealthPercentage(1);
 								npc.setManaPercentage(1);
 							}
@@ -1763,8 +1771,7 @@ public class Game implements XMLSaving {
 					if(!Main.game.isInCombat()
 							&& !Main.game.isInSex()
 							&& !npc.isAllowingPlayerToManageInventory()
-							&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
-									|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
+							&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false)) || !(getCharactersPresent().contains(npc)))) {
 						if(npc.isPendingClothingDressing()) {
 							if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
 								npc.replaceAllClothing(); // Not sure why this is here, if clothing is getting replaced anyway...
@@ -1776,19 +1783,20 @@ public class Game implements XMLSaving {
 								&& !npc.isUnique()
 								&& !npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 								&& (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS))) {
-							// Try to replace clothing to cover themselves up:
-							npc.replaceAllClothing();
-							
-							npc.calculateStatusEffects(0);
-							// If still exposed after this, get new clothes:
-							if(npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)) {
-								npc.equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS));
-	
-								if(loopDebug) {
-									System.out.println(npc.getName(true)+" "+npc.getClass().getName()+" got dressed");
+								// Try to replace clothing to cover themselves up:
+								npc.replaceAllClothing();
+								
+								npc.calculateStatusEffects(0);
+								// If still exposed after this, get new clothes:
+								if(npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS)) {
+									npc.equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS));
+		
+									if(loopDebug) {
+										System.out.println(npc.getName(true)+" "+npc.getClass().getName()+" got dressed");
+									}
 								}
-							}
-							npc.setPendingClothingDressing(false);
+								npc.setPendingClothingDressing(false);
+							
 						}
 					}
 				}
@@ -1798,7 +1806,7 @@ public class Game implements XMLSaving {
 					npc.setBodyToGenderIdentity(false);
 				}
 				
-				// Prostitutes stay on promiscuity pills to avoid pregnancies, and, if the NPC is male, to avoid knocking up their clients
+				// Prostitutes stay on slut pills to avoid pregnancies, and, if the NPC is male, to avoid knocking up their clients
 				if((!npc.isPregnant()
 						&& !npc.isSlave()
 						&& npc.getHistory()==Occupation.NPC_PROSTITUTE
@@ -1813,7 +1821,10 @@ public class Game implements XMLSaving {
 				}
 			}
 			
-			if(npc.hasStatusEffect(StatusEffect.PREGNANT_3) && (Main.game.getSecondsPassed() - npc.getTimeProgressedToFinalPregnancyStage())>(12*60*60)) {
+			if(npc.hasStatusEffect(StatusEffect.PREGNANT_3)
+					&& !Main.game.getCharactersPresent().contains(npc)
+					&& !Main.game.getPlayer().getCompanions().contains(npc)
+					&& (Main.game.getSecondsPassed() - npc.getTimeProgressedToFinalPregnancyStage())>(12*60*60)) {
 				if(npc instanceof Lilaya) {
 					// Lilaya will only end pregnancy after you've seen it, or if she's a full demon:
 					if(Main.game.getNpc(Lilaya.class).isCharacterReactedToPregnancy(Main.game.getPlayer()) || npc.getRaceStage()==RaceStage.GREATER) {
@@ -1822,6 +1833,18 @@ public class Game implements XMLSaving {
 					
 				} else {
 					npc.endPregnancy(true);
+					
+					if(npc.isSlave() && npc.getOwner().isPlayer()) {
+						List<String> events = Util.newArrayListOfValues(UtilText.parse(npc, "[npc.She] gave birth to:<br/>")+npc.getLastLitterBirthed().getBirthedDescription());
+						SlaveryEventLogEntry entry = new SlaveryEventLogEntry(getHourOfDay(),
+								npc,
+								SlaveEvent.GAVE_BIRTH,
+								null,
+								events,
+								true);
+						Main.game.addSlaveryEvent(getDayNumber(), entry);
+					}
+					
 					if(npc instanceof Kate) {
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToKatePregnancy);
 					}
@@ -1857,6 +1880,17 @@ public class Game implements XMLSaving {
 				}
 				if(loopDebug && npc.isUnique()) {
 					System.out.println((System.nanoTime()-tL)/1000000000f+"s");
+				}
+				// Non-unique NPCs get a new inventory every day:
+				if(!npc.isSlave()
+						&& !npc.isUnique()
+						&& !Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())
+						&& !Main.game.isInCombat()
+						&& !Main.game.isInSex()
+						&& !npc.isAllowingPlayerToManageInventory()
+						&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false)) || !(getCharactersPresent().contains(npc)))) {
+					npc.clearNonEquippedInventory(false);
+					CharacterUtils.generateItemsInInventory(npc);
 				}
 			}
 			
@@ -3839,13 +3873,25 @@ public class Game implements XMLSaving {
 		return getActiveWorld().getCell(getPlayer().getLocation()).getInventory().isInventoryFull();
 	}
 
+	
+	public String runXmlTest(String pathName) {
+		return UtilText.runXmlTest(pathName);
+	}
 
 	public boolean isDebugMode() {
 		return Main.getProperties().hasValue(PropertyValue.debugMode);
 	}
-	
-	public String runXmlTest(String pathName) {
-		return UtilText.runXmlTest(pathName);
+
+	public boolean isMetricSizes() {
+		return Main.getProperties().hasValue(PropertyValue.metricSizes);
+	}
+
+	public boolean isMetricWeights() {
+		return Main.getProperties().hasValue(PropertyValue.metricWeights);
+	}
+
+	public boolean isMetricFluids() {
+		return Main.getProperties().hasValue(PropertyValue.metricFluids);
 	}
 	
 	public boolean isMapReveal() {
@@ -3890,6 +3936,14 @@ public class Game implements XMLSaving {
 	
 	public boolean isFemaleFacialHairEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.feminineBeardsContent);
+	}
+	
+	public boolean isFurryHairEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.furryHairContent);
+	}
+	
+	public boolean isScalyHairEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.scalyHairContent);
 	}
 	
 	public boolean isPubicHairEnabled() {

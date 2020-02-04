@@ -299,7 +299,7 @@ public interface SexActionInterface {
 								entry.getValue());
 						
 					} else {
-						for(SexAreaInterface sArea : Main.sex.getContactingSexAreas(Main.sex.getCharacterPerformingAction(), entry.getKey(), Main.sex.getCharacterTargetedForSexAction(this))) {
+						for(SexAreaInterface sArea : Main.sex.getOngoingSexAreas(Main.sex.getCharacterPerformingAction(), entry.getKey(), Main.sex.getCharacterTargetedForSexAction(this))) {
 							Main.sex.stopOngoingAction(
 									Main.sex.getCharacterPerformingAction(),
 									entry.getKey(),
@@ -310,7 +310,7 @@ public interface SexActionInterface {
 					
 				} else {
 					if(entry.getValue()!=null) {
-						for(SexAreaInterface sArea : Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), entry.getValue(), Main.sex.getCharacterPerformingAction())) {
+						for(SexAreaInterface sArea : Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), entry.getValue(), Main.sex.getCharacterPerformingAction())) {
 								Main.sex.stopOngoingAction(
 										Main.sex.getCharacterPerformingAction(),
 										entry.getKey(),
@@ -348,8 +348,10 @@ public interface SexActionInterface {
 
 	/**
 	 * These effects are applied after everything else, so it is a safe place to put ongoing action stops or the like.
+	 * @return A String describing these effects, to be appended to the SexAction description at the very end. Return an empty String if not needed.
 	 */
-	public default void applyEndEffects(){
+	public default String applyEndEffects(){
+		return "";
 	}
 	
 	public default boolean isBaseRequirementsMet() {
@@ -637,7 +639,7 @@ public interface SexActionInterface {
 					outerloop:
 					for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
 						for(SexAreaInterface sAreaTarget : this.getSexAreaInteractions().values()) {
-							if(Main.sex.getContactingSexAreas(Main.sex.getCharacterPerformingAction(), sArea, Main.sex.getCharacterTargetedForSexAction(this)).contains(sAreaTarget)) {
+							if(Main.sex.getOngoingSexAreas(Main.sex.getCharacterPerformingAction(), sArea, Main.sex.getCharacterTargetedForSexAction(this)).contains(sAreaTarget)) {
 								ongoingFound = true;
 								break outerloop;
 							}
@@ -933,7 +935,7 @@ public interface SexActionInterface {
 					// TODO check
 					for(SexAreaInterface sArea : this.getSexAreaInteractions().keySet()) {
 						for(SexAreaInterface sAreaTarget : this.getSexAreaInteractions().values()) {
-							if(Main.sex.getContactingSexAreas(Main.sex.getCharacterPerformingAction(), sArea, Main.sex.getCharacterTargetedForSexAction(this)).contains(sAreaTarget)) {
+							if(Main.sex.getOngoingSexAreas(Main.sex.getCharacterPerformingAction(), sArea, Main.sex.getCharacterTargetedForSexAction(this)).contains(sAreaTarget)) {
 								ongoingFound = true;
 								return convertToResponse();
 							}
@@ -1036,7 +1038,7 @@ public interface SexActionInterface {
 		return "";
 	}
 	
-	public default Response convertToResponse() {
+	default Response convertToResponse() {
 		if(getCategory()!=SexActionCategory.CHARACTER_SWITCH
 				&& getActionType()!=SexActionType.MISC_NO_TURN_END
 				&& getActionType()!=SexActionType.POSITIONING_MENU) {

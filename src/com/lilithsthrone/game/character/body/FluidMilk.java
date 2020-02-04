@@ -42,9 +42,9 @@ public class FluidMilk implements FluidInterface {
 		
 		this.crotchMilk = crotchMilk;
 	}
-
-	public Element saveAsXML(Element parentElement, Document doc) {
-		Element element = doc.createElement("milk");
+	
+	public Element saveAsXML(String rootElementName, Element parentElement, Document doc) {
+		Element element = doc.createElement(rootElementName);
 		parentElement.appendChild(element);
 
 		CharacterUtils.addAttribute(doc, element, "type", this.type.toString());
@@ -59,8 +59,8 @@ public class FluidMilk implements FluidInterface {
 		return element;
 	}
 	
-	public static FluidMilk loadFromXML(Element parentElement, Document doc) {
-		return loadFromXML(parentElement, doc, null, false);
+	public static FluidMilk loadFromXML(String rootElementName, Element parentElement, Document doc) {
+		return loadFromXML(rootElementName, parentElement, doc, null, false);
 	}
 	
 	/**
@@ -69,9 +69,9 @@ public class FluidMilk implements FluidInterface {
 	 * @param doc
 	 * @param baseType If you pass in a baseType, this method will ignore the saved type in parentElement.
 	 */
-	public static FluidMilk loadFromXML(Element parentElement, Document doc, FluidType baseType, boolean crotchMilk) {
+	public static FluidMilk loadFromXML(String rootElementName, Element parentElement, Document doc, FluidType baseType, boolean crotchMilk) {
 		
-		Element milk = (Element)parentElement.getElementsByTagName("milk").item(0);
+		Element milk = (Element)parentElement.getElementsByTagName(rootElementName).item(0);
 		
 		FluidType fluidType = FluidType.MILK_HUMAN;
 		

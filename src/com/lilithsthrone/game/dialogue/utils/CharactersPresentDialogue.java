@@ -202,15 +202,15 @@ public class CharactersPresentDialogue {
 						}
 					};
 				} 
-				if(index>0 && index<5 && !characterViewed.isCompanionAvailableForSex(false)) {
+				if(index>0 && index<5 && !characterViewed.isCompanionAvailableForSex(true)) {
 					if(index==1) {
-						return new Response("Sex", characterViewed.getCompanionSexRejectionReason(false), null);
+						return new Response("Sex", characterViewed.getCompanionSexRejectionReason(true), null);
 					}
 					return null;
 				}
-				if(index>5 && index<10 && !characterViewed.isCompanionAvailableForSex(true)) {
+				if(index>5 && index<10 && !characterViewed.isCompanionAvailableForSex(false)) {
 					if(index==6) {
-						return new Response("Submissive Sex", characterViewed.getCompanionSexRejectionReason(true), null);
+						return new Response("Submissive Sex", characterViewed.getCompanionSexRejectionReason(false), null);
 					}
 					return null;
 				}

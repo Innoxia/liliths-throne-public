@@ -429,7 +429,28 @@ public class DebugDialogue {
 							}
 						};
 						
-				}
+				} else if (index == 14) {
+					return new Response("Complete Encyclopedia", "Unlock every entry in your encyclopedia.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							for(Subspecies subspecies : Subspecies.values()) {
+								Main.getProperties().addRaceDiscovered(subspecies);
+								Main.getProperties().addAdvancedRaceKnowledge(subspecies);
+							}
+							for(AbstractItemType itemType : ItemType.getAllItems()) {
+								Main.getProperties().addItemDiscovered(itemType);
+							}
+							for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
+								Main.getProperties().addClothingDiscovered(clothingType);
+							}
+							for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
+								Main.getProperties().addWeaponDiscovered(weaponType);
+							}
+							Main.saveProperties();
+						}
+					};
+					
+			}
 				
 			} else if(responseTab == 3) {
 				if(index==1) {

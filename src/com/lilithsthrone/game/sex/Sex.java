@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
@@ -50,6 +51,7 @@ import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
@@ -161,6 +163,8 @@ public class Sex {
 	private Value<Integer, GameCharacter> preOrgasmTargeting;
 	private GameCharacter characterPerformingAction;
 	private GameCharacter characterOrgasming;
+	private Value<GameCharacter, Value<GameCharacter, AbstractItem>> itemUseInformation; // The character using an item, the character targeted, and the item being used.
+	private Map<GameCharacter, Map<GameCharacter, List<AbstractItemType>>> itemUseDenials; // A map of item-using NPCs to a map of characters who they've tried, and failed, to use items on. This second map has the failed items in a List as its Value.
 	private SexManagerInterface sexManager;
 	private SexManagerInterface initialSexManager;
 	private String sexDescription;
@@ -346,6 +350,9 @@ public class Sex {
 		characterPerformingAction = Main.game.getPlayer();
 		characterOrgasming = null;
 		
+		itemUseInformation = null;
+		itemUseDenials = new HashMap<>();
+		
 		publicSex = sexManager.isPublicSex();
 		
 		Main.sex.postSexDialogue = postSexDialogue;
@@ -355,11 +362,9 @@ public class Sex {
 		resetAllOngoingActions(true);
 
 		for(GameCharacter character : Main.sex.getAllParticipants()) {
-			if(!character.isPlayer()
-					&& ((character.isSlave() && character.getOwner().isPlayer())
-							|| Main.game.getPlayer().getFriendlyOccupants().contains(character.getId())
-							|| Main.game.getPlayer().getCompanions().contains(character))) {
+			if(!Main.game.getPlayer().isWantingToLevelDrain(character)) {
 				playerLevelDrain = false;
+				break;
 			}
 		}
 		
@@ -703,6 +708,9 @@ public class Sex {
 			if(sexAction.isAppendEffects()) {
 				initialSexActionSB.append(applyGenericDescriptionsAndEffects(sexAction.getPerformer(), sexAction.getTarget(), sexAction.getSexAction()));
 				initialSexActionSB.append(endString);
+				initialSexActionSB.append(sexAction.getSexAction().applyEndEffects());
+				
+			} else {
 				sexAction.getSexAction().applyEndEffects();
 			}
 			if(initialSexActionSB.length()>0) {
@@ -1405,6 +1413,7 @@ public class Sex {
 		@Override
 		public String getResponseTabTitle(int index) {
 			if (sexFinished
+					|| (getItemUseInformation()!=null && getItemUseInformation().getValue().getKey().isPlayer() && !isForcingItemUse(getItemUseInformation().getKey(), Main.game.getPlayer()))
 					|| isReadyToOrgasm(Main.game.getPlayer())
 					|| Main.sex.isCharacterDeniedOrgasm(Main.game.getPlayer())
 					|| (Main.sex.getTargetedPartner(Main.game.getPlayer())!=null && isReadyToOrgasm(Main.sex.getTargetedPartner(Main.game.getPlayer())))) {
@@ -1441,6 +1450,17 @@ public class Sex {
 							endSex();
 						}
 					};
+				} else {
+					return null;
+				}
+				
+			} else if(getItemUseInformation()!=null && getItemUseInformation().getValue().getKey().isPlayer() && !isForcingItemUse(getItemUseInformation().getKey(), Main.game.getPlayer())) {
+				if (index==1) { // Refuse item (put in default 1 slot so if player is quickly clicking through sex, they don't accept something by accident):
+					return SexActionUtility.PLAYER_REFUSE_ITEM_FROM_PARTNER.toResponse();
+					
+				} else if (index==2) { // Accept item:
+					return SexActionUtility.PLAYER_ACCEPT_ITEM_FROM_PARTNER.toResponse();
+					
 				} else {
 					return null;
 				}
@@ -1610,7 +1630,7 @@ public class Sex {
 		
 		boolean endsSex = sexActionPlayer.endsSex();
 		
-		sexActionPlayer.applyEndEffects();
+		endString += sexActionPlayer.applyEndEffects();
 		
 		sexSB.append(endString);
 		
@@ -1645,6 +1665,21 @@ public class Sex {
 			// Partner action is done afterwards:
 			// Update lists for the partner's action choice.
 			if(!Main.sex.isMasturbation()) {
+				
+				// If an NPC wants to use an item on the player, this should be the only action taken in this loop, so that the player can react to it without distraction or confusion from multiple item usages.
+				itemUseInformation = null;
+				Value<AbstractItem, String> sexItemValue = null;
+				characterUsingItemLoop:
+				for(GameCharacter character : Main.sex.getAllParticipants()) {
+					if(!character.isPlayer()) {
+						sexItemValue = ((NPC)character).getSexItemToUse(Main.game.getPlayer());
+						if(sexItemValue!=null) {
+							Main.sex.setItemUseInformation(character, Main.game.getPlayer(), sexItemValue.getKey());
+							break characterUsingItemLoop;
+						}
+					}
+				}
+				
 				for(GameCharacter character : Main.sex.getAllParticipants()) {
 					if(!character.isPlayer()) {
 						Main.sex.setCharacterPerformingAction(character);
@@ -1654,39 +1689,47 @@ public class Sex {
 							
 							calculateAvailableSexActionsPartner();
 							
-							SexActionInterface sexActionPartner = sexManager.getPartnerSexAction(sexActionPlayer);
+							SexActionInterface sexActionPartner = sexManager.getPartnerSexAction((NPC) character, sexActionPlayer);
 							
-							sexSB.append("<br/>"
-									+ "<p>"
-										+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>&gt; "+UtilText.parse(character, "[npc.Name]")+": "+(Util.capitaliseSentence(sexActionPartner.getActionTitle()))+"</span>"
-										+ "</br>"
-										+ sexActionPartner.preDescriptionBaseEffects()
-										+ sexActionPartner.getDescription()
-										+ sexActionPartner.getFluidFlavourDescription(character, Main.sex.getTargetedPartner(character))
-									+ "</p>");
-				
-							endString = sexActionPartner.baseEffects();
-							lastUsedSexAction.put(character, sexActionPartner);
-							
-							sexSB.append(applyGenericDescriptionsAndEffects(character, Main.sex.getTargetedPartner(character), sexActionPartner));
-							
-							endsSex = sexActionPartner.endsSex();
-							
-							sexActionPartner.applyEndEffects();
-							
-							sexSB.append(endString);
-							
-							if(sexActionPartner.getLimitation()==null
-									&& sexActionPartner!=SexActionUtility.CLOTHING_REMOVAL
-									&& sexActionPartner!=SexActionUtility.CLOTHING_DYE) {
-								s = UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(sexActionPartner), sexSB.toString(), ParserTag.SEX_DESCRIPTION);
-							} else {
-								s = UtilText.parse(Main.sex.getCharacterPerformingAction(), sexSB.toString(), ParserTag.SEX_DESCRIPTION);
+							if(itemUseInformation!=null) {
+								sexActionPartner = SexActionUtility.PARTNER_USE_ITEM;
 							}
-							sexSB.setLength(0);
-							sexSB.append(s);
 							
-							sexDescription = sexSB.toString();
+							if(itemUseInformation==null || itemUseInformation.getKey().equals(character)) {
+								sexSB.append("<br/>"
+										+ "<p>"
+											+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>&gt; "+UtilText.parse(character, "[npc.Name]")+": "+(Util.capitaliseSentence(sexActionPartner.getActionTitle()))+"</span>"
+											+ "</br>"
+											+ sexActionPartner.preDescriptionBaseEffects()
+											+ sexActionPartner.getDescription()
+											+ sexActionPartner.getFluidFlavourDescription(character, Main.sex.getTargetedPartner(character))
+										+ "</p>");
+					
+								endString = sexActionPartner.baseEffects();
+								lastUsedSexAction.put(character, sexActionPartner);
+								
+								sexSB.append(applyGenericDescriptionsAndEffects(character, Main.sex.getTargetedPartner(character), sexActionPartner));
+								
+								endsSex = sexActionPartner.endsSex();
+								
+								endString += sexActionPartner.applyEndEffects();
+								
+								sexSB.append(endString);
+								
+								if(sexActionPartner.getLimitation()==null
+										&& sexActionPartner!=SexActionUtility.CLOTHING_REMOVAL
+										&& sexActionPartner!=SexActionUtility.CLOTHING_DYE) {
+									s = UtilText.parse(character, Main.sex.getCharacterTargetedForSexAction(sexActionPartner), sexSB.toString(), ParserTag.SEX_DESCRIPTION);
+									
+								} else {
+									s = UtilText.parse(character, sexSB.toString(), ParserTag.SEX_DESCRIPTION);
+								}
+								
+								sexSB.setLength(0);
+								sexSB.append(s);
+								
+								sexDescription = sexSB.toString();
+							}
 							
 							// End sex conditions:
 							if (endsSex && !sexFinished) {
@@ -1694,6 +1737,7 @@ public class Sex {
 								sexFinished = true;
 								break;
 							}
+							
 						} else {
 							sexDescription = sexSB.toString();
 						}
@@ -1831,7 +1875,7 @@ public class Sex {
 			}
 			return s1.getActionType().compareTo(s2.getActionType());
 			});
-		if(partnerOrgasming && Main.game.getPlayer().hasPerkAnywhereInTree(Perk.ORGASMIC_LEVEL_DRAIN)) {
+		if(partnerOrgasming && Main.game.getPlayer().hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true)) {
 			boolean oppositeDom = Main.sex.isDom(Main.sex.getCharacterOrgasming())!=isDom(Main.game.getPlayer());
 			boolean characterImmune = Main.sex.getCharacterOrgasming().isImmuneToLevelDrain();
 			availableSexActionsPlayer.add(new SexAction(
@@ -2509,21 +2553,21 @@ public class Sex {
 			if(!Main.sex.getCharacterPerformingAction().isImmuneToLevelDrain()) {
 				if(Main.sex.isDom(Main.sex.getCharacterPerformingAction())) {
 					for(GameCharacter sub : Main.sex.getSubmissiveParticipants(false).keySet()) {
-						if(sub.hasPerkAnywhereInTree(Perk.ORGASMIC_LEVEL_DRAIN) && (!sub.isPlayer() || Main.sex.playerLevelDrain)) {
+						if(sub.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && (!sub.isPlayer() || Main.sex.playerLevelDrain)) {
 							levelDrains.add(sub);
 						}
 					}
 					
 				} else {
 					for(GameCharacter dom : Main.sex.getDominantParticipants(false).keySet()) {
-						if(dom.hasPerkAnywhereInTree(Perk.ORGASMIC_LEVEL_DRAIN) && (!dom.isPlayer() || Main.sex.playerLevelDrain)) {
+						if(dom.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && (!dom.isPlayer() || Main.sex.playerLevelDrain)) {
 							levelDrains.add(dom);
 						}
 					}
 				}
 			}
 			for(GameCharacter drainer : levelDrains) {
-				if(drainer.isLevelDrainAvailableToUse()) {
+				if(drainer.isLevelDrainAvailableToUse() && drainer.isWantingToLevelDrain(Main.sex.getCharacterPerformingAction())) {
 					stringBuilderForAppendingDescriptions.append(drainer.applyLevelDrain(Main.sex.getCharacterPerformingAction()));
 				}
 			}
@@ -3160,7 +3204,7 @@ public class Sex {
 
 	private boolean displayOngoingPenetrationEffects = false;
 	
-	private String applyPenetrationEffects(SexActionInterface sexAction, GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaInterface orifice) { //TODO formatting
+	public String applyPenetrationEffects(SexActionInterface sexAction, GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaInterface orifice) { //TODO formatting
 		StringBuilder penetrationSB = new StringBuilder();
 //		System.out.println(Main.sex.getTurn()+" : "+characterPenetrating.getName());
 		
@@ -3184,7 +3228,52 @@ public class Sex {
 					characterPenetrating.setVirginityLoss(relatedSexTypeForCharacterPenetrating, characterPenetrated, characterPenetrated.getLostVirginityDescriptor());
 					characterPenetrating.setPenisVirgin(false);
 				}
-				
+			}
+			
+			// Ingesting fluids in this orifice:
+			if(penetrationType == SexAreaPenetration.TONGUE) {
+				if(characterPenetrating==Main.sex.getCharacterPerformingAction()
+					&& !characterPenetrated.getFluidsStoredInOrifice(actualOrifice).isEmpty()) {
+					List<FluidStored> fluids = characterPenetrated.drainTotalFluidsStored(actualOrifice, 25);
+					for(FluidStored fluid : fluids) {
+						try {
+							GameCharacter fluidCharacter = fluid.getFluidCharacter();
+							penetrationSB.append(
+									"<p style='text-align:center; margin-bottom:0; padding-bottom:0; color:"+Colour.BASE_ORANGE.toWebHexString()+";'><i>"
+										+ UtilText.parse(characterPenetrating, characterPenetrated, "[npc.Name] [npc.verb(find)] [npc.herself] swallowing down some fluids previously deposited in [npc2.namePos] "+orifice.getName(characterPenetrated)+"!")
+									+ "</i></p>"
+									+ characterPenetrating.ingestFluid(
+											fluidCharacter,
+											fluid.getFluid(),
+											SexAreaOrifice.MOUTH,
+											fluid.getMillilitres()));
+						} catch(Exception ex) {
+							if(fluid.isCum()) {
+								penetrationSB.append(
+										"<p style='text-align:center; margin-bottom:0; padding-bottom:0; color:"+Colour.BASE_ORANGE.toWebHexString()+";'><i>"
+											+ UtilText.parse(characterPenetrating, characterPenetrated, "[npc.Name] [npc.verb(find)] [npc.herself] swallowing down some fluids previously deposited in [npc2.namePos] "+orifice.getName(characterPenetrated)+"!")
+										+ "</i></p>"
+										+ characterPenetrating.ingestFluid(
+												null,
+												fluid.getCumSubspecies(),
+												fluid.getCumHalfDemonSubspecies(),
+												fluid.getFluid(),
+												SexAreaOrifice.MOUTH,
+												fluid.getMillilitres()));
+							} else {
+								penetrationSB.append(
+										"<p style='text-align:center; margin-bottom:0; padding-bottom:0; color:"+Colour.BASE_ORANGE.toWebHexString()+";'><i>"
+											+ UtilText.parse(characterPenetrating, characterPenetrated, "[npc.Name] [npc.verb(find)] [npc.herself] swallowing down some fluids previously deposited in [npc2.namePos] "+orifice.getName(characterPenetrated)+"!")
+										+ "</i></p>"
+										+ characterPenetrating.ingestFluid(
+												null,
+												fluid.getFluid(),
+												SexAreaOrifice.MOUTH,
+												fluid.getMillilitres()));
+							}
+						}
+					}
+				}
 			}
 			
 			if (actualOrifice == SexAreaOrifice.ASS) {
@@ -4131,6 +4220,43 @@ public class Sex {
 		return false;
 	}
 
+	
+	// Item use methods:
+
+	/**
+	 * @return true if the user is willing to force the target to use items during sex (such as pills).
+	 */
+	public boolean isForcingItemUse(GameCharacter user, GameCharacter target) {
+		return !Main.sex.isConsensual() && Main.sex.isDom(user) && !Main.sex.isDom(target);
+	}
+	
+	public void setItemUseInformation(GameCharacter itemUser, GameCharacter itemTarget, AbstractItem item) {
+		this.itemUseInformation = new Value<>(itemUser, new Value<>(itemTarget, item));
+	}
+	
+	/**
+	 * @return Value of character who is using item, to Value of character targeted and item type being used.
+	 */
+	public Value<GameCharacter, Value<GameCharacter, AbstractItem>> getItemUseInformation() {
+		return itemUseInformation;
+	}
+
+	public void addItemUseDenial(GameCharacter user, GameCharacter target, AbstractItemType itemType) {
+		itemUseDenials.putIfAbsent(user, new HashMap<>());
+		itemUseDenials.get(user).putIfAbsent(target, new ArrayList<>());
+		itemUseDenials.get(user).get(target).add(itemType);
+	}
+	
+	/**
+	 * @return A list of AbstractItemTypes which the user has tried to give to the target, but have been refused.
+	 */
+	public List<AbstractItemType> getItemUseDenials(GameCharacter user, GameCharacter target) {
+		itemUseDenials.putIfAbsent(user, new HashMap<>());
+		itemUseDenials.get(user).putIfAbsent(target, new ArrayList<>());
+		return itemUseDenials.get(user).get(target);
+	}
+	
+	
 
 	// Orgasm convenience methods:
 
@@ -4154,14 +4280,14 @@ public class Sex {
 		return characterOrgasming;
 	}
 	
-	public Map<SexAreaInterface, Map<GameCharacter, Set<SexAreaInterface>>> getOngoingActionsMap(GameCharacter characterPerformingPenetration) {
-		return ongoingActionsMap.get(characterPerformingPenetration);
+	public Map<SexAreaInterface, Map<GameCharacter, Set<SexAreaInterface>>> getOngoingActionsMap(GameCharacter characterHavingOngoingActions) {
+		return ongoingActionsMap.get(characterHavingOngoingActions);
 	}
 	
 	/**
 	 * @return A map of characters, with a set of SexAreas holding SexAreaInterfaces which are in contact with the passed-in character's sexArea.
 	 */
-	public Map<GameCharacter, Set<SexAreaInterface>> getContactingSexAreas(GameCharacter character, SexAreaInterface sexArea) {
+	public Map<GameCharacter, Set<SexAreaInterface>> getOngoingSexAreas(GameCharacter character, SexAreaInterface sexArea) {
 		return ongoingActionsMap.get(character).get(sexArea);
 	}
 	
@@ -4195,7 +4321,7 @@ public class Sex {
 	/**
 	 * Get all of the SexAreaInterfaces that this character's area is in contact with.
 	 */
-	public List<SexAreaInterface> getAllContactingSexAreas(GameCharacter character, SexAreaInterface sexArea) {
+	public List<SexAreaInterface> getAllOngoingSexAreas(GameCharacter character, SexAreaInterface sexArea) {
 		List<SexAreaInterface> returnList = new ArrayList<>();
 		for(Set<SexAreaInterface> set : ongoingActionsMap.get(character).get(sexArea).values()) {
 			returnList.addAll(set);
@@ -4203,7 +4329,7 @@ public class Sex {
 		return returnList;
 	}
 	
-	public List<SexAreaInterface> getContactingSexAreas(GameCharacter character, SexAreaInterface sexArea, GameCharacter characterInteractingWith) {
+	public List<SexAreaInterface> getOngoingSexAreas(GameCharacter character, SexAreaInterface sexArea, GameCharacter characterInteractingWith) {
 		if(ongoingActionsMap.get(character).get(sexArea).containsKey(characterInteractingWith)) {
 			return new ArrayList<>(ongoingActionsMap.get(character).get(sexArea).get(characterInteractingWith));
 		} else {
@@ -4211,8 +4337,8 @@ public class Sex {
 		}
 	}
 	
-	public SexAreaInterface getFirstContactingSexArea(GameCharacter character, SexAreaInterface sexArea) {
-		for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Main.sex.getContactingSexAreas(character, sexArea).entrySet()) {
+	public SexAreaInterface getFirstOngoingSexArea(GameCharacter character, SexAreaInterface sexArea) {
+		for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Main.sex.getOngoingSexAreas(character, sexArea).entrySet()) {
 			for(SexAreaInterface sArea : entry.getValue()) {
 				return sArea;
 			}
@@ -4220,8 +4346,8 @@ public class Sex {
 		return null;
 	}
 	
-	public SexAreaPenetration getFirstContactingSexAreaPenetration(GameCharacter character, SexAreaInterface sexArea) {
-		for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Main.sex.getContactingSexAreas(character, sexArea).entrySet()) {
+	public SexAreaPenetration getFirstOngoingSexAreaPenetration(GameCharacter character, SexAreaInterface sexArea) {
+		for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Main.sex.getOngoingSexAreas(character, sexArea).entrySet()) {
 			for(SexAreaInterface sArea : entry.getValue()) {
 				if(sArea.isPenetration()) {
 					return (SexAreaPenetration) sArea;
@@ -4231,8 +4357,8 @@ public class Sex {
 		return null;
 	}
 	
-	public SexAreaOrifice getFirstContactingSexAreaOrifice(GameCharacter character, SexAreaInterface sexArea) {
-		for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Main.sex.getContactingSexAreas(character, sexArea).entrySet()) {
+	public SexAreaOrifice getFirstOngoingSexAreaOrifice(GameCharacter character, SexAreaInterface sexArea) {
+		for(Entry<GameCharacter, Set<SexAreaInterface>> entry : Main.sex.getOngoingSexAreas(character, sexArea).entrySet()) {
 			for(SexAreaInterface sArea : entry.getValue()) {
 				if(sArea.isOrifice()) {
 					return (SexAreaOrifice) sArea;
@@ -4243,23 +4369,10 @@ public class Sex {
 	}
 	
 	/**
-	 * @return The characters who are currently using this character's sexArea.
+	 * @return The characters who are currently involved in an ongoing action with this target's sexArea.
 	 */
-	public List<GameCharacter> getCharacterContactingSexArea(GameCharacter character, SexAreaInterface sexArea) {
-		return new ArrayList<>(getContactingSexAreas(character, sexArea).keySet());
-	}
-
-	/**
-	 * @return The characters who are currently using this character's sexArea.
-	 */
-	public List<GameCharacter> getCharactersUsingSexAreaOnCharacter(GameCharacter characterTargeted, SexAreaInterface sexAreaBeingUsed) {
-		List<GameCharacter> returnList = new ArrayList<>();
-		for(GameCharacter character : Main.sex.getAllParticipants()) {
-			if(ongoingActionsMap.get(character).get(sexAreaBeingUsed).containsKey(characterTargeted)) {
-				returnList.add(character);
-			}
-		}
-		return returnList;
+	public List<GameCharacter> getCharacterOngoingSexArea(GameCharacter target, SexAreaInterface sexArea) {
+		return new ArrayList<>(getOngoingSexAreas(target, sexArea).keySet());
 	}
 	
 	/**

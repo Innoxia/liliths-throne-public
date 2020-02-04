@@ -27,79 +27,79 @@ public enum FaceType implements BodyPartTypeInterface {
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, MouthType.DOG_MORPH, TongueType.DOG_MORPH, Race.DOG_MORPH, Util.newArrayListOfValues(
 		FaceTypeTag.MUZZLE,
 		FaceTypeTag.FANGS,
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_FURRY
 	)),
 	
 	LYCAN(BodyCoveringType.LYCAN_FUR, MouthType.WOLF_MORPH, TongueType.WOLF_MORPH, Race.WOLF_MORPH, Util.newArrayListOfValues(
 		FaceTypeTag.MUZZLE,
 		FaceTypeTag.FANGS,
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_FURRY
 	)),
 	
 	FOX_MORPH(BodyCoveringType.FOX_FUR, MouthType.FOX_MORPH, TongueType.FOX_MORPH, Race.FOX_MORPH, Util.newArrayListOfValues(
 		FaceTypeTag.MUZZLE,
 		FaceTypeTag.FANGS,
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_FURRY
 	)),
 
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, MouthType.CAT_MORPH, TongueType.CAT_MORPH, Race.CAT_MORPH, Util.newArrayListOfValues(
 		FaceTypeTag.MUZZLE,
 		FaceTypeTag.FANGS,
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_FURRY
 	)),
 
 	CAT_MORPH_PANTHER(BodyCoveringType.FELINE_FUR, MouthType.CAT_MORPH, TongueType.CAT_MORPH, Race.CAT_MORPH, Util.newArrayListOfValues(
 		FaceTypeTag.MUZZLE,
 		FaceTypeTag.FANGS,
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_FURRY
 	)),
 
 	COW_MORPH(BodyCoveringType.BOVINE_FUR, MouthType.COW_MORPH, TongueType.COW_MORPH, Race.COW_MORPH, Util.newArrayListOfValues(
 		FaceTypeTag.MUZZLE,
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_FURRY
 	)),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, MouthType.SQUIRREL_MORPH, TongueType.SQUIRREL_MORPH, Race.SQUIRREL_MORPH, Util.newArrayListOfValues(
 		FaceTypeTag.MUZZLE,
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_FURRY
 	)),
 
 	RAT_MORPH(BodyCoveringType.RAT_FUR, MouthType.RAT_MORPH, TongueType.RAT_MORPH, Race.RAT_MORPH, Util.newArrayListOfValues(
 		FaceTypeTag.MUZZLE,
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_FURRY
 	)),
 
 	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, MouthType.RABBIT_MORPH, TongueType.RABBIT_MORPH, Race.RABBIT_MORPH, Util.newArrayListOfValues(
 		FaceTypeTag.MUZZLE,
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_FURRY
 	)),
 
 	BAT_MORPH(BodyCoveringType.BAT_FUR, MouthType.BAT_MORPH, TongueType.BAT_MORPH, Race.BAT_MORPH, Util.newArrayListOfValues(
 		FaceTypeTag.MUZZLE,
 		FaceTypeTag.FANGS,
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_FURRY
 	)),
 
 	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, MouthType.ALLIGATOR_MORPH, TongueType.ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH, Util.newArrayListOfValues(
 		FaceTypeTag.MUZZLE,
 		FaceTypeTag.FANGS,
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_SCALY
 	)),
 
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, MouthType.HORSE_MORPH, TongueType.HORSE_MORPH, Race.HORSE_MORPH, Util.newArrayListOfValues(
 		FaceTypeTag.MUZZLE,
 		// Note: Some horse races only have hair on the neck aka a mane so its not totally unnatural to have a bald face
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_FURRY
 	)),
 
 	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, MouthType.REINDEER_MORPH, TongueType.REINDEER_MORPH, Race.REINDEER_MORPH, Util.newArrayListOfValues(
 		FaceTypeTag.MUZZLE,
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_FURRY
 	)),
 
 	HARPY(BodyCoveringType.FEATHERS, MouthType.HARPY, TongueType.TENGU, Race.HARPY, Util.newArrayListOfValues(
 		FaceTypeTag.BEAK,
-		FaceTypeTag.NATURAL_BALDNESS
+		FaceTypeTag.NATURAL_BALDNESS_AVIAN
 	)),
 	;
 

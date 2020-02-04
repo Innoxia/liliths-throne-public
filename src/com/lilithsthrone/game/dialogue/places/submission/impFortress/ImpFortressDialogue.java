@@ -212,9 +212,12 @@ public class ImpFortressDialogue {
 		banishImpGuards(fortress);
 		
 		clearBossGuards(fortress);
-
+		
+		((NPC) getBoss(fortress)).equipClothing();
+		
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
 			getBoss(fortress).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+			
 		} else {
 			getBoss(fortress).setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP);
 		}
@@ -1344,26 +1347,37 @@ public class ImpFortressDialogue {
 
 		@Override
 		public String getContent() {
+			if(getImpGuards().isEmpty()) {
+				return UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "GUARDS_AFTER_COMBAT_VICTORY_ALL_ENSLAVED", getAllCharacters());
+			}
 			return UtilText.parseFromXMLFile("places/submission/fortressImpGuards"+getGuardsDialogueEncounterId(), "GUARDS_AFTER_COMBAT_VICTORY", getAllCharacters());
 		}
 
 		@Override
 		public String getResponseTabTitle(int index) {
-			if(index==0) {
-				return "Standard";
-				
-			} else if(index==1) {
-				return "Inventories";
-				
-			} else if(index==2) {
-				return "Transformations";
-				
+			if(!getImpGuards().isEmpty()) {
+				if(index==0) {
+					return "Standard";
+					
+				} else if(index==1) {
+					return "Inventories";
+					
+				} else if(index==2) {
+					return "Transformations";
+					
+				}
 			}
  			return null;
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(getImpGuards().isEmpty()) {
+				if(index==1) {
+					return new Response("Continue", "As you've enslaved the imp guards, there's nothing left to do but continue on your way into the fortress...", Main.game.getDefaultDialogue(false));
+				}
+				return null;
+			}
 			if(!isCompanionDialogue()) {
 				if(responseTab == 0) {
 					if (index == 1) {

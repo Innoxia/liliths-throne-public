@@ -528,7 +528,7 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"[npc.NameIsFull] one of the seven elder lilin, and holds powers that mere mortals can only dream of.");
+					"[npc.NameIsFull] one of the seven elder lilin, and [npc.verb(hold)] powers that mere mortals can only dream of.");
 		}
 	};
 
@@ -905,6 +905,26 @@ public class Perk {
 			return UtilText.parse(owner, "Thanks to spending a considerable amount of time tasting food, [npc.name] [npc.has] both a significant resistance to poison, as well as the ability to make culinary marvels out of basic ingredients.");
 		}
 	};
+
+	public static AbstractPerk JOB_PLAYER_CONSTRUCTION_WORKER = new AbstractPerk(20,
+			true,
+			"Project Manager",
+			PerkCategory.JOB,
+			"perks/jobs/construction",
+			Util.newArrayListOfValues(Colour.CLOTHING_YELLOW, Colour.CLOTHING_BLACK),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 10),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
+			Util.newArrayListOfValues("[style.boldExcellent(Halves)] cost of all room upgrades"),
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "Thanks to [npc.her] considerable experience in the industry, [npc.name] [npc.verb(know)] how to efficiently manage construction projects."
+					+ " [npc.Her] time performing manual labour has also given [npc.herHim] a healthy body.");
+		}
+	};
+	
 
 	public static AbstractPerk JOB_SOLDIER = new AbstractPerk(20,
 			true,
@@ -2028,7 +2048,7 @@ public class Perk {
 	};
 
 	public static AbstractPerk ORGASMIC_LEVEL_DRAIN = new AbstractPerk(20,
-			false,
+			true,
 			"orgasmic level drain",
 			PerkCategory.LUST,
 			"perks/orgasmic_level_drain",

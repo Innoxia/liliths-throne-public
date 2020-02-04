@@ -18,14 +18,14 @@ public class Cowgirl {
 		
 		UtilText.nodeContentSB.setLength(0);
 		
-		if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
+		if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"[npc.Name] [npc.verb(sink)] down onto [npc2.namePos] [npc2.penis+], letting out [npc.a_moan+] [npc.she] [npc.verb(lean)] down and [npc.verb(grab)] [npc2.namePos] head in both hands, before pulling [npc2.name] up into a passionate kiss.",
 					"With [npc.a_moan+], [npc.name] [npc.verb(slide)] down onto [npc2.namePos] [npc2.penis+], leaning down into [npc2.namePos] [npc2.breasts] and breathing in [npc2.namePos] [npc2.scent] before pressing [npc.her] [npc.lips+] against [npc2.namePos]s.",
 					"[npc.Name] [npc.verb(let)] [npc2.namePos] [npc2.penis+] slide even deeper into [npc.her] [npc.asshole+] as [npc.she] [npc.verb(lean)] down and pulls [npc2.name] into a desperate kiss.",
 					"Leaning down, [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] buries [npc.herself] on [npc2.namePos] [npc2.penis+], before leaning forwards and pressing [npc.her] [npc.lips+] against [npc2.namePos]s."));
 			
-		} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
+		} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"[npc.Name] [npc.verb(sink)] down onto [npc2.namePos] [npc2.penis+], letting out a happy squeal as [npc.she] [npc.verb(feel)] [npc2.name] sink deep inside [npc.her] [npc.pussy+]."
 								+ " Bottoming out on [npc2.namePos] [npc2.cock], [npc.she] [npc.verb(lean)] down and [npc.verb(grab)] [npc2.namePos] head in both hands, before pulling [npc2.name] up into a passionate kiss.",

@@ -88,6 +88,10 @@ public class Vengar extends NPC {
 				27, Month.JUNE, 2,
 				25, Gender.M_P_MALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
 				new CharacterInventory(500), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL, true);
+		
+		if(!isImported) {
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50);
+		}
 	}
 	
 	@Override
@@ -111,7 +115,6 @@ public class Vengar extends NPC {
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
-		this.setAttribute(Attribute.MAJOR_CORRUPTION, 50);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),

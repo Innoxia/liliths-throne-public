@@ -50,6 +50,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -64,18 +65,19 @@ public class GenericOrgasms {
 	
 	private static boolean isTakingCock(GameCharacter character, GameCharacter penetrator) {
 		return !Collections.disjoint(
-				Main.sex.getContactingSexAreas(penetrator, SexAreaPenetration.PENIS, character),
+				Main.sex.getOngoingSexAreas(penetrator, SexAreaPenetration.PENIS, character),
 				Util.newArrayListOfValues(SexAreaOrifice.VAGINA, SexAreaOrifice.ANUS, SexAreaOrifice.NIPPLE, SexAreaOrifice.MOUTH, SexAreaOrifice.URETHRA_PENIS, SexAreaOrifice.URETHRA_VAGINA, SexAreaOrifice.BREAST, SexAreaPenetration.FOOT));
 	}
 	
 	private static boolean isTakingCockInOrifice(GameCharacter character, GameCharacter penetrator, List<SexAreaOrifice> orificesToCheck) {
 		return !Collections.disjoint(
-				Main.sex.getContactingSexAreas(penetrator, SexAreaPenetration.PENIS, character),
+				Main.sex.getOngoingSexAreas(penetrator, SexAreaPenetration.PENIS, character),
 				orificesToCheck);
 	}
 	
 	private static boolean isRealPenisFuckingCharacter(GameCharacter character, GameCharacter penetrator) {
-		return (Main.sex.getCharactersUsingSexAreaOnCharacter(character, SexAreaPenetration.PENIS).contains(penetrator) && penetrator.hasPenisIgnoreDildo());
+		return Main.sex.getCharacterOngoingSexArea(penetrator, SexAreaPenetration.PENIS).contains(character)
+				&& penetrator.hasPenisIgnoreDildo();
 	}
 
 	public static boolean isCumTargetRequirementsMet(OrgasmCumTarget cumTarget) {
@@ -108,8 +110,8 @@ public class GenericOrgasms {
 		genericOrgasmSB.setLength(0);
 
 		SexAreaInterface contactingArea = null;
-		if(!Main.sex.getAllContactingSexAreas(characterOrgasming, SexAreaPenetration.PENIS).isEmpty()) {
-			contactingArea = Main.sex.getAllContactingSexAreas(characterOrgasming, SexAreaPenetration.PENIS).get(0);
+		if(!Main.sex.getAllOngoingSexAreas(characterOrgasming, SexAreaPenetration.PENIS).isEmpty()) {
+			contactingArea = Main.sex.getAllOngoingSexAreas(characterOrgasming, SexAreaPenetration.PENIS).get(0);
 		}
 		
 		if(!isSecondaryCreampieTarget) {
@@ -406,7 +408,7 @@ public class GenericOrgasms {
 						if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED)) {
 							if(cumTarget==OrgasmCumTarget.INSIDE_SWITCH_DOUBLE) {
 								if(!isSecondaryCreampieTarget) {
-									GameCharacter secondaryTarget = getSecondaryCreampieTarget(characterTargeted, (SexAreaOrifice) Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0));
+									GameCharacter secondaryTarget = getSecondaryCreampieTarget(characterTargeted, (SexAreaOrifice) Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0));
 									genericOrgasmSB.append(" Pushing forwards, [npc.name] [npc.verb(grind)] the knot at the base of [npc.her] [npc.cock+] against [npc2.namePos] "+orificeNamePlusDescriptor+"."
 											+ " Wanting to save [npc.her] rapidly-swelling knot for "+(UtilText.parse(characterOrgasming, secondaryTarget, "[npc2.namePos] "+orificeNamePlusDescriptor))+","
 													+ " [npc.she] [npc.verb(make)] sure to avoid getting locked inside of [npc2.namePos] "+orificeName+", and [npc.verb(make)] do with just hilting [npc.her] shaft inside of [npc2.herHim].");
@@ -1438,7 +1440,7 @@ public class GenericOrgasms {
 		
 		// Continued description for cumming inside:
 		
-		SexAreaInterface areaContacted = Main.sex.getAllContactingSexAreas(characterOrgasming, SexAreaPenetration.PENIS).get(0);
+		SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(characterOrgasming, SexAreaPenetration.PENIS).get(0);
 
 		if(areaContacted.isOrifice()) {
 			switch((SexAreaOrifice)areaContacted) {
@@ -1929,10 +1931,10 @@ public class GenericOrgasms {
 		}
 		
 		GameCharacter characterPenetrating = null;
-		if(Main.sex.getCharacterContactingSexArea(characterOrgasming, SexAreaOrifice.VAGINA).size()>0) {
-			characterPenetrating = Main.sex.getCharacterContactingSexArea(characterOrgasming, SexAreaOrifice.VAGINA).get(0);
+		if(Main.sex.getCharacterOngoingSexArea(characterOrgasming, SexAreaOrifice.VAGINA).size()>0) {
+			characterPenetrating = Main.sex.getCharacterOngoingSexArea(characterOrgasming, SexAreaOrifice.VAGINA).get(0);
 		}
-		SexAreaPenetration penetration = Main.sex.getFirstContactingSexAreaPenetration(characterOrgasming, SexAreaOrifice.VAGINA);
+		SexAreaPenetration penetration = Main.sex.getFirstOngoingSexAreaPenetration(characterOrgasming, SexAreaOrifice.VAGINA);
 		
 		if(characterPenetrating!=null && penetration!=null) {
 			switch(penetration) {
@@ -2123,9 +2125,9 @@ public class GenericOrgasms {
 
 		GameCharacter characterPenetrated = null;
 		
-		if(!Main.sex.getAllContactingSexAreas(characterOrgasming, SexAreaPenetration.PENIS).isEmpty()) {
+		if(!Main.sex.getAllOngoingSexAreas(characterOrgasming, SexAreaPenetration.PENIS).isEmpty()) {
 			characterPenetrated = Main.sex.getCharactersHavingOngoingActionWith(characterOrgasming, SexAreaPenetration.PENIS).get(0);
-			SexAreaInterface areaContacted = Main.sex.getAllContactingSexAreas(characterOrgasming, SexAreaPenetration.PENIS).get(0);
+			SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(characterOrgasming, SexAreaPenetration.PENIS).get(0);
 			
 			List<GameCharacter> charactersPenetrated = new ArrayList<>(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, areaContacted));
 			if(charactersPenetrated.contains(Main.sex.getTargetedPartner(characterOrgasming))) {
@@ -2139,7 +2141,7 @@ public class GenericOrgasms {
 				+"</p>");
 			
 			if(target==OrgasmCumTarget.INSIDE_SWITCH_DOUBLE) {
-				GameCharacter secondaryTarget = getSecondaryCreampieTarget(characterPenetrated, (SexAreaOrifice) Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0));
+				GameCharacter secondaryTarget = getSecondaryCreampieTarget(characterPenetrated, (SexAreaOrifice) Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0));
 				
 				descriptionSB.append("<p>"
 						+getGenericPenisOrgasmDescription(characterOrgasming, secondaryTarget, target, sexAction.getCondomFailure(characterOrgasming, characterPenetrated), true)
@@ -2226,7 +2228,7 @@ public class GenericOrgasms {
 				return false;
 			}
 			
-			SexAreaInterface areaContacted = Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
+			SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			
 			boolean isPenetratingSuitableOrifice  = false;
 			
@@ -2293,7 +2295,7 @@ public class GenericOrgasms {
 			if(Math.random()<0.66f
 					|| Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive()
 					|| Main.sex.getRequestedPulloutWeighting(Main.sex.getCharacterPerformingAction())<0
-					|| (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0)==SexAreaOrifice.VAGINA
+					|| (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0)==SexAreaOrifice.VAGINA
 							&& Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_IMPREGNATION))) {
 				return SexActionPriority.HIGH;
 			}
@@ -2325,7 +2327,7 @@ public class GenericOrgasms {
 			}
 			
 			GameCharacter characterPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
-			SexAreaInterface areaContacted = Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
+			SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			
 			if(areaContacted.isOrifice()) {
 				switch((SexAreaOrifice)areaContacted) {
@@ -2418,7 +2420,7 @@ public class GenericOrgasms {
 			}
 			
 			GameCharacter characterPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
-			SexAreaInterface areaContacted = Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
+			SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			String returnString = "You've reached your climax, and can't hold back your orgasm any longer. Creampie [npc2.name].";
 			
 			if(areaContacted.isOrifice()) {
@@ -2504,13 +2506,14 @@ public class GenericOrgasms {
 		}
 		
 		@Override
-		public void applyEndEffects(){
+		public String applyEndEffects(){
 			Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.INSIDE, true).applyEndEffects();
+			return "";
 		}
 		
 		@Override
 		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
-			SexAreaInterface areaContacted = Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
+			SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			GameCharacter characterPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			
 			if(Main.sex.getCreampieLockedBy()==null) { // If not locked, can choose who to cum inside:
@@ -2531,7 +2534,7 @@ public class GenericOrgasms {
 		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.equals(Main.sex.getCharacterPerformingAction()) && cumTarget.equals(Main.sex.getTargetedPartner(cumProvider))) {
-				SexAreaInterface areaContacted = Main.sex.getAllContactingSexAreas(cumProvider, SexAreaPenetration.PENIS).get(0);
+				SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(cumProvider, SexAreaPenetration.PENIS).get(0);
 	
 				if(!areaContacted.isOrifice()) {
 					switch((SexAreaPenetration)areaContacted) {
@@ -2669,7 +2672,7 @@ public class GenericOrgasms {
 				return false;
 			}
 			
-			SexAreaInterface areaContacted = Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
+			SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			
 			if(areaContacted.isPenetration()) {
 				return false;
@@ -2725,7 +2728,7 @@ public class GenericOrgasms {
 			if(Math.random()<0.5f
 					|| Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive()
 					|| Main.sex.getRequestedPulloutWeighting(Main.sex.getCharacterPerformingAction())<0
-					|| (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0)==SexAreaOrifice.VAGINA
+					|| (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0)==SexAreaOrifice.VAGINA
 							&& Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_IMPREGNATION))) {
 				return SexActionPriority.HIGH;
 			}
@@ -2734,7 +2737,7 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getActionTitle() {
-			SexAreaInterface areaContacted = Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
+			SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			
 			if(areaContacted.isOrifice()) {
 				switch((SexAreaOrifice)areaContacted) {
@@ -2758,7 +2761,7 @@ public class GenericOrgasms {
 		@Override
 		public String getActionDescription() {
 			GameCharacter characterPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
-			SexAreaInterface areaContacted = Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
+			SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			GameCharacter secondaryCharacterPenetrated = getSecondaryCreampieTarget(Main.sex.getCharacterTargetedForSexAction(this), (SexAreaOrifice) areaContacted);
 			
 			String returnString = UtilText.parse(characterPenetrated, secondaryCharacterPenetrated,
@@ -2813,20 +2816,22 @@ public class GenericOrgasms {
 		}
 		
 		@Override
-		public void applyEndEffects(){
-			SexAreaInterface areaContacted = Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
+		public String applyEndEffects(){
+			SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			GameCharacter secondaryTarget = getSecondaryCreampieTarget(Main.sex.getCharacterTargetedForSexAction(this), (SexAreaOrifice) areaContacted);
 
 			Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.INSIDE_SWITCH_DOUBLE, true).applyEndEffects();
 			
 			Main.sex.stopOngoingAction(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, Main.sex.getCharacterTargetedForSexAction(this), areaContacted);
 			Main.sex.applyOngoingAction(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, secondaryTarget, areaContacted, true);
+			
+			return Main.sex.applyPenetrationEffects(PenisVagina.PENIS_FUCKING_START, Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, secondaryTarget, SexAreaOrifice.VAGINA);
 		}
 		
 		@Override
 		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			GameCharacter characterPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
-			SexAreaInterface areaContacted = Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
+			SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			GameCharacter secondaryTarget = getSecondaryCreampieTarget(Main.sex.getCharacterTargetedForSexAction(this), (SexAreaOrifice) areaContacted);
 			
 			if(cumTarget.equals(characterPenetrated) || cumTarget.equals(secondaryTarget)) {
@@ -2839,7 +2844,7 @@ public class GenericOrgasms {
 
 		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
-			SexAreaInterface areaContacted = Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
+			SexAreaInterface areaContacted = Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			GameCharacter secondaryTarget = getSecondaryCreampieTarget(Main.sex.getCharacterTargetedForSexAction(this), (SexAreaOrifice) areaContacted);
 			
 			if(cumProvider.equals(Main.sex.getCharacterPerformingAction())
@@ -2968,7 +2973,7 @@ public class GenericOrgasms {
 			SexAreaInterface areaContacted = null;
 			if(!Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
 				characterPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
-				areaContacted = Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
+				areaContacted = Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 				Main.sex.stopOngoingAction(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, characterPenetrated, areaContacted);
 			}
 		}
@@ -3904,8 +3909,8 @@ public class GenericOrgasms {
 	};
 	
 	private static boolean isAreaFuckedByTarget(SexAction sexAction, GameCharacter characterFucked, SexAreaInterface areaFucked) {
-		return Main.sex.getAllContactingSexAreas(characterFucked, areaFucked).contains(SexAreaPenetration.PENIS)
-				&& Main.sex.getCharacterContactingSexArea(characterFucked, areaFucked).contains(Main.sex.getCharacterTargetedForSexAction(sexAction));
+		return Main.sex.getAllOngoingSexAreas(characterFucked, areaFucked).contains(SexAreaPenetration.PENIS)
+				&& Main.sex.getCharacterOngoingSexArea(characterFucked, areaFucked).contains(Main.sex.getCharacterTargetedForSexAction(sexAction));
 	}
 	
 	private static boolean isSpecialCreampieLockConditionMet(SexAction sexAction, GameCharacter characterProvidingCreampie, GameCharacter characterReceivingCreampie, SexAreaInterface areaFucked) {
@@ -3974,8 +3979,8 @@ public class GenericOrgasms {
 
 		@Override
 		public SexActionPriority getPriority() {
-			if((Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-					&& Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterTargetedForSexAction(this))
+			if((Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterTargetedForSexAction(this))
 					&& Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()
 					&& !Main.sex.getCharacterPerformingAction().isVisiblyPregnant())
 				|| Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive()) {
@@ -4154,8 +4159,8 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_CUM_STUD);
 				}
 			}
-			if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
+			if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
 					&& isRealPenisFuckingCharacter(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_PREGNANCY);
@@ -4163,26 +4168,26 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_IMPREGNATION);
 				}
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_ANAL_RECEIVING);
 				} else {
 					fetishes.add(Fetish.FETISH_ANAL_GIVING);
 				}
 				
-			} else if ((Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.NIPPLE).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.NIPPLE).contains(Main.sex.getCharacterPerformingAction()))
-					|| (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.BREAST).contains(SexAreaPenetration.PENIS)
-							&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.BREAST).contains(Main.sex.getCharacterPerformingAction()))) {
+			} else if ((Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.NIPPLE).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.NIPPLE).contains(Main.sex.getCharacterPerformingAction()))
+					|| (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.BREAST).contains(SexAreaPenetration.PENIS)
+							&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.BREAST).contains(Main.sex.getCharacterPerformingAction()))) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_BREASTS_SELF);
 				} else {
 					fetishes.add(Fetish.FETISH_BREASTS_OTHERS);
 				}
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FOOT).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FOOT).contains(Main.sex.getCharacterPerformingAction())) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FOOT).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FOOT).contains(Main.sex.getCharacterPerformingAction())) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_FOOT_GIVING);
 				} else {
@@ -4199,8 +4204,8 @@ public class GenericOrgasms {
 	}
 	
 	private static SexActionPriority getBaseForceCreampiePriority(SexActionInterface sexAction) {
-		if((Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-				&& Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterTargetedForSexAction(sexAction)))) {
+		if((Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+				&& Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterTargetedForSexAction(sexAction)))) {
 			if(!Main.sex.getCharacterPerformingAction().isVisiblyPregnant()) {
 				if(Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()) {
 					return SexActionPriority.HIGH;
@@ -4304,10 +4309,10 @@ public class GenericOrgasms {
 							this,
 							Main.sex.getCharacterTargetedForSexAction(this),
 							Main.sex.getCharacterPerformingAction(),
-							Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0))
+							Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0))
 					&& Main.sex.getPosition().isForcedCreampieEnabled(
 							Skin.class,
-							(SexAreaOrifice) Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0),
+							(SexAreaOrifice) Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0),
 							Main.sex.getCharacterPerformingAction(),
 							Main.sex.getCharacterTargetedForSexAction(this))
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING);
@@ -4387,8 +4392,8 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_CUM_STUD);
 				}
 			}
-			if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
+			if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
 					&& isRealPenisFuckingCharacter(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_PREGNANCY);
@@ -4396,16 +4401,16 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_IMPREGNATION);
 				}
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_ANAL_RECEIVING);
 				} else {
 					fetishes.add(Fetish.FETISH_ANAL_GIVING);
 				}
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(Main.sex.getCharacterPerformingAction())) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(Main.sex.getCharacterPerformingAction())) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_ORAL_GIVING);
 				} else {
@@ -4445,10 +4450,10 @@ public class GenericOrgasms {
 							this,
 							Main.sex.getCharacterTargetedForSexAction(this),
 							Main.sex.getCharacterPerformingAction(),
-							Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0))
+							Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0))
 					&& Main.sex.getPosition().isForcedCreampieEnabled(
 							Arm.class,
-							(SexAreaOrifice) Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0),
+							(SexAreaOrifice) Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0),
 							Main.sex.getCharacterPerformingAction(),
 							Main.sex.getCharacterTargetedForSexAction(this))
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING);
@@ -4539,8 +4544,8 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_CUM_STUD);
 				}
 			}
-			if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
+			if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
 					&& isRealPenisFuckingCharacter(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_PREGNANCY);
@@ -4548,16 +4553,16 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_IMPREGNATION);
 				}
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_ANAL_RECEIVING);
 				} else {
 					fetishes.add(Fetish.FETISH_ANAL_GIVING);
 				}
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(Main.sex.getCharacterPerformingAction())) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(Main.sex.getCharacterPerformingAction())) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_ORAL_GIVING);
 				} else {
@@ -4597,10 +4602,10 @@ public class GenericOrgasms {
 							this,
 							Main.sex.getCharacterTargetedForSexAction(this),
 							Main.sex.getCharacterPerformingAction(),
-							Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0))
+							Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0))
 					&& Main.sex.getPosition().isForcedCreampieEnabled(
 							Leg.class,
-							(SexAreaOrifice) Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0),
+							(SexAreaOrifice) Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0),
 							Main.sex.getCharacterPerformingAction(),
 							Main.sex.getCharacterTargetedForSexAction(this))
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING);
@@ -4688,8 +4693,8 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_CUM_STUD);
 				}
 			}
-			if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
+			if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
 					&& isRealPenisFuckingCharacter(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_PREGNANCY);
@@ -4697,8 +4702,8 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_IMPREGNATION);
 				}
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_ANAL_RECEIVING);
 				} else {
@@ -4740,10 +4745,10 @@ public class GenericOrgasms {
 							this,
 							Main.sex.getCharacterTargetedForSexAction(this),
 							Main.sex.getCharacterPerformingAction(),
-							Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0))
+							Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0))
 					&& Main.sex.getPosition().isForcedCreampieEnabled(
 							Tail.class,
-							(SexAreaOrifice) Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0),
+							(SexAreaOrifice) Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0),
 							Main.sex.getCharacterPerformingAction(),
 							Main.sex.getCharacterTargetedForSexAction(this))
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING);
@@ -4834,8 +4839,8 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_CUM_STUD);
 				}
 			}
-			if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
+			if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
 					&& isRealPenisFuckingCharacter(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_PREGNANCY);
@@ -4843,16 +4848,16 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_IMPREGNATION);
 				}
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_ANAL_RECEIVING);
 				} else {
 					fetishes.add(Fetish.FETISH_ANAL_GIVING);
 				}
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(Main.sex.getCharacterPerformingAction())) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(Main.sex.getCharacterPerformingAction())) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_ORAL_GIVING);
 				} else {
@@ -4893,10 +4898,10 @@ public class GenericOrgasms {
 							this,
 							Main.sex.getCharacterTargetedForSexAction(this),
 							Main.sex.getCharacterPerformingAction(),
-							Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0))
+							Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0))
 					&& Main.sex.getPosition().isForcedCreampieEnabled(
 							Wing.class,
-							(SexAreaOrifice) Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0),
+							(SexAreaOrifice) Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0),
 							Main.sex.getCharacterPerformingAction(),
 							Main.sex.getCharacterTargetedForSexAction(this))
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING);
@@ -4987,8 +4992,8 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_CUM_STUD);
 				}
 			}
-			if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
+			if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
 					&& isRealPenisFuckingCharacter(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_PREGNANCY);
@@ -4996,16 +5001,16 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_IMPREGNATION);
 				}
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_ANAL_RECEIVING);
 				} else {
 					fetishes.add(Fetish.FETISH_ANAL_GIVING);
 				}
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(Main.sex.getCharacterPerformingAction())) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(Main.sex.getCharacterPerformingAction())) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_ORAL_GIVING);
 				} else {
@@ -5046,10 +5051,10 @@ public class GenericOrgasms {
 							this,
 							Main.sex.getCharacterTargetedForSexAction(this),
 							Main.sex.getCharacterPerformingAction(),
-							Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0))
+							Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0))
 					&& Main.sex.getPosition().isForcedCreampieEnabled(
 							Tentacle.class,
-							(SexAreaOrifice) Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0),
+							(SexAreaOrifice) Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0),
 							Main.sex.getCharacterPerformingAction(),
 							Main.sex.getCharacterTargetedForSexAction(this))
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING);
@@ -5140,8 +5145,8 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_CUM_STUD);
 				}
 			}
-			if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
+			if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())
 					&& isRealPenisFuckingCharacter(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_PREGNANCY);
@@ -5149,16 +5154,16 @@ public class GenericOrgasms {
 					fetishes.add(Fetish.FETISH_IMPREGNATION);
 				}
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS).contains(Main.sex.getCharacterPerformingAction())) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_ANAL_RECEIVING);
 				} else {
 					fetishes.add(Fetish.FETISH_ANAL_GIVING);
 				}
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
-					&& !Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(Main.sex.getCharacterPerformingAction())) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
+					&& !Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(Main.sex.getCharacterPerformingAction())) {
 				if(character.equals(Main.sex.getCharacterPerformingAction())) {
 					fetishes.add(Fetish.FETISH_ORAL_GIVING);
 				} else {
@@ -5206,10 +5211,10 @@ public class GenericOrgasms {
 				
 				return isTakingCock(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
 						&& (Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())==SexPace.SUB_RESISTING
-							|| ((Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
+							|| ((Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)
 									?!Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_ADDICT).isPositive()
 									:true)
-							&& (Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+							&& (Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
 									?!Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()
 									:true)));
 			}
@@ -5217,8 +5222,8 @@ public class GenericOrgasms {
 
 		@Override
 		public SexActionPriority getPriority() {
-			if((Main.sex.getAllContactingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
-					&& Main.sex.getCharacterContactingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterTargetedForSexAction(this))
+			if((Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+					&& Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterTargetedForSexAction(this))
 					&& (Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 						&& Main.sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo())
 					&& !Main.sex.getCharacterPerformingAction().isVisiblyPregnant())
@@ -5723,7 +5728,7 @@ public class GenericOrgasms {
 					&& !isTakingCock(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
 					&& !Collections.disjoint(
 							Util.newArrayListOfValues(SexAreaOrifice.VAGINA, SexAreaOrifice.ANUS, SexAreaOrifice.MOUTH, SexAreaOrifice.BREAST, SexAreaPenetration.FOOT),
-							Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, getCharacterBeingFucked()))
+							Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, getCharacterBeingFucked()))
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING);
 		}
 
@@ -5972,7 +5977,7 @@ public class GenericOrgasms {
 					&& !isTakingCock(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
 					&& !Collections.disjoint(
 							Util.newArrayListOfValues(SexAreaOrifice.VAGINA, SexAreaOrifice.ANUS, SexAreaOrifice.MOUTH, SexAreaOrifice.BREAST, SexAreaPenetration.FOOT),
-							Main.sex.getContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, getCharacterBeingFucked()))
+							Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, getCharacterBeingFucked()))
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING);
 		}
 

@@ -435,43 +435,30 @@ public class Lilaya extends NPC {
 	}
 	
 	@Override
-	public String getItemUseEffects(AbstractItem item,  GameCharacter itemOwner, GameCharacter user, GameCharacter target){
-		// Player is using an item:
-		if(user.isPlayer()){
-			// Player uses item on themselves:
-			if(target.isPlayer()){
-				return itemOwner.useItem(item, target, false);
-						
-			// Player uses item on NPC:
+	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
+		if(user.isPlayer() && !target.isPlayer() && item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+			if(this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+				itemOwner.removeItemByType(ItemType.VIXENS_VIRILITY);
+				return new Value<>(false,
+						"<p>"
+							+ "Producing a '[#ITEM_VIXENS_VIRILITY.getName(false)]' from your inventory, you pop it out of its plastic wrapper before bringing it up to Lilaya's mouth."
+							+ " Seeing what it is you're trying to get her to swallow, she furrows her eyebrows and smacks the pill out of your [pc.hand], sending it flying off under one of the lab tables."
+							+ " In a sharp tone, she admonishes you, "
+							+ (this.hasPenis()
+									?" [lilaya.speech(I don't care if you're trying to make my cum more virile! I'm <i>not</i> swallowing anything that would make me more fertile!)]"
+									:" [lilaya.speech(I'm <i>not</i> swallowing anything that would make me more fertile! You're <i>not</i> going to cum inside of me anyway, so why would you even try that?!)]")
+						+ "</p>");
+				
 			} else {
-				if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
-					if(this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
-						itemOwner.removeItemByType(ItemType.VIXENS_VIRILITY);
-						return "<p>"
-								+ "Producing a Vixen's Virility pill from your inventory, you pop it out of its plastic wrapper before bringing it up to Lilaya's mouth."
-								+ " Seeing what it is you're trying to get her to swallow, she furrows her eyebrows, before smacking the pill out of your [pc.hand]."
-								+ " In a sharp tone, she admonishes you, "
-								+ (this.hasPenis()
-										?" [lilaya.speech(I don't care if you're trying to make my cum more virile! I'm <i>not</i> swallowing anything that would make me more fertile!)]"
-										:" [lilaya.speech(I'm <i>not</i> swallowing anything that would make me more fertile! You're <i>not</i> going to cum inside of me anyway, so why would you even try that?!)]")
-							+ "</p>";
-						
-					} else {
-						itemOwner.useItem(item, target, false);
-						return "<p>"
-								+ "Producing a Vixen's Virility pill from your inventory, you pop it out of its plastic wrapper before pushing it into Lilaya's mouth."
-								+ " She lets out a delighted moan as she happily swallows the little pink pill, [lilaya.speechNoEffects(~Mmm!~ That's right, make my demonic womb nice and fertile! I don't hate getting pregnant anymore...)]"
-							+ "</p>";
-					}
-				} else {
-					return super.getItemUseEffects(item, itemOwner, user, target);
-				}
+				itemOwner.useItem(item, this, false);
+				return new Value<>(true,
+						"<p>"
+							+ "Producing a '[#ITEM_VIXENS_VIRILITY.getName(false)]' from your inventory, you pop it out of its plastic wrapper before pushing it into Lilaya's mouth."
+							+ " She lets out a delighted moan as she happily swallows the little pink pill, [lilaya.speechNoEffects(~Mmm!~ That's right, make my demonic womb nice and fertile! I don't hate getting pregnant anymore...)]"
+						+ "</p>");
 			}
-			
-		// NPC is using an item:
-		} else {
-			return itemOwner.useItem(item, target, false);
 		}
+		return super.getItemUseEffects(item, itemOwner, user, target);
 	}
 	
 	// Sex:

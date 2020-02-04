@@ -506,34 +506,51 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY", getAllCharacters());
+			if(getImpGroup().isEmpty()) {
+				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY_ALL_ENSLAVED");
+				
+			} else if(getImpGroup().size()==1) {
+				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY_ENSLAVED_ONE", getImpGroup());
+				
+			} else if(getImpGroup().size()<4) {
+				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY_ENSLAVED", getImpGroup());
+			}
+			return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY", getImpGroup());
 			// IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST is appended to this (in ImpAttacker class's endCombat() method)
 		}
 
 		@Override
 		public String getResponseTabTitle(int index) {
-			if(index==0) {
-				return "Standard";
-				
-			} else if(index==1) {
-				return "Inventories";
-				
-			} else if(index==2) {
-				return "Transformations";
-				
+			if(!getImpGroup().isEmpty()) {
+				if(index==0) {
+					return "Standard";
+					
+				} else if(index==1) {
+					return "Inventories";
+					
+				} else if(index==2) {
+					return "Transformations";
+					
+				}
 			}
  			return null;
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(getImpGroup().isEmpty()) {
+				if(index==1) {
+					return new Response("Continue", "As you've enslaved all of the imps, there's nothing left to do but continue on your way through the citadel...", Main.game.getDefaultDialogue(false));
+				}
+				return null;
+			}
 			if(!isCompanionDialogue()) {
 				if(responseTab == 0) {
 					if (index == 1) {
 						return new Response("Scare off", "Tell the imps to get out of here while they still can...", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SCARE_OFF", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SCARE_OFF", getImpGroup()));
 								banishImps();
 							}
 						};
@@ -547,7 +564,7 @@ public class ImpCitadelDialogue {
 								getImpGroup(),
 								null,
 								null,
-								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX", getAllCharacters()));
+								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX", getImpGroup()));
 						
 					} else if (index == 3) {
 						return new ResponseSex("Gentle Sex",
@@ -559,7 +576,7 @@ public class ImpCitadelDialogue {
 								null,
 								null,
 								IMP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_GENTLE", getImpGroup()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
 					} else if (index == 4) {
 						return new ResponseSex("Rough Sex",
@@ -571,7 +588,7 @@ public class ImpCitadelDialogue {
 								null,
 								null,
 								IMP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_ROUGH", getImpGroup()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
 					} else if (index == 5) {
 						return new ResponseSex("Submit",
@@ -589,7 +606,7 @@ public class ImpCitadelDialogue {
 								null,
 								null,
 								IMP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_SUBMIT", getImpGroup()));
 					}
 					
 				} else if(responseTab == 1) {
@@ -631,7 +648,7 @@ public class ImpCitadelDialogue {
 						return new Response("Scare off", "Tell the imps to get out of here while they still can...", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SCARE_OFF", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SCARE_OFF", getImpGroup()));
 								banishImps();
 							}
 						};
@@ -645,7 +662,7 @@ public class ImpCitadelDialogue {
 								getImpGroup(),
 								Util.newArrayListOfValues(getMainCompanion()),
 								null,
-								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX", getAllCharacters()));
+								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX", getImpGroup()));
 						
 					} else if (index == 3) {
 						return new ResponseSex("Solo sex (Gentle)",
@@ -657,7 +674,7 @@ public class ImpCitadelDialogue {
 								Util.newArrayListOfValues(getMainCompanion()),
 								null,
 								IMP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_GENTLE", getImpGroup()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
 					} else if (index == 4) {
 						return new ResponseSex("Solo sex (Rough)",
@@ -669,7 +686,7 @@ public class ImpCitadelDialogue {
 								Util.newArrayListOfValues(getMainCompanion()),
 								null,
 								IMP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_ROUGH", getImpGroup()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
 					} else if (index == 5) {
 						return new ResponseSex("Solo submission",
@@ -686,7 +703,7 @@ public class ImpCitadelDialogue {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
 								Util.newArrayListOfValues(getMainCompanion()),
-								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_SUBMIT", getImpGroup()));
 						
 					} else if (index == 6) {
 						GameCharacter companion = getMainCompanion();
@@ -704,7 +721,7 @@ public class ImpCitadelDialogue {
 									getImpGroup(),
 									null,
 									null,
-									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GROUP_SEX", getAllCharacters()));
+									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GROUP_SEX", getImpGroup()));
 						}
 						
 					} else if (index == 7) {
@@ -723,7 +740,7 @@ public class ImpCitadelDialogue {
 									Main.game.getPlayer().getParty(),
 									null,
 									null,
-									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters()));
+									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getImpGroup()));
 						}
 						
 					} else if (index == 8) {
@@ -742,7 +759,7 @@ public class ImpCitadelDialogue {
 									getImpGroup(),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GIVE_TO_COMPANION", getAllCharacters()));
+									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GIVE_TO_COMPANION", getImpGroup()));
 						}
 						
 					} else if (index == 9 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
@@ -762,7 +779,7 @@ public class ImpCitadelDialogue {
 									Util.newArrayListOfValues(getMainCompanion()),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
+									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_OFFER_COMPANION", getImpGroup())) {
 								@Override
 								public void effects() {
 									if(!companion.isAttractedTo(getImpGroupLeader()) && Main.game.isNonConEnabled()) {

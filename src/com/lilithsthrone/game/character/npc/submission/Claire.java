@@ -83,6 +83,8 @@ public class Claire extends NPC {
 		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
+			
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 10);
 		}
 	}
 	
@@ -117,7 +119,6 @@ public class Claire extends NPC {
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		this.setAttribute(Attribute.MAJOR_CORRUPTION, 10);
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(

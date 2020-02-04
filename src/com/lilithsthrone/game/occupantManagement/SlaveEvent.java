@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.2.2
- * @version 0.3.5
+ * @version 0.3.6.8
  * @author Innoxia
  */
 public enum SlaveEvent {
@@ -28,6 +28,8 @@ public enum SlaveEvent {
 	DAILY_UPDATE("Daily Update", ""),
 
 	SLAVE_SEX("[style.boldSex(Sex)]", "[npc.Name] had sex with another slave..."),
+	
+	GAVE_BIRTH("[style.boldExcellent(Gave birth)]", "Lilaya helped [npc.name] to give birth."),
 	
 	// Jobs:
 

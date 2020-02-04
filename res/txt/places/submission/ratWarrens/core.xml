@@ -426,6 +426,33 @@
 	
 	<!-- GUARD_COMBAT_VICTORY -->
 	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_ENSLAVED_ONE"><![CDATA[
+	<p>
+		[npc.speech(Ey! Wot ya doin'?!)] [npc.name] exclaims in shock, [npc.speech(Ya ain't gonna enslave all o' us, is ya?!)]
+	</p>
+	<p>
+		Grinning down at the rats left before you, you wonder whether you should enslave any more of them. After all, they <i>did</i> try and beat you up, and from the sort of criminal activities this gang gets up to, there's no doubt that they deserve it...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_ENSLAVED_ONE_REMAINING"><![CDATA[
+	<p>
+		[npc.speech(Stop it! Please, I ain't gonna make a good slave!)] [npc.name] exclaims, scrambling away from you in panic, [npc.speech(Please don't enslave me!)]
+	</p>
+	<p>
+		Grinning down at this last rat left before you, you wonder whether you should finish your task and enslave [npc.herHim] as well. After all, [npc.she] <i>did</i> try and beat you up, and from the sort of criminal activities this gang gets up to, there's no doubt that [npc.she] deserves it...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_ENSLAVED_ALL"><![CDATA[
+	<p>
+		You can't help but let out a triumphant laugh as you see the last of the rats teleport away right in front of your eyes. Wondering what you'll do with each of your new slaves, you prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="GUARD_COMBAT_VICTORY"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
@@ -445,192 +472,363 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="GUARD_COMBAT_VICTORY_ALL_ENSLAVED"><![CDATA[
+	<p>
+		#IF(pc.hasCompanions())
+			Having enslaved each of the six rats who dared stand in your way, there's little else to do now but continue on your way. Telling [npc.name] to be ready for another fight, you prepare to head further into the Rat Warrens...
+		#ELSE
+			Having enslaved each of the six rats who dared stand in your way, there's little else to do now but continue on your way. Staying alert and ready for another fight, you prepare to head further into the Rat Warrens...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SCARE_OFF"><![CDATA[
 	<p>
-		Not wanting these rats to recover their courage and return to fight you all over again, you put on your most intimidating tone of voice and tell them that you'll have them all enslaved if they dare come back to challenge you again. Having already been made well aware of the fact that you're far stronger than them, the rats immediately scurry to get out of your sight. As the front entrance is temporarily sealed off, they rush off deeper into the Rat Warrens, no doubt to warn Vengar of your approach.
+		#IF(game.getNonCompanionCharactersPresent().size()==1)
+			Not wanting this last rat to recover [npc.her] courage and return to fight you all over again, you put on your most intimidating tone of voice and tell [npc.herHim] that [npc.she]'ll be joining [npc.her] friends as your slave if [npc.she] dares come back to challenge you again. Knowing that you're far stronger than [npc.she] is, the [npc.race] immediately scurries off and flees deeper into the Rat Warrens, no doubt to warn Vengar of your approach.
+		#ELSE
+			Not wanting these rats to recover their courage and return to fight you all over again, you put on your most intimidating tone of voice and tell them that you'll have them all enslaved if they dare come back to challenge you again. Knowing that you're far stronger than they are, the rats immediately scurry off and flee deeper into the Rat Warrens, no doubt to warn Vengar of your approach.
+		#ENDIF
 	</p>
 	<p>
 		#IF(pc.hasCompanions())
-			With little else to do now but prepare yourself for your next fight, you and [npc.name] get ready to follow in the fleeing rat's footsteps and head further into the Rat Warrens yourselves...
+			With little else to do now but prepare yourself for your next fight, you and [com.name] get ready to head further into the Rat Warrens yourselves...
 		#ELSE
-			With little else to do now but prepare yourself for your next fight, you get ready to follow in the fleeing rat's footsteps and head further into the Rat Warrens yourself...
+			With little else to do now but prepare yourself for your next fight, you get ready to head further into the Rat Warrens yourself...
 		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX"><![CDATA[
-	#IF(pc.hasCompanions())
-		<p>
-			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Turning back to address your [npc.companion], you say, [pc.speech(You just stand back and keep watch, [npc.name]. I wouldn't want any surprises to interrupt my fun!)]
-		</p>
-		<p>
-			Nodding in confirmation, [npc.name] steps back and watches as you step up to [npc2.name] and [pc.moan], [pc.speech(You're hoping to get fucked, huh? I think I can help you with that...)]
-		</p>
-		<p>
-			Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
-		</p>
+	#IF(game.getNonCompanionCharactersPresent().size()==1)
+		#IF(pc.hasCompanions())
+			<p>
+				Feeling more than a little turned on by the sight of this last defeated rat before you, you can't help but let out a horny [pc.moan] as you advance on [npc.herHim] with lewd thoughts in your mind. Turning back to address your [com.companion], you order, [pc.speech(You just stand back and keep watch, [com.name]. I wouldn't want any surprises to interrupt my fun!)]
+			</p>
+			<p>
+				Nodding in confirmation, [com.name] steps back and watches as you step up to [npc.name] and [pc.moan], [pc.speech(You're hoping to get fucked, huh? I think I can help you with that...)]
+			</p>
+			<p>
+				Letting out an excited [npc.moan] of [npc.her] own, the defeated [npc.race] submissively shuffles closer to you and starts begging to be fucked...
+			</p>
+		#ELSE
+			<p>
+				Feeling more than a little turned on by the sight of this last defeated rat before you, you can't help but let out a horny [pc.moan] as you advance on [npc.herHim] with lewd thoughts in your mind. Stepping up to [npc.name], you [pc.moan], [pc.speech(You're hoping to get fucked, huh? I think I can help you with that...)]
+			</p>
+			<p>
+				Letting out an excited [npc.moan] of [npc.her] own, the defeated [npc.race] submissively shuffles closer to you and starts begging to be fucked...
+			</p>
+		#ENDIF
 	#ELSE
-		<p>
-			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Stepping up to [npc2.name], you [pc.moan], [pc.speech(You're hoping to get fucked, huh? I think I can help you with that...)]
-		</p>
-		<p>
-			Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
-		</p>
+		#IF(pc.hasCompanions())
+			<p>
+				Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny [pc.moan] as you advance on them with lewd thoughts in your mind. Turning back to address your [com.companion], you say, [pc.speech(You just stand back and keep watch, [com.name]. I wouldn't want any surprises to interrupt my fun!)]
+			</p>
+			<p>
+				Nodding in confirmation, [com.name] steps back and watches as you step up to [npc.name] and [pc.moan], [pc.speech(You're hoping to get fucked, huh? I think I can help you with that...)]
+			</p>
+			<p>
+				Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
+			</p>
+		#ELSE
+			<p>
+				Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny [pc.moan] as you advance on them with lewd thoughts in your mind. Stepping up to [npc.name], you [pc.moan], [pc.speech(You're hoping to get fucked, huh? I think I can help you with that...)]
+			</p>
+			<p>
+				Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
+			</p>
+		#ENDIF
 	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
-	#IF(pc.hasCompanions())
-		<p>
-			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Turning back to address your [npc.companion], you say, [pc.speech(You just stand back and keep watch, [npc.name]. I wouldn't want any surprises to interrupt my fun!)]
-		</p>
-		<p>
-			Nodding in confirmation, [npc.name] steps back and watches as you step up to [npc2.name] and softly [pc.moan], [pc.speech(You want some nice gentle fun, hmm? I think I can help you with that...)]
-		</p>
-		<p>
-			Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
-		</p>
+	#IF(game.getNonCompanionCharactersPresent().size()==1)
+		#IF(pc.hasCompanions())
+			<p>
+				Feeling more than a little turned on by the sight of this last defeated rat before you, you can't help but let out a horny [pc.moan] as you advance on [npc.herHim] with lewd thoughts in your mind. Turning back to address your [com.companion], you order, [pc.speech(You just stand back and keep watch, [com.name]. I wouldn't want any surprises to interrupt my fun!)]
+			</p>
+			<p>
+				Nodding in confirmation, [com.name] steps back and watches as you step up to [npc.name] and [pc.moan], [pc.speech(You want some nice gentle fun, hmm? I think I can help you with that...)]
+			</p>
+			<p>
+				Letting out an excited [npc.moan] of [npc.her] own, the defeated [npc.race] submissively shuffles closer to you and starts begging to be fucked...
+			</p>
+		#ELSE
+			<p>
+				Feeling more than a little turned on by the sight of this last defeated rat before you, you can't help but let out a horny [pc.moan] as you advance on [npc.herHim] with lewd thoughts in your mind. Stepping up to [npc.name], you [pc.moan], [pc.speech(You want some nice gentle fun, hmm? I think I can help you with that...)]
+			</p>
+			<p>
+				Letting out an excited [npc.moan] of [npc.her] own, the defeated [npc.race] submissively shuffles closer to you and starts begging to be fucked...
+			</p>
+		#ENDIF
 	#ELSE
-		<p>
-			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Stepping up to [npc2.name], you softly [pc.moan], [pc.speech(You want some nice gentle fun, hmm? I think I can help you with that...)]
-		</p>
-		<p>
-			Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
-		</p>
+		#IF(pc.hasCompanions())
+			<p>
+				Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny [pc.moan] as you advance on them with lewd thoughts in your mind. Turning back to address your [com.companion], you say, [pc.speech(You just stand back and keep watch, [com.name]. I wouldn't want any surprises to interrupt my fun!)]
+			</p>
+			<p>
+				Nodding in confirmation, [com.name] steps back and watches as you step up to [npc.name] and [pc.moan], [pc.speech(You want some nice gentle fun, hmm? I think I can help you with that...)]
+			</p>
+			<p>
+				Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
+			</p>
+		#ELSE
+			<p>
+				Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny [pc.moan] as you advance on them with lewd thoughts in your mind. Stepping up to [npc.name], you [pc.moan], [pc.speech(You want some nice gentle fun, hmm? I think I can help you with that...)]
+			</p>
+			<p>
+				Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
+			</p>
+		#ENDIF
 	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
-	#IF(pc.hasCompanions())
-		<p>
-			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a predatory growl as you advance on them with lewd thoughts in your mind. Turning back to address your [npc.companion], you say, [pc.speech(You just stand back and keep watch, [npc.name]. I wouldn't want any surprises to interrupt my fun!)]
-		</p>
-		<p>
-			Nodding in confirmation, [npc.name] steps back and watches as you step up to [npc2.name] and snarl, [pc.speech(You want to be fucked like a bitch, huh? I'll give you what you want alright!)]
-		</p>
-		<p>
-			Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
-		</p>
+	#IF(game.getNonCompanionCharactersPresent().size()==1)
+		#IF(pc.hasCompanions())
+			<p>
+				Feeling more than a little turned on by the sight of this last defeated rat before you, you can't help but let out a predatory growl as you advance on [npc.herHim] with lewd thoughts in your mind. Turning back to address your [com.companion], you order, [pc.speech(You just stand back and keep watch, [com.name]. I wouldn't want any surprises to interrupt my fun!)]
+			</p>
+			<p>
+				Nodding in confirmation, [com.name] steps back and watches as you step up to [npc.name] and snarl, [pc.speech(You want to be fucked like a bitch, huh? I'll give you what you want, slut!)]
+			</p>
+			<p>
+				Letting out an excited [npc.moan], the defeated [npc.race] submissively shuffles closer to you and starts begging to be fucked...
+			</p>
+		#ELSE
+			<p>
+				Feeling more than a little turned on by the sight of this last defeated rat before you, you can't help but let out a predatory growl as you advance on [npc.herHim] with lewd thoughts in your mind. Stepping up to [npc.name], you snarl, [pc.speech(You want to be fucked like a bitch, huh? I'll give you what you want, slut!)]
+			</p>
+			<p>
+				Letting out an excited [npc.moan], the defeated [npc.race] submissively shuffles closer to you and starts begging to be fucked...
+			</p>
+		#ENDIF
 	#ELSE
-		<p>
-			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a predatory growl as you advance on them with lewd thoughts in your mind. Stepping up to [npc2.name], you snarl, [pc.speech(You want to be fucked like a bitch, huh? I'll give you what you want alright!)]
-		</p>
-		<p>
-			Letting out excited moans of their own, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
-		</p>
+		#IF(pc.hasCompanions())
+			<p>
+				Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a predatory growl as you advance on them with lewd thoughts in your mind. Turning back to address your [com.companion], you say, [pc.speech(You just stand back and keep watch, [com.name]. I wouldn't want any surprises to interrupt my fun!)]
+			</p>
+			<p>
+				Nodding in confirmation, [com.name] steps back and watches as you step up to [npc.name] and snarl, [pc.speech(You want to be fucked like a bitch, huh? I'll give you what you want, slut!)]
+			</p>
+			<p>
+				Letting out a series of excited moans, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
+			</p>
+		#ELSE
+			<p>
+				Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a predatory growl as you advance on them with lewd thoughts in your mind. Stepping up to [npc.name], you snarl, [pc.speech(You want to be fucked like a bitch, huh? I'll give you what you want, slut!)]
+			</p>
+			<p>
+				Letting out a series of excited moans, the defeated gang members submissively shuffle closer to you and each start begging to be the one who's fucked first...
+			</p>
+		#ENDIF
 	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
-	#IF(pc.hasCompanions())
+	#IF(game.getNonCompanionCharactersPresent().size()==1)
+		#IF(pc.hasCompanions())
+			<p>
+				Looking down at this final defeated gang member sprawled out on the floor before you, you start to feel a desperate desire to let [npc.herHim] reverse the situation and have [npc.her] way with you. Not wanting your [com.companion] to get involved in your scheme, you turn to face [com.herHim] and say, [pc.speech(I'm going to let this one have a little fun with me, so you just step back and keep watch until [npc.sheIs] finished...)]
+			</p>
+			<p>
+				[com.speech(If you're sure about this...)] [com.name] replies, before stepping back and doing as [com.sheIs] told.
+			</p>
+			<p>
+				Stepping forwards, you kneel down beside the [npc.race], before asking [npc.herHim], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use me however you'd like...)] 
+			</p>
+		#ELSE
+			<p>
+				Looking down at this final defeated gang member sprawled out on the floor before you, you start to feel a desperate desire to let [npc.herHim] reverse the situation and have [npc.her] way with you. Stepping forwards, you kneel down beside the [npc.race], before asking [npc.herHim], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use me however you'd like...)] 
+			</p>
+		#ENDIF
 		<p>
-			Looking down at the defeated gang members sprawled across the floor, you start to feel a desperate desire to let them reverse the situation and have their way with you. Not wanting your [npc.companion] to get involved in your scheme, you turn to face [npc.herHim] and say, [pc.speech(I'm going to let these rats have a little fun with me, so you just step back and keep watch until they're finished...)]
+			Quick to take advantage of your suggestion, [npc.name] pushes [npc.herself] up onto [npc.her] feet, before asking, [npc.speech(Are ya fer real? Ya gonna let me fuck ya after beatin' us an' enslavin' all me friends like that?!)]
 		</p>
 		<p>
-			[npc.speech(If you're sure about this...)] [npc.name] replies, before stepping back and doing as [npc.sheIs] told.
-		</p>
-		<p>
-			Stepping forwards, you kneel down beside the group of rats, before asking [npc2.name], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use me however you'd like...)] 
-		</p>
-		<p>
-			Quick to take advantage of your suggestion, [npc2.name] pushes [npc2.herself] up onto [npc2.her] feet, before asking, [npc2.speech(Are ya fer real? Ya gonna let us fuck ya after beatin' us like that?)]
-		</p>
-		<p>
-			Making a show of looking small and submissive, you confirm to [npc2.name] that [npc2.she] and the rest of the rats can fuck you any way they want. Letting out a chorus of lewd comments, the group immediately advances on you, and after pulling you up onto your feet, they set about groping you and preparing to give you what you want...
+			Making a show of looking small and submissive, you confirm to [npc.name] that [npc.she] can fuck you any way [npc.she] wants. Letting out a hungry [npc.moan], the [npc.race] immediately advances on you, and after pulling you up onto your feet, [npc.she] sets about groping you and preparing to give you what you want...
 		</p>
 	#ELSE
+		#IF(pc.hasCompanions())
+			<p>
+				Looking down at the defeated gang members sprawled across the floor, you start to feel a desperate desire to let them reverse the situation and have their way with you. Not wanting your [com.companion] to get involved in your scheme, you turn to face [com.herHim] and say, [pc.speech(I'm going to let these rats have a little fun with me, so you just step back and keep watch until they're finished...)]
+			</p>
+			<p>
+				[com.speech(If you're sure about this...)] [com.name] replies, before stepping back and doing as [com.sheIs] told.
+			</p>
+			<p>
+				Stepping forwards, you kneel down beside the group of rats, before asking [npc.name], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use me however you'd like...)] 
+			</p>
+		#ELSE
+			<p>
+				Looking down at the defeated gang members sprawled across the floor, you start to feel a desperate desire to let them reverse the situation and have their way with you. Stepping forwards, you kneel down beside the group of rats, before asking [npc.name], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use me however you'd like...)] 
+			</p>
+		#ENDIF
 		<p>
-			Looking down at the defeated gang members sprawled across the floor, you start to feel a desperate desire to let them reverse the situation and have their way with you. Stepping forwards, you kneel down beside the group of rats, before asking [npc2.name], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use me however you'd like...)] 
+			Quick to take advantage of your suggestion, [npc.name] pushes [npc.herself] up onto [npc.her] feet, before asking, [npc.speech(Are ya fer real? Ya gonna let us fuck ya after beatin' us like that?)]
 		</p>
 		<p>
-			Quick to take advantage of your suggestion, [npc2.name] pushes [npc2.herself] up onto [npc2.her] feet, before asking, [npc2.speech(Are ya fer real? Ya gonna let us fuck ya after beatin' us like that?)]
-		</p>
-		<p>
-			Making a show of looking small and submissive, you confirm to [npc2.name] that [npc2.she] and the rest of the rats can fuck you any way they want. Letting out a chorus of lewd comments, the group immediately advances on you, and after pulling you up onto your feet, they set about groping you and preparing to give you what you want...
+			Making a show of looking small and submissive, you confirm to [npc.name] that [npc.she] and the rest of the rats can fuck you any way they want. Letting out a chorus of lewd comments, the group immediately advances on you, and after pulling you up onto your feet, they set about groping you and preparing to give you what you want...
 		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GROUP"><![CDATA[
-	<p>
-		Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Turning back to address your [npc.companion], you tell [npc.herHim] to join you in having dominant sex with them.
-	</p>
-	<p>
-		#IF(!npc.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
-			Letting out an exasperated sigh, [npc.name] mutters, [npc.speech(I don't really have a choice, do I...)]
-		#ELSE
-			Letting out an eager [npc.moan], [npc.name] enthusiastically replies, [npc.speech(This is going to be good!)]
-		#ENDIF
-	</p>
-	<p>
-		Stepping up in front of the defeated gang members, you and your [npc.companion] smirk as they submissively shuffle closer and start begging to be the one who's fucked first...
-	</p>
+	#IF(game.getNonCompanionCharactersPresent().size()==1)
+		<p>
+			Feeling more than a little turned on by the sight of this last defeated [npc.race] before you, you can't help but let out a horny [pc.moan] as you advance on [npc.herHim] with lewd thoughts in your mind. Turning back to address your [com.companion], you tell [com.herHim] to join you in having dominant sex with [npc.name].
+		</p>
+		<p>
+			#IF(!com.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
+				Letting out an exasperated sigh, [com.name] mutters, [com.speech(I don't really have a choice, do I...)]
+			#ELSE
+				Letting out an eager [com.moan], [com.name] enthusiastically replies, [com.speech(This is going to be good!)]
+			#ENDIF
+		</p>
+		<p>
+			Stepping up in front of the defeated gang member, you and your [com.companion] smirk as [npc.she] submissively shuffles closer and starts begging to be fucked...
+		</p>
+	#ELSE
+		<p>
+			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as you advance on them with lewd thoughts in your mind. Turning back to address your [com.companion], you tell [com.herHim] to join you in having dominant sex with them.
+		</p>
+		<p>
+			#IF(!com.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
+				Letting out an exasperated sigh, [com.name] mutters, [com.speech(I don't really have a choice, do I...)]
+			#ELSE
+				Letting out an eager [com.moan], [com.name] enthusiastically replies, [com.speech(This is going to be good!)]
+			#ENDIF
+		</p>
+		<p>
+			Stepping up in front of the defeated gang members, you and your [com.companion] smirk as they submissively shuffle closer and start begging to be the one who's fucked first...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GROUP_SUBMIT"><![CDATA[
-	<p>
-		Looking down at the defeated gang members sprawled across the floor, you start to feel a desperate desire to let them reverse the situation and have their way with you and your [npc.companion]. Turning to face [npc.name], you reveal your plan and tell [npc.herHim] to join you in submitting to them.
-	</p>
-	<p>
-		#IF(!npc.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
-			Letting out an exasperated sigh, [npc.name] mutters, [npc.speech(I don't really have a choice, do I...)]
-		#ELSE
-			Letting out an eager [npc.moan], [npc.name] enthusiastically replies, [npc.speech(This is going to be good!)]
-		#ENDIF
-	</p>
-	<p>
-		Joined by your [npc.companion], you step forwards and kneel down beside the group of rats, before asking [npc2.name], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use the two of us however you'd like...)] 
-	</p>
-	<p>
-		Quick to take advantage of your suggestion, [npc2.name] pushes [npc2.herself] up onto [npc2.her] feet, before asking, [npc2.speech(Are ya fer real? Ya gonna let us fuck ya after beatin' us like that?)]
-	</p>
-	<p>
-		Making a show of looking small and submissive, you confirm to [npc2.name] that [npc2.she] and the rest of the rats can fuck you and [npc.name] any way they want. Letting out a chorus of lewd comments, the group immediately advances on the two of you, and after pulling you and [npc.name] up onto your feet, they set about groping you and preparing to give you what you want...
-	</p>
+	#IF(game.getNonCompanionCharactersPresent().size()==1)
+		<p>
+			Looking down at this last defeated [npc.race] sprawled out on the floor before you, you start to feel a desperate desire to let [npc.herHim] reverse the situation and have [npc.hre] way with you and your [com.companion]. Turning to face [com.name], you reveal your plan and tell [com.herHim] to join you in submitting to them.
+		</p>
+		<p>
+			#IF(!com.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
+				Letting out an exasperated sigh, [com.name] mutters, [com.speech(I don't really have a choice, do I...)]
+			#ELSE
+				Letting out an eager [com.moan], [com.name] enthusiastically replies, [com.speech(This is going to be good!)]
+			#ENDIF
+		</p>
+		<p>
+			Joined by your [com.companion], you step forwards and kneel down beside the [npc.race], before asking [npc.herHim], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use the two of us however you'd like...)] 
+		</p>
+		<p>
+			Quick to take advantage of your suggestion, [npc.name] pushes [npc.herself] up onto [npc.her] feet, before asking, [npc.speech(Are ya fer real? Ya gonna let me fuck ya after beatin' us an' enslavin' all me friends like that?!)]
+		</p>
+		<p>
+			Making a show of looking small and submissive, you confirm to [npc.name] that [npc.she] can fuck you and [com.name] any way [npc.she] wants. Letting out a hungry [npc.moan], the [npc.race] immediately advances on the two of you, and after pulling you and [com.name] up onto your feet, [npc.she] sets about groping you and preparing to give you what you want...
+		</p>
+	#ELSE
+		<p>
+			Looking down at the defeated gang members sprawled across the floor, you start to feel a desperate desire to let them reverse the situation and have their way with you and your [com.companion]. Turning to face [com.name], you reveal your plan and tell [com.herHim] to join you in submitting to them.
+		</p>
+		<p>
+			#IF(!com.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
+				Letting out an exasperated sigh, [com.name] mutters, [com.speech(I don't really have a choice, do I...)]
+			#ELSE
+				Letting out an eager [com.moan], [com.name] enthusiastically replies, [com.speech(This is going to be good!)]
+			#ENDIF
+		</p>
+		<p>
+			Joined by your [com.companion], you step forwards and kneel down beside the group of rats, before asking [npc.name], [pc.speech(I bet you're feeling frustrated after being defeated like this, aren't you? If it'd make you feel better, you can use the two of us however you'd like...)] 
+		</p>
+		<p>
+			Quick to take advantage of your suggestion, [npc.name] pushes [npc.herself] up onto [npc.her] feet, before asking, [npc.speech(Are ya fer real? Ya gonna let us fuck ya after beatin' us like that?)]
+		</p>
+		<p>
+			Making a show of looking small and submissive, you confirm to [npc.name] that [npc.she] and the rest of the rats can fuck you and [com.name] any way they want. Letting out a chorus of lewd comments, the group immediately advances on the two of you, and after pulling you and [com.name] up onto your feet, they set about groping you and preparing to give you what you want...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_GIVE_TO_COMPANION"><![CDATA[
-	<p>
-		Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as a particularly lewd thought enters your mind. Turning to address your [npc.companion], you tell [npc.herHim], [pc.speech(Go on, [npc.name], have sex with them while I watch...)]
-	</p>
-	<p>
-		#IF(!npc.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
-			Letting out an exasperated sigh, [npc.name] mutters, [npc.speech(I don't really have a choice, do I...)]
-		#ELSE
-			Letting out an eager [npc.moan], [npc.name] enthusiastically replies, [npc.speech(This is going to be good!)]
-		#ENDIF
-	</p>
-	<p>
-		Stepping up in front of the defeated gang members, your [npc.companion] smirks as they submissively shuffle closer and start begging to be the one who's fucked first. Stepping back a little, you can't help but let out a [pc.moan] as you prepare to watch [npc.name] fuck all of them at once...
-	</p>
+	#IF(game.getNonCompanionCharactersPresent().size()==1)
+		<p>
+			Feeling more than a little turned on by the sight of this last defeated [npc.race] sprawled out on the floor before you, you can't help but let out a horny [pc.moan] as a particularly lewd thought enters your mind. Turning to address your [com.companion], you tell [com.herHim], [pc.speech(Go on, [com.name], have sex with [npc.herHim] while I watch...)]
+		</p>
+		<p>
+			#IF(!com.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
+				Letting out an exasperated sigh, [com.name] mutters, [com.speech(I don't really have a choice, do I...)]
+			#ELSE
+				Letting out an eager [com.moan], [com.name] enthusiastically replies, [com.speech(This is going to be good!)]
+			#ENDIF
+		</p>
+		<p>
+			Stepping forwards, your [com.companion] smirks as [npc.name] submissively shuffles closer and start begging to be fucked. Moving back to give them some room, you can't help but let out a [pc.moan] as you prepare to watch [com.name] fuck this [npc.race]...
+		</p>
+	#ELSE
+		<p>
+			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny [pc.moan] as a particularly lewd thought enters your mind. Turning to address your [com.companion], you tell [com.herHim], [pc.speech(Go on, [com.name], have sex with them while I watch...)]
+		</p>
+		<p>
+			#IF(!com.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
+				Letting out an exasperated sigh, [com.name] mutters, [com.speech(I don't really have a choice, do I...)]
+			#ELSE
+				Letting out an eager [com.moan], [com.name] enthusiastically replies, [com.speech(This is going to be good!)]
+			#ENDIF
+		</p>
+		<p>
+			Stepping up in front of the defeated gang members, your [com.companion] smirks as they submissively shuffle closer and start begging to be the one who's fucked first. Moving back to give them some room, you can't help but let out a [pc.moan] as you prepare to watch [com.name] fuck all of them at once...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY_SEX_OFFER_COMPANION"><![CDATA[
-	<p>
-		Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny whine as a particularly lewd thought enters your mind. Turning to address your [npc.companion], you tell [npc.herHim], [pc.speech(Go on, [npc.name], submit to them and let them fuck you while I watch...)]
-	</p>
-	#IF(!npc.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
+	#IF(game.getNonCompanionCharactersPresent().size()==1)
 		<p>
-			Letting out an exasperated sigh, [npc.name] mutters, [npc.speech(I don't really have a choice, do I...)]
+			Feeling more than a little turned on by the sight of this last defeated [npc.race] sprawled out on the floor before you, you can't help but let out a horny [pc.moan] as a particularly lewd thought enters your mind. Turning to address your [com.companion], you tell [com.herHim], [pc.speech(Go on, [com.name], submit to this [npc.race] and let [npc.herHim] fuck you while I watch...)]
 		</p>
-		<p>
-			Stepping up in front of the defeated gang members, your [npc.companion] reluctantly informs the rats that they can do whatever they want to [npc.herHim]. Letting out a chorus of lewd comments, the group immediately advances on [npc.name], and you can't help but let out a [pc.moan] as you prepare to watch [npc.herHim] get fucked by all of them at once...
-		</p>
+		#IF(!com.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
+			<p>
+				Letting out an exasperated sigh, [com.name] mutters, [com.speech(I don't really have a choice, do I...)]
+			</p>
+			<p>
+				Stepping up in front of the defeated gang member, your [com.companion] reluctantly informs [npc.herHim] that [npc.she] can do whatever they want to [com.herHim]. Letting out a hungry [npc.moan], the [npc.race] immediately advances on [com.name], and you can't help but smile as you prepare to watch your [com.companion] get fucked...
+			</p>
+		#ELSE
+			<p>
+				Letting out an eager [com.moan], [com.name] enthusiastically replies, [com.speech(This is going to be good!)]
+			</p>
+			<p>
+				Stepping up in front of the defeated gang member, your [com.companion] lets out a submissive whine before informing [npc.herHim] that [npc.she] can do whatever they want to [com.herHim]. Letting out a hungry [npc.moan], the [npc.race] immediately advances on [com.name], and you can't help but smile as you prepare to watch your [com.companion] get fucked...
+			</p>
+		#ENDIF
 	#ELSE
 		<p>
-			Letting out an eager [npc.moan], [npc.name] enthusiastically replies, [npc.speech(This is going to be good!)]
+			Feeling more than a little turned on by the sight of the defeated rats before you, you can't help but let out a horny [pc.moan] as a particularly lewd thought enters your mind. Turning to address your [com.companion], you tell [com.herHim], [pc.speech(Go on, [com.name], submit to them and let them fuck you while I watch...)]
 		</p>
-		<p>
-			Stepping up in front of the defeated gang members, your [npc.companion] lets out a submissive whine before informing the rats that they can do whatever they want to [npc.herHim]. Letting out a chorus of lewd comments, the group immediately advances on [npc.name], and you can't help but let out a [pc.moan] as you prepare to watch [npc.herHim] get fucked by all of them at once...
-		</p>
+		#IF(!com.isAttractedToGroup(game.getNonCompanionCharactersPresent()))
+			<p>
+				Letting out an exasperated sigh, [com.name] mutters, [com.speech(I don't really have a choice, do I...)]
+			</p>
+			<p>
+				Stepping up in front of the defeated gang members, your [com.companion] reluctantly informs the rats that they can do whatever they want to [com.herHim]. Letting out a chorus of lewd comments, the group immediately advances on [com.name], and you can't help but let out a [pc.moan] as you prepare to watch [com.herHim] get fucked by all of them at once...
+			</p>
+		#ELSE
+			<p>
+				Letting out an eager [com.moan], [com.name] enthusiastically replies, [com.speech(This is going to be good!)]
+			</p>
+			<p>
+				Stepping up in front of the defeated gang members, your [com.companion] lets out a submissive whine before informing the rats that they can do whatever they want to [com.herHim]. Letting out a chorus of lewd comments, the group immediately advances on [com.name], and you can't help but let out a [pc.moan] as you prepare to watch [com.herHim] get fucked by all of them at once...
+			</p>
+		#ENDIF
 	#ENDIF
 	]]>
 	</htmlContent>

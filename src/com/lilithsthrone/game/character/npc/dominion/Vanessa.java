@@ -87,6 +87,8 @@ public class Vanessa extends NPC {
 		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
+			
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 15);
 		}
 	}
 	

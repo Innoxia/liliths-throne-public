@@ -549,7 +549,9 @@ public class Face implements BodyPartInterface {
 	}
 
 	public boolean isBaldnessNatural() {
-		return this.getTypeTags().contains(FaceTypeTag.NATURAL_BALDNESS);
+		return this.getTypeTags().contains(FaceTypeTag.NATURAL_BALDNESS_AVIAN)
+				|| this.getTypeTags().contains(FaceTypeTag.NATURAL_BALDNESS_FURRY)
+				|| this.getTypeTags().contains(FaceTypeTag.NATURAL_BALDNESS_SCALY);
 	}
 	
 	public boolean isMuzzle() {

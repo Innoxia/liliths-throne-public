@@ -94,6 +94,8 @@ public class SubmissionCitadelArcanist extends NPC {
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
 
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 25);
+			
 			//TODO illusion magic
 			this.addSpell(Spell.ICE_SHARD);
 			this.addSpellUpgrade(SpellUpgrade.ICE_SHARD_1);
@@ -130,7 +132,6 @@ public class SubmissionCitadelArcanist extends NPC {
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
-		this.setAttribute(Attribute.MAJOR_CORRUPTION, 25);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(

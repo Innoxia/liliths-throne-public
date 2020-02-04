@@ -596,35 +596,58 @@ public class RatWarrensDialogue {
 		@Override
 		public void applyPreParsingEffects() {
 			if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_CHECKPOINT_LEFT
-					|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_DORMITORY_LEFT) {
+					|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_DORMITORY_LEFT
+					|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_CORRIDOR_LEFT) {
 				Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 			}
 		}
 		
 		@Override
 		public String getContent() {
+			if(getGuards(false).size()==1) {
+				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_ENSLAVED_ONE_REMAINING", getGuards(false));
+				
+			} else if(getGuards(false).isEmpty()) {
+				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_ENSLAVED_ALL");
+				
+			} else if(getGuards(false).size()<6) {
+				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_ENSLAVED_ONE", getGuards(false));
+			}
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY", getGuards(true));
 		}
 
 		@Override
 		public String getResponseTabTitle(int index) {
-			if(index==0) {
-				return "Standard";
-				
-			} else if(index==1) {
-				return "Inventories";
+			if(!getGuards(false).isEmpty()) {
+				if(index==0) {
+					return "Standard";
+					
+				} else if(index==1) {
+					return "Inventories";
+				}
 			}
  			return null;
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(getGuards(false).isEmpty()) {
+				if (index == 1) {
+					return new Response("Continue", "As you've enslaved all of the gang members who dared to fight you, there's nothing left to do but continue on your way...", Main.game.getDefaultDialogue(false)) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_ALL_ENSLAVED"));
+						}
+					};
+				}
+				return null;
+			}
 			if(responseTab == 0) {
 				if (index == 1) {
 					return new Response("Scare off", "Tell the gang members to get out of here while they still can...", Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SCARE_OFF", getGuards(true)));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SCARE_OFF", getGuards(false)));
 							banishGuards(true);
 						}
 					};
@@ -644,7 +667,7 @@ public class RatWarrensDialogue {
 							Util.newArrayListOfValues(getMainCompanion()),
 							null,
 							GUARD_COMBAT_VICTORY_AFTER_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX", getGuards(true)));
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX", getGuards(false)));
 					
 				} else if (index == 3) {
 					return new ResponseSex(
@@ -661,7 +684,7 @@ public class RatWarrensDialogue {
 							Util.newArrayListOfValues(getMainCompanion()),
 							null,
 							GUARD_COMBAT_VICTORY_AFTER_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_GENTLE", getGuards(true)),
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_GENTLE", getGuards(false)),
 							ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 					
 				} else if (index == 4) {
@@ -679,7 +702,7 @@ public class RatWarrensDialogue {
 							Util.newArrayListOfValues(getMainCompanion()),
 							null,
 							GUARD_COMBAT_VICTORY_AFTER_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_ROUGH", getGuards(true)),
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_ROUGH", getGuards(false)),
 							ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 					
 				} else if (index == 5) {
@@ -703,7 +726,7 @@ public class RatWarrensDialogue {
 							null,
 							Util.newArrayListOfValues(getMainCompanion()),
 							GUARD_COMBAT_VICTORY_AFTER_SEX,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_SUBMIT", getGuards(true)));
+							UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_SUBMIT", getGuards(false)));
 					
 				} else if (index == 6 && isCompanionDialogue()) {
 					GameCharacter companion = getMainCompanion();
@@ -722,7 +745,7 @@ public class RatWarrensDialogue {
 								null,
 								null,
 								GUARD_COMBAT_VICTORY_AFTER_SEX,
-								UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_GROUP", getGuards(true)));
+								UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_GROUP", getGuards(false)));
 					}
 					
 				} else if (index == 7 && isCompanionDialogue()) {
@@ -742,7 +765,7 @@ public class RatWarrensDialogue {
 								null,
 								null,
 								GUARD_COMBAT_VICTORY_AFTER_SEX,
-								UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_GROUP_SUBMIT", getGuards(true)));
+								UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_GROUP_SUBMIT", getGuards(false)));
 					}
 					
 				} else if (index == 8 && isCompanionDialogue()) {
@@ -762,7 +785,7 @@ public class RatWarrensDialogue {
 								null,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								GUARD_COMBAT_VICTORY_AFTER_SEX,
-								UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_GIVE_TO_COMPANION", getGuards(true)));
+								UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_GIVE_TO_COMPANION", getGuards(false)));
 					}
 					
 				} else if (index == 9 && isCompanionDialogue() && Main.game.isVoluntaryNTREnabled()) {
@@ -783,7 +806,7 @@ public class RatWarrensDialogue {
 								null,
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								GUARD_COMBAT_VICTORY_AFTER_SEX,
-								UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_OFFER_COMPANION", getGuards(true))) {
+								UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_SEX_OFFER_COMPANION", getGuards(false))) {
 							@Override
 							public void effects() {
 								if(!companion.isAttractedToGroup(getGuards(false)) && Main.game.isNonConEnabled()) {
@@ -840,6 +863,17 @@ public class RatWarrensDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(getGuards(false).isEmpty()) {
+				if (index == 1) {
+					return new Response("Continue", "As you've enslaved all of the gang members who dared to fight you, there's nothing left to do but continue on your way...", Main.game.getDefaultDialogue(false)) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_ALL_ENSLAVED"));
+						}
+					};
+				}
+				return null;
+			}
 			if(responseTab==0) {
 				if (index == 1) {
 					return new Response("Scare off", "Scare the gang members off and continue on your way.", Main.game.getDefaultDialogue(false)) {
@@ -1360,9 +1394,14 @@ public class RatWarrensDialogue {
 						sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CORRIDOR_CLEARED", getGuards(true)));
 					}
 					
-				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
-					sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CORRIDOR_CLEARED", getGuards(true)));
+				} else {
+					if((Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_CORRIDOR_LEFT && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft))
+							|| (Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_CORRIDOR_RIGHT && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight))
+							|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
+						sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CORRIDOR_CLEARED", getGuards(true)));
+					}
 				}
+				
 				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "CORRIDOR_HOSTILE_WARNING", getGuards(true)));
 				
 			} else {
@@ -2164,7 +2203,7 @@ public class RatWarrensDialogue {
 					}
 				};
 				
-			} else if(index==0) {
+			} else if(index==0 && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
 				return new Response("Leave", "Decide against having sex with any of the milkers and leave...<br/>[style.italicsBad(You will not get your money back!)]", CORRIDOR) {
 					@Override
 					public int getSecondsPassed() {

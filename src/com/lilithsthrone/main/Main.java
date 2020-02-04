@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.6.4";
+	public static final String VERSION_NUMBER = "0.3.6.6";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -212,6 +212,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("GentleTark", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("QW", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Master Isami", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Valeiya", "", 0, 0, 0, 0, Subspecies.DEMON));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
@@ -399,7 +400,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("QQQ", "", 0, 0, 0, 19));
 		credits.add(new CreditsSlot("awrfyu_", "", 0, 0, 0, 7));
 		credits.add(new CreditsSlot("Rakesh", "", 0, 0, 8, 0));
-		credits.add(new CreditsSlot("R.W", "", 0, 3, 11, 0));
+		credits.add(new CreditsSlot("R.W", "", 0, 3, 11, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Raruke", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("The Void Prince", "", 0, 0, 13, 0));
 		credits.add(new CreditsSlot("Master's dumb bitch", "", 0, 0, 0, 19));
@@ -745,6 +746,34 @@ public class Main extends Application {
 		properties.savePropertiesAsXML();
 	}
 	
+	public static boolean isQuickSaveAvailable() {
+		return Main.game.isStarted()
+				&& !Main.game.isInCombat()
+				&& !Main.game.isInSex()
+				&& Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL
+				&& Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogue(false));
+	}
+	
+	public static String getQuickSaveUnavailabilityDescription() {
+		if (Main.game.isInCombat()) {
+			return "You cannot save the game while while in combat!";
+			
+		} else if (Main.game.isInSex()) {
+			return "You cannot save the game while in a sex scene!";
+			
+		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.NORMAL) {
+			return "You cannot save the game unless you are in a neutral scene!";
+			
+		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogue(false))) {
+			return "You cannot save the game unless you are in a neutral scene!";
+		}
+		
+		return "";
+	}
+	
+	public static String getQuickSaveName() {
+		return "QuickSave_"+Main.game.getPlayer().getName(false);
+	}
 	
 	public static void quickSaveGame() {
 		if (Main.game.isInCombat()) {
@@ -760,19 +789,13 @@ public class Main extends Application {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot save in this scene!");
 			
 		} else {
-			Main.getProperties().lastQuickSaveName = "QuickSave_"+Main.game.getPlayer().getName(false);
-			saveGame("QuickSave_"+Main.game.getPlayer().getName(false), true);
+			Main.getProperties().lastQuickSaveName = getQuickSaveName();
+			saveGame(getQuickSaveName(), true);
 		}
 	}
 
 	public static void quickLoadGame() {
-		String name = "QuickSave_"+Main.game.getPlayer().getName(false);
-		
-//		if(new File("data/saves/"+name+".lts").exists()) {
-			loadGame(name);
-//		} else {
-//			loadGame(Main.getProperties().lastQuickSaveName);
-//		}
+		loadGame(getQuickSaveName());
 	}
 
 	public static boolean isSaveGameAvailable() {
@@ -826,10 +849,12 @@ public class Main extends Application {
 		if (isLoadGameAvailable(name)) {
 			Game.importGame(name);
 		}
+		MainController.updateUIButtons();
 	}
 
 	public static void loadGame(File f) {
 		Game.importGame(f);
+		MainController.updateUIButtons();
 	}
 	
 	public static void deleteGame(String name) {
