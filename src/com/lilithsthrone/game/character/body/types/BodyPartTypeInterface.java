@@ -4,6 +4,9 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+
+import java.util.List;
 
 /**
  * @since 0.1.0
@@ -67,6 +70,22 @@ public interface BodyPartTypeInterface {
 	/** @return The race of this body part. */
 	public Race getRace();
 	
+	/** @return The TFModifier for this body part. */
+	public default TFModifier getTFModifier() {
+		return TFModifier.NONE;
+	}
+
+	public default TFModifier getTFTypeModifier(List<?> types) {
+		switch (types.indexOf(this)) {
+			case 0: return TFModifier.TF_TYPE_1;
+			case 1: return TFModifier.TF_TYPE_2;
+			case 2: return TFModifier.TF_TYPE_3;
+			case 3: return TFModifier.TF_TYPE_4;
+			case 4: return TFModifier.TF_TYPE_5;
+			default: return TFModifier.NONE;
+		}
+	}
+
 	//TODO
 //	/** @return The description of this body part as seen in the character view screen. */
 //	public String getBodyDescription(GameCharacter owner);

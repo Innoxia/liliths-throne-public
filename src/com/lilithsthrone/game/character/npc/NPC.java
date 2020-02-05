@@ -1545,7 +1545,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				}
 				if(target.getEarType() != body.getEar().getType()) {
 					possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EARS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EARS, body.getEar().getType().getTFModifier(), TFPotency.MINOR_BOOST, 1),
 						"Your ears could use some improvement!"));
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				}
@@ -1557,13 +1557,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				}
 				if(target.getHairType() != body.getHair().getType()) {
 					possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, body.getHair().getType().getTFModifier(), TFPotency.MINOR_BOOST, 1),
 						"This might tingle a little!"));
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				}
 				if(target.getHornType() != body.getHorn().getType()) {
 					possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, body.getHorn().getType().getTFModifier(), TFPotency.MINOR_BOOST, 1),
 						body.getHorn().getType()==HornType.NONE
 							?"Let's get rid of those horns of yours..."
 							:"Ready to grow some new horns?"));
@@ -1573,15 +1573,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						&& target.getTailType()!=TailType.FOX_MORPH_MAGIC
 						&& body.getTail().getType()!=TailType.FOX_MORPH_MAGIC) {
 					possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_TAIL, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), 
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_TAIL, body.getTail().getType().getTFModifier(), TFPotency.MINOR_BOOST, 1), 
 						body.getTail().getType()==TailType.NONE
 							?"That tail of yours is only getting in the way!"
 							:"Time to get a new tail!"));
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				}
 				if(target.getWingType() != body.getWing().getType()) {
+					TFModifier wingTypeTFModifier = body.getWing().getType()==WingType.NONE ? TFModifier.REMOVAL : body.getWing().getType().getTFModifier();
 					possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, wingTypeTFModifier, TFPotency.MINOR_BOOST, 1),
 						body.getWing().getType()==WingType.NONE
 							?"Let's get rid of those wings of yours..."
 							:"Ready to grow some new wings?"));
@@ -1597,6 +1598,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ARMS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 							"Your arms could do with a change!"));
 					}
+					// TODO: Add separate chunks for LegConfiguration and LegType if more races have multiple leg types
 					if(target.getLegType() != body.getLeg().getType()) {
 						possibleEffects.add(new PossibleItemEffect(
 							new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_LEGS, body.getLeg().getLegConfiguration().getTFModifier(), TFPotency.MINOR_BOOST, 1),
@@ -1615,7 +1617,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 					if(target.getFaceType() != body.getFace().getType()) {
 						possibleEffects.add(new PossibleItemEffect(
-							new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+							new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, body.getFace().getType().getTFModifier(), TFPotency.MINOR_BOOST, 1),
 							"I can't wait to see how you'll look after this!"));
 					}
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); } // Apply face & skin at the same time

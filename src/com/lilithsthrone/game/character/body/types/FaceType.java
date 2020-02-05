@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -290,6 +291,11 @@ public enum FaceType implements BodyPartTypeInterface {
 		return race;
 	}
 	
+	@Override
+	public TFModifier getTFModifier() {
+		return getTFTypeModifier(getFaceTypes(race));
+	}
+
 	public MouthType getMouthType() {
 		return mouthType;
 	}

@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.tags.TailTag;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -264,6 +265,11 @@ public enum TailType implements BodyPartTypeInterface {
 		return race;
 	}
 	
+	@Override
+	public TFModifier getTFModifier() {
+		return getTFTypeModifier(getTailTypes(race));
+	}
+
 	public int getGirth() {
 		return girth;
 	}

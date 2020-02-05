@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 
 /**
  * @since 0.1.0
@@ -115,6 +116,11 @@ public enum WingType implements BodyPartTypeInterface {
 		return race;
 	}
 	
+	@Override
+	public TFModifier getTFModifier() {
+		return getTFTypeModifier(getWingTypes(race));
+	}
+
 	private static Map<Race, List<WingType>> typesMap = new HashMap<>();
 	public static List<WingType> getWingTypes(Race r) {
 		if(typesMap.containsKey(r)) {
