@@ -75,7 +75,7 @@ public interface BodyPartTypeInterface {
 		return TFModifier.NONE;
 	}
 
-	public default TFModifier getTFTypeModifier(List<?> types) {
+	public default TFModifier getTFTypeModifier(List<? extends BodyPartTypeInterface> types) {
 		switch (types.indexOf(this)) {
 			case 0: return TFModifier.TF_TYPE_1;
 			case 1: return TFModifier.TF_TYPE_2;
