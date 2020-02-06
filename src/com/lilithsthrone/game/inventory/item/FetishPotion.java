@@ -14,6 +14,6 @@ import java.util.List;
 public class FetishPotion extends AbstractPotion {
 
 	public FetishPotion(AbstractItemType itemType, List<PossibleItemEffect> effects) {
-		super(itemType, effects, null);
+		super(itemType, effects);
 	}
 }

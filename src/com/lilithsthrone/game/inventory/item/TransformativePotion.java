@@ -13,12 +13,18 @@ import java.util.List;
  * @author Stadler76
  */
 public class TransformativePotion extends AbstractPotion {
+	private final Body body;
 
 	public TransformativePotion(AbstractItemType itemType, List<PossibleItemEffect> effects, Body body) {
-		super(itemType, effects, body);
+		super(itemType, effects);
+		this.body = body;
 	}
 
 	public TransformativePotion(AbstractItemType itemType, List<PossibleItemEffect> effects) {
 		this(itemType, effects, null);
+	}
+
+	public Body getBody() {
+		return body;
 	}
 }
