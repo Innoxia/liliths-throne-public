@@ -14,7 +14,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	MOUTH(2,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			2/60f, 15/60f,
 			true) {
 		@Override
@@ -32,7 +32,14 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.MOUTH;
 		}
-
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getFaceMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getFaceMaximumPenetrationDepthUncomfortable();
+		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -181,7 +188,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	NIPPLE(2,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			4/60f, 2/60f,
 			true) {
 		@Override
@@ -202,6 +209,14 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.NIPPLES;
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getNippleMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getNippleMaximumPenetrationDepthUncomfortable();
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -380,7 +395,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	BREAST(1,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0f,
 			25/60f, 0,
 			false) {
 		@Override
@@ -405,6 +420,14 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.BREASTS;
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return 10_000;
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -546,7 +569,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	NIPPLE_CROTCH(2,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			4/60f, 2/60f,
 			true) {
 		@Override
@@ -567,6 +590,14 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.NIPPLES_CROTCH;
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getNippleCrotchMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getNippleCrotchMaximumPenetrationDepthUncomfortable();
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -745,7 +776,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	BREAST_CROTCH(1,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0f,
 			25/60f, 0,
 			false) {
 		@Override
@@ -766,6 +797,14 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.BREASTS_CROTCH;
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return 10_000;
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -909,7 +948,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	ASS(1,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0f,
 			25/60f, 0,
 			false) {
 		@Override
@@ -927,6 +966,14 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.ASS;
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return 10_000;
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -1047,7 +1094,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	ANUS(2,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			4/60f, 4/60f,
 			true) {
 		@Override
@@ -1065,7 +1112,14 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.ANUS;
 		}
-
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getAssMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getAssMaximumPenetrationDepthUncomfortable();
+		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -1216,7 +1270,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	VAGINA(4,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			4/60f, 2/60f,
 			true) {
 		@Override
@@ -1234,7 +1288,14 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.VAGINA;
 		}
-
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getVaginaMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getVaginaMaximumPenetrationDepthUncomfortable();
+		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -1417,7 +1478,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	THIGHS(1,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0f,
 			25/60f, 0,
 			false) {
 		@Override
@@ -1438,6 +1499,14 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.THIGHS;
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return 10_000;
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -1500,7 +1569,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	URETHRA_VAGINA(1,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			4/60f, 2/60f,
 			true) {
 		@Override
@@ -1518,7 +1587,14 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.VAGINA;
 		}
-
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getVaginaUrethraMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getVaginaUrethraMaximumPenetrationDepthUncomfortable();
+		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -1640,7 +1716,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	
 	URETHRA_PENIS(1,
 			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f ,-1f,
+			0.5f, -0.5f , 0.5f,
 			4/60f, 2/60f,
 			true) {
 		@Override
@@ -1658,7 +1734,14 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.PENIS;
 		}
-
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getUrethraMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getUrethraMaximumPenetrationDepthUncomfortable();
+		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -1865,7 +1948,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	public float getCumAbsorptionPerSecond() {
 		return cumAbsorptionPerSecond/60f;
 	}
-
+	
 	/**
 	 * @return true If this orifice is a fully internal orifice, capable of taking penile virginity.<br/>
 	 * Mouth, vagina, anus, urethras, and nipple are considered internal orifices.<br/>
@@ -1886,5 +1969,9 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 		return cumLost;
 	}
+	
+	public abstract int getMaximumPenetrationDepthComfortable(GameCharacter target);
+	
+	public abstract int getMaximumPenetrationDepthUncomfortable(GameCharacter target);
 	
 }

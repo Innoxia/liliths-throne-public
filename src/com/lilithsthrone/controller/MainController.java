@@ -1480,51 +1480,53 @@ public class MainController implements Initializable {
 		documentButtonsRight = (Document) webEngineButtonsRight.executeScript("document");
 		EventListenerDataMap.put(documentButtonsRight, new ArrayList<>());
 		
-		boolean quickSaveAvailable = Main.isQuickSaveAvailable();
-		boolean quickLoadAvailable = Main.isLoadGameAvailable(Main.getQuickSaveName());
+		boolean quickSaveAvailable = Main.isQuickSaveAvailable() && Main.game.isInNewWorld();
+		boolean quickLoadAvailable = Main.isLoadGameAvailable(Main.getQuickSaveName()) && Main.game.isInNewWorld();
+		KeyCodeWithModifiers hotKey;
 		
 		if(((EventTarget) documentButtonsRight.getElementById("quickSave"))!=null) {
 			addEventListener(documentButtonsRight, "quickSave", "click", e -> {
 				Main.quickSaveGame();
 			}, false);
-		}
-		MainController.addEventListener(documentButtonsRight, "quickSave", "mousemove", MainController.moveTooltipListener, false);
-		MainController.addEventListener(documentButtonsRight, "quickSave", "mouseleave", MainController.hideTooltipListener, false);
-		KeyCodeWithModifiers hotKey = Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.QUICKSAVE);
-		MainController.addEventListener(documentButtonsRight, "quickSave", "mouseenter", new TooltipInformationEventListener().setInformation(
-				quickSaveAvailable
-					?"[style.colourGood(Quick Save"+(hotKey==null?"":" ("+hotKey.getFullName()+")")+")]"
-					:"[style.colourBad(Quick Save"+(hotKey==null?"":" ("+hotKey.getFullName()+")")+")]",
-				"Either creates or "+(quickLoadAvailable?"[style.italicsBad(overrides)]":"")+" the save file with the name '"+Main.getQuickSaveName()+"'."
-					+ (hotKey==null
-						?"<br/>There is no keyboard shortcut currently bound to this action."
-						:"<br/>You can also quick save by pressing the '"+hotKey.getFullName()+"' key.")
-					+ (quickSaveAvailable
-						?"<br/>[style.italicsGood(You can save the game in this scene!)]"
-						:"<br/>[style.italicsBad("+Main.getQuickSaveUnavailabilityDescription()+")]")),
-				false);
 		
+			MainController.addEventListener(documentButtonsRight, "quickSave", "mousemove", MainController.moveTooltipListener, false);
+			MainController.addEventListener(documentButtonsRight, "quickSave", "mouseleave", MainController.hideTooltipListener, false);
+			hotKey = Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.QUICKSAVE);
+			MainController.addEventListener(documentButtonsRight, "quickSave", "mouseenter", new TooltipInformationEventListener().setInformation(
+					quickSaveAvailable
+						?"[style.colourGood(Quick Save"+(hotKey==null?"":" ("+hotKey.getFullName()+")")+")]"
+						:"[style.colourBad(Quick Save"+(hotKey==null?"":" ("+hotKey.getFullName()+")")+")]",
+					"Either creates or "+(quickLoadAvailable?"[style.italicsBad(overrides)]":"")+" the save file with the name '"+Main.getQuickSaveName()+"'."
+						+ (hotKey==null
+							?"<br/>There is no keyboard shortcut currently bound to this action."
+							:"<br/>You can also quick save by pressing the '"+hotKey.getFullName()+"' key.")
+						+ (quickSaveAvailable
+							?"<br/>[style.italicsGood(You can save the game in this scene!)]"
+							:"<br/>[style.italicsBad("+Main.getQuickSaveUnavailabilityDescription()+")]")),
+					false);
+		}
 		
 		if(((EventTarget) documentButtonsRight.getElementById("quickLoad"))!=null) {
 			addEventListener(documentButtonsRight, "quickLoad", "click", e -> {
 				Main.quickLoadGame();
 			}, false);
+		
+			MainController.addEventListener(documentButtonsRight, "quickLoad", "mousemove", MainController.moveTooltipListener, false);
+			MainController.addEventListener(documentButtonsRight, "quickLoad", "mouseleave", MainController.hideTooltipListener, false);
+			hotKey = Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.QUICKLOAD);
+			MainController.addEventListener(documentButtonsRight, "quickLoad", "mouseenter", new TooltipInformationEventListener().setInformation(
+					quickLoadAvailable
+						?"[style.colourGood(Quick Load"+(hotKey==null?"":" ("+hotKey.getFullName()+")")+")]"
+						:"[style.colourBad(Quick Load"+(hotKey==null?"":" ("+hotKey.getFullName()+")")+")]",
+					"Loads the game file with the name '"+Main.getQuickSaveName()+"'."
+						+(hotKey==null
+							?"<br/>There is no keyboard shortcut currently bound to this action."
+							:"<br/>You can also quick load by pressing the '"+hotKey.getFullName()+"' key.")
+						+(quickLoadAvailable
+							?"<br/>[style.italicsGood(Quick save file is detected for this character!)]"
+							:"<br/>[style.italicsBad(No quick save file detected for this character!)]")),
+					false);
 		}
-		MainController.addEventListener(documentButtonsRight, "quickLoad", "mousemove", MainController.moveTooltipListener, false);
-		MainController.addEventListener(documentButtonsRight, "quickLoad", "mouseleave", MainController.hideTooltipListener, false);
-		hotKey = Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.QUICKLOAD);
-		MainController.addEventListener(documentButtonsRight, "quickLoad", "mouseenter", new TooltipInformationEventListener().setInformation(
-				quickLoadAvailable
-					?"[style.colourGood(Quick Load"+(hotKey==null?"":" ("+hotKey.getFullName()+")")+")]"
-					:"[style.colourBad(Quick Load"+(hotKey==null?"":" ("+hotKey.getFullName()+")")+")]",
-				"Loads the game file with the name '"+Main.getQuickSaveName()+"'."
-					+(hotKey==null
-						?"<br/>There is no keyboard shortcut currently bound to this action."
-						:"<br/>You can also quick load by pressing the '"+hotKey.getFullName()+"' key.")
-					+(quickLoadAvailable
-						?"<br/>[style.italicsGood(Quick save file is detected for this character!)]"
-						:"<br/>[style.italicsBad(No quick save file detected for this character!)]")),
-				false);
 	}
 	
 	private void manageAttributeListeners() {

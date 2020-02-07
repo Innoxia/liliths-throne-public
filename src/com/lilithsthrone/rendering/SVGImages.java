@@ -97,7 +97,7 @@ public enum SVGImages {
 			coverableAreaUrethraPenis,
 			
 			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue, penetrationTypeFoot, penetrationTypeClit,
-			combinationStretching, combinationTooLoose, combinationWet, combinationDry,
+			combinationStretching, combinationTooLoose, combinationWet, combinationDry, combinationDepthMinimum, combinationDepthMaximum,
 			stretching, holeTooBig,
 			activeSexBackground;
 
@@ -714,12 +714,28 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationStretching.svg");
 			combinationStretching = Util.inputStreamToString(is);
+			combinationStretching = SvgUtil.colourReplacement("", Colour.BASE_PINK_DEEP, combinationStretching);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationTooLoose.svg");
 			combinationTooLoose = Util.inputStreamToString(is);
+			combinationTooLoose = SvgUtil.colourReplacement("", Colour.BASE_RED, combinationTooLoose);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationWet.svg");
 			combinationWet = Util.inputStreamToString(is);
+			combinationWet = SvgUtil.colourReplacement("", Colour.BASE_BLUE_STEEL, combinationWet);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationDry.svg");
 			combinationDry = Util.inputStreamToString(is);
+			combinationDry = SvgUtil.colourReplacement("", Colour.BASE_BLUE_STEEL, Colour.BASE_RED, null, combinationDry);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationDepthMinimum.svg");
+			combinationDepthMinimum = Util.inputStreamToString(is);
+			combinationDepthMinimum = SvgUtil.colourReplacement("", Colour.BASE_PINK_LIGHT, combinationDepthMinimum);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationDepthMaximum.svg");
+			combinationDepthMaximum = Util.inputStreamToString(is);
+			combinationDepthMaximum = SvgUtil.colourReplacement("", Colour.BASE_CRIMSON, combinationDepthMaximum);
+			
 			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/stretching.svg");
@@ -1175,6 +1191,14 @@ public enum SVGImages {
 
 	public String getCombinationDry() {
 		return combinationDry;
+	}
+
+	public String getCombinationDepthMinimum() {
+		return combinationDepthMinimum;
+	}
+
+	public String getCombinationDepthMaximum() {
+		return combinationDepthMaximum;
 	}
 
 	public String getStretching() {

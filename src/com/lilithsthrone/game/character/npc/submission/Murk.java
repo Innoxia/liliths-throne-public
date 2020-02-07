@@ -408,8 +408,8 @@ public class Murk extends NPC {
 				if(Main.game.isGapeContentEnabled()) {
 					switch(orifice) {
 						case ANUS:
-							if(Capacity.isPenisSizeTooBig(
-									target.getAssElasticity(), target.getAssStretchedCapacity(), this.getPenisGirth(), this.getPenisRawSizeValue(), true, false)) {
+							if(Capacity.isPenetrationDiameterTooBig(
+									target.getAssElasticity(), target.getAssStretchedCapacity(), this.getPenisDiameter(), true)) {
 								availableLines.add(UtilText.returnStringAtRandom(
 										"Ya feel me fat cock stretchin' yer ass out?! Yer gonna end up as nothin' but me slutty cock-sleeve!",
 										"Ya horny bitch! I'm gonna make ya into me filthy little butt-slut!",
@@ -425,8 +425,8 @@ public class Murk extends NPC {
 							}
 							break;
 						case VAGINA:
-							if(Capacity.isPenisSizeTooBig(
-									target.getVaginaElasticity(), target.getVaginaStretchedCapacity(), this.getPenisGirth(), this.getPenisRawSizeValue(), true, false)) {
+							if(Capacity.isPenetrationDiameterTooBig(
+									target.getVaginaElasticity(), target.getVaginaStretchedCapacity(), this.getPenisDiameter(), true)) {
 								availableLines.add(UtilText.returnStringAtRandom(
 										"Ya feel me fat cock stretchin' yer filthy cunt out?! Yer gonna end up as nothin' but me slutty gapin' cock-sleeve!",
 										"Ya horny bitch! I'm gonna ruin yer pussy an turn it into a gapin' hole that'll only fit me fat cock!",

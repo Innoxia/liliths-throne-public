@@ -26,7 +26,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.clothing.ClothingAccess;
-import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractFilledBreastPump;
@@ -86,7 +85,7 @@ public class CharacterInventory implements XMLSaving {
 	private List<AbstractClothing> clothingCurrentlyEquipped;
 
 	// ClothingSets being worn:
-	private final Map<ClothingSet, Integer> clothingSetCount;
+	private final Map<SetBonus, Integer> clothingSetCount;
 
 	private int maxInventorySpace;
 
@@ -116,7 +115,7 @@ public class CharacterInventory implements XMLSaving {
 		
 		clothingCurrentlyEquipped = new ArrayList<>();
 		clothingSetCount = new HashMap<>();
-		for(ClothingSet clothingSet : ClothingSet.values()) {
+		for(SetBonus clothingSet : SetBonus.values()) {
 			clothingSetCount.put(clothingSet, 0);
 		}
 		
@@ -1145,7 +1144,7 @@ public class CharacterInventory implements XMLSaving {
 	 * @return The number of clothes being worn that belong to the specified
 	 *         ClothingSet.
 	 */
-	public int getClothingSetCount(ClothingSet clothingSet) {
+	public int getClothingSetCount(SetBonus clothingSet) {
 		return clothingSetCount.get(clothingSet);
 	}
 
@@ -1508,7 +1507,7 @@ public class CharacterInventory implements XMLSaving {
 				}
 				
 				// Check for clothing sets:
-				ClothingSet clothingSetOfNewClothing = newClothing.getClothingType().getClothingSet();
+				SetBonus clothingSetOfNewClothing = newClothing.getClothingType().getClothingSet();
 				if (clothingSetOfNewClothing != null) {
 					clothingSetCount.merge(clothingSetOfNewClothing, 1, Integer::sum);
 				}

@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.FluidCum;
+import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
@@ -110,8 +111,8 @@ public class RatWarrensCaptive extends NPC {
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
-			this.setVaginaCapacity(32*PenetrationGirth.FOUR_FAT.getOrificeStretchFactor(), true);
-			this.setAssCapacity(32*PenetrationGirth.FOUR_FAT.getOrificeStretchFactor(), true);
+			this.setVaginaCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
+			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
 		}
@@ -144,14 +145,14 @@ public class RatWarrensCaptive extends NPC {
 		
 		// From anal sex:
 		if(Main.game.isAnalContentEnabled()) {
-			this.setAssCapacity(32*PenetrationGirth.FOUR_FAT.getOrificeStretchFactor(), true);
+			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
 			this.setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 			this.setAssPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		}
 
 		// From vaginal sex:
 		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
-		this.setVaginaCapacity(32*PenetrationGirth.FOUR_FAT.getOrificeStretchFactor(), true);
+		this.setVaginaCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		

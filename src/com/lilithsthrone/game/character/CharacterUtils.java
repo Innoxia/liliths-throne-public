@@ -84,7 +84,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -711,8 +711,8 @@ public class CharacterUtils {
 		boolean inheritsFromFatherPenis = father.hasPenis();
 		if(body.getPenis().getType()!=PenisType.NONE) {
 			// Penis size:
-			body.getPenis().setPenisSize(blankNPC, getSizeFromGenetics(
-					body.getPenis().getRawSizeValue(),
+			body.getPenis().setPenisLength(blankNPC, getSizeFromGenetics(
+					body.getPenis().getRawLengthValue(),
 					inheritsFromMotherPenis, mother.getPenisRawSizeValue(),
 					inheritsFromFatherPenis, father.getPenisRawSizeValue()));
 			// Penis modifiers:
@@ -1746,7 +1746,7 @@ public class CharacterUtils {
 		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING) || character.getHistory()==Occupation.NPC_PROSTITUTE) {
 			character.setAssVirgin(false);
 			character.setAssCapacity(character.getAssRawCapacityValue()*1.2f, true);
-			character.setAssStretchedCapacity(character.getAssRawCapacityValue());
+			
 		} else {
 			character.setAssVirgin(true);
 		}
@@ -1808,7 +1808,6 @@ public class CharacterUtils {
 		// Face:
 		if(character.hasFetish(Fetish.FETISH_ORAL_GIVING) || character.getHistory()==Occupation.NPC_PROSTITUTE) {
 			character.setFaceCapacity(Capacity.FIVE_ROOMY.getMedianValue(), true);
-			character.setFaceStretchedCapacity(character.getFaceRawCapacityValue());
 			character.setFaceVirgin(false);
 			
 		} else {
@@ -1851,7 +1850,7 @@ public class CharacterUtils {
 				character.setPenisVirgin(true);
 			}
 			if((character.getGender()==Gender.F_P_TRAP || character.getGender()==Gender.N_P_TRAP) && Math.random()>=0.1f) { // Most traps have a small cock:
-				character.setPenisSize(PenisSize.ONE_TINY.getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
+				character.setPenisSize(PenisLength.ONE_TINY.getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
 				character.setTesticleSize(TesticleSize.ONE_TINY.getValue());
 				character.setPenisCumStorage(CumProduction.ONE_TRICKLE.getMedianValue());
 				
@@ -1885,14 +1884,14 @@ public class CharacterUtils {
 				if(Math.random()<0.33f) {
 					character.addPersonalityTrait(PersonalityTrait.INNOCENT);
 				}
-				int capacity = Capacity.ZERO_IMPENETRABLE.getMinimumValue() + Util.random.nextInt(Capacity.TWO_TIGHT.getMaximumValue()-Capacity.ZERO_IMPENETRABLE.getMinimumValue());
+				int capacity = Util.random.nextInt((int) (Capacity.TWO_TIGHT.getMaximumValue(false)));
 				character.setVaginaCapacity(capacity, true);
 				
 			} else {
 				if(Math.random()<0.9f || character.getHistory()==Occupation.NPC_PROSTITUTE) {
 					character.setVaginaVirgin(false);
 					character.setVaginaCapacity(character.getVaginaRawCapacityValue()*1.2f, true);
-					character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
+					
 				} else {
 					character.setVaginaVirgin(true);
 				}
@@ -1980,7 +1979,7 @@ public class CharacterUtils {
 			 prostituteChance += Math.min((character.body.getBreast().getRawSizeValue()-7)*0.02f, 0.35f); // Compare breast size to average.
 			 
 			 if(character.hasPenis()) {
-				prostituteChance += Math.min((character.body.getPenis().getRawSizeValue()-5)*0.01f, 0.10f); // Scaling based off of cock size. Very small cocks are a penalty.
+				prostituteChance += Math.min((character.body.getPenis().getRawLengthValue()-5)*0.01f, 0.10f); // Scaling based off of cock size. Very small cocks are a penalty.
 			 } 
 			 
 			 if(character.hasVagina()) {
@@ -2006,14 +2005,12 @@ public class CharacterUtils {
 				character.setAssCapacity(character.getAssRawCapacityValue()
 						* 1.2f,
 						true);
-				character.setAssStretchedCapacity(character.getAssRawCapacityValue());
 
 				if (character.hasVagina()) {
 					character.setVaginaVirgin(false);
 					character.setVaginaCapacity(character.getVaginaRawCapacityValue()
 							* 1.2f,
 							true);
-					character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
 				}
 
 				character.setPenisVirgin(false);
@@ -2136,6 +2133,10 @@ public class CharacterUtils {
 			availableFetishes.remove(Fetish.FETISH_ANAL_RECEIVING);
 		}
 
+		if(!Main.game.isPenetrationLimitationsEnabled()) {
+			availableFetishes.remove(Fetish.FETISH_SIZE_QUEEN);
+		}
+		
 		if(!Main.getProperties().hasValue(PropertyValue.footContent)) {
 			availableFetishes.remove(Fetish.FETISH_FOOT_GIVING);
 			availableFetishes.remove(Fetish.FETISH_FOOT_RECEIVING);
@@ -2565,7 +2566,7 @@ public class CharacterUtils {
 		}
 
 		if (prostitute.hasPenis()) {
-			prostitutePrice += Math.min((prostitute.getBody().getPenis().getRawSizeValue() - 5) * 0.01f, 0.10f); // Penalises small penises, but adds price if penis is large.
+			prostitutePrice += Math.min((prostitute.getBody().getPenis().getRawLengthValue() - 5) * 0.01f, 0.10f); // Penalises small penises, but adds price if penis is large.
 		}
 
 		if (prostitute.getBody().getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) {

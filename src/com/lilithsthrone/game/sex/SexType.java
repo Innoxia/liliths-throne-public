@@ -456,6 +456,8 @@ public class SexType implements XMLSaving {
 				case FETISH_FOOT_RECEIVING:
 					oppositeFetishes.add(Fetish.FETISH_FOOT_GIVING);
 					break;
+				case FETISH_SIZE_QUEEN:
+					break;
 			}
 		}
 		return oppositeFetishes;

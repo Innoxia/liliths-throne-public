@@ -50,9 +50,9 @@ public enum Combat {
 	private static GameCharacter targetedEnemy;
 	private static NPC enemyLeader;
 	
-	private static List<NPC> allies;
-	private static List<NPC> enemies;
-	private static List<NPC> allCombatants;
+	private static List<NPC> allies = new ArrayList<>();
+	private static List<NPC> enemies = new ArrayList<>();
+	private static List<NPC> allCombatants = new ArrayList<>();
 	private static List<GameCharacter> activeCombatants; // A list of combatants who are still active in the fight. This is updated at the very end of each combat turn, and removes characters which have been defeated during the last turn.
 	
 	private static float escapeChance = 0;

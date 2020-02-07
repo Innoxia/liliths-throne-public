@@ -68,7 +68,7 @@ public abstract class AbstractRacialBody {
 
 	// Ass:
 	private AbstractAssType assType;
-	private int anusCapacity;
+	private float anusCapacity;
 	private int anusWetness;
 	private int maleAssSize;
 	private int femaleAssSize;
@@ -84,8 +84,8 @@ public abstract class AbstractRacialBody {
 	private int breastSize;
 	private int maleLactationRate;
 	private int femaleLactationRate;
-	private int femaleBreastCapacity;
-	private int maleBreastCapacity;
+	private float femaleBreastCapacity;
+	private float maleBreastCapacity;
 	private int femaleBreastElasticity;
 	private int maleBreastElasticity;
 	private int femaleBreastPlasticity;
@@ -105,7 +105,7 @@ public abstract class AbstractRacialBody {
 	private NippleShape breastCrotchNippleShape;
 	private int breastCrotchSize;
 	private int breastCrotchLactationRate;
-	private int breastCrotchCapacity;
+	private float breastCrotchCapacity;
 	private int breastCrotchElasticity;
 	private int breastCrotchPlasticity;
 	private int nippleCountPerBreastCrotch;
@@ -162,7 +162,7 @@ public abstract class AbstractRacialBody {
 	
 	// Vagina:
 	private VaginaType vaginaType;
-	private int vaginaCapacity;
+	private float vaginaCapacity;
 	private int vaginaWetness;
 	private int clitSize;
 	private int vaginaElasticity;
@@ -521,7 +521,7 @@ public abstract class AbstractRacialBody {
 		return armRows;
 	}
 	
-	public int getAnusCapacity() {
+	public float getAnusCapacity() {
 		return anusCapacity;
 	}
 
@@ -625,11 +625,11 @@ public abstract class AbstractRacialBody {
 		return maleBreastPlasticity;
 	}
 
-	public int getFemaleBreastCapacity() {
+	public float getFemaleBreastCapacity() {
 		return femaleBreastCapacity;
 	}
 
-	public int getMaleBreastCapacity() {
+	public float getMaleBreastCapacity() {
 		return maleBreastCapacity;
 	}
 
@@ -686,7 +686,7 @@ public abstract class AbstractRacialBody {
 		return breastCrotchLactationRate;
 	}
 
-	public int getBreastCrotchCapacity() {
+	public float getBreastCrotchCapacity() {
 		return breastCrotchCapacity;
 	}
 
@@ -734,7 +734,7 @@ public abstract class AbstractRacialBody {
 		return cumProduction;
 	}
 
-	public int getVaginaCapacity() {
+	public float getVaginaCapacity() {
 		return vaginaCapacity;
 	}
 

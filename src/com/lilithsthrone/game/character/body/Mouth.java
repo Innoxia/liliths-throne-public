@@ -26,7 +26,7 @@ public class Mouth implements BodyPartInterface {
 	protected int lipSize;
 	protected boolean piercedLip;
 
-	public Mouth(MouthType type, int lipSize, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
+	public Mouth(MouthType type, int lipSize, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.lipSize = lipSize;
 		orificeMouth = new OrificeMouth(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
