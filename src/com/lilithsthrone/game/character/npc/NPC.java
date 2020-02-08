@@ -1580,9 +1580,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				}
 				if(target.getWingType() != body.getWing().getType()) {
-					TFModifier wingTypeTFModifier = body.getWing().getType()==WingType.NONE ? TFModifier.REMOVAL : body.getWing().getType().getTFModifier();
 					possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, wingTypeTFModifier, TFPotency.MINOR_BOOST, 1),
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, body.getWing().getType().getTFModifier(), TFPotency.MINOR_BOOST, 1),
 						body.getWing().getType()==WingType.NONE
 							?"Let's get rid of those wings of yours..."
 							:"Ready to grow some new wings?"));

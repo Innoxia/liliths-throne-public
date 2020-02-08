@@ -133,6 +133,9 @@ public enum WingType implements BodyPartTypeInterface {
 				types.add(type);
 			}
 		}
+		if(types.isEmpty()) {
+			types.add(WingType.NONE);
+		}
 		typesMap.put(r, types);
 		return types;
 	}

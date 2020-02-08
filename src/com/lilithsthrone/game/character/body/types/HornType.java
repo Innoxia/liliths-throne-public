@@ -221,10 +221,10 @@ public class HornType {
 				types.add(type);
 			}
 		}
-		typesMap.put(r, types);
 		if(types.isEmpty()) {
 			types.add(HornType.NONE);
 		}
+		typesMap.put(r, types);
 		return types;
 	}
 }
