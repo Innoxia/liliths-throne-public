@@ -985,14 +985,16 @@ public class DebugDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < Subspecies.values().length) {
-				String name = Subspecies.values()[index - 1].getName(null);
+				Subspecies subspecies = Subspecies.values()[index - 1];
+				String name = subspecies.getName(null);
+				
 				return new Response(
 						Util.capitaliseSentence(name),
 						"Set your body as that of "+UtilText.generateSingularDeterminer(name)+" "+name+".",
 						BODY_PART_RACE_RESET){
 					@Override
 					public void effects() {
-						if(Subspecies.values()[index - 1]==Subspecies.HALF_DEMON) {
+						if(subspecies==Subspecies.HALF_DEMON) {
 							Main.game.getPlayer().setSubspeciesOverride(null);
 							Main.game.getPlayer().setBody(
 									CharacterUtils.generateHalfDemonBody(Main.game.getPlayer(), Main.game.getPlayer().getGender(), Subspecies.HUMAN, false),
@@ -1000,18 +1002,25 @@ public class DebugDialogue {
 							System.out.println(Main.game.getPlayer().getSubspeciesOverride());
 							
 						} else {
+							Main.game.getPlayer().setSubspeciesOverride(null);
+							RaceStage stage = responseTab==0
+									?RaceStage.PARTIAL
+									:(responseTab==1
+										?RaceStage.PARTIAL_FULL
+										:(responseTab==2
+											?RaceStage.LESSER
+											:RaceStage.GREATER));
+							
+							if(subspecies==Subspecies.DEMON) {
+								stage = RaceStage.GREATER;
+							}
+							
 							CharacterUtils.reassignBody(
 									Main.game.getPlayer(),
 									Main.game.getPlayer().getBody(),
 									Main.game.getPlayer().getGender(),
-									Subspecies.values()[index - 1],
-									responseTab==0
-										?RaceStage.PARTIAL
-										:(responseTab==1
-											?RaceStage.PARTIAL_FULL
-											:(responseTab==2
-												?RaceStage.LESSER
-												:RaceStage.GREATER)),
+									subspecies,
+									stage,
 									false);
 						}
 						Main.game.getTextEndStringBuilder().append(

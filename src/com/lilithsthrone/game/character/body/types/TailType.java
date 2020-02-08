@@ -24,52 +24,54 @@ import com.lilithsthrone.utils.Util;
  */
 public enum TailType implements BodyPartTypeInterface {
 	
-	NONE(null, Race.NONE, PenetrationGirth.TWO_AVERAGE),
+	NONE(null, Race.NONE, PenetrationGirth.TWO_AVERAGE, 0f),
 
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, PenetrationGirth.ZERO_THIN, TailTag.PREHENSILE, TailTag.SUTABLE_FOR_PENETRATION, TailTag.SLEEP_HUGGING),
-	DEMON_HAIR_TIP(BodyCoveringType.DEMON_COMMON, Race.DEMON, PenetrationGirth.ONE_SLENDER, TailTag.PREHENSILE, TailTag.SLEEP_HUGGING),
-	DEMON_HORSE(BodyCoveringType.HAIR_DEMON, Race.DEMON, PenetrationGirth.TWO_AVERAGE),
+	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, PenetrationGirth.ZERO_THIN, 0.65f, TailTag.PREHENSILE, TailTag.SUTABLE_FOR_PENETRATION, TailTag.SLEEP_HUGGING),
+	DEMON_HAIR_TIP(BodyCoveringType.DEMON_COMMON, Race.DEMON, PenetrationGirth.ONE_SLENDER, 0.65f, TailTag.PREHENSILE, TailTag.SLEEP_HUGGING),
+	DEMON_HORSE(BodyCoveringType.HAIR_DEMON, Race.DEMON, PenetrationGirth.TWO_AVERAGE, 0.3f),
 
-	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, PenetrationGirth.TWO_AVERAGE),
-	DOG_MORPH_STUBBY(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, PenetrationGirth.TWO_AVERAGE),
+	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, PenetrationGirth.TWO_AVERAGE, 0.4f),
+	DOG_MORPH_STUBBY(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, PenetrationGirth.TWO_AVERAGE, 0.1f),
 	
-	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, PenetrationGirth.THREE_THICK, TailTag.SLEEP_HUGGING),
+	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, PenetrationGirth.THREE_THICK, 0.4f, TailTag.SLEEP_HUGGING),
 	
-	FOX_MORPH(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, PenetrationGirth.THREE_THICK, TailTag.SLEEP_HUGGING),
-	FOX_MORPH_MAGIC(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, PenetrationGirth.THREE_THICK, TailTag.PREHENSILE, TailTag.SLEEP_HUGGING),
+	FOX_MORPH(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, PenetrationGirth.THREE_THICK, 0.6f, TailTag.SLEEP_HUGGING),
+	FOX_MORPH_MAGIC(BodyCoveringType.FOX_FUR, Race.FOX_MORPH, PenetrationGirth.THREE_THICK, 0.8f, TailTag.PREHENSILE, TailTag.SLEEP_HUGGING),
 
-	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH, PenetrationGirth.ONE_SLENDER),
+	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH, PenetrationGirth.ONE_SLENDER, 0.35f),
 	
-	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, PenetrationGirth.ONE_SLENDER, TailTag.PREHENSILE, TailTag.SLEEP_HUGGING),
-	CAT_MORPH_SHORT(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, PenetrationGirth.ONE_SLENDER),
-	CAT_MORPH_TUFTED(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, PenetrationGirth.TWO_AVERAGE, TailTag.PREHENSILE, TailTag.SLEEP_HUGGING),
+	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, PenetrationGirth.ONE_SLENDER, 0.8f, TailTag.PREHENSILE, TailTag.SLEEP_HUGGING),
+	CAT_MORPH_SHORT(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, PenetrationGirth.ONE_SLENDER, 0.2f),
+	CAT_MORPH_TUFTED(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, PenetrationGirth.TWO_AVERAGE, 0.2f, TailTag.PREHENSILE, TailTag.SLEEP_HUGGING),
 
-	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, PenetrationGirth.FOUR_FAT, TailTag.SLEEP_HUGGING),
+	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, PenetrationGirth.FOUR_FAT, 1f, TailTag.SLEEP_HUGGING),
 
-	BAT_MORPH(BodyCoveringType.BAT_SKIN, Race.BAT_MORPH, PenetrationGirth.ZERO_THIN),
+	BAT_MORPH(BodyCoveringType.BAT_SKIN, Race.BAT_MORPH, PenetrationGirth.ZERO_THIN, 0.2f),
 	
-	RAT_MORPH(BodyCoveringType.RAT_SKIN, Race.RAT_MORPH, PenetrationGirth.TWO_AVERAGE, TailTag.PREHENSILE, TailTag.SUTABLE_FOR_PENETRATION, TailTag.SLEEP_HUGGING),
+	RAT_MORPH(BodyCoveringType.RAT_SKIN, Race.RAT_MORPH, PenetrationGirth.TWO_AVERAGE, 0.6f, TailTag.PREHENSILE, TailTag.SUTABLE_FOR_PENETRATION, TailTag.SLEEP_HUGGING),
 	
-	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH, PenetrationGirth.THREE_THICK),
+	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH, PenetrationGirth.THREE_THICK, 0.1f),
 	
-	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH, PenetrationGirth.FOUR_FAT, TailTag.PREHENSILE, TailTag.SUTABLE_FOR_PENETRATION, TailTag.SLEEP_HUGGING),
+	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH, PenetrationGirth.FOUR_FAT, 0.6f, TailTag.PREHENSILE, TailTag.SUTABLE_FOR_PENETRATION, TailTag.SLEEP_HUGGING),
 	
-	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, PenetrationGirth.TWO_AVERAGE),
-	HORSE_MORPH_ZEBRA(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, PenetrationGirth.TWO_AVERAGE),
+	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, PenetrationGirth.TWO_AVERAGE, 0.35f),
+	HORSE_MORPH_ZEBRA(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, PenetrationGirth.TWO_AVERAGE, 0.35f),
 
-	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH, PenetrationGirth.TWO_AVERAGE),
+	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH, PenetrationGirth.TWO_AVERAGE, 0.1f),
 	
-	HARPY(BodyCoveringType.FEATHERS, Race.HARPY, PenetrationGirth.THREE_THICK, TailTag.SLEEP_HUGGING);
+	HARPY(BodyCoveringType.FEATHERS, Race.HARPY, PenetrationGirth.THREE_THICK, 0.5f, TailTag.SLEEP_HUGGING);
 
 	private BodyCoveringType skinType;
 	private Race race;
 	private int girth;
 	private List<TailTag> tags;
+	private float lengthAsPercentageOfHeight;
 
-	private TailType(BodyCoveringType skinType, Race race, PenetrationGirth girth, TailTag... tags) {
+	private TailType(BodyCoveringType skinType, Race race, PenetrationGirth girth, float lengthAsPercentageOfHeight, TailTag... tags) {
 		this.skinType = skinType;
 		this.race = race;
 		this.girth = girth.getValue();
+		this.lengthAsPercentageOfHeight = lengthAsPercentageOfHeight;
 		this.tags = new ArrayList<>(Arrays.asList(tags));
 	}
 
@@ -272,6 +274,10 @@ public enum TailType implements BodyPartTypeInterface {
 
 	public int getGirth() {
 		return girth;
+	}
+
+	public float getLengthAsPercentageOfHeight() {
+		return lengthAsPercentageOfHeight;
 	}
 	
 	public String getGirthDescription(GameCharacter owner) {

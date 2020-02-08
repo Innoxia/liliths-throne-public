@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.inventory.clothing;
+package com.lilithsthrone.game.inventory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,16 +7,16 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.5
+ * @version 0.3.6.6
  * @author Innoxia
  */
-public enum ClothingSet {
+public enum SetBonus {
 
 	ENFORCER("Commanding Enforcer",
 			StatusEffect.SET_ENFORCER,
@@ -195,7 +195,7 @@ public enum ClothingSet {
 	private List<Spell> spells;
 	private StatusEffect associatedStatusEffect;
 
-	private ClothingSet(String name, StatusEffect associatedStatusEffect, int numberRequiredForCompleteSet, List<InventorySlot> blockedSlotsCountingTowardsFullSet, List<CombatMove> combatMoves, List<Spell> spells) {
+	private SetBonus(String name, StatusEffect associatedStatusEffect, int numberRequiredForCompleteSet, List<InventorySlot> blockedSlotsCountingTowardsFullSet, List<CombatMove> combatMoves, List<Spell> spells) {
 		this.name = name;
 		this.numberRequiredForCompleteSet = numberRequiredForCompleteSet;
 		

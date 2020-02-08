@@ -2027,6 +2027,13 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.gapeContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"PENETRATION_LIMITATION",
+					Colour.BASE_PINK_DEEP,
+					"Penetration Limitations",
+					"When enabled, orifices will have a limited depth to them, meaning that penetrative objects (penises and tails) can be too long to fit all the way inside.",
+					Main.getProperties().hasValue(PropertyValue.penetrationLimitations)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"FOOT",
 							Colour.BASE_TAN,
 							"Foot Content",

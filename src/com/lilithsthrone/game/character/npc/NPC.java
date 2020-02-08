@@ -44,7 +44,7 @@ import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -1675,7 +1675,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		// Penis:
 		if(body.getPenis().getType()!=PenisType.NONE) {
 			if(this.getGenderPreference()==Gender.F_P_TRAP) {
-				body.getPenis().setPenisSize(null, PenisSize.ONE_TINY.getMedianValue());
+				body.getPenis().setPenisLength(null, PenisLength.ONE_TINY.getMedianValue());
 				body.getPenis().getTesticle().setTesticleSize(null, TesticleSize.ONE_TINY.getValue());
 				body.getPenis().getTesticle().setCumStorage(null, CumProduction.ONE_TRICKLE.getMedianValue());
 			}
@@ -1873,8 +1873,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 			}
 			// Size:
-			if(target.getPenisRawSizeValue() < body.getPenis().getRawSizeValue()) {
-				if(body.getPenis().getRawSizeValue() - target.getPenisRawSizeValue() > 5) {
+			if(target.getPenisRawSizeValue() < body.getPenis().getRawLengthValue()) {
+				if(body.getPenis().getRawLengthValue() - target.getPenisRawSizeValue() > 5) {
 					possibleEffects.add(new PossibleItemEffect(
 						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
 						"Your cock needs to be a lot bigger!"));
@@ -1886,12 +1886,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				}
 				
-			} else if(target.getPenisRawSizeValue() > body.getPenis().getRawSizeValue()) {
-				if(target.getPenisRawSizeValue() - body.getPenis().getRawSizeValue() > 5) {
-					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			} else if(target.getPenisRawSizeValue() > body.getPenis().getRawLengthValue()) {
+				if(target.getPenisRawSizeValue() - body.getPenis().getRawLengthValue() > 5) {
 					possibleEffects.add(new PossibleItemEffect(
 						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
 						"Your cock needs to be a lot smaller!"));
+					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				} else {
 					possibleEffects.add(new PossibleItemEffect(
 						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1),

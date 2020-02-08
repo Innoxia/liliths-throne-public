@@ -5749,15 +5749,65 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"penisSize",
 						"cockSize",
-						"dickSize"),
+						"dickSize",
+						"penisLength",
+						"cockLength",
+						"dickLength"),
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.PENIS){//TODO
+				"Returns the length of the character's penis, in the metric or imperial units as defined in user settings.",
+				BodyPartType.PENIS){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getPenisSize().getDescriptor();
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"penisCircumference",
+						"cockCircumference",
+						"dickCircumference"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the circumference of the character's penis, in the metric or imperial units as defined in user settings."
+						+ " Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.PENIS){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getPenisCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getPenisCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"penisDiameter",
+						"cockDiameter",
+						"dickDiameter",
+						"penisDiametre",
+						"cockDiametre",
+						"dickDiametre"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the diameter of the character's penis, in the metric or imperial units as defined in user settings."
+						+ " Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.PENIS){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getPenisDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getPenisDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 		
@@ -5927,6 +5977,89 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getTailGirthDescriptor();
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tailCircumference"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the circumference of the character's tail, in the metric or imperial units as defined in user settings."
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.TAIL){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getTailCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getTailCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tailDiameter",
+						"tailDiametre"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the diameter of the character's tail, in the metric or imperial units as defined in user settings."
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.TAIL){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getTailDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getTailDiameter(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tailLength",
+						"tailSize"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the length of the character's tail, in the metric or imperial units as defined in user settings."
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.TAIL){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getTailLength(false), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"tailPenetrationLength",
+						"tailPenetrationSize"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the length of the character's tail which is used in penetrations (80% of total length), in the metric or imperial units as defined in user settings."
+						+ "  Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.TAIL){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null) {
+					if(arguments.equals(" ") || arguments.equalsIgnoreCase("true")) {
+						return Units.size(character.getTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG);
+					}
+				}
+				return Units.size(character.getTailLength(true), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
 		

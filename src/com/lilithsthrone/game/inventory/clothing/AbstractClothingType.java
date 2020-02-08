@@ -38,6 +38,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
+import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -103,7 +104,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private Map<InventorySlot, List<BlockedParts>> blockedPartsMap;
 	private Map<InventorySlot, List<InventorySlot>> incompatibleSlotsMap;
 
-	private ClothingSet clothingSet;
+	private SetBonus clothingSet;
 	private Rarity rarity;
 	private List<Colour> availablePrimaryColours;
 	private List<Colour> availablePrimaryDyeColours;
@@ -157,7 +158,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			Femininity femininityRestriction,
 			InventorySlot equipSlot,
 			Rarity rarity,
-			ClothingSet clothingSet,
+			SetBonus clothingSet,
 			String pathName,
 			List<ItemEffect> effects,
 			List<BlockedParts> blockedPartsList,
@@ -253,7 +254,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			Femininity femininityRestriction,
 			List<InventorySlot> equipSlots,
 			Rarity rarity,
-			ClothingSet clothingSet,
+			SetBonus clothingSet,
 			String pathName,
 			Map<InventorySlot, String> pathNameEquipped,
 			List<ItemEffect> effects,
@@ -574,7 +575,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 			this.clothingSet = coreAttributes.getOptionalFirstOf("clothingSet")
 				.filter(filterEmptyElements)
-				.map(Element::getTextContent).map(ClothingSet::valueOf)
+				.map(Element::getTextContent).map(SetBonus::valueOf)
 				.orElse(null);
 
 			
@@ -1233,9 +1234,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return baseValue;
 	}
 
-	static Map<ClothingSet, List<AbstractClothingType>> clothingSetMap = new EnumMap<>(ClothingSet.class);
+	static Map<SetBonus, List<AbstractClothingType>> clothingSetMap = new EnumMap<>(SetBonus.class);
 
-	public static List<AbstractClothingType> getClothingInSet(ClothingSet set) {
+	public static List<AbstractClothingType> getClothingInSet(SetBonus set) {
 		if (clothingSetMap.get(set) != null)
 			return clothingSetMap.get(set);
 
@@ -2185,7 +2186,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return pathNameEquipped.get(invSlot);
 	}
 	
-	public ClothingSet getClothingSet() {
+	public SetBonus getClothingSet() {
 		return clothingSet;
 	}
 

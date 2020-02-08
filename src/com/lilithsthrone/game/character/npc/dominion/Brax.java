@@ -339,7 +339,8 @@ public class Brax extends NPC {
 	public void turnUpdate() {
 		if(this.isSlave() && !this.getOwner().isPlayer() && !Main.game.getCharactersPresent().contains(this)) {
 			if(Main.game.isWorkTime()) {
-				this.returnToHome();
+				this.setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_RECEPTION_DESK, true);
+				
 			} else {
 				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 			}

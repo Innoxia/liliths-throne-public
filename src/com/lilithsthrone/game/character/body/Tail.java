@@ -746,6 +746,23 @@ public class Tail implements BodyPartInterface {
 		
 		return owner.getTailType().getGirthTransformationDescription(owner, girthChange > 0);
 	}
+
+	// Length:
+
+	public int getLength(GameCharacter owner) {
+		return (int) (owner.getHeightValue() * type.getLengthAsPercentageOfHeight());
+	}
+	
+	
+	// Diameter:
+
+	public static float getGenericDiameter(int height, PenetrationGirth girth) {
+		return height * (0.08f + girth.getDiameterPercentageModifier());
+	}
+	
+	public float getDiameter(GameCharacter owner) {
+		return owner.getHeightValue() * (0.08f + this.getGirth().getDiameterPercentageModifier());
+	}
 	
 	@Override
 	public boolean isBestial(GameCharacter owner) {

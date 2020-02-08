@@ -3930,6 +3930,10 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.incestContent);
 	}
 	
+	public boolean isSadisticSexContent() {
+		return Main.getProperties().hasValue(PropertyValue.sadisticSexContent);
+	}
+	
 	public boolean isFacialHairEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.facialHairContent);
 	}
@@ -3976,6 +3980,10 @@ public class Game implements XMLSaving {
 
 	public boolean isGapeContentEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.gapeContent);
+	}
+
+	public boolean isPenetrationLimitationsEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.penetrationLimitations);
 	}
 	
 	public boolean isFootContentEnabled() {

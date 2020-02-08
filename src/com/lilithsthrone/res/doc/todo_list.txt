@@ -64,7 +64,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	
 	Contributors:
 		Added FaceTypeTag enum for improved handling of face features. The 'Bite' special attack is now available to any face type which has a muzzle, fangs, beak, or shark teeth. (PR#1286 by Stadler)
 		Added graceful error handling for if an invalid ItemTag is detected when loading Clothing/Weapons from xml files. (PR#1278 by Stadler)
@@ -76,7 +75,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Altered race tooltip to better reflect knowledge from 'observant', and improved some of the related text in the full appearance description page. (PR#1236 by NoStepOnSneks)
 		Fixed bug where you could become an angel by self-transforming into the appearance of one while being a slime, and then solidifying into flesh via a TF potion. (PR#1292 by NoStepOnSneks)
 		
-	
 	Engine/Code:
 		Tidied up the default enslavement dialogue node and moved related text out into external txt files (into the txt/characters and txt/characters/offspring files).
 		Moved fluid modifier ingestion effects out of GameCharacter's ingestFluid method and into the corresponding FluidModifier Enum values.
@@ -90,12 +88,28 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		'Orgasmic level drain' is now an equippable trait.
 		The 'Hypno watch' which you get from Arthur can now be enchanted to add or remove lisp, stutter, and slovenely speech. (Only works on random NPCs and yourself.)
 	
+	Penetrative size-difference:
+		Changed orifice capacity (and therefore related stretch mechanics) to be based on penetrative objects' diameter, not length.
+		Added calculation for penis diameter, based on a character's penis length, girth, and modifiers (flared gives +5% diameter, tapered gives -5%).
+		Added calculation for tail length, based on a character's height and tail type.
+		Added calculation for tail diameter, based on a character's tail length and girth.
+		Tails now stretch orifices in the same way that penises do.
+		All of the following changes can be toggled off via the content option 'Penetration Limitations' (which is on by default):
+		Internal orifices now have depth values, which are based on the character's height, if they are a taur, and if they have a non-flesh body material. Depth values be seen in the character description page (and in your phone menu's 'body stats' page).
+		Depth values have 'comfortable' and 'uncomfortable' components. Taking an insertion past the 'comfortable' limit will cause severe arousal losses per turn for any non-masochistic character being penetrated.
+		Characters in the 'rough' pace in sex will penetrate past the 'comfortable' depth limit, but all other paces will stop before passing into the 'uncomfortable' depth.
+		Added a 'size-queen' fetish, which makes all depth values for that character's orifices considered to be 'comfortable'.
+		Added 'extra-deep' orifice TF modifier, which doubles the depth of the orifice. This can be applied via the self-TF menu or by crafting TF potions.
+		
 	Sex:
 		NPCs will now use pills during sex, depending on their fetishes, ongoing actions, mouth access, and whether or not they actually have any pills in their inventory.
 		When performing oral on any orifice, the performing character will now swallow fluids previously deposited in that orifice, at a rate of 25ml per turn.
 		NPCs who have the 'orgasmic level drain' perk will no longer choose to drain their slaves or companions.
 		Elementals are now immune to the 'orgasmic level drain' effect.
 		Added intercrural action availability to 'cowgirl' and 'reverse cowgirl' positions.
+		Added 'throat control' sex action for if a character is performing a blowjob and has the 'internal muscles' orifice modifier for their throat.
+		Characters now get +0.5 arousal/turn from an orifice they're penetrating being very tight, instead of -1/turn.
+		Masochists now gain arousal per turn, instead of losing it, while their orifices are being stretched or penetrated too deeply.
 	
 	Other:
 		Added quicksave and quickload buttons in the bottom-right of the game window, which grey-out when unavailable.
@@ -118,9 +132,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added some missing colours to slimes (including metallic colours as unnatural slime dye choices).
 		Added basic tooltips to the buttons in the bottom-left of the game window (to make it a little more obvious that there are hotkey shortcuts for them).
 		Improved formatting of the prices overlaid on item icons when trading in shops.
+		The 'milk maid' clothing set bonus now has a far more powerful alternative version for if your background occupation is that of a maid. (In the same way that the basic 'maid' set bonus is buffed.)
+		Slightly improved formatting of body description screen.
+		Removed '+10 aura' effect from the crossdresser fetish.
 	
 	Bugs:
-		Parsing fixes.
+		Parsing and typo fixes.
 		Fixed issue of the debug menu's self-TF function treating you as though you're a slime even if you weren't one.
 		Fixed bug where a significant amount of unique NPCs would have their core corruption stat reset every time you loaded the game. (This appeared to be most noticeable with Brax.)
 		Fixed issue with defining itemTags in clothing. If an itemTags element without a defined slot was present in the xml file, then itemTags with defined slots would accidentally override its tags (instead of being added on top of what was meant to be slot-independent tags).
@@ -135,7 +152,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		The occupancy ledger now keeps track of when a slave has given birth.
 		Fixed issue where upon loading a saved game, all crotch-milk modifiers, including flavour, would be reset to the same modifiers of the character's main breast milk.
 		After defeating them and driving them off, the demon leaders in the three Submission Fortresses will now correctly re-equip their clothing in time for your next encounter with them.
-		Fixed Rose have the 'prude' personality trait. She now has the 'cowardly' and 'selfish' traits instead.
+		Fixed Rose having the 'prude' personality trait. She now has the 'cowardly' and 'selfish' traits instead.
 		Fixed a reference to the world map being 150 square kilometers, instead of correctly being described as 150km*150km.
 		Fixed bug where Cultists would swallow promiscuity pills which you offered them, even though the text implied that they knocked it out of your hand.
 		Fixed minor parsing issue with item tooltips having a greater height than was needed to fit the displayed information.
@@ -151,34 +168,79 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where the hypno watch could disappear from your inventory upon loading your game.
 		Fixed bug where random characters who used you in the stocks would not disappear after the scene had ended.
 		Fixed issue with incorrect Enforcer races being displayed as being present in Submission's safe path tiles.
-	
-	
-	
-	So I've gotten to where I would recruit Brax and, well, he's no longer here.
-	
-	considering towards having the Maid occupation trait effect the milkmaid's set as well as the other maid/servant sets?
-	
-	debug menu setting demon sets to half-demon?
-	
-	did you fix the issue with the not being able to use Internal Throat Muscles? Im pretty sure a while back there was a Throat Control button. Now its just Anal and Vaginal Control
+		Fixed potential issue with Brax not being found at the Enforcer HQ's reception desk after completing his part of the main quest.
+		Fixed issue with the debug menu's 'race resets' not working correctly for 'half-demon' and 'demon' options. Resetting your race to something other than a demon will now also correctly remove your underlying demon identification.
+		Fixed characters being able to use 'muscle control' sex actions while in the 'resisting' pace.
+		Urethra and nipple internal orifice modifiers (ribbed, muscled, tentacled), are now only applied if the orifice is able to be penetrated.
+		Fixed incorrect name parsing for all orifice modifier addition/removal descriptions, and incorrect references to a character's breasts when modifying crotch-boobs.
+		If you have the related content options turned off, then anal and foot fetishes will no longer show up in your fetish menu, nor in the fetish enchantment options.
+		Fixed several instances where ingesting fluids could throw a background error and potentially cause the game to become unresponsive.
+		
+		
+		
+	Make sure flared gives +5% diameter, tapered gives -5%
+	Make slimes comfort length 4* usual. Add to TF description and subspecies effects
 	
 	Size-difference:
-		Add Tail girth penetration stretch effects (requires capacity rework to calculate length)
-		Add maximum length orifice can take:
-			Comfortably (Gentle and normal limit)
-			Painfully (Rough & sadist limit)
-		Make stretch just a factor of girth (so larger cocks still stretch more, but it's independent of how much length they take)
-		Need to make minimum stretch higher, or based on elasticity, as it goes on for too long when nearing max stretch
-		Knot Her/Him option should assist in gaping whichever orifice is being knotted
+		[x] Add toggle (penetration limitations) on by default
+		[x] Extra-deep modifier needs TF support
+		[x] Add depth number to body stats and body description
+		[x] Add explanation of mechanics in body stats
+		[x] taurs need deeper vagina/anus holes (Add to body stats description) +50% base depth
+		[x] Also based on body material. Slime has infinite length capacity and quadruple comfortable length.
+		[x] TF orifice modifier "extra deep" to double comfortable depth
+			[x] Demon/horse/squirrel naturally have deep channels
+		[x] Fetish "Size Queen": Incorporates painful into comfortable depth
+		[x] Update body description (non-flesh has infinite uncomfortable)
+			[x] Virginity should be gold
+			[x] Vagina doesn't say capacity when virgin
+		[x] need plural units argument for parsing lengths
+		[] Add girth and modifiers (knot, tapering, flare) description somewhere (self-tf menu? Enchantment menu?)
+		[x] Add circumference of cock and tail in body description
+			[x] and phone menu
+			[x] diameter instead of circumference seems easier to understand
+			[x] convert Capacity to use diameter, not length
+			[x] add tail length
+			[x] Need to alter existing Capacity calculations and any descriptions
+			[x] Need to alter loading of old base capacities (they are all based on lengths)
+			[x] alter RacialBody capacity generation values
+		[x] Stretch effects are broken with change to capacity
+		[x] Need tails to stretch as well
+		[x] (Old) Need to make minimum stretch higher, or based on elasticity, as it goes on for too long when nearing max stretch
+		[x] Add sex effects
+			[x] Initial penetration depth text
+				[] Description of stomach bulges where applicable from the 'uncomfortable' portion of depth
+				[x] GameCharacter.getPenetrationDescription()
+					[x] Fix instances like: "The birb lets out a desperate moan as she feels the fat knot at the base of your cock bump up against her asshole as you fully penetrate her in one thrust"
+					[] Initial penetration needs to describe if penetrating object is too thick
+			[] Need ongoing too deep or too shallow text similar to stretch.
+			[x] Need ongoing too deep or too shallow text in status effect ongoing extra description.
+			[x] Tail penetration amount is 80%.
+			[] Reference 80% value somewhere.
+			[x] status effect icon and arousal modifiers
+				[x] -arousal for penetrating character when orifice is not deep enough
+				[x] -large amount of arousal for if the orifice character is being uncomfortably penetrated (or +arousal if masochist)
+			[] Make it clearer when holding back from causing discomfort in both initial and repeat text
+			[] knot gives +50% circumference at base
+				[] Knot Her/Him option should assist in gaping whichever orifice is being knotted
+			[] Need better stretch colour for text
+			[] Make it so characters cannot knot if orifice is not deep enough
+			[] Make reveal reactions take into account length in relation to depth of their main orifice
+			[] Need description when transitioning from normal to rough and start fully penetrating and the other way around
+		[] Add tail length modifier TFs
+		[] Only describe orifices as deep if they have the extra deep modifier
+		[] Add orifice depth modifier to taur and slime status effect.
 	
+	
+	Changing options mid-sex resets dialogue scroll index?
+	
+	Bug report with the quick sex option. On tracking after using it on a npc once. It says you had sex with them 3 times. If you use it twice 6, 3 times, 9 etc.
 	
 	When you activate the resonance stone, there's no mention of Shadow activating hers, but she acts as though she did later on
 	
 	If you use the stone to call SWORD are they supposed to give the same response and get lectured by Claire as if you just storm the place
 	
 	Tried the non violent, not walk in and kick everyone's ass way. Seduced the rat boi, dominated him, can't end sex because the button's gone, have to click the quick option
-	
-	I also found that I can't free the milk slaves even though I've cleared out the warrens aside from Vinegar or get rid of Murk, and when I back out of the room he gives me dialogue like I paid to get in. Also can't loot the Dormitories either.
 	
 	
 	Add Murk's and Vengar's post-quest completion placeholders
@@ -190,6 +252,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	
+	
+	add throat wetness, capacity, elastiscity, and plastiscity to the self-TF menu
 	
 	Add mute character variations for random encounters
 	
@@ -422,6 +486,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	just re-read the wrist restaints I wanted to use for Scarlet.  States it blocks arm-wing flight, but yet I can't put them on arm-wings.
 	
 	half-demon horse morphs still don't have access to pegasus wings in the tf menu.
+	
+	Being able to fly should allow you to escape combat easier
 	
 	Youko scientist: you can talk to her, be TF'd by her, and eat her out but when Meraxis brings her up the player goes "Who?"
 	

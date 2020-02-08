@@ -714,6 +714,13 @@ public enum TFModifier {
 			Colour.BASE_MAGENTA,
 			Rarity.COMMON),
 	
+	TF_MOD_ORIFICE_DEEP("extra-deep",
+			"Applies an effect related to making an orifice extra deep.",
+			"deepened",
+			"modifier_circle_orifice_deep",
+			Colour.BASE_GREY,
+			Rarity.COMMON),
+	
 	TF_MOD_ORIFICE_PUFFY_2("puffiness II",
 			"Applies an effect related to making an orifice puffy.",
 			"puffy",
@@ -740,6 +747,13 @@ public enum TFModifier {
 			"muscled",
 			"modifier_circle_orifice_muscled",
 			Colour.BASE_PURPLE,
+			Rarity.COMMON),
+	
+	TF_MOD_ORIFICE_DEEP_2("extra-deep II",
+			"Applies an effect related to making an orifice extra deep.",
+			"deepened",
+			"modifier_circle_orifice_deep",
+			Colour.BASE_BLACK,
 			Rarity.COMMON),
 	
 	// eye shapes:
@@ -1286,6 +1300,7 @@ public enum TFModifier {
 	TF_MOD_FETISH_BIMBO(Fetish.FETISH_BIMBO),
 	TF_MOD_FETISH_KINK_GIVING(Fetish.FETISH_KINK_GIVING),
 	TF_MOD_FETISH_KINK_RECEIVING(Fetish.FETISH_KINK_RECEIVING),
+	TF_MOD_FETISH_SIZE_QUEEN(Fetish.FETISH_SIZE_QUEEN),
 	;
 
 	private static List<TFModifier> TFModStrengthList = new ArrayList<>();
@@ -1409,6 +1424,7 @@ public enum TFModifier {
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_INCEST);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_KINK_GIVING);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_KINK_RECEIVING);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_SIZE_QUEEN);
 
 		clothingPrimaryList.add(TFModifier.CLOTHING_MAJOR_ATTRIBUTE);
 		clothingPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
@@ -1672,11 +1688,24 @@ public enum TFModifier {
 	}
 
 	public static List<TFModifier> getTFBodyPartFetishList() {
-		return TFBodyPartFetishList;
+		List<TFModifier> returnList = new ArrayList<>(TFBodyPartFetishList);
+		if(!Main.game.isAnalContentEnabled()) {
+			returnList.remove(TFModifier.TF_MOD_FETISH_ANAL_GIVING);
+			returnList.remove(TFModifier.TF_MOD_FETISH_ANAL_RECEIVING);
+		}
+		if(!Main.game.isFootContentEnabled()) {
+			returnList.remove(TFModifier.TF_MOD_FETISH_FOOT_GIVING);
+			returnList.remove(TFModifier.TF_MOD_FETISH_FOOT_RECEIVING);
+		}
+		return returnList;
 	}
 	
 	public static List<TFModifier> getTFBehaviouralFetishList() {
-		return TFBehaviouralFetishList;
+		List<TFModifier> returnList = new ArrayList<>(TFBehaviouralFetishList);
+		if(!Main.game.isPenetrationLimitationsEnabled()) {
+			returnList.remove(TFModifier.TF_MOD_FETISH_SIZE_QUEEN);
+		}
+		return returnList;
 	}
 
 	public Fetish getFetish() {

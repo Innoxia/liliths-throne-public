@@ -33,9 +33,9 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
+import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
-import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
@@ -71,7 +71,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return authorDescription;
 	}
 
-	private ClothingSet clothingSet;
+	private SetBonus clothingSet;
 	private Rarity rarity;
 	private float physicalResistance;
 	
@@ -129,7 +129,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			String pathNameEquipped,
 			Rarity rarity,
 			float physicalResistance,
-			ClothingSet clothingSet,
+			SetBonus clothingSet,
 			List<DamageType> availableDamageTypes,
 			int damage,
 			int arcaneCost,
@@ -193,7 +193,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			String pathNameEquipped,
 			Rarity rarity,
 			float physicalResistance,
-			ClothingSet clothingSet,
+			SetBonus clothingSet,
 			List<DamageType> availableDamageTypes,
 			int damage,
 			int arcaneCost,
@@ -401,7 +401,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 				this.clothingSet = coreAttributes.getOptionalFirstOf("weaponSet")
 					.filter(filterEmptyElements)
-					.map(Element::getTextContent).map(ClothingSet::valueOf)
+					.map(Element::getTextContent).map(SetBonus::valueOf)
 					.orElse(null);
 
 				this.effects = coreAttributes
@@ -899,7 +899,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return physicalResistance;
 	}
 
-	public ClothingSet getClothingSet() {
+	public SetBonus getClothingSet() {
 		return clothingSet;
 	}
 

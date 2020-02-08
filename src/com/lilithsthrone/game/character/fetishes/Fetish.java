@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.?
- * @version 0.1.99
+ * @version 0.3.6.6
  * @author Innoxia
  */
 public enum Fetish {
@@ -1094,6 +1094,7 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 2)),
 			Util.newArrayListOfValues(
+					"[style.boldSex(Enjoys)] [style.boldTerrible(painful sex actions)]",
 					"25% of all incoming",
 					"<span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>"+Attribute.HEALTH_MAXIMUM.getName()+" damage</span>"+ " is converted",
 					" to <span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>",
@@ -1103,10 +1104,8 @@ public enum Fetish {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You love pain, and being treated like dirt sends you absolutely wild with lust.";
-			else
-				return UtilText.parse(owner, "[npc.Name] has a fetish for being treated like a worthless slut.");
+			return UtilText.parse(owner, "[npc.Name] [npc.verb(get)] extremely turned on when subjected to painful or humiliating experiences."
+					+ " [npc.She] [npc.verb(find)] [npc.herself] getting aroused whenever [npc.her] orifices are stretched out or penetrated too deeply.");
 		}
 
 		@Override
@@ -1384,17 +1383,13 @@ public enum Fetish {
 			"fetish_cross_dresser",
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 10)),
+			null,
 			Util.newArrayListOfValues("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Immune to clothing femininity status effects</span>"),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You love wearing all manner of different clothing, and you don't really care if it's too masculine or feminine for your body.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] loves wearing all manner of different clothing, and [npc.she] doesn't really care if it's too masculine or feminine for [npc.her] body.");
-			}
+			return UtilText.parse(owner, "[npc.Name] [npc.verb(love)] wearing all manner of different clothing, and [npc.she] [npc.do]n't care if it's considered by others to be too masculine or feminine for [npc.her] body.");
 		}
 
 		@Override
@@ -1405,6 +1400,34 @@ public enum Fetish {
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.ONE_VANILLA;
+		}
+	},
+	
+	FETISH_SIZE_QUEEN(60,
+			"size queen",
+			"size queen",
+			"fetish_size_queen",
+			FetishExperience.BASE_EXPERIENCE_GAIN,
+			Util.newArrayListOfValues(Colour.BASE_YELLOW, Colour.BASE_PINK),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 1)),
+			Util.newArrayListOfValues(
+					"[style.colourSex(Treats 'uncomfortably deep' insertions as being 'comfortable')]"),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.Name] [npc.verb(prefer)] [npc.her] partners to be extremely well-endowed, and [npc.verb(love)] to feel them as deep inside of [npc.herHim] as physically possible.");
+		}
+
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "taking large insertions");
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.THREE_DIRTY;
 		}
 	},
 	
@@ -1584,7 +1607,7 @@ public enum Fetish {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private Fetish(
 			int renderingPriority,
 			String name,
@@ -1592,6 +1615,27 @@ public enum Fetish {
 			String pathName,
 			FetishExperience experienceGainFromSexAction,
 			Colour colourShade,
+			HashMap<Attribute, Integer> attributeModifiers,
+			List<String> extraEffects,
+			List<Fetish> fetishesForAutomaticUnlock) {
+		this(renderingPriority,
+				name,
+				shortDescriptor,
+				pathName,
+				experienceGainFromSexAction,
+				Util.newArrayListOfValues(colourShade),
+				attributeModifiers,
+				extraEffects,
+				fetishesForAutomaticUnlock);
+	}
+	
+	private Fetish(
+			int renderingPriority,
+			String name,
+			String shortDescriptor,
+			String pathName,
+			FetishExperience experienceGainFromSexAction,
+			List<Colour> colourShade,
 			HashMap<Attribute, Integer> attributeModifiers,
 			List<String> extraEffects,
 			List<Fetish> fetishesForAutomaticUnlock) {
@@ -1618,7 +1662,7 @@ public enum Fetish {
 					System.err.println("Error! Fetish icon file does not exist (Trying to read from '"+pathName+"')!");
 				}
 				SVGString = Util.inputStreamToString(is);
-				SVGString = SvgUtil.colourReplacement(this.toString(), colourShade, SVGString);
+				SVGString = SvgUtil.colourReplacement(this.toString(), colourShade.get(0), colourShade.size()>=2?colourShade.get(1):null, colourShade.size()>=3?colourShade.get(2):null, SVGString);
 				is.close();
 			} catch (IOException e) {
 				e.printStackTrace();
