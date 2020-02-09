@@ -214,6 +214,10 @@ public class Horn implements BodyPartInterface {
 		this.length = Math.max(0, Math.min(length, HornLength.FOUR_MASSIVE.getMaximumValue()));
 		int sizeChange = this.length - oldLength;
 		
+		if (owner==null) {
+			return "";
+		}
+		
 		if(owner.getHornType().equals(HornType.NONE)) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] [npc.do]n't have any horns, so nothing seems to happen...)]</p>");
 		}

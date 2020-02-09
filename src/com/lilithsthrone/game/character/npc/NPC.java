@@ -1568,6 +1568,18 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							?"Let's get rid of those horns of yours..."
 							:"Ready to grow some new horns?"));
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				} else if (target.getHornType() != HornType.NONE) {
+					if(target.getHornLength() + 3 < body.getHorn().getHornLengthValue()) {
+						possibleEffects.add(new PossibleItemEffect(
+							new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
+							"Let's make your horn" + ((target.getHornsPerRow() * target.getHornRows()) > 1 ? "s" : "") + " longer!"));
+						if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+					} else if(target.getHornLength() - 3 > body.getHorn().getHornLengthValue()) {
+						possibleEffects.add(new PossibleItemEffect(
+							new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
+							"Let's make your horn" + ((target.getHornsPerRow() * target.getHornRows()) > 1 ? "s" : "") + " shorter!"));
+						if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+					}
 				}
 				if(target.getTailType() != body.getTail().getType()
 						&& target.getTailType()!=TailType.FOX_MORPH_MAGIC
