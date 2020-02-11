@@ -5382,8 +5382,8 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
-			return cumAmount >= Math.pow((Math.cbrt(10) * (target.getBreastSize().getMeasurement() / 3) + 1), 3)
-					&& cumAmount < Math.pow((Math.cbrt(20) * (target.getBreastSize().getMeasurement() / 3) + 1), 3)
+			return cumAmount >= Math.pow(((Math.cbrt(10)/182.88)*target.getHeightValue())*((target.getBreastSize().getMeasurement()/3)+1),3)
+					&& cumAmount < Math.pow(((Math.cbrt(20)/182.88)*target.getHeightValue())*((target.getBreastSize().getMeasurement()/3)+1),3)
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
@@ -5422,8 +5422,8 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
-			return cumAmount >= Math.pow((Math.cbrt(20) * (target.getBreastSize().getMeasurement() / 3) + 1), 3)
-					&& cumAmount < Math.pow((Math.cbrt(30) * (target.getBreastSize().getMeasurement() / 3) + 1), 3)
+			return cumAmount >= Math.pow(((Math.cbrt(20)/182.88)*target.getHeightValue())*((target.getBreastSize().getMeasurement()/3)+1),3)
+					&& cumAmount < Math.pow(((Math.cbrt(30)/182.88)*target.getHeightValue())*((target.getBreastSize().getMeasurement()/3)+1),3)
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
@@ -5462,7 +5462,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
-			return cumAmount >= Math.pow((Math.cbrt(30) * (target.getBreastSize().getMeasurement() / 3) + 1), 3)
+			return cumAmount >= Math.pow(((Math.cbrt(30)/182.88)*target.getHeightValue())*((target.getBreastSize().getMeasurement()/3)+1),3)
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		
