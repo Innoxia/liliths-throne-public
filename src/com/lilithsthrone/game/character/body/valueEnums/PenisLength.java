@@ -9,7 +9,7 @@ import com.lilithsthrone.utils.Colour;
  * @version 0.1.83
  * @author Innoxia
  */
-public enum PenisSize {
+public enum PenisLength {
 	/**Utility*/
 	NEGATIVE_UTILITY_VALUE("N/A", -1, -1, Colour.GENERIC_SIZE_ONE),
 
@@ -41,7 +41,7 @@ public enum PenisSize {
 	private String descriptor;
 	private Colour colour;
 
-	private PenisSize(String descriptor, int minimumValue, int maximumValue, Colour colour) {
+	private PenisLength(String descriptor, int minimumValue, int maximumValue, Colour colour) {
 		this.descriptor = descriptor;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
@@ -60,8 +60,8 @@ public enum PenisSize {
 		return minimumValue + ((maximumValue - minimumValue) / 2);
 	}
 
-	public static PenisSize getPenisSizeFromInt(int cm) {
-		for(PenisSize ps : PenisSize.values()) {
+	public static PenisLength getPenisLengthFromInt(int cm) {
+		for(PenisLength ps : PenisLength.values()) {
 			if(cm>=ps.getMinimumValue() && cm<ps.getMaximumValue()) {
 				return ps;
 			}

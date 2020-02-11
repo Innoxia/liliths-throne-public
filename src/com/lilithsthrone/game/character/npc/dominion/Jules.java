@@ -85,6 +85,10 @@ public class Jules extends NPC {
 				PlaceType.WATERING_HOLE_ENTRANCE,
 				true);
 		
+		if(!isImported) {
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 35);
+		}
+		
 	}
 	
 	@Override
@@ -109,7 +113,6 @@ public class Jules extends NPC {
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_SLUT);
-		this.setAttribute(Attribute.MAJOR_CORRUPTION, 35);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(Perk.UNARMED_DAMAGE),

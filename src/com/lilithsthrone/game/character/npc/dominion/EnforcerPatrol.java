@@ -92,8 +92,8 @@ public class EnforcerPatrol extends NPC {
 						break;
 					// Regular spawns:
 					default:
-						if(Subspecies.getWorldSpecies().get(WorldType.DOMINION).containsKey(s)) {
-							Subspecies.addToSubspeciesMap((int) (1000 * Subspecies.getWorldSpecies().get(WorldType.DOMINION).get(s).getChanceMultiplier()), gender, s, availableRaces);
+						if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
+							Subspecies.addToSubspeciesMap((int) (1000 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 						}
 				}
 			}

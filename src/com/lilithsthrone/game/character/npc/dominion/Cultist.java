@@ -284,123 +284,49 @@ public class Cultist extends NPC {
 		return "in her chapel";
 	}
 
-	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
-		// Player is using an item:
-		if(user.isPlayer()){
-			// Player uses item on themselves:
-			if(target.isPlayer()) {
-				return Main.game.getPlayer().useItem(item, target, false);
-				
-			// Player uses item on NPC:
-			} else {
-				if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
-					if(Main.sex.isDom(Main.game.getPlayer())) {
-						Main.game.getPlayer().useItem(item, target, false);
-						return "<p>"
-								+ "Holding out a 'Promiscuity pill' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
+	@Override
+	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
+		if(user.isPlayer() && !target.isPlayer()) {
+			if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
+				if(Main.sex.isDom(Main.game.getPlayer())) {
+					Main.game.getPlayer().useItem(item, target, false);
+					return new Value<>(true,
+							"<p>"
+								+ "Holding out a '[#ITEM_PROMISCUITY_PILL.getName(false)]' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
 								+ " [npc.She] lets out an angry huff, but as [npc.sheIs] in no position to refuse, [npc.she] reluctantly does as you ask,"
 								+ " [npc.speech(This is an insult to Lilith herself...)]"
-								+ "</p>";
-					} else {
-						Main.game.getPlayer().useItem(item, target, false);
-						return "<p>"
-								+ "Holding out a 'Promiscuity pill' to [npc.name], you ask [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
+							+ "</p>");
+				} else {
+					itemOwner.removeItemByType(ItemType.PROMISCUITY_PILL);
+					return new Value<>(true,
+							"<p>"
+								+ "Holding out a '[#ITEM_PROMISCUITY_PILL.getName(false)]' to [npc.name], you ask [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
 								+ " With an angry huff, [npc.she] slaps the pill out of your hand,"
 								+ " [npc.speech(How dare you! Lilith demands that her followers' seed remain strong!)]"
-								+ "</p>";
-					}
-						
-				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
-					Main.game.getPlayer().useItem(item, target, false);
-					if(Main.sex.isDom(Main.game.getPlayer())) {
-						return "<p>"
-									+ "Holding out a 'Vixen's Virility' to [npc.name], you tell [npc.her] to swallow it."
-									+ " [npc.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
-									+ " [npc.speech(Thank you! Being as fertile as possible is one of the best ways in which to worship Lilith!)]"
-								+ "</p>";
-					} else {
-						return "<p>"
-									+ "Holding out a 'Vixen's Virility' to [npc.name], you ask [npc.her] to swallow it."
-									+ " [npc.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
-									+ " [npc.speech(Good toy! Being as fertile as possible is one of the best ways in which to worship Lilith!)]"
-								+ "</p>";
-					}
-						
-				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR)) {
+							+ "</p>");
+				}
 					
-					if(Main.sex.isDom(Main.game.getPlayer())) {
-						Main.game.getPlayer().removeItem(item);
-						return "<p>"
-									+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
-									+ " Seeing what you're offering [npc.herHim], [npc.she] lets out a little laugh, "
-									+ " [npc.speech(Hah! Don't you know demons can't be transfo~Mrph!~)]"
-								+ "</p>"
-									+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and rather unceremoniously shove the neck down [npc.her] throat."
-									+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.her] go."
-									+ " [npc.She] coughs and splutters for a moment, before letting out an annoyed cry as [npc.she] wipes the liquid from [npc.her] mouth,"
-									+ " [npc.speech(W-what did I just say? Demons can't be transformed like that! But the taste is kinda nice I suppose...)]"
-								+ "</p>";
-					} else {
-						return "<p>"
-									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]<br/>"
-									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.sheIs] not interested."
-								+ "</p>";
-					}
+			} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+				Main.game.getPlayer().useItem(item, target, false);
+				if(Main.sex.isDom(Main.game.getPlayer())) {
+					return new Value<>(true,
+							"<p>"
+								+ "Holding out a '[#ITEM_VIXENS_VIRILITY.getName(false)]' to [npc.name], you tell [npc.her] to swallow it."
+								+ " [npc.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
+								+ " [npc.speech(Thank you! Being as fertile as possible is one of the best ways in which to worship Lilith!)]"
+							+ "</p>");
 					
-				} else if(item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED)) {
-					
-					if(Main.sex.isDom(Main.game.getPlayer())) {
-						Main.game.getPlayer().removeItem(item);
-						return "<p>"
-									+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
-									+ " Seeing what you're offering [npc.herHim], [npc.she] lets out a little laugh, "
-									+ " [npc.speech(Hah! Don't you know demons can't be transfo~Mrph!~)]"
-								+ "</p>"
-									+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and rather unceremoniously shove the neck down [npc.her] throat."
-									+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to down all of the liquid before finally letting [npc.her] go."
-									+ " [npc.She] coughs and splutters for a moment, before letting out a lewd little cry as [npc.she] wipes the liquid from [npc.her] mouth,"
-									+ " [npc.speech(W-Wait! That was a fetish transformative?! I feel... hot...)]"
-								+ "</p>"
-								+ Main.game.getPlayer().useItem(item, target, false);
-					} else {
-						return "<p>"
-									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-									+ " [npc.speech(Hah! Nice try, but do you really expect me to drink some random potion?!)]<br/>"
-									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.sheIs] not interested."
-								+ "</p>";
-					}
-					
-				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
-					if(Main.sex.isDom(Main.game.getPlayer())) {
-						return "<p>"
-									+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
-									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
-									+ " [npc.speech(W-What are you going to do with th-~Mrph!~)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Not liking the start of [npc.her] response, you quickly shove the eggplant into [npc.her] mouth, grinning as you force [npc.herHim] to eat the purple fruit..."
-								+ "</p>"
-								+Main.game.getPlayer().useItem(item, target, false, true);
-					} else {
-						return "<p>"
-									+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-									+ " [npc.speech(Hah! Did you really think I was going to eat that?!)]<br/>"
-									+ "You reluctantly put the "+item.getName()+" back in your inventory, disappointed that [npc.sheIs] not interested."
-								+ "</p>";
-					}
-						
 				} else {
-					return "<p>"
-								+ "You try to give [npc.name] "+item.getItemType().getDeterminer()+" "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
-							+ "</p>";
+					return new Value<>(true,
+							"<p>"
+								+ "Holding out a '[#ITEM_VIXENS_VIRILITY.getName(false)]' to [npc.name], you ask [npc.her] to swallow it."
+								+ " [npc.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
+								+ " [npc.speech(Good toy! Being as fertile as possible is one of the best ways in which to worship Lilith!)]"
+							+ "</p>");
 				}
 			}
-			
-		// NPC is using an item:
-		} else {
-			return this.useItem(item, target, false);
 		}
+		return super.getItemUseEffects(item, itemOwner, user, target);
 	}
 	
 	public String getSpellDescription() {

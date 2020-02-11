@@ -129,6 +129,8 @@ public class ImpAttacker extends NPC {
 			initHealthAndManaToMax();
 			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 		}
+		
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 	}
 	
 	@Override
@@ -267,18 +269,13 @@ public class ImpAttacker extends NPC {
 	public DialogueNode getEncounterDialogue() {
 		return TunnelImpsDialogue.IMP_ATTACK;
 	}
-	
+
 	@Override
-	public DialogueNode getEnslavementDialogue(AbstractClothing enslavementClothing) {
-		SlaveDialogue.setEnslavementTarget(this);
-		this.enslavementClothing = enslavementClothing;
-		
-		if(this.getWorldLocation()==WorldType.SUBMISSION) { //TODO handle enslavement in fortresses
-			if(Main.game.getCharactersPresent(this.getCell()).stream().filter((character) -> character instanceof ImpAttacker).count()<=1) { //TODO Add support for enslavement of imp groups
-				return TunnelImpsDialogue.IMP_ENSLAVEMENT_DIALOGUE;
-			}
-		}
-		return null;
+	public boolean isAbleToBeEnslaved() {
+		return this.getWorldLocation()!=WorldType.IMP_FORTRESS_ALPHA
+				&& this.getWorldLocation()!=WorldType.IMP_FORTRESS_DEMON
+				&& this.getWorldLocation()!=WorldType.IMP_FORTRESS_FEMALES
+				&& this.getWorldLocation()!=WorldType.IMP_FORTRESS_MALES;
 	}
 	
 	// Combat:

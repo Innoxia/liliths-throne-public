@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -44,6 +45,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfF
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailMouth;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
@@ -137,12 +139,12 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	 * - orgasm
 	 */
 	@Override
-	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
+	public SexActionInterface getPartnerSexAction(NPC partner, SexActionInterface sexActionPlayer) {
 		
 		possibleActions.clear();
 		bannedActions.clear();
 		
-		NPC partner = (NPC) Main.sex.getCharacterPerformingAction();
+//		NPC partner = (NPC) Main.sex.getCharacterPerformingAction();
 
 		List<SexActionInterface> availableActions = Main.sex.getAvailableSexActionsPartner();
 		
@@ -399,7 +401,20 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		}
 		
 		
-		// --- Priority 5 | Ban actions that make no sense for the partner to perform ---
+		// --- Priority 5 | Using special items ---
+
+		for(GameCharacter character : Main.sex.getAllParticipants()) {
+			if(!character.isPlayer()) {
+				Value<AbstractItem, String> sexItemValue = partner.getSexItemToUse(character);
+				if(sexItemValue!=null) {
+					Main.sex.setItemUseInformation(partner, character, sexItemValue.getKey());
+					return SexActionUtility.PARTNER_USE_ITEM;
+				}
+			}
+		}
+		
+		
+		// --- Priority 6 | Ban actions that make no sense for the partner to perform ---
 		
 		// Ban all penetrations if the partner is a virgin in the associated orifice:
 		for(SexActionInterface action : availableActions) {
@@ -501,7 +516,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		
 		
-		// --- Priority 6 | Perform actions based on foreplay or sex ---
+		// --- Priority 7 | Perform actions based on foreplay or sex ---
 		
 		// Perform foreplay action if arousal is < 25 and haven't orgasmed yet:
 		SexAction actionToPerform = null;
@@ -518,7 +533,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			}
 		}
 
-		// --- Priority 7 using other options at random ---
+		// --- Priority 8 using other options at random ---
 		possibleActions.addAll(availableActions);
 
 		possibleActions.removeAll(bannedActions);

@@ -45,6 +45,8 @@ public enum PropertyValue {
 	bodyHairContent(false),
 	assHairContent(false),
 	feminineBeardsContent(false),
+	furryHairContent(true),
+	scalyHairContent(false),
 	
 	lactationContent(true),
 	cumRegenerationContent(true),
@@ -53,6 +55,7 @@ public enum PropertyValue {
 	analContent(true),
 	footContent(true),
 	gapeContent(true),
+	penetrationLimitations(true),
 	
 	futanariTesticles(true),
 	bipedalCloaca(true),

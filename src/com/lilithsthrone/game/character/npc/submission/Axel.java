@@ -30,7 +30,7 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
@@ -83,7 +83,10 @@ public class Axel extends NPC {
 				36, Month.JANUARY, 10,
 				15, Gender.M_P_MALE, Subspecies.ALLIGATOR_MORPH, RaceStage.GREATER,
 				new CharacterInventory(30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE, true);
-
+		
+		if(!isImported) {
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 15);
+		}
 	}
 	
 	@Override
@@ -112,8 +115,6 @@ public class Axel extends NPC {
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		this.setAttribute(Attribute.MAJOR_CORRUPTION, 15);
-		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(
@@ -212,7 +213,7 @@ public class Axel extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenetrationGirth.FOUR_FAT);
-		this.setPenisSize(PenisSize.FOUR_HUGE);
+		this.setPenisSize(PenisLength.FOUR_HUGE);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
 		this.fillCumToMaxStorage();
@@ -291,7 +292,7 @@ public class Axel extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenetrationGirth.TWO_AVERAGE);
-		this.setPenisSize(PenisSize.TWO_AVERAGE.getMedianValue());
+		this.setPenisSize(PenisLength.TWO_AVERAGE.getMedianValue());
 		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
 		this.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue());
 		this.fillCumToMaxStorage();
@@ -305,7 +306,7 @@ public class Axel extends NPC {
 		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
 	}
 
-	public void applyFeminisation(PenetrationGirth penisGirth, PenisSize penisSize, TesticleSize testicleSize, CumProduction cumProduction) {
+	public void applyFeminisation(PenetrationGirth penisGirth, PenisLength penisSize, TesticleSize testicleSize, CumProduction cumProduction) {
 		this.setHeight(170);
 		this.setFemininity(80);
 		this.setMuscle(Muscle.TWO_TONED.getMedianValue());

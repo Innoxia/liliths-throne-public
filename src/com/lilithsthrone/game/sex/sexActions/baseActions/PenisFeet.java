@@ -108,7 +108,7 @@ public class PenisFeet {
 
 			if(Main.sex.getCharacterTargetedForSexAction(this).getLegType().getFootType().equals(FootType.TALONS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						"[npc.Eagerly(curling)] [npc2.namePos] bird-like feet around [npc.her] [npc.cock+], [npc.name] makes sure that [npc2.her] sharp talons are pointing away from [npc.her] genitals,"
+						"[npc.Eagerly(curling)] [npc2.namePos] bird-like feet around [npc.her] [npc.cock+], [npc.name] [npc.verb(make)] sure that [npc2.her] sharp talons are pointing away from [npc.her] genitals,"
 										+ " before thrusting [npc.her] [npc.hips] forwards and starting to receive a [npc2.footjob].",
 	
 								"[npc.Name] [npc.verb(rub)] the [npc.cockHead+] of [npc.her] [npc.cock] up against [npc2.namePos] soles,"

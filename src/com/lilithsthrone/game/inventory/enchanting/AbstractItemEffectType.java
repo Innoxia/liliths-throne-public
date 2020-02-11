@@ -58,7 +58,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
@@ -198,7 +198,10 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_ORIFICE_PUFFY,
 						TFModifier.TF_MOD_ORIFICE_RIBBED,
 						TFModifier.TF_MOD_ORIFICE_MUSCLED,
-						TFModifier.TF_MOD_ORIFICE_TENTACLED
+						TFModifier.TF_MOD_ORIFICE_TENTACLED,
+						Main.game.isPenetrationLimitationsEnabled()
+							?TFModifier.TF_MOD_ORIFICE_DEEP
+							:null
 						);
 			case TF_ARMS:
 				return Util.newArrayListOfValues(
@@ -218,7 +221,10 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_ORIFICE_PUFFY,
 						TFModifier.TF_MOD_ORIFICE_RIBBED,
 						TFModifier.TF_MOD_ORIFICE_MUSCLED,
-						TFModifier.TF_MOD_ORIFICE_TENTACLED
+						TFModifier.TF_MOD_ORIFICE_TENTACLED,
+						Main.game.isPenetrationLimitationsEnabled()
+							?TFModifier.TF_MOD_ORIFICE_DEEP
+							:null
 						);
 			case TF_CORE:
 				return Util.newArrayListOfValues(
@@ -237,6 +243,9 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_ORIFICE_RIBBED,
 						TFModifier.TF_MOD_ORIFICE_MUSCLED,
 						TFModifier.TF_MOD_ORIFICE_TENTACLED,
+						Main.game.isPenetrationLimitationsEnabled()
+							?TFModifier.TF_MOD_ORIFICE_DEEP
+							:null,
 						Main.game.isFacialHairEnabled()
 							?TFModifier.TF_MOD_BODY_HAIR
 							:null
@@ -266,6 +275,9 @@ public abstract class AbstractItemEffectType {
 					penisMods.add(TFModifier.TF_MOD_ORIFICE_RIBBED);
 					penisMods.add(TFModifier.TF_MOD_ORIFICE_MUSCLED);
 					penisMods.add(TFModifier.TF_MOD_ORIFICE_TENTACLED);
+					if(Main.game.isPenetrationLimitationsEnabled()) {
+						penisMods.add(TFModifier.TF_MOD_ORIFICE_DEEP);
+					}
 				}
 				return penisMods;
 				
@@ -281,6 +293,9 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_ORIFICE_RIBBED,
 						TFModifier.TF_MOD_ORIFICE_MUSCLED,
 						TFModifier.TF_MOD_ORIFICE_TENTACLED,
+						Main.game.isPenetrationLimitationsEnabled()
+							?TFModifier.TF_MOD_ORIFICE_DEEP
+							:null,
 						Main.game.isPubicHairEnabled()
 							?TFModifier.TF_MOD_BODY_HAIR
 							:null
@@ -294,6 +309,9 @@ public abstract class AbstractItemEffectType {
 					mods.add(TFModifier.TF_MOD_ORIFICE_RIBBED_2);
 					mods.add(TFModifier.TF_MOD_ORIFICE_MUSCLED_2);
 					mods.add(TFModifier.TF_MOD_ORIFICE_TENTACLED_2);
+					if(Main.game.isPenetrationLimitationsEnabled()) {
+						mods.add(TFModifier.TF_MOD_ORIFICE_DEEP_2);
+					}
 				}
 				return mods;
 			default:
@@ -306,13 +324,13 @@ public abstract class AbstractItemEffectType {
 
 		switch(secondaryModifier) {
 			case TF_MOD_CAPACITY:
-				return Capacity.SEVEN_GAPING.getMaximumValue();
+				return (int) Capacity.SEVEN_GAPING.getMaximumValue(false);
 			case TF_MOD_ELASTICITY:
 				return OrificeElasticity.SEVEN_ELASTIC.getValue();
 			case TF_MOD_PLASTICITY:
 				return OrificePlasticity.SEVEN_MOULDABLE.getValue();
 			case TF_MOD_CAPACITY_2:
-				return Capacity.SEVEN_GAPING.getMaximumValue();
+				return (int) Capacity.SEVEN_GAPING.getMaximumValue(false);
 			case TF_MOD_ELASTICITY_2:
 				return OrificeElasticity.SEVEN_ELASTIC.getValue();
 			case TF_MOD_PLASTICITY_2:
@@ -328,6 +346,7 @@ public abstract class AbstractItemEffectType {
 			case TF_MOD_ORIFICE_RIBBED:
 			case TF_MOD_ORIFICE_MUSCLED:
 			case TF_MOD_ORIFICE_TENTACLED:
+			case TF_MOD_ORIFICE_DEEP:
 				return 0;
 			default:
 				break;
@@ -407,7 +426,7 @@ public abstract class AbstractItemEffectType {
 			case TF_PENIS:
 				switch(secondaryModifier) {
 					case TF_MOD_SIZE:
-						return PenisSize.SEVEN_STALLION.getMaximumValue();
+						return PenisLength.SEVEN_STALLION.getMaximumValue();
 					case TF_MOD_SIZE_SECONDARY:
 						return TesticleSize.SEVEN_ABSURD.getValue();
 					case TF_MOD_SIZE_TERTIARY:
@@ -510,6 +529,9 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_ORIFICE_TENTACLED:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "anus tentacled", "anal tentacles"));
 						break;
+					case TF_MOD_ORIFICE_DEEP:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "anus deepened", "anal deepening"));
+						break;
 					case TF_MOD_BODY_HAIR:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "ass hairiness", BodyHair.getBodyHairFromValue(limit).getName()));
 						break;
@@ -555,6 +577,9 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_ORIFICE_TENTACLED:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples internally tentacled", "nipple tentacles"));
 						break;
+					case TF_MOD_ORIFICE_DEEP:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples deepened", "nipple deepening"));
+						break;
 					default:
 						break;
 				}
@@ -587,6 +612,9 @@ public abstract class AbstractItemEffectType {
 						break;
 					case TF_MOD_ORIFICE_TENTACLED:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples internally tentacled (crotch)", "nipple tentacles"));
+						break;
+					case TF_MOD_ORIFICE_DEEP:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "nipples deepened (crotch)", "nipple deepening"));
 						break;
 					default:
 						break;
@@ -632,6 +660,9 @@ public abstract class AbstractItemEffectType {
 						break;
 					case TF_MOD_ORIFICE_TENTACLED:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "throat internally tentacled", "throat tentacles"));
+						break;
+					case TF_MOD_ORIFICE_DEEP:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "throat deepened", "throat deepening"));
 						break;
 					case TF_MOD_BODY_HAIR:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "beard length", BodyHair.getBodyHairFromValue(limit).getName()));
@@ -681,6 +712,9 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_ORIFICE_TENTACLED:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra internally tentacled", "urethral tentacles"));
 						break;
+					case TF_MOD_ORIFICE_DEEP:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra deepened", "urethral deepening"));
+						break;
 					case TF_MOD_BODY_HAIR:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "pubic hairiness", BodyHair.getBodyHairFromValue(limit).getName()));
 						break;
@@ -708,6 +742,9 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_ORIFICE_TENTACLED:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "vagina internally tentacled", "vaginal tentacles"));
 						break;
+					case TF_MOD_ORIFICE_DEEP:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "vagina deepened", "vaginal deepening"));
+						break;
 					case TF_MOD_ORIFICE_PUFFY_2:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra puffy", "puffy urethra"));
 						break;
@@ -719,6 +756,9 @@ public abstract class AbstractItemEffectType {
 						break;
 					case TF_MOD_ORIFICE_TENTACLED_2:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra internally tentacled", "urethral tentacles"));
+						break;
+					case TF_MOD_ORIFICE_DEEP_2:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "urethra deepened", "urethra deepening"));
 						break;
 					case TF_MOD_BODY_HAIR:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "pubic hairiness", BodyHair.getBodyHairFromValue(limit).getName()));
@@ -926,6 +966,17 @@ public abstract class AbstractItemEffectType {
 								}
 							}
 							break;
+						case TF_MOD_ORIFICE_DEEP:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasAssOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+									sb.append(target.addAssOrificeModifier(OrificeModifier.EXTRA_DEEP));
+								}
+							} else {
+								if(target.hasAssOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+									sb.append(target.removeAssOrificeModifier(OrificeModifier.EXTRA_DEEP));
+								}
+							}
+							break;
 						case TF_MOD_BODY_HAIR:
 							if(isWithinLimits(bodyHairIncrement, target.getAssHair().getValue(), limit)) {
 								sb.append(target.incrementAssHair(bodyHairIncrement));
@@ -1052,6 +1103,17 @@ public abstract class AbstractItemEffectType {
 								}
 							}
 							break;
+						case TF_MOD_ORIFICE_DEEP:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasNippleOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+									sb.append(target.addNippleOrificeModifier(OrificeModifier.EXTRA_DEEP));
+								}
+							} else {
+								if(target.hasNippleOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+									sb.append(target.removeNippleOrificeModifier(OrificeModifier.EXTRA_DEEP));
+								}
+							}
+							break;
 						default:
 							break;
 					}
@@ -1159,6 +1221,17 @@ public abstract class AbstractItemEffectType {
 									}
 								}
 								break;
+							case TF_MOD_ORIFICE_DEEP:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasNippleCrotchOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+										sb.append(target.addNippleCrotchOrificeModifier(OrificeModifier.EXTRA_DEEP));
+									}
+								} else {
+									if(target.hasNippleCrotchOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+										sb.append(target.removeNippleCrotchOrificeModifier(OrificeModifier.EXTRA_DEEP));
+									}
+								}
+								break;
 							default:
 								break;
 						}
@@ -1262,6 +1335,17 @@ public abstract class AbstractItemEffectType {
 							} else {
 								if(target.hasFaceOrificeModifier(OrificeModifier.TENTACLED)) {
 									sb.append(target.removeFaceOrificeModifier(OrificeModifier.TENTACLED));
+								}
+							}
+							break;
+						case TF_MOD_ORIFICE_DEEP:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasFaceOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+									sb.append(target.addFaceOrificeModifier(OrificeModifier.EXTRA_DEEP));
+								}
+							} else {
+								if(target.hasFaceOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+									sb.append(target.removeFaceOrificeModifier(OrificeModifier.EXTRA_DEEP));
 								}
 							}
 							break;
@@ -1399,6 +1483,17 @@ public abstract class AbstractItemEffectType {
 									}
 								}
 								break;
+							case TF_MOD_ORIFICE_DEEP:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasUrethraOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+										sb.append(target.addUrethraOrificeModifier(OrificeModifier.EXTRA_DEEP));
+									}
+								} else {
+									if(target.hasUrethraOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+										sb.append(target.removeUrethraOrificeModifier(OrificeModifier.EXTRA_DEEP));
+									}
+								}
+								break;
 							case TF_MOD_BODY_HAIR:
 								if(isWithinLimits(bodyHairIncrement, target.getPubicHair().getValue(), limit)) {
 									sb.append(target.incrementPubicHair(bodyHairIncrement));
@@ -1500,6 +1595,17 @@ public abstract class AbstractItemEffectType {
 									}
 								}
 								break;
+							case TF_MOD_ORIFICE_DEEP:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasVaginaOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+										sb.append(target.addVaginaOrificeModifier(OrificeModifier.EXTRA_DEEP));
+									}
+								} else {
+									if(target.hasVaginaOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+										sb.append(target.removeVaginaOrificeModifier(OrificeModifier.EXTRA_DEEP));
+									}
+								}
+								break;
 							case TF_MOD_CAPACITY_2:
 								if(isWithinLimits(capacityIncrement, target.getVaginaUrethraRawCapacityValue(), limit)) {
 									sb.append(target.incrementVaginaUrethraCapacity(capacityIncrement, true));
@@ -1562,6 +1668,17 @@ public abstract class AbstractItemEffectType {
 								} else {
 									if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED)) {
 										sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED));
+									}
+								}
+								break;
+							case TF_MOD_ORIFICE_DEEP_2:
+								if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+									if(!target.hasVaginaUrethraOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+										sb.append(target.addVaginaUrethraOrificeModifier(OrificeModifier.EXTRA_DEEP));
+									}
+								} else {
+									if(target.hasVaginaUrethraOrificeModifier(OrificeModifier.EXTRA_DEEP)) {
+										sb.append(target.removeVaginaUrethraOrificeModifier(OrificeModifier.EXTRA_DEEP));
 									}
 								}
 								break;
@@ -1871,6 +1988,9 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_MUSCLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				if(Main.game.isPenetrationLimitationsEnabled()) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_DEEP, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				}
 				break;
 				
 			case TF_BREASTS: case TF_BREASTS_CROTCH:
@@ -1918,6 +2038,9 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_MUSCLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				if(Main.game.isPenetrationLimitationsEnabled()) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_DEEP, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				}
 				break;
 				
 			case TF_CORE:
@@ -1967,6 +2090,9 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_MUSCLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				if(Main.game.isPenetrationLimitationsEnabled()) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_DEEP, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				}
 
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
@@ -2071,6 +2197,9 @@ public abstract class AbstractItemEffectType {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_MUSCLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+					if(Main.game.isPenetrationLimitationsEnabled()) {
+						secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_DEEP, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+					}
 				}
 				break;
 				
@@ -2121,6 +2250,9 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_MUSCLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				if(Main.game.isPenetrationLimitationsEnabled()) {
+					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_DEEP, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				}
 				
 				if(Main.getProperties().hasValue(PropertyValue.urethralContent)) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY_2, TFPotency.getAllPotencies());
@@ -2131,6 +2263,9 @@ public abstract class AbstractItemEffectType {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED_2, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_MUSCLED_2, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_TENTACLED_2, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+					if(Main.game.isPenetrationLimitationsEnabled()) {
+						secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_DEEP_2, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+					}
 				}
 				
 				break;
@@ -2465,6 +2600,13 @@ public abstract class AbstractItemEffectType {
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds internal tentacles to anus.") { @Override public String applyEffect() { return target.addAssOrificeModifier(OrificeModifier.TENTACLED); } };
 						}
+					case TF_MOD_ORIFICE_DEEP:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Reverts extra-deep anus.") { @Override public String applyEffect() { return target.removeAssOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Makes anus extra deep.") { @Override public String applyEffect() { return target.addAssOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
+						}
 						
 					default:
 						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" ass transformation.") { @Override public String applyEffect() { return target.setAssType(RacialBody.valueOfRace(race).getAssType()); } };
@@ -2690,6 +2832,13 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Removes internal tentacles from nipples.") { @Override public String applyEffect() { return target.removeNippleOrificeModifier(OrificeModifier.TENTACLED); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds internal tentacles to nipples.") { @Override public String applyEffect() { return target.addNippleOrificeModifier(OrificeModifier.TENTACLED); } };
+						}
+					case TF_MOD_ORIFICE_DEEP:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Reverts extra-deep nipples.") { @Override public String applyEffect() { return target.removeNippleOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Makes nipples extra deep.") { @Override public String applyEffect() { return target.addNippleOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
 						}
 						
 					default:
@@ -2920,6 +3069,13 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Removes internal tentacles from nipples.") { @Override public String applyEffect() { return target.removeNippleCrotchOrificeModifier(OrificeModifier.TENTACLED); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds internal tentacles to nipples.") { @Override public String applyEffect() { return target.addNippleCrotchOrificeModifier(OrificeModifier.TENTACLED); } };
+						}
+					case TF_MOD_ORIFICE_DEEP:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Reverts extra-deep nipples.") { @Override public String applyEffect() { return target.removeNippleCrotchOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Makes nipples extra deep.") { @Override public String applyEffect() { return target.addNippleCrotchOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
 						}
 						
 					default:
@@ -3170,6 +3326,13 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Removes internal tentacles from throat.") { @Override public String applyEffect() { return target.removeFaceOrificeModifier(OrificeModifier.TENTACLED); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds internal tentacles to throat.") { @Override public String applyEffect() { return target.addFaceOrificeModifier(OrificeModifier.TENTACLED); } };
+						}
+					case TF_MOD_ORIFICE_DEEP:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Reverts extra-deep throat.") { @Override public String applyEffect() { return target.removeFaceOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Makes throat extra deep.") { @Override public String applyEffect() { return target.addFaceOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
 						}
 					case TF_MOD_CAPACITY:
 						switch(potency) {
@@ -3750,6 +3913,13 @@ public abstract class AbstractItemEffectType {
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds internal tentacles to urethra.") { @Override public String applyEffect() { return target.addUrethraOrificeModifier(OrificeModifier.TENTACLED); } };
 						}
+					case TF_MOD_ORIFICE_DEEP:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Reverts extra-deep urethra.") { @Override public String applyEffect() { return target.removeUrethraOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Makes urethra extra deep.") { @Override public String applyEffect() { return target.addUrethraOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
+						}
 						
 					default:
 						return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" penis transformation.") { @Override public String applyEffect() { return target.setPenisType(RacialBody.valueOfRace(race).getPenisType()); } };
@@ -4065,6 +4235,13 @@ public abstract class AbstractItemEffectType {
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds internal tentacles to vagina.") { @Override public String applyEffect() { return target.addVaginaOrificeModifier(OrificeModifier.TENTACLED); } };
 						}
+					case TF_MOD_ORIFICE_DEEP:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Reverts extra-deep vagina.") { @Override public String applyEffect() { return target.removeVaginaOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Makes vagina extra deep.") { @Override public String applyEffect() { return target.addVaginaOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
+						}
 						
 					// Urethral stuff:
 					case TF_MOD_CAPACITY_2:
@@ -4140,6 +4317,13 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Removes internal tentacles from urethra.") { @Override public String applyEffect() { return target.removeVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED); } };
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds internal tentacles to urethra.") { @Override public String applyEffect() { return target.addVaginaUrethraOrificeModifier(OrificeModifier.TENTACLED); } };
+						}
+					case TF_MOD_ORIFICE_DEEP_2:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Reverts extra-deep urethra.") { @Override public String applyEffect() { return target.removeVaginaUrethraOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Makes urethra extra deep.") { @Override public String applyEffect() { return target.addVaginaUrethraOrificeModifier(OrificeModifier.EXTRA_DEEP); } };
 						}
 						
 					default:

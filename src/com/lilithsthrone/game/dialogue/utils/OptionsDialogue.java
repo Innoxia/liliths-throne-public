@@ -125,7 +125,8 @@ public class OptionsDialogue {
 							
 							Main.mainController.setAttributePanelContent("");
 							Main.mainController.setRightPanelContent("");
-							Main.mainController.setButtonsContent("");
+							Main.mainController.setButtonsLeftContent("");
+							Main.mainController.setButtonsRightContent("");
 							Main.game.setRenderMap(false);
 							Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
 							confirmNewGame = false;
@@ -2026,6 +2027,13 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.gapeContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+					"PENETRATION_LIMITATION",
+					Colour.BASE_PINK_DEEP,
+					"Penetration Limitations",
+					"When enabled, orifices will have a limited depth to them, meaning that penetrative objects (penises and tails) can be too long to fit all the way inside.",
+					Main.getProperties().hasValue(PropertyValue.penetrationLimitations)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"FOOT",
 							Colour.BASE_TAN,
 							"Foot Content",
@@ -2103,6 +2111,20 @@ public class OptionsDialogue {
 							"Feminine Beards",
 							"This enables feminine characters to grow beards.",
 							Main.getProperties().hasValue(PropertyValue.feminineBeardsContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"FURRY_HAIR",
+							Colour.CLOTHING_DESATURATED_BROWN,
+							"Furry Hair",
+							"Toggles whether or not characters with a furry head type will spawn with human-like hair on their heads.",
+							Main.getProperties().hasValue(PropertyValue.furryHairContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+							"SCALY_HAIR",
+							Colour.BASE_GREEN_DARK,
+							"Scaly Hair",
+							"Toggles whether or not characters with a reptilian or amphibious head type will spawn with human-like hair on their heads.",
+							Main.getProperties().hasValue(PropertyValue.scalyHairContent)));
 
 			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 							"FORCED_TF",

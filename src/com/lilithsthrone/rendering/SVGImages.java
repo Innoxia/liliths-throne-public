@@ -15,7 +15,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.5
+ * @version 0.3.6.5
  * @author Innoxia
  */
 public enum SVGImages {
@@ -30,7 +30,9 @@ public enum SVGImages {
 			questInventoryIcon, questInventoryIconDisabled,
 			journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon, informationIcon, addIcon,
 
-			diskSave, diskSaveDisabled, diskSaveConfirm, diskOverwrite, diskLoad, diskLoadConfirm, diskLoadDisabled, diskDelete, diskDeleteConfirm,
+			diskSave, diskSaveDisabled, diskSaveConfirm, diskOverwrite,
+			diskLoad, diskLoadConfirm, diskLoadDisabled, diskLoadQuick,
+			diskDelete, diskDeleteConfirm,
 			
 			itemsOnFloorIcon,
 			
@@ -82,7 +84,7 @@ public enum SVGImages {
 			
 			// Items:
 			
-			hypnoWatchBase, hypnoWatchGynephilic, hypnoWatchAmbiphilic, hypnoWatchAndrophilic,
+			hypnoWatchBase, hypnoWatchGynephilic, hypnoWatchAmbiphilic, hypnoWatchAndrophilic, hypnoWatchSpeechAdd, hypnoWatchSpeechRemove,
 			
 			// Sex:
 			coverableAreaMouth,
@@ -95,7 +97,7 @@ public enum SVGImages {
 			coverableAreaUrethraPenis,
 			
 			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue, penetrationTypeFoot, penetrationTypeClit,
-			combinationStretching, combinationTooLoose, combinationWet, combinationDry,
+			combinationStretching, combinationTooLoose, combinationWet, combinationDry, combinationDepthMinimum, combinationDepthMaximum,
 			stretching, holeTooBig,
 			activeSexBackground;
 
@@ -251,6 +253,10 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskLoad.svg");
 			diskLoadDisabled = Util.inputStreamToString(is);
 			diskLoadDisabled = setColour(diskLoadDisabled, Colour.BASE_GREY);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskLoad.svg");
+			diskLoadQuick = Util.inputStreamToString(is);
+			diskLoadQuick = setColour(diskLoadQuick, Colour.BASE_WHITE);
+			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskDelete.svg");
 			diskDelete = Util.inputStreamToString(is);
@@ -637,18 +643,25 @@ public enum SVGImages {
 			hypnoWatchBase = Util.inputStreamToString(is);
 			hypnoWatchBase = setColour(hypnoWatchBase, Colour.BASE_GREY);
 			
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/hypnoClockGyne.svg");
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/hypnoClockEnchanted.svg");
 			hypnoWatchGynephilic = Util.inputStreamToString(is);
-			hypnoWatchGynephilic = setColour(hypnoWatchGynephilic, Colour.FEMININE_PLUS);
+			hypnoWatchGynephilic = SvgUtil.colourReplacement(null, Colour.FEMININE_PLUS, Colour.CLOTHING_ROSE_GOLD, null, hypnoWatchGynephilic);
 
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/hypnoClockAmbi.svg");
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/hypnoClockEnchanted.svg");
 			hypnoWatchAmbiphilic = Util.inputStreamToString(is);
-			hypnoWatchAmbiphilic = setColour(hypnoWatchAmbiphilic, Colour.ANDROGYNOUS);
+			hypnoWatchAmbiphilic = SvgUtil.colourReplacement(null, Colour.ANDROGYNOUS, Colour.CLOTHING_SILVER, null, hypnoWatchAmbiphilic);
 
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/hypnoClockAndro.svg");
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/hypnoClockEnchanted.svg");
 			hypnoWatchAndrophilic = Util.inputStreamToString(is);
-			hypnoWatchAndrophilic = setColour(hypnoWatchAndrophilic, Colour.MASCULINE_PLUS);
-			
+			hypnoWatchAndrophilic = SvgUtil.colourReplacement(null, Colour.MASCULINE_PLUS, Colour.CLOTHING_BLACK_STEEL, null, hypnoWatchAndrophilic);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/hypnoClockEnchanted.svg");
+			hypnoWatchSpeechRemove = Util.inputStreamToString(is);
+			hypnoWatchSpeechRemove = SvgUtil.colourReplacement(null, Colour.BASE_RED, Colour.CLOTHING_GOLD, null, hypnoWatchSpeechRemove);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/hypnoClockEnchanted.svg");
+			hypnoWatchSpeechAdd = Util.inputStreamToString(is);
+			hypnoWatchSpeechAdd = SvgUtil.colourReplacement(null, Colour.BASE_GREEN, Colour.CLOTHING_GOLD, null, hypnoWatchSpeechAdd);
 			
 			// Sex:
 			
@@ -701,12 +714,28 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationStretching.svg");
 			combinationStretching = Util.inputStreamToString(is);
+			combinationStretching = SvgUtil.colourReplacement("", Colour.BASE_PINK_DEEP, combinationStretching);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationTooLoose.svg");
 			combinationTooLoose = Util.inputStreamToString(is);
+			combinationTooLoose = SvgUtil.colourReplacement("", Colour.BASE_RED, combinationTooLoose);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationWet.svg");
 			combinationWet = Util.inputStreamToString(is);
+			combinationWet = SvgUtil.colourReplacement("", Colour.BASE_BLUE_STEEL, combinationWet);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationDry.svg");
 			combinationDry = Util.inputStreamToString(is);
+			combinationDry = SvgUtil.colourReplacement("", Colour.BASE_BLUE_STEEL, Colour.BASE_RED, null, combinationDry);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationDepthMinimum.svg");
+			combinationDepthMinimum = Util.inputStreamToString(is);
+			combinationDepthMinimum = SvgUtil.colourReplacement("", Colour.BASE_PINK_LIGHT, combinationDepthMinimum);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationDepthMaximum.svg");
+			combinationDepthMaximum = Util.inputStreamToString(is);
+			combinationDepthMaximum = SvgUtil.colourReplacement("", Colour.BASE_CRIMSON, combinationDepthMaximum);
+			
 			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/stretching.svg");
@@ -748,7 +777,7 @@ public enum SVGImages {
 		s = SvgUtil.colourReplacement(null, colourShade, s);
 		return s;
 	}
-
+	
 	public String getDisplacedIcon() {
 		return displacedIcon;
 	}
@@ -855,7 +884,7 @@ public enum SVGImages {
 	public String getDiskOverwrite() {
 		return diskOverwrite;
 	}
-
+	
 	public String getDiskLoad() {
 		return diskLoad;
 	}
@@ -866,6 +895,10 @@ public enum SVGImages {
 
 	public String getDiskLoadDisabled() {
 		return diskLoadDisabled;
+	}
+
+	public String getDiskLoadQuick() {
+		return diskLoadQuick;
 	}
 
 	public String getDiskDelete() {
@@ -1160,6 +1193,14 @@ public enum SVGImages {
 		return combinationDry;
 	}
 
+	public String getCombinationDepthMinimum() {
+		return combinationDepthMinimum;
+	}
+
+	public String getCombinationDepthMaximum() {
+		return combinationDepthMaximum;
+	}
+
 	public String getStretching() {
 		return stretching;
 	}
@@ -1196,6 +1237,14 @@ public enum SVGImages {
 		return hypnoWatchAndrophilic;
 	}
 
+	public String getHypnoWatchSpeechAdd() {
+		return hypnoWatchSpeechAdd;
+	}
+
+	public String getHypnoWatchSpeechRemove() {
+		return hypnoWatchSpeechRemove;
+	}
+	
 	public String getScaleZero() {
 		return scaleZero;
 	}

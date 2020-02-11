@@ -106,7 +106,7 @@ public class OrificeVagina implements OrificeInterface {
 		}
 		
 		float oldCapacity = this.capacity;
-		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
+		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue(false)));
 		if(setStretchedValueToNewValue) {
 			this.stretchedCapacity = this.capacity;
 		}
@@ -145,10 +145,20 @@ public class OrificeVagina implements OrificeInterface {
 	@Override
 	public boolean setStretchedCapacity(float stretchedCapacity) {
 		float oldStretchedCapacity = this.stretchedCapacity;
-		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue()));
+		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue(false)));
 		return oldStretchedCapacity != this.stretchedCapacity;
 	}
 
+	@Override
+	public int getMaximumPenetrationDepthComfortable(GameCharacter owner) {
+		return (int) (owner.getHeightValue() * 0.08f * (this.hasOrificeModifier(OrificeModifier.EXTRA_DEEP)?2:1) * (owner.isVaginaBestial()?1.5f:1) * (!owner.getBodyMaterial().isOrificesLimitedDepth()?4f:1));
+	}
+	
+	@Override
+	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner) {
+		return (int) (getMaximumPenetrationDepthComfortable(owner) * 1.5f);
+	}
+	
 	@Override
 	public OrificeElasticity getElasticity() {
 		return OrificeElasticity.getElasticityFromInt(elasticity);
@@ -251,61 +261,45 @@ public class OrificeVagina implements OrificeInterface {
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense pressure swelling up deep within your [pc.pussy], but before you have any chance to react, the feeling suddenly fades away."
-								+ " With an experimental clench, you discover that the interior of your [pc.pussy] is now lined with [style.boldGrow(extra muscles)], which you can use to expertly grip and squeeze down on any penetrating object.<br/>"
-								+ "[style.boldSex(Your pussy is now lined with an intricate series of muscles!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.she] has any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] [npc.pussy] is now lined with [style.boldGrow(extra muscles)],"
-									+ " which [npc.she] can use to expertly grip and squeeze down on any penetrating object.<br/>"
-								+ "[style.boldSex([npc.NamePos] pussy is now lined with an intricate series of muscles!)]"
-							+ "</p>";
-				}
+				return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] can't help but let out [npc.a_moan+] as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
+							+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the inner walls of [npc.her] pussy are now lined with [style.boldGrow(extra muscles)],"
+								+ " which [npc.she] can use to expertly grip and squeeze down on any penetrating object.<br/>"
+							+ "[style.boldSex([npc.NamePos] pussy is now lined with an intricate series of muscles!)]"
+						+ "</p>");
+				
 			case RIBBED:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense pressure swelling up deep within your [pc.pussy], but before you have any chance to react, the feeling suddenly fades away."
-								+ " Shifting your [pc.pussy] around a little, you feel that the inside of your [pc.pussy] is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)], which provide extreme pleasure when stimulated.<br/>"
-								+ "[style.boldSex(Your pussy is now lined with fleshy, pleasure-inducing ribs!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-							+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.she] has any chance to react, the feeling quickly dissipates."
-							+ " Shifting [npc.her] [npc.pussy] around a little, [npc.she] discovers that the inside of [npc.her] [npc.pussy] is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)],"
-								+ " which provide extreme pleasure when stimulated.<br/>"
-							+ "[style.boldSex([npc.NamePos] pussy is now lined with fleshy, pleasure-inducing ribs!)]"
-						+ "</p>";
-				}
+				return UtilText.parse(owner,
+						"<p>"
+						+ "[npc.Name] can't help but let out [npc.a_moan+] as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
+						+ " Shifting around a little, [npc.she] [npc.verb(discover)] that the inside of [npc.her] pussy is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)],"
+							+ " which provide extreme pleasure when stimulated.<br/>"
+						+ "[style.boldSex([npc.NamePos] pussy is now lined with fleshy, pleasure-inducing ribs!)]"
+					+ "</p>");
+				
 			case TENTACLED:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense pressure swelling up deep within your [pc.pussy], but before you have any chance to react, the feeling suddenly fades away."
-								+ " A surprised cry bursts out from your mouth as you feel that the inside of your [pc.pussy] is now filled with [style.boldGrow(a series of little wriggling tentacles)], over which you have limited control.<br/>"
-								+ "[style.boldSex(The inside of your pussy is now filled with little tentacles, which wriggle with a mind of their own!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.she] has any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] discovers that the inside of [npc.her] [npc.pussy] is now filled with [style.boldGrow(a series of little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
-								+ "[style.boldSex(The inside of [npc.namePos] pussy is now filled with little tentacles, which wriggle with a mind of their own!)]"
-							+ "</p>";
-				}
+				return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] can't help but let out [npc.a_moan+] as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
+							+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the inside of [npc.her] pussy is now lined with [style.boldGrow(little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
+							+ "[style.boldSex(The inside of [npc.namePos] pussy is now filled with small tentacles, which wriggle and caress any intruding object with a mind of their own!)]"
+						+ "</p>");
+					
 			case PUFFY:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a tingling sensation running over your [pc.pussy], and you let out a little cry as you feel your labia [style.boldGrow(puff up)] into big, swollen pussy lips.<br/>"
-								+ "[style.boldSex(Your labia are now extremely swollen and puffy!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy], before [npc.her] labia [style.boldGrow(puff up)] into big, swollen pussy lips.<br/>"
-								+ "[style.boldSex([npc.NamePos] labia are now extremely swollen and puffy!)]"
-							+ "</p>";
-				}
+				return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a tingling sensation running over [npc.her] [npc.pussy], before [npc.her] labia [style.boldGrow(puff up)] into big, swollen pussy lips.<br/>"
+							+ "[style.boldSex([npc.NamePos] labia are now extremely swollen and puffy!)]"
+						+ "</p>");
+				
+			case EXTRA_DEEP:
+				return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a throbbing sensation rising up from [npc.her] [npc.pussy] into [npc.her] lower abdomen."
+							+ " Within moments, the feeling fades away, and [npc.name] [npc.verb(find)] [npc.herself] instinctively knowing that [npc.her] [style.boldGrow(pussy has significantly deepened)].<br/>"
+							+ "[style.boldSex([npc.NamePos] pussy is now extra deep, allowing it to take double the normal length of penetrative objects!)]"
+						+ "</p>");
 		}
 		
 		// Catch:
@@ -326,60 +320,44 @@ public class OrificeVagina implements OrificeInterface {
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense pressure swelling up deep within your [pc.pussy], but before you have any chance to react, the feeling suddenly fades away."
-								+ " With an experimental clench, you discover that the interior of your [pc.pussy] has lost its [style.boldShrink(extra muscles)].<br/>"
-								+ "[style.boldSex(Your pussy is no longer lined with an intricate series of muscles!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.she] has any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] [npc.pussy] has lost its [style.boldShrink(extra muscles)].<br/>"
-								+ "[style.boldSex([npc.NamePos] pussy is no longer lined with an intricate series of muscles!)]"
-							+ "</p>";
-				}
+				return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] can't help but let out a startled cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
+							+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the interior of [npc.her] [npc.pussy] has [style.boldShrink(lost its extra muscles)].<br/>"
+							+ "[style.boldSex([npc.NamePos] pussy is no longer lined with an intricate series of muscles!)]"
+						+ "</p>");
+					
 			case RIBBED:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense pressure swelling up deep within your [pc.pussy], but before you have any chance to react, the feeling suddenly fades away."
-								+ " Shifting your [pc.pussy] around a little, you feel that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined your [pc.pussy] have vanished.<br/>"
-								+ "[style.boldSex(Your pussy is no longer lined with fleshy, pleasure-inducing ribs!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-							+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.she] has any chance to react, the feeling quickly dissipates."
-							+ " Shifting [npc.her] [npc.pussy] around a little, [npc.she] discovers that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined [npc.her] [npc.pussy] have vanished.<br/>"
-							+ "[style.boldSex([npc.NamePos] pussy is no longer lined with fleshy, pleasure-inducing ribs!)]"
-						+ "</p>";
-				}
+				return UtilText.parse(owner,
+						"<p>"
+						+ "[npc.Name] can't help but let out a startled cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
+						+ " Shifting around a little, [npc.she] [npc.verb(discover)] that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined the walls of [npc.her] pussy [style.boldShrink(have vanished)].<br/>"
+						+ "[style.boldSex([npc.NamePos] pussy is no longer lined with fleshy, pleasure-inducing ribs!)]"
+					+ "</p>");
+					
 			case TENTACLED:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel an intense pressure swelling up deep within your [pc.pussy], but before you have any chance to react, the feeling suddenly fades away."
-								+ " A surprised cry bursts out from your mouth as you feel that the [style.boldShrink(series of little wriggling tentacles)] within your [pc.pussy] have all disappeared.<br/>"
-								+ "[style.boldSex(The inside of your pussy is no longer filled with little tentacles!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.she] has any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] discovers that the [style.boldShrink(series of little wriggling tentacles)] within [npc.her] [npc.pussy] have all disappeared.<br/>"
-								+ "[style.boldSex(The inside of [npc.namePos] pussy is no longer filled with little tentacles!)]"
-							+ "</p>";
-				}
+				return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] can't help but let out a startled cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
+							+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the [style.boldShrink(wriggling tentacles)] within [npc.her] pussy [style.boldShrink(have all disappeared)].<br/>"
+							+ "[style.boldSex(The inside of [npc.namePos] pussy is no longer filled with tentacles!)]"
+						+ "</p>");
+					
 			case PUFFY:
-				if(owner.isPlayer()) {
-					return "<p>"
-								+ "You feel a tingling sensation running over your [pc.pussy], and you let out a little cry as you feel the puffy rim of your [pc.pussy] [style.boldGrow(deflate)] into a more normal-looking shape.<br/>"
-								+ "[style.boldSex(The rim of your pussy is no longer swollen and puffy!)]"
-							+ "</p>";
-				} else {
-					return "<p>"
-								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy],"
-									+ " before the puffy rim of [npc.her] [npc.pussy] [style.boldShrink(deflates)] into a more normal-looking shape.<br/>"
-								+ "[style.boldSex(The rim of [npc.namePos] pussy is no longer swollen and puffy!)]"
-							+ "</p>";
-				}
+				return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] can't help but let out a startled cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy],"
+								+ " before [npc.her] [style.boldShrink(extra-puffy labia shrink down)] to take on a more average shape.<br/>"
+							+ "[style.boldSex([npc.NamePos] labia are no longer extra puffy!)]"
+						+ "</p>");
+				
+			case EXTRA_DEEP:
+				return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a tightening sensation dropping down from [npc.her] lower abdomen into [npc.her] [npc.pussy]."
+							+ " Within moments, the feeling fades away, and [npc.name] [npc.verb(find)] [npc.herself] instinctively knowing that [npc.her] [style.boldShrink(pussy has lost a significant amount of depth)].<br/>"
+							+ "[style.boldSex([npc.NamePos] pussy is no longer extra deep, and can only take an average length of penetrative objects!)]"
+						+ "</p>");
 		}
 		
 		// Catch:

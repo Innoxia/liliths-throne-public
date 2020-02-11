@@ -407,7 +407,7 @@ public class RacialBody {
 		    EyeType.ALLIGATOR_MORPH,
 		    FaceType.ALLIGATOR_MORPH,
 		    LipSize.ONE_AVERAGE, LipSize.ONE_AVERAGE, HairType.ALLIGATOR_MORPH,
-		    HairLength.ZERO_BALD, HairLength.ZERO_BALD, LegType.ALLIGATOR_MORPH,
+		    HairLength.ONE_VERY_SHORT, HairLength.THREE_SHOULDER_LENGTH, LegType.ALLIGATOR_MORPH,
 		    LegConfiguration.BIPEDAL, SkinType.ALLIGATOR_MORPH,
 		    BodyMaterial.FLESH,
 			HornLength.ZERO_TINY,
@@ -419,11 +419,6 @@ public class RacialBody {
 			Capacity.ONE_EXTREMELY_TIGHT,
 		    ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, Util.newArrayListOfValues(WingType.NONE),
 		    WingSize.ZERO_TINY, WingSize.ZERO_TINY, GenitalArrangement.CLOACA) {
-		
-		@Override
-		public boolean isHairTypeLinkedToFaceType() {
-			return true;
-		}
 	};
 	
 	public static AbstractRacialBody SQUIRREL_MORPH = new AbstractRacialBody(AntennaType.NONE,

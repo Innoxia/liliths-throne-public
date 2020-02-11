@@ -4,6 +4,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -137,7 +138,7 @@ public class Amber extends NPC {
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.BRAVE);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.6")) {
 			this.resetPerksMap(true);
 		}
 	}
@@ -610,8 +611,14 @@ public class Amber extends NPC {
 
 	@Override
 	public boolean isLevelDrainAvailableToUse() {
+		AbstractClothing neckClothing = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
 		return Main.game.isLevelDrainContentEnabled()
-				&& Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).getClothingType()==ClothingType.AMBERS_BITCH_CHOKER;
+				&& null != neckClothing && neckClothing.getClothingType()==ClothingType.AMBERS_BITCH_CHOKER;
+	}
+
+	@Override
+	public boolean isWantingToLevelDrain(GameCharacter target) {
+		return target.isPlayer();
 	}
 
 	@Override

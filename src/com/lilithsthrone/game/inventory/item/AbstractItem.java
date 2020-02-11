@@ -102,6 +102,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			return item;
 		} catch(Exception ex) {
 			System.err.println("Warning: An instance of AbstractItem was unable to be imported. ("+parentElement.getAttribute("id")+")");
+			ex.printStackTrace();
 			return null;
 		}
 	}

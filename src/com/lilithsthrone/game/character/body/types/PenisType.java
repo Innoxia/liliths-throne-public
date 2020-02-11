@@ -8,7 +8,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -155,14 +155,14 @@ public enum PenisType implements BodyPartTypeInterface {
 				break;
 			case 1:
 				return UtilText.returnStringAtRandom(
-						gc.getPenisSize()==PenisSize.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
+						gc.getPenisSize()==PenisLength.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
 						gc.getPenisGirth()==PenetrationGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
 			default:
 				if(Main.game.isInSex() && this!=PenisType.DILDO) {
 					return UtilText.returnStringAtRandom("hard", "throbbing");
 				} else {
 					return UtilText.returnStringAtRandom(
-							gc.getPenisSize()==PenisSize.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
+							gc.getPenisSize()==PenisLength.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
 							gc.getPenisGirth()==PenetrationGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
 				}
 		}

@@ -42,7 +42,7 @@ public class Nipples implements BodyPartInterface {
 		this.nippleShape = nippleShape;
 		areolaeShape = AreolaeShape.NORMAL;
 		this.areolaeSize = areolaeSize;
-		orificeNipples = new OrificeNipples(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
+		orificeNipples = new OrificeNipples(wetness, capacity, elasticity, plasticity, virgin, crotchNipples, type.getDefaultRacialOrificeModifiers());
 		this.crotchNipples = crotchNipples;
 	}
 	

@@ -996,10 +996,10 @@ public class RatWarrensCaptiveDialogue {
 									return false;
 								}
 								if(playerFuckedSexType.getValue().getTargetedSexArea()==SexAreaOrifice.VAGINA) {
-									return !Capacity.isPenisSizeTooBig(Main.game.getPlayer().getVaginaElasticity(), Main.game.getPlayer().getVaginaStretchedCapacity(), getOwner().getPenisGirth(), getOwner().getPenisRawSizeValue(), true, false);
+									return !Capacity.isPenetrationDiameterTooBig(Main.game.getPlayer().getVaginaElasticity(), Main.game.getPlayer().getVaginaStretchedCapacity(), getOwner().getPenisDiameter(), true);
 								}
 								if(playerFuckedSexType.getValue().getTargetedSexArea()==SexAreaOrifice.ANUS) {
-									return !Capacity.isPenisSizeTooBig(Main.game.getPlayer().getAssElasticity(), Main.game.getPlayer().getAssStretchedCapacity(), getOwner().getPenisGirth(), getOwner().getPenisRawSizeValue(), true, false);
+									return !Capacity.isPenetrationDiameterTooBig(Main.game.getPlayer().getAssElasticity(), Main.game.getPlayer().getAssStretchedCapacity(), getOwner().getPenisDiameter(), true);
 								}
 								return true;
 							}
