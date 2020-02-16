@@ -1,61 +1,59 @@
 # **Tutorial for Building Liliths Throne**
 
+*If you already have Java, uninstalling other versions and installing 8u172 is strongly recommended to avoid conflict*
+You may download Oracle's "Java SE Development Kit 8u172" here: https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase8-2177648.html
+
+## Using Eclipse
 *You will need the Eclipse IDE and Java SE Development Kit!*
-
-*If you already have Eclipse, verify that you are running Luna or later, as Java 1.8 is required*
-
-https://www.eclipse.org/downloads/
-
-http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-
-
-1. Open Eclipse
-2. Click File, Import it will then open a wizard, open Git and choose Projects from Git, click Next
-3. Choose Clone URL and then click Next
-4. Put https://github.com/Innoxia/liliths-throne-public (or https://github.com/Innoxia/liliths-throne-public/tree/dev if you're building from the dev branch) into the first box in Location
-5. Put github.com into the second box in Location, this may be done automatically.
-6. Put /Innoxia/liliths-throne-public (or /Innoxia/liliths-throne-public/tree/dev for dev branch) in the third box in Location, this may be done automatically. Then click Next
-7. The wizard will now ask which branch you want, this will be "master" (or "dev" for dev branch), select this and then click next.
+*If you already have Eclipse, verify that you are running a version between Luna and 2018 (some newer builds have been found to be incompatible)*
+0. Download Eclipse: https://www.eclipse.org/downloads/packages/release/oxygen/3a/eclipse-ide-java-developers
+1. Open Eclipse.
+2. Click [File -> Import] it will then open a wizard, open "Git" and choose "Projects from Git", click "Next".
+3. Choose "Clone URL" and then click "Next".
+4. Put "https://github.com/Innoxia/liliths-throne-public.git" into the first box in Location.
+5. Put "github.com" into the second box in Location, this may be done automatically.
+6. Put "/Innoxia/liliths-throne-public" in the third box in Location, this may be done automatically. Then click "Next".
+7. The wizard will now ask which branch you want, this will be "master" (or "dev" for dev branch), select this and then click "Next".
 8. Unless you want to change the directory, click Next.
 9. It will now download the repository.
 10. Make sure "Import existing Eclipse projects" is selected, then click Next.
 11. Make sure the Lilith's Throne project is selected, then click Finish.
-12. Click File, and then select Export.
-13. Open Java, and then choose "Runnable JAR File"
-14. Choose Main - LilithsThrone under Launch Configuration (IF THERE ARE NO OPTIONS, READ HELP BELOW)
-15. Choose an export destination for the .jar file, this should be where you normally run the game from
+12. Click [File -> Export].
+13. Open "Java", and then choose "Runnable JAR File".
+14. Choose "Main - LilithsThrone" under Launch Configuration (IF THERE ARE NO OPTIONS, READ HELP BELOW).
+15. Choose an export destination for the .jar file, this should be where you normally run the game from.
 16. Click Finish, A warning may pop up saying "JAR export finished with warnings" This is fine.
 17. You should now be able to run the exported .jar file!
 
 If the jar does not run:
-1. Check menu:File->Properties->left pane:Java Build Path->tab:Libraries
-2. If this does not list a jdk 1.8 system library, download the jdk from the above oracle link
-3. Extract it and follow instructions in eclipse menu:help->Search->type:'Adding a new JRE definition'
-4. Possibly you may have to menu:Source->Clean Up, then try again steps 12-17.
+1. Check menu: [File -> Properties -> left pane:Java Build Path -> tab:Libraries].
+2. If this does not list a JDK 1.8 system library, download the JDK from the above oracle link.
+3. Extract it and follow instructions in eclipse [menu:Help -> Search -> type:"Adding a new JRE definition"].
+4. Possibly you may have to [menu:Source -> Clean Up], then try again steps 12-17.
 
 ## Help
 #### No Launch Configuration OR "Could not find main method from given launch configuration."
 1. First close the Export wizard, and click on the icon in the top of the left pane.
-2. Select the Project in the Package Explorer
-3. In the top bar, click Project, and then Properties
-4. In the left column, select Run/Debug Settings
-5. In the right column, click New
-6. Choose Java Application, and click OK
-7. A Wizard will open, click Search next to the "Main Class" Box
-8. Another Window will open, there will be one matching item called "Main - com.lilithsthrone.main" Select this and click OK
-9. Click OK
-10. Click Apply and Close
-11. Try Exporting Again
+2. Select the Project in the Package Explorer.
+3. In the top bar, click [Project -> Properties].
+4. In the left column, select "Run/Debug Settings".
+5. In the right column, click "New".
+6. Choose "Java Application", and click "OK".
+7. A Wizard will open, click "Search" next to the "Main Class" Box.
+8. Another Window will open, there will be one matching item called "Main - com.lilithsthrone.main" Select this and click "OK".
+9. Click OK.
+10. Click "Apply" and "Close".
+11. Try Exporting Again.
 
 
 ####  "C:\Users\[USERNAME]\git\liliths-throne-public is not an empty directory."
 **This is the same error as "Some or all projects cannot be imported as they already exist in the workspace"**
 
 This is most likely because you have already have an outdated build open as a project. Make note of the directory it is reporting as not being empty.
-1. Close the import wizard
-2. In the Package Explorer, right click the project, and click Delete
+1. Close the import wizard.
+2. In the Package Explorer, right click the project, and click "Delete".
 3. Make sure you select "Delete Project Contents on Disk". If you don't do this, you will have to do it manually in Windows File Explorer.
-4. Try Importing again
+4. Try Importing again.
 
 ####  Eclipse stuck on importing from Git
 The GIT plugin of Eclipse tries to run the "bash" command, and if you hadn't installed Windows Subsystem for Linux  properly, it may cause problems with import.
@@ -82,16 +80,54 @@ This creates the JAR file in `/target/game-1.jar`.
 Your first build will take longer than the subsequent ones as only changed files are recompiled.
 
 ## Using NetBeans
-You should be able to use NetBeans' import zip feature to easily import this project.
+*You will need the NetBeans IDE, as well as Java SE Development Kit!*
+The up-to-date download can be found here: https://netbeans.apache.org/download/index.html
+
+You can download the Lilith's throne code directly from GitHub:
+1. Open NetBeans.
+2. Head to the menu [Team -> Git -> Clone]. Note that if you have currently selected a project which uses some Version Control System, the menu will look slightly differently:
+2a. If that project uses Git: [Team -> Remote -> Clone].
+2b. If that project uses a different VCS: [Team -> Other VCS -> Git -> Clone].
+3. Enter "https://github.com/Innoxia/liliths-throne-public.git" as Repository URL (you can leave the User and Password fields empty).
+4. Click "Next".
+5. Select which branch to download, this is usually "master" for the current Release, or "dev" for the latest Development version.
+6. click "Next".
+7. You can change the destination (Parent Directory) for the project files, as well as the name (Clone Name) for the project. Click "Finish" to proceed.
+8. Wait for the download to complete (this will probably happen in the background, but you can see the progress by the bottom-right corner).
+8a. You should get a popup warning once it finishes, asking if you want to open the new project; you do.
+9. Select the project on the "Projects" view, by the left.
+9a. Were it not visible, you can activate the "Project" view from the [Window] menu, or pressing [Ctrl + 1].
+10. To run the game from NetBeans, click the green Play button, by the top bar (or press [F6]).
+10a. You might be asked about the Main Class, check "Remember Permanently" and select the only available option.
+11. You can now proceed to have fun with the code, if that's what you're here for. If what you want is building a runnable .jar, proceed to step 12.
+11a. To access the fancy debugging tools, you'll need to run the game by clicking the corresponding button (or pressing [Ctrl + F5]).
+12. In order to create a .jar file to launch the game outside NetBeans, click the "Hammer and Broom" button by the top bar or use the menu [Run -> Clean and Build Project] (you can instead press [Shift + F11]).
+12a. Note that the hammer button [F11] will generally do the same, but forcing a cache clear and compiling everything again is recommended.
+12b. Keep in mind that the .jar will not work properly unless a Main Class has been previously defined (AKA: don't skip step 10).
+
+Alternatively, you can use NetBeans' import zip feature to import this project:
 1. Use the green "Clone or Download" button on the project's main page, and choose "Download ZIP".
-2. In NetBeans, navigate to: "File -> Import Project -> From Zip..."
+2. In NetBeans, navigate to: [File -> Import Project -> From Zip...].
 3. Select the ZIP download from step 1.
-4. The imported project should now run in NetBeans.
+4. Proceed from step 9 above.
+
+### Selecting the JDK 8u172 for Lilith's Throne
+1. Right click the LT project, in the Projects view (you can activate that view from the [Window] menu, or pressing [Ctrl + 1])
+2. Click on "Properties".
+3. Select the "Build -> Compile" category from the list.
+4. Choose the correct JDK from the dropdown and skip to step 5.
+4a. If it's not on the list, click on "Manage Java Platforms".
+4b. Click "Add Platform".
+4c. Make sure "Java Standard Edition" is selected and click "Next".
+4d. Navigate to the location of the JDK 8u172 before clicking "Next".
+4e. Give it a fancy "Platform Name" (like "JDK 8u172"), then click "Finish".
+4f. Click Close. Repeat step 4.
+5. NetBeans will now use the selected JDK. Performing a "Clean and Build Project" is recommended to prevent any potential conflict (shortcut: [Shift + F11]).
 
 ## Using IntelliJ IDEA
 You can use IDEA to clone the repository directly:
-1. Import the project from Git with "File" > "New" > "Project from Version Control" > "Git"
-2. The "Git Repository URL" is https://github.com/Innoxia/liliths-throne-public, verify it by clicking the "Test" button.
+1. Import the project from Git with [File -> New -> Project from Version Control -> Git].
+2. The "Git Repository URL" is "https://github.com/Innoxia/liliths-throne-public.git", verify it by clicking the "Test" button.
 3. "Parent Directory" and "Directory Name" define where to store the project locally, so pick the location you prefer.
 4. Click "Clone" to start importing the project.
 5. After a moment, you should see a popup in the bottom right corner informing you that there is an unmanaged pom.xml. Click the popup and select "Add as Maven Project".
@@ -99,35 +135,35 @@ You can use IDEA to clone the repository directly:
 Alternatively, you can use a fully local copy:
 1. Go to https://github.com/Innoxia/liliths-throne-public in your preferred web browser and click "Clone or Download", then "Download ZIP".
 2. Extract the zip file where you want the project to be.
-3. In IDEA, go to "File" > "New" > "Project from Existing Sources".
+3. In IDEA, go to [File -> New -> Project from Existing Sources].
 4. Navigate to the folder you extracted in step 2, select it and click "OK".
 5. In the next prompt, select "Import project from external model" and pick "Maven".
 6. Click "Next" multiple times and then "Finish". Configure the project as desired, but the default settings should be fine.
 
-Your IDE should now load the project tree with ressources, sources, etc. and generate project files as needed. Next, you need to create run configurations:
-1. For the default quick start, press Ctrl + Shift + A and search for "Edit Configurations". Open the action with that name.
+Your IDE should now load the project tree with resources, sources, etc. and generate project files as needed. Next, you need to create run configurations:
+1. For the default quick start, press [Ctrl + Shift + A] and search for "Edit Configurations". Open the action with that name.
 2. In the dialogue, click the "+" in the top left corner and choose "Application".
 3. Pick a name for the configuration that you will recognize (e.g. "Build and run").
 4. Click the "..." next to the "Main class" text field and search for "Main". Pick the class with that name (com.lilithsthrone.main) and click "OK".
 5. Click "Apply" and/or "OK".
 
-You should now be able to build and run the game using the new run configuration (which should be selected by default). The default hotkey is Shift + F10.
+You should now be able to build and run the game using the new run configuration (which should be selected by default). The default hotkey is [Shift + F10].
 Since this does not create a .jar file, you can add Maven run configurations to package and deploy a file that you can move to another computer:
-1. Return to the "Edit Configurations" window (use Ctrl + Shift + A if you can't find it).
+1. Return to the "Edit Configurations" window (use [Ctrl + Shift + A] if you can't find it).
 2. Click the "+" and add a "Maven" configuration.
 3. Pick a name for the configuration (e.g. "Package .jar")
 4. Set "package" as the command option (without quotation marks).
 5. Click "Apply" and/or "OK".
 
-Running the newly created configuration (Shift + F10, make sure that the correct configuration is selected in the top right corner) should create a runnable .jar file in the "target" directory within your working directory. You can rename this file to whatever you want.
+Running the newly created configuration ([Shift + F10], make sure that the correct configuration is selected in the top right corner) should create a runnable .jar file in the "target" directory within your working directory. You can rename this file to whatever you want.
 
-Note that the "data" directory (that stores settings and save games) may be overriden during the building process, so make a backup of it beforehand.
+Note that the "data" directory (that stores settings and save games) may be overridden during the building process, so make a backup of it beforehand.
 
 ### Common issues
 
 #### The Main class isn't recognized and unresolved symbol errors for Java
 
 The importer sometimes fails to set the correct JDK for your project.
-1. Open the "Project Structure" dialogue (the default keybind is Ctrl + Shift + Alt + S or search for it with Ctrl + Shift + A)
+1. Open the "Project Structure" dialogue (the default keybind is [Ctrl + Shift + Alt + S] or search for it with [Ctrl + Shift + A]).
 2. In the "Project" tab, select an appropriate project SDK from the drop-down menu.
-3. If there is none, click "New..." > "JDK" and locate it manually. Note that it must be for Java version 1.8 or higher.
+3. If there is none, click [New... -> JDK] and locate it manually. Note that it must be for Java version 1.8.
