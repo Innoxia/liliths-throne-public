@@ -81,9 +81,9 @@ Your first build will take longer than the subsequent ones as only changed files
 
 ## Using NetBeans
 *You will need the NetBeans IDE, as well as Java SE Development Kit!*
-The up-to-date download can be found here: https://netbeans.apache.org/download/index.html
+The up-to-date NetBeans download can be found here: https://netbeans.apache.org/download/index.html
 
-You can download the Lilith's throne code directly from GitHub:
+NetBeans can download the Lilith's Throne code directly from GitHub:
 1. Open NetBeans.
 2. Head to the menu [Team -> Git -> Clone]. Note that if you have currently selected a project which uses some Version Control System, the menu will look slightly differently:
 2a. If that project uses Git: [Team -> Remote -> Clone].
