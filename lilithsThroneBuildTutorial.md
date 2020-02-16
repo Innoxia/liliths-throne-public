@@ -87,24 +87,24 @@ The up-to-date NetBeans download can be found here: https://netbeans.apache.org/
 NetBeans can download the Lilith's Throne code directly from GitHub:
 1. Open NetBeans.
 1. Head to the menu [Team -> Git -> Clone]. Note that if you have currently selected a project which uses some Version Control System, the menu will look slightly differently:
-  1. If that project uses Git: [Team -> Remote -> Clone].
-  1. If that project uses a different VCS: [Team -> Other VCS -> Git -> Clone].
+   1. If that project uses Git: [Team -> Remote -> Clone].
+   1. If that project uses a different VCS: [Team -> Other VCS -> Git -> Clone].
 1. Enter "https://github.com/Innoxia/liliths-throne-public.git" as Repository URL (you can leave the User and Password fields empty).
 1. Click "Next".
 1. Select which branch to download, this is usually "master" for the current Release, or "dev" for the latest Development version.
 1. Click "Next".
 1. You can change the destination (Parent Directory) for the project files, as well as the name (Clone Name) for the project. Click "Finish" to proceed.
 1. Wait for the download to complete (this will probably happen in the background, but you can see the progress by the bottom-right corner).
-  1. You should get a popup warning once it finishes, asking if you want to open the new project; you do.
+   1. You should get a popup warning once it finishes, asking if you want to open the new project; you do.
 1. Select the project on the "Projects" view, by the left.
-  1. Were it not visible, you can activate the "Project" view from the [Window] menu, or pressing [Ctrl + 1].
+   1. Were it not visible, you can activate the "Project" view from the [Window] menu, or pressing [Ctrl + 1].
 1. To run the game from NetBeans, click the green Play button, by the top bar (or press [F6]).
-  1. You might be asked about the Main Class, check "Remember Permanently" and select the only available option.
+   1. You might be asked about the Main Class, check "Remember Permanently" and select the only available option.
 1. You can now proceed to have fun with the code, if that's what you're here for. If what you want is building a runnable .jar, proceed to step 12.
-  1. To access the fancy debugging tools, you'll need to run the game by clicking the corresponding button (or pressing [Ctrl + F5]).
+   1. To access the fancy debugging tools, you'll need to run the game by clicking the corresponding button (or pressing [Ctrl + F5]).
 1. In order to create a .jar file to launch the game outside NetBeans, click the "Hammer and Broom" button by the top bar or use the menu [Run -> Clean and Build Project] (you can instead press [Shift + F11]).
-  1. Note that the hammer button [F11] will generally do the same, but forcing a cache clear and compiling everything again is recommended.
-  1. Keep in mind that the .jar will not work properly unless a Main Class has been previously defined (AKA: don't skip step 10).
+   1. Note that the hammer button [F11] will generally do the same, but forcing a cache clear and compiling everything again is recommended.
+   1. Keep in mind that the .jar will not work properly unless a Main Class has been previously defined (AKA: don't skip step 10).
 
 Alternatively, you can use NetBeans' import zip feature to import this project:
 1. Use the green "Clone or Download" button on the project's main page, and choose "Download ZIP".
