@@ -87,15 +87,15 @@ The up-to-date NetBeans download can be found here: https://netbeans.apache.org/
 NetBeans can download the Lilith's Throne code directly from GitHub:
 1. Open NetBeans.
 2. Head to the menu [Team -> Git -> Clone]. Note that if you have currently selected a project which uses some Version Control System, the menu will look slightly differently:
-2.a If that project uses Git: [Team -> Remote -> Clone].
-2.2 If that project uses a different VCS: [Team -> Other VCS -> Git -> Clone].
+  2. a) If that project uses Git: [Team -> Remote -> Clone].
+  2. b. If that project uses a different VCS: [Team -> Other VCS -> Git -> Clone].
 3. Enter "https://github.com/Innoxia/liliths-throne-public.git" as Repository URL (you can leave the User and Password fields empty).
 4. Click "Next".
 5. Select which branch to download, this is usually "master" for the current Release, or "dev" for the latest Development version.
 6. click "Next".
 7. You can change the destination (Parent Directory) for the project files, as well as the name (Clone Name) for the project. Click "Finish" to proceed.
 8. Wait for the download to complete (this will probably happen in the background, but you can see the progress by the bottom-right corner).
-8a. You should get a popup warning once it finishes, asking if you want to open the new project; you do.
+   8. You should get a popup warning once it finishes, asking if you want to open the new project; you do.
 9. Select the project on the "Projects" view, by the left.
 9a. Were it not visible, you can activate the "Project" view from the [Window] menu, or pressing [Ctrl + 1].
 10. To run the game from NetBeans, click the green Play button, by the top bar (or press [F6]).
