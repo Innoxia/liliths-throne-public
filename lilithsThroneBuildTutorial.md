@@ -8,7 +8,7 @@ You may download Oracle's "Java SE Development Kit 8u172" here: https://www.orac
 *You will need the Eclipse IDE and Java SE Development Kit!*
 *If you already have Eclipse, verify that you are running a version between Luna and 2018 (some newer builds have been found to be incompatible)*
 
-You may download a working version of Eclipse here: https://www.eclipse.org/downloads/packages/release/oxygen/3a/eclipse-ide-java-developers
+You may download a compatible version of Eclipse here: https://www.eclipse.org/downloads/packages/release/oxygen/3a/eclipse-ide-java-developers
 1. Open Eclipse.
 1. Click [File -> Import] it will then open a wizard, open "Git" and choose "Projects from Git", click "Next".
 1. Choose "Clone URL" and then click "Next".
