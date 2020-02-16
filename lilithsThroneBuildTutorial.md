@@ -6,6 +6,7 @@ You may download Oracle's "Java SE Development Kit 8u172" here: https://www.orac
 ## Using Eclipse
 *You will need the Eclipse IDE and Java SE Development Kit!*
 *If you already have Eclipse, verify that you are running a version between Luna and 2018 (some newer builds have been found to be incompatible)*
+
 0. Download Eclipse: https://www.eclipse.org/downloads/packages/release/oxygen/3a/eclipse-ide-java-developers
 1. Open Eclipse.
 2. Click [File -> Import] it will then open a wizard, open "Git" and choose "Projects from Git", click "Next".
@@ -86,8 +87,8 @@ The up-to-date NetBeans download can be found here: https://netbeans.apache.org/
 NetBeans can download the Lilith's Throne code directly from GitHub:
 1. Open NetBeans.
 2. Head to the menu [Team -> Git -> Clone]. Note that if you have currently selected a project which uses some Version Control System, the menu will look slightly differently:
-2a. If that project uses Git: [Team -> Remote -> Clone].
-2b. If that project uses a different VCS: [Team -> Other VCS -> Git -> Clone].
+2.a If that project uses Git: [Team -> Remote -> Clone].
+2.2 If that project uses a different VCS: [Team -> Other VCS -> Git -> Clone].
 3. Enter "https://github.com/Innoxia/liliths-throne-public.git" as Repository URL (you can leave the User and Password fields empty).
 4. Click "Next".
 5. Select which branch to download, this is usually "master" for the current Release, or "dev" for the latest Development version.
