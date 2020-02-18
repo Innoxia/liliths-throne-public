@@ -1,12 +1,13 @@
 # **Tutorial for Building Liliths Throne**
 
-*If you already have Java, uninstalling other versions and installing 8u172 is strongly recommended to avoid conflict*
+*If you already have Java, uninstalling other versions and installing 8u172 is strongly recommended to avoid conflict.*
 
 You may download Oracle's "Java SE Development Kit 8u172" here: https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase8-2177648.html
 
 ## Using Eclipse
 *You will need the Eclipse IDE and Java SE Development Kit!*
-*If you already have Eclipse, verify that you are running a version between Luna and 2018 (some newer builds have been found to be incompatible)*
+
+*If you already have Eclipse, verify that you are running a version between Luna and 2018 (some newer builds have been found to be incompatible).*
 
 You may download a compatible version of Eclipse here: https://www.eclipse.org/downloads/packages/release/oxygen/3a/eclipse-ide-java-developers
 1. Open Eclipse.
@@ -16,15 +17,15 @@ You may download a compatible version of Eclipse here: https://www.eclipse.org/d
 1. Put "github.com" into the second box in Location, this may be done automatically.
 1. Put "/Innoxia/liliths-throne-public" in the third box in Location, this may be done automatically. Then click "Next".
 1. The wizard will now ask which branch you want, this will be "master" (or "dev" for dev branch), select this and then click "Next".
-1. Unless you want to change the directory, click Next.
+1. Unless you want to change the directory, click "Next".
 1. It will now download the repository.
-1. Make sure "Import existing Eclipse projects" is selected, then click Next.
-1. Make sure the Lilith's Throne project is selected, then click Finish.
+1. Make sure "Import existing Eclipse projects" is selected, then click "Next".
+1. Make sure the Lilith's Throne project is selected, then click "Finish".
 1. Click [File -> Export].
 1. Open "Java", and then choose "Runnable JAR File".
 1. Choose "Main - LilithsThrone" under Launch Configuration (IF THERE ARE NO OPTIONS, READ HELP BELOW).
 1. Choose an export destination for the .jar file, this should be where you normally run the game from.
-1. Click Finish, A warning may pop up saying "JAR export finished with warnings" This is fine.
+1. Click "Finish". A warning may pop up saying "JAR export finished with warnings", this is fine.
 1. You should now be able to run the exported .jar file!
 
 If the jar does not run:
@@ -43,9 +44,9 @@ If the jar does not run:
 1. Choose "Java Application", and click "OK".
 1. A Wizard will open, click "Search" next to the "Main Class" Box.
 1. Another Window will open, there will be one matching item called "Main - com.lilithsthrone.main" Select this and click "OK".
-1. Click OK.
+1. Click "OK".
 1. Click "Apply" and "Close".
-1. Try Exporting Again.
+1. Try Exporting again.
 
 
 ####  "C:\Users\[USERNAME]\git\liliths-throne-public is not an empty directory."
@@ -93,7 +94,7 @@ NetBeans can download the Lilith's Throne code directly from GitHub:
    1. If that project uses a different VCS: [Team -> Other VCS -> Git -> Clone].
 1. Enter "https://github.com/Innoxia/liliths-throne-public.git" as Repository URL (you can leave the User and Password fields empty).
 1. Click "Next".
-1. Select which branch to download, this is usually "master" for the current Release, or "dev" for the latest Development version.
+1. Select which branch to download, this is usually "master" for the current Release or "dev" for the latest Development version.
 1. Click "Next".
 1. You can change the destination (Parent Directory) for the project files, as well as the name (Clone Name) for the project. Click "Finish" to proceed.
 1. Wait for the download to complete (this will probably happen in the background, but you can see the progress by the bottom-right corner).
@@ -104,8 +105,8 @@ NetBeans can download the Lilith's Throne code directly from GitHub:
    1. You might be asked about the Main Class, check "Remember Permanently" and select the only available option.
 1. You can now proceed to have fun with the code, if that's what you're here for. If what you want is building a runnable .jar, proceed to step 12.
    1. To access the fancy debugging tools, you'll need to run the game by clicking the corresponding button (or pressing [Ctrl + F5]).
-1. In order to create a .jar file to launch the game outside NetBeans, click the "Hammer and Broom" button by the top bar or use the menu [Run -> Clean and Build Project] (you can instead press [Shift + F11]).
-   1. Note that the hammer button [F11] will generally do the same, but forcing a cache clear and compiling everything again is recommended.
+1. In order to create a .jar file to launch the game outside NetBeans, click the "hammer and broom" button by the top bar or use the menu [Run -> Clean and Build Project] (you can instead press [Shift + F11]).
+   1. Note that the "hammer" [Run -> Build Project] button (or [F11]) will generally do the same, but forcing a cache clear and compiling everything again is recommended.
    1. Keep in mind that the .jar will not work properly unless a Main Class has been previously defined (AKA: don't skip step 10).
 
 Alternatively, you can use NetBeans' import zip feature to import this project:
