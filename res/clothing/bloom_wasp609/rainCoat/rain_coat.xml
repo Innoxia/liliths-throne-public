@@ -2,38 +2,38 @@
 
 <clothing>
 	<coreAttributes>
-		<value>750</value>
-
+		<value>750</value> 
+		
 		<determiner><![CDATA[a]]></determiner>
-
+		
 		<name><![CDATA[raincoat]]></name>
-
-		<namePlural pluralByDefault="false"><![CDATA[raincoats]]></namePlural>
-
-		<description><![CDATA[A waterproof raincoat, complete with hood and soft inner-lining. It's long enough in the leg to keep the wearer's groin hidden from sight.]]></description>
-
-		<physicalResistance>1</physicalResistance>
-
-		<femininity>ANDROGYNOUS</femininity>
-
-		<slot>TORSO_OVER</slot>
-
-		<rarity>COMMON</rarity>
-
-		<clothingSet/>
-
-		<imageName>rain_coat.svg</imageName>
-
-		<imageEquippedName/>
-
+		
+		<namePlural pluralByDefault="false"><![CDATA[raincoats]]></namePlural> 
+		
+		<description><![CDATA[A waterproof raincoat, complete with hood and soft inner-lining. It's long enough in the leg to keep the wearer's groin hidden from sight.]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>ANDROGYNOUS</femininity> 
+		
+		<slot>TORSO_OVER</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
+		<clothingSet/> 
+		
+		<imageName>rain_coat.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
 		<enchantmentLimit/>
-
+		
 		<effects/>
-
-		<blockedPartsList>
+		
+		<blockedPartsList> 
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
-				<clothingAccessRequired>
+				<clothingAccessRequired> 
 					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
 				</clothingAccessRequired>
 				<blockedBodyParts>
@@ -42,7 +42,7 @@
 				<clothingAccessBlocked/>
 				<concealedSlots/>
 			</blockedParts>
-
+			
 			<blockedParts>
 				<displacementType>UNBUTTONS</displacementType>
 				<clothingAccessRequired/>
@@ -57,9 +57,9 @@
 				</clothingAccessBlocked>
 				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
 			</blockedParts>
-
+			
 			<blockedParts>
-				<displacementType>PULLS_UP</displacementType>
+				<displacementType>PULLS_UP</displacementType> 
 				<clothingAccessRequired/>
 				<blockedBodyParts>
 					<bodyPart>ANUS</bodyPart>
@@ -73,9 +73,9 @@
 				<concealedSlots values="CONCEALED_GROIN"/>
 			</blockedParts>
 		</blockedPartsList>
-
-		<incompatibleSlots/>
-
+		
+		<incompatibleSlots/> 
+		
 		<primaryColours>
 			<colour>CLOTHING_WHITE</colour>
 			<colour>CLOTHING_RED_VERY_DARK</colour>
@@ -99,5 +99,5 @@
 		</itemTags>
 	</coreAttributes>
 
-
+	
 </clothing>

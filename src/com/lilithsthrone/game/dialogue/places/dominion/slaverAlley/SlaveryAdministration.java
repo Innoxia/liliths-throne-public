@@ -5,7 +5,8 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.OccupantManagementDialogue;
+import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
+import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -58,7 +59,13 @@ public class SlaveryAdministration {
 					return new ResponseTrade("Trade", "Buy slavery-related items.", Main.game.getNpc(Finch.class));
 
 				} else if (index == 5) {
-					return new Response("Slave Manager", "Open the slave management screen.", OccupantManagementDialogue.getSlaveryOverviewDialogue());
+					return new Response("Slave Manager", "Open the slave management screen.", SLAVERY_ADMINISTRATION) {
+						@Override
+						public DialogueNode getNextDialogue() {
+							CompanionManagement.initManagement(null, 0, null);
+							return OccupantManagementDialogue.getSlaveryManagementDialogue(null);
+						}
+					};
 
 				} else if (index == 0) {
 					return new Response("Leave", "Step back outside.", SLAVERY_ADMINISTRATION_EXTERIOR);

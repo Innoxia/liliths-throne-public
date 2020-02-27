@@ -8,33 +8,38 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexSlot;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexPositionUnique;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.9
- * @version 0.2.9
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMGloryHoleSex extends SexManagerDefault {
 
 	public SMGloryHoleSex(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionBipeds.GLORY_HOLE_SEX,
+		super(SexPositionUnique.GLORY_HOLE_SEX,
 				dominants,
 				submissives);
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 
 	@Override
 	public boolean isPositionChangingAllowed(GameCharacter character) {
-		return Sex.isDom(character);
+		return Main.sex.isDom(character);
+	}
+
+	@Override
+	public boolean isAbleToRemoveSelfClothing(GameCharacter character){
+		return character.isPlayer();
 	}
 
 	@Override
@@ -51,7 +56,7 @@ public class SMGloryHoleSex extends SexManagerDefault {
 	public List<InventorySlot> getSlotsConcealed(GameCharacter character) {
 		List<InventorySlot> concealedSlots = new ArrayList<>();
 		
-		if(Sex.getSexPositionSlot(character).equals(SexSlotBipeds.GLORY_HOLE_FUCKED)) {
+		if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKED)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.MOUTH);
 			concealedSlots.remove(InventorySlot.PENIS);
@@ -59,14 +64,14 @@ public class SMGloryHoleSex extends SexManagerDefault {
 			concealedSlots.remove(InventorySlot.GROIN);
 			concealedSlots.remove(InventorySlot.LEG);
 			
-		} else if(Sex.getSexPositionSlot(character).equals(SexSlotBipeds.GLORY_HOLE_FUCKING)) {
+		} else if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKING)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.PENIS);
 			concealedSlots.remove(InventorySlot.VAGINA);
 			concealedSlots.remove(InventorySlot.GROIN);
 			concealedSlots.remove(InventorySlot.LEG);
 			
-		} else if(Sex.getSexPositionSlot(character).equals(SexSlotBipeds.GLORY_HOLE_RECEIVING_ORAL_ONE)) {
+		} else if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.PENIS);
 			concealedSlots.remove(InventorySlot.VAGINA);

@@ -3,7 +3,6 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -11,6 +10,7 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -49,14 +49,11 @@ public class PartnerSelfFingerNipple {
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"[npc.Name] reaches up and starts playing with [npc.her] hard [npc.nipples], pinching and rubbing them as [npc.she] moans with arousal.",
-					
 					"[npc.NamePos] fingertips tease over [npc.her] [npc.breasts+], stopping to pinch and tug at [npc.her] [npc.nipples+] as [npc.she] moans and sighs in delight.",
-					
 					"[npc.Name] reaches up to [npc.her] [npc.breasts+], and, with eager fingers, starts to pinch and rub at [npc.her] exposed [npc.nipples].",
-					
 					"With [npc.a_moan+], [npc.name] reaches up to [npc.her] [npc.nipples+], pinching and flicking them as [npc.she] continues to cry out in delight."));
 			
-			switch (Sex.getCharacterPerformingAction().getBreastStoredMilk()) {
+			switch (Main.sex.getCharacterPerformingAction().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" A small trickle of [npc.milk] leaks out around [npc.her] fingertips.");
 					break;
@@ -87,7 +84,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public String applyEffectsString() {
-			return Sex.getCharacterPerformingAction().incrementBreastStoredMilk(-10);
+			return Main.sex.getCharacterPerformingAction().incrementBreastStoredMilk(-10);
 		}
 
 	};
@@ -128,7 +125,7 @@ public class PartnerSelfFingerNipple {
 					"With a lewd cry, [npc.name] sinks [npc.her] digits into [npc.her] inviting nipple-cunts, panting heavily as [npc.she] start eagerly fingering [npc.herself]."));
 			
 		
-			switch (Sex.getCharacterPerformingAction().getBreastStoredMilk()) {
+			switch (Main.sex.getCharacterPerformingAction().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" A small trickle of [npc.milk] leaks out around [npc.her] fingertips.");
 					break;
@@ -159,7 +156,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public String applyEffectsString() {
-			return Sex.getCharacterPerformingAction().incrementBreastStoredMilk(-10);
+			return Main.sex.getCharacterPerformingAction().incrementBreastStoredMilk(-10);
 		}
 		
 	};
@@ -264,7 +261,7 @@ public class PartnerSelfFingerNipple {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"[npc.A_moan+] escapes from between [npc.namePos] [npc.lips+] as [npc.she] roughly slams [npc.her] [npc.fingers] deep inside [npc.her] [npc.nipple+], before starting to rapidly finger [npc.her] [npc.breast].",
+					"[npc.A_moan+] escapes from between [npc.namePos] [npc.lips+] as [npc.she] roughly [npc.verb(slam)] [npc.her] [npc.fingers] deep inside [npc.her] [npc.nipple+], before starting to rapidly finger [npc.her] [npc.breast].",
 					
 					"Roughly pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.nipple+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] rhythmically fingers [npc.her] [npc.breast+].",
 					

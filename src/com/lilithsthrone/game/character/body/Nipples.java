@@ -16,9 +16,9 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
@@ -42,7 +42,7 @@ public class Nipples implements BodyPartInterface {
 		this.nippleShape = nippleShape;
 		areolaeShape = AreolaeShape.NORMAL;
 		this.areolaeSize = areolaeSize;
-		orificeNipples = new OrificeNipples(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
+		orificeNipples = new OrificeNipples(wetness, capacity, elasticity, plasticity, virgin, crotchNipples, type.getDefaultRacialOrificeModifiers());
 		this.crotchNipples = crotchNipples;
 	}
 	
@@ -83,8 +83,13 @@ public class Nipples implements BodyPartInterface {
 		for(OrificeModifier om : orificeNipples.getOrificeModifiers()) {
 			descriptorList.add(om.getName());
 		}
+
 		
 		if(isCrotchNipples()) {
+			if(owner.getNippleCrotchCovering()!=null) {
+				descriptorList.add(owner.getCovering(owner.getNippleCrotchCovering()).getColourDescriptor(owner, false, false));
+			}
+			
 			if(owner.isBreastCrotchFuckableNipplePenetration()) {
 				switch(owner.getBreastCrotchMilkStorage().getAssociatedWetness()) {
 					case ONE_SLIGHTLY_MOIST:
@@ -103,6 +108,10 @@ public class Nipples implements BodyPartInterface {
 			}
 			
 		} else {
+			if(owner.getNippleCovering()!=null) {
+				descriptorList.add(owner.getCovering(owner.getNippleCovering()).getColourDescriptor(owner, false, false));
+			}
+			
 			if(owner.isBreastFuckableNipplePenetration()) {
 				switch(owner.getBreastMilkStorage().getAssociatedWetness()) {
 					case ONE_SLIGHTLY_MOIST:
@@ -121,18 +130,18 @@ public class Nipples implements BodyPartInterface {
 			}
 		}
 		
-		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
-			if(Sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.NIPPLE)) {
+		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(owner)) {
+			if(Main.sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.NIPPLE)) {
 				descriptorList.add("wet");
 			}
 		}
 		
 		descriptorList.add(type.getDescriptor(owner));
 		if(orificeNipples.getCapacity()!= Capacity.ZERO_IMPENETRABLE) {
-			descriptorList.add(Capacity.getCapacityFromValue(orificeNipples.getStretchedCapacity()).getDescriptor());
+			descriptorList.add(Capacity.getCapacityFromValue(orificeNipples.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
 		}
-		
-		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+
+		return Util.randomItemFrom(descriptorList);
 	}
 
 	@Override
@@ -206,6 +215,19 @@ public class Nipples implements BodyPartInterface {
 		String transformation = "";
 		
 		switch(nippleShape) {
+			case INVERTED:
+				if(owner.isPlayer()) {
+					transformation = "<p>"
+										+ "Your [pc.nipples] suddenly grow sore and sensitive, and before you have any time to react, they suddenly transform into normal-looking nipples, before pulling inwards and inverting!<br/>"
+										+ "Your [pc.nipplesFullDescriptionColour] [pc.nipples] have transformed into [style.boldSex(inverted nipples)]!"
+									+ "</p>";
+				} else {
+					transformation = "<p>"
+										+ "[npc.Name] shifts about uncomfortably as [npc.her] [npc.nipples] start to grow sore and sensitive, before suddenly transforming into normal-looking nipples, before pulling inwards and inverting!<br/>"
+										+ "[npc.NamePos] [npc.nipplesFullDescriptionColour] [npc.nipples] have transformed into [style.boldSex(inverted nipples)]!"
+									+ "</p>";
+				}
+				break;
 			case NORMAL:
 				if(owner.isPlayer()) {
 					transformation = "<p>"

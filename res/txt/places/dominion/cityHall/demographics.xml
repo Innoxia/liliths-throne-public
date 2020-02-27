@@ -2,7 +2,7 @@
 <dialogue>
 
 	<!-- CORRIDOR/ENTRY -->
-
+	
 	<htmlContent tag="CITY_HALL_DEMOGRAPHICS_ENTRANCE_TURN_BACK"><![CDATA[
 	<p>
 		You decide against ringing the bell on [vanessa.namePos] desk, and, taking one last look at the huge archive, you turn back and head out into the corridor.
@@ -18,15 +18,15 @@
 		<i>
 			<b>Bureau of Demographics</b><br/>
 			Manager: Ms. Cunningham<br/><br/>
-
+			
 			Public services provided:<br/>
 			- Official name changes<br/>
 			- Issuing of offspring tracking maps<br/><br/>
-
+			
 			Internal services:<br/>
 			- Population statistics<br/>
 			- Citizen cataloguing<br/><br/>
-
+			
 			Please note: If the door is closed, then we are currently busy.<br/>
 			Please wait in the corridor for us to conclude our business.<br/>
 			Repeated knocking will result in security being called.
@@ -50,7 +50,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="CITY_HALL_DEMOGRAPHICS_RING_BELL"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
@@ -90,18 +90,18 @@
 		</p>
 		<p>
 			#IF(pc.getSurname().isEmpty())
-				[pc.speech(It's [pc.name],)] you introduce yourself to [vanessa.name], before moving on to the business at hand...
+				[pc.speech(It's [pc.name],)] you introduce yourself to [vanessa.name], before moving on to the business at hand... 
 			#ELSE
-				[pc.speech([pc.Surname]. [pc.Name] [pc.Surname],)] you introduce yourself to [vanessa.name], before moving on to the business at hand...
+				[pc.speech([pc.Surname]. [pc.Name] [pc.Surname],)] you introduce yourself to [vanessa.name], before moving on to the business at hand... 
 			#ENDIF
 		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
-
-
+	
+	
 	<!-- QUESTIONS -->
-
+	
 	<htmlContent tag="QUESTION_CATALOGUING"><![CDATA[
 	<p>
 		[pc.speech(What are you cataloguing? And what's this huge archive used for?)] you ask, curious to hear what it is that [vanessa.name] gets up to in here.
@@ -129,7 +129,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="QUESTION_SOLITARY"><![CDATA[
 	<p>
 		[pc.speech(Why are you the only one working here?)] you ask, wondering why such a huge department only has a single employee assigned to its management.
@@ -151,10 +151,10 @@
 	</p>
 	]]>
 	</htmlContent>
-
-
+	
+	
 	<!-- OFFER_HELP -->
-
+	
 	<htmlContent tag="OFFER_HELP"><![CDATA[
 	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
 		<p>
@@ -200,7 +200,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OFFER_HELP_MS_CUNNINGHAM"><![CDATA[
 		<p>
 			[pc.speech(I'd feel more comfortable continuing to call you 'Ms. Cunningham',)] you reply, smiling at the elderly fox-girl to let her know that you aren't trying to be rude.
@@ -210,14 +210,14 @@
 		</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OFFER_HELP_VANESSA"><![CDATA[
 		<p>
 			[pc.speech(Sure thing, Vanessa,)] you reply, smiling at the elderly fox-girl to let her know that you're more than happy to be on such familiar terms with her.
 		</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OFFER_HELP_FINISH"><![CDATA[
 	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
 		<p>
@@ -248,10 +248,10 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-
-
+	
+	
 	<!-- MASSAGE -->
-
+	
 	<htmlContent tag="FOOT_MASSAGE"><![CDATA[
 	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
 		<p>
@@ -268,7 +268,7 @@
 			[vanessa.speech(Oh, yes, that'd be delightful,)] [vanessa.name] replies, smiling coyly as she swivels her chair to face you. Lifting her feet, she lets out a delighted sigh as you drop to your knees and slip off her flats, gaining access to her pantyhose-covered feet once again. Wiggling her toes at you, she bites her lip and teases, [vanessa.speech(Go on then, show me what you can do.)]
 		</p>
 		<p>
-			Dutifully dropping to your knees in front of the fox-girl,
+			Dutifully dropping to your knees in front of the fox-girl, 
 		</p>
 	#ELSE
 		<p>
@@ -280,7 +280,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="FOOT_MASSAGE_BEG"><![CDATA[
 	<p>
 		[pc.speech(Getting you to beg sounds like fun,)] you tease, smiling at the elderly fox-girl. [pc.speech(Go on, tell me how much you want it.)]
@@ -296,7 +296,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="FOOT_MASSAGE_CORE"><![CDATA[
 	#IF(pc.getArmRows()>1)
 		<p>
@@ -327,14 +327,14 @@
 	#ENDIF
 	#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaFucked))
 		<p>
-			Sensing that your massage is coming to an end, [vanessa.name] lets out a protesting whine, before opening her eyes and panting down at you, [vanessa.speech(Please, [pc.name], do it like you did before! Come on, pull my pantyhose off already!)]
+			Sensing that your massage is coming to an end, [vanessa.name] lets out a protesting whine, before opening her eyes and panting down at you, [vanessa.speech(Please, [pc.name], do it like you did before! Come on, pull my pantyhose off already!)] 
 		</p>
 		<p>
 			As she says this, she lifts her hips in her chair, and, reaching under her skirt, hooks her fingers into the band of her pantyhose. You only have a moment in which to either tell her to stop, or to decide to help the obviously-horny fox-girl take off her pantyhose, in which case you'd end up giving her a bare foot massage again...
 		</p>
 	#ELSE
 		<p>
-			Sensing that your massage is coming to an end, [vanessa.name] lets out a protesting whine, before opening her eyes and panting down at you, [vanessa.speech(Please, [pc.name], don't stop just yet! You can go a little further if you want...)]
+			Sensing that your massage is coming to an end, [vanessa.name] lets out a protesting whine, before opening her eyes and panting down at you, [vanessa.speech(Please, [pc.name], don't stop just yet! You can go a little further if you want...)] 
 		</p>
 		<p>
 			As she says this, she lifts her hips in her chair, and, reaching under her skirt, hooks her fingers into the band of her pantyhose. You only have a moment in which to either tell her to stop, or to decide to help the obviously-horny fox-girl take off her pantyhose, in which case you'd end up giving her a bare foot massage...
@@ -342,7 +342,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="FOOT_MASSAGE_STOP"><![CDATA[
 	<p>
 		Not wanting to go any further with [vanessa.name] right now, you shuffle back and say, [pc.speech(Sorry, [vanessa.name], but I don't have time for any more right now.)]
@@ -355,7 +355,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="BARE_FOOT_MASSAGE"><![CDATA[
 	<p>
 		Wanting to take things further, you reach up and take hold of [vanessa.namePos] thighs, before gripping the fabric of her pantyhose and helping her to pull them down from around her hips. Letting out a delighted giggle, [vanessa.name] lets go of the stretchy nylon, allowing you to do the rest of the work in pulling her pantyhose all the way down over her knees and to her ankles. With one last tug, you pull them completely off, leaving her pale, slender feet fully exposed.
@@ -393,7 +393,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="BARE_FOOT_MASSAGE_STOP"><![CDATA[
 	<p>
 		Not wanting to go any further with [vanessa.name] right now, you shuffle back and say, [pc.speech(Sorry, [vanessa.name], but I don't have time for any more right now.)]
@@ -406,10 +406,10 @@
 	</p>
 	]]>
 	</htmlContent>
-
-
+	
+	
 	<!-- SEX -->
-
+	
 	<htmlContent tag="START_ORAL"><![CDATA[
 	<p>
 		[pc.speech(Mmm, yes,)] you reply, lowering [vanessa.namePos] feet gently to the floor before shuffling forwards between her legs.
@@ -425,83 +425,148 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="END_ORAL_SEX"><![CDATA[
 	<p>
 		Having had enough of being eaten out, [vanessa.name] releases her grip on the back of your head, before gently pushing you back and teasing, [vanessa.speech(I know you just orgasmed, but you're not done yet, are you?)]
 	</p>
-	#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
-		<p>
-			Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to her desk, before sitting on top of it and spreading her legs for you. [vanessa.speech(Come on, give my little pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
-		</p>
-	#ELSEIF(pc.hasVagina())
-		<p>
-			Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down between your legs, she looks up at you and asks, [vanessa.speech(You want me to eat you out, don't you?)]
-		</p>
+	#IF(!pc.isTaur())
+		#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
+			<p>
+				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to her desk, before sitting on top of it and spreading her legs for you. [vanessa.speech(Come on, give my little pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
+			</p>
+		#ELSEIF(pc.hasVagina())
+			<p>
+				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down between your legs, she looks up at you and asks, [vanessa.speech(You want me to eat you out, don't you?)]
+			</p>
+		#ELSE
+			<p>
+				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down between your legs, she looks up at you and asks, [vanessa.speech(You want me to use my mouth on you, don't you?)]
+			</p>
+		#ENDIF
 	#ELSE
-		<p>
-			Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down between your legs, she looks up at you and asks, [vanessa.speech(You want me to use my mouth on you, don't you?)]
-		</p>
+		#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
+			<p>
+				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to one side, before dropping down onto all fours and presenting herself to you. [vanessa.speech(Come on, mount me and give my little pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
+			</p>
+		#ELSEIF(pc.hasVagina())
+			<p>
+				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around behind you, [vanessa.name] traces her fingers over your [pc.pussy+], before sensually asking, [vanessa.speech(You want me to return the favour and eat you out, don't you?)]
+			</p>
+		#ELSE
+			<p>
+				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around behind you, [vanessa.name] traces her fingers over your genderless mound, before sensually asking, [vanessa.speech(You want me to return the favour and pleasure you with my mouth, don't you?)]
+			</p>
+		#ENDIF
 	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="END_ORAL_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		Having had enough of being eaten out, [vanessa.name] releases her grip on the back of your head, before gently pushing you back and teasing, [vanessa.speech(Now that I've had my fun, it's only fair that I return the favour...)]
 	</p>
-	#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
+	#IF(!pc.isTaur())
+		#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
+			<p>
+				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to her desk, before sitting on top of it and spreading her legs at you. [vanessa.speech(Come on then, give my wet little pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
+			</p>
+		#ELSEIF(pc.hasVagina())
+			<p>
+				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down between your legs, she looks up at you and asks, [vanessa.speech(You want me to eat you out, don't you?)]
+			</p>
+		#ELSE
+			<p>
+				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down between your legs, she looks up at you and asks, [vanessa.speech(You want me to use my mouth on you, don't you?)]
+			</p>
+		#ENDIF
+	#ELSE
+		#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
+			<p>
+				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to one side, before dropping down onto all fours and presenting herself to you. [vanessa.speech(Come on, mount me and give my little pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
+			</p>
+		#ELSEIF(pc.hasVagina())
+			<p>
+				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around behind you, [vanessa.name] traces her fingers over your [pc.pussy+], before sensually asking, [vanessa.speech(You want me to return the favour and eat you out, don't you?)]
+			</p>
+		#ELSE
+			<p>
+				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around behind you, [vanessa.name] traces her fingers over your genderless mound, before sensually asking, [vanessa.speech(You want me to return the favour and pleasure you with my mouth, don't you?)]
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_SEX_FUCKING_VANESSA"><![CDATA[
+	#IF(!pc.isTaur())
 		<p>
-			Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to her desk, before sitting on top of it and spreading her legs at you. [vanessa.speech(Come on then, give my wet little pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
+			Smiling at [vanessa.name], you step forwards between her legs, before taking hold of your cock and teasing the [pc.cockHead+] up and down between her wet labia. The feel of your hard cock sliding up and down over her hot cunt is too much for [vanessa.name] to bear, and with a desperate look on her face, she pleads, [vanessa.speechNoEffects(Yes! Please, fuck me!)]
 		</p>
-	#ELSEIF(pc.hasVagina())
 		<p>
-			Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down between your legs, she looks up at you and asks, [vanessa.speech(You want me to eat you out, don't you?)]
+			Giving the horny fox-girl what she wants, you push your hips forwards, sinking your [pc.cock+] into her wet pussy. The sudden penetration causes [vanessa.name] to let out an ecstatic moan, and as you start fucking her on top of her desk, she squeals, [vanessa.speechNoEffects(~Aah!~ Yes! ~Ooh!~ Fuck me!)]
 		</p>
 	#ELSE
 		<p>
-			Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down between your legs, she looks up at you and asks, [vanessa.speech(You want me to use my mouth on you, don't you?)]
+			Smiling at [vanessa.name], you step forwards over the top of her, before lowering your animalistic body down and teasing the [pc.cockHead+] of your [pc.cock+] up and down between her wet labia. The feel of your hard cock sliding up and down over her hot cunt is too much for [vanessa.name] to bear, and with a desperate moan, she pleads, [vanessa.speechNoEffects(Yes! Please, rut me!)]
+		</p>
+		<p>
+			Giving the horny fox-girl what she wants, you take a small step forwards, sinking your [pc.cock+] into her wet pussy. The sudden penetration causes [vanessa.name] to let out an ecstatic moan, and as you start rutting her on the floor of her office, she squeals, [vanessa.speechNoEffects(~Aah!~ Yes! ~Ooh!~ Fuck me like an animal!)]
 		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
-
-	<htmlContent tag="START_SEX_FUCK_ON_DESK"><![CDATA[
-	<p>
-		Smiling at [vanessa.name], you step forwards between her legs, before taking hold of your cock and teasing the [pc.cockHead+] up and down between her wet labia. The feel of your hard cock sliding up and down over her hot cunt is too much for [vanessa.name] to bear, and with a desperate look on her face, she pleads, [vanessa.speechNoEffects(Yes! Please, fuck me!)]
-	</p>
-	<p>
-		Giving the horny fox-girl what she wants, you push your hips forwards, sinking your [pc.cock+] into her wet pussy. The sudden penetration causes [vanessa.name] to let out an ecstatic moan, and as you start fucking her on top of her desk, she squeals, [vanessa.speechNoEffects(~Aah!~ Yes! ~Ooh!~ Fuck me!)]
-	</p>
-	]]>
-	</htmlContent>
-
+	
 	<htmlContent tag="START_SEX_EATEN_OUT"><![CDATA[
-	<p>
-		Smiling down at [vanessa.name], you spread your legs and present your [pc.pussy+] to her. Placing her hands on your thighs, the horny fox-girl shuffles forwards, letting out an excited moan before leaning in to plant a wet kiss on your [pc.labia+].
-	</p>
-	<p>
-		[pc.speechNoEffects(~Aah!~ Yes...)] you moan as you feel [vanessa.namePos] tongue dart out and start to lick and lap at your [pc.pussy+].
-	</p>
-	<p>
-		Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her head in between your legs before starting to enthusiastically eat you out...
-	</p>
+	#IF(!pc.isTaur())
+		<p>
+			Smiling down at [vanessa.name], you spread your legs and present your [pc.pussy+] to her. Placing her hands on your thighs, the horny fox-girl shuffles forwards, letting out an excited moan before leaning in to plant a wet kiss on your [pc.labia+].
+		</p>
+		<p>
+			[pc.speechNoEffects(~Aah!~ Yes...)] you moan as you feel [vanessa.namePos] tongue dart out and start to lick and lap at your [pc.pussy+].
+		</p>
+		<p>
+			Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her head in between your legs before starting to enthusiastically eat you out...
+		</p>
+	#ELSE
+		<p>
+			Looking back over your shoulder to smile at [vanessa.name], you take a couple of small steps to part your hind-legs and present your [pc.pussy+] to her. Placing her hands on your animalistic rump, the horny fox-girl kneels down, letting out an excited moan before leaning in to plant a wet kiss on your [pc.labia+].
+		</p>
+		<p>
+			[pc.speechNoEffects(~Aah!~ Yes...)] you moan as you feel [vanessa.namePos] tongue dart out and start to lick and lap at your [pc.pussy+].
+		</p>
+		<p>
+			Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her head in between your legs before starting to enthusiastically eat you out...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="START_SEX_EATEN_OUT_MOUND"><![CDATA[
-	<p>
-		Smiling down at [vanessa.name], you spread your legs and present your genderless mound to her. Placing her hands on your thighs, the horny fox-girl shuffles forwards, letting out an excited moan before leaning in to plant a wet kiss on your doll-like crotch.
-	</p>
-	<p>
-		[pc.speechNoEffects(~Aah!~ Yes...)] you moan as you feel [vanessa.namePos] tongue dart out and start to lick and lap at your erogenous zone.
-	</p>
-	<p>
-		Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her head in between your legs before starting to enthusiastically perform oral on you...
-	</p>
+	#IF(!pc.isTaur())
+		<p>
+			Smiling down at [vanessa.name], you spread your legs and present your genderless mound to her. Placing her hands on your thighs, the horny fox-girl shuffles forwards, letting out an excited moan before leaning in to plant a wet kiss on your doll-like crotch.
+		</p>
+		<p>
+			[pc.speechNoEffects(~Aah!~ Yes...)] you moan as you feel [vanessa.namePos] tongue dart out and start to lick and lap at your erogenous zone.
+		</p>
+		<p>
+			Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her head in between your legs before starting to enthusiastically perform oral on you...
+		</p>
+	#ELSE
+		<p>
+			Looking back over your shoulder to smile at [vanessa.name], you take a couple of small steps to part your hind-legs and present your genderless mound to her. Placing her hands on your animalistic rump, the horny fox-girl kneels down, letting out an excited moan before leaning in to plant a wet kiss on your doll-like crotch.
+		</p>
+		<p>
+			[pc.speechNoEffects(~Aah!~ Yes...)] you moan as you feel [vanessa.namePos] tongue dart out and start to lick and lap at your erogenous zone.
+		</p>
+		<p>
+			Encouraged by your lewd cry, the elderly fox-girl shuffles closer, pushing her head in between your legs before starting to enthusiastically perform oral on you...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="END_ORAL_SEX_DECLINE_MORE"><![CDATA[
 	<p>
 		You don't really feel like going any further right now, and so tell [vanessa.name] that you're satisfied having just got a taste of her pussy.
@@ -514,7 +579,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="END_SEX"><![CDATA[
 	<p>
 		Having had your fun, the two of you disentangle yourselves from one another's clutches, before stepping back and starting to tidy up. Letting out a very satisfied sigh, [vanessa.name] suddenly steps up beside you, before leaning in to kiss you on the cheek and saying, [vanessa.speech(That was a lot of fun, getting you to orgasm like that... You know, [pc.name], you really make me feel young again...)]
@@ -527,7 +592,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="END_SEX_NO_PLAYER_ORGASM"><![CDATA[
 	<p>
 		Having had your fun, the two of you disentangle yourselves from one another's clutches, before stepping back and starting to tidy up. Letting out a very satisfied sigh, [vanessa.name] suddenly steps up beside you, before leaning in to kiss you on the cheek and saying, [vanessa.speech(That was a lot of fun, but it's a shame that you didn't get to orgasm... You know, [pc.name], you really make me feel young again...)]
@@ -540,10 +605,10 @@
 	</p>
 	]]>
 	</htmlContent>
-
-
+	
+	
 	<!-- OFFSPRING_MAP -->
-
+	
 	<htmlContent tag="OFFSPRING_MAP"><![CDATA[
 	<p>
 		Curious about the 'offspring tracking maps', you ask [vanessa.name] if she could tell you more about them.
@@ -566,7 +631,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OFFSPRING_MAP_PURCHASE"><![CDATA[
 	<p>
 		Deciding that you want one of these offspring tracking maps, you tell [vanessa.name] that you'd like to purchase one, before producing the fifty-thousand flame fee and setting it down on [vanessa.namePos] desk.
@@ -606,7 +671,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OFFSPRING_MAP_BACK"><![CDATA[
 	<p>
 		#IF(pc.getMoney()>=50000)
@@ -620,10 +685,10 @@
 	</p>
 	]]>
 	</htmlContent>
-
-
+	
+	
 	<!-- NAME_CHANGE -->
-
+	
 	<htmlContent tag="NAME_CHANGE"><![CDATA[
 	<p>
 		Wanting to know more about getting your name officially changed, you ask [vanessa.name] how you'd go about doing so.
@@ -636,7 +701,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="NAME_CHANGE_BACK"><![CDATA[
 	<p>
 		Deciding against having your name changed, you thank [vanessa.name] for explaining the process to you, but that you want to think about it a little more first. Putting the documents back in her desk's drawer, she peers over the top of her half-moon reading glasses and asks, [vanessa.speech(What else can I do for you, then?)]
@@ -646,6 +711,6 @@
 	</p>
 	]]>
 	</htmlContent>
-
-
+	
+	
 </dialogue>

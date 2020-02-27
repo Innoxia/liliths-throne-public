@@ -6,14 +6,13 @@ import org.w3c.dom.events.EventListener;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.7
- * @version 0.2.5
+ * @version 0.3.5.1
  * @author Innoxia
  */
 public class EnchantmentEventListener implements EventListener {
@@ -43,8 +42,7 @@ public class EnchantmentEventListener implements EventListener {
 			EnchantmentDialogue.setPotency(potency);
 			
 		} else if(effect) {
-			ItemEffect e = EnchantmentDialogue.getEffects().get(effectIndex);
-			EnchantmentDialogue.removeEffect(e);
+			EnchantmentDialogue.removeEffect(effectIndex);
 			
 		} else if(limit != EnchantmentDialogue.getLimit()) {
 			EnchantmentDialogue.setLimit(limit);
@@ -53,8 +51,8 @@ public class EnchantmentEventListener implements EventListener {
 		if(!EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPrimaryModifiers().contains(EnchantmentDialogue.getPrimaryMod())) {
 			EnchantmentDialogue.setPrimaryMod(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPrimaryModifiers().get(0));
 		}
-		if(!EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getPrimaryMod()).contains(EnchantmentDialogue.getSecondaryMod())) {
-			EnchantmentDialogue.setSecondaryMod(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getPrimaryMod()).get(0));
+		if(!EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getPrimaryMod()).contains(EnchantmentDialogue.getSecondaryMod())) {
+			EnchantmentDialogue.setSecondaryMod(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getPrimaryMod()).get(0));
 		}
 		if(!EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPotencyModifiers(EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod()).contains(EnchantmentDialogue.getPotency())) {
 			EnchantmentDialogue.setPotency(TFPotency.MINOR_BOOST);

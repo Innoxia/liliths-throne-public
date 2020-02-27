@@ -2,69 +2,69 @@
 <!-- For a version without all of the comments, see "rental_daddy.xml". -->
 <clothing>
 	<coreAttributes>
-		<value>1750</value>
-
+		<value>1750</value> 
+		
 		<determiner><![CDATA[a pair of]]></determiner>
-
+		
 		<name><![CDATA[Witch's thigh-high boot]]></name>
-
-		<namePlural pluralByDefault="true"><![CDATA[Witch's thigh-high boots]]></namePlural>
-
-		<description><![CDATA[A pair of stylish thigh-high boots, of the sort worn by a witch.]]></description>
-
-		<physicalResistance>1</physicalResistance>
-
-		<femininity>FEMININE</femininity>
-
-		<slot>FOOT</slot>
-
-		<rarity>EPIC</rarity>
-
-		<clothingSet>WITCH</clothingSet>
-
-		<imageName>witch_boots_thigh_high.svg</imageName>
-
-		<imageEquippedName/>
-
+		
+		<namePlural pluralByDefault="true"><![CDATA[Witch's thigh-high boots]]></namePlural> 
+		
+		<description><![CDATA[A pair of stylish thigh-high boots, of the sort worn by a witch.]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>FEMININE</femininity> 
+		
+		<slot>FOOT</slot> 
+		
+		<rarity>EPIC</rarity> 
+		
+		<clothingSet>WITCH</clothingSet> 
+		
+		<imageName>witch_boots_thigh_high.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
 		<enchantmentLimit>10</enchantmentLimit>
-
-		<effects>
+		
+		<effects> 
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
 		</effects>
-
-		<blockedPartsList>
-
+		
+		<blockedPartsList> 
+		
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType>
-
-				<clothingAccessRequired>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
+				<clothingAccessRequired> 
 					<clothingAccess>FEET</clothingAccess>
 				</clothingAccessRequired>
-
+				
 				<blockedBodyParts>
 					<bodyPart>FEET</bodyPart>
 				</blockedBodyParts>
-
-				<clothingAccessBlocked>
+				
+				<clothingAccessBlocked> 
 					<clothingAccess>FEET</clothingAccess>
 				</clothingAccessBlocked>
-
+				
 				<concealedSlots>
 					<slot>ANKLE</slot>
 				</concealedSlots>
 			</blockedParts>
-
+			
 		</blockedPartsList>
-
-		<incompatibleSlots/>
-
-		<primaryColours values="BLACK_OR_WHITE"/>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="BLACK_OR_WHITE"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_GOLD"/>
 		<secondaryColoursDye values="ALL_METAL"/>
 		<tertiaryColours values="JUST_BLACK"/>
 		<tertiaryColoursDye values="ALL"/>
-
+		
 		<itemTags/>
 	</coreAttributes>
 
@@ -76,7 +76,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(push)] [npc2.namePos] [npc2.feet] into the boots.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] roughly [npc.verb(forces)] [npc2.namePos] [npc2.feet] into the boots.]]>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] [npc2.namePos] [npc2.feet] into the boots.]]>
 	  </otherRough>
 	</replacementText>
 
@@ -91,5 +91,5 @@
 		  <![CDATA[[npc.Name] [npc.verb(yank)] [npc2.namePos] boots off.]]>
 		</otherRough>
 	</displacementText>
-
+	
 </clothing>

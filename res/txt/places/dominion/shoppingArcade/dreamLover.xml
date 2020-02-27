@@ -2,12 +2,17 @@
 <dialogue>
 	<htmlContent tag="EXTERIOR"><![CDATA[
 	<p>
-		Unlike the rest of the buildings in the Arcade, the one in front of you has no real storefront to speak of, and the only indication of it being a shop at all is the rather plain-looking sign above the entrance bearing the name 'Dream Lover'.
-		 It's not like the place is in a state of decay, so you can't say that it's the worst looking shop you've ever seen, although it would definitely be in the running for the blandest.
+		Unlike the rest of the buildings in the Arcade, the one in front of you has no real storefront to speak of, and the only indication of it being a shop at all is the rather plain-looking sign above the entrance bearing the name 'Dream Lover'. It's not like the place is in a state of decay, so you can't say that it's the worst looking shop you've ever seen, although it would definitely be in the running for the blandest.
 	</p>
 	<p>
-		Taking a closer inspection of the property, you can't find any information that reveals the shop's working hours, or even what sort of goods are stocked here.
-		 Despite all of this, there's also no indication that the store is closed, so you could take a look inside if you wanted to.
+		Taking a closer inspection of the property, you can't find any information that reveals the shop's working hours, or even what sort of goods are stocked here. Despite all of this, there's also no indication that the store is closed, so you could try taking a look inside if you wanted to.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXTERIOR_CLOSED"><![CDATA[
+	<p>
+		Intrigued by the thought of what this store might offer, you walk up to the entrance and give the door knob a tentative twist; to your dismay, you discover that the store is [style.colourBad(closed)], leaving you with no other option but to step back and consider returning at a later time.
 	</p>
 	]]>
 	</htmlContent>

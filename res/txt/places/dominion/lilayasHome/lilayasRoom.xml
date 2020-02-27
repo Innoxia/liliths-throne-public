@@ -3,13 +3,17 @@
 
 	<htmlContent tag="EXTERIOR"><![CDATA[
 	<p>
-		As you walk around this particular corner of the first-floor corridor, you catch the faint scent of Lilaya's perfume lingering in the air.
-		 Turning towards the nearest door, you see a little heart-shaped sign has been affixed to it, which reads; 'Lilaya's Room'.
-		 Obviously being the source of your aunt's fragrance, you take a step towards the door, and as you approach, you see that someone (who you presume to be Rose) has hand-written 'Love From Rose' at the bottom of the sign.
+		As you walk around this particular corner of the first-floor corridor, you catch the faint scent of Lilaya's perfume lingering in the air. Turning towards the nearest door, you see a little heart-shaped sign has been affixed to it, which reads: <i>'Lilaya's Room'</i>.
 	</p>
-	<p>
-		Looking down at the door's handle, there doesn't seem to be any sort of lock, so you could always take a peek inside if you really wanted to...
-	</p>
+	#IF(!game.isExtendedWorkTime())
+		<p>
+			Obviously being the source of your [lilaya.relation(pc)]'s fragrance, you take a step towards her bedroom, taking note of the fact that the door is firmly shut. After giving the handle a brief twist, you discover that [style.colourBad(the door is locked)], so if you wanted to take a look inside, you'd have to come back during the day when it's open...
+		</p>
+	#ELSE
+		<p>
+			Obviously being the source of your [lilaya.relation(pc)]'s fragrance, you take a step towards her bedroom, taking note of the fact that the door is slightly ajar. With nobody around to stop you, you could always take a peek inside if you really wanted to...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 
@@ -17,7 +21,7 @@
 	<p>
 		Turning the door's handle, you discover, just as you suspected, that it's not locked.
 		 Carefully peeking through the widening gap in the door as you push it open, you breathe a sigh of relief as you see that the room is currently deserted.
-		 Stepping forwards and closing the door behind you, you find yourself standing in your demonic aunt's bedroom.
+		 Stepping forwards and closing the door behind you, you find yourself standing in your demonic [lilaya.relation(pc)]'s bedroom.
 	</p>
 	<p>
 		As you take in your surrounds, you discover that you're surrounded on all sides by every shade of pink imaginable.

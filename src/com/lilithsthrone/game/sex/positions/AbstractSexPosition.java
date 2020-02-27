@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.positions;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,14 +11,16 @@ import java.util.Set;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexActionInteractions;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -34,16 +37,14 @@ import com.lilithsthrone.utils.Util.Value;
  *   are available for the character on all fours, in relation to a character kneeling behind them.
  * 
  * @since 0.1.97
- * @version 0.3.3
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public abstract class AbstractSexPosition {
 
 	private String name;
+	private int maximumSlots;
 	private boolean addStandardActions;
-	
-	/**Key is role position. Value is list of all slots that this slot can interact with.*/
-	private Map<SexSlot, Map<SexSlot, SexActionInteractions>> slotTargets;
 	
 	private List<Class<?>> positioningClasses;
 	private List<Class<?>> specialClasses;
@@ -52,15 +53,15 @@ public abstract class AbstractSexPosition {
 	public static List<SexAreaOrifice> genericFaceForceCreampieAreas = Util.newArrayListOfValues(SexAreaOrifice.MOUTH);
 	
 	public AbstractSexPosition(String name,
+			int maximumSlots,
 			boolean addStandardActions,
 			List<Class<?>> positioningClasses,
-			List<Class<?>> specialClasses,
-			Map<SexSlot, Map<SexSlot, SexActionInteractions>> slotTargets) {
+			List<Class<?>> specialClasses) {
 		this.name = name;
+		this.maximumSlots = maximumSlots;
 		this.addStandardActions = addStandardActions;
 		this.positioningClasses = positioningClasses;
 		this.specialClasses = specialClasses;
-		this.slotTargets = slotTargets;
 	}
 	
 	public String getName() {
@@ -79,90 +80,125 @@ public abstract class AbstractSexPosition {
 		return specialClasses;
 	}
 
-	public abstract String getDescription();
+	public abstract String getDescription(Map<GameCharacter, SexSlot> occupiedSlots);
+
+	public Value<Boolean, String> isAcceptablePosition(Map<GameCharacter, SexSlot> positioningSlots) {
+		return new Value<Boolean, String>(true, "");
+	}
+	
+	public Value<Boolean, String> isSlotUnlocked(GameCharacter characterToTakeSlot, SexSlot slot, Map<GameCharacter, SexSlot> positioningSlots) {
+		return new Value<Boolean, String>(true, "");
+	}
 	
 	public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
 		if(action.getActionType()==SexActionType.START_ONGOING
 				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED
 				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
 			
-			
 			// Block penis+non-appendage-non-pussy actions if target's penis is already in use:
 			try {
 				// Trying to interact a penis with a character who is already using a penis:
-				if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS) && Sex.isPenetrationNonSelfOngoingAction(target, SexAreaPenetration.PENIS)) {
-					// If the person already using the penis is using it with an orifice that is not allowed for inter-penetrations:
-					if(Collections.disjoint(Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer), SexActionPresets.allowedInterPenetrationAreas)) {
-						// return blocked if the targeted area is not an appendage:
-						if(Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)) {
+				if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)
+						&& Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)) {
+					boolean ongoingAllowedFound = false;
+					for(SexAreaInterface sa : Main.sex.getOngoingSexAreas(target, SexAreaPenetration.PENIS, performer)) {
+						if(!SexActionPresets.allowedInterPenetrationAreas.contains(sa)) {
 							return true;
-						} else {
-							return false;
+						} else if(sa==SexAreaOrifice.VAGINA) {
+							ongoingAllowedFound = true;
 						}
-						
-					} else {
-						// return blocked if the penetrated area is a vagina and the targeted area is a non-appendage area:
-						if(Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)) {
-							return Sex.getOrificesBeingPenetratedBy(target, SexAreaPenetration.PENIS, performer).contains(SexAreaOrifice.VAGINA);
-						} else {
-							return false;
+					}
+					if(ongoingAllowedFound) {
+						for(SexAreaInterface sa : action.getSexAreaInteractions().values()) {
+							if(!SexActionPresets.allowedInterPenetrationAreas.contains(sa)) {
+								return true;
+							}
 						}
 					}
 				}
 			}catch(Exception ex) {}
 			try {
 				// Trying to interact a penis with a character who is already using a penis:
-				if(action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS) && Sex.isPenetrationNonSelfOngoingAction(performer, SexAreaPenetration.PENIS)) {
-					// If the person already using the penis is using it with an orifice that is not allowed for inter-penetrations:
-					if(Collections.disjoint(Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target), SexActionPresets.allowedInterPenetrationAreas)) {
-						// return blocked if the targeted area is not an appendage:
-						if(Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas)) {
+				if(action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)
+						&& Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas)) {
+					boolean ongoingAllowedFound = false;
+					for(SexAreaInterface sa : Main.sex.getOngoingSexAreas(performer, SexAreaPenetration.PENIS, target)) {
+						if(!SexActionPresets.allowedInterPenetrationAreas.contains(sa)) {
 							return true;
-						} else {
-							return false;
+						} else if(sa==SexAreaOrifice.VAGINA) {
+							ongoingAllowedFound = true;
 						}
-						
-					} else {
-						// return blocked if the penetrated area is a vagina and the targeted area is a non-appendage area:
-						if(Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas)) {
-							return Sex.getOrificesBeingPenetratedBy(performer, SexAreaPenetration.PENIS, target).contains(SexAreaOrifice.VAGINA);
-						} else {
-							return false;
+					}
+					if(ongoingAllowedFound) {
+						for(SexAreaInterface sa : action.getSexAreaInteractions().keySet()) {
+							if(!SexActionPresets.allowedInterPenetrationAreas.contains(sa)) {
+								return true;
+							}
 						}
 					}
 				}
-			}catch(Exception ex) {}
+			} catch(Exception ex) {}
 			
 			
 			// Block tribbing and thigh sex if ongoing penis/vagina or penis/anus penetration:
 			Set<SexAreaOrifice> impossibleTribbingAreas = Util.newHashSetOfValues(SexAreaOrifice.ANUS, SexAreaOrifice.VAGINA, SexAreaOrifice.THIGHS);
 			if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.CLIT) && action.getSexAreaInteractions().values().contains(SexAreaPenetration.CLIT)
-				&& ((Sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.PENIS) && Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).values().stream().anyMatch((set)->!Collections.disjoint(set, impossibleTribbingAreas)))
-					|| (Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS) && Sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).values().stream().anyMatch((set)->!Collections.disjoint(set, impossibleTribbingAreas))))) {
+				&& ((Main.sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.PENIS) && Main.sex.getOngoingActionsMap(performer).get(SexAreaPenetration.PENIS).values().stream().anyMatch((set)->!Collections.disjoint(set, impossibleTribbingAreas)))
+					|| (Main.sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.PENIS) && Main.sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).values().stream().anyMatch((set)->!Collections.disjoint(set, impossibleTribbingAreas))))) {
 				return true;
 			}
 			if(((action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS) && !Collections.disjoint(action.getSexAreaInteractions().values(), impossibleTribbingAreas))
 					|| (!Collections.disjoint(action.getSexAreaInteractions().keySet(), impossibleTribbingAreas) && action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)))
-				&& ((Sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.CLIT) && Sex.getOngoingActionsMap(performer).get(SexAreaPenetration.CLIT).values().stream().anyMatch((set)->set.contains(SexAreaPenetration.CLIT)))
-					|| (Sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.CLIT) && Sex.getOngoingActionsMap(target).get(SexAreaPenetration.CLIT).values().stream().anyMatch((set)->set.contains(SexAreaPenetration.CLIT))))) {
+				&& ((Main.sex.getOngoingActionsMap(performer).containsKey(SexAreaPenetration.CLIT) && Main.sex.getOngoingActionsMap(performer).get(SexAreaPenetration.CLIT).values().stream().anyMatch((set)->set.contains(SexAreaPenetration.CLIT)))
+					|| (Main.sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.CLIT) && Main.sex.getOngoingActionsMap(target).get(SexAreaPenetration.CLIT).values().stream().anyMatch((set)->set.contains(SexAreaPenetration.CLIT))))) {
 				return true;
 			}
 			
-			
-			// Block oral + groin actions if there is any groin-groin action going on:
-			if(((!Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.groinAreas)
-							&& !Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.mouthAreas))
-						|| (!Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.groinAreas)
-							&& !Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.mouthAreas)))) {
+			if(!(Main.sex.getSexPositionSlot(performer).hasTag(SexSlotTag.SIXTY_NINE) && Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.LYING_DOWN))
+					&& !(Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.SIXTY_NINE) && Main.sex.getSexPositionSlot(performer).hasTag(SexSlotTag.LYING_DOWN))) {
+				boolean ongoingGroinToGroin = false;
+				boolean ongoingGroinToBreasts = false;
+				boolean ongoingGroinToMouth = false;
+				
 				for(SexAreaInterface sArea : SexActionPresets.groinAreas) {
-					if((Sex.getOngoingActionsMap(target).containsKey(sArea)
-							&& Sex.getOngoingActionsMap(target).get(sArea).containsKey(performer)
-							&& !Collections.disjoint(Sex.getOngoingActionsMap(target).get(sArea).get(performer), SexActionPresets.groinAreas))
-						|| (Sex.getOngoingActionsMap(performer).containsKey(sArea)
-							&& Sex.getOngoingActionsMap(performer).get(sArea).containsKey(target)
-							&& !Collections.disjoint(Sex.getOngoingActionsMap(performer).get(sArea).get(target), SexActionPresets.groinAreas))) {
-						return true;
+					// Groin-groin actions:
+					if((Main.sex.getOngoingActionsMap(target).containsKey(sArea)
+							&& Main.sex.getOngoingActionsMap(target).get(sArea).containsKey(performer)
+							&& !Collections.disjoint(Main.sex.getOngoingActionsMap(target).get(sArea).get(performer), SexActionPresets.groinAreas))
+						|| (Main.sex.getOngoingActionsMap(performer).containsKey(sArea)
+							&& Main.sex.getOngoingActionsMap(performer).get(sArea).containsKey(target)
+							&& !Collections.disjoint(Main.sex.getOngoingActionsMap(performer).get(sArea).get(target), SexActionPresets.groinAreas))) {
+						ongoingGroinToGroin = true;
 					}
+					// Groin-breast actions:
+					if((Main.sex.getOngoingActionsMap(target).containsKey(sArea)
+							&& Main.sex.getOngoingActionsMap(target).get(sArea).containsKey(performer)
+							&& !Collections.disjoint(Main.sex.getOngoingActionsMap(target).get(sArea).get(performer), SexActionPresets.breastAreas))
+						|| (Main.sex.getOngoingActionsMap(performer).containsKey(sArea)
+							&& Main.sex.getOngoingActionsMap(performer).get(sArea).containsKey(target)
+							&& !Collections.disjoint(Main.sex.getOngoingActionsMap(performer).get(sArea).get(target), SexActionPresets.breastAreas))) {
+						ongoingGroinToBreasts = true;
+					}
+					// Groin-mouth actions:
+					if((Main.sex.getOngoingActionsMap(target).containsKey(sArea)
+							&& Main.sex.getOngoingActionsMap(target).get(sArea).containsKey(performer)
+							&& !Collections.disjoint(Main.sex.getOngoingActionsMap(target).get(sArea).get(performer), SexActionPresets.mouthAreas))
+						|| (Main.sex.getOngoingActionsMap(performer).containsKey(sArea)
+							&& Main.sex.getOngoingActionsMap(performer).get(sArea).containsKey(target)
+							&& !Collections.disjoint(Main.sex.getOngoingActionsMap(performer).get(sArea).get(target), SexActionPresets.mouthAreas))) {
+						ongoingGroinToMouth = true;
+					}
+				}
+				
+				// Block oral + groin actions if there is any groin-groin or groin-breast action going on:
+				if((!Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.groinAreas) && !Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.mouthAreas))
+						|| (!Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.groinAreas) && !Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.mouthAreas))) {
+					return ongoingGroinToGroin || ongoingGroinToBreasts;
+				}
+				// Block groin + breast actions if there is any groin-mouth or groin-groin action going on:
+				if((!Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.groinAreas) && !Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.breastAreas))
+						|| (!Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.groinAreas) && !Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.breastAreas))) {
+					return ongoingGroinToGroin || ongoingGroinToMouth;
 				}
 			}
 		}
@@ -171,16 +207,30 @@ public abstract class AbstractSexPosition {
 	}
 	
 	public int getMaximumSlots() {
-		return getSlotTargets().size();
+		return maximumSlots;
 	}
+//		Set<SexSlot> uniqueSlots = new HashSet<>();
+//		
+//		for(Entry<SexSlot, Map<SexSlot, SexActionInteractions>> e : getSlotTargets().entrySet()) {
+//			uniqueSlots.add(e.getKey());
+//			uniqueSlots.addAll(e.getValue().keySet());
+//		}
+//		
+//		return uniqueSlots.size();
+//	}
 
 	public Set<SexSlot> getAllAvailableSexPositions() {
-		return getSlotTargets().keySet();
+		Set<SexSlot> positions = new HashSet<>(getSlotTargets().keySet());
+		
+		getSlotTargets().entrySet().stream().forEach(e -> positions.addAll(e.getValue().keySet()));
+		
+		return positions;
 	}
 
-	public Map<SexSlot, Map<SexSlot, SexActionInteractions>> getSlotTargets() {
-		return slotTargets;
-	}
+	/**
+	 * Key is role position. Value is list of all slots that this slot can interact with.
+	 */
+	public abstract Map<SexSlot, Map<SexSlot, SexActionInteractions>> getSlotTargets();
 	
 	protected static Map<SexSlot, Map<SexSlot, SexActionInteractions>> generateSlotTargetsMap(List<Value<SexSlot, Map<SexSlot, SexActionInteractions>>> values) {
 		Map<SexSlot, Map<SexSlot, SexActionInteractions>> returnMap = new HashMap<>();
@@ -202,7 +252,9 @@ public abstract class AbstractSexPosition {
 		}
 		
 		// If the targeted sex position is not defined, allow cumming on floor:
-		return new SexActionInteractions(null, Util.newArrayListOfValues(OrgasmCumTarget.FLOOR));
+		return new SexActionInteractions(null,
+				Util.newArrayListOfValues(OrgasmCumTarget.FLOOR),
+				Util.newArrayListOfValues(OrgasmCumTarget.FLOOR));
 	}
 	
 	/**

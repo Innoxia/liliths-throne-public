@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.AbstractHornType;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -95,13 +94,15 @@ public class Horn implements BodyPartInterface {
 			UtilText.transformationContentSB.append(UtilText.parse(owner, 
 					"<p>"
 						+ "[npc.Name] [npc.verb(let)] out a surprised gasp as [npc.she] [npc.verb(feel)] an odd tingling sensation at the base of [npc.her] "+(owner.getTotalHorns()==1?"[npc.horn]":"[npc.horns]")+"."
-						+ " Before [npc.she] [npc.has] any time in which to react, "+(owner.getTotalHorns()==1?"it rapidly crumbles  away, and within moments it's":"they rapidly crumble away, and within moments they've")+" completely disappeared. "));
+						+ " Before [npc.she] [npc.has] any time in which to react, "+(owner.getTotalHorns()==1?"it rapidly crumbles away, and within moments it's":"they rapidly crumble away, and within moments they've")+" completely disappeared. "));
 		}
 
-		UtilText.transformationContentSB.append(UtilText.parse(owner, (owner.getTotalHorns()==1
-				?" A hard nub suddenly pushes out from the middle of [npc.her] forehead, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] it quickly grow out into a "
-				:" Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] them quickly grow out into ")));
-				
+		if(type!=HornType.NONE) {
+			UtilText.transformationContentSB.append(UtilText.parse(owner, (owner.getTotalHorns()==1
+					?" A hard nub suddenly pushes out from the middle of [npc.her] forehead, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] it quickly grow out into a "
+					:" Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] them quickly grow out into ")));
+		}
+		
 		this.type = type;
 		
 		UtilText.transformationContentSB.append(type.getTransformationDescription(owner));

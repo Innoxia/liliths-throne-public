@@ -10,7 +10,6 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -42,7 +41,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.95
- * @version 0.2.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class ReindeerOverseer extends NPC {
@@ -62,7 +61,8 @@ public class ReindeerOverseer extends NPC {
 	public ReindeerOverseer(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				10, gender, Subspecies.REINDEER_MORPH, RaceStage.GREATER,
+				10,
+				null, null, null,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
 
 		if(!isImported) {
@@ -77,11 +77,11 @@ public class ReindeerOverseer extends NPC {
 				
 			if(gender.isFeminine()) {
 				RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), gender, subspecies);
-				setBody(gender, subspecies, stage);
+				setBody(gender, subspecies, stage, true);
 				
 			} else {
 				RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies), gender, subspecies);
-				setBody(gender, subspecies, stage);
+				setBody(gender, subspecies, stage, true);
 			}
 
 			setName(Name.getRandomTriplet(subspecies.getRace()));
@@ -107,10 +107,9 @@ public class ReindeerOverseer extends NPC {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			CharacterUtils.applyMakeup(this, true);
 			
-			dailyReset(); // Give items for sale.
-			
-			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+			dailyUpdate(); // Give items for sale.
+
+			initHealthAndManaToMax();
 		}
 	}
 	
@@ -140,7 +139,7 @@ public class ReindeerOverseer extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MANUAL_LABOUR, settings);
+		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.JOB_LABOUR, settings);
 //		super.equipClothing(settings);
 	}
 	
@@ -156,7 +155,7 @@ public class ReindeerOverseer extends NPC {
 	}
 	
 	@Override
-	public void dailyReset() {
+	public void dailyUpdate() {
 		
 		if(!this.isSlave()) {
 			if(Main.game.getCurrentWeather()!=Weather.SNOW && Main.game.getSeason()!=Season.WINTER) {
@@ -166,7 +165,7 @@ public class ReindeerOverseer extends NPC {
 				}
 			}
 			
-			clearNonEquippedInventory();
+			clearNonEquippedInventory(false);
 			
 			if(this.getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_STREET) && !this.getLocation().equals(Main.game.getPlayer().getLocation())) {
 				this.moveToAdjacentMatchingCellType(true);
@@ -186,7 +185,7 @@ public class ReindeerOverseer extends NPC {
 			}
 			
 			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
-				if(clothing!=null && clothing.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
+				if(clothing!=null && clothing.getDefaultItemTags().contains(ItemTag.REINDEER_GIFT)) {
 					for (int i = 0; i < 1 + (Util.random.nextInt(2)); i++) {
 						this.addClothing(AbstractClothingType.generateClothing(clothing), false);
 					}

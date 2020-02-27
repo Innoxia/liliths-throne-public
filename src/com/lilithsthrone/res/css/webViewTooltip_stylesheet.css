@@ -124,7 +124,7 @@ h6{
 	background-color:#19191a;
 	
 	margin:8px 8px 0 8px;
-	padding:8px;
+	padding:4px;
 	
 	box-sizing: border-box;
 	width: calc(50% - 16px);
@@ -141,7 +141,7 @@ h6{
 	background-color:#19191a;
 	
 	margin:8px 8px 0 8px;
-	padding:8px;
+	padding:4px;
 	width:calc((352px/3)*2 - 32px);
 	min-height:calc(352px/3 - 32px);
 }
@@ -154,7 +154,7 @@ h6{
 	background-color:#19191a;
 	
 	margin:8px 8px 0 8px;
-	padding:8px;
+	padding:4px;
 	width:calc(352px/3 - 32px);
 	height:calc(352px/3 - 32px);
 }
@@ -169,7 +169,6 @@ h6{
 	padding:8px;
 	height:106px;
 	background-color:#19191a;
-	
 	box-sizing: border-box;
 	width: calc(100% - 16px);
 }
@@ -178,7 +177,6 @@ h6{
 	padding:8px;
 	height:66px;
 	background-color:#19191a;
-	
 	box-sizing: border-box;
 	width: calc(100% - 16px);
 }
@@ -188,11 +186,9 @@ h6{
 	padding:8px;
 	height:46px;
 	background-color:#19191a;
-	
 	box-sizing: border-box;
 	width: calc(100% - 16px);
 }
-
 
 /******************************************************/
 /*NEW*/

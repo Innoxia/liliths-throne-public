@@ -1,0 +1,1031 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- EXTERIOR -->
+
+	<htmlContent tag="EXTERIOR"><![CDATA[
+	<p>
+		Being built in an extremely imposing example of brutalist architecture, the vast structure before you is strikingly different from the usual residential buildings which Dominion is mostly comprised of. A wide courtyard, paved in drab, grey flagstones and cordoned off with chain bollards, separates the street on which you're standing from this unusual property. Looking up at the façade, which is made almost entirely out of sheets of reflective glass and thick pillars of grey concrete, you see that there's a sign bearing the words "Enforcer Headquarters, Greyhaven Park'.
+	</p>
+	<p>
+		As if the sign wasn't enough to reveal this establishment's purpose to any passersby, there are also a half-dozen or so groups of smartly-dressed
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			 demon
+		#ENDIF
+		 Enforcers loitering about the courtyard, with several more standing guard at each of the three main entrances. While the signs beside two of these doorways inform you that they're for Enforcer use only, the third bears the words 'Public Inquiries; Reception open [units.time(9)]-[units.time(17)]'. If you had any sort of business to conduct here, then this would be the door for you.
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- CORRIDOR -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		A series of doors line either side of this rather ordinary-looking corridor, each one marked with a different name and title. You scan each one for the name '[brax.name]' as you walk along, smiling in your most disarming manner at any Enforcers that you pass along the way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR_BRAX_WARNING"><![CDATA[
+	#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_C_WOLFS_DEN))
+		<p>
+			The door nearest to you is marked with the name 'Inspector [brax.nameFull]', letting you know that this is the office you were looking for.
+			#IF(pc.getLevel()<5)
+				 [style.italicsBad(Be prepared for a potentially difficult fight before entering his office!)]
+			#ELSE
+				 [style.italicsMinorBad(Be prepared for a possible fight before entering his office!)]
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRANCE -->
+
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		A pair of glass doors link the outside world to the small entrance hall that you find yourself standing in. There's a noticeboard hanging from a nearby wall, covered in posters and information leaflets of all kinds. Other than that, however, this room is completely empty, and you'll have to proceed through another set of internal doors if you wanted to enter the building proper.
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- WAITING_AREA -->
+
+	<htmlContent tag="WAITING_AREA"><![CDATA[
+	#IF(!game.isWorkTime())
+		<p>
+			As the reception desk is closed at this time, the many low sofas littered around this waiting area are all completely deserted. The only person you can see from where you're currently standing takes the form of a muscular horse-boy Enforcer, who's standing guard beside the door which leads to the rest of the building's interior.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_accessToEnforcerHQ))
+				 From the moment you entered the waiting area, he hasn't taken his eyes off of you, making sure that you aren't able to sneak past him.
+			#ELSE
+				 From the moment you entered the waiting area, he hasn't taken his eyes off of you, and you realise that there's absolutely no possibility of being able to sneak through the door he's guarding. If you wanted to get access to the HQ's interior, you'll have to come back during the reception desk's opening hours, which are from [style.colourMinorBad([units.time(9)] to [units.time(5)])], and then speak to the receptionist.
+			#ENDIF
+		</p>
+	#ELSE
+		#IF(pc.getCharactersEncountered().contains(candi.getId()))
+			<p>
+				Several rough-looking members of the local community are lounging about on the many low sofas littered around this waiting area. A reception desk is built into the left-hand wall, and you see Candi, the cat-girl bimbo, sitting behind it. She has long, bleach-blonde hair, a beautiful face that's been completely plastered in makeup, and a massive pair of G-cup breasts that threaten to spill out of her half-buttoned-up shirt at any moment. Her cute cat-like ears twitch this way and that as she stares into a little mirror on her desk, and you notice that she's busy applying a layer of bright pink lipstick to her plump lips.
+			</p>
+		#ELSE
+			<p>
+				Several rough-looking members of the local community are lounging about on the many low sofas littered around this waiting area. A reception desk sits off to one side of the room, and you see a lesser cat-girl, wearing an Enforcer's uniform, sitting behind it. She has long, bleach-blonde hair, a beautiful face that's been completely plastered in makeup, and a massive pair of G-cup breasts that threaten to spill out of her half-buttoned-up shirt at any moment. Her cute cat-like ears twitch this way and that as she stares into a little mirror on her desk, and you notice that she's busy applying a layer of bright pink lipstick to her plump, bimbo-like lips.
+			</p>
+		#ENDIF
+		<p>
+			The only other person you can see takes the form of a muscular horse-boy Enforcer, who's standing guard beside the door which leads to the rest of the building's interior.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_accessToEnforcerHQ))
+				 His watchful gaze sweeps the room, making sure that nobody is able to sneak past him.
+			#ELSE
+				 From the moment you entered the waiting area, he hasn't taken his eyes off of you, and you realise that there's absolutely no possibility of being able to sneak through the door he's guarding. If you wanted to get access to the HQ's interior, you'll have to negotiate with the bimbo cat-girl receptionist.
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	
+	<!-- OFFICE -->
+
+	<htmlContent tag="OFFICE"><![CDATA[
+	<p>
+		The door to the office before you displays a name which you haven't heard of before, and judging from the fact that the lights inside seem to be turned off, it doesn't look like there's going to be anyone inside who can help you to find Brax's office. Trying the handle just to be sure, you find that the door is currently locked. It looks like you'll have to keep on searching for Brax elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- CELLS_OFFICE -->
+
+	<htmlContent tag="CELLS_OFFICE"><![CDATA[
+	<p>
+		This small office is where all prisoners are checked in and out of the cells. Although typically manned by at least two Enforcers, it's currently deserted...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- CELL -->
+
+	<htmlContent tag="CELL"><![CDATA[
+	<p>
+		With a metal, barred door and only a raised concrete platform to serve as a bed, this cell is very basic indeed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GUARDED_DOOR -->
+
+	<htmlContent tag="GUARDED_DOOR"><![CDATA[
+	#IF(game.isBraxMainQuestComplete())
+		<p>
+			You flash the pass that Candi gave to you at the horse-boy guard, but he refuses to step aside. [style.speechMasculine(Those passes aren't valid anymore, don't waste my time.)]
+		</p>
+		<p>
+			It looks like he's not going to let you pass, and you don't really have any business back there anyway...
+		</p>
+	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_accessToEnforcerHQ))
+		<p>
+			You flash the pass that Candi gave to you at the horse-boy guard, and, with a grunt, he steps aside to let you pass.
+		</p>
+		<p>
+			 As you walk through the doors, you hear him muttering,  [style.speechMasculine(That slut's gonna get in trouble with [brax.name] again... Giving out passes like she does blowjobs...)]
+		</p>
+	#ELSE
+		<p>
+			As you walk up to the horse-boy guard, he crosses his arms and frowns at you. [style.speechMasculine(I don't know what you're thinking, but there's no way you're getting through here, understood? Unless you want to be thrown out, you'd better back off. Now.)]
+		</p>
+		<p>
+			It looks like he means business, and it probably wouldn't be the smartest idea to start a fight in the middle of the Enforcer HQ. If you had any business with one of the Enforcers here, you might be able to get a pass from the cat-girl receptionist, which would allow you to get past these guarded doors...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GUARDED_DOOR_STEP_BACK"><![CDATA[
+	<p>
+		Realising that you'd stand no chance in a fight against all of the Enforcers that would soon arrive as backup, you decide not to try and force your way through into the interior of the building. Agreeing to do as the horse-boy says, you step back into the waiting room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LOCKED_DOOR -->
+
+	<htmlContent tag="LOCKED_DOOR"><![CDATA[
+	<p>
+		The door before you is firmly shut, and, giving it an experimental push, you discover that it's locked. Doubting that the pass which Candi gave to you grants you access to the area beyond, you decide against asking a nearby Enforcer to open it for you, and instead prepare to turn around and head back the way you came...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOCKED_DOOR_STEP_BACK"><![CDATA[
+	<p>
+		With no apparent way to get past this locked door, you take a step back and turn around, before heading off back down the main corridor...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- RECEPTION_DESK -->
+	
+	<htmlContent tag="RECEPTION_DESK"><![CDATA[
+	#IF(!game.isWorkTime())
+		<p>
+			The reception desk before you, at which all public inquiries are to be made, is currently deserted. The lights behind the desk are all switched off, and there's a little placard sitting on the counter top which informs you that it is currently [style.colourBad(closed)], and will only be [style.colourMinorBad(open between the hours of [units.time(9)] to [units.time(5)])].
+		</p>
+		<p>
+			It looks as though you'll have to return later...
+		</p>
+	#ELSE
+		#IF(game.isBraxMainQuestComplete())
+			#IF(!game.getDialogueFlags().hasFlag(FLAG_seenBraxAfterQuest))
+				<p>
+					You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk. Curiously, there's another placard next to hers, and as you come to a halt in front of Candi, your eyes go wide as you read the words '[brax.name], Candi's assistant'.
+				</p>
+				<p>
+					[pc.speech(Hi, Candi,)] you greet her, continuing to smile as she looks up from her mirror, [pc.speech(how are you and [brax.name] doing? I see his name here, but where is he?)]
+				</p>
+				<p>
+					[candi.speechNoEffects(Like, omigosh! Heya, I recognise you!)] she cries out, her voice bubbling with excitement. [candi.speechNoEffects(You, like, know my little pet? Come say hello [brax.name]!)]
+				</p>
+				<p>
+					Candi reaches down to tug on something, and you hear a familiar voice respond, [brax.speech(Candi, please, I don't wa-)]
+				</p>
+				<p>
+					[brax.namePos] protest is cut off as Candi stands up, sharply yanking on what you now see to be a pink leash. [candi.speechNoEffects(Bad pet! Bad! You, like, have to do as I say! The chief said so, remember?!)]
+				</p>
+				<p>
+					Letting out another groan, [brax.name] crawls out from under Candi's desk and stands up to face you. A look of shock crosses his face, and he desperately pulls on his leash as he shouts out, [brax.speech(That's [pc.herHim]! Candi! That's the one who took the documents! Call the chie- ~Aargh!~)]
+				</p>
+				<p>
+					[brax.namePos] leash is suddenly and violently yanked backwards, immediately interrupting his accusation and causing him to choke and splutter. Candi's face has gone bright red, and she looks absolutely furious as she starts to shout, [candi.speechNoEffects(Bad pet! Bad, bad, <b>bad</b>! How <i>dare</i> you treat a visitor like that! Like, [pc.sheIs] even a friend of yours, remember?! If you say <i>one more word</i>, I'm going to, like, get the ballgag out, and no more talking for a week!)]
+				</p>
+				<p>
+					With [brax.name] suitably subdued, Candi turns back to face you. [candi.speechNoEffects(Like, I am soooo sorry! [brax.name] is kinda stupid, don't mind him! He gave away some kind of really important paper or something, and the chief said I could, like, have him as a pet. I even have, like, permission to punish him and stuff. Hey! You know what would be fun! How about you get to punish him for being so super mean to you?!)]
+				</p>
+				<p>
+					Candi finally stops talking, giving you a moment to process what's going on. It looks like [brax.name] got demoted for giving you that information about Arthur, and is now Candi's pet. She's far too stupid to understand what [brax.name] is trying to tell her, and you see a look of intense frustration cross over the unfortunate wolf-boy's face as his owner silences him.
+				</p>
+				<p>
+					You could take up Candi's offer and have some fun with [brax.name] in her office. As you're deciding what to do, you notice a little cardboard box, marked '[brax.namePos] junk', sitting on a shelf behind Candi's desk.
+					#IF(game.getDialogueFlags().hasFlag(FLAG_braxTransformedPlayer))
+						 The neck of a very familiar-looking bottle is poking out of the top, and an interesting idea runs through your mind...
+					#ELSE
+						 The neck of a delicate-looking bottle is poking out of the top, and, remembering Candi's warning about [brax.name] having a wolf-girl transformation potion, an interesting idea runs through your mind...
+					#ENDIF
+				</p>
+			#ELSE
+				#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_BUYING_BRAX))
+					#IF(game.getSecondsPassed()-game.getDialogueFlags().candiSexTimer>60*60*12)
+						<p>
+							#IF(candi.isVisiblyPregnant() && !candi.isCharacterReactedToPregnancy(pc))
+									You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. While at first it looked as though she was completely engrossed in doing her makeup, you now see that she has in fact angled the mirror in front of her in such a way that she's looking down into her own lap. Following her gaze, you find yourself looking down not only at the cat-girl's fingers rubbing away at her pussy, but also a large, rounded bump in her belly. The sound of your approach was masked by the lewd little 'oohs' and 'aahs' she's making, but as Candi leans back in her chair a little, she suddenly notices you standing before her.
+								</p>
+								<p>
+									[candi.speechNoEffects(Oh, like, it's you again!)] she exclaims, quite clearly unperturbed by your presence as she continues brazenly masturbating while talking, [candi.speechNoEffects(Look! You, like, got me all pregnant and stuff! Lucky I have, like, this cushy desk job and stuff, so I can just sit here an be all relaxin' all the time, y'know? Having to walk around carrying your kids gets, like, suuuuper exhausting! Anyway, like, you gonna just stand there, or you gonna get round here and help me out? Those lollipops really got me super horny and stuff, so, like, I'm gonna need you to fuck me. You're up for that, right?)]
+							#ELSE
+									You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. While at first it looked as though she was completely engrossed in doing her makeup, you now see that she has in fact angled the mirror in front of her in such a way that she's looking down into her own lap. Following her gaze
+									#IF(candi.isVisiblyPregnant())
+										 down over her pregnant belly
+									#ENDIF
+									, you see that her skirt has been pulled up, and her right hand is frantically rubbing away at her exposed pussy. The sound of your approach was masked by the lewd little 'oohs' and 'aahs' she's making, but as Candi leans back in her chair a little, she suddenly notices you standing before her.
+								</p>
+								<p>
+									[candi.speechNoEffects(Oh, like, it's you again!)] she exclaims, quite clearly unperturbed by your presence as she continues brazenly masturbating while talking, [candi.speechNoEffects(Like, fuck, those lollipops really got me super horny and stuff, y'know? Like, I keep on masturbating, but it's not going away! Y'know, this is kinda partly your fault for giving these to me. You need to, like, get round here and help me out! Come on, you wanna fuck, don't you?)]
+							#ENDIF
+						</p>
+						<p>
+							After asking this, the horny bimbo cat-girl bites her lip, and, putting on the most pleading and desperate look she can muster, lets out a long, imploring whine. Gazing into your eyes, she begs, [candi.speechNoEffects(Like, please?!)]
+						</p>
+					#ELSE
+						<p>
+							#IF(candi.isVisiblyPregnant() && !candi.isCharacterReactedToPregnancy(pc))
+									You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. She's completely engrossed in doing her makeup, and faint little 'oohs' and 'aahs' drift out her open mouth as she vacantly gazes into a little mirror that's sitting on her desk. Before you can say anything to get her attention, she reaches up to tuck a loose strand of bleach-blonde hair back behind her cat-like ears, and as she does so, she suddenly notices you standing before her.
+								</p>
+								<p>
+									[candi.speechNoEffects(Hey, look!)] she happily exclaims, pushing herself back from the counter to reveal her swollen belly, [candi.speechNoEffects(You, like, got me all pregnant and stuff! Lucky I have, like, this cushy desk job and stuff, so I can just sit here an be all relaxin' all the time, y'know? Having to walk around carrying your kids gets, like, suuuuper exhausting! Anyway, like, I know it's only gonna be, like, a half-day at most before my pussy starts gettin' wet and all I can think of is sex again! You gotta come back and help me out again when that happens, ok?)]
+								</p>
+							#ELSE
+									You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the
+									#IF(candi.isVisiblyPregnant())
+										 still-pregnant
+									#ENDIF
+									 cat-girl secretary hasn't even noticed your approach. She's completely engrossed in doing her makeup, and faint little 'oohs' and 'aahs' drift out her open mouth as she vacantly gazes into a little mirror that's sitting on her desk. Before you can say anything to get her attention, she reaches up to tuck a loose strand of bleach-blonde hair back behind her cat-like ears, and as she does so, she suddenly notices you standing before her.
+								</p>
+								<p>
+									[candi.speechNoEffects(Oh, hey, like, you're back!)] she happily exclaims, [candi.speechNoEffects(Thanks for, like, helping me to cum! Y'know, I'm feeling all super duper and normal again now, but I know it's only gonna be, like, a half-day at most before my pussy starts gettin' wet and all I can think of is sex! You gotta come back and help me out again when that happens, ok?)]
+								</p>
+							#ENDIF
+						<p>
+							Flashing you a big smile, Candi then turns back to her mirror and continues with her never-ending quest to get her makeup just right...
+						</p>
+					#ENDIF
+				#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_bimbofiedBrax))
+					<p>
+						You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk. As you come to a halt in front of her, you look down over the top of the desk to see [brax.name] furiously masturbating on the floor.
+					</p>
+					<p>
+						[pc.speech(Hi again, Candi,)] you say, continuing to smile as she looks up from her mirror, [pc.speech(it looks like [brax.namePos] having fun down there!)]
+					</p>
+					<p>
+						[candi.speechNoEffects(Like, omigosh! Heya!)] she cries out, her voice bubbling with excitement, [candi.speechNoEffects(and, like, eugh! I know right?! [brax.Name], like, won't stop masturbating, even after I've told [brax.him] to like a million times! I'm, like, far too busy to punish [brax.him] properly as well!)]
+					</p>
+					<p>
+						As she speaks, Candi reaches down to tug [brax.namePos] [brax.arms] away from [brax.her] [brax.pussy], causing the horny bimbo to cry out,
+						 [brax.speechNoEffects(Awww! Candi! Please! I, like, <i>need</i> this! You gotta let m- ~Aah!~)]
+					</p>
+					<p>
+						[brax.NamePos] pathetic whining is cut off as Candi stands up, sharply yanking on [brax.his] pink leash. [candi.speechNoEffects(Like, try to control yourself pet! Lucky for you, your super best friend is, like, here to play!)]
+					</p>
+					<p>
+						[brax.name] immediately jumps to [brax.his] feet, and as [brax.he] catches sight of you, [brax.he] lets out a delighted squeal, [brax.speechNoEffects(Yes! Heya! Please, like, can we play together?! I'm, like, thinking of you all the time and stuff!)]
+					</p>
+					<p>
+						As [brax.name] drops [brax.his] hands back down to [brax.her] groin and starts masturbating, Candi turns back to face you. [candi.speechNoEffects(You'd be, like, doin' me a huuuge favour if you'd, like, help out with [brax.namePos] horniness! How about, like, you take [brax.him] into my office, and, like, give [brax.him] a good fucking?!)]
+					</p>
+					<p>
+						You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone...
+					</p>
+				#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_feminisedBrax))
+					<p>
+						You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk. As you come to a halt in front of her, you read the words on the placard next to hers; '[brax.name], Candi's assistant'.
+					</p>
+					<p>
+						[pc.speech(Hi again, Candi,)] you greet her, continuing to smile as she looks up from her mirror, [pc.speech(how are you and [brax.name] doing?)]
+					</p>
+					<p>
+						[candi.speechNoEffects(Like, omigosh! Heya!)] she cries out, her voice bubbling with excitement. [candi.speechNoEffects([brax.namePos] been, like, super disobedient! [brax.He], like, refused to suck my friend's cock earlier! Can you believe that?!)]
+					</p>
+					<p>
+						As she speaks, Candi reaches down to tug on something, and you hear a familiar whimper in response, [brax.speech(Sorry, Cand-)]
+					</p>
+					<p>
+						[brax.namePos] apology is cut off as Candi stands up, sharply yanking on [brax.his] pink leash. [candi.speechNoEffects(Like, come on pet! Stand up and say hello to your friend again!)]
+					</p>
+					<p>
+						[brax.name] obediently crawls out from under Candi's desk and stands up to face you. [brax.speech(Hello...)]
+					</p>
+					<p>
+						With [brax.name] displaying an acceptable level of submission, Candi turns back to face you. [candi.speechNoEffects(Hey, like, [brax.name] still hasn't been punished for disobeying me earlier! How about, like, you punish [brax.him] for me?!)]
+					</p>
+					<p>
+						You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone. As you're making up your mind, you take another look at Candi, wondering if you could ask her to make [brax.name] a little more like her...
+					</p>
+				#ELSE
+					<p>
+						You walk over to Candi, smiling as you see her totally engrossed in the little mirror sitting on her desk. As you come to a halt in front of her, you read the words on the placard next to hers; '[brax.name], Candi's assistant'.
+					</p>
+					<p>
+						[pc.speech(Hi again, Candi,)] you greet her, continuing to smile as she looks up from her mirror, [pc.speech(how are you and [brax.name] doing?)]
+					</p>
+					<p>
+						[candi.speechNoEffects(Like, omigosh! Heya!)] she cries out, her voice bubbling with excitement. [candi.speechNoEffects([brax.namePos] been, like, super disobedient! [brax.He], like, refused to lick my shoes clean earlier! Can you believe that?!)]
+					</p>
+					<p>
+						As she speaks, Candi reaches down to tug on something, and you hear a familiar whimper in response, [brax.speech(Sorry, Cand-)]
+					</p>
+					<p>
+						[brax.namePos] apology is cut off as Candi stands up, sharply yanking on [brax.his] pink leash. [candi.speechNoEffects(Like, come on pet! Stand up and say hello to your friend again!)]
+					</p>
+					<p>
+						[brax.name] reluctantly crawls out from under Candi's desk and stands up to face you. [brax.speech(Eugh, not you aga- Aah!)]
+					</p>
+					<p>
+						Candi yanks on [brax.namePos] leash once again, before starting to furiously scold [brax.him]. After a few minutes, she's forced [brax.name] to apologise to you, and turns back to face you. [candi.speechNoEffects(Hey, like, I'm pretty sure you'll agree that [brax.name] <i>really</i> needs to be punished again! How about, like, you take [brax.him] into my office and show [brax.him] how to behave?!)]
+					</p>
+					<p>
+						You could take up Candi's offer and have some fun with [brax.name] in her office, or walk away and leave [brax.name] alone.
+						#IF(game.getDialogueFlags().hasFlag(FLAG_braxTransformedPlayer))
+							 As you're deciding what to do, you notice a little cardboard box, marked '[brax.namePos] junk', sitting on a shelf behind Candi's desk. The neck of a very familiar-looking bottle is poking out of the top, and an interesting idea runs through your head...
+						#ELSE
+							 As you're deciding what to do, you notice a little cardboard box, marked '[brax.namePos] junk', sitting on a shelf behind Candi's desk. The neck of a delicate-looking bottle is poking out of the top, and, remembering Candi's warning about [brax.name] having a wolf-girl transformation potion, an interesting idea runs through your head...
+						#ENDIF
+					</p>
+				#ENDIF
+			#ENDIF
+		#ELSE
+			<p>
+				You walk over to the reception desk, and, coming to a halt just before it, you look down to see that the cat-girl secretary hasn't even noticed your approach. She's completely engrossed in doing her makeup, and faint little 'oohs' and 'aahs' drift out her open mouth as she vacantly gazes into a little mirror that's sitting on her desk. Every now and then, she has to tuck loose strands of bleach-blonde hair back behind her cat-like ears, interrupting her sighs with an annoyed tutting sound each time she does so.
+			</p>
+			<p>
+				In amongst her messy collection of beauty products scattered all over the desk, you see a little placard with the name 'Candi' on it.
+				 It seems as though Candi is completely oblivious to the world outside of her mirror, so you'll need to raise your voice in order to get her attention if you wanted to ask anything of her.
+			</p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_accessToEnforcerHQ))
+				<p>
+					<i>You've already got a pass from Candi, so there's no point interrupting her again...</i>
+				</p>
+			#ENDIF
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_DESK_PUNISH_BRAX"><![CDATA[
+	<p>
+		[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk.
+	</p>
+	<p>
+		[candi.speechNoEffects(Thanks, I've got, like, loads of work and stuff to do, so you're really helping me out here!)] Candi replies, handing you [brax.namePos] pink leash as she returns to applying makeup in her little mirror.
+	</p>
+	<p>
+		With a tug, you get [brax.name] to follow you into Candi's little office. Closing the door behind you, you turn to face the [brax.race], smiling as you unclip the leash from [brax.his] collar.
+	</p>
+	<p>
+		[pc.speech(I bet you're pretty angry right now, huh [brax.name]?)] you tease, laughing as [brax.he] lets out a low growl. [pc.speech(You'd better quiet down, unless you want Candi to know how bad you've been!)]
+	</p>
+	<p>
+		[brax.Name] shuffles [brax.his] feet, looking down at the ground as [brax.he] lets out an annoyed grunt. Stepping forwards, you take hold of [brax.his] shoulders, and with a forceful shove, you push [brax.him] down onto [brax.his] knees before you.
+	</p>
+	<p>
+		[pc.speech(Good [brax.boy]! Now, time for your punishment!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_DESK_PUNISH_BREE"><![CDATA[
+	<p>
+		[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk.
+	</p>
+	<p>
+		[candi.speechNoEffects(Thanks, I've got, like, loads of work and stuff to do, so you're really helping me out here!)] Candi replies, handing you [brax.namePos] pink leash as she returns to applying makeup in her little mirror.
+	</p>
+	<p>
+		With a tug, you get [brax.name] to follow you into Candi's little office. Closing the door behind you, you turn to face the [brax.race], smiling as you unclip the leash from [brax.his] collar.
+	</p>
+	<p>
+		[pc.speech(You're going to do as you're told, aren't you [brax.name]?)] you tease, laughing as [brax.he] lets out a meek little whimper. [pc.speech(Don't worry, I'll be sure to let Candi know how good you've been!)]
+	</p>
+	<p>
+		Knowing what's expected of [brax.herHim], [brax.name] drops to [brax.her] knees before you. Stepping forwards, you reach down to stroke the top of [brax.her] head.
+	</p>
+	<p>
+		[pc.speech(Good [brax.girl]! Now, time for your punishment!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_DESK_PUNISH_BRANDI"><![CDATA[
+	<p>
+		[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk.
+	</p>
+	<p>
+		[candi.speechNoEffects(Thanks, I've got, like, loads of work and stuff to do, so you're really helping me out here!)] Candi replies, handing you [brax.namePos] pink leash as she returns to applying makeup in her little mirror.
+	</p>
+	<p>
+		With a tug, you get [brax.name] to follow you into Candi's little office. Closing the door behind you, you turn to face the [brax.race], smiling as you unclip the leash from [brax.his] collar.
+	</p>
+	<p>
+		[brax.Name] immediately drops to [brax.her] knees, shuffling forwards as [brax.she] begs, [brax.speechNoEffects(Please! I, like, <i>need</i> to be punished! Please use me!)]
+	</p>
+	<p>
+		[pc.speech(What a good [brax.girl]!)] you say, grinning as [brax.he] lets out a desperate, hungry whimper. [pc.speech(Seeing as you asked so nicely, I'll give you what you want!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_DESK_PUNISHED_BY_BRAX"><![CDATA[
+	<p>
+		[pc.speech(Sure thing, Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk.
+	</p>
+	<p>
+		[candi.speechNoEffects(Thanks, I've got, like, loads of work and stuff to do, so you're really helping me out here!)] Candi replies, handing you [brax.namePos] pink leash as she returns to applying makeup in her little mirror.
+	</p>
+	<p>
+		With a tug, you get [brax.name] to follow you into Candi's little office. Closing the door behind you, you turn to face the [brax.race], smiling as you unclip the leash from [brax.his] collar.
+	</p>
+	<p>
+		[pc.speech(I bet you're pretty angry right now, huh [brax.name]?)] you tease, laughing as [brax.he] lets out a low growl. [pc.speech(Mmm, you want to be the one punishing me, don't you?)]
+	</p>
+	<p>
+		[brax.speech(If I wasn't on the verge of being enslaved, I'd give you a hard fuck to teach you a lesson right now!)] [brax.name] growls as [brax.he] steps up to you.
+	</p>
+	<p>
+		Letting out a playful giggle, you trace [pc.a_finger] over [brax.his] chest. [pc.speech(Well, I won't tell if you won't... Or is Candi's pet too submissive to try anyth- eek!)]
+	</p>
+	<p>
+		Obviously having had enough of your teasing, and with a clear invitation to fuck you, [brax.name] grabs you by the shoulders and throws you to the floor. You let out a delighted [pc.moan] as [brax.he] manhandles you into a doggystyle position. Leaning down over your back, [brax.name] growls into your [pc.ear], [brax.speech(Remember, bitch, <i>I'm</i> the real alpha here!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_SEX_CANDI"><![CDATA[
+	<p>
+		Not wanting to leave Candi after she's asked you for help, you tell her that you'll sort her problem out for her, before stepping around behind the reception counter. Letting out an excited whine, the horny cat-girl immediately leaps to her feet, and after placing a little 'Be back soon' sign on the desk, she grabs you by the [pc.hand] and pulls you through the nearby door into her small office.
+	</p>
+	<p>
+		[candi.speechNoEffects(Oh yeah, like, fuck me, right now!)] she demands, slamming the door closed before leaping forwards into your [pc.arms]... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELP_CANDI_DENIED"><![CDATA[
+	<p>
+		Not being particularly interested in helping Candi to get some relief from her overwhelming horniness, you remind her that you did warn her not to eat the lollipops, before telling her to seek help from someone else. Ignoring the desperate, disappointed whines that the bimbo cat-girl starts making, you step back into the waiting room and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTERIOR_SECRETARY -->
+	
+	<htmlContent tag="INTERIOR_SECRETARY"><![CDATA[
+	<p>
+		Deciding that you want to talk with the ditzy-looking cat-girl, you call out to Candi in order to get her attention.
+	</p>
+	<p>
+		[candi.speechNoEffects(Oh! Like, heya! Soz about, like, not seein' ya and stuff!)] she exclaims, breaking off from applying her makeup to happily smile up at you. Leaning forwards over her desk, she bites her lip and pushes out her chest. Due to the fact that the top few buttons of her shirt are undone, you end up looking straight down at her impressive cleavage, noting to yourself that she isn't wearing a bra.
+	</p>
+	<p>
+		[candi.speechNoEffects(Haha! What'cha lookin' at?!)] she giggles, pressing her breasts forwards in an enticing manner. [candi.speechNoEffects(Y'need any help with, like, Enforcer things and stuff?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INTERIOR_SECRETARY_LEAVE"><![CDATA[
+	<p>
+		[pc.speech(Actually, I don't need anything right now, I'll be back later,)] you say, stepping back into the waiting area and allowing Candi to continue applying her makeup.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTERIOR_SECRETARY_BRAX -->
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BRAX"><![CDATA[
+	<p>
+		Using the name that was provided on the warrant, you tell Candi that you're here on business regarding Arthur's arrest, and that you'd like to speak to a certain 'Brax'.
+	</p>
+	<p>
+		[candi.speechNoEffects(Ooh! You're, like, super lucky and stuff! [brax.name] is, like, totally the hottest guy here!)] Candi squeals, excitedly reaching down to get something from under her desk. [candi.speechNoEffects(When you see him, tell him that his little slut's, like, super horny and stuff, will ya? And tell him he'd, like, better have given up on tryin' to use that stupid little potion of his on me again!)]
+	</p>
+	<p>
+		With a huge smile plastered on her face, Candi hands you a slip of paper. Taking a look, you see that's it's some kind of pass that will grant you access to the interior parts of the building.
+	</p>
+	<p>
+		[candi.speechNoEffects(Y'know, I'm sure he, like, told me something about these passes... Huh... Well, if I can't remember, it's, like, not important, right? Anyway, his office is, umm, like, down there, then over to the left... no... right! Then, like, just look for his name on one of the doors! That's how I find him!)]
+	</p>
+	<p>
+		Thanking the cat-girl for the information, you ask her one last question about the 'stupid little potion' she mentioned, curious about what she meant by that.
+	</p>
+	<p>
+		[candi.speechNoEffects(Eugh... Like, [brax.name] is, like, super hot and stuff, but he has a sorta thing for wolf-girls. He got, like, some demon to make him this super expensive potion that'd, like, turn me completely into a wolf-girl! I dunno what he was thinkin', I put, like, so much effort into how I look, I'm not, like, gonna let him transform me like that, even <i>if</i> he's super good at fuckin' and stuff,)] Candi explains, [candi.speechNoEffects(Ah yeah, that reminds me, like, he said he'd just use it on the next person that pisses him off, so, like, don't do anything to anger him, or else you're gonna', like, get turned into his little wolf-bitch!)]
+	</p>
+	<p>
+		Thanking Candi for the warning, you say goodbye and head back into the waiting area. No sooner than you take one step away from her desk, she starts busily applying her makeup once again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTERIOR_SECRETARY_BIMBO -->
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BIMBO"><![CDATA[
+	<p>
+		You can't believe how beautiful this girl is, and can't resist calling out to her, [pc.speechNoEffects(Like, oh my gosh! You're, like, so super pretty and stuff!)]
+	</p>
+	<p>
+		[candi.speechNoEffects(Like, thank you so much! Soz about, like, not seein' ya and stuff! I was, y'know, like puttin' my makeup on!)] she exclaims, breaking off from applying her makeup to happily smile up at you. Leaning forwards over her desk, she bites her lip and pushes out her chest. Due to the fact that the top few buttons of her shirt are undone, you end up looking straight down at her impressive cleavage, noting to yourself that she isn't wearing a bra.
+	</p>
+	<p>
+		[candi.speechNoEffects(Haha! What'cha lookin' at?!)] she giggles, pressing her breasts forwards in an enticing manner. [candi.speechNoEffects(Y'need any help with, like, Enforcer things and stuff?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BIMBO_LEAVE"><![CDATA[
+	<p>
+		[pc.speechNoEffects(Ummm, like, actually, I just wanted to let you know how, like, super hot you are and stuff, I'll be back later,)] you say, stepping back into the waiting area and allowing Candi to continue applying her makeup.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTERIOR_SECRETARY_BRAX_BIMBO -->
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BRAX_BIMBO"><![CDATA[
+	<p>
+		Using the name that was provided on the warrant, you ask Candi about Arthur's arrest, [pc.speechNoEffects(Eugh, like, so you wouldn't believe what's happened. This friend of mine, y'know, well, not really <i>my</i> friend, but kinda like my aunt's friend, right, yeah, he was kinda arrested, and there was like, some kind of note on his door about some guy called [brax.name]? And I was like <i>'oh-em-gee, now I gotta like, go down to the Enforcer HQ, and, like, find this [brax.name] guy'</i>, and it's like, <i>so</i> much work, y'know?)]
+	</p>
+	<p>
+		[candi.speechNoEffects(Like, no way! Well, you're actually, like, super lucky and stuff! [brax.name] is, like, totally the hottest guy here!)] Candi squeals, excitedly reaching down to get something from under her desk. [candi.speechNoEffects(When you see him, tell him that his little slut's, like, super horny and stuff, will ya? And tell him he'd, like, better have given up on tryin' to use that stupid little potion of his on me again!)]
+	</p>
+	<p>
+		With a huge smile plastered on her face, Candi hands you a slip of paper. Taking a look, you see that's it's some kind of pass that will grant you access to the interior parts of the building.
+	</p>
+	<p>
+		[candi.speechNoEffects(Y'know, I'm sure he, like, told me something about these passes... Huh... Well, if I can't remember, it's, like, not important, right? Anyway, his office is, umm, like, down there, then over to the left... no... right! Then, like, just look for his name on one of the doors! That's how I find him!)]
+	</p>
+	<p>
+		[pc.speechNoEffects(Thanks, Candi, you're, like, the best and stuff! Oh, and, like, whaddya mean by that 'stupid little potion'?)] you ask, curious about the sort of person [brax.name] might turn out to be.
+	</p>
+	<p>
+		[candi.speechNoEffects(Eugh... Like, [brax.name] is, like, super hot and stuff, but he has a sorta thing for wolf-girls. He got, like, some demon to make him this super expensive potion that'd, like, turn me completely into a wolf-girl! I dunno what he was thinkin', I put, like, so much effort into how I look, I'm not, like, gonna let him transform me like that, even <i>if</i> he's super good at fuckin' and stuff,)] Candi explains. [candi.speechNoEffects(Ah yeah, that reminds me, like, he said he'd just use it on the next person that pisses him off, so, like, don't do anything to anger him, or else you're gonna', like, get turned into his little wolf-bitch!)]
+	</p>
+	<p>
+		Thanking Candi for the warning, you say goodbye and head back into the waiting area. No sooner than you take one step away from her desk, she starts busily applying her makeup once again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTERIOR_SECRETARY_BRAX_FEMINISE -->
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BRAX_FEMINISE"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_braxTransformedPlayer))
+		<p>
+			[pc.speech(Hey, Candi, I've actually got something to tell you about Brax,)] you say, grinning at Brax as you reveal what he did to you. [pc.speech(He forced me to drink a potion that turned me into a wolf-girl!)]
+		</p>
+		<p>
+			[candi.speechNoEffects(Like, no way! Brax! Is this true?!)] Candi shouts, turning towards Brax as she tugs sharply on his leash.
+		</p>
+		<p>
+			[brax.speech(E-Erm... Y-Yes...)] Brax responds, trying to make himself as small as possible as Candi's cheeks flush red with rage.
+		</p>
+		<p>
+			[candi.speechNoEffects(Bad Brax!)] Candi shouts. [candi.speechNoEffects(You're going to need an extra special punishment this time!)]
+		</p>
+		<p>
+			[pc.speech(I think he's still got one of those potions,)] you say, pointing to the shelf behind Candi. [pc.speech(Why don't we give him a taste of his own medicine?)]
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(Hey, Candi,)] you say, grinning at Brax before pointing to the shelf behind the reception desk. [pc.speech(Just so you know, that looks like one of those potions you warned me about, and I'm sure Brax was planning on using it on someone without their permission!)]
+		</p>
+		<p>
+			[candi.speechNoEffects(Like, no way! Brax! Is this true?!)] Candi shouts, turning towards Brax as she tugs sharply on his leash.
+		</p>
+		<p>
+			[brax.speech(W-Well... K-Kinda...)] Brax responds, trying to make himself as small as possible as Candi's cheeks flush red with rage.
+		</p>
+		<p>
+			[candi.speechNoEffects(Bad Brax!)] Candi shouts. [candi.speechNoEffects(You're going to need an extra special punishment this time!)]
+		</p>
+		<p>
+			Candi reacted just as you though she would, and, still grinning at Brax, you reveal your idea, [pc.speech(Hey Candi, why don't we give him a taste of his own medicine?)]
+		</p>
+	#ENDIF
+	<p>
+		Candi's eyes light up as she hears your suggestion. Happily clapping her hands together, she turns around and grabs Brax's potion off the shelf. Seeing what's about to happen, Brax tries to run, but with a violent yank of his leash, Candi pulls him back towards her.
+	</p>
+	<p>
+		[candi.speechNoEffects(Bad Brax! Stay still! You, like, have to do what I say, remember?!)] Candi shouts. [candi.speechNoEffects(Hey! Can you, like, help me with this?!)]
+	</p>
+	<p>
+		Not needing to be asked twice, you rush around to the other side of the counter, and, grabbing Brax's arms, you push him down onto his back. You and Candi quickly pin the struggling wolf-boy to the floor, ignoring his shouts and protests as you hold him still. Grinning, Candi pulls the bottle's stopper out, before leaning down towards Brax's face.
+	</p>
+	<p>
+		[brax.speech(No! Wait! I don't want to be a girl!)] Brax yells, and you see a desperate look in his eyes as he pleads for you to spare him.
+	</p>
+	<p>
+		You wonder if you should go through with this. While you're sure that Brax deserves it, there's no telling how he'll react to being turned into a girl, and there may be no going back...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!--- INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED -->
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED"><![CDATA[
+	<p>
+		Deciding to go ahead with this plan, you sit down on Brax's chest, pinning him to the floor and using your [pc.hands] to hold his arms down. Giggling in delight, Candi grabs Brax's muzzle, and, forcing his mouth open, she roughly shoves the neck of the bottle past his lips.
+	</p>
+	<p>
+		Brax thrashes about beneath you, growling and groaning as Candi starts emptying the bottle's contents down his throat. Once the liquid has been emptied into the wolf-boy's mouth, Candi clamps his mouth shut, making soothing shushing noises as she strokes his throat to encourage him to swallow the last few drops.
+	</p>
+	<p>
+		[candi.speechNoEffects(Good boy Brax! Drink it all down!)] Candi moans, clearly excited to see what's about to happen.
+	</p>
+	<p>
+		As she releases her grip on his muzzle, Brax lets out a surprisingly high-pitched moan. He continues to struggle, but it seems to be because of the potion's effects rather than an attempt to resist. Letting go of his arms, you stand up and look on as Brax's body starts to change.
+	</p>
+	<p>
+		His body and face are the first to transform; rapidly shifting and changing into a distinctly feminine shape. His broad shoulders and muscular frame narrow down, and you see his hips and ass grow, leaving him with a very womanly body. As his body shifts into that of a girl, his face similarly transforms, and while you can still tell that it's Brax, his face is soon that of an attractive wolf-girl.
+	</p>
+	<p>
+		[candi.speechNoEffects(Aww Brax! You're, like, so cute!)] Candi squeals, bouncing up and down in excitement. [candi.speechNoEffects(Ooh! You need a new name! You can be Bree! You like that, pet?!)]
+	</p>
+	<p>
+		#IF(brax.hasPenis())
+			Bree lets out a soft whimper, and her hands suddenly dart down between her legs. While her large bulge doesn't diminish in size, her desperate squeals and pants let you know that her genitalia are transforming, and you grin as you realise that Bree now has the reproductive systems of both a wolf-boy and wolf-girl.
+		#ELSE
+			Bree lets out a soft whimper, and her hands suddenly dart down between her legs. Her large bulge quickly shrinks, and she squeals and pants as her genitalia are the next to take on a new form. Although you can't see what's happening down there, you have a good idea of what's going on, and you grin as you realise that Bree is now a wolf-girl in every way.
+		#ENDIF
+	</p>
+	<p>
+		The final transformation to take place is located in Bree's chest, and you see her new breasts swelling up as she continues to writhe around on the floor. Panting, and totally exhausted from her transformation, the potion's effects come to an end, leaving Bree with C-cup breasts, girly hips, a large ass, and a pretty wolf-girl's face.
+	</p>
+	<p>
+		[candi.speechNoEffects(You're so cute, Bree!)] Candi cries out. [candi.speechNoEffects(I bet you, like, can't wait to try out your new body! Hey! How about your friend helps you out?!)]
+	</p>
+	<p>
+		[brax.speech(Y-Yes Candi...)] Bree sighs, meekly looking up at you.
+	</p>
+	<p>
+		All of the dominance and fiery spirit has gone from Bree's eyes, and she submissively kneels on the floor beneath you, awaiting your response. You could pull her into Candi's office and help her get used to her new body, or you could leave and come back to have some fun later.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED_SEX"><![CDATA[
+	<p>
+		[pc.speech(Good idea, Candi, I can show Bree her true place!)] you say, grinning down at Bree's meek form.
+	</p>
+	<p>
+		[candi.speechNoEffects(Like, don't go easy on her! She's been, like, super bad lately.)] Candi replies, handing you [brax.namePos] pink leash as she returns to applying makeup in her little mirror.
+	</p>
+	<p>
+		With a tug, you get [brax.name] to follow you into Candi's little office. Closing the door behind you, you turn to face the [brax.race], smiling as you unclip the leash from [brax.his] collar.
+	</p>
+	<p>
+		[pc.speech(You're going to do as you're told, aren't you, [brax.name]?)] you tease, laughing as [brax.he] lets out a meek little whimper. [pc.speech(Don't worry, I'll be sure to let Candi know how good you've been!)]
+	</p>
+	<p>
+		Knowing what's expected of [brax.herHim], [brax.name] remains on [brax.her] knees in front of you. Stepping forwards, you reach down to stroke the top of [brax.her] head.
+	</p>
+	<p>
+		[pc.speech(Good [brax.girl]! Now, time to show you your true place!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED_NO_SEX -->
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED_NO_SEX"><![CDATA[
+	<p>
+		Although you're happy with how Bree has turned out, you don't feel like having sex with her. Telling Candi that you're not particularly interested in 'testing out' her new body, you step back from the counter and prepare to take your leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTERIOR_SECRETARY_BRAX_FEMINISE_CHANGE_MIND -->
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BRAX_FEMINISE_CHANGE_MIND"><![CDATA[
+	<p>
+		Although it seemed like a good idea at first, you aren't so sure that you want to go through with this. Releasing Brax's arms, you stand up, allowing him to scramble to his feet.
+	</p>
+	<p>
+		[pc.speech(Sorry, Candi, this is a bit too much, maybe we can punish Brax another time,)] you say.
+	</p>
+	<p>
+		[candi.speechNoEffects(Awww! Well, like, I'll keep hold of this potion and stuff, so if you, like, want to do it another time, just let me know!)] Candi calls out, before turning to Brax. [candi.speechNoEffects(Bad Brax! That was your fault!)]
+	</p>
+	<p>
+		You walk back to the other side of the reception desk, leaving Candi to continue scolding Brax.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTERIOR_SECRETARY_BRAX_BIMBOFY -->
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BRAX_BIMBOFY"><![CDATA[
+	<p>
+		Candi's bimbo body, with her huge breasts, ass, and hips, gives you an idea. Leaning over the reception desk, you look into Candi's vacant eyes, [pc.speech(Hey, Candi, perhaps Bree would behave a little better if she were more like you...)]
+	</p>
+	<p>
+		[candi.speechNoEffects(Huh? Whattya mean?)] Candi replies, looking confused.
+	</p>
+	<p>
+		[pc.speech(I mean that Bree would behave a lot better if she were a bubbly bimbo as well.)]
+	</p>
+	<p>
+		[candi.speechNoEffects(Ooh! Like, you're so right!)] Candi replies, clapping her hands together excitedly. [candi.speechNoEffects(I've got, like, these amazing potions to try out! Perhaps I should use one on Bree?!)]
+	</p>
+	<p>
+		Bree shuffles about nervously as she hears what you're planning, and, while she doesn't openly complain, you can tell that she really doesn't want this to happen. You wonder if this is going too far, or if it's what Bree really deserves...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED -->
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED"><![CDATA[
+	<p>
+		[pc.speech(Yeah, you should definitely use one! Right Bree?!)] you ask the submissive wolf-girl.
+	</p>
+	<p>
+		[brax.speechNoEffects(I-If you want...)] she meekly replies.
+	</p>
+	<p>
+		[candi.speechNoEffects(Good girl, Bree!)] Candi squeals, excitedly pulling out a potion from beneath her desk. [candi.speechNoEffects(I got this made to be, like, pink flavour, so it's gonna taste good!)]
+	</p>
+	<p>
+		Bree allows Candi to push her down onto her chair, before obediently opening her mouth. Candi pulls out the bottle's stopper, and, tilting it into Bree's mouth, she empties the pink liquid down her throat. Gulping it down, Bree licks her lips as Candi pulls away from her, before letting out a little sigh.
+	</p>
+	<p>
+		Bree starts shifting around uncomfortably in her seat, and, looking down, you see the cause of her discomfort. Her ass and hips are rapidly expanding, and with an audible tear, her Enforcer shorts split at the seams. Letting out a little cry, Bree clutches the fabric against her groin, trying to conceal herself as the next transformation starts to take place.
+	</p>
+	<p>
+		Just like her lower body, Bree's upper body starts to expand, and you watch, wide-eyed, as her breasts swell up. Her Enforcer uniform can't take the stress, and you watch as the buttons of her shirt ping off to reveal her massive breasts.
+	</p>
+	<p>
+		#IF(brax.hasPenis())
+			This time, however, Bree doesn't bother to try and cover herself up. Leaning back in her chair, she lets out an extremely lewd moan, and, seeming to forget where she is, she reaches down between her legs, dropping her torn shorts and panties to the floor as she starts stroking her huge knotted cock in one hand, while fingering her dripping wolf-pussy with the other.
+		#ELSE
+			This time, however, Bree doesn't bother to try and cover herself up. Leaning back in her chair, she lets out an extremely lewd moan, and, seeming to forget where she is, she reaches down between her legs, dropping her torn shorts and panties to the floor as she starts fingering her dripping pussy.
+		#ENDIF
+	</p>
+	<p>
+		[brax.speechNoEffects(Candi... I... Need... Cock...)] Bree moans, her tongue lolling out of her mouth as she loses herself to her pleasure.
+	</p>
+	<p>
+		[candi.speechNoEffects(Ooh! Bree! You naughty slut! Y'know, you, like, need a new name to go with your new attitude! Erm... How about Candi?!)] Candi exclaims, before realising what's wrong. [candi.speechNoEffects(Wait, no, that's, like, my name... You can be Brandi!)]
+	</p>
+	<p>
+		As Candi gives her a new name, you see Brandi's hair lengthening and turning bleach-blonde. That seems to be the final transformation, leaving her with KK-cup breasts, a massive ass, wide hips, and an overwhelming lust for sex.
+	</p>
+	<p>
+		Before you have any time to comment on her new body and personality, Candi grabs her arm and pulls her into her office, shouting behind her, [candi.speechNoEffects(I'm gonna give Brandi some of my old clothes, give us five mins, then come have some fun with her!)]
+	</p>
+	<p>
+		You could either do as Candi says, and go into the office after five minutes, or leave and come back another time to have some fun with Brandi.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED_SEX"><![CDATA[
+	<p>
+		After waiting for five minutes, you follow Candi into her office. There, waiting for you, is the person who you first met as 'Inspector Brax'. Having being transformed into a brain-dead bimbo, and being dressed up to look like a cheap whore, she's completely unrecognisable from the first time you met her.
+	</p>
+	<p>
+		A fishnet top does nothing to conceal her massive KK-cup breasts, and you see that a tiny miniskirt isn't doing much better of a job downstairs. Candi must have a thing for fishnets, as she's given Brandi a pair of fishnet stocking, as well as gloves, finishing off her slutty appearance.
+	</p>
+	<p>
+		The most noticeable thing, however, is how Brandi's facial expression has changed. Her once-dominant-and-intimidating stare has shifted into a vacant, hungry gaze, and her eyes travel up the length of your body as she licks her lips.
+	</p>
+	<p>
+		[brax.speechNoEffects(Like, you wanna fuck or something?)] she asks. [brax.speechNoEffects(I'm, like, totally horny right now!)]
+	</p>
+	<p>
+		[candi.speechNoEffects(Hehe! Good girl, Brandi! You gotta, like, remember to ask nicely like that, ok?)] Candi says, handing you [brax.namePos] pink leash before moving to make her exit. [candi.speechNoEffects(I gotta, like, watch the front desk, or else the chief's gonna take Brandi away from me!)]
+	</p>
+	<p>
+		As Candi leaves the office, you turn to face the [brax.race] bimbo, smiling as you unclip the leash from her collar. Brandi immediately drops to her knees, shuffling forwards as she begs, [brax.speechNoEffects(Please! I, like, <i>need</i> a good fuck right now! Please use me!)]
+	</p>
+	<p>
+		[pc.speech(What a good [brax.girl]!)] you say, grinning as she lets out a desperate, hungry whine.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED_NO_SEX -->
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED_NO_SEX"><![CDATA[
+	<p>
+		Although you're happy with how Brandi has turned out, you don't feel like having sex with her. Not wanting to wait around for five minutes just to decline Candi's inevitable offer of sex with Brandi, you step back from the counter and prepare to take your leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INTERIOR_SECRETARY_BRAX_BIMBOFY_CHANGE_MIND -->
+	
+	<htmlContent tag="INTERIOR_SECRETARY_BRAX_BIMBOFY_CHANGE_MIND"><![CDATA[
+	<p>
+		Although it seemed like a good idea at first, you aren't so sure that you want to go through with this. Shaking your head, you decide to leave Bree the way she is.
+	</p>
+	<p>
+		[pc.speech(Sorry, Candi, maybe that would be going too far, maybe we can punish Bree another time.)]
+	</p>
+	<p>
+		[candi.speechNoEffects(Awww! Well, like, I'll keep hold of these potions and stuff, so if you, like, want to do it another time, just let me know!)] Candi replies.
+	</p>
+	<p>
+		You turn away from the reception desk, confident that you did the right thing.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SEX -->
+	
+	<htmlContent tag="AFTER_SEX"><![CDATA[
+	<p>
+		Leaving [brax.name] to recover in Candi's office, you make your exit. As you leave, you let the bimbo cat-girl know that her pet behaved, smiling to yourself as you wonder when you'll decide to drop in to pay the [brax.race] a visit again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SEX_CANDI -->
+	
+	<htmlContent tag="AFTER_SEX_CANDI"><![CDATA[
+	#IF(candi.isSatisfiedFromLastSex())
+		<p>
+			With a deeply satisfied sigh, Candi moans, [candi.speechNoEffects(~Mmm!~ Fuck, that was, like, sooo good... I, like, super needed that.)]
+		</p>
+		<p>
+			With that, the two of you gather your things and head out of her office. Moving back around to the correct side of the desk, you prepare to continue on your way...
+		</p>
+	#ELSE
+		<p>
+			With an immensely frustrated sigh, Candi moans, [candi.speechNoEffects(~Aah!~ Fuck, that was, like, super not satisfying! You need to, like, do better than that next time!)]
+		</p>
+		<p>
+			With that, the still-desperately-horny cat-girl pulls on her clothes dashes out of the office, before sitting chair down on her and continuing to masturbate. Collecting your things, you prepare to continue on your way...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- BUYING_BRAX_INITIAL -->
+	
+	<htmlContent tag="BUYING_BRAX_INITIAL"><![CDATA[
+	<p>
+		As [brax.name] is now registered as a slave, you realise that this means you'd potentially be able to own [brax.herHim], if only you can convince Candi to sell [brax.herHim] to you. With this on your mind, you inform the bimbo cat-girl that you're in possession of a slaver's license, and ask how much she'd be willing to consider selling [brax.name] for.
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_bimbofiedBrax))
+			Upon hearing you ask this, the bimbo wolf-girl exclaims in a bubbly voice, [brax.speechNoEffects(Hey, like, you wanna be my owner? That'd be kinda fun! I'm, like, desperate to get fucked in some place other than behind this desk, y'know?)]
+			</p>
+			<p>
+			[candi.speechNoEffects(Like, you don't get to decide who owns you, bitch!)] Candi exclaims, giving [brax.namePos] leash a sharp yank before continuing, [candi.speechNoEffects(So, you wanna buy my little slave, huh? She's, like, apparently super into you already...)]
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_feminisedBrax))
+			Upon hearing you ask this, the wolf-girl mutters, [brax.speech(C-Candi, please, you can't sell me... Who knows what [pc.she]'ll do to me?)]
+			</p>
+			<p>
+			[candi.speechNoEffects(Like, you don't get to decide what I can and can't do, bitch!)] Candi exclaims, giving [brax.namePos] leash a sharp yank before continuing, [candi.speechNoEffects(So, you wanna buy my little slave, huh? Even though she's, like, pretty disobedient and stuff?)]
+		#ELSE
+			Upon hearing you ask this, the wolf-boy angrily shouts, [brax.speech(You seriously think you can just buy me?! Candi, tell [pc.herHim] to fuck off alread- ~Aargh!~)]
+			</p>
+			<p>
+			[candi.speechNoEffects(Like, shut up, bitch!)] Candi exclaims, yanking on [brax.namePos] leash to quieten him down. [candi.speechNoEffects(So, you wanna buy my little slave, huh? Even though he's, like, super disobedient and stuff?)]
+		#ENDIF
+	</p>
+	<p>
+		Reaffirming that you would indeed like to buy [brax.name] from her, you again ask how much she'd be willing to sell [brax.herHim] for. Leaning back in her chair, Candi lets out a long sigh, before saying, [candi.speechNoEffects(Like, I dunno... I mean, it's kinda annoying having to care for a slave, but, like, it's also kinda fun to get [brax.herHim] to do what I say... I'll tell ya what; I'll, like, really think about if I wanna sell [brax.herHim] to you, but you gotta do something for me first.)]
+	</p>
+	<p>
+		After asking Candi what that 'something' would be, she smiles and places a small bag of coins on the desk in front of her, before saying, [candi.speechNoEffects(I, like, ordered some perfume and stuff from this nice succubus lady a week or something ago, and, like, I just haven't had the time to go and pick it up yet, y'know? You just, like, take this money, go pay for my perfume, and bring it back to me, and I'll, like, let you know if [brax.name] is for sale or not. Deal?)]
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_kateIntroduced))
+			As it sounds like an easy enough task, you agree to do as Candi asks, and after taking the bag of flames, you're informed that the perfume is waiting at none other than Kate's shop, 'Succubi's Secrets', over in the Shopping Arcade.
+		#ELSE
+			As it sounds like an easy enough task, you agree to do as Candi asks, and after taking the bag of flames, you're informed that the shop at which the perfume is waiting is named 'Succubi's Secrets', and is located in one corner of the Shopping Arcade.
+		#ENDIF
+		 Telling Candi that you'll have no trouble retrieving her perfume for her, you wonder if you should head off to the Shopping Arcade right away, or hang around here for a little while longer...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- BUYING_BRAX_PERFUME_DELIVERY -->
+	
+	<htmlContent tag="BUYING_BRAX_PERFUME_DELIVERY"><![CDATA[
+	<p>
+		Telling Candi that you've done as she asked, you place the bottles of perfume on the desk before her. The cat-girl's eyes light up as she sees what it is you're delivering to her, and in a happy voice, she exclaims, [candi.speechNoEffects(Wohoo! Like, that succubus lady who works there really knows her stuff! She knew, like, exactly what brands I was talking about! This is, like, the real good stuff, y'know?!)]
+	</p>
+	<p>
+		Reminding Candi about her end of the deal, you ask her if she's decided whether she'll sell [brax.name] to you or not. Putting the bottles of perfume away beneath her desk, the cat-girl straightens back up and smiles at you as she answers, [candi.speechNoEffects(Like, I was thinking no, but after you've gone and got me these super duper perfumes, there's, like, no way I could refuse! I'll sell [brax.herHim] to you, but I gotta think about how much [brax.sheIs] worth...)]
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_bimbofiedBrax))
+			[brax.speechNoEffects(So, like, I'm gonna belong to [pc.herHim] soon?)] [brax.name] asks, playfully eyeing you up and down before suggestively winking at you.
+			</p>
+			<p>
+			[candi.speechNoEffects(Yeah, like, probably,)] Candi answers, [candi.speechNoEffects(I gotta, like, think about how much to sell you for first, y'know?)]
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_feminisedBrax))
+			[brax.speechNoEffects(Y-You're really going to sell me?)] [brax.name] asks, glancing worriedly in your direction.
+			</p>
+			<p>
+			[candi.speechNoEffects(Yeah, like, probably,)] Candi answers, [candi.speechNoEffects(I gotta, like, think about how much to sell you for first, y'know?)]
+		#ELSE
+			[brax.speechNoEffects(You can't be serious!)] [brax.name] shouts, [brax.speech(You can't sell me! And to <i>[pc.herHim]</i>, of all people?! The chief will never allow- ~Eugh!~)]
+			</p>
+			<p>
+			[candi.speechNoEffects(Shut up already! Fuck! You're, like, the worst fuckin' slave ever! I'm gonna be glad to be rid of you!)] Candi screeches, yanking harshly on [brax.namePos] leash to shut [brax.herHim] up. Glaring angrily at [brax.herHim], she then continues, [candi.speechNoEffects(And the chief, like, had all your papers signed to me personally, so, like, if I wanna sell you, that's up to me! Now, like, try to be a good bitch for once and stay quiet while I, like, think about how much to sell you for!)]
+		#ENDIF
+	</p>
+	<p>
+		Turning back towards you, Candi then says, [candi.speechNoEffects(So, um, I'm gonna need some time to think. If you're really serious about buying my bitch here, then I'm gonna need you to prove it. While I'm thinkin' about what to charge ya, I want you to do something for me, ok?)]
+	</p>
+	<p>
+		Realising that you have little choice but to do as she asks, you agree to help Candi once again, and ask her what it is she needs you to do. Glancing around to make sure that nobody else is nearby, the bimbo cat-girl leans forwards over her desk, and in an overly-dramatic manner, places a finger over her lips and makes a shushing noise, before whispering, [candi.speechNoEffects(You, like, can't tell anyone about this, ok, but, like, I overheard some talk about these extra special lollipops being confiscated up in the Harpy Nests. I, um, really love sucking on things like that, so you're gonna, like, go and fetch them for me, ok?)]
+	</p>
+	<p>
+		You almost put a quick end to Candi's entire plan as you point out that the Enforcers are unlikely to simply hand over contraband lollipops to a member of the public, but after letting out a particularly long 'umming' noise, she exclaims, [candi.speechNoEffects(Oh, you can just use the super secret password that, like, only Enforcers are allowed to know! Just tell them it's a 'priority thunder', and then they'll know you must be a friend! Lucky I'm so smart I could think of that for you, huh? So anyway, go up to those Harpy Nests, and, like, tell them that the 'contraband lollipops' are needed here at the Enforcer headquarters for, um, testing or something, I dunno, you'll think of something.)]
+	</p>
+	<p>
+		After getting Candi's assurance that she'll have put a price on [brax.name] by the time you return with these lollipops, you wonder if you should head on up to the Harpy Nests right away, or do something else here first...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- BUYING_BRAX_LOLLIPOP_DELIVERY -->
+	
+	<htmlContent tag="BUYING_BRAX_LOLLIPOP_DELIVERY"><![CDATA[
+	<p>
+		Placing the box down on the desk before Candi, you tell her that it contains the contraband lollipops she was after. Although you relay the warning that the dog-boy Enforcer gave you about the lollipops containing a dangerous, permanent aphrodisiac, the bimbo cat-girl doesn't seem to take much notice, and dismisses the message with a wave of her hand, [candi.speechNoEffects(Yeah, yeah, dangerous lollipops, sure, like, whatever.)]
+	</p>
+	<p>
+		Reminding her that she'd promised to put a price on [brax.name] by the time you returned with these lollipops, you ask Candi how much she's willing to sell the [brax.race] for. Stopping half-way through impatiently opening the box, Candi sighs and says, [candi.speechNoEffects(Yeah, like, I really tried to think hard, y'know, but I just don't think I can put a price on [brax.herHim]... Maybe I can't sell [brax.herHim] after all?)]
+	</p>
+	<p>
+		After expressing your displeasure at having the cat-girl go back on her word, and throwing out the casual observation that she would get into a lot of trouble if it was known that she'd obtained these lollipops for her own personal use, you once again ask Candi what price she's going to put on [brax.name]. This time, with the thought of getting into trouble over these lollipops clearly in her head, she says, [candi.speechNoEffects(Well, like, I don't think I could, um, ask for flames for [brax.herHim]... There is one thing I'd be, like, willing to trade [brax.herHim] for, though. There was this super rare, super exclusive, limited-edition set of lipsticks put out by, like, the best brand out there a few months ago, right? Like, obviously, they were all bought by super rich demons and stuff, but I heard from a friend's cousin's girlfriend that there's still one set for sale over in the Shopping Arcade. You, like, get that for me, and I'll trade you [brax.name] for it.)]
+	</p>
+	<p>
+		Finally having got a price set on [brax.namePos] head, you ask Candi where exactly this lipstick set is for sale, and how you're supposed to tell it apart from any others.
+	</p>
+	<p>
+		[candi.speechNoEffects(Well, like, I heard it's being sold in that 'Ralph's Snacks' place, but you, like, have to ask for it all special-like and stuff, y'know? It's not displayed to the public. Oh, and the set's called 'A Hundred Kisses', so you just need to ask for that, ok?)]
+	</p>
+	<p>
+		Agreeing to retrieve this special lipstick set in order to trade it for [brax.name], you wonder if you should head over to 'Ralph's Snacks' right away, or do something else first...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- BUYING_BRAX_LIPSTICK_DELIVERY -->
+	
+	<htmlContent tag="BUYING_BRAX_LIPSTICK_DELIVERY"><![CDATA[
+	<p>
+		Wanting to finally become the owner of [brax.name], you place the lipstick set 'A Hundred Kisses', down on the desk in front of Candi. Seeing what it is you've brought her, the bimbo cat-girl lets out an excited squeal, [candi.speechNoEffects(~Aah!~ Like, no way! You actually got it! I, like, totally can't even!)]
+	</p>
+	<p>
+		Bouncing up and down in excitement, Candi reaches forwards to take the box, but, not wanting to hand it over until you know that she's going to keep her end of the bargain, you pull it away from her. Responding to her protestations with the simple demand that she produce the paperwork for signing over [brax.name], you soon manage to get her to do as you ask. Once the correct forms for a slave transfer are laid out before you, you allow Candi to take the lipsticks.
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_bimbofiedBrax))
+			[brax.speechNoEffects(So, like, I'm getting you as my new owner?)] [brax.name] asks, biting her lip and batting her eyelids at you.
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_feminisedBrax))
+			[brax.speechNoEffects(So... Y-You're going to be the one owning me now?)] [brax.name] asks, nervously shuffling her feet as she wonders how you're going to be treating her.
+		#ELSE
+			[brax.speechNoEffects(I can't believe this!)] [brax.name] exclaims, [brax.speech(<i>[pc.SheIs]</i> going to be my... my <i>owner</i>?! ~Eugh!~)]
+		#ENDIF
+	</p>
+	<p>
+		Responding in the affirmative, and telling [brax.name] to collect whatever personal possessions [brax.she] has, you then sign the papers laid out in front of you, before asking Candi to do the same. Despite all that you've done for her, she seems very reluctant to go through with it, and it takes some pointed reminders of her promises to finally get her to sign off on the transfer. Being infused with a special arcane enchantment, the documents immediately react to both party's signatures, and with a bright purple flash, the enslavement collar around [brax.namePos] neck activates, teleporting [brax.herHim] to the slaver administration building's holding cells.
+	</p>
+	<p>
+		[candi.speechNoEffects(Well, like, there ya go,)] candi pouts, clearly upset at having lost her slave, [candi.speechNoEffects(I guess these lipsticks are, like, pretty good, but I feel like you cheated me outta something!)]
+	</p>
+	<p>
+		Not wanting an Enforcer with a grudge on your back, you remind Candi that you also retrieved her perfume, as well as the box of contraband lollipops, and that by all accounts it was a fair deal. As you mention this, her eyes suddenly light up, and she happily exclaims, [candi.speechNoEffects(Oh, that's right! I, like, forgot about those! I was saving them for when this happened to make me feel better!)]
+	</p>
+	<p>
+		Before you can even think about stopping her, the bimbo cat-girl reaches down beneath her desk, and, producing a glowing-pink lollipop, she wraps her plump lips around it and starts sucking. Immediately, you see her cheeks flush red, and with complete indifference to your presence before her, she drops her hands down between her legs, before pulling her skirt up and reaching down into her thong to start masturbating. 
+	</p>
+	<p>
+		[candi.speechNoEffects(Fuck, like, the<i>sh</i>e thing<i>sh</i> are pretty good,)] she slurps around the lollipop in her mouth, before looking up into your eyes and pleading, [candi.speechNoEffects(I'm <i>sh</i>o horny! Like, plea<i>sh</i>e! Come round here and fuck me!)]
+	</p>
+	<p>
+		With any animosity towards you seemingly forgotten, Candi continues desperately pleading for you to fuck her, and you wonder if you should take her up on her offer, or simply take your leave and see to the arrangements for your new slave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

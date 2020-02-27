@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
@@ -11,7 +10,7 @@ import com.lilithsthrone.utils.Units;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class Hair implements BodyPartInterface {
@@ -307,7 +306,7 @@ public class Hair implements BodyPartInterface {
 		}
 		
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
-				+ "<br/><br/>"
+				+ "<p>"
 				+ owner.postTransformationCalculation()
 				+ "</p>";
 	}
@@ -354,15 +353,24 @@ public class Hair implements BodyPartInterface {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The length of [npc.namePos] [npc.hair] doesn't change...)]</p>");
 			}
 		} else if (sizeChange < 0) {
+			String hairChangedText;
 			if(owner.isPlayer()) {
+				if (this.length == 0 && owner.isFaceBaldnessNatural()) {
+					hairChangedText = "no [pc.hair]";
+				} else {
+					hairChangedText = "[pc.hairLength], " + Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [pc.hair]";
+				}
 				return "<p>Your scalp itches for a moment as you feel your [pc.hair] [style.boldShrink(getting shorter)].<br/>"
-						+ "You now have [style.boldTfGeneric([pc.hairLength], "
-						+ Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [pc.hair])]!</p>"
+						+ "You now have [style.boldTfGeneric(" + hairChangedText + ")]!</p>"
 						+ styleChange;
 			} else {
+				if (this.length == 0 && owner.isFaceBaldnessNatural()) {
+					hairChangedText = "no [npc.hair]";
+				} else {
+					hairChangedText = "[npc.hairLength], " + Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [npc.hair]";
+				}
 				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry and rubs at [npc.her] scalp as [npc.her] [npc.hair] [style.boldShrink(gets shorter)].<br/>"
-						+ "[npc.She] now has [style.boldTfGeneric([npc.hairLength], "
-						+ Units.size(this.length, Units.UnitType.LONG_SINGULAR) +" [npc.hair])]!</p>"
+						+ "[npc.She] now has [style.boldTfGeneric(" + hairChangedText + ")]!</p>"
 						+ styleChange);
 			}
 			
@@ -390,149 +398,57 @@ public class Hair implements BodyPartInterface {
 		
 		switch(style) {
 			case BRAIDED:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into braids.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into braids.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into braids.</p>");
 			case CURLY:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now curled.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now curled.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now curled.</p>");
 			case LOOSE:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now loose.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now loose.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now loose.</p>");
 			case NONE:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now unstyled, and left to take on "+(type.isDefaultPlural()?"their":"its")+" natural shape.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now unstyled, and left to take on "+(type.isDefaultPlural()?"their":"its")+" natural shape.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now unstyled, and will take on "+(type.isDefaultPlural()?"their":"its")+" natural shape.</p>");
 			case PONYTAIL:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a ponytail.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a ponytail.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a ponytail.</p>");
 			case STRAIGHT:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened.</p>");
 			case TWIN_TAILS:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into twin-tails.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into twin-tails.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into twin-tails.</p>");
 			case WAVY:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now wavy.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now wavy.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now wavy.</p>");
 			case MOHAWK:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a mohawk.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a mohawk.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a mohawk.</p>");
 			case AFRO:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into an afro.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into an afro.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into an afro.</p>");
 			case SIDECUT:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a sidecut.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a sidecut.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a sidecut.</p>");
 			case BOB_CUT:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a bob cut.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a bob cut.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a bob cut.</p>");
 			case PIXIE:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a pixie cut.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a pixie cut.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a pixie cut.</p>");
 			case SLICKED_BACK:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now slicked back.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now slicked back.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now slicked back.</p>");
 			case MESSY:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now unstyled, and particularly messy.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now unstyled, and particularly messy.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now unstyled, and particularly messy.</p>");
 			case HIME_CUT:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened, and styled into a hime cut.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened, and styled into a hime-cut.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened, and styled into a hime-cut.</p>");
 			case CHONMAGE:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened, oiled, and styled into a chonmage.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened, oiled, and styled into a chonmage.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened, oiled, and styled into a chonmage.</p>");
 			case DREADLOCKS:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into dreadlocks.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into dreadlocks.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into dreadlocks.</p>");
 			case TOPKNOT:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now gathered up into a topknot.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now gathered up into a topknot.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now gathered up into a topknot.</p>");
 			case BIRD_CAGE:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into an elaborate bird cage.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into an elaborate bird cage.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into an elaborate bird cage.</p>");
 			case TWIN_BRAIDS:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into twin braids.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into twin braids.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into twin braids.</p>");
 			case DRILLS:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into drills.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into drills.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into drills.</p>");
 			case LOW_PONYTAIL:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a low ponytail.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a low ponytail.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a low ponytail.</p>");
 			case CROWN_BRAID:
-				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a crown braid.</p>";
-				} else {
-					return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a crown braid.</p>");
-				}
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a crown braid.</p>");
+			case BUN:
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a bun.</p>");
+			case CHIGNON:
+				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now tied up and styled into a chignon.</p>");
 		}
 		
 		// Catch:

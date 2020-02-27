@@ -6,7 +6,7 @@
 		<name><![CDATA[trainer]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[trainers]]></namePlural>
 		<description><![CDATA[A pair of shoes made from flexible rubber and breathable cloth. Although designed to be worn when performing physical exercise, they are widely used for everyday wear.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>FOOT</slot>
 		<rarity>COMMON</rarity>

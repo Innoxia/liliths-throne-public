@@ -5,14 +5,18 @@
 		<value>10000</value>
 		<determiner><![CDATA[the]]></determiner>
 		<name><![CDATA[Dark Siren's Cloak]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[Dark Siren's Amulets]]></namePlural>
+		<namePlural pluralByDefault="false"><![CDATA[Dark Siren's Cloaks]]></namePlural>
 		<description><![CDATA[Enchanted by the demon who calls herself 'The Dark Siren', this cloak imbues the wearer with an immense amount of arcane power.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
-		<slot>TORSO_OVER</slot>
+    <equipSlots>
+      <slot>TORSO_OVER</slot>
+      <slot>NECK</slot>
+    </equipSlots>
 		<rarity>LEGENDARY</rarity>
 		<clothingSet>DARK_SIREN</clothingSet>
 		<imageName>siren_cloak.svg</imageName>
+    <imageEquippedName slot="TORSO_OVER">siren_cloak.svg</imageEquippedName>
 		<imageEquippedName/>
 		<enchantmentLimit>15</enchantmentLimit>
 		<effects> 
@@ -33,7 +37,7 @@
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="SPELL_COST_MODIFIER" timer="0"/>
 		</effects>
 		
-		<blockedPartsList>
+		<blockedPartsList slot="TORSO_OVER">
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired/>
@@ -44,8 +48,19 @@
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
+
+    <blockedPartsList slot="NECK">
+      <blockedParts>
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        <clothingAccessRequired/>
+        <blockedBodyParts/>
+        <clothingAccessBlocked/>
+        <concealedSlots/>
+      </blockedParts>
+    </blockedPartsList>
 		
-		<incompatibleSlots/>
+		<incompatibleSlots slot="TORSO_OVER"/>
+    <incompatibleSlots slot="NECK"/>
 		
 		<primaryColours>
 			<colour>CLOTHING_BLACK</colour>
@@ -60,11 +75,14 @@
 		</tertiaryColours>
 		<tertiaryColoursDye values="ALL_METAL"/>
 	
-		<itemTags/>
+		<itemTags>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+		
 	</coreAttributes>
 
 	
-  <replacementText type="REMOVE_OR_EQUIP">
+  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(drape)] the cloak over [npc.her] shoulders, before fastening the strap around [npc.her] neck.]]>
     </self>
@@ -75,8 +93,30 @@
       <![CDATA[[npc.Name] roughly [npc.verb(drape)] the cloak over [npc2.namePos] shoulders, before firmly fastening the strap around [npc2.her] neck.]]>
     </otherRough>
   </replacementText>
+  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] the strap around [npc.her] neck, before taking off [npc.her] cloak.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] the strap around [npc2.namePos] neck, before taking off [npc2.her] cloak.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] the strap around [npc2.namePos] neck, before pulling off [npc2.her] cloak.]]>
+    </otherRough>
+  </displacementText>
 
-  <displacementText type="REMOVE_OR_EQUIP">
+  <replacementText slot="TORSO_OVER" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(drape)] the cloak over [npc.her] shoulders, before fastening the strap around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(drape)] the cloak over [npc2.namePos] shoulders, before fastening the strap around [npc2.her] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(drape)] the cloak over [npc2.namePos] shoulders, before firmly fastening the strap around [npc2.her] neck.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="TORSO_OVER" type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(unfasten)] the strap around [npc.her] neck, before taking off [npc.her] cloak.]]>
     </self>

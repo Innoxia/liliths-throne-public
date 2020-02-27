@@ -1,68 +1,80 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.InitialSexActionInformation;
+import com.lilithsthrone.game.sex.SexControl;
+import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
+import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.managers.dominion.SexManagerRalphDiscount;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexPosition;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.1.82
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class RalphsSnacks {
+	
+	private static void resetDiscountCheck() {
+		// if 3 days have passed, reset discount:
+		if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) >= (60*24*3)){
+			Main.game.getDialogueFlags().ralphDiscount=0;
+		}
+	}
 	
 	public static final DialogueNode EXTERIOR = new DialogueNode("Ralph's Snacks (Exterior)", "-", false) {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "You find yourself standing before the only place in the Shopping Arcade that sells food to go."
-						+ " From the outside, it looks like an old-fashioned sweet shop, with large glass windows displaying all manner of exotic-looking food and drink."
-						+ " The words 'Ralph's Snacks' are painted in cursive gold lettering above the entrance, and a little sign reading 'Open 24/7!' hangs in the door's window."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/ralphsSnacks", "EXTERIOR");
+		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ShoppingArcadeDialogue.getCoreResponseTab(index);
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Enter", "Step inside Ralph's Snacks.", INTERIOR){
-					@Override
-					public void effects() {
-						// if 3 days have passed, reset discount:
-						if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) >= (60*24*3)){
-							Main.game.getDialogueFlags().ralphDiscount=0;
-							Main.game.getNpc(Ralph.class).setSellModifier(1.5f);
+			if(responseTab==0) {
+				if (index == 1) {
+					if(!Main.game.isExtendedWorkTime()) {
+						return new Response("Enter", "'Ralph's Snacks' is currently closed, so you'll have to come back during opening hours if you wanted to take a look inside.", null);
+					}
+					return new Response("Enter", "Step inside Ralph's Snacks.", INTERIOR){
+						@Override
+						public void effects() {
+							resetDiscountCheck();
 						}
-					}
-				};
-				
-			} else if (index == 6) {
-				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_ENTRANCE, true);
-					}
-				};
-
-			} else {
-				return null;
+					};
+				}
 			}
+			return ShoppingArcadeDialogue.getFastTravelResponses(responseTab, index);
 		}
 	};
 	
@@ -122,6 +134,7 @@ public class RalphsSnacks {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
+						resetDiscountCheck();
 					}
 				};
 				
@@ -131,6 +144,7 @@ public class RalphsSnacks {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
+							resetDiscountCheck();
 						}
 					};
 					
@@ -139,11 +153,27 @@ public class RalphsSnacks {
 					
 				}
 
+			} else if (index == 3
+					&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_BUYING_BRAX)
+					&& Main.game.getPlayer().getQuest(QuestLine.SIDE_BUYING_BRAX)==Quest.BUYING_BRAX_LIPSTICK
+					&& !Main.game.getPlayer().hasItemType(ItemType.CANDI_HUNDRED_KISSES)) {
+					return new Response("Candi's lipstick",
+							!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.ralphAskedAboutHundredKisses)
+								?"Ask Ralph if he has a box of 'A Hundred Kisses', and if he'd be willing to sell it to you."
+								:"Ask Ralph if he still has the box of 'A Hundred Kisses' for sale.",
+							CANDI_LIPSTICK) {
+						@Override
+						public void effects() {
+							resetDiscountCheck();
+						}
+					};
+
 			} else if (index == 0) {
 				return new Response("Leave", "Leave Ralph's shop.", EXTERIOR){
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
+						resetDiscountCheck();
 					}
 				};
 
@@ -169,20 +199,18 @@ public class RalphsSnacks {
 						+ "[ralph.speech(Hey, are you alright?)]"
 					+ "</p>"
 					+ "<p>"
-					 	+ "You were so engrossed in your fantasy that you didn't notice Ralph walking up to you, and you're taken completely off-guard as you blurt out a reply, " 
-						+ "[pc.speech(Oh! Yeah... Thanks! I was just thinking... Erm...)]"
+					 	+ "You were so engrossed in your fantasy that you didn't notice Ralph walking up to you, and, having been caught completely off-guard, you blurt out a reply in the affirmative."
+					 	+ " As you turn to face the muscular horse-boy, you notice that his eyes have started to roam up and down your body, and you get the feeling that he knows exactly what you were imagining."
+						+ " Glancing down, you see a distinctive bulge forming between his legs, but before you can react to the sight of Ralph's growing erection, he steps forwards, pinning you back against the wall."
 					+ "</p>"
 					+ "<p>"
-						+ "You notice that his eyes have started to roam up and down your body, and you get the feeling that he knows exactly what you were imagining."
-						+ " Glancing down, you see a distinctive bulge forming between his legs."
-						+ " As you struggle to contain a happy gasp at the sight of his clear erection, he steps forwards, and you find yourself with your back to the wall as you feel his hot breath on your face once again." 
-					+ "</p>"
-					+ "<p>"
-						+ "[ralph.speech(Want to have another taste?)] he asks, grinning deviously, "
+						+ "[ralph.speech(Fancy another taste?)] he slyly asks, before grinning deviously at you and leaning in a little closer."
+						+ " As you feel his hot breath on your face, the horse-boy continues, "
 						+ "[ralph.speech(Let me blow a load down that pretty little throat of yours, and I'll give you twenty-five percent off everything I have in stock for a few days.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "As he moves even closer, you struggle to get the image of his massive, throbbing black horse-cock out of your mind, and as the tent in his trousers comes into contact with your leg, you blurt out your reply."
+						+ "As Ralph steps forwards and presses his hot body against yours, you struggle to get the image of his massive, throbbing black horse-cock out of your mind,"
+							+ " and as the tent in his trousers comes into contact with your leg, you blurt out your reply."
 					+ "</p>";
 				
 			}else{
@@ -207,16 +235,17 @@ public class RalphsSnacks {
 							+ "[ralph.speech(I suppose we could work something out...)]"
 						+ "</p>"
 						+ "<p>"
-							+ "You notice that his smile has suddenly lost its friendly appearance, and as his eyes roam up and down your body, you get the feeling that your arcane aura is giving him some dirty thoughts."
-							+ " Glancing down, you see a distinctive bulge forming between his legs."
-							+ " As your eyes open wide at the sight of his clear erection, he steps forwards, and you find yourself with your back to the wall as you feel his hot breath on your face." 
+							+ "You notice that his smile has suddenly lost its friendly appearance, and as his eyes roam up and down your body, you get the feeling that this horse-boy is having some dirty thoughts."
+							+ " Glancing down, you see a distinctive bulge forming between his legs, but before you can react to the sight of Ralph's growing erection, he steps forwards, pinning you back against the wall."
 						+ "</p>"
 						+ "<p>"
-							+ "[ralph.speech(Like what you see?)] he asks, grinning deviously, "
+							+ "[ralph.speech(Fancy another taste?)] he slyly asks, before grinning deviously at you and leaning in a little closer."
+							+ " As you feel his hot breath on your face, the horse-boy continues, "
 							+ "[ralph.speech(Let me blow a load down that pretty little throat of yours, and I'll give you twenty-five percent off everything I have in stock for a few days.)]"
 						+ "</p>"
 						+ "<p>"
-							+ "You gulp as he moves even closer, and as the tent in his trousers comes into contact with your leg, you blurt out your reply."
+							+ "As Ralph steps forwards and presses his hot body against yours, you struggle to get the image of his massive, throbbing black horse-cock out of your mind,"
+								+ " and as the tent in his trousers comes into contact with your leg, you blurt out your reply."
 						+ "</p>";
 			}
 		}
@@ -228,10 +257,12 @@ public class RalphsSnacks {
 						null, CorruptionLevel.TWO_HORNY, null, null, null,
 						true, true,
 						new SexManagerRalphDiscount(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Ralph.class), SexSlotBipeds.KNEELING_RECEIVING_ORAL_RALPH)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL_RALPH))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Ralph.class), SexSlotUnique.RALPH_DOM)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.RALPH_SUB))),
 						null,
-						null, Ralph.AFTER_SEX, "<p>"
+						null,
+						AFTER_SEX,
+						"<p>"
 							+ UtilText.parsePlayerSpeech("Ok, I'll do it,") + " you say, looking up at Ralph to see his smile grow even wider." + "</p>" + "<p>"
 							+ "He leans in, and you half-expect him to try and kiss you, but instead, he simply grabs your " + Main.game.getPlayer().getArmNameSingular() + " and starts to drag you back to his desk."
 							+ " As he walks, he starts instructing you on what's about to happen."
@@ -268,7 +299,7 @@ public class RalphsSnacks {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Ralph.class).setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
-						Main.game.getNpc(Ralph.class).displaceClothingForAccess(CoverableArea.PENIS);
+						Main.game.getNpc(Ralph.class).displaceClothingForAccess(CoverableArea.PENIS, null);
 					}
 				};
 				
@@ -280,6 +311,7 @@ public class RalphsSnacks {
 			}
 		}
 	};
+	
 	public static final DialogueNode INTERIOR_REFUSE_DISCOUNT_CONDITIONS = new DialogueNode("Ralph's Snacks", "-", true) {
 
 		@Override
@@ -312,48 +344,212 @@ public class RalphsSnacks {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			return INTERIOR.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode AFTER_SEX = new DialogueNode("Shopping", "Return to browsing the wares in Ralph's shop.", true) {
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "Ralph returns to running his shop, and you walk back over to the transformative consumables section, wondering if you should buy anything with your discount."
+						+ " When he's sure that nobody else is watching, Ralph gazes lustfully at your body, and you're pretty sure that you could convince him to give you another \"discount\" any time you wanted it."
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseTrade("Trade with Ralph", "Go and ask Ralph about the special transformative consumables on display.", Main.game.getNpc(Ralph.class)){
+				return new Response("Continue", "Carry on browsing the wares in Ralph's shop.", RalphsSnacks.INTERIOR);
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	private static int getLipstickPrice() {
+		int price = 50000;
+		
+		price *= (100-Main.game.getDialogueFlags().ralphDiscount)/100f;
+		
+		return price;
+	}
+	
+	public static final DialogueNode CANDI_LIPSTICK = new DialogueNode("Ralph's Snacks", "-", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.addSpecialParsingString(Util.intToString(Main.game.getDialogueFlags().ralphDiscount), true);
+			UtilText.addSpecialParsingString(Util.intToString(getLipstickPrice()), false);
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/ralphsSnacks", "CANDI_LIPSTICK");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				if(Main.game.getPlayer().getMoney()<getLipstickPrice()) {
+					return new Response("Pay "+UtilText.formatAsMoneyUncoloured(getLipstickPrice(), "span"), "You cannot afford to pay "+UtilText.formatAsMoney(getLipstickPrice(), "span")+" in exchange for the box of 'A Hundred Kisses'!", null);
+				}
+				return new Response("Pay "+UtilText.formatAsMoney(getLipstickPrice(), "span"),
+						"Pay Ralph "+UtilText.formatAsMoney(getLipstickPrice(), "span")+" in exchange for the box of 'A Hundred Kisses'.",
+						CANDI_LIPSTICK_PURCHASE) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
-						// if 3 days have passed, reset discount:
-						if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) >= (60*24*3)){
-							Main.game.getDialogueFlags().ralphDiscount=0;
-							Main.game.getNpc(Ralph.class).setSellModifier(1.5f);
-						}
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-getLipstickPrice()));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CANDI_HUNDRED_KISSES), false));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.BUYING_BRAX_DELIVER_LIPSTICK));
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphAskedAboutHundredKisses);
 					}
 				};
 
 			} else if (index == 2) {
-				return new Response("Discount", "Ask Ralph if there's anything you can do to get a discount.", INTERIOR_ASK_FOR_DISCOUNT){
+				// Limit to once a day (22 hours to give some leeway)
+				if(Main.game.getSecondsPassed()-Main.game.getDialogueFlags().ralphSexTimer<60*60*22) {
+					return new Response("Accept breeding", "Ralph is too busy running his shop to keep on trying to get you knocked up. Perhaps you should come back and try to get bred again tomorrow.", null);
+					
+				} else if(!Main.game.getPlayer().hasVagina()) {
+					return new Response("Accept breeding", "As you don't have a vagina, there's no other option but to pay Ralph "+UtilText.formatAsMoney(getLipstickPrice(), "span")+" for the box of 'A Hundred Kisses'.", null);
+					
+				} else if(Main.game.getPlayer().isPregnant()) {
+					return new Response("Accept breeding", "As you're already pregnant, there's no other option but to pay Ralph "+UtilText.formatAsMoney(getLipstickPrice(), "span")+" for the box of 'A Hundred Kisses'.", null);
+					
+				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					return new Response("Accept breeding", "As you're unable to get access to your vagina, there's no other option but to pay Ralph "+UtilText.formatAsMoney(getLipstickPrice(), "span")+" for the box of 'A Hundred Kisses'.", null);
+				}
+				return new ResponseSex("Accept breeding",
+						"Tell Ralph that you'll let him breed you in exchange for the box of 'A Hundred Kisses'.",
+						Util.newArrayListOfValues(Fetish.FETISH_PREGNANCY),
+						null, CorruptionLevel.THREE_DIRTY, null, null, null,
+						true,
+						true,
+						new SexManagerDefault(
+								SexPosition.OVER_DESK,
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Ralph.class), SexSlotDesk.BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_FRONT))) {
+							@Override
+							public SexControl getSexControl(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexControl.ONGOING_ONLY;
+								}
+								return super.getSexControl(character);
+							}
+							@Override
+							public boolean isPositionChangingAllowed(GameCharacter character) {
+								return false;
+							}
+							@Override
+							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+								return Util.newHashMapOfValues(
+										new Value<>(Main.game.getNpc(Ralph.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+							}
+							@Override
+							public OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
+								if(character.isPlayer()) {
+									return super.getCharacterOrgasmBehaviour(character);
+								}
+								return OrgasmBehaviour.CREAMPIE;
+							}
+						},
+						null,
+						null,
+						AFTER_BREEDING,
+						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/ralphsSnacks", "CANDI_LIPSTICK_START_BREEDING")) {
+					@Override
+					public List<InitialSexActionInformation> getInitialSexActions() {
+						return Util.newArrayListOfValues(
+								new InitialSexActionInformation(Main.game.getNpc(Ralph.class), Main.game.getPlayer(), PenisVagina.PENIS_FUCKING_START, false, true));
+					}
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
-						// if 3 days have passed, reset discount:
-						if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) >= (60*24*3)){
-							Main.game.getDialogueFlags().ralphDiscount=0;
-							Main.game.getNpc(Ralph.class).setSellModifier(1.5f);
-						}
+						Main.game.getNpc(Ralph.class).useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), Main.game.getNpc(Ralph.class), false);
+						Main.game.getNpc(Ralph.class).useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphAskedAboutHundredKisses);
+						Main.game.getDialogueFlags().ralphSexTimer = Main.game.getSecondsPassed();
 					}
 				};
 
 			} else if (index == 0) {
-				return new Response("Leave", "Head back outside to the shopping arcade.", EXTERIOR){
+				return new Response("Decline", "Tell Ralph that you'll think about it...", BACK_TO_INTERIOR) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
-						// if 3 days have passed, reset discount:
-						if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) >= (60*24*3)){
-							Main.game.getDialogueFlags().ralphDiscount=0;
-							Main.game.getNpc(Ralph.class).setSellModifier(1.5f);
-						}
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/ralphsSnacks", "CANDI_LIPSTICK_PURCHASE_DECLINE"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/ralphsSnacks", "AFTER_BREEDING_INTERIOR"));
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphAskedAboutHundredKisses);
 					}
 				};
 
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static final DialogueNode CANDI_LIPSTICK_PURCHASE = new DialogueNode("Ralph's Snacks", "-", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.addSpecialParsingString(Util.intToString(Main.game.getDialogueFlags().ralphDiscount), true);
+			UtilText.addSpecialParsingString(Util.intToString(getLipstickPrice()), false);
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/ralphsSnacks", "CANDI_LIPSTICK_PURCHASE");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return INTERIOR.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode AFTER_BREEDING = new DialogueNode("Finished", "Now that your womb has been filled with his potent cum, Ralph has had enough.", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.addSpecialParsingString(Main.game.getNpc(Ralph.class).useItem(AbstractItemType.generateItem(ItemType.PREGNANCY_TEST), Main.game.getPlayer(), false), true);
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/ralphsSnacks", "AFTER_BREEDING");
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if(Main.game.getPlayer().isPregnant() && Objects.equals(Main.game.getPlayer().getPregnantLitter().getFather(), Main.game.getNpc(Ralph.class))) {
+					return new Response("Success",
+							"Not only are you now the proud owner of the limited edition box of 'A Hundred Kisses', but you've also become the mother of Ralph's "
+									+(Main.game.getPlayer().getPregnantLitter().getTotalLitterCount()==1?"child":"children")+"!",
+									BACK_TO_INTERIOR) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/ralphsSnacks", "AFTER_BREEDING_SUCCESS"));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.CANDI_HUNDRED_KISSES), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.BUYING_BRAX_DELIVER_LIPSTICK));
+						}
+					};
+					
+				} else {
+					return new Response("Failure...",
+							"Ralph didn't manage to get you pregnant, and as such, he's unwilling to hand over the box of 'A Hundred Kisses'...",
+							BACK_TO_INTERIOR) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/ralphsSnacks", "AFTER_BREEDING_FAILURE"));
+						}
+					};
+				}
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode BACK_TO_INTERIOR = new DialogueNode("Ralph's Snacks", "-", true) {
+
+		@Override
+		public String getContent() {
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return INTERIOR.getResponse(responseTab, index);
 		}
 	};
 }

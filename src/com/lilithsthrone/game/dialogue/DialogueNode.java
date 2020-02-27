@@ -161,4 +161,10 @@ public abstract class DialogueNode {
 	public boolean reloadOnRestore() {
 		return false;
 	}
+
+	/**
+	 * This method is called before the getContent() method is called.
+	 */
+	public void applyPreParsingEffects() {
+	}
 }

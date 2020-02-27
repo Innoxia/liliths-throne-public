@@ -11,6 +11,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -22,7 +23,7 @@ import com.lilithsthrone.world.Weather;
 
 /**
  * @since 0.1.8
- * @version 0.1.97
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class HarpyNestDominant {
@@ -33,7 +34,7 @@ public class HarpyNestDominant {
 		public int getSecondsPassed() {
 			return 60;
 		}
-
+		
 		@Override
 		public String getLabel() {
 			return "[harpyDominant.NamePos] nest";
@@ -41,76 +42,29 @@ public class HarpyNestDominant {
 
 		@Override
 		public String getContent() {
-			if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
-					return "<p>"
-								+ "Due to the ongoing arcane storm, [harpyDominant.namePos] nest is completely deserted."
-								+ " Her entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to her."
-							+ "</p>";
-				} else {
-					return "<p>"
-							+ "Due to the ongoing arcane storm, this nest is completely deserted."
-							+ " The entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to the matriarch of this particular nest."
-						+ "</p>";
-				}
-
-			} else {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
-					return "<p>"
-								+ "You find yourself standing on the outskirts of [harpyDominant.namePos] nest; one of the largest and most populous of all the nests in Dominion."
-								+ " A single, gigantic platform spans the roof-tops of several buildings, with little raised podiums scattered about its surface."
-								+ (Main.game.isDayTime()
-										?""
-										:" A series of bright, arcane-powered lights illuminate the entire nest, revealing that the harpies here are just as active at night as they are during daylight hours.")
-							+ "</p>"
-							+ "<p>"
-								+ "Looking closer at the nest's peculiar podiums, you see that there's a red-and-black feathered harpy perched on top of each one."
-								+ " Around the base of each one of these podiums, a crowd of harpies can be seen huddling together, and upon further inspection you notice that they're all bowing down in submission."
-								+ " Curiously, although you can see harpies of almost every colour, the only ones with red or black feathers seem to be those who are sitting on top of those podiums,"
-									+ " leading you to believe that those particular colours designate the important members of this particular flock."
-							+ "</p>"
-							+ "<p>"
-								+ "At the very centre of the platform, you see a podium that's higher than all the rest, and, lounging about on top of it, you see the familiar shape of [harpyDominant.name]."
-								+ " The group surrounding her is unlike all the others, as it's made up solely of the same red-and-black feathered harpies that you can see on top of the other podiums."
-								+ " Despite their somewhat aggressive appearance, the harpies of this flock don't seem to be too bothered by your presence, allowing you to approach [harpyDominant.name] if you had any business with her."
-							+ "</p>";
-
-				} else {
-					return "<p>"
-						+ "You find yourself standing on the outskirts of one of the largest and most populous of all the nests in Dominion."
-						+ " A single, gigantic platform spans the roof-tops of several buildings, with little raised podiums scattered about its surface."
-						+ (Main.game.isDayTime()
-								?""
-								:" A series of bright, arcane-powered lights illuminate the entire nest, revealing that the harpies here are just as active at night as they are during daylight hours.")
-					+ "</p>"
-					+ "<p>"
-						+ "Looking closer at the nest's peculiar podiums, you see that there's a red-and-black feathered harpy perched on top of each one."
-						+ " Around the base of each one of these podiums, a crowd of harpies can be seen huddling together, and upon further inspection you notice that they're all bowing down in submission."
-						+ " Curiously, although you can see harpies of almost every colour, the only ones with red or black feathers seem to be those who are sitting on top of those podiums,"
-							+ " leading you to believe that those particular colours designate the important members of this particular flock."
-					+ "</p>"
-					+ "<p>"
-						+ "At the very centre of the platform, you see a podium that's higher than all the rest, and, lounging about on top of it, you see what must be this nest's matriarch."
-						+ " The group surrounding her is unlike all the others, as it's made up solely of the same red-and-black feathered harpies that you can see on top of the other podiums."
-						+ " Despite their somewhat aggressive appearance, the harpies of this flock don't seem to be too bothered by your presence, allowing you to approach their matriarch if you had any business with her."
-					+ "</p>";
-				}
-			}
+			return UtilText.parseFromXMLFile("places/dominion/harpyNests/dominant", "HARPY_NEST_DOMINANT");
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
-					return new Response("Approach [harpyDominant.name]", "You have no need to talk to the matriarch of this nest.", null);
-
+				if(!Main.game.isExtendedWorkTime()) {
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
+						return new Response("Approach [harpyDominant.name]", "Both [harpyDominant.name] and her flock are sleeping in the buildings below her nest. You'll have to come back during the day if you want to speak with her.", null);
+					} else {
+						return new Response("Approach matriarch", "The matriarch and her flock are sleeping in the buildings below her nest. You'll have to come back during the day if you want to speak with her.", null);
+					}
+						
 				} else if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
 						return new Response("Approach [harpyDominant.name]", "If you want to talk to [harpyDominant.name], you'll have to come back after the arcane storm has passed.", null);
 					} else {
 						return new Response("Approach matriarch", "If you want to talk to the matriarch, you'll have to come back after the arcane storm has passed.", null);
 					}
-
+					
+				} else if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
+					return new Response("Approach [harpyDominant.name]", "You have no need to talk to the matriarch of this nest.", null);
+					
 				} else {
 					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
 						return new Response("Approach [harpyDominant.name]", "Walk to the centre of the nest and talk to [harpyDominant.name].", HARPY_NEST_DOMINANT_APPROACH);
@@ -118,20 +72,20 @@ public class HarpyNestDominant {
 						return new Response("Approach matriarch", "Walk to the centre of the nest and talk to the matriarch.", HARPY_NEST_DOMINANT_APPROACH);
 					}
 				}
-
+					
 			} else {
 				return null;
 			}
 		}
 	};
-
+	
 	public static final DialogueNode HARPY_NEST_DOMINANT_APPROACH = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyDominant.NamePos] nest";
 		}
-
+		
 		@Override
 		public String getContent() {
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
@@ -173,7 +127,7 @@ public class HarpyNestDominant {
 							+ " Shuffling forwards, [harpyDominant.Name] bows her head, before asking,"
 							+ " [harpyDominant.speech(What can I do for you "+(Main.game.getPlayer().isFeminine()?"Mistress":"Master")+"?!)]"
 						+ "</p>";
-
+					
 				} else {
 					return "<p>"
 								+ "Deciding to pay [harpyDominant.Name] another visit, you set off towards the centre podium."
@@ -217,7 +171,7 @@ public class HarpyNestDominant {
 										:"[harpyDominant.speech(So?! What do you want, bitch?!)]")
 							+ "</p>";
 				}
-
+			
 			} else {
 				return "<p>"
 							+ "Recognising this as one of the nests that you agreed to pacify, you start walking towards the centre podium."
@@ -288,7 +242,7 @@ public class HarpyNestDominant {
 							+ "<p>"
 								+ "[harpyDominant.Name] responds to your dominant move by letting out a submissive little whine, and, wrapping her wings around your back, she passionately starts returning your kiss..."
 							+ "</p>");
-
+						
 				} else if (index == 0) {
 					return new Response("Leave", "Decide to leave [harpyDominant.namePos] nest.", HARPY_NEST_DOMINANT) {
 						@Override
@@ -304,11 +258,11 @@ public class HarpyNestDominant {
 									+ "</p>");
 						}
 					};
-
+						
 				} else {
 					return null;
 				}
-
+				
 			} else {
 				if (index == 1) {
 					return new Response("Talk", "Try to convince [harpyDominant.name] to calm down.", HARPY_NEST_DOMINANT_TALK) {
@@ -317,7 +271,7 @@ public class HarpyNestDominant {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantEncountered);
 						}
 					};
-
+						
 				} else if (index == 2) {
 					return new Response("Usurp throne", "How <i>dare</i> she speak to you like that! It's time to show her who's really in control here!", HARPY_NEST_DOMINANT_QUEEN,
 							Util.newArrayListOfValues(Fetish.FETISH_DOMINANT), null, null, Femininity.FEMININE_STRONG, null) {
@@ -326,19 +280,19 @@ public class HarpyNestDominant {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantEncountered);
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantPacified);
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false, true));
-
+							
 							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_ONE) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_TWO));
-
+								
 							} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_TWO) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_THREE));
-
+								
 							} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_THREE) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_REWARD));
 							}
 						}
 					};
-
+						
 				} else if (index == 3) {
 					return new Response("Call her ugly", "You know that this would be a terrible idea...", HARPY_NEST_DOMINANT_UGLY) {
 						@Override
@@ -350,7 +304,7 @@ public class HarpyNestDominant {
 							return true;
 						}
 					};
-
+	
 				} else if (index == 0) {
 					return new Response("Leave", "Decide to leave [harpyDominant.namePos] nest.", HARPY_NEST_DOMINANT) {
 						@Override
@@ -367,25 +321,25 @@ public class HarpyNestDominant {
 									+ "</p>");
 						}
 					};
-
+						
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-
+	
 	public static final DialogueNode HARPY_NEST_DOMINANT_TALK = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyDominant.NamePos] nest";
 		}
-
+		
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "[pc.speech(I just want to talk to you about the recent unrest in the Harpy Nests. The enforcers are having a hard time keeping the peace, and it appears as though some of your flock are to blame,)]"
+					+ "[pc.speech(I just want to talk to you about the recent unrest in the Harpy Nests. The Enforcers are having a hard time keeping the peace, and it appears as though some of your flock are to blame,)]"
 					+ " you try to explain, but [dominantHarpy.name] stomps her clawed foot on the ground, before cutting you off with an angry grunt."
 				+ "</p>"
 				+ "<p>"
@@ -408,19 +362,19 @@ public class HarpyNestDominant {
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantPacified);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false, true));
-
+						
 						if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_ONE) {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_TWO));
-
+							
 						} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_TWO) {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_THREE));
-
+							
 						} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_THREE) {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_REWARD));
 						}
 					}
 				};
-
+					
 			} else if (index == 2) {
 				return new Response("Force compliance", "If you want these harpies to chill out, it looks as though you'll have to do it by force...", HARPY_NEST_DOMINANT_FIGHT) {
 					@Override
@@ -428,7 +382,7 @@ public class HarpyNestDominant {
 						return true;
 					}
 				};
-
+					
 			} else if (index == 0) {
 				return new Response("Leave", "Decide to leave [harpyDominant.namePos] nest.", HARPY_NEST_DOMINANT) {
 					@Override
@@ -444,20 +398,20 @@ public class HarpyNestDominant {
 								+ "</p>");
 					}
 				};
-
+					
 			} else {
 				return null;
 			}
 		}
 	};
-
+	
 	public static final DialogueNode HARPY_NEST_DOMINANT_UGLY = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyDominant.NamePos] nest";
 		}
-
+		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -477,20 +431,20 @@ public class HarpyNestDominant {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[harpyDominantCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getNpc(HarpyDominantCompanion.class));
-
+					
 			} else {
 				return null;
 			}
 		}
 	};
-
+	
 	public static final DialogueNode HARPY_NEST_DOMINANT_QUEEN = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyDominant.NamePos] nest";
 		}
-
+		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -566,7 +520,7 @@ public class HarpyNestDominant {
 						+ "<p>"
 							+ "[harpyDominant.Name] responds to your dominant move by letting out a submissive little whine, and, wrapping her wings around your back, she passionately starts returning your kiss..."
 						+ "</p>");
-
+						
 			} else if (index == 0) {
 				return new Response("Leave", "Decide to take your leave.", HARPY_NEST_DOMINANT) {
 					@Override
@@ -582,20 +536,20 @@ public class HarpyNestDominant {
 								+ "</p>");
 					}
 				};
-
+					
 			} else {
 				return null;
 			}
 		}
 	};
-
+	
 	public static final DialogueNode HARPY_NEST_DOMINANT_FIGHT = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyDominant.NamePos] nest";
 		}
-
+		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -615,20 +569,20 @@ public class HarpyNestDominant {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[harpyDominantCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getNpc(HarpyDominantCompanion.class));
-
+					
 			} else {
 				return null;
 			}
 		}
 	};
-
+	
 	public static final DialogueNode HARPY_NEST_DOMINANT_FIGHT_LOSE = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyDominant.NamePos] nest";
 		}
-
+		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -670,7 +624,7 @@ public class HarpyNestDominant {
 					return Response.getDisallowedSpittingResponse("Smash bottle");
 				}
 				return new Response("Smash bottle", "Don't let [harpyDominant.Name] spray you with that strange perfume...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT_NO_TF);
-
+					
 			} else if (index == 2) {
 				return new Response("Stay still",
 						"Allow [harpyDominant.Name] to spray you with the strange perfume... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
@@ -693,20 +647,20 @@ public class HarpyNestDominant {
 							+ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, null, 0, Main.game.getNpc(HarpyDominant.class), Main.game.getPlayer(), null));
 					}
 				};
-
+					
 			} else {
 				return null;
 			}
 		}
 	};
-
+	
 	public static final DialogueNode HARPY_NEST_DOMINANT_FIGHT_BEAT_PET = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyDominant.NamePos] nest";
 		}
-
+		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -724,20 +678,20 @@ public class HarpyNestDominant {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[harpyDominant.Name] looks furious as she launches her attack on you!", Main.game.getNpc(HarpyDominant.class));
-
+					
 			} else {
 				return null;
 			}
 		}
 	};
-
+	
 	public static final DialogueNode HARPY_NEST_DOMINANT_FIGHT_LOSE_TO_MATRIARCH = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyDominant.NamePos] nest";
 		}
-
+		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -779,7 +733,7 @@ public class HarpyNestDominant {
 					return Response.getDisallowedSpittingResponse("Smash bottle");
 				}
 				return new Response("Smash bottle", "Don't let [harpyDominant.Name] spray you with that strange perfume...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT_NO_TF);
-
+					
 			} else if (index == 2) {
 				return new Response("Stay still",
 						"Allow [harpyDominant.Name] to spray you with the strange perfume... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
@@ -802,20 +756,20 @@ public class HarpyNestDominant {
 							+ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, null, 0, Main.game.getNpc(HarpyDominant.class), Main.game.getPlayer(), null));
 					}
 				};
-
+					
 			} else {
 				return null;
 			}
 		}
 	};
-
+	
 	public static final DialogueNode HARPY_NEST_DOMINANT_FIGHT_BEAT_DOMINANT = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyDominant.NamePos] nest";
 		}
-
+		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -874,7 +828,7 @@ public class HarpyNestDominant {
 						+ "<p>"
 							+ "[harpyDominant.Name] responds to your dominant move by letting out a submissive little whine, and, wrapping her wings around your back, she passionately starts returning your kiss..."
 						+ "</p>");
-
+						
 			} else if (index == 0) {
 				return new Response("Leave", ".", HARPY_NEST_DOMINANT) {
 					@Override
@@ -890,20 +844,20 @@ public class HarpyNestDominant {
 								+ "</p>");
 					}
 				};
-
+					
 			} else {
 				return null;
 			}
 		}
 	};
-
+	
 	public static final DialogueNode HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT_NO_TF = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyDominant.NamePos] nest";
 		}
-
+		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -950,14 +904,14 @@ public class HarpyNestDominant {
 			}
 		}
 	};
-
+	
 	public static final DialogueNode HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyDominant.NamePos] nest";
 		}
-
+		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -1009,25 +963,25 @@ public class HarpyNestDominant {
 									+ "</p>");
 						}
 					};
-
+					
 			} else {
 				return null;
 			}
 		}
 	};
-
+	
 	public static final DialogueNode HARPY_NEST_DOMINANT_AFTER_SEX = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyDominant.NamePos] nest";
 		}
-
+		
 		@Override
 		public String getContent() {
 			if(Sex.getNumberOfOrgasms(Main.game.getNpc(HarpyDominant.class)) >= Main.game.getNpc(HarpyDominant.class).getOrgasmsBeforeSatisfied()) {
 				return "<p>"
-							+ "As you step back from [harpyDominant.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
+							+ "As you step back from [harpyDominant.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfOrgasms(Main.game.getNpc(HarpyDominant.class)) > 1?"s":"")+"."
 							+ " The surrounding harpies, having watched the whole thing, kneel in submission as you finish with their matriarch."
 						+ "</p>";
 			} else {
@@ -1051,7 +1005,7 @@ public class HarpyNestDominant {
 								+ "</p>");
 					}
 				};
-
+					
 			} else {
 				return null;
 			}

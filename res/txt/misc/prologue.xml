@@ -60,12 +60,18 @@
 	</htmlContent>
 
 	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_FEMALE_AS_MALE_START"><![CDATA[
-	<p>
-		You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body. Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands. [prologueFemale.speech(I'd rather you didn't, but if you want to, you can wear this.)]
-	</p>
-	<p>
-		You look down to see that you're holding a little square packet - a condom.
-	</p>
+	#IF(pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible())
+		<p>
+			You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body. Never expecting something like this to happen today, you're glad that you always keep a condom in your purse 'just in case'. Now would be a good time to put it to use...
+		</p>
+	#ELSE
+		<p>
+			You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body. Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands and saying, [prologueFemale.speech(I'd rather you didn't, but if you want to, you can wear this.)]
+		</p>
+		<p>
+			You look down to see that you've just been given a condom, still sealed in its small square packet...
+		</p>
+	#ENDIF
 	<div class='container-full-width' style='text-align:center;'>
 		<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>
 		(Your penis will need to be exposed before it can be used!)</i>
@@ -82,18 +88,24 @@
 
 	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_MALE_START"><![CDATA[
 	<p>
-		You allow [prologueMale.name] to pull you into his strong, masculine torso, desperately moaning into his mouth as he dominantly gropes and fondles your body. Breaking off the kiss for a moment, he pulls something out of his pocket, before pushing it into your hands. [prologueMale.speech(I'd rather not, but if you want me to, I can wear this.)]
+		You allow [prologueMale.name] to pull you into his strong, masculine torso, desperately moaning into his mouth as he dominantly gropes and fondles your body. Breaking off the kiss for a moment, he pulls something out of his pocket, before pushing it into your hands and saying, [prologueMale.speech(I'd rather not, but if you want me to, I can wear this.)]
 	</p>
-	<p>
-		#IFpc.hasPenis()
-		#THEN
-			You look down to see that you're holding a couple of little square packets - a pair of condoms.
+		#IF(pc.hasPenis())
+		  #IF(pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible())
+		    You look down to see that you've just been given a condom, still sealed in its small square packet. It's a good thing that you always keep a condom in your purse as well, so that you've got one for both [prologueMale.name] and yourself if need be.
+		  #ELSE
+			You look down to see that you've just been given a pair of condoms, still sealed in their small square packets.
+		  #ENDIF
 		#ELSE
-			You look down to see that you're holding a little square packet - a condom.)
+			You look down to see that you've just been given a condom, still sealed in its small square packet.
 		#ENDIF
 	</p>
 	<div class='container-full-width' style='text-align:center;'>
-		<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>([prologueMale.namePos] penis will need to be exposed before it can be used!)</i>
+		#IF(pc.hasPenis())
+			<i>If you'd like to use the condoms, open your inventory (by pressing 'i') and select them from the menu.<br/>([prologueMale.namePos] penis will need to be exposed before it can be equipped onto him, and the same applies for if you want to equip one yourself!)</i>
+		#ELSE
+			<i>If you'd like to use the condom, open your inventory (by pressing 'i') and select it from the menu.<br/>([prologueMale.namePos] penis will need to be exposed before it can be used!)</i>
+		#ENDIF
 	</div>
 	]]>
 	</htmlContent>
@@ -353,7 +365,7 @@
 		[style.speechMasculineStrong(Umm...)] the two voices say in unison.
 	</p>
 	<p>
-		[style.speechFeminine(You two don't have a brain between you... [pc.SheIs] human, get it? Since when could a human use that kind of arcane power? Hell, only a Lilin could just appear out of thin air like that. This little runt obviously pissed off one of Lilith's daughters, or messed with some artefact [pc.she] didn't understand. In other words, [pc.sheIs] fair game, so just hold [pc.herHim] still until the storm starts.)]
+		[style.speechFeminine(You two don't have a brain between you... [pc.SheIs] human, get it? Since when could a human use that kind of arcane power? Hell, only a Lilin could just appear out of thin air like that. This little runt obviously pissed off a lilin, or messed with some artefact [pc.she] didn't understand. In other words, [pc.sheIs] fair game, so just hold [pc.herHim] still until the storm starts.)]
 	</p>
 	<p>
 		As the people reach the end of their conversation, you're surprised to find that most of the pain in your head has already faded away. You open your eyes to see what's going on, but as you do, you're suddenly grabbed by two pairs of strong hands.
@@ -414,9 +426,10 @@
 	</p>
 	<p>
 		Seeing that you've surrendered, she grins and leans down, her cat-like pupils dilating as she pushes your head to the ground and delivers a long, slow lick up your cheek.
-		#IF pc.isFeminine()
-		#THEN [style.speechFeminineStrong(Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little pussy.)]
-		#ELSE [style.speechFeminineStrong(Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little ass.)]
+		#IF(pc.isFeminine())
+			 [style.speechFeminineStrong(~Mmm!~ You taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little pussy.)]
+		#ELSE
+			 [style.speechFeminineStrong(~Mmm!~ You taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little ass.)]
 		#ENDIF
 	</p>
 	<p>
@@ -437,9 +450,10 @@
 	</p>
 	<p>
 		She leans down, her cat-like pupils dilating as she pushes your head to the ground and delivers a long, slow lick up your cheek.
-		#IF pc.isFeminine()
-		#THEN [style.speechFeminineStrong(Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little pussy.)]
-		#ELSE [style.speechFeminineStrong(Mmmm, you taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little ass.)]
+		#IF(pc.isFeminine())
+			 [style.speechFeminineStrong(~Mmm!~ You taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little pussy.)]
+		#ELSE
+			 [style.speechFeminineStrong(~Mmm!~ You taste good, my little prey. We'll just wait for the thunder to start, and then you'll be begging for my boys here to fuck your tight little ass.)]
 		#ENDIF
 	</p>
 	<p>
@@ -505,7 +519,7 @@
 		You don't quite understand her reaction. She usually loves it when you hug her like that, but as Lily turns around, you realise that something is wrong. It's still Lily, sort of, but she's got a few extra parts that you certainly don't remember her having before. As she steps back from you, she ends up directly beneath the glow of one of the street lights, and as you get a good look at her, you feel your jaw dropping.
 	</p>
 	<p>
-		Just one glance at her face is enough to convince you that this is Lily, but instead of being in her fifties, she now looks to be in her early thirties. What's more worrying than her regression of age, however, is that fact that there are a pair of low, swept-back horns growing out from her forehead. A thin, spaded tail, which you hadn't noticed in the dark, curls around behind her, rising up to draw attention to a pair of large, bat-like wings that suddenly unfurl from her back. Her chest is another area that's different, and you see that Lily now has a massive pair of E-cup breasts, quite unlike the more modestly-sized ones she used to have.
+		Just one glance at her face is enough to convince you that this is Lily, but instead of being in her fifties, she now looks to be in her late thirties. What's more worrying than her regression of age, however, is that fact that there are a pair of low, swept-back horns growing out from her forehead. A thin, spaded tail, which you hadn't noticed in the dark, curls around behind her, rising up to draw attention to a pair of large, bat-like wings that suddenly unfurl from her back. Her chest is another area that's different, and you see that Lily now has a massive pair of E-cup breasts, quite unlike the more modestly-sized ones she used to have.
 	</p>
 	<p>
 		[lilaya.speech(Stop staring!)] Lily commands. [lilaya.speech(I-I'll banish you to another dimension! Or... um... Freeze you and leave you lying out here! What do you want?!)]
@@ -647,7 +661,7 @@
 	</p>
 
 	<p>
-		Lilaya brings her hand up, conjuring a swirling vortex of strange pink lights around her arm as she prepares to run her test. Magic quite clearly exists in this world, and you make a mental note to ask Lilaya more about it after she's finished her test, but for now, you sit still like she asked. The pink lights rapidly grow stronger, and with a sudden thrust forwards, they shoot from Lilaya's arm, darting towards the four floodlight-like instruments and causing them to emit a blinding pink flash.
+		Lilaya brings her hand up, conjuring a swirling vortex of strange pink lights around her arm as she prepares to run her test. Magic quite clearly exists in this world, and you make a mental note to ask Lilaya more about it after she's finished her test, but for now, you sit still like she asked. The pink lights rapidly grow stronger, and with a sudden thrust forwards, they shoot from Lilaya's arm, darting towards the five floodlight-like instruments and causing them to emit a blinding pink flash.
 	</p>
 	]]>
 	</htmlContent>
@@ -780,7 +794,7 @@
 		[pc.speech(Err... Don't the police do anything about that?)] you ask, slightly taken aback at Rose's warning.
 	</p>
 	<p>
-		[rose.speech(You mean the enforcers? Why would they? Once the arcane seeps into a person's mind, they'll happily consent to anything,)] Rose replies, [rose.speech(So if you don't like it, then don't go outside during a storm. Oh, and don't wander off down alleyways. Although the main streets are safe, the less-travelled parts of Dominion are often home to the more... unsavoury sorts of people.)]
+		[rose.speech(You mean the Enforcers? Why would they? Once the arcane seeps into a person's mind, they'll happily consent to anything,)] Rose replies, [rose.speech(So if you don't like it, then don't go outside during a storm. Oh, and don't wander off down alleyways. Although the main streets are safe, the less-travelled parts of Dominion are often home to the more... unsavoury sorts of people.)]
 	</p>
 	<p>
 		By this time, Rose has led you up the grand staircase in the entrance hall and down a long corridor. She suddenly stops by one of the doors, and, opening it, steps through. You follow her inside, and find yourself standing in a lavishly decorated bedroom. A king-sized bed sits on side of the room, flanked by a pair of finely-crafted drawers. An impressively-sized wardrobe and bookcase stand in the opposite corners, and between them, there's another door. On the far side of the room, a row of windows overlook a well-tended garden courtyard, and as you see a pink flash illuminate the neatly clipped hedgerows and colourful flower beds, you notice that no sound of the accompanying thunder manages to penetrate into the room.
@@ -832,7 +846,7 @@
 		Rose finishes installing the equipment and walks over to you, and you see that she's carrying a small purse in her hand. She holds it out for you to take, and as she places it into your palm, you notice that it's heavier than you expected, and you can hear the sound of metal coins clinking over one another as you place the purse to one side.
 	</p>
 	<p>
-		[rose.speech(There are five-thousand flames in there, which should be more than enough to get some new clothes. Mistress advises that you rest through this storm and go out shopping tomorrow. Oh, and please remember what I said about the alleyways being dangerous.)]
+		[rose.speech(There are five-thousand flames in there, which should be more than enough to get some new clothes or whatever else it is you need. Mistress advises that you rest through this storm and go out shopping tomorrow; after all, the stores are usually only open between six in the morning to ten at night, so you might not even make it there before closing time. Mistress and I usually work through those hours as well, so the two of us will be retiring to our rooms soon. Oh, and please remember what I said about the alleyways being dangerous.)]
 	</p>
 	<p>
 		Rose turns and steps out of the room once more, and you see her bending down to retrieve something else that she's brought up with her. As she enters the room, you see that she's carrying a large, leather-bound book, with a pile of papers balanced on the top. [rose.speech(Here's the spell tome that Mistress said she'd give to you. These papers are copies of her research notes, which she said should give you all the information you'd need about arcane spells.)]

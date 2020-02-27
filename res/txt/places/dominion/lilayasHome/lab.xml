@@ -2,14 +2,18 @@
 <dialogue>
 
 	<!-- LAB -->
-
+	
 	<htmlContent tag="LAB"><![CDATA[
 	<p>
-		You find yourself walking towards the door to Lilaya's laboratory, and as you get closer, you see that it's been left wide open. You could walk over to the doorway and enter her lab right now, or continue on your way and choose to come back at another time.
+		#IF(game.isExtendedWorkTime())
+			Lilaya's laboratory is located in this particular corner of the house, and as you approach it, you see that the door has been left wide [style.colourGood(open)]. With no physical barrier blocking your way, you could simply step forwards and enter the lab, or continue on your way and choose to come back at another time.
+		#ELSE
+			Lilaya's laboratory is located in this particular corner of the house, and as you approach it, you see that the door has been firmly [style.colourBad(closed)]. Considering the current hour, it's most likely that your [lilaya.relation(pc)] and and her cat-girl maid have both retired to their rooms in order to get a good night's sleep. If you wanted to discuss something with Lilaya, you'll have to come back later during the day.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_PREGNANT"><![CDATA[
 	<p>
 		As you approach the door to Lilaya's lab, you notice that it's been firmly pulled shut. A little piece of paper has been stuck on it, and you see that your demonic [lilaya.relation(pc)] has left you a handwritten note:
@@ -48,18 +52,18 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_PREGNANCY_RESOLVED"><![CDATA[
 	<p>
 		You find yourself walking towards the door to Lilaya's laboratory, and as you get closer, you see that it's once again been left wide open. Realising that Lilaya's pregnancy must now have been resolved, you wonder if you should enter her lab right now, or continue on your way and choose to come back at another time.
 	</p>
 	]]>
 	</htmlContent>
-
-
-
+	
+	
+	
 	<!-- LAB_ENTRY -->
-
+	
 	<htmlContent tag="LAB_ENTRY_DEMON_REACTION_PREGNANCY_RESOLVED"><![CDATA[
 	<p>
 		As Lilaya hasn't seen you since you were transformed into a demon by Lyssieth, you ready yourself for the worst as you step through the open doorway into her lab.
@@ -69,7 +73,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_DEMON_REACTION_NO_PREGNANCY"><![CDATA[
 	<p>
 		As Lilaya hasn't seen you since you were transformed into a demon by Lyssieth, you ready yourself for the worst and step through the open doorway into her lab.
@@ -79,7 +83,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_DEMON_REACTION"><![CDATA[
 	<p>
 		[lilaya.speech(I simply do <i>not</i> even know what to say!)] she yells in a shrill voice, before contradicting her statement by continuing, [lilaya.speech(I already heard from Meraxis via the resonance stone all about what mommy did! A full demon?! I didn't believe her at first! H-How could you?!)]
@@ -91,7 +95,7 @@
 		[lilaya.speech(Oh, I can see how it's for the best alright,)] Lilaya replies, crossing her arms and letting her voice take on a sinister, icy tone, [lilaya.speech(For my entire life, I've been begging mommy to turn me into a full demon, but no matter what I said, she always refused, telling me that she'd sworn never to turn anyone into a demon ever again. Now that she's quite clearly proven that her word means <i>nothing</i>, she has no choice but to finally give me what I want.)]
 	</p>
 	<p>
-		[pc.speech(Lilaya, please, there's no-)] you start to reason, finding your [lilaya.relation(pc)]'s cold, calculating voice to be of some concern, but you're not able to get even one sentence out before her composure breaks.
+		[pc.speech(Lilaya, please, there's no-)] you start to reason, finding your [lilaya.relation(pc)]'s cold, calculating voice to be of some concern, but you're not able to get even one sentence out before her composure breaks. 
 	</p>
 	<p>
 		[lilaya.speech(<b><i>No!</i></b>)] she screams, [lilaya.speech(I won't hear any of it! Both you and mommy have betrayed me, so you can make it up to me by convincing her to finally turn me into a real demon! I <i>hate</i> being a half-demon! <b><i>I hate it!</i></b>)]
@@ -108,8 +112,8 @@
 	</p>
 	]]>
 	</htmlContent>
-
-
+	
+	
 	<htmlContent tag="LAB_ENTRY_PREGNANT"><![CDATA[
 	<p>
 		Stepping inside Lilaya's laboratory, you quickly scan the interior for any sign of life.
@@ -121,7 +125,7 @@
 		[lilaya.speech(Yes, that's right!)] she angrily shouts, before marching over towards you.
 		#IF lilaya.isCondomBroke()
 		#THEN [lilaya.speech(You ended up getting me pregnant! This is all your fault for using such cheap, crappy condoms! Why couldn't you have just pulled out instead?!)]
-		#ELSE [lilaya.speech(You ended up getting me pregnant! I <i>told</i> you to pull out! I knew this would happen!)]
+		#ELSE [lilaya.speech(You ended up getting me pregnant! I <i>told</i> you to pull out! I knew this would happen!)]		
 		#ENDIF
 	</p>
 	<p>
@@ -138,7 +142,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_NOT_PREGNANT"><![CDATA[
 	<p>
 		Stepping inside Lilaya's laboratory, you quickly scan the interior for any sign of life.
@@ -172,7 +176,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_PREGNANCY_RESOLVED"><![CDATA[
 	<p>
 		Stepping inside Lilaya's laboratory, you quickly scan the interior for any sign of life.
@@ -206,7 +210,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_BASE"><![CDATA[
 	<p>
 		Stepping inside Lilaya's laboratory, you quickly scan the interior for any sign of life.
@@ -218,37 +222,37 @@
 		Before you can say anything, you hear some surprising words coming out of Rose's mouth as she moans down into Lilaya's ear,
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_NAUGHTY_ROSE"><![CDATA[
 		 [rose.speech(~Mmm!~ That's right, you horny little slut. ~Aah!~ Come on, please your Mistress!)]
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_NAUGHTY_ROSE"><![CDATA[
 		 [rose.speech(~Mmm!~ That's right, slut. ~Aah!~ Do a good job, and maybe this'll be the year I let you fuck me!)]
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_NAUGHTY_ROSE"><![CDATA[
 		 [rose.speech(~Mmm!~ Come on, slut, you can do better than that! ~Aah!~ Yes, get those fingers in deeper!)]
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_NAUGHTY_ROSE"><![CDATA[
 		 [rose.speech(~Ooh!~ You dirty little slut! ~Mmm!~ That's right, focus on my clit a little more!)]
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_NAUGHTY_ROSE"><![CDATA[
 		 [rose.speech(~Ooh!~ Yes, that's it, slut, focus on my clit! ~Mmm!~ Maybe I'll let you use your tongue tonight!)]
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_ROSE_TOLD_ON_YOU_DEMON"><![CDATA[
 	<p>
 		Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as her owner's fingers continue working away between her legs. She suddenly notices you out of the corner of her eye, and, turning to give you an evil grin, she pointedly grinds down against your demonic [lilaya.relation(pc)], before letting out a little eek and jumping to her feet as she feigns surprise. [rose.speech(M-Mistress! [pc.NameIsFull] here!)]
@@ -273,7 +277,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_BASE_END_DEMON"><![CDATA[
 	<p>
 		Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as her owner's fingers continue working away between her legs. She suddenly notices you out of the corner of her eye, and, letting out a little eek, she quickly leaps up onto her feet. [rose.speech(M-Mistress! [pc.NamePos] here!)]
@@ -289,7 +293,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_ROSE_TOLD_ON_YOU"><![CDATA[
 	<p>
 		Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as her owner's fingers continue working away between her legs. She suddenly notices you out of the corner of her eye, and, turning to give you an evil grin, she pointedly grinds down against your demonic [lilaya.relation(pc)], before letting out a little eek and jumping to her feet as she feigns surprise. [rose.speech(M-Mistress! [pc.NameIsFull] here!)]
@@ -303,7 +307,7 @@
 	<p>
 	#IF !lilaya.isCharacterReactedToPregnancy(pc) && !lilaya.getBaseFetishDesire(FETISH_PREGNANCY).isNegative() && lilaya.isVisiblyPregnant()
 	#THEN
-		#IF lilaya.isCharacterPossiblyFather(pc.getId())
+		#IF lilaya.getPregnantLitter().isFatherId(pc.getId())
 		#THEN
 			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], you got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. But anyway, it's a good job that you came here to see me, [pc.name]. Rose has already told me all about your little adventure in my room with my underwear. So, what do you have to say for yourself?)]
 		#ELSE
@@ -332,7 +336,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_BASE_END"><![CDATA[
 	<p>
 		Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as her owner's fingers continue working away between her legs. She suddenly notices you out of the corner of her eye, and, letting out a little eek, she quickly leaps up onto her feet. [rose.speech(M-Mistress! [pc.NamePos] here!)]
@@ -346,11 +350,12 @@
 	<p>
 	#IF !lilaya.isCharacterReactedToPregnancy(pc) && !lilaya.getBaseFetishDesire(FETISH_PREGNANCY).isNegative() && lilaya.isVisiblyPregnant()
 	#THEN
-		#IF lilaya.isCharacterPossiblyFather(pc.getId())
-		#THEN
+		#IF(lilaya.getPregnantLitter().isFatherId(pc.getId()))
 			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], you got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. So, what is it you want?)]
-		#ELSE
+		#ELSEIF(lilaya.getPregnantLitter().isFatherId(lyssieth.getId()))
 			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], mommy got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. So, what is it you want?)]
+		#ELSE
+			As Lilaya brushes down her skirt, you can't help but notice the visible bulge in her belly. As she sees what it is you're looking at, your [lilaya.relation(pc)] clears her throat and confirms, [lilaya.speech(~Ahem!~ Yes, [pc.name], [daddy.name] got me pregnant. As I'm a full demon now, it's really no big deal... As I'm not going to be birthing any imps, I don't mind it at all. So, what is it you want?)]
 		#ENDIF
 	#ELSE
 		#IF !lilaya.getBaseFetishDesire(FETISH_PREGNANCY).isNegative() && lilaya.isVisiblyPregnant()
@@ -363,7 +368,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_ARTHUR_PREGNANCY_BASE"><![CDATA[
 	<p>
 		As you approach the door to Lilaya's lab, you hear the distinctive sound of your demonic [lilaya.relation(pc)]'s voice getting louder and louder, [lilaya.speech(...and I told you <i>three times</i> already! <i>Don't touch my notes!</i>)]
@@ -376,7 +381,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_ARTHUR_PREGNANT"><![CDATA[
 	<p>
 		Looking down at your [lilaya.relation(pc)]'s stomach, you see the reason why she's addressing you in such a furious manner; her belly is quite visibly swollen, making it obvious that you've ended up getting her pregnant. Knowing from experience that it's best to just do as you're told when your [lilaya.relation(pc)] is like this, you walk over to the chair next to Arthur and sit down.
@@ -389,7 +394,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_ARTHUR_NOT_PREGNANT"><![CDATA[
 	<p>
 		Knowing from experience that it's best to just do as you're told when your [lilaya.relation(pc)]'s like this, you walk over to the chair next to Arthur and sit down. Looking up at Lilaya's flat stomach, you see that you didn't end up getting her pregnant after all, and, seeing what it is you're glancing at, she firmly says, [lilaya.speech(Yes, luckily for you, I'm not pregnant. You'd have been in so much trouble if I was!)]
@@ -400,7 +405,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_ARTHUR_BASE"><![CDATA[
 	<p>
 		As you approach the door to Lilaya's lab, you hear the distinctive sound of your demonic [lilaya.relation(pc)]'s voice getting louder and louder, [lilaya.speech(...and I told you <i>three times</i> already! <i>Don't touch my notes!</i>)]
@@ -416,7 +421,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_ENTRY_ARTHUR"><![CDATA[
 	<p>
 		Lilaya starts pacing back and forth, her eyes fixed on Arthur as she explains the situation to the two of you, [lilaya.speech(It's just impossible. Absolutely <i>impossible</i>! I might need your help in order to figure out how to return [pc.name] to [pc.her] world, but I simply <i>cannot</i> be around you for longer than five minutes!)]
@@ -432,10 +437,108 @@
 	</p>
 	]]>
 	</htmlContent>
-
-
+	
+	
+	<!-- LAB_EXIT -->
+	
+	<htmlContent tag="LAB_EXIT"><![CDATA[
+	<p>
+		You find yourself standing in what appears at first to be a huge library. The walls are covered in shelving, holding what must be hundreds, if not thousands, of ancient-looking leather-bound tomes. Most of the room, however, is occupied by a series of long tables, each covered in strange glass vials, odd-looking instruments, and bottles of glowing liquids.
+	</p>
+	<p>
+		Lilaya is hovering close by, ready to answer any questions you might have. Her cat-girl maid, Rose, is dutifully standing in one corner of the room, ready to assist with any request her mistress might make.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LAB_EXIT_THROWN_OUT -->
+	
+	<htmlContent tag="LAB_EXIT_THROWN_OUT"><![CDATA[
+	<p>
+		You find yourself standing outside the door to Lilaya's laboratory. Your demonic [lilaya.relation(pc)] seemed pretty angry, and you think that it's probably a good idea if you gave her some time to cool off before trying to speak to her again....
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LILAYA_PRESENT -->
+	
+	<htmlContent tag="LILAYA_PRESENT_1"><![CDATA[
+	<p>
+		[pc.speech(I wanted to get you something for Yuletide, to thank you for everything,)] you say, holding out the wrapped gift towards Lilaya, [pc.speech(so here you go. Happy Yuletide, Lilaya!)]
+	</p>
+	<p>
+		Your [lilaya.relation(pc)] gasps as you give her the gift you bought, [lilaya.speech([pc.Name]! Y-You didn't have to do that! Oh my goodness, t-thank you so much!)]
+	</p>
+	<p>
+		She seems completely shocked at the fact that you're giving her a gift, and awkwardly takes the present from out of your hands. [lilaya.speech(S-Should I open it now?)]
+	</p>
+	<p>
+		[pc.speech(Go on, it'll be fun,)] you reply. [pc.speech(I got it from one of the reindeer-morphs who're working to keep the streets clear of snow. The contents are a surprise, so I guess we'll find out what's in there together!)]
+	</p>
+	<p>
+		Lilaya sets the present down on the table behind her, before pulling off the ribbon and tearing off the wrapping paper. Opening the top of the box, she gasps as she sees what's inside, and then just a moment later you see it too, as she reaches in and lifts out a beautiful pink [#CT_KIMONO_HAIR_KANZASHI.getName()].
+	</p>
+	<p>
+		Lilaya turns towards you, a huge smile on her face as she exclaims, [lilaya.speech(Oh, [pc.name]! It's beautiful! Thank you so much!)]
+	</p>
+	<p>
+		Before you can react, your demonic [lilaya.relation(pc)] leaps forwards and pulls you into a loving hug; a gesture that you instantly reciprocate. You feel the warmth of her body as she presses herself tightly against you, squashing her [lilaya.breastSize] breasts into your chest as she sighs, [lilaya.speech(Really, thank you so much.)]
+	</p>
+	<p>
+		After a few moments, Lilaya pulls back, placing the [#CT_KIMONO_HAIR_KANZASHI.getName()] to one side and waiting to see what you'd like to discuss next.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_PRESENT_2"><![CDATA[
+	<p>
+		[pc.speech(After I saw how happy you were to receive that [#CT_KIMONO_HAIR_KANZASHI.getName()], I decided to get you another Yuletide gift,)] you say, holding out another wrapped gift towards Lilaya, [pc.speech(so here you go. Happy Yuletide again, Lilaya!)]
+	</p>
+	<p>
+		Your [lilaya.relation(pc)]'s cheeks flush bright red as you give her another gift. [lilaya.speech([pc.name]! Y-You didn't have to! O-One gift was more than enough!)]
+	</p>
+	<p>
+		[pc.speech(I know I didn't have to, but I wanted to,)] you smile, handing the gift over to Lilaya, [pc.speech(so go on, open it and let's find out what it is this time!)]
+	</p>
+	<p>
+		Doing as you suggest, Lilaya places the gift down on the table beside her, before pulling off the ribbon and wrapping paper. Taking off the lid, she reaches inside and produces a pair of [#CT_KIMONO_GETA.getNamePlural()], before turning and smiling lovingly at you, [lilaya.speech(Thank you, [pc.name]! These will go perfectly with the [#CT_KIMONO_HAIR_KANZASHI.getName()] you got me before!)]
+	</p>
+	<p>
+		[pc.speech(Now all you need is the kimono itself,)] you reply, [pc.speech(and then you've got the full set!)]
+	</p>
+	<p>
+		[lilaya.speech(P-Please,)] Lilaya stutters a little, [lilaya.speech(don't feel obliged to get me any more gifts! This is already far more than I ever would have dreamed of!)]
+	</p>
+	<p>
+		Almost as if to hide her sudden embarrassment, your demonic [lilaya.relation(pc)] steps forwards and pulls you into another tight hug; her [lilaya.breastSize] breasts pressing up against you as she holds you close. After a moment, she then pulls back, and, placing the [#CT_KIMONO_GETA.getNamePlural()] to one side, she waits to see what you'd like to discuss next.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_PRESENT_3"><![CDATA[
+	<p>
+		[pc.speech(Seeing as you have the other two parts already, I thought I'd get you one last gift, to see if it contains the kimono to finish the set,)] you say, holding out the wrapped gift towards Lilaya, [pc.speech(so here you go. Happy Yuletide yet again Lilaya!)]
+	</p>
+	<p>
+		Your demonic [lilaya.relation(pc)] cheeks turn a deep shade of scarlet, and she stutters in her embarrassment, [lilaya.speech(P-Please! [pc.Name]! I-I said you'd already given me enough!)]
+	</p>
+	<p>
+		[pc.speech(I know, I know,)] you laugh, pressing the gift into Lilaya's hands, [pc.speech(but I really wanted to get you the whole set!)]
+	</p>
+	<p>
+		[lilaya.speech(W-Well, these are random gifts, right? S-So it's probably not even going to be a kimono, b-but thank you anyway,)] Lilaya says, placing the gift down on the table beside her, before pulling off the ribbon and wrapping paper. Lifting off the lid, your easily-embarrassed [lilaya.relation(pc)] fails to contain an excited little cry as she sees what's inside. Your suspicions as to what it is are proven correct, as she quickly lifts out a beautiful pink [#CT_KIMONO_DRESS.getName()], before turning and beaming at you in delight. [lilaya.speech(Thank you so, so much, [pc.name]! This is the best Yuletide ever!)]
+	</p>
+	<p>
+		Before you can say anything, your demonic [lilaya.relation(pc)] leaps forwards and pulls you into the most loving hug yet; her [lilaya.breastSize] breasts squishing up against your body as she holds you close. After a moment, she then pulls back, and, placing the [#CT_KIMONO_DRESS.getName()] to one side, she waits to see what you'd like to discuss next.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- LAB_DEMON_TF_AGREE -->
-
+	
 	<htmlContent tag="LAB_DEMON_TF_AGREE"><![CDATA[
 	<p>
 		Having been convinced by Lilaya's passionate plea, you agree to do as she asks,
@@ -446,7 +549,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_DEMON_TF_AGREE_AFTER_REPEAT"><![CDATA[
 	<p>
 		Wanting to let Lilaya know that you've changed your mind, you say,
@@ -457,7 +560,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_DEMON_TF_AGREE_CORE"><![CDATA[
 	<p>
 		Your [lilaya.relation(pc)]'s eyes light up as you say this, and she quickly rushes over to the other side of her lab where she keeps the resonance stone. Holding it in one hand, you see the dark-purple sphere light up and start to emit a soft pink glow. In a clear voice, Lilaya states, [lilaya.speech(Mommy, I need you to come here. Right now.)]
@@ -483,7 +586,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_DEMON_TF_REFUSE"><![CDATA[
 	<p>
 		Shaking your head, you reply,
@@ -503,9 +606,9 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<!--LAB_TELEPORT_TO_LYSSIETHS_OFFICE-->
-
+	
 	<htmlContent tag="LAB_TELEPORT_TO_LYSSIETHS_OFFICE"><![CDATA[
 	<p>
 		Wanting to see Lyssieth again, you ask, [pc.speech(Lilaya, could you use the resonance stone to contact Lyssieth? I'd like to talk to her about something.)]
@@ -521,7 +624,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_TELEPORT_TO_LYSSIETHS_OFFICE_COMPANION"><![CDATA[
 	<p>
 		Wanting to see Lyssieth again, you ask, [pc.speech(Lilaya, could you use the resonance stone to contact Lyssieth? I'd like to talk to her about something.)]
@@ -537,11 +640,11 @@
 	</p>
 	]]>
 	</htmlContent>
-
-
-
+	
+	
+	
 	<!-- END_SEX -->
-
+	
 	<htmlContent tag="LAB_END_SEX_CREAMPIE"><![CDATA[
 	<p>
 		Lilaya forcefully shoves you away from her, and with a look of disbelief on her face, looks down at the [pc.cum+] dripping out from between her thighs, [lilaya.speech(What the fuck?! What the fuck?! I fucking told you to pull out!)]
@@ -554,7 +657,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_END_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		As you disentangle yourself from her clutches, Lilaya lets out a very frustrated sigh. Stepping back, she gives her demonic wings an impatient flutter, before striding back over to her workplace and making several loud tutting sounds. Before you can say anything, she shouts out over her shoulder, [lilaya.speech(I <i>really</i> don't see the point in offering these tests to you, if all you're going to do is <i>that</i>! I didn't even get to cum...)]
@@ -564,7 +667,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_END_SEX"><![CDATA[
 	<p>
 		Disentangling herself from your clutches, Lilaya lets out a very satisfied sigh as she stands up and stretches her arms up high. You see her demonic wings and tail following suit, and as she stretches, she turns back to face you. With one last smile and a quick kiss on your cheek, she then rushes back over to her workplace.
@@ -577,11 +680,11 @@
 	</p>
 	]]>
 	</htmlContent>
-
-
-
+	
+	
+	
 	<!-- LILAYA_GEISHA -->
-
+	
 	<htmlContent tag="LILAYA_GEISHA"><![CDATA[
 	<p>
 		[pc.speech(I really want to see how you look wearing that kimono,)] you say, [pc.speech(would you like to try it on and show me?)]
@@ -615,7 +718,57 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
+	<htmlContent tag="LILAYA_GEISHA_SEX_START"><![CDATA[
+	<p>
+		You can't resist an offer like that, and, stepping forwards, you pull your demonic [lilaya.relation(pc)] into your embrace. [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
+		[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+		#ELSE
+		[lilaya.speech(Mmm, yes!)] she giggles.
+		#ENDIF
+	</p>
+	<p>
+		As Lilaya locks her [lilaya.eyes+] onto yours, she throws you a seductive smile, before taking your head in both hands and pressing her lips against your mouth. You reach up and pull her close, passionately making out with one another as you both give in to your lust.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_GEISHA_SUBMISSIVE_SEX_START"><![CDATA[
+	<p>
+		You can't resist an offer like that, and, stepping forwards, you allow your demonic [lilaya.relation(pc)] to reach up and pull you into her embrace. [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
+		[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+		#ELSE
+		[lilaya.speech(Mmm, yes!)] she giggles.
+		#ENDIF
+	</p>
+	<p>
+		As Lilaya locks her [lilaya.eyes+] onto yours, she throws you a seductive smile, before taking your head in both hands and pressing her lips against your mouth. You let out a desperate little whine as she pulls you close to her body, and, passionately making out with one another, you both give in to your lust.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_GEISHA_SEX_REFUSED"><![CDATA[
+	<p>
+		[pc.speech(You really do look amazing, Lilaya, but that might be going a little too far,)] you respond, not liking the idea of having sex with your [lilaya.relation(pc)].
+	</p>
+	<p>
+		[lilaya.speech(Aww, well, I understand,)] Lilaya responds, before turning around to get changed back into her regular clothes. [lilaya.speech(Just let me know if you want to see me in this again!)]
+	</p>
+	<p>
+		Reassuring her that you will, you exit your [lilaya.relation(pc)]'s bedroom and head back to your own, pleased that your gift looks so good on her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- END_SEX_GEISHA -->
+	
 	<htmlContent tag="END_SEX_GEISHA_CREAMPIE"><![CDATA[
 	<p>
 		Lilaya forcefully shoves you away from her, and with a look of disbelief on her face, looks down at the [pc.cum+] dripping out from between her thighs, [lilaya.speech(What the fuck?! What the fuck?! I fucking told you to pull out!)]
@@ -628,7 +781,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LAB_END_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		Lilaya collapses face-first onto her bed, giving her demonic wings an impatient flutter as she sighs in annoyance, [lilaya.speech(As grateful as I am for this outfit, I <i>really</i> don't appreciate being treated like that! You didn't even get me to cum once!)]
@@ -638,7 +791,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="END_SEX_GEISHA"><![CDATA[
 	<p>
 		Lilaya collapses back onto her bed, letting out a very satisfied sigh as she stretches out her arms and wings, [lilaya.speech(That was amazing! We definitely need to do this again some time!)]
@@ -648,11 +801,339 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	
+	<!-- LILAYA_EXPLAINS_ESSENCES -->
+	
+	<htmlContent tag="LILAYA_EXPLAINS_ESSENCES"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_jinxedClothingDiscovered))
+		#IF(SPECIAL_PARSE_0=="false")
+			<p>
+				[pc.speech(I managed to take it off already, but some clothing that I put on a little while ago sort of stuck onto me,)] you explain. [pc.speech(Every time I tried to take it off, some kind of weird enchantment stopped me. I was wondering if you knew what was causing that?)]
+			</p>
+		#ELSE
+			<p>
+				[pc.speech(There seems to be something wrong with [#SPECIAL_PARSE_2] [#SPECIAL_PARSE_0] I'm wearing,)] you explain. [pc.speech(Every time I try to take [#SPECIAL_PARSE_1] off, some kind of weird enchantment stops me. Can you help?)]
+			</p>
+		#ENDIF
+		<p>
+			Lilaya frowns at you for a moment, then, much to your surprise, she starts scolding you, [lilaya.speech(Well, what did you expect to happen if you're going to start trying on random pieces of clothing like that?!)]
+		</p>
+		<p>
+			[pc.speech(Well, it's not really my fau-)] you start, but Lilaya quickly interrupts you.
+		</p>
+		<p>
+			[lilaya.speech(Well then, whose fault is it? Hmm? I can't be running around saving you every time you get in trouble, understood?!)]
+		</p>
+		<p>
+			If it were anyone else, you might have argued back, but Lilaya's stern words sound exactly like the sort of lecture you used to receive from your [lilaya.relation(pc)] Lily. That, combined with the fact that this is a rare display of frustration from Lilaya, leaves you muttering out an apology in the hope that you can calm her down. Thankfully, she lets out one last exasperated sigh before taking in a deep breath and speaking in her normal tone.
+		</p>
+		<p>
+			[lilaya.speech(Sorry, I didn't mean to be so stern, it's just that I don't want you to get hurt out there... Anyway, if that's all it is, the solution to sealed clothing is actually quite simple!)]
+		</p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_essenceOrgasmDiscovered) || game.getDialogueFlags().hasFlag(FLAG_essencePostCombatDiscovered))
+			<p>
+				[pc.speech(Actually, there <i>is</i> something else as well. I recently had this weird experience, where I saw someone's arcane aura. A piece of it broke off and shot <i>into</i> me, and I'm not sure if it needs to be removed or anything...)] your voice trails off as you see an extremely concerned look flash across Lilaya's face.
+			</p>
+			<p>
+				[lilaya.speech(Are you sure?! You absorbed someone's essence directly from them?!)] Lilaya asks, failing to conceal the worried tone in her voice.
+			</p>
+			<p>
+				Before you can respond, Lilaya grabs your [pc.arm] and starts pulling you over to the same place where she ran her first test on you. Instructing you to sit on the chair in the middle of the chalk square, she once more starts adjusting the floodlight-like pieces of arcane equipment at each corner.
+			</p>
+			<p>
+				[pc.speech(Wait, my clothes aren't going to be teleported all over the room or anything again, are they?)] you ask.
+			</p>
+			<p>
+				[lilaya.speech(No, don't worry, I fixed that little problem!)] Lilaya responds, and before you get the chance to say anything else, arcane energy suddenly crackles into life around her arm, before shooting out into each of the curious instruments. A familiar bright pink flash illuminates the room, but this time, thankfully, your clothes and sight are unaffected.
+			</p>
+			<p>
+				Once again, you find yourself surrounded by the shimmering pink outline of your arcane aura. This time, however, you see a strange ball of energy orbiting your body, which looks to be the same sort of size as the shard of energy that you remember shooting into you. Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face.
+			</p>
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_essenceBottledDiscovered))
+			<p>
+				[pc.speech(Actually, there <i>is</i> something else as well. I had this little bottle with a swirling light in it, and when I took out the stopper, the light sort of shot <i>into</i> me...)] you explain, hoping that Lilaya can tell you what that was all about as well.
+			</p>
+			<p>
+				[lilaya.speech(Oh! Of course! I should have mentioned that,)] Lilaya responds. [lilaya.speech(As you've got a demon-strength aura, it's only natural that you'd be able to absorb arcane essences! I really should have tested you for that as well... But we can just do it now!)]
+			</p>
+			<p>
+				Before you can respond, Lilaya grabs your [pc.arm] and starts pulling you over to the same place where she ran her first test on you. Instructing you to sit on the chair in the middle of the chalk square, she once more starts adjusting the floodlight-like pieces of arcane equipment at each corner.
+			</p>
+			<p>
+				[pc.speech(Wait, my clothes aren't going to be teleported all over the room or anything again, are they?)] you ask.
+			</p>
+			<p>
+				[lilaya.speech(No, don't worry, I fixed that little problem!)] Lilaya responds, and before you get the chance to say anything else, arcane energy suddenly crackles into life around her arm, before shooting out into each of the curious instruments. A familiar bright pink flash illuminates the room, but this time, thankfully, your clothes and sight are unaffected.
+			</p>
+			<p>
+				Once again, you find yourself surrounded by the shimmering pink outline of your arcane aura. This time, however, you see a strange ball of energy orbiting your body, which looks to be the same sort of size as the shard of energy that you remember shooting into you. Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face.
+			</p>
+		#ELSEIF(SPECIAL_PARSE_0=="false")
+			<p>
+				[pc.speech(That's good to hear, so what would I need to do if it happens again?)] you ask.
+			</p>
+			<p>
+				[lilaya.speech(Well, as you've got a demon-strength aura, it's only natural that you'd be able to absorb arcane essences too, and then you could channel some of them into clothing to remove seals yourself! I really should have tested you for that as well... But we can just do it now!)]
+			</p>
+			<p>
+				Before you can respond, Lilaya grabs your [pc.arm] and starts pulling you over to the same place where she ran her first test on you. Instructing you to sit on the chair in the middle of the chalk square, she once more starts adjusting the floodlight-like pieces of arcane equipment at each corner.
+			</p>
+			<p>
+				[pc.speech(Wait, my clothes aren't going to be teleported all over the room or anything again, are they?)] you ask.
+			</p>
+			<p>
+				[lilaya.speech(No, don't worry, I fixed that little problem!)] Lilaya responds, and before you get the chance to say anything else, arcane energy suddenly crackles into life around her arm, before shooting out into each of the curious instruments. A familiar bright pink flash illuminates the room, but this time, thankfully, your clothes and sight are unaffected.
+			</p>
+			<p>
+				Once again, you find yourself surrounded by the shimmering pink outline of your arcane aura. This time, however, you see a strange ball of energy orbiting your body, which looks to be the same sort of size as the shard of energy that you remember shooting into you. Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face.
+			</p>
+		#ELSE
+			<p>
+				[pc.speech(That's good to hear, so what do I need to do?)] you ask.
+			</p>
+			<p>
+				[lilaya.speech(Well, I could just channel some of my absorbed essences into [#SPECIAL_PARSE_1] to remove the seal, but...)] Lilaya responds, her sentence trailing off a little as she suddenly thinks of something. [lilaya.speech(As you've got a demon-strength aura, it's only natural that you'd be able to absorb arcane essences too, and then you could remove [#SPECIAL_PARSE_1] yourself! I really should have tested you for that as well... But we can just do it now!)]
+			</p>
+			<p>
+				Before you can respond, Lilaya grabs your [pc.arm] and starts pulling you over to the same place where she ran her first test on you. Instructing you to sit on the chair in the middle of the chalk square, she once more starts adjusting the floodlight-like pieces of arcane equipment at each corner.
+			</p>
+			<p>
+				[pc.speech(Wait, my clothes aren't going to be teleported all over the room or anything again, are they?)] you ask.
+			</p>
+			<p>
+				[lilaya.speech(No, don't worry, I fixed that little problem!)] Lilaya responds, and before you get the chance to say anything else, arcane energy suddenly crackles into life around her arm, before shooting out into each of the curious instruments. A familiar bright pink flash illuminates the room, but this time, thankfully, your clothes and sight are unaffected.
+			</p>
+			<p>
+				Once again, you find yourself surrounded by the shimmering pink outline of your arcane aura. This time, however, you see a strange ball of energy orbiting your body, which looks to be the same sort of size as the shard of energy that you remember shooting into you. Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face.
+			</p>
+		#ENDIF
+	#ELSE
+		#IF(game.getDialogueFlags().hasFlag(FLAG_essenceOrgasmDiscovered) || game.getDialogueFlags().hasFlag(FLAG_essencePostCombatDiscovered))
+			<p>
+				[pc.speech(I wanted to ask you about this weird experience I recently had, where I saw someone's arcane aura. A piece of it broke off and shot <i>into</i> me, and I'm not sure if it needs to be removed or anything...)] your voice trails off as you see an extremely concerned look flash across Lilaya's face.
+			</p>
+			<p>
+				[lilaya.speech(Are you sure?! You absorbed someone's essence directly from them?!)] Lilaya asks, failing to conceal the worried tone in her voice.
+			</p>
+			<p>
+				Before you can respond, Lilaya grabs your [pc.arm] and starts pulling you over to the same place where she ran her first test on you. Instructing you to sit on the chair in the middle of the chalk square, she once more starts adjusting the floodlight-like pieces of arcane equipment at each corner.
+			</p>
+			<p>
+				[pc.speech(Wait, my clothes aren't going to be teleported all over the room or anything again, are they?)] you ask.
+			</p>
+			<p>
+				[lilaya.speech(No, don't worry, I fixed that little problem!)] Lilaya responds, and before you get the chance to say anything else, arcane energy suddenly crackles into life around her arm, before shooting out into each of the curious instruments. A familiar bright pink flash illuminates the room, but this time, thankfully, your clothes and sight are unaffected.
+			</p>
+			<p>
+				Once again, you find yourself surrounded by the shimmering pink outline of your arcane aura. This time, however, you see a strange ball of energy orbiting your body, which looks to be the same sort of size as the shard of energy that you remember shooting into you. Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face.
+			</p>
+			
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_essenceBottledDiscovered))
+			<p>
+				[pc.speech(Well, you see, I had this little bottle with a swirling light in it, and when I took out the stopper, the light sort of shot <i>into</i> me...)] you explain, hoping that Lilaya can tell you what that was all about as well.
+			</p>
+			<p>
+				[lilaya.speech(Oh! Of course! I should have mentioned that,)] Lilaya responds. [lilaya.speech(As you've got a demon-strength aura, it's only natural that you'd be able to absorb arcane essences! I really should have tested you for that as well... But we can just do it now!)]
+			</p>
+			<p>
+				Before you can respond, Lilaya grabs your [pc.arm] and starts pulling you over to the same place where she ran her first test on you. Instructing you to sit on the chair in the middle of the chalk square, she once more starts adjusting the floodlight-like pieces of arcane equipment at each corner.
+			</p>
+			<p>
+				[pc.speech(Wait, my clothes aren't going to be teleported all over the room or anything again, are they?)] you ask.
+			</p>
+			<p>
+				[lilaya.speech(No, don't worry, I fixed that little problem!)] Lilaya responds, and before you get the chance to say anything else, arcane energy suddenly crackles into life around her arm, before shooting out into each of the curious instruments. A familiar bright pink flash illuminates the room, but this time, thankfully, your clothes and sight are unaffected.
+			</p>
+			<p>
+				Once again, you find yourself surrounded by the shimmering pink outline of your arcane aura. This time, however, you see a strange ball of energy orbiting your body, which looks to be the same sort of size as the shard of energy that you remember shooting into you. Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face.
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LILAYA_EXPLAINS_ESSENCES_2 -->
+	
+	<htmlContent tag="LILAYA_EXPLAINS_ESSENCES_2"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_essenceOrgasmDiscovered) || game.getDialogueFlags().hasFlag(FLAG_essencePostCombatDiscovered))
+		<p>
+			[pc.speech(You look like you've seen a ghost, what's wrong?)] you ask, concerned by Lilaya's reaction.
+		</p>
+		<p>
+			[lilaya.speech(Ah, well, it's just...)] Lilaya stumbles over her words a little as she responds. [lilaya.speech(You really, <i>really</i> shouldn't be able to do that!)]
+		</p>
+		<p>
+			Pointing at the ball of energy that's orbiting your aura, she continues, [lilaya.speech(You see that? You've absorbed a piece of someone's essence! There's something seriously wrong with your aura... Normally only Lilin are able to do that, hell, even demons can't absorb essences directly from people!)]
+		</p>
+		<p>
+			[pc.speech(Wait, I absorbed their <i>essence</i>? What does that mean?)]
+		</p>
+		<p>
+			[lilaya.speech(Well, basically, you absorbed a fragment of someone's aura. Extracting essences isn't harmful to either you or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but you can <i>somehow</i> absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]
+		</p>
+		<p>
+			Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight. Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus. Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface. Coming to a halt in front of the workspace, Lilaya turns to face you. [lilaya.speech(Right, I can explain as we go...)]
+		</p>
 
-
-
+	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_essenceBottledDiscovered))
+		<p>
+			[pc.speech(You look like you've seen a ghost, what's wrong?)] you ask, concerned by Lilaya's reaction.
+		</p>
+		<p>
+			[lilaya.speech(Ah, well, it's just...)] Lilaya stumbles over her words a little as she responds. [lilaya.speech(Your aura really, <i>really</i> shouldn't look like that!)]
+		</p>
+		<p>
+			Lilaya points up above your head, and you look up to see that there's a ball of energy orbiting your aura. [lilaya.speech(You see that? You've absorbed an essence! I mean, all demonic-strength auras can do that, but there's something seriously wrong with yours... I-It has the exact same characteristics as a Lilin's! With your aura, you'd even be able to absorb essences directly from people! Hell, even demons can't do that!)]
+		</p>
+		<p>
+			[pc.speech(Wait, what does all of this mean?)] you ask.
+		</p>
+		<p>
+			[lilaya.speech(Well, basically, you've absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled. Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]
+		</p>
+		<p>
+			Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight. Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus. Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface. Coming to a halt in front of the workspace, Lilaya turns to face you. [lilaya.speech(Right, I can explain as we go...)]
+		</p>
+		
+	#ELSE
+		<p>
+			[pc.speech(You look like you've seen a ghost, what's wrong?)] you ask, concerned by Lilaya's reaction.
+		</p>
+		<p>
+			[lilaya.speech(Ah, well, it's just...)] Lilaya stumbles over her words a little as she responds. [lilaya.speech(Your aura really, <i>really</i> shouldn't look like that! I-I need to try something, hold still!)]
+		</p>
+		<p>
+			Doing as Lilaya asks, you sit still as she turns around and runs over to a nearby desk. As she pulls open the top drawer, you hear the distinctive clink of multiple glass bottles bumping against each other. Lilaya reaches in and grabs something out of the drawer, before running back over to you and holding up what she just retrieved.
+		</p>
+		<p>
+			In her hand, you see a tiny glass bottle, with a flickering purple light swirling around inside of it. Before you can ask what it is you're looking at, Lilaya pulls out the little cork stopper and holds the bottle out towards you. Almost instantly, the light darts out of its glass prison, and you let out a gasp as the curious little wisp shoots straight into your chest. Looking up at Lilaya in alarm, you see her pointing up above your head, and you look up to see that there's now a ball of energy orbiting your aura.
+		</p>
+		<p>
+			[lilaya.speech(You see that? You've absorbed an essence! I mean, all demonic-strength auras can do that, but there's something seriously wrong with yours...)] Lilaya says, shaking her head in disbelief. [lilaya.speech(Your aura has the exact same characteristics as a Lilin's! With your aura, you'd even be able to absorb essences directly from people! Hell, even demons can't do that!)]
+		</p>
+		<p>
+			[pc.speech(Wait, what does all of this mean?)] you ask.
+		</p>
+		<p>
+			[lilaya.speech(Well, basically, you just absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled. Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]
+		</p>
+		<p>
+			Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight. Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus. Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface. Coming to a halt in front of the workspace, Lilaya turns to face you. [lilaya.speech(Right, I can explain as we go...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LILAYA_EXPLAINS_ESSENCES_3 -->
+	
+	<htmlContent tag="LILAYA_EXPLAINS_ESSENCES_3"><![CDATA[
+	<p>
+		[lilaya.speech(Ok, so, first thing to know is that these essences are no longer part of the person that they originally came from. It's not as though you're trapping a part of their soul into enchanted items or anything like that!)] Lilaya starts explaining, [lilaya.speech(So don't have any qualms about using these essences to enchant or unjinx anything!)]
+	</p>
+	<p>
+		As she speaks, Lilaya reaches down under the table and produces a bottle of Feline's Fancy, putting it down on the desk before turning back towards you.
+	</p>
+	<p>
+		[lilaya.speech(Right, well I should probably demonstrate enchanting first! I still have a few essences absorbed from some work I was doing earlier, so I might as well use them on this!)] she says, and you notice that her earlier look of worry has been replaced with one of excitement. [lilaya.speech(So, you don't need any special equipment for this, all you need is an item, weapon, or piece of clothing to enchant, and the concentration to draw the essence out from your aura.)]
+	</p>
+	<p>
+		Lilaya picks up the bottle of Feline's Fancy, before placing a curious little green gem down next to it. [lilaya.speech(So, you have your base ingredient, and that's all well and good, but you can also add elements to an enchantment. Depending on what elements you choose to add, the resulting enchanted item will have different effects. Once you've decided on what ingredient and which elements you're going to use, you just need to focus on combining them...)]
+	</p>
+	<p>
+		Lilaya closes her eyes and lets out a deep breath, and you gasp as you suddenly see four little balls of purple energy orbiting her body. As you watch, two of the orbs suddenly shoot down into the bottle of Feline's Fancy, and with a bright pink flash and a wisp of odourless smoke, both the bottle and the little green gem disappear. In its place, a curious little bottle of red liquid has materialised out of thin-air.
+	</p>
+	<p>
+		[lilaya.speech(You have to sort of feel how much essence you want to pour into the enchantment. The more you put in, the better the resulting item!)] Lilaya picks up the little potion and places it off to one side. [lilaya.speech(And that's all there is to it!)]
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_jinxedClothingDiscovered) && SPECIAL_PARSE_0!="false")
+		<p>
+			Just as your about to thank her for explaining about essences, Lilaya suddenly exclaims, [lilaya.speech(Oh, and this is also how items can be identified, as well as how that sealed clothing of yours needs to be removed! All you need to do is channel some of your absorbed essences into an unidentified item to discover the enchantment, or into sealed clothing to allow you to remove it. Sealed clothing is a major problem for people without demonic-strength auras, as they need to pay demons to remove the seal for them, but for you and I, sealed clothing is no more than a minor inconvenience.)]
+		</p>
+		
+	#ELSE
+		<p>
+			Just as you're about to thank her for explaining about essences, Lilaya suddenly exclaims, [lilaya.speech(Oh, and this is also how items can be identified, as well as how sealed clothing is removed! All you need to do is channel some of your absorbed essences into an unidentified item to discover the enchantment. Also, if you ever find yourself putting on some clothing, and then it just won't come off, you need to do the same thing, and channel some of your absorbed essences into it to break the seal. Sealed clothing is a major problem for people without demonic-strength auras, as they need to pay demons to remove the seal for them, but for you and I, sealed clothing is no more than a minor inconvenience.)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_EXPLAINS_ESSENCES_END"><![CDATA[
+	<p>
+		[pc.speech(Thanks, Lilaya, I understand now, but it still seems a little strange.)]
+	</p>
+	<p>
+		[lilaya.speech(The only strange thing about all this is how you're able to absorb essences like a Lilin,)] Lilaya responds, [lilaya.speech(but anyway, I've already got that arcane observation device set up in your room, so hopefully the test results will give me some idea of what's happening.)]
+	</p>
+	<p>
+		[pc.speech(Yeah, hopefully, thanks again, Lilaya.)]
+	</p>
+	<p>
+		[lilaya.speech(You're welcome!)] she answers, before stepping away and giving you some time to think.
+	</p>
+	<div class='container-full-width' style='text-align:center;'>
+		<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i><br/>
+		<i>In the same way, you're now able to remove jinxes from clothing. Simply select the clothing in your inventory, then press the 'Remove jinx' button.</i>
+	</div>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ESSENCE_EXTRACTION -->
+	
+	<htmlContent tag="ESSENCE_EXTRACTION"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_essenceExtractionKnown))
+		<p>
+			Turning towards Lilaya, you get her attention before asking, [pc.speech(Is it ok if I extract some more essences?)]
+		</p>
+		<p>
+			[lilaya.speech(Of course!)] she responds. [lilaya.speech(Use as many vials as you'd like!)]
+		</p>
+		<p>
+			Reaching down to pull a few of the little glass containers out from their storage, you wonder which, and how many, of your essences to extract...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(You mentioned that demons absorb essences from bottled sources, so I was wondering if it would be possible to make some of those myself?)] you ask.
+		</p>
+		<p>
+			[lilaya.speech(Oh, of course that's possible,)] Lilaya happily replies, beckoning you over to one of the many tables in her lab. [lilaya.speech(It's actually one of the easiest things about essence manipulation!)]
+		</p>
+		<p>
+			Bending down, Lilaya pulls out a heavy cardboard box, and you hear the high-pitched tinkling sound of countless little glass vials as they knock against each other. Taking one of the empty vessels from out of the box, Lilaya stands up and holds it out towards you. You see that it's no larger than one of her slender fingers, and as you take it from Lilaya's outstretched hand, you see that there's a little cork stopper wedged into the top.
+		</p>
+		<p>
+			[lilaya.speech(These are how ordinary arcane users, like me, absorb essences. This one's empty at the moment, so if you take the cork out and concentrate on drawing an essence out from your aura, the vial's special enchantment will do the rest!)]
+		</p>
+		<p>
+			Turning the little glass container over in your [pc.hands], you look up at Lilaya. [pc.speech(So <i>all</i> essences that 'ordinary' arcane users have absorbed come from little vials like this?)]
+		</p>
+		<p>
+			[lilaya.speech(That's right,)] Lilaya responds. [lilaya.speech(Well, they come from a Lilin originally, then are extracted into these vials and sold on! Thanks to this unique ability of theirs, and I guess also being given anything they want from Lilith herself, all Lilin are extremely wealthy. I mean, essences are always in high demand, so all a Lilin has to do to earn money is extract some essences and sell them. These empty containers are next to worthless, so if you wanted to extract some essences, please feel free to use as many as you'd like!)]
+		</p>
+		<p>
+			You thank Lilaya, and after she moves away to give you a little space, you start to wonder how many of your essences to extract...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ESSENCE_EXTRACTION_BOTTLED -->
+	
+	<htmlContent tag="ESSENCE_EXTRACTION_BOTTLED"><![CDATA[
+	<p>
+		You pull out the little cork from the top of one of the glass vials, and, closing your [pc.eyes], you concentrate on extracting the arcane essence. Suddenly, you feel a strange little tugging sensation, and, opening your [pc.eyes], you see a pink, swirling glow within the vial in your [pc.hand]. Pushing the cork stopper back in the top, you smile as you realise that you've successfully extracted an essence; something that only a Lilin should be able to do!
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- LILAYA_CURRENT_DATE_TALK -->
-
+	
 	<htmlContent tag="LILAYA_CURRENT_DATE_TALK"><![CDATA[
 	<p>
 		Curious about the date shown on the calendar in your room, you decide to ask Lilaya about it, [pc.speech(Is the calendar in my room accurate? It's three years into the future from my world...)]
@@ -674,7 +1155,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LILAYA_CURRENT_DATE_TALK_KNOW_TRUTH"><![CDATA[
 	<p>
 		Wanting to talk to Lilaya about the date shown on the calendar in your room, you observe, [pc.speech(So, not only did Lilith change my old reality, but I also travelled three years into the future...)]
@@ -690,84 +1171,322 @@
 	</p>
 	]]>
 	</htmlContent>
-
-
-
-	<!-- Pregnancy stuff -->
-
-	<htmlContent tag="DETECT_PREGNANCY_TYPE_SLIME"><![CDATA[
+	
+	
+	<!-- AUNT_HOME_LABORATORY_TESTING -->
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING"><![CDATA[
 	<p>
-		[lilaya.speech(Don't worry, I'm here for you,)] she says, pulling you into a loving hug for a moment before stepping back, [lilaya.speech(and anyway, giving birth to slimes is super easy and stress-free. We should do this in the birthing room, follow me!)]
+		Stepping forwards, you smile at your demonic [lilaya.relation(pc)]. [pc.speech(Hi, Lilaya, I'm here for those tests you mentioned.)]
 	</p>
-	]]>
-	</htmlContent>
-
-	<htmlContent tag="ASSIST_BIRTHING_FIRST_TIME"><![CDATA[
+	#IF(game.getPlayer().isVisiblyPregnant() && !game.getDialogueFlags().hasFlag(FLAG_reactedToPregnancyLilaya))
+		<p>
+			[lilaya.speech(Excellent! Let's just... Wait... Are you <i>pregnant</i>?! Well, nevermind, I can help you deal with that later! For now, let's just get these tests done, come over here!)]
+		</p>
+	#ELSE
+		<p>
+			[lilaya.speech(Excellent! Let's get these tests done then, come over here!)]
+		</p>
+	#ENDIF
 	<p>
-		Taking your hands in hers, she leads you out of the lab and down the hallway. You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you. Stepping inside, you find yourself in a specially-purposed birthing room. Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring. A modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment. A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture.
-	</p>
-	<p>
-		As Lilaya leads you over to the bed, she explains the situation, [lilaya.speech(Ok, so I know you haven't done anything like this before, so I'll quickly explain what's going to happen. In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here. Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.)]
-	</p>
-	<p>
-		You glance across worriedly at Lilaya as she says this, but she squeezes your hand in hers and reassures you, [lilaya.speech(Don't worry, you don't need to stay conscious during this. Now, after I've delivered your children, they're going to grow pretty quickly, so don't be alarmed! They're also going to be pretty hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there. Oh, and also, they're probably going to want to leave straight away. All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
-	</p>
-	<p>
-		#IFplayer.isCoverableAreaExposed(CA_VAGINA)
-		#THEN
-			As she's speaking, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she gently pushes you down onto the bed.
+		You do as she instructs, and make your way over to where Lilaya's standing. Rose quickly moves out of the way, hurrying over to a corner of the room and blushing as you say hello.
+		#IF(!pc.isTaur())
+			 Lilaya motions for you to sit down in the chair she just vacated, and as you do so, she grabs a smooth, wand-like instrument from another table.
 		#ELSE
-			Your vagina is already exposed, so Lilaya starts by gently pushing you back onto the bed.
+			 Lilaya motions for you to stand next to the chair she just vacated, and as you do so, she grabs a smooth, wand-like instrument from another table.
 		#ENDIF
-		 After following a few more of her instructions, you find yourself lying back with your legs held up and spread apart by a pair of sturdy metal supports.
+		 Moving over to you, the wand suddenly starts giving off a faint pink glow, and she starts swiping it over your body, humming as she does so.
 	</p>
 	<p>
-		[lilaya.speech(Ok, all set?)]
+		[lilaya.speech(Hmm... Yes... That's what I thought...)] she says, but before you have a chance to ask her what's going on, she steps back and places the wand to one side. [lilaya.speech(Your arcane aura hasn't shown any signs of degradation at all. It looks like it's permanent. If you've been out in Dominion, maybe you've noticed by now, but with an aura that strong, you have the same effect on people that a demon would.)]
+	</p>
+	<p>
+		[pc.speech(You mean...)] you start, but Lilaya cuts you off.
+	</p>
+	<p>
+		[lilaya.speech(Yes, I mean that anyone you encounter is going to feel extremely aroused when in your presence,)] she explains, [lilaya.speech(and if you haven't figured it out yet, that's the main power behind the arcane. Sure, it can be harnessed to create all sorts of spells and enchantments, but at its core, it's a primitive force linked very closely to sexual energy.)]
+	</p>
+	<p>
+		[pc.speech(So everyone I meet is going to want to have sex with me?)] you ask.
+	</p>
+	<p>
+		[lilaya.speech(Sort of, but remember that they have their own, less powerful, auras that shield them from the potency of yours. If they become too weak, whether mentally or physically, they won't be able to control their aura any more, and that's when all they'll be able to think of is... well... A-Anyway, the same applies right back at you!)] she says, starting to blush a little.
+	</p>
+	<p>
+		[pc.speech(So if someone beats me up, my own arcane aura is going to make me want to have sex with them?!)] you ask.
+	</p>
+	<p>
+		[lilaya.speech(Well, you'll still be able to summon some resistance, but it's unlikely that you'll be able to put up much of a fight at that stage... Oh, and it'll also happen if you cast too many spells and get mentally fatigued. Anyway, enough of that for now, I need to tell you what I've discovered!)]
 	</p>
 	]]>
 	</htmlContent>
-
-	<htmlContent tag="ASSIST_BIRTHING_SLIME"><![CDATA[
+	
+	
+	<!-- AUNT_HOME_LABORATORY_TESTING_REPEAT -->
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_REPEAT"><![CDATA[
 	<p>
-		Taking your hands in hers, she leads you out of the lab and down the hallway. You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you. Stepping inside, you find yourself in a specially purposed birthing room. Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring. A modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment. A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture.
+		Stepping forwards, you smile at your demonic [lilaya.relation(pc)]. [pc.speech(Hi, Lilaya, I'm here for some more of those tests...)]
 	</p>
+	#IF(pc.isVisiblyPregnant() && !game.getDialogueFlags().hasFlag(FLAG_reactedToPregnancyLilaya))
+		<p>
+			[lilaya.speech(Excellent! Let's just... Wait... Are you <i>pregnant</i>?! Well, if you want help with that, all you have to do is ask! For now, let's just get these... Erm... <i>tests</i> done, come over here!)]
+		</p>
+	#ELSE
+		<p>
+			[lilaya.speech(Excellent! Let's get these... Erm... <i>tests</i> done then, come over here!)]
+		</p>
+	#ENDIF
 	<p>
-		As Lilaya closes the door behind you, she explains the situation, [lilaya.speech(Ok, so I know you haven't done anything like this before, so I'll quickly explain what's going to happen. In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here. Slimes, such as yourself, don't give birth like other creatures. Those little cores inside of you don't need a vagina to exit through; instead, they'll simply split off from your body, taking some of your slime with them. Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.)]
-	</p>
-	<p>
-		You glance across worriedly at Lilaya as she says this, but she squeezes your hand in hers and reassures you, [lilaya.speech(Don't worry, you don't need to stay conscious during this, and I'll make sure to keep feeding you fluids to replenish any slime that your children take with them. I'll do the same with the newly birthed slimes, so they'll quickly get all of the fluid they need to mature to adulthood. Oh, and also, they're probably going to want to leave straight away. All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
-	</p>
-	<p>
-		Lilaya gets you to lie down on the bed, and, smiling, she asks, [lilaya.speech(You ready?)]
-	</p>
-	]]>
-	</htmlContent>
-
-	<htmlContent tag="ASSIST_BIRTHING"><![CDATA[
-	<p>
-		Taking your hands in hers, she leads you out of the lab and down the hallway. You soon find yourself standing outside one of the many doors that line the corridor, and Lilaya steps forwards and holds it open for you. Stepping inside, you once again find yourself standing in the specially purposed birthing room. Instead of being carpeted, like most of the other rooms in this house, clean white tiles have been chosen for this room's flooring. A modern-looking birthing bed is sitting against one wall of the room, but apart from that, there isn't much else in the way of medical equipment. A few comfortable chairs have been placed around the edges of the room, but other than those, and a drinks cabinet that's sitting in one corner, the room is devoid of any other furniture.
-	</p>
-	<p>
-		As Lilaya leads you over to the bed, she reminds you of what's about to happen, [lilaya.speech(Ok, so I know you've done this before, but I'll quickly go over what's going to happen. In order for you to give birth, I need to focus a special kind of arcane spell into your nice little bump here. Although you won't feel any pain, a lot of the arcane power I'll be using is going to be drawn directly from your aura, and there's a good chance that you're going to pass out from it.)]
-	</p>
-	<p>
-		You let out a sigh she says this, but she squeezes your hand in hers and reassures you, [lilaya.speech(Don't worry, remember, you don't need to stay conscious during this. Now, just remember that after I've delivered your children, they're going to grow pretty quickly! They're also going to be hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there. Oh, and also, they're probably going to want to leave straight away. All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
-	</p>
-	<p>
-		#IFplayer.isCoverableAreaExposed(CA_VAGINA)
-		#THEN
-			As she's speaking, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she gently pushes you down onto the bed.
+		Rose quickly moves out of the way, hurrying over to a corner of the room and blushing as you say hello.
+		#IF(!pc.isTaur())
+			 Looking back over to Lilaya, you see her motioning for you to come and sit down in the chair she just vacated.
 		#ELSE
-			Your vagina is already exposed, so Lilaya starts by gently pushing you back onto the bed.
+			 Looking back over to Lilaya, you see her motioning for you to come and stand next to the chair she just vacated.
 		#ENDIF
-		 After following a few more of her instructions, you find yourself lying back with your legs held up and spread apart by a pair of sturdy metal supports.
-	</p>
-	<p>
-		[lilaya.speech(Ok, all set?)]
 	</p>
 	]]>
 	</htmlContent>
-
+	
+	
+	<!-- AUNT_HOME_LABORATORY_TESTING_LEAVE -->
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_LEAVE"><![CDATA[
+	<p>
+		You make your excuses to Lilaya, and, while she looks a little sad that you're not going to stay with her, she doesn't openly object.
+	</p>
+	<p>
+		[lilaya.speech(If you change your mind, just let me know!)] she says, before backing off a little to give you some space.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AUNT_HOME_LABORATORY_TESTING_MORE_SEX -->
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_MORE_SEX"><![CDATA[
+	<p>
+		Stepping forwards, you smile at your demonic [lilaya.relation(pc)] and ask, [pc.speech(Hi, Lilaya, I was wondering if you wanted to run some more of those... <i>tests</i>?)]
+	</p>
+	<p>
+		[lilaya.speech(Ah! Y-Yes! I was hoping for some more of those...)] she responds, fiercely blushing.
+	</p>
+	<p>
+		Rose, understanding what's about to happen, quickly makes her exit, and hurries out of the lab. Lilaya motions for you to come and stand next to the chair she just vacated, smiling seductively as you do as she commands.
+	</p>
+	<p>
+		You look up into her lustful, [lilaya.eyes+], and before you can say anything, she takes your head in both hands and presses her lips against yours. Her tongue slips out of her mouth, and you part your lips as you allow it to slide into yours.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_MORE_SEX_START"><![CDATA[
+	<p>
+		You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects. You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate lips press against yours. Before you can make the next move, Lilaya suddenly pulls back and takes the initiative. Pushing you down into the chair she recently vacated, she then throws one leg over yours, before sliding down to sit in your lap, bringing the two of you face-to-face.
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
+			[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+		#ELSE
+			[lilaya.speech(Mmm, yes!)] she giggles.
+		#ENDIF
+	</p>
+	<p>
+		Before you can reply, your [lilaya.relation(pc)] throws you a quick, seductive smile, before taking your head in both hands and pressing her lips against yours once more. Reaching up, you pull her in close against your body, passionately making out with one another as you both give in to your lust.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_MORE_SEX_START_TAUR"><![CDATA[
+	<p>
+		You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects. You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate lips press against yours. Before you can make the next move, Lilaya suddenly pulls back and takes the initiative. Stepping around to one side of your [pc.legRace]-like lower body, she sinks to her knees and reaches up to run her fingers up and over your animalistic groin.
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
+			[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+		#ELSE
+			[lilaya.speech(Mmm, yes!)] she giggles.
+		#ENDIF
+	</p>
+	<p>
+		Before you can reply, Lilaya shuffles forwards, moving under your feral body as she prepares to satisfy you with her mouth. Letting out a passionate [pc.moan], you prepare to have some fun with your horny [lilaya.relation(pc)].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_MORE_SEX_STOP"><![CDATA[
+	<p>
+		Prying her off of you, you make your excuses to Lilaya as you get up out of the chair. While she's quite clearly upset that you're not going to let her have some fun, she doesn't openly object.
+	</p>
+	<p>
+		[lilaya.speech(If you change your mind, just let me know!)] she says, before backing off a little to give you some space.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AUNT_HOME_LABORATORY_TESTING_ARTHUR -->
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_ARTHUR"><![CDATA[
+	<p>
+		[pc.speech(Have you found a way to get me back home then?)] you ask.
+	</p>
+	<p>
+		[lilaya.speech(Sorry, but no. That's what I needed to talk to you about,)] Lilaya answers, [lilaya.speech(The truth is, even though I'm considered one of the top experts in all things related to the arcane, I have no idea how you've ended up here.)]
+	</p>
+	<p>
+		You can't help but feel completely deflated. Although Lilaya's home isn't exactly the worst place to be living, this whole world still makes you feel uneasy. You were rather hoping that this demonic version of your aunt could have found some way to send you back to where you belong, and as she delivers this bad news, you collapse back in your chair and let out a deep sigh.
+	</p>
+	<p>
+		Seeing your reaction, Lilaya lets out a sigh of her own, before offering you a sliver of hope, [lilaya.speech(Well... I suppose there is <i>one</i> way we could find out more... but it means I'd have to talk to <i>him</i> again. There's no way I'm going over there to ask for his help though!)]
+	</p>
+	<p>
+		You look up to see Lilaya's face turned up into a scowl as she continues, [lilaya.speech(If you ever want to find a way to go back home, you're going to have to get the help of Arthur... <i>that bastard!</i>)] she spits, before realising how angry she's become. Lilaya closes her eyes for a moment and takes a deep breath, calming herself down before continuing, [lilaya.speech(He and I used to work together, and with the exception of the Lilin themselves, he probably understands more about the arcane than anyone currently living. His apartment's over in Demon Home, but despite the name, people of all races live there. He's actually just a human, which makes his knowledge of the arcane all the more impressive. Here's his address... So if you want his help, you're going to have to convince him to stop being such a <i>selfish bastard!</i> He'll need access to my research, and the only way he's going to get it is if he comes crawling to my front door, begging for my forgiveness.)]
+	</p>
+	<p>
+		You're quite taken aback at Lilaya's apparent hatred for Arthur. You assume, seeing as he shares the same name, that he's this world's version of your [lilaya.relation(pc)] Lily's colleague from the museum. Back there, they were close friends, and you wonder what's happened in this reality to cause Lilaya to dislike him so much. Seeing how angry she's gotten just at the thought of him, you decide that it would be wise not to press the matter further, and instead you just agree to convince Arthur to apologise.
+	</p>
+	<p>
+		[lilaya.speech(Good, good... Well, anyway, umm, I guess we're done here,)] Lilaya says, but before you can make a move, she nervously picks up the little wand-like instrument she used to test you earlier, and continues, [lilaya.speech(W-Wait, erm, I mean, t-there's some more tests I could... try on you...)]
+	</p>
+	<p>
+		Lilaya seems to have become quite embarrassed by something, and you find this sudden offer of 'more tests' to be pretty suspicious. She's gripping the wand quite tightly now, and you notice her eyes keep glancing down hungrily at your body. You're almost certain that she's just making an excuse to get you to stay here, and the sudden thought that she's trying to hit on you flashes across your mind...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_ARTHUR_DECLINED"><![CDATA[
+	<p>
+		You make your excuses to Lilaya, and, while she looks a little sad that you're not going to stay with her, she doesn't openly object.
+	</p>
+	<p>
+		[lilaya.speech(If you change your mind, just let me know!)] she says, before backing off a little to give you some space.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AUNT_HOME_LABORATORY_TESTING_HORNY_LILAYA -->
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_HORNY_LILAYA"><![CDATA[
+	<p>
+		[pc.speech(Well, if there are more tests you need to run, then sure,)] you say.
+	</p>
+	<p>
+		[lilaya.speech(Excellent! Now, let me just start up here...)] she happily replies.
+	</p>
+	<p>
+		You remain quite still as Lilaya steps in front of you, holding the wand out to run it over your head.
+		#IF(!pc.isTaur())
+			 As she does this, she places one hand on your shoulder and leans down, lowering her chest so that her large breasts are directly in front of your face.
+		#ELSE
+			 As she does this, she places one hand on your shoulder and pushes her chest out, immediately drawing your attention towards her large breasts.
+		#ENDIF
+		 You can't help but notice that the top few buttons of both her lab coat and her shirt are undone, giving you a clear display of her impressive cleavage.
+	</p>
+	<p>
+		[lilaya.speech(I hope you aren't looking anywhere naughty...)] Lilaya softly whispers in your ear, before straightening back up and moving around behind you.
+	</p>
+	<p>
+		[pc.speech(What?! No, I-)] you start, but Lilaya cuts you off as she reaches around to put a finger on your lips.
+	</p>
+	<p>
+		You blush as you feel her free hand press the wand against your inner-thigh, and, still holding her finger over your mouth, she starts to slide the arcane instrument up your body. You can't help but feel aroused as Lilaya presses the wand up and over your chest, while simultaneously trying to push her finger into your mouth.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_HORNY_LILAYA_DECLINED"><![CDATA[
+	<p>
+		Not feeling completely comfortable with the way your demonic [lilaya.relation(pc)] is trying to get you turned on,
+		#IF(!pc.isTaur())
+			 you quickly stand up and make your excuses as to why you need to leave.
+		#ELSE
+			 you quickly step back and make your excuses as to why you need to leave.
+		#ENDIF
+		 While Lilaya looks a little disappointed that you're putting a stop to her advances, she doesn't openly object, and moves back to give you some space, before placing the wand-like instrument back on the table from which it came.
+	</p>
+	<p>
+		[lilaya.speech(If you change your mind and want me to try these... erm... <i>tests</i> again, just let me know,)] Lilaya says, clearly hoping that you will.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AUNT_HOME_LABORATORY_TESTING_HORNY_LILAYA_WANTS_SEX -->
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_HORNY_LILAYA_WANTS_SEX"><![CDATA[
+	<p>
+		You part your lips slightly, allowing Lilaya to slip her finger into your mouth. As she slowly starts sliding her digit back and forth past your lips, you notice a faint, salty taste hitting your tongue. As a second finger pushes its way in to join the first, you realise that this is the same hand she was using to finger Rose. Before you can object, you suddenly notice that she's using her free hand to give your groin an experimental squeeze, and, without thinking, you find yourself bucking back against her touch.
+	</p>
+	<p>
+		[lilaya.speech(Good [pc.girl]...)] she whispers in your ear, [lilaya.speech(And just to think, I was worried that you wouldn't like this...)]
+	</p>
+	<p>
+		You've become so caught up in the moment that you haven't even considered putting an end to all this, but as Lilaya draws her fingers from your mouth, you have a sudden moment of clarity in which you find yourself once again thinking of how similar Lilaya looks and sounds to your aunt Lily.
+		#IF(pc.hasFetish(FETISH_INCEST))
+			 As you've got a serious kink for incestuous sex, you can't help but find this fact immensely arousing, and buck your groin even harder into your demonic [lilaya.relation(pc)]'s hand.
+		#ELSE
+			 Then again, she <i>is</i> a half-demon in this reality, so there's no real relation between the two of you... right?
+		#ENDIF
+	</p>
+	<p>
+		At that moment, Lilaya leans in to whisper one last thing in your ear, [lilaya.speech(You know, I'm all-demon where it counts... You want to see what a demon's pussy looks like, don't you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_HORNY_LILAYA_WANTS_SEX_START"><![CDATA[
+	<p>
+		You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects. You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips. Before you can make the next move, Lilaya suddenly pulls back and takes the initiative. Stepping around to one side, she quickly throws one leg over yours and slides down to sit in your lap, bringing the two of you face-to-face.
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
+			[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+		#ELSE
+			[lilaya.speech(Mmm, yes!)] she giggles.
+		#ENDIF
+	</p>
+	<p>
+		Before you can reply, your [lilaya.relation(pc)] throws you a quick, seductive smile, before taking your head in both hands and pressing her lips against yours once more. Reaching up, you pull her in close against your body, passionately making out with one another as you both give in to your lust.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_HORNY_LILAYA_WANTS_SEX_START_TAUR"><![CDATA[
+	<p>
+		You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects. You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips. Before you can make the next move, Lilaya suddenly pulls back and takes the initiative. Stepping around to one side of your [pc.legRace]-like lower body, she sinks to her knees and reaches up to run her fingers once again over your animalistic groin.
+	</p>
+	<p>
+		#IF(pc.hasPenisIgnoreDildo() && !lilaya.isVisiblyPregnant() && lilaya.getFetishDesire(FETISH_PREGNANCY).isNegative())
+			[lilaya.speech(Mmm, yes! Just, if you want to fuck me, make sure you pull out, ok? I'm <b>not</b> getting pregnant!)] she demands.
+		#ELSE
+			[lilaya.speech(Mmm, yes!)] she giggles.
+		#ENDIF
+	</p>
+	<p>
+		Before you can reply, Lilaya shuffles forwards, moving under your feral body as she prepares to start by using her mouth. Letting out a passionate [pc.moan], you prepare to have some fun with your horny [lilaya.relation(pc)].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AUNT_HOME_LABORATORY_TESTING_HORNY_LILAYA_WANTS_SEX_DECLINED"><![CDATA[
+	<p>
+		Not feeling comfortable with the way your demonic [lilaya.relation(pc)] is fully prepared and eager to have sex with you,
+		#IF(!pc.isTaur())
+			 you quickly stand up and make your excuses as to why you need to leave.
+		#ELSE
+			 you quickly step back and make your excuses as to why you need to leave.
+		#ENDIF
+		 While Lilaya looks more than a little disappointed that you're putting a stop to all of this, she doesn't openly object, and moves back to give you some space, before placing the wand-like instrument back on the table from which it came.
+	</p>
+	<p>
+		[lilaya.speech(If you change your mind and want me to try these... erm... <i>tests</i> again, just let me know,)] Lilaya says, clearly hoping that you will.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<htmlContent tag="LILAYA_FRIEND_ACCOMMODATION"><![CDATA[
 	<p>
 		Wanting to ask Lilaya about the possibility of inviting your new friend to come and live here, you take a step towards your demonic [lilaya.relation(pc)] and ask, [pc.speech(Er, Lilaya, you know all of these empty rooms you've got in your house?)]
@@ -801,5 +1520,5 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 </dialogue>

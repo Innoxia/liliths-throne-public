@@ -24,7 +24,7 @@
 		Taking this opportunity to have [npc4.herself] heard, [npc4.name] giggles, [npc4.speech(I want [pc.herHim] to get a good grope of my tits!)]
 	</p>
 	<p>
-		It's quite clear that these imps are only interested in one thing, and as they start to advance, the third imp, who up until now had been quite content to simply wink and pout at you, puts any doubts as to their intentions to rest, as [npc2.she] calls out,
+		It's quite clear that these imps are only interested in one thing, and as they start to advance, the third imp, who up until now had been quite content to simply wink and pout at you, puts any doubts as to their intentions to rest, as [npc2.she] calls out, 
 		#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 		#THEN
 			[npc2.speech(Lucky you! I've still got one of the boss's special potions left! Ooh, I can't wait to turn you into a big manly stud, with a nice thick cock, and big balls ready to pump some yummy cum into my pussy! Oh! And a nice, long tongue for eating us out!)]
@@ -34,7 +34,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="IMP_ATTACK_OFFER_BODY"><![CDATA[
 	<p>
 		Easily seduced by the imps erotic words, you decide that the best course of action would be to just give the gang what they want. Stepping back, you hold up your [pc.hands] as you submit. [pc.speech(Please, there's no need for violence. You just want sex, right?)]
@@ -48,7 +48,7 @@
 	#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, true)
 	#THEN
 		<p>
-			[npc.speech(Give me the potion,)] [npc.name] commands [npc.her] partner. Quickly producing a bottle of strange liquid, [npc2.name] hands it over to her superior, who immediately pulls the stopper out and steps forwards, before grabbing your chin and squeezing your cheeks.
+			[npc.speech(Give me the potion,)] [npc.name] commands [npc.her] partner. Quickly producing a bottle of strange liquid, [npc2.name] hands it over to her superior, who immediately pulls the stopper out and steps forwards, before grabbing your chin and squeezing your cheeks. 
 			#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 			#THEN
 				[npc.speech(Open wide, hun! This'll turn you into our manly stud, with a big, thick cock! It'll also give you nice, big balls, so that you have lots of yummy cum to pump into my pussy! Oh, and I almost forgot! It'll make your tongue real nice and long, so you can get it in deep when you're eating us out!)]
@@ -69,7 +69,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY"><![CDATA[
 	<p>
 		Your last opponent collapses to the ground at your feet, and you find yourself looking down at the gang of defeated imps with a relieved smile on your face. Despite their superior numbers, they proved to be no match for your might, and now that you've proven yourself in battle, you wonder what you should do about these trouble-makers.
@@ -79,10 +79,10 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_SEX"><![CDATA[
 	<p>
-		As you look down at the pile of defeated imps, you realise that there's nothing stopping you from having sex with them. After all, they were going to do the same to you, were your situations reversed, and so with that thought in your mind, you start moving the imps into position, forcing each one of them down before you.
+		As you look down at the pile of defeated imps, you realise that there's nothing stopping you from having sex with them. After all, they were going to do the same to you, were your situations reversed, and so with that thought in your mind, you start moving the imps into position, forcing each one of them down before you. 
 	</p>
 	<p>
 		[pc.speech(Hurry up and present yourselves!)] You command, eager to get started and put these imps into their place.
@@ -95,10 +95,10 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
 	<p>
-		As you look down at the pile of defeated imps, you realise that there's nothing stopping you from having sex with them. After all, they were going to do the same to you, were your situations reversed, and so with that thought in your mind, you start gently moving the imps into position, getting each one of them down before you.
+		As you look down at the pile of defeated imps, you realise that there's nothing stopping you from having sex with them. After all, they were going to do the same to you, were your situations reversed, and so with that thought in your mind, you start gently moving the imps into position, getting each one of them down before you. 
 	</p>
 	<p>
 		[pc.speech(Come on, if you present yourselves nicely now, I'll make sure each one of you gets to orgasm.)] You softly purr, eager to get started and see what these imps can do.
@@ -111,10 +111,10 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
 	<p>
-		As you look down at the pile of defeated imps, you realise that there's nothing stopping you from fucking them. After all, they were going to do the same to you, were your situations reversed, and so with that thought in your mind, you start grabbing the imps and roughly pushing them down before you.
+		As you look down at the pile of defeated imps, you realise that there's nothing stopping you from fucking them. After all, they were going to do the same to you, were your situations reversed, and so with that thought in your mind, you start grabbing the imps and roughly pushing them down before you. 
 	</p>
 	<p>
 		[pc.speech(Hurry up and present yourselves, you fucking sluts!)] You growl in your most menacing tone, eager to get started with fucking these imps into submission.
@@ -127,7 +127,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="IMP_ATTACK_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
 	<p>
 		The pile of defeated imps before you is truly a saddening sight to see, and as you catch the eye of [npc.name], you think that it almost looks like [npc.sheIs] crying. Feeling immensely guilty, and wanting to put things right, you drop down to your knees before them, and ask, [pc.speech(Are you all ok? I didn't mean to go so far...)]
@@ -164,14 +164,14 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="COMBAT_DEFEAT_NO_TF"><![CDATA[
 	<p>
 		Imps do not TF you. This shouldn't be possible, and is a bug! Please report it to Innoxia with the message: 'impAttackDemon COMBAT_DEFEAT_NO_TF is being triggered.'
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="COMBAT_DEFEAT_TF"><![CDATA[
 	<p>
 		Unable to withstand another attack, you collapse to your knees, before desperately trying to catch your breath as you plead, [pc.speech(No more... Please...)]
@@ -180,7 +180,7 @@
 		Not giving you a moment's respite, [npc.name] snaps [npc.her] fingers, before pointing at you and ordering [npc.her] subordinates, [npc.speech(Restrain [pc.herHim]! Go on, get [pc.herHim]!)]
 	</p>
 	<p>
-		Immediately, two of the smaller imps rush forwards to either side of you, and, grabbing your [pc.arms], they use their body-weight to hold you still. [npc3.Name] lets out a mocking laugh as [npc3.she] reaches around to squeeze your [pc.ass], while [npc4.name] takes this opportunity to
+		Immediately, two of the smaller imps rush forwards to either side of you, and, grabbing your [pc.arms], they use their body-weight to hold you still. [npc3.Name] lets out a mocking laugh as [npc3.she] reaches around to squeeze your [pc.ass], while [npc4.name] takes this opportunity to 
 		#IF pc.hasBreasts()
 		#THEN
 			reach up and grope your [pc.breasts].
@@ -191,7 +191,7 @@
 	#IF pc.isAbleToAccessCoverableArea(CA_MOUTH, true)
 	#THEN
 		<p>
-			[npc.speech(Give me the potion,)] [npc.name] snaps at [npc.her] partner. Quickly producing a bottle of strange liquid, [npc2.name] hands it over to her superior, who immediately pulls the stopper out and steps forwards, before grabbing your chin and squeezing your cheeks.
+			[npc.speech(Give me the potion,)] [npc.name] snaps at [npc.her] partner. Quickly producing a bottle of strange liquid, [npc2.name] hands it over to her superior, who immediately pulls the stopper out and steps forwards, before grabbing your chin and squeezing your cheeks. 
 			#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
 			#THEN
 				 [npc.speech(Open wide, hun! This'll turn you into our manly stud, with a big, thick cock! It'll also give you nice, big balls, so that you have lots of yummy cum to pump into my pussy! Oh, and I almost forgot! It'll make your tongue real nice and long, so you can get it in deep when you're eating us out!)]
@@ -212,7 +212,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
 	<p>
 		Finding yourself down on the floor, and at the mercy of the imps' carnal desires, you decide that the best thing for you to do would be to simply go along with whatever they have in store for you. Sensing your willingness to go along with all of this, [npc.name] sneers down at you, [npc.speech(What a submissive bitch you turned out to be! You're just a horny dog who can't wait to fuck us imps, aren't you?)]
@@ -240,7 +240,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
 	<p>
 		Finding yourself being pushed to the floor, and at the mercy of the imps' carnal desires, you feel yourself getting immensely turned-on, and can barely contain the [pc.moan+] that drifts out from between your [pc.lips]. Hearing the lewd noise that just came out of your mouth, [npc.name] sneers down at you, [npc.speech(What a submissive bitch you turned out to be! You're just a horny dog who can't wait to fuck us imps, aren't you?)]
@@ -265,7 +265,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX_RESIST"><![CDATA[
 	<p>
 		Finding yourself being pushed to the floor, and at the mercy of the imps' carnal desires, you start to panic, and try to stand up again as you cry out, [pc.speech(Stop this! Leave me alone!)]
@@ -290,7 +290,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="COMBAT_DEFEAT_TF_REFUSED"><![CDATA[
 	<p>
 		You have no intention of swallowing the imps' transformative potion, and, jerking your head back, you spit the liquid out all over the floor. Your resistance is immediately met by a sharp slap to the face, accompanied by a loud screech as [npc.name] hurls the bottle to one side. [npc.speech(Fuck! Do you know how much trouble the boss goes through to get these potions for us?! [pc.Insult]!)]
@@ -300,24 +300,24 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="COMBAT_DEFEAT_TF_ACCEPTED"><![CDATA[
 	<p>
 		You gulp down the sweet, syrup-like liquid, before opening your mouth to show [npc.name] that you've done as [npc.she] commanded. Your display of submission is met by a devious grin that quickly settles on [npc.namePos] face, and [npc.she] carelessly hurls the now-empty bottle to one side as [npc.she] steps back and looks down at you. [npc.speech(Good dog. You're just a bitch for us imps to command, aren't you?)]
 	</p>
 	<p>
-		[pc.speech(Yes...)] You absent-mindedly reply, concentrating more on the strange feeling that's started to bubble up inside your body than whatever it is that the imp just asked of you. As you feel the curious sensation start to change into a steady warmth that permeates through your entire body, you realise that the potion's transformative effects are about to make themselves known...
+		[pc.speech(Yes...)] You absent-mindedly reply, concentrating more on the strange feeling that's started to bubble up inside your body than whatever it is that the imp just asked of you. As you feel the curious sensation start to change into a steady warmth that permeates through your entire body, you realise that the potion's transformative effects are about to make themselves known... 
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="COMBAT_DEFEAT_TF_APPLIED"><![CDATA[
 	<p>
 		As the potion's effects come to an end, [npc.name] suddenly steps forwards, and, grabbing you by the back of the neck, forces you down onto the floor. [npc.speech(Good bitch! Now that you're just as we want you, it's time for you to act as our fuck-toy!)]
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="AFTER_VICTORY_SEX"><![CDATA[
 	<p>
 		[npc.speech(Ah... Y-You're done...)] [npc.Name] sighs, with more than a little disappointment in [npc.her] voice. The other imps let out pleading moans of their own, obviously still eager to continue having sex.
@@ -327,7 +327,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="AFTER_DEFEAT_SEX"><![CDATA[
 	<p>
 		Having had their fun, the imps step back, allowing you to collapse down onto the floor as you pant from exertion.
@@ -360,7 +360,7 @@
 				<p>
 					With little choice but to do as you're told, you hold still as [npc.name] wipes [npc.her] fingers on your face.
 					#IF !pc.isVisiblyPregnant()
-					#THEN As you feel the slimy spunk being spread over your cheeks, you can't help but wonder if the imp's seed has gotten you pregnant.
+					#THEN As you feel the slimy spunk being spread over your cheeks, you can't help but wonder if the imp's seed has gotten you pregnant. 
 					#ENDIF
 					 Once [npc.name] is finished with you, you look up as [npc.she] smirks down at you one last time, before gathering [npc.her] gang and disappearing off into the dark tunnels of Submission.
 			#ENDIF
@@ -373,5 +373,5 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 </dialogue>

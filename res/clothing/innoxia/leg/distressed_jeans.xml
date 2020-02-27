@@ -3,94 +3,67 @@
 <clothing>
 	<coreAttributes>
 		<value>400</value>
-
 		<determiner><![CDATA[a pair of]]></determiner>
-
 		<name><![CDATA[distressed jeans]]></name>
-
 		<namePlural pluralByDefault="true"><![CDATA[distressed jeans]]></namePlural>
-
-		<description><![CDATA[A unisex pair of jeans, which, in the name of fashion, have been weathered and torn prior to sale.]]></description>
-
-		<physicalResistance>1</physicalResistance>
-
+		<description><![CDATA[A pair of unisex jeans, which, in the name of fashion, have been weathered and torn prior to sale.]]></description>
+		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
-
 		<slot>LEG</slot>
-
 		<rarity>COMMON</rarity>
-
 		<clothingSet/>
-
 		<imageName>distressed_jeans.svg</imageName>
-
 		<imageEquippedName/>
-
 		<enchantmentLimit/>
-
+		
 		<effects/>
-
+		
 		<blockedPartsList>
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
-
-				<clothingAccessRequired>
+				<clothingAccessRequired> 
 					<clothingAccess>FEET</clothingAccess>
 					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
 				</clothingAccessRequired>
-
 				<blockedBodyParts/>
-
 				<clothingAccessBlocked>
 					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
 				</clothingAccessBlocked>
-
 				<concealedSlots values="CONCEALED_ANKLES_FROM_TROUSERS"/>
 			</blockedParts>
-
+			
 			<blockedParts>
 				<displacementType>PULLS_DOWN</displacementType>
-
 				<clothingAccessRequired/>
-
 				<blockedBodyParts>
 					<bodyPart>ANUS</bodyPart>
 					<bodyPart>PENIS</bodyPart>
 					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>THIGHS</bodyPart>
 				</blockedBodyParts>
-
 				<clothingAccessBlocked>
 					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
 				</clothingAccessBlocked>
-
 				<concealedSlots values="CONCEALED_GROIN"/>
 			</blockedParts>
-
+			
 			<blockedParts>
 				<displacementType>UNZIPS</displacementType>
-
 				<clothingAccessRequired/>
-
 				<blockedBodyParts>
 					<bodyPart>PENIS</bodyPart>
 				</blockedBodyParts>
-
 				<clothingAccessBlocked>
 					<clothingAccess>GROIN</clothingAccess>
 				</clothingAccessBlocked>
-
 				<concealedSlots values="CONCEALED_UNZIPS_GROIN"/>
 			</blockedParts>
 		</blockedPartsList>
-
-		<incompatibleSlots/>
-
-		<primaryColours>
-			<colour>CLOTHING_BLUE</colour>
-			<colour>CLOTHING_BLUE_LIGHT</colour>
-			<colour>CLOTHING_PINK_LIGHT</colour>
-			<colour>CLOTHING_GREY</colour>
-		</primaryColours>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="DENIM"/>
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_WHITE"/>
 		<secondaryColoursDye values="ALL"/>
@@ -98,7 +71,7 @@
 			<colour>CLOTHING_BRASS</colour>
 		</tertiaryColours>
 		<tertiaryColoursDye values="ALL_WITH_METALS"/>
-
+		
 		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
@@ -127,5 +100,5 @@
       <![CDATA[[npc.Name] [npc.verb(unfasten)] the button on [npc2.namePos] jeans, before yanking them off.]]>
     </otherRough>
   </displacementText>
-
+	
 </clothing>

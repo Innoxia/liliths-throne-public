@@ -24,7 +24,10 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -195,7 +198,9 @@ public class Util {
 		LinkedHashMap<T, S> map = new LinkedHashMap<>();
 
 		for (Value<T, S> v : values) {
-			map.put(v.getKey(), v.getValue());
+			if(v!=null) {
+				map.put(v.getKey(), v.getValue());
+			}
 		}
 		
 		return map;
@@ -246,11 +251,11 @@ public class Util {
 		return "Unknown";
 	}
 	
-	@SafeVarargs
 	/**
 	 * @param values The values to add to the new list.
 	 * @return A list of provided values, with nulls stripped.
 	 */
+	@SafeVarargs
 	public static <U> ArrayList<U> newArrayListOfValues(U... values) {
 		ArrayList<U> list = new ArrayList<>(Arrays.asList(values));
 		list.removeIf(e -> e==null);
@@ -330,7 +335,7 @@ public class Util {
 	}
 	
 	public static <T> T getRandomObjectFromWeightedFloatMap(Map<T, Float> map) {
-		int total = 0;
+		float total = 0;
 		for(float f : map.values()) {
 			total+=f;
 		}
@@ -459,6 +464,20 @@ public class Util {
 		return intToString;
 	}
 
+	public static String intToDate(int integer) {
+		int remainderHundred = integer%100;
+		if(remainderHundred<=10 || remainderHundred>20) {
+			if(integer%10==1) {
+				return integer+"st";
+			} else if(integer%10==2) {
+				return integer+"nd";
+			} else if(integer%10==3) {
+				return integer+"rd";
+			}
+		}
+		return integer+"th";
+	}
+	
 	/**
 	 * @param integer Input number to convert.
 	 * @return 'once', 'twice', or 'integer times'
@@ -582,8 +601,6 @@ public class Util {
 		return "AEIOUaeiou".indexOf(c) != -1;
 	}
 
-	private static String[] splitSentence;
-
 	/**
 	 * Turns a normal sentence into a stuttering sentence. Example:
 	 * "How far is it to the town hall?" "H-How far is it to the town h-hall?"
@@ -597,42 +614,50 @@ public class Util {
 	 *            modified sentence
 	 */
 	public static String addStutter(String sentence, int frequency) {
-		splitSentence = sentence.split(" ");
-		utilitiesStringBuilder.setLength(0);
-
-		// 1 in "frequency" words are stutters, with a minimum of 1.
-		int wordsToStutter = splitSentence.length / frequency + 1;
-
-		int offset = 0;
-		for (int i = 0; i < wordsToStutter; i++) {
-			offset = random.nextInt(frequency);
-			offset = (i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset);
-
-			// In case of an accidental comma position?
-			if (splitSentence[offset].charAt(0) != ',')
-				splitSentence[offset] = splitSentence[offset].charAt(0) + "-" + splitSentence[offset];
-			else
-				splitSentence[offset] = "," + splitSentence[offset].charAt(1) + "-" + splitSentence[offset].substring(1, splitSentence[offset].length() + 1);
-
-			for (int j = 0; j < frequency && ((i * frequency + j) < splitSentence.length); j++)
-				utilitiesStringBuilder.append(splitSentence[i * frequency + j] + " ");
+		StringBuilder modifiedSentence = new StringBuilder();
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingAngular = 0;
+		int closingAngular = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		float chance = 1f/frequency;
+		for(int i = sentence.length()-1; i>=0; i--) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='<') {
+				openingAngular++;
+			} else if(sentence.charAt(i)=='>') {
+				closingAngular++;
+			} else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
+			
+			if(sentence.charAt(i)==' '
+					&& Character.isLetter(sentence.charAt(i+1))
+					&& openingCurly==closingCurly
+					&& openingAngular==closingAngular
+					&& openingSquare==closingSquare) {
+				if(Math.random()<chance) {
+					modifiedSentence.append("-");
+					modifiedSentence.append(sentence.charAt(i+1));
+				}
+			}
+			modifiedSentence.append(sentence.charAt(i));
 		}
-
-		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-		return utilitiesStringBuilder.toString();
+		
+		modifiedSentence.reverse();
+		return modifiedSentence.toString();
 	}
 
 	private static Pattern endOfSentence = Pattern.compile("[,.!?]");
-	/**
-	 * Determine whether a given string contains sentence-ending punctuation.
-	 * @param text text to check whether
-	 * @return boolean whether the text contains a period, exclamation or question mark
-	 */
-	private static boolean isEndOfSentence(String text) {
-		if(text.isEmpty()) {
-			return false;
-		}
-		return endOfSentence.matcher(text.substring(text.length()-1)).matches();
+	
+	private static boolean isEndOfSentence(char c) {
+		return endOfSentence.matcher(String.valueOf(c)).matches();
 	}
 
 	/**
@@ -651,66 +676,46 @@ public class Util {
 	 *            modified sentence
 	 */
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts, boolean middle) {
-		splitSentence = sentence.split(" ");
-		utilitiesStringBuilder.setLength(0);
 
-		// 1 in "frequency" words have an insert, with a minimum of 1.
-		int wordsToInsert = splitSentence.length / frequency + 1,
-				offset = 0;
-		for (int i = 0; i < wordsToInsert; i++) {
-			offset = Math.min(i * frequency + random.nextInt(frequency), splitSentence.length - 1);
-			String insert = inserts[random.nextInt(inserts.length)];
-
-			// If wanted, ensure not inserting to the start or end of a sentence
-			if (offset >= splitSentence.length -1 || isEndOfSentence(splitSentence[offset])) {
-				if (middle) {
-					// Skip if at end of string or sentence
-					continue;
+		StringBuilder modifiedSentence = new StringBuilder();
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		float chance = 1f/frequency;
+		for(int i = sentence.length()-1; i>=0; i--) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
+			if(i!=sentence.length()-1
+					&& sentence.charAt(i+1)==' '
+					&& !isEndOfSentence(sentence.charAt(i))
+					&& (i==0 || !middle || !isEndOfSentence(sentence.charAt(i-1)))
+					&& openingCurly==closingCurly
+					&& openingSquare==closingSquare) {
+				if(Math.random()<chance) {
+					String word = Util.randomItemFrom(inserts);
+					char[] charArray = word.toCharArray();
+					for(int cIndex=charArray.length-1; cIndex>=0; cIndex--) {
+						modifiedSentence.append(charArray[cIndex]);
+					}
 				}
-
-//				// Add a full stop to the insert, creating its own sentence
-//				insert += ".";
 			}
-
-			int len = splitSentence[offset].length();
-			// Remove duplicate commas if selected position ends with one and insert has one
-			if (insert.trim().charAt(0) == ',' && splitSentence[offset].charAt(len -1) == ',') {
-				splitSentence[offset] = splitSentence[offset].substring(0, len-1);
-			}
-
-			// Append the insert to this word:
-			splitSentence[offset] = splitSentence[offset] + insert;
-
+			modifiedSentence.append(sentence.charAt(i));
 		}
-		for (String word : splitSentence)
-			utilitiesStringBuilder.append(word + " ");
-		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-
-		return utilitiesStringBuilder.toString();
+		
+		modifiedSentence.reverse();
+		return modifiedSentence.toString();
 	}
 
 	private static String insertIntoSentences(String sentence, int frequency, String[] inserts) {
 		return insertIntoSentences(sentence, frequency, inserts, true);
-	}
-	
-	private static String insertIntoSentencesAtPunctuation(String sentence, String[] inserts) {
-		splitSentence = sentence.split(" ");
-		utilitiesStringBuilder.setLength(0);
-		
-		utilitiesStringBuilder.append(inserts[random.nextInt(inserts.length)]+" ");
-		
-		char cOld = 'X';
-		for(char c : sentence.toCharArray()) {
-			utilitiesStringBuilder.append(c);
-			
-			if((cOld=='.'||cOld=='!'||cOld=='?'||cOld==',')
-					&& c==' ') {
-				utilitiesStringBuilder.append(inserts[random.nextInt(inserts.length)]+" ");
-			}
-			cOld = c;
-		}//^\.\. |! |\? 
-
-		return utilitiesStringBuilder.toString();
 	}
 
 	private static String[] bimboWords = new String[] { ", like,", ", like,", ", like,", ", um,", ", uh,", ", ah," };
@@ -736,9 +741,9 @@ public class Util {
 		sentence = insertIntoSentences(sentence, frequency, bimboWords);
 		utilitiesStringBuilder.setLength(0);
 		utilitiesStringBuilder.append(sentence);
-
-		// 1/3 chance of having a bimbo sentence ending:
-		if(!sentence.endsWith("~") && !sentence.endsWith("-")) {
+		
+		// 1/3 chance of having a bimbo sentence ending: TODO improve so it can be added anywhere
+		if(!sentence.endsWith("~") && !sentence.endsWith("-") && !sentence.endsWith("#ENDIF")) {
 			switch (random.nextInt(6)) {
 				case 0:
 					char end = utilitiesStringBuilder.charAt(utilitiesStringBuilder.length() - 1);
@@ -757,7 +762,56 @@ public class Util {
 
 		return utilitiesStringBuilder.toString();
 	}
+	
+	private static String[] broWords = new String[] { ", like,", ", like, dude,", ", like,", ", um,", ", uh,", ", ah," };
+	public static String addBro(String sentence, int frequency) {
+		sentence = insertIntoSentences(sentence, frequency, broWords);
+		utilitiesStringBuilder.setLength(0);
+		utilitiesStringBuilder.append(sentence);
+		
+		// 1/3 chance of having a bimbo sentence ending: TODO improve so it can be added anywhere
+		if(!sentence.endsWith("~") && !sentence.endsWith("-") && !sentence.endsWith("#ENDIF")) {
+			switch (random.nextInt(6)) {
+				case 0:
+					char end = utilitiesStringBuilder.charAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.append(" and stuff");
+					utilitiesStringBuilder.append(end);
+					break;
+				case 1:
+					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.append(", y'know, dude?");
+					break;
+				default:
+					break;
+			}
+		}
 
+		return utilitiesStringBuilder.toString();
+	}
+
+	private static String[] muteSexSounds = new String[] { "... ~Ooh!~", "... ~Mmm!~", "... ~Aah!~" };
+	/**
+	 * @param sentence The sentence to mute.
+	 * @param sexMoans If the character should moan/pant due to being in sex.
+	 * @return A series of "..." if no sexMoans, or "... ~Ooh!~", "... ~Mmm!~", "... ~Aah!~" if sexMoans
+	 */
+	public static String replaceWithMute(String sentence, boolean sexMoans) {
+		int length = Math.max(1, sentence.split(" ").length/3);
+		
+		StringBuilder muteSB = new StringBuilder();
+		for(int i=0; i<length; i++) {
+			if(sexMoans) {
+				muteSB.append(muteSexSounds[random.nextInt(muteSexSounds.length)]+" ");
+				
+			} else {
+				muteSB.append("... ");
+			}
+		}
+		muteSB.deleteCharAt(muteSB.length()-1);
+		return muteSB.toString();
+	}
+		
 	private static String[] muffledSounds = new String[] { " ~Mrph~", " ~Mmm~", " ~Mrmm~" };
 	/**
 	 * Turns a normal sentence into a muffled sentence.<br/>
@@ -775,6 +829,16 @@ public class Util {
 	public static String addMuffle(String sentence, int frequency) {
 		return insertIntoSentences(sentence, frequency, muffledSounds);
 	}
+	
+	public static String replaceWithMuffle(String sentence, int wordToMuffleRatio) {
+		int muffles = sentence.split(" ").length/wordToMuffleRatio;
+		StringBuilder muffleSB = new StringBuilder();
+		for(int i=0; i<muffles; i++) {
+			muffleSB.append(muffledSounds[random.nextInt(muffledSounds.length)]);
+		}
+		muffleSB.delete(0, 1); // Remove space at start
+		return muffleSB.toString();
+	}
 
 	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", "~Ooh!~" };
 	/**
@@ -791,11 +855,7 @@ public class Util {
 	 *            modified sentence
 	 */
 	public static String addSexSounds(String sentence, int frequency) {
-		if(Math.random()<0.75f) { // 75% chance of the sex sounds to be more readable:
-			return insertIntoSentencesAtPunctuation(sentence, sexSounds);
-		} else {
-			return insertIntoSentences(sentence, frequency, sexSounds);
-		}
+		return insertIntoSentences(sentence, frequency, sexSounds);
 	}
 
 	private static String[] drunkSounds = new String[] { " ~Hic!~" };
@@ -814,17 +874,20 @@ public class Util {
 		
 		String [] split = sentence.split("\\[(.*?)\\]");
 		for(String s : split) {
-			String sReplace = s
-					.replaceAll("Hi ", "Heeey ")
-					.replaceAll("yes", "yesh")
-					.replaceAll("Is", "Ish")
-					.replaceAll("is", "ish")
-					.replaceAll("It's", "It'sh")
-					.replaceAll("it's", "it'sh")
-					.replaceAll("So", "Sho")
-					.replaceAll("so", "sho");
-			
-			sentence = sentence.replace(s, sReplace);
+			String [] splitConditional = s.split("#IF\\((.*?)\\)|#ELSEIF\\((.*?)\\)"); // Do not replace text inside conditional parsing statements
+			for(String s2 : splitConditional) {
+				String sReplace = s2
+						.replaceAll("Hi ", "Heeey ")
+						.replaceAll("yes", "yesh")
+						.replaceAll("Is", "Ish")
+						.replaceAll("is", "ish")
+						.replaceAll("It's", "It'sh")
+						.replaceAll("it's", "it'sh")
+						.replaceAll("So", "Sho")
+						.replaceAll("so", "sho");
+					
+					sentence = sentence.replace(s2, sReplace);
+			}
 		}
 		
 		return sentence;
@@ -835,6 +898,152 @@ public class Util {
 //			.replaceAll("is", "ish")
 //			.replaceAll("So", "Sho")
 //			.replaceAll("so", "sho");
+	}
+
+	private static Map<String, String> slovenlySpeechReplacementMap = new LinkedHashMap<>();
+	static {
+		slovenlySpeechReplacementMap.put("What are", "Wot's");
+		slovenlySpeechReplacementMap.put("what are", "wot's");
+		
+		slovenlySpeechReplacementMap.put("Are", "Is");
+		slovenlySpeechReplacementMap.put("are", "is");
+
+		slovenlySpeechReplacementMap.put("You're", "Yer");
+		slovenlySpeechReplacementMap.put("you're", "yer");
+		
+		slovenlySpeechReplacementMap.put("Your", "Yer");
+		slovenlySpeechReplacementMap.put("your", "yer");
+		
+		slovenlySpeechReplacementMap.put("You", "Ya");
+		slovenlySpeechReplacementMap.put("you", "ya");
+		
+		slovenlySpeechReplacementMap.put("Yourself", "Yerself");
+		slovenlySpeechReplacementMap.put("yourself", "yerself");
+
+		slovenlySpeechReplacementMap.put("You'd", "You's");
+		slovenlySpeechReplacementMap.put("you'd", "you's");
+		
+		slovenlySpeechReplacementMap.put("Going to", "Gonna");
+		slovenlySpeechReplacementMap.put("going to", "gonna");
+		
+		slovenlySpeechReplacementMap.put("To", "Ta");
+		slovenlySpeechReplacementMap.put("to", "ta");
+
+		slovenlySpeechReplacementMap.put("The", "Da");
+		slovenlySpeechReplacementMap.put("the", "da");
+
+		slovenlySpeechReplacementMap.put("Them", "Dem");
+		slovenlySpeechReplacementMap.put("them", "dem");
+
+		slovenlySpeechReplacementMap.put("And", "'An");
+		slovenlySpeechReplacementMap.put("and", "an'");
+		
+		slovenlySpeechReplacementMap.put("Of", "O'");
+		slovenlySpeechReplacementMap.put("of", "o'");
+		slovenlySpeechReplacementMap.put("Who", "O'");
+		slovenlySpeechReplacementMap.put("who", "o'");
+		
+		slovenlySpeechReplacementMap.put("Was", "Were");
+		slovenlySpeechReplacementMap.put("was", "were");
+		
+		slovenlySpeechReplacementMap.put("What", "Wot");
+		slovenlySpeechReplacementMap.put("what", "wot");
+		
+		slovenlySpeechReplacementMap.put("Isn't", "Ain't");
+		slovenlySpeechReplacementMap.put("isn't", "ain't");
+		slovenlySpeechReplacementMap.put("Aren't", "Ain't");
+		slovenlySpeechReplacementMap.put("aren't", "ain't");
+		
+		slovenlySpeechReplacementMap.put("This one", "This 'un");
+		slovenlySpeechReplacementMap.put("this one", "this 'un");
+		
+		slovenlySpeechReplacementMap.put("Before", "'Afore");
+		slovenlySpeechReplacementMap.put("before", "'afore");
+		
+		slovenlySpeechReplacementMap.put("Give me", "Gimme");
+		slovenlySpeechReplacementMap.put("give me", "gimme");
+		
+		slovenlySpeechReplacementMap.put("We're", "We's");
+		slovenlySpeechReplacementMap.put("we're", "we's");
+		
+		slovenlySpeechReplacementMap.put("So that", "So's");
+		slovenlySpeechReplacementMap.put("so that", "so's");
+
+		slovenlySpeechReplacementMap.put("Have not", "'Aven't");
+		slovenlySpeechReplacementMap.put("have not", "'aven't");
+		slovenlySpeechReplacementMap.put("Have", "'Ave");
+		slovenlySpeechReplacementMap.put("have", "'ave");
+
+		slovenlySpeechReplacementMap.put("Here", "'Ere");
+		slovenlySpeechReplacementMap.put("here", "'ere");
+		
+		slovenlySpeechReplacementMap.put("My", "Me");
+		slovenlySpeechReplacementMap.put("my", "me");
+
+		slovenlySpeechReplacementMap.put("That", "Dat");
+		slovenlySpeechReplacementMap.put("that", "dat");
+
+		slovenlySpeechReplacementMap.put("Some", "Sum");
+		slovenlySpeechReplacementMap.put("some", "sum");
+
+		slovenlySpeechReplacementMap.put("This", "Dis");
+		slovenlySpeechReplacementMap.put("this", "dis");
+		
+		slovenlySpeechReplacementMap.put("For", "Fer");
+		slovenlySpeechReplacementMap.put("for", "fer");
+		
+		slovenlySpeechReplacementMap.put("Very", "Real");
+		slovenlySpeechReplacementMap.put("very", "real");
+		
+		slovenlySpeechReplacementMap.put("Yes", "Yeah");
+		slovenlySpeechReplacementMap.put("yes", "yeah");
+	}
+	/**
+	 * Replaces words in the sentence to give the impression that the speaker is talking in a slovenly manner. The replacements are:
+			<br/>Are -> Is
+			<br/>You're -> Yer
+			<br/>Your -> Yer
+			<br/>You -> Ya
+			<br/>Yourself - Yerself
+			<br/>You'd -> You's
+			<br/>To -> Ta
+			<br/>The -> Da
+			<br/>Them -> Dem
+			<br/>And -> An'
+			<br/>Of -> 'O
+			<br/>Who -> 'O
+			<br/>Who -> 'O
+			<br/>Was -> Were
+			<br/>Isn't -> ain't
+			<br/>Aren't -> ain't
+			<br/>This one -> This 'un
+			<br/>Before -> 'afore
+			<br/>Give me -> Gimme
+			<br/>Going to -> gonna
+			<br/><i>X</i>ing -> <i>X</i>in'
+			<br/>We're -> We's
+			<br/>So that -> so's
+			<br/>Have not -> 'aven't
+			<br/>Have -> 'ave
+			<br/>My -> Me
+			<br/>That -> Dat
+			<br/>Some -> Sum
+			<br/>For -> Fer
+			<br/>Here -> 'ere
+			<br/>Very -> Real
+			<br/>Yes -> Yeah
+	 *
+	 * @param sentence The speech to which the lisp should be applied.
+	 * @return The modified sentence.
+	 */
+	public static String applySlovenlySpeech(String sentence) {
+		//Use non-letter regex replacement ([^A-Za-z0-9]) 
+		String modifiedSentence = sentence;
+		for(Entry<String, String> entry : slovenlySpeechReplacementMap.entrySet()) {
+			modifiedSentence = modifiedSentence.replaceAll("([^A-Za-z0-9]|^)"+entry.getKey()+"([^A-Za-z0-9])", "$1"+entry.getValue()+"$2");
+		}
+		modifiedSentence = modifiedSentence.replaceAll("ing([^A-Za-z0-9])", "in'$1");
+		return modifiedSentence;
 	}
 	
 	/**
@@ -847,23 +1056,44 @@ public class Util {
 	 * @return The modified sentence.
 	 */
 	public static String applyLisp(String sentence) {
-		String [] split = sentence.split("\\[(.*?)\\]");
-		for(String s : split) {
-			String sReplace = s
-				.replaceAll("s", "<i>th</i>")
-				.replaceAll("z", "<i>th</i>")
-				.replaceAll("S", "<i>Th</i>")
-				.replaceAll("Z", "<i>Th</i>");
+		StringBuilder modifiedSentence = new StringBuilder();
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingAngular = 0;
+		int closingAngular = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		for(int i = sentence.length()-1; i>=0; i--) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='<') {
+				openingAngular++;
+			} else if(sentence.charAt(i)=='>') {
+				closingAngular++;
+			}else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
 			
-			sentence = sentence.replace(s, sReplace);
+			if(openingCurly==closingCurly && openingAngular==closingAngular && openingSquare==closingSquare) {
+				if(sentence.charAt(i)=='s' || sentence.charAt(i)=='z') {
+					modifiedSentence.append(">i/<ht>i<");
+				} else if(sentence.charAt(i)=='S' || sentence.charAt(i)=='Z') {
+					modifiedSentence.append(">i/<hT>i<");
+				} else {
+					modifiedSentence.append(sentence.charAt(i));
+				}
+				
+			} else {
+				modifiedSentence.append(sentence.charAt(i));
+			}
 		}
 		
-		return sentence;
-//		return sentence
-//			.replaceAll("s", "<i>th</i>")
-//			.replaceAll("z", "<i>th</i>")
-//			.replaceAll("S", "<i>Th</i>")
-//			.replaceAll("Z", "<i>Th</i>");
+		modifiedSentence.reverse();
+		return modifiedSentence.toString();
 	}
 	
 	
@@ -942,6 +1172,10 @@ public class Util {
 
 	public static String inventorySlotsToStringList(List<InventorySlot> inventorySlots) {
 		return Util.toStringList(inventorySlots, InventorySlot::getName, "and");
+	}
+	
+	public static String inventorySlotsToParsedStringList(List<InventorySlot> inventorySlots, GameCharacter owner) {
+		return Util.toStringList(inventorySlots, ((slot) -> slot.getNameOfAssociatedPart(owner)), "and");
 	}
 	
 	public static String tattooInventorySlotsToStringList(List<InventorySlot> inventorySlots) {
@@ -1025,5 +1259,31 @@ public class Util {
 				errorLogMap.get(method).add(id);
 			}
 		}
+	}
+
+	public static String getFileName(File f) {
+		return f.getName().substring(0, f.getName().lastIndexOf('.'));
+	}
+	
+	public static String getFileIdentifier(File f) {
+		return f.getName().substring(0, f.getName().lastIndexOf('.')).replaceAll("'", "Q");
+	}
+	
+	public static String getFileName(String filePath) {
+		return filePath.substring(0, filePath.lastIndexOf('.'));
+	}
+	
+	public static String getFileIdentifier(String filePath) {
+		return filePath.substring(0, filePath.lastIndexOf('.')).replaceAll("'", "Q");
+	}
+
+	public static  <T extends Enum<T>> List<T> toEnumList(final Collection<Element> elements, final Class<T> enumType) {
+		return elements.stream()
+			.map(Element::getTextContent)
+			.map(x -> {
+				try { return T.valueOf(enumType, x); }
+				catch (Exception e) { return null; } })
+			.filter(x -> x != null)
+			.collect(Collectors.toList());
 	}
 }

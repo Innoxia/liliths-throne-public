@@ -11,17 +11,17 @@ import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
-import com.lilithsthrone.game.sex.positions.SexPositionOther;
-import com.lilithsthrone.game.sex.positions.SexSlot;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
-import com.lilithsthrone.game.sex.positions.SexSlotOther;
+import com.lilithsthrone.game.sex.positions.SexPosition;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 
 /**
  * A generic sex manager, meant to be used for initialising generic sex scenes. Will typically start in the 'standing' position.
  * 
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMGeneric extends SexManagerDefault {
@@ -81,37 +81,113 @@ public class SMGeneric extends SexManagerDefault {
 		SexSlot[] slotsSubmissive;
 		if(nonBiped) { // This scene contains characters who are non-bipedal, so use the SexPositionOther classes:
 			if(tags.contains(ResponseTag.PREFER_DOGGY)) {
-				this.position = SexPositionOther.ALL_FOURS;
+				this.position = SexPosition.ALL_FOURS;
 				if(submissives.size()==1) {
-					slotsDominant = new SexSlot[] {SexSlotOther.ALL_FOURS_MOUNTING, SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET};
+					slotsDominant = new SexSlot[] {SexSlotAllFours.BEHIND, SexSlotAllFours.IN_FRONT};
 				} else {
-					slotsDominant = new SexSlot[] {SexSlotOther.ALL_FOURS_MOUNTING, SexSlotOther.ALL_FOURS_MOUNTING_TWO, SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET, SexSlotOther.IN_FRONT_OF_ALL_FOURS_TARGET_TWO};
+					slotsDominant = new SexSlot[] {SexSlotAllFours.BEHIND, SexSlotAllFours.BEHIND_TWO, SexSlotAllFours.IN_FRONT, SexSlotAllFours.IN_FRONT_TWO};
 				}
-				slotsSubmissive = new SexSlot[] {SexSlotOther.ALL_FOURS_FUCKED, SexSlotOther.ALL_FOURS_FUCKED_TWO};
+				slotsSubmissive = new SexSlot[] {SexSlotAllFours.ALL_FOURS, SexSlotAllFours.ALL_FOURS_TWO, SexSlotAllFours.ALL_FOURS_THREE, SexSlotAllFours.ALL_FOURS_FOUR};
+				
+			} else if(tags.contains(ResponseTag.PREFER_ORAL)) {
+				this.position = SexPosition.STANDING;
+				slotsDominant = new SexSlot[] {SexSlotStanding.STANDING_DOMINANT, SexSlotStanding.STANDING_DOMINANT_TWO, SexSlotStanding.STANDING_DOMINANT_THREE, SexSlotStanding.STANDING_DOMINANT_FOUR};
+				if(dominants.size()==1) {
+					if(dominants.get(0).hasPenis() || !dominants.get(0).isTaur()) {
+						slotsSubmissive = new SexSlot[] {SexSlotStanding.PERFORMING_ORAL, SexSlotStanding.PERFORMING_ORAL_BEHIND, SexSlotStanding.PERFORMING_ORAL_TWO, SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO};
+					} else {
+						slotsSubmissive = new SexSlot[] {SexSlotStanding.PERFORMING_ORAL_BEHIND, SexSlotStanding.PERFORMING_ORAL, SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO, SexSlotStanding.PERFORMING_ORAL_TWO};
+					}
+				} else {
+					slotsSubmissive = new SexSlot[] {SexSlotStanding.PERFORMING_ORAL, SexSlotStanding.PERFORMING_ORAL_TWO, SexSlotStanding.PERFORMING_ORAL_THREE, SexSlotStanding.PERFORMING_ORAL_FOUR};
+				}
+				
+			} else if(tags.contains(ResponseTag.PREFER_COW_GIRL)) {
+				this.position = SexPosition.LYING_DOWN;
+				if(submissives.size()==1) {
+					slotsDominant = new SexSlot[] {SexSlotLyingDown.COWGIRL, SexSlotLyingDown.FACE_SITTING_REVERSE};
+				} else {
+					slotsDominant = new SexSlot[] {SexSlotLyingDown.COWGIRL, SexSlotLyingDown.COWGIRL_TWO, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.FACE_SITTING_REVERSE_TWO};
+				}
+				slotsSubmissive = new SexSlot[] {SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.LYING_DOWN_TWO, SexSlotLyingDown.LYING_DOWN_THREE, SexSlotLyingDown.LYING_DOWN_FOUR};
+				
+			} else if(tags.contains(ResponseTag.PREFER_MISSIONARY)) {
+				this.position = SexPosition.LYING_DOWN;
+				if(submissives.size()==1) {
+					if(dominants.size()>=2 &&!dominants.get(0).hasPenis()) {
+						slotsDominant = new SexSlot[] {SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.BESIDE, SexSlotLyingDown.BESIDE_TWO};
+							
+					} else {
+						slotsDominant = new SexSlot[] {SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.BESIDE, SexSlotLyingDown.BESIDE_TWO};
+					}
+				} else {
+					slotsDominant = new SexSlot[] {SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.MISSIONARY_TWO, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.FACE_SITTING_REVERSE_TWO};
+				}
+				slotsSubmissive = new SexSlot[] {SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.LYING_DOWN_TWO, SexSlotLyingDown.LYING_DOWN_THREE, SexSlotLyingDown.LYING_DOWN_FOUR};
 				
 			} else {
-				this.position = SexPositionOther.STANDING;
-				slotsDominant = new SexSlot[] {SexSlotOther.STANDING_DOMINANT, SexSlotOther.STANDING_DOMINANT_TWO};
-				slotsSubmissive = new SexSlot[] {SexSlotOther.STANDING_SUBMISSIVE, SexSlotOther.STANDING_SUBMISSIVE_TWO};
+				this.position = SexPosition.STANDING;
+				slotsDominant = new SexSlot[] {SexSlotStanding.STANDING_DOMINANT, SexSlotStanding.STANDING_DOMINANT_TWO, SexSlotStanding.STANDING_DOMINANT_THREE, SexSlotStanding.STANDING_DOMINANT_FOUR};
+				slotsSubmissive = new SexSlot[] {SexSlotStanding.STANDING_SUBMISSIVE, SexSlotStanding.STANDING_SUBMISSIVE_TWO, SexSlotStanding.STANDING_SUBMISSIVE_THREE, SexSlotStanding.STANDING_SUBMISSIVE_FOUR};
 			}
 			
 		} else {
 			if(tags.contains(ResponseTag.PREFER_DOGGY)) {
-				this.position = SexPositionBipeds.DOGGY_STYLE;
+				this.position = SexPosition.ALL_FOURS;
 				if(submissives.size()==1) {
-					slotsDominant = new SexSlot[] {SexSlotBipeds.DOGGY_BEHIND, SexSlotBipeds.DOGGY_INFRONT, SexSlotBipeds.DOGGY_INFRONT_TWO, SexSlotBipeds.DOGGY_FEET};
+					slotsDominant = new SexSlot[] {SexSlotAllFours.BEHIND, SexSlotAllFours.IN_FRONT, SexSlotAllFours.IN_FRONT_TWO, SexSlotAllFours.USING_FEET};
 				} else {
 					slotsDominant = new SexSlot[] {
-							SexSlotBipeds.DOGGY_BEHIND, SexSlotBipeds.DOGGY_BEHIND_SECOND,
-							SexSlotBipeds.DOGGY_INFRONT, SexSlotBipeds.DOGGY_INFRONT_SECOND,
-							SexSlotBipeds.DOGGY_INFRONT_TWO, SexSlotBipeds.DOGGY_INFRONT_SECOND_TWO};
+							SexSlotAllFours.BEHIND, SexSlotAllFours.BEHIND_TWO,
+							SexSlotAllFours.IN_FRONT, SexSlotAllFours.IN_FRONT_TWO,
+							SexSlotAllFours.IN_FRONT_THREE, SexSlotAllFours.IN_FRONT_FOUR};
 				}
-				slotsSubmissive = new SexSlot[] {SexSlotBipeds.DOGGY_ON_ALL_FOURS, SexSlotBipeds.DOGGY_ON_ALL_FOURS_SECOND, SexSlotBipeds.DOGGY_ON_ALL_FOURS_THIRD, SexSlotBipeds.DOGGY_ON_ALL_FOURS_FOURTH};
+				slotsSubmissive = new SexSlot[] {SexSlotAllFours.ALL_FOURS, SexSlotAllFours.ALL_FOURS_TWO, SexSlotAllFours.ALL_FOURS_THREE, SexSlotAllFours.ALL_FOURS_FOUR};
+
+			} else if(tags.contains(ResponseTag.PREFER_ORAL)) {
+				this.position = SexPosition.STANDING;
+				slotsDominant = new SexSlot[] {
+						SexSlotStanding.STANDING_DOMINANT,
+						SexSlotStanding.STANDING_DOMINANT_TWO,
+						SexSlotStanding.STANDING_DOMINANT_THREE,
+						SexSlotStanding.STANDING_DOMINANT_FOUR};
+				if(dominants.size()==1) {
+					slotsSubmissive = new SexSlot[] {SexSlotStanding.PERFORMING_ORAL, SexSlotStanding.PERFORMING_ORAL_TWO, SexSlotStanding.PERFORMING_ORAL_THREE, SexSlotStanding.PERFORMING_ORAL_BEHIND};
+				} else {
+					slotsSubmissive = new SexSlot[] {
+							SexSlotStanding.PERFORMING_ORAL,
+							SexSlotStanding.PERFORMING_ORAL_TWO,
+							SexSlotStanding.PERFORMING_ORAL_THREE,
+							SexSlotStanding.PERFORMING_ORAL_FOUR};
+				}
+			
+			} else if(tags.contains(ResponseTag.PREFER_COW_GIRL)) {
+				this.position = SexPosition.LYING_DOWN;
+				if(submissives.size()==1) {
+					slotsDominant = new SexSlot[] {SexSlotLyingDown.COWGIRL, SexSlotLyingDown.FACE_SITTING_REVERSE};
+				} else {
+					slotsDominant = new SexSlot[] {SexSlotLyingDown.COWGIRL, SexSlotLyingDown.COWGIRL_TWO, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.FACE_SITTING_REVERSE_TWO};
+				}
+				slotsSubmissive = new SexSlot[] {SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.LYING_DOWN_TWO, SexSlotLyingDown.LYING_DOWN_THREE, SexSlotLyingDown.LYING_DOWN_FOUR};
+				
+			} else if(tags.contains(ResponseTag.PREFER_MISSIONARY)) {
+				this.position = SexPosition.LYING_DOWN;
+				if(submissives.size()==1) {
+					if(dominants.size()>=2 &&!dominants.get(0).hasPenis()) {
+						slotsDominant = new SexSlot[] {SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.BESIDE, SexSlotLyingDown.BESIDE_TWO};
+							
+					} else {
+						slotsDominant = new SexSlot[] {SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.BESIDE, SexSlotLyingDown.BESIDE_TWO};
+					}
+				} else {
+					slotsDominant = new SexSlot[] {SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.MISSIONARY_TWO, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.FACE_SITTING_REVERSE_TWO};
+				}
+				slotsSubmissive = new SexSlot[] {SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.LYING_DOWN_TWO, SexSlotLyingDown.LYING_DOWN_THREE, SexSlotLyingDown.LYING_DOWN_FOUR};
 				
 			} else {
-				this.position = SexPositionBipeds.STANDING;
-				slotsDominant = new SexSlot[] {SexSlotBipeds.STANDING_DOMINANT};
-				slotsSubmissive = new SexSlot[] {SexSlotBipeds.STANDING_SUBMISSIVE};
+				this.position = SexPosition.STANDING;
+				slotsDominant = new SexSlot[] {SexSlotStanding.STANDING_DOMINANT, SexSlotStanding.STANDING_DOMINANT_TWO, SexSlotStanding.STANDING_DOMINANT_THREE, SexSlotStanding.STANDING_DOMINANT_FOUR};
+				slotsSubmissive = new SexSlot[] {SexSlotStanding.STANDING_SUBMISSIVE, SexSlotStanding.STANDING_SUBMISSIVE_TWO, SexSlotStanding.STANDING_SUBMISSIVE_THREE, SexSlotStanding.STANDING_SUBMISSIVE_FOUR};
 			}
 		}
 		setUpVariables(dominants, slotsDominant, submissives, slotsSubmissive);
@@ -159,6 +235,8 @@ public class SMGeneric extends SexManagerDefault {
 				case PREFER_DOGGY:
 				case PREFER_MISSIONARY:
 				case PREFER_ORAL:
+				case PREFER_COW_GIRL:
+				case DISABLE_POSITIONING:
 					break;
 				case START_PACE_PLAYER_DOM_GENTLE:
 					if(character.isPlayer()) {

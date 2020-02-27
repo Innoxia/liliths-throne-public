@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 
+	<!-- OUTSIDE -->
+	
+	<htmlContent tag="OUTSIDE"><![CDATA[
+	<p>
+		As you navigate through the labyrinthine passageways of Dominion's back-alleys, you start to hear the faint murmur of voices somewhere before you. Proceeding with caution, you slowly step around the next corner, and find yourself looking into a small, well-kept courtyard.
+	</p>
+	<p>
+		Clean, grey cobblestones line the floor, and in the middle of the little square, surrounded by wooden benches, a bubbling stream of water cascades out of a finely-crafted stone fountain. On three of its sides, multiple narrow entrances link this area to the surrounding alleyways, but it's what's on the fourth that draws your attention. A huge, open gateway, flanked by a pair of muscular horse-boys, has been built into the wall, and it's through this opening that the sound of a busy marketplace can be heard.
+	</p>
+	<p>
+		As you step closer, neither of the guards react to your presence, and you notice that their attention is focused solely on who's trying to leave the area beyond. Crossing the courtyard, you see that the words 'Slaver Alley' have been cast into the dull iron framing of the gate, and on the walls to either side, promotional posters for different vendors have been plastered over the red bricks.
+	</p>
+	<p>
+		It looks as though any member of the public is free to come and go as they please.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GATEWAY -->
+	
+	<htmlContent tag="GATEWAY"><![CDATA[
+	<p>
+		You find yourself standing in the gateway that links Slaver Alley to the rest of Dominion. On either side of you, horse-boy guards keep a watchful eye on anyone that passes through here; obviously on the lookout for runaway slaves.
+	</p>
+	<p>
+		A touristy-looking information board, looking quite out of place with its surroundings, has been fixed to a nearby wall, and upon reading it, you discover that a powerful arcane shield has been erected over the entire area, which prevents the effects of any on-going arcane storms from being felt by any of the marketplace's occupants. True enough, as you glance up at the sky above, you see the faint pink crackle of the shield's arcane energy, reassuring you that you needn't worry about attacks from any horny customers.
+	</p>
+	<p>
+		There are only a couple of other pieces of information that are of any real relevance to you. In large red writing at the top of the information board, you read that you must be in possession of a slaver license before being able to buy or sell slaves here. Underneath, the sentence telling you that you can obtain a license from the Slaver Administration building is crossed out, and in scrawling writing, the words 'Slaver Licenses are not being issued' has been written beneath.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ALLEYWAY -->
+	
+	<htmlContent tag="ALLEYWAY"><![CDATA[
+	<p>
+		You find yourself walking down one of Slaver Alley's numerous interconnected passageways. Lined with clean, grey cobblestone, and being almost as wide as a normal street, they're quite unlike the regular sort of passages that make up the rest of Dominion's back-alleys.
+		#IF(game.isDayTime())
+			 Colourful canvas awnings have been unfurled from the sides of the surrounding buildings, and, looking up through the gap in the middle, you see a faint pink crackle evidence of the shield that protects Slaver Alley from arcane storms.
+		#ELSE
+			 A series of arcane-powered lights cast a flickering glow over the area, and as you look up at the night sky, you see a faint pink crackle evidence of the shield that protects Slaver Alley from arcane storms.
+		#ENDIF
+	</p>
+	<p>
+		Although not as busy as Dominion's main streets, there are still a significant amount of people wandering about, and you often have to push your way through small crowds that inexplicably decide to loiter right in the middle of the path. The close proximity of the surrounding buildings echoes and amplifies the crowd's inane chatter, making Slaver Alley feel more alive than any other part of the city you've wandered through.
+	</p>
+	<p>
+		The most striking feature of this area is the manner of goods that are sold here. Down each passageway, multiple wooden stands have been erected, and on top each one, slaves of all different races and sexes are being publicly displayed. You see that information boards have been attached to each one of these stands, giving you instructions as to which shop you need to visit in order to negotiate the purchase of the wares on display.
+	</p>
+	<p>
+		Glancing up at the slaves as you pass, you notice that the one thing they all have in common is that they're all wearing metal collars of some sort or another. Apart from that peculiar accessory, the vast majority of them are completely naked, although you do see a few that have been dressed in skimpy pieces of highly-revealing clothing.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MARKET_STALL_FEMALE -->
+	
 	<htmlContent tag="MARKET_STALL_FEMALE"><![CDATA[
 	<p>
 		In the far right corner of Slaver Alley's main square, sits the slaver shop, 'A Woman's Touch'. The delicate pink lettering which proudly displays this establishment's name is painted over the dark purple silhouette of an hourglass-shaped woman.
@@ -27,6 +88,9 @@
 	]]>
 	</htmlContent>
 
+	
+	<!-- MARKET_STALL_MALE -->
+	
 	<htmlContent tag="MARKET_STALL_MALE"><![CDATA[
 	<p>
 		In the far left corner of Slaver Alley's main square, there's a slave shop that's quite unlike most of the others. Whereas all the other buildings that you've passed have had ornately-painted signs and decorative frontages, the one before you is of a plain wooden finish, and has it's name, 'Iron & Steel', burnt into the framework.
@@ -50,6 +114,9 @@
 	]]>
 	</htmlContent>
 
+	
+	<!-- MARKET_STALL_ANAL -->
+	
 	<htmlContent tag="MARKET_STALL_ANAL"><![CDATA[
 	<p>
 		On one of the three sides of the square, a shop proudly displays an ass-shaped sign bearing the words, 'The Rear Entrance'. Knowing exactly what sort of slaves must be sold in there, you take a look through the large glass windows as you pass. Sure enough, you see that the slaves on display are all making sure to show off their asses, each of which is decorated by either a plain or jewelled butt-plug.
@@ -73,6 +140,9 @@
 	]]>
 	</htmlContent>
 
+	
+	<!-- MARKET_STALL_VAGINAL -->
+	
 	<htmlContent tag="MARKET_STALL_VAGINAL"><![CDATA[
 	<p>
 		On the far side of the square, a slave shop has had its frontage painted all in white, and in flowing pink lettering, the name 'White Lilies' is painted beside an artistic depiction of a bunch of the very same flowers. It's quite clear from the feminine decor, as well as the fact that all of the naked slaves in the windows are showing off their well-kept pussies, that this particular store specialises in slaves who are in possession of female genitals.
@@ -96,6 +166,9 @@
 	]]>
 	</htmlContent>
 
+	
+	<!-- MARKET_STALL_ORAL -->
+	
 	<htmlContent tag="MARKET_STALL_ORAL"><![CDATA[
 	<p>
 		On one side of the square, a rather shabby-looking slave store bears a mouth-shaped sign displaying the words, 'Viva Voce'. Beneath this, someone's scrawled some graffiti, and as you step forwards to take a closer look, you see that whoever wrote it wasn't the best at spelling, as it reads: 'It meens speakin fanci'.
@@ -125,12 +198,46 @@
 	]]>
 	</htmlContent>
 
+	
+	<!-- MARKET_STALL_STATUE -->
+	
+	<htmlContent tag="MARKET_STALL_STATUE_TRUTH"><![CDATA[
+	<p>
+		In the middle of a small square on one side of Slaver Alley, there sits a very striking statue. Made completely out of jet-black obsidian, and standing at least twelve feet from head-to-toe, it's a masterfully-crafted depiction of what appears to be a buxom female fallen angel, with wide hips and massive, GG-cup breasts.
+	</p>
+	<p>
+		Her huge, feathered wings reach up to the sky behind her, and, linked by heavy chains, bracers have been clasped around her delicate wrists and ankles. One of her hands is reaching down between her legs, where she's lewdly spreading her
+		#IF(game.isGapeContentEnabled())
+			 tentacled, gaping pussy
+		#ELSE
+			 tentacled pussy
+		#ENDIF
+		 for all to see, while the other is reaching around behind her back in order to dig her slender fingers into her exposed asshole.
+	</p>
+	<p>
+		Looking up at her face, you see that her beautiful features are contorted into an orgasmic scream, and, as evidence that her corruption has manifested itself into physical transformations other than just the one between her legs, an abnormally long tongue drops down out of her open mouth to push its way into one of her lip-shaped nipples, which appears in turn to be desperately sucking on the wet, squirming muscle.
+	</p>
+	<p>
+		This lewd statue sits upon a squat, stone pedestal, no higher than six feet or so, and as you approach, you see these words appear: 'My name is Marlel, once the humblest of all angels; Look upon my form, ye enemies of Lilith, and despair.'
+	</p>
+	<p>
+		From what Lyssieth told you, this is no ordinary statue, and is in fact the petrified form of the corrupted archangel Marlel. Lyssieth's eldest sister, Lirecea, is responsible for her current situation, and you wonder if you'll be able to force the elder lilin to revert the petrification process when you inevitably end up confronting her. Possessing no way to release Marlel from her stone prison, you let out a sigh, and, taking one last look at her lewd visage, you continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="MARKET_STALL_STATUE"><![CDATA[
 	<p>
 		In the middle of a small square on one side of Slaver Alley, there sits a very striking statue. Made completely out of jet-black obsidian, and standing at least twelve feet from head-to-toe, it's a masterfully-crafted depiction of what appears to be a female fallen angel.
 	</p>
 	<p>
-		Her huge, feathered wings reach up to the sky behind her, and, linked by heavy chains, bracers have been clasped around her delicate wrists and ankles. One of her hands is reaching down between her legs, where she's lewdly spreading her tentacled, gaping pussy for all to see, while the other is reaching around behind her back in order to dig her slender fingers into her exposed asshole.
+		Her huge, feathered wings reach up to the sky behind her, and, linked by heavy chains, bracers have been clasped around her delicate wrists and ankles. One of her hands is reaching down between her legs, where she's lewdly spreading her
+		#IF(game.isGapeContentEnabled())
+			 tentacled, gaping pussy
+		#ELSE
+			 tentacled pussy
+		#ENDIF
+		 for all to see, while the other is reaching around behind her back in order to dig her slender fingers into her exposed asshole.
 	</p>
 	<p>
 		Looking up at her face, you see that her beautiful features are contorted into an orgasmic scream, and, as evidence that her corruption has manifested itself into physical transformations other than just the one between her legs, an abnormally long tongue drops down out of her open mouth to push its way into one of her lip-shaped nipples, which appears in turn to be desperately sucking on the wet, squirming muscle.
@@ -144,25 +251,9 @@
 	]]>
 	</htmlContent>
 
-	<htmlContent tag="MARKET_STALL_STATUE_TRUTH"><![CDATA[
-	<p>
-		In the middle of a small square on one side of Slaver Alley, there sits a very striking statue. Made completely out of jet-black obsidian, and standing at least twelve feet from head-to-toe, it's a masterfully-crafted depiction of what appears to be a buxom female fallen angel, with wide hips and massive, GG-cup breasts.
-	</p>
-	<p>
-		Her huge, feathered wings reach up to the sky behind her, and, linked by heavy chains, bracers have been clasped around her delicate wrists and ankles. One of her hands is reaching down between her legs, where she's lewdly spreading her tentacled, gaping pussy for all to see, while the other is reaching around behind her back in order to dig her slender fingers into her exposed asshole.
-	</p>
-	<p>
-		Looking up at her face, you see that her beautiful features are contorted into an orgasmic scream, and, as evidence that her corruption has manifested itself into physical transformations other than just the one between her legs, an abnormally long tongue drops down out of her open mouth to push its way into one of her lip-shaped nipples, which appears in turn to be desperately sucking on the wet, squirming muscle.
-	</p>
-	<p>
-		This lewd statue sits upon a squat, stone pedestal, no higher than six feet or so, and as you approach, you see these words appear: 'My name is Marlel, once the humblest of all angels; Look upon my form, ye enemies of Lilith, and despair.'
-	</p>
-	<p>
-		From what Lyssieth told you, this is no ordinary statue, and is in fact the petrified form of the corrupted archangel Marlel. Lyssieth's eldest sister, Lirecea, is responsible for her current situation, and you wonder if you'll be able to force the elder lilin to revert the petrification process when you inevitably end up confronting her. Possessing no way to release Marlel from her stone prison, you let out a sigh, and, taking one last look at her lewd visage, you continue on your way...
-	</p>
-	]]>
-	</htmlContent>
-
+	
+	<!-- MARKET_STALL_EXCLUSIVE -->
+	
 	<htmlContent tag="MARKET_STALL_EXCLUSIVE"><![CDATA[
 	<p>
 		Deciding that you'd like to take a look inside one of the many shops that fill Slaver Alley, you approach the entrance to the nearest building. In order to display yet more slaves to passing customers, you see that a series of large glass windows have been installed into the walls before you. As you walk up to the entrance, some of the slaves standing behind these windows glance your way; no doubt wondering if you'll be their next owner.
@@ -179,6 +270,9 @@
 	]]>
 	</htmlContent>
 
+	
+	<!-- MARKET_STALL_BULK -->
+	
 	<htmlContent tag="MARKET_STALL_BULK"><![CDATA[
 	<p>
 		Near the entrance of Slaver Alley, a pair of huge warehouses take up the entirety of one side of the street. Looking up at the large lettering that's printed across the front of each of them, you see that these warehouses are owned by the 'Royal Dominion Company'.
@@ -189,6 +283,9 @@
 	]]>
 	</htmlContent>
 
+	
+	<!-- MARKET_STALL_CAFE -->
+	
 	<htmlContent tag="MARKET_STALL_CAFE"><![CDATA[
 	<p>
 		Scattered around Slaver Alley, there appear to be several cozy-looking cafes. Wondering if you could enter one of these to get a drink, you step up to the front door, but your entrance is barred by a muscular-looking wolf-girl, who snarls, [genericFemale.speech(You're not a member of the Zaibatsu Exchange, are you, punk?!)]
@@ -198,5 +295,82 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
+	
+	<!-- MARKET_STALL -->
+	
+	<htmlContent tag="MARKET_STALL"><![CDATA[
+	<p>
+		Deciding that you'd like to take a look inside one of the shops, you approach the entrance to the nearest building. In order to display yet more slaves to passing customers, you see that a series of large glass windows have been installed into the walls before you. As you walk up to the entrance, some of the slaves standing behind these windows glance your way; no doubt wondering if you'll be their next owner.
+	</p>
+	<p>
+		Pushing open the door, you step inside the shop, and find that the interior is surprisingly clean, well-lit, and airy. Yet more slaves line the walls around you, and in the middle of the room, the shop's owner cries out a greeting from behind a circular wooden desk.
+	</p>
+	<p>
+		After browsing the wares for a moment, you decide that you've had enough. After all, without a permit, you're unable to buy anything.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BOUNTY_HUNTERS -->
+	
+	<htmlContent tag="BOUNTY_HUNTERS"><![CDATA[
+	<p>
+		On the opposite side of the street to the Slavery Administration building, there's a timber-framed tavern bearing the name 'Bounty Hunter Lodge'. A sign near to the door declares it to be open twenty-four hours a day, seven days of the week, and is the best place in the city to find and hire bounty hunters willing to track down runaway slaves.
+	</p>
+	<p>
+		The bright lights shining out of the crooked old windows, combined with the loud sounds of merriment coming from within, informs you that there are a multitude of people currently inside. If you wanted to, you could step in through the open doors and take a look inside.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BOUNTY_HUNTERS_ENTER"><![CDATA[
+	<p>
+		Pushing open the front door, you step into the establishment and take a look around... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BOUNTY_HUNTERS_INTERIOR -->
+	
+	<htmlContent tag="BOUNTY_HUNTERS_INTERIOR"><![CDATA[
+	<p>
+		The interior of the 'Bounty Hunter Lodge' takes the form of a large open-plan dining area, with a long wooden bar running along the far wall. The expansive floor area is filled with long wooden tables and benches, which are currently seating a large number of people of all different shapes and sizes. From the heady smell in the air and the inebriated shouts and laughter coming from the tavern's patrons, you can safely assume that a large portion of most bounty hunter's pay-checks are spent in here on alcohol.
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(silence))
+			Sitting all alone in one corner of the large hall, you see the familiar figure of Silence, the albino rat-girl whom you first met serving as one of Vengar's bodyguards. You wonder if you should head over and say something to her, or turn around and leave...
+		#ELSE
+			As you don't have any business with these bounty hunters, there's not much else you can do but turn around and leave...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BOUNTY_HUNTERS_INTERIOR_LEAVE"><![CDATA[
+	<p>
+		Deciding that you've had enough of being in this place, you exit in the same way you entered, and soon find yourself standing back outside in Slaver Alley... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AUCTION_BLOCK -->
+	
+	<htmlContent tag="AUCTION_BLOCK"><![CDATA[
+	<p>
+		As you walk towards Slaver Alley's central courtyard, the excited buzz of hundreds of voices grows louder and louder. The source of this incessant din is hard to miss, and takes the form a huge, bustling crowd, which has surrounded a raised wooden platform. Several noticeboards, elevated above the heads of the energetic mob by means of several-[unit.lSize]-high poles, declare this area to be for 'Public Auctions'.
+	</p>
+	<p>
+		#IF(pc.isHasSlaverLicense())
+			Being in possession of a slaver's license, you wonder if you should approach the stage and participate in the next auction.
+		#ELSE
+			The noticeboards also declare that you'd need a slaver license in order to participate in any auctions, so, not being in possession of one yourself, there'd be no point in approaching the stage.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
 </dialogue>

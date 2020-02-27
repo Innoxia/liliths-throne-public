@@ -196,6 +196,13 @@ input:focus {
 .center {
 	text-align:center;
 }
+.centre {
+	text-align:center;
+}
+.noPad {
+	padding:0;
+	margin:0;
+}
 
 /***********************************************************/
 /*GENERAL*/
@@ -331,9 +338,6 @@ input:focus {
 	-webkit-box-sizing: border-box;
 	cursor:pointer;
 }
-.normal-button.hour{
-	background-color: #ddd;
-}
 .normal-button:hover{
 	background-color: #bbb;
 }
@@ -341,14 +345,8 @@ input:focus {
 	background-color: #bbb;
 	border:solid 1px #aaa;
 }
-.normal-button.hour.selected{
-	background-color: #186737;
-}
 .normal-button.selected:hover{
 	background-color: #777;
-}
-.normal-button.hour.selected:hover{
-	background-color: #239550;
 }
 .normal-button.disabled{
 	color: #bbb;
@@ -357,11 +355,24 @@ input:focus {
 .normal-button.disabled:hover{
 	background-color: #ccc;
 }
-.normal-button.hour.disabled{
-	background-color: #ddd;
+
+.normal-button.hour{
+	opacity: 0.8;
 }
-.normal-button.hour.disabled.selected{
-	background-color: #ddd;
+.normal-button.hour:hover{
+	opacity: 1;
+}
+.normal-button.hour.selected{
+	opacity: 0.8;
+}
+.normal-button.hour.selected:hover{
+	opacity: 1;
+}
+.normal-button.hour.disabled{
+	opacity: 0.3;
+}
+.normal-button.hour.disabled:hover{
+	opacity: 0.4;
 }
 
 /***********************************************************/
@@ -943,6 +954,9 @@ position:relative;
 	width:18%;
 	margin:1%;
 	-webkit-box-sizing: border-box;
+}
+.inventory-item-slot :hover {
+	opacity:1;
 }
 .inventory-item-slot.piercing{
 	width:23%;
@@ -1526,60 +1540,6 @@ position:relative;
 }
 .transparent {
 	background-color:transparent;
-}
-.unknown {
-	background-color:#AFAFB6;
-}
-.unknown:hover{
-	background-color:#C9C9CF;
-}
-.common {
-	background-color:#BDBDC1;
-}
-.common:hover{
-	background-color:#CFCFD3;
-}
-.uncommon {
-	background-color:#3D5C47;
-}
-.uncommon:hover{
-	background-color:#5A8767;
-}
-.rare {
-	background-color:#B4D0EE;
-}
-.rare:hover{
-	background-color:#C1DAF1;
-}
-.epic {
-	background-color:#DDC1E2;
-}
-.epic:hover{
-	background-color:#ECDCEF;
-}
-.legendary {
-	background-color:#F1DEA7;
-}
-.legendary:hover{
-	background-color:#F7EAC5;
-}
-.unique {
-	background-color:#F4C9AE;
-}
-.unique:hover{
-	background-color:#FBE7DB;
-}
-.quest {
-	background-color:#BEE4E4;
-}
-.quest:hover{
-	background-color:#E0F1F1;
-}
-.jinxed {
-	background-color:#E3B5B5;
-}
-.jinxed:hover{
-	background-color:#F3E3E3;
 }
 
 /***********************************************************/
@@ -2268,19 +2228,26 @@ border-radius:5px;
 	line-height:20px;
 }
 
-.response-icon{
+.response-icon-leftTop{
 	position:absolute;
-	height:14px;
-	width:14px;
+	height:11px;
+	width:11px;
 	bottom:2px;
 	left:2px;
 }
-.response-icon-left{
+.response-icon-leftBottom{
 	position:absolute;
-	height:14px;
-	width:14px;
+	height:11px;
+	width:11px;
 	top:2px;
 	left:2px;
+}
+.response-icon-rightBottom{
+	position:absolute;
+	height:11px;
+	width:11px;
+	bottom:2px;
+	right:2px;
 }
 
 .option-disabled{

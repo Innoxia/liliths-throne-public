@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.positions;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexActionInteractions;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -22,7 +22,7 @@ public abstract class VariableInteractions {
 	}
 	
 	protected static GameCharacter getCharacter(SexSlot slot) {
-		GameCharacter performer = Sex.getCharacterInPosition(slot);
+		GameCharacter performer = Main.sex.getCharacterInPosition(slot);
 		if(performer==null) {
 			performer = characterForPositionTesting==null?Main.game.getPlayer():characterForPositionTesting;
 		}

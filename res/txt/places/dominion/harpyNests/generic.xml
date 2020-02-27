@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ENTRANCE_ENFORCER_POST_CANDIS_LOLLIPOPS"><![CDATA[
+	<p>
+		Wanting to retrieve these 'contraband lollipops' and return to Candi as quickly as possible, you walk up to the nearest Enforcer, who takes the form of a particularly bored-looking dog-boy. As he looks up to see who it is who's approaching him, you tell him that you're here to collect the lollipops and return them to the Enforcer headquarters.
+	</p>
+	<p>
+		[genericMale.speech(You mean that contraband box sitting out back?)] he asks, [genericMale.speech(On whose authority are you taking it?)]
+	</p>
+	<p>
+		Remembering the secret password that Candi gave you, you tell the dog-boy that it's a 'priority thunder' order, and that any unnecessary delay will see both of you getting into serious trouble.
+	</p>
+	<p>
+		[genericMale.speech(Hey, shit, you should have said so sooner,)] the dog-boy says, clearly shaken by your casual use of this password, [genericMale.speech(Wait here just one minute, I'll go fetch that box right away.)]
+	</p>
+	<p>
+		With that, he quickly rushes off into a back room, and, sure enough, after less than a minute he returns, box-in-hand. Passing it over to you, he warns, [genericMale.speech(Just don't go opening this box and letting anyone eat any of these. Some crazy harpy bitch had them made to take out a rival flock. Apparently, they contain some sort of high-powered permanent aphrodisiac, and you can't get any relief from it just by masturbating, either. Nasty stuff.)]
+	</p>
+	<p>
+		Thanking him for the warning, you take the box and turn to continue on your way. As you wonder whether you should head straight back to deliver this to Candi or not, the dog-boy steps up behind you and says one final thing, [genericMale.speech(Oh, and I guess you already know, but the priority codes are being changed again at midnight. Stay safe out there.)]
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	
+</dialogue>

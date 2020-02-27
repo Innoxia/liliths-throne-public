@@ -51,7 +51,7 @@ public enum SpellSchool {
 			+ "<p>"
 				+ "Students of the school of Air are able to effortlessly control the temperature of air around them, making sure that they're never too hot or too cold."
 			+ "</p>",
-			"Passive energy and arcane regeneration is doubled.",
+			"Passive "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+" regeneration is doubled.",
 			Colour.BASE_BLUE_LIGHT),
 	
 	FIRE("fire",
@@ -63,7 +63,7 @@ public enum SpellSchool {
 				+ " Due to this, the only demons who choose to study the school of Fire are those who are interested in arcane research, those who are directly involved in heat-intensive industries, or those who expect to do a lot of fighting."
 			+ "</p>"
 			+ "<p>"
-				+ "Students of the school of Fire are able to temporarily envelop their melee weapons in arcane fire, which grants them additional fire damage on every attack."
+				+ "By sacrificing a portion of their health, students of the school of Fire are able to cast Fire spells even when out of aura."
 			+ "</p>",
 			"When out of aura, fire spells will be cast at 1/4 spell cost by using "+Attribute.HEALTH_MAXIMUM.getName()+".",
 			Colour.BASE_ORANGE),

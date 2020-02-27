@@ -517,7 +517,7 @@
 		[pc.speech(I'm sorry, I didn't mean to upset you,)] you say, hearing the sad tone in Lyssieth's voice.
 	</p>
 	<p>
-		[lyssieth.speech(No, it's only fair that you know of my motivation for helping you,)] the elder lilin replies, before continuing, [lyssieth.speech(Anyway, once I came to accept that I'd never get the chance to see him again, I made a promise to his memory that I'd do everything in my power to protect humans. From that day onwards, mother always suspected that my loyalties had shifted, and when I refused to corrupt the archangel she gave to me, she knew for certain that I wasn't to be trusted. After this new reality was created, she gave me one last chance to change my ways, but, ignoring her ultimatum, I continues seeing humans in secret. I just can't resist them...)]
+		[lyssieth.speech(No, it's only fair that you know of my motivation for helping you,)] the elder lilin replies, before continuing, [lyssieth.speech(Anyway, once I came to accept that I'd never get the chance to see him again, I made a promise to his memory that I'd do everything in my power to protect humans. From that day onwards, mother always suspected that my loyalties had shifted, and when I refused to corrupt the archangel she gave to me, she knew for certain that I wasn't to be trusted. After this new reality was created, she gave me one last chance to change my ways, but, ignoring her ultimatum, I continued seeing humans in secret. I just can't resist them...)]
 	</p>
 	<p>
 		[lilaya.speech(And when you fucked Arthur behind my back, Lilith found out and locked you up?)] Lilaya angrily questions.
@@ -850,7 +850,7 @@
 		[genericFemale.speech(Lyssieth, we have Valoel cornered in the throne room,)] your lilin sister, Orialyss, informs you. [genericFemale.speech(What shall we do with the humans?)]
 	</p>
 	<p>
-		[lyssieth.speech(Restrain them,)] you command, sweeping past the scarlet-skinned succubus as you set off down the palace's hallway. [lyssieth.speech(Their treachery cannot go unpunished. I will see to them later.)]
+		[lyssieth.speechNoEffects(Restrain them,)] you command, sweeping past the scarlet-skinned succubus as you set off down the palace's hallway. [lyssieth.speechNoEffects(Their treachery cannot go unpunished. I will see to them later.)]
 	</p>
 	<p>
 		Orialyss falls in behind you, following in your footsteps as you make your way to where your other lilin subordinates have trapped your angelic foe. With Valoel soon to be captured, you'll finally be able to return to the comfort of your human harem, and, with that thought in mind, you can't help but grin as you step over the shattered remains of the throne room's doors and come face-to-face with the archangel himself.
@@ -865,13 +865,13 @@
 		[genericMale.speech(Stop it!)] Valoel weakly shouts, clutching his side in pain, [genericMale.speech(Just spare my friends, and I'll surrender!)]
 	</p>
 	<p>
-		[lyssieth.speech(Ha... Hahaha!)] you can't help but burst out laughing at the foolish archangel's request, and, seeing the hilarity of a defeated foe trying to make demands of you, the ten lilin start jeering and snickering at Valoel.
+		[lyssieth.speechNoEffects(Ha... Hahaha!)] you can't help but burst out laughing at the foolish archangel's request, and, seeing the hilarity of a defeated foe trying to make demands of you, the ten lilin start jeering and snickering at Valoel.
 	</p>
 	<p>
 		[genericMale.speech(Foul creatures!)] the archangel shouts, and with surprising speed, he lunges directly at you, sword in hand.
 	</p>
 	<p>
-		Although an immensely powerful being in his own right, he's no match for a natural-born daughter of Lilith herself, and you let out a patronising 'aww' as you easily sidestep his attack. Grabbing him by the neck, you use a blast of arcane force to swiftly disarm him, and, pulling him into your embrace, you tease, [lyssieth.speech(My, my, what a spirited thing you are! My sisters and I will have a lot of fun with you...)]
+		Although an immensely powerful being in his own right, he's no match for a natural-born daughter of Lilith herself, and you let out a patronising 'aww' as you easily sidestep his attack. Grabbing him by the neck, you use a blast of arcane force to swiftly disarm him, and, pulling him into your embrace, you tease, [lyssieth.speechNoEffects(My, my, what a spirited thing you are! My sisters and I will have a lot of fun with you...)]
 	</p>
 	<p>
 		At that moment, the other lilin in the room suddenly all turn to face the doorway through which you entered, and, as one, they drop down onto one knee. [genericFemale.speech([style.glowArcane(Most impressive, Lyssieth. As a reward, you may keep that creature as your pet.)])]
@@ -1051,7 +1051,13 @@
 
 	<htmlContent tag="END_FINAL"><![CDATA[
 	<p>
-		Standing up from the sofa, you step over to [siren.namePos] desk and take the offered map. Looking down at the parchment in your [pc.hands], you see that it depicts a large area, measuring 150 square kilometres around Dominion. There looks to be a large amount of farmland surrounding the capital, which is bordered by an expanse of wild grassland and forests. To the north, there's a huge expanse of what's marked as jungle, while to the south, the farmland transitions first into a wide savannah, and then into a desert.
+		Standing up from the sofa, you step over to [siren.namePos] desk and take the offered map. Looking down at the parchment in your [pc.hands], you see that it depicts a large area, with each of the square edges of the map measuring
+		#IF(game.isMetricSizes())
+			 150 kilometres
+		#ELSE
+			 just over 90 miles
+		#ENDIF
+		 in length. There looks to be a large amount of farmland surrounding the capital, which is bordered by an expanse of wild grassland and forests. To the north, there's a huge expanse of what's marked as jungle, while to the south, the farmland transitions first into a wide savannah, and then into a desert.
 	</p>
 	<p>
 		[siren.speech(Elis is here,)] [siren.name] says, pointing to a mark west of Dominion. You look across to see that the town is just a few kilometres to the east of the area marked as the 'Shinrin highlands', and that it looks to be roughly 35km from Dominion itself.

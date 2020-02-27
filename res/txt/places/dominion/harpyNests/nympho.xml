@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="HARPY_NEST_NYMPHO"><![CDATA[
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_nymphoEncountered))
+				Due to the ongoing arcane storm, [harpyNympho.namePos] nest is completely deserted. Her entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to her.
+			#ELSE
+				Due to the ongoing arcane storm, this nest is completely deserted. The entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to the matriarch of this particular nest.
+			#ENDIF
+		</p>
+	#ELSEIF(!game.isExtendedWorkTime())
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_bimboEncountered))
+				Due to the current hour, [bimboHarpy.namePos] nest is completed deserted; both she and her flock have retired to the comfort of the buildings below in order to get a good night's rest. With the entrances to their night-time residence being securely locked, you're left with no choice but to return at another time if you wanted to speak to her.
+			#ELSE
+				Due to the current hour, this nest is completed deserted; both the matriarch and her flock have retired to the comfort of the buildings below in order to get a good night's rest. With the entrances to their night-time residence being securely locked, you're left with no choice but to return at another time if you wanted to speak to her.
+			#ENDIF
+		</p>
+	#ELSE
+		#IF(game.getDialogueFlags().hasFlag(FLAG_nymphoEncountered))
+			<p>
+				You find yourself standing on the outskirts of [harpyNympho.namePos] nest; one of the most populous of all the nests in Dominion. Despite the importance of the matriarch who resides here, her nest is no bigger than any of the minor ones scattered throughout the Harpy Nests, and comprises of a single, large platform built into the rooftops of several houses below.
+				#IF(game.isDayTime())
+					 What her nest lacks in size, it more than makes up for in population, and you see what must be well over a hundred harpies loitering about on the nest's platform.
+				#ELSE
+					 What her nest lacks in size, it more than makes up for in population, and under the illumination of bright, arcane-powered lights, you see what must be well over a hundred harpies loitering about on the nest's platform.
+				#ENDIF
+			</p>
+			<p>
+				Taking a closer look at the multi-coloured inhabitants of this particular nest, you notice that something's slightly off about them. While still looking very pretty, the vast majority of the flock are rather plain-looking by harpy standards. A few of the nest's members stand out as being exceptionally beautiful in comparison, and you realise that those must be the only females of this particular flock. Knowing about [harpyNympho.namePos] obsession with sex, you surmise that she's gathered a huge following of males in order to keep her craving for cock satisfied.
+			</p>
+			<p>
+				Looking towards the centre of the platform, you see if you can spot the nymphomaniac matriarch herself. A flash of exceptionally bright pink feathers reveals her location, and, from her bouncing movements, you can tell that she's busy riding yet another of her flock's members. The harpies of this flock seem to be only interested in waiting for a turn with their matriarch, and would allow you to approach [harpyNympho.name] without any trouble.
+			</p>
+		#ELSE
+			<p>
+				You find yourself standing on the outskirts of one of the most populous, and most important, of all the nests in Dominion. Despite the high social standing of the matriarch who resides here, her nest is no bigger than any of the minor ones scattered throughout the Harpy Nests, and comprises of a single, large platform built into the rooftops of several houses below.
+				#IF(game.isDayTime())
+					 What her nest lacks in size, it more than makes up for in population, and you see what must be well over a hundred harpies loitering about on the nest's platform.
+				#ELSE
+					 What her nest lacks in size, it more than makes up for in population, and under the illumination of bright, arcane-powered lights, you see what must be well over a hundred harpies loitering about on the nest's platform.
+				#ENDIF
+			</p>
+			<p>
+				Taking a closer look at the multi-coloured inhabitants of this particular nest, you notice that something's slightly off about them. While still looking very pretty, the vast majority of the flock are rather plain-looking by harpy standards. A few of the nest's members stand out as being exceptionally beautiful in comparison, and you realise that those must be the only females of this particular flock. For whatever reason, the matriarch of this particular nest has gathered a huge following of males, marking it as one of the most unusual nests in Dominion.
+			</p>
+			<p>
+				Looking towards the centre of the platform, you see if you can spot this nest's matriarch. A flash of exceptionally bright pink feathers reveals her location, and, from her bouncing movements, it looks like she's riding one of her flock's males. The harpies of this flock don't seem to show much interest in you, and, if you had any business with her, would allow you to approach their matriarch without any trouble.
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	
+</dialogue>

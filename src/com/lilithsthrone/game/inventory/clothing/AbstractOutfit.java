@@ -20,6 +20,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
@@ -127,7 +128,9 @@ public abstract class AbstractOutfit {
 				break;
 		}
 		
-		if(this.getWorldTypes()!=null && !this.getWorldTypes().contains(character.getWorldLocation())) {
+		if(this.getWorldTypes()!=null
+				&& !this.getWorldTypes().isEmpty()
+				&& !this.getWorldTypes().contains(character.getWorldLocation())) {
 			return false;
 		}
 		
@@ -241,7 +244,11 @@ public abstract class AbstractOutfit {
 							weapons.add(getWeapon(e));
 						}
 						if(!weapons.isEmpty()) {
-							character.equipMainWeaponFromNowhere(Util.randomItemFrom(weapons));
+							AbstractWeapon wep = Util.randomItemFrom(weapons);
+							character.equipMainWeaponFromNowhere(wep);
+							if(wep.getWeaponType().getArcaneCost()>0) {
+								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(2+Util.random.nextInt(9)), false); // GIve them enough essences for 2-10 shots
+							}
 						}
 					} catch(Exception e){
 						e.printStackTrace();
@@ -261,7 +268,11 @@ public abstract class AbstractOutfit {
 							weapons.add(getWeapon(e));
 						}
 						if(!weapons.isEmpty()) {
-							character.equipOffhandWeaponFromNowhere(Util.randomItemFrom(weapons));
+							AbstractWeapon wep = Util.randomItemFrom(weapons);
+							character.equipOffhandWeaponFromNowhere(wep);
+							if(wep.getWeaponType().getArcaneCost()>0) {
+								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(2+Util.random.nextInt(9)), false); // GIve them enough essences for 2-10 shots
+							}
 						}
 					} catch(Exception e){
 						e.printStackTrace();
@@ -329,9 +340,11 @@ public abstract class AbstractOutfit {
 					
 					Collections.shuffle(guaranteedClothingEquips);
 					for(AbstractClothing c : guaranteedClothingEquips) {
-						if(c.getClothingType().getSlot().isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES)) {
+						if(c.getClothingType().getEquipSlots().get(0).isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES)) {
 							c.setName(UtilText.parse(character, c.getName()));
-							character.equipClothingOverride(c, false, false);
+							if(!character.isSlotIncompatible(c.getClothingType().getEquipSlots().get(0))) {
+								character.equipClothingOverride(c, c.getClothingType().getEquipSlots().get(0), false, false);
+							}
 						}
 					}
 				}
@@ -358,7 +371,7 @@ public abstract class AbstractOutfit {
 										.map( e -> ItemTag.valueOf(e.getTextContent()))
 										.filter(Objects::nonNull)
 										.collect(Collectors.toList());
-								if(!ct.getItemTags().containsAll(tags)) {
+								if(!ct.getDefaultItemTags().containsAll(tags)) {
 									continue;
 								}
 							}
@@ -421,7 +434,7 @@ public abstract class AbstractOutfit {
 								anyConditionalsFound = true;
 								
 								InventorySlot slot = InventorySlot.valueOf(genericClothingType.getMandatoryFirstOf("slot").getTextContent());
-								if(ct.getSlot()!=slot) {
+								if(ct.getEquipSlots().get(0)!=slot) {
 									continue;
 								}
 							}
@@ -462,7 +475,7 @@ public abstract class AbstractOutfit {
 						if(!anyConditionalsFound) {
 							break;
 						}
-						if(ct.isCanBeEquipped(character)) {
+						if(ct.isAbleToBeBeEquipped(character, ct.getEquipSlots().get(0)).getKey()) {
 							ctList.add(ct);
 						}
 					}
@@ -484,7 +497,7 @@ public abstract class AbstractOutfit {
 							.stream()
 							.map( e -> {
 								AbstractClothingType ct = ClothingType.getClothingTypeFromId(e.getTextContent());
-								if(!ct.isCanBeEquipped(character)) {
+								if(!ct.isAbleToBeBeEquipped(character, ct.getEquipSlots().get(0)).getKey()) {
 									return null;
 								}
 								return ct;
@@ -519,20 +532,22 @@ public abstract class AbstractOutfit {
 				for(OutfitPotential ot : outfitPotentials) {
 					Collections.shuffle(ot.getTypes());
 					for(AbstractClothingType ct : ot.getTypes()) {
-						if(character.getClothingInSlot(ct.getSlot())==null
-								&& (ct.getSlot().isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES))) {
-							AbstractClothing clothing = AbstractClothingType.generateClothing(
-									ct,
-									ot.getPrimaryColours().isEmpty()?null:Util.randomItemFrom(ot.getPrimaryColours()),
-									ot.getSecondaryColours().isEmpty()?null:Util.randomItemFrom(ot.getSecondaryColours()),
-									ot.getTertiaryColours().isEmpty()?null:Util.randomItemFrom(ot.getTertiaryColours()), false);
-							
-							character.equipClothingOverride(
-									clothing,
-									false,
-									false);
-							
-							// Patterns are set when the clothing is created, so this was only used for testing. I've commented it out instead of deleting it as I may need it fo further testing use.
+						if(character.getClothingInSlot(ct.getEquipSlots().get(0))==null
+								&& (ct.getEquipSlots().get(0).isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES))) {
+							if(!character.isSlotIncompatible(ct.getEquipSlots().get(0))) {
+								AbstractClothing clothing = AbstractClothingType.generateClothing(
+										ct,
+										ot.getPrimaryColours().isEmpty()?null:Util.randomItemFrom(ot.getPrimaryColours()),
+										ot.getSecondaryColours().isEmpty()?null:Util.randomItemFrom(ot.getSecondaryColours()),
+										ot.getTertiaryColours().isEmpty()?null:Util.randomItemFrom(ot.getTertiaryColours()), false);
+								
+								character.equipClothingOverride(
+										clothing,
+										ct.getEquipSlots().get(0),
+										true, // Need to replace clothing as otherwise you get things like bras and overbust corsets being equipped together, with each of them blocking the other's removal.
+										false);
+							}
+							// Patterns are set when the clothing is created, so this was only used for testing. I've commented it out instead of deleting it as I may need it for further testing use.
 //							if(clothing.getClothingType().isPatternAvailable()) {
 //								clothing.setPattern(Util.randomItemFrom(new ArrayList<>(Pattern.getAllDefaultPatterns().values())).getName());
 //								clothing.setPatternColour(clothing.getColour());

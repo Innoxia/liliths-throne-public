@@ -9,19 +9,23 @@
 		<description><![CDATA[A necklace made out of the three keys you acquired from the imp fortresses in Submission.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
-		<slot>NECK</slot>
-		<rarity>QUEST</rarity>
+    <equipSlots>
+      <slot>NECK</slot>
+      <slot>WRIST</slot>
+    </equipSlots>
+
+    <rarity>QUEST</rarity>
 		<clothingSet/>
 		<imageName>key_chain.svg</imageName>
-		<imageEquippedName/>
+    <imageEquippedName slot="WRIST">key_chain.svg</imageEquippedName>
 		<enchantmentLimit>15</enchantmentLimit>
 		<effects>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_UNARMED" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
 		</effects>
-
-		<blockedPartsList>
+		
+		<blockedPartsList slot="NECK">
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired/>
@@ -30,9 +34,19 @@
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-
-		<incompatibleSlots/>
-
+    <blockedPartsList slot="WRIST">
+      <blockedParts>
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        <clothingAccessRequired/>
+        <blockedBodyParts/>
+        <clothingAccessBlocked/>
+        <concealedSlots/>
+      </blockedParts>
+    </blockedPartsList>
+		
+		<incompatibleSlots slot="NECK"/>
+    <incompatibleSlots slot="WRIST"/>
+		
 		<primaryColours>
 			<colour>CLOTHING_SILVER</colour>
 		</primaryColours>
@@ -45,12 +59,11 @@
 			<colour>CLOTHING_GOLD</colour>
 		</tertiaryColours>
 		<tertiaryColoursDye values="ALL_METAL"/>
-
+	
 		<itemTags/>
 	</coreAttributes>
 
-
-  <replacementText type="REMOVE_OR_EQUIP">
+  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(drape)] the key-chain around [npc.her] neck.]]>
     </self>
@@ -58,11 +71,10 @@
       <![CDATA[[npc.Name] [npc.verb(drape)] the key-chain around [npc2.namePos] neck.]]>
     </other>
     <otherRough>
-      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos], before [npc.verb(drape)] the key-chain around [npc2.her] neck.]]>
+      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before draping the key-chain around [npc2.her] neck.]]>
     </otherRough>
   </replacementText>
-
-  <displacementText type="REMOVE_OR_EQUIP">
+  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(take)] hold of [npc.her] key-chain, before lifting it up and over [npc.her] head.]]>
     </self>
@@ -73,5 +85,27 @@
       <![CDATA[[npc.Name] roughly [npc.verb(grab)] the key-chain, before yanking it up and over [npc2.namePos] head.]]>
     </otherRough>
   </displacementText>
-
+	
+  <replacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(take)] hold of [npc.her] key-chain, before wrapping it around [npc.her] wrist.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(take)] hold of the key-chain, before wrapping it around [npc2.namePos] wrist.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos] wrist, wrapping the key-chain tightly around it.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(take)] hold of [npc.her] key-chain, unwrapping it from around [npc.her] wrist.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(take)] hold of [npc2.namePos] key-chain, unwrapping it from around [npc2.her] wrist.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(grab)] [npc2.namePos] key-chain, ripping it from [npc2.her] wrist.]]>
+    </otherRough>
+  </displacementText>
 </clothing>

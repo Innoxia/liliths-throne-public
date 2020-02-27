@@ -21,7 +21,11 @@ import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaOral;
 import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaSex;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.SexPosition;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
@@ -37,14 +41,14 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class CityHallDemographics {
-
+	
 	public static final DialogueNode CITY_HALL_DEMOGRAPHICS_ENTRANCE = new DialogueNode("Bureau of Demographics", "-", true) {
-
+		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "CITY_HALL_DEMOGRAPHICS_ENTRANCE");
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -64,7 +68,7 @@ public class CityHallDemographics {
 						}
 					}
 				};
-
+				
 			} else if (index == 0) {
 				return new Response("Leave", "Decide against bothering [vanessa.name], and head back out into the corridor.", CityHall.CITY_HALL_CORRIDOR) {
 					@Override
@@ -73,33 +77,33 @@ public class CityHallDemographics {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "CITY_HALL_DEMOGRAPHICS_ENTRANCE_TURN_BACK"));
 					}
 				};
-
+				
 			} else {
 				return null;
 			}
 		}
 	};
-
+	
 	public static final DialogueNode CITY_HALL_DEMOGRAPHICS_MAIN = new DialogueNode("Bureau of Demographics", "-", true) {
-
+		
 		@Override
 		public String getContent() {
 			return "";
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Name change", "Ask [vanessa.name] about getting your name changed.", NAME_CHANGE);
-
+				
 			} else if (index == 2) {
 				if(Main.game.getPlayer().hasItemType(ItemType.OFFSPRING_MAP)) {
 					return new Response("Offspring map", "You've already purchased an offspring map from [vanessa.name], and do not need another one.", null);
-
+					
 				} else {
 					return new Response("Offspring map", "Ask [vanessa.name] about obtaining a map of where any offspring of yours live.", OFFSPRING_MAP);
 				}
-
+				
 			} else if (index == 3) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaDailyHelped)) {
 					return new Response("Offer help", "You've already helped [vanessa.name] with her work today.", null);
@@ -110,34 +114,34 @@ public class CityHallDemographics {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaDailyHelped, true);
 						Main.game.getNpc(Vanessa.class).setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_ARCHIVES);
 						Main.game.getPlayer().setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_ARCHIVES);
-
+						
 						for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
 							character.setNearestLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_CORRIDOR, false);
 						}
 					}
 				};
-
+				
 			} else if (index == 4 && (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaDailyHelped) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaMassaged))) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaDailyMassage)) {
 					return new Response("Foot massage", "You've already given [vanessa.name] a foot massage today. She won't want another one until tomorrow.", null);
 				}
-
+				
 				return new Response("Foot massage", "Offer [vanessa.name] a foot massage.", FOOT_MASSAGE) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaDailyMassage, true);
-
+						
 						try {
 							Main.game.getNpc(Vanessa.class).unequipClothingIntoVoid(Main.game.getNpc(Vanessa.class).getClothingInSlot(InventorySlot.FOOT), true, Main.game.getNpc(Vanessa.class));
 						} catch(Exception ex) { System.err.println("Vanessa is not wearing any shoes!"); }
-
+						
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "FOOT_MASSAGE"));
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "FOOT_MASSAGE_CORE"));
-
+						
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 5));
 					}
 				};
-
+				
 			} else if (index == 5
 					&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaDailyHelped)
 					&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaFucked)
@@ -146,18 +150,18 @@ public class CityHallDemographics {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaDailyMassage, true);
-
+						
 						try {
 							Main.game.getNpc(Vanessa.class).unequipClothingIntoVoid(Main.game.getNpc(Vanessa.class).getClothingInSlot(InventorySlot.FOOT), true, Main.game.getNpc(Vanessa.class));
 						} catch(Exception ex) { System.err.println("Vanessa is not wearing any shoes!"); }
-
+						
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "FOOT_MASSAGE_BEG"));
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "FOOT_MASSAGE_CORE"));
-
+						
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 5));
 					}
 				};
-
+				
 			} else if (index == 6) {
 				return new Response("Cataloguing", "Ask [vanessa.name] about what sort of cataloguing work she's responsible for.", QUESTION_CATALOGUING) {
 					@Override
@@ -166,7 +170,7 @@ public class CityHallDemographics {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaAskedAboutCatalogue, true);
 					}
 				};
-
+				
 			} else if (index == 7) {
 				return new Response("Solitary", "Ask [vanessa.name] why she's the only person working in this department.", QUESTION_SOLITARY) {
 					@Override
@@ -175,7 +179,7 @@ public class CityHallDemographics {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaAskedAboutSolitary, true);
 					}
 				};
-
+				
 			} else if(index==10 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaHelped)) {
 				return new ResponseEffectsOnly("Calling her: [vanessa.Name]", "Cycle between calling the elderly fox-girl 'Ms. Cunningham' and 'Vanessa'.") {
 					@Override
@@ -183,7 +187,7 @@ public class CityHallDemographics {
 						Main.game.getNpc(Vanessa.class).setPlayerKnowsName(!Main.game.getNpc(Vanessa.class).isPlayerKnowsName());
 					}
 				};
-
+				
 			} if (index == 0) {
 				return new Response("Leave", "Decide against bothering [vanessa.name], and head back out into the corridor.", CityHall.CITY_HALL_CORRIDOR) {
 					@Override
@@ -192,7 +196,7 @@ public class CityHallDemographics {
 						Main.game.getNpc(Vanessa.class).setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_ARCHIVES);
 					}
 				};
-
+				
 			} else {
 				return null;
 			}
@@ -200,44 +204,44 @@ public class CityHallDemographics {
 	};
 
 	public static final DialogueNode QUESTION_CATALOGUING = new DialogueNode("Bureau of Demographics", "-", true) {
-
+		
 		@Override
 		public String getContent() {
 			return "";
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==6) {
-				return new Response("Cataloguing", "You just asked [vanessa.name] how name cataloguing works.", null);
+				return new Response("Cataloguing", "You just asked [vanessa.name] how name cataloguing works.", null); 
 			}
 			return CITY_HALL_DEMOGRAPHICS_MAIN.getResponse(responseTab, index);
 		}
 	};
 
 	public static final DialogueNode QUESTION_SOLITARY = new DialogueNode("Bureau of Demographics", "-", true) {
-
+		
 		@Override
 		public String getContent() {
 			return "";
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==7) {
-				return new Response("Solitary", "You just asked [vanessa.name] why she's the only person working in this department.", null);
+				return new Response("Solitary", "You just asked [vanessa.name] why she's the only person working in this department.", null); 
 			}
 			return CITY_HALL_DEMOGRAPHICS_MAIN.getResponse(responseTab, index);
 		}
 	};
-
+	
 	public static final DialogueNode OFFER_HELP = new DialogueNode("Bureau of Demographics", "-", true) {
-
+		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "OFFER_HELP");
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vanessaHelped)) {
@@ -248,44 +252,44 @@ public class CityHallDemographics {
 							Main.game.getNpc(Vanessa.class).setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
 							Main.game.getPlayer().setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
 							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 10));
-
+							
 							for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
 								character.setNearestLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_CORRIDOR, false);
 							}
 						}
-					};
-
+					};	
+					
 				}
-
+				
 			} else {
 				if (index == 1) {
 					return new Response("Vanessa", "Tell the elderly fox-girl that you'd be happy to call her 'Vanessa', before getting to work on cataloguing papers.", OFFER_HELP_FINISH) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "OFFER_HELP_VANESSA"));
-
+							
 							Main.game.getNpc(Vanessa.class).setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
 							Main.game.getPlayer().setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
 							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 15));
-
+							
 							for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
 								character.setNearestLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_CORRIDOR, false);
 							}
 							Main.game.getNpc(Vanessa.class).setPlayerKnowsName(true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaHelped, true);
 						}
-					};
-
+					};	
+					
 				} else if(index==2) {
 					return new Response("Ms. Cunningham", "Tell the elderly fox-girl that you prefer to call her 'Ms. Cunningham', before getting to work on cataloguing papers.", OFFER_HELP_FINISH) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "OFFER_HELP_MS_CUNNINGHAM"));
-
+							
 							Main.game.getNpc(Vanessa.class).setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
 							Main.game.getPlayer().setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS);
 							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 10));
-
+							
 							for(GameCharacter character : Main.game.getPlayer().getCompanions()) {
 								character.setNearestLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_CORRIDOR, false);
 							}
@@ -295,31 +299,31 @@ public class CityHallDemographics {
 					};
 				}
 			}
-
+			
 			return null;
 		}
 	};
-
+	
 	public static final DialogueNode OFFER_HELP_FINISH = new DialogueNode("Bureau of Demographics", "-", true, true) {
-
+		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "OFFER_HELP_FINISH");
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return CITY_HALL_DEMOGRAPHICS_MAIN.getResponse(responseTab, index);
 		}
 	};
-
+	
 	public static final DialogueNode FOOT_MASSAGE = new DialogueNode("Bureau of Demographics", "-", true) {
-
+		
 		@Override
 		public String getContent() {
 			return "";
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -330,11 +334,11 @@ public class CityHallDemographics {
 						try {
 							Main.game.getNpc(Vanessa.class).unequipClothingIntoVoid(Main.game.getNpc(Vanessa.class).getClothingInSlot(InventorySlot.SOCK), true, Main.game.getNpc(Vanessa.class));
 						} catch(Exception ex) { System.err.println("Vanessa is not wearing pantyhose!"); }
-
+						
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Vanessa.class).incrementAffection(Main.game.getPlayer(), 5));
 					}
 				};
-
+				
 			} else if (index == 2) {
 				return new Response("Stop", "Stop giving [vanessa.name] a foot massage.", CITY_HALL_DEMOGRAPHICS_MAIN) {
 					@Override
@@ -344,20 +348,20 @@ public class CityHallDemographics {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "FOOT_MASSAGE_STOP"));
 					}
 				};
-
+				
 			} else {
 				return null;
 			}
 		}
 	};
-
+	
 	public static final DialogueNode BARE_FOOT_MASSAGE = new DialogueNode("Bureau of Demographics", "-", true, true) {
-
+		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "BARE_FOOT_MASSAGE");
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -368,8 +372,9 @@ public class CityHallDemographics {
 						"Shuffle forwards between [vanessa.namePos] legs and start eating her out.",
 						true, true,
 						new SMVanessaOral(
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotBipeds.CHAIR_ORAL_SITTING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_KNEELING))),
+								SexPosition.SITTING,
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.PERFORMING_ORAL))),
 						null,
 						null,
 						END_ORAL_SEX,
@@ -383,7 +388,7 @@ public class CityHallDemographics {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaFucked, true);
 					}
 				};
-
+				
 			} else if (index == 2) {
 				return new Response("Stop", "Stop giving [vanessa.name] a foot massage.", CITY_HALL_DEMOGRAPHICS_MAIN) {
 					@Override
@@ -392,7 +397,7 @@ public class CityHallDemographics {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "BARE_FOOT_MASSAGE_STOP"));
 					}
 				};
-
+				
 			} else {
 				return null;
 			}
@@ -400,7 +405,7 @@ public class CityHallDemographics {
 	};
 
 	public static final DialogueNode END_ORAL_SEX = new DialogueNode("Pushed back", "[vanessa.Name] pushes you away from her pussy and grins down at you...", true) {
-
+		
 		@Override
 		public String getContent() {
 			if(Sex.getNumberOfOrgasms(Main.game.getPlayer())>0) {
@@ -409,22 +414,31 @@ public class CityHallDemographics {
 				return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "END_ORAL_SEX_NO_ORGASM");
 			}
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				if(Main.game.getPlayer().hasPenis() && (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true) || !Main.game.getPlayer().hasVagina())) {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+						boolean biped = !Main.game.getPlayer().isTaur();
 						return new ResponseSex("Sex",
-								"Push [vanessa.name] back onto her desk and fuck her.",
+								biped
+									?"Push [vanessa.name] back onto her desk and fuck her."
+									:"Mount [vanessa.name] and start fucking her.",
 								true, true,
-								new SMVanessaSex(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_DOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotBipeds.MISSIONARY_DESK_SUB))),
+								biped
+									?new SMVanessaSex(
+											SexPosition.OVER_DESK,
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.BETWEEN_LEGS)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotDesk.OVER_DESK_ON_BACK)))
+									:new SMVanessaSex(
+											SexPosition.ALL_FOURS,
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.BEHIND)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotAllFours.ALL_FOURS))),
 								null,
 								null,
 								END_SEX,
-								UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "START_SEX_FUCK_ON_DESK")){
+								UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "START_SEX_FUCKING_VANESSA")){
 							@Override
 							public List<InitialSexActionInformation> getInitialSexActions() {
 								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Vanessa.class), PenisVagina.PENIS_FUCKING_START, false, true));
@@ -434,19 +448,28 @@ public class CityHallDemographics {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaFucked, true);
 							}
 						};
-
+						
 					} else {
 						return new Response("Sex", "As you cannot get access to your cock, [vanessa.name] cannot have sex with you...", null);
 					}
-
+					
 				} else if(Main.game.getPlayer().hasVagina()) {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+						boolean biped = !Main.game.getPlayer().isTaur();
 						return new ResponseSex("Receive cunnilingus",
-								"Allow [vanessa.name] to swap places with you so that she can eat you out.",
+								biped
+									?"Allow [vanessa.name] to swap places with you so that she can eat you out."
+									:"Allow [vanessa.name] to kneel behind you so that she can eat you out.",
 								true, true,
-								new SMVanessaOral(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_ORAL_SITTING)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotBipeds.CHAIR_KNEELING))),
+								biped
+									?new SMVanessaOral(
+											SexPosition.SITTING,
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotSitting.PERFORMING_ORAL)))
+									:new SMVanessaOral(
+											SexPosition.STANDING,
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotStanding.PERFORMING_ORAL_BEHIND))),
 								null,
 								null,
 								END_SEX_ORAL_RECEIVING,
@@ -460,19 +483,28 @@ public class CityHallDemographics {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaFucked, true);
 							}
 						};
-
+						
 					} else {
 						return new Response("Receive cunnilingus", "As you cannot get access to your pussy, [vanessa.name] cannot have sex with you...", null);
 					}
-
+					
 				} else {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+						boolean biped = !Main.game.getPlayer().isTaur();
 						return new ResponseSex("Receive oral",
-								"Allow [vanessa.name] to swap places with you so that she can perform oral on your genderless mound.",
+								biped
+									?"Allow [vanessa.name] to swap places with you so that she can perform oral on your genderless mound."
+									:"Allow [vanessa.name] to kneel behind you so that she can perform oral on your genderless mound.",
 								true, true,
-								new SMVanessaOral(
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.CHAIR_ORAL_SITTING)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotBipeds.CHAIR_KNEELING))),
+								biped
+									?new SMVanessaOral(
+											SexPosition.SITTING,
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotSitting.PERFORMING_ORAL)))
+									:new SMVanessaOral(
+											SexPosition.STANDING,
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+											Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotStanding.PERFORMING_ORAL_BEHIND))),
 								null,
 								null,
 								END_SEX_ORAL_RECEIVING,
@@ -482,12 +514,12 @@ public class CityHallDemographics {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaFucked, true);
 							}
 						};
-
+						
 					} else {
-						return new Response("Receive cunnilingus", "As you cannot get access to your genderless mound, [vanessa.name] cannot have sex with you...", null);
+						return new Response("Receive oral", "As you cannot get access to your genderless mound, [vanessa.name] cannot have sex with you...", null);
 					}
 				}
-
+				
 			} else if(index==2) {
 				return new Response("Decline", "Tell [vanessa.name] that you've had enough for now.", CITY_HALL_DEMOGRAPHICS_MAIN) {
 					@Override
@@ -497,13 +529,13 @@ public class CityHallDemographics {
 					}
 				};
 			}
-
+			
 			return null;
 		}
 	};
-
+	
 	public static final DialogueNode END_SEX = new DialogueNode("Finished", "Having had enough sex for now, the two of you start to get your clothing back in order...", true) {
-
+		
 		@Override
 		public String getContent() {
 			if(Sex.getNumberOfOrgasms(Main.game.getPlayer())>0) {
@@ -512,7 +544,7 @@ public class CityHallDemographics {
 				return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "END_SEX_NO_PLAYER_ORGASM");
 			}
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return CITY_HALL_DEMOGRAPHICS_MAIN.getResponse(responseTab, index);
@@ -520,7 +552,7 @@ public class CityHallDemographics {
 	};
 
 	public static final DialogueNode END_SEX_ORAL_RECEIVING = new DialogueNode("Finished", "Having had enough sex for now, the two of you start to get your clothing back in order...", true) {
-
+		
 		@Override
 		public String getContent() {
 			if(Sex.getNumberOfOrgasms(Main.game.getPlayer())>0) {
@@ -529,36 +561,36 @@ public class CityHallDemographics {
 				return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "END_SEX_NO_PLAYER_ORGASM");
 			}
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return CITY_HALL_DEMOGRAPHICS_MAIN.getResponse(responseTab, index);
 		}
 	};
-
+	
 	public static final DialogueNode OFFSPRING_MAP = new DialogueNode("Bureau of Demographics", "-", true) {
-
+		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "OFFSPRING_MAP");
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(Main.game.getPlayer().getMoney()>=ItemType.OFFSPRING_MAP.getValue()) {
-					return new Response("Purchase ("+UtilText.formatAsMoney(ItemType.OFFSPRING_MAP.getValue(), "span")+")", "Tell [vanessa.name] that you want to buy an arcane offspring map.", OFFSPRING_MAP_PURCHASE) {
+				if(Main.game.getPlayer().getMoney()>=ItemType.OFFSPRING_MAP.getValue(null)) {
+					return new Response("Purchase ("+UtilText.formatAsMoney(ItemType.OFFSPRING_MAP.getValue(null), "span")+")", "Tell [vanessa.name] that you want to buy an arcane offspring map.", OFFSPRING_MAP_PURCHASE) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-ItemType.OFFSPRING_MAP.getValue()));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-ItemType.OFFSPRING_MAP.getValue(null)));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.OFFSPRING_MAP), false));
 						}
 					};
-
+					
 				} else {
-					return new Response("Purchase ("+UtilText.formatAsMoneyUncoloured(ItemType.OFFSPRING_MAP.getValue(), "span")+")", "You don't have enough money for this...", null);
+					return new Response("Purchase ("+UtilText.formatAsMoneyUncoloured(ItemType.OFFSPRING_MAP.getValue(null), "span")+")", "You don't have enough money for this...", null);
 				}
-
+				
 			} else if (index == 2) {
 				return new Response("Change mind", "Decide against buying an offspring map.", CITY_HALL_DEMOGRAPHICS_MAIN) {
 					@Override
@@ -566,7 +598,7 @@ public class CityHallDemographics {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "OFFSPRING_MAP_BACK"));
 					}
 				};
-
+				
 			} else {
 				return null;
 			}
@@ -574,29 +606,29 @@ public class CityHallDemographics {
 	};
 
 	public static final DialogueNode OFFSPRING_MAP_PURCHASE = new DialogueNode("Bureau of Demographics", "", true) {
-
+		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "OFFSPRING_MAP_PURCHASE");
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return CITY_HALL_DEMOGRAPHICS_MAIN.getResponse(responseTab, index);
 		}
 	};
-
+	
 	private static boolean unsuitableName = false;
 	private static boolean unsuitableSurname = false;
-
+	
 	public static final DialogueNode NAME_CHANGE = new DialogueNode("Bureau of Demographics", "-", true) {
 
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-
+			
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "NAME_CHANGE"));
-
+			
 			UtilText.nodeContentSB.append("<br/>"
 					+ "<div class='container-full-width' style='text-align:center;'>"
 						+ "<div style='position:relative; display:inline-block; padding-bottom:0; margin 0 auto; vertical-align:middle; width:100%; text-align:center;'>"
@@ -611,13 +643,13 @@ public class CityHallDemographics {
 						+ (unsuitableName ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid name.</b></p>" : "")
 						+ (unsuitableSurname ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid Surname.</b></p>" : "")
 					+ "</div>"
-
+					
 					+ "<p id='hiddenFieldName' style='display:none;'></p>"
 					+ "<p id='hiddenFieldSurname' style='display:none;'></p>");
-
+			
 			return UtilText.nodeContentSB.toString();
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -625,7 +657,7 @@ public class CityHallDemographics {
 					return new Response("Confirm ("+UtilText.formatAsMoneyUncoloured(100, "span")+")",
 							"Have your name changed.<br/>[style.italicsBad(You cannot afford this!)]",
 							null);
-
+					
 				} else {
 					return new ResponseEffectsOnly("Confirm ("+UtilText.formatAsMoney(100, "span")+")", "Have your name changed.<br/>This will cost "+UtilText.formatAsMoney(100)+"."){
 						@Override
@@ -638,16 +670,16 @@ public class CityHallDemographics {
 						}
 					};
 				}
-
+				
 			} else if(index==2) {
 				if(Main.game.getPlayer().getAllCharactersOfRelationType(Relationship.Parent).isEmpty()) {
 					return new Response("Offspring ("+UtilText.formatAsMoneyUncoloured(5000, "span")+")",
 							"Change your name, and also have all lines of your offspring update their surnames to your surname.<br/>[style.italicsBad(You do not have any children, so you can't do this!)]", null);
-
+					
 				} else if (Main.game.getPlayer().getMoney() < 5000) {
 					return new Response("Offspring ("+UtilText.formatAsMoneyUncoloured(5000, "span")+")",
 							"Change your name, and also have all lines of your offspring update their surnames to your surname.<br/>[style.italicsBad(You cannot afford this!)]", null);
-
+					
 				} else {
 					return new ResponseEffectsOnly("Offspring ("+UtilText.formatAsMoney(5000, "span")+")",
 							"Change your name, and also have all lines of your offspring update their surnames to your surname.<br/>This will cost "+UtilText.formatAsMoney(5000)+"."){
@@ -661,7 +693,7 @@ public class CityHallDemographics {
 						}
 					};
 				}
-
+				
 			} else if (index == 0) {
 				return new Response("Back", "Decide not to change your name.", CITY_HALL_DEMOGRAPHICS_MAIN) {
 					@Override
@@ -675,7 +707,7 @@ public class CityHallDemographics {
 			}
 		}
 	};
-
+	
 	private static void applyNameChange(boolean applyOffspringSurnames) {
 		Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
 		if(Main.mainController.getWebEngine().getDocument()!=null) {
@@ -697,18 +729,18 @@ public class CityHallDemographics {
 				unsuitableSurname = false;
 			}
 		}
-
-		if(applyOffspringSurnames && Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()==0) {
+		
+		if(applyOffspringSurnames && Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()<1) {
 			unsuitableSurname = true;
 		}
-
+		
 		if (unsuitableName || unsuitableSurname)  {
 			Main.game.setContent(new Response("" ,"", NAME_CHANGE));
-
+			
 		} else {
 			Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 			Main.game.getPlayer().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent());
-
+			
 			if(applyOffspringSurnames && Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1) {
 				for(NPC npc : Main.game.getAllNPCs()) {
 					GameCharacter mother = npc.getMother();

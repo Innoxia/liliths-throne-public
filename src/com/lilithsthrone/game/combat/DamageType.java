@@ -3,8 +3,9 @@ package com.lilithsthrone.game.combat;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.StatusEffect;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
@@ -13,9 +14,9 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum DamageType {
 
-	ENERGY("energy",
+	HEALTH("health",
 			Colour.ATTRIBUTE_HEALTH,
-			"energy damaging",
+			"health damaging",
 			Attribute.ENERGY_SHIELDING,
 			Attribute.HEALTH_MAXIMUM,
 			SpellSchool.EARTH,
@@ -27,7 +28,7 @@ public enum DamageType {
 			Attribute.RESISTANCE_PHYSICAL,
 			Attribute.DAMAGE_PHYSICAL,
 			SpellSchool.EARTH,
-			DamageType.ENERGY),
+			DamageType.HEALTH),
 	
 	ICE("ice",
 			Colour.DAMAGE_TYPE_COLD,
@@ -35,7 +36,7 @@ public enum DamageType {
 			Attribute.RESISTANCE_ICE,
 			Attribute.DAMAGE_ICE,
 			SpellSchool.WATER,
-			DamageType.ENERGY),
+			DamageType.HEALTH),
 	
 	FIRE("fire",
 			Colour.DAMAGE_TYPE_FIRE,
@@ -43,7 +44,7 @@ public enum DamageType {
 			Attribute.RESISTANCE_FIRE,
 			Attribute.DAMAGE_FIRE,
 			SpellSchool.FIRE,
-			DamageType.ENERGY),
+			DamageType.HEALTH),
 	
 	POISON("poison",
 			Colour.DAMAGE_TYPE_POISON,
@@ -51,7 +52,7 @@ public enum DamageType {
 			Attribute.RESISTANCE_POISON,
 			Attribute.DAMAGE_POISON,
 			SpellSchool.AIR,
-			DamageType.ENERGY),
+			DamageType.HEALTH),
 
 	UNARMED("unarmed",
 			Colour.DAMAGE_TYPE_PHYSICAL,
@@ -59,19 +60,9 @@ public enum DamageType {
 			Attribute.RESISTANCE_PHYSICAL,
 			Attribute.DAMAGE_PHYSICAL,
 			SpellSchool.EARTH,
-			DamageType.ENERGY) {
+			DamageType.HEALTH) {
 		@Override
-		public int damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
-			// Flame cloak gives fire melee damage at a cost of arcane.
-			if(source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1)
-					|| source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2)
-					|| source.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3)) {
-				// (Temporarily?) removed
-//				// Burning mana for each melee strike proportional to it's unchanged damage.
-//				source.burnMana(source.getMana()*0.05f);
-//				// Increasing damage amount by 50%
-				damageAmount += source.getLevel();//(int)(damageAmount * 0.5f);
-			}
+		public Value<String, Integer> damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
 			return getParentDamageType(source, target).damageTarget(source, target, damageAmount);
 		}
 
@@ -84,7 +75,7 @@ public enum DamageType {
 				return FIRE;
 			}
 
-			if(source instanceof Elemental) {
+			if(source.isElemental()) {
 				switch(source.getBodyMaterial()) {
 					case AIR:
 						return POISON;
@@ -118,17 +109,17 @@ public enum DamageType {
 			SpellSchool.ARCANE,
 			null) {
 		@Override
-		public int damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
+		public Value<String, Integer> damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
 			damageAmount = shieldCheck(source, target, damageAmount);
 			if(damageAmount > 0) {
-				if(target.getLust()>=100) {
+				if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 					target.incrementMana(-damageAmount);
-					return ENERGY.damageTarget(source, target, damageAmount*2);
+					return HEALTH.damageTarget(source, target, damageAmount*2);
 				} else {
 					target.setLust(target.getLust()+damageAmount);
 				}
 			}
-			return damageAmount;
+			return new Value<>("", damageAmount);
 		}
 	},
 	
@@ -138,7 +129,7 @@ public enum DamageType {
 			Attribute.RESISTANCE_PHYSICAL,
 			Attribute.DAMAGE_PHYSICAL,
 			SpellSchool.ARCANE,
-			DamageType.ENERGY);
+			DamageType.HEALTH);
 
 	private String name;
 	private Colour colour;
@@ -186,14 +177,18 @@ public enum DamageType {
 	 * Deals damage to the target, checking against their shielding against the attack type. Override this if the attack
 	 * @param target
 	 * @param damageAmount
-	 * @return
+	 * @return A Value pair with the key being the description of health loss, and the value being the numerical value of the health lost.
 	 */
-	public int damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
+	public Value<String, Integer> damageTarget(GameCharacter source, GameCharacter target, int damageAmount) {
 		damageAmount = shieldCheck(source, target, damageAmount);
-		if(damageAmount > 0) {
-			target.setHealth(target.getHealth()-damageAmount);
+		String description = "";
+//		if(damageAmount > 0) {
+			description = target.incrementHealth(source, -damageAmount);
+//		}
+		if(target.hasFetish(Fetish.FETISH_MASOCHIST)) {
+			damageAmount*=0.75f;
 		}
-		return damageAmount;
+		return new Value<>(description, damageAmount);
 	}
 
 	/**
@@ -218,15 +213,17 @@ public enum DamageType {
 	 * <b>Does</b> deplete the target's shields.
 	 */
 	public int shieldCheck(GameCharacter source, GameCharacter target, int damageAmount) {
-		if(this.getParentDamageType(source, target) != null) {
-			damageAmount = this.getParentDamageType(source, target).shieldCheck(source, target, damageAmount);
-		}
-		if(target.getShields(this) > 0) {
-			int oldShields = target.getShields(this);
-			target.setShields(this, target.getShields(this) - damageAmount);
-			damageAmount -= oldShields;
-			if(damageAmount < 0) {
-				damageAmount = 0;
+		if(damageAmount>0) {
+			if(this.getParentDamageType(source, target) != null) {
+				damageAmount = this.getParentDamageType(source, target).shieldCheck(source, target, damageAmount);
+			}
+			if(target.getShields(this) > 0) {
+				int oldShields = target.getShields(this);
+				target.setShields(this, target.getShields(this) - damageAmount);
+				damageAmount -= oldShields;
+				if(damageAmount < 0) {
+					damageAmount = 0;
+				}
 			}
 		}
 		return damageAmount;

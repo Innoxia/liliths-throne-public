@@ -2,57 +2,57 @@
 <!-- For a version without all of the comments, see "rental_daddy.xml". -->
 <clothing>
 	<coreAttributes>
-		<value>1500</value>
-
+		<value>1500</value> 
+		
 		<determiner><![CDATA[a]]></determiner>
-
+		
 		<name><![CDATA[taur-skirt]]></name>
-
-		<namePlural pluralByDefault="false"><![CDATA[taur-skirts]]></namePlural>
-
-		<description><![CDATA[A specially-designed skirt, suitable to be fit onto the lower body of any taur race.]]></description>
-
-		<physicalResistance>1</physicalResistance>
-
-		<femininity>FEMININE</femininity>
-
-		<slot>LEG</slot>
-
-		<rarity>COMMON</rarity>
-
+		
+		<namePlural pluralByDefault="false"><![CDATA[taur-skirts]]></namePlural> 
+		
+		<description><![CDATA[A specially-designed skirt, suitable to be fit onto the lower body of any taur race.]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>FEMININE</femininity> 
+		
+		<slot>LEG</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
 		<clothingSet/>
-
-		<imageName>taur_skirt.svg</imageName>
-
-		<imageEquippedName/>
-
+		
+		<imageName>taur_skirt.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
 		<enchantmentLimit/>
-
+		
 		<effects/>
-
+		
 		<blockedPartsList>
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType>
-
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
 				<clothingAccessRequired>
 					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
 				</clothingAccessRequired>
-
+				
 				<blockedBodyParts>
 					<bodyPart>BACK</bodyPart>
 				</blockedBodyParts>
-
+				
 				<clothingAccessBlocked>
 					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
 				</clothingAccessBlocked>
 				<concealedSlots/>
 			</blockedParts>
-
+			
 			<blockedParts>
-				<displacementType>PULLS_UP</displacementType>
-
+				<displacementType>PULLS_UP</displacementType> 
+				
 				<clothingAccessRequired/>
-
+				
 				<blockedBodyParts>
 					<bodyPart>PENIS</bodyPart>
 					<bodyPart>ANUS</bodyPart>
@@ -63,24 +63,24 @@
 					<bodyPart>BREASTS_CROTCH</bodyPart>
 					<bodyPart>NIPPLES_CROTCH</bodyPart>
 				</blockedBodyParts>
-
+				
 				<clothingAccessBlocked>
 					<clothingAccess>GROIN</clothingAccess>
 				</clothingAccessBlocked>
-
+				
 				<concealedSlots values="CONCEALED_TAUR"/>
 			</blockedParts>
 		</blockedPartsList>
-
-		<incompatibleSlots/>
-
+		
+		<incompatibleSlots/> 
+		
 		<primaryColours values="ALL"/>
 		<primaryColoursDye/>
 		<secondaryColours/>
 		<secondaryColoursDye/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
-
+		
 		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
 			<tag>FITS_TAUR_BODY</tag>
@@ -110,5 +110,5 @@
       <![CDATA[[npc.Name] [npc.verb(grab)] hold of [npc2.namePos] taur-skirt, before yanking it up and over [npc2.her] head.]]>
     </otherRough>
   </displacementText>
-
+	
 </clothing>

@@ -17,7 +17,7 @@ public class LilithsTower {
 
 		@Override
 		public int getSecondsPassed() {
-			return 5*60;
+			return CityPlaces.TRAVEL_TIME_STREET;
 		}
 
 		@Override

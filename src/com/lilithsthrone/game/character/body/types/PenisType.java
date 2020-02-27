@@ -7,8 +7,8 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -20,7 +20,7 @@ import com.lilithsthrone.utils.Util;
  * @author Innoxia
  */
 public enum PenisType implements BodyPartTypeInterface {
-	NONE(null, TesticleType.NONE, null),
+	NONE(null, TesticleType.NONE, Race.NONE),
 
 	DILDO(BodyCoveringType.DILDO, TesticleType.DILDO, Race.NONE),
 	
@@ -44,7 +44,7 @@ public enum PenisType implements BodyPartTypeInterface {
 
 	EQUINE(BodyCoveringType.PENIS, TesticleType.EQUINE, Race.HORSE_MORPH, PenetrationModifier.FLARED, PenetrationModifier.VEINY, PenetrationModifier.SHEATHED),
 
-	REINDEER_MORPH(BodyCoveringType.PENIS, TesticleType.REINDEER_MORPH, Race.REINDEER_MORPH, PenetrationModifier.FLARED, PenetrationModifier.SHEATHED),
+	REINDEER_MORPH(BodyCoveringType.PENIS, TesticleType.REINDEER_MORPH, Race.REINDEER_MORPH, PenetrationModifier.TAPERED, PenetrationModifier.SHEATHED),
 
 	AVIAN(BodyCoveringType.PENIS, TesticleType.AVIAN, Race.HARPY, PenetrationModifier.SHEATHED),
 	
@@ -96,7 +96,7 @@ public enum PenisType implements BodyPartTypeInterface {
 		if(this==PenisType.DILDO) {
 			return UtilText.returnStringAtRandom("dildo", "cock");
 		} else {
-			return UtilText.returnStringAtRandom("cock", "cock", "cock", "dick", "dick", "shaft");
+			return UtilText.returnStringAtRandom("cock", "cock", "cock", "dick", "dick", UtilText.isInSpeech()?"":"shaft");
 		}
 	}
 	
@@ -105,7 +105,7 @@ public enum PenisType implements BodyPartTypeInterface {
 		if(this==PenisType.DILDO) {
 			return UtilText.returnStringAtRandom("dildoes", "cocks");
 		} else {
-			return UtilText.returnStringAtRandom("cocks", "cocks", "cocks", "dicks", "dicks", "shafts");
+			return UtilText.returnStringAtRandom("cocks", "cocks", "cocks", "dicks", "dicks", UtilText.isInSpeech()?"":"shafts");
 		}
 	}
 
@@ -155,15 +155,15 @@ public enum PenisType implements BodyPartTypeInterface {
 				break;
 			case 1:
 				return UtilText.returnStringAtRandom(
-						gc.getPenisSize()==PenisSize.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
-						gc.getPenisGirth()==PenisGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
+						gc.getPenisSize()==PenisLength.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
+						gc.getPenisGirth()==PenetrationGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
 			default:
 				if(Main.game.isInSex() && this!=PenisType.DILDO) {
 					return UtilText.returnStringAtRandom("hard", "throbbing");
 				} else {
 					return UtilText.returnStringAtRandom(
-							gc.getPenisSize()==PenisSize.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
-							gc.getPenisGirth()==PenisGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
+							gc.getPenisSize()==PenisLength.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
+							gc.getPenisGirth()==PenetrationGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
 				}
 		}
 		return "";
@@ -229,7 +229,7 @@ public enum PenisType implements BodyPartTypeInterface {
 	
 	public String getPenisHeadDescriptor(GameCharacter gc) {
 		for(PenetrationModifier mod : PenetrationModifier.values()) {
-			if(gc.getPenisModifiers().contains(PenetrationModifier.BLUNT)) {
+			if(gc.getPenisModifiers().contains(mod)) {
 				switch(mod) {
 					case BLUNT:
 						return UtilText.returnStringAtRandom("blunt");

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="storageGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#storageGradient"/>
+    </defs>
+    <g transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
+        <g stroke="#fff">
+            <path fill="none" stroke-width="2.101" d="M9.016 1036.633l24.351.167.074-22.813-24.293-.073z" transform="matrix(.74076 0 0 .76781 5.73 242.622)"/>
+            <path fill="#fff" fill-rule="evenodd" d="M30.545 1031.502l.037-14.805-16.264-.076zM11.756 1034.066l16.794.039-16.794-15.11z" transform="matrix(.74076 0 0 .76781 5.73 242.622)"/>
+        </g>
+        <g stroke="#fff">
+            <path fill="none" stroke-width="2.101" d="M9.016 1036.633l24.351.167.074-22.813-24.293-.073z" transform="matrix(.74076 0 0 .76781 27.875 242.75)"/>
+            <path fill="#fff" fill-rule="evenodd" d="M30.545 1031.502l.037-14.805-16.264-.076zM11.756 1034.066l16.794.039-16.794-15.11z" transform="matrix(.74076 0 0 .76781 27.875 242.75)"/>
+        </g>
+        <g stroke="#fff">
+            <path fill="none" stroke-width="2.101" d="M9.016 1036.633l24.351.167.074-22.813-24.293-.073z" transform="matrix(.74076 0 0 .76781 17.029 222.706)"/>
+            <path fill="#fff" fill-rule="evenodd" d="M30.545 1031.502l.037-14.805-16.264-.076zM11.756 1034.066l16.794.039-16.794-15.11z" transform="matrix(.74076 0 0 .76781 17.029 222.706)"/>
+        </g>
+    </g>
+</svg>

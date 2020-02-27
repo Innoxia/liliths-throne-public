@@ -11,7 +11,6 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Pathing;
@@ -135,6 +134,7 @@ public enum PerkManager {
 		leftMidA = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.SEDUCTION_BOOST, both1);
 		
 		leftMidB = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.SEDUCTION_BOOST, leftMidA);
+		addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.ORGASMIC_LEVEL_DRAIN, leftMidA);
 		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.SEDUCTION_DEFENCE_BOOST, leftMidA);
 
 		leftMidB = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.SEDUCTION_BOOST, leftMidB);
@@ -309,7 +309,8 @@ public enum PerkManager {
 		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 12, Perk.ELEMENTAL_WATER_BOOST_ULTIMATE, physical2);
 		
 		// Arcane:
-		addPerkEntry(elementalPerkTree, PerkCategory.LUST, 0, Perk.ELEMENTAL_CORE);
+		both1 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 0, Perk.ELEMENTAL_CORE);
+		elementalStartingPerks.add(both1);
 		both1 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 0, Perk.ELEMENTAL_ARCANE_SPELL_1);
 		elementalStartingPerks.add(both1);
 
@@ -338,7 +339,8 @@ public enum PerkManager {
 		both1 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 10, Perk.ELEMENTAL_ARCANE_BOOST, both2);
 		both2 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 11, Perk.ELEMENTAL_ARCANE_BOOST_MAJOR, both1);
 		both1 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 12, Perk.ELEMENTAL_ARCANE_BOOST_ULTIMATE, both2);
-		addPerkEntry(elementalPerkTree, PerkCategory.LUST, 0, Perk.ELEMENTAL_CORRUPTION);
+		both1 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 0, Perk.ELEMENTAL_CORRUPTION);
+		elementalStartingPerks.add(both1);
 
 
 		// Fire:
@@ -429,7 +431,7 @@ public enum PerkManager {
 	}
 	
 	public Map<Integer, Map<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>>> getPerkTree(GameCharacter character) {
-		if(character instanceof Elemental) {
+		if(character.isElemental()) {
 			return elementalPerkTree;
 		} else {
 			return perkTree;
@@ -437,7 +439,7 @@ public enum PerkManager {
 	}
 	
 	public static List<TreeEntry<PerkCategory, AbstractPerk>> getStartingPerks(GameCharacter character) {
-		if(character instanceof Elemental) {
+		if(character.isElemental()) {
 			return MANAGER.elementalStartingPerks;
 		} else {
 			return MANAGER.standardStartingPerks;
@@ -452,7 +454,7 @@ public enum PerkManager {
 		Random rnd = new Random((character.getId()).hashCode());
 
 		// Add a unique background perk based on weighting:
-		if(!character.isUnique() && !(character instanceof Elemental) && rnd.nextInt(100)<=50) {
+		if(!character.isUnique() && !(character.isElemental()) && rnd.nextInt(100)<=50) {
 			Map<PerkCategory, Integer> perkWeightingMap = new HashMap<>(character.getSubspecies().getPerkWeighting(character));
 			
 			PerkCategory pc = Util.getRandomObjectFromWeightedMap(perkWeightingMap, rnd);
@@ -466,7 +468,7 @@ public enum PerkManager {
 			
 			switch(pc) {
 				case ARCANE:
-					character.addSpecialPerk(Perk.ARCANE_TRAINING);
+					character.addSpecialPerk(Perk.SPECIAL_ARCANE_TRAINING);
 					break;
 				case ARCANE_AIR:
 					break;
@@ -478,14 +480,16 @@ public enum PerkManager {
 					if(!character.getFetishDesire(Fetish.FETISH_PURE_VIRGIN).isPositive()
 							&& (!character.hasPenisIgnoreDildo() || !character.isPenisVirgin())
 							&& (!character.hasVagina() || !character.isVaginaVirgin())) {
-						character.addSpecialPerk(Perk.SLUT);
+						character.addSpecialPerk(Perk.SPECIAL_SLUT);
+					} else {
+						character.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
 					}
 					break;
 				case PHYSICAL:
 					if(Math.random()<0.5) {
-						character.addSpecialPerk(Perk.MARTIAL_BACKGROUND);
+						character.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
 					} else {
-						character.addSpecialPerk(Perk.HEALTH_FANATIC);
+						character.addSpecialPerk(Perk.SPECIAL_HEALTH_FANATIC);
 					}
 					break;
 				case PHYSICAL_EARTH:
@@ -513,16 +517,13 @@ public enum PerkManager {
 	}
 	
 	public static void initialisePerks(GameCharacter character, boolean autoSelectPerks, List<AbstractPerk> requiredPerks, Map<PerkCategory, Integer> perkWeightingOverride) {
-		if(character instanceof Elemental) {
-			for(TreeEntry<PerkCategory, AbstractPerk> perk : getStartingPerks(character)) {
-				character.addPerk(perk.getRow(), perk.getEntry());
-			}
+		for(TreeEntry<PerkCategory, AbstractPerk> perk : getStartingPerks(character)) {
+			character.addPerk(perk.getRow(), perk.getEntry());
+		}
+		
+		if(character.isElemental()) {
 			
 		} else {
-			for(TreeEntry<PerkCategory, AbstractPerk> perk : getStartingPerks(character)) {
-				character.addPerk(perk.getRow(), perk.getEntry());
-			}
-			
 			if(!character.isPlayer() && autoSelectPerks) {
 				// For each required perk, add it (along with all the perks on the path):
 				if(requiredPerks!=null) {
@@ -539,6 +540,7 @@ public enum PerkManager {
 				// Perks that should not be chosen outside of requirements:
 				List<AbstractPerk> deniedPerks = new ArrayList<>();
 				deniedPerks.add(Perk.OBSERVANT);
+				deniedPerks.add(Perk.ORGASMIC_LEVEL_DRAIN);
 				deniedPerks.add(Perk.CHUUNI);
 				deniedPerks.add(Perk.BARREN);
 				deniedPerks.add(Perk.FIRING_BLANKS);
@@ -616,7 +618,7 @@ public enum PerkManager {
 		treeSB.append(
 				"<div id='OCCUPATION_" + Perk.getIdFromPerk(character.getHistory().getAssociatedPerk())
 						+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>"
-					+ "<div class='square-button-content'>"+character.getHistory().getAssociatedPerk().getSVGString()+"</div>"
+					+ "<div class='square-button-content'>"+character.getHistory().getAssociatedPerk().getSVGString(character)+"</div>"
 				+ "</div>");
 		
 		for(int i=0;i<GameCharacter.MAX_TRAITS;i++) {
@@ -626,7 +628,7 @@ public enum PerkManager {
 			}
 			if(p!=null) {
 				treeSB.append("<div id='TRAIT_" + Perk.getIdFromPerk(p) + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
-						+ "<div class='square-button-content'>"+p.getSVGString()+"</div>"
+						+ "<div class='square-button-content'>"+p.getSVGString(character)+"</div>"
 						+ "</div>");
 				
 			} else {
@@ -646,7 +648,7 @@ public enum PerkManager {
 					if(character.hasPerkAnywhereInTree(hiddenPerk)) {
 						treeSB.append(
 								"<div id='HIDDEN_PERK_" + Perk.getIdFromPerk(hiddenPerk) + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border-color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"
-								+ "<div class='square-button-content'>"+hiddenPerk.getSVGString()+"</div>"
+								+ "<div class='square-button-content'>"+hiddenPerk.getSVGString(character)+"</div>"
 								+ "</div>");
 					}
 				}
@@ -766,6 +768,21 @@ public enum PerkManager {
 		
 		boolean disabled = !isPerkOwned(character, perkEntry) && !isPerkAvailable(character, perkEntry);
 		
+		Colour borderColour = perkEntry.getCategory().getColour();
+		switch(perkEntry.getEntry().getPerkCategory()) {
+			case ARCANE:
+			case JOB:
+			case LUST:
+			case PHYSICAL:
+				break;
+			case ARCANE_AIR:
+			case ARCANE_FIRE:
+			case PHYSICAL_EARTH:
+			case PHYSICAL_WATER:
+				borderColour = perkEntry.getEntry().getPerkCategory().getColour();
+				break;
+		}
+		
 		// Append up/down lines:
 		float entryX = getX(character, perkEntry.getRow(), perkEntry);
 		if(!perkEntry.getParentLinks().isEmpty()) {
@@ -781,9 +798,9 @@ public enum PerkManager {
 							(isPerkOwned(character, perkEntry)
 									?character.hasTraitActivated(perkEntry.getEntry())
 										?"border-color:"+Colour.TRAIT.toWebHexString()+";"
-										:"border-color:"+perkEntry.getCategory().getColour().toWebHexString()+";"
+										:"border-color:"+borderColour.toWebHexString()+";"
 									:"")+"' id='"+perkEntry.getRow()+"_"+perkEntry.getCategory()+"_"+Perk.getIdFromPerk(perkEntry.getEntry())+"'>"
-				+ "<div class='square-button-content'>"+perkEntry.getEntry().getSVGString()+"</div>"
+				+ "<div class='square-button-content'>"+perkEntry.getEntry().getSVGString(character)+"</div>"
 				+ (disabled
 					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; "+(perkEntry.getEntry().isEquippableTrait()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
 					:!isPerkOwned(character, perkEntry)

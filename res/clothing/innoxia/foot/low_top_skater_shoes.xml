@@ -6,7 +6,7 @@
 		<name><![CDATA[low-top skater shoe]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[low-top skater shoes]]></namePlural>
 		<description><![CDATA[A pair of low-top skater shoes, suitable for casual wear. They are primarily constructed of stitched cotton canvas, and have toe caps and soles that are made from flexible rubber.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>FOOT</slot> 
 		<rarity>COMMON</rarity>

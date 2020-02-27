@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <clothing>
 	<coreAttributes>
-		<value>2000</value>
-
+		<value>2000</value> 
+		
 		<determiner><![CDATA[a]]></determiner>
-
+		
 		<name><![CDATA[service dress hat]]></name>
-
-		<namePlural pluralByDefault="false"><![CDATA[service dress hats]]></namePlural>
-
-		<description><![CDATA[An officer's service dress hat, complete with leather strap. This style of uniform is worn only by Lyssieth's elite guards.]]></description>
-
-		<physicalResistance>1</physicalResistance>
-
-		<femininity>FEMININE</femininity>
-
-		<slot>HEAD</slot>
-
-		<rarity>EPIC</rarity>
-
+		
+		<namePlural pluralByDefault="false"><![CDATA[service dress hats]]></namePlural> 
+		
+		<description><![CDATA[An officer's service dress hat, complete with leather strap. This style of uniform is worn only by Lyssieth's elite guards.]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>FEMININE</femininity> 
+		
+		<slot>HEAD</slot> 
+		
+		<rarity>EPIC</rarity> 
+		
 		<clothingSet>LYSSIETH_GUARD</clothingSet>
-
-		<clothingSet/>
-
-		<imageName>hat.svg</imageName>
-
-		<imageEquippedName/>
-
+		
+		<clothingSet/> 
+		
+		<imageName>hat.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
 		<enchantmentLimit/>
-
-		<effects>
+		
+		<effects> 
             <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>
 		</effects>
-
-		<blockedPartsList>
+		
+		<blockedPartsList> 
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType>
-
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
 				<clothingAccessRequired>
 					<clothingAccess>HEAD</clothingAccess>
 				</clothingAccessRequired>
-
+				
 				<blockedBodyParts/>
-
+				
 				<clothingAccessBlocked/>
-
+				
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-
-		<incompatibleSlots/>
-
+		
+		<incompatibleSlots/> 
+		
 		<primaryColours>
 			<colour>CLOTHING_OLIVE</colour>
 		</primaryColours>
@@ -61,8 +61,8 @@
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
-
+		
 		<itemTags/>
 	</coreAttributes>
-
+	
 </clothing>

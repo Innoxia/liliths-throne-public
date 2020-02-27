@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		
+		<authorTag><![CDATA[On the underside of the barrel housing, a small engraving reads "Official Enforcer Issue, MFD by DSG Forgeworks."]]></authorTag>
+	
+		<value>3500</value> 
+		
+		<melee>false</melee>
+		
+		<twoHanded>false</twoHanded>
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[pepperball pistol]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[pepperball pistols]]></namePlural> 
+		
+		<description><![CDATA[A miniaturized version of the Pepperball Rifle with a weaker air spell enchantment, this weapon uses the same pepper oil ammunition but has less range and does less damage. Enforcers favor it as a hold-out or secondary weapon.]]></description> 
+		
+		<attackDescriptor>shoot</attackDescriptor>
+		
+		<attackTooltipDescription>Shoot [npc2.name] with your pepperball pistol.</attackTooltipDescription>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(unholster)] the pistol, [npc.verb(slap)] in a fresh magazine, and [npc.verb(turn)] the safety off.]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(take)] out the magazine, and [npc.verb(turn)] the safety on, and [npc.verb(holster)] the pistol.]]></unequipText>
+		
+		<imageName>pbpistol_nomag.svg</imageName> 
+		
+		<imageEquippedName>pbpistol.svg</imageEquippedName>
+		
+		<damage>15</damage> 
+		
+		<arcaneCost>1</arcaneCost> 
+		
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>FIRE</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects/> 
+		
+		<primaryColours values="JUST_BLACK"/> 
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_GUNMETAL</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The round shatters on [npc2.namePos] aura, splashing [npc2.her] [npc2.arm] with bright orange oil.
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The round shatters on [npc2.namePos] aura, splashing [npc2.her] [npc2.leg] with bright orange oil.
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The round shatters on [npc2.namePos] aura, splashing [npc2.her] [npc2.face] with bright orange oil.
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The round shatters on [npc2.namePos] aura, splashing [npc2.her] [npc2.arm] with stinging, burning oil.
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The round shatters on [npc2.namePos] aura, splashing [npc2.her] [npc2.leg] with stinging, burning oil.
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The round shatters on [npc2.namePos] aura, splashing [npc2.her] [npc2.face] with stinging, burning oil.
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The round shatters on [npc2.namePos] aura, splashing [npc2.her] [npc2.arm] with painful oil that quickly forms a slick on [npc2.her] [npc2.skin].
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The round shatters on [npc2.namePos] aura, splashing [npc2.her] [npc2.leg] with painful oil that quickly forms a slick on [npc2.her] [npc2.skin].
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The round shatters on [npc2.namePos] aura, splashing [npc2.her] [npc2.face] with painful oil that quickly forms a slick on [npc2.her] [npc2.skin].
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(line)] [npc2.name] up in [npc.her] sights and [npc.verb(pull)] the trigger. The shot goes wide! The capsule shatters uselessly on the ground.
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

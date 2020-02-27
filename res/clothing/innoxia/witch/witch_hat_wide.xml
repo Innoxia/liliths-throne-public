@@ -1,61 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <clothing>
 	<coreAttributes>
-		<value>1000</value>
-
+		<value>1000</value> 
+		
 		<determiner><![CDATA[a]]></determiner>
-
+		
 		<name><![CDATA[wide-brimmed Witch's hat]]></name>
-
-		<namePlural pluralByDefault="false"><![CDATA[wide-brimmed Witch's hats]]></namePlural>
-
-		<description><![CDATA[A witch's hat, with a pointy top and a particularly wide brim.]]></description>
-
-		<physicalResistance>1</physicalResistance>
-
-		<femininity>FEMININE</femininity>
-
+		
+		<namePlural pluralByDefault="false"><![CDATA[wide-brimmed Witch's hats]]></namePlural> 
+		
+		<description><![CDATA[A witch's hat, with a pointy top and a particularly wide brim.]]></description> 
+		
+		<physicalResistance>0</physicalResistance> 
+		
+		<femininity>FEMININE</femininity> 
+		
 		<slot>HEAD</slot>
-
-		<rarity>RARE</rarity>
-
-		<clothingSet>WITCH</clothingSet>
-
-		<imageName>witch_hat_wide.svg</imageName>
-
-		<imageEquippedName/>
-
+		
+		<rarity>RARE</rarity> 
+		
+		<clothingSet>WITCH</clothingSet> 
+		
+		<imageName>witch_hat_wide.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
 		<enchantmentLimit>10</enchantmentLimit>
-
-		<effects>
+		
+		<effects> 
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_SPELLS" timer="0"/>
 		</effects>
-
-		<blockedPartsList>
+		
+		<blockedPartsList> 
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType>
-
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
 				<clothingAccessRequired>
 					<clothingAccess>HEAD</clothingAccess>
 				</clothingAccessRequired>
-
+				
 				<blockedBodyParts/>
-
+				
 				<clothingAccessBlocked/>
-
+				
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-
-		<incompatibleSlots/>
-
+		
+		<incompatibleSlots/> 
+		
 		<primaryColours values="BLACK_OR_WHITE"/>
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_GOLD"/>
 		<secondaryColoursDye values="ALL_METAL"/>
 		<tertiaryColours values="BLACK_OR_WHITE"/>
 		<tertiaryColoursDye values="ALL"/>
-
+		
 		<itemTags/>
 	</coreAttributes>
 
@@ -67,7 +67,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(put)] the Witch's hat onto [npc2.namePos] head.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] roughly [npc.verb(forces)] the Witch's hat onto [npc2.namePos] head.]]>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] the Witch's hat onto [npc2.namePos] head.]]>
 	  </otherRough>
 	</replacementText>
 
@@ -82,5 +82,5 @@
 		  <![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] Witch's hat and [npc.verb(pull)] it off.]]>
 		</otherRough>
 	</displacementText>
-
+	
 </clothing>

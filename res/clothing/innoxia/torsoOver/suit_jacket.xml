@@ -11,7 +11,7 @@
 		
 		<description><![CDATA[A smart suit jacket, which looks best when worn with a shirt and tie.]]></description> 
 		
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<femininity>MASCULINE</femininity> 
 		

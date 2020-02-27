@@ -6,51 +6,67 @@
 		
 		<determiner><![CDATA[a pair of]]></determiner>
 		
-		<name><![CDATA[leather wrist bracelet]]></name>
+		<name><![CDATA[leather bracelet]]></name>
 		
-		<namePlural pluralByDefault="true"><![CDATA[leather wrist bracelets]]></namePlural> 
+		<namePlural pluralByDefault="true"><![CDATA[leather bracelets]]></namePlural> 
 		
-		<description><![CDATA[A pair of leather wrist restraints which lack a connecting chain. While doing nothing to impede arm movement, these bracelets nevertheless signify that the wearer is someone else's plaything or property.]]></description> 
-		<physicalResistance>1</physicalResistance> 
-		<femininity>ANDROGYNOUS</femininity> 
-		<slot>WRIST</slot> 
-		<rarity>EPIC</rarity> 
+		<description><![CDATA[A pair of leather restraints which lack a connecting chain. While doing nothing to impede movement, these bracelets nevertheless signify that the wearer is someone else's plaything or property.]]></description> 
+		<physicalResistance>0.1</physicalResistance> 
+		<femininity>ANDROGYNOUS</femininity>
+
+    <equipSlots>
+      <slot>WRIST</slot>
+      <slot>ANKLE</slot>
+    </equipSlots>
+
+
+    <rarity>EPIC</rarity> 
 		<clothingSet>BDSM</clothingSet>
 		
-		<imageName>wrist_bracelets.svg</imageName> 
-		
-		<imageEquippedName/> 
+		<imageName>wrist_bracelets.svg</imageName>
+
+    <imageEquippedName slot="WRIST">wrist_bracelets.svg</imageEquippedName>
+    <imageEquippedName slot="ANKLE">wrist_bracelets.svg</imageEquippedName>
 		
 		<enchantmentLimit/>
 		
 		<effects> 
-			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_SEALING" secondaryModifier="ARCANE_BOOST" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>
 			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
 		</effects>
 		
-		<blockedPartsList> 
-		
+		<blockedPartsList slot="WRIST"> 
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				
 				<clothingAccessRequired>
 					<clothingAccess>WRISTS</clothingAccess>
 				</clothingAccessRequired>
-				
 				<blockedBodyParts/>
-				
 				<clothingAccessBlocked>
 					<clothingAccess>WRISTS</clothingAccess>
 				</clothingAccessBlocked>
-				
 				<concealedSlots/>
 			</blockedParts>
-			
 		</blockedPartsList>
+
+    <blockedPartsList slot="ANKLE">
+      <blockedParts>
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        <clothingAccessRequired>
+          <clothingAccess>CALVES</clothingAccess>
+        </clothingAccessRequired>
+        <blockedBodyParts/>
+        <clothingAccessBlocked>
+          <clothingAccess>CALVES</clothingAccess>
+        </clothingAccessBlocked>
+        <concealedSlots/>
+      </blockedParts>
+    </blockedPartsList>
 		
-		<incompatibleSlots/> 
-		
-		<primaryColours values="ALL"/> 
+		<incompatibleSlots slot="WRIST"/>
+    <incompatibleSlots slot="ANKLE"/>
+
+    <primaryColours values="ALL"/> 
 		<primaryColoursDye/>
 		<secondaryColours values="JUST_STEEL"/>
 		<secondaryColoursDye values="ALL_METAL"/>
@@ -62,7 +78,7 @@
 		</itemTags>
 	</coreAttributes>
 
-	<replacementText type="REMOVE_OR_EQUIP">
+  <replacementText slot="WRIST" type="REMOVE_OR_EQUIP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(wrap)] the leather bracelets around [npc.her] wrists, before fastening the straps in place.]]>
 		</self>
@@ -70,11 +86,10 @@
 		  <![CDATA[[npc.Name] [npc.verb(wrap)] the leather bracelets around [npc2.namePos] wrists, before fastening the straps in place.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] roughly [npc.verb(forces)] the leather bracelets around [npc2.namePos] wrists, before firmly fastening the straps in place.]]>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] the leather bracelets around [npc2.namePos] wrists, before firmly fastening the straps in place.]]>
 	  </otherRough>
 	</replacementText>
-
-	<displacementText type="REMOVE_OR_EQUIP">
+	<displacementText slot="WRIST" type="REMOVE_OR_EQUIP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(unfasten)] the leather bracelets from around [npc.her] wrists, before taking them off.]]>
 		</self>
@@ -85,5 +100,28 @@
 		  <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] the leather bracelets from around [npc2.namePos] wrists, before yanking them off.]]>
 		</otherRough>
 	</displacementText>
+
+  <replacementText slot="ANKLE" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the leather bracelets around [npc.her] ankles, before fastening the straps in place.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(wrap)] the leather bracelets around [npc2.namePos] ankles, before fastening the straps in place.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(force)] the leather bracelets around [npc2.namePos] ankles, before firmly fastening the straps in place.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="ANKLE" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] the leather bracelets from around [npc.her] ankles, before taking them off.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] the leather bracelets from around [npc2.namePos] ankles, before taking them off.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] the leather bracelets from around [npc2.namePos] ankles, before yanking them off.]]>
+    </otherRough>
+  </displacementText>
 	
 </clothing>

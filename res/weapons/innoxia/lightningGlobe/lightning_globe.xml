@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+	
+		<value>250000</value> 
+		
+		<melee>false</melee>
+		
+		<twoHanded>false</twoHanded>
+		
+		<determiner><![CDATA[the]]></determiner>
+		
+		<name><![CDATA[Arcane lightning globe]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[Arcane lightning globes]]></namePlural>
+		
+		<description><![CDATA[This curious arcane weapon takes the form of a small crystal globe, and, when held, quickly fills with a crackling, swirling maelstrom of arcane lightning. Although it's no larger than a golf ball, it holds an immense amount of arcane power, and enables its wielder to unleash arcane lightning strikes against their foes.]]></description> 
+		
+		<attackDescriptor>lightning strike</attackDescriptor>
+		
+		<attackTooltipDescription>Fire a bolt of arcane lightning at [npc2.name].</attackTooltipDescription>
+		
+		<rarity>QUEST</rarity> 
+		
+		<weaponSet/> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(take)] hold of the arcane lightning globe and [npc.verb(prepare)] to unleash its power.]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] away the arcane lightning globe.]]></unequipText>
+		
+		<imageName>lightning_globe_inactive.svg</imageName> 
+		
+		<imageEquippedName>lightning_globe.svg</imageEquippedName>
+		
+		<damage>15</damage> 
+		
+		<arcaneCost>1</arcaneCost> 
+		
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>LUST</damageType>
+		</availableDamageTypes>
+		
+		<spells>
+			<spell>LIGHTNING_SPHERE_DISCHARGE</spell>
+			<spell>LIGHTNING_SPHERE_OVERCHARGE</spell>
+		</spells>
+		
+		<enchantmentLimit>10</enchantmentLimit>
+		
+		<effects> 
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+		</effects>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK_JET</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/> 
+		<secondaryColoursDye/>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Harnessing the power of the arcane lightning globe, [npc.name] [npc.verb(unleash)] a blast of bright pink lightning directly at [npc2.name]!
+		]]></hitText>
+		<hitText><![CDATA[
+		Using the power of the small crystal globe clenched tightly in [npc.her] [npc.hand], [npc.name] [npc.verb(launch)] a dazzling strike of arcane lightning directly at [npc2.name]!
+		]]></hitText>
+		<hitText><![CDATA[
+		A bright pink flash of arcane lightning streaks out from [npc.namePos] outstretched [npc.hand], hitting [npc2.name] directly in the chest!
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		Harnessing the power of the arcane lightning globe, [npc.name] [npc.verb(unleash)] a blast of bright pink lightning, but [npc.verb(end)] up missing [npc2.name]!
+		]]></missText>
+		<missText><![CDATA[
+		Launching a dazzling strike of arcane lightning at [npc2.name], [npc.name] [npc.verb(let)] out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(unleash)] a blast of bright pink lightning at [npc2.name], but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

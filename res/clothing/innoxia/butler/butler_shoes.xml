@@ -2,68 +2,68 @@
 <!-- For a version without all of the comments, see "rental_daddy.xml". -->
 <clothing>
 	<coreAttributes>
-		<value>800</value>
-
+		<value>800</value> 
+		
 		<determiner><![CDATA[a pair of]]></determiner>
-
+		
 		<name><![CDATA[Butler's Shoe]]></name>
-
-		<namePlural pluralByDefault="true"><![CDATA[Butler's Shoes]]></namePlural>
-
-		<description><![CDATA[A pair of very smart shoes.]]></description>
-
-		<physicalResistance>1</physicalResistance>
-
-		<femininity>ANDROGYNOUS</femininity>
-
-		<slot>FOOT</slot>
-
-		<rarity>EPIC</rarity>
-
-		<clothingSet>BUTLER</clothingSet>
-
-		<imageName>butler_shoes.svg</imageName>
-
-		<imageEquippedName/>
-
+		
+		<namePlural pluralByDefault="true"><![CDATA[Butler's Shoes]]></namePlural> 
+		
+		<description><![CDATA[A pair of very smart shoes.]]></description> 
+		
+		<physicalResistance>0</physicalResistance>
+		
+		<femininity>ANDROGYNOUS</femininity> 
+		
+		<slot>FOOT</slot> 
+		
+		<rarity>EPIC</rarity> 
+		
+		<clothingSet>BUTLER</clothingSet> 
+		
+		<imageName>butler_shoes.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
 		<enchantmentLimit/>
-
-		<effects>
+		
+		<effects> 
               <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_PHYSICAL" timer="0"/>
 		</effects>
-
-		<blockedPartsList>
-
+		
+		<blockedPartsList> 
+		
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType>
-
-				<clothingAccessRequired>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				
+				<clothingAccessRequired> 
 					<clothingAccess>FEET</clothingAccess>
 				</clothingAccessRequired>
-
+				
 				<blockedBodyParts>
 					<bodyPart>FEET</bodyPart>
 				</blockedBodyParts>
-
-				<clothingAccessBlocked>
+				
+				<clothingAccessBlocked> 
 					<clothingAccess>FEET</clothingAccess>
 				</clothingAccessBlocked>
-
+				
 				<concealedSlots/>
 			</blockedParts>
-
+			
 		</blockedPartsList>
-
-		<incompatibleSlots/>
-
-		<primaryColours values="JUST_BLACK"/>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="JUST_BLACK"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_BLACK"/>
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours values="JUST_TAN"/>
 		<tertiaryColoursDye values="ALL"/>
-
-		<itemTags>
+		
+		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>
@@ -122,5 +122,5 @@
 			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces the shoes onto [npc2.her] [npc.feet].
 		]]></NPCOtherNPCRough>
 	</replacementText>
-
+	
 </clothing>

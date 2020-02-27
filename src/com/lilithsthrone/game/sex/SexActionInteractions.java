@@ -8,7 +8,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.0
- * @version 0.3.1
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class SexActionInteractions {
@@ -18,6 +18,7 @@ public class SexActionInteractions {
 	private List<OrgasmCumTarget> availableCumTargets;
 	private List<OrgasmCumTarget> providedCumTargets;
 
+//	@Deprecated
 	public SexActionInteractions(
 			Map<SexAreaInterface, List<SexAreaInterface>> interactions,
 			List<OrgasmCumTarget> availableCumTargets) {

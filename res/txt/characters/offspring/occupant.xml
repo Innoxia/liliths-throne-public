@@ -39,7 +39,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_START_PREGNANCY_REVEAL"><![CDATA[
 	<p>
 		Before you can move on to the reason for your visit, you suddenly notice that something's a little off about [npc.namePos] gait. Looking down as [npc.she] moves to cradle [npc.her] stomach in both [npc.hands], you gasp as you see that [npc.sheIs] sporting a very obviously [style.colourSex(pregnant belly)].
@@ -61,9 +61,9 @@
 			#ENDIF
 		#ELSE
 			#IF (npc.hasFetish(FETISH_PREGNANCY))
-				[npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
+				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
 			#ELSE
-				[npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
+				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
 			#ENDIF
 		#ENDIF
 	</p>
@@ -72,7 +72,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_START_STILL_PREGNANT"><![CDATA[
 	<p>
 		#IF (npc.getPregnantLitter()!=null && npc.getPregnantLitter().isFatherId(pc.getId()))
@@ -84,7 +84,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_START_PLAYER_PREGNANCY"><![CDATA[
 	<p>
 		#IF (pc.getPregnantLitter()!=null && pc.getPregnantLitter().isFatherId(npc.getId()))
@@ -114,7 +114,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_START_CONTINUED_PLAYER_PREGNANCY"><![CDATA[
 	<p>
 		#IF (pc.getPregnantLitter()!=null && pc.getPregnantLitter().isFatherId(npc.getId()))
@@ -126,7 +126,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_START_FINISH_WITH_NEW_JOB"><![CDATA[
 	#IF (npc.getAffection(pc) < AFFECTION_NEGATIVE_TWO_DISLIKE.getMaximumValue())
 		<p>
@@ -148,7 +148,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_START_FINISH"><![CDATA[
 	<p>
 		#IF (npc.getAffection(pc) < AFFECTION_NEGATIVE_TWO_DISLIKE.getMaximumValue())
@@ -161,7 +161,7 @@
 	</htmlContent>
 
 	<!-- Dominant sex actions: -->
-
+	
 	<htmlContent tag="SEX_START"><![CDATA[
 	<p>
 		[pc.speech(Don't think I don't see that look in your [npc.eye],)] you tease, stepping forwards and reaching out to take hold of your [npc.relation(pc)]'s [npc.hips+]. [pc.speech(You know I want it as well...)]
@@ -189,7 +189,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SEX_SPITROAST_FRONT_START"><![CDATA[
 	#VAR
 		var positioning = "";
@@ -197,11 +197,11 @@
 			positioning = "onto [npc.her] hands and knees ";
 		}
 		var playerPositioning = "Falling to your knees in front of [npc.name], you say,";
-		if(!pc.getLegConfiguration().isBipedalPositionedGenitals()) {
+		if(pc.isTaur()) {
 			playerPositioning = "Turning your [pc.legConfiguration] body to one side, you present your groin to [npc.name], before calling down to [npc.herHim],";
 		}
 	#ENDVAR
-
+	
 	#IF(npc.isRelatedTo(pc) && npc2.isRelatedTo(pc))
 		<p>
 			[pc.speech(You know, now that we're all together like this, I think we could do with having some family bonding time,)] you say in your most suggestive voice as you step up in front of [npc.name]. [pc.speech(You want to show your [npc2.relation(npc)] and I how much you love us, don't you, [npc.name]?)]
@@ -214,7 +214,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc2.her] [npc.relation(npc2)]'s ass.
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 					 Sinking down onto [npc2.her] knees behind [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(That's my good [npc.relation(npc2)]! [pc.Name] and I will show you a real good time, so you just relax and enjoy this.)]
 				</p>
 				<p>
@@ -244,7 +244,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.her] ass.
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 					 Sinking down onto [npc2.her] knees behind [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
 				</p>
 				<p>
@@ -274,7 +274,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.her] ass.
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				 Sinking down onto [npc2.her] knees behind [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
 			</p>
 			<p>
@@ -295,7 +295,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SEX_SPITROAST_BEHIND_START"><![CDATA[
 	#VAR
 		var positioning = "";
@@ -304,12 +304,12 @@
 		}
 		var playerPositioning = "Falling to your knees behind [npc.name], you say,";
 		var playerMounting = "take [npc.herHim]! Make sure to give me a good, hard fucking while I pleasure [npc2.name] with my mouth!";
-		if(!pc.getLegConfiguration().isBipedalPositionedGenitals()) {
+		if(pc.isTaur()) {
 			playerPositioning = "Stepping forwards so that your [pc.legConfiguration] body is over the top of [npc.name], you call down to [npc.herHim],";
 			playerMounting = "mount [npc.herHim]! Make sure to give me a good, hard rutting while I pleasure [npc2.name] with my mouth!";
 		}
 	#ENDVAR
-
+	
 	#IF(npc.isRelatedTo(pc) && npc2.isRelatedTo(pc))
 		<p>
 			[pc.speech(You know, now that we're all together like this, I think we could do with having some family bonding time,)] you say in your most suggestive voice as you step up in front of [npc.name]. [pc.speech(You want to show your [npc2.relation(npc)] and I how much you love us, don't you, [npc.name]?)]
@@ -322,7 +322,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc2.her] [npc.relation(npc2)].
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				 Sinking down onto [npc2.her] knees in front of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(That's my good [npc.relation(npc2)]! [pc.Name] and I will show you a real good time, so you just relax and enjoy this.)]
 			</p>
 			<p>
@@ -352,7 +352,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at your [npc.relation(pc)].
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				 Sinking down onto [npc2.her] knees in front of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, your [pc.relation(npc)] and I will show you a real good time, so you just relax and enjoy this.)]
 			</p>
 			<p>
@@ -382,7 +382,7 @@
 		</p>
 		<p>
 			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.herHim].
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				 Sinking down onto [npc2.her] knees in front of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
 			</p>
 			<p>
@@ -403,7 +403,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SEX_SIDE_BY_SIDE_START"><![CDATA[
 	#IF(npc.isRelatedTo(pc) && npc2.isRelatedTo(pc))
 		<p>
@@ -450,7 +450,7 @@
 		#ENDIF
 	</p>
 	<p>
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			Dropping down onto your knees behind them, you prepare to do exactly as they say, and, reaching forwards to grab their asses in each [pc.hand], you [pc.moan], [pc.speech(I wonder which of you I'll fuck first...)]
 		#ELSE
 			Stepping forwards and preparing to use your [pc.legConfiguration] body to mount one of them, you wonder out loud, [pc.speech(I wonder which of you I'll rut first...)]
@@ -460,10 +460,10 @@
 	</htmlContent>
 
 	<!-- END Dominant sex actions -->
-
-
+	
+	
 	<!-- Submissive sex actions: -->
-
+	
 	<htmlContent tag="SEX_AS_SUB_START"><![CDATA[
 	<p>
 		#IF (npc.isFeminine() || npc.hasBreasts())
@@ -507,7 +507,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SEX_SPITROASTED_START"><![CDATA[
 	#IF(npc.isRelatedTo(pc) && npc2.isRelatedTo(pc))
 		<p>
@@ -534,16 +534,16 @@
 			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 		</p>
 		<p>
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				With agreement from [npc2.her] [npc.relation(npc2)], [npc2.name] takes hold of your [pc.hips] and pulls you down onto your knees as [npc2.she] drops down behind you.
 			#ELSE
 				With agreement from [npc2.her] [npc.relation(npc2)], [npc2.name] takes hold of your [pc.hips] and pushes you down onto your knees, before stepping forwards and positioning [npc2.her] [npc2.legConfiguration] body over the top of you, ready to mount you.
 			#ENDIF
 		</p>
 		<p>
-			#IF(npc.getLegConfiguration().isBipedalPositionedGenitals() && pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc.isTaur() && !pc.isTaur())
 				Moving around in front of you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
-			#ELSEIF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+			#ELSEIF(npc.isTaur())
 				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 			#ELSE
 				Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
@@ -575,16 +575,16 @@
 			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 		</p>
 		<p>
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				With agreement from [npc.your] [npc.relation(pc)], [npc2.name] takes hold of your [pc.hips] and pulls you down onto your knees as [npc2.she] drops down behind you.
 			#ELSE
 				With agreement from [npc.your] [npc.relation(pc)], [npc2.name] takes hold of your [pc.hips] and pushes you down onto your knees, before stepping forwards and positioning [npc2.her] [npc2.legConfiguration] body over the top of you, ready to mount you.
 			#ENDIF
 		</p>
 		<p>
-			#IF(npc.getLegConfiguration().isBipedalPositionedGenitals() && pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc.isTaur() && !pc.isTaur())
 				Kneeling down before you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
-			#ELSEIF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+			#ELSEIF(npc.isTaur())
 				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 			#ELSE
 				Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
@@ -608,16 +608,16 @@
 			Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 		</p>
 		<p>
-			#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc2.isTaur())
 				With agreement from [npc.name], your [npc2.relation(pc)] takes hold of your [pc.hips] and pulls you down onto your knees as [npc2.she] drops down behind you.
 			#ELSE
 				With agreement from [npc.name], your [npc2.relation(pc)] takes hold of your [pc.hips] and pushes you down onto your knees, before stepping forwards and positioning [npc2.her] [npc2.legConfiguration] body over the top of you, ready to mount you.
 			#ENDIF
 		</p>
 		<p>
-			#IF(npc.getLegConfiguration().isBipedalPositionedGenitals() && pc.getLegConfiguration().isBipedalPositionedGenitals())
+			#IF(!npc.isTaur() && !pc.isTaur())
 				Kneeling down before you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
-			#ELSEIF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+			#ELSEIF(!npc.isTaur())
 				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 			#ELSE
 				Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
@@ -627,7 +627,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<!-- npc is the one fucking you and npc2 -->
 	<htmlContent tag="SEX_SIDE_BY_SIDE_AS_SUB_START"><![CDATA[
 	#IF(npc.isRelatedTo(pc) && npc2.isRelatedTo(pc))
@@ -669,7 +669,7 @@
 		#ENDIF
 	</p>
 	<p>
-		#IF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!npc.isTaur())
 			Dropping down onto [npc.her] knees behind the two of you, [npc.name] prepares to do exactly as you say, and, reaching forwards to grab your asses in each [npc.hand], [npc.she] [npc.moans], [npc.speech(I wonder which of you I'll fuck first...)]
 		#ELSE
 			Stepping forwards and preparing to use [npc.her] [npc.legConfiguration] body to mount one of you, [npc.name] wonders out loud, [npc.speech(I wonder which of you I'll rut first...)]
@@ -677,16 +677,16 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<!-- END Submissive sex actions -->
-
+	
 	<htmlContent tag="LEAVING"><![CDATA[
 	<p>
 		With other things to be getting on with, you tell your [npc.relation(pc)] that you'll come back another time, and the two of you say goodbye to one another before you take your leave and step back out into the corridor.
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_TALK_LIFE"><![CDATA[
 	<p>
 		Wanting to talk with [npc.name] about [npc.her] past life, you ask [npc.herHim] a series of questions about [npc.her] time living on the streets of Dominion. While a little hesitant to talk about some of [npc.her] painful memories at first, [npc.name] soon starts to open up to you, and spends a good while talking about some of the things that have happened to [npc.herHim].
@@ -699,7 +699,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_TALK_JOB"><![CDATA[
 	<p>
 		Wanting to know how [npc.namePos] job as [npc.a_job] is going, you ask [npc.herHim] how [npc.sheIs] finding it. All too eager to try and impress you with [npc.her] tales of finally being a productive member of society, [npc.name] starts recounting some of [npc.her] recent experiences at work, pausing every now and then to allow you to compliment [npc.herHim] or make a comment on [npc.her] story-telling.
@@ -712,7 +712,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_TALK_JOB_HUNTING"><![CDATA[
 	<p>
 		Wanting to know if [npc.name] is still searching for a job, you ask [npc.herHim] if [npc.sheHas] applied for anything recently. Smiling happily back at you, [npc.she] tells you that [npc.sheHas] not stopped looking for a job ever since you started befriending [npc.herHim]. Listing off the numerous places that [npc.sheHas] applied for a job at, [npc.name] promises you that [npc.she] will find something soon, at which point, [npc.she] says, [npc.she]'ll start paying rent.
@@ -725,7 +725,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_TALK_LILAYA"><![CDATA[
 	<p>
 		You decide to ask [npc.name] if [npc.sheHas] talked to Lilaya or Rose recently. Answering in the affirmative, [npc.name] tells you how kind and helpful Rose has been, and that she always gets [npc.her] clothing and bedsheets cleaned before [npc.she] can even offer to help.
@@ -738,7 +738,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_TALK_SLAVES"><![CDATA[
 	<p>
 		#IF (npc2.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_SILENCE))
@@ -749,7 +749,7 @@
 	</p>
 	<p>
 		Moving on to talk about [npc.namePos] opinion of slavery in general, [npc.she] tells you that
-		#IF (npc.isTrusting())
+		#IF (npc.isKind())
 			 [npc.she] feels sorry for those bound into a life of servitude, and that [npc.she] hopes one day slavery will be abolished.
 		#ELSE
 			#IF (npc.isSelfish())
@@ -764,14 +764,14 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_TALK_SLAVES_NULL_SLAVE"><![CDATA[
 	<p>
 		You ask [npc.name] if [npc.sheHas] talked to or interacted with any of your slaves recently. Answering in the affirmative, [npc.she] says that [npc.she] recently tried to talk with one of them, but your slave was very busy, and [npc.she] didn't want to distract them from their work too much.
 	</p>
 	<p>
 		Moving on to talk about [npc.namePos] opinion of slavery in general, [npc.she] tells you that
-		#IF (npc.isTrusting())
+		#IF (npc.isKind())
 			 [npc.she] feels sorry for those bound into a life of servitude, and that [npc.she] hopes one day slavery will be abolished.
 		#ELSE
 			#IF (npc.isSelfish())
@@ -786,7 +786,56 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
+	
+	<!-- OCCUPANT_JOB_SUGGESTION -->
+	
+	<htmlContent tag="OCCUPANT_JOB_SUGGESTION_CHANGE"><![CDATA[
+	<p>
+		Although [npc.name] is currently employed, you aren't sure if working as [npc.a_job] is really suitable for [npc.herHim]. Knowing that [npc.she] trusts your opinion, you wonder if you should suggest that [npc.she] starts looking for a different job...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_JOB_SUGGESTION"><![CDATA[
+	<p>
+		Although [npc.name] is currently looking for a job, you aren't sure if [npc.sheIs] going to end up finding one that's suitable for [npc.herHim]. Knowing that [npc.she] trusts your opinion, you wonder if you should suggest the sort of job that [npc.she] should be looking for...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OCCUPANT_JOB_SUGGESTION_MADE -->
+	
+	<htmlContent tag="OCCUPANT_JOB_SUGGESTION_MADE_CHANGE"><![CDATA[
+	<p>
+		Not liking the fact that [npc.name] is working as [npc.a_job], you suggest to [npc.herHim] that [npc.she] should start looking for a job as [npc.a_desiredJob].
+	</p>
+	<p>
+		#IF(npc.isShy())
+			Casting [npc.her] gaze to the floor, [npc.name] shyly shuffles [npc.her] [npc.feet] as [npc.she] replies to your suggestion, [npc.speech(Oh, well, if you think that's for the best, [pc.name]... I'll start looking for an opening as [npc.a_desiredJob] right away...)]
+		#ELSE
+			Letting out a contemplative hum, [npc.name] replies to your suggestion, [npc.speech(You know, [pc.name], I <i>had</i> been thinking about a change of job... I'll start looking for an opening as [npc.a_desiredJob] right away!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_JOB_SUGGESTION_MADE"><![CDATA[
+	<p>
+		Thinking that you have the perfect suggestion for [npc.name], you tell [npc.herHim] that [npc.she] should start looking for a job as [npc.a_desiredJob].
+	</p>
+	<p>
+		#IF(npc.isShy())
+			Casting [npc.her] gaze to the floor, [npc.name] shyly shuffles [npc.her] [npc.feet] as [npc.she] replies, [npc.speech(Oh, well, if you think that's for the best, [pc.name]... I'll start looking for an opening as [npc.a_desiredJob] right away...)]
+		#ELSE
+			Letting out a contemplative hum, [npc.name] replies, [npc.speech(You know, [pc.name], I <i>had</i> been thinking about that sort of thing... I'll start looking for an opening as [npc.a_desiredJob] right away!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<htmlContent tag="AFTER_SEX_THREESOME"><![CDATA[
 	<p>
 		You, [npc.name], and [npc2.name] all collapse down onto the bed together, panting and sighing as you all press closely against one another. After spending some time getting your breath back, the three of you start to get your things together, before eventually standing up and smiling at one another.
@@ -795,14 +844,14 @@
 		[npc.speech(Mmm, that was fun. The two of you should come and pay me a visit more often,)] [npc.name] says with a little laugh.
 	</p>
 	<p>
-		[npc2.speech(Yeah, that really was great,)] [npc2.name] replies. [npc2.speech(We really should do this again some time, right, [npc.pcName]?)]
+		[npc2.speech(Yeah, that really was great,)] [npc2.name] replies. [npc2.speech(We really should do this again some time, right, [pc.name]?)]
 	</p>
 	<p>
 		[pc.speech(We'll see,)] you tease, smiling and letting out a small laugh as [npc.name] and [npc2.name] whine in unison.
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="AFTER_SEX"><![CDATA[
 	<p>
 		You and [npc.name] collapse down onto [npc.her] bed together, before rolling over and gazing lovingly into one another's eyes. Lying like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
@@ -815,7 +864,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="AFTER_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		You and [npc.name] collapse down onto [npc.her] bed together, before rolling over and gazing lovingly into one another's eyes. Lying like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
@@ -828,7 +877,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="LEAVE_AFTER_SEX"><![CDATA[
 	<p>
 		As [npc.name] looks exhausted, you decide to take your leave and give [npc.herHim] some time to recover. Heading over to the door, you call out, [pc.speech(I'll be back later, [npc.name]. Maybe we can have some more fun when I return...)]
@@ -838,7 +887,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_KICK_OUT"><![CDATA[
 	<p>
 		You feel as though the time has come to kick [npc.name] out. Stepping towards [npc.herHim], you put on your most authoritative tone as you state, [pc.speech(You're going to have to leave, [npc.name]. I can't support you here any longer.)]
@@ -857,7 +906,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_MOVE_OUT"><![CDATA[
 	<p>
 		Now that [npc.name] has a job and is able to support [npc.herself] financially, you feel as though it's time for [npc.herHim] to move on, and, looking into [npc.her] [npc.eyes], you tell [npc.herHim] as such, [pc.speech([npc.Name], I wanted to talk to you about your offer of moving out. Is that apartment your friend mentioned still available?)]
@@ -879,7 +928,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_MOVE_OUT_REMOVE_CHARACTER"><![CDATA[
 	<p>
 		You let out a sigh as you step forwards and smile wistfully at the [npc.race], [pc.speech(I really think that you need to move on with your life, [npc.name]. I'm so happy that I was able to offer you a place to stay while you got yourself back on your feet, but continuing to see one another is only going to hold you back.)]
@@ -898,7 +947,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_MOVE_OUT_APARTMENT"><![CDATA[
 	<p>
 		[pc.speech(Of course I'll come with you!)] you reply, smiling happily as you see [npc.namePos] [npc.eyes] light up. Helping [npc.herHim] to take one of [npc.her] suitcases down to the front door, you turn and ask, [pc.speech(So, which direction is it?)]
@@ -944,7 +993,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_APARTMENT_START"><![CDATA[
 	<p>
 		Finding yourself near to where [npc.name] lives, you decide to pay [npc.herHim] a visit. Cutting across the street towards [npc.her] apartment building, you push open the front door and step into the building's foyer, before heading over to the staircase and making your way up to the second floor.
@@ -957,7 +1006,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_APARTMENT_START_PREGNANCY_REVEAL"><![CDATA[
 	<p>
 		Before you can move on to the reason for your visit, you suddenly notice that something's a little off about [npc.namePos] gait. Looking down as [npc.she] moves to cradle [npc.her] stomach in both [npc.hands], you gasp as you see that [npc.sheIs] sporting a very obviously [style.colourSex(pregnant belly)].
@@ -971,9 +1020,9 @@
 			#ENDIF
 		#ELSE
 			#IF (npc.hasFetish(FETISH_PREGNANCY))
-				[npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
+				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
 			#ELSE
-				[npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
+				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
 			#ENDIF
 		#ENDIF
 	</p>
@@ -982,14 +1031,14 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_APARTMENT_START_STILL_PREGNANT"><![CDATA[
 	<p>
 		As [npc.name] stands in the doorway before you, you notice that [npc.sheIs] still cradling [npc.her] [style.colourSex(pregnant belly)] in both [npc.hands]. Reminding [npc.herHim] that [npc.sheIs] more than welcome to get help from Lilaya when [npc.sheIs] ready to give birth, you smile at [npc.herHim] as [npc.she] promises to do just that.
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_APARTMENT_START_PLAYER_PREGNANCY"><![CDATA[
 	<p>
 		#IF (pc.getPregnantLitter()!=null && pc.getPregnantLitter().isFatherId(npc.getId()))
@@ -1011,14 +1060,14 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_APARTMENT_START_CONTINUED_PLAYER_PREGNANCY"><![CDATA[
 	<p>
 		As you stand there before [npc.name], [npc.she] notices that you're still cradling your pregnant belly in both [pc.hands]. Smiling warmly at you, [npc.she] reminds you to take good care of yourself.
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_APARTMENT_START_FINISH"><![CDATA[
 	<p>
 		[npc.speech(Anyway, don't just stand there, come on in!)] [npc.name] says, moving back as you accept [npc.her] invitation and step forwards into [npc.her] small, cozy apartment.
@@ -1031,7 +1080,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_APARTMENT_NOT_AT_HOME"><![CDATA[
 	<p>
 		Finding yourself near to where [npc.name] lives, you decide to pay [npc.herHim] a visit. Cutting across the street towards [npc.her] apartment building, you push open the front door and step into the building's foyer, before heading over to the staircase and making your way up to the second floor.
@@ -1044,7 +1093,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_APARTMENT_REMOVE"><![CDATA[
 	<p>
 		You let out a sigh as you smile wistfully at [npc.name], [pc.speech(I really think that you need to move on with your life, [npc.name]. I'm so happy that I was able to offer you a place to stay while you got yourself back on your feet, but continuing to see one another is only going to hold you back.)]
@@ -1095,7 +1144,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SEX_APARTMENT_SPITROASTED_START"><![CDATA[
 	<p>
 		[pc.speech(You know, I was thinking that the three of us could have some fun together...)] you tease, turning to face both [npc.name] and [npc2.name], before biting your [pc.lip] and putting on your most submissive, seductive look.
@@ -1117,7 +1166,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SEX_APARTMENT_SIDE_BY_SIDE_START"><![CDATA[
 	<p>
 		[pc.speech(You know, I was thinking that I could have some fun with the two of you at once...)] you tease, turning to face both [npc.name] and [npc2.name], before glaring dominantly at the two of them.
@@ -1126,10 +1175,10 @@
 		Sensing what it is that you want, both [npc.name] and [npc2.name] step towards each other, casting submissive glances at you before turning and dropping down onto all fours. Letting out a delighted [pc.moan], you step towards the two of them as they present their rear ends for your use.
 	</p>
 	<p>
-		[npc.speech(Come and take us!)] [npc.name] [npc.moans], looking back over [npc.her] shoulder and seductively biting [npc.her] [npc.lip].
+		[npc.speech(Come and take us!)] [npc.name] [npc.moans], looking back over [npc.her] shoulder and seductively biting [npc.her] [npc.lip]. 
 	</p>
 	<p>
-		[npc2.speech(Mmm, yes, put us in our place!)] [npc2.name] joins in, copying [npc.name] as [npc2.she] glances back over [npc2.her] shoulder and bats [npc.her] eyelids at you.
+		[npc2.speech(Mmm, yes, put us in our place!)] [npc2.name] joins in, copying [npc.name] as [npc2.she] glances back over [npc2.her] shoulder and bats [npc.her] eyelids at you. 
 	</p>
 	<p>
 		Dropping down onto your knees behind them, you prepare to do exactly as they say, and, reaching forwards to grab their asses in each [pc.hand], you [pc.moan], [pc.speech(I wonder which of you I'll fuck first...)]
@@ -1143,7 +1192,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_APARTMENT_TALK_LIFE"><![CDATA[
 	<p>
 		Wanting to talk with [npc.name] about [npc.her] past life, you ask [npc.herHim] a series of questions about [npc.her] time living on the streets of Dominion. While a little hesitant to talk about some of [npc.her] painful memories at first, [npc.name] soon starts to open up to you, and spends a good while talking about some of the things that have happened to [npc.herHim].
@@ -1156,7 +1205,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_APARTMENT_TALK_JOB"><![CDATA[
 	<p>
 		Wanting to know how [npc.namePos] job as [npc.a_job] is going, you ask [npc.herHim] how [npc.sheIs] finding it. All too eager to try and impress you with [npc.her] tales of finally being a productive member of society, [npc.name] starts recounting some of [npc.her] recent experiences at work, pausing every now and then to allow you to compliment [npc.herHim] or make a comment on [npc.her] story-telling.
@@ -1169,7 +1218,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_APARTMENT_SLEEP_OVER"><![CDATA[
 	<p>
 		[pc.speech(Hey, [npc.name], is it ok if I crash on your sofa for while?)] you ask. [pc.speech(I'm absolutely shattered, and really need some sleep.)]
@@ -1182,7 +1231,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP_ALONE"><![CDATA[
 	<p>
 		Some time later, you wake up, and, rubbing the sleep out of your [pc.eyes], sit up on the sofa. Looking around, you don't see any sign of [npc.name], but there looks to be a note left on the coffee table in front of you. Leaning forwards, you pick it up and read:
@@ -1199,7 +1248,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OCCUPANT_APARTMENT_SLEEP_OVER_WAKE_UP"><![CDATA[
 	<p>
 		Some time later, you wake up, and, rubbing the sleep out of your [pc.eyes], sit up on the sofa. Looking around, you immediately spot [npc.name] pouring [npc.herself] a drink behind the kitchen counter. Stretching your [pc.arms] and [pc.legs], you call out, [pc.speech(Hi, [npc.name]!)]
@@ -1212,7 +1261,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="APARTMENT_AFTER_SEX_THREESOME"><![CDATA[
 	<p>
 		You, [npc.name], and [npc2.name] all collapse down onto the sofa together, panting and sighing as you all press closely against one another. After spending some time getting your breath back, the three of you start to get your things together, before eventually standing up and smiling at one another.
@@ -1221,14 +1270,14 @@
 		[npc.speech(Mmm, that was fun. The two of you should come and pay me a visit more often,)] [npc.name] says with a little laugh.
 	</p>
 	<p>
-		[npc2.speech(Yeah, that really was great,)] [npc2.name] replies. [npc2.speech(We really should do this again some time, right, [npc.pcName]?)]
+		[npc2.speech(Yeah, that really was great,)] [npc2.name] replies. [npc2.speech(We really should do this again some time, right, [pc.name]?)]
 	</p>
 	<p>
 		[pc.speech(We'll see,)] you tease, smiling and letting out a small laugh as [npc.name] and [npc2.name] whine in unison.
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="APARTMENT_AFTER_SEX"><![CDATA[
 	<p>
 		You and [npc.name] collapse down onto [npc.her] sofa together, before rolling over and gazing lovingly one another's eyes. Slumping down like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
@@ -1241,7 +1290,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="APARTMENT_AFTER_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		You and [npc.name] collapse down onto [npc.her] sofa together, before rolling over and gazing lovingly into one another's eyes. Slumping down like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
@@ -1254,7 +1303,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="APARTMENT_LEAVE_AFTER_SEX"><![CDATA[
 	<p>
 		As [npc.name] looks exhausted, you decide to take your leave and give [npc.herHim] some time to recover. Heading over to [npc.her] front door, you call out, [pc.speech(I'll be back another time, [npc.name]. Maybe we can have some more fun then...)]
@@ -1264,5 +1313,5 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 </dialogue>

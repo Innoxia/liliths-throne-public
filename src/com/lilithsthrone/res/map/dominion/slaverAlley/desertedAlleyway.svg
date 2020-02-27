@@ -1,0 +1,15 @@
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.5" y2="1003.4" gradientTransform="matrix(1.2884 0 0 1.2905 -9.225 -296.31)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f55" offset="0"/>
+   <stop stop-color="#ff8080" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(0 -988.36)">
+  <ellipse cx="32" cy="1020.4" rx="30.383" ry="30.381" fill="url(#linearGradient15)" fill-rule="evenodd"/>
+  <g fill="none" stroke="#fff" stroke-width="2.9404">
+   <path d="M32.303 1040.327l-.083-24.436 14.994-.086.1 18.833-14.914.044M28.324 1005.978l-.016 6.408-4.093-.007.013 7.952-10.442-.072"/>
+   <path d="m19.943 1020.4-0.075 7.303 12.588 0.012m-16.954 9.503 16.274-0.065m9.741-21.485v-9.73l-17.158-0.1 5e-3 -7.163m30.54 22.253-8.397-0.091"/>
+  </g>
+ </g>
+</svg>

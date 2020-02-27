@@ -6,7 +6,7 @@
 		<name><![CDATA[trainer sock]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[trainer socks]]></namePlural>
 		<description><![CDATA[A pair of trainer socks, made from cotton and with an elasticated band at the top in order to keep them in place. Their short size allows them to hide neatly inside any footwear.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>SOCK</slot>
 		<rarity>COMMON</rarity>

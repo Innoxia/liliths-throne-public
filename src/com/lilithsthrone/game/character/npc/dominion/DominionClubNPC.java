@@ -9,7 +9,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
@@ -28,7 +27,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.8
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class DominionClubNPC extends NPC {
@@ -44,7 +43,8 @@ public class DominionClubNPC extends NPC {
 	public DominionClubNPC(Gender gender, Subspecies subspecies, boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3, gender, Subspecies.DOG_MORPH, RaceStage.GREATER,
+				3,
+				null, null, null,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 		
 		if(!isImported) {
@@ -55,17 +55,15 @@ public class DominionClubNPC extends NPC {
 			// RACE & NAME:
 
 			if(subspecies.getRace()==Race.HARPY) {
-				setBody(gender, subspecies, RaceStage.LESSER);
+				setBody(gender, subspecies, RaceStage.LESSER, true);
+				
+			} else if(gender.isFeminine()) {
+				RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), gender, subspecies);
+				setBody(gender, subspecies, stage, true);
 				
 			} else {
-				if(gender.isFeminine()) {
-					RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), gender, subspecies);
-					setBody(gender, subspecies, stage);
-					
-				} else {
-					RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies), gender, subspecies);
-					setBody(gender, subspecies, stage);
-				}
+				RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies), gender, subspecies);
+				setBody(gender, subspecies, stage, true);
 			}
 			
 			setName(Name.getRandomTriplet(this.getRace()));
@@ -96,9 +94,10 @@ public class DominionClubNPC extends NPC {
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
-			
-			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+			this.setStartingCombatMoves();
+			loadImages();
+
+			initHealthAndManaToMax();
 		}
 	}
 	

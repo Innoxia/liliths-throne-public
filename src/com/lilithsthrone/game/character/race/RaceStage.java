@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.character.race;
 
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
@@ -368,6 +370,27 @@ public enum RaceStage {
 	
 	public Colour getColour() {
 		return colour;
+	}
+	
+	public static RaceStage getRaceStageFromUserPreferences(Subspecies subspecies) {
+		FurryPreference preference = Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies);
+		
+		RaceStage raceStage = RaceStage.PARTIAL;
+		
+		switch(preference) {
+			case HUMAN:
+				return RaceStage.HUMAN;
+			case MINIMUM:
+				return RaceStage.PARTIAL;
+			case REDUCED:
+				return Util.randomItemFrom(Util.newArrayListOfValues(RaceStage.PARTIAL, RaceStage.LESSER));
+			case NORMAL:
+				return Util.randomItemFrom(Util.newArrayListOfValues(RaceStage.PARTIAL, RaceStage.LESSER, RaceStage.GREATER));
+			case MAXIMUM:
+				return RaceStage.GREATER;
+		}
+		
+		return raceStage;
 	}
 
 	public abstract boolean isAntennaFurry();

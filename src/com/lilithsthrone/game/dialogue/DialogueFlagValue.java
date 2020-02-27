@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -23,6 +23,15 @@ public enum DialogueFlagValue {
 	foundHappiness,
 	visitedSubmission,
 	mommyFound,
+	
+	daddyFound,
+	rudeToDaddy,
+	flirtingWithDaddy,
+	talkedWithDaddy,
+	daddySendingReward,
+	
+	playerCaptive,
+	
 	
 	// Gym:
 	gymIntroduced,
@@ -46,6 +55,8 @@ public enum DialogueFlagValue {
 	axelIntroduced,
 	eponaIntroduced,
 	elizabethIntroduced,
+	vengarIntroduced,
+	murkIntroduced,
 	
 	
 	// Red-light district:
@@ -63,6 +74,8 @@ public enum DialogueFlagValue {
 	
 	
 	// Shopping arcade:
+	ralphAskedAboutHundredKisses,
+	
 	nyanTalkedTo,
 	nyanComplimented,
 	nyanFlirtedWith,
@@ -98,21 +111,20 @@ public enum DialogueFlagValue {
 	readBook3,
 	readBook4,
 	
-	arthursRoomInstalled,
 	arthursPackageObtained,
 	
 	givenLilayaPresent1,
 	givenLilayaPresent2,
 	givenLilayaPresent3,
 	
-	// Brax:
+	// Enforcer HQ:
 	braxEncountered,
 	accessToEnforcerHQ,
 	braxTransformedPlayer,
-	braxBeaten,
 	seenBraxAfterQuest,
 	feminisedBrax,
 	bimbofiedBrax,
+	candiHarpyTransformation,
 	
 	// Harpy Nests:
 	hasHarpyNestAccess,
@@ -122,11 +134,24 @@ public enum DialogueFlagValue {
 	dominantPacified,
 	nymphoEncountered,
 	nymphoPacified,
-	punishedByAlexa,
+	punishedByHelena,
 	
 	// Slaver Alley:
 	finchIntroduced,
+	seanIntroduced,
+	seanSeenBrax,
 	statueTruthRevealed,
+	slaverAlleyTalked,
+	slaverAlleyTalkedBraxReveal,
+	slaverAlleyTalkedFreedSlaves,
+	slaverAlleyComplained,
+	slaverAlleyVisitedHiddenAlleyway,
+	slaverAlleyBribed,
+	slaverAlleyTookPlace,
+	slaverAlleyCompanionInStocks,
+	slaverAlleyAcceptedDeal,
+	slaverAlleyCompanionAcceptedDeal,
+	slaverAlleySlavesFreed, // Reset every day at midnight
 	
 	// Zaranix:
 	zaranixDiscoveredHome,
@@ -160,10 +185,23 @@ public enum DialogueFlagValue {
 	slimeQueenForced,
 	
 	// Gambling Den:
-	axelToldAboutVengar,
+	axelMentionedVengar,
+	axelExplainedVengar,
+	axelToldSubmit,
+	
+	axelSissified,
+	axelFeminised,
+	axelClothingFeminine,
+	axelClothingWhore,
+	axelClothingMaid,
+	
 	roxyAddicted,
+	roxyVengarOwnerIntroduced,
 	playedPregnancyRouletteAsMother,
 	playedPregnancyRouletteAsBreeder,
+	
+	eponaMurkOwnerIntroduced,
+	eponaMurkSubmitted,
 	
 	// Nightlife:
 	julesIntroduced,
@@ -174,6 +212,13 @@ public enum DialogueFlagValue {
 	krugerIntroduced,
 	
 	// Submission:
+	claireAskedTeleportation,
+	claireWarning,
+	clairePadsInvestigated,
+	claireEnclosureEscaped,
+	claireObtainedLightningGlobe,
+	claireAskedWarehouseEscape,
+	
 	impCitadelEncountered,
 	impCitadelArcanistEncountered,
 	impCitadelArcanistAcceptedTF,
@@ -214,5 +259,54 @@ public enum DialogueFlagValue {
 
 	meraxisRepeatDemonTF,
 	
+	
+	// Rat warrens:
+	
+	ratWarrensEntry,
+	ratWarrensEntryWhore,
+	ratWarrensHostile,
+	ratWarrensEntranceGuardsFight,
+	ratWarrensSeenMilkers,
+	ratWarrensMilkersBackground,
+	
+	ratWarrensClearedLeft,
+	ratWarrensClearedCentre,
+	ratWarrensClearedRight,
+	
+	ratWarrensLootedDiceDen,
+	
+	vengarThreatened,
+	vengarPersuaded,
+	vengarSeduced,
+	ratWarrensRaid,
+
+	vengarCaptiveRoomCleaned, // Reset to false every day
+	vengarCaptiveVengarSatisfied, // Reset to false every day
+	vengarCaptiveShadowSatisfied, // Reset to false every day
+	vengarCaptiveSilenceSatisfied, // Reset to false every day
+	vengarCaptiveCompanionGivenBirth, // Reset to false every day
+	vengarCaptiveGangBanged, // Reset to false every day
+	
+	ratWarrensCaptiveAttemptingEscape,
+	ratWarrensCaptiveEscaped,
+	ratWarrensCaptiveTransformationsStarted,
+	
+	ratWarrensCaptiveFeminine,
+	ratWarrensCaptiveFuta,
+	ratWarrensCaptiveMasculine,
+	ratWarrensCaptiveSissy,
+
+	ratWarrensCaptiveFuckedByMurk,
+	ratWarrensCaptiveCompanionFuckedByMurk,
+	
+	ratWarrensCaptiveMilkingStarted,
+	ratWarrensCaptiveMilkingStartedCompanion,
+
+	ratWarrensCaptiveCalledOut, // Reset to false when sleep
+	
+	ratWarrensCaptiveCompanionGivenBirth, // Reset to false every day
+	ratWarrensCaptiveOwnerSex, // Reset to false every day
+	ratWarrensCaptiveOwnerCompanionSex, // Reset to false every day
+	ratWarrensCaptiveDailyTransformed // Reset to false every day
 	;
 }

@@ -7,7 +7,7 @@
 		<name><![CDATA[lacy thong]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[lacy thongs]]></namePlural>
 		<description><![CDATA[A skimpy thong, with a decorative lace front panel.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>GROIN</slot>
 		<rarity>COMMON</rarity>
