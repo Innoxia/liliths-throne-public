@@ -27,7 +27,7 @@ public class Missionary {
 			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Spread legs";
@@ -37,12 +37,12 @@ public class Missionary {
 		public String getActionDescription() {
 			return "Spread your [npc.legs] wide open for [npc2.name].";
 		}
-		
+
 		@Override
 		public SexActionCategory getCategory() {
 			return SexActionCategory.SEX;
 		}
-		
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
@@ -57,7 +57,7 @@ public class Missionary {
 
 		@Override
 		public String getDescription() {
-			
+
 			boolean vaginalSex = false;
 			try {
 				vaginalSex = Sex.getOngoingActionsMap(Sex.getCharacterTargetedForSexAction(this)).get(SexAreaPenetration.PENIS).get(Sex.getCharacterPerformingAction()).contains(SexAreaOrifice.VAGINA);
@@ -67,8 +67,8 @@ public class Missionary {
 			try {
 				analSex = Sex.getOngoingActionsMap(Sex.getCharacterTargetedForSexAction(this)).get(SexAreaPenetration.PENIS).get(Sex.getCharacterPerformingAction()).contains(SexAreaOrifice.ANUS);
 			} catch(Exception ex) {
-			} 
-			
+			}
+
 			if(vaginalSex) {
 				return UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()),
 						UtilText.returnStringAtRandom(
@@ -90,7 +90,7 @@ public class Missionary {
 						"[npc.Name] [npc.verb(spread)] [npc.her] [npc.legs] and [npc.verb(raise)] [npc.her] [npc.ass+],"
 								+ " looking up at [npc2.name] and biting [npc.her] [npc.lip] as [npc2.she] [npc2.verb(continue)] fucking [npc.her] [npc.asshole+]."));
 			}
-			
+
 			return UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()),
 					UtilText.returnStringAtRandom(
 					"Looking up at [npc2.name], [npc.name] [npc.verb(bite)] [npc.her] [npc.lip] and [npc.verb(let)] out [npc.moan+], before spreading [npc.her] [npc.legs] and submissively presenting [npc.herself], ready to be penetrated.",
@@ -99,5 +99,5 @@ public class Missionary {
 					"[npc.Name] [npc.verb(spread)] [npc.her] [npc.legs], looking up at [npc2.name] and biting [npc.her] [npc.lip] as [npc.she] [npc.verb(entice)] [npc2.herHim] to penetrate [npc.herHim]."));
 		}
 	};
-	
+
 }
