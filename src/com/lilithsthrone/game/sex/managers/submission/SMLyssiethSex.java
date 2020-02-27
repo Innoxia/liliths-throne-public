@@ -32,22 +32,22 @@ public class SMLyssiethSex extends SexManagerDefault {
 		}
 		return super.isPartnerWantingToStopSex(partner);
 	}
-	
+
 	@Override
 	public boolean isPlayerAbleToStopSex() {
 		return Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN);
 	}
-	
+
 	@Override
 	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isPositionChangingAllowed(GameCharacter character) {
 		return false;
 	}
-	
+
 	@Override
 	public SexPace getForcedSexPace(GameCharacter character) {
 		if(!character.isPlayer()) {
@@ -57,7 +57,7 @@ public class SMLyssiethSex extends SexManagerDefault {
 				} else {
 					return SexPace.SUB_EAGER;
 				}
-				
+
 			} else {
 				if(Main.sex.isDom(character)) {
 					return SexPace.DOM_NORMAL;

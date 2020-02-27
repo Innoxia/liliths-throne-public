@@ -21,7 +21,7 @@ public enum SexControl {
 
 	/**The character can perform any action in sex. Only this level of control can end sex.*/
 	FULL(4);
-	
+
 	private int value;
 
 	private SexControl(int value) {
@@ -31,6 +31,6 @@ public enum SexControl {
 	public int getValue() {
 		return value;
 	}
-	
-	
+
+
 }

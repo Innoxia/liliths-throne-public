@@ -19,7 +19,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class PartnerSelfFingerMouth {
-	
+
 	public static final SexAction PARTNER_SELF_FINGER_MOUTH_LUBRICATION = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ZERO_NONE,
@@ -31,7 +31,7 @@ public class PartnerSelfFingerMouth {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.NPC_ONLY;
 		}
-		
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.hasLubricationTypeFromAnyone(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)
@@ -39,7 +39,7 @@ public class PartnerSelfFingerMouth {
 					&& (Main.sex.getForeplayPreference((NPC) Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))!=null
 						&& Main.sex.getForeplayPreference((NPC) Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)).getPerformingSexArea()==SexAreaPenetration.FINGER);
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Lubricate fingers";
@@ -55,13 +55,13 @@ public class PartnerSelfFingerMouth {
 			return "Lifting [npc.her] [npc.hand] up to [npc.her] mouth, [npc.name] slides [npc.her] [npc.fingers] past [npc.her] [npc.lips+],"
 					+ " before lewdly sucking on them for a moment in order to get them well lubricated with [npc.her] saliva.";
 		}
-		
+
 		@Override
 		public void applyEffects() {
 			Main.sex.transferLubrication(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER, Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH);
 		}
 	};
-	
+
 	public static final SexAction PARTNER_SELF_FINGER_MOUTH_PENETRATION = new SexAction(
 			SexActionType.START_ONGOING,
 			ArousalIncrease.ZERO_NONE,
@@ -73,7 +73,7 @@ public class PartnerSelfFingerMouth {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.NPC_ONLY;
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Suck fingers (self)";
@@ -89,7 +89,7 @@ public class PartnerSelfFingerMouth {
 			return "Lifting [npc.her] [npc.hand] up to [npc.her] mouth, [npc.name] slides [npc.her] [npc.fingers] past [npc.her] [npc.lips+] before starting to lewdly suck on [npc.her] intruding digits.";
 		}
 	};
-	
+
 	public static final SexAction PARTNER_SELF_FINGER_MOUTH_STOP_PENETRATION = new SexAction(
 			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -101,7 +101,7 @@ public class PartnerSelfFingerMouth {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.NPC_ONLY;
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Stop sucking fingers (self)";
@@ -117,5 +117,5 @@ public class PartnerSelfFingerMouth {
 			return "With a little sigh, [npc.name] slides [npc.her] saliva-coated [npc.fingers] out of [npc.her] mouth.";
 		}
 	};
-	
+
 }

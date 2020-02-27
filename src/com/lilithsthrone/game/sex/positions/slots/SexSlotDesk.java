@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * All SexSlots that are used in the OVER_DESK position.
- * 
+ *
  * @since 0.3.4
  * @version 0.3.4
  * @author Innoxia
@@ -36,7 +36,7 @@ public class SexSlotDesk {
 		}
 	};
 
-	
+
 	public static final SexSlot OVER_DESK_ON_FRONT = new SexSlot(
 			"Bent over",
 			"bent over",
@@ -62,7 +62,7 @@ public class SexSlotDesk {
 		}
 	};
 
-	
+
 	public static final SexSlot BETWEEN_LEGS = new SexSlot(
 			"Between legs",
 			"between legs",
@@ -88,7 +88,7 @@ public class SexSlotDesk {
 		}
 	};
 
-	
+
 	public static final SexSlot PERFORMING_ORAL = new SexSlot(
 			"Performing oral",
 			"performing oral",
@@ -129,7 +129,7 @@ public class SexSlotDesk {
 			return target.getHeightValue()<=80; // Assuming a desk is 70cm high, a character stands to perform oral if they're 80cm or shorter
 		}
 	};
-	
+
 
 	public static final SexSlot RECEIVING_ORAL = new SexSlot(
 			"Receiving oral",

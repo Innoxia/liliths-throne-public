@@ -23,7 +23,7 @@ public class SMZaranixCockSucking extends SexManagerDefault {
 				dominants,
 				submissives);
 	}
-	
+
 	@Override
 	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
@@ -33,7 +33,7 @@ public class SMZaranixCockSucking extends SexManagerDefault {
 	public boolean isPositionChangingAllowed(GameCharacter character) {
 		return false;
 	}
-	
+
 	@Override
 	public SexControl getSexControl(GameCharacter character) {
 		if(character.isPlayer()) {
@@ -41,7 +41,7 @@ public class SMZaranixCockSucking extends SexManagerDefault {
 		}
 		return super.getSexControl(character);
 	}
-	
+
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 		return partner.equals(Main.game.getNpc(Zaranix.class)) && Main.sex.getNumberOfOrgasms(Main.game.getNpc(Zaranix.class))>=2;
@@ -51,7 +51,7 @@ public class SMZaranixCockSucking extends SexManagerDefault {
 	public boolean isAbleToEquipSexClothing(GameCharacter character){
 		return false;
 	}
-	
+
 	@Override
 	public boolean isAbleToRemoveSelfClothing(GameCharacter character){
 		return character.equals(Main.game.getNpc(Zaranix.class));

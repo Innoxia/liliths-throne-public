@@ -29,7 +29,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class FortressMalesLeaderSA {
-	
+
 	public static boolean isBothTargetsUsed() {
 		try {
 			return Main.sex.getSexTypeCount(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterInPosition(SexSlotLyingDown.LYING_DOWN), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0
@@ -38,13 +38,13 @@ public class FortressMalesLeaderSA {
 			return true;
 		}
 	}
-	
+
 	public static GameCharacter getBreedingTarget() {
 		return Main.sex.getCharactersHavingOngoingActionWith(Main.game.getNpc(FortressMalesLeader.class), SexAreaPenetration.PENIS).isEmpty()
 				?null
 				:Main.sex.getCharactersHavingOngoingActionWith(Main.game.getNpc(FortressMalesLeader.class), SexAreaPenetration.PENIS).get(0);
 	}
-	
+
 	private static GameCharacter getOtherTarget() {
 		try {
 			GameCharacter otherTarget = null;
@@ -54,23 +54,23 @@ public class FortressMalesLeaderSA {
 				} else {
 					otherTarget = Main.sex.getCharacterInPosition(SexSlotLyingDown.LYING_DOWN);
 				}
-				
+
 			} else {
 				otherTarget = Main.sex.getSexPositionSlot(getBreedingTarget())==SexSlotLyingDown.LYING_DOWN
 						?Main.sex.getCharacterInPosition(SexSlotLyingDown.LYING_DOWN_TWO)
 						:Main.sex.getCharacterInPosition(SexSlotLyingDown.LYING_DOWN);
 			}
-			
+
 			if(!otherTarget.hasVagina() || !otherTarget.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 				return null;
 			}
 			return otherTarget;
-			
+
 		} catch(Exception ex) {
 			return null;
 		}
 	}
-	
+
 	public static final SexAction PARTNER_ROUND_TWO_ONGOING = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -78,7 +78,7 @@ public class FortressMalesLeaderSA {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Round two";
@@ -122,7 +122,7 @@ public class FortressMalesLeaderSA {
 			Main.game.getNpc(FortressMalesLeader.class).fillCumToMaxStorage();
 		}
 	};
-	
+
 	public static final SexAction PARTNER_ROUND_TWO_ONGOING_SWITCH = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -130,7 +130,7 @@ public class FortressMalesLeaderSA {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Round two (switch)";
@@ -172,21 +172,21 @@ public class FortressMalesLeaderSA {
 					+ "[npc3.Name] soon [npc3.verb(realise)] what the the potion [npc.name] just drank was for, as each time the [npc.race]'s balls slap against [npc3.her] [npc3.assSkin], they feel noticeably heavier and heavier."
 					+ " To confirm [npc3.her] suspicions, [npc.name] grunts, [npc.speech(Fuck, my balls feel so full again! Your womb's going to be pumped full of my seed!)]");
 		}
-		
+
 		@Override
 		public void applyEffects(){
 			Main.game.getNpc(FortressMalesLeader.class).fillCumToMaxStorage();
 			GameCharacter otherTarget = getOtherTarget();
-			
+
 			Map<AbstractClothing, DisplacementType> clothingTouched = otherTarget.displaceClothingForAccess(CoverableArea.VAGINA, null);
 			for(Entry<AbstractClothing, DisplacementType> e : clothingTouched.entrySet()) {
 				if(e.getValue()==DisplacementType.REMOVE_OR_EQUIP) {
 					Main.game.getPlayerCell().getInventory().addClothing(e.getKey());
 				}
 			}
-			
+
 			Main.sex.stopAllOngoingActions(otherTarget, SexAreaOrifice.VAGINA, otherTarget, false);
-			
+
 			Main.sex.stopOngoingAction(
 					Main.sex.getCharacterPerformingAction(),
 					SexAreaPenetration.PENIS,
@@ -198,7 +198,7 @@ public class FortressMalesLeaderSA {
 					SexAreaPenetration.TONGUE,
 					Main.sex.getCharacterPerformingAction(),
 					SexAreaOrifice.VAGINA);
-					
+
 			Main.sex.applyOngoingAction(
 					Main.sex.getCharacterPerformingAction(),
 					SexAreaPenetration.PENIS,
@@ -207,7 +207,7 @@ public class FortressMalesLeaderSA {
 					true);
 		}
 	};
-	
+
 	public static final SexAction PARTNER_ROUND_TWO_START = new SexAction(
 			SexActionType.START_ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -215,7 +215,7 @@ public class FortressMalesLeaderSA {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Round two";
@@ -259,7 +259,7 @@ public class FortressMalesLeaderSA {
 			Main.game.getNpc(FortressMalesLeader.class).fillCumToMaxStorage();
 		}
 	};
-	
+
 	public static final SexAction PARTNER_ROUND_TWO_START_SWITCH = new SexAction(
 			SexActionType.START_ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -267,7 +267,7 @@ public class FortressMalesLeaderSA {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Round two (switch)";
@@ -308,7 +308,7 @@ public class FortressMalesLeaderSA {
 					+ "[npc3.Name] soon [npc3.verb(realise)] what the the potion [npc.name] just drank was for, as each time the [npc.race]'s balls slap against [npc3.her] [npc3.assSkin], they feel noticeably heavier and heavier."
 					+ " To confirm [npc3.her] suspicions, [npc.name] grunts, [npc.speech(Fuck, my balls feel so full again! Your womb's going to be pumped full of my seed!)]");
 		}
-		
+
 		@Override
 		public void applyEffects(){
 			Main.game.getNpc(FortressMalesLeader.class).fillCumToMaxStorage();
@@ -320,9 +320,9 @@ public class FortressMalesLeaderSA {
 					Main.game.getPlayerCell().getInventory().addClothing(e.getKey());
 				}
 			}
-			
+
 			Main.sex.stopAllOngoingActions(otherTarget, SexAreaOrifice.VAGINA, otherTarget, false);
-			
+
 			Main.sex.stopOngoingAction(
 					Main.sex.getCharacterPerformingAction(),
 					SexAreaPenetration.PENIS,
@@ -334,7 +334,7 @@ public class FortressMalesLeaderSA {
 					SexAreaPenetration.TONGUE,
 					Main.sex.getCharacterPerformingAction(),
 					SexAreaOrifice.VAGINA);
-					
+
 			Main.sex.applyOngoingAction(
 					Main.sex.getCharacterPerformingAction(),
 					SexAreaPenetration.PENIS,
@@ -345,5 +345,5 @@ public class FortressMalesLeaderSA {
 	};
 
 
-	
+
 }

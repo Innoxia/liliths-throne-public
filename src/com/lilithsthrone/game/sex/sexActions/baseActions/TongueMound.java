@@ -19,7 +19,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class TongueMound {
-	
+
 	public static final SexAction MOUND_SNOG = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
@@ -28,7 +28,7 @@ public class TongueMound {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Rough mound kiss";
@@ -58,7 +58,7 @@ public class TongueMound {
 								+ " roughly kissing and licking [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].");
 		}
 	};
-	
+
 	public static final SexAction MOUND_KISSING = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
@@ -67,7 +67,7 @@ public class TongueMound {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Kiss mound";
@@ -97,7 +97,7 @@ public class TongueMound {
 							+ " eagerly kissing and licking [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].");
 		}
 	};
-	
+
 	public static final SexAction GENTLE_MOUND_KISSING = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
@@ -106,7 +106,7 @@ public class TongueMound {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Kiss mound";
@@ -136,7 +136,7 @@ public class TongueMound {
 							+ " gently kissing and licking [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].");
 		}
 	};
-	
+
 	public static final SexAction MOUND_SNOG_SUB_EAGER = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
@@ -145,7 +145,7 @@ public class TongueMound {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Snog mound";
@@ -175,7 +175,7 @@ public class TongueMound {
 							+ " eagerly kissing and licking [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].");
 		}
 	};
-	
+
 	public static final SexAction MOUND_KISSING_SUB_NORMAL = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
@@ -184,23 +184,23 @@ public class TongueMound {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Kiss mound";
 		}
-	
+
 		@Override
 		public String getActionDescription() {
 			return "Gently kiss and lick [npc.namePos] doll-like crotch.";
 		}
-	
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.getCharacterTargetedForSexAction(this).hasVagina()
 					&& !Main.sex.getCharacterTargetedForSexAction(this).hasPenis();
 		}
-	
+
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(

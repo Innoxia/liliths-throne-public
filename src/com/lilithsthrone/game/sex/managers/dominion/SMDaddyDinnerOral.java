@@ -35,7 +35,7 @@ public class SMDaddyDinnerOral extends SexManagerDefault {
 				Util.newArrayListOfValues(CoverableArea.PENIS));
 		return map;
 	}
-	
+
 	@Override
 	public SexControl getSexControl(GameCharacter character) {
 		if(!Main.sex.isDom(character)) {
@@ -43,38 +43,38 @@ public class SMDaddyDinnerOral extends SexManagerDefault {
 		}
 		return super.getSexControl(character);
 	}
-	
+
 	@Override
 	public boolean isPublicSex() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isPositionChangingAllowed(GameCharacter character) {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isAbleToEquipSexClothing(GameCharacter character){
 		return false;
 	}
-	
+
 	@Override
 	public boolean isAbleToRemoveSelfClothing(GameCharacter character){
 		return false;
 	}
-	
+
 	@Override
 	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 		return (partner instanceof Daddy)
 				&& Main.sex.getNumberOfOrgasms(partner)>=1;
 	}
-	
+
 	@Override
 	public boolean isAppendStartingExposedDescriptions(GameCharacter character) {
 		return false;
