@@ -15,7 +15,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
@@ -294,7 +293,7 @@ public class TunnelSlimeDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_DOM");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_DOM_NO_ORGASM");
@@ -331,7 +330,7 @@ public class TunnelSlimeDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_SUB");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_SUB_NO_ORGASM");
@@ -891,7 +890,7 @@ public class TunnelSlimeDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_DOM");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_DOM_NO_ORGASM");

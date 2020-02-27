@@ -29,7 +29,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
@@ -195,7 +195,7 @@ public class Loppy extends NPC {
 		
 		// Penis:
 		this.setPenisSize(22);
-		this.setPenisGirth(PenisGirth.THREE_THICK);
+		this.setPenisGirth(PenetrationGirth.THREE_THICK);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMaximumValue());
 		this.fillCumToMaxStorage();

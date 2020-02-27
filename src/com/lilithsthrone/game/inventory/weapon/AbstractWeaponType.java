@@ -33,9 +33,9 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
+import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
-import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
@@ -71,7 +71,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return authorDescription;
 	}
 
-	private ClothingSet clothingSet;
+	private SetBonus clothingSet;
 	private Rarity rarity;
 	private float physicalResistance;
 	
@@ -90,7 +90,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	protected DamageVariance damageVariance;
 	private List<DamageType> availableDamageTypes;
 	
-	private List<Spell> spells;
+	private boolean spellRegenOnDamageTypeChange;
+	private Map<DamageType, List<Spell>> spells;
 	
 
 	// Enchantments:
@@ -128,14 +129,14 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			String pathNameEquipped,
 			Rarity rarity,
 			float physicalResistance,
-			ClothingSet clothingSet,
+			SetBonus clothingSet,
 			List<DamageType> availableDamageTypes,
 			int damage,
 			int arcaneCost,
 			DamageVariance damageVariance,
 			int enchantmentLimit,
 			List<ItemEffect> effects,
-			List<Spell> spells,
+			Map<DamageType, List<Spell>> spells,
 			List<Colour> availablePrimaryColours,
 			List<Colour> availablePrimaryDyeColours,
 			List<Colour> availableSecondaryColours,
@@ -192,14 +193,14 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			String pathNameEquipped,
 			Rarity rarity,
 			float physicalResistance,
-			ClothingSet clothingSet,
+			SetBonus clothingSet,
 			List<DamageType> availableDamageTypes,
 			int damage,
 			int arcaneCost,
 			DamageVariance damageVariance,
 			int enchantmentLimit,
 			List<ItemEffect> effects,
-			List<Spell> spells,
+			Map<DamageType, List<Spell>> spells,
 			List<Colour> availablePrimaryColours,
 			List<Colour> availablePrimaryDyeColours,
 			List<Colour> availableSecondaryColours,
@@ -236,8 +237,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 		this.availableDamageTypes = availableDamageTypes;
 		
+		this.spellRegenOnDamageTypeChange = false;
+		
 		if(spells==null) {
-			this.spells = new ArrayList<>();
+			this.spells = new HashMap<>();
 		} else {
 			this.spells = spells;
 		}
@@ -323,11 +326,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 					coreAttributes = weaponElement.getMandatoryFirstOf("coreAttributes");
 				}
 				
-				this.itemTags = coreAttributes
-					.getMandatoryFirstOf("itemTags")
-					.getAllOf("tag").stream()
-					.map(Element::getTextContent).map(ItemTag::valueOf)
-					.collect(Collectors.toList());
+				this.itemTags = Util.toEnumList(coreAttributes.getMandatoryFirstOf("itemTags").getAllOf("tag"), ItemTag.class);
 				
 				this.isMod = true;
 				
@@ -378,23 +377,31 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				} else {
 					this.availableDamageTypes = new ArrayList<>();
 				}
-				
+
+				this.spells = new HashMap<>();
 				if(coreAttributes.getOptionalFirstOf("spells").isPresent()) {
-					this.spells = coreAttributes
-							.getMandatoryFirstOf("spells")
-							.getAllOf("spell").stream()
-							.map(o -> o.getTextContent().replaceAll("DARK_SIREN_BANEFUL_FISSURE", "DARK_SIREN_SIRENS_CALL"))
-							.map(Spell::valueOf)
-							.collect(Collectors.toList());
-				} else {
-					this.spells = new ArrayList<>();
+					this.spellRegenOnDamageTypeChange = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("spells").getAttribute("changeOnReforge"));
+					
+					for(Element e : coreAttributes.getMandatoryFirstOf("spells").getAllOf("spell")) {
+						String spellId = e.getTextContent();
+						spellId = spellId.replaceAll("DARK_SIREN_BANEFUL_FISSURE", "DARK_SIREN_SIRENS_CALL");
+						Spell s = Spell.valueOf(spellId);
+						
+						DamageType dt = null;
+						if(!e.getAttribute("damageType").isEmpty()) {
+							dt = DamageType.valueOf(e.getAttribute("damageType"));
+						}
+						
+						this.spells.putIfAbsent(dt, new ArrayList<>());
+						this.spells.get(dt).add(s);
+					}
 				}
 				
 				enchantmentLimit = Integer.valueOf(coreAttributes.getMandatoryFirstOf("enchantmentLimit").getTextContent());
 
 				this.clothingSet = coreAttributes.getOptionalFirstOf("weaponSet")
 					.filter(filterEmptyElements)
-					.map(Element::getTextContent).map(ClothingSet::valueOf)
+					.map(Element::getTextContent).map(SetBonus::valueOf)
 					.orElse(null);
 
 				this.effects = coreAttributes
@@ -453,7 +460,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				
 
 				List<Colour> importedPrimaryColours = getColoursFromElement
-					.apply(coreAttributes.getMandatoryFirstOf("primaryColours"));	
+					.apply(coreAttributes.getMandatoryFirstOf("primaryColours"));
 				List<Colour> importedPrimaryColoursDye = getColoursFromElement
 					.apply(coreAttributes.getMandatoryFirstOf("primaryColoursDye"));		
 
@@ -792,52 +799,18 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	
 	public static String genericMeleeAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
 		if(isHit) {
-			if(character.isPlayer()) {
-				return UtilText.parse(target,
-						UtilText.returnStringAtRandom(
-							"Darting forwards, you deliver a solid punch to [npc.namePos] [npc.arm].",
-							"You throw a punch at [npc.name], grinning as you feel it connect with [npc.her] [npc.arm].",
-							"You kick out at [npc.name], smiling to yourself as you feel your [pc.foot] connect with [npc.her] [npc.leg]."));
-				
-			} else {
-				if(target.isPlayer()) {
-					return UtilText.parse(character,
-							UtilText.returnStringAtRandom(
-								"Darting forwards, [npc.name] delivers a solid punch to your [pc.arm].",
-								"[npc.Name] throws a punch at you, grinning as [npc.her] attack connects with your [pc.arm].",
-								"[npc.Name] kicks out at you, smiling to [npc.herself] as [npc.her] [npc.foot] connects with your [pc.leg]."));
-				} else {
-					return UtilText.parse(character, target,
-							UtilText.returnStringAtRandom(
-								"Darting forwards, [npc1.name] delivers a solid punch to [npc2.namePos] [npc2.arm].",
-								"[npc1.Name] throws a punch at [npc2.name], grinning as [npc1.her] attack connects with [npc2.her] [npc2.arm].",
-								"[npc1.Name] kicks out at [npc2.name], smiling to [npc1.herself] as [npc1.her] [npc1.foot] connects with [npc2.namePos] [npc2.leg]."));
-				}
-			}
+			return UtilText.parse(character, target,
+					UtilText.returnStringAtRandom(
+						"Darting forwards, [npc.name] [npc.verb(deliver)] a solid punch to [npc2.namePos] [npc2.arm].",
+						"Striking out at [npc2.name], [npc.name] [npc.verb(manage)] to land a solid punch on [npc2.her] [npc2.arm]!",
+						"[npc.Name] [npc.verb(strike)] out at [npc2.name] in unarmed combat, and [npc.verb(manage)] to land a solid hit on [npc2.her] torso."));
 			
 		} else {
-			if(character.isPlayer()) {
-				return UtilText.parse(target,
-						UtilText.returnStringAtRandom(
-							"Darting forwards, you try to deliver a punch to [npc.namePos] [npc.arm], but [npc.she] manages to step out of the way in time.",
-							"You try to throw a punch at [npc.name], but fail to make contact with any part of [npc.her] body.",
-							"You kick out at [npc.name], but your [pc.foot] sails harmlessly through the air."));
-				
-			} else {
-				if(target.isPlayer()) {
-					return UtilText.parse(character,
-							UtilText.returnStringAtRandom(
-								"Darting forwards, [npc.name] tries to deliver a punch to your [pc.arm], but you manage to step out of the way in time.",
-								"[npc.Name] throws a punch at you, but fails to make contact with any part of your body.",
-								"[npc.Name] kicks out at you, but [npc.her] [npc.foot] sails harmlessly through the air."));
-				} else {
-					return UtilText.parse(character, target,
-							UtilText.returnStringAtRandom(
-								"Darting forwards, [npc1.name] tries to deliver a punch to [npc2.namePos] [npc2.arm], but [npc2.she] manages to step out of the way in time.",
-								"[npc1.Name] throws a punch at [npc2.name], but fails to make contact with any part of [npc2.her] body.",
-								"[npc1.Name] kicks out at [npc2.name], but [npc1.her] [npc1.foot] sails harmlessly through the air."));
-				}
-			}
+			return UtilText.parse(character, target,
+					UtilText.returnStringAtRandom(
+						"Darting forwards, [npc.name] [npc.verb(try)] to deliver a punch to [npc2.namePos] [npc2.arm], but [npc2.she] [npc2.verb(manage)] to step out of the way in time.",
+						"[npc.Name] [npc.verb(throw)] a punch at [npc2.name], but fails to make contact with any part of [npc2.her] body.",
+						"[npc.Name] [npc.verb(strike)] out at [npc2.name] in unarmed combat, but [npc.she] [npc.verb(end)] up missing."));
 		}
 	}
 
@@ -873,6 +846,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	
 	public int getBaseValue() {
 		return baseValue;
+	}
+
+	public boolean isUsingUnarmedCalculation() {
+		return this.getItemTags().contains(ItemTag.WEAPON_UNARMED);
 	}
 	
 	public boolean isMelee() {
@@ -922,7 +899,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return physicalResistance;
 	}
 
-	public ClothingSet getClothingSet() {
+	public SetBonus getClothingSet() {
 		return clothingSet;
 	}
 
@@ -946,12 +923,23 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return availableDamageTypes;
 	}
 	
-	public List<Spell> getGenerationSpells(DamageType dt) {
-		return null;
+	public boolean isSpellRegenOnDamageTypeChange() {
+		return spellRegenOnDamageTypeChange;
 	}
 
-	public List<Spell> getSpells() {
+	public Map<DamageType, List<Spell>> getSpells() {
 		return spells;
+	}
+	
+	public List<Spell> getSpells(DamageType damageType) {
+		List<Spell> damageTypeSpells = new ArrayList<>();
+		if(spells.containsKey(null)) {
+			damageTypeSpells.addAll(spells.get(null));
+		}
+		if(spells.containsKey(damageType)) {
+			damageTypeSpells.addAll(spells.get(damageType));
+		}
+		return damageTypeSpells;
 	}
 
 	public List<Colour> getAvailablePrimaryColours() {

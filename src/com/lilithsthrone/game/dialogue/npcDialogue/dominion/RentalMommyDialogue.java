@@ -9,7 +9,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
@@ -253,7 +252,7 @@ public class RentalMommyDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getNumberOfOrgasms(getMommy()) >= getMommy().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getMommy()) >= getMommy().getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_ORGASMED"));
 				
 			} else {
@@ -286,7 +285,7 @@ public class RentalMommyDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getNumberOfOrgasms(getMommy()) >= getMommy().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getMommy()) >= getMommy().getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_ORGASMED"));
 				
 			} else {

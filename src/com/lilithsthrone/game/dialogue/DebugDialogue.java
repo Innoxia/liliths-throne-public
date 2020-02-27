@@ -40,7 +40,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
@@ -313,7 +312,6 @@ public class DebugDialogue {
 						@Override
 						public void effects() {
 							Main.game.setStartingDateMonth(Main.game.getStartingDate().getMonth().minus(1));
-							
 						}
 					};
 					
@@ -322,7 +320,6 @@ public class DebugDialogue {
 							@Override
 							public void effects() {
 								Main.game.setStartingDateMonth(Main.game.getStartingDate().getMonth().plus(1));
-								
 							}
 						};
 						
@@ -432,7 +429,28 @@ public class DebugDialogue {
 							}
 						};
 						
-				}
+				} else if (index == 14) {
+					return new Response("Complete Encyclopedia", "Unlock every entry in your encyclopedia.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							for(Subspecies subspecies : Subspecies.values()) {
+								Main.getProperties().addRaceDiscovered(subspecies);
+								Main.getProperties().addAdvancedRaceKnowledge(subspecies);
+							}
+							for(AbstractItemType itemType : ItemType.getAllItems()) {
+								Main.getProperties().addItemDiscovered(itemType);
+							}
+							for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
+								Main.getProperties().addClothingDiscovered(clothingType);
+							}
+							for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
+								Main.getProperties().addWeaponDiscovered(weaponType);
+							}
+							Main.saveProperties();
+						}
+					};
+					
+			}
 				
 			} else if(responseTab == 3) {
 				if(index==1) {
@@ -967,14 +985,16 @@ public class DebugDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < Subspecies.values().length) {
-				String name = Subspecies.values()[index - 1].getName(null);
+				Subspecies subspecies = Subspecies.values()[index - 1];
+				String name = subspecies.getName(null);
+				
 				return new Response(
 						Util.capitaliseSentence(name),
 						"Set your body as that of "+UtilText.generateSingularDeterminer(name)+" "+name+".",
 						BODY_PART_RACE_RESET){
 					@Override
 					public void effects() {
-						if(Subspecies.values()[index - 1]==Subspecies.HALF_DEMON) {
+						if(subspecies==Subspecies.HALF_DEMON) {
 							Main.game.getPlayer().setSubspeciesOverride(null);
 							Main.game.getPlayer().setBody(
 									CharacterUtils.generateHalfDemonBody(Main.game.getPlayer(), Main.game.getPlayer().getGender(), Subspecies.HUMAN, false),
@@ -982,18 +1002,25 @@ public class DebugDialogue {
 							System.out.println(Main.game.getPlayer().getSubspeciesOverride());
 							
 						} else {
+							Main.game.getPlayer().setSubspeciesOverride(null);
+							RaceStage stage = responseTab==0
+									?RaceStage.PARTIAL
+									:(responseTab==1
+										?RaceStage.PARTIAL_FULL
+										:(responseTab==2
+											?RaceStage.LESSER
+											:RaceStage.GREATER));
+							
+							if(subspecies==Subspecies.DEMON) {
+								stage = RaceStage.GREATER;
+							}
+							
 							CharacterUtils.reassignBody(
 									Main.game.getPlayer(),
 									Main.game.getPlayer().getBody(),
 									Main.game.getPlayer().getGender(),
-									Subspecies.values()[index - 1],
-									responseTab==0
-										?RaceStage.PARTIAL
-										:(responseTab==1
-											?RaceStage.PARTIAL_FULL
-											:(responseTab==2
-												?RaceStage.LESSER
-												:RaceStage.GREATER)),
+									subspecies,
+									stage,
 									false);
 						}
 						Main.game.getTextEndStringBuilder().append(
@@ -1580,11 +1607,11 @@ public class DebugDialogue {
 	public static final DialogueNode POST_SEX_2KOMA = new DialogueNode("", "", true) {
 		@Override
 		public String getContent() {
-			if(Sex.isDom(Main.game.getPlayer())) {
-				GameCharacter target = Sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
+			if(Main.sex.isDom(Main.game.getPlayer())) {
+				GameCharacter target = Main.sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
 				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_2KOMA", target);
 			} else {
-				GameCharacter target = Sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
+				GameCharacter target = Main.sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
 				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_2KOMA_AS_SUB", target);
 			}
 		}
@@ -1592,7 +1619,7 @@ public class DebugDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				if(Sex.isDom(Main.game.getPlayer())) {
+				if(Main.sex.isDom(Main.game.getPlayer())) {
 					return new Response("Continue", "Now that you've put this bitch in [npc.her] place, you can continue with what you were doing...", Main.game.getDefaultDialogue(false));
 				} else {
 					return new Response("Continue", "Now that you've been put in your place like the bitch you are, you can continue with what you were doing...", Main.game.getDefaultDialogue(false));
@@ -1662,11 +1689,11 @@ public class DebugDialogue {
 	public static final DialogueNode POST_SEX_CENTAUR = new DialogueNode("", "", true) {
 		@Override
 		public String getContent() {
-			if(Sex.isDom(Main.game.getPlayer())) {
-				GameCharacter target = Sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
+			if(Main.sex.isDom(Main.game.getPlayer())) {
+				GameCharacter target = Main.sex.getSubmissiveParticipants(false).entrySet().iterator().next().getKey();
 				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR", target);
 			} else {
-				GameCharacter target = Sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
+				GameCharacter target = Main.sex.getDominantParticipants(false).entrySet().iterator().next().getKey();
 				return UtilText.parseFromXMLFile("misc/misc", "POST_SEX_CENTAUR_AS_SUB", target);
 			}
 		}
@@ -1675,7 +1702,7 @@ public class DebugDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				NPC centaur = Main.game.getActiveNPC();
-				if(Sex.isDom(Main.game.getPlayer())) {
+				if(Main.sex.isDom(Main.game.getPlayer())) {
 					return new Response("Continue", UtilText.parse(centaur, "Now that you've put this [npc.race] in [npc.her] place, you can continue with what you were doing..."), Main.game.getDefaultDialogue(false)) {
 						@Override
 						public void effects() {

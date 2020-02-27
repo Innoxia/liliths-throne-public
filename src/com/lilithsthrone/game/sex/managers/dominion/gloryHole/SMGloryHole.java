@@ -2,15 +2,16 @@ package com.lilithsthrone.game.sex.managers.dominion.gloryHole;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPositionUnique;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
@@ -40,7 +41,7 @@ public class SMGloryHole extends SexManagerDefault {
 
 	@Override
 	public boolean isPositionChangingAllowed(GameCharacter character) {
-		return Sex.isDom(character);
+		return Main.sex.isDom(character);
 	}
 
 	@Override
@@ -62,20 +63,20 @@ public class SMGloryHole extends SexManagerDefault {
 	public List<InventorySlot> getSlotsConcealed(GameCharacter character) {
 		List<InventorySlot> concealedSlots = new ArrayList<>();
 		
-		if(Sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_KNEELING)) {
+		if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_KNEELING)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.MOUTH);
 			
-		} else if(Sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKED)
-				|| Sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKING)) {
+		} else if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKED)
+				|| Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKING)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.VAGINA);
 			concealedSlots.remove(InventorySlot.ANUS);
 			concealedSlots.remove(InventorySlot.GROIN);
 			concealedSlots.remove(InventorySlot.LEG);
 			
-		} else if(Sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)
-				||Sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO)) {
+		} else if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)
+				||Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.PENIS);
 			concealedSlots.remove(InventorySlot.VAGINA);
@@ -97,9 +98,12 @@ public class SMGloryHole extends SexManagerDefault {
 
 	@Override
 	public String getRandomPublicSexDescription() {
-		Population pop = Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation();
-		if(pop!=null && !pop.getSpecies().isEmpty()) {
-			Subspecies subspecies = Util.randomItemFrom(new ArrayList<>(Main.game.getPlayerCell().getPlace().getPlaceType().getPopulation().getSpecies().keySet()));
+		Set<Subspecies> subspeciesSet = new HashSet<>();
+		for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
+			subspeciesSet.addAll(pop.getSpecies().keySet());
+		}
+		if(!subspeciesSet.isEmpty()) {
+			Subspecies subspecies = Util.randomItemFrom(subspeciesSet);
 			
 			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 						+ UtilText.returnStringAtRandom(

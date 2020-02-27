@@ -16,6 +16,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -185,6 +186,8 @@ public class Vicky extends NPC {
 		clothingForSale = new HashMap<>();
 		if(!isImported) {
 			dailyUpdate();
+			
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 25);
 		}
 	}
 
@@ -305,9 +308,6 @@ public class Vicky extends NPC {
 				}
 			}
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
-			this.resetPerksMap(true);
-		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH,
@@ -315,11 +315,16 @@ public class Vicky extends NPC {
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.BRAVE);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.resetPerksMap(true);
+		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
+		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
+		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(
@@ -543,14 +548,30 @@ public class Vicky extends NPC {
 	
 	@Override
 	public void handleSellingEffects(AbstractCoreItem item, int count, int itemPrice){
+		int oldCount;
 		if(weaponsForSale.containsKey(item)) {
-			weaponsForSale.put((AbstractWeapon) item, weaponsForSale.get(item)-count);
+			oldCount = weaponsForSale.get(item);
+			if(oldCount > count) {
+				weaponsForSale.put((AbstractWeapon) item, oldCount-count);
+			} else {
+				weaponsForSale.remove((AbstractWeapon) item);
+			}
 		}
 		if(clothingForSale.containsKey(item)) {
-			clothingForSale.put((AbstractClothing) item, clothingForSale.get(item)-count);
+			oldCount = clothingForSale.get(item);
+			if(oldCount > count) {
+				clothingForSale.put((AbstractClothing) item, oldCount-count);
+			} else {
+				clothingForSale.remove((AbstractClothing) item);
+			}
 		}
 		if(itemsForSale.containsKey(item)) {
-			itemsForSale.put((AbstractItem) item, itemsForSale.get(item)-count);
+			oldCount = itemsForSale.get(item);
+			if(oldCount > count) {
+				itemsForSale.put((AbstractItem) item, oldCount-count);
+			} else {
+				itemsForSale.remove((AbstractItem) item);
+			}
 		}
 	}
 	

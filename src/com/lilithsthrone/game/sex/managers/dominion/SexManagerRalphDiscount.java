@@ -4,14 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPositionUnique;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.dominion.RalphOral;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -29,14 +30,14 @@ public class SexManagerRalphDiscount extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
-		if(Sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES)) {
+	public SexActionInterface getPartnerSexAction(NPC partner, SexActionInterface sexActionPlayer) {
+		if(Main.sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES)) {
 			return RalphOral.PARTNER_PENETRATES;
-		} else if(Sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES_ANUS)) {
+		} else if(Main.sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES_ANUS)) {
 			return RalphOral.PARTNER_PENETRATES_ANUS;
 		}
 		
-		return super.getPartnerSexAction(sexActionPlayer);
+		return super.getPartnerSexAction(partner, sexActionPlayer);
 	}
 	
 	@Override

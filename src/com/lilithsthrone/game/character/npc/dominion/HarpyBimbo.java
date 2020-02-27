@@ -11,6 +11,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -56,7 +57,6 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -85,6 +85,10 @@ public class HarpyBimbo extends NPC {
 				7, Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW, true);
 		
+		if(!isImported) {
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 10);
+		}
+		
 	}
 	
 	@Override
@@ -94,14 +98,14 @@ public class HarpyBimbo extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
-			this.resetPerksMap(true);
-		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.LEWD);
-			equipClothing(null);
+			equipClothing();
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.resetPerksMap(true);
 		}
 	}
 
@@ -306,28 +310,14 @@ public class HarpyBimbo extends NPC {
 	}
 	
 	@Override
-	public String getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target){
-		if(user.isPlayer()
-				&& !target.isPlayer()
-				&& (item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED))){
-			if(Sex.isDom(Main.game.getPlayer())) {
-				return "<p>"
-							+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
-							+ " Seeing what you're offering [npc.herHim], [npc.she] lets out a little laugh, "
-							+ " [npc.speechNoEffects(I'm, like, totally not drinkin' that icky-lookin' potio~)]"
-						+ "</p>"
-							+ "Not liking the start of [npc.her] response, you quickly remove the bottle's stopper, and rather unceremoniously shove the neck down [npc.her] throat."
-							+ " You pinch [npc.her] nose and hold [npc.herHim] still, forcing [npc.herHim] to gulp down all of the liquid before finally letting [npc.her] go."
-							+ " [npc.She] coughs and splutters for a moment, before letting out a lewd little cry as [npc.she] wipes the liquid from [npc.her] mouth,"
-							+ " [npc.speechNoEffects(~Aah!~ I feel... like... all tingly inside...)]"
-						+ "</p>"
-						+ itemOwner.useItem(item, target, false);
-			} else {
-				return "<p>"
-							+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
-							+ " [npc.speechNoEffects(Erm, do you, like, seriously expect me to drink that icky-lookin' potion?! That's, like, totally not happening!)]"
-						+ "</p>";
-			}
+	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
+		// You really shouldn't be able to alter this character's fetishes...
+		if(user.isPlayer() && !target.isPlayer() && (item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED))) {
+			return new Value<>(false,
+					"<p>"
+						+ "You try to give [npc.name] your "+item.getName()+", but [npc.she] takes one look at it and laughs,"
+						+ " [npc.speechNoEffects(Erm, do you, like, seriously expect me to drink that icky-lookin' potion?! That's, like, totally not happening!)]"
+					+ "</p>");
 		}
 		
 		return super.getItemUseEffects(item, itemOwner, user, target);

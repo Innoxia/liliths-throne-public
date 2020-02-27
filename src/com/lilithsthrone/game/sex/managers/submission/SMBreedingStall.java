@@ -5,13 +5,13 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.7
@@ -73,7 +73,7 @@ public class SMBreedingStall extends SexManagerDefault {
 	
 	@Override
 	public SexControl getSexControl(GameCharacter character) {
-		if(!Sex.isDom(character)) {
+		if(!Main.sex.isDom(character)) {
 			return SexControl.ONGOING_ONLY;
 		}
 		return super.getSexControl(character);

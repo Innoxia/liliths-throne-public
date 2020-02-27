@@ -4,14 +4,15 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPositionUnique;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.dominion.CultistSexActions;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.88
@@ -27,28 +28,28 @@ public class SMAltarMissionary extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
+	public SexActionInterface getPartnerSexAction(NPC partner, SexActionInterface sexActionPlayer) {
 		// If orgasming, use an orgasm action:
-		if (ArousalLevel.getArousalLevelFromValue(Sex.getCharacterPerformingAction().getArousal()) == ArousalLevel.FIVE_ORGASM_IMMINENT) {
-			return super.getPartnerSexAction(sexActionPlayer);
+		if (ArousalLevel.getArousalLevelFromValue(Main.sex.getCharacterPerformingAction().getArousal()) == ArousalLevel.FIVE_ORGASM_IMMINENT) {
+			return super.getPartnerSexAction(partner, sexActionPlayer);
 		}
 		
-		if(Sex.isCharacterSealed(Sex.getCharacterPerformingAction())) {
+		if(Main.sex.isCharacterSealed(Main.sex.getCharacterPerformingAction())) {
 			return CultistSexActions.SEALED;
 			
 		} else {
-			return super.getPartnerSexAction(sexActionPlayer);
+			return super.getPartnerSexAction(partner, sexActionPlayer);
 		}
 	}
 	
 	@Override
 	public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
-		return !Sex.isCharacterSealed(character);
+		return !Main.sex.isCharacterSealed(character);
 	}
 
 	@Override
 	public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
-		return !Sex.isCharacterSealed(character);
+		return !Main.sex.isCharacterSealed(character);
 	}
 	
 	@Override
@@ -58,7 +59,7 @@ public class SMAltarMissionary extends SexManagerDefault {
 
 	@Override
 	public SexControl getSexControl(GameCharacter character) {
-		if(!Sex.isDom(character) && character.isPlayer()) {
+		if(!Main.sex.isDom(character) && character.isPlayer()) {
 			return SexControl.ONGOING_ONLY;
 		}
 		return super.getSexControl(character);

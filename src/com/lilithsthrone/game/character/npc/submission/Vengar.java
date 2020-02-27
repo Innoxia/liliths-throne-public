@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -27,10 +28,11 @@ import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -50,6 +52,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.CombatBehaviour;
+import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
@@ -60,6 +63,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -84,6 +88,10 @@ public class Vengar extends NPC {
 				27, Month.JUNE, 2,
 				25, Gender.M_P_MALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
 				new CharacterInventory(500), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL, true);
+		
+		if(!isImported) {
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50);
+		}
 	}
 	
 	@Override
@@ -92,12 +100,22 @@ public class Vengar extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) { // Reset character
 			setupPerks(true);
 			setStartingBody(true);
-			equipClothing(null);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_LIGHT), false);
+			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+			this.addPersonalityTrait(PersonalityTrait.LEWD);
+			if(!this.isSlave()) {
+				equipClothing();
+			}
+			this.resetPerksMap(true);
 		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
+		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
+		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(
@@ -117,7 +135,9 @@ public class Vengar extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.CONFIDENT,
-					PersonalityTrait.SELFISH);
+					PersonalityTrait.SELFISH,
+					PersonalityTrait.LEWD,
+					PersonalityTrait.SLOVENLY);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -146,7 +166,7 @@ public class Vengar extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_BROWN_DARK), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_LIGHT), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_BROWN), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_LIGHT), false);
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
 		this.setHairLength(0);
 		this.setHairStyle(HairStyle.NONE);
@@ -183,7 +203,7 @@ public class Vengar extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenisGirth.THREE_THICK);
+		this.setPenisGirth(PenetrationGirth.THREE_THICK);
 		this.setPenisSize(20);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
@@ -256,7 +276,7 @@ public class Vengar extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenisGirth.TWO_AVERAGE);
+		this.setPenisGirth(PenetrationGirth.TWO_AVERAGE);
 		this.setPenisSize(6);
 		this.setTesticleSize(TesticleSize.ONE_TINY);
 		this.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue());
@@ -279,6 +299,9 @@ public class Vengar extends NPC {
 		this.setScar(InventorySlot.TORSO_OVER, new Scar(ScarType.JAGGED_SCAR, false));
 		this.setScar(InventorySlot.MOUTH, new Scar(ScarType.STRAIGHT_SCAR, false));
 
+		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_knuckleDusters_knuckle_dusters", DamageType.PHYSICAL));
+		this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_knuckleDusters_knuckle_dusters", DamageType.PHYSICAL));
+		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_BLUE_GREY, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_SARASHI, Colour.CLOTHING_BLACK, false), true, this);
 		

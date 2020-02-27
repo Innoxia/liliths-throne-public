@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.character.body;
 
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 
 /**
@@ -15,7 +15,7 @@ public class Dildo {
 			PenisType.DILDO,
 			8,
 			false,
-			PenisGirth.ONE_SLENDER.getValue(),
+			PenetrationGirth.ONE_SLENDER.getValue(),
 			TesticleSize.ONE_TINY.getValue(),
 			0,
 			2);
@@ -24,7 +24,7 @@ public class Dildo {
 			PenisType.DILDO,
 			15,
 			false,
-			PenisGirth.TWO_AVERAGE.getValue(),
+			PenetrationGirth.TWO_AVERAGE.getValue(),
 			TesticleSize.TWO_AVERAGE.getValue(),
 			0,
 			2);
@@ -33,7 +33,7 @@ public class Dildo {
 			PenisType.DILDO,
 			25,
 			false,
-			PenisGirth.TWO_AVERAGE.getValue(),
+			PenetrationGirth.TWO_AVERAGE.getValue(),
 			TesticleSize.TWO_AVERAGE.getValue(),
 			0,
 			2);
@@ -42,7 +42,7 @@ public class Dildo {
 			PenisType.DILDO,
 			35,
 			false,
-			PenisGirth.THREE_THICK.getValue(),
+			PenetrationGirth.THREE_THICK.getValue(),
 			TesticleSize.THREE_LARGE.getValue(),
 			0,
 			2);
@@ -51,7 +51,7 @@ public class Dildo {
 			PenisType.DILDO,
 			45,
 			false,
-			PenisGirth.THREE_THICK.getValue(),
+			PenetrationGirth.THREE_THICK.getValue(),
 			TesticleSize.THREE_LARGE.getValue(),
 			0,
 			2);
@@ -60,7 +60,7 @@ public class Dildo {
 			PenisType.DILDO,
 			55,
 			false,
-			PenisGirth.FOUR_FAT.getValue(),
+			PenetrationGirth.FOUR_FAT.getValue(),
 			TesticleSize.FOUR_HUGE.getValue(),
 			0,
 			2);
@@ -69,7 +69,7 @@ public class Dildo {
 			PenisType.DILDO,
 			80,
 			false,
-			PenisGirth.FOUR_FAT.getValue(),
+			PenetrationGirth.FOUR_FAT.getValue(),
 			TesticleSize.FOUR_HUGE.getValue(),
 			0,
 			2);

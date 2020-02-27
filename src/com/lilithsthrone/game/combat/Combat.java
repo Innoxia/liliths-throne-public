@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -51,9 +50,9 @@ public enum Combat {
 	private static GameCharacter targetedEnemy;
 	private static NPC enemyLeader;
 	
-	private static List<NPC> allies;
-	private static List<NPC> enemies;
-	private static List<NPC> allCombatants;
+	private static List<NPC> allies = new ArrayList<>();
+	private static List<NPC> enemies = new ArrayList<>();
+	private static List<NPC> allCombatants = new ArrayList<>();
 	private static List<GameCharacter> activeCombatants; // A list of combatants who are still active in the fight. This is updated at the very end of each combat turn, and removes characters which have been defeated during the last turn.
 	
 	private static float escapeChance = 0;
@@ -317,7 +316,7 @@ public enum Combat {
 			}
 			
 			for(NPC ally : allies) {
-				if(!(ally instanceof Elemental)) {
+				if(!(ally.isElemental())) {
 					postCombatStringBuilder.append(ally.incrementExperience(xp, true));
 				}
 			}
@@ -375,6 +374,7 @@ public enum Combat {
 								postCombatStringBuilder.append(
 										UtilText.parse(enemy,
 										"<p>"
+										+ "<i>"
 											+ "[npc.Name] staggers back, defeated, but before you have a chance to react to your victory, the world around you seems to somehow shift out of focus."
 											+ " The pants and gasps coming from [npc.her] mouth start to sound muffled and faint; as though you're listening to [npc.her] while submerged under water."
 											+ " After fruitlessly trying to shake your head clear, you look down at [npc.name] to see if [npc.sheIs] being affected by this peculiar phenomenon as well, but as you do, you feel your eyes going wide in shock."
@@ -391,6 +391,7 @@ public enum Combat {
 										+ "<p>"
 											+ "Looking back down at [npc.name], you see no sign of the shimmering pink field that was surrounding [npc.herHim] a moment ago, and, what's more, [npc.she] seems completely oblivious to what you've just witnessed."
 											+ " You think that it would probably be best to go and ask Lilaya about what just happened, but first you'd better deal with this troublesome [npc.race]..."
+										+ "</i>"
 										+ "</p>"
 										+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):"")));
 								
@@ -398,6 +399,7 @@ public enum Combat {
 								postCombatStringBuilder.append(
 										UtilText.parse(enemy,
 										"<p>"
+										+ "<i>"
 											+ "[npc.Name] staggers back, defeated, but before you have a chance to react to your victory, the world around you seems to somehow shift out of focus."
 											+ " The pants and gasps coming from [npc.her] mouth start to sound muffled and faint; as though you're listening to [npc.her] while submerged under water."
 											+ " After fruitlessly trying to shake your head clear, you look down at [npc.name] to see if [npc.sheIs] being affected by this peculiar phenomenon as well, but as you do, you feel your eyes going wide in shock."
@@ -415,6 +417,7 @@ public enum Combat {
 											+ "Looking back down at [npc.name], you see no sign of the shimmering pink field that was surrounding [npc.herHim] a moment ago, and, what's more, [npc.she] seems completely oblivious to what you've just witnessed."
 											+ " You suddenly remember what Lilaya told you about absorbing essences, and how it's absolutely harmless for both parties involved."
 											+ " Breathing a sigh of relief, you turn your attention back to this troublesome [npc.race]..."
+										+ "</i>"
 										+ "</p>"));
 							}
 						}
@@ -438,7 +441,7 @@ public enum Combat {
 			int xpGain = (Main.game.getPlayer().getLevel()*2);
 			
 			for(NPC enemy : enemies) {
-				if(!(enemy instanceof Elemental)) {
+				if(!(enemy.isElemental())) {
 					postCombatStringBuilder.append(enemy.incrementExperience(xpGain, true));
 				}
 			}
@@ -1709,6 +1712,13 @@ public enum Combat {
 		setTotalDamageTaken(character, getTotalDamageTaken(character) + increment);
 	}
 
+	public static boolean isCharacterVictory(GameCharacter character) {
+		if(getEnemies(character).contains(Main.game.getPlayer())) {
+			return !playerVictory;
+		}
+		return playerVictory;
+	}
+	
 	/**
 	 * @return true if the last combat that took place resulted in the player's victory.
 	 */

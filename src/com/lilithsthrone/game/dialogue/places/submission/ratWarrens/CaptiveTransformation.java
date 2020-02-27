@@ -17,8 +17,8 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -152,33 +152,33 @@ public enum CaptiveTransformation {
 			}
 			
 			if(sissy) {
-				if(target.getPenisRawSizeValue()>PenisSize.ONE_TINY.getMedianValue()) {
+				if(target.getPenisRawSizeValue()>PenisLength.ONE_TINY.getMedianValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("I want yer cock nice an' small, so that yer feel ashamed o' it when yer look at 'ow big mine is!"
 							+(!selfTransform?"":" Go on, make it tiny!"),
-							target.setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue()));
+							target.setPenisSize(PenisLength.ONE_TINY.getMedianValue()));
 				}
 
-				if(target.getPenisRawGirthValue()>PenisGirth.TWO_AVERAGE.getValue()) {
+				if(target.getPenisRawGirthValue()>PenetrationGirth.TWO_AVERAGE.getValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("I don't want no sissy cock bein' as thick as mine!"
 							+(!selfTransform?"":" Go on, I wanna see yer slim yer cock down!"),
-							target.setPenisGirth(PenisGirth.THREE_THICK));
+							target.setPenisGirth(PenetrationGirth.TWO_AVERAGE));
 				}
 				
 			} else {
-				if(target.getPenisRawSizeValue()<PenisSize.FIVE_ENORMOUS.getMedianValue()) {
+				if(target.getPenisRawSizeValue()<PenisLength.FIVE_ENORMOUS.getMedianValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("Yer cock's gonna need ta be bigger'n that, otherwise the milkin' tube might slip right off while we're milkin' ya!"
 							+(!selfTransform?"":" Go on, make it bigger!"),
-							target.setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue()));
+							target.setPenisSize(PenisLength.FIVE_ENORMOUS.getMedianValue()));
 				}
 
-				if(target.getPenisRawGirthValue()<PenisGirth.THREE_THICK.getValue()) {
+				if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("Let's make yer cock nice an' thick!"
 							+(!selfTransform?"":" Go on, I wanna see yer fatten it up!"),
-							target.setPenisGirth(PenisGirth.THREE_THICK));
+							target.setPenisGirth(PenetrationGirth.THREE_THICK));
 				}
 			}
 			
@@ -384,39 +384,10 @@ public enum CaptiveTransformation {
 		@Override
 		public Map<String, String> getEffects(GameCharacter target, boolean selfTransform, boolean applyEffects) {
 			Map<String, String> map = new LinkedHashMap<>();
-			
-			if(target.getBreastSize().getMeasurement()<CupSize.DD.getMeasurement()) {
-				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-				map.put("Let's get a start on growin' yer tits! We'll make 'em even bigger later on, but fer now, let's just make 'em a bit bigga!"
-						+(!selfTransform?"":" Go on, make 'em into some nice double-D's!"),
-						target.setBreastSize(CupSize.DD));
-			}
 
-			if(target.getNippleSize().getValue()<NippleSize.THREE_LARGE.getValue()) {
-				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-				map.put("We're gonna need yer nipples ta be nice an' big!"
-						+(!selfTransform?"":" Plump 'em up; don't be shy!"),
-						target.setNippleSize(NippleSize.THREE_LARGE.getValue()));
-			}
-			
-			if((target.isTaur() && Main.getProperties().udders>=1)
-					|| (target.getRaceStage()==RaceStage.GREATER && RacialBody.valueOfRace(target.getRace()).getBreastCrotchType()!=BreastType.NONE && Main.getProperties().udders==2)) {
-				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-				map.put("Let's give yer some udders as well; gotta get that milk production up as 'igh as we can!"
-						+(!selfTransform?"":" Just get 'em teats grown in first; we can make 'em bigger another time!"),
-						target.setBreastCrotchType(RacialBody.valueOfRace(target.getRace()).getBreastCrotchType()));
-				
-				if(target.getNippleCrotchSize().getValue()<NippleSize.THREE_LARGE.getValue()) {
-					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-					map.put("Yer teats are gonna need ta be bigger'n that!"
-							+(!selfTransform?"":" Make 'em nice and plump!"),
-							target.setNippleCrotchSize(NippleSize.THREE_LARGE.getValue()));
-				}
-			}
-			
 			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE_HEAVY) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
-				if(target.getFemininityValue() < Femininity.FEMININE_STRONG.getMinimumFemininity()) {
+				if(target.getFemininityValue() < 90) {
 					map.put("It's only fittin' fer a milker ta be nice an' womanly!"
 							+(!selfTransform?"":" Go on, make yerself more feminine!"),
 							target.setFemininity(90));
@@ -427,6 +398,36 @@ public enum CaptiveTransformation {
 					map.put("It's only fittin' fer a milker ta be nice an' womanly!"
 							+(!selfTransform?"":" Go on, make yerself more feminine!"),
 							target.setFemininity(Femininity.FEMININE.getMedianFemininity()));
+				}
+			}
+			
+			if(target.getBreastSize().getMeasurement()<CupSize.DD.getMeasurement()) {
+				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+				map.put("Let's get a start on growin' yer tits! We'll make 'em even bigger later on, but fer now, let's just make 'em double-D's!"
+						+(!selfTransform?"":" Go on, grow 'em in already!"),
+						target.setBreastSize(CupSize.DD));
+			}
+
+			if(target.getNippleSize().getValue()<NippleSize.THREE_LARGE.getValue()) {
+				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+				map.put("We're gonna need yer nipples ta be nice an' big!"
+						+(!selfTransform?"":" Plump 'em up; don't be shy!"),
+						target.setNippleSize(NippleSize.THREE_LARGE.getValue()));
+			}
+			
+			if((target.isTaur() && Main.getProperties().udders>=1) || (target.getRaceStage()==RaceStage.GREATER && Main.getProperties().udders==2)) {
+				if (RacialBody.valueOfRace(target.getRace()).getBreastCrotchType()==BreastType.NONE) {
+				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+				map.put("Let's give yer some udders as well; gotta get that milk production up as 'igh as we can!"
+						+(!selfTransform?"":" Just get 'em teats grown in first; we can make 'em bigger another time!"),
+						target.setBreastCrotchType(RacialBody.valueOfRace(target.getRace()).getBreastCrotchType()));
+				}
+				
+				if(target.getNippleCrotchSize().getValue()<NippleSize.THREE_LARGE.getValue()) {
+					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
+					map.put("Yer teats are gonna need ta be bigger'n that!"
+							+(!selfTransform?"":" Make 'em nice and plump!"),
+							target.setNippleCrotchSize(NippleSize.THREE_LARGE.getValue()));
 				}
 			}
 
@@ -459,18 +460,18 @@ public enum CaptiveTransformation {
 							target.setPenisType(RacialBody.valueOfRace(target.getRace()).getPenisType()));
 				}
 				
-				if(target.getPenisRawSizeValue()<PenisSize.FIVE_ENORMOUS.getMedianValue()) {
+				if(target.getPenisRawSizeValue()<PenisLength.FIVE_ENORMOUS.getMedianValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("Yer cock's gonna need ta be bigger'n that, otherwise the milkin' tube might slip right off while we're milkin' ya!"
 							+(!selfTransform?"":" Go on, make it bigger!"),
-							target.setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue()));
+							target.setPenisSize(PenisLength.FIVE_ENORMOUS.getMedianValue()));
 				}
 				
-				if(target.getPenisRawGirthValue()<PenisGirth.THREE_THICK.getValue()) {
+				if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("Let's make yer cock nice an' thick!"
 							+(!selfTransform?"":" Go on, I wanna see yer fatten it up!"),
-							target.setPenisGirth(PenisGirth.THREE_THICK));
+							target.setPenisGirth(PenetrationGirth.THREE_THICK));
 				}
 				
 				if(Main.game.isFutanariTesticlesEnabled() && target.isInternalTesticles()) {
@@ -609,7 +610,7 @@ public enum CaptiveTransformation {
 						target.setNippleSize(NippleSize.FOUR_MASSIVE.getValue()));
 			}
 
-			if(target.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
+			if(!target.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
 				if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 				map.put("Now ta puff up those fat nipples of yours; the machines seem ta work better when they've got big puffy teats ta be suckin' on!"
 						+(!selfTransform?"":" That's it; make 'em all puffy and squeezable!"),
@@ -645,7 +646,7 @@ public enum CaptiveTransformation {
 							target.setNippleCrotchSize(NippleSize.FOUR_MASSIVE.getValue()));
 				}
 
-				if(target.hasNippleCrotchOrificeModifier(OrificeModifier.PUFFY)) {
+				if(!target.hasNippleCrotchOrificeModifier(OrificeModifier.PUFFY)) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("let's get them teats o' yours all puffed up and ready ta be sucked on by the machines!"
 							+(!selfTransform?"":" Go on, make 'em all puffy and beggin' ta be sucked on!"),

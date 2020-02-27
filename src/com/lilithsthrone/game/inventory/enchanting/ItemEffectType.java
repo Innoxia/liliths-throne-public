@@ -38,6 +38,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -45,6 +46,9 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.OffspringMapDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.AbstractCoreItem;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -131,17 +135,27 @@ public class ItemEffectType {
 					TFModifier.REMOVAL,
 					TFModifier.ORIENTATION_GYNEPHILIC,
 					TFModifier.ORIENTATION_AMBIPHILIC,
-					TFModifier.ORIENTATION_ANDROPHILIC);
+					TFModifier.ORIENTATION_ANDROPHILIC,
+					TFModifier.PERSONALITY_TRAIT_SPEECH_LISP,
+					TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER,
+					TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY);
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return Util.newArrayListOfValues(
 					TFModifier.ARCANE_BOOST);
 		}
 
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP
+					|| primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER
+					|| primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
+				return Util.newArrayListOfValues(
+						TFPotency.MINOR_DRAIN,
+						TFPotency.MINOR_BOOST);
+			}
 			return Util.newArrayListOfValues(TFPotency.MINOR_BOOST);
 		}
 		
@@ -154,17 +168,39 @@ public class ItemEffectType {
 					descriptions.add("No effect.");
 					
 				} else if(primaryModifier==TFModifier.ORIENTATION_GYNEPHILIC) {
-					descriptions.add("Sets orientation to [style.boldFeminineStrong(gynephilic)].");
+					descriptions.add("Sets orientation to [style.boldFeminineStrong(gynephilic)]");
 					descriptions.add("[style.boldTerrible(+5)] [style.boldCorruption(corruption)]");
 					
 				} else if(primaryModifier==TFModifier.ORIENTATION_AMBIPHILIC) {
-					descriptions.add("Sets orientation to [style.boldAndrogynous(ambiphilic)].");
+					descriptions.add("Sets orientation to [style.boldAndrogynous(ambiphilic)]");
 					descriptions.add("[style.boldTerrible(+5)] [style.boldCorruption(corruption)]");
 					
-				} else {
-					descriptions.add("Sets orientation to [style.boldMasculineStrong(androphilic)].");
+				} else if(primaryModifier==TFModifier.ORIENTATION_ANDROPHILIC) {
+					descriptions.add("Sets orientation to [style.boldMasculineStrong(androphilic)]");
 					descriptions.add("[style.boldTerrible(+5)] [style.boldCorruption(corruption)]");
+					
+				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP) {
+					if(potency==TFPotency.MINOR_DRAIN) {
+						descriptions.add("Removes <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_LISP.getColour().toWebHexString()+";'>lisp</b>");
+					} else {
+						descriptions.add("Adds <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_LISP.getColour().toWebHexString()+";'>lisp</b>");
+					}
+					
+				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER) {
+					if(potency==TFPotency.MINOR_DRAIN) {
+						descriptions.add("Removes <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER.getColour().toWebHexString()+";'>stutter</b>");
+					} else {
+						descriptions.add("Adds <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER.getColour().toWebHexString()+";'>stutter</b>");
+					}
+					
+				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
+					if(potency==TFPotency.MINOR_DRAIN) {
+						descriptions.add("Removes <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY.getColour().toWebHexString()+";'>slovenly speech</b>");
+					} else {
+						descriptions.add("Adds <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY.getColour().toWebHexString()+";'>slovenly speech</b>");
+					}
 				}
+				
 			} else {
 				descriptions.add("Enchantable.");
 			}
@@ -208,7 +244,7 @@ public class ItemEffectType {
 									+ "</p>");
 					}
 					
-				} else {
+				} else if(primaryModifier==TFModifier.ORIENTATION_ANDROPHILIC) {
 					boolean alreadyAndrophilic = target.getSexualOrientation()==SexualOrientation.ANDROPHILIC;
 					target.setSexualOrientation(SexualOrientation.ANDROPHILIC);
 					if(target.isPlayer()) {//TODO
@@ -222,93 +258,133 @@ public class ItemEffectType {
 										+ (alreadyAndrophilic?"[style.colourDisabled([npc.Name] is already androphilic, so nothing happens...)]":"[npc.Name] is now [style.colourMasculinePlus(androphilic)]!")
 									+ "</p>");
 					}
+					
+				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP) {
+					boolean alreadyLisp = target.hasPersonalityTrait(PersonalityTrait.LISP);
+					if(potency==TFPotency.MINOR_DRAIN) {
+						target.removePersonalityTrait(PersonalityTrait.LISP);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadyLisp
+												?"[style.colourDisabled([npc.Name] already [npc.do]n't speak with a lisp, so nothing happens...)]"
+												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to speak without a lisp)]!")
+									+ "</p>");
+						
+					} else {
+						target.addPersonalityTrait(PersonalityTrait.LISP);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadyLisp
+												?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] with a lisp, so nothing happens...)]"
+												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a lisp)]!")
+									+ "</p>");
+					}
+					
+				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER) {
+					boolean alreadyStutter = target.hasPersonalityTrait(PersonalityTrait.STUTTER);
+					if(potency==TFPotency.MINOR_DRAIN) {
+						target.removePersonalityTrait(PersonalityTrait.STUTTER);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadyStutter
+												?"[style.colourDisabled([npc.Name] already [npc.do]n't with a stutter, so nothing happens...)]"
+												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to speak without stuttering)]!")
+									+ "</p>");
+						
+					} else {
+						target.addPersonalityTrait(PersonalityTrait.STUTTER);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadyStutter
+												?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] with a stutter, so nothing happens...)]"
+												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a stutter)]!")
+									+ "</p>");
+					}
+					
+				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
+					boolean alreadySlovenly = target.hasPersonalityTrait(PersonalityTrait.SLOVENLY);
+					if(potency==TFPotency.MINOR_DRAIN) {
+						target.removePersonalityTrait(PersonalityTrait.SLOVENLY);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadySlovenly
+												?"[style.colourDisabled([npc.Name] already [npc.do]n't speak in a slovenly manner, so nothing happens...)]"
+												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(no longer speaking in a slovenly manner)]!")
+									+ "</p>");
+						
+					} else {
+						target.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadySlovenly
+												?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] in a slovenly manner, so nothing happens...)]"
+												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking in a slovenly manner)]!")
+									+ "</p>");
+					}
 				}
 				
-			} else {
-				return "<p>"
-							+ "Nothing happens, as the Hypno-Watch has had its enchantment removed."
-							+ " You'll need to enchant it if you want to put it to use."
-						+ "</p>";
-			}
+			} 
 			
+			return "<p>"
+						+ "Nothing happens, as the Hypno-Watch has had its enchantment removed."
+						+ " You'll need to enchant it if you want to put it to use."
+					+ "</p>";
 		}
 	};
 	
 	public static AbstractItemEffectType VIXENS_VIRILITY = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Temporary fertility boost",
-			"Temporary virility boost"),
+			"[style.boldGood(+50)] [style.boldSex(Fertility)] for 24 hours",
+			"[style.boldGood(+50)] [style.boldSex(Virility)] for 24 hours",
+			"[style.boldBad(Removes status effect:)]",
+			"<i>'"+StatusEffect.PROMISCUITY_PILL.getName(null)+"'</i>"),
 			Colour.GENERIC_SEX) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
-			
 			target.addStatusEffect(StatusEffect.VIXENS_VIRILITY, 60*24*60);
-			
-			if(target.isPlayer()) {
-				return "<p>"
-						+ "The little pink pill easily slides down your throat, and within moments, you feel "
+			return UtilText.parse(target,
+					"<p style='margin-bottom:0; padding-bottom:0;'>"
+						+ "The little pink pill easily slides down [npc.her] throat, and within moments [npc.she] [npc.verb(feel)] "
 						+ ( target.hasVagina()
-								? "a strange, warm glow spreading from what you guess must be your ovaries."
-									+ " Your mind fogs over with an overwhelming desire to feel potent sperm spurting deep into your "+(target.isVisiblyPregnant()?"pussy":"womb")
-									+", and before you can stop it, a little whimper escapes from between your [pc.lips]."
+								? "a soothing, warm glow spreading out from [npc.her] ovaries into [npc.her] lower torso."
+									+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(target.isVisiblyPregnant()?"pussy":"womb")
+									+", and before [npc.she] can stop it, a horny whimper escapes from between [npc.her] [npc.lips]."
 									+ (target.hasPenisIgnoreDildo()
-											?" At the same time, your manhood begins to throb with need, and you feel "
+											?" At the same time, [npc.her] manhood begins to throb with need, and [npc.she] [npc.verb(feel)] "
 											:"") 
-							:"")
-						+ (target.hasPenisIgnoreDildo() 
-								? "an overpowering desire to sink deep into a fertile female's cunt and fill her with your [pc.cum+]."
+								:"")
+						+ (target.hasPenisIgnoreDildo()
+								? "an overpowering desire to sink deep into a fertile female's cunt and fill her with [npc.cum+]."
 								: "")
 						+ (!target.hasPenisIgnoreDildo() && !target.hasVagina()
 								?"a desperate heat in [npc.her] genderless mound."
 								:"")
-					+ "</p>";
-			
-			} else {
-				return UtilText.parse(target,
-						"<p>"
-							+ "The little pink pill easily slides down [npc.her] throat, and within moments, [npc.she] feels "
-							+ ( target.hasVagina()
-									? "a strange, warm glow spreading from [npc.her] ovaries."
-										+ " [npc.Her] mind fogs over with an overwhelming desire to feel potent sperm spurting deep into [npc.her] "+(target.isVisiblyPregnant()?"pussy":"womb")
-										+", and before [npc.she] can stop it, a little whimper escapes from between [npc.her] [npc.lips]."
-										+ (target.hasPenisIgnoreDildo()
-												?" At the same time, [npc.her] manhood begins to throb with need, and [npc.she] feels "
-												:"") 
-									:"")
-							+ (target.hasPenisIgnoreDildo()
-									? "an overpowering desire to sink deep into a fertile female's cunt and fill her with [npc.cum+]."
-									: "")
-							+ (!target.hasPenisIgnoreDildo() && !target.hasVagina()
-									?"a desperate heat in [npc.her] genderless mound."
-									:"")
-						+ "</p>");
-			}
-			
+					+"</p>"
+					+ "<p style='text-align:center; margin-top:0; padding-top:0;'>"
+						+ "[style.colourPink([npc.Name] [npc.is] now experiencing <i>'"+StatusEffect.VIXENS_VIRILITY.getName(target)+"'</i> for the next 24 hours!)]"
+					+ "</p>");
 		}
 	};
 	
 	public static AbstractItemEffectType PROMISCUITY_PILL = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"Temporarily reduces fertility."),
+			"[style.boldBad(-100)] [style.boldSex(Fertility)] for 24 hours",
+			"[style.boldBad(-100)] [style.boldSex(Virility)] for 24 hours",
+			"[style.boldBad(Removes status effect:)]",
+			"<i>'"+StatusEffect.VIXENS_VIRILITY.getName(null)+"'</i>"),
 			Colour.GENERIC_SEX) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.removeStatusEffect(StatusEffect.VIXENS_VIRILITY);
-			
 			target.addStatusEffect(StatusEffect.PROMISCUITY_PILL, 60*24*60);
-			
-			if(target.isPlayer()) {
-				return "<p>"
-							+ "The little blue pill easily slides down your throat, and after only a few moments, you feel a cool throbbing sensation taking root deep within your loins."
-						+ "</p>";
-			
-			} else {
-				return UtilText.parse(target,
-						"<p>"
-							+ "The little blue pill easily slides down [npc.her] throat, and after only a few moments, [npc.she] feels a cool throbbing sensation taking root deep within [npc.her] loins."
-						+ "</p>");
-			}
+			return UtilText.parse(target,
+					"<p>"
+						+ "The little blue pill easily slides down [npc.namePos] throat, and after only a few moments [npc.she] [npc.verb(feel)] a cool throbbing sensation taking root deep within [npc.her] loins."
+					+ "</p>"
+					+ "<p style='text-align:center; margin-top:0; padding-top:0;'>"
+						+ "[style.colourBlueLight([npc.Name] [npc.is] now experiencing <i>'"+StatusEffect.PROMISCUITY_PILL.getName(target)+"'</i> for the next 24 hours!)]"
+					+ "</p>");
 		}
 	};
 	
@@ -390,82 +466,57 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			if(target.isPlayer()) {
-				if(target.isVisiblyPregnant()) {
-					if(target.hasStatusEffect(StatusEffect.PREGNANT_3)) {
-						return "<p>"
-								+ "You eagerly gulp down the rich, creamy liquid. Its delicious taste overwhelms your senses, and before you know what's happening, you've already drained the entire bottle."
-								+ " Seeing as you're already in the final stage of pregnancy, nothing happens, but it sure did taste good..."
-								+ "</p>";
-					} else {
-						if(target.hasStatusEffect(StatusEffect.PREGNANT_1)) {
-							target.incrementStatusEffectDuration(StatusEffect.PREGNANT_1, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_1)-(5*60)));
-							
-						} else if(target.hasStatusEffect(StatusEffect.PREGNANT_2)) {
-								target.incrementStatusEffectDuration(StatusEffect.PREGNANT_2, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_2)-(5*60)));
-						}
-						
-						return "<p>"
-								+ "You eagerly gulp down the rich, creamy liquid. Its delicious taste overwhelms your senses, and before you know what's happening, you've already drained the entire bottle."
-								+ " With an alarmed cry, you feel your belly swell and grow, and, rubbing your [pc.hands] down over your pregnant bump, you feel that your pregnancy has advanced..."
-								+ "</p>";
-					}
+			if(target.isVisiblyPregnant()) {
+				if(target.hasStatusEffect(StatusEffect.PREGNANT_3)) {
+					return UtilText.parse(target,
+							"<p>"
+								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
+								+ " Seeing as [npc.sheIs] already in the final stage of pregnancy, nothing happens..."
+							+ "</p>");
 					
 				} else {
-					if(target.hasStatusEffect(StatusEffect.PREGNANT_0)) {
-						target.incrementStatusEffectDuration(StatusEffect.PREGNANT_0, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_0)-(5*60)));
+					if(target.hasStatusEffect(StatusEffect.PREGNANT_1)) {
+						target.removeStatusEffect(StatusEffect.PREGNANT_1);
 						
-						return "<p>"
-									+ "You eagerly gulp down the rich, creamy liquid. Its delicious taste overwhelms your senses, and before you know what's happening, you've already drained the entire bottle."
-									+ " You don't know if you're actually pregnant yet, but you start to feel a soothing warmth spreading throughout your abdomen..."
-								+ "</p>";
-					} else {
-						return "<p>"
-									+ "You eagerly gulp down the rich, creamy liquid. Its delicious taste overwhelms your senses, and before you know what's happening, you've already drained the entire bottle."
-									+ " Seeing as you're not pregnant, nothing happens..."
-								+ "</p>";
+					} else if(target.hasStatusEffect(StatusEffect.PREGNANT_2)) {
+						target.removeStatusEffect(StatusEffect.PREGNANT_2);
 					}
+					return UtilText.parse(target,
+							"<p>"
+								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
+								+ " Immediately, [npc.her] belly rapidly swells and grows in size, and [npc.she] can't help but let out a deep [npc.moan] as a rush of energy flows up throughout [npc.her] body."
+								+ " After just a moment, the effects come a halt, and [npc.name] [npc.verb(smile)] happily to [npc.herself] as"
+									+ " [npc.she] [npc.verb(reflect)] on the fact that the expansion of [npc.her] pregnant bump has taken [npc.herHim] into the next stage of [npc.her] pregnancy..."
+							+ "</p>");
 				}
 				
 			} else {
-				if(target.isVisiblyPregnant()) {
-					if(target.hasStatusEffect(StatusEffect.PREGNANT_3)) {
-						return UtilText.parse(target,
-								"<p>"
-									+ "[npc.Name] gulps down the rich, creamy liquid, quickly draining the entire bottle."
-									+ " Seeing as [npc.sheIs] already in the final stage of pregnancy, nothing happens..."
-								+ "</p>");
-					} else {
-						if(target.hasStatusEffect(StatusEffect.PREGNANT_1)) {
-							target.incrementStatusEffectDuration(StatusEffect.PREGNANT_1, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_1)-(5*60)));
-							
-						} else if(target.hasStatusEffect(StatusEffect.PREGNANT_2)) {
-								target.incrementStatusEffectDuration(StatusEffect.PREGNANT_2, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_2)-(5*60)));
-						}
-						return UtilText.parse(target,
-								"<p>"
-									+ "[npc.Name] gulps down the rich, creamy liquid, quickly draining the entire bottle."
-									+ " With a little cry, [npc.her] belly swells and grows, and, rubbing [npc.her] [npc.hands] down over [npc.her] pregnant bump, [npc.she] feels that [npc.her] pregnancy has advanced..."
-								+ "</p>");
-					}
+				if(target.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					target.removeStatusEffect(StatusEffect.PREGNANT_0);
 					
-				} else {
-					if(target.hasStatusEffect(StatusEffect.PREGNANT_0)) {
-						target.incrementStatusEffectDuration(StatusEffect.PREGNANT_0, -(target.getStatusEffectDuration(StatusEffect.PREGNANT_0)-(5*60)));
-
+					if(target.isPregnant()) {
 						return UtilText.parse(target,
 								"<p>"
-									+ "[npc.Name] gulps down the rich, creamy liquid, quickly draining the entire bottle."
-									+ " Although [npc.she] don't know if [npc.sheIs] actually pregnant yet, [npc.she] starts to feel a soothing warmth spreading throughout [npc.her] abdomen..."
+									+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
+									+ " A soothing warmth quickly spreads throughout [npc.her] lower abdomen, and as [npc.she] [npc.verb(let)] out an involuntary gasp,"
+										+ " [npc.her] belly suddenly swells up into an unmistakably [style.boldMinorGood(pregnant bump)]!"
 								+ "</p>");
 						
 					} else {
 						return UtilText.parse(target,
 								"<p>"
-									+ "[npc.Name] gulps down the rich, creamy liquid, quickly draining the entire bottle."
-									+ " Seeing as [npc.sheIs] not pregnant, nothing happens..."
+									+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
+									+ " Although a soothing warmth spreads throughout [npc.her] lower abdomen, no sign of any pregnancy manifests itself in [npc.her] belly."
+									+ " It looks like [npc.sheIs] [style.boldMinorBad(not pregnant)] after all..."
 								+ "</p>");
 					}
+					
+				} else {
+					return UtilText.parse(target,
+							"<p>"
+								+ "[npc.Name] eagerly [npc.verb(gulp)] down the rich, creamy liquid; it's delicious taste spurs [npc.herHim] on into quickly draining the entire bottle."
+								+ " Seeing as [npc.sheIs] not pregnant, nothing happens..."
+							+ "</p>");
 				}
 			}
 		}
@@ -532,7 +583,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return null;
 		}
 		
@@ -581,7 +632,9 @@ public class ItemEffectType {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
 			return "<p style='text-align:center;'>"
-					+"A powerful wave of arcane energy washes over you..."
+					+(target.isPlayer()
+							?"A powerful wave of arcane energy washes over you..."
+							:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</p>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+ target.incrementAlcoholLevel(0.75f);
@@ -599,7 +652,9 @@ public class ItemEffectType {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
 			return "<p style='text-align:center;'>"
-						+"A powerful wave of arcane energy washes over you..."
+					+(target.isPlayer()
+							?"A powerful wave of arcane energy washes over you..."
+							:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</p>"
 					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+ target.incrementAlcoholLevel(0.5f);
@@ -1029,8 +1084,6 @@ public class ItemEffectType {
 		}
 	};
 	
-	
-	
 	public static AbstractItemEffectType EGGPLANT_POTION = new AbstractItemEffectType(null,
 			Colour.BASE_PURPLE) {
 
@@ -1040,7 +1093,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.HUMAN, primaryModifier);
 		}
 		
@@ -1060,6 +1113,20 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType FEMININE_BURGER = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"[style.boldSex(+10)] [style.boldFeminine(femininity)]"),
+			Colour.GENERIC_SEX) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return "<p style='text-align:center;'>"
+					+UtilText.parse(target, "[npc.Name] feels the burger's side effects kicking in almost immediately...")
+					+ "<br/>"
+					+ target.incrementFemininity(10)
+					+ "</p>";
+		}
+	};
+	
 	public static AbstractItemEffectType ADDICTION_REMOVAL_REFINEMENT = new AbstractItemEffectType(null,
 			Colour.BASE_BLUE_LIGHT) {
 
@@ -1069,7 +1136,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return Util.newArrayListOfValues(TFModifier.ARCANE_BOOST);
 		}
 		
@@ -1182,7 +1249,7 @@ public class ItemEffectType {
 			
 			Map<AbstractClothingType, Integer> clothingMap = new HashMap<>();
 			// Common clothing (55%):
-			clothingMap.put(ClothingType.HEAD_ANTLER_HEADBAND, 11);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_head_antler_headband"), 11);
 			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_elemental_snowflake_necklace"), 11);
 			clothingMap.put(ClothingType.PIERCING_EAR_SNOW_FLAKES, 11);
 			clothingMap.put(ClothingType.PIERCING_NOSE_SNOWFLAKE_STUD, 11);
@@ -1579,7 +1646,7 @@ public class ItemEffectType {
 //		}
 //
 //		@Override
-//		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+//		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 //			return null;
 //		}
 //		
@@ -2148,7 +2215,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return TFModifier.getTFAttributeList();
 		}
 		
@@ -2186,7 +2253,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return TFModifier.getTFAttributeList();
 		}
 		
@@ -2224,7 +2291,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return TFModifier.getTFAttributeList();
 		}
 		
@@ -2262,7 +2329,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return TFModifier.getTFAttributeList();
 		}
 		
@@ -2297,7 +2364,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			List<TFModifier> list = new ArrayList<>();
 			list.add(TFModifier.NONE);
 			if(primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR) {
@@ -2551,9 +2618,10 @@ public class ItemEffectType {
 				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
-			if(target.getSubspecies()!=Subspecies.FOX_ASCENDANT && target.getSubspecies()!=Subspecies.FOX_ASCENDANT_FENNEC) {
+			if(target.getSubspecies()!=Subspecies.FOX_ASCENDANT && target.getSubspecies()!=Subspecies.FOX_ASCENDANT_ARCTIC && target.getSubspecies()!=Subspecies.FOX_ASCENDANT_FENNEC) {
 				CharacterUtils.reassignBody(target, target.getBody(), target.getGender(), Subspecies.FOX_ASCENDANT, RaceStage.PARTIAL_FULL, true);
 				return UtilText.parse(target, "<p style='text-align:center; color:"+Colour.RACE_FOX_MORPH.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
+				
 			} else {
 				return UtilText.parse(target, target.incrementTailCount(1, true));
 			}
@@ -2569,7 +2637,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.HUMAN, primaryModifier);
 		}
 		
@@ -2598,7 +2666,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.CAT_MORPH, primaryModifier);
 		}
 		
@@ -2627,7 +2695,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.COW_MORPH, primaryModifier);
 		}
 		
@@ -2656,7 +2724,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.SQUIRREL_MORPH, primaryModifier);
 		}
 		
@@ -2685,7 +2753,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.RAT_MORPH, primaryModifier);
 		}
 		
@@ -2714,7 +2782,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.RABBIT_MORPH, primaryModifier);
 		}
 		
@@ -2743,7 +2811,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.BAT_MORPH, primaryModifier);
 		}
 		
@@ -2772,7 +2840,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.DOG_MORPH, primaryModifier);
 		}
 		
@@ -2801,7 +2869,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.FOX_MORPH, primaryModifier);
 		}
 		
@@ -2830,7 +2898,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.ALLIGATOR_MORPH, primaryModifier);
 		}
 		
@@ -2859,7 +2927,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.HORSE_MORPH, primaryModifier);
 		}
 		
@@ -2888,7 +2956,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.REINDEER_MORPH, primaryModifier);
 		}
 		
@@ -2917,7 +2985,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.WOLF_MORPH, primaryModifier);
 		}
 		
@@ -2946,7 +3014,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return getRacialSecondaryModifiers(Race.HARPY, primaryModifier);
 		}
 		
@@ -2975,7 +3043,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			return Util.newArrayListOfValues(TFModifier.ARCANE_BOOST);
 		}
 		
@@ -3006,7 +3074,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE) {
 				return TFModifier.getClothingAttributeList();
 				
@@ -3020,11 +3088,20 @@ public class ItemEffectType {
 				return TFModifier.getTFBodyPartFetishList();
 				
 			} else if(primaryModifier == TFModifier.CLOTHING_SPECIAL) {
-				if(Main.game.getPlayer().isHasSlaverLicense()) {
-					return Util.newArrayListOfValues(TFModifier.CLOTHING_SEALING, TFModifier.CLOTHING_SERVITUDE, TFModifier.CLOTHING_ENSLAVEMENT);
-				} else {
-					return Util.newArrayListOfValues(TFModifier.CLOTHING_SEALING, TFModifier.CLOTHING_SERVITUDE);
+				List<TFModifier> mods =  Util.newArrayListOfValues(TFModifier.CLOTHING_SEALING, TFModifier.CLOTHING_SERVITUDE);
+				if(targetItem instanceof AbstractClothing) {
+					for(InventorySlot slot : ((AbstractClothing)targetItem).getClothingType().getEquipSlots()) {
+						List<ItemTag> tags = ((AbstractClothing)targetItem).getClothingType().getItemTags(slot);
+						if(tags.contains(ItemTag.ENABLE_SEX_EQUIP) || slot==InventorySlot.GROIN) { //If this clothing is a 'sex toy' or groin clothing, then allow vibration enchantment:
+							mods.add(TFModifier.CLOTHING_VIBRATION);
+							break;
+						}
+					}
 				}
+				if(Main.game.getPlayer().isHasSlaverLicense()) {
+					mods.add(TFModifier.CLOTHING_ENSLAVEMENT);
+				}
+				return mods;
 				
 			} else if(primaryModifier == TFModifier.CLOTHING_CONDOM) {
 				return Util.newArrayListOfValues(TFModifier.ARCANE_BOOST);
@@ -3046,6 +3123,9 @@ public class ItemEffectType {
 				
 			} else if(secondaryModifier == TFModifier.CLOTHING_SEALING) {
 				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST, TFPotency.MINOR_DRAIN, TFPotency.DRAIN, TFPotency.MAJOR_DRAIN);
+				
+			} else if(secondaryModifier == TFModifier.CLOTHING_VIBRATION) {
+				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST, TFPotency.BOOST, TFPotency.MAJOR_BOOST);
 				
 			} else {
 				return Util.newArrayListOfValues(TFPotency.MINOR_BOOST);
@@ -3122,6 +3202,20 @@ public class ItemEffectType {
 					effectsList.add("[style.boldTerrible(Sabotaged)] to always break!");
 				}
 				
+			} else if(secondaryModifier == TFModifier.CLOTHING_VIBRATION) {
+				if(potency==TFPotency.MAJOR_BOOST) {
+					effectsList.add("[style.boldSex(+20)] [style.boldLust(Resting lust)]");
+					effectsList.add("[style.boldSex(+2)] [style.boldArousal(arousal/turn)] [style.boldSex(in sex)]");
+					
+				} else if(potency==TFPotency.BOOST) {
+					effectsList.add("[style.boldSex(+10)] [style.boldLust(Resting lust)]");
+					effectsList.add("[style.boldSex(+1)] [style.boldArousal(arousal/turn)] [style.boldSex(in sex)]");
+					
+				} else {
+					effectsList.add("[style.boldSex(+5)] [style.boldLust(Resting lust)]");
+					effectsList.add("[style.boldSex(+0.5)] [style.boldArousal(arousal/turn)] [style.boldSex(in sex)]");
+				}
+				
 			} else {
 				return getClothingTFDescriptions(primaryModifier, secondaryModifier, potency, limit, user, target);
 			}
@@ -3159,7 +3253,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE) {
 				return TFModifier.getClothingAttributeList();
 				
@@ -3258,7 +3352,7 @@ public class ItemEffectType {
 		}
 
 		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+		public List<TFModifier> getSecondaryModifiers(AbstractCoreItem targetItem, TFModifier primaryModifier) {
 			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE) {
 				return TFModifier.getWeaponAttributeList();
 			} else {

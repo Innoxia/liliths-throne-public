@@ -66,7 +66,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -225,7 +224,7 @@ public class VengarCaptiveDialogue {
 		return sb.toString();
 	}
 	
-	private static String applyTransformation(GameCharacter target) {
+	private static String applyTransformation(GameCharacter target) { //TODO returning emptry string
 		StringBuilder sb = new StringBuilder();
 		
 		if(target.isAbleToHaveRaceTransformed()) {
@@ -520,17 +519,17 @@ public class VengarCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			if(Sex.getSexPositionSlot(Main.game.getPlayer())!=SexSlotAllFours.ALL_FOURS) {
+			if(Main.sex.getSexPositionSlot(Main.game.getPlayer())!=SexSlotAllFours.ALL_FOURS) {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX_DOUBLE_PLAYER_NEXT", getCharactersPresent(true));
 			}
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "START_VENGAR_PUBLIC_FUCK_AFTER_SEX_DOUBLE_COMPANION_NEXT", getCharactersPresent(true));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> previousWetAreas = new HashMap<>(Sex.getAllWetAreas()); // Starting lube from saliva
+			Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> previousWetAreas = new HashMap<>(Main.sex.getAllWetAreas()); // Starting lube from saliva
 			
 			if(index==1) {
-				if(Sex.getSexPositionSlot(Main.game.getPlayer())!=SexSlotAllFours.ALL_FOURS) {
+				if(Main.sex.getSexPositionSlot(Main.game.getPlayer())!=SexSlotAllFours.ALL_FOURS) {
 					return new ResponseSex("Fucked",
 							UtilText.parse(getMainCompanion(), "Crawl around and start eating the cum out of [npc.namePos] pussy as you prepare to get fucked by Vengar next."),
 							true,
@@ -1298,7 +1297,7 @@ public class VengarCaptiveDialogue {
 								return false;
 							}
 							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(character.equals(getCharactersPresent(true).get(1))) {
 									if(character.hasPenis()) {
 										return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
@@ -1310,7 +1309,7 @@ public class VengarCaptiveDialogue {
 								return super.getForeplayPreference(character, targetedCharacter);
 							}
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								return getForeplayPreference(character, targetedCharacter);
 							}
 						},
@@ -1425,7 +1424,7 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(true).get(1))) {
 										if(targetedCharacter.isPlayer()) {
 											if(character.hasFetish(Fetish.FETISH_ANAL_GIVING)) {
@@ -1446,7 +1445,7 @@ public class VengarCaptiveDialogue {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return character.getForeplayPreference(targetedCharacter);
 									}
@@ -1507,7 +1506,7 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(true).get(1))) {
 										if(targetedCharacter.isPlayer()) {
 											return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
@@ -1522,7 +1521,7 @@ public class VengarCaptiveDialogue {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return character.getForeplayPreference(targetedCharacter);
 									}
@@ -1571,7 +1570,7 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(true).get(1))) {
 										if(targetedCharacter.isPlayer()) {
 											return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE);
@@ -1585,7 +1584,7 @@ public class VengarCaptiveDialogue {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return character.getForeplayPreference(targetedCharacter);
 									}
@@ -1693,7 +1692,7 @@ public class VengarCaptiveDialogue {
 								return false;
 							}
 							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(character.equals(getCharactersPresent(true).get(1))) {
 									if(targetedCharacter.equals(getCharactersPresent(true).get(0))) {
 										if(character.hasFetish(Fetish.FETISH_ANAL_GIVING)) {
@@ -1741,7 +1740,7 @@ public class VengarCaptiveDialogue {
 								return super.getForeplayPreference(character, targetedCharacter);
 							}
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(!character.isPlayer() && !character.equals(getMainCompanion())) {
 									return character.getForeplayPreference(targetedCharacter);
 								}
@@ -2521,7 +2520,7 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(false).get(0))) {
 										if(targetedCharacter.isPlayer()) {
 											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
@@ -2543,7 +2542,7 @@ public class VengarCaptiveDialogue {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return character.getForeplayPreference(targetedCharacter);
 									}
@@ -2606,7 +2605,7 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(false).get(0))) {
 										if(character.hasPenis()) {
 											return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
@@ -2618,7 +2617,7 @@ public class VengarCaptiveDialogue {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									return getForeplayPreference(character, targetedCharacter);
 								}
 							},
@@ -2665,14 +2664,14 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(false).get(0))) {
 										return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
 									}
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									return getForeplayPreference(character, targetedCharacter);
 								}
 							},
@@ -2704,7 +2703,7 @@ public class VengarCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			if(Sex.getPosition()==SexPosition.SITTING) {
+			if(Main.sex.getPosition()==SexPosition.SITTING) {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "AFTER_GROPED_ORAL", getCharactersPresent(false));
 			}
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "AFTER_GROPED_SEX", getCharactersPresent(false));
@@ -2815,7 +2814,7 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(false).get(0))) {
 										if(targetedCharacter.isPlayer()) {
 											if(character.hasFetish(Fetish.FETISH_ANAL_GIVING)) {
@@ -2827,7 +2826,7 @@ public class VengarCaptiveDialogue {
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return character.getForeplayPreference(targetedCharacter);
 									}
@@ -2879,14 +2878,14 @@ public class VengarCaptiveDialogue {
 									return false;
 								}
 								@Override
-								public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(character.equals(getCharactersPresent(false).get(0))) {
 										return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
 									}
 									return super.getForeplayPreference(character, targetedCharacter);
 								}
 								@Override
-								public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+								public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 									if(!character.isPlayer()) {
 										return character.getForeplayPreference(targetedCharacter);
 									}
@@ -3001,7 +3000,7 @@ public class VengarCaptiveDialogue {
 								return false;
 							}
 							@Override
-							public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(character.equals(getCharactersPresent(false).get(0))) {
 									if(targetedCharacter.isPlayer()) {
 										return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA);
@@ -3023,7 +3022,7 @@ public class VengarCaptiveDialogue {
 								return super.getForeplayPreference(character, targetedCharacter);
 							}
 							@Override
-							public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
+							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(!character.isPlayer()) {
 									return character.getForeplayPreference(targetedCharacter);
 								}
@@ -3302,7 +3301,7 @@ public class VengarCaptiveDialogue {
 	public static final DialogueNode VENGARS_BEDROOM_AFTER_RAT_GIRL_ORAL = new DialogueNode("Finished", "", true) {
 		@Override
 		public String getDescription() {
-			if(Sex.getAllParticipants().contains(Main.game.getNpc(Shadow.class))) {
+			if(Main.sex.getAllParticipants().contains(Main.game.getNpc(Shadow.class))) {
 				return "Shadow has had enough of your oral attention for now.";
 			}
 			return "Silence has had enough of your oral attention for now.";
@@ -3313,8 +3312,8 @@ public class VengarCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			if(Sex.getAllParticipants().contains(Main.game.getNpc(Shadow.class))) {
-				if(Sex.getPosition()==SexPosition.ALL_FOURS) {
+			if(Main.sex.getAllParticipants().contains(Main.game.getNpc(Shadow.class))) {
+				if(Main.sex.getPosition()==SexPosition.ALL_FOURS) {
 					return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_BEDROOM_AFTER_SHADOW_PERFORMING_ORAL");
 				}
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "VENGARS_BEDROOM_AFTER_SHADOW_RECEIVING_ORAL");

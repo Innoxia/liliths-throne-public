@@ -857,7 +857,7 @@ public class TooltipInventoryEventListener implements EventListener {
 			}
 		}
 		
-		yIncrease += Math.max(0, listIncrease-3);
+		yIncrease += Math.max(0, listIncrease-5);
 		
 		// Title:
 		tooltipSB.setLength(0);
@@ -927,7 +927,7 @@ public class TooltipInventoryEventListener implements EventListener {
 					tooltipSB.append("<div class='container-full-width titular'>"
 											+ "Value: "+UtilText.formatAsMoney(absItem.getValue())
 											+" | "
-											+ InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney(absItem.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier()))
+											+ InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney(absItem.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier(absItem)))
 									+ "</div>");
 				}
 			}
@@ -970,7 +970,12 @@ public class TooltipInventoryEventListener implements EventListener {
 		// Attribute modifiers:
 		tooltipSB.append("<div class='container-full-width'>"
 				+ "<div class='container-half-width titular' style='width:calc(66.6% - 16px);'>"
-				+ "<span style='color:" + absWep.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absWep.getRarity().getName())+"</span>"+ " | "+(absWep.getWeaponType().isMelee()?"Melee":"Ranged")+"</br>"
+				+ "<span style='color:" + absWep.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(absWep.getRarity().getName())+"</span>"+ " | "
+				+(absWep.getWeaponType().isUsingUnarmedCalculation()
+						?"Unarmed"
+						:(absWep.getWeaponType().isMelee()
+							?"Melee"
+							:"Ranged"))+"</br>"
 				+ (absWep.getWeaponType().isTwoHanded()? "Two-handed" : "One-handed")+"</br>"
 				);
 
@@ -1081,7 +1086,7 @@ public class TooltipInventoryEventListener implements EventListener {
 					tooltipSB.append("<div class='container-full-width titular'>"
 											+ "Value: "+UtilText.formatAsMoney(absWep.getValue())
 											+" | "
-											+ InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney(absWep.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier()))
+											+ InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney(absWep.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier(absWep)))
 									+ "</div>");
 				}
 			}
@@ -1291,7 +1296,7 @@ public class TooltipInventoryEventListener implements EventListener {
 					tooltipSB.append("<div class='container-full-width titular'>"
 											+ "Value: "+(absClothing.isEnchantmentKnown() ? UtilText.formatAsMoney(absClothing.getValue()) : UtilText.formatAsMoney("?", "b"))
 											+" | "
-											+ InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney(absClothing.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier()))
+											+ InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney(absClothing.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier(absClothing)))
 									+ "</div>");
 				}
 			}

@@ -23,7 +23,7 @@ public enum NippleType implements BodyPartTypeInterface {
 
 	ANGEL(Race.ANGEL),
 
-	DEMON_COMMON(Race.DEMON),
+	DEMON_COMMON(Race.DEMON, OrificeModifier.EXTRA_DEEP),
 
 	DOG_MORPH(Race.DOG_MORPH),
 	
@@ -103,7 +103,7 @@ public enum NippleType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("nipple", "teat");
 					
 				} else {
-					return "nipples";
+					return "nipple";
 				}
 			case VAGINA:
 				return UtilText.returnStringAtRandom("nipple-cunt", "nipple-pussy");

@@ -32,6 +32,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -90,16 +91,20 @@ public class Kalahari extends NPC {
 		this.setHomeLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.setLevel(10);
-			this.resetPerksMap(true);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.resetPerksMap(true);
+		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
+		this.addSpecialPerk(Perk.SPECIAL_SLUT);
+		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(
@@ -228,7 +233,7 @@ public class Kalahari extends NPC {
 	
 	@Override
 	public void endSex() {
-		this.equipClothing(null);
+		this.equipClothing();
 		Main.game.getNpc(Kalahari.class).setLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_BAR);
 	}
 	

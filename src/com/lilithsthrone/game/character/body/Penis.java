@@ -13,12 +13,11 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -34,7 +33,7 @@ public class Penis implements BodyPartInterface {
 	public static final float TWO_PENIS_SIZE_MULTIPLIER = 1.6f;
 
 	protected PenisType type;
-	protected int size;
+	protected int length;
 	protected int girth;
 	protected boolean pierced;
 	protected boolean virgin;
@@ -43,14 +42,14 @@ public class Penis implements BodyPartInterface {
 	protected Testicle testicle;
 	protected OrificePenisUrethra orificeUrethra;
 
-	public Penis(PenisType type, int size, boolean usePenisSizePreference, int girth, int testicleSize, int cumProduction, int testicleCount) {
+	public Penis(PenisType type, int length, boolean usePenisSizePreference, int girth, int testicleSize, int cumProduction, int testicleCount) {
 		this.type = type;
 		if(usePenisSizePreference) {
-			this.size = Math.max(1, Math.min(PenisSize.SEVEN_STALLION.getMaximumValue(), size)+Main.getProperties().penisSizePreference);
+			this.length = Math.max(1, Math.min(PenisLength.SEVEN_STALLION.getMaximumValue(), length)+Main.getProperties().penisSizePreference);
 		} else {
-			this.size = Math.min(PenisSize.SEVEN_STALLION.getMaximumValue(), size);
+			this.length = Math.min(PenisLength.SEVEN_STALLION.getMaximumValue(), length);
 		}
-		this.girth = Math.min(PenisGirth.FOUR_FAT.getValue(), girth);
+		this.girth = Math.min(PenetrationGirth.FOUR_FAT.getValue(), girth);
 		pierced = false;
 		virgin = true;
 		
@@ -112,14 +111,14 @@ public class Penis implements BodyPartInterface {
 		if(owner.isPenisBestial()) {
 			list.add(Util.randomItemFrom(Util.newArrayListOfValues(
 					"feral",
-					owner.getPenisRace().getName(true)+"-",
+					owner.getPenisRace().getName(owner, true)+"-",
 					"bestial",
 					"animalistic")));
 		} else {
 			list.add(type.getDescriptor(owner));
 		}
 		
-		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
+		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(owner)) {
 			if(owner.hasErection()) {
 				list.add("hard");
 				if(this.getType()!=PenisType.DILDO) {
@@ -133,7 +132,7 @@ public class Penis implements BodyPartInterface {
 				}
 			}
 		}
-
+		
 		return Util.randomItemFrom(list);
 	}
 	
@@ -213,8 +212,8 @@ public class Penis implements BodyPartInterface {
 			UtilText.transformationContentSB.setLength(0);
 			
 			if (owner.getPenisType() == PenisType.NONE) {
-				if(size<1) {
-					size = 1;
+				if(length<1) {
+					length = 1;
 				}
 				UtilText.transformationContentSB.append(
 						"<p>"
@@ -564,8 +563,8 @@ public class Penis implements BodyPartInterface {
 	
 	// Girth:
 
-	public PenisGirth getGirth() {
-		return PenisGirth.getPenisGirthFromInt(girth);
+	public PenetrationGirth getGirth() {
+		return PenetrationGirth.getGirthFromInt(girth);
 	}
 
 	public int getRawGirthValue() {
@@ -577,7 +576,7 @@ public class Penis implements BodyPartInterface {
 	 */
 	public String setPenisGirth(GameCharacter owner, int girth) {
 		if(owner==null) {
-			this.girth = Math.max(0, Math.min(girth, PenisGirth.FOUR_FAT.getValue()));
+			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.FOUR_FAT.getValue()));
 			return "";
 		}
 		
@@ -592,10 +591,10 @@ public class Penis implements BodyPartInterface {
 				girthChange = 0 - this.girth;
 				this.girth = 0;
 			}
-		} else if (girth >= PenisGirth.FOUR_FAT.getValue()) {
-			if (this.girth != PenisGirth.FOUR_FAT.getValue()) {
-				girthChange = PenisGirth.FOUR_FAT.getValue() - this.girth;
-				this.girth = PenisGirth.FOUR_FAT.getValue();
+		} else if (girth >= PenetrationGirth.FOUR_FAT.getValue()) {
+			if (this.girth != PenetrationGirth.FOUR_FAT.getValue()) {
+				girthChange = PenetrationGirth.FOUR_FAT.getValue() - this.girth;
+				this.girth = PenetrationGirth.FOUR_FAT.getValue();
 			}
 		} else {
 			if (this.girth != girth) {
@@ -647,40 +646,40 @@ public class Penis implements BodyPartInterface {
 		}
 	}
 	
-	// Size:
+	// Length:
 
-	public PenisSize getSize() {
-		return PenisSize.getPenisSizeFromInt(size);
+	public PenisLength getLength() {
+		return PenisLength.getPenisLengthFromInt(length);
 	}
 
-	public int getRawSizeValue() {
-		return size;
+	public int getRawLengthValue() {
+		return length;
 	}
 
 	/**
-	 * Sets the size. Value is bound to >=0 && <=PenisSize.SEVEN_STALLION.getMaximumValue()
+	 * Sets the length. Value is bound to >=0 && <=PenisLength.SEVEN_STALLION.getMaximumValue()
 	 */
-	public String setPenisSize(GameCharacter owner, int size) {
+	public String setPenisLength(GameCharacter owner, int length) {
 		if(owner!=null && !owner.hasPenisIgnoreDildo()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		int sizeChange = 0;
+		int lengthChange = 0;
 		
-		if (size <= 0) {
-			if (this.size != 0) {
-				sizeChange = 0 - this.size;
-				this.size = 0;
+		if (length <= 0) {
+			if (this.length != 0) {
+				lengthChange = 0 - this.length;
+				this.length = 0;
 			}
-		} else if (size >= PenisSize.SEVEN_STALLION.getMaximumValue()) {
-			if (this.size != PenisSize.SEVEN_STALLION.getMaximumValue()) {
-				sizeChange = PenisSize.SEVEN_STALLION.getMaximumValue() - this.size;
-				this.size = PenisSize.SEVEN_STALLION.getMaximumValue();
+		} else if (length >= PenisLength.SEVEN_STALLION.getMaximumValue()) {
+			if (this.length != PenisLength.SEVEN_STALLION.getMaximumValue()) {
+				lengthChange = PenisLength.SEVEN_STALLION.getMaximumValue() - this.length;
+				this.length = PenisLength.SEVEN_STALLION.getMaximumValue();
 			}
 		} else {
-			if (this.size != size) {
-				sizeChange = size - this.size;
-				this.size = size;
+			if (this.length != length) {
+				lengthChange = length - this.length;
+				this.length = length;
 			}
 		}
 		
@@ -688,47 +687,37 @@ public class Penis implements BodyPartInterface {
 			return "";
 		}
 		
-		if(sizeChange == 0) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.cock] doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.cock] doesn't change...)]</p>");
-			}
+		if(lengthChange == 0) {
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The length of [npc.namePos] [npc.cock] doesn't change...)]</p>");
 		}
 		
-		if (sizeChange > 0) {
-			if (owner.isPlayer()) {
-				return "<p>"
-							+ "You let out [pc.a_moan] as you feel a deep throbbing sensation building up at the base of your cock."
-							+ " Your cheeks flush red as the feeling works its way up your shaft, and as a trickle of precum leaks out from the head of your now-hard member, you realise that your cock has [style.boldGrow(grown larger)].<br/>"
-							+ "You now have [style.boldSex([pc.a_penisSize] [pc.cock])]!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner,
-						"<p>"
-							+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
-							+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of precum leaks out from the head of [npc.her] now-hard member,"
-								+ " [npc.she] realises that [npc.her] cock has [style.boldGrow(grown larger)].<br/>"
-							+ "[npc.She] now has [style.boldSex([npc.a_penisSize] [npc.cock])]!"
-						+ "</p>");
-			}
+		if (lengthChange > 0) {
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out [npc.a_moan] as [npc.she] [npc.verb(feel)] a deep throbbing sensation building up at the base of [npc.her] cock."
+						+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of precum leaks out from the head of [npc.her] now-hard member,"
+							+ " [npc.she] [npc.verb(realise)] that [npc.her] cock has [style.boldGrow(grown larger)].<br/>"
+						+ "[npc.She] now [npc.has] [style.boldSex([npc.a_penisSize] [npc.cock])]!"
+					+ "</p>");
 		} else {
-			if (owner.isPlayer()) {
-				return "<p>"
-							+ "You let out a groan as you feel a deep throbbing sensation building up at the base of your cock."
-							+ " Your cheeks flush red as the feeling works its way up your shaft, and as a trickle of precum leaks out from the head of your now-hard member, you realise that your cock has [style.boldShrink(shrunk)].<br/>"
-							+ "You now have [style.boldSex([pc.a_penisSize] [pc.cock])]!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner,
-						"<p>"
-								+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
-								+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of precum leaks out from the head of [npc.her] now-hard member,"
-									+ " [npc.she] realises that [npc.her] cock has [style.boldShrink(shrunk)].<br/>"
-							+ "[npc.She] now has [style.boldSex([npc.a_penisSize] [npc.cock])]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner,
+					"<p>"
+							+ "[npc.Name] [npc.verb(let)] out [npc.a_moan] as [npc.she] [npc.verb(feel)] an intense tightening sensation building up at the base of [npc.her] cock."
+							+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of precum leaks out from the head of [npc.her] now-hard member,"
+								+ " [npc.she] [npc.verb(realise)] that [npc.her] cock has [style.boldShrink(shrunk)].<br/>"
+						+ "[npc.She] now [npc.has] [style.boldSex([npc.a_penisSize] [npc.cock])]!"
+					+ "</p>");
 		}
+	}
+	
+	// Diameter:
+
+	public static float getGenericDiameter(int length, PenetrationGirth girth) {
+		return length * Math.min(1, (0.25f + girth.getDiameterPercentageModifier()));
+	}
+	
+	public float getDiameter() {
+		return  length * Math.min(1, (0.25f + this.getGirth().getDiameterPercentageModifier() + (this.hasPenisModifier(PenetrationModifier.FLARED)?0.05f:0) + (this.hasPenisModifier(PenetrationModifier.TAPERED)?-0.05f:0)));
 	}
 	
 	public boolean isPierced() {
@@ -743,12 +732,7 @@ public class Penis implements BodyPartInterface {
 		this.pierced = pierced;
 		
 		if(pierced) {
-			if(owner.isPlayer()) {
-				return "<p>Your [pc.cock] is now [style.boldGrow(pierced)]!</p>";
-			} else {
-				return UtilText.parse(owner,
-						"<p>[npc.NamePos] [npc.cock] is now [style.boldGrow(pierced)]!</p>");
-			}
+			return UtilText.parse(owner, "<p>[npc.NamePos] [npc.cock] is now [style.boldGrow(pierced)]!</p>");
 			
 		} else {
 			AbstractClothing c = owner.getClothingInSlot(InventorySlot.PIERCING_PENIS);
@@ -758,18 +742,11 @@ public class Penis implements BodyPartInterface {
 				piercingUnequip = owner.addClothing(c, false);
 			}
 			
-			if(owner.isPlayer()) {
-				return "<p>"
-							+ "Your [pc.cock] is [style.boldShrink(no longer pierced)]!"
-						+ "</p>"
-						+piercingUnequip;
-			} else {
-				return UtilText.parse(owner,
-						"<p>"
-								+ "[npc.NamePos] [npc.cock] is [style.boldShrink(no longer pierced)]!"
-						+ "</p>"
-						+piercingUnequip);
-			}
+			return UtilText.parse(owner,
+					"<p>"
+							+ "[npc.NamePos] [npc.cock] is [style.boldShrink(no longer pierced)]!"
+					+ "</p>"
+					+piercingUnequip);
 		}
 	}
 	

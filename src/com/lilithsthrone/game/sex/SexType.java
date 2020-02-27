@@ -89,8 +89,8 @@ public class SexType implements XMLSaving {
 			SexPace performerPace = SexPace.DOM_NORMAL;
 			SexPace targetPace = SexPace.DOM_NORMAL;
 			if(Main.game.isInSex()) {
-				performerPace = Sex.getSexPace(performer);
-				targetPace = Sex.getSexPace(target);
+				performerPace = Main.sex.getSexPace(performer);
+				targetPace = Main.sex.getSexPace(target);
 			}
 			
 			String description = areaPerforming.getSexDescription(pastTense, performer, performerPace, target, targetPace, areaTargeted);
@@ -455,6 +455,8 @@ public class SexType implements XMLSaving {
 					break;
 				case FETISH_FOOT_RECEIVING:
 					oppositeFetishes.add(Fetish.FETISH_FOOT_GIVING);
+					break;
+				case FETISH_SIZE_QUEEN:
 					break;
 			}
 		}

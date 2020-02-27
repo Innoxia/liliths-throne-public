@@ -18,7 +18,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaOral;
 import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaSex;
 import com.lilithsthrone.game.sex.positions.SexPosition;
@@ -408,7 +407,7 @@ public class CityHallDemographics {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getPlayer())>0) {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>0) {
 				return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "END_ORAL_SEX");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "END_ORAL_SEX_NO_ORGASM");
@@ -538,7 +537,7 @@ public class CityHallDemographics {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getPlayer())>0) {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>0) {
 				return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "END_SEX");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "END_SEX_NO_PLAYER_ORGASM");
@@ -555,7 +554,7 @@ public class CityHallDemographics {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getPlayer())>0) {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>0) {
 				return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "END_SEX");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "END_SEX_NO_PLAYER_ORGASM");

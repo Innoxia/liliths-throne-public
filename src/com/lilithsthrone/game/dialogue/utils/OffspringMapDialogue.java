@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-
 import java.util.List;
 
 import com.lilithsthrone.game.character.npc.NPC;
@@ -31,6 +30,7 @@ public class OffspringMapDialogue {
 				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
 						&& (npc.getSubspecies()==Subspecies.ANGEL
 							|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
+							|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
 							|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC))
 				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
 						&& (npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH

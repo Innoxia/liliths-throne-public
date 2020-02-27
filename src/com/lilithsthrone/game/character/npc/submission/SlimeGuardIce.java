@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -85,6 +86,10 @@ public class SlimeGuardIce extends NPC {
 				19, Month.JANUARY, 29,
 				15, Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN,
 				new CharacterInventory(10), WorldType.SLIME_QUEENS_LAIR_GROUND_FLOOR, PlaceType.SLIME_QUEENS_LAIR_ENTRANCE_GUARDS, true);
+		
+		if(!isImported) {
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 35);
+		}
 
 	}
 
@@ -100,11 +105,13 @@ public class SlimeGuardIce extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.8")) {
 			this.setLevel(15);
-			this.resetPerksMap(true);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.SHY);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.resetPerksMap(true);
 		}
 		setStartingCombatMoves();
 	}
@@ -112,6 +119,8 @@ public class SlimeGuardIce extends NPC {
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
+		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
+		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
 						Perk.CLOTHING_ENCHANTER),

@@ -13,7 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -21,7 +21,6 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -46,7 +45,7 @@ public class Vagina implements BodyPartInterface {
 	public Vagina(VaginaType type, int labiaSize, int clitSize, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.labiaSize = labiaSize;
-		this.clitoris = new Clitoris(clitSize, PenisGirth.TWO_AVERAGE.getValue());
+		this.clitoris = new Clitoris(clitSize, PenetrationGirth.TWO_AVERAGE.getValue());
 		pierced = false;
 		
 		orificeVagina = new OrificeVagina(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
@@ -102,8 +101,8 @@ public class Vagina implements BodyPartInterface {
 		}
 		
 		String wetnessDescriptor = orificeVagina.getWetness(owner).getDescriptor();
-		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
-			if(Sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.VAGINA)) {
+		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(owner)) {
+			if(Main.sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.VAGINA)) {
 				wetnessDescriptor = "wet";
 			}
 		}
@@ -120,7 +119,7 @@ public class Vagina implements BodyPartInterface {
 			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
 					(this.getType().getRace()==Race.HORSE_MORPH?"mare":null),
 					"feral",
-					owner.getVaginaRace().getName(true)+"-",
+					owner.getVaginaRace().getName(owner, true)+"-",
 					"bestial",
 					"animalistic")));
 		} else {

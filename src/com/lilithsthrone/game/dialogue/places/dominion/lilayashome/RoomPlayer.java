@@ -37,7 +37,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -517,8 +516,8 @@ public class RoomPlayer {
 								endGreetings.add("[npc.name] mutters in annoyance, before shuffling [npc.her] [npc.feet] and letting out another quiet curse.");
 								
 							} else if(npc.isSelfish()) {
-								speechGreetings.add("[npc.speech(Eugh, what do you want now, [pc.name)]?)]");
-								speechGreetings.add("[npc.speech(And what exactly do you want <i>this</i> time, [npc.name]?)]");
+								speechGreetings.add("[npc.speech(Eugh, what do you want now, [pc.name]?)]");
+								speechGreetings.add("[npc.speech(And what exactly do you want <i>this</i> time, [pc.name]?)]");
 								speechGreetings.add("[npc.speech(So, why are you back?)]");
 								speechGreetings.add("[npc.speech(Why did you have to come back?)]");
 								
@@ -528,7 +527,7 @@ public class RoomPlayer {
 								
 							} else {
 								speechGreetings.add("[npc.speech(Just do whatever it is you're here to do, [pc.name],)]");
-								speechGreetings.add("[npc.speech(Go on then, [npc.name], do whatever it is you're here to do,)]");
+								speechGreetings.add("[npc.speech(Go on then, [pc.name], do whatever it is you're here to do,)]");
 								speechGreetings.add("[npc.speech(Let's just get this over with,)]");
 								speechGreetings.add("[npc.speech(Go on then, tell me what it is you want this time,)]");
 								
@@ -553,9 +552,6 @@ public class RoomPlayer {
 
 		@Override
 		public String getResponseTabTitle(int index) {
-			if(index==2) {
-				return "Bathroom";
-			}
 			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
 		}
 		
@@ -1027,7 +1023,7 @@ public class RoomPlayer {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			List<GameCharacter> hornySlaves = new ArrayList<>(Sex.getDominantParticipants(false).keySet());
+			List<GameCharacter> hornySlaves = new ArrayList<>(Main.sex.getDominantParticipants(false).keySet());
 			boolean soloSex = hornySlaves.size()==1;
 			List<String> names = new ArrayList<>();
 			hornySlaves.stream().forEach((npc) -> names.add(npc.getName()));
@@ -1964,7 +1960,7 @@ public class RoomPlayer {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>=NightlifeDistrict.getPartner().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>=NightlifeDistrict.getPartner().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_CLUBBER_SEX", NightlifeDistrict.getClubbersPresent());
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "BACK_HOME_AFTER_CLUBBER_SEX_NO_ORGASM", NightlifeDistrict.getClubbersPresent());

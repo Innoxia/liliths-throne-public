@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -10,6 +11,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -70,7 +72,7 @@ public class Helena extends NPC {
 	}
 	
 	public Helena(boolean isImported) {
-		super(isImported, new NameTriplet("Helena"), "Earna",
+		super(isImported, new NameTriplet("Helena"), "Labelle",
 				"Helena is an extremely powerful harpy matriarch, and is in control of one of the largest harpy flocks in Dominion."
 						+ " Her beauty rivals that of even the most gorgeous of succubi, which, combined with her sharp mind and regal personality, makes her somewhat of an idol in harpy society.",
 				26, Month.MAY, 3,
@@ -101,8 +103,17 @@ public class Helena extends NPC {
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.INNOCENT);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
 			this.setName(new NameTriplet("Helena"));
+			this.getHomeCell().removeCharacterHomeId("-1,Alexa");
+			this.getHomeCell().addCharacterHomeId("-1,Helena");
+			this.getCell().removeCharacterPresentId("-1,Alexa");
+			this.getCell().addCharacterPresentId("-1,Helena");
+			this.setId("-1,Helena");
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.2")) {
+			this.equipClothing();
+			this.setSurname("Labelle");
 		}
 	}
 
@@ -209,22 +220,17 @@ public class Helena extends NPC {
 	
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		// Tattoos
-		// Scars
-
 		this.setPiercedEar(true);
-		this.setPiercedNavel(true);
-		this.setPiercedNose(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BIKINI, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_BIKINI, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_TIARA, Colour.CLOTHING_GOLD, false), true, this);
+		this.setPiercedNavel(false);
+		this.setPiercedNose(false);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_HOOPS, Colour.CLOTHING_GOLD, false), true, this);
+
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_PLUNGE_DRESS, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_tiara", Colour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_GOLD, false), true, this);
 
 	}
@@ -249,6 +255,11 @@ public class Helena extends NPC {
 			for(String id : this.getSlavesOwned()) {
 				if(Main.game.isCharacterExisting(id)) {
 					Main.game.banishNPC(id);
+				}
+			}
+			for(GameCharacter character : new ArrayList<>(Main.game.getCharactersPresent(this.getCell()))) {
+				if(character.isSlave() && !character.getOwner().isPlayer() && character instanceof DominionAlleywayAttacker) {
+					Main.game.banishNPC((NPC) character);
 				}
 			}
 			this.removeAllSlaves();
@@ -278,14 +289,29 @@ public class Helena extends NPC {
 	@Override
 	public void turnUpdate() {
 		if(!Main.game.getCharactersPresent().contains(this)) {
-			if(Main.game.isExtendedWorkTime()) {
-				if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
+			if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_E_REPORT_TO_HELENA)) {
+				if(Main.game.isExtendedWorkTime()) {
 					this.setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST, true);
+					
 				} else {
-					this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 				}
+				
 			} else {
-				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+				if(Main.game.isExtendedWorkTime() || Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
+					this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+					
+				} else {
+					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+					if(!Main.game.isExtendedWorkTime() && Main.game.getHourOfDay()>12) {
+						for(String id : this.getSlavesOwned()) {
+							if(Main.game.isCharacterExisting(id)) {
+								Main.game.banishNPC(id);
+							}
+						}
+						this.removeAllSlaves();
+					}
+				}
 			}
 		}
 	}

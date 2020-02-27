@@ -240,6 +240,11 @@ public class Elemental extends NPC {
 	public boolean isUnique() {
 		return false;
 	}
+
+	@Override
+	public boolean isElemental() {
+		return true;
+	}
 	
 	@Override
 	public String getSurname() {
@@ -256,7 +261,7 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	protected int getTrueLevel() {
+	public int getTrueLevel() {
 		if(this.getSummoner()==null) {
 			return level;
 		}

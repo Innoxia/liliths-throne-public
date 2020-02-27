@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -69,6 +70,10 @@ public class SupplierLeader extends NPC {
 				PlaceType.SUPPLIER_DEPOT_OFFICE,
 				true);
 		
+		if(!isImported) {
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 25);
+		}
+		
 	}
 	
 	@Override
@@ -81,18 +86,22 @@ public class SupplierLeader extends NPC {
 		this.setDescription("Wolfgang is the senior of the two dobermanns who decided to drive out all the clothing suppliers from the Shopping Arcade.");
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.setLevel(12);
-			this.resetPerksMap(true);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.BRAVE,
 					PersonalityTrait.SELFISH);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.resetPerksMap(true);
+		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
+		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
+		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(

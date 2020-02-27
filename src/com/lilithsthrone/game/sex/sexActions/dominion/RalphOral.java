@@ -17,7 +17,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.LubricationType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -61,8 +60,8 @@ public class RalphOral {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isAnyOngoingActionHappening()
-					&& Sex.getCharacterPerformingAction().isPlayer();
+			return !Main.sex.isAnyOngoingActionHappening()
+					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
@@ -72,7 +71,7 @@ public class RalphOral {
 			UtilText.nodeContentSB.append("With Ralph's cock being as large as it is, you don't even need to lean forwards in order to start earning your discount."
 					+ " Opening your mouth, you simply move your lips down to kiss the flared head of his horse-like shaft.");
 			
-			if(Sex.hasLubricationTypeFromAnyone(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, LubricationType.PRECUM))
+			if(Main.sex.hasLubricationTypeFromAnyone(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, LubricationType.PRECUM))
 				UtilText.nodeContentSB.append(" As the tip of your tongue slides over his bumpy equine urethra, a dollop of salty precum leaks into your mouth."
 						+ " You let out a surprised moan as the salty liquid drips past your lips");
 			else
@@ -667,7 +666,7 @@ public class RalphOral {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isAnyOngoingActionHappening();
+			return Main.sex.isAnyOngoingActionHappening();
 		}
 
 		@Override
@@ -784,7 +783,7 @@ public class RalphOral {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isAnyOngoingActionHappening();
+			return Main.sex.isAnyOngoingActionHappening();
 		}
 
 		@Override
@@ -845,12 +844,12 @@ public class RalphOral {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isAnyNonSelfOngoingActionHappening();
+			return !Main.sex.isAnyNonSelfOngoingActionHappening();
 		}
 
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getLastUsedSexAction(Main.game.getNpc(Ralph.class))!=PARTNER_COMMAND_START_ORAL) {
+			if(Main.sex.getLastUsedSexAction(Main.game.getNpc(Ralph.class))!=PARTNER_COMMAND_START_ORAL) {
 				return SexActionPriority.HIGH;
 			} else {
 				return  SexActionPriority.NORMAL;
@@ -904,7 +903,7 @@ public class RalphOral {
 		
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getLastUsedSexAction(Main.game.getNpc(Ralph.class))==PARTNER_COMMAND_START_ORAL) {
+			if(Main.sex.getLastUsedSexAction(Main.game.getNpc(Ralph.class))==PARTNER_COMMAND_START_ORAL) {
 				return SexActionPriority.HIGH;
 			} else {
 				return SexActionPriority.NORMAL;
@@ -1223,7 +1222,7 @@ public class RalphOral {
 					+ " Suddenly, you feel a strong pair of hands grab your hips, and before you can react, Ralph pushes you down, face first, onto the counter-top."
 					+ " You let out a little moan at his dominant treatment of you, and as he roughly gropes and squeezes your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass, he leans down and growls in your ear, "
 					+ UtilText.parseSpeech(
-						(Sex.getCharacterPerformingAction().isWearingCondom()
+						(Main.sex.getCharacterPerformingAction().isWearingCondom()
 							?"So you want a bigger discount, huh?! You know, it's a shame you insisted on the condom, but I'll still give you another twenty percent if you let me fuck you."
 							:(Main.game.getPlayer().isVisiblyPregnant()
 									?"So you want a bigger discount, huh?! You know, it's a shame you're already pregnant, but I'll still give you another twenty percent if you let me fuck you."
@@ -1242,7 +1241,7 @@ public class RalphOral {
 					+ " With a quick step forwards, Ralph suddenly rams his impatient member deep into your hungry snatch, and you gasp and moan as he starts fucking you on the shop's counter-top."
 					+ "<br/><br/>"
 					+ "<b>You will now earn a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
-							+(SexFlags.ralphDiscount+(Sex.getCharacterPerformingAction().isWearingCondom()||Main.game.getPlayer().isVisiblyPregnant()?20:25)-(SexFlags.alertedCustomer?5:0))
+							+(SexFlags.ralphDiscount+(Main.sex.getCharacterPerformingAction().isWearingCondom()||Main.game.getPlayer().isVisiblyPregnant()?20:25)-(SexFlags.alertedCustomer?5:0))
 					+"%</b> <b>discount.</b>");
 			
 			return UtilText.nodeContentSB.toString();
@@ -1256,7 +1255,7 @@ public class RalphOral {
 					SexFlags.ralphDiscount-=5;
 			
 			SexFlags.alertedCustomer=false;
-			if(Sex.getCharacterPerformingAction().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE) {
+			if(Main.sex.getCharacterPerformingAction().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE) {
 				SexFlags.ralphDiscount+=20;
 			} else {
 				SexFlags.ralphDiscount+=25;
@@ -1348,7 +1347,7 @@ public class RalphOral {
 					SexFlags.ralphDiscount-=5;
 			
 			SexFlags.alertedCustomer=false;
-			if(Sex.getCharacterPerformingAction().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE)
+			if(Main.sex.getCharacterPerformingAction().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE)
 				SexFlags.ralphDiscount+=20;
 			else
 				SexFlags.ralphDiscount+=25;
@@ -1387,7 +1386,7 @@ public class RalphOral {
 								+ " With his legs in position on either side of yours, he focuses his movements solely in his hips, and your screams of ecstasy come out in little bursts as he jackhammers his huge horse-cock into your slit."
 						:"Grabbing your "+Main.game.getPlayer().getHipSize().getDescriptor()+" hips, Ralph pushes you hard into the counter, leaning down heavily on top of you as he starts relentlessly pounding away at your slutty cunt."
 							+ " Using your body as a cushion, he focuses his movements solely in his hips, and your screams of ecstasy come out in little bursts as he jackhammers his huge horse-cock between your legs.")
-					+ (Sex.getCharacterPerformingAction().isWearingCondom()
+					+ (Main.sex.getCharacterPerformingAction().isWearingCondom()
 						?" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, oblivious to the fact that their contents are going to be caught in the condom you made their owner wear."
 						:" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, giving you a little reminder as to the origin of your impending creampie's filling.");
 		}
@@ -1419,7 +1418,7 @@ public class RalphOral {
 		public String getDescription() {
 			return "Grabbing your "+Main.game.getPlayer().getHipSize().getDescriptor()+" hips, Ralph pushes you hard into the counter, leaning down heavily on top of you as he starts relentlessly pounding away at your slutty ass."
 				+ " Using your body as a cushion, he focuses his movements solely in his hips, and your screams of ecstasy come out in little bursts as he jackhammers his huge horse-cock into your back door."
-				+ (Sex.getCharacterPerformingAction().isWearingCondom()
+				+ (Main.sex.getCharacterPerformingAction().isWearingCondom()
 					?" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, oblivious to the fact that their contents are going to be caught in the condom you made their owner wear."
 					:" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, giving you a little reminder as to the origin of your impending creampie's filling.");
 		}
@@ -1453,7 +1452,7 @@ public class RalphOral {
 						?"Ralph continues holding your hips tightly, rocking you forwards and back as he fills you with his huge, black horse-cock."
 						:"Ralph continues holding your hips tightly, rocking you into the counter as he fills you with his huge, black horse-cock.")
 					+ " His heavy balls swing to and fro, impatient to deposit their potent load "
-					+ (Sex.getCharacterPerformingAction().isWearingCondom()
+					+ (Main.sex.getCharacterPerformingAction().isWearingCondom()
 						?"into the condom that you've provided."
 						:(Main.game.getPlayer().isVisiblyPregnant()?"deep into your hungry cunt.":"deep in your waiting womb."));
 		}
@@ -1485,7 +1484,7 @@ public class RalphOral {
 		public String getDescription() {
 				return "Ralph continues holding your hips tightly, rocking you into the counter as he fills you with his huge, black horse-cock."
 					+ " His heavy balls swing to and fro, impatient to deposit their potent load "
-					+ (Sex.getCharacterPerformingAction().isWearingCondom()
+					+ (Main.sex.getCharacterPerformingAction().isWearingCondom()
 						?"into the condom that you've provided."
 						:"deep in your waiting ass.");
 		}
@@ -1517,7 +1516,7 @@ public class RalphOral {
 		
 		@Override
 		public String getDescription() {
-			switch(Sex.getSexPace(Main.game.getPlayer())) {
+			switch(Main.sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return "You let out a soft [pc.moan] of encouragement as you prepare for [npc.name] to reach [npc.her] orgasm.";
 				case DOM_NORMAL:
@@ -1566,13 +1565,13 @@ public class RalphOral {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)) {
+			if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS)) {
 				UtilText.nodeContentSB.append("As Ralph's huge black cock thrusts deep down your throat, you feel yourself reaching your climax, and before you know what's happening, you're letting out a desperate, muffled [pc.moan].");
 				
-			} else if(Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
+			} else if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
 				UtilText.nodeContentSB.append("As Ralph's huge black cock thrusts deep into your [pc.pussy+], you feel yourself reaching your climax, and before you know what's happening, you're letting out [pc.a_moan+].");
 				
-			} else if(Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
+			} else if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
 				UtilText.nodeContentSB.append("As Ralph's huge black cock thrusts deep into your [pc.asshole+], you feel yourself reaching your climax, and before you know what's happening, you're letting out [pc.a_moan+].");
 				
 			} else {
@@ -1652,9 +1651,9 @@ public class RalphOral {
 				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "A desperate, shuddering heat suddenly crashes up from your [pc.pussy+], and you let out a manic squeal as a blinding wave of pure ecstasy washes over you.");
 				
-				if (!Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty()) {
-					GameCharacter characterPenetrating = Sex.getCharacterContactingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).get(0);
-					switch(Sex.getFirstContactingSexAreaPenetration(Main.game.getPlayer(), SexAreaOrifice.VAGINA)) {
+				if (!Main.sex.getCharacterOngoingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty()) {
+					GameCharacter characterPenetrating = Main.sex.getCharacterOngoingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).get(0);
+					switch(Main.sex.getFirstOngoingSexAreaPenetration(Main.game.getPlayer(), SexAreaOrifice.VAGINA)) {
 						case FINGER:
 							if(characterPenetrating.isPlayer()) {
 								UtilText.nodeContentSB.append(" You curl your fingers up deep inside your [pc.pussy+]"
@@ -1716,7 +1715,7 @@ public class RalphOral {
 						+ ", and you let out a defeated sigh as you realise that you forgot they were there.");
 			}
 			
-			return UtilText.parse(Sex.getCharacterTargetedForSexAction(this), UtilText.nodeContentSB.toString());
+			return UtilText.parse(Main.sex.getCharacterTargetedForSexAction(this), UtilText.nodeContentSB.toString());
 		}
 
 		@Override
@@ -1760,7 +1759,7 @@ public class RalphOral {
 		
 		@Override
 		public String getDescription() {
-			switch(Sex.getSexPace(Main.game.getPlayer())) {
+			switch(Main.sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return "[npc.Name] lets out a soft [npc.moan] of encouragement as [npc.she] prepares for you to reach your orgasm.";
 				case DOM_NORMAL:
@@ -1814,13 +1813,13 @@ public class RalphOral {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(!Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty()){
+			if(!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty()){
 				UtilText.nodeContentSB.append("Ralph starts letting out a series of low, heavy grunts, and you gasp as you feel his member start to twitch inside of you."
 						+ " With a roar, he slams his massive horse-cock deep into your cunt, and you let out a squeal as you feel his powerful shaft ride up inside of you as it prepares for its master's orgasm."
 						+ "<br/>"
 						+ " Grinding the base of his cock against your outer folds, his massive balls tense up as Ralph starts to cum.");
 				
-				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
+				if(Main.sex.getCharacterPerformingAction().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into the condom, and as you feel the hot seed ballooning out the rubber inside of you, you let out a satisfied sigh."
 							+ " His cock continues to pump a few more times, the huge, black equine shaft quickly depositing its seed harmlessly into the protection you've provided."
 							+ "<br/><br/>"
@@ -1846,13 +1845,13 @@ public class RalphOral {
 							+ " [ralph.speechNoEffects(Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...)]");
 				}
 				
-			}else if(!Sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty()){
+			}else if(!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty()){
 				UtilText.nodeContentSB.append("Ralph starts letting out a series of low, heavy grunts, and you gasp as you feel his member start to twitch inside of you."
 						+ " With a roar, he slams his massive horse-cock deep into your ass, and you let out a cry as you feel his powerful shaft ride up inside of you as it prepares for its master's orgasm."
 						+ "<br/>"
 						+ " Grinding the base of his cock against your asshole, his massive balls tense up as Ralph starts to cum.");
 				 
-				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
+				if(Main.sex.getCharacterPerformingAction().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into the condom, and as you feel the hot seed ballooning out the rubber inside of you, you let out a satisfied sigh."
 							+ " His cock continues to pump a few more times, the huge, black equine shaft quickly depositing its seed harmlessly into the protection you've provided."
 							+ "<br/><br/>"
@@ -1894,7 +1893,7 @@ public class RalphOral {
 						+ "<br/><br/>"
 						+ "Grinding the base of his cock against your lips, his massive balls tense up as Ralph starts to cum.");
 				
-				if(Sex.getCharacterPerformingAction().isWearingCondom()) {
+				if(Main.sex.getCharacterPerformingAction().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into the condom, and as you feel the hot seed ballooning out the tip of the protection you've provided,"
 								+ " you let out a very muffled moan."
 							+ " The huge, black equine shaft continues to pump and twitch a few more times as it deposits its seed harmlessly into the protection you've provided."
@@ -1903,7 +1902,7 @@ public class RalphOral {
 							+ " You let out a little sigh as you're suddenly left feeling extremely empty, and you shuffle forwards and playfully bite your lip at Ralph, watching as he finishes tying up the used condom."
 							+ " He places the little seed-filled package down next to you, and, after making sure that nobody's watching, he takes hold of one of your [pc.arms+] and pulls you to your feet,"
 							+ " motioning for you to continue shopping as he fulfils his end of the bargain, "
-							+ UtilText.parseSpeech("Well, I think you've more than earned that discount...", Main.game.getNpc(Ralph.class)));
+							+ "[ralph.speechNoEffects(Well, I think you've more than earned that discount...)]");
 				} else {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into your stomach, and as you feel the hot seed filling you up, you let out a very muffled moan."
 							+ " The huge, black equine shaft continues to pump and twitch a few more times as it deposits its seed deep down your facial fuck hole."
@@ -1912,7 +1911,7 @@ public class RalphOral {
 							+ "As his balls finish emptying themselves, he steps back, sliding his rapidly-softening member from your well-used throat."
 							+ " A thick, slimy strand of cummy saliva drools down to form a little stream beneath your mouth, and you shuffle forwards, wiping yourself clean as you playfully smile up at Ralph."
 							+ " After making sure that nobody's watching, he takes hold of one of your [pc.arms+] and pulls you up, motioning for you to continue shopping as he fulfils his end of the bargain, "
-							+ UtilText.parseSpeech("Well, I think you've more than earned that discount...", Main.game.getNpc(Ralph.class)));
+							+ "[ralph.speechNoEffects(Well, I think you've more than earned that discount...)]");
 				}
 			}
 			
@@ -1936,13 +1935,7 @@ public class RalphOral {
 		@Override
 		public void applyEffects() {
 			// If your existing discount is bigger, just refresh the bigger discount:
-			if(((Ralph)Main.game.getNpc(Ralph.class)).isDiscountActive()){
-				if(SexFlags.ralphDiscount>Main.game.getDialogueFlags().ralphDiscount){
-					Main.game.getNpc(Ralph.class).setSellModifier(1.5f*((100-SexFlags.ralphDiscount)/100f));
-					Main.game.getDialogueFlags().ralphDiscount=SexFlags.ralphDiscount;
-				}
-			}else{
-				Main.game.getNpc(Ralph.class).setSellModifier(1.5f*((100-SexFlags.ralphDiscount)/100f));
+			if(!((Ralph)Main.game.getNpc(Ralph.class)).isDiscountActive() || SexFlags.ralphDiscount>Main.game.getDialogueFlags().ralphDiscount){
 				Main.game.getDialogueFlags().ralphDiscount=SexFlags.ralphDiscount;
 			}
 			
@@ -1951,17 +1944,17 @@ public class RalphOral {
 		
 		@Override
 		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
-			if(!cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(cumProvider))) {
-				if (Sex.getAllContactingSexAreas(cumTarget, SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS) && Sex.getCharacterContactingSexArea(cumTarget, SexAreaOrifice.VAGINA).contains(cumProvider)) {
+			if(!cumProvider.isPlayer() && cumTarget.equals(Main.sex.getTargetedPartner(cumProvider))) {
+				if (Main.sex.getAllOngoingSexAreas(cumTarget, SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS) && Main.sex.getCharacterOngoingSexArea(cumTarget, SexAreaOrifice.VAGINA).contains(cumProvider)) {
 					return Util.newArrayListOfValues(SexAreaOrifice.VAGINA);
 					
-				} else if (Sex.getAllContactingSexAreas(cumTarget, SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS) && Sex.getCharacterContactingSexArea(cumTarget, SexAreaOrifice.ANUS).contains(cumProvider)) {
+				} else if (Main.sex.getAllOngoingSexAreas(cumTarget, SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS) && Main.sex.getCharacterOngoingSexArea(cumTarget, SexAreaOrifice.ANUS).contains(cumProvider)) {
 					return Util.newArrayListOfValues(SexAreaOrifice.ANUS);
 					
-				} else if (Sex.getAllContactingSexAreas(cumTarget, SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS) && Sex.getCharacterContactingSexArea(cumTarget, SexAreaOrifice.MOUTH).contains(cumProvider)) {
+				} else if (Main.sex.getAllOngoingSexAreas(cumTarget, SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS) && Main.sex.getCharacterOngoingSexArea(cumTarget, SexAreaOrifice.MOUTH).contains(cumProvider)) {
 					return Util.newArrayListOfValues(SexAreaOrifice.MOUTH);
 					
-				} else if (Sex.getAllContactingSexAreas(cumTarget, SexAreaOrifice.NIPPLE).contains(SexAreaPenetration.PENIS) && Sex.getCharacterContactingSexArea(cumTarget, SexAreaOrifice.NIPPLE).contains(cumProvider)) {
+				} else if (Main.sex.getAllOngoingSexAreas(cumTarget, SexAreaOrifice.NIPPLE).contains(SexAreaPenetration.PENIS) && Main.sex.getCharacterOngoingSexArea(cumTarget, SexAreaOrifice.NIPPLE).contains(cumProvider)) {
 					return Util.newArrayListOfValues(SexAreaOrifice.NIPPLE);
 					
 				} else {

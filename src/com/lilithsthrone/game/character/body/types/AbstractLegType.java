@@ -445,9 +445,9 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		Penis penis = body.getPenis();
 		if(penis.getType()!=PenisType.NONE) {
 			if(feral) {
-				bestialStringBuilder.append(" [npc.Her] cock has similarly transformed into that of a feral "+bestialRaceName+"'s, and not only produces musky, animal-like cum, but is also an impressive "+Units.size(penis.getRawSizeValue())+" long.");
+				bestialStringBuilder.append(" [npc.Her] cock has similarly transformed into that of a feral "+bestialRaceName+"'s, and not only produces musky, animal-like cum, but is also an impressive "+Units.size(penis.getRawLengthValue())+" long.");
 			} else {
-				bestialStringBuilder.append(" [npc.Her] cock has similarly transformed into that of a regular "+this.getRace().getName(false)+", and is "+Units.size(penis.getRawSizeValue())+" long.");
+				bestialStringBuilder.append(" [npc.Her] cock has similarly transformed into that of a regular "+this.getRace().getName(false)+", and is "+Units.size(penis.getRawLengthValue())+" long.");
 			}
 		}
 		
@@ -588,7 +588,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							true,
 							startingBodyType.getPenisGirth()+(largeGenitals?1:0),
 							startingBodyType.getTesticleSize()+(largeGenitals?1:0),
-							startingBodyType.getCumProduction()*(largeGenitals?4:1),
+							startingBodyType.getCumProduction()*(largeGenitals?10:1),
 							startingBodyType.getTesticleQuantity())
 						: new Penis(PenisType.NONE, 0, false, 0, 0, 0, 2));
 				body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.MUSKY);
