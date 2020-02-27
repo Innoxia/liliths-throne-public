@@ -7,7 +7,7 @@
 	<name><![CDATA[leather belt]]></name>
 	<namePlural pluralByDefault="false"><![CDATA[leather belts]]></namePlural>
 	<description><![CDATA[A plain, unisex leather belt, complete with metal buckle.]]></description>
-	<physicalResistance>1</physicalResistance>
+	<physicalResistance>0</physicalResistance>
 	<femininity>ANDROGYNOUS</femininity>
 	<slot>HIPS</slot>
 	<rarity>COMMON</rarity>

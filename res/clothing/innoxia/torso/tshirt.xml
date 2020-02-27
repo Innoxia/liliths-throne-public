@@ -12,7 +12,7 @@
 		
 		<description><![CDATA[A unisex fabric shirt, named after the T shape of its body and sleeves.]]></description> 
 		
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<femininity>ANDROGYNOUS</femininity> 
 		
@@ -71,6 +71,7 @@
 		
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
 	</coreAttributes>
 

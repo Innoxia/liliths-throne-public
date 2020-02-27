@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import java.util.Map.Entry;
+
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -21,16 +23,14 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.dominion.SMVickyOverDesk;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.3.2
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class ArcaneArts {
@@ -41,23 +41,25 @@ public class ArcaneArts {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/arcaneArts", "EXTERIOR");
 		}
+
+		@Override
+		public String getResponseTabTitle(int index) {
+			return ShoppingArcadeDialogue.getCoreResponseTab(index);
+		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Enter", "Step inside Arcane Arts.", SHOP_WEAPONS);
-				
-			} else if (index == 6) {
-				return new Response("Arcade Entrance", "Fast travel to the entrance to the arcade.", ShoppingArcadeDialogue.ENTRY){
-					@Override
-					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_ENTRANCE);
+			if(responseTab==0) {
+				if (index == 1) {
+					if(Main.game.isExtendedWorkTime()) {
+						return new Response("Enter", "Step inside Arcane Arts.", SHOP_WEAPONS);
+					} else {
+						return new Response("Enter", "Arcane Arts is currently closed. You'll have to come back later if you want to do some shopping here.", null);
 					}
-				};
-
-			} else {
-				return null;
+				}
 			}
+			
+			return ShoppingArcadeDialogue.getFastTravelResponses(responseTab, index);
 		}
 	};
 	
@@ -76,13 +78,13 @@ public class ArcaneArts {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vickyIntroduced, true);
 						
-						Main.game.getNpc(Vicky.class).clearNonEquippedInventory();
+						Main.game.getNpc(Vicky.class).clearNonEquippedInventory(false);
 						
-						for (AbstractWeapon weapon : ((Vicky) Main.game.getNpc(Vicky.class)).getWeaponsForSale()) {
+						for (Entry<AbstractWeapon, Integer> weapon : ((Vicky) Main.game.getNpc(Vicky.class)).getWeaponsForSale().entrySet()) {
 							if(Main.game.getNpc(Vicky.class).isInventoryFull()) {
 								break;
 							}
-							Main.game.getNpc(Vicky.class).addWeapon(weapon, false);
+							Main.game.getNpc(Vicky.class).addWeapon(weapon.getKey(), weapon.getValue(), false, false);
 						}
 					}
 				};
@@ -93,13 +95,13 @@ public class ArcaneArts {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vickyIntroduced, true);
 
-						Main.game.getNpc(Vicky.class).clearNonEquippedInventory();
+						Main.game.getNpc(Vicky.class).clearNonEquippedInventory(false);
 						
-						for (AbstractItem item : ((Vicky) Main.game.getNpc(Vicky.class)).getItemsForSale()) {
+						for (Entry<AbstractItem, Integer> item : ((Vicky) Main.game.getNpc(Vicky.class)).getItemsForSale().entrySet()) {
 							if(Main.game.getNpc(Vicky.class).isInventoryFull()) {
 								break;
 							}
-							Main.game.getNpc(Vicky.class).addItem(item, false);
+							Main.game.getNpc(Vicky.class).addItem(item.getKey(), item.getValue(), false, false);
 						}
 					}
 				};
@@ -113,13 +115,13 @@ public class ArcaneArts {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vickyIntroduced, true);
 
-						Main.game.getNpc(Vicky.class).clearNonEquippedInventory();
+						Main.game.getNpc(Vicky.class).clearNonEquippedInventory(false);
 						
-						for (AbstractClothing clothing : ((Vicky) Main.game.getNpc(Vicky.class)).getClothingForSale()) {
+						for (Entry<AbstractClothing, Integer> clothing : ((Vicky) Main.game.getNpc(Vicky.class)).getClothingForSale().entrySet()) {
 							if(Main.game.getNpc(Vicky.class).isInventoryFull()) {
 								break;
 							}
-							Main.game.getNpc(Vicky.class).addClothing(clothing, false);
+							Main.game.getNpc(Vicky.class).addClothing(clothing.getKey(), clothing.getValue(), false, false);
 						}
 					}
 				};
@@ -149,8 +151,8 @@ public class ArcaneArts {
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.TWO_HORNY, null, null, null,
 								true, false,
 								new SMVickyOverDesk(
-										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
-										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))),
+										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotDesk.BETWEEN_LEGS)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_FRONT))),
 								null,
 								null,
 								VICKY_POST_SEX,
@@ -169,8 +171,8 @@ public class ArcaneArts {
 									Fetish.FETISH_NON_CON_SUB), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 							false, false,
 							new SMVickyOverDesk(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotDesk.BETWEEN_LEGS)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_FRONT))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -231,8 +233,8 @@ public class ArcaneArts {
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.TWO_HORNY, null, null, null,
 							true, false,
 							new SMVickyOverDesk(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotDesk.BETWEEN_LEGS)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_FRONT))),
 							null,
 							null,
 							VICKY_POST_SEX_PACKAGE,
@@ -252,8 +254,8 @@ public class ArcaneArts {
 									Fetish.FETISH_NON_CON_SUB), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
 							false, false,
 							new SMVickyOverDesk(
-									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotBipeds.MISSIONARY_DESK_DOM)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_DESK_SUB))) {
+									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vicky.class), SexSlotDesk.BETWEEN_LEGS)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotDesk.OVER_DESK_ON_FRONT))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {

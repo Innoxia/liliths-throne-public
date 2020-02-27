@@ -288,8 +288,11 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	public String getEnchantmentPostfix(boolean coloured, String tag) {
 		if(!this.getEffects().isEmpty()) {
 			for(ItemEffect ie : this.getEffects()) {
-				if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ENSLAVEMENT) {
+				if(ie.getSecondaryModifier() == TFModifier.CLOTHING_ENSLAVEMENT) {
 					return "of "+(coloured?"<"+tag+" style='color:"+TFModifier.CLOTHING_ENSLAVEMENT.getColour().toWebHexString()+";'>enslavement</"+tag+">":"enslavement");
+					
+				} else if(ie.getSecondaryModifier() == TFModifier.CLOTHING_SERVITUDE) {
+					return "of "+(coloured?"<"+tag+" style='color:"+TFModifier.CLOTHING_SERVITUDE.getColour().toWebHexString()+";'>servitude</"+tag+">":"servitude");
 					
 				} else if(ie.getPrimaryModifier() == TFModifier.TF_MOD_FETISH_BEHAVIOUR || ie.getPrimaryModifier() == TFModifier.TF_MOD_FETISH_BODY_PART) {
 					return "of "+(coloured?"<"+tag+" style='color:"+Colour.FETISH.toWebHexString()+";'>"+ie.getSecondaryModifier().getDescriptor()+"</"+tag+">":ie.getSecondaryModifier().getDescriptor());
@@ -298,7 +301,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 					String name = (this.isBadEnchantment()?this.getCoreEnchantment().getNegativeEnchantment():this.getCoreEnchantment().getPositiveEnchantment());
 					return "of "+(coloured?"<"+tag+" style='color:"+this.getCoreEnchantment().getColour().toWebHexString()+";'>"+name+"</"+tag+">":name);
 					
-				} else if(ie.getPrimaryModifier() == TFModifier.CLOTHING_SEALING) {
+				} else if(ie.getSecondaryModifier() == TFModifier.CLOTHING_SEALING) {
 					return "of "+(coloured?"<"+tag+" style='color:"+Colour.SEALED.toWebHexString()+";'>sealing</"+tag+">":"sealing");
 					
 				} else {
@@ -323,7 +326,22 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	}
 	
 	public boolean isBadEnchantment() {
-		return this.getEffects().stream().anyMatch(e -> e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE && e.getPotency().isNegative());
+//		return this.getEffects().stream().mapToInt(e -> (e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || e.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE)?e.getPotency().getClothingBonusValue():0).sum()<0;
+		return this.getEffects().stream().mapToInt(e -> (
+				((e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || e.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE))
+					?e.getPotency().getClothingBonusValue()*(e.getSecondaryModifier()==TFModifier.CORRUPTION?-1:1)
+					:0)
+				+ (e.getSecondaryModifier()==TFModifier.CLOTHING_SEALING?-10:0)
+				+ (e.getSecondaryModifier()==TFModifier.CLOTHING_SERVITUDE?-10:0)
+			).sum()<0;
+	}
+	
+	public boolean isSelfTransformationInhibiting() {
+		return this.getEffects().stream().anyMatch(e -> e.getSecondaryModifier() == TFModifier.CLOTHING_SERVITUDE);
+	}
+
+	public boolean isJinxRemovalInhibiting() {
+		return this.getEffects().stream().anyMatch(e -> e.getSecondaryModifier() == TFModifier.CLOTHING_SERVITUDE);
 	}
 	
 	public Map<Attribute, Integer> getAttributeModifiers() {
@@ -341,9 +359,14 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		
 		return attributeModifiers;
 	}
-	
-	public int getEnchantmentStabilityCost() {
-		return this.getAttributeModifiers().values().stream().reduce(0, (a, b) -> a + Math.max(0, b));//Math.abs(b));
+
+	/**
+	 * @return An integer value of the 'enchantment capacity cost' for this particular tattoo. Does not count negative attribute values, nor values of Corruption.
+	 */
+	public int getEnchantmentCapacityCost() {
+		Map<Attribute, Integer> noCorruption = new HashMap<>();
+		attributeModifiers.entrySet().stream().filter(ent -> ent.getKey()!=Attribute.MAJOR_CORRUPTION && ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()));
+		return noCorruption.values().stream().reduce(0, (a, b) -> a + Math.max(0, b));
 	}
 	
 	public AbstractTattooType getType() {

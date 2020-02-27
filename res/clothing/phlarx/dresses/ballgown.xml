@@ -8,7 +8,7 @@
 		<name><![CDATA[ballgown]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[ballgowns]]></namePlural> 
 		<description><![CDATA[An elegant ballgown, fit for a princess.]]></description> 
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		<femininity>FEMININE</femininity> 
 		<slot>TORSO_UNDER</slot> 
 		<rarity>COMMON</rarity> 
@@ -77,6 +77,7 @@
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
 			<tag>DRESS</tag>
+			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
 	</coreAttributes>
 

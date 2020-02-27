@@ -338,7 +338,7 @@ public class BatCaverns {
 								if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FOUR)) {
 									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_FOUR));
 								}
-								Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+								Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 							}
 						};
 						

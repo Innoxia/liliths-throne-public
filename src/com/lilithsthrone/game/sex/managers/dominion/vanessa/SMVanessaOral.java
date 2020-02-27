@@ -7,24 +7,23 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.dominion.Vanessa;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
-import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.2
- * @version 0.3.2
+ * @version 0.3.4
  * @author Innoxia
  */
 public class SMVanessaOral extends SexManagerDefault {
 	
-	public SMVanessaOral(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionBipeds.CHAIR_SEX_ORAL,
+	public SMVanessaOral(AbstractSexPosition position, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
+		super(position,
 				dominants,
 				submissives);
 	}
@@ -36,7 +35,7 @@ public class SMVanessaOral extends SexManagerDefault {
 	
 	@Override
 	public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-		if(Sex.isDom(Main.game.getPlayer())) {
+		if(Main.sex.isDom(Main.game.getPlayer())) {
 			return Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 		}
 		return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), Util.newArrayListOfValues(CoverableArea.VAGINA)));
@@ -44,7 +43,7 @@ public class SMVanessaOral extends SexManagerDefault {
 	
 	@Override
 	public SexControl getSexControl(GameCharacter character) {
-		if(character.isPlayer() && !Sex.isDom(character)) {
+		if(character.isPlayer() && !Main.sex.isDom(character)) {
 			return SexControl.ONGOING_ONLY;
 		}
 		return super.getSexControl(character);
@@ -56,20 +55,20 @@ public class SMVanessaOral extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isPositionChangingAllowed(GameCharacter character) {
 		return false;
 	}
 	
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 		// When player is performing cunnilingus, she stops after orgasming once:
-		if(Sex.isDom(partner)) {
-			return Sex.getNumberOfOrgasms(partner)>=1;
+		if(Main.sex.isDom(partner)) {
+			return Main.sex.getNumberOfOrgasms(partner)>=1;
 		}
 
 		// When player is receiving cunnilingus, or fucking Vanessa, she stops after both of you are satisfied:
-		return Sex.getNumberOfOrgasms(Main.game.getPlayer())>=Main.game.getPlayer().getOrgasmsBeforeSatisfied()
-				&& Sex.getNumberOfOrgasms(Main.game.getNpc(Vanessa.class))>=Main.game.getNpc(Vanessa.class).getOrgasmsBeforeSatisfied();
+		return Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>=Main.game.getPlayer().getOrgasmsBeforeSatisfied()
+				&& Main.sex.getNumberOfOrgasms(Main.game.getNpc(Vanessa.class))>=Main.game.getNpc(Vanessa.class).getOrgasmsBeforeSatisfied();
 	}
 	
 }

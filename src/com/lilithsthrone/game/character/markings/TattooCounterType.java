@@ -1,7 +1,10 @@
 package com.lilithsthrone.game.character.markings;
 
+import java.util.Objects;
+
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -245,7 +248,14 @@ public enum TattooCounterType {
 	IMPREGNATIONS("impregnation", "Keeps a count of the number of times the bearer has impregnated someone.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getLittersFathered().size();
+			int potentials = 0;
+			for(PregnancyPossibility pp : bearer.getPotentialPartnersAsFather()) {
+				if(Objects.equals(pp.getFather(), bearer)) {
+					potentials++;
+				}
+			}
+			
+			return potentials + bearer.getLittersFathered().size();
 		}
 	},
 

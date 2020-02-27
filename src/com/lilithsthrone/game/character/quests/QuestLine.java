@@ -29,7 +29,7 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.enchantmentTree),
 
-	SIDE_FIRST_TIME_PREGNANCY("Knocked up", "With Lilaya's help, you managed to complete your first pregnancy. Perhaps the first of many...",
+	SIDE_FIRST_TIME_PREGNANCY("Knocked Up", "With Lilaya's help, you managed to complete your first pregnancy. Perhaps the first of many...",
 			QuestType.SIDE,
 			QuestTree.pregnancyTree),
 
@@ -55,7 +55,23 @@ public enum QuestLine {
 
 	SIDE_SLIME_QUEEN("Slime Queen", "You dealt with the Slime Queen!",
 			QuestType.SIDE,
-			QuestTree.slimeQueenTree)
+			QuestTree.slimeQueenTree),
+
+	SIDE_TELEPORTATION("The Trouble with Teleporting", "After learning how to teleport, you managed to escape from the Enforcer warehouse.",
+			QuestType.SIDE,
+			QuestTree.teleportingTree),
+
+	SIDE_DADDY("An Inquiring Incubus", "You dealt with the demon, [daddy.name], who was showing an interest in Lilaya.",
+			QuestType.SIDE,
+			QuestTree.daddyTree),
+
+	SIDE_BUYING_BRAX("Acquiring a Wolf", "After she'd got you to perform a series of tedious tasks for her, Candi finally sold [brax.name] to you.",
+			QuestType.SIDE,
+			QuestTree.buyingBraxTree),
+
+	SIDE_VENGAR("Vengar's Tyranny", "You dealt with Vengar and made sure that Axel doesn't have to worry about him again.",
+			QuestType.SIDE,
+			QuestTree.vengarTree)
 	
 	;
 

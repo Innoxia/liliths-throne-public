@@ -7,7 +7,7 @@
 		<name><![CDATA[Rental-Daddy T-shirt]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Rental-Daddy T-shirts]]></namePlural>
 		<description><![CDATA[A T-shirt that bears the words 'Rental Daddy', with the price of fifty flames displayed below that.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>TORSO_UNDER</slot>
 		<rarity>UNCOMMON</rarity>
@@ -64,6 +64,7 @@
 		<tertiaryColoursDye values="ALL"/>
 		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
 	</coreAttributes>
 

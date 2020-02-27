@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.race;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -40,22 +41,21 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.1
- * @version 0.3.4
+ * @version 0.3.5
  * @author Innoxia
  */
 public abstract class AbstractRacialBody {
@@ -68,7 +68,7 @@ public abstract class AbstractRacialBody {
 
 	// Ass:
 	private AbstractAssType assType;
-	private int anusCapacity;
+	private float anusCapacity;
 	private int anusWetness;
 	private int maleAssSize;
 	private int femaleAssSize;
@@ -84,8 +84,8 @@ public abstract class AbstractRacialBody {
 	private int breastSize;
 	private int maleLactationRate;
 	private int femaleLactationRate;
-	private int femaleBreastCapacity;
-	private int maleBreastCapacity;
+	private float femaleBreastCapacity;
+	private float maleBreastCapacity;
 	private int femaleBreastElasticity;
 	private int maleBreastElasticity;
 	private int femaleBreastPlasticity;
@@ -105,7 +105,7 @@ public abstract class AbstractRacialBody {
 	private NippleShape breastCrotchNippleShape;
 	private int breastCrotchSize;
 	private int breastCrotchLactationRate;
-	private int breastCrotchCapacity;
+	private float breastCrotchCapacity;
 	private int breastCrotchElasticity;
 	private int breastCrotchPlasticity;
 	private int nippleCountPerBreastCrotch;
@@ -162,7 +162,7 @@ public abstract class AbstractRacialBody {
 	
 	// Vagina:
 	private VaginaType vaginaType;
-	private int vaginaCapacity;
+	private float vaginaCapacity;
 	private int vaginaWetness;
 	private int clitSize;
 	private int vaginaElasticity;
@@ -185,9 +185,9 @@ public abstract class AbstractRacialBody {
 				NippleShape femaleNippleShape, AreolaeSize femaleAreolaeSize, int femaleNippleCountPerBreast, AbstractBreastType breastCrotchType,
 			List<BreastShape> breastCrotchShapes, CupSize breastCrotchSize,
 			int breastCrotchCount, Lactation breastCrotchLactationRate, Capacity breastCrotchCapacity, OrificeElasticity breastCrotchElasticity, OrificePlasticity breastCrotchPlasticity, NippleSize breastCrotchNippleSize,
-				NippleShape breastCrotchNippleShape, AreolaeSize breastCrotchAreolaeSize, int nippleCountPerBreastCrotch, int maleHeight,
-			int maleFemininity, int maleBodySize, int maleMuscle, int femaleHeight,
-			int femaleFemininity, int femaleBodySize, int femaleMuscle, AbstractEarType earType,
+				NippleShape breastCrotchNippleShape, AreolaeSize breastCrotchAreolaeSize, int nippleCountPerBreastCrotch,
+			int maleHeight, int maleFemininity, int maleBodySize, int maleMuscle,
+			int femaleHeight, int femaleFemininity, int femaleBodySize, int femaleMuscle, AbstractEarType earType,
 			EyeType eyeType,
 			FaceType faceType,
 			LipSize maleLipSize, LipSize femaleLipSize, HairType hairType,
@@ -197,7 +197,7 @@ public abstract class AbstractRacialBody {
 			HornLength maleHornLength,
 			HornLength femaleHornLength, List<AbstractHornType> hornTypes,
 			PenisType penisType,
-			int penisSize, PenisGirth penisGirth, TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction, List<TailType> tailTypes,
+			int penisSize, PenetrationGirth penisGirth, TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction, List<TailType> tailTypes,
 			TentacleType tentacleType,
 			VaginaType vaginaType,
 			Wetness vaginaWetness, Capacity vaginaCapacity, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity, List<WingType> wingTypes,
@@ -358,17 +358,28 @@ public abstract class AbstractRacialBody {
 	}
 	
 	/**
-	 * @return A map of personality traits and their normal associated values for this race.<br/>
-	 *  When generating an individual's personality, there is a 25% chance of the weight of each of these traits being moved up or down by 1 (e.g. from AVERAGE to HIGH), and a 5% chance of them being moved up or down 2 (e.g. from LOW to HIGH).<br/>
-	 *  As a result, a race with all weights set to AVERAGE should end up with a mostly-balanced personality, with one or two traits being skewed up or down.
+	 * @return A map of personality traits and the percentage chance that a member of this race will spawn with them.
 	 */
-	public Map<PersonalityTrait, PersonalityWeight> getPersonality() {
-		return Util.newHashMapOfValues(
-				new Value<>(PersonalityTrait.AGREEABLENESS, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.CONSCIENTIOUSNESS, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.EXTROVERSION, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.NEUROTICISM, PersonalityWeight.AVERAGE),
-				new Value<>(PersonalityTrait.ADVENTUROUSNESS, PersonalityWeight.AVERAGE));
+	public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
+		Map<PersonalityTrait, Float> map = new HashMap<>();
+		
+		for(PersonalityTrait trait : PersonalityTrait.values()) {
+			if(trait.getPersonalityCategory()==PersonalityCategory.SPEECH) {
+				if(trait==PersonalityTrait.MUTE) {
+					map.put(trait, 0.001f); // Mute should be very rare.
+				} else {
+					map.put(trait, 0.01f); // Speech-related traits should be rare for a normal race.
+				}
+				
+			} else if(trait.getPersonalityCategory()==PersonalityCategory.SEX && trait!=PersonalityTrait.LEWD) {
+				map.put(trait, 0.02f); // Smaller chance for people to be prude or innocent.
+					
+			} else {
+				map.put(trait, 0.05f); // With each category having two values, it's a ~10% chance to have a special trait in each category.
+			}
+		}
+		
+		return map;
 	}
 	
 	public SexualOrientation getSexualOrientation(Gender gender) {
@@ -413,13 +424,6 @@ public abstract class AbstractRacialBody {
 
 	public HairType getHairType() {
 		return hairType;
-	}
-	
-	/**
-	 * @return true if this RacialBody requires FaceType to not be human in order to apply hair settings.
-	 */
-	public boolean isHairTypeLinkedToFaceType() {
-		return false;
 	}
 
 	public AbstractLegType getLegType() {
@@ -517,7 +521,7 @@ public abstract class AbstractRacialBody {
 		return armRows;
 	}
 	
-	public int getAnusCapacity() {
+	public float getAnusCapacity() {
 		return anusCapacity;
 	}
 
@@ -621,11 +625,11 @@ public abstract class AbstractRacialBody {
 		return maleBreastPlasticity;
 	}
 
-	public int getFemaleBreastCapacity() {
+	public float getFemaleBreastCapacity() {
 		return femaleBreastCapacity;
 	}
 
-	public int getMaleBreastCapacity() {
+	public float getMaleBreastCapacity() {
 		return maleBreastCapacity;
 	}
 
@@ -682,7 +686,7 @@ public abstract class AbstractRacialBody {
 		return breastCrotchLactationRate;
 	}
 
-	public int getBreastCrotchCapacity() {
+	public float getBreastCrotchCapacity() {
 		return breastCrotchCapacity;
 	}
 
@@ -730,7 +734,7 @@ public abstract class AbstractRacialBody {
 		return cumProduction;
 	}
 
-	public int getVaginaCapacity() {
+	public float getVaginaCapacity() {
 		return vaginaCapacity;
 	}
 

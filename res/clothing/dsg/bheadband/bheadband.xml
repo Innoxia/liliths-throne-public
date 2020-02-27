@@ -11,9 +11,9 @@
 		
 		<namePlural pluralByDefault="false"><![CDATA[bunny headbands]]></namePlural> 
 		
-		<description><![CDATA[A headband with stylised bunny ears attached to the top, designed to keep your hair pushed back out of your face.​]]></description> 
+		<description><![CDATA[A headband with stylised bunny ears attached to the top, designed to keep your hair pushed back out of your face.]]></description> 
 		
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<femininity>ANDROGYNOUS</femininity> 
 		

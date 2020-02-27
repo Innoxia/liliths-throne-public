@@ -2,29 +2,47 @@ package com.lilithsthrone.game.character.body.valueEnums;
 
 /**
  * @since 0.1.83
- * @version 0.1.95
+ * @version 0.3.6.6
  * @author Innoxia
  */
 public enum PenetrationModifier {
 
-	SHEATHED("sheathed"),
-	RIBBED("ribbed"),
-	TENTACLED("tentacled"),
-	KNOTTED("knotted"),
-	TAPERED("tapered"),
-	BLUNT("blunt"),
-	FLARED("flared"),
-	BARBED("barbed"),
-	VEINY("veiny"),
-	PREHENSILE("prehensile");
+	SHEATHED("sheathed", "Helps to hide bulge in clothing when not erect."),
 	
-	private String descriptor;
+	RIBBED("ribbed", ""),
+	
+	TENTACLED("tentacled", ""),
+	
+	KNOTTED("knotted", "Enables the affected penetration type to be locked inside an orifice at the moment of orgasm."),
+	
+	TAPERED("tapered", "Reduces effective diameter of the affected penetration type by 5%."),
+	
+	BLUNT("blunt", ""),
+	
+	FLARED("flared", "Increases effective diameter of the affected penetration type by 5%."),
+	
+	BARBED("barbed", ""),
+	
+	VEINY("veiny", ""),
+	
+	PREHENSILE("prehensile", "");
+	
+	private String name;
+	private String description;
 
-	private PenetrationModifier(String descriptor) {
-		this.descriptor = descriptor;
+	private PenetrationModifier(String name, String description) {
+		this.name = name;
+		this.description = description;
 	}
 
 	public String getName() {
-		return descriptor;
+		return name;
+	}
+
+	public String getDescription() {
+		if(description.isEmpty()) {
+			return "No gameplay effect.";
+		}
+		return description;
 	}
 }

@@ -11,10 +11,10 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -22,7 +22,7 @@ import com.lilithsthrone.world.Weather;
 
 /**
  * @since 0.1.8
- * @version 0.1.97
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class HarpyNestBimbo {
@@ -41,72 +41,28 @@ public class HarpyNestBimbo {
 
 		@Override
 		public String getContent() {
-			if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
-					return "<p>"
-								+ "Due to the ongoing arcane storm, [bimboHarpy.namePos] nest is completely deserted."
-								+ " Her entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to her."
-							+ "</p>";
-				} else {
-					return "<p>"
-							+ "Due to the ongoing arcane storm, this nest is completely deserted."
-							+ " The entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to the matriarch of this particular nest."
-						+ "</p>";
-				}
-				
-			} else {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
-					return "<p>"
-							+ "You find yourself standing on the outskirts of [bimboHarpy.namePos] nest; one of the largest and most populous of all the nests in Dominion."
-							+ " Huge, multi-level platforms extend across the roofs of several buildings, with colourful canvas awnings erected to shield the flock from the elements."
-							+ (Main.game.isDayTime()
-									?""
-									:" A series of bright, arcane-powered lights illuminate the entire area, and from what you can see, the harpies here are just as active at night as they are during daylight hours.")
-						+ "</p>"
-						+ "<p>"
-							+ "Whereas most nests contain a variety of differently-coloured harpies, the overwhelming majority of [bimboHarpy.namePos] flock have, in an attempt to copy their matriarch, had their feathers dyed bleach-blonde."
-							+ " Looking closer, you see that their proportions are also similar to [bimboHarpy.namePos]."
-							+ " From those that you've seen in other nests, you know that the average breast size for a harpy is about a B-cup, but the ones in this particular nest seem to all be at least a D-cup or bigger."
-							+ " Their hips and asses are also far larger than the average, leading you to the obvious conclusion that this particular nest is devoted to imitating their leader."
-						+ "</p>"
-						+ "<p>"
-							+ "Up on one of the highest platforms, you see a large gathering of harpies surrounding [bimboHarpy.name]."
-							+ " It seems as though the residents of this particular nest aren't too bothered about outsiders, and if you had any business with her, it would be quite easy to approach her platform."
-						+ "</p>";
-				} else {
-					return "<p>"
-							+ "You find yourself standing on the outskirts of one of the largest harpy nests in Dominion."
-							+ " Huge, multi-level platforms extend across the roofs of several buildings, with colourful canvas awnings erected to shield the flock from the elements."
-							+ (Main.game.isDayTime()
-									?""
-									:" A series of bright, arcane-powered lights illuminate the entire area, and from what you can see, the harpies here are just as active at night as they are during daylight hours.")
-						+ "</p>"
-						+ "<p>"
-							+ "Whereas most nests contain a variety of differently-coloured harpies, the overwhelming majority of this particular flock have bleach-blonde feathers."
-							+ " Looking closer, you see that their proportions are rather unusual as well."
-							+ " From those that you've seen in other nests, you know that the average breast size for a harpy is about a B-cup, but the ones in this particular nest seem to all be at least a D-cup or bigger."
-							+ " Their hips and asses are also far larger than the average, leading you to the obvious conclusion that this particular nest prizes large proportions."
-						+ "</p>"
-						+ "<p>"
-							+ "Up on one of the highest platforms, you see a large gathering of harpies surrounding what must be this nest's matriarch."
-							+ " It seems as though the residents of this particular nest aren't too bothered about outsiders, and if you had any business with her, it would be quite easy to approach the matriarch's platform."
-						+ "</p>";
-				}
-			}
+			return UtilText.parseFromXMLFile("places/dominion/harpyNests/bimbo", "HARPY_NEST_BIMBO");
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
-					return new Response("Approach [bimboHarpy.name]", "You have no need to talk to the matriarch of this nest.", null);
-					
+				 if(!Main.game.isExtendedWorkTime()) {
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
+						return new Response("Approach [bimboHarpy.name]", "Both [bimboHarpy.name] and her flock are sleeping in the buildings below her nest. You'll have to come back during the day if you want to speak with her.", null);
+					} else {
+						return new Response("Approach matriarch", "The matriarch and her flock are sleeping in the buildings below her nest. You'll have to come back during the day if you want to speak with her.", null);
+					}
+						
 				} else if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
 						return new Response("Approach [bimboHarpy.name]", "If you want to talk to [bimboHarpy.name], you'll have to come back after the arcane storm has passed.", null);
 					} else {
 						return new Response("Approach matriarch", "If you want to talk to the matriarch, you'll have to come back after the arcane storm has passed.", null);
 					}
+					
+				} else if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
+					return new Response("Approach [bimboHarpy.name]", "You have no need to talk to the matriarch of this nest.", null);
 					
 				} else {
 					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
@@ -190,7 +146,7 @@ public class HarpyNestBimbo {
 			} else {
 				return "<p>"
 						+ "This nest looks like the home of one of the matriarchs you agreed to try and calm down."
-						+ " Deciding that you should do as the enforcer sergeant asked, you set off across the nest towards the staircase leading to the upper platform."
+						+ " Deciding that you should do as the Enforcer sergeant asked, you set off across the nest towards the staircase leading to the upper platform."
 					+ "</p>"
 					+ "<p>"
 						+ "As you walk through the nest, you take a closer look at this peculiar, bleach-blonde flock."
@@ -207,7 +163,7 @@ public class HarpyNestBimbo {
 						+ " Before you know it, you've reached the staircase that leads to the upper platform, and, taking one look back at the crowd of bimbos, you set off up the the stairs, and quickly reach the top."
 					+ "</p>"
 					+ "<p>"
-						+ "You'd already seen a picture of [bimboHarpy.name] in the enforcer's papers, but even if you hadn't, it's clearly obvious who the matriarch is."
+						+ "You'd already seen a picture of [bimboHarpy.name] in the Enforcer's papers, but even if you hadn't, it's clearly obvious who the matriarch is."
 						+ " With large, perfectly shaped breasts, the body of a super-model, and one of the most gorgeous faces you've ever seen, [bimboHarpy.name] is the centre of attention."
 						+ " Her inner-circle of bimbo harpies are gathered around her, vying for their leader's attention as they giggle and agree with every word she speaks."
 						+ " One harpy in particular seems to be the closest to her, and it's this particular bimbo who's the first one to notice your approach."
@@ -340,7 +296,7 @@ public class HarpyNestBimbo {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "[pc.speech(I'm here to talk to you about all the recent unrest around here. The enforcers are having a hard time keeping the peace, and it would be really helpful if you could get your flock to calm down a little,)]"
+						+ "[pc.speech(I'm here to talk to you about all the recent unrest around here. The Enforcers are having a hard time keeping the peace, and it would be really helpful if you could get your flock to calm down a little,)]"
 						+ " you try to explain, but [bimboHarpy.name] simply rolls her eyes and makes an annoyed tutting sound in response."
 					+ "</p>"
 					+ "<p>"
@@ -972,9 +928,9 @@ public class HarpyNestBimbo {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getNpc(HarpyBimbo.class)) >= Main.game.getNpc(HarpyBimbo.class).getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(HarpyBimbo.class)) >= Main.game.getNpc(HarpyBimbo.class).getOrgasmsBeforeSatisfied()) {
 				return "<p>"
-							+ "As you step back from [bimboHarpy.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
+							+ "As you step back from [bimboHarpy.name], she sinks to the floor, totally worn out from her orgasm"+(Main.sex.getNumberOfOrgasms(Main.game.getNpc(HarpyBimbo.class)) > 1?"s":"")+"."
 							+ " The surrounding harpies, having watched the whole thing, kneel in submission as you finish with their matriarch."
 						+ "</p>";
 			} else {

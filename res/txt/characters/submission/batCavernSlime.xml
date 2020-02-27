@@ -51,7 +51,7 @@
 		In your peripheral vision, you suddenly see a glowing [npc.skinColour] light starting to draw near. Turning towards it, you ready yourself for a fight, and within just a moment, [npc.a_fullRace(true)] draws to a halt before you.
 	</p>
 	<p>
-		[npc.speech(Ooh! A poor innocent traveller wandering through my magical realm!)] [npc.she] giggles, clearly high on mushrooms. [npc.speech(I'm gonna need some cash from you, ok? I spent all my flames on buying some 'shrooms from my friend, and now I need more for... umm... more 'shrooms!)]
+		[npc.speech(Ooh! A poor innocent traveller wandering through my mystical realm!)] [npc.she] giggles, clearly high on mushrooms. [npc.speech(I'm gonna need some cash from you, ok? I spent all my flames on buying some 'shrooms from my friend, and now I need more for... umm... more 'shrooms!)]
 	</p>
 	<p>
 		You can tell that [npc.name] is willing to fight, and you only have a moment in which to decide what to do...

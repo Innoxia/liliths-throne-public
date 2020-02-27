@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.places.submission.GamblingDenDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -19,11 +17,13 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.6
- * @version 0.2.6
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class DicePoker {
 	
+	private static String dialoguePath;
+	private static DialogueNode endingNode;
 	private static int moneyPool;
 	private static DicePokerTable table;
 	private static NPC gambler;
@@ -31,7 +31,7 @@ public class DicePoker {
 	private static List<Dice> gamblerDice = new ArrayList<>();
 	private static List<Dice> diceToReroll = new ArrayList<>();
 	private static String[] progressDescriptions = new String[] {"Roll", "Betting", "Re-roll", "Payment"};
-	private static int progress = 0;
+	public static int progress = 0;
 	private static String responseContent;
 	private static String buyInDescription;
 	
@@ -42,12 +42,10 @@ public class DicePoker {
 		}
 	}
 	
-	public static DialogueNode initDicePoker(NPC gambler) {
-		if(gambler instanceof GamblingDenPatron) {
-			DicePoker.table = ((GamblingDenPatron)gambler).getTable();
-		} else {
-			DicePoker.table = DicePokerTable.SILVER;
-		}
+	public static DialogueNode initDicePoker(NPC gambler, DicePokerTable table, DialogueNode endingNode, String dialoguePath) {
+		DicePoker.dialoguePath = dialoguePath;
+		DicePoker.endingNode = endingNode;
+		DicePoker.table = table;
 		
 		progress = 0;
 		moneyPool = table.getInitialBet()*2;
@@ -55,6 +53,15 @@ public class DicePoker {
 		buyInDescription = Main.game.getPlayer().incrementMoney(-table.getInitialBet());
 		
 		DicePoker.gambler = gambler;
+		if(DicePoker.gambler.getDice()!=null) {
+			gamblerDice = new ArrayList<>(gambler.getDice());
+			
+		} else {
+			gamblerDice = new ArrayList<>();
+			for(int i=0; i<5; i++) {
+				gamblerDice.add(new Dice());
+			}
+		}
 		
 		for(Dice d : playerDice) {
 			d.setFace(DiceFace.ONE);
@@ -67,6 +74,8 @@ public class DicePoker {
 		diceToReroll.clear();
 		diceToReroll.addAll(playerDice);
 		diceToReroll.addAll(gamblerDice);
+		
+		gambler.setPlayerKnowsName(true);
 		
 		return START;
 	}
@@ -213,19 +222,11 @@ public class DicePoker {
 		
 		@Override
 		public String getContent() {
+			UtilText.addSpecialParsingString(table.getName(), true);
+			UtilText.addSpecialParsingString(UtilText.formatAsMoney(table.getInitialBet(), "span"), false);
+			
 			return getGamblingFormat(buyInDescription
-					+"<p>"
-						+ "Walking up to one of the free tables in the "+table.getName()+" section, you sit down opposite [npc.a_race]."
-					+ "</p>"
-					+ "<p>"
-						+ "[npc.speech(You think you can take me on, huh?)] [npc.she] taunts. [npc.speech(Don't start crying when I take all your cash!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "You place the buy-in of "+UtilText.formatAsMoney(table.getInitialBet(), "span")+" on the table, and the [npc.race] does the same."
-					+ "</p>"
-					+ "<p>"
-						+ "[npc.speech(The name's [npc.name], by the way. Now let's play.)]"
-					+ "</p>");
+					+UtilText.parseFromXMLFile(dialoguePath, "START", gambler));
 		}
 
 		@Override
@@ -248,28 +249,13 @@ public class DicePoker {
 		@Override
 		public String getContent() {
 			if(Hand.compareHands(playerDice, gamblerDice)>0) {
-				return getGamblingFormat(
-						"<p>"
-							+ "Both you and [npc.name] roll all five of your dice to get the game started."
-							+ " As they clatter to a halt, your opponent lets out an annoyed sigh as [npc.she] sees that you have a better hand."
-							+ " [npc.speech(Damn it... Well, this is just the start! You gonna' call, or you want to raise the stakes?)]"
-						+ "</p>");
+				return getGamblingFormat(UtilText.parseFromXMLFile(dialoguePath, "ROLL_WINNING", gambler));
 					
 			} else if(Hand.compareHands(playerDice, gamblerDice)==0) {
-				return getGamblingFormat(
-						"<p>"
-							+ "Both you and [npc.name] roll all five of your dice to get the game started."
-							+ " As they clatter to a halt, your opponent lets out a surprised hum as [npc.she] sees that you're drawing."
-							+ " [npc.speech(Well, would you look at that... You gonna' call, or you want to raise the stakes?)]"
-						+ "</p>");
+				return getGamblingFormat(UtilText.parseFromXMLFile(dialoguePath, "ROLL_DRAWING", gambler));
 					
 			} else {
-				return getGamblingFormat(
-						"<p>"
-							+ "Both you and [npc.name] roll all five of your dice to get the game started."
-							+ " As they clatter to a halt, your opponent lets out a triumphant laugh as [npc.she] sees that [npc.she] has a better hand."
-							+ " [npc.speech(Hah! This is just the start, and I'm already winning! Now, you gonna' call, or you want to raise the stakes?)]"
-						+ "</p>");
+				return getGamblingFormat(UtilText.parseFromXMLFile(dialoguePath, "ROLL_LOSING", gambler));
 			}
 		}
 
@@ -279,34 +265,14 @@ public class DicePoker {
 				return new ResponseEffectsOnly("Call", "Don't increase the bet.") {
 					@Override
 					public void effects() {
+						UtilText.addSpecialParsingString(UtilText.formatAsMoney(getRaiseAmount(), "span"), true);
 						if(isGamblerRaising()) {
 							moneyPool+=getRaiseAmount();
-							responseContent = "<p>"
-										+ "[pc.speech(I call,)] you say, leaning back in your chair."
-									+ "</p>"
-									+ "<p>"
-										+ "[npc.speech(Well, no surprise there,)] [npc.name] laughs. [npc.speech(We both know I'm going to win.)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Leaning forwards, [npc.name] places "+UtilText.formatAsMoney(getRaiseAmount(), "span")+" on the table, before locking [npc.her] gaze with yours and letting out another mocking laugh."
-											+ " [npc.speech(Go on, just fold. You're as good as finished.)]"
-									+ "</p>"
-									+ "<p style='text-align:center;'>"
-										+ "<i>[npc.Name] <b>raised</b> by "+UtilText.formatAsMoney(getRaiseAmount(), "span")+"!</i>"
-									+ "</p>";
+							responseContent = UtilText.parseFromXMLFile(dialoguePath, "ROLL_CALL_OPPONENT_RAISES", gambler);
 							Main.game.setContent(new Response("", "", BET_NEED_REACT));
 							
 						} else {
-							responseContent = "<p>"
-									+ "[pc.speech(I call,)] you say, leaning back in your chair."
-								+ "</p>"
-								+ "<p>"
-									+ "[npc.speech(Yeah, I'm feeling the same,)] [npc.name] sighs. [npc.speech(I call too. Now let's finish this.)]"
-								+ "</p>"
-								+ "<p style='text-align:center;'>"
-									+ "<i>[npc.Name] <b>called</b> as well!<br/>"
-									+ "Click the dice you want to reroll, then press 'Roll'.</i>"
-								+ "</p>";
+							responseContent = UtilText.parseFromXMLFile(dialoguePath, "ROLL_CALL_OPPONENT_CALLS", gambler);
 							calculateGamblerRerolls();
 							progress++;
 							Main.game.setContent(new Response("", "", REROLL));
@@ -318,40 +284,20 @@ public class DicePoker {
 				return new ResponseEffectsOnly("Raise", "Increase the bet.") {
 					@Override
 					public void effects() {
+						UtilText.addSpecialParsingString(UtilText.formatAsMoney(getRaiseAmount(), "span"), true);
 						if(isGamblerFolding()) {
 							String moneyChange = Main.game.getPlayer().incrementMoney(moneyPool);
-							responseContent = "<p>"
-												+ "[pc.speech(I think I'll raise,)] you say, placing "+UtilText.formatAsMoney(getRaiseAmount(), "span")+" on the table."
-											+ "</p>"
-											+ "<p>"
-												+ "[npc.speech(Damn it... You got me,)] [npc.name] sighs. [npc.speech(I fold.)]"
-											+ "</p>"
-											+ "<p style='text-align:center;'>"
-												+ "<i>[npc.Name] <b>folded</b>! [style.colourExcellent(You won!)]</i>"
-											+ "</p>"
-											+moneyChange;
+							UtilText.addSpecialParsingString(moneyChange, false);
+							responseContent = UtilText.parseFromXMLFile(dialoguePath, "ROLL_RAISE_OPPONENT_FOLDS", gambler);
 							progress++;
 							progress++;
 							Main.game.setContent(new Response("", "", END_WIN));
 							
 						} else {
 							moneyPool+=getRaiseAmount()*2;
-							int raise = getRaiseAmount();
 							String moneyChange = Main.game.getPlayer().incrementMoney(-getRaiseAmount());
-							responseContent = moneyChange
-									+"<p>"
-										+ "[pc.speech(I think I'll raise,)] you say, placing "+UtilText.formatAsMoney(raise, "span")+" on the table."
-									+ "</p>"
-									+ "<p>"
-										+ "[npc.speech(That's fine with me,)] [npc.name] replies. [npc.speech(I'll call that.)]"
-									+ "</p>"
-									+ "<p>"
-										+ "[npc.Name] places "+UtilText.formatAsMoney(raise, "span")+" on the table, before grinning at you. [npc.speech(Now, let's finish this!)]"
-									+ "</p>"
-									+ "<p style='text-align:center;'>"
-										+ "<i>[npc.Name] <b>called</b> your raise!<br/>"
-										+ "Click the dice you want to reroll, then press 'Roll'.</i>"
-									+ "</p>";
+							UtilText.addSpecialParsingString(moneyChange, false);
+							responseContent = UtilText.parseFromXMLFile(dialoguePath, "ROLL_RAISE_OPPONENT_CALLS", gambler);
 							calculateGamblerRerolls();
 							progress++;
 							Main.game.setContent(new Response("", "", REROLL));
@@ -376,20 +322,11 @@ public class DicePoker {
 				return new ResponseEffectsOnly("Call ("+UtilText.formatAsMoney(getRaiseAmount(), "span")+")", UtilText.parse(gambler, "Match [npc.namePos] raise of "+UtilText.formatAsMoney(getRaiseAmount(), "span")+".")) {
 					@Override
 					public void effects() {
+						UtilText.addSpecialParsingString(UtilText.formatAsMoney(getRaiseAmount(), "span"), true);
 						moneyPool+=getRaiseAmount();
-						int raise = getRaiseAmount();
 						String moneyChange = Main.game.getPlayer().incrementMoney(-getRaiseAmount());
-						responseContent = moneyChange
-							+"<p>"
-								+ "[pc.speech(I'll call that,)] you say, placing "+UtilText.formatAsMoney(raise, "span")+" on the table."
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.speech(Fine,)] [npc.name] huffs, [npc.speech(that's only going to be more money for me! Now, let's finish this!)]"
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "<i>You <b>called</b> [npc.namePos] raise!<br/>"
-								+ "Click the dice you want to reroll, then press 'Roll'.</i>"
-							+ "</p>";
+						UtilText.addSpecialParsingString(moneyChange, false);
+						responseContent = UtilText.parseFromXMLFile(dialoguePath, "BET_NEED_REACT_CALL", gambler);
 						calculateGamblerRerolls();
 						progress++;
 						Main.game.setContent(new Response("", "", REROLL));
@@ -401,21 +338,8 @@ public class DicePoker {
 					@Override
 					public void effects() {
 						moneyPool+=getRaiseAmount();
-						responseContent = "<p>"
-											+ "[pc.speech(That's too steep for me,)] you sigh. [pc.speech(I fold.)]"
-										+ "</p>"
-										+ "<p>"
-											+ "[npc.speech(Hah!)] [npc.name] laughs in triumph. [npc.speech(You never stood a chance!)]"
-										+ "</p>"
-										+ "<p>"
-											+ "With that, [npc.she] moves to take the pool of "+UtilText.formatAsMoney(moneyPool, "span")+"."
-											+ (gambler.isAttractedTo(Main.game.getPlayer())
-													?" You could take your leave, or perhaps try to use your body to convince [npc.herHim] to let you keep your money..."
-													:" You can tell that [npc.name] isn't attracted to you, so you should just take your leave...")
-										+ "</p>"
-										+ "<p style='text-align:center;'>"
-											+ "<i>You <b>folded</b>! [style.colourTerrible(You lost!)]</i>"
-										+ "</p>";
+						UtilText.addSpecialParsingString(UtilText.formatAsMoney(moneyPool, "span"), true);
+						responseContent = UtilText.parseFromXMLFile(dialoguePath, "BET_NEED_REACT_FOLD", gambler);
 						progress++;
 						progress++;
 						Main.game.setContent(new Response("", "", END_LOSS));
@@ -444,7 +368,13 @@ public class DicePoker {
 			}
 			
 			if(index==1) {
-				return new ResponseEffectsOnly(reroll?"Roll":"No Roll", reroll?"Roll your dice.":"Choose not to re-roll any of your dice. (Click on your dice to select them for re-roll.)") {
+				return new ResponseEffectsOnly(
+						reroll
+							?"Roll"
+							:"No Roll",
+						reroll
+							?"Roll your dice."
+							:"Choose not to re-roll any of your dice. (Click on your dice to select them for re-roll.)") {
 					@Override
 					public void effects() {
 						boolean diceRerolled = !diceToReroll.isEmpty();
@@ -452,53 +382,33 @@ public class DicePoker {
 						
 						if(Hand.compareHands(playerDice, gamblerDice)==0) {
 							String moneyChange = Main.game.getPlayer().incrementMoney(moneyPool/2);
-							responseContent = "<p>"
-												+ (diceRerolled
-														?"As the dice come clattering to a halt, both you and [npc.name] sigh in unison as you see that your hands are identical in value."
-														:"As both you and [npc.name] choose not to reroll any dice, you sigh in unison as you resign yourselves to having identically valued hands.")
-													+ " With the game being a draw, you split the money pool in half and take your leave..."
-												+ "</p>"
-												+ "<p style='text-align:center;'>"
-													+ "<i>You <b>drew</b>! You split the pool of "+UtilText.formatAsMoney(moneyPool, "span")+" 50/50.</i>"
-												+ "</p>"
-												+moneyChange;
+							UtilText.addSpecialParsingString(moneyChange, true);
+							if(diceRerolled) {
+								responseContent = UtilText.parseFromXMLFile(dialoguePath, "REROLL_DRAW_WITH_ROLL", gambler);
+							} else {
+								responseContent = UtilText.parseFromXMLFile(dialoguePath, "REROLL_DRAW_WITHOUT_ROLL", gambler);
+							}
 							progress++;
 							Main.game.setContent(new Response("", "", END_DRAW));
 							
 						} else if(Hand.compareHands(playerDice, gamblerDice)>0) {
 							String moneyChange = Main.game.getPlayer().incrementMoney(moneyPool);
-							responseContent = "<p>"
-												+ (diceRerolled
-														?"As the dice come clattering to a halt, [npc.name] lets out a defeated sigh as [npc.she] sees that you've won."
-														:"As both you and [npc.name] choose not to reroll any dice, [npc.sheIs] already resigned [npc.herself] to a loss, and lets out a frustrated little sigh.")
-													+ " [npc.speech(Damn it... Well, good game...)]"
-												+ "</p>"
-												+ "<p>"
-													+ "You collect your winnings and return [npc.namePos] polite remark, before moving off and taking your leave..."
-												+ "</p>"
-												+ "<p style='text-align:center;'>"
-													+ "[style.colourExcellent(You won!)]</i>"
-												+ "</p>"
-												+moneyChange;
+							UtilText.addSpecialParsingString(moneyChange, true);
+							if(diceRerolled) {
+								responseContent = UtilText.parseFromXMLFile(dialoguePath, "REROLL_WIN_WITH_ROLL", gambler);
+							} else {
+								responseContent = UtilText.parseFromXMLFile(dialoguePath, "REROLL_WIN_WITHOUT_ROLL", gambler);
+							}
 							progress++;
 							Main.game.setContent(new Response("", "", END_WIN));
 						
 						} else {
-							responseContent =  "<p>"
-												+ (diceRerolled
-														?"As the dice come clattering to a halt, [npc.name] lets out a triumphant laugh as [npc.she] sees that [npc.sheIs] won."
-														:"As both you and [npc.name] choose not to reroll any dice, you've already resigned yourself to a loss, and try not to feel too unhappy as your opponent lets out a triumphant laugh.")
-													+ " [npc.speech(Hah! Good game, but you never stood a chance!)]"
-												+ "</p>"
-												+ "<p>"
-												+ "With that, [npc.she] moves to take the pool of "+UtilText.formatAsMoney(moneyPool, "span")+"."
-													+ (gambler.isAttractedTo(Main.game.getPlayer())
-															?" You could take your leave, or perhaps try to use your body to convince [npc.herHim] to let you keep your money..."
-															:" You can tell that [npc.name] isn't attracted to you, so you should just take your leave...")
-												+ "</p>"
-												+ "<p style='text-align:center;'>"
-													+ "[style.colourTerrible(You lost!)]</i>"
-												+ "</p>";
+							UtilText.addSpecialParsingString(UtilText.formatAsMoney(moneyPool, "span"), true);
+							if(diceRerolled) {
+								responseContent = UtilText.parseFromXMLFile(dialoguePath, "REROLL_LOSS_WITH_ROLL", gambler);
+							} else {
+								responseContent = UtilText.parseFromXMLFile(dialoguePath, "REROLL_LOSS_WITHOUT_ROLL", gambler);
+							}
 							progress++;
 							Main.game.setContent(new Response("", "", END_LOSS));
 						}
@@ -519,7 +429,12 @@ public class DicePoker {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Step away from the table.", GamblingDenDialogue.GAMBLING);
+				return new Response("Continue", "Step away from the table.", endingNode) {
+					@Override
+					public void effects() {
+						progress = 0;
+					}
+				};
 			}
 			return null;
 		}
@@ -535,7 +450,12 @@ public class DicePoker {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Step away from the table.", GamblingDenDialogue.GAMBLING);
+				return new Response("Continue", "Step away from the table.", endingNode) {
+					@Override
+					public void effects() {
+						progress = 0;
+					}
+				};
 			}
 			return null;
 		}
@@ -551,9 +471,17 @@ public class DicePoker {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Accept loss", "Step away from the table.", GamblingDenDialogue.GAMBLING);
+				return new Response("Accept loss", "Step away from the table.", endingNode) {
+					@Override
+					public void effects() {
+						progress = 0;
+					}
+				};
 				
 			} else if(index==2) {
+				if(!gambler.isAttractedTo(Main.game.getPlayer())) {
+					return new Response("Offer body", UtilText.parse(gambler, "[npc.Name] is not attracted to you, so you can't hope to get your money back by offering your body to [npc.herHim]."), null);
+				}
 				return new Response("Offer body",
 						UtilText.parse(gambler, "Offer [npc.name] use of your body if [npc.she]'ll give you your money back."),
 						END_LOSS_OFFER_BODY);
@@ -566,32 +494,17 @@ public class DicePoker {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parse(gambler,
-					"<p>"
-						+ "[pc.speech(Wait!)] you cry out, desperate not to lose your money."
-					+ "</p>"
-					+ "<p>"
-						+ "[npc.speech(Huh? What is it?)] [npc.name] asks, narrowing [npc.her] eyes in suspicion as [npc.she] looks up from gathering the money that's on the table."
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.speech(Well... I mean... Is there no way I can get my money back?)] you ask, putting on your most innocent look as you submissively cast your eyes to the floor."
-					+ "</p>"
-					+ "<p>"
-						+ "[npc.speech(Hmm, well, there is one way you could get your half of the pool back,)] [npc.name] replies, with an unmistakable hint of lust in [npc.her] voice."
-						+ " [npc.speech(I'll give you your flames back, but only if you let me fuck you, right here, right now.)]"
-					+ "</p>");
+			return UtilText.parseFromXMLFile(dialoguePath, "END_LOSS_OFFER_BODY", gambler);
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Decline", "Step away from the table.", GamblingDenDialogue.GAMBLING) {
+				return new Response("Decline", "Step away from the table.", endingNode) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(
-								"<p>"
-									+ "[pc.speech(On second thoughts, I don't need my money back,)] you say, before turning around and quickly taking your leave."
-								+ "</p>");
+						progress = 0;
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(dialoguePath, "END_LOSS_OFFER_BODY_DECLINE", gambler));
 					}
 				};
 				
@@ -604,14 +517,8 @@ public class DicePoker {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
 						null),
-						END_LOSS_SEX,
-						UtilText.parse(gambler,"<p>"
-							+ "[pc.speech(Ok...)] you reply. [pc.speech(You can use me however you like...)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[npc.Name] lets out a lustful [npc.moan], before stepping forwards and wrapping [npc.her] [npc.arms] around your back."
-							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], before growling, [npc.speech(This is gonna' be good!)]"
-						+ "</p>")) {
+						END_LOSS_AFTER_SEX,
+						UtilText.parseFromXMLFile(dialoguePath, "END_LOSS_OFFER_BODY_ACCEPT", gambler)) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(moneyPool/2));
@@ -622,23 +529,22 @@ public class DicePoker {
 		}
 	};
 
-	private static final DialogueNode END_LOSS_SEX = new DialogueNode("Finished", "", true) {
+	private static final DialogueNode END_LOSS_AFTER_SEX = new DialogueNode("Finished", "", true) {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parse(gambler,
-					"<p>"
-						+ "[npc.Name] steps away from you, sighing, [npc.speech(You're a pretty good fuck. Perhaps you could make a living out of whoring yourself out? You're no good at dice poker, that's for sure.)]"
-					+ "</p>"
-					+ "<p>"
-						+ "As the crowd laughs along with [npc.name] as [npc.she] gives you that advice, you quickly gather your things and hurry off, determined to do better at dice poker the next time you play..."
-					+ "</p>");
+			return UtilText.parseFromXMLFile(dialoguePath, "END_LOSS_AFTER_SEX", gambler);
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Step away from the table.", GamblingDenDialogue.GAMBLING);
+				return new Response("Continue", "Step away from the table.", endingNode) {
+					@Override
+					public void effects() {
+						progress = 0;
+					}
+				};
 			}
 			return null;
 		}

@@ -11,7 +11,7 @@
 		
 		<description><![CDATA[A witch's hat, with a pointy top and a wide brim.]]></description> 
 		
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<femininity>FEMININE</femininity> 
 		
@@ -67,7 +67,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(put)] the Witch's hat onto [npc2.namePos] head.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] roughly [npc.verb(forces)] the Witch's hat onto [npc2.namePos] head.]]>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] the Witch's hat onto [npc2.namePos] head.]]>
 	  </otherRough>
 	</replacementText>
 

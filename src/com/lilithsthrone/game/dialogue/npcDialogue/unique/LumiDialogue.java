@@ -11,8 +11,8 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -52,7 +52,7 @@ public class LumiDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/lumi", "LUMI_APPEARS_EVADE"));
-						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 					}
 				};
 
@@ -121,7 +121,7 @@ public class LumiDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/lumi", "LUMI_LET_THEM_ESCAPE"));
-						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 					}
 				};
 
@@ -218,7 +218,7 @@ public class LumiDialogue {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -258,9 +258,9 @@ public class LumiDialogue {
 				return new ResponseSex("Take advantage",
 						"Now that she's been subdued, it's time to have some fun with this helpless wolf-girl!",
 						false, false,
-						new SMMissionary(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lumi.class), SexSlotBipeds.MISSIONARY_ON_BACK))) {
+						new SMLyingDown(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MISSIONARY)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lumi.class), SexSlotLyingDown.LYING_DOWN))) {
 							@Override
 							public SexPace getStartingSexPaceModifier(GameCharacter character) {
 								if(character.isPlayer()) {
@@ -301,7 +301,7 @@ public class LumiDialogue {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -333,7 +333,7 @@ public class LumiDialogue {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -365,7 +365,7 @@ public class LumiDialogue {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -445,7 +445,7 @@ public class LumiDialogue {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 
@@ -473,7 +473,7 @@ public class LumiDialogue {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 
@@ -501,7 +501,7 @@ public class LumiDialogue {
 				return new Response("Continue", "Carry on your way...", null){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {

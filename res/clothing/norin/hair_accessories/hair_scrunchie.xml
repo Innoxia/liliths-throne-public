@@ -5,12 +5,16 @@
 		<clothingAuthorTag><![CDATA[Small embroidered lettering informs you that this scrunchie was made by 'Norin'.]]></clothingAuthorTag>
 		<value>200</value> 
 		<determiner><![CDATA[a]]></determiner>
-		<name><![CDATA[hair scrunchie]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[hair scrunchies]]></namePlural> 
-		<description><![CDATA[An elastic fabric hair scrunchie used to tie hair back.]]></description> 
+		<name><![CDATA[scrunchie]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[scrunchies]]></namePlural> 
+		<description><![CDATA[An elastic fabric scrunchie, typically used to tie hair back. It could also be placed around a tail, or onto someone's wrist.]]></description> 
 		<physicalResistance>0</physicalResistance> 
-		<femininity>FEMININE</femininity> 
-		<slot>HAIR</slot> 
+		<femininity>FEMININE</femininity>
+		<equipSlots>
+			<slot>HAIR</slot>
+			<slot>TAIL</slot>
+			<slot>WRIST</slot>
+		</equipSlots>
 		<rarity>COMMON</rarity> 
 		<clothingSet/> 
 		<imageName>hair_scrunchie.svg</imageName> 
@@ -18,7 +22,25 @@
 		<enchantmentLimit/>
 		<effects/>
 		
-		<blockedPartsList> 	
+		<blockedPartsList slot="HAIR"> 	
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/> 
+				<clothingAccessBlocked/> 
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<blockedPartsList slot="TAIL"> 	
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/> 
+				<clothingAccessBlocked/> 
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<blockedPartsList slot="WRIST"> 	
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired/>
@@ -28,7 +50,9 @@
 			</blockedParts>
 		</blockedPartsList>
 		
-		<incompatibleSlots/>
+		<incompatibleSlots slot="HAIR"/>
+		<incompatibleSlots slot="TAIL"/>
+		<incompatibleSlots slot="WRIST"/>
 		
 		<primaryColours values ="ALL"/> 
 		<primaryColoursDye/>
@@ -55,26 +79,73 @@
 	</coreAttributes>
 	
 	
-	<displacementText type="REMOVE_OR_EQUIP">
+	<displacementText slot="HAIR" type="REMOVE_OR_EQUIP">
 		<self>
-		  <![CDATA[[npc.Name] [npc.verb(pull)] a scrunchie off from [npc.her] [npc.hairSkin+].]]>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the scrunchie from out of [npc.her] [npc.hairSkin+].]]>
 		</self>
 		<other>
-		  <![CDATA[[npc.Name] [npc.verb(pull)] a scrunchie off from [npc2.NamePos] [npc2.hairSkin+].]]>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the scrunchie from out of [npc2.NamePos] [npc2.hairSkin+].]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] [npc.verb(tug)] a scrunchie off from [npc2.NamePos] [npc2.hairSkin+].]]>
+		  <![CDATA[[npc.Name] [npc.verb(tug)] the scrunchie from out of [npc2.NamePos] [npc2.hairSkin+].]]>
 		</otherRough>
 	</displacementText>
-	<replacementText type="REMOVE_OR_EQUIP">
+	<replacementText slot="HAIR" type="REMOVE_OR_EQUIP">
 		<self>
-		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc.her] [npc.hairSkin+] and [npc.verb(pull)] it through a scrunchie.]]>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc.her] [npc.hairSkin+] and [npc.verb(pull)] it through the scrunchie.]]>
 		</self>
 		<other>
-		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc2.NamePos] [npc2.hairSkin+] and [npc.verb(pull)] it through a scrunchie.]]>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc2.NamePos] [npc2.hairSkin+] and [npc.verb(pull)] it through the scrunchie.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc2.NamePos] [npc2.hairSkin+] and [npc.verb(tug)] it through a scrunchie.]]>
+		  <![CDATA[[npc.Name] [npc.verb(gather)] [npc2.NamePos] [npc2.hairSkin+] and [npc.verb(tug)] it through the scrunchie.]]>
 		</otherRough>
 	</replacementText>
+	
+	<displacementText slot="TAIL" type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the scrunchie off from around [npc.her] [npc.tail+].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the scrunchie off from around [npc2.NamePos] [npc2.tail+].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(tug)] the scrunchie off from around [npc2.NamePos] [npc2.tail+].]]>
+		</otherRough>
+	</displacementText>
+	<replacementText slot="TAIL" type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the scrunchie down around [npc.her] [npc.tail+].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the scrunchie down around [npc2.namePos] [npc2.tail+].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(push)] the scrunchie down around [npc2.namePos] [npc2.tail+].]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the scrunchie off from around [npc.her] wrist.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the scrunchie off from around [npc2.NamePos] wrist.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(tug)] the scrunchie off from around [npc2.NamePos] wrist.]]>
+		</otherRough>
+	</displacementText>
+	<replacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the scrunchie down around [npc.her] wrist.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the scrunchie down around [npc2.namePos] wrist.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(push)] the scrunchie down around [npc2.namePos] wrist.]]>
+		</otherRough>
+	</replacementText>
+	
 </clothing>

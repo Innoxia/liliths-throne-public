@@ -3,7 +3,6 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -33,7 +32,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Sex.getCharacterPerformingAction().isPlayer();
+			return Main.sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -52,15 +51,9 @@ public class PlayerSelfFingerNipple {
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"You reach up and start playing with your hard nipples, pinching and rubbing them as you moan with arousal.",
-					
 					"Your fingertips tease over your breasts, stopping to pinch and tug at your nipples as you moan and sigh in delight.",
-					
 					"You reach up to your breasts, and, with eager fingers, start to pinch and rub at your exposed nipples.",
-					
-					Sex.isMasturbation()
-						?"Your nipples are just begging for some attention, and you whine in delight as you reach up to start pinching them."
-						:UtilText.parse(Sex.getCharacterTargetedForSexAction(this),
-								"Your nipples are just begging for some attention, and you reach up and start to pinch at them, whining in delight as [npc.name] smirks at you.")));
+					"Your nipples are just begging for some attention, and you whine in delight as you reach up to start pinching them."));
 			
 			switch (Main.game.getPlayer().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
@@ -184,7 +177,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -226,7 +219,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -268,7 +261,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -310,7 +303,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
+			return !Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -352,7 +345,7 @@ public class PlayerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
+			return !Main.sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="HARPY_NEST_DOMINANT"><![CDATA[
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_dominantEncountered))
+				Due to the ongoing arcane storm, [harpyDominant.namePos] nest is completely deserted. Her entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to her.
+			#ELSE
+				Due to the ongoing arcane storm, this nest is completely deserted. The entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to the matriarch of this particular nest.
+			#ENDIF
+		</p>
+	#ELSEIF(!game.isExtendedWorkTime())
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_bimboEncountered))
+				Due to the current hour, [bimboHarpy.namePos] nest is completed deserted; both she and her flock have retired to the comfort of the buildings below in order to get a good night's rest. With the entrances to their night-time residence being securely locked, you're left with no choice but to return at another time if you wanted to speak to her.
+			#ELSE
+				Due to the current hour, this nest is completed deserted; both the matriarch and her flock have retired to the comfort of the buildings below in order to get a good night's rest. With the entrances to their night-time residence being securely locked, you're left with no choice but to return at another time if you wanted to speak to her.
+			#ENDIF
+		</p>
+	#ELSE
+		#IF(game.getDialogueFlags().hasFlag(FLAG_dominantEncountered))
+			<p>
+				You find yourself standing on the outskirts of [harpyDominant.namePos] nest; one of the largest and most populous of all the nests in Dominion. A single, gigantic platform spans the roof-tops of several buildings, with little raised podiums scattered about its surface.
+				#IF(!game.isDayTime())
+					 A series of bright, arcane-powered lights illuminate the entire area, and from what you can see, the harpies here are just as active at night as they are during daylight hours.
+				#ENDIF
+			</p>
+			<p>
+				Looking closer at the nest's peculiar podiums, you see that there's a red-and-black feathered harpy perched on top of each one. Around the base of each one of these podiums, a crowd of harpies can be seen huddling together, and upon further inspection you notice that they're all bowing down in submission. Curiously, although you can see harpies of almost every colour, the only ones with red or black feathers seem to be those who are sitting on top of those podiums, leading you to believe that those particular colours designate the important members of this particular flock.
+			</p>
+			<p>
+				At the very centre of the platform, you see a podium that's higher than all the rest, and, lounging about on top of it, you see the familiar shape of [harpyDominant.name]. The group surrounding her is unlike all the others, as it's made up solely of the same red-and-black feathered harpies that you can see on top of the other podiums. Despite their somewhat aggressive appearance, the harpies of this flock don't seem to be too bothered by your presence, allowing you to approach [harpyDominant.name] if you had any business with her.
+			</p>
+		#ELSE
+			<p>
+				You find yourself standing on the outskirts of one of the largest and most populous of all the nests in Dominion. A single, gigantic platform spans the roof-tops of several buildings, with little raised podiums scattered about its surface.
+				#IF(!game.isDayTime())
+					 A series of bright, arcane-powered lights illuminate the entire area, and from what you can see, the harpies here are just as active at night as they are during daylight hours.
+				#ENDIF
+			</p>
+			<p>
+				Looking closer at the nest's peculiar podiums, you see that there's a red-and-black feathered harpy perched on top of each one. Around the base of each one of these podiums, a crowd of harpies can be seen huddling together, and upon further inspection you notice that they're all bowing down in submission. Curiously, although you can see harpies of almost every colour, the only ones with red or black feathers seem to be those who are sitting on top of those podiums, leading you to believe that those particular colours designate the important members of this particular flock.
+			</p>
+			<p>
+				At the very centre of the platform, you see a podium that's higher than all the rest, and, lounging about on top of it, you see what must be this nest's matriarch. The group surrounding her is unlike all the others, as it's made up solely of the same red-and-black feathered harpies that you can see on top of the other podiums. Despite their somewhat aggressive appearance, the harpies of this flock don't seem to be too bothered by your presence, allowing you to approach their matriarch if you had any business with her.
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	
+</dialogue>

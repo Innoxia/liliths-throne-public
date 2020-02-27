@@ -62,7 +62,7 @@ public class Ear implements BodyPartInterface {
 		}
 		
 		if (type.equals(getType())) {
-			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.verb(has)] the [npc.ears] of [npc.a_earRace], so nothing happens...)]</p>");
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.ears] of [npc.a_earRace], so nothing happens...)]</p>");
 		}
 		
 		UtilText.transformationContentSB.setLength(0);

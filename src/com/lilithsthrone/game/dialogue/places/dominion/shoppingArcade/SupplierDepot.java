@@ -238,7 +238,7 @@ public class SupplierDepot {
 							Main.game.getDialogueFlags().supplierStorageRoomsChecked.add(Main.game.getPlayer().getLocation());
 							
 							List<AbstractClothingType> clothingToGenerate = new ArrayList<>(ClothingType.getAllClothing());
-							clothingToGenerate.removeIf((clothing) -> !clothing.getItemTags().contains(ItemTag.SOLD_BY_NYAN));
+							clothingToGenerate.removeIf((clothing) -> !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN));
 							
 							Main.game.getTextEndStringBuilder().append(
 									UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "STORAGE_ROOM_SEARCHING")
@@ -294,7 +294,7 @@ public class SupplierDepot {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getPlayer().hasStatusEffect(StatusEffect.SET_ENFORCER)) {
-					return new Response("Convince", "It'd be better to try and play on the fact that Wolfgang has mistaken you for an enforcer...", null);
+					return new Response("Convince", "It'd be better to try and play on the fact that Wolfgang has mistaken you for an Enforcer...", null);
 				} else {
 					return new Response("Convince", "Try and convince Wolfgang and Karl to let the other suppliers return.", SUPPLIER_DEPOT_OFFICE_CONVINCE) {
 						@Override
@@ -425,7 +425,7 @@ public class SupplierDepot {
 				
 			} else if (index == 2) {
 				if(Main.game.getPlayer().hasStatusEffect(StatusEffect.SET_ENFORCER)) {
-					return new Response("Enforcer Bluff", "Convince the suppliers that you're an enforcer, and that they should do as you say.", SUPPLIER_DEPOT_OFFICE_ENFORCER_BLUFF) {
+					return new Response("Enforcer Bluff", "Convince the suppliers that you're an Enforcer, and that they should do as you say.", SUPPLIER_DEPOT_OFFICE_ENFORCER_BLUFF) {
 						@Override
 						public void effects() {
 							applySuppliersBeatenEffects();
@@ -627,7 +627,9 @@ public class SupplierDepot {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
 								null,
-								ResponseTag.PREFER_DOGGY), AFTER_SEX_FUCKED, "");
+								ResponseTag.PREFER_DOGGY),
+						AFTER_SEX_FUCKED,
+						"");
 				
 			} else {
 				return null;

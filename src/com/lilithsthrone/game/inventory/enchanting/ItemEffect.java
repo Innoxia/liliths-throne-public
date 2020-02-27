@@ -15,7 +15,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.8
- * @version 0.2.11
+ * @version 0.3.3.10
  * @author Innoxia
  */
 public class ItemEffect implements XMLSaving {
@@ -48,6 +48,14 @@ public class ItemEffect implements XMLSaving {
 		this.potency = potency;
 		this.limit = limit;
 		this.timer = new ItemEffectTimer();
+	}
+	
+	public String getId() {
+		return (itemEffectType==null?"n":itemEffectType.toString())
+				+ (primaryModifier==null?"n":primaryModifier.toString())
+				+ (secondaryModifier==null?"n":secondaryModifier.toString())
+				+ (potency==null?"n":potency.toString())
+				+ limit;
 	}
 	
 	@Override
@@ -131,6 +139,21 @@ public class ItemEffect implements XMLSaving {
 			case "DAMAGE_ATTACK":
 			case "RESISTANCE_ATTACK":
 				return null;
+			case "CLOTHING_SEALING":
+				primaryMod = "CLOTHING_SPECIAL";
+				secondaryMod = "CLOTHING_SEALING";
+				break;
+			case "CLOTHING_ENSLAVEMENT":
+				primaryMod = "CLOTHING_SPECIAL";
+				secondaryMod = "CLOTHING_ENSLAVEMENT";
+				break;
+			case "TF_PENIS":
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
+					if(secondaryMod=="TF_MOD_SIZE_SECONDARY") {
+						secondaryMod = "TF_MOD_SIZE_TERTIARY";
+					}
+				}
+				break;
 		}
 		switch(secondaryMod) {
 			case "TF_MOD_FETISH_SEEDER":
@@ -141,6 +164,9 @@ public class ItemEffect implements XMLSaving {
 				break;
 			case "CRITICAL_CHANCE":
 				secondaryMod = "CRITICAL_DAMAGE";
+				break;
+			case "CLOTHING_ANTI_SELF_TRANSFORMATION":
+				secondaryMod = "CLOTHING_SERVITUDE";
 				break;
 		}
 		

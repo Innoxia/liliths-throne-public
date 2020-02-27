@@ -4,12 +4,12 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -43,7 +43,7 @@ public class ClitClit {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"With a slow thrust of [npc.her] [npc.hips+], [npc.name] [npc.verb(press)] [npc.her] [npc.clit+] against [npc2.namePos] [npc2.pussy+], before starting to rhythmically grind up and down against [npc2.her] [npc2.labia+].",
@@ -68,7 +68,7 @@ public class ClitClit {
 				case SUB_RESISTING:
 					break;
 			}
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Gently bucking [npc2.her] own [npc2.hips] in response,"
@@ -108,7 +108,7 @@ public class ClitClit {
 	};
 	
 	private static String getTargetedCharacterResponse(SexAction action) {
-		switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(action))) {
+		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
 			case SUB_EAGER:
 			case DOM_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -339,32 +339,32 @@ public class ClitClit {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"[npc.Name] [npc.verb(try)] to pull [npc.her] groin away from [npc2.namePos],"
+							"[npc.Name] [npc.verb(try)] to pull [npc.her] groin away from [npc2.nameHers],"
 									+ " but [npc.her] efforts prove to be in vain as [npc2.she] quickly [npc2.verb(buck)] [npc2.her] [npc.hips] forwards, keeping [npc2.her] [npc2.clit+] gently pressed against [npc.her] [npc.pussy+].",
-							"With [npc.a_sob+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.namePos],"
+							"With [npc.a_sob+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.nameHers],"
 									+ " but [npc2.she] quickly [npc2.verb(buck)] [npc2.her] [npc2.hips] forwards, before continuing to gently rub [npc2.her] [npc2.clit+] against [npc.her] [npc.vagina+].",
-							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.namePos],"
+							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.nameHers],"
 									+ " but [npc2.she] quickly [npc2.verb(shift)] position, ignoring [npc.her] protests as [npc2.she] gently [npc2.verb(rub)] [npc2.her] [npc2.vagina+] up against [npc2.hers]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"[npc.Name] [npc.verb(try)] to pull [npc.her] groin away from [npc2.namePos],"
+							"[npc.Name] [npc.verb(try)] to pull [npc.her] groin away from [npc2.nameHers],"
 									+ " but [npc.her] efforts prove to be in vain as [npc2.she] roughly [npc2.verb(slam)] [npc2.her] [npc.hips] forwards, keeping [npc2.her] [npc2.clit+] forcefully ground against [npc.her] [npc.pussy+].",
-							"With [npc.a_sob+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.namePos],"
+							"With [npc.a_sob+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.nameHers],"
 									+ " but [npc2.she] quickly [npc2.verb(buck)] [npc2.her] [npc2.hips] forwards, before continuing to roughly grind [npc2.her] [npc2.clit+] against [npc.her] [npc.vagina+].",
-							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.namePos],"
+							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.nameHers],"
 									+ " but [npc2.she] quickly [npc2.verb(shift)] position, ignoring [npc.her] protests as [npc2.she] forcefully [npc2.verb(grind)] [npc2.her] [npc2.vagina+] up against [npc2.hers]."));
 					break;
 				default: // DOM_NORMAL and in case anything goes wrong:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"[npc.Name] [npc.verb(try)] to pull [npc.her] groin away from [npc2.namePos],"
+							"[npc.Name] [npc.verb(try)] to pull [npc.her] groin away from [npc2.nameHers],"
 									+ " but [npc.her] efforts prove to be in vain as [npc2.she] quickly [npc2.verb(buck)] [npc2.her] [npc.hips] forwards, keeping [npc2.her] [npc2.clit+] pressed against [npc.her] [npc.pussy+].",
-							"With [npc.a_sob+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.namePos],"
+							"With [npc.a_sob+], [npc.name] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.nameHers],"
 									+ " but [npc2.she] quickly [npc2.verb(buck)] [npc2.her] [npc2.hips] forwards, before continuing to eagerly rub [npc2.her] [npc2.clit+] against [npc.her] [npc.vagina+].",
-							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.namePos],"
+							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.nameHers],"
 									+ " but [npc2.she] quickly [npc2.verb(shift)] position, ignoring [npc.her] protests as [npc2.she] enthusiastically [npc2.verb(rub)] [npc2.her] [npc2.vagina+] up against [npc2.hers]."));
 					break;
 			}
@@ -397,7 +397,7 @@ public class ClitClit {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"With one last rough thrust, [npc.name] [npc.verb(pull)] [npc.her] groin away from [npc2.namePos] [npc2.pussy+], putting an end to the tribbing.",
@@ -410,7 +410,7 @@ public class ClitClit {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Although happy to have [npc2.her] [npc2.pussy] released, [npc2.name] [npc2.verb(continue)] crying and weakly struggling against [npc.name] as [npc2.she] [npc2.verb(plead)] for [npc.herHim] to leave [npc2.herHim] alone.",
@@ -447,7 +447,7 @@ public class ClitClit {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getCharacterPerformingAction().hasClitorisModifier(PenetrationModifier.PREHENSILE) && Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.DOM_ROUGH;
+			return Main.sex.getCharacterPerformingAction().hasClitorisModifier(PenetrationModifier.PREHENSILE) && Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.DOM_ROUGH;
 		}
 
 		@Override

@@ -1,0 +1,21 @@
+<svg cursor="default" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <radialGradient id="radialGradient1146" cx="128.67" cy="129.06" r="106.03" gradientTransform="matrix(1.122 0 0 1.1321 -16.081 -16.287)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#a20082" offset="0"/>
+   <stop stop-color="#a20082" stop-opacity="0" offset="1"/>
+  </radialGradient>
+  <radialGradient id="radialGradient1207" cx="126.78" cy="132.47" r="46.643" gradientTransform="matrix(1.122 0 0 1.109 -16.081 -13.249)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#fff" offset="0"/>
+   <stop stop-color="#ffd5f6" stop-opacity=".98598" offset="1"/>
+  </radialGradient>
+  <radialGradient id="radialGradient1735" cx="128.67" cy="129.06" r="106.53" gradientTransform="matrix(1.122,0,0,1.1321,-16.081,-16.281)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#ffe6d5" stop-opacity=".031373" offset="0"/>
+   <stop stop-color="#fca" stop-opacity=".12549" offset=".86218"/>
+   <stop stop-color="#ffb380" stop-opacity=".25098" offset="1"/>
+  </radialGradient>
+ </defs>
+ <ellipse cx="128.29" cy="129.82" rx="118.97" ry="120.05" fill="url(#radialGradient1146)"/>
+ <ellipse cx="126.17" cy="133.66" rx="52.333" ry="51.725" fill="url(#radialGradient1207)"/>
+ <ellipse cx="128.29" cy="129.82" rx="118.97" ry="120.05" fill="url(#radialGradient1735)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.122"/>
+ <path d="m130.27 16.362c5.5141 0.6717 13.057 2.3304 21.269 5.5353 8.3051 3.2416 16.314 7.6675 23.823 13.317 15.107 11.367 23.995 24.444 29.764 32.827 0.25308 0.3678 0.49599 0.72 0.72967 1.0568 5.9701 8.6035 14.215 19.838 21.952 38.186 7.2693 17.24 10.709 33.39 11.393 42.653-0.72564-9.8326-1.0584-25.087-5.6886-44.512-4.5866-19.242-11.697-34.376-17.797-43.168-0.25506-0.36756-0.52624-0.74911-0.8132-1.1433-6.5193-8.9563-18.83-21.558-36.387-30.878-18.713-9.9332-35.651-12.341-48.243-13.874z" fill="#fff"/>
+</svg>

@@ -55,9 +55,9 @@
 			#ENDIF
 		#ELSE
 			#IF (npc.hasFetish(FETISH_PREGNANCY))
-				[npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
+				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
 			#ELSE
-				[npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
+				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
 			#ENDIF
 		#ENDIF
 	</p>
@@ -135,7 +135,8 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
+	
 	<!-- Dominant sex actions: -->
 
 	<htmlContent tag="SEX_START"><![CDATA[
@@ -173,7 +174,7 @@
 			positioning = "onto [npc.her] hands and knees ";
 		}
 		var playerPositioning = "Falling to your knees in front of [npc.name], you say,";
-		if(!pc.getLegConfiguration().isBipedalPositionedGenitals()) {
+		if(pc.isTaur()) {
 			playerPositioning = "Turning your [pc.legConfiguration] body to one side, you present your groin to [npc.name], before calling down to [npc.herHim],";
 		}
 	#ENDVAR
@@ -189,7 +190,7 @@
 	</p>
 	<p>
 		Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.her] ass.
-		#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!npc2.isTaur())
 				 Sinking down onto [npc2.her] knees behind [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
 			</p>
 			<p>
@@ -218,7 +219,7 @@
 		}
 		var playerPositioning = "Falling to your knees behind [npc.name], you say,";
 		var playerMounting = "take [npc.herHim]! Make sure to give me a good, hard fucking while I pleasure [npc2.name] with my mouth!";
-		if(!pc.getLegConfiguration().isBipedalPositionedGenitals()) {
+		if(pc.isTaur()) {
 			playerPositioning = "Stepping forwards so that your [pc.legConfiguration] body is over the top of [npc.name], you call down to [npc.herHim],";
 			playerMounting = "mount [npc.herHim]! Make sure to give me a good, hard rutting while I pleasure [npc2.name] with my mouth!";
 		}
@@ -234,7 +235,7 @@
 	</p>
 	<p>
 		Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.herHim].
-		#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!npc2.isTaur())
 			 Sinking down onto [npc2.her] knees in front of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
 		</p>
 		<p>
@@ -269,7 +270,7 @@
 		[npc2.speech(Mmm, yes, put us in our place!)] [npc2.name] joins in, copying [npc.name] as [npc2.she] glances back over [npc2.her] shoulder and bats [npc.her] eyelids at you.
 	</p>
 	<p>
-		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!pc.isTaur())
 			Dropping down onto your knees behind them, you prepare to do exactly as they say, and, reaching forwards to grab their asses in each [pc.hand], you [pc.moan], [pc.speech(I wonder which of you I'll fuck first...)]
 		#ELSE
 			Stepping forwards and preparing to use your [pc.legConfiguration] body to mount one of them, you wonder out loud, [pc.speech(I wonder which of you I'll rut first...)]
@@ -316,16 +317,16 @@
 		Breaking off the kiss, [npc.name] responds, [npc.speech(That suits me fine. I love [pc.namePos] [pc.lips]!)]
 	</p>
 	<p>
-		#IF(npc2.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!npc2.isTaur())
 			With agreement from [npc.name], [npc2.name] takes hold of your [pc.hips] and pulls you down onto your knees as [npc2.she] drops down behind you.
 		#ELSE
 			With agreement from [npc.name], [npc2.name] takes hold of your [pc.hips] and pushes you down onto your knees, before stepping forwards and positioning [npc2.her] [npc2.legConfiguration] body over the top of you, ready to mount you.
 		#ENDIF
 	</p>
 	<p>
-		#IF(npc.getLegConfiguration().isBipedalPositionedGenitals() && pc.getLegConfiguration().isBipedalPositionedGenitals())
+		#IF(!npc.isTaur() && !pc.isTaur())
 			Kneeling down before you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
-		#ELSEIF(npc.getLegConfiguration().isBipedalPositionedGenitals())
+		#ELSEIF(npc.isTaur())
 			Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 		#ELSE
 			Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
@@ -400,12 +401,22 @@
 	</htmlContent>
 
 	<htmlContent tag="OCCUPANT_TALK_JOB_HUNTING"><![CDATA[
-	<p>
-		Wanting to know if [npc.name] is still searching for a job, you ask [npc.herHim] if [npc.sheHas] applied for anything recently. Smiling happily back at you, [npc.she] tells you that [npc.sheHas] not stopped looking for a job ever since you started befriending [npc.herHim]. Listing off the numerous places that [npc.sheHas] applied for a job at, [npc.name] promises you that [npc.she] will find something soon, at which point, [npc.she] says, [npc.she]'ll start paying rent.
-	</p>
-	<p>
-		Reassuring [npc.herHim] that there's no rush, you tell [npc.name] to keep on trying [npc.her] best, and that [npc.her] diligence and enthusiasm are sure to be rewarded soon.
-	</p>
+	#IF(npc.getDesiredJobs().isEmpty())
+		<p>
+			Wanting to know if [npc.name] is content with remaining unemployed, you ask [npc.herHim] if [npc.she] would prefer to start looking for a job. Smiling back at you, [npc.she] tells you that [npc.she]'ll always be willing to do whatever you think is best, and as you haven't suggested any jobs to [npc.herHim], [npc.sheIs] more than happy to continue simply living in the comfort of this room.
+		</p>
+		<p>
+			[npc.Name] then goes on to admit that [npc.sheIs] feeling a little guilty at the fact that [npc.she] isn't paying any rent, but you put [npc.herHim] at ease by telling [npc.herHim] that you're taking care of all the financial arrangements, and that [npc.she] need not worry about that.
+		</p>
+	#ELSE
+		<p>
+			Wanting to know if [npc.name] is still searching for a job, you ask [npc.herHim] if [npc.sheHas] applied for anything recently. Smiling happily back at you, [npc.she] tells you that [npc.sheHas] not stopped looking for a job ever since you started befriending [npc.herHim]. Listing off the numerous places at which [npc.sheHas] applied for a job, [npc.name] promises you that [npc.she] will find something soon, at which point, [npc.she] says, [npc.she]'ll start paying rent.
+		</p>
+		<p>
+			Reassuring [npc.herHim] that there's no rush, you tell [npc.name] to keep on trying [npc.her] best, and that [npc.her] diligence and enthusiasm are sure to be rewarded soon.
+		</p>
+
+	#ENDIF
 	<p>
 		As [npc.name] thanks you once again for your support and interest in helping [npc.herHim] get back on [npc.her] feet, you wonder what you should talk about next...
 	</p>
@@ -435,7 +446,7 @@
 	</p>
 	<p>
 		Moving on to talk about [npc.namePos] opinion of slavery in general, [npc.she] tells you that
-		#IF (npc.isTrusting())
+		#IF (npc.isKind())
 			 [npc.she] feels sorry for those bound into a life of servitude, and that [npc.she] hopes one day slavery will be abolished.
 		#ELSE
 			#IF (npc.isSelfish())
@@ -457,7 +468,7 @@
 	</p>
 	<p>
 		Moving on to talk about [npc.namePos] opinion of slavery in general, [npc.she] tells you that
-		#IF (npc.isTrusting())
+		#IF (npc.isKind())
 			 [npc.she] feels sorry for those bound into a life of servitude, and that [npc.she] hopes one day slavery will be abolished.
 		#ELSE
 			#IF (npc.isSelfish())
@@ -472,7 +483,75 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
+	
+	<!-- OCCUPANT_JOB_SUGGESTION -->
+	
+	<htmlContent tag="OCCUPANT_JOB_SUGGESTION_CHANGE"><![CDATA[
+	<p>
+		Although [npc.name] is currently employed, you aren't sure if working as [npc.a_job] is really suitable for [npc.herHim]. Knowing that [npc.she] trusts your opinion, you ask [npc.herHim] how [npc.she]'d feel about looking for a different job.
+	</p>
+	<p>
+		#IF(npc.isShy())
+			Casting [npc.her] gaze to the floor, [npc.name] shyly shuffles [npc.her] [npc.feet] as [npc.she] replies, [npc.speech(Well, if you think that a job change would be good for me, [pc.name... I'll start looking for whatever you suggest right away...)]
+		#ELSE
+			Letting out a contemplative hum, [npc.name] replies, [npc.speech(You know, [pc.name], I <i>had</i> been thinking about a change of job... I'll start looking for whatever you suggest right away!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_JOB_SUGGESTION"><![CDATA[
+	<p>
+		Although [npc.name] is currently looking for a job, you aren't sure if [npc.sheIs] going to end up finding one that's suitable for [npc.herHim]. Knowing that [npc.she] trusts your opinion, you ask [npc.herHim] how [npc.she]'d feel about looking for a job that you were to suggest.
+	</p>
+	<p>
+		#IF(npc.isShy())
+			Casting [npc.her] gaze to the floor, [npc.name] shyly shuffles [npc.her] [npc.feet] as [npc.she] replies, [npc.speech(Well, I'll listen to whatever you suggest, [pc.name]... Just let me know what I should be looking for...)]
+		#ELSE
+			Letting out a contemplative hum, [npc.name] replies, [npc.speech(You know, [pc.name], it really would be a great help if you were to suggest some jobs for me. Just let me know what I should be looking for!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_JOB_SUGGESTION_MECHANICS"><![CDATA[
+	<p>
+		<i>
+		#IF(npc.hasJob())
+			[npc.Name] will search for job openings of the types highlighted in [style.colourMinorGood(green)], and once [npc.sheHas] found one, [npc.she] will switch jobs to that one.
+		#ELSE
+			[npc.Name] will search for job openings of the types highlighted in [style.colourMinorGood(green)].
+			#IF(npc.getDesiredJobs().isEmpty())
+				 As [style.colourBad(no jobs are selected)], [npc.she] will not perform any searches and will [style.colourBad(remain unemployed until you make at least one suggestion)].
+			#ELSE
+				 If no jobs are selected, [npc.she] will not perform any searches and will remain unemployed.
+			#ENDIF
+		#ENDIF
+		</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="OCCUPANT_JOB_QUIT"><![CDATA[
+	<p>
+		Thinking that it would be a good idea for [npc.name] to give up on [npc.her] job as [npc.a_job], you tell [npc.herHim] that [npc.she] would be better off quitting and then holding off on searching for a new job until you give [npc.her] some suggestions.
+	</p>
+	<p>
+		#IF(npc.isShy())
+			Letting out a small sigh of relief, [npc.name] nervously smiles as [npc.she] admits, [npc.speech(I didn't want to say anything, but I'd already been thinking about quitting... Thanks for suggesting this, [pc.name]... We can spend more time together now that I don't have to worry about work!)]
+		#ELSE
+			Letting out a relieved sigh, [npc.name] smiles as [npc.she] admits, [npc.speech(You know, I didn't want to say anything, but I'd already been thinking about quitting. Thanks for suggesting this, [pc.name], it really is a huge weight off my mind. We can also spend more time together now that I don't have to worry about work!)]
+		#ENDIF
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsMinorBad([npc.Name] will remain unemployed until you make some job suggestions.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<htmlContent tag="AFTER_SEX_THREESOME"><![CDATA[
 	<p>
 		You, [npc.name], and [npc2.name] all collapse down onto the bed together, panting and sighing as you all press closely against one another. After spending some time getting your breath back, the three of you start to get your things together, before eventually standing up and smiling at one another.
@@ -657,9 +736,9 @@
 			#ENDIF
 		#ELSE
 			#IF (npc.hasFetish(FETISH_PREGNANCY))
-				[npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
+				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me pregnant!)] [npc.name] cries out, excitedly rubbing [npc.her] [npc.hands] over [npc.her] swollen belly. [npc.speech(I love being pregnant so much!)]
 			#ELSE
-				[npc.speech(That's right, [#npc.getPregnantLitter().getFather().getName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
+				[npc.speech(That's right, [#npc.getPregnantLitter().getFatherName()] got me pregnant...)] [npc.name] mumbles, shuffling [npc.her] [npc.feet] as [npc.she] smiles at you. [npc.speech(I-I'll make sure to take care of myself, don't worry!)]
 			#ENDIF
 		#ENDIF
 	</p>

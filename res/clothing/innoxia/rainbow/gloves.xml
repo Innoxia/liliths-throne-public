@@ -7,7 +7,7 @@
 		<name><![CDATA[rainbow glove]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[rainbow gloves]]></namePlural> 
 		<description><![CDATA[A pair of brightly-coloured rainbow fingerless gloves, which reach up to wearer's mid-forearm.]]></description> 
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		<femininity>FEMININE</femininity>
 		<slot>HAND</slot> 
 		<rarity>COMMON</rarity>
@@ -57,7 +57,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(slide)] the gloves over [npc2.namePos] [npc2.hands], before pulling them up to [npc2.her] mid-forearm.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] roughly [npc.verb(forces)] the gloves onto [npc2.namePos] [npc2.hands], before yanking them up to [npc2.her] mid-forearm.]]>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] the gloves onto [npc2.namePos] [npc2.hands], before yanking them up to [npc2.her] mid-forearm.]]>
 	  </otherRough>
 	</replacementText>
 

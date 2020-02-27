@@ -2,13 +2,19 @@ package com.lilithsthrone.game.sex.sexActions;
 
 /**
  * @since 0.1.65
- * @version 0.2.8
+ * @version 0.3.4
  * @author Innoxia
  */
 public enum SexActionType {
 	
 	/**Standard ongoing action. Requires all SexAreaInterfaces to be occupied with each other.*/
 	ONGOING,
+
+	/**An action in which a character is speaking.*/
+	SPEECH,
+
+	/**An action in which a character is speaking, but which also has alternative action text for if speech is blocked.*/
+	SPEECH_WITH_ALTERNATIVE,
 	
 	/**Standard non-penetrative action. Requires all SexAreaInterfaces to be exposed.*/
 	REQUIRES_EXPOSED,
@@ -21,6 +27,9 @@ public enum SexActionType {
 	
 	/**Action which starts an ongoing penetration or action (such as performing a blowjob, or fingering someone).*/
 	START_ONGOING,
+
+	/**Action which brings another character in to an ongoing penetration or action (such as getting a second kneeling NPC to join the first in giving you a blowjob, or fingering an NPC who is being fucked by a third party).*/
+	START_ADDITIONAL_ONGOING,
 	
 	/**Action which stops the ongoing process of all SexAreaInterfaces.*/
 	STOP_ONGOING,
@@ -28,14 +37,20 @@ public enum SexActionType {
 	/**Positioning action.*/
 	POSITIONING,
 
+	/**Opening the positioning menu action.*/
+	POSITIONING_MENU,
+
+	/**Miscellaneous actions which do not advance the sex turn.*/
+	MISC_NO_TURN_END,
+
 	/**The action taken to prepare for partner's orgasm.*/
 	PREPARE_FOR_PARTNER_ORGASM,
 	
 	/**Orgasm.*/
 	ORGASM,
 	
-	/**Orgasm that doesn't reset arousal.*/
-	ORGASM_NO_AROUSAL_RESET,
+	/**Orgasm that it denied (so it doesn't reset arousal, increment orgasm count, nor apply any orgasm-related effects).*/
+	ORGASM_DENIAL,
 	
 	/**Special miscellaneous actions such as stopping sex.*/
 	SPECIAL;
@@ -49,6 +64,6 @@ public enum SexActionType {
 	}
 	
 	public boolean isOrgasmOption() {
-		return this == ORGASM || this == ORGASM_NO_AROUSAL_RESET;
+		return this == ORGASM || this == ORGASM_DENIAL;
 	}
 }

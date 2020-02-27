@@ -1,6 +1,12 @@
 package com.lilithsthrone.game.inventory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -20,6 +26,12 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 		duplicateCounts = new LinkedHashMap<>();
 	}
 
+	AbstractInventory(AbstractInventory<T, U> inventoryToCopy) {
+		this.comparator = inventoryToCopy.comparator;
+		this.typeRetriever = inventoryToCopy.typeRetriever;
+		duplicateCounts = new LinkedHashMap<>(inventoryToCopy.duplicateCounts);
+	}
+	
 	public void clear() {
 		duplicateCounts.clear();
 	}

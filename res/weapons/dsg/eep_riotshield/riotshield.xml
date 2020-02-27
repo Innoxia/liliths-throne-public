@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<authorTag><![CDATA[On the back of the shield, slightly raised lettering reads "Official Enforcer Issue, MFD by DSG Forgeworks."]]></authorTag>
+		
+		<value>2000</value> 
+		
+		<melee>true</melee>
+		
+		<twoHanded>false</twoHanded>
+		
+		<determiner><![CDATA[an]]></determiner>
+		
+		<name><![CDATA[Enforcer's riot shield]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[Enforcer's riot shields]]></namePlural> 
+		
+		<description><![CDATA[A medium-sized shield made of transparent polycarbonate, it covers an average-sized bearer from the top of their head to their knees. It is enchanted to protect against weapons typically used by rioters as well as offer limited offensive capabilities.]]></description> 
+		
+		<attackDescriptor>bash</attackDescriptor>
+		
+		<attackTooltipDescription>Bash your shield against [npc2.name].</attackTooltipDescription>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(bring)] out the shield and [npc.verb(strap)] it to [npc.her] arm.]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(unstrap)] the the shield from [npc.her] arm before putting it away.]]></unequipText>
+		
+		<imageName>riotshield.svg</imageName> 
+		
+		<imageEquippedName>riotshield.svg</imageEquippedName>
+		
+		<damage>2</damage> 
+		
+		<arcaneCost>0</arcaneCost> 
+		
+		<damageVariance>HIGH</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects> 
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_FIRE" timer="0"/>
+			  <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_FIRE" timer="0"/>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_PHYSICAL" timer="0"/>
+			  <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_PHYSICAL" timer="0"/>
+		</effects>
+		
+		<primaryColours values="JUST_SILVER"/> 
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours values="JUST_BLACK"/> 
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Charging forward with [npc.her] riot shield, [npc.name] [npc.verb(manage)] to hit [npc2.name] dead on. The enchanted polycarbonate bounces off [npc2.her] aura and knocks [npc2.her] back, draining [npc.her] energy!
+		]]></hitText>
+		<hitText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(swings)] [npc.her] riot shield out at [npc2.name], bodying [npc2.her] to the ground, causing [npc2.herHim] to lose some energy!
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		Charging forward with [npc.her] riot shield, [npc.name] [npc.verb(attempt)] to hit [npc2.name] dead on but stumbles and misses completely!
+		]]></missText>
+		<missText><![CDATA[
+		With a quick step forwards, [npc.name] [npc.verb(swings)] [npc.her] riot shield out at [npc2.name] but misses!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

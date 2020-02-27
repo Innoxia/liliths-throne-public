@@ -1,29 +1,31 @@
 package com.lilithsthrone.game.character.body;
 
-
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.6
  * @author Innoxia
  */
 public class Tail implements BodyPartInterface {
 
-	
 	public static final int MAXIMUM_COUNT = 9;
 	
 	protected TailType type;
 	protected int tailCount;
+	protected int girth;
 
 	public Tail(TailType type) {
 		this.type = type;
-		tailCount = 1;
+		this.tailCount = 1;
+		this.girth = type.getGirth();
 	}
 
 	@Override
@@ -612,15 +614,29 @@ public class Tail implements BodyPartInterface {
 		return tailCount;
 	}
 
-	public String setTailCount(GameCharacter owner, int tailCount) {
+	public String setTailCount(GameCharacter owner, int tailCount, boolean overrideYoukoLimitations) {
 		tailCount = Math.max(1, Math.min(tailCount, MAXIMUM_COUNT));
 		
 		if(owner.getTailCount() == tailCount) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
+		if(owner.getTailType().equals(TailType.FOX_MORPH_MAGIC) && !overrideYoukoLimitations) {
+			return "<p style='text-align:center;'>"
+						+ "[style.colourMinorBad([npc.NamePos] arcane-infused "
+							+(this.tailCount==1
+								?"tail absorbs and nullifies"
+								:"tails absorb and nullify")
+							+" the transformative effect, preventing any alteration to the number of tails [npc.she] [npc.has]!)]"
+					+ "</p>";
+		}
+		
+		owner.removeStatusEffect(StatusEffect.SUBSPECIES_BONUS);
+		
 		boolean removingTails = owner.getTailCount() > tailCount;
 		this.tailCount = tailCount;
+
+		owner.addStatusEffect(StatusEffect.SUBSPECIES_BONUS, -1);
 		
 		if (owner.getTailType() == TailType.NONE) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
@@ -678,6 +694,76 @@ public class Tail implements BodyPartInterface {
 		}
 	}
 
+	// Girth:
+
+	public PenetrationGirth getGirth() {
+		return PenetrationGirth.getGirthFromInt(girth);
+	}
+
+	public int getRawGirthValue() {
+		return girth;
+	}
+
+	/**
+	 * Sets the girth. Value is bound to >=0 && <=PenisGirth.FOUR_FAT.getValue()
+	 */
+	public String setTailGirth(GameCharacter owner, int girth) {
+		if(owner==null) {
+			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.FOUR_FAT.getValue()));
+			return "";
+		}
+		
+		if(!owner.hasTail()) {
+			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+		}
+		
+		int girthChange = 0;
+		
+		if (girth <= 0) {
+			if (this.girth != 0) {
+				girthChange = 0 - this.girth;
+				this.girth = 0;
+			}
+		} else if (girth >= PenetrationGirth.FOUR_FAT.getValue()) {
+			if (this.girth != PenetrationGirth.FOUR_FAT.getValue()) {
+				girthChange = PenetrationGirth.FOUR_FAT.getValue() - this.girth;
+				this.girth = PenetrationGirth.FOUR_FAT.getValue();
+			}
+		} else {
+			if (this.girth != girth) {
+				girthChange = girth - this.girth;
+				this.girth = girth;
+			}
+		}
+		
+		if(girthChange == 0) {
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(The girth of your [pc.tail] doesn't change...)]</p>";
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The girth of [npc.namePos] [npc.tail] doesn't change...)]</p>");
+			}
+		}
+		
+		return owner.getTailType().getGirthTransformationDescription(owner, girthChange > 0);
+	}
+
+	// Length:
+
+	public int getLength(GameCharacter owner) {
+		return (int) (owner.getHeightValue() * type.getLengthAsPercentageOfHeight());
+	}
+	
+	
+	// Diameter:
+
+	public static float getGenericDiameter(int height, PenetrationGirth girth) {
+		return height * (0.08f + girth.getDiameterPercentageModifier());
+	}
+	
+	public float getDiameter(GameCharacter owner) {
+		return owner.getHeightValue() * (0.08f + this.getGirth().getDiameterPercentageModifier());
+	}
+	
 	@Override
 	public boolean isBestial(GameCharacter owner) {
 		if(owner==null) {

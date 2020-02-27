@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -18,11 +19,10 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionary;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionarySealed;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMCultistKneeling;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -89,7 +89,7 @@ public class CultistDialogue {
 					}
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -98,7 +98,7 @@ public class CultistDialogue {
 					@Override
 					public void effects() {
 						// Pull up dress:
-						getCultist().displaceClothingForAccess(CoverableArea.PENIS);
+						getCultist().displaceClothingForAccess(CoverableArea.PENIS, null);
 					}
 				};
 				
@@ -160,8 +160,8 @@ public class CultistDialogue {
 				return new ResponseSex("Accept", "Drop to your knees and prepare to service her orally.",
 						true, true,
 						new SMCultistKneeling(
-								Util.newHashMapOfValues(new Value<>(getCultist(), SexSlotBipeds.KNEELING_RECEIVING_ORAL_CULTIST)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.KNEELING_PERFORMING_ORAL_CULTIST))) {
+								Util.newHashMapOfValues(new Value<>(getCultist(), SexSlotUnique.KNEELING_RECEIVING_ORAL_CULTIST)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.KNEELING_PERFORMING_ORAL_CULTIST))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -205,8 +205,8 @@ public class CultistDialogue {
 							null, Fetish.FETISH_PREGNANCY.getAssociatedCorruptionLevel(), null, null, null,
 							true, false,
 							new SMAltarMissionary(
-									Util.newHashMapOfValues(new Value<>(getCultist(), SexSlotBipeds.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ALTAR_LYING_ON_ALTAR))) {
+									Util.newHashMapOfValues(new Value<>(getCultist(), SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.MISSIONARY_ALTAR_LYING_ON_ALTAR))) {
 								@Override
 								public boolean isPublicSex() {
 									return false;
@@ -220,7 +220,8 @@ public class CultistDialogue {
 							+ "<p>"
 								+ "You slowly trace your fingers over your pussy, drawing [npc.namePos] eyes down between your [pc.legs+]."
 								+ " She smiles as she realises what you're suggesting, and eagerly grabs your [pc.arm] once again, before pushing you down onto your back on top of the chapel's altar."
-								+ " [npc.speech(What better way to praise Lilith than by filling an eager slut's womb with my seed?! Your belly's going to be nice and swollen with imps soon enough!)]"
+								+ " [npc.speech(What better way to praise Lilith than by filling an eager slut's womb with my seed?! Your belly's going to be nice and swollen with "
+								+(Main.game.getPlayer().getSubspecies()==Subspecies.HUMAN?"imps":"my demonic brood")+" soon enough!)]"
 							+ "</p>"
 							+ (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
 									?"<p>"
@@ -254,8 +255,8 @@ public class CultistDialogue {
 						null, Fetish.FETISH_ANAL_RECEIVING.getAssociatedCorruptionLevel(), null, null, null,
 						true, false,
 						new SMAltarMissionary(
-								Util.newHashMapOfValues(new Value<>(getCultist(), SexSlotBipeds.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ALTAR_LYING_ON_ALTAR))) {
+								Util.newHashMapOfValues(new Value<>(getCultist(), SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.MISSIONARY_ALTAR_LYING_ON_ALTAR))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -356,7 +357,7 @@ public class CultistDialogue {
 				return new Response("Continue", "Leave the chapel and head back out into the streets of Dominion.", ENCOUNTER_CHAPEL_LEAVING){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 			
@@ -367,7 +368,7 @@ public class CultistDialogue {
 						ENCOUNTER_CHAPEL_LEAVING){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -431,8 +432,8 @@ public class CultistDialogue {
 				return new ResponseSex("Sex", "Sex.",
 						true, false,
 						new SMAltarMissionary(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(getCultist(), SexSlotBipeds.MISSIONARY_ALTAR_LYING_ON_ALTAR))) {
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(getCultist(), SexSlotUnique.MISSIONARY_ALTAR_LYING_ON_ALTAR))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -450,8 +451,8 @@ public class CultistDialogue {
 				return new ResponseSex("Witch's Seal", "Use her broomstick to cast Witch's Seal on her.",
 						false, false,
 						new SMAltarMissionarySealed(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(getCultist(), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))) {
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(getCultist(), SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -534,8 +535,8 @@ public class CultistDialogue {
 				return new ResponseSex("Witch's Toy", "You're completely immobilised, and can do nothing as the witch prepares to use you as her toy.",
 						false, false,
 						new SMAltarMissionarySealed(
-								Util.newHashMapOfValues(new Value<>(getCultist(), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))) {
+								Util.newHashMapOfValues(new Value<>(getCultist(), SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -546,7 +547,9 @@ public class CultistDialogue {
 							}
 						},
 						null,
-						null, ENCOUNTER_CHAPEL_POST_ORAL_SEX, (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
+						null,
+						ENCOUNTER_CHAPEL_POST_SUB_SEALED_SEX,
+						(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 							?"<p>"
 								+ "You look up to see [npc.namePos] grin turn into a puzzled frown as she realises that she's not able to get access to your groin."
 								+ " Reaching down to your sealed clothing, she focuses her arcane energy into removing the seal."
@@ -608,7 +611,7 @@ public class CultistDialogue {
 				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_POST_ORAL_SEX){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -642,7 +645,7 @@ public class CultistDialogue {
 				return new Response("Leave", "Turn around and head for the door.", ENCOUNTER_CHAPEL_POST_VAGINAL_SEX){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -676,7 +679,7 @@ public class CultistDialogue {
 				return new Response("Continue", "Continue on your way.", ENCOUNTER_CHAPEL_POST_VAGINAL_SEX){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -724,7 +727,7 @@ public class CultistDialogue {
 				return new Response("Continue", "Continue on your way.", ENCOUNTER_CHAPEL_POST_ORAL_SEX){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -738,7 +741,7 @@ public class CultistDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getCultist()) >= getCultist().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getCultist()) >= getCultist().getOrgasmsBeforeSatisfied()) {
 				return "<p>"
 							+ "You step back from the altar, grinning down at the witch as she lets out a deeply satisfied sigh."
 							+ " You quickly get your things in order, and before you turn to leave, the succubus calls out,"
@@ -778,7 +781,7 @@ public class CultistDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getCultist()) >= getCultist().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getCultist()) >= getCultist().getOrgasmsBeforeSatisfied()) {
 				return "<p>"
 							+ "You step back from the altar, grinning down at the witch as she lets out a deeply satisfied sigh."
 							+ " You quickly get your things in order, and before you turn to leave, the Witch's Seal starts to wear off, allowing [npc.name] to call out,"

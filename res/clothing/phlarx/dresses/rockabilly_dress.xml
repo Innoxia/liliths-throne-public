@@ -8,7 +8,7 @@
 		<name><![CDATA[rockabilly dress]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[rockabilly dresses]]></namePlural>
 		<description><![CDATA[A knee length dress that would look perfect on a pinup, or at a drive-in diner.]]></description>
-		<physicalResistance>1</physicalResistance>
+		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>TORSO_UNDER</slot>
 		<rarity>COMMON</rarity>
@@ -82,6 +82,7 @@
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
 			<tag>DRESS</tag>
+			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
 	</coreAttributes>
 

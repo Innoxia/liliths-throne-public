@@ -1,14 +1,15 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -33,10 +34,10 @@ public class PartnerSelfFingerMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.hasLubricationTypeFromAnyone(Sex.getActivePartner(), SexAreaPenetration.FINGER)
-					&& Sex.isInForeplay()
-					&& (Sex.getForeplayPreference(Sex.getActivePartner(), Sex.getCharacterTargetedForSexAction(this))!=null
-						&& Sex.getForeplayPreference(Sex.getActivePartner(), Sex.getCharacterTargetedForSexAction(this)).getPerformingSexArea()==SexAreaPenetration.FINGER);
+			return !Main.sex.hasLubricationTypeFromAnyone(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)
+					&& Main.sex.isInForeplay(Main.sex.getCharacterPerformingAction())
+					&& (Main.sex.getForeplayPreference((NPC) Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))!=null
+						&& Main.sex.getForeplayPreference((NPC) Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this)).getPerformingSexArea()==SexAreaPenetration.FINGER);
 		}
 		
 		@Override
@@ -57,7 +58,7 @@ public class PartnerSelfFingerMouth {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), SexAreaPenetration.FINGER, Sex.getActivePartner(), SexAreaOrifice.MOUTH);
+			Main.sex.transferLubrication(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER, Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH);
 		}
 	};
 	

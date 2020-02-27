@@ -87,12 +87,16 @@ public enum Race {
 			false) {
 		public String getName(GameCharacter character, boolean bestial) {
 			if(bestial) {
-				Race r = character.getLegType().getRace();
-				return character.getLegConfiguration()!=LegConfiguration.BIPEDAL
-						?r==Race.DEMON
-							?"demonic-horse"
-							:"demonic-"+r.getName(bestial)
-						:"demon";
+				if(character!=null) {
+					Race r = character.getLegType().getRace();
+					return character.getLegConfiguration()!=LegConfiguration.BIPEDAL
+							?r==Race.DEMON
+								?"demonic-horse"
+								:"demonic-"+r.getName(bestial)
+							:"demon";
+				} else {
+					return getName(true);
+				}
 			}
 			return "demon";
 		}
@@ -613,7 +617,7 @@ public enum Race {
 	 * +
 	 * " Once she has found a victim, she will attempt to smother and seduce her prey and then feed off of them."
 	 * +
-	 * " Slime queens represent a threat to all races, and as a result Lilith's enforcers have driven them out of Dominion.</p>"
+	 * " Slime queens represent a threat to all races, and as a result Lilith's Enforcers have driven them out of Dominion.</p>"
 	 * 
 	 * +
 	 * "<p>A slime queen looks like a group of slimes all huddling together, with a particularly attractive individual at the centre."

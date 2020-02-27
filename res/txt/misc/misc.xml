@@ -51,4 +51,39 @@
 	]]>
 	</htmlContent>
 	
+	
+	
+	<!-- MASTURBATION -->
+
+	<htmlContent tag="MASTURBATION"><![CDATA[
+	<p>
+		Feeling turned on and desperate to get some sexual relief, you decide to take a break in order to masturbate.
+		#IF(game.getPlayerCell().getPlace().isPopulated())
+			 The fact that there are people around to witness you touching yourself serves to excite you even more, and, moving your [pc.hands] down your body, you prepare to start touching yourself...
+		#ELSEIF(game.getPlayer().hasCompanions())
+			#IF(pc.hasFetish(FETISH_EXHIBITIONIST))
+				 The idea of having [npc.name] look on as you pleasure yourself serves to excite you even more, and, after telling [npc.herHim] not to look away, you move your [pc.hands] down your body and prepare to start touching yourself...
+			#ELSE
+				 Not wanting [npc.name] to witness you pleasuring yourself, you tell [npc.herHim] to move away and not look in your direction, before moving your [pc.hands] down your body as you prepare to start touching yourself...
+			#ENDIF
+		#ELSE
+			 The idea that you're going to be orgasming very soon serves to excite you even more, and, moving your [pc.hands] down your body, you prepare to start touching yourself...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="AFTER_MASTURBATION"><![CDATA[
+	<p>
+		#IF(pc.isSatisfiedFromLastSex())
+			Letting out a deeply satisfied sigh, you decide that you've got what you wanted out of your masturbation session, and, getting your things back in order, you prepare to continue on your way...
+		#ELSE
+			Letting out an annoyed sigh, you decide that you'll have to get the sexual satisfaction you're looking for elsewhere, and, putting an end to your masturbation session, you prepare to continue on your way...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
 </dialogue>

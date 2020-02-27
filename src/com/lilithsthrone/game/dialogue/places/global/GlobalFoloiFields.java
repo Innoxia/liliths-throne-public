@@ -39,7 +39,7 @@ public class GlobalFoloiFields {
 								PlaceType.DOMINION_PLAZA,//Main.game.getWorlds().get(wt).getCell(pt).getLocation(),
 								false);
 						
-						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 					}
 				};
 			
@@ -63,7 +63,7 @@ public class GlobalFoloiFields {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Farm work", "Approach one of the farms which is requesting help and see what it is you'd have to do in order to earn some flames.<br/>[style.italicsBad(Will be added in v0.3.4!)]", null) {
+				return new Response("Farm work", "Approach one of the farms which is requesting help and see what it is you'd have to do in order to earn some flames.<br/>[style.italicsBad(Will be added soon!)]", null) {
 					@Override
 					public void effects() {
 						//TODO generate world
@@ -90,7 +90,7 @@ public class GlobalFoloiFields {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Explore", "Take some time to explore this area of the forest and see what you can find.<br/>[style.italicsBad(Will be added in v0.3.4!)]", null) {
+				return new Response("Explore", "Take some time to explore this area of the forest and see what you can find.<br/>[style.italicsBad(Will be added soon!)]", null) {
 					@Override
 					public void effects() {
 						//TODO generate world
@@ -117,7 +117,7 @@ public class GlobalFoloiFields {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Explore", "Explore some of the valleys and see what you can find.<br/>[style.italicsBad(Will be added in v0.3.4!)]", null) {
+				return new Response("Explore", "Explore some of the valleys and see what you can find.<br/>[style.italicsBad(Will be added soon!)]", null) {
 					@Override
 					public void effects() {
 						//TODO generate world
@@ -144,7 +144,7 @@ public class GlobalFoloiFields {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Explore", "Take some time to explore the shores of the river.<br/>[style.italicsBad(Will be added in v0.3.4!)]", null) {
+				return new Response("Explore", "Take some time to explore the shores of the river.<br/>[style.italicsBad(Will be added soon!)]", null) {
 					@Override
 					public void effects() {
 						//TODO generate world
@@ -171,7 +171,7 @@ public class GlobalFoloiFields {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Approach", "Approach the walls of Elis, and head towards the main gatehouse.<br/>[style.italicsBad(Will be added in v0.3.4!)]", null) {
+				return new Response("Approach", "Approach the walls of Elis, and head towards the main gatehouse.<br/>[style.italicsBad(Will be added soon!)]", null) {
 					@Override
 					public void effects() {
 						//TODO

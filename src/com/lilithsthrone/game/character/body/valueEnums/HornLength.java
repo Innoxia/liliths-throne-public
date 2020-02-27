@@ -11,7 +11,7 @@ public enum HornLength {
 	
 	ZERO_TINY("tiny", 0, 5, false),
 
-	ONE_SMALL("small", 5, 15, false),
+	ONE_SMALL("small", 5, 15, true),
 
 	TWO_LONG("long", 15, 30, true),
 

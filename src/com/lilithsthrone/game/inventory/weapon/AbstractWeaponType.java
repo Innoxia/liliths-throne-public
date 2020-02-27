@@ -11,10 +11,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
-import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -23,6 +23,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
+
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -47,17 +48,17 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.2.11
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public abstract class AbstractWeaponType extends AbstractCoreType {
 
 	private int baseValue;
 	private boolean isMod;
-
+	
 	private boolean melee;
 	private boolean twoHanded;
-
+	
 	private String determiner;
 	boolean plural;
 	private String name;
@@ -72,40 +73,45 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 	private ClothingSet clothingSet;
 	private Rarity rarity;
-
+	private float physicalResistance;
+	
 	private String equipText;
 	private String unequipText;
 	private List<String> hitDescriptions;
 	private List<String> missDescriptions;
-
+	
 	private String pathName;
 	private String pathNameEquipped;
-
+	
 	private String authorDescription;
-
+	
 	protected int damage;
 	protected int arcaneCost;
 	protected DamageVariance damageVariance;
 	private List<DamageType> availableDamageTypes;
-
+	
 	private List<Spell> spells;
-
+	
 
 	// Enchantments:
 	@SuppressWarnings("unused")
-	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment stability mechanics.
+	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment capacity mechanics.
 	protected List<ItemEffect> effects;
-
-	private Map<DamageType, Map<Colour, Map<Colour, String>>> SVGStringMap;
-	private Map<DamageType, Map<Colour, Map<Colour, String>>> SVGStringEquippedMap;
-
+	
+	private Map<DamageType, Map<Colour, Map<Colour, Map<Colour, String>>>> SVGStringMap;
+	private Map<DamageType, Map<Colour, Map<Colour, Map<Colour, String>>>> SVGStringEquippedMap;
+	
 	private List<Colour> availablePrimaryColours;
 	private List<Colour> availablePrimaryDyeColours;
 	private List<Colour> allAvailablePrimaryColours;
-
+	
 	private List<Colour> availableSecondaryColours;
 	private List<Colour> availableSecondaryDyeColours;
 	private List<Colour> allAvailableSecondaryColours;
+	
+	private List<Colour> availableTertiaryColours;
+	private List<Colour> availableTertiaryDyeColours;
+	private List<Colour> allAvailableTertiaryColours;
 
 	private List<ItemTag> itemTags;
 
@@ -121,6 +127,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			String pathName,
 			String pathNameEquipped,
 			Rarity rarity,
+			float physicalResistance,
 			ClothingSet clothingSet,
 			List<DamageType> availableDamageTypes,
 			int damage,
@@ -133,6 +140,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			List<Colour> availablePrimaryDyeColours,
 			List<Colour> availableSecondaryColours,
 			List<Colour> availableSecondaryDyeColours,
+			List<Colour> availableTertiaryColours,
+			List<Colour> availableTertiaryDyeColours,
 			List<ItemTag> itemTags) {
 		this(baseValue,
 				melee,
@@ -147,6 +156,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				pathName,
 				pathNameEquipped,
 				rarity,
+				physicalResistance,
 				clothingSet,
 				availableDamageTypes,
 				damage,
@@ -159,13 +169,15 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				availablePrimaryDyeColours,
 				availableSecondaryColours,
 				availableSecondaryDyeColours,
+				availableTertiaryColours,
+				availableTertiaryDyeColours,
 				itemTags,
 				null,
 				null,
 				null,
 				null);
 	}
-
+	
 	public AbstractWeaponType(int baseValue,
 			boolean melee,
 			boolean twoHanded,
@@ -179,6 +191,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			String pathName,
 			String pathNameEquipped,
 			Rarity rarity,
+			float physicalResistance,
 			ClothingSet clothingSet,
 			List<DamageType> availableDamageTypes,
 			int damage,
@@ -191,6 +204,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			List<Colour> availablePrimaryDyeColours,
 			List<Colour> availableSecondaryColours,
 			List<Colour> availableSecondaryDyeColours,
+			List<Colour> availableTertiaryColours,
+			List<Colour> availableTertiaryDyeColours,
 			List<ItemTag> itemTags,
 			String equipText,
 			String unequipText,
@@ -199,10 +214,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 		this.baseValue = baseValue;
 		this.isMod = false;
-
+		
 		this.melee = melee;
 		this.twoHanded = twoHanded;
-
+		
 		this.determiner = determiner;
 		this.plural = plural;
 		this.name = name;
@@ -214,12 +229,13 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			this.attackTooltipDescription = "Use your "+this.getName()+" to strike at [npc2.name].";
 		}
 		this.description = description;
-
+		
 		this.rarity = rarity;
+		this.physicalResistance = physicalResistance;
 		this.clothingSet = clothingSet;
 
 		this.availableDamageTypes = availableDamageTypes;
-
+		
 		if(spells==null) {
 			this.spells = new ArrayList<>();
 		} else {
@@ -230,7 +246,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		this.damageVariance = damageVariance;
 
 		this.arcaneCost = arcaneCost;
-
+		
 		this.pathName = pathName;
 		this.pathNameEquipped = pathNameEquipped;
 
@@ -241,7 +257,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		} else {
 			this.effects = new ArrayList<>();
 		}
-
+		
 		if(itemTags==null) {
 			this.itemTags = new ArrayList<>();
 		} else {
@@ -251,39 +267,41 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		setUpColours(availablePrimaryColours,
 				availablePrimaryDyeColours,
 				availableSecondaryColours,
-				availableSecondaryDyeColours);
+				availableSecondaryDyeColours,
+				availableTertiaryColours,
+				availableTertiaryDyeColours);
 
 		SVGStringMap = new HashMap<>();
 		SVGStringEquippedMap = new HashMap<>();
-
+		
 		if(equipText!=null) {
 			this.equipText = equipText;
 		} else {
 			this.equipText = "[npc.Name] [npc.verb(equip)] [npc.her] "+this.getName()+".";
 		}
-
+		
 		if(unequipText!=null) {
 			this.unequipText = unequipText;
 		} else {
 			this.unequipText = "[npc.Name] [npc.verb(unequip)] [npc.her] "+this.getName()+".";
 		}
-
+		
 		if(hitDescriptions!=null) {
 			this.hitDescriptions = hitDescriptions;
 		} else {
 			this.hitDescriptions = Util.newArrayListOfValues("[npc.Name] hits [npc2.name] with [npc.her] "+this.getName()+"!");
 		}
-
+		
 		if(missDescriptions!=null) {
 			this.missDescriptions = missDescriptions;
 		} else {
 			this.missDescriptions = Util.newArrayListOfValues("[npc.Name] misses [npc2.name] with [npc.her] "+this.getName()+"!");
 		}
-
+		
 		this.authorDescription = ""; // Do not give attribution to Innoxia's items.
-
+		
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	public AbstractWeaponType(File weaponXMLFile, String author) {
 		this.itemTags = new ArrayList<>();
@@ -293,10 +311,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 				Document doc = dBuilder.parse(weaponXMLFile);
-
+				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
-
+				
 				Element weaponElement = Element.getDocumentRootElement(weaponXMLFile); // Loads the document and returns the root element - in clothing mods it's <clothing>
 				Element coreAttributes = null;
 				try {
@@ -304,19 +322,19 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				} catch (XMLMissingTagException ex) {
 					coreAttributes = weaponElement.getMandatoryFirstOf("coreAttributes");
 				}
-
+				
 				this.itemTags = coreAttributes
 					.getMandatoryFirstOf("itemTags")
 					.getAllOf("tag").stream()
 					.map(Element::getTextContent).map(ItemTag::valueOf)
 					.collect(Collectors.toList());
-
+				
 				this.isMod = true;
-
+				
 				this.baseValue = Integer.valueOf(coreAttributes.getMandatoryFirstOf("value").getTextContent());
 				this.melee = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("melee").getTextContent());
 				this.twoHanded = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("twoHanded").getTextContent());
-
+				
 				this.determiner = coreAttributes.getMandatoryFirstOf("determiner").getTextContent();
 				this.plural = Boolean.valueOf(((Element)coreAttributes.getMandatoryFirstOf("namePlural")).getAttribute("pluralByDefault"));
 				this.name = coreAttributes.getMandatoryFirstOf("name").getTextContent();
@@ -324,7 +342,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				this.description = coreAttributes.getMandatoryFirstOf("description").getTextContent();
 				this.attackDescriptor = coreAttributes.getMandatoryFirstOf("attackDescriptor").getTextContent();
 				this.attackTooltipDescription = coreAttributes.getMandatoryFirstOf("attackTooltipDescription").getTextContent();
-
+				
 				if(coreAttributes.getOptionalFirstOf("weaponAuthorTag").isPresent()) {
 					this.authorDescription = coreAttributes.getMandatoryFirstOf("weaponAuthorTag").getTextContent();
 				} else if(coreAttributes.getOptionalFirstOf("authorTag").isPresent()) {
@@ -337,11 +355,11 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 				this.equipText = coreAttributes.getMandatoryFirstOf("equipText").getTextContent();
 				this.unequipText = coreAttributes.getMandatoryFirstOf("unequipText").getTextContent();
-
+				
 				this.pathName = weaponXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
 
 				Predicate<Element> filterEmptyElements = element -> !element.getTextContent().isEmpty(); //helper function to filter out empty elements.
-
+				
 				this.pathNameEquipped = coreAttributes.getOptionalFirstOf("imageEquippedName")
 					.filter(filterEmptyElements)
 					.map(o -> weaponXMLFile.getParentFile().getAbsolutePath() + "/" + o.getTextContent())
@@ -350,7 +368,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				this.damage = Integer.valueOf(coreAttributes.getMandatoryFirstOf("damage").getTextContent());
 				this.arcaneCost = Integer.valueOf(coreAttributes.getMandatoryFirstOf("arcaneCost").getTextContent());
 				this.damageVariance = DamageVariance.valueOf(coreAttributes.getMandatoryFirstOf("damageVariance").getTextContent());
-
+				
 				if(coreAttributes.getOptionalFirstOf("availableDamageTypes").isPresent()) {
 					this.availableDamageTypes = coreAttributes
 							.getMandatoryFirstOf("availableDamageTypes")
@@ -360,7 +378,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				} else {
 					this.availableDamageTypes = new ArrayList<>();
 				}
-
+				
 				if(coreAttributes.getOptionalFirstOf("spells").isPresent()) {
 					this.spells = coreAttributes
 							.getMandatoryFirstOf("spells")
@@ -371,7 +389,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				} else {
 					this.spells = new ArrayList<>();
 				}
-
+				
 				enchantmentLimit = Integer.valueOf(coreAttributes.getMandatoryFirstOf("enchantmentLimit").getTextContent());
 
 				this.clothingSet = coreAttributes.getOptionalFirstOf("weaponSet")
@@ -380,19 +398,22 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 					.orElse(null);
 
 				this.effects = coreAttributes
-					.getMandatoryFirstOf("effects")
+					.getMandatoryFirstOf("effects") 
 					.getAllOf("effect") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
 					.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
 					.map( e -> ItemEffect.loadFromXML(e.getInnerElement(), e.getDocument())) // Take every element and do something with them, return a Stream of results after this action. Here we load item effects and get Stream<ItemEffect>
 					.filter(Objects::nonNull) // Ensure that we only add non-null effects
-					.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<ItemEffect> we need!
-
+					.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<ItemEffect> we need! 
+				
 
 				this.rarity = Rarity.valueOf(coreAttributes.getMandatoryFirstOf("rarity").getTextContent());
-
-
+				
+				if(coreAttributes.getOptionalFirstOf("physicalResistance").isPresent()) {
+					this.physicalResistance = Float.valueOf(coreAttributes.getMandatoryFirstOf("physicalResistance").getTextContent());
+				}
+				
 				// Hit/miss descriptions:
-
+				
 				if(weaponElement.getOptionalFirstOf("hitDescriptions").isPresent()) {
 					this.hitDescriptions = weaponElement
 							.getMandatoryFirstOf("hitDescriptions")
@@ -402,7 +423,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				} else {
 					this.hitDescriptions = new ArrayList<>();
 				}
-
+				
 				if(weaponElement.getOptionalFirstOf("missDescriptions").isPresent()) {
 					this.missDescriptions = weaponElement
 							.getMandatoryFirstOf("missDescriptions")
@@ -412,9 +433,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				} else {
 					this.missDescriptions = new ArrayList<>();
 				}
+				
 
-
-				Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colours depending on if it's a specified group or a list of individual colours
+				Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
 					String values = colorsElement.getAttribute("values");
 					try {
 						if(values.isEmpty()) {
@@ -429,12 +450,12 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						throw new IllegalStateException("Colour tag reading failure: "+colorsElement.getTagName()+" " + e.getMessage(), e);
 					}
 				};
-
+				
 
 				List<Colour> importedPrimaryColours = getColoursFromElement
-					.apply(coreAttributes.getMandatoryFirstOf("primaryColours"));
+					.apply(coreAttributes.getMandatoryFirstOf("primaryColours"));	
 				List<Colour> importedPrimaryColoursDye = getColoursFromElement
-					.apply(coreAttributes.getMandatoryFirstOf("primaryColoursDye"));
+					.apply(coreAttributes.getMandatoryFirstOf("primaryColoursDye"));		
 
 				List<Colour> importedSecondaryColours = coreAttributes.getOptionalFirstOf("secondaryColours")
 					.map(getColoursFromElement::apply)
@@ -443,22 +464,31 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 					.map(getColoursFromElement::apply)
 					.orElseGet(ArrayList::new);
 
+				List<Colour> importedTertiaryColours = coreAttributes.getOptionalFirstOf("tertiaryColours")
+					.map(getColoursFromElement::apply)
+					.orElseGet(ArrayList::new);
+				List<Colour> importedTertiaryColoursDye = coreAttributes.getOptionalFirstOf("tertiaryColoursDye")
+					.map(getColoursFromElement::apply)
+					.orElseGet(ArrayList::new);
+				
 				setUpColours(
 						importedPrimaryColours,
 						importedPrimaryColoursDye,
 						importedSecondaryColours,
-						importedSecondaryColoursDye);
-
+						importedSecondaryColoursDye,
+						importedTertiaryColours,
+						importedTertiaryColoursDye);
+				
 				SVGStringMap = new HashMap<>();
 				SVGStringEquippedMap = new HashMap<>();
-
+				
 			} catch(Exception ex) {
 				ex.printStackTrace();
 				System.err.println("WeaponType was unable to be loaded from file! (" + weaponXMLFile.getName() + ")\n" + ex);
 			}
 		}
 	}
-
+	
 	@Override
 	public boolean equals(Object o) { // I know it doesn't include everything, but this should be enough to check for equality.
 		if(super.equals(o)){
@@ -467,6 +497,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 						&& ((AbstractWeaponType)o).isMelee() == isMelee()
 						&& ((AbstractWeaponType)o).isTwoHanded() == isTwoHanded()
 						&& ((AbstractWeaponType)o).getPathName().equals(getPathName())
+						&& ((AbstractWeaponType)o).getPhysicalResistance() == getPhysicalResistance()
 						&& ((AbstractWeaponType)o).getDamage() == getDamage()
 						&& ((AbstractWeaponType)o).getDamageVariance() == getDamageVariance()
 						&& ((AbstractWeaponType)o).getRarity() == getRarity()
@@ -481,12 +512,13 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 		return false;
 	}
-
+	
 	@Override
 	public int hashCode() { // I know it doesn't include everything, but this should be enough to check for equality.
 		int result = super.hashCode();
 		result = 31 * result + getName().hashCode();
 		result = 31 * result + getPathName().hashCode();
+		result = 31 * result + Float.floatToIntBits(getPhysicalResistance());
 		result = 31 * result + getDamage();
 		result = 31 * result + getDamageVariance().hashCode();
 		result = 31 * result + (melee ? 1 : 0);
@@ -504,18 +536,35 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	public static AbstractWeapon generateWeapon(AbstractWeaponType wt, DamageType dt) {
 		return generateWeapon(wt, dt, null, null);
 	}
+	
+	public static AbstractWeapon generateWeapon(String id, DamageType dt) {
+		return generateWeapon(id, dt, null, null);
+	}
+	
+	public static AbstractWeapon generateWeapon(String id, DamageType dt, Colour primaryColour, Colour secondaryColour) {
+		return generateWeapon(WeaponType.getWeaponTypeFromId(id), dt, primaryColour, secondaryColour);
+	}
 
 	public static AbstractWeapon generateWeapon(AbstractWeaponType wt, DamageType dt, Colour primaryColour, Colour secondaryColour) {
+		return generateWeapon(wt, dt, primaryColour, secondaryColour, null);
+	}
 
+	public static AbstractWeapon generateWeapon(String id, DamageType dt, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour) {
+		return generateWeapon(WeaponType.getWeaponTypeFromId(id), dt, primaryColour, secondaryColour, tertiaryColour);
+	}
+	
+	public static AbstractWeapon generateWeapon(AbstractWeaponType wt, DamageType dt, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour) {
+		
 		if (wt.getAvailableDamageTypes() != null) {
 			if (!wt.getAvailableDamageTypes().contains(dt)) {
 				dt = wt.getAvailableDamageTypes().get(Util.random.nextInt(wt.getAvailableDamageTypes().size()));
 			}
 		}
-
+		
 		Colour c1 = primaryColour;
 		Colour c2 = secondaryColour;
-
+		Colour c3 = tertiaryColour;
+		
 		if (primaryColour == null || !wt.getAllAvailablePrimaryColours().contains(primaryColour)) {
 			if(wt.getAvailablePrimaryColours().isEmpty()) {
 				c1 = Colour.CLOTHING_BLACK;
@@ -523,7 +572,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				c1 = wt.getAvailablePrimaryColours().get(Util.random.nextInt(wt.getAvailablePrimaryColours().size()));
 			}
 		}
-
+		
 		if (secondaryColour == null || !wt.getAllAvailableSecondaryColours().contains(secondaryColour)) {
 			if(wt.getAvailableSecondaryColours().isEmpty()) {
 				c2 = Colour.CLOTHING_BLACK;
@@ -532,7 +581,15 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			}
 		}
 
-		return new AbstractWeapon(wt, dt, c1, c2) {
+		if (tertiaryColour == null || !wt.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
+			if(wt.getAvailableTertiaryColours().isEmpty()) {
+				c3 = Colour.CLOTHING_BLACK;
+			} else {
+				c3 = wt.getAvailableTertiaryColours().get(Util.random.nextInt(wt.getAvailableTertiaryColours().size()));
+			}
+		}
+		
+		return new AbstractWeapon(wt, dt, c1, c2, c3) {
 			@Override
 			public String onEquip(GameCharacter character) {
 				if (character.isPlayer()) {
@@ -568,24 +625,28 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			}
 		};
 	}
-
+	
 	private void setUpColours(List<Colour> availablePrimaryColours,
 			List<Colour> availablePrimaryDyeColours,
 			List<Colour> availableSecondaryColours,
-			List<Colour> availableSecondaryDyeColours) {
+			List<Colour> availableSecondaryDyeColours,
+			List<Colour> availableTertiaryColours,
+			List<Colour> availableTertiaryDyeColours) {
 
+		// Primary:
+		
 		this.availablePrimaryColours = new ArrayList<>();
 		if (availablePrimaryColours != null) {
 			this.availablePrimaryColours.addAll(availablePrimaryColours);
 		}
 
 		Set<Colour> colourSet = new HashSet<>();
-
+		
 		this.availablePrimaryDyeColours = new ArrayList<>();
 		if (availablePrimaryDyeColours != null) {
 			this.availablePrimaryDyeColours.addAll(availablePrimaryDyeColours);
 		}
-
+		
 		this.allAvailablePrimaryColours = new ArrayList<>();
 		colourSet.addAll(this.availablePrimaryColours);
 		if(availablePrimaryDyeColours!=null) {
@@ -593,12 +654,14 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 		this.allAvailablePrimaryColours.addAll(colourSet);
 		this.allAvailablePrimaryColours.sort((c1, c2) -> c1.compareTo(c2));
-
+		
+		// Secondary:
+		
 		this.availableSecondaryColours = new ArrayList<>();
 		if (availableSecondaryColours != null) {
 			this.availableSecondaryColours.addAll(availableSecondaryColours);
 		}
-
+		
 		this.availableSecondaryDyeColours = new ArrayList<>();
 		if (availableSecondaryDyeColours != null) {
 			this.availableSecondaryDyeColours.addAll(availableSecondaryDyeColours);
@@ -614,6 +677,29 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 		this.allAvailableSecondaryColours.addAll(colourSet);
 		this.allAvailableSecondaryColours.sort((c1, c2) -> c1.compareTo(c2));
+
+		// Tertiary:
+
+		this.availableTertiaryColours = new ArrayList<>();
+		if (availableTertiaryColours != null) {
+			this.availableTertiaryColours.addAll(availableTertiaryColours);
+		}
+		
+		this.availableTertiaryDyeColours = new ArrayList<>();
+		if (availableTertiaryDyeColours != null) {
+			this.availableTertiaryDyeColours.addAll(availableTertiaryDyeColours);
+		}
+
+		colourSet.clear();
+		this.allAvailableTertiaryColours = new ArrayList<>();
+		if(availableTertiaryColours!=null) {
+			colourSet.addAll(availableTertiaryColours);
+		}
+		if(availableTertiaryDyeColours!=null) {
+			colourSet.addAll(availableTertiaryDyeColours);
+		}
+		this.allAvailableTertiaryColours.addAll(colourSet);
+		this.allAvailableTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -631,10 +717,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			}
 		}
 	}
-
+	
 	/**
 	 * Generates a weapon with random damage type
-	 *
+	 * 
 	 * @param wt
 	 * @param level
 	 * @return
@@ -642,7 +728,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	public static AbstractWeapon generateWeapon(AbstractWeaponType wt) {
 		return AbstractWeaponType.generateWeapon(wt, wt.getAvailableDamageTypes().get(Util.random.nextInt(wt.getAvailableDamageTypes().size())));
 	}
-
+	
 	public String getId() {
 		return WeaponType.weaponToIdMap.get(this);
 	}
@@ -654,7 +740,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	public String unequipText(GameCharacter character) {
 		return UtilText.parse(character, unequipText);
 	}
-
+	
 	public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
 		if(isHit) {
 			return UtilText.parse(character, target, getHitText(character, target));
@@ -681,7 +767,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		if(isHit) {
 			if(character.isPlayer()) {
 				return UtilText.parse(target, playerStrikingNPC);
-
+				
 			} else {
 				if(target.isPlayer()) {
 					return UtilText.parse(character, NPCStrikingPlayer);
@@ -689,11 +775,11 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 					return UtilText.parse(character, target, NPCStrikingNPC);
 				}
 			}
-
+			
 		} else {
 			if(character.isPlayer()) {
 				return UtilText.parse(target, playerMissingNPC);
-
+				
 			} else {
 				if(target.isPlayer()) {
 					return UtilText.parse(character, NPCMissingPlayer);
@@ -703,7 +789,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			}
 		}
 	}
-
+	
 	public static String genericMeleeAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
 		if(isHit) {
 			if(character.isPlayer()) {
@@ -712,7 +798,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 							"Darting forwards, you deliver a solid punch to [npc.namePos] [npc.arm].",
 							"You throw a punch at [npc.name], grinning as you feel it connect with [npc.her] [npc.arm].",
 							"You kick out at [npc.name], smiling to yourself as you feel your [pc.foot] connect with [npc.her] [npc.leg]."));
-
+				
 			} else {
 				if(target.isPlayer()) {
 					return UtilText.parse(character,
@@ -728,7 +814,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 								"[npc1.Name] kicks out at [npc2.name], smiling to [npc1.herself] as [npc1.her] [npc1.foot] connects with [npc2.namePos] [npc2.leg]."));
 				}
 			}
-
+			
 		} else {
 			if(character.isPlayer()) {
 				return UtilText.parse(target,
@@ -736,7 +822,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 							"Darting forwards, you try to deliver a punch to [npc.namePos] [npc.arm], but [npc.she] manages to step out of the way in time.",
 							"You try to throw a punch at [npc.name], but fail to make contact with any part of [npc.her] body.",
 							"You kick out at [npc.name], but your [pc.foot] sails harmlessly through the air."));
-
+				
 			} else {
 				if(target.isPlayer()) {
 					return UtilText.parse(character,
@@ -755,58 +841,6 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 	}
 
-	public static String genericRangedAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
-		if(isHit) {
-			if(character.isPlayer()) {
-				return UtilText.parse(target,
-						UtilText.returnStringAtRandom(
-							"Punching your fist out towards [npc.name], a bolt of arcane energy shoots out to strike [npc.her] [npc.arm].",
-							"Striking out towards [npc.name], a bolt of arcane energy shoots out of your fist to connect with [npc.her] [npc.arm].",
-							"You kick out at [npc.name], and as you do, a bolt of arcane energy shoots out of your [pc.foot] to connect with [npc.her] [npc.leg]."));
-
-			} else {
-				if(target.isPlayer()) {
-					return UtilText.parse(character,
-							UtilText.returnStringAtRandom(
-								"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to strike your [pc.arm].",
-								"Striking out towards you, a bolt of arcane energy shoots out of [npc.namePos] fist to connect with your [pc.arm].",
-								"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to connect with your [pc.leg]."));
-				} else {
-					return UtilText.parse(character, target,
-							UtilText.returnStringAtRandom(
-								"Punching [npc1.her] fist out towards [npc2.name], a bolt of arcane energy shoots out to strike [npc2.her] [npc2.arm].",
-								"Striking out towards [npc2.name], a bolt of arcane energy shoots out of [npc1.namePos] fist to connect with [npc2.her] [npc2.arm].",
-								"[npc1.Name] kicks out at [npc2.name], and as [npc1.she] does so, a bolt of arcane energy shoots out of [npc1.her] [npc1.foot] to connect with [npc2.namePos] [npc2.leg]."));
-				}
-			}
-
-		} else {
-			if(character.isPlayer()) {
-				return UtilText.parse(target,
-						UtilText.returnStringAtRandom(
-							"Punching your fist out towards [npc.name], a bolt of arcane energy shoots out of your fist, sailing harmlessly through the air as [npc.she] dodges your attack.",
-							"Striking out towards [npc.name], a bolt of arcane energy shoots out of your fist to sail harmlessly through the air as [npc.she] dodges your attack.",
-							"You kick out at [npc.name], and as you do, a bolt of arcane energy shoots out of your [pc.foot] to sail harmlessly through the air as [npc.she] dodges your attack."));
-
-			} else {
-				if(target.isPlayer()) {
-					return UtilText.parse(character,
-							UtilText.returnStringAtRandom(
-								"Punching [npc.her] fist out towards you, a bolt of arcane energy shoots out to sail harmlessly through the air as you dodge [npc.her] attack.",
-								"Striking out towards you, a bolt of arcane energy shoots out of [npc.namePos] fist to sail harmlessly through the air as you dodge [npc.her] attack.",
-								"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to sail harmlessly through the air as you dodge [npc.her] attack."));
-				} else {
-					return UtilText.parse(character,
-							UtilText.returnStringAtRandom(
-								"Punching [npc1.her] fist out towards [npc2.name], a bolt of arcane energy shoots out to sail harmlessly through the air as [npc2.name] dodges [npc1.her] attack.",
-								"Striking out towards [npc2.name], a bolt of arcane energy shoots out of [npc1.namePos] fist to sail harmlessly through the air as [npc2.name] dodges [npc1.her] attack.",
-								"[npc1.Name] kicks out at [npc2.name], and as [npc1.she] does so, a bolt of arcane energy shoots out of [npc1.her] [npc1.foot] to sail harmlessly through the air as [npc2.name] dodges [npc1.her] attack."));
-				}
-			}
-		}
-	}
-
-
 
 	public boolean isAbleToBeUsed(GameCharacter user, GameCharacter target) {
 		if(this.getArcaneCost()>0) {
@@ -823,7 +857,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			return "";
 		}
 	}
-
+	
 	public String applyExtraEffects(GameCharacter user, GameCharacter target, boolean isHit) {
 		if(this.getArcaneCost()>0) {
 			user.incrementEssenceCount(TFEssence.ARCANE, -this.getArcaneCost(), false);
@@ -836,11 +870,11 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			return "";
 		}
 	}
-
+	
 	public int getBaseValue() {
 		return baseValue;
 	}
-
+	
 	public boolean isMelee() {
 		return melee;
 	}
@@ -852,7 +886,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	public String getDeterminer() {
 		return determiner;
 	}
-
+	
 	public boolean isPlural() {
 		return plural;
 	}
@@ -863,7 +897,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 		return name;
 	}
-
+	
 	public String getNamePlural() {
 		return namePlural;
 	}
@@ -882,6 +916,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 	public Rarity getRarity() {
 		return rarity;
+	}
+
+	public float getPhysicalResistance() {
+		return physicalResistance;
 	}
 
 	public ClothingSet getClothingSet() {
@@ -907,7 +945,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	public List<DamageType> getAvailableDamageTypes() {
 		return availableDamageTypes;
 	}
-
+	
 	public List<Spell> getGenerationSpells(DamageType dt) {
 		return null;
 	}
@@ -919,11 +957,11 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	public List<Colour> getAvailablePrimaryColours() {
 		return availablePrimaryColours;
 	}
-
+	
 	public List<Colour> getAvailablePrimaryDyeColours() {
 		return availablePrimaryDyeColours;
 	}
-
+	
 	public List<Colour> getAllAvailablePrimaryColours() {
 		return allAvailablePrimaryColours;
 	}
@@ -935,35 +973,56 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	public List<Colour> getAvailableSecondaryDyeColours() {
 		return availableSecondaryDyeColours;
 	}
-
+	
 	public List<Colour> getAllAvailableSecondaryColours() {
 		return allAvailableSecondaryColours;
 	}
 
-	private void addSVGStringMapping(DamageType dt, Colour colourSecondary, Colour colourTertiary, String s) {
-		if(SVGStringMap.get(dt)==null) {
-			SVGStringMap.put(dt, new HashMap<>());
-			SVGStringMap.get(dt).put(colourSecondary, new HashMap<>());
-
-		} else if(SVGStringMap.get(dt).get(colourSecondary)==null) {
-			SVGStringMap.get(dt).put(colourSecondary, new HashMap<>());
-		}
-
-		SVGStringMap.get(dt).get(colourSecondary).put(colourTertiary, s);
+	public List<Colour> getAvailableTertiaryColours() {
+		return availableTertiaryColours;
 	}
 
-	private String getSVGStringFromMap(DamageType dt, Colour colourSecondary, Colour colourTertiary) {
+	public List<Colour> getAvailableTertiaryDyeColours() {
+		return availableTertiaryDyeColours;
+	}
+	
+	public List<Colour> getAllAvailableTertiaryColours() {
+		return allAvailableTertiaryColours;
+	}
+
+	private void addSVGStringMapping(DamageType dt, Colour colourPrimary, Colour colourSecondary, Colour colourTertiary, String s) {
+		if(SVGStringMap.get(dt)==null) {
+			SVGStringMap.put(dt, new HashMap<>());
+			SVGStringMap.get(dt).put(colourPrimary, new HashMap<>());
+			SVGStringMap.get(dt).get(colourPrimary).put(colourSecondary, new HashMap<>());
+			
+		} else if(SVGStringMap.get(dt).get(colourPrimary)==null) {
+			SVGStringMap.get(dt).put(colourPrimary, new HashMap<>());
+			SVGStringMap.get(dt).get(colourPrimary).put(colourSecondary, new HashMap<>());
+			
+		} else if(SVGStringMap.get(dt).get(colourPrimary).get(colourSecondary)==null) {
+			SVGStringMap.get(dt).get(colourPrimary).put(colourSecondary, new HashMap<>());
+		}
+		
+		SVGStringMap.get(dt).get(colourPrimary).get(colourSecondary).put(colourTertiary, s);
+	}
+	
+	private String getSVGStringFromMap(DamageType dt, Colour colourPrimary, Colour colourSecondary, Colour colourTertiary) {
 		if(SVGStringMap.get(dt)==null) {
 			return null;
 		} else {
-			if(SVGStringMap.get(dt).get(colourSecondary)==null) {
+			if(SVGStringMap.get(dt).get(colourPrimary)==null) {
 				return null;
+				
+			} else if(SVGStringMap.get(dt).get(colourPrimary).get(colourSecondary)==null) {
+				return null;
+				
 			} else {
-				return SVGStringMap.get(dt).get(colourSecondary).get(colourTertiary);
+				return SVGStringMap.get(dt).get(colourPrimary).get(colourSecondary).get(colourTertiary);
 			}
 		}
 	}
-
+	
 	public String getSVGImage() {
 		DamageType dt = DamageType.PHYSICAL;
 		if (this.getAvailableDamageTypes() != null) {
@@ -971,7 +1030,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				dt = this.getAvailableDamageTypes().get(0);
 			}
 		}
-
+		
 		Colour pColour = Colour.CLOTHING_BLACK;
 		if(this.getAllAvailablePrimaryColours()!=null && !this.getAllAvailablePrimaryColours().isEmpty()) {
 			pColour = this.getAllAvailablePrimaryColours().get(0);
@@ -980,20 +1039,24 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		if(this.getAllAvailableSecondaryColours()!=null && !this.getAllAvailableSecondaryColours().isEmpty()) {
 			sColour = this.getAllAvailableSecondaryColours().get(0);
 		}
-
-		return getSVGImage(dt, pColour, sColour);
+		Colour tColour = Colour.CLOTHING_BLACK;
+		if(this.getAllAvailableTertiaryColours()!=null && !this.getAllAvailableTertiaryColours().isEmpty()) {
+			sColour = this.getAllAvailableTertiaryColours().get(0);
+		}
+		
+		return getSVGImage(dt, pColour, sColour, tColour);
 	}
-
-	public String getSVGImage(DamageType dt, Colour colourPrimary, Colour colourSecondary) {
+	
+	public String getSVGImage(DamageType dt, Colour colourPrimary, Colour colourSecondary, Colour colourTertiary) {
 		if (!this.getAvailableDamageTypes().contains(dt)) {
 			return "";
 		}
-
-		String stringFromMap = getSVGStringFromMap(dt, colourPrimary, colourSecondary);
+		
+		String stringFromMap = getSVGStringFromMap(dt, colourPrimary, colourSecondary, colourTertiary);
 		if(stringFromMap!=null) {
 			return stringFromMap;
 		}
-
+		
 		try {
 			InputStream is;
 			String s;
@@ -1004,50 +1067,59 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 					sb.append(line);
 				}
 				s = sb.toString();
-
+				
 			} else {
 				is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/weapons/" + pathName + ".svg");
 				s = Util.inputStreamToString(is);
 				is.close();
 			}
-
-			s = SvgUtil.colourReplacement(this.getId(), dt.getColour(), colourPrimary, colourSecondary, s);
-
-			addSVGStringMapping(dt, colourPrimary, colourSecondary, s);
-
+			
+			s = SvgUtil.colourReplacement(this.getId(), dt.getColour(), colourPrimary, colourSecondary, colourTertiary, s);
+			
+			addSVGStringMapping(dt, colourPrimary, colourSecondary, colourTertiary, s);
+			
 			return s;
-
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+			
 		return "";
 	}
-
-	private void addSVGStringEquippedMapping(DamageType dt, Colour colourSecondary, Colour colourTertiary, String s) {
+	
+	private void addSVGStringEquippedMapping(DamageType dt, Colour colourPrimary, Colour colourSecondary, Colour colourTertiary, String s) {
 		if(SVGStringEquippedMap.get(dt)==null) {
 			SVGStringEquippedMap.put(dt, new HashMap<>());
-			SVGStringEquippedMap.get(dt).put(colourSecondary, new HashMap<>());
-
-		} else if(SVGStringEquippedMap.get(dt).get(colourSecondary)==null) {
-			SVGStringEquippedMap.get(dt).put(colourSecondary, new HashMap<>());
+			SVGStringEquippedMap.get(dt).put(colourPrimary, new HashMap<>());
+			SVGStringEquippedMap.get(dt).get(colourPrimary).put(colourSecondary, new HashMap<>());
+			
+		} else if(SVGStringEquippedMap.get(dt).get(colourPrimary)==null) {
+			SVGStringEquippedMap.get(dt).put(colourPrimary, new HashMap<>());
+			SVGStringEquippedMap.get(dt).get(colourPrimary).put(colourSecondary, new HashMap<>());
+			
+		} else if(SVGStringEquippedMap.get(dt).get(colourPrimary).get(colourSecondary)==null) {
+			SVGStringEquippedMap.get(dt).get(colourPrimary).put(colourSecondary, new HashMap<>());
 		}
-
-		SVGStringEquippedMap.get(dt).get(colourSecondary).put(colourTertiary, s);
+		
+		SVGStringEquippedMap.get(dt).get(colourPrimary).get(colourSecondary).put(colourTertiary, s);
 	}
-
-	private String getSVGStringEquippedFromMap(DamageType dt, Colour colourSecondary, Colour colourTertiary) {
+	
+	private String getSVGStringEquippedFromMap(DamageType dt, Colour colourPrimary, Colour colourSecondary, Colour colourTertiary) {
 		if(SVGStringEquippedMap.get(dt)==null) {
 			return null;
 		} else {
-			if(SVGStringEquippedMap.get(dt).get(colourSecondary)==null) {
+			if(SVGStringEquippedMap.get(dt).get(colourPrimary)==null) {
 				return null;
+				
+			} else if(SVGStringEquippedMap.get(dt).get(colourPrimary).get(colourSecondary)==null) {
+				return null;
+				
 			} else {
-				return SVGStringEquippedMap.get(dt).get(colourSecondary).get(colourTertiary);
+				return SVGStringEquippedMap.get(dt).get(colourPrimary).get(colourSecondary).get(colourTertiary);
 			}
 		}
 	}
-
+	
 	public String getSVGEquippedImage() {
 		DamageType dt = DamageType.PHYSICAL;
 		if (this.getAvailableDamageTypes() != null) {
@@ -1055,7 +1127,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				dt = this.getAvailableDamageTypes().get(0);
 			}
 		}
-
+		
 		Colour pColour = Colour.CLOTHING_BLACK;
 		if(this.getAllAvailablePrimaryColours()!=null && !this.getAllAvailablePrimaryColours().isEmpty()) {
 			pColour = this.getAllAvailablePrimaryColours().get(0);
@@ -1064,20 +1136,24 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		if(this.getAllAvailableSecondaryColours()!=null && !this.getAllAvailableSecondaryColours().isEmpty()) {
 			sColour = this.getAllAvailableSecondaryColours().get(0);
 		}
-
-		return getSVGEquippedImage(dt, pColour, sColour);
+		Colour tColour = Colour.CLOTHING_BLACK;
+		if(this.getAllAvailableTertiaryColours()!=null && !this.getAllAvailableTertiaryColours().isEmpty()) {
+			sColour = this.getAllAvailableTertiaryColours().get(0);
+		}
+		
+		return getSVGEquippedImage(dt, pColour, sColour, tColour);
 	}
-
-	public String getSVGEquippedImage(DamageType dt, Colour colourPrimary, Colour colourSecondary) {
+	
+	public String getSVGEquippedImage(DamageType dt, Colour colourPrimary, Colour colourSecondary, Colour colourTertiary) {
 		if (!this.getAvailableDamageTypes().contains(dt)) {
 			return "";
 		}
-
-		String stringFromMap = getSVGStringEquippedFromMap(dt, colourPrimary, colourSecondary);
+		
+		String stringFromMap = getSVGStringEquippedFromMap(dt, colourPrimary, colourSecondary, colourTertiary);
 		if(stringFromMap!=null) {
 			return stringFromMap;
 		}
-
+		
 		try {
 			InputStream is;
 			String s;
@@ -1088,40 +1164,40 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 					sb.append(line);
 				}
 				s = sb.toString();
-
+				
 			} else {
 				is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/weapons/" + pathNameEquipped + ".svg");
 				s = Util.inputStreamToString(is);
 				is.close();
 			}
-
-			s = SvgUtil.colourReplacement(this.getId(), dt.getColour(), colourPrimary, colourSecondary, s);
-
-			addSVGStringEquippedMapping(dt, colourPrimary, colourSecondary, s);
-
+			
+			s = SvgUtil.colourReplacement(this.getId()+"equipped", dt.getColour(), colourPrimary, colourSecondary, colourTertiary, s);
+			
+			addSVGStringEquippedMapping(dt, colourPrimary, colourSecondary, colourTertiary, s);
+			
 			return s;
-
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+			
 		return "";
 	}
-
+	
 	// Enchantments:
 
 	public List<ItemEffect> getEffects() {
 		return effects;
 	}
-
+	
 	public boolean isAbleToBeSold() {
 		return getRarity()!=Rarity.QUEST;
 	}
-
+	
 	public boolean isAbleToBeDropped() {
 		return getRarity()!=Rarity.QUEST;
 	}
-
+	
 	public int getEnchantmentLimit() {
 		return 100;
 //		if(enchantmentLimit==-1) {
@@ -1130,15 +1206,15 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 //			return enchantmentLimit;
 //		}
 	}
-
+	
 	public AbstractItemEffectType getEnchantmentEffect() {
 		return ItemEffectType.WEAPON;
 	}
-
+	
 	public TFEssence getRelatedEssence() {
 		return TFEssence.ARCANE;
 	}
-
+	
 	public AbstractWeaponType getEnchantmentItemType(List<ItemEffect> effects) {
 		return this;
 	}

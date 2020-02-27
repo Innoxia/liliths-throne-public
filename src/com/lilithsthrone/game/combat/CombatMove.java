@@ -1,5 +1,12 @@
 package com.lilithsthrone.game.combat;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -7,19 +14,13 @@ import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * A class containing logic for Combat Moves. Additionally contains all the registered combat moves in the game.
@@ -29,7 +30,11 @@ import java.util.Map;
  * @author Irbynx, Innoxia
  */
 public class CombatMove {
-    public static List<CombatMove> allCombatMoves = new ArrayList<>();
+
+    private static List<CombatMove> allCombatMoves = new ArrayList<>();
+    private static List<CombatMove> basicCombatMoves = new ArrayList<>();
+    private static List<CombatMove> spellCombatMoves = new ArrayList<>();
+    private static List<CombatMove> specialCombatMoves = new ArrayList<>();
 
     private String identifier;
     private String name;
@@ -82,27 +87,78 @@ public class CombatMove {
                 null) {
         	
         	@Override
-        	public DamageType getDamageType(GameCharacter source) {
-                DamageType damageType = DamageType.UNARMED.getParentDamageType(Main.game.getPlayer(), null);
-                if(source.getMainWeapon() != null) {
-                    damageType = source.getMainWeapon().getDamageType();
-                }
-                return damageType;
+        	public int getAPcost(GameCharacter source) {
+        		return source.getArmRows() + (!source.getEquippedMoves().contains(this)?1:0);
         	}
         	
-            private int getBaseDamage(GameCharacter source) {
-                AbstractWeapon weapon = source.getMainWeapon();
-                if (weapon == null) {
-                    return source.getUnarmedDamage();
-                } else {
-                    return weapon.getWeaponType().getDamage();
+            private int getArcaneCost(GameCharacter source) {
+            	int essenceCost = 0;
+            	for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getMainWeaponArray()[i];
+        			if(weapon!=null && weapon.getWeaponType().getArcaneCost()>0) {
+        				essenceCost += weapon.getWeaponType().getArcaneCost();
+        			}
+        		}
+            	return essenceCost;
+            }
+            
+            private List<String> getDamageRanges(GameCharacter source, GameCharacter target, boolean isCrit) {
+                List<String> damages = new ArrayList<>();
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getMainWeaponArray()[i];
+        			if(weapon!=null) {
+        				damages.add(getFormattedDamageRange(source, target, weapon.getDamageType(), Attack.MAIN, weapon, isCrit));
+        			} else {
+        				damages.add(getFormattedDamageRange(source, target, DamageType.UNARMED.getParentDamageType(source, null), Attack.MAIN, null, isCrit));
+        			}
+        		}
+        		return damages;
+            }
+            
+            private List<String> getFormattedDamage(GameCharacter source, GameCharacter target, boolean damageHasBeenApplied) {
+                List<String> damages = new ArrayList<>();
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getMainWeaponArray()[i];
+        			if(weapon!=null) {
+        				damages.add(getFormattedDamage(weapon.getDamageType(), weapon.getWeaponType().getDamage(), target, damageHasBeenApplied));
+        			} else {
+        				damages.add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), source.getUnarmedDamage(), target, damageHasBeenApplied));
+        			}
+        		}
+        		return damages;
+            }
+            
+        	@Override
+        	public String getName(int turnIndex, GameCharacter source) {
+        		StringBuilder sb = new StringBuilder();
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getMainWeaponArray()[i];
+        			if(weapon!=null) {
+        				if(sb.length()>0) {
+        					sb.append("/");
+        				}
+        				sb.append(Util.capitaliseSentence(weapon.getWeaponType().getAttackDescriptor()));
+        			}
+        		}
+                if(sb.length()>0) {
+                	return sb.toString();
                 }
-            }
-
-            private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
-                return (int) Attack.calculateDamage(source, target, Attack.MAIN, isCrit);
-            }
-
+        		return super.getName(turnIndex, source);
+        	}
+        	
+        	@Override
+        	public DamageType getDamageType(GameCharacter source) {
+                DamageType damageType = DamageType.UNARMED.getParentDamageType(source, null);
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getMainWeaponArray()[i];
+        			if(weapon!=null) {
+	                   	damageType = weapon.getDamageType();
+	                   	break;
+        			}
+        		}
+                return damageType;
+        	}
+            
             @Override
             public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
                 return new Value<>(true, "Available to everyone as a basic move.");
@@ -111,59 +167,102 @@ public class CombatMove {
             @Override
             public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             	String costText="";
-            	if(source.getMainWeapon()!=null && source.getMainWeapon().getWeaponType().getArcaneCost()>0) {
-            		int cost = source.getMainWeapon().getWeaponType().getArcaneCost();
-            		costText = " Costs [style.boldArcane("+cost+" Arcane essence"+(cost>1?"s":"")+")] "+(Main.game.getPlayer().getMainWeapon().getWeaponType().isMelee()?"per attack.":"to fire.");
-    			}
+            	int essenceCost = getArcaneCost(source);
+        		if(essenceCost>0) {
+        			costText = " Weapon usage costs [style.boldArcane("+essenceCost+" Arcane essence"+(essenceCost>1?"s":"")+")]!";
+        		}
                 boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+                
                 return UtilText.parse(source, target,
                 		(isCrit?"[style.colourExcellent(Critical)]: ":"")
                 		+ "<span style='color:"+this.getColour().toWebHexString()+";'>Strike</span> "
-            				+ (target==null?"[npc.her] target":"[npc2.name]") + " for " + getFormattedDamageRange(source, target, getDamageType(source), Attack.MAIN, isCrit) + " damage."
-            				+costText);
+            				+ (target==null?"[npc.her] target for":"[npc2.name] for ")
+            				+ Util.stringsToStringList(getDamageRanges(source, target, isCrit), false)
+            				+ " damage."
+            				+ costText);
             }
 
             @Override
-            public String getDescription() {
+            public String getDescription(GameCharacter source) {
             	String costText="";
-            	GameCharacter source = Main.game.getPlayer();
-            	if(source.getMainWeapon()!=null && source.getMainWeapon().getWeaponType().getArcaneCost()>0) {
-            		int cost = source.getMainWeapon().getWeaponType().getArcaneCost();
-            		costText = " Costs [style.boldArcane("+cost+" Arcane essence"+(cost>1?"s":"")+")] "+(source.getMainWeapon().getWeaponType().isMelee()?"per attack.":"to fire.");
-    			}
+            	int essenceCost = getArcaneCost(source);
+            	List<String> weaponNames = new ArrayList<>();
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getMainWeaponArray()[i];
+        			if(weapon!=null) {
+        				weaponNames.add(weapon.getName());
+        			} else {
+        				if(!weaponNames.contains("fists")) {
+        					weaponNames.add("fists");
+        				}
+        			}
+        		}
+        		if(essenceCost>0) {
+        			costText = " Weapon usage costs [style.boldArcane("+essenceCost+" Arcane essence"+(essenceCost>1?"s":"")+")]!";
+        		}
                 return UtilText.parse(source,
-                		"Strike [npc.her] target with [npc.her] "+(source.getMainWeapon()==null?"fists":source.getMainWeapon().getName())
-                			+", dealing base " + getFormattedDamage(getDamageType(source), getBaseDamage(source), null, false) + " damage."
-                			+costText);
+                		"Strike [npc.her] target with [npc.her] "
+                			+(weaponNames.isEmpty()
+                					?"fists"
+                					:weaponNames.size()==1
+                						?weaponNames.get(0)
+                						:"primary weapons")
+                			+", dealing base "
+            				+ Util.stringsToStringList(getFormattedDamage(source, null, false), false)
+                			+ " damage."
+                			+ costText);
             }
 
             @Override
             public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         		boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-                int dealtDamage = getDamageType(source).damageTarget(source, target, getDamage(source, target, isCrit));
-            	
-            	StringBuilder attackStringBuilder = new StringBuilder("");
 
+            	StringBuilder attackStringBuilder = new StringBuilder("");
+            	StringBuilder weaponAttacksStringBuilder = new StringBuilder("");
+            	List<String> weaponDamages = new ArrayList<>();
+            	
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+        			AbstractWeapon weapon = source.getMainWeaponArray()[i];
+        			if(weapon!=null) {
+        				int damage = Attack.calculateDamage(source, target, Attack.MAIN, weapon, isCrit);
+        				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponDamages.add(getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true));
+        				
+        			} else {
+        				int damage = Attack.calculateDamage(source, target, Attack.MAIN, null, isCrit);
+        				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponDamages.add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true));
+        			}
+        		}
+        		
         		if(attackStringBuilder.length()>0) {
         			attackStringBuilder.append("<br/>");
         		}
         		
         		attackStringBuilder.append(formatAttackOutcome(source, target,
-        				source.getMainAttackDescription(target, true),
-        				"[npc2.Name] took " + getFormattedDamage(getDamageType(source), dealtDamage, target, true) + " damage!",
+        				weaponAttacksStringBuilder.toString(),
+        				"[npc2.Name] took "+Util.stringsToStringList(weaponDamages, false)+" damage!",
         				isCrit?"":null,
         				isCrit?"[npc2.Name] [npc2.verb(take)] extra damage!":""));
         		
-        		if(source.getMainWeapon()!=null) { // Hack to restore essences from loss in performOnSelection() method, as they are also subtracted in applyExtraAttackEffects:
-            		source.incrementEssenceCount(TFEssence.ARCANE, source.getMainWeapon().getWeaponType().getArcaneCost(), false);
-            	}
+        		source.incrementEssenceCount(TFEssence.ARCANE, getArcaneCost(source), false); // Hack to restore essences from loss in performOnSelection() method, as they are also subtracted in applyExtraAttackEffects.
         		
-        		if(source.getMainWeapon() != null) {
-        			String s = source.getMainWeapon().applyExtraEffects(source, target, true);
-        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
+        		List<String> extraEffects = new ArrayList<>();
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getMainWeaponArray()[i];
+	        		if(weapon != null) {
+	        			String s = weapon.applyExtraEffects(source, target, true);
+	        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
+	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
+	        		} else {
+	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
+	        		}
         		}
         		
-        		List<String> extraEffects = Combat.applyExtraAttackEffects(source, target, Attack.MAIN, true, isCrit);
         		if(!extraEffects.isEmpty()) {
 	        		attackStringBuilder.append("<div class='container-full-width' style='text-align:center; padding:0; margin:0;'>");
 	        		for(String s : extraEffects) {
@@ -176,38 +275,283 @@ public class CombatMove {
             }
             
             @Override
-            public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            	if(source.getMainWeapon()!=null && source.getEssenceCount(TFEssence.ARCANE)<source.getMainWeapon().getWeaponType().getArcaneCost()) {
-            		int cost = source.getMainWeapon().getWeaponType().getArcaneCost();
-            		return "You don't have enough arcane essences to use your weapon! ("+Util.capitaliseSentence(Util.intToString(cost))+" "+(cost==1?"is":"are")+" required.)";
+            public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            	int essenceCost = getArcaneCost(source);
+            	int weaponCount = 0;
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getMainWeaponArray()[i];
+        			if(weapon!=null) {
+        				weaponCount++;
+        			}
+        		}
+        		
+            	if(source.getEssenceCount(TFEssence.ARCANE)<essenceCost) {
+            		return "You don't have enough arcane essences to use your weapon"+(weaponCount>1?"s":"")+"! ("+Util.capitaliseSentence(Util.intToString(essenceCost))+" "+(essenceCost==1?"is":"are")+" required.)";
             	}
-            	return super.isUseable(source, target, enemies, allies);
+            	return super.isUsable(source, target, enemies, allies);
             }
             
             @Override
             public void performOnSelection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            	if(source.getMainWeapon()!=null) {
-            		source.incrementEssenceCount(TFEssence.ARCANE, -source.getMainWeapon().getWeaponType().getArcaneCost(), false);
-            	}
+            	int essenceCost = getArcaneCost(source);
+            	source.incrementEssenceCount(TFEssence.ARCANE, -essenceCost, false);
             }
             
             @Override
             public void performOnDeselection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            	if(source.getMainWeapon()!=null) {
-            		source.incrementEssenceCount(TFEssence.ARCANE, source.getMainWeapon().getWeaponType().getArcaneCost(), false);
-            	}
+            	int essenceCost = getArcaneCost(source);
+            	source.incrementEssenceCount(TFEssence.ARCANE, essenceCost, false);
             }
         };
         allCombatMoves.add(newCombatMove);
+        basicCombatMoves.add(newCombatMove);
+        
+        /*=============================================
+         *
+         *
+         *
+         */
+        newCombatMove = new CombatMove("offhand-strike",
+                "offhand strike",
+                0,
+                1,
+                CombatMoveType.ATTACK,
+                DamageType.UNARMED,
+                "moves/strike_offhand",
+                Util.newArrayListOfValues(Colour.BASE_ORANGE),
+                false,
+                true,
+                false,
+                null) {
+        	
+        	@Override
+        	public int getAPcost(GameCharacter source) {
+        		return source.getArmRows() + (!source.getEquippedMoves().contains(this)?1:0);
+        	}
+        	
+            private int getArcaneCost(GameCharacter source) {
+            	int essenceCost = 0;
+            	for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+        			if(weapon!=null && weapon.getWeaponType().getArcaneCost()>0) {
+        				essenceCost += weapon.getWeaponType().getArcaneCost();
+        			}
+        		}
+            	return essenceCost;
+            }
+            
+            private List<String> getDamageRanges(GameCharacter source, GameCharacter target, boolean isCrit) {
+                List<String> damages = new ArrayList<>();
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+        			if(weapon!=null) {
+        				damages.add(getFormattedDamageRange(source, target, weapon.getDamageType(), Attack.OFFHAND, weapon, isCrit));
+        			} else {
+        				damages.add(getFormattedDamageRange(source, target, DamageType.UNARMED.getParentDamageType(source, null), Attack.OFFHAND, null, isCrit));
+        			}
+        		}
+        		return damages;
+            }
+            
+            private List<String> getFormattedDamage(GameCharacter source, GameCharacter target, boolean damageHasBeenApplied) {
+                List<String> damages = new ArrayList<>();
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+        			if(weapon!=null) {
+        				damages.add(getFormattedDamage(weapon.getDamageType(), weapon.getWeaponType().getDamage(), target, damageHasBeenApplied));
+        			} else {
+        				damages.add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), source.getUnarmedDamage(), target, damageHasBeenApplied));
+        			}
+        		}
+        		return damages;
+            }
+            
+        	@Override
+        	public String getName(int turnIndex, GameCharacter source) {
+        		StringBuilder sb = new StringBuilder();
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+        			if(weapon!=null) {
+        				if(sb.length()>0) {
+        					sb.append("/");
+        				}
+        				sb.append(Util.capitaliseSentence(weapon.getWeaponType().getAttackDescriptor()));
+        			}
+        		}
+                if(sb.length()>0) {
+                	return sb.toString();
+                }
+        		return super.getName(turnIndex, source);
+        	}
+        	
+        	@Override
+        	public DamageType getDamageType(GameCharacter source) {
+                DamageType damageType = DamageType.UNARMED.getParentDamageType(source, null);
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+        			if(weapon!=null) {
+	                   	damageType = weapon.getDamageType();
+	                   	break;
+        			}
+        		}
+                return damageType;
+        	}
+            
+            @Override
+            public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
+                return new Value<>(true, "Available to everyone as a basic move.");
+            }
 
+            @Override
+            public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            	String costText="";
+            	int essenceCost = getArcaneCost(source);
+        		if(essenceCost>0) {
+        			costText = " Weapon usage costs [style.boldArcane("+essenceCost+" Arcane essence"+(essenceCost>1?"s":"")+")]!";
+        		}
+                boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+                
+                return UtilText.parse(source, target,
+                		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+                		+ "<span style='color:"+this.getColour().toWebHexString()+";'>Strike</span> "
+            				+ (target==null?"[npc.her] target for":"[npc2.name] for ")
+            				+ Util.stringsToStringList(getDamageRanges(source, target, isCrit), false)
+            				+ " damage."
+            				+ costText);
+            }
+
+            @Override
+            public String getDescription(GameCharacter source) {
+            	String costText="";
+            	int essenceCost = getArcaneCost(source);
+            	List<String> weaponNames = new ArrayList<>();
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+        			if(weapon!=null) {
+        				weaponNames.add(weapon.getName());
+        			} else {
+        				if(!weaponNames.contains("fists")) {
+        					weaponNames.add("fists");
+        				}
+        			}
+        		}
+        		if(essenceCost>0) {
+        			costText = " Weapon usage costs [style.boldArcane("+essenceCost+" Arcane essence"+(essenceCost>1?"s":"")+")]!";
+        		}
+                return UtilText.parse(source,
+                		"Strike [npc.her] target with [npc.her] "
+                			+(weaponNames.isEmpty()
+                					?"fists"
+                					:weaponNames.size()==1
+                						?weaponNames.get(0)
+                						:"offhand weapons")
+                			+", dealing base "
+            				+ Util.stringsToStringList(getFormattedDamage(source, null, false), false)
+                			+ " damage."
+                			+ costText);
+            }
+
+            @Override
+            public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        		boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+
+            	StringBuilder attackStringBuilder = new StringBuilder("");
+            	StringBuilder weaponAttacksStringBuilder = new StringBuilder("");
+            	List<String> weaponDamages = new ArrayList<>();
+            	
+        		for(int i=0; i<Math.min(source.getArmRows(),source.getOffhandWeaponArray().length); i++) {
+        			AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+        			if(weapon!=null) {
+        				int damage = Attack.calculateDamage(source, target, Attack.OFFHAND, weapon, isCrit);
+        				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponDamages.add(getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true));
+        				
+        			} else {
+        				int damage = Attack.calculateDamage(source, target, Attack.OFFHAND, null, isCrit);
+        				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponDamages.add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true));
+        			}
+        		}
+        		
+        		if(attackStringBuilder.length()>0) {
+        			attackStringBuilder.append("<br/>");
+        		}
+        		
+        		attackStringBuilder.append(formatAttackOutcome(source, target,
+        				weaponAttacksStringBuilder.toString(),
+        				"[npc2.Name] took "+Util.stringsToStringList(weaponDamages, false)+" damage!",
+        				isCrit?"":null,
+        				isCrit?"[npc2.Name] [npc2.verb(take)] extra damage!":""));
+        		
+        		source.incrementEssenceCount(TFEssence.ARCANE, getArcaneCost(source), false); // Hack to restore essences from loss in performOnSelection() method, as they are also subtracted in applyExtraAttackEffects.
+        		
+        		List<String> extraEffects = new ArrayList<>();
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+	        		if(weapon != null) {
+	        			String s = weapon.applyExtraEffects(source, target, true);
+	        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
+	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
+	        		} else {
+	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
+	        		}
+        		}
+        		
+        		if(!extraEffects.isEmpty()) {
+	        		attackStringBuilder.append("<div class='container-full-width' style='text-align:center; padding:0; margin:0;'>");
+	        		for(String s : extraEffects) {
+	            		attackStringBuilder.append(s);
+	        		}
+	        		attackStringBuilder.append("</div>");
+        		}
+        		
+        		return attackStringBuilder.toString();
+            }
+            
+            @Override
+            public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            	int essenceCost = getArcaneCost(source);
+            	int weaponCount = 0;
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+        			if(weapon!=null) {
+        				weaponCount++;
+        			}
+        		}
+        		
+            	if(source.getEssenceCount(TFEssence.ARCANE)<essenceCost) {
+            		return "You don't have enough arcane essences to use your weapon"+(weaponCount>1?"s":"")+"! ("+Util.capitaliseSentence(Util.intToString(essenceCost))+" "+(essenceCost==1?"is":"are")+" required.)";
+            	}
+            	return super.isUsable(source, target, enemies, allies);
+            }
+            
+            @Override
+            public void performOnSelection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            	int essenceCost = getArcaneCost(source);
+            	source.incrementEssenceCount(TFEssence.ARCANE, -essenceCost, false);
+            }
+            
+            @Override
+            public void performOnDeselection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            	int essenceCost = getArcaneCost(source);
+            	source.incrementEssenceCount(TFEssence.ARCANE, essenceCost, false);
+            }
+        };
+        allCombatMoves.add(newCombatMove);
+        basicCombatMoves.add(newCombatMove);
+        
         /*=============================================
          *
          *
          *
          */
         newCombatMove = new CombatMove("twin-strike",
-                "twin strike",
-                0,
+                "all-out strike",
+                2,
                 2,
                 CombatMoveType.ATTACK,
                 DamageType.UNARMED,
@@ -217,63 +561,82 @@ public class CombatMove {
                 true,
                 false,
                 null){
+        	
+        	@Override
+        	public int getAPcost(GameCharacter source) {
+        		return Math.min(3, Math.max(2, source.getArmRows() + (!source.getEquippedMoves().contains(this)?1:0)));
+        	}
 
         	@Override
         	public DamageType getDamageType(GameCharacter source) {
                 DamageType damageType = DamageType.UNARMED.getParentDamageType(source, null);
-                if(source.getMainWeapon() != null) {
-                    damageType = source.getMainWeapon().getDamageType();
-                }
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getMainWeaponArray()[i];
+        			if(weapon!=null) {
+	                   	damageType = weapon.getDamageType();
+	                   	break;
+        			}
+        		}
                 return damageType;
         	}
-        	
-        	public DamageType getOffhandDamageType(GameCharacter source) {
-                DamageType damageType = DamageType.UNARMED.getParentDamageType(source, null);
-                if(source.getOffhandWeapon() != null) {
-                    damageType = source.getOffhandWeapon().getDamageType();
-                }
-                return damageType;
-        	}
-        	
-            private int getBaseDamageMain(GameCharacter source) {
-                AbstractWeapon weapon = source.getMainWeapon();
-                int totalDamage;
-                if (weapon == null) {
-                    totalDamage = source.getUnarmedDamage();
-                } else {
-                    totalDamage = weapon.getWeaponType().getDamage();
-                }
-                return (int)(totalDamage * 0.6);
-            }
 
-            private int getDamageMain(GameCharacter source, GameCharacter target, boolean isCrit) {
-                return (int) (Attack.calculateDamage(source, target, Attack.MAIN, isCrit) * 0.6f);
-            }
-
-            private int getBaseDamageOffhand(GameCharacter source) {
-                AbstractWeapon weapon = source.getOffhandWeapon();
-                int totalDamage;
-                if (weapon == null) {
-                    totalDamage = source.getUnarmedDamage();
-                } else {
-                    totalDamage = weapon.getWeaponType().getDamage();
-                }
-                return (int)(totalDamage * 0.3);
-            }
-
-            private int getDamageOffhand(GameCharacter source, GameCharacter target, boolean isCrit) {
-                return (int) (Attack.calculateDamage(source, target, Attack.OFFHAND, isCrit) * 0.3f);
+            private int getArcaneCost(GameCharacter source) {
+            	int essenceCost = 0;
+            	for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getMainWeaponArray()[i];
+        			if(weapon!=null && weapon.getWeaponType().getArcaneCost()>0) {
+        				essenceCost += weapon.getWeaponType().getArcaneCost();
+        			}
+        		}
+            	for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+        			if(weapon!=null && weapon.getWeaponType().getArcaneCost()>0) {
+        				essenceCost += weapon.getWeaponType().getArcaneCost();
+        			}
+        		}
+            	return essenceCost;
             }
             
-            private int getArcaneCost(GameCharacter source) {
-            	int cost = 0;
-            	if(source.getMainWeapon()!=null) {
-            		cost += source.getMainWeapon().getWeaponType().getArcaneCost();
-    			}
-            	if(source.getOffhandWeapon()!=null) {
-            		cost += source.getOffhandWeapon().getWeaponType().getArcaneCost();
-    			}
-            	return cost;
+            private List<String> getDamageRanges(GameCharacter source, GameCharacter target, boolean isCrit) { 
+                List<String> damages = new ArrayList<>();
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getMainWeaponArray()[i];
+        			if(weapon!=null) {
+        				damages.add(getFormattedDamageRange(source, target, weapon.getDamageType(), Attack.MAIN, weapon, isCrit));
+        			} else {
+        				damages.add(getFormattedDamageRange(source, target, DamageType.UNARMED.getParentDamageType(source, null), Attack.MAIN, null, isCrit));
+        			}
+        		}
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+        			if(weapon!=null) {
+        				damages.add(getFormattedDamageRange(source, target, weapon.getDamageType(), Attack.OFFHAND, weapon, isCrit));
+        			} else {
+        				damages.add(getFormattedDamageRange(source, target, DamageType.UNARMED.getParentDamageType(source, null), Attack.OFFHAND, null, isCrit));
+        			}
+        		}
+        		return damages;
+            }
+            
+            private List<String> getFormattedDamage(GameCharacter source, GameCharacter target, boolean damageHasBeenApplied) {
+                List<String> damages = new ArrayList<>();
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getMainWeaponArray()[i];
+        			if(weapon!=null) {
+        				damages.add(getFormattedDamage(weapon.getDamageType(), weapon.getWeaponType().getDamage(), target, damageHasBeenApplied));
+        			} else {
+        				damages.add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), source.getUnarmedDamage(), target, damageHasBeenApplied));
+        			}
+        		}
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+        			if(weapon!=null) {
+        				damages.add(getFormattedDamage(weapon.getDamageType(), weapon.getWeaponType().getDamage(), target, damageHasBeenApplied));
+        			} else {
+        				damages.add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), source.getUnarmedDamage(), target, damageHasBeenApplied));
+        			}
+        		}
+        		return damages;
             }
 
             @Override
@@ -291,84 +654,107 @@ public class CombatMove {
                 boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 return UtilText.parse(source, target,
                 		(isCrit?"[style.colourExcellent(Critical)]: ":"")
-                		+ "<span style='color:"+this.getColour().toWebHexString()+";'>Twin strike</span> "
+                		+ "<span style='color:"+this.getColour().toWebHexString()+";'>All-out strike</span> "
                 				+ (target==null?"[npc.her] target":"[npc2.name]")
-//                				+(source.getMainWeapon()==null
-//                					?(source.getOffhandWeapon()==null
-//                    					?" twice with [npc.her] fists"
-//                            			:" with [npc.her] fists and "+source.getOffhandWeapon().getName())
-//                					:(source.getOffhandWeapon()==null
-//                        				?" with [npc.her] "+source.getMainWeapon().getName()+" and fists"
-//                                        :" with [npc.her] "+source.getMainWeapon().getName()+" and "+source.getOffhandWeapon().getName()))
-                		+" for "
-                			+ getFormattedDamageRange(source, target, getDamageType(source), Attack.MAIN, isCrit, 0.6f)
-                		+ " and "
-                			+ getFormattedDamageRange(source, target, getOffhandDamageType(source), Attack.OFFHAND, isCrit, 0.3f)
-                		+" damage."
-                		+costText);
+                		+ ", dealing "
+                			+ Util.stringsToStringList(getDamageRanges(source, target, isCrit), false)
+                		+ " damage."
+                		+ costText);
             }
 
             @Override
-            public String getDescription() {
-            	GameCharacter source = Main.game.getPlayer();
+            public String getDescription(GameCharacter source) {
             	String costText="";
-            	int cost = getArcaneCost(source);
-            	if(cost>0) {
-            		costText = " Costs [style.boldArcane("+cost+" Arcane essence"+(cost>1?"s":"")+")] to use this attack.";
+            	int essenceCost = getArcaneCost(source);
+            	if(essenceCost>0) {
+        			costText = " Weapon usage costs [style.boldArcane("+essenceCost+" Arcane essence"+(essenceCost>1?"s":"")+")]!";
             	}
                 return UtilText.parse(source,
-                		"Strike [npc.her] target "
-                				+(source.getMainWeapon()==null
-                					?(source.getOffhandWeapon()==null
-                    					?" twice with [npc.her] fists]"
-                            			:" with [npc.her] fists and "+source.getOffhandWeapon().getName())
-                					:(source.getOffhandWeapon()==null
-                        				?" with [npc.her] "+source.getMainWeapon().getName()+" and fists"
-                                        :" with [npc.her] "+source.getMainWeapon().getName()+" and "+source.getOffhandWeapon().getName()))
-                		+", dealing " + getFormattedDamage(getDamageType(source), getBaseDamageMain(source), null, false) + " and "+ getFormattedDamage(getOffhandDamageType(source), getBaseDamageOffhand(source), null, false) +" damage."
+                		"Strike [npc.her] target with all [npc.her] weapons, dealing "
+                			+ Util.stringsToStringList(getFormattedDamage(source, null, false), false)
+                		+ " damage."
                 		+ costText);
             }
 
             @Override
             public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             	boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-                int dealtDamage = getDamageType(source).damageTarget(source, target, getDamageMain(source, target, isCrit));
-                int dealtDamageOffhand = getOffhandDamageType(source).damageTarget(source, target, getDamageOffhand(source, target, isCrit));
             	
             	StringBuilder attackStringBuilder = new StringBuilder("");
+            	StringBuilder weaponAttacksStringBuilder = new StringBuilder("");
+            	StringBuilder weaponDamageStringBuilder = new StringBuilder("");
+            	
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+        			AbstractWeapon weapon = source.getMainWeaponArray()[i];
+        			if(weapon!=null) {
+        				int damage = Attack.calculateDamage(source, target, Attack.MAIN, weapon, isCrit);
+        				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponDamageStringBuilder.append((i>0?"<br/>":"")+"[npc2.Name] took " + getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true) + " damage!");
+        				
+        			} else {
+        				int damage = Attack.calculateDamage(source, target, Attack.MAIN, null, isCrit);
+        				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponDamageStringBuilder.append((i>0?"<br/>":"")+"[npc2.Name] took " + getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true) + " damage!");
+        			}
+        		}
 
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
+        			AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+        			if(weapon!=null) {
+        				int damage = Attack.calculateDamage(source, target, Attack.OFFHAND, weapon, isCrit);
+        				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append("<br/>"+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponDamageStringBuilder.append("<br/>[npc2.Name] took " + getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true) + " damage!");
+        				
+        			} else {
+        				int damage = Attack.calculateDamage(source, target, Attack.OFFHAND, null, isCrit);
+        				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
+        				int inflictedDamage = damageValue.getValue();
+        				weaponAttacksStringBuilder.append("<br/>"+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponDamageStringBuilder.append("<br/>[npc2.Name] took " + getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true) + " damage!");
+        			}
+        		}
+        		
         		if(attackStringBuilder.length()>0) {
         			attackStringBuilder.append("<br/>");
         		}
         		
         		attackStringBuilder.append(formatAttackOutcome(source, target,
-        				source.getMainAttackDescription(target, true)
-	        				+"<br/>"
-	        				+source.getOffhandAttackDescription(target, true),
-        				"[npc2.Name] took "
-        						+ getFormattedDamage(getDamageType(source), dealtDamage, target, true)
-	        				+ " and "
-	        					+ getFormattedDamage(getOffhandDamageType(source), dealtDamageOffhand, target, true)
-	        				+ " damage!",
+        				weaponAttacksStringBuilder.toString(),
+        				weaponDamageStringBuilder.toString(),
         				isCrit?"":null,
         				isCrit?"[npc2.Name] [npc2.verb(take)] extra damage!":""));
 
 
-        		if(getArcaneCost(source)>0) { // Hack to restore essences from loss in performOnSelection() method, as they are also subtracted in applyExtraAttackEffects:
-            		source.incrementEssenceCount(TFEssence.ARCANE, getArcaneCost(source), false);
-            	}
+        		source.incrementEssenceCount(TFEssence.ARCANE, getArcaneCost(source), false); // Hack to restore essences from loss in performOnSelection() method, as they are also subtracted in applyExtraAttackEffects.
         		
-        		if(source.getMainWeapon() != null) {
-        			String s = source.getMainWeapon().applyExtraEffects(source, target, true);
-        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
+        		List<String> extraEffects = new ArrayList<>();
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getMainWeaponArray()[i];
+	        		if(weapon != null) {
+	        			String s = weapon.applyExtraEffects(source, target, true);
+	        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
+	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
+	        		} else {
+	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.MAIN, weapon, true, isCrit));
+	        		}
         		}
-        		if(source.getOffhandWeapon() != null) {
-        			String s = source.getOffhandWeapon().applyExtraEffects(source, target, true);
-        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
+        		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
+            		AbstractWeapon weapon = source.getOffhandWeaponArray()[i];
+	        		if(weapon != null) {
+	        			String s = weapon.applyExtraEffects(source, target, true);
+	        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
+	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
+	        		} else {
+	        			extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, weapon, true, isCrit));
+	        		}
         		}
         		
-        		List<String> extraEffects = Combat.applyExtraAttackEffects(source, target, Attack.MAIN, true, isCrit);
-        		extraEffects.addAll(Combat.applyExtraAttackEffects(source, target, Attack.OFFHAND, true, isCrit));
         		if(!extraEffects.isEmpty()) {
 	        		attackStringBuilder.append("<div class='container-full-width' style='text-align:center; padding:0; margin:0;'>");
 	        		for(String s : extraEffects) {
@@ -381,12 +767,20 @@ public class CombatMove {
             }
             
             @Override
-            public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            	if(source.getArmRows()==1) {
+	            	if(source.getMainWeapon(0)!=null && source.getMainWeapon(0).getWeaponType().isTwoHanded()) {
+	            		return "You are using a two-handed weapon, so have no free hand with which to use an all-out strike!";
+	            	}
+	            	if(source.getOffhandWeapon(0)!=null && source.getOffhandWeapon(0).getWeaponType().isTwoHanded()) {
+	            		return "You are using a two-handed weapon, so have no free hand with which to use an all-out strike!";
+	            	}
+            	}
         		int cost = getArcaneCost(source);
             	if(source.getEssenceCount(TFEssence.ARCANE)<cost) {
             		return "You don't have enough arcane essences to use your weapon! ("+Util.capitaliseSentence(Util.intToString(cost))+" "+(cost==1?"is":"are")+" required.)";
             	}
-            	return super.isUseable(source, target, enemies, allies);
+            	return super.isUsable(source, target, enemies, allies);
             }
             
             @Override
@@ -400,6 +794,7 @@ public class CombatMove {
             }
         };
         allCombatMoves.add(newCombatMove);
+        basicCombatMoves.add(newCombatMove);
 
         /*=============================================
          *
@@ -411,7 +806,7 @@ public class CombatMove {
                 0,
                 1,
                 CombatMoveType.DEFEND,
-                DamageType.ENERGY,
+                DamageType.HEALTH,
                 "moves/block",
                 Util.newArrayListOfValues(Colour.BASE_GREY),
                 false,
@@ -440,8 +835,8 @@ public class CombatMove {
             }
 
             @Override
-            public String getDescription() {
-                DamageType damageType = getDamageType(Main.game.getPlayer());
+            public String getDescription(GameCharacter source) {
+                DamageType damageType = getDamageType(source);
                 return "Focus on defending yourself, gaining protection against "
                         + "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(getBlock(false)) + "</span>"
                         + " damage.";
@@ -461,19 +856,20 @@ public class CombatMove {
 
             @Override
             public void performOnSelection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-                DamageType damageType = DamageType.ENERGY;
+                DamageType damageType = DamageType.HEALTH;
                 boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 target.setShields(damageType, target.getShields(damageType) + getBlock(isCrit));
             }
             
             @Override
             public void performOnDeselection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-                DamageType damageType = DamageType.ENERGY;
+                DamageType damageType = DamageType.HEALTH;
                 boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 target.setShields(damageType, target.getShields(damageType) - getBlock(isCrit));
             }
         };
         allCombatMoves.add(newCombatMove);
+        basicCombatMoves.add(newCombatMove);
 
 
         /*=============================================
@@ -516,9 +912,9 @@ public class CombatMove {
             }
 
             @Override
-            public String getDescription() {
+            public String getDescription(GameCharacter source) {
                 return "Tease your enemy, dealing base "
-                        + getFormattedDamage(getDamageType(Main.game.getPlayer()), getBaseDamage(Main.game.getPlayer()), null, false)
+                        + getFormattedDamage(getDamageType(source), getBaseDamage(source), null, false)
                         + " damage to them.";
             }
 
@@ -527,21 +923,22 @@ public class CombatMove {
             	StringBuilder sb = new StringBuilder("");
 
         		DamageType finalDt = getDamageType(source);
-            	if(target.getLust()>=100) {
-					finalDt = DamageType.ENERGY;
-				}
+//            	if(target.getLust()>=100) {
+//					finalDt = DamageType.HEALTH;
+//				}
             	
         		boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-        		int lustDamage = getDamageType(source).damageTarget(source, target, getDamage(source, target, isCrit));
+				Value<String, Integer> damageValue = getDamageType(source).damageTarget(source, target, getDamage(source, target, isCrit));
+				int lustDamage = damageValue.getValue();
 				
                 sb.append(formatAttackOutcome(source, target,
-                		source.getSeductionDescription(target),
+                		source.getSeductionDescription(target)+damageValue.getKey(),
         				"[npc2.Name] took " + getFormattedDamage(finalDt, lustDamage, target, true) + " damage!",
         				isCrit?"":null,
         				isCrit?"[npc2.Name] [npc2.verb(feel)] incredibly turned-on!":""));
                 
         		if(source.hasStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION)) {
-        			target.addStatusEffect(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION_TARGETED, 3);
+        			Combat.addStatusEffectToApply(target, StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION_TARGETED, 3);
         			sb.append(Spell.getBasicStatusEffectApplication(target, false, Util.newHashMapOfValues(new Value<>(StatusEffect.TELEPATHIC_COMMUNICATION_POWER_OF_SUGGESTION_TARGETED, 2))));
         		}
         		
@@ -549,6 +946,7 @@ public class CombatMove {
             }
         };
         allCombatMoves.add(newCombatMove);
+        basicCombatMoves.add(newCombatMove);
 
 
         /*=============================================
@@ -590,8 +988,8 @@ public class CombatMove {
             }
 
             @Override
-            public String getDescription() {
-                DamageType damageType = getDamageType(Main.game.getPlayer());
+            public String getDescription(GameCharacter source) {
+                DamageType damageType = getDamageType(source);
                 return "Resist temptation, gaining protection against "
                 		+ "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(getBlock(false)) + "</span>"
                 		+ " damage.";
@@ -601,11 +999,11 @@ public class CombatMove {
             public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
                 boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 
-                return (formatAttackOutcome(source, target,
-        				"[npc.Name] focused on resisting [npc2.namePos] seductive moves.",
+                return formatAttackOutcome(source, target,
+        				"[npc.Name] focused on resisting any attempts at seduction.",
         				"[npc.SheIs] now protected against " + getFormattedDamage(getDamageType(source), getBlock(isCrit), target, true) + " damage!",
         				isCrit?"":null,
-        				isCrit?"[npc.Name] [npc.verb(double)] [npc.her] resistance!":""));
+        				isCrit?"[npc.Name] [npc.verb(double)] [npc.her] shielding!":"");
             }
 
             @Override
@@ -625,14 +1023,19 @@ public class CombatMove {
                 if(shouldBlunder()) {
                     return (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(this.getType());
                 }
+                int behaviourMultiplier = 1;
+            	if(source.getCombatBehaviour()==CombatBehaviour.DEFEND) {
+            		behaviourMultiplier=2;
+            	}
                 if(source.getLustLevel() == LustLevel.FOUR_IMPASSIONED || source.getLustLevel() == LustLevel.FIVE_BURNING) {
-                    return 1.0f + 0.2f * (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(this.getType());
+                    return (1.0f*behaviourMultiplier) + 0.2f * (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(this.getType());
                 }
                 return super.getWeight(source, enemies, allies);
 //                return 0.8f + 0.2f * (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(this.getType());
             }
         };
         allCombatMoves.add(newCombatMove);
+        basicCombatMoves.add(newCombatMove);
 
 
 
@@ -656,6 +1059,7 @@ public class CombatMove {
 					combatMove = ((CombatMove) f.get(null));
 
 			        allCombatMoves.add(combatMove);
+			        specialCombatMoves.add(combatMove);
 					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
@@ -672,6 +1076,7 @@ public class CombatMove {
 					combatMove = ((CombatMove) f.get(null));
 
 					allCombatMoves.add(combatMove);
+			        specialCombatMoves.add(combatMove);
 
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
@@ -700,6 +1105,21 @@ public class CombatMove {
                     spell.isCanTargetEnemies(),
                     spell.isCanTargetSelf(),
                     spell.getStatusEffects(null, null, false)) {
+            	
+            	@Override
+            	public Spell getAssociatedSpell() {
+                    return spell;
+                }
+            	
+                @Override
+                public float getCritStatusEffectDurationMultiplier() {
+                	return 2;
+                }
+
+                @Override
+                public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
+                	return getAssociatedSpell().getStatusEffects(caster, target, isCritical);
+                }
                 
                 @Override
                 public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
@@ -735,8 +1155,8 @@ public class CombatMove {
                 }
 
                 @Override
-                public String getDescription() {
-                    return getAssociatedSpell().getDescription();
+                public String getDescription(GameCharacter source) {
+                    return getAssociatedSpell().getDescription(source);
                 }
 
                 @Override
@@ -765,8 +1185,8 @@ public class CombatMove {
                 }
 
                 @Override
-                public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-                    String reason = super.isUseable(source, target, enemies, allies);
+                public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                    String reason = super.isUsable(source, target, enemies, allies);
                     if(reason == null) {
                         if((getAssociatedSpell().getSpellSchool()!=SpellSchool.FIRE || !source.hasStatusEffect(StatusEffect.FIRE_MANA_BURN)) && source.getMana()<getAssociatedSpell().getModifiedCost(source)) {
                             reason = "Not enough aura to cast this spell!";
@@ -777,6 +1197,7 @@ public class CombatMove {
             };
             newCombatMove.setAssociatedSpell(spell);
             allCombatMoves.add(newCombatMove);
+	        spellCombatMoves.add(newCombatMove);
         }
 
         // Note: Not a spell per se, but recovers mana and is only available to spell casters.
@@ -800,34 +1221,19 @@ public class CombatMove {
 
         	@Override
         	public DamageType getDamageType(GameCharacter source) {
-                DamageType damageType = DamageType.UNARMED.getParentDamageType(Main.game.getPlayer(), null);
-                if(source.getMainWeapon() != null) {
-                    damageType = source.getMainWeapon().getDamageType();
-                }
-                return damageType;
+                return DamageType.LUST;
         	}
         	
             private int getBaseDamage(GameCharacter source) {
-                AbstractWeapon weapon = source.getMainWeapon();
-                int totalDamage;
-                if (weapon == null) {
-                    totalDamage = source.getUnarmedDamage();
-                } else {
-                    totalDamage = weapon.getWeaponType().getDamage();
-                }
-                return (int)(totalDamage * 0.25);
+                return (int) Math.max(1, getManaGain(source)*0.1f);
             }
 
-            private int getBaseManaGain(GameCharacter source) {
-                return getBaseDamage(source)*3;
+            private int getManaGain(GameCharacter source) {
+                return source.getLevel()*2;
             }
             
             private int getDamage(GameCharacter source, GameCharacter target) {
-            	return (int) (Attack.calculateDamage(source, target, Attack.MAIN, false) * 0.33f);
-            }
-
-            private int getManaGain(GameCharacter source, GameCharacter target) {
-                return getDamage(source, target)*2;
+            	return Math.max(1, (int) (Attack.getModifiedDamage(source, target, Attack.SEDUCTION, null, DamageType.LUST, getBaseDamage(source))));
             }
 
             @Override
@@ -837,42 +1243,33 @@ public class CombatMove {
 
             @Override
             public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            	String costText="";
-            	if(source.getMainWeapon()!=null && source.getMainWeapon().getWeaponType().getArcaneCost()>0) {
-            		int cost = source.getMainWeapon().getWeaponType().getArcaneCost();
-            		costText = " Costs [style.boldArcane("+cost+" Arcane essence"+(cost>1?"s":"")+")] "+(Main.game.getPlayer().getMainWeapon().getWeaponType().isMelee()?"per attack.":"to fire.");
-    			}
                 boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 return UtilText.parse(source, target,
                 		(isCrit?"[style.colourExcellent(Critical)]: ":"")
-                		+ "<span style='color:"+this.getColour().toWebHexString()+";'>Arcane-strike</span> "
+                		+ "<span style='color:"+this.getColour().toWebHexString()+";'>Arcane strike</span> "
                 				+ (target==null?"[npc.her] target":"[npc2.name]")
                 				+ " to deal "
-                				+ getFormattedDamageRange(source, target, getDamageType(source), Attack.MAIN, false, 0.33f) + " damage"
-                				+ " and gain <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+(getManaGain(source, target)*(isCrit?2:1))+" "+Attribute.MANA_MAXIMUM.getName()+"</span>."
-                				+ costText);
+                				+ getFormattedDamage(getDamageType(source), getDamage(source, target), null, false)
+                				+ " damage"
+                				+ " and gain <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+(getManaGain(source)*(isCrit?2:1))+" "+Attribute.MANA_MAXIMUM.getName()+"</span>.");
             }
 
             @Override
-            public String getDescription() {
-            	GameCharacter source = Main.game.getPlayer();
-            	String costText="";
-            	if(source.getMainWeapon()!=null && source.getMainWeapon().getWeaponType().getArcaneCost()>0) {
-            		int cost = source.getMainWeapon().getWeaponType().getArcaneCost();
-            		costText = " Costs [style.boldArcane("+cost+" Arcane essence"+(cost>1?"s":"")+")] "+(Main.game.getPlayer().getMainWeapon().getWeaponType().isMelee()?"per attack.":"to fire.");
-    			}
+            public String getDescription(GameCharacter source) {
                 return UtilText.parse(source,
-                		"Strike [npc.her] target with [npc.her] primary weapon, dealing base "
+                		"Strike [npc.her] target with a bolt of pure arcane energy, dealing base "
                 				+ getFormattedDamage(getDamageType(source), getBaseDamage(source), null, false) + " damage"
-                				+ " and recovering base <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+getBaseManaGain(source)+" "+Attribute.MANA_MAXIMUM.getName()+"</span>."
-                				+ costText);
+                				+ " and recovering base <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+getManaGain(source)+" "+Attribute.MANA_MAXIMUM.getName()+"</span>.");
             }
 
             @Override
             public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         		boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-				int dealtDamage = getDamageType(source).damageTarget(source, target, getDamage(source, target));
-				int manaGain = getManaGain(source, target);
+        		
+				Value<String, Integer> damageValue = getDamageType(source).damageTarget(source, target, getDamage(source, target));
+				int dealtDamage = damageValue.getValue();
+				
+				int manaGain = getManaGain(source);
 				if (isCrit) {
 					manaGain *= 2;
 				}
@@ -886,23 +1283,13 @@ public class CombatMove {
         		}
         		
         		attackStringBuilder.append(formatAttackOutcome(source, target,
-        				"Harnessing [npc.her] knowledge of the arcane, [npc.name] [npc.verb(focus)] on replenishing [npc.her] aura as [npc.she] [npc.verb(strike)] out at [npc2.name]! "
-        						+source.getMainAttackDescription(target, true),
+        				"Harnessing [npc.her] knowledge of the arcane, [npc.name] [npc.verb(focus)] on replenishing [npc.her] aura as [npc.she] [npc.verb(launch)] a bolt of pure arcane energy at [npc2.name]!"+damageValue.getKey(),
         				"[npc2.Name] took " + getFormattedDamage(getDamageType(source), dealtDamage, target, true) + " damage, while [npc.name] recovered"
         						+ " <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+manaGain+" "+Attribute.MANA_MAXIMUM.getName()+"</span>!",
         				isCrit?"":null,
         				isCrit?"Aura gain was doubled!":""));
         		
-        		if(source.getMainWeapon()!=null) { // Hack to restore essences from loss in performOnSelection() method, as they are also subtracted in applyExtraAttackEffects:
-            		source.incrementEssenceCount(TFEssence.ARCANE, source.getMainWeapon().getWeaponType().getArcaneCost(), false);
-            	}
-        		
-        		if(source.getMainWeapon() != null) {
-        			String s = source.getMainWeapon().applyExtraEffects(source, target, true);
-        			attackStringBuilder.append((s.isEmpty()?"":"<br/>")+s);
-        		}
-        		
-        		List<String> extraEffects = Combat.applyExtraAttackEffects(source, target, Attack.MAIN, true, isCrit);
+        		List<String> extraEffects = Combat.applyExtraAttackEffects(source, target, Attack.SEDUCTION, null, true, isCrit);
         		if(!extraEffects.isEmpty()) {
 	        		attackStringBuilder.append("<div class='container-full-width' style='text-align:center; padding:0; margin:0;'>");
 	        		for(String s : extraEffects) {
@@ -927,33 +1314,102 @@ public class CombatMove {
                 }
                 return super.canCrit(turnIndex, source, target, enemies, allies);
             }
-            
-            @Override
-            public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            	if(source.getMainWeapon()!=null && source.getEssenceCount(TFEssence.ARCANE)<source.getMainWeapon().getWeaponType().getArcaneCost()) {
-            		int cost = source.getMainWeapon().getWeaponType().getArcaneCost();
-            		return "You don't have enough arcane essences to use your weapon! ("+Util.capitaliseSentence(Util.intToString(cost))+" "+(cost==1?"is":"are")+" required.)";
-            	}
-            	return super.isUseable(source, target, enemies, allies);
-            }
-            
-            @Override
-            public void performOnSelection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            	if(source.getMainWeapon()!=null) {
-            		source.incrementEssenceCount(TFEssence.ARCANE, -source.getMainWeapon().getWeaponType().getArcaneCost(), false);
-            	}
-            }
-            
-            @Override
-            public void performOnDeselection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            	if(source.getMainWeapon()!=null) {
-            		source.incrementEssenceCount(TFEssence.ARCANE, source.getMainWeapon().getWeaponType().getArcaneCost(), false);
-            	}
-            }
         };
         
         allCombatMoves.add(newCombatMove);
+        basicCombatMoves.add(newCombatMove);
     }
+    
+    public static final CombatMove ITEM_USAGE = new CombatMove("item-usage",
+            "use item",
+            0,
+            1,
+            CombatMoveType.DEFEND,
+            DamageType.HEALTH,
+            "moves/block",
+            Util.newArrayListOfValues(Colour.GENERIC_MINOR_GOOD),
+            false,
+            false,
+            true,
+            null) {
+    	
+    	private Value<GameCharacter, AbstractItem> getItem(int turnIndex, GameCharacter source) {
+            int index=0;
+            int turnCount=0;
+            for(Value<GameCharacter, CombatMove> move : source.getSelectedMoves()) {
+            	if(turnCount==turnIndex) {
+            		break;
+            	}
+            	if(move.getValue().getIdentifier().equals(ITEM_USAGE.getIdentifier())) {
+            		index++;
+            	}
+            	turnCount++;
+            }
+            return Combat.getItemsToBeUsed(source).get(index);
+    	}	
+    	
+    	@Override
+    	public String getName(int turnIndex, GameCharacter source) {
+        	Value<GameCharacter, AbstractItem> itemValue = getItem(turnIndex, source);
+        	
+    		return Util.capitaliseSentence(itemValue.getValue().getItemType().getUseName()+" the "+itemValue.getValue().getName());
+    	}
+    	
+    	@Override
+    	public int getAPcost(GameCharacter source) {
+    		return 1;
+    	}
+
+        @Override
+        public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
+            return new Value<>(true, "Available to everyone as a basic move.");
+        }
+
+        @Override
+        public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        	Value<GameCharacter, AbstractItem> itemValue = getItem(turnIndex, source);
+            
+            return "[style.colourMinorGood("+Util.capitaliseSentence(UtilText.parse(itemValue.getValue().getItemType().getUseName()))+")] the "+itemValue.getValue().getName()+".";
+        }
+
+        @Override
+        public String getDescription(GameCharacter source) {
+            return "Use an item from your inventory.";
+        }
+
+        @Override
+        public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        	Value<GameCharacter, AbstractItem> itemValue = getItem(turnIndex, source);
+            
+            return itemValue.getValue().applyEffect(source, itemValue.getKey());
+        }
+
+        @Override
+        public void performOnSelection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        	Value<GameCharacter, AbstractItem> itemValue = getItem(turnIndex, source);
+        	if(itemValue.getValue().isConsumedOnUse()) {
+        		source.removeItem(itemValue.getValue());
+        	}
+        }
+        
+        @Override
+        public void performOnDeselection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        	Value<GameCharacter, AbstractItem> itemValue = getItem(turnIndex, source);
+        	if(itemValue.getValue().isConsumedOnUse()) {
+        		source.addItem(itemValue.getValue(), false);
+        	}
+        }
+        
+        @Override
+    	public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        	return Util.newArrayListOfValues("This move can never crit.");
+        }
+
+        @Override
+        public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        	return false;
+        }
+    };
 
     public CombatMove(String identifier,
     		String name,
@@ -1026,13 +1482,11 @@ public class CombatMove {
     }
     
     /**
-     * @param target TODO
-     * @param damageHasBeenApplied TODO
      * @return A standard formatting of the damage.
      */
 	protected static String getFormattedDamage(DamageType damageType, int damage, GameCharacter target, boolean damageHasBeenApplied) {
-		if(target!=null && target.getLust()>=100) {
-			damageType = DamageType.ENERGY;
+		if(target!=null && damageType==DamageType.LUST && target.getLust()>=100) {
+			damageType = DamageType.HEALTH;
 			if(damageHasBeenApplied) {
 				damage /= 2;
 			}
@@ -1042,18 +1496,18 @@ public class CombatMove {
 		return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(damage) + " " + damageType.getName() + "</span>";
 	}
 
-	protected static String getFormattedDamageRange(GameCharacter attacker, GameCharacter defender, DamageType damageType, Attack attackType, boolean isCritical) {
-		return getFormattedDamageRange(attacker, defender, damageType, attackType, isCritical, 1);
+	protected static String getFormattedDamageRange(GameCharacter attacker, GameCharacter defender, DamageType damageType, Attack attackType, AbstractWeapon weapon, boolean isCritical) {
+		return getFormattedDamageRange(attacker, defender, damageType, attackType, weapon, isCritical, 1);
 	}
 	
     /**
      * @return A standard formatting of the damage range.
      */
-	protected static String getFormattedDamageRange(GameCharacter attacker, GameCharacter defender, DamageType damageType, Attack attackType, boolean isCritical, float multiplier) {
+	protected static String getFormattedDamageRange(GameCharacter attacker, GameCharacter defender, DamageType damageType, Attack attackType, AbstractWeapon weapon, boolean isCritical, float multiplier) {
 		return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
-					+ String.valueOf(Attack.applyFinalDamageModifiers(attacker, defender, Attack.getMinimumDamage(attacker, defender, attackType)*multiplier, isCritical))
+					+ String.valueOf(Attack.applyFinalDamageModifiers(attacker, defender, Attack.getMinimumDamage(attacker, defender, attackType, weapon)*multiplier, isCritical))
 					+"-"
-					+ String.valueOf(Attack.applyFinalDamageModifiers(attacker, defender, Attack.getMaximumDamage(attacker, defender, attackType)*multiplier, isCritical))
+					+ String.valueOf(Attack.applyFinalDamageModifiers(attacker, defender, Attack.getMaximumDamage(attacker, defender, attackType, weapon)*multiplier, isCritical))
 					+ " "
 					+ damageType.getName()
 				+ "</span>";
@@ -1065,17 +1519,13 @@ public class CombatMove {
 	protected static String formatAttackOutcome(GameCharacter source, GameCharacter target, String attackText, String attackEffectText, String criticalText, String criticalEffectText) {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("<i>"+attackText+"</i>");
-		sb.append("<br/>");
+		sb.append("<p><i>"+attackText+"</i></p>");
 		sb.append(attackEffectText);
 		
 		if(criticalText!=null) {
-			sb.append("<br/><span style='color:"+Colour.CRIT.toWebHexString()+";'>Critical</span>: ");
-			sb.append("<i>"+criticalEffectText/*criticalText*/+"</i>");
-//			if(criticalEffectText!=null && !criticalEffectText.isEmpty()) {
-//				sb.append("<br/>");
-//				sb.append(criticalEffectText);
-//			}
+			sb.append("<p>"
+							+ "<span style='color:"+Colour.CRIT.toWebHexString()+";'>Critical</span>: <i>"+criticalEffectText+"</i>"
+						+ "</p>");
 		}
 		
 		return UtilText.parse(source, target, sb.toString());
@@ -1095,28 +1545,38 @@ public class CombatMove {
         if(shouldBlunder()) {
             return (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type);
         }
+        int behaviourMultiplier = 1;
         // Trying to figure out best use cases
         switch(type) {
             default:
                 return (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type); // Other types are too nuanced in themselves to have a broad weight generation apply to them
             case ATTACK:
+            	if(source.getCombatBehaviour()==CombatBehaviour.ATTACK) {
+            		behaviourMultiplier=2;
+            	}
                 for(GameCharacter character : enemies) {
-                    if(character.getHealthPercentage() < 0.2)
-                    {
-                        return 1.1f + 0.2f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type); // If the enemy is low on health, chances to attack increase
+                    if(character.getHealthPercentage() < 0.2) {
+                        return (1.1f*behaviourMultiplier) + 0.2f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type); // If the enemy is low on health, chances to attack increase
                     }
                 }
-                return 0.8f + 0.2f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type); // Attacks aren't sophisticated
+                return (0.8f*behaviourMultiplier) + 0.2f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type); // Attacks aren't sophisticated
+                
             case DEFEND:
+            	if(source.getCombatBehaviour()==CombatBehaviour.DEFEND) {
+            		behaviourMultiplier=2;
+            	}
                 if(source.getHealthPercentage() < 0.2) {
-                    return 1.0f + 0.5f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type);
+                    return (1.0f*behaviourMultiplier) + 0.5f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type);
                 }
-                return 0.25f + 0.75f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type);
+                return (0.25f*behaviourMultiplier) + 0.75f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type);
+                
             case TEASE:
-                float weight = 0.8f + 0.2f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type);
+            	if(source.getCombatBehaviour()==CombatBehaviour.SEDUCE) {
+            		behaviourMultiplier=2;
+            	}
+                float weight = (0.8f*behaviourMultiplier) + 0.2f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type);
                 for(GameCharacter character : enemies) {
-                    if(character.getLustLevel() == LustLevel.FOUR_IMPASSIONED || character.getLustLevel() == LustLevel.FIVE_BURNING)
-                    {
+                    if(character.getLustLevel() == LustLevel.FOUR_IMPASSIONED || character.getLustLevel() == LustLevel.FIVE_BURNING) {
                         weight += 0.2f;
                         break;
                     }
@@ -1124,12 +1584,15 @@ public class CombatMove {
                 if(source.getCorruptionLevel() == CorruptionLevel.FOUR_LUSTFUL || source.getCorruptionLevel() == CorruptionLevel.FIVE_CORRUPT) {
                     weight += 0.4f;
                 }
+            	if(!source.isAttractedTo(this.getPreferredTarget(source, enemies, allies))) {
+            		weight*=0.5f; // 50% lower chance to use tease attacks if not attracted to the enemy.
+            	}
                 return weight; // Attacks aren't sophisticated
         }
     }
 
     /**
-     * Returns the preferred target for the action. Prefers to aim at targets with lowest HP values if not forced to select at random. Override for custom behavior
+     * Returns the preferred target for the action. Prefers to aim at targets with lowest HP values if not forced to select at random. Override for custom behaviour
      * @param source Character that uses the target function.
      * @param enemies Enemies of the character
      * @param allies Allies of the character
@@ -1243,7 +1706,7 @@ public class CombatMove {
      * @return The string that describes the action that has been performed.
      */
     public void applyDisruption(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-        source.setRemainingAP(source.getRemainingAP() + this.getAPcost() * -1, enemies, allies); // Normally this is the only thing that gets adjusted on selection.
+        source.setRemainingAP(source.getRemainingAP() + this.getAPcost(source) * -1, enemies, allies); // Normally this is the only thing that gets adjusted on selection.
     }
 
     /**
@@ -1270,7 +1733,7 @@ public class CombatMove {
      * @param enemies Enemies of the character
      * @param allies Allies of the character
      */
-    public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         if(target != null) {
             if(!canTargetSelf && source == target) {
                 return "This action can't be used on yourself!";
@@ -1289,7 +1752,7 @@ public class CombatMove {
             return "This action can't be used since it is still on cooldown! "+String.valueOf(source.getMoveCooldown(this.getIdentifier()))+" turns remaining.";
         }
 
-        if(source.getRemainingAP() < this.getAPcost()) {
+        if(source.getRemainingAP() < this.getAPcost(source)) {
             return "This action can't be used since you don't have enough AP!";
         }
 
@@ -1308,7 +1771,26 @@ public class CombatMove {
         return identifier;
     }
 
-    public int getCooldown() {
+    public static List<CombatMove> getAllCombatMoves() {
+		return allCombatMoves;
+	}
+
+	public static List<CombatMove> getBasicCombatMoves() {
+		return basicCombatMoves;
+	}
+
+	public static List<CombatMove> getSpellCombatMoves() {
+		return spellCombatMoves;
+	}
+
+	public static List<CombatMove> getSpecialCombatMoves() {
+		return specialCombatMoves;
+	}
+
+	public int getCooldown(GameCharacter source) {
+    	if(!source.getEquippedMoves().contains(this)) {
+    		return cooldown+1;
+    	}
         return cooldown;
     }
 
@@ -1343,16 +1825,16 @@ public class CombatMove {
     public boolean isCanTargetSelf() {
         return canTargetSelf;
     }
-
-    public int getAPcost() {
-        return APcost;
+    
+    public int getAPcost(GameCharacter source) {
+        return APcost + (!source.getEquippedMoves().contains(this)?1:0);
     }
 
-    public String getDescription() {
+    public String getDescription(GameCharacter source) {
         return "This action does nothing.";
     }
 
-    public String getName() {
+    public String getName(int turnIndex, GameCharacter source) {
         return name;
     }
 
@@ -1360,7 +1842,7 @@ public class CombatMove {
         return SVGString;
     }
     
-    public Map<StatusEffect, Integer> getStatusEffects() {
+    public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 		return statusEffects;
 	}
 
@@ -1382,7 +1864,7 @@ public class CombatMove {
         return false;
     }
     
-    public float getCritStatusEffectDurationIncrease() {
+    public float getCritStatusEffectDurationMultiplier() {
     	return 1;
     }
     

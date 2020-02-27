@@ -10,13 +10,11 @@ import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
-import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -25,7 +23,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.8
- * @version 0.2.8
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class PixShower {
@@ -40,10 +38,6 @@ public class PixShower {
 			null,
 			SexParticipantType.NORMAL) {
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-		@Override
 		public String getActionTitle() {
 			return "Kiss";
 		}
@@ -55,7 +49,8 @@ public class PixShower {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), SexAreaOrifice.MOUTH) && Sex.isOrificeFree(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
+			return Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.isOrificeFree(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH) && Main.sex.isOrificeFree(Main.game.getPlayer(), SexAreaOrifice.MOUTH);
 		}
 
 		@Override
@@ -81,10 +76,6 @@ public class PixShower {
 			null,
 			SexParticipantType.NORMAL) {
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
-		}
-		@Override
 		public String getActionTitle() {
 			return "Pinch nipples";
 		}
@@ -96,7 +87,8 @@ public class PixShower {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.game.getPlayer().hasBreasts();
+			return Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.game.getPlayer().hasBreasts();
 		}
 
 		@Override
@@ -125,10 +117,12 @@ public class PixShower {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Masturbate";
@@ -166,10 +160,12 @@ public class PixShower {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Dirty talk";
@@ -205,10 +201,12 @@ public class PixShower {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Struggle";
@@ -253,10 +251,12 @@ public class PixShower {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Submit";
@@ -296,10 +296,12 @@ public class PixShower {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Grind down";
@@ -333,10 +335,12 @@ public class PixShower {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH)),
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Kiss";
@@ -367,10 +371,12 @@ public class PixShower {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Dirty talk";
@@ -406,10 +412,13 @@ public class PixShower {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.game.getPlayer().hasBreasts();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Grope breasts";
@@ -418,11 +427,6 @@ public class PixShower {
 		@Override
 		public String getActionDescription() {
 			return "";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Main.game.getPlayer().hasBreasts();
 		}
 
 		@Override
@@ -492,9 +496,11 @@ public class PixShower {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(null, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.isPenetrationTypeFree(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER);
 		}
 		
 		@Override
@@ -508,13 +514,8 @@ public class PixShower {
 		}
 
 		@Override
-		public boolean isBaseRequirementsMet() {
-			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), SexAreaPenetration.FINGER);
-		}
-
-		@Override
 		public String getDescription() {
-			return UtilText.parse(Sex.getActivePartner(),
+			return UtilText.parse(Main.sex.getCharacterPerformingAction(),
 					UtilText.returnStringAtRandom(
 					"Reaching around between your legs, Pix suddenly grabs your [pc.cock+], and as she starts stroking up and down its length, you find yourself letting out [pc.a_moan+] and leaning back into her.",
 					
@@ -534,13 +535,15 @@ public class PixShower {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
-			return "Start fingering the player";
+			return "Start fingering";
 		}
 
 		@Override
@@ -555,7 +558,7 @@ public class PixShower {
 
 		@Override
 		public String getDescription() {
-			return UtilText.parse(Sex.getActivePartner(),
+			return UtilText.parse(Main.sex.getCharacterPerformingAction(),
 					"You feel Pix press heavily into your back, and as she growls menacingly into your ear, she reaches around with [pix.a_hand+] to start stroking and probing at your outer labia."
 						+ " With [pc.a_moan+], you lean back into her, and as the sound of falling water echoes off the walls all around you, she suddenly thrusts her [pix.fingers+] up, penetrating your [pc.pussy+] in one swift strike.");
 		}
@@ -568,10 +571,12 @@ public class PixShower {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Gentle fingering";
@@ -608,10 +613,12 @@ public class PixShower {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Rough fingering";
@@ -653,10 +660,12 @@ public class PixShower {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Clit play";
@@ -695,10 +704,14 @@ public class PixShower {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.getCharacterPerformingAction().isPlayer()
+					&& !SexFlags.pixDemandedPromise
+					&& Main.game.getPlayer().getArousal()>=ArousalLevel.FOUR_PASSIONATE.getMinimumValue();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Demand promise";
@@ -707,12 +720,6 @@ public class PixShower {
 		@Override
 		public String getActionDescription() {
 			return "";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return !SexFlags.pixDemandedPromise
-					&& Main.game.getPlayer().getArousal()>=ArousalLevel.FOUR_PASSIONATE.getMinimumValue();
 		}
 		
 		@Override
@@ -723,12 +730,12 @@ public class PixShower {
 		@Override
 		public String getDescription() {
 			return "Pix suddenly slams you up against the wall, and, leaning in over your shoulder, she starts softly growling into your ear, "
-						+"[npc.speech(Y'know, I've got a little deal for you, so hear me out, ok?"
+						+"[npc.speechNoEffects(Y'know, I've got a little deal for you, so hear me out, ok?"
 						+ " So, like, what's going to happen here, is that when you feel close to getting off, you're gonna promise me that you're gonna come back and do more training in the future, ok?"
 						+ " And I mean a <i>real</i> promise!)]"
 					+ "<br/><br/>"
 					+ "You aren't really in any position to interrupt, so as Pix continues to press you up against the wall, you listen to her as she offers you her 'deal', "
-					+"[npc.speech(Y'know, I can keep doing this all day, so when you're ready to cum for me, you're gonna promise that you're gonna come back to train, ok?!"
+					+"[npc.speechNoEffects(Y'know, I can keep doing this all day, so when you're ready to cum for me, you're gonna promise that you're gonna come back to train, ok?!"
 					+ " And if you don't promise, I'm not gonna let you get off!"
 					+ " I sure hope you're listening, 'cause I'm like, totally serious here!)]"
 					+ "<br/><br/>"
@@ -748,10 +755,13 @@ public class PixShower {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -760,11 +770,6 @@ public class PixShower {
 		@Override
 		public String getActionDescription() {
 			return "";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
 		}
 
 		@Override
@@ -797,9 +802,10 @@ public class PixShower {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -825,10 +831,12 @@ public class PixShower {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Promise";
@@ -837,11 +845,6 @@ public class PixShower {
 		@Override
 		public String getActionDescription() {
 			return "Promise Pix that you'll come back again.";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return true;
 		}
 
 		@Override
@@ -930,16 +933,18 @@ public class PixShower {
 	};
 	
 	public static final SexAction PLAYER_ORGASM_REFUSE = new SexAction(
-			SexActionType.ORGASM_NO_AROUSAL_RESET,
+			SexActionType.ORGASM_DENIAL,
 			ArousalIncrease.NEGATIVE_MAJOR,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.PLAYER_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Refuse";
@@ -948,11 +953,6 @@ public class PixShower {
 		@Override
 		public String getActionDescription() {
 			return "Stay quiet in the hopes that Pix doesn't notice you're about to reach your climax.";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return true;
 		}
 
 		@Override
@@ -991,9 +991,10 @@ public class PixShower {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -1020,10 +1021,12 @@ public class PixShower {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		
 		@Override
-		public SexActionLimitation getLimitation() {
-			return SexActionLimitation.NPC_ONLY;
+		public boolean isBaseRequirementsMet() {
+			return !Main.sex.getCharacterPerformingAction().isPlayer();
 		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Orgasm";
@@ -1032,11 +1035,6 @@ public class PixShower {
 		@Override
 		public String getActionDescription() {
 			return "";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return true;
 		}
 
 		@Override

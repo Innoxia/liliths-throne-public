@@ -59,6 +59,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
@@ -76,8 +77,8 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
@@ -94,7 +95,6 @@ import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.markings.TattooWritingStyle;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.PersonalityWeight;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -115,7 +115,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7?
- * @version 0.3.1
+ * @version 0.3.5
  * @author Innoxia
  */
 public class CharacterModificationUtils {
@@ -134,7 +134,7 @@ public class CharacterModificationUtils {
 	
 	public static String getInformationDiv(String id, TooltipInformationEventListener information) {
 		informationTooltips.put(id, information);
-		return "<div class='title-button no-select' id='"+id+"' style='position:absolute; left:auto; right:8px; top:8px; background:transparent;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>";
+		return "<div class='title-button no-select' id='"+id+"' style='position:absolute; left:auto; right:8px; top:8px; background:transparent; padding:0; margin:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>";
 	}
 	
 	public static String getStartDateDiv() {
@@ -299,6 +299,7 @@ public class CharacterModificationUtils {
 		
 		contentSB.append(
 				"<div class='container-full-width'>"
+				+ "<div class='cosmetics-inner-container full'>"
 						+ "<h5 style='text-align:center;'>"
 							+"Personality"
 						+"</h5>"
@@ -307,44 +308,38 @@ public class CharacterModificationUtils {
 							+ " It will not lock out any options during the game, and is more for roleplaying purposes."
 						+ "</p>");
 		
-		int i=0;
 		for(PersonalityTrait trait : PersonalityTrait.values()) {
-			contentSB.append("<div class='container-full-width' style='"+(i==4?"width:50%; margin:0 25%;":"width:calc(50% - 16px);")+" text-align:center; padding:0;'>"
-					+ getInformationDiv("PERSONALITY_INFO_"+trait, new TooltipInformationEventListener().setInformation(trait.getName(), trait.getDescription()))
-					+ "<p style='text-align:center; margin-bottom:0; padding-bottom:0;'>"
-						+ "<span style='color:"+trait.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(trait.getName())+"</span><br/>"
-						+ "<i>"+trait.getNameFromWeight(BodyChanging.getTarget(), BodyChanging.getTarget().getPersonality().get(trait))+"</i>"
-					+ "</p>");
-
-			for(PersonalityWeight weight : PersonalityWeight.values()) {
-				if(BodyChanging.getTarget().getPersonality().get(trait) == weight) {
+			if(!trait.isSpecialRequirements()) {
+				if(BodyChanging.getTarget().hasPersonalityTrait(trait)) {
 					contentSB.append(
-							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+trait.getColour().getShades()[2]+";'>"+Util.capitaliseSentence(weight.getName())+"</span>"
+							"<div id='PERSONALITY_TRAIT_"+trait+"' class='cosmetics-button active'>"
+								+ "<span style='color:"+trait.getColour().getShades()[2]+";'>"+Util.capitaliseSentence(trait.getName())+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
-							"<div id='PERSONALITY_"+trait+"_"+weight+"' class='cosmetics-button'>"
-									+ "[style.colourDisabled("+Util.capitaliseSentence(weight.getName())+")]"
+							"<div id='PERSONALITY_TRAIT_"+trait+"' class='cosmetics-button'>"
+									+ "[style.colourDisabled("+Util.capitaliseSentence(trait.getName())+")]"
 							+ "</div>");
 				}
 			}
-			
-			contentSB.append("</div>");
-			i++;
 		}
 		
-		contentSB.append("</div>");
+		contentSB.append("</div></div>");
 		
 		return contentSB.toString();
 	}
 	
 	public static void performPlayerAgeCheck(int ageTarget) {
-		if(Main.game.getPlayer().getAgeValue()>ageTarget) {
-			Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusYears(1));
-		} else if(Main.game.getPlayer().getAgeValue()<ageTarget) {
-			Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusYears(1));
+		int ageDiff = Math.abs(Main.game.getPlayer().getAgeValue()-ageTarget);
+		
+		if(ageDiff>0) {
+			if(Main.game.getPlayer().getAgeValue()>ageTarget) {
+				Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().plusYears(ageDiff));
+				
+			} else if(Main.game.getPlayer().getAgeValue()<ageTarget) {
+				Main.game.getPlayer().setBirthday(Main.game.getPlayer().getBirthday().minusYears(ageDiff));
+			}
 		}
 	}
 	
@@ -411,13 +406,13 @@ public class CharacterModificationUtils {
 		contentSB.append(
 				"<div class='container-full-width'>"
 						+"<div class='cosmetics-inner-container full'>"
-						+ "<h5 style='text-align:center;'>"
-							+"Sexual Orientation"
-						+"</h5>"
-						+ "<p style='text-align:center;'>"
-							+ "Sexual orientation in Lilith's Throne is determined by your attraction towards femininity or masculinity."
-							+ " Each orientation has a related status effect (hover over the icon in the left-hand panel to see the effects)."
-						+ "</p>");
+							+ "<h5 style='text-align:center;'>"
+								+"Sexual Orientation"
+							+"</h5>"
+							+ "<p style='text-align:center;'>"
+								+ "Sexual orientation in Lilith's Throne is determined by your attraction towards femininity or masculinity."
+								+ " Each orientation has a related status effect (hover over the icon in the left-hand panel to see the effects)."
+							+ "</p>");
 		
 		for(SexualOrientation orientation : SexualOrientation.values()) {
 			if(BodyChanging.getTarget().getSexualOrientation() == orientation) {
@@ -639,24 +634,28 @@ public class CharacterModificationUtils {
 	private static String applyWrapper(String title, String description, String id, String input, boolean halfWidth) {
 		if(halfWidth) {
 			return "<div class='cosmetics-inner-container' style='margin:1% 1%; width:48%; padding:1%; box-sizing:border-box; position:relative;'>"
+						+ getInformationDiv(id, new TooltipInformationEventListener().setInformation(title, description))
 						+ "<p style='text-align:center; margin:0; padding:0;'>"
-							+ getInformationDiv(id, new TooltipInformationEventListener().setInformation(title, description))
-							+ "<b>" +title+"</b>"
+							+ "<b>"+title+"</b>"
 						+"</p>"
 						+ input
 					+ "</div>";
 			
 		} else {
-			return "<div class='container-full-width'>"
-						+"<div class='cosmetics-inner-container left'>"
-							+ "<p style='text-align:center; margin:0; padding:0;'>"
-								+ getInformationDiv(id, new TooltipInformationEventListener().setInformation(title, description))
-								+ "<b>" +title+"</b>"
-							+"</p>"
-						+ "</div>"
-						+ "<div class='cosmetics-inner-container right'>"
-							+ input
-						+ "</div>"
+			return "<div class='cosmetics-inner-container' style='margin:1% 1%; width:98%; padding:1%; box-sizing:border-box; position:relative;'>"
+						+ getInformationDiv(id, new TooltipInformationEventListener().setInformation(title, description))
+//						+"<div class='cosmetics-inner-container left'>"
+//							+ "<p style='text-align:center; margin:0; padding:0;'>"
+//								+ "<b>" +title+"</b>"
+//							+"</p>"
+//						+ "</div>"
+//						+ "<div class='cosmetics-inner-container right'>"
+//							+ input
+//						+ "</div>"
+						+ "<p style='text-align:center; margin:0; padding:0;'>"
+							+ "<b>"+title+"</b>"
+						+"</p>"
+						+ input
 					+ "</div>";
 		}
 	}
@@ -731,6 +730,30 @@ public class CharacterModificationUtils {
 				+ "</div>";
 	}
 	
+
+	public static String getAgeAppearanceChoiceDiv() {
+		return applyFullVariableWrapper(
+				"Age Appearance",
+				UtilText.parse(BodyChanging.getTarget(), "Change how old [npc.name] [npc.verb(appear)] to be. [npc.She] [npc.is] limited to looking as young as 18, or up to ten years older than [npc.her] real age."
+						+ "<br/><i>This is purely a cosmetic change, and doesn't affect any in-game choices.</i>"),
+				"AGE_APPEARANCE",
+				"1",
+				"5",
+				String.valueOf(BodyChanging.getTarget().getAppearsAsAgeValue()),
+				BodyChanging.getTarget().getAppearsAsAgeValue()<=18,
+				BodyChanging.getTarget().getAppearsAsAgeValue()>=(BodyChanging.getTarget().getAgeValue()+10))
+				
+				+ applyWrapper("Birthday",
+						UtilText.parse(BodyChanging.getTarget(), "[npc.NamePos] birthday can not ever be changed, but by transforming [npc.her] body, [npc.she] may appear to be younger or older than [npc.she] really [npc.is]."),
+						"BIRTHDAY",
+						"<p style='text-align:center; margin:0; padding:0;'>"
+							+ BodyChanging.getTarget().getBirthdayString()
+								+ UtilText.parse(BodyChanging.getTarget(),
+									"</br>Making [npc.namePos] real age: <b style='color:"+BodyChanging.getTarget().getAge().getColour().toWebHexString()+"'>"+BodyChanging.getTarget().getAgeValue()+"</b>")
+						+"</p>",
+						true);
+	}
+	
 	public static String getHeightChoiceDiv() {
 		return applyFullVariableWrapperSizes("Height",
 				UtilText.parse(BodyChanging.getTarget(), "Change how tall [npc.name] [npc.is]."
@@ -761,7 +784,12 @@ public class CharacterModificationUtils {
 		for(TailType tail : TailType.values()) {
 			if((tail.getRace() !=null && availableRaces.contains(tail.getRace()))
 					|| (!removeNone && tail==TailType.NONE)) {
-
+				if(BodyChanging.getTarget().getTailType()==TailType.FOX_MORPH_MAGIC && tail!=TailType.FOX_MORPH_MAGIC) {
+					continue;
+				}
+				if(BodyChanging.getTarget().getTailType()!=TailType.FOX_MORPH_MAGIC && tail==TailType.FOX_MORPH_MAGIC) {
+					continue;
+				}
 				Colour c = Colour.TEXT_GREY;
 				
 				if(tail.getRace() != null) {
@@ -771,13 +799,13 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getTailType() == tail) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(tail.getRace()==null? "None": tail.getTransformName())+(tail.isPrehensile()?"*":"")+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.isPrehensile()?"*":"")+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_TAIL_"+tail+"' class='cosmetics-button'>"
-								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getRace()==null? "None": tail.getTransformName())+(tail.isPrehensile()?"*":"")+"</span>"
+								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.isPrehensile()?"*":"")+"</span>"
 							+ "</div>");
 				}
 			}
@@ -789,7 +817,7 @@ public class CharacterModificationUtils {
 						+ " (If the tail is furry, it is subject to the 'furry tail penetration' content option.)</i>"),
 				"TAIL_TYPE",
 				contentSB.toString(),
-				true);
+				false);
 	}
 
 	public static String getSelfTransformTailCountDiv() {
@@ -814,6 +842,32 @@ public class CharacterModificationUtils {
 				UtilText.parse(BodyChanging.getTarget(), "Change how many [npc.tails] [npc.name] [npc.has]."
 						+ "<br/><i>The number of tails is taken into consideration when checking to see if there's a tail available for penetrative actions during sex.</i>"),
 				"TAIL_COUNT",
+				contentSB.toString(),
+				true);
+	}
+	
+	public static String getSelfTransformTailGirthDiv() {
+		contentSB.setLength(0);
+		
+		for(PenetrationGirth girth : PenetrationGirth.values()) {
+			if(BodyChanging.getTarget().getTailGirth() == girth) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+girth.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getTailType().getGirthDescriptor(girth))+"</span>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='TAIL_GIRTH_"+girth+"' class='cosmetics-button'>"
+							+ "<span style='color:"+girth.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getTailType().getGirthDescriptor(girth))+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Tail Girth",
+				UtilText.parse(BodyChanging.getTarget(), "Change the girth of [npc.namePos] [npc.tail]."
+						+ "<br/><i>Tail girth has an impact in determining whether a tail is too large for the orifice it is penetrating.</i>"),
+				"TAIL_GIRTH",
 				contentSB.toString(),
 				true);
 	}
@@ -863,13 +917,13 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getWingType() == wing) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(wing.getRace()==null? "None": wing.getTransformName())+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(wing.getTransformName())+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_WING_"+wing+"' class='cosmetics-button'>"
-								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(wing.getRace()==null? "None": wing.getTransformName())+"</span>"
+								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(wing.getTransformName())+"</span>"
 							+ "</div>");
 				}
 			}
@@ -1122,7 +1176,7 @@ public class CharacterModificationUtils {
 					+ "<br/><i>'"+Util.capitaliseSentence(HairStyle.TWIN_TAILS.getName())+"' and '"+Util.capitaliseSentence(HairStyle.TWIN_BRAIDS.getName())+"' can be used as handles in some sex actions.</i>",
 				"HAIR_STYLE",
 				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformAssChoiceDiv(List<Race> availableRaces) {
@@ -2329,11 +2383,11 @@ public class CharacterModificationUtils {
 				UtilText.parse(BodyChanging.getTarget(), "Alter the rate at which milk is produced in <b>each</b> of [npc.namePos] [npc.crotchBoobs]. The more [npc.crotchBoobs] [npc.sheHasFull], the more milk [npc.she] produces per second."
 						+ "<br/><i>Once drained, [npc.namePos] [npc.crotchBoobs] fill with milk up to their maximum storage value at this rate.</i>"),
 				"MILK_CROTCH_REGENERATION",
-				Units.fluid(BodyChanging.getTarget().getBreastRawLactationRegenerationValue(), ValueType.PRECISE)+"/day"
+				Units.fluid(BodyChanging.getTarget().getBreastCrotchRawLactationRegenerationValue(), ValueType.PRECISE)+"/day"
 						+"<br/>("+Units.fluid(BodyChanging.getTarget().getCrotchLactationRegenerationPerSecond(false)*60, ValueType.PRECISE)+"/minute)"
 						+"<br/><i>"+Util.capitaliseSentence(BodyChanging.getTarget().getBreastCrotchLactationRegeneration().getName())+"</i>",
-				BodyChanging.getTarget().getBreastRawLactationRegenerationValue()<=0,
-				BodyChanging.getTarget().getBreastRawLactationRegenerationValue()>=FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay(),
+				BodyChanging.getTarget().getBreastCrotchRawLactationRegenerationValue()<=0,
+				BodyChanging.getTarget().getBreastCrotchRawLactationRegenerationValue()>=FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay(),
 				FLUID_REGEN_INCREMENT_SMALL,
 				FLUID_REGEN_INCREMENT_AVERAGE,
 				FLUID_REGEN_INCREMENT_LARGE);
@@ -2362,7 +2416,33 @@ public class CharacterModificationUtils {
 							+ "<br/><i>This will affect descriptions both in and out of sex.</i>"),
 				"MILK_FLAVOUR",
 				contentSB.toString(),
-				false);
+				true);
+	}
+
+	public static String getSelfTransformLactationModifiersDiv() {
+		contentSB.setLength(0);
+		
+		for(FluidModifier modifier : FluidModifier.values()) {
+			if(BodyChanging.getTarget().hasMilkModifier(modifier)) {
+				contentSB.append(
+						"<div id='MILK_MODIFIER_"+modifier+"' class='cosmetics-button active'>"
+							+ "<span style='color:"+modifier.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='MILK_MODIFIER_"+modifier+"' class='cosmetics-button'>"
+							+ "<span style='color:"+modifier.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Milk Modifiers",
+				UtilText.parse(BodyChanging.getTarget(), "Add or remove modifiers to [npc.namePos] milk."
+							+ "<br/><i>This will affect descriptions both in and out of sex. The modifiers with an asterisk next to their name have special in-game effects, such as the application of status effects when ingested.</i>"),
+				"MILK_MODIFIER",
+				contentSB.toString(),
+				true);
 	}
 
 	public static String getSelfTransformLactationCrotchFlavourDiv() {
@@ -2388,7 +2468,33 @@ public class CharacterModificationUtils {
 							+ "<br/><i>This will affect descriptions both in and out of sex.</i>"),
 				"MILK_CROTCH_FLAVOUR",
 				contentSB.toString(),
-				false);
+				true);
+	}
+	
+	public static String getSelfTransformLactationCrotchModifiersDiv() {
+		contentSB.setLength(0);
+		
+		for(FluidModifier modifier : FluidModifier.values()) {
+			if(BodyChanging.getTarget().hasMilkCrotchModifier(modifier)) {
+				contentSB.append(
+						"<div id='MILK_CROTCH_MODIFIER_"+modifier+"' class='cosmetics-button active'>"
+							+ "<span style='color:"+modifier.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='MILK_CROTCH_MODIFIER_"+modifier+"' class='cosmetics-button'>"
+							+ "<span style='color:"+modifier.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Milk Modifiers",
+				UtilText.parse(BodyChanging.getTarget(), "Add or remove modifiers to [npc.namePos] [npc.crotchMilk]."
+							+ "<br/><i>This will affect descriptions both in and out of sex. The modifiers with an asterisk next to their name have special in-game effects, such as the application of status effects when ingested.</i>"),
+				"MILK_CROTCH_MODIFIER",
+				contentSB.toString(),
+				true);
 	}
 	
 	public static String getSelfTransformNippleElasticityDiv() {
@@ -2564,14 +2670,15 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getVaginaType() == vagina) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(vagina.getRace()==null?"None":vagina.getTransformName())+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(vagina.getTransformName())+"</span>"
 							+ "</div>");
 					
 				} else {
+					boolean cannotChoose = vagina==VaginaType.NONE && BodyChanging.getTarget().isPregnant();
 					contentSB.append(
-							"<div "+(BodyChanging.getTarget().isPregnant()?"":"id='CHANGE_VAGINA_"+vagina+"'")+" class='cosmetics-button"+(BodyChanging.getTarget().isPregnant()?" disabled":"")+"'>"
-								+ "<span style='color:"+(BodyChanging.getTarget().isPregnant()?Colour.TEXT_GREY.toWebHexString():c.getShades()[0])+";'>"
-									+Util.capitaliseSentence(vagina.getRace()==null?"None":vagina.getTransformName())
+							"<div "+(cannotChoose?"":"id='CHANGE_VAGINA_"+vagina+"'")+" class='cosmetics-button"+(cannotChoose?" disabled":"")+"'>"
+								+ "<span style='color:"+(cannotChoose?Colour.TEXT_GREY.toWebHexString():c.getShades()[0])+";'>"
+									+Util.capitaliseSentence(vagina.getTransformName())
 								+"</span>"
 							+ "</div>");
 				}
@@ -2582,9 +2689,9 @@ public class CharacterModificationUtils {
 				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] vagina type."
 					+ "<br/><i>Vagina type affects the modifiers and other attributes of the vagina which characters spawn in with, as well as descriptions both in and out of sex.</i>")
 					+(BodyChanging.getTarget().isPregnant()
-						?UtilText.parse(BodyChanging.getTarget(), " [style.italicsBad(Vagina type cannot be changed while [npc.nameIsFull] pregnant!)]")
+						?UtilText.parse(BodyChanging.getTarget(), " [style.italicsBad([npc.NamePos] vagina cannot be removed while [npc.nameIsFull] pregnant!)]")
 						:BodyChanging.getTarget().hasStatusEffect(StatusEffect.PREGNANT_0)
-							?UtilText.parse(BodyChanging.getTarget(), " [style.italicsBad(Vagina type cannot be changed while [npc.name] [npc.has] the possibility of being pregnant!)]")
+							?UtilText.parse(BodyChanging.getTarget(), " [style.italicsBad([npc.NamePos] vagina cannot be removed while [npc.name] [npc.has] the possibility of being pregnant!)]")
 							:""),
 				"VAGINA_TYPE",
 				contentSB.toString(),
@@ -2614,7 +2721,33 @@ public class CharacterModificationUtils {
 							+ "<br/><i>This will affect descriptions both in and out of sex.</i>"),
 				"GIRLCUM_FLAVOUR",
 				contentSB.toString(),
-				false);
+				true);
+	}
+	
+	public static String getSelfTransformGirlcumModifiersDiv() {
+		contentSB.setLength(0);
+		
+		for(FluidModifier modifier : FluidModifier.values()) {
+			if(BodyChanging.getTarget().hasGirlcumModifier(modifier)) {
+				contentSB.append(
+						"<div id='GIRLCUM_MODIFIER_"+modifier+"' class='cosmetics-button active'>"
+							+ "<span style='color:"+modifier.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='GIRLCUM_MODIFIER_"+modifier+"' class='cosmetics-button'>"
+							+ "<span style='color:"+modifier.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Girlcum Modifiers",
+				UtilText.parse(BodyChanging.getTarget(), "Add or remove modifiers to [npc.namePos] girlcum."
+							+ "<br/><i>This will affect descriptions both in and out of sex. The modifiers with an asterisk next to their name have special in-game effects, such as the application of status effects when ingested.</i>"),
+				"GIRLCUM_MODIFIER",
+				contentSB.toString(),
+				true);
 	}
 	
 	public static String getSelfTransformVaginaCapacityDiv() {
@@ -2920,13 +3053,13 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getPenisType() == penis) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(penis.getRace()==null?"None":penis.getTransformName())+"</span>"
+								+ "<span style='color:"+c.toWebHexString()+";'>"+Util.capitaliseSentence(penis.getTransformName())+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='CHANGE_PENIS_"+penis+"' class='cosmetics-button'>"
-								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(penis.getRace()==null?"None":penis.getTransformName())+"</span>"
+								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(penis.getTransformName())+"</span>"
 							+ "</div>");
 				}
 			}
@@ -2948,13 +3081,13 @@ public class CharacterModificationUtils {
 				"PENIS_SIZE",
 				BodyChanging.getTarget().getPenisRawSizeValue(),
 				BodyChanging.getTarget().getPenisRawSizeValue()<=0,
-				BodyChanging.getTarget().getPenisRawSizeValue()>=PenisSize.SEVEN_STALLION.getMaximumValue());
+				BodyChanging.getTarget().getPenisRawSizeValue()>=PenisLength.SEVEN_STALLION.getMaximumValue());
 	}
 	
 	public static String getSelfTransformPenisGirthDiv() {
 		contentSB.setLength(0);
 		
-		for(PenisGirth girth : PenisGirth.values()) {
+		for(PenetrationGirth girth : PenetrationGirth.values()) {
 			if(BodyChanging.getTarget().getPenisGirth() == girth) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
@@ -3110,7 +3243,7 @@ public class CharacterModificationUtils {
 	
 	public static String getSelfTransformCumRegenerationDiv() {
 		return applyVariableWrapperFluids("Cum Regeneration",
-				UtilText.parse(BodyChanging.getTarget(), "Alter the rate at which [npc.name] [npc.ver(produce)] cum."
+				UtilText.parse(BodyChanging.getTarget(), "Alter the rate at which [npc.name] [npc.verb(produce)] cum."
 						+ "<br/><i>Once drained, [npc.namePos] balls fill with cum up to their maximum storage value at this rate.</i>"),
 				"CUM_REGENERATION",
 				Units.fluid(BodyChanging.getTarget().getPenisRawCumProductionRegenerationValue(), ValueType.PRECISE)+"/day"
@@ -3159,7 +3292,33 @@ public class CharacterModificationUtils {
 							+ "<br/><i>This will affect descriptions both in and out of sex.</i>"),
 				"CUM_FLAVOUR",
 				contentSB.toString(),
-				false);
+				true);
+	}
+	
+	public static String getSelfTransformCumModifiersDiv() {
+		contentSB.setLength(0);
+		
+		for(FluidModifier modifier : FluidModifier.values()) {
+			if(BodyChanging.getTarget().hasCumModifier(modifier)) {
+				contentSB.append(
+						"<div id='CUM_MODIFIER_"+modifier+"' class='cosmetics-button active'>"
+							+ "<span style='color:"+modifier.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='CUM_MODIFIER_"+modifier+"' class='cosmetics-button'>"
+							+ "<span style='color:"+modifier.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Cum Modifiers",
+				UtilText.parse(BodyChanging.getTarget(), "Add or remove modifiers to [npc.namePos] cum."
+							+ "<br/><i>This will affect descriptions both in and out of sex. The modifiers with an asterisk next to their name have special in-game effects, such as the application of status effects when ingested.</i>"),
+				"CUM_MODIFIER",
+				contentSB.toString(),
+				true);
 	}
 	
 	public static String getSelfTransformUrethraElasticityDiv() {
@@ -4246,24 +4405,32 @@ public class CharacterModificationUtils {
 			List<Colour> availablePrimaryColours = new ArrayList<>(withDyeAndExtraPatterns
 															?coveringType.getAllPrimaryColours()
 															:coveringType.getNaturalColoursPrimary());
-			int rainbowIncrement=3;
+			int rainbowIncrement=5;
+			String rainbow = "";
 			Collections.sort(availablePrimaryColours, (c1, c2)->c2.isMetallic()?(c1.isMetallic()?0:-1):(c1.isMetallic()?1:0));
+			
 			for (Colour c : availablePrimaryColours) {
+				int i=0;
+				if(c.getRainbowColours()!=null) {
+					StringBuilder sb = new StringBuilder();
+					sb.append("repeating-linear-gradient(135deg,");
+					for(String s : c.getRainbowColours()) {
+						sb.append(" "+s+" "+(i*rainbowIncrement)+"px, "+s+" "+((i+1)*rainbowIncrement)+"px,");
+						i++;
+					}
+					sb.deleteCharAt(sb.length()-1);
+					sb.append(");");
+					rainbow = sb.toString();
+				} else {
+					rainbow = "";
+				}
 				contentSB.append("<div class='normal-button"+(activeCovering.getPrimaryColour()==c?" selected":"")+"' id='"+coveringType+"_PRIMARY_"+c+"'"
 										+ " style='width:auto; margin-right:4px;"+(activeCovering.getPrimaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ (c.isMetallic()
 											?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-												:(c.isRainbow()
-													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg,"
-															+ " #c4e17f 0px, #c4e17f "+rainbowIncrement+"px,"
-															+ "#f7fdca "+rainbowIncrement+"px, #f7fdca "+2*rainbowIncrement+"px,"
-															+ "#fad071 "+2*rainbowIncrement+"px, #fad071 "+3*rainbowIncrement+"px,"
-															+ "#f0766b "+3*rainbowIncrement+"px, #f0766b "+4*rainbowIncrement+"px,"
-															+ "#db9dbe "+4*rainbowIncrement+"px, #db9dbe "+5*rainbowIncrement+"px,"
-															+ "#c49cdf "+5*rainbowIncrement+"px, #c49cdf "+6*rainbowIncrement+"px,"
-															+ "#6599e2 "+6*rainbowIncrement+"px, #6599e2 "+7*rainbowIncrement+"px,"
-															+ "#61c2e4 "+7*rainbowIncrement+"px, #61c2e4 "+8*rainbowIncrement+"px);"
-											:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
+											:(c.getRainbowColours()!=null
+												?"<div class='phone-item-colour' style='background: "+rainbow
+												:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
 										+(c==Colour.COVERING_NONE
 											?" color:"+Colour.BASE_RED.toWebHexString()+";'>X"
 											:"'>")
@@ -4314,21 +4481,27 @@ public class CharacterModificationUtils {
 					+ "</div>");
 					
 				} else {
+					int i=0;
+					if(c.getRainbowColours()!=null) {
+						StringBuilder sb = new StringBuilder();
+						sb.append("repeating-linear-gradient(135deg,");
+						for(String s : c.getRainbowColours()) {
+							sb.append(" "+s+" "+(i*rainbowIncrement)+"px, "+s+" "+((i+1)*rainbowIncrement)+"px,");
+							i++;
+						}
+						sb.deleteCharAt(sb.length()-1);
+						sb.append(");");
+						rainbow = sb.toString();
+					} else {
+						rainbow = "";
+					}
 					contentSB.append("<div class='normal-button"+(activeCovering.getSecondaryColour()==c?" selected":"")+"' id='"+coveringType+"_SECONDARY_"+c+"'"
 											+ " style='width:auto; margin-right:4px;"+(activeCovering.getSecondaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 											+ (c.isMetallic()
 													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-													:(c.isRainbow()
-														?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg,"
-																+ " #c4e17f 0px, #c4e17f "+rainbowIncrement+"px,"
-																+ "#f7fdca "+rainbowIncrement+"px, #f7fdca "+2*rainbowIncrement+"px,"
-																+ "#fad071 "+2*rainbowIncrement+"px, #fad071 "+3*rainbowIncrement+"px,"
-																+ "#f0766b "+3*rainbowIncrement+"px, #f0766b "+4*rainbowIncrement+"px,"
-																+ "#db9dbe "+4*rainbowIncrement+"px, #db9dbe "+5*rainbowIncrement+"px,"
-																+ "#c49cdf "+5*rainbowIncrement+"px, #c49cdf "+6*rainbowIncrement+"px,"
-																+ "#6599e2 "+6*rainbowIncrement+"px, #6599e2 "+7*rainbowIncrement+"px,"
-																+ "#61c2e4 "+7*rainbowIncrement+"px, #61c2e4 "+8*rainbowIncrement+"px);"
-														:"<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";"))
+													:(c.getRainbowColours()!=null
+														?"<div class='phone-item-colour' style='background: "+rainbow
+														:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
 												+(c==Colour.COVERING_NONE?" color:"+Colour.BASE_RED.toWebHexString()+";'>X":"'>")
 											+"</div>"
 									+ "</div>");
@@ -4571,7 +4744,7 @@ public class CharacterModificationUtils {
 					:"<div class='modifier-icon' style='width:48%;margin:0 1%'>"
 						+ (tattooInSlot==null
 							?"<div class='modifier-icon-content'></div>"
-							:"<div class='modifier-icon-content "+tattooInSlot.getRarity().getName()+"'>"+tattooInSlot.getSVGImage(BodyChanging.getTarget())+"</div>")
+							:"<div class='modifier-icon-content' style='background-color:"+tattooInSlot.getRarity().getBackgroundColour().toWebHexString()+";'>"+tattooInSlot.getSVGImage(BodyChanging.getTarget())+"</div>")
 						+ "<div class='overlay no-pointer' id='TATTOO_INFO_"+invSlot.toString()+"'></div>"
 					+ "</div>")
 				
@@ -4648,7 +4821,7 @@ public class CharacterModificationUtils {
 			contentSB.append("<div class='container-full-width' style='width:75%; margin:0; position:relative; text-align:center;'>");
 				contentSB.append("<h5 style='width:100%; text-align:center;'>Select Type</h5>");
 		
-				for(AbstractTattooType type : TattooType.getAllTattooTypes()) {
+				for(AbstractTattooType type : TattooType.getConditionalTattooTypes(BodyChanging.getTarget())) {
 					if(type.getSlotAvailability().contains(tattooInventorySlot)) {
 						contentSB.append("<div style='width:18%; margin:1%; padding:0; display:inline-block;'>"
 											+ "<div class='normal-button"+(tattoo.getType()==type?" selected":"")+"' id='TATTOO_TYPE_"+type.getId()+"'"

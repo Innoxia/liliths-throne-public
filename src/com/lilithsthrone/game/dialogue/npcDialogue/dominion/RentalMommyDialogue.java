@@ -9,7 +9,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
@@ -55,7 +54,7 @@ public class RentalMommyDialogue {
 				return new Response("Decline", "", ENCOUNTER) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -178,7 +177,7 @@ public class RentalMommyDialogue {
 				return new Response("Decline", "Decline Mommy's extra offers, and take your leave.", ENCOUNTER) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -212,7 +211,7 @@ public class RentalMommyDialogue {
 				return new Response("Leave", "Thank Mommy and take your leave.", MOMMYS_EXTRAS_BREASTFEEDING) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 			} else {
@@ -238,7 +237,7 @@ public class RentalMommyDialogue {
 				return new Response("Leave", "Thank Mommy and take your leave.", MOMMYS_EXTRAS_BREASTFEEDING_PUBLIC) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 			} else {
@@ -253,7 +252,7 @@ public class RentalMommyDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getNumberOfOrgasms(getMommy()) >= getMommy().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getMommy()) >= getMommy().getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_ORGASMED"));
 				
 			} else {
@@ -271,7 +270,7 @@ public class RentalMommyDialogue {
 				return new Response("Leave", "Thank Mommy and take your leave.", AFTER_SEX_MOMMY_AS_DOM) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 			} else {
@@ -286,7 +285,7 @@ public class RentalMommyDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getNumberOfOrgasms(getMommy()) >= getMommy().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getMommy()) >= getMommy().getOrgasmsBeforeSatisfied()) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("characters/dominion/rentalMommy", "MOMMY_ORGASMED"));
 				
 			} else {
@@ -304,7 +303,7 @@ public class RentalMommyDialogue {
 				return new Response("Leave", "Thank Mommy and take your leave.", AFTER_SEX_MOMMY_AS_SUB) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 			} else {

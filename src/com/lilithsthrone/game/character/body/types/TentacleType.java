@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.Util;
  * @author Innoxia
  */
 public enum TentacleType implements BodyPartTypeInterface {
-	NONE(null, null, false),
+	NONE(null, Race.NONE, false),
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true);
 

@@ -35,15 +35,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_ANAL_RECEIVING;
     	private Fetish oppositeFetish = Fetish.FETISH_ANAL_GIVING;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -54,17 +62,19 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by offering [npc2.herHim] the use of [npc.her] ass, dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "[npc.Name] [npc.verb(offer)] [npc2.name] the use of [npc.her] ass, dealing "+getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false)+" damage."
     				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -72,14 +82,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
@@ -99,8 +107,8 @@ public class CMFetishAttack {
 						"[npc.Name] [npc.verb(turn)] around, spreading apart [npc.her] ass cheeks with both hands as [npc.she] [npc.moansVerb], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(You know you want a go!)]"
-									:"[npc.speech(My slutty asshole <i>needs</i> your cock!)]"))),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+									:"[npc.speech(My slutty asshole <i>needs</i> your cock!)]")))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -134,15 +142,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_ANAL_GIVING;
     	private Fetish oppositeFetish = Fetish.FETISH_ANAL_RECEIVING;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -153,17 +169,19 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to use [npc.her] ass, dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            			+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to use [npc2.her] ass, dealing "+getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false)+" damage."
             			+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -171,14 +189,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
@@ -188,8 +204,8 @@ public class CMFetishAttack {
     						"[npc.Name] hungrily [npc.verb(stare)] at [npc2.namePos] [npc2.ass+], [npc.moaning],"
     							+" [npc.speech(I'm going to fuck that ass so hard!)]",
     						"Gazing lustfully at [npc2.namePos] [npc2.ass+], [npc.name] [npc.verb(let)] out [npc.a_moan+],"
-    							+" [npc.speech(I'm going to pound that sweet ass into the ground!)]")),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+    							+" [npc.speech(I'm going to pound that sweet ass into the ground!)]"))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -223,15 +239,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_VAGINAL_RECEIVING;
     	private Fetish oppositeFetish = Fetish.FETISH_VAGINAL_GIVING;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -242,17 +266,20 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by offering [npc2.herHim] the use of [npc.her] pussy, dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            			+ "[npc.Name] [npc.verb(offer)] [npc2.name] the use of [npc.her] pussy, dealing "+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             			+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
-
+        
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base "
+            				+ getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -260,14 +287,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
@@ -279,8 +304,8 @@ public class CMFetishAttack {
 						"[npc.Name] [npc.verb(thrust)] [npc.her] [npc.hips+] out a little and [npc.moansVerb], "
 								+ "[npc.speech(I'm getting wet already! Come fuck my little pussy!)]",
 						"[npc.Name] [npc.verb(wink)] at [npc2.name] and [npc.moansVerb], "
-								+ "[npc.speech(My slutty pussy <i>needs</i> some attention!)]")),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+								+ "[npc.speech(My slutty pussy <i>needs</i> some attention!)]"))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -314,15 +339,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_VAGINAL_GIVING;
     	private Fetish oppositeFetish = Fetish.FETISH_VAGINAL_RECEIVING;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative() || !this.getPreferredTarget(source, enemies, allies).hasVagina()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(!target.hasVagina() || target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -333,10 +366,12 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to use [npc.her] pussy, dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
-            			+ (!target.hasVagina()
+	            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+		            		+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to use [npc2.her] pussy, dealing "+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+	            			+ (!target.hasVagina()
             					?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] does not have a vagina!)]"
             					:(target.getFetishDesire(oppositeFetish).isNegative()
                     					?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]"
@@ -344,10 +379,10 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target doesn't have a vagina or they dislike the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -355,14 +390,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(!target.hasVagina() || target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
@@ -372,8 +405,8 @@ public class CMFetishAttack {
 						"[npc.Name] hungrily [npc.verb(stare)] between [npc2.namePos] [npc2.legs], [npc.moaning],"
 							+" [npc.speech(I'm going to fuck that pussy so hard!)]",
 						"Gazing lustfully between [npc2.namePos] [npc2.legs], [npc.name] [npc.verb(let)] out [npc.a_moan+],"
-							+" [npc.speech(I'm going to pound that sweet pussy into the ground!)]")),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+							+" [npc.speech(I'm going to pound that sweet pussy into the ground!)]"))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -407,15 +440,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_INCEST;
     	private Fetish oppositeFetish = Fetish.FETISH_INCEST;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative() || !this.getPreferredTarget(source, enemies, allies).isRelatedTo(source)) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(!target.isRelatedTo(source) || target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -426,24 +467,28 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             if(target.isRelatedTo(source)) {
 	            return UtilText.parse(source, target,
-	            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to have incestuous sex with [npc.herHim], dealing "
-	            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+	            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+	            			+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to have incestuous sex with [npc2.herHim], dealing "
+	            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
 	            			+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
             } else {
 	            return UtilText.parse(source, target,
-	            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you love fucking your relatives, dealing "
-	            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
-	            				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] is not related to you!)]":""));
+	            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+	            			+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.she] [npc.verb(love)] having incestuous sex, dealing "
+	            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            				+ " [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] is not related to you!)]");
             }
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target is not related to you or they dislike the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -451,14 +496,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(!target.isRelatedTo(source) || target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             if(target.isRelatedTo(source)) {
@@ -493,8 +536,8 @@ public class CMFetishAttack {
         						"Running [npc1.her] [npc1.hands] down over [npc1.her] groin, [npc1.name] [npc.verb(call)] out to [npc2.name], "
         								+ "[npc1.speech("+dialogue+")]",
         						"[npc1.Name] [npc.verb(let)] out an eager groan as [npc1.she] [npc.verb(thrust)] [npc1.her] [npc1.hips] at [npc2.name], "
-        								+ "[npc1.speech("+dialogue+")]")),
-                		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+        								+ "[npc1.speech("+dialogue+")]"))+dealtDamage.getKey(),
+                		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
                 		(isCrit
                 			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
                 			:null),
@@ -509,8 +552,8 @@ public class CMFetishAttack {
         						"Running [npc1.her] [npc1.hands] down over [npc1.her] groin, [npc1.name] [npc.verb(call)] out to [npc2.name], "
         								+ "[npc1.speech(It's a shame you aren't my [npc2.sister] or something; there's nothing hotter than siblings fucking!)]",
         						"[npc1.Name] [npc.verb(let)] out an eager groan as [npc1.she] [npc.verb(thrust)] [npc1.her] [npc1.hips] at [npc2.name], "
-        								+ "[npc1.speech(I wish you were my relative; I love incestuous sex!)]")),
-                		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+        								+ "[npc1.speech(I wish you were my relative; I love incestuous sex!)]"))+dealtDamage.getKey(),
+                		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
                 		(isCrit
                 			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
                 			:null),
@@ -545,15 +588,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_CUM_STUD;
     	private Fetish oppositeFetish = Fetish.FETISH_CUM_ADDICT;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -564,17 +615,20 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to give [npc.herHim] your cum, dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            				+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to give [npc2.herHim] a taste of [npc.her] cum, dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -582,14 +636,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
@@ -599,8 +651,8 @@ public class CMFetishAttack {
     						"Running [npc.her] [npc.hands] down over [npc.her] groin, [npc.name] [npc.verb(call)] out to [npc2.name], "
     								+ "[npc.speech(I bet you can't wait to taste my [npc.cum]!)]",
     						"[npc.Name] [npc.verb(let)] out an eager groan as [npc.she] [npc.verb(thrust)] [npc.her] [npc.hips] at [npc2.name], "
-    								+ "[npc.speech(I can't wait to fill you with my [npc.cum]!)]")),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+    								+ "[npc.speech(I can't wait to fill you with my [npc.cum]!)]"))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -635,15 +687,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_CUM_ADDICT;
     	private Fetish oppositeFetish = Fetish.FETISH_CUM_STUD;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative() || !this.getPreferredTarget(source, enemies, allies).hasPenis()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(!target.hasPenisIgnoreDildo() || target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -654,9 +714,12 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you want [npc.her] cum, dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+    	            		+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.she] [npc.verb(want)] [npc2.her] cum, dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (!target.hasPenisIgnoreDildo()
             						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] does not have a penis!)]"
             						:(target.getFetishDesire(oppositeFetish).isNegative()
@@ -665,10 +728,10 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target has no penis or if they dislike the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -676,14 +739,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(!target.hasPenisIgnoreDildo() || target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
@@ -695,8 +756,8 @@ public class CMFetishAttack {
     						"[npc.Name] [npc.verb(let)] out a pathetic whine as [npc.she] [npc.verb(beg)], "
     								+ "[npc.speech(I'm so hungry! I need your cum!)]",
     						"[npc.Name] [npc.verb(let)] out a pathetic whine as [npc.she] [npc.verb(beg)] for a meal, "
-    								+ "[npc.speech(Please! I need some cum!)]")),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+    								+ "[npc.speech(Please! I need some cum!)]"))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -730,15 +791,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_PENIS_RECEIVING;
     	private Fetish oppositeFetish = Fetish.FETISH_PENIS_GIVING;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative() || !this.getPreferredTarget(source, enemies, allies).hasPenis()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(!target.hasPenisIgnoreDildo() || target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -749,9 +818,12 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by begging for [npc2.her] cock, dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+    	            		+ "[npc.Name] [npc.verb(beg)] for [npc2.namePos] cock, dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (!target.hasPenisIgnoreDildo()
             						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] does not have a penis!)]"
             						:(target.getFetishDesire(oppositeFetish).isNegative()
@@ -760,10 +832,10 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target has no penis or if they dislike the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -771,22 +843,21 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(!target.hasPenisIgnoreDildo() || target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
             		(UtilText.returnStringAtRandom(
 						"[npc.Name] [npc.verb(stare)] down between [npc2.namePos] [npc2.legs] as [npc.she] [npc.moanVerb], [npc.speech(I'll be getting a taste of your [npc2.cock] soon enough!)]",
 						"[npc.Name] hungrily [npc.verb(gaze)] down between [npc2.namePos] [npc2.legs] and [npc.moanVerb], [npc.speech(I want to feel your cock throbbing inside of me!)]",
-						"[npc.Name] [npc.verb(grin)] at [npc2.name], licking [npc.her] [npc.lips+] and flicking [npc.her] gaze down to rest on [npc2.namePos] crotch as [npc.she] [npc.moanVerb], [npc.speech(I'll take good care of your cock!)]")),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+						"[npc.Name] [npc.verb(grin)] at [npc2.name], licking [npc.her] [npc.lips+] and flicking [npc.her] gaze down to rest on [npc2.namePos] crotch as [npc.she] [npc.moanVerb], [npc.speech(I'll take good care of your cock!)]"))
+            			+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -820,15 +891,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_PENIS_GIVING;
     	private Fetish oppositeFetish = Fetish.FETISH_PENIS_RECEIVING;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -839,17 +918,20 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to give [npc2.herHim] a taste of your cock, dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+	            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+	            			+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to give [npc2.herHim] a taste of [npc.her] [npc.cock+], dealing "
+	            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -857,22 +939,20 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
             		(UtilText.returnStringAtRandom(
 						"[npc.Name] [npc.verb(slide)] [npc.a_hand] down between [npc.her] [npc.legs], before grabbing [npc.her] crotch and [npc.moaning] at [npc2.name], [npc.speech(I can't wait to stuff my cock inside you!)]",
 						"[npc.Name] [npc.verb(thrust)] [npc.her] [npc.hips+] forward and [npc.moanVerb] at [npc2.name], [npc.speech(Come get a taste of my cock!)]",
-						"[npc.Name] [npc.verb(grin)] at [npc2.name] as [npc.she] [npc.moanVerb], [npc.speech(You're going to love the feeling of my cock!)]")),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+						"[npc.Name] [npc.verb(grin)] at [npc2.name] as [npc.she] [npc.moanVerb], [npc.speech(You're going to love the feeling of my cock!)]"))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -906,15 +986,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_FOOT_RECEIVING;
     	private Fetish oppositeFetish = Fetish.FETISH_FOOT_GIVING;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -925,17 +1013,20 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by begging for [npc2.herHim] to use [npc2.her] feet, dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            				+ "[npc.Name] [npc.verb(beg)] for [npc2.name] to use [npc2.her] feet, dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -943,14 +1034,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
@@ -958,8 +1047,8 @@ public class CMFetishAttack {
     						"[npc.Name] [npc.verb(gaze)] hungrily down at [npc2.namePos] [npc2.feet] as [npc.she] [npc.moanVerb], [npc.speech(I can't wait to feel your [npc2.feet] all over me!)]",
     						"[npc.Name] [npc.verb(bite)] [npc.her] [npc.lip] as [npc.she] [npc.verb(gaze)] down at [npc2.namePos] [npc2.feet]. [npc.speech(Let me worship your [npc2.feet]!)]",
     						"[npc.Name] [npc.verb(grin)] at [npc2.name], licking [npc.her] [npc.lips+] and flicking [npc.her] gaze down to rest on [npc2.namePos] [npc2.feet] as [npc.she] [npc.moanVerb],"
-    								+ " [npc.speech(I just want to worship your [npc2.feet]!)]")),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+    								+ " [npc.speech(I just want to worship your [npc2.feet]!)]"))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -993,15 +1082,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_FOOT_GIVING;
     	private Fetish oppositeFetish = Fetish.FETISH_FOOT_RECEIVING;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -1012,17 +1109,20 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to use your [npc.feet] on [npc2.herHim], dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+	            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+	            			+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to use [npc.her] [npc.feet] on [npc2.herHim], dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -1030,22 +1130,20 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
             		(UtilText.returnStringAtRandom(
     						"[npc.Name] [npc.verb(lift)] one of [npc.her] [npc.legs], before pointing [npc.her] [npc.foot] at [npc2.name]. [npc.speech(Get down on your knees and kiss my [npc.feet]!)]",
     						"[npc.Name] [npc.verb(thrust)] one of [npc.her] [npc.feet+] forwards and [npc.moanVerb] at [npc2.name], [npc.speech(You'll be licking my toes soon enough!)]",
-    						"[npc.Name] [npc.verb(grin)] at [npc2.name] as [npc.she] [npc.moanVerb], [npc.speech(Crawl over here and kiss my feet!)]")),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+    						"[npc.Name] [npc.verb(grin)] at [npc2.name] as [npc.she] [npc.moanVerb], [npc.speech(Crawl over here and kiss my feet!)]"))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -1079,15 +1177,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_ORAL_RECEIVING;
     	private Fetish oppositeFetish = Fetish.FETISH_ORAL_GIVING;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -1098,17 +1204,20 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] that you want to use [npc2.her] mouth, dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+                    		+ "[npc.Name] [npc.verb(beg)] for [npc2.name] to perform oral on [npc.herHim], dealing "
+                    			+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -1116,14 +1225,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
@@ -1133,8 +1240,8 @@ public class CMFetishAttack {
     						"[npc.Name] hungrily [npc.verb(stare)] at [npc2.namePos] [npc2.lips+], [npc.moaning],"
     							+" [npc.speech(Your tongue belongs between my [npc.legs]!)]",
     						"Gazing lustfully at [npc2.namePos] [npc2.lips+], [npc.name] [npc.verb(let)] out [npc.a_moan+],"
-    							+" [npc.speech(I'm going to put your [npc2.lips] to good use!)]")),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+    							+" [npc.speech(I'm going to put your [npc2.lips] to good use!)]"))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -1168,15 +1275,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_ORAL_GIVING;
     	private Fetish oppositeFetish = Fetish.FETISH_ORAL_RECEIVING;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -1187,17 +1302,20 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by offering [npc2.herHim] the use of [npc.her] mouth, dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+    	            		+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to perform oral on [npc2.herHim], dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -1205,14 +1323,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
@@ -1232,8 +1348,8 @@ public class CMFetishAttack {
     						"[npc.Name] [npc.verb(open)] [npc.her] mouth, sticking out [npc.her] [npc.tongue] and making a suggestive gesture with one of [npc.her] [npc.hands], "
     								+ (target.getAppearsAsGender().isFeminine()
     									?"[npc.speech(You know you want to feel my tongue!)]"
-    									:"[npc.speech(You know you want me to suck your cock!)]"))),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+    									:"[npc.speech(You know you want me to suck your cock!)]")))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -1267,15 +1383,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_BREASTS_OTHERS;
     	private Fetish oppositeFetish = Fetish.FETISH_BREASTS_SELF;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative() || !this.getPreferredTarget(source, enemies, allies).hasBreasts()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(!target.hasBreasts() || target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -1286,9 +1410,12 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] that you want to use [npc2.her] [npc2.breasts], dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+                    		+ "[npc.Name] [npc.verb(beg)] to have a feel of [npc2.namePos] [npc2.breasts+], dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (!target.hasBreasts()
             						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] does not have breasts!)]"
             						:(target.getFetishDesire(oppositeFetish).isNegative()
@@ -1297,10 +1424,10 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target has no breasts or if they dislike the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -1308,14 +1435,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(!target.hasBreasts() || target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             String attackText = "";
@@ -1339,8 +1464,8 @@ public class CMFetishAttack {
 			}
             
             return formatAttackOutcome(source, target,
-            		attackText,
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+            		attackText+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -1374,15 +1499,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_BREASTS_SELF;
     	private Fetish oppositeFetish = Fetish.FETISH_BREASTS_OTHERS;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -1393,17 +1526,20 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by offering [npc2.herHim] the use of [npc.her] tits, dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            				+ "[npc.Name] [npc.verb(tease)] [npc2.name] with the promise of getting to have a feel of [npc.her] tits, dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -1411,14 +1547,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
@@ -1438,8 +1572,8 @@ public class CMFetishAttack {
     						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] [npc.verb(bite)] [npc.her] lip before pouting at [npc2.name], "
     								+ (target.getAppearsAsGender().isFeminine()
     									?"[npc.speech(Come on! Let's have some fun!)]"
-    									:"[npc.speech(~Aah!~ My nipples are so hard!)]"))),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+    									:"[npc.speech(~Aah!~ My nipples are so hard!)]")))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -1473,15 +1607,24 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_LACTATION_OTHERS;
     	private Fetish oppositeFetish = Fetish.FETISH_LACTATION_SELF;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative() || this.getPreferredTarget(source, enemies, allies).getBreastRawMilkStorageValue()==0) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
-            if(target.getBreastRawMilkStorageValue()==0 || target.getFetishDesire(oppositeFetish).isNegative()) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
+            if((target.getBreastRawMilkStorageValue()==0 && (!target.hasBreastsCrotch() || !Main.game.isCrotchBoobContentEnabled() || target.getBreastCrotchRawMilkStorageValue()==0))
+            	|| target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -1492,10 +1635,13 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] that you want to milk [npc2.her] [npc2.breasts], dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
-            				+ (target.getBreastRawMilkStorageValue()==0
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            				+ "[npc.Name] [npc.verb(beg)] to milk [npc2.namePos] [npc2.breasts+], dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            				+ (target.getBreastRawMilkStorageValue()==0 && (!target.hasBreastsCrotch() || !Main.game.isCrotchBoobContentEnabled() || target.getBreastCrotchRawMilkStorageValue()==0)
             						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] is not lactating!)]"
             						:(target.getFetishDesire(oppositeFetish).isNegative()
                     						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]"
@@ -1503,10 +1649,10 @@ public class CMFetishAttack {
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target is not lactating or if they dislike the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -1514,14 +1660,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getBreastRawMilkStorageValue()==0 || target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));
             }
             
             String attackText = "";
@@ -1529,12 +1673,22 @@ public class CMFetishAttack {
 				attackText = UtilText.parse(source, target,
 						(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(grin)] at [npc2.name], gazing at [npc2.her] [npc2.breasts+] as [npc.she] [npc.moansVerb],"
-								+" [npc.speech(I'm going to have fun milking your udders!)]",
+								+" [npc.speech(I'm going to have fun milking your tits!)]",
 							"[npc.Name] hungrily [npc.verb(stare)] at [npc2.namePos] [npc2.breasts+], [npc.moaning],"
 								+" [npc.speech(I can't wait to give you a good milking!)]",
 							"Gazing lustfully at [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(let)] out [npc.a_moan+],"
 									+" [npc.speech(I'm going to have fun milking those [npc2.breasts+] of yours!)]")));
 				
+            } else if(target.hasBreastsCrotch() && Main.game.isCrotchBoobContentEnabled() && target.getBreastCrotchRawMilkStorageValue()>0) {
+				attackText = UtilText.parse(source, target,
+						(UtilText.returnStringAtRandom(
+							"[npc.Name] [npc.verb(grin)] at [npc2.name], gazing at [npc2.her] [npc2.crotchBoobs+] as [npc.she] [npc.moansVerb],"
+								+" [npc.speech(I'm going to have fun milking your udders!)]",
+							"[npc.Name] hungrily [npc.verb(stare)] at [npc2.namePos] [npc2.crotchBoobs+], [npc.moaning],"
+								+" [npc.speech(I can't wait to give you a good milking!)]",
+							"Gazing lustfully at [npc2.namePos] [npc2.crotchBoobs+], [npc.name] [npc.verb(let)] out [npc.a_moan+],"
+									+" [npc.speech(I'm going to have fun milking those [npc2.breasts+] of yours!)]")));
+            	
 			} else {
 				attackText = UtilText.parse(source, target,
 						(UtilText.returnStringAtRandom(
@@ -1545,8 +1699,8 @@ public class CMFetishAttack {
 			}
             
             return formatAttackOutcome(source, target,
-            		attackText,
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+            		attackText+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -1580,68 +1734,108 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_LACTATION_SELF;
     	private Fetish oppositeFetish = Fetish.FETISH_LACTATION_OTHERS;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
-            if(target.getFetishDesire(oppositeFetish).isNegative()) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
+            if((source.getBreastRawMilkStorageValue()==0 && (!source.hasBreastsCrotch() || !Main.game.isCrotchBoobContentEnabled() || source.getBreastCrotchRawMilkStorageValue()==0))
+            		|| target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
-            return new Value<>(source.hasFetish(associatedFetish) && source.hasBreasts(), "Available to characters who both have breasts and who have the "+associatedFetish.getName(source)+" fetish.");
+            return new Value<>(source.hasFetish(associatedFetish) && (source.hasBreasts() || (source.hasBreastsCrotch() && Main.game.isCrotchBoobContentEnabled())),
+            		"Available to characters who both have breasts and who have the "+associatedFetish.getName(source)+" fetish.");
         }
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by offering to let [npc2.herHim] milk [npc.her] tits, dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
-            				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            				+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to get [npc2.herHim] to milk [npc.her] tits, dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            				+ (target.getFetishDesire(oppositeFetish).isNegative()
+            						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]"
+            						:(source.getBreastRawMilkStorageValue()==0 && (!source.hasBreastsCrotch() || !Main.game.isCrotchBoobContentEnabled() || source.getBreastCrotchRawMilkStorageValue()==0)
+            							?" [style.italicsMinorBad(Damage is reduced to 1 as [npc.nameIsFull] not lactating!)]"
+            							:"")));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
-            				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
+            				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish, or if [npc.nameIsFull] not lactating.)]");
         }
 
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
-            return formatAttackOutcome(source, target,
-            		(UtilText.returnStringAtRandom(
-    						"Pushing [npc.her] [npc.breasts+] together, [npc.name] [npc.verb(pout)] at [npc2.name], "
-    								+ "[npc.speech(My breasts are so sore! Please, I need milking!)]",
-    						"Pushing [npc.her] [npc.breasts+] together, [npc.name] [npc.verb(let)] out a whine as [npc.she] [npc.verb(bat)] [npc.her] eyelids at [npc2.name], "
-    								+ "[npc.speech(I'm so full of milk! I need help!)]",
-    						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] [npc.verb(bite)] [npc.her] lip before pouting at [npc2.name], "
-    								+ "[npc.speech(Please, I need milking!)]",
-    						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] [npc.verb(bite)] [npc.her] lip before pouting at [npc2.name], "
-    								+ "[npc.speech(~Aah!~ I'm so full of milk! Please, I need your help!)]")),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
-            		(isCrit
-            			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
-            			:null),
-            		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            if(source.hasBreasts()) {
+                return formatAttackOutcome(source, target,
+                		(UtilText.returnStringAtRandom(
+        						"Pushing [npc.her] [npc.breasts+] together, [npc.name] [npc.verb(pout)] at [npc2.name], "
+        								+ "[npc.speech(My breasts are so sore! Please, I need milking!)]",
+        						"Pushing [npc.her] [npc.breasts+] together, [npc.name] [npc.verb(let)] out a whine as [npc.she] [npc.verb(bat)] [npc.her] eyelids at [npc2.name], "
+        								+ "[npc.speech(I'm so full of milk! I need help!)]",
+        						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] [npc.verb(bite)] [npc.her] lip before pouting at [npc2.name], "
+        								+ "[npc.speech(Please, I need milking!)]",
+        						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] [npc.verb(bite)] [npc.her] lip before pouting at [npc2.name], "
+        								+ "[npc.speech(~Aah!~ I'm so full of milk! Please, I need your help!)]"))+dealtDamage.getKey(),
+                		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
+                		(isCrit
+                			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+                			:null),
+                		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            	
+            } else { // Crotch boobs:
+                return formatAttackOutcome(source, target,
+                		(UtilText.returnStringAtRandom(
+        						"Presenting [npc.her] [npc.crotchBoobs+] to [npc2.name], [npc.name] [npc.verb(pout)] and [npc.verb(whine)], "
+        								+ "[npc.speech(My teats are so sore! Please, I need milking!)]",
+        						"Presenting [npc.her] [npc.crotchBoobs+] to [npc2.name], [npc.name] [npc.verb(bat)] [npc.her] eyelids and [npc.verb(whine)], "
+        								+ "[npc.speech(I'm so full of milk! I need help!)]",
+        						(source.isTaur()
+        							?null
+        							:"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] [npc.verb(bite)] [npc.her] lip before pouting at [npc2.name], "
+        								+ "[npc.speech(Please, I need milking!)]"),
+        						(source.isTaur()
+        							?null
+        							:"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] [npc.verb(bite)] [npc.her] lip before pouting at [npc2.name], "
+    									+ "[npc.speech(~Aah!~ I'm so full of milk! Please, I need your help!)]")))
+                				+dealtDamage.getKey(),
+                		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
+                		(isCrit
+                			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
+                			:null),
+                		"[npc2.NameIsFull] incredibly turned on, and takes triple damage!");
+            	
+            }
         }
 
         @Override
@@ -1671,36 +1865,47 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_PREGNANCY;
     	private Fetish oppositeFetish = Fetish.FETISH_IMPREGNATION;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
-            return new Value<>(source.hasFetish(associatedFetish), "Available to characters who both have a vagina and who have the "+associatedFetish.getName(source)+" fetish.");
+            return new Value<>(source.hasFetish(associatedFetish) && source.hasVagina(), "Available to characters who both have a vagina and who have the "+associatedFetish.getName(source)+" fetish.");
         }
 
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] how fertile [npc2.sheIsFull], dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+                    		+ "[npc.Name] [npc.verb(tell)] [npc2.name] how fertile [npc.sheIsFull], dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -1708,14 +1913,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             String attackText = "";
@@ -1729,11 +1932,11 @@ public class CMFetishAttack {
 						"[npc.Name] pushes out [npc.her] pregnant belly and [npc.verb(giggle)] at [npc2.name], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(I'll tell you all about how I got knocked up!)]"
-									:"[npc.speech(Fucking pregnant [npc.girl]s is the best thing ever! Come on, I'll show you!)]"),
+									:"[npc.speech(Fucking pregnant [npc.girls] is the best thing ever! Come on, I'll show you!)]"),
 						"Sliding [npc.her] [npc.hands] over [npc.her] pregnant bump, [npc.name] [npc.verb(pout)] at [npc2.name], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Come have a feel!)]"
-									:"[npc.speech(Pregnant [npc.girl]s are the the best fucks around!)]"),
+									:"[npc.speech(Pregnant [npc.girls] are the the best fucks around!)]"),
 						"Posturing so as to draw attention to [npc.her] pregnant bump, [npc.name] [npc.verb(bite)] [npc.her] lip at [npc2.name], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Come on, why don't we have some fun?!)]"
@@ -1761,8 +1964,8 @@ public class CMFetishAttack {
 			}
             
             return formatAttackOutcome(source, target,
-            		attackText,
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+            		attackText+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -1796,15 +1999,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_IMPREGNATION;
     	private Fetish oppositeFetish = Fetish.FETISH_PREGNANCY;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -1815,17 +2026,20 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to breed [npc2.herHim], dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+                    		+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to breed [npc2.herHim], dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -1833,14 +2047,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             String attackText = "";
@@ -1878,8 +2090,8 @@ public class CMFetishAttack {
 			}
             
             return formatAttackOutcome(source, target,
-            		attackText,
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+            		attackText+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -1913,15 +2125,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_DOMINANT;
     	private Fetish oppositeFetish = Fetish.FETISH_SUBMISSIVE;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -1932,17 +2152,20 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] that you're going to dominate [npc2.herHim], dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            				+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to dominate [npc2.herHim], dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -1950,14 +2173,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
@@ -1974,11 +2195,11 @@ public class CMFetishAttack {
     								+ (target.getAppearsAsGender().isFeminine()
     									?"[npc.speech(I'm going to make you my bitch!)]"
     									:"[npc.speech(You're going to be a mewling little bitch by the time I'm done with you!)]"),
-    						"[npc.Name] lets out a menacing growl as [npc.she] [npc.verb(stare)] lustfully at [npc2.name], "
+    						"[npc.Name] [npc.verb(let)] out a menacing growl as [npc.she] [npc.verb(stare)] lustfully at [npc2.name], "
     								+ (target.getAppearsAsGender().isFeminine()
     									?"[npc.speech(You're going to be a good little submissive slut for me!)]"
-    									:"[npc.speech(I'm going to fuck you so hard, you'll be squealing like a little bitch!)]"))),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+    									:"[npc.speech(I'm going to fuck you so hard, you'll be squealing like a little bitch!)]")))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),
@@ -2012,15 +2233,23 @@ public class CMFetishAttack {
     	private Fetish associatedFetish = Fetish.FETISH_SUBMISSIVE;
     	private Fetish oppositeFetish = Fetish.FETISH_DOMINANT;
 
-        private int getBaseDamage(GameCharacter source) {
-            return 5;
+    	@Override
+    	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		if(this.getPreferredTarget(source, enemies, allies).getFetishDesire(oppositeFetish).isNegative()) {
+    			return 0;
+    		}
+    		return super.getWeight(source, enemies, allies);
+    	}
+
+        private int getBaseDamage(GameCharacter source, boolean isCrit) {
+            return 5 * (isCrit?3:1);
         }
 
-        private int getDamage(GameCharacter source, GameCharacter target) {
+        private int getDamage(GameCharacter source, GameCharacter target, boolean isCrit) {
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
             	return 1;
             }
-            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source), false);
+            return (int) Attack.calculateSeductionDamage(source, target, getBaseDamage(source, isCrit), false);
         }
         
         @Override
@@ -2031,17 +2260,20 @@ public class CMFetishAttack {
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
+            boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            
             return UtilText.parse(source, target,
-            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by asking [npc2.herHim] to dominate [npc.herHim], dealing "
-            				+ getFormattedDamage(damageType, getDamage(source, target), target, false) + " damage."
+            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
+                    		+ "[npc.Name] [npc.verb(tell)] [npc2.name] how [npc.she] [npc.verb(love)] to be dominated, dealing "
+            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
         @Override
-        public String getDescription() {
-            DamageType damageType = getDamageType(Main.game.getPlayer());
-            return UtilText.parse(Main.game.getPlayer(), 
-            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(Main.game.getPlayer())+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(Main.game.getPlayer()), null, false) + " damage."
+        public String getDescription(GameCharacter source) {
+            DamageType damageType = getDamageType(source);
+            return UtilText.parse(source, 
+            		"[npc.Name] can use [npc.her] "+associatedFetish.getName(source)+" fetish to tease [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source, false), null, false) + " damage."
             				+ " [style.italicsMinorBad(Damage is reduced to 1 if the target dislikes the "+oppositeFetish.getName(null)+" fetish.)]");
         }
 
@@ -2049,14 +2281,12 @@ public class CMFetishAttack {
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(source);
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
-            int dealtDamage = 0;
+            Value<String, Integer> dealtDamage = new Value<>("", 0);
             if(target.getFetishDesire(oppositeFetish).isNegative()) {
-            	dealtDamage = 1;
+            	dealtDamage = new Value<>("", 1);
             	isCrit = false;
-            } else if(isCrit) {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, 15));
             } else {
-            	dealtDamage = (int) (damageType.damageTarget(source, target, getDamage(source, target)));
+            	dealtDamage = damageType.damageTarget(source, target, getDamage(source, target, isCrit));;
             }
             
             return formatAttackOutcome(source, target,
@@ -2072,8 +2302,8 @@ public class CMFetishAttack {
     						"[npc.Name] [npc.verb(put)] on [npc.her] most innocent look as [npc.she] [npc.verb(gaze)] lustfully into [npc2.namePos] [npc2.eyes], "
     								+ (target.getAppearsAsGender().isFeminine()
     									?"[npc.speech(I'll be your little slave!)]"
-    									:"[npc.speech(I'll be a good little cock-sleeve! I promise)]"))),
-            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage, target, true) + " damage!",
+    									:"[npc.speech(I'll be a good little cock-sleeve! I promise)]")))+dealtDamage.getKey(),
+            		"[npc2.Name] took " + getFormattedDamage(damageType, dealtDamage.getValue(), target, true) + " damage!",
             		(isCrit
             			?"[npc2.NameIsFull] incredibly turned on, and takes triple damage!"
             			:null),

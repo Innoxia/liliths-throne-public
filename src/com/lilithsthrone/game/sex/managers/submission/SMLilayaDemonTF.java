@@ -6,27 +6,28 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
-import com.lilithsthrone.game.sex.positions.SexSlot;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3
- * @version 0.3.1
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class SMLilayaDemonTF extends SexManagerDefault {
 
 	public SMLilayaDemonTF(AbstractSexPosition sexPositionType, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(sexPositionType,
+		super(false,
+				sexPositionType,
 				dominants,
 				submissives);
 	}
@@ -34,8 +35,8 @@ public class SMLilayaDemonTF extends SexManagerDefault {
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 		if(partner instanceof Lyssieth) { // Lyssieth stops sex once everyone's orgasmed:
-			for(GameCharacter character : Sex.getAllParticipants(false)) {
-				if(Sex.getNumberOfOrgasms(character)==0) {
+			for(GameCharacter character : Main.sex.getAllParticipants(false)) {
+				if(Main.sex.getNumberOfOrgasms(character)==0) {
 					return false;
 				}
 			}
@@ -50,7 +51,12 @@ public class SMLilayaDemonTF extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public boolean isEndSexAffectionChangeEnabled(GameCharacter character) {
+		return false;
+	}
+	
+	@Override
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 	
@@ -60,12 +66,7 @@ public class SMLilayaDemonTF extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isPlayerStartNaked() {
-		return true;
-	}
-
-	@Override
-	public boolean isPartnerStartNaked() {
+	public boolean isCharacterStartNaked(GameCharacter character) {
 		return true;
 	}
 	
@@ -85,9 +86,17 @@ public class SMLilayaDemonTF extends SexManagerDefault {
 	}
 	
 	@Override
+	public OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
+		if(character.equals(Main.game.getNpc(Lyssieth.class))) {
+			return OrgasmBehaviour.CREAMPIE;
+		}
+		return super.getCharacterOrgasmBehaviour(character);
+	}
+	
+	@Override
 	public SexPace getForcedSexPace(GameCharacter character) {
 		if(!character.isPlayer()) {
-			if(!Sex.isDom(character)) {
+			if(!Main.sex.isDom(character)) {
 				return SexPace.SUB_EAGER;
 			}
 		}

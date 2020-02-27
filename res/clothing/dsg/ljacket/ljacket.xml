@@ -27,7 +27,7 @@
 		<description><![CDATA[A biker-style leather jacket. Goes well with too much hair gel and a switchblade.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0.5</physicalResistance> 
 		
 		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties. -->
 		<femininity>MASCULINE</femininity> 
@@ -100,13 +100,7 @@
 				</clothingAccessBlocked>
 				<!-- You can substitute the <concealedSlots> list for the value below: -->
 				<!-- CS Example: <concealedSlots values="CONCEALED_PARTIAL_TORSO"/> -->
-				<concealedSlots>
-					<slot>CHEST</slot>
-					<slot>NIPPLE</slot>
-					<slot>STOMACH</slot>
-					<slot>PIERCING_STOMACH</slot>
-					<slot>PIERCING_NIPPLE</slot>
-				</concealedSlots>
+				<concealedSlots values="CONCEALED_FULL_TORSO"/>
 			</blockedParts>
 		</blockedPartsList>
 		
@@ -163,7 +157,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] jacket.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] practically [npc.verb(rips)] off [npc2.namePos] jacket.]]>
+		  <![CDATA[[npc.Name] practically [npc.verb(rip)] off [npc2.namePos] jacket.]]>
 		</otherRough>
 	</displacementText>
 	 
@@ -176,7 +170,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the jacket's sleeves and [npc.verb(pull)] the rest of it over [npc.her] shoulders.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[CDATA[[npc.Name] [npc.verb(forces)] [npc2.namePos] [npc2.arms] through the jacket's sleeves and [npc.verb(yank)] the rest of it over [npc.her] shoulders.]]>
+		  <![CDATA[CDATA[[npc.Name] [npc.verb(force)] [npc2.namePos] [npc2.arms] through the jacket's sleeves and [npc.verb(yank)] the rest of it over [npc.her] shoulders.]]>
 		</otherRough>
 	</replacementText>
 

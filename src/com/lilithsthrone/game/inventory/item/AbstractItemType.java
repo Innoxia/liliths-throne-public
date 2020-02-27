@@ -247,7 +247,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		return colourTertiary;
 	}
 
-	public int getValue() {
+	public int getValue(List<ItemEffect> effects) {
 		return value;
 	}
 

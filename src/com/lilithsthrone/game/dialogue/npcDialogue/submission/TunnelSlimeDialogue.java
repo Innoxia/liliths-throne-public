@@ -15,12 +15,11 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
-import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
-import com.lilithsthrone.game.sex.positions.SexSlotBipeds;
+import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -28,7 +27,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.5
- * @version 0.3.1
+ * @version 0.3.4
  * @author Innoxia
  */
 public class TunnelSlimeDialogue {
@@ -88,7 +87,7 @@ public class TunnelSlimeDialogue {
 							}
 							@Override
 							public DialogueNode getNextDialogue(){
-								return Main.game.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogue(false);
 							}
 						};
 
@@ -294,7 +293,7 @@ public class TunnelSlimeDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_DOM");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_DOM_NO_ORGASM");
@@ -307,7 +306,7 @@ public class TunnelSlimeDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SLIME_SEX_AS_DOM){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 
@@ -331,7 +330,7 @@ public class TunnelSlimeDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_SUB");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_SUB_NO_ORGASM");
@@ -344,7 +343,7 @@ public class TunnelSlimeDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SLIME_SEX_AS_SUB){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 
@@ -378,7 +377,7 @@ public class TunnelSlimeDialogue {
 					}
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 
@@ -438,8 +437,8 @@ public class TunnelSlimeDialogue {
 			UtilText.nodeContentSB.setLength(0);
 
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "RESIST_TRANSFORMED"));
-
-			if(getSlime().isAttractedTo(Main.game.getPlayer()) && getSlime().isWillingToRape(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
+			
+			if(getSlime().isAttractedTo(Main.game.getPlayer()) && getSlime().isWillingToRape() && Main.game.isNonConEnabled()) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "RESIST_TRANSFORMED_RAPE"));
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "RESIST_TRANSFORMED_NO_RAPE"));
@@ -450,14 +449,14 @@ public class TunnelSlimeDialogue {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
+			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape() && Main.game.isNonConEnabled()) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMMissionary(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK))),
+							new SMLyingDown(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotLyingDown.MISSIONARY)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))),
 							null,
 							null, AFTER_SLIME_SEX_AS_SUB, "<p>"
 								+ "You surrender yourself to [npc.name], lying back and offering no resistance as [npc.she] tongue-fucks your throat."
@@ -469,9 +468,9 @@ public class TunnelSlimeDialogue {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMMissionary(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK))) {
+							new SMLyingDown(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotLyingDown.MISSIONARY)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -491,9 +490,9 @@ public class TunnelSlimeDialogue {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
 							false, false,
-							new SMMissionary(
-									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotBipeds.MISSIONARY_KNEELING_BETWEEN_LEGS)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotBipeds.MISSIONARY_ON_BACK))) {
+							new SMLyingDown(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexSlotLyingDown.MISSIONARY)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.LYING_DOWN))) {
 								@Override
 								public SexPace getStartingSexPaceModifier(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -518,7 +517,7 @@ public class TunnelSlimeDialogue {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_PLAYER_DEFEAT){
 						@Override
 						public DialogueNode getNextDialogue() {
-							return Main.game.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogue(false);
 						}
 					};
 
@@ -548,7 +547,7 @@ public class TunnelSlimeDialogue {
 				return new Response("Continue", "Carry on your way.", OFFER_MONEY){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 
@@ -582,7 +581,7 @@ public class TunnelSlimeDialogue {
 		public Response getResponse(int responseTab, int index) {
 
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogueNoEncounter()){
+				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						if(getSlime().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
@@ -743,7 +742,7 @@ public class TunnelSlimeDialogue {
 				return new Response(
 						"Remove character",
 						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
-						Main.game.getDefaultDialogueNoEncounter()){
+						Main.game.getDefaultDialogue(false)){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_BANISH_NPC", getSlime()));
@@ -775,7 +774,7 @@ public class TunnelSlimeDialogue {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_DEFEAT_TRANSFORMER"));
 
 			} else {
-				if(getSlime().isAttractedTo(Main.game.getPlayer()) && getSlime().isWillingToRape(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
+				if(getSlime().isAttractedTo(Main.game.getPlayer()) && getSlime().isWillingToRape() && Main.game.isNonConEnabled()) {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_DEFEAT_RAPE"));
 				} else {
 					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_DEFEAT_NO_RAPE"));
@@ -816,8 +815,8 @@ public class TunnelSlimeDialogue {
 				} else {
 					return null;
 				}
-
-			} else if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
+				
+			} else if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape() && Main.game.isNonConEnabled()) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
@@ -871,7 +870,7 @@ public class TunnelSlimeDialogue {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_PLAYER_DEFEAT){
 						@Override
 						public DialogueNode getNextDialogue() {
-							return Main.game.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogue(false);
 						}
 					};
 
@@ -891,7 +890,7 @@ public class TunnelSlimeDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
+			if(Main.sex.getNumberOfOrgasms(getSlime()) >= getSlime().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_DOM");
 			} else {
 				return UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_SLIME_SEX_AS_DOM_NO_ORGASM");
@@ -904,7 +903,7 @@ public class TunnelSlimeDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 
@@ -923,7 +922,7 @@ public class TunnelSlimeDialogue {
 						AFTER_COMBAT_PLAYER_VICTORY){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {

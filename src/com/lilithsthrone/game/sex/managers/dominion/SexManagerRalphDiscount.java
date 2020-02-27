@@ -1,38 +1,43 @@
 package com.lilithsthrone.game.sex.managers.dominion;
 
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.positions.SexSlot;
-import com.lilithsthrone.game.sex.positions.SexPositionBipeds;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.SexPositionUnique;
+import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.dominion.RalphOral;
+import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.6?
- * @version 0.1.97
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class SexManagerRalphDiscount extends SexManagerDefault {
 	
 	public SexManagerRalphDiscount(Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
-		super(SexPositionBipeds.UNDER_DESK_RALPH,
+		super(false,
+				SexPositionUnique.UNDER_DESK_RALPH,
 				dominants,
 				submissives);
 	}
 	
 	@Override
-	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
-		if(Sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES)) {
+	public SexActionInterface getPartnerSexAction(NPC partner, SexActionInterface sexActionPlayer) {
+		if(Main.sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES)) {
 			return RalphOral.PARTNER_PENETRATES;
-		} else if(Sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES_ANUS)) {
+		} else if(Main.sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES_ANUS)) {
 			return RalphOral.PARTNER_PENETRATES_ANUS;
 		}
 		
-		return super.getPartnerSexAction(sexActionPlayer);
+		return super.getPartnerSexAction(partner, sexActionPlayer);
 	}
 	
 	@Override
@@ -46,7 +51,13 @@ public class SexManagerRalphDiscount extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToSwapPositions() {
+	public List<AbstractSexPosition> getAllowedSexPositions() {
+		return Util.newArrayListOfValues(
+				SexPositionUnique.UNDER_DESK_RALPH);
+	}
+	
+	@Override
+	public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
 		return false;
 	}
 	

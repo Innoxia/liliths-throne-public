@@ -8,7 +8,6 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -36,6 +35,11 @@ public class PlayerSelfNoPen {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.HANDS);
 		}
 		
 		@Override
@@ -70,7 +74,7 @@ public class PlayerSelfNoPen {
 		@Override
 		public void applyEffects() {
 			if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)) {
-				Sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.FINGER, Main.game.getPlayer(), SexAreaOrifice.VAGINA);
+				Main.sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.FINGER, Main.game.getPlayer(), SexAreaOrifice.VAGINA);
 			}
 		}
 		
@@ -87,6 +91,11 @@ public class PlayerSelfNoPen {
 		@Override
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.HANDS);
 		}
 		
 		@Override
@@ -122,7 +131,7 @@ public class PlayerSelfNoPen {
 		@Override
 		public void applyEffects() {
 			if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)) {
-				Sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.FINGER, Main.game.getPlayer(), SexAreaPenetration.PENIS);
+				Main.sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.FINGER, Main.game.getPlayer(), SexAreaPenetration.PENIS);
 			}
 		}
 		
@@ -141,11 +150,12 @@ public class PlayerSelfNoPen {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
-
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.game.getPlayer().hasPenis()
-					&& !Main.game.getPlayer().hasVagina();
+					&& !Main.game.getPlayer().hasVagina()
+					 && Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.HANDS);
 		}
 		
 		@Override

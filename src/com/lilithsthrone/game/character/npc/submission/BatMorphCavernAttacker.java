@@ -9,21 +9,15 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernAttackerDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernBatAttackerDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernSlimeAttackerDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelAttackDialogue;
+import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.submission.BatCavernDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -35,7 +29,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.3
- * @version 0.2.4
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public class BatMorphCavernAttacker extends NPC {
@@ -55,7 +49,8 @@ public class BatMorphCavernAttacker extends NPC {
 	public BatMorphCavernAttacker(Gender gender, boolean isImported) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3, gender, Subspecies.BAT_MORPH, RaceStage.LESSER,
+				3,
+				null, null, null,
 				new CharacterInventory(10), WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK, false);
 
 		if(!isImported) {
@@ -67,24 +62,12 @@ public class BatMorphCavernAttacker extends NPC {
 			// RACE & NAME:
 			
 			Subspecies species = Subspecies.BAT_MORPH;
-			
-			if(gender.isFeminine()) {
-				switch(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species)) {
-					case MAXIMUM:
-						setBody(gender, species, RaceStage.GREATER);
-						break;
-					default:
-						break;
-				}
-			} else {
-				switch(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species)) {
-					case MAXIMUM:
-						setBody(gender, species, RaceStage.GREATER);
-						break;
-					default:
-						break;
-				}
+
+			RaceStage stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
+			if(!gender.isFeminine()) {
+				stage = CharacterUtils.getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), gender, species);
 			}
+			setBody(gender, species, stage, true);
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
@@ -114,9 +97,10 @@ public class BatMorphCavernAttacker extends NPC {
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
-			
-			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
-			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
+			this.setStartingCombatMoves();
+			loadImages();
+
+			initHealthAndManaToMax();
 		}
 
 		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
@@ -134,8 +118,11 @@ public class BatMorphCavernAttacker extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
+		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
+		this.clearNonEquippedInventory(false);
+		CharacterUtils.generateItemsInInventory(this);
+		
 		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.CASUAL, settings);
-//		super.equipClothing(settings);
 	}
 	
 	@Override
@@ -177,41 +164,17 @@ public class BatMorphCavernAttacker extends NPC {
 	
 	@Override
 	public DialogueNode getEncounterDialogue() {
-		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
-			return BatCavernSlimeAttackerDialogue.SLIME_ATTACK;
-			
-		} if(this.getRace()==Race.BAT_MORPH) {
-			return BatCavernBatAttackerDialogue.BAT_MORPH_ATTACK;
-			
-		} else {
-			return BatCavernAttackerDialogue.ATTACK;
-		}
+		return BatCavernDialogue.CAVERN_ATTACK;
 	}
 
 	// Combat:
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
-			if (victory) {
-				return new Response("", "", BatCavernSlimeAttackerDialogue.AFTER_COMBAT_VICTORY);
-			} else {
-				return new Response ("", "", BatCavernSlimeAttackerDialogue.AFTER_COMBAT_DEFEAT);
-			}
-			
-		} if(this.getRace()==Race.BAT_MORPH) {
-			if (victory) {
-				return new Response("", "", BatCavernBatAttackerDialogue.AFTER_COMBAT_VICTORY);
-			} else {
-				return new Response ("", "", BatCavernBatAttackerDialogue.AFTER_COMBAT_DEFEAT);
-			}
-			
+		if (victory) {
+			return new Response("", "", BatCavernDialogue.AFTER_COMBAT_VICTORY);
 		} else {
-			if (victory) {
-				return new Response("", "", TunnelAttackDialogue.AFTER_COMBAT_VICTORY);
-			} else {
-				return new Response ("", "", TunnelAttackDialogue.AFTER_COMBAT_DEFEAT);
-			}
+			return new Response ("", "", BatCavernDialogue.AFTER_COMBAT_DEFEAT);
 		}
 	}
 

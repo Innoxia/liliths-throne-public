@@ -4,15 +4,12 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -21,8 +18,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
@@ -97,7 +92,7 @@ public class GenericOffspringDialogue {
 			
 			if(offspring().getAffection(Main.game.getPlayer()) < AffectionLevel.NEGATIVE_TWO_DISLIKE.getMaximumValue()) {
 				if (index == 1) {
-					return new Response("Apologise", "Apologise to [npc.name].", OFFSPRING_ENCOUNTER_APOLOGY) {
+					return new Response("Apologise", UtilText.parse(offspring(), "Apologise to [npc.name]."), OFFSPRING_ENCOUNTER_APOLOGY) {
 						@Override
 						public void effects() {
 							if(!offspring().hasFlag(NPCFlagValue.flagOffspringFightApologyNeeded) && !offspring().hasFlag(NPCFlagValue.flagOffspringRapeApologyNeeded)) {
@@ -117,7 +112,7 @@ public class GenericOffspringDialogue {
 					};
 					
 				} else if (index == 8) {
-					return new Response("Sex", "There's no way [npc.she]'ll consider having sex with you when [npc.sheIs] this angry.", null) {
+					return new Response("Sex", UtilText.parse(offspring(), "There's no way [npc.she]'ll consider having sex with you when [npc.sheIs] this angry."), null) {
 						@Override
 						public void effects() {
 							setOffspringFlags();
@@ -125,7 +120,7 @@ public class GenericOffspringDialogue {
 					};
 					
 				} else if (index == 10) {
-					return new Response("Attack", "How dare [npc.name] talk to you like that! It's time to show [npc.herHim] [npc.her] place!", OFFSPRING_ENCOUNTER_FIGHT) {
+					return new Response("Attack", UtilText.parse(offspring(), "How dare [npc.name] talk to you like that! It's time to show [npc.herHim] [npc.her] place!"), OFFSPRING_ENCOUNTER_FIGHT) {
 						@Override
 						public boolean isCombatHighlight() {
 							return true;
@@ -133,17 +128,18 @@ public class GenericOffspringDialogue {
 						@Override
 						public void effects() {
 							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
+							offspring().setFlag(NPCFlagValue.fightOffspringInApartment, false);
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -100));
 							setOffspringFlags();
 						}
 					};
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll come back some other time.", OFFSPRING_ENCOUNTER) {
+					return new Response("Leave", UtilText.parse(offspring(), "Tell [npc.name] that you'll come back some other time."), OFFSPRING_ENCOUNTER) {
 							@Override
 							public DialogueNode getNextDialogue() {
 								setOffspringFlags();
-								return Main.game.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogue(false);
 							}
 						};
 					
@@ -153,7 +149,7 @@ public class GenericOffspringDialogue {
 				
 			} else {
 				if (index == 1) {
-					return new Response("Greeting", "Say hello to [npc.name].", OFFSPRING_ENCOUNTER_TALKING) {
+					return new Response("Greeting", UtilText.parse(offspring(), "Say hello to [npc.name]."), OFFSPRING_ENCOUNTER_TALKING) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OFFSPRING_ENCOUNTER_GREETING", offspring()));
@@ -166,7 +162,7 @@ public class GenericOffspringDialogue {
 					};
 					
 				} else if (index == 2) {
-					return new Response("Hug", "Hug [npc.name].", OFFSPRING_ENCOUNTER_TALKING) {
+					return new Response("Hug", UtilText.parse(offspring(), "Hug [npc.name]."), OFFSPRING_ENCOUNTER_TALKING) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OFFSPRING_ENCOUNTER_HUG", offspring()));
@@ -180,7 +176,7 @@ public class GenericOffspringDialogue {
 					};
 					
 				} else if (index == 3) {
-					return new Response("Kiss", "Give [npc.name] a hug and a kiss.", OFFSPRING_ENCOUNTER_TALKING) {
+					return new Response("Kiss", UtilText.parse(offspring(), "Give [npc.name] a hug and a kiss."), OFFSPRING_ENCOUNTER_TALKING) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OFFSPRING_ENCOUNTER_KISS", offspring()));
@@ -194,7 +190,7 @@ public class GenericOffspringDialogue {
 					};
 					
 				} else if (index == 4 && Main.game.isIncestEnabled()) {
-					return new Response("Passionate kiss", "Passionately kiss [npc.name] on the lips, and feel [npc.herHim] up as you do so.", OFFSPRING_ENCOUNTER_TALKING,
+					return new Response("Passionate kiss", UtilText.parse(offspring(), "Passionately kiss [npc.name] on the lips, and feel [npc.herHim] up as you do so."), OFFSPRING_ENCOUNTER_TALKING,
 							Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 							CorruptionLevel.FOUR_LUSTFUL,
 							null,
@@ -228,10 +224,10 @@ public class GenericOffspringDialogue {
 					
 				} if (index == 5) {
 					return new Response("Scold [npc.herHim]",
-							"Ask [npc.name] just what [npc.she] thinks [npc.sheIs] doing!"
+							UtilText.parse(offspring(), "Ask [npc.name] just what [npc.she] thinks [npc.sheIs] doing!"
 									+(offspring().getHistory()==Occupation.NPC_PROSTITUTE
 											?" (This will voice disapproval about [npc.herHim] being a prostitute.)"
-											:" (This will voice disapproval about [npc.herHim] being a mugger.)"),
+											:" (This will voice disapproval about [npc.herHim] being a mugger.)")),
 							OFFSPRING_ENCOUNTER_TALKING) {
 						@Override
 						public void effects() {
@@ -251,7 +247,7 @@ public class GenericOffspringDialogue {
 					};
 					
 				} else if (index == 10) {
-					return new Response("Attack", "How dare [npc.name] talk to you like that! It's time to show [npc.herHim] [npc.her] place!", OFFSPRING_ENCOUNTER_FIGHT) {
+					return new Response("Attack", UtilText.parse(offspring(), "How dare [npc.name] talk to you like that! It's time to show [npc.herHim] [npc.her] place!"), OFFSPRING_ENCOUNTER_FIGHT) {
 						@Override
 						public boolean isCombatHighlight() {
 							return true;
@@ -259,16 +255,17 @@ public class GenericOffspringDialogue {
 						@Override
 						public void effects() {
 							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
+							offspring().setFlag(NPCFlagValue.fightOffspringInApartment, false);
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -100));
 							setOffspringFlags();
 						}
 					};
 					
 				} else if (index == 0 && offspring().hasFlag(NPCFlagValue.flagOffspringIntroduced)) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", OFFSPRING_ENCOUNTER) {
+					return new Response("Leave", UtilText.parse(offspring(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), OFFSPRING_ENCOUNTER) {
 							@Override
 							public DialogueNode getNextDialogue() {
-								return Main.game.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogue(false);
 							}
 							@Override
 							public void effects() {
@@ -286,9 +283,13 @@ public class GenericOffspringDialogue {
 	};
 	
 	private static void setOffspringFlags() {
+		if(offspring().isVisiblyPregnant()) {
+			offspring().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+		}
+		if(Main.game.getPlayer().isVisiblyPregnant()) {
+			Main.game.getPlayer().setCharacterReactedToPregnancy(offspring(), true);
+		}
 		offspring().setFlag(NPCFlagValue.flagOffspringIntroduced, true);
-		offspring().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
-		Main.game.getPlayer().setCharacterReactedToPregnancy(offspring(), true);
 		Main.game.getDialogueFlags().offspringDialogueTokens = 2;
 	}
 	
@@ -311,7 +312,7 @@ public class GenericOffspringDialogue {
 				return new Response("Continue", "Give [npc.name] some time to think, and continue on your way.", OFFSPRING_ENCOUNTER_APOLOGY) {
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -338,13 +339,7 @@ public class GenericOffspringDialogue {
 			if (index == 1) {
 				return new ResponseCombat("Fight",
 						"You find yourself fighting your [npc.daughter]!",
-						offspring()) {
-						@Override
-						public void effects() {
-							offspring().setFlag(NPCFlagValue.fightOffspringInApartment, true);
-							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
-						};
-				};
+						offspring());
 			} else {
 				return null;
 			}
@@ -373,7 +368,7 @@ public class GenericOffspringDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getDialogueFlags().offspringDialogueTokens<=0) {
 				if (index == 1) {
-					return new Response("Time to go", "[npc.Name] has started glancing at the clock on the wall, giving you a clear indication that it's time to make your exit.", OFFSPRING_ENCOUNTER) {
+					return new Response("Time to go", UtilText.parse(offspring(), "[npc.Name] has started glancing at the clock on the wall, giving you a clear indication that it's time to make your exit."), OFFSPRING_ENCOUNTER) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OFFSPRING_ENCOUNTER_TALKING_OUT_OF_TIME", offspring()));
@@ -381,7 +376,7 @@ public class GenericOffspringDialogue {
 						}
 						@Override
 						public DialogueNode getNextDialogue() {
-							return Main.game.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogue(false);
 						}
 					};
 					
@@ -391,7 +386,7 @@ public class GenericOffspringDialogue {
 				
 			} else {
 				if (index == 1) {
-					return new Response("Background", "Ask [npc.name] about [npc.her] background, and about what [npc.she] does for a living.", OFFSPRING_ENCOUNTER_BACKGROUND) {
+					return new Response("Background", UtilText.parse(offspring(), "Ask [npc.name] about [npc.her] background, and about what [npc.she] does for a living."), OFFSPRING_ENCOUNTER_BACKGROUND) {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 10));
@@ -401,7 +396,7 @@ public class GenericOffspringDialogue {
 					};
 					
 				} else if (index == 2) {
-					return new Response("Small talk", "Chat about this and that with [npc.name].", OFFSPRING_ENCOUNTER_SMALL_TALK) {
+					return new Response("Small talk", UtilText.parse(offspring(), "Chat about this and that with [npc.name]."), OFFSPRING_ENCOUNTER_SMALL_TALK) {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 5));
@@ -411,7 +406,7 @@ public class GenericOffspringDialogue {
 					};
 					
 				} else if (index == 3) {
-					return new Response("Encourage", "Encourage [npc.name] to do [npc.her] best.", OFFSPRING_ENCOUNTER_ENCOURAGE) {
+					return new Response("Encourage", UtilText.parse(offspring(), "Encourage [npc.name] to do [npc.her] best."), OFFSPRING_ENCOUNTER_ENCOURAGE) {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 10));
@@ -421,7 +416,7 @@ public class GenericOffspringDialogue {
 					};
 					
 				} else if (index == 4) {
-					return new Response("Scold", "Scold [npc.name], and tell [npc.herHim] to better [npc.herself].", OFFSPRING_ENCOUNTER_SCOLD) {
+					return new Response("Scold", UtilText.parse(offspring(), "Scold [npc.name], and tell [npc.herHim] to better [npc.herself]."), OFFSPRING_ENCOUNTER_SCOLD) {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -10));
@@ -433,22 +428,22 @@ public class GenericOffspringDialogue {
 				} else if (index == 5) {
 					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION) || !offspring().isAffectionHighEnoughToInviteHome()) {
 						return new Response("Offer room",
-								"You feel as though it would be best to spend some more time getting to know [npc.name] before inviting [npc.herHim] back to Lilaya's mansion...<br/>"
-								+ "[style.italics(Requires [npc.name] to have at least "+AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue()+" affection towards you.)]",
+								UtilText.parse(offspring(), "You feel as though it would be best to spend some more time getting to know [npc.name] before inviting [npc.herHim] back to Lilaya's mansion...<br/>"
+								+ "[style.italics(Requires [npc.name] to have at least "+AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue()+" affection towards you.)]"),
 								null);
 						
 					} else if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
 						return new Response("Offer room",
-								"You'll need to get Lilaya's permission before inviting [npc.name] back to her mansion...",
+								UtilText.parse(offspring(), "You'll need to get Lilaya's permission before inviting [npc.name] back to her mansion..."),
 								null);
 						
 					} else if(!OccupancyUtil.isFreeRoomAvailableForOccupant()) {
 						return new Response("Offer room",
-								"You don't have a suitable room prepared for [npc.name] to move in to. Upgrade one of the empty rooms in Lilaya's house to a 'Guest Room' first.",
+								UtilText.parse(offspring(), "You don't have a suitable room prepared for [npc.name] to move in to. Upgrade one of the empty rooms in Lilaya's house to a 'Guest Room' first."),
 								null);
 						
 					} else {
-						return new Response("Offer room", "Ask [npc.name] if [npc.she] would like a room in Lilaya's mansion.", OFFSPRING_OFFER_ROOM) {
+						return new Response("Offer room", UtilText.parse(offspring(), "Ask [npc.name] if [npc.she] would like a room in Lilaya's mansion."), OFFSPRING_OFFER_ROOM) {
 							@Override
 							public void effects() {
 								offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
@@ -464,7 +459,7 @@ public class GenericOffspringDialogue {
 					}
 
 				} else if (index == 6) {
-					return new Response("Pet name", "Ask [npc.name] to call you by a different name.", OFFSPRING_ENCOUNTER_CHOOSE_NAME) {
+					return new Response("Pet name", UtilText.parse(offspring(), "Ask [npc.name] to call you by a different name."), OFFSPRING_ENCOUNTER_CHOOSE_NAME) {
 						@Override
 						public void effects() {
 							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
@@ -474,7 +469,7 @@ public class GenericOffspringDialogue {
 					
 				}  else if (index == 7) {
 					if(Main.game.getPlayer().hasItemType(ItemType.PRESENT)) {
-						return new Response("Give Present", "Give [npc.name] the present that you're carrying.", OFFSPRING_PRESENT) {
+						return new Response("Give Present", UtilText.parse(offspring(), "Give [npc.name] the present that you're carrying."), OFFSPRING_PRESENT) {
 							@Override
 							public void effects() {
 								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));
@@ -490,7 +485,7 @@ public class GenericOffspringDialogue {
 					}
 					
 				} else if (index == 8 && Main.game.isIncestEnabled()) {
-					return new Response("Sex", "Tell [npc.name] that you want to have sex with [npc.herHim].", OFFSPRING_ENCOUNTER_SEX,
+					return new Response("Sex", UtilText.parse(offspring(), "Tell [npc.name] that you want to have sex with [npc.herHim]."), OFFSPRING_ENCOUNTER_SEX,
 							Util.newArrayListOfValues(Fetish.FETISH_INCEST),
 							CorruptionLevel.FIVE_CORRUPT,
 							null,
@@ -509,8 +504,7 @@ public class GenericOffspringDialogue {
 					};
 					
 				} else if (index == 10) {
-	
-					return new Response("Attack", "It's time to show [npc.herHim] [npc.her] true place in this family!", OFFSPRING_ENCOUNTER_APARTMENT_FIGHT) {
+					return new Response("Attack", UtilText.parse(offspring(), "It's time to show [npc.herHim] [npc.her] true place in this family!"), OFFSPRING_ENCOUNTER_APARTMENT_FIGHT) {
 						@Override
 						public boolean isCombatHighlight() {
 							return true;
@@ -518,6 +512,7 @@ public class GenericOffspringDialogue {
 						@Override
 						public void effects() {
 							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
+							offspring().setFlag(NPCFlagValue.fightOffspringInApartment, true);
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -100));
 							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 						}
@@ -525,9 +520,9 @@ public class GenericOffspringDialogue {
 					
 				} else if (index == 11) {
 					if(!offspring().isAllowingPlayerToManageInventory()) {
-						return new Response("Inventory", "[npc.Name] doesn't like you enough to allow you to choose what [npc.she] wears, or what [npc.she] eats and drinks.", null);
+						return new Response("Inventory", UtilText.parse(offspring(), "[npc.Name] doesn't like you enough to allow you to choose what [npc.she] wears, or what [npc.she] eats and drinks."), null);
 					} else {
-						return new ResponseEffectsOnly("Inventory", "Manage [npc.namePos] inventory.") {
+						return new ResponseEffectsOnly("Inventory", UtilText.parse(offspring(), "Manage [npc.namePos] inventory.")) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OFFSPRING_ENCOUNTER_TALKING_INVENTORY", offspring()));
@@ -537,7 +532,7 @@ public class GenericOffspringDialogue {
 					}
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", OFFSPRING_ENCOUNTER) {
+					return new Response("Leave", UtilText.parse(offspring(), "Tell [npc.name] that you'll catch up with [npc.herHim] some other time."), OFFSPRING_ENCOUNTER) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile(getTextFilePath(), "OFFSPRING_ENCOUNTER_TALKING_LEAVE", offspring()));
@@ -545,7 +540,7 @@ public class GenericOffspringDialogue {
 							}
 							@Override
 							public DialogueNode getNextDialogue() {
-								return Main.game.getDefaultDialogueNoEncounter();
+								return Main.game.getDefaultDialogue(false);
 							}
 						};
 					
@@ -926,13 +921,7 @@ public class GenericOffspringDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", offspring()) {
-					@Override
-					public void effects() {
-						offspring().setFlag(NPCFlagValue.fightOffspringInApartment, true);
-						offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
-					}
-				};
+				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", offspring());
 				
 			} else {
 				return null;
@@ -959,7 +948,7 @@ public class GenericOffspringDialogue {
 				return new Response("Apologise", "Maybe you went too far... Perhaps you should apologise?", null){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -1113,7 +1102,7 @@ public class GenericOffspringDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -1127,7 +1116,7 @@ public class GenericOffspringDialogue {
 				return new Response("Leave", "Now that you've taught [npc.name] a lesson, you can be on your way...", AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -1218,7 +1207,7 @@ public class GenericOffspringDialogue {
 					return new Response("Continue", "You're left to continue on your way...", AFTER_COMBAT_DEFEAT){
 						@Override
 						public DialogueNode getNextDialogue(){
-							return Main.game.getDefaultDialogueNoEncounter();
+							return Main.game.getDefaultDialogue(false);
 						}
 						@Override
 						public void effects() {
@@ -1251,7 +1240,7 @@ public class GenericOffspringDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_CONSENSUAL){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -1283,7 +1272,7 @@ public class GenericOffspringDialogue {
 					}
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -1302,7 +1291,7 @@ public class GenericOffspringDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 					@Override
 					public void effects() {
@@ -1341,7 +1330,7 @@ public class GenericOffspringDialogue {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
 					public DialogueNode getNextDialogue(){
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 				
@@ -1351,145 +1340,4 @@ public class GenericOffspringDialogue {
 		}
 	};
 	
-	public static final DialogueNode ENSLAVEMENT_DIALOGUE = new DialogueNode("New Slave", "", true) {
-		
-		@Override
-		public String getDescription(){
-			return ".";
-		}
-
-		@Override
-		public String getContent() {
-			AbstractClothing enslavementClothing = offspring().getEnslavementClothing();
-			
-			if(!offspring().isSlave() && offspring().isAbleToBeEnslaved()) {
-				if(enslavementClothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR)) {
-					return UtilText.parse(offspring(),
-							"<p>"
-								+ "As you lift the collar up to [npc.namePos] neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting your [npc.daughter] as a potential enslavement target."
-								+ " Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around [npc.namePos] neck."
-							+ "</p>"
-							+ "<p>"
-								+ "As the collar's arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering starts to glow around the metal band, which reads:"
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "[style.italicsArcane(Slave Registered."
-									+ "<br/>Identification: [npc.nameFull(true)]"
-									+ "<br/>Race: [npc.race])]"
-							+ "</p>"
-							+ "<p>"
-								+ " Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes]."
-								+ " [npc.speech(W-Wait, [npc.pcName]! T-This isn't a slave collar is it?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Grinning at your [npc.daughter], you don't have time to offer a response, as with a bright purple flash, they suddenly disappear from sight."
-								+ " The last thing you see as they're whisked away is a face of shocked betrayal, and you imagine how angry they'll be when you see them next."
-							+ "</p>"
-							+ "<p>"
-								+ "From Finch's instructions, you know that <b>they've been teleported to the 'Slave Administration' building in Slaver Alley</b>, where they'll be waiting for you to pick them up."
-							+ "</p>");
-				} else {
-					return UtilText.parse(offspring(),
-							"<p>"
-								+ "As you bring the "+enslavementClothing.getName()+" closer to [npc.name], you feel "+(enslavementClothing.getClothingType().isPlural()?"them":"it")
-									+" start to steadily hum; a clear indication that your [npc.daughter] is being detected as a potential enslavement target."
-								+ " Encouraged by this, you decide to finish what you started, and quickly force [npc.name] to wear the enslaving clothing."
-							+ "</p>"
-							+ "<p>"
-								+ "As the arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering is projected into the air, which reads:"
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "[style.italicsArcane(Slave Registered."
-									+ "<br/>Identification: [npc.nameFull(true)]"
-									+ "<br/>Race: [npc.race])]"
-							+ "</p>"
-							+ "<p>"
-								+ " Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes]."
-								+ " [npc.speech(W-Wait, [npc.pcName]! T-This isn't enslaving me, is it?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Grinning at your [npc.daughter], you don't have any time to offer a response, as with a bright purple flash, they suddenly disappear from sight."
-								+ " The last thing you see as they're whisked away is a face of shocked betrayal, and you imagine how angry they'll be when you see them next."
-							+ "</p>"
-							+ "<p>"
-								+ "From Finch's instructions, you know that <b>they've been teleported to the 'Slave Administration' building in Slaver Alley</b>, where they'll be waiting for you to pick them up."
-							+ "</p>");
-				}
-				
-			} else {
-				if(offspring().isSlave()) {
-					return UtilText.parse(offspring(),
-							"<p>"
-								+ "Holding the "+enslavementClothing.getName()+" in one [pc.hand], you take a step towards [npc.name]."
-								+ " [npc.She] lets out a sigh as [npc.she] sees what you're about to do, and says,"
-								+ " [npc.speech(If you're trying to enslave me, it won't work, [pc.name]... I'm already a slave...)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Despite [npc.her] words, you force the item of clothing onto [npc.name], before stepping back and waiting to see if anything happens."
-								+ " True to [npc.her] words, however, the "+enslavementClothing.getName()+"'s arcane enchantment recognises [npc.name] as already being a slave,"
-										+ " evidenced by glowing green lettering that's projected into the air, which reads:"
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "[style.boldGreen(Slave already registered!)]"
-							+ "</p>");
-					
-				} else if(offspring().getSubspecies()==Subspecies.DEMON) {
-					return UtilText.parse(offspring(),
-							"<p>"
-								+ "Holding the "+enslavementClothing.getName()+" in one [pc.hand], you take a step towards [npc.name]."
-								+ " [npc.She] lets out a mocking laugh as [npc.she] sees what you're about to do, and sneers,"
-								+ " [npc.speech(If you're trying to enslave me, [pc.name], it's no use! No Enforcer would ever sign off on a demon's enslavement warrant!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Despite [npc.her] words, you force the item of clothing onto [npc.herHim], before stepping back and waiting to see if anything happens."
-								+ " True to [npc.her] words, however, the "+enslavementClothing.getName()+"'s arcane enchantment doesn't recognise [npc.name] as being a criminal,"
-										+ " evidenced by glowing pink lettering that's projected into the air, which reads:"
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "[style.italicsBad(Target not wanted for enslavement!)]"
-							+ "</p>");
-					
-				} else {
-					return UtilText.parse(offspring(),
-							"<p>"
-								+ "Holding the "+enslavementClothing.getName()+" in one [pc.hand], you take a step towards [npc.name]."
-								+ " [npc.She] lets out a mocking laugh as [npc.she] sees what you're about to do, and sneers, [npc.speech(If you're trying to enslave me, it's no use! I haven't been targeted by the Enforcers for anything!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Despite [npc.her] words, you force the item of clothing onto [npc.name], before stepping back and waiting to see if anything happens."
-								+ " True to [npc.her] words, however, the "+enslavementClothing.getName()+"'s arcane enchantment doesn't recognise [npc.name] as being a criminal,"
-										+ " evidenced by glowing red lettering that's projected into the air, which reads:"
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "[style.italicsBad(Target not wanted for enslavement!)]"
-							+ "</p>");
-				}
-			}
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				if(offspring().isAbleToBeEnslaved()) {
-					return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
-						@Override
-						public DialogueNode getNextDialogue(){
-							return Main.game.getDefaultDialogueNoEncounter();
-						}
-						@Override
-						public void effects() {
-							offspring().applyEnslavementEffects(Main.game.getPlayer());
-							Main.game.getPlayer().addSlave((NPC) Main.game.getActiveNPC());
-							offspring().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
-						}
-					};
-				} else {
-					return new Response("Continue", UtilText.parse(offspring(), "That didn't work, but it doesn't mean you're finished with [npc.name] yet!"), SlaveDialogue.getFollowupEnslavementDialogue());
-				}
-				
-			} else {
-				return null;
-			}
-		}
-	};
 }

@@ -697,38 +697,40 @@ public class Name {
 			return mother.getSurname();
 		}
 		
-		if(gc.getSubspecies()==Subspecies.FOX_ASCENDANT
-				|| gc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC) {
+		if(gc.getBody()!=null
+				&& (gc.getSubspecies()==Subspecies.FOX_ASCENDANT
+						|| gc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
+						|| gc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)) {
 			return youkoSurnames[Util.random.nextInt(youkoSurnames.length)];
 		}
-		
-		switch(gc.getRace()) {
-			case NONE:
-			case ANGEL:
-			case CAT_MORPH:
-			case COW_MORPH:
-			case DOG_MORPH:
-			case FOX_MORPH:
-			case ALLIGATOR_MORPH:
-			case HARPY:
-			case HUMAN:
-			case WOLF_MORPH:
-			case SQUIRREL_MORPH:
-			case SLIME:
-			case BAT_MORPH:
-			case RAT_MORPH:
-			case RABBIT_MORPH:
-				break;
-			
-			case DEMON:
-			case ELEMENTAL:
-				return getDemonSurname(gc);
-			case REINDEER_MORPH:
-				break;
-			case HORSE_MORPH:
-				break;
+		if(gc.getBody()!=null) {
+			switch(gc.getRace()) {
+				case NONE:
+				case ANGEL:
+				case CAT_MORPH:
+				case COW_MORPH:
+				case DOG_MORPH:
+				case FOX_MORPH:
+				case ALLIGATOR_MORPH:
+				case HARPY:
+				case HUMAN:
+				case WOLF_MORPH:
+				case SQUIRREL_MORPH:
+				case SLIME:
+				case BAT_MORPH:
+				case RAT_MORPH:
+				case RABBIT_MORPH:
+					break;
+				
+				case DEMON:
+				case ELEMENTAL:
+					return getDemonSurname(gc);
+				case REINDEER_MORPH:
+					break;
+				case HORSE_MORPH:
+					break;
+			}
 		}
-		
 		return surnames[Util.random.nextInt(surnames.length)];
 	}
 	
