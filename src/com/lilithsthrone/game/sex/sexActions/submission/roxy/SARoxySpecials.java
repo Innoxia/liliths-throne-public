@@ -19,7 +19,7 @@ import com.lilithsthrone.main.Main;
  * @author Innoxia
  */
 public class SARoxySpecials {
-	
+
 	public static final SexAction ROXY_ORGASM = new SexAction(
 			SexActionType.ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
@@ -27,7 +27,7 @@ public class SARoxySpecials {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Orgasm";
@@ -51,7 +51,7 @@ public class SARoxySpecials {
 		@Override
 		public String getDescription() {
 			Addiction ratGCumAdd = Main.game.getPlayer().getAddiction(FluidType.GIRL_CUM_RAT_MORPH);
-			
+
 			if(ratGCumAdd!=null && ratGCumAdd.getProviderIDs().contains(Main.game.getNpc(Roxy.class).getId())) {
 				return "Roxy's moans start to increase in volume, and without warning, she suddenly reaches down to grab hold of your head, before letting her legs collapse out from under her."
 						+ " Your mouth is completely smothered by her [roxy.pussy+], and as you let out a muffled cry of surprise, the rat-girl screams, [roxy.speechNoEffects(~Aah!~ Yes! Get yer fuckin' tongue in deep! ~Mmm!~ Yes!)]"
@@ -75,7 +75,7 @@ public class SARoxySpecials {
 							+ "You can't help but let out a desperate, muffled moan into Roxy's [roxy.pussy] as you continue hungrily licking up as much of her girlcum as you possibly can."
 						+ "<br/><br/>"
 							+ "[roxy.speechNoEffects(I think that'll do fer now.)] Roxy laughs, [roxy.speech(Yer can always come back an give me anotha thousand flames if yer want more.)]";
-				
+
 			} else {
 				return "Roxy's moans start to increase in volume, and without warning, she suddenly reaches down to grab hold of your head, before letting her legs collapse out from under her."
 						+ " Your mouth is completely smothered by her [roxy.pussy+], and as you let out a muffled cry of surprise, the rat-girl screams, [roxy.speechNoEffects(~Aah!~ Yes! Get yer fuckin' tongue in deep! ~Mmm!~ Yes!)]"
@@ -116,5 +116,5 @@ public class SARoxySpecials {
 			return true;
 		}
 	};
-	
+
 }

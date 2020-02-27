@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
-	
+
 	<!-- Dominant sex actions: -->
-	
+
 	<htmlContent tag="RAPE_START_MILKING_ROOM"><![CDATA[
 	<p>
 		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
@@ -25,7 +25,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SEX_START_MILKING_ROOM"><![CDATA[
 	<p>
 		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
@@ -39,7 +39,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="RAPE_START"><![CDATA[
 	#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_CRAWLING))
 		#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
@@ -76,7 +76,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SEX_START"><![CDATA[
 	#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_CRAWLING))
 		<p>
@@ -127,11 +127,11 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SEX_SPITROAST_FRONT_START"><![CDATA[
 	#VAR
 		var isRape = !npc.isAttractedTo(pc) || !npc.isAttractedTo(npc2);
-	
+
 		var positioning = "";
 		if(npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL) {
 			positioning = "onto [npc.her] hands and knees ";
@@ -141,7 +141,7 @@
 			playerPositioning = "Turning your [pc.legConfiguration] body to one side, you present your groin to [npc.name], before calling down to [npc.herHim],";
 		}
 	#ENDVAR
-	
+
 	#IF(!isRape)
 		<p>
 			[pc.speech(You know, I was thinking that the three of us could have some fun together,)] you tease, turning to face [npc.name]. [pc.speech(You want to show [npc2.name] and I what a horny little slave you are, don't you?)]
@@ -214,11 +214,11 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SEX_SPITROAST_BEHIND_START"><![CDATA[
 	#VAR
 		var isRape = !npc.isAttractedTo(pc) || !npc.isAttractedTo(npc2);
-		
+
 		var positioning = "";
 		if(npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL) {
 			positioning = "onto [npc.her] hands and knees ";
@@ -230,7 +230,7 @@
 			playerMounting = "mount [npc.herHim]! Make sure to give me a good, hard rutting while I pleasure [npc2.name] with my mouth!";
 		}
 	#ENDVAR
-	
+
 	#IF(!isRape)
 		<p>
 			[pc.speech(You know, I was thinking that the three of us could have some fun together,)] you tease, turning to face [npc.name]. [pc.speech(You want to show [npc2.name] and I what a horny little sub you are, don't you?)]
@@ -303,7 +303,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SEX_SIDE_BY_SIDE_START"><![CDATA[
 	#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc))
 		<p>
@@ -313,10 +313,10 @@
 			Sensing what it is that you want, both [npc.name] and [npc2.name] step towards each other, casting submissive glances at you before turning and dropping down onto all fours. Letting out a delighted [pc.moan], you step towards the two of them as they present their rear ends for your use.
 		</p>
 		<p>
-			[npc.speech(Come and take us!)] [npc.name] [npc.moans], looking back over [npc.her] shoulder and seductively biting [npc.her] [npc.lip]. 
+			[npc.speech(Come and take us!)] [npc.name] [npc.moans], looking back over [npc.her] shoulder and seductively biting [npc.her] [npc.lip].
 		</p>
 		<p>
-			[npc2.speech(Mmm, yes, put us in our place!)] [npc2.name] joins in, copying [npc.name] as [npc2.she] glances back over [npc2.her] shoulder and bats [npc.her] eyelids at you. 
+			[npc2.speech(Mmm, yes, put us in our place!)] [npc2.name] joins in, copying [npc.name] as [npc2.she] glances back over [npc2.her] shoulder and bats [npc.her] eyelids at you.
 		</p>
 		<p>
 			#IF(pc.getLegConfiguration().isBipedalPositionedGenitals())
@@ -344,7 +344,7 @@
 				#ENDIF
 			</p>
 			<p>
-				[npc2.speech(W-Why don't you just leave the two of us alone?!)] [npc2.name] joins in, trying to stand up for [npc.name] as [npc2.she] glances back over [npc2.her] shoulder to look up at you. 
+				[npc2.speech(W-Why don't you just leave the two of us alone?!)] [npc2.name] joins in, trying to stand up for [npc.name] as [npc2.she] glances back over [npc2.her] shoulder to look up at you.
 			</p>
 			<p>
 				#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
@@ -376,7 +376,7 @@
 				#ENDIF
 			</p>
 			<p>
-				[npc2.speech(Don't worry, [npc.name], I'm sure you'll get into it,)] [npc2.name] offers as [npc2.she] drops down beside [npc.herHim]. 
+				[npc2.speech(Don't worry, [npc.name], I'm sure you'll get into it,)] [npc2.name] offers as [npc2.she] drops down beside [npc.herHim].
 			</p>
 			<p>
 				With [npc.namePos] resistance now being limited to tears and distressed wails, you're finally ready to start fucking both [npc.herHim] and [npc2.name]. With one final threatening snarl, you wonder out loud,
@@ -401,7 +401,7 @@
 				#ENDIF
 			</p>
 			<p>
-				[npc.speech(Don't worry, [npc2.name], I'm sure you'll get into it,)] [npc.name] offers as [npc.she] drops down beside [npc2.herHim]. 
+				[npc.speech(Don't worry, [npc2.name], I'm sure you'll get into it,)] [npc.name] offers as [npc.she] drops down beside [npc2.herHim].
 			</p>
 			<p>
 				With [npc2.namePos] resistance now being limited to tears and distressed wails, you're finally ready to start fucking both [npc2.herHim] and [npc.name]. With one final threatening snarl, you wonder out loud,
@@ -417,10 +417,10 @@
 	</htmlContent>
 
 	<!-- END Dominant sex actions -->
-	
-	
+
+
 	<!-- Submissive sex actions: -->
-	
+
 	<htmlContent tag="SEX_AS_SUB_START"><![CDATA[
 	<p>
 		[pc.speech(You know, [npc.name], I just can't stop thinking about you,)] you tease, stepping forwards and reaching out to tease your [pc.fingers] over [npc.her] [npc.breasts]. [pc.speech(I'm sure you'd love the chance to get to fuck your owner, wouldn't you?)]
@@ -468,11 +468,11 @@
 		</p>
 	#ENDIF
 	<p>
-		Letting out an excited [pc.moan], you prepare to be dominantly fucked by your [npc.race] slave... 
+		Letting out an excited [pc.moan], you prepare to be dominantly fucked by your [npc.race] slave...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SEX_SPITROASTED_START"><![CDATA[
 	<p>
 		[pc.speech(You know, I was thinking that the three of us could have some fun together...)] you tease, turning to face both [npc.name] and [npc2.name], before biting your [pc.lip] and putting on your most submissive, seductive look.
@@ -630,7 +630,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- npc is the one fucking you and npc2 -->
 	<htmlContent tag="SEX_SIDE_BY_SIDE_AS_SUB_START"><![CDATA[
 	<p>
@@ -706,10 +706,10 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<!-- END Submissive sex actions -->
-	
-	
+
+
 	<htmlContent tag="AFTER_SEX_THREESOME"><![CDATA[
 	#IF(!npc.isAttractedTo(pc) && game.isNonConEnabled())
 		#IF(!npc2.isAttractedTo(pc))
@@ -749,7 +749,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX"><![CDATA[
 	#IF(!npc.isAttractedTo(pc) && game.isNonConEnabled())
 		<p>
@@ -774,7 +774,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_NO_ORGASM"><![CDATA[
 	#IF(!npc.isAttractedTo(pc) && game.isNonConEnabled())
 		<p>
@@ -799,6 +799,6 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
-	
+
+
 </dialogue>

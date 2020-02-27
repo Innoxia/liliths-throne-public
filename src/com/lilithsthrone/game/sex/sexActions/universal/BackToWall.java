@@ -8,7 +8,7 @@ package com.lilithsthrone.game.sex.sexActions.universal;
 public class BackToWall {
 
 	// Position-unique actions to be added here.
-	
+
 	//TODO
 //	FINGER_INSEMINATION(SexActionType.PLAYER,
 //			ArousalIncrease.THREE_NORMAL,
@@ -35,7 +35,7 @@ public class BackToWall {
 //		public String getDescription() {
 //			descriptionSB = new StringBuilder();
 //
-//			
+//
 //			switch (Sex.getPartner().getRace()) {
 //				case DOG_MORPH:
 //					descriptionSB.append("As you feel the dog-boy's sticky cum sliding down around the entrance to your pussy, a fun idea suddenly springs into your mind."
@@ -92,5 +92,5 @@ public class BackToWall {
 //			return Util.newArrayListOfValues(CoverableArea.VAGINA);
 //		}
 //	},
-	
+
 }

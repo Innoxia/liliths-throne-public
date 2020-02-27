@@ -9,14 +9,14 @@ import java.util.List;
  * @author Innoxia
  */
 public enum NPCFlagValue {
-	
+
 	genericNPCBetrayedByPlayer,
-	
+
 	knowsPlayerGender,
 	introducedToPlayer,
 	pendingClothingDressing,
 	pendingTransformationToGenderIdentity,
-	
+
 	flagSlaveBackground,
 	flagSlaveSmallTalk,
 	flagSlaveEncourage,
@@ -25,23 +25,23 @@ public enum NPCFlagValue {
 	flagSlaveInspect,
 	flagSlaveSpanking,
 	flagSlaveMolest,
-	
+
 	occupantTalkLife,
 	occupantTalkJob,
 	occupantTalkLilaya,
 	occupantTalkSlaves,
-	
+
 	occupantHasNewJob,
-	
+
 	flagOffspringIntroduced,
 	flagOffspringApartmentIntroduced,
 	flagOffspringFightApologyNeeded,
 	flagOffspringRapeApologyNeeded,
 	fightOffspringInApartment;
-	
+
 	private static List<NPCFlagValue> slaveFlags = new ArrayList<>();
 	private static List<NPCFlagValue> occupantFlags = new ArrayList<>();
-	
+
 	static {
 		slaveFlags.add(flagSlaveBackground);
 		slaveFlags.add(flagSlaveSmallTalk);
@@ -51,7 +51,7 @@ public enum NPCFlagValue {
 		slaveFlags.add(flagSlaveInspect);
 		slaveFlags.add(flagSlaveSpanking);
 		slaveFlags.add(flagSlaveMolest);
-		
+
 
 		occupantFlags.add(occupantTalkLife);
 		occupantFlags.add(occupantTalkJob);

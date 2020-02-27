@@ -39,24 +39,24 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	private AbstractFootType footType;
 
 	private String determiner;
-	
+
 	private String name;
 	private String namePlural;
-	
+
 	private List<String> descriptorsMasculine;
 	private List<String> descriptorsFeminine;
-	
+
 	private List<String> footDescriptorsMasculine;
 	private List<String> footDescriptorsFeminine;
-	
+
 	private List<String> toeDescriptorsMasculine;
 	private List<String> toeDescriptorsFeminine;
-	
+
 	private String legTransformationDescription;
 	private String legBodyDescription;
-	
+
 	private List<LegConfiguration> allowedLegConfigurations;
-	
+
 	/**
 	 * @param skinType What covers this leg type (i.e skin/fur/feather type).
 	 * @param race What race has this leg type.
@@ -91,30 +91,30 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			String legTransformationDescription,
 			String legBodyDescription,
 			List<LegConfiguration> allowedLegConfigurations) {
-		
+
 		this.skinType = skinType;
 		this.race = race;
-		
+
 		this.defaultFootStructure = defaultFootStructure;
 		this.footType = footType;
-		
+
 		this.determiner = determiner;
-		
+
 		this.name = name;
 		this.namePlural = namePlural;
-		
+
 		this.descriptorsMasculine = descriptorsMasculine;
 		this.descriptorsFeminine = descriptorsFeminine;
-		
+
 		this.footDescriptorsMasculine = footDescriptorsMasculine;
 		this.footDescriptorsFeminine = footDescriptorsFeminine;
-		
+
 		this.toeDescriptorsMasculine = toeDescriptorsMasculine;
 		this.toeDescriptorsFeminine = toeDescriptorsFeminine;
-		
+
 		this.legTransformationDescription = legTransformationDescription;
 		this.legBodyDescription = legBodyDescription;
-		
+
 		this.allowedLegConfigurations = allowedLegConfigurations;
 	}
 
@@ -132,7 +132,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	public String getNameSingular(GameCharacter gc) {
 		return name;
 	}
-	
+
 	@Override
 	public String getNamePlural(GameCharacter gc) {
 		return namePlural;
@@ -164,12 +164,12 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	public FootStructure getDefaultFootStructure() {
 		return defaultFootStructure;
 	}
-	
-	
+
+
 	public String getFootNameSingular(GameCharacter gc) {
 		return this.getFootType().getFootName();
 	}
-	
+
 	public String getFootNamePlural(GameCharacter gc) {
 		return this.getFootType().getFootNamePlural();
 	}
@@ -181,12 +181,12 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			return Util.randomItemFrom(Util.mergeLists(this.getFootType().getFootDescriptorsMasculine(), footDescriptorsMasculine));
 		}
 	}
-	
+
 
 	public String getToeNameSingular(GameCharacter gc) {
 		return this.getFootType().getToeSingularName();
 	}
-	
+
 	public String getToeNamePlural(GameCharacter gc) {
 		return this.getFootType().getToePluralName();
 	}
@@ -198,14 +198,14 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			return Util.randomItemFrom(Util.mergeLists(this.getFootType().getToeDescriptorsMasculine(), toeDescriptorsMasculine));
 		}
 	}
-	
-	
+
+
 //	@Override
 	public String getBodyDescription(GameCharacter owner) {
 		return UtilText.parse(owner, legBodyDescription);
 	}
-	
-	
+
+
 //	@Override
 	public String getTransformationDescription(GameCharacter owner) {
 		return UtilText.parse(owner, legTransformationDescription);
@@ -214,7 +214,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 
 	/**
 	 * Applies the related leg configuration transformation for this leg type, and returns a description of the changes.<br/><br/>
-	 * 
+	 *
 	 * <b>When overriding, consider:</b><br/>
 	 * Ass.class (type)<br/>
 	 * BreastCrotch.class (type)<br/>
@@ -222,22 +222,22 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 	 * Tentacle.class (type)<br/>
 	 * Penis.class (type, size, cloaca)<br/>
 	 * Vagina.class (type, capacity, cloaca)<br/>
-	 * 
+	 *
 	 * @param configuration The leg configuration to be applied.
 	 * @param character The character which is being transformed.
 	 * @param applyEffects Whether the transformative effects should be applied. Pass in false to get the transformation description without applying any of the actual effects.
-	 * 
+	 *
 	 * @return A description of the transformation.
 	 */
 	public String applyLegConfigurationTransformation(GameCharacter character, LegConfiguration legConfiguration, boolean applyEffects) {
 		StringBuilder bestialStringBuilder = new StringBuilder();
-		
+
 		if(character.getLegConfiguration()==legConfiguration && character.getLegType().equals(this)) {
 			return "<p>"
 						+ "[style.italicsDisabled(Nothing happens, as [npc.name] already [npc.has] [npc.a_legRace]'s lower body in the '"+legConfiguration.getName()+"' configuration...)]"
 					+ "</p>";
 		}
-		
+
 		bestialStringBuilder.append(handleLegConfigurationChanges(character.getBody(), legConfiguration, applyEffects));
 
 		bestialStringBuilder.append("<p>");
@@ -259,17 +259,17 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		if(applyEffects) {
 			character.getBody().getLeg().setLegConfigurationForced(this, legConfiguration);
 		}
-		
+
 		bestialStringBuilder.append("<p>"
 									+ character.postTransformationCalculation()
 								+ "</p>");
-		
+
 		return UtilText.parse(character, bestialStringBuilder.toString());
 	}
-	
+
 	/**
 	 * For use in modifying bodies without an attached character. Outside of the Subspecies class, you should probably always be calling the version of this method that takes in a GameCharacter.
-	 * 
+	 *
 	 * @param body The body to be modified.
 	 * @param legConfiguration The LegConfiguration to be applied.
 	 */
@@ -277,16 +277,16 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		handleLegConfigurationChanges(body, legConfiguration, true);
 		body.getLeg().setLegConfigurationForced(this, legConfiguration);
 	}
-	
+
 	private String handleLegConfigurationChanges(Body body, LegConfiguration legConfiguration, boolean applyEffects) {
-		
+
 		String bestialRaceName = this.getRace().getName(true);
 		String bestialRaceNameDeterminer = UtilText.generateSingularDeterminer(bestialRaceName);
 		StringBuilder bestialStringBuilder = new StringBuilder();
 		String bestialRaceNameWithDeterminer = bestialRaceNameDeterminer+" "+bestialRaceName;
 		String raceColorString = this.getRace().getColour().toWebHexString();
 		boolean feral = true;
-		
+
 		switch(legConfiguration) {
 			case BIPEDAL:
 				feral = false;
@@ -308,7 +308,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 									startingBodyType.getNippleCountPerBreastCrotch(),
 									startingBodyType.getBreastCrotchCapacity(),
 									startingBodyType.getBreastCrotchElasticity(),
-									startingBodyType.getBreastCrotchPlasticity(), 
+									startingBodyType.getBreastCrotchPlasticity(),
 									true));
 					}
 					body.setGenitalArrangement(startingBodyType.getGenitalArrangement());
@@ -390,10 +390,10 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 						+ "</p>");
 				break;
 		}
-		
+
 		bestialStringBuilder.append("<p><i>"
 				+ "[style.boldTfGeneric(Every part)] of [npc.her] lower body has transformed into that of a "+(feral?"feral "+bestialRaceName:"regular "+this.getRace().getName(false))+", meaning that [npc.she] now [npc.has]");
-		
+
 		List<String> partsList = new ArrayList<>();
 		// Tail:
 		if(body.getTail().getType()==TailType.NONE) {
@@ -415,7 +415,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			}
 		}
 		bestialStringBuilder.append(Util.stringsToStringList(partsList, false)+".");
-		
+
 		Penis penis = body.getPenis();
 		if(penis.getType()!=PenisType.NONE) {
 			if(feral) {
@@ -424,7 +424,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				bestialStringBuilder.append(" [npc.Her] cock has similarly transformed into that of a regular "+this.getRace().getName(false)+", and is "+Units.size(penis.getRawSizeValue())+" long.");
 			}
 		}
-		
+
 		Vagina vagina = body.getVagina();
 		if(vagina.getType()!=VaginaType.NONE) {
 			if(feral) {
@@ -435,14 +435,14 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			}
 		}
 		bestialStringBuilder.append("</i></p>");
-		
+
 		if(feral) {
 			bestialStringBuilder.append("<p><i>Feeling as though it's only natural, [npc.she] [style.colourGood(no longer [npc.verb(get)] embarrassed)] about having [npc.her] [style.italicsBestial(animalistic genitals"
 					+(legConfiguration.isBipedalPositionedCrotchBoobs()?(body.getBreastCrotch().getShape()==BreastShape.UDDERS?" or udders":" or crotch-boobs"):"")
 					+ ")] on display!</i></p>");
 		}
-		
-		
+
+
 		if(legConfiguration.getLandSpeedModifier()>0) {
 			bestialStringBuilder.append("<p><i>"
 										+ "[npc.Her] new lower body is not as well-adapted to movement on land as a usual biped,"
@@ -454,7 +454,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 											+ " and as a result, [style.colourExcellent([npc.she] [npc.verb(move)] faster than usual)] [style.colourEarth(while on land)]!"
 									+ "</i></p>");
 		}
-		
+
 		if(legConfiguration.getWaterSpeedModifier()>0) {
 			bestialStringBuilder.append("<p><i>"
 										+ "[npc.SheIsFull] now a lot less capable at moving in water than a usual biped,"
@@ -468,13 +468,13 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 		}
 		return bestialStringBuilder.toString();
 	}
-	
+
 	// Setting parts is applied directly through body to circumvent transformation blocks
 	private void applyExtraLegConfigurationTransformations(Body body, LegConfiguration legConfiguration, boolean largeGenitals) {
 		AbstractRacialBody startingBodyType = RacialBody.valueOfRace(this.getRace());
-		
+
 		boolean demon = body.getRace()==Race.DEMON;
-		
+
 		if(legConfiguration.getBestialParts().contains(Ass.class)) { // Ass (includes Anus):
 			body.setAss(
 					new Ass(
@@ -508,7 +508,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 					startingBodyType.getNippleCountPerBreastCrotch(),
 					startingBodyType.getBreastCrotchCapacity(),
 					startingBodyType.getBreastCrotchElasticity(),
-					startingBodyType.getBreastCrotchPlasticity(), 
+					startingBodyType.getBreastCrotchPlasticity(),
 					true));
 		}
 		if(legConfiguration.getBestialParts().contains(Tail.class)) { // Tail:
@@ -560,7 +560,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 			body.getVagina().getOrificeVagina().setVirgin(virgin);
 		}
  	}
-	
+
 	/**
 	 * @param legConfiguration The configuration to check transformation availability of.
 	 * @return True if this configuration is allowed for this LegType.

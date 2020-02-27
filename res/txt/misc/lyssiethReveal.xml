@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
-	
+
 	<htmlContent tag="ENTRANCE_WITH_ELIZABETH"><![CDATA[
 	<p>
 		[pc.speech(Yes, I'd like to see Lyssieth now,)] you say to Elizabeth.
@@ -16,7 +16,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="FORWARDS_1"><![CDATA[
 	<p>
 		Stepping forwards to walk in parallel with Elizabeth, you gaze in wonder at your extravagant surroundings as the two of you proceed down the corridor that leads directly forwards from the palace's front gate.
@@ -47,7 +47,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="FORWARDS_2"><![CDATA[
 	<p>
 		[elizabeth.speech(I can tell that you're impressed by Her Highness's collections. Perhaps you can ask her more about them in a moment,)] Elizabeth says, turning to face you as the two of you reach the end of the corridor. Before you are a pair of large, ornately-carved wooden doors, and you assume that Lyssieth is within the room beyond.
@@ -81,7 +81,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="FORWARDS_3"><![CDATA[
 	<p>
 		Following Elizabeth through the doors, you find yourself entering a room quite unlike the sort that you were expecting. Not only is Lyssieth conspicuously absent, but this area appears to be a sort of waiting room, of the same style as you might expect to see in a very prestigious office building.
@@ -126,7 +126,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE"><![CDATA[
 	<p>
 		Giving the door a quick knock, [siren.name] opens it and steps forwards into the room beyond. Following in her footsteps, you proceed inside, and finally find yourself entering Lyssieth's office.
@@ -160,7 +160,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE_REACTION"><![CDATA[
 	<p>
 		You weren't expecting Lilaya's mother to give you such a hostile welcome, and, quickly dropping down into a defensive posture, you prepare to defend yourself against her incoming attack. Instead of taking any offensive action, however, Lyssieth simply laughs, and asks, [lyssieth.speech(Do you really think you stand a chance against me?! It would be but a trifle to force you to submit, and then all I'd have to do is teleport the two of us into mother's throne room, present you to her as a gift, and I'd be free!)]
@@ -176,7 +176,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE_REACTION_RESIST"><![CDATA[
 	<p>
 		Refusing to submit, you try to shake your head clear of the intrusive thoughts, and at the same time, you put all of your strength into resisting the crushing downwards force. From what little awareness you have left of your surroundings, you're able to make out a highly-amused smile on Lyssieth's face, and, as she steps towards you, she tuts, [lyssieth.speech(Now, now, that won't do at all. When I give people an order, they're expected to [style.glowArcane(obey)].)]
@@ -186,7 +186,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE_REACTION_SUBMIT"><![CDATA[
 	<p>
 		Accepting your fate, you give in to the voices of submission in your mind, and allow yourself to be pushed down onto your knees before Lyssieth. Looking up at the elder lilin, you see a highly-amused smile on her face, and, as she steps towards you, she laughs, [lyssieth.speech(Very good. If I were to tell you to surrender yourself to Lilith, allow her to drain your arcane power, and then live out the rest of your life as her slave, would you [style.glowArcane(obey)]?)]
@@ -196,7 +196,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE_REACTION_BETRAYAL"><![CDATA[
 	<p>
 		#IF siren.getAffection(pc)>30
@@ -224,7 +224,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE_REACTION_END"><![CDATA[
 	<p>
 		Doing as Lyssieth says, you push yourself up onto your [pc.feet]. Wanting now more than ever to get a real explanation of why you're here, and feeling the frustration of your seemingly never-ending quest to find out what's going on boiling over, you angrily state, [pc.speech(Look, I've been all over Dominion, trying to get someone to tell me why I'm in your world, and after finally finding Arthur, he tells me that you're the only one who has that information. Now, after running this way and that for goodness knows how long, I finally get to meet you, and then I get assaulted! What's more, you're talking about handing me over to Lilith, then something about humans suffering, and now you say you've decided to 'betray' your mother?!
@@ -258,7 +258,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE_TELEPORT"><![CDATA[
 	<p>
 		[pc.speech(Ok, let's go,)] you say, [pc.speech(I can't wait to get to the bottom of all this.)]
@@ -271,7 +271,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE_TELEPORT_ARRIVE"><![CDATA[
 	<p>
 		In an instant, you, [siren.name], and Lyssieth are all standing in Lilaya's laboratory. On the other side of the room, Lilaya and Arthur are bending down over one of the many lab tables, with Rose hovering off to one side. All three of them have their backs to you, and as Lyssieth loosens her grip on you and her daughter, you realise that the trio in front of you have not noticed your sudden appearance.
@@ -323,7 +323,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_ARTHUR_THEORY"><![CDATA[
 	<p>
 		[arthur.speech(Oh, erm, well, you see, I thought it highly unusual that Lilaya and I had such similar names and appearances as the versions of us that [pc.name] knew in [pc.her] world, so, instead of trying to investigate [pc.herHim], I decided to look a little closer at our own auras,)] Arthur starts, fidgeting a little in discomfort as you and the three succubi listen to his theory. [arthur.speech(Although I initially couldn't find anything unusual, I realised that the current methodology we have for examining auras was a little inadequate, so I devised a new method to detect any, erm, 'oddities' in a person's aura. By competitively hybridising my own aura with a reference sample of an arcane essence I had extracted from myself earlier, I was able to isolate and identify inconsistencies in auratic harmony, which, as earlier rese-)]
@@ -348,7 +348,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_WORLD_REVEAL"><![CDATA[
 	<p>
 		[pc.speech(That's impossible,)] you say, [pc.speech(I think I would have remembered there being a city full of demons and magic. There's absolutely no way this is my world.)]
@@ -403,7 +403,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_LILAYA_ANGERY"><![CDATA[
 	<p>
 		[lilaya.speech(So... I'm not really Lilaya? I'm just a transformed version of [pc.namePos] aunt, Lily?)] Lilaya asks, the colour draining from her cheeks as she faces an existential crisis.
@@ -433,7 +433,7 @@
 		[lyssieth.speech(Well, you see, we spent some time exploring the museum before Lilith cast her spell,)] Lyssieth explains, [lyssieth.speech(My sisters were, erm, taking advantage of all the humans, and I just wanted to protect the two of you! You both looked so scared... The only way I could protect you from my sisters was to ask Lilith to alter the spell such that Lily and Meranda would be my daughters...)]
 	</p>
 	<p>
-		[lilaya.speech(I... You...)] Lilaya stumbles, caught in an awkward spot between outrage and gratitude at being spared from whatever depraved fate Lyssieth's sisters had in store for her. [lilaya.speech(Y-You hate it as well, don't you, [siren.name]?! Just think, your soul was human, before Lilith made it so that you're a half-demon!)] 
+		[lilaya.speech(I... You...)] Lilaya stumbles, caught in an awkward spot between outrage and gratitude at being spared from whatever depraved fate Lyssieth's sisters had in store for her. [lilaya.speech(Y-You hate it as well, don't you, [siren.name]?! Just think, your soul was human, before Lilith made it so that you're a half-demon!)]
 	</p>
 	<p>
 		[siren.speech(Yeah, erm, I dunno, sis',)] [siren.name] mumbles, [siren.speech(I mean, humans can't exactly summon cosmic forces of destruction like I can now! I bet when I was this 'Meranda', I couldn't even cast one spell!)]
@@ -443,7 +443,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_LILAYA_CALMED_DOWN"><![CDATA[
 	<p>
 		You can tell that Lilaya's existential crisis has reached breaking point, and, realising that the simple truth will be enough to calm her down, you reassure her, [pc.speech(Yes, you're a half-demon now, Lilaya, but your personality, your mannerisms, even your looks are all the same as they were when you were Lily. You're still fundamentally the same person deep down inside, even if you can't feel it. Remember how I instantly recognised you the first time I saw you? You're still <i>you</i>, Lilaya.)]
@@ -471,7 +471,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_QUESTION_WORLD"><![CDATA[
 	<p>
 		[pc.speech(If it's only the British Isles that were transformed, why hasn't the rest of the world done anything in these past three years?)] you ask.
@@ -499,7 +499,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_QUESTION_BETRAYAL"><![CDATA[
 	<p>
 		[pc.speech(Why did you choose to betray Lilith, and not simply hand me over to her?)] you ask.
@@ -527,7 +527,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_QUESTION_PEOPLE"><![CDATA[
 	<p>
 		[lilaya.speech(So everyone we know, who was born over three years ago, is actually a transformed person from the old reality?)] Lilaya asks.
@@ -543,7 +543,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_QUESTION_SPELL"><![CDATA[
 	<p>
 		[siren.speech(So how do I learn this reality-changing spell?)] [siren.name] asks, [siren.speech(If I were so inclined, I could already destroy all of reality, but as of yet, I cannot manipulate it!)]
@@ -562,7 +562,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_QUESTION_REVERSAL"><![CDATA[
 	<p>
 		[arthur.speech(So, there's obviously no way to send [pc.name] back to the old reality which we've been identifying as '[pc.her] world',)] Arthur observes, [arthur.speech(But surely anything that is done via the arcane can be undone via the arcane. Can we not somehow reverse this spell?)]
@@ -575,7 +575,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_QUESTION_END"><![CDATA[
 	<p>
 		[lyssieth.speech(I really am almost out of time now,)] Lyssieth announces, [lyssieth.speech(We must move on to what our next step will be. I am committed to defeating Lilith, and securing a future for humanity, and, while I believe that the four of you will join me in this quest, I need a definitive answer from each of you.)]
@@ -597,7 +597,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_ENDING_LIBERATE"><![CDATA[
 	<p>
 		[pc.speech(Of course I'm with you. I'll do whatever it takes to free the world from Lilith's tyranny,)] you decisively answer.
@@ -607,7 +607,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_ENDING_USURP"><![CDATA[
 	<p>
 		[pc.speech(I'll join in with your plan, but when we defeat Lilith, I'll be the one to take her place as ruler of this domain,)] you decisively state.
@@ -626,7 +626,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_ENDING_JOIN"><![CDATA[
 	<p>
 		[pc.speech(What if I were to join forces with Lilith?)] you ask, [pc.speech(Perhaps we could rule this world together, and, after all, what's the harm in having all humans turned into demons or animal-morphs?)]
@@ -642,7 +642,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_ENDING_NOTHING"><![CDATA[
 	<p>
 		#IF pc.getHistory()==OCCUPATION_UNEMPLOYED
@@ -663,7 +663,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_ENDING"><![CDATA[
 	<p>
 		[siren.speech(So what's going to happen now?)] [siren.name] asks.
@@ -679,7 +679,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_ENDING_SIREN_HELP"><![CDATA[
 	<p>
 		[pc.speech(There's no way that I'll stand a chance against that!)] you exclaim, [pc.speech(Not would I have to defeat who-knows how many centaurs all at once, but I'd also have to fight an elder lilin at the same time?! All it took for you to incapacitate me was to use that arcane order. What's to stop Lunette from doing the same?)]
@@ -729,14 +729,14 @@
 		[siren.speech(Oh, mom, can I stay here for a while and catch up with sis'?)] [siren.name] asks.
 	</p>
 	<p>
-		[lyssieth.speech(Very well, but do not let her out of your sight, Lilaya,)] Lyssieth says, before suddenly stepping over to you and pulling you into a big hug, [lyssieth.speech(I'll be back to pick her up soon. Let's go, [pc.name].)] 
+		[lyssieth.speech(Very well, but do not let her out of your sight, Lilaya,)] Lyssieth says, before suddenly stepping over to you and pulling you into a big hug, [lyssieth.speech(I'll be back to pick her up soon. Let's go, [pc.name].)]
 	</p>
 	<p>
 		Squeezing you in against her [lyssieth.breastSize], [lyssieth.cupSize]-cup breasts, Lyssieth casts her teleportation spell, and the two of you disappear in a flash of purple light...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_ENDING_RETURN"><![CDATA[
 	<p>
 		In an instant, you find yourself standing in the middle of Lyssieth's office, with the mature elder lilin still hugging you tightly into her busty chest. [lyssieth.speech(Oh, excellent, my absence hasn't been discovered,)] she says.
@@ -764,7 +764,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_ENDING_RETURN_DECLINE_SEX_HUMAN"><![CDATA[
 	<p>
 		#IF pc.hasStatusEffect(SE_FETISH_PURE_VIRGIN)
@@ -788,7 +788,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LAB_ENDING_RETURN_DECLINE_SEX"><![CDATA[
 	<p>
 		#IF pc.hasStatusEffect(SE_FETISH_PURE_VIRGIN)
@@ -812,7 +812,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SEX_PUSSY"><![CDATA[
 	<p>
 		[pc.speech(I want your pussy,)] you say, not too fond of the idea of having Lyssieth grow a cock.
@@ -828,7 +828,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SEX_COCK"><![CDATA[
 	<p>
 		[pc.speech(I want your cock,)] you say, preferring to be on the receiving end.
@@ -844,7 +844,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="POWER_VISION"><![CDATA[
 	<p>
 		[genericFemale.speech(Lyssieth, we have Valoel cornered in the throne room,)] your lilin sister, Orialyss, informs you. [genericFemale.speech(What shall we do with the humans?)]
@@ -881,7 +881,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="POWER_EXPLANATION"><![CDATA[
 	<p>
 		[lyssieth.speech([pc.Name]? Are you ok? [pc.Name]?)] you hear Lyssieth calling from somewhere far away. [lyssieth.speech([pc.Name]! Wake up!)]
@@ -903,7 +903,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="POWER_EXPLANATION_LAP"><![CDATA[
 	<p>
 		Doing as Lyssieth suggests, you continue to use her lap as a pillow while you recover. Her asymmetrical skirt has shifted to one side, leaving one of her legs completely bare, and as such, you're able to feel the soft skin of her thigh on your cheek as you lie there. Deciding to let her know about what you saw, you say, [pc.speech(I had a strange vision while I was passed out. I was seeing things from your perspective, when you and your sisters captured the archangel Valoel.)]
@@ -962,7 +962,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="POWER_EXPLANATION_STAND_UP"><![CDATA[
 	<p>
 		Not feeling comfortable about using Lyssieth's lap as a pillow, you tell her that you're feeling better, before standing up and turning to face her as she does the same. Deciding to let her know about what you saw, you say, [pc.speech(I had a strange vision while I was passed out. I was seeing things from your perspective, when you and your sisters captured the archangel Valoel.)]
@@ -1021,7 +1021,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="END_SIREN"><![CDATA[
 	<p>
 		Finally getting a moment to yourself, the revelation that this world is in fact your own has time to sink in. Although Lilaya has the same soul, and bears resemblance to your aunt in many ways, you realise that you're never going to see Lily again. Walking over to the nearest sofa, you collapse down onto it and rest your head in your hands.
@@ -1044,11 +1044,11 @@
 		[pc.speech(I just hope that I can get the help of your friend,)] you reply, turning your thoughts to Lunette and her herd of demonic centaurs. [pc.speech(You said she's probably in the town of 'Elis'?)]
 	</p>
 	<p>
-		[siren.speech(Yeah, that's right. Oh, and mom said to give you this map. It's got Elis marked on it, so you won't lose your way,)] [siren.name] says, placing a folded paper map on the desk in front of her. 
+		[siren.speech(Yeah, that's right. Oh, and mom said to give you this map. It's got Elis marked on it, so you won't lose your way,)] [siren.name] says, placing a folded paper map on the desk in front of her.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="END_FINAL"><![CDATA[
 	<p>
 		Standing up from the sofa, you step over to [siren.namePos] desk and take the offered map. Looking down at the parchment in your [pc.hands], you see that it depicts a large area, measuring 150 square kilometres around Dominion. There looks to be a large amount of farmland surrounding the capital, which is bordered by an expanse of wild grassland and forests. To the north, there's a huge expanse of what's marked as jungle, while to the south, the farmland transitions first into a wide savannah, and then into a desert.
@@ -1069,11 +1069,11 @@
 		[siren.speech(Bye, [pc.name], oh, and you're obviously free to come and go from our palace as you please, but just listen to the maids if they tell you some areas are off-limits,)] [siren.name] says, before letting out a laugh and leaning back in her chair, [siren.speech(The next time we meet, I shall surely best you in a duel!)]
 	</p>
 	<p>
-		Pushing open the door to [siren.namePos] office, you step back out into the palace corridor, and wonder what to do next... 
+		Pushing open the door to [siren.namePos] office, you step back out into the palace corridor, and wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
-	
-	
-	
+
+
+
 </dialogue>

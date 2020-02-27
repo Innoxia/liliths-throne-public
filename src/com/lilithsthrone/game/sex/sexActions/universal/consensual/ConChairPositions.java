@@ -20,7 +20,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class ConChairPositions {
-	
+
 	public static final SexAction PLAYER_SWITCH_CHAIR_POSITION_TO_TOP = new SexAction(
 			SexActionType.POSITIONING,
 			ArousalIncrease.ZERO_NONE,
@@ -37,7 +37,7 @@ public class ConChairPositions {
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isAnyNonSelfOngoingActionHappening() && (Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotBipeds.CHAIR_BOTTOM);
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Switch positions";
@@ -71,7 +71,7 @@ public class ConChairPositions {
 			}
 		}
 	};
-	
+
 	public static final SexAction PLAYER_SWITCH_CHAIR_POSITION_TO_BOTTOM = new SexAction(
 			SexActionType.POSITIONING,
 			ArousalIncrease.ZERO_NONE,
@@ -88,7 +88,7 @@ public class ConChairPositions {
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isAnyNonSelfOngoingActionHappening() && (Sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotBipeds.CHAIR_TOP);
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Switch positions";
