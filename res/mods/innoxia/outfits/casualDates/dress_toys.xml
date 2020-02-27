@@ -5,45 +5,45 @@
 	<coreAttributes>
 		<!-- Names are only used for debugging purposes. Still, in case the name is used elsewhere later on, it's best to give your outfit a suitable (lowercase) name.-->
 		<name><![CDATA[casual dress with toys]]></name>
-		
+
 		<!-- Again, descriptions are only used for debugging purposes. Still, in case the name is used elsewhere later on, it's best to give your outfit a suitable description.-->
 		<description><![CDATA[A dress hides the fact that the wearer has a toy or two inserted into their orifices...]]></description>
-		
+
 		<!-- The femininity needed for someone to generate this outfit. MASCULINE, ANDROGYNOUS, and FEMININE are the three acceptable values. ANDROGYNOUS means anyone can use this outfit, while the other two are self-explanatory.-->
 		<femininity>FEMININE</femininity>
-		
+
 		<!-- The worlds in which this outfit may be used for randomly generated characters. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/world/WorldType.java -->
 		<worldTypes>
 			<world>DOMINION</world>
 			<world>SUBMISSION</world>
 		</worldTypes>
-		
+
 		<!-- Outfit types that this outfit can be used in. For a list of acceptable OutfitTypes, consult: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/clothing/OutfitType.java -->
 		<outfitTypes>
 		  <type>CASUAL_DATE</type> <!-- At the time of creation (v0.3.0.6), only the MUGGER outfitType is used in the game. All outfit types will be added eventually. -->
 		</outfitTypes>
-		
+
 		<!-- WhatWhich leg configurations can equip this outfit. For a list of legConfigurations, see: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LegConfiguration.java -->
 		<acceptableLegConfigurations>
 			<legConfiguration>BIPEDAL</legConfiguration>
 		</acceptableLegConfigurations>
-		
+
 		<!-- The condition that needs to be satisfied for someone to generate this outfit. "npc.hasFetish(FETISH_EXHIBITIONIST)" should probably always be taken into account. This conditional instance does NOT support the "clothingConditionalX" elements.
-		Accepted method calls for the "npc" can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/GameCharacter.java 
+		Accepted method calls for the "npc" can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/GameCharacter.java
 		Accepted method calls for the main game (using the "game" tag) can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/Game.java
-		And also here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/dialogue/utils/UtilText.java 
+		And also here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/dialogue/utils/UtilText.java
 		The method "initScriptEngine()" in UtiLText.java shows you what you can get a handle on.-->
 		<conditional><![CDATA[!npc.hasFetish(FETISH_EXHIBITIONIST) && npc.hasFetish(FETISH_MASTURBATION) && npc.getFetishDesire(FETISH_SUBMISSIVE).isPositive()]]></conditional>
-		
+
 		<!-- How likely this outfit is to be randomly chosen out of all available ones. Default outfits have a weight of 100. As there could be several outfits added to the weighting method, the chance of this outfit being selected is not able to be precisely determined. -->
 		<weight>100</weight><!-- I left this one at 100, even though it's a special outfit, as the conditional check is hard to satisfy. -->
 	</coreAttributes>
-	
+
 	<generationAttributes>
 		<!-- You can define up to 20 conditional statements to use elsewhere in this file. They must be enclosed in CDATA tags, and must use a consecutively-numbered format of "clothingConditionalX". If they have the attribute: 'constant="true"', then they are evaluated once at the start of clothing generation. If not, they are re-evaluated every time. -->
 		<clothingConditional1 constant="true"><![CDATA[RND.​nextInt(100)<=50]]></clothingConditional1>
 		<clothingConditional2 constant="true"><![CDATA[RND.​nextInt(100)<=75]]></clothingConditional2>
-		
+
 		<!-- "presetColourGroupX" groups have one of their defined "randomColour"s randomly chosen for further use in this XML file. You can have up to 20 "presetColourGroupX"s, but the numbers must be consecutive. (i.e. You can have "presetColourGroup1", "presetColourGroup2", and "presetColourGroup3", but NOT "presetColourGroup1", "presetColourGroup2", and "presetColourGroup4", as that skips out a "3".)
 		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->
 		<presetColourGroup1 singleColour="true"> <!-- The optional "singleColour" attribute, when set to true, means that this group will always return the same, randomly chosen colour from this list. -->
@@ -51,29 +51,29 @@
 			<randomColour>CLOTHING_PINK_LIGHT</randomColour>
 			<randomColour>CLOTHING_RED_DARK</randomColour>
 		</presetColourGroup1>
-		
+
 		<presetColourGroup2>
 			<randomColour>CLOTHING_BLACK</randomColour>
 			<randomColour>presetColourGroup1</randomColour> <!-- Preceding presetColourGroups can be used, but not succeeding ones. (i.e. "presetColourGroup3" could not be used in "presetColourGroup2".)-->
 		</presetColourGroup2>
-		
+
 		<presetColourGroup3>
 			<randomColour>CLOTHING_GOLD</randomColour>
 			<randomColour>CLOTHING_SILVER</randomColour>
 		</presetColourGroup3>
-		
+
 		<presetColourGroup4>
 			<randomColour>CLOTHING_WHITE</randomColour>
 			<randomColour>CLOTHING_PINK_LIGHT</randomColour>
 		</presetColourGroup4>
-		
+
 		<!-- Weapons can be added in a similar (although more limited) manner to clothing. This file doesn't use any weapons. Look at res/outfits/innoxia/mugger_masculine.xml for a weapon example. -->
 		<mainWeapons/>
-		
+
 		<offhandWeapons/>
-		
+
 		<!-- For all of the "conditional" elements from this point onwards, you can use the tag "clothing" to access the clothing type being handled.-->
-		
+
 		<!-- All of the pre-set clothing that IS GUARANTEED to be attempted to be equipped. The only time these items won't be equipped is when multiple items of clothing are assigned to the same inventory slot (such as a pair of panties and a thong), in which case only the first item is used. -->
 		<guaranteedClothingEquips>
 			<uniqueClothing>
@@ -85,14 +85,14 @@
 					<displacedList/>
 				</clothing>
 			</uniqueClothing>
-			
+
 			<uniqueClothing>
 				<conditional><![CDATA[npc.hasVagina()]]></conditional>
 				<clothing colour="presetColourGroup2" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="innoxia_insertableVibrator_insertable_vibrator" isDirty="false" name="[npc.NamePos(true)] insertable dildo"></clothing>
 			</uniqueClothing>
 		</guaranteedClothingEquips>
-		
-		
+
+
 		<!-- "genericClothingType" elements automatically populate the possible clothing lists with all clothing in the game that satisfies the conditionals.-->
 		<genericClothingType>
 			<itemTags> <!-- If tags are defined, then only clothing with the provided tags will be included for random selection. May be left empty. Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
@@ -110,7 +110,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</genericClothingType>
-		
+
 		<genericClothingType> <!-- Generic jewellery. This should probably be used in all outfits, unless you want to manually define your own jewellery. -->
 			<itemTags/>
 			<acceptableFemininities>
@@ -126,8 +126,8 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</genericClothingType>
-		
-		
+
+
 		<clothingType>
 			<conditional><![CDATA[npc.hasBreasts()]]></conditional>
 			<types>
@@ -139,7 +139,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[npc.getFemininityValue()<75]]></conditional>
 			<types>
@@ -151,7 +151,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[npc.getFemininityValue()>=75]]></conditional>
 			<types>
@@ -163,7 +163,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[clothingConditional1]]></conditional>
 			<types>
@@ -175,7 +175,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[!clothingConditional1 || clothingConditional2]]></conditional>
 			<types>
@@ -187,7 +187,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional/>
 			<types>
@@ -200,9 +200,9 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<!-- Both "genericClothingType"s and "clothingType"s are shuffled together before being run through and worn, so if two items have the same slot, such as these two headbands, then it's random as to which is worn. -->
-		
+
 		<clothingType>
 			<conditional><![CDATA[npc.getHairRawLengthValue()>12]]></conditional>
 			<types>
@@ -219,9 +219,9 @@
 				<colour>CLOTHING_RED</colour>
 			</tertiaryColours>
 		</clothingType>
-		
+
 	</generationAttributes>
-	
+
 	<!-- As a final note, I will add support for allowing the automatic generation of piercings in the next update. -->
 
 </outfit>

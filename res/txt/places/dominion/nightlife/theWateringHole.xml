@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
-	
+
 	<htmlContent tag="OUTSIDE_NIGHT"><![CDATA[
 	<p>
 		You find yourself walking through the area of Dominion known as 'Nightlife', which is currently fully living up to its name. The bright colours of neon signs join with the soft glow of lampposts to illuminate the street before you, which is packed with crowds of revellers. Many of these people are quite clearly drunk, and noisily shout and make lewd comments at those around them as they stagger between the many clubs and bars that fill this area.
@@ -16,7 +16,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OUTSIDE_NIGHT_STORM"><![CDATA[
 	<p>
 		You find yourself walking through the area of Dominion known as 'Nightlife', which is currently deserted due to the ongoing arcane storm. The bright colours of neon signs join with the soft glow of lampposts to illuminate the empty street before you.
@@ -26,7 +26,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OUTSIDE_DAY"><![CDATA[
 	<p>
 		You find yourself walking through the area of Dominion known as 'Nightlife', which, due to the fact that it's currently day time, is all but deserted. The clubs and bars that line the streets are all closed, and the only people walking about in this area are those that are on their way to other parts of the city.
@@ -36,7 +36,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OUTSIDE_DAY_STORM"><![CDATA[
 	<p>
 		You find yourself walking through the area of Dominion known as 'Nightlife', which, due to the fact that there's an ongoing arcane storm, is completely deserted. The clubs and bars that line the streets are all closed, and there isn't a single non-demon in sight.
@@ -46,7 +46,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_ENTRANCE"><![CDATA[
 	<p>
 		Walking up to the entrance of the club, you push the front door open and step inside. As it swings shut behind you, you find yourself standing in a large, well-lit entrance hall, and before you, a winding queue leads up to a pair of white doors. The walls have been decorated with savannah-themed murals, which, combined with the club's name 'The Watering Hole', as well as the pair of imposing zebra-boy bouncers standing guard at the front of the queue, gives the club an African theme.
@@ -68,7 +68,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_ENTRANCE_REPEAT"><![CDATA[
 	<p>
 		Walking up to the entrance of the club once again, you push the front door open and step inside. As it swings shut behind you, you find yourself standing in a large, well-lit entrance hall, and before you, a winding queue leads up to a pair of white doors. The walls have been decorated with savannah-themed murals, which, combined with the club's name 'The Watering Hole', as well as the pair of imposing zebra-boy bouncers standing guard at the front of the queue, gives the club an African theme.
@@ -88,7 +88,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_ENTRANCE_START_BLOWJOB"><![CDATA[
 	<p>
 		[pc.speech(Sure, I don't mind doing that!)] you happily call out, before starting to make your way towards the large zebra-boy.
@@ -107,7 +107,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_JULES_BLOWJOB"><![CDATA[
 	<p>
 		Having finished sucking his cock, you stand up in front of Jules, who grins at you as he steps to one side in order to let you pass. [jules.speech(Good job, slut. Go on in, I'm sure you'll find plenty more cocks to service inside.)]
@@ -123,14 +123,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_ENTRANCE_PASSED"><![CDATA[
 	<p>
 		You find yourself standing beside the pair of white doors which lead back out into the club's entrance hall. From here, you could choose to take your leave, or turn around and head back into the club.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_ENTRANCE_WAITING"><![CDATA[
 	<p>
 		Deciding that you're definitely <i>not</i> going to suck Jules's cock, you step forwards and take your place at the back of the queue.
@@ -149,7 +149,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_MAIN"><![CDATA[
 	<p>
 		The interior of 'The Watering Hole' is absolutely packed with people of all different races. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying unless you're standing right beside them.
@@ -159,21 +159,21 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEARCH_GENDER"><![CDATA[
 	<p>
 		There are so many different sorts of people in the club that you're sure of being able to find the type of person you want. First you need to decide what gender you'd like your partner to be...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEARCH_RACE"><![CDATA[
 	<p>
 		Having decided upon the gender of the person you'd like to spend the night with, you now need to figure out what race your partner should be...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEARCH_GENERATE"><![CDATA[
 	<p>
 		Having decided upon the sort of person you'd like to find, you set about searching through the bustling crowds of clubbers. Before long, you catch sight of [npc.a_raceFull(true)] standing all alone; just the sort of person you were looking for! Walking up to [npc.herHim], you introduce yourself, and [npc.she] smiles at you as [npc.she] replies,
@@ -191,14 +191,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_CONTACTS"><![CDATA[
 	<p>
 		Wondering if you can find a particular somebody who you said you'd see in the club again, you set about searching through the crowds for them...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_FIND_CONTACT"><![CDATA[
 	<p>
 		Before long, you catch sight of [npc.a_raceFull(true)] standing all alone, and as you approach, you see that it's [npc.name]; just the person you were looking for! Walking up to [npc.herHim], you say hello, and [npc.she] happily smiles at you as [npc.she] recognises you from before.
@@ -216,7 +216,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_PARTNER_LEAVES"><![CDATA[
 	<p>
 		Completely fed up with your rude behaviour, [npc.name]
@@ -234,7 +234,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_PARTNER_TOO_WASTED"><![CDATA[
 	<p>
 		[npc.Name] has had far too much to drink, and, stumbling over to one side, she trips and collapses to the ground. As you move to help [npc.herHim], you hear a shrill voice call out behind you, [genericFemale.speech([npc.Name]! Are you ok?!)]
@@ -247,14 +247,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_MAIN_TALK"><![CDATA[
 	<p>
 		You lean in towards [npc.name], and, shouting out over the background noise in order to make yourself heard, spend the next few minutes talking with [npc.herHim].
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TALK_CONTENT"><![CDATA[
 	<p>
 		#IF npc.isNeurotic()
@@ -276,14 +276,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_MAIN_FLIRT"><![CDATA[
 	<p>
 		You step up close to [npc.name], and, in order to make yourself heard over the background noise, lean in towards [npc.herHim] and raise your voice as you offer [npc.herHim] a compliment on [npc.her] appearance.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_FLIRT_CONTENT"><![CDATA[
 	<p>
 		#IF npc.isNeurotic()
@@ -301,17 +301,17 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_MAIN_KISS"><![CDATA[
 	<p>
 		Stepping up to [npc.name], you lean forwards and press your [pc.lips+] against [npc.hers]. Letting out a muffled [npc.moan], [npc.she] happily presses [npc.her] body against yours, pushing [npc.her] [npc.tongue] into your mouth and desperately returning your kiss.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_KISS_CONTENT"><![CDATA[
 	<p>
-		Sliding your 
+		Sliding your
 		#IF pc.getTongueLengthValue() > 2
 		#THEN[pc.tongueLength]
 		#ENDIF
@@ -322,7 +322,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_MAIN_KISS_REJECTED"><![CDATA[
 	<p>
 		Stepping up to [npc.name], you lean forwards and try to kiss [npc.herHim]. Before your [pc.lips] can find their target, however, [npc.name] quickly pulls back with an astonished look of disapproval on [npc.her] face.
@@ -332,14 +332,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_MAIN_GROPE"><![CDATA[
 	<p>
 		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before starting to let your touch roam across [npc.her] body.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_GROPE_CONTENT"><![CDATA[
 	<p>
 		Slipping your [pc.hand] down between [npc.her] [npc.legs], you start groping and stroking [npc.her] groin.
@@ -367,7 +367,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_MAIN_GROPE_REJECTED"><![CDATA[
 	<p>
 		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down between [npc.her] [npc.legs]. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the club's background noise,
@@ -385,7 +385,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_MAIN_SAVE_CLUBBER"><![CDATA[
 	<p>
 		Deciding that you need to take a break from [npc.name], you call out over the background noise of the club, [pc.speech(I've got to head off for a while, but I'll catch you later, ok?)]
@@ -398,7 +398,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_MAIN_LOSE_COMPANY"><![CDATA[
 	<p>
 		Deciding that [npc.name] isn't all you were hoping [npc.she]'d be, you call out over the background noise of the club, [pc.speech(I've got to head off now. Have a good night!)]
@@ -408,33 +408,33 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING"><![CDATA[
 	<p>
 		Around the edges of the club's main floor, there are several jungle-themed seating areas, and it's in one of these that you currently find yourself standing. Taking a look around, you see that the enclosure is filled with numerous small booths, each one semi-enclosed by fake tropical plants and dark wooden fencing. In each of these booths, a semi-circular black leather sofa surrounds a clean wooden table. Most of these sofas are occupied by couples, who are either talking or making out with one another, although you do see a few that are currently empty.
 	</p>
 	<p>
-		Although there's no wall to partition these seating areas from the crowds that fill the club's main floor, they're still the quietest parts of the club, by virtue of being the furthest you can get from the loud speakers positioned above the central dance floor. 
+		Although there's no wall to partition these seating areas from the crowds that fill the club's main floor, they're still the quietest parts of the club, by virtue of being the furthest you can get from the loud speakers positioned above the central dance floor.
 	</p>
 	<p>
 		If you were to find someone to start chatting to back out in the main area of the club, you could come and sit with them in one of these booths, but by yourself, there's not much to do in here. Turning around to face the main body of the club, you prepare to step back out into the crowds...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_WITH_PARTNER"><![CDATA[
 	<p>
 		Around the edges of the club's main floor, there are several jungle-themed seating areas, and it's in one of these that you currently find yourself standing. Taking a look around, you see that the enclosure is filled with numerous small booths, each one semi-enclosed by fake tropical plants and dark wooden fencing. In each of these booths, a semi-circular black leather sofa surrounds a clean wooden table. Most of these sofas are occupied by couples, who are either talking or making out with one another, although you do see a few that are currently empty.
 	</p>
 	<p>
-		Although there's no wall to partition these seating areas from the crowds that fill the club's main floor, they're still the quietest parts of the club, by virtue of being the furthest you can get from the loud speakers positioned above the central dance floor. 
+		Although there's no wall to partition these seating areas from the crowds that fill the club's main floor, they're still the quietest parts of the club, by virtue of being the furthest you can get from the loud speakers positioned above the central dance floor.
 	</p>
 	<p>
 		Leading [npc.name] over to an empty booth, you sit down with [npc.herHim], before leaning forwards over the table and preparing to make your next move...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_FOOTSIE"><![CDATA[
 	<p>
 		Moving your [pc.foot] under the table, you slowly run it up the length of one of [npc.namePos] [npc.legs].
@@ -468,7 +468,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_FOOTSIE_REJECTED"><![CDATA[
 	<p>
 		Moving your [pc.foot] under the table, you slowly run it up the length of one of [npc.namePos] [npc.legs].
@@ -486,7 +486,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_SUB"><![CDATA[
 	<p>
 		Sliding around on the semi-circular sofa, you lean in against [npc.name], which results in [npc.herHim] letting out a hungry [npc.moan]. Taking that as a sign of consent, you lift yourself up and sit in [npc.her] lap, before leaning forwards and pressing your [pc.lips+] against [npc.hers].
@@ -499,7 +499,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_SUB_REJECTED"><![CDATA[
 	<p>
 		Sliding around on the semi-circular sofa, you lean in against [npc.name], which causes [npc.herHim] to let out a frustrated sigh. Pushing you away,
@@ -517,7 +517,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_DOM"><![CDATA[
 	<p>
 		Sliding around on the semi-circular sofa, you lean in against [npc.name], which results in [npc.herHim] letting out a desperate little [npc.moan]. Taking that as a sign of consent, you wrap your [pc.arms] around [npc.herHim] and pull [npc.herHim] into your lap, before moving your head forwards and pressing your [pc.lips+] against [npc.hers].
@@ -538,7 +538,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_DOM_REJECTED"><![CDATA[
 	<p>
 		Sliding around on the semi-circular sofa, you lean in against [npc.name], which causes [npc.herHim] to let out a frustrated sigh. Pushing you away,
@@ -556,7 +556,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_AFTER_SEX"><![CDATA[
 	<p>
 		Disentangling yourselves from one another, the two of you let out a synchronised, deeply-satisfied sigh. Collapsing down on the sofa next to you, [npc.name] grins as [npc.she] leans forwards and plants a quick kiss on your lips. [npc.speech(~Mmm~ That was fantastic...)]
@@ -574,7 +574,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_AFTER_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		Disentangling yourselves from one another, the two of you let out a synchronised sigh. Collapsing down on the sofa next to you, [npc.name] crosses [npc.her] [npc.arms] and lets out a frustrated huff, [npc.speech(You didn't exactly satisfy me, you know...)]
@@ -592,7 +592,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_AFTER_SEX_SEE_AGAIN"><![CDATA[
 	<p>
 		[pc.speech(Of course I'll see you again!)] you enthusiastically reply, smiling up at [npc.name] as [npc.she] stands up.
@@ -605,7 +605,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_AFTER_SEX_DO_NOT_SEE_AGAIN"><![CDATA[
 	<p>
 		[pc.speech(Erm, yeah, sure,)] you hesitantly reply, secretly hoping that you never see [npc.name] again.
@@ -618,7 +618,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_AFTER_SEX_DO_NOT_SEE_AGAIN_RUDE"><![CDATA[
 	<p>
 		[pc.speech(Not likely,)] you reply, leaning back on the sofa and smirking at [npc.name]. [pc.speech(I just wanted an easy fuck. Now go on, get out of here.)]
@@ -638,7 +638,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_SAVE_CLUBBER"><![CDATA[
 	<p>
 		Deciding that you need to take a break from [npc.name], you lean forwards over the table and say, [pc.speech(Sorry [npc.name], but I've got to head off for a while. I'll catch you later, ok?)]
@@ -651,7 +651,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_LOSE_COMPANY"><![CDATA[
 	<p>
 		Deciding that you don't want to be with [npc.name] anymore, you lean forwards over the table and sigh, [pc.speech(I'm not really having much fun here. Have a good night.)]
@@ -664,21 +664,21 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_TALK"><![CDATA[
 	<p>
 		You lean forwards over the table towards [npc.name], and, over the background noise, spend the next few minutes chatting with [npc.herHim].
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEATING_FLIRT"><![CDATA[
 	<p>
 		You slide around on the sofa to get a little closer to [npc.name], and, in order to make yourself heard over the background noise, lean in towards [npc.herHim] and raise your voice as you offer [npc.herHim] a compliment on [npc.her] appearance.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR"><![CDATA[
 	<p>
 		Just like everything else in the club, the bar has what could be described as an African theme to it, with savannah-styled murals painted on the walls and fake jungle plants hanging from the ceiling. The five or so barmaids working behind the counter fit into this theme as well, as all but one is a zebra-girl, with the exception being a particularly energetic-looking lioness.
@@ -688,7 +688,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_INTRO"><![CDATA[
 	<p>
 		[kalahari.speech(Heya, hun!)] the lioness says, stepping forwards as she greets you, [kalahari.speech(I haven't seen your #IFpc.isFeminine()#THENpretty#ELSEhandsome#ENDIF face in here before!)]
@@ -704,7 +704,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_REPEAT"><![CDATA[
 	<p>
 		Just like everything else in the club, the bar has what could be described as an African theme to it, with savannah-styled murals painted on the walls and fake jungle plants hanging from the ceiling. The five or so barmaids working behind the counter fit into this theme as well, as all but one is a zebra-girl, with the exception being the lioness, Kalahari.
@@ -714,28 +714,28 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_TALK"><![CDATA[
 	<p>
 		Turning towards [npc.name], you lean against the bar, and, shouting out over the background noise in order to make yourself heard, spend the next few minutes talking with [npc.herHim].
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_FLIRT"><![CDATA[
 	<p>
 		Moving closer towards [npc.name], you lean against the bar, and, raising your voice in order to be heard over the background noise, you offer [npc.herHim] a compliment on [npc.her] appearance.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_KISS"><![CDATA[
 	<p>
 		Stepping up to [npc.name], you lean forwards and press your [pc.lips+] against [npc.hers]. Letting out a muffled [npc.moan], [npc.she] happily presses [npc.her] body against yours, pushing [npc.her] [npc.tongue] into your mouth and desperately returning your kiss.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_KISS_REJECTED"><![CDATA[
 	<p>
 		Stepping up to  [npc.name], you lean forwards and try to kiss [npc.herHim]. Before your [pc.lips] can reach [npc.hers], however, [npc.she] quickly pulls away and shouts out,
@@ -753,14 +753,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_GROPE"><![CDATA[
 	<p>
 		You grope and feel up [npc.name].
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_GROPE_REJECTED"><![CDATA[
 	<p>
 		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down between [npc.her] [npc.legs]. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the club's background noise,#IF npc.isNeurotic()
@@ -777,7 +777,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_SAVE_CLUBBER"><![CDATA[
 	<p>
 		Deciding that you need to take a break from [npc.name], you call out over the sound of the background noise of the club, [pc.speech(Sorry [npc.name], but I've got to head off for a while. I'll catch you later, ok?)]
@@ -790,7 +790,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_LOSE_COMPANY"><![CDATA[
 	<p>
 		Having had enough of [npc.name], you lean forwards and shout out over the noise of the club, [pc.speech(Hey [npc.name], I'm not really feeling this. I need some time alone.)]
@@ -803,7 +803,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI"><![CDATA[
 	#IFkalahari.isVisiblyPregnant()
 	#THEN
@@ -822,11 +822,11 @@
 			#IFkalahari.getPregnantLitter().getFatherId()==kruger.getId()
 			#THEN
 			<p>
-				Leaning forwards, the lioness flashes you a wild grin, before saying, [kalahari.speech(I got one of those pregnancy testers to make sure, but it turns out that Daddy's the father! That threesome we had sure was something...)] 
+				Leaning forwards, the lioness flashes you a wild grin, before saying, [kalahari.speech(I got one of those pregnancy testers to make sure, but it turns out that Daddy's the father! That threesome we had sure was something...)]
 			</p>
 			#ELSE
 			<p>
-				Leaning forwards, the lioness flashes you a wild grin, before saying, [kalahari.speech(I got one of those pregnancy testers to make sure, and it turns out that you're the father! I'll make sure to take good care of myself while carrying our kids around, don't worry!)] 
+				Leaning forwards, the lioness flashes you a wild grin, before saying, [kalahari.speech(I got one of those pregnancy testers to make sure, and it turns out that you're the father! I'll make sure to take good care of myself while carrying our kids around, don't worry!)]
 			</p>
 			<p>
 				[pc.speech(Well, if there's anything I can help with, you just need to ask,)] you reply.
@@ -846,7 +846,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_TALK"><![CDATA[
 	<p>
 		Deciding that you'd like to get to know Kalahari a little better, you lean forwards over the bar and ask her how her night's going. Eager to have someone to talk to, Kalahari enthusiastically starts telling you how her day's been, before moving on to describe some of the customers she's served tonight.
@@ -856,7 +856,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_FLIRT"><![CDATA[
 	<p>
 		Smiling at Kalahari, you compliment her on her appearance, which causes her to let out a playful laugh and retort with a flattering remark of her own. Kalahari leans forwards as you start flirting with one another, flashing you her cleavage before reaching up to press her breasts together.
@@ -866,14 +866,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_FLIRT_END"><![CDATA[
 	<p>
 		Just as quickly as she lifted it up, Kalahari then pulls her tube top back down to cover her [kalahari.breasts+] once more. From the delighted smile on her face, you can tell that she's having a lot of fun with you, and you wonder if you'll be able to take things a little further...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_BREAK_KRUGER_INTRO"><![CDATA[
 	<p>
 		You can tell from the way Kalahari keeps on glancing hungrily at your body that she wants to spend some time with you. Leaning forwards over the bar, you ask, [pc.speech(Have you got time for a break from work? Want to go find somewhere to sit with me?)]
@@ -907,7 +907,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_BREAK"><![CDATA[
 	<p>
 		You can tell from the way Kalahari keeps on glancing hungrily at your body that she wants to spend some time with you again. Leaning forwards over the bar, you ask, [pc.speech(Hey, Kalahari, have you got a break coming up? Want to go hang out in the VIP area again?)]
@@ -926,7 +926,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_TALK"><![CDATA[
 	<p>
 		Wanting to get to know Kalahari a little better, you ask her about her job working for her father, Kruger, and then move on to talking about her life in Dominion.
@@ -939,7 +939,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_FLIRT"><![CDATA[
 	<p>
 		Shuffling up close to Kalahari, you flash her you most #IFpc.isFeminine()#THENseductive#ELSEcharming#ENDIF smile, before complimenting her on her appearance. The lioness blushes a little as she hears what you have to say, before retorting with a flattering remark of her own.
@@ -949,7 +949,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_KISS"><![CDATA[
 	<p>
 		Wanting to take things a step further, you lean in towards Kalahari, tilting your head to one side as you go in for a kiss. Closing her eyes, the lioness responds in kind, and you feel her hot breath on your face as she leans in and presses her [kalahari.lips+] against yours. Your tongues slip into one another's mouths, and, with a muffled moan, you start making out with one another.
@@ -962,7 +962,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_GROPE"><![CDATA[
 	<p>
 		With Kalahari's big [kalahari.eyeColour] eyes filled with burning desire, you press forwards against her, placing one [pc.hand] on her thigh, and #IFpc.getArmRows()==1#THENthe other#ELSEanother#ENDIF on her [kalahari.breasts+].
@@ -972,7 +972,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_GROPE_AFTER_BREAST_REVEAL"><![CDATA[
 	<p>
 		Taking hold of your [pc.hand], Kalahari presses it against her breasts, letting out a deep moan as you start groping and squeezing her pillowy mounds. With your [pc.hand] that's resting on her thigh, you allow your touch to drop down between the lioness's legs, and, thanks to the incredibly short micro-skirt she's wearing, you're able to immediately start rubbing her pussy through the fabric of her thong.
@@ -981,10 +981,10 @@
 		[kalahari.speech(Fuck... Yes...)] Kalahari sighs, reaching down between her legs to pull her thong to one side. [kalahari.speech(Stroke my little pussy...)]
 	</p>
 	<p>
-		You glance down between Kalahari's legs to see her [kalahari.pussy+] fully on display. 
+		You glance down between Kalahari's legs to see her [kalahari.pussy+] fully on display.
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_GROPE_AFTER_PUSSY_REVEAL"><![CDATA[
 	<p>
 		Doing as the horny lioness asks, you tease your [pc.fingers] up and down over her [kalahari.labia], before homing in on her little clit and starting to rub it in a gentle, circular motion. Kalahari starts desperately panting as she fails to control her lust, and with her cheeks starting to flush red from the excitement, she leans in over your shoulder and moans, [kalahari.speech(Yes... ~Aah~ Yes... Come on... Let's fuck...)]
@@ -994,7 +994,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_DOM"><![CDATA[
 	<p>
 		With the way Kalahari is lewdly panting, combined with the fact that she's completely exposing herself to you, there's no other option in your mind but to give her what she's so desperately craving. Reaching forwards, you take hold of the horny lioness, and in one swift movement, pull her into your lap.
@@ -1007,7 +1007,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_SUB"><![CDATA[
 	<p>
 		With the way Kalahari is lewdly panting, combined with the fact that she's completely exposing herself to you, there's no other option in your mind but to let her have her way with you. Shuffling forwards, you reposition yourself in order to slide forwards into her into your lap.
@@ -1020,7 +1020,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX"><![CDATA[
 	<p>
 		You and Kalahari both collapse down onto the sofa, panting from exertion. Looking across at the lioness, you see her happily smiling at you, before she moans, [kalahari.speech(Fuck... That was fantastic...)]
@@ -1035,11 +1035,11 @@
 		Agreeing with the happy lioness, you stand up and walk along beside her as you both head back out past the pair of lion bouncers. Turning to plant a kiss on your cheek, Kalahari laughs, before whispering into your ear, [kalahari.speech(I really can't wait for the next time!)]
 	</p>
 	<p>
-		With that, she bounds off in the direction of the bar, leaving you standing alone outside the VIP area. 
+		With that, she bounds off in the direction of the bar, leaving you standing alone outside the VIP area.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		You and Kalahari both collapse down onto the sofa, panting from exertion. Looking across at the lioness, you see her pouting at you, before she sighs, [kalahari.speech(That was fun and all, but you didn't exactly satisfy me...)]
@@ -1054,11 +1054,11 @@
 		Agreeing with the demanding lioness, you stand up and walk along beside her as you both head back out past the pair of lion bouncers. Turning to plant a kiss on your cheek, Kalahari laughs, before whispering into your ear, [kalahari.speech(I really can't wait for the next time!)]
 	</p>
 	<p>
-		With that, she bounds off in the direction of the bar, leaving you standing alone outside the VIP area. 
+		With that, she bounds off in the direction of the bar, leaving you standing alone outside the VIP area.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_END"><![CDATA[
 	<p>
 		Deciding that you've had enough of hanging out with Kalahari, you sit back and sigh, [pc.speech(Sorry, Kalahari, I'm feeling pretty tired tonight. Maybe we can have some real fun another time?)]
@@ -1070,11 +1070,11 @@
 		You stand up and walk along beside Kalahari as you both head back out past the pair of lion bouncers. Turning to plant a quick kiss on your cheek, Kalahari laughs, before whispering into your ear, [kalahari.speech(I'm looking forward to seeing what 'fun' you have in mind for next time!)]
 	</p>
 	<p>
-		With that, she bounds off in the direction of the bar, leaving you standing alone outside the VIP area. 
+		With that, she bounds off in the direction of the bar, leaving you standing alone outside the VIP area.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_KALAHARI_BREAK_OUT_OF_TIME"><![CDATA[
 	<p>
 		[kalahari.speech(Aww, it looks like my break time is over,)] Kalahari sighs, before standing up and getting her clothing in order. [kalahari.speech(I'd better get back to the bar.)]
@@ -1083,11 +1083,11 @@
 		You stand up and walk along beside Kalahari as you both head back out past the pair of lion bouncers. Turning to plant a quick kiss on your cheek, Kalahari laughs, before whispering into your ear, [kalahari.speech(We should have some real fun next time!)]
 	</p>
 	<p>
-		With that, she bounds off in the direction of the bar, leaving you standing alone outside the VIP area. 
+		With that, she bounds off in the direction of the bar, leaving you standing alone outside the VIP area.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_VIP"><![CDATA[
 	<p>
 		In one corner of the club, there's a seating area which is quite unlike the others. Most of the frontage is blocked off by a dark glass wall, and the single opening is guarded by a pair of muscular lion bouncers. Looking through this opening reveals the interior to be furnished with numerous semi-circular booths, each one housing a polished black marble table and a long, curved leather sofa.
@@ -1106,7 +1106,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_VIP_BLOCKED"><![CDATA[
 	<p>
 		In one corner of the club, there's a seating area which is quite unlike the others. Most of the frontage is blocked off by a dark glass wall, and the single opening is guarded by a pair of muscular lion bouncers. Looking through this opening reveals the interior to be furnished with numerous semi-circular booths, each one housing a polished black marble table and a long, curved leather sofa.
@@ -1116,7 +1116,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_VIP_KRUGER"><![CDATA[
 	<p>
 		Deciding that you'll pay Kruger a visit, you step forwards into the VIP area and start walking towards the far end of the room. Immediately, you spot the large lion sitting down in his usual booth, surrounded by the regular group of zebra-girls and lionesses. Kruger notices your approach, and nods his head to the seat beside him, indicating that you should come and sit next to him.
@@ -1147,7 +1147,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_TALK"><![CDATA[
 	<p>
 		Deciding that you'd like to get to know Kruger a little better, you ask him about how his nightclub is doing, before moving the conversation on to be about his daughter, Kalahari.
@@ -1163,10 +1163,10 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_FLIRT"><![CDATA[
 	<p>
-		Deciding to flirt with Kruger a little, you offer him a compliment on his appearance, before shuffling forwards a little and brushing your [pc.leg] against his. The large lion lets out a happy growl, and, turning to fully face you, he rests his arm on the top of the sofa, just behind your neck, before returning your compliment in kind. 
+		Deciding to flirt with Kruger a little, you offer him a compliment on his appearance, before shuffling forwards a little and brushing your [pc.leg] against his. The large lion lets out a happy growl, and, turning to fully face you, he rests his arm on the top of the sofa, just behind your neck, before returning your compliment in kind.
 	</p>
 	<p>
 		You and Kruger spend the next several minutes laughing and flirting with one another, all the while continuing to bump and rub your [pc.leg] against his. Every now and then, one of the girls sitting around you offers some input to the proceedings, which invariably includes a suggestion for Kruger to 'make you his bitch'.
@@ -1176,7 +1176,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_KISSED"><![CDATA[
 	<p>
 		You can tell that Kruger is desperate to kiss you, and, with the feeling being mutual, you shuffle across on the sofa in order to press your body against his. Slightly tilting your head to one side, you purse your [pc.lips] and let out a gentle sigh.
@@ -1192,7 +1192,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_FELT_UP"><![CDATA[
 	<p>
 		Sensing that Kruger wants to have some physical contact with you, and desperately craving the feeling of his strong hands running over your body, you shuffle up against him, before placing a hand on his leg. Instantly, Kruger's hands are all over you, and you let out [pc.a_moan+] as he starts dominantly groping and squeezing your [pc.breasts+].
@@ -1226,7 +1226,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_SEX_AS_SUB"><![CDATA[
 	<p>
 		Desperate to have sex with Kruger, you lean into him, before tilting your head to one side and pressing your lips against his. The two of you share a passionate kiss for a moment, before you pull back, and moan, [pc.speech(Please, Kruger, fuck me...)]
@@ -1242,7 +1242,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_AFTER_SEX"><![CDATA[
 	<p>
 		You collapse down to one side of Kruger, panting from exertion. As you take a moment to catch your breath, the dominant lion lets out a satisfied growl, before starting to get his clothing in order. [kruger.speech(That was fun.)]
@@ -1261,7 +1261,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_LEAVE"><![CDATA[
 	<p>
 		Deciding that you've got other things to do, you turn to Kruger and explain, [pc.speech(I've got to head off now, Kruger. Maybe I'll get time to stop by later.)]
@@ -1274,7 +1274,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR"><![CDATA[
 	<p>
 		The middle of the club is taken up by a large dance floor, which is currently occupied by a huge crowd of revellers. It's from here that the bassy background music originates, and, looking up towards the ceiling, you see a series of arcane-powered loudspeakers, which are clearly responsible for blaring out the generic club music.
@@ -1284,7 +1284,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_DANCE_SOLO"><![CDATA[
 	<p>
 		Stepping forwards onto the dance floor, you allow yourself to get into the flow of the music, and, moving your body from side to side, start dancing with the revellers around you.
@@ -1294,13 +1294,13 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_DANCE"><![CDATA[
 	<p>
 		As this is the origin of the loud music which blares out throughout the club, you have to raise your voice to a shout in order to communicate with [npc.name]. Leaning in over [npc.her] shoulder, you ask, [pc.speech(Do you want to have a go at dancing for a while?)]
 	</p>
 	<p>
-		From the happy smile and nod of [npc.her] head, you're sure that your suggestion is well approved of. Reaching down to take hold of [npc.namePos] [npc.hand], you lead [npc.herHim] onto the dance floor, before turning to return [npc.her] smile. 
+		From the happy smile and nod of [npc.her] head, you're sure that your suggestion is well approved of. Reaching down to take hold of [npc.namePos] [npc.hand], you lead [npc.herHim] onto the dance floor, before turning to return [npc.her] smile.
 	</p>
 	<p>
 		For the next several minutes, you and [npc.name] dance with one another, smiling and laughing as you get into the flow of the music and start to really enjoy yourselves. After a while of this, however, you both start to get a little worn out and thirsty, and when you see [npc.namePos] [npc.arms] drop to [npc.her] sides, you know that [npc.sheHas] had enough.
@@ -1310,14 +1310,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_KISS"><![CDATA[
 	<p>
 		You can tell that [npc.name] is wanting to be kissed, and, happy to give [npc.herHim] what [npc.she] wants, you take hold of [npc.her] [npc.hips] and pull [npc.herHim] up against you. Leaning forwards, you tilt your head slightly to one side, before pressing your [pc.lips] against [npc.hers].
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_KISS_REJECTED"><![CDATA[
 	<p>
 		Stepping up to [npc.name], you lean forwards and try to kiss [npc.herHim]. Before your [pc.lips] can find their target, however, [npc.name] quickly pulls back with an astonished look of disapproval on [npc.her] face.
@@ -1327,14 +1327,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_GROPE"><![CDATA[
 	<p>
 		In amongst the crowds of dancers, you lean in against [npc.name] and take hold of [npc.her] [npc.hips]. [npc.She] happily leans in against you, [npc.moaning] into your [pc.ear] as your [pc.hands] start roaming over [npc.her] body.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_GROPE_REJECTED"><![CDATA[
 	<p>
 		Leaning in against [npc.name], you place your [pc.hands] on [npc.her] [npc.hips], before trying to work your touch down between [npc.her] [npc.legs]. [npc.She] instantly pulls away in response to your exploratory movements, and with an angry expression on [npc.her] face, [npc.she] shouts out over the noise of the dance floor,
@@ -1352,7 +1352,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_SAVE_CLUBBER"><![CDATA[
 	<p>
 		Deciding that you need to take a break from [npc.name], you shout out over the noise of the crowds and music, [pc.speech(Sorry [npc.name], but I've got to head off for a while! I'll catch you later, ok?!)]
@@ -1365,7 +1365,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DANCE_FLOOR_LOSE_COMPANY"><![CDATA[
 	<p>
 		Deciding that [npc.name] isn't all you were hoping [npc.she]'d be, you call out over the background noise of the club, [pc.speech(I've got to head off now. Have a good night!)]
@@ -1375,7 +1375,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS"><![CDATA[
 	<p>
 		The club's toilets are far larger and cleaner than those of a typical nightclub, with at least twenty individual stalls running down one wall. Opposite the stalls, sinks and mirrors provide a place for the club's revellers to clean themselves.
@@ -1385,7 +1385,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_USING_GET_READY"><![CDATA[
 	<p>
 		Entering one of the empty stalls adjacent to the one in which strangers service the glory holes, you push the door shut behind you, before turning to face the hole in the wall. As you do this, you hear someone enter the stall on the other side, and after just a moment, you see a flash of movement behind the glory hole.
@@ -1401,7 +1401,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_START_USING"><![CDATA[
 	<p>
 		#IF pc.hasPenis()
@@ -1421,7 +1421,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_USING_POST_SEX"><![CDATA[
 	<p>
 		You step back from the glory hole, grinning as you hear [npc.name] let out a happy little [npc.moan]. As you get your things in order, you see a flash of movement through the hole, before the creak of a stall's door announces the horny slut's exit.
@@ -1431,7 +1431,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_GET_READY"><![CDATA[
 	<p>
 		Feeling horny and eager to pleasure some stranger's cocks, you step into the cum-splattered stall. Having seen you enter, someone quickly steps into the stall adjacent to yours, before quickly pushing [npc.her] [npc.a_cock+] through the hole. As you look across at the [npc.cock+], its owner
@@ -1456,21 +1456,21 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING_PUBLIC"><![CDATA[
 	<p>
 		Deciding to leave the stall's door open, so that anyone can come and watch you servicing these strangers' cocks, you kneel down on the floor of the toilet. Biting your lip, you can't help but let out [pc.a_moan+] as you prepare to show everyone what a dirty slut you are...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING"><![CDATA[
 	<p>
 		Closing and locking the stall's door, you kneel down on the floor of the toilet, ready to service these strangers' cocks. Biting your lip, you can't help but let out [pc.a_moan+] as you prepare to show them what a dirty slut you are...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX_PUBLIC"><![CDATA[
 	<p>
 		You step back from the glory holes, grinning to yourself as you hear the strangers letting out a satisfied groan. The crowd that gathered to watch your slutty display starts to disperse, and as they leave, you start to get your things in order.
@@ -1480,7 +1480,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX"><![CDATA[
 	<p>
 		You step back from the glory holes, grinning to yourself as you hear the strangers letting out a satisfied groan. As you get your things in order, you see flashes of movement through the holes to either side of you, before the creaking of doors announces each of the strangers' exits.
@@ -1490,8 +1490,8 @@
 	</p>
 	]]>
 	</htmlContent>
-	
-	
+
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_SEX"><![CDATA[
 	<p>
 		Taking hold of [npc.namePos] [npc.hand], you lead [npc.herHim] into one of the stalls, before turning and locking the door behind you.
@@ -1504,7 +1504,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_AFTER_SEX"><![CDATA[
 	<p>
 		Having had your fun with [npc.name], the two of you collapse back against the toilet stall's walls, panting from exertion.
@@ -1525,7 +1525,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_AFTER_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		Having had your fun with [npc.name], the two of you collapse back against the toilet stall's walls, panting from exertion. After a moment, [npc.name] crosses [npc.her] [npc.arms] and lets out a frustrated huff, [npc.speech(You didn't exactly satisfy me, you know...)]
@@ -1543,7 +1543,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_AFTER_SEX_SEE_AGAIN"><![CDATA[
 	<p>
 		[pc.speech(Of course I'll see you again!)] you enthusiastically reply, smiling at [npc.name] as [npc.she] steps back from the sink.
@@ -1556,7 +1556,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_AFTER_SEX_DO_NOT_SEE_AGAIN"><![CDATA[
 	<p>
 		[pc.speech(Erm, yeah, sure,)] you hesitantly reply, secretly hoping that you never see [npc.name] again.
@@ -1569,7 +1569,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_AFTER_SEX_DO_NOT_SEE_AGAIN_RUDE"><![CDATA[
 	<p>
 		[pc.speech(Not likely,)] you reply, crossing your [pc.arms] and smirking at [npc.name]. [pc.speech(I don't think it's a good idea to get into a relationship with some slut who likes to get fucked in a club's toilet.)]
@@ -1589,7 +1589,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_SEX_REJECTED"><![CDATA[
 	<p>
 		Taking hold of [npc.namePos] [npc.hand], you try to pull [npc.herHim] over to one of the stalls in order to have sex with [npc.herHim], but [npc.she] angrily pushes you away, shouting, [npc.speech(I'm not going to fuck you in a toilet!)]
@@ -1602,7 +1602,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_TOILETS_USE"><![CDATA[
 	<p>
 		Stepping into one of the empty stalls, you turn and lock the door behind you, before making use of the toilet. After a few moments, you flush it and unlock the stall's door, before stepping over to the sinks and washing your [pc.hands].
@@ -1612,7 +1612,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME"><![CDATA[
 	<p>
 		Raising your voice to be heard over the background noise of the club, you lean in over [npc.namePos] shoulder and ask, [pc.speech(You want to come back to my place?)]
@@ -1656,7 +1656,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_CHANGE_MIND"><![CDATA[
 	<p>
 		Having got [npc.name] back into your room, you suddenly find yourself having second thoughts about the whole thing, and, looking across at [npc.herHim], you explain, [pc.speech(Hey, [npc.name], I'm sorry, but I'm not really feeling this right now.)]
@@ -1675,7 +1675,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_CHANGE_MIND_RUDE"><![CDATA[
 	<p>
 		Having got [npc.name] back into your room, you suddenly find yourself having second thoughts about the whole thing, and, looking across at [npc.herHim], you bluntly state, [pc.speech(I don't really feel like fucking you after all.)]
@@ -1691,7 +1691,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEX_AS_DOM"><![CDATA[
 	<p>
 		Taking hold of [npc.namePos] [npc.hand], you lead [npc.herHim] over to your bed, before turning and pulling [npc.herHim] close.
@@ -1704,7 +1704,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEX_AS_SUB"><![CDATA[
 	<p>
 		Taking hold of [npc.namePos] [npc.hand], you lead [npc.herHim] over to your bed, before turning and wrapping your [pc.arms] around [npc.herHim].
@@ -1717,7 +1717,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BACK_HOME_AFTER_CLUBBER_SEX"><![CDATA[
 	<p>
 		Having had your fun with [npc.name], the two of you collapse down onto your bed, panting from exertion.
@@ -1738,7 +1738,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BACK_HOME_AFTER_CLUBBER_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		Having had your fun with [npc.name], the two of you collapse down onto your bed, panting from exertion. After a moment, [npc.name] crosses [npc.her] [npc.arms] and lets out a frustrated huff, [npc.speech(You didn't exactly satisfy me, you know...)]
@@ -1756,7 +1756,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BACK_HOME_AFTER_SEX_SEE_AGAIN"><![CDATA[
 	<p>
 		[pc.speech(Of course I'll see you again!)] you enthusiastically reply, smiling at [npc.name].
@@ -1769,7 +1769,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BACK_HOME_AFTER_SEX_DO_NOT_SEE_AGAIN"><![CDATA[
 	<p>
 		[pc.speech(Erm, yeah, sure,)] you hesitantly reply, secretly hoping that you never see [npc.name] again.
@@ -1785,7 +1785,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BACK_HOME_AFTER_SEX_DO_NOT_SEE_AGAIN_RUDE"><![CDATA[
 	<p>
 		[pc.speech(Not likely,)] you reply, crossing your [pc.arms] and smirking at [npc.name]. [pc.speech(I just wanted to give you a good fuck. I'm not interested in seeing you again.)]
@@ -1808,10 +1808,10 @@
 	</p>
 	]]>
 	</htmlContent>
-	
-	
+
+
 	<!-- Dominant partner content -->
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_BAR"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -1828,7 +1828,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_DANCE_FLOOR"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -1845,7 +1845,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_SEATING_AREA"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -1862,7 +1862,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_TOILETS"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -1879,7 +1879,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_SEARCH_GENERATE_DOM"><![CDATA[
 	<p>
 		Having decided upon the sort of person you'd like to find, you set about searching through the bustling crowd of clubbers. Before long, you catch sight of [npc.a_raceFull(true)] standing all alone; just the sort of person you were looking for! Loitering around nearby, you try to catch [npc.her] [npc.eye], and are delighted when, after just a moment, [npc.she] notices you and starts to approach.
@@ -1899,14 +1899,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_CONTACTS_DOM"><![CDATA[
 	<p>
 		Wondering if you can find a particular somebody who you said you'd see in the club again, you set about searching through the crowds for them...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_FIND_CONTACT_DOM"><![CDATA[
 	<p>
 		Before long, you catch sight of [npc.a_raceFull(true)] standing all alone, and as you approach, you see that it's [npc.name]; just the person you were looking for! Loitering around nearby, you try to catch [npc.her] [npc.eye], and are delighted when, after just a moment, [npc.she] notices you and starts to approach.
@@ -1926,7 +1926,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_DRINK"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -1947,7 +1947,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_ACCEPT_WOLF_WHISKEY"><![CDATA[
 	<p>
 		[pc.speech(Thanks, [npc.name]!)] you shout out over the background noise of the club. [pc.speech(I'd love a glass of that!)]
@@ -1966,7 +1966,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_REFUSE_WOLF_WHISKEY"><![CDATA[
 	<p>
 		[pc.speech(Hey, wait!)] you call out, tugging [npc.namePos] [npc.arm] and stopping [npc.herHim] from ordering you a drink. [pc.speech(I don't want to get drunk tonight, ok? Wolf Whiskey is far too much.)]
@@ -1985,7 +1985,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_ACCEPT_FELINES_FANCY"><![CDATA[
 	<p>
 		[pc.speech(Thank you, [npc.name]!)] you shout out over the background noise of the club. [pc.speech(I'd love a glass of Feline's Fancy!)]
@@ -2008,7 +2008,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_ACCEPT_BEER"><![CDATA[
 	<p>
 		[pc.speech(Thank you, [npc.name]!)] you shout out over the background noise of the club. [pc.speech(I'd love a bottle of beer!)]
@@ -2031,7 +2031,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_REFUSE_FELINES_FANCY"><![CDATA[
 	<p>
 		[pc.speech(Thank you, but I don't want anything alcoholic,)] you explain. [pc.speech(Just a water would be fine for me.)]
@@ -2044,7 +2044,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_REFUSE_BEER"><![CDATA[
 	<p>
 		[pc.speech(Thank you, but I don't want anything alcoholic,)] you explain. [pc.speech(Just a water would be fine for me.)]
@@ -2057,7 +2057,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_ACCEPT_RUM"><![CDATA[
 	<p>
 		You wait by [npc.namePos] side as [npc.she] orders two glasses of Rum, and after just a moment, the barmaid places the beverages down on the counter in front of you. Paying for your drinks, [npc.name] turns towards you and grins. [npc.speech(Drink it down, [pc.babe]! And you'd better be grateful. This stuff ain't cheap!)]
@@ -2070,7 +2070,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_REFUSE_RUM"><![CDATA[
 	<p>
 		[pc.speech(Hey, wait!)] you call out, stopping [npc.name] before [npc.she] can place [npc.her] order. [pc.speech(I don't want to get drunk, ok?)]
@@ -2086,7 +2086,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_FLIRT"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -2100,7 +2100,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_FLIRT_ACCEPT"><![CDATA[
 		#IF npc.isTrusting()
 		#THEN
@@ -2130,7 +2130,7 @@
 		#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_FLIRT_DECLINE"><![CDATA[
 		#IF npc.isTrusting()
 		#THEN
@@ -2166,7 +2166,7 @@
 		#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_GROPE"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -2180,7 +2180,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_GROPE_ACCEPT"><![CDATA[
 	<p>
 		Turned on by [npc.namePos] dominant move, you happily lean in against [npc.herHim], letting out [pc.a_moan+] as [npc.she] starts feeling you up.
@@ -2259,7 +2259,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_GROPE_DECLINE"><![CDATA[
 	<p>
 		Shocked at [npc.namePos] brazen attempt to start feeling you up right here in front of everyone at the bar, you push [npc.herHim] away from you, before shouting out over the noise of the club, [pc.speech(What do you thin you're doing?! Stop that!)]
@@ -2279,7 +2279,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_INVITE_HOME"><![CDATA[
 	<p>
 		Leaning forwards, [npc.name] calls out over the noise of the crowd, [npc.speech(Hey, [pc.name], it's pretty loud and hot in here, and I was thinking of heading back home. Would you like to come back to my place?)]
@@ -2289,7 +2289,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BAR_INVITE_HOME_REFUSE_GENTLE"><![CDATA[
 	<p>
 		[pc.speech(Sorry, [npc.name],)] you reply, [pc.speech(I'm not really feeling up for that this evening. I'd still like to see you here in the club another time, and maybe I'll come back to your place then?)]
@@ -2302,7 +2302,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BAR_INVITE_HOME_REFUSE_RUDE"><![CDATA[
 	<p>
 		[pc.speech(Yeah, I don't think so,)] you flatly reply. [pc.speech(This evening's been pretty boring, and I'm thinking you'll be as lousy in bed as have been at showing me a good time. Bye.)]
@@ -2315,7 +2315,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_KISS"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -2329,7 +2329,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_KISS_ACCEPT"><![CDATA[
 	<p>
 		Letting out a happy [pc.moan], you lean in against [npc.name], mirroring [npc.her] movement and tilting your head to one side as [npc.her] [npc.lips+] press against yours.
@@ -2351,7 +2351,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_KISS_DECLINE"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -2368,7 +2368,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_TALK"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -2382,7 +2382,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_TALK_ACCEPT"><![CDATA[
 	<p>
 		You happily offer your opinion on [npc.namePos] everyday activities, before moving on to discuss several other things with [npc.herHim]. The conversation soon really starts to flow, and before too long, the two of you are chatting away and laughing with one another as though you're old friends.
@@ -2392,7 +2392,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_BAR_TALK_DECLINE"><![CDATA[
 	<p>
 		You roll your [pc.eyes] and let out a sigh, making it quite clear that you have no interest in talking about [npc.namePos] mundane everyday activities. [npc.She] doesn't take the hint at first, and continues trying to talk with you for a couple more minutes, but your persistent, dismissive humming noises and deep sighs soon cause [npc.herHim] to fall silent.
@@ -2402,7 +2402,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE"><![CDATA[
 	<p>
 		[npc.Name] takes your [pc.hand] in [npc.hers], before trying to lead you out onto the dance floor. [npc.speech(Come on, [pc.name]! Let's dance together!)]
@@ -2412,10 +2412,10 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_ACCEPT"><![CDATA[
 	<p>
-		Happy to have some fun dancing with [npc.name], you allow [npc.herHim] to lead you out onto the dance floor. Quickly finding yourselves in the middle of the noisy crowd of revellers, [npc.name] turns to face you, and, flashing you a smile, starts to dance to the music. You follow [npc.namePos] lead, and, dancing alongside one another, the two of you laugh and share smiles as you join the exuberant crowd in making the most of your evening. 
+		Happy to have some fun dancing with [npc.name], you allow [npc.herHim] to lead you out onto the dance floor. Quickly finding yourselves in the middle of the noisy crowd of revellers, [npc.name] turns to face you, and, flashing you a smile, starts to dance to the music. You follow [npc.namePos] lead, and, dancing alongside one another, the two of you laugh and share smiles as you join the exuberant crowd in making the most of your evening.
 	</p>
 	<p>
 		After a short while, the heat and energy of the crowd starts to get a little too much for both of you, and, taking hold of your [pc.hand] once more, [npc.name] leads you back out to the edge of the dance floor, where [npc.she] turns and smiles at you. [npc.speech(That was fun! I think I need a breather now, though.)]
@@ -2425,7 +2425,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_DECLINE"><![CDATA[
 	<p>
 		You really don't feel like dancing, and pull your [pc.hand] away from [npc.namePos]. As [npc.she] turns around to see what's wrong, you shout out over the booming music and tell [npc.herHim] that you're not going to dance.
@@ -2435,7 +2435,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_GROPE"><![CDATA[
 	<p>
 		#IF npc.isSelfish()
@@ -2445,7 +2445,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_GROPE_ACCEPT"><![CDATA[
 	<p>
 		Turned on by [npc.namePos] dominant move, you happily lean in against [npc.herHim], letting out [pc.a_moan+] as [npc.she] starts feeling you up.
@@ -2500,7 +2500,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_GROPE_DECLINE"><![CDATA[
 	<p>
 		Shocked at [npc.namePos] brazen attempt to start feeling you up right here in front of everyone on the dance floor, you push [npc.herHim] away from you, before shouting out over the deafening music, [pc.speech(What do you thin you're doing?! Stop that!)]
@@ -2516,7 +2516,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_KISS"><![CDATA[
 	<p>
 		#IF npc.isSelfish()
@@ -2526,7 +2526,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_KISS_ACCEPT"><![CDATA[
 	<p>
 		Letting out a happy [pc.moan], you lean in against [npc.name], mirroring [npc.her] movement and tilting your head to one side as [npc.her] [npc.lips+] press against yours.
@@ -2548,7 +2548,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_DANCE_KISS_DECLINE"><![CDATA[
 	<p>
 		#IF npc.isSelfish()
@@ -2561,7 +2561,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FLIRT"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -2571,7 +2571,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FLIRT_ACCEPT"><![CDATA[
 		#IF npc.isTrusting()
 		#THEN
@@ -2591,7 +2591,7 @@
 		#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FLIRT_DECLINE"><![CDATA[
 		#IF npc.isTrusting()
 		#THEN
@@ -2611,14 +2611,14 @@
 		#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FOOTSIE"><![CDATA[
 	<p>
 		[npc.Name] throws you a playful smile, but before you can ask [npc.herHim] what's on [npc.her] mind, you suddenly feel [npc.her] [npc.foot] rubbing against your [pc.leg]. Your partner playfully laughs as [npc.she] starts to lift [npc.her] [npc.foot] up towards your groin, and you realise that unless you say something, [npc.sheIs] going to press it right into your crotch!
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FOOTSIE_ACCEPT"><![CDATA[
 	<p>
 		Happy to let [npc.name] do as [npc.she] wants, you spread your [pc.legs] and sink down on your seat a little lower, pushing your groin out towards [npc.herHim] beneath the table. Biting your [pc.lip] and putting on your most seductive smile, you softly [pc.moanVerb], [pc.speech(Yes... Keep going...)]
@@ -2627,7 +2627,7 @@
 		Seemingly eager to do as you ask, [npc.name] runs [npc.her] [npc.foot] up the inside of your thigh, but before [npc.she] presses forwards into your groin, [npc.she] suddenly pulls back. Alarmed at [npc.her] sudden change in direction, you let out a pleading [pc.moan], which is exactly what [npc.name] was hoping for, as [npc.she] lets out yet another playful laugh, [npc.speech(Haha! You want me to continue, huh?)]
 	</p>
 	<p>
-		[pc.speech(Yes!)] you instantly reply, the enthusiasm in your voice causing a huge grin to break out over [npc.namePos] face. 
+		[pc.speech(Yes!)] you instantly reply, the enthusiasm in your voice causing a huge grin to break out over [npc.namePos] face.
 	</p>
 	<p>
 		[npc.speech(Well, if you insist,)] [npc.she] says, teasing [npc.her] [npc.foot+] up the length of your [npc.leg], before running down the inside of your thigh. Spreading your [pc.legs] a little wider, you again bite your [pc.lip] and plead for [npc.name] to continue. This time, your partner does exactly what you're asking for, and quickly pushes forwards to press [npc.her] [npc.foot] directly into your crotch.
@@ -2663,7 +2663,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_FOOTSIE_DECLINE"><![CDATA[
 	<p>
 		Not wanting [npc.namePos] [npc.feet] anywhere near your groin, you quickly shuffle away from [npc.her] touch, before angrily frowning at [npc.herHim]. [pc.speech(Hey! Cut that out!)]
@@ -2676,7 +2676,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_INVITE_HOME"><![CDATA[
 	<p>
 		Leaning forwards, [npc.name] suddenly asks, [npc.speech(Hey, [pc.name], it's getting a little late for me, and I was thinking of heading back home. Would you like to come back to my place?)]
@@ -2686,7 +2686,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SIT_DOWN_INVITE_HOME_REFUSE_GENTLE"><![CDATA[
 	<p>
 		[pc.speech(Sorry, [npc.name],)] you reply, [pc.speech(I'm not really feeling up for that this evening. I'd still like to see you here in the club another time, and maybe I'll come back to your place then?)]
@@ -2699,7 +2699,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SIT_DOWN_INVITE_HOME_REFUSE_RUDE"><![CDATA[
 	<p>
 		[pc.speech(Yeah, I don't think so,)] you flatly reply. [pc.speech(This evening's been pretty boring, and I'm thinking you'll be as lousy in bed as have been at showing me a good time. Bye.)]
@@ -2712,14 +2712,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_KISS"><![CDATA[
 	<p>
 		Shuffling around on the seat until [npc.sheIs] pressing against you, [npc.name] tilts [npc.her] head to one side, before leaning in and trying to give you a kiss. With just a moment before [npc.her] [npc.lips] press against yours, you need to decide whether to return [npc.her] amorous gesture, or to pull away and tell [npc.her] to back off...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_KISS_ACCEPT"><![CDATA[
 	<p>
 		Letting out a happy [pc.moan], you lean in against [npc.name], mirroring [npc.her] movement and tilting your head to one side as [npc.her] [npc.lips+] press against yours.
@@ -2733,7 +2733,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_KISS_DECLINE"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -2746,7 +2746,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_SEX"><![CDATA[
 	<p>
 		[npc.Name] shuffles up right next to you on the seat, and, leaning in towards you, [npc.she] whispers in a playful tone, [npc.speech(You know, nobody would notice if we had sex right here in this booth. Come on, it'll be so exciting!)]
@@ -2756,7 +2756,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_SEX_START"><![CDATA[
 	<p>
 		Letting out a delighted [pc.moan] in response to [npc.namePos] suggestion, you allow yourself to be pulled into [npc.her] lap. Once in this position, [npc.name] quickly leans forwards, before planting a passionate kiss on your [pc.lips+]. Eagerly returning [npc.her] display of affection, the two of you start passionately making out with one another.
@@ -2766,7 +2766,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_SEX_REFUSE_GENTLE"><![CDATA[
 	<p>
 		You gently push [npc.name] back, before sighing, [pc.speech(Sorry, [npc.name], I'm not really feeling up for that. I'd still like to see you here in the club another time, but I really don't want sex right now.)]
@@ -2779,7 +2779,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_SEX_REFUSE_RUDE"><![CDATA[
 	<p>
 		You roughly shove [npc.name] away from you, causing [npc.herHim] to fall off [npc.her] seat. With an angry frown on your face, you scowl, [pc.speech(There's no way I'm fucking someone like you! Go on, get out of here!)]
@@ -2792,7 +2792,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_TALK"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -2806,7 +2806,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_TALK_ACCEPT"><![CDATA[
 	<p>
 		You happily offer your opinion on [npc.namePos] everyday activities, before moving on to discuss several other things with [npc.herHim]. The conversation soon really starts to flow, and before too long, the two of you are chatting away and laughing with one another as though you're old friends.
@@ -2816,7 +2816,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SIT_DOWN_TALK_DECLINE"><![CDATA[
 	<p>
 		You roll your [pc.eyes] and let out a sigh, making it quite clear that you have no interest in talking about [npc.namePos] mundane everyday activities. [npc.She] doesn't take the hint at first, and continues trying to talk with you for a couple more minutes, but your persistent, dismissive humming noises and deep sighs soon cause [npc.herHim] to fall silent.
@@ -2826,7 +2826,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS"><![CDATA[
 	<p>
 		Firmly holding your [pc.hand] in [npc.hers], [npc.name] tries to pull you into the nearest empty stall, looking back over [npc.her] shoulder and grinning as [npc.she] says, [npc.speech(Come on, [pc.babe]! You've been teasing me all evening, now it's time for a good fuck!)]
@@ -2836,7 +2836,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_SEX_START"><![CDATA[
 	<p>
 		[pc.speech(Ah, yes! Take me, [npc.name]!)] you submissively cry, your heart racing at the thought of having sex with such a dominant [npc.race].
@@ -2849,7 +2849,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_SEX_START_REFUSE_GENTLE"><![CDATA[
 	<p>
 		[pc.speech(I-I'm not having sex in a toilet!)] you shout, pulling your [pc.hand] away from [npc.name] and standing your ground.
@@ -2862,7 +2862,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_SEX_START_REFUSE_RUDE"><![CDATA[
 	<p>
 		[pc.speech(There's no way I'm having sex in a toilet!)] you shout, pulling your [pc.hand] away from [npc.name] and standing your ground.
@@ -2881,7 +2881,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_SAVE_CLUBBER"><![CDATA[
 	<p>
 		Feeling as though you've had enough of [npc.name] for one evening, but not wanting to break all contact with [npc.herHim], you clear your throat and explain, [pc.speech(Hey, [npc.name], sorry, but I'm feeling a little tired. I'm going to have to head off now, but I'll see you here again, right?)]
@@ -2901,7 +2901,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_LOSE_COMPANY"><![CDATA[
 	<p>
 		Feeling as though you've had enough of [npc.namePos] company to last a lifetime, you let out an annoyed sigh, [pc.speech(I've had just about enough of you. I'm leaving. Don't bother to come say hello if you ever see me again, ok?)]
@@ -2921,7 +2921,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME"><![CDATA[
 	<p>
 		[pc.speech(Sure, that sounds fun,)] you reply, smiling at [npc.name] as [npc.she] takes hold of your [pc.hand], before leading you out of the club.
@@ -2954,7 +2954,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_SEX"><![CDATA[
 	<p>
 		Desperate to start having sex with [npc.name], you happily let [npc.herHim] lead you into [npc.her] bedroom. Stopping just in front of [npc.her] double-size bed, [npc.name] turns to face you, before passionately kissing you once again.
@@ -2964,7 +2964,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_CHANGE_MIND"><![CDATA[
 	<p>
 		Stopping in your tracks, you shuffle your [pc.feet] a little as you tell [npc.name] what's on your mind, [pc.speech(Sorry, [npc.name], I'm having second thoughts about all this... I don't know if I can carry on.)]
@@ -2979,11 +2979,11 @@
 		[npc.speech(I hope so, I really enjoyed our time together this evening. Have a safe journey home.)] [npc.name] says, smiling at you once again as [npc.she] leads you to the front door.
 	</p>
 	<p>
-		After saying your goodbyes, [npc.Name] leans forwards and kisses you on the cheek. As the door shuts behind you, you let out a small sigh of relief. You're glad that you had the willpower to say no back there, and as you travel down the stairs and out into the street beyond, you feel happy that you didn't end up having sex with [npc.name]. 
+		After saying your goodbyes, [npc.Name] leans forwards and kisses you on the cheek. As the door shuts behind you, you let out a small sigh of relief. You're glad that you had the willpower to say no back there, and as you travel down the stairs and out into the street beyond, you feel happy that you didn't end up having sex with [npc.name].
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_CHANGE_MIND_RUDE"><![CDATA[
 	<p>
 		[pc.speech(You know, on second thoughts, I don't really want to get fucked by someone like you,)] you bluntly state, pulling your [pc.hand] away from [npc.name] and turning towards the door. [pc.speech(I don't know what I was thinking...)]
@@ -2999,7 +2999,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX"><![CDATA[
 	<p>
 		The two of you fall back on the bed, panting and sweating as you both stare up at the ceiling. As you're lying there, [npc.name] rolls over next to you, and pulls you into a loving hug.
@@ -3012,7 +3012,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		The two of you fall back on the bed, panting and sweating as you both stare up at the ceiling. As you're lying there, [npc.name] makes a frustrated whining noise, and, rolling over next to you, [npc.she] sighs, [npc.speech(You didn't exactly satisfy me, you know...)]
@@ -3025,7 +3025,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX_SEE_AGAIN"><![CDATA[
 	<p>
 		[pc.speech(Sure, I'll see you at the club again,)] you happily reply. [pc.speech(I had a really great time with you tonight.)]
@@ -3034,11 +3034,11 @@
 		[npc.speech(Great, I had a fantastic evening as well,)] [npc.name] responds, before leaning forwards and kissing you on the cheek. [npc.speech(Bye, [pc.name], I'll see you another time!)]
 	</p>
 	<p>
-		After saying farewell, you travel down the stairs and out into the street beyond. With a big smile on your face, you set off on your way... 
+		After saying farewell, you travel down the stairs and out into the street beyond. With a big smile on your face, you set off on your way...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX_DO_NOT_SEE_AGAIN"><![CDATA[
 	<p>
 		[pc.speech(Erm, yeah, well, I'm more of a one-night-stand kind of person,)] you reply. [pc.speech(I had a really great time with you tonight, but I don't know if seeing you again is a good idea.)]
@@ -3047,11 +3047,11 @@
 		[npc.speech(Ah,)] [npc.name] responds, sounding more than a little disappointed. [npc.speech(Well, at least we had one great evening together.)]
 	</p>
 	<p>
-		After saying a quick goodbye, you travel down the stairs and out into the street beyond. Letting out a satisfied sigh, you set off on your way... 
+		After saying a quick goodbye, you travel down the stairs and out into the street beyond. Letting out a satisfied sigh, you set off on your way...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TAKEN_HOME_AFTER_SEX_DO_NOT_SEE_AGAIN_RUDE"><![CDATA[
 	<p>
 		[pc.speech(I really just wanted a quick fuck,)] you reply. [pc.speech(I knew you'd be good for it, but now that I'm satisfied, there's no way I want to see you again.)]
@@ -3060,11 +3060,11 @@
 		[npc.speech(Oh, well, I didn't expect that,)] [npc.name] responds, sounding more than a little surprised.
 	</p>
 	<p>
-		Before [npc.she] can say anything else, you turn your back on [npc.herHim] and take your leave. Travelling down the stairs and out into the street beyond, you let out a satisfied sigh before setting off on your way... 
+		Before [npc.she] can say anything else, you turn your back on [npc.herHim] and take your leave. Travelling down the stairs and out into the street beyond, you let out a satisfied sigh before setting off on your way...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_PARTNER_DOM_LEAVES"><![CDATA[
 	<p>
 		#IF npc.isTrusting()
@@ -3081,7 +3081,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX"><![CDATA[
 	<p>
 		Having had [npc.her] fun, [npc.name] quickly starts getting [npc.her] clothes back in order, grinning happily at you as [npc.she] does so. [npc.speech(You were a good fuck, slut. You've got no idea how many prudes back out at the last minute when I try to fuck them in here.)]
@@ -3094,7 +3094,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		Putting an end to the sex, you quickly start getting your things back in order, ignoring [npc.name] as [npc.she] complains, [npc.speech(You haven't even satisfied me, and you want to stop fucking? For fuck's sake... I would've been better off bringing some other slut back here.)]
@@ -3107,7 +3107,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX_SEE_AGAIN"><![CDATA[
 	<p>
 		[pc.speech(Yeah, sure, I'll see you around another time.)]
@@ -3120,7 +3120,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX_DO_NOT_SEE_AGAIN"><![CDATA[
 	<p>
 		[pc.speech(I don't know... I mean, I think doing this once might be enough for me...)]
@@ -3133,7 +3133,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_TOILETS_AFTER_SEX_DO_NOT_SEE_AGAIN_RUDE"><![CDATA[
 	<p>
 		[pc.speech(Not likely. There's no way I'm having sex with you again.)]
@@ -3146,5 +3146,5 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 </dialogue>

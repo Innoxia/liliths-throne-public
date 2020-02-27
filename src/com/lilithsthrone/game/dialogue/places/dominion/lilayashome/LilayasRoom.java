@@ -36,9 +36,9 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class LilayasRoom {
-	
+
 	public static AbstractClothing lilayasPanties;
-	
+
 	public static final DialogueNode ROOM_LILAYA = new DialogueNode("Lilaya's Room", ".", false) {
 
 		@Override
@@ -61,7 +61,7 @@ public class LilayasRoom {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode ROOM_LILAYA_INSIDE = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
@@ -90,7 +90,7 @@ public class LilayasRoom {
 						panties.add(ClothingType.GROIN_PANTIES);
 						panties.add(ClothingType.GROIN_SHIMAPAN);
 						panties.add(ClothingType.GROIN_CROTCHLESS_PANTIES);
-						
+
 						lilayasPanties = AbstractClothingType.generateClothing(panties.get(Util.random.nextInt(panties.size())), false);
 					}
 				};
@@ -100,7 +100,7 @@ public class LilayasRoom {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode PANTIES = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
@@ -136,7 +136,7 @@ public class LilayasRoom {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode PANTIES_POST_MASTURBATION = new DialogueNode("Lilaya's Room", "As you stop masturbating, you wonder what you should do with Lilaya's panties next...", true) {
 
 		@Override
@@ -166,7 +166,7 @@ public class LilayasRoom {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode HIDE = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
@@ -189,7 +189,7 @@ public class LilayasRoom {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode FLEE = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
@@ -218,7 +218,7 @@ public class LilayasRoom {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode CAUGHT = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
@@ -240,7 +240,7 @@ public class LilayasRoom {
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Rose.class).incrementAffection(Main.game.getPlayer(), 10));
 					}
 				};
-					
+
 			} else if(index==2) {
 				return new Response("Threaten", "Threaten Rose not to tell Lilaya.", THREATEN) {
 					@Override
@@ -266,7 +266,7 @@ public class LilayasRoom {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode APOLOGY = new DialogueNode("Lilaya's Room", ".", true, true) {
 
 		@Override
@@ -288,7 +288,7 @@ public class LilayasRoom {
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Rose.class).incrementAffection(Main.game.getPlayer(), 15));
 					}
 				};
-					
+
 			} else if (index == 2) {
 				return new ResponseEffectsOnly("Leave", "Tell Rose not to let Lilaya know, and rush off back to your room.") {
 					@Override
@@ -306,7 +306,7 @@ public class LilayasRoom {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode BEG = new DialogueNode("Lilaya's Room", ".", true, true) {
 
 		@Override
@@ -344,7 +344,7 @@ public class LilayasRoom {
 						Main.game.getNpc(Rose.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PURPLE_DARK, false), true, Main.game.getNpc(Rose.class));
 					}
 				};
-					
+
 			} else if (index == 2) {
 				return new ResponseEffectsOnly("Refuse", "Refuse Rose's offer and rush off back to your room.") {
 					@Override
@@ -362,7 +362,7 @@ public class LilayasRoom {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode AFTER_ROSE_AS_DOM = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
@@ -387,7 +387,7 @@ public class LilayasRoom {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode THREATEN = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
@@ -439,7 +439,7 @@ public class LilayasRoom {
 //						Main.game.getNpc(Rose.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PURPLE_DARK, false), true, Main.game.getNpc(Rose.class));
 //					}
 //				};
-//					
+//
 //			} else if (index == 2) {
 //				return new Response("Explain", "Explain to Lilaya and Rose that you were just feeling particularly horny.", EXPLAIN);
 //
@@ -448,7 +448,7 @@ public class LilayasRoom {
 //			}
 		}
 	};
-	
+
 	public static final DialogueNode AFTER_LILAYA_AND_ROSE_AS_DOMS = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
@@ -474,7 +474,7 @@ public class LilayasRoom {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode EXPLAIN = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override
@@ -504,7 +504,7 @@ public class LilayasRoom {
 						},
 						null,
 						null, AFTER_ROSE_AND_LILAYA_AS_SUBS, UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayasRoom", "ROSE_AND_LILAYA_AS_SUBS"));
-					
+
 			} else if (index == 2) {
 				return new ResponseEffectsOnly("Leave", "Turn down their offer and head back to your room.") {
 					@Override
@@ -522,7 +522,7 @@ public class LilayasRoom {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode AFTER_ROSE_AND_LILAYA_AS_SUBS = new DialogueNode("Lilaya's Room", ".", true) {
 
 		@Override

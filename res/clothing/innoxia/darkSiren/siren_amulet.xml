@@ -15,7 +15,7 @@
 		<imageName>siren_amulet.svg</imageName>
 		<imageEquippedName/>
 		<enchantmentLimit>20</enchantmentLimit>
-		<effects> 
+		<effects>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="INTELLIGENCE" timer="0"/>
@@ -37,7 +37,7 @@
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="CORRUPTION" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="CORRUPTION" timer="0"/>
 		</effects>
-		
+
 		<blockedPartsList>
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
@@ -47,9 +47,9 @@
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-		
+
 		<incompatibleSlots/>
-		
+
 		<primaryColours>
 			<colour>CLOTHING_PURPLE_VERY_DARK</colour>
 		</primaryColours>
@@ -62,11 +62,11 @@
 			<colour>CLOTHING_RED_DARK</colour>
 		</tertiaryColours>
 		<tertiaryColoursDye values="ALL"/>
-	
+
 		<itemTags/>
 	</coreAttributes>
 
-	
+
   <replacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(drape)] the amulet's chain around [npc.her] neck, before letting out an evil laugh as [npc.she] [npc.verb(feel)] the immense, corruptive power seeping into [npc.her] mind.]]>
@@ -90,5 +90,5 @@
       <![CDATA[[npc.Name] roughly [npc.verb(grab)] the amulet's chain, before yanking it up and over [npc2.namePos] head.]]>
     </otherRough>
   </displacementText>
-	
+
 </clothing>

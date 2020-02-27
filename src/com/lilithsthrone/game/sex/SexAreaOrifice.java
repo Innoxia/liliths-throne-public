@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
  * @author Innoxia
  */
 public enum SexAreaOrifice implements SexAreaInterface {
-	
+
 	MOUTH(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
@@ -28,7 +28,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.MOUTH;
 		}
 	},
-	
+
 	NIPPLE(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
@@ -51,7 +51,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.NIPPLES;
 		}
 	},
-	
+
 	BREAST(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
@@ -74,7 +74,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.BREASTS;
 		}
 	},
-	
+
 	NIPPLE_CROTCH(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
@@ -97,7 +97,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.NIPPLES_CROTCH;
 		}
 	},
-	
+
 	BREAST_CROTCH(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
@@ -120,7 +120,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.BREASTS_CROTCH;
 		}
 	},
-	
+
 	ASS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
@@ -140,7 +140,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.ASS;
 		}
 	},
-	
+
 	ANUS(2,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
@@ -159,7 +159,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.ANUS;
 		}
 	},
-	
+
 	VAGINA(4,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
@@ -178,7 +178,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.VAGINA;
 		}
 	},
-	
+
 	THIGHS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
@@ -201,7 +201,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.THIGHS;
 		}
 	},
-	
+
 	URETHRA_VAGINA(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
@@ -220,7 +220,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.VAGINA;
 		}
 	},
-	
+
 	URETHRA_PENIS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
@@ -289,11 +289,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	public boolean isOrifice() {
 		return true;
 	}
-	
+
 	public float getBaseArousalWhenPenetrated() {
 		return baseArousalWhenPenetrated;
 	}
-	
+
 	public float getArousalChangePenetratedStretching() {
 		return arousalChangePenetratedStretching;
 	}
@@ -321,7 +321,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	public float getCumLossPerSecond() {
 		return cumLossPerSecond;
 	}
-	
+
 	public float getCumAbsorptionPerSecond() {
 		return cumAbsorptionPerSecond/60f;
 	}
@@ -334,17 +334,17 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	public boolean isInternalOrifice() {
 		return takesPenisVirginity;
 	}
-	
+
 	public float getCharactersCumLossPerSecond(GameCharacter target) {
 		float cumLost = this.getCumAbsorptionPerSecond();
 		float fluidInArea = target.getTotalFluidInArea(this);
 		// The rate obviously decreases as the fluid drains out, but assuming if the drain was applied all at once, it would take about 5.5 hours to all drain out (not factoring in absorption or natural loss):
 		float secondPercentageLoss = fluidInArea/20_000;
-		
+
 		if(!target.isOrificePlugged(this)) {
 			cumLost += this.getCumLossPerSecond() + secondPercentageLoss;
 		}
 		return cumLost;
 	}
-	
+
 }

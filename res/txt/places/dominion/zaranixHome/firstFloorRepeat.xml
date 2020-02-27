@@ -8,7 +8,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="CORRIDOR"><![CDATA[
 	<p>
 		Much like those found on the ground floor, these corridors are home to numerous fine paintings, cushioned chairs, and well-crafted cabinets.
@@ -16,8 +16,8 @@
 	</p>
 	]]>
 	</htmlContent>
-	
-	
+
+
 	<htmlContent tag="KELLY_PRESENT"><![CDATA[
 	<p>
 		As you walk down the corridor, an ivory-skinned succubus, wearing a light pink maid's uniform, suddenly stands up from behind a cabinet.
@@ -43,7 +43,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KELLY_PRESENT_REPEAT"><![CDATA[
 	<p>
 		Up ahead, you see the ivory-skinned maid, Kelly, busily dusting one of the corridor's picture frames.
@@ -61,12 +61,12 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KELLY_SEX"><![CDATA[
 	<p>
 		Deciding to take up Kelly's transparent offer of sex, you step forwards, grinning as you let your gaze wander up and down over the maid's perfect body.
 		 [pc.speech(Well, there is one thing that a horny little succubus like you could do for me.)]
-		 
+
 	</p>
 	<p>
 		Kelly lets out an excited squeal as she gazes into your eyes, and you see them filled with a desperate, burning lust.
@@ -75,7 +75,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KELLY_SEX_SUB"><![CDATA[
 	<p>
 		Not willing to take the dominant role, but with a deep desire to have sex with this horny succubus, you smile coyly at her.
@@ -89,7 +89,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KELLY_SEX_DECLINED"><![CDATA[
 	<p>
 		You're not really interested in Kelly's transparent offer of sex right now.
@@ -101,7 +101,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_KELLY_SEX"><![CDATA[
 	<p>
 		Kelly lets out a deeply satisfied sigh as you pull away from her,
@@ -116,7 +116,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_KELLY_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		Kelly lets out a disappointed whine as you pull away from her,
@@ -131,7 +131,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ROOM"><![CDATA[
 	<p>
 		The door to this room is locked, and there's no sound of anyone within.
@@ -139,7 +139,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ZARANIX_ROOM_OUTSIDE"><![CDATA[
 	<p>
 		The door to Zaranix's room is slightly ajar, and from within, you can hear the bubbling of potions and clink of glass vials as the master of the house carries out his experiments.
@@ -147,7 +147,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ZARANIX_ROOM_EXIT"><![CDATA[
 	<p>
 		You decide to take your leave, and, smiling at Zaranix, you step back.
@@ -172,12 +172,12 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ZARANIX_ROOM_ENTER"><![CDATA[
 	<p>
 		Deciding to pay Zaranix another visit, you raise your hand and deliver a short rap on the bedroom door.
 		 [zaranix.speech(Enter,)]
-		 the incubus calls out from within his room, and, following his command, you push open the door and step forwards. 
+		 the incubus calls out from within his room, and, following his command, you push open the door and step forwards.
 	</p>
 	<p>
 		Well-lit by several ceiling-mounted, arcane-powered lights, and with a series of large windows set into the opposite wall, the spacious room that you find yourself stepping into is particularly well-illuminated.
@@ -207,12 +207,12 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ZARANIX_ROOM_ENTER_REPEAT"><![CDATA[
 	<p>
 		Deciding to pay Zaranix another visit, you raise your hand and deliver a short rap on the bedroom door.
 		 [zaranix.speech(Enter,)]
-		 the incubus calls out from within his room, and, following his command, you push open the door and step forwards. 
+		 the incubus calls out from within his room, and, following his command, you push open the door and step forwards.
 	</p>
 	<p>
 		Well-lit by several ceiling-mounted, arcane-powered lights, and with a series of large windows set into the opposite wall, the spacious room that you find yourself stepping into is particularly well-illuminated.
@@ -242,7 +242,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ZARANIX_ROOM_MAIDS"><![CDATA[
 	<p>
 		[pc.speech(I was wondering how you came by these maids of yours. Kelly and Katherine are sisters, right? And I'm surprised that someone as... dominant... as Amber chooses to work as a maid. What's her story?)]
@@ -302,7 +302,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ZARANIX_ROOM_EXPERIMENTS"><![CDATA[
 	<p>
 		[pc.speech(What are all these experiments that you're running?)]
@@ -333,7 +333,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ZARANIX_ROOM_INCUBUS_FORM"><![CDATA[
 	<p>
 		[pc.speech(Almost all of the demons that I see are succubi. In fact, you're the only incubus that I've had any significant contact with,)]
@@ -354,10 +354,10 @@
 		 [zaranix.speech(Anything else you want to talk about?)]
 	</p>
 	<p>
-	
+
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ZARANIX_ROOM_BLOWJOB"><![CDATA[
 	<p>
 		[pc.speech(Well, I did come here with something on my mind...)]
@@ -375,7 +375,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_ZARANIX_BLOWJOB"><![CDATA[
 	<p>
 		Zaranix pats you on the head, before standing up and getting his clothes back in order.
@@ -406,6 +406,6 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 
 </dialogue>

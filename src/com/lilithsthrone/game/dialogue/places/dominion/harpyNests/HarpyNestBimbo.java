@@ -33,7 +33,7 @@ public class HarpyNestBimbo {
 		public int getSecondsPassed() {
 			return 60;
 		}
-		
+
 		@Override
 		public String getLabel() {
 			return "[harpyBimbo.NamePos] nest";
@@ -53,7 +53,7 @@ public class HarpyNestBimbo {
 							+ " The entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to the matriarch of this particular nest."
 						+ "</p>";
 				}
-				
+
 			} else {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
 					return "<p>"
@@ -100,14 +100,14 @@ public class HarpyNestBimbo {
 			if (index == 1) {
 				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new Response("Approach [bimboHarpy.name]", "You have no need to talk to the matriarch of this nest.", null);
-					
+
 				} else if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
 						return new Response("Approach [bimboHarpy.name]", "If you want to talk to [bimboHarpy.name], you'll have to come back after the arcane storm has passed.", null);
 					} else {
 						return new Response("Approach matriarch", "If you want to talk to the matriarch, you'll have to come back after the arcane storm has passed.", null);
 					}
-					
+
 				} else {
 					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
 						return new Response("Approach [bimboHarpy.name]", "Walk to the centre of the nest and talk to [bimboHarpy.name].", HARPY_NEST_BIMBO_APPROACH);
@@ -115,20 +115,20 @@ public class HarpyNestBimbo {
 						return new Response("Approach matriarch", "Walk to the centre of the nest and talk to the matriarch.", HARPY_NEST_BIMBO_APPROACH);
 					}
 				}
-					
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode HARPY_NEST_BIMBO_APPROACH = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyBimbo.NamePos] nest";
 		}
-		
+
 		@Override
 		public String getContent() {
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboEncountered)) {
@@ -164,7 +164,7 @@ public class HarpyNestBimbo {
 								+ " Several members of her inner-circle start mimicking her behaviour, and, shuffling ever closer, [bimboHarpy.name] moans out loud,"
 								+ " [bimboHarpy.speechNoEffects(Ah! Please! Fuck me!)]"
 							+ "</p>";
-					
+
 				} else {
 					return "<p>"
 							+ "Deciding that you should go and pay [bimboHarpy.name] another visit, you set off across the nest."
@@ -186,7 +186,7 @@ public class HarpyNestBimbo {
 								+ " [bimboHarpy.speechNoEffects(Eugh! Like, what are <i>you</i> doin' here again? Y'know, you're like, super annoying and stuff!)]")
 						+ "</p>";
 				}
-			
+
 			} else {
 				return "<p>"
 						+ "This nest looks like the home of one of the matriarchs you agreed to try and calm down."
@@ -243,7 +243,7 @@ public class HarpyNestBimbo {
 							+ "<p>"
 								+ "[harpyBimbo.Name] responds to your dominant move by wrapping her wings around your back, grinding herself up against you as she passionately returns your kiss..."
 							+ "</p>");
-						
+
 				} else if (index == 0) {
 					return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", HARPY_NEST_BIMBO) {
 						@Override
@@ -259,11 +259,11 @@ public class HarpyNestBimbo {
 									+ "</p>");
 						}
 					};
-						
+
 				} else {
 					return null;
 				}
-				
+
 			} else {
 				if (index == 1) {
 					return new Response("Talk", "Try to convince [bimboHarpy.name] to calm down.", HARPY_NEST_BIMBO_TALK) {
@@ -272,7 +272,7 @@ public class HarpyNestBimbo {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
 						}
 					};
-						
+
 				} else if (index == 2) {
 					return new Response("Bimbo queen", "This bitch is, like, super not cool. You should totally convince the nest that you should be their queen!", HARPY_NEST_BIMBO_QUEEN,
 							Util.newArrayListOfValues(Fetish.FETISH_BIMBO), null, null, Femininity.FEMININE_STRONG, null) {
@@ -281,19 +281,19 @@ public class HarpyNestBimbo {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboPacified);
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false, true));
-							
+
 							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_ONE) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_TWO));
-								
+
 							} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_TWO) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_THREE));
-								
+
 							} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_THREE) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_REWARD));
 							}
 						}
 					};
-						
+
 				} else if (index == 3) {
 					return new Response("Call her ugly", "You know that this would be a terrible idea...", HARPY_NEST_BIMBO_UGLY) {
 						@Override
@@ -305,7 +305,7 @@ public class HarpyNestBimbo {
 							return true;
 						}
 					};
-	
+
 				} else if (index == 0) {
 					return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", HARPY_NEST_BIMBO) {
 						@Override
@@ -322,21 +322,21 @@ public class HarpyNestBimbo {
 									+ "</p>");
 						}
 					};
-						
+
 				} else {
 					return null;
 				}
 			}
 		}
 	};
-	
+
 	public static final DialogueNode HARPY_NEST_BIMBO_TALK = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyBimbo.NamePos] nest";
 		}
-		
+
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -363,19 +363,19 @@ public class HarpyNestBimbo {
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboPacified);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false, true));
-						
+
 						if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_ONE) {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_TWO));
-							
+
 						} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_TWO) {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_THREE));
-							
+
 						} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_THREE) {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_REWARD));
 						}
 					}
 				};
-					
+
 			} else if (index == 2) {
 				return new Response("Force compliance", "If you want these harpies to chill out, it looks as though you'll have to do it by force...", HARPY_NEST_BIMBO_FIGHT) {
 					@Override
@@ -383,7 +383,7 @@ public class HarpyNestBimbo {
 						return true;
 					}
 				};
-					
+
 			} else if (index == 0) {
 				return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", HARPY_NEST_BIMBO) {
 					@Override
@@ -399,20 +399,20 @@ public class HarpyNestBimbo {
 								+ "</p>");
 					}
 				};
-					
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode HARPY_NEST_BIMBO_UGLY = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyBimbo.NamePos] nest";
 		}
-		
+
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -432,20 +432,20 @@ public class HarpyNestBimbo {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[bimboHarpyCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getNpc(HarpyBimboCompanion.class));
-					
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode HARPY_NEST_BIMBO_QUEEN = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyBimbo.NamePos] nest";
 		}
-		
+
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -516,7 +516,7 @@ public class HarpyNestBimbo {
 						+ "<p>"
 							+ "[harpyBimbo.Name] responds to your dominant move by wrapping her wings around your back, grinding herself up against you as she passionately returns your kiss..."
 						+ "</p>");
-						
+
 			} else if (index == 0) {
 				return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", HARPY_NEST_BIMBO) {
 					@Override
@@ -532,20 +532,20 @@ public class HarpyNestBimbo {
 								+ "</p>");
 					}
 				};
-					
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyBimbo.NamePos] nest";
 		}
-		
+
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -565,20 +565,20 @@ public class HarpyNestBimbo {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[bimboHarpyCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getNpc(HarpyBimboCompanion.class));
-					
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT_LOSE = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyBimbo.NamePos] nest";
 		}
-		
+
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -624,7 +624,7 @@ public class HarpyNestBimbo {
 					return Response.getDisallowedSpittingResponse("Lips sealed");
 				}
 				return new Response("Lips sealed", "Don't let [bimboHarpy.Name] get that strange lollipop into your mouth...", HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT_NO_TF);
-					
+
 			} else if (index == 2) {
 				return new Response("Open wide",
 						"Allow [bimboHarpy.Name] to push the lollipop into your mouth... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
@@ -644,20 +644,20 @@ public class HarpyNestBimbo {
 							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getNpc(HarpyBimbo.class), Main.game.getPlayer(), null));
 					}
 				};
-					
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT_BEAT_GF = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyBimbo.NamePos] nest";
 		}
-		
+
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -675,20 +675,20 @@ public class HarpyNestBimbo {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[bimboHarpy.Name] looks furious as she launches her attack on you!", Main.game.getNpc(HarpyBimbo.class));
-					
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT_LOSE_TO_MATRIARCH = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyBimbo.NamePos] nest";
 		}
-		
+
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -738,7 +738,7 @@ public class HarpyNestBimbo {
 					return Response.getDisallowedSpittingResponse("Lips sealed");
 				}
 				return new Response("Lips sealed", "Don't let [bimboHarpy.Name] get that strange lollipop into your mouth...", HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT_NO_TF);
-					
+
 			} else if (index == 2) {
 				return new Response("Open wide",
 						"Allow [bimboHarpy.Name] to push the lollipop into your mouth... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
@@ -758,20 +758,20 @@ public class HarpyNestBimbo {
 							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getNpc(HarpyBimbo.class), Main.game.getPlayer(), null));
 					}
 				};
-					
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT_BEAT_BIMBO = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyBimbo.NamePos] nest";
 		}
-		
+
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -822,7 +822,7 @@ public class HarpyNestBimbo {
 						+ "<p>"
 							+ "[harpyBimbo.Name] responds to your dominant move by wrapping her wings around your back, grinding herself up against you as she passionately returns your kiss..."
 						+ "</p>");
-						
+
 			} else if (index == 0) {
 				return new Response("Leave", "Tell [bimboHarpy.name] that you'll be back later.", HARPY_NEST_BIMBO) {
 					@Override
@@ -838,20 +838,20 @@ public class HarpyNestBimbo {
 								+ "</p>");
 					}
 				};
-					
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT_NO_TF = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyBimbo.NamePos] nest";
 		}
-		
+
 		@Override
 		public String getContent() {
 				return "<p>"
@@ -895,20 +895,20 @@ public class HarpyNestBimbo {
 								+ "</p>");
 					}
 				};
-					
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode HARPY_NEST_BIMBO_FIGHT_LOSE_PUNISHMENT = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyBimbo.NamePos] nest";
 		}
-		
+
 		@Override
 		public String getContent() {
 			return
@@ -956,20 +956,20 @@ public class HarpyNestBimbo {
 								+ "</p>");
 					}
 				};
-					
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode HARPY_NEST_BIMBO_AFTER_SEX = new DialogueNode("Harpy nest", ".", true) {
 
 		@Override
 		public String getLabel() {
 			return "[harpyBimbo.NamePos] nest";
 		}
-		
+
 		@Override
 		public String getContent() {
 			if(Sex.getNumberOfOrgasms(Main.game.getNpc(HarpyBimbo.class)) >= Main.game.getNpc(HarpyBimbo.class).getOrgasmsBeforeSatisfied()) {
@@ -998,7 +998,7 @@ public class HarpyNestBimbo {
 								+ "</p>");
 					}
 				};
-					
+
 			} else {
 				return null;
 			}

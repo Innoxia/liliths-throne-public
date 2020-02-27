@@ -35,7 +35,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 
 	protected Map<Attribute, Integer> attributeModifiers;
 	protected TFEssence relatedEssence;
-	
+
 	protected Set<ItemTag> itemTags;
 
 	public AbstractCoreItem(String name,
@@ -52,7 +52,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 				attributeModifiers,
 				new HashSet<>());
 	}
-	
+
 	public AbstractCoreItem(String name,
 			String namePlural,
 			String SVGString,
@@ -69,7 +69,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 
 		this.attributeModifiers = new EnumMap<>(Attribute.class);
 		this.itemTags = new HashSet<>();
-		
+
 		relatedEssence = null;
 
 		if (attributeModifiers != null) {
@@ -77,41 +77,41 @@ public abstract class AbstractCoreItem implements XMLSaving {
 				this.attributeModifiers.put(e.getKey(), e.getValue());
 			}
 		}
-		
+
 		if(itemTags != null) {
 			this.itemTags.addAll(itemTags);
 		}
 	}
-	
+
 	public Element saveAsXML(Element parentElement, Document doc) {
 		System.err.print("Eek! Tried to export an abstract item!");
 		return null;
 	}
-	
+
 	public static AbstractCoreItem loadFromXML(Element parentElement, Document doc) {
 		System.err.print("Eek! Tried to import an abstract item!");
 		return null;
 	}
-	
+
 	// Enchantments:
-	
+
 	public boolean isAbleToBeEnchanted() {
 		return getEnchantmentEffect() != null
 				&& getEnchantmentItemType(null) != null;
 	}
-	
+
 	public int getEnchantmentLimit() {
 		return 100;
 	}
-	
+
 	public AbstractItemEffectType getEnchantmentEffect() {
 		return null;
 	}
-	
+
 	public AbstractCoreType getEnchantmentItemType(List<ItemEffect> effects) {
 		return null;
 	}
-	
+
 	public AbstractCoreItem enchant(TFEssence essence, TFModifier primaryModifier, TFModifier secondaryModifier) {
 		return this;
 	}
@@ -124,7 +124,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	}
 
 	// Other:
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if(o instanceof AbstractCoreItem){
@@ -141,7 +141,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		int result = 17;
@@ -163,11 +163,11 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		}
 		return result;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getNamePlural() {
 		return namePlural;
 	}
@@ -175,11 +175,11 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getSVGString() {
 		return SVGString;
 	}
-	
+
 	public void setSVGString(String SVGString) {
 		this.SVGString = SVGString;
 	}
@@ -187,7 +187,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	public abstract String getDescription();
 
 	public abstract int getValue();
-	
+
 	public int getPrice(float modifier) {
 		return (int) (getValue() * modifier);
 	}
@@ -199,7 +199,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	public Rarity getRarity() {
 		return rarity;
 	}
-	
+
 	/**
 	 * @return the name of a css class to use as a displayed rarity in inventory screens
 	 */
@@ -222,7 +222,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	public void setAttributeModifiers(Map<Attribute, Integer> attributeModifiers) {
 		this.attributeModifiers = attributeModifiers;
 	}
-	
+
 	public List<ItemEffect> getEffects() {
 		return new ArrayList<ItemEffect>();
 	}

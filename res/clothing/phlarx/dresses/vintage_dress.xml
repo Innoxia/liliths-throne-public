@@ -3,39 +3,39 @@
 <clothing>
 	<coreAttributes>
 		<clothingAuthorTag><![CDATA[A tag discreetly sewn into the dress's inner lining informs you that it was made by 'Phlarx'.]]></clothingAuthorTag>
-		<value>800</value> 
+		<value>800</value>
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[vintage dress]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[vintage dresses]]></namePlural> 
-		<description><![CDATA[A knee length dress that would look perfect on a pinup, or at a drive-in diner.]]></description> 
-		<physicalResistance>1</physicalResistance> 
-		<femininity>FEMININE</femininity> 
-		<slot>TORSO_UNDER</slot> 
-		<rarity>COMMON</rarity> 
-		<clothingSet/> 
-		<imageName>vintage_dress.svg</imageName> 
-		<imageEquippedName/> 
+		<namePlural pluralByDefault="false"><![CDATA[vintage dresses]]></namePlural>
+		<description><![CDATA[A knee length dress that would look perfect on a pinup, or at a drive-in diner.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>TORSO_UNDER</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>vintage_dress.svg</imageName>
+		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>
-		
-		<blockedPartsList> 	
+
+		<blockedPartsList>
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired/>
-				<blockedBodyParts> 
+				<blockedBodyParts>
 					<bodyPart>BREASTS</bodyPart>
 					<bodyPart>NIPPLES</bodyPart>
 					<bodyPart>STOMACH</bodyPart>
 					<bodyPart>BACK</bodyPart>
 				</blockedBodyParts>
-				<clothingAccessBlocked> 
+				<clothingAccessBlocked>
 					<clothingAccess>WAIST</clothingAccess>
 					<clothingAccess>CHEST</clothingAccess>
 				</clothingAccessBlocked>
-				<concealedSlots values="CONCEALED_PARTIAL_TORSO"> 
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO">
 				</concealedSlots>
 			</blockedParts>
-			
+
 			<blockedParts>
 				<displacementType>PULLS_UP</displacementType>
 				<clothingAccessRequired/>
@@ -58,18 +58,18 @@
 				</concealedSlots>
 			</blockedParts>
 		</blockedPartsList>
-		
+
 		<incompatibleSlots/>
-		
-		<primaryColours values="NOT_WHITE"/> 
+
+		<primaryColours values="NOT_WHITE"/>
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="BLACK_OR_WHITE"/>
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours values="BLACK_OR_WHITE"/>
 		<tertiaryColoursDye values="ALL_WITH_METALS"/>
 		<tertiaryColoursDye/>
-		
-		<defaultPatterns patternChance="0.5" colourNameDerivedFromPattern="false"> 
+
+		<defaultPatterns patternChance="0.5" colourNameDerivedFromPattern="false">
 			<pattern>polka_dots_tiny</pattern>
 			<pattern>polka_dots_small</pattern>
 			<pattern>polka_dots_big</pattern>
@@ -88,14 +88,14 @@
 		<patternSecondaryColoursDye values="ALL"/>
 		<patternTertiaryColours/>
 		<patternTertiaryColoursDye/>
-		
-		<itemTags> 
+
+		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
 			<tag>DRESS</tag>
 		</itemTags>
 	</coreAttributes>
-	
-	
+
+
 	<displacementText type="REMOVE_OR_EQUIP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(unzip)] the concealed side zipper, before pulling [npc.her] vintage dress off over [npc.her] head.]]>
@@ -119,7 +119,7 @@
 		</otherRough>
 	</replacementText>
 
-	
+
 	<displacementText type="PULLS_UP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc.her] vintage dress.]]>

@@ -20,7 +20,7 @@
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_MELEE_WEAPON" timer="0"/>
               <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
 		</effects>
-		
+
 		<blockedPartsList>
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
@@ -30,9 +30,9 @@
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-		
+
 		<incompatibleSlots/>
-		
+
 		<primaryColours>
 			<colour>CLOTHING_SILVER</colour>
 		</primaryColours>
@@ -45,11 +45,11 @@
 			<colour>CLOTHING_GOLD</colour>
 		</tertiaryColours>
 		<tertiaryColoursDye values="ALL_METAL"/>
-	
+
 		<itemTags/>
 	</coreAttributes>
 
-	
+
   <replacementText type="REMOVE_OR_EQUIP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(drape)] the key-chain around [npc.her] neck.]]>
@@ -73,5 +73,5 @@
       <![CDATA[[npc.Name] roughly [npc.verb(grab)] the key-chain, before yanking it up and over [npc2.namePos] head.]]>
     </otherRough>
   </displacementText>
-	
+
 </clothing>

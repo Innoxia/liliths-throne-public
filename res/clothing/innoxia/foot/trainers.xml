@@ -8,35 +8,35 @@
 		<description><![CDATA[A pair of shoes made from flexible rubber and breathable cloth. Although designed to be worn when performing physical exercise, they are widely used for everyday wear.]]></description>
 		<physicalResistance>1</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
-		<slot>FOOT</slot> 
+		<slot>FOOT</slot>
 		<rarity>COMMON</rarity>
-		<clothingSet/> 
+		<clothingSet/>
 		<imageName>trainers.svg</imageName>
 		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>
-		
+
 		<blockedPartsList>
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				<clothingAccessRequired> 
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
 					<clothingAccess>FEET</clothingAccess>
 				</clothingAccessRequired>
 				<blockedBodyParts>
 					<bodyPart>FEET</bodyPart>
 				</blockedBodyParts>
-				<clothingAccessBlocked> 
+				<clothingAccessBlocked>
 					<clothingAccess>FEET</clothingAccess>
 				</clothingAccessBlocked>
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-		
-		<incompatibleSlots/> 
-		
+
+		<incompatibleSlots/>
+
 		<primaryColours>
 			<colour>CLOTHING_WHITE</colour>
-		</primaryColours> 
+		</primaryColours>
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="ALL"/>
 		<secondaryColoursDye/>
@@ -44,8 +44,8 @@
 			<colour>CLOTHING_WHITE</colour>
 		</tertiaryColours>
 		<tertiaryColoursDye values="ALL"/>
-		
-		<itemTags> 
+
+		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>
@@ -73,5 +73,5 @@
       <![CDATA[[npc.Name] roughly [npc.verb(untie)] the laces of [npc2.namePos] trainers, before tugging them off.]]>
     </otherRough>
   </displacementText>
-	
+
 </clothing>

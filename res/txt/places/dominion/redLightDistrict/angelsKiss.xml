@@ -37,7 +37,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRANCE_REPEAT"><![CDATA[
 	<p>
 		Once again, you find yourself standing in the entrance hall of the brothel 'Angel's Kiss'.
@@ -47,28 +47,28 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRANCE_REPEAT_EMPTY"><![CDATA[
 	<p>
 		There doesn't seem to be anyone in here at the moment, and you wonder just how bad business must be for there not even to be someone assigned to greet customers...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRANCE_REPEAT_STAFFED"><![CDATA[
 	<p>
 		Your slave, [npc.name], is standing behind the front desk, and [npc.she] smiles at you and offers you a greeting.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="CORRIDOR"><![CDATA[
 	<p>
 		The corridors of Angel's Kiss bear the same decor as the entrance hall. The walls are half-panelled in dark wood, with the top half being covered in a finely detailed light-blue floral wallpaper. Underfoot, a rich burgundy carpet runs down the middle of the hall, with spaces on either side displaying polished oak boards. The odd painting, cabinet, or doorway breaks up the monotony of your surroundings, which are illuminated by the soft white glow given off from the many light fixtures set into the high ceiling above.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="STAIRS_UP"><![CDATA[
 	<p>
 		A grand staircase, carpeted in the same rich burgundy as the rest of the establishment, stands before you.
@@ -76,7 +76,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="STAIRS_DOWN"><![CDATA[
 	<p>
 		A grand staircase, carpeted in the same rich burgundy as the rest of the establishment, stands before you.
@@ -84,7 +84,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM"><![CDATA[
 	<p>
 		The many bedrooms in Angel's Kiss are all decorated in much the same way. A clean, king-sized bed sits against one wall, with a pair of bedside cabinets flanking it on either side. An arcane-powered free-standing lamp, giving out a deep red glow, is positioned near the window. The walls are covered in finely detailed floral wallpaper, while underfoot, there's the same burgundy carpet that runs through the rest of the establishment.
@@ -94,14 +94,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_EMPTY"><![CDATA[
 	<p>
 		This bedroom is currently empty, but despite the lack of any sign of a recent occupant, the room is immaculately clean and free of dust.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_EMPTY_WHORE_SELF_GROUND_FLOOR"><![CDATA[
 	<p>
 		This bedroom is currently empty, but despite the lack of any sign of a recent occupant, the room is immaculately clean and free of dust.
@@ -110,7 +110,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_EMPTY_WHORE_SELF"><![CDATA[
 	<p>
 		This bedroom is currently empty, but despite the lack of any sign of a recent occupant, the room is immaculately clean and free of dust.
@@ -118,7 +118,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SELL_SELF_SUB"><![CDATA[
 	<p>
 		Deciding that you'll sell your body to a client to make some quick cash, you head down to Angel's office to let her know that you're available.
@@ -135,7 +135,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SELL_SELF_SUB_START"><![CDATA[
 	<p>
 		Deciding that you'll take this client, you step forwards and press yourself against [npc.herHim], sighing,
@@ -148,7 +148,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SELL_SELF_SUB_AFTER_SEX"><![CDATA[
 	<p>
 		You collapse down onto the bed, breathing heavily as [npc.name] disentangles [npc.herself] from your clutches.
@@ -161,7 +161,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SELL_SELF_DOM"><![CDATA[
 	<p>
 		Deciding that you'll sell your body to a client to make some quick cash, you head down to Angel's office to let her know that you're available.
@@ -178,7 +178,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SELL_SELF_DOM_START"><![CDATA[
 	<p>
 		Deciding that you'll take this client, you step forwards and press yourself against [npc.herHim], reaching around to take a firm grip of [npc.her] [npc.ass+] as you [pc.moan],
@@ -191,7 +191,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SELL_SELF_DOM_AFTER_SEX"><![CDATA[
 	<p>
 		[npc.Name] collapses down onto the bed, breathing heavily as you disentangle yourself from [npc.her] clutches.
@@ -205,7 +205,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SELL_SELF_DECLINE"><![CDATA[
 	<p>
 		Deciding that you don't want to take this client, you step forwards and apologise,
@@ -213,7 +213,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SELL_SELF_DECLINE_SUB"><![CDATA[
 	<p>
 		[npc.Name] lets out an annoyed huff, but doesn't press the issue.
@@ -224,7 +224,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SELL_SELF_DECLINE_DOM"><![CDATA[
 	<p>
 		[npc.Name] lets out a disappointed whine, but doesn't press the issue.
@@ -235,7 +235,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_OCCUPIED_SLAVE"><![CDATA[
 	<p>
 		Your slave [npc.name], [npc.a_fullRace], is currently working in this room, and [npc.she] smiles at you as you step through the open door.
@@ -245,7 +245,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_OCCUPIED_SLAVE_SEX"><![CDATA[
 	<p>
 		The door to this bedroom is firmly shut and locked, and from within, you can hear the moans of your slave, [npc1.name], as [npc1.she] entertains [npc1.her] client.
@@ -253,7 +253,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_PROSTITUTE_SLAVE_SEX"><![CDATA[
 	<p>
 		Deciding that you'd like to have some fun with [npc.name], you step forwards and pull [npc.herHim] in against your chest.
@@ -262,7 +262,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_PROSTITUTE_SLAVE_SEX_SUB"><![CDATA[
 	<p>
 		Deciding that you'd like to have some fun with [npc.name], you step up to [npc.herHim], [pc.moaning],
@@ -274,7 +274,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_OCCUPIED"><![CDATA[
 	<p>
 		The [npc.fullRace], [npc.name], is currently working in this room, and [npc.she] smiles at you as you step through the open door.
@@ -285,7 +285,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_OCCUPIED_SEX"><![CDATA[
 	<p>
 		The door to this bedroom is firmly shut and locked, and from within, you can hear the moans of [npc1.name] as [npc1.she] entertains [npc1.her] client.
@@ -293,7 +293,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_PROSTITUTE_SEX"><![CDATA[
 	<p>
 		Deciding that you'd like to have some fun with [npc.name], you hand over the three-hundred flames, before stepping forwards and pulling [npc.herHim] in against your chest.
@@ -302,7 +302,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_PROSTITUTE_SEX_SUB"><![CDATA[
 	<p>
 		Deciding that you'd like to have some fun with [npc.name], you hand over the three-hundred flames, before stepping up to [npc.herHim] and [pc.moaning],
@@ -314,7 +314,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="PROSTITUTE_AFTER_SEX"><![CDATA[
 	<p>
 		[npc.Name] collapses down onto [npc.her] bed, panting heavily.
@@ -327,7 +327,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="PROSTITUTE_AFTER_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		[npc.Name] collapses down onto [npc.her] bed, letting out a happy sigh,
@@ -341,7 +341,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_BUNNY"><![CDATA[
 	<p>
 		Stepping through the doorway, you discover that this bedroom, unlike most of the others in Angel's Kiss, is actually occupied.
@@ -384,7 +384,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_BUNNY_REPEAT"><![CDATA[
 	<p>
 		Once again, you find yourself stepping into Bunny's bedroom.
@@ -401,7 +401,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_BUNNY_SEX"><![CDATA[
 	<p>
 		You hand over one-thousand five-hundred flames to Bunny, who squeals in excitement as she sees that you're here for sex,
@@ -413,7 +413,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_BUNNY_THREESOME"><![CDATA[
 	<p>
 		[pc.speech(How about you run and fetch your sister,)]
@@ -428,7 +428,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_BUNNY_THREESOME_LOPPY_NOT_INTRODUCED"><![CDATA[
 	<p>
 		You're not kept waiting for long, and after less than two minutes, Bunny bounds back into the room.
@@ -447,7 +447,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_BUNNY_THREESOME_LOPPY_INTRODUCED"><![CDATA[
 	<p>
 		You're not kept waiting for long, and after less than two minutes, Bunny bounds back into the room.
@@ -462,7 +462,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_BUNNY_DECLINE"><![CDATA[
 	<p>
 		[pc.speech(Sorry, Bunny, I don't have time right now, but I might be back later,)]
@@ -475,7 +475,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_BUNNY_AFTER_SEX"><![CDATA[
 	<p>
 		Bunny collapses down onto her bed, panting heavily.
@@ -488,7 +488,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_BUNNY_AFTER_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		Bunny collapses down onto her bed, letting out a happy little sigh,
@@ -502,7 +502,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_BUNNY_AFTER_THREESOME"><![CDATA[
 	<p>
 		The two sisters collapse down onto the bed in front of you, panting and sighing with exhaustion.
@@ -532,7 +532,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_LOPPY"><![CDATA[
 	<p>
 		As you step inside this bedroom, you see that it's actually occupied, unlike most of the other rooms in Angel's Kiss.
@@ -582,7 +582,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_LOPPY_REPEAT"><![CDATA[
 	<p>
 		Once again, you find yourself stepping into Loppy's bedroom.
@@ -599,7 +599,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_LOPPY_SEX"><![CDATA[
 	<p>
 		You hand over two-thousand flames to Loppy, who cries out in excitement as she sees that you're here for sex,
@@ -611,7 +611,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_LOPPY_SEX_SUBMISSIVE"><![CDATA[
 	<p>
 		You hand over two-thousand five-hundred flames to Loppy, who, instead of giggling in excitement as you anticipated, calmly places the money to one side, before grinning.
@@ -627,7 +627,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_LOPPY_DECLINE"><![CDATA[
 	<p>
 		[pc.speech(Sorry, Loppy, I don't have time right now, but I might be back later,)]
@@ -640,7 +640,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_LOPPY_THREESOME"><![CDATA[
 	<p>
 		[pc.speech(How about you run and fetch your sister,)]
@@ -655,7 +655,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_LOPPY_THREESOME_BUNNY_NOT_INTRODUCED"><![CDATA[
 	<p>
 		You're not kept waiting for long, and after less than two minutes, Loppy bounds back into the room.
@@ -674,7 +674,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_LOPPY_THREESOME_BUNNY_INTRODUCED"><![CDATA[
 	<p>
 		You're not kept waiting for long, and after less than two minutes, Loppy bounds back into the room.
@@ -689,7 +689,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_LOPPY_AFTER_SEX"><![CDATA[
 	<p>
 		Loppy collapses down onto her bed, panting heavily.
@@ -702,7 +702,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_LOPPY_AFTER_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		Loppy collapses down onto her bed, letting out a happy little sigh,
@@ -716,7 +716,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="BEDROOM_LOPPY_AFTER_THREESOME"><![CDATA[
 	<p>
 		The two sisters collapse down onto the bed in front of you, panting and sighing with exhaustion.
@@ -746,7 +746,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE"><![CDATA[
 	<p>
 		The door to Angel's office is wide open, and a little sign outside her door reads: <i>'For all Administrative Enquiries, please knock and enter!'</i>
@@ -818,7 +818,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE_CONTINUE"><![CDATA[
 	<p>
 		You could ask Angel about the laws regarding prostitution in Dominion, or perhaps you could ask her about her past.
@@ -826,7 +826,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE_REPEAT"><![CDATA[
 	<p>
 		Once again, you find that the door to Angel's office is wide open, and the familiar little sign hanging outside her door still reads: <i>'For all Administrative Enquiries, please knock and enter!'</i>
@@ -845,7 +845,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE_REPEAT_WITH_LICENSE"><![CDATA[
 	<p>
 		Once again, you find that the door to Angel's office is wide open, and the familiar little sign hanging outside her door still reads: <i>'For all Administrative Enquiries, please knock and enter!'</i>
@@ -863,7 +863,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE_PROSTITUTION"><![CDATA[
 	<p>
 		Wanting to know a little more about prostitution in Dominion, you ask,
@@ -893,7 +893,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE_BACKGROUND"><![CDATA[
 	<p>
 		[pc.speech(I was wondering if I could ask you a personal question,)]
@@ -933,7 +933,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFICE_LICENSE_PURCHASE"><![CDATA[
 	<p>
 		Producing five-thousand flames, you place them on the desk in front of Angel.
@@ -959,5 +959,5 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 </dialogue>

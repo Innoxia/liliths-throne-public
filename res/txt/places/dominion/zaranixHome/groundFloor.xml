@@ -28,7 +28,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OUTSIDE_REPEAT_HOSTILE_MAIDS"><![CDATA[
 	<p>
 		As Zaranix's demonic maids are sure to recognise you on sight, you decide that knocking on the door would be an extremely bad idea.
@@ -36,7 +36,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OUTSIDE_REPEAT_NON_HOSTILE_MAIDS"><![CDATA[
 	<p>
 		Then again, you could always just knock on the door like a regular visitor.
@@ -44,7 +44,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR"><![CDATA[
 	<p>
 		You decide that the most appropriate course of action is to simply knock on the door and ask to see Arthur.
@@ -67,7 +67,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_REPEAT"><![CDATA[
 	<p>
 		You decide to try knocking on the door again.
@@ -84,7 +84,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_SLAMMED_IN_FACE"><![CDATA[
 	<p>
 		You step back just in time to avoid the door slamming into your face.
@@ -92,7 +92,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_WRONG_HOUSE"><![CDATA[
 	<p>
 		Deciding that it would be best not to reveal your intentions to someone such as this, you tell the rude succubus that you must have got the wrong house.
@@ -101,7 +101,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_ASK_FOR_ARTHUR"><![CDATA[
 	<p>
 		[pc.speech(I'm here to see Zaranix; he's got a slave by the name of Arthur who I need to talk to,)]
@@ -115,7 +115,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG"><![CDATA[
 	<p>
 		Doing the first thing that comes to your mind, you drop down onto your knees and look up at the inhospitable maid.
@@ -139,7 +139,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG_REFUSE"><![CDATA[
 	<p>
 		The thought of licking someone else's shoes is too much for you.
@@ -148,7 +148,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG_RELUCTANT_LICK"><![CDATA[
 	<p>
 		Not seeing any alternative, you hesitantly drop down onto all fours as the maid commands.
@@ -207,7 +207,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG_EAGER_LICK"><![CDATA[
 	<p>
 		Eager to show your submission to the dominant maid, you immediately drop down on all fours as she commands.
@@ -254,7 +254,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG_WAITING"><![CDATA[
 	<p>
 		You remain still as Amber steps back and slams the door in your face, leaving you down on all fours outside Zaranix's home.
@@ -275,7 +275,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG_EAGER_LICK_SOLES"><![CDATA[
 	<p>
 		You can't help but feel like you haven't done a good enough job, and before Amber can step back, you drop your head to the ground and try to lick at the sides of her shoe's soles.
@@ -327,7 +327,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="MEETING_ZARANIX"><![CDATA[
 	<p>
 		Wasting no time, Amber clicks her fingers once more, pointing down at her side as she motions for you to follow her on all fours.
@@ -363,7 +363,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="MEETING_ZARANIX_SIT_FLOOR"><![CDATA[
 	<p>
 		[pc.speech(Yes, Mistress Amber!)] you say, quickly crawling over to the spot that the succubus is pointing at, before sitting down and waiting for her next command.
@@ -395,7 +395,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="MEETING_ZARANIX_SIT_SOFA"><![CDATA[
 	<p>
 		[pc.speech(I'd rather sit down if I'm going to meet Zaranix,)] you say, quickly standing up and disobediently taking a seat on one of the sofas.
@@ -427,7 +427,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="MEETING_ZARANIX_HOLD_BACK"><![CDATA[
 	<p>
 		[pc.speech([pc.Name],)] you reply, seeing no harm in giving Zaranix your first name, even though you're not planning on telling him everything.
@@ -482,7 +482,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="MEETING_ZARANIX_EXPLAIN_EVERYTHING"><![CDATA[
 	<p>
 		[pc.speech([pc.fullName],)]
@@ -522,7 +522,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="MEETING_ZARANIX_ARTHUR"><![CDATA[
 	<p>
 		[arthur.speech(Alright, alright! Bloody hell, Amber, would it kill for you to learn some manners?)]
@@ -571,7 +571,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="MEETING_ZARANIX_ARTHUR_REFUSE_SEX"><![CDATA[
 	<p>
 		You're not really too keen on performing any sexual acts with Zaranix or Amber, and so you quickly stand up, before stepping over towards the door.
@@ -601,7 +601,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="MEETING_ZARANIX_ARTHUR_THANK_ZARANIX"><![CDATA[
 	<p>
 		You weren't really expecting it to be so easy to convince Zaranix to part with Arthur, and, feeling more than a little grateful for how reasonable he's been, you decide that you'd better repay him.
@@ -629,7 +629,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="MEETING_ZARANIX_ARTHUR_THANK_AMBER"><![CDATA[
 	<p>
 		Although Zaranix was ultimately the one responsible for freeing Arthur, you feel like you owe his maid, Amber, a debt of gratitude for allowing you to meet with him in the first place.
@@ -670,7 +670,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_THANKING_ZARANIX"><![CDATA[
 	<p>
 		Amber pulls you back from Zaranix's lap, grinning down at you.
@@ -699,7 +699,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_THANKING_AMBER"><![CDATA[
 	<p>
 		Amber pulls back from you, letting out a little laugh, as she delivers one last slap to your exposed ass.
@@ -729,7 +729,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRANCE_KICK_DOWN_DOOR"><![CDATA[
 	<p>
 		Glancing around to make sure there aren't any enforcers nearby, you walk up to the front door of Zaranix's home.
@@ -750,7 +750,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRANCE_KICK_DOWN_DOOR_MAIDS_MET"><![CDATA[
 	<p>
 		Before you have the chance to take any action, the fiery-haired succubus maid who answered the door to you enters the hall.
@@ -762,7 +762,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRANCE_KICK_DOWN_DOOR_MAIDS_NOT_MET"><![CDATA[
 	<p>
 		Before you have the chance to take any action, one of the most striking succubi you've ever seen, who you assume to be 'Mistress Amber', enters the hall.
@@ -779,11 +779,11 @@
 	</p>
 	]]>
 	</htmlContent>
-	
-	
-	
+
+
+
 	<!-- PLACE TILES -->
-	
+
 	<htmlContent tag="ENTRANCE"><![CDATA[
 	<p>
 		The entrance hall to Zaranix's home, while nothing compared to that of Lilaya's, is nonetheless very impressive.
@@ -795,7 +795,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRANCE_AMBER_PRESENT"><![CDATA[
 	<p><i>
 		Amber is slumped down against one wall, and you see her hand furiously pumping away between her legs.
@@ -803,7 +803,7 @@
 	</i></p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRANCE_AMBER_SEX"><![CDATA[
 	<p>
 		It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Amber.
@@ -816,7 +816,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRANCE_AMBER_SEX_SUBMIT"><![CDATA[
 	<p>
 		Despite her current state, you find yourself incredibly turned on by Amber's dominant, fiery personality.
@@ -833,7 +833,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="STAIRS"><![CDATA[
 	<p>
 		Before you, a wide, red-carpeted staircase leads up to the first floor of Zaranix's house.
@@ -848,7 +848,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="STAIRS_KATHERINE_NOT_SUBDUED"><![CDATA[
 	<p>
 		[style.italicsBad(You can hear the faint sound of humming coming from down the corridor to your right, and you realise that one of Zaranix's maids must be busy cleaning down there!
@@ -856,14 +856,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="CORRIDOR"><![CDATA[
 	<p>
 		You find yourself comparing the corridors of Zaranix's home to those of Lilaya's. While they're just as well-furnished as those of your aunt's house, being home to numerous fine paintings, cushioned chairs, and well-crafted cabinets, they're not quite as wide nor high. Where once you might have been deeply impressed by the extravagant luxury of this incubus's mansion, you now find yourself thinking that it's not quite as grand as the one you live in.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="CORRIDOR_KATHERINE_NOT_SUBDUED"><![CDATA[
 	<p>
 		[style.italicsBad(You can hear the faint sound of humming coming from further down the corridor, and you realise that one of Zaranix's maids must be busy cleaning down there!
@@ -871,7 +871,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GARDEN_ENTRY"><![CDATA[
 	<p>
 		A gravel path snakes through the entirety of Zaranix's garden, but, finding that the stones crunch loudly underfoot, you opt to walk on the small grass verge instead so as to remain as quiet as possible.
@@ -889,7 +889,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GARDEN"><![CDATA[
 	<p>
 		A gravel path snakes through the entirety of Zaranix's garden, but, finding that the stones crunch loudly underfoot, you opt to walk on the small grass verge instead so as to remain as quiet as possible.
@@ -903,7 +903,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GARDEN_ROOM"><![CDATA[
 	<p>
 		Connected to the garden by means of a pair of sliding glass doors, the room you find yourself standing in appears to be some sort of utility room.
@@ -914,16 +914,16 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GARDEN_ROOM_KATHERINE_NOT_SUBDUED"><![CDATA[
 	<p>
 		[style.italicsBad(You can hear the faint sound of humming coming from the other side of the wooden door, and you realise that one of Zaranix's maids must be out there cleaning the corridor!
 		 If you wanted to avoid confrontation, it would be best to head back out into the garden and look for another way in.)]
 	</p>
-	
+
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="CORRIDOR_MAID_KATHERINE_SUBDUED"><![CDATA[
 	<p>
 		The ivory-skinned succubus, Katherine, is slumped down against the wall.
@@ -934,7 +934,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="CORRIDOR_MAID_KATHERINE_ENCOUNTER"><![CDATA[
 	<p>
 		As you walk down the corridor, an ivory-skinned succubus, wearing a light pink maid's uniform, suddenly stands up from behind a cabinet.
@@ -957,7 +957,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="CORRIDOR_MAID_KATHERINE_ENCOUNTER_REPEAT"><![CDATA[
 	<p>
 		As you walk down the corridor, an ivory-skinned succubus, wearing a light pink maid's uniform, suddenly stands up from behind a cabinet.
@@ -972,7 +972,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="CORRIDOR_MAID_KATHERINE_SEX"><![CDATA[
 	<p>
 		It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Katherine.
@@ -985,7 +985,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="CORRIDOR_MAID_KATHERINE_SEX_SUBMIT"><![CDATA[
 	<p>
 		Not willing to take the dominant role, but with a deep desire to have sex with the now-very-horny succubus, you walk up to where Katherine's collapsed against the wall, and sigh,
@@ -1001,14 +1001,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ROOM"><![CDATA[
 	<p>
 		The door to this room is locked, and there's no sound of anyone within. Knowing that it's sure to just be a dull and uninteresting dead-end, you decide against trying to force the door open, and turn around to continue on your exploration of Zaranix's home.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_EMPTY"><![CDATA[
 	<p>
 		You find yourself standing in Zaranix's grand drawing room. Several sofas and chairs are tastefully arranged around a low table in the centre of the room, while numerous bookcases and cabinets line the floral-wallpapered walls. The high ceiling is home to an exceptionally extravagant chandelier, while the floor underfoot is covered in thick, cream-coloured carpet.
@@ -1018,7 +1018,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_SUBDUED"><![CDATA[
 	<p>
 		You find yourself standing in Zaranix's grand drawing room.
@@ -1033,7 +1033,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_PRESENT_ALREADY_MET"><![CDATA[
 	<p>
 		Carefully opening a heavy oaken door, you find yourself stepping into a grand drawing room.
@@ -1042,7 +1042,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_PRESENT_ALREADY_MET_KNOWS_NAME"><![CDATA[
 	<p>
 		The features of this room aren't quite the focus of your attention, however, as near the right-hand wall you see the back of Amber, the succubus maid who you've fought here before.
@@ -1051,7 +1051,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_PRESENT_ALREADY_MET_DOES_NOT_KNOW_NAME"><![CDATA[
 	<p>
 		The features of this room aren't quite the focus of your attention, however, as near the right-hand wall you see the back of the same amber-haired succubus who answered the front door.
@@ -1060,7 +1060,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_PRESENT"><![CDATA[
 	<p>
 		Carefully opening a heavy oaken door, you find yourself stepping into a grand drawing room.
@@ -1078,7 +1078,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_SEX"><![CDATA[
 	<p>
 		It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Amber.
@@ -1091,7 +1091,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_SEX_SUBMIT"><![CDATA[
 	<p>
 		Despite her current state, you find yourself incredibly turned on by Amber's dominant, fiery personality.
@@ -1108,7 +1108,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_GREETING"><![CDATA[
 	<p>
 		Deciding that you'd like to say hello to the succubus, you begin to walk towards her.
@@ -1118,10 +1118,10 @@
 	<p>
 		Having mistaken you for one of the other household maids, Amber turns around to face you.
 		 As she sees who you really are, her sentence is suddenly cut off, and an angry scowl covers her face.
-		 Her eyes, glowing amber just like her hair, lock onto yours, and she shouts, 
+		 Her eyes, glowing amber just like her hair, lock onto yours, and she shouts,
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_GREETING_ALREADY_FOUGHT"><![CDATA[
 		[amber.speech(You again?! How the fuck did you get in here?! You're in big trouble now!)]
 	</p>
@@ -1130,7 +1130,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_GREETING_NEVER_FOUGHT"><![CDATA[
 		[amber.speech(Who the fuck are you?! How the fuck did you get in here?! Whoever you are, you're in big trouble now!)]
 	</p>

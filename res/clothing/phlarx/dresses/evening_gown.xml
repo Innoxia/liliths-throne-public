@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <clothing>
-	
+
 	<coreAtributes>
 		<clothingAuthorTag><![CDATA[A tag discreetly sewn into the dress's inner lining informs you that it was made by 'Phlarx'.]]></clothingAuthorTag>
-		<value>1000</value> 
+		<value>1000</value>
 		<determiner><![CDATA[an]]></determiner>
 		<name><![CDATA[evening gown]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[evening gowns]]></namePlural> 
-		<description><![CDATA[An elegant evening gown, perfect for dinner parties with the social elite.]]></description> 
-		<physicalResistance>1</physicalResistance> 
-		<femininity>FEMININE</femininity> 
-		<slot>TORSO_UNDER</slot> 
-		<rarity>COMMON</rarity> 
-		<clothingSet/> 
-		<imageName>evening_gown.svg</imageName> 
-		<imageEquippedName/> 
+		<namePlural pluralByDefault="false"><![CDATA[evening gowns]]></namePlural>
+		<description><![CDATA[An elegant evening gown, perfect for dinner parties with the social elite.]]></description>
+		<physicalResistance>1</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>TORSO_UNDER</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>evening_gown.svg</imageName>
+		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>
-		
-		<blockedPartsList> 	
+
+		<blockedPartsList>
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired/>
-				<blockedBodyParts> 
+				<blockedBodyParts>
 					<bodyPart>BREASTS</bodyPart>
 					<bodyPart>NIPPLES</bodyPart>
 					<bodyPart>STOMACH</bodyPart>
 					<bodyPart>BACK</bodyPart>
 				</blockedBodyParts>
-				<clothingAccessBlocked> 
+				<clothingAccessBlocked>
 					<clothingAccess>WAIST</clothingAccess>
 					<clothingAccess>CHEST</clothingAccess>
 				</clothingAccessBlocked>
 
-				<concealedSlots values="CONCEALED_PARTIAL_TORSO"> 
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO">
 				</concealedSlots>
 			</blockedParts>
-			
+
 			<blockedParts>
 				<displacementType>PULLS_UP</displacementType>
 				<clothingAccessRequired/>
@@ -66,23 +66,23 @@
 				</concealedSlots>
 			</blockedParts>
 		</blockedPartsList>
-		
-		<incompatibleSlots/> 
-		
-		<primaryColours values="ALL"/> 
+
+		<incompatibleSlots/>
+
+		<primaryColours values="ALL"/>
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours/>
 		<secondaryColoursDye/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
-		
-		<itemTags> 
+
+		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
 			<tag>DRESS</tag>
 		</itemTags>
 	</coreAtributes>
 
-	
+
 	<displacementText type="REMOVE_OR_EQUIP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(unzip)] the back of [npc.her] evening gown, letting it fall to [npc.her] feet.]]>
@@ -107,7 +107,7 @@
 		</otherRough>
 	</replacementText>
 
-	
+
 	<displacementText type="PULLS_UP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc.her] evening gown.]]>
@@ -119,7 +119,7 @@
 		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] up the skirt of [npc2.namePos] evening gown.]]>
 		</otherRough>
 	</displacementText>
-	
+
 	<replacementText type="PULLS_UP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(pull)] down the skirt of [npc.her] evening gown.]]>

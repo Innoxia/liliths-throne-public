@@ -13,7 +13,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_EXTERIOR_REPEAT"><![CDATA[
 	<p>
 		You find yourself standing before one of the largest frontages in the Shopping Arcade.
@@ -26,7 +26,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_ENTRY"><![CDATA[
 	<p>
 		Pushing open the door, you step into the gym's lobby, where you're immediately greeted by an extremely energetic dog-girl.
@@ -42,7 +42,7 @@
 	</p>
 	<p>
 		[pix.speech(Wohoo! So, you've decided to come get fit, huh, huh, huh?)]
-		 she asks, but before you can reply, she continues speaking, 
+		 she asks, but before you can reply, she continues speaking,
 		[pix.speech(So don't just stand there! Oh, I'm Pix by the way! Come on, I'll give you a tour!)]
 	</p>
 	<p>
@@ -51,7 +51,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_ENTRY_REPEAT"><![CDATA[
 	<p>
 		Pushing open the door, you step into the gym's lobby, where you're immediately greeted by Pix, who's looking as energetic as ever.
@@ -74,7 +74,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_EXIT"><![CDATA[
 	<p>
 		You quickly shout to Pix that you don't have time for her tour right now, but you might come back later.
@@ -83,7 +83,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_FOLLOW"><![CDATA[
 	<p>
 		You decide to follow the excitable dog-girl, and hurry to catch up with her as she sets off.
@@ -120,7 +120,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_RETURNING"><![CDATA[
 	<p>
 		You make your way over to where the city gym is located.
@@ -132,7 +132,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_RETURNING_MEMBER"><![CDATA[
 	<p>
 		You start to greet the energetic dog-girl, but, once again, she immediately cuts you off.
@@ -140,7 +140,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_RETURNING_NOT_MEMBER"><![CDATA[
 	<p>
 		You start to greet the energetic dog-girl, but, once again, she immediately cuts you off.
@@ -148,7 +148,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_SINGLE_PAYMENT"><![CDATA[
 	<p>
 		You tell Pix that you just want to pay for a single entry today, and, handing over one-hundred flames, she smiles at you and lets you enter.
@@ -163,7 +163,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_LIFETIME_PAYMENT"><![CDATA[
 	<p>
 		You tell Pix that you want to sign up for a lifetime membership.
@@ -191,7 +191,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_MEMBER_ENTER"><![CDATA[
 	<p>
 		You make your way over to where the city gym is located.
@@ -211,7 +211,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_CARDIO"><![CDATA[
 	<p>
 		You head over to the cardio section of the gym and spend some time warming up before using the running and cycling machines.
@@ -220,7 +220,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_WEIGHTS"><![CDATA[
 	<p>
 		You head over to the free weights section of the gym and spend some time warming up before using the equipment.
@@ -229,28 +229,28 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_EXHAUSTED"><![CDATA[
 	<p>
 		You feel completely exhausted, and are far too tired to do any more exercise.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_POST_WORKOUT_MEMBER"><![CDATA[
 	<p>
 		You feel as though you have enough energy left to do another workout if you wanted to, but you're too tired to do Pix's intense routine.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_POST_WORKOUT"><![CDATA[
 	<p>
 		You feel as though you have enough energy left to do another workout if you wanted to.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_TRAINING"><![CDATA[
 	<p>
 		You look over to where Pix is trying, very badly, to act nonchalant as she watches you.
@@ -261,7 +261,7 @@
 		 she squeals, obviously extremely pleased that you've asked her to come over.
 	</p>
 	<p>
-		You start to say that you'd like her to show you a good routine to follow, but before you're even halfway through your first sentence, she hastily interrupts you in her eagerness to respond, 
+		You start to say that you'd like her to show you a good routine to follow, but before you're even halfway through your first sentence, she hastily interrupts you in her eagerness to respond,
 		[pix.speech(Wohoo! So, like, you want to have a good workout, huh?! Let's start over here!)]
 	</p>
 	<p>
@@ -279,7 +279,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_TRAINING_CARDIO"><![CDATA[
 	<p>
 		[pix.speech(Come on now! No slacking!)]
@@ -309,7 +309,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_TRAINING_FINISH"><![CDATA[
 	<p>
 		As you exercise, Pix uses the opportunity to check you out, making inappropriate comments every now and then about the state of your body.
@@ -330,7 +330,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_ASSAULT"><![CDATA[
 	<p>
 		Heading off into the changing rooms, a wave of exhaustion suddenly crashes over you.
@@ -348,7 +348,7 @@
 		 Facing the wall, you don't even have the chance to spot her approach, or to see the predatory grin that she fails to conceal upon sighting your naked body.
 		 In fact, you're completely oblivious to Pix's presence, right up until the moment she pounces forwards and pins you up against the wall.
 	</p>
-		
+
 	<p>
 		You start to let out a yell in surprise, but the dog-girl quickly clasps a paw-like hand over your mouth as she leans in, pressing her naked body against yours as she growls in your ear,
 		 [pix.speech(Haha! So, like, were you trying to avoid me or something?!
@@ -359,28 +359,28 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_ASSAULT_EXHAUSTED"><![CDATA[
 	<p>
 		[style.italicsBad(You are completely exhausted from Pix's exercise routine, which, looking back at it, might have been exactly what she was after all this time...)]
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_ASSAULT_WEAKER"><![CDATA[
 	<p>
 		[style.italicsGood(As you decided to hold back a little, you think you have enough energy to break free, but, seeing as Pix is stronger and fitter than you, you don't think you could turn the tables on her...)]
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_ASSAULT_STRONGER"><![CDATA[
 	<p>
 		[style.italicsExcellent(As you decided to hold back a little, you think you have enough energy to break free, and, seeing as you're stronger and fitter than Pix, you think you could even turn the tables on her...)]
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_ASSAULT_TOO_TIRED"><![CDATA[
 	<p>
 		You're far too tired to do any more physical exercise right now, and tell Pix as such,
@@ -404,7 +404,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_ASSAULT_OFFER_SEX"><![CDATA[
 	<p>
 		As tired as you are, Pix turns you on far too much to refuse her advances, and you turn your head to one side as you eagerly respond,
@@ -428,7 +428,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_ASSAULT_ACCEPT_PUNISHMENT"><![CDATA[
 	<p>
 		You don't want Pix to think that you've been avoiding her, and you turn your head to one side as you apologise,
@@ -452,7 +452,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_ASSAULT_TURN_TABLES"><![CDATA[
 	<p>
 		Summoning the energy that you've saved by holding back during Pix's exercise, you push yourself off from the shower wall, causing Pix to stumble backwards.
@@ -470,7 +470,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="PIX_BREAK_FREE"><![CDATA[
 	<p>
 		Summoning the energy that you've saved by holding back during Pix's exercise, you push yourself off from the shower wall, causing Pix to stumble backwards.
@@ -491,7 +491,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="PIX_POST_SEX_TABLES_TURNED"><![CDATA[
 	<p>
 		Hooking your arms under Pix's, you drag the exhausted dog-girl out from the showers, and into the changing rooms.
@@ -505,7 +505,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="PIX_POST_SEX"><![CDATA[
 	<p>
 		Pix hooks her arms under yours and drags your almost-comatose body out from the showers.
@@ -524,7 +524,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_ASSAULT_CONSENSUAL"><![CDATA[
 	<p>
 		Heading off into the changing rooms, a wave of exhaustion suddenly crashes over you.
@@ -547,7 +547,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_ASSAULT_CONSENSUAL_START"><![CDATA[
 	<p>
 		As tired as you are, Pix's offer seems too good to turn down, and you turn your head to one side as you eagerly respond,
@@ -565,7 +565,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GYM_PIX_ASSAULT_CONSENSUAL_DECLINED"><![CDATA[
 	<p>
 		You're far too tired for any more physical exercise right now, and tell Pix as such,
@@ -585,7 +585,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="PIX_POST_SEX_CONSENSUAL"><![CDATA[
 	<p>
 		Pix hooks her arms under yours and helps you to stagger out from the showers.
@@ -604,7 +604,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
-	
-	
+
+
+
 </dialogue>

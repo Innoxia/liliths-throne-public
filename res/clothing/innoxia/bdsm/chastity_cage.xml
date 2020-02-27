@@ -18,8 +18,8 @@
 	<clothingSet>BDSM</clothingSet>
     <imageEquippedName/>
     <enchantmentLimit/>
-	
-	<effects> 
+
+	<effects>
 		<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_DRAIN" primaryModifier="CLOTHING_SEALING" secondaryModifier="ARCANE_BOOST" timer="0"/>
 		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
 	</effects>

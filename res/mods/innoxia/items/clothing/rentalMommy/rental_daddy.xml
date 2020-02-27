@@ -90,7 +90,7 @@
       <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] T-shirt.]]>
     </otherRough>
   </displacementText>
-	
+
   <replacementText type="PULLS_UP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] T-shirt back down, covering [npc.her] torso.]]>
@@ -114,5 +114,5 @@
       <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] T-shirt up to just below [npc2.her] chin, fully exposing [npc2.her] torso.]]>
     </otherRough>
   </displacementText>
-	
+
 </clothing>

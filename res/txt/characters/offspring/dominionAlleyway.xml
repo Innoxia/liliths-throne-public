@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER"><![CDATA[
 	#VAR
 		var affection = npc.getAffection(pc);
@@ -9,7 +9,7 @@
 		var playerPregnant = pc.isVisiblyPregnant();
 		var reactedToPlayerPregnancy = pc.isCharacterReactedToPregnancy(npc);
 	#ENDVAR
-	
+
 	#IF(!npc.hasFlag(NPC_FLAG_flagOffspringIntroduced))
 		<p>
 			In stark contrast to Dominion's bustling, ever-busy streets, the city's back alleys are all but completely deserted. Most likely due to their deserved reputation as being the dangerous home to muggers and rapists, you find that most of your time travelling through these twisting, labyrinthine passageways is spent in complete isolation. As you turn the next corner, however, your solitary journey is interrupted, as up ahead you see [npc.a_fullRace(true)] leaning back against one of the alley's walls.
@@ -191,12 +191,12 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_GREETING"><![CDATA[
 	#VAR
 		var pcIsMother = npc.getMother()!=null && npc.getMother().isPlayer();
 	#ENDVAR
-		
+
 	#IF(!npc.hasFlag(NPC_FLAG_flagOffspringIntroduced))
 		<p>
 			You're the first to recover from the shock of your surprise meeting, and, stepping forwards, you greet your [npc.daughter],
@@ -228,12 +228,12 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_HUG"><![CDATA[
 	#VAR
 		var pcIsMother = npc.getMother()!=null && npc.getMother().isPlayer();
 	#ENDVAR
-		
+
 	#IF(!npc.hasFlag(NPC_FLAG_flagOffspringIntroduced))
 		<p>
 			You're the first to recover from the shock of your surprise meeting, and, stepping forwards, you wrap your [pc.arms] around your [npc.daughter], before pulling [npc.herHim] into a loving hug. [npc.She] returns your embrace, hugging you close to [npc.her] warm body as you both share a happy moment, before breaking away from each other. Looking into [npc.her] [npc.eyes+], you greet your [npc.daughter] for the first time,
@@ -265,12 +265,12 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_KISS"><![CDATA[
 	#VAR
 		var pcIsMother = npc.getMother()!=null && npc.getMother().isPlayer();
 	#ENDVAR
-		
+
 	#IF(!npc.hasFlag(NPC_FLAG_flagOffspringIntroduced))
 		<p>
 			You're the first to recover from the shock of your surprise meeting, and, stepping forwards, you wrap your [pc.arms] around your [npc.daughter], before planting a wet kiss on [npc.her] cheek and pulling [npc.herHim] into a loving hug. [npc.She] returns your embrace, hugging you close to [npc.her] warm body as you both share a happy moment, before breaking away from each other. Looking into [npc.her] [npc.eyes+], you greet your [npc.daughter] for the first time,
@@ -302,7 +302,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_PASSIONATE_KISS"><![CDATA[
 	#IF(!npc.hasFlag(NPC_FLAG_flagOffspringIntroduced))
 		#IF(npc.isAttractedTo(pc))
@@ -393,7 +393,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_SCOLDING"><![CDATA[
 	#IF(!npc.hasFlag(NPC_FLAG_flagOffspringIntroduced))
 		#IF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE)
@@ -472,7 +472,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_LEAVE"><![CDATA[
 	#VAR
 		var affection = npc.getAffection(pc);
@@ -559,7 +559,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_APOLOGY"><![CDATA[
 	<p>
 		#IF(npc.hasFlag(NPC_FLAG_flagOffspringFightApologyNeeded) && npc.hasFlag(NPC_FLAG_flagOffspringRapeApologyNeeded))
@@ -572,7 +572,7 @@
 			Deciding that you need to apologise for treating your [npc.daughter] so poorly, you step forwards and start to speak, [pc.speech([npc.Name], I really am sorry for the way I've treated you. I know I've done some bad things, but please believe me when I say that I'm truly sorry.)]
 		#ENDIF
 	</p>
-		
+
 	#IF(npc.isExtroverted() || npc.isNeurotic())
 		<p>
 			[npc.Name] turns towards you and puts [npc.her] [npc.hands] on [npc.her] [npc.hips]. [npc.speech(You're damn right you're sorry! And you're going to need to say more than that if you want me to forgive you!)]
@@ -608,7 +608,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_FIGHT"><![CDATA[
 	<p>
 		Just because [npc.sheIs] your [npc.daughter], that doesn't mean [npc.sheIs] any better than the rest of the low-lifes inhabiting these alleyways. Lowering into a combat stance, you grin at [npc.name]. [pc.speech(No [npc.daughter] of mine is going to live like this and expect not to be punished! I'm going to teach you a lesson!)]
@@ -624,7 +624,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_TALKING"><![CDATA[
 	#IF(!npc.hasFlag(NPC_FLAG_flagOffspringApartmentIntroduced))
 	<p>
@@ -671,7 +671,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_TALKING_OUT_OF_TIME"><![CDATA[
 	<p>
 		[npc.Name] has been glancing at the clock on the wall for the last few minutes, and as you finish what you were talking about, [npc.she] stands up. [npc.speech(Sorry, [npc.pcName], I really need to be getting on now...)]
@@ -684,7 +684,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_TALKING_INVENTORY"><![CDATA[
 	<p>
 		You shuffle a bit closer to [npc.name], and [npc.she] looks up at you expectantly as [npc.she] asks, [npc.speech(What is it, [npc.pcName]?)]
@@ -697,7 +697,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_TALKING_LEAVE"><![CDATA[
 	<p>
 		As you finish what you were talking about, you glance up at the clock on the wall, letting out a little gasp as you see what the time is. [pc.speech(Sorry, [npc.name], I really need to be getting on now...)]
@@ -710,7 +710,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_BACKGROUND"><![CDATA[
 	<p>
 		Deciding that you'd like to get to know [npc.name] a little better, you ask [npc.herHim] about how [npc.sheIs] doing, [pc.speech(Tell me about your life! How's everything going for you right now?)]
@@ -756,7 +756,7 @@
 			<p>
 				From [npc.her] blase attitude, you can tell that [npc.she] has absolutely no qualms about beating people up and stealing their money. Before you can offer a response, [npc.she] continues, [npc.speech(So yeah, everything's pretty good for me at the moment. Sure, the location of this place could be better, but it's nice enough!)]
 			</p>
-			
+
 		#ELSE
 			<p>
 				[npc.She] leans back on the sofa and smiles. [npc.speech(Well, you know, there's always <i>someone</i> who's... erm... intruding on my territory, so I never have any problems with money. I mean, Dominion's alleys are known to be dangerous, so why would they be here if they didn't want to get robbed?)]
@@ -781,12 +781,12 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_SMALL_TALK"><![CDATA[
 	#VAR
 		var affection = npc.getAffection(pc);
 	#ENDVAR
-		
+
 	<p>
 		You start to talk with [npc.name] about all sorts of unimportant things, ranging from the recent weather you've been having, to the state of Dominion's streets and alleyways. Talking to your [npc.daughter] fills you with a deep sense of calm and happiness, and every time [npc.she] smiles and offers [npc.her] opinion on something, you listen with rapt attention to every word that comes out of [npc.her] mouth.
 	</p>
@@ -815,7 +815,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_ENCOURAGE"><![CDATA[
 	<p>
 		Thinking that it must be hard for [npc.name] to make a living out here in Dominion's alleyways, you decide to offer [npc.her] some words of encouragement,
@@ -842,7 +842,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_SEX"><![CDATA[
 	<p>
 		From the moment you entered [npc.namePos] apartment, you haven't been able to take your [pc.eyes] off of [npc.herHim]. The fact that [npc.sheIs] your [npc.daughter] is only serving to make you even more aroused, and as [npc.she] smiles #IF(npc.isFeminine())sweetly#ELSEcharmingly#ENDIF at you once more, you can't help but act.
@@ -885,11 +885,11 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_SCOLD"><![CDATA[
 	<p>
 		Unimpressed by [npc.namePos] method of making a living, you decide to scold [npc.her] in the hopes that [npc.she]'ll change [npc.her] ways,
-		#IF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE) 
+		#IF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE)
 			 [pc.speech(I really don't want my [npc.daughter] working as a prostitute. You need to start thinking about getting a real job, [npc.name]!)]
 		#ELSE
 			 [pc.speech(I really don't want my [npc.daughter] out there in Dominion's alleyways mugging people. You need to start thinking about getting a real job, [npc.name]!)]
@@ -912,7 +912,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_PRESENT"><![CDATA[
 	<p>
 		Deciding that it would be nice to give your [npc.daughter] a present this Yuletide, you hold out the gift towards [npc.herHim]. [pc.speech(This is for you, [npc.name]. Happy Yuletide!)]
@@ -928,7 +928,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_ENCOUNTER_APARTMENT_FIGHT"><![CDATA[
 	<p>
 		Deciding that [npc.name] needs to be taught a lesson, you get up off the sofa and step towards [npc.herHim]. [pc.speech(No [npc.daughter] of mine is going to live like this and expect not to be punished! It's time that I put you in your place!)]
@@ -942,7 +942,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY"><![CDATA[
 	#IF(npc.isAttractedTo(pc) || !game.isNonConEnabled())
 		<p>
@@ -961,7 +961,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_APOLOGISE"><![CDATA[
 	<p>
 		Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you're suddenly overcome with regret, and, kneeling down next to [npc.herHim], you pull [npc.herHim] into a loving hug. Leaning in over [npc.her] shoulder as you press yourself to [npc.herHim], you apologise for what you've done, [pc.speech([npc.Name], I'm so sorry! I don't know what came over me! Please forgive me!)]
@@ -977,7 +977,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX"><![CDATA[
 	<p>
 		Reaching down to take hold of one of [npc.namePos] [npc.arms], you pull [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards. Tilting your head to one side, you press your [pc.lips+] against [npc.hers] and start passionately thrusting your [pc.tongue+] into [npc.her] mouth.
@@ -987,7 +987,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_RAPE"><![CDATA[
 	<p>
 		Reaching down, you grab [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]. Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace.
@@ -997,7 +997,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
 	<p>
 		Reaching down to take hold of one of [npc.namePos] [npc.arms], you gently lift [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards. Tilting your head to one side, you softly press your [pc.lips+] against [npc.hers] and start slowly thrusting your [pc.tongue+] into [npc.her] mouth.
@@ -1007,7 +1007,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_RAPE_GENTLE"><![CDATA[
 	<p>
 		Reaching down, you take hold of [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]. Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace.
@@ -1017,7 +1017,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
 	<p>
 		Reaching down to take hold of one of [npc.namePos] [npc.arms], you roughly yank [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards. Tilting your head to one side, you greedily press your [pc.lips+] against [npc.hers] and start dominantly thrusting your [pc.tongue+] into [npc.her] mouth.
@@ -1027,7 +1027,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_RAPE_ROUGH"><![CDATA[
 	<p>
 		Reaching down, you grab [npc.namePos] [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]. Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace.
@@ -1037,7 +1037,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_SUBMIT"><![CDATA[
 	<p>
 		Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you're suddenly overcome with regret, and, kneeling down next to [npc.herHim], you pull [npc.herHim] into a loving hug. Leaning in over [npc.her] shoulder as you press yourself to [npc.herHim], you apologise for what you've done, [pc.speech([npc.Name], I'm so sorry! I don't know what came over me! Please forgive me!)]
@@ -1056,7 +1056,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_REMOVE_CHARACTER"><![CDATA[
 	#IF(npc.hasFlag(NPC_FLAG_fightOffspringInApartment))
 		<p>
@@ -1081,7 +1081,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_LEAVE"><![CDATA[
 	<p>
 		[pc.speech(I hope you've learned your lesson,)] you say, speaking down to your [npc.daughter] as [npc.she] shuffles about on the floor. [pc.speech(Maybe I'll come and visit you another time, but I need to be going now.)]
@@ -1091,7 +1091,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_DEFEAT"><![CDATA[
 	#IF(npc.isAttractedTo(pc) && game.isIncestEnabled())
 		<p>
@@ -1125,7 +1125,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
 	<p>
 		[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you. Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss...
@@ -1135,7 +1135,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
 	<p>
 		[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you. Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss...
@@ -1145,7 +1145,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX_RESIST"><![CDATA[
 	<p>
 		[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss. Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop. Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go...
@@ -1155,7 +1155,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_CONSENSUAL"><![CDATA[
 	#IF(npc.isSatisfiedFromLastSex())
 		<p>
@@ -1174,7 +1174,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_VICTORY"><![CDATA[
 	#IF(npc.hasFlag(NPC_FLAG_fightOffspringInApartment))
 		#IF(!npc.isAttractedTo(pc) && game.isNonConEnabled())
@@ -1219,7 +1219,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_VICTORY_LEAVING"><![CDATA[
 	<p>
 	#IF(npc.hasFlag(NPC_FLAG_fightOffspringInApartment))
@@ -1246,7 +1246,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_VICTORY_REMOVE_CHARACTER"><![CDATA[
 	#IF(npc.hasFlag(NPC_FLAG_fightOffspringInApartment))
 		<p>
@@ -1271,7 +1271,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_DEFEAT"><![CDATA[
 	#IF(npc.hasFlag(NPC_FLAG_fightOffspringInApartment))
 		<p>
@@ -1299,7 +1299,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_OFFER_ROOM"><![CDATA[
 	#VAR
 		var affection = npc.getAffection(pc);
@@ -1389,7 +1389,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OFFSPRING_OFFER_ROOM_BACK_HOME"><![CDATA[
 	<p>
 		It doesn't take long for you and your [npc.relation(pc)] to arrive at [npc.her] new room, and after you've opened the door and lead [npc.her] inside, you turn to [npc.name] and say, [pc.speech(This is your room now, so please make yourself feel at home. You've got an en suite bathroom over there, and if you put your dirty clothes in the laundry basket, they'll be cleaned for you for the next day. You can leave all of your worries behind, now that you're living here with me.)]
@@ -1411,5 +1411,5 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 </dialogue>

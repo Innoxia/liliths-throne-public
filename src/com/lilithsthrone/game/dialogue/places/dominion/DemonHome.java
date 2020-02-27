@@ -22,14 +22,14 @@ import com.lilithsthrone.world.Weather;
  * @author Innoxia
  */
 public class DemonHome {
-	
+
 	public static final DialogueNode DEMON_HOME_GATE = new DialogueNode("Demon Home (Gates)", "Demon Home", false) {
-		
+
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
 		}
-		
+
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -43,7 +43,7 @@ public class DemonHome {
 						+ "As you walk forwards to pass through the gates, you see one of these demonic guards staring at you."
 						+ " Ignoring their penetrating gaze, you stride forwards, breathing a sigh of relief as you get through to the other side without being stopped."
 					+ "</p>");
-			
+
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
@@ -70,7 +70,7 @@ public class DemonHome {
 						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
 					+ "</p>");
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -79,14 +79,14 @@ public class DemonHome {
 			return null;
 		}
 	};
-	
+
 	public static final DialogueNode DEMON_HOME_STREET = new DialogueNode("Demon Home", "Demon Home", false) {
-		
+
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
 		}
-		
+
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -102,7 +102,7 @@ public class DemonHome {
 						+ " Despite the fact that Demon Home is a little quieter than most of the other areas of Dominion, you notice that there are slightly more enforcers patrolling the streets;"
 									+ " evidence that the wealthy and influential residents of the city are afforded extra protection."
 					+ "</p>");
-			
+
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
@@ -129,7 +129,7 @@ public class DemonHome {
 						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
 					+ "</p>");
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -138,14 +138,14 @@ public class DemonHome {
 			return null;
 		}
 	};
-	
+
 	public static final DialogueNode DEMON_HOME_STREET_ARTHUR = new DialogueNode("Demon Home", "Demon Home", false) {
-		
+
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
 		}
-		
+
 		@Override
 		public String getContent() {
 			return DEMON_HOME_STREET.getContent();
@@ -156,10 +156,10 @@ public class DemonHome {
 			if (index == 1) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME) {
 					return new Response("Arthur's Apartment", "Find Arthur's apartment using the instructions Lilaya gave to you.", DEMON_HOME_ARTHURS_APARTMENT);
-					
+
 				} else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
 					return new Response("Arthur's Apartment", "Head over to Arthur's apartment building.", DEMON_HOME_ARTHURS_APARTMENT);
-					
+
 				} else {
 					return null;
 				}
@@ -167,7 +167,7 @@ public class DemonHome {
 			} else if (index == 2) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_H_THE_GREAT_ESCAPE) {
 					return new Response("Zaranix's Home", "A little way down the road from Arthur's apartment building stands the home of Zaranix; the demon that Scarlett told you about.", ZaranixHomeGroundFloor.OUTSIDE);
-					
+
 				} else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 					return new Response("Zaranix's Home", "Pay Zaranix another visit.", ZaranixHomeGroundFloorRepeat.OUTSIDE);
 				}
@@ -185,7 +185,7 @@ public class DemonHome {
 		public int getSecondsPassed() {
 			return 2*60;
 		}
-		
+
 		@Override
 		public String getLabel() {
 			return "Arthur's Apartment Building";
@@ -222,21 +222,21 @@ public class DemonHome {
 							}
 						}
 					};
-					
+
 				} else {
 					return null;
 				}
-				
+
 			} else if (index == 2) {
 				if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
 					return new Response("Felicity's room", "Head up to Felicity's room.", DEMON_HOME_ARTHURS_APARTMENT_FELICITYS_ROOM);
 				} else {
 					return null;
 				}
-				
+
 			} else if (index == 0) {
 				return new Response("Leave", "Leave the building and head back out into Demon Home.", DEMON_HOME_STREET_ARTHUR);
-				
+
 			} else {
 				return null;
 			}
@@ -244,7 +244,7 @@ public class DemonHome {
 	};
 
 	public static final DialogueNode DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM = new DialogueNode("", "-", true) {
-		
+
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
@@ -315,12 +315,12 @@ public class DemonHome {
 					+ " You couldn't help but notice that Felicity seemed to be glancing hungrily at your body the whole time she was talking to you, and you wonder if you should pay her a visit sometime later..."
 					+ "</p>";
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.", DEMON_HOME_STREET_ARTHUR);
-				
+
 			} else {
 				return null;
 			}
@@ -334,7 +334,7 @@ public class DemonHome {
 		public int getSecondsPassed() {
 			return 2*60;
 		}
-		
+
 		@Override
 		public String getLabel() {
 			return "Felicity's Room";
@@ -351,7 +351,7 @@ public class DemonHome {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Leave", "You've done all you can here. Head back outside to Demon Home.<br/>" + "<b>There is no further content for Felicity in this version.</b>", DEMON_HOME_STREET_ARTHUR);
-				
+
 			} else {
 				return null;
 			}

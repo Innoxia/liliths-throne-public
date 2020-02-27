@@ -7,14 +7,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_REPEAT_INTRO"><![CDATA[
 	<p>
 		Knowing that [npc.name(a)] is prowling around this area, you make sure to stay on high alert, carefully checking each and every dark corner and recess as you walk through the twisting passages. Just as you suspected, as you cautiously pass an inset doorway, a shadowy figure leaps out, blocking your path! You instantly recognise the [npc.fullRace(true)], and you jump back into a fighting stance as you expect this encounter to be much the same as the last one.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_REPEAT_PREGNANCY_REVEAL"><![CDATA[
 	<p>
 		As [npc.she] steps out from the shadows, however, you notice that there's definitely something different about [npc.herHim] this time. The consequence of ejaculating inside of [npc.herHim] is staring you right in the face, and you gulp as you see [npc.herHim] pointing down at [npc.her] [style.colourSex(pregnant belly)].
@@ -51,7 +51,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_REPEAT_STILL_PREGNANT"><![CDATA[
 	<p>
 		#IF npc.getPregnantLitter().isFatherId(pc.getId())
@@ -73,7 +73,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_REPEAT_PLAYER_PREGNANCY"><![CDATA[
 	<p>
 		#IF pc.getPregnantLitter().isFatherId(npc.getId())
@@ -91,7 +91,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_REPEAT_CONTINUED_PLAYER_PREGNANCY"><![CDATA[
 	<p>
 		#IF pc.getPregnantLitter().isFatherId(npc.getId())
@@ -103,14 +103,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_REPEAT"><![CDATA[
 	<p>
-		[npc.speech(You again?!)] [npc.she] shouts. [npc.speech(This'll be a lot easier if you just give up right now!)] 
+		[npc.speech(You again?!)] [npc.she] shouts. [npc.speech(This'll be a lot easier if you just give up right now!)]
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_REPEAT_END"><![CDATA[
 	<p>
 		#IF npc.isAttractedTo(pc)
@@ -126,7 +126,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_CANAL_INTRO"><![CDATA[
 	<p>
 		Knowing that [npc.name] calls this area [npc.her] home, you make sure to stay on the lookout for [npc.herHim] as you wander down the track that runs alongside Dominion's canal. Just as you suspected, as you pass a collection of leafy bushes growing on one side of the path, you see a familiar figure leaning against a brick wall up ahead.
@@ -136,7 +136,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_INTRO"><![CDATA[
 	<p>
 		Knowing that [npc.name(a)] is prowling around this area, you make sure to stay on high alert, carefully checking each and every dark corner and recess as you walk through the twisting passages. Just as you suspected, as you cautiously pass an inset doorway, a shadowy figure leaps out, blocking your path!
@@ -146,7 +146,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_PREGNANCY_REVEAL"><![CDATA[
 	#IF npc.getPregnantLitter().isFatherId(pc.getId())
 	#THEN
@@ -164,7 +164,7 @@
 			</p>
 		#ELSE
 			<p>
-				[npc.speech(Yeah, before you ask, it was you. You got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that you're the father of [npc.her] children. 
+				[npc.speech(Yeah, before you ask, it was you. You got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that you're the father of [npc.her] children.
 					#IF npc.isAttractedTo(pc)
 					#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
 					#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
@@ -186,7 +186,7 @@
 			</p>
 		#ELSE
 			<p>
-				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFather().getName()]. They got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that your old companion is the father of [npc.her] children. 
+				[npc.speech(Yeah, before you ask, it was [#npc.getPregnantLitter().getFather().getName()]. They got me knocked up...)] [npc.she] explains, shuffling [npc.her] feet as [npc.she] confirms that your old companion is the father of [npc.her] children.
 					#IF npc.isAttractedTo(pc)
 					#THEN [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too! And, well, even though I'm pregnant, I'm still getting really horny, so if you've got a thing for pregnant [npc.girl]s, then just say the word...)]
 					#ELSE [npc.speech(If you wanted to take responsibility, then some flames would always be appreciated. Then again, if you wanted to spend some time with me, that'd be great too!)])
@@ -196,7 +196,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_STILL_PREGNANT"><![CDATA[
 	<p>
 		#IF npc.getPregnantLitter().isFatherId(pc.getId())
@@ -234,7 +234,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_PLAYER_PREGNANCY"><![CDATA[
 	#IF pc.getPregnantLitter().isFatherId(npc.getId())
 	#THEN
@@ -254,7 +254,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_CONTINUED_PLAYER_PREGNANCY"><![CDATA[
 	#IF pc.getPregnantLitter().isFatherId(npc.getId())
 	#THEN
@@ -274,21 +274,21 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL"><![CDATA[
 	<p>
 		Stepping forwards, you greet [npc.herHim], [pc.speech(Hi, [npc.name]. I hope you've been taking care of yourself, and not causing too much trouble.)]
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_END"><![CDATA[
 	<p>
 		The two of you spend the next couple of minutes talking with one another, but your conversation is nothing more than idle chatter, and you quickly find yourself ready to move on. Then again, you could spend some time talking with [npc.name], in order to get to know [npc.herHim] a little better. You could also offer [npc.herHim] some money to help [npc.herHim] out, or, if you were feeling like this has gone far enough, you could always betray [npc.her] trust and attack [npc.herHim]...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_SEX_AS_DOM"><![CDATA[
 	<p>
 		[npc.Name] is quite clearly attracted to you, and, as you're harbouring similar feelings towards [npc.herHim], you step forwards and take hold of [npc.her] [npc.hips]. [pc.speech(I know what you really want, [npc.name]. There's no use denying it, I've noticed the lust in your [npc.eyes]...)]
@@ -298,7 +298,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_PEACEFUL_SEX_AS_SUB"><![CDATA[
 	<p>
 		[npc.Name] is quite clearly attracted to you, and, as you're harbouring similar feelings towards [npc.herHim], you step forwards and tease, [pc.speech(I know what you really want, [npc.name]. All you have to do is come and take it...)]
@@ -308,7 +308,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_PEACEFUL_TALK"><![CDATA[
 	#IF npc.getAffection(pc)<20
 	#THEN
@@ -424,7 +424,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_PEACEFUL_OFFER_MONEY"><![CDATA[
 	<p>
 		Knowing that [npc.name] could always use some money with which to buy [npc.herself] food and clothing, you step forwards and hold out some flames. [pc.speech(I'm worried that you're not getting enough to eat. Here you go, you should buy yourself something good with this.)]
@@ -443,7 +443,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_PEACEFUL_ATTACK"><![CDATA[
 	<p>
 		Having had enough of this joke of a friendship between you and [npc.name], you step forwards and sneer, [pc.speech(You know, I never really expected much of you, being the worthless trash that you are, yet somehow I'm still disappointed by how pathetic you are.)]
@@ -465,7 +465,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_TALK"><![CDATA[
 	<p>
 		As you look down at the defeated form of the [npc.race] before you, you can't help but feel sorry for [npc.herHim]. After all, [npc.she] must really have been desperate to have attacked you like this, and is undoubtedly the victim of unfortunate circumstances. Taking a step back to show [npc.herHim] that you're no further threat, you say, [pc.speech(Don't worry, I'm not going to do anything to you. I just want to know why you attacked me like that.)]
@@ -508,21 +508,21 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION"><![CDATA[
 	<p style='text-align:center;'>
 		[style.italicsGood(You know [npc.name] well enough now to feel comfortable with inviting [npc.herHim] to come and live with you. You'd need to get Lilaya's permission first, however...)]
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_PEACEFUL_CAN_INVITE_HOME"><![CDATA[
 	<p style='text-align:center;'>
 		[style.italicsExcellent(You know [npc.name] well enough now to feel comfortable with inviting [npc.herHim] to come and live with you.)]
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_PEACEFUL_OFFER_ROOM"><![CDATA[
 	<p>
 		Having spent a good amount of time building up the level of trust between you and [npc.name], you feel as though your relationship is now at the point where it would be acceptable to offer [npc.herHim] your help in escaping [npc.her] life of crime. Smiling fondly at your friend, you ask, [pc.speech([npc.Name], I've been wanting to ask you something for a while now... After seeing how hard is it for you to live like this, I wanted to offer you a room in the place where I live. So, do you want to move in with me?)]
@@ -568,7 +568,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_PEACEFUL_OFFER_ROOM_BACK_HOME"><![CDATA[
 	<p>
 		After just a minute, you find yourself opening the door to [npc.namePos] new room, and, leading [npc.herHim] inside, you turn towards [npc.herHim] and tell [npc.herHim] that this is it, [pc.speech(Well, this is your room, [npc.name]. I hope it's alright. You've got an en suite bathroom over here, and if you put your dirty clothes in the laundry basket, they'll be cleaned for you for the next day.)]
@@ -593,7 +593,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_PEACEFUL"><![CDATA[
 	<p>
 		Both you and [npc.name] let out a happy sigh as the two of you step back from one another. Looking into your [pc.eyes], the [npc.race] smiles and says, [npc.speech(That was great... Thanks [pc.name], I really needed that.)]
@@ -603,7 +603,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_PEACEFUL_NO_ORGASM"><![CDATA[
 	<p>
 		Both you and [npc.name] let out a sigh as the two of you step back from one another. Looking into your [pc.eyes], the [npc.race] pouts and says, [npc.speech(That was fun, but you didn't exactly satisfy me... Oh well, it was still nice sharing that time with you, [pc.name].)]
@@ -613,22 +613,22 @@
 	</p>
 	]]>
 	</htmlContent>
-	
-	
+
+
 	<htmlContent tag="ALLEY_ATTACK_CANAL_INTRO"><![CDATA[
 	<p>
 		You find yourself wandering down the track that runs alongside Dominion's canal. As you walk past a collection of leafy bushes growing on one side of the path, a shadowy figure suddenly leaps out, blocking your path.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_INTRO"><![CDATA[
 	<p>
 		You find yourself walking down yet another narrow passage, lined by a series of inset doorways. As you're passing one such recess, a figure suddenly jumps out from the shadows, blocking your path.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK"><![CDATA[
 	<p>
 		You leap back, narrowly avoiding a blow aimed at your stomach, and prepare yourself for a fight. Looking up, you see [npc.a_fullRace(true)] grinning devilishly at you.
@@ -650,7 +650,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_PAY_OFF"><![CDATA[
 	<p>
 		#IF pc.isNeurotic()
@@ -683,7 +683,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALLEY_ATTACK_OFFER_BODY"><![CDATA[
 	<p>
 		Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of, and flash a seductive smile at [npc.name]. [pc.speech(There's no need to fight. If you're looking for a bit of fun, all you have to do is ask...)]
@@ -699,7 +699,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="STORM_ATTACK"><![CDATA[
 	<p>
 		You find yourself walking down the deserted streets of Dominion, the eerie silence broken only by the occasional crash of arcane thunder high above you. There are many hiding places for a would-be attacker to conceal themselves in, and as you pass one such place, taking the form of a building's shadowy doorway, a figure suddenly leaps out at you. Thankfully, as you were taking care to be alert, you quickly step backwards and manage to avoid a punch aimed at your stomach.
@@ -719,7 +719,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="STORM_ATTACK_OFFER_BODY"><![CDATA[
 	<p>
 		Wanting to avoid a fight, you decide to give [npc.name] what [npc.she] wants. Flashing a seductive smile [npc.her] way, you [pc.moan], [pc.speech(Come on then, I'm all yours!)]
@@ -732,7 +732,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_ATTRACTION"><![CDATA[
 	<p>
 		[npc.Name] collapses to the floor, completely defeated. As [npc.she] gazes up at you, desperately whimpering and biting [npc.her] [npc.lip], you see that [npc.she] still has a hungry, lustful look in [npc.her] [npc.eyes]. In defeat, [npc.namePos] arcane aura is completely overwhelmed by the power of your own, and, unable to control [npc.her] burning desire, [npc.she] reaches down to [npc.her] crotch and starts stroking [npc.herself], making pitiful little whining noises as [npc.she] squirms on the floor.
@@ -745,7 +745,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_BETRAYED"><![CDATA[
 	<p>
 		[npc.Name] collapses to the floor, completely defeated. [npc.She] glances up at you for a moment, before casting [npc.her] gaze to the floor, and in that brief moment, you see that all of the hope and energy in [npc.namePos] face has totally vanished. Making a pitiful little whining noise, [npc.she] then bursts into tears, sobbing and wailing for a moment before wiping [npc.her] [npc.eyes] and looking up at you.
@@ -761,7 +761,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_NO_ATTRACTION"><![CDATA[
 	<p>
 		[npc.Name] collapses to the floor, completely defeated. [npc.She] glances up at you for a moment, before casting [npc.her] gaze to the floor, and in that brief moment, you see that there's a desperate look of regret in [npc.her] [npc.eyes]. Making pitiful little whining noises, [npc.she] tries to shuffle away from you, clearly worried about what your intentions are.
@@ -774,7 +774,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX"><![CDATA[
 	<p>
 		Deciding to give [npc.name] what it is [npc.she] so desperately craves, you step up to [npc.herHim], before reaching down to take hold of [npc.her] [npc.arm] and pulling [npc.herHim] to [npc.her] [npc.feet]. The moment [npc.she] finds [npc.herself] standing, [npc.name] leans in against you, [npc.moaning], [npc.speech(~Mmm!~ Yes! Take me! Take me now!)]
@@ -787,7 +787,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
 	<p>
 		Deciding to give [npc.name] what it is [npc.she] so desperately craves, you step up to [npc.herHim], before reaching down to take hold of [npc.her] [npc.hand]. WIth a disarming smile, you help to pull [npc.herHim] to [npc.her] [npc.feet], and the moment [npc.she] finds [npc.herself] standing, [npc.name] leans in against you, [npc.moaning], [npc.speech(~Mmm!~ Yes! Take me! Take me now!)]
@@ -800,7 +800,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
 	<p>
 		Deciding to give [npc.name] what it is [npc.she] so desperately craves, you step up to [npc.herHim], before reaching down to grab hold of [npc.her] [npc.arm] and yank [npc.herHim] to [npc.her] [npc.feet]. The moment [npc.she] finds [npc.herself] standing, [npc.name] leans in against you, [npc.moaning], [npc.speech(~Mmm!~ Yes! Take me! Take me now!)]
@@ -816,7 +816,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
 	<p>
 		You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]. Leaning down, you do the first thing that comes into your mind, and start apologising, [pc.speech(Sorry... I was just trying to defend myself, you know... Erm... Is there anything I can do to make it up to you?)]
@@ -832,7 +832,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_BANISH_NPC"><![CDATA[
 	<p>
 		Disgusted by the fact that this [npc.race] is assaulting innocent travellers, you step forwards, and, frowning down at [npc.herHim], you state, [pc.speech(I don't want to ever catch you doing this again. The next time I see you, I'll be with the Enforcers, and you can find out for yourself how they'll deal with you.)]
@@ -851,28 +851,28 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_RAPE"><![CDATA[
 	<p>
 		Reaching down, you grab [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]. Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_RAPE_GENTLE"><![CDATA[
 	<p>
 		Reaching down, you take hold of [npc.namePos] [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]. Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_VICTORY_RAPE_ROUGH"><![CDATA[
 	<p>
 		Reaching down, you grab [npc.namePos] [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]. Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_TF_FINISHED"><![CDATA[
 	<p>
 		You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated. A mocking laugh causes you to look up, and you see [npc.name] grinning down at you.
@@ -888,7 +888,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_TF"><![CDATA[
 	<p>
 		You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated. A mocking laugh causes you to look up, and you see [npc.name] grinning down at you.
@@ -907,7 +907,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_NO_TF_ATTRACTED"><![CDATA[
 	<p>
 		You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated. A mocking laugh causes you to look up, and you see [npc.name] grinning down at you.
@@ -923,7 +923,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_NO_TF_NOT_ATTRACTED"><![CDATA[
 	<p>
 		You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated. A mocking laugh causes you to look up, and you see [npc.name] grinning down at you.
@@ -939,7 +939,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_BETRAYED"><![CDATA[
 	<p>
 		You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated. A pitiful whine causes you to look up, and you see tears starting to fill [npc.namePos] [npc.eyes] as [npc.she] looks down at you.
@@ -958,28 +958,28 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX"><![CDATA[
 	<p>
 		[npc.NamePos] [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away. Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.sheIs] probably not going to be content with just a kiss...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
 	<p>
 		[npc.NamePos] [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you. Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.sheIs] going to want more than just a kiss...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_DEFEAT_SEX_RESIST"><![CDATA[
 	<p>
 		[npc.NamePos] [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss. Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop. Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.sheIs] not going to let you go...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_TRANSFORMATION_REFUSED_ATTRACTED"><![CDATA[
 	<p>
 		Despite [npc.namePos] best efforts, you manage to twist your head to one side and spit the strange fluid out onto the floor. Your response is met by an anguished groan from your assailant, and, turning your head back up to look at them once more, you see them snarling down angrily at you, [npc.speech(You <i>[pc.bitch]</i>! Do you know how much that cost me?!)]
@@ -989,7 +989,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_TRANSFORMATION_REFUSED_NOT_ATTRACTED"><![CDATA[
 	<p>
 		Despite [npc.namePos] best efforts, you manage to twist your head to one side and spit the strange fluid out onto the floor. Your response is met by an anguished groan from your assailant, and, turning your head back up to look at them once more, you see them snarling down angrily at you, [npc.speech(You <i>[pc.bitch]</i>! Do you know how much that cost me?!)]
@@ -1005,14 +1005,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_TRANSFORMATION_ATTRACTED"><![CDATA[
 	<p>
 		As you struggle to recover from your transformation, [npc.name] pulls you to your [pc.feet], before pressing [npc.herself] against you and forcing you into a wet kiss. You're powerless to resist [npc.her] advances, and as [npc.her] [npc.hands] reach around to give your [pc.ass+] a squeeze, [npc.she] laughs, [npc.speech(I'll turn you into my perfect little [npc.preferredBody(b)]! Now for the real fun!)]
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_COMBAT_TRANSFORMATION_NOT_ATTRACTED"><![CDATA[
 	<p>
 		As you struggle to recover from your transformation, [npc.name] pulls you to your [pc.feet], before pushing you against a nearby wall and demanding that you hand over your money. Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more.
@@ -1025,14 +1025,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_VICTORY_RAPE"><![CDATA[
 	<p>
 		As you step back from [npc.name], [npc.she] sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished. [npc.She] starts frantically gathering [npc.her] belongings, obviously quite keen to make [npc.her] exit before you decide to do anything else...
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_VICTORY_RAPE_BETRAYED"><![CDATA[
 	#IF game.isNonConEnabled()
 	#THEN
@@ -1051,22 +1051,22 @@
 		</p>
 	#ENDIF
 	]]>
-	</htmlContent>	
-	
+	</htmlContent>
+
 	<htmlContent tag="AFTER_SEX_VICTORY"><![CDATA[
 	<p>
 		As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm. Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_VICTORY_NO_ORGASM"><![CDATA[
 	<p>
 		As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished. [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_SEX_DEFEAT"><![CDATA[
 	<p>
 		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you. [npc.She] looks down at you, and you glance up to see a very satisfied smile cross [npc.her] face. [npc.She] leans down and pats you on the head. [npc.speech(We should do this again some time!)]
@@ -1076,5 +1076,5 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 </dialogue>

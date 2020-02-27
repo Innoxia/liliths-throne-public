@@ -4422,7 +4422,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	/**
-	 * Called when the player does something in relation to the value and it's important to the NPC. Override for custom behavior.
+	 * Called when the player does something in relation to the value and it's important to the NPC. Override for custom behaviour.
 	 * @param source
 	 * @param moral
 	 * @param power

@@ -6,29 +6,29 @@
 		<name><![CDATA[shin guard]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[shin guards]]></namePlural>
 		<description><![CDATA[A pair of protective shin guards, designed to protect the lower half of the wearer's legs from physical blows.]]></description>
-		<physicalResistance>3</physicalResistance> 
-		<femininity>ANDROGYNOUS</femininity> 
-		<slot>ANKLE</slot> 
-		<rarity>COMMON</rarity> 
-		<clothingSet/> 
+		<physicalResistance>3</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>ANKLE</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
 		<imageName>shin_guards.svg</imageName>
 		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>
-		<blockedPartsList> 
+		<blockedPartsList>
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				<clothingAccessRequired> 
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
 					<clothingAccess>CALVES</clothingAccess>
 				</clothingAccessRequired>
 				<blockedBodyParts/>
-				<clothingAccessBlocked> 
+				<clothingAccessBlocked>
 					<clothingAccess>CALVES</clothingAccess>
 				</clothingAccessBlocked>
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-		<incompatibleSlots/> 
+		<incompatibleSlots/>
 		<primaryColours>
 			<colour>CLOTHING_BLACK</colour>
 		</primaryColours>
@@ -45,7 +45,7 @@
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
-		<itemTags> 
+		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>
@@ -73,5 +73,5 @@
       <![CDATA[[npc.Name] quickly [npc.verb(unfasten)] [npc2.namePos] shin guards, before roughly snatching them off.]]>
     </otherRough>
   </displacementText>
-	
+
 </clothing>

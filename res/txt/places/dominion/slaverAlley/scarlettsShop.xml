@@ -13,7 +13,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SCARLETTS_SHOP_INTRO"><![CDATA[
 	<p>
 		Pushing open the door, you find that the shop's interior is just as bare as you feared. There isn't a single slave for sale in sight, and the only sign of life is a rather defeated-looking harpy slouched down at the shop's front desk.
@@ -26,7 +26,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SCARLETTS_SHOP"><![CDATA[
 	<p>
 		Pushing open the door, you find that the shop's interior is just as bare as you feared. There isn't a single slave for sale in sight, and the only sign of life is a rather defeated-looking harpy slouched down at the shop's front desk.
@@ -39,7 +39,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SCARLETT_IS_A_BITCH"><![CDATA[
 	<p>
 		Letting out a defeated sigh as you wonder why everything has to be so difficult, you walk towards the front desk where Scarlett is sitting.
@@ -73,7 +73,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SCARLETT_IS_A_SUPER_BITCH"><![CDATA[
 	<p>
 		Deciding to just agree with the insufferable harpy for now, you respond, [pc.speech(Fine, I'll do it, but you'd better keep your end of the bargain here. When I get back, you're going to tell me exactly what's happened to Arthur, ok?)]
@@ -86,7 +86,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALEXAS_SHOP_EXTERIOR_ALEXA_RETURNS"><![CDATA[
 	<p>
 		Once again, you find yourself standing before Scarlett's shop, but this time, you notice that the surrounding area is a lot quieter than usual. As you walk towards the front entrance, you pass a couple of wolf-girls as they hurry past the shop, and you can't help but overhear a snippet of their whispered conversation, [npcFemale.speech(...I'm telling you, it's <i>the</i> Alexa in there! Hurry up, before she sees us!)]
@@ -99,7 +99,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALEXAS_SHOP_EXTERIOR"><![CDATA[
 	<p>
 		Once again, you find yourself standing in the quiet area in front of Scarlett's old shop. Stepping forwards, you see that the fancy gold lettering reading 'Scarlett's shop; open for business' has been roughly crossed out in red paint, and beneath, in the same scarlet hue, you read the words 'Alexa's Pet Shop'.
@@ -109,7 +109,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALEXAS_SHOP_INTRODUCTION"><![CDATA[
 	<p>
 		Pushing open the front door, you're greeted by the familiar, beautiful figure of Alexa sitting down behind the shop's counter. She throws you a delighted smile as you step inside the shop. [alexa.speech(Ah, it's you again! Please, do come in!)]
@@ -137,7 +137,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALEXAS_SHOP_OFFER_SCARLETT"><![CDATA[
 	<p>
 		Pushing open the front door, you're greeted yet again by the beautiful matriarch, Alexa, sitting down behind the shop's counter. She throws you a warm smile as you step inside the shop. [alexa.speech(Hello again! Are you ready to buy Scarlett yet?)]
@@ -147,14 +147,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALEXAS_SHOP"><![CDATA[
 	<p>
 		Pushing open the front door, you're greeted yet again by the beautiful matriarch, Alexa, sitting down behind the shop's counter. She throws you a warm smile as you step inside the shop. [alexa.speech(Hello again!)]
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALEXAS_SHOP_SCARLETT_FOR_SALE"><![CDATA[
 	<p>
 		[pc.speech(If that's what it takes, I'll buy Scarlett,)] you say.
@@ -197,7 +197,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALEXAS_SHOP_BUYING_SCARLETT"><![CDATA[
 	<p>
 		Walking up to Alexa's desk, you place both your slaver license and the flames down in front of her. [pc.speech(There you go. I'd like to buy Scarlett now please.)]
@@ -216,7 +216,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALEXAS_SHOP_GENTLE"><![CDATA[
 	<p>
 		You lean down and place [pc.a_hand] on Scarlett's shoulder, smiling reassuringly at her as she snaps back round to look up at you.
@@ -253,7 +253,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALEXAS_SHOP_SHOUT"><![CDATA[
 	<p>
 		You step forwards, frowning down angrily at Scarlett as you start to berate her, [pc.speech(You insolent bitch! How <i>dare</i> you?! You're only to speak when spoken to, and if I hear <i>one more</i> insult come out of that filthy mouth of yours, you're going to be sorry!)]
@@ -287,7 +287,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALEXAS_SHOP_SLAP"><![CDATA[
 	<p>
 		You step forwards, before quickly leaning down to deliver a sharp slap across Scarlett's face, [pc.speech(You insolent bitch! How <i>dare</i> you?! You're only to speak when spoken to, and if I hear <i>one more</i> insult come out of that filthy mouth of yours, you're going to be sorry!)]
@@ -321,7 +321,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALEXAS_SHOP_BUYING_SCARLETT_KEEP_HER"><![CDATA[
 	<p>
 		Deciding that you're going to keep Scarlett, you turn towards Alexa. [pc.speech(Can I get Scarlett transferred somewhere? I don't have the time to escort her myself right now.)]
@@ -340,7 +340,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ALEXAS_SHOP_BUYING_SCARLETT_FREE_HER"><![CDATA[
 	<p>
 		Deciding that you're going to free Scarlett, you turn towards Alexa. [pc.speech(Do I need to fill out some kind of form to set Scarlett free? I'm not too keen on owning her...)]
@@ -368,5 +368,5 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 </dialogue>

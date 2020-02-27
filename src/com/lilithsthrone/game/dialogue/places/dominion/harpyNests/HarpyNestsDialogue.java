@@ -22,9 +22,9 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class HarpyNestsDialogue {
-	
+
 	public static final DialogueNode OUTSIDE = new DialogueNode("Harpy Nests", "Harpy Nests", false) {
-		
+
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -58,7 +58,7 @@ public class HarpyNestsDialogue {
 				return new ResponseEffectsOnly("Harpy Nests", "Travel up to the Harpy Nests."){
 					@Override
 					public void effects() {
-						
+
 						if(Main.game.getPlayer().isAbleToFly()) {
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
@@ -70,7 +70,7 @@ public class HarpyNestsDialogue {
 										+ "Looking around, you see that the only exit from the platform is a ramp that leads straight down into the building's top floor, and a sign above the opening reads <i>'Harpy entrance'</i>."
 										+ " Walking down the ramp, you push open a little door and step inside."
 									+ "</p>");
-							
+
 						} else {
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
@@ -86,7 +86,7 @@ public class HarpyNestsDialogue {
 										+ "Quickly lifting you up to the top of the building, the elevator's doors ping open, and you find yourself stepping out into the building's top floor."
 									+ "</p>");
 						}
-						
+
 						Main.mainController.moveGameWorld(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST, true);
 					}
 				};
@@ -96,7 +96,7 @@ public class HarpyNestsDialogue {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode ENTRANCE_ENFORCER_POST = new DialogueNode("Enforcer post", ".", true) {
 
 		@Override
@@ -107,14 +107,14 @@ public class HarpyNestsDialogue {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+"You find yourself standing in yet another large, unpartitioned lobby, but this one has quite a different atmosphere than the one on the ground floor."
 						+ " Everywhere you look, uniformed enforcers are standing guard, carefully tracking each passerby with a suspicious gaze."
 						+ " A large desk, manned by yet more enforcers, sits between you and the door marked <i>'Harpy Nests Entrance'</i>."
 					+ "</p>");
-			
+
 			if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess)) {
 				UtilText.nodeContentSB.append(
 						"<p>"
@@ -131,10 +131,10 @@ public class HarpyNestsDialogue {
 							+ "</p>"
 							:""));
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 		@Override
 		public boolean isTravelDisabled() {
 			return !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess);
@@ -151,14 +151,14 @@ public class HarpyNestsDialogue {
 									"<p>"
 										+ "Stepping back out through the same door you used to enter the enforcer post, you spread your wings and swoop back down to street level."
 									+ "</p>");
-							
+
 						} else {
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "Stepping into the same elevator you used to ride up to the enforcer post, you soon find yourself travelling back down to street level."
 									+ "</p>");
 						}
-						
+
 						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_HARPY_NESTS_ENTRANCE, true);
 					}
 				};
@@ -172,7 +172,7 @@ public class HarpyNestsDialogue {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.getLoreBook(Subspecies.HARPY)), false, true));
 						}
 					};
-					
+
 				} else {
 					return new Response("Request access", "You already have access to the Harpy Nests!", null);
 				}
@@ -185,7 +185,7 @@ public class HarpyNestsDialogue {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_HARPY_PACIFICATION));
 						}
 					};
-					
+
 				} else {
 					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_REWARD && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
 						return new Response("Report back", "Report to the Enforcer that you've calmed the three matriarchs down.", ENTRANCE_ENFORCER_POST_COMPLETED_PACIFICATION) {
@@ -195,7 +195,7 @@ public class HarpyNestsDialogue {
 								Main.game.getPlayer().incrementMoney(5000);
 							}
 						};
-						
+
 					} else if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)){
 						return new Response("Report back", "You haven't calmed the three matriarchs down yet!", null);
 					} else {
@@ -208,7 +208,7 @@ public class HarpyNestsDialogue {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode ENTRANCE_ENFORCER_POST_ASK_FOR_ACCESS = new DialogueNode("Enforcer post", ".", true) {
 
 		@Override
@@ -266,7 +266,7 @@ public class HarpyNestsDialogue {
 								+ "<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>It's recommended that you be at least level 5 before exploring the Harpy nests!</b>"
 							+ "</p>"
 							:"");
-				
+
 			} else {
 				return "<p>"
 						+"As you approach the desk, one of the enforcers, a lesser cat-boy, catches your eye and calls out to you, "
@@ -315,7 +315,7 @@ public class HarpyNestsDialogue {
 							:"");
 			}
 		}
-		
+
 		@Override
 		public boolean isTravelDisabled() {
 			return !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess);
@@ -326,7 +326,7 @@ public class HarpyNestsDialogue {
 			return ENTRANCE_ENFORCER_POST.getResponse(0, index);
 		}
 	};
-	
+
 	public static final DialogueNode ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS = new DialogueNode("Enforcer post", ".", false) {
 
 		@Override
@@ -401,7 +401,7 @@ public class HarpyNestsDialogue {
 						+ "You hear the horse-boy grunt as he sinks down into his chair, and, closing the door behind you, you walk back out into the Enforcer Post."
 					+ "</p>";
 		}
-		
+
 		@Override
 		public boolean isTravelDisabled() {
 			return !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess);
@@ -412,7 +412,7 @@ public class HarpyNestsDialogue {
 			return ENTRANCE_ENFORCER_POST.getResponse(0, index);
 		}
 	};
-	
+
 	public static final DialogueNode ENTRANCE_ENFORCER_POST_COMPLETED_PACIFICATION = new DialogueNode("Enforcer post", ".", false) {
 
 		@Override
@@ -460,7 +460,7 @@ public class HarpyNestsDialogue {
 						+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>The Harpy Nests are now safe to travel through!</b>"
 					+ "</p>";
 		}
-		
+
 		@Override
 		public boolean isTravelDisabled() {
 			return !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess);
@@ -471,8 +471,8 @@ public class HarpyNestsDialogue {
 			return ENTRANCE_ENFORCER_POST.getResponse(0, index);
 		}
 	};
-	
-	
+
+
 	public static final DialogueNode WALKWAY = new DialogueNode("Walkway", ".", false) {
 
 		@Override
@@ -483,7 +483,7 @@ public class HarpyNestsDialogue {
 		@Override
 		public String getContent() {// if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) TODO Also harpy attack
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "You find yourself walking down a winding, narrow walkway; part of an interconnected system of pathways, stairs, and ladders that have been built into the rooftops of Dominion."
@@ -496,7 +496,7 @@ public class HarpyNestsDialogue {
 						+ " While most are confined to a single building, you see that a few span multiple houses, and have several tiers of platforms built on top of one anther;"
 							+ " evidence that the matriarch of that particular nest is extremely important."
 					+ "</p>");
-			
+
 			switch(Main.game.getCurrentWeather()) {
 				case MAGIC_STORM:
 					UtilText.nodeContentSB.append(
@@ -560,13 +560,13 @@ public class HarpyNestsDialogue {
 										+ " It's probably only a matter of time before one of them decides to openly confront you...")
 							+ "</p>");
 					break;
-			
+
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
@@ -580,7 +580,7 @@ public class HarpyNestsDialogue {
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};
-							
+
 				} else {
 					return new ResponseEffectsOnly(
 							"Explore",
@@ -597,7 +597,7 @@ public class HarpyNestsDialogue {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode WALKWAY_BRIDGE = new DialogueNode("Walkway Bridge", ".", false) {
 
 		@Override
@@ -608,7 +608,7 @@ public class HarpyNestsDialogue {
 		@Override
 		public String getContent() {// if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) TODO Also harpy attack
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "You find yourself walking over a narrow wooden bridge; part of an interconnected system of pathways, stairs, and ladders that have been built into the rooftops of Dominion."
@@ -621,7 +621,7 @@ public class HarpyNestsDialogue {
 						+ " While most are confined to a single building, you see that a few span multiple houses, and have several tiers of platforms built on top of one anther;"
 							+ " evidence that the matriarch of that particular nest is extremely important."
 					+ "</p>");
-			
+
 			switch(Main.game.getCurrentWeather()) {
 				case MAGIC_STORM:
 					UtilText.nodeContentSB.append(
@@ -685,13 +685,13 @@ public class HarpyNestsDialogue {
 										+ " It's probably only a matter of time before one of them decides to openly confront you...")
 							+ "</p>");
 					break;
-			
+
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
@@ -705,7 +705,7 @@ public class HarpyNestsDialogue {
 									Main.game.setContent(new Response("", "", dn));
 								}
 							};
-							
+
 				} else {
 					return new ResponseEffectsOnly(
 							"Explore",
@@ -722,5 +722,5 @@ public class HarpyNestsDialogue {
 			}
 		}
 	};
-	
+
 }

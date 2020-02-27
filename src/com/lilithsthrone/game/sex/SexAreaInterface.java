@@ -9,21 +9,21 @@ import com.lilithsthrone.game.character.body.CoverableArea;
  * @author Innoxia
  */
 public interface SexAreaInterface {
-	
+
 	public boolean isOrifice();
-	
+
 	public CoverableArea getRelatedCoverableArea();
 
 	public String getName(GameCharacter owner);
-	
+
 	public boolean isFree(GameCharacter owner);
 
 	public default boolean isPenetration() {
 		return !isOrifice();
 	}
-	
+
 	public default boolean isPlural() {
 		return false;
 	}
-	
+
 }

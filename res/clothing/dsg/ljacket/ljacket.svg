@@ -774,7 +774,7 @@
    ry="1.401"
    id="ellipse118"
    style="fill:#ff5555;fill-opacity:1;stroke:#000000;stroke-miterlimit:10" />
-	
+
 		<ellipse
    transform="matrix(0.9754,-0.2203,0.2203,0.9754,-30.0773,44.6695)"
    stroke-miterlimit="10"
@@ -784,7 +784,7 @@
    ry="1.505"
    id="ellipse120"
    style="fill:#ff5555;fill-opacity:1;stroke:#000000;stroke-miterlimit:10" />
-	
+
 		<ellipse
    transform="matrix(0.9846,-0.1747,0.1747,0.9846,-26.9419,34.6086)"
    stroke-miterlimit="10"
@@ -794,7 +794,7 @@
    ry="1.513"
    id="ellipse122"
    style="fill:#ff5555;fill-opacity:1;stroke:#000000;stroke-miterlimit:10" />
-	
+
 		<ellipse
    transform="matrix(0.974,-0.2267,0.2267,0.974,-36.7844,46.827)"
    stroke-miterlimit="10"
@@ -804,7 +804,7 @@
    ry="1.545"
    id="ellipse124"
    style="fill:#ff5555;fill-opacity:1;stroke:#000000;stroke-miterlimit:10" />
-	
+
 		<ellipse
    transform="matrix(0.9898,0.1423,-0.1423,0.9898,25.2669,-8.4835)"
    stroke-miterlimit="10"
@@ -814,7 +814,7 @@
    ry="1.288"
    id="ellipse126"
    style="fill:#ff5555;fill-opacity:1;stroke:#000000;stroke-miterlimit:10" />
-	
+
 		<ellipse
    transform="matrix(0.9696,0.2447,-0.2447,0.9696,47.836,-11.3604)"
    stroke-miterlimit="10"
@@ -995,7 +995,7 @@
    id="path177"
    inkscape:connector-curvature="0"
    style="fill:#ffe680;fill-opacity:1;stroke:#000000;stroke-miterlimit:10" />
-	
+
 		<ellipse
    stroke-miterlimit="10"
    cx="115.41"

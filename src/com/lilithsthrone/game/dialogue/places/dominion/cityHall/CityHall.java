@@ -34,11 +34,11 @@ public class CityHall {
 						@Override
 						public void effects() {
 							Main.mainController.moveGameWorld(WorldType.CITY_HALL, PlaceType.CITY_HALL_ENTRANCE, true);
-							
+
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/generic", "ENTRY"));
 						}
 					};
-					
+
 				} else {
 					return new Response("Enter", "Dominion's city hall is currently closed to the public, so if you had any business to conduct, you'll have to return between the hours of nine in the morning, and four in the afternoon.", null);
 				}
@@ -48,7 +48,7 @@ public class CityHall {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode CITY_HALL_FOYER = new DialogueNode("Foyer", "-", false) {
 
 		@Override
@@ -76,85 +76,85 @@ public class CityHall {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode CITY_HALL_INFORMATION_DESK = new DialogueNode("Information Desk", "-", false) {
 
 		@Override
 		public int getSecondsPassed() {
 			return 10;
 		}
-		
+
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/cityHall/generic", "CITY_HALL_INFORMATION_DESK");
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
 				return new Response("Name change", "Ask one of the receptionists about changing your name.", CITY_HALL_INFORMATION_DESK_NAME_CHANGE);
-				
+
 			} else if(index == 2) {
 				return new Response("Property", "Ask one of the receptionists about buying or renting property in Dominion.", CITY_HALL_INFORMATION_DESK_PROPERTY);
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode CITY_HALL_INFORMATION_DESK_NAME_CHANGE = new DialogueNode("Information Desk", "-", false) {
 
 		@Override
 		public int getSecondsPassed() {
 			return 30;
 		}
-		
+
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/cityHall/generic", "CITY_HALL_INFORMATION_DESK_NAME_CHANGE");
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
 				return new Response("Name change", "You've just asked about changing your name.", null);
-				
+
 			} else if(index == 2) {
 				return new Response("Property", "Ask one of the receptionists about buying or renting property in Dominion.", CITY_HALL_INFORMATION_DESK_PROPERTY);
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode CITY_HALL_INFORMATION_DESK_PROPERTY = new DialogueNode("Information Desk", "-", false) {
 
 		@Override
 		public int getSecondsPassed() {
 			return 30;
 		}
-		
+
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/cityHall/generic", "CITY_HALL_INFORMATION_DESK_PROPERTY");
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
 				return new Response("Name change", "Ask one of the receptionists about changing your name.", CITY_HALL_INFORMATION_DESK_NAME_CHANGE);
-				
+
 			} else if(index == 2) {
 				return new Response("Property", "You've just asked about buying or renting property in Dominion.", null);
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode CITY_HALL_CORRIDOR = new DialogueNode("Corridor", "-", false) {
 
 		@Override
@@ -172,7 +172,7 @@ public class CityHall {
 			return null;
 		}
 	};
-	
+
 	public static final DialogueNode CITY_HALL_WAITING_AREA = new DialogueNode("Waiting Room", "-", false) {
 
 		@Override
@@ -190,7 +190,7 @@ public class CityHall {
 			return null;
 		}
 	};
-	
+
 	public static final DialogueNode CITY_HALL_OFFICE = new DialogueNode("Private Office", "-", false) {
 
 		@Override
@@ -208,7 +208,7 @@ public class CityHall {
 			return null;
 		}
 	};
-	
+
 	public static final DialogueNode CITY_HALL_STAIRS = new DialogueNode("Staircase", "-", false) {
 
 		@Override
@@ -226,5 +226,5 @@ public class CityHall {
 			return null;
 		}
 	};
-	
+
 }

@@ -8,18 +8,18 @@
 		<description><![CDATA[A pair of thigh-high socks. They are made from cotton and have an elasticated band at the top in order to keep them in place.]]></description>
 		<physicalResistance>1</physicalResistance>
 		<femininity>FEMININE</femininity>
-		<slot>SOCK</slot> 
+		<slot>SOCK</slot>
 		<rarity>COMMON</rarity>
-		<clothingSet/> 
+		<clothingSet/>
 		<imageName>thighhigh_socks.svg</imageName>
 		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>
-		
+
 		<blockedPartsList>
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				<clothingAccessRequired> 
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
 					<clothingAccess>FEET</clothingAccess>
 					<clothingAccess>CALVES</clothingAccess>
 				</clothingAccessRequired>
@@ -30,17 +30,17 @@
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-		
-		<incompatibleSlots/> 
-		
-		<primaryColours values="ALL"/> 
+
+		<incompatibleSlots/>
+
+		<primaryColours values="ALL"/>
 		<primaryColoursDye/>
 		<secondaryColours/>
 		<secondaryColoursDye/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
-		
-		<itemTags> 
+
+		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>
@@ -68,5 +68,5 @@
       <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] thigh-high socks.]]>
     </otherRough>
   </displacementText>
-	
+
 </clothing>

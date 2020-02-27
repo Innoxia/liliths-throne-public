@@ -3,32 +3,32 @@
 <outfit>
 	<coreAttributes>
 		<name><![CDATA[generic clubber (feminine)]]></name>
-		
+
 		<description><![CDATA[Feminine clubbing clothing.]]></description>
-		
+
 		<femininity>FEMININE</femininity>
-		
+
 		<worldTypes>
 			<world>NIGHTLIFE_CLUB</world>
 		</worldTypes>
-		
+
 		<outfitTypes>
 		  <type>CLUBBING</type>
 		</outfitTypes>
-		
+
 		<acceptableLegConfigurations/>
-		
+
 		<conditional><![CDATA[!npc.hasFetish(FETISH_EXHIBITIONIST) && npc.getAttributeValue(ATTRIBUTE_MAJOR_CORRUPTION)<=25]]></conditional>
-		
+
 		<weight>100</weight>
 	</coreAttributes>
-	
+
 	<generationAttributes>
 		<clothingConditional1 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></clothingConditional1> <!-- is bipedal -->
 		<clothingConditional2 constant="true"><![CDATA[RND.​nextInt(100)<=75]]></clothingConditional2> <!-- dress -->
 		<clothingConditional3 constant="true"><![CDATA[RND.​nextInt(100)<=75]]></clothingConditional3> <!-- skirts -->
 		<clothingConditional4 constant="true"><![CDATA[npc.isArmWings()]]></clothingConditional4> <!-- arm-wings -->
-		
+
 		<presetColourGroup1 singleColour="true"> <!-- Torso -->
 			<randomColour>CLOTHING_BLACK_JET</randomColour>
 			<randomColour>CLOTHING_RED_DARK</randomColour>
@@ -38,23 +38,23 @@
 			<randomColour>CLOTHING_PINK_DARK</randomColour>
 			<randomColour>CLOTHING_PINK_HOT</randomColour>
 		</presetColourGroup1>
-		
+
 		<presetColourGroup2 values="ALL_METAL"/> <!-- Jewellery -->
-		
+
 		<presetColourGroup3 values="LINGERIE" singleColour="true"/> <!-- Lingerie -->
-		
+
 		<presetColourGroup4 values="SHADES_OF_GREY"/> <!-- Skirts -->
-		
+
 		<presetColourGroup5 values="DENIM"/> <!-- Trousers -->
-		
-		
+
+
         <mainWeapons/>
         <offhandWeapons/>
-		
-		
+
+
 		<guaranteedClothingEquips/>
-		
-		
+
+
 		<genericClothingType> <!-- Generic jewellery. -->
 			<itemTags/>
 			<acceptableFemininities>
@@ -70,7 +70,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</genericClothingType>
-		
+
 		<genericClothingType> <!-- Generic hair accessories. -->
 			<itemTags/>
 			<acceptableFemininities>
@@ -84,8 +84,8 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</genericClothingType>
-		
-		
+
+
 		<clothingType>
 			<conditional><![CDATA[clothingConditional1]]></conditional>
 			<types>
@@ -98,7 +98,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[clothingConditional1]]></conditional>
 			<types>
@@ -113,7 +113,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional/>
 			<types>
@@ -128,7 +128,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional/>
 			<types>
@@ -144,7 +144,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[clothingConditional2 && !clothingConditional4]]></conditional>
 			<types>
@@ -174,7 +174,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[!clothingConditional2 && !clothingConditional4]]></conditional>
 			<types>
@@ -205,7 +205,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[!clothingConditional2 && RND.​nextInt(100)<=25]]></conditional>
 			<types>
@@ -216,7 +216,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[!clothingConditional2 && clothingConditional3]]></conditional>
 			<types>
@@ -243,10 +243,10 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
-		
+
+
 		<!--Accessories:-->
-		
+
 		<clothingType> <!-- Glasses. -->
 			<conditional><![CDATA[RND.​nextInt(100)<=5]]></conditional>
 			<types>
@@ -258,7 +258,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType> <!-- Anal toys. -->
 			<conditional><![CDATA[npc.getFetishDesire(FETISH_ANAL_RECEIVING).isPositive()]]></conditional>
 			<types>
@@ -271,7 +271,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType> <!-- Chastity. -->
 			<conditional><![CDATA[npc.hasPenisIgnoreDildo() && npc.getFetishDesire(FETISH_DENIAL_SELF).isPositive()]]></conditional>
 			<types>
@@ -282,7 +282,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[RND.​nextInt(100)<=25]]></conditional>
 			<types>
@@ -294,7 +294,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[npc.hasTail() && RND.​nextInt(100)<=15]]></conditional>
 			<types>
@@ -306,7 +306,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[RND.​nextInt(100)<=80]]></conditional>
 			<types>
@@ -318,7 +318,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[RND.​nextInt(100)<=50]]></conditional>
 			<types>
@@ -329,7 +329,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 		<clothingType>
 			<conditional><![CDATA[RND.​nextInt(100)<=75]]></conditional>
 			<types>
@@ -342,7 +342,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+
 	</generationAttributes>
 
 </outfit>

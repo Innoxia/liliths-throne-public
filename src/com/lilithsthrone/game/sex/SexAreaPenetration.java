@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
  * @author Innoxia
  */
 public enum SexAreaPenetration implements SexAreaInterface {
-	
+
 	PENIS(4, -2f, true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -26,7 +26,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return CoverableArea.PENIS;
 		}
 	},
-	
+
 	CLIT(4, -2f, true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -43,7 +43,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return CoverableArea.VAGINA;
 		}
 	},
-	
+
 	TONGUE(2, 0, false) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -60,7 +60,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return CoverableArea.MOUTH;
 		}
 	},
-	
+
 	FINGER(1, 0, false) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -79,7 +79,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return CoverableArea.NONE;
 		}
 	},
-	
+
 	FOOT(1, 0, false) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -98,7 +98,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return CoverableArea.FEET;
 		}
 	},
-	
+
 	TAIL(2, -1f, true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -115,7 +115,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return CoverableArea.NONE;
 		}
 	},
-	
+
 	TENTACLE(3, -1.5f, true) {
 		@Override
 		public String getName(GameCharacter owner) {
@@ -134,7 +134,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 	};
 
-	
+
 	private float baseArousalWhenPenetrating;
 	private float arousalChangePenetratingDry;
 	private boolean takesVirginity;
@@ -149,17 +149,17 @@ public enum SexAreaPenetration implements SexAreaInterface {
 	public boolean isOrifice() {
 		return false;
 	}
-	
+
 	public float getBaseArousalWhenPenetrating() {
 		return baseArousalWhenPenetrating;
 	}
-	
+
 	public float getArousalChangePenetratingDry() {
 		return arousalChangePenetratingDry;
 	}
-	
+
 	public boolean isTakesVirginity() {
 		return takesVirginity;
 	}
-	
+
 }

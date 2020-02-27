@@ -20,7 +20,7 @@ import com.lilithsthrone.main.Main;
 public class SexActionUtility {
 
 	// GENERIC:
-	
+
 	public static final SexAction PLAYER_NONE = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
@@ -32,7 +32,7 @@ public class SexActionUtility {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Do nothing";
@@ -42,13 +42,13 @@ public class SexActionUtility {
 		public String getActionDescription() {
 			return "Don't make a move.";
 		}
-		
+
 		@Override
 		public String getDescription() {
 			if(Sex.isMasturbation()) {
 				return "You remain still, not making a move...";
 			}
-			
+
 			if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotGeneric.MISC_WATCHING) {
 				List<GameCharacter> characters = new ArrayList<>(Sex.getAllParticipants());
 				characters.remove(Sex.getCharacterPerformingAction());
@@ -60,7 +60,7 @@ public class SexActionUtility {
 							"You carry on watching [npc.name] and [npc2.name], while doing nothing yourself."));
 				}
 			}
-			
+
 			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return UtilText.returnStringAtRandom(
@@ -97,7 +97,7 @@ public class SexActionUtility {
 			return "You remain in position, content to simply wait and see what [npc.name] does next.";
 		}
 	};
-	
+
 	public static final SexAction PLAYER_CALM_DOWN = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.NEGATIVE,
@@ -123,7 +123,7 @@ public class SexActionUtility {
 		public boolean isBaseRequirementsMet() {
 			return true;
 		}
-		
+
 		@Override
 		public String getDescription() {
 			switch(Sex.getSexPace(Main.game.getPlayer())) {
@@ -162,7 +162,7 @@ public class SexActionUtility {
 			}
 		}
 	};
-	
+
 	public static final SexAction PARTNER_NONE = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -189,7 +189,7 @@ public class SexActionUtility {
 			return "[npc.Name] doesn't make a move.";
 		}
 	};
-	
+
 	public static final SexAction PARTNER_ORGASM_SKIP = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -210,7 +210,7 @@ public class SexActionUtility {
 		public String getActionDescription() {
 			return "";
 		}
-		
+
 		@Override
 		public String getDescription() {
 			return "[npc.Name] lets out [npc.a_moan+].";
@@ -237,11 +237,11 @@ public class SexActionUtility {
 		public String getActionDescription() {
 			return "See what items you could use.";
 		}
-		
+
 		@Override
 		public String getDescription() {
 			return Sex.getUsingItemText();
-				
+
 		}
 	};
 
@@ -271,7 +271,7 @@ public class SexActionUtility {
 			return Sex.getUnequipClothingText();
 		}
 	};
-	
+
 	public static final SexAction CLOTHING_DYE = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,

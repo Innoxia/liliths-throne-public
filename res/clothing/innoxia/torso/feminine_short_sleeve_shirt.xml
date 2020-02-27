@@ -2,74 +2,74 @@
 <!-- For a version without all of the comments, see "rental_daddy.xml". -->
 <clothing>
 	<coreAttributes>
-		<value>200</value> 
-		
+		<value>200</value>
+
 		<determiner><![CDATA[a]]></determiner>
-		
+
 		<name><![CDATA[feminine short-sleeved shirt]]></name>
-		
-		<namePlural pluralByDefault="false"><![CDATA[feminine short-sleeved shirts]]></namePlural> 
-		
-		<description><![CDATA[A form-fitting short-sleeved shirt, with a cut designed to fit comfortably on feminine figures.]]></description> 
-		
-		<physicalResistance>1</physicalResistance> 
-		
-		<femininity>FEMININE</femininity> 
-		
-		<slot>TORSO_UNDER</slot> 
-		
-		<rarity>COMMON</rarity> 
-		
-		<clothingSet/> 
-		
-		<imageName>feminine_short_sleeve_shirt.svg</imageName> 
-		
-		<imageEquippedName/> 
-		
+
+		<namePlural pluralByDefault="false"><![CDATA[feminine short-sleeved shirts]]></namePlural>
+
+		<description><![CDATA[A form-fitting short-sleeved shirt, with a cut designed to fit comfortably on feminine figures.]]></description>
+
+		<physicalResistance>1</physicalResistance>
+
+		<femininity>FEMININE</femininity>
+
+		<slot>TORSO_UNDER</slot>
+
+		<rarity>COMMON</rarity>
+
+		<clothingSet/>
+
+		<imageName>feminine_short_sleeve_shirt.svg</imageName>
+
+		<imageEquippedName/>
+
 		<enchantmentLimit/>
-		
+
 		<effects/>
-		
-		<blockedPartsList> 
+
+		<blockedPartsList>
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				
-				<clothingAccessRequired> 
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+
+				<clothingAccessRequired>
 					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
 				</clothingAccessRequired>
-				
+
 				<blockedBodyParts>
 					<bodyPart>BACK</bodyPart>
 				</blockedBodyParts>
-				
+
 				<clothingAccessBlocked/>
-				
+
 				<concealedSlots/>
 			</blockedParts>
-			
+
 			<blockedParts>
-				<displacementType>UNBUTTONS</displacementType> 
-				
+				<displacementType>UNBUTTONS</displacementType>
+
 				<clothingAccessRequired/>
-				
+
 				<blockedBodyParts>
 					<bodyPart>BREASTS</bodyPart>
 					<bodyPart>NIPPLES</bodyPart>
 					<bodyPart>STOMACH</bodyPart>
 				</blockedBodyParts>
-				
+
 				<clothingAccessBlocked>
 					<clothingAccess>CHEST</clothingAccess>
 					<clothingAccess>WAIST</clothingAccess>
 				</clothingAccessBlocked>
-				
+
 				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
 			</blockedParts>
-			
+
 		</blockedPartsList>
-		
-		<incompatibleSlots/> 
-		
+
+		<incompatibleSlots/>
+
 		<primaryColours>
 			<colour>CLOTHING_WHITE</colour>
 			<colour>CLOTHING_GREY</colour>
@@ -81,11 +81,11 @@
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours values="JUST_WHITE"/>
 		<tertiaryColoursDye values="ALL"/>
-		
-		<itemTags> 
+
+		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>
 
-	
+
 </clothing>

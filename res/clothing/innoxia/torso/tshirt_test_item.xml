@@ -2,38 +2,38 @@
 <!-- For a version without all of the comments, see "rental_daddy.xml". -->
 <clothing>
 	<coreAttributes>
-		<value>80</value> 
-		
+		<value>80</value>
+
 		<determiner><![CDATA[a]]></determiner>
-		
+
 		<name><![CDATA[Colour Test T-shirt]]></name>
-		
-		<namePlural pluralByDefault="false"><![CDATA[Colour Test T-shirts]]></namePlural> 
-		
-		<description><![CDATA[A unisex fabric shirt, named after the T shape of its body and sleeves. It has a horrific colour pattern, and should only be used for testing purposes.]]></description> 
-		
-		<physicalResistance>1</physicalResistance> 
-		
-		<femininity>ANDROGYNOUS</femininity> 
-		
-		<slot>TORSO_UNDER</slot> 
-		
-		<rarity>LEGENDARY</rarity> 
-		
-		<clothingSet/> 
-		
-		<imageName>tshirt_test_item.svg</imageName> 
-		
-		<imageEquippedName/> 
-		
+
+		<namePlural pluralByDefault="false"><![CDATA[Colour Test T-shirts]]></namePlural>
+
+		<description><![CDATA[A unisex fabric shirt, named after the T shape of its body and sleeves. It has a horrific colour pattern, and should only be used for testing purposes.]]></description>
+
+		<physicalResistance>1</physicalResistance>
+
+		<femininity>ANDROGYNOUS</femininity>
+
+		<slot>TORSO_UNDER</slot>
+
+		<rarity>LEGENDARY</rarity>
+
+		<clothingSet/>
+
+		<imageName>tshirt_test_item.svg</imageName>
+
+		<imageEquippedName/>
+
 		<enchantmentLimit/>
-		
+
 		<effects/>
-		
-		<blockedPartsList> 
+
+		<blockedPartsList>
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				<clothingAccessRequired> 
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
 					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
 					<clothingAccess>HEAD</clothingAccess>
 				</clothingAccessRequired>
@@ -41,7 +41,7 @@
 				<clothingAccessBlocked/>
 				<concealedSlots/>
 			</blockedParts>
-			
+
 			<blockedParts>
 				<displacementType>PULLS_UP</displacementType>
 				<clothingAccessRequired/>
@@ -57,18 +57,18 @@
 				</clothingAccessBlocked>
 				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
 			</blockedParts>
-			
+
 		</blockedPartsList>
-		
-		<incompatibleSlots/> 
-		
+
+		<incompatibleSlots/>
+
 		<primaryColours values="ALL"/>
 		<primaryColoursDye/>
 		<secondaryColours/>
 		<secondaryColoursDye/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
-		
+
 		<itemTags/>
 	</coreAttributes>
 
@@ -95,7 +95,7 @@
       <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] T-shirt.]]>
     </otherRough>
   </displacementText>
-	
+
   <replacementText type="PULLS_UP">
     <self>
       <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] T-shirt back down, covering [npc.her] torso.]]>
@@ -119,5 +119,5 @@
       <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] T-shirt up to just below [npc2.her] chin, fully exposing [npc2.her] torso.]]>
     </otherRough>
   </displacementText>
-  
+
 </clothing>

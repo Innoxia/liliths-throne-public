@@ -21,7 +21,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_KNOWS_AMBER"><![CDATA[
 		<p>
 			As Zaranix didn't seem to be too hostile towards you when you last visited, you decide that there'd be no harm in knocking on his door once more.
@@ -55,11 +55,11 @@
 		</p>
 		<p>
 			Knowing that Zaranix has instructed Amber to let you inside, you could refuse and simply push your way past the angry maid.
-			 Then again, maybe it would be a good idea to just do as Amber says and apologise... 
+			 Then again, maybe it would be a good idea to just do as Amber says and apologise...
 		</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR"><![CDATA[
 		<p>
 			As Zaranix didn't seem to be too hostile towards you when you last visited, you decide that there'd be no harm in knocking on his door once more.
@@ -96,11 +96,11 @@
 		</p>
 		<p>
 			Knowing that Zaranix has instructed 'Mistress' Amber to let you inside, you could refuse and simply push your way past.
-			 Then again, maybe it would be a good idea to just do as Amber says and apologise... 
+			 Then again, maybe it would be a good idea to just do as Amber says and apologise...
 		</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_REPEAT"><![CDATA[
 		<p>
 			Deciding to pay Zaranix's household another visit, you step forwards and take hold of the ornate brass door knocker, before delivering a sharp rap to alert those inside of your presence.
@@ -123,11 +123,11 @@
 			 <i>However</i>, if you know what's good for you, then you'll drop to your knees and apologise for wasting my time first.)]
 		</p>
 		<p>
-			You could refuse Amber's demand and simply push your way past her, but, then again, maybe it would be a good idea to just do as Amber says and apologise... 
+			You could refuse Amber's demand and simply push your way past her, but, then again, maybe it would be a good idea to just do as Amber says and apologise...
 		</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_APOLOGISE"><![CDATA[
 	<p>
 		Amber's threatening manner is too much for you to bear, and, dropping down on your knees in front of her, you deliver your apology,
@@ -140,7 +140,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_APOLOGISE_MOUTH_BLOCKED"><![CDATA[
 	<p>
 		Before you can respond, the fiery-haired maid suddenly pushes her leg forwards, and, unable to keep your balance, you find yourself being kicked backwards down the couple of steps that lead up to the front door.
@@ -154,7 +154,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_APOLOGISE_MOUTH_FREE"><![CDATA[
 	<p>
 		Before you can respond, the fiery-haired maid suddenly pushes her leg forwards, and, unable to keep your balance, you find yourself being kicked backwards down the couple of steps that lead up to the front door.
@@ -175,7 +175,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRY"><![CDATA[
 		<p>
 			[pc.speech(I have nothing to apologise for, Amber,)]
@@ -190,7 +190,7 @@
 		</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRY_MOUTH_BLOCKED"><![CDATA[
 		<p>
 			Mistress Amber grins evilly down at you as she raises her foot and kicks your [pc.arms] out from under you.
@@ -214,7 +214,7 @@
 		</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRY_APOLOGISE"><![CDATA[
 		<p>
 			[pc.speech(You're being completely unreasonable here, Amber,)]
@@ -237,7 +237,7 @@
 		</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRY_RELUCTANT_LICKING"><![CDATA[
 		<p>
 			[pc.speech(Was that to your liking, Mistress Amber?)]
@@ -266,7 +266,7 @@
 		</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRY_EAGER_LICKING"><![CDATA[
 		<p>
 			[pc.speech(Mistress Amber... Please... I don't want to...)]
@@ -312,7 +312,7 @@
 		</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ENTRY_SOLES_LICKING"><![CDATA[
 		<p>
 			[amber.speech(What a good bitch you are,)]
@@ -345,7 +345,7 @@
 		</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="OUTSIDE_LICKING_RELUCTANT"><![CDATA[
 	<p>
 		Not seeing any alternative, you hesitantly resolve to do as the maid commands.
@@ -399,7 +399,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_EAGER_LICKING"><![CDATA[
 	<p>
 		Eager to show your submission to the dominant maid, you immediately move to do as you're commanded.
@@ -452,7 +452,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KNOCK_ON_DOOR_SOLES_LICKING"><![CDATA[
 	<p>
 		As Mistress Amber pushes the filthy sole of her heel into your face, you obediently dart out your tongue and start eagerly licking and kissing the undersides of the sadistic maid's shoes.
@@ -482,10 +482,10 @@
 	</p>
 	]]>
 	</htmlContent>
-	
-	
+
+
 	<!-- PLACE TILES -->
-	
+
 	<htmlContent tag="ENTRANCE"><![CDATA[
 	<p>
 		The entrance hall to Zaranix's home, while nothing compared to that of Lilaya's, is nonetheless very impressive.
@@ -496,7 +496,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="STAIRS"><![CDATA[
 	<p>
 		Before you, a wide, red-carpeted staircase leads up to the first floor of Zaranix's house.
@@ -511,7 +511,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="CORRIDOR"><![CDATA[
 	<p>
 		You find yourself comparing the corridors of Zaranix's home to those of Lilaya's.
@@ -520,7 +520,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GARDEN_ENTRY"><![CDATA[
 	<p>
 		A gravel path snakes through the entirety of Zaranix's garden, but, finding that the stones crunch loudly underfoot, you opt to walk on the small grass verge instead so as to remain as quiet as possible.
@@ -537,7 +537,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GARDEN"><![CDATA[
 	<p>
 		A gravel path snakes through the entirety of Zaranix's garden, but, finding that the stones crunch loudly underfoot, you opt to walk on the small grass verge instead so as to remain as quiet as possible.
@@ -551,7 +551,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="GARDEN_ROOM"><![CDATA[
 	<p>
 		Connected to the garden by means of a pair of sliding glass doors, the room you find yourself standing in appears to be some sort of utility room.
@@ -562,7 +562,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KATHERINE_PRESENT"><![CDATA[
 	<p>
 		As you walk down the corridor, an ivory-skinned succubus, wearing a light pink maid's uniform, suddenly stands up from behind a cabinet.
@@ -588,7 +588,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KATHERINE_PRESENT_REPEAT"><![CDATA[
 	<p>
 		Up ahead, you see the ivory-skinned maid, Katherine, busily dusting one of the corridor's picture frames.
@@ -606,12 +606,12 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KATHERINE_SEX"><![CDATA[
 	<p>
 		Deciding to take up Katherine's transparent offer of sex, you step forwards, grinning as you let your gaze wander up and down over the maid's perfect body.
 		 [pc.speech(Well, there is one thing that a horny little succubus like you could do for me.)]
-		 
+
 	</p>
 	<p>
 		Katherine lets out an excited squeal as she gazes into your eyes, and you see them filled with a desperate, burning lust.
@@ -620,7 +620,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KATHERINE_SEX_SUB"><![CDATA[
 	<p>
 		Not willing to take the dominant role, but with a deep desire to have sex with this horny succubus, you smile coyly at her.
@@ -634,7 +634,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="KATHERINE_SEX_DECLINED"><![CDATA[
 	<p>
 		You're not really interested in Katherine's transparent offer of sex right now.
@@ -646,7 +646,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_KATHERINE_SEX"><![CDATA[
 	<p>
 		Katherine lets out a deeply satisfied sigh as you pull away from her,
@@ -661,7 +661,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_KATHERINE_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		Katherine lets out a disappointed whine as you pull away from her,
@@ -676,7 +676,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="ROOM"><![CDATA[
 	<p>
 		The door to this room is locked, and there's no sound of anyone within.
@@ -684,7 +684,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE"><![CDATA[
 	<p>
 		You find yourself standing in Zaranix's grand drawing room.
@@ -697,14 +697,14 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_GREETING"><![CDATA[
 	<p>
 		Deciding that you'd like to say hello to the fiery-haired succubus, you start to walk towards her.
 		 As you draw near, she turns her head to one side, and, obviously having heard your approach, she then turns to face you.
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_GREETING_BAD_WEATHER"><![CDATA[
 		[amber.speech(Well, if it isn't the worthless bitch.
 		 If it wasn't for this awful weather, I'd have considered taking you out for a walk.
@@ -718,7 +718,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_GREETING_GOOD_WEATHER"><![CDATA[
 		[amber.speech(Well, if it isn't the worthless bitch.
 		 As the weather outside is acceptable at the moment, I think I'll take you for a walk.)]
@@ -730,7 +730,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_FOOT_STALL"><![CDATA[
 	<p>
 		[pc.speech(Yes, Mistress Amber.)]
@@ -753,7 +753,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_DECLINED_FOOT_STALL"><![CDATA[
 	<p>
 		[pc.speech(I'm not going to be your foot stool, Amber,)]
@@ -769,7 +769,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_FOOT_MASSAGE_REFUSED"><![CDATA[
 	<p>
 		[pc.speech(Sorry, Mistress Amber, but that's a little too much for me...)]
@@ -787,7 +787,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_FOOT_MASSAGE"><![CDATA[
 	<p>
 		[pc.speech(Yes, Mistress Amber!)]
@@ -820,7 +820,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_FOOT_MASSAGE_MOUTH_BLOCKED"><![CDATA[
 	<p>
 		[amber.speech(What a good bitch.)]
@@ -847,7 +847,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_FOOT_MASSAGE_MOUTH_FREE"><![CDATA[
 	<p>
 		[amber.speech(What a good bitch,)]
@@ -857,7 +857,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_FOOT_MASSAGE_ORAL"><![CDATA[
 	<p>
 		[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)]
@@ -866,7 +866,7 @@
 	<p>
 		Moving your [pc.hands] down to your Mistress's right foot once more, you slowly slide your fingers up the length of her slender leg, until you reach the top of her stocking at her mid-thigh.
 		 Tucking the tips of your thumbs into the elastic rim, you start to pull the white cotton stocking down, revealing the flawless ebony skin of Mistress Amber's perfect, long legs.
-		 Reaching down to take hold of the fabric between her toes, you start to pull, and quickly manage to free your Mistress's right foot from the confines of the white cotton. 
+		 Reaching down to take hold of the fabric between her toes, you start to pull, and quickly manage to free your Mistress's right foot from the confines of the white cotton.
 	</p>
 	<p>
 		Suddenly, Mistress Amber darts her foot up to your hand, and, in one swift movement, uses her toes to pinch the stocking from your grasp.
@@ -931,7 +931,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_FOOT_MASSAGE_ORAL_REFUSED"><![CDATA[
 	<p>
 		[pc.speech(Sorry, Mistress Amber, but that's a little too much for me...)]
@@ -955,7 +955,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_BEG_FOR_SEX"><![CDATA[
 	<p>
 		[pc.speech(Mistress Amber, um, I was thinking of something else...)]
@@ -1008,7 +1008,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AMBER_LOUNGE_POST_CONSENSUAL_SEX"><![CDATA[
 	<p>
 		Mistress Amber roughly pushes you to the floor, laughing down at you as she stands up.
@@ -1033,7 +1033,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_FURIOUS"><![CDATA[
 	<p>
 		[pc.speech(Oh, fuck off already, Amber.)]
@@ -1051,7 +1051,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_FURIOUS_NO_APOLOGY"><![CDATA[
 	<p>
 		[pc.speech(Well, that's definitely not happening,)]
@@ -1068,7 +1068,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_FURIOUS_APOLOGY"><![CDATA[
 	<p>
 		You weren't expecting Amber to react in such a furious manner to your words.
@@ -1103,7 +1103,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AMBER_LOUNGE_POST_SEX"><![CDATA[
 	<p>
 		Mistress Amber roughly pushes you to the floor, laughing down at you as she stands up.
@@ -1129,7 +1129,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_LOSES_IT"><![CDATA[
 	<p>
 		You <i>really</i> aren't in the mood for this right now, and shake your head at the succubus before you.
@@ -1144,7 +1144,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="COMBAT_LOSS"><![CDATA[
 	<p>
 		You can't carry on fighting any longer, and with a defeated sigh, you collapse back onto one of the lounge's sofas.
@@ -1165,7 +1165,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="COMBAT_LOSS_SEX"><![CDATA[
 	<p>
 		[amber.speech(You fucking <i>bitch</i>! I'll teach you to insult me!)]
@@ -1179,7 +1179,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_AMBER_SEX_LOSS"><![CDATA[
 	<p>
 		Panting from exertion, you collapse to the floor in front of Amber.
@@ -1208,7 +1208,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="COMBAT_VICTORY"><![CDATA[
 	<p>
 		Amber collapses back on one of the lounge's sofas, completely unable to continue fighting.
@@ -1225,7 +1225,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="COMBAT_VICTORY_LEAVE"><![CDATA[
 	<p>
 		You don't really want to have sex with Amber, and, simply satisfied with having beaten her, you look down on her pitiful form as she shamelessly masturbates in front of you.
@@ -1242,7 +1242,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="COMBAT_VICTORY_SEX"><![CDATA[
 	<p>
 		Reaching down, you take hold of Amber's arm, before pulling her to her feet before you.
@@ -1265,7 +1265,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="COMBAT_VICTORY_SEX_SEB"><![CDATA[
 	<p>
 		Although you've come out on top after your fight with Amber, you're suddenly left feeling extremely awkward at having reduced the normally sadistic maid to a lust-filled wreck.
@@ -1303,7 +1303,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_AMBER_SEX_VICTORY"><![CDATA[
 	<p>
 		Amber steps back, letting out a heavy sigh as she catches her breath.
@@ -1321,7 +1321,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="AFTER_AMBER_SEX_SUB_VICTORY"><![CDATA[
 	<p>
 		Mistress Amber roughly pushes you to the floor, laughing down at you as she stands up.
@@ -1351,7 +1351,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_WALKIES"><![CDATA[
 	<p>
 		[pc.speech(Yes, Mistress Amber!)]
@@ -1359,7 +1359,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_DECLINED_WALK"><![CDATA[
 	<p>
 		[pc.speech(I'm not really in the mood for a walk right now...)]
@@ -1374,7 +1374,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_WALKIES_ATTACHES_COLLAR"><![CDATA[
 	<p>
 		[amber.speech(Good bitch.
@@ -1407,7 +1407,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_WALKIES_WITH_COLLAR"><![CDATA[
 	<p>
 		[amber.speech(Good bitch. I see you're still wearing your collar. <i>Very</i> good bitch,)]
@@ -1429,7 +1429,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_WALKIES_WITHOUT_COLLAR"><![CDATA[
 	<p>
 		[amber.speech(Good bitch. However, it looks like I can't give you one of my special collars... <i>Bad bitch,</i>)]
@@ -1452,7 +1452,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_HOME"><![CDATA[
 	<p>
 		You obediently follow your Mistress's continued instructions to heel, and crawl along beside her as you walk down the busy streets towards Zaranix's house. Enduring the humiliating giggles and stares from the many people that you pass, you eventually reach your destination. Mistress Amber leads you up the couple of steps to the front door, and after quickly unlocking it, she pulls you inside.
@@ -1465,7 +1465,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="LOUNGE_AMBER_WALKIES_BEGIN"><![CDATA[
 	<p>
 		With a tight grip on your leash, Mistress Amber sets off into the streets of Demon Home.
@@ -1474,7 +1474,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_HUMILIATION"><![CDATA[
 	<p>
 		After a little while, you hear your Mistress let out a happy little laugh, before yanking your leash as she starts to hurry forwards.
@@ -1510,7 +1510,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_HUMILIATION_REFUSE"><![CDATA[
 	<p>
 		[pc.speech(Mistress Amber... I don't want to do that...)]
@@ -1537,7 +1537,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_HUMILIATION_RELUCTANT"><![CDATA[
 	<p>
 		[pc.speech(Yes, Mistress Amber,)]
@@ -1570,7 +1570,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_HUMILIATION_EAGER"><![CDATA[
 	<p>
 		[pc.speech(Yes, Mistress Amber,)]
@@ -1603,7 +1603,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PEACEFUL"><![CDATA[
 	<p>
 		Nothing of any real note occurs during your walk, and, other than the occasional yank of your lead and command to heel, Mistress Amber remains quiet as she enjoys her time outside.
@@ -1615,7 +1615,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PUNISHMENT"><![CDATA[
 	<p>
 		Through no real fault of your own, you can sense that Mistress Amber is in a particularly bad mood today.
@@ -1651,7 +1651,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_AMBER_FUCKS"><![CDATA[
 	<p>
 		As you walk, you notice that Mistress Amber keeps on glancing down at you out of the corer of her eye.
@@ -1667,7 +1667,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_AMBER_FUCKS_START"><![CDATA[
 	<p>
 		You obediently shuffle around to present your rear-end to Mistress Amber.
@@ -1681,7 +1681,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_AMBER_FUCKS_REFUSED"><![CDATA[
 	<p>
 		You don't really want to have sex with Mistress Amber out in public like this, and, filled with unease, you back away from her a little.
@@ -1697,7 +1697,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_AMBER_FUCKS_POST_SEX"><![CDATA[
 	<p>
 		With one last rough squeeze of your [pc.ass+], Mistress Amber stands up.
@@ -1714,7 +1714,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PET_FUCKS"><![CDATA[
 	<p>
 		The first half of your walk passes without incident, but as you turn a corner to start on your journey back to Zaranix's house, Mistress Amber suddenly lets out a happy little cry.
@@ -1727,7 +1727,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PET_FUCKS_SNIFFING"><![CDATA[
 	<p>
 		Looking up, you notice that you're being led towards a couple who look very similar to you and your Mistress.
@@ -1762,7 +1762,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PET_FUCKS_SNIFFING_MOUNTING"><![CDATA[
 	<p>
 		[npc1.speech([npc2.Name]! Bad! Bad [npc2.girl]!)]
@@ -1788,7 +1788,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PET_FUCKS_SNIFFING_ORAL"><![CDATA[
 	<p>
 		[npc1.speech([npc2.Name]! Bad! Bad [npc2.girl]!)]
@@ -1814,7 +1814,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PET_FUCKS_SNIFFING_NO_SEX"><![CDATA[
 	<p>
 		[npc1.speech([npc2.Name]! Bad! Bad [npc2.girl]!)]
@@ -1837,7 +1837,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PET_FUCKS_REFUSE"><![CDATA[
 	<p>
 		Unwilling to let [npc2.name] have [npc2.her] way with you, you back off, before looking up at Mistress Amber and letting out a whine.
@@ -1869,7 +1869,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PET_FUCKS_START"><![CDATA[
 	<p>
 		[pc.speech(Yes, Mistress Amber,)]
@@ -1882,7 +1882,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PET_FUCKS_START_CLOTHING"><![CDATA[
 	<p>
 		[npc2.Name] lets out a happy [npc2.moan], and, with little concern for your comfort, roughly pulls your clothing aside to reveal your [pc.ass+].
@@ -1894,7 +1894,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PET_FUCKS_START_EXPOSED"><![CDATA[
 	<p>
 		[npc2.Name] lets out a happy [npc2.moan], and, nuzzling [npc2.her] face up against your [pc.ass+], [npc2.she] delivers a quick, wet lick to your exposed [pc.ass+].
@@ -1906,7 +1906,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PET_FUCKS_START_ORAL"><![CDATA[
 	<p>
 		[pc.speech(Yes, Mistress Amber,)]
@@ -1927,7 +1927,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PET_FUCKS_POST_SEX"><![CDATA[
 	<p>
 		Dropping down off your back, [npc2.name] lets out a very satisfied sigh as [npc2.she] turns and admires the mess that [npc2.she]'s made of you.
@@ -1959,7 +1959,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="WALKIES_PET_FUCKS_POST_SEX_ORAL"><![CDATA[
 	<p>
 		Unhooking [npc2.her] [npc2.leg] from behind your neck, [npc2.name] lets out a very satisfied sigh as [npc2.she] turns and admires the mess that [npc2.she]'s made of you.
@@ -1991,5 +1991,5 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 </dialogue>

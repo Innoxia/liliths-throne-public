@@ -31,12 +31,12 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class RoomPlayer {
-	
+
 	private static int sleepTimer = 240;
 
 	private static Response getResponseRoom(int index) {
 		int minutesPassed = (int) (Main.game.getMinutesPassed() % (24 * 60));
-		
+
 		sleepTimer = (Main.game.isDayTime()
 				? (int) ((60 * 21) - minutesPassed)
 				: (int) ((60 * (minutesPassed<(60*7)?7:31)) - minutesPassed));
@@ -85,8 +85,8 @@ public class RoomPlayer {
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-					
-					
+
+
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().washAllOrifices(false));
 					Main.game.getPlayer().calculateStatusEffects(0);
 					Main.game.getPlayer().cleanAllDirtySlots();
@@ -108,7 +108,7 @@ public class RoomPlayer {
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-					
+
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().washAllOrifices(true));
 					Main.game.getPlayer().calculateStatusEffects(0);
 					Main.game.getPlayer().cleanAllDirtySlots();
@@ -131,7 +131,7 @@ public class RoomPlayer {
 			} else {
 				return new Response("Slavery Overview", "You'll need a slaver license before you can access this menu!",  null);
 			}
-			
+
 		} else if (index == 6) {
 			return new ResponseEffectsOnly("Entrance hall", "Fast travel down to the entrance hall."){
 				@Override
@@ -154,7 +154,7 @@ public class RoomPlayer {
 			} else {
 				return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
 			}
-			
+
 		} else {
 			return null;
 		}
@@ -182,7 +182,7 @@ public class RoomPlayer {
 			return getResponseRoom(index);
 		}
 	};
-	
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_SLEEP = new DialogueNode("Your Room", "", false) {
 
 		@Override
@@ -257,7 +257,7 @@ public class RoomPlayer {
 			return false;
 		}
 	};
-	
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_WASH = new DialogueNode("Your Room", "", false) {
 
 		@Override
@@ -266,7 +266,7 @@ public class RoomPlayer {
 			UtilText.nodeContentSB.append("<p>"
 						+ "You step into the en-suite, marvelling at its extravagant design. Leaving your dirty clothes on the other side of the door, you take a long, relaxing shower."
 					+ "</p>");
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -287,24 +287,24 @@ public class RoomPlayer {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append("<p>"
 						+ "You step over to one side of your room, where a calendar has been pinned to the wall."
 						+ " It's quite obviously enchanted, for as you flick through the pages, you discover that each month's picture changes based on your current train of thought.");
-						
+
 			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
 				UtilText.nodeContentSB.append(" As you think about each month, a thematically-dressed man, incubus, or some kind of animal-boy appears on the page.");
 			} else {
 				UtilText.nodeContentSB.append(" As you think about each month, a thematically-dressed woman, succubus, or some kind of animal-girl appears on the page.");
 			}
-			
+
 			if(Main.game.getPlayer().getCorruptionLevel()==CorruptionLevel.ZERO_PURE) {
 				UtilText.nodeContentSB.append(" The more you flick back and forth through the calendar, the more scantily-dressed the subject of each picture becomes, until you suddenly realise what you're doing and step back, shocked.");
 			} else {
 				UtilText.nodeContentSB.append(" The more you flick back and forth through the calendar, the more scantily-dressed the subject of each picture becomes, and you find yourself getting a little turned on...");
 			}
 			UtilText.nodeContentSB.append("</p>");
-			
+
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
 				UtilText.nodeContentSB.append("<p>"
 						+ "Suddenly remembering what it was that you wanted to look at, you scan through the calendar to find the current date,");
@@ -313,26 +313,26 @@ public class RoomPlayer {
 						+ "You were so distracted by the changing pictures that you momentarily forgot what it was that you wanted to check."
 						+ " Shaking your head, you flip back through the calendar to find out what the current date is,");
 			}
-			
+
 			UtilText.nodeContentSB.append(" and see that it's the <b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
 						+ Units.date(Main.game.getDateNow(), Units.DateType.LONG)
 					+"</b>. From a quick calculation "+(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_ARCANE)<IntelligenceLevel.ONE_AVERAGE.getMaximumValue()?"(with some help from your phone's calculator)":"")
 					+ ", you figure out that it's been <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b> since you appeared in this world."
 					+ "</p>");
-			
+
 			if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
 				UtilText.nodeContentSB.append("<p>"
 						+ "[pc.thought(Wait... "+Main.game.getDateNow().format(DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH))+"?! I need to check in with Lilaya about that...)]"
 						+ "</p>");
 			}
-			
+
 			UtilText.nodeContentSB.append("<p>"
 					+ "You notice that on each page of the calendar, there's a few paragraphs detailing the events that occur during that month."
 					+ "</p>");
-			
+
 			// TODO probably not the best place to put it?
 			Main.game.getDialogueFlags().values.add(DialogueFlagValue.knowsDate);
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -341,28 +341,28 @@ public class RoomPlayer {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Step away from the calendar.", ROOM);
-				
+
 			} else if(index==1) {
 				return new Response("May", "Read the information on May's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY);
-				
+
 			} else if(index==2) {
 				return new Response("October", "Read the information on October's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER);
-				
+
 			} else if(index==3) {
 				return new Response("December", "Read the information on December's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER);
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY = new DialogueNode("Your Room", "", false) {
 
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
 				UtilText.nodeContentSB.append(
 						"<p>"
@@ -388,7 +388,7 @@ public class RoomPlayer {
 						+ " During this time, fertility-enhancing consumables are generously provided free of charge for all residents of Dominion, and are handed out by volunteers down the main boulevards."
 						+ " In this way, Lilith shows her love for mothers, and ensures that many more will be made!"
 					+ "</i></p>");
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -401,13 +401,13 @@ public class RoomPlayer {
 			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
-	
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNode("Your Room", "", false) {
 
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
 				UtilText.nodeContentSB.append(
 						"<p>"
@@ -439,7 +439,7 @@ public class RoomPlayer {
 						+ " While content to carry out their acts of devotion in private for the rest of the year, these cultists can get quite zealous during October,"
 							+ " and will sometimes even go so far as to approach members of the public and demand a display of loyalty from them!"
 					+ "</i></p>");
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -452,13 +452,13 @@ public class RoomPlayer {
 			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
-	
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNode("Your Room", "", false) {
 
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
 				UtilText.nodeContentSB.append(
 						"<p>"
@@ -493,7 +493,7 @@ public class RoomPlayer {
 						+ "Consisting of a wandering horde of summoned arcane elementals, the 'Wild Hunt' was driven away from Dominion many years ago, and is now only found during Yuletide out in the Foloi Fields and the forests nearby."
 					+ "</p>"
 					+ "</i>");
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -506,9 +506,9 @@ public class RoomPlayer {
 			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
-	
 
-	
+
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME = new DialogueNode("Your Room", "", true) {
 
 		@Override
@@ -532,7 +532,7 @@ public class RoomPlayer {
 								Util.newArrayListOfValues(NightlifeDistrict.getClubbersPresent().get(0)),
 						null,
 						null), BACK_HOME_AFTER_CLUBBER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEX_AS_DOM", NightlifeDistrict.getClubbersPresent()));
-				
+
 			} else if(index==2) {
 				return new ResponseSex("Sex (sub)", UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Have submissive sex with [npc.name]."),
 						true, true,
@@ -541,7 +541,7 @@ public class RoomPlayer {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 						null,
 						null), BACK_HOME_AFTER_CLUBBER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEX_AS_SUB", NightlifeDistrict.getClubbersPresent()));
-				
+
 			} else if(index==4) {
 				return new Response("Say goodbye",
 						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you've changed your mind, sending [npc.herHim] home with the promise of seeing [npc.herHim] at the club another time."
@@ -553,7 +553,7 @@ public class RoomPlayer {
 						NightlifeDistrict.removeClubbers();
 					}
 				};
-				
+
 			} else if(index==5) {
 				return new Response("Send home",
 						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Tell [npc.name] that you've changed your mind and abruptly send [npc.herHim] home."
@@ -565,20 +565,20 @@ public class RoomPlayer {
 						NightlifeDistrict.removeClubbers();
 					}
 				};
-				
+
 			} else {
 				return null;
 			}
 		}
 	};
-	
+
 	public static final DialogueNode BACK_HOME_AFTER_CLUBBER_SEX = new DialogueNode("Your Room", "", true) {
-		
+
 		@Override
 		public int getSecondsPassed() {
 			return 15*60;
 		}
-		
+
 		@Override
 		public String getContent() {
 			if(Sex.getNumberOfOrgasms(NightlifeDistrict.getPartner())>=NightlifeDistrict.getPartner().getOrgasmsBeforeSatisfied()) {
@@ -601,7 +601,7 @@ public class RoomPlayer {
 						NightlifeDistrict.saveClubbers();
 					}
 				};
-				
+
 			} else if(index==2) {
 				return new Response("Hope not (gentle)",
 						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Make a non-committal response, secretly hoping that you won't see [npc.name] again.</br>[style.italicsBad(Removes this character from the game.)]"),
@@ -612,7 +612,7 @@ public class RoomPlayer {
 						NightlifeDistrict.removeClubbers();
 					}
 				};
-				
+
 			} else if(index==3) {
 				return new Response("Hope not (harsh)",
 						UtilText.parse(NightlifeDistrict.getClubbersPresent(), "Crudely tell [npc.name] that you were only interested in fucking [npc.herHim].</br>[style.italicsBad(Removes this character from the game.)]"),
@@ -629,12 +629,12 @@ public class RoomPlayer {
 	};
 
 	public static final DialogueNode BACK_HOME_AFTER_SEX = new DialogueNode("Your Room", "", false) {
-		
+
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
 		}
-		
+
 		@Override
 		public String getContent() {
 			return "";
@@ -647,12 +647,12 @@ public class RoomPlayer {
 	};
 
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME_SEND_HOME = new DialogueNode("Your Room", "", false) {
-		
+
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
 		}
-		
+
 		@Override
 		public String getContent() {
 			return "";

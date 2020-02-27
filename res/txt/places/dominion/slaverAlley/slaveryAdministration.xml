@@ -17,7 +17,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SLAVERY_ADMINISTRATION"><![CDATA[
 	#IF(pc.isHasSlaverLicense())
 		<p>
@@ -79,7 +79,7 @@
 	#ENDIF
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SLAVERY_ADMINISTRATION_ASK_ABOUT_SLAVER_LICENSE"><![CDATA[
 	<p>
 		Walking up to [finch.namePos] desk, you ask, [pc.speech(How do I get a slaver license? Is there some kind of form I need to fill out?)]
@@ -98,7 +98,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED"><![CDATA[
 	<p>
 		Walking up to [finch.namePos] desk, you place the letter of recommendation down in front of him. [pc.speech(I got a letter of recommendation from my aunt, so can I get that license now?)]
@@ -129,7 +129,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED_RULES"><![CDATA[
 	<p>
 		[finch.speech(So, before you run off and try to enslave the first person you meet, you need to be aware of the basics,)] [finch.name] states, pointing down at the checklist in front of him. [finch.speech(First of all, slaves are meant to wear a piece of enchanted clothing in order to clearly designate them as someone else's property. Slave collars are most regularly used for this purpose, and can only be purchased from here, at the Slavery Administration building. Although some slave owners allow their slaves to work without wearing a piece of enslavement clothing, we strongly advise against this. Runaway slaves who don't have their collars on are almost impossible to track down without great expense, so if you decide to take theirs off, don't come crying to me when they run away!)]
@@ -138,7 +138,7 @@
 		[pc.speech(Understood,)] you reply, nodding for Finch to continue.
 	</p>
 	<p>
-		[finch.speech(Now, you won't need to worry about this if you're only planning on buying and selling slaves, but if you're hoping to enslave people, then there are some <i>strict</i> limitations. You can only enslave two sorts of people; those who are willing, and those who have been marked for enslavement by Enforcers. Slave collars have a special enchantment in them that detects if the wearer falls into either one of those categories, so don't try and run around making just anyone into your slave!)] 
+		[finch.speech(Now, you won't need to worry about this if you're only planning on buying and selling slaves, but if you're hoping to enslave people, then there are some <i>strict</i> limitations. You can only enslave two sorts of people; those who are willing, and those who have been marked for enslavement by Enforcers. Slave collars have a special enchantment in them that detects if the wearer falls into either one of those categories, so don't try and run around making just anyone into your slave!)]
 	</p>
 	<p>
 		[pc.speech(That makes sense,)] you reply.
@@ -166,5 +166,5 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 </dialogue>

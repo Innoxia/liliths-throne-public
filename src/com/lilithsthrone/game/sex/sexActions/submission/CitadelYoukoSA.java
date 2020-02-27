@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.Util;
  * @author Innoxia
  */
 public class CitadelYoukoSA {
-	
+
 	public static final SexAction ORGASM_DENIED = new SexAction(
 			SexActionType.ORGASM_NO_AROUSAL_RESET,
 			ArousalIncrease.NEGATIVE_MAJOR,
@@ -30,7 +30,7 @@ public class CitadelYoukoSA {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Denied";
@@ -63,7 +63,7 @@ public class CitadelYoukoSA {
 		public SexActionPriority getPriority() {
 			return SexActionPriority.UNIQUE_MAX;
 		}
-		
+
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {

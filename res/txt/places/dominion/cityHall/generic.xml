@@ -24,7 +24,7 @@
 	]]>
 	</htmlContent>
 
-	
+
 	<!-- CITY_HALL_ENTRANCE -->
 
 	<htmlContent tag="ENTRY"><![CDATA[
@@ -47,9 +47,9 @@
 	]]>
 	</htmlContent>
 
-	
+
 	<!-- CITY_HALL_INFORMATION_DESK -->
-	
+
 	<htmlContent tag="CITY_HALL_INFORMATION_DESK"><![CDATA[
 	<p>
 		Near the far end of the grand foyer, there's a huge, circular desk, which is staffed by ten or so receptionists. It's beside this desk that you currently find yourself standing, and you wonder whether you should approach one of the helpful-looking girls currently on duty, or simply head past them without asking for assistance.
@@ -83,9 +83,9 @@
 	]]>
 	</htmlContent>
 
-	
+
 	<!-- CITY_HALL_CORRIDOR -->
-	
+
 	<htmlContent tag="CITY_HALL_CORRIDOR"><![CDATA[
 	<p>
 		Just like the main foyer, the corridors of Dominion's city hall are a grand affair. Polished marble flooring, high-vaulted ceilings, and impressive portraits lining the walls all give the impression of great wealth and importance.
@@ -96,9 +96,9 @@
 	]]>
 	</htmlContent>
 
-	
+
 	<!-- CITY_HALL_WAITING_AREA -->
-	
+
 	<htmlContent tag="CITY_HALL_WAITING_AREA"><![CDATA[
 	<p>
 		For those residents of Dominion who have specific business with the city's administrators, a large, well-furnished waiting room has been provided. Sitting upon the many low-backed sofas which litter this open area, there are numerous members of the public, and you notice that many of them are holding little ticket stubs. A large, arcane-powered notification board is fixed to the far wall, and you see that it reads: <i>Now serving: [#((game.getHourOfDay()*115)+(game.getDayMinutes()%60)).toFixed(0)]</i>
@@ -109,9 +109,9 @@
 	]]>
 	</htmlContent>
 
-	
+
 	<!-- CITY_HALL_OFFICE -->
-	
+
 	<htmlContent tag="CITY_HALL_OFFICE"><![CDATA[
 	<p>
 		The door to the office before you is made from rich mahogany and frosted glass, with a brass plate fixed to the centre which reads: <i>'Private'</i>. Knowing that a private office such as this one would have nothing to offer you except for tedious, pointless government bureaucracy, you decide against taking a look inside, and instead turn around and prepare to continue on your way elsewhere...
@@ -119,9 +119,9 @@
 	]]>
 	</htmlContent>
 
-	
+
 	<!-- CITY_HALL_STAIRS -->
-	
+
 	<htmlContent tag="CITY_HALL_STAIRS"><![CDATA[
 	<p>
 		While the polished marble stairs before you offer access to the upper floors of city hall, you are unable to scale them, as a barrier of red rope bars your passage. A little sign hangs from this obstacle, which reads:
@@ -135,7 +135,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
-	
-	
+
+
+
 </dialogue>

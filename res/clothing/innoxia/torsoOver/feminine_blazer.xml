@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <clothing>
 	<coreAttributes>
-		<value>1000</value> 
-		
+		<value>1000</value>
+
 		<determiner><![CDATA[a]]></determiner>
-		
+
 		<name><![CDATA[feminine blazer]]></name>
-		
-		<namePlural pluralByDefault="false"><![CDATA[feminine blazers]]></namePlural> 
-		
-		<description><![CDATA[A smart blazer, typically worn as part of a business suit. Its cut is such that is is only suitable for feminine figures.]]></description> 
-		
-		<physicalResistance>1</physicalResistance> 
-		
-		<femininity>FEMININE</femininity> 
-		
-		<slot>TORSO_OVER</slot> 
-		
-		<rarity>COMMON</rarity> 
-		
+
+		<namePlural pluralByDefault="false"><![CDATA[feminine blazers]]></namePlural>
+
+		<description><![CDATA[A smart blazer, typically worn as part of a business suit. Its cut is such that is is only suitable for feminine figures.]]></description>
+
+		<physicalResistance>1</physicalResistance>
+
+		<femininity>FEMININE</femininity>
+
+		<slot>TORSO_OVER</slot>
+
+		<rarity>COMMON</rarity>
+
 		<clothingSet/>
-		
-		<imageName>feminine_blazer.svg</imageName> 
-		
-		<imageEquippedName/> 
-		
+
+		<imageName>feminine_blazer.svg</imageName>
+
+		<imageEquippedName/>
+
 		<enchantmentLimit/>
-		
+
 		<effects/>
-		
-		<blockedPartsList> 
+
+		<blockedPartsList>
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				
-				<clothingAccessRequired> 
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+
+				<clothingAccessRequired>
 					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
 				</clothingAccessRequired>
-				
+
 				<blockedBodyParts>
 					<bodyPart>BACK</bodyPart>
 				</blockedBodyParts>
-				
+
 				<clothingAccessBlocked/>
-				
+
 				<concealedSlots/>
 			</blockedParts>
-			
+
 			<blockedParts>
-				<displacementType>UNBUTTONS</displacementType> 
-				
+				<displacementType>UNBUTTONS</displacementType>
+
 				<clothingAccessRequired/>
-				
+
 				<blockedBodyParts>
 					<bodyPart>BREASTS</bodyPart>
 					<bodyPart>NIPPLES</bodyPart>
 					<bodyPart>STOMACH</bodyPart>
 				</blockedBodyParts>
-				
+
 				<clothingAccessBlocked>
 					<clothingAccess>CHEST</clothingAccess>
 					<clothingAccess>WAIST</clothingAccess>
 				</clothingAccessBlocked>
-				
+
 				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
 			</blockedParts>
-			
+
 		</blockedPartsList>
-		
-		<incompatibleSlots/> 
-		
+
+		<incompatibleSlots/>
+
 		<primaryColours>
 			<colour>CLOTHING_BLACK</colour>
 		</primaryColours>
@@ -79,11 +79,11 @@
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
-		
-		<itemTags> 
+
+		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>
 
-	
+
 </clothing>

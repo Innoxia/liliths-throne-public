@@ -6,36 +6,36 @@
 		<name><![CDATA[anklet]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[anklets]]></namePlural>
 		<description><![CDATA[A delicate, feminine ankle bracelet. It consists of a series of metallic orbs threaded onto a fine metal wire.]]></description>
-		<physicalResistance>0</physicalResistance> 
-		<femininity>FEMININE</femininity> 
-		<slot>ANKLE</slot> 
-		<rarity>COMMON</rarity> 
-		<clothingSet/> 
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>ANKLE</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
 		<imageName>anklet.svg</imageName>
 		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>
-		<blockedPartsList> 
+		<blockedPartsList>
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				<clothingAccessRequired> 
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
 					<clothingAccess>CALVES</clothingAccess>
 				</clothingAccessRequired>
 				<blockedBodyParts/>
-				<clothingAccessBlocked> 
+				<clothingAccessBlocked>
 					<clothingAccess>CALVES</clothingAccess>
 				</clothingAccessBlocked>
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-		<incompatibleSlots/> 
-		<primaryColours values="ALL_METAL"/> 
+		<incompatibleSlots/>
+		<primaryColours values="ALL_METAL"/>
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="ALL_METAL"/>
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
-		<itemTags> 
+		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>
@@ -63,5 +63,5 @@
       <![CDATA[[npc.Name] quickly [npc.verb(unfasten)] [npc2.namePos] anklet, before roughly snatching it off.]]>
     </otherRough>
   </displacementText>
-	
+
 </clothing>

@@ -25,7 +25,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class FortressAlphaLeaderSA {
-	
+
 	public static boolean isBothTargetsUsed() {
 		try {
 			return Sex.getSexTypeCount(Sex.getCharacterPerformingAction(), Sex.getCharacterInPosition(SexSlotBipeds.KNEELING_PERFORMING_ORAL), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))>0
@@ -34,13 +34,13 @@ public class FortressAlphaLeaderSA {
 			return true;
 		}
 	}
-	
+
 	public static GameCharacter getBlowjobTarget() {
 		return Sex.getCharactersHavingOngoingActionWith(Main.game.getNpc(FortressAlphaLeader.class), SexAreaPenetration.PENIS).isEmpty()
 				?null
 				:Sex.getCharactersHavingOngoingActionWith(Main.game.getNpc(FortressAlphaLeader.class), SexAreaPenetration.PENIS).get(0);
 	}
-	
+
 	private static GameCharacter getOtherTarget() {
 		try {
 			if(getBlowjobTarget()==null) {
@@ -57,7 +57,7 @@ public class FortressAlphaLeaderSA {
 			return null;
 		}
 	}
-	
+
 	public static final SexAction PARTNER_ROUND_TWO_ONGOING = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -65,7 +65,7 @@ public class FortressAlphaLeaderSA {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Round two";
@@ -98,7 +98,7 @@ public class FortressAlphaLeaderSA {
 					+ " [npc.speechNoEffects(I'm not finished yet, bitch! Hope you're ready for round two!)]";
 		}
 	};
-	
+
 	public static final SexAction PARTNER_ROUND_TWO_ONGOING_SWITCH = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -106,7 +106,7 @@ public class FortressAlphaLeaderSA {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Round two (switch)";
@@ -141,15 +141,15 @@ public class FortressAlphaLeaderSA {
 					+ " Letting out a deep groan as [npc.she] feels [npc3.namePos] [npc3.lips] bump up against the base of [npc.her] cock, [npc.she] growls,"
 					+ " [npc.speechNoEffects(It's your turn, bitch! Hope you're ready for my second load!)]");
 		}
-		
+
 		@Override
 		public void applyEffects(){
 			GameCharacter otherTarget = getOtherTarget();
-			
+
 			otherTarget.displaceClothingForAccess(CoverableArea.MOUTH);
-			
+
 			Sex.stopAllOngoingActions(otherTarget, SexAreaOrifice.MOUTH, otherTarget, false);
-			
+
 			Sex.stopOngoingAction(
 					Sex.getCharacterPerformingAction(),
 					SexAreaPenetration.PENIS,
@@ -161,7 +161,7 @@ public class FortressAlphaLeaderSA {
 					SexAreaPenetration.TONGUE,
 					Sex.getCharacterPerformingAction(),
 					SexAreaOrifice.VAGINA);
-					
+
 			Sex.applyOngoingAction(
 					Sex.getCharacterPerformingAction(),
 					SexAreaPenetration.PENIS,
@@ -169,7 +169,7 @@ public class FortressAlphaLeaderSA {
 					SexAreaOrifice.MOUTH);
 		}
 	};
-	
+
 	public static final SexAction PARTNER_ROUND_TWO_START = new SexAction(
 			SexActionType.START_ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -177,7 +177,7 @@ public class FortressAlphaLeaderSA {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Round two";
@@ -211,7 +211,7 @@ public class FortressAlphaLeaderSA {
 					+ " [npc.speechNoEffects(I'm not finished yet, bitch! Hope you're ready for round two!)]";
 		}
 	};
-	
+
 	public static final SexAction PARTNER_ROUND_TWO_START_SWITCH = new SexAction(
 			SexActionType.START_ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -219,7 +219,7 @@ public class FortressAlphaLeaderSA {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Round two (switch)";
@@ -253,15 +253,15 @@ public class FortressAlphaLeaderSA {
 					+ " Letting out a deep groan as [npc.she] feels [npc3.namePos] [npc3.lips] bump up against the base of [npc.her] cock, [npc.she] growls,"
 					+ " [npc.speechNoEffects(It's your turn, bitch! Hope you're ready for my second load!)]");
 		}
-		
+
 		@Override
 		public void applyEffects(){
 			GameCharacter otherTarget = getOtherTarget();
 
 			otherTarget.displaceClothingForAccess(CoverableArea.MOUTH);
-			
+
 			Sex.stopAllOngoingActions(otherTarget, SexAreaOrifice.MOUTH, otherTarget, false);
-			
+
 			Sex.stopOngoingAction(
 					Sex.getCharacterPerformingAction(),
 					SexAreaPenetration.PENIS,
@@ -273,7 +273,7 @@ public class FortressAlphaLeaderSA {
 					SexAreaPenetration.TONGUE,
 					Sex.getCharacterPerformingAction(),
 					SexAreaOrifice.VAGINA);
-					
+
 			Sex.applyOngoingAction(
 					Sex.getCharacterPerformingAction(),
 					SexAreaPenetration.PENIS,
@@ -283,5 +283,5 @@ public class FortressAlphaLeaderSA {
 	};
 
 
-	
+
 }

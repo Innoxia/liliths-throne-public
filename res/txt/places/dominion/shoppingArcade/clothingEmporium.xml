@@ -7,7 +7,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_GREETING"><![CDATA[
 	<p>
 		Stepping through the open pair of wide, glass doors, you find yourself in a large, modern-looking clothing store.
@@ -21,7 +21,7 @@
 	</p>
 	<p>
 		Turning once more, this time in the direction that the timid voice came from, you find yourself face-to-face with a lesser cat-girl.
-		 As you look into her bright blue eyes, her cheeks instantly turn a deep shade of red, and she glances down at the floor and starts shuffling her feet. 
+		 As you look into her bright blue eyes, her cheeks instantly turn a deep shade of red, and she glances down at the floor and starts shuffling her feet.
 		[nyan.speech(H-Hello... T-There's nobody else available, you see, s-so I thought maybe I could help. Oh, erm, I-I'm Nyan... I probably should have said that first... W-Welcome to my store...)]
 	</p>
 	<p>
@@ -38,7 +38,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_GREETING_REPEAT"><![CDATA[
 	<p>
 		Stepping through the open pair of wide, glass doors, you find 'Nyan's Clothing Emporium' to be just as busy as ever.
@@ -61,7 +61,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_GREETING_REPEAT_PREGNANT"><![CDATA[
 	<p>
 		Entering the store, you're surprised to find that Nyan is nowhere in sight.
@@ -107,7 +107,7 @@
 	<p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_STOCK_ROOM"><![CDATA[
 	<p>
 		The stockroom of Nyan's Clothing Emporium looks pretty much exactly as you'd expected it be.
@@ -125,7 +125,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_EXIT"><![CDATA[
 	<p>
 		Thanking Nyan for her time, you explain to her that you need to get going now.
@@ -141,7 +141,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_SUPPLIER_PROBLEM"><![CDATA[
 	<p>
 		As you look around Nyan's stockroom, you can't help but notice the fact that all of her wares are very 'ordinary'.
@@ -194,7 +194,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_OFFER_HELP"><![CDATA[
 	<p>
 		Deciding that it'd be best to get Nyan into a more relaxed state before offering your help with her supplier problem, you walk around the storeroom for a little while, asking innocuous questions about the sorts of clothing on each shelf.
@@ -220,7 +220,7 @@
 		[nyan.speech(W-Wolfgang and K-Karl are their names,)]
 		 Nyan stammers,
 		 [nyan.speech(a-and they're b-both dobermanns. T-They still operate out of the public s-supplier depot, over in the c-corner of the Shopping Arcade.
-		 It used to h-house all of the clothing suppliers t-that provided goods to t-this area of D-Dominion, not just the S-Shopping Arcade, but n-now it's just t-those t-two in there... 
+		 It used to h-house all of the clothing suppliers t-that provided goods to t-this area of D-Dominion, not just the S-Shopping Arcade, but n-now it's just t-those t-two in there...
 		 I-It looks like it's all c-closed up, as it f-fell into disrepair after everyone w-was forced out.
 		 E-Even the Arcade owners are scared to m-make them tidy it up...)]
 	</p>
@@ -234,7 +234,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_REPORT_BACK"><![CDATA[
 	<p>
 		Deciding that now's as good a time as any to report your success with the supplier problem, you turn to Nyan.
@@ -284,7 +284,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_EXIT_EMBARRASSED"><![CDATA[
 	<p>
 		Having been deserted by the panic-stricken cat-girl, you walk out of the stockroom and head towards the shop's exit.
@@ -292,5 +292,5 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 </dialogue>

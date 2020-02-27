@@ -2,7 +2,7 @@
 <dialogue>
 
 	<!-- Talking -->
-	
+
 	<htmlContent tag="NYAN_TALK_BASE"><![CDATA[
 	<p>
 		Wanting to talk with Nyan for a little while, you turn to face her and give her a smile.
@@ -24,7 +24,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_TALK"><![CDATA[
 	<p>
 		[pc.speech(I was wondering how your work's been going recently,)]
@@ -38,7 +38,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_TALK"><![CDATA[
 	<p>
 		[pc.speech(I just wanted to ask you how you cope with these arcane storms,)]
@@ -52,7 +52,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_TALK_FINAL"><![CDATA[
 	<p>
 		You carry on chatting with Nyan for a little while, talking to her about her work, the weather, and your most recent adventures in Dominion.
@@ -61,9 +61,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- Compliments -->
-	
+
 	<htmlContent tag="NYAN_COMPLIMENT_BASE"><![CDATA[
 	<p>
 		Thinking that Nyan could use a compliment to help boost her confidence, you strike up a conversation, before gently shifting the topic to focus on her.
@@ -80,7 +80,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_COMPLIMENT"><![CDATA[
 	<p>
 		[pc.speech(Your hair looks really good today,)]
@@ -89,7 +89,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_COMPLIMENT"><![CDATA[
 	<p>
 		[pc.speech(I really love your outfit,)]
@@ -98,7 +98,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_COMPLIMENT_FINAL"><![CDATA[
 	<p>
 		Nyan instantly blushes, and before she can stop herself, a happy little giggle escapes from her mouth.
@@ -107,13 +107,13 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- Flirting -->
-	
+
 	<htmlContent tag="NYAN_FLIRT_BASE"><![CDATA[
 	<p>
 		As you've grown closer to Nyan since helping her with her supplier problem, you've noticed that she's started relaxing a lot more when in your presence.
-		 You've also grown aware of the fact that she keeps on taking glances at your body when she thinks you're not looking, and, confident that she's comfortable enough around you by now, you decide to flirt with her a little. 
+		 You've also grown aware of the fact that she keeps on taking glances at your body when she thinks you're not looking, and, confident that she's comfortable enough around you by now, you decide to flirt with her a little.
 	</p>
 	]]>
 	</htmlContent>
@@ -125,7 +125,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_FLIRT"><![CDATA[
 	<p>
 		Playfully encouraging her to talk about the sort of sexual partners she likes, you soon manage to get Nyan giggling and blushing as she light-heartedly smacks you on the [pc.arm],
@@ -133,7 +133,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_FLIRT"><![CDATA[
 	<p>
 		In a light-hearted manner, you start teasing Nyan by asking her what naughty things she's gotten up to in this very storeroom.
@@ -142,16 +142,16 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_FLIRT_FINAL"><![CDATA[
 	<p>
 		You carry on having some fun with the shy cat-girl for a little while, before eventually winding it down and continuing to walk around the storeroom beside her.
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- Kissing -->
-	
+
 	<htmlContent tag="NYAN_KISS_BASE"><![CDATA[
 	<p>
 		As you walk around the storeroom, you see Nyan constantly staring at you with a hungry glint in her eye.
@@ -173,7 +173,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_KISS"><![CDATA[
 	<p>
 		[nyan.speech([pc.Name]?)]
@@ -187,7 +187,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_KISS_FINAL"><![CDATA[
 	<p>
 		You continue kissing one another for several minutes, but although Nyan seems extremely happy with the current situation, she doesn't seem to want to take it any further at the moment.
@@ -195,9 +195,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- Making Out -->
-	
+
 	<htmlContent tag="NYAN_MAKE_OUT_BASE"><![CDATA[
 	<p>
 		As you and Nyan walk through the storeroom together, you can't help but notice the lustful looks the cat-girl keeps on throwing your way.
@@ -218,7 +218,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_MAKE_OUT_FINAL"><![CDATA[
 	<p>
 		After quite some time of this, Nyan starts to pull back, gasping for breath.
@@ -227,9 +227,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- Sex -->
-	
+
 	<htmlContent tag="NYAN_SEX"><![CDATA[
 	<p>
 		The sexual tension between you and Nyan has reached its breaking point.
@@ -250,7 +250,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_END_SEX"><![CDATA[
 	<p>
 		You both lie there on the bed for a while, panting and sighing as you kiss and stroke one another.
@@ -263,7 +263,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_END_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		You both lie there on the bed for a while, panting and sighing as you kiss and stroke one another.
@@ -276,9 +276,9 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<!-- Gifts -->
-	
+
 	<htmlContent tag="NYAN_GIFT_CHOCOLATES"><![CDATA[
 	<p>
 		Producing the box of chocolates that you'd been hiding behind your back, you hold it out to Nyan.
@@ -294,7 +294,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_GIFT_PERFUME"><![CDATA[
 	<p>
 		You produce the bottle of perfume that you've bought for Nyan, smiling as you hold it out to her.
@@ -319,7 +319,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_GIFT_SINGLE_ROSE"><![CDATA[
 	<p>
 		From behind your back, you produce the red rose that you obtained from one of Dominion's parks.
@@ -336,7 +336,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_GIFT_ROSES"><![CDATA[
 	<p>
 		From behind your back, you produce the bouquet of roses.
@@ -354,7 +354,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
+
 	<htmlContent tag="NYAN_GIFT_TEDDY_BEAR"><![CDATA[
 	<p>
 		Holding out the fluffy teddy bear, you smile at Nyan.

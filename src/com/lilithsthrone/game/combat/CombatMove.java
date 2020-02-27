@@ -1129,7 +1129,7 @@ public class CombatMove {
     }
 
     /**
-     * Returns the preferred target for the action. Prefers to aim at targets with lowest HP values if not forced to select at random. Override for custom behavior
+     * Returns the preferred target for the action. Prefers to aim at targets with lowest HP values if not forced to select at random. Override for custom behaviour
      * @param source Character that uses the target function.
      * @param enemies Enemies of the character
      * @param allies Allies of the character

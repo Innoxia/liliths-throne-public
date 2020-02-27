@@ -6,12 +6,12 @@ package com.lilithsthrone.game.inventory;
  * @author Innoxia
  */
 public class AbstractCoreType {
-	
+
 	@Override
 	public boolean equals(Object o) {
 		return true;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return 1;
@@ -20,5 +20,5 @@ public class AbstractCoreType {
 	public Rarity getRarity() {
 		return Rarity.COMMON;
 	}
-	
+
 }

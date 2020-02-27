@@ -47,10 +47,10 @@ public class CityPlaces {
 		StringBuilder occupantSB = new StringBuilder();
 		StringBuilder cultistSB = new StringBuilder();
 		StringBuilder reindeerSB = new StringBuilder();
-		
+
 		Set<NPC> characters = new HashSet<>(Main.game.getNonCompanionCharactersPresent());
 		characters.addAll(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()));
-		
+
 		for(NPC npc : characters) {
 
 			if(npc instanceof RentalMommy) {
@@ -66,7 +66,7 @@ public class CityPlaces {
 								+ "</p>"));
 				break;
 			}
-			
+
 			if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) {
 				occupantSB.append(
 						UtilText.parse(npc,
@@ -77,7 +77,7 @@ public class CityPlaces {
 								+ "</p>"));
 				break;
 			}
-			
+
 			if(npc instanceof Cultist) {
 				cultistSB.append(
 						"<p>"
@@ -86,7 +86,7 @@ public class CityPlaces {
 						+ "</p>");
 				break;
 			}
-			
+
 			if(npc instanceof ReindeerOverseer) {
 				reindeerSB.append(
 						"<p>"
@@ -101,10 +101,10 @@ public class CityPlaces {
 				break;
 			}
 		}
-		
+
 		return mommySB.append(cultistSB.toString()).append(occupantSB.toString()).append(reindeerSB.toString()).toString();
 	}
-	
+
 	private static List<Response> getExtraStreetResponses() {
 		List<Response> mommyResponses = new ArrayList<>();
 		List<Response> occupantResponses = new ArrayList<>();
@@ -113,9 +113,9 @@ public class CityPlaces {
 
 		Set<NPC> characters = new HashSet<>(Main.game.getNonCompanionCharactersPresent());
 		characters.addAll(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()));
-		
+
 		for(NPC npc : characters) {
-			
+
 			if(npc instanceof RentalMommy) {
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 					mommyResponses.add(new Response("Mommy", "'Mommy' is not sitting on her usual bench, and you suppose that she's waiting out the current storm inside her house.", null));
@@ -123,12 +123,12 @@ public class CityPlaces {
 					mommyResponses.add(new Response("Mommy", "You see 'Mommy' sitting on the wooden bench outside her house. Walk up to her and say hello.", RentalMommyDialogue.ENCOUNTER) {
 						@Override
 						public void effects() {
-							Main.game.setActiveNPC(npc);	
+							Main.game.setActiveNPC(npc);
 						}
 					});
 				}
 			}
-			
+
 			if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) {
 				occupantResponses.add(new Response(
 						UtilText.parse(npc, "[npc.Name]"),
@@ -143,7 +143,7 @@ public class CityPlaces {
 					}
 				});
 			}
-			
+
 			if(npc instanceof Cultist) {
 				cultistResponses.add(new Response("Chapel", UtilText.parse(npc, "Visit [npc.namePos] chapel again."), CultistDialogue.ENCOUNTER_CHAPEL_REPEAT) {
 						@Override
@@ -152,7 +152,7 @@ public class CityPlaces {
 						}
 					});
 			}
-			
+
 			if(npc instanceof ReindeerOverseer) {
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 					reindeerResponses.add(new Response("Overseer",
@@ -169,14 +169,14 @@ public class CityPlaces {
 				}
 			}
 		}
-		
+
 		mommyResponses.addAll(cultistResponses);
 		mommyResponses.addAll(occupantResponses);
 		mommyResponses.addAll(reindeerResponses);
-		
+
 		return mommyResponses;
 	}
-	
+
 	public static final DialogueNode STREET = new DialogueNode("Dominion Streets", "", false) {
 
 		@Override
@@ -187,13 +187,13 @@ public class CityPlaces {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			if (Main.game.isDayTime()) { // Day time:
 				if (Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
 					UtilText.nodeContentSB.append("<p>"
 							+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a strange feel to them that hints at the other-worldly nature of this place."
 							+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones.");
-					
+
 					switch(Main.game.getCurrentWeather()) {
 						case CLEAR:
 							UtilText.nodeContentSB.append(" Rows of trees and marble benches line either side of the pedestrianised streets, offering shade and a place to rest for weary shoppers."
@@ -222,7 +222,7 @@ public class CityPlaces {
 						case MAGIC_STORM:
 							break;
 					}
-					
+
 					UtilText.nodeContentSB.append("<p>"
 								+ "The streets are very busy at this time of day, and are packed with people hurrying to and fro."
 								+ " Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way."
@@ -238,8 +238,8 @@ public class CityPlaces {
 							+ "</p>");
 
 					UtilText.nodeContentSB.append(getRandomStreetEvent());
-					
-					
+
+
 				} else { // Storm:
 					UtilText.nodeContentSB.append("<p>"
 								+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
@@ -252,13 +252,13 @@ public class CityPlaces {
 								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
 								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
 								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street.");
-					
+
 					if(Main.game.getPlayer().getRace()==Race.DEMON) {
 						UtilText.nodeContentSB.append(" They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you.");
 					} else {
 						UtilText.nodeContentSB.append(" They sometimes cast a curious glance your way, but most are content to simply ignore you.");
 					}
-					
+
 					UtilText.nodeContentSB.append(
 							"</p>"
 							+ "<p>"
@@ -267,14 +267,14 @@ public class CityPlaces {
 								+ " If they catch you, they'll be sure to force you into a fight."
 							+ "</p>");
 				}
-				
+
 			} else { // Night time:
 				if (Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
 					UtilText.nodeContentSB.append("<p>"
 							+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a strange feel to them that hints at the other-worldly nature of this place."
 							+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
 							+ " Marble benches line both sides of the pedestrianised streets, and are interspersed by rows of trees, softly illuminated by the amber glow of arcane-powered street lamps.");
-					
+
 					switch(Main.game.getCurrentWeather()) {
 						case CLEAR: case CLOUD:
 							UtilText.nodeContentSB.append(" On either side of you, lights shine out from the windows of the tall buildings."
@@ -309,7 +309,7 @@ public class CityPlaces {
 								+ " The rarest races that you see are humans and demons."
 								+ " The latter are very easy to spot, as wherever they walk, people hurriedly move to make way."
 							+ "</p>");
-					
+
 					UtilText.nodeContentSB.append(getRandomStreetEvent());
 
 				} else { // Storm:
@@ -324,13 +324,13 @@ public class CityPlaces {
 								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
 								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
 								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street.");
-				
+
 				if(Main.game.getPlayer().getRace()==Race.DEMON) {
 					UtilText.nodeContentSB.append(" They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you.");
 				} else {
 					UtilText.nodeContentSB.append(" They sometimes cast a curious glance your way, but most are content to simply ignore you.");
 				}
-				
+
 				UtilText.nodeContentSB.append(
 							"</p>"
 							+ " <p>"
@@ -338,11 +338,11 @@ public class CityPlaces {
 								+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
 								+ " If they catch you, they'll be sure to force you into a fight."
 							+ "</p>");
-					
-					
+
+
 				}
 			}
-			
+
 			if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
 				UtilText.nodeContentSB.append(
 					"<p>"
@@ -359,27 +359,27 @@ public class CityPlaces {
 						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
 					+ "</p>");
 			}
-			
+
 			UtilText.nodeContentSB.append(getExtraStreetFeatures());
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			List<Response> responses = getExtraStreetResponses();
-			
+
 			if(index == 0) {
 				return null;
-				
+
 			} else if(index-1 < responses.size()) {
 				return responses.get(index-1);
 			}
-			
+
 			return null;
 		}
 	};
-	
+
 	private static String getRandomStreetEvent() {
 		int extraText = Util.random.nextInt(100) + 1;
 		if (extraText <= 3) {
@@ -413,7 +413,7 @@ public class CityPlaces {
 		return "";
 	}
 
-	
+
 	public static final DialogueNode BACK_ALLEYS = new DialogueNode("Back Alleys", "", false) {
 
 		@Override
@@ -429,11 +429,11 @@ public class CityPlaces {
 					+ " Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress."
 					+ " These less-travelled parts of Dominion have a dangerous feel to them, and you can't shake the feeling that you're being followed."
 					+ "</p>");
-			
+
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -454,7 +454,7 @@ public class CityPlaces {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode DARK_ALLEYS = new DialogueNode("Dark Alleyways", "", false) {
 
 		@Override
@@ -474,7 +474,7 @@ public class CityPlaces {
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -495,14 +495,14 @@ public class CityPlaces {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode BACK_ALLEYS_CANAL = new DialogueNode("Canal Crossing", ".", false) {
-		
+
 		@Override
 		public int getSecondsPassed() {
 			return 3*60;
 		}
-		
+
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -514,7 +514,7 @@ public class CityPlaces {
 						+ " Letting out a sigh, you continue on your way, happy that you didn't run into any of the lowlives that operate in this area."
 					+ "</p>";
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
@@ -532,7 +532,7 @@ public class CityPlaces {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode BOULEVARD = new DialogueNode("Dominion Boulevard", ".", false) {
 
 		@Override
@@ -549,7 +549,7 @@ public class CityPlaces {
 						+ "You find yourself walking down one of Dominion's main boulevards, which is at least twice the width of all the other streets that you've seen in the city."
 						+ " Large, immaculately-maintained residential and commercial buildings flank the road on each side; their white marble facades decorated with countless dark-purple flags bearing the black pentagram of Lilith."
 					+ "</p>");
-			
+
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
@@ -592,28 +592,28 @@ public class CityPlaces {
 						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
 					+ "</p>");
 			}
-			
+
 			UtilText.nodeContentSB.append(getExtraStreetFeatures());
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			List<Response> responses = getExtraStreetResponses();
-			
+
 			if(index == 0) {
 				return null;
-				
+
 			} else if(index-1 < responses.size()) {
 				return responses.get(index-1);
 			}
-			
+
 			return null;
 		}
 	};
 
-	
+
 	public static final DialogueNode DOMINION_PLAZA = new DialogueNode("Lilith's Plaza", ".", false) {
 
 		@Override
@@ -624,7 +624,7 @@ public class CityPlaces {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append("<p>"
 						+ "You find yourself standing in the very centre of Dominion, where an expansive public square is situated."
 						+ " Large residential and commercial buildings flank the plaza on each of its four sides; their white marble facades decorated with countless dark-purple flags bearing the black pentagram of Lilith."
@@ -636,7 +636,7 @@ public class CityPlaces {
 							+ " with wings fully unfurled, and with her hands resting on her wide hips, she smirks down with a visage of manic delight at the crowds below."
 						+ " Completely naked, every [unit.size] of the effigy's subject is on display for all to see, and you find yourself looking straight up at Lilith's tight pussy as you marvel at the workmanship that went into this astounding piece of art."
 					+ "</p>");
-			
+
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
@@ -657,7 +657,7 @@ public class CityPlaces {
 							+ " Pamphlets and newspapers are handed out beside each one of these stands, and you realise that this is the only place where you've seen any form of news being distributed to the population."
 						+ "</p>");
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -667,7 +667,7 @@ public class CityPlaces {
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 					return new Response(
 							"News", "Due to the ongoing arcane storm, there's nobody here at the moment...", null);
-					
+
 				} else {
 					return new Response(
 							"News",
@@ -679,10 +679,10 @@ public class CityPlaces {
 									possibleSubspecies.add(Subspecies.DOG_MORPH);
 									possibleSubspecies.add(Subspecies.HORSE_MORPH);
 									possibleSubspecies.add(Subspecies.WOLF_MORPH);
-									
+
 									String randomFemalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularFemaleName(null);
 									String randomMalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularMaleName(null);
-									
+
 									Main.game.getTextEndStringBuilder().append("<p>"
 											+UtilText.returnStringAtRandom(
 													"A rough-looking "+randomMalePerson+" unrolls a large scroll, before clearing his throat and calling out,"
@@ -711,7 +711,7 @@ public class CityPlaces {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode DOMINION_PLAZA_NEWS = new DialogueNode("Lilith's Plaza", ".", false, true) {
 
 		@Override
@@ -722,11 +722,11 @@ public class CityPlaces {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append("<p>"
 					+ "You decide to stay and listen to one of the many orators who are addressing the crowds..."
 					+ "</p>");
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -735,14 +735,14 @@ public class CityPlaces {
 			return DOMINION_PLAZA.getResponse(responseTab, index);
 		}
 	};
-	
+
 	public static final DialogueNode PARK = new DialogueNode("Park", ".", false) {
 
 		@Override
 		public String getAuthor() {
 			return "Kumiko";
 		}
-		
+
 		@Override
 		public int getSecondsPassed() {
 			return 3*60;
@@ -779,14 +779,14 @@ public class CityPlaces {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode PARK_ROSE_GARDEN = new DialogueNode("Park", ".", false, true) {
 
 		@Override
 		public String getAuthor() {
 			return "Innoxia";
 		}
-		
+
 		@Override
 		public int getSecondsPassed() {
 			return 30;
@@ -821,7 +821,7 @@ public class CityPlaces {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode STREET_SHADED = new DialogueNode("Dominion Streets (Shaded)", ".", false) {
 
 		@Override
@@ -842,18 +842,18 @@ public class CityPlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			List<Response> responses = getExtraStreetResponses();
-			
+
 			if(index == 0) {
 				return null;
-				
+
 			} else if(index-1 < responses.size()) {
 				return responses.get(index-1);
 			}
-			
+
 			return null;
 		}
 	};
-	
+
 	public static final DialogueNode CANAL = new DialogueNode("Dominion Canals", ".", false) {
 
 		@Override
@@ -881,7 +881,7 @@ public class CityPlaces {
 						+ " The distinct lack of any Enforcer presence is a clear indication that this area is ripe territory for muggers, and you make sure to stay alert as you continue on your way..."
 					+ "</p>";
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
@@ -899,7 +899,7 @@ public class CityPlaces {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode CANAL_END = new DialogueNode("Dominion Canals", ".", false) {
 
 		@Override
@@ -970,19 +970,19 @@ public class CityPlaces {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode CITY_EXIT_SEWERS_ENTERING_SUBMISSION = new DialogueNode("Enforcer Checkpoint", "Enter the undercity of Submission.", false) {
 
 		@Override
 		public int getSecondsPassed() {
 			return 3*60;
 		}
-		
+
 		@Override
 		public boolean isTravelDisabled() {
 			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.visitedSubmission);
 		}
-		
+
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "ENTER_SUBMISSION");
@@ -1002,7 +1002,7 @@ public class CityPlaces {
 							return Main.game.getDefaultDialogueNoEncounter();
 						}
 					};
-	
+
 				} else {
 					return null;
 				}
@@ -1011,7 +1011,7 @@ public class CityPlaces {
 			}
 		}
 	};
-	
+
 	public static final DialogueNode CITY_EXIT = new DialogueNode("Dominion Exit", "", false) {
 
 		@Override
@@ -1026,7 +1026,7 @@ public class CityPlaces {
 						+ "A pair of elite demon enforcers are keeping a close watch on everyone who enters or leaves the city."
 						+ " Now that you have a map, as well as business out there in the world beyond Dominion, there's nothing stopping you from leaving right now."
 					+ "</p>";
-				
+
 			} else {
 				return "<p>"
 							+ "A pair of elite demon enforcers are keeping a close watch on everyone who enters or leaves the city."
@@ -1037,7 +1037,7 @@ public class CityPlaces {
 						+ "</p>";
 			}
 		}
-		
+
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -1049,7 +1049,7 @@ public class CityPlaces {
 							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
 						}
 					};
-					
+
 				} else {
 					return new Response("World travel", "You don't know what the rest of the world looks like, and, for now, your business is within the city.", null);
 				}

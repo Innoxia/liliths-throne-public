@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <clothing>
-	
+
 	<coreAttributes>
 		<clothingAuthorTag><![CDATA[A tag discreetly sewn into the dress's inner lining informs you that it was made by 'Phlarx'.]]></clothingAuthorTag>
 		<value>800</value>
@@ -17,25 +17,25 @@
 		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>
-		
-		<blockedPartsList> 
+
+		<blockedPartsList>
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType>
 				<clothingAccessRequired/>
-				<blockedBodyParts> 
+				<blockedBodyParts>
 					<bodyPart>BREASTS</bodyPart>
 					<bodyPart>NIPPLES</bodyPart>
 					<bodyPart>STOMACH</bodyPart>
 					<bodyPart>BACK</bodyPart>
 				</blockedBodyParts>
-				<clothingAccessBlocked> 
+				<clothingAccessBlocked>
 					<clothingAccess>WAIST</clothingAccess>
 					<clothingAccess>CHEST</clothingAccess>
 				</clothingAccessBlocked>
-				<concealedSlots values="CONCEALED_PARTIAL_TORSO"> 
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO">
 				</concealedSlots>
 			</blockedParts>
-			
+
 			<blockedParts>
 				<displacementType>PULLS_UP</displacementType>
 				<clothingAccessRequired/>
@@ -58,17 +58,17 @@
 				</concealedSlots>
 			</blockedParts>
 		</blockedPartsList>
-		
+
 		<incompatibleSlots/>
-		
-		<primaryColours values="ALL"/> 
+
+		<primaryColours values="ALL"/>
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="ALL"/>
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
-		
-		<defaultPatterns patternChance="0.5" colourNameDerivedFromPattern="true"> 
+
+		<defaultPatterns patternChance="0.5" colourNameDerivedFromPattern="true">
 			<pattern>polka_dots_tiny</pattern>
 			<pattern>polka_dots_small</pattern>
 		</defaultPatterns>
@@ -78,14 +78,14 @@
 		<patternSecondaryColoursDye values="ALL"/>
 		<patternTertiaryColours/>
 		<patternTertiaryColoursDye/>
-		
-		<itemTags> 
+
+		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
 			<tag>DRESS</tag>
 		</itemTags>
 	</coreAttributes>
 
-	
+
 	<displacementText type="REMOVE_OR_EQUIP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(untie)] the sash, before pulling [npc.her] rockabilly dress off over [npc.her] head.]]>
@@ -97,7 +97,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(untie)] the sash, before roughly pulling [npc2.namePos] rockabilly dress off over [npc2.her] head.]]>
 		</otherRough>
 	</displacementText>
-	
+
 	<replacementText type="REMOVE_OR_EQUIP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(pull)] the rockabilly dress down over [npc.her] head and torso, then [npc.verb(tie)] the sash around [npc.her] waist.]]>
@@ -110,7 +110,7 @@
 		</otherRough>
 	</replacementText>
 
-	
+
 	<displacementText type="PULLS_UP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(pull)] up the skirt of [npc.her] rockabilly dress.]]>
@@ -122,7 +122,7 @@
 		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] up the skirt of [npc2.namePos] rockabilly dress.]]>
 		</otherRough>
 	</displacementText>
-	
+
 	<replacementText type="PULLS_UP">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(pull)] down the skirt of [npc.her] rockabilly dress.]]>
