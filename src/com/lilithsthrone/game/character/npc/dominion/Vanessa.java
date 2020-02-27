@@ -10,7 +10,6 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -51,6 +50,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemograp
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -87,8 +87,6 @@ public class Vanessa extends NPC {
 		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
-			
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 15);
 		}
 	}
 	
@@ -102,19 +100,17 @@ public class Vanessa extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.2.6")) {
 			this.setPlayerKnowsName(false);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
+			this.resetPerksMap(true);
+		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND);
-		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.resetPerksMap(true);
 		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		this.setAttribute(Attribute.MAJOR_CORRUPTION, 15);
-		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(
@@ -277,13 +273,13 @@ public class Vanessa extends NPC {
 
 	@Override
 	public SexType getForeplayPreference(GameCharacter target) {
-		if(Main.sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotSitting.SITTING) {
+		if(Sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotSitting.SITTING) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
 		}
-		if(Main.sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotSitting.PERFORMING_ORAL) {
+		if(Sex.getSexPositionSlot(Main.game.getNpc(Vanessa.class))==SexSlotSitting.PERFORMING_ORAL) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
 		}
-		if(Main.sex.getPosition()==SexPosition.OVER_DESK) {
+		if(Sex.getPosition()==SexPosition.OVER_DESK) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
 		}
 		
@@ -307,7 +303,7 @@ public class Vanessa extends NPC {
 	
 	@Override
 	public void endSex() {
-		if(!(Main.sex.getSexManager() instanceof SMVanessaOral) || !Main.sex.isDom(Main.game.getNpc(Vanessa.class))) {
+		if(!(Sex.getSexManager() instanceof SMVanessaOral) || !Sex.isDom(Main.game.getNpc(Vanessa.class))) {
 			Main.game.getNpc(Vanessa.class).cleanAllDirtySlots();
 			Main.game.getNpc(Vanessa.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_ACCESSORIES));
 		}

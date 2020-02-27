@@ -11,14 +11,14 @@ public class CreditsSlot {
 
 	private String name;
 	private String tagLine;
-
+	
 	private int uncommonCount;
 	private int rareCount;
 	private int epicCount;
 	private int legendaryCount;
-
+	
 	private Subspecies subspeciesTier;
-
+	
 	public CreditsSlot(String name, String tagLine, int uncommonCount, int rareCount, int epicCount, int legendaryCount) {
 		this.name = name;
 		this.tagLine = tagLine;
@@ -27,7 +27,7 @@ public class CreditsSlot {
 		this.epicCount = epicCount;
 		this.legendaryCount = legendaryCount;
 	}
-
+	
 	public CreditsSlot(String name, String tagLine, int uncommonCount, int rareCount, int epicCount, int legendaryCount, Subspecies subspeciesTier) {
 		this(name, tagLine, uncommonCount, rareCount, epicCount, legendaryCount);
 		this.subspeciesTier = subspeciesTier;
@@ -60,5 +60,5 @@ public class CreditsSlot {
 	public Subspecies getSubspeciesTier() {
 		return subspeciesTier;
 	}
-
+	
 }

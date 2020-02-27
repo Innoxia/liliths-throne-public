@@ -38,19 +38,6 @@ public class Population {
 		StringBuilder sb = new StringBuilder();
 		
 		switch(this.getDensity()) {
-			case OCCASIONAL:
-				if(getType().isPlural()) {
-					if(includeDeterminer) {
-						sb.append("a ");
-					}
-					sb.append("tiny");
-				} else {
-					if(includeDeterminer) {
-						sb.append("an ");
-					}
-					sb.append("occasional");
-				}
-				break;
 			case COUPLE:
 				if(includeDeterminer) {
 					sb.append("a ");

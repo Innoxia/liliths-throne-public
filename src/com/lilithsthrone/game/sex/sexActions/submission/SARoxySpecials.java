@@ -8,6 +8,7 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -43,7 +44,7 @@ public class SARoxySpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.getCharacterPerformingAction().isPlayer();
+			return !Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
@@ -84,7 +85,7 @@ public class SARoxySpecials {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.getCharacterPerformingAction().isPlayer();
+			return !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -118,7 +119,7 @@ public class SARoxySpecials {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.getCharacterPerformingAction().isPlayer();
+			return !Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -158,8 +159,8 @@ public class SARoxySpecials {
 		}
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (!SexFlags.genericFlags.containsKey("roxyInterruptedTurn") || Main.sex.getTurn()-SexFlags.genericFlags.get("roxyInterruptedTurn") > 10) // Make this very infrequent
-					&& Main.sex.getTurn()>4
+			return (!SexFlags.genericFlags.containsKey("roxyInterruptedTurn") || Sex.getTurn()-SexFlags.genericFlags.get("roxyInterruptedTurn") > 10) // Make this very infrequent
+					&& Sex.getTurn()>4
 					&& Main.game.getPlayer().getArousal()<75
 					&& Main.game.getNpc(Roxy.class).getArousal()<75
 					&& Math.random()<0.25f;
@@ -182,7 +183,7 @@ public class SARoxySpecials {
 		}
 		@Override
 		public void applyEffects() {
-			SexFlags.genericFlags.put("roxyInterruptedTurn", Main.sex.getTurn());
+			SexFlags.genericFlags.put("roxyInterruptedTurn", Sex.getTurn());
 		}
 	};
 }

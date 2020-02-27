@@ -8,6 +8,7 @@ import java.util.Objects;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
@@ -15,6 +16,7 @@ import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -202,15 +204,15 @@ public class CharactersPresentDialogue {
 						}
 					};
 				} 
-				if(index>0 && index<5 && !characterViewed.isCompanionAvailableForSex(true)) {
+				if(index>0 && index<5 && !characterViewed.isCompanionAvailableForSex(false)) {
 					if(index==1) {
-						return new Response("Sex", characterViewed.getCompanionSexRejectionReason(true), null);
+						return new Response("Sex", characterViewed.getCompanionSexRejectionReason(false), null);
 					}
 					return null;
 				}
-				if(index>5 && index<10 && !characterViewed.isCompanionAvailableForSex(false)) {
+				if(index>5 && index<10 && !characterViewed.isCompanionAvailableForSex(true)) {
 					if(index==6) {
-						return new Response("Submissive Sex", characterViewed.getCompanionSexRejectionReason(false), null);
+						return new Response("Submissive Sex", characterViewed.getCompanionSexRejectionReason(true), null);
 					}
 					return null;
 				}
@@ -237,12 +239,12 @@ public class CharactersPresentDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.sex.getAllParticipants().size()>2) {
-				List<GameCharacter> parsingCharacters = new ArrayList<>(Main.sex.getAllParticipants());
+			if(Sex.getAllParticipants().size()>2) {
+				List<GameCharacter> parsingCharacters = new ArrayList<>(Sex.getAllParticipants());
 				parsingCharacters.remove(Main.game.getPlayer());
 				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_THREESOME", parsingCharacters);
 				
-			} else if(Main.sex.getNumberOfOrgasms(getCharacterViewed()) >= getCharacterViewed().getOrgasmsBeforeSatisfied()) {
+			} else if(Sex.getNumberOfOrgasms(getCharacterViewed()) >= getCharacterViewed().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX", getTargetedCharacterForSex());
 				
 			} else {
@@ -301,7 +303,7 @@ public class CharactersPresentDialogue {
 			
 			UtilText.nodeContentSB.append("</div>");
 			
-			if(!(characterViewed.isElemental())) {
+			if(!(characterViewed instanceof Elemental)) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='padding:8px; text-align:center;'>"
 							+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
 						+ "</div>");

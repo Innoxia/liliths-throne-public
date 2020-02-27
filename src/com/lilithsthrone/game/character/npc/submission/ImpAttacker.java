@@ -29,7 +29,6 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
-import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -127,10 +126,7 @@ public class ImpAttacker extends NPC {
 			loadImages();
 
 			initHealthAndManaToMax();
-			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 		}
-		
-		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 	}
 	
 	@Override
@@ -139,10 +135,7 @@ public class ImpAttacker extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
 			this.setHomeLocation();
 		}
-
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
-			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
-		}
+		
 		setStartingCombatMoves();
 	}
 	
@@ -269,13 +262,18 @@ public class ImpAttacker extends NPC {
 	public DialogueNode getEncounterDialogue() {
 		return TunnelImpsDialogue.IMP_ATTACK;
 	}
-
+	
 	@Override
-	public boolean isAbleToBeEnslaved() {
-		return this.getWorldLocation()!=WorldType.IMP_FORTRESS_ALPHA
-				&& this.getWorldLocation()!=WorldType.IMP_FORTRESS_DEMON
-				&& this.getWorldLocation()!=WorldType.IMP_FORTRESS_FEMALES
-				&& this.getWorldLocation()!=WorldType.IMP_FORTRESS_MALES;
+	public DialogueNode getEnslavementDialogue(AbstractClothing enslavementClothing) {
+		SlaveDialogue.setEnslavementTarget(this);
+		this.enslavementClothing = enslavementClothing;
+		
+		if(this.getWorldLocation()==WorldType.SUBMISSION) { //TODO handle enslavement in fortresses
+			if(Main.game.getCharactersPresent(this.getCell()).stream().filter((character) -> character instanceof ImpAttacker).count()<=1) { //TODO Add support for enslavement of imp groups
+				return TunnelImpsDialogue.IMP_ENSLAVEMENT_DIALOGUE;
+			}
+		}
+		return null;
 	}
 	
 	// Combat:

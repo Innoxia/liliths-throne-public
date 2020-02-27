@@ -11,20 +11,20 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="CAVERN_DARK"><![CDATA[
 	<p>
 		The oppressive, inky blackness of the bat caverns is kept at bay by the softly glowing moss beneath your feet. With every step, a new pool of the low light blooms outward as the previous one fades, allowing you to see out to roughly [unit.lSizes(1500)] all around you. Above your head, the cavern's roof is so high that all you can see is a blanket of completely impenetrable darkness. Occasionally you think you hear a sound, a high-pitched keening, from somewhere up there, but you try not to think too hard about it.
 	</p>
 	<p>
-		There's an ever-present dripping sound that echoes from everywhere and nowhere, giving the caverns its own ambient, if unfocused, melody. The air is also surprisingly fresh, clean and cool; not at all what you'd expect from a typical cave. Indeed, the fresh air down here is certainly chilly enough to raise goosebumps on any exposed skin and harden nipples beneath clothing.
+		There's an ever-present dripping sound that echoes from everywhere and nowhere, giving the caverns its own ambient, if unfocused, melody. The air is also surprisingly fresh, clean and cool; not at all what you'd expect from a typical cave. Indeed, the fresh air down here is certainly chilly enough to raise goosebumps on any exposed skin and harden nipples beneath clothing. 
 	</p>
 	<p>
 		You weave through clusters of stalagmites as you proceed forwards through the darkness, reaching out to use the smooth, cool stone for support as you step over little streams and narrow cracks in the floor.
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="CAVERN_LIGHT"><![CDATA[
 	<p>
 		Compared to the majority of the bat caverns, the area you find yourself standing in is lit up like a beacon. The moss carpet beneath your feet thrives in amongst bioluminescent fungi of all shapes, sizes, and colours, and forms trailing paths which wind through the area. While some of these mushroom-like plants approach the height of trees, the vast majority are no more than twenty-or-so [unit.sizes] tall. Pools of still, shallow water are to be found scattered throughout the floor of this underground forest, and by reflecting the many hues of light from the surrounding flora, they give this place an unearthly, almost ethereal ambiance.
@@ -33,14 +33,14 @@
 		The luminescence given off by the fungi is bright enough to reveal just how colossal these caves are. The tips of stalactites, illuminated by the taller of the tree-sized mushrooms, look to be almost [unit.lSizes(10000)] above your head, while the base where they connect to the ceiling, still shrouded in darkness, is significantly higher even than that. Some of the largest of these spires have points of light shining out from them, and you realise that you're looking upon the carved-out windows of bat-morphs' roosts.
 	</p>
 	<p>
-		Just like the dark parts of the caverns, there's an ever-present dripping sound that echoes from everywhere and nowhere, producing an ambient, if unfocused, melody. The air is also surprisingly fresh, clean and cool; not at all what you'd expect from a typical cave. Indeed, the fresh air down here is certainly chilly enough to raise goosebumps on any exposed skin and harden nipples beneath clothing.
+		Just like the dark parts of the caverns, there's an ever-present dripping sound that echoes from everywhere and nowhere, producing an ambient, if unfocused, melody. The air is also surprisingly fresh, clean and cool; not at all what you'd expect from a typical cave. Indeed, the fresh air down here is certainly chilly enough to raise goosebumps on any exposed skin and harden nipples beneath clothing. 
 	</p>
 	<p>
 		Despite the fact that this area is well illuminated, there are enough of the tree-sized mushrooms present to provide any would-be attacker with a convenient hiding place...
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="RIVER"><![CDATA[
 	<p>
 		A slow-moving underground river carves its way through the bat caverns, and it's beside this body of water that you find yourself travelling. While the river's surface is illuminated by the bioluminescent lichen, the light is too dim to penetrate the cool, dark depths, and you wonder what sort of creatures, if any, would call such an inhospitable place home.
@@ -50,7 +50,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="RIVER_BRIDGE"><![CDATA[
 	<p>
 		A slow-moving underground river carves its way through the bat caverns, and it's beside this body of water that you find yourself travelling. While the river's surface is illuminated by the bioluminescent lichen, the light is too dim to penetrate the cool, dark depths, and you wonder what sort of creatures, if any, would call such an inhospitable place home.
@@ -63,7 +63,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="RIVER_END"><![CDATA[
 	<p>
 		A slow-moving underground river carves its way through the bat caverns, and it's beside this body of water that you find yourself travelling. While the river's surface is illuminated by the bioluminescent lichen, the light is too dim to penetrate the cool, dark depths, and you wonder what sort of creatures, if any, would call such an inhospitable place home.
@@ -76,24 +76,24 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SLIME_LAKE"><![CDATA[
 	<p>
-		The underground river before you widens out into a huge, still body of water. You can't help but stop in your tracks as you find yourself looking upon a gigantic underground lake, its still, black waters illuminated by the countless mushrooms of the bioluminescent fungi forests that line its banks.
+		The underground river before you widens out into a huge, still body of water. You can't help but stop in your tracks as you find yourself looking upon a gigantic underground lake, its still, black waters illuminated by the countless mushrooms of the bioluminescent fungi forests that line its banks.  
 	</p>
 	<p>
-		Out in the middle of the lake, you see a small island, covered in glowing lichens, mosses, and mushrooms. On the island's highest point, you can see that someone's built a stout stone tower, complete with medieval-style crenellations. Although it's quite some distance away, you can see light shining out from the arrow slits in the tower's walls, and at the base, a large wooden door appears to be firmly closed and barred.
+		Out in the middle of the lake, you see a small island, covered in glowing lichens, mosses, and mushrooms. On the island's highest point, you can see that someone's built a stout stone tower, complete with medieval-style crenellations. Although it's quite some distance away, you can see light shining out from the arrow slits in the tower's walls, and at the base, a large wooden door appears to be firmly closed and barred. 
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SLIME_LAKE_QUEEN_UNKNOWN"><![CDATA[
 	<p>
 		From this distance, it looks like there's no possible way to gain entry to such a well-fortified structure. You have no reason to visit the tower at the moment, but if ever you had business with a reclusive individual who might lock themselves away somewhere in the Bat Caverns, you now know where to look.
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SLIME_LAKE_QUEEN_GUESS"><![CDATA[
 	<p>
 		You have a strong feeling that this is the place where the elusive 'Slime Queen' is hiding. Looking around for a way to cross the wide expanse of water, you soon find a small jetty, which has been built behind several particularly large mushroom-trees in order to try and keep it hidden from passersby. There are several little wooden boats tied up beside it, each one complete with a pair of oars. You suppose that this is how the Queen's visitors travel back and forth from her tower, and wonder if you should use one of these boats to pay her a visit.
@@ -103,7 +103,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SLIME_LAKE_QUEEN_KNOWLEDGE"><![CDATA[
 	<p>
 		You now know that this is the place where the elusive 'Slime Queen' lives. Walking over to the place where the jetty is concealed, you see that there are several little wooden boats still tied up beside it. You suppose that this is how the Queen's visitors travel back and forth from her tower, and wonder if you should use one of the boats to pay her a visit.
@@ -113,7 +113,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SLIME_LAKE_BOAT"><![CDATA[
 	<p>
 		You step down into the nearest wooden boat, before quickly sitting down and grabbing hold of the sides in order to stop it from rocking. Sliding the oars through the oarlocks, you push off from the jetty and start rowing towards the island.
@@ -123,7 +123,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SLIME_LAKE_FLY"><![CDATA[
 	<p>
 		Seeing no need to use one of boats, you take a small run up towards the lake's shore, and, with a flap of your wings, launch yourself into the air. Circling around a couple of times to gain altitude, you glide over the lake's calm, still surface, speedily making your way towards the island.
@@ -133,21 +133,21 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SLIME_LAKE_PACIFIED"><![CDATA[
 	<p>
 		As you approach, you see that the front door is slightly ajar, and from within, a thin beam of golden light shines out onto the island's mossy knoll. Although there's no sign of life outside the tower, you know that [slimeIce.name] and [slimeFire.name] are standing guard just inside the entrance. As you've already come to an arrangement with the Slime Queen, you're free to come and go from her tower without having to worry about fighting her guards.
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SLIME_LAKE_READY_FIGHT"><![CDATA[
 	<p>
 		As you approach, you see that the front door is slightly ajar, and from within, a thin beam of golden light shines out onto the island's mossy knoll. Although there's no sign of life outside the tower, you're certain that there must be guards just inside the entrance, and ready yourself for a fight.
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SLIME_LAKE_BOAT_RETURN"><![CDATA[
 	<p>
 		Walking down to the lake's shore, you soon find the island's wooden jetty. Deciding upon the nearest boat, you quickly lower yourself into it and grab hold of the sides in order to stop it from rocking. Sliding the oars through the oarlocks, you push off from the jetty and start rowing towards the far shore.
@@ -157,7 +157,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="SLIME_LAKE_FLY_RETURN"><![CDATA[
 	<p>
 		Seeing no need to use the little wooden boat, you take a small run up towards the lake's shore, and, with a flap of your wings, launch yourself into the air. Circling around a couple of times to gain altitude, you glide over the lake's calm, still surface, speedily making your way towards the far shore.
@@ -167,21 +167,21 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="FIND_MUSHROOMS_LIGHT"><![CDATA[
 	<p>
 		Although there's no shortage of bioluminescent fungi in this area, you can tell that the vast majority of it is poisonous, and is clearly unsuitable for consumption. As you walk past a particularly large mushroom-tree, however, you see a little cluster of glowing blue mushrooms that look to be quite different from all the rest. Crouching down, you take a look at this peculiar fungi, and, comparing it to the mushrooms on the sign at the entrance to the Bat Caverns, you're certain that these are the ones that are edible.
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="FIND_MUSHROOMS_DARK"><![CDATA[
 	<p>
 		As you walk through the dark caverns, your footsteps causing the bioluminescent lichen underfoot to illuminate your way, you see a faint glimmer of light on the floor up ahead. Approaching this irregularity, you find that the light source is in fact a small cluster of glowing blue mushrooms. Crouching down, you take a look at this peculiar fungi, and, comparing it to the mushrooms on the sign at the entrance to the Bat Caverns, you're certain that these are the ones that are edible.
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="FIND_ITEM_LIGHT"><![CDATA[
 	<p>
 		As you travel through the underground mushroom forest, you see a splash of bright purple slime sprayed up the side of a nearby mushroom-tree. First glancing around to check that the slime who left this mark is long gone, you then take a step towards this purple goo in order to investigate further.
@@ -194,7 +194,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="FIND_ITEM_DARK"><![CDATA[
 	<p>
 		As you walk through the dark caverns, your footsteps causing the bioluminescent lichen underfoot to illuminate your way, you see a splash of bright pink slime sprayed up the side of the wall up ahead. First glancing around to check that the slime who left this mark is long gone, you then take a step towards this pink goo in order to investigate further.
@@ -207,5 +207,5 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 </dialogue>

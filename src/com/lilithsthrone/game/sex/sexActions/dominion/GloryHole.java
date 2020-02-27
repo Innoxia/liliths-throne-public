@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -41,11 +42,11 @@ public class GloryHole {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
-					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotUnique.GLORY_HOLE_KNEELING
-					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_FUCKED
-					&& (Main.sex.getCharacterPerformingAction().isPlayer()
-							|| ((NPC) Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionUnique.GLORY_HOLE, SexSlotUnique.GLORY_HOLE_KNEELING, Main.game.getPlayer()));
+			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotUnique.GLORY_HOLE_KNEELING
+					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_FUCKED
+					&& (Sex.getCharacterPerformingAction().isPlayer()
+							|| ((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionUnique.GLORY_HOLE, SexSlotUnique.GLORY_HOLE_KNEELING, Main.game.getPlayer()));
 		}
 		
 		@Override
@@ -55,7 +56,7 @@ public class GloryHole {
 
 		@Override
 		public String getActionDescription() {
-			if(Main.sex.getTotalParticipantCount(false)==3) {
+			if(Sex.getTotalParticipantCount(false)==3) {
 				return "Kneel down on the floor, ready to service the glory holes with your mouth.";
 			} else {
 				return "Kneel down on the floor, ready to service the glory hole with your mouth.";
@@ -64,7 +65,7 @@ public class GloryHole {
 
 		@Override
 		public String getDescription() {
-			if(Main.sex.getTotalParticipantCount(false)==3) {
+			if(Sex.getTotalParticipantCount(false)==3) {
 				return "Pulling away from the glory holes, [npc.name] [npc.verb(take)] a step back, before kneeling down on the floor between them."
 						+ " Looking back and forth at the genitals on display, [npc.she] [npc.verb(let)] out [npc.a_moan+], before getting ready to use [npc.her] mouth.";
 				
@@ -76,20 +77,20 @@ public class GloryHole {
 
 		@Override
 		public void applyEffects() {
-			if(Main.sex.getTotalParticipantCount(false)==3) {
-				List<GameCharacter> participants = new ArrayList<>(Main.sex.getAllParticipants());
-				participants.remove(Main.sex.getCharacterPerformingAction());
-				participants.remove(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()));
+			if(Sex.getTotalParticipantCount(false)==3) {
+				List<GameCharacter> participants = new ArrayList<>(Sex.getAllParticipants());
+				participants.remove(Sex.getCharacterPerformingAction());
+				participants.remove(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()));
 
-				Main.sex.setSexManager(new SMGloryHole(
-						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.GLORY_HOLE_KNEELING)),
+				Sex.setSexManager(new SMGloryHole(
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotUnique.GLORY_HOLE_KNEELING)),
 						Util.newHashMapOfValues(
-								new Value<>(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE),
+								new Value<>(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE),
 								new Value<>(participants.get(0), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO))));
 			} else {
-				Main.sex.setSexManager(new SMGloryHole(
-						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.GLORY_HOLE_KNEELING)),
-						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE))));
+				Sex.setSexManager(new SMGloryHole(
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotUnique.GLORY_HOLE_KNEELING)),
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE))));
 			}
 		}
 	};
@@ -104,15 +105,15 @@ public class GloryHole {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
-					&& ((Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_FUCKED && !Main.sex.getSexManager().getAreasBannedMap().get(Main.sex.getCharacterPerformingAction()).contains(SexAreaOrifice.VAGINA))
-						|| !Main.sex.getCharacterTargetedForSexAction(this).equals(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_FUCKING))
-						|| Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_KNEELING)
-					&& Main.sex.getCharacterPerformingAction().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
-					&& (Main.sex.getCharacterPerformingAction().isPlayer()
-							|| (!Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isNegative()
-									&& ((NPC) Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.game.getPlayer()).getPerformingSexArea()==SexAreaOrifice.ANUS));
-//									&& ((NPC) Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.GLORY_HOLE_SEX, SexSlotUnique.GLORY_HOLE_FUCKED, Main.game.getPlayer())));
+			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+					&& ((Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_FUCKED && !Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterPerformingAction()).contains(SexAreaOrifice.VAGINA))
+						|| !Sex.getCharacterTargetedForSexAction(this).equals(Sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_FUCKING))
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_KNEELING)
+					&& Sex.getCharacterPerformingAction().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
+					&& (Sex.getCharacterPerformingAction().isPlayer()
+							|| (!Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isNegative()
+									&& ((NPC) Sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.game.getPlayer()).getPerformingSexArea()==SexAreaOrifice.ANUS));
+//									&& ((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.GLORY_HOLE_SEX, SexSlotUnique.GLORY_HOLE_FUCKED, Main.game.getPlayer())));
 		}
 		
 		@Override
@@ -127,8 +128,8 @@ public class GloryHole {
 
 		@Override
 		public String getDescription() {
-			if(Main.sex.getTotalParticipantCount(false)==3) {
-				if(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_KNEELING) {
+			if(Sex.getTotalParticipantCount(false)==3) {
+				if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_KNEELING) {
 					return "Standing up, [npc.name] [npc.verb(step)] over towards [npc2.name], before bending down and pushing [npc.her] [npc.ass+] up against the glory hole."
 							+ " Leaning forwards, [npc.she] [npc.verb(position)] [npc.herself] so that [npc.her] mouth is just [unit.sizes] away from the hole on the opposite side of the stall,"
 								+ " and, letting out [npc.a_moan+], [npc.she] [npc.verb(prepare)] to have [npc.her] [npc.asshole+] and mouth used at the same time.";
@@ -140,7 +141,7 @@ public class GloryHole {
 				}
 				
 			} else {
-				if(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_KNEELING) {
+				if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_KNEELING) {
 					return "Standing up, [npc.name] [npc.verb(step)] over towards [npc2.name], before bending down and pushing [npc.her] [npc.ass+] up against the glory hole."
 							+ " Letting out [npc.a_moan+], [npc.she] [npc.verb(press)] back against the wall, preparing to have [npc.her] [npc.asshole+] used.";
 					
@@ -154,16 +155,16 @@ public class GloryHole {
 		@Override
 		public void applyEffects() {
 			Map<GameCharacter, List<SexAreaInterface>> bannedAreaMap = new HashMap<>();
-			bannedAreaMap.put(Main.sex.getCharacterPerformingAction(), Util.newArrayListOfValues(SexAreaOrifice.VAGINA));
+			bannedAreaMap.put(Sex.getCharacterPerformingAction(), Util.newArrayListOfValues(SexAreaOrifice.VAGINA));
 
-			if(Main.sex.getTotalParticipantCount(false)==3) {
-				List<GameCharacter> participants = new ArrayList<>(Main.sex.getAllParticipants());
-				participants.remove(Main.sex.getCharacterPerformingAction());
-				GameCharacter characterFucked = Main.sex.getCharacterPerformingAction();
-				participants.remove(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()));
-				GameCharacter characterFucking = Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction());
+			if(Sex.getTotalParticipantCount(false)==3) {
+				List<GameCharacter> participants = new ArrayList<>(Sex.getAllParticipants());
+				participants.remove(Sex.getCharacterPerformingAction());
+				GameCharacter characterFucked = Sex.getCharacterPerformingAction();
+				participants.remove(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()));
+				GameCharacter characterFucking = Sex.getTargetedPartner(Sex.getCharacterPerformingAction());
 				
-				Main.sex.setSexManager(new SMGloryHoleSex(
+				Sex.setSexManager(new SMGloryHoleSex(
 						Util.newHashMapOfValues(new Value<>(characterFucked, SexSlotUnique.GLORY_HOLE_FUCKED)),
 						Util.newHashMapOfValues(
 								new Value<>(characterFucking, SexSlotUnique.GLORY_HOLE_FUCKING),
@@ -179,9 +180,9 @@ public class GloryHole {
 				});
 				
 			} else {
-				Main.sex.setSexManager(new SMGloryHoleSex(
-						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.GLORY_HOLE_FUCKED)),
-						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.GLORY_HOLE_FUCKING))) {
+				Sex.setSexManager(new SMGloryHoleSex(
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotUnique.GLORY_HOLE_FUCKED)),
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotUnique.GLORY_HOLE_FUCKING))) {
 					@Override
 					public Map<GameCharacter, List<SexAreaInterface>> getAreasBannedMap() {
 						return bannedAreaMap;
@@ -205,16 +206,16 @@ public class GloryHole {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
-					&& ((Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_FUCKED && !Main.sex.getSexManager().getAreasBannedMap().get(Main.sex.getCharacterPerformingAction()).contains(SexAreaOrifice.ANUS))
-						|| !Main.sex.getCharacterTargetedForSexAction(this).equals(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_FUCKING))
-						|| Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_KNEELING)
-					&& Main.sex.getCharacterPerformingAction().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
-					&& Main.sex.getCharacterPerformingAction().hasVagina()
-					&& (Main.sex.getCharacterPerformingAction().isPlayer()
-							|| (!Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isNegative()
-									&& ((NPC) Main.sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.game.getPlayer()).getPerformingSexArea()==SexAreaOrifice.VAGINA));
-//									&& ((NPC) Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.GLORY_HOLE_SEX, SexSlotUnique.GLORY_HOLE_FUCKED, Main.game.getPlayer())));
+			return Sex.isPositionChangingAllowed(Sex.getCharacterPerformingAction())
+					&& ((Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_FUCKED && !Sex.getSexManager().getAreasBannedMap().get(Sex.getCharacterPerformingAction()).contains(SexAreaOrifice.ANUS))
+						|| !Sex.getCharacterTargetedForSexAction(this).equals(Sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_FUCKING))
+						|| Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_KNEELING)
+					&& Sex.getCharacterPerformingAction().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
+					&& Sex.getCharacterPerformingAction().hasVagina()
+					&& (Sex.getCharacterPerformingAction().isPlayer()
+							|| (!Sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isNegative()
+									&& ((NPC) Sex.getCharacterPerformingAction()).getCurrentSexPreference(Main.game.getPlayer()).getPerformingSexArea()==SexAreaOrifice.VAGINA));
+//									&& ((NPC) Sex.getCharacterPerformingAction()).isHappyToBeInSlot(SexPositionBipeds.GLORY_HOLE_SEX, SexSlotUnique.GLORY_HOLE_FUCKED, Main.game.getPlayer())));
 		}
 		
 		@Override
@@ -229,8 +230,8 @@ public class GloryHole {
 
 		@Override
 		public String getDescription() {
-			if(Main.sex.getTotalParticipantCount(false)==3) {
-				if(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_KNEELING) {
+			if(Sex.getTotalParticipantCount(false)==3) {
+				if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_KNEELING) {
 					return "Standing up, [npc.name] [npc.verb(step)] over towards [npc2.name], before bending down and pushing [npc.her] [npc.ass+] up against the glory hole."
 							+ " Leaning forwards, [npc.she] [npc.verb(position)] [npc.herself] so that [npc.her] mouth is just [unit.sizes] away from the hole on the opposite side of the stall,"
 								+ " and, letting out [npc.a_moan+], [npc.she] [npc.verb(prepare)] to have [npc.her] [npc.pussy+] and mouth used at the same time.";
@@ -242,7 +243,7 @@ public class GloryHole {
 				}
 				
 			} else {
-				if(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_KNEELING) {
+				if(Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())==SexSlotUnique.GLORY_HOLE_KNEELING) {
 					return "Standing up, [npc.name] [npc.verb(step)] over towards [npc2.name], before bending down and pushing [npc.her] [npc.ass+] up against the glory hole."
 							+ " Letting out [npc.a_moan+], [npc.she] [npc.verb(press)] back against the wall, preparing to have [npc.her] [npc.pussy+] used.";
 					
@@ -256,16 +257,16 @@ public class GloryHole {
 		@Override
 		public void applyEffects() {
 			Map<GameCharacter, List<SexAreaInterface>> bannedAreaMap = new HashMap<>();
-			bannedAreaMap.put(Main.sex.getCharacterPerformingAction(), Util.newArrayListOfValues(SexAreaOrifice.ANUS));
+			bannedAreaMap.put(Sex.getCharacterPerformingAction(), Util.newArrayListOfValues(SexAreaOrifice.ANUS));
 
-			if(Main.sex.getTotalParticipantCount(false)==3) {
-				List<GameCharacter> participants = new ArrayList<>(Main.sex.getAllParticipants());
-				participants.remove(Main.sex.getCharacterPerformingAction());
-				GameCharacter characterFucked = Main.sex.getCharacterPerformingAction();
-				participants.remove(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()));
-				GameCharacter characterFucking = Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction());
+			if(Sex.getTotalParticipantCount(false)==3) {
+				List<GameCharacter> participants = new ArrayList<>(Sex.getAllParticipants());
+				participants.remove(Sex.getCharacterPerformingAction());
+				GameCharacter characterFucked = Sex.getCharacterPerformingAction();
+				participants.remove(Sex.getTargetedPartner(Sex.getCharacterPerformingAction()));
+				GameCharacter characterFucking = Sex.getTargetedPartner(Sex.getCharacterPerformingAction());
 				
-				Main.sex.setSexManager(new SMGloryHoleSex(
+				Sex.setSexManager(new SMGloryHoleSex(
 						Util.newHashMapOfValues(new Value<>(characterFucked, SexSlotUnique.GLORY_HOLE_FUCKED)),
 						Util.newHashMapOfValues(
 								new Value<>(characterFucking, SexSlotUnique.GLORY_HOLE_FUCKING),
@@ -281,9 +282,9 @@ public class GloryHole {
 				});
 				
 			} else {
-				Main.sex.setSexManager(new SMGloryHoleSex(
-						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.GLORY_HOLE_FUCKED)),
-						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.GLORY_HOLE_FUCKING))) {
+				Sex.setSexManager(new SMGloryHoleSex(
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotUnique.GLORY_HOLE_FUCKED)),
+						Util.newHashMapOfValues(new Value<>(Sex.getCharacterTargetedForSexAction(this), SexSlotUnique.GLORY_HOLE_FUCKING))) {
 					@Override
 					public Map<GameCharacter, List<SexAreaInterface>> getAreasBannedMap() {
 						return bannedAreaMap;

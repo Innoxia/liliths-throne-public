@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
@@ -302,7 +303,7 @@ public class CompanionManagement {
 			} else if(index==10) {
 				if(Main.game.getPlayer().isCaptive()) {
 					return new Response(
-							characterSelected().isElemental()
+							characterSelected() instanceof Elemental
 								?"Dispel"
 								:"Send home",
 							"As you are a captive, you cannot dismiss your companions!",
@@ -310,7 +311,7 @@ public class CompanionManagement {
 					
 				} else if(!Main.game.isSavedDialogueNeutral()) {
 					return new Response(
-							characterSelected().isElemental()
+							characterSelected() instanceof Elemental
 								?"Dispel"
 								:"Send home",
 							"You're in the middle of something right now!"+getBusyWarning(),
@@ -319,11 +320,11 @@ public class CompanionManagement {
 				} else {
 					if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterSelected().isElementalSummoned())) {
 						return new ResponseEffectsOnly(
-								characterSelected().isElemental()
+								characterSelected() instanceof Elemental
 									?"Dispel"
 									:"Send home",
 									UtilText.parse(characterSelected(), 
-										characterSelected().isElemental()
+										characterSelected() instanceof Elemental
 											?"Dispel [npc.namePos] physical form, and return [npc.herHim] to your arcane aura."
 											:"Tell [npc.name] to go home.")) {
 							@Override
@@ -341,11 +342,11 @@ public class CompanionManagement {
 						
 					} else {
 						return new Response(
-								characterSelected().isElemental()
+								characterSelected() instanceof Elemental
 									?"Dispel"
 									:"Send home",
 									UtilText.parse(characterSelected(), 
-										characterSelected().isElemental()
+										characterSelected() instanceof Elemental
 											?"Dispel [npc.namePos] physical form, and return [npc.herHim] to your arcane aura."
 											:"Tell [npc.name] to go home."),
 								coreNode){
@@ -1638,7 +1639,7 @@ public class CompanionManagement {
 			
 			UtilText.nodeContentSB.append("</div>");
 			
-			if(!(characterSelected().isElemental())) {
+			if(!(characterSelected() instanceof Elemental)) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='padding:8px; text-align:center;'>"
 							+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
 						+ "</div>");

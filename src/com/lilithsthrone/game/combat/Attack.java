@@ -65,13 +65,12 @@ public enum Attack {
 	 * @param attacker
 	 * @return
 	 */
-	public static float getBaseWeaponDamage(GameCharacter attacker, AbstractWeapon weapon) {
+	public static float getMeleeDamage(GameCharacter attacker, AbstractWeapon weapon) {
 		if (attacker == null) {
 			return 0;
 		}
 		if (weapon == null) {
 			return attacker.getUnarmedDamage();
-			
 		} else {
 			return weapon.getWeaponType().getDamage();
 		}
@@ -224,7 +223,7 @@ public enum Attack {
 					(weapon == null
 						? attacker.getBodyMaterial().getUnarmedDamageType()
 						: weapon.getDamageType()),
-					getBaseWeaponDamage(attacker, weapon) * (weapon == null
+					getMeleeDamage(attacker, weapon) * (weapon == null
 																? 1f - DamageVariance.MEDIUM.getPercentage()
 																: 1f - weapon.getWeaponType().getDamageVariance().getPercentage()));
 			
@@ -257,7 +256,7 @@ public enum Attack {
 		if (attackType == MAIN
 				|| attackType == OFFHAND) {
 			damage = getModifiedDamage(attacker, defender, attackType, weapon, (weapon == null ? attacker.getBodyMaterial().getUnarmedDamageType() : weapon.getDamageType()),
-					getBaseWeaponDamage(attacker, weapon) * (weapon == null ? 1f + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage()));
+					getMeleeDamage(attacker, weapon) * (weapon == null ? 1f + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage()));
 			
 		} else {
 			damage = (getModifiedDamage(attacker, defender, attackType, weapon, DamageType.LUST, getSeductionDamage(attacker) * 1.1f));
@@ -324,7 +323,7 @@ public enum Attack {
 			return 0;
 		}
 			
-		if(attacker!=null && attacker.isElemental()) {
+		if(attacker instanceof Elemental) {
 			switch(attacker.getBodyMaterial()) {
 				case AIR:
 					damageDoubledFromElemental = ((Elemental)attacker).hasStatusEffect(StatusEffect.ELEMENTAL_AIR_SERVANT_OF_AIR_ELEMENTAL_BUFF);
@@ -356,16 +355,15 @@ public enum Attack {
 				damage += attackersDamage;
 			}
 			
-			if(attacker!=null) { // Attacker modifiers:
+			if (attacker != null) { // Attacker modifiers:
 				damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(damageType.getMultiplierAttribute()), 100)/100f);
 				
-				if(weapon!=null && !weapon.getWeaponType().isUsingUnarmedCalculation()) {
+				if(weapon!=null) {
 					if(weapon.getWeaponType().isMelee()) {
 						damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON), 100)/100f);
 					} else {
 						damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_RANGED_WEAPON), 100)/100f);
 					}
-					
 				} else {
 					damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f);
 				}
@@ -375,7 +373,7 @@ public enum Attack {
 				}
 			}
 
-//			if (defender!=null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) { // Defender modifiers:
+//			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) { // Defender modifiers:
 //				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
 //				
 //				if (damage < 1) {
@@ -390,17 +388,17 @@ public enum Attack {
 				damage += attackersDamage;
 			}
 			
-			if (attacker!=null) { // Attacker modifiers:
+			if (attacker != null) { // Attacker modifiers:
 				damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_SPELLS), 100)/100f);
 				damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(damageType.getMultiplierAttribute()), 100)/100f);
 			}
 
-//			if (defender!=null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
+//			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 //				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
 //			}
 			
 		} else {
-			if (attacker!=null) { // Attacker modifiers:
+			if (attacker != null) { // Attacker modifiers:
 				damage += attackersDamage * (1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_LUST), 100)/100f);
 				
 				if(defender!=null) {
@@ -412,12 +410,9 @@ public enum Attack {
 				if (damage < 1) {
 					damage = 1;
 				}
-				
-			} else {
-				damage = attackersDamage;
 			}
 
-			if (defender!=null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
+			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 				// Defender modifiers:
 //				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f;
 				if(attacker!=null) {
@@ -436,7 +431,7 @@ public enum Attack {
 			}
 		}
 		
-		if (attacker!=null && defender!=null) {
+		if (attacker != null && defender!=null) {
 			// Modifiers based on race damage:
 			damage += attackersDamage * (Util.getModifiedDropoffValue(attacker.getAttributeValue(defender.getSubspecies().getDamageMultiplier()), 100)/100f);
 			

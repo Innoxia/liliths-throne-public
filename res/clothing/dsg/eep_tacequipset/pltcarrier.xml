@@ -131,8 +131,8 @@
 		
 		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
+			
 			<tag>RIGID_MATERIAL</tag>
-			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
 	</coreAtributes>
 

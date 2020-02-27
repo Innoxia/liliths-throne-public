@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 
 /**
  * @since 0.1.83
- * @version 0.3.6.6
+ * @version 0.1.83
  * @author Innoxia
  */
 public interface OrificeInterface {
@@ -23,9 +23,6 @@ public interface OrificeInterface {
 	public float getStretchedCapacity();
 	public boolean setStretchedCapacity(float stretchedCapacity);
 
-	public int getMaximumPenetrationDepthComfortable(GameCharacter owner);
-	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner);
-	
 	public OrificeElasticity getElasticity();
 	public String setElasticity(GameCharacter owner, int elasticity);
 	

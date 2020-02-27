@@ -96,7 +96,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving 
 
 		innerElement = doc.createElement("milk");
 		element.appendChild(innerElement);
-		this.getMilk().saveAsXML("milk", innerElement, doc);
+		this.getMilk().saveAsXML(innerElement, doc);
 		
 		return element;
 	}
@@ -112,7 +112,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving 
 				provider,
 				((Element) parentElement.getElementsByTagName("milk").item(0)==null
 					?new FluidMilk(FluidType.MILK_HUMAN, false)
-					:FluidMilk.loadFromXML("milk", (Element) parentElement.getElementsByTagName("milk").item(0), doc)),
+					:FluidMilk.loadFromXML((Element) parentElement.getElementsByTagName("milk").item(0), doc)),
 				(parentElement.getAttribute("millilitresStored").isEmpty()
 					?25
 					:Integer.valueOf(parentElement.getAttribute("millilitresStored"))));

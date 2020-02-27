@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -65,8 +66,8 @@ public class Anus implements BodyPartInterface {
 		}
 		
 		String wetnessDescriptor = orificeAnus.getWetness(owner).getDescriptor();
-		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(owner)) {
-			if(Main.sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.ANUS)) {
+		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
+			if(Sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.ANUS)) {
 				wetnessDescriptor = "wet";
 			}
 		}
@@ -78,7 +79,7 @@ public class Anus implements BodyPartInterface {
 		if(owner.isAnusBestial()) {
 			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
 					"feral",
-					owner.getAssRace().getName(owner, true)+"-",
+					owner.getAssRace().getName(true)+"-",
 					"bestial",
 					"animalistic")));
 		} else {

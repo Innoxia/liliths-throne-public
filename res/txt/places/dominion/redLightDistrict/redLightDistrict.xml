@@ -8,7 +8,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OUTSIDE_NO_STORM"><![CDATA[
 	<p>
 		The city's prostitutes aren't limited to the confines of these brothels, and as you walk through the area, you pass countless scantily clad girls, who wink at you and call out their prices for oral, anal, and vaginal sex.
@@ -16,14 +16,14 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OUTSIDE_STORM"><![CDATA[
 	<p>
 		Due to the ongoing arcane storm, there are no prostitutes out on the street, and, much like the rest of Dominion, the entire area is completely deserted.
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="OUTSIDE_FINAL"><![CDATA[
 	<p>
 		In the very centre of the red-light district, stands a building that's far larger than all the others.
@@ -47,5 +47,5 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 </dialogue>

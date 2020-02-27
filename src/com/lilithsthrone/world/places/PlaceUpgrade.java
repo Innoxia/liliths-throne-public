@@ -3,7 +3,6 @@ package com.lilithsthrone.world.places;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -729,8 +728,8 @@ public enum PlaceUpgrade {
 			"You've had this office fitted out with the most upmarket furnishings available, which are sure to instill a sense of respect for you in anyone who's assigned to work here.",
 			"You've had this office outfitted with the most luxurious and extravagantly opulent furnishings which money can buy."
 					+ " Each of the four work stations have their own masterfully carved mahogany desk, and fixed to the walls behind them are shelves filled with artisanal leather-bound record books.",
-			500_000,
-			-200_000,
+			500000,
+			-200000,
 			50,
 			0,
 			0.25f,
@@ -1027,19 +1026,10 @@ public enum PlaceUpgrade {
 	}
 
 	public int getInstallCost() {
-		if(Main.game.getPlayer().hasTrait(Perk.JOB_PLAYER_CONSTRUCTION_WORKER, true)) {
-			return installCost/2;
-		}
 		return installCost;
 	}
 
 	public int getRemovalCost() {
-		if(Main.game.getPlayer().hasTrait(Perk.JOB_PLAYER_CONSTRUCTION_WORKER, true)) {
-			if(removalCost>0) {
-				return removalCost;
-			}
-			return Math.max(-(installCost/2), removalCost);
-		}
 		return removalCost;
 	}
 

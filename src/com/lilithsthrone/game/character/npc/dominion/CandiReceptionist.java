@@ -87,6 +87,7 @@ public class CandiReceptionist extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.8")) {
 			this.setLevel(5);
 			this.setHistory(Occupation.NPC_ENFORCER_PATROL_CONSTABLE);
+			this.resetPerksMap(true);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4.9")) {
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
@@ -95,14 +96,11 @@ public class CandiReceptionist extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.SELFISH);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.resetPerksMap(true);
-		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		this.addSpecialPerk(Perk.SPECIAL_MEGA_SLUT);
+		this.addSpecialPerk(Perk.SPECIAL_SLUT);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(

@@ -75,10 +75,7 @@
 		</tertiaryColours>
 		<tertiaryColoursDye values="ALL_METAL"/>
 	
-		<itemTags>
-			<tag>FITS_ARM_WINGS</tag>
-		</itemTags>
-		
+		<itemTags/>
 	</coreAttributes>
 
 	

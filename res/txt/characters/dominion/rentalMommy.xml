@@ -27,10 +27,10 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="DECLINE"><![CDATA[
 	<p>
-		[pc.speech(I'm on some important business right now,)] you say, before stepping back and preparing to move off.
+		[pc.speech(I'm on some important business right now,)] you say, before stepping back and preparing to move off. 
 	</p>
 	<p>
 		[npc.speech(I understand, sweetie! If ever you need some comfort from Mommy, you know where to find me!)] Mommy cheerfully calls out, before sitting back and crossing her legs once more.
@@ -40,7 +40,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="MOMMYS_EXTRAS"><![CDATA[
 	<p>
 		[pc.speech(That sounds kind of nice...)]
@@ -66,7 +66,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="MOMMYS_EXTRAS_OFFER_BREASTFEEDING"><![CDATA[
 	<p>
 		As you're wondering if you should take Mommy up on her offer or not, she suddenly seems to remember something, and happily continues, [npc.speech(Oh! If you wanted Mommy to feed you, I can do that too! It's five hundred flames if you want to do it inside, or a thousand if you want me to feed you out here. And just so we're clear, I'm talking about feeding you with these right here.)]
@@ -76,28 +76,28 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="MOMMY_HOUSE_ENTRY_BREASTFEEDING"><![CDATA[
 	<p>
 		[pc.speech(Mommy, could I have some milk?)] you ask, producing five hundred flames before handing them over to the [npc.name].
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="MOMMY_HOUSE_ENTRY_SEX_SUB"><![CDATA[
 	<p>
 		[pc.speech(Mommy, could I help you to have some fun?)] you ask, producing one thousand flames before handing them over to the [npc.name].
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="MOMMY_HOUSE_ENTRY_SEX_DOM"><![CDATA[
 	<p>
 		[pc.speech(Mommy, I'd like to show you a good time,)] you say, producing two thousand flames before handing them over to the [npc.name].
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="MOMMY_HOUSE_ENTRY"><![CDATA[
 	<p>
 		[npc.speech(Of course, sweetie!)] Mommy happily replies, before gently sitting you up and taking hold of your [pc.hand]. [npc.speech(Come with me!)]
@@ -110,21 +110,21 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="MOMMY_SEX_SUB"><![CDATA[
 	<p>
 		[npc.speech(Good [pc.girl]!)] she cheerfully exclaims. [npc.speech(Now, let Mommy take good care of you...)]
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="MOMMY_SEX_DOM"><![CDATA[
 	<p>
 		[npc.speech(Good [pc.girl]!)] she cheerfully exclaims. [npc.speech(Now, show me how you want to treat your Mommy...)]
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="MOMMYS_EXTRAS_DECLINED"><![CDATA[
 	<p>
 		Not liking the sound of Mommy's offers, you slowly sit back up on the bench.
@@ -138,7 +138,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="MOMMYS_EXTRAS_BREASTFEEDING"><![CDATA[
 	<p>
 		[npc.speech(Good [pc.girl]!)] she cheerfully exclaims. [npc.speech(Now, come over here and take a seat!)]
@@ -153,7 +153,7 @@
 		[npc.speech(Come on then, don't keep Mommy waiting!)] Mommy gently teases, before leaning forwards to take hold of your head in her hands. You allow the [npc.race] to guide your face down to her breasts, before pressing one of her [npc.nipples+] against your [pc.lips+].
 	</p>
 	<p>
-		Letting out a hungry little [pc.moan], you wrap your [pc.lips] around Mommy's [npc.nipple+], before starting to greedily kiss and suck on it. A deep, satisfied sigh drifts down to you as Mommy feels you start to suckle away at her teat. Almost instantly, a stream of [npc.milk+] starts to leak out into your mouth, and you find yourself hungrily gulping it down as Mommy strokes and cradles your head.
+		Letting out a hungry little [pc.moan], you wrap your [pc.lips] around Mommy's [npc.nipple+], before starting to greedily kiss and suck on it. A deep, satisfied sigh drifts down to you as Mommy feels you start to suckle away at her teat. Almost instantly, a stream of [npc.milk+] starts to leak out into your mouth, and you find yourself hungrily gulping it down as Mommy strokes and cradles your head. 
 	</p>
 	<p>
 		After a little while, the milk from Mommy's teat starts to dry up, and with a little wet sucking noise, she pries you away from her breast. Before you can complain, she quickly shifts her torso to one side, and presents her other breast to your still-hungry mouth. Instantly, you wrap your [pc.lips] around the [npc.nipple+], and let out a muffled [pc.moan] of delight as a fresh stream of [npc.milk] starts flowing into your mouth.
@@ -169,7 +169,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="MOMMYS_EXTRAS_BREASTFEEDING_PUBLIC"><![CDATA[
 	<p>
 		[pc.speech(Mommy, could I have some milk out here?)] you ask, before handing over one thousand flames.
@@ -184,7 +184,7 @@
 		[npc.speech(Come on then, don't keep Mommy waiting!)] Mommy gently teases, before leaning forwards to take hold of your head in her hands. You allow the [npc.race] to guide your face up to her breasts, before pressing one of her [npc.nipples+] against your [pc.lips+].
 	</p>
 	<p>
-		Letting out a hungry little [pc.moan], you wrap your [pc.lips] around Mommy's [npc.nipple+], before starting to greedily kiss and suck on it. A deep, satisfied sigh drifts down to you as Mommy feels you start to suckle away at her teat. Almost instantly, a stream of [npc.milk+] starts to leak out into your mouth, and you find yourself hungrily gulping it down as Mommy strokes and cradles your head.
+		Letting out a hungry little [pc.moan], you wrap your [pc.lips] around Mommy's [npc.nipple+], before starting to greedily kiss and suck on it. A deep, satisfied sigh drifts down to you as Mommy feels you start to suckle away at her teat. Almost instantly, a stream of [npc.milk+] starts to leak out into your mouth, and you find yourself hungrily gulping it down as Mommy strokes and cradles your head. 
 	</p>
 	<p>
 		After a little while, the milk from Mommy's teat starts to dry up, and with a little wet sucking noise, she pries you away from her breast. Before you can complain, she quickly shifts her torso to one side, and presents her other breast to your still-hungry mouth. Instantly, you wrap your [pc.lips] around the [npc.nipple+], and let out a muffled [pc.moan] of delight as a fresh stream of [npc.milk] starts flowing into your mouth.
@@ -200,7 +200,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="MOMMY_ORGASMED"><![CDATA[
 	<p>
 		Mommy collapses down onto the nearest sofa, panting. [npc.speech(Mmm... That was great...)]
@@ -210,7 +210,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="MOMMY_NO_ORGASM"><![CDATA[
 	<p>
 		Mommy collapses down onto the nearest sofa, letting out a frustrated little huff. [npc.speech(Hmm... You didn't even satisfy your Mommy...)]
@@ -220,7 +220,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="AFTER_SEX_MOMMY_AS_DOM_END"><![CDATA[
 	<p>
 		[npc.speech(Now, tidy up Mommy's lounge, like a good [pc.girl].)] Mommy sighs, still catching her breath.
@@ -233,7 +233,7 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 	<htmlContent tag="AFTER_SEX_MOMMY_AS_SUB_END"><![CDATA[
 	<p>
 		[npc.speech(Now, you sit still while Mommy tidies up her lounge, like a good [pc.girl],)] Mommy says, smiling lovingly at you.
@@ -246,5 +246,5 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
 </dialogue>

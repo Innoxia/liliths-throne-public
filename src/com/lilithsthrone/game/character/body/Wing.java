@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;

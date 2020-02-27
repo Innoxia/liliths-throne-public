@@ -21,15 +21,251 @@ import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
- * @version 0.3.5.8
+ * @version 0.3.4
  * @author Innoxia
  */
 public class WeaponType {
+	
+	public static AbstractWeaponType MELEE_CHAOS_RARE = new AbstractWeaponType(1000,
+			true,
+			false,
+			"an",
+			false,
+			"opaque demonstone",
+			"opaque demonstones",
+			"Crystal Strike",
+			"A common type of demonstone, the power of which can be harnessed as a weapon."
+					+ " Demonstones are rumoured to be crystallised essences of a Lilin's orgasm.",
+			"meleeCrystal1",
+			"meleeCrystal1",
+			Rarity.RARE,
+			0,
+			null,
+			Util.newArrayListOfValues(
+					DamageType.PHYSICAL,
+					DamageType.FIRE,
+					DamageType.ICE,
+					DamageType.POISON),
+			8,
+			0,
+			DamageVariance.MEDIUM,
+			5,
+			Util.newArrayListOfValues(
+					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0)),
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
+				
+		@Override
+		public String equipText(GameCharacter character) {
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the crystal."
+					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform arcane-imbued attacks.");
+		}
+
+		@Override
+		public String unequipText(GameCharacter character) {
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy inside of [npc.herHim], forcing it out from [npc.her] body."
+					+ " As [npc.she] [npc.does] so, it reforms back into a demonstone.");
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			return genericMeleeAttackDescription(character, target, isHit);
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Strike at [npc.name] in melee, using your crystal's power to inflict extra damage!");
+		}
+		
+		@Override
+		public List<Spell> getGenerationSpells(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newArrayListOfValues(Spell.FIREBALL);
+				case ICE:
+					return Util.newArrayListOfValues(Spell.ICE_SHARD);
+				case LUST:
+					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
+				case PHYSICAL:
+					return Util.newArrayListOfValues(Spell.SLAM);
+				case POISON:
+					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+				default:
+					break;
+			}
+			return null;
+		}
+	};
+	
+	public static AbstractWeaponType MELEE_CHAOS_EPIC = new AbstractWeaponType(1500,
+			true,
+			false,
+			"a",
+			false,
+			"misty demonstone",
+			"misty demonstones",
+			"Crystal Strike",
+			"A powerful demonstone, the power of which can be harnessed as a weapon."
+					+ " Demonstones are rumoured to be crystallised essences of a Lilin's orgasm.",
+			"meleeCrystal2",
+			"meleeCrystal2",
+			Rarity.EPIC,
+			0,
+			null,
+			Util.newArrayListOfValues(
+					DamageType.PHYSICAL,
+					DamageType.FIRE,
+					DamageType.ICE,
+					DamageType.POISON),
+			12,
+			0,
+			DamageVariance.MEDIUM,
+			5,
+			Util.newArrayListOfValues(
+					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0)),
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)) {
+
+		@Override
+		public String equipText(GameCharacter character) {
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the crystal."
+					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform arcane-imbued attacks.");
+		}
+
+		@Override
+		public String unequipText(GameCharacter character) {
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy inside of [npc.herHim], forcing it out from [npc.her] body."
+					+ " As [npc.she] [npc.does] so, it reforms back into a demonstone.");
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			return genericMeleeAttackDescription(character, target, isHit);
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Strike at [npc.name] in melee, using your crystal's power to inflict extra damage!");
+		}
+		
+		@Override
+		public List<Spell> getGenerationSpells(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newArrayListOfValues(Spell.FIREBALL);
+				case ICE:
+					return Util.newArrayListOfValues(Spell.ICE_SHARD);
+				case LUST:
+					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
+				case PHYSICAL:
+					return Util.newArrayListOfValues(Spell.SLAM);
+				case POISON:
+					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+				default:
+					break;
+			}
+			return null;
+		}
+	};
+	
+	public static AbstractWeaponType MELEE_CHAOS_LEGENDARY = new AbstractWeaponType(2500,
+			true,
+			false,
+			"a",
+			false,
+			"clear demonstone",
+			"clear demonstones",
+			"Crystal Strike",
+			"An extremely powerful demonstone, the power of which can be harnessed as a weapon."
+					+ " Demonstones are rumoured to be crystallised essences of a Lilin's orgasm.",
+			"meleeCrystal3",
+			"meleeCrystal3",
+			Rarity.LEGENDARY,
+			0,
+			null,
+			Util.newArrayListOfValues(
+					DamageType.PHYSICAL,
+					DamageType.FIRE,
+					DamageType.ICE,
+					DamageType.POISON),
+			16,
+			0,
+			DamageVariance.LOW,
+			10,
+			Util.newArrayListOfValues(
+					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_WEAPON, TFPotency.MAJOR_BOOST, 0),
+					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_WEAPON, TFPotency.MAJOR_BOOST, 0)),
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			null,
+			Util.newArrayListOfValues(ItemTag.SOLD_BY_VICKY)){
+
+		@Override
+		public String equipText(GameCharacter character) {
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy in the crystal."
+					+ " As [npc.she] [npc.does] so, it dissolves and flows into [npc.her] body, granting [npc.herHim] the ability to perform arcane-imbued attacks.");
+		}
+
+		@Override
+		public String unequipText(GameCharacter character) {
+			return UtilText.parse(character, "[npc.Name] [npc.verb(focus)] on the energy inside of [npc.herHim], forcing it out from [npc.her] body."
+					+ " As [npc.she] [npc.does] so, it reforms back into a demonstone.");
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			return genericMeleeAttackDescription(character, target, isHit);
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Strike at [npc.name] in melee, using your crystal's power to inflict extra damage!");
+		}
+
+		@Override
+		public List<Spell> getGenerationSpells(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newArrayListOfValues(Spell.FIREBALL);
+				case ICE:
+					return Util.newArrayListOfValues(Spell.ICE_SHARD);
+				case LUST:
+					return Util.newArrayListOfValues(Spell.ARCANE_AROUSAL);
+				case PHYSICAL:
+					return Util.newArrayListOfValues(Spell.SLAM);
+				case POISON:
+					return Util.newArrayListOfValues(Spell.POISON_VAPOURS);
+				default:
+					break;
+			}
+			return null;
+		}
+	};
 	
 	public static AbstractWeaponType MELEE_ZWEIHANDER = new AbstractWeaponType(5000,
 			true,
@@ -227,10 +463,9 @@ public class WeaponType {
 			5,
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.INTELLIGENCE, TFPotency.MAJOR_BOOST, 0)),
-			Util.newHashMapOfValues(new Value<>(null,
-					Util.newArrayListOfValues(
-						Spell.WITCH_SEAL,
-						Spell.WITCH_CHARM))),
+			Util.newArrayListOfValues(
+					Spell.WITCH_SEAL,
+					Spell.WITCH_CHARM),
 			null,
 			null,
 			null,
@@ -459,6 +694,7 @@ public class WeaponType {
 		}
 	};
 	
+	public static List<AbstractWeaponType> rareWeapons = new ArrayList<>();
 	private static List<AbstractWeaponType> allWeapons = new ArrayList<>();
 	public static List<AbstractWeaponType> moddedWeapons = new ArrayList<>();
 	
@@ -481,16 +717,6 @@ public class WeaponType {
 		}
 		if(id.equals("OFFHAND_CHAOS_EPIC")) {	
 			id = "innoxia_feather_epic";
-		}
-
-		if(id.equals("MELEE_CHAOS_RARE")) {	
-			id = "innoxia_crystal_rare";
-		}
-		if(id.equals("MELEE_CHAOS_EPIC")) {	
-			id = "innoxia_crystal_EPIC";
-		}
-		if(id.equals("MELEE_CHAOS_LEGENDARY")) {	
-			id = "innoxia_crystal_legendary";
 		}
 		
 		id = Util.getClosestStringMatch(id, idToWeaponMap.keySet());
@@ -589,6 +815,10 @@ public class WeaponType {
 					idToWeaponMap.put(f.getName(), weapon);
 					
 					allWeapons.add(weapon);
+				
+					if (weapon.getRarity() == Rarity.RARE) {
+						rareWeapons.add(weapon);
+					}
 					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();

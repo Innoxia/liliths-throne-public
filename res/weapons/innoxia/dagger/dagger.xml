@@ -79,26 +79,11 @@
 		</availableDamageTypes>
 		
 		<!-- The spells that are unlocked when equipping this weapon. IF you want to add any, use the format:
-		<spells changeOnReforge="true">
-			<spell damageType="FIRE">FIREBALL</spell>
-			<spell damageType="ICE">ICE_SHARD</spell>
-			<spell damageType="LUST">ARCANE_AROUSAL</spell>
-			<spell damageType="PHYSICAL">SLAM</spell>
-			<spell damageType="POISON">POISON_VAPOURS</spell>
+		<spells>
+			<spell>FIREBALL</spell>
 		</spells>
 		
-		The 'changeOnReforge' variable determines whether this weapon should regenerate spells whenever the player changes the damage type. (i.e. If they reforge a FIRE dagger to an ICE dagger, if 'changeOnReforge' is true, then the granted spell FIREBALL will automatically switch to ICE_SHARD).
-		
-		The 'damageType' variable corresponds to the damageType which causes the spell to be unlocked when this weapon is spawned in. You can have multiple entries of the same damageType, like so:
-		...
-			<spell damageType="FIRE">FIREBALL</spell>
-			<spell damageType="FIRE">FLASH</spell>
-			<spell damageType="FIRE">ICE_SHARD</spell>
-			<spell damageType="FIRE">STEAL</spell>
-		...
-		Note that the damageType does not have to correspond to the spell's school (so FIRE can unlock ICE_SHARD, etc.).
-		
-		Values for spells can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/Spell.java -->
+		Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/Spell.java -->
 		<spells/>
 		
 		<!-- How many effects this weapon can be enchanted with. Should usually be left at 5. -->

@@ -25,16 +25,14 @@ public class OrificeNipples implements OrificeInterface {
 	protected float capacity;
 	protected float stretchedCapacity;
 	protected boolean virgin;
-	protected boolean crotchNipples;
 	protected Set<OrificeModifier> orificeModifiers;
 
-	public OrificeNipples(int wetness, float capacity, int elasticity, int plasticity, boolean virgin, boolean crotchNipples, Collection<OrificeModifier> orificeModifiers) {
+	public OrificeNipples(int wetness, float capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
 		this.capacity = capacity;
 		stretchedCapacity = capacity;
 		this.elasticity = elasticity;
 		this.plasticity = plasticity;
 		this.virgin = virgin;
-		this.crotchNipples = crotchNipples;
 		
 		this.orificeModifiers = new HashSet<>(orificeModifiers);
 	}
@@ -63,7 +61,7 @@ public class OrificeNipples implements OrificeInterface {
 	@Override
 	public String setCapacity(GameCharacter owner, float capacity, boolean setStretchedValueToNewValue) {
 		float oldCapacity = this.capacity;
-		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue(false)));
+		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
 		if(setStretchedValueToNewValue) {
 			this.stretchedCapacity = this.capacity;
 		}
@@ -156,24 +154,10 @@ public class OrificeNipples implements OrificeInterface {
 	@Override
 	public boolean setStretchedCapacity(float stretchedCapacity) {
 		float oldStretchedCapacity = this.stretchedCapacity;
-		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue(false)));
+		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue()));
 		return oldStretchedCapacity != this.stretchedCapacity;
 	}
 
-	@Override
-	public int getMaximumPenetrationDepthComfortable(GameCharacter owner) {
-		// Calculate breast depth as simply owner.getBreastSize().getMeasurement()
-		if(this.isCrotchNipples()) {
-			return (int) ((owner.getBreastCrotchSize().getMeasurement()) * 0.5f * (this.hasOrificeModifier(OrificeModifier.EXTRA_DEEP)?2:1) * (!owner.getBodyMaterial().isOrificesLimitedDepth()?4f:1));
-		}
-		return (int) ((owner.getBreastSize().getMeasurement()) * 0.5f * (this.hasOrificeModifier(OrificeModifier.EXTRA_DEEP)?2:1) * (!owner.getBodyMaterial().isOrificesLimitedDepth()?4f:1));
-	}
-	
-	@Override
-	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner) {
-		return getMaximumPenetrationDepthComfortable(owner) * 2;
-	}
-	
 	@Override
 	public OrificeElasticity getElasticity() {
 		return OrificeElasticity.getElasticityFromInt(elasticity);
@@ -236,7 +220,11 @@ public class OrificeNipples implements OrificeInterface {
 		int plasticityChange = this.plasticity - oldPlasticity;
 		
 		if (plasticityChange == 0) {
-			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.namePos] [npc.nipples] doesn't change...)]</p>");
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(Your [pc.nipples]'s plasticity doesn't change...)]</p>";
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.namePos] [npc.nipples] doesn't change...)]</p>");
+			}
 		}
 		
 		String plasticityDescriptor = getPlasticity().getDescriptor();
@@ -280,10 +268,6 @@ public class OrificeNipples implements OrificeInterface {
 		this.virgin = virgin;
 	}
 
-	public boolean isCrotchNipples() {
-		return crotchNipples;
-	}
-	
 	@Override
 	public boolean hasOrificeModifier(OrificeModifier modifier) {
 		return orificeModifiers.contains(modifier);
@@ -300,60 +284,67 @@ public class OrificeNipples implements OrificeInterface {
 		if(owner==null) {
 			return "";
 		}
-
-		String nipplesString = isCrotchNipples()?"[npc.crotchNipples]":"[npc.nipples]";
-		String breastsString = isCrotchNipples()?"[npc.crotchBoobs]":"[npc.breasts]";
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
-				if(isCrotchNipples()?owner.isBreastCrotchFuckableNipplePenetration():owner.isBreastFuckableNipplePenetration()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "An intense pressure suddenly swells up deep within [npc.namePos] "+breastsString+", and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a series of [style.boldGrow(extra muscles)]"
-									+ " growing down into the lining of [npc.her] "+nipplesString+"."
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "An intense pressure suddenly swells up deep within your [pc.breasts], and you can't help but let out [pc.a_moan+] as you feel a series of [style.boldGrow(extra muscles)] growing down into the lining of your [pc.nipples]."
+								+ " You're shocked to discover that you have an incredible amount of control over them, allowing you to expertly grip and squeeze down on any penetrating object.<br/>"
+								+ "[style.boldSex(The interior of your [pc.nipples] are now lined with an intricate series of muscles!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "An intense pressure suddenly swells up deep within [npc.namePos] [npc.breasts], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a series of [style.boldGrow(extra muscles)]"
+									+ " growing down into the lining of [npc.her] [npc.nipples]."
 								+ " [npc.sheIs] shocked to discover that [npc.she] has an incredible amount of control over them, allowing [npc.her] to expertly grip and squeeze down on any penetrating object.<br/>"
-								+ "[style.boldSex(The interior of [npc.namePos] "+nipplesString+" are now lined with an intricate series of muscles!)]"
-							+ "</p>");
+								+ "[style.boldSex(The interior of [npc.namePos] [npc.nipples] are now lined with an intricate series of muscles!)]"
+							+ "</p>";
 				}
-				break;
 			case RIBBED:
-				if(isCrotchNipples()?owner.isBreastCrotchFuckableNipplePenetration():owner.isBreastFuckableNipplePenetration()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "An intense pressure suddenly swells up deep within [npc.namePos] "+breastsString+", and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a series of [style.boldGrow(fleshy, highly-sensitive ribs)]"
-									+ " growing down into the lining of [npc.her] "+nipplesString+"."
-								+ " Shifting [npc.her] "+breastsString+" around a little, a jolt of pleasure shoots through [npc.her] torso as [npc.she] feels [npc.her] new additions rub over one another, causing [npc.herHim] to let out another [npc.moan+].<br/>"
-								+ "[style.boldSex(The interior of [npc.namePos] "+nipplesString+" are now lined with fleshy, pleasure-inducing ribs!)]"
-							+ "</p>");
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "An intense pressure suddenly swells up deep within your [pc.breasts], and you can't help but let out [pc.a_moan+] as you feel a series of [style.boldGrow(fleshy, highly-sensitive ribs)]"
+									+ " growing down into the lining of your [pc.nipples]."
+								+ " Shifting your [pc.breasts] around a little, a jolt of pleasure shoots through your torso as you feel your new additions rub over one another, making you wonder how good it would feel to have your [pc.nipples] fucked.<br/>"
+								+ "[style.boldSex(The interior of your [pc.nipples] are now lined with fleshy, pleasure-inducing ribs!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "An intense pressure suddenly swells up deep within [npc.namePos] [npc.breasts], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a series of [style.boldGrow(fleshy, highly-sensitive ribs)]"
+									+ " growing down into the lining of [npc.her] [npc.nipples]."
+								+ " Shifting [npc.her] [npc.breasts] around a little, a jolt of pleasure shoots through [npc.her] torso as [npc.she] feels [npc.her] new additions rub over one another, causing [npc.herHim] to let out another [npc.moan+].<br/>"
+								+ "[style.boldSex(The interior of [npc.namePos] [npc.nipples] are now lined with fleshy, pleasure-inducing ribs!)]"
+							+ "</p>";
 				}
-				break;
 			case TENTACLED:
-				if(isCrotchNipples()?owner.isBreastCrotchFuckableNipplePenetration():owner.isBreastFuckableNipplePenetration()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "An intense pressure suddenly swells up deep within [npc.namePos] "+breastsString+", and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a strange tingling sensation deep down in [npc.her] "+nipplesString+"."
-								+ " The tingling sensation grows stronger, and a surprised cry bursts out from [npc.her] mouth as [npc.she] suddenly discovers that the insides of [npc.her] "+nipplesString+" are now filled with"
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "An intense pressure suddenly swells up deep within your [pc.breasts], and you can't help but let out [pc.a_moan+] as you feel a strange tingling sensation deep down in your [pc.nipples]."
+								+ " The tingling sensation grows stronger, and a surprised cry bursts out from your mouth as you suddenly discover that the insides of your [pc.nipples] are now filled with"
+									+ " [style.boldGrow(a series of little wriggling tentacles)], over which you have limited control.<br/>"
+								+ "[style.boldSex(The insides of your [pc.nipples] are now filled with little tentacles, which wriggle with a mind of their own!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "An intense pressure suddenly swells up deep within [npc.namePos] [npc.breasts], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels a strange tingling sensation deep down in [npc.her] [npc.nipples]."
+								+ " The tingling sensation grows stronger, and a surprised cry bursts out from [npc.her] mouth as [npc.she] suddenly discovers that the insides of [npc.her] [npc.nipples] are now filled with"
 										+ " [style.boldGrow(a series of little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
-								+ "[style.boldSex(The interior of [npc.namePos] "+nipplesString+" are now filled with little tentacles, which wriggle with a mind of their own!)]"
-							+ "</p>");
+								+ "[style.boldSex(The interior of [npc.namePos] [npc.nipples] are now filled with little tentacles, which wriggle with a mind of their own!)]"
+							+ "</p>";
 				}
-				break;
 			case PUFFY:
-				return UtilText.parse(owner,
-						"<p>"
-							+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] "+nipplesString+", before they suddenly swell out and [style.boldGrow(puff up)].<br/>"
-							+ "[style.boldSex([npc.NamePos] "+nipplesString+" are now extremely puffy!)]"
-						+ "</p>");
-			case EXTRA_DEEP:
-				if(isCrotchNipples()?owner.isBreastCrotchFuckableNipplePenetration():owner.isBreastFuckableNipplePenetration()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a throbbing sensation sinking deep into [npc.her] "+breastsString+"."
-								+ " Within moments, the feeling fades away, and [npc.name] [npc.verb(find)] [npc.herself] instinctively knowing that [npc.her] [style.boldGrow(fuckable "+nipplesString+" have significantly deepened)].<br/>"
-								+ "[style.boldSex([npc.NamePos] "+nipplesString+" are now extra deep, allowing them to take double the normal length of penetrative objects!)]"
-							+ "</p>");
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a tingling sensation running over your [pc.nipples], and you let out a little cry as you feel them swell out and [style.boldGrow(puff up)].<br/>"
+								+ "[style.boldTfSex(Your [pc.nipples] are now extremely puffy!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.nipples], before they suddenly swell out and [style.boldGrow(puff up)].<br/>"
+								+ "[style.boldSex([npc.NamePos] [npc.nipples] are now extremely puffy!)]"
+							+ "</p>";
 				}
-				break;
 		}
 		
 		// Catch:
@@ -371,58 +362,59 @@ public class OrificeNipples implements OrificeInterface {
 		if(owner==null) {
 			return "";
 		}
-
-		String nipplesString = isCrotchNipples()?"[npc.crotchNipples]":"[npc.nipples]";
-		String breastsString = isCrotchNipples()?"[npc.crotchBoobs]":"[npc.breasts]";
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
-				if(isCrotchNipples()?owner.isBreastCrotchFuckableNipplePenetration():owner.isBreastFuckableNipplePenetration()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A soothing warmth slowly washes up through [npc.namePos] torso, and an involuntary [pc.moan] drifts out from between [npc.her] [npc.lips] as [npc.she] [npc.verb(feel)] [npc.her] [style.boldShrink(extra muscles)]"
-									+ " melt back into the flesh of [npc.her] "+breastsString+".<br/>"
-								+ "[style.boldSex(The interior of [npc.namePos] "+nipplesString+" are no longer lined with an intricate series of muscles!)]"
-							+ "</p>");
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "A soothing warmth slowly washes up through your torso, and you can't help but let out a gentle [pc.moan] as you feel your [style.boldShrink(extra muscles)] melt back into the flesh of your [pc.breasts].<br/>"
+								+ "[style.boldSex(The interior of your [pc.nipples] are no longer lined with an intricate series of muscles!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "A soothing warmth slowly washes up through [npc.namePos] torso, and a gentle [pc.moan] drifts out from between [npc.her] [npc.lips] as [npc.she] feels [npc.her] [style.boldShrink(extra muscles)]"
+									+ " melt back into the flesh of [npc.her] [npc.breasts].<br/>"
+								+ "[style.boldSex(The interior of [npc.namePos] [npc.nipples] are no longer lined with an intricate series of muscles!)]"
+							+ "</p>";
 				}
-				break;
 			case RIBBED:
-				if(isCrotchNipples()?owner.isBreastCrotchFuckableNipplePenetration():owner.isBreastFuckableNipplePenetration()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A soothing warmth slowly washes up through [npc.namePos] torso, and an involuntary [pc.moan] drifts out from between [npc.her] [npc.lips] as"
-									+ " [npc.she] [npc.verb(feel)] [npc.her] [style.boldShrink(fleshy, highly-sensitive ribs)] melt back into the flesh of [npc.her] "+breastsString+".<br/>"
-								+ "[style.boldSex(The interior of [npc.namePos] "+nipplesString+" are no longer ribbed!)]"
-							+ "</p>");
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "A soothing warmth slowly washes up through your torso, and you can't help but let out a gentle [pc.moan] as you feel your [style.boldShrink(fleshy, highly-sensitive ribs)] melt back into the flesh of your [pc.breasts].<br/>"
+								+ "[style.boldSex(The interior of your [pc.nipples] are no longer ribbed!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "A soothing warmth slowly washes up through [npc.namePos] torso, and a gentle [pc.moan] drifts out from between [npc.her] [npc.lips] as [npc.she] feels [npc.her] [style.boldShrink(fleshy, highly-sensitive ribs)]"
+									+ " melt back into the flesh of [npc.her] [npc.breasts].<br/>"
+								+ "[style.boldSex(The interior of [npc.namePos] [npc.nipples] are no longer ribbed!)]"
+							+ "</p>";
 				}
-				break;
-					
 			case TENTACLED:
-				if(isCrotchNipples()?owner.isBreastCrotchFuckableNipplePenetration():owner.isBreastFuckableNipplePenetration()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "A soothing warmth slowly washes up through [npc.namePos] torso, and an involuntary [npc.moan] drifts out from between [npc.her] [npc.lips]"
-									+ " as [npc.she] [npc.verb(feel)] [npc.her] [style.boldShrink(little wriggling tentacles)] melt back into the flesh of [npc.her] "+breastsString+".<br/>"
-								+ "[style.boldSex(The interior of [npc.namePos] "+nipplesString+" are no longer filled with little tentacles!)]"
-							+ "</p>");
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "A soothing warmth slowly washes up through your torso, and you can't help but let out a gentle [pc.moan] as you feel your [style.boldShrink(little wriggling tentacles)] melt back into the flesh of your [pc.breasts].<br/>"
+								+ "[style.boldSex(The interior of your [pc.nipples] are no longer filled with little tentacles!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "A soothing warmth slowly washes up through [npc.namePos] torso, and a gentle [pc.moan] drifts out from between [npc.her] [npc.lips] as [npc.she] feels [npc.her] [style.boldShrink(little wriggling tentacles)]"
+									+ " melt back into the flesh of [npc.her] [npc.breasts].<br/>"
+								+ "[style.boldSex(The interior of [npc.namePos] [npc.nipples] are no longer filled with little tentacles!)]"
+							+ "</p>";
 				}
-				break;
 			case PUFFY:
-				return UtilText.parse(owner,
-						"<p>"
-							+ "[npc.Name] [npc.verb(let)] out a sigh as [npc.her] "+nipplesString+" [style.boldShrink(shrink down)] and lose their puffiness.<br/>"
-							+ "[style.boldSex([npc.NamePos] "+nipplesString+" are no longer extremely puffy!)]"
-						+ "</p>");
-			case EXTRA_DEEP:
-				if(isCrotchNipples()?owner.isBreastCrotchFuckableNipplePenetration():owner.isBreastFuckableNipplePenetration()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a sudden tightening sensation deep within [npc.her] "+breastsString+"."
-								+ " Within moments, the feeling fades away, and [npc.name] [npc.verb(find)] [npc.herself] instinctively knowing that [npc.her] [style.boldShrink(fuckable "+nipplesString+" have lost a significant amount of depth)].<br/>"
-								+ "[style.boldSex([npc.NamePos] "+nipplesString+" are no longer extra deep, and can only take an average length of penetrative objects!)]"
-							+ "</p>");
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a tingling sensation running over your [pc.nipples], and you let out a little sigh as you feel them [style.boldShrink(shrink down)], losing their puffiness.<br/>"
+								+ "[style.boldTfSex(Your [pc.nipples] are no longer extremely puffy!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little sigh as [npc.her] [npc.nipples] [style.boldShrink(shrink down)] and lose their puffiness.<br/>"
+								+ "[style.boldSex([npc.NamePos] [npc.nipples] are no longer extremely puffy!)]"
+							+ "</p>";
 				}
-				break;
 		}
 		
 		// Catch:

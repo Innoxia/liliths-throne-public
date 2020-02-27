@@ -12,6 +12,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
@@ -722,7 +723,7 @@ public class ClothingEmporium {
 
 		@Override
 		public String getContent() {
-			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(Nyan.class))==0) {
+			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Nyan.class))==0) {
 				return UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_END_SEX_NO_ORGASM");
 			} else {
 				return UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_END_SEX");

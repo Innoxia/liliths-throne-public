@@ -24,7 +24,7 @@
 		<namePlural pluralByDefault="false"><![CDATA[Enforcer's slacks]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
-		<description><![CDATA[A pair of slacks made from cotton twill. The reinforced stitching and relatively loose fit make it suitable for both patrol and station duty.]]></description> 
+		<description><![CDATA[A pair of slacks made from cotton twill. The reinforced stiching and relatively loose fit make it suitable for both patrol and station duty.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
 		<physicalResistance>1</physicalResistance> 

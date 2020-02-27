@@ -28,7 +28,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.83
- * @version 0.3.5.8
+ * @version 0.2.10
  * @author Innoxia
  */
 public class ScarlettsShop {
@@ -37,19 +37,13 @@ public class ScarlettsShop {
 
 		@Override
 		public String getContent() {
-			if(!Main.game.isExtendedWorkTime()) {
-				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/scarlettsShop", "SCARLETTS_SHOP_EXTERIOR_CLOSED");
-			}
 			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/scarlettsShop", "SCARLETTS_SHOP_EXTERIOR");
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(!Main.game.isExtendedWorkTime()) {
-					return new Response("Enter", "Scarlett's Shop is currently closed, and will re-open at six in the morning. You'll have to come back some time after then.", null);
-					
-				} else if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_HELENA) {
+				if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_HELENA) {
 					return new Response("Enter", "You should go and find Helena before entering Scarlett's Shop again.", null);
 					
 				} else {
@@ -140,11 +134,8 @@ public class ScarlettsShop {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
+			if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
 				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/scarlettsShop", "HELENAS_SHOP_EXTERIOR_HELENA_RETURNS");
-				
-			} else if(!Main.game.isExtendedWorkTime()) {
-				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/scarlettsShop", "HELENAS_SHOP_EXTERIOR_CLOSED");
 				
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/scarlettsShop", "HELENAS_SHOP_EXTERIOR");
@@ -177,9 +168,6 @@ public class ScarlettsShop {
 							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_BALLGAG, Colour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
 						}
 					};
-					
-				} else if(!Main.game.isExtendedWorkTime()) {
-					return new Response("Enter", "Helena's Pet Shop is currently closed, and will re-open at six in the morning. You'll have to come back some time after then.", null);
 					
 				} else {
 					return new Response("Enter", "Enter the shop.", HELENAS_SHOP);

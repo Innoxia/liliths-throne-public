@@ -102,7 +102,7 @@ public class SpellManagement {
 			} else if(index==6) {
 				if(target.hasSpell(Spell.ELEMENTAL_ARCANE)) {
 					if(Main.game.getPlayer().isCaptive()) {
-						return new Response("Arcane Elemental", "You cannot summon elementals while in captivity!", null);
+						return new Response("Arcane Elemental", "You cannot summon elementals while a captive of someone else!", null);
 						
 					} else if(Main.game.isInCombat()) {
 						return new Response("Arcane Elemental", "While in combat, elementals can only be summoned by casting the spell as a Combat Move!", null);
@@ -202,7 +202,7 @@ public class SpellManagement {
 			} else if(index==6) {
 				if(target.hasSpell(Spell.ELEMENTAL_EARTH)) {
 					if(Main.game.getPlayer().isCaptive()) {
-						return new Response("Earth Elemental", "You cannot summon elementals while in captivity!", null);
+						return new Response("Earth Elemental", "You cannot summon elementals while a captive of someone else!", null);
 						
 					} else if(Main.game.isInCombat()) {
 						return new Response("Earth Elemental", "While in combat, elementals can only be summoned by casting the spell as a Combat Move!", null);
@@ -302,7 +302,7 @@ public class SpellManagement {
 			} else if(index==6) {
 				if(target.hasSpell(Spell.ELEMENTAL_WATER)) {
 					if(Main.game.getPlayer().isCaptive()) {
-						return new Response("Water Elemental", "You cannot summon elementals while in captivity!", null);
+						return new Response("Water Elemental", "You cannot summon elementals while a captive of someone else!", null);
 						
 					} else if(Main.game.isInCombat()) {
 						return new Response("Water Elemental", "While in combat, elementals can only be summoned by casting the spell as a Combat Move!", null);
@@ -403,7 +403,7 @@ public class SpellManagement {
 			} else if(index==6) {
 				if(target.hasSpell(Spell.ELEMENTAL_AIR)) {
 					if(Main.game.getPlayer().isCaptive()) {
-						return new Response("Air Elemental", "You cannot summon elementals while in captivity!", null);
+						return new Response("Air Elemental", "You cannot summon elementals while a captive of someone else!", null);
 						
 					} else if(Main.game.isInCombat()) {
 						return new Response("Air Elemental", "While in combat, elementals can only be summoned by casting the spell as a Combat Move!", null);
@@ -504,7 +504,7 @@ public class SpellManagement {
 			} else if(index==6) {
 				if(target.hasSpell(Spell.ELEMENTAL_FIRE)) {
 					if(Main.game.getPlayer().isCaptive()) {
-						return new Response("Fire Elemental", "You cannot summon elementals while in captivity!", null);
+						return new Response("Fire Elemental", "You cannot summon elementals while a captive of someone else!", null);
 						
 					} else if(Main.game.isInCombat()) {
 						return new Response("Fire Elemental", "While in combat, elementals can only be summoned by casting the spell as a Combat Move!", null);

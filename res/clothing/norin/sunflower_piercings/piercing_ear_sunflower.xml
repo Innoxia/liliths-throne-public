@@ -9,26 +9,26 @@
 		<description><![CDATA[A pair of earrings with dangling sunflowers.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
-		<slot>PIERCING_EAR</slot>
+		<slot>PIERCING_EAR</slot> 
 		<rarity>COMMON</rarity>
-		<clothingSet/>
+		<clothingSet/> 
 		<imageName>piercing_ear_sunflower.svg</imageName>
 		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>
-
+		
 		<blockedPartsList>
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
 				<clothingAccessRequired/>
 				<blockedBodyParts/>
 				<clothingAccessBlocked/>
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-
-		<incompatibleSlots/>
-
+		
+		<incompatibleSlots/> 
+		
 		<primaryColours>
       <colour>CLOTHING_ORANGE_BRIGHT</colour>
     </primaryColours>
@@ -39,8 +39,8 @@
       <colour>CLOTHING_BROWN_DARK</colour>
     </tertiaryColours>
     <tertiaryColoursDye values="ALL"/>
-
-		<itemTags>
+		
+		<itemTags> 
 			<tag>SOLD_BY_KATE</tag>
 		</itemTags>
 	</coreAttributes>
@@ -68,5 +68,5 @@
       <![CDATA[[npc.Name] [npc.verb(unclip)] [npc2.namePos] sunflower earrings and roughly [npc.verb(pull)] them out.]]>
     </otherRough>
   </displacementText>
-
+	
 </clothing>

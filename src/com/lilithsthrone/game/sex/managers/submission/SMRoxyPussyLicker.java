@@ -7,8 +7,10 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.Roxy;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
@@ -72,11 +74,11 @@ public class SMRoxyPussyLicker extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Main.sex.getNumberOfOrgasms(Main.game.getNpc(Roxy.class))>=1;
+		return Sex.getNumberOfOrgasms(Main.game.getNpc(Roxy.class))>=1;
 	}
 
 	@Override
-	public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
+	public SexType getForeplayPreference(NPC character, GameCharacter targetedCharacter) {
 		if(!character.isPlayer()) {
 			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
 		}
@@ -84,7 +86,7 @@ public class SMRoxyPussyLicker extends SexManagerDefault {
 	}
 
 	@Override
-	public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
+	public SexType getMainSexPreference(NPC character, GameCharacter targetedCharacter) {
 		if(!character.isPlayer()) {
 			return getForeplayPreference(character, targetedCharacter);
 		}

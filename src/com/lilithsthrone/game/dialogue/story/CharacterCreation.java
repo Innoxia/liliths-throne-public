@@ -463,7 +463,7 @@ public class CharacterCreation {
 				generateClothingOnFloor(ClothingType.EYES_AVIATORS, Colour.CLOTHING_BLACK_STEEL);
 				generateClothingOnFloor(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL);
 				generateClothingOnFloor("innoxia_hand_gloves", Colour.CLOTHING_BLACK);
-				generateClothingOnFloor("innoxia_head_cap", Colour.CLOTHING_BLUE);
+				generateClothingOnFloor(ClothingType.HEAD_CAP, Colour.CLOTHING_BLUE);
 				generateClothingOnFloor("innoxia_neck_scarf", Colour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_BLACK);
 				generateClothingOnFloor(ClothingType.TORSO_RIBBED_SWEATER, Colour.CLOTHING_GREY);
@@ -494,7 +494,7 @@ public class CharacterCreation {
 
 				generateClothingOnFloor("innoxia_neck_scarf", Colour.CLOTHING_RED);
 				
-				generateClothingOnFloor("innoxia_head_cap", Colour.CLOTHING_BLUE);
+				generateClothingOnFloor(ClothingType.HEAD_CAP, Colour.CLOTHING_BLUE);
 				
 				generateClothingOnFloor(ClothingType.STOMACH_UNDERBUST_CORSET, Colour.CLOTHING_BLACK);
 
@@ -537,8 +537,8 @@ public class CharacterCreation {
 				generateClothingOnFloor("innoxia_foot_heels", Colour.CLOTHING_BLACK);
 
 				generateClothingOnFloor("innoxia_hand_elbow_length_gloves", Colour.CLOTHING_BLACK);
-				generateClothingOnFloor("innoxia_head_headband", Colour.CLOTHING_BLACK);
-				generateClothingOnFloor(ClothingType.getClothingTypeFromId("innoxia_head_headband_bow"), Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_BLACK, Colour.CLOTHING_PINK);
+				generateClothingOnFloor(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK);
+				generateClothingOnFloor(ClothingType.HEAD_HEADBAND_BOW, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_BLACK, Colour.CLOTHING_PINK);
 
 				generateClothingOnFloor("innoxia_leg_hotpants", Colour.CLOTHING_WHITE);
 				generateClothingOnFloor("innoxia_leg_mini_skirt", Colour.CLOTHING_BLACK);
@@ -1629,12 +1629,6 @@ public class CharacterCreation {
 							+ " you explain,"
 							+ " [pc.speech(but I took tonight off so I could attend Lily's presentation.)]");
 					break;
-				case CONSTRUCTION_WORKER:
-					UtilText.nodeContentSB.append(
-							"[pc.speech(I'm a construction worker,)]"
-							+ " you explain,"
-							+ " [pc.speech(and I'm currently managing a large project on the outskirts of the city.)]");
-					break;
 				case MAID:
 					UtilText.nodeContentSB.append(
 							"[pc.speech(I work as the head maid for a highly influential family here in the city,)]"
@@ -1652,6 +1646,9 @@ public class CharacterCreation {
 							"[pc.speech(I work in one of the corporate offices in the centre of the city,)]"
 							+ " you explain,"
 							+ " [pc.speech(mostly doing admin and paper work.)]");
+					break;
+				case REINDEER_OVERSEER:
+					// "Well, if you hadn't already noticed, I'm actually an anthropomorphic reindeer, and I come down from the snowy mountains to shovel snow in the city every winter. :D"
 					break;
 				case SOLDIER:
 					UtilText.nodeContentSB.append(
@@ -1849,7 +1846,7 @@ public class CharacterCreation {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
 						
 						Main.game.getPlayer().setMoney(5000);
-						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_crystal_rare", DamageType.FIRE));
+						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
 						
 						AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
 						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
@@ -1928,8 +1925,7 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						Main.mainController.setAttributePanelContent("");
-						Main.mainController.setButtonsLeftContent("");
-						Main.mainController.setButtonsRightContent("");
+						Main.mainController.setButtonsContent("");
 						
 						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCES);
 					}
@@ -2004,7 +2000,7 @@ public class CharacterCreation {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.MAIN));
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
 						
-						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_crystal_rare", DamageType.FIRE));
+						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
 						
 						AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
 						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
@@ -2021,8 +2017,7 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						Main.mainController.setAttributePanelContent("");
-						Main.mainController.setButtonsLeftContent("");
-						Main.mainController.setButtonsRightContent("");
+						Main.mainController.setButtonsContent("");
 						
 						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCES);
 					}

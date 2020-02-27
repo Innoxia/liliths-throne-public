@@ -31,6 +31,7 @@ public class FluidStored implements XMLSaving {
 	private FluidGirlCum girlCum;
 	private float millilitres;
 	
+	
 	public FluidStored(GameCharacter character, FluidCum cum, float millilitres) {
 		if(character!=null) {
 			this.charactersFluidID = character.getId();
@@ -38,7 +39,6 @@ public class FluidStored implements XMLSaving {
 			this.cumHalfDemonSubspecies = character.getHalfDemonSubspecies();
 			this.virility = character.getAttributeValue(Attribute.VIRILITY);
 			this.bestial = cum.isBestial(character);
-			
 		} else {
 			this.charactersFluidID = "";
 			this.cumSubspecies = null;
@@ -193,7 +193,7 @@ public class FluidStored implements XMLSaving {
 			cum.saveAsXML(fluidStoredElement, doc);
 		}
 		if(isMilk()) {
-			milk.saveAsXML("milk", fluidStoredElement, doc);
+			milk.saveAsXML(fluidStoredElement, doc);
 		}
 		if(isGirlCum()) {
 			girlCum.saveAsXML(fluidStoredElement, doc);
@@ -216,7 +216,7 @@ public class FluidStored implements XMLSaving {
 		}
 		
 		if(parentElement.getElementsByTagName("milk").item(0)!=null) {
-			FluidStored fluid = new FluidStored(ID, FluidMilk.loadFromXML("milk", parentElement, doc), millimetres);
+			FluidStored fluid = new FluidStored(ID, FluidMilk.loadFromXML(parentElement, doc), millimetres);
 			fluid.bestial=bestial;
 			fluid.virility=0;
 			return fluid;

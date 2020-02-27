@@ -137,7 +137,7 @@ vampyric
 predatory
 comatose
 cooldown
-colour
+color
 penis
 transformative
 erupt
@@ -425,4 +425,3 @@ luminescent
 ambushing
 unshakably
 disproportionately
-voluminous

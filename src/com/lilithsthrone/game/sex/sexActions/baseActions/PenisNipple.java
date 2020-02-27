@@ -4,6 +4,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -41,9 +42,9 @@ public class PenisNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
+			return Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Main.game.isNipplePenEnabled()
-					&& Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()
+					&& Sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()
 					&& !this.isForbiddenArea(SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE);
 		}
 
@@ -52,7 +53,7 @@ public class PenisNipple {
 				
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
+			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Guiding [npc.her] [npc.cock+] up to [npc2.namePos] [npc2.breasts+],"
@@ -100,7 +101,7 @@ public class PenisNipple {
 				default:
 					break;
 			}
-			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.nipple+] being stimulated,"
@@ -139,7 +140,7 @@ public class PenisNipple {
 							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.nipple+], and [npc2.verb(thrust)] [npc.her] chest out in response."));
 					break;
 				case SUB_RESISTING:
-					if(Main.sex.getCharacterTargetedForSexAction(this).isNippleVirgin()) {
+					if(Sex.getCharacterTargetedForSexAction(this).isNippleVirgin()) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of what's about to happen, [npc2.speech(No! Don't! Please! I-I've never done this before! Don't take my nipple virginity!)]",
 
@@ -167,7 +168,7 @@ public class PenisNipple {
 		
 		@Override
 		public void applyEffects() {
-			Main.sex.transferLubrication(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.NIPPLE);
+			Sex.transferLubrication(Sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, Sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.NIPPLE);
 		}
 	};
 	
@@ -191,9 +192,9 @@ public class PenisNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()) != SexPace.SUB_RESISTING
+			return Sex.getSexPace(Sex.getCharacterPerformingAction()) != SexPace.SUB_RESISTING
 					&& Main.game.isNipplePenEnabled()
-					&& Main.sex.getCharacterPerformingAction().isBreastFuckableNipplePenetration()
+					&& Sex.getCharacterPerformingAction().isBreastFuckableNipplePenetration()
 					&& !this.isForbiddenArea(SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS);
 		}
 
@@ -202,7 +203,7 @@ public class PenisNipple {
 				
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
+			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(grab)] [npc2.namePos] [npc2.cock+], before guiding it up to [npc.her] [npc.breasts+]."
@@ -251,7 +252,7 @@ public class PenisNipple {
 				default:
 					break;
 			}
-			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+], and [npc2.she] [npc2.verb(start)] gently rubbing [npc2.her] [npc2.her] [npc2.cock] up and down over [npc.namePos] [npc.nipple+].",
@@ -305,7 +306,7 @@ public class PenisNipple {
 		
 		@Override
 		public void applyEffects() {
-			Main.sex.transferLubrication(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction(), SexAreaOrifice.NIPPLE);
+			Sex.transferLubrication(Sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Sex.getCharacterPerformingAction(), SexAreaOrifice.NIPPLE);
 		}
 	};
 	
@@ -333,7 +334,7 @@ public class PenisNipple {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
+			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Slowly teasing the [npc.cockTip+] of [npc.her] [npc.cock] over [npc2.namePos] [npc2.breasts+],"
@@ -377,7 +378,7 @@ public class PenisNipple {
 				default:
 					break;
 			}
-			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as the [npc.cock+] enters [npc2.herHim],"
@@ -429,7 +430,7 @@ public class PenisNipple {
 	};
 	
 	private static String getTargetedCharacterResponse(SexAction action) {
-		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
+		switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(action))) {
 			case SUB_EAGER:
 			case DOM_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -719,7 +720,7 @@ public class PenisNipple {
 
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(try)] to pull [npc.her] [npc.cock] out of [npc2.namePos] [npc2.nipple],"
@@ -780,7 +781,7 @@ public class PenisNipple {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
+			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Roughly yanking [npc.her] [npc.cock+] out of [npc2.namePos] [npc2.nipple+],"
@@ -796,7 +797,7 @@ public class PenisNipple {
 					break;
 			}
 			
-			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] can't [npc2.verb(help)] but [npc2.verb(let)] out [npc2.sob+] as [npc.name] [npc.verb(pull)] out of [npc2.namePos] [npc2.nipple],"
@@ -841,7 +842,7 @@ public class PenisNipple {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
+			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Grabbing [npc2.namePos] [npc2.cock], [npc.name] slowly [npc.verb(guide)] it up to [npc.her] [npc.breasts+],"
@@ -879,7 +880,7 @@ public class PenisNipple {
 					break;
 			}
 			
-			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc2.she] [npc2.verb(enter)] [npc.herHim],"
@@ -928,7 +929,7 @@ public class PenisNipple {
 	};
 	
 	private static String getTargetedCharacterReceivingResponse(SexAction action) {
-		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
+		switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(action))) {
 			case SUB_EAGER:
 			case DOM_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1194,7 +1195,7 @@ public class PenisNipple {
 
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(feel)] tears [npc.verb(start)] to well up in [npc.her] [npc.eyes], and, not being able to hold back any longer, [npc.she] suddenly [npc.verb(let)] out [npc.a_sob+],"
@@ -1260,7 +1261,7 @@ public class PenisNipple {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
+			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Yanking [npc2.namePos] [npc2.cock] out of [npc.her] [npc.nipple+], [npc.name] [npc.verb(let)] out a menacing growl as [npc.she] [npc.verb(command)] [npc2.name] to stop fucking [npc.herHim].",
@@ -1275,7 +1276,7 @@ public class PenisNipple {
 					break;
 			}
 			
-			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a relieved sigh, which soon turns into [npc2.a_sob+] as [npc2.she] realises that [npc.nameIsFull]n't finished with [npc2.herHim] just yet.",
@@ -1314,7 +1315,7 @@ public class PenisNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getCharacterPerformingAction().getNippleOrificeModifiers().contains(OrificeModifier.MUSCLE_CONTROL);
+			return Sex.getCharacterPerformingAction().getNippleOrificeModifiers().contains(OrificeModifier.MUSCLE_CONTROL);
 		}
 
 		@Override

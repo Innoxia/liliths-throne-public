@@ -41,8 +41,7 @@ public class SexSlotDesk {
 			"Bent over",
 			"bent over",
 			"[npc.Name] [npc.verb(collapse)] down onto the desk's surface, before letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
-			false,
-			SexSlotTag.OVER_DESK_FRONT);
+			false);
 	public static final SexSlot OVER_DESK_ON_FRONT_TWO = new SexSlot(OVER_DESK_ON_FRONT) {
 		@Override
 		public String getDescription() {

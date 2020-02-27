@@ -8,10 +8,10 @@ package com.lilithsthrone.game.sex.sexActions;
 public enum SexActionCategory {
 
 	CHARACTER_SWITCH,
-
+	
 	MISCELLANEOUS,
 	SELF,
 	SEX,
 	POSITIONING;
-
+	
 }

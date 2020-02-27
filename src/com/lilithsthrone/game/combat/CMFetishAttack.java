@@ -65,8 +65,8 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
-            		+ "[npc.Name] [npc.verb(offer)] [npc2.name] the use of [npc.her] ass, dealing "+getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false)+" damage."
+            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by offering [npc2.herHim] the use of [npc.her] ass, dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
     				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
@@ -173,7 +173,8 @@ public class CMFetishAttack {
             
             return UtilText.parse(source, target,
             		(isCrit?"[style.colourExcellent(Critical)]: ":"")
-            			+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to use [npc2.her] ass, dealing "+getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false)+" damage."
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to use [npc2.her] ass, dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             			+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
@@ -270,7 +271,8 @@ public class CMFetishAttack {
             
             return UtilText.parse(source, target,
             		(isCrit?"[style.colourExcellent(Critical)]: ":"")
-            			+ "[npc.Name] [npc.verb(offer)] [npc2.name] the use of [npc.her] pussy, dealing "+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by offering [npc2.herHim] the use of [npc.her] pussy, dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             			+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
         
@@ -369,9 +371,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-	            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
-		            		+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to use [npc2.her] pussy, dealing "+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
-	            			+ (!target.hasVagina()
+            		"Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to use [npc2.her] pussy, dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            			+ (!target.hasVagina()
             					?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] does not have a vagina!)]"
             					:(target.getFetishDesire(oppositeFetish).isNegative()
                     					?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]"
@@ -472,15 +474,15 @@ public class CMFetishAttack {
             if(target.isRelatedTo(source)) {
 	            return UtilText.parse(source, target,
 	            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
-	            			+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to have incestuous sex with [npc2.herHim], dealing "
+	            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to have incestuous sex with [npc2.herHim], dealing "
 	            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
 	            			+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
             } else {
 	            return UtilText.parse(source, target,
 	            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
-	            			+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.she] [npc.verb(love)] having incestuous sex, dealing "
+	            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you love fucking your relatives, dealing "
 	            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
-            				+ " [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] is not related to you!)]");
+	            				+ " [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] is not related to you!)]");
             }
         }
 
@@ -618,9 +620,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-            				+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to give [npc2.herHim] a taste of [npc.her] cum, dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to give [npc2.herHim] your cum, dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
@@ -717,9 +719,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-    	            		+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.she] [npc.verb(want)] [npc2.her] cum, dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you want [npc2.her] cum, dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (!target.hasPenisIgnoreDildo()
             						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] does not have a penis!)]"
             						:(target.getFetishDesire(oppositeFetish).isNegative()
@@ -821,9 +823,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-    	            		+ "[npc.Name] [npc.verb(beg)] for [npc2.namePos] cock, dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by begging for [npc2.her] cock, dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (!target.hasPenisIgnoreDildo()
             						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] does not have a penis!)]"
             						:(target.getFetishDesire(oppositeFetish).isNegative()
@@ -921,9 +923,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-	            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
-	            			+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to give [npc2.herHim] a taste of [npc.her] [npc.cock+], dealing "
-	            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to give [npc2.herHim] a taste of your cock, dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
@@ -1016,9 +1018,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-            				+ "[npc.Name] [npc.verb(beg)] for [npc2.name] to use [npc2.her] feet, dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by begging for [npc2.herHim] to use [npc2.her] feet, dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
@@ -1112,9 +1114,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-	            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
-	            			+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to use [npc.her] [npc.feet] on [npc2.herHim], dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to use your [npc.feet] on [npc2.herHim], dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
@@ -1207,9 +1209,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-                    		+ "[npc.Name] [npc.verb(beg)] for [npc2.name] to perform oral on [npc.herHim], dealing "
-                    			+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] that you want to use [npc2.her] mouth, dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
@@ -1305,9 +1307,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-    	            		+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to perform oral on [npc2.herHim], dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by offering [npc2.herHim] the use of [npc.her] mouth, dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
@@ -1413,9 +1415,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-                    		+ "[npc.Name] [npc.verb(beg)] to have a feel of [npc2.namePos] [npc2.breasts+], dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] that you want to use [npc2.her] [npc2.breasts], dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (!target.hasBreasts()
             						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] does not have breasts!)]"
             						:(target.getFetishDesire(oppositeFetish).isNegative()
@@ -1529,9 +1531,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-            				+ "[npc.Name] [npc.verb(tease)] [npc2.name] with the promise of getting to have a feel of [npc.her] tits, dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by offering [npc2.herHim] the use of [npc.her] tits, dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
@@ -1638,9 +1640,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-            				+ "[npc.Name] [npc.verb(beg)] to milk [npc2.namePos] [npc2.breasts+], dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] that you want to milk [npc2.her] [npc2.breasts], dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getBreastRawMilkStorageValue()==0 && (!target.hasBreastsCrotch() || !Main.game.isCrotchBoobContentEnabled() || target.getBreastCrotchRawMilkStorageValue()==0)
             						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] is not lactating!)]"
             						:(target.getFetishDesire(oppositeFetish).isNegative()
@@ -1766,9 +1768,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-            				+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to get [npc2.herHim] to milk [npc.her] tits, dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by offering to let [npc2.herHim] milk [npc.her] tits, dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()
             						?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]"
             						:(source.getBreastRawMilkStorageValue()==0 && (!source.hasBreastsCrotch() || !Main.game.isCrotchBoobContentEnabled() || source.getBreastCrotchRawMilkStorageValue()==0)
@@ -1895,9 +1897,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-                    		+ "[npc.Name] [npc.verb(tell)] [npc2.name] how fertile [npc.sheIsFull], dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] how fertile [npc.sheIsFull], dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
@@ -2029,9 +2031,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-                    		+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to breed [npc2.herHim], dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] you're going to breed [npc2.herHim], dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
@@ -2155,9 +2157,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-            				+ "[npc.Name] [npc.verb(tell)] [npc2.name] that [npc.sheIs] going to dominate [npc2.herHim], dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by telling [npc2.herHim] that you're going to dominate [npc2.herHim], dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 
@@ -2263,9 +2265,9 @@ public class CMFetishAttack {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             
             return UtilText.parse(source, target,
-            			(isCrit?"[style.colourExcellent(Critical)]: ":"")
-                    		+ "[npc.Name] [npc.verb(tell)] [npc2.name] how [npc.she] [npc.verb(love)] to be dominated, dealing "
-            					+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
+            		(isCrit?"[style.colourExcellent(Critical)]: ":"")
+            		+ "Tease " + (target==null?"[npc.her] target":"[npc2.name]") + " by asking [npc2.herHim] to dominate [npc.herHim], dealing "
+            				+ getFormattedDamage(damageType, getDamage(source, target, isCrit), target, false) + " damage."
             				+ (target.getFetishDesire(oppositeFetish).isNegative()?" [style.italicsMinorBad(Damage is reduced to 1 as [npc2.name] [npc2.verb(dislike)] the "+oppositeFetish.getName(source)+" fetish!)]":""));
         }
 

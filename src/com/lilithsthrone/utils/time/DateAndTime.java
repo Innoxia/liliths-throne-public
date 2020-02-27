@@ -232,15 +232,9 @@ public class DateAndTime {
 
 		double sunrise = sunrise(solarTransit, hourAngle);
 		LocalDateTime sunriseLDT = Double.isNaN(sunrise)?null:julianDayToDate(sunrise);
-		if(sunriseLDT!=null) { //FIXME Temporary fix because when ticking over from 31/12/2022 to 01/01/2023, the day incremented one past date's day.
-			sunriseLDT = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), sunriseLDT.getHour(), sunriseLDT.getMinute(), sunriseLDT.getSecond(), sunriseLDT.getNano());
-		}
-		
+
 		double sunset = sunset(solarTransit, hourAngle);
 		LocalDateTime sunsetLDT = Double.isNaN(sunset)?null:julianDayToDate(sunset);
-		if(sunsetLDT!=null) { //FIXME Temporary fix because when ticking over from 31/12/2022 to 01/01/2023, the day incremented one past date's day.
-			sunsetLDT = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), sunsetLDT.getHour(), sunsetLDT.getMinute(), sunsetLDT.getSecond(), sunsetLDT.getNano());
-		}
 		
 		if(DEBUG) {
 			System.out.println("julianDay: "+julianDay);
@@ -270,13 +264,6 @@ public class DateAndTime {
 	public static DayPeriod getDayPeriod(LocalDateTime date, double latitude, double longitudeWest) {
 		
 		LocalDateTime[] times = getTimeOfSolarElevationChange(date, SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, latitude, longitudeWest);
-//		try {
-//			System.out.println(date);
-//			System.out.println(times[0]);
-//			System.out.println(times[1]);
-//		} catch(Exception ex) {
-//			System.err.println("---");
-//		}
 		if(times[0]==null || (date.isAfter(times[0]) && date.isBefore(times[1]))) {
 			return DayPeriod.DAY;
 		}

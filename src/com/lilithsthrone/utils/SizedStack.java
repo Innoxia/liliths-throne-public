@@ -9,18 +9,18 @@ import java.util.Stack;
  */
 public class SizedStack<T> extends Stack<T> {
 	private static final long serialVersionUID = 1L;
-
+	
 	private int maxSize;
 
 	public SizedStack(int maxSize) {
 		super();
 		this.maxSize = maxSize;
 	}
-
+	
 	public int getMaxSize() {
 		return maxSize;
 	}
-
+	
 	@Override
 	public T push(T object) {
 		// If the stack is too big, remove elements until it's the right size.

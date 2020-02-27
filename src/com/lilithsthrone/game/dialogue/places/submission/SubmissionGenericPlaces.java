@@ -5,6 +5,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Elizabeth;
@@ -1068,9 +1069,7 @@ public class SubmissionGenericPlaces {
 				
 			} else if(index==5
 					&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)
-					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_COOPERATION)
-					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_OPTIONAL_CLAIRE)
-					&& !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
+					&& !Main.game.getPlayer().isSubQuestCompleted(Quest.VENGAR_OPTIONAL_CLAIRE, QuestLine.SIDE_VENGAR)) {
 				return new Response("Vengar", "Ask for Claire's help with dealing with Vengar.", CLAIRE_VENGAR_HELP) {
 					@Override
 					public void effects() {
@@ -1328,7 +1327,7 @@ public class SubmissionGenericPlaces {
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "ENFORCER_WARHOUSE_APPEARANCE"));
 						
 						if(Main.game.getPlayer().hasCompanions()) {
-							if(Main.game.getPlayer().getMainCompanion().isElemental()) {
+							if(Main.game.getPlayer().getMainCompanion() instanceof Elemental) {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "ENFORCER_WARHOUSE_APPEARANCE_ELEMENTAL", Main.game.getPlayer().getMainCompanion()));
 							} else {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "ENFORCER_WARHOUSE_APPEARANCE_COMPANIONS", Main.game.getPlayer().getMainCompanion()));

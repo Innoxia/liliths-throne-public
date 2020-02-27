@@ -3947,7 +3947,7 @@ public enum Subspecies {
 	}
 	
 	/**
-	 * @param   The character whose subspecies's name is to be returned. Can pass in null.
+	 * @param   The character whose subspecies's name is to be returned. Can pass in null.
 	 * @return  The singular name of this character's subspecies.
 	 */
 	public String getName(GameCharacter character) {
@@ -3971,7 +3971,7 @@ public enum Subspecies {
 	}
 
 	/**
-	 * @param   The character whose subspecies's pluralised name is to be returned. Can pass in null.
+	 * @param   The character whose subspecies's pluralised name is to be returned. Can pass in null.
 	 * @return  The plural name of this character's subspecies.
 	 */
 	public String getNamePlural(GameCharacter character) {
@@ -3995,7 +3995,7 @@ public enum Subspecies {
 	}
 	
 	/**
-	 * @param   The character whose male subspecies name is to be returned. Can pass in null.
+	 * @param   The character whose male subspecies name is to be returned. Can pass in null.
 	 * @return  The singular male name of this character's subspecies.
 	 */
 	public String getSingularMaleName(GameCharacter character) {
@@ -4029,7 +4029,7 @@ public enum Subspecies {
 	}
 
 	/**
-	 * @param   The character whose female subspecies name is to be returned. Can pass in null.
+	 * @param   The character whose female subspecies name is to be returned. Can pass in null.
 	 * @return  The singular female name of this character's subspecies.
 	 */
 	public String getSingularFemaleName(GameCharacter character) {
@@ -4064,7 +4064,7 @@ public enum Subspecies {
 	}
 
 	/**
-	 * @param   The character whose male subspecies's pluralised name is to be returned. Can pass in null.
+	 * @param   The character whose male subspecies's pluralised name is to be returned. Can pass in null.
 	 * @return  The plural male name of this character's subspecies.
 	 */
 	public String getPluralMaleName(GameCharacter character) {
@@ -4088,7 +4088,7 @@ public enum Subspecies {
 	}
 
 	/**
-	 * @param   The character whose female subspecies's pluralised name is to be returned. Can pass in null.
+	 * @param   The character whose female subspecies's pluralised name is to be returned. Can pass in null.
 	 * @return  The plural female name of this character's subspecies.
 	 */
 	public String getPluralFemaleName(GameCharacter character) {

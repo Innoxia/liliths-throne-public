@@ -8,18 +8,18 @@
 		<description><![CDATA[A pair of trainer socks, made from cotton and with an elasticated band at the top in order to keep them in place. Their short size allows them to hide neatly inside any footwear.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
-		<slot>SOCK</slot>
+		<slot>SOCK</slot> 
 		<rarity>COMMON</rarity>
-		<clothingSet/>
+		<clothingSet/> 
 		<imageName>trainer_socks.svg</imageName>
 		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>
-
+		
 		<blockedPartsList>
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType>
-				<clothingAccessRequired>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
 					<clothingAccess>FEET</clothingAccess>
 				</clothingAccessRequired>
 				<blockedBodyParts>
@@ -29,17 +29,17 @@
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-
-		<incompatibleSlots/>
-
-		<primaryColours values="ALL"/>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/> 
 		<primaryColoursDye/>
 		<secondaryColours/>
 		<secondaryColoursDye/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
-
-		<itemTags>
+		
+		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>
@@ -67,5 +67,5 @@
       <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] socks.]]>
     </otherRough>
   </displacementText>
-
+	
 </clothing>

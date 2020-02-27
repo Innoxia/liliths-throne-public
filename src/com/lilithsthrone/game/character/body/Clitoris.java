@@ -7,7 +7,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
@@ -66,7 +66,7 @@ public class Clitoris implements BodyPartInterface {
 		return UtilText.returnStringAtRandom(
 				"sensitive",
 				"sensitive",
-				this.getGirth()!=PenetrationGirth.TWO_AVERAGE?this.getGirth().getName():"",
+				this.getGirth()!=PenisGirth.TWO_AVERAGE?this.getGirth().getName():"",
 				this.getClitorisSize()!=ClitorisSize.ZERO_AVERAGE?this.getClitorisSize().getDescriptor():"little");
 	}
 	
@@ -129,8 +129,8 @@ public class Clitoris implements BodyPartInterface {
 
 	// Girth:
 
-	public PenetrationGirth getGirth() {
-		return PenetrationGirth.getGirthFromInt(girth);
+	public PenisGirth getGirth() {
+		return PenisGirth.getPenisGirthFromInt(girth);
 	}
 
 	public int getRawGirthValue() {
@@ -142,7 +142,7 @@ public class Clitoris implements BodyPartInterface {
 	 */
 	public String setGirth(GameCharacter owner, int girth) {
 		if(owner==null) {
-			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.FOUR_FAT.getValue()));
+			this.girth = Math.max(0, Math.min(girth, PenisGirth.FOUR_FAT.getValue()));
 			return "";
 		}
 		
@@ -157,10 +157,10 @@ public class Clitoris implements BodyPartInterface {
 				girthChange = 0 - this.girth;
 				this.girth = 0;
 			}
-		} else if (girth >= PenetrationGirth.FOUR_FAT.getValue()) {
-			if (this.girth != PenetrationGirth.FOUR_FAT.getValue()) {
-				girthChange = PenetrationGirth.FOUR_FAT.getValue() - this.girth;
-				this.girth = PenetrationGirth.FOUR_FAT.getValue();
+		} else if (girth >= PenisGirth.FOUR_FAT.getValue()) {
+			if (this.girth != PenisGirth.FOUR_FAT.getValue()) {
+				girthChange = PenisGirth.FOUR_FAT.getValue() - this.girth;
+				this.girth = PenisGirth.FOUR_FAT.getValue();
 			}
 		} else {
 			if (this.girth != girth) {

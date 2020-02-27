@@ -1,17 +1,5 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import java.awt.Toolkit;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -20,11 +8,7 @@ import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
-import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.gender.GenderNames;
-import com.lilithsthrone.game.character.gender.GenderPronoun;
-import com.lilithsthrone.game.character.gender.PronounType;
+import com.lilithsthrone.game.character.gender.*;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.persona.SexualOrientationPreference;
@@ -37,12 +21,7 @@ import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
-import com.lilithsthrone.game.settings.ContentPreferenceValue;
-import com.lilithsthrone.game.settings.DifficultyLevel;
-import com.lilithsthrone.game.settings.ForcedFetishTendency;
-import com.lilithsthrone.game.settings.ForcedTFTendency;
-import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
-import com.lilithsthrone.game.settings.KeyboardAction;
+import com.lilithsthrone.game.settings.*;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.ArtistWebsite;
@@ -51,9 +30,17 @@ import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Units.UnitType;
 import com.lilithsthrone.utils.Units.ValueType;
-import com.lilithsthrone.utils.Util;
+
+import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
+import java.util.*;
 
 /**
  * @since 0.1.0
@@ -125,8 +112,7 @@ public class OptionsDialogue {
 							
 							Main.mainController.setAttributePanelContent("");
 							Main.mainController.setRightPanelContent("");
-							Main.mainController.setButtonsLeftContent("");
-							Main.mainController.setButtonsRightContent("");
+							Main.mainController.setButtonsContent("");
 							Main.game.setRenderMap(false);
 							Main.startNewGame(CharacterCreation.CHARACTER_CREATION_START);
 							confirmNewGame = false;
@@ -1874,13 +1860,6 @@ public class OptionsDialogue {
 								"Enchantment Capacity",
 								"Toggle the 'enchantment capacity' mechanic, which restricts how many enchanted items you can wear. This is on by default, and you will potentially break the balance of the game's combat by turning it off.",
 								Main.getProperties().hasValue(PropertyValue.enchantmentLimits)));
-
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-								"LEVEL_DRAIN",
-								Colour.GENERIC_TERRIBLE,
-								"Level Drain",
-								"Toggle the use of the 'orgasmic level drain' perk by unique NPCs (such as some scenes with Amber), which causes them to drain your level for each orgasm you have in sex with them.",
-								Main.getProperties().hasValue(PropertyValue.levelDrain)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 								"ARTWORK",
@@ -2027,13 +2006,6 @@ public class OptionsDialogue {
 							Main.getProperties().hasValue(PropertyValue.gapeContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"PENETRATION_LIMITATION",
-					Colour.BASE_PINK_DEEP,
-					"Penetration Limitations",
-					"When enabled, orifices will have a limited depth to them, meaning that penetrative objects (penises and tails) can be too long to fit all the way inside.",
-					Main.getProperties().hasValue(PropertyValue.penetrationLimitations)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
 							"FOOT",
 							Colour.BASE_TAN,
 							"Foot Content",
@@ -2111,20 +2083,6 @@ public class OptionsDialogue {
 							"Feminine Beards",
 							"This enables feminine characters to grow beards.",
 							Main.getProperties().hasValue(PropertyValue.feminineBeardsContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-							"FURRY_HAIR",
-							Colour.CLOTHING_DESATURATED_BROWN,
-							"Furry Hair",
-							"Toggles whether or not characters with a furry head type will spawn with human-like hair on their heads.",
-							Main.getProperties().hasValue(PropertyValue.furryHairContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-							"SCALY_HAIR",
-							Colour.BASE_GREEN_DARK,
-							"Scaly Hair",
-							"Toggles whether or not characters with a reptilian or amphibious head type will spawn with human-like hair on their heads.",
-							Main.getProperties().hasValue(PropertyValue.scalyHairContent)));
 
 			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 							"FORCED_TF",

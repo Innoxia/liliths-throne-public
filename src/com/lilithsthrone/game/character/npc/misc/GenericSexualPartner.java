@@ -29,6 +29,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.OutfitType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -96,7 +97,6 @@ public class GenericSexualPartner extends NPC {
 						&& s.getRace()!=Race.ANGEL
 						&& s.getRace()!=Race.ELEMENTAL
 						&& s!=Subspecies.FOX_ASCENDANT
-						&& s!=Subspecies.FOX_ASCENDANT_ARCTIC
 						&& s!=Subspecies.FOX_ASCENDANT_FENNEC
 						&& s!=Subspecies.SLIME) {
 					if(Subspecies.getMainSubspeciesOfRace(s.getRace())==s) {
@@ -107,7 +107,7 @@ public class GenericSexualPartner extends NPC {
 				}
 			}
 			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, subspeciesRemovalFilter==null);
+			this.setBodyFromSubspeciesPreference(gender, availableRaces, true);
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
@@ -185,7 +185,7 @@ public class GenericSexualPartner extends NPC {
 	
 	@Override
 	public void generateSexChoices(boolean resetPositioningBan, GameCharacter target, List<SexType> request) {
-		if(this.getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_TOILETS) && Main.sex.getTurn()>1) {
+		if(this.getLocationPlace().getPlaceType().equals(PlaceType.WATERING_HOLE_TOILETS) && Sex.getTurn()>1) {
 			playerRequested = true;
 		}
 		
@@ -198,7 +198,7 @@ public class GenericSexualPartner extends NPC {
 			return super.isHappyToBeInSlot(position, slot, target);
 			
 		} else {
-			if(Main.sex.isInForeplay(this) || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
+			if(Sex.isInForeplay(this) || this.hasFetish(Fetish.FETISH_ORAL_GIVING) || !target.hasPenis()) {
 				return slot==SexSlotUnique.GLORY_HOLE_KNEELING;
 			} else {
 				return slot==SexSlotUnique.GLORY_HOLE_FUCKED;
@@ -241,40 +241,41 @@ public class GenericSexualPartner extends NPC {
 	}
 	
 	@Override
-	public String getSpecialPlayerVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating, GameCharacter receivingCharacter, SexAreaOrifice penetrated) {
-		if(!receivingCharacter.isPlayer()
-				|| penetrating != SexAreaPenetration.PENIS
-				|| penetrated != SexAreaOrifice.VAGINA
-				|| (!penetratingCharacter.getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_FUTA_PREGNANCY) && !penetratingCharacter.getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_PREGNANCY))) {
-			return "";
+	public String getVirginityLossOrificeDescription(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice){
+		if(!characterPenetrated.isPlayer()
+				|| (!characterPenetrating.getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_FUTA_PREGNANCY)
+					&& !characterPenetrating.getLocationPlace().getPlaceType().equals(PlaceType.GAMBLING_DEN_PREGNANCY))) {
+			return super.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
 		}
 		
-		StringBuilder sb = new StringBuilder();
+		StringBuilder StringBuilderSB = new StringBuilder();
 		
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-			sb.append("<p>"
-						+"As [npc.namePos] [npc.cock+] thrusts forwards into your [pc.pussy+], you can't help but let out a desperate, shuddering wail."
-						+ " Being so enamoured with the idea of being a pure virgin, you don't know what on Earth possessed you to sign up for pregnancy roulette,"
-							+ " but as [npc.namePos] [npc.cock+] claims your previous virginity, you don't have any time to reflect on your poor choice."
-						+ " The only thing that's on your mind is the agonising pain of having your hymen torn by a person you've never even spoken to."
-					+ "</p>"
-					+ "<p>"
-						+ "As your wail turns into a shuddering cry, you hear the [npc.race] on the other side of the wall let out a surprised shout,"
-						+ " [npc.speech(Holy shit! This slut was a virgin!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "The room beyond the wall is suddenly filled with laughs and lewd remarks, and you can't help but shed a tear as you realise that you've lost your precious,"
-							+ " pure virginity to some stranger who signed up to try and get you pregnant."
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.thought(Pregnant... Me... I-I'm sure that's not possible...)] you think to yourself, trying to suppress your whimpers as [npc.name] pulls back, before thrusting into you once more."
-					+ "</p>"
-					+ "<p>"
-						+ "As [npc.she] fills your freshly popped cherry with [npc.her] [npc.cock+], you hear [npc.herHim] taunting you from the other side of the wall."
-						+ " [npc.speech(What a fucking slut! Choosing to lose your virginity to a game of pregnancy roulette! Hah! Glad I'll never be the one who has to tell our kids how they were conceived!)]"
-					+ "</p>");
+			StringBuilderSB.append(
+							"<p>"
+								+"As [npc.namePos] [npc.cock+] thrusts forwards into your [pc.pussy+], you can't help but let out a desperate, shuddering wail."
+								+ " Being so enamoured with the idea of being a pure virgin, you don't know what on Earth possessed you to sign up for pregnancy roulette,"
+									+ " but as [npc.namePos] [npc.cock+] claims your previous virginity, you don't have any time to reflect on your poor choice."
+								+ " The only thing that's on your mind is the agonising pain of having your hymen torn by a person you've never even spoken to."
+							+ "</p>"
+							+ "<p>"
+								+ "As your wail turns into a shuddering cry, you hear the [npc.race] on the other side of the wall let out a surprised shout,"
+								+ " [npc.speech(Holy shit! This slut was a virgin!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "The room beyond the wall is suddenly filled with laughs and lewd remarks, and you can't help but shed a tear as you realise that you've lost your precious,"
+									+ " pure virginity to some stranger who signed up to try and get you pregnant."
+							+ "</p>"
+							+ "<p>"
+								+ "[pc.thought(Pregnant... Me... I-I'm sure that's not possible...)] you think to yourself, trying to suppress your whimpers as [npc.name] pulls back, before thrusting into you once more."
+							+ "</p>"
+							+ "<p>"
+								+ "As [npc.she] fills your freshly popped cherry with [npc.her] [npc.cock+], you hear [npc.herHim] taunting you from the other side of the wall."
+								+ " [npc.speech(What a fucking slut! Choosing to lose your virginity to a game of pregnancy roulette! Hah! Glad I'll never be the one who has to tell our kids how they were conceived!)]"
+							+ "</p>");
 		} else {
-			sb.append("<p>"
+			StringBuilderSB.append(
+					"<p>"
 						+"As [npc.namePos] [npc.cock+] thrusts forwards into your [pc.pussy+], you can't help but let out a desperate, shuddering wail."
 						+ " As [npc.namePos] [npc.cock+] claims your virginity, the only thing that's on your mind is the agonising pain of having your hymen torn by a person you've never even spoken to."
 					+ "</p>"
@@ -302,10 +303,10 @@ public class GenericSexualPartner extends NPC {
 					+ "</p>");
 		}
 		
-		sb.append(formatVirginityLoss("Your hymen has been torn; you have lost your virginity!"));
+		StringBuilderSB.append(formatVirginityLoss("Your hymen has been torn; you have lost your virginity!"));
 		
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-			sb.append("<p style='text-align:center;'>"
+		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN))
+			StringBuilderSB.append("<p style='text-align:center;'>"
 					+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
 				+ "</p>"
 				+ "<p>"
@@ -329,15 +330,7 @@ public class GenericSexualPartner extends NPC {
 					+ " With a desperate moan, you spread your legs and resign yourself to the fact that you're now nothing more than a"
 					+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
 				+ "</p>");
-		}
 		
-		if(this.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-			sb.append("<p style='text-align:center;'>"
-										+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
-										+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(this)+")] [style.italicsArcane(experience!)]"
-								+ "</p>");
-		}
-		
-		return sb.toString();
+		return StringBuilderSB.toString();
 	}
 }

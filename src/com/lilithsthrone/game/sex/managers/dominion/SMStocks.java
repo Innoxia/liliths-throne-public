@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
@@ -13,7 +14,6 @@ import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStocks;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -74,10 +74,10 @@ public class SMStocks extends SexManagerDefault {
 	
 	@Override
 	public SexControl getSexControl(GameCharacter character) {
-		if(Main.sex.getSexPositionSlot(character)==SexSlotStocks.LOCKED_IN_STOCKS
-				|| Main.sex.getSexPositionSlot(character)==SexSlotStocks.LOCKED_IN_STOCKS_TWO
-				|| Main.sex.getSexPositionSlot(character)==SexSlotStocks.LOCKED_IN_STOCKS_THREE
-				|| Main.sex.getSexPositionSlot(character)==SexSlotStocks.LOCKED_IN_STOCKS_FOUR) {
+		if(Sex.getSexPositionSlot(character)==SexSlotStocks.LOCKED_IN_STOCKS
+				|| Sex.getSexPositionSlot(character)==SexSlotStocks.LOCKED_IN_STOCKS_TWO
+				|| Sex.getSexPositionSlot(character)==SexSlotStocks.LOCKED_IN_STOCKS_THREE
+				|| Sex.getSexPositionSlot(character)==SexSlotStocks.LOCKED_IN_STOCKS_FOUR) {
 			return SexControl.NONE;
 		}
 		return super.getSexControl(character);

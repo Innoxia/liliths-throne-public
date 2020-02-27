@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPosition;
@@ -38,7 +39,7 @@ public class SMDaddyDinnerOral extends SexManagerDefault {
 	
 	@Override
 	public SexControl getSexControl(GameCharacter character) {
-		if(!Main.sex.isDom(character)) {
+		if(!Sex.isDom(character)) {
 			return SexControl.ONGOING_ONLY;
 		}
 		return super.getSexControl(character);
@@ -72,7 +73,7 @@ public class SMDaddyDinnerOral extends SexManagerDefault {
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 		return (partner instanceof Daddy)
-				&& Main.sex.getNumberOfOrgasms(partner)>=1;
+				&& Sex.getNumberOfOrgasms(partner)>=1;
 	}
 	
 	@Override

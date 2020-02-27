@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex.positions.slots;
 
 /**
  * @since 0.3.4
- * @version 0.3.5.8
+ * @version 0.3.4.5
  * @author Innoxia
  */
 public enum SexSlotTag {
@@ -18,7 +18,6 @@ public enum SexSlotTag {
 	SITTING,
 	SITTING_IN_LAP,
 	
-	OVER_DESK_FRONT,
 	OVER_DESK_BACK,
 	OVER_DESK_BETWEEN_LEGS,
 	

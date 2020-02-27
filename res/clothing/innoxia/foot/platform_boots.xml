@@ -8,33 +8,33 @@
 		<description><![CDATA[A pair of platform boots, with the heel being significantly raised off the ground in order to make the wearer taller, as well as to accentuate their calf muscles and the overall length of their legs.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
-		<slot>FOOT</slot>
+		<slot>FOOT</slot> 
 		<rarity>COMMON</rarity>
-		<clothingSet/>
+		<clothingSet/> 
 		<imageName>platform_boots.svg</imageName>
 		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>
-
+		
 		<blockedPartsList>
 			<blockedParts>
-				<displacementType>REMOVE_OR_EQUIP</displacementType>
-				<clothingAccessRequired>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
 					<clothingAccess>FEET</clothingAccess>
 				</clothingAccessRequired>
 				<blockedBodyParts>
 					<bodyPart>FEET</bodyPart>
 				</blockedBodyParts>
-				<clothingAccessBlocked>
+				<clothingAccessBlocked> 
 					<clothingAccess>FEET</clothingAccess>
 				</clothingAccessBlocked>
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-
-		<incompatibleSlots/>
-
-		<primaryColours values="LEATHER"/>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="LEATHER"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_BLACK"/>
 		<secondaryColoursDye values="ALL"/>
@@ -42,8 +42,8 @@
 			<colour>CLOTHING_STEEL</colour>
 		</tertiaryColours>
 		<tertiaryColoursDye values="ALL_METAL"/>
-
-		<itemTags>
+		
+		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>
@@ -71,5 +71,5 @@
       <![CDATA[[npc.Name] roughly [npc.verb(unzip)] [npc2.namePos] platform boots and [npc.verb(yank)] them off.]]>
     </otherRough>
   </displacementText>
-
+	
 </clothing>

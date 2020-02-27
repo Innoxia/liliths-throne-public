@@ -59,7 +59,6 @@ import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
-import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
@@ -77,8 +76,8 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
@@ -817,7 +816,7 @@ public class CharacterModificationUtils {
 						+ " (If the tail is furry, it is subject to the 'furry tail penetration' content option.)</i>"),
 				"TAIL_TYPE",
 				contentSB.toString(),
-				false);
+				true);
 	}
 
 	public static String getSelfTransformTailCountDiv() {
@@ -842,32 +841,6 @@ public class CharacterModificationUtils {
 				UtilText.parse(BodyChanging.getTarget(), "Change how many [npc.tails] [npc.name] [npc.has]."
 						+ "<br/><i>The number of tails is taken into consideration when checking to see if there's a tail available for penetrative actions during sex.</i>"),
 				"TAIL_COUNT",
-				contentSB.toString(),
-				true);
-	}
-	
-	public static String getSelfTransformTailGirthDiv() {
-		contentSB.setLength(0);
-		
-		for(PenetrationGirth girth : PenetrationGirth.values()) {
-			if(BodyChanging.getTarget().getTailGirth() == girth) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+girth.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getTailType().getGirthDescriptor(girth))+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='TAIL_GIRTH_"+girth+"' class='cosmetics-button'>"
-							+ "<span style='color:"+girth.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getTailType().getGirthDescriptor(girth))+"</span>"
-						+ "</div>");
-			}
-		}
-
-		return applyWrapper("Tail Girth",
-				UtilText.parse(BodyChanging.getTarget(), "Change the girth of [npc.namePos] [npc.tail]."
-						+ "<br/><i>Tail girth has an impact in determining whether a tail is too large for the orifice it is penetrating.</i>"),
-				"TAIL_GIRTH",
 				contentSB.toString(),
 				true);
 	}
@@ -2416,33 +2389,7 @@ public class CharacterModificationUtils {
 							+ "<br/><i>This will affect descriptions both in and out of sex.</i>"),
 				"MILK_FLAVOUR",
 				contentSB.toString(),
-				true);
-	}
-
-	public static String getSelfTransformLactationModifiersDiv() {
-		contentSB.setLength(0);
-		
-		for(FluidModifier modifier : FluidModifier.values()) {
-			if(BodyChanging.getTarget().hasMilkModifier(modifier)) {
-				contentSB.append(
-						"<div id='MILK_MODIFIER_"+modifier+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+modifier.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='MILK_MODIFIER_"+modifier+"' class='cosmetics-button'>"
-							+ "<span style='color:"+modifier.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-			}
-		}
-
-		return applyWrapper("Milk Modifiers",
-				UtilText.parse(BodyChanging.getTarget(), "Add or remove modifiers to [npc.namePos] milk."
-							+ "<br/><i>This will affect descriptions both in and out of sex. The modifiers with an asterisk next to their name have special in-game effects, such as the application of status effects when ingested.</i>"),
-				"MILK_MODIFIER",
-				contentSB.toString(),
-				true);
+				false);
 	}
 
 	public static String getSelfTransformLactationCrotchFlavourDiv() {
@@ -2468,33 +2415,7 @@ public class CharacterModificationUtils {
 							+ "<br/><i>This will affect descriptions both in and out of sex.</i>"),
 				"MILK_CROTCH_FLAVOUR",
 				contentSB.toString(),
-				true);
-	}
-	
-	public static String getSelfTransformLactationCrotchModifiersDiv() {
-		contentSB.setLength(0);
-		
-		for(FluidModifier modifier : FluidModifier.values()) {
-			if(BodyChanging.getTarget().hasMilkCrotchModifier(modifier)) {
-				contentSB.append(
-						"<div id='MILK_CROTCH_MODIFIER_"+modifier+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+modifier.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='MILK_CROTCH_MODIFIER_"+modifier+"' class='cosmetics-button'>"
-							+ "<span style='color:"+modifier.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-			}
-		}
-
-		return applyWrapper("Milk Modifiers",
-				UtilText.parse(BodyChanging.getTarget(), "Add or remove modifiers to [npc.namePos] [npc.crotchMilk]."
-							+ "<br/><i>This will affect descriptions both in and out of sex. The modifiers with an asterisk next to their name have special in-game effects, such as the application of status effects when ingested.</i>"),
-				"MILK_CROTCH_MODIFIER",
-				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformNippleElasticityDiv() {
@@ -2721,33 +2642,7 @@ public class CharacterModificationUtils {
 							+ "<br/><i>This will affect descriptions both in and out of sex.</i>"),
 				"GIRLCUM_FLAVOUR",
 				contentSB.toString(),
-				true);
-	}
-	
-	public static String getSelfTransformGirlcumModifiersDiv() {
-		contentSB.setLength(0);
-		
-		for(FluidModifier modifier : FluidModifier.values()) {
-			if(BodyChanging.getTarget().hasGirlcumModifier(modifier)) {
-				contentSB.append(
-						"<div id='GIRLCUM_MODIFIER_"+modifier+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+modifier.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='GIRLCUM_MODIFIER_"+modifier+"' class='cosmetics-button'>"
-							+ "<span style='color:"+modifier.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-			}
-		}
-
-		return applyWrapper("Girlcum Modifiers",
-				UtilText.parse(BodyChanging.getTarget(), "Add or remove modifiers to [npc.namePos] girlcum."
-							+ "<br/><i>This will affect descriptions both in and out of sex. The modifiers with an asterisk next to their name have special in-game effects, such as the application of status effects when ingested.</i>"),
-				"GIRLCUM_MODIFIER",
-				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformVaginaCapacityDiv() {
@@ -3081,13 +2976,13 @@ public class CharacterModificationUtils {
 				"PENIS_SIZE",
 				BodyChanging.getTarget().getPenisRawSizeValue(),
 				BodyChanging.getTarget().getPenisRawSizeValue()<=0,
-				BodyChanging.getTarget().getPenisRawSizeValue()>=PenisLength.SEVEN_STALLION.getMaximumValue());
+				BodyChanging.getTarget().getPenisRawSizeValue()>=PenisSize.SEVEN_STALLION.getMaximumValue());
 	}
 	
 	public static String getSelfTransformPenisGirthDiv() {
 		contentSB.setLength(0);
 		
-		for(PenetrationGirth girth : PenetrationGirth.values()) {
+		for(PenisGirth girth : PenisGirth.values()) {
 			if(BodyChanging.getTarget().getPenisGirth() == girth) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
@@ -3292,33 +3187,7 @@ public class CharacterModificationUtils {
 							+ "<br/><i>This will affect descriptions both in and out of sex.</i>"),
 				"CUM_FLAVOUR",
 				contentSB.toString(),
-				true);
-	}
-	
-	public static String getSelfTransformCumModifiersDiv() {
-		contentSB.setLength(0);
-		
-		for(FluidModifier modifier : FluidModifier.values()) {
-			if(BodyChanging.getTarget().hasCumModifier(modifier)) {
-				contentSB.append(
-						"<div id='CUM_MODIFIER_"+modifier+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+modifier.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='CUM_MODIFIER_"+modifier+"' class='cosmetics-button'>"
-							+ "<span style='color:"+modifier.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(modifier.getName())+(modifier.isSpecialEffects()?"*":"")+"</span>"
-						+ "</div>");
-			}
-		}
-
-		return applyWrapper("Cum Modifiers",
-				UtilText.parse(BodyChanging.getTarget(), "Add or remove modifiers to [npc.namePos] cum."
-							+ "<br/><i>This will affect descriptions both in and out of sex. The modifiers with an asterisk next to their name have special in-game effects, such as the application of status effects when ingested.</i>"),
-				"CUM_MODIFIER",
-				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformUrethraElasticityDiv() {

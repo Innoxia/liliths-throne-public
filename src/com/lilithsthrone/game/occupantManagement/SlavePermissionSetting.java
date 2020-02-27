@@ -2,13 +2,11 @@ package com.lilithsthrone.game.occupantManagement;
 
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.87
- * @version 0.3.6.5
+ * @version 0.3.5
  * @author Innoxia
  */
 public enum SlavePermissionSetting {
@@ -38,27 +36,9 @@ public enum SlavePermissionSetting {
 
 	// Pregnancy:
 	
-	PREGNANCY_PROMISCUITY_PILLS("", "", false) {
-		@Override
-		public String getName() {
-			return Util.capitaliseSentence(ItemType.PROMISCUITY_PILL.getName(false));
-		}
-		@Override
-		public String getDescription() {
-			return UtilText.parse("Keep this slave on [#ITEM_PROMISCUITY_PILL.getNamePlural(false)], greatly reducing both their fertility and virility.");
-		}
-	},
+	PREGNANCY_PROMISCUITY_PILLS("Promiscuity Pills", "Keep this slave on Promiscuity Pills, ensuring that they won't get pregnant.", false),
 	PREGNANCY_NO_PILLS("No Pills", "Don't give this slave any sort of fertility modification pills, resulting in a natural chance of them getting pregnant.", true),
-	PREGNANCY_VIXENS_VIRILITY("", "", false) {
-		@Override
-		public String getName() {
-			return Util.capitaliseSentence(ItemType.VIXENS_VIRILITY.getName(false));
-		}
-		@Override
-		public String getDescription() {
-			return UtilText.parse("Keep this slave on [#ITEM_VIXENS_VIRILITY.getNamePlural(false)], greatly increasing both their fertility and virility.");
-		}
-	},
+	PREGNANCY_VIXENS_VIRILITY("Vixen's Virility", "Keep this slave on Vixen's Virility, greatly increasing both their fertility and virility.", false),
 
 	// Diet/Body size:
 	

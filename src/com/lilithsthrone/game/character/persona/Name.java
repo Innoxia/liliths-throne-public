@@ -699,8 +699,7 @@ public class Name {
 		
 		if(gc.getBody()!=null
 				&& (gc.getSubspecies()==Subspecies.FOX_ASCENDANT
-						|| gc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
-						|| gc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)) {
+					|| gc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)) {
 			return youkoSurnames[Util.random.nextInt(youkoSurnames.length)];
 		}
 		if(gc.getBody()!=null) {

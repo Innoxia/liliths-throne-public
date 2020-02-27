@@ -8,14 +8,14 @@
     <name><![CDATA[flower lip piercing]]></name>
     <namePlural pluralByDefault="false"><![CDATA[flower lip piercings]]></namePlural>
     <description><![CDATA[A lip piercing with a gem encrusted flower.]]></description>
-
+    
     <physicalResistance>0</physicalResistance>
     <femininity>FEMININE</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
     <slot>PIERCING_LIP</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
     <rarity>COMMON</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
-
+    
     <imageName>piercing_lip_flower.svg</imageName>
-
+    
     <clothingSet/> <!-- No way to define custom sets yet -->
     <imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
     <enchantmentLimit/> <!-- Custom values override game -->
@@ -23,33 +23,33 @@
 
     <blockedPartsList>
       <blockedParts>
-
+        
         <displacementType>REMOVE_OR_EQUIP</displacementType> <!-- displacementType values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
-
+        
         <clothingAccessRequired> <!-- clothingAccess values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
           <clothingAccess>HEAD</clothingAccess>
         </clothingAccessRequired>
-
+        
         <blockedBodyParts/> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
         <clothingAccessBlocked/> <!-- clothingAccess -->
         <concealedSlots/> <!-- slot -->
-
+        
       </blockedParts>
     </blockedPartsList>
-
+    
     <incompatibleSlots/> <!-- slot(s) not compatible -->
-
+    
     <primaryColours values="ALL_METAL"/>
     <primaryColoursDye/>
     <secondaryColours values="ALL"/>
     <secondaryColoursDye/>
     <tertiaryColours/>
     <tertiaryColoursDye/>
-
+    
     <itemTags>
       <tag>SOLD_BY_KATE</tag>
     </itemTags>
-
+    
   </coreAttributes>
 
   <replacementText type="REMOVE_OR_EQUIP">
@@ -75,6 +75,6 @@
       <![CDATA[[npc.Name] [npc.verb(tug)] a flowered lip peircing out from [npc2.namePos] [npc2.lips+]..]]>
     </otherRough>
   </displacementText>
-
-
+  
+  
 </clothing>

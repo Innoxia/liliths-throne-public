@@ -6,15 +6,15 @@ package com.lilithsthrone.utils;
  * @author Innoxia
  */
 public class ResponseAvailableData {
-
+	
 	public boolean available;
 	public String tooltipText;
 	public float corruptionIncrease;
-
+	
 	public ResponseAvailableData(boolean available, String tooltipText, float corruptionIncrease) {
 		this.available = available;
 		this.tooltipText = tooltipText;
 		this.corruptionIncrease = corruptionIncrease;
 	}
-
+	
 }

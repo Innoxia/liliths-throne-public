@@ -290,20 +290,16 @@ public enum Units {
                 output.append(wrap ? FOOT_SYMBOL : INCH_SYMBOL);
                 break;
             case LONG:
-                if(Math.floor(inches) == 0 && vType != ValueType.PRECISE) {
+                if (Math.floor(inches) == 0 && vType != ValueType.PRECISE) {
                     output.setLength(0);
                     return output.append("less than ")
                             .append(vType == ValueType.TEXT ? "one" : "1")
                             .append(" inch").toString();
                 }
-                
+
                 output.append(" ");
-                if(Math.abs(usedValue) >= 1 + roundingFactor/2
-                		|| usedValue == 0) {
-                	output.append(wrap ? "feet" : "inches");
-                } else {
-                	output.append(wrap ? "foot" : "inch");
-                }
+                if (Math.abs(usedValue) >= 1 + roundingFactor / 2 || usedValue == 0.0) output.append(wrap ? "feet" : "inches");
+                else output.append(wrap ? "foot" : "inch");
                 break;
             case LONG_SINGULAR:
                 output.append("-").append(wrap ? "foot" : "inch");
@@ -320,7 +316,7 @@ public enum Units {
                     output.append(INCH_SYMBOL);
                     break;
                 case LONG:
-                    output.append(" ").append(remainingInches >= 1 + roundingFactor/2 ? "inches" : "inch");
+                    output.append(" ").append(remainingInches >= 1 + roundingFactor / 2 ? "inches" : "inch");
                     break;
                 case LONG_SINGULAR:
                     break;
@@ -339,7 +335,7 @@ public enum Units {
      */
     public static String sizeAsMetric(double cm, ValueType vType, UnitType uType) {
         double m = cm / 100;
-        return valueWithUnit(cm, "cm", "centimetre"/*+(cm!=1?"s":"")*/, m, "m", "metre"/*+(cm!=100?"s":"")*/, vType, uType, false);
+        return valueWithUnit(cm, "cm", "centimetre", m, "m", "metre", vType, uType, false);
     }
 
     /**
@@ -510,10 +506,10 @@ public enum Units {
                 }
 
                 output.append(" ").append(wrap ? wrappedUnit : unit);
-                if (Math.abs(usedValue) != 1.0) output.append("s");
+                if (Math.abs(usedValue) > 1 || usedValue == 0.0) output.append("s");
                 break;
             case LONG_SINGULAR:
-                output.append(" ").append((wrap ? wrappedUnit : unit));
+                output.append("-").append((wrap ? wrappedUnit : unit));
         }
 
         return output.toString();

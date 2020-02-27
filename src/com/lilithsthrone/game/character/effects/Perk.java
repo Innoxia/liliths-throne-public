@@ -528,7 +528,7 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"[npc.NameIsFull] one of the seven elder lilin, and [npc.verb(hold)] powers that mere mortals can only dream of.");
+					"[npc.NameIsFull] one of the seven elder lilin, and holds powers that mere mortals can only dream of.");
 		}
 	};
 
@@ -905,26 +905,6 @@ public class Perk {
 			return UtilText.parse(owner, "Thanks to spending a considerable amount of time tasting food, [npc.name] [npc.has] both a significant resistance to poison, as well as the ability to make culinary marvels out of basic ingredients.");
 		}
 	};
-
-	public static AbstractPerk JOB_PLAYER_CONSTRUCTION_WORKER = new AbstractPerk(20,
-			true,
-			"Project Manager",
-			PerkCategory.JOB,
-			"perks/jobs/construction",
-			Util.newArrayListOfValues(Colour.CLOTHING_YELLOW, Colour.CLOTHING_BLACK),
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
-			Util.newArrayListOfValues("[style.boldExcellent(Halves)] cost of all room upgrades"),
-			null, null, null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "Thanks to [npc.her] considerable experience in the industry, [npc.name] [npc.verb(know)] how to efficiently manage construction projects."
-					+ " [npc.Her] time performing manual labour has also given [npc.herHim] a healthy body.");
-		}
-	};
-	
 
 	public static AbstractPerk JOB_SOLDIER = new AbstractPerk(20,
 			true,
@@ -2020,11 +2000,10 @@ public class Perk {
 			"irresistible appeals",
 			PerkCategory.LUST,
 			"perks/convincing_requests",
-			Util.newArrayListOfValues(Colour.GENERIC_SEX, Colour.BASE_GOLD),
+			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)),
-			Util.newArrayListOfValues("Requests during sex are no longer denied by sadists or rough dominants"),
-			null, null, null) {
+			Util.newArrayListOfValues("Requests during sex are no longer denied by sadists or rough dominants")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] mastered the art of sexual persuasion, and [npc.is] able to convince even the cruelest of dominant partners to do as [npc.she] [npc.verb(ask)].");
@@ -2044,30 +2023,6 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameIsFull] so astoundingly "+(owner.getFemininity()==Femininity.ANDROGYNOUS?"attractive":(owner.isFeminine()?"beautiful":"handsome"))
 					+" that [npc.her] sexual partners can't help but keep on fucking well after they've had their first orgasm.");
-		}
-	};
-
-	public static AbstractPerk ORGASMIC_LEVEL_DRAIN = new AbstractPerk(20,
-			true,
-			"orgasmic level drain",
-			PerkCategory.LUST,
-			"perks/orgasmic_level_drain",
-			Util.newArrayListOfValues(Colour.GENERIC_SEX, Colour.GENERIC_EXPERIENCE),
-			Util.newHashMapOfValues(),
-			Util.newArrayListOfValues(
-					"[style.boldTerrible(-95% to all)] [style.boldExperience(experience gains)]",
-					"In all [style.boldSex(sex scenes)]:",
-					"Can choose to [style.boldTerrible(drain 1 level)]",
-					"from orgasming partners",
-					"You gain [style.boldExcellent(50%)] [style.boldExperience(experience)]",
-					"value of levels drained"),
-			null, null, null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner,
-					"Via a complex manipulation of [npc.her] arcane aura, [npc.name] [npc.has] become far slower to learn from new experiences,"
-					+ " but in return [npc.is] now able to drain the experience of sexual partners who orgasm in [npc.her] presence.");
 		}
 	};
 	
@@ -2402,7 +2357,7 @@ public class Perk {
 			Colour.ATTRIBUTE_LUST,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 15),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 40)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 25)),
 			null) {
 
 		@Override

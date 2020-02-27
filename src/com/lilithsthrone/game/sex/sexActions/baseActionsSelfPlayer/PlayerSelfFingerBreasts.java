@@ -5,13 +5,13 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -42,17 +42,17 @@ public class PlayerSelfFingerBreasts {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getCharacterPerformingAction().hasBreasts()
-					&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
-					 && Main.sex.getCharacterPerformingAction().isPlayer();
+			return Sex.getCharacterPerformingAction().hasBreasts()
+					&& Sex.getSexPace(Sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
+					 && Sex.getCharacterPerformingAction().isPlayer();
 		}
 
 		@Override
 		public String getDescription() {
-			if(!Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.NIPPLES)){
+			if(!Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.NIPPLES)){
 				UtilText.nodeContentSB.setLength(0);
 				
-				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
+				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Reaching up to [npc.her] chest, [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(start)] fondling and groping [npc.her] [npc.breastRows] [npc.breasts+],"
@@ -91,7 +91,7 @@ public class PlayerSelfFingerBreasts {
 						break;
 				}
 				
-				switch (Main.sex.getCharacterPerformingAction().getBreastStoredMilk()) {
+				switch (Sex.getCharacterPerformingAction().getBreastStoredMilk()) {
 					case ONE_TRICKLE:
 						UtilText.nodeContentSB.append(" A small trickle of [npc.milk] leaks out into [npc.her] [npc.lowClothing(NIPPLES)] as [npc.she] [npc.verb(squeeze)] down on [npc.her] [npc.nipples+].");
 						break;
@@ -123,7 +123,7 @@ public class PlayerSelfFingerBreasts {
 				
 				UtilText.nodeContentSB.setLength(0);
 				
-				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
+				switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Reaching up to [npc.her] exposed chest, [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(start)] fondling and groping [npc.her] [npc.breastRows] [npc.breasts+],"
@@ -162,7 +162,7 @@ public class PlayerSelfFingerBreasts {
 						break;
 				}
 				
-				switch (Main.sex.getCharacterPerformingAction().getBreastStoredMilk()) {
+				switch (Sex.getCharacterPerformingAction().getBreastStoredMilk()) {
 					case ONE_TRICKLE:
 						UtilText.nodeContentSB.append(" A small trickle of [npc.milk] leaks out onto [npc.her] [npc.fingers] as [npc.she] [npc.verb(squeeze)] down on [npc.namePos] [npc.nipples+].");
 						break;
@@ -196,16 +196,16 @@ public class PlayerSelfFingerBreasts {
 
 		@Override
 		public void applyEffects(){
-			if(!Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.NIPPLES)
-					&& Main.sex.getCharacterPerformingAction().getBreastStoredMilk().getMinimumValue()>=Lactation.ONE_TRICKLE.getMinimumValue()
-					&& Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.NIPPLES)!=null) {
-				Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(Main.sex.getCharacterPerformingAction(), true);
+			if(!Sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.NIPPLES)
+					&& Sex.getCharacterPerformingAction().getBreastStoredMilk().getMinimumValue()>=Lactation.ONE_TRICKLE.getMinimumValue()
+					&& Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.NIPPLES)!=null) {
+				Sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(Sex.getCharacterPerformingAction(), true);
 			}
 		}
 		
 		@Override
 		public String applyEffectsString() {
-			return Main.sex.getCharacterPerformingAction().incrementBreastStoredMilk(-10);
+			return Sex.getCharacterPerformingAction().incrementBreastStoredMilk(-10);
 		}
 		
 	};

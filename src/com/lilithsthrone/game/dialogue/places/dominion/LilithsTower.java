@@ -23,14 +23,14 @@ public class LilithsTower {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-
+			
 			UtilText.nodeContentSB.append("<p>"
 						+ "A giant spire, built out of dark black stone, dominates Dominion's skyline. Finding yourself standing near the base, you notice an increase in the amount of Enforcers patrolling this area."
 					+ "</p>"
 					+ "<p>"
 						+ "An elaborate golden archway links the tower's grounds to the street that you're standing on. A single word inscribed into the metalwork reads 'Lilith', leaving you with little doubt as to the identity of the demon who lives here."
 					+ "</p>");
-
+			
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
@@ -40,7 +40,7 @@ public class LilithsTower {
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
 						+ "</p>");
 			}
-
+			
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -56,7 +56,7 @@ public class LilithsTower {
 	};
 	public static final DialogueNode LILITHS_DISTRICT_APPROACH = new DialogueNode("Lilith's Tower Entrance", "Archway", false, true) {
 		/**
-		 *
+		 * 
 		 */
 
 		@Override

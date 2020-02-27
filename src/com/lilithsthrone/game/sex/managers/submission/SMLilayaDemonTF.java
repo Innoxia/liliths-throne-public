@@ -6,6 +6,7 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
@@ -35,8 +36,8 @@ public class SMLilayaDemonTF extends SexManagerDefault {
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
 		if(partner instanceof Lyssieth) { // Lyssieth stops sex once everyone's orgasmed:
-			for(GameCharacter character : Main.sex.getAllParticipants(false)) {
-				if(Main.sex.getNumberOfOrgasms(character)==0) {
+			for(GameCharacter character : Sex.getAllParticipants(false)) {
+				if(Sex.getNumberOfOrgasms(character)==0) {
 					return false;
 				}
 			}
@@ -96,7 +97,7 @@ public class SMLilayaDemonTF extends SexManagerDefault {
 	@Override
 	public SexPace getForcedSexPace(GameCharacter character) {
 		if(!character.isPlayer()) {
-			if(!Main.sex.isDom(character)) {
+			if(!Sex.isDom(character)) {
 				return SexPace.SUB_EAGER;
 			}
 		}

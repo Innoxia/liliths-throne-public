@@ -6,6 +6,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPosition;
@@ -52,14 +53,14 @@ public class SMLyssiethSex extends SexManagerDefault {
 	public SexPace getForcedSexPace(GameCharacter character) {
 		if(!character.isPlayer()) {
 			if(Main.game.getPlayer().getRace()==Race.HUMAN) {
-				if(Main.sex.isDom(character)) {
+				if(Sex.isDom(character)) {
 					return SexPace.DOM_NORMAL;
 				} else {
 					return SexPace.SUB_EAGER;
 				}
 				
 			} else {
-				if(Main.sex.isDom(character)) {
+				if(Sex.isDom(character)) {
 					return SexPace.DOM_NORMAL;
 				} else {
 					return SexPace.SUB_NORMAL;

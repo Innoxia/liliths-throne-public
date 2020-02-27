@@ -26,21 +26,7 @@
 	</p>
 	]]>
 	</htmlContent>
-	
-	<htmlContent tag="CORRIDOR_BRAX_WARNING"><![CDATA[
-	#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_C_WOLFS_DEN))
-		<p>
-			The door nearest to you is marked with the name 'Inspector [brax.nameFull]', letting you know that this is the office you were looking for.
-			#IF(pc.getLevel()<5)
-				 [style.italicsBad(Be prepared for a potentially difficult fight before entering his office!)]
-			#ELSE
-				 [style.italicsMinorBad(Be prepared for a possible fight before entering his office!)]
-			#ENDIF
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
+
 	
 	<!-- ENTRANCE -->
 
@@ -753,7 +739,7 @@
 		[pc.speech(Yeah, you should definitely use one! Right Bree?!)] you ask the submissive wolf-girl.
 	</p>
 	<p>
-		[brax.speechNoEffects(I-If you want...)] she meekly replies.
+		[brax.speech(I-If you want...)] she meekly replies.
 	</p>
 	<p>
 		[candi.speechNoEffects(Good girl, Bree!)] Candi squeals, excitedly pulling out a potion from beneath her desk. [candi.speechNoEffects(I got this made to be, like, pink flavour, so it's gonna taste good!)]

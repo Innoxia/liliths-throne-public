@@ -135,410 +135,204 @@
 	]]>
 	</htmlContent>
 	
-	
-	<!-- IMP_FIGHT_AFTER_COMBAT_VICTORY -->
-	
-	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_VICTORY_ALL_ENSLAVED"><![CDATA[
-	<p>
-		Having enslaved all of the imps, there's nothing left for you and [com.name] to do except continue on your way through the citadel...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_VICTORY_ENSLAVED"><![CDATA[
-	<p>
-		[npc.speech(What are you doing?!)] [npc.name] screeches in alarm, [npc.speech(You can't enslave us! Stop it!)]
-	</p>
-	<p>
-		Grinning at the remaining imps before you, you wonder whether you should continue with your task of enslaving them, or leave them be...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_VICTORY_ENSLAVED_ONE"><![CDATA[
-	<p>
-		[npc.speech(Stop it!)] [npc.name] scream, [npc.speech(Don't do it! I don't want to be a slave!)]
-	</p>
-	<p>
-		Grinning at this last defeated imp, you wonder whether you should enslaving [npc.herHim] as well, or leave [npc.herHim] be...
-	</p>
-	]]>
-	</htmlContent>
-	
 	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_VICTORY"><![CDATA[
 	<p>
-		As the very last imp collapses to the floor, you can't help but let out a jubilant, victorious cry.
+		As the very last imp collapses to the floor, you can't help but let out a jubilant yell, [pc.speech(Hah! I am victorious!)]
 	</p>
 	<p>
-		Scanning your surroundings to double-check that there aren't any more threats, you notice that all of the other defeated imps have already made good their escape, and have either crawled or staggered off out of the citadel's main gates. As you let out a disapproving tut at how quick the other imps were to abandon their comrades and use them as a distraction to escape, your [com.companion] states, [com.speech(It looks like it's just these four left.)].
+		Scanning your surroundings to double-check that there aren't any more threats, you notice that all of the other defeated imps have already made good their escape, and have crawled or staggered off out of the citadel's main gates. You let out a disapproving tut at how quick the other imps were to abandon their comrades and use them as a distraction to escape.
 	</p>
 	<p>
-		Focusing your attention back down towards the four defeated imps at your [pc.feet], you wonder what you and [com.name] should do with them...
+		[npc.speech(It looks like it's just these four left,)] [npc.name] says.
+	</p>
+	<p>
+		Focusing your attention back down towards the defeated imps at your [pc.feet], you wonder what you and your companion should do with them...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST"><![CDATA[
 	<p style='text-align:center;'>
-		[style.italicsExcellent(You and [com.name] have defeated the citadel's entire imp garrison! You truly are masters at fighting imps, and know exactly how to beat them!)]
+		[style.italicsExcellent(You and [npc.name] have defeated the citadel's entire imp garrison! You truly are masters at fighting imps, and know exactly how to beat them!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_SCARE_OFF"><![CDATA[
-	#IF(game.getNonCompanionCharactersPresent().size()==1)
-		<p>
-			You aren't interested in doing anything more to this last defeated [npc.race], and, standing to one side, you command, [pc.speech(Go on, get out of here, and don't come back!)]
-		</p>
-		<p>
-			Groaning as [npc.she] pushes [npc.herself] to [npc.her] feet, the [npc.race] does as you say, and staggers off out of the citadel and into Submission. Turning back towards the imposing gates of the main keep, you wonder if you should go and challenge the siren straight away, or take a break first...
-		</p>
-	#ELSE
-		<p>
-			You aren't interested in doing anything more to the imps, and, standing to one side, you command, [pc.speech(Go on, get out of here, all of you! And don't come back!)]
-		</p>
-		<p>
-			Groaning as they push themselves to their feet, the imps do as you say, and stagger off out of the citadel and into Submission. Turning back towards the imposing gates of the main keep, you wonder if you should go and challenge the siren straight away, or take a break first...
-		</p>
-	#ENDIF
+	<p>
+		You aren't interested in doing anything more to the imps, and, standing to one side, you command, [pc.speech(Go on, get out of here, all of you! And don't come back!)]
+	</p>
+	<p>
+		Groaning as they push themselves to their feet, the imps do as you say, and stagger off out of the citadel and into Submission. Turning back towards the imposing gates of the main keep, you wonder if you should go and challenge the siren straight away, or take a break first...
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_SEX"><![CDATA[
-	#IF(game.getNonCompanionCharactersPresent().size()==1)
-		<p>
-			Deciding to take advantage of these imps, you turn to your [com.companion] and order, [pc.speech(Stand back and watch, [com.name]. I want this one all to myself.)]
-		</p>
-		<p>
-			[com.speech(Sure,)] [com.name] replies, stepping back and leaving you to have your fun.
-		</p>
-		<p>
-			Smirking down at your defeated foe, you step forwards and bend down to push [npc.herHim] into position, letting out [pc.a_moan+] as you get ready to fuck [npc.herHim]...
-		</p>
-	#ELSE
-		<p>
-			Deciding to take advantage of these imps, you turn to your [com.companion] and order, [pc.speech(Stand back and watch, [com.name]. I want these all to myself.)]
-		</p>
-		<p>
-			[com.speech(Sure,)] [com.name] replies, stepping back and leaving you to have your fun.
-		</p>
-		<p>
-			Smirking down at your defeated foes, you step forwards and bend down to push them into position, letting out [pc.a_moan+] as you get ready to fuck them...
-		</p>
-	#ENDIF
+	<p>
+		Deciding to take advantage of these imps, you turn to your companion, and tell [npc.herHim], [pc.speech(Stand back and watch, [npc.name]. I want these all to myself.)]
+	</p>
+	<p>
+		[npc.speech(Sure,)] [npc.name] replies, stepping back and leaving you to have your fun.
+	</p>
+	<p>
+		Smirking down at your defeated foes, you step forwards, and, bending down to push them into position, you get ready to fuck them...
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
-	#IF(game.getNonCompanionCharactersPresent().size()==1)
-		<p>
-			Deciding to take advantage of these imps, you turn to your [com.companion] and order, [pc.speech(Stand back and watch, [com.name]. I want this one all to myself.)]
-		</p>
-		<p>
-			[com.speech(Sure,)] [com.name] replies, stepping back and leaving you to have your fun.
-		</p>
-		<p>
-			Smiling down at your defeated foe, you step forwards and bend down to gently push [npc.herHim] into position, letting out [pc.a_moan+] as you get ready to fuck [npc.herHim]...
-		</p>
-	#ELSE
-		<p>
-			Deciding to take advantage of these imps, you turn to your [com.companion] and order, [pc.speech(Stand back and watch, [com.name]. I want these all to myself.)]
-		</p>
-		<p>
-			[com.speech(Sure,)] [com.name] replies, stepping back and leaving you to have your fun.
-		</p>
-		<p>
-			Smiling down at your defeated foes, you step forwards and bend down to gently push them into position, letting out [pc.a_moan+] as you get ready to fuck them...
-		</p>
-	#ENDIF
+	<p>
+		Deciding to take advantage of these imps, you turn to your companion, and tell [npc.herHim], [pc.speech(Stand back and watch, [npc.name]. I want these all to myself.)]
+	</p>
+	<p>
+		[npc.speech(Sure,)] [npc.name] replies, stepping back and leaving you to have your fun.
+	</p>
+	<p>
+		Smiling down at your defeated foes, you step forwards, and, bending down to gently push them into position, you get ready to have sex with them...
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
-	#IF(game.getNonCompanionCharactersPresent().size()==1)
-		<p>
-			Deciding to take advantage of these imps, you turn to your [com.companion] and order, [pc.speech(Stand back and watch, [com.name]. I want this one all to myself.)]
-		</p>
-		<p>
-			[com.speech(Sure,)] [com.name] replies, stepping back and leaving you to have your fun.
-		</p>
-		<p>
-			Grinning evilly down at your defeated foe, you step forwards and bend down to roughly force [npc.herHim] into position, letting out [pc.a_moan+] as you get ready to give [npc.herHim] a good, hard fuck...
-		</p>
-	#ELSE
-		<p>
-			Deciding to take advantage of these imps, you turn to your [com.companion] and order, [pc.speech(Stand back and watch, [com.name]. I want these all to myself.)]
-		</p>
-		<p>
-			[com.speech(Sure,)] [com.name] replies, stepping back and leaving you to have your fun.
-		</p>
-		<p>
-			Grinning evilly down at your defeated foes, you step forwards and bend down to roughly force them into position, letting out [pc.a_moan+] as you get ready to give them a good, hard fuck...
-		</p>
-	#ENDIF
+	<p>
+		Deciding to take advantage of these imps, you turn to your companion, and tell [npc.herHim], [pc.speech(Stand back and watch, [npc.name]. I want these all to myself.)]
+	</p>
+	<p>
+		[npc.speech(Sure,)] [npc.name] replies, stepping back and leaving you to have your fun.
+	</p>
+	<p>
+		Grinning evilly down at your defeated foes, you step forwards, and, bending down to roughly force them into position, you get ready to give them a good, hard fuck...
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_SEX_SUBMIT"><![CDATA[
-	#IF(game.getNonCompanionCharactersPresent().size()==1)
-		<p>
-			As you look down at this last defeated [npc.race], you can't help but feel sorry for [npc.herHim]. After all, [npc.sheHas] not only been abandoned by the other imps in the citadel, but [npc.sheHas] also just witnessed all of [npc.her] comrades being enslaved.
-		</p>
-		<p>
-			[pc.speech(Stand back, [com.name], I'm sure I won't be too long,)] you tell your [com.companion].
-		</p>
-		<p>
-			[com.speech(Sure...)] [com.she] hesitantly replies, before letting out a resigned sigh as [com.she] realises what it is you're planning, [com.speech(If that's what you want to do, then fine, whatever.)]
-		</p>
-		<p>
-			Turning away from your [com.companion] and kneeling down beside [npc.name], you offer your apologies, [pc.speech(I'm sorry, I think we went a little too far. Are you ok?)]
-		</p>
-		<p>
-			[npc.speech(Yer a real [pc.insult], ain't yer?! Course we ain't ok!)] [npc.she] snaps, pushing [npc.herself] to [npc.her] feet and scowling angrily at you. [npc.speech(How yer gonna apologise, huh, [pc.insult]?!)]
-		</p>
-		<p>
-			The commanding tone in [npc.namePos] voice makes you let out an excited little whimper as you reply, [pc.speech(Well, how about you use me however you want?!)]
-		</p>
-		<p>
-			[npc.speech(Ya want me ta fuck ya senseless?!)] [npc.name] spits, stepping forwards and pushing you down into position. [npc.speech(I don't mind doin' that, [pc.insult]!)]
-		</p>
-		<p>
-			Letting out a burst of cackling laughter, the [npc.race] prepares to fuck you...
-		</p>
-	#ELSE
-		<p>
-			As you look down at the defeated imps, you can't help but feel sorry for them. After all, they were just abandoned by their comrades, and even if they weren't on friendly terms with one another, that betrayal is sure to have upset them.
-		</p>
-		<p>
-			[pc.speech(Stand back, [com.name], I'm sure I won't be too long,)] you tell your [com.companion].
-		</p>
-		<p>
-			[com.speech(Sure...)] [com.she] hesitantly replies, before letting out a resigned sigh as [com.she] realises what it is you're planning, [com.speech(If that's what you want to do, then fine, whatever.)]
-		</p>
-		<p>
-			Turning away from your [com.companion] and kneeling down beside [npc.name], you offer your apologies, [pc.speech(I'm sorry, I think we went a little too far. Are you ok?)]
-		</p>
-		<p>
-			[npc.speech(Yer a real [pc.insult], ain't yer?! Course we ain't ok!)] [npc.she] snaps, pushing [npc.herself] to [npc.her] feet and scowling angrily at you. [npc.speech(How yer gonna apologise, huh, [pc.insult]?!)]
-		</p>
-		<p>
-			The commanding tone in [npc.namePos] voice makes you let out an excited little whimper as you reply, [pc.speech(Well, how about you and your friends use me however you want?!)]
-		</p>
-		<p>
-			[npc.speech(They ain't my friends, [pc.insult], and nor are you!)] [npc.name] spits, pushing you down into position. [npc.speech(I don't mind sharin' yer with them, though. Plenty o' holes to go around!)]
-		</p>
-		<p>
-			Cackling laughter erupts from the rest of the imps, and they rush forwards to join in on the fun...
-		</p>
-	#ENDIF
+	<p>
+		As you look down at the defeated imps, you can't help but feel sorry for them. After all, they were just abandoned by their comrades, and even if they weren't on friendly terms with one another, that betrayal is sure to have upset them.
+	</p>
+	<p>
+		[pc.speech(Stand back, [npc.name], I'm sure I won't be too long,)] you tell your companion.
+	</p>
+	<p>
+		[npc.speech(Sure...)] [npc.she] hesitantly replies, before letting out a resigned sigh as [npc.she] realises what it is you're going to do. [npc.speech(If that's what you want to do, then fine, whatever.)]
+	</p>
+	<p>
+		Turning away from your companion and kneeling down beside [npc2.name], you offer your apologies, [pc.speech(I'm sorry, I think we went a little too far. Are you ok?)]
+	</p>
+	<p>
+		[npc2.speech(Yer a real [pc.insult], ain't yer?! Course we ain't ok!)] [npc2.she] snaps, pushing [npc2.herself] to [npc2.her] feet and scowling angrily at you. [npc2.speech(How yer gonna apologise, huh, [pc.insult]?!)]
+	</p>
+	<p>
+		The commanding tone in [npc2.namePos] voice makes you let out an excited little whimper. [pc.speech(Well, how about you and your friends use me however you want!)]
+	</p>
+	<p>
+		[npc2.speech(They ain't my friends, [pc.insult], and nor are you!)] [npc2.name] spits, pushing you down into position. [npc2.speech(I don't mind sharin' yer with them, though. Plenty o' holes to go around!)]
+	</p>
+	<p>
+		Cackling laughter erupts from the rest of the imps, and they rush forwards to join in on the fun...
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_GROUP_SEX"><![CDATA[
-	#IF(game.getNonCompanionCharactersPresent().size()==1)
-		<p>
-			Deciding to take advantage of this final defeated [npc.race], you turn to your [com.companion] and order, [pc.speech(Come on, [com.name]. Lets fuck [npc.herHim] together!)]
-		</p>
-		<p>
-			#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
-				[com.speech(Sounds good, [pc.name],)] [com.name] replies with a grin on [com.her] face, [com.speech(This'll be fun!)]
-			#ELSE
-				[com.speech([pc.Name]... I really don't want to...)] [com.name] replies, [com.speech(But I guess I have no choice...)]
-			#ENDIF
-		</p>
-		<p>
-			Turning back to smirk down at your defeated foe, you step forwards and, with some help from [com.name], push [npc.herHim] into position and get ready to fuck [npc,herHim]...
-		</p>
-	#ELSE
-		<p>
-			Deciding to take advantage of these imps, you turn to your [com.companion] and order, [pc.speech(Come on, [com.name]. Lets fuck them together!)]
-		</p>
-		<p>
-			#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
-				[com.speech(Sounds good, [pc.name],)] [com.name] replies with a grin on [com.her] face, [com.speech(This'll be fun!)]
-			#ELSE
-				[com.speech([pc.Name]... I really don't want to...)] [com.name] replies, [com.speech(But I guess I have no choice...)]
-			#ENDIF
-		</p>
-		<p>
-			Turning back to smirk down at your defeated foes, you step forwards and, with some help from [com.name], you push them into position and get ready to fuck them...
-		</p>
-	#ENDIF
+	<p>
+		Deciding to take advantage of these imps, you turn to your companion, and tell [npc.herHim], [pc.speech(Come on, [npc.name]. Lets fuck them together!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN[npc.speech(Sounds good, [pc.name],)] [npc.name] replies, grinning. [npc.speech(This'll be fun!)]
+		#ELSE[npc.speech([pc.Name]... I-I really don't want to...)] [npc.name] replies. [npc.speech(B-But I guess I have no choice...)]
+		#ENDIF
+	</p>
+	<p>
+		Turning back to smirk down at your defeated foes, you step forwards, and, with some help from [npc.name], you push them into position and get ready to fuck them...
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_GROUP_SEX_SUBMISSION"><![CDATA[
-	#IF(game.getNonCompanionCharactersPresent().size()==1)
-		<p>
-			As you look down at this last defeated [npc.race], you can't help but feel sorry for [npc.herHim]. After all, [npc.sheHas] not only been abandoned by the other imps in the citadel, but [npc.sheHas] also just witnessed all of [npc.her] comrades being enslaved.
-		</p>
-		<p>
-			[pc.speech(Come on, [com.name], let's apologise to [npc.herHim] together,)] you tell your [com.companion].
-		</p>
-		<p>
-			#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
-				[com.speech(Mmm, yeah, that sounds good to me, [pc.name],)] [com.name] happily replies, realising what it is you want [com.herHim] to do. [com.speech(This'll be fun!)]
-			#ELSE
-				[com.speech([pc.Name]?! What the hell?!)] [com.name] protests, realising what it is you want [com.herHim] to do. [com.speech(I can't believe you're making me do this...)]
-			#ENDIF
-		</p>
-		<p>
-			Getting your [com.companion] to kneel down beside you in front of [npc.name], you offer your apologies, [pc.speech(I'm sorry, I think we went a little too far. Are you ok?)]
-		</p>
-		<p>
-			[npc.speech(Yer a real pair o' [pc.insultPlural], ain't yer?! Course I ain't ok!)] [npc.she] snaps, pushing [npc.herself] to [npc.her] feet and scowling angrily at the two of you. [npc.speech(How yer gonna apologise, huh, [pc.insultPlural]?!)]
-		</p>
-		<p>
-			The commanding tone in [npc.namePos] voice makes you let out an excited little whimper as you reply, [pc.speech(Well, how about you use me and [com.name] here however you want?!)]
-		</p>
-		<p>
-			[npc.speech(Ya want me ta fuck the two o' ya senseless?!)] [npc.name] spits, stepping forwards and pushing you and [com.name] down into position. [npc.speech(I don't mind doin' that, [pc.insult]!)]
-		</p>
-		<p>
-			#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
-				[com.speech(Ooh, yes!)] [com.name] eagerly [com.moansVerb].
-			#ELSE
-				[com.speech(I can't believe this!)] [com.name] protests, struggling against [npc.name] as [com.she] tries, in vain, to break free.
-			#ENDIF
-		</p>
-		<p>
-			Letting out a burst of cackling laughter, the [npc.race] prepares to fuck you and your [com.companion]...
-		</p>
-	#ELSE
-		<p>
-			As you look down at the defeated imps, you can't help but feel sorry for them. After all, they were just abandoned by their comrades, and even if they weren't on friendly terms with one another, that betrayal is sure to have upset them.
-		</p>
-		<p>
-			[pc.speech(Come on, [com.name], let's apologise to these imps together,)] you tell your [com.companion].
-		</p>
-		<p>
-			#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
-				[com.speech(Mmm, yeah, that sounds good to me, [pc.name],)] [com.name] happily replies, realising what it is you want [com.herHim] to do. [com.speech(This'll be fun!)]
-			#ELSE
-				[com.speech([pc.Name]?! What the hell?!)] [com.name] protests, realising what it is you want [com.herHim] to do. [com.speech(I can't believe you're making me do this...)]
-			#ENDIF
-		</p>
-		<p>
-			Getting your [com.companion] to kneel down beside you in front of [npc.name], you offer your apologies, [pc.speech(I'm sorry, I think we went a little too far. Are you ok?)]
-		</p>
-		<p>
-			[npc.speech(Yer a real pair o' [pc.insultPlural], ain't yer?! Course we ain't ok!)] [npc.she] snaps, pushing [npc.herself] to [npc.her] feet and scowling angrily at the two of you. [npc.speech(How yer gonna apologise, huh, [pc.insultPlural]?!)]
-		</p>
-		<p>
-			The commanding tone in [npc.namePos] voice makes you let out an excited little whimper as you reply, [pc.speech(Well, how about you and your friends use me and [com.name] here however you want?!)]
-		</p>
-		<p>
-			[npc.speech(They ain't my friends, [pc.insult], and nor are you!)] [npc.name] spits, pushing you and your [com.companion] down into position. [npc.speech(I don't mind sharin' the two o' yer with them, though. Plenty o' holes to go around!)]
-		</p>
-		<p>
-			#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
-				[com.speech(Ooh, yes!)] [com.name] eagerly [com.moansVerb].
-			#ELSE
-				[com.speech(I can't believe this!)] [com.name] protests, struggling against [npc.name] as [com.she] tries, in vain, to break free.
-			#ENDIF
-		</p>
-		<p>
-			Cackling laughter erupts from the rest of the imps, and they rush forwards to join in on the fun...
-		</p>
-	#ENDIF
+	<p>
+		As you look down at the defeated imps, you can't help but feel sorry for them. After all, they were just abandoned by their comrades, and even if they weren't on friendly terms with one another, that betrayal is sure to have upset them.
+	</p>
+	<p>
+		[pc.speech(Come on, [npc.name], let's apologise to these imps together,)] you tell your companion.
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN[npc.speech(Mmm, yeah, that sounds good to me, [pc.name],)] [npc.name] happily replies, realising what it is you want [npc.herHim] to do. [npc.speech(This'll be fun!)]
+		#ELSE[npc.speech([pc.Name]?! W-What the hell!)] [npc.name] protests, realising what it is you want [npc.herHim] to do. [npc.speech(D-Do I really have to?!)]
+		#ENDIF
+	</p>
+	<p>
+		Getting your companion to kneel down beside you in front of [npc2.name], you offer your apologies, [pc.speech(I'm sorry, I think we went a little too far. Are you ok?)]
+	</p>
+	<p>
+		[npc2.speech(Yer a real pair o' [pc.insultPlural], ain't yer?! Course we ain't ok!)] [npc2.she] snaps, pushing [npc2.herself] to [npc2.her] feet and scowling angrily at the two of you. [npc2.speech(How yer gonna apologise, huh, [pc.insultPlural]?!)]
+	</p>
+	<p>
+		The commanding tone in [npc2.namePos] voice makes you let out an excited little whimper. [pc.speech(Well, how about you and your friends use me and [npc.name] here however you want!)]
+	</p>
+	<p>
+		[npc2.speech(They ain't my friends, [pc.insult], and nor are you!)] [npc2.name] spits, pushing you and your companion down into position. [npc2.speech(I don't mind sharin' the two o' yer with them, though. Plenty o' holes to go around!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN[npc.speech(Ooh, yes!)] [npc.name] eagerly [npc.moansVerb].
+		#ELSE[npc.speech(N-No! I don't want to do this!)] [npc.name] protests, struggling against [npc2.name] as [npc.she] tries, in vain, to break free.
+		#ENDIF
+	</p>
+	<p>
+		Cackling laughter erupts from the rest of the imps, and they rush forwards to join in on the fun...
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_GIVE_TO_COMPANION"><![CDATA[
-	#IF(game.getNonCompanionCharactersPresent().size()==1)
-		<p>
-			Deciding that you want to watch [com.name] take advantage of this last defeated [npc.race], you turn to [com.herHim] and order, [pc.speech(Go on, [com.name]. Fuck [npc.herHim]!)]
-		</p>
-		<p>
-			#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
-				[com.speech(Oh, yes! With pleasure!)] [com.name] happily replies.
-			#ELSE
-				[com.speech(Eugh... Well, if I have to...)] [com.name] reluctantly replies.
-			#ENDIF
-		</p>
-		<p>
-			Smirking down at your defeated foe, you step back and watch as your [com.companion] bends down to push [npc.herHim] into position, getting ready to fuck [npc.herHim]...
-		</p>
-	#ELSE
-		<p>
-			Deciding that you want to watch [com.name] take advantage of these imps, you turn to [com.herHim], and say, [pc.speech(Go on, [com.name]. Fuck them!)]
-		</p>
-		<p>
-			#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
-				[com.speech(Oh, yes! With pleasure!)] [com.name] happily replies.
-			#ELSE
-				[com.speech(Eugh... Well, if I have to...)] [com.name] reluctantly replies.
-			#ENDIF
-		</p>
-		<p>
-			Smirking down at your defeated foes, you step back and watch as your [com.companion] bends down to push them into position, getting ready to fuck them...
-		</p>
-	#ENDIF
+	<p>
+		Deciding that you want to watch [npc.name] take advantage of these imps, you turn to [npc.herHim], and say, [pc.speech(Go on, [npc.name]. Fuck them!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN[npc.speech(Oh, yes! With pleasure!)] [npc.name] happily replies.
+		#ELSE[npc.speech(Eugh... Well, if I have to...)] [npc.name] reluctantly replies.
+		#ENDIF
+	</p>
+	<p>
+		Smirking down at your defeated foes, you step back and watch as your companion bends down to push them into position, getting ready to fuck them...
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="IMP_COMBAT_VICTORY_OFFER_COMPANION"><![CDATA[
-	#IF(game.getNonCompanionCharactersPresent().size()==1)
-		<p>
-			Deciding that you want to watch this last [npc.race] fuck your [com.companion], you turn towards [com.name] and order, [pc.speech(Get down, [com.name], and let [npc.herHim] fuck you!)]
-		</p>
-		<p>
-			#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
-				[com.speech(Oh, yes! With pleasure!)] [com.name] happily replies.
-			#ELSE
-				[com.speech(What the hell?! I really don't want to... But I don't have any choice, do I?)] [com.name] protests.
-			#ENDIF
-		</p>
-		<p>
-			Smirking down at your defeated foe, you step back and watch as your [com.companion] gets down onto [com.her] knees before [npc.herHim]. Addressing [npc.name], you say, [pc.speech(Go on! You can fuck [com.name] here, there's no trick involved!)]
-		</p>
-		<p>
-			[npc.speech(Eh, well, I could do with fuckin' some [com.insult] after all that!)] [npc.name] spits, pushing your [com.companion] down into position.
-		</p>
-		<p>
-			#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
-				[com.speech(~Ooh!~ Yes! Come and fuck me already!)] [com.name] eagerly [com.moansVerb].
-			#ELSE
-				[com.speech(I can't believe this!)] [com.name] protests, struggling against [npc.name] as [com.she] tries, in vain, to break free.
-			#ENDIF
-		</p>
-		<p>
-			Letting out a burst of cackling laughter, the [npc.race] prepares to fuck your [com.companion]...
-		</p>
-	#ELSE
-		<p>
-			Deciding that you want to watch these imps fuck your [com.companion], you turn towards [com.name] and say, [pc.speech(Get down, [com.name]. Get down and let these imps fuck you!)]
-		</p>
-		<p>
-			#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
-				[com.speech(Oh, yes! With pleasure!)] [com.name] happily replies.
-			#ELSE
-				[com.speech(What the hell?! I really don't want to... But I don't have any choice, do I?)] [com.name] protests.
-			#ENDIF
-		</p>
-		<p>
-			Smirking down at your defeated foes, you step back and watch as your [com.companion] gets down onto [com.her] knees beside them.  Addressing the imps, you say, [pc.speech(Go on! You can fuck [com.name] here, there's no trick involved!)]
-		</p>
-		<p>
-			[npc.speech(Eh, well, I could do with fuckin' some [com.insult] after all that!)] [npc.name] spits, pushing your [com.companion] down into position. [npc.speech(Come on, you lot, I don't mind sharin'. Plenty o' holes to go around!)]
-		</p>
-		<p>
-			#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
-				[com.speech(~Ooh!~ Yes! Come and fuck me already!)] [com.name] eagerly [com.moansVerb].
-			#ELSE
-				[com.speech(I can't believe this!)] [com.name] protests, struggling against [npc.name] as [com.she] tries, in vain, to break free.
-			#ENDIF
-		</p>
-		<p>
-			Cackling laughter erupts from the rest of the imps, and they rush forwards to join in on the fun...
-		</p>
-	#ENDIF
+	<p>
+		Deciding that you want to watch these imps fuck your companion, you turn towards [npc.name] and say, [pc.speech(Get down, [npc.name]. Get down and let these imps fuck you!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN[npc.speech(Oh, yes! With pleasure!)] [npc.name] happily replies.
+		#ELSE[npc.speech(W-What the hell?! I really don't want to... But I don't have any choice, do I?)] [npc.name] protests.
+		#ENDIF
+	</p>
+	<p>
+		Smirking down at your defeated foes, you step back and watch as your companion gets down onto [npc.her] knees beside them. Looking [npc2.name] in the eye, you encourage [npc2.herHim], [pc.speech(Go on! You can fuck [npc.herHim], there's no trick involved!)]
+	</p>
+	<p>
+		[npc2.speech(Eh, well, I could do with fuckin' some [npc.insult] after all that!)] [npc2.name] spits, pushing your companion down into position. [npc2.speech(Come on, you lot, I don't mind sharin'. Plenty o' holes to go around!)]
+	</p>
+	<p>
+		#IFnpc.isAttractedTo(npc2) || !game.isNonConEnabled()
+		#THEN[npc.speech(Ooh, yes! Come and fuck me already!)] [npc.name] eagerly [npc.moansVerb].
+		#ELSE[npc.speech(N-No! I don't want to do this!)] [npc.name] protests, struggling against [npc2.name] as [npc.she] tries, in vain, to break free.
+		#ENDIF
+	</p>
+	<p>
+		Cackling laughter erupts from the rest of the imps, and they rush forwards to join in on the fun...
+	</p>
 	]]>
 	</htmlContent>
 	
-	
 	<!--Defeat elsewhere:-->
-	
 	<htmlContent tag="IMP_FIGHT_AFTER_COMBAT_DEFEAT"><![CDATA[
 	<p>
 		The imps prove to be too much for you and [npc.name] to handle, and with an exhausted sigh, the two of you collapse to the ground, defeated.
@@ -1526,7 +1320,7 @@
 		 Looking up at the raised dais, you see the leader of these demons standing up, and as she steps forwards into the light, you find yourself looking upon a rather surprising figure.
 	</p>
 	<p>
-		Not only is the siren a half-demon, just like Lilaya, she's also surprisingly small and fresh-faced. From her appearance, she definitely looks to be no older than eighteen or nineteen, and stands at a rather diminutive [units.size(152)] in height. Unlike all the other succubi you've seen, she's completely lacking any curvaceous, womanly parts, as not only is she almost completely flat-chested, but she also has a small ass and only slightly girly hips.
+		Not only is the siren a half-demon, just like Lilaya, she's also surprisingly small and fresh-faced. From her appearance, she definitely looks to be no older than eighteen or nineteen, and stands at a rather diminutive five feet tall. Unlike all the other succubi you've seen, she's completely lacking any curvaceous, womanly parts, as not only is she almost completely flat-chested, but she also has a small ass and only slightly girly hips.
 	</p>
 	<p>
 		As well as her diminutive physical qualities, the siren's choice of outfit is also not quite what you'd expected. She's wearing a Witch's dress, boots, and wide-brimmed hat, with a black, purple-trimmed cape to finish it off. An impressive pentagram-themed amulet is hanging around her neck, and, most curiously of all, she's got a square, white eyepatch over her right eye.

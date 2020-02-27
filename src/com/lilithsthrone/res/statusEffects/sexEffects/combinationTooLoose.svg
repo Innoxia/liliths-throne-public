@@ -1,8 +1,20 @@
-<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
- <g fill="#ff8080" fill-rule="evenodd" stroke="#000">
-  <path d="m60.056 9.7591-6.4919 4.5849 5.2764 2.3042-14.414 2.6386 2.6223-14.86 2.1605 5.6249 4.5664-6.7081z"/>
-  <path d="m10.448 3.3605 4.5849 6.4919 2.3042-5.2764 2.6386 14.414-14.86-2.6223 5.6249-2.1605-6.7081-4.5664z"/>
-  <path d="m4.0049 53.52 6.4919-4.5849-5.2764-2.3042 14.414-2.6386-2.6223 14.86-2.1605-5.6249-4.5664 6.7081z"/>
-  <path d="m53.612 59.919-4.5849-6.4919-2.3042 5.2764-2.6386-14.414 14.86 2.6223-5.6249 2.1605 6.7081 4.5664z"/>
- </g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="linearGradient4332">
+            <stop offset="0" stop-color="#666"/>
+            <stop offset="1" stop-color="#808080"/>
+        </linearGradient>
+        <linearGradient id="holeTooBig">
+            <stop offset="0" stop-color="#333"/>
+            <stop offset="1" stop-color="#666"/>
+        </linearGradient>
+        <linearGradient id="linearGradient4270" x1="111.688" x2="99.375" y1="1026.175" y2="1035.362" gradientTransform="matrix(1.47607 0 0 1.03653 -42.481 -2078.234)" gradientUnits="userSpaceOnUse" xlink:href="#holeTooBig"/>
+        <linearGradient id="linearGradient4338" x1="139.875" x2="139.875" y1="1030.893" y2="1043.737" gradientTransform="scale(1.3401) rotate(-9.468 -1656.053 1527.605)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient4332"/>
+    </defs>
+    <g stroke="#000" transform="matrix(.85737 0 0 .85737 8.797 -846.657)">
+        <ellipse cx="111.307" cy="-1010.881" fill="url(#linearGradient4270)" stroke-width=".309" rx="13.377" ry="8.94" transform="matrix(-.99698 .07771 -.15914 -.98726 0 0)"/>
+        <path fill="url(#linearGradient4338)" fill-rule="evenodd" stroke-width=".335" d="M42.163 994.305l3.493 20.774c1.375.324 3.412.548 5.163.396l-3.506-21.97z"/>
+        <path fill="#999" fill-rule="evenodd" stroke-width=".335" d="M40.139 995.192c2.797 1.275 7.359-.034 9.377-1.507l-.355-2.255c-.157-.999-1.015-1.854-2.733-2.389-.856-.31-3.893.091-4.895.817-1.037.796-2.03 1.706-1.835 2.874z"/>
+        <path fill="none" stroke-width=".134" d="M39.69 992.617c3.102 1.637 8.685-.313 9.445-1.533M41.44 990.087c.584.962 4.91.195 5.098-.924"/>
+    </g>
 </svg>

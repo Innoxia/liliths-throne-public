@@ -91,7 +91,7 @@ public class OrificeVaginaUrethra implements OrificeInterface {
 		}
 		
 		float oldCapacity = this.capacity;
-		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue(false)));
+		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
 		if(setStretchedValueToNewValue) {
 			this.stretchedCapacity = this.capacity;
 		}
@@ -130,18 +130,8 @@ public class OrificeVaginaUrethra implements OrificeInterface {
 	@Override
 	public boolean setStretchedCapacity(float stretchedCapacity) {
 		float oldStretchedCapacity = this.stretchedCapacity;
-		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue(false)));
+		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue()));
 		return oldStretchedCapacity != this.stretchedCapacity;
-	}
-	
-	@Override
-	public int getMaximumPenetrationDepthComfortable(GameCharacter owner) {
-		return (int) (owner.getHeightValue() * 0.05f * (this.hasOrificeModifier(OrificeModifier.EXTRA_DEEP)?2:1) * (owner.isVaginaBestial()?1.5f:1) * (!owner.getBodyMaterial().isOrificesLimitedDepth()?4f:1));
-	}
-	
-	@Override
-	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner) {
-		return getMaximumPenetrationDepthComfortable(owner) * 2;
 	}
 
 	@Override
@@ -243,54 +233,60 @@ public class OrificeVaginaUrethra implements OrificeInterface {
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
-				if(owner.isVaginaUrethraFuckable()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out [npc.a_moan+] as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the interior of [npc.her] urethra is now lined with [style.boldGrow(muscles)],"
-									+ " which [npc.she] can use to expertly grip and squeeze down on any penetrating object.<br/>"
-								+ "[style.boldSex([npc.NamePos] vaginal urethra is now lined with an intricate series of muscles!)]"
-							+ "</p>");
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel an intense pressure swelling up deep within your [pc.pussy], but before you have any chance to react, the feeling suddenly fades away."
+								+ " With an experimental clench, you discover that the interior of your urethra is now lined with [style.boldGrow(muscles)], which you can use to expertly grip and squeeze down on any penetrating object.<br/>"
+								+ "[style.boldSex(Your urethra is now lined with an intricate series of muscles!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.she] has any chance to react, the feeling quickly dissipates."
+								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] urethra is now lined with [style.boldGrow(muscles)], which [npc.she] can use to expertly grip and squeeze down on any penetrating object.<br/>"
+								+ "[style.boldSex([npc.NamePos] urethra is now lined with an intricate series of muscles!)]"
+							+ "</p>";
 				}
-				break;
 			case RIBBED:
-				if(owner.isVaginaUrethraFuckable()) {
-					return UtilText.parse(owner,
-							"<p>"
-							+ "[npc.Name] can't help but let out [npc.a_moan+] as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
-							+ " Shifting [npc.her] [npc.pussy] around a little, [npc.she] [npc.verb(discover)] that the inside of [npc.her] urethra is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)],"
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel an intense pressure swelling up deep within your [pc.pussy], but before you have any chance to react, the feeling suddenly fades away."
+								+ " Shifting your [pc.pussy] around a little, you feel that the inside of your urethra is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)], which provide extreme pleasure when stimulated.<br/>"
+								+ "[style.boldSex(Your urethra is now lined with fleshy, pleasure-inducing ribs!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+							+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.she] has any chance to react, the feeling quickly dissipates."
+							+ " Shifting [npc.her] [npc.pussy] around a little, [npc.she] discovers that the inside of [npc.her] urethra is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)],"
 								+ " which provide extreme pleasure when stimulated.<br/>"
-							+ "[style.boldSex([npc.NamePos] vaginal urethra is now lined with fleshy, pleasure-inducing ribs!)]"
-						+ "</p>");
+							+ "[style.boldSex([npc.NamePos] urethra is now lined with fleshy, pleasure-inducing ribs!)]"
+						+ "</p>";
 				}
-				break;
 			case TENTACLED:
-				if(owner.isVaginaUrethraFuckable()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out [npc.a_moan+] as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the inside of [npc.her] urethra is now lined with [style.boldGrow(little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
-								+ "[style.boldSex(The inside of [npc.namePos] vaginal urethra is now filled with small tentacles, which wriggle and caress any intruding object with a mind of their own!)]"
-							+ "</p>");
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel an intense pressure swelling up deep within your [pc.pussy], but before you have any chance to react, the feeling suddenly fades away."
+								+ " A surprised cry bursts out from your mouth as you feel that the inside of your urethra is now filled with [style.boldGrow(a series of little wriggling tentacles)], over which you have limited control.<br/>"
+								+ "[style.boldSex(The inside of your urethra is now filled with little tentacles, which wriggle with a mind of their own!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.she] has any chance to react, the feeling quickly dissipates."
+								+ " With an experimental clench, [npc.she] discovers that the inside of [npc.her] urethra is now filled with [style.boldGrow(a series of little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
+								+ "[style.boldSex(The inside of [npc.namePos] urethra is now filled with little tentacles, which wriggle with a mind of their own!)]"
+							+ "</p>";
 				}
-				break;
 			case PUFFY:
-				return UtilText.parse(owner,
-						"<p>"
-							+ "[npc.Name] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a tingling sensation running over [npc.her] [npc.pussy],"
-								+ " before the rim of [npc.her] urethra suddenly [style.boldGrow(puffs up)] into a doughnut-like ring.<br/>"
-							+ "[style.boldSex(The rim of [npc.namePos] urethra is now swollen and puffy!)]"
-						+ "</p>");
-			case EXTRA_DEEP:
-				if(owner.isVaginaUrethraFuckable()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a throbbing sensation rising up from [npc.her] [npc.pussy] into [npc.her] lower abdomen."
-								+ " Within moments, the feeling fades away, and [npc.name] [npc.verb(find)] [npc.herself] instinctively knowing that [npc.her] [style.boldGrow(urethra has significantly deepened)].<br/>"
-								+ "[style.boldSex([npc.NamePos] vaginal urethra is now extra deep, allowing it to take double the normal length of penetrative objects!)]"
-							+ "</p>");
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a tingling sensation running over your [pc.pussy], and you let out a little cry as you feel the rim of your urethra [style.boldGrow(puff up)] into a doughnut-like ring.<br/>"
+								+ "[style.boldSex(The rim of your urethra is now swollen and puffy!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy], before the rim of [npc.her] urethra [style.boldGrow(puffs up)] into a doughnut-like ring.<br/>"
+								+ "[style.boldSex(The rim of [npc.namePos] urethra is now swollen and puffy!)]"
+							+ "</p>";
 				}
-				break;
 		}
 		
 		// Catch:
@@ -311,52 +307,60 @@ public class OrificeVaginaUrethra implements OrificeInterface {
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
-				if(owner.isVaginaUrethraFuckable()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out a startled cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the interior of [npc.her] urethra has [style.boldShrink(lost its extra muscles)].<br/>"
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel an intense pressure swelling up deep within your [pc.pussy], but before you have any chance to react, the feeling suddenly fades away."
+								+ " With an experimental clench, you discover that the interior of your urethra has lost its [style.boldShrink(extra muscles)].<br/>"
+								+ "[style.boldSex(Your urethra is no longer lined with an intricate series of muscles!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.she] has any chance to react, the feeling quickly dissipates."
+								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] urethra has lost its [style.boldShrink(extra muscles)].<br/>"
 								+ "[style.boldSex([npc.NamePos] urethra is no longer lined with an intricate series of muscles!)]"
-							+ "</p>");
+							+ "</p>";
 				}
-				break;
 			case RIBBED:
-				if(owner.isVaginaUrethraFuckable()) {
-					return UtilText.parse(owner,
-							"<p>"
-							+ "[npc.Name] can't help but let out a startled cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
-							+ " Shifting [npc.her] [npc.pussy] around a little, [npc.she] [npc.verb(discover)] that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined [npc.her] urethra [style.boldShrink(have vanished)].<br/>"
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel an intense pressure swelling up deep within your [pc.pussy], but before you have any chance to react, the feeling suddenly fades away."
+								+ " Shifting your [pc.pussy] around a little, you feel that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined your urethra have vanished.<br/>"
+								+ "[style.boldSex(Your urethra is no longer lined with fleshy, pleasure-inducing ribs!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+							+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.she] has any chance to react, the feeling quickly dissipates."
+							+ " Shifting [npc.her] [npc.pussy] around a little, [npc.she] discovers that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined [npc.her] urethra have vanished.<br/>"
 							+ "[style.boldSex([npc.NamePos] urethra is no longer lined with fleshy, pleasure-inducing ribs!)]"
-						+ "</p>");
+						+ "</p>";
 				}
-				break;
 			case TENTACLED:
-				if(owner.isVaginaUrethraFuckable()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out a startled cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.sheHasFull] any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the [style.boldShrink(wriggling tentacles)] within [npc.her] urethra [style.boldShrink(have all disappeared)].<br/>"
-								+ "[style.boldSex(The inside of [npc.namePos] urethra is no longer filled with tentacles!)]"
-							+ "</p>");
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel an intense pressure swelling up deep within your [pc.pussy], but before you have any chance to react, the feeling suddenly fades away."
+								+ " A surprised cry bursts out from your mouth as you feel that the [style.boldShrink(series of little wriggling tentacles)] within your urethra have all disappeared.<br/>"
+								+ "[style.boldSex(The inside of your urethra is no longer filled with little tentacles!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] [npc.pussy], but before [npc.she] has any chance to react, the feeling quickly dissipates."
+								+ " With an experimental clench, [npc.she] discovers that the [style.boldShrink(series of little wriggling tentacles)] within [npc.her] urethra have all disappeared.<br/>"
+								+ "[style.boldSex(The inside of [npc.namePos] urethra is no longer filled with little tentacles!)]"
+							+ "</p>";
 				}
-				break;
 			case PUFFY:
-				return UtilText.parse(owner,
-						"<p>"
-							+ "[npc.Name] can't help but let out a startled cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy],"
-								+ " before the [style.boldShrink(puffy rim)] of [npc.her] urethra [style.boldShrink(deflates)] into a more normal-looking shape.<br/>"
-							+ "[style.boldSex(The rim of [npc.namePos] urethra is no longer swollen and puffy!)]"
-						+ "</p>");
-			case EXTRA_DEEP:
-				if(owner.isVaginaUrethraFuckable()) {
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a tightening sensation dropping down from [npc.her] lower abdomen into [npc.her] [npc.pussy]."
-								+ " Within moments, the feeling fades away, and [npc.name] [npc.verb(find)] [npc.herself] instinctively knowing that [npc.her] [style.boldShrink(urethra has lost a significant amount of depth)].<br/>"
-								+ "[style.boldSex([npc.NamePos] vaginal urethra is no longer extra deep, and can only take an average length of penetrative objects!)]"
-							+ "</p>");
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a tingling sensation running over your [pc.pussy], and you let out a little cry as you feel the puffy rim of your urethra [style.boldGrow(deflate)] into a more normal-looking shape.<br/>"
+								+ "[style.boldSex(The rim of your urethra is no longer swollen and puffy!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.pussy],"
+									+ " before the puffy rim of [npc.her] urethra [style.boldShrink(deflates)] into a more normal-looking shape.<br/>"
+								+ "[style.boldSex(The rim of [npc.namePos] urethra is no longer swollen and puffy!)]"
+							+ "</p>";
 				}
-				break;
 		}
 		
 		// Catch:

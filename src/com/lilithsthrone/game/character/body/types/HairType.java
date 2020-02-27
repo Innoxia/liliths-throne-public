@@ -78,7 +78,7 @@ public enum HairType implements BodyPartTypeInterface {
 	public boolean isDefaultPlural() {
 		switch(coveringType) {
 			case HAIR_HARPY:
-//			case HAIR_SCALES_ALLIGATOR:
+			case HAIR_SCALES_ALLIGATOR:
 				return true;
 			default:
 				return false;
@@ -90,8 +90,8 @@ public enum HairType implements BodyPartTypeInterface {
 		switch(coveringType) {
 			case HAIR_HARPY:
 				return "head-feather";
-//			case HAIR_SCALES_ALLIGATOR:
-//				return "head-scale";
+			case HAIR_SCALES_ALLIGATOR:
+				return "head-scale";
 			case SLIME_HAIR:
 				return "slime-hair";
 			default:
@@ -104,8 +104,8 @@ public enum HairType implements BodyPartTypeInterface {
 		switch(coveringType) {
 			case HAIR_HARPY:
 				return "head-feathers";
-//			case HAIR_SCALES_ALLIGATOR:
-//				return "head-scales";
+			case HAIR_SCALES_ALLIGATOR:
+				return "head-scales";
 			case SLIME_HAIR:
 				return "slime-hair";
 			default:
@@ -114,7 +114,7 @@ public enum HairType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public String getDescriptor(GameCharacter gc) { //TODO how does any of this (except for harpy) make sense?
+	public String getDescriptor(GameCharacter gc) {
 		switch(this){
 			case ANGEL:
 				return UtilText.returnStringAtRandom("angelic");

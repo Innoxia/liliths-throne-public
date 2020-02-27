@@ -138,20 +138,7 @@ public enum DialogueFlagValue {
 	
 	// Slaver Alley:
 	finchIntroduced,
-	seanIntroduced,
-	seanSeenBrax,
 	statueTruthRevealed,
-	slaverAlleyTalked,
-	slaverAlleyTalkedBraxReveal,
-	slaverAlleyTalkedFreedSlaves,
-	slaverAlleyComplained,
-	slaverAlleyVisitedHiddenAlleyway,
-	slaverAlleyBribed,
-	slaverAlleyTookPlace,
-	slaverAlleyCompanionInStocks,
-	slaverAlleyAcceptedDeal,
-	slaverAlleyCompanionAcceptedDeal,
-	slaverAlleySlavesFreed, // Reset every day at midnight
 	
 	// Zaranix:
 	zaranixDiscoveredHome,
@@ -266,8 +253,6 @@ public enum DialogueFlagValue {
 	ratWarrensEntryWhore,
 	ratWarrensHostile,
 	ratWarrensEntranceGuardsFight,
-	ratWarrensSeenMilkers,
-	ratWarrensMilkersBackground,
 	
 	ratWarrensClearedLeft,
 	ratWarrensClearedCentre,

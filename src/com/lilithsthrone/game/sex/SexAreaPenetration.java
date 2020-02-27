@@ -3,7 +3,6 @@ package com.lilithsthrone.game.sex;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
@@ -11,7 +10,7 @@ import com.lilithsthrone.main.Main;
  * @author Innoxia
  */
 public enum SexAreaPenetration implements SexAreaInterface {
-
+	
 	PENIS(4, -2f, true) {
 		@Override
 		public String getName(GameCharacter owner, boolean standardName) {
@@ -23,7 +22,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Main.sex.isOrificeFree(owner, SexAreaOrifice.URETHRA_PENIS) && Main.sex.isPenetrationTypeFree(owner, this);
+			return Sex.isOrificeFree(owner, SexAreaOrifice.URETHRA_PENIS) && Sex.isPenetrationTypeFree(owner, this);
 		}
 
 		@Override
@@ -659,12 +658,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 							switch(targetPace) {
 								case DOM_GENTLE:
 								case DOM_NORMAL:
-								case DOM_ROUGH:
-									sb.append(" [npc2.Moaning+] in delight, [npc2.name] took great pleasure in [npc2.sexPaceVerb] riding [npc.namePos] [npc.cock+].");
-									break;
 								case SUB_EAGER:
 								case SUB_NORMAL:
-									sb.append(" [npc2.Moaning] in delight, [npc2.name] [npc2.sexPaceVerb] bucked [npc.her] hips to help drive [npc.namePos] [npc.cock+] deep into [npc2.her] [npc2.pussy+].");
+								case DOM_ROUGH:
+									sb.append(" [npc2.Moaning+] in delight, [npc2.name] took great pleasure in [npc2.sexPaceVerb] riding [npc.namePos] [npc.cock+].");
 									break;
 								case SUB_RESISTING:
 									sb.append(" Although [npc2.she] cried and pleaded to be left alone, [npc2.name] [npc2.was] unable to stop [npc.name] from fucking [npc2.her] [npc2.pussy+].");
@@ -680,7 +677,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return UtilText.parse(performer, target, sb.toString());
 		}
 	},
-
+	
 	CLIT(4, -2f, true) {
 		@Override
 		public String getName(GameCharacter owner, boolean standardName) {
@@ -692,7 +689,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Main.sex.isPenetrationTypeFree(owner, this);
+			return Sex.isPenetrationTypeFree(owner, this);
 		}
 
 		@Override
@@ -1152,7 +1149,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return UtilText.parse(performer, target, sb.toString());
 		}
 	},
-
+	
 	TONGUE(2, 0, false) {
 		@Override
 		public String getName(GameCharacter owner, boolean standardName) {
@@ -1164,7 +1161,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Main.sex.isOrificeFree(owner, SexAreaOrifice.MOUTH) && Main.sex.isPenetrationTypeFree(owner, this);
+			return Sex.isOrificeFree(owner, SexAreaOrifice.MOUTH) && Sex.isPenetrationTypeFree(owner, this);
 		}
 
 		@Override
@@ -1439,7 +1436,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return UtilText.parse(performer, target, sb.toString());
 		}
 	},
-
+	
 	FINGER(1, 0, false) {
 		@Override
 		public String getName(GameCharacter owner, boolean standardName) {
@@ -1454,7 +1451,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Main.sex.isPenetrationTypeFree(owner, this);
+			return Sex.isPenetrationTypeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
@@ -1735,7 +1732,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return UtilText.parse(performer, target, sb.toString());
 		}
 	},
-
+	
 	FOOT(1, 0, false) {
 		@Override
 		public String getName(GameCharacter owner, boolean standardName) {
@@ -1750,7 +1747,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Main.sex.isPenetrationTypeFree(owner, this);
+			return Sex.isPenetrationTypeFree(owner, this);
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
@@ -1841,7 +1838,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return UtilText.parse(performer, target, sb.toString());
 		}
 	},
-
+	
 	TAIL(2, -1f, true) {
 		@Override
 		public String getName(GameCharacter owner, boolean standardName) {
@@ -1853,7 +1850,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 
 		@Override
 		public boolean isFree(GameCharacter owner) {
-			return Main.sex.isPenetrationTypeFree(owner, this);
+			return Sex.isPenetrationTypeFree(owner, this);
 		}
 
 		@Override
@@ -2188,7 +2185,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return UtilText.parse(performer, target, sb.toString());
 		}
 	},
-
+	
 	TENTACLE(3, -1.5f, true) {
 		@Override
 		public String getName(GameCharacter owner, boolean standardName) {
@@ -2537,7 +2534,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 	};
 
-
+	
 	private float baseArousalWhenPenetrating;
 	private float arousalChangePenetratingDry;
 	private boolean takesVirginity;
@@ -2552,17 +2549,17 @@ public enum SexAreaPenetration implements SexAreaInterface {
 	public boolean isOrifice() {
 		return false;
 	}
-
+	
 	public float getBaseArousalWhenPenetrating() {
 		return baseArousalWhenPenetrating;
 	}
-
+	
 	public float getArousalChangePenetratingDry() {
 		return arousalChangePenetratingDry;
 	}
-
+	
 	public boolean isTakesVirginity() {
 		return takesVirginity;
 	}
-
+	
 }

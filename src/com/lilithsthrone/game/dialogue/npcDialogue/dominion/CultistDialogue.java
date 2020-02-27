@@ -19,6 +19,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionary;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionarySealed;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMCultistKneeling;
@@ -741,7 +742,7 @@ public class CultistDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.sex.getNumberOfOrgasms(getCultist()) >= getCultist().getOrgasmsBeforeSatisfied()) {
+			if(Sex.getNumberOfOrgasms(getCultist()) >= getCultist().getOrgasmsBeforeSatisfied()) {
 				return "<p>"
 							+ "You step back from the altar, grinning down at the witch as she lets out a deeply satisfied sigh."
 							+ " You quickly get your things in order, and before you turn to leave, the succubus calls out,"
@@ -781,7 +782,7 @@ public class CultistDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.sex.getNumberOfOrgasms(getCultist()) >= getCultist().getOrgasmsBeforeSatisfied()) {
+			if(Sex.getNumberOfOrgasms(getCultist()) >= getCultist().getOrgasmsBeforeSatisfied()) {
 				return "<p>"
 							+ "You step back from the altar, grinning down at the witch as she lets out a deeply satisfied sigh."
 							+ " You quickly get your things in order, and before you turn to leave, the Witch's Seal starts to wear off, allowing [npc.name] to call out,"

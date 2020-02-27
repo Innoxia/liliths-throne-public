@@ -23,7 +23,7 @@ public class OrificeMouth implements OrificeInterface {
 	protected boolean virgin;
 	protected Set<OrificeModifier> orificeModifiers;
 
-	public OrificeMouth(int wetness, float capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
+	public OrificeMouth(int wetness, int capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
 		this.wetness = wetness;
 		this.capacity = capacity;
 		stretchedCapacity = capacity;
@@ -97,7 +97,7 @@ public class OrificeMouth implements OrificeInterface {
 	@Override
 	public String setCapacity(GameCharacter owner, float capacity, boolean setStretchedValueToNewValue) {
 		float oldCapacity = this.capacity;
-		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue(false)));
+		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
 		if(setStretchedValueToNewValue) {
 			this.stretchedCapacity = this.capacity;
 		}
@@ -150,20 +150,10 @@ public class OrificeMouth implements OrificeInterface {
 	@Override
 	public boolean setStretchedCapacity(float stretchedCapacity) {
 		float oldStretchedCapacity = this.stretchedCapacity;
-		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue(false)));
+		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue()));
 		return oldStretchedCapacity != this.stretchedCapacity;
 	}
-	
-	@Override
-	public int getMaximumPenetrationDepthComfortable(GameCharacter owner) {
-		return (int) (owner.getHeightValue() * 0.1f * (this.hasOrificeModifier(OrificeModifier.EXTRA_DEEP)?2:1) * (!owner.getBodyMaterial().isOrificesLimitedDepth()?4f:1));
-	}
-	
-	@Override
-	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner) {
-		return getMaximumPenetrationDepthComfortable(owner) * 2;
-	}
-	
+
 	@Override
 	public OrificeElasticity getElasticity() {
 		return OrificeElasticity.getElasticityFromInt(elasticity);
@@ -293,41 +283,61 @@ public class OrificeMouth implements OrificeInterface {
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the interior of [npc.her] throat is now lined with [style.boldGrow(extra muscles)],"
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel an intense pressure swelling up deep within your throat, but before you have any chance to react, the feeling suddenly fades away."
+								+ " With an experimental clench, you discover that the interior of your throat is now lined with [style.boldGrow(extra muscles)], which you can use to expertly grip and squeeze down on any penetrating object.<br/>"
+								+ "[style.boldSex(Your throat is now lined with an intricate series of muscles!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
+								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] throat is now lined with [style.boldGrow(extra muscles)],"
 									+ " which [npc.she] can use to expertly grip and squeeze down on any penetrating object.<br/>"
 								+ "[style.boldSex([npc.NamePos] throat is now lined with an intricate series of muscles!)]"
-							+ "</p>");
+							+ "</p>";
+				}
 			case RIBBED:
-					return UtilText.parse(owner,
-							"<p>"
-							+ "[npc.Name] can't help but let out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
-							+ " Shifting [npc.her] throat around a little, [npc.she] [npc.verb(discover)] that the inside of [npc.her] throat is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)],"
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel an intense pressure swelling up deep within your throat, but before you have any chance to react, the feeling suddenly fades away."
+								+ " Shifting your throat around a little, you feel that the inside of your throat is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)], which provide extreme pleasure when stimulated.<br/>"
+								+ "[style.boldSex(Your throat is now lined with fleshy, pleasure-inducing ribs!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+							+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
+							+ " Shifting [npc.her] throat around a little, [npc.she] discovers that the inside of [npc.her] throat is now lined with [style.boldGrow(fleshy, highly-sensitive ribs)],"
 								+ " which provide extreme pleasure when stimulated.<br/>"
 							+ "[style.boldSex([npc.NamePos] throat is now lined with fleshy, pleasure-inducing ribs!)]"
-						+ "</p>");
+						+ "</p>";
+				}
 			case TENTACLED:
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the inside of [npc.her] throat is now filled with [style.boldGrow(a series of little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel an intense pressure swelling up deep within your throat, but before you have any chance to react, the feeling suddenly fades away."
+								+ " A surprised cry bursts out from your mouth as you feel that the inside of your throat is now filled with [style.boldGrow(a series of little wriggling tentacles)], over which you have limited control.<br/>"
+								+ "[style.boldSex(The inside of your throat is now filled with little tentacles, which wriggle with a mind of their own!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
+								+ " With an experimental clench, [npc.she] discovers that the inside of [npc.her] throat is now filled with [style.boldGrow(a series of little wriggling tentacles)], over which [npc.she] has limited control.<br/>"
 								+ "[style.boldSex(The inside of [npc.namePos] throat is now filled with little tentacles, which wriggle with a mind of their own!)]"
-							+ "</p>");
+							+ "</p>";
+				}
 			case PUFFY:
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out a little cry as [npc.she] feels a tingling sensation running over [npc.her] mouth, before [npc.her] lips swell out and [style.boldGrow(puff up)].<br/>"
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a tingling sensation running over your mouth, and you let out a little cry as you feel your lips swell out and [style.boldGrow(puff up)].<br/>"
+								+ "[style.boldSex(Your lips are now extremely puffy!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over your mouth, before [npc.her] lips swell out and [style.boldGrow(puff up)].<br/>"
 								+ "[style.boldSex([npc.NamePos] lips are now extremely puffy!)]"
-							+ "</p>");
-			case EXTRA_DEEP:
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a throbbing sensation deep within [npc.her] upper torso."
-								+ " Within moments, the feeling fades away, and [npc.name] [npc.verb(find)] [npc.herself] instinctively knowing that [npc.her] [style.boldGrow(throat has significantly deepened)].<br/>"
-								+ "[style.boldSex([npc.NamePos] throat is now extra deep, allowing [npc.herHim] to take double the usual length of penetrative objects!)]"
-							+ "</p>");
+							+ "</p>";
+				}
 		}
 		
 		// Catch:
@@ -348,39 +358,59 @@ public class OrificeMouth implements OrificeInterface {
 		
 		switch(modifier) {
 			case MUSCLE_CONTROL:
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the interior of [npc.her] throat has lost its [style.boldShrink(extra muscles)].<br/>"
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel an intense pressure swelling up deep within your throat, but before you have any chance to react, the feeling suddenly fades away."
+								+ " With an experimental clench, you discover that the interior of your throat has lost its [style.boldShrink(extra muscles)].<br/>"
+								+ "[style.boldSex(Your throat is no longer lined with an intricate series of muscles!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
+								+ " With an experimental clench, [npc.she] discovers that the interior of [npc.her] throat has lost its [style.boldShrink(extra muscles)].<br/>"
 								+ "[style.boldSex([npc.NamePos] throat is no longer lined with an intricate series of muscles!)]"
-							+ "</p>");
+							+ "</p>";
+				}
 			case RIBBED:
-					return UtilText.parse(owner,
-							"<p>"
-							+ "[npc.Name] can't help but let out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
-							+ " Shifting [npc.her] throat around a little, [npc.she] [npc.verb(discover)] that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined [npc.her] throat have vanished.<br/>"
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel an intense pressure swelling up deep within your throat, but before you have any chance to react, the feeling suddenly fades away."
+								+ " Shifting your throat around a little, you feel that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined your throat have vanished.<br/>"
+								+ "[style.boldSex(Your throat is no longer lined with fleshy, pleasure-inducing ribs!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+							+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
+							+ " Shifting [npc.her] throat around a little, [npc.she] discovers that the [style.boldShrink(fleshy, highly-sensitive ribs)] that once lined [npc.her] throat have vanished.<br/>"
 							+ "[style.boldSex([npc.NamePos] throat is no longer lined with fleshy, pleasure-inducing ribs!)]"
-						+ "</p>");
+						+ "</p>";
+				}
 			case TENTACLED:
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
-								+ " With an experimental clench, [npc.she] [npc.verb(discover)] that the [style.boldShrink(series of little wriggling tentacles)] within [npc.her] throat have all disappeared.<br/>"
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel an intense pressure swelling up deep within your throat, but before you have any chance to react, the feeling suddenly fades away."
+								+ " A surprised cry bursts out from your mouth as you feel that the [style.boldShrink(series of little wriggling tentacles)] within your throat have all disappeared.<br/>"
+								+ "[style.boldSex(The inside of your throat is no longer filled with little tentacles!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little cry as an intense pressure swells up deep within [npc.her] throat, but before [npc.she] has any chance to react, the feeling quickly dissipates."
+								+ " With an experimental clench, [npc.she] discovers that the [style.boldShrink(series of little wriggling tentacles)] within [npc.her] throat have all disappeared.<br/>"
 								+ "[style.boldSex(The inside of [npc.namePos] throat is no longer filled with little tentacles!)]"
-							+ "</p>");
+							+ "</p>";
+				}
 			case PUFFY:
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out a little cry as [npc.she] feels a tingling sensation running over [npc.her] lips, before they suddenly [style.boldShrink(deflate)] into a more normal-looking size.<br/>"
+				if(owner.isPlayer()) {
+					return "<p>"
+								+ "You feel a tingling sensation running over your mouth, and you let out a little cry as you feel your puffy lips [style.boldGrow(deflate)] into a more normal-looking size.<br/>"
+								+ "[style.boldSex(Your lips are no longer extremely puffy!)]"
+							+ "</p>";
+				} else {
+					return "<p>"
+								+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] lips, before they suddenly [style.boldShrink(deflate)] into a more normal-looking size.<br/>"
 								+ "[style.boldSex([npc.NamePos] lips are no longer extremely puffy!)]"
-							+ "</p>");
-			case EXTRA_DEEP:
-					return UtilText.parse(owner,
-							"<p>"
-								+ "[npc.Name] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a sudden tightening sensation deep within [npc.her] upper torso."
-								+ " Within moments, the feeling fades away, and [npc.name] [npc.verb(find)] [npc.herself] instinctively knowing that [npc.her] [style.boldShrink(throat has lost a significant amount of depth)].<br/>"
-								+ "[style.boldSex([npc.NamePos] throat is no longer extra deep, and can only take an average length of penetrative objects!)]"
-							+ "</p>");
+							+ "</p>";
+				}
 		}
 		
 		// Catch:

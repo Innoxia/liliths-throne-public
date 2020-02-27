@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
@@ -32,7 +33,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Main.sex.getCharacterPerformingAction().isPlayer();
+			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Sex.getCharacterPerformingAction().isPlayer();
 		}
 		
 		@Override
@@ -47,8 +48,8 @@ public class PlayerSelfFingerVagina {
 
 		@Override
 		public String getDescription() {
-			if(Main.sex.isMasturbation()) {
-				if(Main.sex.getSexPositionSlot(Main.game.getPlayer()).hasTag(SexSlotTag.ALL_FOURS)) {
+			if(Sex.isMasturbation()) {
+				if(Sex.getSexPositionSlot(Main.game.getPlayer()).hasTag(SexSlotTag.ALL_FOURS)) {
 					return UtilText.returnStringAtRandom(
 							"Reaching back between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your [pc.labia+].",
 							"You probe your fingers back between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+] in order to present yourself.",
@@ -63,15 +64,15 @@ public class PlayerSelfFingerVagina {
 				}
 				
 			} else {
-				if(Main.sex.getSexPositionSlot(Main.game.getPlayer()).hasTag(SexSlotTag.ALL_FOURS)) {
-					return UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()),
+				if(Sex.getSexPositionSlot(Main.game.getPlayer()).hasTag(SexSlotTag.ALL_FOURS)) {
+					return UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()),
 							UtilText.returnStringAtRandom(
 							"Reaching back between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your labia for [npc2.name].",
 							"You probe your fingers back between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+] and present yourself to [npc2.name].",
 							"Sliding your fingertips over your [pc.pussy+], you let out [pc.a_moan+] as you shake your ass a little, before using your digits to spread out your pussy lips.",
 							"You eagerly slide your fingers over your needy [pc.pussy], [pc.moaning+] as you use your digits to part your soft folds and present yourself for penetration."));
 				} else {
-					return UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()),
+					return UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()),
 							UtilText.returnStringAtRandom(
 							"Reaching down between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your labia.",
 							"You probe your fingers down between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+].",
@@ -83,7 +84,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public void applyEffects() {
-			Main.sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.FINGER, Main.game.getPlayer(), SexAreaOrifice.VAGINA);
+			Sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.FINGER, Main.game.getPlayer(), SexAreaOrifice.VAGINA);
 		}
 		
 	};
@@ -139,7 +140,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.isDom(Main.game.getPlayer());
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -181,7 +182,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.isDom(Main.game.getPlayer());
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -223,7 +224,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.isDom(Main.game.getPlayer());
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -265,7 +266,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.isDom(Main.game.getPlayer());
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -307,7 +308,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.isDom(Main.game.getPlayer());
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override

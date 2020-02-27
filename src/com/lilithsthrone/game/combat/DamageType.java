@@ -4,6 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -75,7 +76,7 @@ public enum DamageType {
 				return FIRE;
 			}
 
-			if(source.isElemental()) {
+			if(source instanceof Elemental) {
 				switch(source.getBodyMaterial()) {
 					case AIR:
 						return POISON;

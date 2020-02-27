@@ -261,7 +261,6 @@ public class BraxOffice {
 						setBraxsPostQuestStatus();
 					}
 				};
-				
 			} else {
 				return null;
 			}
@@ -341,6 +340,7 @@ public class BraxOffice {
 						null,
 						AFTER_SUBMISSIVE_SEX,
 						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "INTERIOR_BRAX_GETTING_TEASED_UH_OH_GET_FUCKED"));
+//				givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder()); //TODO
 					
 			} else if (index == 3) {
 				return new ResponseSex("Take control", "Take control of the situation and turn [brax.name] into your little bitch.", Util.newArrayListOfValues(Fetish.FETISH_DOMINANT),
@@ -353,6 +353,7 @@ public class BraxOffice {
 								null),
 						AFTER_DOMINANT_SEX,
 						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "INTERIOR_BRAX_GETTING_TEASED_UH_OH_TAKE_CONTROL"));
+//				givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder()); //TODO
 					
 			} else {
 				return null;
@@ -376,7 +377,6 @@ public class BraxOffice {
 						setBraxsPostQuestStatus();
 					}
 				};
-				
 			} else {
 				return null;
 			}
@@ -420,7 +420,12 @@ public class BraxOffice {
 						null,
 						null,
 						AFTER_DOMINANT_SEX,
-						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "AFTER_COMBAT_VICTORY_DOMINATE"));
+						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "AFTER_COMBAT_VICTORY_DOMINATE")) {
+					@Override
+					public void effects() {
+//						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder()); //TODO
+					}
+				};
 				
 			} else if (index == 3) {
 				return new ResponseSex("Submit to Brax",
@@ -433,7 +438,12 @@ public class BraxOffice {
 						null,
 						null,
 						AFTER_SUBMISSIVE_SEX,
-						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "AFTER_COMBAT_VICTORY_SUBMIT"));
+						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "AFTER_COMBAT_VICTORY_SUBMIT")) {
+					@Override
+					public void effects() {
+//						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder()); //TODO
+					}
+				};
 				
 			} else {
 				return null;
@@ -457,7 +467,6 @@ public class BraxOffice {
 						setBraxsPostQuestStatus();
 					}
 				};
-				
 			} else {
 				return null;
 			}
@@ -687,7 +696,6 @@ public class BraxOffice {
 					public void effects() {
 						if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)) {
 							setBraxsPostQuestStatus();
-							
 						} else {
 							Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
 						}

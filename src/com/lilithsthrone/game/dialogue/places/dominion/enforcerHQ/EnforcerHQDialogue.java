@@ -1,8 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ;
 
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
@@ -100,15 +98,7 @@ public class EnforcerHQDialogue {
 		
 		@Override
 		public String getContent() {
-			StringBuilder sb = new StringBuilder();
-			sb.append(UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "CORRIDOR"));
-			try {
-				if(Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()+1).getPlace().getPlaceType()==PlaceType.ENFORCER_HQ_BRAXS_OFFICE) {
-					sb.append(UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "CORRIDOR_BRAX_WARNING"));
-				}
-			} catch(Exception ex) {
-			}
-			return sb.toString();
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "CORRIDOR");
 		}
 		
 		@Override
@@ -684,7 +674,7 @@ public class EnforcerHQDialogue {
 						Main.game.getNpc(Brax.class).setVaginaType(VaginaType.WOLF_MORPH);
 						Main.game.getNpc(Brax.class).setVaginaWetness(Wetness.ONE_SLIGHTLY_MOIST.getValue());
 						Main.game.getNpc(Brax.class).setVaginaElasticity(OrificeElasticity.ONE_RIGID.getValue());
-						Main.game.getNpc(Brax.class).setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_OLIVE), false);
+
 //						Main.game.getNpc(Brax.class).setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 						
 						Main.game.getNpc(Brax.class).setHeight(175);
@@ -722,7 +712,6 @@ public class EnforcerHQDialogue {
 						Main.game.getNpc(Brax.class).setVaginaType(VaginaType.WOLF_MORPH);
 						Main.game.getNpc(Brax.class).setVaginaWetness(Wetness.ONE_SLIGHTLY_MOIST.getValue());
 						Main.game.getNpc(Brax.class).setVaginaElasticity(OrificeElasticity.ONE_RIGID.getValue());
-						Main.game.getNpc(Brax.class).setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_OLIVE), false);
 
 //						Main.game.getNpc(Brax.class).setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 						
@@ -784,7 +773,7 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNode INTERIOR_SECRETARY_BRAX_BIMBOFY = new DialogueNode("Enforcer HQ", "-", true) {
+	public static final DialogueNode INTERIOR_SECRETARY_BRAX_BIMBOFY = new DialogueNode("Enforcer HQ", "-", false) {
 
 		@Override
 		public String getContent() {
@@ -912,38 +901,28 @@ public class EnforcerHQDialogue {
 	};
 	
 	public static final DialogueNode AFTER_SEX = new DialogueNode("Finished", "Return to the Reception desk.", false) {
-		@Override
-		public void applyPreParsingEffects() {
-			Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_WAITING_AREA);
-		}
+
 		@Override
 		public String getContent() {
-			StringBuilder sb = new StringBuilder();
-			sb.append(UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "AFTER_SEX"));
-			sb.append(WAITING_AREA.getContent());
-			return sb.toString();
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "AFTER_SEX");
 		}
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return WAITING_AREA.getResponse(responseTab, index);
+			return null;
 		}
 	};
 	
 	public static final DialogueNode AFTER_SEX_CANDI = new DialogueNode("Finished", "Step back around to the other side of the reception desk.", false) {
-		@Override
-		public void applyPreParsingEffects() {
-			Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_WAITING_AREA);
-		}
+
 		@Override
 		public String getContent() {
-			StringBuilder sb = new StringBuilder();
-			sb.append(UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "AFTER_SEX_CANDI"));
-			sb.append(WAITING_AREA.getContent());
-			return sb.toString();
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "AFTER_SEX_CANDI");
 		}
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return WAITING_AREA.getResponse(responseTab, index);
+			return null;
 		}
 	};
 	

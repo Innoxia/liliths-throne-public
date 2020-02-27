@@ -35,7 +35,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.8
+ * @version 0.3.3.11
  * @author Innoxia
  */
 public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSaving {
@@ -59,7 +59,13 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		
 		coreEnchantment = null;
 		
-		spells = new ArrayList<>(weaponType.getSpells(damageType));
+		spells = new ArrayList<>();
+		if (weaponType.getSpells() != null) {
+			this.spells.addAll(weaponType.getSpells());
+		}
+		if (weaponType.getGenerationSpells(damageType) != null) {
+			this.spells.addAll(weaponType.getGenerationSpells(damageType));
+		}
 
 		this.effects = new ArrayList<>();
 		if(weaponType.getEffects()!=null) {
@@ -136,10 +142,6 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	public AbstractWeapon(AbstractWeapon weapon) {
 		this(weapon.getWeaponType(), weapon.getDamageType(), weapon.getPrimaryColour(), weapon.getSecondaryColour(), weapon.getTertiaryColour());
 		
-		if(!weapon.getWeaponType().isSpellRegenOnDamageTypeChange()) {
-			this.spells = new ArrayList<>(weapon.getSpells());
-		}
-		
 		this.setEffects(new ArrayList<>(weapon.getEffects()));
 		
 		int highestEnchantment = 0;
@@ -149,7 +151,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 				highestEnchantment = getAttributeModifiers().get(a);
 			}
 		}
-		
+
 		if(!weapon.name.isEmpty()) {
 			this.setName(weapon.name);
 		}
@@ -485,10 +487,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	public String getName(boolean withDeterminer, boolean withRarityColour) {
 		return (withDeterminer
 				? (!weaponType.getDeterminer().equalsIgnoreCase("a") && !weaponType.getDeterminer().equalsIgnoreCase("an")
-					? weaponType.getDeterminer()
-					: UtilText.generateSingularDeterminer(damageType.getWeaponDescriptor()))
-				: "")
-				+ " "+damageType.getWeaponDescriptor() + (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
+					? weaponType.getDeterminer() + " "
+					: (Util.isVowel(damageType.getWeaponDescriptor().charAt(0)) ? "an " : "a "))
+				: " ")
+				+ damageType.getWeaponDescriptor() + (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
 	}
 	
 	public String getDisplayName(boolean withRarityColour) {

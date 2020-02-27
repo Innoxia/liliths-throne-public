@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
@@ -279,7 +280,7 @@ public class Response {
 					&& !isBlockedFromPerks()
 					&& isFemininityInRange()
 					&& isRequiredRace()
-					&& (sexActionType!=SexActionType.SPEECH || !Main.sex.isOngoingActionsBlockingSpeech(Main.game.getPlayer()))
+					&& (sexActionType!=SexActionType.SPEECH || !Sex.isOngoingActionsBlockingSpeech(Main.game.getPlayer()))
 					&& (isAvailableFromAdditionalOngoingAvailableMap() || (isPenetrationTypeAvailable() && isOrificeTypeAvailable()));
 	}
 	
@@ -341,15 +342,15 @@ public class Response {
 	
 	private boolean isSwitchOngoingActionAvailable() {
 		if(this.sexActionType ==SexActionType.START_ONGOING
-				&& Main.sex.getCharacterPerformingAction().isPlayer()
-				&& Main.sex.getSexControl(characterPerformingSexAction).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
-//			if(Main.sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).size()>1
-//					|| (!Main.sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).contains(characterTargetedForSexAction)
-//							&& !Main.sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).contains(Main.game.getPlayer()))) {
+				&& Sex.getCharacterPerformingAction().isPlayer()
+				&& Sex.getSexControl(characterPerformingSexAction).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
+//			if(Sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).size()>1
+//					|| (!Sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).contains(characterTargetedForSexAction)
+//							&& !Sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0)).contains(Main.game.getPlayer()))) {
 //				return false;
 //			}
-			List<GameCharacter> ongoingTargetedAreaCharacters = Main.sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0));
-			List<GameCharacter> ongoingPerformingAreaCharacters = Main.sex.getCharactersHavingOngoingActionWith(characterPerformingSexAction, this.sexAreaAccessRequiredForPerformer.get(0));
+			List<GameCharacter> ongoingTargetedAreaCharacters = Sex.getCharactersHavingOngoingActionWith(characterTargetedForSexAction, this.sexAreaAccessRequiredForTargeted.get(0));
+			List<GameCharacter> ongoingPerformingAreaCharacters = Sex.getCharactersHavingOngoingActionWith(characterPerformingSexAction, this.sexAreaAccessRequiredForPerformer.get(0));
 			
 			// If targeted area is having multiple ongoing actions, or non-self actions that do not involve the player do not allow switch:
 			if(ongoingTargetedAreaCharacters.size()>1 || ongoingPerformingAreaCharacters.size()>1) {
@@ -362,7 +363,7 @@ public class Response {
 			}
 			
 			try {
-				return !Main.sex.getOngoingActionsMap(characterPerformingSexAction).get(this.sexAreaAccessRequiredForPerformer.get(0)).get(characterTargetedForSexAction).contains(this.sexAreaAccessRequiredForTargeted.get(0));
+				return !Sex.getOngoingActionsMap(characterPerformingSexAction).get(this.sexAreaAccessRequiredForPerformer.get(0)).get(characterTargetedForSexAction).contains(this.sexAreaAccessRequiredForTargeted.get(0));
 			} catch(Exception ex) {
 				return true;
 			}
@@ -419,7 +420,7 @@ public class Response {
 		}
 		
 		if(sexActionType==SexActionType.SPEECH) {
-			if(!Main.sex.isOngoingActionsBlockingSpeech(Main.game.getPlayer())) {
+			if(!Sex.isOngoingActionsBlockingSpeech(Main.game.getPlayer())) {
 				SB.append("<br/>"
 						+"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
 						+ " (Speech): [style.colourMinorGood(Unblocked mouth)]");
@@ -433,9 +434,9 @@ public class Response {
 		if(getAdditionalOngoingAvailableMap()!=null) {
 			for(Entry<String, Boolean> e : getAdditionalOngoingAvailableMap().entrySet()) {
 				if(e.getValue()) {
-					SB.append("<br/>[style.colourGood("+Util.capitaliseSentence(UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()), e.getKey()))+")]");
+					SB.append("<br/>[style.colourGood("+Util.capitaliseSentence(UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()), e.getKey()))+")]");
 				} else {
-					SB.append("<br/>[style.colourBad("+Util.capitaliseSentence(UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()), e.getKey()))+")]");
+					SB.append("<br/>[style.colourBad("+Util.capitaliseSentence(UtilText.parse(Sex.getCharacterPerformingAction(), Sex.getTargetedPartner(Sex.getCharacterPerformingAction()), e.getKey()))+")]");
 				}
 			}
 			

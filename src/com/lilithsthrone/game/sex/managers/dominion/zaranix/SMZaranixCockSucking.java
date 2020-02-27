@@ -5,6 +5,7 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPosition;
@@ -44,7 +45,7 @@ public class SMZaranixCockSucking extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return partner.equals(Main.game.getNpc(Zaranix.class)) && Main.sex.getNumberOfOrgasms(Main.game.getNpc(Zaranix.class))>=2;
+		return partner.equals(Main.game.getNpc(Zaranix.class)) && Sex.getNumberOfOrgasms(Main.game.getNpc(Zaranix.class))>=2;
 	}
 
 	@Override

@@ -24,7 +24,7 @@
 		<namePlural pluralByDefault="false"><![CDATA[Enforcer's short-sleeved shirts]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
-		<description><![CDATA[A short sleeve dress shirt with reinforced stitching. The rank slides on the epaulets and the nameplate make it clear as to what occupation the wearer is supposed to have.]]></description> 
+		<description><![CDATA[A short sleeve dress shirt with reinforced stiching. The rank slides on the epaulets and the nameplate make it clear as to what occupation the wearer is supposed to have.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
 		<physicalResistance>1</physicalResistance> 
@@ -141,7 +141,7 @@
 		
 		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
-			<tag>FITS_ARM_WINGS</tag>
+			
 		</itemTags>
 	</coreAtributes>
 

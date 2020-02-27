@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.LubricationType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -34,7 +35,7 @@ public class PlayerSelfTailMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.hasLubricationTypeFromAnyone(Main.game.getPlayer(), SexAreaPenetration.TAIL, LubricationType.SALIVA);
+			return !Sex.hasLubricationTypeFromAnyone(Main.game.getPlayer(), SexAreaPenetration.TAIL, LubricationType.SALIVA);
 		}
 		
 		@Override
@@ -54,7 +55,7 @@ public class PlayerSelfTailMouth {
 		
 		@Override
 		public void applyEffects() {
-			Main.sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.TAIL, Main.game.getPlayer(), SexAreaOrifice.MOUTH);
+			Sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.TAIL, Main.game.getPlayer(), SexAreaOrifice.MOUTH);
 		}
 	};
 	

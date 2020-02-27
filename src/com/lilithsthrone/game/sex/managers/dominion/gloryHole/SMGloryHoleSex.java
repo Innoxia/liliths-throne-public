@@ -8,11 +8,11 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPositionUnique;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
-import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.9
@@ -34,7 +34,7 @@ public class SMGloryHoleSex extends SexManagerDefault {
 
 	@Override
 	public boolean isPositionChangingAllowed(GameCharacter character) {
-		return Main.sex.isDom(character);
+		return Sex.isDom(character);
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class SMGloryHoleSex extends SexManagerDefault {
 	public List<InventorySlot> getSlotsConcealed(GameCharacter character) {
 		List<InventorySlot> concealedSlots = new ArrayList<>();
 		
-		if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKED)) {
+		if(Sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKED)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.MOUTH);
 			concealedSlots.remove(InventorySlot.PENIS);
@@ -64,14 +64,14 @@ public class SMGloryHoleSex extends SexManagerDefault {
 			concealedSlots.remove(InventorySlot.GROIN);
 			concealedSlots.remove(InventorySlot.LEG);
 			
-		} else if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKING)) {
+		} else if(Sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKING)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.PENIS);
 			concealedSlots.remove(InventorySlot.VAGINA);
 			concealedSlots.remove(InventorySlot.GROIN);
 			concealedSlots.remove(InventorySlot.LEG);
 			
-		} else if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)) {
+		} else if(Sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.PENIS);
 			concealedSlots.remove(InventorySlot.VAGINA);

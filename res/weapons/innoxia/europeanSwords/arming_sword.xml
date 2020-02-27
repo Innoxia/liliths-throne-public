@@ -50,12 +50,11 @@
 		<enchantmentLimit>5</enchantmentLimit>
 		
 		<effects> 
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_DAMAGE" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_DAMAGE" timer="0"/>
 		</effects>
 		
 		<primaryColours>
-			<colour>CLOTHING_DESATURATED_BROWN</colour>
 			<colour>CLOTHING_BROWN_DARK</colour>
 			<colour>CLOTHING_BROWN_VERY_DARK</colour>
 			<colour>CLOTHING_BLACK</colour>

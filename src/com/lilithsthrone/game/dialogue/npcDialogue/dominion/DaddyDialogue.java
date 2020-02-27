@@ -20,6 +20,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.dominion.SMDaddyDinnerOral;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
@@ -654,7 +655,7 @@ public class DaddyDialogue {
 						Main.game.getNpc(Daddy.class).returnToHome();
 						Main.game.getNpc(Daddy.class).setGenderIdentity(Gender.F_P_B_SHEMALE);
 						Main.game.getNpc(Daddy.class).setStartingBody(false);
-						Main.game.getNpc(Daddy.class).equipClothing();
+						Main.game.getNpc(Daddy.class).equipClothing(null);
 						Main.game.getNpc(Daddy.class).setLocation(Main.game.getPlayer(), false);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/daddy", "DINNER_SUCCUBUS_TF_END"));
 					}
@@ -676,7 +677,7 @@ public class DaddyDialogue {
 						Main.game.getNpc(Daddy.class).returnToHome();
 						Main.game.getNpc(Daddy.class).setGenderIdentity(Gender.F_P_B_SHEMALE);
 						Main.game.getNpc(Daddy.class).setStartingBody(false);
-						Main.game.getNpc(Daddy.class).equipClothing();
+						Main.game.getNpc(Daddy.class).equipClothing(null);
 						Main.game.getNpc(Daddy.class).setLocation(Main.game.getPlayer(), false);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/daddy", "DINNER_SUCCUBUS_TF_END"));
 					}
@@ -887,7 +888,7 @@ public class DaddyDialogue {
 							if(isLilayaPresent()) {
 								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
 								Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
-								((Lilaya)Main.game.getNpc(Lilaya.class)).equipClothing();
+								((Lilaya)Main.game.getNpc(Lilaya.class)).equipClothing(null);
 							} else {
 								Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 							}
@@ -937,7 +938,7 @@ public class DaddyDialogue {
 							if(isLilayaPresent()) {
 								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
 								Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
-								((Lilaya)Main.game.getNpc(Lilaya.class)).equipClothing();
+								((Lilaya)Main.game.getNpc(Lilaya.class)).equipClothing(null);
 							} else {
 								Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 							}
@@ -1070,7 +1071,7 @@ public class DaddyDialogue {
 							}
 							@Override
 							public boolean isPositionChangingAllowed(GameCharacter character) {
-								return Main.sex.getAllParticipants().size()==2;
+								return Sex.getAllParticipants().size()==2;
 							}
 							@Override
 							public boolean isSwapPositionAllowed(GameCharacter character, GameCharacter target) {
@@ -1101,7 +1102,7 @@ public class DaddyDialogue {
 							}
 							@Override
 							public SexControl getSexControl(GameCharacter character) {
-								if(!Main.sex.isDom(character)) {
+								if(!Sex.isDom(character)) {
 									return SexControl.ONGOING_ONLY;
 								}
 								return super.getSexControl(character);
@@ -1165,7 +1166,7 @@ public class DaddyDialogue {
 						if(isLilayaPresent()) {
 							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
 							Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
-							((Lilaya)Main.game.getNpc(Lilaya.class)).equipClothing();
+							((Lilaya)Main.game.getNpc(Lilaya.class)).equipClothing(null);
 						} else {
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 						}
@@ -1257,7 +1258,7 @@ public class DaddyDialogue {
 							if(isLilayaPresent()) {
 								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL);
 								Main.game.getNpc(Lilaya.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB);
-								((Lilaya)Main.game.getNpc(Lilaya.class)).equipClothing();
+								((Lilaya)Main.game.getNpc(Lilaya.class)).equipClothing(null);
 							} else {
 								Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 							}

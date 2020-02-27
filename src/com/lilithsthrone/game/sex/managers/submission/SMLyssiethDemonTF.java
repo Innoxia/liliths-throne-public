@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -35,7 +36,7 @@ public class SMLyssiethDemonTF extends SexManagerDefault {
 
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))>=3;
+		return Sex.getNumberOfOrgasms(Main.game.getNpc(Lyssieth.class))>=3;
 	}
 	
 	@Override
@@ -88,7 +89,7 @@ public class SMLyssiethDemonTF extends SexManagerDefault {
 	@Override
 	public SexPace getForcedSexPace(GameCharacter character) {
 		if(!character.isPlayer()) {
-			if(!Main.sex.isDom(character)) {
+			if(!Sex.isDom(character)) {
 				return SexPace.SUB_EAGER;
 			}
 			return SexPace.DOM_NORMAL;
@@ -99,12 +100,12 @@ public class SMLyssiethDemonTF extends SexManagerDefault {
 	@Override
 	public Map<GameCharacter, List<SexAreaInterface>> getAreasBannedMap() {
 		// Limit finger during giving the player head, so that she can use hug-lock and prevent the player from pulling out:
-		if(Main.sex.getOngoingSexAreas(Main.game.getNpc(Lyssieth.class), SexAreaOrifice.MOUTH, Main.game.getPlayer()).contains(SexAreaPenetration.PENIS)) {
+		if(Sex.getContactingSexAreas(Main.game.getNpc(Lyssieth.class), SexAreaOrifice.MOUTH, Main.game.getPlayer()).contains(SexAreaPenetration.PENIS)) {
 			return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), Util.newArrayListOfValues(SexAreaPenetration.FINGER)));
 		}
 		// Limit tail during doggy style, so that she can use tail-lock and prevent the player from pulling out:
-		if(Main.sex.getOngoingSexAreas(Main.game.getNpc(Lyssieth.class), SexAreaOrifice.VAGINA, Main.game.getPlayer()).contains(SexAreaPenetration.PENIS)
-				&& Main.sex.getPosition()==SexPosition.ALL_FOURS) {
+		if(Sex.getContactingSexAreas(Main.game.getNpc(Lyssieth.class), SexAreaOrifice.VAGINA, Main.game.getPlayer()).contains(SexAreaPenetration.PENIS)
+				&& Sex.getPosition()==SexPosition.ALL_FOURS) {
 			return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Lyssieth.class), Util.newArrayListOfValues(SexAreaPenetration.TAIL)));
 		}
 		return super.getAreasBannedMap();

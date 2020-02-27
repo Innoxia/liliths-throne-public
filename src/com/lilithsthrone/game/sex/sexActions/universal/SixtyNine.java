@@ -6,5 +6,5 @@ package com.lilithsthrone.game.sex.sexActions.universal;
  * @author Innoxia
  */
 public class SixtyNine {
-
+	
 }

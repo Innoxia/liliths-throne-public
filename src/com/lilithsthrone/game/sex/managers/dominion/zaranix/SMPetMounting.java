@@ -3,10 +3,10 @@ package com.lilithsthrone.game.sex.managers.dominion.zaranix;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPositionUnique;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
-import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.3
@@ -43,7 +43,7 @@ public class SMPetMounting extends SexManagerDefault {
 
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Main.sex.getNumberOfOrgasms(partner)>=1;
+		return Sex.getNumberOfOrgasms(partner)>=1;
 	}
 	
 }

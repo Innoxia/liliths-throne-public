@@ -202,19 +202,12 @@ public class AbstractPlaceType {
 		return dialogue;
 	}
 	
-	public List<Population> getPopulation() {
-		return new ArrayList<>();
+	public Population getPopulation() {
+		return null;
 	}
 	
 	public boolean isPopulated() {
-		if(getPopulation()!=null) {
-			for(Population pop : getPopulation()) {
-				if(!pop.getSpecies().isEmpty()) {
-					return true;
-				}
-			}
-		}
-		return false;
+		return getPopulation()!=null && !getPopulation().getSpecies().isEmpty();
 	}
 
 	public boolean isLand() {

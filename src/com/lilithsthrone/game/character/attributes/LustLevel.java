@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -128,7 +129,7 @@ public enum LustLevel {
 	
 	public SexPace getSexPace(boolean consensual, GameCharacter character) {
 		SexPace pace;
-		if(Main.sex.isDom(character)) {
+		if(Sex.isDom(character)) {
 			pace = getSexPaceDominant();
 			
 			if((character.hasFetish(Fetish.FETISH_SUBMISSIVE) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_DOMINANT))
@@ -142,8 +143,8 @@ public enum LustLevel {
 				return SexPace.DOM_ROUGH;
 				
 			} else { // Hate sex:
-				for(GameCharacter target : Main.sex.getAllParticipants()) {
-					if(!Main.sex.isDom(target) && character.getAffection(target)<AffectionLevel.NEGATIVE_TWO_DISLIKE.getMaximumValue()) {
+				for(GameCharacter target : Sex.getAllParticipants()) {
+					if(!Sex.isDom(target) && character.getAffection(target)<AffectionLevel.NEGATIVE_TWO_DISLIKE.getMaximumValue()) {
 						return SexPace.DOM_ROUGH;
 					}
 				}
@@ -171,9 +172,6 @@ public enum LustLevel {
 	
 	public List<String> getStatusEffectModifierDescription(boolean consensual, GameCharacter character) {
 		List<String> modifiersList = new ArrayList<>();
-
-		Colour levelColour = LustLevel.getLustLevelFromValue(character.getRestingLust()).getColour();
-		modifiersList.add("Resting lust: <b style='color:"+levelColour.toWebHexString()+";'>"+character.getRestingLust()+"</b>");
 		
 		if(Main.game.isInSex()) {
 			switch(this.getSexPace(consensual, character)) {

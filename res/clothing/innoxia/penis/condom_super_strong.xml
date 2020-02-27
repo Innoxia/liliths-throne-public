@@ -18,7 +18,7 @@
 	<clothingSet/>
     <imageEquippedName>condom_equipped.svg</imageEquippedName>
     <enchantmentLimit/>
-
+	
 	<effects>
         <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_CONDOM" secondaryModifier="ARCANE_BOOST" timer="0"/>
 	</effects>

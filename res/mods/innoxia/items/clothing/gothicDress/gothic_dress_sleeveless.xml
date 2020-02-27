@@ -69,9 +69,9 @@
 				</concealedSlots>
 			</blockedParts>
 		</blockedPartsList>
-
+		
 		<incompatibleSlots/>
-
+		
 		<primaryColours>
 			<colour>CLOTHING_RED_DARK</colour>
 			<colour>CLOTHING_PURPLE_DARK</colour>
@@ -84,8 +84,7 @@
 		<itemTags>
 			<tag>DRESS</tag>
 			<tag>SOLD_BY_NYAN</tag>
-			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
 	</coreAtributes>
-
+	
 </clothing>

@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -42,8 +43,8 @@ public class SAClaireDangerSex {
 		public boolean isBaseRequirementsMet() {
 			return Main.game.getPlayer().getWorldLocation()==WorldType.SUBMISSION
 					&& !SexFlags.claireSexInterrupted
-					&& Main.sex.getTurn() - SexFlags.claireSexInterruptedTurn > 4
-					&& !Main.sex.isInForeplay(Main.game.getNpc(Claire.class))
+					&& Sex.getTurn() - SexFlags.claireSexInterruptedTurn > 4
+					&& !Sex.isInForeplay(Main.game.getNpc(Claire.class))
 					&& Main.game.getPlayer().getArousal()<75
 					&& Main.game.getNpc(Claire.class).getArousal()<75
 					&& Math.random()<0.25f;
@@ -68,7 +69,7 @@ public class SAClaireDangerSex {
 					+ "<br/><br/>"
 					+ "Sure enough, as you look over towards the door to the storeroom, you see the handle beginning to turn.");
 			
-			if(Main.sex.getSexPositionSlot(Main.game.getPlayer()).isStanding(Main.game.getPlayer())) {
+			if(Sex.getSexPositionSlot(Main.game.getPlayer()).isStanding(Main.game.getPlayer())) {
 				sb.append(" Before you can make a move, Claire frantically grabs hold of you and pulls you behind a nearby filing cabinet."
 						+ " With her hot breath falling on your bare [pc.skin], [npc.she] hisses, [claire.speech(Don't make a sound!)]");
 			} else {
@@ -83,7 +84,7 @@ public class SAClaireDangerSex {
 		@Override
 		public void applyEffects() {
 			SexFlags.claireSexInterrupted = true;
-			SexFlags.claireSexInterruptedTurn = Main.sex.getTurn();
+			SexFlags.claireSexInterruptedTurn = Sex.getTurn();
 		}
 	};
 	
@@ -129,7 +130,7 @@ public class SAClaireDangerSex {
 					+ ")]");
 			
 			boolean foundPenetration = false;
-			Map<SexAreaInterface, Map<GameCharacter, Set<SexAreaInterface>>> map = Main.sex.getOngoingActionsMap(Main.game.getPlayer());
+			Map<SexAreaInterface, Map<GameCharacter, Set<SexAreaInterface>>> map = Sex.getOngoingActionsMap(Main.game.getPlayer());
 			if(map.containsKey(SexAreaPenetration.PENIS)
 					&& map.get(SexAreaPenetration.PENIS).containsKey(Main.game.getNpc(Claire.class))) {
 				SexAreaInterface area = map.get(SexAreaPenetration.PENIS).get(Main.game.getNpc(Claire.class)).iterator().next();
