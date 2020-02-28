@@ -20,7 +20,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class PlayerSelfTailNipple {
-	
+
 	public static final SexAction PLAYER_SELF_TAIL_NIPPLE_PENETRATION = new SexAction(
 			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -48,14 +48,14 @@ public class PlayerSelfTailNipple {
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Snaking your [pc.tail] up to your [pc.breasts+], you tease the tip over your [pc.nipples], [pc.moaning] in delight before thrusting deep inside one of your [pc.nipples+].",
-					
+
 					"You snake your [pc.tail] up to your [pc.breasts+], [pc.moaning] in delight as you force it deep into an inviting [pc.nipple].",
-					
+
 					"Sliding the tip of your [pc.tail+] up to your [pc.breasts+], you thrust it deep inside an inviting [pc.nipple], letting out [pc.a_moan+] as you start tail-fucking your own [pc.breasts].",
-					
+
 					"You eagerly thrust your [pc.tail+] deep into a needy [pc.nipple], letting out a series of [pc.moans+] as you start tail-fucking your own [pc.breasts]."));
-			
-		
+
+
 			switch (Main.game.getPlayer().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" A small trickle of [pc.milk] leaks out around your [pc.tail].");
@@ -84,14 +84,14 @@ public class PlayerSelfTailNipple {
 
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 		@Override
 		public String applyEffectsString() {
 			return Main.game.getPlayer().incrementBreastStoredMilk(-10);
 		}
-		
+
 	};
-	
+
 	public static final SexAction DOM_PLAYER_SELF_TAIL_NIPPLE_GENTLE = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
@@ -104,12 +104,12 @@ public class PlayerSelfTailNipple {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
-		
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.isDom(Main.game.getPlayer());
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Gentle nipple tail-fuck (self)";
@@ -124,16 +124,16 @@ public class PlayerSelfTailNipple {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[pc.A_moan+] escapes from between your [pc.lips+] as you slowly push your [pc.tail] deep inside your [pc.nipple+].",
-					
+
 					"Gently pumping your [pc.tail] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically fuck your [pc.breast+].",
-					
+
 					"Slowly driving your [pc.tail] deep inside your [pc.nipple], you let out a little whimper as you start gently sliding it in and out of your [pc.breast+].",
-					
+
 					"Focusing on pleasuring your fuckable [pc.breasts], you start gently pumping your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
-		
+
 	};
-	
+
 	public static final SexAction DOM_PLAYER_SELF_TAIL_NIPPLE_NORMAL = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
@@ -146,12 +146,12 @@ public class PlayerSelfTailNipple {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
-		
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.isDom(Main.game.getPlayer());
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Nipple tail-fucking (self)";
@@ -166,16 +166,16 @@ public class PlayerSelfTailNipple {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[pc.A_moan+] escapes from between your [pc.lips+] as you greedily push your [pc.tail] deep inside your [pc.nipple+].",
-					
+
 					"Pumping your [pc.tail] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically fuck your [pc.breast+].",
-					
+
 					"Driving your [pc.tail] deep inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start pumping it in and out of your [pc.breast+].",
-					
+
 					"Focusing on pleasuring your [pc.breasts+], you start pumping your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
-		
+
 	};
-	
+
 	public static final SexAction DOM_PLAYER_SELF_TAIL_NIPPLE_ROUGH = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
@@ -188,12 +188,12 @@ public class PlayerSelfTailNipple {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
-		
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.isDom(Main.game.getPlayer());
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Rough nipple tail-fucking (self)";
@@ -208,16 +208,16 @@ public class PlayerSelfTailNipple {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[pc.A_moan+] escapes from between your [pc.lips+] as you roughly slam your [pc.tail] deep inside your [pc.nipple+], before starting to rapidly fuck your [pc.breast].",
-					
+
 					"Roughly pumping your [pc.tail] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically fuck your [pc.breast+].",
-					
+
 					"Forcefully driving your [pc.tail] deep inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start roughly grinding it in and out of your [pc.breast+].",
-					
+
 					"Focusing on pleasuring your [pc.breasts+], you start roughly slamming your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
 
 	};
-	
+
 	public static final SexAction SUB_PLAYER_SELF_TAIL_NIPPLE_NORMAL = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
@@ -230,12 +230,12 @@ public class PlayerSelfTailNipple {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
-		
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.isDom(Main.game.getPlayer());
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Nipple tail-fucking (self)";
@@ -250,16 +250,16 @@ public class PlayerSelfTailNipple {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[pc.A_moan+] escapes from between your [pc.lips+] as you greedily push your [pc.tail] deep inside your [pc.nipple+].",
-					
+
 					"Pumping your [pc.tail] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you rhythmically fuck your [pc.breast+].",
-					
+
 					"Driving your [pc.tail] deep inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start pumping it in and out of your [pc.breast+].",
-					
+
 					"Focusing on pleasuring your [pc.breasts+], you start pumping your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
-		
+
 	};
-	
+
 	public static final SexAction SUB_PLAYER_SELF_TAIL_NIPPLE_EAGER = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
@@ -272,12 +272,12 @@ public class PlayerSelfTailNipple {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
-		
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.isDom(Main.game.getPlayer());
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Eager nipple tail-fucking (self)";
@@ -292,16 +292,16 @@ public class PlayerSelfTailNipple {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[pc.A_moan+] escapes from between your [pc.lips+] as you eagerly slam your [pc.tail] deep inside your [pc.nipple+], before starting to desperately fuck your [pc.breast].",
-					
+
 					"Enthusiastically pumping your [pc.tail] in and out of your [pc.nipple+], you find yourself letting out a series of delighted [pc.moans] as you frantically fuck your [pc.breast+].",
-					
+
 					"Desperately driving your [pc.tail] deep inside your fuckable [pc.nipple], you let out [pc.a_moan] as you start eagerly grinding it in and out of your [pc.breast+].",
-					
+
 					"Focusing on pleasuring your [pc.breasts+], you eagerly start slamming your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
 
 	};
-	
+
 	public static final SexAction PLAYER_SELF_TAIL_NIPPLE_STOP_PENETRATION = new SexAction(
 			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -313,7 +313,7 @@ public class PlayerSelfTailNipple {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Stop nipple tail-fuck (self)";

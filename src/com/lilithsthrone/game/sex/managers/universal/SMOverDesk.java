@@ -19,6 +19,6 @@ public class SMOverDesk extends SexManagerDefault {
 				dominants,
 				submissives);
 	}
-	
+
 
 }

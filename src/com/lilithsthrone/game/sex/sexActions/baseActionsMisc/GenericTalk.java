@@ -31,7 +31,7 @@ public class GenericTalk {
 			null,
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
-		
+
 		@Override
 		public boolean isSadisticAction() {
 			return true;
@@ -42,7 +42,7 @@ public class GenericTalk {
 			return (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_DOMINANT) || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST))
 					&& !Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this));
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
@@ -71,7 +71,7 @@ public class GenericTalk {
 						"Not being deterred by [npc.her] current lack of ability to speak, [npc.name] [npc.verb(let)] out a particularly threatening growl, letting [npc2.name] know that [npc2.sheIs] going to be treated like a pathetic fuck-toy.",
 						"Although [npc.her] mouth is blocked, making [npc.herHim] unable to speak,"
 								+ " [npc.nameIsFull] not deterred from making one of the most menacing growls [npc.she] can muster, letting [npc2.name] know that [npc2.sheIs] going to be treated like a submissive bitch."));
-				
+
 			} else {
 				if(Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_SADIST).isPositive()) {
 					sb.append(UtilText.returnStringAtRandom(
@@ -82,14 +82,14 @@ public class GenericTalk {
 							"Grinning to [npc.herself], [npc.name] [npc.verb(snarl)] at [npc2.name], ",
 							"[npc.Name] puts on [npc.her] most dominant voice as [npc.she] [npc.verb(snarl)], "));
 				}
-				
+
 				sb.append(Main.sex.getCharacterPerformingAction().getRoughTalk());
 			}
-			
+
 			return sb.toString();
 		}
 	};
-	
+
 	public static final SexAction SUBMISSIVE_TALK = new SexAction(
 			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.THREE_NORMAL,
@@ -103,7 +103,7 @@ public class GenericTalk {
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SUBMISSIVE);
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
@@ -111,7 +111,7 @@ public class GenericTalk {
 			}
 			return "Submissive talk";
 		}
-			
+
 		@Override
 		public SexActionPriority getPriority() {
 			if(!Main.sex.getCharacterPerformingAction().isPlayer() && Main.sex.getLastUsedPlayerAction()==ROUGH_TALK && Math.random()<0.5f) {
@@ -119,7 +119,7 @@ public class GenericTalk {
 			}
 			return SexActionPriority.NORMAL;
 		}
-		
+
 		@Override
 		public String getActionDescription() {
 			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
@@ -140,19 +140,19 @@ public class GenericTalk {
 						"Not being deterred by [npc.her] current lack of ability to speak, [npc.name] [npc.verb(let)] out a pathetic, horny whine, letting [npc2.name] know that [npc.sheIs] happy to remain [npc2.her] submissive bitch.",
 						"Although [npc.her] mouth is blocked, making [npc.herHim] unable to speak,"
 								+ " [npc.nameIsFull] not deterred from making one of the most pathetic whines [npc.she] can, letting [npc2.name] know that [npc.sheIs] enjoying being [npc2.her] submissive bitch."));
-				
+
 			} else {
 				sb.append(
 						UtilText.returnStringAtRandom(
 						"[npc.Name] [npc.verb(bite)] [npc.her] [npc.lip] and [npc.verb(try)] to look as submissive as possible as [npc.she] [npc.verb(cry)] out, ",
 						"[npc.Name] [npc.verb(put)] on [npc.her] most innocent expression, before [npc.moaning], "));
-	
+
 				sb.append(Main.sex.getCharacterPerformingAction().getSubmissiveTalk());
 			}
-			
+
 			return sb.toString();
 		}
-		
+
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.equals(Main.sex.getCharacterPerformingAction())) {
@@ -162,7 +162,7 @@ public class GenericTalk {
 			}
 		}
 	};
-	
+
 	public static final SexAction ASKING_FOR_ROUGH_SEX = new SexAction(
 			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.THREE_NORMAL,
@@ -171,7 +171,7 @@ public class GenericTalk {
 			null,
 			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
-		
+
 		@Override
 		public String getActionTitle() {
 			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
@@ -186,7 +186,7 @@ public class GenericTalk {
 					|| Main.sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_SADIST).isPositive()
 					|| Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS);
 		}
-		
+
 		@Override
 		public String getActionDescription() {
 			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
@@ -230,20 +230,20 @@ public class GenericTalk {
 						"Desperate to be treated like a worthless bitch, [npc.name] [npc.verb(try)] to make [npc.herself] look as small as possible, while simultaneously letting out a pathetic, horny whine.",
 						"Not able to speak, due to [npc.her] mouth being blocked, [npc.name] [npc.do] the next best thing [npc.she] can think of in an attempt to get [npc2.name] to start treating [npc.her] badly,"
 								+ " and [npc.verb(make)] [npc.herself] look as small and pathetic as possible, while also letting out a high-pitched whine."));
-				
+
 			} else {
 				sb.append(
 						UtilText.returnStringAtRandom(
 						"Putting on the most pleading voice [npc.she] can muster, [npc.name] [npc.verb(beg)] for [npc2.name] to treat [npc.herHim] badly, ",
 						"[npc.Name] [npc.verb(bite)] [npc.her] [npc.lip] and [npc.verb(try)] to look as innocent as possible as [npc.she] [npc.verb(beg)], "));
-				
+
 				sb.append(UtilText.returnStringAtRandom(
 						"[npc.speech(Come on! I'm your worthless little slut! Treat me like one!)]",
 						"[npc.speech(Fuck me like I'm your worthless slut! Please!)]",
 						"[npc.speech(Treat me like your dirty little slut! I love it rough!)]",
 						"[npc.speech(You know you want to break me! Give me a good, rough fuck! Come on!)]"));
 			}
-			
+
 			if(Main.sex.getCharacterPerformingAction().isPlayer()) {
 				if(isAcceptingRequest()) {
 					sb.append("<br/><br/>"
@@ -255,7 +255,7 @@ public class GenericTalk {
 							"[npc2.speech(Oh, so that's what you want, you little bitch?! Fine, I'll treat you like the worthless slut you are!)]",
 							"[npc2.speech(So that's what you really want, is it?! In that case, get ready to be treated like my worthless fuck-toy!)]",
 							"[npc2.speech(You dirty little whore! Fine, I'm all too happy to fuck you senseless!)]"));
-					
+
 				} else {
 					sb.append("<br/><br/>"
 							+UtilText.returnStringAtRandom(
@@ -268,7 +268,7 @@ public class GenericTalk {
 							"[npc2.speech(Sorry... I'm not one to be doing that sort of thing...)]"));
 				}
 			}
-			
+
 			return sb.toString();
 		}
 
@@ -279,7 +279,7 @@ public class GenericTalk {
 			}
 		}
 	};
-	
+
 	public static final SexAction ASKING_FOR_GENTLE_SEX = new SexAction(
 			SexActionType.SPEECH,
 			ArousalIncrease.THREE_NORMAL,
@@ -287,7 +287,7 @@ public class GenericTalk {
 			CorruptionLevel.TWO_HORNY,
 			null,
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
@@ -295,14 +295,14 @@ public class GenericTalk {
 			}
 			return "Object to rough";
 		}
-		
+
 		private boolean isAcceptingRequest() {
 			return Main.sex.isCharacterObeyingTarget(Main.sex.getCharacterTargetedForSexAction(this), Main.sex.getCharacterPerformingAction())
 					|| Main.sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive()
 					|| Main.sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_SADIST).isNegative()
 					|| Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS);
 		}
-		
+
 		@Override
 		public String getActionDescription() {
 			if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
@@ -349,13 +349,13 @@ public class GenericTalk {
 						"Wanting to be treated a little more gently, [npc.name] [npc.verb(raise)] [npc.her] eyebrows, while simultaneously letting out an uneasy whine.",
 						"Not able to speak, due to [npc.her] mouth being blocked, [npc.name] [npc.do] the next best thing [npc.she] can think of in an attempt to get [npc2.name] to start treating [npc.her] more gently,"
 								+ " and [npc.verb(put)] on an anxious look, while also letting out a worried whine."));
-				
+
 			} else {
 				sb.append(
 						UtilText.returnStringAtRandom(
 						"Putting on the most pleading voice [npc.she] can muster, [npc.name] [npc.verb(ask)] for [npc2.name] to calm down, ",
 						"[npc.Name] [npc.verb(raise)] [npc.her] eyebrows and [npc.verb(put)] on a worried look as [npc.she] [npc.verb(ask)], "));
-				
+
 				sb.append(UtilText.returnStringAtRandom(
 						"[npc.speech(Please, can you not be so rough? I'd like this to be a little more loving...)]",
 						"[npc.speech(Slow down, please! Can't you be a little gentler?)]",
@@ -374,7 +374,7 @@ public class GenericTalk {
 							"[npc2.speech(Oh, so that's what you want, hmm? I'm happy to take things a little slower...)]",
 							"[npc2.speech(That's fine with me... Let's take things a little slower, ok?)]",
 							"[npc2.speech(That sounds like a good idea... I'll be gentler with you from now on...)]"));
-					
+
 				} else {
 					sb.append("<br/><br/>"
 							+UtilText.returnStringAtRandom(
@@ -387,7 +387,7 @@ public class GenericTalk {
 							"[npc2.speech(Yeah, that's not happening. Doing ask for all that gentle loving crap again!)]"));
 				}
 			}
-			
+
 			return sb.toString();
 		}
 
@@ -398,5 +398,5 @@ public class GenericTalk {
 			}
 		}
 	};
-	
+
 }

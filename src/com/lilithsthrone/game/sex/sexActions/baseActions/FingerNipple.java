@@ -19,7 +19,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class FingerNipple {
-	
+
 	public static final SexAction PINCH_NIPPLES = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
@@ -27,7 +27,7 @@ public class FingerNipple {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Pinch nipples";
@@ -46,7 +46,7 @@ public class FingerNipple {
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -154,7 +154,7 @@ public class FingerNipple {
 				default:
 					break;
 			}
-			
+
 			switch (Main.sex.getCharacterTargetedForSexAction(this).getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" As [npc.name] [npc.verb(start)] pinching [npc2.namePos] [npc2.nipples], a small trickle of [npc2.milk] leaks out to run down [npc2.her] [npc2.breasts+].");
@@ -180,18 +180,18 @@ public class FingerNipple {
 				default:
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 		@Override
 		public String applyEffectsString() {
 			return Main.sex.getCharacterTargetedForSexAction(this).incrementBreastStoredMilk(-10);
 		}
-		
+
 	};
-	
-	
+
+
 	public static final SexAction MILK_TARGET = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
@@ -199,7 +199,7 @@ public class FingerNipple {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Milk [npc2.name]";
@@ -219,7 +219,7 @@ public class FingerNipple {
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -248,10 +248,10 @@ public class FingerNipple {
 				case SUB_RESISTING:
 					break;
 			}
-			
+
 			switch (Main.sex.getCharacterTargetedForSexAction(this).getBreastStoredMilk()) {
 				case ZERO_NONE://Shouldn't be able to be reached
-					UtilText.nodeContentSB.append(" no [npc2.milk] from [npc2.namePos] [npc2.breasts+]."); 
+					UtilText.nodeContentSB.append(" no [npc2.milk] from [npc2.namePos] [npc2.breasts+].");
 					break;
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -287,7 +287,7 @@ public class FingerNipple {
 					UtilText.nodeContentSB.append(" a huge amount of [npc2.milk] from [npc2.her] [npc2.breasts+].");
 					break;
 			}
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -323,17 +323,17 @@ public class FingerNipple {
 							" Desperately trying to pull [npc2.her] [npc2.breasts+] away from the unwanted milking, [npc2.name] [npc2.verb(plead)] with [npc.name] to leave [npc2.herHim] alone."));
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 		@Override
 		public String applyEffectsString() {
 			return Main.sex.getCharacterTargetedForSexAction(this).incrementBreastStoredMilk(-Main.sex.getCharacterTargetedForSexAction(this).getBreastRawMilkStorageValue()/5);
 		}
-		
+
 	};
-	
+
 	public static final SexAction GET_MILKED = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
@@ -341,7 +341,7 @@ public class FingerNipple {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.NIPPLE, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Get milked";
@@ -361,7 +361,7 @@ public class FingerNipple {
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -392,7 +392,7 @@ public class FingerNipple {
 				case SUB_RESISTING:
 					break;
 			}
-			
+
 			switch (Main.sex.getCharacterPerformingAction().getBreastStoredMilk()) {
 				case ZERO_NONE:
 					UtilText.nodeContentSB.append(" no [npc.milk] from [npc.namePos] [npc.breasts+]."); //Shouldn't be able to be reached
@@ -431,7 +431,7 @@ public class FingerNipple {
 					UtilText.nodeContentSB.append(" a huge amount of [npc.milk] from [npc.her] [npc.breasts+].");
 					break;
 			}
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -468,18 +468,18 @@ public class FingerNipple {
 									+ " but, grabbing hold of [npc2.her] [npc2.hand], [npc.name] [npc.verb(force)] [npc2.her] to continue squeezing the [npc.milk+] from [npc.her] [npc.nipples]."));
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 		@Override
 		public String applyEffectsString() {
 			return Main.sex.getCharacterPerformingAction().incrementBreastStoredMilk(-Main.sex.getCharacterPerformingAction().getBreastRawMilkStorageValue()/5);
 		}
 	};
-	
-	
-	
+
+
+
 	public static final SexAction NIPPLE_FINGERING_START = new SexAction(
 			SexActionType.START_ONGOING,
 			ArousalIncrease.TWO_LOW,
@@ -487,7 +487,7 @@ public class FingerNipple {
 			CorruptionLevel.TWO_HORNY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Nipple fingering";
@@ -500,9 +500,9 @@ public class FingerNipple {
 
 		@Override
 		public String getDescription() {
-			
+
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -547,7 +547,7 @@ public class FingerNipple {
 				default:
 					break;
 			}
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -600,12 +600,12 @@ public class FingerNipple {
 				default:
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
 	};
-	
+
 	private static String getTargetedCharacterResponse(SexAction action) {
 		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
 			case SUB_EAGER:
@@ -613,20 +613,20 @@ public class FingerNipple {
 				return (UtilText.returnStringAtRandom(
 						" [npc2.Name] [npc2.verb(push)] [npc2.her] chest out in response,"
 								+ " letting out a delighted [npc2.moan] as [npc2.she] [npc2.verb(start)] enthusiastically imploring [npc.name] to continue fingering [npc2.her] [npc2.breasts].",
-	
+
 						" A delighted [npc2.moan] bursts out from between [npc2.namePos] [npc2.lips],"
 								+ " and [npc2.she] [npc2.verb(start)] eagerly thrusting [npc2.her] chest out against [npc.namePos] touch as [npc2.she] [npc2.verb(beg)] [npc.herHim] to continue fingering [npc2.her] [npc2.nipples+].",
-	
+
 						" [npc2.Moaning] in delight, [npc2.name] [npc2.verb(push)] out [npc2.her] chest,"
 								+ " eagerly imploring [npc.name] to continue fingering [npc2.her] [npc2.breasts] as [npc2.her] movements cause [npc.name] to sink [npc.her] [npc.fingers] deep into [npc2.her] [npc2.nipple+]."));
 			case SUB_RESISTING:
 				return (UtilText.returnStringAtRandom(
 						" Failing to recoil [npc2.her] chest away from [npc.namePos] touch,"
 								+ " [npc2.name] [npc2.verb(let)] out [npc2.a_sob+] as [npc2.she] weakly [npc2.verb(try)] to push [npc.name] away from [npc2.herHim].",
-	
+
 						" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips],"
 								+ " before [npc2.she] [npc2.verb(start)] weakly trying to push [npc.name] away, squirming and protesting as [npc.name] [npc.verb(continue)] to gently finger [npc2.her] [npc2.nipple+].",
-	
+
 						" [npc2.Sobbing] in distress, [npc2.name] [npc2.verb(try)], in vain,"
 								+ " to recoil [npc2.her] chest away from [npc.namePos] touch, struggling against [npc.herHim] as [npc.her] [npc.fingers] [npc.verb(continue)] gently sliding deep into [npc2.her] [npc2.nipple+]."));
 			case DOM_GENTLE:
@@ -652,16 +652,16 @@ public class FingerNipple {
 				return (UtilText.returnStringAtRandom(
 						" [npc2.Name] [npc2.verb(push)] [npc2.her] chest out in response,"
 								+ " letting out [npc2.a_moan] as [npc2.she] [npc2.verb(implore)] [npc.name] to continue fingering [npc2.her] [npc2.breasts].",
-	
+
 						" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips],"
 								+ " and [npc2.she] [npc2.verb(push)] [npc2.her] chest out against [npc.namePos] touch as [npc2.she] [npc2.verb(implore)] [npc.herHim] to continue fingering [npc2.her] [npc2.nipples+].",
-	
+
 						" [npc2.Moaning+], [npc2.name] [npc2.verb(push)] out [npc2.her] chest,"
 								+ " imploring [npc.name] to continue fingering [npc2.her] [npc2.breasts] as [npc2.her] movements cause [npc.name] to sink [npc.her] [npc.fingers+] deep into [npc2.her] [npc2.nipple+]."));
 		}
 		return "";
 	}
-	
+
 	public static final SexAction NIPPLE_FINGERING_DOM_GENTLE = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
@@ -670,7 +670,7 @@ public class FingerNipple {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Gentle nipple fingering";
@@ -680,26 +680,26 @@ public class FingerNipple {
 		public String getActionDescription() {
 			return "Gently finger [npc2.namePos] nipple.";
 		}
-		
+
 		@Override
 		public String getDescription() {
 
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Gently sinking [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.nipple+], [npc.name] slowly [npc.verb(start)] to slide [npc.her] digits in and out of [npc2.her] [npc2.breast].",
 
 					"[npc.Name] gently [npc.verb(lean)] in against [npc2.name], causing [npc2.herHim] to inhale [npc.her] [npc.scent+] as [npc.she] gently [npc.verb(pump)] [npc.her] [npc.fingers+] in and out of [npc2.her] [npc2.nipple+].",
 
 					"Gently pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] softly [npc.verb(pump)] [npc.her] [npc.fingers+] in and out of [npc2.namePos] [npc2.nipple+]."));
-			
+
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
 	};
-	
+
 	public static final SexAction NIPPLE_FINGERING_DOM_NORMAL = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
@@ -708,7 +708,7 @@ public class FingerNipple {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Finger nipple";
@@ -718,12 +718,12 @@ public class FingerNipple {
 		public String getActionDescription() {
 			return "Continue fingering [npc2.namePos] [npc2.nipple+].";
 		}
-		
+
 		@Override
 		public String getDescription() {
-			
+
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Sinking [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.nipple+], [npc.name] [npc.verb(start)] eagerly fingering [npc2.her] [npc2.breasts],"
 							+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(press)] [npc.herself] up against [npc2.herHim].",
@@ -734,12 +734,12 @@ public class FingerNipple {
 					"Pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] eagerly pumping [npc.her] [npc.fingers+] in and out of [npc2.namePos] [npc2.nipple+]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
 	};
-	
+
 	public static final SexAction NIPPLE_FINGERING_DOM_ROUGH = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
@@ -748,7 +748,7 @@ public class FingerNipple {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Rough nipple fingering";
@@ -758,12 +758,12 @@ public class FingerNipple {
 		public String getActionDescription() {
 			return "Roughly finger [npc2.namePos] nipple.";
 		}
-		
+
 		@Override
 		public String getDescription() {
 
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Greedily plunging [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.nipple+],"
 							+ " [npc.name] [npc.verb(start)] roughly slamming [npc.her] digits in and out, rapidly fingering [npc2.namePos] [npc2.breast] as [npc.she] grinds [npc.herself] up against [npc2.herHim].",
@@ -772,14 +772,14 @@ public class FingerNipple {
 							+ " forcing [npc2.herHim] to inhale [npc.her] [npc.scent+] as [npc.she] [npc.verb(start)] roughly slamming [npc.her] [npc.fingers+] in and out of [npc2.namePos] [npc2.nipple+].",
 
 					"Grinding [npc.herself] up against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] roughly slamming [npc.her] [npc.fingers+] in and out of [npc2.namePos] [npc2.nipple+]."));
-			
+
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
 	};
-	
+
 	public static final SexAction NIPPLE_FINGERING_SUB_NORMAL = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
@@ -788,7 +788,7 @@ public class FingerNipple {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Finger nipple";
@@ -798,12 +798,12 @@ public class FingerNipple {
 		public String getActionDescription() {
 			return "Continue fingering [npc2.namePos] nipple.";
 		}
-		
+
 		@Override
 		public String getDescription() {
-			
+
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Sinking [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.nipple+],"
 							+ " [npc.name] [npc.verb(start)] sliding [npc.her] digits in and out, fingering [npc2.namePos] [npc2.breast] as [npc.she] [npc.verb(press)] [npc.herself] up against [npc2.herHim].",
@@ -813,12 +813,12 @@ public class FingerNipple {
 					"Pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] pumping [npc.her] [npc.fingers+] in and out of [npc2.namePos] [npc2.nipple+]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
 	};
-	
+
 	public static final SexAction PARTNER_NIPPLE_FINGERING_SUB_EAGER = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
@@ -827,7 +827,7 @@ public class FingerNipple {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Eager nipple fingering";
@@ -837,12 +837,12 @@ public class FingerNipple {
 		public String getActionDescription() {
 			return "Eagerly finger [npc2.namePos] nipple.";
 		}
-		
+
 		@Override
 		public String getDescription() {
-			
+
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Sinking [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.nipple+],"
 							+ " [npc.name] [npc.verb(start)] sliding [npc.her] digits in and out, eagerly fingering [npc2.her] [npc2.breast] as [npc.she] [npc.verb(press)] [npc.herself] up against [npc2.herHim].",
@@ -853,12 +853,12 @@ public class FingerNipple {
 					"Pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] eagerly pumping [npc.her] [npc.fingers+] in and out of [npc2.namePos] [npc2.nipple+]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
 	};
-	
+
 	public static final SexAction NIPPLE_FINGERING_SUB_RESIST = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -867,7 +867,7 @@ public class FingerNipple {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Resist fingering nipples";
@@ -877,12 +877,12 @@ public class FingerNipple {
 		public String getActionDescription() {
 			return "Try and pull your [npc.fingers] out of [npc2.namePos] [npc2.nipple+].";
 		}
-		
+
 		@Override
 		public String getDescription() {
 
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -920,11 +920,11 @@ public class FingerNipple {
 				default:
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 	};
-	
+
 	public static final SexAction NIPPLE_FINGERING_STOP = new SexAction(
 			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
@@ -932,7 +932,7 @@ public class FingerNipple {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Stop nipple fingering";
@@ -945,9 +945,9 @@ public class FingerNipple {
 
 		@Override
 		public String getDescription() {
-			
+
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -962,7 +962,7 @@ public class FingerNipple {
 							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc.namePos] [npc.scent+] as before sliding [npc.her] [npc.fingers] out of [npc2.her] [npc2.nipple]."));
 					break;
 			}
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -977,13 +977,13 @@ public class FingerNipple {
 							" [npc2.A_moan+] escapes from between [npc2.namePos] [npc2.lips+], betraying [npc2.her] desire for more of [npc.namePos] attention."));
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 	};
-	
+
 	//TODO
-	
+
 	public static final SexAction NIPPLE_FINGERED_START = new SexAction(
 			SexActionType.START_ONGOING,
 			ArousalIncrease.TWO_LOW,
@@ -991,7 +991,7 @@ public class FingerNipple {
 			CorruptionLevel.TWO_HORNY,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.NIPPLE, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Get nipple fingered";
@@ -1004,15 +1004,15 @@ public class FingerNipple {
 
 		@Override
 		public String getDescription() {
-			
+
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Taking a gentle, but firm, grip on [npc2.namePos] [npc2.hand], [npc.name] slowly [npc.verb(guide)] [npc2.her] [npc2.fingers] up and over [npc.her] [npc.breasts],"
 									+ " letting out a little [npc.moan] before pushing [npc2.her] digits into [npc.her] [npc.nipple+].",
-							
+
 							"Taking hold of [npc2.namePos] [npc2.hand], [npc.name] [npc.verb(guide)] [npc2.her] [npc2.fingers] up to [npc.her] [npc.breasts], and with a slow, steady pressure,"
 									+ " [npc.she] gently [npc.verb(push)] [npc2.her] digits into [npc.her] [npc.nipple+]."));
 					break;
@@ -1051,7 +1051,7 @@ public class FingerNipple {
 				default:
 					break;
 			}
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1100,12 +1100,12 @@ public class FingerNipple {
 				default:
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
 	};
-	
+
 	public static final SexAction NIPPLE_FINGERED_DOM_GENTLE = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
@@ -1114,7 +1114,7 @@ public class FingerNipple {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.NIPPLE, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Gently nipple fingered";
@@ -1128,7 +1128,7 @@ public class FingerNipple {
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Gently pushing [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand],"
 							+ " [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(help)] to sink [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.nipple+].",
@@ -1142,7 +1142,7 @@ public class FingerNipple {
 		}
 
 	};
-	
+
 	public static final SexAction NIPPLE_FINGERED_DOM_NORMAL = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
@@ -1151,7 +1151,7 @@ public class FingerNipple {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.NIPPLE, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Enjoy fingering";
@@ -1179,7 +1179,7 @@ public class FingerNipple {
 		}
 
 	};
-	
+
 	public static final SexAction NIPPLE_FINGERED_DOM_ROUGH = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
@@ -1188,7 +1188,7 @@ public class FingerNipple {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.NIPPLE, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Roughly nipple fingered";
@@ -1216,7 +1216,7 @@ public class FingerNipple {
 		}
 
 	};
-	
+
 	public static final SexAction NIPPLE_FINGERED_SUB_NORMAL = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
@@ -1225,7 +1225,7 @@ public class FingerNipple {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.NIPPLE, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Enjoy nipple fingering";
@@ -1253,7 +1253,7 @@ public class FingerNipple {
 		}
 
 	};
-	
+
 	public static final SexAction NIPPLE_FINGERED_SUB_EAGER = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
@@ -1262,7 +1262,7 @@ public class FingerNipple {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.NIPPLE, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Eagerly nipple fingered";
@@ -1299,7 +1299,7 @@ public class FingerNipple {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.NIPPLE, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Resist nipple fingering";
@@ -1309,12 +1309,12 @@ public class FingerNipple {
 		public String getActionDescription() {
 			return "Try and pull [npc2.namePos] [npc2.fingers] out of your [npc.nipple+].";
 		}
-		
+
 		@Override
 		public String getDescription() {
 
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1356,12 +1356,12 @@ public class FingerNipple {
 				default:
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
 	};
-	
+
 	public static final SexAction NIPPLE_FINGERED_STOP = new SexAction(
 			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
@@ -1369,7 +1369,7 @@ public class FingerNipple {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.NIPPLE, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Stop nipple fingering";
@@ -1382,39 +1382,39 @@ public class FingerNipple {
 
 		@Override
 		public String getDescription() {
-			
+
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Yanking [npc2.namePos] [npc2.fingers] out of [npc.her] [npc.nipple+], [npc.name] [npc.verb(growl)] at [npc2.name] as [npc.she] [npc.verb(command)] [npc2.herHim] to stop fingering [npc.herHim].",
-	
+
 							"[npc.Name] [npc.verb(lean)] into [npc2.name], inhaling [npc2.her] [npc2.scent] before yanking [npc2.her] [npc2.fingers] out of [npc.her] [npc.nipple+]."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Sliding [npc2.namePos] [npc2.fingers] out of [npc.her] [npc.nipple+], [npc.name] [npc.verb(let)] out [npc.a_moan+] before telling [npc2.herHim] to stop fingering [npc.herHim].",
-	
+
 							"[npc.Name] lean into [npc2.name], inhaling [npc2.her] [npc2.scent] as [npc.name] [npc.verb(slide)] [npc2.her] [npc2.fingers] out of [npc.her] [npc.nipple+]."));
 					break;
 			}
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a relieved sigh, which soon turns into [npc2.a_sob+] as [npc2.she] [npc2.verb(realise)] that [npc.nameIsFull]n't finished with [npc2.herHim] yet.",
-	
+
 							" With [npc2.a_sob+], [npc2.name] [npc2.verb(continue)] to protest and struggle against [npc.name] as [npc.she] [npc.verb(hold)] [npc2.herHim] firmly in place."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(stop)] [npc2.herHim] from stimulating [npc.her] [npc.nipple+].",
-	
+
 							" [npc2.A_moan+] escapes from between [npc2.namePos] [npc2.lips+], betraying [npc2.her] desire to give [npc.her] [npc.nipple+] more of [npc2.her] attention."));
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 	};

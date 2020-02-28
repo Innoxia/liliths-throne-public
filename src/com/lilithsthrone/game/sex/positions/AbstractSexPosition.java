@@ -26,16 +26,16 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * SexPositions determine what actions are available for each AbstractSexSlot.<br/><br/>
- * 
+ *
  * Each value holds a map, <i>slotTargets</i>, which maps AbstractSexSlots to a map of AbstractSexSlots, which in turn maps to positions available.
  *  By providing a character's position in sex, along with the position of the partner they're targeting, this map is used to fetch available actions.<br/><br/>
- *  
+ *
  *  <b>Example:</b><br/>
  *  <i>getSexInteractions(character1AbstractSexSlot, character2AbstractSexSlot)</i><br/>returns the <i>SexActionPresetPair</i> which holds all available actions.<br/><br/>
- *  
+ *
  *  If character1AbstractSexSlot is SexPositionSlot.DOGGY_ON_ALL_FOURS, and character2SexPositionSlot is SexPositionSlot.DOGGY_BEHIND, then the returned actions would be those that
  *   are available for the character on all fours, in relation to a character kneeling behind them.
- * 
+ *
  * @since 0.1.97
  * @version 0.3.4.5
  * @author Innoxia
@@ -45,13 +45,13 @@ public abstract class AbstractSexPosition {
 	private String name;
 	private int maximumSlots;
 	private boolean addStandardActions;
-	
+
 	private List<Class<?>> positioningClasses;
 	private List<Class<?>> specialClasses;
-	
+
 	public static List<SexAreaOrifice> genericGroinForceCreampieAreas = Util.newArrayListOfValues(SexAreaOrifice.ANUS, SexAreaOrifice.VAGINA, SexAreaOrifice.URETHRA_VAGINA, SexAreaOrifice.URETHRA_PENIS);
 	public static List<SexAreaOrifice> genericFaceForceCreampieAreas = Util.newArrayListOfValues(SexAreaOrifice.MOUTH);
-	
+
 	public AbstractSexPosition(String name,
 			int maximumSlots,
 			boolean addStandardActions,
@@ -63,7 +63,7 @@ public abstract class AbstractSexPosition {
 		this.positioningClasses = positioningClasses;
 		this.specialClasses = specialClasses;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -85,16 +85,16 @@ public abstract class AbstractSexPosition {
 	public Value<Boolean, String> isAcceptablePosition(Map<GameCharacter, SexSlot> positioningSlots) {
 		return new Value<Boolean, String>(true, "");
 	}
-	
+
 	public Value<Boolean, String> isSlotUnlocked(GameCharacter characterToTakeSlot, SexSlot slot, Map<GameCharacter, SexSlot> positioningSlots) {
 		return new Value<Boolean, String>(true, "");
 	}
-	
+
 	public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
 		if(action.getActionType()==SexActionType.START_ONGOING
 				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED
 				|| action.getActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
-			
+
 			// Block penis+non-appendage-non-pussy actions if target's penis is already in use:
 			try {
 				// Trying to interact a penis with a character who is already using a penis:
@@ -138,8 +138,8 @@ public abstract class AbstractSexPosition {
 					}
 				}
 			} catch(Exception ex) {}
-			
-			
+
+
 			// Block tribbing and thigh sex if ongoing penis/vagina or penis/anus penetration:
 			Set<SexAreaOrifice> impossibleTribbingAreas = Util.newHashSetOfValues(SexAreaOrifice.ANUS, SexAreaOrifice.VAGINA, SexAreaOrifice.THIGHS);
 			if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.CLIT) && action.getSexAreaInteractions().values().contains(SexAreaPenetration.CLIT)
@@ -153,13 +153,13 @@ public abstract class AbstractSexPosition {
 					|| (Main.sex.getOngoingActionsMap(target).containsKey(SexAreaPenetration.CLIT) && Main.sex.getOngoingActionsMap(target).get(SexAreaPenetration.CLIT).values().stream().anyMatch((set)->set.contains(SexAreaPenetration.CLIT))))) {
 				return true;
 			}
-			
+
 			if(!(Main.sex.getSexPositionSlot(performer).hasTag(SexSlotTag.SIXTY_NINE) && Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.LYING_DOWN))
 					&& !(Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.SIXTY_NINE) && Main.sex.getSexPositionSlot(performer).hasTag(SexSlotTag.LYING_DOWN))) {
 				boolean ongoingGroinToGroin = false;
 				boolean ongoingGroinToBreasts = false;
 				boolean ongoingGroinToMouth = false;
-				
+
 				for(SexAreaInterface sArea : SexActionPresets.groinAreas) {
 					// Groin-groin actions:
 					if((Main.sex.getOngoingActionsMap(target).containsKey(sArea)
@@ -189,7 +189,7 @@ public abstract class AbstractSexPosition {
 						ongoingGroinToMouth = true;
 					}
 				}
-				
+
 				// Block oral + groin actions if there is any groin-groin or groin-breast action going on:
 				if((!Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.groinAreas) && !Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.mouthAreas))
 						|| (!Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.groinAreas) && !Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.mouthAreas))) {
@@ -202,28 +202,28 @@ public abstract class AbstractSexPosition {
 				}
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	public int getMaximumSlots() {
 		return maximumSlots;
 	}
 //		Set<SexSlot> uniqueSlots = new HashSet<>();
-//		
+//
 //		for(Entry<SexSlot, Map<SexSlot, SexActionInteractions>> e : getSlotTargets().entrySet()) {
 //			uniqueSlots.add(e.getKey());
 //			uniqueSlots.addAll(e.getValue().keySet());
 //		}
-//		
+//
 //		return uniqueSlots.size();
 //	}
 
 	public Set<SexSlot> getAllAvailableSexPositions() {
 		Set<SexSlot> positions = new HashSet<>(getSlotTargets().keySet());
-		
+
 		getSlotTargets().entrySet().stream().forEach(e -> positions.addAll(e.getValue().keySet()));
-		
+
 		return positions;
 	}
 
@@ -231,13 +231,13 @@ public abstract class AbstractSexPosition {
 	 * Key is role position. Value is list of all slots that this slot can interact with.
 	 */
 	public abstract Map<SexSlot, Map<SexSlot, SexActionInteractions>> getSlotTargets();
-	
+
 	protected static Map<SexSlot, Map<SexSlot, SexActionInteractions>> generateSlotTargetsMap(List<Value<SexSlot, Map<SexSlot, SexActionInteractions>>> values) {
 		Map<SexSlot, Map<SexSlot, SexActionInteractions>> returnMap = new HashMap<>();
-		
+
 		for(Value<SexSlot, Map<SexSlot, SexActionInteractions>> value : values) {
 			returnMap.putIfAbsent(value.getKey(), new HashMap<>());
-			
+
 			for(Entry<SexSlot, SexActionInteractions> innerValue : value.getValue().entrySet()) {
 				returnMap.get(value.getKey()).put(innerValue.getKey(), innerValue.getValue());
 			}
@@ -245,18 +245,18 @@ public abstract class AbstractSexPosition {
 //		System.out.println("size: "+returnMap.size());
 		return returnMap;
 	}
-	
+
 	public SexActionInteractions getSexInteractions(SexSlot performer, SexSlot target) {
 		if(getSlotTargets().containsKey(performer) && getSlotTargets().get(performer).containsKey(target)) {
 			return getSlotTargets().get(performer).get(target);
 		}
-		
+
 		// If the targeted sex position is not defined, allow cumming on floor:
 		return new SexActionInteractions(null,
 				Util.newArrayListOfValues(OrgasmCumTarget.FLOOR),
 				Util.newArrayListOfValues(OrgasmCumTarget.FLOOR));
 	}
-	
+
 	/**
 	 * Override to set limitations on the amount of penetration types allowed in this position.
 	 * For example, the 'Mating Press' position defines fingers(i.e. hands) as being bottomMax-topMax for bottom, and topMax-bottomMax for top, as the one on top is pinning down as many of the bottom's hands as they can.
@@ -268,7 +268,7 @@ public abstract class AbstractSexPosition {
 
 	/**
 	 * The underlying map of body parts to orifice lists which is used in the public method isForcedCreampieEnabled(). This is overridden in SexPositionTypes that need to define forced creampies.
-	 * 
+	 *
 	 * @param cumTarget The character who is both receiving and forcing the creampie.
 	 * @param cumProvider The one who is being forced to cum inside the cumTarget.
 	 * @return A map containing keys of body parts, which then map to lists of orifices.
@@ -277,11 +277,11 @@ public abstract class AbstractSexPosition {
 	protected Map<Class<? extends BodyPartInterface>, List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 		return null;
 	}
-	
+
 	/**
 	 * Taking into account the AbstractSexSlot of the two characters specified, as well as the body part being used, this method returns a list of areas which the cumTarget can force the cumProvider to cum inside of.
 	 * This is used in determining whether the 'leg-lock', 'tail-lock', 'tentacle-lock', or 'force creampie' actions (in the GenericOrgasms class) are available.
-	 * 
+	 *
 	 * @param bodyPartUsed The body part which the cumTarget is using to force the creampie. Will almost certainly be either:<br/>
 	 * <b>{@link Arm.class}:</b> Always requires at least two free arms, and for arms to not be restricted.<br/>
 	 * <b>{@link Leg.class}:</b> Always requires at least two free legs, and for legs to not be restricted.<br/>

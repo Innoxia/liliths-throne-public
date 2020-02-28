@@ -29,7 +29,7 @@ import com.lilithsthrone.utils.Util.Value;
 public class PenisAnus {
 
 	// -- Methods for multiple ongoing characters:
-	
+
 	static List<GameCharacter> getOngoingCharacters(GameCharacter characterReceivingDP) {
 		return new ArrayList<>(Main.sex.getOngoingCharactersUsingAreas(characterReceivingDP, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS));
 	}
@@ -43,13 +43,13 @@ public class PenisAnus {
 		}
 		return characters;
 	}
-	
+
 	public static GameCharacter getPrimaryDPPerformer(GameCharacter characterReceivingDP) {
 		return Main.sex.getOngoingActionsMap(characterReceivingDP).get(SexAreaOrifice.ANUS).keySet().iterator().next();
 	}
-	
+
 	// ---
-	
+
 	public static final SexAction TEASE_PENIS_OVER_ANUS = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
@@ -57,7 +57,7 @@ public class PenisAnus {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Tease asshole";
@@ -75,9 +75,9 @@ public class PenisAnus {
 
 		@Override
 		public String getDescription() {
-				
+
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			if(!getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(this)).isEmpty()) {
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
@@ -121,7 +121,7 @@ public class PenisAnus {
 										+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(signal)] that [npc.she] might join [npc3.name] in some double-penetration.")));
 						break;
 				}
-				
+
 			} else {
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
@@ -195,7 +195,7 @@ public class PenisAnus {
 								" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of what's about to happen, [npc2.speech(No! Don't! Please! I-I'm a virgin! You can't do this!)]",
 								" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! I'm still a virgin!)]",
 								" [npc2.Name] [npc2.sob] in distress at the thought of what's about to happen, before desperately begging, [npc2.speech(No! Stop! I don't want to lose my virginity!)]"));
-						
+
 					} else {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(try)] to pull [npc2.her] [npc2.asshole] away from [npc.namePos] [npc.cock],"
@@ -207,17 +207,17 @@ public class PenisAnus {
 				default:
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
-				
+
 		}
-		
+
 		@Override
 		public void applyEffects() {
 			Main.sex.transferLubrication(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.ANUS);
 		}
 	};
-	
+
 	public static final SexAction FORCE_PENIS_OVER_ANUS = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.THREE_NORMAL,
@@ -225,7 +225,7 @@ public class PenisAnus {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Cock tease (anal)";
@@ -243,7 +243,7 @@ public class PenisAnus {
 
 		@Override
 		public String getDescription() {
-				
+
 			UtilText.nodeContentSB.setLength(0);
 			if(!getOngoingCharacters(Main.sex.getCharacterPerformingAction()).isEmpty()) {
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
@@ -288,7 +288,7 @@ public class PenisAnus {
 										+ " [npc.name] eagerly [npc.verb(grab)] [npc2.namePos] [npc2.cock+], before happily rubbing the [npc2.cockTip+] over an exposed part of [npc.her] [npc.assCloaca+].")));
 						break;
 				}
-				
+
 			} else {
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
@@ -376,17 +376,17 @@ public class PenisAnus {
 							" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(beg)] [npc.name] to let go of [npc2.her] [npc2.cock]."));
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
-				
+
 		}
-		
+
 		@Override
 		public void applyEffects() {
 			Main.sex.transferLubrication(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction(), SexAreaOrifice.ANUS);
 		}
 	};
-	
+
 	public static final SexAction ASSHOLE_CONTROL = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -394,7 +394,7 @@ public class PenisAnus {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Asshole control";
@@ -424,7 +424,7 @@ public class PenisAnus {
 								+ " on squeezing the extra muscles within [npc.her] [npc.asshole+] down around the two [npc2.cocks] currently double-penetrating [npc.herHim].",
 						"With [npc.a_moan+], [npc.name] [npc.verb(focus)] on controlling the extra muscles deep within [npc.her] [npc.asshole],"
 								+ " gripping them down and massaging #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cock+] as [npc.she] [npc.verb(squeal)] in pleasure."));
-				
+
 			} else {
 				return UtilText.returnStringAtRandom(
 						"Letting out [npc.a_moan+], [npc.name] [npc.verb(concentrate)] on squeezing the extra internal muscles within [npc.her] [npc.asshole] down around [npc2.namePos] [npc2.cock+].",
@@ -437,7 +437,7 @@ public class PenisAnus {
 			}
 		}
 	};
-	
+
 	public static final SexAction PENIS_FUCKING_START = new SexAction(
 			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -445,7 +445,7 @@ public class PenisAnus {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Start anal";
@@ -458,14 +458,14 @@ public class PenisAnus {
 
 		@Override
 		public String getDescription() {
-			
+
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			String assTargeting = "between [npc2.her] ass cheeks";
 			if(Main.sex.getCharacterTargetedForSexAction(this).getGenitalArrangement()!=GenitalArrangement.NORMAL) {
 				assTargeting = "over [npc2.namePos] [npc2.assCloaca+]";
 			}
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -555,11 +555,11 @@ public class PenisAnus {
 				default:
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 	};
-	
+
 
 	public static final SexAction PENIS_FUCKING_START_ADDITIONAL = new SexAction(
 			SexActionType.START_ADDITIONAL_ONGOING,
@@ -568,7 +568,7 @@ public class PenisAnus {
 			CorruptionLevel.THREE_DIRTY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
 			SexParticipantType.NORMAL) {
-		
+
 		private List<GameCharacter> getCharactersForParsing() {
 			return PenisAnus.getCharactersForParsing(Main.sex.getCharacterTargetedForSexAction(this));
 		}
@@ -576,27 +576,27 @@ public class PenisAnus {
 		@Override
 		public Map<String, Boolean> getAdditionalOngoingAvailableMap() {
 			Map<String, Boolean> map = new HashMap<>();
-			
+
 			int size = PenisAnus.getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(this)).size();
-			
+
 			map.put("one other character fucking [npc2.namePos] asshole", size==1);
 			map.put("[npc.namePos] penis to be exposed", Main.sex.getCharacterPerformingAction().isPenetrationTypeExposed(SexAreaPenetration.PENIS));
 			map.put("[npc.namePos] penis to be free", SexAreaPenetration.PENIS.isFree(Main.sex.getCharacterPerformingAction()));
-			
+
 			return map;
 		}
-		
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(this)).size()==1
 					&& !getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(this)).contains(Main.sex.getCharacterPerformingAction());
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Double-penetration (anal)";
 		}
-		
+
 		@Override
 		public String getActionDescription() {
 			return UtilText.parse(getCharactersForParsing(),
@@ -606,7 +606,7 @@ public class PenisAnus {
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.parse(getCharactersForParsing(),
@@ -629,7 +629,7 @@ public class PenisAnus {
 									+ " [npc.she] desperately [npc.verb(thrust)] forwards, ramming [npc.her] [npc.cock+] in alongside [npc3.hers] and joining [npc3.herHim] in double-penetrating [npc2.name]."));
 					break;
 			}
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.parse(getCharactersForParsing(),
@@ -659,12 +659,12 @@ public class PenisAnus {
 									+ " before greedily bucking [npc2.her] [npc2.hips] out in order to sink it deeply in beside [npc3.namePos] [npc3.cock+]."));
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 	};
-	
-	
+
+
 	private static String getTargetedCharacterResponse(SexAction action) {
 		if(PenisAnus.getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(action)).size()>1) {
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
@@ -718,7 +718,7 @@ public class PenisAnus {
 											?"you to continue fucking [npc2.herHim] as [npc2.her] energetic movements help to sink your [npc.cocks] deep into [npc2.her] [npc2.asshole+]."
 											:"them to continue fucking [npc2.herHim] as [npc2.her] energetic movements help to sink their [npc.cocks] deep into [npc2.her] [npc2.asshole+]."))));
 			}
-			
+
 		} else {
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
 				case SUB_RESISTING:
@@ -764,7 +764,7 @@ public class PenisAnus {
 			}
 		}
 	}
-	
+
 	public static final SexAction PENIS_FUCKING_DOM_GENTLE = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -773,7 +773,7 @@ public class PenisAnus {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Gentle anal";
@@ -795,7 +795,7 @@ public class PenisAnus {
 						"Joining [npc3.name] in double-penetrating [npc2.namePos] [npc2.asshole+], [npc.name] softly [npc.verb(thrust)] [npc.her] [npc.hips] forwards, letting out a little [npc.moan] as [npc.she] gently [npc.verb(fuck)] [npc2.herHim].",
 						"With both [npc.her] and [npc3.namePos] [npc.cocks] stuffed deep in [npc2.namePos] [npc2.asshole+],"
 								+ " [npc.name] gently [npc.verb(pump)] [npc.her] [npc.hips] back and forth, breathing in [npc2.namePos] [npc2.scent] as [npc.she] slowly [npc.verb(fuck)] [npc2.herHim].")));
-				
+
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Gently sinking [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.asshole+],"
@@ -807,12 +807,12 @@ public class PenisAnus {
 			}
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-					
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 	};
-	
+
 	public static final SexAction PENIS_FUCKING_DOM_NORMAL = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -821,7 +821,7 @@ public class PenisAnus {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Anal";
@@ -843,7 +843,7 @@ public class PenisAnus {
 						"Joining [npc3.name] in double-penetrating [npc2.namePos] [npc2.asshole+], [npc.name] enthusiastically [npc.verb(thrust)] [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(fuck)] [npc2.herHim].",
 						"With both [npc.her] and [npc3.namePos] [npc.cocks] stuffed deep in [npc2.namePos] [npc2.asshole+],"
 								+ " [npc.name] happily [npc.verb(pump)] [npc.her] [npc.hips] back and forth, breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately [npc.verb(fuck)] [npc2.herHim].")));
-				
+
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Eagerly sinking [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.asshole+],"
@@ -853,14 +853,14 @@ public class PenisAnus {
 						"Thrusting [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pump [npc.her] [npc.hips] back and forth,"
 								+ " breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately [npc.verb(fuck)] [npc2.herHim]."));
 			}
-			
+
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 	};
-	
+
 	public static final SexAction PENIS_FUCKING_DOM_ROUGH = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -879,7 +879,7 @@ public class PenisAnus {
 		public String getActionDescription() {
 			return "Roughly thrust your [npc.cock+] in and out of [npc2.namePos] [npc2.asshole+].";
 		}
-		
+
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
@@ -891,7 +891,7 @@ public class PenisAnus {
 						"Joining [npc3.name] in double-penetrating [npc2.namePos] [npc2.asshole+], [npc.name] roughly [npc.verb(slam)] [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] forcefully [npc.verb(fuck)] [npc2.herHim].",
 						"With both [npc.her] and [npc3.namePos] [npc.cocks] stuffed deep in [npc2.namePos] [npc2.asshole+],"
 								+ " [npc.name] violently [npc.verb(thrust)] [npc.her] [npc.hips] back and forth, breathing in [npc2.namePos] [npc2.scent] as [npc.she] aggressively [npc.verb(fuck)] [npc2.herHim].")));
-				
+
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Roughly slamming [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.asshole+],"
@@ -901,14 +901,14 @@ public class PenisAnus {
 						"Forcefully driving [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to roughly slam [npc.her] [npc.hips] back and forth,"
 								+ " breathing in [npc2.namePos] [npc2.scent] as [npc.she] violently [npc.verb(fuck)] [npc2.herHim]."));
 			}
-			
+
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 	};
-	
+
 	public static final SexAction PENIS_FUCKING_SUB_NORMAL = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -917,7 +917,7 @@ public class PenisAnus {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Anal";
@@ -939,7 +939,7 @@ public class PenisAnus {
 						"Joining [npc3.name] in double-penetrating [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(thrust)] [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] [npc.verb(fuck)] [npc2.herHim].",
 						"With both [npc.her] and [npc3.namePos] [npc.cocks] stuffed deep in [npc2.namePos] [npc2.asshole+],"
 								+ " [npc.name] happily [npc.verb(pump)] [npc.her] [npc.hips] back and forth, breathing in [npc2.namePos] [npc2.scent] as [npc.she] [npc.verb(fuck)] [npc2.herHim].")));
-				
+
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Sinking [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.asshole+],"
@@ -949,14 +949,14 @@ public class PenisAnus {
 						"Thrusting [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to pump [npc.her] [npc.hips] back and forth,"
 								+ " breathing in [npc2.namePos] [npc2.scent] as [npc.she] [npc.verb(fuck)] [npc2.herHim]."));
 			}
-			
+
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 	};
-	
+
 	public static final SexAction PENIS_FUCKING_SUB_EAGER = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -965,7 +965,7 @@ public class PenisAnus {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Eager anal";
@@ -987,7 +987,7 @@ public class PenisAnus {
 						"Joining [npc3.name] in double-penetrating [npc2.namePos] [npc2.asshole+], [npc.name] enthusiastically [npc.verb(thrust)] [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] eagerly [npc.verb(fuck)] [npc2.herHim].",
 						"With both [npc.her] and [npc3.namePos] [npc.cocks] stuffed deep in [npc2.namePos] [npc2.asshole+],"
 								+ " [npc.name] happily [npc.verb(pump)] [npc.her] [npc.hips] back and forth, breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately [npc.verb(fuck)] [npc2.herHim].")));
-				
+
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Eagerly sinking [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.asshole+],"
@@ -997,14 +997,14 @@ public class PenisAnus {
 						"Thrusting [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.asshole+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pump [npc.her] [npc.hips] back and forth,"
 								+ " breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately [npc.verb(fuck)] [npc2.herHim]."));
 			}
-			
+
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 	};
-	
+
 	public static final SexAction PENIS_FUCKING_SUB_RESIST = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.TWO_LOW,
@@ -1013,7 +1013,7 @@ public class PenisAnus {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Resist anal";
@@ -1061,7 +1061,7 @@ public class PenisAnus {
 										+ " but [npc2.name] quickly [npc2.verb(shift)] position, ignoring [npc.her] protests as [npc2.she] [npc2.verb(force)] [npc2.her] [npc2.asshole+] down onto [npc.her] [npc.cock+].")));
 						break;
 				}
-				
+
 			} else {
 				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
@@ -1090,12 +1090,12 @@ public class PenisAnus {
 						break;
 				}
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 	};
-	
+
 	public static final SexAction PENIS_FUCKING_STOP = new SexAction(
 			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
@@ -1103,7 +1103,7 @@ public class PenisAnus {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Stop anal";
@@ -1133,7 +1133,7 @@ public class PenisAnus {
 								"Pushing deep inside of [npc2.name] one last time, [npc.name] then [npc.verb(slide)] [npc.her] [npc.cock+] back out of [npc2.her] [npc2.asshole+], putting an end to the double-penetration.")));
 						break;
 				}
-				
+
 				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterTargetedForSexAction(this)), UtilText.returnStringAtRandom(
@@ -1147,7 +1147,7 @@ public class PenisAnus {
 								" [npc2.A_moan+] escapes from between [npc2.namePos] [npc2.lips+], betraying [npc2.her] desperate desire for more of [npc.namePos] attention.")));
 						break;
 				}
-				
+
 			} else {
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_ROUGH:
@@ -1162,7 +1162,7 @@ public class PenisAnus {
 								"Pushing deep inside of [npc2.name] one last time, [npc.name] then [npc.verb(slide)] [npc.her] [npc.cock+] back out of [npc2.her] [npc2.asshole+], putting an end to the fucking."));
 						break;
 				}
-				
+
 				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1177,13 +1177,13 @@ public class PenisAnus {
 						break;
 				}
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 	};
-	
+
 	//TODO DP
-	
+
 	public static final SexAction USING_PENIS_START = new SexAction(
 			SexActionType.START_ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -1205,12 +1205,12 @@ public class PenisAnus {
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			String assTargeting = "between [npc.her] ass cheeks";
 			if(Main.sex.getCharacterTargetedForSexAction(this).getGenitalArrangement()!=GenitalArrangement.NORMAL) {
 				assTargeting = "to [npc.her] [npc.assCloaca+]";
 			}
-			
+
 			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
@@ -1242,7 +1242,7 @@ public class PenisAnus {
 										+ " before eagerly thrusting [npc.her] [npc.hips] back and letting out [npc.a_moan+] as [npc.she] [npc.verb(penetrate)] [npc.herself] on [npc2.her] [npc2.cock+]."));
 						break;
 				}
-				
+
 			} else {
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
@@ -1275,7 +1275,7 @@ public class PenisAnus {
 						break;
 				}
 			}
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1318,12 +1318,12 @@ public class PenisAnus {
 				default:
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 	};
-	
+
 
 	public static final SexAction USING_PENIS_START_ADDITIONAL = new SexAction(
 			SexActionType.START_ADDITIONAL_ONGOING,
@@ -1340,22 +1340,22 @@ public class PenisAnus {
 		@Override
 		public Map<String, Boolean> getAdditionalOngoingAvailableMap() {
 			Map<String, Boolean> map = new HashMap<>();
-			
+
 			int size = PenisAnus.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size();
-			
+
 			map.put("one other character fucking [npc.namePos] asshole", size==1);
 			map.put("[npc2.namePos] penis to be exposed", Main.sex.getCharacterTargetedForSexAction(this).isPenetrationTypeExposed(SexAreaPenetration.PENIS));
 			map.put("[npc2.namePos] penis to be free", SexAreaPenetration.PENIS.isFree(Main.sex.getCharacterTargetedForSexAction(this)));
-			
+
 			return map;
 		}
-		
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()==1
 					&& !getOngoingCharacters(Main.sex.getCharacterPerformingAction()).contains(Main.sex.getCharacterTargetedForSexAction(this));
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Get double-penetrated (anal)";
@@ -1407,7 +1407,7 @@ public class PenisAnus {
 									+ " Impatiently bucking [npc.her] [npc.hips] back, [npc.she] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] [npc2.namePos] [npc2.cock+] push in alongside [npc3.namePos] into [npc.her] [npc.asshole+].")));
 						break;
 				}
-				
+
 			} else {
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
@@ -1440,7 +1440,7 @@ public class PenisAnus {
 						break;
 				}
 			}
-			
+
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.parse(getCharactersForParsing(), UtilText.returnStringAtRandom(
@@ -1476,12 +1476,12 @@ public class PenisAnus {
 									+ " sinking it deep into [npc.namePos] [npc.asshole+] as [npc2.she] [npc2.verb(join)] [npc3.name] in energetically fucking [npc.herHim].")));
 					break;
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 	};
-	
+
 	private static String getTargetedCharacterReceivingResponse(SexAction action) {
 		if(PenisAnus.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1) {
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
@@ -1517,7 +1517,7 @@ public class PenisAnus {
 							" [npc2.A_moan+] bursts out from [npc2.namePos] mouth, before [npc2.she] [npc2.verb(start)] eagerly thrusting [npc2.her] [npc2.cock+] in alongside [npc3.namePos] deep into [npc.namePos] [npc.asshole+].",
 							" [npc2.Moaning] in delight, [npc2.name] [npc2.verb(join)] [npc3.name] in eagerly driving [npc2.her] [npc2.cock+] deep into [npc.namePos] [npc.asshole+]."));
 			}
-			
+
 		} else {
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
 				case SUB_RESISTING:
@@ -1554,7 +1554,7 @@ public class PenisAnus {
 			}
 		}
 	}
-	
+
 	public static final SexAction RIDING_PENIS_DOM_GENTLE = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -1563,7 +1563,7 @@ public class PenisAnus {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Gently receive anal";
@@ -1583,21 +1583,21 @@ public class PenisAnus {
 						"With a gentle thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(help)] to sink the two [npc2.cocks] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
 						"With a soft [npc.moan], [npc.name] gently [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+] ever deeper into [npc.her] [npc.asshole+].",
 						"Slowly gyrating [npc.her] [npc.hips], a soft [npc.moan] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks] deep into [npc.her] [npc.asshole+].")));
-				
+
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With a gentle thrust of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(help)] to sink [npc2.namePos] [npc2.cock+] deep into [npc.her] [npc.asshole+].",
 						"With a soft [npc.moan], [npc.name] gently [npc.verb(start)] bucking [npc.her] [npc.hips], forcing [npc2.namePos] [npc2.cock+] ever deeper into [npc.her] [npc.asshole+].",
 						"Slowly gyrating [npc.her] [npc.hips], a soft [npc.moan] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force [npc2.namePos] [npc2.cock+] deep into [npc.her] [npc.asshole+]."));
 			}
-			
+
 			UtilText.nodeContentSB.append(getTargetedCharacterReceivingResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 	};
-	
+
 	public static final SexAction RIDING_PENIS_DOM_NORMAL = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -1606,7 +1606,7 @@ public class PenisAnus {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Receive anal";
@@ -1626,21 +1626,21 @@ public class PenisAnus {
 						"With a eager bucking of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink the two [npc2.cocks] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
 						"With [npc.a_moan+], [npc.name] enthusiastically [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+] ever deeper into [npc.her] [npc.asshole+].",
 						"Energetically gyrating [npc.her] [npc.hips], [npc.a_moan+] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks] deep into [npc.her] [npc.asshole+].")));
-				
+
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With an eager bucking of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink [npc2.namePos] [npc2.cock+] deep into [npc.her] [npc.asshole+].",
 						"With [npc.a_moan+], [npc.name] enthusiastically [npc.verb(start)] bucking [npc.her] [npc.hips], forcing [npc2.namePos] [npc2.cock+] ever deeper into [npc.her] [npc.asshole+].",
 						"Energetically gyrating [npc.her] [npc.hips], [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force [npc2.namePos] [npc2.cock+] deep into [npc.her] [npc.asshole+]."));
 			}
-			
+
 			UtilText.nodeContentSB.append(getTargetedCharacterReceivingResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 	};
-	
+
 	public static final SexAction RIDING_PENIS_DOM_ROUGH = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -1649,7 +1649,7 @@ public class PenisAnus {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Roughly receive anal";
@@ -1669,21 +1669,21 @@ public class PenisAnus {
 						"With a violent slamming of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(force)] the two [npc2.cocks] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
 						"With [npc.a_moan+], [npc.name] roughly [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+] ever deeper into [npc.her] [npc.asshole+].",
 						"Forcefully gyrating [npc.her] [npc.hips], [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements roughly force the two [npc2.cocks] deep into [npc.her] [npc.asshole+].")));
-				
+
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With a violent slam of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.namePos] [npc2.cock+] deep into [npc.her] [npc.asshole+].",
 						"With [npc.a_moan+], [npc.name] roughly [npc.verb(start)] bucking [npc.her] [npc.hips], forcing [npc2.namePos] [npc2.cock+] ever deeper into [npc.her] [npc.asshole+].",
 						"Forcefully gyrating [npc.her] [npc.hips], [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements roughly force [npc2.namePos] [npc2.cock+] deep into [npc.her] [npc.asshole+]."));
 			}
-			
+
 			UtilText.nodeContentSB.append(getTargetedCharacterReceivingResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 
 	};
-	
+
 	public static final SexAction RIDING_PENIS_SUB_NORMAL = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -1692,7 +1692,7 @@ public class PenisAnus {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Receive anal";
@@ -1706,27 +1706,27 @@ public class PenisAnus {
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			if(PenisAnus.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size()>1) {
 				UtilText.nodeContentSB.append(UtilText.parse(PenisAnus.getCharactersForParsing(Main.sex.getCharacterPerformingAction()), UtilText.returnStringAtRandom(
 						"With a quick buck of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(force)] the two [npc2.cocks] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
 						"With [npc.a_moan+], [npc.name] [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+] ever deeper into [npc.her] [npc.asshole+].",
 						"Gyrating [npc.her] [npc.hips], [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks] deep into [npc.her] [npc.asshole+].")));
-				
+
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With a quick buck of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink [npc2.namePos] [npc2.cock+] deep into [npc.her] [npc.asshole+].",
 						"With [npc.a_moan+], [npc.name] [npc.verb(start)] bucking [npc.her] [npc.hips], forcing [npc2.namePos] [npc2.cock+] ever deeper into [npc.her] [npc.asshole+].",
 						"Gyrating [npc.her] [npc.hips], [npc.a_moan+] bursts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force [npc2.namePos] [npc2.cock+] deep into [npc.her] [npc.asshole+]."));
 			}
-			
+
 			UtilText.nodeContentSB.append(getTargetedCharacterReceivingResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 	};
-	
+
 	public static final SexAction RIDING_PENIS_SUB_EAGER = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FOUR_HIGH,
@@ -1735,7 +1735,7 @@ public class PenisAnus {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Eagerly receive anal";
@@ -1755,7 +1755,7 @@ public class PenisAnus {
 						"With a eager bucking of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink the two [npc2.cocks] penetrating [npc.herHim] ever deeper into [npc.her] [npc.asshole+].",
 						"With [npc.a_moan+], [npc.name] enthusiastically [npc.verb(start)] bucking [npc.her] [npc.hips], forcing #IF(npc3.isPlayer())[npc3.namePos] and [npc2.namePos]#ELSE[npc2.namePos] and [npc3.namePos]#ENDIF [npc2.cocks+] ever deeper into [npc.her] [npc.asshole+].",
 						"Energetically gyrating [npc.her] [npc.hips], [npc.a_moan+] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force the two [npc2.cocks] deep into [npc.her] [npc.asshole+].")));
-				
+
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With an eager bucking of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink [npc2.namePos] [npc2.cock+] deep into [npc.her] [npc.asshole+].",
@@ -1764,12 +1764,12 @@ public class PenisAnus {
 			}
 
 			UtilText.nodeContentSB.append(getTargetedCharacterReceivingResponse(this));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 	};
-	
+
 	public static final SexAction FUCKED_SUB_RESIST = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ZERO_NONE,
@@ -1778,7 +1778,7 @@ public class PenisAnus {
 			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Resist receiving anal";
@@ -1823,7 +1823,7 @@ public class PenisAnus {
 										+ " [npc.name] [npc.sobVerb] in distress as [npc2.namePos] [npc2.cock+] continues to join [npc3.namePos] in greedily thrusting deep into [npc.her] [npc.asshole+].")));
 						break;
 				}
-				
+
 			} else {
 				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
@@ -1855,12 +1855,12 @@ public class PenisAnus {
 						break;
 				}
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
 	};
-	
+
 	public static final SexAction FUCKED_STOP = new SexAction(
 			SexActionType.STOP_ONGOING,
 			ArousalIncrease.TWO_LOW,
@@ -1896,7 +1896,7 @@ public class PenisAnus {
 								"[npc.Name] [npc.verb(lean)] into [npc2.name], inhaling [npc2.her] [npc2.scent] before sliding [npc2.her] [npc2.cock] out of [npc.her] [npc.asshole+]."));
 						break;
 				}
-				
+
 				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1909,7 +1909,7 @@ public class PenisAnus {
 								" [npc2.A_moan+] escapes from between [npc2.namePos] [npc2.lips+], betraying [npc2.her] desire to continue fucking [npc.namePos] [npc.asshole+]."));
 						break;
 				}
-				
+
 			} else {
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_ROUGH:
@@ -1923,7 +1923,7 @@ public class PenisAnus {
 								"[npc.Name] [npc.verb(lean)] into [npc2.name], inhaling [npc2.her] [npc2.scent] before sliding [npc2.her] [npc2.cock] out of [npc.her] [npc.asshole+]."));
 						break;
 				}
-				
+
 				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1937,7 +1937,7 @@ public class PenisAnus {
 						break;
 				}
 			}
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 	};

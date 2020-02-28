@@ -21,7 +21,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class PlayerSelfFingerBreasts {
-	
+
 	public static final SexAction FEEL_BREASTS = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION,
 			ArousalIncrease.TWO_LOW,
@@ -29,7 +29,7 @@ public class PlayerSelfFingerBreasts {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.BREAST)),
 			SexParticipantType.SELF) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Grope breasts (self)";
@@ -51,7 +51,7 @@ public class PlayerSelfFingerBreasts {
 		public String getDescription() {
 			if(!Main.sex.getCharacterPerformingAction().isCoverableAreaExposed(CoverableArea.NIPPLES)){
 				UtilText.nodeContentSB.setLength(0);
-				
+
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -90,7 +90,7 @@ public class PlayerSelfFingerBreasts {
 										+ " [npc.name] [npc.verb(start)] desperately panting and [npc.moaning] as [npc.she] eagerly [npc.verb(fondle)] and [npc.verb(grope)] [npc.her] own [npc.breastRows] [npc.breasts+]."));
 						break;
 				}
-				
+
 				switch (Main.sex.getCharacterPerformingAction().getBreastStoredMilk()) {
 					case ONE_TRICKLE:
 						UtilText.nodeContentSB.append(" A small trickle of [npc.milk] leaks out into [npc.her] [npc.lowClothing(NIPPLES)] as [npc.she] [npc.verb(squeeze)] down on [npc.her] [npc.nipples+].");
@@ -116,13 +116,13 @@ public class PlayerSelfFingerBreasts {
 					default:
 						break;
 				}
-		
+
 				return UtilText.nodeContentSB.toString();
-				
+
 			} else {
-				
+
 				UtilText.nodeContentSB.setLength(0);
-				
+
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -161,7 +161,7 @@ public class PlayerSelfFingerBreasts {
 										+ " [npc.name] [npc.verb(start)] desperately panting and [npc.moaning] as [npc.she] [npc.verb(begin)] to eagerly fondle and grope them."));
 						break;
 				}
-				
+
 				switch (Main.sex.getCharacterPerformingAction().getBreastStoredMilk()) {
 					case ONE_TRICKLE:
 						UtilText.nodeContentSB.append(" A small trickle of [npc.milk] leaks out onto [npc.her] [npc.fingers] as [npc.she] [npc.verb(squeeze)] down on [npc.namePos] [npc.nipples+].");
@@ -188,9 +188,9 @@ public class PlayerSelfFingerBreasts {
 					default:
 						break;
 				}
-		
+
 				return UtilText.nodeContentSB.toString();
-				
+
 			}
 		}
 
@@ -202,11 +202,11 @@ public class PlayerSelfFingerBreasts {
 				Main.sex.getCharacterPerformingAction().getLowestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(Main.sex.getCharacterPerformingAction(), true);
 			}
 		}
-		
+
 		@Override
 		public String applyEffectsString() {
 			return Main.sex.getCharacterPerformingAction().incrementBreastStoredMilk(-10);
 		}
-		
+
 	};
 }

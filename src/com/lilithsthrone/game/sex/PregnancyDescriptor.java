@@ -11,15 +11,15 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  * @author Innoxia
  */
 public enum PregnancyDescriptor {
-	
+
 	ALREADY_PREGNANT {
 		@Override
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
 			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
-			
+
 			StringBuilder sb = new StringBuilder();
-			
+
 			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
 				if(characterProvidingCum==null) {
@@ -30,7 +30,7 @@ public enum PregnancyDescriptor {
 						sb.append("deep in your [pc.pussy+]");
 					}
 					sb.append(", but because [style.boldSex(you're already pregnant, you don't have to worry about it)]!");
-					
+
 				} else {
 					sb.append("You feel ");
 					if(selfcest) {
@@ -45,7 +45,7 @@ public enum PregnancyDescriptor {
 					}
 					sb.append(", but because [style.boldSex(you're already pregnant, you don't have to worry about it)]!");
 				}
-				
+
 			} else {
 				if(characterProvidingCum==null) {
 					sb.append("[npc.NameIsFull] already pregnant, [style.boldSex(so there's no chance that ");
@@ -55,7 +55,7 @@ public enum PregnancyDescriptor {
 						sb.append("[npc.she] has been impregnated");
 					}
 					sb.append(")]!");
-					
+
 				} else {
 					sb.append("[npc.NameIsFull] already pregnant, [style.boldSex(so there's no chance that ");
 					if(directSexInsemination) {
@@ -75,7 +75,7 @@ public enum PregnancyDescriptor {
 				}
 			}
 			sb.append("</p>");
-			
+
 			if(characterProvidingCum!=null) {
 				return UtilText.parse(characterBeingImpregnated, characterProvidingCum, sb.toString());
 			} else {
@@ -83,15 +83,15 @@ public enum PregnancyDescriptor {
 			}
 		}
 	},
-	
+
 	NO_CHANCE {
 		@Override
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
 			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
-			
+
 			StringBuilder sb = new StringBuilder();
-			
+
 			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
 				if(characterProvidingCum==null) {
@@ -102,7 +102,7 @@ public enum PregnancyDescriptor {
 						sb.append("deep in your womb");
 					}
 					sb.append(", you feel that [style.boldSex(you aren't going to get pregnant from this)].");
-					
+
 				} else {
 					sb.append("Despite feeling ");
 					if(selfcest) {
@@ -117,7 +117,7 @@ public enum PregnancyDescriptor {
 					}
 					sb.append(", you feel that [style.boldSex(you aren't going to get pregnant from this)].");
 				}
-				
+
 			} else {
 				if(characterProvidingCum==null) {
 					sb.append("Despite having [npc.her] ");
@@ -131,7 +131,7 @@ public enum PregnancyDescriptor {
 					} else {
 						sb.append(" filled with cum, [style.boldSex(there's no chance that [npc.nameHasFull] been impregnated)].");
 					}
-					
+
 				} else {
 					sb.append("Despite having [npc.her] ");
 					if(isSlime) {
@@ -147,7 +147,7 @@ public enum PregnancyDescriptor {
 				}
 			}
 			sb.append("</p>");
-			
+
 			if(characterProvidingCum!=null) {
 				return UtilText.parse(characterBeingImpregnated, characterProvidingCum, sb.toString());
 			} else {
@@ -155,15 +155,15 @@ public enum PregnancyDescriptor {
 			}
 		}
 	},
-	
+
 	LOW_CHANCE {
 		@Override
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
 			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
 			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
-			
+
 			StringBuilder sb = new StringBuilder();
-			
+
 			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
 				sb.append("You feel ");
@@ -186,7 +186,7 @@ public enum PregnancyDescriptor {
 				} else {
 					sb.append(", and you realise that [style.boldSex(there's a small chance you'll get pregnant)]!");
 				}
-				
+
 			} else {
 				sb.append("After having [npc.her] ");
 				if(isSlime) {
@@ -210,7 +210,7 @@ public enum PregnancyDescriptor {
 				}
 			}
 			sb.append("</p>");
-			
+
 			if(characterProvidingCum!=null) {
 				return UtilText.parse(characterBeingImpregnated, characterProvidingCum, sb.toString());
 			} else {
@@ -218,7 +218,7 @@ public enum PregnancyDescriptor {
 			}
 		}
 	},
-	
+
 	AVERAGE_CHANCE {
 		@Override
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
@@ -226,7 +226,7 @@ public enum PregnancyDescriptor {
 			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
 
 			StringBuilder sb = new StringBuilder();
-			
+
 			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
 				sb.append("You feel ");
@@ -249,7 +249,7 @@ public enum PregnancyDescriptor {
 				} else {
 					sb.append(", and you realise that [style.boldSex(there's a chance you'll get pregnant)]!");
 				}
-				
+
 			} else {
 				sb.append("After having [npc.her] ");
 				if(isSlime) {
@@ -273,7 +273,7 @@ public enum PregnancyDescriptor {
 				}
 			}
 			sb.append("</p>");
-			
+
 			if(characterProvidingCum!=null) {
 				return UtilText.parse(characterBeingImpregnated, characterProvidingCum, sb.toString());
 			} else {
@@ -281,7 +281,7 @@ public enum PregnancyDescriptor {
 			}
 		}
 	},
-	
+
 	HIGH_CHANCE {
 		@Override
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
@@ -289,7 +289,7 @@ public enum PregnancyDescriptor {
 			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
 
 			StringBuilder sb = new StringBuilder();
-			
+
 			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
 				sb.append("You feel ");
@@ -312,7 +312,7 @@ public enum PregnancyDescriptor {
 				} else {
 					sb.append(", and you realise that [style.boldSex(there's a high chance you'll get pregnant)]!");
 				}
-				
+
 			} else {
 				sb.append("After having [npc.her] ");
 				if(isSlime) {
@@ -336,7 +336,7 @@ public enum PregnancyDescriptor {
 				}
 			}
 			sb.append("</p>");
-			
+
 			if(characterProvidingCum!=null) {
 				return UtilText.parse(characterBeingImpregnated, characterProvidingCum, sb.toString());
 			} else {
@@ -344,7 +344,7 @@ public enum PregnancyDescriptor {
 			}
 		}
 	},
-	
+
 	CERTAINTY {
 		@Override
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination) {
@@ -352,7 +352,7 @@ public enum PregnancyDescriptor {
 			boolean selfcest = characterBeingImpregnated.equals(characterProvidingCum);
 
 			StringBuilder sb = new StringBuilder();
-			
+
 			sb.append("<p class='centre noPad'>");
 			if(characterBeingImpregnated.isPlayer()){
 				sb.append("You feel ");
@@ -375,7 +375,7 @@ public enum PregnancyDescriptor {
 				} else {
 					sb.append(", and you realise that [style.boldSex(it's a certainty that you've been impregnated)]!");
 				}
-				
+
 			} else {
 				sb.append("After having [npc.her] ");
 				if(isSlime) {
@@ -399,7 +399,7 @@ public enum PregnancyDescriptor {
 				}
 			}
 			sb.append("</p>");
-			
+
 			if(characterProvidingCum!=null) {
 				return UtilText.parse(characterBeingImpregnated, characterProvidingCum, sb.toString());
 			} else {
@@ -407,10 +407,10 @@ public enum PregnancyDescriptor {
 			}
 		}
 	};
-	
-	
+
+
 	public abstract String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum, boolean directSexInsemination);
-	
+
 	public static PregnancyDescriptor getPregnancyDescriptorBasedOnProbability(float probability) {
 		if (probability <= 0) {
 			return PregnancyDescriptor.NO_CHANCE;

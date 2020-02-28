@@ -20,7 +20,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class HandHolding {
-	
+
 	public static final SexAction PLAYER_HAND_MASSAGE = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
@@ -56,7 +56,7 @@ public class HandHolding {
 		public void applyEffects() {
 		}
 	};
-	
+
 	public static final SexAction PLAYER_INTERLOCKING_FINGERS = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
@@ -92,7 +92,7 @@ public class HandHolding {
 		public void applyEffects() {
 		}
 	};
-	
+
 	public static final SexAction PLAYER_NAIL_FOCUS = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
@@ -128,7 +128,7 @@ public class HandHolding {
 		public void applyEffects() {
 		}
 	};
-	
+
 	public static final SexAction FINGER_STROKING = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
@@ -164,7 +164,7 @@ public class HandHolding {
 		public void applyEffects() {
 		}
 	};
-	
+
 	public static final SexAction PLAYER_LICK_PALM = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
@@ -200,7 +200,7 @@ public class HandHolding {
 		public void applyEffects() {
 		}
 	};
-	
+
 	public static final SexAction PLAYER_START_SUCKING = new SexAction(
 			SexActionType.START_ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
@@ -232,7 +232,7 @@ public class HandHolding {
 					+ " Thus relegating yourself to the ranks of the lewdest of sexual deviants, and knowing that you'll never quite be the same person as you once were, you proceed to then start sucking on Rose's fingers.";
 		}
 	};
-	
+
 	public static final SexAction PLAYER_GENTLE_SUCK = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
@@ -261,7 +261,7 @@ public class HandHolding {
 					"Wrapping your [pc.lips+] around Rose's angelic fingers, you gently suck and kiss at her perfectly-formed digits, making little [pc.moaning] noises as you notice the faint taste of her sweat hitting the back of your tongue.");
 		}
 	};
-	
+
 	public static final SexAction PLAYER_INTENSE_SUCK = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
@@ -290,7 +290,7 @@ public class HandHolding {
 					"Rose's fingers are soft and warm in your mouth, and, not being able to hold yourself back any longer, you frantically start sucking and kissing her perfectly-formed digits.");
 		}
 	};
-	
+
 	public static final SexAction PLAYER_STOP_SUCKING = new SexAction(
 			SexActionType.STOP_ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
@@ -317,9 +317,9 @@ public class HandHolding {
 					+ " A solitary strand of slimy saliva slowly slides out from your mouth, connecting your lips to Rose's fingertips for brief moment before breaking and falling to the floor beneath you.");
 		}
 	};
-	
+
 	// Rose:
-	
+
 	public static final SexAction PARTNER_MOAN = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
@@ -342,13 +342,13 @@ public class HandHolding {
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Rose lets out a desperate cry, ",
 					"With an extremely lewd moan, Rose cries out, ",
 					"Desperately moaning, Rose locks her [rose.eyes+] with yours, ",
 					"With a desperate, shuddering moan, Rose cries out, "));
-			
+
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"[rose.speech(~Aah!~ Yes! Don't stop!)]",
 					"[rose.speech(Yes! Yes! ~Aah!~ Take me!)]",
@@ -356,11 +356,11 @@ public class HandHolding {
 					"[rose.speech(Oh! ~Aah!~ Keep going! Yes!)]",
 					"[rose.speech(~Aah!~ Yes, Yes, Yes!!!)]",
 					"[rose.speech(~Aah!~ Oh yes! Keep going! ~Aah!~)]"));
-			
+
 			return UtilText.nodeContentSB.toString();
 		}
 	};
-	
+
 	public static final SexAction PARTNER_PANTING = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
@@ -389,7 +389,7 @@ public class HandHolding {
 					"With a desperate [rose.moan], Rose starts panting and sighing, and you see her [rose.tongue+] lolling out of her mouth as she struggles to deal with the amount of pleasure you're giving to her.");
 		}
 	};
-	
+
 	public static final SexAction PARTNER_TABLE_BRACE = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
@@ -418,7 +418,7 @@ public class HandHolding {
 					"Leaning against the nearby table-top, Rose uses the piece of furniture for support, clearly struggling to remain upright due to the overwhelming pleasure she's receiving from your expert hand-holding skills.");
 		}
 	};
-	
+
 	public static final SexAction PARTNER_SLIDE_FINGERS = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.FIVE_EXTREME,
@@ -447,7 +447,7 @@ public class HandHolding {
 					"In an unparallelled display of outrageous sexual deviancy, Rose starts slowly sliding her fingers in and out of your mouth, allowing you to feel her unbelievably soft skin rubbing back and forth past your [pc.lips+].");
 		}
 	};
-	
+
 	public static final SexAction PARTNER_STOP_SEX = new SexAction(
 			SexActionType.ONGOING,
 			ArousalIncrease.ONE_MINIMUM,

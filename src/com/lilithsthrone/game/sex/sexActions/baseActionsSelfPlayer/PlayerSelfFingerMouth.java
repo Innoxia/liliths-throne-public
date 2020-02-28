@@ -19,7 +19,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class PlayerSelfFingerMouth {
-	
+
 	public static final SexAction PLAYER_SELF_FINGER_MOUTH_LUBRICATION = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
@@ -31,12 +31,12 @@ public class PlayerSelfFingerMouth {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
-		
+
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.hasLubricationTypeFromAnyone(Main.game.getPlayer(), SexAreaPenetration.FINGER, LubricationType.SALIVA);
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Lubricate fingers";
@@ -51,13 +51,13 @@ public class PlayerSelfFingerMouth {
 		public String getDescription() {
 			return "Lifting your [pc.hand] up to your mouth, you slide your [pc.fingers] past your [pc.lips+], before lewdly sucking on them for a moment in order to get them well lubricated with your saliva.";
 		}
-		
+
 		@Override
 		public void applyEffects() {
 			Main.sex.transferLubrication(Main.game.getPlayer(), SexAreaPenetration.FINGER, Main.game.getPlayer(), SexAreaOrifice.MOUTH);
 		}
 	};
-	
+
 	public static final SexAction PLAYER_SELF_FINGER_MOUTH_PENETRATION = new SexAction(
 			SexActionType.START_ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -69,7 +69,7 @@ public class PlayerSelfFingerMouth {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Suck fingers (self)";
@@ -85,7 +85,7 @@ public class PlayerSelfFingerMouth {
 			return "Lifting your [pc.hand] up to your mouth, you slide your [pc.fingers] past your [pc.lips+] before starting to lewdly suck on your intruding digits.";
 		}
 	};
-	
+
 	public static final SexAction PLAYER_SELF_FINGER_MOUTH_STOP_PENETRATION = new SexAction(
 			SexActionType.STOP_ONGOING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -97,7 +97,7 @@ public class PlayerSelfFingerMouth {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.PLAYER_ONLY;
 		}
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Stop sucking fingers (self)";
