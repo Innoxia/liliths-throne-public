@@ -136,7 +136,7 @@ public class OccupancyUtil implements XMLSaving {
 	public void dailyOccupantUpdate(NPC occupant) {
 		occupant.resetOccupantFlags();
 		
-		if(!occupant.hasJob() || !occupant.getDesiredJobs().isEmpty()) {
+		if(!occupant.getDesiredJobs().isEmpty()) {
 			if(Math.random()<0.2) {
 				occupant.assignNewJob();
 				occupant.setFlag(NPCFlagValue.occupantHasNewJob, true);
@@ -820,10 +820,10 @@ public class OccupancyUtil implements XMLSaving {
 									} else {
 										if(slave.isHasAnyPregnancyEffects()) {
 											effectDescriptions.append(UtilText.parse(slave,
-													"but as [npc.sheIs] on promiscuity pills, there's no chance of [npc.herHim] getting pregnant."
+													"but as [npc.sheIs] on [#ITEM_PROMISCUITY_PILL.getNamePlural(false)], there's no chance of [npc.herHim] getting pregnant."
 													+ " ([npc.She] already has a risk of pregnancy from a previous encounter, however...)"));
 										} else {
-											effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] on promiscuity pills, there's no chance of [npc.herHim] getting pregnant."));
+											effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] on [#ITEM_PROMISCUITY_PILL.getNamePlural(false)], there's no chance of [npc.herHim] getting pregnant."));
 										}
 										effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
@@ -1014,10 +1014,10 @@ public class OccupancyUtil implements XMLSaving {
 										
 									} else {
 										if(slave.isHasAnyPregnancyEffects()) {
-											effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] on promiscuity pills, there's no chance of [npc.herHim] getting pregnant."
+											effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] on [#ITEM_PROMISCUITY_PILL.getNamePlural(false)], there's no chance of [npc.herHim] getting pregnant."
 														+ " ([npc.She] already has a risk of pregnancy from a previous encounter, however...)"));
 										} else {
-											effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] on promiscuity pills, there's no chance of [npc.herHim] getting pregnant."));
+											effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] on [#ITEM_PROMISCUITY_PILL.getNamePlural(false)], there's no chance of [npc.herHim] getting pregnant."));
 										}
 										effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
@@ -1044,10 +1044,10 @@ public class OccupancyUtil implements XMLSaving {
 									} else {
 										if(slave.isHasAnyPregnancyEffects()) {
 											effectDescriptions.append(UtilText.parse(slave,
-													"but as [npc.sheIs] on promiscuity pills, there's no chance of [npc.herHim] getting pregnant."
+													"but as [npc.sheIs] on [#ITEM_PROMISCUITY_PILL.getNamePlural(false)], there's no chance of [npc.herHim] getting pregnant."
 													+ " ([npc.She] already has a risk of pregnancy from a previous encounter, however...)"));
 										} else {
-											effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] on promiscuity pills, there's no chance of [npc.herHim] getting pregnant."));
+											effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] on [#ITEM_PROMISCUITY_PILL.getNamePlural(false)], there's no chance of [npc.herHim] getting pregnant."));
 										}
 										effects.add("<span style='color:"+Colour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);

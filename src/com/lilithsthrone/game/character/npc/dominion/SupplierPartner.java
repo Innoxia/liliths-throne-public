@@ -70,6 +70,10 @@ public class SupplierPartner extends NPC {
 				PlaceType.SUPPLIER_DEPOT_OFFICE,
 				true);
 		
+		if(!isImported) {
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 25);
+		}
+		
 	}
 
 	@Override
@@ -96,7 +100,6 @@ public class SupplierPartner extends NPC {
 	public void setupPerks(boolean autoSelectPerks) {
 		this.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
 		this.addSpecialPerk(Perk.SPECIAL_DIRTY_MINDED);
-		this.setAttribute(Attribute.MAJOR_CORRUPTION, 25);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(),

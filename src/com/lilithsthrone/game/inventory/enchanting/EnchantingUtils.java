@@ -122,10 +122,15 @@ public class EnchantingUtils {
 			}
 			if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_GYNEPHILIC) {
 				return "Gynephilic Hypno-Watch";
+				
 			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_AMBIPHILIC) {
 				return "Ambiphilic Hypno-Watch";
-			} else {
+				
+			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_ANDROPHILIC) {
 				return "Androphilic Hypno-Watch";
+				
+			} else {
+				return "Speech-modifying Hypno-Watch";
 			}
 		}
 		
@@ -271,7 +276,9 @@ public class EnchantingUtils {
 		}
 		
 		if(((AbstractItem)ingredient).getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId())) {
-			if(effects.isEmpty() || effects.get(0).getPrimaryModifier()==TFModifier.REMOVAL) {
+			if(effects.isEmpty()
+					|| effects.get(0).getPrimaryModifier()==null
+					|| effects.get(0).getPrimaryModifier()==TFModifier.REMOVAL) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchBase();
 			}
 			
@@ -281,9 +288,19 @@ public class EnchantingUtils {
 			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_AMBIPHILIC) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchAmbiphilic();
 				
-			} else {
+			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_ANDROPHILIC) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchAndrophilic();
+
+			} else if(effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP
+					|| effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER
+					|| effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
+				if(effects.get(0).getPotency().isNegative()) {
+					return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchSpeechRemove();
+				} else {
+					return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchSpeechAdd();
+				}
 			}
+			
 		}
 		
 		StringBuilder SVGImageSB = new StringBuilder();
@@ -320,7 +337,9 @@ public class EnchantingUtils {
 	public static String getImportedSVGString(AbstractCoreItem item, Colour importedColour, List<ItemEffect> effects) {
 
 		if(((AbstractItem)item).getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId())) {
-			if(effects.isEmpty() || effects.get(0).getPrimaryModifier()==TFModifier.REMOVAL) {
+			if(effects.isEmpty()
+					|| effects.get(0).getPrimaryModifier()==null
+					|| effects.get(0).getPrimaryModifier()==TFModifier.REMOVAL) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchBase();
 			}
 			
@@ -330,8 +349,17 @@ public class EnchantingUtils {
 			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_AMBIPHILIC) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchAmbiphilic();
 				
-			} else {
+			} else if(effects.get(0).getPrimaryModifier()==TFModifier.ORIENTATION_ANDROPHILIC) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchAndrophilic();
+				
+			} else if(effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP
+					|| effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER
+					|| effects.get(0).getPrimaryModifier()==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
+				if(effects.get(0).getPotency().isNegative()) {
+					return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchSpeechRemove();
+				} else {
+					return SVGImages.SVG_IMAGE_PROVIDER.getHypnoWatchSpeechAdd();
+				}
 			}
 		}
 		

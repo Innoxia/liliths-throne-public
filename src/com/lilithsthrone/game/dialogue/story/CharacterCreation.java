@@ -1629,6 +1629,12 @@ public class CharacterCreation {
 							+ " you explain,"
 							+ " [pc.speech(but I took tonight off so I could attend Lily's presentation.)]");
 					break;
+				case CONSTRUCTION_WORKER:
+					UtilText.nodeContentSB.append(
+							"[pc.speech(I'm a construction worker,)]"
+							+ " you explain,"
+							+ " [pc.speech(and I'm currently managing a large project on the outskirts of the city.)]");
+					break;
 				case MAID:
 					UtilText.nodeContentSB.append(
 							"[pc.speech(I work as the head maid for a highly influential family here in the city,)]"
@@ -1646,9 +1652,6 @@ public class CharacterCreation {
 							"[pc.speech(I work in one of the corporate offices in the centre of the city,)]"
 							+ " you explain,"
 							+ " [pc.speech(mostly doing admin and paper work.)]");
-					break;
-				case REINDEER_OVERSEER:
-					// "Well, if you hadn't already noticed, I'm actually an anthropomorphic reindeer, and I come down from the snowy mountains to shovel snow in the city every winter. :D"
 					break;
 				case SOLDIER:
 					UtilText.nodeContentSB.append(
@@ -1925,7 +1928,8 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						Main.mainController.setAttributePanelContent("");
-						Main.mainController.setButtonsContent("");
+						Main.mainController.setButtonsLeftContent("");
+						Main.mainController.setButtonsRightContent("");
 						
 						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCES);
 					}
@@ -2017,7 +2021,8 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						Main.mainController.setAttributePanelContent("");
-						Main.mainController.setButtonsContent("");
+						Main.mainController.setButtonsLeftContent("");
+						Main.mainController.setButtonsRightContent("");
 						
 						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCES);
 					}

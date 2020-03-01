@@ -993,6 +993,7 @@ public class BodyChanging {
 					
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformLactationFlavourDiv()
+						+ CharacterModificationUtils.getSelfTransformLactationModifiersDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1060,6 +1061,7 @@ public class BodyChanging {
 					
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformGirlcumFlavourDiv()
+						+ CharacterModificationUtils.getSelfTransformGirlcumModifiersDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1164,6 +1166,7 @@ public class BodyChanging {
 					
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformCumFlavourDiv()
+						+ CharacterModificationUtils.getSelfTransformCumModifiersDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1245,6 +1248,7 @@ public class BodyChanging {
 					
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformLactationCrotchFlavourDiv()
+						+ CharacterModificationUtils.getSelfTransformLactationCrotchModifiersDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"

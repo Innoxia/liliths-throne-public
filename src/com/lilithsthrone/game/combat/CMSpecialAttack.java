@@ -110,7 +110,7 @@ public class CMSpecialAttack {
 
 	public static CombatMove CAT_SCRATCH = new CombatMove("cat-scratch",
             "scratch",
-            0,
+            1,
             1,
             CombatMoveType.ATTACK,
             DamageType.UNARMED,
@@ -238,7 +238,7 @@ public class CMSpecialAttack {
 
 	public static CombatMove SQUIRREL_SCRATCH = new CombatMove("squirrel-scratch",
             "squirrel scratch",
-            0,
+            1,
             1,
             CombatMoveType.ATTACK,
             DamageType.UNARMED,

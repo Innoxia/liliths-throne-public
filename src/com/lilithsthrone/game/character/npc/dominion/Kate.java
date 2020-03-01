@@ -495,32 +495,23 @@ public class Kate extends NPC {
 	};
 	
 	@Override
-	public String getItemUseEffects(AbstractItem item,  GameCharacter itemOwner, GameCharacter user, GameCharacter target){
-		// Player is using an item:
-		if(user.isPlayer()){
-			// Player uses item on themselves:
-			if(target.isPlayer()){
-				return itemOwner.useItem(item, target, false);
-						
-			// Player uses item on NPC:
-			}else{
-				if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
-					itemOwner.useItem(item, target, false);
-						return "<p>"
-							+ "Producing a Vixen's Virility pill from your inventory, you pop it out of its plastic wrapper before pushing it into Kate's mouth."
+	public Value<Boolean, String> getItemUseEffects(AbstractItem item,  GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
+		if(user.isPlayer() && !target.isPlayer()) {
+			if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
+				itemOwner.useItem(item, target, false);
+				return new Value<>(true,
+						"<p>"
+							+ "Producing a '[#ITEM_VIXENS_VIRILITY.getName(false)]' from your inventory, you pop it out of its plastic wrapper before pushing it into Kate's mouth."
 							+ " She giggles as she happily swallows the little pink pill, knowing that it's going to make her womb far more fertile."
-						+ "</p>";
-				} else {
-					return "<p>"
-						+ "You start to pull "+item.getItemType().getDeterminer()+" "+item.getName()+" out from your inventory, but Kate quickly kicks your hand away and frowns at you."
-					+ "</p>";
-				}
+						+ "</p>");
+			} else {
+				return new Value<>(false,
+						"<p>"
+							+ "You start to pull "+item.getItemType().getDeterminer()+" "+item.getName()+" out from your inventory, but Kate quickly kicks your hand away and frowns at you."
+						+ "</p>");
 			}
-			
-		// NPC is using an item:
-		} else {
-			return itemOwner.useItem(item, target, false);
 		}
+		return super.getItemUseEffects(item, itemOwner, user, target);
 	}
 	
 	@Override

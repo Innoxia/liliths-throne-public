@@ -95,6 +95,8 @@ public class EnchantmentDialogue {
 
 		ItemEffect effect = getCurrentEffect();
 		
+		int displaySlots = Math.max(32, 8*(int)Math.ceil(Math.max(ingredient.getEnchantmentEffect().getPrimaryModifiers().size(), ingredient.getEnchantmentEffect().getSecondaryModifiers(ingredient, primaryMod).size())/8f));
+		
 		// Primary mods:
 		inventorySB.append("<div class='container-half-width' style='padding-bottom:0;'>");
 		for (TFModifier tfMod : ingredient.getEnchantmentEffect().getPrimaryModifiers()) {
@@ -103,7 +105,7 @@ public class EnchantmentDialogue {
 					+ "<div class='overlay' id='MOD_PRIMARY_"+tfMod.hashCode()+"'></div>"
 					+ "</div>");
 		}
-		for (int i = 32; i > ingredient.getEnchantmentEffect().getPrimaryModifiers().size(); i--) {
+		for (int i = displaySlots; i > ingredient.getEnchantmentEffect().getPrimaryModifiers().size(); i--) {
 			inventorySB.append("<div class='modifier-icon empty' style='width:11.5%;'></div>");
 		}
 		
@@ -136,7 +138,7 @@ public class EnchantmentDialogue {
 					+ "<div class='overlay' id='MOD_SECONDARY_"+tfMod.hashCode()+"'></div>"
 					+ "</div>");
 		}
-		for (int i = 32; i > ingredient.getEnchantmentEffect().getSecondaryModifiers(ingredient, primaryMod).size(); i--) {
+		for (int i = displaySlots; i > ingredient.getEnchantmentEffect().getSecondaryModifiers(ingredient, primaryMod).size(); i--) {
 			inventorySB.append("<div class='modifier-icon empty' style='width:11.5%;'></div>");
 		}
 		

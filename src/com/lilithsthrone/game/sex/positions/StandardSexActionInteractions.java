@@ -843,6 +843,7 @@ public class StandardSexActionInteractions {
 								SexActionPresets.kissing,
 								SexActionPresets.appendagesToAllAreas,
 								SexActionPresets.allAreasToAppendages,
+								SexActionPresets.thighsToPenis,
 								SexActionPresets.vaginaToPenis,
 								SexActionPresets.assToGroin),
 						Util.newArrayListOfValues(
@@ -894,6 +895,7 @@ public class StandardSexActionInteractions {
 						Util.mergeMaps(
 								SexActionPresets.appendagesToLowerHalf,
 								SexActionPresets.allAreasToAppendages,
+								SexActionPresets.thighsToPenis,
 								SexActionPresets.vaginaToPenis,
 								SexActionPresets.assToGroin),
 						Util.newArrayListOfValues(

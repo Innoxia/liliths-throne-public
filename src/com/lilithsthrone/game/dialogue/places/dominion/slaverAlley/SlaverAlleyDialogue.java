@@ -192,7 +192,7 @@ public class SlaverAlleyDialogue {
 			
 			slave.setAssWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
 			slave.setAssBleached(true);
-			slave.setAssCapacity(Util.random.nextInt(Capacity.ONE_EXTREMELY_TIGHT.getMaximumValue()), true);
+			slave.setAssCapacity(Util.random.nextInt((int) Capacity.ONE_EXTREMELY_TIGHT.getMaximumValue(false)), true);
 			slave.setAssVirgin(false);
 			Main.game.getPlayer().setKnowsCharacterArea(CoverableArea.ANUS, slave, true);
 			
@@ -218,7 +218,7 @@ public class SlaverAlleyDialogue {
 			slave.setPlayerKnowsName(true);
 			
 			slave.setVaginaWetness(Util.randomItemFrom(Util.newArrayListOfValues(Wetness.FOUR_SLIMY, Wetness.FIVE_SLOPPY, Wetness.SIX_SOPPING_WET, Wetness.SEVEN_DROOLING)).getValue());
-			slave.setVaginaCapacity(Util.random.nextInt(Capacity.ONE_EXTREMELY_TIGHT.getMaximumValue()), true);
+			slave.setVaginaCapacity(Util.random.nextInt((int) Capacity.ONE_EXTREMELY_TIGHT.getMaximumValue(false)), true);
 			slave.setVaginaVirgin(true);
 			
 			slave.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
@@ -2961,6 +2961,7 @@ public class SlaverAlleyDialogue {
 						PUBLIC_STOCKS) {
 					@Override
 					public void effects() {
+						banishRandomSexPartners();
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, false);
 						Main.game.getPlayer().equipAllClothingFromHoldingInventory();
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slaverAlleyCompanionInStocks)) {

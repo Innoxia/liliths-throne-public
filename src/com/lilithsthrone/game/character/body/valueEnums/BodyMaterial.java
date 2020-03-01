@@ -395,4 +395,11 @@ public enum BodyMaterial {
 	public boolean isAbleToWearMakeup() {
 		return ableToWearMakeup;
 	}
+
+	/**
+	 * @return true if this body material is subject to limited depth of orifices.
+	 */
+	public boolean isOrificesLimitedDepth() {
+		return this==FLESH;
+	}
 }

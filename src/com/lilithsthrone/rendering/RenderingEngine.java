@@ -113,7 +113,7 @@ public enum RenderingEngine {
 	private StringBuilder inventorySB = new StringBuilder(), equippedPanelSB = new StringBuilder();
 	
 	public String getInventoryPanel(GameCharacter charactersInventoryToRender, boolean buyback) {
-		return "<div class='container-full-width' style='background:#19191a'>"
+		return "<div class='container-full-width' style='background:"+Colour.BACKGROUND_DARK.toWebHexString()+"'>"
 					+getInventoryDiv(Main.game.getPlayer(), false) + getInventoryDiv(charactersInventoryToRender, buyback)
 				+"</div>";
 	}
@@ -702,8 +702,8 @@ public enum RenderingEngine {
 						+ "<div class='normal-button"+(transferDisabled?" disabled":"")+"' id='"+idModifier+"MONEY_TRANSFER_SMALL' style='"+buttonStyle+"'>[style."+(transferDisabled?"colourDisabled":"colourMinorGood")+"(&gt;)]</div>"
 						+ "<div class='normal-button"+(transferDisabled?" disabled":"")+"' id='"+idModifier+"MONEY_TRANSFER_AVERAGE' style='"+buttonStyle+"'>[style."+(transferDisabled?"colourDisabled":"colourGood")+"(&gt;)]</div>"
 						+ "<div class='normal-button"+(transferDisabled?" disabled":"")+"' id='"+idModifier+"MONEY_TRANSFER_BIG' style='"+buttonStyle+"'>[style."+(transferDisabled?"colourDisabled":"colourExcellent")+"(&gt;)]</div>");
-			} else {
 				
+			} else {
 				inventorySB.append(
 						"<div class='normal-button"+(transferDisabled?" disabled":"")+"' id='"+idModifier+"MONEY_TRANSFER_BIG' style='"+buttonStyle+"'>[style."+(transferDisabled?"colourDisabled":"colourExcellent")+"(&lt;)]</div>"
 						+ "<div class='normal-button"+(transferDisabled?" disabled":"")+"' id='"+idModifier+"MONEY_TRANSFER_AVERAGE' style='"+buttonStyle+"'>[style."+(transferDisabled?"colourDisabled":"colourGood")+"(&lt;)]</div>"
@@ -721,8 +721,6 @@ public enum RenderingEngine {
 		}
 		
 		inventorySB.append("</div>");
-
-//		inventorySB.append("</body>");
 		
 		return inventorySB.toString();
 	}
@@ -906,7 +904,7 @@ public enum RenderingEngine {
 					overlay += " dark";
 				}
 			} else {
-				last_layer = getItemPriceDiv(item.getPrice(npc.getSellModifier()));
+				last_layer = getItemPriceDiv(item.getPrice(npc.getSellModifier(item)));
 			}
 		} else {
 			boolean nonPlayerInv = charactersInventoryToRender!=null && !charactersInventoryToRender.isPlayer();
@@ -1063,7 +1061,7 @@ public enum RenderingEngine {
 		if(Main.game.isInSex()) {
 			// Name box:
 			uiAttributeSB.append(
-				"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
+				"<div class='full-width-container' style='background-color:"+Colour.BACKGROUND_DARK.toWebHexString()+"; border-radius:5px; margin-bottom:8px;'>"
 					+ "<div class='full-width-container'>"
 						+ "<p class='character-name' style='color:"+ (Main.sex.isDom(Main.game.getPlayer())
 								?Colour.DOMINANT.toWebHexString()+";'>Dominant"+(Main.sex.getDominantParticipants(true).size()>1?"s":"")+"</b>"
@@ -1090,7 +1088,7 @@ public enum RenderingEngine {
 			
 			// Name box:
 			uiAttributeSB.append(
-				"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
+				"<div class='full-width-container' style='background-color:"+Colour.BACKGROUND_DARK.toWebHexString()+"; border-radius:5px; margin-bottom:8px;'>"
 					+ "<div class='full-width-container'>"
 						+ "<p class='character-name' style='color:"+ Colour.BASE_GREEN.toWebHexString()+";'>"
 								+ "Allies"
@@ -1111,7 +1109,7 @@ public enum RenderingEngine {
 			
 		} else {
 			// Default place name box:
-			uiAttributeSB.append("<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
+			uiAttributeSB.append("<div class='full-width-container' style='background-color:"+Colour.BACKGROUND_DARK.toWebHexString()+"; border-radius:5px; margin-bottom:8px;'>"
 									+ getDefaultAttributeColumnHeader()
 									+"</div>"
 							+ "<div class='full-width-container' style='height: calc(100% - 138vw); overflow-y: auto;'>");
@@ -1281,7 +1279,7 @@ public enum RenderingEngine {
 			if(Main.game.isInSex()) {
 				// Name box:
 				uiAttributeSB.append(
-						"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
+						"<div class='full-width-container' style='background-color:"+Colour.BACKGROUND_DARK.toWebHexString()+"; border-radius:5px; margin-bottom:8px;'>"
 						+ "<div class='full-width-container'>"
 							+ "<p class='character-name' style='color:"+ (!Main.sex.isDom(Main.game.getPlayer())
 									?Colour.BASE_CRIMSON.toWebHexString()+";'>Dominant"+(Main.sex.getDominantParticipants(true).size()>1?"s":"")
@@ -1308,7 +1306,7 @@ public enum RenderingEngine {
 				
 				// Name box:
 				uiAttributeSB.append(
-					"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
+					"<div class='full-width-container' style='background-color:"+Colour.BACKGROUND_DARK.toWebHexString()+"; border-radius:5px; margin-bottom:8px;'>"
 						+ "<div class='full-width-container'>"
 							+ "<p class='character-name' style='color:"+ Colour.BASE_CRIMSON.toWebHexString()+";'>"
 								+ (Combat.getEnemies(Main.game.getPlayer()).size()>1?"Enemies":"Enemy")
@@ -1327,7 +1325,7 @@ public enum RenderingEngine {
 				
 			} else {
 				// Default place name box:
-				uiAttributeSB.append("<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
+				uiAttributeSB.append("<div class='full-width-container' style='background-color:"+Colour.BACKGROUND_DARK.toWebHexString()+"; border-radius:5px; margin-bottom:8px;'>"
 										+ getDefaultAttributeColumnHeader()
 									+"</div>"
 									+ "<div class='full-width-container' style='height: calc(100% - 138vw); overflow-y: auto;'>");
@@ -1338,7 +1336,7 @@ public enum RenderingEngine {
 
 			}
 
-			uiAttributeSB.append("<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:1px; padding:4px;'>");
+			uiAttributeSB.append("<div class='full-width-container' style='background-color:"+Colour.BACKGROUND_DARK.toWebHexString()+"; border-radius:5px; margin-bottom:1px; padding:4px;'>");
 			if(Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.INVENTORY && Main.game.isEnchantmentCapacityEnabled() && getCharacterToRender()!=null) {
 				int enchantmentPointsUsed = getCharacterToRender().getEnchantmentPointsUsedTotal();
 				uiAttributeSB.append(UtilText.parse(
@@ -1377,7 +1375,7 @@ public enum RenderingEngine {
 			}
 			// Default place name box:
 			uiAttributeSB.append(
-					"<div class='full-width-container' style='background-color:#19191a; border-radius:5px; margin-bottom:8px;'>"
+					"<div class='full-width-container' style='background-color:"+Colour.BACKGROUND_DARK.toWebHexString()+"; border-radius:5px; margin-bottom:8px;'>"
 						+ getDefaultAttributeColumnHeader()
 					+ "</div>");
 			
@@ -1857,7 +1855,7 @@ public enum RenderingEngine {
 		mapSB.append("<div class='map-container' style='background-color:"+background.toWebHexString()+";'>");
 		
 //		if(!Main.game.isInNewWorld()) {
-//			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:#19191a; border-radius:5px;'></div>");
+//			mapSB.append("<div style='left:0; top:0; margin:0; padding:0; width:100%; height:100vw; background-color:"+Colour.BACKGROUND_DARK.toWebHexString()+"; border-radius:5px;'></div>");
 //			renderedDisabledMap = true;
 //		}
 
@@ -2127,8 +2125,8 @@ public enum RenderingEngine {
 		}
 	}
 
-	public void renderButtons() {
-		Main.mainController.setButtonsContent(
+	public void renderButtonsLeft() {
+		Main.mainController.setButtonsLeftContent(
 				"<div class='quarterContainer'>"
 					+ "<div class='button' id='mainMenu'>"
 						+ SVGImages.SVG_IMAGE_PROVIDER.getMenuIcon()
@@ -2173,6 +2171,27 @@ public enum RenderingEngine {
 					+ "<div class='button" + (Main.game.getCurrentDialogueNode().isTravelDisabled() ? " disabled" : "") + "' id='mapZoom'>"
 						+ (RenderingEngine.isZoomedIn() ? SVGImages.SVG_IMAGE_PROVIDER.getZoomOutIcon() : SVGImages.SVG_IMAGE_PROVIDER.getZoomInIcon())
 							+ (Main.game.getCurrentDialogueNode().isTravelDisabled() ? "<div class='disabledLayer'></div>" : "")
+					+ "</div>"
+				+ "</div>");
+	}
+
+	public void renderButtonsRight() {
+		Main.mainController.setButtonsRightContent(
+				 "<div class='quarterContainer' style='float:right;'>"
+					+ "<div class='button" + (Main.isLoadGameAvailable(Main.getQuickSaveName())?"":" disabled")+ "' id='quickLoad'>"
+						+ (Main.isLoadGameAvailable(Main.getQuickSaveName())
+								?SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadQuick()
+								:SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadDisabled())
+						+ (!Main.isLoadGameAvailable(Main.getQuickSaveName()) ? "<div class='disabledLayer'></div>" : "")
+					+ "</div>"
+				+ "</div>"
+					
+				+ "<div class='quarterContainer' style='float:right;'>"
+					+ "<div class='button" + (Main.isQuickSaveAvailable()?"":" disabled")+ "' id='quickSave'>"
+						+ (Main.isQuickSaveAvailable()
+								?SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()
+								:SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled())
+						+ (!Main.isQuickSaveAvailable() ? "<div class='disabledLayer'></div>" : "")
 					+ "</div>"
 				+ "</div>");
 	}
@@ -2285,7 +2304,7 @@ public enum RenderingEngine {
 								+"</b>"
 								+ " - Level "+ character.getLevel()
 							+"</div>"
-							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;background:#333; border-radius: 2px;'>"
+							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+"; border-radius: 2px;'>"
 								+ (character.getLevel() != GameCharacter.LEVEL_CAP
 									? "<div style='mix-blend-mode: difference; width:" + (character.getExperience() / (character.getLevel() * 10f)) * 100 + "%; height:2vw; background:" + Colour.CLOTHING_BLUE_LIGHT.toWebHexString()
 											+ "; float:left; border-radius: 2px;'></div>"
@@ -2543,7 +2562,7 @@ public enum RenderingEngine {
 										?""
 										:" - <span style='color:"+Main.sex.getSexPace(character).getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(Main.sex.getSexPace(character).getName())+"</span>")
 							+"</div>"
-							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;background:#333; border-radius: 2px;'>"
+							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;background:"+Colour.BACKGROUND_ALT.toWebHexString()+"; border-radius: 2px;'>"
 								+ (character.getLevel() != GameCharacter.LEVEL_CAP
 									? "<div style='mix-blend-mode: difference; width:" + (character.getExperience() / (character.getLevel() * 10f)) * 100 + "%; height:2vw; background:" + Colour.CLOTHING_BLUE_LIGHT.toWebHexString()
 											+ "; float:left; border-radius: 2px;'></div>"

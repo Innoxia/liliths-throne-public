@@ -148,13 +148,14 @@ public class MainController implements Initializable {
 
 	// UI-related elements:
 	@FXML
-	private WebView webViewMain, webViewAttributes, webViewRight, webViewButtons;
+	private WebView webViewMain, webViewAttributes, webViewRight, webViewButtonsLeft, webViewButtonsRight;
 
 	static WebEngine webEngine;
 	private WebEngine webEngineTooltip;
 	private WebEngine webEngineAttributes;
 	private WebEngine webEngineRight;
-	private WebEngine webEngineButtons;
+	private WebEngine webEngineButtonsLeft;
+	private WebEngine webEngineButtonsRight;
 	private WebView webviewTooltip;
 	private Tooltip tooltip;
 	private EventHandler<KeyEvent> actionKeyPressed, actionKeyReleased;
@@ -364,7 +365,7 @@ public class MainController implements Initializable {
 						);
 			}
 
-		} else if (!isInventoryDisabled() || npc != null) {
+		} else if(!isInventoryDisabled() || npc!=null) {
 			if (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.NORMAL
 //					|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.OCCUPANT_MANAGEMENT
 					) {
@@ -979,7 +980,7 @@ public class MainController implements Initializable {
 		EventListenerDataMap.get(document).add(new EventListenerData(ID, type, listener, useCapture));
 	}
 	
-	public static Document document, documentButtons, documentAttributes, documentRight, documentInventory, documentMap, documentMapTitle;
+	public static Document document, documentButtonsLeft, documentButtonsRight, documentAttributes, documentRight, documentInventory, documentMap, documentMapTitle;
 	private boolean debugAllowListeners = true;
 	/**
 	 * Sets up all WebView EventListeners and WebEngines.
@@ -1024,25 +1025,44 @@ public class MainController implements Initializable {
 
 		// Buttons webview:
 
-		webViewButtons.setContextMenuEnabled(false);
-		webEngineButtons = webViewButtons.getEngine();
-		webEngineButtons.setJavaScriptEnabled(false);
-		webEngineButtons.getHistory().setMaxSize(0);
+		webViewButtonsLeft.setContextMenuEnabled(false);
+		webEngineButtonsLeft = webViewButtonsLeft.getEngine();
+		webEngineButtonsLeft.setJavaScriptEnabled(false);
+		webEngineButtonsLeft.getHistory().setMaxSize(0);
 		
 		if (Main.getProperties().hasValue(PropertyValue.lightTheme)) {
-			webEngineButtons.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet_light.css").toExternalForm());
+			webEngineButtonsLeft.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet_light.css").toExternalForm());
 		} else {
-			webEngineButtons.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet.css").toExternalForm());
+			webEngineButtonsLeft.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet.css").toExternalForm());
 		}
 		
 		if(debugAllowListeners)
-		webEngineButtons.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
+		webEngineButtonsLeft.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
 			if (newState == State.SUCCEEDED) {
-				unbindListeners(documentButtons);
-				manageButtonListeners();
+				unbindListeners(documentButtonsLeft);
+				manageButtonLeftListeners();
 			}
 		});
 
+		webViewButtonsRight.setContextMenuEnabled(false);
+		webEngineButtonsRight = webViewButtonsRight.getEngine();
+		webEngineButtonsRight.setJavaScriptEnabled(false);
+		webEngineButtonsRight.getHistory().setMaxSize(0);
+		
+		if (Main.getProperties().hasValue(PropertyValue.lightTheme)) {
+			webEngineButtonsRight.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet_light.css").toExternalForm());
+		} else {
+			webEngineButtonsRight.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet.css").toExternalForm());
+		}
+		
+		if(debugAllowListeners)
+		webEngineButtonsRight.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
+			if (newState == State.SUCCEEDED) {
+				unbindListeners(documentButtonsRight);
+				manageButtonRightListeners();
+			}
+		});
+		
 		
 		// Attributes WebView:
 		webViewAttributes.setContextMenuEnabled(false);
@@ -1414,20 +1434,99 @@ public class MainController implements Initializable {
 		}
 	}
 	
-	private void manageButtonListeners() {
-		documentButtons = (Document) webEngineButtons.executeScript("document");
-		EventListenerDataMap.put(documentButtons, new ArrayList<>());
+	private void manageButtonLeftListeners() {
+		documentButtonsLeft = (Document) webEngineButtonsLeft.executeScript("document");
+		EventListenerDataMap.put(documentButtonsLeft, new ArrayList<>());
 		
-		if(((EventTarget) documentButtons.getElementById("mainMenu"))!=null)
-			addEventListener(documentButtons, "mainMenu", "click", menuButtonListener, true);
-		if(((EventTarget) documentButtons.getElementById("inventory"))!=null)
-			addEventListener(documentButtons, "inventory", "click", inventoryButtonListener, true);
-		if(((EventTarget) documentButtons.getElementById("journal"))!=null)
-			addEventListener(documentButtons, "journal", "click", journalButtonListener, true);
-		if(((EventTarget) documentButtons.getElementById("charactersPresent"))!=null)
-			addEventListener(documentButtons, "charactersPresent", "click", charactersPresentButtonListener, true);
-		if(((EventTarget) documentButtons.getElementById("mapZoom"))!=null)
-			addEventListener(documentButtons, "mapZoom", "click", zoomButtonListener, true);
+		KeyCodeWithModifiers hotKey;
+		if(((EventTarget) documentButtonsLeft.getElementById("mainMenu"))!=null) {
+			addEventListener(documentButtonsLeft, "mainMenu", "click", menuButtonListener, true);
+			MainController.addEventListener(documentButtonsLeft, "mainMenu", "mousemove", MainController.moveTooltipListener, false);
+			MainController.addEventListener(documentButtonsLeft, "mainMenu", "mouseleave", MainController.hideTooltipListener, false);
+			hotKey = Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MENU);
+			MainController.addEventListener(documentButtonsLeft, "mainMenu", "mouseenter", new TooltipInformationEventListener().setInformation("Main Menu"+(hotKey==null?"":" ("+hotKey.getFullName()+")"), ""), false);
+		}
+		if(((EventTarget) documentButtonsLeft.getElementById("inventory"))!=null) {
+			addEventListener(documentButtonsLeft, "inventory", "click", inventoryButtonListener, true);
+			MainController.addEventListener(documentButtonsLeft, "inventory", "mousemove", MainController.moveTooltipListener, false);
+			MainController.addEventListener(documentButtonsLeft, "inventory", "mouseleave", MainController.hideTooltipListener, false);
+			hotKey = Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.INVENTORY);
+			MainController.addEventListener(documentButtonsLeft, "inventory", "mouseenter", new TooltipInformationEventListener().setInformation("Inventory"+(hotKey==null?"":" ("+hotKey.getFullName()+")"), ""), false);
+		}
+		if(((EventTarget) documentButtonsLeft.getElementById("journal"))!=null) {
+			addEventListener(documentButtonsLeft, "journal", "click", journalButtonListener, true);
+			MainController.addEventListener(documentButtonsLeft, "journal", "mousemove", MainController.moveTooltipListener, false);
+			MainController.addEventListener(documentButtonsLeft, "journal", "mouseleave", MainController.hideTooltipListener, false);
+			hotKey = Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.JOURNAL);
+			MainController.addEventListener(documentButtonsLeft, "journal", "mouseenter", new TooltipInformationEventListener().setInformation("Phone"+(hotKey==null?"":" ("+hotKey.getFullName()+")"), ""), false);
+		}
+		if(((EventTarget) documentButtonsLeft.getElementById("charactersPresent"))!=null) {
+			addEventListener(documentButtonsLeft, "charactersPresent", "click", charactersPresentButtonListener, true);
+			MainController.addEventListener(documentButtonsLeft, "charactersPresent", "mousemove", MainController.moveTooltipListener, false);
+			MainController.addEventListener(documentButtonsLeft, "charactersPresent", "mouseleave", MainController.hideTooltipListener, false);
+			hotKey = Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.CHARACTERS);
+			MainController.addEventListener(documentButtonsLeft, "charactersPresent", "mouseenter", new TooltipInformationEventListener().setInformation("Characters Present"+(hotKey==null?"":" ("+hotKey.getFullName()+")"), ""), false);
+		}
+		if(((EventTarget) documentButtonsLeft.getElementById("mapZoom"))!=null) {
+			addEventListener(documentButtonsLeft, "mapZoom", "click", zoomButtonListener, true);
+			MainController.addEventListener(documentButtonsLeft, "mapZoom", "mousemove", MainController.moveTooltipListener, false);
+			MainController.addEventListener(documentButtonsLeft, "mapZoom", "mouseleave", MainController.hideTooltipListener, false);
+			hotKey = Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.ZOOM);
+			MainController.addEventListener(documentButtonsLeft, "mapZoom", "mouseenter", new TooltipInformationEventListener().setInformation("Minimap Zoom"+(hotKey==null?"":" ("+hotKey.getFullName()+")"), ""), false);
+		}
+	}
+	
+	private void manageButtonRightListeners() {
+		documentButtonsRight = (Document) webEngineButtonsRight.executeScript("document");
+		EventListenerDataMap.put(documentButtonsRight, new ArrayList<>());
+		
+		boolean quickSaveAvailable = Main.isQuickSaveAvailable() && Main.game.isInNewWorld();
+		boolean quickLoadAvailable = Main.isLoadGameAvailable(Main.getQuickSaveName()) && Main.game.isInNewWorld();
+		KeyCodeWithModifiers hotKey;
+		
+		if(((EventTarget) documentButtonsRight.getElementById("quickSave"))!=null) {
+			addEventListener(documentButtonsRight, "quickSave", "click", e -> {
+				Main.quickSaveGame();
+			}, false);
+		
+			MainController.addEventListener(documentButtonsRight, "quickSave", "mousemove", MainController.moveTooltipListener, false);
+			MainController.addEventListener(documentButtonsRight, "quickSave", "mouseleave", MainController.hideTooltipListener, false);
+			hotKey = Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.QUICKSAVE);
+			MainController.addEventListener(documentButtonsRight, "quickSave", "mouseenter", new TooltipInformationEventListener().setInformation(
+					quickSaveAvailable
+						?"[style.colourGood(Quick Save"+(hotKey==null?"":" ("+hotKey.getFullName()+")")+")]"
+						:"[style.colourBad(Quick Save"+(hotKey==null?"":" ("+hotKey.getFullName()+")")+")]",
+					"Either creates or "+(quickLoadAvailable?"[style.italicsBad(overrides)]":"")+" the save file with the name '"+Main.getQuickSaveName()+"'."
+						+ (hotKey==null
+							?"<br/>There is no keyboard shortcut currently bound to this action."
+							:"<br/>You can also quick save by pressing the '"+hotKey.getFullName()+"' key.")
+						+ (quickSaveAvailable
+							?"<br/>[style.italicsGood(You can save the game in this scene!)]"
+							:"<br/>[style.italicsBad("+Main.getQuickSaveUnavailabilityDescription()+")]")),
+					false);
+		}
+		
+		if(((EventTarget) documentButtonsRight.getElementById("quickLoad"))!=null) {
+			addEventListener(documentButtonsRight, "quickLoad", "click", e -> {
+				Main.quickLoadGame();
+			}, false);
+		
+			MainController.addEventListener(documentButtonsRight, "quickLoad", "mousemove", MainController.moveTooltipListener, false);
+			MainController.addEventListener(documentButtonsRight, "quickLoad", "mouseleave", MainController.hideTooltipListener, false);
+			hotKey = Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.QUICKLOAD);
+			MainController.addEventListener(documentButtonsRight, "quickLoad", "mouseenter", new TooltipInformationEventListener().setInformation(
+					quickLoadAvailable
+						?"[style.colourGood(Quick Load"+(hotKey==null?"":" ("+hotKey.getFullName()+")")+")]"
+						:"[style.colourBad(Quick Load"+(hotKey==null?"":" ("+hotKey.getFullName()+")")+")]",
+					"Loads the game file with the name '"+Main.getQuickSaveName()+"'."
+						+(hotKey==null
+							?"<br/>There is no keyboard shortcut currently bound to this action."
+							:"<br/>You can also quick load by pressing the '"+hotKey.getFullName()+"' key.")
+						+(quickLoadAvailable
+							?"<br/>[style.italicsGood(Quick save file is detected for this character!)]"
+							:"<br/>[style.italicsBad(No quick save file detected for this character!)]")),
+					false);
+		}
 	}
 	
 	private void manageAttributeListeners() {
@@ -1963,7 +2062,7 @@ public class MainController implements Initializable {
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
 								"Races Present",
 								Util.subspeciesToStringList(subspecies, true)+".",
-								(subspecies.size()/3)*16);
+								16 + ((subspecies.size()/3)*16));
 						addEventListener(documentRight, id, "mouseenter", el, false);
 					}
 					i++;
@@ -2171,13 +2270,23 @@ public class MainController implements Initializable {
 		}
 	}
 	
-	public void setButtonsContent(String content) {
+	public void setButtonsLeftContent(String content) {
 		if(useJavascriptToSetContent) {
-			unbindListeners(documentButtons);
-			setWebEngineContent(webEngineButtons, content);
-			manageButtonListeners();
+			unbindListeners(documentButtonsLeft);
+			setWebEngineContent(webEngineButtonsLeft, content);
+			manageButtonLeftListeners();
 		} else {
-			webEngineButtons.loadContent(content);
+			webEngineButtonsLeft.loadContent(content);
+		}
+	}
+	
+	public void setButtonsRightContent(String content) {
+		if(useJavascriptToSetContent) {
+			unbindListeners(documentButtonsRight);
+			setWebEngineContent(webEngineButtonsRight, content);
+			manageButtonRightListeners();
+		} else {
+			webEngineButtonsRight.loadContent(content);
 		}
 	}
 	
@@ -2391,7 +2500,12 @@ public class MainController implements Initializable {
 			RenderingEngine.ENGINE.renderAttributesPanelLeft();
 			RenderingEngine.ENGINE.renderAttributesPanelRight();
 		}
-		RenderingEngine.ENGINE.renderButtons();
+		updateUIButtons();
+	}
+	
+	public static void updateUIButtons() {
+		RenderingEngine.ENGINE.renderButtonsLeft();
+		RenderingEngine.ENGINE.renderButtonsRight();
 	}
 	
 	public void updateUILeftPanel() {
@@ -2407,7 +2521,8 @@ public class MainController implements Initializable {
 			RenderingEngine.setZoomedIn(!RenderingEngine.isZoomedIn());
 			
 			Main.mainController.updateUILeftPanel();
-			RenderingEngine.ENGINE.renderButtons();
+			RenderingEngine.ENGINE.renderButtonsLeft();
+			RenderingEngine.ENGINE.renderButtonsRight();
 		}
 	}
 
@@ -2506,8 +2621,12 @@ public class MainController implements Initializable {
 		return webEngineRight;
 	}
 	
-	public WebEngine getWebEngineButtons() {
-		return webEngineButtons;
+	public WebEngine getWebEngineButtonsLeft() {
+		return webEngineButtonsLeft;
+	}
+	
+	public WebEngine getWebEngineButtonsRight() {
+		return webEngineButtonsRight;
 	}
 
 	// UI related:
@@ -2538,7 +2657,8 @@ public class MainController implements Initializable {
 		if (Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			getWebEngineTooltip().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewTooltip_stylesheet.css").toExternalForm());
 			getWebEngine().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webView_stylesheet.css").toExternalForm());
-			getWebEngineButtons().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet.css").toExternalForm());
+			getWebEngineButtonsLeft().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet.css").toExternalForm());
+			getWebEngineButtonsRight().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet.css").toExternalForm());
 			getWebEngineAttributes().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet.css").toExternalForm());
 			getWebEngineRight().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet.css").toExternalForm());
 	
@@ -2548,7 +2668,8 @@ public class MainController implements Initializable {
 		} else {
 			getWebEngineTooltip().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewTooltip_stylesheet_light.css").toExternalForm());
 			getWebEngine().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webView_stylesheet_light.css").toExternalForm());
-			getWebEngineButtons().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet_light.css").toExternalForm());
+			getWebEngineButtonsLeft().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet_light.css").toExternalForm());
+			getWebEngineButtonsRight().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet_light.css").toExternalForm());
 			getWebEngineAttributes().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet_light.css").toExternalForm());
 			getWebEngineRight().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet_light.css").toExternalForm());
 	

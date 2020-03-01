@@ -59,7 +59,7 @@ public class SABraxSubCowgirl {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
+			if (Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"You cry out as you bounce up and down on Brax's [npc.penis+], ",
 						"In amongst your moans, you cry down to Brax, "));
@@ -75,7 +75,7 @@ public class SABraxSubCowgirl {
 
 							"Good boy! ~Aah!~ Let your alpha ride you like a little bitch!")));
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"You cry out as you bounce up and down on Brax's [npc.penis+], ",
 						"In amongst your moans, you cry down to Brax, "));
@@ -91,7 +91,7 @@ public class SABraxSubCowgirl {
 
 							"Good boy! ~Aah!~ Let your alpha ride you like a little bitch!")));
 				
-			} else if(Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
+			} else if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Looking down at the top of Brax's face between your legs, you speak down to him, ",
 						"With a grin, you speak down to Brax, "));
@@ -107,7 +107,7 @@ public class SABraxSubCowgirl {
 
 							"~Aah!~ Yes! Keep doing it like that!")));
 				
-			} else if(Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE)) {
+			} else if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Looking down at the top of Brax's face between your legs, you speak down to him, ",
 						"With a grin, you speak down to Brax, "));
@@ -181,7 +181,7 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public String getDescription() {
-			if (!Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty()) {
+			if (!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty()) {
 				switch(Util.random.nextInt(5)){
 					case 0:
 						return "You sink down onto Brax's [npc.penis+], letting out a happy squeal as you feel him deep inside your [pc.asshole+]."
@@ -198,7 +198,7 @@ public class SABraxSubCowgirl {
 						return "Leaning down, you let out a desperate groan as you bury yourself on Brax's [npc.penis+], before pressing your lips against his and starting to eagerly kiss the masculine wolf-boy.";
 				}
 
-			} else if (!Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty()) {
+			} else if (!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty()) {
 				switch(Util.random.nextInt(5)){
 					case 0:
 						return "You sink down onto Brax's [npc.penis+], letting out a happy squeal as you feel him deep inside your "+Main.game.getPlayer().getVaginaName(true)+"."
@@ -278,8 +278,8 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty()
-					&& !Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
+			return Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty()
+					&& !Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)
 					&& Main.game.getPlayer().getVaginaType() != VaginaType.NONE;
 		}
 
@@ -288,7 +288,7 @@ public class SABraxSubCowgirl {
 			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)) {
 				UtilText.nodeContentSB.setLength(0);
 				
-				if(Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE)) {
+				if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE)) {
 					UtilText.nodeContentSB.append("Deciding that you've had enough of Brax's tongue in your [pc.asshole+], you lift yourself up and shuffle backwards until your "
 								+Main.game.getPlayer().getVaginaName(true)+" is positioned over his face.");
 					
@@ -303,7 +303,7 @@ public class SABraxSubCowgirl {
 				return UtilText.nodeContentSB.toString();
 						
 			} else {
-				if(Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE)) {
+				if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE)) {
 					return "Deciding that you've had enough of Brax's tongue in your [pc.asshole+], you lift yourself up and shuffle backwards until your "
 								+Main.game.getPlayer().getVaginaName(true)+" is positioned over his wolf-like muzzle."
 							+ " Lowering yourself down, you let out a pleased moan as you feel Brax's flat tongue greedily start to lick at your sensitive folds, and as your "
@@ -373,7 +373,7 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS);
+			return !Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS);
 		}
 
 		@Override
@@ -381,7 +381,7 @@ public class SABraxSubCowgirl {
 			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CREAMPIE_ANUS)) {
 				UtilText.nodeContentSB.setLength(0);
 				
-				if(Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
+				if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
 					UtilText.nodeContentSB.append("Deciding that you've had enough of Brax's tongue in your "+Main.game.getPlayer().getVaginaName(true)+", you lift yourself up and shuffle forwards until your [pc.asshole+] is positioned over his face.");
 					
 				} else {
@@ -395,7 +395,7 @@ public class SABraxSubCowgirl {
 				return UtilText.nodeContentSB.toString();
 						
 			} else {
-				if(Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
+				if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
 					return "Deciding that you've had enough of Brax's tongue in your "+Main.game.getPlayer().getVaginaName(true)+", you lift yourself up and shuffle forwards until your [pc.asshole+] is positioned over his wolf-like muzzle."
 							+ " Lowering yourself down, you let out a pleased moan as you feel Brax's flat tongue obediently start to lick at your [pc.asshole+].";
 					
@@ -526,7 +526,7 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public String getDescription() {
-			if(Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
+			if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
 				return UtilText.returnStringAtRandom(
 						"Feeling like taking it up a notch, you collapse down onto Brax's face, completely smothering his mouth with your "+Main.game.getPlayer().getVaginaName(true)+"."
 								+ " As he starts to whine and squirm, you grind yourself down onto his wolf-like muzzle, letting out a desperate squeal as his tongue is forced deep into your "+Main.game.getPlayer().getVaginaName(true)+".",
@@ -618,14 +618,14 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE);
+			return !Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE);
 		}
 		
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if (!Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty())
+			if (!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty())
 				UtilText.nodeContentSB.append("You lift yourself up, letting Brax's pointed dog-cock slip out of your [pc.asshole+]. ");
 
 			UtilText.nodeContentSB.append("Reaching down and taking hold of the [npc.penis+] beneath you, you shuffle around until it's lined up to your "+Main.game.getPlayer().getVaginaName(true)+"."
@@ -660,14 +660,14 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE);
+			return !Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE);
 		}
 
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if (!Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty())
+			if (!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty())
 				UtilText.nodeContentSB.append("You lift yourself up, letting Brax's pointed dog-cock slip out of your "+Main.game.getPlayer().getVaginaName(true)+". ");
 
 			UtilText.nodeContentSB.append("Reaching down and taking hold of the [npc.penis+] beneath you, you shuffle around until it's lined up to your [pc.asshole+]."
@@ -1171,7 +1171,7 @@ public class SABraxSubCowgirl {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
+			if (Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Brax cries out as you bounce up and down on his [npc.penis+], ",
 						"In amongst his groans, Brax cries up to you, "));
@@ -1187,7 +1187,7 @@ public class SABraxSubCowgirl {
 
 							"I'm your good little beta! ~Aah!~ Use me!"), Main.sex.getCharacterPerformingAction()));
 				
-			} else if (Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
+			} else if (Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Brax cries out as you bounce up and down on his [npc.penis+], ",
 						"In amongst his groans, Brax cries up to you, "));
@@ -1203,7 +1203,7 @@ public class SABraxSubCowgirl {
 
 							"I'm your good little beta! ~Aah!~ Use me!"), Main.sex.getCharacterPerformingAction()));
 				
-			} else if(Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
+			} else if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Looking up from between your legs, Brax mumbles into your pussy, ",
 						"Brax mumbles up to you, "));
@@ -1219,7 +1219,7 @@ public class SABraxSubCowgirl {
 
 							"~Mrph!~ Taste... ~Mmm!~ Good!"), Main.sex.getCharacterPerformingAction()));
 				
-			} else if(Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE)) {
+			} else if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Brax mumbles into your ass, ",
 						"Brax mumbles up to you, "));
@@ -1431,8 +1431,8 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public String getDescription() {
-			if(Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE)
-					|| Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
+			if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE)
+					|| Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE)) {
 				return UtilText.returnStringAtRandom(
 						"As you carry on using his tongue, Brax reaches down to grab his [npc.penis+], letting out a series of pathetic whines as he starts jerking himself off.",
 
@@ -1733,15 +1733,15 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE))
-					|| (Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE));
+			return (Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE))
+					|| (Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.TONGUE));
 		}
 
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE))
+			if (Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.TONGUE))
 				UtilText.nodeContentSB.append("As you feel Brax's tongue lapping away at your [pc.asshole+], you realise that you're starting to climax, and with a desperate moan, you brace for your orgasm. ");
 			else
 				UtilText.nodeContentSB.append("As you feel Brax's tongue lapping away at your "+Main.game.getPlayer().getVaginaName(true)+", you realise that you're starting to climax, and with a desperate moan, you brace for your orgasm. ");
@@ -1858,15 +1858,15 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS))
-					|| (Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS));
+			return (Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS))
+					|| (Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS));
 		}
 
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS))
+			if(Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS))
 				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you increase the speed at which you're bouncing up and down on Brax's [npc.penis+]."
 						+ " Letting out a desperate moan, your mind is overwhelmed by the feeling in your [pc.asshole+], and you brace for your orgasm. ");
 			else
@@ -1929,7 +1929,7 @@ public class SABraxSubCowgirl {
 
 			// Vagina:
 			if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
-				if (!Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty()) {
+				if (!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty()) {
 					UtilText.nodeContentSB.append("As you continue to impale your ass on Brax's knotted dog-cock, you feel an intense heat building in your pussy."
 							+ " Grabbing Brax's chest to brace yourself, you go weak at the knees and clench your thighs together as your hot slit shudders and quivers."
 							+ " A mind-splitting orgasm washes through you, and you moan and squeal in delight as your feminine sex provides you with a wave of intense pleasure.");
@@ -1942,7 +1942,7 @@ public class SABraxSubCowgirl {
 
 			// Mound:
 			if (Main.game.getPlayer().getPenisType() == PenisType.NONE && Main.game.getPlayer().getVaginaType() == VaginaType.NONE) {
-				if (!Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty()) {
+				if (!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty()) {
 					UtilText.nodeContentSB.append("As you continue to impale your ass on Brax's knotted dog-cock, you feel an intense heat building in your genderless mound."
 							+ " Grabbing Brax's chest to brace yourself, you go weak at the knees and clench your thighs together as your doll-like crotch sends jolts of pleasure up through your body."
 							+ " A mind-splitting orgasm washes over you, and you moan and squeal in delight as you desperately stroke at the smooth and sensitive area between your legs.");
@@ -1998,7 +1998,7 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public String getDescription() {
-			if (!Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty()) {
+			if (!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty()) {
 				return "Brax's groans start getting louder, and you realise that he's about to orgasm."
 						+ " Feeling the fat cock in your ass throbbing wildly, you're suddenly overcome by the desperate need to have your ass filled with his sticky seed."
 						+ " Lifting yourself up one last time, you slam yourself down on his swollen member, driving the fat knot at the base of his cock into your asshole."
@@ -2007,7 +2007,7 @@ public class SABraxSubCowgirl {
 						+ "Brax lets out a wild groan, and you squirm in delight as you feel his cock spurting it's potent load into your slutty backdoor."
 						+ " After a few moments, you feel the knot deflating, and with a wet pop, it slips out, freeing you up again.";
 				
-			} else if (!Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty()) {
+			} else if (!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty()) {
 				return "Brax's groans start getting louder, and you realise that he's about to orgasm."
 						+ " Feeling the fat cock in your pussy throbbing wildly, you're suddenly overcome by the desperate need to "+(Main.game.getPlayer().isVisiblyPregnant()?"be":"have your womb")+" filled with his sticky seed."
 						+ " Lifting yourself up one last time, you slam yourself down on his swollen member, driving the fat knot at the base of his cock into your greedy cunt."
@@ -2038,16 +2038,16 @@ public class SABraxSubCowgirl {
 		@Override
 		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(!cumProvider.isPlayer() && cumTarget.equals(Main.sex.getTargetedPartner(cumProvider))) {
-				if (Main.sex.getAllContactingSexAreas(cumTarget, SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS) && Main.sex.getCharacterContactingSexArea(cumTarget, SexAreaOrifice.VAGINA).contains(cumProvider)) {
+				if (Main.sex.getAllOngoingSexAreas(cumTarget, SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS) && Main.sex.getCharacterOngoingSexArea(cumTarget, SexAreaOrifice.VAGINA).contains(cumProvider)) {
 					return Util.newArrayListOfValues(SexAreaOrifice.VAGINA);
 					
-				} else if (Main.sex.getAllContactingSexAreas(cumTarget, SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS) && Main.sex.getCharacterContactingSexArea(cumTarget, SexAreaOrifice.ANUS).contains(cumProvider)) {
+				} else if (Main.sex.getAllOngoingSexAreas(cumTarget, SexAreaOrifice.ANUS).contains(SexAreaPenetration.PENIS) && Main.sex.getCharacterOngoingSexArea(cumTarget, SexAreaOrifice.ANUS).contains(cumProvider)) {
 					return Util.newArrayListOfValues(SexAreaOrifice.ANUS);
 					
-				} else if (Main.sex.getAllContactingSexAreas(cumTarget, SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS) && Main.sex.getCharacterContactingSexArea(cumTarget, SexAreaOrifice.MOUTH).contains(cumProvider)) {
+				} else if (Main.sex.getAllOngoingSexAreas(cumTarget, SexAreaOrifice.MOUTH).contains(SexAreaPenetration.PENIS) && Main.sex.getCharacterOngoingSexArea(cumTarget, SexAreaOrifice.MOUTH).contains(cumProvider)) {
 					return Util.newArrayListOfValues(SexAreaOrifice.MOUTH);
 					
-				} else if (Main.sex.getAllContactingSexAreas(cumTarget, SexAreaOrifice.NIPPLE).contains(SexAreaPenetration.PENIS) && Main.sex.getCharacterContactingSexArea(cumTarget, SexAreaOrifice.NIPPLE).contains(cumProvider)) {
+				} else if (Main.sex.getAllOngoingSexAreas(cumTarget, SexAreaOrifice.NIPPLE).contains(SexAreaPenetration.PENIS) && Main.sex.getCharacterOngoingSexArea(cumTarget, SexAreaOrifice.NIPPLE).contains(cumProvider)) {
 					return Util.newArrayListOfValues(SexAreaOrifice.NIPPLE);
 					
 				} else {
@@ -2060,9 +2060,9 @@ public class SABraxSubCowgirl {
 		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
-			if (!Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty())
+			if (!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty())
 				return Util.newArrayListOfValues(Fetish.FETISH_PREGNANCY);
-			else if (!Main.sex.getAllContactingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty())
+			else if (!Main.sex.getAllOngoingSexAreas(Main.game.getPlayer(), SexAreaOrifice.ANUS).isEmpty())
 				return Util.newArrayListOfValues(Fetish.FETISH_ANAL_RECEIVING);
 			else
 				return null;

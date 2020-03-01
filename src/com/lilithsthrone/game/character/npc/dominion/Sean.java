@@ -221,7 +221,7 @@ public class Sean extends NPC {
 		}
 		
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.setEssenceCount(TFEssence.ARCANE, 50);
+			this.setEssenceCount(TFEssence.ARCANE, 100);
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_pbweap_pbpistol")));
 			this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("dsg_eep_pbweap_pbpistol")));
 		}
@@ -284,7 +284,7 @@ public class Sean extends NPC {
 	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		this.setEssenceCount(TFEssence.ARCANE, 50); // Make sure he doens't run out of ammo for subsequent fights
+		this.setEssenceCount(TFEssence.ARCANE, 100); // Make sure he doens't run out of ammo for subsequent fights
 		if(victory) {
 			return new Response("", "", SlaverAlleyDialogue.PUBLIC_STOCKS_COMPLAIN_CHALLENGE_VICTORY);
 		} else {

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -66,6 +67,27 @@ public enum TFModifier {
 			"androphilia",
 			"modifier_circle_orientation_androphilic",
 			Colour.MASCULINE_PLUS,
+			Rarity.LEGENDARY),
+	
+	PERSONALITY_TRAIT_SPEECH_LISP("lisp",
+			"Applies an effect related to a person speaking with a lisp.",
+			"lisp",
+			"modifier_circle_speech",
+			Colour.BASE_PURPLE_LIGHT,
+			Rarity.LEGENDARY),
+
+	PERSONALITY_TRAIT_SPEECH_STUTTER("stutter",
+			"Applies an effect related to a person speaking with a stutter.",
+			"stutter",
+			"modifier_circle_speech",
+			Colour.BASE_PINK_SALMON,
+			Rarity.LEGENDARY),
+
+	PERSONALITY_TRAIT_SPEECH_SLOVENLY("slovenly speech",
+			"Applies an effect related to a person speaking in a slovenly manner.",
+			"slovenly",
+			"modifier_circle_speech",
+			Colour.BASE_BROWN,
 			Rarity.LEGENDARY),
 	
 	// Attributes:
@@ -692,6 +714,13 @@ public enum TFModifier {
 			Colour.BASE_MAGENTA,
 			Rarity.COMMON),
 	
+	TF_MOD_ORIFICE_DEEP("extra-deep",
+			"Applies an effect related to making an orifice extra deep.",
+			"deepened",
+			"modifier_circle_orifice_deep",
+			Colour.BASE_GREY,
+			Rarity.COMMON),
+	
 	TF_MOD_ORIFICE_PUFFY_2("puffiness II",
 			"Applies an effect related to making an orifice puffy.",
 			"puffy",
@@ -718,6 +747,13 @@ public enum TFModifier {
 			"muscled",
 			"modifier_circle_orifice_muscled",
 			Colour.BASE_PURPLE,
+			Rarity.COMMON),
+	
+	TF_MOD_ORIFICE_DEEP_2("extra-deep II",
+			"Applies an effect related to making an orifice extra deep.",
+			"deepened",
+			"modifier_circle_orifice_deep",
+			Colour.BASE_BLACK,
 			Rarity.COMMON),
 	
 	// eye shapes:
@@ -1016,63 +1052,108 @@ public enum TFModifier {
 			"musk",
 			"modifier_circle_fluid_modifier",
 			Colour.BASE_BROWN,
-			Rarity.COMMON),
+			Rarity.COMMON) {
+		@Override
+		public Colour getColour() {
+			return FluidModifier.MUSKY.getColour();
+		}
+	},
 	
 	TF_MOD_FLUID_VISCOUS("viscous",
 			"Applies an effect related to changing a fluid.",
 			"viscous",
 			"modifier_circle_fluid_modifier",
 			Colour.BASE_GREY,
-			Rarity.COMMON),
+			Rarity.COMMON) {
+		@Override
+		public Colour getColour() {
+			return FluidModifier.VISCOUS.getColour();
+		}
+	},
 	
 	TF_MOD_FLUID_STICKY("sticky",
 			"Applies an effect related to changing a fluid.",
 			"sticky",
 			"modifier_circle_fluid_modifier",
 			Colour.BASE_YELLOW_LIGHT,
-			Rarity.COMMON),
+			Rarity.COMMON) {
+		@Override
+		public Colour getColour() {
+			return FluidModifier.STICKY.getColour();
+		}
+	},
 	
 	TF_MOD_FLUID_SLIMY("slimy",
 			"Applies an effect related to changing a fluid.",
 			"slimy",
 			"modifier_circle_fluid_modifier",
 			Colour.BASE_BLUE_LIGHT,
-			Rarity.COMMON),
+			Rarity.COMMON) {
+		@Override
+		public Colour getColour() {
+			return FluidModifier.SLIMY.getColour();
+		}
+	},
 	
 	TF_MOD_FLUID_BUBBLING("bubbling",
 			"Applies an effect related to changing a fluid.",
 			"bubbling",
 			"modifier_circle_fluid_modifier",
 			Colour.BASE_AQUA,
-			Rarity.COMMON),
+			Rarity.COMMON) {
+		@Override
+		public Colour getColour() {
+			return FluidModifier.BUBBLING.getColour();
+		}
+	},
 	
 	TF_MOD_FLUID_ALCOHOLIC("alcoholic",
 			"Applies an effect related to changing a fluid.",
 			"alcoholic",
 			"modifier_circle_fluid_modifier",
 			Colour.BASE_ORANGE,
-			Rarity.COMMON),
+			Rarity.COMMON) {
+		@Override
+		public Colour getColour() {
+			return FluidModifier.ALCOHOLIC.getColour();
+		}
+	},
 	
 	TF_MOD_FLUID_ADDICTIVE("addictive",
 			"Applies an effect related to changing a fluid.",
 			"addictive",
 			"modifier_circle_fluid_modifier",
 			Colour.BASE_PINK_DEEP,
-			Rarity.COMMON),
+			Rarity.COMMON) {
+		@Override
+		public Colour getColour() {
+			return FluidModifier.ADDICTIVE.getColour();
+		}
+	},
 	
 	TF_MOD_FLUID_HALLUCINOGENIC("psychoactive",
 			"Applies an effect related to changing a fluid.",
 			"psychoactive",
 			"modifier_circle_fluid_modifier",
 			Colour.BASE_MAGENTA,
-			Rarity.COMMON),
+			Rarity.COMMON) {
+		@Override
+		public Colour getColour() {
+			return FluidModifier.HALLUCINOGENIC.getColour();
+		}
+	},
 
 	TF_MOD_FLUID_MINERAL_OIL("mineral oil",
 			"Applies an effect related to changing a fluid.",
 			"mineral oil",
 			"modifier_circle_fluid_modifier",
 			Colour.BASE_BLACK,
-			Rarity.COMMON),
+			Rarity.COMMON) {
+		@Override
+		public Colour getColour() {
+			return FluidModifier.MINERAL_OIL.getColour();
+		}
+	},
 	
 	// fluid flavours: TODO background
 	
@@ -1219,6 +1300,7 @@ public enum TFModifier {
 	TF_MOD_FETISH_BIMBO(Fetish.FETISH_BIMBO),
 	TF_MOD_FETISH_KINK_GIVING(Fetish.FETISH_KINK_GIVING),
 	TF_MOD_FETISH_KINK_RECEIVING(Fetish.FETISH_KINK_RECEIVING),
+	TF_MOD_FETISH_SIZE_QUEEN(Fetish.FETISH_SIZE_QUEEN),
 	;
 
 	private static List<TFModifier> TFModStrengthList = new ArrayList<>();
@@ -1342,6 +1424,7 @@ public enum TFModifier {
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_INCEST);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_KINK_GIVING);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_KINK_RECEIVING);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_SIZE_QUEEN);
 
 		clothingPrimaryList.add(TFModifier.CLOTHING_MAJOR_ATTRIBUTE);
 		clothingPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
@@ -1442,6 +1525,7 @@ public enum TFModifier {
 	private String name;
 	private String description;
 	private String descriptor;
+	private String path;
 	private String SVGString;
 	
 	private Colour colour;
@@ -1457,37 +1541,8 @@ public enum TFModifier {
 		this.colour = associatedAttribute.getColour();
 		this.rarity=rarity;
 		
-		// Set this item's file image:
-		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
-			if(is==null) {
-				System.err.println("Error! TFModifier icon file does not exist (Trying to read from '"+SVGString+"')! (Code 1)");
-			}
-			String s = Util.inputStreamToString(is);
-
-			is.close();
-			
-			if(SVGString.contains("flavour")) {
-				String SVGStringBackground = "";
-				is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/crafting/modifier_circle_flavour_background.svg");
-				if(is==null) {
-					System.err.println("Error! Subspecies background icon file does not exist (Trying to read from 'modifier_circle_flavour_background')!");
-				}
-				SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SvgUtil.colourReplacement(this.toString()+"_B", colour, Util.inputStreamToString(is))+"</div>";
-				
-				s = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SvgUtil.colourReplacement(this.toString(), colour, s)+"</div>";
-				
-			} else {
-				s = SvgUtil.colourReplacement(this.toString(), colour, s);
-			}
-			
-			this.SVGString = s;
-
-			is.close();
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		this.path = SVGString;
+		this.SVGString = null;
 	}
 	
 	private TFModifier(String name, String description, String descriptor, String SVGString, Colour colour, Rarity rarity) {
@@ -1502,37 +1557,8 @@ public enum TFModifier {
 			this.colour = colour;
 		}
 		
-		// Set this item's file image:
-		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
-			if(is==null) {
-				System.err.println("Error! TFModifier icon file does not exist (Trying to read from '"+SVGString+"')! (Code 2)");
-			}
-			String s = Util.inputStreamToString(is);
-
-			is.close();
-			
-			if(SVGString.contains("flavour")) {
-				String SVGStringBackground = "";
-				is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/crafting/modifier_circle_flavour_background.svg");
-				if(is==null) {
-					System.err.println("Error! Subspecies background icon file does not exist (Trying to read from 'modifier_circle_flavour_background')!");
-				}
-				SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SvgUtil.colourReplacement(this.toString()+"_B", colour, Util.inputStreamToString(is))+"</div>";
-				
-				s = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SvgUtil.colourReplacement(this.toString(), colour, s)+"</div>";
-				
-			} else {
-				s = SvgUtil.colourReplacement(this.toString(), colour, s);
-			}
-			
-			this.SVGString = s;
-
-			is.close();
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		this.path = SVGString;
+		this.SVGString = null;
 	}
 	
 	private TFModifier(Fetish f) {
@@ -1586,6 +1612,39 @@ public enum TFModifier {
 	}
 
 	public String getSVGString() {
+		if(SVGString==null) {
+			// Set this item's file image:
+			try {
+				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + path + ".svg");
+				if(is==null) {
+					System.err.println("Error! TFModifier icon file does not exist (Trying to read from '"+path+"')! (Code 2)");
+				}
+				String s = Util.inputStreamToString(is);
+
+				is.close();
+				
+				if(path.contains("flavour")) {
+					String SVGStringBackground = "";
+					is = Subspecies.class.getClassLoader().getResourceAsStream("com/lilithsthrone/res/crafting/modifier_circle_flavour_background.svg");
+					if(is==null) {
+						System.err.println("Error! Subspecies background icon file does not exist (Trying to read from 'modifier_circle_flavour_background')!");
+					}
+					SVGStringBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SvgUtil.colourReplacement(this.toString()+"_B", this.getColour(), Util.inputStreamToString(is))+"</div>";
+					
+					s = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SvgUtil.colourReplacement(this.toString(), this.getColour(), s)+"</div>";
+					
+				} else {
+					s = SvgUtil.colourReplacement(this.toString(), this.getColour(), s);
+				}
+				
+				this.SVGString = s;
+
+				is.close();
+
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
 		return SVGString;
 	}
 
@@ -1629,11 +1688,24 @@ public enum TFModifier {
 	}
 
 	public static List<TFModifier> getTFBodyPartFetishList() {
-		return TFBodyPartFetishList;
+		List<TFModifier> returnList = new ArrayList<>(TFBodyPartFetishList);
+		if(!Main.game.isAnalContentEnabled()) {
+			returnList.remove(TFModifier.TF_MOD_FETISH_ANAL_GIVING);
+			returnList.remove(TFModifier.TF_MOD_FETISH_ANAL_RECEIVING);
+		}
+		if(!Main.game.isFootContentEnabled()) {
+			returnList.remove(TFModifier.TF_MOD_FETISH_FOOT_GIVING);
+			returnList.remove(TFModifier.TF_MOD_FETISH_FOOT_RECEIVING);
+		}
+		return returnList;
 	}
 	
 	public static List<TFModifier> getTFBehaviouralFetishList() {
-		return TFBehaviouralFetishList;
+		List<TFModifier> returnList = new ArrayList<>(TFBehaviouralFetishList);
+		if(!Main.game.isPenetrationLimitationsEnabled()) {
+			returnList.remove(TFModifier.TF_MOD_FETISH_SIZE_QUEEN);
+		}
+		return returnList;
 	}
 
 	public Fetish getFetish() {

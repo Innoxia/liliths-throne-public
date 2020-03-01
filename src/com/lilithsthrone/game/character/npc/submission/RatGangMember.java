@@ -229,7 +229,8 @@ public class RatGangMember extends NPC {
 				public void effects() {
 					if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_DORMITORY_LEFT
 							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_MILKING_ROOM
-							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_MILKING_STORAGE) {
+							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_MILKING_STORAGE
+							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_CORRIDOR_LEFT) {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensClearedLeft, true);
 						
 					} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_DORMITORY_RIGHT) {

@@ -634,6 +634,12 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.3.5.9")) {
 						values.add(PropertyValue.levelDrain);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.6.6")) {
+						values.add(PropertyValue.furryHairContent);
+					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.6.7")) {
+						values.add(PropertyValue.penetrationLimitations);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						
@@ -642,6 +648,7 @@ public class Properties {
 						} catch(Exception ex) {
 						}
 					}
+					
 				} else {
 					// Old values support:
 					nodes = doc.getElementsByTagName("settings");
