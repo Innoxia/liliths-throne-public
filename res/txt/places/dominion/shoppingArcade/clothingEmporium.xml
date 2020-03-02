@@ -6,14 +6,14 @@
 	</p>
 	#IF(game.isExtendedWorkTime())
 		<p>
-			Due to the fact that the main doors are propped wide open, as well as there being a constant stream of shoppers entering and exiting the establishment, it's quite clear that this Clothing Emporium is [style.colourGood(open)]. A list of opening times etched into the glass beside the entrance reveals that the [style.colourMinorGood(opening hours are [unit.time(6)] to [unit.time(22)])]; the exact same as all the other stores in the arcade.
+			Due to the fact that the main doors are propped wide open, as well as there being a constant stream of shoppers entering and exiting the establishment, it's quite clear that this Clothing Emporium is [style.colourGood(open)]. A list of opening times etched into the glass beside the entrance reveals that the [style.colourMinorGood(opening hours are [unit.time(6)]-[unit.time(22)])]; the exact same as all the other stores in the arcade.
 		</p>
 		<p>
 			You wonder if you should head inside, or perhaps come back at another time...
 		</p>
 	#ELSE
 		<p>
-			Due to the fact that the main doors are firmly shut, as well as there being no lights on inside the establishment, it's quite clear that this Clothing Emporium is currently [style.colourBad(closed)]. A list of opening times etched into the glass beside the entrance reveals that the [style.colourMinorBad(opening hours are [unit.time(6)] to [unit.time(22)])]; the exact same as all the other stores in the arcade.
+			Due to the fact that the main doors are firmly shut, as well as there being no lights on inside the establishment, it's quite clear that this Clothing Emporium is currently [style.colourBad(closed)]. A list of opening times etched into the glass beside the entrance reveals that the [style.colourMinorBad(opening hours are [unit.time(6)]-[unit.time(22)])]; the exact same as all the other stores in the arcade.
 		</p>
 		<p>
 			If you wanted to do some shopping here, or meet Nyan, you'll have to come back at a later time...

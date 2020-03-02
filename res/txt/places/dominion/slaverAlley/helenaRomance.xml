@@ -1,0 +1,1139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- ROMANCE_SHOP_CORE -->
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_1"><![CDATA[
+	<p>
+		From what Helena told you earlier, you know that she's in need of someone to help her in implementing her plans for this business. If you wanted to, you could always offer her your assistance...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_2"><![CDATA[
+	<p>
+		Pushing open the front door and entering the shop, you're greeted once again by the sight of the stunningly-beautiful matriarch sitting down behind the shop's counter. Betraying no sign of emotion on her gorgeous face, she states in her clam, melodic voice, [helena.speech(I do so hope that you aren't daring to return to me without being in possession of the paint which I ordered you to retrieve.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_2_PAINT"><![CDATA[
+	<p>
+		Not wanting to wait a moment longer than is necessary, you quickly tell Helena that you've purchased the golden paint she asked for. Letting a slight smile settle on her face, the matriarch ushers you forwards with a gentle swish of one wing, before commanding, [helena.speech(Step forwards and show it to me without delay.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_2_NO_PAINT"><![CDATA[
+	<p>
+		You reluctantly admit to Helena that you haven't yet purchased the golden paint she asked for. With a dismissive swipe of her wing, she coldly declares,
+		#IF(helena.hasSlaves())
+			 [helena.speech(That being the case, if you are not interested in purchasing the slaves I have for sale, then it would please me if you were to immediately get out of my sight.)]
+		#ELSE
+			 [helena.speech(That being the case, it would please me if you were to immediately get out of my sight.)]
+		#ENDIF
+	</p>
+	<p>
+		Not wanting to annoy the matriarch by remaining in her presence for a moment longer than is necessary, you think that it would be best for you to quickly exit her store...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_3_PAINT_EXTERIOR"><![CDATA[
+	<p>
+		Pushing open the front door and entering Helena's shop, you once again see the gorgeous harpy sitting behind the shop's counter. With a mild look of satisfaction on her angelic face, she offers you some rare praise, [helena.speech(I was most pleased to see that you'd done as I asked when I arrived here this morning. Well done, [pc.name].)]
+	</p>
+	<p>
+		By now knowing what's expecting of you, and not wanting to do anything to ruin the haughty matriarch's apparent good mood, you quickly reply, [pc.speech(Thank you, Helena.)]
+	</p>
+	<p>
+		[helena.speech(I suppose I should inform you that I am not planning on stocking any more slaves until after all this renovation work has been completed,)] she reveals, [helena.speech(If you were still in the market for purchasing slaves of your own, then you have my permission to buy them from someone other than me.)]
+	</p>
+	<p>
+		You don't recall ever being told that you weren't allowed to buy slaves from stores other than Helena's, but decide to keep that fact to yourself as she continues, [helena.speech(Today you will be painting the exterior of my store. Take those cans of white paint and whatever other supplies you need outside.)]
+	</p>
+	<p>
+		Dismissively gesturing towards the supplies sitting near to the front entrance, Helena shoots you a piercing look, making it very clear that she expects you complete this task as quickly as possible. Not wanting to disappoint, you hurry over to the entrance and carry the supplies out in front of her shop. After placing the last can down on the ground, you turn back towards the entrance only to see the regal matriarch exiting her shop. Once again locking the door behind her, she turns to face you and proclaims, [helena.speech(There's really nothing more for me to do here, so I shall be taking the rest of the day off once again. I expect all of the woodwork painted and looking absolutely perfect before the end of the day. I am also expecting a delivery of furniture some time within the next few hours, so you shall oversee the unloading of it. If any of the pieces are damaged, you are to take down the names of the deliverymen so that I may see them properly punished. Do I make myself understood?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Helena,)] you once again find yourself replying, before politely pointing out the obvious fact that the front door is locked, and that you have no way of opening it for the deliverymen.
+	</p>
+	<p>
+		This detail clearly seems to have slipped Helena's mind, for she lets out an almost inaudible sigh in frustration, before beckoning you over to stand in front of her. Hurrying forwards, you come to a halt right in front of the dazzlingly-beautiful matriarch, who swiftly passes you a spare key, saying, [helena.speech(This shall be all you require. Once you have finished your work, you are to lock up and post it back through the letterbox.)]
+	</p>
+	<p>
+		Without waiting for your reply, the beautiful matriarch turns her back on you, before taking a few graceful, skipping steps and launching herself into the air. With several sweeps of her pristine, white wings, she quickly gains altitude, before wheeling around and flying off in the direction of the Harpy Nests once again.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_3_PAINT_SIGN"><![CDATA[
+	<p>
+		Pushing open the front door, you once again find yourself stepping inside Helena's shop. Unlike the previous times you've been here, however, the harpy matriarch isn't sitting behind the counter, and is instead regally perched on one of the new sofas. As she notices your entrance, she puts down the fashion magazine she was reading, before beckoning you forwards with a wave of one of her elegant wings.
+	</p>
+	<p>
+		As you move over to where the beautiful harpy is sitting, she offers you an uncharacteristic smile and sincerely states, [helena.speech(I must say that you are exceeding the expectations I had of you, [pc.name]. Not only have you done an excellent job of painting the front of this establishment, but you've ensured that all of this furniture was delivered here without issue. I will permit you to sit with me for a moment.)]
+	</p>
+	<p>
+		[pc.speech(Thank you, Helena,)] you say, knowing that all of your hard work could be undone if you don't show the haughty matriarch the respect she's accustomed to.
+		#IF(pc.isTaur())
+			 As you have the lower body of [pc.a_legRace], you're unable to sit on the sofa opposite Helena, and so make do with simply kneeling down on the plush rug beside her.
+		#ELSE
+			 Following another sweeping gesture from one of her flawless white wings, you sit down on the stylish sofa opposite to Helena.
+		#ENDIF
+	</p>
+	<p>
+		[helena.speech(It would appear as though the commoners are beginning to take notice,)] the harpy observes, giving the briefest of nods towards the shop's large windows. Sure enough, as you look across, you see that a pretty squirrel-girl has stopped to take a closer look at the store, and as she peers through the windows and catches sight of Helena, she does a double-take and starts to stare at her in awe. Letting out an almost imperceptible sigh, the harpy reveals, [helena.speech(Thanks to my dear Scarlett's hard work this establishment has, up until now, had quite the poor reputation. As such, word of my presence here has thus far not spread, but it would appear as though that is about to change.)]
+	</p>
+	<p>
+		[pc.speech(That will be good for your business though, won't it?)] you quite rightly observe.
+	</p>
+	<p>
+		[helena.speech(I suppose so, yes,)] the harpy admits, [helena.speech(but the attention I often end up attracting can get quite tiring. In any case, there's no stopping it now, so with your help, I shall make it official.)]
+	</p>
+	<p>
+		Rising to her feet, the regal harpy elegantly sweeps one of her delicate wings towards the door. Following her lead, you also stand up, and turn to see that she's pointing towards the solitary can of golden paint which you'd previously purchased. Showing you a little more respect than you'd become accustomed to receiving from her, Helena asks, [helena.speech(If you would be so kind, I would ask of you to take that paint outside. I shall accompany you and oversee the completion of your next task.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_4_SELLING_SCARLETT"><![CDATA[
+	<p>
+		Helena demands that you sell Scarlett to her right now.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_4_TOLD_TO_LEAVE"><![CDATA[
+	<p>
+		Helena thanks you for sending Scarlett to her, and tells you to come back in a week.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_5"><![CDATA[
+	<p>
+		Helena is with a client; Scarlett tells you to wait on the sofa.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_6"><![CDATA[
+	<p>
+		Helena asks you if you've put up the posters yet. Is annoyed when you say no.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_7"><![CDATA[
+	<p>
+		Helena asks you if you've given out the cards yet. Is annoyed when you say no.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_8"><![CDATA[
+	<p>
+		You tell Helena that you've given out the cards, she tells you to come back in two weeks once the effects are known for a potential reward.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_9"><![CDATA[
+	<p>
+		There are several clients in here, with more harpies working under Helena. Helena is with one of these clients; Scarlett tells you to wait on the sofa.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_COMPLETE"><![CDATA[
+	<p>
+		Helena reacts based on romance stage and virginity loss.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_BUSINESS -->
+	
+	<htmlContent tag="ROMANCE_BUSINESS"><![CDATA[
+	<p>
+		Wanting to know if Helena is really serious about leaving her nest behind to focus on running this shop of hers, you ask her what sort of plans she has in store for the future.
+	</p>
+	<p>
+		[helena.speech(Please do not assume that we are on such familiar terms with one another that you may boldly start inquiring into my personal affairs,)] Helena calmly states. Before you're able to offer a reply to this, however, she continues, [helena.speech(As it so happens, I am in a good mood today, and so I shall grant you an answer to your insolent question.)]
+	</p>
+	<p>
+		Despite what she's just said about being willing to answer you, Helena stops talking, and simply waits for you to say something with an expectant look on her beautiful face...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_BUSINESS_THANK_HER"><![CDATA[
+	<p>
+		Realising what it is that the harpy matriarch is waiting for, you thank her for agreeing to answer your question.
+	</p>
+	<p>
+		[helena.speech(That's better,)] Helena states after you've finished conveying your appreciation, [helena.speech(but I do expect you to respond in a more expedient manner in our future conversations. Is that understood?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Helena,)] you respond, causing a soft smile to settle on the haughty matriarch's face.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_BUSINESS_PROMPT_HER"><![CDATA[
+	<p>
+		Seeing no reason for why the harpy matriarch has stopped talking, you prompt her, [pc.speech(So, are you going to answer my question then?)]
+	</p>
+	<p>
+		[helena.speech(Such insolence,)] Helena muses, allowing her eyebrows to furrow a little in a clear display of annoyance. With a small sigh, she explains, [helena.speech(Do you even realise how fortunate you are to be allowed to speak to me in such a casual manner? I expect you to at the very least thank me for my generosity before I continue.)]
+	</p>
+	<p>
+		Realising that you're not going to get any information out of this haughty harpy matriarch before doing as she asks, you thank her for agreeing to answer your question.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_BUSINESS_FOLLOWUP"><![CDATA[
+	<p>
+		[helena.speech(Very good,)] she says, gesturing for you to step closer as she continues, [helena.speech(Concerning my plans for this store, all I can really say for now is that there's not much chance of them ever coming to fruition. Even with my unparalleled business acumen, the most that can be done is to simply keep the place from having to close down. Without receiving any help, there's absolutely no way that I can implement my ambitious plans.)]
+	</p>
+	<p>
+		[pc.speech(Why don't you get some harpies from your nest to help?)] you ask, wondering why Helena hasn't ordered her flock to help her.
+	</p>
+	<p>
+		[helena.speech(You really do ask so many questions,)] Helena complains, but with nothing else to occupy her time, she chooses to answer you once again, [helena.speech(Ordering my followers to help would be akin to openly admitting that I cannot succeed without them. I'd sooner close this store down and say that it was out of boredom rather than risk damaging my reputation. Hopefully that's enough to satisfy your curiosity.)]
+	</p>
+	<p>
+		As she's quite clearly unwilling to reveal the specifics of any plans she's made for her business, you decide against asking Helena any more about it. If you really wanted to, however, you could always offer to provide the help she needs...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- ROMANCE_OFFER_HELP -->
+	
+	<htmlContent tag="ROMANCE_OFFER_HELP"><![CDATA[
+	<p>
+		Deciding that it would be worth your time to assist Helena in improving her business, you ask her if she's got any particular jobs that she needs some help with.
+	</p>
+	<p>
+		[helena.speech(You wish to offer me your services?)] the matriarch asks, [helena.speech(I do feel obligated to warn you that I'll be expecting nothing less than your absolute, unquestioning obedience.)]
+	</p>
+	<p>
+		Telling Helena that you'd be prepared to do whatever it is that she asks of you, you wait patiently as she thinks to herself for a moment, before saying,
+		#IF(pc.getRace().equals(RACE_HARPY))
+			 [helena.speech(I suppose that as you are a harpy, it would be socially acceptable for me to receive your help, even if you aren't a member of my flock...)]
+		#ELSEIF(pc.getRace().equals(RACE_DEMON))
+			 [helena.speech(Normally, I wouldn't consider accepting help from someone who isn't a harpy, but I do find myself in a rather desperate situation... Besides, considering the fact that you are a demon, I suppose that my reputation wouldn't suffer if it were to be found out that you were working for me...)]
+		#ELSE
+			 [helena.speech(Normally, I wouldn't consider accepting help from someone who isn't a harpy, but I do find myself in a rather desperate situation... I suppose that I can always have you transformed later on if need be...)]
+		#ENDIF
+	</p>
+	<p>
+		[pc.speech(So you'll accept my help?)] you ask, beginning to realise why Helena doesn't already have anyone assisting her.
+	</p>
+	<p>
+		[helena.speech(I suppose so, yes,)] Helena ungratefully replies, before concluding, [helena.speech(Considering the circumstances, I think you'll need only pay a token amount of ten thousand flames. You really should count yourself extremely fortunate in this regard; the last person to have offered me their help was the craftsman who carved my throne, and if I recall correctly, I charged him no less than half a million for the privilege.)]
+	</p>
+	<p>
+		To begin with, the sheer audacity of what Helena is suggesting leaves you struggling to comprehend her words. As she finishes talking, however, you're left with no doubt that she means for <i>you</i> to pay <i>her</i> ten thousand flames, seemingly for the privilege of being allowed to help her... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_OFFER_HELP_PAY"><![CDATA[
+	<p>
+		More than happy to pay Helena for the opportunity to be working for her, you set the ten thousand flames which she's asking for down on the counter top.
+	</p>
+	<p>
+		[helena.speech(I am most pleased to see that you understand the way the world works,)] the matriarch says as she shamelessly takes your money and places it into one of her drawers. Letting out a small sigh, she then laments, [helena.speech(You wouldn't believe the number of people who seem to expect <i>me</i> to pay <i>them</i> in these sorts of situations. They simply can not comprehend how lucky they are to have been given the opportunity to work for me. You understand how fortunate you are, don't you, [pc.name]?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Helena,)] you quickly reply.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_OFFER_HELP_PAY_REDUCED"><![CDATA[
+	<p>
+		Although you're more than happy to pay Helena for the opportunity to be working for her, you only have [#SPECIAL_PARSE_0] flames, and so you have to tell her that you don't have the ten thousand which she's asking for.
+	</p>
+	<p>
+		[helena.speech(I honestly expected better of you, [pc.name],)] the matriarch says with a mildly-disapproving look on her face, [helena.speech(I suppose that such a paltry sum will have to do. Please do proceed with placing it on the counter.)]
+	</p>
+	<p>
+		Having already decided that you want to pay her, you do as Helena instructs and place all of your money down on the counter-top in front of her.
+	</p>
+	<p>
+		[helena.speech(At least I can be satisfied knowing that you understand the way the world works,)] the matriarch says as she shamelessly takes all of your money and places it into one of her drawers. Letting out a small sigh, she then laments, [helena.speech(You wouldn't believe the number of people who seem to expect <i>me</i> to pay <i>them</i> in these sorts of situations. They simply can not comprehend how lucky they are to have been given the opportunity to work for me. You understand how fortunate you are, don't you, [pc.name]?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Helena,)] you quickly reply.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_OFFER_HELP_CANNOT_PAY"><![CDATA[
+	<p>
+		Although you'd like to do as Helena says, you don't have a single flame in your possession, and so you have to tell her that you aren't able to offer her the payment which she's expecting of you.
+	</p>
+	<p>
+		[helena.speech(I honestly expected better of you, [pc.name],)] the matriarch says with a disapproving look on her face, [helena.speech(I can't quite believe I'm saying this, but considering both of our circumstances, I am willing to waive your fee.)]
+	</p>
+	<p>
+		Helena pauses after saying this, allowing you to quickly offer her your thanks.
+	</p>
+	<p>
+		[helena.speech(I suppose I can be at least a little satisfied seeing that you seem to understand the way the world works,)] the matriarch says, before lamenting, [helena.speech(You wouldn't believe the number of people who seem to expect <i>me</i> to pay <i>them</i> in these sorts of situations. They simply can not comprehend how lucky they are to have been given the opportunity to work for me. You understand how fortunate you are, don't you, [pc.name]?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Helena,)] you quickly reply.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_OFFER_HELP_REFUSE_TO_PAY"><![CDATA[
+	<p>
+		Thinking that it's absolutely outrageous for Helena to be asking for money from you, you tell her that she's being extremely unreasonable, and that in normal circumstances, she would be the one having to pay you.
+	</p>
+	<p>
+		[helena.speech(I see that you're one of those naive fools who doesn't understand the way the world works,)] the matriarch says with an annoyed look on her face, [helena.speech(You simply can not comprehend how lucky you are to have been given the opportunity to work for me. Why, I've even had people beg to become my slave before! How dare you expect to be allowed to work for me for free!)]
+	</p>
+	<p>
+		[pc.speech(So you don't need my assistance then?)] you ask, seeking to force Helena into admitting that she is desperate for your help.
+	</p>
+	<p>
+		[helena.speech(If you would please be so kind, I would prefer it if you didn't put words into my mouth,)] the matriarch snaps, before closing her eyes for a moment and letting out a deep breath. After a moment spent in this meditative state, she opens her eyes again and admits, [helena.speech(I do still require your help. Despite your insufferable display of arrogance, I will be so kind as to waive your fee. I cannot impresses upon you enough how lucky you are to be getting away with this; if a member of my flock dared to treat me in this manner, then I would have seriously considered having them enslaved. As it so happens, you are not a member of my flock, so all I shall demand of you is that you properly apologise for your insolence.)]
+	</p>
+	<p>
+		Despite her haughtiness, you find yourself still wanting to help Helena, and so you do as she says and apologise to her. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_OFFER_HELP_PAYMENT"><![CDATA[
+	<p>
+		[helena.speech(Very good,)] the harpy says, before using one of her magnificent white wings to point towards the door at the rear of the shop and ordering, [helena.speech(Fetch the box of supplies from the back room and bring it out here.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_OFFER_HELP_FETCH_SUPPLIES"><![CDATA[
+	<p>
+		Doing as you're told, you head into the back room in order to retrieve the box of supplies which Helena is talking about. Surprisingly enough, this room is almost as large as the main shop floor itself, but despite its size, the only pieces of furniture to be seen in here are a couple of basic wooden chairs and an old table which looks to have seen better days. Sitting upon this table, there's a large cardboard box, which must be the one you're here to fetch.
+	</p>
+	<p>
+		Picking up the box, which turns out to be surprisingly heavy, you walk back out into the main shop and set it down next to where Helena is sitting. Gesturing at the box with one wing, the matriarch commands, [helena.speech(Open it and stack the contents by the front door.)]
+	</p>
+	<p>
+		Once again doing as you're told, you first move the box over to the shop's entrance, before opening it and starting to unpack the contents. It's immediately apparent as to why it was so heavy, as it contains no less than six large cans of white paint, along with several paint brushes, rollers, and stacks of sandpaper. Once you're done, you return to Helena, who reveals, [helena.speech(I have been assured that there are enough supplies in there to completely strip and repaint the store's frontage. The only thing which is missing is the golden paint required for the replacement of the name 'Scarlett's Shop'. You will obtain this paint for me.)]
+	</p>
+	<p>
+		Holding up one of her feathered fingers to indicate that you should wait for a moment, the harpy then leans down and starts opening some of the drawers behind the counter.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_OFFER_HELP_WAIT"><![CDATA[
+	<p>
+		It only takes a moment for Helena to find what it she was looking for, and with a graceful swish of her white-feathered wing, she throws what looks to be a promotional brochure down onto the counter-top in front of you. Opening it up onto a page which she's previously bookmarked, the harpy points to an image of a can of paint, saying, [helena.speech(This is the one you will purchase. Make sure that it's the 'Purple-star' brand; I will not accept anything less than the very best.)]
+	</p>
+	<p>
+		Taking a closer look at the brochure, you see that it's advertising the home-improvements store, 'Argus's DIY Depot'. The can of golden paint which Helena is pointing to is marked up at the unbelievable price of [#SPECIAL_PARSE_0] flames. Advertised lower down, you see that there's a cheaper, 'Bronze-star' branded alternative, which costs just [#SPECIAL_PARSE_1] flames. As you start to wonder if you could get away with buying that cheaper one instead, Helena snaps the brochure shut and informs you, [helena.speech(The store which you need to go to is a short way south of Slaver Alley. You're to go there as soon as you possibly can, buy this paint, and then return here to me. Do you understand?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Helena,)] you find yourself saying once again.
+	</p>
+	<p>
+		With a dismissive wave of her wing, the harpy indicates that she's finished speaking with you. As you're obviously not going to be given the money with which to buy this paint, there's nothing more for you to do but turn around and head out of Helena's store... 
+	</p>
+	#IF(helena.hasSlaves())
+		<p style='text-align:center'>
+			<i>You get the feeling that Helena's slaves may have been sold off by the time you've purchased the paint and returned to her. If you wanting to buy them, [style.italicsMinorBad(you should do so before buying the paint)]!</i>
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	
+	<!-- ROMANCE_PAINT -->
+	
+	<htmlContent tag="ROMANCE_PAINT_PREMIUM"><![CDATA[
+	<p>
+		Doing as you're told, you move up next to Helena's counter, before producing the can of 'Purple-star' golden paint and proudly showing it to her.
+	</p>
+	<p>
+		[helena.speech(Most excellent,)] the regal matriarch declares, [helena.speech(You've done well, [pc.name]. Now, go and set it down beside the other cans.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINT_STANDARD"><![CDATA[
+	<p>
+		Doing as you're told, you move up next to Helena's counter, before producing the can of 'Bronze-star' paint and showing it to her. Although you'd hoped that she wouldn't notice, Helena instantly recognises the fact that you haven't bought the exact one which she asked for, and with a dismissive wave of her wing, she reprimands you for your failure, [helena.speech(It seems as though I cannot entrust you with even the simplest of tasks. Do you not recall me specifically asking for 'Purple-star' paint?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Helena,)] you reply, [pc.speech(but this one is probably just as good.)]
+	</p>
+	<p>
+		[helena.speech(This simply will not do,)] the angry matriarch says, allowing her voice to take on an icy tone as she continues to scold you, [helena.speech(You've greatly disappointed me, [pc.name]. For your sake, I sincerely hope that you're right, and that this turns out to be 'just as good' as the paint I asked for. You'd better not fail me like this again, or else I'll have to dismiss you as my servant. Is that understood?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Helena,)] you once again find yourself saying.
+	</p>
+	<p>
+		[helena.speech(Very well,)] the regal matriarch says, pausing to let out a small sigh before ordering, [helena.speech(Go and set it down beside the other cans.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINT"><![CDATA[
+	<p>
+		Once more following Helena's instructions, you move over towards the entrance and place the can of golden paint down on the floor beside the supplies you've already unpacked. As you then turn to face the beautiful harpy, you see that she's stood up from behind her desk, and after quickly checking to make sure that all of her feathers are straight, she gracefully paces across the room to come to a halt in front of you.
+	</p>
+	<p>
+		[helena.speech(I have discovered that the first order of business in decorating a shop's frontage is to have the previous layers of paint stripped,)] Helena proudly declares, acting as though she's doing a great service to you by revealing this information. With one of her feathered fingers, she points down to the sandpaper lying next to the cans of paint and proclaims, [helena.speech(You will use those perform the paint stripping. Now, if you would be so kind as to pick them up and move outside...)]
+	</p>
+	<p>
+		Doing as Helena asks, you pick up the thick stack of sandpaper and exit her shop. Following you out, she surprisingly locks the door behind her, before turning to you and saying, [helena.speech(I haven't visited my favourite spa for a few days, so I've decided that I shall take the rest of the day off and have several of my followers accompany me there. When I return tomorrow morning, I expect to see the entire frontage stripped of paint, do you understand?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Helena,)] you reply.
+	</p>
+	<p>
+		[helena.speech(Very good. If you require any ladders to complete your task, then I believe that there are a pair down the alleyway beside my store,)] Helena informs you, and then without even a backwards glance, she takes a few graceful skipping steps, before launching into the air and flying off in the direction of the Harpy Nests.
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- ROMANCE_PAINTING -->
+	
+	<htmlContent tag="ROMANCE_PAINTING_1"><![CDATA[
+	#IF(pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_EARTH))
+		<p>
+			As you've already agreed to do whatever it is that Helena asks of you, there's not much else to do except to get started on stripping the paint from her store's frontage. Thanks to your mastery of the arcane school of Earth, you at least don't have to bother with using the ladders, as you can instead use some basic telekinesis to manipulate the sheets of sandpaper with your mind.
+		</p>
+		#IF(pc.hasCompanions())
+			<p>
+				Stepping up in front of the store, and with [com.name] beside you to assist, you get started on your task without delay. By telekinetically rubbing sheet after sheet of the coarse sandpaper over the store's frontage, and with [com.name] doing what [com.she] can to help, you set about stripping off all of the old, cracked, and faded paintwork at an impressive speed.
+			</p>
+			<p>
+				After just an hour, the job is almost completely finished, with only the golden lettering reading 'Scarlett's Shop' left to sand down.
+				#IF(com.equals(scarlett))
+					 Showing no sign of any emotional attachment to this place, [scarlett.name] doesn't hesitate in quickly rubbing off the letters, and with that, every last spot of the woodwork is left fully exposed and ready to receive a new coat of paint.
+				#ELSE
+					 After taking a moment to think back on the moment you first saw this sign, you proceed with rubbing off the letters, and with that, every last spot of the woodwork is left fully exposed and ready to receive a new coat of paint.
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				Stepping up in front of the store, you get started on the task before you without delay. By telekinetically rubbing sheet after sheet of the coarse sandpaper over the store's frontage, you set about stripping off all of the old, cracked, and faded paintwork at an impressive speed.
+			</p>
+			<p>
+				After just an hour, the job is almost completely finished, with only the golden lettering reading 'Scarlett's Shop' left to sand down. After taking a moment to think back on the moment you first saw this sign, you proceed with rubbing off the letters, and with that, every last spot of the woodwork is left fully exposed and ready to receive a new coat of paint.
+			</p>
+		#ENDIF
+		<p>
+			As Helena locked the door behind her before leaving, you're unable to gain access to the cans of white paint, and so even if you wanted to, you're unable to continue with the renovation work. With little else to do except leave and 
+			#IF(game.getDayOfWeek()==DOW_FRIDAY)
+				 [style.colourMinorGood(return on Monday morning)],
+			#ELSE
+				 [style.colourMinorGood(return tomorrow morning)],
+			#ENDIF
+			 you tidy up the area in front of the shop, discard the worn-out sheets of sandpaper in a nearby bin, and then prepare to continue on your way elsewhere...
+		</p>
+	#ELSE
+		<p>
+			As you've already agreed to do whatever it is that Helena asks of you, there's not much else to do except to get started on stripping the paint from her store's frontage. Taking a look down the narrow alleyway which the harpy mentioned, you quickly locate the pair of ladders that she was talking about. Propping them up against the front of the shop, you get started on your task without delay. 
+		</p>
+		<p>
+			#IF(pc.isTaur())
+				#IF(pc.hasCompanions())
+					As you have the lower body of a feral [pc.legFeralRace], you have some difficulty in using the ladders, but with [com.namePos] help, you somehow manage to reach the points which at first seemed to be far out of your reach. By rubbing sheet after sheet of the coarse sandpaper over the shop's frontage, and with [com.name] doing what [com.she] can to help, you set about stripping off all of the old, cracked, and faded paint which covers it.
+				#ELSE
+					As you have the lower body of a feral [pc.legFeralRace], you have some difficulty in using the ladders, but after some experimental gymnastics you somehow manage to reach even the highest points of the shop's frontage. By rubbing sheet after sheet of the coarse sandpaper over the shop's frontage, you set about stripping off all of the old, cracked, and faded paint which covers it.
+				#ENDIF
+			#ELSE
+				#IF(pc.hasCompanions())
+					By rubbing sheet after sheet of the coarse sandpaper over the shop's frontage, and with [com.name] doing what [com.she] can to help, you set about stripping off all of the old, cracked, and faded paint which covers it. Methodically working your way from left to right, and with the ladders Helena provided proving to be worth their weight in gold, the two of you soon cover the ground beneath your [pc.feet] with flakes of old paint.
+				#ELSE
+					By rubbing sheet after sheet of the coarse sandpaper over the shop's frontage, you set about stripping off all of the old, cracked, and faded paint which covers it. Methodically working your way from left to right, and with the ladders Helena provided proving to be worth their weight in gold, you soon cover the ground beneath your [pc.feet] with flakes of old paint.
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			#IF(pc.hasCompanions())
+				Four hours and countless sheets of sandpaper later, the job is almost completely finished, with only the golden lettering reading 'Scarlett's Shop' left to sand down.
+				#IF(com.equals(scarlett))
+					 Showing no sign of any emotional attachment to this place, [scarlett.name] doesn't hesitate in quickly rubbing off the letters, and with that, every last spot of the woodwork is left fully exposed and ready to receive a new coat of paint.
+				#ELSE
+					 After taking a moment to think back on the moment you first saw this sign, you proceed with rubbing off the letters, and with that, every last spot of the woodwork is left fully exposed and ready to receive a new coat of paint.
+				#ENDIF
+			#ELSE
+				Four hours and countless sheets of sandpaper later, the job is almost completely finished, with only the golden lettering reading 'Scarlett's Shop' left to sand down. After taking a moment to think back on the moment you first saw this sign, you proceed with rubbing off the letters, and with that, every last spot of the woodwork is left fully exposed and ready to receive a new coat of paint.
+			#ENDIF
+		</p>
+		<p>
+			As Helena locked the door behind her before leaving, you're unable to gain access to the cans of white paint, and so even if you wanted to, you're unable to continue with the renovation work. With little else to do except leave and 
+			#IF(game.getDayOfWeek()==DOW_FRIDAY)
+				 [style.colourMinorGood(return on Monday morning)],
+			#ELSE
+				 [style.colourMinorGood(return tomorrow morning)],
+			#ENDIF
+			 you tidy up the area in front of the shop, put the ladders back where you found them, discard the worn-out pads of sandpaper in a nearby bin, and then prepare to continue on your way elsewhere...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINTING_2"><![CDATA[
+	<p>
+		#IF(pc.hasCompanions())
+			Seeing no reason to delay, you and [com.name] get started on painting the parts of the shop's frontage which you've previously stripped down to the bare woodwork.
+		#ELSE
+			Seeing no reason to delay, you quickly get started on painting the parts of the shop's frontage which you've previously stripped down to the bare woodwork.
+		#ENDIF
+		#IF(pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_EARTH))
+			#IF(pc.hasCompanions())
+				 Thanks to your telekinetic abilities, the work progresses at an incredible speed, and just one hour later, the two of you are stepping back and admiring your handiwork.
+			#ELSE
+				 Thanks to your telekinetic abilities, the work progresses at an incredible speed, and just one hour later, you're stepping back and admiring your handiwork.
+			#ENDIF
+		#ELSE
+			#IF(pc.isTaur())
+				#IF(pc.hasCompanions())
+					 The fact that you have the lower body of a feral [pc.legFeralRace] creates some issues with using the ladders, but with [com.namePos] help, you somehow manage, and four hour later, the two of you are stepping back and admiring your handiwork.
+				#ELSE
+					 The fact that you have the lower body of a feral [pc.legFeralRace] creates some issues with using the ladders, but with a steely determination to get the job done, you somehow manage, and four hour later, you're stepping back and admiring your handiwork.
+				#ENDIF
+			#ELSE
+				#IF(pc.hasCompanions())
+					 With [com.namePos] help, the work progresses at a decent rate, and after four hours, the two of you are stepping back and admiring your handiwork.
+				#ELSE
+					 With a steely determination to get the job done, the work progresses at a decent rate, and after four hours, you're stepping back and admiring your handiwork.
+				#ENDIF
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Much to your delight, you see that your work has made a huge difference, as the pure white brilliance of the freshly-applied paint now makes Helena's store really stand out from those around it. In fact, several passersby are already looking your way as they walk past, and you hear some of them asking one another if that shop had always been there. More than satisfied with the results of your hard work, you set about cleaning up what little mess you've made, before looking around to see if there's any sign of the furniture delivery company's arrival.
+	</p>
+	<p>
+		Almost as though it were preordained, you immediately catch sight of a pair of tall, buff centaurs walking directly towards you. Even from this distance you can see the huge muscles of their feral horse bodies flexing and contracting as they heave a huge, four-wheeled cart behind them. As they approach, you see that the large canvas covering which has been erected over the top of this wagon is proudly bearing the name 'Dominion Express', which, along with the accompanying logo of a winged package, reveals the fact that this must be the delivery company you were waiting for.
+	</p>
+	<p>
+		As they come to a halt outside of Helena's store, you notice that these two huge centaurs are completely naked, save for the thick gold slave collars locked around their necks. Keeping their gaze fixed straight ahead of them, these obedient slaves remain completely motionless, and just as you're wondering what they're waiting for, a feminine voice suddenly calls out from under the cart's cloth covering, [natalya.speech(Oh, we've arrived? Good boys!)]
+	</p>
+	<p>
+		The clopping sound of hoofs hitting pavement rings out from behind the cart as a slim, feminine [natalya.race] nimbly leaps out from beneath the canvas covering. As she quickly trots up to the entrance of Helena's shop, you're able to see that while the slaves under her command are almost
+		#IF(game.isMetricSizes())
+			 two and a half metres
+		#ELSE
+			 eight feet
+		#ENDIF
+		 tall, the lithe, lilac-skinned demon is barely pushing past
+		#IF(game.isMetricSizes())
+			 a hundred and seventy centimetres from head to hoof.
+		#ELSE
+			 five and a half feet from head to hoof.
+		#ENDIF
+		 In another contrast to her naked slaves, this [natalya.race] is dressed to impress, as on the upper, humanoid part of her body, a very smart feminine blazer and shirt are restraining her round, [natalya.cupSize]-cup breasts, while a large, black skirt conceals whatever genitalia she might have at the rear of her feral horse's body. Her silken, black hair is tied up into a smart bun, which is being held in place by a pair of royal-purple hair sticks. Perched on the bridge of her cute feminine nose, she's wearing a pair of black, thick-rimmed glasses, and as she realises that the store in front of her is closed, she rolls her bright green eyes and tuts, [natalya.speech(This is most unsatisfactory. I was assured that there'd be somebody here to receive me...)]
+	</p>
+	<p>
+		As the events in front of you have unfolded so quickly, you haven't had the opportunity to attract this [natalya.race]'s attention, but as she turns away from the locked door, you realise that now's the moment to introduce yourself...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINTING_3"><![CDATA[
+	<p>
+		You take the golden paint outside. Helena follows you outside to supervise. Criticises everything, but is happy with the end result. If cheap paint, she says the end result <i>does</i> look like the purple-star one.
+	</p>
+	<p>
+		Tells you to follow her inside; she has more to discuss with you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_PAINTING_FURNITURE_DELIVERY -->
+	
+	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY"><![CDATA[
+	<p>
+		Approaching the [natalya.race], you introduce yourself and explain that you've been instructed by Helena to receive a delivery of furniture for her. From the moment she caught sight of you, an arrogant smirk had settled on this demon's pretty face, and as you finish explaining the situation, she proudly boasts, [natalya.speech(My name is Natalya Loviennemartu, and I hold the prestigious title of 'Stable Mistress' at the fine institution known throughout Lilith's Realm as 'Dominion Express'. Due to the exceptional circumstance of receiving a contract from Helena herself, I thought it prudent to oversee this delivery in person. Am I now to discover that she is not here?)]
+	</p>
+	<p>
+		As you confirm that this is indeed the case, and that the harpy matriarch will not be returning today, Natalya's smirk is quickly replaced by an irritated scowl. Letting out a loud tutting noise, she impatiently produces a trailing paper receipt from out of one of her blazer's pockets, before rudely thrusting it into your [pc.hands] and declaring, [natalya.speech(This is the list of everything that's to be delivered today. As you can no doubt see, there's plenty to be unloaded, so hurry up and get that door unlocked, then I'll command my big, strong boys... ~Ahem!~ That is, then I shall have the slaves here get to work.)]
+	</p>
+	<p>
+		As you quickly scan over the list which Natalya just passed to you, it becomes immediately apparent that there is a huge amount of furniture for the centaurs to unload. Seeing no reason to delay, you unlock and open the front door, while Natalya proudly trots over to the side of the nearest centaur and starts to unbuckle him from the cart's harness. As she does this, you can't help but notice the way in which the [natalya.race]'s delicate fingers stroke over her slave's body, and as she walks around to the second centaur, she makes a show of flicking her tail in their direction. Quite clearly being extremely well-trained, the centaurs stoically ignore their owner's playful teasing, and as soon as Natalya gives them the word, they silently set about unloading the furniture from the back of the cart.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_PAINTING_FURNITURE_DELIVERY_NEXT -->
+	
+	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_NEXT_NO_HELP"><![CDATA[
+	<p>
+		Deciding that it would be better not to offer any help, you stand back and watch as the two centaurs carry out their task. Trotting over to stand beside the cart, Natalya looks down her nose at you and rudely remarks, [natalya.speech(You will serve me by waiting right there until my boys have finished, and then you can sign the receipt and we'll be on our way.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_NEXT_HELP"><![CDATA[
+	<p>
+		With nothing better to be doing, you wait until Natalya has trotted back over to stand beside the cart before asking her if her slaves need any help. Looking down her nose at you, she pompously remarks, [natalya.speech(My boys do not need anyone getting in their way and slowing them down. You will serve me perfectly well by simply waiting until they've finished, and then you can sign the receipt and we'll be on our way.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_NEXT"><![CDATA[
+	<p>
+		Obviously having been previously instructed on where each piece of furniture is to be placed, the two centaurs get on with their task without requiring any further orders, which seems to suit their owner very well, as the arrogant [natalya.race] seems more than happy to simply stand back and watch her slaves work. Not showing any sign of wanting to engage you in conversation, Natalya hungrily gazes at her slaves' muscular bodies as they heave piece after piece of heavy furniture into Helena's shop. It only takes a few minutes of this before the [natalya.race] starts biting her lip and audibly panting in excitement. Staring longingly at the centaurs' huge, sheathed cocks and massive, dangling balls, she seems to forget that you're still standing there as she mutters under her breath, [natalya.speech(That's my good boys... You'll get your reward tonight...)]
+	</p>
+	<p>
+		At the exact same moment, both you and Natalya suddenly become aware that there's a thick stream of slimy precum drooling down to form a steadily-growing pool on the paving stones beneath her feral horse body. Pretending as though nothing is wrong, she quickly trots around to the rear of the cart, before grabbing something out of the back of it and arrogantly shouting out to you, [natalya.speech(Stay right there and make sure my slaves do not require anything. I will be back in just a moment!)]
+	</p>
+	<p>
+		Concealing the item she's just grabbed behind her body, the [natalya.race] canters off down the alleyway beside Helena's shop, before turning a corner and disappearing from sight. Knowing that the alleyway leads to nothing but a dead end, you could always follow after Natalya and see what she's getting up to. Then again, if you weren't curious to find out what she's packing beneath that large skirt of hers, you could always do as she says and remain here until she returns...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_WAIT"><![CDATA[
+	<p>
+		Muttering thanks under your breath that you don't have to spend a single moment more in the presence of that arrogant demon,
+		#IF(pc.hasCompanions())
+			 you spend your time enjoying the company of [com.namePos] as the two of you wait for the centaurs to finish their task.
+		#ELSE
+			 you spend your time loitering about near the cart as you wait for the centaurs to finish their task.
+		#ENDIF
+	</p>
+	<p>
+		Watching the two slaves carry all sorts of furniture into Helena's shop, you can't help but be impressed by their superb efficiency. Without ever uttering a single word to one another, they get on with their work in perfect harmony, and after just fifteen minutes they've unloaded every last item. Seeing no sign of their owner, the centaurs obediently return to stand side-by-side in front of the now-empty cart, stoically staring straight ahead as they await Natalya's return.
+	</p>
+	<p>
+		Just a moment later, the [natalya.race] steps out from the alleyway, and with a satisfied, smug look on her face, she trots up to where her slaves are standing and sets about strapping them into their harnesses. As Natalya passes you by, you smell a strong, heady musk following in her wake, and as she once again teases her slaves by flicking her horse-like tail in their direction, one of the centaurs starts restlessly pawing the ground. Putting an immediate stop to this excitable behaviour by flashing him a furious glare, the [natalya.race] tightly buckles up his harness before finally turning to you and rudely declaring, [natalya.speech(You're a good [pc.girl], having waited here as I instructed. Now you will sign the receipt I gave to you and we shall be on our way.)]
+	</p>
+	<p>
+		Producing a pen from out of one of her blazer's pockets, Natalya thrusts it into your [pc.hands] and impatiently crosses her arms as she waits for you to sign the receipt. Having been keeping a close eye on the two centaurs the entire time they were unpacking the furniture, you're sure that nothing is damaged, and so you do as the [natalya.race] says and put your signature on the dotted line. The moment you finish, Natalya abruptly snatches both the pen and paper from you, before tearing off the carbon copy and handing it back to you. Reaching into her pocket once more, she produces a business card and carelessly tosses it for you to catch as she declares, [natalya.speech(Our business here is finished. As you're able to follow my commands, I suppose that you show a glimmer of potential and so could be considered for employment at Dominion Express. Our address is on that business card; I expect to see you there at some point in the future.)]
+	</p>
+	<p>
+		With that, the haughty [natalya.race] trots off to the back of her cart, making a point of going the long way around so as to walk in front of her centaurs and flick her tail in their direction one last time. As she passes, you hear her tease under her breath, [natalya.speech(One of you will be getting some of this tonight...)]
+	</p>
+	<p>
+		Gracefully leaping into the back of the wagon, Natalya calls out for her slaves to get moving, and with a rumble of wheels and creak of leather, they turn around and speed off in the direction they came. Looking down at the business card in your [pc.hand], you read that their company, 'Dominion Express', is located in Dominion's Warehouse District, so if you wanted to seek out Natalya and find out more about her job offer, that's where you'd need to head. For now, however, you need to lock up Helena's shop...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_PAINTING_FURNITURE_DELIVERY_END_LOCK_UP -->
+	
+	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_END_LOCK_UP"><![CDATA[
+	<p>
+		With Natalya and her centaurs having departed, you decide to head inside Helena's shop and take a quick look around. Although it's possible to see the new interior by looking through the large glass windows, upon entering the store you still find yourself completely blown away by how different it looks. The barren shop floor from an hour earlier has been transformed into what now looks like an exclusive VIP lounge, with plush designer sofas and elegant coffee tables tastefully placed here and there in little self-contained clusters.
+	</p>
+	<p>
+		Heading over to the back room from which you retrieved the painting supplies, you're amazed to discover that it's now a combined storage and staff room. A long, stylish counter runs alongside the left-hand wall, and holds everything from coffee and tea machines to glass-fronted fridges ready to be stocked with cold drinks. The other side of the room is home to several shelving units, as well as a half dozen metal posts, which have been securely bolted down to the floor. Noticing that there's a large metal ring attached to each one, you realise that the purpose of these posts is so that slaves can be chained up to them.
+	</p>
+	<p>
+		Having finished your brief inspection, you swiftly exit Helena's store, before locking the front door and posting the keys through the letterbox, as instructed. Once again finding yourself in the position where there's nothing to do except leave and 
+			#IF(game.getDayOfWeek()==DOW_FRIDAY)
+				 [style.colourMinorGood(return on Monday morning)],
+			#ELSE
+				 [style.colourMinorGood(return tomorrow morning)],
+			#ENDIF
+		 you turn away from the shop and set off into Slaver Alley...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW -->
+	
+	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW"><![CDATA[
+	<p>
+		#IF(pc.isInnocent())
+			Curious to find out what it is Natalya could be up to,
+		#ELSE
+			Having a good idea of what it might be that Natalya is getting up to,
+		#ENDIF
+		#IF(pc.hasCompanions())
+			 you tell [com.name] to stay by the cart and watch over the two centaurs, before slipping down the alley and following after the [natalya.race].
+		#ELSE
+			 and with the two centaurs showing no sign of requiring any help, you slip down the alley and follow after her.
+		#ENDIF
+		 Quickly approaching the end of the passageway, you peer around the corner to see that there's a very lewd scene taking place before you.
+	</p>
+	<p>
+		The first thing that grabs your attention is the fact that Natalya has not only pulled up her large skirt, but is also flicking her tail to one side, which is inadvertently giving you a clear view of her genitals. Despite what her appearance might lead people to assume, you're able to see that this [natalya.race] is completely lacking a feminine sex, and instead possesses a massive, flared cock, with an accompanying pair of huge, heavy balls hanging down between her hindquarters. Matching the horse-like hair which covers her feral lower body, her balls are dark black in colour, while her [natalya.cockSize], throbbing cock is black with a tasteful amount of pale lilac mottling.
+	</p>
+	<p>
+		Despite the fact that you're quite clearly visible from where she's standing, Natalya hasn't noticed your approach, as her focus is entirely on the object which she just received from her cart. Following her gaze as she looks back and down at her rear hoofs, your eyes open wide as you see that the [natalya.race] has placed a gigantic, [style.size(56)] ribbed dildo down on the ground, which is facing directly up towards her ass. As she lowers her hindquarters down towards this massive toy, your eyes are drawn to Natalya's alluring asshole. Being puffed up into an ebony, doughnut-like ring, it looks just like a feral horse's at first glance, but as it drops down ever closer to the tip of the massive dildo, its true demonic nature is revealed, as you see that its surface is glistening with clear, slimy lubricant.
+	</p>
+	<p>
+		Still oblivious to your presence, Natalya drops her hips down a little further, letting out a deep moan as the tip of the dildo slips inside of her asshole. Panting and moaning, the [natalya.race] forces the first of the dildo's three bulbous ribs past the puffy rim of her asshole and into her slimy rear entrance. At this moment, the dildo reveals itself to be enchanted and starts vigorously vibrating, causing Natalya to let out another shuddering moan. Unable to cope with the pleasure, her legs suddenly give way, and the remaining two ribs of the dildo obscenely stretch out the [natalya.race]'s puffy asshole as they're suddenly forced all the way into her ass.
+	</p>
+	<p>
+		At this moment, Natalya finally catches sight of you, and with copious amounts of precum drooling out of her massive horse-like cock, she staggers to her feet and shouts out, [natalya.speech(Y-You insolent [pc.girl]! How dare... ~Ooh!~ How dare you disobey my orders!)]
+	</p>
+	<p>
+		Before you can respond, the arrogant sneer quickly returns to Natalya's face as she breathlessly pants, [natalya.speech(You need to be shown your place... I will train you as I would a newly-purchased [pc.filly]! You will refer to me as your Mistress and kneel down before me... ~Mmm!~ Yes... Kneel down before your Mistress, slave!)]
+	</p>
+	<p>
+		As her throbbing cock continues to leak musky precum all over the floor, Natalya can't help but let out a deep moan, and you wonder whether you should do as she says and kneel before her, or simply turn around and take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW_LEAVE"><![CDATA[
+	<p>
+		You really don't feel like submitting to this arrogant demon, and not wanting anything more to do with her, you turn around and quickly exit the alleyway. Shaking the image of Natalya's puffy asshole and throbbing cock out of your mind, you return to stand beside the cart,
+		#IF(pc.hasCompanions())
+			 where you spend your time enjoying the company of [com.namePos] as the two of you wait for the centaurs to be finished with their task.
+		#ELSE
+			 and then spend your time loitering about as you wait for the centaurs to be finished with their task.
+		#ENDIF
+	</p>
+	<p>
+		Watching the two slaves carry all sorts of furniture into Helena's shop, you can't help but be impressed by their superb efficiency. Without ever uttering a single word to one another, they get on with their work in perfect harmony, and after just fifteen minutes they've unloaded every last item. Seeing no sign of their owner, the centaurs obediently return to stand side-by-side in front of the now-empty cart, stoically staring straight ahead as they await Natalya's return.
+	</p>
+	<p>
+		Just a moment later, the [natalya.race] steps out from the alleyway, and with a satisfied, smug look on her face, she trots up to where her slaves are standing and sets about strapping them into their harnesses. As Natalya passes you by, you smell a strong, heady musk following in her wake, and as she once again teases her slaves by flicking her horse-like tail in their direction, one of the centaurs starts restlessly pawing the ground. Putting an immediate stop to this excitable behaviour by flashing him a furious glare, the [natalya.race] tightly buckles up his harness before finally turning to you and rudely declaring, [natalya.speech(Your disobedience disgusts me, [pc.girl]. Not only did you not wait here as I instructed, but you also refused to obey my command to kneel before me. The least you can do now is sign the receipt I gave to you; I am anxious to be on my way.)]
+	</p>
+	<p>
+		Producing a pen from out of one of her blazer's pockets, Natalya thrusts it into your [pc.hands] and impatiently crosses her arms as she waits for you to sign the receipt. Having been keeping a close eye on the two centaurs the entire time they were unpacking the furniture, you're sure that nothing is damaged, and so you do as the [natalya.race] says and put your signature on the dotted line. The moment you finish, Natalya abruptly snatches both the pen and paper from you, before tearing off the carbon copy and handing it back to you. Reaching into her pocket once more, she produces a business card and carelessly tosses it for you to catch as she declares, [natalya.speech(Our business here is finished. You may find me at the address on that business card; once you accept the fact that you're in need of some obedience training, you may present yourself to me there, and I'll consider taking some time to break you in.)]
+	</p>
+	<p>
+		With that, the haughty [natalya.race] trots off to the back of her cart, making a point of going the long way around so as to walk in front of her centaurs and flick her tail in their direction one last time. As she passes, you hear her tease under her breath, [natalya.speech(One of you will be getting some of this tonight...)]
+	</p>
+	<p>
+		Gracefully leaping into the back of the wagon, Natalya calls out for her slaves to get moving, and with a rumble of wheels and creak of leather, they turn around and speed off in the direction they came. Looking down at the business card in your [pc.hand], you read that their company, 'Dominion Express', is located in Dominion's Warehouse District, so if you ever wanted to seek out Natalya for some 'obedience training', that's where you'd need to head. For now, however, you need to lock up Helena's shop...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW_SUBMIT -->
+	
+	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW_SUBMIT"><![CDATA[
+	<p>
+		Drawn in by the arousing sight of this dominant [natalya.race]'s huge cock and puffy asshole, you do as she commands and move forwards, before kneeling down on the ground in front of her. Looking down her nose at you, Natalya smirks and demands, [natalya.speech(Now call me Mistress, slave, and beg to be allowed to touch my cock!)]
+	</p>
+	<p>
+		Having already decided to submit to her, you do as you're told, and beg, [pc.speech(Please, Mistress, allow me to touch your cock!)]
+	</p>
+	<p>
+		Impatiently stepping forwards, Natalya thrusts her leaky cock towards you and commands, [natalya.speech(Get started, slave! You are not permitted to do anything other than use your hands! ~Mmm!~ Start stroking my cock!)]
+	</p>
+	<p>
+		With Natalya's huge, flared member hovering just inches away from your face, the heady scent of her musky precum washes over you, and you can't help but let out a desperate, horny [pc.moan] as you prepare to do as your Mistress commands...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW_SUBMIT_START_SEX"><![CDATA[
+	<p>
+		Reaching forwards, you obediently wrap your [pc.fingers] around Natalya's huge, throbbing cock and give it a loving stroke. The hot shaft instantly jumps up in excitement as the [natalya.race] feels your loving touch, and in a further display of exhilaration, she starts rapidly pawing at the ground with one of her front hoofs. As a thick, musky spurt of precum oozes out of the flared head of her horse-like cock, Natalya calls out, [natalya.speechNoEffects(~Ooh!~ Yes! Keep stroking it like that, slave! ~Mmm!~ Do a good job, and I'll reward you by allowing you to receive my load all over your face!)]
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress!)] you obediently reply as you enthusiastically masturbate her cock. Running your [pc.fingers] down to the leaky head, you allow the slimy precum to drool out into your [pc.hands], before massaging it down the length of her throbbing shaft.
+	</p>
+	<p>
+		[natalya.speechNoEffects(~Aah!~ Fuck! That's a good slave! ~Ooh!~ Remember, you're forbidden from using anything but your hands!)] Natalya reminds you as you settle into a steady rhythm of rubbing your [pc.hands] up and down the length of her musky precum-coated cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW_SUBMIT_POST_SEX -->
+	
+	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW_SUBMIT_POST_SEX"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_playerReceivedNatalyaFacial))
+		<p>
+			Now that Natalya has had her fun, she smirks down at you and arrogantly remarks, [natalya.speech(With a little more training, you'll make a fine slave. Now, remove my dildo for me; I want to hurry back and check on my boys.)]
+		</p>
+		<p>
+			Turning her feral horse-like body around, Natalya flicks her tail to one side and presents you with her puffy, horse-like asshole. The massive ribbed dildo is still buried deep inside of it, and as you move forwards, you hear that it's still incessantly buzzing away as it vibrates inside of your Mistress's butt. As you reach forwards and take hold of the base, Natalya lets out a deep moan and commands, [natalya.speech(Pull it out slowly, slave! ~Ooh!~ You are also forbidden from touching my ass! ~Mmm!~ That will be a reward later on in your training!)]
+		</p>
+		<p>
+			Eager to obey Natalya's order, you set to work on slowly pulling the huge dildo out of her ass. Her puffy rear entrance lewdly spreads out around each of the three thick ridges as you gently slide the massive toy out of her, causing a series of deeply erotic moans to drift out of her mouth. As the dildo finally slips free, you can't help but let out a hungry [pc.moan] of your own as you find yourself staring at your Mistress's puffy, glistening asshole.
+		</p>
+	#ELSE
+		<p>
+			Although Natalya has had her fun, she is quite clearly displeased with your refusal to receive her facial, and arrogantly remarks, [natalya.speech(I'll work on your disobedience later, slave. For now, just remove my dildo for me; I want to hurry back and check on my boys.)]
+		</p>
+		<p>
+			Turning her feral horse-like body around, Natalya flicks her tail to one side and presents you with her puffy, horse-like asshole. The massive ribbed dildo is still buried deep inside of it, and as you move forwards, you hear that it's still incessantly buzzing away as it vibrates inside of your Mistress's butt. As you reach forwards and take hold of the base, Natalya lets out a deep moan and commands, [natalya.speech(Pull it out slowly, slave! ~Ooh!~ You are also forbidden from touching my ass! ~Mmm!~ Bad [pc.girls] like you aren't deserving of it!)]
+		</p>
+		<p>
+			Not wanting to annoy Natalya any more than you've already done so, you set to work on slowly pulling the huge dildo out of her ass. Her puffy rear entrance lewdly spreads out around each of the three thick ridges as you gently slide the massive toy out of her, causing a series of deeply erotic moans to drift out of her mouth. As the dildo finally slips free, you can't help but let out a hungry [pc.moan] of your own as you find yourself staring at your Mistress's puffy, glistening asshole.
+		</p>
+	#ENDIF
+	<p>
+		Before you're tempted to touch it, Natalya quickly pulls her skirt back down to conceal her lower body, depriving you of the erotic sight of both her slutty asshole and massive horse-like cock. Grabbing the dildo from out of your [pc.hands], she starts trotting off back in the direction of Helena's shop, calling over her shoulder as she goes, [natalya.speech(Come on, slave! Follow your Mistress!)]
+	</p>
+	<p>
+		There's little else for you to do except obey Natalya's command and follow her back to the shop...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW_SUBMIT_POST_SEX_FOLLOW"><![CDATA[
+	<p>
+		As you trail along in your Mistress's wake, she purposefully swishes her tail back in your direction, wafting the heady, potent musk still being given off by her precum-coated cock back in your direction. For the first time since meeting her, she turns to give you the briefest glimpse of a genuine smile, before trotting along and leading you out from the alleyway's exit.
+	</p>
+	<p>
+		As you head back out into the main street outside of Helena's shop, you see that Natalya's centaur slaves are obediently standing side-by-side in front of the now-empty cart, stoically staring straight ahead as they await their owner's return. Quickly trotting over to the two centaurs, your Mistress sets about strapping them into their harnesses. Exactly like she was doing to you just moments ago, Natalya makes a show of flicking her horse-like tail in their direction, and as one of the centaurs breathes in her musky scent, he starts restlessly pawing the ground. Putting an immediate stop to this excitable behaviour by flashing him a furious glare, Natalya tightly buckles up his harness before turning back to address you, [natalya.speech(Slave! You will sign the receipt I gave to you earlier, and then my boys and I shall be on our way.)]
+	</p>
+	<p>
+		Producing a pen from out of one of her blazer's pockets, Natalya thrusts it into your [pc.hands] and impatiently crosses her arms as she waits for you to sign the receipt. Not wanting to displease your Mistress, you quickly do as she says and put your signature on the dotted line. The moment you finish, Natalya abruptly snatches both the pen and paper from you, before tearing off the carbon copy and handing it back to you. Reaching into her pocket once more, she produces a business card and carelessly tosses it for you to catch as she declares, [natalya.speech(Our business here is finished, slave. The address at which you may find me is printed on that business card; I expect to see you there at some point in the future so that I may continue with your training. Do not disappoint me, slave.)]
+	</p>
+	<p>
+		With that, the haughty [natalya.race] trots off to the back of her cart, making a point of going the long way around so as to walk in front of her centaurs and flick her tail in their direction one last time. As she passes, you hear her tease under her breath, [natalya.speech(One of you will be getting some of this tonight...)]
+	</p>
+	<p>
+		Gracefully leaping into the back of the wagon, Natalya calls out for her slaves to get moving, and with a rumble of wheels and creak of leather, they turn around and speed off in the direction they came. Looking down at the business card in your [pc.hand], you read that their company, 'Dominion Express', is located in Dominion's Warehouse District, so if you wanted to seek out Natalya and continue your training under her, that's where you'd need to head. For now, however, you need to lock up Helena's shop...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_PAINTING_C -->
+	
+	<htmlContent tag="ROMANCE_PAINTING_C"><![CDATA[
+	<p>
+		With Helena following in your wake, you do as you're told and carry the can of golden paint outside. As the two of you exit the store, the squirrel-girl who was staring through the window nervously walks up to the the harpy and asks, [style.speechFeminine(A-Are you Helena?)]
+	</p>
+	<p>
+		Showing no sign of emotion, Helena calms turns to fact this stranger and confirms, [helena.speech(That is correct. Is there something I may help you with?)]
+	</p>
+	<p>
+		[style.speechFeminine(P-Please could you sign this?)] the squirrel-girl replies, thrusting a small notepad and pen towards the harpy. Allowing the slightest of smiles to cross her face, the noble matriarch takes this fan's offering, and after inscribing her flowing signature on the cover of the notebook, she hands it back. Barely managing to contain her excitement, the squirrel-girl practically jumps up and down on the spot as she squeaks, [style.speechFeminine(Thank you, thank you so much! I-I've got a copy of every magazine you've modelled for; I'm a huge fan of yours!)]
+	</p>
+	<p>
+		Holding her head up high, Helena graciously replies, [helena.speech(You are most welcome. While I appreciate your support, I am unfortunately rather busy at the present time, so I cannot engage you in further conversation. If you would please excuse me...)]
+	</p>
+	<p>
+		With a look of utmost adoration in her eyes, the squirrel-girl lets out a little squeak and darts off to one side, giving you and Helena space in which to step forwards and look back at her store's frontage. Becoming aware of the fact that several more people are starting to stop and stare at her, the harpy says, [helena.speech(If you would be so kind, I would like you to paint the words 'Helena's Boutique' in the space over the door. While I understand that it will take great concentration and care, I would appreciate it if you were to complete this task in the most expedient manner possible.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_PAINTING_C_PAINT_SIGN -->
+	
+	<htmlContent tag="ROMANCE_PAINTING_C_PAINT_SIGN"><![CDATA[
+	<p>
+		#IF(pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_EARTH))
+			Thanks to your mastery of the arcane school of Earth, you're once again able to use some basic telekinesis to get the job done, and under the harpy's instruction, you set about painting the words 'Helena's Boutique' in flowing gold lettering above the entrance to her shop. While you're sometimes interrupted by the matriarch's commentary and decidedly-unhelpful tips, you're able to completely finish the task in just ten minutes.
+		#ELSE
+			#IF(pc.isTaur())
+				Retrieving the ladders from the alleyway beside Helena's store, you do your best to overcome the hindrance of having the lower body of [pc.a_legRace] and somehow manage to haphazardly climb up high enough to reach the space above the front door.
+			#ELSE
+				Retrieving the ladders from the alleyway beside Helena's store, you open the can of golden paint and climb up to reach the space above the front door.
+			#ENDIF
+			 Under the harpy's instruction, you then set about painting the words 'Helena's Boutique' in flowing gold lettering. While you're sometimes interrupted by the matriarch's commentary and decidedly-unhelpful tips, you're able to completely finish the task in just over half an hour.
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaCheapPaint))
+			[helena.speech(It would appear as though you were correct in your judgement of paint quality; the golden hue is most pleasing to one's eyes,)] Helena concedes, before flashing you another of her rare smiles and continuing,
+		#ELSE
+			[helena.speech(You must now surely see why I insisted upon the 'Purple-star' brand of paint; the golden hue is most pleasing to one's eyes, is it not?)] Helena rhetorically asks, before flashing you another of her rare smiles and continuing,
+		#ENDIF
+		 [helena.speech(I must also say that I am most pleased with the excellent quality of your calligraphy. Once again, [pc.name], you have exceeded my expectations. Now let us head back inside before I am mobbed by this gathering crowd.)]
+	</p>
+	<p>
+		#IF(pc.hasTraitActivated(PERK_OBSERVANT))
+			While you were working, you couldn't help but notice that quite a few people had stopped to stare in admiration at the harpy matriarch,
+		#ELSE
+			Due to the fact that you were concentrating on your work, you hadn't noticed until now that quite a few people have stopped to stare in admiration at the harpy matriarch,
+		#ENDIF
+		  and as they read the words you've just painted, they start loudly commenting to one another on the possibility that <i>the</i> Helena is opening a store here in Slaver Alley. Clearly not wanting to see how long it will take before the first of them approach her and start asking questions, the beautiful harpy regally strides towards the front entrance of her shop, leaving you to follow on close behind...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_PAINTING_C_FINISHED -->
+	
+	<htmlContent tag="ROMANCE_PAINTING_C_FINISHED"><![CDATA[
+	<p>
+		Waiting until you've opened the door for her, Helena steps back inside her store, before swiftly moving over to the counter and retrieving a small sign from out of one of the drawers. Turning to you, she commands, [helena.speech(Please replace the sign hanging in the door with this one. Then I would like it if you were to draw the blinds; I do not wish to feel as though I am on display.)]
+	</p>
+	<p>
+		Taking the sign from the harpy matriarch, which turns out to read 'Closed until grand reopening', you proceed to [pc.walk] over to the door and hang it up in place of the old one. Continuing to do as Helena asks, you then move over to close the blinds, which draws a murmur of disappointment from the crowd which had moved over to stare through the large glass windows. Turning back to face the beautiful harpy, you see her sitting down on the same sofa which she was perched upon when you first arrived. Letting out a slight sigh of relief, she turns to you and says, [helena.speech(What I would most desire at this moment is a relaxing cup of tea. As you have done such an excellent job thus far, I will gladly permit you to have one as well. You may find the necessary supplies and equipment in the back room.)]
+	</p>
+	<p>
+		Picking up the fashion magazine she was reading earlier, the harpy starts flicking through the pages as she waits for you to go and make her a cup of tea...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINTING_C_FINISHED_TEA"><![CDATA[
+	<p>
+		Wanting to make Helena happy, you head into the back room and look around for the tea-making equipment. Thankfully, everything you require is easy to find, and with only one type of teabag being available, you don't need to worry about choosing the wrong variety. Boiling the arcane-powered kettle, you use a pair of delicate china teacups in which to brew the hot beverage, and after just a few minutes, you find yourself handing one of these cups to Helena, before once again
+		#IF(pc.isTaur())
+			 kneeling down on the plush rug beside her.
+		#ELSE
+			 sitting down on the stylish sofa opposite to her.
+		#ENDIF
+	</p>
+	<p>
+		[helena.speech(Not bad,)] the harpy says after taking an experimental sip, before dropping a hint of her desire to see more of you in the future, [helena.speech(Perhaps one day I shall take the time to show you exactly how I like it. For now, however, I have an important matter to discuss with you. I do not believe that I have fully informed you of my plans for this business yet, have I?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINTING_C_FINISHED_NO_TEA"><![CDATA[
+	<p>
+		After spending three days painting the outside of her shop, you really don't feel like doing any more menial tasks for this harpy, and so you simply ask, [pc.speech(Can you instead just tell me what it is you want next?)]
+	</p>
+	<p>
+		[helena.speech(How rude...)] the harpy mutters, before gesturing for you to 
+		#IF(pc.isTaur())
+			 kneel down on the plush rug beside her.
+		#ELSE
+			 sit down on the stylish sofa opposite to her.
+		#ENDIF
+		 As you do this, she continues, [helena.speech(I do not appreciate your insolence, but considering the excellent work you have done so far, I shall not make an issue of it. Instead, I have an important matter to discuss with you. I do not believe that I have fully informed you of my plans for this business yet, have I?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_PAINTING_C_FINISHED_SCARLETT -->
+	
+	<htmlContent tag="ROMANCE_PAINTING_C_FINISHED_SCARLETT"><![CDATA[
+	<p>
+		[pc.speech(No,)] you confirm.
+	</p>
+	<p>
+		[helena.speech(Very well,)] Helena states, before starting to explain, [helena.speech(As my dear Scarlett first discovered, the competition here in Slaver Alley is quite fierce; even with my popularity, I doubt that I could beat the other stores at their own game. Instead, I intend to establish the first business which offers clients a completely customisable slave. Every aspect of their appearance will be able to be specified, as too will their desires, obedience, and even personality. Or so I had hoped...)]
+	</p>
+	<p>
+		Gesturing down at a folded piece of paper sitting on the coffee table in front of her, Helena continues, [helena.speech(The physical transformations will be no issue, but the mental training will require a specialist. You are never to speak of this to anyone, but before I became a famous matriarch, I was tutored by the most excellent etiquette coach in all of Dominion. Unfortunately, I received that response to my request to employ her as a slave trainer. It would be quicker for you to read it yourself...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_PAINTING_C_FINISHED_LETTER -->
+	
+	<htmlContent tag="ROMANCE_PAINTING_C_FINISHED_LETTER"><![CDATA[
+	<p>
+		Picking up the letter, you unfold it and skim over the unimportant formatting at the top to read:
+	</p>
+	<p style='text-align:center;'>
+	<i>
+		Dear Ms. [helena.surname],
+		<br/><br/>
+		I am writing to respond to your kind offer of employment as a slave trainer.
+		<br/><br/>
+		First of all, I must make a point of noting that the salary you are suggesting is beyond generous, even when taking into account my considerable skill and experience. Secondly, I would also like to make it known that I would love nothing more than to work under you in the role you are suggesting.
+		<br/><br/>
+		#IF(scarlett.isSlave())
+			It is, therefore, much to my regret that I must turn down your kind offer, until such time as I am given assurances that my dearest sister, Scarlett, has been freed from the unjust bonds of slavery. Furthermore, I must place upon you the additional condition of employing Scarlett as your personal assistant. Despite my career's singular failure to fix that girl's attitude, she is still family, and I cannot rest easy for as long as I know that she does not have you to control her.
+		#ELSE
+			It is, therefore, much to my regret that I must turn down your kind offer, until such time as I am given assurances that my dearest sister, Scarlett, has been employed as your personal assistant. Despite my career's singular failure to fix that girl's attitude, she is still family, and I cannot rest easy for as long as I know that she does not have you to control her.
+		#ENDIF
+		<br/><br/>
+		Yours sincerely,
+		<br/>
+		Ms. Kardos
+	</i>
+	</p>
+	#IF(scarlett.isSlave() && scarlett.getOwner().isPlayer())
+		Sell Scarlett to her if you still own her. She says you'll still be able to visit her whenever you want.
+		#IF(pc.hasCompanion(scarlett))
+			She won't let you leave until you've sold Scarlett to her.
+		#ELSE
+			She says you shall fetch Scarlett and bring her back here.
+		#ENDIF
+	#ELSEIF(scarlett.getHomeWorldLocation()==WORLD_TYPE_HARPY_NEST)
+		Fetch Scarlett from her nest if freed.
+	#ELSE
+		Find Scarlett if the player sold her. (Helena has tracked her down to an antiques shop somewhere in the Shopping Arcade.)
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SCARLETT_SOLD"><![CDATA[
+	<p>
+		You sell Scarlett to Helena.
+	</p>
+	<p>
+		If Scarlett isn't a harpy, Helena remarks on having to transform her. Variation dialogue for Scarlett obedience and affection.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SCARLETT_GIVEN_AWAY"><![CDATA[
+	<p>
+		You give Scarlett to Helena. Helena is happy, although says it's only right that she shouldn't have to pay, considering the situation.
+	</p>
+	<p>
+		If she isn't a harpy, Helena remarks on having to transform her. Variation dialogue for Scarlett obedience and affection.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SCARLETT_REFUSED"><![CDATA[
+	<p>
+		You refuse to sell Scarlett to Helena. She is furious, calls you several insulting names, says that she didn't want to run a slavery shop anyway, then leaves (flies off back to her nest)...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINTING_FINISHED_LETTER_END_AS_OWNER"><![CDATA[
+	<p>
+		You tell Helena that you'll return with Scarlett as soon as you can.
+	</p>
+	<p>
+		Helena says that she has important things to do, so stop monopolising her time and get going already.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINTING_FINISHED_LETTER_END_FETCHING"><![CDATA[
+	<p>
+		You tell Helena that you'll go and fetch Scarlett from her nest.
+	</p>
+	<p>
+		Helena says that she has important things to do, so stop monopolising her time and get going already.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_PAINTING_FINISHED_LETTER_END_BUYING"><![CDATA[
+	<p>
+		You tell Helena that you'll go and buy Scarlett from whoever currently owns her.
+	</p>
+	<p>
+		Helena says that she has important things to do, so stop monopolising her time and get going already.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_SCARLETT_SOLD -->
+	
+	<htmlContent tag="ROMANCE_SCARLETT_SOLD_LEAVE"><![CDATA[
+	<p>
+		You tell Helena that you'll come back in a week, before taking your leave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_ADVERTISING -->
+	
+	<htmlContent tag="ROMANCE_ADVERTISING"><![CDATA[
+	<p>
+		Helena eventually finishes with her client. Says that they've agreed to pay to receive a dominant futa zebra-girl. Apart from them, however, Helena has only received two other orders for custom slaves. Tells you that you need to go out and advertise for her. She would have asked Scarlett, but she can't be trusted when Helena isn't around.
+	</p>
+	<p>
+		Scarlett obediently does what Helena asks (fetching posters), but you can see a glint of resistance in her eyes.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_ADVERTISING_POSTERS -->
+	
+	<htmlContent tag="ROMANCE_ADVERTISING_POSTERS"><![CDATA[
+	<p>
+		Scarlett returns with posters. Helena tells you that they've been enchanted to stick without glue. Gets Scarlett to unroll one to show you that it's a poster of her posing in a bikini. No sign of any text advertising the shop itself...
+	</p>
+	<p>
+		The harpy matriarch looks at you expectantly.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_ADVERTISING_POSTERS_COMPLIMENT"><![CDATA[
+	<p>
+		You compliment Helena on how beautiful she looks. She is clearly extremely happy with being praised like this, and smiles as she orders you to go and put these posters up in the entrance of Slaver Alley (so they're seen by the most people).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_ADVERTISING_POSTERS_QUESTION"><![CDATA[
+	<p>
+		You question Helena on her logic of not writing her store's name anywhere. She is extremely annoyed by your insubordination, and orders you to go and put these posters up in the entrance of Slaver Alley (so they're seen by the most people).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_ADVERTISING_POSTERS_END"><![CDATA[
+	<p>
+		She mentions that the guards might try to give you a hard time, but you'll think of something. Scarlett gives you the posters.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_ADVERTISING_POSTERS_END_LEAVE"><![CDATA[
+	<p>
+		You leave, ready to go to the entrance and put up the posters.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_END -->
+	
+	<htmlContent tag="ROMANCE_END"><![CDATA[
+	<p>
+		Helena tells you that her business is now extremely successful, and there's already a 6-month waiting list for custom slaves. Tells you that for your reward, she will put you at the front of the list whenever you want a slave ordered from her.
+	</p>
+	<p>
+		She tells Scarlett to watch the store, and for you to follow her into the back room, as she needs to discuss a further reward for you in private.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_END_REWARD -->
+	
+	<htmlContent tag="ROMANCE_END_REWARD"><![CDATA[
+	<p>
+		You enter the back room. Helena tells you to close your eyes, as she's too embarrassed to do this while you're watching.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_END_KISSED_CLOSE_EYES"><![CDATA[
+	<p>
+		You close your eyes. A moment later, Helena kisses you on the [pc.lips].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_END_KISSED_PEEK"><![CDATA[
+	<p>
+		You pretend to close your eyes, but peek a little. You see Helena furiously blushing, before closing her own eyes and leaning in to kiss you on the [pc.lips].
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ROMANCE_END_KISSED -->
+	
+	<htmlContent tag="ROMANCE_END_KISSED"><![CDATA[
+	<p>
+		You open your eye to see Helena with her back to you. She says that she'd be willing to let you take her on a date. Every Friday, she works late, so if you want to pick her up then, she'll be ready.
+	</p>
+	<p>
+		She takes a deep breath to calm down, then quickly strides back into the shop, leaving you to follow her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

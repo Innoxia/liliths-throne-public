@@ -271,7 +271,7 @@ public class Silence extends NPC {
 		
 		this.setPiercedEar(true);
 		this.setPiercedVagina(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_HOOPS, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_hoops", Colour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("norin_piercings_piercing_vertical_hood", Colour.CLOTHING_SILVER, Colour.CLOTHING_PINK_HOT, null, false), true, this);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_groin_lacy_thong", Colour.CLOTHING_PINK_LIGHT, false), true, this);

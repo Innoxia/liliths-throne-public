@@ -7,7 +7,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.?
- * @version 0.2.9
+ * @version 0.3.7
  * @author Pimgd
  */
 public enum StartingSkinTone {
@@ -18,16 +18,12 @@ public enum StartingSkinTone {
 			Colour.SKIN_BLUE,
 			Colour.SKIN_IVORY,
 			
-			Colour.SLIME_BLUE,
-			Colour.SLIME_PINK,
-			
 			Colour.COVERING_BLEACH_BLONDE,
 			Colour.COVERING_GINGER,
 			Colour.COVERING_LILAC,
 			Colour.COVERING_PINK,
 			Colour.COVERING_WHITE,
 			
-			Colour.HORN_WHITE,
 			Colour.ORIFICE_INTERIOR,
 			Colour.TONGUE,
 
@@ -58,11 +54,6 @@ public enum StartingSkinTone {
 			Colour.SKIN_IVORY,
 			Colour.SKIN_LILAC,
 			
-			Colour.SLIME_BLUE,
-			Colour.SLIME_PINK,
-			Colour.SLIME_GREEN,
-			Colour.SLIME_RED,
-			
 			Colour.COVERING_WHITE,
 			Colour.COVERING_BLUE,
 			Colour.COVERING_LILAC,
@@ -74,7 +65,6 @@ public enum StartingSkinTone {
 			Colour.COVERING_GINGER,
 			Colour.COVERING_BLEACH_BLONDE,
 			
-			Colour.HORN_WHITE,
 			Colour.ORIFICE_INTERIOR,
 			Colour.TONGUE,
 
@@ -111,12 +101,6 @@ public enum StartingSkinTone {
 			Colour.SKIN_LILAC,
 			Colour.SKIN_PURPLE,
 			Colour.SKIN_IVORY,
-			
-			Colour.SLIME_BLUE,
-			Colour.SLIME_PINK,
-			Colour.SLIME_GREEN,
-			Colour.SLIME_RED,
-			Colour.SLIME_BLACK,
 
 			Colour.COVERING_BLACK,
 			Colour.COVERING_WHITE,
@@ -130,7 +114,6 @@ public enum StartingSkinTone {
 			Colour.COVERING_GINGER,
 			Colour.COVERING_BLEACH_BLONDE,
 			
-			Colour.HORN_WHITE,
 			Colour.ORIFICE_INTERIOR,
 			Colour.TONGUE,
 
@@ -164,11 +147,6 @@ public enum StartingSkinTone {
 			Colour.SKIN_BROWN,
 			Colour.SKIN_LILAC,
 			Colour.SKIN_PURPLE,
-			
-			Colour.SLIME_BLUE,
-			Colour.SLIME_GREEN,
-			Colour.SLIME_RED,
-			Colour.SLIME_BLACK,
 
 			Colour.COVERING_BLACK,
 			Colour.COVERING_WHITE,
@@ -180,7 +158,6 @@ public enum StartingSkinTone {
 			Colour.COVERING_YELLOW,
 			Colour.COVERING_ORANGE,
 			
-			Colour.HORN_WHITE,
 			Colour.ORIFICE_INTERIOR,
 			Colour.TONGUE,
 
@@ -210,11 +187,6 @@ public enum StartingSkinTone {
 			Colour.SKIN_RED,
 			Colour.SKIN_BROWN,
 			Colour.SKIN_PURPLE,
-			
-			Colour.SLIME_BLUE,
-			Colour.SLIME_GREEN,
-			Colour.SLIME_RED,
-			Colour.SLIME_BLACK,
 
 			Colour.COVERING_BLACK,
 			Colour.COVERING_WHITE,
@@ -224,7 +196,6 @@ public enum StartingSkinTone {
 			Colour.COVERING_YELLOW,
 			Colour.COVERING_ORANGE,
 			
-			Colour.HORN_WHITE,
 			Colour.ORIFICE_INTERIOR,
 			Colour.TONGUE,
 

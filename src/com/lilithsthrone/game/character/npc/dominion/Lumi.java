@@ -142,8 +142,8 @@ public class Lumi extends NPC {
 		}
 		
 		// Body:
-		this.setEarType(EarType.LYCAN);
-		this.setTailType(TailType.LYCAN);
+		this.setEarType(EarType.WOLF_MORPH);
+		this.setTailType(TailType.WOLF_MORPH);
 
 		// Core:
 		this.setHeight(157); // About 5'2"

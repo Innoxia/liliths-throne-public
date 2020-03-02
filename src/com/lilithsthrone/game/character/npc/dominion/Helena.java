@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -49,10 +51,12 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -62,7 +66,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.3.5.5
+ * @version 0.3.7
  * @author Innoxia
  */
 public class Helena extends NPC {
@@ -82,6 +86,8 @@ public class Helena extends NPC {
 		if(!isImported) {
 			this.addSpell(Spell.SLAM);
 			this.addSpell(Spell.ARCANE_AROUSAL);
+			
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 5);
 		}
 	}
 	
@@ -112,8 +118,17 @@ public class Helena extends NPC {
 			this.setId("-1,Helena");
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.2")) {
-			this.equipClothing();
 			this.setSurname("Labelle");
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.9")) {
+			this.equipClothing();
+			this.clearFetishes();
+			this.addFetish(Fetish.FETISH_PURE_VIRGIN);
+			this.resetPerksMap(true, false);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_PALE), true);
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BLUE_LIGHT));
+			this.setHairStyle(HairStyle.STRAIGHT);
 		}
 	}
 
@@ -122,12 +137,11 @@ public class Helena extends NPC {
 		this.addSpecialPerk(Perk.SPECIAL_ARCANE_TRAINING);
 		
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(
-						Perk.FEMALE_ATTRACTION),
+				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 0),
-						new Value<>(PerkCategory.LUST, 1),
-						new Value<>(PerkCategory.ARCANE, 5)));
+						new Value<>(PerkCategory.LUST, 0),
+						new Value<>(PerkCategory.ARCANE, 1)));
 	}
 	
 	@Override
@@ -145,7 +159,6 @@ public class Helena extends NPC {
 			this.setHistory(Occupation.NPC_HARPY_MATRIARCH);
 			
 			this.addFetish(Fetish.FETISH_PURE_VIRGIN);
-			this.addFetish(Fetish.FETISH_DENIAL);
 		}
 		
 		// Body:
@@ -157,13 +170,13 @@ public class Helena extends NPC {
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
 		
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BLUE));
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BLUE_LIGHT));
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_PALE), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.COVERING_WHITE), true);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.COVERING_WHITE), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
-		this.setHairStyle(HairStyle.LOOSE);
+		this.setHairStyle(HairStyle.STRAIGHT);
 		
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HARPY, Colour.COVERING_WHITE), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
@@ -225,13 +238,13 @@ public class Helena extends NPC {
 		this.setPiercedEar(true);
 		this.setPiercedNavel(false);
 		this.setPiercedNose(false);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_HOOPS, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_hoops", Colour.CLOTHING_GOLD, false), true, this);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_PLUNGE_DRESS, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_tiara", Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_GOLD, false), true, this);
+//		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_GOLD, false), true, this);
 
 	}
 	
@@ -251,33 +264,39 @@ public class Helena extends NPC {
 	
 	@Override
 	public void dailyUpdate() {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaGoneHome, false);
+		
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
 			for(String id : this.getSlavesOwned()) {
 				if(Main.game.isCharacterExisting(id)) {
 					Main.game.banishNPC(id);
 				}
 			}
-			for(GameCharacter character : new ArrayList<>(Main.game.getCharactersPresent(this.getCell()))) {
+			for(GameCharacter character : new ArrayList<>(Main.game.getCharactersPresent(this.getCell()))) { // Catch for old version which had bugged slaves standing on Helena's tile:
 				if(character.isSlave() && !character.getOwner().isPlayer() && character instanceof DominionAlleywayAttacker) {
 					Main.game.banishNPC((NPC) character);
 				}
 			}
 			this.removeAllSlaves();
 			
-			for(int i=0; i<3; i++) {
-				NPC newSlave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
-				newSlave.setHistory(Occupation.NPC_SLAVE);
-				try {
-					Main.game.addNPC(newSlave, false);
-				} catch (Exception e) {
-					e.printStackTrace();
+			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_A_EXTERIOR_DECORATOR)
+					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN)
+					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN_PREMIUM)) {
+				for(int i=0; i<2; i++) {
+					NPC newSlave = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.NO_CLOTHING_EQUIP);
+					newSlave.setHistory(Occupation.NPC_SLAVE);
+					try {
+						Main.game.addNPC(newSlave, false);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+					newSlave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+					addSlave(newSlave);
+					newSlave.resetInventory(true);
+					newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Helena.class));
+					newSlave.setPlayerKnowsName(true);
 				}
-				
-				newSlave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
-				addSlave(newSlave);
-				newSlave.resetInventory(true);
-				newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Helena.class));
-				newSlave.setPlayerKnowsName(true);
 			}
 		}
 	}
@@ -289,7 +308,8 @@ public class Helena extends NPC {
 	@Override
 	public void turnUpdate() {
 		if(!Main.game.getCharactersPresent().contains(this)) {
-			if(Main.game.getPlayer().hasQuest(QuestLine.MAIN) && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_E_REPORT_TO_HELENA)) {
+			if((Main.game.getPlayer().hasQuest(QuestLine.MAIN) && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_E_REPORT_TO_HELENA))
+					|| Main.game.getPlayer().isQuestFailed(QuestLine.ROMANCE_HELENA)) {
 				if(Main.game.isExtendedWorkTime()) {
 					this.setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST, true);
 					
@@ -298,18 +318,17 @@ public class Helena extends NPC {
 				}
 				
 			} else {
-				if(Main.game.isExtendedWorkTime() || Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
+				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaGoneHome)
+						&& ((Main.game.isWorkTime() && Main.game.getDateNow().getDayOfWeek()!=DayOfWeek.SATURDAY && Main.game.getDateNow().getDayOfWeek()!=DayOfWeek.SUNDAY) // Helena doesn't work over the weekend
+							|| Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE
+							|| (Main.game.getDateNow().getDayOfWeek()==DayOfWeek.FRIDAY && Main.game.getHourOfDay()>12 && Main.game.getHourOfDay()<21))) { // Helena works late on Fridays
 					this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 					
 				} else {
 					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
-					if(!Main.game.isExtendedWorkTime() && Main.game.getHourOfDay()>12) {
-						for(String id : this.getSlavesOwned()) {
-							if(Main.game.isCharacterExisting(id)) {
-								Main.game.banishNPC(id);
-							}
-						}
-						this.removeAllSlaves();
+					
+					if(!this.getSlavesOwned().isEmpty() && !Main.game.isWorkTime() && Main.game.getHourOfDay()>12) {
+						sellOffRemainingSlaves();
 					}
 				}
 			}
@@ -319,6 +338,15 @@ public class Helena extends NPC {
 	@Override
 	public DialogueNode getEncounterDialogue() {
 		return null;
+	}
+	
+	public void sellOffRemainingSlaves() {
+		for(String id : this.getSlavesOwned()) {
+			if(Main.game.isCharacterExisting(id)) {
+				Main.game.banishNPC(id);
+			}
+		}
+		this.removeAllSlaves();
 	}
 
 }

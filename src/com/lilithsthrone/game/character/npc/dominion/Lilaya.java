@@ -152,8 +152,8 @@ public class Lilaya extends NPC {
 					PersonalityTrait.KIND,
 					PersonalityTrait.SHY);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.setTailGirth(PenetrationGirth.THREE_THICK);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.9")) {
+			this.setTailGirth(PenetrationGirth.FOUR_FAT);
 		}
 	}
 
@@ -181,7 +181,7 @@ public class Lilaya extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, humanSkinColour), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.MOUTH, humanSkinColour), false);
 		
-		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.COVERING_DARK_GREY), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMaximumValue());
@@ -222,7 +222,7 @@ public class Lilaya extends NPC {
 		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		this.setHornType(HornType.SWEPT_BACK);
 		this.setTailType(TailType.DEMON_COMMON);
-		this.setTailGirth(PenetrationGirth.THREE_THICK);
+		this.setTailGirth(PenetrationGirth.FOUR_FAT);
 
 		this.setHeight(180);
 		this.setFemininity(85);

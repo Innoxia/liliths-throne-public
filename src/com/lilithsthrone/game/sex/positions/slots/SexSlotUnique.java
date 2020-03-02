@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.sex.positions.slots;
 
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
+
 /**
  * @since 0.1.97
  * @version 0.3.4
@@ -164,29 +167,65 @@ public class SexSlotUnique {
 			"Kneeling",
 			"glory hole (kneeling)",
 			"[npc1.Name] [npc1.verb(look)] back and forth between the two glory holes, letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
-			false);
+			false) {
+		@Override
+		public String getGenericEndSexDescription(GameCharacter endingCharacter, GameCharacter targetedCharacter) {
+			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] [npc.verb(step)] away from the glory hole, signalling that [npc.sheHas] had enough for now.");
+		}
+	};
 
 	public static final SexSlot GLORY_HOLE_FUCKED = new SexSlot(
 			"Getting fucked",
-			"glory hole (getting fucked)",
+			"glory hole (fucked)",
 			"[npc1.Name] [npc1.verb(push)] [npc.her] [npc.hips] back against the toilet stall's wall and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
-			true);
+			true) {
+		@Override
+		public String getGenericEndSexDescription(GameCharacter endingCharacter, GameCharacter targetedCharacter) {
+			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] [npc.verb(step)] away from the glory hole, signalling that [npc.sheHas] had enough for now.");
+		}
+	};
 
+	public static final SexSlot GLORY_HOLE_ANALLY_FUCKED = new SexSlot(
+			"Getting anally fucked",
+			"glory hole (anally fucked)",
+			"[npc1.Name] [npc1.verb(push)] [npc.her] [npc.ass] back against the toilet stall's wall and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
+			true) {
+		@Override
+		public String getGenericEndSexDescription(GameCharacter endingCharacter, GameCharacter targetedCharacter) {
+			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] [npc.verb(step)] away from the glory hole, signalling that [npc.sheHas] had enough for now.");
+		}
+	};
+	
 	public static final SexSlot GLORY_HOLE_RECEIVING_ORAL_ONE = new SexSlot(
 			"Receiving oral",
 			"glory hole (receiving oral)",
 			"[npc1.Name] [npc1.verb(thrust)] [npc.her] [npc.hips] against the glory hole and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
-			true);
+			true) {
+		@Override
+		public String getGenericEndSexDescription(GameCharacter endingCharacter, GameCharacter targetedCharacter) {
+			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] [npc.verb(step)] away from the glory hole, signalling that [npc.sheHas] had enough for now.");
+		}
+	};
 	
 	public static final SexSlot GLORY_HOLE_RECEIVING_ORAL_TWO = new SexSlot(
 			"Receiving oral",
 			"glory hole (receiving oral, second)",
 			"[npc1.Name] [npc1.verb(thrust)] [npc.her] [npc.hips] against the glory hole and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
-			true);
+			true) {
+		@Override
+		public String getGenericEndSexDescription(GameCharacter endingCharacter, GameCharacter targetedCharacter) {
+			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] [npc.verb(step)] away from the glory hole, signalling that [npc.sheHas] had enough for now.");
+		}
+	};
 	
 	public static final SexSlot GLORY_HOLE_FUCKING = new SexSlot(
 			"Fucking",
 			"glory hole (fucking)",
 			"[npc1.Name] [npc1.verb(thrust)] [npc.her] [npc.hips] against the glory hole and [npc1.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
-			true);
+			true) {
+		@Override
+		public String getGenericEndSexDescription(GameCharacter endingCharacter, GameCharacter targetedCharacter) {
+			return UtilText.parse(endingCharacter, targetedCharacter, "With a satisfied sigh, [npc.name] [npc.verb(step)] away from the glory hole, signalling that [npc.sheHas] had enough for now.");
+		}
+	};
 }

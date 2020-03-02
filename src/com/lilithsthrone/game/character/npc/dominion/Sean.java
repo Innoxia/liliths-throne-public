@@ -68,7 +68,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3.6.2
- * @version 0.3.6.2
+ * @version 0.3.7
  * @author Innoxia
  */
 public class Sean extends NPC {
@@ -86,7 +86,7 @@ public class Sean extends NPC {
 		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
-			this.setGenericName("Enforcer");
+			this.setGenericName("rabbit-boy Enforcer");
 		}
 	}
 	
@@ -202,8 +202,8 @@ public class Sean extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		this.clearNonEquippedInventory(false);
-		this.unequipMainWeaponIntoVoid(0, true);
-		this.unequipOffhandWeaponIntoVoid(0, true);
+		this.unequipMainWeaponIntoVoid(0, false);
+		this.unequipOffhandWeaponIntoVoid(0, false);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
 

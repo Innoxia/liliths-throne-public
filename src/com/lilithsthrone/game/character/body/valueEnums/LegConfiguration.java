@@ -93,7 +93,7 @@ public enum LegConfiguration {
 			}
 			@Override
 			public void setLegsToDemon(GameCharacter character) {
-				character.setLegType(LegType.DEMON_HOOFED);
+				character.setLegType(LegType.DEMON_HORSE_HOOFED);
 			}
 	},
 
@@ -150,6 +150,22 @@ public enum LegConfiguration {
 					Util.newArrayListOfValues(
 							ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
 							ItemTag.FITS_LONG_TAIL_BODY));
+		}
+		@Override
+		public String getMovementVerbPresentFirstPersonSingular() {
+			return "slither";
+		}
+		@Override
+		public String getMovementVerbPresentThirdPersonSingular() {
+			return "slithers";
+		}
+		@Override
+		public String getMovementVerbPresentParticiple() {
+			return "slithering";
+		}
+		@Override
+		public String getMovementVerbPastParticiple() {
+			return "slithered";
 		}
 	},
 
@@ -345,6 +361,22 @@ public enum LegConfiguration {
 		return name;
 	}
 
+	public String getMovementVerbPresentFirstPersonSingular() {
+		return "walk";
+	}
+
+	public String getMovementVerbPresentThirdPersonSingular() {
+		return "walks";
+	}
+
+	public String getMovementVerbPresentParticiple() {
+		return "walking";
+	}
+
+	public String getMovementVerbPastParticiple() {
+		return "walked";
+	}
+	
 	public int getLandSpeedModifier() {
 		return landSpeedModifier;
 	}

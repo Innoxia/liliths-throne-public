@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.baseActions;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -19,52 +20,47 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class FingerPenis {
-
+	
+	private static boolean isCharacterPrecumming(GameCharacter character) {
+		return character.getArousal() >= character.getPenisCumStorage().getArousalNeededToStartPreCumming();
+	}
+	
 	//TODO grope cock
 	
-	public static final SexAction PARTNER_FONDLE_BALLS = new SexAction(
+	public static final SexAction FONDLE_BALLS = new SexAction(
 			SexActionType.REQUIRES_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, null)),
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL) {
-		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.getCharacterTargetedForSexAction(this).isInternalTesticles()
 					&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
-		
 		@Override
 		public String getActionTitle() {
 			return "Fondle balls";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Fondle and play with [npc2.namePos] [npc2.balls+].";
 		}
-
 		@Override
 		public String getDescription() {
 			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.SIXTY_NINE)) {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] [npc.verb(prop)] [npc.herself] up on one [npc.arm], before using [npc.her] free [npc.hand] to stroke and squeeze [npc2.namePos] [npc2.balls+].",
-
 						"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prop)] [npc.herself] up on one [npc.arm], before reaching down and starting to stroke and play with [npc2.namePos] [npc2.balls+].",
-
-						"Propping [npc.herself] up on one [npc.arm], [npc.name] [npc.verb(run)] [npc.her] [npc.fingers+] over [npc2.namePos] ballsack, grinning as [npc.she] [npc.verb(start)] to stroke and cup [npc2.namePos] [npc2.balls+].",
-
+						"Propping [npc.herself] up on one [npc.arm], [npc.name] [npc.verb(run)] [npc.her] [npc.fingers+] over [npc2.namePos] groin, grinning as [npc.she] [npc.verb(start)] to stroke and cup [npc2.namePos] [npc2.balls+].",
 						"Propping [npc.herself] up on one [npc.arm], [npc.name] uses [npc.her] free [npc.hand] to cup and stroke [npc2.namePos] [npc2.balls+],"
 								+ " [npc.moaning] happily to [npc.herself] as [npc2.namePos] [npc2.cock+] twitches in response.");
 				
 			} else {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] [npc.verb(reach)] between [npc2.namePos] [npc2.legs] with one [npc.hand] and [npc.verb(start)] to stroke and squeeze [npc2.her] [npc2.balls+].",
-
 						"[npc2.Name] [npc2.verb(find)] [npc2.herself] letting out [npc2.a_moan+] as [npc.name] [npc.verb(reach)] across with one [npc.hand] to start stroking and playing with [npc2.her] [npc2.balls+].",
-
 						"Running [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.balls+], [npc.name] [npc.verb(start)] to stroke and cup them, letting out [npc.a_moan+] as [npc2.namePos] [npc2.cock+] twitches in response.");
 			}
 		}
@@ -78,25 +74,20 @@ public class FingerPenis {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL) {
-		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
-		
 		@Override
 		public String getActionTitle() {
 			return "Start handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Reach down and start stroking [npc2.namePos] [npc2.cock+].";
 		}
-
 		@Override
 		public String getDescription() {
-			
 			UtilText.nodeContentSB.setLength(0);
 			
 			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
@@ -282,29 +273,35 @@ public class FingerPenis {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Gentle handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Gently continue giving [npc2.name] a handjob.";
 		}
-		
 		@Override
 		public String getDescription() {
-
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Gently wrapping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] slowly [npc.verb(start)] to slide [npc.her] [npc.hand] up and down [npc2.her] [npc2.penisGirth] shaft.",
+			if(isCharacterPrecumming(Main.sex.getCharacterTargetedForSexAction(this))) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"[npc.Name] gently [npc.verb(slide)] [npc.her] [npc.hand] up and down around [npc2.namePos] [npc2.penisGirth] cock, spreading [npc2.her] [npc2.precum+] all over [npc2.her] shaft in the process.",
+						
+						"Using [npc2.namePos] [npc2.precum+] as extra lubricant, [npc.name] gently [npc.verb(wrap)] [npc.her] [npc.fingers+] around [npc2.her] [npc2.cock+] and [npc.verb(jerk)] [npc2.herHim] off.",
+						
+						"[npc.Name] [npc.verb(let)] out a reassuring [npc.moan] as [npc.she] gently [npc.verb(slide)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.precum]-dripping [npc2.cock]."));
+				
+			} else {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"Gently wrapping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] slowly [npc.verb(start)] to slide [npc.her] [npc.hand] up and down [npc2.her] [npc2.penisGirth] shaft.",
 
-					"[npc.Name] gently [npc.verb(wrap)] [npc.her] [npc.hand] around [npc2.namePos] [npc2.cock+],"
-							+ " leaning forwards and inhaling [npc2.her] [npc2.scent+] as [npc.she] gently [npc.verb(slide)] [npc.her] [npc.fingers+] up and down around [npc2.her] [npc2.penisGirth] length.",
+						"[npc.Name] gently [npc.verb(wrap)] [npc.her] [npc.hand] around [npc2.namePos] [npc2.cock+],"
+								+ " leaning forwards and inhaling [npc2.her] [npc2.scent+] as [npc.she] gently [npc.verb(slide)] [npc.her] [npc.fingers+] up and down around [npc2.her] [npc2.penisGirth] length.",
 
-					"Gently pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] softly [npc.verb(slide)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.cock+]."));
+						"Gently pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] softly [npc.verb(slide)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.cock+]."));
+			}
 			
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
@@ -321,30 +318,37 @@ public class FingerPenis {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_NORMAL) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Continue giving [npc2.name] a handjob.";
 		}
-		
 		@Override
 		public String getDescription() {
 			
 			UtilText.nodeContentSB.setLength(0);
 
-			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly wrapping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] rapidly [npc.verb(start)] to slide [npc.her] [npc.hand] up and down [npc2.her] [npc2.penisGirth] shaft.",
-
-					"[npc.Name] enthusiastically [npc.verb(wrap)] [npc.her] [npc.hand] around [npc2.namePos] [npc2.cock+],"
-							+ " leaning forwards and inhaling [npc2.her] [npc2.scent+] as [npc.she] eagerly [npc.verb(slide)] [npc.her] [npc.fingers+] up and down around [npc2.her] [npc2.penisGirth] length.",
-
-					"Happily pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] rapidly [npc.verb(slide)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.cock+]."));
-
+			if(isCharacterPrecumming(Main.sex.getCharacterTargetedForSexAction(this))) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"[npc.Name] eagerly [npc.verb(slide)] [npc.her] [npc.hand] up and down around [npc2.namePos] [npc2.penisGirth] cock, spreading [npc2.her] [npc2.precum+] all over [npc2.her] shaft in the process.",
+						
+						"Using [npc2.namePos] [npc2.precum+] as extra lubricant, [npc.name] enthusiastically [npc.verb(wrap)] [npc.her] [npc.fingers+] around [npc2.her] [npc2.cock+] and eagerly [npc.verb(jerk)] [npc2.herHim] off.",
+						
+						"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] rapidly [npc.verb(slide)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.precum]-dripping [npc2.cock]."));
+				
+			} else {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"Eagerly wrapping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] rapidly [npc.verb(start)] to slide [npc.her] [npc.hand] up and down [npc2.her] [npc2.penisGirth] shaft.",
+	
+						"[npc.Name] enthusiastically [npc.verb(wrap)] [npc.her] [npc.hand] around [npc2.namePos] [npc2.cock+],"
+								+ " leaning forwards and inhaling [npc2.her] [npc2.scent+] as [npc.she] eagerly [npc.verb(slide)] [npc.her] [npc.fingers+] up and down around [npc2.her] [npc2.penisGirth] length.",
+	
+						"Happily pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] rapidly [npc.verb(slide)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.cock+]."));
+			}
+			
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
 			return UtilText.nodeContentSB.toString();
@@ -360,29 +364,36 @@ public class FingerPenis {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Rough handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Give [npc2.name] a rough handjob.";
 		}
-		
 		@Override
 		public String getDescription() {
 
 			UtilText.nodeContentSB.setLength(0);
 
-			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Forcefully gripping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] to roughly pump [npc.her] [npc.hand] up and down the length of [npc2.her] [npc2.penisGirth] shaft.",
-
-					"[npc.Name] aggressively [npc.verb(wrap)] [npc.her] [npc.hand] around [npc2.namePos] [npc2.cock+],"
-							+ " leaning forwards and inhaling [npc2.her] [npc2.scent+] as [npc.she] roughly [npc.verb(pump)] [npc.her] [npc.fingers+] up and down around [npc2.her] [npc2.penisGirth] length.",
-
-					"Roughly grinding [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] aggressively [npc.verb(pump)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.cock+]."));
+			if(isCharacterPrecumming(Main.sex.getCharacterTargetedForSexAction(this))) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"[npc.Name] roughly [npc.verb(pump)] [npc.her] [npc.hand] up and down around [npc2.namePos] [npc2.penisGirth] cock, spreading [npc2.her] [npc2.precum+] all over [npc2.her] shaft in the process.",
+						
+						"Using [npc2.namePos] [npc2.precum+] as extra lubricant, [npc.name] forcefully [npc.verb(wrap)] [npc.her] [npc.fingers+] around [npc2.her] [npc2.cock+] and aggressively [npc.verb(jerk)] [npc2.herHim] off.",
+						
+						"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] roughly [npc.verb(pump)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.precum]-dripping [npc2.cock]."));
+				
+			} else {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"Forcefully gripping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] to roughly pump [npc.her] [npc.hand] up and down the length of [npc2.her] [npc2.penisGirth] shaft.",
+	
+						"[npc.Name] aggressively [npc.verb(wrap)] [npc.her] [npc.hand] around [npc2.namePos] [npc2.cock+],"
+								+ " leaning forwards and inhaling [npc2.her] [npc2.scent+] as [npc.she] roughly [npc.verb(pump)] [npc.her] [npc.fingers+] up and down around [npc2.her] [npc2.penisGirth] length.",
+	
+						"Roughly grinding [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] aggressively [npc.verb(pump)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.cock+]."));
+			}
 			
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
@@ -399,30 +410,37 @@ public class FingerPenis {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_NORMAL) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Continue giving [npc2.namePos] a handjob.";
 		}
-		
 		@Override
 		public String getDescription() {
 			
 			UtilText.nodeContentSB.setLength(0);
 
-			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Wrapping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] to slide [npc.her] [npc.hand] up and down [npc2.her] [npc2.penisGirth] shaft.",
-
-					"[npc.Name] [npc.verb(wrap)] [npc.her] [npc.hand] around [npc2.namePos] [npc2.cock+],"
-							+ " leaning forwards and inhaling [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(slide)] [npc.her] [npc.fingers+] up and down around [npc2.her] [npc2.penisGirth] length.",
-
-					"Pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(slide)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.cock+]."));
-
+			if(isCharacterPrecumming(Main.sex.getCharacterTargetedForSexAction(this))) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"[npc.Name] [npc.verb(slide)] [npc.her] [npc.hand] up and down around [npc2.namePos] [npc2.penisGirth] cock, spreading [npc2.her] [npc2.precum+] all over [npc2.her] shaft in the process.",
+						
+						"Using [npc2.namePos] [npc2.precum+] as extra lubricant, [npc.name] [npc.verb(wrap)] [npc.her] [npc.fingers+] around [npc2.her] [npc2.cock+] and [npc.verb(jerk)] [npc2.herHim] off.",
+						
+						"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(slide)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.precum]-dripping [npc2.cock]."));
+				
+			} else {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"Wrapping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(start)] to slide [npc.her] [npc.hand] up and down [npc2.her] [npc2.penisGirth] shaft.",
+	
+						"[npc.Name] [npc.verb(wrap)] [npc.her] [npc.hand] around [npc2.namePos] [npc2.cock+],"
+								+ " leaning forwards and inhaling [npc2.her] [npc2.scent+] as [npc.she] [npc.verb(slide)] [npc.her] [npc.fingers+] up and down around [npc2.her] [npc2.penisGirth] length.",
+	
+						"Pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(slide)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.cock+]."));
+			}
+			
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
 			return UtilText.nodeContentSB.toString();
@@ -438,30 +456,37 @@ public class FingerPenis {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Eager handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Enthusiastically give [npc2.name] a handjob.";
 		}
-		
 		@Override
 		public String getDescription() {
 			
 			UtilText.nodeContentSB.setLength(0);
 
-			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly wrapping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] rapidly [npc.verb(start)] to slide [npc.her] [npc.hand] up and down [npc2.her] [npc2.penisGirth] shaft.",
-
-					"[npc.Name] enthusiastically [npc.verb(wrap)] [npc.her] [npc.hand] around [npc2.namePos] [npc2.cock+],"
-							+ " leaning forwards and inhaling [npc2.her] [npc2.scent+] as [npc.she] eagerly [npc.verb(slide)] [npc.her] [npc.fingers+] up and down around [npc2.her] [npc2.penisGirth] length.",
-
-					"Happily pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] rapidly [npc.verb(slide)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.cock+]."));
-
+			if(isCharacterPrecumming(Main.sex.getCharacterTargetedForSexAction(this))) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"[npc.Name] eagerly [npc.verb(slide)] [npc.her] [npc.hand] up and down around [npc2.namePos] [npc2.penisGirth] cock, spreading [npc2.her] [npc2.precum+] all over [npc2.her] shaft in the process.",
+						
+						"Using [npc2.namePos] [npc2.precum+] as extra lubricant, [npc.name] enthusiastically [npc.verb(wrap)] [npc.her] [npc.fingers+] around [npc2.her] [npc2.cock+] and eagerly [npc.verb(jerk)] [npc2.herHim] off.",
+						
+						"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] rapidly [npc.verb(slide)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.precum]-dripping [npc2.cock]."));
+				
+			} else {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						"Eagerly wrapping [npc.her] [npc.fingers+] around [npc2.namePos] [npc2.cock+], [npc.name] rapidly [npc.verb(start)] to slide [npc.her] [npc.hand] up and down [npc2.her] [npc2.penisGirth] shaft.",
+	
+						"[npc.Name] enthusiastically [npc.verb(wrap)] [npc.her] [npc.hand] around [npc2.namePos] [npc2.cock+],"
+								+ " leaning forwards and inhaling [npc2.her] [npc2.scent+] as [npc.she] eagerly [npc.verb(slide)] [npc.her] [npc.fingers+] up and down around [npc2.her] [npc2.penisGirth] length.",
+	
+						"Happily pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] rapidly [npc.verb(slide)] [npc.her] [npc.hand+] up and down the length of [npc2.namePos] [npc2.cock+]."));
+			}
+			
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
 			return UtilText.nodeContentSB.toString();
@@ -477,17 +502,14 @@ public class FingerPenis {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Resist handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Try and pull your [npc.hand] away from [npc2.namePos] [npc2.cock+].";
 		}
-		
 		@Override
 		public String getDescription() {
 
@@ -499,7 +521,7 @@ public class FingerPenis {
 
 					"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.hand] away from [npc2.namePos] [npc2.cock+].",
 
-					"[npc.Name] [npc.sobs] in distress as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.hand] away from [npc2.namePos] [npc2.cock+]."));
+					"[npc.Name] [npc.sobsVerb] in distress as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.hand] away from [npc2.namePos] [npc2.cock+]."));
 			
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
@@ -535,17 +557,14 @@ public class FingerPenis {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Stop handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Let go of [npc2.namePos] [npc2.cock+] and stop giving [npc2.herHim] a handjob.";
 		}
-
 		@Override
 		public String getDescription() {
 			
@@ -592,17 +611,14 @@ public class FingerPenis {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Get handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Get [npc2.name] to start giving you a handjob.";
 		}
-
 		@Override
 		public String getDescription() {
 			
@@ -711,17 +727,14 @@ public class FingerPenis {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_GENTLE) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Gently receive handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Gently enjoy [npc2.namePos] handjob.";
 		}
-
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
@@ -747,17 +760,14 @@ public class FingerPenis {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_NORMAL) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Receive handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Enjoy [npc2.namePos] handjob.";
 		}
-
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
@@ -783,17 +793,14 @@ public class FingerPenis {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL,
 			SexPace.DOM_ROUGH) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Roughly receive handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Roughly enjoy [npc2.namePos] handjob.";
 		}
-
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
@@ -819,17 +826,14 @@ public class FingerPenis {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_NORMAL) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Receive handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Enjoy [npc2.namePos] handjob.";
 		}
-
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
@@ -855,17 +859,14 @@ public class FingerPenis {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_EAGER) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Eagerly receive handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Eagerly enjoy [npc2.namePos] handjob.";
 		}
-
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
@@ -891,17 +892,14 @@ public class FingerPenis {
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Resist receiving handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Try and pull your [npc.cock+] away from [npc2.namePos] [npc2.hand].";
 		}
-		
 		@Override
 		public String getDescription() {
 
@@ -913,7 +911,7 @@ public class FingerPenis {
 
 					"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.cock+] away from [npc2.namePos] [npc2.hand].",
 
-					"[npc.Name] [npc.sobs] in distress as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.cock+] away from [npc2.namePos] [npc2.hand]."));
+					"[npc.Name] [npc.sobsVerb] in distress as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.cock+] away from [npc2.namePos] [npc2.hand]."));
 			
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
@@ -953,17 +951,14 @@ public class FingerPenis {
 			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.FINGER)),
 			SexParticipantType.NORMAL) {
-		
 		@Override
 		public String getActionTitle() {
 			return "Stop receiving handjob";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Get [npc2.name] to take [npc2.her] [npc2.hand] off your [npc.cock].";
 		}
-
 		@Override
 		public String getDescription() {
 			

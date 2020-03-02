@@ -1048,14 +1048,15 @@ public class OccupantDialogue {
 				
 			} else if(index-3<availableOccuaptions.size()) {
 				Occupation job = availableOccuaptions.get(index-3);
+				String jobName = job.getName(occupant());
 				if(occupant().getHistory().equals(job)) {
-					return new Response(Util.capitaliseSentence(job.getName()),
-							UtilText.parse(occupant(), "[npc.Name] is already employed as "+UtilText.generateSingularDeterminer(job.getName())+" "+job.getName()+"."),
+					return new Response(Util.capitaliseSentence(jobName),
+							UtilText.parse(occupant(), "[npc.Name] is already employed as "+UtilText.generateSingularDeterminer(jobName)+" "+jobName+"."),
 							null);
 					
 				} else if(occupant().getDesiredJobs().contains(job)) {
-					return new Response(Util.capitaliseSentence(job.getName()),
-							UtilText.parse(occupant(), "Tell [npc.name] to stop looking for a job as "+UtilText.generateSingularDeterminer(job.getName())+" "+job.getName()+"."),
+					return new Response(Util.capitaliseSentence(jobName),
+							UtilText.parse(occupant(), "Tell [npc.name] to stop looking for a job as "+UtilText.generateSingularDeterminer(jobName)+" "+jobName+"."),
 							OCCUPANT_JOB_SUGGESTION) {
 						@Override
 						public Colour getHighlightColour() {
@@ -1068,8 +1069,8 @@ public class OccupantDialogue {
 					};
 					
 				} else {
-					return new Response(Util.capitaliseSentence(job.getName()),
-							UtilText.parse(occupant(), "Tell [npc.name] that [npc.she] should look for a job as "+UtilText.generateSingularDeterminer(job.getName())+" "+job.getName()+"."),
+					return new Response(Util.capitaliseSentence(jobName),
+							UtilText.parse(occupant(), "Tell [npc.name] that [npc.she] should look for a job as "+UtilText.generateSingularDeterminer(jobName)+" "+jobName+"."),
 							OCCUPANT_JOB_SUGGESTION) {
 						@Override
 						public void effects() {

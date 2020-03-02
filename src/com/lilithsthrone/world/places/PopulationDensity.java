@@ -9,7 +9,7 @@ public enum PopulationDensity {
 
 	OCCASIONAL("an occasional"),
 	
-	COUPLE("one or two"),
+	COUPLE("couple of"),
 	
 	FEW("few"),
 	

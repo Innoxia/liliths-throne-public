@@ -422,7 +422,7 @@ public class RalphsSnacks {
 						Util.newArrayListOfValues(Fetish.FETISH_PREGNANCY),
 						null, CorruptionLevel.THREE_DIRTY, null, null, null,
 						true,
-						true,
+						false,
 						new SexManagerDefault(
 								SexPosition.OVER_DESK,
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Ralph.class), SexSlotDesk.BETWEEN_LEGS)),

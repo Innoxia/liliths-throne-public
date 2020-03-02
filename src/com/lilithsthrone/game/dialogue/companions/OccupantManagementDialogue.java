@@ -30,11 +30,12 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.8?
- * @version 0.3.5.1
+ * @version 0.3.7
  * @author Innoxia
  */
 public class OccupantManagementDialogue {
 	
+	private static DialogueNode dialogueToExitTo = null;
 	private static StringBuilder miscDialogueSB = new StringBuilder();
 	private static int dayNumber = 1;
 	private static DecimalFormat decimalFormat = new DecimalFormat("#0.00");
@@ -47,17 +48,37 @@ public class OccupantManagementDialogue {
 		return Main.game.getDialogueFlags().getManagementCompanion();
 	}
 	
-	public static DialogueNode getSlaveryOverviewDialogue() {
+	/**
+	 * @param dialogueToExitTo The DialogueNode which should be displayed when exiting out of the occupant management windows.
+	 * @return OCCUPANT_OVERVIEW
+	 */
+	public static DialogueNode getSlaveryOverviewDialogue(DialogueNode dialogueToExitTo) {
+		OccupantManagementDialogue.dialogueToExitTo = dialogueToExitTo;
 		dayNumber = Main.game.getDayNumber();
+		Main.game.getDialogueFlags().setSlaveTrader(null);
 		return OCCUPANT_OVERVIEW;
 	}
-	
-	public static DialogueNode getSlaveryManagementDialogue(NPC slaveTrader) {
+
+	/**
+	 * @param dialogueToExitTo The DialogueNode which should be displayed when exiting out of the occupant management windows. Pass in null to return to default dialogue.
+	 * @param slaveTrader The character you are trading with.
+	 * @return SLAVE_LIST_MANAGEMENT
+	 */
+	public static DialogueNode getSlaveryManagementDialogue(DialogueNode dialogueToExitTo, NPC slaveTrader) {
+		OccupantManagementDialogue.dialogueToExitTo = dialogueToExitTo;
+		dayNumber = Main.game.getDayNumber();
 		Main.game.getDialogueFlags().setSlaveTrader(slaveTrader);
 		return SLAVE_LIST_MANAGEMENT;
 	}
-	
-	public static DialogueNode getSlaveryRoomListDialogue(NPC slaveTrader) {
+
+	/**
+	 * @param dialogueToExitTo The DialogueNode which should be displayed when exiting out of the occupant management windows. Pass in null to return to default dialogue.
+	 * @param slaveTrader The character you are trading with.
+	 * @return SLAVE_LIST
+	 */
+	public static DialogueNode getSlaveryRoomListDialogue(DialogueNode dialogueToExitTo, NPC slaveTrader) {
+		OccupantManagementDialogue.dialogueToExitTo = dialogueToExitTo;
+		dayNumber = Main.game.getDayNumber();
 		Main.game.getDialogueFlags().setSlaveTrader(slaveTrader);
 		return SLAVE_LIST;
 	}
@@ -83,7 +104,7 @@ public class OccupantManagementDialogue {
 			return new Response("Occupant List", "Enter the management screen for all slaves and friendly occupants.", SLAVE_LIST_MANAGEMENT) {
 				@Override
 				public DialogueNode getNextDialogue() {
-					return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getDialogueFlags().getSlaveTrader());
+					return OccupantManagementDialogue.getSlaveryManagementDialogue(dialogueToExitTo, Main.game.getDialogueFlags().getSlaveTrader());
 				}
 				@Override
 				public void effects() {
@@ -126,7 +147,7 @@ public class OccupantManagementDialogue {
 			}
 			
 		} else if (index == 0) {
-			return new Response("Back", "Exit the occupancy ledger.", Main.game.getDefaultDialogue()) {
+			return new Response("Back", "Exit the occupancy ledger.", dialogueToExitTo==null?Main.game.getDefaultDialogue():dialogueToExitTo) {
 				@Override
 				public void effects() {
 					Main.game.getDialogueFlags().setManagementCompanion(null);
@@ -957,8 +978,7 @@ public class OccupantManagementDialogue {
 				}
 				UtilText.nodeContentSB.append("</div>");
 				
-			} else { // Don't show occupants if trading slaves.
-				// Friendly occupants:
+			} else { // Show friendly occupants if not trading slaves:
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
 						+ "<h6 style='color:"+Colour.GENERIC_GOOD.toWebHexString()+"; text-align:center;'>Friendly Occupants</h6>"
 						
@@ -999,7 +1019,6 @@ public class OccupantManagementDialogue {
 			// Your slaves:
 			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
 					+ "<h6 style='color:"+Colour.GENERIC_GOOD.toWebHexString()+"; text-align:center;'>Slaves Owned</h6>"
-					
 					+ getSlaveryHeader());
 			
 			if(Main.game.getPlayer().getSlavesOwned().isEmpty()) {
@@ -1055,11 +1074,16 @@ public class OccupantManagementDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 0) {
-				return new Response("Back", "Exit the slave management screen.", OCCUPANT_OVERVIEW);
-				
-			} else {
+				if(Main.game.getCurrentDialogueNode()==SLAVE_LIST_MANAGEMENT) {
+					return new Response("Back", "Exit the slave management screen.", dialogueToExitTo==null?OCCUPANT_OVERVIEW:dialogueToExitTo);
+				} else {
+					return new Response("Back", "Return to the management screen.", SLAVE_LIST_MANAGEMENT);
+				}
+			}
+			if(Main.game.getDialogueFlags().getSlaveTrader()==null) {
 				return SLAVE_LIST.getResponse(responseTab, index);
 			}
+			return null;
 		}
 	};
 	
@@ -1148,46 +1172,49 @@ public class OccupantManagementDialogue {
 							+ "<b>"+Util.capitaliseSentence(slave.getSlaveJob(Main.game.getHourOfDay()).getName(slave))+" (now)</b><br/>"
 							+ UtilText.formatAsMoney(SlaveJob.getFinalDailyIncomeAfterModifiers(slave))+"/day"
 						+"</div>");
-		
+
+		miscDialogueSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>");
 		if(slaveOwned) {
-			miscDialogueSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"
-					+ "<div id='"+slave.getId()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>"
+			miscDialogueSB.append("<div id='"+slave.getId()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>");
 
-					+ "<div id='"+slave.getId()+"_JOB' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJob()+"</div></div>"
-
-					+ "<div id='"+slave.getId()+"_PERMISSIONS' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlavePermissions()+"</div></div>"
+			if(Main.game.getDialogueFlags().getSlaveTrader()==null) { // Only show these buttons if you aren't in a trade screen:
+				miscDialogueSB.append("<div id='"+slave.getId()+"_JOB' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJob()+"</div></div>");
+	
+				miscDialogueSB.append("<div id='"+slave.getId()+"_PERMISSIONS' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlavePermissions()+"</div></div>");
+				
+				miscDialogueSB.append("<div id='"+slave.getId()+"_INVENTORY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon()+"</div></div>");
 					
-					+"<div id='"+slave.getId()+"_INVENTORY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon()+"</div></div>"
-						
-					+ "<div "+((place.getCapacity()<=Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size())
-								|| !place.isSlaveCell()
-								|| (slave.getLocation().equals(Main.game.getPlayer().getLocation()) && slave.getWorldLocation().equals(Main.game.getPlayer().getWorldLocation()))
-										?" id='"+slave.getId()+"_TRANSFER_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>"
-										:" id='"+slave.getId()+"_TRANSFER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransfer()+"</div></div>"));
+				miscDialogueSB.append("<div "+((place.getCapacity()<=Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size())
+							|| !place.isSlaveCell()
+							|| (slave.getLocation().equals(Main.game.getPlayer().getLocation()) && slave.getWorldLocation().equals(Main.game.getPlayer().getWorldLocation()))
+									?" id='"+slave.getId()+"_TRANSFER_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>"
+									:" id='"+slave.getId()+"_TRANSFER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransfer()+"</div></div>"));
+			}
 			
-			if(Main.game.getDialogueFlags().getSlaveTrader()==null) {
+			if(Main.game.getDialogueFlags().getSlaveTrader()==null || !slave.isAbleToBeSold()) {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_SELL_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSellDisabled()+"</div></div>");
 			} else {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_SELL' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
 			}
-			
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
-				miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmetics()+"</div></div>");
-			} else {
-				miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmeticsDisabled()+"</div></div>");
+
+			if(Main.game.getDialogueFlags().getSlaveTrader()==null) { // Only show these buttons if you aren't in a trade screen:
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
+					miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmetics()+"</div></div>");
+				} else {
+					miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmeticsDisabled()+"</div></div>");
+				}
 			}
 			
 		} else { // Slave trader's slave:
-			miscDialogueSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"
-					+ "<div id='"+slave.getId()+"_TRADER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>"
+			miscDialogueSB.append("<div id='"+slave.getId()+"_TRADER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>");
 
-					+ "<div id='"+slave.getId()+"_TRADER_JOB' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJobDisabled()+"</div></div>"
-
-					+ "<div id='"+slave.getId()+"_TRADER_PERMISSIONS' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlavePermissionsDisabled()+"</div></div>"
-					
-					+"<div id='"+slave.getId()+"_TRADER_INVENTORY' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getInventoryIconDisabled()+"</div></div>"
-						
-					+ "<div id='"+slave.getId()+"_TRADER_TRANSFER' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>");
+//			miscDialogueSB.append("<div id='"+slave.getId()+"_TRADER_JOB' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJobDisabled()+"</div></div>");
+//
+//			miscDialogueSB.append("<div id='"+slave.getId()+"_TRADER_PERMISSIONS' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlavePermissionsDisabled()+"</div></div>");
+//			
+//			miscDialogueSB.append("<div id='"+slave.getId()+"_TRADER_INVENTORY' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getInventoryIconDisabled()+"</div></div>");
+//				
+//			miscDialogueSB.append("<div id='"+slave.getId()+"_TRADER_TRANSFER' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>");
 			
 			if(Main.game.getPlayer().getMoney() < ((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier(null)))) {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_BUY_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuyDisabled()+"</div></div>");
@@ -1195,7 +1222,7 @@ public class OccupantManagementDialogue {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_BUY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuy()+"</div></div>");
 			}
 			
-			miscDialogueSB.append("<div id='"+slave.getId()+"_TRADER_COSMETICS' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmeticsDisabled()+"</div></div>");
+//			miscDialogueSB.append("<div id='"+slave.getId()+"_TRADER_COSMETICS' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmeticsDisabled()+"</div></div>");
 		}
 		
 		miscDialogueSB.append("</div></div>");
@@ -1238,7 +1265,7 @@ public class OccupantManagementDialogue {
 							+ "<span style='color:"+obedience.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(obedience.getName())+"</span>"
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-							+ "<b>"+Util.capitaliseSentence(occupant.getHistory().getName())+"</b><br/>"
+							+ "<b>"+Util.capitaliseSentence(occupant.getHistory().getName(occupant))+"</b><br/>"
 							+ UtilText.formatAsMoney(occupant.hasJob()?PlaceUpgrade.LILAYA_GUEST_ROOM.getUpkeep():0)+"/day"
 						+"</div>"
 							

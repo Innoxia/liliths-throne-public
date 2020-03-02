@@ -170,16 +170,16 @@ public class SlimeRoyalGuard extends NPC {
 		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
 		
 		// Coverings:
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME, Colour.SLIME_PURPLE), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_EYE, Colour.SLIME_PINK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_SCLERA, Colour.SLIME_PINK_LIGHT), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.SLIME_PURPLE), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_ANUS, CoveringPattern.ORIFICE_ANUS, Colour.SLIME_PURPLE_DARK, false, Colour.SLIME_PURPLE_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_HAIR, Colour.SLIME_PURPLE_DARK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_MOUTH, CoveringPattern.ORIFICE_MOUTH, Colour.SLIME_PURPLE_DARK, false, Colour.SLIME_PURPLE_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_NIPPLES, Colour.SLIME_PURPLE_DARK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_VAGINA, CoveringPattern.ORIFICE_VAGINA, Colour.SLIME_PURPLE_DARK, false, Colour.SLIME_PURPLE_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PENIS, CoveringPattern.NONE, Colour.SLIME_PURPLE_DARK, false, Colour.SLIME_PURPLE_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME, Colour.COVERING_PURPLE), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_EYE, Colour.COVERING_PINK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_SCLERA, Colour.COVERING_PINK_LIGHT), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.COVERING_PURPLE), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_ANUS, CoveringPattern.ORIFICE_ANUS, Colour.COVERING_PURPLE_DARK, false, Colour.COVERING_PURPLE_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_HAIR, Colour.COVERING_PURPLE_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_MOUTH, CoveringPattern.ORIFICE_MOUTH, Colour.COVERING_PURPLE_DARK, false, Colour.COVERING_PURPLE_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_NIPPLES, Colour.COVERING_PURPLE_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_VAGINA, CoveringPattern.ORIFICE_VAGINA, Colour.COVERING_PURPLE_DARK, false, Colour.COVERING_PURPLE_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PENIS, CoveringPattern.NONE, Colour.COVERING_PURPLE_DARK, false, Colour.COVERING_PURPLE_DARK, true), false);
 		
 		this.setHairLength(HairLength.TWO_SHORT.getMedianValue());
 		this.setHairStyle(HairStyle.SLICKED_BACK);

@@ -28,12 +28,16 @@ import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Horn;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Testicle;
-import com.lilithsthrone.game.character.body.types.AbstractArmType;
-import com.lilithsthrone.game.character.body.types.AbstractAssType;
-import com.lilithsthrone.game.character.body.types.AbstractBreastType;
-import com.lilithsthrone.game.character.body.types.AbstractEarType;
-import com.lilithsthrone.game.character.body.types.AbstractHornType;
-import com.lilithsthrone.game.character.body.types.AbstractLegType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAntennaType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAssType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -78,6 +82,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
@@ -1838,23 +1843,28 @@ public class MainControllerInitMethod {
 						id = slaveId+"_SELL";
 						if (((EventTarget) MainController.document.getElementById(id)) != null) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
-									@Override
-									public void effects() {
-										Main.game.getPlayer().incrementMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()));
-										Main.game.getDialogueFlags().getSlaveTrader().addSlave(slave);
-										slave.setLocation(Main.game.getDialogueFlags().getSlaveTrader().getWorldLocation(), Main.game.getDialogueFlags().getSlaveTrader().getLocation(), true);
-									}
-								});
+								if(slave.isAbleToBeSold()) {
+									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
+										@Override
+										public void effects() {
+											Main.game.getPlayer().incrementMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()));
+											Main.game.getDialogueFlags().getSlaveTrader().addSlave(slave);
+											slave.setLocation(Main.game.getDialogueFlags().getSlaveTrader().getWorldLocation(), Main.game.getDialogueFlags().getSlaveTrader().getLocation(), true);
+										}
+									});
+								}
 							}, false);
 							
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 		
 							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell Slave",
-									UtilText.parse(slave, "[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(true), "b", Colour.GENERIC_GOOD)+"<br/>"
-											+ "However, "+Main.game.getDialogueFlags().getSlaveTrader().getName(true)+" will buy [npc.herHim] for "
-												+UtilText.formatAsMoney((int)(slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)+"."));
+									UtilText.parse(slave,
+											(slave.isAbleToBeSold()
+												?"[npc.Name] has a value of "+UtilText.formatAsMoney(slave.getValueAsSlave(true), "b", Colour.GENERIC_GOOD)+"<br/>"
+													+ "However, "+Main.game.getDialogueFlags().getSlaveTrader().getName(true)+" will buy [npc.herHim] for "
+														+UtilText.formatAsMoney((int)(slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", Colour.GENERIC_ARCANE)+"."
+												:"[npc.Name] cannot be sold!")));
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 						
@@ -1864,7 +1874,10 @@ public class MainControllerInitMethod {
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 		
 							TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Sell Slave",
-									UtilText.parse(slave, "You cannot sell [npc.name], as there's nobody here to sell [npc.herHim] to."));
+									UtilText.parse(slave,
+											slave.isAbleToBeSold()
+													?"You cannot sell [npc.name], as there's nobody here to sell [npc.herHim] to."
+													:"[npc.Name] cannot be sold!"));
 							MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 						}
 						
@@ -2881,6 +2894,33 @@ public class MainControllerInitMethod {
 						}, false);
 					}
 				}
+
+				// Vagina squirter:
+				id = "VAGINA_SQUIRTER_ON";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().setVaginaSquirter(true);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "VAGINA_SQUIRTER_OFF";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().setVaginaSquirter(false);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				
+				// Vagina wetness:
+				for(Wetness wetness: Wetness.values()) {
+					id = "VAGINA_WETNESS_"+wetness;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setVaginaWetness(wetness.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
 				
 				// Vagina capacity:
 				for(Capacity capacity: Capacity.values()) {
@@ -2893,12 +2933,12 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				// Vagina wetness:
-				for(Wetness wetness: Wetness.values()) {
-					id = "VAGINA_WETNESS_"+wetness;
+				// Vagina depth:
+				for(OrificeDepth depth: OrificeDepth.values()) {
+					id = "VAGINA_DEPTH_"+depth;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							BodyChanging.getTarget().setVaginaWetness(wetness.getValue());
+							BodyChanging.getTarget().setVaginaDepth(depth.getValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2925,6 +2965,28 @@ public class MainControllerInitMethod {
 						}, false);
 					}
 				}
+
+				
+				for(PenetrationModifier penMod : PenetrationModifier.values()) {
+					id = "CHANGE_CLITORIS_MOD_"+penMod;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(BodyChanging.getTarget().hasClitorisModifier(penMod)) {
+								BodyChanging.getTarget().removeClitorisModifier(penMod);
+							} else {
+								BodyChanging.getTarget().addClitorisModifier(penMod);
+							}
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+								Util.capitaliseSentence(penMod.getName()),
+								(penMod.isSpecialEffects()?"[style.boldGood(Special Effect:)] ":"")+penMod.getDescription());
+						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+					}
+				}
 				
 				// Clit size:
 				for(ClitorisSize cs: ClitorisSize.values()) {
@@ -2932,6 +2994,17 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setVaginaClitorisSize(cs.getMedianValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				// Clit girth:
+				for(PenetrationGirth girth: PenetrationGirth.values()) {
+					id = "CLITORIS_GIRTH_"+girth;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setClitorisGirth(girth.getValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2961,8 +3034,8 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				for(EyeType eyeType: EyeType.values()) {
-					id = "CHANGE_EYE_"+eyeType;
+				for(AbstractEyeType eyeType: EyeType.getAllEyeTypes()) {
+					id = "CHANGE_EYE_"+EyeType.getIdFromEyeType(eyeType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setEyeType(eyeType);
@@ -2991,8 +3064,8 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				for(AntennaType antennaType: AntennaType.values()) {
-					id = "CHANGE_ANTENNA_"+antennaType;
+				for(AbstractAntennaType antennaType: AntennaType.getAllAntennaTypes()) {
+					id = "CHANGE_ANTENNA_"+AntennaType.getIdFromAntennaType(antennaType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setAntennaType(antennaType);
@@ -3022,8 +3095,8 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				for(FaceType faceType: FaceType.values()) {
-					id = "CHANGE_FACE_"+faceType;
+				for(AbstractFaceType faceType: FaceType.getAllFaceTypes()) {
+					id = "CHANGE_FACE_"+FaceType.getIdFromFaceType(faceType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setFaceType(faceType);
@@ -3062,8 +3135,8 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				for(TailType tailType: TailType.values()) {
-					id = "CHANGE_TAIL_"+tailType;
+				for(AbstractTailType tailType: TailType.getAllTailTypes()) {
+					id = "CHANGE_TAIL_"+TailType.getIdFromTailType(tailType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setTailType(tailType);
@@ -3277,6 +3350,16 @@ public class MainControllerInitMethod {
 					}
 				}
 				
+				for(OrificeDepth depth: OrificeDepth.values()) {
+					id = "ANUS_DEPTH_"+depth;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setAssDepth(depth.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
 				for(OrificeElasticity elasticity: OrificeElasticity.values()) {
 					id = "ANUS_ELASTICITY_"+elasticity;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -3388,6 +3471,24 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setNippleCrotchCapacity(capacity.getMedianValue(), true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				// Nipple depth:
+				for(OrificeDepth depth: OrificeDepth.values()) {
+					id = "NIPPLE_DEPTH_"+depth;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setNippleDepth(depth.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					id = "NIPPLE_CROTCH_DEPTH_"+depth;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setNippleCrotchDepth(depth.getValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -3780,6 +3881,18 @@ public class MainControllerInitMethod {
 						}, false);
 					}
 				}
+
+				// Vagina urethra depth:
+				for(OrificeDepth depth: OrificeDepth.values()) {
+					id = "VAGINA_URETHRA_DEPTH_"+depth;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setVaginaUrethraDepth(depth.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
 				for(OrificeElasticity elasticity: OrificeElasticity.values()) {
 					id = "VAGINA_URETHRA_ELASTICITY_"+elasticity;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -3824,6 +3937,27 @@ public class MainControllerInitMethod {
 							BodyChanging.getTarget().setPenisType(penisType);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
+					}
+				}
+				
+				for(PenetrationModifier penMod : PenetrationModifier.values()) {
+					id = "CHANGE_PENIS_MOD_"+penMod;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(BodyChanging.getTarget().hasPenisModifier(penMod)) {
+								BodyChanging.getTarget().removePenisModifier(penMod);
+							} else {
+								BodyChanging.getTarget().addPenisModifier(penMod);
+							}
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+						
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+								Util.capitaliseSentence(penMod.getName()),
+								(penMod.isSpecialEffects()?"[style.boldGood(Special Effect:)] ":"")+penMod.getDescription());
+						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 				}
 				
@@ -4016,6 +4150,16 @@ public class MainControllerInitMethod {
 					}
 				}
 				
+				for(OrificeDepth depth: OrificeDepth.values()) {
+					id = "URETHRA_DEPTH_"+depth;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setUrethraDepth(depth.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
 				for(OrificeElasticity elasticity: OrificeElasticity.values()) {
 					id = "URETHRA_ELASTICITY_"+elasticity;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
@@ -4031,20 +4175,6 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setUrethraPlasticity(plasticity.getValue());
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}, false);
-					}
-				}
-				
-				for(PenetrationModifier orificeMod : PenetrationModifier.values()) {
-					id = "CHANGE_PENIS_MOD_"+orificeMod;
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							if(BodyChanging.getTarget().hasPenisModifier(orificeMod)) {
-								BodyChanging.getTarget().removePenisModifier(orificeMod);
-							} else {
-								BodyChanging.getTarget().addPenisModifier(orificeMod);
-							}
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -5762,7 +5892,7 @@ public class MainControllerInitMethod {
 		// Content preferences:
 
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.CONTENT_PREFERENCE
-				|| Main.game.getCurrentDialogueNode() == CharacterCreation.CONTENT_PREFERENCES
+				|| Main.game.getCurrentDialogueNode() == CharacterCreation.CONTENT_PREFERENCE
 				|| Main.game.getCurrentDialogueNode() == OptionsDialogue.OPTIONS) {
 			
 			for(Artist artist : Artwork.allArtists) {

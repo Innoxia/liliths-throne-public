@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -286,6 +287,40 @@ public class DebugDialogue {
 						}
 					};
 					
+				} else if (index == 13) {
+					return new Response("[style.colourGood(Complete)] Encyclopedia", "Unlock every entry in your encyclopedia.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							for(Subspecies subspecies : Subspecies.values()) {
+								Main.getProperties().addRaceDiscovered(subspecies);
+								Main.getProperties().addAdvancedRaceKnowledge(subspecies);
+							}
+							for(AbstractItemType itemType : ItemType.getAllItems()) {
+								Main.getProperties().addItemDiscovered(itemType);
+							}
+							for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
+								Main.getProperties().addClothingDiscovered(clothingType);
+							}
+							for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
+								Main.getProperties().addWeaponDiscovered(weaponType);
+							}
+							Main.saveProperties();
+						}
+					};
+					
+				} else if (index == 14) {
+					return new Response("[style.colourBad(Reset)] Encyclopedia", "Delete every entry in your encyclopedia.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							Main.getProperties().resetRaceDiscovered();
+							Main.getProperties().resetAdvancedRaceKnowledge();
+							Main.getProperties().resetItemDiscovered();
+							Main.getProperties().resetClothingDiscovered();
+							Main.getProperties().resetWeaponDiscovered();
+								
+							Main.saveProperties();
+						}
+					};
 				}
 				
 			} else if(responseTab==2) {
@@ -429,28 +464,7 @@ public class DebugDialogue {
 							}
 						};
 						
-				} else if (index == 14) {
-					return new Response("Complete Encyclopedia", "Unlock every entry in your encyclopedia.", DEBUG_MENU){
-						@Override
-						public void effects() {
-							for(Subspecies subspecies : Subspecies.values()) {
-								Main.getProperties().addRaceDiscovered(subspecies);
-								Main.getProperties().addAdvancedRaceKnowledge(subspecies);
-							}
-							for(AbstractItemType itemType : ItemType.getAllItems()) {
-								Main.getProperties().addItemDiscovered(itemType);
-							}
-							for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
-								Main.getProperties().addClothingDiscovered(clothingType);
-							}
-							for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
-								Main.getProperties().addWeaponDiscovered(weaponType);
-							}
-							Main.saveProperties();
-						}
-					};
-					
-			}
+				}
 				
 			} else if(responseTab == 3) {
 				if(index==1) {
@@ -627,12 +641,15 @@ public class DebugDialogue {
 	static {
 		clothingTotal.addAll(ClothingType.getAllClothing());
 		clothingTotal.removeIf((c) -> c.getDefaultItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || c.getDefaultItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
+		Collections.sort(clothingTotal, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 		
 		weaponsTotal.addAll(WeaponType.getAllWeapons());
 		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || w.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
+		Collections.sort(weaponsTotal, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 
 		itemsTotal.addAll(ItemType.getAllItems());
 		itemsTotal.removeIf((i) -> i.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || i.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
+		Collections.sort(itemsTotal, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 		
 	}
 	private static StringBuilder inventorySB = new StringBuilder();

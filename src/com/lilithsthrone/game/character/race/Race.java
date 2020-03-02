@@ -70,7 +70,7 @@ public enum Race {
 
 	// DEMON:
 	DEMON("demon",
-			"demonic-horse",
+			"demon",
 			Colour.RACE_DEMON,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(

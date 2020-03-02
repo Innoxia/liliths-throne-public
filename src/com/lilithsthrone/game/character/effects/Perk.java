@@ -51,7 +51,7 @@ public class Perk {
 			Colour.RACE_HARPY,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 25),
+					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 5),
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
 			null) {
 		@Override
@@ -68,7 +68,7 @@ public class Perk {
 			Colour.RACE_HARPY,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 10),
-					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 25),
+					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 5),
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1)),
 			null) {
 		@Override
@@ -485,6 +485,20 @@ public class Perk {
 		}
 	};
 
+	public static AbstractPerk JOB_NPC_OFFICE_WORKER = new AbstractPerk(20,
+			true,
+			"It's just good business",
+			PerkCategory.JOB,
+			"perks/jobs/npc_office_worker",
+			Colour.CURRENCY_GOLD,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "The constant pressure of meeting targets and managing difficult colleagues and clients has built up [npc.namePos] endurance.");
+		}
+	};
+
 	public static AbstractPerk JOB_NPC_REINDEER_OVERSEER = new AbstractPerk(20,
 			true,
 			"winter-proof",
@@ -651,6 +665,27 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
 					"[npc.NameIsFull] a member of a criminal gang, and as such, has seen [npc.her] fair share of fights.");
+		}
+	};
+
+	public static AbstractPerk JOB_NPC_STABLE_MISTRESS = new AbstractPerk(20,
+			true,
+			"horse trainer",
+			PerkCategory.JOB,
+			"perks/jobs/npc_stable_mistress",
+			Util.newArrayListOfValues(
+					Colour.RACE_HORSE_MORPH),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25),
+					new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 10),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"As a result of working hard to train and care for a huge number of centaur slaves, [npc.nameIsFull] very fit and healthy, and knows exactly how to deal with any unruly individuals.");
 		}
 	};
 	

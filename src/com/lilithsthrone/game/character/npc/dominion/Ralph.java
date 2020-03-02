@@ -470,11 +470,11 @@ public class Ralph extends NPC {
 	// Vagina:
 	
 	@Override
-	public String getStretchingDescription(GameCharacter partner, SexAreaPenetration penetrationType, SexAreaOrifice orifice, boolean pastTense) {
+	public String getStretchingDescription(boolean initialPenetration, GameCharacter partner, SexAreaPenetration penetrationType, SexAreaOrifice orifice, boolean pastTense) {
 		switch(orifice) {
 			case MOUTH:
 				if(Math.random()<0.3) {
-					return super.getStretchingDescription(partner, penetrationType, orifice, pastTense);
+					return super.getStretchingDescription(initialPenetration, partner, penetrationType, orifice, pastTense);
 				} else {
 					return UtilText.returnStringAtRandom(
 							"You feel tears streaming down your face as you force the [ralph.cock+] down your throat.",
@@ -484,16 +484,16 @@ public class Ralph extends NPC {
 				}
 			case VAGINA:
 				if(Math.random()<0.3) {
-					return super.getStretchingDescription(partner, penetrationType, orifice, pastTense);
+					return super.getStretchingDescription(initialPenetration, partner, penetrationType, orifice, pastTense);
 				} else {
 					return UtilText.returnStringAtRandom(
 							"You squirm about uncomfortably on the counter-top as Ralph's [ralph.cock+] struggles to fit in your [pc.pussyCapacity] [pc.pussy].",
 							"Ralph's [ralph.cock+] painfully stretches you out as it rams its way in and out of your [pc.pussyCapacity] [pc.pussy].",
 							"Ralph's [ralph.cock+] is too large for your [pc.pussyCapacity] [pc.pussy], and you let out an uncomfortable whine as it stretches you out.",
-							"Your [pc.pussyCapacity] little [pc.pussy] struggles to accommodate the sheer size of Ralph's [ralph.cock+].");
+							"Your [pc.pussyCapacity] [pc.pussy] struggles to accommodate the sheer size of Ralph's [ralph.cock+].");
 				}
 			default:
-				return super.getStretchingDescription(partner, penetrationType, orifice, pastTense);
+				return super.getStretchingDescription(initialPenetration, partner, penetrationType, orifice, pastTense);
 		}
 	}
 	
