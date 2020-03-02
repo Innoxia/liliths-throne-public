@@ -418,14 +418,16 @@ public class TongueNipple {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on gently eating out [npc2.namePos] pussy-like nipple-cunt.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on gently "
+										+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")+" [npc2.namePos] pussy-like nipple-cunt.",
 								"Gently running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt, before starting to slowly kiss and lick it."));
 						
 					} else {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.verb(drink)] down the [npc2.milk] that flows forth.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on gently eating out [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on gently "+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")
+									+" [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
 								"Gently running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt,"
 										+ " before starting to lick it and drink down the [npc2.milk] which flows forth."));
 					}
@@ -544,14 +546,16 @@ public class TongueNipple {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily eating out [npc2.namePos] pussy-like nipple-cunt.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily "
+										+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")+" [npc2.namePos] pussy-like nipple-cunt.",
 								"Eagerly running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt, before starting to desperately kiss and lick it."));
 						
 					} else {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.verb(drink)] down the [npc2.milk] that flows forth.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily eating out [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily "+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")
+										+" [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
 								"Eagerly running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt,"
 										+ " before starting to lick it and drink down the [npc2.milk] which flows forth."));
 					}
@@ -670,14 +674,17 @@ public class TongueNipple {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Roughly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on roughly eating out [npc2.namePos] pussy-like nipple-cunt.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on roughly "
+										+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")+" [npc2.namePos] pussy-like nipple-cunt.",
 								"Roughly running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt, before starting to forcefully kiss and lick it."));
 						
 					} else {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Roughly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.verb(drink)] down the [npc2.milk] that flows forth.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on roughly eating out [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on roughly "
+										+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")
+										+" [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
 								"Roughly running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt,"
 										+ " before starting to lick it and drink down the [npc2.milk] which flows forth."));
 					}
@@ -889,14 +896,16 @@ public class TongueNipple {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on eating out [npc2.namePos] pussy-like nipple-cunt.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on "
+										+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")+" [npc2.namePos] pussy-like nipple-cunt.",
 								"Running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt, before starting to desperately kiss and lick it."));
 						
 					} else {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.verb(drink)] down the [npc2.milk] that flows forth.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on eating out [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on "+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")
+									+" [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
 								"Running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt,"
 										+ " before starting to lick it and drink down the [npc2.milk] which flows forth."));
 					}
@@ -1015,14 +1024,16 @@ public class TongueNipple {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily eating out [npc2.namePos] pussy-like nipple-cunt.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily "
+										+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")+" [npc2.namePos] pussy-like nipple-cunt.",
 								"Eagerly running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt, before starting to desperately kiss and lick it."));
 						
 					} else {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.verb(drink)] down the [npc2.milk] that flows forth.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily eating out [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily "+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")
+									+" [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
 								"Eagerly running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt,"
 										+ " before starting to lick it and drink down the [npc2.milk] which flows forth."));
 					}

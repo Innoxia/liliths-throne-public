@@ -112,7 +112,7 @@
 
 	<htmlContent tag="SEX_CLOTHING_MANAGEMENT_TIP"><![CDATA[
 	<div class='container-full-width' style='text-align:center;'>
-		<i>You can click on both your and [prologueFemale.namePos] clothing (in the bottom-left and bottom-right of the screen) to manage clothing during sex!</i>
+		<i>You can click on both your and [npc.namePos] clothing (in the bottom-left and bottom-right of the screen) to manage clothing during sex!</i>
 	</div>
 	]]>
 	</htmlContent>

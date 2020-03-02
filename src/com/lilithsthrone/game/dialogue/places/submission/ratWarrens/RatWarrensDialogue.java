@@ -109,7 +109,7 @@ public class RatWarrensDialogue {
 				rat.setLevel(10);
 				rat.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE, true);
 				CharacterUtils.setGenericName(rat, "lieutenant", null);
-				rat.unequipOffhandWeaponIntoVoid(0);
+				rat.unequipOffhandWeaponIntoVoid(0, false);
 				rat.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_pistolCrossbow_pistol_crossbow", DamageType.POISON, Colour.CLOTHING_BLACK_STEEL, Colour.CLOTHING_GREEN_DRAB, Colour.CLOTHING_GUNMETAL));
 				rat.incrementEssenceCount(TFEssence.ARCANE, 8, false);
 				
@@ -118,7 +118,7 @@ public class RatWarrensDialogue {
 				rat.setLevel(9);
 				rat.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE, true);
 				CharacterUtils.setGenericName(rat, "sidekick", null);
-				rat.unequipOffhandWeaponIntoVoid(0);
+				rat.unequipOffhandWeaponIntoVoid(0, false);
 				rat.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_pistolCrossbow_pistol_crossbow", DamageType.PHYSICAL, Colour.CLOTHING_BLACK_STEEL, Colour.CLOTHING_KHAKI, Colour.CLOTHING_STEEL));
 				rat.incrementEssenceCount(TFEssence.ARCANE, 3, false);
 				

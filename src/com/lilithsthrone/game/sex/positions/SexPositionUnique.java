@@ -7,18 +7,17 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Leg;
 import com.lilithsthrone.game.character.body.Skin;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexActionInteractions;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
-import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.dominion.CultistSexActions;
@@ -280,73 +279,70 @@ public class SexPositionUnique {
 			characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_KNEELING));
 			characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE));
 			
+			StringBuilder sb = new StringBuilder();
+
+			boolean c1Taur = characters.get(1).isTaur();
 			if(Main.sex.getTotalParticipantCount(false)==3) {
 				characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO));
-				return UtilText.parse(characters,
-						"[npc.NameIsFull] kneeling on the floor of the toilet, ready to serve [npc2.namePos] [npc2.cock+] on one side, an [npc3.namePos] [npc3.cock+] on the other.");
+				
+				boolean c2Taur = characters.get(2).isTaur();
+				
+				if(c1Taur || c2Taur) {
+					sb.append("[npc.NameIsFull] kneeling on the floor, ready to service whatever sets of genitals [npc2.name] and [npc3.name] put through the glory holes to either side of [npc.herHim].");
+					for(int i=1; i<3; i++) {
+						GameCharacter character = characters.get(i);
+						if(character.hasPenis() && character.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+							sb.append(UtilText.parse(characters.get(0), character,
+									"<br/><i>As [npc2.namePos] [npc2.cock+] is positioned below [npc2.her] lower [npc2.legRace]'s body,"
+										+ " [npc2.name] quickly [npc2.verb(discover)] that [npc2.sheIs] unable to get into a position in which [npc2.she] could push [npc2.her] cock through the gloryhole."
+									+ " Instead, [npc2.she] [npc2.has] to make do with turning around and presenting [npc2.her] [npc2.pussy+] to [npc.name]...</i>"));
+							
+						} else {
+							sb.append(UtilText.parse(characters.get(0), character,
+									"<br/><i>Due to possessing the lower body of [npc2.a_legRace],"
+									+ " [npc2.name] [npc2.verb(make)] a great deal of noise as [npc2.she] awkwardly [npc2.verb(turn)] around in the cramped stall and [npc2.verb(present)] [npc2.her] [npc2.pussy+] to [npc.name]...</i>"));
+						}
+					}
+					
+				} else {
+					if(characters.get(1).hasPenis() && characters.get(1).isAbleToAccessCoverableArea(CoverableArea.PENIS, true)
+							&& characters.get(2).hasPenis() && characters.get(2).isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+						sb.append("[npc.NameIsFull] kneeling on the floor, ready to serve [npc2.namePos] [npc2.cock+] on one side, an [npc3.namePos] [npc3.cock+] on the other.");
+					} else {
+						sb.append("[npc.NameIsFull] kneeling on the floor, ready to service whatever sets of genitals [npc2.name] and [npc3.name] put through the glory holes to either side of [npc.herHim].");
+					}
+				}
+				
 			} else {
-				return UtilText.parse(characters,
-						"[npc.NameIsFull] kneeling on the floor of the toilet, [npc.her] mouth up against the glory hole in preparation to serve whatever set of genitals [npc2.name] [npc2.has].");
+				if(c1Taur) {
+					sb.append("[npc.NameIsFull] kneeling on the floor with [npc.her] mouth pushed up against the glory hole, ready to service whatever set of genitals [npc2.name] [npc2.verb(present)] [npc.herHim] with.");
+					GameCharacter character = characters.get(1);
+					if(character.hasPenis() && character.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+						sb.append(UtilText.parse(characters.get(0), character,
+								"<br/><i>As [npc2.namePos] [npc2.cock+] is positioned below [npc2.her] lower [npc2.legRace]'s body,"
+									+ " [npc2.name] quickly [npc2.verb(discover)] that [npc2.sheIs] unable to get into a position in which [npc2.she] could push [npc2.her] cock through the gloryhole."
+								+ " Instead, [npc2.she] [npc2.has] to make do with turning around and presenting [npc2.her] [npc2.pussy+] to [npc.name]...</i>"));
+						
+					} else {
+						sb.append(UtilText.parse(characters.get(0), character,
+								"<br/><i>Due to possessing the lower body of [npc2.a_legRace],"
+								+ " [npc2.name] [npc2.verb(make)] a great deal of noise as [npc2.she] awkwardly [npc2.verb(turn)] around in the cramped stall and [npc2.verb(present)] [npc2.her] [npc2.pussy+] to [npc.name]...</i>"));
+					}
+					
+				} else {
+					sb.append("[npc.NameIsFull] kneeling on the floor with [npc.her] mouth pushed up against the glory hole, ready to service whatever set of genitals [npc2.name] [npc2.verb(present)] [npc.herHim] with.");
+				}
 			}
+			
+			return UtilText.parse(characters, sb.toString());
 		}
 		
 		@Override
 		public Map<SexSlot, Map<SexSlot, SexActionInteractions>> getSlotTargets() {
 			List<Value<SexSlot, Map<SexSlot, SexActionInteractions>>> interactions = new ArrayList<>();
-			
-			interactions.add(new Value<>(
-					SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE,
-					Util.newHashMapOfValues(
-					new Value<>(
-							SexSlotUnique.GLORY_HOLE_KNEELING,
-							new SexActionInteractions(
-								Util.mergeMaps(
-									SexActionPresets.groinToMouth),
-								Util.newArrayListOfValues(
-										OrgasmCumTarget.BREASTS,
-										OrgasmCumTarget.HAIR,
-										OrgasmCumTarget.FACE,
-										OrgasmCumTarget.FLOOR))))));
 
-			interactions.add(new Value<>(
-					SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO,
-					Util.newHashMapOfValues(
-					new Value<>(
-							SexSlotUnique.GLORY_HOLE_KNEELING,
-							new SexActionInteractions(
-								Util.mergeMaps(
-									SexActionPresets.groinToMouth),
-								Util.newArrayListOfValues(
-										OrgasmCumTarget.BREASTS,
-										OrgasmCumTarget.HAIR,
-										OrgasmCumTarget.FACE,
-										OrgasmCumTarget.FLOOR))))));
-
-			interactions.add(new Value<>(
-					SexSlotUnique.GLORY_HOLE_KNEELING,
-					Util.newHashMapOfValues(
-					new Value<>(
-							SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE,
-							new SexActionInteractions(
-								Util.mergeMaps(
-									SexActionPresets.fingerToPenis,
-									SexActionPresets.fingerToVagina),
-								Util.newArrayListOfValues(
-										OrgasmCumTarget.SELF_STOMACH,
-										OrgasmCumTarget.SELF_GROIN,
-										OrgasmCumTarget.SELF_LEGS,
-										OrgasmCumTarget.FLOOR))),
-					new Value<>(
-							SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO,
-							new SexActionInteractions(
-								Util.mergeMaps(
-									SexActionPresets.fingerToPenis,
-									SexActionPresets.fingerToVagina),
-								Util.newArrayListOfValues(
-										OrgasmCumTarget.SELF_STOMACH,
-										OrgasmCumTarget.SELF_GROIN,
-										OrgasmCumTarget.SELF_LEGS,
-										OrgasmCumTarget.FLOOR))))));
+			interactions.add(StandardSexActionInteractions.performingOralGloryHole.getSexActionInteractions(SexSlotUnique.GLORY_HOLE_KNEELING, SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE));
+			interactions.add(StandardSexActionInteractions.performingOralGloryHole.getSexActionInteractions(SexSlotUnique.GLORY_HOLE_KNEELING, SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO));
 			
 			return generateSlotTargetsMap(interactions);
 		}
@@ -359,71 +355,47 @@ public class SexPositionUnique {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			List<GameCharacter> characters = new ArrayList<>();
-			characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_FUCKED));
+			
+			boolean analFucking = false;
+			if(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_FUCKED)!=null) {
+				characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_FUCKED));
+			} else {
+				characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_ANALLY_FUCKED));
+				analFucking = true;
+			}
 			characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_FUCKING));
+			
+			StringBuilder sb = new StringBuilder();
+			
+			if(analFucking) {
+				sb.append("[npc.NameIsFull] pressing [npc.her] [npc.asshole+] up against the glory hole behind [npc.herHim],");
+			} else {
+				sb.append("[npc.NameIsFull] pressing [npc.her] [npc.pussy+] up against the glory hole behind [npc.herHim],");
+			}
+			
+			if(characters.get(1).hasPenis() && characters.get(1).isAbleToAccessCoverableArea(CoverableArea.PENIS, true) && !characters.get(1).isTaur()) {
+				sb.append(" ready to have [npc2.name] thrust forwards and sink [npc2.her] [npc2.cock+] into it.");
+			} else {
+				sb.append(" ready to have [npc2.name] start using it.");
+			}
 
 			if(Main.sex.getTotalParticipantCount(false)==3) {
 				characters.add(Main.sex.getCharacterInPosition(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE));
-				return UtilText.parse(characters,
-						"[npc.NameIsFull] pressing [npc.her] [npc.ass+] up against [npc2.namePos] glory hole, ready to get penetrated by [npc2.her] [npc2.cock+],"
-								+ " while bringing [npc.her] mouth down to [npc3.namePos] [npc3.cock+] on the other side of the narrow toilet stall.");
-				
-			} else {
-				return UtilText.parse(characters,
-						"[npc.NameIsFull] pressing [npc.her] [npc.ass+] up against [npc2.namePos] glory hole, ready to get penetrated by [npc2.her] [npc2.cock+].");
+				sb.append(" On the other side of the stall, [npc.namePos] leaning down to continue pleasuring [npc3.namePos] gloryhole with [npc.her] mouth.");
 			}
+			
+			return UtilText.parse(characters, sb.toString());
 		}
 		
 		@Override
 		public Map<SexSlot, Map<SexSlot, SexActionInteractions>> getSlotTargets() {
 			List<Value<SexSlot, Map<SexSlot, SexActionInteractions>>> interactions = new ArrayList<>();
+
+			interactions.add(StandardSexActionInteractions.gettingFuckedGloryHole.getSexActionInteractions(SexSlotUnique.GLORY_HOLE_FUCKED, SexSlotUnique.GLORY_HOLE_FUCKING));
+			interactions.add(StandardSexActionInteractions.gettingAnallyFuckedGloryHole.getSexActionInteractions(SexSlotUnique.GLORY_HOLE_ANALLY_FUCKED, SexSlotUnique.GLORY_HOLE_FUCKING));
 			
-			interactions.add(new Value<>(
-					SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE,
-					Util.newHashMapOfValues(
-					new Value<>(
-							SexSlotUnique.GLORY_HOLE_FUCKED,
-							new SexActionInteractions(
-								Util.mergeMaps(
-									SexActionPresets.groinToMouth),
-								Util.newArrayListOfValues(
-										OrgasmCumTarget.BREASTS,
-										OrgasmCumTarget.HAIR,
-										OrgasmCumTarget.FACE,
-										OrgasmCumTarget.FLOOR))))));
-
-			interactions.add(new Value<>(
-					SexSlotUnique.GLORY_HOLE_FUCKING,
-					Util.newHashMapOfValues(
-					new Value<>(
-							SexSlotUnique.GLORY_HOLE_FUCKED,
-							new SexActionInteractions(
-									SexActionPresets.penisToVagina,
-									Util.newArrayListOfValues(
-											OrgasmCumTarget.ASS,
-											OrgasmCumTarget.GROIN,
-											OrgasmCumTarget.LEGS,
-											OrgasmCumTarget.FLOOR))))));
-
-			interactions.add(new Value<>(
-					SexSlotUnique.GLORY_HOLE_FUCKED,
-					Util.newHashMapOfValues(
-					new Value<>(
-							SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE,
-							new SexActionInteractions(
-									Util.mergeMaps(
-										SexActionPresets.fingerToPenis,
-										SexActionPresets.fingerToVagina),
-									Util.newArrayListOfValues(
-											OrgasmCumTarget.SELF_LEGS,
-											OrgasmCumTarget.FLOOR))),
-					new Value<>(
-							SexSlotUnique.GLORY_HOLE_FUCKING,
-							new SexActionInteractions(
-									SexActionPresets.anusToPenis,
-									Util.newArrayListOfValues(
-											OrgasmCumTarget.SELF_LEGS,
-											OrgasmCumTarget.FLOOR))))));
+			interactions.add(StandardSexActionInteractions.performingOralGloryHole.getSexActionInteractions(SexSlotUnique.GLORY_HOLE_FUCKED, SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE));
+			interactions.add(StandardSexActionInteractions.performingOralGloryHole.getSexActionInteractions(SexSlotUnique.GLORY_HOLE_ANALLY_FUCKED, SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE));
 			
 			return generateSlotTargetsMap(interactions);
 		}

@@ -18,22 +18,24 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.3.5
+ * @version 0.3.7
  * @author Innoxia
  */
 public class DialogueFlags implements XMLSaving {
 
 	public Set<DialogueFlagValue> values;
 	
-	public long ralphDiscountStartTime;
 	public int ralphDiscount;
 	public int scarlettPrice;
 	public int eponaStamps;
+	
+	// Timers:
+	public long ralphDiscountStartTime;
 	public long kalahariBreakStartTime;
 	public long daddyResetTimer;
 	public long candiSexTimer;
 	public long ralphSexTimer;
-
+	public long helenaScarlettTimer;
 	public long impFortressAlphaDefeatedTime;
 	public long impFortressDemonDefeatedTime;
 	public long impFortressFemalesDefeatedTime;

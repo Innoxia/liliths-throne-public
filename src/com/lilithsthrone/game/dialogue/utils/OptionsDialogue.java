@@ -57,10 +57,21 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.7
  * @author Innoxia
  */
 public class OptionsDialogue {
+	
+	public enum ContentOptionsPage {
+		UNIT_PREFERENCE,
+		
+		MISC,
+		GAMEPLAY,
+		BODIES,
+		SEX;
+	}
+	
+	public static ContentOptionsPage contentOptionsPage = ContentOptionsPage.MISC;
 
 	private static boolean confirmNewGame = false;
 	
@@ -198,7 +209,7 @@ public class OptionsDialogue {
 					@Override
 					public void effects() {
 						confirmNewGame=false;
-						
+						contentOptionsPage = ContentOptionsPage.MISC;
 					}
 				};
 			
@@ -683,7 +694,12 @@ public class OptionsDialogue {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
 
 			} else if (index == 11) {
-				return new Response("Unit preferences", "Set your preferred measurement units.", UNIT_PREFERENCE);
+				return new Response("Unit preferences", "Set your preferred measurement units.", UNIT_PREFERENCE) {
+					@Override
+					public void effects() {
+						contentOptionsPage = ContentOptionsPage.UNIT_PREFERENCE;
+					}
+				};
 
 			} else if (index == 12) {
 				return new Response("Difficulty: "+Main.getProperties().difficultyLevel.getName(), "Cycle the game's difficulty.", OPTIONS){
@@ -1790,42 +1806,42 @@ public class OptionsDialogue {
 
 							+ "<span style='height:16px;width:800px;float:left;'></span>");
 
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.UNIT_PREFERENCE,
 					"AUTO_LOCALE",
 					Colour.BASE_BLUE_LIGHT,
 					"Automatic",
 					"When enabled, the system locale is used. Otherwise, the following options are applied.",
 					Main.getProperties().hasValue(PropertyValue.autoLocale)));
 
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.UNIT_PREFERENCE,
 					"METRIC_SIZES",
 					Colour.BASE_BLUE_STEEL,
 					"Metric sizes",
 					"The game will use metres and centimetres instead of feet and inches.",
 					Main.getProperties().hasValue(PropertyValue.metricSizes)));
 
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.UNIT_PREFERENCE,
 					"METRIC_FLUIDS",
 					Colour.BASE_BLUE_STEEL,
 					"Metric fluids",
 					"The game will use litres and millilitres instead of gallons and ounces.",
 					Main.getProperties().hasValue(PropertyValue.metricFluids)));
 
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.UNIT_PREFERENCE,
 					"METRIC_WEIGHTS",
 					Colour.BASE_BLUE_STEEL,
 					"Metric weights",
 					"The game will use kilograms and grams instead of pounds and ounces.",
 					Main.getProperties().hasValue(PropertyValue.metricWeights)));
 
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.UNIT_PREFERENCE,
 					"TWENTYFOUR_HOUR_TIME",
 					Colour.BASE_LILAC_LIGHT,
 					"24 hour time",
 					"The time will be displayed as 24 hours instead of AM/PM.",
 					Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)));
 
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.UNIT_PREFERENCE,
 					"INTERNATIONAL_DATE",
 					Colour.BASE_LILAC_LIGHT,
 					"International date",
@@ -1853,122 +1869,143 @@ public class OptionsDialogue {
 	
 	
 	public static final DialogueNode CONTENT_PREFERENCE = new DialogueNode("Content Options", "", true) {
+		@Override
+		public String getLabel() {
+			switch(contentOptionsPage) {
+				case BODIES:
+					return "Content Options (Bodies)";
+				case GAMEPLAY:
+					return "Content Options (Gameplay)";
+				case MISC:
+					return "Content Options (Misc.)";
+				case SEX:
+					return "Content Options (Sex & Fetishes)";
+				case UNIT_PREFERENCE:
+					break;
+			}
+			return "";
+		}
 		
 		@Override
 		public String getHeaderContent(){
 			UtilText.nodeContentSB.setLength(0);
-
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.GENERIC_GOOD, "Autosave Frequency", "Choose how often want the game to autosave when you transition from one map to another."));
-			for(int i=2; i>=0; i--) {
-				UtilText.nodeContentSB.append("<div id='AUTOSAVE_FREQUENCY_"+i+"' class='normal-button"+(Main.getProperties().autoSaveFrequency==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
-						+(Main.getProperties().autoSaveFrequency==i
-							?"[style.boldGood("
-							:"[style.colourDisabled(")
-						+com.lilithsthrone.game.Properties.autoSaveLabels[i]+")]</div>");
-			}
-			UtilText.nodeContentSB.append("</div></div>");
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			if(contentOptionsPage==ContentOptionsPage.MISC) {
+				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.GENERIC_GOOD, "Autosave Frequency", "Choose how often want the game to autosave when you transition from one map to another."));
+				for(int i=2; i>=0; i--) {
+					UtilText.nodeContentSB.append("<div id='AUTOSAVE_FREQUENCY_"+i+"' class='normal-button"+(Main.getProperties().autoSaveFrequency==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+							+(Main.getProperties().autoSaveFrequency==i
+								?"[style.boldGood("
+								:"[style.colourDisabled(")
+							+com.lilithsthrone.game.Properties.autoSaveLabels[i]+")]</div>");
+				}
+				UtilText.nodeContentSB.append("</div></div>");
+			}
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
 								"ENCHANTMENT_LIMITS",
 								Colour.GENERIC_ARCANE,
 								"Enchantment Capacity",
 								"Toggle the 'enchantment capacity' mechanic, which restricts how many enchanted items you can wear. This is on by default, and you will potentially break the balance of the game's combat by turning it off.",
 								Main.getProperties().hasValue(PropertyValue.enchantmentLimits)));
 
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
 								"LEVEL_DRAIN",
 								Colour.GENERIC_TERRIBLE,
 								"Level Drain",
 								"Toggle the use of the 'orgasmic level drain' perk by unique NPCs (such as some scenes with Amber), which causes them to drain your level for each orgasm you have in sex with them.",
 								Main.getProperties().hasValue(PropertyValue.levelDrain)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
 								"ARTWORK",
 								Colour.BASE_BLUE_LIGHT,
 								"Artwork",
 								"Enables artwork to be displayed in characters' information screens.",
 								Main.getProperties().hasValue(PropertyValue.artwork)));
 
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("THUMBNAIL",
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
+								"THUMBNAIL",
 								Colour.BASE_BLUE_STEEL,
 								"Thumbnails",
 								"Enables tooltips containing thumbnail images of the character.",
 								Main.getProperties().hasValue(PropertyValue.thumbnail)));
-			
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.BASE_AQUA, "Preferred Artist", "Which artist's work is used by default."));
-			List<Artist> artists = new ArrayList<>(Artwork.allArtists);
-			Collections.reverse(artists);// So that they're in alphabetical order
-			for(Artist artist : artists) {
-				if (!artist.getName().equals("Custom")) {
-					UtilText.nodeContentSB.append(
-							(Main.getProperties().preferredArtist.equals(artist.getFolderName())
-									?"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button selected' style='width:75%; text-align:center; float:right;'>"
-									+ "<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b>"
-									+ "</div>"
-									:"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button' style='width:75%; text-align:center; float:right;'>"
-									+ "[style.boldDisabled("+artist.getName()+")]"
-									+ "</div>"));
+
+			if(contentOptionsPage==ContentOptionsPage.MISC) {
+				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.BASE_AQUA, "Preferred Artist", "Which artist's work is used by default."));
+				List<Artist> artists = new ArrayList<>(Artwork.allArtists);
+				Collections.reverse(artists);// So that they're in alphabetical order
+				for(Artist artist : artists) {
+					if (!artist.getName().equals("Custom")) {
+						UtilText.nodeContentSB.append(
+								(Main.getProperties().preferredArtist.equals(artist.getFolderName())
+										?"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button selected' style='width:75%; text-align:center; float:right;'>"
+										+ "<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b>"
+										+ "</div>"
+										:"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button' style='width:75%; text-align:center; float:right;'>"
+										+ "[style.boldDisabled("+artist.getName()+")]"
+										+ "</div>"));
+					}
 				}
+				UtilText.nodeContentSB.append("</div></div>");
 			}
-			UtilText.nodeContentSB.append("</div></div>");
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
 							"AUTO_SEX_CLOTHING_MANAGEMENT",
 							Colour.BASE_BLUE_STEEL,
 							"Post-sex clothing replacement",
 							"Enables equipped clothing to be automatically pulled back into their pre-sex states after sex scenes.",
 							Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"AGE",
 							Colour.AGE_TWENTIES,
 							"Age",
 							"This enables descriptions of the age that characters appear to be.",
 							Main.getProperties().hasValue(PropertyValue.ageContent)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"NON_CON",
 							Colour.BASE_CRIMSON,
 							"Non-consent",
 							"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions.",
 							Main.getProperties().hasValue(PropertyValue.nonConContent)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"SADISTIC_SEX",
 							Colour.BASE_RED,
 							"Sadistic sex",
 							"This unlocks 'sadistic' sex actions, such as choking, slapping, and spitting on partners in sex.",
 							Main.getProperties().hasValue(PropertyValue.sadisticSexContent)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
 							"SILLY",
 							Colour.GENERIC_GOOD,
 							"Silly mode",
 							"This enables funny flavour text throughout the game.",
 							Main.getProperties().hasValue(PropertyValue.sillyMode)));
 
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
 							"OPPORTUNISTIC_ATTACKERS",
 							Colour.BASE_CRIMSON,
 							"Opportunistic attackers",
 							"This makes random attacks more likely when you're high on lust, low on health, covered in fluids, exposed, or drunk.",
 							Main.game.isOpportunisticAttackersEnabled()));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
 							"BYPASS_SEX_ACTIONS",
 							Colour.BASE_PINK,
 							"Sex action bypass",
 							"If disabled, action requirements during sex may no longer be bypassed. (i.e. All 'Corruptive' actions will be unavailable.)",
 							Main.getProperties().hasValue(PropertyValue.bypassSexActions)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"VOLUNTARY_NTR",
 							Colour.GENERIC_MINOR_BAD,
 							"Voluntary NTR",
 							"When enabled, you will get the option to offer certain enemies sex with your companions as a way to avoid combat.",
 							Main.getProperties().hasValue(PropertyValue.voluntaryNTR)));
 
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"INVOLUNTARY_NTR",
 							Colour.GENERIC_BAD,
 							"Involuntary NTR",
@@ -1976,21 +2013,21 @@ public class OptionsDialogue {
 									+ " When disabled, all post-combat-loss sex scenes will involve you.",
 							Main.getProperties().hasValue(PropertyValue.involuntaryNTR)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"INCEST",
 							Colour.BASE_ROSE,
 							"Incest",
 							"This will enable sexual actions with all of your blood-relatives.",
 							Main.getProperties().hasValue(PropertyValue.incestContent)));
 				
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"LACTATION",
 							Colour.BASE_YELLOW_LIGHT,
 							"Lactation",
 							"This enables lactation content.",
 							Main.getProperties().hasValue(PropertyValue.lactationContent)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"CUM_REGENERATION",
 							Colour.CUM,
 							"Cum Regeneration",
@@ -1998,56 +2035,56 @@ public class OptionsDialogue {
 							+ "<br>When disabled, balls will always be treated as full, but without any negative effects.",
 							Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"URETHRAL",
 							Colour.BASE_PINK_DEEP,
 							"Urethral content",
 							"This enables urethral transformations and penetrations.",
 							Main.getProperties().hasValue(PropertyValue.urethralContent)));
 				
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"NIPPLE_PEN",
 							Colour.BASE_PINK_DEEP,
 							"Nipple Penetrations",
 							"This enables nipple-penetration transformations and sex actions.",
 							Main.getProperties().hasValue(PropertyValue.nipplePenContent)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"ANAL",
 							Colour.BASE_ORANGE,
 							"Anal Content",
 							"When disabled, removes all anal-related actions from being available during sex.",
 							Main.getProperties().hasValue(PropertyValue.analContent)));
 
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"GAPE",
 							Colour.BASE_PINK_DEEP,
 							"Gape Content",
 							"When disabled, changes descriptions of gaping orifices to simply be 'loose', and also hides any special gape-related content.",
 							Main.getProperties().hasValue(PropertyValue.gapeContent)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-					"PENETRATION_LIMITATION",
-					Colour.BASE_PINK_DEEP,
-					"Penetration Limitations",
-					"When enabled, orifices will have a limited depth to them, meaning that penetrative objects (penises and tails) can be too long to fit all the way inside.",
-					Main.getProperties().hasValue(PropertyValue.penetrationLimitations)));
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"PENETRATION_LIMITATION",
+							Colour.BASE_PINK_DEEP,
+							"Penetrative size-difference",
+							"When enabled, orifices will have a limited depth to them, meaning that penetrative objects (penises and tails) can be too long to fit all the way inside.",
+							Main.getProperties().hasValue(PropertyValue.penetrationLimitations)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"FOOT",
 							Colour.BASE_TAN,
 							"Foot Content",
 							"When disabled, removes all foot-related actions from being available during sex.",
 							Main.getProperties().hasValue(PropertyValue.footContent)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"FUTA_BALLS",
 							Colour.BASE_PINK,
 							"Futanari Testicles",
 							"When enabled, futanari NPCs will be able to have external testicles. When disabled, they are locked to always being internal.",
 							Main.getProperties().hasValue(PropertyValue.futanariTesticles)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"CLOACA",
 							Colour.BASE_PINK_LIGHT,
 							"Bipedal Cloacas",
@@ -2055,265 +2092,273 @@ public class OptionsDialogue {
 									+ " When disabled, all bipeds with cloacas will be treated as having a regular genitalia configuration."
 									+ " Some special races, such as lamia, always have cloacas, and are not affected by this.",
 							Main.getProperties().hasValue(PropertyValue.bipedalCloaca)));
+			
+			if(contentOptionsPage==ContentOptionsPage.BODIES) {
+				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.NIPPLES, "Multi-breasts", "Choose how you want the game to display multi-breasts."));
+				for(int i=2; i>=0; i--) {
+					UtilText.nodeContentSB.append("<div id='MULTI_BREAST_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().multiBreasts==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+								+(Main.getProperties().multiBreasts==i
+									?(i==0?"[style.boldBad(":"[style.boldGood(")
+									:"[style.colourDisabled(")
+								+com.lilithsthrone.game.Properties.multiBreastsLabels[i]+")]</div>");
+				}
+				UtilText.nodeContentSB.append("</div></div>");
 				
-
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.NIPPLES, "Multi-breasts", "Choose how you want the game to display multi-breasts."));
-			for(int i=2; i>=0; i--) {
-				UtilText.nodeContentSB.append("<div id='MULTI_BREAST_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().multiBreasts==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
-							+(Main.getProperties().multiBreasts==i
+				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.NIPPLES_CROTCH, "Crotch-boobs & Udders", "Choose how you want the game to handle udders and crotch-boobs."));
+				for(int i=2; i>=0; i--) {
+					UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().udders==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+							+(Main.getProperties().udders==i
 								?(i==0?"[style.boldBad(":"[style.boldGood(")
 								:"[style.colourDisabled(")
-							+com.lilithsthrone.game.Properties.multiBreastsLabels[i]+")]</div>");
+							+com.lilithsthrone.game.Properties.uddersLabels[i]+")]</div>");
+				}
+				UtilText.nodeContentSB.append("</div></div>");
 			}
-			UtilText.nodeContentSB.append("</div></div>");
 			
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.NIPPLES_CROTCH, "Crotch-boobs & Udders", "Choose how you want the game to handle udders and crotch-boobs."));
-			for(int i=2; i>=0; i--) {
-				UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().udders==i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
-						+(Main.getProperties().udders==i
-							?(i==0?"[style.boldBad(":"[style.boldGood(")
-							:"[style.colourDisabled(")
-						+com.lilithsthrone.game.Properties.uddersLabels[i]+")]</div>");
-			}
-			UtilText.nodeContentSB.append("</div></div>");
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"HAIR_FACIAL",
 							Colour.BASE_LILAC_LIGHT,
 							"Facial hair",
 							"This enables facial hair descriptions and content.",
 							Main.getProperties().hasValue(PropertyValue.facialHairContent)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"HAIR_PUBIC",
 							Colour.BASE_LILAC,
 							"Pubic hair",
 							"This enables pubic hair descriptions and content.",
 							Main.getProperties().hasValue(PropertyValue.pubicHairContent)));
 				
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-						"HAIR_BODY",
-						Colour.BASE_PURPLE,
-						"Underarm hair",
-						"This enables underarm hair descriptions and content.",
-						Main.getProperties().hasValue(PropertyValue.bodyHairContent)));
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
+							"HAIR_BODY",
+							Colour.BASE_PURPLE,
+							"Underarm hair",
+							"This enables underarm hair descriptions and content.",
+							Main.getProperties().hasValue(PropertyValue.bodyHairContent)));
 
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-						"HAIR_ASS",
-						Colour.BASE_PURPLE_DARK,
-						"Ass hair",
-						"This enables ass hair descriptions and content.",
-						Main.getProperties().hasValue(PropertyValue.assHairContent)));
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
+							"HAIR_ASS",
+							Colour.BASE_PURPLE_DARK,
+							"Ass hair",
+							"This enables ass hair descriptions and content.",
+							Main.getProperties().hasValue(PropertyValue.assHairContent)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"FEMININE_BEARD",
 							Colour.BASE_BLUE_STEEL,
 							"Feminine Beards",
 							"This enables feminine characters to grow beards.",
 							Main.getProperties().hasValue(PropertyValue.feminineBeardsContent)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"FURRY_HAIR",
 							Colour.CLOTHING_DESATURATED_BROWN,
 							"Furry Hair",
 							"Toggles whether or not characters with a furry head type will spawn with human-like hair on their heads.",
 							Main.getProperties().hasValue(PropertyValue.furryHairContent)));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.BODIES,
 							"SCALY_HAIR",
 							Colour.BASE_GREEN_DARK,
 							"Scaly Hair",
 							"Toggles whether or not characters with a reptilian or amphibious head type will spawn with human-like hair on their heads.",
 							Main.getProperties().hasValue(PropertyValue.scalyHairContent)));
 
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
-							"FORCED_TF",
-							Colour.TRANSFORMATION_GENERIC,
-							"Forced TF",
-							"This sets the amount of NPCs spawning with the '"+Fetish.FETISH_TRANSFORMATION_GIVING.getName(null)+"' fetish, which causes them to forcibly transform you after beating you in combat.",
-							Main.getProperties().forcedTFPercentage+"%",
-							Main.getProperties().forcedTFPercentage,
-							0,
-							100));
-
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			if(contentOptionsPage==ContentOptionsPage.GAMEPLAY) {
+				UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+								"FORCED_TF",
+								Colour.TRANSFORMATION_GENERIC,
+								"Forced TF",
+								"This sets the amount of NPCs spawning with the '"+Fetish.FETISH_TRANSFORMATION_GIVING.getName(null)+"' fetish, which causes them to forcibly transform you after beating you in combat.",
+								Main.getProperties().forcedTFPercentage+"%",
+								Main.getProperties().forcedTFPercentage,
+								0,
+								100));
+			}
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
 					"SPITTING_ENABLED",
 					Colour.BASE_BLUE,
 					"Rejecting TF potions",
 					"Forced TF potions may be spat out if this is enabled.",
 					!Main.game.isSpittingDisabled()));
 
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.BASE_GREEN, "Forced TF Gender Tendency", "This allows you to override NPC tastes when a forced transformation will alter your gender presentation."));
-			UtilText.nodeContentSB.append((Main.getProperties().getForcedTFTendency()==ForcedTFTendency.NEUTRAL
-												?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>"
-													+ ForcedTFTendency.NEUTRAL.getName()
-													+ "</div>"
-												:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
-													+ "[style.colourDisabled("+ForcedTFTendency.NEUTRAL.getName()+")]"
-													+ "</div>")	
-											+ (Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE
-												?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.FEMININE.toWebHexString()+";'>"
-													+ ForcedTFTendency.FEMININE.getName()
-													+ "</div>"
-												:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
-													+ "[style.colourDisabled("+ForcedTFTendency.FEMININE.getName()+")]"
-													+ "</div>")
-											+(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE_HEAVY
-												?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE_HEAVY+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.FEMININE_PLUS.toWebHexString()+";'>"
-													+ ForcedTFTendency.FEMININE_HEAVY.getName()
-													+ "</div>"
-												:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE_HEAVY+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
-													+ "[style.colourDisabled("+ForcedTFTendency.FEMININE_HEAVY.getName()+")]"
-													+ "</div>")
-											+(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE_HEAVY
-												?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE_HEAVY+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'>"
-													+ ForcedTFTendency.MASCULINE_HEAVY.getName()
-													+ "</div>"
-												:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE_HEAVY+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
-													+ "[style.colourDisabled("+ForcedTFTendency.MASCULINE_HEAVY.getName()+")]"
-													+ "</div>")
-											+(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE
-												?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.MASCULINE.toWebHexString()+";'>"
-													+ ForcedTFTendency.MASCULINE.getName()
-													+ "</div>"
-												:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
-													+ "[style.colourDisabled("+ForcedTFTendency.MASCULINE.getName()+")]"
-													+ "</div>"));
-			UtilText.nodeContentSB.append("</div></div>");
+			if(contentOptionsPage==ContentOptionsPage.GAMEPLAY) {
+				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.BASE_GREEN, "Forced TF Gender Tendency", "This allows you to override NPC tastes when a forced transformation will alter your gender presentation."));
+				UtilText.nodeContentSB.append(
+						(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.NEUTRAL
+							?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>"
+								+ ForcedTFTendency.NEUTRAL.getName()
+								+ "</div>"
+							:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+								+ "[style.colourDisabled("+ForcedTFTendency.NEUTRAL.getName()+")]"
+								+ "</div>")	
+						+ (Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE
+							?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.FEMININE.toWebHexString()+";'>"
+								+ ForcedTFTendency.FEMININE.getName()
+								+ "</div>"
+							:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+								+ "[style.colourDisabled("+ForcedTFTendency.FEMININE.getName()+")]"
+								+ "</div>")
+						+(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE_HEAVY
+							?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE_HEAVY+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.FEMININE_PLUS.toWebHexString()+";'>"
+								+ ForcedTFTendency.FEMININE_HEAVY.getName()
+								+ "</div>"
+							:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE_HEAVY+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+								+ "[style.colourDisabled("+ForcedTFTendency.FEMININE_HEAVY.getName()+")]"
+								+ "</div>")
+						+(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE_HEAVY
+							?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE_HEAVY+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.MASCULINE_PLUS.toWebHexString()+";'>"
+								+ ForcedTFTendency.MASCULINE_HEAVY.getName()
+								+ "</div>"
+							:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE_HEAVY+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+								+ "[style.colourDisabled("+ForcedTFTendency.MASCULINE_HEAVY.getName()+")]"
+								+ "</div>")
+						+(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE
+							?"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.MASCULINE.toWebHexString()+";'>"
+								+ ForcedTFTendency.MASCULINE.getName()
+								+ "</div>"
+							:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+								+ "[style.colourDisabled("+ForcedTFTendency.MASCULINE.getName()+")]"
+								+ "</div>"));
+				UtilText.nodeContentSB.append("</div></div>");
+				
+				UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+								"FORCED_FETISH",
+								Colour.FETISH,
+								"Forced Fetishes",
+								"This sets the amount of NPCs spawning with the '"+Fetish.FETISH_KINK_GIVING.getName(null)+"' fetish, which causes them to try and forcibly give you fetishes after beating you in combat.",
+								Main.getProperties().forcedFetishPercentage+"%",
+								Main.getProperties().forcedFetishPercentage,
+								0,
+								100));
+						
+	
+				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.FETISH, "Forced Fetish Tendency",
+						"This allows you to override NPC tastes and control the tendency for forced fetishes to be for topping or bottoming."));
+				UtilText.nodeContentSB.append(
+						(Main.getProperties().getForcedFetishTendency()==ForcedFetishTendency.NEUTRAL
+								?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.NEUTRAL+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>"
+									+ ForcedFetishTendency.NEUTRAL.getName()
+									+ "</div>"
+								:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.NEUTRAL+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+									+ "[style.colourDisabled("+ForcedFetishTendency.NEUTRAL.getName()+")]"
+									+ "</div>")	
+						+(Main.getProperties().getForcedFetishTendency()==ForcedFetishTendency.BOTTOM
+								?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>"
+									+ ForcedFetishTendency.BOTTOM.getName()
+									+ "</div>"
+								:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+									+ "[style.colourDisabled("+ForcedFetishTendency.BOTTOM.getName()+")]"
+									+ "</div>")
+						+(Main.getProperties().getForcedFetishTendency()==ForcedFetishTendency.BOTTOM_HEAVY
+								?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM_HEAVY+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.BASE_PINK.toWebHexString()+";'>"
+									+ ForcedFetishTendency.BOTTOM_HEAVY.getName()
+									+ "</div>"
+								:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM_HEAVY+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+									+ "[style.colourDisabled("+ForcedFetishTendency.BOTTOM_HEAVY.getName()+")]"
+									+ "</div>")
+						+(Main.getProperties().getForcedFetishTendency()==ForcedFetishTendency.TOP_HEAVY
+								?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP_HEAVY+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.BASE_PURPLE.toWebHexString()+";'>"
+									+ ForcedFetishTendency.TOP_HEAVY.getName()
+									+ "</div>"
+								:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP_HEAVY+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+									+ "[style.colourDisabled("+ForcedFetishTendency.TOP_HEAVY.getName()+")]"
+									+ "</div>")
+						+(Main.getProperties().getForcedFetishTendency()==ForcedFetishTendency.TOP
+								?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.BASE_PURPLE_LIGHT.toWebHexString()+";'>"
+									+ ForcedFetishTendency.TOP.getName()
+									+ "</div>"
+								:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+									+ "[style.colourDisabled("+ForcedFetishTendency.TOP.getName()+")]"
+									+ "</div>"));
+				UtilText.nodeContentSB.append("</div></div>");
+			}
 			
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
-							"FORCED_FETISH",
-							Colour.FETISH,
-							"Forced Fetishes",
-							"This sets the amount of NPCs spawning with the '"+Fetish.FETISH_KINK_GIVING.getName(null)+"' fetish, which causes them to try and forcibly give you fetishes after beating you in combat.",
-							Main.getProperties().forcedFetishPercentage+"%",
-							Main.getProperties().forcedFetishPercentage,
-							0,
-							100));
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"FURRY_TAIL_PENETRATION",
+							Colour.BASE_MAGENTA,
+							"Furry tail penetrations",
+							"This enables furry tails to engage in penetrative actions in sex.",
+							Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)));
 					
-
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(Colour.FETISH, "Forced Fetish Tendency",
-					"This allows you to override NPC tastes and control the tendency for forced fetishes to be for topping or bottoming."));
-			UtilText.nodeContentSB.append((Main.getProperties().getForcedFetishTendency()==ForcedFetishTendency.NEUTRAL
-												?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.NEUTRAL+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>"
-													+ ForcedFetishTendency.NEUTRAL.getName()
-													+ "</div>"
-												:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.NEUTRAL+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
-													+ "[style.colourDisabled("+ForcedFetishTendency.NEUTRAL.getName()+")]"
-													+ "</div>")	
-										+(Main.getProperties().getForcedFetishTendency()==ForcedFetishTendency.BOTTOM
-												?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>"
-													+ ForcedFetishTendency.BOTTOM.getName()
-													+ "</div>"
-												:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
-													+ "[style.colourDisabled("+ForcedFetishTendency.BOTTOM.getName()+")]"
-													+ "</div>")
-										+(Main.getProperties().getForcedFetishTendency()==ForcedFetishTendency.BOTTOM_HEAVY
-												?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM_HEAVY+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.BASE_PINK.toWebHexString()+";'>"
-													+ ForcedFetishTendency.BOTTOM_HEAVY.getName()
-													+ "</div>"
-												:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM_HEAVY+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
-													+ "[style.colourDisabled("+ForcedFetishTendency.BOTTOM_HEAVY.getName()+")]"
-													+ "</div>")
-										+(Main.getProperties().getForcedFetishTendency()==ForcedFetishTendency.TOP_HEAVY
-												?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP_HEAVY+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.BASE_PURPLE.toWebHexString()+";'>"
-													+ ForcedFetishTendency.TOP_HEAVY.getName()
-													+ "</div>"
-												:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP_HEAVY+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
-													+ "[style.colourDisabled("+ForcedFetishTendency.TOP_HEAVY.getName()+")]"
-													+ "</div>")
-										+(Main.getProperties().getForcedFetishTendency()==ForcedFetishTendency.TOP
-												?"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"+Colour.BASE_PURPLE_LIGHT.toWebHexString()+";'>"
-													+ ForcedFetishTendency.TOP.getName()
-													+ "</div>"
-												:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
-													+ "[style.colourDisabled("+ForcedFetishTendency.TOP.getName()+")]"
-													+ "</div>"));
-			UtilText.nodeContentSB.append("</div></div>");
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
-						"FURRY_TAIL_PENETRATION",
-						Colour.BASE_MAGENTA,
-						"Furry tail penetrations",
-						"This enables furry tails to engage in penetrative actions in sex.",
-						Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)));
-					
-			UtilText.nodeContentSB.append(getContentPreferenceDiv(
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"INFLATION_CONTENT",
 							Colour.CUM,
 							"Cum Inflation",
 							"This enables cum inflation mechanics.",
 							Main.getProperties().hasValue(PropertyValue.inflationContent)));
+
+			if(contentOptionsPage==ContentOptionsPage.BODIES) {
+				UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
+								"PREGNANCY_BREAST_GROWTH",
+								Colour.BASE_PINK,
+								"Average Pregnancy Breast Growth",
+								"Set the <b>average</b> cup size growth that characters will gain from each pregnancy. Actual breast growth will be within "+Util.intToString(Main.getProperties().pregnancyBreastGrowthVariance)+" sizes of this value.",
+								Main.getProperties().pregnancyBreastGrowth==0
+									?"[style.boldDisabled(Disabled)]"
+									:Main.getProperties().pregnancyBreastGrowth+" cup"+(Main.getProperties().pregnancyBreastGrowth!=1?"s":""),
+								Main.getProperties().pregnancyBreastGrowth, 0, 10,
+								Main.getProperties().pregnancyUdderGrowth==0
+									?"[style.boldDisabled(Disabled)]"
+									:Main.getProperties().pregnancyUdderGrowth+" cup"+(Main.getProperties().pregnancyUdderGrowth!=1?"s":""),
+								Main.getProperties().pregnancyUdderGrowth, 0, 10));
+
+				UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
+								"PREGNANCY_BREAST_GROWTH_LIMIT",
+								Colour.BASE_PINK_LIGHT,
+								"Pregnancy Breast Growth Limit",
+								"Set the maximum limit of cup size that characters' breasts will grow to from pregnancies.",
+								CupSize.getCupSizeFromInt(Main.getProperties().pregnancyBreastGrowthLimit).getCupSizeName()+"-cup",
+								Main.getProperties().pregnancyBreastGrowthLimit, 0, 100,
+								CupSize.getCupSizeFromInt(Main.getProperties().pregnancyUdderGrowthLimit).getCupSizeName()+"-cup",
+								Main.getProperties().pregnancyUdderGrowthLimit, 0, 100));
 				
-
-			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv( //TODO
-							"PREGNANCY_BREAST_GROWTH",
-							Colour.BASE_PINK,
-							"Average Pregnancy Breast Growth",
-							"Set the <b>average</b> cup size growth that characters will gain from each pregnancy. Actual breast growth will be within "+Util.intToString(Main.getProperties().pregnancyBreastGrowthVariance)+" sizes of this value.",
-							Main.getProperties().pregnancyBreastGrowth==0
-								?"[style.boldDisabled(Disabled)]"
-								:Main.getProperties().pregnancyBreastGrowth+" cup"+(Main.getProperties().pregnancyBreastGrowth!=1?"s":""),
-							Main.getProperties().pregnancyBreastGrowth, 0, 10,
-							Main.getProperties().pregnancyUdderGrowth==0
-								?"[style.boldDisabled(Disabled)]"
-								:Main.getProperties().pregnancyUdderGrowth+" cup"+(Main.getProperties().pregnancyUdderGrowth!=1?"s":""),
-							Main.getProperties().pregnancyUdderGrowth, 0, 10));
-					
-			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
-							"PREGNANCY_BREAST_GROWTH_LIMIT",
-							Colour.BASE_PINK_LIGHT,
-							"Pregnancy Breast Growth Limit",
-							"Set the maximum limit of cup size that characters' breasts will grow to from pregnancies.",
-							CupSize.getCupSizeFromInt(Main.getProperties().pregnancyBreastGrowthLimit).getCupSizeName()+"-cup",
-							Main.getProperties().pregnancyBreastGrowthLimit, 0, 100,
-							CupSize.getCupSizeFromInt(Main.getProperties().pregnancyUdderGrowthLimit).getCupSizeName()+"-cup",
-							Main.getProperties().pregnancyUdderGrowthLimit, 0, 100));
-			
-			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
-							"PREGNANCY_LACTATION",
-							Colour.BASE_YELLOW,
-							"Average Pregnancy Lactation",
-							"Set the <b>average</b> increase in lactation that characters will gain as a result of each pregnancy. Actual lactation increase will be within "
-									+Units.fluid(Main.getProperties().pregnancyLactationIncreaseVariance)+" of this value.",
-							Main.getProperties().pregnancyLactationIncrease==0
-								?"[style.boldDisabled(Disabled)]"
-								:Units.fluid(Main.getProperties().pregnancyLactationIncrease),
-							Main.getProperties().pregnancyLactationIncrease, 0, 1000,
-							Main.getProperties().pregnancyUdderLactationIncrease==0
-								?"[style.boldDisabled(Disabled)]"
-								:Units.fluid(Main.getProperties().pregnancyUdderLactationIncrease),
-							Main.getProperties().pregnancyUdderLactationIncrease, 0, 1000));
-					
-			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
-							"PREGNANCY_LACTATION_LIMIT",
-							Colour.BASE_YELLOW_LIGHT,
-							"Pregnancy Lactation Limit",
-							"Set the maximum limit of lactation that characters will gain from pregnancies.",
-							Units.fluid(Main.getProperties().pregnancyLactationLimit, Units.ValueType.PRECISE, Units.UnitType.SHORT),
-							Main.getProperties().pregnancyLactationLimit, 0, Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue(),
-							Units.fluid(Main.getProperties().pregnancyUdderLactationLimit, Units.ValueType.PRECISE, Units.UnitType.SHORT),
-							Main.getProperties().pregnancyUdderLactationLimit, 0, Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()));
-
-			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
-							"BREAST_SIZE_PREFERENCE",
-							Colour.NIPPLES,
-							"Cup Size Preference",
-							"Affects randomly-generated NPCs' cup sizes (will not be reduced to below AA-cup).",
-							(Main.getProperties().breastSizePreference>=0?"+":"") + Main.getProperties().breastSizePreference,
-							Main.getProperties().breastSizePreference, -20, 20,
-							(Main.getProperties().udderSizePreference>=0?"+":"") + Main.getProperties().udderSizePreference,
-							Main.getProperties().udderSizePreference, -20, 20));
-
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
-							"PENIS_SIZE_PREFERENCE",
-							Colour.PENIS,
-							"Penis Size Preference",
-							"Affects randomly-generated NPCs' penis sizes (will not be reduced to below "+Units.size(8)+").",
-							(Main.getProperties().penisSizePreference>=0?"+":"") + Units.size(Main.getProperties().penisSizePreference, ValueType.PRECISE, UnitType.SHORT),
-							Main.getProperties().penisSizePreference,
-							-20,
-							20));
+				UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
+								"PREGNANCY_LACTATION",
+								Colour.BASE_YELLOW,
+								"Average Pregnancy Lactation",
+								"Set the <b>average</b> increase in lactation that characters will gain as a result of each pregnancy. Actual lactation increase will be within "
+										+Units.fluid(Main.getProperties().pregnancyLactationIncreaseVariance)+" of this value.",
+								Main.getProperties().pregnancyLactationIncrease==0
+									?"[style.boldDisabled(Disabled)]"
+									:Units.fluid(Main.getProperties().pregnancyLactationIncrease),
+								Main.getProperties().pregnancyLactationIncrease, 0, 1000,
+								Main.getProperties().pregnancyUdderLactationIncrease==0
+									?"[style.boldDisabled(Disabled)]"
+									:Units.fluid(Main.getProperties().pregnancyUdderLactationIncrease),
+								Main.getProperties().pregnancyUdderLactationIncrease, 0, 1000));
+						
+				UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
+								"PREGNANCY_LACTATION_LIMIT",
+								Colour.BASE_YELLOW_LIGHT,
+								"Pregnancy Lactation Limit",
+								"Set the maximum limit of lactation that characters will gain from pregnancies.",
+								Units.fluid(Main.getProperties().pregnancyLactationLimit, Units.ValueType.PRECISE, Units.UnitType.SHORT),
+								Main.getProperties().pregnancyLactationLimit, 0, Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue(),
+								Units.fluid(Main.getProperties().pregnancyUdderLactationLimit, Units.ValueType.PRECISE, Units.UnitType.SHORT),
+								Main.getProperties().pregnancyUdderLactationLimit, 0, Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()));
+	
+				UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
+								"BREAST_SIZE_PREFERENCE",
+								Colour.NIPPLES,
+								"Cup Size Preference",
+								"Affects randomly-generated NPCs' cup sizes (will not be reduced to below AA-cup).",
+								(Main.getProperties().breastSizePreference>=0?"+":"") + Main.getProperties().breastSizePreference,
+								Main.getProperties().breastSizePreference, -20, 20,
+								(Main.getProperties().udderSizePreference>=0?"+":"") + Main.getProperties().udderSizePreference,
+								Main.getProperties().udderSizePreference, -20, 20));
+	
+				UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+								"PENIS_SIZE_PREFERENCE",
+								Colour.PENIS,
+								"Penis Size Preference",
+								"Affects randomly-generated NPCs' penis sizes (will not be reduced to below "+Units.size(8)+").",
+								(Main.getProperties().penisSizePreference>=0?"+":"") + Units.size(Main.getProperties().penisSizePreference, ValueType.PRECISE, UnitType.SHORT),
+								Main.getProperties().penisSizePreference,
+								-20,
+								20));
+			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -2325,7 +2370,75 @@ public class OptionsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0) {
+			if(index==1) {
+				return new Response("Misc.",
+						contentOptionsPage==ContentOptionsPage.MISC
+							?"You are already viewing the miscellaneous content options!"
+							:"View the game's miscellaneous content options.",
+						contentOptionsPage==ContentOptionsPage.MISC
+							?null
+							:CONTENT_PREFERENCE) {
+					@Override
+					public void effects() {
+						contentOptionsPage=ContentOptionsPage.MISC;
+					}
+				};
+				
+			} else if(index==2) {
+				return new Response("Gameplay",
+						contentOptionsPage==ContentOptionsPage.GAMEPLAY
+							?"You are already viewing the gameplay content options!"
+							:"View the game's gameplay content options.",
+						contentOptionsPage==ContentOptionsPage.GAMEPLAY
+							?null
+							:CONTENT_PREFERENCE) {
+					@Override
+					public void effects() {
+						contentOptionsPage=ContentOptionsPage.GAMEPLAY;
+					}
+				};
+				
+			} else if(index==3) {
+				return new Response("Sex & Fetishes",
+						contentOptionsPage==ContentOptionsPage.SEX
+							?"You are already viewing the sex & fetishes content options!"
+							:"View the game's sex & fetishes content options.",
+						contentOptionsPage==ContentOptionsPage.SEX
+							?null
+							:CONTENT_PREFERENCE) {
+					@Override
+					public void effects() {
+						contentOptionsPage=ContentOptionsPage.SEX;
+					}
+				};
+				
+			} else if(index==4) {
+				return new Response("Bodies",
+						contentOptionsPage==ContentOptionsPage.BODIES
+							?"You are already viewing the bodies content options!"
+							:"View the game's bodies content options.",
+						contentOptionsPage==ContentOptionsPage.BODIES
+							?null
+							:CONTENT_PREFERENCE) {
+					@Override
+					public void effects() {
+						contentOptionsPage=ContentOptionsPage.BODIES;
+					}
+				};
+				
+			} else if (index == 11) {
+				return new Response("[style.colourBad(Reset)]", "Resets <b>all</b> content preferences to their default values!", CONTENT_PREFERENCE) {
+					@Override
+					public void effects() {
+						for(PropertyValue pv : PropertyValue.values()) {
+							Main.getProperties().setValue(pv, pv.getDefaultValue());
+						}
+						Main.getProperties().resetContentOptions();
+						Main.saveProperties();
+					}
+				};
+				
+			} else if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", MENU);
 				
 			} else {
@@ -2341,11 +2454,11 @@ public class OptionsDialogue {
 	
 
 	/**
-	 * TO be followed by: </div></div>
+	 * To be followed by: </div></div>
 	 */
 	private static String getCustomContentPreferenceDivStart(Colour colour, String title, String description) {
 		StringBuilder contentSB = new StringBuilder();
-
+		
 		contentSB.append(
 				"<div class='container-full-width' style='padding:0; margin:2px 0;'>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
@@ -2357,7 +2470,11 @@ public class OptionsDialogue {
 		return contentSB.toString();
 	}
 	
-	private static String getContentPreferenceDiv(String id, Colour colour, String title, String description, boolean enabled) {
+	private static String getContentPreferenceDiv(ContentOptionsPage pageForDisplay, String id, Colour colour, String title, String description, boolean enabled) {
+		if(pageForDisplay!=contentOptionsPage) {
+			return "";
+		}
+		
 		StringBuilder contentSB = new StringBuilder();
 		
 		contentSB.append(

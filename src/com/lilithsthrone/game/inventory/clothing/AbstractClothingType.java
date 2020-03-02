@@ -34,14 +34,16 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
-import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
@@ -61,7 +63,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.84
- * @version 0.3.4
+ * @version 0.3.7
  * @author Innoxia, BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord), Pimgd
  */
 public abstract class AbstractClothingType extends AbstractCoreType {
@@ -85,6 +87,30 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private int femininityMaximum;
 	private Femininity femininityRestriction;
 	private List<InventorySlot> equipSlots;
+	
+	// Penetration variables:
+	private int penetrationSelfLength;
+	private int penetrationSelfGirth;
+	private List<PenetrationModifier> penetrationSelfModifiers;
+	
+	private int penetrationOtherLength;
+	private int penetrationOtherGirth;
+	private List<PenetrationModifier> penetrationOtherModifiers;
+	
+	// Orifice variables:
+	private int orificeSelfDepth;
+	private float orificeSelfCapacity;
+	private int orificeSelfElasticity;
+	private int orificeSelfPlasticity;
+	private int orificeSelfWetness;
+	private List<OrificeModifier> orificeSelfModifiers;
+	
+	private int orificeOtherDepth;
+	private float orificeOtherCapacity;
+	private int orificeOtherElasticity;
+	private int orificeOtherPlasticity;
+	private int orificeOtherWetness;
+	private List<OrificeModifier> orificeOtherModifiers;
 
 	// Enchantments:
 	@SuppressWarnings("unused")
@@ -401,7 +427,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				InventorySlot slot = InventorySlot.valueOf(coreAttributes.getMandatoryFirstOf("slot").getTextContent());
 				this.equipSlots = Util.newArrayListOfValues(slot);
 			}
-
+			
 			if(coreAttributes.getOptionalFirstOf("clothingAuthorTag").isPresent()) {
 				this.authorDescription = coreAttributes.getMandatoryFirstOf("clothingAuthorTag").getTextContent();
 			} else if(coreAttributes.getOptionalFirstOf("authorTag").isPresent()) {
@@ -480,7 +506,45 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					for(InventorySlot slot : this.equipSlots) {
 						this.itemTags.putIfAbsent(slot, new ArrayList<>());
 						this.itemTags.get(slot).addAll(Util.toEnumList(itemTagsElement.getAllOf("tag"), ItemTag.class));
-						
+					}
+					for(Element e : itemTagsElement.getAllOf("tag")) { // Support for modded clothing which used DILDO tags before v0.3.7's switch to more precise variables:
+						boolean found = false;
+						switch(e.getTextContent()) {
+							case "DILDO_TINY":
+								this.penetrationOtherLength = 8;
+								found = true;
+								break;
+							case "DILDO_AVERAGE":
+								this.penetrationOtherLength = 15;
+								found = true;
+								break;
+							case "DILDO_LARGE":
+								this.penetrationOtherLength = 25;
+								found = true;
+								break;
+							case "DILDO_HUGE":
+								this.penetrationOtherLength = 35;
+								found = true;
+								break;
+							case "DILDO_ENORMOUS":
+								this.penetrationOtherLength = 45;
+								found = true;
+								break;
+							case "DILDO_GIGANTIC":
+								this.penetrationOtherLength = 55;
+								found = true;
+								break;
+							case "DILDO_STALLION":
+								this.penetrationOtherLength = 81;
+								found = true;
+								break;
+						}
+						if(found) {
+							this.penetrationSelfGirth = 2;
+							for(InventorySlot slot : this.equipSlots) {
+								this.itemTags.get(slot).add(ItemTag.DILDO_OTHER);
+							}
+						}
 					}
 					
 				} else {
@@ -707,6 +771,132 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					coreAttributes.getOptionalFirstOf("patternTertiaryColoursDye")
 						.map(getPatternColoursFromElement::apply)
 						.orElse(null));
+			
+			
+			// Self sex attributes:
+			Element sexSelfAttributes = null;
+			try {
+				sexSelfAttributes = clothingElement.getMandatoryFirstOf("sexAttributesSelf");
+				
+				// Self penetration values:
+				if(sexSelfAttributes.getOptionalFirstOf("penetration").isPresent()) {
+					Element penetrationAttributes = sexSelfAttributes.getMandatoryFirstOf("penetration");
+					if(penetrationAttributes.getInnerElement().hasChildNodes()) {
+						for(InventorySlot slot : this.equipSlots) {
+							this.itemTags.get(slot).add(ItemTag.DILDO_SELF);
+						}
+					}
+					
+					if(penetrationAttributes.getOptionalFirstOf("length").isPresent()) {
+						this.penetrationSelfLength = Integer.valueOf(penetrationAttributes.getMandatoryFirstOf("length").getTextContent());
+					}
+					if(penetrationAttributes.getOptionalFirstOf("girth").isPresent()) {
+						this.penetrationSelfGirth = Integer.valueOf(penetrationAttributes.getMandatoryFirstOf("girth").getTextContent());
+					}
+					if(penetrationAttributes.getOptionalFirstOf("modifiers").isPresent()) {
+						this.penetrationSelfModifiers = penetrationAttributes
+								.getMandatoryFirstOf("modifiers")
+								.getAllOf("mod").stream()
+								.map( e -> PenetrationModifier.valueOf(e.getTextContent()))
+								.collect(Collectors.toList());
+					}
+				}
+				// Self orifice values:
+				if(sexSelfAttributes.getOptionalFirstOf("orifice").isPresent()) {
+					Element orificeAttributes = sexSelfAttributes.getMandatoryFirstOf("orifice");
+					if(orificeAttributes.getInnerElement().hasChildNodes()) {
+						for(InventorySlot slot : this.equipSlots) {
+							this.itemTags.get(slot).add(ItemTag.ONAHOLE_SELF);
+						}
+					}
+					
+					if(orificeAttributes.getOptionalFirstOf("depth").isPresent()) {
+						this.orificeSelfDepth = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("depth").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("capacity").isPresent()) {
+						this.orificeSelfCapacity = Float.valueOf(orificeAttributes.getMandatoryFirstOf("capacity").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("elasticity").isPresent()) {
+						this.orificeSelfElasticity = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("elasticity").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("plasticity").isPresent()) {
+						this.orificeSelfPlasticity = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("plasticity").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("wetness").isPresent()) {
+						this.orificeSelfWetness = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("wetness").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("modifiers").isPresent()) {
+						this.orificeSelfModifiers = orificeAttributes
+								.getMandatoryFirstOf("modifiers")
+								.getAllOf("mod").stream()
+								.map( e -> OrificeModifier.valueOf(e.getTextContent()))
+								.collect(Collectors.toList());
+					}
+				}
+			} catch (XMLMissingTagException ex) {
+			}
+
+			// Other sex attributes:
+			Element otherSexAttributes = null;
+			try {
+				otherSexAttributes = clothingElement.getMandatoryFirstOf("sexAttributesOther");
+				// Other penetration values:
+				if(otherSexAttributes.getOptionalFirstOf("penetration").isPresent()) {
+					Element penetrationAttributes = otherSexAttributes.getMandatoryFirstOf("penetration");
+					if(penetrationAttributes.getInnerElement().hasChildNodes()) {
+						for(InventorySlot slot : this.equipSlots) {
+							this.itemTags.get(slot).add(ItemTag.DILDO_OTHER);
+						}
+					}
+					
+					if(penetrationAttributes.getOptionalFirstOf("length").isPresent()) {
+						this.penetrationOtherLength = Integer.valueOf(penetrationAttributes.getMandatoryFirstOf("length").getTextContent());
+					}
+					if(penetrationAttributes.getOptionalFirstOf("girth").isPresent()) {
+						this.penetrationOtherGirth = Integer.valueOf(penetrationAttributes.getMandatoryFirstOf("girth").getTextContent());
+					}
+					if(penetrationAttributes.getOptionalFirstOf("modifiers").isPresent()) {
+						this.penetrationOtherModifiers = penetrationAttributes
+								.getMandatoryFirstOf("modifiers")
+								.getAllOf("mod").stream()
+								.map( e -> PenetrationModifier.valueOf(e.getTextContent()))
+								.collect(Collectors.toList());
+					}
+				}
+				// Other orifice values:
+				if(otherSexAttributes.getOptionalFirstOf("orifice").isPresent()) {
+					Element orificeAttributes = otherSexAttributes.getMandatoryFirstOf("orifice");
+					if(orificeAttributes.getInnerElement().hasChildNodes()) {
+						for(InventorySlot slot : this.equipSlots) {
+							this.itemTags.get(slot).add(ItemTag.ONAHOLE_OTHER);
+						}
+					}
+					
+					if(orificeAttributes.getOptionalFirstOf("depth").isPresent()) {
+						this.orificeOtherDepth = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("depth").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("capacity").isPresent()) {
+						this.orificeOtherCapacity = Float.valueOf(orificeAttributes.getMandatoryFirstOf("capacity").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("elasticity").isPresent()) {
+						this.orificeOtherElasticity = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("elasticity").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("plasticity").isPresent()) {
+						this.orificeOtherPlasticity = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("plasticity").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("wetness").isPresent()) {
+						this.orificeOtherWetness = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("wetness").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("modifiers").isPresent()) {
+						this.orificeOtherModifiers = orificeAttributes
+								.getMandatoryFirstOf("modifiers")
+								.getAllOf("mod").stream()
+								.map( e -> OrificeModifier.valueOf(e.getTextContent()))
+								.collect(Collectors.toList());
+					}
+				}
+			} catch (XMLMissingTagException ex) {
+			}
 			
 			finalSetUp();
 		}
@@ -2728,5 +2918,91 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 	public boolean isColourDerivedFromPattern() {
 		return isColourDerivedFromPattern;
+	}
+	
+	// Sex attributes:
+	
+	public int getPenetrationSelfLength() {
+		return penetrationSelfLength;
+	}
+
+	public int getPenetrationSelfGirth() {
+		return penetrationSelfGirth;
+	}
+
+	public List<PenetrationModifier> getPenetrationSelfModifiers() {
+		if(penetrationSelfModifiers==null) {
+			return new ArrayList<>();
+		}
+		return penetrationSelfModifiers;
+	}
+
+	public int getPenetrationOtherLength() {
+		return penetrationOtherLength;
+	}
+
+	public int getPenetrationOtherGirth() {
+		return penetrationOtherGirth;
+	}
+
+	public List<PenetrationModifier> getPenetrationOtherModifiers() {
+		if(penetrationOtherModifiers==null) {
+			return new ArrayList<>();
+		}
+		return penetrationOtherModifiers;
+	}
+
+	public int getOrificeSelfDepth() {
+		return orificeSelfDepth;
+	}
+
+	public float getOrificeSelfCapacity() {
+		return orificeSelfCapacity;
+	}
+
+	public int getOrificeSelfElasticity() {
+		return orificeSelfElasticity;
+	}
+
+	public int getOrificeSelfPlasticity() {
+		return orificeSelfPlasticity;
+	}
+
+	public int getOrificeSelfWetness() {
+		return orificeSelfWetness;
+	}
+
+	public List<OrificeModifier> getOrificeSelfModifiers() {
+		if(orificeSelfModifiers==null) {
+			return new ArrayList<>();
+		}
+		return orificeSelfModifiers;
+	}
+
+	public int getOrificeOtherDepth() {
+		return orificeOtherDepth;
+	}
+
+	public float getOrificeOtherCapacity() {
+		return orificeOtherCapacity;
+	}
+
+	public int getOrificeOtherElasticity() {
+		return orificeOtherElasticity;
+	}
+
+	public int getOrificeOtherPlasticity() {
+		return orificeOtherPlasticity;
+	}
+
+	public int getOrificeOtherWetness() {
+		return orificeOtherWetness;
+	}
+
+	public List<OrificeModifier> getOrificeOtherModifiers() {
+		if(orificeOtherModifiers==null) {
+			return new ArrayList<>();
+		}
+		return orificeOtherModifiers;
 	}
 }

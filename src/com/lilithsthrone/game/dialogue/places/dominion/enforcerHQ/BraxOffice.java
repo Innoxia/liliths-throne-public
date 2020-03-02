@@ -521,9 +521,9 @@ public class BraxOffice {
 								if(!Main.game.getPlayer().hasVagina()) {
 									Main.game.getPlayer().setVaginaType(VaginaType.HUMAN);
 								}
-								Main.game.getPlayer().setEarType(EarType.LYCAN);
-								Main.game.getPlayer().setEyeType(EyeType.LYCAN);
-								Main.game.getPlayer().setTailType(TailType.LYCAN);
+								Main.game.getPlayer().setEarType(EarType.WOLF_MORPH);
+								Main.game.getPlayer().setEyeType(EyeType.WOLF_MORPH);
+								Main.game.getPlayer().setTailType(TailType.WOLF_MORPH);
 								Main.game.getPlayer().setHornType(HornType.NONE);
 								Main.game.getPlayer().setAntennaType(AntennaType.NONE);
 								Main.game.getPlayer().setWingType(WingType.NONE);
@@ -534,9 +534,9 @@ public class BraxOffice {
 								Main.game.getPlayer().setPenisType(PenisType.NONE);
 								Main.game.getPlayer().setVaginaType(VaginaType.WOLF_MORPH);
 								
-								Main.game.getPlayer().setEarType(EarType.LYCAN);
-								Main.game.getPlayer().setEyeType(EyeType.LYCAN);
-								Main.game.getPlayer().setTailType(TailType.LYCAN);
+								Main.game.getPlayer().setEarType(EarType.WOLF_MORPH);
+								Main.game.getPlayer().setEyeType(EyeType.WOLF_MORPH);
+								Main.game.getPlayer().setTailType(TailType.WOLF_MORPH);
 								Main.game.getPlayer().setHornType(HornType.NONE);
 								Main.game.getPlayer().setAntennaType(AntennaType.NONE);
 								Main.game.getPlayer().setWingType(WingType.NONE);
@@ -554,9 +554,9 @@ public class BraxOffice {
 								Main.game.getPlayer().setPenisType(PenisType.NONE);
 								Main.game.getPlayer().setVaginaType(VaginaType.WOLF_MORPH);
 								
-								Main.game.getPlayer().setEarType(EarType.LYCAN);
-								Main.game.getPlayer().setEyeType(EyeType.LYCAN);
-								Main.game.getPlayer().setTailType(TailType.LYCAN);
+								Main.game.getPlayer().setEarType(EarType.WOLF_MORPH);
+								Main.game.getPlayer().setEyeType(EyeType.WOLF_MORPH);
+								Main.game.getPlayer().setTailType(TailType.WOLF_MORPH);
 								Main.game.getPlayer().setHornType(HornType.NONE);
 								Main.game.getPlayer().setAntennaType(AntennaType.NONE);
 								Main.game.getPlayer().setWingType(WingType.NONE);
@@ -568,7 +568,7 @@ public class BraxOffice {
 								Main.game.getPlayer().setLegType(LegType.WOLF_MORPH);
 								
 								Main.game.getPlayer().setSkinType(SkinType.LYCAN);
-								Main.game.getPlayer().setFaceType(FaceType.LYCAN);
+								Main.game.getPlayer().setFaceType(FaceType.WOLF_MORPH);
 								
 								Main.game.getPlayer().setBreastRows(3);
 								break;

@@ -153,6 +153,15 @@ public enum DialogueFlagValue {
 	slaverAlleyCompanionAcceptedDeal,
 	slaverAlleySlavesFreed, // Reset every day at midnight
 	
+	// Helena:
+	helenaCheapPaint,
+	helenaGoneHome, // Reset every day at midnight
+	
+	// Natalya:
+	playerSubmittedToNatalya,
+	natalyaDemandedFacial,
+	playerReceivedNatalyaFacial,
+	
 	// Zaranix:
 	zaranixDiscoveredHome,
 	zaranixMaidsHostile,

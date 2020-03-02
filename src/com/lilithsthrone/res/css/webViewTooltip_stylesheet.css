@@ -293,3 +293,15 @@ h6{
 	padding:0;
 	cursor:pointer;
 }
+
+/*ITEM VIEW SPECIFIC*/
+.colour-box {
+	position:relative;
+	float:left;
+	width:20px;
+	height:20px;
+	padding:0;
+	margin:2px;
+	background-color: #333333;
+	-webkit-user-select: none;
+}

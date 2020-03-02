@@ -217,12 +217,25 @@ public interface SexActionInterface {
 	public ArousalIncrease getArousalGainSelf();
 
 	public ArousalIncrease getArousalGainTarget();
-	
+
+	/**
+	 * Effects to be applied before this SexAction's description is parsed. The returned String is appended before anything else (including penetration stops if this action is a SexActionType.START_ONGOING).
+	 * @return A description of the effects. Return an empty String if you don't want anything appended.
+	 */
+	public default String applyPreParsingEffects() {
+		return "";
+	}
+		
 	/**
 	 * @return A String to be appended and displayed immediately before the sex action's description.
 	 */
 	public default String preDescriptionBaseEffects() {
 		StringBuilder stopSB = new StringBuilder();
+		
+		String s = applyPreParsingEffects();
+		if(s!=null) {
+			stopSB.append(s);
+		}
 		
 		if(getActionType()==SexActionType.START_ONGOING) {
 			for(Entry<SexAreaInterface, SexAreaInterface> entry : getSexAreaInteractions().entrySet()) {
@@ -256,6 +269,7 @@ public interface SexActionInterface {
 				}
 			}
 		}
+		
 		return stopSB.toString();
 	}
 	
@@ -1009,6 +1023,13 @@ public interface SexActionInterface {
 		return false;
 	}
 	
+	/**
+	 * @return A higher number means that this action will be displayed closer to action 1. Default value is 0.
+	 */
+	public default int getActionRenderingPriority() {
+		return 0;
+	}
+	
 	public default SexActionCategory getCategory() {
 		if(this.getSexAreaInteractions().isEmpty()) {
 			if(getActionType() == SexActionType.POSITIONING
@@ -1086,7 +1107,7 @@ public interface SexActionInterface {
 						return SexActionInterface.this.getHighlightColour();
 					}
 					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
-						return Colour.BASE_LILAC;
+						return Colour.BASE_INDIGO;
 					}
 					if(SexActionInterface.this.isPositionSwap() || getCategory()==SexActionCategory.CHARACTER_SWITCH) {
 						return Colour.BASE_PURPLE_LIGHT;
@@ -1164,7 +1185,7 @@ public interface SexActionInterface {
 						return SexActionInterface.this.getHighlightColour();
 					}
 					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
-						return Colour.BASE_LILAC;
+						return Colour.BASE_INDIGO;
 					}
 					if(SexActionInterface.this.isPositionSwap() || getCategory()==SexActionCategory.CHARACTER_SWITCH) {
 						return Colour.BASE_PURPLE_LIGHT;

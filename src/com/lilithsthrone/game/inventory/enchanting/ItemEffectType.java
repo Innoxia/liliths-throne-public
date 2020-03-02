@@ -522,6 +522,96 @@ public class ItemEffectType {
 		}
 	};
 	
+	public static AbstractItemEffectType REJUVENATION_POTION = new AbstractItemEffectType(
+			null,
+			Colour.BASE_PURPLE) {
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			List<String> effects = new ArrayList<>();
+			
+			effects.add("[style.boldExcellent(Instantly recovers)] [style.boldSex(stretched orifices)]");
+			
+			if(Main.game.isLactationContentEnabled()) {
+				effects.add("[style.boldGood(Fully refills)] [style.boldMilk(milk storage)]");
+			}
+			if(Main.game.isCumRegenerationEnabled()) {
+				effects.add("[style.boldGood(Fully refills)] [style.boldCum(cum storage)]");
+			}
+			
+			return effects;
+		}
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			StringBuilder sb = new StringBuilder();
+			List<String> areasTightened = new ArrayList<>();
+			
+			if (target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
+				areasTightened.add("pussy");
+				target.setVaginaStretchedCapacity(target.getVaginaRawCapacityValue());
+			}
+			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
+				areasTightened.add("asshole");
+				target.setAssStretchedCapacity(target.getAssRawCapacityValue());
+			}
+			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
+				areasTightened.add("nipples");
+				target.setNippleStretchedCapacity(target.getNippleRawCapacityValue());
+			}
+			if (target.hasBreastsCrotch()
+					&& Main.getProperties().udders>0
+					&& target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
+				areasTightened.add("crotch-nipples");
+				target.setNippleCrotchStretchedCapacity(target.getNippleCrotchRawCapacityValue());
+			}
+			if (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
+				areasTightened.add("penile urethra");
+				target.setPenisStretchedCapacity(target.getPenisRawCapacityValue());
+			}
+			if (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
+				areasTightened.add("vaginal urethra");
+				target.setVaginaUrethraStretchedCapacity(target.getVaginaUrethraRawCapacityValue());
+			}
+			
+			if(!areasTightened.isEmpty()) {
+				sb.append(UtilText.parse(target,
+							"<br/>[npc.Her] stretched-out [style.colourSex("+Util.stringsToStringList(areasTightened, false)+")]"
+							+ (areasTightened.size()>1
+								?" [style.colourGood(tighten back up)]!"
+								:" [style.colourGood(tightens back up)]!")));
+			}
+			
+			if(Main.game.isLactationContentEnabled()) {
+				if(target.getBreastRawMilkStorageValue()>0 && target.getBreastRawStoredMilkValue()<target.getBreastRawMilkStorageValue()) {
+					target.setBreastStoredMilk(target.getBreastRawMilkStorageValue());
+					sb.append(UtilText.parse(target, "<br/>[npc.NamePos] [npc.breasts+] [style.colourGood(fill up)] with [npc.milk]!"));
+				}
+				if(target.hasBreastsCrotch() && target.getBreastCrotchRawMilkStorageValue()>0 && target.getBreastCrotchRawStoredMilkValue()<target.getBreastCrotchRawMilkStorageValue()) {
+					target.setBreastCrotchStoredMilk(target.getBreastCrotchRawMilkStorageValue());
+					sb.append(UtilText.parse(target, "<br/>[npc.NamePos] [npc.crotchBoobs+] [style.colourGood(fill up)] with [npc.crotchMilk]!"));
+				}
+			}
+
+			if(Main.game.isCumRegenerationEnabled()) {
+				if(target.hasPenis() && target.getPenisRawCumStorageValue()>0 && target.getPenisRawStoredCumValue()<target.getPenisRawCumStorageValue()) {
+					target.setPenisStoredCum(target.getPenisRawCumStorageValue());
+					sb.append(UtilText.parse(target, "<br/>[npc.NamePos] [npc.balls+] [style.colourGood(fill up)] with [npc.cum]!"));
+				}
+			}
+			
+			if(sb.length()==0) {
+				sb.append(UtilText.parse(target,
+							"<br/>Apart from experiencing this comforting feeling, nothing else happens to [npc.herHim]..."));
+			}
+			
+			return "<p style='text-align:center;'>"
+						+"[npc.Name] [npc.verb(let)] out a deep sigh as a cool, soothing sensation starts to wash over [npc.herHim]."
+						+ "<i>"
+							+ sb.toString()
+						+"</i>"
+					+ "</p>";
+		}
+	};
+	
 	public static AbstractItemEffectType CIGARETTE_PACK = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"Provides 20 Starr Cigarettes."),
 			Colour.BASE_PURPLE) {
@@ -1251,8 +1341,8 @@ public class ItemEffectType {
 			// Common clothing (55%):
 			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_head_antler_headband"), 11);
 			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_elemental_snowflake_necklace"), 11);
-			clothingMap.put(ClothingType.PIERCING_EAR_SNOW_FLAKES, 11);
-			clothingMap.put(ClothingType.PIERCING_NOSE_SNOWFLAKE_STUD, 11);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_elemental_piercing_ear_snowflakes"), 11);
+			clothingMap.put(ClothingType.getClothingTypeFromId("innoxia_elemental_piercing_nose_snowflake"), 11);
 			clothingMap.put(ClothingType.TORSO_OVER_CHRISTMAS_SWEATER, 11);
 			
 			// Uncommon clothing (44%):
@@ -2563,7 +2653,7 @@ public class ItemEffectType {
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			List<String> effectsDescription = new ArrayList<>();
 			
-			effectsDescription.add("[style.boldBad(Does not affect player or unique characters)]");
+			effectsDescription.add("[style.boldBad(Does not affect unique characters)]");
 			
 			effectsDescription.add("[style.boldTfGeneric(Transforms)] non-demons into [style.boldDemon(half-demons)]");
 
@@ -2574,10 +2664,10 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			if(target.isPlayer()) {
-				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on you...)]</p>";
-			}
-			if(target.isUnique() && (!target.isSlave() || target.getOwner().isPlayer())) {
+//			if(target.isPlayer()) {
+//				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on you...)]</p>";
+//			}
+			if(!target.isPlayer() && target.isUnique() && (!target.isSlave() || target.getOwner().isPlayer())) {
 				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
@@ -3368,13 +3458,17 @@ public class ItemEffectType {
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			List<String> effectsList = new ArrayList<>();
+
+			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE || primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
+				effectsList.add(
+						(potency.getClothingBonusValue()<0
+								?"[style.boldBad("+potency.getClothingBonusValue()+")] "
+								:"[style.boldGood(+"+potency.getClothingBonusValue()+")] ")
+						+ "<b style='color:"+secondaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(secondaryModifier.getAssociatedAttribute().getName())+"</b>");
+			} else {
+				effectsList.add("[style.boldBad(Unrecognised effect:)] "+primaryModifier.getName());
+			}
 			
-			effectsList.add(
-					(potency.getClothingBonusValue()<0
-							?"[style.boldBad("+potency.getClothingBonusValue()+")] "
-							:"[style.boldGood(+"+potency.getClothingBonusValue()+")] ")
-					+ "<b style='color:"+secondaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(secondaryModifier.getAssociatedAttribute().getName())+"</b>");
-				
 			return effectsList;
 		}
 		

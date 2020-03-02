@@ -385,7 +385,7 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformFemininityChoiceDiv()
 							+ CharacterModificationUtils.getHeightChoiceDiv()
 						+"</div>"
-							
+						
 						+ "<div class='cosmetics-container' style='background:transparent;'>"
 							+ CharacterModificationUtils.getBodySizeChoiceDiv()
 							+ CharacterModificationUtils.getMuscleChoiceDiv()
@@ -909,19 +909,21 @@ public class BodyChanging {
 					+ getSelfTransformDescription("ass and hips")
 					+ "</div>"
 					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformAssChoiceDiv(getRacesForMinorPartSelfTransform())
-						+ CharacterModificationUtils.getSelfTransformAnusModifiersDiv()
-					+"</div>"
-							
+					+ CharacterModificationUtils.getSelfTransformAssChoiceDiv(getRacesForMinorPartSelfTransform())
+					
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformAssSizeDiv()
 						+ CharacterModificationUtils.getSelfTransformHipSizeDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformAnusCapacityDiv()
+						+ CharacterModificationUtils.getSelfTransformAnusModifiersDiv()
 						+ CharacterModificationUtils.getSelfTransformAnusWetnessDiv()
+					+"</div>"
+					
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformAnusCapacityDiv()
+						+ CharacterModificationUtils.getSelfTransformAnusDepthDiv()
 					+"</div>"
 
 					+"<div style='clear:left;'>"
@@ -976,14 +978,16 @@ public class BodyChanging {
 					+ getSelfTransformDescription("breasts")
 					+ "</div>"
 					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformBreastChoiceDiv(getRacesForMinorPartSelfTransform())
-						+ CharacterModificationUtils.getSelfTransformNippleModifiersDiv()
-					+"</div>"
+					+ CharacterModificationUtils.getSelfTransformBreastChoiceDiv(getRacesForMinorPartSelfTransform())
 					
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformBreastSizeDiv()
 						+ CharacterModificationUtils.getSelfTransformBreastShapeDiv()
+					+"</div>"
+					
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformBreastRowsDiv()
+						+ CharacterModificationUtils.getSelfTransformNippleModifiersDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -997,8 +1001,8 @@ public class BodyChanging {
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformBreastRowsDiv()
 						+ CharacterModificationUtils.getSelfTransformNippleCountDiv()
+						+ CharacterModificationUtils.getSelfTransformNippleShapeDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1007,8 +1011,8 @@ public class BodyChanging {
 					+"</div>"
 
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformNippleShapeDiv()
 						+ CharacterModificationUtils.getSelfTransformNippleCapacityDiv()
+						+ CharacterModificationUtils.getSelfTransformNippleDepthDiv()
 					+"</div>"
 
 					+"<div style='clear:left;'>"
@@ -1053,11 +1057,8 @@ public class BodyChanging {
 			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
 					+ getSelfTransformDescription("vagina")
 					+ "</div>"
-
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformVaginaChoiceDiv(getRacesForMinorPartSelfTransform())
-						+ CharacterModificationUtils.getSelfTransformVaginaModifiersDiv()
-					+"</div>"
+					
+					+ CharacterModificationUtils.getSelfTransformVaginaChoiceDiv(getRacesForMinorPartSelfTransform())
 					
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformGirlcumFlavourDiv()
@@ -1065,8 +1066,18 @@ public class BodyChanging {
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformVaginaCapacityDiv()
+						+ CharacterModificationUtils.getSelfTransformVaginaModifiersDiv()
+						+ CharacterModificationUtils.getSelfTransformLabiaSizeDiv()
+					+"</div>"
+					
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformVaginaSquirterDiv()
 						+ CharacterModificationUtils.getSelfTransformVaginaWetnessDiv()
+					+"</div>"
+					
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformVaginaCapacityDiv()
+						+ CharacterModificationUtils.getSelfTransformVaginaDepthDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1075,13 +1086,18 @@ public class BodyChanging {
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformLabiaSizeDiv()
 						+ CharacterModificationUtils.getSelfTransformClitorisSizeDiv()
+						+ CharacterModificationUtils.getSelfTransformClitorisGirthDiv()
+					+"</div>"
+					
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformClitorisModifiersDiv()
+						+ CharacterModificationUtils.getSelfTransformVaginaUrethraModifiersDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformVaginaUrethraCapacityDiv()
-						+ CharacterModificationUtils.getSelfTransformVaginaUrethraModifiersDiv()
+						+ CharacterModificationUtils.getSelfTransformVaginaUrethraDepthDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1139,14 +1155,16 @@ public class BodyChanging {
 					+ getSelfTransformDescription("penis")
 					+ "</div>"
 
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(getRacesForMinorPartSelfTransform(), true)
-						+ CharacterModificationUtils.getSelfTransformPenisModifiersDiv()
-					+"</div>"
+					+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(getRacesForMinorPartSelfTransform(), false)
 					
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformPenisSizeDiv()
 						+ CharacterModificationUtils.getSelfTransformPenisGirthDiv()
+					+"</div>"
+					
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformPenisModifiersDiv()
+						+ CharacterModificationUtils.getSelfTransformCumExplusionDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1155,23 +1173,23 @@ public class BodyChanging {
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformCumExplusionDiv()
-						+ CharacterModificationUtils.getSelfTransformInternalTesticleDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformTesticleSizeDiv()
-						+ CharacterModificationUtils.getSelfTransformTesticleCountDiv()
-					+"</div>"
-					
-					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformCumFlavourDiv()
 						+ CharacterModificationUtils.getSelfTransformCumModifiersDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformUrethraCapacityDiv()
+						+ CharacterModificationUtils.getSelfTransformTesticleCountDiv()
+						+ CharacterModificationUtils.getSelfTransformInternalTesticleDiv()
+					+"</div>"
+					
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformTesticleSizeDiv()
 						+ CharacterModificationUtils.getSelfTransformUrethraModifiersDiv()
+					+"</div>"
+					
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformUrethraCapacityDiv()
+						+ CharacterModificationUtils.getSelfTransformUrethraDepthDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1227,18 +1245,17 @@ public class BodyChanging {
 			return "<div class='container-full-width' style='text-align:center;'>"
 					+ getSelfTransformDescription("[npc.crotchBoobs]")
 					+ "</div>"
-						
-//					Breasts:
-//						 * 	TODO milk-related changes
 					
-					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformBreastCrotchChoiceDiv(getRacesForMinorPartSelfTransform())
-						+ CharacterModificationUtils.getSelfTransformNippleCrotchModifiersDiv()
-					+"</div>"
-					
+					+ CharacterModificationUtils.getSelfTransformBreastCrotchChoiceDiv(getRacesForMinorPartSelfTransform())
+
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformBreastCrotchSizeDiv()
 						+ CharacterModificationUtils.getSelfTransformBreastCrotchShapeDiv()
+					+"</div>"
+					
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformBreastCrotchRowsDiv()
+						+ CharacterModificationUtils.getSelfTransformNippleCrotchModifiersDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1252,8 +1269,8 @@ public class BodyChanging {
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformBreastCrotchRowsDiv()
 						+ CharacterModificationUtils.getSelfTransformNippleCrotchCountDiv()
+						+ CharacterModificationUtils.getSelfTransformNippleCrotchShapeDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
@@ -1262,8 +1279,8 @@ public class BodyChanging {
 					+"</div>"
 
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getSelfTransformNippleCrotchShapeDiv()
 						+ CharacterModificationUtils.getSelfTransformNippleCrotchCapacityDiv()
+						+ CharacterModificationUtils.getSelfTransformNippleCrotchDepthDiv()
 					+"</div>"
 					
 					+"<div style='clear:left;'>"

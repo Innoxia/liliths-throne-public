@@ -3615,23 +3615,38 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			return getItemDisplayPanel(clothing.getSVGString(),
-					clothing.getDisplayName(true),
-					clothing.getDescription()
-					+ clothing.clothingExtraInformation(null, clothing.getClothingType().getEquipSlots().get(0))
-					+ (owner!=null && owner.isPlayer()
+			StringBuilder sb = new StringBuilder();
+			sb.append(clothing.getDescription());
+			sb.append("<p>");
+				for(String s : clothing.getExtraDescriptions(null, null, true)) {
+					sb.append(s+"<br/>");
+				}
+				for(InventorySlot is : clothing.getClothingType().getEquipSlots()) {
+					List<String> descriptions = clothing.getExtraDescriptions(null, is, true);
+					if(!descriptions.isEmpty()) {
+						sb.append("<i>When equipped into the '"+is.getName()+"' slot:</i><br/>");
+						for(String s : clothing.getExtraDescriptions(null, is, true)) {
+							sb.append(s+"<br/>");
+						}
+					}
+				}
+			sb.append("</p>");
+			sb.append((owner!=null && owner.isPlayer()
 							? (inventoryNPC != null && interactionType == InventoryInteraction.TRADING
-									? inventoryNPC.willBuy(clothing)
-											? "<p>"
-												+ inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(clothing.getPrice(inventoryNPC.getBuyModifier())) + "."
-											+ "</p>" 
-											: inventoryNPC.getName("The") + " doesn't want to buy this."
-										: "")
-							:(inventoryNPC != null && interactionType == InventoryInteraction.TRADING
-								? "<p>"
-										+ inventoryNPC.getName("The") + " will sell it for " + UtilText.formatAsMoney(clothing.getPrice(inventoryNPC.getSellModifier(clothing))) + "."
+							? inventoryNPC.willBuy(clothing)
+									? "<p>"
+										+ inventoryNPC.getName("The") + " will buy it for " + UtilText.formatAsMoney(clothing.getPrice(inventoryNPC.getBuyModifier())) + "."
 									+ "</p>" 
-								: "")))
+									: inventoryNPC.getName("The") + " doesn't want to buy this."
+								: "")
+					:(inventoryNPC != null && interactionType == InventoryInteraction.TRADING
+						? "<p>"
+								+ inventoryNPC.getName("The") + " will sell it for " + UtilText.formatAsMoney(clothing.getPrice(inventoryNPC.getSellModifier(clothing))) + "."
+							+ "</p>" 
+						: "")));
+			
+			
+			return getItemDisplayPanel(clothing.getSVGString(), clothing.getDisplayName(true), sb.toString())
 					+(interactionType==InventoryInteraction.CHARACTER_CREATION?CharacterCreation.getCheckingClothingDescription():"");
 		}
 
@@ -5557,12 +5572,19 @@ public class InventoryDialogue {
 
 		@Override
 		public String getContent() {
-			return getItemDisplayPanel(
-					clothing.getSVGEquippedString(owner),
-					clothing.getDisplayName(true),
-					clothing.getDescription()
-						+ clothing.clothingExtraInformation((Main.game.isInSex()?owner:Main.game.getPlayer()), clothing.getSlotEquippedTo())
-						+ (Main.game.isInSex()||Main.game.isInCombat()?clothing.getDisplacementBlockingDescriptions(owner):""))
+			StringBuilder sb = new StringBuilder();
+			sb.append(clothing.getDescription());
+			sb.append("<p>");
+				for(String s : clothing.getExtraDescriptions((Main.game.isInSex()?owner:Main.game.getPlayer()), null, true)) {
+					sb.append(s+"<br/>");
+				}
+				for(String s : clothing.getExtraDescriptions((Main.game.isInSex()?owner:Main.game.getPlayer()), clothing.getSlotEquippedTo(), true)) {
+					sb.append(s+"<br/>");
+				}
+			sb.append("</p>");
+			sb.append(Main.game.isInSex()||Main.game.isInCombat()?clothing.getDisplacementBlockingDescriptions(owner):"");
+			
+			return getItemDisplayPanel(clothing.getSVGEquippedString(owner), clothing.getDisplayName(true), sb.toString())
 						+(interactionType==InventoryInteraction.CHARACTER_CREATION?CharacterCreation.getCheckingClothingDescription():"");
 		}
 
