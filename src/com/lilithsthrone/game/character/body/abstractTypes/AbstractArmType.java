@@ -5,8 +5,11 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
+import com.lilithsthrone.game.character.body.types.ArmStructure;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.types.FingerStructure;
+import com.lilithsthrone.game.character.body.types.HandStructure;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
@@ -96,6 +99,35 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 		
 		this.armTransformationDescription = armTransformationDescription;
 		this.armBodyDescription = armBodyDescription;
+	}
+	
+	public AbstractArmType(
+		BodyCoveringType skinType,
+		Race race,
+		ArmStructure armStructure,
+		HandStructure handStructure,
+		FingerStructure fingerStructure,
+		String armTransformationDescription,
+		String armBodyDescription) {
+
+		this(
+			skinType,
+			race,
+			armStructure.getName(),
+			armStructure.getNamePlural(),
+			armStructure.getDescriptorsMasculine(),
+			armStructure.getDescriptorsFeminine(),
+			handStructure.getName(),
+			handStructure.getNamePlural(),
+			handStructure.getDescriptorsMasculine(),
+			handStructure.getDescriptorsFeminine(),
+			fingerStructure.getName(),
+			fingerStructure.getNamePlural(),
+			fingerStructure.getDescriptorsMasculine(),
+			fingerStructure.getDescriptorsFeminine(),
+			armTransformationDescription,
+			armBodyDescription
+		);
 	}
 	
 	public boolean allowsFlight() {
