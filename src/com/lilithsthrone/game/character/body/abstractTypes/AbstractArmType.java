@@ -24,21 +24,9 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 	private BodyCoveringType skinType;
 	private Race race;
 	
-	private String name;
-	private String namePlural;
-	
-	private String handName;
-	private String handNamePlural;
-	private List<String> handDescriptorsMasculine;
-	private List<String> handDescriptorsFeminine;
-
-	private String fingerName;
-	private String fingerNamePlural;
-	private List<String> fingerDescriptorsMasculine;
-	private List<String> fingerDescriptorsFeminine;
-
-	private List<String> descriptorsMasculine;
-	private List<String> descriptorsFeminine;
+	private ArmStructure armStructure;
+	private HandStructure handStructure;
+	private FingerStructure fingerStructure;
 	
 	private String armTransformationDescription;
 	private String armBodyDescription;
@@ -46,88 +34,29 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 	/**
 	 * @param skinType What covers this arm type (i.e skin/fur/feather type).
 	 * @param race What race has this arm type.
-	 * @param name The singular name of the arm. This will usually just be "arm" or "wing".
-	 * @param namePlural The plural name of the arm. This will usually just be "arms" or "wings".
-	 * @param descriptorsMasculine The descriptors that can be used to describe a masculine form of this arm type.
-	 * @param descriptorsFeminine The descriptors that can be used to describe a feminine form of this arm type.
-	 * @param handName The singular name of the hands associated with this arm type. This will usually just be "hand".
-	 * @param handNamePlural The plural name of the hands associated with this arm type. This will usually just be "hands".
-	 * @param handDescriptorsMasculine The descriptors that are applied to a masculine form of this hand.
-	 * @param handDescriptorsFeminine The descriptors that are applied to a feminine form of this hand.
-	 * @param fingerName The singular name of the fingers associated with this arm type. This will usually just be "finger".
-	 * @param fingerNamePlural The plural name of the hands associated with this arm type. This will usually just be "fingers".
-	 * @param fingerDescriptorsMasculine The descriptors that are applied to a masculine form of this fingers of this arm type's hand.
-	 * @param fingerDescriptorsFeminine The descriptors that are applied to a feminine form of the fingers of this arm type's hand.
+	 * @param armStructure The arm structure associated with this arm type.
+	 * @param handStructure The hand structure associated with this arm type.
+	 * @param fingerStructure The finger structure associated with this arm type.
 	 * @param armTransformationDescription A paragraph describing a character's arms transforming into this arm type. Parsing assumes that the character already has this arm type and associated skin covering.
 	 * @param armBodyDescription A sentence or two to describe this arm type, as seen in the character view screen. It should follow the same format as all of the other entries in the ArmType class.
 	 */
 	public AbstractArmType(BodyCoveringType skinType,
 			Race race,
-			String name,
-			String namePlural,
-			List<String> descriptorsMasculine,
-			List<String> descriptorsFeminine,
-			String handName,
-			String handNamePlural,
-			List<String> handDescriptorsMasculine,
-			List<String> handDescriptorsFeminine,
-			String fingerName,
-			String fingerNamePlural,
-			List<String> fingerDescriptorsMasculine,
-			List<String> fingerDescriptorsFeminine,
+			ArmStructure armStructure,
+			HandStructure handStructure,
+			FingerStructure fingerStructure,
 			String armTransformationDescription,
 			String armBodyDescription) {
 		
 		this.skinType = skinType;
 		this.race = race;
 		
-		this.name = name;
-		this.namePlural = namePlural;
-		
-		this.handName = handName;
-		this.handNamePlural = handNamePlural;
-		this.handDescriptorsMasculine = handDescriptorsMasculine;
-		this.handDescriptorsFeminine = handDescriptorsFeminine;
-
-		this.fingerName = fingerName;
-		this.fingerNamePlural = fingerNamePlural;
-		this.fingerDescriptorsMasculine = fingerDescriptorsMasculine;
-		this.fingerDescriptorsFeminine = fingerDescriptorsFeminine;
-		
-		this.descriptorsMasculine = descriptorsMasculine;
-		this.descriptorsFeminine = descriptorsFeminine;
+		this.armStructure = armStructure;
+		this.handStructure = handStructure;
+		this.fingerStructure = fingerStructure;
 		
 		this.armTransformationDescription = armTransformationDescription;
 		this.armBodyDescription = armBodyDescription;
-	}
-	
-	public AbstractArmType(
-		BodyCoveringType skinType,
-		Race race,
-		ArmStructure armStructure,
-		HandStructure handStructure,
-		FingerStructure fingerStructure,
-		String armTransformationDescription,
-		String armBodyDescription) {
-
-		this(
-			skinType,
-			race,
-			armStructure.getName(),
-			armStructure.getNamePlural(),
-			armStructure.getDescriptorsMasculine(),
-			armStructure.getDescriptorsFeminine(),
-			handStructure.getName(),
-			handStructure.getNamePlural(),
-			handStructure.getDescriptorsMasculine(),
-			handStructure.getDescriptorsFeminine(),
-			fingerStructure.getName(),
-			fingerStructure.getNamePlural(),
-			fingerStructure.getDescriptorsMasculine(),
-			fingerStructure.getDescriptorsFeminine(),
-			armTransformationDescription,
-			armBodyDescription
-		);
 	}
 	
 	public boolean allowsFlight() {
@@ -150,20 +79,20 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		return name;
+		return armStructure.getName();
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		return namePlural;
+		return armStructure.getNamePlural();
 	}
 
 	@Override
 	public String getDescriptor(GameCharacter gc) {
 		if (gc.isFeminine()) {
-			return Util.randomItemFrom(descriptorsFeminine);
+			return Util.randomItemFrom(armStructure.getDescriptorsFeminine());
 		} else {
-			return Util.randomItemFrom(descriptorsMasculine);
+			return Util.randomItemFrom(armStructure.getDescriptorsMasculine());
 		}
 	}
 
@@ -176,36 +105,49 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 	public Race getRace() {
 		return race;
 	}
+
+	public ArmStructure getArmStructure() {
+		return armStructure;
+	}
+
+	public HandStructure getHandStructure() {
+		return handStructure;
+	}
+
+	public FingerStructure getFingerStructure() {
+		return fingerStructure;
+	}
 	
+
 	public String getHandsNameSingular(GameCharacter gc) {
-		return handName;
+		return handStructure.getName();
 	}
 	
 	public String getHandsNamePlural(GameCharacter gc) {
-		return handNamePlural;
+		return handStructure.getNamePlural();
 	}
 
 	public String getHandsDescriptor(GameCharacter gc) {
 		if (gc.isFeminine()) {
-			return Util.randomItemFrom(handDescriptorsFeminine);
+			return Util.randomItemFrom(handStructure.getDescriptorsFeminine());
 		} else {
-			return Util.randomItemFrom(handDescriptorsMasculine);
+			return Util.randomItemFrom(handStructure.getDescriptorsMasculine());
 		}
 	}
 	
 	public String getFingersNameSingular(GameCharacter gc) {
-		return fingerName;
+		return fingerStructure.getName();
 	}
 	
 	public String getFingersNamePlural(GameCharacter gc) {
-		return fingerNamePlural;
+		return fingerStructure.getNamePlural();
 	}
 
 	public String getFingersDescriptor(GameCharacter gc) {
 		if (gc.isFeminine()) {
-			return Util.randomItemFrom(fingerDescriptorsFeminine);
+			return Util.randomItemFrom(fingerStructure.getDescriptorsFeminine());
 		} else {
-			return Util.randomItemFrom(fingerDescriptorsMasculine);
+			return Util.randomItemFrom(fingerStructure.getDescriptorsMasculine());
 		}
 	}
 
