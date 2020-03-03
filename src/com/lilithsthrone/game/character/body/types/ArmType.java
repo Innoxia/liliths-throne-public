@@ -26,8 +26,8 @@ public class ArmType {
 	public static AbstractArmType HUMAN = new AbstractArmType(BodyCoveringType.HUMAN,
 			Race.HUMAN,
 			ArmStructure.HUMAN,
-			HandStructure.HUMAN,
-			FingerStructure.HUMAN,
+			HandType.HUMAN,
+			FingerType.HUMAN,
 			"Thankfully, the transformation only lasts a matter of moments, leaving [npc.herHim] with normal-looking human arms, complete with human hands.<br/>"
 				+ "[npc.Name] now [npc.has] [style.boldHuman(human arms and hands)], which are covered in [npc.armFullDescription].",
 			"[npc.She] [npc.has] [npc.armRows] normal human arms and hands, which are [npc.materialCompositionDescriptor] [npc.armFullDescription(true)].") {
@@ -36,8 +36,8 @@ public class ArmType {
 	public static AbstractArmType ANGEL = new AbstractArmType(BodyCoveringType.HUMAN,
 			Race.ANGEL,
 			ArmStructure.ANGEL,
-			HandStructure.ANGEL,
-			FingerStructure.ANGEL,
+			HandType.ANGEL,
+			FingerType.ANGEL,
 			"Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
 				+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their true angelic nature.<br/>"
 				+ "[npc.Name] now [npc.has] [style.boldAngel(angelic arms and hands)], which are covered in [npc.armFullDescription]",
@@ -47,8 +47,8 @@ public class ArmType {
 	public static AbstractArmType DEMON_COMMON = new AbstractArmType(BodyCoveringType.DEMON_COMMON,
 			Race.DEMON,
 			ArmStructure.DEMON,
-			HandStructure.DEMON,
-			FingerStructure.DEMON,
+			HandType.DEMON,
+			FingerType.DEMON,
 			"Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
 				+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their true demonic nature.<br/>"
 				+ "[npc.Name] now [npc.has] [style.boldDemon(demonic arms and hands)], which are covered in [npc.armFullDescription].",
@@ -58,8 +58,8 @@ public class ArmType {
 	public static AbstractArmType COW_MORPH = new AbstractArmType(BodyCoveringType.BOVINE_FUR,
 			Race.COW_MORPH,
 			ArmStructure.FURRY,
-			HandStructure.BOVINE,
-			FingerStructure.BOVINE,
+			HandType.BOVINE,
+			FingerType.BOVINE,
 			"Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 					+ " [npc.she] [npc.verb(see)] [npc.her] new hair growing over the backs of [npc.her] hands as tough, hoof-like nails push out in place of regular, human-like ones."
 				+ " Despite their appearance, [npc.sheIsFull] relieved to discover that [npc.her] hands have lost none of their dexterity."
@@ -72,8 +72,8 @@ public class ArmType {
 	public static AbstractArmType DOG_MORPH = new AbstractArmType(BodyCoveringType.CANINE_FUR,
 			Race.DOG_MORPH,
 			ArmStructure.FURRY,
-			HandStructure.DOG_MORPH,
-			FingerStructure.DOG_MORPH,
+			HandType.DOG_MORPH,
+			FingerType.DOG_MORPH,
 			"Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 					+ " [npc.she] [npc.verb(see)] [npc.her] new fur growing over the backs of [npc.her] hands as blunt, dog-like claws push out to replace [npc.her] fingernails."
 				+ " [npc.Her] palms rapidly transform to be covered in little leathery pads, and at [npc.her] upper-biceps, [npc.her] fur smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.<br/>"
@@ -85,8 +85,8 @@ public class ArmType {
 	public static AbstractArmType WOLF_MORPH = new AbstractArmType(BodyCoveringType.LYCAN_FUR,
 			Race.WOLF_MORPH,
 			ArmStructure.FURRY,
-			HandStructure.WOLF_MORPH,
-			FingerStructure.WOLF_MORPH,
+			HandType.WOLF_MORPH,
+			FingerType.WOLF_MORPH,
 			"Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 					+ " [npc.she] [npc.verb(see)] [npc.her] new fur growing over the backs of [npc.her] hands as sharp claws push out to replace [npc.her] fingernails."
 				+ " [npc.Her] palms rapidly transform to be covered in tough leathery pads, and at [npc.her] upper-biceps, [npc.her] fur smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.<br/>"
@@ -98,8 +98,8 @@ public class ArmType {
 	public static AbstractArmType FOX_MORPH = new AbstractArmType(BodyCoveringType.FOX_FUR,
 			Race.FOX_MORPH,
 			ArmStructure.FURRY,
-			HandStructure.FOX_MORPH,
-			FingerStructure.FOX_MORPH,
+			HandType.FOX_MORPH,
+			FingerType.FOX_MORPH,
 			"Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 					+ " [npc.she] [npc.verb(see)] [npc.her] new fur growing over the backs of [npc.her] hands as sharp claws push out to replace [npc.her] fingernails."
 				+ " [npc.Her] palms rapidly transform to be covered in little pads, and at [npc.her] upper-biceps, [npc.her] fur smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.</br>"
@@ -111,8 +111,8 @@ public class ArmType {
 	public static AbstractArmType CAT_MORPH = new AbstractArmType(BodyCoveringType.FELINE_FUR,
 			Race.CAT_MORPH,
 			ArmStructure.FURRY,
-			HandStructure.CAT_MORPH,
-			FingerStructure.CAT_MORPH,
+			HandType.CAT_MORPH,
+			FingerType.CAT_MORPH,
 			"Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 					+ " [npc.she] [npc.verb(see)] [npc.her] fur growing over the backs of [npc.her] hands as sharp, retractable claws push out to replace [npc.her] fingernails."
 				+ " [npc.Her] palms rapidly transform to be covered in little pink pads, and at [npc.her] upper-biceps, [npc.her] fur smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.<br/>"
@@ -124,8 +124,8 @@ public class ArmType {
 	public static AbstractArmType HORSE_MORPH = new AbstractArmType(BodyCoveringType.HORSE_HAIR,
 			Race.HORSE_MORPH,
 			ArmStructure.HAIR_COATED,
-			HandStructure.EQUINE,
-			FingerStructure.EQUINE,
+			HandType.EQUINE,
+			FingerType.EQUINE,
 			"Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 					+ " [npc.she] [npc.verb(see)] [npc.her] new hair growing over the backs of [npc.her] hands as tough, hoof-like nails push out in place of regular, human-like ones."
 				+ " Despite their appearance, [npc.sheIs] relieved to discover that [npc.her] hands have lost none of their dexterity."
@@ -138,8 +138,8 @@ public class ArmType {
 	public static AbstractArmType REINDEER_MORPH = new AbstractArmType(BodyCoveringType.REINDEER_FUR,
 			Race.REINDEER_MORPH,
 			ArmStructure.HAIR_COATED,
-			HandStructure.REINDEER_MORPH,
-			FingerStructure.REINDEER_MORPH,
+			HandType.REINDEER_MORPH,
+			FingerType.REINDEER_MORPH,
 			"Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 					+ " [npc.she] [npc.verb(see)] [npc.her] new fur growing over the backs of [npc.her] hands as tough, hoof-like nails push out in place of regular, human-like ones."
 				+ " Despite their appearance, [npc.sheIs] relieved to discover that [npc.her] hands have lost none of their dexterity."
@@ -152,8 +152,8 @@ public class ArmType {
 	public static AbstractArmType ALLIGATOR_MORPH = new AbstractArmType(BodyCoveringType.ALLIGATOR_SCALES,
 			Race.ALLIGATOR_MORPH,
 			ArmStructure.REPTILE,
-			HandStructure.REPTILE,
-			FingerStructure.REPTILE,
+			HandType.REPTILE,
+			FingerType.REPTILE,
 			"Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 				+ " [npc.she] [npc.verb(see)] [npc.her] new scales growing over the backs of [npc.her] hands as sharp claws push out to replace [npc.her] fingernails."
 				+ " [npc.Her] palms rapidly transform to be covered in little scales, and at [npc.her] upper-biceps, [npc.her] scales smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.<br/>"
@@ -165,8 +165,8 @@ public class ArmType {
 	public static AbstractArmType SQUIRREL_MORPH = new AbstractArmType(BodyCoveringType.SQUIRREL_FUR,
 			Race.SQUIRREL_MORPH,
 			ArmStructure.FURRY,
-			HandStructure.SQUIRREL_MORPH,
-			FingerStructure.RODENT,
+			HandType.SQUIRREL_MORPH,
+			FingerType.RODENT,
 			"Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 					+ " [npc.she] [npc.verb(see)] [npc.her] new fur growing over the backs of [npc.her] hands as sharp little claws push out to replace [npc.her] fingernails."
 				+ " [npc.Her] palms rapidly transform to be covered in little pink pads, and at [npc.her] upper-biceps, [npc.her] fur smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.<br/>"
@@ -178,8 +178,8 @@ public class ArmType {
 	public static AbstractArmType RAT_MORPH = new AbstractArmType(BodyCoveringType.RAT_FUR,
 			Race.RAT_MORPH,
 			ArmStructure.FURRY,
-			HandStructure.RAT_MORPH,
-			FingerStructure.RAT_MORPH,
+			HandType.RAT_MORPH,
+			FingerType.RAT_MORPH,
 			"Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 					+ " [npc.she] [npc.verb(see)] [npc.her] fur growing over the backs of [npc.her] hands as sharp little claws push out to replace [npc.her] fingernails."
 				+ " [npc.Her] palms rapidly transform to be covered in little pink pads, and at [npc.her] upper-biceps, [npc.her] new fur smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.<br/>"
@@ -191,8 +191,8 @@ public class ArmType {
 	public static AbstractArmType RABBIT_MORPH = new AbstractArmType(BodyCoveringType.RABBIT_FUR,
 			Race.RABBIT_MORPH,
 			ArmStructure.FURRY,
-			HandStructure.RABBIT_MORPH,
-			FingerStructure.RABBIT_MORPH,
+			HandType.RABBIT_MORPH,
+			FingerType.RABBIT_MORPH,
 			"Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
 					+ " [npc.she] [npc.verb(see)] [npc.her] new fur growing over the backs of [npc.her] hands as blunt, rabbit-like claws push out to replace [npc.her] fingernails."
 				+ " [npc.Her] palms rapidly transform to be covered in soft little pads, and at [npc.her] upper-biceps, [npc.her] new fur smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.<br/>"
@@ -204,8 +204,8 @@ public class ArmType {
 	public static AbstractArmType BAT_MORPH = new AbstractArmType(BodyCoveringType.BAT_SKIN,
 			Race.BAT_MORPH,
 			ArmStructure.BAT_WINGS,
-			HandStructure.BAT_MORPH,
-			FingerStructure.BAT_MORPH,
+			HandType.BAT_MORPH,
+			FingerType.BAT_MORPH,
 			"Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, staring at [npc.her] hands in shock,"
 					+ " [npc.name] [npc.verb(watch)] [npc.her] fingers narrowing down and growing longer and longer as a tough membrane of skin starts to grow between them."
 				+ " [npc.She] [npc.verb(cry)] out in alarm as [npc.she] [npc.verb(feel)] [npc.her] bones growing and snapping into a new form, and within moments,"
@@ -249,8 +249,8 @@ public class ArmType {
 	public static AbstractArmType HARPY = new AbstractArmType(BodyCoveringType.FEATHERS,
 			Race.HARPY,
 			ArmStructure.AVIAN_WINGS,
-			HandStructure.AVIAN_FEATHERED,
-			FingerStructure.AVIAN_FEATHERED,
+			HandType.AVIAN_FEATHERED,
+			FingerType.AVIAN_FEATHERED,
 			"Within a matter of moments, a thick layer of [npc.armFullDescription] quickly sprouts out all over them, and, looking down, [npc.she] [npc.verb(see)] [npc.her] new feathers growing over the backs of [npc.her] hands as well."
 				+ " Just as [npc.she] thinks that the transformation has finished, [npc.she] [npc.verb(cry)] out in shock as [npc.her] bones grow and snap into a new form."
 				+ " Thankfully, the transformation is quickly over, leaving [npc.herHim] with a pair of huge, feathered wings in place of arms."

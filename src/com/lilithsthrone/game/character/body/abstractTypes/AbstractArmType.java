@@ -8,8 +8,8 @@ import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
 import com.lilithsthrone.game.character.body.types.ArmStructure;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
-import com.lilithsthrone.game.character.body.types.FingerStructure;
-import com.lilithsthrone.game.character.body.types.HandStructure;
+import com.lilithsthrone.game.character.body.types.FingerType;
+import com.lilithsthrone.game.character.body.types.HandType;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
@@ -25,8 +25,8 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 	private Race race;
 	
 	private ArmStructure armStructure;
-	private HandStructure handStructure;
-	private FingerStructure fingerStructure;
+	private HandType handType;
+	private FingerType fingerType;
 	
 	private String armTransformationDescription;
 	private String armBodyDescription;
@@ -35,16 +35,16 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 	 * @param skinType What covers this arm type (i.e skin/fur/feather type).
 	 * @param race What race has this arm type.
 	 * @param armStructure The arm structure associated with this arm type.
-	 * @param handStructure The hand structure associated with this arm type.
-	 * @param fingerStructure The finger structure associated with this arm type.
+	 * @param handType The hand structure associated with this arm type.
+	 * @param fingerType The finger structure associated with this arm type.
 	 * @param armTransformationDescription A paragraph describing a character's arms transforming into this arm type. Parsing assumes that the character already has this arm type and associated skin covering.
 	 * @param armBodyDescription A sentence or two to describe this arm type, as seen in the character view screen. It should follow the same format as all of the other entries in the ArmType class.
 	 */
 	public AbstractArmType(BodyCoveringType skinType,
 			Race race,
 			ArmStructure armStructure,
-			HandStructure handStructure,
-			FingerStructure fingerStructure,
+			HandType handType,
+			FingerType fingerType,
 			String armTransformationDescription,
 			String armBodyDescription) {
 		
@@ -52,8 +52,8 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 		this.race = race;
 		
 		this.armStructure = armStructure;
-		this.handStructure = handStructure;
-		this.fingerStructure = fingerStructure;
+		this.handType = handType;
+		this.fingerType = fingerType;
 		
 		this.armTransformationDescription = armTransformationDescription;
 		this.armBodyDescription = armBodyDescription;
@@ -110,44 +110,44 @@ public abstract class AbstractArmType implements BodyPartTypeInterface {
 		return armStructure;
 	}
 
-	public HandStructure getHandStructure() {
-		return handStructure;
+	public HandType getHandType() {
+		return handType;
 	}
 
-	public FingerStructure getFingerStructure() {
-		return fingerStructure;
+	public FingerType getFingerType() {
+		return fingerType;
 	}
 	
 
 	public String getHandsNameSingular(GameCharacter gc) {
-		return handStructure.getName();
+		return handType.getName();
 	}
 	
 	public String getHandsNamePlural(GameCharacter gc) {
-		return handStructure.getNamePlural();
+		return handType.getNamePlural();
 	}
 
 	public String getHandsDescriptor(GameCharacter gc) {
 		if (gc.isFeminine()) {
-			return Util.randomItemFrom(handStructure.getDescriptorsFeminine());
+			return Util.randomItemFrom(handType.getDescriptorsFeminine());
 		} else {
-			return Util.randomItemFrom(handStructure.getDescriptorsMasculine());
+			return Util.randomItemFrom(handType.getDescriptorsMasculine());
 		}
 	}
 	
 	public String getFingersNameSingular(GameCharacter gc) {
-		return fingerStructure.getName();
+		return fingerType.getName();
 	}
 	
 	public String getFingersNamePlural(GameCharacter gc) {
-		return fingerStructure.getNamePlural();
+		return fingerType.getNamePlural();
 	}
 
 	public String getFingersDescriptor(GameCharacter gc) {
 		if (gc.isFeminine()) {
-			return Util.randomItemFrom(fingerStructure.getDescriptorsFeminine());
+			return Util.randomItemFrom(fingerType.getDescriptorsFeminine());
 		} else {
-			return Util.randomItemFrom(fingerStructure.getDescriptorsMasculine());
+			return Util.randomItemFrom(fingerType.getDescriptorsMasculine());
 		}
 	}
 

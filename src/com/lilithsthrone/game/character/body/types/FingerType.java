@@ -9,7 +9,7 @@ import com.lilithsthrone.utils.Util;
  * @version 0.3.7
  * @author Stadler76
  */
-public enum HandStructure {
+public enum FingerType {
 
 	HUMAN(
 		Util.newArrayListOfValues(""),
@@ -32,23 +32,23 @@ public enum HandStructure {
 	),
 
 	DOG_MORPH(
-		Util.newArrayListOfValues("dog-like", "paw-like", "furry", "canine"),
-		Util.newArrayListOfValues("soft", "feminine", "dog-like", "paw-like", "furry", "canine")
+		Util.newArrayListOfValues("padded", "canine"),
+		Util.newArrayListOfValues("soft", "feminine", "padded", "canine")
 	),
 
 	WOLF_MORPH(
-		Util.newArrayListOfValues("wolf-like", "furry", "paw-like"),
-		Util.newArrayListOfValues("soft", "feminine", "wolf-like", "furry", "paw-like")
+		Util.newArrayListOfValues("padded", "wolf-like"),
+		Util.newArrayListOfValues("soft", "feminine", "padded", "wolf-like")
 	),
 
 	FOX_MORPH(
-		Util.newArrayListOfValues("fox-like", "furry", "paw-like"),
-		Util.newArrayListOfValues("soft", "feminine", "fox-like", "furry", "paw-like")
+		Util.newArrayListOfValues("padded", "fox-like"),
+		Util.newArrayListOfValues("soft", "feminine", "padded", "fox-like")
 	),
 
 	CAT_MORPH(
-		Util.newArrayListOfValues("soft", "delicate", "cat-like", "paw-like", "furry", "feline"),
-		Util.newArrayListOfValues("soft", "feminine", "cat-like", "paw-like", "furry", "feline")
+		Util.newArrayListOfValues("soft", "delicate", "padded", "feline"),
+		Util.newArrayListOfValues("soft", "feminine", "padded", "feline")
 	),
 
 	EQUINE(
@@ -66,9 +66,9 @@ public enum HandStructure {
 		Util.newArrayListOfValues("feminine", "scaled")
 	),
 
-	SQUIRREL_MORPH(
-		Util.newArrayListOfValues("soft", "squirrel-like", "claw-like", "furry", "rodent"),
-		Util.newArrayListOfValues("soft", "feminine", "squirrel-like", "claw-like", "furry", "rodent")
+	RODENT(
+		Util.newArrayListOfValues("soft", "clawed", "rodent"),
+		Util.newArrayListOfValues("soft", "feminine", "clawed", "rodent")
 	),
 
 	RAT_MORPH(
@@ -78,12 +78,12 @@ public enum HandStructure {
 
 	RABBIT_MORPH(
 		Util.newArrayListOfValues("rabbit-like", "paw-like", "furry"),
-		Util.newArrayListOfValues("soft", "feminine", "rabbit-like", "paw-like", "furry")		
+		Util.newArrayListOfValues("soft", "feminine", "rabbit-like", "paw-like", "furry")
 	),
 
 	BAT_MORPH(
 		Util.newArrayListOfValues("bat-like"),
-		Util.newArrayListOfValues("feminine", "bat-like")
+		Util.newArrayListOfValues("soft", "feminine", "bat-like")
 	),
 
 	AVIAN_FEATHERED(
@@ -97,17 +97,17 @@ public enum HandStructure {
 	private final String name;
 	private final String namePlural;
 
-	private HandStructure(List<String> descriptorsMasculine, List<String> descriptorsFeminine) {
-		this(descriptorsMasculine, descriptorsFeminine, "hand", "hands");
+	private FingerType(List<String> descriptorsMasculine, List<String> descriptorsFeminine) {
+		this(descriptorsMasculine, descriptorsFeminine, "finger", "fingers");
 	}
 
 	/**
-	 * @param descriptorsMasculine The descriptors that are applied to a masculine form of this hand structure.
-	 * @param descriptorsFeminine The descriptors that are applied to a feminine form of this hand structure.
-	 * @param name The singular name of the hands associated with this hand structure. This will usually just be "hand".
-	 * @param namePlural The plural name of the hands associated with this hand structure. This will usually just be "hands".
+	 * @param descriptorsMasculine The descriptors that are applied to a masculine form of this fingers of this finger structure.
+	 * @param descriptorsFeminine The descriptors that are applied to a feminine form of the fingers of this finger structure.
+	 * @param name The singular name of the fingers associated with this finger structure. This will usually just be "finger".
+	 * @param namePlural The plural name of the hands associated with this finger structure. This will usually just be "fingers".
 	 */
-	private HandStructure(List<String> descriptorsMasculine, List<String> descriptorsFeminine, String name, String namePlural) {
+	private FingerType(List<String> descriptorsMasculine, List<String> descriptorsFeminine, String name, String namePlural) {
 		this.descriptorsMasculine = descriptorsMasculine;
 		this.descriptorsFeminine = descriptorsFeminine;
 		this.name = name;
