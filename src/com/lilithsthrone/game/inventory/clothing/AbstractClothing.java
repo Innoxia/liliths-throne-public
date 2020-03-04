@@ -308,10 +308,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		if(this.getColour()!=AbstractClothingType.DEFAULT_COLOUR_VALUE) {
 			CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
 		}
-		if(this.getSecondaryColour()!=AbstractClothingType.DEFAULT_COLOUR_VALUE) {
+		if(this.getSecondaryColour()!=this.clothingType.getDefaultSecondaryColour()) {
 			CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
 		}
-		if(this.getTertiaryColour()!=AbstractClothingType.DEFAULT_COLOUR_VALUE) {
+		if(this.getTertiaryColour()!=this.clothingType.getDefaultTertiaryColour()) {
 			CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().toString());
 		}
 		
@@ -319,10 +319,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			if(this.getPatternColour()!=AbstractClothingType.DEFAULT_COLOUR_VALUE) {
 				CharacterUtils.addAttribute(doc, element, "patternColour", this.getPatternColour().toString());
 			}
-			if(this.getPatternSecondaryColour()!=AbstractClothingType.DEFAULT_COLOUR_VALUE) {
+			if(this.getPatternSecondaryColour()!=this.clothingType.getDefaultSecondaryColour()) {
 				CharacterUtils.addAttribute(doc, element, "patternColourSecondary", this.getPatternSecondaryColour().toString());
 			}
-			if(this.getPatternTertiaryColour()!=AbstractClothingType.DEFAULT_COLOUR_VALUE) {
+			if(this.getPatternTertiaryColour()!=this.clothingType.getDefaultTertiaryColour()) {
 				CharacterUtils.addAttribute(doc, element, "patternColourTertiary", this.getPatternTertiaryColour().toString());
 			}
 			CharacterUtils.addAttribute(doc, element, "pattern", this.getPattern());

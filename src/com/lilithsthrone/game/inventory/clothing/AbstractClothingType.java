@@ -3005,4 +3005,16 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 		return orificeOtherModifiers;
 	}
+
+	public Colour getDefaultSecondaryColour() {
+		return availableSecondaryColours.size() == 1
+				? availableSecondaryColours.get(0)
+				: DEFAULT_COLOUR_VALUE;
+	}
+
+	public Colour getDefaultTertiaryColour() {
+		return availableTertiaryColours.size() == 1
+				? availableTertiaryColours.get(0)
+				: DEFAULT_COLOUR_VALUE;
+	}
 }
