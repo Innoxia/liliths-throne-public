@@ -33,6 +33,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistri
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTag;
+import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
@@ -311,6 +312,16 @@ public class RoomPlayer {
 						return 10*60;
 					}
 				};
+			} else if (index == 6) {
+				return new Response("Fix your hair",
+						"Use your room's en-suite to spend some time fixing your hairdo.",
+						AUNT_HOME_PLAYERS_ROOM_FIX_HAIR){
+					@Override
+					public int getSecondsPassed() {
+						return 10*60;
+					}
+				};
+
 			}
 		}
 		return null;
@@ -1478,9 +1489,9 @@ public class RoomPlayer {
 			return null;
 		}
 	};
-	
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_SPA = new DialogueNode("Your Room", "", true) {
-		
+
 		@Override
 		public String getContent() { //TODO
 			UtilText.nodeContentSB.setLength(0);
@@ -1511,7 +1522,35 @@ public class RoomPlayer {
 			return null;
 		}
 	};
-	
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_FIX_HAIR = new DialogueNode("Your Room", "", true) {
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+			UtilText.nodeContentSB.append("Stepping up to the huge ornate faceted mirror on the wall, you decide on a hairstyle that suits your current mood. What to do ? "
+					                        + "Will you change it or keep everything as it is now ?");
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivHairStyles(false, "Hair Style", "Hair style availability is determined by your hair length "
+			                               + "and also whether the style is simple enough to do by yourself.", true));
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Finish fixing your hair and return to your room.", ROOM);
+			}
+			return null;
+		}
+
+	};
+
 
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR = new DialogueNode("Your Room", "", false) {
 
