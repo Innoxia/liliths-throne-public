@@ -319,6 +319,7 @@ public class Body implements XMLSaving {
 	
 	public void addDiscoveredBodyCoveringsFromMaterial(BodyMaterial bodyMaterial) {
 		if(bodyMaterial==BodyMaterial.SLIME) {
+			coveringsDiscovered.add(BodyCoveringType.SLIME);
 			coveringsDiscovered.add(BodyCoveringType.SLIME_EYE);
 			coveringsDiscovered.add(BodyCoveringType.SLIME_HAIR);
 			coveringsDiscovered.add(BodyCoveringType.SLIME_PUPILS);
@@ -1815,9 +1816,11 @@ public class Body implements XMLSaving {
 			} catch(Exception ex) {
 			}
 		}
-		
+
+		body.addDiscoveredBodyCoveringsFromMaterial(importedBodyMaterial);
+
 		body.calculateRace(null);
-		
+
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5")) {
 			body.updateNippleCrotchColouring();
 		}
