@@ -183,7 +183,7 @@ public class RoomPlayer {
 					return new Response("Manage people", "Enter the management screen for your slaves and friendly occupants.", ROOM) {
 						@Override
 						public DialogueNode getNextDialogue() {
-							return OccupantManagementDialogue.getSlaveryRoomListDialogue(null);
+							return OccupantManagementDialogue.getSlaveryRoomListDialogue(null, null);
 						}
 						@Override
 						public void effects() {

@@ -20,7 +20,7 @@ import com.lilithsthrone.world.EntranceType;
 
 /**
  * @since 0.1.?
- * @version 0.3
+ * @version 0.3.7
  * @author Innoxia
  */
 public class GenericPlace implements XMLSaving {
@@ -42,12 +42,15 @@ public class GenericPlace implements XMLSaving {
 		}
 		
 		if(placeType!=null) {
-			this.name = placeType.getName() + placeType.getPlaceNameAppendFormat(placeCountMap.get(placeType));
+			if(placeType.getPlaceNameAppendFormat(placeCountMap.get(placeType))!=null && !placeType.getPlaceNameAppendFormat(placeCountMap.get(placeType)).isEmpty()) {
+				this.name = placeType.getName() + placeType.getPlaceNameAppendFormat(placeCountMap.get(placeType));
+			}
 			for(PlaceUpgrade pu : placeType.getStartingPlaceUpgrades()) {
 				placeUpgrades.add(pu);
 			}
+			
 		} else {
-			this.name = "-";
+			this.name = "";
 		}
 	}
 	
@@ -110,14 +113,19 @@ public class GenericPlace implements XMLSaving {
 			placeType = "DOMINION_EXIT_WEST";
 		}
 		
-		GenericPlace place = new GenericPlace(PlaceType.getPlaceTypeFromId(placeType));
+		AbstractPlaceType pt = PlaceType.getPlaceTypeFromId(placeType);
+		GenericPlace place = new GenericPlace(pt);
+		
 		if(!parentElement.getAttribute("name").isEmpty()
 				&& (!Main.isVersionOlderThan(Game.loadingVersion, "0.3")
 					|| (!place.getPlaceType().equals(PlaceType.DOMINION_EXIT_NORTH)
 						&& !place.getPlaceType().equals(PlaceType.DOMINION_EXIT_SOUTH)
 						&& !place.getPlaceType().equals(PlaceType.DOMINION_EXIT_EAST)
 						&& !place.getPlaceType().equals(PlaceType.DOMINION_EXIT_WEST)))) {
-			place.setName(parentElement.getAttribute("name"));
+			String name = parentElement.getAttribute("name");
+			if(!pt.getName().equals(name)) {
+				place.setName(name);
+			}
 		}
 		
 		try {
@@ -185,6 +193,9 @@ public class GenericPlace implements XMLSaving {
 	}
 	
 	public String getName() {
+		if((name==null || name.isEmpty()) && this.getPlaceType()!=null) {
+			return this.getPlaceType().getName();
+		}
 		return name;
 	}
 

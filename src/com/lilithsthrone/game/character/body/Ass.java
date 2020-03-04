@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.AbstractAssType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAssType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -13,24 +13,23 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.7
  * @author Innoxia
  */
 public class Ass implements BodyPartInterface {
 
-	
 	protected AbstractAssType type;
 	protected int assSize;
 	protected int hipSize;
 	
 	protected Anus anus;
 
-	public Ass(AbstractAssType type, int size, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
+	public Ass(AbstractAssType type, int size, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		assSize = size;
 		hipSize = size;
 		
-		anus = new Anus(type.getAnusType(), wetness, capacity, elasticity, plasticity, virgin);
+		anus = new Anus(type.getAnusType(), wetness, capacity, depth, elasticity, plasticity, virgin);
 	}
 	
 	public Anus getAnus() {
@@ -84,25 +83,15 @@ public class Ass implements BodyPartInterface {
 		}
 		
 		if (type == getType()) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(You already have the ass of [pc.a_assRace], so nothing happens...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already has the ass of [npc.a_assRace], so nothing happens...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the ass of [npc.a_assRace], so nothing happens...)]</p>");
 			
 		} else {
 			UtilText.transformationContentSB.setLength(0);
 			
-			if (owner.isPlayer()) {
-				UtilText.transformationContentSB.append("<p>"
-						+ "Your [pc.ass] starts to noticeably soften and become very sensitive, and you let out a lewd moan as the transformation moves down into your [pc.asshole] as well."
-						+ " Panting and sighing, you continue letting out the occasional [pc.moan] as your [pc.ass] finishes shifting into a new form.<br/>");
-			} else {
-				UtilText.transformationContentSB.append(
-						"<p>"
-						+ "[npc.NamePos] [npc.ass] starts to soften and become very sensitive, and [npc.she] lets out [npc.a_moan+] as the transformation moves down into [npc.her] [npc.asshole] as well."
-						+ " Panting and sighing, [npc.she] continues letting out the occasional [npc.moan] as [npc.her] [npc.ass] finishes shifting into a new form.<br/>");
-			}
+			UtilText.transformationContentSB.append(
+					"<p>"
+					+ "[npc.NamePos] [npc.verb(feel)] [npc.her] [npc.ass] suddenly softening and becoming very sensitive, and [npc.she] [npc.verb(let)] out [npc.a_moan+] as the intense feeling moves down into [npc.her] [npc.asshole]."
+					+ " Panting and sighing, [npc.she] [npc.verb(continue)] letting out the occasional involuntary [npc.moan] as [npc.she] [npc.verb(feel)] [npc.her] entire rear-end transform.<br/>");
 		}
 
 		// Parse existing content before transformation:

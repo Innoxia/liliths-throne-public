@@ -539,6 +539,14 @@ h6{
 	pointer-events: none;
 	-webkit-user-select: none;
 }
+.stretchIcon{
+	position:absolute;
+	width:40%;
+	height:40%;
+	left:0;
+	pointer-events: none;
+	-webkit-user-select: none;
+}
 .concealedIcon{
 	position:absolute;
 	width:40%;

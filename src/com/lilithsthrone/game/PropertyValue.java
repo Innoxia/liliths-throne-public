@@ -40,8 +40,8 @@ public enum PropertyValue {
 	incestContent(false),
 	inflationContent(true),
 	
-	facialHairContent(false),
-	pubicHairContent(false),
+	facialHairContent(true),
+	pubicHairContent(true),
 	bodyHairContent(false),
 	assHairContent(false),
 	feminineBeardsContent(false),
@@ -75,7 +75,6 @@ public enum PropertyValue {
 	newItemDiscovered(false),
 	newRaceDiscovered(false);
 
-	
 	private boolean defaultValue;
 
 	private PropertyValue(boolean defaultValue) {

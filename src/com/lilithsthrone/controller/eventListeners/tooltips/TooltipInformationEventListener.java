@@ -31,9 +31,9 @@ import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -57,6 +57,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.CachedImage;
 import com.lilithsthrone.rendering.ImageCache;
 import com.lilithsthrone.rendering.RenderingEngine;
+import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
@@ -115,12 +116,15 @@ public class TooltipInformationEventListener implements EventListener {
 			int size = statusEffect.getModifiersAsStringList(owner).size();
 			int yIncrease = (size > 4 ? size - 4 : 0)
 								+ (owner.hasStatusEffect(statusEffect)?(owner.getStatusEffectDuration(statusEffect) == -1 ? 0 : 2):0);
-
-			if(statusEffect.getAdditionalDescription(owner)!=null && !statusEffect.getAdditionalDescription(owner).isEmpty()) {
-				yIncrease += 7;
+			int spacingHeight = 0;
+			
+			List<String> additionalDescriptions = statusEffect.getAdditionalDescriptions(owner);
+			if(additionalDescriptions!=null && !additionalDescriptions.isEmpty()) {
+				yIncrease += 4 * additionalDescriptions.size();
+				spacingHeight += additionalDescriptions.size() * 8;
 			}
 				
-			Main.mainController.setTooltipSize(360, 284 + (yIncrease * LINE_HEIGHT));
+			Main.mainController.setTooltipSize(360, 284 + spacingHeight + (yIncrease * LINE_HEIGHT));
 			
 			
 			// Title:
@@ -150,10 +154,12 @@ public class TooltipInformationEventListener implements EventListener {
 								+ statusEffect.getDescription(owner)
 							+ "</div>");
 			
-			if(statusEffect.getAdditionalDescription(owner)!=null && !statusEffect.getAdditionalDescription(owner).isEmpty()) {
-				tooltipSB.append("<div class='description'>"
-						+ statusEffect.getAdditionalDescription(owner)
-					+ "</div>");
+			if(additionalDescriptions!=null && !additionalDescriptions.isEmpty()) {
+				for(String desc : additionalDescriptions) {
+					tooltipSB.append("<div class='description' style='height:64px'>"
+							+ desc
+						+ "</div>");
+				}
 			}
 			
 			if(owner.hasStatusEffect(statusEffect)) {
@@ -263,7 +269,7 @@ public class TooltipInformationEventListener implements EventListener {
 			
 			if(levelUpPerk.isEquippableTrait()) {
 				if(levelUpPerk.getPerkCategory()==PerkCategory.JOB) {
-					tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>'"+Util.capitaliseSentence(owner.getHistory().getName())+"' Occupation Trait</div>");
+					tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>'"+Util.capitaliseSentence(owner.getHistory().getName(owner))+"' Occupation Trait</div>");
 				} else if(levelUpPerk.isHiddenPerk()) {
 					tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Unique Trait</div>");
 				} else {
@@ -476,9 +482,23 @@ public class TooltipInformationEventListener implements EventListener {
 				Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 				
 			} else {
-				int yIncrease = (fetish.getModifiersAsStringList(owner).size() > 4 ? fetish.getModifiersAsStringList(owner).size() - 4 : 0) + fetish.getFetishesForAutomaticUnlock().size();
+				int yIncrease = (fetish.getModifiersAsStringList(owner).size()>4
+									? fetish.getModifiersAsStringList(owner).size() - 4
+									: 0);
 				
-				Main.mainController.setTooltipSize(360, (fetish.getFetishesForAutomaticUnlock().isEmpty()?350:360) + (yIncrease * LINE_HEIGHT));
+				yIncrease += fetish.getFetishesForAutomaticUnlock().size();
+				if(!owner.hasFetish(fetish)) {
+					yIncrease += fetish.getPerkRequirements(owner).size();
+				}
+				int specialIncrease = 0;
+				if(!owner.hasFetish(fetish) && !fetish.getPerkRequirements(owner).isEmpty()) {
+					specialIncrease += LINE_HEIGHT*2 + 8;
+					
+				} else if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
+					specialIncrease += 8;
+				}
+				
+				Main.mainController.setTooltipSize(360, 342 + specialIncrease + (yIncrease * LINE_HEIGHT));
 				
 				// Title:
 				tooltipSB.setLength(0);
@@ -488,10 +508,16 @@ public class TooltipInformationEventListener implements EventListener {
 						+ " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getFetishExperience(fetish) +" / "+ level.getMaximumExperience() + " xp" + "</div>");
 				
 				// Requirements:
-				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
-					tooltipSB.append("<div class='subTitle'>Requirements");
-					for (Fetish f : fetish.getFetishesForAutomaticUnlock())
-						tooltipSB.append("<br/>[style.boldArcane(" + Util.capitaliseSentence(f.getName(Main.game.getPlayer()))+")]");
+				if(!fetish.getFetishesForAutomaticUnlock().isEmpty() || (!owner.hasFetish(fetish) && !fetish.getPerkRequirements(owner).isEmpty())) {
+					tooltipSB.append("<div class='subTitle' style='font-weight:normal;'><b>Requirements</b>");
+					for(Fetish f : fetish.getFetishesForAutomaticUnlock()) {
+						tooltipSB.append("<br/>[style.boldArcane(" + Util.capitaliseSentence(f.getName(owner))+")]");
+					}
+					if(!owner.hasFetish(fetish)) {
+						for(String s : fetish.getPerkRequirements(owner)) {
+							tooltipSB.append("<br/>"+s);
+						}
+					}
 					tooltipSB.append("</div>");
 				}
 				
@@ -712,12 +738,57 @@ public class TooltipInformationEventListener implements EventListener {
 				// Special tooltip for experience/transformation combo:
 
 				if(owner.isRaceConcealed()) {
-					Main.mainController.setTooltipSize(420, 64);
 					
 					tooltipSB.setLength(0);
 					tooltipSB.append("<div class='title' style='color:" + Colour.RACE_UNKNOWN.toWebHexString() + ";'>"
 							+ "Unknown Race!"
 							+ "</div>");
+
+					int knownAreas = 0;
+					if(Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.ASS, owner)) {
+						knownAreas++;
+						tooltipSB.append(getBodyPartDiv(owner, "Anus", owner.getAssRace(), owner.getAssType().getAnusType().getBodyCoveringType(owner), owner.isAnusBestial()));
+					}
+					if(Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.BREASTS, owner)) {
+						knownAreas++;
+						tooltipSB.append(getBodyPartDiv(owner, "Nipples",
+								owner.getBreastRace(),
+								owner.getBreastType().getNippleType().getBodyCoveringType(owner),
+								owner.isNippleBestial(),
+								Util.capitaliseSentence(Util.intToString(owner.getBreastRows()*2))+" "+(owner.getBreastRawSizeValue()>0?(owner.getBreastSize().getCupSizeName() + "-cup breasts"):(owner.isFeminine()?"flat breasts":"pecs"))));
+					}
+					if(Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.BREASTS_CROTCH, owner)) {
+						knownAreas++;
+						tooltipSB.append(getBodyPartDiv(owner, "Nipples",
+								owner.getBreastCrotchRace(),
+								owner.getNippleCrotchCovering(),
+								owner.isNippleCrotchBestial(),
+								Util.capitaliseSentence(Util.intToString(owner.getBreastCrotchRows()*2))+" "
+										+(owner.getBreastRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"udders":"crotch-boobs")));
+					}
+					if(Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.PENIS, owner)) {
+						knownAreas++;
+						if (owner.hasPenisIgnoreDildo()) {
+							tooltipSB.append(getBodyPartDiv(owner, "Penis", owner.getPenisRace(), owner.getPenisCovering(), owner.isPenisBestial(), "[unit.sizeShort(" + owner.getPenisRawSizeValue()+ ")]"));
+						}
+//						else if (owner.hasPenis()) {
+//							tooltipSB.append(getBodyPartDiv(owner, "Penis", owner.getPenisRace(), owner.getPenisCovering(), owner.isPenisBestial(), "[unit.sizeShort(" + owner.getPenisRawSizeValue()+ ")]"));
+//						}
+						else {
+							tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
+						}
+					}
+					if(Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.VAGINA, owner)) {
+						knownAreas++;
+						if(owner.getVaginaType() != VaginaType.NONE) {
+							tooltipSB.append(getBodyPartDiv(owner, "Vagina", owner.getVaginaRace(), owner.getVaginaCovering(), owner.isVaginaBestial()));
+						} else {
+							tooltipSB.append(getEmptyBodyPartDiv("Vagina", "None"));
+						}
+					}
+					
+					Main.mainController.setTooltipSize(420, 64 + (knownAreas * 28));
+					
 					
 				} else {
 					CachedImage image = null;
@@ -762,7 +833,23 @@ public class TooltipInformationEventListener implements EventListener {
 					}
 
 					// GREATER:
-					tooltipSB.append(getBodyPartDivFace(owner, "Face", owner.getFaceRace(), owner.getFaceCovering(), owner.isFaceBestial()));
+					
+					if(owner.getCovering(owner.getFaceCovering()).getPattern()==CoveringPattern.FRECKLED_FACE) {
+						Covering c = owner.getCovering(owner.getFaceCovering());
+						tooltipSB.append(getBodyPartDiv(owner, "Face", owner.getFaceRace(),
+								new Covering(owner.getFaceCovering(),
+										CoveringPattern.FRECKLED,
+										c.getModifier(),
+										c.getPrimaryColour(),
+										c.isPrimaryGlowing(),
+										c.getSecondaryColour(),
+										c.isSecondaryGlowing()),
+								owner.isFaceBestial(),
+								null));
+						
+					} else {
+						tooltipSB.append(getBodyPartDiv(owner, "Face", owner.getFaceRace(), owner.getFaceCovering(), owner.isFaceBestial()));
+					}
 					tooltipSB.append(getBodyPartDiv(owner, "Torso", owner.getSkinRace(), owner.getSkinCovering(), owner.isSkinBestial(),
 							(owner.isSizeDifferenceShorterThan(Main.game.getPlayer())
 							?"<span style='color:"+Colour.BODY_SIZE_ONE.toWebHexString()+";'>"
@@ -833,9 +920,9 @@ public class TooltipInformationEventListener implements EventListener {
 						}
 					} else {
 						if (owner.hasPenisIgnoreDildo()) {
-							tooltipSB.append(getBodyPartDiv(owner, "Penis", owner.getPenisRace(), owner.getPenisCovering(), owner.isPenisBestial(), "[unit.sizes(" + owner.getPenisRawSizeValue()+ ")]"));
+							tooltipSB.append(getBodyPartDiv(owner, "Penis", owner.getPenisRace(), owner.getPenisCovering(), owner.isPenisBestial(), "[unit.sizeShort(" + owner.getPenisRawSizeValue()+ ")]"));
 						} else if (owner.hasPenis()) {
-							tooltipSB.append(getBodyPartDiv(owner, "Penis", owner.getPenisRace(), owner.getPenisCovering(), owner.isPenisBestial(), "[unit.sizes(" + owner.getPenisRawSizeValue()+ ")]"));
+							tooltipSB.append(getBodyPartDiv(owner, "Penis", owner.getPenisRace(), owner.getPenisCovering(), owner.isPenisBestial(), "[unit.sizeShort(" + owner.getPenisRawSizeValue()+ ")]"));
 						} else {
 							tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
 						}
@@ -1277,35 +1364,11 @@ public class TooltipInformationEventListener implements EventListener {
 	private String getBodyPartDiv(GameCharacter character, String name, Race race, BodyCoveringType covering, boolean bestial) {
 		return getBodyPartDiv(character, name, race, covering, bestial, null);
 	}
-	
 	private String getBodyPartDiv(GameCharacter character, String name, Race race, BodyCoveringType covering, boolean bestial, String size) {
-		String raceName;
-		raceName = race.getName(character, bestial);
-
-		if(raceName.equals("wolf-morph") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
-			raceName = "awoo-morph";
-		}
-		if(raceName.equals("cat-morph") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
-			raceName = "catte-morph";
-		}
-		if(raceName.equals("harpy") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
-			raceName = "birb";
-		}
-		
-		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"
-					+ name +(size!=null?" ("+size+"): ":": ")
-					+ (bestial&&race!=Race.NONE?"[style.colourBestial(Feral )]":"")
-					+(covering!=BodyCoveringType.DILDO
-						?"<span style='color:" + race.getColour().toWebHexString() + ";'>"
-							+Util.capitaliseSentence(raceName)
-						:"<span style='color:" + Colour.BASE_PINK_DEEP.toWebHexString() + ";'>"
-								+"Dildo")
-					+ "</span> - "
-					+ owner.getCovering(covering).getColourDescriptor(owner, true, true) + " " + owner.getCovering(covering).getName(owner)
-				+"</div>";
+		return getBodyPartDiv(character, name, race, owner.getCovering(covering), bestial, size);
 	}
 	
-	private String getBodyPartDivFace(GameCharacter character, String name, Race race, BodyCoveringType covering, boolean bestial) {
+	private String getBodyPartDiv(GameCharacter character, String name, Race race, Covering covering, boolean bestial, String size) {
 		String raceName;
 		raceName = race.getName(character, bestial);
 
@@ -1318,31 +1381,40 @@ public class TooltipInformationEventListener implements EventListener {
 		if(raceName.equals("harpy") && Main.getProperties().hasValue(PropertyValue.sillyMode)){
 			raceName = "birb";
 		}
+		Colour primaryColour = covering.getPrimaryColour();
+		Colour secondaryColour = covering.getSecondaryColour();
+		boolean displaySecondary = covering.getPattern().isNaturalSecondColour(owner);
 		
-		Covering coveringHandledForFreckles = character.getCovering(covering);
-		
-		if(character.getCovering(covering).getPattern()==CoveringPattern.FRECKLED_FACE) {
-			coveringHandledForFreckles = new Covering(covering,
-					CoveringPattern.FRECKLED,
-					character.getCovering(covering).getModifier(),
-					character.getCovering(covering).getPrimaryColour(),
-					character.getCovering(covering).isPrimaryGlowing(),
-					character.getCovering(covering).getSecondaryColour(),
-					character.getCovering(covering).isSecondaryGlowing());
-		}
-		
+		//  background-image:linear-gradient(to right bottom, " + primaryColour.toWebHexString() + " 50%, " + secondaryColour.toWebHexString() + " 50%);
 		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"
-					+ name+": "
+					+ "<div style='width:10px; height:16px; padding:0; margin:0;'>"
+						+ "<div class='colour-box' style='width:8px; height:"+(displaySecondary?"8px; margin:0;":"8px; margin:4px 0 0 0;")+" border-radius:2px; padding:0;"
+						+ (primaryColour.isMetallic()
+								?"background: repeating-linear-gradient(135deg, " + primaryColour.toWebHexString() + ", " + primaryColour.getShades()[4] + " 1px);"
+								:(primaryColour.getRainbowColours()!=null
+									?"background: "+primaryColour.getRainbowDiv(1)+";"
+									:"background:" + (primaryColour.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():primaryColour.toWebHexString()) + ";"))
+						+ "'></div>"
+						+ (displaySecondary
+							?"<div class='colour-box' style='width:8px; height:8px; margin:0; padding:0; border-radius:2px;"
+								+ (secondaryColour.isMetallic()
+									?"background: repeating-linear-gradient(135deg, " + secondaryColour.toWebHexString() + ", " + secondaryColour.getShades()[4] + " 1px);"
+									:(secondaryColour.getRainbowColours()!=null
+										?"background: "+secondaryColour.getRainbowDiv(1)+";"
+										:"background:" + (secondaryColour.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():secondaryColour.toWebHexString()) + ";"))
+								+ "'></div>"
+							:"")
+					+ "</div>"
+					+ name +(size!=null?" ("+size+"): ":": ")
 					+ (bestial&&race!=Race.NONE?"[style.colourBestial(Feral )]":"")
-					+(covering!=BodyCoveringType.DILDO
+					+(covering.getType()!=BodyCoveringType.DILDO
 						?"<span style='color:" + race.getColour().toWebHexString() + ";'>"
 							+Util.capitaliseSentence(raceName)
 						:"<span style='color:" + Colour.BASE_PINK_DEEP.toWebHexString() + ";'>"
 								+"Dildo")
 					+ "</span> - "
-					+ coveringHandledForFreckles.getColourDescriptor(owner, true, true) + " " + coveringHandledForFreckles.getName(owner)
+					+ covering.getColourDescriptor(owner, true, true) + " " + covering.getName(owner)
 				+"</div>";
-		
 	}
 	
 	private String getEmptyBodyPartDiv(String name, String description) {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.AbstractBreastType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
 import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.3.7
  * @author Innoxia
  */
 public class BreastCrotch implements BodyPartInterface {
@@ -42,7 +42,8 @@ public class BreastCrotch implements BodyPartInterface {
 	protected Nipples nipples;
 	protected FluidMilk milk;
 	
-	public BreastCrotch(AbstractBreastType type, BreastShape shape, int size, int milkStorage, int rows, int nippleSize, NippleShape nippleShape, int areolaeSize, int nippleCountPerBreast, float capacity, int elasticity, int plasticity, boolean virgin) {
+	public BreastCrotch(AbstractBreastType type, BreastShape shape, int size, int milkStorage, int rows, int nippleSize,
+			NippleShape nippleShape, int areolaeSize, int nippleCountPerBreast, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.shape = shape;
 		this.size = size;
@@ -52,7 +53,7 @@ public class BreastCrotch implements BodyPartInterface {
 		this.rows = rows;
 		this.nippleCountPerBreast = nippleCountPerBreast;
 		
-		nipples = new Nipples(type.getNippleType(), nippleSize, nippleShape, areolaeSize, Lactation.getLactationFromInt(milkStorage).getAssociatedWetness().getValue(), capacity, elasticity, plasticity, virgin, true);
+		nipples = new Nipples(type.getNippleType(), nippleSize, nippleShape, areolaeSize, Lactation.getLactationFromInt(milkStorage).getAssociatedWetness().getValue(), capacity, depth, elasticity, plasticity, virgin, true);
 		
 		milk = new FluidMilk(type.getFluidType(), true);
 	}

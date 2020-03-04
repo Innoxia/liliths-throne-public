@@ -6,26 +6,26 @@ import com.lilithsthrone.utils.Colour;
  * Arbitrary measurements in increments of 1, going from 0 to 7.
  * 
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.7
  * @author Innoxia
  */
 public enum Wetness {
 
-	ZERO_DRY("dry", 0, 101, 101, Colour.GENERIC_SIZE_ONE),
+	ZERO_DRY("dry", 0, 101, 101, Colour.GENERIC_WETNESS_ONE),
 	
-	ONE_SLIGHTLY_MOIST("slightly moist", 1, 100, 100, Colour.GENERIC_SIZE_TWO),
+	ONE_SLIGHTLY_MOIST("slightly moist", 1, 100, 100, Colour.GENERIC_WETNESS_TWO),
 	
-	TWO_MOIST("moist", 2, 50, 50, Colour.GENERIC_SIZE_THREE),
+	TWO_MOIST("moist", 2, 50, 50, Colour.GENERIC_WETNESS_THREE),
 	
-	THREE_WET("wet", 3, 25, 25, Colour.GENERIC_SIZE_FOUR),
+	THREE_WET("wet", 3, 25, 25, Colour.GENERIC_WETNESS_FOUR),
 	
-	FOUR_SLIMY("slimy", 4, 0, 0, Colour.GENERIC_SIZE_FIVE),
+	FOUR_SLIMY("slimy", 4, 0, 0, Colour.GENERIC_WETNESS_FIVE),
 	
-	FIVE_SLOPPY("sloppy", 5, 0, 0, Colour.GENERIC_SIZE_SIX),
+	FIVE_SLOPPY("sloppy", 5, 0, 0, Colour.GENERIC_WETNESS_SIX),
 	
-	SIX_SOPPING_WET("sopping wet", 6, 0, 0, Colour.GENERIC_SIZE_SEVEN),
+	SIX_SOPPING_WET("sopping wet", 6, 0, 0, Colour.GENERIC_WETNESS_SEVEN),
 	
-	SEVEN_DROOLING("drooling", 7, 0, 0, Colour.GENERIC_SIZE_EIGHT);
+	SEVEN_DROOLING("drooling", 7, 0, 0, Colour.GENERIC_WETNESS_EIGHT);
 	
 
 	private int wetness;

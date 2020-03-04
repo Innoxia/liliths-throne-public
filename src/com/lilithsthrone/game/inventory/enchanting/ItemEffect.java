@@ -168,6 +168,12 @@ public class ItemEffect implements XMLSaving {
 			case "CLOTHING_ANTI_SELF_TRANSFORMATION":
 				secondaryMod = "CLOTHING_SERVITUDE";
 				break;
+			case "TF_MOD_ORIFICE_DEEP":
+				secondaryMod = "TF_MOD_DEPTH";
+				break;
+			case "TF_MOD_ORIFICE_DEEP_2":
+				secondaryMod = "TF_MOD_DEPTH_2";
+				break;
 		}
 		
 		ItemEffect ie;

@@ -7,6 +7,7 @@ import java.util.Set;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
@@ -15,23 +16,25 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.?
- * @version 0.2.4
+ * @version 0.3.7
  * @author Innoxia
  */
 public class OrificeAnus implements OrificeInterface {
 	
 	protected int wetness;
-	protected int elasticity;
-	protected int plasticity;
 	protected float capacity;
 	protected float stretchedCapacity;
+	protected int depth;
+	protected int elasticity;
+	protected int plasticity;
 	protected boolean virgin;
 	protected Set<OrificeModifier> orificeModifiers;
 
-	public OrificeAnus(int wetness, float capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
+	public OrificeAnus(int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
 		this.wetness = wetness;
 		this.capacity = capacity;
 		stretchedCapacity = capacity;
+		this.depth = depth;
 		this.elasticity = elasticity;
 		this.plasticity = plasticity;
 		this.virgin = virgin;
@@ -41,62 +44,48 @@ public class OrificeAnus implements OrificeInterface {
 	
 	@Override
 	public Wetness getWetness(GameCharacter owner) {
+		if(owner!=null && owner.getBodyMaterial().isOrificesAlwaysMaximumWetness()) {
+			return Wetness.SEVEN_DROOLING;
+		}
 		return Wetness.valueOf(wetness);
 	}
 
 	@Override
 	public String setWetness(GameCharacter owner, int wetness) {
+		if(owner!=null && owner.getBodyMaterial().isOrificesAlwaysMaximumWetness()) {
+			return UtilText.parse(owner,
+					"<p style='text-align:center;'>[style.colourSex(Due to being made out of "+owner.getBodyMaterial().getName()+", the wetness of [npc.namePos] "+Wetness.SEVEN_DROOLING.getDescriptor()+" [npc.asshole] can't be changed...)]</p>");
+		}
+		
 		int oldWetness = this.wetness;
 		this.wetness = Math.max(0, Math.min(wetness, Wetness.SEVEN_DROOLING.getValue()));
+		if(owner==null) {
+			return "";
+		}
+		
 		int wetnessChange = this.wetness - oldWetness;
 		
 		if (wetnessChange == 0) {
-			if(owner.isPlayer()) {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s wetness doesn't change...)]</p>");
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The wetness of [npc.namePos] [npc.asshole] doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The wetness of [npc.namePos] [npc.asshole] doesn't change...)]</p>");
 		}
 
-		if(this.wetness < Wetness.SEVEN_DROOLING.getValue() && owner.getBodyMaterial().isOrificesAlwaysMaximumWetness()) {
-			this.wetness = Wetness.SEVEN_DROOLING.getValue();
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourSex(Due to being made out of "+owner.getBodyMaterial().getName()+", your [pc.asshole] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourSex(Due to being made out of "+owner.getBodyMaterial().getName()+", [npc.namePos] [npc.asshole] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>");
-			}
-		}
 		
 		String wetnessDescriptor = getWetness(owner).getDescriptor();
-		String transformation = "";
 		if (wetnessChange > 0) {
-			if (owner.isPlayer()) {
-				transformation = "<p>"
-							+ "Your [pc.eyes] widen as you feel moisture beading around your asshole, and you let out [pc.a_moan+] as you realise that your rear entrance is lubricating itself and [style.boldGrow(getting wetter)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " asshole)]!"
-						+ "</p>";
-			} else {
-				transformation = "<p>"
-							+ "[npc.NamePos] [npc.eyes] widen as [npc.she] feels moisture beading around [npc.her] asshole,"
-								+ " and [npc.she] lets out [npc.a_moan+] as [npc.she] realises that [npc.her] rear entrance is lubricating itself and [style.boldGrow(getting wetter)].<br/>"
+			return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.NamePos] [npc.eyes] widen as [npc.she] [npc.verb(feel)] moisture beading around [npc.her] asshole,"
+								+ " and [npc.she] can't help but let out a deep [npc.moan] as [npc.she] [npc.verb(realise)] that [npc.her] rear entrance is lubricating itself and [style.boldGrow(getting wetter)].<br/>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " asshole)]!"
-						+ "</p>";
-			}
+						+ "</p>");
 			
 		} else {
-			if (owner.isPlayer()) {
-				transformation = "<p>"
-							+ "You shift about uncomfortably and let out a frustrated groan as you feel your rear entrance [style.boldShrink(getting drier)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " asshole)]!"
-						+ "</p>";
-			} else {
-				transformation = "<p>"
-							+ "[npc.Name] shifts about uncomfortably and lets out a frustrated groan as [npc.she] feels [npc.her] rear entrance [style.boldShrink(getting drier)].<br/>"
+			return UtilText.parse(owner,
+						"<p>"
+							+ "[npc.Name] [npc.verb(shift)] about uncomfortably and [npc.verb(let)] out a frustrated groan as [npc.she] [npc.verb(feel)] [npc.her] rear entrance [style.boldShrink(drying up)].<br/>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(wetnessDescriptor) + " " + wetnessDescriptor + " asshole)]!"
-						+ "</p>";
-			}
+						+ "</p>");
 		}
-		return UtilText.parse(owner, transformation);
 	}
 
 	@Override
@@ -116,44 +105,32 @@ public class OrificeAnus implements OrificeInterface {
 		if(setStretchedValueToNewValue) {
 			this.stretchedCapacity = this.capacity;
 		}
+		if(owner==null) {
+			return "";
+		}
+		
 		float capacityChange = this.capacity - oldCapacity;
 		
 		if (capacityChange == 0) {
-			if(owner.isPlayer()) {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s capacity doesn't change...)]</p>");
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.namePos] [npc.asshole] doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The capacity of [npc.namePos] [npc.asshole] doesn't change...)]</p>");
 		}
 		
 		String capacityDescriptor = getCapacity().getDescriptor();
 		if (capacityChange > 0) {
-			if (owner.isPlayer()) {
-				return UtilText.parse(owner, "<p>"
-							+ "You let out a shocked gasp as you feel your asshole dilate and stretch out as its internal [style.boldGrow(capacity increases)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
-						+ "</p>");
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.Name] lets out a shocked gasp as [npc.she] feels [npc.her] asshole dilate and stretch out as its internal [style.boldGrow(capacity increases)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "An involuntary, shocked gasp escapes from [npc.namePos] mouth as [npc.she] [npc.verb(feel)] [npc.her] asshole dilate and stretch."
+						+ " Within moments, the feeling has passed, and [npc.she] very quickly [npc.verb(realise)] that [npc.her] asshole's internal [style.boldGrow(capacity has increased)].<br/>"
+						+ "[npc.Name] now [npc.has] [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
+					+ "</p>");
 			
 		} else {
-			if (owner.isPlayer()) {
-				return UtilText.parse(owner, "<p>"
-							+ "You let out a cry as you feel your asshole uncontrollably tighten and clench as its internal [style.boldShrink(capacity decreases)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
-						+ "</p>");
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.Name] lets out a cry as [npc.she] feels [npc.her] asshole uncontrollably tighten and clench as its internal [style.boldShrink(capacity decreases)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a cry as [npc.she] [npc.verb(feel)] [npc.her] asshole uncontrollably tighten and clench."
+						+ " Within moments, the feeling has passed, and [npc.she] very quickly [npc.verb(realise)] that [npc.her] asshole's internal [style.boldShrink(capacity has decreased)].<br/>"
+						+ "[npc.Name] now [npc.has] [style.boldSex(" + UtilText.generateSingularDeterminer(capacityDescriptor) + " " + capacityDescriptor + " asshole)]!"
+					+ "</p>");
 		}
 	}
 	
@@ -171,14 +148,60 @@ public class OrificeAnus implements OrificeInterface {
 	
 	@Override
 	public int getMaximumPenetrationDepthComfortable(GameCharacter owner) {
-		return (int) (owner.getHeightValue() * 0.12f * (this.hasOrificeModifier(OrificeModifier.EXTRA_DEEP)?2:1) * (owner.isAnusBestial()?1.5f:1) * (!owner.getBodyMaterial().isOrificesLimitedDepth()?4f:1));
+		return (int) (owner.getHeightValue() * 0.12f * this.getDepth(owner).getDepthPercentage());
 	}
 	
 	@Override
 	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner) {
 		return getMaximumPenetrationDepthComfortable(owner) * 2;
 	}
+	
+	@Override
+	public OrificeDepth getDepth(GameCharacter owner) {
+		if(owner!=null && !owner.getBodyMaterial().isOrificesLimitedDepth()) {
+			return OrificeDepth.SEVEN_FATHOMLESS;
+		}
+		return OrificeDepth.getDepthFromInt(depth);
+	}
 
+	@Override
+	public String setDepth(GameCharacter owner, int depth) {
+		if(owner!=null && !owner.getBodyMaterial().isOrificesLimitedDepth()) {
+			return UtilText.parse(owner,
+					"<p style='text-align:center;'>[style.colourSex(Due to being made out of "+owner.getBodyMaterial().getName()+", the depth of [npc.namePos] "+OrificeDepth.SEVEN_FATHOMLESS.getDescriptor()+" [npc.asshole] can't be changed...)]</p>");
+		}
+		
+		int oldDepth = this.depth;
+		this.depth = Math.max(0, Math.min(depth, OrificeDepth.SEVEN_FATHOMLESS.getValue()));
+		if(owner==null) {
+			return "";
+		}
+		
+		int depthChange = this.depth - oldDepth;
+		
+		if(depthChange == 0) {
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The depth of [npc.namePos] [npc.asshole] doesn't change...)]</p>");
+		}
+		
+		String depthDescriptor = getDepth(owner).getDescriptor();
+		if(depthChange > 0) {
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] can't help but let out a surprised gasp as [npc.she] [npc.verb(feel)] an alarming pressure pulsating up deep into [npc.her] ass."
+						+ " Before [npc.her] gasp can turn into a distressed cry, the pressure suddenly fades away, leaving [npc.herHim] instinctively knowing that [npc.her] asshole [style.boldGrow(has deepened)].<br/>"
+						+ "[npc.Name] now [npc.has] [style.boldSex(" + UtilText.generateSingularDeterminer(depthDescriptor) + " " + depthDescriptor + " asshole)]!"
+					+ "</p>");
+			
+		} else {
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] can't help but let out a surprised gasp as [npc.she] [npc.verb(feel)] an alarming tightening sensation moving its way down from the depths of [npc.her] ass."
+						+ " Before [npc.her] gasp can turn into a distressed cry, the feeling suddenly fades away, leaving [npc.herHim] instinctively knowing that [npc.her] asshole [style.boldShrink(has become shallower)].<br/>"
+						+ "[npc.Name] now [npc.has] [style.boldSex(" + UtilText.generateSingularDeterminer(depthDescriptor) + " " + depthDescriptor + " asshole)]!"
+					+ "</p>");
+		}
+	}
+	
 	@Override
 	public OrificeElasticity getElasticity() {
 		return OrificeElasticity.getElasticityFromInt(elasticity);
@@ -188,44 +211,32 @@ public class OrificeAnus implements OrificeInterface {
 	public String setElasticity(GameCharacter owner, int elasticity) {
 		int oldElasticity = this.elasticity;
 		this.elasticity = Math.max(0, Math.min(elasticity, OrificeElasticity.SEVEN_ELASTIC.getValue()));
+		if(owner==null) {
+			return "";
+		}
+		
 		int elasticityChange = this.elasticity - oldElasticity;
 		
 		if (elasticityChange == 0) {
-			if(owner.isPlayer()) {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s elasticity doesn't change...)]</p>");
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.namePos] [npc.asshole] doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The elasticity of [npc.namePos] [npc.asshole] doesn't change...)]</p>");
 		}
 		
 		String elasticityDescriptor = getElasticity().getDescriptor();
 		if (elasticityChange > 0) {
-			if (owner.isPlayer()) {
-				return UtilText.parse(owner, "<p>"
-							+ "You let out a little gasp as you feel a strange slackening sensation pulsating deep within your ass as your asshole's [style.boldGrow(elasticity increases)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
-						+ "</p>");
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange slackening sensation pulsating deep within [npc.her] ass as [npc.her] asshole's [style.boldGrow(elasticity increases)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] can't help but let out a surprised gasp as [npc.she] [npc.verb(feel)] a strange slackening sensation pulsating deep within [npc.her] ass."
+						+ " Just as quickly as it started, the feeling passes, and [npc.she] very quickly [npc.verb(realise)] that [npc.her] asshole's [style.boldGrow(elasticity has increased)].<br/>"
+						+ "[npc.Name] now [npc.has] [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
+					+ "</p>");
 			
 		} else {
-			if (owner.isPlayer()) {
-				return UtilText.parse(owner, "<p>"
-							+ "You let out a little gasp as you feel a strange clenching sensation pulsating deep within your ass as your asshole's [style.boldShrink(elasticity decreases)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
-						+ "</p>");
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] ass as [npc.her] asshole's [style.boldShrink(elasticity decreases)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] can't help but let out a surprised gasp as [npc.she] [npc.verb(feel)] a strange clenching sensation pulsating deep within [npc.her] ass."
+						+ " Just as quickly as it started, the feeling passes, and [npc.she] very quickly [npc.verb(realise)] that [npc.her] asshole's [style.boldShrink(elasticity has decreased)].<br/>"
+						+ "[npc.Name] now [npc.has] [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " asshole)]!"
+					+ "</p>");
 		}
 	}
 	
@@ -238,44 +249,32 @@ public class OrificeAnus implements OrificeInterface {
 	public String setPlasticity(GameCharacter owner, int plasticity) {
 		int oldPlasticity = this.plasticity;
 		this.plasticity = Math.max(0, Math.min(plasticity, OrificePlasticity.SEVEN_MOULDABLE.getValue()));
+		if(owner==null) {
+			return "";
+		}
+		
 		int plasticityChange = this.plasticity - oldPlasticity;
 		
 		if (plasticityChange == 0) {
-			if(owner.isPlayer()) {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s plasticity doesn't change...)]</p>");
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.namePos] [npc.asshole] doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The plasticity of [npc.namePos] [npc.asshole] doesn't change...)]</p>");
 		}
 		
 		String plasticityDescriptor = getPlasticity().getDescriptor();
 		if (plasticityChange > 0) {
-			if (owner.isPlayer()) {
-				return UtilText.parse(owner, "<p>"
-							+ "You let out a little gasp as you feel a strange moulding sensation pulsating deep within your ass as your asshole's [style.boldGrow(plasticity increases)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
-						+ "</p>");
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange moulding sensation pulsating deep within [npc.her] ass as [npc.her] asshole's [style.boldGrow(plasticity increases)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a shocked gasp as [npc.she] suddenly [npc.verb(feel)] a strange hardening sensation pulsating deep within [npc.her] ass."
+						+ " Before [npc.she] [npc.has] any time to panic, the feeling quickly fades away, leaving [npc.herHim] instinctively knowing that [npc.her] asshole's [style.boldGrow(plasticity has increased)].<br/>"
+						+ "[npc.Name] now [npc.has] [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
+					+ "</p>");
 			
 		} else {
-			if (owner.isPlayer()) {
-				return UtilText.parse(owner, "<p>"
-							+ "You let out a little gasp as you feel a strange softening sensation pulsating deep within your ass as your asshole's [style.boldShrink(plasticity decreases)].<br/>"
-							+ "The transformation quickly passes, leaving you with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
-						+ "</p>");
-			} else {
-				return UtilText.parse(owner, 
-						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange softening sensation pulsating deep within [npc.her] ass as [npc.her] asshole's [style.boldShrink(plasticity decreases)].<br/>"
-							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner, 
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a shocked gasp as [npc.she] suddenly [npc.verb(feel)] a strange softening sensation pulsating deep within [npc.her] ass."
+						+ " Before [npc.she] [npc.has] any time to panic, the feeling quickly fades away, leaving [npc.herHim] instinctively knowing that [npc.her] asshole's [style.boldShrink(plasticity has decreased)].<br/>"
+						+ "[npc.Name] now [npc.has] [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " asshole)]!"
+					+ "</p>");
 		}
 	}
 
@@ -340,14 +339,6 @@ public class OrificeAnus implements OrificeInterface {
 								+ " before the rim of [npc.her] [npc.asshole] [style.boldGrow(puffs up)] into a doughnut-like ring.<br/>"
 							+ "[style.boldSex(The rim of [npc.namePos] asshole is now swollen and puffy!)]"
 						+ "</p>");
-				
-			case EXTRA_DEEP:
-				return UtilText.parse(owner,
-						"<p>"
-							+ "[npc.Name] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a throbbing sensation rising up from [npc.her] ass into [npc.her] lower abdomen."
-							+ " Within moments, the feeling fades away, and [npc.name] [npc.verb(find)] [npc.herself] instinctively knowing that [npc.her] [style.boldGrow(asshole has significantly deepened)].<br/>"
-							+ "[style.boldSex([npc.NamePos] asshole is now extra deep, allowing it to take double the length of penetrative objects than before!)]"
-						+ "</p>");
 		}
 		
 		// Catch:
@@ -397,14 +388,6 @@ public class OrificeAnus implements OrificeInterface {
 							+ "[npc.Name] can't help but let out a cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.ass],"
 								+ " before the puffy rim of [npc.her] [npc.asshole] [style.boldShrink(deflates)] into a more normal-looking shape.<br/>"
 							+ "[style.boldSex(The rim of [npc.namePos] asshole is no longer swollen and puffy!)]"
-						+ "</p>");
-				
-			case EXTRA_DEEP:
-				return UtilText.parse(owner,
-						"<p>"
-							+ "[npc.Name] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a tightening sensation taking place deep within [npc.her] lower abdomen."
-							+ " Within moments, the feeling fades away, and [npc.name] [npc.verb(find)] [npc.herself] instinctively knowing that [npc.her] [style.boldShrink(asshole has lost a significant amount of depth)].<br/>"
-							+ "[style.boldSex([npc.NamePos] asshole is no longer extra deep, and can only take an average length of penetrative objects!)]"
 						+ "</p>");
 		}
 		

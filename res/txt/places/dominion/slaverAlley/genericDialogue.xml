@@ -24,13 +24,143 @@
 	
 	<htmlContent tag="GATEWAY"><![CDATA[
 	<p>
-		You find yourself standing in the gateway that links Slaver Alley to the rest of Dominion. On either side of you, horse-boy guards keep a watchful eye on anyone that passes through here; obviously on the lookout for runaway slaves.
+		You find yourself standing in the gateway which links Slaver Alley to the rest of Dominion. On either side of this entrance, two horse-boy private security guards are keeping a watchful eye on anyone who passes through here; they're mostly focused on looking inwards towards Slavery Alley, as their primary duty is being on the lookout for any runaway slaves.
 	</p>
 	<p>
-		A touristy-looking information board, looking quite out of place with its surroundings, has been fixed to a nearby wall, and upon reading it, you discover that a powerful arcane shield has been erected over the entire area, which prevents the effects of any on-going arcane storms from being felt by any of the marketplace's occupants. True enough, as you glance up at the sky above, you see the faint pink crackle of the shield's arcane energy, reassuring you that you needn't worry about attacks from any horny customers.
+		The brick walls to either side of this gateway have been plastered with promotional posters, and while the vast majority of them are advertising stores within Slaver Alley itself, you see plenty of others promoting everything from soft drinks to brothels in Dominion's red light district.
+		#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_ROMANCE_HELENA, QUEST_ROMANCE_HELENA_6_ADVERTISING))
+			 True to their word, the guards have prevented anyone from pasting adverts over the six enchanted posters of Helena which you put up in this area. As customers to Slaver Alley pass you by, you hear some of them commenting on the harpy matriarch's beautiful appearance.
+		#ELSE
+			 A large sign near to where the guards are standing declares that <i>'Permission must be obtained before putting up any advertisements!'</i>.
+		#ENDIF
 	</p>
 	<p>
-		There are only a couple of other pieces of information that are of any real relevance to you. In large red writing at the top of the information board, you read that you must be in possession of a slaver license before being able to buy or sell slaves here. Underneath, the sentence telling you that you can obtain a license from the Slaver Administration building is crossed out, and in scrawling writing, the words 'Slaver Licenses are not being issued' has been written beneath.
+		The only place not plastered with these promotional posters is the spot where a touristy-looking information board has been screwed to the wall, and upon reading it, you discover that a powerful arcane shield has been erected over the entire area, which protects everyone beneath it from the lust-inducing effects of any ongoing arcane storm. True enough, as you glance up at the sky, you see the faint pink crackle of the shield's arcane energy, reassuring you that you needn't worry about attacks from any horny citizens.
+	</p>
+	<p>
+		Continuing to skim over the information board, you read that a person must be in possession of a slaver license before being able to buy or sell slaves. According to the next paragraph, these slaver licenses may be obtained from the 'Slaver Administration' building, which is apparently only a short distance away from where you're currently standing.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GATEWAY_POSTERS"><![CDATA[
+	<p>
+		<i>You'd better speak to the guards before starting to put up Helena's posters...</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GATEWAY_POSTER_PERMISSION -->
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION"><![CDATA[
+	<p>
+		With the two horse-boy guards keeping a close watch on you, there'd be no way to put up Helena's posters without being seen and stopped by them. Realising that you have no choice but to first obtain their permission, you step up to the older-looking of the two, who you assume to be the other's superior, and ask if you could put your six posters up.
+	</p>
+	<p>
+		[style.speechMasculineStrong(More poster, huh?)] he grunts, [style.speechMasculineStrong(Sure you can put them up, but it's going to cost you a hundred flames.)]
+	</p>
+	#IF(Main.game.getPlayer().hasBreasts())
+		<p>
+			#IF(pc.isCoverableAreaExposed(CA_NIPPLES))
+				[style.speechMasculine(If you don't want to pay, you could let us get a good feel of your tits instead!)]
+			#ELSE
+				[style.speechMasculine(If you don't want to pay, you could flash us your tits instead!)]
+			#ENDIF
+			 the second, younger horse-boy interjects, [style.speechMasculine(That'll keep me going until the end of my shift!)]
+		</p>
+		<p>
+			The older horse-boy grunts in approval at this suggestion, letting you know that if you wanted to avoid paying the hundred flame fee, you could always do as his subordinate suggests...
+		</p>
+	#ELSE
+		<p>
+			From their stern glares, you realise that there wouldn't be much point in trying to convince them to waive the fee, and so you're left with the choice of either paying up now, or returning to give them their money at another time...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION_PAID"><![CDATA[
+	<p>
+		Producing the hundred flames asked of you, you hand them over to the senior of the two horse-boys. With an approving grunt and nod of his head he says, [style.speechMasculineStrong(Right, go on then, you can put your posters up.)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION_GROPED"><![CDATA[
+	<p>
+		Deciding to do as the younger guard suggests, you step forwards and push your [pc.breastSize] breasts out towards him, [pc.speech(Go on then, get a good feel!)]
+	</p>
+	<p>
+		Not hesitating for a moment, the horse-boy greedily reaches out and grabs your tits, letting out a horny grunt as he playfully squeezes your [pc.nipples] between his rough fingers. Not wanting to miss out on the action, the second horse-boy steps over and joins the first in groping your breasts, grinning lecherously at your exposed [pc.nipples] as you unwittingly let out [pc.a_moan+]. 
+	</p>
+	<p>
+		[style.speechMasculine(Fucking nice... That'll do for me!)] the younger horse-boy declares, giving your tits one final squeeze before stepping back to his post.
+	</p>
+	<p>
+		[style.speechMasculineStrong(Yeah, that'll keep me going until I can get a good fuck once my shift's over,)] his superior says, similarly giving your [pc.nipples+] one last pinch before stepping back. Waving his hand at the walls, he declares, [style.speechMasculineStrong(Go on then, you can put your posters up now!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION_FLASH_BREASTS"><![CDATA[
+	<p>
+		Deciding to do as the younger guard suggests, you displace your clothing to your [pc.breastSize] breasts and [pc.nipples+]. Pointing them in the direction of the two guards, you ask, [pc.speech(Is this what you wanted to see?)]
+	</p>
+	<p>
+		[style.speechMasculine(Oh yeah, those're fucking nice!)] the younger horse-boy declares, grinning lustfully at your tits.
+	</p>
+	<p>
+		[style.speechMasculineStrong(Yeah, that'll keep me going until I can get a good fuck once my shift's over,)] his superior says while starting hungrily at your [pc.nipples]. Letting out a satisfied sigh, he waves his hand at the walls and declares, [style.speechMasculineStrong(Go on then, you can put your posters up now!)]
+	</p>
+	<p>
+		Moving your clothing back into their previous position, you prepare to do as the guard says...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION_END"><![CDATA[
+	<p>
+		Taking a look at the walls on either side of the gateway, you see that they're already completely plastered with advertisements, and there's not a single free spot available where you can put up yours. Sensing what it is you're thinking, the younger of the two horse-boy guards says, [style.speechMasculine(Just paste them over some other poster; someone else will be along to do the same to yours before too long anyway.)]
+	</p>
+	<p>
+		Hoping that that doesn't turn out to be the case, you unroll the first of the posters, and, relying on tits enchantment to stick itself to the wall without need for any glue, you press it down over the top of an advertisement for Starr cigarettes. Sure enough, the poster sticks to the wall without issue, and after stepping back and admiring the moving image of Helena posing in her bikini, you step over to one side and prepare to get started on putting up the next one. Before you're able to do so, however, the senior horse-boy lets out a low whistle and, reading the name at the bottom of the poster, asks, [style.speechMasculineStrong('<i>Helena</i>', eh? Damn... Is she one of those harpy queens or something?)]
+	</p>
+	<p>
+		Replying in the affirmative, you get on with putting up the next poster while the younger of the two horse-boys comments, [style.speechMasculine(You know, it's not often someone splashes out on getting one of those moving image enchantments for posters like these... Woah! This one's in a different pose to the last! Look at her tits! Harpies don't usually have them that big!)]
+	</p>
+	<p>
+		Sure enough, this second poster you've just put up shows Helena in a different pose to the first; provocatively leaning forwards towards the viewer, she's gently swaying her body from side-to-side, which is causing her [helena.cupSize]-cup breasts to ponderously swing back and forth. Urged to continue by the two horse-boys, you put up the third poster beside the second, before stepping over to the opposite wall and putting up the remaining three on that side. Each of the six posters turns out to display a bikini-clad Helena in an unique pose, and as you finish putting up the last one, the senior horse-boy comments, [style.speechMasculineStrong(There's no way I'm letting anyone put their posters over the top of these! Damn... This job suddenly became a lot more bearable!)]
+	</p>
+	<p>
+		Before you can respond to this, you suddenly notice a dark figure quickly approaching from one side, and you turn to see that it's none other than Scarlett herself. With the usual scowl on her face, she's making her way directly towards you, and you wonder what it is she wants...
+	</p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION_LEAVE"><![CDATA[
+	<p>
+		Telling the guards that you'll come back to put up the posters another time, you step back and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GATEWAY_POSTER_PERMISSION_SCARLETT -->
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION_SCARLETT"><![CDATA[
+	<p>
+		Completely ignoring the two horse-boy guards, Scarlett walks up right in front of you and flatly states, [scarlett.speech(You're finally done with putting those stupid fucking posters up? Helena's got something else for you to do now.)]
+	</p>
+	<p>
+		[style.speechMasculine(I'd hardly call them stupid,)] the younger horse-boy comments as he hears what it is Scarlett's saying.
+	</p>
+	<p>
+		[scarlett.speech(How about you shut the fuck up, you dumb fucking cunt? I wasn't fucking talking to you!)] the foul-mouthed harpy snaps, before turning back to you and pushing a small white box into your [pc.hands].  [scarlett.speech(You've got to hand these out to people over at the auction block. Helena said to do it as quickly as you can.)]
+	</p>
+	<p>
+		Before you can ask any further questions, the rude harpy simply turns her back on you and marches off. Taking a closer look at the box you've just been given, you slide off its protective white sleeve to reveal a golden-yellow inner-box, which, when opened, turns out to contain about a hundred or so smartly-designed business cards. Leaving the younger horse-boy guard complaining to his senior about the mannerisms of some harpies, you put these cards back into the box and set off on your way once again, wondering whether or not you should head straight to the auction block to hand them out to the people there...
 	</p>
 	]]>
 	</htmlContent>
@@ -374,7 +504,7 @@
 	
 	<htmlContent tag="AUCTION_BLOCK"><![CDATA[
 	<p>
-		As you walk towards Slaver Alley's central courtyard, the excited buzz of hundreds of voices grows louder and louder. The source of this incessant din is hard to miss, and takes the form a huge, bustling crowd, which has surrounded a raised wooden platform. Several noticeboards, elevated above the heads of the energetic mob by means of several-[unit.lSize]-high poles, declare this area to be for 'Public Auctions'.
+		As you walk towards Slaver Alley's central courtyard, the excited buzz of hundreds of voices grows louder and louder. The source of this incessant din is hard to miss, and takes the form a huge, bustling crowd, which has surrounded a raised wooden platform. Several noticeboards, elevated above the heads of the energetic mob by means of tall poles, declare this area to be for 'Public Auctions'.
 	</p>
 	<p>
 		#IF(pc.isHasSlaverLicense())
@@ -382,6 +512,47 @@
 		#ELSE
 			The noticeboards also declare that you'd need a slaver license in order to participate in any auctions, so, not being in possession of one yourself, there'd be no point in approaching the stage.
 		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AUCTION_BLOCK_HELENAS_CARDS -->
+	
+	<htmlContent tag="AUCTION_BLOCK_HELENAS_CARDS"><![CDATA[
+	<p>
+		Wanting to get this task over and done with, you open the pack of business cards which Scarlett gave to you, before starting to hand them out to members of the crowd. Or at least, you <i>try</i> to hand them out to members of the crowd. Perhaps somewhat unsurprisingly, most people aren't interested in taking a business card from a complete stranger, and you only manage to get about one in ten of the people you approach to take one from you.
+	</p>
+	<p>
+		Half an hour later, and you've worked your way through the entire crowd that's gathered around the auction block. Looking down at the pack of Helena's business cards, you see that you've only managed to give out about half of them. It looks as though you'll have to start wandering around a little in order to find more people to give them to...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AUCTION_BLOCK_HELENAS_CARDS_SECOND -->
+	
+	<htmlContent tag="AUCTION_BLOCK_HELENAS_CARDS_SECOND"><![CDATA[
+	<p>
+		Walking around the wide square which surrounds the auction block, you continue trying to hand out the cards to members of the public.
+		#IF(pc.hasCompanions())
+			 Even though you split the workload by giving [com.name] half of the remaining cards, two hours later you still find yourselves with over a quarter of the pack left.
+		#ELSE
+			 Despite your best efforts, over two hours later you still find yourself with over a quarter of the pack left.
+		#ENDIF
+	</p>
+	<p>
+		You'll just have to keep going for a while longer...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AUCTION_BLOCK_HELENAS_CARDS_FINISH -->
+	
+	<htmlContent tag="AUCTION_BLOCK_HELENAS_CARDS_FINISH"><![CDATA[
+	<p>
+		As you work towards giving out the last few cards still in your possession, there thankfully seems to be an increase in the percentage of people willing to take one from you, and so after just fifteen more minutes, you've finally given away the last one. With your task finally complete, you can't help but let out a relieved sigh. Putting the empty packaging in a nearby bin, you wonder whether you should head back and report to Helena right away...
 	</p>
 	]]>
 	</htmlContent>

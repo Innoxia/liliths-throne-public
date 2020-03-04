@@ -1333,7 +1333,7 @@ public class ItemType {
 			"Angel's Purity",
 			"Angel's Purities",
 			"A vial of cool, light-blue liquid, which gives off a faint, steady glow."
-					+ " Being a refined, and far more specialised form of 'Angel's Nectar', this liquid has lost its ability to remove addictions, and instead, is able to permanently lower the corruption of whoever drinks it...",
+					+ " Being a refined form of 'Angel's Nectar', this liquid has lost its ability to remove addictions, but is instead able to permanently lower the corruption of whoever drinks it...",
 			"addictionRemovalRefined",
 			Colour.RACE_HUMAN,
 			null,
@@ -3586,10 +3586,11 @@ public class ItemType {
 	public static AbstractItemType PROMISCUITY_PILL = new AbstractItemType(20,
 			"a",
 			false,
-			"slut pill",
-			"slut pills",
+			"sterility pill",
+			"sterility pills",
 			"A small, blue pill, individually packaged in a foil and plastic wrapper."
-					+ " While the text printed on the foil identifies this pill as an 'Orally-Administered Reproduction Inhibitor', it's colloquially known as a 'slut pill', and temporarily reduces both fertility and virility when ingested.",
+				+ " While the text printed on the foil identifies this pill as an 'Orally-Administered Reproduction Inhibitor',"
+					+ " it's colloquially known as either a 'sterility pill' or 'slut pill', and temporarily reduces both fertility and virility when ingested.",
 			"pill",
 			Colour.CLOTHING_BLUE,
 			null,
@@ -3612,8 +3613,8 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Popping the little blue pill out of its foil wrapper, you quickly put it in your mouth and swallow it down.",
 					"Popping the little blue pill out of its foil wrapper, you bring it up to [npc.namePos] [npc.lips], before forcing it into [npc.her] mouth and making sure that [npc.she] swallows it down.",
-					"[npc.Name] pops a slut pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.",
-					"[npc.Name] pops a slut pill out of its little foil wrapper, before bringing it up to your [pc.lips], forcing it into your mouth, and making sure that you swallow it down.");
+					"[npc.Name] pops a sterility pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.",
+					"[npc.Name] pops a sterility pill out of its little foil wrapper, before bringing it up to your [pc.lips], forcing it into your mouth, and making sure that you swallow it down.");
 		}
 	};
 	
@@ -3772,6 +3773,38 @@ public class ItemType {
 			return "drink";
 		}
 		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Bringing the bottle up to your [pc.lips], you take the teat-like opening into your mouth, before greedily starting to suckle down the creamy liquid within.",
+					"Bringing the bottle up to [npc.namePos] [npc.lips], you push the teat-like opening into [npc.her] mouth, before forcing [npc.herHim] to suckle down the creamy liquid within.",
+					"[npc.Name] produces a bottle of 'Mother's Milk', and, taking the teat-like opening into [npc.her] mouth, [npc.she] greedily starts to suckle down the creamy liquid within.",
+					"[npc.Name] produces a bottle of 'Mother's Milk', and, pushing the teat-like opening into your mouth, [npc.she] forces you to suckle down the creamy liquid within.");
+		}
+	};
+	
+	public static AbstractItemType REJUVENATION_POTION = new AbstractItemType(1_000,
+			"a bottle of",
+			false,
+			"rejuvenation potion",
+			"rejuvenation potions",
+			"A decorative glass bottle with an ornate bronze-and-glass stopper."
+					+ " It's filled with a purple liquid, and a little informative sticker on the underside of the container informs you that it's a '<i>rejuvenating potion, guaranteed to restore and revitalise over-used orifices</i>'.",
+			"rejuvenation_potion",
+			Colour.CLOTHING_PURPLE,
+			Colour.CLOTHING_BRONZE,
+			Colour.CLOTHING_BLUE_GREY,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.REJUVENATION_POTION)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.SOLD_BY_RALPH)) {
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
@@ -4528,6 +4561,124 @@ public class ItemType {
 			return false;
 		}
 	};
+
+	public static AbstractItemType PAINT_CAN_PREMIUM = new AbstractItemType(1_500,
+			"a can of",
+			false,
+			"'Purple-star' golden paint",
+			"'Purple-star' golden paint",
+			"A can of golden paint, branded with the premium-grade 'Purple-star' logo, which you purchased from 'Argus's DIY Depot'."
+					+ " Hopefully Helena will appreciate how much this cost...",
+			"paint_can",
+			Colour.CLOTHING_GOLD,
+			Colour.CLOTHING_PURPLE_DARK,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "Unless they're a true paint connoisseur, nobody would ever believe how much you paid for this can of premium-grade 'Purple-star' paint...";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType PAINT_CAN = new AbstractItemType(250,
+			"a can of",
+			false,
+			"'Bronze-star' golden paint",
+			"'Bronze-star' golden paint",
+			"A can of golden paint, branded with the standard-grade 'Bronze-star' logo, which you purchased from 'Argus's DIY Depot'."
+					+ " Hopefully Helena won't be disappointed with this...",
+			"paint_can",
+			Colour.CLOTHING_GOLD,
+			Colour.CLOTHING_BRONZE,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "Although it's not the premium-grade 'Purple-star' can of paint which Helena specifically requested, you're sure that this will be good enough to get the job done...";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType ROLLED_UP_POSTERS = new AbstractItemType(0,
+			"half a dozen",
+			true,
+			"rolled-up enchanted poster",
+			"rolled-up enchanted posters",
+			"Half a dozen rolled-up posters, given to you by Helena with the order to paste them onto the walls near the entrance to Slaver Alley."
+					+ " Each one displays an enchanted, moving image of the beautiful harpy striking a seductive pose while wearing a skimpy bikini.",
+			"rolled_up_posters",
+			Colour.CLOTHING_DESATURATED_BROWN,
+			null,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "Although they're meant to be advertising 'Helena's Boutique', there's no mention of the harpy's store on any of these posters."
+					+ " Instead, each one displays an enchanted, moving image of Helena striking a seductive pose while wearing a skimpy bikini."
+					+ " The only text to be seen is at the bottom of each poster, and simply reads 'Helena' in fancy, cursive writing.";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType BUSINESS_CARDS = new AbstractItemType(0,
+			"a",
+			false,
+			"pack of business cards",
+			"packs of business cards",
+			"A pack of Helena's business cards, given to you by Scarlett along with the instructions to hand them out at the auction block in Slaver Alley."
+					+ " The pack itself has a fancy heart-shaped cut-out in the middle of its protective sleeve.",
+			"business_card_box_1",
+			Colour.CLOTHING_GOLD,
+			null,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "Carefully taking them out of their protective packaging, you see that Helena's business cards are very well designed, and clearly display both her name and the address of her store in Slaver Alley.";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
 	
 	// Standard non-racial transformatives:
 	
@@ -4932,21 +5083,21 @@ public class ItemType {
 			List<String> effectsString = Util.newArrayListOfValues(
 					"[style.boldExcellent(Permanently)] gain the spell '<b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>'.");
 			
-
-			Subspecies subspecies = Subspecies.ELEMENTAL_ARCANE;
 			if(s == Spell.ELEMENTAL_EARTH) {
-				subspecies = Subspecies.ELEMENTAL_EARTH;
+				effectsString.add("Adds "+Subspecies.ELEMENTAL_EARTH.getName(null)+" encyclopedia entry.");
 				
 			} else if(s == Spell.ELEMENTAL_WATER) {
-				subspecies = Subspecies.ELEMENTAL_WATER;
+				effectsString.add("Adds "+Subspecies.ELEMENTAL_WATER.getName(null)+" encyclopedia entry.");
 				
 			} else if(s == Spell.ELEMENTAL_AIR) {
-				subspecies = Subspecies.ELEMENTAL_AIR;
+				effectsString.add("Adds "+Subspecies.ELEMENTAL_AIR.getName(null)+" encyclopedia entry.");
 				
 			} else if(s == Spell.ELEMENTAL_FIRE) {
-				subspecies = Subspecies.ELEMENTAL_FIRE;
+				effectsString.add("Adds "+Subspecies.ELEMENTAL_FIRE.getName(null)+" encyclopedia entry.");
+				
+			} else if(s == Spell.ELEMENTAL_ARCANE) {
+				effectsString.add("Adds "+Subspecies.ELEMENTAL_ARCANE.getName(null)+" encyclopedia entry.");
 			}
-			effectsString.add("Adds "+subspecies.getName(null)+" encyclopedia entry.");
 //			effectsString.add("[style.boldExcellent(+5 "+Attribute.DAMAGE_ELEMENTAL.getName()+")]");
 			
 			
@@ -4973,7 +5124,6 @@ public class ItemType {
 							
 						} else if(s == Spell.ELEMENTAL_ARCANE) {
 							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_ARCANE, true);
-							
 						}
 					}
 					

@@ -55,59 +55,37 @@
 		</itemTags>
 	</coreAttributes>
 
+	<sexAttributesSelf>
+		<penetration>
+			<length>15</length>
+			<girth>3</girth>
+			<modifiers/>
+		</penetration>
+		<orifice/>
+	</sexAttributesSelf>
 	
-  <displacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You slide the dildo out from your [pc.pussy+].]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You slide [npc.name]'s dildo out from [npc.her] [npc.pussy+].]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You firmly grab [npc.name]'s dildo and yank it out of [npc.herHis] [npc.pussy+].]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] pulls out [npc.her] dildo.]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] slides the dildo out from your [pc.pussy+].]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] firmly grabs your dildo and yanks it out of your [pc.pussy+].]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] slides [npc2.name]'s dildo out form [npc2.her] [npc2.pussy+].]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc.Name] firmly grabs [npc2.name]'s dildo and yanks it out of [npc2.her] [npc2.pussy+].]]>
-    </NPCOtherNPCRough>
-  </displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(push)] the dildo into [npc.her] [npc.pussy+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the dildo into [npc2.namePos] [npc2.pussy+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] firmly [npc.verb(hold)] [npc2.name] still as [npc.she] roughly [npc.verb(force)] the dildo into [npc2.her] [npc2.pussy+].]]>
+		</otherRough>
+	</replacementText>
 
-  <replacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You slide the dildo into your [pc.pussy+].]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You push the dildo into [npc.name]'s [npc.pussy+].]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You hold [npc.name] still as you roughly force the dildo into [npc.her] [npc.pussy+].]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] slides the dildo into [npc.herHis] [npc.pussy+].]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] pushes the dildo into your [pc.pussy+].]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] holds you still as [npc.sheHe] roughly forces the dildo into your [pc.pussy+]]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] slides the dildo into [npc2.Name]'s [npc2.pussy+].]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc1.Name] holds [npc2.name] still as [npc1.sheHe] roughly forces the dildo into [npc2.herHis] [npc2.pussy+].]]>
-    </NPCOtherNPCRough>
-  </replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out from [npc.her] [npc.pussy+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the dildo out from [npc2.namePos] [npc2.pussy+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos] dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.pussy+].]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

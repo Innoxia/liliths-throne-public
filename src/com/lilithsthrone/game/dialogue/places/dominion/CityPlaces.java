@@ -824,6 +824,27 @@ public class CityPlaces {
 		}
 	};
 	
+	public static final DialogueNode WAREHOUSE_DISTRICT = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
+
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "WAREHOUSE_DISTRICT"));
+			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "WAREHOUSE_DISTRICT_NO_BUSINESS"));
+			return sb.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			//TODO if strict succubus met, add her transportation business here
+			return null;
+		}
+	};
+	
 	public static final DialogueNode STREET_SHADED = new DialogueNode("Dominion Streets (Shaded)", ".", false) {
 
 		@Override
@@ -833,22 +854,17 @@ public class CityPlaces {
 
 		@Override
 		public String getContent() {
-			return STREET.getContent()
-					+ "<p>"
-						+ "<b style='color:"+Colour.RACE_HARPY.toWebHexString()+";'>Harpy Nests:</b><br/>"
-						+ "The wooden platforms and bridges of the rooftop Harpy Nests cast a shadow over these streets."
-						+ " Looking up, you see the occasional flash of brightly-coloured feathers as harpies swoop this way and that."
-					+ "</p>";
+			StringBuilder sb = new StringBuilder();
+			sb.append(STREET.getContent());
+			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "STREET_SHADED"));
+			return sb.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			List<Response> responses = getExtraStreetResponses();
 			
-			if(index == 0) {
-				return null;
-				
-			} else if(index-1 < responses.size()) {
+			 if(index!=0 && index-1<responses.size()) {
 				return responses.get(index-1);
 			}
 			
@@ -865,23 +881,7 @@ public class CityPlaces {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "You find yourself walking down the narrow dirt path that runs alongside Dominion's canal."
-						+ " The murky waterway is, for the most part, flanked by dark, red-bricked buildings, which give this area of the city a very ominous atmosphere."
-					+ "</p>"
-					+ "<p>"
-						+ "Here and there, the track that you're on widens out, and occasionally branches off to connect with small clearings and gardens."
-						+ " Instead of giving you any sense of relief from your oppressive surroundings, however, these rare, foliage-filled areas only serve to fill you with unease,"
-							+ " as their leafy bushes and trees would easily grant any would-be attacker the perfect place to hide."
-					+ "</p>"
-					+ "<p>"
-						+ "Unlike the city's back-alleys, this canal-side path is not completely deserted, and every now and then you come across a passerby, who invariably averts their gaze and hurries past you, clearly not wanting to cause any trouble."
-						+ " The canal, too, seems to be in infrequent use, and every five minutes or so, an industrial barge slowly trawls past; its long deck stacked high with crates, or filled with tarpaulin-covered mounds of raw materials."
-					+ "</p>"
-					+ "<p>"
-						+ "Excluding these sparse signs of life, the canal is completely deserted."
-						+ " The distinct lack of any Enforcer presence is a clear indication that this area is ripe territory for muggers, and you make sure to stay alert as you continue on your way..."
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CANAL");
 		}
 		
 		@Override
@@ -896,9 +896,8 @@ public class CityPlaces {
 								Main.game.setContent(new Response("", "", dn));
 							}
 						};
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
@@ -911,12 +910,10 @@ public class CityPlaces {
 
 		@Override
 		public String getContent() {
-			return CANAL.getContent()
-					+ "<p>"
-						+ "<i>"
-							+ "The path before you abruptly ends, and although the canal continues on its way to the outskirts of the city, there's no way for you to continue onwards."
-						+ "</i>"
-					+ "</p>";
+			StringBuilder sb = new StringBuilder();
+			sb.append(CANAL.getContent());
+			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CANAL_END"));
+			return sb.toString();
 		}
 
 		@Override

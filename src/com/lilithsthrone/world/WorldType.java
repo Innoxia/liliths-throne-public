@@ -96,7 +96,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff9100), PlaceType.DOMINION_DEMON_HOME_ARTHUR),
 					new Value<>(new Color(0x8000ff), PlaceType.DOMINION_CITY_HALL),
 					new Value<>(new Color(0xff00ff), PlaceType.DOMINION_LILITHS_TOWER),
-
+					
 					new Value<>(new Color(0x8080ff), PlaceType.DOMINION_EXIT_WEST),
 					new Value<>(new Color(0xff4a00), PlaceType.DOMINION_EXIT_NORTH),
 					new Value<>(new Color(0x008040), PlaceType.DOMINION_EXIT_EAST),
@@ -104,7 +104,7 @@ public enum WorldType {
 					
 					new Value<>(new Color(0x008080), PlaceType.DOMINION_STREET_HARPY_NESTS),
 					new Value<>(new Color(0x00ff80), PlaceType.DOMINION_HARPY_NESTS_ENTRANCE),
-
+					
 					new Value<>(new Color(0x004000), PlaceType.DOMINION_PLAZA),
 					new Value<>(new Color(0x00ffff), PlaceType.DOMINION_AUNTS_HOME),
 					new Value<>(new Color(0xffff00), PlaceType.DOMINION_SHOPPING_ARCADE),
@@ -112,8 +112,9 @@ public enum WorldType {
 					new Value<>(new Color(0x000080), PlaceType.DOMINION_NIGHTLIFE_DISTRICT),
 					new Value<>(new Color(0xff0000), PlaceType.DOMINION_SLAVER_ALLEY),
 					new Value<>(new Color(0x4bff00), PlaceType.DOMINION_PARK),
-					new Value<>(new Color(0xff4000), PlaceType.DOMINION_RED_LIGHT_DISTRICT)
-					
+					new Value<>(new Color(0xff4000), PlaceType.DOMINION_RED_LIGHT_DISTRICT),
+					new Value<>(new Color(0xffbf00), PlaceType.DOMINION_HOME_IMPROVEMENT),
+					new Value<>(new Color(0xff0080), PlaceType.DOMINION_WAREHOUSES)
 					)),
 	
 
@@ -312,7 +313,8 @@ public enum WorldType {
 					new Value<>(new Color(0xff8000), PlaceType.SHOPPING_ARCADE_KATES_SHOP),
 					new Value<>(new Color(0xff00ff), PlaceType.SHOPPING_ARCADE_GENERIC_SHOP),
 					new Value<>(new Color(0x008000), PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP),
-					new Value<>(new Color(0x00ff00), PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT)
+					new Value<>(new Color(0x00ff00), PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT),
+					new Value<>(new Color(0x808000), PlaceType.SHOPPING_ARCADE_ANTIQUES)
 					)){
 		@Override
 		public boolean isRevealedOnStart() {
@@ -382,11 +384,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff8000), PlaceType.ENFORCER_WAREHOUSE_CRATES),
 					new Value<>(new Color(0xffff00), PlaceType.ENFORCER_WAREHOUSE_CRATES_ARK),
 					new Value<>(new Color(0xff00ff), PlaceType.ENFORCER_WAREHOUSE_CRATES_LUST_WEAPON),
-					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_WAREHOUSE_CRATES_SPELL_BOOK)
-
-					
-					
-					)),
+					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_WAREHOUSE_CRATES_SPELL_BOOK))),
 	
 	CITY_HALL("City Hall",
 			Colour.BASE_PURPLE,
@@ -405,6 +403,40 @@ public enum WorldType {
 					new Value<>(new Color(0xff0080), PlaceType.CITY_HALL_BUREAU_OF_DEMOGRAPHICS),
 					new Value<>(new Color(0xff00ff), PlaceType.CITY_HALL_ARCHIVES),
 					new Value<>(new Color(0xffff80), PlaceType.CITY_HALL_BUREAU_OF_PROPERTY_RIGHTS_AND_COMMERCE))),
+	
+
+	HOME_IMPROVEMENTS("Argus's DIY Depot",
+			Colour.BASE_ORANGE,
+			1,
+			false,
+			TeleportPermissions.OUTGOING_ONLY,
+			"/com/lilithsthrone/res/map/dominion/homeImprovements/homeImprovements.png",
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.HOME_IMPROVEMENTS_ENTRANCE, Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.HOME_IMPROVEMENTS_CORRIDOR),
+					new Value<>(new Color(0x00ff00), PlaceType.HOME_IMPROVEMENTS_ENTRANCE),
+					new Value<>(new Color(0xffff00), PlaceType.HOME_IMPROVEMENTS_SHELVING_PREMIUM),
+					new Value<>(new Color(0xff80ff), PlaceType.HOME_IMPROVEMENTS_SHELVING_STANDARD),
+					new Value<>(new Color(0xff8000), PlaceType.HOME_IMPROVEMENTS_BUILDING_SUPPLIES),
+					new Value<>(new Color(0xff0080), PlaceType.HOME_IMPROVEMENTS_OFFICE),
+					new Value<>(new Color(0x00ffff), PlaceType.HOME_IMPROVEMENTS_TOILETS))),
+
+	
+	DOMINION_EXPRESS("Dominion Express",
+			Colour.BASE_BROWN,
+			1,
+			false,
+			TeleportPermissions.OUTGOING_ONLY,
+			"/com/lilithsthrone/res/map/dominion/dominionExpress/dominionExpress.png",
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.HOME_IMPROVEMENTS_ENTRANCE, Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.DOMINION_EXPRESS_CORRIDOR),
+					new Value<>(new Color(0xff0000), PlaceType.DOMINION_EXPRESS_EXIT),
+					new Value<>(new Color(0xff00ff), PlaceType.DOMINION_EXPRESS_STORAGE),
+					new Value<>(new Color(0x00ffff), PlaceType.DOMINION_EXPRESS_OFFICE),
+					new Value<>(new Color(0xffff00), PlaceType.DOMINION_EXPRESS_OFFICE_STABLE),
+					new Value<>(new Color(0xff8000), PlaceType.DOMINION_EXPRESS_STABLES))),
+	
 	
 	ANGELS_KISS_GROUND_FLOOR("Angel's Kiss GF",
 			Colour.BASE_MAGENTA,
