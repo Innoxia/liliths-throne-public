@@ -103,6 +103,7 @@ import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -4479,11 +4480,11 @@ public class CharacterModificationUtils {
 		return contentSB.toString();
 	}
 	
-	public static String getKatesDivHairStyles(boolean withCost, String title, String description) {
+	public static String getKatesDivHairStyles(boolean withCost, String title, String description, boolean selfStyle) {
 		contentSB.setLength(0);
 
 		boolean noCost = !withCost;
-		
+
 		contentSB.append(
 				"<div class='container-full-width'>"
 					+ "<div class='cosmetics-inner-container left'>"
@@ -4502,24 +4503,26 @@ public class CharacterModificationUtils {
 					+ "<div class='cosmetics-inner-container right'>");
 		
 		for (HairStyle hairStyle : HairStyle.values()) {
-			if (BodyChanging.getTarget().getHairStyle() == hairStyle) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>" + Util.capitaliseSentence(hairStyle.getName()) + "</span>"
-						+ "</div>");
-			} else {
-				if(BodyChanging.getTarget().getHairRawLengthValue() >= hairStyle.getMinimumLengthRequired()) {
+			if (!selfStyle || hairStyle.isSelfApply()) {
+				if (BodyChanging.getTarget().getHairStyle() == hairStyle) {
 					contentSB.append(
-							"<div id='HAIR_STYLE_"+hairStyle+"' class='cosmetics-button'>"
-									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_STYLE_COST || noCost
-										? "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(hairStyle.getName()) + "</span>"
-										: "[style.colourDisabled(" + Util.capitaliseSentence(hairStyle.getName()) + ")]")
-							+ "</div>");
+							"<div class='cosmetics-button active'>"
+									+ "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(hairStyle.getName()) + "</span>"
+									+ "</div>");
 				} else {
-					contentSB.append(
-							"<div class='cosmetics-button disabled'>"
-								+ "[style.colourDisabled(" + Util.capitaliseSentence(hairStyle.getName()) + ")]"
-							+ "</div>");
+					if (BodyChanging.getTarget().getHairRawLengthValue() >= hairStyle.getMinimumLengthRequired()) {
+						contentSB.append(
+								"<div id='HAIR_STYLE_" + hairStyle + "' class='cosmetics-button'>"
+										+ (Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_HAIR_STYLE_COST || noCost
+										? "<span style='color:" + Colour.TRANSFORMATION_GENERIC.getShades()[0] + ";'>" + Util.capitaliseSentence(hairStyle.getName()) + "</span>"
+										: "[style.colourDisabled(" + Util.capitaliseSentence(hairStyle.getName()) + ")]")
+										+ "</div>");
+					} else {
+						contentSB.append(
+								"<div class='cosmetics-button disabled'>"
+										+ "[style.colourDisabled(" + Util.capitaliseSentence(hairStyle.getName()) + ")]"
+										+ "</div>");
+					}
 				}
 			}
 		}

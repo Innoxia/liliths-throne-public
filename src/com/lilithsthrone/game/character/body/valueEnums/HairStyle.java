@@ -17,39 +17,41 @@ public enum HairStyle {
 //	- shaved (different from bald)
 //	- punk (hair draped over face)
 	
-	NONE("natural", HairLength.ZERO_BALD),
-	MESSY("messy", HairLength.ONE_VERY_SHORT),
-	LOOSE("loose", HairLength.ONE_VERY_SHORT),
-	CURLY("curly", HairLength.ONE_VERY_SHORT),
-	STRAIGHT("straight", HairLength.ONE_VERY_SHORT),
-	SLICKED_BACK("slicked-back", HairLength.ONE_VERY_SHORT),
-	AFRO("afro", HairLength.ONE_VERY_SHORT),
-	SIDECUT("sidecut", HairLength.TWO_SHORT),
-	PIXIE("pixie-cut", HairLength.TWO_SHORT),
-	MOHAWK("mohawk", HairLength.TWO_SHORT),
-	DREADLOCKS("dreadlocks", HairLength.TWO_SHORT),
-	BUN("bun", HairLength.THREE_SHOULDER_LENGTH),
-	BOB_CUT("bob-cut", HairLength.THREE_SHOULDER_LENGTH),
-	CHONMAGE("chonmage", HairLength.THREE_SHOULDER_LENGTH),
-	TOPKNOT("topknot", HairLength.THREE_SHOULDER_LENGTH),
-	WAVY("wavy", HairLength.THREE_SHOULDER_LENGTH),
-	PONYTAIL("ponytail", HairLength.THREE_SHOULDER_LENGTH),
-	LOW_PONYTAIL("low ponytail", HairLength.THREE_SHOULDER_LENGTH),
-	TWIN_TAILS("twintails", HairLength.THREE_SHOULDER_LENGTH),
-	CHIGNON("chignon", HairLength.FOUR_MID_BACK),
-	BRAIDED("braided", HairLength.FOUR_MID_BACK),
-	TWIN_BRAIDS("twin braids", HairLength.FOUR_MID_BACK),
-	CROWN_BRAID("crown braid", HairLength.FOUR_MID_BACK),
-	DRILLS("drill hair", HairLength.FOUR_MID_BACK),
-	HIME_CUT("hime-cut", HairLength.FOUR_MID_BACK),
-	BIRD_CAGE("bird cage", HairLength.SEVEN_TO_FLOOR);
+	NONE("natural", HairLength.ZERO_BALD, true),
+	MESSY("messy", HairLength.ONE_VERY_SHORT, true),
+	LOOSE("loose", HairLength.ONE_VERY_SHORT, true),
+	CURLY("curly", HairLength.ONE_VERY_SHORT, true),
+	STRAIGHT("straight", HairLength.ONE_VERY_SHORT, true),
+	SLICKED_BACK("slicked-back", HairLength.ONE_VERY_SHORT, true),
+	AFRO("afro", HairLength.ONE_VERY_SHORT, false),
+	SIDECUT("sidecut", HairLength.TWO_SHORT, false),
+	PIXIE("pixie-cut", HairLength.TWO_SHORT, false),
+	MOHAWK("mohawk", HairLength.TWO_SHORT, false),
+	DREADLOCKS("dreadlocks", HairLength.TWO_SHORT, false),
+	BUN("bun", HairLength.THREE_SHOULDER_LENGTH, true),
+	BOB_CUT("bob-cut", HairLength.THREE_SHOULDER_LENGTH, false),
+	CHONMAGE("chonmage", HairLength.THREE_SHOULDER_LENGTH, false),
+	TOPKNOT("topknot", HairLength.THREE_SHOULDER_LENGTH, true),
+	WAVY("wavy", HairLength.THREE_SHOULDER_LENGTH, false),
+	PONYTAIL("ponytail", HairLength.THREE_SHOULDER_LENGTH, true),
+	LOW_PONYTAIL("low ponytail", HairLength.THREE_SHOULDER_LENGTH, true),
+	TWIN_TAILS("twintails", HairLength.THREE_SHOULDER_LENGTH, false),
+	CHIGNON("chignon", HairLength.FOUR_MID_BACK, false),
+	BRAIDED("braided", HairLength.FOUR_MID_BACK, false),
+	TWIN_BRAIDS("twin braids", HairLength.FOUR_MID_BACK, false),
+	CROWN_BRAID("crown braid", HairLength.FOUR_MID_BACK, false),
+	DRILLS("drill hair", HairLength.FOUR_MID_BACK, false),
+	HIME_CUT("hime-cut", HairLength.FOUR_MID_BACK, false),
+	BIRD_CAGE("bird cage", HairLength.SEVEN_TO_FLOOR, false);
 	
 	private String descriptor;
 	private int minimumLengthRequired;
+	private boolean selfapply;
 
-	private HairStyle(String descriptor, HairLength minimumLengthRequired) {
+	private HairStyle(String descriptor, HairLength minimumLengthRequired, boolean selfApply) {
 		this.descriptor = descriptor;
 		this.minimumLengthRequired = minimumLengthRequired.getMinimumValue();
+		this.selfapply = selfApply;
 	}
 
 	public String getName() {
@@ -59,7 +61,11 @@ public enum HairStyle {
 	public int getMinimumLengthRequired() {
 		return minimumLengthRequired;
 	}
-	
+
+	public boolean isSelfApply() {
+		return selfapply;
+	}
+
 	public static HairStyle getRandomHairStyle(int hairLength) {
 		List<HairStyle> availableStyles = new ArrayList<>();
 		
