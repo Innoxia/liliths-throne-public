@@ -102,10 +102,10 @@ public enum HandType {
 	}
 
 	/**
-	 * @param descriptorsMasculine The descriptors that are applied to a masculine form of this hand structure.
-	 * @param descriptorsFeminine The descriptors that are applied to a feminine form of this hand structure.
-	 * @param name The singular name of the hands associated with this hand structure. This will usually just be "hand".
-	 * @param namePlural The plural name of the hands associated with this hand structure. This will usually just be "hands".
+	 * @param descriptorsMasculine The descriptors that are applied to a masculine form of this hand type.
+	 * @param descriptorsFeminine The descriptors that are applied to a feminine form of this hand type.
+	 * @param name The singular name of the hands associated with this hand type. This will usually just be "hand".
+	 * @param namePlural The plural name of the hands associated with this hand type. This will usually just be "hands".
 	 */
 	private HandType(List<String> descriptorsMasculine, List<String> descriptorsFeminine, String name, String namePlural) {
 		this.descriptorsMasculine = descriptorsMasculine;

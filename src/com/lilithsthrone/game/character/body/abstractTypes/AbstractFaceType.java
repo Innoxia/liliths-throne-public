@@ -7,6 +7,8 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.types.FaceStructure;
+import com.lilithsthrone.game.character.body.types.NoseType;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
@@ -20,67 +22,46 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 
 	private BodyCoveringType skinType;
 	private Race race;
-	private AbstractMouthType mouthType;
-	
-	private List<String> names;
-	private List<String> namesPlural;
-	private List<String> descriptorsMasculine;
-	private List<String> descriptorsFeminine;
 
-	private String noseName;
-	private String noseNamePlural;
-	private List<String> noseDescriptorsMasculine;
-	private List<String> noseDescriptorsFeminine;
+	private AbstractMouthType mouthType;
+	private FaceStructure faceStructure;
+	private NoseType noseType;
 	
 	private String faceTransformationDescription;
 	private String faceBodyDescription;
 
 	private List<FaceTypeTag> tags;
-	
+
 	/**
 	 * @param skinType What covers this face type (i.e skin/fur/feather type).
 	 * @param race What race has this face type.
-	 * @param faceType The type of face that this face type has.
-	 * @param names A list of singular names for this face type. Pass in null to use generic names.
-	 * @param namesPlural A list of plural names for this face type. Pass in null to use generic names.
-	 * @param descriptorsMasculine The descriptors that can be used to describe a masculine form of this face type.
-	 * @param descriptorsFeminine The descriptors that can be used to describe a feminine form of this face type.
+	 * @param faceStructure The face structure associated with this face type.
+	 * @param mouthType The type of mouth that this face type has.
+	 * @param noseType The nose type associated with this face type.
 	 * @param faceTransformationDescription A paragraph describing a character's face transforming into this face type. Parsing assumes that the character already has this face type and associated skin covering.
 	 * @param faceBodyDescription A sentence or two to describe this face type, as seen in the character view screen. It should follow the same format as all of the other entries in the AssType class.
 	 * @param tags A list of tags which help to define the features of this face type.
 	 */
-	public AbstractFaceType(BodyCoveringType skinType,
-			Race race,
-			AbstractMouthType mouthType,
-			List<String> names,
-			List<String> namesPlural,
-			List<String> descriptorsMasculine,
-			List<String> descriptorsFeminine,
-			String noseName,
-			String noseNamePlural,
-			List<String> noseDescriptorsMasculine,
-			List<String> noseDescriptorsFeminine,
-			String faceTransformationDescription,
-			String faceBodyDescription,
-			List<FaceTypeTag> tags) {
-		
+	public AbstractFaceType(
+		BodyCoveringType skinType,
+		Race race,
+		FaceStructure faceStructure,
+		AbstractMouthType mouthType,
+		NoseType noseType,
+		String faceTransformationDescription,
+		String faceBodyDescription,
+		List<FaceTypeTag> tags
+	) {
 		this.skinType = skinType;
 		this.race = race;
+
+		this.faceStructure = faceStructure;
 		this.mouthType = mouthType;
-		
-		this.names = names;
-		this.namesPlural = namesPlural;
-		this.descriptorsMasculine = descriptorsMasculine;
-		this.descriptorsFeminine = descriptorsFeminine;
-		
-		this.noseName = noseName;
-		this.noseNamePlural = noseNamePlural;
-		this.noseDescriptorsMasculine = noseDescriptorsMasculine;
-		this.noseDescriptorsFeminine = noseDescriptorsFeminine;
-		
+		this.noseType = noseType;
+
 		this.faceTransformationDescription = faceTransformationDescription;
 		this.faceBodyDescription = faceBodyDescription;
-		
+
 		this.tags = tags;
 	}
 	
@@ -97,35 +78,39 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 	public boolean isDefaultPlural() {
 		return false;
 	}
+
+	public FaceStructure getFaceStructure() {
+		return faceStructure;
+	}
 	
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		if(names==null) {
+		if(faceStructure.getNames()==null) {
 			if(this.getTags().contains(FaceTypeTag.MUZZLE)) {
 				return UtilText.returnStringAtRandom("muzzle", "face");
 			}
 			return "face";
 		}
-		return Util.randomItemFrom(names);
+		return Util.randomItemFrom(faceStructure.getNames());
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		if(namesPlural==null) {
+		if(faceStructure.getNamesPlural()==null) {
 			if(this.getTags().contains(FaceTypeTag.MUZZLE)) {
 				return UtilText.returnStringAtRandom("muzzles", "faces");
 			}
 			return "faces";
 		}
-		return Util.randomItemFrom(namesPlural);
+		return Util.randomItemFrom(faceStructure.getNamesPlural());
 	}
 
 	@Override
 	public String getDescriptor(GameCharacter gc) {
 		if (gc.isFeminine()) {
-			return Util.randomItemFrom(descriptorsFeminine);
+			return Util.randomItemFrom(faceStructure.getDescriptorsFeminine());
 		} else {
-			return Util.randomItemFrom(descriptorsMasculine);
+			return Util.randomItemFrom(faceStructure.getDescriptorsMasculine());
 		}
 	}
 
@@ -145,19 +130,23 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 		return race;
 	}
 
+	public NoseType getNoseType() {
+		return noseType;
+	}
+
 	public String getNoseNameSingular(GameCharacter gc) {
-		return noseName;
+		return noseType.getName();
 	}
 	
 	public String getNoseNamePlural(GameCharacter gc) {
-		return noseNamePlural;
+		return noseType.getNamePlural();
 	}
 
 	public String getNoseDescriptor(GameCharacter gc) {
 		if (gc.isFeminine()) {
-			return Util.randomItemFrom(noseDescriptorsFeminine);
+			return Util.randomItemFrom(noseType.getDescriptorsFeminine());
 		} else {
-			return Util.randomItemFrom(noseDescriptorsMasculine);
+			return Util.randomItemFrom(noseType.getDescriptorsMasculine());
 		}
 	}
 	

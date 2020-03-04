@@ -102,10 +102,10 @@ public enum FingerType {
 	}
 
 	/**
-	 * @param descriptorsMasculine The descriptors that are applied to a masculine form of this fingers of this finger structure.
-	 * @param descriptorsFeminine The descriptors that are applied to a feminine form of the fingers of this finger structure.
-	 * @param name The singular name of the fingers associated with this finger structure. This will usually just be "finger".
-	 * @param namePlural The plural name of the hands associated with this finger structure. This will usually just be "fingers".
+	 * @param descriptorsMasculine The descriptors that are applied to a masculine form of this fingers of this finger type.
+	 * @param descriptorsFeminine The descriptors that are applied to a feminine form of the fingers of this finger type.
+	 * @param name The singular name of the fingers associated with this finger type. This will usually just be "finger".
+	 * @param namePlural The plural name of the fingers associated with this finger type. This will usually just be "fingers".
 	 */
 	private FingerType(List<String> descriptorsMasculine, List<String> descriptorsFeminine, String name, String namePlural) {
 		this.descriptorsMasculine = descriptorsMasculine;
