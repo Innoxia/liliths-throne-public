@@ -1610,7 +1610,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							"Your arms could do with a change!"));
 					}
 					// TODO: Add separate chunks for LegConfiguration and LegType if more races have multiple leg types
-					if(target.getLegType() != body.getLeg().getType()) {
+					if(target.getLegType() != body.getLeg().getType() || target.getLegConfiguration() != body.getLeg().getLegConfiguration()) {
 						possibleEffects.add(new PossibleItemEffect(
 							new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_LEGS, body.getLeg().getLegConfiguration().getTFModifier(), TFPotency.MINOR_BOOST, 1),
 							"I'm sure you'll love getting some new legs!"));
