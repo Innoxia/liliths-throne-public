@@ -1789,7 +1789,7 @@ public class GenericActions {
 		
 		@Override
 		public String getDescription() {
-			return "With a satisfied sigh, [npc.name] disentangles [npc.herself] from [npc2.namePos] clutches, before stating that [npc.sheHas] had enough for now.";
+			return Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).getGenericEndSexDescription(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		
 		@Override
@@ -1833,9 +1833,7 @@ public class GenericActions {
 
 		@Override
 		public String getDescription() {
-			return Main.sex.isMasturbation()
-					?"Deciding that you've had enough, you put an end to your masturbation session."
-					:"Deciding that you've had enough, you step back from [npc2.name].";
+			return Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).getGenericEndSexDescription(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		
 		@Override

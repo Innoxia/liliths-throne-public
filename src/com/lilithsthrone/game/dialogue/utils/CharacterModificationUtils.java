@@ -22,12 +22,16 @@ import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Horn;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Testicle;
-import com.lilithsthrone.game.character.body.types.AbstractArmType;
-import com.lilithsthrone.game.character.body.types.AbstractAssType;
-import com.lilithsthrone.game.character.body.types.AbstractBreastType;
-import com.lilithsthrone.game.character.body.types.AbstractEarType;
-import com.lilithsthrone.game.character.body.types.AbstractHornType;
-import com.lilithsthrone.game.character.body.types.AbstractLegType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAntennaType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAssType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -73,11 +77,12 @@ import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
@@ -781,7 +786,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformTailChoiceDiv(List<Race> availableRaces, boolean removeNone) {
 		contentSB.setLength(0);
 		
-		for(TailType tail : TailType.values()) {
+		for(AbstractTailType tail : TailType.getAllTailTypes()) {
 			if((tail.getRace() !=null && availableRaces.contains(tail.getRace()))
 					|| (!removeNone && tail==TailType.NONE)) {
 				if(BodyChanging.getTarget().getTailType()==TailType.FOX_MORPH_MAGIC && tail!=TailType.FOX_MORPH_MAGIC) {
@@ -804,7 +809,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_TAIL_"+tail+"' class='cosmetics-button'>"
+							"<div id='CHANGE_TAIL_"+TailType.getIdFromTailType(tail)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(tail.getTransformName())+(tail.isPrehensile()?"*":"")+"</span>"
 							+ "</div>");
 				}
@@ -827,13 +832,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getTailCount() == i) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='TAIL_COUNT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 			}
 		}
@@ -1059,9 +1064,8 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformAntennaChoiceDiv(List<Race> availableRaces) {
 		contentSB.setLength(0);
 		
-		for(AntennaType antenna : AntennaType.values()) {
-			if((antenna.getRace() !=null && availableRaces.contains(antenna.getRace()))
-					|| antenna==AntennaType.NONE) {
+		for(AbstractAntennaType antenna : AntennaType.getAllAntennaTypes()) {
+			if((antenna.getRace()!=null && availableRaces.contains(antenna.getRace())) || antenna==AntennaType.NONE) {
 				
 				Colour c = Colour.TEXT_GREY;
 				
@@ -1077,7 +1081,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_ANTENNA_"+antenna+"' class='cosmetics-button'>"
+							"<div id='CHANGE_ANTENNA_"+AntennaType.getIdFromAntennaType(antenna)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(antenna.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1205,7 +1209,7 @@ public class CharacterModificationUtils {
 						+ "<br/><i>Anus type affects the asshole modifiers which characters spawn with, as well as descriptions and subspecies identification.</i>"),
 				"ASSHOLE_TYPE",
 				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformBreastChoiceDiv(List<Race> availableRaces) {
@@ -1233,7 +1237,7 @@ public class CharacterModificationUtils {
 						+ "<br/><i>Nipple type affects the nipple modifiers which characters spawn with, as well as the type of milk [npc.her] breasts produce. It is also used for character descriptions and subspecies identification.</i>"),
 				"NIPPLE_TYPE",
 				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformBreastCrotchChoiceDiv(List<Race> availableRaces) {
@@ -1262,7 +1266,7 @@ public class CharacterModificationUtils {
 								+ " It is also used for character descriptions and subspecies identification.</i>"),
 				"CROTCH_NIPPLE_TYPE",
 				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformArmChoiceDiv(List<Race> availableRaces) {
@@ -1300,13 +1304,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getArmRows() == i) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='ARM_COUNT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 			}
 		}
@@ -1379,7 +1383,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformFaceChoiceDiv(List<Race> availableRaces) {
 		contentSB.setLength(0);
 		
-		for(FaceType face : FaceType.values()) {
+		for(AbstractFaceType face : FaceType.getAllFaceTypes()) {
 			if(face.getRace() !=null && availableRaces.contains(face.getRace())) {
 				if(BodyChanging.getTarget().getFaceType() == face) {
 					contentSB.append(
@@ -1389,7 +1393,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_FACE_"+face+"' class='cosmetics-button'>"
+							"<div id='CHANGE_FACE_"+FaceType.getIdFromFaceType(face)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+face.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(face.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1531,7 +1535,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformEyeChoiceDiv(List<Race> availableRaces) {
 		contentSB.setLength(0);
 		
-		for(EyeType eye : EyeType.values()) {
+		for(AbstractEyeType eye : EyeType.getAllEyeTypes()) {
 			if(availableRaces.contains(eye.getRace())) {
 				if(BodyChanging.getTarget().getEyeType() == eye) {
 					contentSB.append(
@@ -1541,7 +1545,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_EYE_"+eye+"' class='cosmetics-button'>"
+							"<div id='CHANGE_EYE_"+EyeType.getIdFromEyeType(eye)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+eye.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(eye.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1615,13 +1619,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getEyePairs() == i) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='EYE_COUNT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 			}
 		}
@@ -1790,6 +1794,45 @@ public class CharacterModificationUtils {
 				true);
 	}
 	
+	public static String getSelfTransformAnusWetnessDiv() {
+		contentSB.setLength(0);
+		
+		for(Wetness value : Wetness.values()) {
+			if(BodyChanging.getTarget().getAssWetness() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+				
+			} else {
+				if(BodyChanging.getTarget().getBodyMaterial().isOrificesAlwaysMaximumWetness()) {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+								+"</span>"
+							+ "</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='ANUS_WETNESS_"+value+"' class='cosmetics-button'>"
+								+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "</div>");
+				}
+			}
+		}
+
+		return applyWrapper("Anus Wetness",
+				UtilText.parse(BodyChanging.getTarget(), "Change the wetness of [npc.namePos] asshole."
+						+ "<br/><i>This affects pleasure in sex, as non-lubricated orifices negatively affect arousal gains.</i>"
+						+(BodyChanging.getTarget().getBodyMaterial().isOrificesAlwaysMaximumWetness()
+							?"<br/>[style.italicsWetness8(As [npc.namePos] body is made out of [npc.bodyMaterial], [npc.her] orifices can never be less than '"+Util.capitaliseSentence(Wetness.SEVEN_DROOLING.getDescriptor())+"'!)]"
+							:"")),
+				"ASSHOLE_WETNESS",
+				contentSB.toString(),
+				true);
+	}
+	
 	public static String getSelfTransformAnusCapacityDiv() {
 		contentSB.setLength(0);
 		
@@ -1815,29 +1858,42 @@ public class CharacterModificationUtils {
 				contentSB.toString(),
 				true);
 	}
-	
-	public static String getSelfTransformAnusWetnessDiv() {
+
+	public static String getSelfTransformAnusDepthDiv() {
 		contentSB.setLength(0);
 		
-		for(Wetness value : Wetness.values()) {
-			if(BodyChanging.getTarget().getAssWetness() == value) {
+		for(OrificeDepth value : OrificeDepth.values()) {
+			if(BodyChanging.getTarget().getAssDepth() == value) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
 							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
 						+ "</div>");
 				
 			} else {
-				contentSB.append(
-						"<div id='ANUS_WETNESS_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
+				if(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+								+"</span>"
+							+ "</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='ANUS_DEPTH_"+value+"' class='cosmetics-button'>"
+								+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "</div>");
+				}
 			}
 		}
 
-		return applyWrapper("Anus Wetness",
-				UtilText.parse(BodyChanging.getTarget(), "Change the wetness of [npc.namePos] asshole."
-						+ "<br/><i>This affects pleasure in sex, as non-lubricated orifices negatively affect arousal gains.</i>"),
-				"ASSHOLE_WETNESS",
+		return applyWrapper("Anus Depth",
+				UtilText.parse(BodyChanging.getTarget(), "Change the depth of [npc.namePos] asshole."
+						+ "<br/><i>Depth of an orifice determines the length of a penetrating object that it can comfortably accommodate.</i>"
+						+(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()
+								?"<br/>[style.italicsSize8(As [npc.namePos] body is made out of [npc.bodyMaterial], [npc.her] orifices can never be less than '"+Util.capitaliseSentence(OrificeDepth.SEVEN_FATHOMLESS.getDescriptor())+"'!)]"
+								:"")),
+				"ANUS_DEPTH",
 				contentSB.toString(),
 				true);
 	}
@@ -1862,7 +1918,7 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Anus Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] asshole."
-						+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too big for it.</i>"),
+						+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
 				"ASSHOLE_ELASTICITY",
 				contentSB.toString(),
 				true);
@@ -1901,13 +1957,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().hasAssOrificeModifier(orificeMod)) {
 				contentSB.append(
 						"<div  id='CHANGE_ANUS_MOD_"+orificeMod+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='CHANGE_ANUS_MOD_"+orificeMod+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
 						+ "</div>");
 			}
 		}
@@ -1964,13 +2020,13 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getBreastShape() == bs) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(bs.getTransformName())+"</span>"
+								+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(bs.getTransformName())+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='BREAST_SHAPE_"+bs+"' class='cosmetics-button'>"
-								+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(bs.getTransformName())+"</span>"
+								+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(bs.getTransformName())+"</span>"
 							+ "</div>");
 				}
 			}
@@ -1991,13 +2047,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getBreastCrotchShape() == bs) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(bs.getTransformName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(bs.getTransformName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='CROTCH_BOOB_SHAPE_"+bs+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(bs.getTransformName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(bs.getTransformName())+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2018,13 +2074,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getBreastRows() == i) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='BREAST_COUNT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2044,13 +2100,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getBreastCrotchRows() == i) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='CROTCH_BOOB_COUNT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2071,13 +2127,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getNippleCountPerBreast() == i) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='NIPPLE_COUNT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2096,13 +2152,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getNippleCrotchCountPerBreast() == i) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='NIPPLE_CROTCH_COUNT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2122,13 +2178,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getNippleSize() == ns) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='NIPPLE_SIZE_"+ns+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2148,13 +2204,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getNippleCrotchSize() == ns) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='NIPPLE_CROTCH_SIZE_"+ns+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2174,13 +2230,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getAreolaeSize() == as) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(as.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(as.getName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='AREOLAE_SIZE_"+as+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(as.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(as.getName())+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2200,13 +2256,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getAreolaeCrotchSize() == as) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(as.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(as.getName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='AREOLAE_CROTCH_SIZE_"+as+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(as.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(as.getName())+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2226,13 +2282,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getNippleShape() == ns) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='NIPPLE_SHAPE_"+ns+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2252,13 +2308,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getNippleCrotchShape() == ns) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='NIPPLE_CROTCH_SHAPE_"+ns+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(ns.getName())+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2497,6 +2553,84 @@ public class CharacterModificationUtils {
 				true);
 	}
 	
+	public static String getSelfTransformNippleDepthDiv() {
+		contentSB.setLength(0);
+		
+		for(OrificeDepth value : OrificeDepth.values()) {
+			if(BodyChanging.getTarget().getNippleDepth() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+				
+			} else {
+				if(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+								+"</span>"
+							+ "</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_DEPTH_"+value+"' class='cosmetics-button'>"
+								+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "</div>");
+				}
+			}
+		}
+
+		return applyWrapper("Nipple Depth",
+				UtilText.parse(BodyChanging.getTarget(), "Change the depth of [npc.namePos] [npc.nipples]."
+						+ "<br/><i>Depth of an orifice determines the length of a penetrating object that it can comfortably accommodate.</i>"
+						+(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()
+								?"<br/>[style.italicsSize8(As [npc.namePos] body is made out of [npc.bodyMaterial], [npc.her] orifices can never be less than '"+Util.capitaliseSentence(OrificeDepth.SEVEN_FATHOMLESS.getDescriptor())+"'!)]"
+								:"")),
+				"NIPPLE_DEPTH",
+				contentSB.toString(),
+				true);
+	}
+
+	public static String getSelfTransformNippleCrotchDepthDiv() {
+		contentSB.setLength(0);
+		
+		for(OrificeDepth value : OrificeDepth.values()) {
+			if(BodyChanging.getTarget().getNippleCrotchDepth() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+				
+			} else {
+				if(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+								+"</span>"
+							+ "</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='NIPPLE_CROTCH_DEPTH_"+value+"' class='cosmetics-button'>"
+								+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "</div>");
+				}
+			}
+		}
+
+		return applyWrapper("Nipple Depth",
+				UtilText.parse(BodyChanging.getTarget(), "Change the depth of [npc.namePos] [npc.crotchNipples]."
+						+ "<br/><i>Depth of an orifice determines the length of a penetrating object that it can comfortably accommodate.</i>"
+						+(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()
+								?"<br/>[style.italicsSize8(As [npc.namePos] body is made out of [npc.bodyMaterial], [npc.her] orifices can never be less than '"+Util.capitaliseSentence(OrificeDepth.SEVEN_FATHOMLESS.getDescriptor())+"'!)]"
+								:"")),
+				"NIPPLE_CROTCH_DEPTH",
+				contentSB.toString(),
+				true);
+	}
+	
 	public static String getSelfTransformNippleElasticityDiv() {
 		contentSB.setLength(0);
 		
@@ -2517,7 +2651,7 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Nipple Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] nipples."
-						+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too big for it.</i>"),
+						+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
 				"NIPPLE_ELASTICITY",
 				contentSB.toString(),
 				true);
@@ -2543,7 +2677,7 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Nipple Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] [npc.crotchNipples]."
-							+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too big for it.</i>"),
+							+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
 				"NIPPLE_CROTCH_ELASTICITY",
 				contentSB.toString(),
 				true);
@@ -2608,13 +2742,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().hasNippleOrificeModifier(orificeMod)) {
 				contentSB.append(
 						"<div id='CHANGE_NIPPLE_MOD_"+orificeMod+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='CHANGE_NIPPLE_MOD_"+orificeMod+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2634,13 +2768,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().hasNippleCrotchOrificeModifier(orificeMod)) {
 				contentSB.append(
 						"<div id='CHANGE_NIPPLE_CROTCH_MOD_"+orificeMod+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='CHANGE_NIPPLE_CROTCH_MOD_"+orificeMod+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2695,7 +2829,7 @@ public class CharacterModificationUtils {
 							:""),
 				"VAGINA_TYPE",
 				contentSB.toString(),
-				true);
+				false);
 	}
 
 	public static String getSelfTransformGirlcumFlavourDiv() {
@@ -2775,6 +2909,36 @@ public class CharacterModificationUtils {
 				contentSB.toString(),
 				true);
 	}
+
+	public static String getSelfTransformVaginaSquirterDiv() {
+		contentSB.setLength(0);
+		
+		if(BodyChanging.getTarget().isVaginaSquirter()) {
+			contentSB.append(
+					"<div id='VAGINA_SQUIRTER_OFF' class='cosmetics-button'>"
+						+ "<span style='color:"+Colour.GENERIC_WETNESS_ONE.getShades()[0]+";'>Not squirter</span>"
+					+ "</div>"
+					+"<div class='cosmetics-button active'>"
+						+ "<span style='color:"+Colour.GENERIC_WETNESS_EIGHT.toWebHexString()+";'>Squirter</span>"
+					+ "</div>");
+		} else {
+			contentSB.append(
+					"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+Colour.GENERIC_WETNESS_ONE.toWebHexString()+";'>Not squirter</span>"
+					+ "</div>"
+					+"<div id='VAGINA_SQUIRTER_ON' class='cosmetics-button'>"
+						+ "<span style='color:"+Colour.GENERIC_WETNESS_EIGHT.getShades()[0]+";'>Squirter</span>"
+					+ "</div>");
+		}
+		
+
+		return applyWrapper("Squirter",
+				UtilText.parse(BodyChanging.getTarget(), "Set whether [npc.namePos] vagina squirts fluids when [npc.she] [npc.verb(orgasm)]."
+						+ "<br/><i>If [npc.nameIsFull] a squirter, then when [npc.she] [npc.verb(orgasm)] [npc.she] will dirty clothes [npc.she] [npc.verb(squirt)] on. Also, if someone is eating [npc.herHim] out, they will ingest [npc.her] fluids.</i>"),
+				"VAGINA_SQUIRTER",
+				contentSB.toString(),
+				true);
+	}
 	
 	public static String getSelfTransformVaginaWetnessDiv() {
 		contentSB.setLength(0);
@@ -2787,17 +2951,69 @@ public class CharacterModificationUtils {
 						+ "</div>");
 				
 			} else {
-				contentSB.append(
-						"<div id='VAGINA_WETNESS_"+value+"' class='cosmetics-button'>"
-							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
-						+ "</div>");
+				if(BodyChanging.getTarget().getBodyMaterial().isOrificesAlwaysMaximumWetness()) {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+								+"</span>"
+							+ "</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='VAGINA_WETNESS_"+value+"' class='cosmetics-button'>"
+								+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "</div>");
+				}
 			}
 		}
 
 		return applyWrapper("Vagina Wetness",
 				UtilText.parse(BodyChanging.getTarget(), "Change the wetness of [npc.namePos] vagina."
-							+ "<br/><i>This affects pleasure in sex, as non-lubricated orifices negatively affect arousal gains.</i>"),
+							+ "<br/><i>This affects pleasure in sex, as non-lubricated orifices negatively affect arousal gains.</i>"
+							+(BodyChanging.getTarget().getBodyMaterial().isOrificesAlwaysMaximumWetness()
+									?"<br/>[style.italicsWetness8(As [npc.namePos] body is made out of [npc.bodyMaterial], [npc.her] orifices can never be less than '"+Util.capitaliseSentence(Wetness.SEVEN_DROOLING.getDescriptor())+"'!)]"
+									:"")),
 				"VAGINA_WETNESS",
+				contentSB.toString(),
+				true);
+	}
+	
+	public static String getSelfTransformVaginaDepthDiv() {
+		contentSB.setLength(0);
+		
+		for(OrificeDepth value : OrificeDepth.values()) {
+			if(BodyChanging.getTarget().getVaginaDepth() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+				
+			} else {
+				if(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+								+"</span>"
+							+ "</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='VAGINA_DEPTH_"+value+"' class='cosmetics-button'>"
+								+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "</div>");
+				}
+			}
+		}
+
+		return applyWrapper("Vagina Depth",
+				UtilText.parse(BodyChanging.getTarget(), "Change the depth of [npc.namePos] vagina."
+						+ "<br/><i>Depth of an orifice determines the length of a penetrating object that it can comfortably accommodate.</i>"
+						+(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()
+								?"<br/>[style.italicsSize8(As [npc.namePos] body is made out of [npc.bodyMaterial], [npc.her] orifices can never be less than '"+Util.capitaliseSentence(OrificeDepth.SEVEN_FATHOMLESS.getDescriptor())+"'!)]"
+								:"")),
+				"VAGINA_DEPTH",
 				contentSB.toString(),
 				true);
 	}
@@ -2822,7 +3038,7 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Vagina Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] vagina."
-							+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too big for it.</i>"),
+							+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
 				"VAGINA_ELASTICITY",
 				contentSB.toString(),
 				true);
@@ -2879,6 +3095,32 @@ public class CharacterModificationUtils {
 				contentSB.toString(),
 				true);
 	}
+
+	public static String getSelfTransformClitorisGirthDiv() {
+		contentSB.setLength(0);
+		
+		for(PenetrationGirth girth : PenetrationGirth.values()) {
+			if(BodyChanging.getTarget().getClitorisGirth() == girth) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+girth.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(girth.getName())+"</span>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='CLITORIS_GIRTH_"+girth+"' class='cosmetics-button'>"
+							+ "<span style='color:"+girth.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(girth.getName())+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Clitoris Girth",
+				UtilText.parse(BodyChanging.getTarget(), "Change the girth of [npc.namePos] clitoris."
+						+ "<br/><i>Clitoris girth has an impact in determining whether it is too thick for the orifice it is penetrating.</i>"),
+				"CLITORIS_GIRTH",
+				contentSB.toString(),
+				true);
+	}
 	
 	public static String getSelfTransformLabiaSizeDiv() {
 		contentSB.setLength(0);
@@ -2913,13 +3155,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().hasVaginaOrificeModifier(orificeMod)) {
 				contentSB.append(
 						"<div id='CHANGE_VAGINA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='CHANGE_VAGINA_MOD_"+orificeMod+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
 						+ "</div>");
 			}
 		}
@@ -2958,6 +3200,45 @@ public class CharacterModificationUtils {
 				true);
 	}
 	
+	public static String getSelfTransformVaginaUrethraDepthDiv() {
+		contentSB.setLength(0);
+		
+		for(OrificeDepth value : OrificeDepth.values()) {
+			if(BodyChanging.getTarget().getVaginaUrethraDepth() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+				
+			} else {
+				if(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+								+"</span>"
+							+ "</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='VAGINA_URETHRA_DEPTH_"+value+"' class='cosmetics-button'>"
+								+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "</div>");
+				}
+			}
+		}
+
+		return applyWrapper("Urethra Depth",
+				UtilText.parse(BodyChanging.getTarget(), "Change the depth of [npc.namePos] urethra."
+						+ "<br/><i>Depth of an orifice determines the length of a penetrating object that it can comfortably accommodate.</i>"
+						+(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()
+								?"<br/>[style.italicsSize8(As [npc.namePos] body is made out of [npc.bodyMaterial], [npc.her] orifices can never be less than '"+Util.capitaliseSentence(OrificeDepth.SEVEN_FATHOMLESS.getDescriptor())+"'!)]"
+								:"")),
+				"VAGINA_URETHRA_DEPTH",
+				contentSB.toString(),
+				true);
+	}
+	
 	public static String getSelfTransformVaginaUrethraElasticityDiv() {
 		contentSB.setLength(0);
 		
@@ -2978,7 +3259,7 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Urethra Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] urethra."
-							+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too big for it.</i>"),
+							+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
 				"VAGINA_URETHRA_ELASTICITY",
 				contentSB.toString(),
 				true);
@@ -3017,13 +3298,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().hasVaginaUrethraOrificeModifier(orificeMod)) {
 				contentSB.append(
 						"<div id='CHANGE_VAGINA_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='CHANGE_VAGINA_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
 						+ "</div>");
 			}
 		}
@@ -3143,13 +3424,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().getTesticleCount() == i) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='TESTICLE_COUNT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
 						+ "</div>");
 			}
 		}
@@ -3169,18 +3450,18 @@ public class CharacterModificationUtils {
 		if(BodyChanging.getTarget().isInternalTesticles()) {
 			contentSB.append(
 					"<div id='TESTICLES_INTERNAL_OFF' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>External</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>External</span>"
 					+ "</div>"
 					+"<div class='cosmetics-button active'>"
-						+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>Internal</span>"
+						+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>Internal</span>"
 					+ "</div>");
 		} else {
 			contentSB.append(
 					"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>External</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>External</span>"
 					+ "</div>"
 					+"<div id='TESTICLES_INTERNAL_ON' class='cosmetics-button'>"
-						+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>Internal</span>"
+						+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>Internal</span>"
 					+ "</div>");
 		}
 		
@@ -3215,6 +3496,45 @@ public class CharacterModificationUtils {
 				UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.namePos] urethra."
 							+ "<br/><i>Anything other than a value of zero qualifies [npc.namePos] penile urethra as being able to be penetrated during sex. (Subject to your 'urethra penetration' preference in the content options.)</i>"),
 				"PENIS_URETHRA_CAPACITY",
+				contentSB.toString(),
+				true);
+	}
+	
+	public static String getSelfTransformUrethraDepthDiv() {
+		contentSB.setLength(0);
+		
+		for(OrificeDepth value : OrificeDepth.values()) {
+			if(BodyChanging.getTarget().getUrethraDepth() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+				
+			} else {
+				if(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()) {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+								+"</span>"
+							+ "</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='URETHRA_DEPTH_"+value+"' class='cosmetics-button'>"
+								+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "</div>");
+				}
+			}
+		}
+
+		return applyWrapper("Urethra Depth",
+				UtilText.parse(BodyChanging.getTarget(), "Change the depth of [npc.namePos] urethra."
+						+ "<br/><i>Depth of an orifice determines the length of a penetrating object that it can comfortably accommodate.</i>"
+						+(!BodyChanging.getTarget().getBodyMaterial().isOrificesLimitedDepth()
+								?"<br/>[style.italicsSize8(As [npc.namePos] body is made out of [npc.bodyMaterial], [npc.her] orifices can never be less than '"+Util.capitaliseSentence(OrificeDepth.SEVEN_FATHOMLESS.getDescriptor())+"'!)]"
+								:"")),
+				"URETHRA_DEPTH",
 				contentSB.toString(),
 				true);
 	}
@@ -3341,7 +3661,7 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Urethra Elasticity",
 				UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.namePos] urethra."
-							+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too big for it.</i>"),
+							+ "<br/><i>Elasticity of an orifice determines how quickly it stretches out if a penetrating object is too thick for it.</i>"),
 				"PENIS_URETHRA_ELASTICITY",
 				contentSB.toString(),
 				true);
@@ -3376,24 +3696,24 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformPenisModifiersDiv() {
 		contentSB.setLength(0);
 		
-		for(PenetrationModifier orificeMod : PenetrationModifier.values()) {
-			if(BodyChanging.getTarget().hasPenisModifier(orificeMod)) {
+		for(PenetrationModifier penMod : PenetrationModifier.values()) {
+			if(BodyChanging.getTarget().hasPenisModifier(penMod)) {
 				contentSB.append(
-						"<div id='CHANGE_PENIS_MOD_"+orificeMod+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+						"<div id='CHANGE_PENIS_MOD_"+penMod+"' class='cosmetics-button active'>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(penMod.getName())+(penMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
-						"<div id='CHANGE_PENIS_MOD_"+orificeMod+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+						"<div id='CHANGE_PENIS_MOD_"+penMod+"' class='cosmetics-button'>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(penMod.getName())+(penMod.isSpecialEffects()?"*":"")+"</span>"
 						+ "</div>");
 			}
 		}
 
 		return applyWrapper("Penis Modifiers",
 				UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.namePos] penis."
-							+ "<br/><i>Penis modifiers affect descriptions and some actions in sex.</i>"),
+							+ "<br/><i>Penis modifiers affect descriptions and some actions in sex. The modifiers which have more than just descriptive effects are marked by an asterisk.</i>"),
 				"PENIS_MODS",
 				contentSB.toString(),
 				true);
@@ -3406,13 +3726,13 @@ public class CharacterModificationUtils {
 			if(BodyChanging.getTarget().hasUrethraOrificeModifier(orificeMod)) {
 				contentSB.append(
 						"<div id='CHANGE_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='CHANGE_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
 						+ "</div>");
 			}
 		}
@@ -4012,6 +4332,32 @@ public class CharacterModificationUtils {
 		
 		return contentSB.toString();
 	}
+
+	public static String getSelfTransformClitorisModifiersDiv() {
+		contentSB.setLength(0);
+		
+		for(PenetrationModifier penMod : PenetrationModifier.values()) {
+			if(BodyChanging.getTarget().hasClitorisModifier(penMod)) {
+				contentSB.append(
+						"<div id='CHANGE_CLITORIS_MOD_"+penMod+"' class='cosmetics-button active'>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(penMod.getName())+(penMod.isSpecialEffects()?"*":"")+"</span>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='CHANGE_CLITORIS_MOD_"+penMod+"' class='cosmetics-button'>"
+							+ "<span style='color:"+Colour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(penMod.getName())+(penMod.isSpecialEffects()?"*":"")+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Clitoris Modifiers",
+				UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.namePos] clitoris."
+							+ "<br/><i>Clitoris modifiers affect descriptions and some actions in sex. The modifiers which have more than just descriptive effects are marked by an asterisk.</i>"),
+				"CLITORIS_MODS",
+				contentSB.toString(),
+				true);
+	}
 	
 	public static String getClitorisSizeDiv() {
 		contentSB.setLength(0);
@@ -4378,9 +4724,9 @@ public class CharacterModificationUtils {
 										?BodyChanging.getTarget().getCovering(coveringType)
 										:coveringsToBeApplied.get(coveringType);
 		
-		List<CoveringPattern> availablePatterns = withDyeAndExtraPatterns
-														?coveringType.getAllPatterns()
-														:coveringType.getNaturalPatterns();
+		List<CoveringPattern> availablePatterns = new ArrayList<>(withDyeAndExtraPatterns
+																	?coveringType.getAllPatterns().keySet()
+																	:coveringType.getNaturalPatterns().keySet());
 		for (CoveringPattern pattern : availablePatterns) {
 			if (activeCovering.getPattern() == pattern) {
 				contentSB.append(
@@ -4410,17 +4756,8 @@ public class CharacterModificationUtils {
 			Collections.sort(availablePrimaryColours, (c1, c2)->c2.isMetallic()?(c1.isMetallic()?0:-1):(c1.isMetallic()?1:0));
 			
 			for (Colour c : availablePrimaryColours) {
-				int i=0;
 				if(c.getRainbowColours()!=null) {
-					StringBuilder sb = new StringBuilder();
-					sb.append("repeating-linear-gradient(135deg,");
-					for(String s : c.getRainbowColours()) {
-						sb.append(" "+s+" "+(i*rainbowIncrement)+"px, "+s+" "+((i+1)*rainbowIncrement)+"px,");
-						i++;
-					}
-					sb.deleteCharAt(sb.length()-1);
-					sb.append(");");
-					rainbow = sb.toString();
+					rainbow = c.getRainbowDiv(5);
 				} else {
 					rainbow = "";
 				}

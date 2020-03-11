@@ -1491,6 +1491,88 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.FLOOR)))));
 			}
 	};
+	
 
+	public static VariableInteractions performingOralGloryHole = new VariableInteractions() {
+			@Override
+			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+				GameCharacter target = getCharacter(targetSlot);
+				
+				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+						new SexActionInteractions(
+						Util.mergeMaps(
+								!target.isTaur()
+									?SexActionPresets.breastsToPenis
+									:null,
+								!target.isTaur()
+									?SexActionPresets.mouthToPenis
+									:null,
+								!target.isTaur()
+									?SexActionPresets.fingerToPenis
+									:null,
+								SexActionPresets.mouthToVagina,
+								SexActionPresets.fingerToVagina
+								),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.SELF_STOMACH,
+								OrgasmCumTarget.SELF_GROIN,
+								OrgasmCumTarget.SELF_LEGS,
+								OrgasmCumTarget.FLOOR),
+						target.isTaur()
+							?Util.newArrayListOfValues(
+								OrgasmCumTarget.FLOOR)
+							:Util.newArrayListOfValues(
+								OrgasmCumTarget.BREASTS,
+								OrgasmCumTarget.HAIR,
+								OrgasmCumTarget.FACE,
+								OrgasmCumTarget.FLOOR)))));
+			}
+	};
+	
+	public static VariableInteractions gettingFuckedGloryHole = new VariableInteractions() {
+		@Override
+		public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+			GameCharacter target = getCharacter(targetSlot);
+			
+			return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+					new SexActionInteractions(
+					Util.mergeMaps(
+							!target.isTaur()
+								?SexActionPresets.vaginaToPenis
+								:SexActionPresets.vaginaToAppendages
+							),
+					Util.newArrayListOfValues(
+							OrgasmCumTarget.SELF_LEGS,
+							OrgasmCumTarget.FLOOR),
+					Util.newArrayListOfValues(
+							OrgasmCumTarget.ASS,
+							OrgasmCumTarget.GROIN,
+							OrgasmCumTarget.LEGS,
+							OrgasmCumTarget.FLOOR)))));
+		}
+	};
+	
+	public static VariableInteractions gettingAnallyFuckedGloryHole = new VariableInteractions() {
+		@Override
+		public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+			GameCharacter target = getCharacter(targetSlot);
+			
+			return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+					new SexActionInteractions(
+					Util.mergeMaps(
+							!target.isTaur()
+								?SexActionPresets.assToPenis
+								:SexActionPresets.assToAppendages
+							),
+					Util.newArrayListOfValues(
+							OrgasmCumTarget.SELF_LEGS,
+							OrgasmCumTarget.FLOOR),
+					Util.newArrayListOfValues(
+							OrgasmCumTarget.ASS,
+							OrgasmCumTarget.GROIN,
+							OrgasmCumTarget.LEGS,
+							OrgasmCumTarget.FLOOR)))));
+		}
+	};
 
 }

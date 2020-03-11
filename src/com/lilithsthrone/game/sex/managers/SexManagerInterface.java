@@ -20,6 +20,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.LubricationType;
+import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
@@ -150,6 +151,7 @@ public interface SexManagerInterface {
 			case ZARANIX_HOUSE_FIRST_FLOOR:
 			case ZARANIX_HOUSE_GROUND_FLOOR:
 			case RAT_WARRENS:
+			case DOMINION_EXPRESS:
 				positions.add(SexPosition.OVER_DESK);
 				positions.add(SexPosition.SITTING);
 				break;
@@ -157,6 +159,7 @@ public interface SexManagerInterface {
 			case DOMINION:
 			case EMPTY:
 			case HARPY_NEST:
+			case HOME_IMPROVEMENTS:
 			case IMP_FORTRESS_ALPHA:
 			case IMP_FORTRESS_DEMON:
 			case IMP_FORTRESS_FEMALES:
@@ -168,6 +171,8 @@ public interface SexManagerInterface {
 			case SUBMISSION:
 			case WORLD_MAP:
 				break;
+		default:
+			break;
 		}
 		return positions;
 	}
@@ -241,6 +246,8 @@ public interface SexManagerInterface {
 	}
 	
 	public default void initStartingLustAndArousal(GameCharacter character) {
+		float startingLust = character.getLust();
+		
 		character.setLustNoText(50);
 		character.setArousal(0);
 		if(Main.sex.isDom(character)) {
@@ -255,6 +262,10 @@ public interface SexManagerInterface {
 				character.setLustNoText(85);
 				character.setArousal(10);
 			}
+		}
+		if(character.getLust()<startingLust) {
+			character.setLustNoText(startingLust);
+			character.setArousal(startingLust*0.15f);
 		}
 		
 		if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
@@ -362,11 +373,17 @@ public interface SexManagerInterface {
 	}
 	
 	/**
-	 * @param character
 	 * @return The OrgasmBehaviour for this character. Normally returns DEFAULT, but can also return CREAMPIE or PULL_OUT, in which case the character will ignore requests and treat associated orgasm actions as having a SexActionPriority of UNIQUE_MAX.
 	 */
 	public default OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
 		return OrgasmBehaviour.DEFAULT;
+	}
+
+	/**
+	 * @return The OrgasmCumTarget for when this character is orgasming in an interaction with the target. Determines where they want to cum <b>only if they choose to pull out</b>, with a return of null signifying that there are no special targeting priorities.
+	 */
+	public default OrgasmCumTarget getCharacterPullOutOrgasmCumTarget(GameCharacter character, GameCharacter target) {
+		return null;
 	}
 	
 	public default boolean isPublicSex() {

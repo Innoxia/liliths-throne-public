@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -142,6 +143,52 @@ public class LegType {
 		@Override
 		public String getTransformName() {
 			return "demonic-hoofed";
+		}
+		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
+				Util.newArrayListOfValues(
+						InventorySlot.FOOT),
+				Race.DEMON,
+				"Due to the shape of [npc.namePos] demonic hoofs, only hoof-compatible clothing can be worn in this slot.",
+				Util.newArrayListOfValues(ItemTag.FITS_HOOFS, ItemTag.FITS_HOOFS_EXCLUSIVE));
+		@Override
+		public BodyPartClothingBlock getBodyPartClothingBlock() {
+			return clothingBlock;
+		}
+	};
+
+	public static AbstractLegType DEMON_HORSE_HOOFED = new AbstractLegType(BodyCoveringType.DEMON_HORSE_HAIR,
+			Race.DEMON,
+			FootStructure.UNGULIGRADE,
+			FootType.HOOFS,
+			"a pair of",
+			"leg",
+			"legs",
+			Util.newArrayListOfValues("masculine", "hair-coated", "demonic-horse"),
+			Util.newArrayListOfValues("feminine", "hair-coated", "demonic-horse"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			Util.newArrayListOfValues("demonic"),
+			"-",
+			"[npc.Her] demonic, horse-like legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are formed into hard hoofs.",
+			Util.newArrayListOfValues(
+					LegConfiguration.BIPEDAL,
+					LegConfiguration.TAUR)) {
+		@Override
+		public String getTransformationDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"A layer of short, horse-like hair quickly grows over [npc.her] demonic legs as they shift into a new form."
+					+ " As this hair spreads down to the ends of [npc.her] toes, they suddenly push together, and [npc.she] [npc.verb(let)] out a cry as a thick, hoof-like nail grows in their place,"
+						+ " before quickly transforming to turn [npc.her] feet into hard, demonic hoofs."
+					+ " As the transformation ends, [npc.she] [npc.verb(see)] that [npc.her] new hair smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh."
+					+ "<br/>[npc.Name] now [npc.has]"
+						+ (!owner.isShortStature()
+							?" [style.boldDemon(animalistic, demonic legs with hoofed feet)], which are covered in [npc.legFullDescription]."
+							:"[style.boldImp(animalistic, impish legs with hoofed feet)], which are covered in [npc.legFullDescription]."));
+		}
+		@Override
+		public String getTransformName() {
+			return "demonic-horse";
 		}
 		private BodyPartClothingBlock clothingBlock = new BodyPartClothingBlock(
 				Util.newArrayListOfValues(

@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.69
- * @version 0.3.5.1
+ * @version 0.3.7
  * @author Innoxia
  */
 public enum BaseColour {
@@ -14,8 +14,9 @@ public enum BaseColour {
 	PLATINUM(Util.newColour(0xE4E5E2), Util.newColour(0xE4E5E2)),
 	
 	ROSE(Util.newColour(0xEBC2FF), Util.newColour(0xB800E6)),
-	LILAC(Util.newColour(0x978AFF), Util.newColour(0x8170FF)),
-	LILAC_LIGHT(Util.newColour(0xC2BDFF), Util.newColour(0x8E3DFF)),
+	INDIGO(Util.newColour(0x9683ec), Util.newColour(0x9683ec)),
+	LILAC(Util.newColour(0xC8A2C8), Util.newColour(0xC8A2C8)),
+	LILAC_LIGHT(Util.newColour(0xDCD0FF), Util.newColour(0xDCD0FF)),
 	PURPLE_DARK(Util.newColour(0x8425ff/*740AFF*/), Util.newColour(0x6000D6)),
 	PURPLE(Util.newColour(0xB980FF), Util.newColour(0x943DFF)),
 	PURPLE_LIGHT(Util.newColour(0xDA8FFF), Util.newColour(0xC552FF)),
@@ -41,6 +42,8 @@ public enum BaseColour {
 	AMBER(Util.newColour(0xFFC552), Util.newColour(0xBD7E00)),
 	GINGER(Util.newColour(0xFF9147), Util.newColour(0xF06000)),
 	COPPER(Util.newColour(0xD46F2B), Util.newColour(0xB96227)),
+	BRONZE(Util.newColour(0xCD7F32), Util.newColour(0xCD7F32)),
+	BRASS(Util.newColour(0xab8317), Util.newColour(0xab8317)),
 	
 	GOLD(Util.newColour(0xFFCC00), Util.newColour(0xCCA300)),
 	YELLOW(Util.newColour(0xECEC5B), Util.newColour(0xC4C700)),

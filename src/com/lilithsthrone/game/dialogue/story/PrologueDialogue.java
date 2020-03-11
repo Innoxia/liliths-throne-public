@@ -127,7 +127,7 @@ public class PrologueDialogue {
 							(Main.game.getPlayer().hasPenis()
 								?UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_FEMALE_AS_MALE_START")
 								:UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_FEMALE_AS_FEMALE_START"))
-							+ UtilText.parseFromXMLFile("misc/prologue", "SEX_CLOTHING_MANAGEMENT_TIP")) {
+							+ UtilText.parseFromXMLFile("misc/prologue", "SEX_CLOTHING_MANAGEMENT_TIP", Main.game.getNpc(PrologueFemale.class))) {
 						@Override
 						public void effects() {
 							if(Main.game.getPlayer().hasPenis()) {
@@ -147,7 +147,8 @@ public class PrologueDialogue {
 							null,
 							null),
 							AFTER_SEX,
-							UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_MALE_START") + UtilText.parseFromXMLFile("misc/prologue", "SEX_CLOTHING_MANAGEMENT_TIP")) {
+							UtilText.parseFromXMLFile("misc/prologue", "INTRO_EMPTY_ROOM_SEX_MALE_START")
+								+ UtilText.parseFromXMLFile("misc/prologue", "SEX_CLOTHING_MANAGEMENT_TIP", Main.game.getNpc(PrologueMale.class))) {
 						@Override
 						public void effects() {
 							if(Main.game.getPlayer().hasPenis()) {

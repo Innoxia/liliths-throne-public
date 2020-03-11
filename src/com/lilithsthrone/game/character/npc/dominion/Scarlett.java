@@ -52,6 +52,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -90,6 +91,9 @@ public class Scarlett extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.LEWD,
 					PersonalityTrait.SELFISH);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.9") && !this.isSlave()) {
+			this.equipClothing();
 		}
 	}
 
@@ -197,16 +201,15 @@ public class Scarlett extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-
 		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_tight_jeans", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, Colour.CLOTHING_RED_DARK, false), true, this);
+//		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLEEVELESS_TURTLENECK, Colour.CLOTHING_PURPLE_ROYAL, false), true, this);
 		
 		this.setPiercedEar(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_ring", Colour.CLOTHING_SILVER, false), true, this);
 
 	}
 	
@@ -224,17 +227,39 @@ public class Scarlett extends NPC {
 	public boolean isImmuneToLevelDrain() {
 		return !this.isSlave();
 	}
+
+	@Override
+	public boolean isAbleToBeSold() {
+		return Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA)!=Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN;
+	}
 	
 	@Override
 	public String getDescription() {
-		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN)) {
 			return UtilText.parse(this,
-					"Once the owner of a shop in Slaver Alley, Scarlett is now a slave [npc.herself]."
-					+ " Rude, loud, and quick to anger, [npc.she] isn't a very pleasant person to have to deal with.");
+					"Scarlett is currently employed in the very same establishment that she used to own as Helena's personal assistant."
+						+ " Showing respect only to her matriarch, she's extremely rude and obnoxious towards everyone else.");
+		}
+		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
+			if(this.getLocationPlace().getPlaceType()==PlaceType.GENERIC_EMPTY_TILE) {
+				return UtilText.parse(this,
+						"Once the owner of a shop in Slaver Alley, Scarlett is now a slave [npc.herself]."
+								+ " Having been sold by you, there's no knowing where [npc.she] is or what [npc.sheIs] doing...");
+				
+			} else if(this.isSlave()) {
+				return UtilText.parse(this,
+						"Once the owner of a shop in Slaver Alley, Scarlett is now a slave [npc.herself]."
+								+ " Rude, loud, and quick to anger, [npc.she] isn't a very pleasant person to have to deal with.");
+				
+			} else {
+				return UtilText.parse(this,
+						"Once the owner of a shop in Slaver Alley, Scarlett was enslaved by [helena.name], before then being set free by you."
+								+ " Rude, loud, and quick to anger, [npc.she] isn't a very pleasant person to have to deal with.");
+			}
 			
 		} else {
 			return UtilText.parse(this,
-					"Scarlett is the owner of the rather unoriginally named establishment 'Scarlett's shop'."
+					"Scarlett is the owner of the rather unoriginally named establishment, 'Scarlett's shop'."
 							+ " Rude, loud, and quick to anger, [npc.she] isn't a very pleasant person to have to deal with.");
 		}
 	}
@@ -254,12 +279,23 @@ public class Scarlett extends NPC {
 	
 	@Override
 	public void turnUpdate() {
-		if(!this.isSlave() && !Main.game.getCharactersPresent().contains(this)) {
-			if(Main.game.isExtendedWorkTime() || Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
-				this.returnToHome();
+		if(!this.isSlave() && !Main.game.getCharactersPresent().contains(this) && this.getLocationPlace().getPlaceType()!=PlaceType.GENERIC_EMPTY_TILE) {
+			if(this.getHomeLocationPlace().getPlaceType()==PlaceType.HARPY_NESTS_HELENAS_NEST) {
+				if(!Main.game.isExtendedWorkTime()
+						|| Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+					
+				} else {
+					this.returnToHome();
+				}
 				
 			} else {
-				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+				if(Main.game.isExtendedWorkTime() || Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_1_F_SCARLETTS_FATE) {
+					this.returnToHome();
+					
+				} else {
+					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+				}
 			}
 		}
 	}

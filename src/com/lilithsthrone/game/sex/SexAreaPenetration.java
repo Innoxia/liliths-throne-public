@@ -20,17 +20,22 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			}
 			return owner.getPenisName();
 		}
-
+		@Override
+		public int getLength(GameCharacter owner, boolean penetrationLength) {
+			return owner.getPenisRawSizeValue();
+		}
+		@Override
+		public float getDiameter(GameCharacter owner, int atLength) {
+			return owner.getPenisDiameter();
+		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
 			return Main.sex.isOrificeFree(owner, SexAreaOrifice.URETHRA_PENIS) && Main.sex.isPenetrationTypeFree(owner, this);
 		}
-
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.PENIS;
 		}
-		
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -689,17 +694,18 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			}
 			return owner.getClitorisName(false);
 		}
-
+		@Override
+		public int getLength(GameCharacter owner, boolean penetrationLength) {
+			return owner.getVaginaRawClitorisSizeValue();
+		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
 			return Main.sex.isPenetrationTypeFree(owner, this);
 		}
-
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.VAGINA;
 		}
-		
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -1161,17 +1167,18 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			}
 			return owner.getTongueName();
 		}
-
+		@Override
+		public int getLength(GameCharacter owner, boolean penetrationLength) {
+			return owner.getTongueLengthValue();
+		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
 			return Main.sex.isOrificeFree(owner, SexAreaOrifice.MOUTH) && Main.sex.isPenetrationTypeFree(owner, this);
 		}
-
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.MOUTH;
 		}
-
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -1453,6 +1460,11 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return true;
 		}
 		@Override
+		public int getLength(GameCharacter owner, boolean penetrationLength) {
+			System.err.println("Warning: Finger length is being called!");
+			return 8;
+		}
+		@Override
 		public boolean isFree(GameCharacter owner) {
 			return Main.sex.isPenetrationTypeFree(owner, this);
 		}
@@ -1460,7 +1472,6 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.NONE;
 		}
-
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -1749,6 +1760,11 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return true;
 		}
 		@Override
+		public int getLength(GameCharacter owner, boolean penetrationLength) {
+			System.err.println("Warning: Foot length is being called!");
+			return 8;
+		}
+		@Override
 		public boolean isFree(GameCharacter owner) {
 			return Main.sex.isPenetrationTypeFree(owner, this);
 		}
@@ -1756,7 +1772,6 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.FEET;
 		}
-
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -1850,7 +1865,14 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			}
 			return owner.getTailName();
 		}
-
+		@Override
+		public int getLength(GameCharacter owner, boolean penetrationLength) {
+			return owner.getTailLength(penetrationLength);
+		}
+		@Override
+		public float getDiameter(GameCharacter owner, int atLength) {
+			return owner.getTailDiameter(atLength);
+		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
 			return Main.sex.isPenetrationTypeFree(owner, this);
@@ -1860,7 +1882,6 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.NONE;
 		}
-
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -2197,18 +2218,21 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			}
 			return owner.getTentacleName(false);
 		}
-
+		@Override
+		public int getLength(GameCharacter owner, boolean penetrationLength) {
+			//TODO
+			return 8;
+//			return owner.getTentacleLength(penetrationLength);
+		}
 		@Override
 		public boolean isFree(GameCharacter owner) {
 			// TODO
 			return false;
 		}
-
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.NONE;
 		}
-
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
@@ -2552,6 +2576,17 @@ public enum SexAreaPenetration implements SexAreaInterface {
 	public boolean isOrifice() {
 		return false;
 	}
+	
+	public boolean appliesStretchEffects(GameCharacter owner) {
+		return getDiameter(owner, 0)!=-1;
+	}
+
+	public abstract int getLength(GameCharacter owner, boolean penetrationLength);
+
+	/** The diameter of the owner's SexAreaPenetration at the length specified, measured from the base. Diameter is the unit of measurement for all Capacity values. */
+	public float getDiameter(GameCharacter owner, int atLength) {
+		return -1;
+	};
 	
 	public float getBaseArousalWhenPenetrating() {
 		return baseArousalWhenPenetrating;

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>750</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[thick-rimmed glasses]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[thick-rimmed glasses]]></namePlural>
+		<description><![CDATA[A pair of unisex thick-rimmed glasses. It's difficult to tell whether their primary function is to improve the wearer's poor eyesight, or to simply make a fashion statement.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>EYES</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>thick_rim_glasses.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>EYES</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_OLIVE</colour>
+			<colour>CLOTHING_BROWN_VERY_DARK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_GREY</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+</clothing>

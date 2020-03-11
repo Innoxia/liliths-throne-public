@@ -56,14 +56,13 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3
- * @version 0.3
+ * @version 0.3.7
  * @author Innoxia
  */
 public class SALyssiethSpecials {
 
 	public static final void playerGrowDemonicVagina() {
 		Main.game.getPlayer().setVaginaType(VaginaType.DEMON_COMMON, true);
-		Main.game.getPlayer().setVaginaVirgin(true);
 		Main.game.getPlayer().setVaginaLabiaSize(LabiaSize.ZERO_TINY);
 		Main.game.getPlayer().setVaginaWetness(Wetness.SEVEN_DROOLING);
 		Main.game.getPlayer().setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMinimumValue(), true);
@@ -523,7 +522,7 @@ public class SALyssiethSpecials {
 		public String getActionDescription() {
 			if(Main.game.getNpc(Lyssieth.class).getForeplayPreference(Main.game.getPlayer()).getTargetedSexArea()==SexAreaOrifice.ANUS) {
 				return "Ask Lyssieth to carry on fucking your ass instead.<br/>"
-							+ "[style.italicsFeminine(Lyssieth will fully feminise you!)]"//TODO
+							+ "[style.italicsFeminine(Lyssieth will fully feminise you!)]"
 							+ (Main.game.getPlayer().hasPenis()
 									?"<br/>[style.italicsTfSexual(Lyssieth will also fully sissify your cock!)]"
 									:"");

@@ -33,6 +33,13 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.MOUTH;
 		}
 		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getFaceStretchedCapacity();
+			}
+			return owner.getFaceRawCapacityValue();
+		}
+		@Override
 		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
 			return target.getFaceMaximumPenetrationDepthComfortable();
 		}
@@ -209,6 +216,13 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.NIPPLES;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getNippleStretchedCapacity();
+			}
+			return owner.getNippleRawCapacityValue();
 		}
 		@Override
 		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
@@ -422,6 +436,10 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.BREASTS;
 		}
 		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			return 10_000;
+		}
+		@Override
 		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
 			return 10_000;
 		}
@@ -590,6 +608,13 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.NIPPLES_CROTCH;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getNippleCrotchStretchedCapacity();
+			}
+			return owner.getNippleCrotchRawCapacityValue();
 		}
 		@Override
 		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
@@ -799,6 +824,10 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.BREASTS_CROTCH;
 		}
 		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			return 10_000;
+		}
+		@Override
 		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
 			return 10_000;
 		}
@@ -968,6 +997,10 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.ASS;
 		}
 		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			return 10_000;
+		}
+		@Override
 		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
 			return 10_000;
 		}
@@ -1111,6 +1144,13 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.ANUS;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getAssStretchedCapacity();
+			}
+			return owner.getAssRawCapacityValue();
 		}
 		@Override
 		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
@@ -1287,6 +1327,13 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.VAGINA;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getVaginaStretchedCapacity();
+			}
+			return owner.getVaginaRawCapacityValue();
 		}
 		@Override
 		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
@@ -1501,6 +1548,10 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			return CoverableArea.THIGHS;
 		}
 		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			return 10_000;
+		}
+		@Override
 		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
 			return 10_000;
 		}
@@ -1586,6 +1637,13 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.VAGINA;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getVaginaUrethraStretchedCapacity();
+			}
+			return owner.getVaginaUrethraRawCapacityValue();
 		}
 		@Override
 		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
@@ -1733,6 +1791,13 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.PENIS;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getPenisStretchedCapacity();
+			}
+			return owner.getPenisRawCapacityValue();
 		}
 		@Override
 		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
@@ -1957,6 +2022,8 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	public boolean isInternalOrifice() {
 		return takesPenisVirginity;
 	}
+	
+	public abstract float getCapacity(GameCharacter owner, boolean currentlyStretchedValue);
 	
 	public float getCharactersCumLossPerSecond(GameCharacter target) {
 		float cumLost = this.getCumAbsorptionPerSecond();

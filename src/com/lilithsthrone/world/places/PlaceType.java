@@ -18,7 +18,9 @@ import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionExpress;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
+import com.lilithsthrone.game.dialogue.places.dominion.HomeImprovements;
 import com.lilithsthrone.game.dialogue.places.dominion.LilithsTower;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
@@ -261,11 +263,14 @@ public class PlaceType {
 		}
 		@Override
 		public List<Population> getPopulation() {
-			List<Population> pop = Util.newArrayListOfValues(new Population(PopulationType.CROWDS, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
 			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+				List<Population> pop = Util.newArrayListOfValues(new Population(PopulationType.CROWDS, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
 				pop.add(new Population(PopulationType.ENFORCERS, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
+				return pop;
+				
+			} else {
+				return new ArrayList<>();
 			}
-			return pop;
 		}
 	};
 	
@@ -584,6 +589,44 @@ public class PlaceType {
 			return DOMINION_STREET.getPopulation();
 		}
 	};
+
+	public static final AbstractPlaceType DOMINION_HOME_IMPROVEMENT = new AbstractPlaceType(
+			"Argus's DIY Depot",
+			"Supplying both DIY enthusiasts and professional construction firms alike, 'Argus's DIY Depot' takes the form of a pair of huge warehouses, situated in the middle of an expansive lumber yard.",
+			"dominion/construction",
+			BaseColour.ORANGE,
+			HomeImprovements.OUTSIDE,
+			Encounter.DOMINION_STREET,
+			"in the streets of Dominion") {
+		@Override
+		public boolean isDangerous() {
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
+		}
+		@Override
+		public List<Population> getPopulation() {
+			return DOMINION_STREET.getPopulation();
+		}
+	};
+
+	public static final AbstractPlaceType DOMINION_WAREHOUSES = new AbstractPlaceType(
+			"Warehouse District",
+			"While there are countless industrial buildings scattered throughout Dominion, the area with the largest concentration of them is in this dedicated warehouse district.",
+			"dominion/warehouse",
+			BaseColour.BROWN,
+			CityPlaces.WAREHOUSE_DISTRICT,
+			Encounter.DOMINION_STREET,
+			"in the streets of Dominion") {
+		@Override
+		public boolean isDangerous() {
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
+		}
+		@Override
+		public List<Population> getPopulation() {
+			return DOMINION_STREET.getPopulation();
+		}
+	};
+	
+	
 	
 	// Alleyways:
 	
@@ -737,7 +780,7 @@ public class PlaceType {
 			"in the Enforcer HQ") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(PopulationType.ENFORCERS, PopulationDensity.SEVERAL, Subspecies.getDominionStormImmuneSpecies(true, Subspecies.HUMAN)));
+			return Util.newArrayListOfValues(new Population(PopulationType.ENFORCERS, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true, Subspecies.HUMAN)));
 		}
 	}.initWeatherImmune();
 
@@ -1006,7 +1049,7 @@ public class PlaceType {
 			.initWeatherImmune();
 	
 	
-	// city hall:
+	// City hall:
 	
 	public static final AbstractPlaceType CITY_HALL_CORRIDOR = new AbstractPlaceType(
 			"Corridor",
@@ -1117,10 +1160,162 @@ public class PlaceType {
 			null,
 			"in Dominion's city hall") {
 	}.initWeatherImmune();
+
 	
+	// Home Improvements:
 	
+	public static final AbstractPlaceType HOME_IMPROVEMENTS_CORRIDOR = new AbstractPlaceType(
+			"Aisles",
+			"Wide, concrete-floored aisles run throughout the warehouse, giving customers plenty of room in which to wheel their trolleys past one another.",
+			null,
+			BaseColour.BLACK,
+			HomeImprovements.CORRIDOR,
+			null,
+			"in 'Argus's DIY Depot'") {
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(PopulationType.SHOPPERS, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+		}
+	}.initWeatherImmune();
+
+	public static final AbstractPlaceType HOME_IMPROVEMENTS_ENTRANCE = new AbstractPlaceType(
+			"Entrance",
+			"The entrance to city hall takes the form of a pair of revolving glass doors; one of them is marked 'Exit', and the other, 'Entrance: no access'.",
+			"dominion/homeImprovements/exit",
+			BaseColour.RED,
+			HomeImprovements.ENTRANCE,
+			null,
+			"in 'Argus's DIY Depot'") {
+		@Override
+		public List<Population> getPopulation() {
+			return HOME_IMPROVEMENTS_CORRIDOR.getPopulation();
+		}
+	}.initWeatherImmune();
+
+	public static final AbstractPlaceType HOME_IMPROVEMENTS_SHELVING_PREMIUM = new AbstractPlaceType(
+			"Shelving (Premium)",
+			"The shelving facing the main entrance is stocked full of 'premium-grade' paint, tools, and other miscellaneous DIY supplies.",
+			"dominion/homeImprovements/shelving",
+			BaseColour.GOLD,
+			HomeImprovements.SHELVING_PREMIUM,
+			null,
+			"in 'Argus's DIY Depot'") {
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(PopulationType.SHOPPERS, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+		}
+	}.initWeatherImmune();
+
+	public static final AbstractPlaceType HOME_IMPROVEMENTS_SHELVING_STANDARD = new AbstractPlaceType(
+			"Shelving (Standard)",
+			"The shelving which runs alongside the main aisles is stocked full of 'standard-grade' paint, tools, and other miscellaneous DIY supplies.",
+			"dominion/homeImprovements/shelving",
+			BaseColour.BROWN,
+			HomeImprovements.SHELVING_STANDARD,
+			null,
+			"in 'Argus's DIY Depot'") {
+		@Override
+		public List<Population> getPopulation() {
+			return HOME_IMPROVEMENTS_CORRIDOR.getPopulation();
+		}
+	}.initWeatherImmune();
+
+	public static final AbstractPlaceType HOME_IMPROVEMENTS_BUILDING_SUPPLIES = new AbstractPlaceType(
+			"Building supplies",
+			"Near the back of the warehouse, there are numerous shelving units stocked full of timber, tiles, piping, and all sorts of other building materials.",
+			"dominion/homeImprovements/crates",
+			BaseColour.ORANGE,
+			HomeImprovements.BUILDING_SUPPLIES,
+			null,
+			"in 'Argus's DIY Depot'") {
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(PopulationType.SHOPPERS, PopulationDensity.COUPLE, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+		}
+	}.initWeatherImmune();
+
+	public static final AbstractPlaceType HOME_IMPROVEMENTS_OFFICE = new AbstractPlaceType(
+			"Manager's Office",
+			"Argus, the owner and manager of this business, has his office situated close to the warehouse's entrance.",
+			"dominion/homeImprovements/office",
+			BaseColour.MAGENTA,
+			HomeImprovements.OFFICE,
+			null,
+			"in Argus's office")
+	.initWeatherImmune();
+
+	public static final AbstractPlaceType HOME_IMPROVEMENTS_TOILETS = new AbstractPlaceType(
+			"Toilets",
+			"At the back corner of the warehouse, there are some toilets available for customers to use.",
+			"dominion/homeImprovements/toilets",
+			BaseColour.GREEN_DARK,
+			HomeImprovements.TOILETS,
+			null,
+			"in the toilets at 'Argus's DIY Depot'")
+	.initWeatherImmune();
+
 	
+	// Dominion Express:
 	
+	public static final AbstractPlaceType DOMINION_EXPRESS_CORRIDOR = new AbstractPlaceType(
+			"Corridor",
+			"This corridor runs the entire length of the warehouse, and effectively splits the open-plan storage area from the business's numerous offices.",
+			null,
+			BaseColour.BLACK,
+			DominionExpress.CORRIDOR,
+			null,
+			"in the 'Dominion Express' warehouse") {
+	}.initWeatherImmune();
+
+	public static final AbstractPlaceType DOMINION_EXPRESS_EXIT = new AbstractPlaceType(
+			"Entrance",
+			"A solitary reception desk is positioned to one side of the warehouse's entrance, with the secretary sitting behind it making sure that any visitors have a reason to be in here.",
+			"dominion/dominionExpress/exit",
+			BaseColour.RED,
+			DominionExpress.ENTRANCE,
+			null,
+			"in the 'Dominion Express' warehouse")
+	.initWeatherImmune();
+
+	public static final AbstractPlaceType DOMINION_EXPRESS_STORAGE = new AbstractPlaceType(
+			"Storage",
+			"Half of the warehouse's floor space is reserved for the temporary storage of goods.",
+			"dominion/dominionExpress/crates",
+			BaseColour.ORANGE,
+			DominionExpress.STORAGE,
+			null,
+			"in the 'Dominion Express' warehouse")
+	.initWeatherImmune();
+
+	public static final AbstractPlaceType DOMINION_EXPRESS_OFFICE = new AbstractPlaceType(
+			"Office",
+			"The day-to-day running of 'Dominion Express' is handled within the offices which line one side of the warehouse's corridor.",
+			"dominion/dominionExpress/office",
+			BaseColour.BLUE_LIGHT,
+			DominionExpress.OFFICE,
+			null,
+			"in the 'Dominion Express' warehouse")
+	.initWeatherImmune();
+
+	public static final AbstractPlaceType DOMINION_EXPRESS_OFFICE_STABLE = new AbstractPlaceType(
+			"Stable Mistress's office",
+			"The office responsible for the care and management of the centaur slaves is, quite logically, located adjacent to their stables.",
+			"dominion/dominionExpress/officeStable",
+			BaseColour.TAN,
+			DominionExpress.OFFICE_STABLE,
+			null,
+			"in the Stable Mistress's office at the 'Dominion Express' warehouse")
+	.initWeatherImmune();
+
+	public static final AbstractPlaceType DOMINION_EXPRESS_STABLES = new AbstractPlaceType(
+			"Stables",
+			"A large ",
+			"dominion/dominionExpress/stables",
+			BaseColour.BROWN,
+			DominionExpress.STABLES,
+			null,
+			"in the stables at the 'Dominion Express' warehouse")
+	.initWeatherImmune();
 	
 	
 	
@@ -2023,6 +2218,16 @@ public class PlaceType {
 			null,
 			"in their store"
 			).initWeatherImmune();
+
+	public static final AbstractPlaceType SHOPPING_ARCADE_ANTIQUES = new AbstractPlaceType(
+			"Antiques",
+			"An antiques shop, selling an eclectic mix of creaky old furniture, obsolete arcane instruments, and all manner of outdated miscellaneous items.",
+			"dominion/shoppingArcade/antiques",
+			BaseColour.BROWN,
+			ShoppingArcadeDialogue.ANTIQUES,
+			null,
+			"in an antique shop"
+			).initWeatherImmune();
 	
 	public static final AbstractPlaceType SHOPPING_ARCADE_SUPPLIER_DEPOT = new AbstractPlaceType(
 			"Supplier Depot",
@@ -2383,12 +2588,24 @@ public class PlaceType {
 	
 	public static final AbstractPlaceType SLAVER_ALLEY_SCARLETTS_SHOP = new AbstractPlaceType(
 			"Scarlett's Shop",
-			"A slave shop, run by the harpy, Scarlett. It's notable in it's complete lack of any slaves for sale.",
+			"",
 			"dominion/slaverAlley/scarlettsStall",
 			BaseColour.CRIMSON,
 			ScarlettsShop.SCARLETTS_SHOP_EXTERIOR,
 			null,
 			"in Slaver Alley"){
+		@Override
+		public String getName() {
+			if(Main.game.isStarted()) {
+				if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_C_EXTERIOR_DECORATOR)) {
+					return "Helena's Boutique";
+					
+				} else if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_A_EXTERIOR_DECORATOR)) {
+					return "Unnamed Shop";
+				}
+			}
+			return "Scarlett's Shop";
+		}
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) { // Scarlett owns the shop:
@@ -2401,9 +2618,9 @@ public class PlaceType {
 		@Override
 		public String getTooltipDescription() {
 			if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE)) {
-				return tooltipDescription;
+				return "A slave shop run by the harpy, 'Scarlett'. Unlike all of the other shops in Slaver Alley, hers has absolutely no slaves for sale...";
 			} else {
-				return "Helena has taken over the shop which Scarlett one had the responsibility of running, and has renamed it to 'Helena's pet shop'.";
+				return "Scarlett's matriarch, Helena, has taken over management of this slave shop in an effort to prove to her followers that she can be successful without relying on their help...";
 			}
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
@@ -2418,7 +2635,9 @@ public class PlaceType {
 			"in Slaver Alley") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(PopulationType.PEOPLE, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+			return Util.newArrayListOfValues(
+					new Population(PopulationType.PEOPLE, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, true)),
+					new Population(PopulationType.PRIVATE_SECURITY_GUARDS, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 
@@ -4059,45 +4278,42 @@ public class PlaceType {
 	
 	
 	
-	
+	private static List<AbstractPlaceType> allPlaceTypes = new ArrayList<>();
 	private static Map<AbstractPlaceType, String> placeToIdMap = new HashMap<>();
 	private static Map<String, AbstractPlaceType> idToPlaceMap = new HashMap<>();
+
+	public static List<AbstractPlaceType> getAllPlaceTypes() {
+		return allPlaceTypes;
+	}
 	
 	public static AbstractPlaceType getPlaceTypeFromId(String id) {
 		id.replaceAll("ALEXA", "HELENA");
 		id = Util.getClosestStringMatch(id, idToPlaceMap.keySet());
 		return idToPlaceMap.get(id);
 	}
-	
+
 	public static String getIdFromPlaceType(AbstractPlaceType placeType) {
 		return placeToIdMap.get(placeType);
 	}
 	
 	static {
-		
-		// Add in hard-coded place:
-		
 		Field[] fields = PlaceType.class.getFields();
 		
-		for(Field f : fields){
-			
-			if (AbstractPlaceType.class.isAssignableFrom(f.getType())) {
-				
-				AbstractPlaceType ct;
+		for(Field f : fields) {
+			if(AbstractPlaceType.class.isAssignableFrom(f.getType())) {
+				AbstractPlaceType placeType;
 				try {
-					ct = ((AbstractPlaceType) f.get(null));
+					placeType = ((AbstractPlaceType) f.get(null));
 
-					// I feel like this is stupid :thinking:
-					placeToIdMap.put(ct, f.getName());
-					idToPlaceMap.put(f.getName(), ct);
+					placeToIdMap.put(placeType, f.getName());
+					idToPlaceMap.put(f.getName(), placeType);
+					allPlaceTypes.add(placeType);
 					
 				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
-				
 			}
 		}
-//  	    System.out.println(allPlace.size());
 	}
 
 }

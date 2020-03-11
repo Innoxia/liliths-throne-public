@@ -56,7 +56,6 @@ import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -170,18 +169,18 @@ public class SlimeGuardIce extends NPC {
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
 		
 		// Coverings:
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME, Colour.SLIME_BLUE), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_EYE, Colour.SLIME_BLUE), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_SCLERA, Colour.SLIME_BLUE_LIGHT), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.SLIME_BLUE_DARK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_ANUS, CoveringPattern.ORIFICE_ANUS, Colour.SLIME_BLUE_DARK, false, Colour.SLIME_BLUE_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_HAIR, Colour.SLIME_BLUE_DARK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_MOUTH, CoveringPattern.ORIFICE_MOUTH, Colour.SLIME_BLUE_DARK, false, Colour.SLIME_BLUE_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_NIPPLES, Colour.SLIME_BLUE_DARK), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_VAGINA, CoveringPattern.ORIFICE_VAGINA, Colour.SLIME_BLUE_DARK, false, Colour.SLIME_BLUE_DARK, true), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PENIS, CoveringPattern.NONE, Colour.SLIME_BLUE_DARK, false, Colour.SLIME_BLUE_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME, Colour.COVERING_BLUE), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_EYE, Colour.COVERING_BLUE), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_SCLERA, Colour.COVERING_BLUE_LIGHT), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PUPILS, Colour.COVERING_BLUE_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_ANUS, CoveringPattern.ORIFICE_ANUS, Colour.COVERING_BLUE_DARK, false, Colour.COVERING_BLUE_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_HAIR, Colour.COVERING_BLUE_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_MOUTH, CoveringPattern.ORIFICE_MOUTH, Colour.COVERING_BLUE_DARK, false, Colour.COVERING_BLUE_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_NIPPLES, Colour.COVERING_BLUE_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_VAGINA, CoveringPattern.ORIFICE_VAGINA, Colour.COVERING_BLUE_DARK, false, Colour.COVERING_BLUE_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PENIS, CoveringPattern.NONE, Colour.COVERING_BLUE_DARK, false, Colour.COVERING_BLUE_DARK, true), false);
 
-		this.setHairCovering(new Covering(BodyCoveringType.SLIME_HAIR, Colour.SLIME_BLUE_DARK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.SLIME_HAIR, Colour.COVERING_BLUE_DARK), false);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
 		this.setHairStyle(HairStyle.PIXIE);
 
@@ -266,11 +265,11 @@ public class SlimeGuardIce extends NPC {
 				true,
 				this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_SNOWFLAKE_STUD, Colour.CLOTHING_SILVER, false),
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_elemental_piercing_nose_snowflake", Colour.CLOTHING_SILVER, false),
 				true,
 				this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_SNOW_FLAKES, Colour.CLOTHING_SILVER, false),
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_elemental_piercing_ear_snowflakes", Colour.CLOTHING_SILVER, false),
 				true,
 				this);
 

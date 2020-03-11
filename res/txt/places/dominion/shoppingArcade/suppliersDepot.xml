@@ -116,7 +116,7 @@
 		 [pc.speech(Hello, I was wondering if it would be possible to see [wolfgang.name].)]
 	</p>
 	<p>
-		[femaleNPC.speech(Ah, you must be [pc.name]! [wolfgang.Name]'s already told me to let you through, so please go ahead!)]
+		[style.speechFeminine(Ah, you must be [pc.name]! [wolfgang.Name]'s already told me to let you through, so please go ahead!)]
 	</p>
 	<p>
 		The mouse-girl beckons for you to walk around to her side of the desk, giving you permission to come and go through the staff door as you please.

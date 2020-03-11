@@ -196,7 +196,7 @@ public class FortressAlphaLeader extends NPC {
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_PURPLE));
 		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PALE), true);
 		
-		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_WHITE), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.COVERING_WHITE), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMinimumValue());
@@ -277,21 +277,21 @@ public class FortressAlphaLeader extends NPC {
 		
 		if(settings.contains(EquipClothingSetting.ADD_ACCESSORIES)) {
 			this.setPiercedEar(true);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_ring", Colour.CLOTHING_SILVER, false), true, this);
 			this.setPiercedLip(true);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_LIP_RINGS, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_lip_double_ring", Colour.CLOTHING_SILVER, false), true, this);
 			this.setPiercedNavel(true);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_gemstone_barbell", Colour.CLOTHING_SILVER, false), InventorySlot.PIERCING_STOMACH, true, this);
 			this.setPiercedNipples(true);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NIPPLE_BARS, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_basic_barbell_pair", Colour.CLOTHING_SILVER, false), InventorySlot.PIERCING_NIPPLE, true, this);
 			this.setPiercedNose(true);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_nose_ring", Colour.CLOTHING_SILVER, false), true, this);
 			this.setPiercedPenis(true);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_PENIS_RING, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_penis_ring", Colour.CLOTHING_SILVER, false), true, this);
 			this.setPiercedTongue(true);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_TONGUE_BAR, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_basic_barbell", Colour.CLOTHING_SILVER, false), InventorySlot.PIERCING_TONGUE, true, this);
 			this.setPiercedVagina(true);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_VAGINA_BARBELL_RING, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ringed_barbell", Colour.CLOTHING_SILVER, false), InventorySlot.PIERCING_VAGINA, true, this);
 		}
 		
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {

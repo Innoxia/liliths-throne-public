@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Wing;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.FaceType;
@@ -264,10 +265,18 @@ public enum Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.TWO_RARE),
 					new Value<>(WorldType.NIGHTLIFE_CLUB,  SubspeciesSpawnRarity.TWO_RARE))) {
+
+		private String[] centaurNames = new String[] {
+				"demotaur",
+				"demotaurs",
+				"incutaur",
+				"succutaur",
+				"incutaurs",
+				"succutaurs"};
 		
 		@Override
 		public void applySpeciesChanges(Body body) {
-			if(Math.random()<0.25f) {
+			if(Math.random()<0.25f) { //TODO shouldn't this be handled in Body generation as a random chance from all available leg races?
 				if(body.getLeg().getType().equals(LegType.DEMON_COMMON)) {
 					body.getLeg().setType(null, LegType.DEMON_HOOFED);
 				}
@@ -277,6 +286,9 @@ public enum Subspecies {
 		@Override
 		public String getName(GameCharacter character) {
 			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
+				if(character!=null && character.getLegConfiguration()==LegConfiguration.TAUR) {
+					return centaurNames[0];
+				}
 				return super.getName(character);
 			}
 			return HALF_DEMON.getName(character);
@@ -285,6 +297,9 @@ public enum Subspecies {
 		@Override
 		public String getNamePlural(GameCharacter character) {
 			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
+				if(character!=null && character.getLegConfiguration()==LegConfiguration.TAUR) {
+					return centaurNames[1];
+				}
 				return super.getNamePlural(character);
 			}
 			return HALF_DEMON.getNamePlural(character);
@@ -293,6 +308,9 @@ public enum Subspecies {
 		@Override
 		public String getSingularMaleName(GameCharacter character) {
 			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
+				if(character!=null && character.getLegConfiguration()==LegConfiguration.TAUR) {
+					return centaurNames[2];
+				}
 				return super.getSingularMaleName(character);
 			}
 			return HALF_DEMON.getSingularMaleName(character);
@@ -301,6 +319,9 @@ public enum Subspecies {
 		@Override
 		public String getSingularFemaleName(GameCharacter character) {
 			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
+				if(character!=null && character.getLegConfiguration()==LegConfiguration.TAUR) {
+					return centaurNames[3];
+				}
 				return super.getSingularFemaleName(character);
 			}
 			return HALF_DEMON.getSingularFemaleName(character);
@@ -309,6 +330,9 @@ public enum Subspecies {
 		@Override
 		public String getPluralMaleName(GameCharacter character) {
 			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
+				if(character!=null && character.getLegConfiguration()==LegConfiguration.TAUR) {
+					return centaurNames[4];
+				}
 				return super.getPluralMaleName(character);
 			}
 			return HALF_DEMON.getPluralMaleName(character);
@@ -317,6 +341,9 @@ public enum Subspecies {
 		@Override
 		public String getPluralFemaleName(GameCharacter character) {
 			if(character==null || character.getRaceStage()==RaceStage.GREATER) {
+				if(character!=null && character.getLegConfiguration()==LegConfiguration.TAUR) {
+					return centaurNames[5];
+				}
 				return super.getPluralFemaleName(character);
 			}
 			return HALF_DEMON.getPluralFemaleName(character);
@@ -967,11 +994,11 @@ public enum Subspecies {
 			"FOX_MORPH_ADVANCED",
 			Race.FOX_MORPH,
 			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 10),
-					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.PHYSICAL, 6),
+					new Value<>(PerkCategory.LUST, 3),
 					new Value<>(PerkCategory.ARCANE, 1)),
 			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 10),
+					new Value<>(PerkCategory.PHYSICAL, 6),
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 1)),
 			Colour.RACE_FOX_MORPH,
@@ -1939,13 +1966,13 @@ public enum Subspecies {
 			"HORSE_MORPH_ADVANCED",
 			Race.HORSE_MORPH,
 			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 5),
-					new Value<>(PerkCategory.LUST, 5),
-					new Value<>(PerkCategory.ARCANE, 1)),
+					new Value<>(PerkCategory.PHYSICAL, 3),
+					new Value<>(PerkCategory.LUST, 2),
+					new Value<>(PerkCategory.ARCANE, 3)),
 			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.PHYSICAL, 4),
 					new Value<>(PerkCategory.LUST, 1),
-					new Value<>(PerkCategory.ARCANE, 1)),
+					new Value<>(PerkCategory.ARCANE, 3)),
 			Colour.RACE_UNICORN,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has a single magical horn growing from their forehead.",
@@ -2048,11 +2075,11 @@ public enum Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(PerkCategory.PHYSICAL, 1),
 					new Value<>(PerkCategory.LUST, 1),
-					new Value<>(PerkCategory.ARCANE, 2)),
+					new Value<>(PerkCategory.ARCANE, 3)),
 			Util.newHashMapOfValues(
 					new Value<>(PerkCategory.PHYSICAL, 1),
 					new Value<>(PerkCategory.LUST, 1),
-					new Value<>(PerkCategory.ARCANE, 2)),
+					new Value<>(PerkCategory.ARCANE, 3)),
 			Colour.RACE_ALICORN,
 			SubspeciesPreference.ONE_LOW,
 			"An anthropomorphic, bipedal horse, who has both a pair of feathered wings growing from their back, as well as a single magical horn growing from their forehead.",
@@ -2887,7 +2914,7 @@ public enum Subspecies {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 0f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
 			null,
 			"All About Harpies",
@@ -2934,7 +2961,7 @@ public enum Subspecies {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 0f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
 			null,
 			"All About Harpies",
@@ -2991,7 +3018,7 @@ public enum Subspecies {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
 			null,
 			"All About Harpies",
@@ -3045,7 +3072,7 @@ public enum Subspecies {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 10f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 75f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
@@ -3707,7 +3734,7 @@ public enum Subspecies {
 				break;
 			case CAT_MORPH:
 				subspecies = Subspecies.CAT_MORPH;
-				FaceType faceType = body.getFace().getType();
+				AbstractFaceType faceType = body.getFace().getType();
 				BodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.FELINE_FUR;
 				
 				if(body.getHair().getType() == HairType.CAT_MORPH_SIDEFLUFF

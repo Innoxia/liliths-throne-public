@@ -237,7 +237,6 @@ public class Kruger extends NPC {
 		return null;
 	}
 	
-
 	@Override
 	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
 		return true;

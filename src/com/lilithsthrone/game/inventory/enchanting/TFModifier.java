@@ -233,7 +233,7 @@ public enum TFModifier {
 	
 	RESISTANCE_ICE(AttributeCategory.INTELLIGENCE,
 			Attribute.RESISTANCE_ICE,
-			"Applies an effect related to the secondary attribute 'Ice shielding'.",
+			"Applies an effect related to the secondary attribute 'Cold shielding'.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
@@ -637,14 +637,14 @@ public enum TFModifier {
 	
 	TF_MOD_CAPACITY("capacity",
 			"Applies an effect related to changing an orifice's capacity.",
-			"capacity",
+			"capacious",
 			"modifier_circle_capacity",
 			Colour.BASE_PINK_LIGHT,
 			Rarity.COMMON),
 
 	TF_MOD_CAPACITY_2("capacity II",
 			"Applies an effect related to changing an orifice's capacity.",
-			"capacity",
+			"capacious",
 			"modifier_circle_capacity",
 			Colour.BASE_PINK,
 			Rarity.COMMON),
@@ -654,6 +654,20 @@ public enum TFModifier {
 			"wet",
 			"modifier_circle_wetness",
 			Colour.BASE_BLUE_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_DEPTH("depth",
+			"Applies an effect related to changing the depth of an orifice.",
+			"deep",
+			"modifier_circle_orifice_deep",
+			Colour.BASE_GREY,
+			Rarity.COMMON),
+	
+	TF_MOD_DEPTH_2("depth II",
+			"Applies an effect related to changing the depth of an orifice.",
+			"deep",
+			"modifier_circle_orifice_deep",
+			Colour.BASE_BLACK,
 			Rarity.COMMON),
 	
 	TF_MOD_ELASTICITY("elasticity",
@@ -714,13 +728,6 @@ public enum TFModifier {
 			Colour.BASE_MAGENTA,
 			Rarity.COMMON),
 	
-	TF_MOD_ORIFICE_DEEP("extra-deep",
-			"Applies an effect related to making an orifice extra deep.",
-			"deepened",
-			"modifier_circle_orifice_deep",
-			Colour.BASE_GREY,
-			Rarity.COMMON),
-	
 	TF_MOD_ORIFICE_PUFFY_2("puffiness II",
 			"Applies an effect related to making an orifice puffy.",
 			"puffy",
@@ -747,13 +754,6 @@ public enum TFModifier {
 			"muscled",
 			"modifier_circle_orifice_muscled",
 			Colour.BASE_PURPLE,
-			Rarity.COMMON),
-	
-	TF_MOD_ORIFICE_DEEP_2("extra-deep II",
-			"Applies an effect related to making an orifice extra deep.",
-			"deepened",
-			"modifier_circle_orifice_deep",
-			Colour.BASE_BLACK,
 			Rarity.COMMON),
 	
 	// eye shapes:
@@ -1697,11 +1697,18 @@ public enum TFModifier {
 			returnList.remove(TFModifier.TF_MOD_FETISH_FOOT_GIVING);
 			returnList.remove(TFModifier.TF_MOD_FETISH_FOOT_RECEIVING);
 		}
+		if(!Main.game.isLactationContentEnabled()) {
+			returnList.remove(TFModifier.TF_MOD_FETISH_LACTATION_OTHERS);
+			returnList.remove(TFModifier.TF_MOD_FETISH_LACTATION_SELF);
+		}
 		return returnList;
 	}
 	
 	public static List<TFModifier> getTFBehaviouralFetishList() {
 		List<TFModifier> returnList = new ArrayList<>(TFBehaviouralFetishList);
+		if(!Main.game.isIncestEnabled()) {
+			returnList.remove(TFModifier.TF_MOD_FETISH_INCEST);
+		}
 		if(!Main.game.isPenetrationLimitationsEnabled()) {
 			returnList.remove(TFModifier.TF_MOD_FETISH_SIZE_QUEEN);
 		}

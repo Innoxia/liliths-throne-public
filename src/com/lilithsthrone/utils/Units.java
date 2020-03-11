@@ -247,10 +247,11 @@ public enum Units {
      * @return A string containing the localized, wrapped, converted size and its associated unit
      */
     public static String size(double cm, ValueType vType, UnitType uType) {
-        if (Main.getProperties().hasValue(PropertyValue.metricSizes))
+        if (Main.getProperties().hasValue(PropertyValue.metricSizes)) {
             return sizeAsMetric(cm, vType, uType);
-        else
+        } else {
             return sizeAsImperial(cm, vType, uType);
+        }
     }
 
     public final static String INCH_SYMBOL = "&quot;";
@@ -499,7 +500,9 @@ public enum Units {
             case NONE:
                 break;
             case SHORT:
-                output.append(" ").append(wrap ? shortWrappedUnit : shortUnit);
+                output
+                //.append(" ")
+                .append(wrap ? shortWrappedUnit : shortUnit);
                 break;
             case LONG:
                 if (Math.floor(value) == 0 && vType != ValueType.PRECISE) {

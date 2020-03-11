@@ -97,7 +97,7 @@ public enum SVGImages {
 			coverableAreaUrethraPenis,
 			
 			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue, penetrationTypeFoot, penetrationTypeClit,
-			combinationStretching, combinationTooLoose, combinationWet, combinationDry, combinationDepthMinimum, combinationDepthMaximum,
+			combinationStretching, combinationStretchRecoveryPrevented, combinationTooLoose, combinationWet, combinationDry, combinationDepthMinimum, combinationDepthMaximum,
 			stretching, holeTooBig,
 			activeSexBackground;
 
@@ -715,6 +715,10 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationStretching.svg");
 			combinationStretching = Util.inputStreamToString(is);
 			combinationStretching = SvgUtil.colourReplacement("", Colour.BASE_PINK_DEEP, combinationStretching);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationStretchRecoveryPrevented.svg");
+			combinationStretchRecoveryPrevented = Util.inputStreamToString(is);
+			combinationStretchRecoveryPrevented = SvgUtil.colourReplacement("", Colour.BASE_PINK_DEEP, Colour.GENERIC_BAD, null, combinationStretchRecoveryPrevented);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/combinationTooLoose.svg");
 			combinationTooLoose = Util.inputStreamToString(is);
@@ -1181,6 +1185,10 @@ public enum SVGImages {
 		return combinationStretching;
 	}
 
+	public String getCombinationStretchRecoveryPrevented() {
+		return combinationStretchRecoveryPrevented;
+	}
+	
 	public String getCombinationTooLoose() {
 		return combinationTooLoose;
 	}

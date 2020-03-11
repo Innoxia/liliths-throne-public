@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Finch;
+import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.dominion.Sean;
 import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
@@ -35,6 +36,8 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
@@ -455,40 +458,191 @@ public class SlaverAlleyDialogue {
 		public int getSecondsPassed() {
 			return 2*60;
 		}
-		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY");
-		}
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY"));
 
+			if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA)==Quest.ROMANCE_HELENA_6_ADVERTISING) {
+				sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY_POSTERS"));
+			}
+			
+			return sb.toString();
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Leave", "Step back out into Dominion's alleyways."){
+				return new ResponseEffectsOnly("Leave", "Step back out into Dominion's alleyways.") {
 					@Override
 					public void effects() {
 						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_SLAVER_ALLEY, true);
 					}
 				};
-
-			}else {
-				return null;
+				
+			} else if(index==2 && Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA)==Quest.ROMANCE_HELENA_6_ADVERTISING) {
+				return new Response("Posters", "Ask the guards for permission to put up the posters which Helena gave to you.", GATEWAY_POSTER_PERMISSION);
 			}
+			
+			return null;
 		}
 	};
 	
-	public static final DialogueNode ALLEYWAY = new DialogueNode("Alleyway", ".", false) {
-
+	public static final DialogueNode GATEWAY_POSTER_PERMISSION = new DialogueNode("Gateway", ".", true) {
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
 		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY_POSTER_PERMISSION");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if(Main.game.getPlayer().getMoney()>=100) {
+					return new Response("Pay ("+UtilText.formatAsMoney(100)+")", "Pay the guards the hundred flames they're asking for.", GATEWAY_POSTER_PERMISSION_END) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY_POSTER_PERMISSION_PAID"));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY_POSTER_PERMISSION_END"));
+							Main.game.getPlayer().removeItemByType(ItemType.ROLLED_UP_POSTERS);
+							Main.game.getNpc(Scarlett.class).setLocation(Main.game.getPlayer(), false);
+							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-100));
+						}
+					};
+					
+				} else {
+					return new Response("Pay ("+UtilText.formatAsMoneyUncoloured(100, "span")+")", "You cannot afford to pay the guards the hundred flames they're asking for!", null);
+				}
 
+			} else if(index==2) {
+				if(Main.game.getPlayer().hasBreasts()) {
+					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
+						if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.NIPPLES)) {
+							return new Response("Groped",
+									"Let the guards grope your exposed breasts in exchange for them letting you put up the posters.",
+									GATEWAY_POSTER_PERMISSION_GROPED,
+									Util.newArrayListOfValues(Fetish.FETISH_BREASTS_SELF, Fetish.FETISH_EXHIBITIONIST),
+									CorruptionLevel.THREE_DIRTY,
+									null,
+									null,
+									null) {
+								@Override
+								public void effects() {
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY_POSTER_PERMISSION_GROPED"));
+									Main.game.getPlayer().incrementLust(15, false);
+								}
+							};
+							
+						} else {
+							return new Response("Flash breasts",
+									"Fully expose your breasts to the guards in exchange for them letting you put up the posters.",
+									GATEWAY_POSTER_PERMISSION_GROPED,
+									Util.newArrayListOfValues(Fetish.FETISH_BREASTS_SELF, Fetish.FETISH_EXHIBITIONIST),
+									CorruptionLevel.THREE_DIRTY,
+									null,
+									null,
+									null) {
+								@Override
+								public void effects() {
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY_POSTER_PERMISSION_FLASH_BREASTS"));
+									Main.game.getPlayer().incrementLust(5, false);
+								}
+							};
+						}
+						
+					} else {
+						return new Response("Flash breasts", "You are unable to fully expose your breasts, so can't flash them at the guards in exchange for them letting you put up the posters...", null);
+					}
+				}
+				
+			} else if(index==0) {
+				return new Response("Leave", "Tell the guards that you'll back with the money later...", GATEWAY) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY_POSTER_PERMISSION_LEAVE"));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode GATEWAY_POSTER_PERMISSION_GROPED = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 10*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Posters", "Now that you've got permission from the guards, you can put up the posters.", GATEWAY_POSTER_PERMISSION_END) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY_POSTER_PERMISSION_END"));
+						Main.game.getPlayer().removeItemByType(ItemType.ROLLED_UP_POSTERS);
+						Main.game.getNpc(Scarlett.class).setLocation(Main.game.getPlayer(), false);
+						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-100));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode GATEWAY_POSTER_PERMISSION_END = new DialogueNode("", "", true, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 10*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Scarlett", "Find out what it is Scarlett wants.", GATEWAY_POSTER_PERMISSION_SCARLETT) {
+					@Override
+					public void effects() {
+						Main.game.getNpc(Scarlett.class).returnToHome();
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.BUSINESS_CARDS), false));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_7_MORE_ADVERTISING));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode GATEWAY_POSTER_PERMISSION_SCARLETT = new DialogueNode("", "", false, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "GATEWAY_POSTER_PERMISSION_SCARLETT");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return GATEWAY.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode ALLEYWAY = new DialogueNode("Alleyway", ".", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "ALLEYWAY");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return null;
@@ -533,9 +687,13 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
+					public boolean isTradeHighlight() {
+						return true;
+					}
+					@Override
 					public DialogueNode getNextDialogue() {
 						CompanionManagement.initManagement(null, 0, null);
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(null, Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -563,9 +721,13 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
+					public boolean isTradeHighlight() {
+						return true;
+					}
+					@Override
 					public DialogueNode getNextDialogue() {
 						CompanionManagement.initManagement(null, 0, null);
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(null, Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -593,9 +755,13 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
+					public boolean isTradeHighlight() {
+						return true;
+					}
+					@Override
 					public DialogueNode getNextDialogue() {
 						CompanionManagement.initManagement(null, 0, null);
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(null, Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -623,9 +789,13 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
+					public boolean isTradeHighlight() {
+						return true;
+					}
+					@Override
 					public DialogueNode getNextDialogue() {
 						CompanionManagement.initManagement(null, 0, null);
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(null, Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -653,9 +823,13 @@ public class SlaverAlleyDialogue {
 				}
 				return new Response("Slave Manager", "Enter the slave management screen.", MARKET_STALL_FEMALE) {
 					@Override
+					public boolean isTradeHighlight() {
+						return true;
+					}
+					@Override
 					public DialogueNode getNextDialogue() {
 						CompanionManagement.initManagement(null, 0, null);
-						return OccupantManagementDialogue.getSlaveryManagementDialogue(Main.game.getNpc(Finch.class));
+						return OccupantManagementDialogue.getSlaveryManagementDialogue(null, Main.game.getNpc(Finch.class));
 					}
 				};
 			}
@@ -827,9 +1001,75 @@ public class SlaverAlleyDialogue {
 				} else {
 					return new Response("Approach", "You don't have a slaver license, so you're unable to participate in any slave auctions.", null);
 				}
-			} else {
-				return null;
 			}
+			if(index==2) {
+				if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA)==Quest.ROMANCE_HELENA_7_MORE_ADVERTISING) {
+					return new Response("Helena's cards", "Start handing out Helena's business cards to members of the crowd.", AUCTION_BLOCK_HELENAS_CARDS);
+				}
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode AUCTION_BLOCK_HELENAS_CARDS = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 30*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "AUCTION_BLOCK_HELENAS_CARDS");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Continue handing out the cards...", AUCTION_BLOCK_HELENAS_CARDS_SECOND) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().moveToAdjacentMatchingCellType(false, PlaceType.SLAVER_ALLEY_PATH);
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode AUCTION_BLOCK_HELENAS_CARDS_SECOND = new DialogueNode("", "", true, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 120*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "AUCTION_BLOCK_HELENAS_CARDS_SECOND");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Finish", "Finish handing out the last few cards in the pack.", AUCTION_BLOCK_HELENAS_CARDS_FINISH) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().moveToAdjacentMatchingCellType(false, PlaceType.SLAVER_ALLEY_PATH);
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_8_RETURN_TO_HELENA));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode AUCTION_BLOCK_HELENAS_CARDS_FINISH = new DialogueNode("", "", false, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 15*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "AUCTION_BLOCK_HELENAS_CARDS_FINISH");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return ALLEYWAY.getResponse(responseTab, index);
 		}
 	};
 	

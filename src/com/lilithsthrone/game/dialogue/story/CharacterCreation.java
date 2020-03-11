@@ -43,6 +43,7 @@ import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.dialogue.utils.OptionsDialogue.ContentOptionsPage;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -112,7 +113,12 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Continue to the next screen.", CONTENT_PREFERENCES);
+				return new Response("Continue", "Continue to the next screen.", CONTENT_PREFERENCE){
+					@Override
+					public void effects() {
+						OptionsDialogue.contentOptionsPage = ContentOptionsPage.MISC;
+					}
+				};
 				
 			} else {
 				return null;
@@ -120,8 +126,24 @@ public class CharacterCreation {
 		}
 	};
 
-	public static final DialogueNode CONTENT_PREFERENCES = new DialogueNode("Content Preferences", "", true) {
-
+	public static final DialogueNode CONTENT_PREFERENCE = new DialogueNode("Content Preferences", "", true) {
+		@Override
+		public String getLabel() {
+			switch(OptionsDialogue.contentOptionsPage) {
+				case BODIES:
+					return "Content Options (Bodies)";
+				case GAMEPLAY:
+					return "Content Options (Gameplay)";
+				case MISC:
+					return "Content Options (Misc.)";
+				case SEX:
+					return "Content Options (Sex & Fetishes)";
+				case UNIT_PREFERENCE:
+					break;
+			}
+			return "";
+		}
+		
 		@Override
 		public String getHeaderContent() {
 			return "<p>"
@@ -167,6 +189,74 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						Main.game.getPlayerCell().resetInventory();
+					}
+				};
+				
+			} else if(index==6) {
+				return new Response("Misc.",
+						OptionsDialogue.contentOptionsPage==ContentOptionsPage.MISC
+							?"You are already viewing the miscellaneous content options!"
+							:"View the game's miscellaneous content options.",
+						OptionsDialogue.contentOptionsPage==ContentOptionsPage.MISC
+							?null
+							:CONTENT_PREFERENCE) {
+					@Override
+					public void effects() {
+						OptionsDialogue.contentOptionsPage=ContentOptionsPage.MISC;
+					}
+				};
+				
+			} else if(index==7) {
+				return new Response("Gameplay",
+						OptionsDialogue.contentOptionsPage==ContentOptionsPage.GAMEPLAY
+							?"You are already viewing the gameplay content options!"
+							:"View the game's gameplay content options.",
+						OptionsDialogue.contentOptionsPage==ContentOptionsPage.GAMEPLAY
+							?null
+							:CONTENT_PREFERENCE) {
+					@Override
+					public void effects() {
+						OptionsDialogue.contentOptionsPage=ContentOptionsPage.GAMEPLAY;
+					}
+				};
+				
+			} else if(index==8) {
+				return new Response("Sex & Fetishes",
+						OptionsDialogue.contentOptionsPage==ContentOptionsPage.SEX
+							?"You are already viewing the sex & fetishes content options!"
+							:"View the game's sex & fetishes content options.",
+						OptionsDialogue.contentOptionsPage==ContentOptionsPage.SEX
+							?null
+							:CONTENT_PREFERENCE) {
+					@Override
+					public void effects() {
+						OptionsDialogue.contentOptionsPage=ContentOptionsPage.SEX;
+					}
+				};
+				
+			} else if(index==9) {
+				return new Response("Bodies",
+						OptionsDialogue.contentOptionsPage==ContentOptionsPage.BODIES
+							?"You are already viewing the bodies content options!"
+							:"View the game's bodies content options.",
+						OptionsDialogue.contentOptionsPage==ContentOptionsPage.BODIES
+							?null
+							:CONTENT_PREFERENCE) {
+					@Override
+					public void effects() {
+						OptionsDialogue.contentOptionsPage=ContentOptionsPage.BODIES;
+					}
+				};
+				
+			} else if (index == 11) {
+				return new Response("[style.colourBad(Reset)]", "Resets <b>all</b> content preferences to their default values!", CONTENT_PREFERENCE) {
+					@Override
+					public void effects() {
+						for(PropertyValue pv : PropertyValue.values()) {
+							Main.getProperties().setValue(pv, pv.getDefaultValue());
+						}
+						Main.getProperties().resetContentOptions();
+						Main.saveProperties();
 					}
 				};
 				
@@ -272,7 +362,7 @@ public class CharacterCreation {
 		
 		// Ear piercings:
 		if(Main.game.getPlayer().isPiercedEar()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, colour1, false), true, Main.game.getPlayer());
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_ring", colour1, false), true, Main.game.getPlayer());
 			
 		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_EAR)!=null){
 			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_EAR), true, Main.game.getPlayer());
@@ -280,7 +370,7 @@ public class CharacterCreation {
 		
 		// Lip piercings:
 		if(Main.game.getPlayer().isPiercedLip()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_LIP_RINGS, colour1, false), true, Main.game.getPlayer());
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_lip_double_ring", colour1, false), true, Main.game.getPlayer());
 			
 		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_LIP)!=null){
 			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_LIP), true, Main.game.getPlayer());
@@ -288,7 +378,7 @@ public class CharacterCreation {
 		
 		// Navel piercings:
 		if(Main.game.getPlayer().isPiercedNavel() && Main.game.getPlayer().isFeminine()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, colour2, false), true, Main.game.getPlayer());
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_gemstone_barbell", colour2, false), InventorySlot.PIERCING_STOMACH, true, Main.game.getPlayer());
 			
 		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_STOMACH)!=null){
 			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_STOMACH), true, Main.game.getPlayer());
@@ -296,7 +386,7 @@ public class CharacterCreation {
 
 		// Nipples piercings:
 		if(Main.game.getPlayer().isPiercedNipple()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NIPPLE_BARS, colour2, false), true, Main.game.getPlayer());
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_basic_barbell_pair", colour2, false), InventorySlot.PIERCING_NIPPLE, true, Main.game.getPlayer());
 			
 		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NIPPLE)!=null){
 			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NIPPLE), true, Main.game.getPlayer());
@@ -304,7 +394,7 @@ public class CharacterCreation {
 
 		// Nose piercings:
 		if(Main.game.getPlayer().isPiercedNose()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, colour1, false), true, Main.game.getPlayer());
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_nose_ring", colour1, false), true, Main.game.getPlayer());
 			
 		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NOSE)!=null){
 			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NOSE), true, Main.game.getPlayer());
@@ -312,7 +402,7 @@ public class CharacterCreation {
 
 		// Penis piercings:
 		if(Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isPiercedPenis()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_PENIS_RING, colour2, false), true, Main.game.getPlayer());
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_penis_ring", colour2, false), true, Main.game.getPlayer());
 			
 		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_PENIS)!=null){
 			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_PENIS), true, Main.game.getPlayer());
@@ -320,7 +410,7 @@ public class CharacterCreation {
 
 		// Tongue piercings:
 		if(Main.game.getPlayer().isPiercedTongue()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_TONGUE_BAR, colour1, false), true, Main.game.getPlayer());
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_basic_barbell", colour1, false), InventorySlot.PIERCING_TONGUE, true, Main.game.getPlayer());
 			
 		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_TONGUE)!=null){
 			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_TONGUE), true, Main.game.getPlayer());
@@ -328,7 +418,7 @@ public class CharacterCreation {
 
 		// Vagina piercings:
 		if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isPiercedVagina()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_VAGINA_BARBELL_RING, colour2, false), true, Main.game.getPlayer());
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ringed_barbell", colour2, false), InventorySlot.PIERCING_VAGINA, true, Main.game.getPlayer());
 			
 		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_VAGINA)!=null){
 			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_VAGINA), true, Main.game.getPlayer());
@@ -622,7 +712,12 @@ public class CharacterCreation {
 				
 			}
 			else if (index == 0) {
-				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CONTENT_PREFERENCES);
+				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CONTENT_PREFERENCE){
+					@Override
+					public void effects() {
+						OptionsDialogue.contentOptionsPage = ContentOptionsPage.MISC;
+					}
+				};
 				
 			} else {
 				return null;
@@ -1543,7 +1638,7 @@ public class CharacterCreation {
 				UtilText.nodeContentSB.append(
 						"<div class='container-full-width'>"
 							+"<div class='container-full-width' style='margin:0;padding:0;'>"
-								+ "<h6 style='color:"+history.getAssociatedPerk().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(history.getName())+"</h6>"
+								+ "<h6 style='color:"+history.getAssociatedPerk().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(history.getName(Main.game.getPlayer()))+"</h6>"
 							+ "</div>"
 							+"<div class='container-full-width' style='margin:0 8px; width: calc(10% - 16px);'>"
 								+ "<div id='OCCUPATION_" + history + "' class='fetish-icon full"
@@ -1930,8 +2025,9 @@ public class CharacterCreation {
 						Main.mainController.setAttributePanelContent("");
 						Main.mainController.setButtonsLeftContent("");
 						Main.mainController.setButtonsRightContent("");
-						
-						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCES);
+
+						OptionsDialogue.contentOptionsPage = ContentOptionsPage.MISC;
+						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCE);
 					}
 				};
 				
@@ -2023,8 +2119,9 @@ public class CharacterCreation {
 						Main.mainController.setAttributePanelContent("");
 						Main.mainController.setButtonsLeftContent("");
 						Main.mainController.setButtonsRightContent("");
-						
-						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCES);
+
+						OptionsDialogue.contentOptionsPage = ContentOptionsPage.MISC;
+						Main.startNewGame(CharacterCreation.CONTENT_PREFERENCE);
 					}
 				};
 				

@@ -61,9 +61,13 @@ public class SlaveryAdministration {
 				} else if (index == 5) {
 					return new Response("Slave Manager", "Open the slave management screen.", SLAVERY_ADMINISTRATION) {
 						@Override
+						public boolean isTradeHighlight() {
+							return true;
+						}
+						@Override
 						public DialogueNode getNextDialogue() {
 							CompanionManagement.initManagement(null, 0, null);
-							return OccupantManagementDialogue.getSlaveryManagementDialogue(null);
+							return OccupantManagementDialogue.getSlaveryManagementDialogue(null, null);
 						}
 					};
 

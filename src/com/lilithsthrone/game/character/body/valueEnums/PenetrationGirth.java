@@ -9,15 +9,15 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum PenetrationGirth {
 
-	ZERO_THIN(0, -0.2f, "thin", Colour.GENERIC_SIZE_ONE),
+	ZERO_THIN(0, -0.3f, "thin", Colour.GENERIC_SIZE_ONE),
 	
-	ONE_SLENDER(1, -0.1f, "slender", Colour.GENERIC_SIZE_TWO),
+	ONE_SLENDER(1, -0.15f, "slender", Colour.GENERIC_SIZE_TWO),
 	
 	TWO_AVERAGE(2, 0, "averagely-girthed", Colour.GENERIC_SIZE_THREE),
 	
-	THREE_THICK(3, 0.1f, "thick", Colour.GENERIC_SIZE_FOUR),
+	THREE_THICK(3, 0.15f, "thick", Colour.GENERIC_SIZE_FOUR),
 	
-	FOUR_FAT(4, 0.2f, "fat", Colour.GENERIC_SIZE_FIVE);
+	FOUR_FAT(4, 0.3f, "fat", Colour.GENERIC_SIZE_FIVE);
 	
 	
 	private int value;

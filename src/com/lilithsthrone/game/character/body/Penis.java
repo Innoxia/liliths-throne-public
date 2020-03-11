@@ -20,11 +20,12 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.2
+ * @version 0.3.7
  * @author Innoxia
  */
 public class Penis implements BodyPartInterface {
@@ -55,7 +56,7 @@ public class Penis implements BodyPartInterface {
 		
 		testicle = new Testicle(type.getTesticleType(), testicleSize, cumProduction, testicleCount);
 		
-		orificeUrethra = new OrificePenisUrethra(testicle.getCumStorage().getAssociatedWetness().getValue(), 0, OrificeElasticity.ZERO_UNYIELDING.getValue(), OrificePlasticity.THREE_RESILIENT.getValue(), true, new ArrayList<>());
+		orificeUrethra = new OrificePenisUrethra(testicle.getCumStorage().getAssociatedWetness().getValue(), 0, 2, OrificeElasticity.ZERO_UNYIELDING.getValue(), OrificePlasticity.THREE_RESILIENT.getValue(), true, new ArrayList<>());
 		
 		this.penisModifiers = new HashSet<>();
 		this.penisModifiers.addAll(type.getDefaultPenisModifiers());
@@ -289,7 +290,6 @@ public class Penis implements BodyPartInterface {
 							+ "[npc.Name] now has [style.boldSex(no penis)]."
 							+ "</p>");
 				}
-				orificeUrethra.setVirgin(true);
 				owner.setPiercedPenis(false);
 				break;
 			case HUMAN:
@@ -713,11 +713,15 @@ public class Penis implements BodyPartInterface {
 	// Diameter:
 
 	public static float getGenericDiameter(int length, PenetrationGirth girth) {
-		return length * Math.min(1, (0.25f + girth.getDiameterPercentageModifier()));
+		return getGenericDiameter(length, girth, new ArrayList<>());
+	}
+	
+	public static float getGenericDiameter(int length, PenetrationGirth girth, List<PenetrationModifier> mods) {
+		return Units.round((length * 0.25f) * (1f + girth.getDiameterPercentageModifier() + (mods.contains(PenetrationModifier.FLARED)?0.05f:0) + (mods.contains(PenetrationModifier.TAPERED)?-0.05f:0)), 2);
 	}
 	
 	public float getDiameter() {
-		return  length * Math.min(1, (0.25f + this.getGirth().getDiameterPercentageModifier() + (this.hasPenisModifier(PenetrationModifier.FLARED)?0.05f:0) + (this.hasPenisModifier(PenetrationModifier.TAPERED)?-0.05f:0)));
+		return Units.round((length * 0.25f) * (1f + this.getGirth().getDiameterPercentageModifier() + (this.hasPenisModifier(PenetrationModifier.FLARED)?0.05f:0) + (this.hasPenisModifier(PenetrationModifier.TAPERED)?-0.05f:0)), 2);
 	}
 	
 	public boolean isPierced() {

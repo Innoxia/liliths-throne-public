@@ -160,7 +160,7 @@ public class FortressFemalesLeader extends NPC {
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_BLUE));
 		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.COVERING_PURPLE_LIGHT), true);
 		
-		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_GREY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.COVERING_GREY), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLONDE), true);
 		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
@@ -234,12 +234,12 @@ public class FortressFemalesLeader extends NPC {
 		if(settings.contains(EquipClothingSetting.ADD_ACCESSORIES)) {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_finger_ring", Colour.CLOTHING_GOLD, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_ankle_anklet", Colour.CLOTHING_GOLD, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_ankle_anklet", Colour.CLOTHING_GOLD, Colour.CLOTHING_GOLD, null, false), true, this);
 			
 			this.setPiercedEar(true);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_HOOPS, Colour.CLOTHING_GOLD, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_hoops", Colour.CLOTHING_GOLD, false), true, this);
 			this.setPiercedNose(true);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_nose_ring", Colour.CLOTHING_GOLD, false), true, this);
 		}
 	}
 	
@@ -273,7 +273,7 @@ public class FortressFemalesLeader extends NPC {
 				this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.GROIN), true, this);
 			}
 			this.displaceClothingForAccess(CoverableArea.PENIS, null);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_penis_strapon", Colour.CLOTHING_PINK_LIGHT, false), true, this);
 		} catch(Exception ex) {
 		}
 	}

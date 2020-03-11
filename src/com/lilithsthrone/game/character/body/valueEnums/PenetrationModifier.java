@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
 
 /**
  * @since 0.1.83
- * @version 0.3.6.6
+ * @version 0.3.7
  * @author Innoxia
  */
 public enum PenetrationModifier {
@@ -13,13 +13,13 @@ public enum PenetrationModifier {
 	
 	TENTACLED("tentacled", ""),
 	
-	KNOTTED("knotted", "Enables the affected penetration type to be locked inside an orifice at the moment of orgasm."),
+	KNOTTED("knotted", "Grants ability to be pushed inside an orifice at the moment of orgasm, doubling effective diameter and locking partners together. (Requires orifice to be deep enough for knotted base to be inserted.)"),
 	
-	TAPERED("tapered", "Reduces effective diameter of the affected penetration type by 5%."),
+	TAPERED("tapered", "Reduces effective diameter by 5%."),
 	
 	BLUNT("blunt", ""),
 	
-	FLARED("flared", "Increases effective diameter of the affected penetration type by 5%."),
+	FLARED("flared", "Increases effective diameter by 5%."),
 	
 	BARBED("barbed", ""),
 	
@@ -38,7 +38,11 @@ public enum PenetrationModifier {
 	public String getName() {
 		return name;
 	}
-
+	
+	public boolean isSpecialEffects() {
+		return !description.isEmpty();
+	}
+	
 	public String getDescription() {
 		if(description.isEmpty()) {
 			return "No gameplay effect.";

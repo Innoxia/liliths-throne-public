@@ -631,29 +631,34 @@ public enum Fetish {
 	},
 	
 	FETISH_PURE_VIRGIN(60,
-			"virginity",
-			"retaining virginity",
+			"vaginal virginity",
+			"retaining vaginal virginity",
 			"fetish_virginity",
 			FetishExperience.BASE_VERY_RARE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					"<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Gain</span> <span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>'pure virgin'</span>",
-					"<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Suffer</span> <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>'broken virgin'</span>"),
+					"[style.colourGood(Gain)] [style.colourExcellent(Pure Virgin)] status effect",
+					"[style.colourBad(Suffer)] [style.colourTerrible(Broken Virgin)] status effect"),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner == null)
+			if(owner == null) {
 				return "";
-
-			if (owner.isPlayer()) {
-				if (owner.getVaginaType() != VaginaType.NONE)
-					return "You prize your vaginal virginity above everything else in the world. If you were ever to lose it, you don't know how you'd cope...";
-				else
-					return "Although you currently don't have a vagina, you know that if you were ever to have one, you'd prize its virginity above everything else in the world. If you were ever to lose it, you don't know how you'd cope...";
-			} else
-				return UtilText.parse(owner, "[npc.Name] prizes [npc.her] virginity above all else.");
+			}
+			
+			if (owner.hasVagina()) {
+				return UtilText.parse(owner, "[npc.Name] [npc.verb(prize)] [npc.her] vaginal virginity above anything else in the world. If [npc.she] [npc.was] ever to lose it, [npc.she] [npc.do]n't know how [npc.she]'d cope...");
+				
+			} else {
+				if(owner.hasFetish(FETISH_PURE_VIRGIN)) {
+					return UtilText.parse(owner, "Although [npc.name] currently [npc.do]n't have a vagina, [npc.she] [npc.verb(know)] that if [npc.she] [npc.was] ever to have one, [npc.she]'d prize its virginity above anything else in the world.");
+					
+				} else {
+					return UtilText.parse(owner, "As [npc.name] [npc.do]n't have a vagina, [npc.she] can't fetishise keeping its virginity...");
+				}
+			}
 		}
 
 		@Override
@@ -663,7 +668,7 @@ public enum Fetish {
 		
 		@Override
 		public boolean isAvailable(GameCharacter character) {
-			return character.getVaginaType() != VaginaType.NONE && character.isVaginaVirgin();
+			return character.getVaginaType()!=VaginaType.NONE && character.isVaginaVirgin();
 		}
 
 		@Override
@@ -671,15 +676,15 @@ public enum Fetish {
 			perkRequirementsList.clear();
 			
 			if(character.getVaginaType()==VaginaType.NONE) {
-				perkRequirementsList.add("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Requires vagina</span>");
+				perkRequirementsList.add("[style.colourBad(Requires vagina)]");
 			} else {
-				perkRequirementsList.add("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Requires vagina</span>");
+				perkRequirementsList.add("[style.colourGood(Requires vagina)]");
 			}
 			
 			if(!character.isVaginaVirgin()) {
-				perkRequirementsList.add("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Requires virginity</span>");
+				perkRequirementsList.add("[style.colourBad(Requires vaginal virginity)]");
 			} else {
-				perkRequirementsList.add("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Requires virginity</span>");
+				perkRequirementsList.add("[style.colourGood(Requires vaginal virginity)]");
 			}
 			
 			return perkRequirementsList;
@@ -1405,14 +1410,15 @@ public enum Fetish {
 	
 	FETISH_SIZE_QUEEN(60,
 			"size queen",
-			"size queen",
+			"deep penetrations",
 			"fetish_size_queen",
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			Util.newArrayListOfValues(Colour.BASE_YELLOW, Colour.BASE_PINK),
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 1)),
 			Util.newArrayListOfValues(
-					"[style.colourSex(Treats 'uncomfortably deep' insertions as being 'comfortable')]"),
+					"[style.colourGood(Enjoys)] [style.colourSex(being stretched)]",
+					"Treats [style.colourSex('uncomfortably deep')] insertions as being [style.colourGood('comfortable')]"),
 			null) {
 
 		@Override

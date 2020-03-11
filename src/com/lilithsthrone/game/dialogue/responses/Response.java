@@ -243,6 +243,15 @@ public class Response {
 	}
 	
 	/**
+	 * These are the effects to be applied after the endTurn() has been called. (So effects in here happen after time has passed in the new scene.)
+	 * <br/><b>Note:</b> endTurn(0) is called after this, so that effects are refreshed absed on what heppens within this method.
+	 * @return true if effects were applied.
+	 */
+	public boolean postEndTurnEffects() {
+		return false;
+	}
+	
+	/**
 	 * @return true if this response has any related requirements in order for it to be selected.
 	 */
 	public boolean hasRequirements() {
