@@ -99,6 +99,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	private Set<Subspecies> racesDiscoveredFromBook;
 	
 	protected List<String> friendlyOccupants;
+
+	//Variable for tracking how many children were removed after encountering them
+	//Needed for correct calculation of percentage of already met children
+	private int childrenRemoved = 0;
 	
 	// Trader buy-back:
 	private SizedStack<ShopTransaction> buybackStack;
@@ -174,7 +178,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		for(String id : charactersEncountered) {
 			CharacterUtils.createXMLElementWithValue(doc, charactersEncounteredElement, "id", id);
 		}
-		
+
+		CharacterUtils.createXMLElementWithValue(doc,playerSpecific,"childrenRemoved",String.valueOf(this.getChildrenRemoved()));
+
 		innerElement = doc.createElement("questMap");
 		playerSpecific.appendChild(innerElement);
 		for(Entry<QuestLine, List<Quest>> entry : quests.entrySet()) {
@@ -300,7 +306,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 						character.addCharacterEncountered(id);
 					}
 				}
-				
+
+				if(playerSpecificElement.getElementsByTagName("childrenRemoved").getLength()!=0) {
+					character.incrementChildrenRemoved(Integer.valueOf(Integer.valueOf(((Element) playerSpecificElement.getElementsByTagName("childrenRemoved").item(0)).getAttribute("value"))));
+				}
+
 				Element questMapElement = (Element) playerSpecificElement.getElementsByTagName("questMap").item(0);
 				if(questMapElement!=null) {
 					NodeList questMapEntries = questMapElement.getElementsByTagName("entry");
@@ -1299,6 +1309,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public boolean removeFriendlyOccupant(GameCharacter occupant) {
 		return friendlyOccupants.remove(occupant.getId());
 	}
+
+	public int getChildrenRemoved() {return childrenRemoved;}
+
+	public void incrementChildrenRemoved(int childrenRemovedIncrement){childrenRemoved+=childrenRemovedIncrement;}
 
 	public Set<WorldType> getWorldsVisited() {
 		return worldsVisited;

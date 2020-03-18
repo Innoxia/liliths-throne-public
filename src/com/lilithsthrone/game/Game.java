@@ -3764,7 +3764,14 @@ public class Game implements XMLSaving {
 	public boolean banishNPC(NPC npc) {
 		Main.game.getPlayer().removeCompanion(npc);
 		npc.deleteAllEquippedClothing(true); // To cut down on save size and return unique items to the player.
-		
+
+		//If the NPC to be removed is related to the player, remove it from the NPCmap and increase childrenRemoved
+		if(npc.isRelatedTo(player))
+		{
+			NPCMap.remove(npc.getId(),npc);
+			player.incrementChildrenRemoved(1);
+		}
+
 		if(Main.game.getPlayer().getSexPartners().containsKey(npc.getId())
 				|| npc.getPregnantLitter()!=null
 				|| npc.getLastLitterBirthed()!=null
