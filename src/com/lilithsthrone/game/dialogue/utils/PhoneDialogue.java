@@ -1483,7 +1483,8 @@ public class PhoneDialogue {
 				childrenMet += ChildMet(npc) ? 1 : 0;
 			}
 			int totalChildren = (sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered);
-			int percentageMet = totalChildren == 0 ? 100 : (100 * childrenMet / totalChildren);
+			//childrenMet is decreased every time a child is removed, therefore number of already removed children is added to get correct values
+			int percentageMet = totalChildren == 0 ? 100 : (100 * (childrenMet+Main.game.getPlayer().getChildrenRemoved()) / totalChildren);
 
 			UtilText.nodeContentSB.append(
 					"<div class='subTitle'>Total offspring: "+ totalChildren+" (Children met: "+ percentageMet +"%)</div>"
