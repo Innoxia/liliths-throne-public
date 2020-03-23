@@ -3281,10 +3281,10 @@ public class ItemEffectType {
 					effectsList.add("[style.boldExcellent(Infinite)] safe cum capacity.");
 					
 				} else if(potency==TFPotency.BOOST) {
-					effectsList.add("[style.boldGood("+CumProduction.SIX_EXTREME.getMaximumValue()+"ml)] safe cum capacity.");
+					effectsList.add("[style.boldGood("+Units.fluid(CumProduction.SIX_EXTREME.getMaximumValue())+")] safe cum capacity.");
 					
 				} else if(potency==TFPotency.MINOR_BOOST) {
-					effectsList.add("[style.boldMinorGood("+CumProduction.FIVE_HUGE.getMaximumValue()+"ml)] safe cum capacity.");
+					effectsList.add("[style.boldMinorGood("+Units.fluid(CumProduction.FIVE_HUGE.getMaximumValue())+")] safe cum capacity.");
 					
 				} else if(potency==TFPotency.MAJOR_DRAIN
 						|| potency==TFPotency.DRAIN
