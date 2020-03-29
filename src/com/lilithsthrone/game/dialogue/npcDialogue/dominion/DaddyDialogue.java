@@ -28,9 +28,10 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -639,7 +640,7 @@ public class DaddyDialogue {
 					}
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.MASCULINE;
+						return PresetColour.MASCULINE;
 					}
 				};
 				
@@ -660,7 +661,7 @@ public class DaddyDialogue {
 					}
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.FEMININE;
+						return PresetColour.FEMININE;
 					}
 				};
 				
@@ -682,7 +683,7 @@ public class DaddyDialogue {
 					}
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.FEMININE;
+						return PresetColour.FEMININE;
 					}
 				};
 			}

@@ -21,11 +21,12 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -3206,7 +3207,7 @@ public enum Spell {
 										+ (character.hasSpellUpgrade(perkEntry.getEntry())
 											?"cursor: default; border-color:"+perkEntry.getCategory().getColour().toWebHexString()+";"
 											:(!perkEntry.getEntry().isAvailable(character) //|| character.getSpellUpgradePoints(perkEntry.getCategory()) < perkEntry.getEntry().getPointCost()
-												?"cursor: default; border-color:"+Colour.GENERIC_BAD.toWebHexString()+";"
+												?"cursor: default; border-color:"+PresetColour.GENERIC_BAD.toWebHexString()+";"
 												:""))
 										+"' id='SPELL_UPGRADE_"+perkEntry.getEntry()+"'>"
 							+ "<div class='square-button-content'>"+perkEntry.getEntry().getSVGString()+"</div>"
@@ -3251,8 +3252,8 @@ public enum Spell {
 		return character.hasSpellUpgrade(entry.getEntry()) && parentOwned
 				?entry.getCategory().getColour()
 				:isSpellUpgradeAvailable(character, spell, entry)
-					?Colour.BASE_GREY
-					:Colour.TEXT_GREY_DARK;
+					?PresetColour.BASE_GREY
+					:PresetColour.TEXT_GREY_DARK;
 	}
 	
 	private static Colour getPerkLineChildColour(GameCharacter character, Spell spell, TreeEntry<SpellSchool, SpellUpgrade> entry) {
@@ -3270,8 +3271,8 @@ public enum Spell {
 		return character.hasSpellUpgrade(entry.getEntry()) && childOwned
 				?entry.getCategory().getColour()
 				:childAvailable
-					?Colour.BASE_GREY
-					:Colour.TEXT_GREY_DARK;
+					?PresetColour.BASE_GREY
+					:PresetColour.TEXT_GREY_DARK;
 	}
 	
 	private static Colour getPerkLineSiblingColour(GameCharacter character, Spell spell, TreeEntry<SpellSchool, SpellUpgrade> entry) {
@@ -3290,8 +3291,8 @@ public enum Spell {
 		return isSpellUpgradeAvailable(character, spell, entry) && siblingOwned
 				?entry.getCategory().getColour()
 				:siblingAvailable
-					?Colour.BASE_GREY
-					:Colour.TEXT_GREY_DARK;
+					?PresetColour.BASE_GREY
+					:PresetColour.TEXT_GREY_DARK;
 	}
 
 	// Combat maneuver compatibility
@@ -3505,10 +3506,10 @@ public enum Spell {
 				+ " on [npc2.name].");
 
     	if(getSpellSchool()==SpellSchool.FIRE && source.hasStatusEffect(StatusEffect.FIRE_MANA_BURN) && Combat.getManaBurnStack().get(source).size()>0 && Combat.getManaBurnStack().get(source).peek()<0) {
-    		predictionSB.append("<br/>This will cost <b style='color:"+Colour.ATTRIBUTE_HEALTH.toWebHexString()+";'>"+Units.round((-Combat.getManaBurnStack().get(source).peek()), 1)+" "+Attribute.HEALTH_MAXIMUM.getName()+"</b>"
+    		predictionSB.append("<br/>This will cost <b style='color:"+PresetColour.ATTRIBUTE_HEALTH.toWebHexString()+";'>"+Units.round((-Combat.getManaBurnStack().get(source).peek()), 1)+" "+Attribute.HEALTH_MAXIMUM.getName()+"</b>"
     				+ " ([style.colourFire("+StatusEffect.FIRE_MANA_BURN.getName(source)+")]).");
     	} else {
-    		predictionSB.append("<br/>This will cost <b style='color:"+Colour.ATTRIBUTE_MANA.toWebHexString()+";'>"+this.getModifiedCost(source)+" aura</b>.");
+    		predictionSB.append("<br/>This will cost <b style='color:"+PresetColour.ATTRIBUTE_MANA.toWebHexString()+";'>"+this.getModifiedCost(source)+" aura</b>.");
     	}
     	
         predictionSB.append("<br/><i>"+getBasicEffectsString(source, target, enemies, allies)+"</i>");

@@ -12,7 +12,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.2
@@ -55,7 +56,7 @@ public class Artwork {
 						Element artistElement = (Element) doc.getElementsByTagName("artist").item(0);
 						
 						String artistName = artistElement.getAttribute("name");
-						Colour colour = Colour.valueOf(artistElement.getAttribute("colour"));
+						Colour colour = PresetColour.getColourFromId(artistElement.getAttribute("colour"));
 						String folderName = artistElement.getAttribute("folderName");
 								
 						List<ArtistWebsite> websites = new ArrayList<>();
@@ -74,7 +75,7 @@ public class Artwork {
 			}
 
 			// Add artist template for custom art
-			allArtists.add(new Artist("Custom", Colour.BASE_GREY, "custom", new ArrayList<>()));
+			allArtists.add(new Artist("Custom", PresetColour.BASE_GREY, "custom", new ArrayList<>()));
 		}
 	}
 	

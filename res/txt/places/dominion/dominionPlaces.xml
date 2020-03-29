@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 
+	<!-- BACK_ALLEYS_SAFE -->
+	
+	<htmlContent tag="BACK_ALLEYS_SAFE"><![CDATA[
+	<p>
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			The back alleys in this particular section of Dominion are not only considerably cleaner and wider than those found throughout the rest of the city, but they are also usually far more frequently travelled. As there's an ongoing arcane storm, however, they are currently just as deserted as any other.
+		#ELSE
+			The back alleys in this particular section of Dominion are not only considerably cleaner and wider than those found throughout the rest of the city, but they are also far more frequently travelled.
+			#IF(pc.getRace()==RACE_DEMON)
+				 While significantly less busy than the main streets of the city, you still often find yourself encountering groups of slow-moving shoppers, who invariably hurry to one side to let you pass as they see that you're [pc.a_race].
+			#ELSE
+				 While significantly less busy than the main streets of the city, you still often find yourself having to weave your way past groups of slow-moving shoppers, which greatly slows down your progress through these twisting passageways.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			While there is usually a large Enforcer presence in this area, it doesn't appear to be considered important enough to warrant the presence of demon officers, and so until the arcane storm passes, there will be nobody to come to your aid should you be attacked...
+		#ELSE
+			The reason for this alleyway being treated as a safe passage is due to an unusually large Enforcer presence in the area. A uniformed officer never seems to be more than one or two corners away, ready to rush to the aid of anyone who would call for it.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BACK_ALLEYS -->
+	
+	<htmlContent tag="BACK_ALLEYS"><![CDATA[
+	<p>
+		You find yourself walking through labyrinthine alleyways, with not a soul in sight. Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress. These less-travelled parts of Dominion have a dangerous feel to them, and you can't shake the feeling that you're being followed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- WAREHOUSE_DISTRICT -->
 	
 	<htmlContent tag="WAREHOUSE_DISTRICT"><![CDATA[
@@ -28,7 +64,18 @@
 	
 	<htmlContent tag="WAREHOUSE_DISTRICT_NO_BUSINESS"><![CDATA[
 	<p>
-		Although there are plenty of businesses established in this area, they're of the sort which provide services to other large companies, not to passing members of the public, and so without having a specific reason to be here, there's not much for you to do except continue on your way elsewhere...
+		Although there are plenty of businesses established in this area, they're of the kind which only provide services to other large companies. With nothing being on offer to passing members of the public, and without having a specific reason to be here, there's not much for you to do except continue on your way elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_HOTEL -->
+	
+	<htmlContent tag="HELENAS_HOTEL"><![CDATA[
+	<p>
+		[style.boldGold(The Golden Feather:)]
+		<br/>Helena's hotel, 'The Golden Feather', is located in this area. Now that you're aware of its existence, you could head inside and make use of the elevator to travel directly up to Helena's nest.
 	</p>
 	]]>
 	</htmlContent>

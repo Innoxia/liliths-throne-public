@@ -213,13 +213,11 @@ public class QuestTree {
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_6_ADVERTISING);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_7_MORE_ADVERTISING);
+		node2 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_7_GRAND_OPENING_PREPARATION);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_8_RETURN_TO_HELENA);
+		node1 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_8_FINISH);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.ROMANCE_HELENA_9_FINISH);
+		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
-		node2.addChild(node1);
 	}
 }

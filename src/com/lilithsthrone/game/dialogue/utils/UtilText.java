@@ -37,6 +37,7 @@ import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
@@ -100,10 +101,12 @@ import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.sexActions.baseActions.ToyVagina;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
@@ -252,11 +255,11 @@ public class UtilText {
 
 		} else {
 			if (Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE_STRONG) {
-				return "<span class='speech' style='color:" + Colour.MASCULINE_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
+				return "<span class='speech' style='color:" + PresetColour.MASCULINE_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
 			} else if (Femininity.valueOf(target.getFemininityValue()) == Femininity.ANDROGYNOUS) {
-				return "<span class='speech' style='color:" + Colour.ANDROGYNOUS_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
+				return "<span class='speech' style='color:" + PresetColour.ANDROGYNOUS_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
 			} else {
-				return "<span class='speech' style='color:" + Colour.FEMININE_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
+				return "<span class='speech' style='color:" + PresetColour.FEMININE_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
 			}
 		}
 	}
@@ -270,11 +273,11 @@ public class UtilText {
 
 		} else {
 			if (Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE_STRONG) {
-				return "<span class='speech' style='color:" + Colour.MASCULINE_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
+				return "<span class='speech' style='color:" + PresetColour.MASCULINE_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
 			} else if (Femininity.valueOf(target.getFemininityValue()) == Femininity.ANDROGYNOUS) {
-				return "<span class='speech' style='color:" + Colour.ANDROGYNOUS_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
+				return "<span class='speech' style='color:" + PresetColour.ANDROGYNOUS_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
 			} else {
-				return "<span class='speech' style='color:" + Colour.FEMININE_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
+				return "<span class='speech' style='color:" + PresetColour.FEMININE_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
 			}
 		}
 	}
@@ -295,11 +298,11 @@ public class UtilText {
 
 		} else {
 			if (Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE_STRONG) {
-				return "<span class='thoughts' style='color:" + Colour.MASCULINE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+				return "<span class='thoughts' style='color:" + PresetColour.MASCULINE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
 			} else if (Femininity.valueOf(target.getFemininityValue()) == Femininity.ANDROGYNOUS) {
-				return "<span class='thoughts' style='color:" + Colour.ANDROGYNOUS_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+				return "<span class='thoughts' style='color:" + PresetColour.ANDROGYNOUS_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
 			} else {
-				return "<span class='thoughts' style='color:" + Colour.FEMININE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+				return "<span class='thoughts' style='color:" + PresetColour.FEMININE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
 			}
 		}
 	}
@@ -401,7 +404,7 @@ public class UtilText {
 		return "<div class='item-inline'>"
 					+ TFEssence.ARCANE.getSVGStringUncoloured() + (withOverlay?"<div class='overlay no-pointer' id='ESSENCE_"+TFEssence.ARCANE.hashCode()+"'></div>":"")
 				+"</div>"
-				+ " <"+tag+" style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+Units.number(amount)+"</"+tag+">";
+				+ " <"+tag+" style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"+Units.number(amount)+"</"+tag+">";
 	}
 	
 	
@@ -409,7 +412,7 @@ public class UtilText {
 		return "<div class='item-inline'>"
 					+ TFEssence.ARCANE.getSVGString() + (withOverlay?"<div class='overlay no-pointer' id='ESSENCE_"+TFEssence.ARCANE.hashCode()+"'></div>":"")
 				+"</div>"
-				+ " <"+tag+" style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+Units.number(amount)+"</"+tag+">";
+				+ " <"+tag+" style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>"+Units.number(amount)+"</"+tag+">";
 	}
 
 	// Money formatting:
@@ -420,16 +423,16 @@ public class UtilText {
 		if(money > 1_000_000) {
 			float moneyAbbreviated = money/1_000_000f;
 			moneyString = Units.number(moneyAbbreviated, 1, 1)+"M";
-			return formatAsMoney(moneyString, "b", Colour.CURRENCY_GOLD);
+			return formatAsMoney(moneyString, "b", PresetColour.CURRENCY_GOLD);
 			
 		} else if(money > 1_000) {
 			float moneyAbbreviated = money/1_000f;
 			int precision = money < 10_000?1:0;
 			moneyString = Units.number(moneyAbbreviated, precision, precision)+"k";
-			return formatAsMoney(moneyString, "b", Colour.CURRENCY_SILVER);
+			return formatAsMoney(moneyString, "b", PresetColour.CURRENCY_SILVER);
 		}
 		
-		return formatAsMoney(moneyString, "b", Colour.CURRENCY_COPPER);
+		return formatAsMoney(moneyString, "b", PresetColour.CURRENCY_COPPER);
 	}
 	
 	public static String formatAsMoney(int money) {
@@ -441,11 +444,11 @@ public class UtilText {
 	}
 	
 	public static String formatAsMoney(int money, String tag) {
-		return formatAsMoney(money, tag, Colour.TEXT);
+		return formatAsMoney(money, tag, PresetColour.TEXT);
 	}
 	
 	public static String formatAsMoney(String money, String tag) {
-		return formatAsMoney(money, tag, Colour.TEXT);
+		return formatAsMoney(money, tag, PresetColour.TEXT);
 	}
 	
 	public static String formatAsMoney(int money, String tag, Colour amountColour) {
@@ -453,21 +456,21 @@ public class UtilText {
 	}
 	
 	public static String formatAsMoney(String money, String tag, Colour amountColour) {
-		return "<" + tag + " style='color:" + (amountColour==null?Colour.TEXT.toWebHexString():Colour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
-				+ "<" + tag + " style='color:" + (amountColour==null?Colour.TEXT.toWebHexString():amountColour.toWebHexString()) + ";'>" + money + "</" + tag + ">";
+		return "<" + tag + " style='color:" + (amountColour==null?PresetColour.TEXT.toWebHexString():PresetColour.CURRENCY_GOLD.toWebHexString()) + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+				+ "<" + tag + " style='color:" + (amountColour==null?PresetColour.TEXT.toWebHexString():amountColour.toWebHexString()) + ";'>" + money + "</" + tag + ">";
 	}
 	
 	
 	public static String formatVirginityLoss(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'><i>"+s+"</i></p>";
 	}
 	
 	public static String formatTooLoose(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'><i>"+s+"</i></p>";
 	}
 	
 	public static String formatStretching(String s) {
-		return "<p style='text-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'><i>"+s+"</i></p>";
+		return "<p style='text-align:center; color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'><i>"+s+"</i></p>";
 	}
 
 	public static boolean isVowel(char c) {
@@ -582,7 +585,7 @@ public class UtilText {
 		}
 		
 		if(strings.isEmpty()) {
-			return "<p><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Dialogue for '"+tag+"' not found! (Make sure that the 'res' folder is in the same directory as the .jar or .exe.)</span></p>";
+			return "<p><span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Dialogue for '"+tag+"' not found! (Make sure that the 'res' folder is in the same directory as the .jar or .exe.)</span></p>";
 
 		} else {
 			return parse(new ArrayList<>(specialNPC), strings.get(Util.random.nextInt(strings.size())), true, parserTags);
@@ -625,7 +628,7 @@ public class UtilText {
 		}
 		
 		if(strings.isEmpty()) {
-			return "<p><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>No dialogues found! (Make sure that the 'res' folder is in the same directory as the .jar or .exe.)</span></p>";
+			return "<p><span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>No dialogues found! (Make sure that the 'res' folder is in the same directory as the .jar or .exe.)</span></p>";
 
 		} else {
 			StringBuilder sb = new StringBuilder();
@@ -1315,7 +1318,7 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Returns the appropriate present first person singular verb for this cahracter's movement."){
+				"Returns the appropriate present first person singular verb for this character's movement."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getLegConfiguration().getMovementVerbPresentFirstPersonSingular();
@@ -1329,7 +1332,7 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Returns the appropriate present third person singular verb for this cahracter's movement."){
+				"Returns the appropriate present third person singular verb for this character's movement."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getLegConfiguration().getMovementVerbPresentThirdPersonSingular();
@@ -1343,7 +1346,7 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Returns the appropriate present participle verb for this cahracter's movement."){
+				"Returns the appropriate present participle verb for this character's movement."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getLegConfiguration().getMovementVerbPresentParticiple();
@@ -1357,10 +1360,66 @@ public class UtilText {
 				true,
 				false,
 				"",
-				"Returns the appropriate past participle verb for this cahracter's movement."){
+				"Returns the appropriate past participle verb for this character's movement."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getLegConfiguration().getMovementVerbPastParticiple();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"step",
+						"slide"),
+				true,
+				false,
+				"",
+				"Returns the appropriate present first person singular verb for this character's individual movement action."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getLegConfiguration().getIndividualMovementVerbPresentFirstPersonSingular();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"steps",
+						"slides"),
+				true,
+				false,
+				"",
+				"Returns the appropriate present third person singular verb for this character's individual movement action."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getLegConfiguration().getIndividualMovementVerbPresentThirdPersonSingular();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"stepping",
+						"sliding"),
+				true,
+				false,
+				"",
+				"Returns the appropriate present participle verb for this character's individual movement action."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getLegConfiguration().getIndividualMovementVerbPresentParticiple();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"stepped",
+						"slid"),
+				true,
+				false,
+				"",
+				"Returns the appropriate past participle verb for this character's individual movement action."){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getLegConfiguration().getIndividualMovementVerbPastParticiple();
 			}
 		});
 		
@@ -1618,7 +1677,7 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns the name of this cahracter's sexual orientation."){
+				"Returns the name of this character's sexual orientation."){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getSexualOrientation().getName();
@@ -1640,7 +1699,7 @@ public class UtilText {
 					return character.getAffectionLevel(targetedCharacter).getDescriptor();
 				} catch(Exception ex) {
 					ex.printStackTrace();
-					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: affection command character argument not found! ("+arguments+")</i>";
+					return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Error: affection command character argument not found! ("+arguments+")</i>";
 				}
 			}
 		});
@@ -1672,7 +1731,7 @@ public class UtilText {
 					
 				} catch(Exception ex) {
 					ex.printStackTrace();
-					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: relation command character argument not found! ("+arguments+")</i>";
+					return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Error: relation command character argument not found! ("+arguments+")</i>";
 				}
 			}
 		});
@@ -1700,7 +1759,7 @@ public class UtilText {
 					
 				} catch(Exception ex) {
 					ex.printStackTrace();
-					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: relation command character argument not found! ("+arguments+")</i>";
+					return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Error: relation command character argument not found! ("+arguments+")</i>";
 				}
 			}
 		});
@@ -1722,7 +1781,7 @@ public class UtilText {
 					
 				} catch(Exception ex) {
 					ex.printStackTrace();
-					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: relation command character argument not found! ("+arguments+")</i>";
+					return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Error: relation command character argument not found! ("+arguments+")</i>";
 				}
 			}
 		});
@@ -2062,7 +2121,7 @@ public class UtilText {
 					boolean pronoun = parseAddPronoun;
 					parseAddPronoun = false;
 					String name = character.isRaceConcealed()?"unknown race":getSubspeciesName(character.getSubspecies(), character);
-					return "<span style='color:"+(character.isRaceConcealed()?Colour.TEXT_GREY:character.getSubspecies().getColour(character)).toWebHexString()+";'>"
+					return "<span style='color:"+(character.isRaceConcealed()?PresetColour.TEXT_GREY:character.getSubspecies().getColour(character)).toWebHexString()+";'>"
 							+ (parseCapitalise
 									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
 									:(pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
@@ -2086,7 +2145,7 @@ public class UtilText {
 					boolean pronoun = parseAddPronoun;
 					parseAddPronoun = false;
 					String name = character.isRaceConcealed()?"unknown race":getSubspeciesNamePlural(character.getSubspecies(), character);
-					return "<span style='color:"+(character.isRaceConcealed()?Colour.TEXT_GREY:character.getSubspecies().getColour(character)).toWebHexString()+";'>"
+					return "<span style='color:"+(character.isRaceConcealed()?PresetColour.TEXT_GREY:character.getSubspecies().getColour(character)).toWebHexString()+";'>"
 							+ (parseCapitalise
 									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
 									:(pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
@@ -2110,7 +2169,7 @@ public class UtilText {
 					boolean pronoun = parseAddPronoun;
 					parseAddPronoun = false;
 					String name = character.isRaceConcealed()?"unknown race":character.getSubspecies().getFeralName(character);
-					return "<span style='color:"+(character.isRaceConcealed()?Colour.TEXT_GREY:character.getSubspecies().getColour(character)).toWebHexString()+";'>"
+					return "<span style='color:"+(character.isRaceConcealed()?PresetColour.TEXT_GREY:character.getSubspecies().getColour(character)).toWebHexString()+";'>"
 							+ (parseCapitalise
 									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
 									:(pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
@@ -2153,7 +2212,7 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				if(!(character instanceof NPC)) {
-					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>preferredBody_not_npc</i>";
+					return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>preferredBody_not_npc</i>";
 				}
 				if(arguments!=null) {
 					return ((NPC) character).getPreferredBodyDescription(arguments);
@@ -2755,7 +2814,7 @@ public class UtilText {
 					}
 				} catch(Exception ex) {
 					ex.printStackTrace();
-					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: heightDown character argument not found! ("+arguments+")</i>";
+					return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Error: heightDown character argument not found! ("+arguments+")</i>";
 				}
 			}
 		});
@@ -3983,17 +4042,17 @@ public class UtilText {
 				if(arguments!=null) {
 					CoverableArea area = CoverableArea.valueOf(arguments);
 					if(character.getHighestZLayerCoverableArea(area)==null) {
-						return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_"+area+"</i>";
+						return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_"+area+"</i>";
 					} else {
 						try {
 							return character.getHighestZLayerCoverableArea(area).getName();
 						} catch(Exception ex) {
-							return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found</i>";
+							return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found</i>";
 						}
 					}
 					
 				} else {
-					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found</i>";
+					return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found</i>";
 				}
 			}
 			
@@ -4017,17 +4076,17 @@ public class UtilText {
 				if(arguments!=null) {
 					CoverableArea area = CoverableArea.valueOf(arguments);
 					if(character.getLowestZLayerCoverableArea(area)==null) {
-						return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_"+area+"</i>";
+						return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>no_clothing_covering_"+area+"</i>";
 					} else {
 						try {
 							return character.getLowestZLayerCoverableArea(area).getName();
 						} catch(Exception ex) {
-							return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found</i>";
+							return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found</i>";
 						}
 					}
 					
 				} else {
-					return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found</i>";
+					return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Clothing_area_not_found</i>";
 				}
 			}
 			
@@ -4101,7 +4160,7 @@ public class UtilText {
 		
 
 		List<String> commandNames = new ArrayList<>();
-		for(Colour c : Colour.values()) {
+		for(Colour c : PresetColour.getAllPresetColours()) {
 			if(c.getFormattingNames()!=null) {
 				
 				commandNames = new ArrayList<>();
@@ -4195,6 +4254,19 @@ public class UtilText {
 
 
 		// Units
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"currentTime"),
+				true,
+				false,
+				"",
+				"Returns the time of day, in hours and minutes.") {
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return Units.time(Main.game.getDateNow());
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
@@ -5998,7 +6070,7 @@ public class UtilText {
 				true,
 				"",
 				"Returns the name of this character's urethra.",
-				BodyPartType.VAGINA){
+				BodyPartType.PENIS){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return "urethra";
@@ -6242,7 +6314,7 @@ public class UtilText {
 				true,
 				"(coloured)",
 				"Returns a description of the character's penis, in the format: 'size', 'girth', 'colour' 'feralRace'-cock."
-				+ "<br/>If the 'size' or 'girth' are average, those descriptors are committed."
+				+ "<br/>If the 'size' or 'girth' are average, those descriptors are omitted."
 				+ "<br/>Pass in 'true' if you want the output coloured.",
 				BodyPartType.PENIS){
 			@Override
@@ -6339,7 +6411,7 @@ public class UtilText {
 				return Units.size(character.getPenisCircumference(), Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
 			}
 		});
-
+		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"penisDiameter",
@@ -6898,8 +6970,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.VAGINA){//TODO
+				"Returns a desriptor of the size of the character's clitoris.",
+				BodyPartType.VAGINA){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getVaginaClitorisSize().getDescriptor();
@@ -6913,8 +6985,8 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns the localized, formatted size of the clitoris with long units.",
-				BodyPartType.VAGINA){//TODO
+				"Returns the localised, formatted size of the clitoris with long units.",
+				BodyPartType.VAGINA){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return Units.size(character.getVaginaRawClitorisSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
@@ -6928,13 +7000,272 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Description of method",
-				BodyPartType.VAGINA){//TODO
+				"Returns a descriptor of the character's clitoris girth.",
+				BodyPartType.VAGINA){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getClitorisGirth().getName();
 			}
 		});
+		
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toyVagina",
+						"toyPussy"),
+				true,
+				true,
+				"",
+				"Returns a name for the toy inserted into this character's vagina.",
+				BodyPartType.VAGINA){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				AbstractClothing toy = ToyVagina.getToyInVagina(character);
+				if(toy==null) {
+					return "toy";
+				}
+				return toy.getName();
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toyVagina+",
+						"toyVaginaD",
+						"toyPussy+",
+						"toyPussyD"),
+				true,
+				true,
+				"",
+				"Returns a name for the toy inserted into this character's vagina, with descriptor (describing the toy's colour, girth, or length).",
+				BodyPartType.VAGINA){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				AbstractClothing toy = ToyVagina.getToyInVagina(character);
+				if(toy==null) {
+					return "toy";
+				}
+				AbstractClothingType toyType = toy.getClothingType();
+				PenisLength length = PenisLength.getPenisLengthFromInt(toyType.getPenetrationSelfLength());
+				PenetrationGirth girth = PenetrationGirth.getGirthFromInt(toyType.getPenetrationSelfGirth());
+				return applyDescriptor(UtilText.returnStringAtRandom(length.getDescriptor(), girth.getName(), toy.getColourName()), toy.getName());
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toyVaginaHead",
+						"toyVaginaTip",
+						"toyPussyHead",
+						"toyPussyTip"),
+				true,
+				true,
+				"",
+				"Returns a name for the tip of the toy inserted into this character's vagina.",
+				BodyPartType.VAGINA){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return UtilText.returnStringAtRandom("head", "tip");
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toyVaginaHead+",
+						"toyVaginaTip+",
+						"toyPussyHead+",
+						"toyPussyTip+"),
+				true,
+				true,
+				"",
+				"Returns a name for the tip of the toy inserted into this character's vagina, with descriptor (describing the toy's colour).",
+				BodyPartType.VAGINA){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				AbstractClothing toy = ToyVagina.getToyInVagina(character);
+				if(toy==null) {
+					return UtilText.returnStringAtRandom("head", "tip");
+				}
+				String descriptor = toy.getColour().getName();
+				return applyDescriptor(descriptor, UtilText.returnStringAtRandom("head", "tip"));
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toyVaginaDescriptive",
+						"toyPussyDescriptive"),
+				true,
+				true,
+				"(coloured)",
+				"Returns a description of the toy inside this character's vagina, in the format: 'size', 'girth', 'name'."
+				+ "<br/>If the 'size' or 'girth' are average, those descriptors are omitted."
+				+ "<br/>Pass in 'true' if you want the output coloured.",
+				BodyPartType.VAGINA){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				StringBuilder sb = new StringBuilder();
+				boolean coloured = arguments!=null && arguments.equalsIgnoreCase("true");
+				
+				AbstractClothing toy = ToyVagina.getToyInVagina(character);
+				if(toy==null) {
+					return UtilText.returnStringAtRandom("toy");
+				}
+				AbstractClothingType toyType = toy.getClothingType();
+				
+				// Length:
+				PenisLength length = PenisLength.getPenisLengthFromInt(toyType.getPenetrationSelfLength());
+				if(character.getPenisSize()!=PenisLength.TWO_AVERAGE) {
+					if(coloured) {
+						sb.append("<span style='color:"+length.getColour().toWebHexString()+";'>");
+					}
+					sb.append(length.getDescriptor());
+					if(coloured) {
+						sb.append("</span>");
+					}
+				}
+
+				// Girth:
+				PenetrationGirth girth = PenetrationGirth.getGirthFromInt(toyType.getPenetrationSelfGirth());
+				if(character.getPenisGirth()!=PenetrationGirth.TWO_AVERAGE) {
+					if(sb.length()>0) {
+						sb.append(", ");	
+					}
+					if(coloured) {
+						sb.append("<span style='color:"+girth.getColour().toWebHexString()+";'>");
+					}
+					sb.append(girth.getName());
+					if(coloured) {
+						sb.append("</span>");
+					}
+				}
+
+				// Colour:
+				if(sb.length()>0) {
+					sb.append(", ");
+				}
+				sb.append(toy.getDisplayName(coloured, false));
+				
+				return sb.toString();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toyVaginaSize",
+						"toyPussySize",
+						"toyVaginaLength",
+						"toyPussyLength"),
+				true,
+				true,
+				"",
+				"Returns the length of the toy inserted in this character's vagina, in the metric or imperial units as defined in user settings.",
+				BodyPartType.VAGINA){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				AbstractClothing toy = ToyVagina.getToyInVagina(character);
+				if(toy==null) {
+					return UtilText.returnStringAtRandom("nonexistant");
+				}
+				PenisLength length = PenisLength.getPenisLengthFromInt(toy.getClothingType().getPenetrationSelfLength());
+				return length.getDescriptor();
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toyVaginaCircumference",
+						"toyPussyCircumference"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the circumference of the toy inserted in this character's vagina, in the metric or imperial units as defined in user settings."
+						+ " Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.VAGINA){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				AbstractClothing toy = ToyVagina.getToyInVagina(character);
+				if(toy==null) {
+					return UtilText.returnStringAtRandom("N/A");
+				}
+				float circumference = (float) (Penis.getGenericDiameter(toy.getClothingType().getPenetrationSelfLength(), PenetrationGirth.getGirthFromInt(toy.getClothingType().getPenetrationSelfGirth())) * Math.PI);
+				if(arguments!=null && arguments.equalsIgnoreCase("true")) {
+					return Units.size(circumference, Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				}
+				return Units.size(circumference, Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toyVaginaDiameter",
+						"toyPussyDiameter",
+						"toyVaginaDiametre",
+						"toyPussyDiametre"),
+				true,
+				true,
+				"(pluralUnits)",
+				"Returns the diameter of the toy inserted in this character's vagina, in the metric or imperial units as defined in user settings."
+						+ " Pass in 'true' as an argument if you want the resulting units to be pluralised (i.e. 'inches' instead of 'inch').",
+				BodyPartType.VAGINA){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				AbstractClothing toy = ToyVagina.getToyInVagina(character);
+				if(toy==null) {
+					return UtilText.returnStringAtRandom("N/A");
+				}
+				float diameter = Penis.getGenericDiameter(toy.getClothingType().getPenetrationSelfLength(), PenetrationGirth.getGirthFromInt(toy.getClothingType().getPenetrationSelfGirth()));
+				if(arguments!=null &&  arguments.equalsIgnoreCase("true")) {
+					return Units.size(diameter, Units.ValueType.NUMERIC, Units.UnitType.LONG);
+				}
+				return Units.size(diameter, Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toyVaginaGirth",
+						"toyPussyGirth"),
+				true,
+				true,
+				"",
+				"Returns a descriptor of the girth of the toy inserted in this character's vagina.",
+				BodyPartType.VAGINA){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				AbstractClothing toy = ToyVagina.getToyInVagina(character);
+				if(toy==null) {
+					return UtilText.returnStringAtRandom("N/A");
+				}
+				return PenetrationGirth.getGirthFromInt(toy.getClothingType().getPenetrationSelfGirth()).getName();
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"toyVaginaValue",
+						"toyVaginaLengthValue",
+						"toyPussyValue",
+						"toyPussyLengthValue"),
+				false,
+				false,
+				"(short)",
+				"Returns the localised, formatted size of the toy inserted in this character's vagina with long singular units ('centimetre'). Pass in true to return as short measurement ('cm').",
+				BodyPartType.VAGINA) {
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				AbstractClothing toy = ToyVagina.getToyInVagina(character);
+				if(toy==null) {
+					return UtilText.returnStringAtRandom("N/A");
+				}
+				int length = toy.getClothingType().getPenetrationSelfLength();
+				if(arguments!=null && arguments.equalsIgnoreCase("true")) {
+					return Units.size(length, Units.ValueType.NUMERIC, Units.UnitType.SHORT);
+				}
+				return Units.size(length, Units.ValueType.NUMERIC, Units.UnitType.LONG_SINGULAR);
+			}
+		});
+		
 		
 		// Wings:
 		
@@ -7354,7 +7685,7 @@ public class UtilText {
 				System.err.println("Scripting parsing error: "+command);
 				System.err.println(e.getMessage());
 //				e.printStackTrace();
-				return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>(Error in script parsing!)</i>";
+				return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>(Error in script parsing!)</i>";
 			}
 			
 		} else if(Main.game.isStarted()) { //TODO test:
@@ -7411,13 +7742,13 @@ public class UtilText {
 			character = parserTarget.getCharacter(target.toLowerCase(), specialNPCs);
 		} catch(Exception ex) {
 			ex.printStackTrace();
-			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Error: parserTarget.getCharacter() not found! ("+target+")</i>";
+			return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Error: parserTarget.getCharacter() not found! ("+target+")</i>";
 		}
 		
 		// Commands with arguments:
 		ParserCommand cmd = findCommandWithTag(command.replaceAll("\u200b", ""));
 		if (cmd == null) {
-			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>command_unknown</i>";
+			return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>command_unknown</i>";
 		}
 
 
@@ -7539,6 +7870,9 @@ public class UtilText {
 		}
 		for(FootStructure footStructure : FootStructure.values()) {
 			engine.put("FOOT_STRUCTURE_"+footStructure.toString(), footStructure);
+		}
+		for(GenitalArrangement genArrangement : GenitalArrangement.values()) {
+			engine.put("GENITALS_"+genArrangement.toString(), genArrangement);
 		}
 		for(BodyMaterial material : BodyMaterial.values()) {
 			engine.put("BODY_MATERIAL_"+material.toString(), material);
@@ -7727,7 +8061,7 @@ public class UtilText {
 //			System.err.println("Conditional parsing error: "+conditionalStatement);
 //			System.err.println(e.getMessage());
 ////			e.printStackTrace();
-//			return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>(Error in conditional parsing!)</i>";
+//			return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>(Error in conditional parsing!)</i>";
 //		}
 //	}
 	
@@ -7785,7 +8119,7 @@ public class UtilText {
 				System.err.println("Conditional parsing (from Map) error: "+conditionalStatement);
 				System.err.println(e.getMessage());
 				e.printStackTrace();
-				return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>(Error in conditional parsing!)</i>";
+				return "<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>(Error in conditional parsing!)</i>";
 			}
 		}
 		

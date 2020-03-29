@@ -155,7 +155,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTING_GONE_HOME"><![CDATA[
+	<htmlContent tag="HELENAS_SHOP_EXTERIOR_GONE_HOME"><![CDATA[
 	<p>
 		Although you know that this sign wouldn't normally apply to you, Helena has gone home early for the day. As such, you'll be unable to enter the shop and speak with her again until
 		#IF(game.getDayOfWeek()==DOW_FRIDAY)
@@ -176,7 +176,7 @@
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTING_CLOSED"><![CDATA[
 	<p>
-		Although you know that this sign wouldn't normally apply to you, Helena is only present from [style.italicsMinorBad([unit.time(9)]-[unit.time(17)] on weekdays, or up until [unit.time(21)] on Fridays)]. As such, the store is currently [style.colourBad(closed)] even to you, and the harpy matriarch won't be present until 
+		Although you know that this sign wouldn't normally apply to you, Helena is only present from [style.italicsMinorBad([unit.time(9)]-[unit.time(17)] on weekdays, or up until [unit.time(21)] on Friday)]. As such, the store is currently [style.colourBad(closed)] even to you, and the harpy matriarch won't be present until 
 		#IF(game.getDayOfWeek()==DOW_FRIDAY)
 			 [style.colourMinorBad(Monday morning at the earliest)].
 		#ELSE
@@ -209,14 +209,14 @@
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTED_OPEN"><![CDATA[
 	<p>
-		Knowing that this sign doesn't apply to you, and knowing that Helena will be inside the shop at this time of day, you could step inside and talk to her right now...
+		Knowing both that this sign doesn't apply to you, and that Helena will be inside the shop at this time of day, you could step inside and talk to her right now...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTED_CLOSED"><![CDATA[
 	<p>
-		Although you know that this sign wouldn't normally apply to you, Helena is only present from [style.italicsMinorBad([unit.time(9)]-[unit.time(17)] on weekdays, or up until [unit.time(21)] on Fridays)]. As such, the store is currently [style.colourBad(closed)] even to you, and the harpy matriarch won't be present until 
+		Although you know that this sign wouldn't normally apply to you, Helena is only present from [style.italicsMinorBad([unit.time(9)]-[unit.time(17)] on weekdays, or up until [unit.time(21)] on Friday)]. As such, the store is currently [style.colourBad(closed)] even to you, and the harpy matriarch won't be present until 
 		#IF(game.getDayOfWeek()==DOW_FRIDAY)
 			 [style.colourMinorBad(Monday morning at the earliest)].
 		#ELSE
@@ -235,7 +235,7 @@
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_OPEN"><![CDATA[
 	<p>
-		Unlike the days when Scarlett was in charge, Helena's shop has rather limited opening times, which are clearly displayed for all to see on a sign hanging in the front window which reads: [style.italicsMinorGood('Open weekdays, [unit.time(9)]-[unit.time(17)]. Open until [unit.time(21)] on Fridays.')]
+		Unlike the days when Scarlett was in charge, Helena's shop has rather limited opening times, which are clearly displayed for all to see on a sign hanging in the front window which reads: [style.italicsMinorGood('Open weekdays, [unit.time(9)]-[unit.time(17)]. Open until [unit.time(21)] on Friday.')]
 	</p>
 	<p>
 		As her shop is currently [style.colourGood(open)] for business, you could always step inside and see Helena again right now...
@@ -245,7 +245,7 @@
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_CLOSED"><![CDATA[
 	<p>
-		Unlike the days when Scarlett was in charge, Helena's shop has rather limited opening times, which are clearly displayed for all to see on a sign hanging in the front window which reads: [style.italicsMinorBad('Open weekdays, [unit.time(9)]-[unit.time(17)]. Open until [unit.time(21)] on Fridays.')]
+		Unlike the days when Scarlett was in charge, Helena's shop has rather limited opening times, which are clearly displayed for all to see on a sign hanging in the front window which reads: [style.italicsMinorBad('Open weekdays, [unit.time(9)]-[unit.time(17)]. Open until [unit.time(21)] on Friday.')]
 	</p>
 	<p>
 		As her shop is currently [style.colourBad(closed)], there's nothing more for you to do here except turn around and leave. If you wanted to talk to [helena.name], you'll have to come back at a time when her shop is open...
@@ -297,8 +297,21 @@
 			 [helena.speech(Good [style.evening], [pc.name]. Unfortunately, I must inform you that I have no slaves for sale at this time. I am expecting another couple to be delivered here tomorrow morning, so may I suggest that you return then?)]
 		#ENDIF
 	</p>
+	#IF(helena.hasSlaves())
+		<p>
+			#IF(helena.getSlavesOwned().size()==2)
+				Looking across to one side of the barren store, you see a pair of slaves obediently standing to attention. Wearing nothing but the slave collars locked in place around their necks, you're able to see that one is [npc.a_raceFull], while the other is [npc2.a_raceFull].
+			#ELSE
+				Looking across to one side of the barren store, you see a slave obediently standing to attention. Wearing nothing but the slave collar locked in place around [npc.her] neck, you're able to see that [npc.she] is [npc.a_raceFull].
+			#ENDIF
+		</p>
+	#ENDIF
 	<p>
-		Courteously smiling at you, the beautiful harpy patiently waits to see what it is you'll do next.
+		#IF(pc.hasCompanion(scarlett))
+			After glancing across at [scarlett.name], the beautiful harpy courteously smiles at you and patiently waits to see what it is you'll do next.
+		#ELSE
+			Courteously smiling at you, the beautiful harpy patiently waits to see what it is you'll do next.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

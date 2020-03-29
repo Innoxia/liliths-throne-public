@@ -56,7 +56,7 @@ public class RedLightDistrict {
 		
 		@Override
 		public int getSecondsPassed() {
-			return CityPlaces.TRAVEL_TIME_STREET;
+			return DominionPlaces.TRAVEL_TIME_STREET;
 		}
 
 		@Override

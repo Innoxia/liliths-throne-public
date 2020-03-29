@@ -76,10 +76,11 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.4
@@ -177,7 +178,7 @@ public abstract class AbstractItemEffectType {
 		} else {
 			return subspecies.getBasicDescription(null)
 					+subspecies.getAdvancedDescription(null)
-					+"<p style='text-align:center; color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+					+"<p style='text-align:center; color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
 						+ "Nothing further can be gained from re-reading this book..."
 					+ "</p>";
 		}

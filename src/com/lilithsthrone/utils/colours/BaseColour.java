@@ -1,4 +1,6 @@
-package com.lilithsthrone.utils;
+package com.lilithsthrone.utils.colours;
+
+import com.lilithsthrone.utils.Util;
 
 import javafx.scene.paint.Color;
 
@@ -62,6 +64,7 @@ public enum BaseColour {
 	BLUE_DARK(Util.newColour(0x0090BF), Util.newColour(0x002E43)),
 	BLUE_STEEL(Util.newColour(0xA7B7D2), Util.newColour(0x5671A4)),
 
+	GREY_LIGHT(Util.newColour(0xd3d3d3), Util.newColour(0x999999)),
 	GREY(Util.newColour(0xB3B3B3), Util.newColour(0x777777)),
 	GREY_DARK(Util.newColour(0x999999), Util.newColour(0x515151)),
 	PITCH_BLACK(Util.newColour(0x222222), Util.newColour(0x222222)),

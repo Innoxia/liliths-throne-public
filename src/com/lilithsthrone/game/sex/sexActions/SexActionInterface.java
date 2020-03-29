@@ -36,8 +36,9 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -1107,19 +1108,19 @@ public interface SexActionInterface {
 						return SexActionInterface.this.getHighlightColour();
 					}
 					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
-						return Colour.BASE_INDIGO;
+						return PresetColour.BASE_INDIGO;
 					}
 					if(SexActionInterface.this.isPositionSwap() || getCategory()==SexActionCategory.CHARACTER_SWITCH) {
-						return Colour.BASE_PURPLE_LIGHT;
+						return PresetColour.BASE_PURPLE_LIGHT;
 					}
 					if(isSadisticAction()) {
-						return Colour.BASE_CRIMSON;
+						return PresetColour.BASE_CRIMSON;
 					}
 					if(isSexPenetrationHighlight()) {
 						if(SexActionInterface.this.getPerformingCharacterAreas().stream().anyMatch((area) -> area.isPenetration())) {
-							return Colour.GENERIC_SEX_AS_DOM;
+							return PresetColour.GENERIC_SEX_AS_DOM;
 						} else {
-							return Colour.GENERIC_SEX;
+							return PresetColour.GENERIC_SEX;
 						}
 					}
 					return super.getHighlightColour();
@@ -1185,13 +1186,13 @@ public interface SexActionInterface {
 						return SexActionInterface.this.getHighlightColour();
 					}
 					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
-						return Colour.BASE_INDIGO;
+						return PresetColour.BASE_INDIGO;
 					}
 					if(SexActionInterface.this.isPositionSwap() || getCategory()==SexActionCategory.CHARACTER_SWITCH) {
-						return Colour.BASE_PURPLE_LIGHT;
+						return PresetColour.BASE_PURPLE_LIGHT;
 					}
 					if(isSadisticAction()) {
-						return Colour.BASE_CRIMSON;
+						return PresetColour.BASE_CRIMSON;
 					}
 					return super.getHighlightColour();
 				}
@@ -1306,14 +1307,14 @@ public interface SexActionInterface {
 						for(Fetish f : fetishesRequired){
 							if(Main.game.getPlayer().hasFetish(f)) {
 								SB.append("<br/>"
-										+"<span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
-										+ " (<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>owned</span>): "
+										+"<span style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
+										+ " (<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>owned</span>): "
 										+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 								
 							} else {
 								SB.append("<br/>"
-										+"<span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
-										+ " (<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>not owned</span>): "
+										+"<span style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
+										+ " (<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>not owned</span>): "
 										+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 							}
 						}
@@ -1322,13 +1323,13 @@ public interface SexActionInterface {
 					if(corruptionBypass!=null) {
 						if(isCorruptionWithinRange()) {
 							SB.append("<br/>"
-									+"<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-									+ " (<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>within range</span>): "
+									+"<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
+									+ " (<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>within range</span>): "
 									+ Util.capitaliseSentence(corruptionBypass.getName()));
 						} else {
 							SB.append("<br/>"
-									+"<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-									+ " (<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>out of range</span>): "
+									+"<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
+									+ " (<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>out of range</span>): "
 									+ Util.capitaliseSentence(corruptionBypass.getName()));
 						}
 					}
@@ -1337,12 +1338,12 @@ public interface SexActionInterface {
 						if(Main.sex.getCharacterTargetedForSexAction(SexActionInterface.this).isSizeDifferenceShorterThan(Main.sex.getCharacterPerformingAction())
 								|| Main.sex.getCharacterTargetedForSexAction(SexActionInterface.this).isSizeDifferenceTallerThan(Main.sex.getCharacterPerformingAction())) {
 							SB.append("<br/>"
-									+"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Size-difference is blocking swap!</span>");
+									+"<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Size-difference is blocking swap!</span>");
 						}
 					}
 					
 //					SB.append("<br/>"
-//							+"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requires no penetration</span>");
+//							+"<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requires no penetration</span>");
 					
 					return SB.toString();
 				}
@@ -1426,6 +1427,20 @@ public interface SexActionInterface {
 					return true;
 				}
 			}
+		}
+
+		List<SexType> sexTypesBanned = new ArrayList<>();
+		if(Main.sex.getInitialSexManager().getSexTypesBannedMap().get(Main.sex.getCharacterPerformingAction())!=null) {
+			sexTypesBanned.addAll(Main.sex.getInitialSexManager().getSexTypesBannedMap().get(Main.sex.getCharacterPerformingAction()));
+		}
+		if(Main.sex.getInitialSexManager().getSexTypesBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this))!=null) {
+			for(SexType st : Main.sex.getInitialSexManager().getSexTypesBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this))) {
+				sexTypesBanned.add(st.getReversedSexType());
+			}
+		}
+		
+		if(sexTypesBanned.contains(this.getAsSexType())) {
+			return true;
 		}
 		
 		return false;

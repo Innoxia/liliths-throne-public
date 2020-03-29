@@ -34,6 +34,7 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.colours.Colour;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -617,20 +618,22 @@ public class Util {
 		for(int i = 0; i<sentence.length(); i++) {
 			if(sentence.charAt(i)=='(') {
 				openingCurly++;
-			} else if(sentence.charAt(i)==')') {
-				closingCurly++;
 			} else if(sentence.charAt(i)=='<') {
 				openingAngular++;
-			} else if(sentence.charAt(i)=='>') {
-				closingAngular++;
-			}else if(sentence.charAt(i)=='[') {
+			} else if(sentence.charAt(i)=='[') {
 				openingSquare++;
-			} else if(sentence.charAt(i)==']') {
-				closingSquare++;
 			}
 			
 			if(openingCurly==closingCurly && openingAngular==closingAngular && openingSquare==closingSquare && sentence.charAt(i)!=' ') {
 				return (i>0?sentence.substring(0, i):"") + Character.toUpperCase(sentence.charAt(i)) + sentence.substring(i+1);
+			}
+			
+			if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='>') {
+				closingAngular++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
 			}
 		}
 		return Character.toUpperCase(sentence.charAt(0)) + sentence.substring(1);

@@ -162,6 +162,22 @@ public enum LegConfiguration {
 		public String getMovementVerbPastParticiple() {
 			return "slithered";
 		}
+		@Override
+		public String getIndividualMovementVerbPresentFirstPersonSingular() {
+			return "slide";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentThirdPersonSingular() {
+			return "slides";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentParticiple() {
+			return "sliding";
+		}
+		@Override
+		public String getIndividualMovementVerbPastParticiple() {
+			return "slid";
+		}
 	},
 
 	/**
@@ -362,6 +378,22 @@ public enum LegConfiguration {
 
 	public String getMovementVerbPastParticiple() {
 		return "walked";
+	}
+
+	public String getIndividualMovementVerbPresentFirstPersonSingular() {
+		return "step";
+	}
+
+	public String getIndividualMovementVerbPresentThirdPersonSingular() {
+		return "steps";
+	}
+
+	public String getIndividualMovementVerbPresentParticiple() {
+		return "stepping";
+	}
+
+	public String getIndividualMovementVerbPastParticiple() {
+		return "stepped";
 	}
 	
 	public int getLandSpeedModifier() {

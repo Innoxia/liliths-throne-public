@@ -16,9 +16,10 @@ import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.82
@@ -344,7 +345,7 @@ public class ClothingEmporium {
 							}
 							@Override
 							public Colour getHighlightColour() {
-								return Colour.QUEST_RELATIONSHIP;
+								return PresetColour.QUEST_RELATIONSHIP;
 							}
 						};
 					}
