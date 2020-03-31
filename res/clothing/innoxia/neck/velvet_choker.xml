@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>100</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[velvet choker]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[velvet chokers]]></namePlural>
+		<description><![CDATA[A plain velvet choker, which tightly hugs the wearer's neck. It is securely fastened in place by means of a delicate metal chain, which is liable to break if the wearer's throat bulges too much...]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+    <equipSlots>
+      <slot>NECK</slot>
+    </equipSlots>
+
+    <rarity>COMMON</rarity>
+	<clothingSet/>
+	<imageName>velvet_choker.svg</imageName>
+    <imageEquippedName/>
+	<enchantmentLimit>5</enchantmentLimit>
+	<effects/>
+	
+	<blockedPartsList slot="NECK">
+		<blockedParts>
+			<displacementType>REMOVE_OR_EQUIP</displacementType>
+			<clothingAccessRequired/>
+			<blockedBodyParts/>
+			<clothingAccessBlocked/>
+			<concealedSlots/>
+		</blockedParts>
+	</blockedPartsList>
+		
+	<incompatibleSlots/>
+		
+	<primaryColours>
+		<colour>CLOTHING_BLACK</colour>
+	</primaryColours>
+	<primaryColoursDye values="ALL"/>
+	<secondaryColours values="JUST_STEEL"/>
+	<secondaryColoursDye values="ALL_WITH_METALS"/>
+	<tertiaryColours/>
+	<tertiaryColoursDye/>
+
+	<itemTags>
+		<tag>SOLD_BY_NYAN</tag>
+		<tag>CHOKER_SNAP</tag>
+	</itemTags>
+	</coreAttributes>
+
+  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] securely [npc.verb(fasten)] the velvet choker around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] securely [npc.verb(fasten)] the velvet choker around [npc2.namePos] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before securely fastening the velvet choker around [npc2.her] neck.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc.her] velvet choker, before taking it off from around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc2.namePos] velvet choker, before taking it off from around [npc2.her] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] [npc2.namePos] velvet choker, before yanking it off from around [npc2.her] neck.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

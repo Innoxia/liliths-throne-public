@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * Anything over ZERO_AVERAGE is basically a pseudo penis
@@ -11,21 +12,21 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum ClitorisSize {
 	
-	ZERO_AVERAGE("small", 0, 1, Colour.GENERIC_SIZE_ONE),
+	ZERO_AVERAGE("small", 0, 1, PresetColour.GENERIC_SIZE_ONE),
 	
-	ONE_BIG("big", 1, 8, Colour.GENERIC_SIZE_TWO),
+	ONE_BIG("big", 1, 8, PresetColour.GENERIC_SIZE_TWO),
 	
-	TWO_LARGE("large", 8, 12, Colour.GENERIC_SIZE_THREE),
+	TWO_LARGE("large", 8, 12, PresetColour.GENERIC_SIZE_THREE),
 	
-	THREE_HUGE("huge", 12, 28, Colour.GENERIC_SIZE_FOUR),
+	THREE_HUGE("huge", 12, 28, PresetColour.GENERIC_SIZE_FOUR),
 	
-	FOUR_MASSIVE("massive", 28, 55, Colour.GENERIC_SIZE_FIVE),
+	FOUR_MASSIVE("massive", 28, 55, PresetColour.GENERIC_SIZE_FIVE),
 	
-	FIVE_ENORMOUS("enormous", 55, 75, Colour.GENERIC_SIZE_SIX),
+	FIVE_ENORMOUS("enormous", 55, 75, PresetColour.GENERIC_SIZE_SIX),
 	
-	SIX_GIGANTIC("gigantic", 75, 100, Colour.GENERIC_SIZE_SEVEN),
+	SIX_GIGANTIC("gigantic", 75, 100, PresetColour.GENERIC_SIZE_SEVEN),
 	
-	SEVEN_STALLION("absurdly colossal", 100, 125, Colour.GENERIC_SIZE_EIGHT);
+	SEVEN_STALLION("absurdly colossal", 100, 125, PresetColour.GENERIC_SIZE_EIGHT);
 
 	private int minimumValue, maximumValue;
 	private String descriptor;

@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.persona;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.3.5
@@ -9,13 +10,13 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum PersonalityCategory {
 
-	CORE("core", Colour.GENERIC_EXCELLENT),
+	CORE("core", PresetColour.GENERIC_EXCELLENT),
 	
-	COMBAT("combat", Colour.GENERIC_COMBAT),
+	COMBAT("combat", PresetColour.GENERIC_COMBAT),
 	
-	SEX("sex", Colour.GENERIC_SEX),
+	SEX("sex", PresetColour.GENERIC_SEX),
 	
-	SPEECH("speech", Colour.BASE_PURPLE_LIGHT);
+	SPEECH("speech", PresetColour.BASE_PURPLE_LIGHT);
 
 	private String name;
 	private Colour colour;

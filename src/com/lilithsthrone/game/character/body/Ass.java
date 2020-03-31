@@ -187,41 +187,28 @@ public class Ass implements BodyPartInterface {
 		this.hipSize = Math.max(0, Math.min(hipSize, HipSize.SEVEN_ABSURDLY_WIDE.getValue()));
 		int sizeChange = this.hipSize - oldSize;
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		if (sizeChange == 0) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(The size of your hips doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] hips doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] hips doesn't change...)]</p>");
 		}
 		
 		String styledSizeDescriptor = "[style.boldSex("+ getHipSize().getDescriptor() + " hips)]";
 		if (sizeChange > 0) {
-			if (owner.isPlayer()) {
-				return "<p>"
-							+ "You inhale sharply in surprise as you feel your hips reshape themselves, pushing out and [style.boldGrow(growing wider)].<br/>"
-							+ "You now have " + styledSizeDescriptor + "!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner,
-						"<p>"
-							+ "[npc.Name] inhales sharply in surprise as [npc.she] feels [npc.her] hips reshape themselves, pushing out and [style.boldGrow(growing wider)].<br/>"
-							+ "[npc.She] now has " + styledSizeDescriptor + "!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(inhale)] sharply in surprise as [npc.she] [npc.verb(feel)] [npc.her] hips reshape themselves, pushing out and [style.boldGrow(growing wider)].<br/>"
+						+ "[npc.She] now [npc.has] " + styledSizeDescriptor + "!"
+					+ "</p>");
+				
 		} else {
-			if (owner.isPlayer()) {
-				return "<p>"
-							+ "You inhale sharply in surprise as you feel your hips collapse inwards and reshape themselves as they get [style.boldShrink(narrower)].<br/>"
-							+ "You now have " + styledSizeDescriptor + "!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner,
-						"<p>"
-							+ "[pc.Name] inhales sharply in surprise as [npc.she] feels [npc.her] hips collapse inwards and reshape themselves as they get [style.boldShrink(narrower)].<br/>"
-							+ "[npc.She] now has " + styledSizeDescriptor + "!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[pc.Name] [npc.verb(inhale)] sharply in surprise as [npc.she] [npc.verb(feel)] [npc.her] hips collapse inwards and reshape themselves as they get [style.boldShrink(narrower)].<br/>"
+						+ "[npc.She] now [npc.has] " + styledSizeDescriptor + "!"
+					+ "</p>");
 		}
 	}
 

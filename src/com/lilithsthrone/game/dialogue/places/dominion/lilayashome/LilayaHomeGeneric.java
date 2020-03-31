@@ -27,7 +27,7 @@ import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -41,11 +41,11 @@ import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.BaseColour;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.BaseColour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
@@ -151,7 +151,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public int getSecondsPassed() {
-			return CityPlaces.TRAVEL_TIME_STREET;
+			return DominionPlaces.TRAVEL_TIME_STREET;
 		}
 
 		@Override
@@ -531,7 +531,7 @@ public class LilayaHomeGeneric {
 							}
 							
 							Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center; color:"+Colour.MILK.toWebHexString()+";'>"
+								"<p style='text-align:center; color:"+PresetColour.MILK.toWebHexString()+";'>"
 										+ Units.fluid(milked) + UtilText.parse(getMilkingTarget(), " of [npc.milk] added to this room's storage!")
 								+ "</p>");
 						}
@@ -611,7 +611,7 @@ public class LilayaHomeGeneric {
 							}
 
 							Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center; color:"+Colour.CUM.toWebHexString()+";'>"
+								"<p style='text-align:center; color:"+PresetColour.CUM.toWebHexString()+";'>"
 										+ Units.fluid(milked) + UtilText.parse(getMilkingTarget(), " of [npc.cum] added to this room's storage!")
 								+ "</p>");
 						}
@@ -684,7 +684,7 @@ public class LilayaHomeGeneric {
 							}
 
 							Main.game.getTextEndStringBuilder().append(
-									"<p style='text-align:center; color:"+Colour.GIRLCUM.toWebHexString()+";'>"
+									"<p style='text-align:center; color:"+PresetColour.GIRLCUM.toWebHexString()+";'>"
 										+ Units.fluid(milked) + UtilText.parse(getMilkingTarget(), " of [npc.girlcum] added to this room's storage!")
 									+ "</p>");
 						}
@@ -776,7 +776,7 @@ public class LilayaHomeGeneric {
 							}
 							
 							Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center; color:"+Colour.MILK.toWebHexString()+";'>"
+								"<p style='text-align:center; color:"+PresetColour.MILK.toWebHexString()+";'>"
 										+ Units.fluid(milked) + UtilText.parse(getMilkingTarget(), " of [npc.crotchMilk] added to this room's storage!")
 								+ "</p>");
 						}

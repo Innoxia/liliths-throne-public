@@ -49,7 +49,6 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
@@ -63,6 +62,7 @@ import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
+import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -100,12 +100,13 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PositioningMenu;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.ImageCache;
 import com.lilithsthrone.rendering.RenderingEngine;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Pathing;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.DayPeriod;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
@@ -436,7 +437,7 @@ public class MainController implements Initializable {
 			}
 			
 			private void printAlreadyExistingBinding(String primarySecondary, String actionName, String eventCodeName) {
-				Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>The key '" + eventCodeName
+				Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>" + "<b style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>The key '" + eventCodeName
 						+ "' is already the " + primarySecondary + " bind for the action '" + actionName + "'!</b>" + "</p>");
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}
@@ -491,7 +492,7 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-							System.out.println(Main.isVersionOlderThan("0.3.5.9", "0.3.5.10"));
+//							System.out.println(Main.isVersionOlderThan("0.3.5.9", "0.3.5.10"));
 //							for(NPC npc : Main.game.getAllNPCs()) {
 //								if(npc.isUnique()) {
 //									System.out.println(npc.getNameIgnoresPlayerKnowledge()+": "+npc.getAttributeValue(Attribute.MAJOR_CORRUPTION));
@@ -669,10 +670,16 @@ public class MainController implements Initializable {
 								}
 							}
 						}
-						if(Main.game.getCurrentDialogueNode() == CompanionManagement.OCCUPANT_CHOOSE_NAME){
+						if(Main.game.getCurrentDialogueNode() == CompanionManagement.OCCUPANT_CHOOSE_NAME
+								|| Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY){
+							GameCharacter slave =
+									Main.game.getCurrentDialogueNode() == ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY
+										?BodyChanging.getTarget()
+										:Main.game.getDialogueFlags().getManagementCompanion();
+							
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput') === document.activeElement")) {
 								allowInput = false;
-								if (event.getCode() == KeyCode.ENTER) {
+								if(event.getCode() == KeyCode.ENTER) {
 									enterConsumed = true;
 									boolean unsuitableName = false;
 								 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput')")!=null) {
@@ -683,11 +690,11 @@ public class MainController implements Initializable {
 															|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 										}
 										
-										if (!unsuitableName) {
+										if(!unsuitableName) {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													Main.game.getDialogueFlags().getManagementCompanion().setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+													slave.setPetName(Main.game.getPlayer(), Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 												}
 											});
 										} else {
@@ -714,7 +721,7 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													Main.game.getDialogueFlags().getManagementCompanion().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
+													slave.setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 												}
 											});
 										} else {
@@ -740,7 +747,7 @@ public class MainController implements Initializable {
 											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()){
 												@Override
 												public void effects() {
-													Main.game.getDialogueFlags().getManagementCompanion().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
+													slave.setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 												}
 											});
 										} else {
@@ -1195,7 +1202,7 @@ public class MainController implements Initializable {
 									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
 										if(clickLocation.equals(Pathing.getEndPoint())) {
 											if(Pathing.isImpossibleDestination()) {
-												Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+												Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot travel here!");
 											} else {
 												Main.game.getPlayer().setLocation(PhoneDialogue.worldTypeMap, new Vector2i(j, i), false);
 												DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
@@ -1221,7 +1228,7 @@ public class MainController implements Initializable {
 									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
 										if(clickLocation.equals(Pathing.getEndPoint())) {
 											if(Pathing.isImpossibleDestination()) {
-												Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+												Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot travel here!");
 											} else {
 												Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
 											}
@@ -1240,7 +1247,7 @@ public class MainController implements Initializable {
 									if(worldType.equals(Main.game.getPlayer().getWorldLocation())) {
 										if(clickLocation.equals(Pathing.getEndPoint())) {
 											if(Pathing.isImpossibleDestination()) {
-												Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+												Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot travel here!");
 											} else {
 												Main.game.setContent(Pathing.walkPath(Pathing.getMapTravelType()));
 											}
@@ -1259,9 +1266,9 @@ public class MainController implements Initializable {
 						}
 					} else {
 						if(!c.isTravelledTo()) {
-							Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot fast-travel to unexplored locations!");
+							Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot fast-travel to unexplored locations!");
 						} else {
-							Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+							Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot travel here!");
 						}
 					}
 					
@@ -2310,21 +2317,21 @@ public class MainController implements Initializable {
 					Main.game.saveDialogueNode();
 					Main.game.setContent(new Response("", "", DebugDialogue.DEBUG_MENU));
 				} else {
-					Main.game.flashMessage(Colour.GENERIC_BAD, "Unavailable in prologue!");
+					Main.game.flashMessage(PresetColour.GENERIC_BAD, "Unavailable in prologue!");
 				}
 			}
 		}
-		if (lastKeysEqual(KeyCode.N, KeyCode.O, KeyCode.X, KeyCode.X, KeyCode.X)) {
-			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_GENERIC_SHOP) && !Main.game.getNpc(TestNPC.class).isSlave()) {
-				Main.game.setActiveNPC(Main.game.getNpc(TestNPC.class));
-				Main.game.setContent(new Response("", "", TestNPC.TEST_DIALOGUE) {
-					@Override
-					public void effects() {
-						Main.game.getNpc(TestNPC.class).setLocation(WorldType.SHOPPING_ARCADE, Main.game.getPlayer().getLocation(), true);
-					}
-				});
-			}
-		}
+//		if (lastKeysEqual(KeyCode.N, KeyCode.O, KeyCode.X, KeyCode.X, KeyCode.X)) {
+//			if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_GENERIC_SHOP) && !Main.game.getNpc(TestNPC.class).isSlave()) {
+//				Main.game.setActiveNPC(Main.game.getNpc(TestNPC.class));
+//				Main.game.setContent(new Response("", "", TestNPC.TEST_DIALOGUE) {
+//					@Override
+//					public void effects() {
+//						Main.game.getNpc(TestNPC.class).setLocation(WorldType.SHOPPING_ARCADE, Main.game.getPlayer().getLocation(), true);
+//					}
+//				});
+//			}
+//		}
 		if (lastKeysEqual(KeyCode.D, KeyCode.K, KeyCode.O, KeyCode.M, KeyCode.A)) {
 			if(Main.game!=null) {
 				if(Main.game.isStarted()
@@ -2399,7 +2406,7 @@ public class MainController implements Initializable {
 					});
 					
 				} else {
-					Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot dominate!");
+					Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot dominate!");
 				}
 			}
 		}
@@ -2485,7 +2492,7 @@ public class MainController implements Initializable {
 					});
 					
 				} else {
-					Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot dominate!");
+					Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot dominate!");
 				}
 			}
 		}
@@ -2555,7 +2562,7 @@ public class MainController implements Initializable {
 			
 			if(!placeTypeTarget.equals(PlaceType.GENERIC_IMPASSABLE)) {
 				if(Main.game.isInGlobalMap() && placeTypeTarget.getDialogue(false)==null) {
-					Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot travel here!");
+					Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot travel here!");
 					
 				} else {
 					if (Main.game.getActiveWorld().getCell(location).getPlace().isItemsDisappear()) {

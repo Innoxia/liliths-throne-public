@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.EntranceType;
 
@@ -203,8 +204,8 @@ public class GenericPlace implements XMLSaving {
 		this.name = name;
 	}
 
-	public String getColourString() {
-		return placeType.getColourString();
+	public Colour getColour() {
+		return placeType.getColour();
 	}
 
 	public DialogueNode getDialogue(boolean withRandomEncounter) {

@@ -1,7 +1,8 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
@@ -10,11 +11,11 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum Muscle {
 	
-	ZERO_SOFT("soft", 0, 20, Colour.MUSCLE_ZERO),
-	ONE_LIGHTLY_MUSCLED("lightly muscled", 20, 40, Colour.MUSCLE_ONE),
-	TWO_TONED("toned", 40, 60, Colour.MUSCLE_TWO),
-	THREE_MUSCULAR("muscular", 60, 80, Colour.MUSCLE_THREE),
-	FOUR_RIPPED("ripped", 80, 100, Colour.MUSCLE_FOUR);
+	ZERO_SOFT("soft", 0, 20, PresetColour.MUSCLE_ZERO),
+	ONE_LIGHTLY_MUSCLED("lightly muscled", 20, 40, PresetColour.MUSCLE_ONE),
+	TWO_TONED("toned", 40, 60, PresetColour.MUSCLE_TWO),
+	THREE_MUSCULAR("muscular", 60, 80, PresetColour.MUSCLE_THREE),
+	FOUR_RIPPED("ripped", 80, 100, PresetColour.MUSCLE_FOUR);
 
 	private String name;
 	private int minimumMuscle, maximumMuscle;

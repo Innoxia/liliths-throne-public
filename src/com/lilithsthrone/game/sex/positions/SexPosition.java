@@ -2918,11 +2918,15 @@ public class SexPosition {
 								new Value<>(Skin.class, genericGroinForceCreampieAreas));
 					}
 			}
-			// Characters performing sixty-nine can use weight to force a facial creampie:
+			// Characters performing sixty-nine or lying down oral can use weight to force a facial creampie:
 			if(Main.sex.getSexPositionSlot(cumTarget)==SexSlotLyingDown.SIXTY_NINE
 					|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotLyingDown.SIXTY_NINE_TWO
 					|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotLyingDown.SIXTY_NINE_THREE
-					|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotLyingDown.SIXTY_NINE_FOUR) {
+					|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotLyingDown.SIXTY_NINE_FOUR
+					|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotLyingDown.MISSIONARY_ORAL
+					|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotLyingDown.MISSIONARY_ORAL_TWO
+					|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotLyingDown.MISSIONARY_ORAL_THREE
+					|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotLyingDown.MISSIONARY_ORAL_FOUR) {
 				if(Main.sex.getSexPositionSlot(cumProvider)==SexSlotLyingDown.LYING_DOWN
 						|| Main.sex.getSexPositionSlot(cumProvider)==SexSlotLyingDown.LYING_DOWN_TWO
 						|| Main.sex.getSexPositionSlot(cumProvider)==SexSlotLyingDown.LYING_DOWN_THREE
@@ -2987,6 +2991,22 @@ public class SexPosition {
 		}
 		@Override
 		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+			// Restrict fucking breasts if cowgirl character is riding cock.
+			if(Main.sex.getSexPositionSlot(performer).hasTag(SexSlotTag.COWGIRL) && Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.MISSIONARY)) {
+				List<SexSlot> cowgirlList = Util.newArrayListOfValues(SexSlotLyingDown.COWGIRL, SexSlotLyingDown.COWGIRL_TWO, SexSlotLyingDown.COWGIRL_THREE, SexSlotLyingDown.COWGIRL_FOUR);
+				for(int i=0; i<4; i++) {
+					GameCharacter cowgirl = Main.sex.getCharacterInPosition(cowgirlList.get(i));
+					if(performer.equals(cowgirl)
+							&& action.getPerformingCharacterAreas().contains(SexAreaPenetration.PENIS)
+							&& (action.getTargetedCharacterAreas().contains(SexAreaOrifice.BREAST) || action.getTargetedCharacterAreas().contains(SexAreaOrifice.NIPPLE))
+							&& (Main.sex.getOngoingSexAreas(performer, SexAreaOrifice.VAGINA, target).contains(SexAreaPenetration.PENIS)
+									|| Main.sex.getOngoingSexAreas(performer, SexAreaOrifice.ANUS, target).contains(SexAreaPenetration.PENIS)
+									|| Main.sex.getOngoingSexAreas(performer, SexAreaOrifice.ASS, target).contains(SexAreaPenetration.PENIS))) {
+						return true;
+					}
+				}
+			}
+						
 			// Restrict vaginal actions if cowgirl is riding cock anally.
 			if(Main.sex.getSexPositionSlot(target).hasTag(SexSlotTag.COWGIRL) && Main.sex.getSexPositionSlot(performer).hasTag(SexSlotTag.MISSIONARY)) {
 				List<SexSlot> cowgirlList = Util.newArrayListOfValues(SexSlotLyingDown.COWGIRL, SexSlotLyingDown.COWGIRL_TWO, SexSlotLyingDown.COWGIRL_THREE, SexSlotLyingDown.COWGIRL_FOUR);

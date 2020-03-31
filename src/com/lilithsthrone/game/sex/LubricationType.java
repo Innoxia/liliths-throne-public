@@ -2,7 +2,8 @@ package com.lilithsthrone.game.sex;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.6?
@@ -11,21 +12,21 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum LubricationType {
 	
-	SALIVA("saliva", "saliva", false, Colour.BASE_BLUE_LIGHT),
+	SALIVA("saliva", "saliva", false, PresetColour.BASE_BLUE_LIGHT),
 	
-	MILK("[npc.milk]", "milk", false, Colour.MILK),
+	MILK("[npc.milk]", "milk", false, PresetColour.MILK),
 	
-	PRECUM("precum", "precum", false, Colour.CUM),
+	PRECUM("precum", "precum", false, PresetColour.CUM),
 	
-	CUM("[npc.cum]", "cum", false, Colour.CUM),
+	CUM("[npc.cum]", "cum", false, PresetColour.CUM),
 	
-	GIRLCUM("girlcum", "girlcum", false, Colour.GIRLCUM),
+	GIRLCUM("girlcum", "girlcum", false, PresetColour.GIRLCUM),
 	
-	ANAL_LUBE("anal lubricant", "anal lubricant", false, Colour.BASE_BLUE_LIGHT), // This is only present if the anus has been transformed to be 'wetter' than usual
+	ANAL_LUBE("anal lubricant", "anal lubricant", false, PresetColour.BASE_BLUE_LIGHT), // This is only present if the anus has been transformed to be 'wetter' than usual
 
-	SLIME("slime", "slime", false, Colour.RACE_SLIME),
+	SLIME("slime", "slime", false, PresetColour.RACE_SLIME),
 	
-	OTHER("lubrication", "lubrication", false, Colour.BASE_BLUE_LIGHT);
+	OTHER("lubrication", "lubrication", false, PresetColour.BASE_BLUE_LIGHT);
 	
 	private String name;
 	private String nullOwnerName;

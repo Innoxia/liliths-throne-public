@@ -45,9 +45,10 @@ import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.comparators.ClothingZLayerComparator;
 
 /**
@@ -135,7 +136,7 @@ public class InventoryDialogue {
 			}
 			
 			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
-				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+				return "Inventory (Quick-Manage is <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
 			} else {
 				return "Inventory";
 			}
@@ -799,7 +800,7 @@ public class InventoryDialogue {
 			}
 			
 			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
-				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+				return "Inventory (Quick-Manage is <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
 			} else {
 				return "Inventory";
 			}
@@ -867,7 +868,7 @@ public class InventoryDialogue {
 		@Override
 		public String getLabel() {
 			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
-				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+				return "Inventory (Quick-Manage is <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
 			} else {
 				return "Inventory";
 			}
@@ -2505,7 +2506,7 @@ public class InventoryDialogue {
 		@Override
 		public String getLabel() {
 			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
-				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+				return "Inventory (Quick-Manage is <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
 			} else {
 				return "Inventory";
 			}
@@ -3602,7 +3603,7 @@ public class InventoryDialogue {
 			}
 			
 			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
-				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+				return "Inventory (Quick-Manage is <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
 			} else {
 				return "Inventory";
 			}
@@ -5142,7 +5143,7 @@ public class InventoryDialogue {
 		@Override
 		public String getLabel() {
 			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
-				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+				return "Inventory (Quick-Manage is <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
 			} else {
 				return "Inventory";
 			}
@@ -5559,7 +5560,7 @@ public class InventoryDialogue {
 			}
 			
 			if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade) && !Main.game.isInSex() && !Main.game.isInCombat()) {
-				return "Inventory (Quick-Manage is <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
+				return "Inventory (Quick-Manage is <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>)";
 			} else {
 				return "Inventory";
 			}
@@ -5740,7 +5741,7 @@ public class InventoryDialogue {
 														clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11),
 														Main.game.getPlayer(),
 														clothing.getSlotEquippedTo(),
-														" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>This will cover "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
+														" <span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>This will cover "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
 														".</span>"),
 												CLOTHING_EQUIPPED){
 									@Override
@@ -5755,7 +5756,7 @@ public class InventoryDialogue {
 														clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11),
 														Main.game.getPlayer(),
 														clothing.getSlotEquippedTo(),
-														" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
+														" <span style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
 														".</span>"),
 												CLOTHING_EQUIPPED){
 									@Override
@@ -5944,7 +5945,7 @@ public class InventoryDialogue {
 															clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11),
 															Main.game.getPlayer(),
 															clothing.getSlotEquippedTo(),
-															" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
+															" <span style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
 															".</span>"),
 													Main.sex.SEX_DIALOGUE){
 										@Override
@@ -6136,7 +6137,7 @@ public class InventoryDialogue {
 														clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index - 11),
 														owner,
 														clothing.getSlotEquippedTo(),
-														" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>This will cover "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
+														" <span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>This will cover "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
 														".</span>"),
 												CLOTHING_EQUIPPED){
 									@Override
@@ -6151,7 +6152,7 @@ public class InventoryDialogue {
 														clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index - 11),
 														owner,
 														clothing.getSlotEquippedTo(),
-														" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
+														" <span style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
 														".</span>"),
 												CLOTHING_EQUIPPED){
 									@Override
@@ -6295,7 +6296,7 @@ public class InventoryDialogue {
 															clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index - 11),
 															owner,
 															clothing.getSlotEquippedTo(),
-															" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
+															" <span style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>This will expose "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" ",
 															".</span>"),
 													Main.sex.SEX_DIALOGUE){
 										@Override
@@ -6428,8 +6429,8 @@ public class InventoryDialogue {
 					+ "Primary Colour:<br/>");
 
 		for (Colour c : clothing.getClothingType().getAllAvailablePrimaryColours()) {
-			inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-									+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+			inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.getId()) + "'"
+									+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 								+ "<div class='phone-item-colour' style='"
 									+ (c.isMetallic()
 											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -6444,8 +6445,8 @@ public class InventoryDialogue {
 			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
 					+ "Secondary Colour:<br/>");
 			for (Colour c : clothing.getClothingType().getAllAvailableSecondaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.getId()) + "'"
+									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 								+ "<div class='phone-item-colour' style='"
 									+ (c.isMetallic()
 											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -6460,8 +6461,8 @@ public class InventoryDialogue {
 			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
 					+ "Tertiary Colour:<br/>");
 			for (Colour c : clothing.getClothingType().getAllAvailableTertiaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-									+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+				inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.getId()) + "'"
+									+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 								+ "<div class='phone-item-colour' style='"
 									+ (c.isMetallic()
 											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -6482,12 +6483,12 @@ public class InventoryDialogue {
 				if (dyePreviewPattern.equals(pattern.getName())) {
 					inventorySB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</b>"
+								+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</b>"
 							+ "</div>");
 				} else {
 					inventorySB.append(
 							"<div id='ITEM_PATTERN_"+pattern.getName()+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</span>"
+							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getNiceName()) + "</span>"
 							+ "</div>");
 				}
 			}
@@ -6498,8 +6499,8 @@ public class InventoryDialogue {
 				inventorySB.append("<div class='container-full-width'>"
 						+ "Pattern Primary Colour:<br/>");
 				for (Colour c : clothing.getClothingType().getAllAvailablePatternPrimaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewPatternPrimary==c?" selected":"")+"' id='PATTERN_PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+					inventorySB.append("<div class='normal-button"+(dyePreviewPatternPrimary==c?" selected":"")+"' id='PATTERN_PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.getId()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternPrimary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ "<div class='phone-item-colour' style='"
 										+ (c.isMetallic()
 												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -6514,8 +6515,8 @@ public class InventoryDialogue {
 				inventorySB.append("<div class='container-full-width'>"
 						+ "Pattern Secondary Colour:<br/>");
 				for (Colour c : clothing.getClothingType().getAllAvailablePatternSecondaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewPatternSecondary==c?" selected":"")+"' id='PATTERN_SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+					inventorySB.append("<div class='normal-button"+(dyePreviewPatternSecondary==c?" selected":"")+"' id='PATTERN_SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.getId()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternSecondary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ "<div class='phone-item-colour' style='"
 										+ (c.isMetallic()
 												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -6530,8 +6531,8 @@ public class InventoryDialogue {
 				inventorySB.append("<div class='container-full-width'>"
 						+ "Pattern Tertiary Colour:<br/>");
 				for (Colour c : clothing.getClothingType().getAllAvailablePatternTertiaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewPatternTertiary==c?" selected":"")+"' id='PATTERN_TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+					inventorySB.append("<div class='normal-button"+(dyePreviewPatternTertiary==c?" selected":"")+"' id='PATTERN_TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.getId()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternTertiary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ "<div class='phone-item-colour' style='"
 										+ (c.isMetallic()
 												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -6588,8 +6589,8 @@ public class InventoryDialogue {
 					+ "Primary:<br/>");
 			
 			for (Colour c : weapon.getWeaponType().getAllAvailablePrimaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (weapon.getWeaponType().hashCode() + "_" + c.toString()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+				inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (weapon.getWeaponType().hashCode() + "_" + c.getId()) + "'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ "<div class='phone-item-colour' style='"
 										+ (c.isMetallic()
 												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -6606,8 +6607,8 @@ public class InventoryDialogue {
 			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
 					+ "Secondary:<br/>");
 			for (Colour c : weapon.getWeaponType().getAllAvailableSecondaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (weapon.getWeaponType().hashCode() + "_" + c.toString()) + "'"
-									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (weapon.getWeaponType().hashCode() + "_" + c.getId()) + "'"
+									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 								+ "<div class='phone-item-colour' style='"
 									+ (c.isMetallic()
 											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -6623,8 +6624,8 @@ public class InventoryDialogue {
 			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
 					+ "Tertiary:<br/>");
 			for (Colour c : weapon.getWeaponType().getAllAvailableTertiaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (weapon.getWeaponType().hashCode() + "_" + c.toString()) + "'"
-									+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+				inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (weapon.getWeaponType().hashCode() + "_" + c.getId()) + "'"
+									+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 								+ "<div class='phone-item-colour' style='"
 									+ (c.isMetallic()
 											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
@@ -8347,8 +8348,8 @@ public class InventoryDialogue {
 		return null;
 		
 //		if (Main.game.getDialogueFlags().quickTrade) {
-//			return new Response("Quick-Manage: <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
-//					"Quick-Manage is turned <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!<br/>"
+//			return new Response("Quick-Manage: <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>",
+//					"Quick-Manage is turned <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>ON</b>!<br/>"
 //							+ "That means you can buy and sell items with a single click when trading, and pick-up and drop items with a single click when in normal inventory mode.", INVENTORY_MENU){
 //				
 //				@Override
@@ -8363,8 +8364,8 @@ public class InventoryDialogue {
 //			};
 //			
 //		} else {
-//			return new Response("Quick-Manage: <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
-//					"Quick-Manage is turned <b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.<br/>"
+//			return new Response("Quick-Manage: <b style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>OFF</b>",
+//					"Quick-Manage is turned <b style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>OFF</b>.<br/>"
 //							+ "That means when you click on an item, you get a detailed view of the item before deciding whether to buy/sell or pick-up/drop it.", INVENTORY_MENU){
 //
 //				@Override

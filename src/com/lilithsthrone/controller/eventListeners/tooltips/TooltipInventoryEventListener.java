@@ -46,8 +46,9 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * Shows the tooltip at the given element's position.
@@ -120,7 +121,7 @@ public class TooltipInventoryEventListener implements EventListener {
 
 			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 446);
 
-			Colour subtitleColour = dyeClothing.isEnchantmentKnown()?dyeClothing.getRarity().getColour():Colour.RARITY_UNKNOWN;
+			Colour subtitleColour = dyeClothing.isEnchantmentKnown()?dyeClothing.getRarity().getColour():PresetColour.RARITY_UNKNOWN;
 
 			InventorySlot slotEquippedTo = dyeClothing.getSlotEquippedTo();
 			if(slotEquippedTo==null) {
@@ -419,11 +420,11 @@ public class TooltipInventoryEventListener implements EventListener {
 						BodyPartClothingBlock block = invSlot.getBodyPartClothingBlock(equippedToCharacter);
 						
 						if (!renderingTattoos && !clothingBlockingThisSlot.isEmpty()) {
-							setBlockedTooltipContent(UtilText.parse(equippedToCharacter, "This slot is currently <b style='color:" + Colour.SEALED.toWebHexString() + ";'>blocked</b> by [npc.namePos] ")
+							setBlockedTooltipContent(UtilText.parse(equippedToCharacter, "This slot is currently <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>blocked</b> by [npc.namePos] ")
 									+ Util.stringsToStringList(clothingBlockingThisSlot, false) + ".");
 							
 						} else if (!renderingTattoos && block != null) {
-							setBlockedTooltipContent("<span style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>Restricted!</span>", UtilText.parse(equippedToCharacter, block.getDescription()));
+							setBlockedTooltipContent("<span style='color:" + PresetColour.GENERIC_MINOR_BAD.toWebHexString() + ";'>Restricted!</span>", UtilText.parse(equippedToCharacter, block.getDescription()));
 							
 						} else {
 							boolean piercingBlocked=false;
@@ -641,7 +642,7 @@ public class TooltipInventoryEventListener implements EventListener {
 
 
 	private void setBlockedTooltipContent(String description){
-		setBlockedTooltipContent("<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Blocked!</span>", description);
+		setBlockedTooltipContent("<span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Blocked!</span>", description);
 	}
 	private void setBlockedTooltipContent(String title, String description){
 		boolean dirty = equippedToCharacter.isDirtySlot(invSlot);
@@ -653,7 +654,7 @@ public class TooltipInventoryEventListener implements EventListener {
 				+"<div class='description' style='height:72px; text-align:center;'>"
 					+ (dirty
 						?"[npc.NamePos] "+invSlot.getName()+" "+(invSlot.isPlural()?"are":"is")
-								+ " <span style='color:"+Colour.CUM.toWebHexString()+";'>dirty</span>!<br/>"
+								+ " <span style='color:"+PresetColour.CUM.toWebHexString()+";'>dirty</span>!<br/>"
 						:"")
 					 + UtilText.parse(description)
 				 +"</div>"));
@@ -678,7 +679,7 @@ public class TooltipInventoryEventListener implements EventListener {
 				+ (dirty
 					?"<div class='description' style='height:48px; text-align:center;'>"
 							+ "[npc.NamePos] "+invSlot.getName()+" "+(invSlot.isPlural()?"have":"has")
-							+ " been <span style='color:"+Colour.CUM.toWebHexString()+";'>dirtied</span> by sexual fluids!"
+							+ " been <span style='color:"+PresetColour.CUM.toWebHexString()+";'>dirtied</span> by sexual fluids!"
 						+ "</div>"
 					:"")));
 	}
@@ -876,8 +877,8 @@ public class TooltipInventoryEventListener implements EventListener {
 		// Core info:
 		tooltipSB.append("<div class='container-full-width titular'>"
 				+ (absItem.isConsumedOnUse()
-						? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Consumed on use</span>"
-						: "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Infinite uses</span>")
+						? "<span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Consumed on use</span>"
+						: "<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Infinite uses</span>")
 				+ "</div>"
 					);
 
@@ -922,7 +923,7 @@ public class TooltipInventoryEventListener implements EventListener {
 					tooltipSB.append("<div class='container-full-width titular'>"
 										+ "Value: "+UtilText.formatAsMoney(absItem.getValue())
 										+" | "
-										+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + InventoryDialogue.getInventoryNPC().getName("The") + " will not buy this</span>"
+										+ "<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>" + InventoryDialogue.getInventoryNPC().getName("The") + " will not buy this</span>"
 									+ "</div>");
 				}
 			} else {
@@ -971,8 +972,8 @@ public class TooltipInventoryEventListener implements EventListener {
 		tooltipSB.append("<div class='container-half-width titular' style='color:"+absWep.getDamageType().getMultiplierAttribute().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(absWep.getDamageType().getName()) + " damage</div>");
 		tooltipSB.append("<div class='container-half-width titular'>"
 							+ (absWep.getWeaponType().getClothingSet() == null
-								? "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Not part of a set</span>"
-								: "<span style='color:" + Colour.RARITY_EPIC.toWebHexString() + ";'>"+absWep.getWeaponType().getClothingSet().getName() + " set</span>")
+								? "<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>Not part of a set</span>"
+								: "<span style='color:" + PresetColour.RARITY_EPIC.toWebHexString() + ";'>"+absWep.getWeaponType().getClothingSet().getName() + " set</span>")
 						+ "</div>");
 		
 		
@@ -1040,7 +1041,7 @@ public class TooltipInventoryEventListener implements EventListener {
 //		}
 		
 			for(Spell s : absWep.getSpells()) {
-				tooltipSB.append("<br/><b style='color:"+Colour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Grants Spell</b><b>:</b> <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(s.getName())+"</b>");
+				tooltipSB.append("<br/><b style='color:"+PresetColour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Grants Spell</b><b>:</b> <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(s.getName())+"</b>");
 			}
 			
 		tooltipSB.append("</div>");
@@ -1081,7 +1082,7 @@ public class TooltipInventoryEventListener implements EventListener {
 					tooltipSB.append("<div class='container-full-width titular'>"
 										+ "Value: "+UtilText.formatAsMoney(absWep.getValue())
 										+" | "
-										+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + InventoryDialogue.getInventoryNPC().getName("The") + " will not buy this</span>"
+										+ "<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>" + InventoryDialogue.getInventoryNPC().getName("The") + " will not buy this</span>"
 									+ "</div>");
 				}
 			} else {
@@ -1187,8 +1188,8 @@ public class TooltipInventoryEventListener implements EventListener {
 		tooltipSB.append("</div>");
 		tooltipSB.append("<div class='container-half-width titular'>"
 							+ (absClothing.getClothingType().getClothingSet() == null
-								? "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Not part of a set</span>"
-								: "<span style='color:" + Colour.RARITY_EPIC.toWebHexString() + ";'>"+absClothing.getClothingType().getClothingSet().getName() + " set</span>")
+								? "<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>Not part of a set</span>"
+								: "<span style='color:" + PresetColour.RARITY_EPIC.toWebHexString() + ";'>"+absClothing.getClothingType().getClothingSet().getName() + " set</span>")
 						+ "</div>");
 		
 		// Attribute modifiers:
@@ -1197,7 +1198,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		
 		Femininity femininityRestriction = absClothing.getClothingType().getFemininityRestriction();
 		tooltipSB.append(
-				"<span style='color:" + (absClothing.isEnchantmentKnown()?absClothing.getRarity().getColour():Colour.TEXT_GREY).toWebHexString() + ";'>"
+				"<span style='color:" + (absClothing.isEnchantmentKnown()?absClothing.getRarity().getColour():PresetColour.TEXT_GREY).toWebHexString() + ";'>"
 						+Util.capitaliseSentence(absClothing.isEnchantmentKnown()?absClothing.getRarity().getName():"Unknown")
 				+"</span>"
 				+ " | "
@@ -1280,7 +1281,7 @@ public class TooltipInventoryEventListener implements EventListener {
 			}
 		}
 		if(extraDescriptions.isEmpty()) {
-			tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No Status</span>");
+			tooltipSB.append("<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>No Status</span>");
 			
 		} else {
 			tooltipSB.append("<b>Status</b>");
@@ -1305,7 +1306,7 @@ public class TooltipInventoryEventListener implements EventListener {
 					tooltipSB.append("<div class='container-full-width titular'>"
 										+ "Value: "+(absClothing.isEnchantmentKnown() ? UtilText.formatAsMoney(absClothing.getValue()) : UtilText.formatAsMoney("?", "b"))
 										+" | "
-										+ "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + InventoryDialogue.getInventoryNPC().getName("The") + " will not buy this</span>"
+										+ "<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>" + InventoryDialogue.getInventoryNPC().getName("The") + " will not buy this</span>"
 									+ "</div>");
 				}
 			} else {
@@ -1365,8 +1366,8 @@ public class TooltipInventoryEventListener implements EventListener {
 		tooltipSB.append("<div class='container-half-width titular'>" + Util.capitaliseSentence(invSlot.getTattooSlotName()) + "</div>");
 		tooltipSB.append("<div class='container-half-width titular'>"
 							+ (scar==null
-									? "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No scars</span>"
-									: "<span style='color:" + Colour.SCAR.toWebHexString() + ";'>"+Util.capitaliseSentence(owner.getScarInSlot(invSlot).getName())+"</span>")
+									? "<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>No scars</span>"
+									: "<span style='color:" + PresetColour.SCAR.toWebHexString() + ";'>"+Util.capitaliseSentence(owner.getScarInSlot(invSlot).getName())+"</span>")
 						+ "</div>");
 		
 		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 88);
@@ -1411,8 +1412,8 @@ public class TooltipInventoryEventListener implements EventListener {
 		tooltipSB.append("<div class='container-half-width titular'>" + (invSlot.getTattooSlotName()==null?"[style.colourDisabled(Cannot be tattooed)]":Util.capitaliseSentence(invSlot.getTattooSlotName())) + "</div>");
 		tooltipSB.append("<div class='container-half-width titular'>"
 							+ (owner.getScarInSlot(invSlot)==null
-									? "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No scars</span>"
-									: "<span style='color:" + Colour.SCAR.toWebHexString() + ";'>"+Util.capitaliseSentence(owner.getScarInSlot(invSlot).getName())+"</span>")
+									? "<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>No scars</span>"
+									: "<span style='color:" + PresetColour.SCAR.toWebHexString() + ";'>"+Util.capitaliseSentence(owner.getScarInSlot(invSlot).getName())+"</span>")
 						+ "</div>");
 		
 		// Attribute modifiers:

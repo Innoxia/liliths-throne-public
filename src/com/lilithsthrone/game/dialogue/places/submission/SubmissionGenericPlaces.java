@@ -35,9 +35,10 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -109,7 +110,7 @@ public class SubmissionGenericPlaces {
 			
 			if(!pacified) {
 				UtilText.nodeContentSB.append(
-						"<span style='color:"+Main.game.getPlayer().getLocationPlace().getPlaceType().getColourString()+";'>"
+						"<span style='color:"+Main.game.getPlayer().getLocationPlace().getPlaceType().getColour().toWebHexString()+";'>"
 								+ UtilText.parseFromXMLFile("places/submission/submissionPlaces", "TUNNEL_IMP_CONTROL")
 						+"</span>");
 			}
@@ -1090,7 +1091,7 @@ public class SubmissionGenericPlaces {
 						}
 						@Override
 						public Colour getHighlightColour() {
-							return Colour.QUEST_SIDE;
+							return PresetColour.QUEST_SIDE;
 						}
 					};
 					

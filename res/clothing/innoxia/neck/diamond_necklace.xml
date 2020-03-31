@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>150000</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[diamond necklace]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[diamond necklaces]]></namePlural>
+		<description><![CDATA[A necklace consisting of a metal chain that's studded with dozens of diamonds.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>NECK</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>diamond_necklace.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit>5</enchantmentLimit>
+		<effects/>
+		
+		<blockedPartsList slot="NECK">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+			
+		<incompatibleSlots slot="NECK"/>
+		<incompatibleSlots slot="WRIST"/>
+			
+		<primaryColours>
+			<colour>CLOTHING_SILVER</colour>
+			<colour>CLOTHING_GOLD</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_WHITE</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(fasten)] the diamond necklace around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(fasten)] the diamond necklace around [npc2.namePos] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before fastening the diamond necklace around [npc2.her] neck.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc.her] diamond necklace, before taking it off from around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc2.namePos] diamond necklace, before taking it off from around [npc2.her] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] [npc2.namePos] diamond necklace, before yanking it off from around [npc2.her] neck.]]>
+    </otherRough>
+  </displacementText>
+
+</clothing>

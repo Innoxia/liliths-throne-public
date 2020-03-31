@@ -60,9 +60,9 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
@@ -2172,7 +2172,7 @@ public class ImpFortressDialogue {
 							return new Response(Util.capitaliseSentence(Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())),
 									UtilText.parse(getBoss(),
 											"Seize this fleeting opportunity to provoke [npc.name] into trying to punch you,"
-													+ " relying on your skill as a <b style='color:"+Colour.TRAIT.toWebHexString()+";'>"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"</b>"
+													+ " relying on your skill as a <b style='color:"+PresetColour.TRAIT.toWebHexString()+";'>"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"</b>"
 															+ " to humiliate [npc.herHim] in front of [npc.her] imp followers."),
 									KEEP_ALPHA_BRAWLER) {
 								@Override
@@ -2207,7 +2207,7 @@ public class ImpFortressDialogue {
 							return new Response("True nympho",
 									UtilText.parse(getBoss(),
 											"Seize this fleeting opportunity to undermine [npc.namePos] authority by describing to [npc.her] gang how much fun"
-													+ " <b style='color:"+Colour.TRAIT.toWebHexString()+";'>Nymphomaniacs</b> can have out in Submission's tunnels."),
+													+ " <b style='color:"+PresetColour.TRAIT.toWebHexString()+";'>Nymphomaniacs</b> can have out in Submission's tunnels."),
 									KEEP_FEMALES_NYMPHO) {
 								@Override
 								public void effects() {
@@ -3889,7 +3889,7 @@ public class ImpFortressDialogue {
 							FortressAlphaLeader boss = (FortressAlphaLeader) Main.game.getNpc(FortressAlphaLeader.class);
 							
 							if((boss).isAbleToEquipGag(Main.game.getPlayer())) {
-								AbstractClothing ringGag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, Colour.CLOTHING_GOLD, Colour.CLOTHING_WHITE, Colour.CLOTHING_GOLD, effects);
+								AbstractClothing ringGag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GOLD, effects);
 								ringGag.setName(UtilText.parse(boss,"[npc.NamePos] 'Cock-Sucker' Ring gag"));
 								Main.game.getPlayer().equipClothingFromNowhere(ringGag, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced you to wear:<br/>"
@@ -3898,7 +3898,7 @@ public class ImpFortressDialogue {
 							
 							if(ImpFortressDialogue.getMainCompanion()!=null && Main.sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
 									&& (boss).isAbleToEquipGag(ImpFortressDialogue.getMainCompanion())) {
-								AbstractClothing ringGag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, Colour.CLOTHING_STEEL, Colour.CLOTHING_BROWN_DARK, Colour.CLOTHING_BLACK_STEEL, effects);
+								AbstractClothing ringGag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_BROWN_DARK, PresetColour.CLOTHING_BLACK_STEEL, effects);
 								ringGag.setName(UtilText.parse(boss,"[npc.NamePos] 'Cock-Sucker' Ring gag"));
 								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(ringGag, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced "
@@ -3918,7 +3918,7 @@ public class ImpFortressDialogue {
 							
 							if(boss.isAbleToEquipButtPlug(Main.game.getPlayer())) {
 								AbstractClothing buttPlug = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_heart"),
-										Colour.CLOTHING_SILVER, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PINK_LIGHT, effects);
+										PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PINK_LIGHT, effects);
 								buttPlug.setName(UtilText.parse(boss,"[npc.NamePos] 'Public Playtoy' Butt plug"));
 								Main.game.getPlayer().equipClothingFromNowhere(buttPlug, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced you to wear:<br/>"
@@ -3928,7 +3928,7 @@ public class ImpFortressDialogue {
 							if(ImpFortressDialogue.getMainCompanion()!=null && Main.sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
 									&& boss.isAbleToEquipButtPlug(ImpFortressDialogue.getMainCompanion())) {
 								AbstractClothing buttPlug = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_buttPlugs_butt_plug_heart"),
-										Colour.CLOTHING_SILVER, Colour.CLOTHING_PERIWINKLE, Colour.CLOTHING_PERIWINKLE, effects);
+										PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PERIWINKLE, PresetColour.CLOTHING_PERIWINKLE, effects);
 								buttPlug.setName(UtilText.parse(boss,"[npc.NamePos] 'Public Playtoy' Butt plug"));
 								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(buttPlug, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced "
@@ -3947,14 +3947,14 @@ public class ImpFortressDialogue {
 							FortressMalesLeader boss = (FortressMalesLeader) Main.game.getNpc(FortressMalesLeader.class);
 							
 							if(boss.isAbleToEquipThong(Main.game.getPlayer())) {
-								AbstractClothing thong = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_RED_DARK, effects);
+								AbstractClothing thong = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_RED_DARK, effects);
 								thong.setName(UtilText.parse(boss,"[npc.NamePos] 'Breeder' Crotchless thong"));
 								Main.game.getPlayer().equipClothingFromNowhere(thong, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced you to wear:<br/>"
 										+Main.game.getPlayer().getClothingInSlot(thong.getClothingType().getEquipSlots().get(0)).getDisplayName(true)+ "</p>");
 							}
 							if(boss.isAbleToEquipDildo(Main.game.getPlayer())) {
-								AbstractClothing dildo = AbstractClothingType.generateClothing("innoxia_insertableVibrator_insertable_vibrator", Colour.CLOTHING_BLACK,
+								AbstractClothing dildo = AbstractClothingType.generateClothing("innoxia_insertableVibrator_insertable_vibrator", PresetColour.CLOTHING_BLACK,
 										Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_BOOST, 0)));
 								Main.game.getPlayer().equipClothingFromNowhere(dildo, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced you to wear:<br/>"
@@ -3963,7 +3963,7 @@ public class ImpFortressDialogue {
 							
 							if(ImpFortressDialogue.getMainCompanion()!=null && Main.sex.getAllParticipants().contains(ImpFortressDialogue.getMainCompanion())
 									&& boss.isAbleToEquipThong(ImpFortressDialogue.getMainCompanion())) {
-								AbstractClothing thong = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_PINK_LIGHT, effects);
+								AbstractClothing thong = AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_PINK_LIGHT, effects);
 								thong.setName(UtilText.parse(boss,"[npc.NamePos] 'Breeder' Crotchless thong"));
 								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(thong, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced "
@@ -3971,7 +3971,7 @@ public class ImpFortressDialogue {
 										+ImpFortressDialogue.getMainCompanion().getClothingInSlot(thong.getClothingType().getEquipSlots().get(0)).getDisplayName(true)+ "</p>");
 							}
 							if(ImpFortressDialogue.getMainCompanion()!=null && boss.isAbleToEquipDildo(ImpFortressDialogue.getMainCompanion())) {
-								AbstractClothing dildo = AbstractClothingType.generateClothing("innoxia_insertableVibrator_insertable_vibrator", Colour.CLOTHING_WHITE,
+								AbstractClothing dildo = AbstractClothingType.generateClothing("innoxia_insertableVibrator_insertable_vibrator", PresetColour.CLOTHING_WHITE,
 										Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_BOOST, 0)));
 								ImpFortressDialogue.getMainCompanion().equipClothingFromNowhere(dildo, true, boss);
 								Main.game.getTextStartStringBuilder().append("<p style='text-align:center;'>"+UtilText.parse(boss,"[npc.Name]")+" has forced "

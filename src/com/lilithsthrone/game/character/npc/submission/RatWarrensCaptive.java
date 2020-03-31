@@ -43,8 +43,8 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -177,7 +177,7 @@ public class RatWarrensCaptive extends NPC {
 		this.clearNonEquippedInventory(false);
 		this.clearTattoosAndScars();
 		
-		AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_STEEL, Colour.CLOTHING_GUNMETAL, false);
+		AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_GUNMETAL, false);
 		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_ENSLAVEMENT, TFPotency.MINOR_BOOST, 0));
 		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_BOOST, 0));
 		collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_DRAIN, 0));
@@ -186,11 +186,11 @@ public class RatWarrensCaptive extends NPC {
 	
 	public void applyDildos(boolean equip) {
 		if(equip) {
-			AbstractClothing dildo = AbstractClothingType.generateClothing("norin_dildos_realistic_dildo", Colour.CLOTHING_PINK_HOT, false);
+			AbstractClothing dildo = AbstractClothingType.generateClothing("norin_dildos_realistic_dildo", PresetColour.CLOTHING_PINK_HOT, false);
 			dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
 			this.equipClothingFromNowhere(dildo, InventorySlot.VAGINA, true, this);
 			
-			dildo = AbstractClothingType.generateClothing("norin_dildos_realistic_dildo", Colour.CLOTHING_PINK_HOT, false);
+			dildo = AbstractClothingType.generateClothing("norin_dildos_realistic_dildo", PresetColour.CLOTHING_PINK_HOT, false);
 			dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
 			this.equipClothingFromNowhere(dildo, InventorySlot.ANUS, true, this);
 			

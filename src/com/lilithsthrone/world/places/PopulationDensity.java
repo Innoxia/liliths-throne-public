@@ -2,11 +2,13 @@ package com.lilithsthrone.world.places;
 
 /**
  * @since 0.2.12
- * @version 0.3.6.2
+ * @version 0.3.7
  * @author Innoxia
  */
 public enum PopulationDensity {
 
+	ONE("a single"),
+	
 	OCCASIONAL("an occasional"),
 	
 	COUPLE("couple of"),

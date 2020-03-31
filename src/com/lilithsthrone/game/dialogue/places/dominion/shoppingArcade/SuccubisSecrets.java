@@ -37,9 +37,9 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.66
@@ -657,22 +657,7 @@ public class SuccubisSecrets {
 			
 			UtilText.nodeContentSB.append(getMoneyRemainingString());
 			
-			UtilText.nodeContentSB.append(
-					CharacterModificationUtils.getKatesDivPiercings(PiercingType.EAR, "Ear Piercing", "Ears are the most common area of the body that are pierced, and enable the equipping of earrings and other ear-related jewellery.")
-
-					+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NOSE, "Nose Piercing", "Having a nose piercing allows you to equip jewellery such as nose rings or studs.")
-					
-					+CharacterModificationUtils.getKatesDivPiercings(PiercingType.LIP, "Lip Piercing", "Lip piercings allow you to wear lip rings.")
-					
-					+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NAVEL, "Navel Piercing", "Getting your navel (belly button) pierced allows you to equip navel-related jewellery.")
-					
-					+CharacterModificationUtils.getKatesDivPiercings(PiercingType.TONGUE, "Tongue Piercing", "Getting a tongue piercing will allow you to equip tongue bars.")
-					
-					+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NIPPLE, "Nipple Piercing", "Nipple piercings will allow you to equip nipple bars.")
-					
-					+CharacterModificationUtils.getKatesDivPiercings(PiercingType.PENIS, "Penis Piercing", "Having a penis piercing will allow you to equip penis-related jewellery.")
-					
-					+CharacterModificationUtils.getKatesDivPiercings(PiercingType.VAGINA, "Vagina Piercing", "Having a vagina piercing will allow you to equip vagina-related jewellery."));
+			UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivPiercings(false));
 			
 			return UtilText.nodeContentSB.toString();
 		
@@ -710,7 +695,7 @@ public class SuccubisSecrets {
 			UtilText.nodeContentSB.append(getMoneyRemainingString());
 			
 			UtilText.nodeContentSB.append(
-					CharacterModificationUtils.getKatesDivAnalBleaching("Anal bleaching", "Anal bleaching is the process of lightening the colour of the skin around the anus, to make it more uniform with the surrounding area.")
+					CharacterModificationUtils.getKatesDivAnalBleaching()
 
 //					+(Main.game.isFacialHairEnabled() || Main.game.isBodyHairEnabled() || Main.game.isPubicHairEnabled()
 //							?CharacterModificationUtils.getKatesDivCoveringsNew(
@@ -848,8 +833,8 @@ public class SuccubisSecrets {
 					@Override
 					public String getTitle() {
 						return "Confirmations: "+(Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations)
-									?"<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
-									:"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
+									?"<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
+									:"<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
 					}
 					
 					@Override

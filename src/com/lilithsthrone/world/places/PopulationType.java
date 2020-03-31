@@ -1,55 +1,72 @@
 package com.lilithsthrone.world.places;
 
+import com.lilithsthrone.main.Main;
+
 /**
  * @since 0.2.12
- * @version 0.3.6.2
+ * @version 0.3.7
  * @author Innoxia
  */
 public enum PopulationType {
 
-	PEOPLE("people", true),
+	PERSON("person", "people"),
 	
-	HARPIES("harpies", true),
+	FAN("fan", "fans"),
+	
+	HARPY("harpy", "harpies") {
+		@Override
+		public String getName() {
+			if(Main.game.isSillyModeEnabled()) {
+				return "birb";
+			}
+			return "harpy";
+		}
+		@Override
+		public String getNamePlural() {
+			if(Main.game.isSillyModeEnabled()) {
+				return "birbs";
+			}
+			return "harpies";
+		}
+	},
+	
+	CROWD("crowd", "crowds"),
 
-	HARPIES_SILLY("birbs", true),
+	PRIVATE_SECURITY_GUARD("private security guard", "private security guards"),
 	
-	CROWD("crowd", false),
+	ENFORCER("Enforcer", "Enforcers"),
 	
-	CROWDS("crowds", true),
+	SHOPPER("shopper", "shoppers"),
+	
+	DINER("diner", "diners"),
 
-	PRIVATE_SECURITY_GUARD("private security guard", false),
-	PRIVATE_SECURITY_GUARDS("private security guards", true),
+	VIP("VIP", "VIPs"),
 	
-	ENFORCERS("Enforcers", true),
+	GUARD("guard", "guards"),
+
+	MAID("maid", "maids"),
+
+	CHEF("chef", "chefs"),
+
+	SLAVE("slave", "slaves"),
 	
-	SHOPPERS("shoppers", true),
-	
-	DINERS("diners", true),
+	OFFICE_WORKER("office worker", "office workers"),
 
-	VIPS("VIPs", true),
-	
-	GUARDS("guards", true),
-
-	MAIDS("maids", true),
-
-	OFFICE_WORKERS("office-workers", true),
-
-	GANG_MEMBERS("gang members", true),
-	;
+	GANG_MEMBER("gang member", "gang members");
 
 	private String name;
-	private boolean plural;
+	private String namePlural;
 	
-	private PopulationType(String name, boolean plural) {
+	private PopulationType(String name, String namePlural) {
 		this.name = name;
-		this.plural = plural;
+		this.namePlural = namePlural;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public boolean isPlural() {
-		return plural;
+	public String getNamePlural() {
+		return namePlural;
 	}
 }

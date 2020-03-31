@@ -7,6 +7,7 @@ import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexActionInteractions;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotBreedingStall;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -845,7 +846,8 @@ public class StandardSexActionInteractions {
 								SexActionPresets.allAreasToAppendages,
 								SexActionPresets.thighsToPenis,
 								SexActionPresets.vaginaToPenis,
-								SexActionPresets.assToGroin),
+								SexActionPresets.assToGroin,
+								SexActionPresets.penisToBreasts),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.GROIN,
@@ -1025,6 +1027,9 @@ public class StandardSexActionInteractions {
 						Util.mergeMaps(
 								SexActionPresets.mouthToVagina,
 								SexActionPresets.mouthToPenis,
+								performerSlot.hasTag(SexSlotTag.LYING_DOWN)
+									?SexActionPresets.mouthToAss
+									:null,
 								SexActionPresets.breastsToPenis,
 								SexActionPresets.mouthToCrotchBoobs,
 								SexActionPresets.tailToUpperTorso,

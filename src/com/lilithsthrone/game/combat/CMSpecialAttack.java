@@ -15,9 +15,9 @@ import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -33,7 +33,7 @@ public class CMSpecialAttack {
             CombatMoveType.ATTACK,
             DamageType.UNARMED,
             "moves/hoof_kick",
-            Util.newArrayListOfValues(Colour.RACE_HORSE_MORPH),
+            Util.newArrayListOfValues(PresetColour.RACE_HORSE_MORPH),
             false,
             true,
             false,

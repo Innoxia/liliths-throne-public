@@ -6,7 +6,8 @@ import com.lilithsthrone.game.character.effects.Addiction;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
@@ -15,38 +16,38 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum FluidModifier {
 	
-	MUSKY(Colour.BASE_TAN,
+	MUSKY(PresetColour.BASE_TAN,
 			false,
 			"musky",
 			"Makes this fluid give off a heady, musky scent."),
 	
-	VISCOUS(Colour.BASE_PURPLE_DARK,
+	VISCOUS(PresetColour.BASE_PURPLE_DARK,
 			false,
 			"viscous",
 			"Gives this fluid a thick consistency, somewhere between liquid and solid."),
 	
-	STICKY(Colour.BASE_YELLOW_LIGHT,
+	STICKY(PresetColour.BASE_YELLOW_LIGHT,
 			false,
 			"sticky",
 			"Makes this fluid stick to anything it touches."),
 	
-	SLIMY(Colour.BASE_BLUE_LIGHT,
+	SLIMY(PresetColour.BASE_BLUE_LIGHT,
 			false,
 			"slimy",
 			"Gives this fluid a slimy feel to it."),
 	
-	BUBBLING(Colour.BASE_LILAC_LIGHT,
+	BUBBLING(PresetColour.BASE_LILAC_LIGHT,
 			false,
 			"bubbling", "Makes this fluid bubble like a carbonated drink."),
 	
 	// SPECIAL EFFECTS:
 	
-	MINERAL_OIL(Colour.BASE_BLACK,
+	MINERAL_OIL(PresetColour.BASE_BLACK,
 			true,
 			"mineral oil",
 			"Fluids imbued with mineral oil will rapidly degrade condoms, causing them to break at the moment of orgasm."),
 	
-	ALCOHOLIC(Colour.BASE_ORANGE,
+	ALCOHOLIC(PresetColour.BASE_ORANGE,
 			true,
 			"alcoholic",
 			"Alcoholic fluids will increase the intoxication level of anyone who consumes them.") {
@@ -56,7 +57,7 @@ public enum FluidModifier {
 		}
 	},
 	
-	ADDICTIVE(Colour.BASE_PINK,
+	ADDICTIVE(PresetColour.BASE_PINK,
 			true,
 			"addictive",
 			"Addictive fluids will make anyone who consumes them become addicted to that particular type of fluid.") {
@@ -95,7 +96,7 @@ public enum FluidModifier {
 		}
 	},
 	
-	HALLUCINOGENIC(Colour.BASE_PINK_DEEP,
+	HALLUCINOGENIC(PresetColour.BASE_PINK_DEEP,
 			true,
 			"psychoactive",
 			"Psychoactive fluids will cause anyone who ingests them to experience a hallucinogenic trip, causing their view of sexual organs to be distorted as well as opening them up to the possibility of being hypnotically manipulated.") {
@@ -108,7 +109,7 @@ public enum FluidModifier {
 				return UtilText.parse(target,
 						"<p style='padding:0; margin:0; text-align:center;'>"
 							+ "Due to the psychoactive properties of "+(fluidProvider==null?"":(fluidProvider.equals(target)?"[npc.her]":UtilText.parse(fluidProvider, "[npc.namePos]")))+" "+fluid.getName(fluidProvider)
-								+", [npc.name] [npc.verb(start)] <span style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>tripping out</span>!"
+								+", [npc.name] [npc.verb(start)] <span style='color:"+PresetColour.PSYCHOACTIVE.toWebHexString()+";'>tripping out</span>!"
 						+ "</p>");
 			}
 			return "";

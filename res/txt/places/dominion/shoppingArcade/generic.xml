@@ -152,33 +152,33 @@
 	
 	<htmlContent tag="ANTIQUES_INTERIOR_SCARLETT_START"><![CDATA[
 	<p>
-		As there's no obvious sign of Scarlett anywhere in the store, you head over to the counter and ask the cat-girl employee standing behind it if she knows anything about the harpy you're looking for. As you mention your quarry's name, the cat-girl nervously glances over towards a nearby door marked as 'staff only', before revealing, [style.speechFeminine(Yes, she's a slave here, although she's not been allowed out of the storage room since she attacked that one customer...)]
+		As there's no obvious sign of Scarlett anywhere in the store, you head over to the cat-girl employee standing behind the counter and ask her if she knows anything about the harpy you're looking for. As you mention your quarry's name, the cat-girl nervously glances over towards a nearby door marked as 'staff only', before revealing, [style.speechFeminine(Yes, she's a slave here, although she's not been allowed out of the storage room since she attacked that one customer...)]
 	</p>
 	<p>
-		After asking if you could speak to Scarlett's owner, the employee reveals, [style.speechFeminine(Yeah, if you're here to do something about her, I'm sure the boss would want to talk to you. He's back there in the storage room at the moment; I think he's trying to train Scarlett to not be so rude to customers...)]
+		Relieved to discover that the harpy is close at hand, you ask the cat-girl if you could speak to Scarlett's owner. Happily nodding her head, she says, [style.speechFeminine(If you're here to do something about her, I'm sure the boss would want to talk to you. He's back there in the storage room at the moment; I think he's trying to train Scarlett to not be so rude to customers...)]
 	</p>
 	<p>
 		Asking you to wait for just a moment, the cat-girl quickly steps over to the door, before pushing it ajar and poking her head into the room beyond, calling, [style.speechFeminine(Laurence! There's someone here who wants to talk to you about Scarlett!)]
 	</p>
 	<p>
-		A flustered-sounding voice calls back, [style.speechMasculine(Thank goodness! The owner of that slave shop must have changed his mind about giving me a refund! Send them in!)] 
+		A flustered-sounding voice calls back, [style.speechMasculine(Thank goodness! The owner of that slave shop must have changed their mind about giving me a refund! Send them in!)] 
 	</p>
 	<p>
-		Holding the door open, the cat-girl waves you on through, waiting until you've stepped forwards into the storage room before quickly returning to her place behind the counter. As the door swings shut behind you, the room's two occupants turn to face you.
+		Holding the door open, the cat-girl waves you on through, waiting until you've [pc.stepped] forwards into the storage room before quickly returning to her place behind the counter. As the door swings shut behind you, the room's two occupants turn to face you.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ANTIQUES_INTERIOR_SCARLETT_TRANSFORMED"><![CDATA[
 	<p>
-		You immediately recognise the one furthest away from the door as being the harpy who you're looking for. Although you'd transformed her before selling her, Scarlett has somehow managed to get her feathered hands on some transformation potions of her own, as she now looks exactly like she did the first time you met her. As the raven-harpy catches sight of you, she narrows her [scarlett.eyeColour] eyes and sneers, [scarlett.speech(Well, if it isn't the cunt who sold me! You've come back to beg for my forgiveness, have you, you fucking [pc.bitch]?)]
+		You immediately recognise the figure furthest away from the door as being the harpy you're looking for. Although you'd transformed her before selling her, Scarlett has somehow managed to get her feathered hands on some transformation potions of her own, as she now looks exactly like she did the first time you met her. As the raven-harpy catches sight of you, she narrows her [scarlett.eyeColour] eyes and sneers, [scarlett.speech(Well, if it isn't the cunt who sold me! You've come back to beg for my forgiveness, have you, you fucking [pc.bitch]?)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ANTIQUES_INTERIOR_SCARLETT"><![CDATA[
 	<p>
-		You immediately recognise the one furthest away from the door as being the harpy who you're looking for. As the raven-harpy catches sight of you, she narrows her [scarlett.eyeColour] eyes and sneers, [scarlett.speech(Well, if it isn't the cunt who sold me! You've come back to beg for my forgiveness, have you, you fucking [pc.bitch]?)]
+		You immediately recognise the figure furthest away from the door as being the exact raven-harpy you're looking for. As Scarlett catches sight of you, she narrows her [scarlett.eyeColour] eyes and sneers, [scarlett.speech(Well, if it isn't the cunt who sold me! You've come back to beg for my forgiveness, have you, you fucking [pc.bitch]?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -186,9 +186,9 @@
 	<htmlContent tag="ANTIQUES_INTERIOR_SCARLETT_END"><![CDATA[
 	<p>
 		#IF(scarlett.getObedienceValue()>25)
-			Displaying no sign of her former obedience, Scarlett has clearly reverted to her old ways, and snarls menacingly at you as you turn to face her new owner, 'Laurence', who takes the form of an extremely weary-looking squirrel-boy.
+			Displaying no sign of her former obedience, Scarlett has clearly reverted to her old ways, and snarls menacingly at you as you turn to face her new owner, who takes the form of an extremely weary-looking squirrel-boy.
 		#ELSE
-			As insolent as you remember her, Scarlett continues to snarl menacingly at you as you turn to face her new owner, 'Laurence', who takes the form of an extremely weary-looking squirrel-boy.
+			As insolent as ever, Scarlett snarls menacingly at you as you turn to face her new owner, who takes the form of an extremely weary-looking squirrel-boy.
 		#ENDIF
 		 Realising from Scarlett's outburst that you might not be the person he was expecting, Laurence sighs, [style.speechMasculine(Please tell me that you're here from that blasted shop, and that you're going to give me a refund! This slave isn't at all what she was advertised as!)]
 	</p>
@@ -215,7 +215,7 @@
 		Wringing his hands, the distraught squirrel-boy turns back towards you and complains, [style.speechMasculine(Look what I've been having to put up with; she's been an absolute nightmare! That salesman told me that she was well trained and always eager to work! I'm never buying any slaves ever again!)]
 	</p>
 	<p>
-		Pointing out to him that you'll be doing him a favour by taking Scarlett off his hands, you ask Laurence how much he's going to be asking for her. Letting out a weary sigh, he reveals, [style.speechMasculine(I paid twenty thousand for her, but I'm just so desperate to get rid of her I'll let you have her for half that. Ten thousand, and she's all yours...)]
+		Pointing out to him that you'll be doing him a favour by taking Scarlett off his hands, you ask Laurence how much he's going to be asking for her. Letting out a weary sigh, he reveals, [style.speechMasculine(I paid twenty thousand for her, but I'm so desperate to get rid of her that I'll let you have her for just half that. Ten thousand, and she's all yours...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -256,7 +256,7 @@
 		[scarlett.speech(Shut the fuck up, I'm trying to relax here,)] Scarlett replies, sneering at her owner as she purposefully digs her talons into the table's surface.
 	</p>
 	<p>
-		Clearly not being strong-willed enough to deal with this type of behaviour, the squirrel-boy turns towards you and pleads, [style.speechMasculine(Please, just take her away! I don't want any money for her anymore! Just get her out of here!)]
+		Clearly not being strong-willed enough to deal with this type of behaviour, the squirrel-boy turns towards you and pleads, [style.speechMasculine(Please, just take her away! I don't even want any flames! Just get her out of here!)]
 	</p>
 	<p>
 		Agreeing to take Scarlett off of his hands, you wait as Laurence frantically retrieves Scarlett's ownership documentation and signs her over to you. After making the necessary corrections to the information in order to declare her a free citizen once more, you hand these papers over to the harpy herself, telling her that while she's now free, her matriarch is expecting to see her back in Slaver Alley right away.

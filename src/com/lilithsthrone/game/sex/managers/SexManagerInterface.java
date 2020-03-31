@@ -32,8 +32,8 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.places.Population;
 import com.lilithsthrone.world.places.PopulationType;
 
@@ -421,14 +421,14 @@ public interface SexManagerInterface {
 				raceNames.add("many other races");
 			}
 			
-			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+			return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 					+ (Main.sex.isMasturbation()
 							?"A crowd of "+Util.stringsToStringList(raceNames, false)+" quickly forms around you, eager to watch your erotic display..."
 							:"A crowd of "+Util.stringsToStringList(raceNames, false)+" quickly forms around you and [npc.name], eager to watch your erotic display...")
 					+ "</p>";
 			
 		} else {
-			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+			return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 					+ (Main.sex.isMasturbation()
 							?""
 							:"A crowd quickly forms around you and [npc.name], eager to watch your erotic display...")
@@ -439,13 +439,13 @@ public interface SexManagerInterface {
 	public default String getRandomPublicSexDescription() {
 		boolean enforcersPresent = false;
 		for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
-			if(pop.getType()==PopulationType.ENFORCERS) {
+			if(pop.getType()==PopulationType.ENFORCER) {
 				enforcersPresent = true;
 				break;
 			}
 		}
 		if(Main.sex.isMasturbation()) {
-			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+			return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 						+ UtilText.returnStringAtRandom(
 							"The crowd of onlookers laugh and cheer as they look on.",
 							"You hear someone in the crowd wolf-whistling as they watch you masturbating.",
@@ -460,7 +460,7 @@ public interface SexManagerInterface {
 					+"</p>";
 			
 		} else if(Main.sex.getAllParticipants(false).contains(Main.game.getPlayer())) {
-			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+			return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 						+ UtilText.parse(Main.sex.getTargetedPartner(Main.game.getPlayer()),
 							UtilText.returnStringAtRandom(
 								"The crowd of onlookers laugh and cheer as they look on.",
@@ -480,7 +480,7 @@ public interface SexManagerInterface {
 			
 		} else {
 			GameCharacter target = Util.randomItemFrom(Main.sex.getDominantParticipants(false).keySet());
-			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+			return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 					+ UtilText.parse(target, Main.sex.getTargetedPartner(target),
 						UtilText.returnStringAtRandom(
 							"The crowd of onlookers laugh and cheer as they look on.",
@@ -499,11 +499,13 @@ public interface SexManagerInterface {
 				+"</p>";
 		}
 	}
+
+	public Map<GameCharacter, List<SexType>> getSexTypesBannedMap();
 	
 	public Map<GameCharacter, List<SexAreaInterface>> getAreasBannedMap();
 
 	public default boolean isAreasBannedMapAppliedToSelfActions(GameCharacter character) {
-		return getAreasBannedMap().containsKey(character);
+		return getAreasBannedMap()!=null && getAreasBannedMap().containsKey(character);
 	}
 	
 	// Revealing CoverableAreas:

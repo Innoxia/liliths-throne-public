@@ -39,6 +39,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.DominionClubNPC;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Elizabeth;
@@ -63,6 +64,7 @@ import com.lilithsthrone.game.sex.CondomFailure;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.submission.SMLyssiethDemonTF;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
@@ -70,12 +72,12 @@ import com.lilithsthrone.game.sex.sexActions.SexActionOrgasmOverride;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SizedStack;
 import com.lilithsthrone.utils.TreeNode;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -700,7 +702,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 	
 	public String setQuestFailed(QuestLine questLine, Quest questFail) {
-		removeQuest(questLine);
+//		removeQuest(questLine);
 		questsFailed.put(questLine, questFail);
 
 		return "<p style='text-align:center;'>"
@@ -735,7 +737,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Optional Task Complete)]", quest.getName()));
 		return "<p style='text-align:center;'>"
 				+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b><br/>"
-				+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Optional Task Completed: " + quest.getName() + "</b><br/>"
+				+ "<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Optional Task Completed: " + quest.getName() + "</b><br/>"
 				+ experienceUpdate;
 	}
 	
@@ -767,7 +769,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Quest Complete)]", questLine.getName()));
 				return "<p style='text-align:center;'>"
 						+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b><br/>"
-						+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Task Completed</b><b> - "+currentQuest.getName()+"</b><br/>"
+						+ "<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Task Completed</b><b> - "+currentQuest.getName()+"</b><br/>"
 						+ "<b>All Tasks Completed!</b></p>"
 						+ experienceUpdate;
 				
@@ -775,7 +777,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				Main.game.getEventLog().add(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourMinorGood(New Task)]", quest.getName()));
 				return "<p style='text-align:center;'>"
 						+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b><br/>"
-						+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Task Completed - "+currentQuest.getName()+"</b><br/>"
+						+ "<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Task Completed - "+currentQuest.getName()+"</b><br/>"
 						+ "<b>New Task - " + quest.getName() + "</b></p>"
 						+ experienceUpdate;
 			}
@@ -1070,16 +1072,38 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 		return description;
 	}
-
+	
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
 	}
 	
 	// This behaviour is overridden for unique scenes in which the player's orgasm requires special dialogue or effects.
-	// At the time of this comment (v0.3.1), it's only used for Lilaya's creampie reaction and Lyssieth's demon TF scene.
+	//TODO move this into the NPC's class
 	@Override
 	public SexActionOrgasmOverride getSexActionOrgasmOverride(SexActionInterface sexAction, OrgasmCumTarget target, boolean applyExtraEffects) {
+
+		// SCARLETT:
+		
+		if(Main.sex.getAllParticipants().contains(Main.game.getNpc(Scarlett.class))
+				&& Main.sex.getOngoingSexAreas(this, SexAreaOrifice.ANUS, Main.game.getNpc(Scarlett.class)).contains(SexAreaPenetration.PENIS)
+				&& Main.sex.getSexPace(Main.game.getNpc(Scarlett.class))==SexPace.DOM_ROUGH) { // Orgasm reaction when you cum from Scarlett's anal:
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
+			
+			sb.append(UtilText.parseFromXMLFile("characters/dominion/scarlett", "ROUGH_ANAL_ORGASM"));
+			
+			return new SexActionOrgasmOverride(false, sb.toString()) {
+				@Override
+				public void applyEffects() {
+				}
+			};
+		}
+		
+		
+		// LILAYA:
+		
 		if(Main.sex.getAllParticipants().contains(Main.game.getNpc(Lilaya.class))
 				&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 				&& target==OrgasmCumTarget.INSIDE
@@ -1115,6 +1139,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				}
 			};
 		}
+		
+		
+		// LYSSIETH:
 		
 		if(Main.sex.getSexManager() instanceof SMLyssiethDemonTF) { // Lyssieth's demon TF scene:
 			StringBuilder sb = new StringBuilder();
@@ -1312,7 +1339,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		if(characterPenetrating.isPlayer()) {
 			return UtilText.parse(this,
 					"<p style='text-align:center;'>"
-						+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
+						+ "<b style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
 					+ "</p>"
 					+ "<p>"
 						+ "You can't quite believe what you're doing to yourself."
@@ -1345,7 +1372,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		} else {
 			return UtilText.parse(characterPenetrating,
 					"<p style='text-align:center;'>"
-						+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
+						+ "<b style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
 					+ "</p>"
 					+ "<p>"
 						+ "You can't believe what's happening."

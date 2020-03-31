@@ -18,9 +18,9 @@ import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.66
@@ -43,7 +43,7 @@ public class PixsPlayground {
 					public void effects(){
 						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.4f);
 						Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center'>[style.boldBad(-5)] <b style='color:"+Colour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
+								"<p style='text-align:center'>[style.boldBad(-5)] <b style='color:"+PresetColour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
 								+Main.game.getPlayer().incrementBodySize(-5));
 					}
 				};
@@ -59,7 +59,7 @@ public class PixsPlayground {
 					public void effects(){
 						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.4f);
 						Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center'>[style.boldGood(+5)] <b style='color:"+Colour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
+								"<p style='text-align:center'>[style.boldGood(+5)] <b style='color:"+PresetColour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
 								+Main.game.getPlayer().incrementMuscle(5));
 					}
 				};
@@ -79,7 +79,7 @@ public class PixsPlayground {
 						public void effects(){
 							Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.1f);
 							Main.game.getTextEndStringBuilder().append(
-									"<p style='text-align:center'>[style.boldGood(+4)] <b style='color:"+Colour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
+									"<p style='text-align:center'>[style.boldGood(+4)] <b style='color:"+PresetColour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
 									+Main.game.getPlayer().incrementMuscle(4));
 						}
 					};
@@ -406,10 +406,10 @@ public class PixsPlayground {
 								+ "<p>"
 									+ "The routine isn't over just yet, however, and, once you're done with the weights, Pix leads you over towards the cardio section."
 								+ "</p>"
-								+ "<p style='text-align:center'>[style.boldGood(+6)] <b style='color:"+Colour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
+								+ "<p style='text-align:center'>[style.boldGood(+6)] <b style='color:"+PresetColour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
 								+Main.game.getPlayer().incrementMuscle(6));
 						Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center'>[style.boldBad(-4)] <b style='color:"+Colour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
+								"<p style='text-align:center'>[style.boldBad(-4)] <b style='color:"+PresetColour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
 								+Main.game.getPlayer().incrementBodySize(-4));
 					}
 				};
@@ -428,10 +428,10 @@ public class PixsPlayground {
 								+ "<p>"
 									+ "Pix doesn't seem to pick up on the fact that you're holding back, and, once you're done with the weights, she leads you over towards the cardio section."
 								+ "</p>"
-								+ "<p style='text-align:center'>[style.boldGood(+2)] <b style='color:"+Colour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
+								+ "<p style='text-align:center'>[style.boldGood(+2)] <b style='color:"+PresetColour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
 								+Main.game.getPlayer().incrementMuscle(2));
 						Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center'>[style.boldBad(-4)] <b style='color:"+Colour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
+								"<p style='text-align:center'>[style.boldBad(-4)] <b style='color:"+PresetColour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
 								+Main.game.getPlayer().incrementBodySize(-4));
 					}
 				};
@@ -472,7 +472,7 @@ public class PixsPlayground {
 									+ " Pix lets out an impressed hum as she sees what speed you're setting the machine to,"
 									+ " [pix.speech(Mmm... You're eager to show off for me, aren't ya?)]"
 								+ "</p>"
-								+ "<p style='text-align:center'>[style.boldBad(-6)] <b style='color:"+Colour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
+								+ "<p style='text-align:center'>[style.boldBad(-6)] <b style='color:"+PresetColour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
 								+Main.game.getPlayer().incrementBodySize(-6));
 					}
 				};
@@ -488,7 +488,7 @@ public class PixsPlayground {
 									+ " Pix lets out a mildly annoyed huff as she sees what speed you're setting the machine to,"
 									+ " [pix.speech(Huh... You're more exhausted than I thought! You're gonna need to get fitter, aren't ya?)]"
 								+ "</p>"
-								+ "<p style='text-align:center'>[style.boldBad(-2)] <b style='color:"+Colour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
+								+ "<p style='text-align:center'>[style.boldBad(-2)] <b style='color:"+PresetColour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
 								+Main.game.getPlayer().incrementBodySize(-2));
 					}
 				};
