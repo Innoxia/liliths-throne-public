@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="kitchenGradient">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#kitchenGradient"/>
+    </defs>
+    <g transform="translate(0 -988.362)">
+        <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
+        <path fill="none" stroke="#fff" stroke-width="13.014999999999999" d="M14.763 1019.177l-.023 15.54"/>
+        <path fill="none" stroke="#fff" stroke-width="2.09" d="M22.408 1020.215H41.87"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-linejoin="round" stroke-width=".9775499999999999" d="M19.543 1007.754h24.919l-7.316-4.627-.074-3.395-10.102-.05.075 3.37z"/>
+        <path fill="#fff" fill-rule="evenodd" d="M22.452 1022.332v12.34h19.43v-12.292l-19.43-.047zm4.535 3.106l10.328.027v6.532H26.987v-6.56z"/>
+        <path fill="none" stroke="#fff" stroke-width="13.014999999999999" d="M49.565 1019.185l-.023 15.54"/>
+    </g>
+</svg>

@@ -10,7 +10,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.7
  * @author Innoxia
  */
 public enum Quest {
@@ -302,7 +302,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.3.7!)]<br/>"//TODO
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4!)]<br/>"
 					+ "[siren.Name] told you that you're going to need the help of the youko if you're to defeat the elder lilin pegataur, Lunette."
 					+ " She said that you should find and enlist the help of her old friend, [youkoGuide.name], who worked in her lab back when she was living in her citadel."
 					+ " [youkoGuide.Name] will have returned to the town of Elis, which is the settlement nearest to the Shinrin Forest, the youko's homeland.";
@@ -1365,25 +1365,24 @@ public enum Quest {
 		
 		@Override
 		public String getCompletedDescription() {
-			return "According to the wishes of Helena's old etiquette coach, Scarlett was returned to Helena, and will from now on work as her personal assistant.";
+			return "According to the wishes of Helena's old etiquette coach, Scarlett will from now on be working as the harpy matriarch's personal assistant.";
 		}
 	},
 
 	ROMANCE_HELENA_5_SCARLETT_TRAINER(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
-			return "Getting things running";
+			return "Harpy Helper";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Helena told you to come back in a week, as she needs some time to set up her new business.";
+			return "The two harpies left early to head off and visit Scarlett's sister. You need to return to Helena's store during opening hours to see what your next task will be...";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "You returned to Helena after a week, only to discover that while her new business has been set up without any issue, she's still not getting any customers."
-					+ " To make matters worse, Scarlett has quickly reverted to her old ways, and is proving to be extremely rude and hostile towards strangers.";
+			return "You returned to Helena's store to discover that everything is set up and ready for the harpy matriarch to start accepting customers. Before that, however, you need to help her with a couple mroe things...";
 		}
 	},
 
@@ -1395,8 +1394,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Concerned that Scarlett's attitude will turn away customers instead of attracting them, Helena has ordered you to advertise her store in her place."
-					+ " Having been given a dozen posters, your task is to put them up at the entrance of Slaver Alley.";
+			return "Having been given half a dozen enchanted posters showing off Helena's beauty, your task is to put them up at the entrance of Slaver Alley in order to help advertise her store.";
 		}
 
 		@Override
@@ -1405,56 +1403,39 @@ public enum Quest {
 		}
 	},
 
-	ROMANCE_HELENA_7_MORE_ADVERTISING(QuestType.RELATIONSHIP, 1, 15) {
+	ROMANCE_HELENA_7_GRAND_OPENING_PREPARATION(QuestType.RELATIONSHIP, 1, 15) {
 		@Override
 		public String getName() {
-			return "More Advertising";
+			return "Preparing for the Grand Opening";
 		}
 
 		@Override
 		public String getDescription() {
-			return "After putting up the posters, Scarlett appeared and gave you a box containing several hundred freshly-printed business cards."
-					+ " Apparently, Helena wants you to go to the auction block in Slaver Alley and hand them out to the people there.";
+			return "After putting up the posters, Scarlett appeared and lead you back to Helena's shop."
+					+ " Your new task is to get things ready for tomorrow's grand opening, which means working through the night...";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "You handed out all of the business cards given to you by Scarlett.";
+			return "You and Scarlett finished the preparations for the store's grand opening.";
 		}
 	},
 
-	ROMANCE_HELENA_8_RETURN_TO_HELENA(QuestType.RELATIONSHIP, 1, 5) {
+	ROMANCE_HELENA_8_FINISH(QuestType.RELATIONSHIP, 1, 100) {
 		@Override
 		public String getName() {
-			return "Return to Helena";
+			return "Preparing drinks";
 		}
 
 		@Override
 		public String getDescription() {
-			return "Now that all the posters have been put up and all the business cards handed out, you should return to Helena and inform her that you've finished advertising her store.";
+			return "Not wanting Scarlett to cause any trouble during the grand opening, Helena has tasked the two of you with staying in the back room and making drinks for the guests.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "After returning to Helena's store, the unappreciative harpy told you not to bother her again for at least two weeks, as she's going to be busy dealing with potential clients.";
-		}
-	},
-
-	ROMANCE_HELENA_9_FINISH(QuestType.RELATIONSHIP, 1, 500) {
-		@Override
-		public String getName() {
-			return "Helena's Reward";
-		}
-
-		@Override
-		public String getDescription() {
-			return "There's little else for you to do except wait for two weeks and then return to Helena to see if your efforts have paid off.";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return "Upon returning to see Helena after two weeks, you discovered that her 'Boutique' is now the most popular store in all of Slaver Alley."
-					+ " Finally showing some appreciation for your efforts, Helena told you that she'd be willing to let you take her on a date as your reward...";
+			return "You and Scarlett stayed in the back room making drinks until the grand opening was over."
+					+ "  Finally showing some appreciation for your efforts, Helena told you that she'd be willing to let you take her on a date as your reward...";
 		}
 	},
 	

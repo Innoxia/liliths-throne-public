@@ -38,6 +38,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFeet;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFoot;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueNippleCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
@@ -117,8 +118,14 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		return ableToSkipSexScene;
 	}
 	
+	@Override
 	public Map<GameCharacter, List<SexAreaInterface>> getAreasBannedMap() {
 		return areasBannedMap;
+	}
+
+	@Override
+	public Map<GameCharacter, List<SexType>> getSexTypesBannedMap() {
+		return new HashMap<>();
 	}
 	
 	private static List<SexActionInterface> possibleActions = new ArrayList<>();
@@ -552,7 +559,39 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// Priority 9 (last resort):
 		return SexActionUtility.PARTNER_NONE;
 	}
-
+	
+	private static void applyGeneralActionBans(GameCharacter performingCharacter, GameCharacter targetedCharacter, List<SexActionInterface> availableActions) {
+		// If the performing character is fucking someone, they shouldn't start fingering their own ass/pussy:
+		if(Main.sex.getAllOngoingSexAreas(performingCharacter, SexAreaPenetration.PENIS).stream().anyMatch((area) -> area.isOrifice() && ((SexAreaOrifice)area).isInternalOrifice())) {
+			for(SexActionInterface sexAction : availableActions) {
+				if(sexAction.getParticipantType()==SexParticipantType.SELF
+						&& sexAction.getPerformingCharacterAreas().contains(SexAreaPenetration.FINGER)
+						&& (sexAction.getTargetedCharacterAreas().contains(SexAreaOrifice.ANUS) || sexAction.getTargetedCharacterAreas().contains(SexAreaOrifice.VAGINA))) {
+					bannedActions.add(sexAction);
+				}
+			}
+		}
+		
+		// Ban some annoying/nonsensical actions:
+		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
+		if(!performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
+			bannedActions.add(PartnerSelfTailMouth.PARTNER_SELF_TAIL_MOUTH_PENETRATION);
+		}
+		
+		if(!performingCharacter.hasBreasts()) {
+			bannedActions.add(TongueNipple.BREASTFEED);
+		}
+		if(!targetedCharacter.hasBreasts()) {
+			bannedActions.add(TongueNipple.SUCKLE_START);
+		}
+		
+		if(!performingCharacter.hasBreastsCrotch()) {
+			bannedActions.add(TongueNippleCrotch.BREASTFEED);
+		}
+		if(!targetedCharacter.hasBreastsCrotch()) {
+			bannedActions.add(TongueNippleCrotch.SUCKLE);
+		}
+	}
 	
 	/**
 	 * Finger and tongue actions are considered foreplay.
@@ -566,18 +605,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		List<SexActionInterface> availableActions = new ArrayList<>(Main.sex.getAvailableSexActionsPartner());
 		availableActions.removeIf(si -> !si.isAddedToAvailableSexActions() && !si.isAbleToAccessParts(performingCharacter));
 		
-		// Ban some annoying/nonsensical actions:
-		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
-		if(!performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING)
-				|| !performingCharacter.hasFetish(Fetish.FETISH_ORAL_GIVING)) {
-			bannedActions.add(PartnerSelfTailMouth.PARTNER_SELF_TAIL_MOUTH_PENETRATION);
-		}
-		if(!performingCharacter.hasBreasts()) {
-			bannedActions.add(TongueNipple.BREASTFEED);
-		}
-		if(!targetedCharacter.hasBreastsCrotch()) {
-			bannedActions.add(TongueNipple.SUCKLE_START);
-		}
+		applyGeneralActionBans(performingCharacter, targetedCharacter, availableActions);
 		
 		if(sexActionPlayer.getActionType()==SexActionType.STOP_ONGOING
 				|| sexActionPlayer.equals(GenericActions.PLAYER_FORBID_PARTNER_SELF)
@@ -684,18 +712,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS_SELF)) {
 			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.START_ONGOING || sexAction.getActionType()==SexActionType.START_ADDITIONAL_ONGOING);
 		}
-
-		// Ban some annoying/nonsensical actions:
-		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
-		if(!performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
-			bannedActions.add(PartnerSelfTailMouth.PARTNER_SELF_TAIL_MOUTH_PENETRATION);
-		}
-		if(!performingCharacter.hasBreasts()) {
-			bannedActions.add(TongueNipple.BREASTFEED);
-		}
-		if(!targetedCharacter.hasBreastsCrotch()) {
-			bannedActions.add(TongueNipple.SUCKLE_START);
-		}
+		
+		applyGeneralActionBans(performingCharacter, targetedCharacter, availableActions);
 		
 		availableActions.removeAll(bannedActions);
 		List<SexActionInterface> returnableActions = new ArrayList<>();

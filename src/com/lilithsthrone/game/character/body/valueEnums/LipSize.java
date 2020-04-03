@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
@@ -9,14 +10,14 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum LipSize {
 
-	ZERO_THIN(0, "thin", Colour.GENERIC_SIZE_ONE, false),
-	ONE_AVERAGE(1, "average-sized", Colour.GENERIC_SIZE_TWO, false),
-	TWO_FULL(2, "full", Colour.GENERIC_SIZE_THREE, false),
-	THREE_PLUMP(3, "plump", Colour.GENERIC_SIZE_FOUR, false),
-	FOUR_HUGE(4, "huge", Colour.GENERIC_SIZE_FIVE, false),
-	FIVE_MASSIVE(5, "massive", Colour.GENERIC_SIZE_SIX, true),
-	SIX_GIGANTIC(6, "gigantic", Colour.GENERIC_SIZE_SEVEN, true),
-	SEVEN_ABSURD(7, "absurdly colossal", Colour.GENERIC_SIZE_EIGHT, true);
+	ZERO_THIN(0, "thin", PresetColour.GENERIC_SIZE_ONE, false),
+	ONE_AVERAGE(1, "average-sized", PresetColour.GENERIC_SIZE_TWO, false),
+	TWO_FULL(2, "full", PresetColour.GENERIC_SIZE_THREE, false),
+	THREE_PLUMP(3, "plump", PresetColour.GENERIC_SIZE_FOUR, false),
+	FOUR_HUGE(4, "huge", PresetColour.GENERIC_SIZE_FIVE, false),
+	FIVE_MASSIVE(5, "massive", PresetColour.GENERIC_SIZE_SIX, true),
+	SIX_GIGANTIC(6, "gigantic", PresetColour.GENERIC_SIZE_SEVEN, true),
+	SEVEN_ABSURD(7, "absurdly colossal", PresetColour.GENERIC_SIZE_EIGHT, true);
 	
 	
 	private int value;

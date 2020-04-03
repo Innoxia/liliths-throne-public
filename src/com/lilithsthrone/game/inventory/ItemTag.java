@@ -195,6 +195,10 @@ public enum ItemTag {
 	/**<b>IMPORTANT</b> This tag should only ever be given to clothing going into the PENIS InventorySlot, as otherwise it will throw errors.*/
 	CONDOM(true), // Gives this clothing condom behaviour
 	
+	CHOKER_SNAP( // Snaps (into wearer's inventory) if throat stretches.
+			Util.newArrayListOfValues(
+					"[style.colourSex(Snaps if throat bulges too much during sex)]"),
+			true),
 	
 	// To detect whether creampies should leak out or not:
 	

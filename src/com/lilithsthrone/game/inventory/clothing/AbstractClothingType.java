@@ -55,11 +55,12 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.utils.colours.ColourListPresets;
 
 /**
  * @since 0.1.84
@@ -68,7 +69,7 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public abstract class AbstractClothingType extends AbstractCoreType {
 	
-	public static final Colour DEFAULT_COLOUR_VALUE = Colour.CLOTHING_BLACK;
+	public static final Colour DEFAULT_COLOUR_VALUE = PresetColour.CLOTHING_BLACK;
 	
 	private String determiner;
 	private String name;
@@ -669,7 +670,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				try {
 					if(values.isEmpty()) {
 						return colorsElement.getAllOf("colour").stream()
-								.map(Element::getTextContent).map(Colour::valueOf)
+								.map(Element::getTextContent).map(PresetColour::getColourFromId)
 								.collect(Collectors.toList());
 					} else {
 						return ColourListPresets.getColourListFromId(values);
@@ -734,7 +735,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					if(values.isEmpty()) {
 						if(colorsElement.getOptionalFirstOf("colour").isPresent()) {
 							return colorsElement.getAllOf("colour").stream()
-									.map(Element::getTextContent).map(Colour::valueOf)
+									.map(Element::getTextContent).map(PresetColour::getColourFromId)
 									.collect(Collectors.toList());
 						} else {
 							return new ArrayList<>(ColourListPresets.ALL);
@@ -945,13 +946,17 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			this.availablePrimaryDyeColours.addAll(availablePrimaryDyeColours);
 		}
 		
-		this.allAvailablePrimaryColours = new ArrayList<>();
+		this.allAvailablePrimaryColours = new ArrayList<>(ColourListPresets.ALL_WITH_METALS);
 		colourSet.addAll(availablePrimaryColours);
 		if(availablePrimaryDyeColours!=null) {
 			colourSet.addAll(availablePrimaryDyeColours);
 		}
-		this.allAvailablePrimaryColours.addAll(colourSet);
-		this.allAvailablePrimaryColours.sort((c1, c2) -> c1.compareTo(c2));
+		this.allAvailablePrimaryColours.removeIf((c)->!colourSet.contains(c));
+		for(Colour c : colourSet) {
+			if(!this.allAvailablePrimaryColours.contains(c)) {
+				this.allAvailablePrimaryColours.add(c);
+			}
+		}
 		
 		this.availableSecondaryColours = new ArrayList<>();
 		if (availableSecondaryColours != null) {
@@ -964,15 +969,19 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 
 		colourSet.clear();
-		this.allAvailableSecondaryColours = new ArrayList<>();
+		this.allAvailableSecondaryColours = new ArrayList<>(ColourListPresets.ALL_WITH_METALS);
 		if(availableSecondaryColours!=null) {
 			colourSet.addAll(availableSecondaryColours);
 		}
 		if(availableSecondaryDyeColours!=null) {
 			colourSet.addAll(availableSecondaryDyeColours);
 		}
-		this.allAvailableSecondaryColours.addAll(colourSet);
-		this.allAvailableSecondaryColours.sort((c1, c2) -> c1.compareTo(c2));
+		this.allAvailableSecondaryColours.removeIf((c)->!colourSet.contains(c));
+		for(Colour c : colourSet) {
+			if(!this.allAvailableSecondaryColours.contains(c)) {
+				this.allAvailableSecondaryColours.add(c);
+			}
+		}
 
 		
 		this.availableTertiaryColours = new ArrayList<>();
@@ -986,15 +995,19 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 
 		colourSet.clear();
-		this.allAvailableTertiaryColours = new ArrayList<>();
+		this.allAvailableTertiaryColours = new ArrayList<>(ColourListPresets.ALL_WITH_METALS);
 		if(availableTertiaryColours!=null) {
 			colourSet.addAll(availableTertiaryColours);
 		}
 		if(availableTertiaryDyeColours!=null) {
 			colourSet.addAll(availableTertiaryDyeColours);
 		}
-		this.allAvailableTertiaryColours.addAll(colourSet);
-		this.allAvailableTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
+		this.allAvailableTertiaryColours.removeIf((c)->!colourSet.contains(c));
+		for(Colour c : colourSet) {
+			if(!this.allAvailableTertiaryColours.contains(c)) {
+				this.allAvailableTertiaryColours.add(c);
+			}
+		}
 	}
 	
 	private void setUpPatternColours(List<Colour> availablePatternPrimaryColours,
@@ -1007,8 +1020,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		this.availablePatternPrimaryColours = new ArrayList<>();
 		if (availablePatternPrimaryColours != null) {
 			this.availablePatternPrimaryColours.addAll(availablePatternPrimaryColours);
-		} else {
-			this.availablePatternPrimaryColours.addAll(ColourListPresets.ALL);
 		}
 
 		Set<Colour> colourSet = new HashSet<>();
@@ -1018,19 +1029,21 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			this.availablePatternPrimaryDyeColours.addAll(availablePatternPrimaryDyeColours);
 		}
 		
-		this.allAvailablePatternPrimaryColours = new ArrayList<>();
+		this.allAvailablePatternPrimaryColours = new ArrayList<>(ColourListPresets.ALL_WITH_METALS);
 		colourSet.addAll(this.availablePatternPrimaryColours);
 		if(availablePatternPrimaryDyeColours!=null) {
 			colourSet.addAll(availablePatternPrimaryDyeColours);
 		}
-		this.allAvailablePatternPrimaryColours.addAll(colourSet);
-		this.allAvailablePatternPrimaryColours.sort((c1, c2) -> c1.compareTo(c2));
+		this.allAvailablePatternPrimaryColours.removeIf((c)->!colourSet.contains(c));
+		for(Colour c : colourSet) {
+			if(!this.allAvailablePatternPrimaryColours.contains(c)) {
+				this.allAvailablePatternPrimaryColours.add(c);
+			}
+		}
 		
 		this.availablePatternSecondaryColours = new ArrayList<>();
 		if (availablePatternSecondaryColours != null) {
 			this.availablePatternSecondaryColours.addAll(availablePatternSecondaryColours);
-		} else {
-			this.availablePatternSecondaryColours.addAll(ColourListPresets.ALL);
 		}
 		
 		this.availablePatternSecondaryDyeColours = new ArrayList<>();
@@ -1039,17 +1052,19 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 
 		colourSet.clear();
-		this.allAvailablePatternSecondaryColours = new ArrayList<>();
-		this.allAvailablePatternSecondaryColours.addAll(this.availablePatternSecondaryColours);
-		this.allAvailablePatternSecondaryColours.addAll(this.availablePatternSecondaryDyeColours);
-		this.allAvailablePatternSecondaryColours.sort((c1, c2) -> c1.compareTo(c2));
-
+		this.allAvailablePatternSecondaryColours = new ArrayList<>(ColourListPresets.ALL_WITH_METALS);
+		colourSet.addAll(this.availablePatternSecondaryColours);
+		colourSet.addAll(this.availablePatternSecondaryDyeColours);
+		this.allAvailablePatternSecondaryColours.removeIf((c)->!colourSet.contains(c));
+		for(Colour c : colourSet) {
+			if(!this.allAvailablePatternSecondaryColours.contains(c)) {
+				this.allAvailablePatternSecondaryColours.add(c);
+			}
+		}
 		
 		this.availablePatternTertiaryColours = new ArrayList<>();
 		if (availablePatternTertiaryColours != null) {
 			this.availablePatternTertiaryColours.addAll(availablePatternTertiaryColours);
-		} else {
-			this.availablePatternTertiaryColours.addAll(ColourListPresets.ALL);
 		}
 		
 		this.availablePatternTertiaryDyeColours = new ArrayList<>();
@@ -1058,10 +1073,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 
 		colourSet.clear();
-		this.allAvailablePatternTertiaryColours = new ArrayList<>();
-		this.allAvailablePatternTertiaryColours.addAll(this.availablePatternTertiaryColours);
-		this.allAvailablePatternTertiaryColours.addAll(this.availablePatternTertiaryDyeColours);
-		this.allAvailablePatternTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
+		this.allAvailablePatternTertiaryColours = new ArrayList<>(ColourListPresets.ALL_WITH_METALS);
+		colourSet.addAll(this.availablePatternTertiaryColours);
+		colourSet.addAll(this.availablePatternTertiaryDyeColours);
+		this.allAvailablePatternTertiaryColours.removeIf((c)->!colourSet.contains(c));
+		for(Colour c : colourSet) {
+			if(!this.allAvailablePatternTertiaryColours.contains(c)) {
+				this.allAvailablePatternTertiaryColours.add(c);
+			}
+		}
 	}
 
 	@SuppressWarnings("rawtypes")

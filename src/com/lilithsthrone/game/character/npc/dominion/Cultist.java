@@ -48,9 +48,10 @@ import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -183,15 +184,15 @@ public class Cultist extends NPC {
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		List<Colour> colours = new ArrayList<>();
-		colours.add(Colour.CLOTHING_ORANGE);
-		colours.add(Colour.CLOTHING_BLACK);
-		colours.add(Colour.CLOTHING_PURPLE);
-		colours.add(Colour.CLOTHING_PURPLE_LIGHT);
+		colours.add(PresetColour.CLOTHING_ORANGE);
+		colours.add(PresetColour.CLOTHING_BLACK);
+		colours.add(PresetColour.CLOTHING_PURPLE);
+		colours.add(PresetColour.CLOTHING_PURPLE_LIGHT);
 		Colour underwearColour = colours.get(Util.random.nextInt(colours.size()));
 
 		colours.clear();
-		colours.add(Colour.CLOTHING_WHITE);
-		colours.add(Colour.CLOTHING_BLACK);
+		colours.add(PresetColour.CLOTHING_WHITE);
+		colours.add(PresetColour.CLOTHING_BLACK);
 		Colour witchColour = colours.get(Util.random.nextInt(colours.size()));
 		
 		
@@ -212,9 +213,9 @@ public class Cultist extends NPC {
 
 		equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", witchColour, false), true, this);
 		if(Math.random()<0.5) {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", witchColour, Colour.CLOTHING_GOLD, witchColour, false), true, this);
+			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", witchColour, PresetColour.CLOTHING_GOLD, witchColour, false), true, this);
 		} else {
-			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", witchColour, Colour.CLOTHING_GOLD, witchColour, false), true, this);
+			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", witchColour, PresetColour.CLOTHING_GOLD, witchColour, false), true, this);
 		}
 		if(Math.random()>0.5f) {
 			equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_witch_witch_boots", witchColour, false), true, this);
@@ -228,16 +229,16 @@ public class Cultist extends NPC {
 		
 		// Makeup:
 		colours = Util.newArrayListOfValues(
-				Colour.COVERING_NONE,
-				Colour.COVERING_ORANGE,
-				Colour.COVERING_PURPLE,
-				Colour.COVERING_BLACK);
+				PresetColour.COVERING_NONE,
+				PresetColour.COVERING_ORANGE,
+				PresetColour.COVERING_PURPLE,
+				PresetColour.COVERING_BLACK);
 		
 		Colour colourForCoordination = colours.get(Util.random.nextInt(colours.size()));
 		Colour colourForNails = colours.get(Util.random.nextInt(colours.size()));
 		
 		setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, colourForCoordination));
-		setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+		setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
 		setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, colourForCoordination));
 		setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, colourForCoordination));
 		

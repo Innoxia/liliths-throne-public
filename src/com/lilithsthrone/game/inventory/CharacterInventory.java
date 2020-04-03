@@ -38,10 +38,10 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.comparators.ClothingRarityComparator;
 import com.lilithsthrone.utils.comparators.ClothingZLayerComparator;
 import com.lilithsthrone.utils.comparators.InventoryClothingComparator;
@@ -370,7 +370,7 @@ public class CharacterInventory implements XMLSaving {
 				int count = Integer.parseInt(e.getAttribute("count"));
 				String id = e.getAttribute("id");
 				if(id.equals("GIFT_ROSE")) { // Changed the rose to a clothing item in v0.3.5.5
-					inventory.addClothing(AbstractClothingType.generateClothing("innoxia_hair_rose", Colour.CLOTHING_RED_DARK, Colour.CLOTHING_GREEN_DARK, null, false), count);
+					inventory.addClothing(AbstractClothingType.generateClothing("innoxia_hair_rose", PresetColour.CLOTHING_RED_DARK, PresetColour.CLOTHING_GREEN_DARK, null, false), count);
 					
 				} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.CONDOM_USED))) {
 					itemMapToAdd.put(AbstractFilledCondom.loadFromXML(e, doc), count);
@@ -1191,7 +1191,7 @@ public class CharacterInventory implements XMLSaving {
 		if (tempSB.length() != 0) {
 			tempSB.append("<br/><br/>");
 		}
-		tempSB.append("<br/><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+UtilText.parse(character, description)+"</span>");
+		tempSB.append("<br/><span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>"+UtilText.parse(character, description)+"</span>");
 		
 //		if (isInventoryFull() && !hasClothing(c)) {
 //			Main.game.getWorlds().get(character.getWorldLocation()).getCell(character.getLocation()).getInventory().addClothing(c);
@@ -1211,7 +1211,7 @@ public class CharacterInventory implements XMLSaving {
 		if (tempSB.length() != 0) {
 			tempSB.append("<br/><br/>");
 		}
-		tempSB.append("<br/><span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>"+UtilText.parse(character, "Due to the loss of [npc.her] extra pair of arms, [npc.name] can no longer hold the "+w.getName()+"!")+"</span>");
+		tempSB.append("<br/><span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>"+UtilText.parse(character, "Due to the loss of [npc.her] extra pair of arms, [npc.name] can no longer hold the "+w.getName()+"!")+"</span>");
 		
 		tempSB.append("<br/>" + description);
 	}
@@ -1260,11 +1260,11 @@ public class CharacterInventory implements XMLSaving {
 		if (getClothingInSlot(slotToEquipInto) != null) {
 			if(getClothingInSlot(slotToEquipInto).isSealed()) {
 				if(characterClothingOwner.isPlayer()) {
-					equipTextSB.append("You can't equip the "+newClothing.getName()+", as your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+					equipTextSB.append("You can't equip the "+newClothing.getName()+", as your <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b> "
 								+ getClothingInSlot(slotToEquipInto).getName() + " can't be removed!");
 				} else {
 					equipTextSB.append(UtilText.parse(characterClothingOwner,
-							"[npc.Name] can't equip the "+newClothing.getName()+", as [npc.her] <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+							"[npc.Name] can't equip the "+newClothing.getName()+", as [npc.her] <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b> "
 							+ getClothingInSlot(slotToEquipInto).getName() + " can't be removed!"));
 				}
 				return false;
@@ -1302,9 +1302,9 @@ public class CharacterInventory implements XMLSaving {
 			for(AbstractClothing c : incompatibleUnequippableClothing) {
 				if(c.isSealed()) {
 					equipTextSB.append(characterClothingOwner.isPlayer()
-							?"<br/>You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "+c.getName()+(c.getClothingType().isPlural()?" are":" is")+" in the way."
+							?"<br/>You can't equip the " + newClothing.getName() + " because your <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b> "+c.getName()+(c.getClothingType().isPlural()?" are":" is")+" in the way."
 							:UtilText.parse(characterClothingOwner,
-									"<br/>[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "+c.getName()+(c.getClothingType().isPlural()?" are":" is")+" in the way."));
+									"<br/>[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b> "+c.getName()+(c.getClothingType().isPlural()?" are":" is")+" in the way."));
 				}
 			}
 			return false;
@@ -1332,10 +1332,10 @@ public class CharacterInventory implements XMLSaving {
 											
 										} else {
 											equipTextSB.append(characterClothingOwner.isPlayer()
-													?"Your <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+													?"Your <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
 														+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing you from being able to equip the "+newClothing.getName()+"!"
 													:UtilText.parse(characterClothingOwner,
-															"[npc.NamePos] <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+															"[npc.NamePos] <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
 																	+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing [npc.herHim] from being able to equip the "+newClothing.getName()+"!"));
 											blockingClothing = equippedClothing;
 											return false;
@@ -1347,10 +1347,10 @@ public class CharacterInventory implements XMLSaving {
 										} else {
 											if(equippedClothing.isSealed()) {
 												equipTextSB.append(characterClothingOwner.isPlayer()
-														?"You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+														?"You can't equip the " + newClothing.getName() + " because your <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b> "
 															+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"
 														:UtilText.parse(characterClothingOwner,
-																"[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+																"[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b> "
 																		+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"));
 												
 											} else {
@@ -1387,10 +1387,10 @@ public class CharacterInventory implements XMLSaving {
 					} else {
 						if(equippedClothing.isSealed()) {
 							equipTextSB.append(characterClothingOwner.isPlayer()
-									?"You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+									?"You can't equip the " + newClothing.getName() + " because your <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b> "
 										+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"
 									:UtilText.parse(characterClothingOwner,
-											"[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
+											"[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b> "
 													+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"));
 							
 						} else {
@@ -1560,9 +1560,9 @@ public class CharacterInventory implements XMLSaving {
 
 		if (clothing.isSealed()) {
 			equipTextSB.append(characterClothingOwner.isPlayer()
-					?"Your " + clothing.getName() + " can't be removed because "+(clothing.getClothingType().isPlural()?"they are":"it is")+" <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b>!"
+					?"Your " + clothing.getName() + " can't be removed because "+(clothing.getClothingType().isPlural()?"they are":"it is")+" <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b>!"
 					:UtilText.parse(characterClothingOwner,
-							"[npc.NamePos] " + clothing.getName() + " can't be removed because "+(clothing.getClothingType().isPlural()?"they are":"it is")+" <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b>!"));
+							"[npc.NamePos] " + clothing.getName() + " can't be removed because "+(clothing.getClothingType().isPlural()?"they are":"it is")+" <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b>!"));
 			
 			blockingClothing = clothing;
 			return false;
@@ -1593,10 +1593,10 @@ public class CharacterInventory implements XMLSaving {
 														clothingToRemove.put(equippedClothing, bpEquipped.displacementType);
 													} else {
 														equipTextSB.append(characterClothingOwner.isPlayer()
-																?"Your <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+																?"Your <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
 																+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing your "+clothing.getName()+" from being removed!"
 																:UtilText.parse(characterClothingOwner,
-																		"[npc.NamePos] <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+																		"[npc.NamePos] <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
 																+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing [npc.her] "+clothing.getName()+" from being removed!"));
 														
 														blockingClothing = equippedClothing;
@@ -1853,7 +1853,7 @@ public class CharacterInventory implements XMLSaving {
 			unableToDisplaceText.append(
 					(unableToDisplaceText.length() == 0
 						? ""
-						: "<br/><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>")
+						: "<br/><span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>")
 					+ clothing.getClothingType().displaceText(characterClothingOwner, characterRemovingClothing, clothing.getSlotEquippedTo(), dt, (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
 					+ "</span>");
 
@@ -1971,7 +1971,7 @@ public class CharacterInventory implements XMLSaving {
 					.append(
 							(unableToReplaceText.length() == 0
 								? ""
-								: "<br/><span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>")
+								: "<br/><span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>")
 							+ clothing.getClothingType().replaceText(characterClothingOwner, characterRemovingClothing, clothing.getSlotEquippedTo(), dt, (Main.game.isInSex()?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH:false))
 							+ "</span>");
 

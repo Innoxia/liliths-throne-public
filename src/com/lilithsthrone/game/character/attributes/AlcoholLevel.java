@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.attributes;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.8
@@ -9,17 +10,17 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum AlcoholLevel {
 	
-	ZERO_SOBER("sober", 0, 0, 0.01f, Colour.ALCOHOL_LEVEL_ZERO),
+	ZERO_SOBER("sober", 0, 0, 0.01f, PresetColour.ALCOHOL_LEVEL_ZERO),
 	
-	ONE_TIPSY("tipsy", 0, 0.01f, 0.2f, Colour.ALCOHOL_LEVEL_ONE),
+	ONE_TIPSY("tipsy", 0, 0.01f, 0.2f, PresetColour.ALCOHOL_LEVEL_ONE),
 	
-	TWO_MERRY("merry", 25, 0.2f, 0.4f, Colour.ALCOHOL_LEVEL_TWO),
+	TWO_MERRY("merry", 25, 0.2f, 0.4f, PresetColour.ALCOHOL_LEVEL_TWO),
 	
-	THREE_DRUNK("drunk", 20, 0.4f, 0.6f, Colour.ALCOHOL_LEVEL_THREE),
+	THREE_DRUNK("drunk", 20, 0.4f, 0.6f, PresetColour.ALCOHOL_LEVEL_THREE),
 	
-	FOUR_HAMMERED("hammered", 15, 0.6f, 0.8f, Colour.ALCOHOL_LEVEL_FOUR),
+	FOUR_HAMMERED("hammered", 15, 0.6f, 0.8f, PresetColour.ALCOHOL_LEVEL_FOUR),
 	
-	FIVE_WASTED("wasted", 10, 0.8f, 1, Colour.ALCOHOL_LEVEL_FIVE);
+	FIVE_WASTED("wasted", 10, 0.8f, 1, PresetColour.ALCOHOL_LEVEL_FIVE);
 	
 	private String name;
 	private float minimumValue;

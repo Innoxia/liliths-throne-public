@@ -24,9 +24,10 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.utils.colours.ColourListPresets;
 import com.lilithsthrone.world.WorldType;
 
 /**
@@ -207,7 +208,7 @@ public abstract class AbstractOutfit {
 									if(text.startsWith("presetColourGroup")) {
 										randomColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
 									} else {
-										randomColours.add(Colour.valueOf(text));
+										randomColours.add(PresetColour.getColourFromId(text));
 									}
 								} catch(Exception ex) {
 									// Just catch and continue when there are no more clothingConditional elements.
@@ -595,7 +596,7 @@ public abstract class AbstractOutfit {
 						if(text.startsWith("presetColourGroup")) {
 							primaryColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
 						} else {
-							primaryColours.add(Colour.valueOf(text));
+							primaryColours.add(PresetColour.getColourFromId(text));
 						}
 					}
 				}
@@ -617,7 +618,7 @@ public abstract class AbstractOutfit {
 						if(text.startsWith("presetColourGroup")) {
 							secondaryColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
 						} else {
-							secondaryColours.add(Colour.valueOf(text));
+							secondaryColours.add(PresetColour.getColourFromId(text));
 						}
 					}
 				}
@@ -639,7 +640,7 @@ public abstract class AbstractOutfit {
 						if(text.startsWith("presetColourGroup")) {
 							tertiaryColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
 						} else {
-							tertiaryColours.add(Colour.valueOf(text));
+							tertiaryColours.add(PresetColour.getColourFromId(text));
 						}
 					}
 				}
@@ -679,7 +680,7 @@ public abstract class AbstractOutfit {
 					if(text.startsWith("presetColourGroup")) {
 						primaryColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
 					} else {
-						primaryColours.add(Colour.valueOf(text));
+						primaryColours.add(PresetColour.getColourFromId(text));
 					}
 				}
 			} catch(Exception ex) {
@@ -693,7 +694,7 @@ public abstract class AbstractOutfit {
 					if(text.startsWith("presetColourGroup")) {
 						secondaryColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
 					} else {
-						secondaryColours.add(Colour.valueOf(text));
+						secondaryColours.add(PresetColour.getColourFromId(text));
 					}
 				}
 			} catch(Exception ex) {

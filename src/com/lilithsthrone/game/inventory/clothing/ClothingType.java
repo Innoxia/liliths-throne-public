@@ -22,9 +22,9 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.ColourListPresets;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.84
@@ -470,9 +470,9 @@ public class ClothingType {
 			null,
 			ColourListPresets.ALL,
 			null,
-			Util.newArrayListOfValues(Colour.CLOTHING_GREY_LIGHT),
+			Util.newArrayListOfValues(PresetColour.CLOTHING_GREY_LIGHT),
 			ColourListPresets.ALL,
-			Util.newArrayListOfValues(Colour.CLOTHING_WHITE),
+			Util.newArrayListOfValues(PresetColour.CLOTHING_WHITE),
 			ColourListPresets.ALL,
 			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN, ItemTag.FITS_ARM_WINGS)){
 
@@ -5469,9 +5469,9 @@ public class ClothingType {
 							PresetConcealmentLists.CONCEALED_PARTIAL_TORSO.getPresetInventorySlotList())),
 			null,
 			Util.newArrayListOfValues(
-					Colour.CLOTHING_BLUE,
-					Colour.CLOTHING_BLACK,
-					Colour.CLOTHING_PINK),
+					PresetColour.CLOTHING_BLUE,
+					PresetColour.CLOTHING_BLACK,
+					PresetColour.CLOTHING_PINK),
 			ColourListPresets.ALL,
 			ColourListPresets.JUST_BLACK,
 			ColourListPresets.ALL,
@@ -5541,9 +5541,9 @@ public class ClothingType {
 									PresetConcealmentLists.CONCEALED_UNZIPS_GROIN.getPresetInventorySlotList())),
 			null,
 			Util.newArrayListOfValues(
-					Colour.CLOTHING_BLUE,
-					Colour.CLOTHING_BLACK,
-					Colour.CLOTHING_PINK),
+					PresetColour.CLOTHING_BLUE,
+					PresetColour.CLOTHING_BLACK,
+					PresetColour.CLOTHING_PINK),
 			ColourListPresets.ALL,
 			ColourListPresets.JUST_BLACK,
 			ColourListPresets.ALL,
@@ -5601,9 +5601,9 @@ public class ClothingType {
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			Util.newArrayListOfValues(
-					Colour.CLOTHING_BLUE,
-					Colour.CLOTHING_BLACK,
-					Colour.CLOTHING_PINK),
+					PresetColour.CLOTHING_BLUE,
+					PresetColour.CLOTHING_BLACK,
+					PresetColour.CLOTHING_PINK),
 			ColourListPresets.ALL,
 			ColourListPresets.JUST_BLACK,
 			ColourListPresets.ALL,
@@ -5831,8 +5831,8 @@ public class ClothingType {
 							PresetConcealmentLists.CONCEALED_PARTIAL_TORSO.getPresetInventorySlotList())),
 			null,
 			Util.newArrayListOfValues(
-							Colour.CLOTHING_BLUE,
-							Colour.CLOTHING_BLACK),
+							PresetColour.CLOTHING_BLUE,
+							PresetColour.CLOTHING_BLACK),
 			ColourListPresets.ALL,
 			ColourListPresets.JUST_WHITE,
 			ColourListPresets.ALL,
@@ -6110,13 +6110,13 @@ public class ClothingType {
 							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList())),
 			null,
 			Util.newArrayListOfValues(
-							Colour.CLOTHING_BLACK,
-							Colour.CLOTHING_GREY,
-							Colour.CLOTHING_BLUE),
+							PresetColour.CLOTHING_BLACK,
+							PresetColour.CLOTHING_GREY,
+							PresetColour.CLOTHING_BLUE),
 			ColourListPresets.ALL,
 			Util.newArrayListOfValues(
-							Colour.CLOTHING_BLUE_LIGHT,
-							Colour.CLOTHING_WHITE),
+							PresetColour.CLOTHING_BLUE_LIGHT,
+							PresetColour.CLOTHING_WHITE),
 			ColourListPresets.ALL,
 			ColourListPresets.JUST_GREY,
 			ColourListPresets.ALL,
@@ -6168,9 +6168,9 @@ public class ClothingType {
 							null)),
 			null,
 			Util.newArrayListOfValues(
-							Colour.CLOTHING_BLACK,
-							Colour.CLOTHING_GREY,
-							Colour.CLOTHING_BLUE),
+							PresetColour.CLOTHING_BLACK,
+							PresetColour.CLOTHING_GREY,
+							PresetColour.CLOTHING_BLUE),
 			ColourListPresets.ALL,
 			null,
 			null,
@@ -6223,9 +6223,9 @@ public class ClothingType {
 							null)),
 			null,
 			Util.newArrayListOfValues(
-							Colour.CLOTHING_BLACK,
-							Colour.CLOTHING_GREY,
-							Colour.CLOTHING_BLUE),
+							PresetColour.CLOTHING_BLACK,
+							PresetColour.CLOTHING_GREY,
+							PresetColour.CLOTHING_BLUE),
 			ColourListPresets.ALL,
 			ColourListPresets.JUST_BLACK,
 			ColourListPresets.ALL,
@@ -6786,7 +6786,7 @@ public class ClothingType {
 							null,
 							null, null)),
 			null,
-			Util.newArrayListOfValues(Colour.CLOTHING_PINK_LIGHT),
+			Util.newArrayListOfValues(PresetColour.CLOTHING_PINK_LIGHT),
 			ColourListPresets.ALL,
 			ColourListPresets.JUST_STEEL,
 			ColourListPresets.ALL_METAL,

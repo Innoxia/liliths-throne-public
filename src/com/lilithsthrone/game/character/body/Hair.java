@@ -396,6 +396,10 @@ public class Hair implements BodyPartInterface {
 	public String setStyle(GameCharacter owner, HairStyle style) {
 		this.style = style;
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		switch(style) {
 			case BRAIDED:
 				return UtilText.parse(owner, "<p>[npc.NamePos] [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into braids.</p>");

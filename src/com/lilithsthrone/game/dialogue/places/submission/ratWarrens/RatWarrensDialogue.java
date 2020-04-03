@@ -80,9 +80,10 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -110,7 +111,7 @@ public class RatWarrensDialogue {
 				rat.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE, true);
 				CharacterUtils.setGenericName(rat, "lieutenant", null);
 				rat.unequipOffhandWeaponIntoVoid(0, false);
-				rat.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_pistolCrossbow_pistol_crossbow", DamageType.POISON, Colour.CLOTHING_BLACK_STEEL, Colour.CLOTHING_GREEN_DRAB, Colour.CLOTHING_GUNMETAL));
+				rat.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_pistolCrossbow_pistol_crossbow", DamageType.POISON, PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GREEN_DRAB, PresetColour.CLOTHING_GUNMETAL));
 				rat.incrementEssenceCount(TFEssence.ARCANE, 8, false);
 				
 				rat = new RatGangMember(Gender.getGenderFromUserPreferences(false, false));
@@ -119,7 +120,7 @@ public class RatWarrensDialogue {
 				rat.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE, true);
 				CharacterUtils.setGenericName(rat, "sidekick", null);
 				rat.unequipOffhandWeaponIntoVoid(0, false);
-				rat.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_pistolCrossbow_pistol_crossbow", DamageType.PHYSICAL, Colour.CLOTHING_BLACK_STEEL, Colour.CLOTHING_KHAKI, Colour.CLOTHING_STEEL));
+				rat.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_pistolCrossbow_pistol_crossbow", DamageType.PHYSICAL, PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_KHAKI, PresetColour.CLOTHING_STEEL));
 				rat.incrementEssenceCount(TFEssence.ARCANE, 3, false);
 				
 			} catch (Exception e) {
@@ -1093,9 +1094,9 @@ public class RatWarrensDialogue {
 						GUARD_COMBAT_DEFEAT_STOCKS_STRIPPED) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(applyCaptivity(Main.game.getPlayer(), Colour.CLOTHING_PINK_LIGHT));
+						Main.game.getTextEndStringBuilder().append(applyCaptivity(Main.game.getPlayer(), PresetColour.CLOTHING_PINK_LIGHT));
 						if(isCompanionDialogue()) {
-							Main.game.getTextEndStringBuilder().append(applyCaptivity(getMainCompanion(), Colour.CLOTHING_PINK_LIGHT));
+							Main.game.getTextEndStringBuilder().append(applyCaptivity(getMainCompanion(), PresetColour.CLOTHING_PINK_LIGHT));
 						}
 					}
 				};
@@ -3501,11 +3502,11 @@ public class RatWarrensDialogue {
 			
 			Main.game.getNpc(Axel.class).addSlave(Main.game.getNpc(Vengar.class));
 			Main.game.getNpc(Vengar.class).unequipAllClothingIntoVoid(true, true);
-			Main.game.getNpc(Vengar.class).equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Axel.class));
+			Main.game.getNpc(Vengar.class).equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Axel.class));
 			
 			Main.game.getNpc(Axel.class).addSlave(Main.game.getNpc(Murk.class));
 			Main.game.getNpc(Murk.class).unequipAllClothingIntoVoid(true, true);
-			Main.game.getNpc(Murk.class).equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Axel.class));
+			Main.game.getNpc(Murk.class).equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Axel.class));
 			
 			Main.game.getNpc(Vengar.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER, true);
 			Main.game.getNpc(Murk.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE, true);
@@ -3788,9 +3789,9 @@ public class RatWarrensDialogue {
 						@Override
 						public void effects() {
 							Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
-							applyCaptivity(Main.game.getPlayer(), Colour.CLOTHING_PINK_HOT);
+							applyCaptivity(Main.game.getPlayer(), PresetColour.CLOTHING_PINK_HOT);
 							if(isCompanionDialogue()) {
-								applyCaptivity(getMainCompanion(), Colour.CLOTHING_PINK_HOT);
+								applyCaptivity(getMainCompanion(), PresetColour.CLOTHING_PINK_HOT);
 							}
 						}
 					};
@@ -3812,7 +3813,7 @@ public class RatWarrensDialogue {
 							companion.returnToHome();
 
 							Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
-							applyCaptivity(Main.game.getPlayer(), Colour.CLOTHING_PINK_HOT);
+							applyCaptivity(Main.game.getPlayer(), PresetColour.CLOTHING_PINK_HOT);
 						}
 					};
 				}

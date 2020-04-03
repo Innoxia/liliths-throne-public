@@ -90,10 +90,10 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 
@@ -440,7 +440,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		tileSB.append("<p style='text-align:center;'>");
 		if(this.getFoughtPlayerCount()>0) {
 			tileSB.append(
-					UtilText.parse(this,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
+					UtilText.parse(this,"You have <b style='color:"+PresetColour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
 					
 					if(this.getFoughtPlayerCount()==1) {
 						tileSB.append("once.");
@@ -452,7 +452,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					
 			tileSB.append("</b>"
 							+ "<br/>"
-							+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>");
+							+ "You have <b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>");
 					
 					if(this.getLostCombatCount()==1) {
 						tileSB.append("once.");
@@ -464,7 +464,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							
 			tileSB.append("</b>"
 					+ "<br/>"
-					+ "You have <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
+					+ "You have <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
 					if(this.getWonCombatCount()==1) {
 						tileSB.append("once.");
 					} else if(this.getWonCombatCount()==2) {
@@ -481,7 +481,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					
 			tileSB.append(
 					UtilText.parse(this,
-							"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with [npc.herHim]<b> "));
+							"You have had <b style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with [npc.herHim]<b> "));
 			
 					if(this.getSexAsDomCount(Main.game.getPlayer())==1) {
 						tileSB.append("once.");
@@ -495,7 +495,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					UtilText.parse(this,
 							"</b>"
 							+ "<br/>"
-							+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with  [npc.herHim]<b> "));
+							+ "You have had <b style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with  [npc.herHim]<b> "));
 			
 					if(this.getSexAsSubCount(Main.game.getPlayer())==1) {
 						tileSB.append("once.");
@@ -2867,9 +2867,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * @return Whether this NPC is happy to be in this SexSlot
 	 */
 	public boolean isHappyToBeInSlot(AbstractSexPosition position, SexSlot slot, SexSlot targetSlot, GameCharacter target) {
-		SexType targetSexPreference = this.getForeplayPreference(target);
+		SexType targetSexPreference = Main.sex.getForeplayPreference(this, target);
+		
 		if(!Main.sex.isInForeplay(this)) {
-			targetSexPreference = this.getMainSexPreference(target);
+			targetSexPreference = Main.sex.getMainSexPreference(this, target);
 		}
 		if(targetSexPreference==null) {
 			return true;

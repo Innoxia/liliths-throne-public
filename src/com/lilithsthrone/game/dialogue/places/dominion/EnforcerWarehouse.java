@@ -51,10 +51,10 @@ import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStocks;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -467,7 +467,7 @@ public class EnforcerWarehouse {
 				
 			} else {
 				if(!dangerousDirections.isEmpty()) {
-					sb.append("<p style='test-align:center; color:"+Colour.GENERIC_BAD.toWebHexString()+";'><i>");
+					sb.append("<p style='test-align:center; color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'><i>");
 						if(dangerousDirections.size()>1) {
 							sb.append("There are manned guard posts to the "+Util.stringsToStringList(dangerousDirections, false)+"! Entering these areas will surely result in a fight!");
 						} else {

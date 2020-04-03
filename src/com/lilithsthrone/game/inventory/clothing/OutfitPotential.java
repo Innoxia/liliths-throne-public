@@ -3,7 +3,7 @@ package com.lilithsthrone.game.inventory.clothing;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.3.1

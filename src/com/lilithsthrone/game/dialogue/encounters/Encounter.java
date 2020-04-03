@@ -964,7 +964,7 @@ public enum Encounter {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vengarCaptiveVengarSatisfied)) {
 				map.put(EncounterType.VENGAR_CAPTIVE_VENGAR_FUCK, 10f);
 			}
-			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vengarCaptiveGangBanged)) {
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vengarCaptiveGangBanged)) { //TODO this is not set anywhere?
 				map.put(EncounterType.VENGAR_CAPTIVE_GROUP_SEX, 2f);
 			}
 			

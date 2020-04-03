@@ -6,8 +6,9 @@ import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
@@ -270,7 +271,7 @@ public class Covering  {
 				case NONE:
 				case FLUID:
 				case FRECKLED_FACE:
-					if(primaryColour==Colour.COVERING_NONE) {
+					if(primaryColour==PresetColour.COVERING_NONE) {
 						return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>";
 					}
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>"
@@ -345,7 +346,7 @@ public class Covering  {
 				case NONE:
 				case FLUID:
 				case FRECKLED_FACE:
-					if(primaryColour==Colour.COVERING_NONE) {
+					if(primaryColour==PresetColour.COVERING_NONE) {
 						return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName();
 					}
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name;

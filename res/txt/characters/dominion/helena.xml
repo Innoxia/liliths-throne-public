@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Gifts -->
+	
+	<htmlContent tag="GIFT_CHOCOLATES"><![CDATA[
+	<p>
+		Thinking that this is the perfect moment in which to give Helena the gift you'd bought for her, you present her with both the box of chocolates as well as a flattering comment on her appearance.
+	</p>
+	<p>
+		#IF(!helena.isSlutty())
+			Blushing a little at the sudden gesture, the beautiful matriarch elegantly takes the gift you're offering her, before softly commenting, [helena.speech(How kind of you, [pc.name]. I shall surely enjoy these later.)]
+		#ELSE
+			Biting her lip and flashing you an excited glance, the beautiful matriarch elegantly takes the gift you're offering her, before suggestively commenting, [helena.speech(Perhaps we can enjoy these together later in my bedroom...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GIFT_PERFUME"><![CDATA[
+	<p>
+		Thinking that this is the perfect moment in which to give Helena the gift you'd bought for her, you present her with both the bottle of perfume as well as a flattering comment on her appearance.
+	</p>
+	<p>
+		#IF(!helena.isSlutty())
+			Blushing a little at the sudden gesture, the beautiful matriarch elegantly takes the gift you're offering her, before softly commenting, [helena.speech(How kind of you, [pc.name]. I shall happily add this to my collection.)]
+		#ELSE
+			Biting her lip and flashing you an excited glance, the beautiful matriarch elegantly takes the gift you're offering her, before suggestively commenting, [helena.speech(I'll make sure to put this on for our next date...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GIFT_SINGLE_ROSE"><![CDATA[
+	<p>
+		Thinking that this is the perfect moment in which to give Helena the gift you'd bought for her, you present her with both the perfect rose as well as a flattering comment on her appearance.
+	</p>
+	<p>
+		#IF(!helena.isSlutty())
+			Blushing a little at the sudden gesture, the beautiful matriarch elegantly takes the flower which you're offering her, before softly commenting, [helena.speech(How kind of you, [pc.name]. I shall put this in a vase in my apartment.)]
+		#ELSE
+			Biting her lip and flashing you an excited glance, the beautiful matriarch elegantly takes the flower which you're offering her, before suggestively commenting, [helena.speech(I'll put this in my bedroom when we get there later tonight...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GIFT_ROSES"><![CDATA[
+	<p>
+		Thinking that this is the perfect moment in which to give Helena the gift you'd bought for her, you present her with both the bouquet of roses as well as a flattering comment on her appearance.
+	</p>
+	<p>
+		#IF(!helena.isSlutty())
+			Blushing a little at the sudden gesture, the beautiful matriarch elegantly takes the flowers which you're offering her, before softly commenting, [helena.speech(How kind of you, [pc.name]. I shall put these in a vase in my apartment.)]
+		#ELSE
+			Biting her lip and flashing you an excited glance, the beautiful matriarch elegantly takes the flowers which you're offering her, before suggestively commenting, [helena.speech(I'll put these in my bedroom when we get there later tonight...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GIFT_TEDDY_BEAR"><![CDATA[
+	<p>
+		Thinking that this is the perfect moment in which to give Helena the gift you'd bought for her, you present her with the teddy bear as well as a flattering comment on her appearance.
+	</p>
+	<p>
+		Frowning a little at what it is you're giving her, the beautiful matriarch sharply comments, [helena.speech(This really isn't my sort of thing, [pc.name]. I appreciate the gesture, but please do not offer me something like this again.)]
+	</p>
+	]]>
+	</htmlContent>
+
+</dialogue>

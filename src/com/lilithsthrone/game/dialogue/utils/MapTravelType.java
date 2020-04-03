@@ -3,7 +3,8 @@ package com.lilithsthrone.game.dialogue.utils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 
 /**
@@ -18,7 +19,7 @@ public enum MapTravelType {
 	WALK_SAFE("Walk (safest)",
 			"Use the safest path to your destination.",
 			"Click once on the map to mark your desired end point, then click that end point again to travel there. You can queue up waypoints by holding shift while clicking.",
-			Colour.GENERIC_MINOR_GOOD) {
+			PresetColour.GENERIC_MINOR_GOOD) {
 				@Override
 				public boolean isAvailable(Cell c, GameCharacter character) {
 					return !character.isCaptive();
@@ -36,7 +37,7 @@ public enum MapTravelType {
 	WALK_DANGEROUS("Walk (fastest)",
 			"Use the fastest path to your destination.",
 			"Click once on the map to mark your desired end point, then click that end point again to travel there. You can queue up waypoints by holding shift while clicking.",
-			Colour.GENERIC_MINOR_BAD) {
+			PresetColour.GENERIC_MINOR_BAD) {
 				@Override
 				public boolean isAvailable(Cell c, GameCharacter character) {
 					return !character.isCaptive();
@@ -54,7 +55,7 @@ public enum MapTravelType {
 	FLYING("Fly",
 			"Fly to your destination.",
 			"Click once on the map to mark your desired end point, then click that end point again to travel there.",
-			Colour.SPELL_SCHOOL_AIR) {
+			PresetColour.SPELL_SCHOOL_AIR) {
 				@Override
 				public boolean isAvailable(Cell c, GameCharacter character) {
 					return !character.isCaptive() && character.isPartyAbleToFly();
@@ -75,7 +76,7 @@ public enum MapTravelType {
 	TELEPORT("Teleport",
 			"Teleport to your destination.",
 			"Click once on the map to mark your desired end point, then click that end point again to travel there.",
-			Colour.SPELL_SCHOOL_ARCANE) {
+			PresetColour.SPELL_SCHOOL_ARCANE) {
 				@Override
 				public boolean isAvailable(Cell c, GameCharacter character) {
 					if(character.isCaptive()) {
