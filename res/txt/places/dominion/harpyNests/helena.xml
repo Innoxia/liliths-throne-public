@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 
+	<!-- HELENAS_NEST_EXTERIOR -->
+	
 	<htmlContent tag="HELENAS_NEST_EXTERIOR"><![CDATA[
 	<p>
 		Making your way down one of the the many walkways that criss-cross Dominion's rooftops, you find yourself approaching an exceptionally large Harpy Nest. Spanning several buildings, and with an elaborate system of multi-level platforms built on top of each one, you instantly recognise this as a nest of particular importance.
@@ -19,24 +21,43 @@
 		#ENDIF
 	</p>
 	<p>
-		Looking back down, you notice that there are little signs dotted around the edges of the platform. Walking up to the nearest one, you read, in flowing, ornate script, the following words;
+		Looking back down, you notice that there are little signs dotted around the edges of the platform. Walking up to the nearest one, you read the following words, written in flowing, ornate script;
 	</p>
 	<p style='text-align:center;'>
-		<i><b>~[helena.name]'s Paradise~</b><br/>
-		Visitors must be accompanied at all times.<br/>
-		Meeting with [helena.name] by appointment only.</i>
+	<i>
+		<b>~[helena.name]'s Paradise~</b>
+		<br/>Visitors must be accompanied at all times.
+		#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_HELENA))
+			<br/>Until further notice, [helena.name] is <b>not receiving any visitors</b>.
+		#ELSE
+			<br/>Meeting with [helena.name] by appointment only.
+		#ENDIF
+	</i>
 	</p>
 	<p>
-		#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_HELENA)
-			Stepping back, you wonder if you should call over one of the nearby harpies. After all, you do have business with [helena.name], and you're sure that she'd want to hear about Scarlett as soon as possible.
+		#IF(pc.getQuest(QUEST_LINE_MAIN)==QUEST_MAIN_1_E_REPORT_TO_HELENA)
+			Stepping back, you wonder if you should call over one of the nearby harpies. After all, you do have business with [helena.name], and you're sure that she'd want to hear about Scarlett as soon as possible...
 		#ELSE
 			Stepping back, you decide against calling over one of the nearby harpies.
-			#IF pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_HELENA)
-			#THEN After all, she's not even here at the moment.
-			#ELSE After all, you don't have any business with her.
+			#IF(pc.isQuestFailed(QUEST_LINE_ROMANCE_HELENA))
+				 After all, Helena is so furious with you that she'd never agree to meeting with you...
+			#ELSEIF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_HELENA))
+				 After all, Helena isn't even here at the moment.
+			#ELSE
+				 After all, you don't have any business with Helena.
 			#ENDIF
 		#ENDIF
 	</p>
+	#IF(game.getNonCompanionCharactersPresent().contains(scarlett))
+		<p>
+			Over in a nearby corner of the nest, you see the familiar figure of Scarlett sitting next to a couple of brightly-coloured harpies.
+			#IF(pc.getQuest(QUEST_LINE_ROMANCE_HELENA) == QUEST_ROMANCE_HELENA_4_SCARLETTS_RETURN)
+				 Although you doubt that you'll get an amicable response from her, you need to go over to Scarlett and tell her that Helena wants to see her...
+			#ELSE
+				 You could always head over and say hello, but you doubt that you'll get an amicable response from her...
+			#ENDIF
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 
@@ -48,19 +69,25 @@
 		Due to the ongoing arcane storm, the nest is completed deserted; its residents having retreated down into the safety of the buildings below. As yet another flash of arcane lightning illuminates the platforms before you, you notice that there are little signs dotted around the edges of the nest. Walking up to the nearest one, you read, in flowing, ornate script, the following words;
 	</p>
 	<p style='text-align:center;'>
-		<i><b>~[helena.name]'s Paradise~</b><br/>
-		Visitors must be accompanied at all times.<br/>
-		Meeting with [helena.name] by appointment only.</i>
+	<i>
+		<b>~[helena.name]'s Paradise~</b>
+		<br/>Visitors must be accompanied at all times.
+		#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_HELENA))
+			<br/>Until further notice, [helena.name] is <b>not receiving any visitors</b>.
+		#ELSE
+			<br/>Meeting with [helena.name] by appointment only.
+		#ENDIF
+	</i>
 	</p>
 	<p>
 		#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_HELENA)
 			You do have business with [helena.name], and you're sure that she'd want to hear about Scarlett as soon as possible, but you'll have to come back after the ongoing storm has passed...
+		#ELSEIF(pc.isQuestFailed(QUEST_LINE_ROMANCE_HELENA))
+			There's not much point in waiting around for the storm to pass, as Helena is so furious with you that she'd never agree to meeting with you...
+		#ELSEIF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_HELENA))
+			There's not much point in waiting around for the storm to pass, as [helena.name]'s not even here at the moment...
 		#ELSE
-			#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_HELENA))
-				There's not much point in waiting around for the storm to pass, as [helena.name]'s not even here at the moment...
-			#ELSE
-				There's not much point in waiting around for the storm to pass, as you don't have any business with [helena.name]...
-			#ENDIF
+			There's not much point in waiting around for the storm to pass, as you don't have any business with [helena.name]...
 		#ENDIF
 	</p>
 	]]>
@@ -74,89 +101,104 @@
 		Due to the current hour, the nest is completed deserted; its residents having retired to the comfort of the buildings below in order to get a good night's sleep. Taking a look around the deserted platform, you notice that there are little signs dotted around the edges of the nest. Walking up to the nearest one, you read, in flowing, ornate script, the following words;
 	</p>
 	<p style='text-align:center;'>
-		<i><b>~[helena.name]'s Paradise~</b><br/>
-		Visitors must be accompanied at all times.<br/>
-		Meeting with [helena.name] by appointment only.</i>
+	<i>
+		<b>~[helena.name]'s Paradise~</b>
+		<br/>Visitors must be accompanied at all times.
+		#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_HELENA))
+			<br/>Until further notice, [helena.name] is <b>not receiving any visitors</b>.
+		#ELSE
+			<br/>Meeting with [helena.name] by appointment only.
+		#ENDIF
+	</i>
 	</p>
 	<p>
 		#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_HELENA)
 			You do have business with [helena.name], and you're sure that she'd want to hear about Scarlett as soon as possible, but you'll have to come back once she's awake, [style.colourMinorBad(between [units.time(6)] and [units.time(22)])]...
+		#ELSEIF(pc.isQuestFailed(QUEST_LINE_ROMANCE_HELENA))
+			There's not much point in waiting around for the nests' residents to wake up, as Helena is so furious with you that she'd never agree to meeting with you...
+		#ELSEIF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_HELENA))
+			There's not much point in waiting around for the nests' residents to wake up, as [helena.name]'s not even here at the moment...
 		#ELSE
-			#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_HELENA))
-				There's not much point in waiting around for the nests' residents to wake up, as [helena.name]'s not even here at the moment...
-			#ELSE
-				There's not much point in waiting around for the nests' residents to wake up, as you don't have any business with [helena.name]...
-			#ENDIF
+			There's not much point in waiting around for the nests' residents to wake up, as you don't have any business with [helena.name]...
 		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
-
-	<htmlContent tag="HELENAS_NEST"><![CDATA[
+	
+	
+	<!-- HELENAS_NEST_MAIN_QUEST -->
+	
+	<htmlContent tag="HELENAS_NEST_MAIN_QUEST"><![CDATA[
 	<p>
-		Stepping forwards, you look around for a harpy who can take you to [helena.name]. You don't need to look for long, however, as the moment you take a step into the nest, a flustered-looking harpy runs up to you.
+		Moving forwards into the nest, you look around for a harpy who can take you to [helena.name]. You don't need to search for long, however, as the moment you pass the sign next to the entrance, a flustered-looking harpy swoops down to land right in front of you.
 	</p>
 	<p>
-		[femaleNPC.speech(Stop! Wait! You can't come in here!)] she shouts, waving her pink-feathered wings in front of your face. [femaleNPC.speech(You need an appointment if you want to see [helena.name]!)]
+		[style.speechFeminine(Stop! Wait! Who are you?! You can't come in here!)] she shouts, frantically waving her pink-feathered wings in front of your face. [style.speechFeminine(You need an appointment if you want to see [helena.name]!)]
 	</p>
 	<p>
-		[pc.speech(It's kind of urgent,)] you reply, standing your ground. [pc.speech(I need to talk to [helena.name] about Scarlett, now.)]
+		[pc.speech(My name's [pc.name], and I really need to talk to [helena.name],)] you reply, standing your ground. [pc.speech(I've got a message for her from Scarlett.)]
 	</p>
 	<p>
-		A few of the surrounding harpies, obviously listening in to your conversation, suddenly start whispering to one another. The harpy that you're dealing with trips over her words as she hurries to respond, obviously caught off-guard at the mention of Scarlett's name. [femaleNPC.speech(W-Wait, Scarlett?! As in, <i>the</i> Scarlett? She's meant to be banished to Slaver Alley!)]
+		A few of the surrounding harpies, obviously listening in to your conversation, suddenly start whispering to one another. Caught off-guard at the mention of Scarlett's name, the harpy that you're dealing with trips over her words as she hurries to respond, [style.speechFeminine(S-Scarlett?! What- I mean, who- Wait, no, she's meant to be working down in Slaver Alley! You don't mean <i>that</i> Scarlett, do you?)]
 	</p>
 	<p>
-		[pc.speech(Yeah, that's the one,)] you reply, [pc.speech(so can you take me to [helena.name] now please?)]
+		[pc.speech(Yes, I mean that Scarlett,)] you reply, [pc.speech(As I said, I need to deliver a message from her to [helena.name].)]
 	</p>
 	<p>
-		[femaleNPC.speech(Yes! Of course!)] the harpy exclaims, [femaleNPC.speech(Thank goodness [helena.name]'s in a good mood... Follow me!)]
+		[style.speechFeminine(Well, I'm not supposed to let people in without an appointment,)] the harpy says, nervously flapping her wings as she struggles to decide what to do, [style.speechFeminine(Helena <i>is</i> in a good mood today, and I'm sure she'd want to know if Scarlett's causing more trouble... Come on then! Follow me!)]
 	</p>
 	<p>
-		With that, the harpy hurries off into the nest, and you quickly follow in her footsteps. As you pass through the crowds of harpies, you see that you're being led to the tallest platform in the nest, and at the very top, you see a white-feathered harpy sitting on what appears to be some sort of throne. You're led up a flight of stairs, and, as you reach the top, you find yourself walking out into the midst of small, and very special, group of harpies.
+		With you hot on her heels, your guide hurries off into the nest, leading you though crowds of inquisitive harpies, over rickety rope bridges, and, finally, up several flights of wooden stairs. After a couple of minutes spent following the pink-feathered harpy in this manner, you eventually arrive at the tallest platform in the nest. Over on the far side, surrounded by a dozen or so other harpies, you see the white-feathered form of Helena sitting on a delicate wooden throne.
 	</p>
 	<p>
-		As your guide bows down to her superiors, you take a good look at what must be [helena.name]'s inner-circle. Each of the harpies before you are jaw-droppingly beautiful; their feminine features and vivid, well-preened feathers leaving you with no doubt that they'd each be capable of being a matriarch of their own nest, if they so pleased. Your vision doesn't linger on them for long, however, as your gaze is irresistibly drawn to this nest's matriarch.
+		As your guide bows down to her superiors and starts to explain that you're here to deliver news of Scarlett, you take a good look at these harpies who comprise Helena's inner-circle. Each one of them has a unique colour to their feathers, and they are without exception nothing less than stunningly beautiful. Their flawless features and perfectly-postured bodies leave you with no doubt that they'd each be capable of becoming a matriarch of their own flock, if they so desired. Despite their alluring beauty, your vision doesn't linger on these harpies for too long, as your gaze is irresistibly drawn to the figure of Helena.
 	</p>
 	<p>
-		Sitting upright on an ornate golden throne, you find yourself looking upon what surely must be the most beautiful creature to ever have existed. [helena.name]'s feathers are the first thing that your eyes are drawn to; their pure white brilliance seems to almost radiate a heavenly glow, and each and every one is perfectly preened and spotlessly clean. Her pale skin, much like her feathers, is absolutely flawless, and there isn't the slightest hint of a blemish anywhere on her perfect, hourglass-shaped body. The white bikini-top that she's wearing reveals a large portion of her D-cup cleavage, and you can't help but marvel at how perfectly-formed her breasts are. As your eyes finally reach the top of her body, you find yourself looking upon the perfectly-symmetrical face of Aphrodite reborn; with high cheekbones, full lips, and, revealed as she takes off her gold-framed aviators, vividly-blue eyes, [helena.name] is without doubt the most beautiful harpy in the entire nests.
+		Sitting upon a white wooden throne, which has been elegantly carved to depict flowing branches and leaves and then inlaid with pure gold, the matriarch of this harpy flock must surely be one of the most beautiful creatures to have ever existed. Your eyes are first drawn to the immaculate feathers which cover [helena.namePos] wings, head, and tail; their pure white brilliance seems almost to radiate a heavenly glow, and there's not a single one on her entire body which isn't perfectly preened and spotlessly clean. Her pale skin, much like her feathers, is absolutely flawless, and there isn't even the slightest hint of a blemish anywhere on her perfect, hourglass-shaped body. The white plunge-dress which she's wearing reveals a large portion of her D-cup cleavage, and you can't help but marvel at not only how perfectly-formed her breasts are, but also how they're significantly larger than those of most harpies. The sharp talons on the end of her bird-like feet are perfectly manicured, and you see them flexing a little as she dismisses your guide with a brief swish of one of her wings. As the matriarch's [helena.eyeColour] eyes lock on to yours, you find yourself gazing upon the inconceivably-beautiful face of Aphrodite reborn, which turns up into a heart-melting smile as she beckons you forwards with one of her feathered fingers.
 	</p>
 	<p>
-		You barely hear your guide introducing you as the bearer of Scarlett-related news, but as she mentions that name, you pick up on a twitch in [helena.name]'s right eye. As you're ushered forwards, [helena.name] stands up, and, just like her beauty would suggest, she holds herself with bearing and poise befitting a queen. She smiles the most beautiful smile you've ever seen, and as she opens her mouth to speak, you discover that her voice is gentle and melodic, but there's a faint, icy undertone that sends a shiver up your spine.
+		[helena.speech(Welcome to my nest, [pc.name],)] Helena says in a soft, melodic voice which perfectly fits her beautiful appearance, [helena.speech(If I were not so pressed with prior engagements, I would insist upon giving you my full hospitality, but alas, my time is regrettably in very short supply. If you are here to deliver news of my dear Scarlett, then pray do tell without delay.)]
 	</p>
 	<p>
-		[helena.speech(Welcome to my nest, visitor. If I were not so pressed with prior engagements, I would insist upon giving you my full hospitality, but, alas, my time is limited and in short supply. If you have news of my <i>dear Scarlett</i>,)] you notice the chill in her voice as she says that name, [helena.speech(then pray do tell, and I shall be in your debt.)]
-	</p>
-	<p>
-		[helena.name] ever so slightly leans forwards in her chair as she finishes speaking, and you notice a slight twitch in her right wing; a clear indication that she's impatient to hear what news you have.
-	</p>
-	]]>
-	</htmlContent>
-
-	<htmlContent tag="HELENAS_NEST_SCARLETT"><![CDATA[
-	<p>
-		[pc.speech(She wanted me to tell you that her slavery business has failed. She's run out of money, and she has no slaves left,)] you explain, noticing that [helena.name]'s pale cheeks start flushing red as you talk. Before you have an opportunity to relay Scarlett's request that you take her punishment for her, [helena.name] speaks.
-	</p>
-	<p>
-		[helena.speech(That... <i>bitch</i>!)] she exclaims, losing her noble composure as she starts pacing back and forth. [helena.speech(That <i>stupid slut</i>! I told her this was her last chance!)]
-	</p>
-	<p>
-		The harpy closest to [helena.name]'s throne moves towards her matriarch, seeking to calm her down. [femaleNPC.speech([helena.name], please! Don't get angry, she's not worth it!)]
-	</p>
-	<p>
-		[helena.speech(Be quiet!)] [helena.name] screeches, quickly working herself up into a fit as she continues to curse. [helena.speech(That whore's going to pay for this! How many chances have I given her?! I've had enough!)]
-	</p>
-	<p>
-		It seems as though [helena.name]'s forgotten about your existence, and, ignoring her follower's attempts to calm her down, she moves off to the edge of the platform, spreading her wings as she prepares to take flight. You only have a moment in which to try and stop her, and you wonder if you should use this opportunity to offer to take Scarlett's punishment on her behalf...
+		Although she retains her regal posture and calm tone of voice, you notice another slight flex of Helena's talons as she mentions the name 'Scarlett', revealing the fact that she's impatient to find out what news you have of her...
 	</p>
 	]]>
 	</htmlContent>
-
-	<htmlContent tag="HELENAS_NEST_NO_PUNISHMENT"><![CDATA[
+	
+	
+	<!-- HELENAS_NEST_MAIN_QUEST_SCARLETT -->
+	
+	<htmlContent tag="HELENAS_NEST_MAIN_QUEST_SCARLETT"><![CDATA[
 	<p>
-		Deciding that it would be best to avoid [helena.name]'s wrath, you say nothing as she spreads her white-feathered wings, and look on as she launches herself off the platform, flying off in the direction of Slaver Alley. You're confident that you did the right thing; after all, who knows what horrific punishment [helena.name] would have given you.
+		Agreeing with Helena that it would be best not to delay, you set about telling her of Scarlett's failed business, and how she's run out of both money and slaves. As you reveal this information, you see the matriarch's talons digging down into the wooden platform in front of her throne, and before you can get to the part about Scarlett's request that you take her punishment for her, Helena holds up her wing to silence you. With her head-feathers bristling up in a clear display of anger, the beautiful matriarch somehow manages to keep her voice soft and calm as she turns towards one of the nearby harpies and asks, [helena.speech(Is what [pc.name] is saying true, Aello? I do recall giving you the responsibility of watching over Scarlett, and it seems rather perplexing to me that you'd neglect to report a failure of this magnitude.)]
 	</p>
 	<p>
-		[helena.name]'s inner-circle of harpies pay you no heed as their matriarch soars off into the #IF(game.isDayTime())sky#ELSEnight#ENDIF. They're far too concerned with speculating as to what [helena.name] is going to do to Scarlett, and as you overhear some of their more frightful ideas, you suddenly remember that you need the abrasive harpy to tell you what happened to Arthur.
+		[style.speechFeminineStrong(My queen, please, I thought Scarlett would still have time to fix her mistake. I didn't want to bother you with-)] the harpy tries to explain, but she's cut off mid-sentence as Helena rises up from her throne and sharply sweeps her wings down to either side of her.
+	</p>
+	<p>
+		[helena.speech(Why must I be burdened with such incompetent followers?)] the matriarch asks, starting to losing her noble composure as her voice takes on a distinctly icy tone, [helena.speech(I specifically told you to report any significant news of Scarlett to me at once. Obviously that was too much for your simple little bird-brain to comprehend.)]
+	</p>
+	<p>
+		[style.speechFeminineStrong(Please, I'm sorry, I'll go and tell Scarlett-)] the harpy starts, but is again quickly silenced, this time by the loud scratching noise of Helena's sharp talons ripping up the floor beneath her.
+	</p>
+	<p>
+		[helena.speech(Oh, that won't be necessary. I'm going to go and personally deal with Scarlett right now. Don't expect me to return any time soon; I need to take a long break away from the ceaseless ineptitude I'm expected to deal with on a daily basis,)] [helena.name] announces in a tone that's by now distinctly hostile. Turning towards the cobalt-blue-feathered harpy sitting closest to her throne, she commands, [helena.speech(Electra, you'll be in charge of the nest until I decide to return. Please do try not to let it turn to ruin in my absence.)]
+	</p>
+	<p>
+		In her current state of anger, it seems as though [helena.name] has completely forgotten about your existence. Ignoring her followers' pleas to stay, she steps over to the edge of the platform and spreads her wings. You only have a moment in which to try and stop her from flying off, and you wonder if you should use this opportunity to offer to take Scarlett's punishment on her behalf...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_NEST_MAIN_QUEST_NO_PUNISHMENT -->
+	
+	<htmlContent tag="HELENAS_NEST_MAIN_QUEST_NO_PUNISHMENT"><![CDATA[
+	<p>
+		Deciding that it would be best to avoid [helena.namePos] wrath, you say nothing as she leaps off the edge of the platform, and simply watch as she wheels around in mid-air and flies off in the direction of Slaver Alley. You're confident that you did the right thing; after all, who knows what horrific punishment [helena.name] would have given you had you said something to stop her.
+	</p>
+	<p>
+		[helena.NamePos] inner-circle of harpies pay you no heed as their matriarch soars off into the #IF(game.isDayTime())sky#ELSEnight#ENDIF. They're far too concerned with speculating as to what [helena.name] is going to do to Scarlett, and as you overhear some of their more frightful ideas, you suddenly remember that you still need the rude raven-harpy to tell you what happened to Arthur.
 	</p>
 	<p>
 		It doesn't look like anyone's going to prevent you from leaving, so you quickly move to make your exit. You should probably hurry back to Scarlett's shop and find out what [helena.name] had in store for her...
@@ -164,111 +206,124 @@
 	]]>
 	</htmlContent>
 
-	<htmlContent tag="HELENAS_NEST_LEAVING"><![CDATA[
+	<htmlContent tag="HELENAS_NEST_MAIN_QUEST_LEAVING"><![CDATA[
 	<p>
-		Heading down the staircase, you leave your guide to hurry after you, fretting and flapping her wings as she asks you to try and calm [helena.name] down. Going back the same way that you came, it only takes a few moments before you're exiting [helena.name]'s nest, and, leaving the worrisome harpy guide behind, you resolve to travel to Slaver Alley as soon as you can.
+		Heading back down the staircase to the nest's main platform, you leave your guide to hurry after you, fretting and flapping her wings as she pleads with you to try and calm [helena.name] down. Going back the same way that you came, it only takes a few moments before you're exiting [helena.name]'s nest, and after telling your worrisome harpy guide that you'll do your best, you leave her behind and head back out into the Harpy Nests once more...
 	</p>
 	]]>
 	</htmlContent>
-
-	<htmlContent tag="HELENAS_NEST_TAKE_PUNISHMENT"><![CDATA[
+	
+	
+	<!-- HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT -->
+	
+	<htmlContent tag="HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT"><![CDATA[
 	<p>
 		[pc.speech(Wait!)] you cry out, [pc.speech(There's something else!)]
 	</p>
 	<p>
-		[helena.name] lowers her wings and turns towards you. [helena.speech(What is it?!)]
+		[helena.Name] lowers her wings and turns towards you, before asking in an icy tone, [helena.speech(And what, exactly, is so important to tell me that you thought it wise to shout?)]
 	</p>
 	<p>
-		[pc.speech(Well, I sort of told Scarlett that I'd take her punishment for her...)] you explain, your voice trailing off as [helena.name] strides towards you.
+		[pc.speech(Well, Scarlett also asked me to tell you that I should take her punishment for her...)] you explain, your voice trailing off as [helena.name] strides towards you.
 	</p>
 	<p>
-		[helena.speech(Oh, well in that case, everything's forgiven!)] she responds, her voice dripping with sarcasm. [helena.speech(I'll just let Scarlett get away with everything! After all, <i>you're</i> going to take her punishment for her!)]
+		[helena.speech(There's absolutely no way that Scarlett is going to avoid the punishment which I have planned for her, but seeing as you're so <i>desperate</i> for attention, it's only fair that I give you what you want,)] Helena says, before a deep red glow suddenly starts to pulsate around her wings. Before you get the chance to react to her unexpected ability to harness the arcane, she sweeps her wings down in a sharp, cutting motion. Caught off-guard, the powerful wave of arcane force summoned by this matriarch slams you to the ground. As you then try to stand back up, Helena slams a second wave of force down on top of you, pinning you to the floor as she calls out, [helena.speech(Aello! You have an opportunity to earn some of my forgiveness! Help me to show this insolent [pc.race] how we administer punishments in my nest!)]
 	</p>
 	<p>
-		[pc.speech(It's just that I-)] you start to speak, but [helena.name] cuts you off.
+		The sound of mocking laughter echoes all around you as you suddenly feel a third wave of force pushing you over right into Aello's welcoming wings.
+		#IF(pc.isBipedal())
+			 As you're completely thrown off balance, the harpy has no problem at all in bending you down over her knee, and you can't help but let out a surprised gasp as you realise that your exposed ass is pointing up into the air.
+		#ELSE
+			 As you're completely thrown off balance, the harpy has no problem at all in manipulating your body such that your exposed ass is pointing up into the air.
+		#ENDIF
+		 Helena continues to demonstrate her arcane mastery, and you feel your [pc.arms] and [pc.legs] bound by an ethereal force as [helena.she] steps forwards and prepares to personally administer your punishment.
 	</p>
 	<p>
-		[helena.speech(Silence! Scarlett's not getting out of this that easily, but seeing as you're so <i>desperate</i> for attention, it's only fair that I deal with you first!)]
+		[helena.speech(Is this the sort of attention you were looking for, [pc.name]?)] the matriarch rhetorically asks, [helena.speech(I think twenty strikes will do nicely for you!)]
 	</p>
 	<p>
-		A deep red glow starts to pulsate around [helena.name]'s wings, and before you get the chance to react to her apparent ability to harness the arcane, she sweeps her arms down. Caught off-guard, the powerful wave of force slams you to the ground, then, as you try to struggle to your feet, it pulls you roughly over towards the furious matriarch.
-	</p>
-	<p>
-		The sound of mocking laughter echoes all around you as you suddenly find yourself in a rather compromising position. [helena.name] has sat back down on her throne, and, bent over her knee, you feel your exposed [pc.ass] pointing up into the air. Her arcane mastery is quite impressive, and you feel your [pc.arms] and [pc.legs] bound by an ethereal force as [helena.name] prepares to administer her punishment.
-	</p>
-	<p>
-		[helena.speech(You've got my full attention now, sweetheart,)] she whispers down into your [pc.ear]. [helena.speech(Let's see if this is really what you wanted!)]
-	</p>
-	<p>
-		With that, [helena.name] raises her right wing high in the air, and, with a swift thwack, she slaps down on your naked [pc.ass]. Normally, a harpy's touch would be quite weak; their delicate wings well-suited for swift, mid-flight movements rather than for administering forceful blows, but [helena.name]'s strike is anything but light. A crackle of arcane force accompanies her blow, and you let out an alarmed cry as you feel the stinging pain in your left cheek. Your exclamation is met by a chorus of mocking laughter from [helena.name]'s inner-circle, and you hear them encouraging their matriarch to show you no mercy as she raises her wing to strike again...
+		With that, [helena.name] raises her right wing high in the air, and with a swift downwards motion, she delivers the first slap down onto your raised ass. Normally, a harpy's touch would be quite weak; their delicate wings are more suited for swift, mid-flight movements rather than for administering forceful blows, but [helena.name]'s strike is anything but light.
+		#IF(pc.hasFetish(FETISH_MASOCHIST))
+			 A crackle of arcane force accompanies her blow, and you can't help but let out a horny [pc.moan] as an intense, stinging pain shoot into your buttocks. Your masochistic cry
+		#ELSE
+			 A crackle of arcane force accompanies her blow, and you let out an involuntary cry as you feel a stinging pain shoot into your buttocks. Your exclamation
+		#ENDIF
+		 is met by a chorus of mocking laughter from [helena.namePos] inner-circle of harpies, and you hear them encouraging their matriarch to show you no mercy as she raises her wing to strike again...
 	</p>
 	]]>
 	</htmlContent>
-
-	<htmlContent tag="HELENAS_NEST_TAKE_PUNISHMENT_ENDURE"><![CDATA[
+	
+	
+	<!-- HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT_ENDURE -->
+	
+	<htmlContent tag="HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT_ENDURE"><![CDATA[
 	<p>
-		You scrunch your [pc.eyes] shut and do your best to endure your punishment without complaint. Despite your best efforts to stay quiet, however, [helena.name]'s sharp blows occasionally force a little whimper out from between your [pc.lips], much to the amusement of the harpy on-lookers.
+		You scrunch your [pc.eyes] shut and do your best to endure your punishment without complaint. Despite your best efforts to stay quiet, however, [helena.namePos] sharp blows occasionally force a little whimper out from between your [pc.lips], much to the amusement of the harpy onlookers.
 	</p>
 	<p>
-		Your public spanking continues for some time; [helena.name]'s wing-like hand alternating from check to cheek with each of her ruthless slaps. Eventually, however, she decides that you've had enough, and with a rough shove, pushes you off of her lap. The arcane bonds restraining your [pc.arms] and [pc.legs] break, and you reach back to rub at your tender [pc.ass].
+		Although Helena had announced that you'd be receiving only twenty strikes, your public spanking seems to continue on forever. Time and again, the matriarch's wing-like hand relentlessly strikes down at your exposed cheeks, but just as you feel as though you can't possibly stand any more, she decides that you've had enough. Stepping back, she releases the arcane bonds which were restraining your [pc.arms] and [pc.legs], and as you reach back to rub at your tender [pc.ass], Aello pushes you away from her and teases, [style.speechFeminineStrong(That'll teach you to annoy our matriarch!)]
 	</p>
 	<p>
-		[helena.speech(Silly [pc.girl],)] [helena.name] says, looking down at you, [helena.speech(but I must commend you for your resolve. I wonder if Scarlett will be even half as well-behaved as you were. Knowing her, I doubt it...)]
+		With her voice once again taking on a softer tone, Helena looks down at you and says, [helena.speech(I must commend you on your resolve. Those who I punish in this fashion often have a tendency to cause quite the scene.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT_END"><![CDATA[
+	<p>
+		With that being said, the matriarch once again walks over to the edge of the platform. Spreading her white-feathered wings, she launches herself into the air, before wheeling around and flying off in the direction of Slaver Alley.
 	</p>
 	<p>
-		With that, she once again walks off to the edge of the platform, and, spreading her white-feathered wings, she launches herself into the air, before flying off in the direction of Slaver Alley. You feel both sets of your cheeks burning red as you stand up; one from pain, the other from humiliation. Despite your discomfort, and although [helena.name] still seems intent on punishing Scarlett, you're confident that you did the right thing by upholding your end of the bargain.
+		With your public humiliation now at an end, [helena.namePos] inner-circle of harpies instantly lose interest in you. Gossiping amongst themselves, they start speculating as to what [helena.name] is going to do to Scarlett, and as you overhear some of their more frightful ideas, you suddenly remember that you still need the rude raven-harpy to tell you what happened to Arthur.
 	</p>
 	<p>
 		It doesn't look like anyone's going to prevent you from leaving, so you quickly move to make your exit. You should probably hurry back to Scarlett's shop and find out what [helena.name] had in store for her...
 	</p>
 	]]>
 	</htmlContent>
-
-	<htmlContent tag="HELENAS_NEST_TAKE_PUNISHMENT_STRUGGLE"><![CDATA[
+	
+	
+	<!-- HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT_STRUGGLE -->
+	
+	<htmlContent tag="HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT_STRUGGLE"><![CDATA[
 	<p>
-		You let out a loud cry as [helena.name]'s wing smacks down yet again on your exposed ass. Not giving you a moment's respite, she lifts her wing and delivers a third stinging blow to your [pc.ass+], causing you to squeal in pain. Each of her smacks draw out a desperate wail from between your [pc.lips], and, much to the amusement of the harpy on-lookers, you fruitlessly kick and struggle about in the matriarch's lap.
+		Not at all happy with what Helena's punishment turned out to be, you let out a loud cry as her wing smacks down yet again on your exposed ass. Not giving you a moment's respite, she lifts her wing and delivers a third stinging blow to your [pc.ass+], causing you to squeal once more in pain. Each of her blows draws out a desperate wail from between your [pc.lips], and much to the amusement of the harpy onlookers, you fruitlessly kick and struggle about as Aello firmly holds you in position.
 	</p>
 	<p>
-		Your public spanking continues for some time; [helena.name]'s wing-like hand alternating from check to cheek as you continue struggling and shouting. Eventually, however, she decides that you've had enough, and with a rough shove, pushes you off of her lap. The arcane bonds restraining your [pc.arms] and [pc.legs] break, and with a little whimper, your [pc.hands] dart back to rub at your tender [pc.ass].
+		Although Helena had announced that you'd be receiving only twenty strikes, your public spanking seems to continue on forever. Time and again, the matriarch's wing-like hand relentlessly strikes down at your exposed cheeks, and although you continue to struggle and shout throughout your whole ordeal, the matriarch only stops once she's decided that you've had enough. Stepping back, she releases the arcane bonds which were restraining your [pc.arms] and [pc.legs], and as you reach back to rub at your tender [pc.ass], Aello pushes you away from her and teases, [style.speechFeminineStrong(That'll teach you to annoy our matriarch!)]
 	</p>
 	<p>
-		[helena.speech(Silly [pc.girl],)] [helena.name] says, looking down at you. [helena.speech(I wonder if Scarlett will struggle as much as you did. Knowing her, I'd bet on it...)]
-	</p>
-	<p>
-		With that, she once again walks off to the edge of the platform, and, spreading her white-feathered wings, she launches herself into the air, before flying off in the direction of Slaver Alley. You feel both sets of your cheeks burning red as you stand up; one from pain, the other from humiliation. Despite your discomfort, and although [helena.name] still seems intent on punishing Scarlett, you're confident that you did the right thing by upholding your end of the bargain.
-	</p>
-	<p>
-		It doesn't look like anyone's going to prevent you from leaving, so you quickly move to make your exit. You should probably hurry back to Scarlett's shop and find out what [helena.name] had in store for her...
+		With her voice once again taking on a softer tone, Helena looks down at you and says, [helena.speech(What a dreadful racket you made... I cannot recall anyone else ever kicking up as much of a fuss as you just did.)]
 	</p>
 	]]>
 	</htmlContent>
-
-	<htmlContent tag="HELENAS_NEST_TAKE_PUNISHMENT_ENJOY"><![CDATA[
+	
+	
+	<!-- HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT_ENJOY -->
+	
+	<htmlContent tag="HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT_ENJOY"><![CDATA[
 	<p>
-		You let out a lewd cry as [helena.name]'s wing smacks down yet again on your exposed ass. Not giving you a moment's respite, she lifts her wing and delivers a third stinging blow to your [pc.ass+], causing you to squeal in a delightful mixture of pleasure and pain, [pc.speech(Yes! Punish me!)]
+		More than happy with what Helena's punishment turned out to be, you let out a lewd cry as [helena.namePos] wing smacks down yet again on your exposed ass. Not giving you a moment's respite, she lifts her wing and delivers a third stinging blow to your [pc.ass+], causing you to [pc.moan] in a delightful mixture of pleasure and pain, [pc.speech(Yes! Punish me!)]
 	</p>
 	<p>
-		[helena.name] leans down, and you hear her icy voice whisper into your ear, [helena.speech(You horny little thing, are you getting off to this?)]
+		Looking across to one of her followers in confusion, Helana asks, [helena.speech(Is [pc.she]... <i>enjoying</i> this?)]
 	</p>
 	<p>
-		You whimper in the affirmative, and [helena.name] sits back up, laughing. The next blow that lands on your ass is far harsher than the ones before, and, despite your burning arousal, you can't help but let out a whimpering scream. Encouraged by the knowledge that you're enjoying this, each of [helena.name]'s smacks grow harder and harder, drawing out desperate wails and pleasurable moans from between your [pc.lips].
+		[style.speechFeminineStrong(I believe so,)] the harpy replies, [style.speechFeminineStrong(perhaps if you were to hit [pc.herHim] harder, [npc.she]'d understand that this is a punishment.)]
 	</p>
 	<p>
-		Your public spanking continues for some time; [helena.name]'s wing-like hand alternating from check to cheek as the harpy onlookers giggle and point at your submissive form. Eventually, however, the matriarch decides that you've had enough, and with a rough shove, she pushes you off of her lap. The arcane bonds restraining your [pc.arms] and [pc.legs] break, and with a last little whimper, your [pc.hands] dart back to rub at your tender [pc.ass].
+		Helena clearly approves of her follower's suggestion, as the next blow that lands on your ass is far more powerful than the ones before, and despite your burning arousal, you can't help but let out a whimpering scream. Encouraged by your painful cry, and seemingly oblivious to the fact that you're still enjoying it, each of [helena.name]'s smacks grow harder and harder, drawing out desperate wails and pleasurable moans from between your [pc.lips].
 	</p>
 	<p>
-		[helena.speech(Silly [pc.girl],)] [helena.name] says, looking down at you. [helena.speech(I wonder if Scarlett will enjoy her punishment as much as you did. Knowing her, I doubt it...)]
-	</p>
-	<p>
-		With that, she once again walks off to the edge of the platform, and, spreading her white-feathered wings, she launches herself into the air, before flying off in the direction of Slaver Alley. You feel both sets of your cheeks burning red as you stand up; one from pain, the other from humiliation. Despite your discomfort, and although [helena.name] still seems intent on punishing Scarlett, you're confident that you did the right thing by upholding your end of the bargain.
-	</p>
-	<p>
-		It doesn't look like anyone's going to prevent you from leaving, so you quickly move to make your exit. You should probably hurry back to Scarlett's shop and find out what [helena.name] had in store for her...
+		Although Helena had announced that you'd be receiving only twenty strikes, your public spanking seems to be over in a flash. Stepping back, she releases the arcane bonds which were restraining your [pc.arms] and [pc.legs], and as you reach back to rub at your tender [pc.ass], Aello pushes you away from her and teases, [style.speechFeminineStrong(That'll teach you to annoy our matriarch!)]
 	</p>
 	]]>
 	</htmlContent>
-
-	<htmlContent tag="HELENAS_NEST_TAKE_FLIGHT"><![CDATA[
+	
+	
+	<!-- HELENAS_NEST_MAIN_QUEST_TAKE_FLIGHT -->
+	
+	<htmlContent tag="HELENAS_NEST_MAIN_QUEST_TAKE_FLIGHT"><![CDATA[
 	<p>
 		Following in [helena.name]'s footsteps, you hurry to edge of the platform. With a flap of your wings, you leap off and take flight, following the speck of white in the distance as [helena.name] leads you back to Scarlett's shop.
 	</p>
@@ -278,5 +333,672 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- After completing her romance quest: -->
+	
+	<!-- HELENAS_NEST -->
+	
+	<htmlContent tag="HELENAS_NEST"><![CDATA[
+	<p>
+		You head up to see Helena.
+	</p>
+	<p>
+		#IF(helena.hasFetish(FETISH_DOMINANT))
+			#IF(!game.getDialogueFlags().hasFlag(FLAG_helenaSlutSeen))
+				Helena lewdly greets you. Describe her new clothing.
+			#ELSE
+				Sluttily-dressed Helena greets you.
+			#ENDIF
+			#IF(helena.isVisiblyPregnant())
+				#IF(!helena.isCharacterReactedToPregnancy(pc))
+					#IF(helena.getPregnantLitter().isFatherId(pc.getId()))
+						 Dominantly tells you that she's pregnant with your children.
+					#ELSE
+						 Dominantly tells you that she's pregnant with Scarlett's children.
+					#ENDIF
+				#ELSE
+					#IF(helena.getPregnantLitter().isFatherId(pc.getId()))
+						 Dominantly tells you that she's still pregnant with your children.
+					#ELSE
+						 Dominantly tells you that she's still pregnant with Scarlett's children.
+					#ENDIF
+				#ENDIF
+				#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
+					 Dominantly tells you that she'll fuck you tomorrow; she's already given you enough for today.
+				#ELSE
+					 Says that she's horny and wants to dom you down in her apartment.
+				#ENDIF
+			#ELSE
+				#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
+					 Dominantly tells you that she'll fuck you tomorrow; she's already given you enough for today.
+				#ELSE
+					 Dominantly tells you that she's ready to give you another taste of her pussy down in her apartment.
+				#ENDIF
+			#ENDIF
+			
+		#ELSEIF(helena.isSlutty())
+			#IF(!game.getDialogueFlags().hasFlag(FLAG_helenaSlutSeen))
+				Helena lewdly greets you. Describe her new clothing.
+			#ELSE
+				Sluttily-dressed Helena greets you.
+			#ENDIF
+			#IF(helena.isVisiblyPregnant())
+				#IF(!helena.isCharacterReactedToPregnancy(pc))
+					#IF(helena.getPregnantLitter().isFatherId(pc.getId()))
+						 Submissively tells you that she's pregnant with your children.
+					#ELSE
+						 Submissively tells you that she's pregnant with Scarlett's children.
+					#ENDIF
+				#ELSE
+					#IF(helena.getPregnantLitter().isFatherId(pc.getId()))
+						 Submissively tells you that she's still pregnant with your children.
+					#ELSE
+						 Submissively tells you that she's still pregnant with Scarlett's children.
+					#ENDIF
+				#ENDIF
+				#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
+					 Submissively tells you that you'll have to wait until tomorrow to fuck her; she's got too much to do today.
+				#ELSE
+					 Says that she's horny and wants you to fuck her down in her apartment.
+				#ENDIF
+			#ELSE
+				#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
+					 Submissively tells you that you'll have to wait until tomorrow to fuck her; she's got too much to do today.
+				#ELSE
+					 Submissively asks if you want another taste of her pussy down in her apartment.
+				#ENDIF
+			#ENDIF
+			
+		#ELSE
+			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaTalkedTo))
+				Helena greets you. Says she can't leave the nest at the moment, and she doesn't have time to talk. Suggests that you to come back and see her tomorrow.
+			#ELSE
+				Helena greets you. Says she can't leave the nest at the moment, but has some time to talk.
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_NEST_TALK -->
+	
+	<htmlContent tag="HELENAS_NEST_TALK"><![CDATA[
+	#IF(helena.hasFetish(FETISH_DOMINANT))
+		<p>
+			You talk to Helena.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
+				 Dominantly tells you that she'll fuck you tomorrow; she's already given you enough for today.
+			#ELSE
+				 Dominantly tells you that she's ready to give you another taste of her pussy down in her apartment.
+			#ENDIF
+		</p>
+	#ELSEIF(helena.isSlutty())
+		<p>
+			You talk to Helena.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
+				 Submissively tells you that you'll have to wait until tomorrow to fuck her; she's got too much to do today.
+			#ELSE
+				 Submissively asks if you want another taste of her pussy down in her apartment.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			You talk to Helena. She says that running the nest is once again taking up a lot of her time.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_NEST_APARTMENT_BEDROOM -->
+	
+	<htmlContent tag="HELENAS_NEST_APARTMENT_BEDROOM"><![CDATA[
+	#IF(helena.hasFetish(FETISH_DOMINANT))
+		<p>
+			You go down to Helena's apartment with her. Orders you to go into her bedroom. She goes to her dressing room and comes out wearing skimpy crotchless/cupless lingerie.
+		</p>
+	#ELSE
+		<p>
+			You go down to Helena's apartment with her. Leads you into her bedroom. She goes to her dressing room and comes out wearing white lacy lingerie.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Meeting Scarlett in the nest: -->
+	
+	<!-- HELENAS_NEST_MEETING_SCARLETT -->
+	
+	<htmlContent tag="HELENAS_NEST_MEETING_SCARLETT_HELENA_QUEST_COMPLETE"><![CDATA[
+	<p>
+		TODO
+		#IF(scarlett.isVisiblyPregnant())
+			Scarlett is now sitting in the middle of the nest, and is surrounded by a dozen harpies who are all fawning over her.
+			#IF(!scarlett.isCharacterReactedToPregnancy(pc))
+				 She is sporting a clearly-pregnant belly.
+				#IF(scarlett.getPregnantLitter().isFatherId(pc.getId()))
+					 Tells you that you got her pregnant.
+				#ELSE
+					 Tells you that she got pregnant from some harpy.
+				#ENDIF
+			#ELSE
+				 She is still sporting a clearly-pregnant belly.
+				#IF(scarlett.getPregnantLitter().isFatherId(pc.getId()))
+					 Tells you that she's still carrying around your kids.
+				#ELSE
+					 Tells you that she's still carrying around some harpy's kids.
+				#ENDIF
+			#ENDIF
+		#ELSE
+			Scarlett is now sitting in the middle of the nest, and is surrounded by a dozen harpies who are all fawning over her.
+		#ENDIF
+	</p>
+	<p>
+		#IF(scarlett.hasPenis())
+			As you approach, you hear the harpies saying things like they want Scarlett to fuck them so that they can be known as her mate (and thus be closer to Helena).
+			(Mention how this is unusual for 'male' harpies to be in this position.)
+			If she likes you, she suggests going down to her apartment for a while, or else have to work for her. Both require your companions to get lost.
+			If she doesn't like you, suggests that you can work as her slave for the rest of the day/evening in exchange for getting her cock.
+		#ELSE
+			As you approach, several more harpies swoop down to deliver chocolates and flowers to Scarlett.
+			If she likes you, she suggests going down to her apartment for a while, or else have to work for her. Both require your companions to get lost.
+			If she doesn't like you, suggests that you can work as her slave for the rest of the day/evening in exchange for getting her pussy.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_MEETING_SCARLETT"><![CDATA[
+	<p>
+		Wanting to talk to Scarlett, you move forwards onto the nest's wooden platform, before starting to make your way over to where the raven-harpy is sitting. Before you've managed to cover even a quarter of the distance, however, a flustered-looking harpy suddenly dashes forwards and blocks your way. With a stern look on her face, she shouts,
+		#IF(game.getNonCompanionCharactersPresent().contains(helena))
+			 [style.speechFeminineStrong(Hey! Stop! Nobody's allowed to see Helena without an appointment!)]
+		#ELSE
+			 [style.speechFeminineStrong(Hey! Stop! Helena's not even here at the moment, so there's no point in trying to get an appointment to see her!)]
+		#ENDIF
+	</p>
+	<p>
+		After you've informed this overzealous harpy that you're actually here to talk to Scarlett, she hesitantly steps to one side, before warning, [style.speechFeminineStrong(You'd better not just be saying this to try and sneak past me! I've got my eye on you!)]
+	</p>
+	<p>
+		Assuring the harpy that you have no intention of 'sneaking past her', you continue on your way towards Scarlett. As you approach, you can't help but overhear one of the two brightly-coloured harpies sitting next to her loudly suggesting, [style.speechFeminine(You should come too, Scarlett! I'm telling you, she said that if we act as her servants for the day, she'll let us fuck her!)]
+	</p>
+	<p>
+		Letting out a scowl, Scarlett replies, [scarlett.speech(That bitch isn't worth it; she's a lousy fuck and doesn't even let you use her ass. I'd much rather- Hey! What the fuck are you doing here?!)]
+	</p>
+	<p>
+		Having caught sight of you, Scarlett jumps to her feet and shoots you an angry glare, before continuing,
+		#IF(scarlett.isAttractedTo(pc) && game.isAnalContentEnabled())
+			 [scarlett.speech(Just because you set me free, doesn't mean I owe you anything! Unless you're here to let me fuck your cute ass, then I'm not interested in whatever you're offering!)]
+		#ELSE
+			 [scarlett.speech(Just because you set me free, doesn't mean I owe you anything! I'm not interested in whatever you're offering, so fuck off already!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_MEETING_SCARLETT_STEP_BACK"><![CDATA[
+	<p>
+		#IF(scarlett.isAttractedTo(pc) && game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			As it's obvious that Scarlett isn't willing to engage with you in conversation, and not wanting to take her up on her offer of 'fucking your cute ass', you turn around and quickly leave via the same way you arrived...
+		#ELSE
+			As it's obvious that Scarlett isn't willing to engage with you in conversation, you turn around and quickly leave via the same way you arrived...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_MEETING_SCARLETT_APARTMENT"><![CDATA[
+	<p>
+		You tell Scarlett that you'd like to spend some time with her in her room. Go down to Helena's apartment and into Scarlett's room.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="START_SCARLETT_SEX"><![CDATA[
+	<p>
+		[pc.speech(So, what happens if I <i>am</i> here to let you 'fuck my cute little ass'?)] you tease, stepping up to Scarlett and playfully running your [pc.fingers] down the length of one of her black-feathered wings.
+	</p>
+	<p>
+		Clearly not expecting you to actually agree to her suggestion, Scarlett is momentarily thrown off-guard, and blankly stares at you for a couple of seconds before recovering and sneering, [scarlett.speech(Then I'll give you want you want, you dirty little buttslut!)]
+	</p>
+	<p>
+		Telling her two friends that she'll catch up with them later, Scarlett roughly grabs you by the [pc.hand], before impatiently leading you over to a nearby downwards staircase. Continuing to pull you along after her, she quickly descends this flight of stairs, which turns out to lead to a small, shaded sub-platform. Now that the two of you are concealed from the prying eyes of the rest of the nest's inhabitants, Scarlett quickly strips naked, presenting you with her tiny boobs and small, pale-skinned cock. Seeing what it is you're looking at, the harpy scowls, [scarlett.speech(You'll be getting a feel of it soon enough! Now get down on all fours and show me your ass, slut!)]
+	</p>
+	<p>
+		Doing as you're told, you expose your ass and drop down onto all fours, presenting your naked asshole to Scarlett. Dropping down behind you, the impatient harpy instantly thrusts forwards, sinking her hard cock into your rear entrance and moaning, [scarlett.speechNoEffects(~Mmm!~ That's right, slut! Your ass is mine now!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_SCARLETT_SEX_VAGINA"><![CDATA[
+	<p>
+		You let Scarlett fuck your pussy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_SCARLETT_SEX_ORAL"><![CDATA[
+	<p>
+		You suck Scarlett's cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_NEST_MEETING_SCARLETT_TO_SHOP -->
+	
+	<htmlContent tag="HELENAS_NEST_MEETING_SCARLETT_TO_SHOP"><![CDATA[
+	<p>
+		Ignoring Scarlett's rude comments, you tell her that Helena has asked for Scarlett's presence back down at her shop in Slaver Alley. As she hears you say this, the raven-harpy's head and tail feathers droop down, and after letting out an anguished groan, she turns to her two friends and says a half-hearted goodbye. Looking back at you, she asks, [scarlett.speech(She's not planning on enslaving me again, is she?)]
+	</p>
+	<p>
+		After you've reassured her that there's no chance of that, Scarlett steps past you, before running up to the edge of the nest's platform and launching herself into the air. With a flap of her arm-wings, she wheels around and swoops off in the direction of Slaver Alley.
+		#IF(pc.isPartyAbleToFly())
+			 If you wanted to, you could always fly after her and arrive back at Helena's shop moments after she does...
+		#ELSE
+			 With little else to do up here in the nest, you turn around and quickly leave via the same way you arrived...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_MEETING_SCARLETT_TO_SHOP_FLY_AFTER"><![CDATA[
+	<p>
+		Deciding that it would be a good idea to return to Helena's shop as quickly as possible, you follow Scarlett's lead and launch yourself into the air, before flying after the raven-harpy in the direction of Slaver Alley. After a short while you arrive at your destination, and after swooping down and landing in front of Helena's shop, you see through the window that Scarlett has managed to arrive before you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SCARLETT_SEX -->
+	
+	<htmlContent tag="AFTER_SCARLETT_SEX_VAGINA"><![CDATA[
+	<p>
+		Post-sex scene vaginal sex.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SCARLETT_SEX_ORAL"><![CDATA[
+	<p>
+		Post-sex scene oral sex.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SCARLETT_SEX"><![CDATA[
+	<p>
+		Having had her fun, Scarlett takes a step back, looking down at your ass and sneering, [scarlett.speech(You were a good fuck, you dirty little buttslut! Come back and see me again if you get hungry for my cock!)]
+	</p>
+	<p>
+		Quickly getting dressed again, Scarlett waits until you're ready to go, before leading you back up the stairs and pointing to the nest's exit. [scarlett.speech(Go on, get out of here! I've got more stuff to do today than fucking some slut's ass.)]
+	</p>
+	<p>
+		With little else to do in Helena's nest, you do as Scarlett orders and quickly take your leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_NEST_SCARLETTS_SERVANT -->
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT"><![CDATA[
+	<p>
+		You agree to act as Scarlett's servant for the day. If player has companion, they return home.
+	</p>
+	<p>
+		She gets you and a couple of harpy males to serve her drinks and food, before declaring that she wants to be pampered.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE -->
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE"><![CDATA[
+	<p>
+		You pamper Scarlett and give her a back massage.
+		#IF(scarlett.hasPenis())
+			#IF(game.isAnalContentEnabled())
+				After an hour of being treated like a princess, Scarlett offers to sit on your face and let you perform anilingus on her.
+			#ELSE
+				After an hour of being treated like a princess, Scarlett offers to let you suck her cock.
+			#ENDIF
+		#ELSE
+			After an hour of being treated like a princess, Scarlett offers to sit on your face and use you as her throne.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE_HOLD_BACK"><![CDATA[
+	<p>
+		You hold back and continue to massage Scarlett's back. One of the other harpies instead asks if Scarlett will sit on her face, and she does.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE_ANILINGUS"><![CDATA[
+	<p>
+		Scarlett sits on your face and makes you beg for her ass. You start licking it and she plants herself down on your face.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE_BLOWJOB"><![CDATA[
+	<p>
+		Scarlett positions your face between her legs and makes you beg for her cock. You start sucking it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE_CUNNILINGUS"><![CDATA[
+	<p>
+		Scarlett sits on your face and makes you beg for her pussy. You start licking it and she plants herself down on your face.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS -->
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS"><![CDATA[
+	<p>
+		You pamper Scarlett and groom her wings.
+		#IF(scarlett.hasPenis())
+			 After an hour of being treated like a princess, Scarlett offers to let you jerk her off.
+		#ELSE
+			 After an hour of being treated like a princess, Scarlett offers to let you finger her.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS_HOLD_BACK"><![CDATA[
+	<p>
+		You hold back and continue to groom Scarlett's wings.
+		#IF(scarlett.hasPenis())
+			 One of the other harpies instead jerks off Scarlett.
+		#ELSE
+			 One of the other harpies instead fingers Scarlett.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS_HANDJOB"><![CDATA[
+	<p>
+		You kneel down in front of Scarlett and start jerking her off.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS_FINGERING"><![CDATA[
+	<p>
+		You kneel down in front of Scarlett and start fingering her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_NEST_SCARLETTS_SERVANT_APPLY_MAKEUP -->
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_APPLY_MAKEUP"><![CDATA[
+	<p>
+		#IF(scarlett.hasPenis())
+			You apply some very subtle makeup to Scarlett.
+		#ELSE
+			You apply slutty makeup to Scarlett.
+		#ENDIF
+		 After an hour of being treated like a princess, Scarlett offers to let you kiss her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_APPLY_MAKEUP_HOLD_BACK"><![CDATA[
+	<p>
+		You hold back and apply nail polish to Scarlett's claw-like fingers while one of the other harpies instead makes out with her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_APPLY_MAKEUP_MAKEOUT"><![CDATA[
+	<p>
+		You get Scarlett to slide into your lap and start to make out with her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE -->
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE"><![CDATA[
+	<p>
+		You give Scarlett a foot massage.
+		#IF(pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			 After an hour of being treated like a princess, Scarlett offers to jerk you off with her feet.
+		#ELSEIF(scarlett.hasPenis())
+			 After an hour of being treated like a princess, Scarlett offers to let you jerk her off.
+		#ELSE
+			 After an hour of being treated like a princess, Scarlett offers to let you finger her.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_HOLD_BACK"><![CDATA[
+	<p>
+		You hold back and apply nail polish to Scarlett's talons.
+		#IF(scarlett.hasPenis())
+			 One of the other harpies instead jerks off Scarlett.
+		#ELSE
+			 One of the other harpies instead fingers Scarlett.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_TALONJOB"><![CDATA[
+	<p>
+		You kneel down in front of Scarlett and let her use her talons to jerk you off.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_HANDJOB"><![CDATA[
+	<p>
+		You kneel down in front of Scarlett and start jerking her off.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_FINGERING"><![CDATA[
+	<p>
+		You kneel down in front of Scarlett and start fingering her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SCARLETT_SERVANT_SEX -->
+	
+	<htmlContent tag="AFTER_SCARLETT_SERVANT_SEX"><![CDATA[
+	<p>
+		Scarlett is done with you and tells you to leave. She chooses one of the other harpies to get her full reward and goes off with them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD -->
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD"><![CDATA[
+	#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		<p>
+			You continue pampering Scarlett until late in the evening, when she finally stands up and declares that
+			#IF(scarlett.hasPenis())
+				 she'll fuck you.
+			#ELSE
+				 you get to fuck her pussy.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			You continue pampering Scarlett until late in the evening, when she finally stands up and declares that
+			#IF(scarlett.hasPenis())
+				 she'll fuck one of you.
+			#ELSE
+				 one of you will get to fuck her pussy.
+			#ENDIF
+			 Asks which one of you is the most deserving. You'd better do something to show her that you're the one she should take with her back to her room...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_CHOSEN"><![CDATA[
+	<p>
+		Scarlett leads you down to Helena's apartment, where she's being allowed to stay as a guest.
+		#IF(scarlett.hasPenis())
+			 Asks how you want her to fuck you.
+		#ELSE
+			 Asks how you want to fuck her pussy.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_KISS_FEET"><![CDATA[
+	<p>
+		You kiss Scarlett's feet, which causes her to choose you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BOW_DOWN"><![CDATA[
+	<p>
+		You bow down at Scarlett's feet, which causes her to choose you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BOW_DOWN_NOT_CHOSEN"><![CDATA[
+	<p>
+		You bow down at Scarlett's feet, but she chooses another harpy. Tells you and others to try harder next time if you're serious about wanting to fuck her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_FLATTER"><![CDATA[
+	<p>
+		You flatter Scarlett, which causes her to choose you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_FLATTER_NOT_CHOSEN"><![CDATA[
+	<p>
+		You flatter Scarlett, but she chooses another harpy. Tells you and others to try harder next time if you're serious about wanting to fuck her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_LEAVE -->
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_LEAVE"><![CDATA[
+	<p>
+		You back out of this and say you don't want to have sex with her anymore. She tells you to get lost.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX -->
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_BLOWJOB"><![CDATA[
+	<p>
+		You ask to suck Scarlett's cock. She sits on her bed and gets you to kneel down and do it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_ANAL"><![CDATA[
+	<p>
+		You ask for Scarlett to fuck your ass. She pushes you down onto all fours and penetrates you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_VAGINAL"><![CDATA[
+	<p>
+		You ask for Scarlett to fuck your pussy. She pushes you down onto all fours and penetrates you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_CUNNILINGUS"><![CDATA[
+	<p>
+		You tell Scarlett that you want to eat her out. She pushes you down and sits on your face.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SCISSORING"><![CDATA[
+	<p>
+		You tell Scarlett that you want to scissor with her. She pushes you down onto the bed and slides into position, before starting to rub her clit against your pussy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_FUCK_HER"><![CDATA[
+	<p>
+		You tell Scarlett that you want to fuck her. She lies back and spreads her legs. Gets you to start fucking her in the missionary position.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_FUCK_HER_ASS"><![CDATA[
+	#IF(scarlett.isAssVirgin())
+		<p>
+			You ask Scarlett if you can fuck her ass. She says she isn't precious about keeping her virginity, it's just that everyone so far has preferred to fuck her pussy. Gets down on all fours and tells you to give her ass a good pounding.
+		</p>
+		<p>
+			You obey, and she is soon crying out in pleasure.
+		</p>
+	#ELSE
+		<p>
+			You ask Scarlett if you can fuck her ass. She gets down on all fours and tells you to give her ass a good pounding.
+		</p>
+		<p>
+			You obey, and she is soon crying out in pleasure.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BEDROOM_LEAVE -->
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BEDROOM_LEAVE"><![CDATA[
+	<p>
+		You back out of this and say you don't want to have sex with her anymore. She is pissed off and tells you to get lost.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX -->
+	
+	<htmlContent tag="AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX"><![CDATA[
+	<p>
+		Scarlett is satisfied. Tells you that you can leave now. Maid escorts you out.
+	</p>
+	]]>
+	</htmlContent>
 	
 </dialogue>

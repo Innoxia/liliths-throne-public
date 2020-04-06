@@ -195,6 +195,10 @@ public enum ItemTag {
 	/**<b>IMPORTANT</b> This tag should only ever be given to clothing going into the PENIS InventorySlot, as otherwise it will throw errors.*/
 	CONDOM(true), // Gives this clothing condom behaviour
 	
+	CHOKER_SNAP( // Snaps (into wearer's inventory) if throat stretches.
+			Util.newArrayListOfValues(
+					"[style.colourSex(Snaps if throat bulges too much during sex)]"),
+			true),
 	
 	// To detect whether creampies should leak out or not:
 	
@@ -233,35 +237,30 @@ public enum ItemTag {
 			Util.newArrayListOfValues(
 					"[style.colourSex(Seals nipples (does not get dirty from creampies))]"),
 			true),
-
 	
-	DILDO_TINY( // 3 inches
+	
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	DILDO_SELF(
 			Util.newArrayListOfValues(
-					"[style.colourSex(3-inch dildo)]"),
+					"[style.colourSub(Insertable)] [style.colourSex(dildo)]"),
 			true),
-	DILDO_AVERAGE( // 6 inches
+
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	DILDO_OTHER(
 			Util.newArrayListOfValues(
-					"[style.colourSex(6-inch dildo)]"),
+					"[style.colourDom(Wearable)] [style.colourSex(dildo)]"),
 			true),
-	DILDO_LARGE( // 10 inches
+
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	ONAHOLE_SELF(
 			Util.newArrayListOfValues(
-					"[style.colourSex(10-inch dildo)]"),
+					"[style.colourSex(Fuckable onahole)]"),
 			true),
-	DILDO_HUGE( // 14 inches
+
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	ONAHOLE_OTHER(
 			Util.newArrayListOfValues(
-					"[style.colourSex(14-inch dildo)]"),
-			true),
-	DILDO_ENORMOUS( // 18 inches
-			Util.newArrayListOfValues(
-					"[style.colourSex(18-inch dildo)]"),
-			true),
-	DILDO_GIGANTIC( // 22 inches
-			Util.newArrayListOfValues(
-					"[style.colourSex(22-inch dildo)]"),
-			true),
-	DILDO_STALLION( // 32 inches
-			Util.newArrayListOfValues(
-					"[style.colourSex(32-inch dildo)]"),
+					"[style.colourSex(Wearable onahole)]"),
 			true),
 	;
 

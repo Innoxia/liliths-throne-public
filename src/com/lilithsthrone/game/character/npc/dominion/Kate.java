@@ -75,9 +75,9 @@ import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -170,13 +170,13 @@ public class Kate extends NPC {
 			try {
 				Tattoo tat = new Tattoo(
 						TattooType.getTattooTypeFromId("innoxia_heartWomb_heart_womb"),
-						Colour.CLOTHING_PINK,
-						Colour.CLOTHING_PINK_LIGHT,
-						Colour.CLOTHING_PURPLE,
+						PresetColour.CLOTHING_PINK,
+						PresetColour.CLOTHING_PINK_LIGHT,
+						PresetColour.CLOTHING_PURPLE,
 						true,
 						new TattooWriting(
 								"Breed me!",
-								Colour.CLOTHING_PINK_LIGHT,
+								PresetColour.CLOTHING_PINK_LIGHT,
 								true,
 								TattooWritingStyle.ITALICISED),
 						null);
@@ -190,9 +190,9 @@ public class Kate extends NPC {
 				this.addTattoo(InventorySlot.TORSO_OVER,
 						new Tattoo(
 							TattooType.BUTTERFLIES,
-							Colour.CLOTHING_PURPLE,
-							Colour.CLOTHING_PINK,
-							Colour.CLOTHING_PINK_LIGHT,
+							PresetColour.CLOTHING_PURPLE,
+							PresetColour.CLOTHING_PINK,
+							PresetColour.CLOTHING_PINK_LIGHT,
 							false,
 							null,
 							null));
@@ -200,13 +200,13 @@ public class Kate extends NPC {
 				this.addTattoo(InventorySlot.TORSO_UNDER,
 						new Tattoo(
 							TattooType.TRIBAL,
-							Colour.CLOTHING_BLACK,
+							PresetColour.CLOTHING_BLACK,
 							null,
 							null,
 							false,
 							new TattooWriting(
 									"Don't pull out!",
-									Colour.CLOTHING_BLACK,
+									PresetColour.CLOTHING_BLACK,
 									false),
 							null));
 				
@@ -222,27 +222,27 @@ public class Kate extends NPC {
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_GREEN));
-		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PINK), true);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_GREEN));
+		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_PINK), true);
 		
-		this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.HORN, PresetColour.COVERING_DARK_GREY), false);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_RED), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, PresetColour.COVERING_RED), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
 		this.setHairStyle(HairStyle.SIDECUT);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, Colour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_DEMON, PresetColour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.ZERO_NONE);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
-		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_PINK));
-		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_PINK));
-//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
-		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
-		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_RED));
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_PINK));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_PINK));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_RED));
+		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_RED));
+		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_RED));
 		
 		// Face:
 		this.setFaceVirgin(false);
@@ -302,17 +302,17 @@ public class Kate extends NPC {
 
 		this.setMoney(10);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_PINK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_micro_skirt_belted", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_fishnets", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, PresetColour.CLOTHING_PINK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_micro_skirt_belted", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, PresetColour.CLOTHING_PINK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_fishnets", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_heels", PresetColour.CLOTHING_BLACK, false), true, this);
 
 		this.setPiercedEar(true);
 		this.setPiercedNavel(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_STOMACH, true, this);
 
 	}
 	

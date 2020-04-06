@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.types;
 
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFootType;
 import com.lilithsthrone.utils.Util;
 
 /**

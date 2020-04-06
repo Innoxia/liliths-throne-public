@@ -60,15 +60,15 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3.6.2
- * @version 0.3.6.2
+ * @version 0.3.7
  * @author Innoxia
  */
 public class Sean extends NPC {
@@ -86,7 +86,7 @@ public class Sean extends NPC {
 		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
-			this.setGenericName("Enforcer");
+			this.setGenericName("rabbit-boy Enforcer");
 		}
 	}
 	
@@ -148,15 +148,15 @@ public class Sean extends NPC {
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 		
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_RABBIT, Colour.EYE_BLUE_LIGHT));
-		this.setSkinCovering(new Covering(BodyCoveringType.RABBIT_FUR, Colour.COVERING_SANDY), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_RABBIT, PresetColour.EYE_BLUE_LIGHT));
+		this.setSkinCovering(new Covering(BodyCoveringType.RABBIT_FUR, PresetColour.COVERING_SANDY), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RABBIT_FUR, Colour.COVERING_SANDY), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RABBIT_FUR, PresetColour.COVERING_SANDY), true);
 		this.setHairLength(HairLength.ZERO_BALD);
 		this.setHairStyle(HairStyle.LOOSE);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RABBIT_FUR, Colour.COVERING_SANDY), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RABBIT_FUR, PresetColour.COVERING_SANDY), false);
 		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
@@ -202,22 +202,22 @@ public class Sean extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		this.clearNonEquippedInventory(false);
-		this.unequipMainWeaponIntoVoid(0, true);
-		this.unequipOffhandWeaponIntoVoid(0, true);
+		this.unequipMainWeaponIntoVoid(0, false);
+		this.unequipOffhandWeaponIntoVoid(0, false);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdslacks", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_ssldshirt", Colour.CLOTHING_BLUE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_tie", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdjacket_pc", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", Colour.CLOTHING_DESATURATED_BROWN, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_mens_smart_shoes", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_pcap", Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdslacks", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_ssldshirt", PresetColour.CLOTHING_BLUE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_tie", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdjacket_pc", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_mens_smart_shoes", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		if(settings.contains(EquipClothingSetting.ADD_ACCESSORIES)) {
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_STEEL, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_STEEL, false), true, this);
 		}
 		
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
@@ -284,7 +284,7 @@ public class Sean extends NPC {
 	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		this.setEssenceCount(TFEssence.ARCANE, 100); // Make sure he doens't run out of ammo for subsequent fights
+		this.setEssenceCount(TFEssence.ARCANE, 200); // Make sure he doens't run out of ammo for subsequent fights
 		if(victory) {
 			return new Response("", "", SlaverAlleyDialogue.PUBLIC_STOCKS_COMPLAIN_CHALLENGE_VICTORY);
 		} else {

@@ -68,7 +68,19 @@ public enum Occupation {
 	NPC_GANG_LEADER(Perk.JOB_GANG_LEADER, "gang leader", "[npc.NameIsFull] the leader of a notorious criminal gang.", OccupationTag.HAS_PREREQUISITES),
 	NPC_GANG_BODY_GUARD(Perk.JOB_GANG_BODY_GUARD, "gang body guard", "[npc.NameIsFull] a personal body guard of her gang's leader.", OccupationTag.HAS_PREREQUISITES),
 	NPC_GANG_MEMBER(Perk.JOB_GANG_MEMBER, "gang member", "[npc.NameIsFull] a member of a notorious criminal gang.", OccupationTag.HAS_PREREQUISITES),
-
+	
+	NPC_STABLE_MISTRESS(Perk.JOB_NPC_STABLE_MISTRESS, "stable mistress", "[npc.NameIsFull] responsible for the training and care of a large number of centaur slaves.") {
+		@Override
+		public String getName(GameCharacter character) {
+			if(character==null) {
+				return "stable manager";
+			} else if(character.isFeminine()) {
+				return "stable mistress";
+			}
+			return "stable master";
+		}
+	},
+	
 	NPC_LYSSIETH_GUARD(Perk.JOB_LYSSIETH_GUARD, "Lyssieth's guard", "[npc.NameIsFull] one of Lyssieth's unrecognised daughters, and has been assigned to guard her mother's palace.", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_ELDER_LILIN(Perk.JOB_ELDER_LILIN, "elder lilin", "[npc.NameIs] one of the seven elder lilin; the recognised daughters of Lilith herself.", OccupationTag.HAS_PREREQUISITES),
@@ -160,7 +172,17 @@ public enum Occupation {
 		}
 	},
 
-	NPC_OFFICE_WORKER(Perk.JOB_MISC, "office worker", "-"),
+	NPC_OFFICE_WORKER(Perk.JOB_NPC_OFFICE_WORKER, "office worker", "[npc.NameHasFull] works for a large business, and [npc.has] manage [npc.her] subordinates, company finances, and difficult customers on a daily basis.") {
+		@Override
+		public String getName(GameCharacter character) {
+			if(character==null) {
+				return "office worker";
+			} else if(character.isFeminine()) {
+				return "businesswoman";
+			}
+			return "businessman";
+		}
+	},
 	
 	NPC_RECEPTIONIST(Perk.JOB_MISC, "receptionist", "-"),
 	
@@ -334,7 +356,7 @@ public enum Occupation {
 		return associatedPerk;
 	}
 	
-	public String getName() {
+	public String getName(GameCharacter character) {
 		return name;
 	}
 

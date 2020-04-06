@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -20,6 +22,7 @@ import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
@@ -28,6 +31,7 @@ import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -48,9 +52,9 @@ import com.lilithsthrone.game.combat.SpellSchool;
 import com.lilithsthrone.game.combat.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.LubricationType;
@@ -61,12 +65,13 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Units.ValueType;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
@@ -85,7 +90,7 @@ public enum StatusEffect {
 			100,
 			"sissy",
 			"attStrength0",
-			Colour.PHYSIQUE_STAGE_ZERO,
+			PresetColour.PHYSIQUE_STAGE_ZERO,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f),
@@ -120,7 +125,7 @@ public enum StatusEffect {
 			100,
 			"average",
 			"attStrength1",
-			Colour.PHYSIQUE_STAGE_ONE,
+			PresetColour.PHYSIQUE_STAGE_ONE,
 			true,
 			null,
 			null) {
@@ -152,7 +157,7 @@ public enum StatusEffect {
 			100,
 			"strong",
 			"attStrength2",
-			Colour.PHYSIQUE_STAGE_TWO,
+			PresetColour.PHYSIQUE_STAGE_TWO,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
@@ -186,7 +191,7 @@ public enum StatusEffect {
 			100,
 			"powerful",
 			"attStrength3",
-			Colour.PHYSIQUE_STAGE_THREE,
+			PresetColour.PHYSIQUE_STAGE_THREE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
@@ -220,7 +225,7 @@ public enum StatusEffect {
 			100,
 			"mighty",
 			"attStrength4",
-			Colour.PHYSIQUE_STAGE_FOUR,
+			PresetColour.PHYSIQUE_STAGE_FOUR,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
@@ -254,7 +259,7 @@ public enum StatusEffect {
 			100,
 			"Herculean",
 			"attStrength5",
-			Colour.PHYSIQUE_STAGE_FIVE,
+			PresetColour.PHYSIQUE_STAGE_FIVE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 20f),
@@ -290,7 +295,7 @@ public enum StatusEffect {
 			80,
 			"No Arcane Power",
 			"attIntelligence0",
-			Colour.INTELLIGENCE_STAGE_ZERO,
+			PresetColour.INTELLIGENCE_STAGE_ZERO,
 			false,
 			null,
 			null) {
@@ -314,15 +319,15 @@ public enum StatusEffect {
 			80,
 			"arcane impotence",
 			"attIntelligence0",
-			Colour.INTELLIGENCE_STAGE_ZERO,
+			PresetColour.INTELLIGENCE_STAGE_ZERO,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, -75f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -75f)),
 			Util.newArrayListOfValues(
-					"<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>",
+					"<b style='color: " + PresetColour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>",
 					"[style.boldMana(Maximum "+Attribute.MANA_MAXIMUM.getName()+")] [style.boldBad(limited to 5)]",
-					"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + "'>Vulnerable to arcane storms</b>")) {
+					"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + "'>Vulnerable to arcane storms</b>")) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -352,13 +357,13 @@ public enum StatusEffect {
 			100,
 			"arcane potential",
 			"attIntelligence1",
-			Colour.INTELLIGENCE_STAGE_ONE,
+			PresetColour.INTELLIGENCE_STAGE_ONE,
 			true,
 			null,
 			Util.newArrayListOfValues(
-					"<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>",
+					"<b style='color: " + PresetColour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>",
 					"[style.boldMana(Maximum "+Attribute.MANA_MAXIMUM.getName()+")] [style.boldBad(limited to 5)]",
-					"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + "'>Vulnerable to arcane storms</b>")) {
+					"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + "'>Vulnerable to arcane storms</b>")) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -388,7 +393,7 @@ public enum StatusEffect {
 			100,
 			"arcane proficiency",
 			"attIntelligence2",
-			Colour.INTELLIGENCE_STAGE_TWO,
+			PresetColour.INTELLIGENCE_STAGE_TWO,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 5f),
@@ -423,7 +428,7 @@ public enum StatusEffect {
 			100,
 			"arcane prowess",
 			"attIntelligence3",
-			Colour.INTELLIGENCE_STAGE_THREE,
+			PresetColour.INTELLIGENCE_STAGE_THREE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
@@ -461,7 +466,7 @@ public enum StatusEffect {
 			100,
 			"arcane mastery",
 			"attIntelligence4",
-			Colour.INTELLIGENCE_STAGE_FOUR,
+			PresetColour.INTELLIGENCE_STAGE_FOUR,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 15f),
@@ -500,7 +505,7 @@ public enum StatusEffect {
 			100,
 			"arcane brilliance",
 			"attIntelligence5",
-			Colour.INTELLIGENCE_STAGE_FIVE,
+			PresetColour.INTELLIGENCE_STAGE_FIVE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 20f),
@@ -539,7 +544,7 @@ public enum StatusEffect {
 	CORRUPTION_PERK_0(100,
 			"Pure",
 			"attCorruption0",
-			Colour.CORRUPTION_STAGE_ZERO,
+			PresetColour.CORRUPTION_STAGE_ZERO,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
@@ -574,7 +579,7 @@ public enum StatusEffect {
 			100,
 			"Vanilla",
 			"attCorruption1",
-			Colour.CORRUPTION_STAGE_ONE,
+			PresetColour.CORRUPTION_STAGE_ONE,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f)),
@@ -609,7 +614,7 @@ public enum StatusEffect {
 			100,
 			"dirty",
 			"attCorruption2",
-			Colour.CORRUPTION_STAGE_TWO,
+			PresetColour.CORRUPTION_STAGE_TWO,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
@@ -644,7 +649,7 @@ public enum StatusEffect {
 			100,
 			"Lewd",
 			"attCorruption3",
-			Colour.CORRUPTION_STAGE_THREE,
+			PresetColour.CORRUPTION_STAGE_THREE,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f),
@@ -700,7 +705,7 @@ public enum StatusEffect {
 			100,
 			"Lustful",
 			"attCorruption4",
-			Colour.CORRUPTION_STAGE_FOUR,
+			PresetColour.CORRUPTION_STAGE_FOUR,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 40f),
@@ -758,13 +763,13 @@ public enum StatusEffect {
 			100,
 			"Corrupt",
 			"attCorruption5",
-			Colour.CORRUPTION_STAGE_FIVE,
+			PresetColour.CORRUPTION_STAGE_FIVE,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f),
 					new Value<Attribute, Float>(Attribute.FERTILITY, 75f),
 					new Value<Attribute, Float>(Attribute.VIRILITY, 75f)),
-			Util.newArrayListOfValues("<b style='color: "+ Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+ "'>Demonic mindset</b>")) {
+			Util.newArrayListOfValues("<b style='color: "+ PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString()+ "'>Demonic mindset</b>")) {
 
 		@Override
 		public String getName(GameCharacter target) {
@@ -797,7 +802,7 @@ public enum StatusEffect {
 			100,
 			"none",
 			"attArousal0",
-			Colour.AROUSAL_STAGE_ZERO,
+			PresetColour.AROUSAL_STAGE_ZERO,
 			false,
 			null,
 			null) {
@@ -829,7 +834,7 @@ public enum StatusEffect {
 			100,
 			"turned on",
 			"attArousal1",
-			Colour.AROUSAL_STAGE_ONE,
+			PresetColour.AROUSAL_STAGE_ONE,
 			false,
 			null,
 			null) {
@@ -861,7 +866,7 @@ public enum StatusEffect {
 			100,
 			"excited",
 			"attArousal2",
-			Colour.AROUSAL_STAGE_TWO,
+			PresetColour.AROUSAL_STAGE_TWO,
 			false,
 			null,
 			null) {
@@ -893,7 +898,7 @@ public enum StatusEffect {
 			100,
 			"heated",
 			"attArousal3",
-			Colour.AROUSAL_STAGE_THREE,
+			PresetColour.AROUSAL_STAGE_THREE,
 			false,
 			null,
 			null) {
@@ -925,7 +930,7 @@ public enum StatusEffect {
 			100,
 			"passionate",
 			"attArousal4",
-			Colour.AROUSAL_STAGE_FOUR,
+			PresetColour.AROUSAL_STAGE_FOUR,
 			false,
 			null,
 			null) {
@@ -957,7 +962,7 @@ public enum StatusEffect {
 			100,
 			"imminent orgasm",
 			"attArousal5",
-			Colour.AROUSAL_STAGE_FIVE,
+			PresetColour.AROUSAL_STAGE_FIVE,
 			false,
 			null,
 			null) {
@@ -992,7 +997,7 @@ public enum StatusEffect {
 			100,
 			"none",
 			"attLust0",
-			Colour.LUST_STAGE_ZERO,
+			PresetColour.LUST_STAGE_ZERO,
 			false,
 			null,
 			null) {
@@ -1029,7 +1034,7 @@ public enum StatusEffect {
 			100,
 			"turned on",
 			"attLust1",
-			Colour.LUST_STAGE_ONE,
+			PresetColour.LUST_STAGE_ONE,
 			false,
 			null,
 			null) {
@@ -1066,7 +1071,7 @@ public enum StatusEffect {
 			100,
 			"excited",
 			"attLust2",
-			Colour.LUST_STAGE_TWO,
+			PresetColour.LUST_STAGE_TWO,
 			false,
 			null,
 			null) {
@@ -1103,7 +1108,7 @@ public enum StatusEffect {
 			100,
 			"heated",
 			"attLust3",
-			Colour.LUST_STAGE_THREE,
+			PresetColour.LUST_STAGE_THREE,
 			false,
 			null,
 			null) {
@@ -1140,7 +1145,7 @@ public enum StatusEffect {
 			100,
 			"passionate",
 			"attLust4",
-			Colour.LUST_STAGE_FOUR,
+			PresetColour.LUST_STAGE_FOUR,
 			false,
 			null,
 			null) {
@@ -1177,7 +1182,7 @@ public enum StatusEffect {
 			100,
 			"passionate",
 			"attLust5",
-			Colour.LUST_STAGE_FOUR,
+			PresetColour.LUST_STAGE_FOUR,
 			false,
 			null,
 			null) {
@@ -1218,10 +1223,10 @@ public enum StatusEffect {
 	WEATHER_PROLOGUE(100,
 			"Strange Atmosphere",
 			"weatherNightStormIncoming",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
+			Util.newArrayListOfValues("<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1237,7 +1242,7 @@ public enum StatusEffect {
 	WEATHER_CLEAR(100,
 			"Clear skies",
 			"weatherDayClear",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			false,
 			null,
 			null) {
@@ -1270,13 +1275,13 @@ public enum StatusEffect {
 		public List<String> getExtraEffects(GameCharacter target) {
 			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
 				return Util.newArrayListOfValues(
-						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
-						"Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
+						"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
+						"Time until next <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
 						Main.game.getNextStormTimeAsTimeString());
 				
 			} else {
 				return Util.newArrayListOfValues(
-						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+						"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
 			}
 		}
 	},
@@ -1284,10 +1289,10 @@ public enum StatusEffect {
 	WEATHER_CLOUD(100,
 			"Cloudy skies",
 			"weatherDayCloudy",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
+			Util.newArrayListOfValues("<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1312,13 +1317,13 @@ public enum StatusEffect {
 		public List<String> getExtraEffects(GameCharacter target) {
 			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
 				return Util.newArrayListOfValues(
-						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
-						"Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
+						"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
+						"Time until next <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
 						Main.game.getNextStormTimeAsTimeString());
 				
 			} else {
 				return Util.newArrayListOfValues(
-						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+						"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
 			}
 		}
 	},
@@ -1326,10 +1331,10 @@ public enum StatusEffect {
 	WEATHER_RAIN(100,
 			"Rain",
 			"weatherDayRain",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
+			Util.newArrayListOfValues("<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1354,13 +1359,13 @@ public enum StatusEffect {
 		public List<String> getExtraEffects(GameCharacter target) {
 			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
 				return Util.newArrayListOfValues(
-						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
-						"Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
+						"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
+						"Time until next <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
 						Main.game.getNextStormTimeAsTimeString());
 				
 			} else {
 				return Util.newArrayListOfValues(
-						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+						"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
 			}
 		}
 	},
@@ -1368,10 +1373,10 @@ public enum StatusEffect {
 	WEATHER_SNOW(100,
 			"Snow",
 			"weatherDaySnow",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
+			Util.newArrayListOfValues("<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
@@ -1443,13 +1448,13 @@ public enum StatusEffect {
 		public List<String> getExtraEffects(GameCharacter target) {
 			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
 				return Util.newArrayListOfValues(
-						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
-						"Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
+						"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
+						"Time until next <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
 						Main.game.getNextStormTimeAsTimeString());
 				
 			} else {
 				return Util.newArrayListOfValues(
-						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+						"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
 			}
 		}
 	},
@@ -1457,10 +1462,10 @@ public enum StatusEffect {
 	WEATHER_STORM_GATHERING(100,
 			"Gathering storm",
 			"weatherDayStormIncoming",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
+			Util.newArrayListOfValues("<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1485,13 +1490,13 @@ public enum StatusEffect {
 		public List<String> getExtraEffects(GameCharacter target) {
 			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
 				return Util.newArrayListOfValues(
-						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
-						"Time until next <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
+						"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
+						"Time until next <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
 						Main.game.getNextStormTimeAsTimeString());
 				
 			} else {
 				return Util.newArrayListOfValues(
-						"<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+						"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
 			}
 		}
 	},
@@ -1499,12 +1504,12 @@ public enum StatusEffect {
 	WEATHER_STORM(100,
 			"Arcane storm",
 			"weatherDayStorm",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
 			Util.newArrayListOfValues(
-					"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-					"[style.boldExcellent(Double)] all <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
+					"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+					"[style.boldExcellent(Double)] all <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
@@ -1598,15 +1603,15 @@ public enum StatusEffect {
 		public List<String> getExtraEffects(GameCharacter target) {
 			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
 				return Util.newArrayListOfValues(
-						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-						"[style.boldExcellent(Double)] all <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat",
-						"Time until <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>storm ends</b>:",
+						"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+						"[style.boldExcellent(Double)] all <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat",
+						"Time until <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>storm ends</b>:",
 						Main.game.getWeatherTimeRemainingAsTimeString());
 				
 			} else {
 				return Util.newArrayListOfValues(
-						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-						"[style.boldExcellent(Double)] all <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat");
+						"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+						"[style.boldExcellent(Double)] all <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat");
 			}
 		}
 	},
@@ -1614,13 +1619,13 @@ public enum StatusEffect {
 	WEATHER_STORM_VULNERABLE(100,
 			"Arcane storm",
 			"weatherDayStorm",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -100f)),
 			Util.newArrayListOfValues(
-					"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+					"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
 					"[style.boldLust(+75)] Resting lust",
-					"[style.boldExcellent(Double)] <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
+					"[style.boldExcellent(Double)] <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
@@ -1670,17 +1675,17 @@ public enum StatusEffect {
 		public List<String> getExtraEffects(GameCharacter target) {
 			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
 				return Util.newArrayListOfValues(
-						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Overwhelming Lust</b>",
-						"[style.boldExcellent(Double)] <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat",
-						"Time until <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>storm ends</b>:",
+						"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+						"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Overwhelming Lust</b>",
+						"[style.boldExcellent(Double)] <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat",
+						"Time until <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>storm ends</b>:",
 						Main.game.getWeatherTimeRemainingAsTimeString());
 				
 			} else {
 				return Util.newArrayListOfValues(
-						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Overwhelming Lust</b>",
-						"[style.boldExcellent(Double)] <b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat");
+						"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+						"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Overwhelming Lust</b>",
+						"[style.boldExcellent(Double)] <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat");
 			}
 		}
 	},
@@ -1688,10 +1693,10 @@ public enum StatusEffect {
 	WEATHER_STORM_PROTECTED(100,
 			"Arcane storm (protected)",
 			"weatherDayStorm",
-			Colour.GENERIC_GOOD,
+			PresetColour.GENERIC_GOOD,
 			true,
 			null,
-			Util.newArrayListOfValues("<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>")) {
+			Util.newArrayListOfValues("<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>")) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
@@ -1742,13 +1747,13 @@ public enum StatusEffect {
 		public List<String> getExtraEffects(GameCharacter target) {
 			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
 				return Util.newArrayListOfValues(
-						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-						"Time until <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>storm ends</b>:",
+						"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
+						"Time until <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>storm ends</b>:",
 						Main.game.getWeatherTimeRemainingAsTimeString());
 				
 			} else {
 				return Util.newArrayListOfValues(
-						"<b style='color: "+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>");
+						"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>");
 			}
 		}
 	},
@@ -1759,7 +1764,7 @@ public enum StatusEffect {
 			1000,
 			"human",
 			null,
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			true,
 			null,
 			null) {
@@ -1789,7 +1794,7 @@ public enum StatusEffect {
 			1000,
 			"",
 			null,
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			true,
 			null,
 			null) {
@@ -1831,7 +1836,8 @@ public enum StatusEffect {
 
 		@Override
 		public List<String> getExtraEffects(GameCharacter target) {
-			return target.getSubspecies().getExtraEffects(target);
+			List<String> effects = new ArrayList<>(target.getSubspecies().getExtraEffects(target));
+			return effects;
 		}
 		
 		@Override
@@ -1853,11 +1859,11 @@ public enum StatusEffect {
 			90,
 			"androphilic",
 			"orientation_androphilic",
-			Colour.MASCULINE,
+			PresetColour.MASCULINE,
 			true,
 			null,
 			Util.newArrayListOfValues(
-					"<b>-50%</b> <b style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>Lust damage</b> both to and from <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</b>")) {
+					"<b>-50%</b> <b style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>Lust damage</b> both to and from <b style='color:"+ PresetColour.FEMININE.toWebHexString()+ ";'>feminine opponents</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1882,11 +1888,11 @@ public enum StatusEffect {
 			90,
 			"gynephilic",
 			"orientation_gynephilic",
-			Colour.FEMININE,
+			PresetColour.FEMININE,
 			true,
 			null,
 			Util.newArrayListOfValues(
-					"<b>-50%</b> <b style='color:"+ Colour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>Lust damage</b> both to and from <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</b>")) {
+					"<b>-50%</b> <b style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>Lust damage</b> both to and from <b style='color:"+ PresetColour.MASCULINE.toWebHexString()+ ";'>masculine opponents</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -1911,7 +1917,7 @@ public enum StatusEffect {
 			90,
 			"ambiphilic",
 			"orientation_ambiphilic",
-			Colour.ANDROGYNOUS,
+			PresetColour.ANDROGYNOUS,
 			true,
 			null,
 			null) {
@@ -1943,7 +1949,7 @@ public enum StatusEffect {
 			85,
 			"clothing too feminine",
 			"clothingFemininity",
-			Colour.CLOTHING_PINK_LIGHT,
+			PresetColour.CLOTHING_PINK_LIGHT,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -15f)),
 			null) {
@@ -1973,7 +1979,7 @@ public enum StatusEffect {
 			85,
 			"clothing too masculine",
 			"clothingMasculinity",
-			Colour.CLOTHING_BLUE,
+			PresetColour.CLOTHING_BLUE,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -15f)),
 			null) {
@@ -2004,9 +2010,9 @@ public enum StatusEffect {
 			80,
 			"dirty clothing",
 			"clothingCummedIn",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 5f)),
 			null) {
 
 		@Override
@@ -2025,9 +2031,9 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
-				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your smelly clothes seem to attract trouble.";
+				return "<b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your smelly clothes seem to attract trouble.";
 			return super.getAdditionalDescription(target);
 		}
 
@@ -2051,7 +2057,7 @@ public enum StatusEffect {
 			80,
 			"dirty clothing",
 			"clothingCummedInMasochist",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f)),
 			null) {
@@ -2073,9 +2079,9 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
-				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your smelly clothes seem to attract trouble.";
+				return "<b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your smelly clothes seem to attract trouble.";
 			return super.getAdditionalDescription(target);
 		}
 
@@ -2099,9 +2105,9 @@ public enum StatusEffect {
 			80,
 			"dirty body",
 			"dirtyBody",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 5f)),
 			null) {
 
 		@Override
@@ -2135,7 +2141,7 @@ public enum StatusEffect {
 								sb.append("<br/>");
 							}
 							sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getSlotEquippedTo().getName()
-									+", <b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
+									+", <b style='color:"+PresetColour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
 						}
 					}
 					
@@ -2149,7 +2155,7 @@ public enum StatusEffect {
 									sb.append("<br/>");
 								}
 								sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getSlotEquippedTo().getName()
-										+", <b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
+										+", <b style='color:"+PresetColour.CUM.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
 							}
 						}
 					}
@@ -2177,9 +2183,9 @@ public enum StatusEffect {
 			}
 		}
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
-				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your smelly body seems to attract trouble.";
+				return "<b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your smelly body seems to attract trouble.";
 			return super.getAdditionalDescription(target);
 		}
 
@@ -2193,7 +2199,7 @@ public enum StatusEffect {
 			80,
 			"dirty body",
 			"dirtyBodyMasochist",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f)),
 			null) {
@@ -2215,9 +2221,9 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
-				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your smelly body seems to attract trouble.";
+				return "<b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your smelly body seems to attract trouble.";
 			return super.getAdditionalDescription(target);
 		}
 
@@ -2232,7 +2238,7 @@ public enum StatusEffect {
 			80,
 			"unstable enchantments",
 			"unstable_enchantment_1",
-			Colour.ATTRIBUTE_CORRUPTION,
+			PresetColour.ATTRIBUTE_CORRUPTION,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 25f)),
@@ -2263,7 +2269,7 @@ public enum StatusEffect {
 			80,
 			"volatile enchantments",
 			"unstable_enchantment_2",
-			Colour.ATTRIBUTE_CORRUPTION,
+			PresetColour.ATTRIBUTE_CORRUPTION,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f)),
@@ -2294,7 +2300,7 @@ public enum StatusEffect {
 			80,
 			"shattered enchantments",
 			"unstable_enchantment_3",
-			Colour.ATTRIBUTE_CORRUPTION,
+			PresetColour.ATTRIBUTE_CORRUPTION,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f)),
@@ -2324,7 +2330,7 @@ public enum StatusEffect {
 			80,
 			"jinxed clothing",
 			"jinxed_clothing",
-			Colour.ATTRIBUTE_CORRUPTION,
+			PresetColour.ATTRIBUTE_CORRUPTION,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 10f)),
@@ -2365,7 +2371,7 @@ public enum StatusEffect {
 								+ "</p>"
 								+ "<p>"
 									+ "Eventually giving up, you decide to go and ask Lilaya what's going on with "+(clothing.getClothingType().isPlural()?"these":"this")
-										+" <b style='color:"+Colour.RARITY_JINXED.toWebHexString()+";'>jinxed</b> "+clothing.getName()+"."
+										+" <b style='color:"+PresetColour.RARITY_JINXED.toWebHexString()+";'>jinxed</b> "+clothing.getName()+"."
 									+ " Maybe she'll know a way to break the seal?"
 								+ "</p>"
 								+(!((PlayerCharacter) target).hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)
@@ -2391,7 +2397,7 @@ public enum StatusEffect {
 									+ "Lilaya's warning about jinxed clothing suddenly shoots to the forefront of your mind, and you let out a groan as you realise that "
 										+(clothing.getClothingType().isPlural()?"these ":"this ")+clothing.getName()
 										+(clothing.getClothingType().isPlural()?" are":" is")
-										+" <b style='color:"+Colour.RARITY_JINXED.toWebHexString()+";'>jinxed</b>."
+										+" <b style='color:"+PresetColour.RARITY_JINXED.toWebHexString()+";'>jinxed</b>."
 									+ " Remembering what Lilaya said, you should be able to remove the jinx if you focus some of your absorbed essences into it..."
 								+ "</p>";
 					}
@@ -2421,8 +2427,8 @@ public enum StatusEffect {
 			80,
 			"well rested",
 			"wellRested",
-			Colour.ATTRIBUTE_HEALTH,
-			Colour.ATTRIBUTE_MANA,
+			PresetColour.ATTRIBUTE_HEALTH,
+			PresetColour.ATTRIBUTE_MANA,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 10f),
@@ -2442,8 +2448,8 @@ public enum StatusEffect {
 			80,
 			"well rested (boosted)",
 			"wellRestedBoosted",
-			Colour.ATTRIBUTE_HEALTH,
-			Colour.ATTRIBUTE_MANA,
+			PresetColour.ATTRIBUTE_HEALTH,
+			PresetColour.ATTRIBUTE_MANA,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 30f),
@@ -2467,9 +2473,9 @@ public enum StatusEffect {
 			80,
 			"well rested (extra boosted)",
 			"wellRestedBoostedExtra",
-			Colour.ATTRIBUTE_HEALTH,
-			Colour.ATTRIBUTE_MANA,
-			Colour.GENERIC_EXCELLENT,
+			PresetColour.ATTRIBUTE_HEALTH,
+			PresetColour.ATTRIBUTE_MANA,
+			PresetColour.GENERIC_EXCELLENT,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 60f),
@@ -2490,8 +2496,8 @@ public enum StatusEffect {
 	BATH(80,
 			"recent bath",
 			"bath",
-			Colour.ATTRIBUTE_HEALTH,
-			Colour.BASE_AQUA,
+			PresetColour.ATTRIBUTE_HEALTH,
+			PresetColour.BASE_AQUA,
 			true,
 			null,
 			Util.newArrayListOfValues(
@@ -2509,9 +2515,9 @@ public enum StatusEffect {
 	BATH_BOOSTED(80,
 			"recent bath",
 			"bath_boosted",
-			Colour.ATTRIBUTE_HEALTH,
-			Colour.BASE_AQUA,
-			Colour.GENERIC_EXCELLENT,
+			PresetColour.ATTRIBUTE_HEALTH,
+			PresetColour.BASE_AQUA,
+			PresetColour.GENERIC_EXCELLENT,
 			true,
 			null,
 			Util.newArrayListOfValues(
@@ -2530,7 +2536,7 @@ public enum StatusEffect {
 			80,
 			"slightly overworked",
 			"overworked1",
-			Colour.BASE_RED,
+			PresetColour.BASE_RED,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -10f),
@@ -2561,7 +2567,7 @@ public enum StatusEffect {
 			80,
 			"overworked",
 			"overworked2",
-			Colour.BASE_RED,
+			PresetColour.BASE_RED,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -25f),
@@ -2591,7 +2597,7 @@ public enum StatusEffect {
 			80,
 			"severely overworked",
 			"overworked3",
-			Colour.BASE_RED,
+			PresetColour.BASE_RED,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -50f),
@@ -2620,7 +2626,7 @@ public enum StatusEffect {
 			80,
 			"Companions Leaving",
 			"",
-			Colour.BASE_MAGENTA,
+			PresetColour.BASE_MAGENTA,
 			false,
 			null,
 			null) {
@@ -2645,13 +2651,13 @@ public enum StatusEffect {
 			80,
 			"Psychoactive Trip",
 			"psychoactive",
-			Colour.BASE_YELLOW,
+			PresetColour.BASE_YELLOW,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
-			Util.newArrayListOfValues("Open to <b style='color: " + Colour.PSYCHOACTIVE.toWebHexString() + ";'>Hypnotic Suggestion</b>")) {
+			Util.newArrayListOfValues("Open to <b style='color: " + PresetColour.PSYCHOACTIVE.toWebHexString() + ";'>Hypnotic Suggestion</b>")) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
@@ -2779,9 +2785,9 @@ public enum StatusEffect {
 			80,
 			"smoking",
 			"smoking",
-			Colour.CLOTHING_ORANGE,
-			Colour.CLOTHING_BRASS,
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_ORANGE,
+			PresetColour.CLOTHING_BRASS,
+			PresetColour.CLOTHING_WHITE,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 10f),
@@ -2808,9 +2814,9 @@ public enum StatusEffect {
 			80,
 			"recently smoked",
 			"recentlySmoked",
-			Colour.CLOTHING_ORANGE,
-			Colour.CLOTHING_BRASS,
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_ORANGE,
+			PresetColour.CLOTHING_BRASS,
+			PresetColour.CLOTHING_WHITE,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 10f),
@@ -2827,7 +2833,7 @@ public enum StatusEffect {
 			80,
 			"Intoxicated I - Tipsy",
 			"drunk1",
-			Colour.BASE_YELLOW,
+			PresetColour.BASE_YELLOW,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
@@ -2863,7 +2869,7 @@ public enum StatusEffect {
 			80,
 			"Intoxicated II - Merry",
 			"drunk2",
-			Colour.BASE_YELLOW,
+			PresetColour.BASE_YELLOW,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
@@ -2898,7 +2904,7 @@ public enum StatusEffect {
 			80,
 			"Intoxicated III - Drunk",
 			"drunk3",
-			Colour.BASE_YELLOW,
+			PresetColour.BASE_YELLOW,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
@@ -2918,9 +2924,9 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
-				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>You're obviously drunk and some might think you're easy prey.";
+				return "<b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>You're obviously drunk and some might think you're easy prey.";
 			return super.getAdditionalDescription(target);
 		}
 
@@ -2939,7 +2945,7 @@ public enum StatusEffect {
 			80,
 			"Intoxicated IV - Hammered",
 			"drunk4",
-			Colour.BASE_YELLOW,
+			PresetColour.BASE_YELLOW,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
@@ -2960,9 +2966,9 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
-				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>You're obviously drunk and some might think you're easy prey.";
+				return "<b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>You're obviously drunk and some might think you're easy prey.";
 			return super.getAdditionalDescription(target);
 		}
 
@@ -2981,7 +2987,7 @@ public enum StatusEffect {
 			80,
 			"Intoxicated V - Wasted",
 			"drunk5",
-			Colour.BASE_YELLOW,
+			PresetColour.BASE_YELLOW,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f),
@@ -3002,9 +3008,9 @@ public enum StatusEffect {
 		}
 
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
-				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>You're obviously drunk and some might think you're easy prey.";
+				return "<b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>You're obviously drunk and some might think you're easy prey.";
 			return super.getAdditionalDescription(target);
 		}
 
@@ -3023,7 +3029,7 @@ public enum StatusEffect {
 			80,
 			"addictions",
 			"addictions",
-			Colour.BASE_CRIMSON,
+			PresetColour.BASE_CRIMSON,
 			false,
 			null,
 			null) {
@@ -3080,7 +3086,7 @@ public enum StatusEffect {
 			80,
 			"Mild Withdrawal",
 			"withdrawal1",
-			Colour.CORRUPTION_STAGE_ONE,
+			PresetColour.CORRUPTION_STAGE_ONE,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f),
@@ -3146,7 +3152,7 @@ public enum StatusEffect {
 			80,
 			"Noticeable Withdrawal",
 			"withdrawal2",
-			Colour.CORRUPTION_STAGE_TWO,
+			PresetColour.CORRUPTION_STAGE_TWO,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
@@ -3212,7 +3218,7 @@ public enum StatusEffect {
 			80,
 			"Strong Withdrawal",
 			"withdrawal3",
-			Colour.CORRUPTION_STAGE_THREE,
+			PresetColour.CORRUPTION_STAGE_THREE,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -10f),
@@ -3278,7 +3284,7 @@ public enum StatusEffect {
 			80,
 			"Severe Withdrawal",
 			"withdrawal4",
-			Colour.CORRUPTION_STAGE_FOUR,
+			PresetColour.CORRUPTION_STAGE_FOUR,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -25f),
@@ -3344,7 +3350,7 @@ public enum StatusEffect {
 			80,
 			"Intense Withdrawal",
 			"withdrawal5",
-			Colour.CORRUPTION_STAGE_FIVE,
+			PresetColour.CORRUPTION_STAGE_FIVE,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -50f),
@@ -3404,7 +3410,7 @@ public enum StatusEffect {
 			80,
 			"Menopause",
 			"menopause",
-			Colour.BASE_CRIMSON,
+			PresetColour.BASE_CRIMSON,
 			false,
 			null,
 			Util.newArrayListOfValues(
@@ -3435,7 +3441,7 @@ public enum StatusEffect {
 			80,
 			"risk of pregnancy",
 			"pregnancy0",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			null,
 			null) {
@@ -3497,7 +3503,7 @@ public enum StatusEffect {
 										+ " You decide that you should probably go and see Lilaya, so that she can help you figure out all the details of giving birth.")
 							+ "</p>"
 							+ "<p style='text-align:center;'>"
-								+ "<b style='color:"+ Colour.GENERIC_SEX.toWebHexString() + ";'>You're pregnant!</b>"
+								+ "<b style='color:"+ PresetColour.GENERIC_SEX.toWebHexString() + ";'>You're pregnant!</b>"
 							+ "</p>");
 						
 					} else {
@@ -3536,7 +3542,7 @@ public enum StatusEffect {
 											+ " If anyone knows what to do, it'll be Lilaya.")
 								+ "</p>"
 								+ "<p style='text-align:center;'>"
-									+ "<b style='color:"+ Colour.GENERIC_SEX.toWebHexString() + ";'>You're pregnant!</b>"
+									+ "<b style='color:"+ PresetColour.GENERIC_SEX.toWebHexString() + ";'>You're pregnant!</b>"
 								+ "</p>");
 					}
 					
@@ -3566,7 +3572,7 @@ public enum StatusEffect {
 								:"Knowing what you're in for, you let out a contented sigh and start carrying on your way.")
 						+ "</p>"
 						+ "<p style='text-align:center;'>"
-							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString()+ ";'>You're pregnant!</b>"
+							+ "<b style='color:" + PresetColour.GENERIC_SEX.toWebHexString()+ ";'>You're pregnant!</b>"
 						+ "</p>");
 				}
 				
@@ -3606,7 +3612,7 @@ public enum StatusEffect {
 								:"[pc.thought(Well, that's a relief...)]")
 						+ "</p>"
 						+ "<p style='text-align:center;'>"
-							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You aren't pregnant!</b>"
+							+ "<b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>You aren't pregnant!</b>"
 						+ "</p>");	
 			}
 
@@ -3635,7 +3641,7 @@ public enum StatusEffect {
 			80,
 			"pregnant",
 			"pregnancy1",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 2f)),
 			Util.newArrayListOfValues("-5% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
@@ -3698,7 +3704,7 @@ public enum StatusEffect {
 								+ "</p>"
 								:"")
 						+ "<p style='text-align:center;'>"
-							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're now heavily pregnant!</b>"
+							+ "<b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>You're now heavily pregnant!</b>"
 						+ "</p>"
 						+(breastGrowth
 								? "<p><i>"
@@ -3725,7 +3731,7 @@ public enum StatusEffect {
 							+ "</p>"
 							:"")
 						+ "<p style='text-align:center;'>"
-							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're now heavily pregnant!</b>"
+							+ "<b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>You're now heavily pregnant!</b>"
 						+ "</p>"
 						+(breastGrowth
 								? "<p><i>"
@@ -3754,7 +3760,7 @@ public enum StatusEffect {
 			80,
 			"heavily pregnant",
 			"pregnancy2",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 4f)),
 			Util.newArrayListOfValues("-10% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
@@ -3788,7 +3794,7 @@ public enum StatusEffect {
 			}
 
 			boolean lactationUddersIncrease = false;
-			if(Main.getProperties().pregnancyUdderLactationIncrease>0 && target.getBreastCrotchRawMilkStorageValue()<Main.getProperties().pregnancyUdderLactationLimit) {
+			if(target.hasBreastsCrotch() && Main.getProperties().pregnancyUdderLactationIncrease>0 && target.getBreastCrotchRawMilkStorageValue()<Main.getProperties().pregnancyUdderLactationLimit) {
 				int valueIncrease = Math.max(1, Main.getProperties().pregnancyUdderLactationIncrease - Main.getProperties().pregnancyLactationIncreaseVariance + Util.random.nextInt(Main.getProperties().pregnancyLactationIncreaseVariance*2 + 1));
 				
 				if(target.getBreastCrotchRawMilkStorageValue() + valueIncrease > Main.getProperties().pregnancyUdderLactationLimit) {
@@ -3834,7 +3840,7 @@ public enum StatusEffect {
 									+ "</i></p>"
 								:"")
 						+ "<p style='text-align:center;'>"
-							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're now ready to give birth!</b>" 
+							+ "<b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>You're now ready to give birth!</b>" 
 						+ "</p>";
 			} else {
 				return "<p>"
@@ -3865,7 +3871,7 @@ public enum StatusEffect {
 									+ "</i></p>"
 								:"")
 						+ "<p style='text-align:center;'>"
-							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString()+ ";'>You're now ready to give birth!</b>"
+							+ "<b style='color:" + PresetColour.GENERIC_SEX.toWebHexString()+ ";'>You're now ready to give birth!</b>"
 						+ "</p>";
 			}
 		}
@@ -3881,7 +3887,7 @@ public enum StatusEffect {
 			80,
 			"ready for birthing",
 			"pregnancy3",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 6f)),
 			Util.newArrayListOfValues("-15% [style.colourHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")]")) {
@@ -3924,7 +3930,7 @@ public enum StatusEffect {
 			80,
 			"Breeder pill's effects",
 			"vixensVirility",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.FERTILITY, 50f),
@@ -3944,7 +3950,7 @@ public enum StatusEffect {
 			80,
 			"Slut pill's effects",
 			"promiscuityPill",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.FERTILITY, -100f),
@@ -3965,7 +3971,7 @@ public enum StatusEffect {
 			80,
 			"Cum Production",
 			"cumProduction",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			true,
 			null,
 			null) {
@@ -4003,7 +4009,7 @@ public enum StatusEffect {
 			80,
 			"Full Balls",
 			"cumFull",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f)),
@@ -4042,7 +4048,7 @@ public enum StatusEffect {
 			80,
 			"Milk Production",
 			"milkProduction",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			true,
 			null,
 			null) {
@@ -4078,7 +4084,7 @@ public enum StatusEffect {
 			80,
 			"Full Breasts",
 			"milkFull",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			true,
 			Util.newHashMapOfValues(),
 			null) {
@@ -4114,7 +4120,7 @@ public enum StatusEffect {
 			80,
 			"Crotch-boob Milk Production",
 			"milkCrotchProduction",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			true,
 			null,
 			null) {
@@ -4161,7 +4167,7 @@ public enum StatusEffect {
 			80,
 			"Full Crotch-boobs",
 			"milkCrotchFull",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			true,
 			Util.newHashMapOfValues(),
 			null) {
@@ -4202,12 +4208,220 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+
+	STRETCHING_ORIFICE(
+			80,
+			"Big Toys",
+			"sexEffects/combinationStretching",
+			PresetColour.BASE_MAGENTA,
+			false,
+			Util.newHashMapOfValues(),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int secondsPassed) {
+			float minimumStretchPercentage = 0.00_05f;
+			
+			for(Entry<SexAreaOrifice, AbstractClothing> entry : target.getSexToyOrificeStretching().entrySet()) {
+				AbstractClothing clothing = entry.getValue();
+				int length = clothing.getClothingType().getPenetrationSelfLength();
+				PenetrationGirth girth = PenetrationGirth.getGirthFromInt(clothing.getClothingType().getPenetrationSelfGirth());
+				float diameter = Penis.getGenericDiameter(length, girth);
+				
+				// Stretch out the orifice by a factor of elasticity's modifier:
+				float stretchModifier = 600f;
+				float stretch = 0f;
+				switch(entry.getKey()) {
+					case ANUS:
+						stretch = Math.max(diameter*minimumStretchPercentage, (diameter-target.getAssStretchedCapacity())*target.getAssElasticity().getStretchModifier());
+						target.incrementAssStretchedCapacity((stretch/stretchModifier) * secondsPassed);
+						if(target.getAssStretchedCapacity()>diameter) {
+							target.setAssStretchedCapacity(diameter);
+						}
+						break;
+					case MOUTH:
+						stretch = Math.max(diameter*minimumStretchPercentage, (diameter-target.getFaceStretchedCapacity())*target.getFaceElasticity().getStretchModifier());
+						target.incrementFaceStretchedCapacity((stretch/stretchModifier) * secondsPassed);
+						if(target.getFaceStretchedCapacity()>diameter) {
+							target.setFaceStretchedCapacity(diameter);
+						}
+						break;
+					case NIPPLE:
+						stretch = Math.max(diameter*minimumStretchPercentage, (diameter-target.getNippleStretchedCapacity())*target.getNippleElasticity().getStretchModifier());
+						target.incrementNippleStretchedCapacity((stretch/stretchModifier) * secondsPassed);
+						if(target.getNippleStretchedCapacity()>diameter) {
+							target.setNippleStretchedCapacity(diameter);
+						}
+						break;
+					case VAGINA:
+						stretch = Math.max(diameter*minimumStretchPercentage, (diameter-target.getVaginaStretchedCapacity())*target.getVaginaElasticity().getStretchModifier());
+						target.incrementVaginaStretchedCapacity((stretch/stretchModifier) * secondsPassed);
+						if(target.getVaginaStretchedCapacity()>diameter) {
+							target.setVaginaStretchedCapacity(diameter);
+						}
+						break;
+					default:
+						break;
+				}
+			}
+			
+			return "";
+		}
+		
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			List<String> effects = new ArrayList<>();
+			
+			Map<SexAreaOrifice, String> orifices = Util.newHashMapOfValues(
+					new Value<>(SexAreaOrifice.VAGINA, "[style.boldVagina(Vagina)]:"),
+					new Value<>(SexAreaOrifice.ANUS, "[style.boldAsshole(Asshole)]:"),
+					new Value<>(SexAreaOrifice.MOUTH, "[style.boldMouth(Throat)]:"),
+					new Value<>(SexAreaOrifice.NIPPLE, "[style.boldNipple(Nipples)]:"));
+			List<SexAreaOrifice> orificesFound = new ArrayList<>();
+			for(Entry<SexAreaOrifice, String> orifice : orifices.entrySet()) {
+				if(target.getSexToyOrificeStretching().containsKey(orifice.getKey())) {
+					AbstractClothing clothing = target.getSexToyOrificeStretching().get(orifice.getKey());
+					int length = clothing.getClothingType().getPenetrationSelfLength();
+					PenetrationGirth girth = PenetrationGirth.getGirthFromInt(clothing.getClothingType().getPenetrationSelfGirth());
+					float diameter = Penis.getGenericDiameter(length, girth);
+					
+					effects.add(orifice.getValue());
+					effects.add("[style.boldBad(Stretching)] up to [style.boldPinkLight("+Units.size(diameter)+")]");
+					orificesFound.add(orifice.getKey());
+				}
+				if(target.getSexToyOrificePreventingStretchRecovery().containsKey(orifice.getKey())) {
+					if(!orificesFound.contains(orifice.getKey())) {
+						effects.add(orifice.getValue());
+					}
+					effects.add("[style.boldMinorBad(Preventing)] [style.boldPinkLight(stretch recovery)]");
+					orificesFound.add(orifice.getKey());
+				}
+				if(target.getSexToyOrificeTooDeep().containsKey(orifice.getKey())) {
+					AbstractClothing clothing = target.getSexToyOrificeTooDeep().get(orifice.getKey());
+					int length = clothing.getClothingType().getPenetrationSelfLength();
+					if(!orificesFound.contains(orifice.getKey())) {
+						effects.add(orifice.getValue());
+					}
+					effects.add("[style.boldTerrible(Too deep)] at [style.boldPinkLight("+Units.size(length)+")]");
+				}
+			}
+			
+			return effects;
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			descriptionSB = new StringBuilder();
+			
+			List<String> stretching = new ArrayList<>();
+			for(Entry<SexAreaOrifice, AbstractClothing> entry : target.getSexToyOrificeStretching().entrySet()) {
+				switch(entry.getKey()) {
+					case ANUS:
+						stretching.add("[style.colourAsshole(asshole)]");
+						break;
+					case MOUTH:
+						stretching.add("[style.colourMouth(throat)]");
+						break;
+					case NIPPLE:
+						stretching.add("[style.colourNipple(nipples)]");
+						break;
+					case VAGINA:
+						stretching.add("[style.colourVagina(vagina)]");
+						break;
+					default:
+						break;
+				}
+			}
+			List<String> preventingRecovery = new ArrayList<>();
+			for(Entry<SexAreaOrifice, AbstractClothing> entry : target.getSexToyOrificePreventingStretchRecovery().entrySet()) {
+				switch(entry.getKey()) {
+					case ANUS:
+						preventingRecovery.add("[style.colourAsshole(asshole)]");
+						break;
+					case MOUTH:
+						preventingRecovery.add("[style.colourMouth(throat)]");
+						break;
+					case NIPPLE:
+						preventingRecovery.add("[style.colourNipple(nipples)]");
+						break;
+					case VAGINA:
+						preventingRecovery.add("[style.colourVagina(vagina)]");
+						break;
+					default:
+						break;
+				}
+			}
+			List<String> tooDeep = new ArrayList<>();
+			for(Entry<SexAreaOrifice, AbstractClothing> entry : target.getSexToyOrificeTooDeep().entrySet()) {
+				switch(entry.getKey()) {
+					case ANUS:
+						tooDeep.add("[style.colourAsshole(asshole)]");
+						break;
+					case MOUTH:
+						tooDeep.add("[style.colourMouth(throat)]");
+						break;
+					case NIPPLE:
+						tooDeep.add("[style.colourNipple(nipples)]");
+						break;
+					case VAGINA:
+						tooDeep.add("[style.colourVagina(vagina)]");
+						break;
+					default:
+						break;
+				}
+			}
+			
+			boolean needBreak = false;
+			if(!target.getSexToyOrificeStretching().isEmpty()) {
+				boolean singular = target.getSexToyOrificeStretching().size()==1;
+				descriptionSB.append("[npc.NamePos] "+(singular?"sex toy is":"sex toys are")+" too big for [npc.herHim], and as a result, [npc.her] "
+						+Util.stringsToStringList(stretching, false)+(singular?" is":" are")+" being [style.colourBad(stretched out)]!");
+				needBreak = true;
+			}
+			
+			if(!target.getSexToyOrificePreventingStretchRecovery().isEmpty()) {
+				if(needBreak) {
+					descriptionSB.append(" ");
+				}
+				boolean singular = target.getSexToyOrificePreventingStretchRecovery().size()==1;
+				descriptionSB.append("[npc.NamePos] "+(singular?"sex toy is":"sex toys are")+" preventing [npc.her] [style.colourMinorBad(stretched)] " +Util.stringsToStringList(preventingRecovery, false)+" from recovering!");
+				needBreak = true;
+			}
+			
+			if(Main.game.isPenetrationLimitationsEnabled()) {
+				if(!target.getSexToyOrificeTooDeep().isEmpty()) {
+					if(needBreak) {
+						descriptionSB.append(" ");
+					}
+					boolean singular = target.getSexToyOrificeTooDeep().size()==1;
+					descriptionSB.append((singular?"The sex toy":"The sex toys")+" inserted in [npc.namePos] "
+							+Util.stringsToStringList(tooDeep, false)+(singular?" is":" are")+" [style.colourTerrible(uncomfortably deep)]!");
+				}
+			}
+			
+			return UtilText.parse(target, descriptionSB.toString());
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return !target.getSexToyOrificeTooDeep().isEmpty() || !target.getSexToyOrificeStretching().isEmpty() || !target.getSexToyOrificePreventingStretchRecovery().isEmpty();
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public String getSVGString(GameCharacter target) {
+			Set<SexAreaOrifice> orifices = new HashSet<>(target.getSexToyOrificeStretching().keySet());
+			orifices.addAll(target.getSexToyOrificePreventingStretchRecovery().keySet());
+			orifices.addAll(target.getSexToyOrificeTooDeep().keySet());
+			return getStretchingOrificeStatus(target, !target.getSexToyOrificeStretching().isEmpty(), !target.getSexToyOrificePreventingStretchRecovery().isEmpty(), !target.getSexToyOrificeTooDeep().isEmpty(), orifices);
+		}
+	},
 	
 	RECOVERING_ORIFICE(
 			80,
 			"Recovering Vagina",
 			"recoveringOrifice",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f), new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -5f)),
 			null) {
@@ -4249,6 +4463,10 @@ public enum StatusEffect {
 				sb.append(" Vaginal Urethra");
 				i++;
 			}
+			if (target.getFaceRawCapacityValue()!=target.getFaceStretchedCapacity()){
+				sb.append(" Throat");
+				i++;
+			}
 			
 			if(i>1) {
 				if(Main.game.isInSex()) {
@@ -4266,42 +4484,53 @@ public enum StatusEffect {
 			if(Main.game.isInSex()) {
 				return "";
 			}
-			if (target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
+			
+			Set<SexAreaOrifice> stretchRecoveryPrevention = new HashSet<>(target.getSexToyOrificePreventingStretchRecovery().keySet());
+			stretchRecoveryPrevention.addAll(target.getSexToyOrificeStretching().keySet());
+			
+			if(!stretchRecoveryPrevention.contains(SexAreaOrifice.VAGINA) && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
 				target.incrementVaginaStretchedCapacity(-target.getVaginaPlasticity().getRecoveryModifier()*secondsPassed);
 
 				if(target.getVaginaStretchedCapacity()<target.getVaginaRawCapacityValue()) {
 					target.setVaginaStretchedCapacity(target.getVaginaRawCapacityValue());
 				}
 			}
-			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
+			if(!stretchRecoveryPrevention.contains(SexAreaOrifice.ANUS) && target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
 				target.incrementAssStretchedCapacity(-target.getAssPlasticity().getRecoveryModifier()*secondsPassed);
 				
 				if(target.getAssStretchedCapacity()<target.getAssRawCapacityValue()) {
 					target.setAssStretchedCapacity(target.getAssRawCapacityValue());
 				}
 			}
-			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
+			if(!stretchRecoveryPrevention.contains(SexAreaOrifice.NIPPLE) && target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
 				target.incrementNippleStretchedCapacity(-target.getNipplePlasticity().getRecoveryModifier()*secondsPassed);
 
 				if(target.getNippleStretchedCapacity()<target.getNippleRawCapacityValue()) {
 					target.setNippleStretchedCapacity(target.getNippleRawCapacityValue());
 				}
 			}
-			if (target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
+			if(!stretchRecoveryPrevention.contains(SexAreaOrifice.MOUTH) && target.getFaceRawCapacityValue()!=target.getFaceStretchedCapacity()){
+				target.incrementFaceStretchedCapacity(-target.getFacePlasticity().getRecoveryModifier()*secondsPassed);
+
+				if(target.getFaceStretchedCapacity()<target.getFaceRawCapacityValue()) {
+					target.setFaceStretchedCapacity(target.getFaceRawCapacityValue());
+				}
+			}
+			if(target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
 				target.incrementNippleCrotchStretchedCapacity(-target.getNippleCrotchPlasticity().getRecoveryModifier()*secondsPassed);
 				
 				if(target.getNippleCrotchStretchedCapacity()<target.getNippleCrotchRawCapacityValue()) {
 					target.setNippleCrotchStretchedCapacity(target.getNippleCrotchRawCapacityValue());
 				}
 			}
-			if (target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
+			if(target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
 				target.incrementPenisStretchedCapacity(-target.getUrethraPlasticity().getRecoveryModifier()*secondsPassed);
 				
 				if(target.getPenisStretchedCapacity()<target.getPenisRawCapacityValue()) {
 					target.setPenisStretchedCapacity(target.getPenisRawCapacityValue());
 				}
 			}
-			if (target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
+			if(target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
 				target.incrementVaginaUrethraStretchedCapacity(-target.getVaginaUrethraPlasticity().getRecoveryModifier()*secondsPassed);
 				
 				if(target.getVaginaUrethraStretchedCapacity()<target.getVaginaUrethraRawCapacityValue()) {
@@ -4324,6 +4553,9 @@ public enum StatusEffect {
 		@Override
 		public List<String> getExtraEffects(GameCharacter target) {
 			List<String> recoveringEffects = new ArrayList<>();
+
+			Set<SexAreaOrifice> stretchRecoveryPrevention = new HashSet<>(target.getSexToyOrificePreventingStretchRecovery().keySet());
+			stretchRecoveryPrevention.addAll(target.getSexToyOrificeStretching().keySet());
 			
 			String recoveringText = "recovering";
 			String from1 = "From";
@@ -4338,17 +4570,38 @@ public enum StatusEffect {
 			if (target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
 				recoveringEffects.add("[style.boldVagina(Vagina "+recoveringText+":)]");
 				recoveringEffects.add(from1+" [style.boldBad("+Units.size(target.getVaginaStretchedCapacity())+")] "+from2+" [style.boldGood("+Units.size(target.getVaginaRawCapacityValue())+")]");
-				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaPlasticity().getRecoveryModifier())+")]");
+				if(stretchRecoveryPrevention.contains(SexAreaOrifice.VAGINA)) {
+					recoveringEffects.add("[style.boldBad(Sex toy preventing recovery!)]");
+				} else {
+					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getVaginaPlasticity().getRecoveryModifier())+")]");
+				}
 			}
 			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
 				recoveringEffects.add("[style.boldAsshole(Asshole "+recoveringText+":)]");
 				recoveringEffects.add(from1+" [style.boldBad("+Units.size(target.getAssStretchedCapacity())+")] "+from2+" [style.boldGood("+Units.size(target.getAssRawCapacityValue())+")]");
-				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getAssPlasticity().getRecoveryModifier())+")]");
+				if(stretchRecoveryPrevention.contains(SexAreaOrifice.ANUS)) {
+					recoveringEffects.add("[style.boldBad(Sex toy preventing recovery!)]");
+				} else {
+					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getAssPlasticity().getRecoveryModifier())+")]");
+				}
 			}
 			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
 				recoveringEffects.add("[style.boldNipples(Nipples "+recoveringText+":)]");
 				recoveringEffects.add(from1+" [style.boldBad("+Units.size(target.getNippleStretchedCapacity())+")] "+from2+" [style.boldGood("+Units.size(target.getNippleRawCapacityValue())+")]");
-				recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNipplePlasticity().getRecoveryModifier())+")]");
+				if(stretchRecoveryPrevention.contains(SexAreaOrifice.NIPPLE)) {
+					recoveringEffects.add("[style.boldBad(Sex toy preventing recovery!)]");
+				} else {
+					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getNipplePlasticity().getRecoveryModifier())+")]");
+				}
+			}
+			if (target.getFaceRawCapacityValue()!=target.getFaceStretchedCapacity()){
+				recoveringEffects.add("[style.boldMouth(Throat "+recoveringText+":)]");
+				recoveringEffects.add(from1+" [style.boldBad("+Units.size(target.getFaceStretchedCapacity())+")] "+from2+" [style.boldGood("+Units.size(target.getFaceRawCapacityValue())+")]");
+				if(stretchRecoveryPrevention.contains(SexAreaOrifice.MOUTH)) {
+					recoveringEffects.add("[style.boldBad(Sex toy preventing recovery!)]");
+				} else {
+					recoveringEffects.add("[style.boldPlasticity("+getRecoveryText(target.getFacePlasticity().getRecoveryModifier())+")]");
+				}
 			}
 			if (target.hasBreastsCrotch() && target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
 				recoveringEffects.add("[style.boldNipplesCrotch(Crotch nipples "+recoveringText+":)]");
@@ -4378,24 +4631,28 @@ public enum StatusEffect {
 			List<String> orificesRecovering = new ArrayList<>();
 			boolean plural = false;
 			if (target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity()){
-				orificesRecovering.add("[style.boldPink(vagina)]");
+				orificesRecovering.add("[style.boldVagina(vagina)]");
 			}
 			if (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity()){
-				orificesRecovering.add("[style.boldPinkDeep(asshole)]");
+				orificesRecovering.add("[style.boldAnus(asshole)]");
+			}
+			if (target.getFaceRawCapacityValue()!=target.getFaceStretchedCapacity()){
+				orificesRecovering.add("[style.boldMouth(throat)]");
+				plural = true;
 			}
 			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
-				orificesRecovering.add("[style.boldPinkLight(nipples)]");
+				orificesRecovering.add("[style.boldNipple(nipples)]");
 				plural = true;
 			}
 			if (target.hasBreastsCrotch() && target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity()){
-				orificesRecovering.add("[style.boldPurple(crotch nipples)]");
+				orificesRecovering.add("[style.boldNipplesCrotch(crotch nipples)]");
 				plural = true;
 			}
 			if (target.hasPenis() && target.getPenisRawCapacityValue()!=target.getPenisStretchedCapacity()){
-				orificesRecovering.add("[style.boldSalmonPink(penile urethra)]");
+				orificesRecovering.add("[style.boldPenisUrethra(penile urethra)]");
 			}
 			if (target.hasVagina() && target.getVaginaUrethraRawCapacityValue()!=target.getVaginaUrethraStretchedCapacity()){
-				orificesRecovering.add("[style.boldPurpleLight(vaginal urethra)]");
+				orificesRecovering.add("[style.boldVaginaUrethra(vaginal urethra)]");
 			}
 			if(orificesRecovering.size()==1) {
 				descriptionSB.append(" an object that was far too big for "+(plural?"them":"it")+", [npc.namePos] "+orificesRecovering.get(0)+" "+(plural?"have":"has")
@@ -4417,6 +4674,7 @@ public enum StatusEffect {
 			return ((target.hasVagina() && target.getVaginaRawCapacityValue()!=target.getVaginaStretchedCapacity())
 					|| (target.getAssRawCapacityValue()!=target.getAssStretchedCapacity())
 					|| (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity())
+					|| (target.getFaceRawCapacityValue()!=target.getFaceStretchedCapacity())
 					|| (target.hasBreastsCrotch()
 							&& Main.getProperties().udders>0
 							&& target.getNippleCrotchRawCapacityValue()!=target.getNippleCrotchStretchedCapacity())
@@ -4441,12 +4699,12 @@ public enum StatusEffect {
 			80,
 			"Pussy Creampie",
 			"creampie",
-			Colour.CUM,
+			PresetColour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues(
-					"<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
+					"<b style='color: " + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		
 		@Override
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
@@ -4485,7 +4743,7 @@ public enum StatusEffect {
 				if(!clothingBlocking.isDirty()) {
 					clothingBlocking.setDirty(target, true);
 					sb.append("<p>"
-								+ "The cum from your creampied pussy quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
+								+ "The cum from your creampied pussy quickly </b><b style='color:"+PresetColour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
 							+ "</p>");
 				}
 				dirtyArea = true;
@@ -4561,12 +4819,12 @@ public enum StatusEffect {
 			80,
 			"Vaginal Urethra Creampie",
 			"creampie",
-			Colour.CUM,
+			PresetColour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues(
-					"<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
+					"<b style='color: " + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		
 		@Override
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
@@ -4605,7 +4863,7 @@ public enum StatusEffect {
 				if(!clothingBlocking.isDirty()) {
 					clothingBlocking.setDirty(target, true);
 					sb.append("<p>"
-								+ "Cum leaks out of your pussy's creampied urethra, quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
+								+ "Cum leaks out of your pussy's creampied urethra, quickly </b><b style='color:"+PresetColour.CUM.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"!"
 							+ "</p>");
 				}
 				dirtyArea = true;
@@ -4681,12 +4939,12 @@ public enum StatusEffect {
 			80,
 			"Penis Urethra Creampie",
 			"creampie",
-			Colour.CUM,
+			PresetColour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues(
-					"<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
+					"<b style='color: " + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		
 		@Override
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
@@ -4722,7 +4980,7 @@ public enum StatusEffect {
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.PENIS).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(target, true);
 					sb.append("<p>"
-								+ "Cum leaks out of your cock's creampied urethra, quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()+"!"
+								+ "Cum leaks out of your cock's creampied urethra, quickly </b><b style='color:"+PresetColour.CUM.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -4793,12 +5051,12 @@ public enum StatusEffect {
 			80,
 			"Anal Creampie",
 			"creampie",
-			Colour.CUM,
+			PresetColour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues(
-					"<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
+					"<b style='color: " + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		
 		@Override
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
@@ -4837,7 +5095,7 @@ public enum StatusEffect {
 				if(!clothingBlocking.isDirty()) {
 					clothingBlocking.setDirty(target, true);
 					sb.append("<p>"
-								+ "The cum from your creampied asshole quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.ANUS).getName()+"!"
+								+ "The cum from your creampied asshole quickly </b><b style='color:"+PresetColour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.ANUS).getName()+"!"
 							+ "</p>");
 				}
 				dirtyArea = true;
@@ -4911,12 +5169,12 @@ public enum StatusEffect {
 			80,
 			"Nipple Creampie",
 			"creampie",
-			Colour.CUM,
+			PresetColour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues(
-					"<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
+					"<b style='color: " + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 		
 		@Override
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
@@ -4955,7 +5213,7 @@ public enum StatusEffect {
 				if(!clothingBlocking.isDirty()) {
 					clothingBlocking.setDirty(target, true);
 					sb.append("<p>"
-								+ "The cum from your creampied nipples quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName()+"!"
+								+ "The cum from your creampied nipples quickly </b><b style='color:"+PresetColour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName()+"!"
 							+ "</p>");
 				}
 				dirtyArea = true;
@@ -5029,12 +5287,12 @@ public enum StatusEffect {
 			80,
 			"Nipple Creampie",
 			"creampie",
-			Colour.CUM,
+			PresetColour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
 			Util.newArrayListOfValues(
-					"<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
+					"<b style='color: " + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>")) {
 
 		@Override
 		public String getName(GameCharacter owner) {
@@ -5079,7 +5337,7 @@ public enum StatusEffect {
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).setDirty(target, true);
 					sb.append("<p>"
-								+ "The cum from your creampied nipples quickly </b><b style='color:"+Colour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).getName()+"!"
+								+ "The cum from your creampied nipples quickly </b><b style='color:"+PresetColour.CUM.toWebHexString()+";'>dirties</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES_CROTCH).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -5150,7 +5408,7 @@ public enum StatusEffect {
 			80,
 			"Cummy Meal",
 			"creampie",
-			Colour.CUM,
+			PresetColour.CUM,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
@@ -5239,7 +5497,7 @@ public enum StatusEffect {
 			80,
 			"swollen belly",
 			"cumInflation1",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f)),
 			null) {
@@ -5278,7 +5536,7 @@ public enum StatusEffect {
 			80,
 			"inflated belly",
 			"cumInflation2",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f)),
 			null) {
@@ -5318,7 +5576,7 @@ public enum StatusEffect {
 			80,
 			"over-inflated belly",
 			"cumInflation3",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f)),
 			null) {
@@ -5358,7 +5616,7 @@ public enum StatusEffect {
 			80,
 			"swollen breasts",
 			"cumInflationBreasts1",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f)),
 			null) {
@@ -5397,7 +5655,7 @@ public enum StatusEffect {
 			80,
 			"inflated breasts",
 			"cumInflationBreasts2",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f)),
 			null) {
@@ -5437,7 +5695,7 @@ public enum StatusEffect {
 			80,
 			"over-inflated breasts",
 			"cumInflationBreasts3",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f)),
 			null) {
@@ -5477,7 +5735,7 @@ public enum StatusEffect {
 			80,
 			"Frustrated",
 			"frustrated",
-			Colour.GENERIC_BAD,
+			PresetColour.GENERIC_BAD,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
@@ -5511,7 +5769,7 @@ public enum StatusEffect {
 			80,
 			"Pent-up",
 			"frustrated",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
 			null) {
@@ -5539,7 +5797,7 @@ public enum StatusEffect {
 			80,
 			"Strengthened aura",
 			"recoveringAura",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
@@ -5571,9 +5829,9 @@ public enum StatusEffect {
 			80,
 			"exposed",
 			"exposed",
-			Colour.BASE_PINK_LIGHT,
-			Colour.GENERIC_BAD,
-			Colour.GENERIC_BAD,
+			PresetColour.BASE_PINK_LIGHT,
+			PresetColour.GENERIC_BAD,
+			PresetColour.GENERIC_BAD,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
@@ -5587,9 +5845,9 @@ public enum StatusEffect {
 			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", and [npc.she] [npc.verb(feel)] highly embarrassed to be walking around in such an exposed fashion.");
 		}
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
-				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
+				return "<b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
 			return super.getAdditionalDescription(target);
 		}
 		@Override
@@ -5608,9 +5866,9 @@ public enum StatusEffect {
 			80,
 			"exposed (feral parts)",
 			"exposedFeral",
-			Colour.BASE_PINK_LIGHT,
-			Colour.BASE_TAN,
-			Colour.BASE_TAN,
+			PresetColour.BASE_PINK_LIGHT,
+			PresetColour.BASE_TAN,
+			PresetColour.BASE_TAN,
 			false,
 			Util.newHashMapOfValues(),
 			null) {
@@ -5646,9 +5904,9 @@ public enum StatusEffect {
 			80,
 			"exposed breasts",
 			"exposed",
-			Colour.BASE_PINK_LIGHT,
-			Colour.GENERIC_BAD,
-			Colour.GENERIC_BAD,
+			PresetColour.BASE_PINK_LIGHT,
+			PresetColour.GENERIC_BAD,
+			PresetColour.GENERIC_BAD,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
@@ -5670,9 +5928,9 @@ public enum StatusEffect {
 			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", and [npc.she] [npc.verb(feel)] highly embarrassed to be walking around in such an exposed fashion.");
 		}
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
-				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
+				return "<b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
 			return super.getAdditionalDescription(target);
 		}
 		@Override
@@ -5691,9 +5949,9 @@ public enum StatusEffect {
 			80,
 			"exposed",
 			"exposed",
-			Colour.BASE_PINK_LIGHT,
-			Colour.GENERIC_BAD,
-			Colour.GENERIC_BAD,
+			PresetColour.BASE_PINK_LIGHT,
+			PresetColour.GENERIC_BAD,
+			PresetColour.GENERIC_BAD,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 20f),
@@ -5708,9 +5966,9 @@ public enum StatusEffect {
 			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", and [npc.she] [npc.verb(feel)] highly embarrassed to be walking around in such an exposed fashion.");
 		}
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
-				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
+				return "<b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
 			return super.getAdditionalDescription(target);
 		}
 
@@ -5731,9 +5989,9 @@ public enum StatusEffect {
 			80,
 			"exhibitionist",
 			"exposedExhibitionist",
-			Colour.BASE_PINK_LIGHT,
-			Colour.BASE_PINK_DEEP,
-			Colour.BASE_PINK_DEEP,
+			PresetColour.BASE_PINK_LIGHT,
+			PresetColour.BASE_PINK_DEEP,
+			PresetColour.BASE_PINK_DEEP,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f)),
@@ -5747,9 +6005,9 @@ public enum StatusEffect {
 			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", and [npc.she] [npc.verb(feel)] incredibly sexy and empowered to be walking around in such an exposed fashion.");
 		}
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
-				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
+				return "<b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
 			return super.getAdditionalDescription(target);
 		}
 
@@ -5769,9 +6027,9 @@ public enum StatusEffect {
 			80,
 			"exhibitionist",
 			"exposedExhibitionist",
-			Colour.BASE_PINK_LIGHT,
-			Colour.BASE_PINK_DEEP,
-			Colour.BASE_PINK_DEEP,
+			PresetColour.BASE_PINK_LIGHT,
+			PresetColour.BASE_PINK_DEEP,
+			PresetColour.BASE_PINK_DEEP,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
@@ -5785,9 +6043,9 @@ public enum StatusEffect {
 			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", and [npc.she] [npc.verb(feel)] incredibly sexy and empowered to be walking around in such an exposed fashion.");
 		}
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
-				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
+				return "<b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
 			return super.getAdditionalDescription(target);
 		}
 
@@ -5807,9 +6065,9 @@ public enum StatusEffect {
 			80,
 			"exhibitionist",
 			"exposedExhibitionist",
-			Colour.BASE_PINK_LIGHT,
-			Colour.BASE_PINK_DEEP,
-			Colour.BASE_PINK_DEEP,
+			PresetColour.BASE_PINK_LIGHT,
+			PresetColour.BASE_PINK_DEEP,
+			PresetColour.BASE_PINK_DEEP,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f)),
@@ -5823,9 +6081,9 @@ public enum StatusEffect {
 			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", and [npc.she] [npc.verb(feel)] incredibly sexy and empowered to be walking around in such an exposed fashion.");
 		}
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.game.isOpportunisticAttackersEnabled() && target.isPlayer())
-				return "<b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
+				return "<b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your exposed body parts attract all kind of lewd gazes.";
 			return super.getAdditionalDescription(target);
 		}
 
@@ -5843,142 +6101,234 @@ public enum StatusEffect {
 
 	FETISH_PURE_VIRGIN(
 			80,
-			"pure virgin",
+			"Pure Virgin",
 			"virginPure",
-			Colour.GENERIC_EXCELLENT,
+			PresetColour.GENERIC_EXCELLENT,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 15f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 15f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, -15f)),
 			null) {
-
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer()) {
-				return "You represent the perfect image of a pure, righteous being. Your noble bearing and virtuous personality mark you as a paragon of all that is angelic and good in this world.";
-			} else {
-				return UtilText.parse(target,
-						"[npc.Name] represents the perfect image of a pure, righteous being. [npc.Her] noble bearing and virtuous personality mark [npc.herHim] as a paragon of all that is angelic and good in this world.");
-			}
+			return UtilText.parse(target,
+					"[npc.Name] [npc.verb(represent)] the perfect image of a pure, righteous being. [npc.Her] noble bearing and virtuous personality mark [npc.herHim] as a paragon of all that is angelic and good in this world.");
 		}
-
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN) && !target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN) && target.hasVagina() && target.isVaginaVirgin();
+			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN)
+					&& !target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN)
+					&& target.hasVagina()
+					&& target.isVaginaVirgin()
+					&& target.hasHymen();
 		}
-		
 		@Override
 		public boolean isSexEffect() {
 			return true;
 		}
 	},
-	FETISH_PURE_VIRGIN_LUSTY_MAIDEN(
+	FETISH_PURE_VIRGIN_NO_HYMEN(
 			80,
-			"lusty maiden",
-			"virginPureLustyMaiden",
-			Colour.GENERIC_EXCELLENT,
+			"'Pure' Virgin",
+			"virginPureNoHymen",
+			PresetColour.GENERIC_GOOD,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, -10f)),
 			null) {
-
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer()) {
-				return "You're more than willing to use your ass, mouth, breasts, and even the promise of your pussy in order to please your partners, but you'll never let anyone actually penetrate your feminine sex and take your precious virginity!";
-			} else {
-				return UtilText.parse(target,
-						"[npc.Name] is more than willing to use [npc.her] ass, mouth, breasts, and even the promise of [npc.her] pussy in order to please [npc.her] partners,"
-								+ " but [npc.she]'ll never let anyone actually penetrate [npc.her] feminine sex and take [npc.her] precious virginity!");
-			}
+			return UtilText.parse(target,
+					"[npc.Name] [npc.verb(act)] as though [npc.sheIs] a noble and virtuous paragon of purity, but [npc.sheIs] also suspiciously passionate about arguing that a broken hymen does not disqualify a person from being considered a pure virgin...");
 		}
-
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN) && target.hasVagina() && target.isVaginaVirgin();
+			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN)
+					&& !target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN)
+					&& target.hasVagina()
+					&& target.isVaginaVirgin()
+					&& !target.hasHymen();
 		}
-		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	FETISH_PURE_VIRGIN_ONLY_HYMEN(
+			80,
+			"Pure 'Virgin'",
+			"virginPureRepaired",
+			PresetColour.GENERIC_GOOD,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.Name] [npc.verb(act)] as though [npc.sheIs] a noble and virtuous paragon of purity, but [npc.sheIs] also suspiciously passionate about arguing that having an intact hymen is enough to technically make anyone a virgin...");
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN)
+					&& !target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN)
+					&& target.hasVagina()
+					&& !target.isVaginaVirgin()
+					&& target.hasHymen();
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	FETISH_BROKEN_VIRGIN(
+			80,
+			"Broken Virgin",
+			"virginBroken",
+			PresetColour.GENERIC_TERRIBLE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"Losing [npc.her] precious virginity has hit [npc.name] hard, and [npc.she] now [npc.verb(see)] [npc.herself] as nothing but a dirty slut."
+						+ " [npc.She] now often fantasises about big, thick cocks slamming deep into [npc.her] worthless cunt, before defiling [npc.her] once-pure womb with their foul cum...");
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN) && !target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN) && target.hasVagina() && !target.isVaginaVirgin();
+		}
 		@Override
 		public boolean isSexEffect() {
 			return true;
 		}
 	},
 	
-	FETISH_BROKEN_VIRGIN(
+	FETISH_LUSTY_MAIDEN(
 			80,
-			"broken virgin",
-			"virginBroken",
-			Colour.GENERIC_TERRIBLE,
-			false,
+			"Lusty Maiden",
+			"virginLustyMaidenPure",
+			PresetColour.GENERIC_EXCELLENT,
+			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 10f)),
 			null) {
-
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer()) {
-				return "Losing your virginity has hit you hard. All you can think of is big, thick cocks breaking you in like a worthless slut, before defiling your womb with their foul cum..."
-						+ " Without your virginity, all you can see yourself as is a cheap sex toy.";
-			} else {
-				return UtilText.parse(target,
-						"Losing [npc.her] virginity has hit [npc.name] hard. All [npc.she] can think of is big, thick cocks breaking [npc.herHim] in like a worthless slut, before defiling [npc.her] womb with their foul cum..."
-								+ " Without [npc.her] virginity, all [npc.she] can see [npc.herself] as is a cheap sex toy.");
-			}
+			return UtilText.parse(target,
+					"[npc.NameIs] more than willing to use [npc.her] ass, mouth, breasts, and even the promise of [npc.her] pussy in order to please [npc.her] partners,"
+							+ " but [npc.she]'ll never let anyone actually penetrate [npc.her] feminine sex and rob [npc.herHim] of [npc.her] precious virginity!");
 		}
-
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN) && !target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN) && target.hasVagina() && !target.isVaginaVirgin();
+			return target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN)
+					&& target.hasVagina()
+					&& target.isVaginaVirgin()
+					&& target.hasHymen();
 		}
-		
 		@Override
 		public boolean isSexEffect() {
 			return true;
 		}
 	},
-	FETISH_BROKEN_VIRGIN_LUSTY_MAIDEN(
+	FETISH_LUSTY_MAIDEN_NO_HYMEN(
 			80,
-			"broken maiden",
-			"virginBrokenLustyMaiden",
-			Colour.GENERIC_TERRIBLE,
+			"Lusty 'Maiden'",
+			"virginLustyMaidenNoHymen",
+			PresetColour.GENERIC_GOOD,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.Name] [npc.verb(act)] as though [npc.her] pussy is completely unspoiled and off-limits,"
+							+ " but [npc.sheIs] also suspiciously passionate about arguing that a broken hymen does not disqualify a person from being considered a pure virgin...");
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN)
+					&& target.hasVagina()
+					&& target.isVaginaVirgin()
+					&& !target.hasHymen();
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	FETISH_LUSTY_MAIDEN_ONLY_HYMEN(
+			80,
+			"Lusty 'Maiden'",
+			"virginLustyMaidenRepaired",
+			PresetColour.GENERIC_GOOD,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.Name] [npc.verb(act)] as though [npc.her] pussy is completely unspoiled and off-limits,"
+							+ " but [npc.sheIs] also suspiciously passionate about arguing that having an intact hymen is enough to technically make anyone a virgin...");
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN)
+					&& target.hasVagina()
+					&& !target.isVaginaVirgin()
+					&& target.hasHymen();
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	FETISH_LUSTY_MAIDEN_BROKEN(
+			80,
+			"Broken Maiden",
+			"virginLustyMaidenBroken",
+			PresetColour.GENERIC_TERRIBLE,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f)),
 			null) {
-
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer()) {
-				return "Losing your virginity has hit you hard. All of your efforts to deflect attention away from your pussy and to your other assets was wasted, and now you can only see yourself as a cheap sex toy, to be used by anyone.";
-			} else {
-				return UtilText.parse(target,
-						"Losing [npc.her] virginity has hit [npc.name] hard. All [npc.she] can think of is big, thick cocks breaking [npc.herHim] in like a worthless slut, before defiling [npc.her] womb with their foul cum..."
-								+ " Without [npc.her] virginity, all [npc.she] can see [npc.herself] as is a cheap sex toy.");
-			}
+			return UtilText.parse(target,
+					"Losing [npc.her] precious virginity has hit [npc.name] hard, and [npc.she] now [npc.verb(see)] [npc.herself] as nothing but a dirty slut."
+						+ " All of [npc.her] efforts to keep [npc.her] pussy pure by using [npc.her] other assets was wasted, and now all [npc.she] fantasises about is using [npc.her] worthless cunt as a public cumdump...");
 		}
-
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN) && target.hasVagina() && !target.isVaginaVirgin();
+			return target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN)
+					&& target.hasVagina()
+					&& !target.isVaginaVirgin()
+					&& !target.hasHymen();
 		}
-		
 		@Override
 		public boolean isSexEffect() {
 			return true;
 		}
 	},
-
+	
+	
 	// CLOTHING SETS:
-	// (attribute bonuses are handled in the ClothingSet enum, leave all
-	// attribute modifiers as null)
+	
 	SET_MAID(
 			70,
 			"Hard-working Maid",
 			"clothingSets/maid",
-			Colour.CLOTHING_BLACK,
+			PresetColour.CLOTHING_BLACK,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
@@ -6005,8 +6355,8 @@ public enum StatusEffect {
 			70,
 			"Professional Maid",
 			"clothingSets/maid_boosted",
-			Colour.CLOTHING_BLACK,
-			Colour.BASE_GOLD,
+			PresetColour.CLOTHING_BLACK,
+			PresetColour.BASE_GOLD,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
@@ -6035,7 +6385,7 @@ public enum StatusEffect {
 			70,
 			"Milk Maid",
 			"clothingSets/milk_maid",
-			Colour.BASE_WHITE,
+			PresetColour.BASE_WHITE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
@@ -6062,8 +6412,8 @@ public enum StatusEffect {
 			70,
 			"Professional Milk Maid",
 			"clothingSets/milk_maid_boosted",
-			Colour.BASE_WHITE,
-			Colour.BASE_GOLD,
+			PresetColour.BASE_WHITE,
+			PresetColour.BASE_GOLD,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
@@ -6092,7 +6442,7 @@ public enum StatusEffect {
 			70,
 			"Butler",
 			"clothingSets/butler",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
@@ -6119,8 +6469,8 @@ public enum StatusEffect {
 			70,
 			"Professional Butler",
 			"clothingSets/butler_boosted",
-			Colour.CLOTHING_WHITE,
-			Colour.BASE_GOLD,
+			PresetColour.CLOTHING_WHITE,
+			PresetColour.BASE_GOLD,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
@@ -6149,7 +6499,7 @@ public enum StatusEffect {
 			70,
 			"Arcane Witch",
 			"clothingSets/witch",
-			Colour.CLOTHING_BLACK,
+			PresetColour.CLOTHING_BLACK,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
@@ -6182,7 +6532,7 @@ public enum StatusEffect {
 			70,
 			"Scientist",
 			"clothingSets/scientist",
-			Colour.CLOTHING_BLACK,
+			PresetColour.CLOTHING_BLACK,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
@@ -6216,7 +6566,7 @@ public enum StatusEffect {
 			70,
 			"Enforcer's uniform",
 			"clothingSets/enforcer",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
@@ -6243,7 +6593,7 @@ public enum StatusEffect {
 			70,
 			"slutty Enforcer",
 			"clothingSets/slutty_enforcer",
-			Colour.BASE_PINK,
+			PresetColour.BASE_PINK,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f),
@@ -6270,7 +6620,7 @@ public enum StatusEffect {
 			70,
 			"double rainbow",
 			"clothingSets/rainbow",
-			Colour.CLOTHING_MULTICOLOURED,
+			PresetColour.CLOTHING_MULTICOLOURED,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
@@ -6290,9 +6640,9 @@ public enum StatusEffect {
 			70,
 			"Dark Siren",
 			"clothingSets/dark_siren",
-			Colour.CLOTHING_PURPLE_DARK,
-			Colour.CLOTHING_BLACK_STEEL,
-			Colour.CLOTHING_RED_DARK,
+			PresetColour.CLOTHING_PURPLE_DARK,
+			PresetColour.CLOTHING_BLACK_STEEL,
+			PresetColour.CLOTHING_RED_DARK,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
@@ -6314,9 +6664,9 @@ public enum StatusEffect {
 			70,
 			"Lyssieth's Guard",
 			"clothingSets/lyssieth_guard",
-			Colour.CLOTHING_OLIVE,
-			Colour.CLOTHING_BROWN_DARK,
-			Colour.CLOTHING_OLIVE,
+			PresetColour.CLOTHING_OLIVE,
+			PresetColour.CLOTHING_BROWN_DARK,
+			PresetColour.CLOTHING_OLIVE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 25f),
@@ -6338,7 +6688,7 @@ public enum StatusEffect {
 			70,
 			"BDSM",
 			"clothingSets/bdsm",
-			Colour.CLOTHING_BLACK,
+			PresetColour.CLOTHING_BLACK,
 			false,
 			Util.newHashMapOfValues( new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -15f)),
 			null) {
@@ -6368,7 +6718,7 @@ public enum StatusEffect {
 			70,
 			"Cattle",
 			"clothingSets/cattle",
-			Colour.BASE_TAN,
+			PresetColour.BASE_TAN,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f)),
@@ -6399,7 +6749,7 @@ public enum StatusEffect {
 			70,
 			"Glacial",
 			"clothingSets/snowflake",
-			Colour.BASE_BLUE_LIGHT,
+			PresetColour.BASE_BLUE_LIGHT,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
@@ -6424,7 +6774,7 @@ public enum StatusEffect {
 			70,
 			"Radiant",
 			"clothingSets/sun",
-			Colour.BASE_ORANGE,
+			PresetColour.BASE_ORANGE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
@@ -6449,7 +6799,7 @@ public enum StatusEffect {
 			70,
 			"Geisha",
 			"clothingSets/geisha",
-			Colour.BASE_ROSE,
+			PresetColour.BASE_ROSE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
@@ -6474,7 +6824,7 @@ public enum StatusEffect {
 			70,
 			"Ronin",
 			"clothingSets/ronin",
-			Colour.BASE_ROSE,
+			PresetColour.BASE_ROSE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
@@ -6507,7 +6857,7 @@ public enum StatusEffect {
 			70,
 			"Daisho",
 			"clothingSets/daisho",
-			Colour.BASE_ROSE,
+			PresetColour.BASE_ROSE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
@@ -6535,7 +6885,7 @@ public enum StatusEffect {
 			70,
 			"J&oacute;lnir",
 			"clothingSets/jolnir",
-			Colour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 15f),
@@ -6568,7 +6918,7 @@ public enum StatusEffect {
 			70,
 			"clothing effects",
 			"combatHidden",
-			Colour.TRANSFORMATION_GENERIC,
+			PresetColour.TRANSFORMATION_GENERIC,
 			false,
 			null,
 			null) {
@@ -6593,8 +6943,8 @@ public enum StatusEffect {
 			80,
 			"potion effects",
 			"potionEffects",
-			Colour.GENERIC_ARCANE,
-			Colour.BASE_PINK_LIGHT,
+			PresetColour.GENERIC_ARCANE,
+			PresetColour.BASE_PINK_LIGHT,
 			null,
 			false,
 			null,
@@ -6635,7 +6985,7 @@ public enum StatusEffect {
 			70,
 			"happiness",
 			"happinessFox",
-			Colour.CLOTHING_SILVER,
+			PresetColour.CLOTHING_SILVER,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 5f),
@@ -6661,7 +7011,7 @@ public enum StatusEffect {
 			80,
 			"angelic intuition",
 			"combatBonusAngel",
-			Colour.RACE_ANGEL,
+			PresetColour.RACE_ANGEL,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
@@ -6679,7 +7029,7 @@ public enum StatusEffect {
 			80,
 			"cat-morph intuition",
 			"combatBonusCatMorph",
-			Colour.RACE_CAT_MORPH,
+			PresetColour.RACE_CAT_MORPH,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
@@ -6698,7 +7048,7 @@ public enum StatusEffect {
 			80,
 			"cow-morph intuition",
 			"combatBonusCowMorph",
-			Colour.RACE_COW_MORPH,
+			PresetColour.RACE_COW_MORPH,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
@@ -6717,7 +7067,7 @@ public enum StatusEffect {
 			80,
 			"demonic intuition",
 			"combatBonusDemon",
-			Colour.RACE_DEMON,
+			PresetColour.RACE_DEMON,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
@@ -6736,7 +7086,7 @@ public enum StatusEffect {
 			80,
 			"impish intuition",
 			"combatBonusImp",
-			Colour.RACE_DEMON,
+			PresetColour.RACE_DEMON,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
@@ -6755,7 +7105,7 @@ public enum StatusEffect {
 			80,
 			"dog-morph intuition",
 			"combatBonusDogMorph",
-			Colour.RACE_DOG_MORPH,
+			PresetColour.RACE_DOG_MORPH,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
@@ -6774,7 +7124,7 @@ public enum StatusEffect {
 			80,
 			"harpy intuition",
 			"combatBonusHarpy",
-			Colour.RACE_HARPY,
+			PresetColour.RACE_HARPY,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
@@ -6793,7 +7143,7 @@ public enum StatusEffect {
 			80,
 			"horse-morph intuition",
 			"combatBonusHorseMorph",
-			Colour.RACE_HORSE_MORPH,
+			PresetColour.RACE_HORSE_MORPH,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
@@ -6812,7 +7162,7 @@ public enum StatusEffect {
 			80,
 			"reindeer-morph intuition",
 			"combatBonusReindeerMorph",
-			Colour.RACE_REINDEER_MORPH,
+			PresetColour.RACE_REINDEER_MORPH,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
@@ -6831,7 +7181,7 @@ public enum StatusEffect {
 			80,
 			"human intuition",
 			"combatBonusHuman",
-			Colour.RACE_HUMAN,
+			PresetColour.RACE_HUMAN,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
@@ -6850,7 +7200,7 @@ public enum StatusEffect {
 			80,
 			"squirrel-morph intuition",
 			"combatBonusSquirrelMorph",
-			Colour.RACE_SQUIRREL_MORPH,
+			PresetColour.RACE_SQUIRREL_MORPH,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
@@ -6869,7 +7219,7 @@ public enum StatusEffect {
 			80,
 			"rat-morph intuition",
 			"combatBonusRatMorph",
-			Colour.RACE_RAT_MORPH,
+			PresetColour.RACE_RAT_MORPH,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
@@ -6888,7 +7238,7 @@ public enum StatusEffect {
 			80,
 			"rabbit-morph intuition",
 			"combatBonusRabbitMorph",
-			Colour.RACE_RAT_MORPH,
+			PresetColour.RACE_RAT_MORPH,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
@@ -6907,7 +7257,7 @@ public enum StatusEffect {
 			80,
 			"bat-morph intuition",
 			"combatBonusBatMorph",
-			Colour.RACE_BAT_MORPH,
+			PresetColour.RACE_BAT_MORPH,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
@@ -6926,7 +7276,7 @@ public enum StatusEffect {
 			80,
 			"alligator-morph intuition",
 			"combatBonusAlligatorMorph",
-			Colour.RACE_ALLIGATOR_MORPH,
+			PresetColour.RACE_ALLIGATOR_MORPH,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
@@ -6945,7 +7295,7 @@ public enum StatusEffect {
 			80,
 			"wolf-morph intuition",
 			"combatBonusWolfMorph",
-			Colour.RACE_WOLF_MORPH,
+			PresetColour.RACE_WOLF_MORPH,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
@@ -6963,7 +7313,7 @@ public enum StatusEffect {
 			80,
 			"fox-morph intuition",
 			"combatBonusFoxMorph",
-			Colour.RACE_FOX_MORPH,
+			PresetColour.RACE_FOX_MORPH,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
@@ -6981,7 +7331,7 @@ public enum StatusEffect {
 			80,
 			"slime intuition",
 			"combatBonusSlime",
-			Colour.RACE_SLIME,
+			PresetColour.RACE_SLIME,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
@@ -7005,7 +7355,7 @@ public enum StatusEffect {
 			70,
 			"Silence's Trance",
 			"glowingEyes",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ACTION_POINTS, 1f),
@@ -7029,7 +7379,7 @@ public enum StatusEffect {
 			70,
 			"Shadow's Rage",
 			"glowingEyes",
-			Colour.BASE_CRIMSON,
+			PresetColour.BASE_CRIMSON,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ACTION_POINTS, 3f),
@@ -7053,7 +7403,7 @@ public enum StatusEffect {
 			70,
 			"hidden",
 			"combatHidden",
-			Colour.GENERIC_BAD,
+			PresetColour.GENERIC_BAD,
 			false,
 			null,
 			null) {
@@ -7071,14 +7421,14 @@ public enum StatusEffect {
 			70,
 			"desperate for sex",
 			"desperateForSex",
-			Colour.ATTRIBUTE_LUST,
+			PresetColour.ATTRIBUTE_LUST,
 			false,
 			null,
 			Util.newArrayListOfValues(
-					"Incoming <b style='color:"+Colour.ATTRIBUTE_LUST.toWebHexString()+";'>Lust damage</b> dealt as"
-							+ " <b style='color:"+Colour.ATTRIBUTE_HEALTH.toWebHexString()+";'>2*Energy damage</b>"
-							+ " and <b style='color:"+Colour.ATTRIBUTE_MANA.toWebHexString()+";'>1*Aura damage</b>",
-					"<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Incoming damage ignores all shielding</b>")) {
+					"Incoming <b style='color:"+PresetColour.ATTRIBUTE_LUST.toWebHexString()+";'>Lust damage</b> dealt as"
+							+ " <b style='color:"+PresetColour.ATTRIBUTE_HEALTH.toWebHexString()+";'>2*Energy damage</b>"
+							+ " and <b style='color:"+PresetColour.ATTRIBUTE_MANA.toWebHexString()+";'>1*Aura damage</b>",
+					"<b style='color: " + PresetColour.GENERIC_TERRIBLE.toWebHexString() + "'>Incoming damage ignores all shielding</b>")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -7102,7 +7452,7 @@ public enum StatusEffect {
 			10,
 			"arcane weakness",
 			"negativeCombatEffect",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -2f),
@@ -7126,7 +7476,7 @@ public enum StatusEffect {
 	DAZED(10,
 			"dazed",
 			"negativeCombatEffect",
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -25f),
@@ -7148,7 +7498,7 @@ public enum StatusEffect {
 			10,
 			"crippled",
 			"negativeCombatEffect",
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f)),
 			null) {
@@ -7173,7 +7523,7 @@ public enum StatusEffect {
 			10,
 			"vulnerable",
 			"negativeCombatEffect",
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -2f)),
 			null) {
@@ -7195,18 +7545,18 @@ public enum StatusEffect {
 		10,
 		"Witch's Seal",
 		"combat_witch_seal",
-		Colour.GENERIC_ARCANE,
+		PresetColour.GENERIC_ARCANE,
 		false,
 		null,
 		null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if (target.isPlayer()) {
-				return "The <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Witch's Seal</b> is preventing you from making a move!";
+				return "The <b style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Witch's Seal</b> is preventing you from making a move!";
 				
 			} else {
 				return UtilText.parse(target,
-						"The <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Witch's Seal</b> is preventing [npc.name] from making a move!");
+						"The <b style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Witch's Seal</b> is preventing [npc.name] from making a move!");
 			}
 		}
 		@Override
@@ -7233,18 +7583,18 @@ public enum StatusEffect {
 			10,
 			"Bewitching Charm",
 			"combat_witch_charm",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f)),
 			null) {
 			@Override
 			public String applyEffect(GameCharacter target, int secondsPassed) {
 				if (target.isPlayer()) {
-					return "The <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Bewitching Charm</b> is making you appear irresistibly attractive!";
+					return "The <b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>Bewitching Charm</b> is making you appear irresistibly attractive!";
 					
 				} else {
 					return UtilText.parse(target,
-							"The <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Bewitching Charm</b> is making [npc.name] appear irresistibly attractive!");
+							"The <b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>Bewitching Charm</b> is making [npc.name] appear irresistibly attractive!");
 				}
 			}
 			@Override
@@ -7278,7 +7628,7 @@ public enum StatusEffect {
 			10,
 			"Fissure's Fumes",
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.DAMAGE_TYPE_POISON,
 			false,
 			null,
 			Util.newArrayListOfValues("<b>25</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
@@ -7310,7 +7660,7 @@ public enum StatusEffect {
 	FIRE_MANA_BURN(10,
 			"Aura Burn",
 			"melee_fire",
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
 			null,
 			Util.newArrayListOfValues(
@@ -7338,7 +7688,7 @@ public enum StatusEffect {
 			10,
 			"Lingering Flames",
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.DAMAGE_TYPE_FIRE,
 			false,
 			null,
 			Util.newArrayListOfValues("<b>5</b> [style.boldFire(Fire Damage)] per turn</b>")) {
@@ -7374,7 +7724,7 @@ public enum StatusEffect {
 	FLASH(10,
 			"Blinded",
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.DAMAGE_TYPE_FIRE,
 			false,
 			null,
 			Util.newArrayListOfValues("[style.boldTerrible(Stunned!)]")) {
@@ -7418,7 +7768,7 @@ public enum StatusEffect {
 	CLOAK_OF_FLAMES(10,
 			"Cloak of Flames",
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f),
@@ -7449,7 +7799,7 @@ public enum StatusEffect {
 	CLOAK_OF_FLAMES_1(10,
 			"Cloak of Flames (Incendiary)",
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f),
@@ -7483,7 +7833,7 @@ public enum StatusEffect {
 	CLOAK_OF_FLAMES_2(10,
 			"Cloak of Flames (Inferno)",
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
@@ -7519,7 +7869,7 @@ public enum StatusEffect {
 	CLOAK_OF_FLAMES_3(10,
 			"Cloak of Flames (Ring of Fire)",
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
@@ -7556,7 +7906,7 @@ public enum StatusEffect {
 	ELEMENTAL_FIRE_WILDFIRE(10,
 			"Wildfire",
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 20f)),
@@ -7611,7 +7961,7 @@ public enum StatusEffect {
 	ELEMENTAL_FIRE_BURNING_DESIRE(10,
 			"Burning Desire",
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.DAMAGE_TYPE_FIRE,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
@@ -7657,7 +8007,7 @@ public enum StatusEffect {
 	ELEMENTAL_FIRE_SERVANT_OF_FIRE(10,
 			"Servant of Fire",
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.DAMAGE_TYPE_FIRE,
 			false,
 			null,
 			Util.newArrayListOfValues(
@@ -7690,7 +8040,7 @@ public enum StatusEffect {
 	ELEMENTAL_FIRE_SERVANT_OF_FIRE_ELEMENTAL_BUFF(10,
 			"Energy Siphon",
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
 			null,
 			Util.newArrayListOfValues(
@@ -7722,7 +8072,7 @@ public enum StatusEffect {
 	ELEMENTAL_FIRE_BINDING_OF_FIRE(10,
 			"Binding of Fire",
 			null,
-			Colour.DAMAGE_TYPE_FIRE,
+			PresetColour.DAMAGE_TYPE_FIRE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
@@ -7757,7 +8107,7 @@ public enum StatusEffect {
 			10,
 			"Freezing Fog",
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.DAMAGE_TYPE_COLD,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -20f)),
@@ -7787,7 +8137,7 @@ public enum StatusEffect {
 	FROZEN(10,
 			"Frozen",
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.DAMAGE_TYPE_COLD,
 			false,
 			null,
 			Util.newArrayListOfValues("[style.boldTerrible(Stunned!)]")) {
@@ -7832,7 +8182,7 @@ public enum StatusEffect {
 			10,
 			"Rain Cloud",
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.DAMAGE_TYPE_COLD,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f)),
@@ -7863,7 +8213,7 @@ public enum StatusEffect {
 			10,
 			"Rain Cloud (Deep Chill)",
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.DAMAGE_TYPE_COLD,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
@@ -7895,7 +8245,7 @@ public enum StatusEffect {
 			10,
 			"Rain Cloud (Downpour)",
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.DAMAGE_TYPE_COLD,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
@@ -7925,7 +8275,7 @@ public enum StatusEffect {
 			10,
 			"Rain Cloud (Downpour)",
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.DAMAGE_TYPE_COLD,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f),
@@ -7955,7 +8305,7 @@ public enum StatusEffect {
 			10,
 			"Rain Cloud (Cloudburst)",
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.DAMAGE_TYPE_COLD,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -50f),
@@ -7984,7 +8334,7 @@ public enum StatusEffect {
 	ELEMENTAL_WATER_CRASHING_WAVES(10,
 			"Crashing Waves",
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.DAMAGE_TYPE_COLD,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 20f)),
@@ -8040,7 +8390,7 @@ public enum StatusEffect {
 	ELEMENTAL_WATER_CALM_WATERS(10,
 			"Calm Waters",
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.DAMAGE_TYPE_COLD,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f)),
@@ -8100,7 +8450,7 @@ public enum StatusEffect {
 	ELEMENTAL_WATER_SERVANT_OF_WATER(10,
 			"Servant of Water",
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.DAMAGE_TYPE_COLD,
 			false,
 			null,
 			Util.newArrayListOfValues(
@@ -8133,7 +8483,7 @@ public enum StatusEffect {
 	ELEMENTAL_WATER_SERVANT_OF_WATER_ELEMENTAL_BUFF(10,
 			"Energy Siphon",
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.DAMAGE_TYPE_COLD,
 			true,
 			null,
 			Util.newArrayListOfValues(
@@ -8165,7 +8515,7 @@ public enum StatusEffect {
 	ELEMENTAL_WATER_BINDING_OF_WATER(10,
 			"Binding of Water",
 			null,
-			Colour.DAMAGE_TYPE_COLD,
+			PresetColour.DAMAGE_TYPE_COLD,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 25f),
@@ -8202,7 +8552,7 @@ public enum StatusEffect {
 			10,
 			"Poison Vapours",
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.DAMAGE_TYPE_POISON,
 			false,
 			null,
 			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
@@ -8239,7 +8589,7 @@ public enum StatusEffect {
 			10,
 			"Poison Vapours (Choking Haze)",
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.DAMAGE_TYPE_POISON,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
@@ -8277,7 +8627,7 @@ public enum StatusEffect {
 			10,
 			"Poison Vapours (Arcane Sickness)",
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.DAMAGE_TYPE_POISON,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
@@ -8322,7 +8672,7 @@ public enum StatusEffect {
 			10,
 			"Poison Vapours (Weakening Cloud)",
 			null,
-			Colour.DAMAGE_TYPE_POISON,
+			PresetColour.DAMAGE_TYPE_POISON,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f),
@@ -8369,7 +8719,7 @@ public enum StatusEffect {
 			10,
 			"Vacuum",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -10f)),
@@ -8400,7 +8750,7 @@ public enum StatusEffect {
 			10,
 			"Vacuum (Secondary Voids)",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f),
@@ -8434,7 +8784,7 @@ public enum StatusEffect {
 			10,
 			"Vacuum (Suction)",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -20f),
@@ -8492,7 +8842,7 @@ public enum StatusEffect {
 			10,
 			"Vacuum (Total Void)",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -20f),
@@ -8550,7 +8900,7 @@ public enum StatusEffect {
 			10,
 			"Protective Gusts",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f),
@@ -8578,7 +8928,7 @@ public enum StatusEffect {
 			10,
 			"Protective Gusts (Guiding Wind)",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f),
@@ -8608,7 +8958,7 @@ public enum StatusEffect {
 			10,
 			"Protective Gusts (Focused Blast)",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f),
@@ -8640,7 +8990,7 @@ public enum StatusEffect {
 	ELEMENTAL_AIR_WHIRLWIND(10,
 			"Whirlwind",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
@@ -8686,7 +9036,7 @@ public enum StatusEffect {
 	ELEMENTAL_AIR_VITALISING_SCENTS(10,
 			"Vitalising Scents",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 5f),
@@ -8743,7 +9093,7 @@ public enum StatusEffect {
 	ELEMENTAL_AIR_SERVANT_OF_AIR(10,
 			"Servant of Air",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			null,
 			Util.newArrayListOfValues(
@@ -8776,7 +9126,7 @@ public enum StatusEffect {
 	ELEMENTAL_AIR_SERVANT_OF_AIR_ELEMENTAL_BUFF(10,
 			"Energy Siphon",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			null,
 			Util.newArrayListOfValues(
@@ -8808,7 +9158,7 @@ public enum StatusEffect {
 	ELEMENTAL_AIR_BINDING_OF_AIR(10,
 			"Binding of Air",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 25f),
@@ -8843,7 +9193,7 @@ public enum StatusEffect {
 			10,
 			"Ground Shake",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -10f)),
@@ -8874,7 +9224,7 @@ public enum StatusEffect {
 			10,
 			"Ground Shake (After Shock)",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -10f)),
@@ -8912,7 +9262,7 @@ public enum StatusEffect {
 			10,
 			"Telekinetic Shower",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			null,
 			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
@@ -8949,7 +9299,7 @@ public enum StatusEffect {
 			10,
 			"Telekinetic Shower (Precision Strikes)",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -20f)),
@@ -8987,7 +9337,7 @@ public enum StatusEffect {
 			10,
 			"Telekinetic Shower (Unseen Force)",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -20f)),
@@ -9025,7 +9375,7 @@ public enum StatusEffect {
 			10,
 			"Stone Shell",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f)),
@@ -9056,7 +9406,7 @@ public enum StatusEffect {
 			10,
 			"Stone Shell (Shifting Sands)",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f),
@@ -9090,7 +9440,7 @@ public enum StatusEffect {
 			10,
 			"Stone Shell (Hardened Carapace)",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
@@ -9124,7 +9474,7 @@ public enum StatusEffect {
 			10,
 			"Stone Shell (Explosive Finish)",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
@@ -9174,7 +9524,7 @@ public enum StatusEffect {
 	ELEMENTAL_EARTH_ROLLING_STONE(10,
 			"Rolling Stone",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
@@ -9231,7 +9581,7 @@ public enum StatusEffect {
 	ELEMENTAL_EARTH_HARDENING(10,
 			"Hardening",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
@@ -9287,7 +9637,7 @@ public enum StatusEffect {
 	ELEMENTAL_EARTH_SERVANT_OF_EARTH(10,
 			"Servant of Earth",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			null,
 			Util.newArrayListOfValues(
@@ -9320,7 +9670,7 @@ public enum StatusEffect {
 	ELEMENTAL_EARTH_SERVANT_OF_EARTH_ELEMENTAL_BUFF(10,
 			"Energy Siphon",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			null,
 			Util.newArrayListOfValues(
@@ -9352,7 +9702,7 @@ public enum StatusEffect {
 	ELEMENTAL_EARTH_BINDING_OF_EARTH(10,
 			"Binding of Earth",
 			null,
-			Colour.DAMAGE_TYPE_PHYSICAL,
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
@@ -9388,7 +9738,7 @@ public enum StatusEffect {
 			10,
 			"Lustful Distraction",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -15f)),
@@ -9419,7 +9769,7 @@ public enum StatusEffect {
 			10,
 			"Lustful Distraction (Dirty Promises)",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -15f),
@@ -9453,7 +9803,7 @@ public enum StatusEffect {
 			10,
 			"Telepathic Communication",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
@@ -9484,7 +9834,7 @@ public enum StatusEffect {
 			10,
 			"Projected Touch",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f)),
@@ -9517,7 +9867,7 @@ public enum StatusEffect {
 			10,
 			"Power of Suggestion",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f)),
@@ -9551,7 +9901,7 @@ public enum StatusEffect {
 			10,
 			"Power of Suggestion",
 			"telepathic_communication_power_of_suggestion_targeted",
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -25f)),
@@ -9578,7 +9928,7 @@ public enum StatusEffect {
 			10,
 			"Arcane Cloud",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
@@ -9609,7 +9959,7 @@ public enum StatusEffect {
 			10,
 			"Arcane Cloud (Arcane Lightning)",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
@@ -9647,7 +9997,7 @@ public enum StatusEffect {
 			10,
 			"Arcane Cloud (Arcane Thunder)",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
@@ -9685,7 +10035,7 @@ public enum StatusEffect {
 			10,
 			"Arcane Cloud (Localised Storm)",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
@@ -9734,7 +10084,7 @@ public enum StatusEffect {
 	ELEMENTAL_ARCANE_LEWD_ENCOURAGEMENTS(10,
 			"Lewd Encouragements",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
@@ -9790,7 +10140,7 @@ public enum StatusEffect {
 	ELEMENTAL_ARCANE_CARESSING_TOUCH(10,
 			"Caressing Touch",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
@@ -9836,7 +10186,7 @@ public enum StatusEffect {
 	ELEMENTAL_ARCANE_SERVANT_OF_ARCANE(10,
 			"Servant of Arcane",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			false,
 			null,
 			Util.newArrayListOfValues(
@@ -9869,7 +10219,7 @@ public enum StatusEffect {
 	ELEMENTAL_ARCANE_SERVANT_OF_ARCANE_ELEMENTAL_BUFF(10,
 			"Energy Siphon",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			true,
 			null,
 			Util.newArrayListOfValues(
@@ -9901,7 +10251,7 @@ public enum StatusEffect {
 	ELEMENTAL_ARCANE_BINDING_OF_ARCANE(10,
 			"Binding of Arcane",
 			null,
-			Colour.DAMAGE_TYPE_LUST,
+			PresetColour.DAMAGE_TYPE_LUST,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f),
@@ -9939,7 +10289,7 @@ public enum StatusEffect {
 			10,
 			"Arcane Duality (Defence)",
 			"cleanse_positive",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 5f),
@@ -9969,7 +10319,7 @@ public enum StatusEffect {
 			10,
 			"Arcane Duality (Weakness)",
 			"cleanse_negative",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -5f),
@@ -9999,7 +10349,7 @@ public enum StatusEffect {
 			10,
 			"Teleport",
 			null,
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 100f)),
@@ -10030,7 +10380,7 @@ public enum StatusEffect {
 			10,
 			"Teleport (Arcane Arrival)",
 			null,
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, 100f)),
@@ -10072,7 +10422,7 @@ public enum StatusEffect {
 			80,
 			"Wearing a condom",
 			"condom",
-			Colour.CLOTHING_PINK_LIGHT,
+			PresetColour.CLOTHING_PINK_LIGHT,
 			false,
 			null,
 			null) {
@@ -10086,7 +10436,7 @@ public enum StatusEffect {
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			modifiersList.clear();
 			
-			modifiersList.add("-0.5% <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>arousal/turn</b>");
+			modifiersList.add("-0.5% <b style='color: " + PresetColour.GENERIC_SEX.toWebHexString() + "'>arousal/turn</b>");
 					
 			return modifiersList;
 		}
@@ -10119,7 +10469,7 @@ public enum StatusEffect {
 			80,
 			"Desires",
 			"desires",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			false,
 			null,
 			null) {
@@ -10196,7 +10546,7 @@ public enum StatusEffect {
 			80,
 			"Orgasms",
 			"sexEffects/orgasms",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			false,
 			null,
 			null) {
@@ -10215,7 +10565,7 @@ public enum StatusEffect {
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			List<String> modList = new ArrayList<>();
 
-			Colour orgasmColour = Colour.GENERIC_ARCANE;
+			Colour orgasmColour = PresetColour.GENERIC_ARCANE;
 			int orgasms = Main.sex.getNumberOfOrgasms(target);
 			if(orgasms<RenderingEngine.orgasmColours.length) {
 				orgasmColour = RenderingEngine.orgasmColours[orgasms];
@@ -10293,7 +10643,7 @@ public enum StatusEffect {
 			95,
 			"Penis status",
 			null,
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			null,
 			null) {
@@ -10379,7 +10729,7 @@ public enum StatusEffect {
 			}
 			
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No ongoing action.</b>");
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No ongoing action.</b>");
 			}
 
 			appendPenetrationAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.penis]"), descriptionSB);
@@ -10390,7 +10740,7 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).isEmpty()) {
 				return null;
 			}
@@ -10431,7 +10781,7 @@ public enum StatusEffect {
 			95,
 			"Clitoris status",
 			null,
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			null,
 			null) {
@@ -10518,7 +10868,7 @@ public enum StatusEffect {
 			}
 			
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No ongoing action.</b>");
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No ongoing action.</b>");
 			}
 
 			appendPenetrationAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.clit]"), descriptionSB);
@@ -10529,7 +10879,7 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			if(Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.CLIT).isEmpty()) {
 				return null;
 			}
@@ -10570,7 +10920,7 @@ public enum StatusEffect {
 			96,
 			"Anus status",
 			null,
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			null,
 			null) {
@@ -10732,7 +11082,7 @@ public enum StatusEffect {
 			}
 			
 			if(!descriptionAdded) {
-				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.asshole]"), descriptionSB);
@@ -10743,30 +11093,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
-			SexAreaOrifice orifice = SexAreaOrifice.ANUS;
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
-				return null;
-			}
-			
-			List<GameCharacter> ongoingCharacters = Main.sex.getCharactersHavingOngoingActionWith(target, orifice);
-			GameCharacter partner = ongoingCharacters.get(Util.random.nextInt(ongoingCharacters.size()));
-			
-			String penetrationDepth = target.getPenetrationDepthDescription(false,
-					partner,
-					(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-					target,
-					orifice);
-			
-			return Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							partner,
-							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-							target,
-							orifice))
-					+ (penetrationDepth!=null && !penetrationDepth.isEmpty()
-							?penetrationDepth
-							:"");
+		public List<String> getAdditionalDescriptions(GameCharacter target) {
+			return getInternalOrificeExtraDescriptions(target, SexAreaOrifice.ANUS);
 		}
 
 		@Override
@@ -10790,7 +11118,7 @@ public enum StatusEffect {
 			96,
 			"Ass status",
 			null,
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			null,
 			null) {
@@ -10911,7 +11239,7 @@ public enum StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.ass]"), descriptionSB);
@@ -10923,7 +11251,7 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			SexAreaOrifice orifice = SexAreaOrifice.ASS;
 			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
 				return null;
@@ -10960,7 +11288,7 @@ public enum StatusEffect {
 			99,
 			"Mouth status",
 			null,
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			null,
 			null) {
@@ -11126,7 +11454,7 @@ public enum StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] mouth"), descriptionSB);
@@ -11137,29 +11465,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
-			SexAreaOrifice orifice = SexAreaOrifice.MOUTH;
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
-				return null;
-			}
-			
-			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
-			
-			String penetrationDepth = target.getPenetrationDepthDescription(false,
-					partner,
-					(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-					target,
-					orifice);
-			
-			return Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							partner,
-							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-							target,
-							orifice))
-					+ (penetrationDepth!=null && !penetrationDepth.isEmpty()
-							?penetrationDepth
-							:"");
+		public List<String> getAdditionalDescriptions(GameCharacter target) {
+			return getInternalOrificeExtraDescriptions(target, SexAreaOrifice.MOUTH);
 		}
 
 		@Override
@@ -11183,7 +11490,7 @@ public enum StatusEffect {
 			98,
 			"Breast status",
 			null,
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			null,
 			null) {
@@ -11313,7 +11620,7 @@ public enum StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.breasts]"), descriptionSB);
@@ -11324,7 +11631,7 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			SexAreaOrifice orifice = SexAreaOrifice.BREAST;
 			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
 				return null;
@@ -11361,7 +11668,7 @@ public enum StatusEffect {
 			97,
 			"Nipple status",
 			null,
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			null,
 			null) {
@@ -11482,7 +11789,7 @@ public enum StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.nipples]"), descriptionSB);
@@ -11494,29 +11801,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
-			SexAreaOrifice orifice = SexAreaOrifice.NIPPLE;
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
-				return null;
-			}
-			
-			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
-
-			String penetrationDepth = target.getPenetrationDepthDescription(false,
-					partner,
-					(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-					target,
-					orifice);
-			
-			return Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							partner,
-							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-							target,
-							orifice))
-					+ (penetrationDepth!=null && !penetrationDepth.isEmpty()
-							?penetrationDepth
-							:"");
+		public List<String> getAdditionalDescriptions(GameCharacter target) {
+			return getInternalOrificeExtraDescriptions(target, SexAreaOrifice.NIPPLE);
 		}
 
 		@Override
@@ -11543,7 +11829,7 @@ public enum StatusEffect {
 			98,
 			"Crotch-boob status",
 			null,
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			null,
 			null) {
@@ -11673,7 +11959,7 @@ public enum StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.crotchBoobs]"), descriptionSB);
@@ -11684,7 +11970,7 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			SexAreaOrifice orifice = SexAreaOrifice.BREAST_CROTCH;
 			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
 				return null;
@@ -11726,7 +12012,7 @@ public enum StatusEffect {
 			97,
 			"Nipple status",
 			null,
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			null,
 			null) {
@@ -11856,7 +12142,7 @@ public enum StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.crotchNipples]"), descriptionSB);
@@ -11868,29 +12154,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
-			SexAreaOrifice orifice = SexAreaOrifice.NIPPLE_CROTCH;
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
-				return null;
-			}
-			
-			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
-
-			String penetrationDepth = target.getPenetrationDepthDescription(false,
-					partner,
-					(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-					target,
-					orifice);
-			
-			return Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							partner,
-							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-							target,
-							orifice))
-					+ (penetrationDepth!=null && !penetrationDepth.isEmpty()
-							?penetrationDepth
-							:"");
+		public List<String> getAdditionalDescriptions(GameCharacter target) {
+			return getInternalOrificeExtraDescriptions(target, SexAreaOrifice.NIPPLE_CROTCH);
 		}
 
 		@Override
@@ -11918,7 +12183,7 @@ public enum StatusEffect {
 			97,
 			"Penis Urethra status",
 			null,
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			null,
 			null) {
@@ -12039,7 +12304,7 @@ public enum StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.urethraPenis]"), descriptionSB);
@@ -12050,29 +12315,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
-			SexAreaOrifice orifice = SexAreaOrifice.URETHRA_PENIS;
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
-				return null;
-			}
-			
-			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
-
-			String penetrationDepth = target.getPenetrationDepthDescription(false,
-					partner,
-					(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-					target,
-					orifice);
-			
-			return Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							partner,
-							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-							target,
-							orifice))
-					+ (penetrationDepth!=null && !penetrationDepth.isEmpty()
-							?penetrationDepth
-							:"");
+		public List<String> getAdditionalDescriptions(GameCharacter target) {
+			return getInternalOrificeExtraDescriptions(target, SexAreaOrifice.URETHRA_PENIS);
 		}
 
 		@Override
@@ -12098,7 +12342,7 @@ public enum StatusEffect {
 			97,
 			"Vaginal Urethra status",
 			null,
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			null,
 			null) {
@@ -12219,7 +12463,7 @@ public enum StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.urethraVagina]"), descriptionSB);
@@ -12230,29 +12474,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
-			SexAreaOrifice orifice = SexAreaOrifice.URETHRA_VAGINA;
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
-				return null;
-			}
-			
-			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
-
-			String penetrationDepth = target.getPenetrationDepthDescription(false,
-					partner,
-					(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-					target,
-					orifice);
-			
-			return Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							partner,
-							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-							target,
-							orifice))
-					+ (penetrationDepth!=null && !penetrationDepth.isEmpty()
-							?penetrationDepth
-							:"");
+		public List<String> getAdditionalDescriptions(GameCharacter target) {
+			return getInternalOrificeExtraDescriptions(target, SexAreaOrifice.URETHRA_VAGINA);
 		}
 
 		@Override
@@ -12278,7 +12501,7 @@ public enum StatusEffect {
 			95,
 			"Pussy status",
 			null,
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			null,
 			null) {
@@ -12466,30 +12689,8 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
-			SexAreaOrifice orifice = SexAreaOrifice.VAGINA;
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
-				return null;
-			}
-
-			List<GameCharacter> ongoingCharacters = Main.sex.getCharactersHavingOngoingActionWith(target, orifice);
-			GameCharacter partner = ongoingCharacters.get(Util.random.nextInt(ongoingCharacters.size()));
-
-			String penetrationDepth = target.getPenetrationDepthDescription(false,
-					partner,
-					(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-					target,
-					orifice);
-			
-			return Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							partner,
-							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-							target,
-							orifice))
-					+ (penetrationDepth!=null && !penetrationDepth.isEmpty()
-							?penetrationDepth
-							:"");
+		public List<String> getAdditionalDescriptions(GameCharacter target) {
+			return getInternalOrificeExtraDescriptions(target, SexAreaOrifice.VAGINA);
 		}
 
 		@Override
@@ -12514,7 +12715,7 @@ public enum StatusEffect {
 			95,
 			"Thigh status",
 			null,
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			false,
 			null,
 			null) {
@@ -12635,7 +12836,7 @@ public enum StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] thighs"), descriptionSB);
@@ -12646,7 +12847,7 @@ public enum StatusEffect {
 		}
 		
 		@Override
-		public String getAdditionalDescription(GameCharacter target) {
+		protected String getAdditionalDescription(GameCharacter target) {
 			SexAreaOrifice orifice = SexAreaOrifice.THIGHS;
 			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
 				return null;
@@ -12834,7 +13035,15 @@ public enum StatusEffect {
 	public abstract String getDescription(GameCharacter target);
 
 	// For any extra effects, such as ongoing sex descriptions.
-	public String getAdditionalDescription(GameCharacter target) {
+	protected String getAdditionalDescription(GameCharacter target) {
+		return null;
+	}
+	
+	public List<String> getAdditionalDescriptions(GameCharacter target) {
+		String additional = getAdditionalDescription(target);
+		if(additional!=null) {
+			return Util.newArrayListOfValues(additional);
+		}
 		return null;
 	}
 
@@ -12912,8 +13121,9 @@ public enum StatusEffect {
 			arousal+=orifice.getBaseArousalWhenPenetrated();
 			
 			if(Main.sex.getAreasCurrentlyStretching(target).contains(orifice)) {
-				if(target.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive()) { // Positive for masochist:
+				if(target.hasFetish(Fetish.FETISH_MASOCHIST) || target.hasFetish(Fetish.FETISH_SIZE_QUEEN)) { // Positive for masochist and size queen:
 					arousal += Math.abs(orifice.getArousalChangePenetratedStretching());
+					
 				} else {
 					arousal += orifice.getArousalChangePenetratedStretching();
 				}
@@ -12925,12 +13135,13 @@ public enum StatusEffect {
 				arousal += orifice.getArousalChangePenetratedDry();
 			}
 
-			if(Main.game.isPenetrationLimitationsEnabled()) {
+			if(Main.game.isPenetrationLimitationsEnabled() && orifice.isInternalOrifice()) {
 				if(!Main.sex.getCharactersPenetratingTooDeep(target, (SexAreaOrifice)orifice).isEmpty()) {
-					if(target.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive()) { // Positive for masochist:
-						arousal -= 4;
+					if(target.hasFetish(Fetish.FETISH_MASOCHIST) || target.hasFetish(Fetish.FETISH_SIZE_QUEEN)) { // Positive for masochist and size queen:
+						arousal += 2.5f;
+						
 					} else {
-						arousal -= 6;
+						arousal -= 10;
 					}
 					
 				} else if(!Main.sex.getCharactersPenetratingFarTooShallow(target, (SexAreaOrifice)orifice).isEmpty()) {
@@ -12980,9 +13191,10 @@ public enum StatusEffect {
 			
 			if(Main.sex.getAreasCurrentlyStretching(target).contains(orifice)) {
 				float arousalIncrement = orifice.getArousalChangePenetratedStretching();
-				if(target.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive()) { // Positive for masochist:
+				if(target.hasFetish(Fetish.FETISH_MASOCHIST) || target.hasFetish(Fetish.FETISH_SIZE_QUEEN)) { // Positive for masochist and size queen:
 					arousalIncrement = Math.abs(arousalIncrement);
 					modifiersList.add((arousalIncrement>0?"+":"")+arousalIncrement+" (<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>"+targetName+"</b> - [style.boldSex(Stretching)])");
+
 				} else {
 					modifiersList.add((arousalIncrement>0?"+":"")+arousalIncrement+" (<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>"+targetName+"</b> - [style.boldBad(Stretching)])");
 				}
@@ -12996,12 +13208,14 @@ public enum StatusEffect {
 						+orifice.getArousalChangePenetratedDry()+" (<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>"+targetName+"</b> - [style.boldBad(Dry)])");
 			}
 
-			if(Main.game.isPenetrationLimitationsEnabled()) {
+			if(Main.game.isPenetrationLimitationsEnabled() && orifice.isInternalOrifice()) {
 				if(!Main.sex.getCharactersPenetratingTooDeep(target, (SexAreaOrifice)orifice).isEmpty()) {
-					if(target.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive()) { // Positive for masochist:
-						modifiersList.add("+4 (<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>"+targetName+"</b> - [style.boldSex(Too deep)])");
+					if(target.hasFetish(Fetish.FETISH_MASOCHIST) || target.hasFetish(Fetish.FETISH_SIZE_QUEEN)) { // Positive for masochist and size queen:
+						modifiersList.add("+2.5 (<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>"+targetName+"</b> - [style.boldSex(Too deep)])");
+						
 					} else {
-						modifiersList.add("-6 (<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>"+targetName+"</b> - [style.boldBad(Too deep)])");
+						modifiersList.add("-10 (<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>"+targetName+"</b> - [style.boldBad(Too deep)])");
+						
 					}
 					
 				} else if(!Main.sex.getCharactersPenetratingFarTooShallow(target, (SexAreaOrifice)orifice).isEmpty()) {
@@ -13036,8 +13250,58 @@ public enum StatusEffect {
 		return modifiersList;
 	}
 	
-	public void appendPenetrationAdditionGenericDescriptions(GameCharacter owner, SexAreaPenetration penetration, String penetrationName, StringBuilder stringBuilderToAppendTo) {
+	private static List<String> getInternalOrificeExtraDescriptions(GameCharacter target, SexAreaOrifice orifice) {
+		if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+			return null;
+		}
 		
+		List<GameCharacter> ongoingCharacters = Main.sex.getCharactersHavingOngoingActionWith(target, orifice);
+		GameCharacter partner = ongoingCharacters.get(Util.random.nextInt(ongoingCharacters.size()));
+		
+		List<String> additionalDescriptions = new ArrayList<>();
+		
+		additionalDescriptions.add(Main.sex.formatPenetration(
+				target.getPenetrationDescription(false,
+						partner,
+						(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+						target,
+						orifice)));
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(UtilText.parse(target,
+				"<p style='text-align:center; margin:0; padding:0;'>"
+					+ "<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>[npc.NamePos]</b> [style.boldSex("+Util.capitaliseSentence(orifice.getName(target, true))+")]:"
+					+ "<br/>Capacity: "+Units.size(Units.round(orifice.getCapacity(target, true), 1))
+					+ (Main.game.isPenetrationLimitationsEnabled()
+						?"<br/>Depth Comfortable / Uncomfortable: "+Units.size(Units.round(orifice.getMaximumPenetrationDepthComfortable(target), 1))+" / "+Units.size(Units.round(orifice.getMaximumPenetrationDepthUncomfortable(target), 1))
+						:"")
+				+ "</p>"));
+		additionalDescriptions.add(sb.toString());
+		
+		for(GameCharacter character : ongoingCharacters) {
+			SexAreaPenetration penetration = (SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next();
+			
+			if(penetration.appliesStretchEffects(character)) {
+				sb = new StringBuilder();
+				int length = (int) character.getPenetrationLengthInserted(penetration, target, orifice);
+				boolean knotting = Objects.equals(Main.sex.getCharacterKnotting(character), target);
+				sb.append(UtilText.parse(character,
+						"<p style='text-align:center; margin:0; padding:0;'>"//TODO toy length/diameter
+							+ "<b style='color:"+character.getFemininity().getColour().toWebHexString()+";'>[npc.NamePos]</b> [style.boldSex("+Util.capitaliseSentence(penetration.getName(character, true))+")]:"
+							+ "<br/>Diameter"+(knotting?"[style.boldSex(*2 from swollen knot)]":"")+": "+Units.size(Units.round(penetration.getDiameter(character, (penetration.getLength(character, true))-length)*(knotting?2:1), 1))
+							+ (Main.game.isPenetrationLimitationsEnabled()
+									?"<br/>Inserted / Total length: "+Units.size(length)+" / "+Units.size(penetration.getLength(character, true))
+									:"")
+						+ "</p>"));
+				additionalDescriptions.add(sb.toString());
+			}
+		}
+		
+		return additionalDescriptions;
+	
+	}
+	
+	public void appendPenetrationAdditionGenericDescriptions(GameCharacter owner, SexAreaPenetration penetration, String penetrationName, StringBuilder stringBuilderToAppendTo) {
 		if(!Main.sex.hasLubricationTypeFromAnyone(owner, penetration)) {
 			stringBuilderToAppendTo.append("<br/>"+penetrationName+" "+(penetration.isPlural()?"are":"is")+" [style.boldBad(dry)]!");
 			
@@ -13050,11 +13314,11 @@ public enum StatusEffect {
 					if(i==0) {
 						lubricants.add(lubricantProvider==null
 								?Util.capitaliseSentence(lt.getName(lubricantProvider))
-								:UtilText.parse(lubricantProvider, "[npc.NamePos] "+lt.getName(lubricantProvider)));
+								:UtilText.parse(lubricantProvider, "[npc.NamePos] <span style='"+lt.getColour().toWebHexString()+"'>"+lt.getName(lubricantProvider)+"</span>"));
 					} else {
 						lubricants.add(lubricantProvider==null
 								?lt.getName(lubricantProvider)
-								:UtilText.parse(lubricantProvider, "[npc.namePos] "+lt.getName(lubricantProvider)));
+								:UtilText.parse(lubricantProvider, "[npc.namePos] <span style='"+lt.getColour().toWebHexString()+"'>"+lt.getName(lubricantProvider)+"</span>"));
 					}
 					i++;
 				}
@@ -13076,24 +13340,29 @@ public enum StatusEffect {
 	public void appendOrificeAdditionGenericDescriptions(GameCharacter owner, SexAreaOrifice orificeType, String orificeName, StringBuilder stringBuilderToAppendTo) {
 		if(Main.sex.getAreasCurrentlyStretching(owner).contains(orificeType)) {
 			if(Main.sex.getFirstOngoingSexAreaPenetration(owner, orificeType)==null) {
-				stringBuilderToAppendTo.append("<br/>"+orificeName+" has been <b style='color:"+Colour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
+				stringBuilderToAppendTo.append("<br/>"+orificeName+" has been <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
+				
 			} else {
-				stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" being <b style='color:"+Colour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
+				stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" being <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
 			}
 			
 		} else if(Main.sex.getAreasTooLoose(owner).contains(orificeType)) {
-			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+Colour.BASE_RED.toWebHexString()+";'>too loose</b>!");
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+PresetColour.BASE_RED.toWebHexString()+";'>too loose</b>!");
 			
 		} else if(Main.sex.getAreasStretched(owner).contains(orificeType)) {
-			stringBuilderToAppendTo.append("<br/>"+orificeName+" has been <b style='color:"+Colour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" has been <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
 			
 		} else {
-			stringBuilderToAppendTo.append("<br/><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
+			stringBuilderToAppendTo.append("<br/><b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
 		}
 		
-		if(Main.game.isPenetrationLimitationsEnabled()) {
+		if(Main.game.isPenetrationLimitationsEnabled() && orificeType.isInternalOrifice()) {
 			if(!Main.sex.getCharactersPenetratingTooDeep(owner, orificeType).isEmpty()) {
-				stringBuilderToAppendTo.append("<br/>"+orificeName+" is being penetrated [style.boldTerrible(too deeply)]!");
+				if(owner.hasFetish(Fetish.FETISH_MASOCHIST) || owner.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
+					stringBuilderToAppendTo.append("<br/>"+orificeName+" is being penetrated [style.boldSex(too deeply)]!");
+				} else {
+					stringBuilderToAppendTo.append("<br/>"+orificeName+" is being penetrated [style.boldTerrible(too deeply)]!");
+				}
 				
 			} else if(!Main.sex.getCharactersPenetratingFarTooShallow(owner, orificeType).isEmpty()) {
 				stringBuilderToAppendTo.append("<br/>"+orificeName+" is [style.boldPinkLight(not being penetrated deep enough)]!");
@@ -13223,7 +13492,7 @@ public enum StatusEffect {
 					}
 				}
 			}
-			if(Main.game.isPenetrationLimitationsEnabled() && orifice.isOrifice()) {
+			if(Main.game.isPenetrationLimitationsEnabled() && orifice.isOrifice() && ((SexAreaOrifice)orifice).isInternalOrifice()) {
 				if(!Main.sex.getCharactersPenetratingTooDeep(owner, (SexAreaOrifice)orifice).isEmpty()) {
 					SVGImageSB.append("<div style='width:45%;height:45%;position:absolute;left:2.5%;bottom:2.5%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDepthMaximum()+"</div>");
 					
@@ -13432,6 +13701,7 @@ public enum StatusEffect {
 
 		boolean vaginaRecovering = owner.hasVagina() && owner.getVaginaRawCapacityValue()!=owner.getVaginaStretchedCapacity();
 		boolean anusRecovering = owner.getAssRawCapacityValue()!=owner.getAssStretchedCapacity();
+		boolean throatRecovering = owner.getFaceRawCapacityValue()!=owner.getFaceStretchedCapacity();
 		boolean nipplesRecovering = owner.getNippleRawCapacityValue()!=owner.getNippleStretchedCapacity();
 		boolean nipplesCrotchRecovering = owner.hasBreastsCrotch()
 				&& Main.getProperties().udders>0
@@ -13439,7 +13709,7 @@ public enum StatusEffect {
 		boolean penileUrethraRecovering = owner.hasPenis() && owner.getPenisRawCapacityValue()!=owner.getPenisStretchedCapacity();
 		boolean vaginalUrethraRecovering = owner.hasVagina() && owner.getVaginaUrethraRawCapacityValue()!=owner.getVaginaUrethraStretchedCapacity();
 		
-		int exposedAreas = (vaginaRecovering?1:0) + (anusRecovering?1:0) + (nipplesRecovering?1:0) + (nipplesCrotchRecovering?1:0) + (penileUrethraRecovering?1:0) + (vaginalUrethraRecovering?1:0);
+		int exposedAreas = (vaginaRecovering?1:0) + (anusRecovering?1:0) + (throatRecovering?1:0) + (nipplesRecovering?1:0) + (nipplesCrotchRecovering?1:0) + (penileUrethraRecovering?1:0) + (vaginalUrethraRecovering?1:0);
 		
 		int size = Math.min(50, (100/(exposedAreas+1)));
 		int marginTop = (100-(exposedAreas*size))/2;
@@ -13451,6 +13721,10 @@ public enum StatusEffect {
 		}
 		if(anusRecovering) {
 			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus()+"</div>");
+			marginTop+=size;
+		}
+		if(throatRecovering) {
+			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth()+"</div>");
 			marginTop+=size;
 		}
 		if(nipplesRecovering) {
@@ -13467,6 +13741,49 @@ public enum StatusEffect {
 		}
 		if(vaginalUrethraRecovering) {
 			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaUrethraVagina()+"</div>");
+			marginTop+=size;
+		}
+		
+		return SVGImageSB.toString();
+	}
+	
+	public static String getStretchingOrificeStatus(GameCharacter owner, boolean stretch, boolean stretchRecoveryPrevented, boolean tooDeep, Set<SexAreaOrifice> orifices) {
+		SVGImageSB = new StringBuilder();
+		
+		int iconSize = stretch&&stretchRecoveryPrevented&&tooDeep?33:50;
+		int iconRight = stretch&&stretchRecoveryPrevented&&tooDeep?(50-33)/2:0;
+		
+		int topMargin = 0;
+		if(stretch) {
+			SVGImageSB.append("<div style='width:"+iconSize+"%;height:"+iconSize+"%;position:absolute;right:"+iconRight+";top:"+(tooDeep||stretchRecoveryPrevented?"0":"25%")+";'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretching()+"</div>");
+			topMargin+=iconSize;
+		}
+		if(stretchRecoveryPrevented) {
+			SVGImageSB.append("<div style='width:"+iconSize+"%;height:"+iconSize+"%;position:absolute;right:"+iconRight+";top:"+(stretch||tooDeep?topMargin+"%":"25%")+";'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretchRecoveryPrevented()+"</div>");
+			topMargin+=iconSize;
+		}
+		if(tooDeep) {
+			SVGImageSB.append("<div style='width:"+iconSize+"%;height:"+iconSize+"%;position:absolute;right:"+iconRight+";top:"+(stretch||stretchRecoveryPrevented?topMargin+"%":"25%")+";'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDepthMaximum()+"</div>");
+		}
+		
+		int size = Math.min(50, (100/(orifices.size()+1)));
+		int marginTop = (100-(orifices.size()*size))/2;
+		int marginLeft = (50-size)/2;
+
+		if(orifices.contains(SexAreaOrifice.VAGINA)) {
+			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina()+"</div>");
+			marginTop+=size;
+		}
+		if(orifices.contains(SexAreaOrifice.ANUS)) {
+			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus()+"</div>");
+			marginTop+=size;
+		}
+		if(orifices.contains(SexAreaOrifice.NIPPLE)) {
+			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaNipple()+"</div>");
+			marginTop+=size;
+		}
+		if(orifices.contains(SexAreaOrifice.MOUTH)) {
+			SVGImageSB.append("<div style='width:"+size+"%;height:"+size+"%;position:absolute;left:"+marginLeft+"%;top:"+marginTop+"%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth()+"</div>");
 			marginTop+=size;
 		}
 		

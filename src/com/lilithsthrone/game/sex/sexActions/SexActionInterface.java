@@ -36,8 +36,9 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -217,12 +218,25 @@ public interface SexActionInterface {
 	public ArousalIncrease getArousalGainSelf();
 
 	public ArousalIncrease getArousalGainTarget();
-	
+
+	/**
+	 * Effects to be applied before this SexAction's description is parsed. The returned String is appended before anything else (including penetration stops if this action is a SexActionType.START_ONGOING).
+	 * @return A description of the effects. Return an empty String if you don't want anything appended.
+	 */
+	public default String applyPreParsingEffects() {
+		return "";
+	}
+		
 	/**
 	 * @return A String to be appended and displayed immediately before the sex action's description.
 	 */
 	public default String preDescriptionBaseEffects() {
 		StringBuilder stopSB = new StringBuilder();
+		
+		String s = applyPreParsingEffects();
+		if(s!=null) {
+			stopSB.append(s);
+		}
 		
 		if(getActionType()==SexActionType.START_ONGOING) {
 			for(Entry<SexAreaInterface, SexAreaInterface> entry : getSexAreaInteractions().entrySet()) {
@@ -256,6 +270,7 @@ public interface SexActionInterface {
 				}
 			}
 		}
+		
 		return stopSB.toString();
 	}
 	
@@ -1009,6 +1024,13 @@ public interface SexActionInterface {
 		return false;
 	}
 	
+	/**
+	 * @return A higher number means that this action will be displayed closer to action 1. Default value is 0.
+	 */
+	public default int getActionRenderingPriority() {
+		return 0;
+	}
+	
 	public default SexActionCategory getCategory() {
 		if(this.getSexAreaInteractions().isEmpty()) {
 			if(getActionType() == SexActionType.POSITIONING
@@ -1086,19 +1108,19 @@ public interface SexActionInterface {
 						return SexActionInterface.this.getHighlightColour();
 					}
 					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
-						return Colour.BASE_LILAC;
+						return PresetColour.BASE_INDIGO;
 					}
 					if(SexActionInterface.this.isPositionSwap() || getCategory()==SexActionCategory.CHARACTER_SWITCH) {
-						return Colour.BASE_PURPLE_LIGHT;
+						return PresetColour.BASE_PURPLE_LIGHT;
 					}
 					if(isSadisticAction()) {
-						return Colour.BASE_CRIMSON;
+						return PresetColour.BASE_CRIMSON;
 					}
 					if(isSexPenetrationHighlight()) {
 						if(SexActionInterface.this.getPerformingCharacterAreas().stream().anyMatch((area) -> area.isPenetration())) {
-							return Colour.GENERIC_SEX_AS_DOM;
+							return PresetColour.GENERIC_SEX_AS_DOM;
 						} else {
-							return Colour.GENERIC_SEX;
+							return PresetColour.GENERIC_SEX;
 						}
 					}
 					return super.getHighlightColour();
@@ -1164,13 +1186,13 @@ public interface SexActionInterface {
 						return SexActionInterface.this.getHighlightColour();
 					}
 					if(SexActionInterface.this.getActionType()==SexActionType.POSITIONING_MENU) {
-						return Colour.BASE_LILAC;
+						return PresetColour.BASE_INDIGO;
 					}
 					if(SexActionInterface.this.isPositionSwap() || getCategory()==SexActionCategory.CHARACTER_SWITCH) {
-						return Colour.BASE_PURPLE_LIGHT;
+						return PresetColour.BASE_PURPLE_LIGHT;
 					}
 					if(isSadisticAction()) {
-						return Colour.BASE_CRIMSON;
+						return PresetColour.BASE_CRIMSON;
 					}
 					return super.getHighlightColour();
 				}
@@ -1285,14 +1307,14 @@ public interface SexActionInterface {
 						for(Fetish f : fetishesRequired){
 							if(Main.game.getPlayer().hasFetish(f)) {
 								SB.append("<br/>"
-										+"<span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
-										+ " (<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>owned</span>): "
+										+"<span style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
+										+ " (<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>owned</span>): "
 										+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 								
 							} else {
 								SB.append("<br/>"
-										+"<span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
-										+ " (<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>not owned</span>): "
+										+"<span style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
+										+ " (<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>not owned</span>): "
 										+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 							}
 						}
@@ -1301,13 +1323,13 @@ public interface SexActionInterface {
 					if(corruptionBypass!=null) {
 						if(isCorruptionWithinRange()) {
 							SB.append("<br/>"
-									+"<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-									+ " (<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>within range</span>): "
+									+"<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
+									+ " (<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>within range</span>): "
 									+ Util.capitaliseSentence(corruptionBypass.getName()));
 						} else {
 							SB.append("<br/>"
-									+"<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-									+ " (<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>out of range</span>): "
+									+"<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
+									+ " (<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>out of range</span>): "
 									+ Util.capitaliseSentence(corruptionBypass.getName()));
 						}
 					}
@@ -1316,12 +1338,12 @@ public interface SexActionInterface {
 						if(Main.sex.getCharacterTargetedForSexAction(SexActionInterface.this).isSizeDifferenceShorterThan(Main.sex.getCharacterPerformingAction())
 								|| Main.sex.getCharacterTargetedForSexAction(SexActionInterface.this).isSizeDifferenceTallerThan(Main.sex.getCharacterPerformingAction())) {
 							SB.append("<br/>"
-									+"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Size-difference is blocking swap!</span>");
+									+"<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Size-difference is blocking swap!</span>");
 						}
 					}
 					
 //					SB.append("<br/>"
-//							+"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requires no penetration</span>");
+//							+"<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requires no penetration</span>");
 					
 					return SB.toString();
 				}
@@ -1405,6 +1427,20 @@ public interface SexActionInterface {
 					return true;
 				}
 			}
+		}
+
+		List<SexType> sexTypesBanned = new ArrayList<>();
+		if(Main.sex.getInitialSexManager().getSexTypesBannedMap().get(Main.sex.getCharacterPerformingAction())!=null) {
+			sexTypesBanned.addAll(Main.sex.getInitialSexManager().getSexTypesBannedMap().get(Main.sex.getCharacterPerformingAction()));
+		}
+		if(Main.sex.getInitialSexManager().getSexTypesBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this))!=null) {
+			for(SexType st : Main.sex.getInitialSexManager().getSexTypesBannedMap().get(Main.sex.getCharacterTargetedForSexAction(this))) {
+				sexTypesBanned.add(st.getReversedSexType());
+			}
+		}
+		
+		if(sexTypesBanned.contains(this.getAsSexType())) {
+			return true;
 		}
 		
 		return false;

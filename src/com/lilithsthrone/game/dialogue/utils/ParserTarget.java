@@ -20,7 +20,6 @@ import com.lilithsthrone.game.character.npc.dominion.HarpyDominantCompanion;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
 import com.lilithsthrone.game.character.npc.dominion.Helena;
-import com.lilithsthrone.game.character.npc.dominion.Sean;
 import com.lilithsthrone.game.character.npc.dominion.Jules;
 import com.lilithsthrone.game.character.npc.dominion.Kalahari;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
@@ -28,6 +27,7 @@ import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Loppy;
 import com.lilithsthrone.game.character.npc.dominion.Lumi;
+import com.lilithsthrone.game.character.npc.dominion.Natalya;
 import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.npc.dominion.Pazu;
 import com.lilithsthrone.game.character.npc.dominion.Pix;
@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.npc.dominion.Sean;
 import com.lilithsthrone.game.character.npc.dominion.SupplierLeader;
 import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
@@ -923,6 +924,17 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Sean.class);
+		}
+	},
+	
+	NATALYA(Util.newArrayListOfValues("natalya"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Natalya.class).getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Natalya.class);
 		}
 	},
 	

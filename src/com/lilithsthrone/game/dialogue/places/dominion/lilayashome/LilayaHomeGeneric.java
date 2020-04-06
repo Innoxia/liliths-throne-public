@@ -27,7 +27,7 @@ import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -41,11 +41,11 @@ import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.BaseColour;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.BaseColour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
@@ -151,7 +151,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public int getSecondsPassed() {
-			return CityPlaces.TRAVEL_TIME_STREET;
+			return DominionPlaces.TRAVEL_TIME_STREET;
 		}
 
 		@Override
@@ -171,7 +171,7 @@ public class LilayaHomeGeneric {
 				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.daddyFound)
 						&& !Main.game.getPlayer().getFetishDesire(Fetish.FETISH_INCEST).isNegative()
 						&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN) // Only trigger after having met Lyssieth
-						&& Main.game.getHourOfDay()>=7 && Main.game.getHourOfDay()<=21
+						&& Main.game.isExtendedWorkTime()
 						&& time.getMonth().equals(Month.JUNE) && time.getDayOfMonth()>=14 && time.getDayOfMonth()<=21) { // Father's day timing, 3rd week of June
 					return new Response("Enter", "Knock on the door and wait for Rose to let you in.", DaddyDialogue.FIRST_ENCOUNTER) {
 						@Override
@@ -389,7 +389,7 @@ public class LilayaHomeGeneric {
 				return new Response("Manage people", "Enter the management screen for your slaves and friendly occupants.", CORRIDOR) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return OccupantManagementDialogue.getSlaveryRoomListDialogue(null);
+						return OccupantManagementDialogue.getSlaveryRoomListDialogue(null, null);
 					}
 					@Override
 					public void effects() {
@@ -519,7 +519,6 @@ public class LilayaHomeGeneric {
 								milked = (int) Math.min(getMilkingTarget().getBreastRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(getMilkingTarget()));
 							}
 							room.incrementFluidStored(new FluidStored(getMilkingTarget().getId(), getMilkingTarget().getMilk(), milked), milked);
-							getMilkingTarget().incrementBreastStoredMilk(-milked);
 
 							if(getMilkingTarget().isPlayer()) {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/milking", "MILKING_PLAYER"));
@@ -532,9 +531,15 @@ public class LilayaHomeGeneric {
 							}
 							
 							Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center; color:"+Colour.MILK.toWebHexString()+";'>"
+								"<p style='text-align:center; color:"+PresetColour.MILK.toWebHexString()+";'>"
 										+ Units.fluid(milked) + UtilText.parse(getMilkingTarget(), " of [npc.milk] added to this room's storage!")
 								+ "</p>");
+						}
+						@Override
+						public boolean postEndTurnEffects() {
+							int milked = MilkingRoom.getActualMilkPerHour(getMilkingTarget());
+							getMilkingTarget().incrementBreastStoredMilk(-milked);
+							return true;
 						}
 					};
 				}
@@ -606,9 +611,15 @@ public class LilayaHomeGeneric {
 							}
 
 							Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center; color:"+Colour.CUM.toWebHexString()+";'>"
+								"<p style='text-align:center; color:"+PresetColour.CUM.toWebHexString()+";'>"
 										+ Units.fluid(milked) + UtilText.parse(getMilkingTarget(), " of [npc.cum] added to this room's storage!")
 								+ "</p>");
+						}
+						@Override
+						public boolean postEndTurnEffects() {
+							int milked = MilkingRoom.getActualCumPerHour(getMilkingTarget());
+							getMilkingTarget().incrementPenisStoredCum(-milked);
+							return true;
 						}
 					};
 				}
@@ -673,7 +684,7 @@ public class LilayaHomeGeneric {
 							}
 
 							Main.game.getTextEndStringBuilder().append(
-									"<p style='text-align:center; color:"+Colour.GIRLCUM.toWebHexString()+";'>"
+									"<p style='text-align:center; color:"+PresetColour.GIRLCUM.toWebHexString()+";'>"
 										+ Units.fluid(milked) + UtilText.parse(getMilkingTarget(), " of [npc.girlcum] added to this room's storage!")
 									+ "</p>");
 						}
@@ -753,7 +764,6 @@ public class LilayaHomeGeneric {
 								milked = (int) Math.min(getMilkingTarget().getBreastCrotchRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(getMilkingTarget()));
 							}
 							room.incrementFluidStored(new FluidStored(getMilkingTarget().getId(), getMilkingTarget().getMilkCrotch(), milked), milked);
-							getMilkingTarget().incrementBreastCrotchStoredMilk(-milked);
 
 							if(getMilkingTarget().isPlayer()) {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/milking", "MILKING_UDDERS_PLAYER"));
@@ -766,9 +776,15 @@ public class LilayaHomeGeneric {
 							}
 							
 							Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center; color:"+Colour.MILK.toWebHexString()+";'>"
+								"<p style='text-align:center; color:"+PresetColour.MILK.toWebHexString()+";'>"
 										+ Units.fluid(milked) + UtilText.parse(getMilkingTarget(), " of [npc.crotchMilk] added to this room's storage!")
 								+ "</p>");
+						}
+						@Override
+						public boolean postEndTurnEffects() {
+							int milked = MilkingRoom.getActualCrotchMilkPerHour(getMilkingTarget());
+							getMilkingTarget().incrementBreastCrotchStoredMilk(-milked);
+							return true;
 						}
 					};
 				}
@@ -832,7 +848,7 @@ public class LilayaHomeGeneric {
 					return new Response("Occupancy ledger", "Open the occupancy ledger screen, from which you can manage all rooms, slaves, and friendly occupants.", CORRIDOR) {
 						@Override
 						public DialogueNode getNextDialogue() {
-							return OccupantManagementDialogue.getSlaveryOverviewDialogue();
+							return OccupantManagementDialogue.getSlaveryOverviewDialogue(null);
 						}
 						@Override
 						public void effects() {

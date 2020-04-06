@@ -3,32 +3,8 @@
 
 In this text file I keep track of reported bugs and features that I am working on.
 Not everything in this file is up-to-date, and everything is subject to change at a later date.
-
-
-	- Alexa's romance quest. (Regal, arrogant attitude)
-		Talk about shop - She says business is tough - all the other shops are well established. Only has 3 slaves for sale. She reluctantly asks for help (mentioning she usually has servants do this thing for her)
-		Need to:
-		    Advertise store (or hire someone to do it through Finch)
-		    Rennovate frontage (or hire)
-		    Put posters up at the entrance (need to bribe/sex guards)
-		After you've finished and returned to Alexa, is is happy, and says come back in a week (once the effects will have taken root).
-		Upon return, Alexa has turned the shop into a luxury high-end slave shop, where customers order custom slaves
-		She has harpy assistants working for her
-			(if sold or freed Scarlett, she's there as a PA. If not, she offers to buy Scarlett back for 5000)
-		She says she owes you, and as payment, she'd give you the pleasure of letting you take her on a date (to a restaurant she specifies)
-		Can go on date to an upmarket restaurant beneath Harpy Nests (turns out Alexa owns it, and it's connected to her nest)
-		Use actions to increase affection. Can only increase by 25 per date.
-		Can then ask out on date once a week.
-		Once affection >=75, you can talk to Alexa about her sex life. She is very flustered and hesitantly admits that she's never had sex. (Believing herself to be too good for anyone)
-		You can take her up to her apartment and have sex with her.
-			 If arousal < 40, she needs you to be gentle, otherwise she ends it.
-			 If arousal < 80, she doesn't want rough, or she ends it.
-			 If arousal > 80, she wants anything.
-		If Scarlett as PA, you can make Scarlett watch, or convince Alexa to let Scarlett take her virginity.
 	
 	- Add in modding framework for sex actions. 
-	
-	- Improve sex action descriptions to factor in body parts. (Comparing penis size/girth to orifice capacity, using horns as handles during sex, adding size difference content, etc.)
 	
 	- Add Enforcer alleyway encounter
 		If human, forcibly search
@@ -42,218 +18,333 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		after 3 doms in a row, can force them to accept being your bitch (reveals their name - you can rename them, new options)
 	
 	- Pregnancy mechanics update
-	- Virginity tracking improvements
 	
 	- Adding mod support for items.
 	
-		
 	
-	Tuesday:
-		Fix reported bugs
-		Add repeatable stocks event
-		PRs
-	Wednesday:
-		Size-difference content
-	Thursday:
-		Plan Alexa's quest
-		Write Alexa's quest
-	Friday:
-		Write Alexa's quest
-		Polishing
+	
+	
+	Finish Helena dates
+		[x] Add framework for dates
+		Add framework for Helena Shop scenes
+			[x] Core scene
+			[x] Sex scenes
+		Add framework for Scarlett Shop scenes
+			[x] Core scene
+			[x] Sex scenes
+		Add framework for Helena Nest scenes
+			[x] Core scene
+			[x] Sex scenes
+		Add framework for Scarlett Nest scenes
+			[x] Core scene
+			[x] Sex scenes
+	
+	[x] Scarlett makeup
+	
+	Writing:
+		[] Improve back room descriptions
+		[] Dominion streets to reference centaur carts
+		[] Make Helena come across as more of a bitch (more arrogant remarks), especially in main quest parts.
+			[] Make it clearer that she's used to incompetence from all her followers, which is why she ends up liking you enough to suggest going on a date.
+		[] Helena Shop scenes
+		[] Scarlett Shop scenes
+		[] Helena Nest scenes
+			[] Intro scenes
+			[] Sex scenes
+		[] Scarlett Nest scenes
+		[] Helena date scenes
+		
+	Add Helena-Scarlett threesome option
+	
+	Add duplication output to xml checker
+	
+	Need Helena dirty talk override
+	
+	Scarlett is still fingering her ass when pc is eating her out...
+	
+	Helena's child stays with her?
+		Limit her first offspring size to 1 daughter
+		Afterwards, other daughters are in nest (can be visited via action in nest).
+	
+	Test fly after Scarlett in nest
+	
+	Scarlett Jam image pussy/penis
+	
+	Natalya
+		
 	
 	
 	Patch notes:
 	
-	Contributors:
-		Added FaceTypeTag enum for improved handling of face features. The 'Bite' special attack is now available to any face type which has a muzzle, fangs, beak, or shark teeth. (PR#1286 by Stadler)
-		Added graceful error handling for if an invalid ItemTag is detected when loading Clothing/Weapons from xml files. (PR#1278 by Stadler)
-		Fixed bug: Restocking of items sold by Vicky (Arcane Arts) produces wrong prices after buying all items of a single type. (PR#1276)
-		Fixed the issue where the NPC in the prologue knows about the player's penis when this shouldn't be the case. (PR#1274 by AxeXP)
-		Improved interaction between wing-arms (as seen on harpies and bat-morphs) and clothing. (PR#1249 by Stadler)
-		Fixed the phone menu sex stats display for blowjobs performed and received being the wrong way around. (PR#1270 by AceXP)
-		Fixed bug where CoverableArea.MOUTH could never be discovered, blocking knowledge of NPCs' oral skills. (PR#1260 by AceXP)
-		Altered race tooltip to better reflect knowledge from 'observant', and improved some of the related text in the full appearance description page. (PR#1236 by NoStepOnSneks)
-		Fixed bug where you could become an angel by self-transforming into the appearance of one while being a slime, and then solidifying into flesh via a TF potion. (PR#1292 by NoStepOnSneks)
-		
-	Engine/Code:
-		Tidied up the default enslavement dialogue node and moved related text out into external txt files (into the txt/characters and txt/characters/offspring files).
-		Moved fluid modifier ingestion effects out of GameCharacter's ingestFluid method and into the corresponding FluidModifier Enum values.
-		Added methods in Game class for detection of metric sizes, weights, and fluids, so that these values can easily be found out when using the parsing engine.
-		Added hooks to item, weapon, and clothing types in the parser, under ITEM_id, WEAPON_id, and CLOTHING_id, where 'id' is the id of the item you want to reference.
-		Added functionality for NPCs to use items during sex.
+	Engine:
+		Converted Colour Enum into a 'PresetColour' class, which contains static Colour classes.
+		Added parsing commands for toy inserted into character's vagina.
 	
 	Gameplay:
-		Added 'construction worker' as a background that can be chosen during character creation. It offers some physical attribute buffs, as well as halving all room upgrade costs.
-		Slightly altered friendly occupant job search mechanics. You can now prevent friendly occupants who don't have their own apartment from getting a job, and suggest to them that they quit their current job if they've already found one.
-		'Orgasmic level drain' is now an equippable trait.
-		The 'Hypno watch' which you get from Arthur can now be enchanted to add or remove lisp, stutter, and slovenely speech. (Only works on random NPCs and yourself.)
+		Added first section of Helena's romance quest.
+		The alleyway tile immediately to the north of Slaver Alley is now a 'safe' alleyway tile. Any NPC which was present in this tile has been moved to one of two new back alley tiles to the south-west of Dominion.
+		You can now enter the cafes in Slaver Alley, and the descriptions of the inaccessible slaver stores have been slightly altered.
 	
-	Penetrative size-difference:
-		Changed orifice capacity (and therefore related stretch mechanics) to be based on penetrative objects' diameter, not length.
-		Added calculation for penis diameter, based on a character's penis length, girth, and modifiers (flared gives +5% diameter, tapered gives -5%).
-		Added calculation for tail length, based on a character's height and tail type.
-		Added calculation for tail diameter, based on a character's tail length and girth.
-		Tails now stretch orifices in the same way that penises do.
-		All of the following changes can be toggled off via the content option 'Penetration Limitations' (which is on by default):
-		Internal orifices now have depth values, which are based on the character's height, if they are a taur, and if they have a non-flesh body material. Depth values be seen in the character description page (and in your phone menu's 'body stats' page).
-		Depth values have 'comfortable' and 'uncomfortable' components. Taking an insertion past the 'comfortable' limit will cause severe arousal losses per turn for any non-masochistic character being penetrated.
-		Characters in the 'rough' pace in sex will penetrate past the 'comfortable' depth limit, but all other paces will stop before passing into the 'uncomfortable' depth.
-		Added a 'size-queen' fetish, which makes all depth values for that character's orifices considered to be 'comfortable'.
-		Added 'extra-deep' orifice TF modifier, which doubles the depth of the orifice. This can be applied via the self-TF menu or by crafting TF potions.
-		
+	Items:
+		Added: 'Velvet choker' (androgynous, neck slot, sold by Nyan).
+		Added: 'Dangle chain earrings' (feminine, ear piercing slot, sold by Kate).
+		Added: 'Plunge-neck clubbing dress' (feminine, torso slot, sold by Nyan).
+		Added: 'Strapless bra' (feminine, chest slot, sold by Nyan).
+		Added: 'Diamond necklace' (feminine, neck slot, sold by Nyan).
+		Added item tag 'CHOKER_SNAP', which causes the item worn to snap when the wearer's throat bulges too much during sex. (Applied to the new 'velvet choker' item.)
+		'Angel's Tears' now reduces the drinker's lust to their resting lust level.
+	
 	Sex:
-		NPCs will now use pills during sex, depending on their fetishes, ongoing actions, mouth access, and whether or not they actually have any pills in their inventory.
-		When performing oral on any orifice, the performing character will now swallow fluids previously deposited in that orifice, at a rate of 25ml per turn.
-		NPCs who have the 'orgasmic level drain' perk will no longer choose to drain their slaves or companions.
-		Elementals are now immune to the 'orgasmic level drain' effect.
-		Added intercrural action availability to 'cowgirl' and 'reverse cowgirl' positions.
-		Added 'throat control' sex action for if a character is performing a blowjob and has the 'internal muscles' orifice modifier for their throat.
-		Characters now get +0.5 arousal/turn from an orifice they're penetrating being very tight, instead of -1/turn.
-		Masochists now gain arousal per turn, instead of losing it, while their orifices are being stretched or penetrated too deeply.
+		The capacity of the 'throat' orifice now behaves in the same manner as other orifices, and will stretch/recover based on its plasticity/elasticity. (The references to 'blowjob ability' in character's description screens will be restored later on once I add effects for fetish experience.)
+		Characters can now receive paizuri from the character they are sitting on while in the 'cowgirl' position (provided that they aren't riding that person's cock).
+		Characters performing oral in missionary position (with their face between their partner's legs) can now force their partner to cum inside them.
+		NPCs who are fucking someone (using their penis) will no longer start fingering their own anus/vagina.
+		'Orgasm cum lock' actions are no longer available if the sex manager is setting a special pullout condition for the other NPC. (This will only affect a few special sex scenes.)
+		The character lying underneath in the 69 position can now perform anilingus on their partner who's on top.
 	
 	Other:
-		Added quicksave and quickload buttons in the bottom-right of the game window, which grey-out when unavailable.
-		Humans are no longer listed in the 'Races Present' tooltip for Enforcers present in tiles.
-		In the inventory screen, added a colour indication to the 'Equip' action whenever enslavement-enchanted clothing to be equipped on an NPC will either succeed or fail to enslave them.
-		You can no longer enslave NPCs before you have obtained a slaver license.
-		Slightly tidied up the action titles for using & equipping items/clothing/weapons on NPCs in the inventory dialogue.
-		Added fluid modifiers to the self-transformation menu for milk, crotch-milk, girlcum, and cum.
-		Doubled the amount of essences which Sean has (to make sure that he doesn't run out of them during a fight).
-		The 'scratch' and 'squirrel scratch' special attacks now have a 1-turn cooldown.
-		You can no longer force the harpy matriarchs to drink fetish-altering potions (as that has the potential to alter their personalities in such a way so as to make future interactions with them completely nonsensical).
-		Renamed 'Vixen's Virility' to 'Breeder pill', and 'Promiscuity pill' to 'Slut pill'. Improved effects tooltip for both of these items.
-		Random NPCs who have a positive or negative desire towards either the pregnancy or impregnation fetish will now spawn in with slut pills or breeder pill in their inventory.
-		Randomly-generated non-slave NPCs will now refresh their inventories every day.
-		'Slut pills' are now far more expensive to buy from shopkeepers than 'breeder pills', due to a tax on their sale.
-		Added an action in the debug menu to unlock all encyclopedia entries (under the 'Misc.' tab).
-		Added two toggles in content options for allowing/disallowing furry or scaly characters to spawn in with hair. By default, furry hair is on, but scaly hair is off.
-		Alligator 'hair' has been changed from 'head-scales' to 'hair', due to their default state of lacking hair now being correctly handled.
-		NPCs who you invite to come and live with you now have their occupation reset to 'unemployed' when they move in, instead of remaining as a 'mugger' or 'prostitute' until finding a new job. (This is also retroactively applied to friendly occupants with no job when loading in.)
-		Added some missing colours to slimes (including metallic colours as unnatural slime dye choices).
-		Added basic tooltips to the buttons in the bottom-left of the game window (to make it a little more obvious that there are hotkey shortcuts for them).
-		Improved formatting of the prices overlaid on item icons when trading in shops.
-		The 'milk maid' clothing set bonus now has a far more powerful alternative version for if your background occupation is that of a maid. (In the same way that the basic 'maid' set bonus is buffed.)
-		Slightly improved formatting of body description screen.
-		Removed '+10 aura' effect from the crossdresser fetish.
+		Added 'grey-green' as a natural iris colour.
+		Randomly-spawned fox-morphs should now correctly have orange-white, tan-white, grey-white, or black fur.
+		Added penis diameter to characters' body overview tooltip.
+		The 'dirty clothing' and 'dirty body' status effects now give +5 corruption each, instead of -2 arcane.
+		Horse-morphs with anthro horse-morph faces now spawn in with 'natural' hair styles (representing a mane) if they are not feminine. If feminine, they have a 50% chance of having a mane.
+		Randomly-selected hair styles are now additionally filtered by femininity. (This does not affect anything other than random NPC spawns.)
+		Debug menu's '+50 essences' action is now '+1000 essences'.
+		Slightly improved formatting of furry preferences screen.
+		Reduced values of racial food items.
+		Added button to randomise name in slave renaming management screen.
+		Added throat capacity, depth, elasticity, and plasticity to self-transformation menu.
+		Improved the UI for changing covering colours, as well as for the other options in Kate's shop.
 	
 	Bugs:
-		Parsing and typo fixes.
-		Fixed issue of the debug menu's self-TF function treating you as though you're a slime even if you weren't one.
-		Fixed bug where a significant amount of unique NPCs would have their core corruption stat reset every time you loaded the game. (This appeared to be most noticeable with Brax.)
-		Fixed issue with defining itemTags in clothing. If an itemTags element without a defined slot was present in the xml file, then itemTags with defined slots would accidentally override its tags (instead of being added on top of what was meant to be slot-independent tags).
-		Defeating the rats after attempting to beat Murk up now correctly sets that area of the Rat Warrens as being cleared, which resolves the issue of Murk being incorrectly treated as still being present in the Milking Room.
-		Fixed issue where enslaving the first of the defeated gang members in the post-combat scenes in the Rat Warrens would immediately return you to the tile's default dialogue, while leaving the other 5 rats on the tile.
-		Fixed bug where there would be no dialogue displayed in the left and right corridors of the Rat Warrens after clearing them out.
-		Fixed bug where you could choose the 'Leave' action in the Rat Warrens' Milking Room even after clearing that area of rats, which would cause Murk to reappear on the Milking Storage tile.
-		You can now enslave the imps found in gangs in the tunnels in Submission.
-		Fixed issue with slovenly speech not parsing correctly in some instances.
-		Fixed issue with feathers and scales being incorrectly referred to in their singular form in standard parsing.
-		Companions are no longer able to give birth while in your party.
-		The occupancy ledger now keeps track of when a slave has given birth.
-		Fixed issue where upon loading a saved game, all crotch-milk modifiers, including flavour, would be reset to the same modifiers of the character's main breast milk.
-		After defeating them and driving them off, the demon leaders in the three Submission Fortresses will now correctly re-equip their clothing in time for your next encounter with them.
-		Fixed Rose having the 'prude' personality trait. She now has the 'cowardly' and 'selfish' traits instead.
-		Fixed a reference to the world map being 150 square kilometers, instead of correctly being described as 150km*150km.
-		Fixed bug where Cultists would swallow promiscuity pills which you offered them, even though the text implied that they knocked it out of your hand.
-		Fixed minor parsing issue with item tooltips having a greater height than was needed to fit the displayed information.
-		Fixed bug with light theme tooltips not displaying correctly, and also fixed some other minor bugs related to light theme's formatting and appearance.
-		Fixed minor issue with random German-shepherd-morph NPCs not having correct determiners appended in front of their name (such as 'a' or 'the').
-		Fixed issue where demons in dark alleyway tiles would incorrectly reference pregnancies as having imps as the resulting offspring.
-		The 'Double creampie' action now correctly applies penetrative effects to the second character (i.e. taking their virginity, starting to stretch them them out, etc.).
-		Fixed issues with the availability of the 'slap ass' sex action.
-		Bike shorts no longer block intercrural sex actions.
-		Fixed bug where if you had the 'Servant of fire' spell upgrade (or any of the other elemental school equivalents), your elemental would refuse to have dominant sex with you, instead of refusing to have submissive sex.
-		Fixed issue with slimes' subspecies detection not being based on the slime colour, but the character's underlying (hidden) subspecies colour. (e.g. A blue harpy-slime was being incorrectly identified as a phoenix-harpy-slime if the characters' 'feather colour' was glowing red, even though these feathers cannot be seen.)
-		Menu buttons in the bottom-left of the game window now correctly refresh when loading a game.
-		Fixed bug where the hypno watch could disappear from your inventory upon loading your game.
-		Fixed bug where random characters who used you in the stocks would not disappear after the scene had ended.
-		Fixed issue with incorrect Enforcer races being displayed as being present in Submission's safe path tiles.
-		Fixed potential issue with Brax not being found at the Enforcer HQ's reception desk after completing his part of the main quest.
-		Fixed issue with the debug menu's 'race resets' not working correctly for 'half-demon' and 'demon' options. Resetting your race to something other than a demon will now also correctly remove your underlying demon identification.
-		Fixed characters being able to use 'muscle control' sex actions while in the 'resisting' pace.
-		Urethra and nipple internal orifice modifiers (ribbed, muscled, tentacled), are now only applied if the orifice is able to be penetrated.
-		Fixed incorrect name parsing for all orifice modifier addition/removal descriptions, and incorrect references to a character's breasts when modifying crotch-boobs.
-		If you have the related content options turned off, then anal and foot fetishes will no longer show up in your fetish menu, nor in the fetish enchantment options.
-		Fixed several instances where ingesting fluids could throw a background error and potentially cause the game to become unresponsive.
-		
-		
-		
-	Make sure flared gives +5% diameter, tapered gives -5%
-	Make slimes comfort length 4* usual. Add to TF description and subspecies effects
+		Parsing fixes.
+		Fixed incorrectly displaying 'dense crowds' as being present on Dominion's boulevard tiles during an arcane storm.
+		Fixed incorrect name formatting for clothing which had a colour pattern.
+		Performing/receiving paizuri will no longer output an error message to the error.log file.
+		Fixed UI bug where the inventory overview panel's bottom border would grow when clicking on clothing during combat or sex.
+		The ordering of the event log is no longer reversed when loading a game.
+		Losing to Sean in his challenge now correctly moves you over to the public stocks tile.
+		Fixed bug where knotting descriptions would sometimes incorrectly describe a character's tail as being the penetration type that had a knot instead of their penis.
+		Fixed bug where you couldn't offer your ass to Scarlett when she was attracted to you, but you could if she wasn't attracted to you. Also fixed related bug where 'Offer ass' would be displayed in every response slot when it was available.
+		Scarlett's sex scene in her nest is no longer treated as being 'public sex', and she will now correctly want to continue fucking your ass once started.
+		Characters in unique sex scenes will no longer move into positions in which they can't satisfy their sex desires.
+		Fixed minor bug where setting penis/vagina sex experience in character creation, then going back to remove your vagina/penis wouldn't reset the underlying sex experience.
+		Fixed bug where some coloured words would not be capitalised as intended.
+	
+	
+	
+	"You grins as you sees you staring at your dick."
+	
+	hypno watch on personality trait removals: it does remove it, but its description appears not to
+	
+	tattoo sub/dom sex counter no longer works for public use and prostitute slave jobs
+	
+	fix random alley NPCs calling out your name when they force you to come inside
+		Specifically when you have not talked to them not the ones you befriend
+	
+	Add fluid colouring
+	
+	Give level drain a day cooldown on target
+	
+	Make slaves at work attack the player if in same tile
+	
+	Add physique & arcane to tattoo enchantments
+	
+	Also on the selfie screen it says "Your nose HAVE been pierced"
+	
+	Axel: see about adding an option to grow cock without feminising
+	
+	add tail pull sex action
+	
+	a endless loop when your a girl fucking a guy and when you say no he keeps asking to take a breeding pill every time and can not escape it
+	When the AI wants me to use a pill and I refuse they request again until I do, this infinite loop should change to either have them force the pill after I say no once, depending on their personality or accept the refusal.
+	
+	I'm glad quick sex accounts for fluid use, but it likely should account for regen, not sure how much time between orgasms but I'd think avoiding a 0 is just as important as everything being massive
+	
+	After loading the game I've noticed if I have children looking for jobs it will remove what jobs they're looking for. So all peaceful occupants end up staying unemployed if I don't give them a job to look for each time I load up.
+	
+	A small issue but if I have sex with a slave by talking with them post sex you're put back into the talk menu, it's possible to do anything in the character and sex menu but the manage menu everything is blanked out. You can simple leave and talk to them again to use the options but not sure if this is a bug or intended cause of some issue.
+	
+	slimes and imps in Submission are affected by furry rates
+	
+	scroll, the "bug" allowing to let elementals read them was fixed yet
+	
+	horse back wings should be no race universal wings
+	
+	"bring back missionary footjobs"?
+	
+	Bug reports pings
+	
+	Make taurs taller
+	
+	being able to raise cum volume of static NPCs alot
+	
+	Does saved inventories in rat warrens get cleared (from save XML) after being used?
+	
+	Fix pregnancy roulette so first one doesn't always win.
+	
+	---
+	Rn slimes with size queen cannot get stomach bulge
+	 (and size queens?)
+	 Plz change it so its based on thiccness and Height instead
+	
+	Hey, i've noticed that the game generally describes how a character's stomach bulges when being penetrated too deep.
+	 However, if a character has the Masochist or the size queen fetish this text is absent. Is this a bug or am I missing something?
+	---
+	
+	it's possible to hit a EncounterType.SLAVE_USES_YOU type of encounter. But if you have a companion, absolutely nothing happens, other than that some time passes, which looks a little odd. Is this intentional
+	
+	cum no longer shows if you cum inside? -  nvm, it appears after the sex scene
+	
+	Because I am a sadist, I am giving THEM lust damage.
+		Also limit to 20/turn
+	
+	Quick sex:
+		Cock-pussy:
+			"up and down between X's labia+, Y thrust forwards, sinking his dick+ into X's pussy+" -> change second X to "her"
+			"X enthusiastically bucked Y(his) hips to help drive Y's cock+" -> Y(his) should be X(her)
+	
+	Need unique slave traders
+	
+	we can't touch our own clits -> add clit play as self action
+	
+	regular earrings got redefined from unisex to feminine
+	
+	Arcane strike is dealing huge lust damage - it wasn't being reduced by Lilth's difficulty modifier
+	
+	 when you use quick sex with a named NPC like Liliya level drain works
+	 I also know in the last public release I could set difficulty to lilith and give a partner level drain and make them have orgies with level 100 imps to get from level 3 to like 30 something in one orgie
+	
+	sex toys that are too long need to apply negative effects to the SE
+	
+	non-con fetish is annoying as they always resist (change to resist only in non-con scenes?)
+	npc's with the noncon fetish shouldn't act like they're being raped if the encounter is obviously consensual
+	
+	Fix NPC reaction dialogue for penetration length in throat
+	
+	add a section in the outfit XML files for adding items to the NPC's inventory
+	
+	NPCs need to choose to knot more
+	
+	"I love your shaft" is still being displayed
+	
+	Additional blowjob actions shouldn't require a blowjob to be ongoing
+	
+	 can you add a counter to the tattoos that just has the total number of children birthed?
+	
+	Pregnancy test should change status on risk of pregnancy
+	
+	Fix udders (???)
+	
+	Lilaya half-demon sexual parts to be not-scarlet
+	
+	[] Somehow sort out tooltip overrun
+		[] Also for clothing "while worn."
+	
+	Ongoing sex tooltip cuts off when name is too long
+	
+	Size queens need big arousal hit if penetration is too small
+	
+	Add star to map for if quest location is there
+	
+	'Facial hair' and 'Pubic hair' spawn rates
+	
 	
 	Size-difference:
-		[x] Add toggle (penetration limitations) on by default
-		[x] Extra-deep modifier needs TF support
-		[x] Add depth number to body stats and body description
-		[x] Add explanation of mechanics in body stats
-		[x] taurs need deeper vagina/anus holes (Add to body stats description) +50% base depth
-		[x] Also based on body material. Slime has infinite length capacity and quadruple comfortable length.
-		[x] TF orifice modifier "extra deep" to double comfortable depth
-			[x] Demon/horse/squirrel naturally have deep channels
-		[x] Fetish "Size Queen": Incorporates painful into comfortable depth
-		[x] Update body description (non-flesh has infinite uncomfortable)
-			[x] Virginity should be gold
-			[x] Vagina doesn't say capacity when virgin
-		[x] need plural units argument for parsing lengths
-		[] Add girth and modifiers (knot, tapering, flare) description somewhere (self-tf menu? Enchantment menu?)
-		[x] Add circumference of cock and tail in body description
-			[x] and phone menu
-			[x] diameter instead of circumference seems easier to understand
-			[x] convert Capacity to use diameter, not length
-			[x] add tail length
-			[x] Need to alter existing Capacity calculations and any descriptions
-			[x] Need to alter loading of old base capacities (they are all based on lengths)
-			[x] alter RacialBody capacity generation values
-		[x] Stretch effects are broken with change to capacity
-		[x] Need tails to stretch as well
-		[x] (Old) Need to make minimum stretch higher, or based on elasticity, as it goes on for too long when nearing max stretch
-		[x] Add sex effects
-			[x] Initial penetration depth text
-				[] Description of stomach bulges where applicable from the 'uncomfortable' portion of depth
-				[x] GameCharacter.getPenetrationDescription()
-					[x] Fix instances like: "The birb lets out a desperate moan as she feels the fat knot at the base of your cock bump up against her asshole as you fully penetrate her in one thrust"
-					[] Initial penetration needs to describe if penetrating object is too thick
-			[] Need ongoing too deep or too shallow text similar to stretch.
-			[x] Need ongoing too deep or too shallow text in status effect ongoing extra description.
-			[x] Tail penetration amount is 80%.
-			[] Reference 80% value somewhere.
-			[x] status effect icon and arousal modifiers
-				[x] -arousal for penetrating character when orifice is not deep enough
-				[x] -large amount of arousal for if the orifice character is being uncomfortably penetrated (or +arousal if masochist)
-			[] Make it clearer when holding back from causing discomfort in both initial and repeat text
-			[] knot gives +50% circumference at base
-				[] Knot Her/Him option should assist in gaping whichever orifice is being knotted
-			[] Need better stretch colour for text
-			[] Make it so characters cannot knot if orifice is not deep enough
-			[] Make reveal reactions take into account length in relation to depth of their main orifice
-			[] Need description when transitioning from normal to rough and start fully penetrating and the other way around
-		[] Add tail length modifier TFs
-		[] Only describe orifices as deep if they have the extra deep modifier
-		[] Add orifice depth modifier to taur and slime status effect.
+		[x] Add to ongoing sex tooltip the diameter of the tail being inserted
+		[x] Need depth in SE tooltips
+		[x] Add orifice stats as an additional description
+		[x] isWantingToFullyPenetrate needs to factor in if they are dominant
+		[x] Dominants with the masochist or size queen fetish should take cock as much as possible
+		[x] Make sure penetrative length description is always from dom's point of view
+		[x] Improve initial depth penetration text
+			[x] Add length
+		[x] Need very brief ongoing description appended to all actions if required (like when stretching out)
+		[x] need to append all effect descriptions after virginity loss description
+		[x] Fix errors being reported when non-internal orifice 'penetrated'
+		[x] Fix formatting issues with switch penetrative sex action.
+		[x] Modify arousal boost/drain +4/-6 -> +2.5/-10
+		[x] Add girth and modifiers (knot +50% at orgasm, tapering -5%, flare +5%) description somewhere (self-tf menu)
+		[x] Description of stomach bulges where applicable from the 'uncomfortable' portion of depth
+		[x] Initial penetration needs to describe if penetrating object is too thick
+		[x] Need ongoing too deep or too shallow text similar to stretch.
+		[x] Reference 80% tail penetration value somewhere (in body desc?).
+		[x] Make it clearer when holding back from causing discomfort in both initial text
+		[x] Knot Her/Him option
+			[x] Make as a separate orgasm action
+				[x] Add double creampie knotting action
+			[x] Should assist in gaping whichever orifice is being knotted
+			[x] knot gives +100% circumference at base
+			[x] Make it so characters cannot knot if orifice is not deep enough
+			[x] Might need to fix targeting in normal creampie like in knotting
+		[x] Increase base vagina depth
+		[x] Make reveal reactions take into account length in relation to depth of their main orifice
+			[x] NPCs need to know player areas when exposed before sex starts
+		[x] Also I've seen one of the AI's who was in the rough stance put their own tail too deep in their mouth... which if they have certain perks I could see happening but seems weird if they're just rough.
+		[x] Add orifice depth modifier to taur and slime status effect.
+		[x] Make depth like elasticity/plasticity
+			[x] Remove EXTRA_DEEP (give +2 to anyone who had it)
+			[x] clothing/potion transformations
+				[x] handle loading of potions with this effect
+			[x] Taurs should get +2 depth instead of hidden stat change
+				[x] Make sure it works on centaurs subspecies
+			[x] non-flesh depth should be locked to 7, like wetness for slimes
+				[x] remove *4 effect and status effect texts
+				[x] Make mouth affected by slime wetness
+					[x] handle inside get method, not by setting
+			[x] Update body stats & orifice description
+			[x] add parsing commands
+				[x] add full orifice commands for urethra and other orifices
+			[x] update body description
+		[x] Unknown race tooltip should display known areas
+			[x] When servicing, characters in gloryhole spawn without having displaced underwear
+			[x] can see legs?
+			[x] When using, characters in gloryhole have all areas revealed
+		[x] Add depth to self-TF menu
+			[x] add clitoris self-TF options
+			[x] orifices locked to drooling when slime in self-TF
+			[x] orifices need locked to max depth if non-flesh
 	
 	
-	Changing options mid-sex resets dialogue scroll index?
 	
-	Bug report with the quick sex option. On tracking after using it on a npc once. It says you had sex with them 3 times. If you use it twice 6, 3 times, 9 etc.
 	
 	When you activate the resonance stone, there's no mention of Shadow activating hers, but she acts as though she did later on
+	
+	Is it a bug that when you use the resonance stone that when Claire comes and gets you out of SWORD hands she claims you didn't use
 	
 	If you use the stone to call SWORD are they supposed to give the same response and get lectured by Claire as if you just storm the place
 	
 	Tried the non violent, not walk in and kick everyone's ass way. Seduced the rat boi, dominated him, can't end sex because the button's gone, have to click the quick option
 	
+	 I must be missing something because I still can't free the milk slaves @Innoxia They're still calling for Murk even though he's gone and I've beaten up all the rats except Vinegar. How can I liberate the humans if they won't let me? Can't even tell them I have milkers at home and they can be mine
+	You're supposed to be able to free the milk slaves, or at least there's the option to. But whenever I try they start screaming for Murk to come save them and it says I need to clear out the warrens. But the only thing left to do is fight vinegar which seals the warrens and won't let me free them. So either I'm missing something or it's bugged still
 	
 	Add Murk's and Vengar's post-quest completion placeholders
 	
 	Need full dialogue change for Rat Warrens post-quest completion (become a Rum Distillery)
 	
+	 masc tfs don't seem to proc when captured by murk, you get the fetishes but no tfs after that
+	
+	
+	my daughters that have already moved out seem to be treated as though they haven't. All the dialogue options are reverted back as if they're still living with me. (Can ask what they think about my slaves, ask them to move out, etc.)
 	
 	Add bath/spa dialogue
 	
+	Split cat-morphs into cat-morphs and panther-morphs
+	
+	Add tail length modifier TFs (5 step)
+	
+	Add throat wetness, capacity, elasticity, and plasticity to the self-TF menu
+	
+	males shouldn't displace their t-shirts
+	NPCs should remove tops and bras
+	
+	Changing options mid-sex resets dialogue scroll index?
+	
+	Paces should be an in-sex setting?
 	
 	
 	
-	add throat wetness, capacity, elastiscity, and plastiscity to the self-TF menu
 	
 	Add mute character variations for random encounters
 	
@@ -287,10 +378,16 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	I found an older bug that should have been dealt with a year ago, if you convince the Suppliers, it does not complete the quest only ends the scene, this happens with both the pay 500, and the offer sex branches.
 		(Quest is confusing a lot of people - needs rewrite)
 		
+	transforming away your cock and then transforming it back will make partners who know you have a cock be surprised you have one
+	
 	Additional bug reports
 	
-	
-	
+	Kind: Limit how much flames and items you get from a defeated opponent but higher relationship gain and lower loss.
+	Selfish: Bonus flames but with the opposite effect of Kind.
+	Brave: Higher damage? But lower escape chance.
+	Coward: Opposite effect of above.
+	Shy/Confident: Dialogue? Not sure.
+	Prude/Innocent/Lewd: Affects lust and corruption gain as well as arousal.
 	
 	[] NPCs can start(NPC1)/stop(NPC2) indefinitely when player watching two of them interacting
 	[] If NPC is willing at start, but goes to 0 lust and they end sex, they get -200 affection and it counts as rape?
@@ -495,6 +592,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		When I try to 'thanks' him for handing over Arthur, I can't dislocate any of the items. It says that I am not allowed to do that in this sex scene. Problem is, he wears pants so the option to suck him off is unavailable, and I can't shift aside my clothes to do something while I wait for him to remove his pants. Is this a bug or am I doing something wrong?
 	
 	Investigate maid duty slaves fucking or not
+	
+	Improve imp offspring encounter
 	
 	Okay, so I am having major problems with the slave menu right now. Every time I open up the inventory of one of my slaves, I am stuck in that menu. If I go to the main menu, I get stuck there. For a brief period, when I left the menu, I would go into the end of an encounter with a cat girl, but when I restarted the game, I got stuck instead.
 	
@@ -1732,8 +1831,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	it would be nice to have a chance to inspect a partner in the club before starting to move in on them so you could avoid lesser morphs
 	 if you don't feel like it or think that having sex with someone who literally is only interest in paizuri is not your forte
 	
-	stocks scene, and rewrite Alexa's existing dialogue to make more of an indication that this quest is coming
-	
 	add tail, wing, and arm count to slime and demon TF menu, as well as slime min heights
 
 	There's still slaves using their hands in the stocks and such,
@@ -1745,23 +1842,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Check: Amber does not have any particular preferences and typically ends up repositioning you for oral sex (giving and/or receiving).
 	
 	Is it a bug if a character rubs their butt against my dick, but then gets upset and stops the sex if I actually start anal
-	
-	Alexa + slave alley plan
-	Alexa:
-		Talk about shop
-		She says business is tough - all the other jobs are well established. Only has 3 slaves for sale
-		Reluctantly asks for help
-		Need to:
-			Advertise store (or hire someone to do it through Finch)
-			Rennovate frontage (or hire)
-			Put posters up at the entrance (need to bribe/sex guards)
-		After a week, Alexa is happy, and can now order slaves for you
-		She has assistants working for her (if sold or freed Scarlett, she's there as a PA. If not, she offers to buy Scarlett back for 5000)
-		She says she owes you a lot, and if you'd like, she'd give you the pleasure of going on a date with you
-		Can go on date to an upmarket restaurant beneath Harpy Nests (turns out Alexa owns it, and it's connected to her nest)
-		Need to go on three successful dates, then Alexa leads you up to her apartment and sex. If Scarlett as PA, you can make Scarlett watch, or punish Scarlett to get Alexa turned on
-	
-	
 	
 	
 	
@@ -3340,16 +3420,6 @@ Submissive NPCs with with a virginity fetish still tell you to "Fuck my virgin p
 	
 	
 	make it so that submissive NPCs will always prefer the gentle pace in sex
-	
-	
-	Just a mior text bug. If you decide to let Scarlet go (free her) you can encounter her later at Alexa's nest. Her description will state:'
-Background
-Once the owner of a shop in Slaver Alley, Scarlett is now a slave herself.
-
-Obedience:
-Scarlett is not a slave.
-Scarlett is free-willed, and will do whatever she wants.'
-	
 	
 	
 	

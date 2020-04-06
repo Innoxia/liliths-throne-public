@@ -300,7 +300,7 @@ public class TongueMouth {
 							
 							" [npc2.NamePos] [npc2.sob+] is muffled into [npc.namePos] mouth as [npc2.she] [npc2.verb(try)] to pull away, squirming in discomfort as [npc.name] [npc.verb(force)] [npc.herself] on [npc2.herHim].",
 							
-							" With [npc2.a_sob+], [npc2.herHim] [npc2.verb(try)], in vain, to pull away from [npc.name],"
+							" With [npc2.a_sob+], [npc2.she] [npc2.verb(try)] in vain to pull away from [npc.name],"
 									+ " protesting and squirming in discomfort as [npc.name] [npc.verb(force)] [npc.her] [npc.tongue] past [npc2.her] reluctant [npc2.lips]."));
 						break;
 					default:

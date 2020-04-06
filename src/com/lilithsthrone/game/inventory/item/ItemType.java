@@ -29,9 +29,10 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -55,7 +56,7 @@ public class ItemType {
 	// perfectly-formed, heart-shaped ass."
 	// + " Her thin, demonic tail twists round to playfully cover her asshole
 	// and pussy.",
-	// "potion", Colour.PINK,
+	// "potion", PresetColour.PINK,
 	// true, 25, Rarity.EPIC,
 	// TransformationEffect.SEXUAL_BOON_AVERAGE.getDescription()) {
 	// @Override
@@ -92,7 +93,7 @@ public class ItemType {
 	// + " Her delicate hands are reaching down to pull apart her soft ass
 	// cheeks, although her asshole and pussy are covered by her thin, demonic
 	// tail.",
-	// "potion", Colour.PINK,
+	// "potion", PresetColour.PINK,
 	// true, 25, Rarity.EPIC,
 	// TransformationEffect.SEXUAL_BOON_STRONG.getDescription()) {
 	// @Override
@@ -132,7 +133,7 @@ public class ItemType {
 	// + " scantily-clad tentacle-girl, Lyxia. She is stuffing her tentacles
 	// into the orifices of a group of cow-girls, violently milking their
 	// swollen breasts while she fucks them.",
-	// "potion", Colour.WHITE,
+	// "potion", PresetColour.WHITE,
 	// true, 25, Rarity.EPIC,
 	// TransformationEffect.LYXIAS_DREAM.getDescription()) {
 	// @Override
@@ -170,7 +171,7 @@ public class ItemType {
 	// + " laughing as she aggressively mounts a busty horse-girl. Lunette's
 	// latest conquest is being pushed into the ground, her stomach visibly
 	// distending from Lunette's gigantic horse-cock.",
-	// "potion", Colour.WHITE,
+	// "potion", PresetColour.WHITE,
 	// true, 25, Rarity.EPIC,
 	// TransformationEffect.LUNETTES_NEED.getDescription()) {
 	// @Override
@@ -208,7 +209,7 @@ public class ItemType {
 	// + " Lamia. She's forcing a pair of stallion-sized reptilian cocks deep
 	// into the pussy and asshole within her slit-like cloaca, her hands choking
 	// her unfortunate partner as she aggressively rides him.",
-	// "potion", Colour.BLUE,
+	// "potion", PresetColour.BLUE,
 	// true, 25, Rarity.EPIC,
 	// TransformationEffect.LISOPHIAS_DESIRE.getDescription()) {
 	// @Override
@@ -246,7 +247,7 @@ public class ItemType {
 	// + " is looking down with a sinister smile on her face. Her tentacles are
 	// violently penetrating the seven beautiful mermaids beneath her, while her
 	// free tentacle is slipping inside her own needy pussy.",
-	// "potion", Colour.PINK,
+	// "potion", PresetColour.PINK,
 	// true, 25, Rarity.EPIC,
 	// TransformationEffect.LIRECEAS_DEMAND.getDescription()) {
 	// @Override
@@ -316,7 +317,7 @@ public class ItemType {
 			"The thick glass bottle of 'Equine Cider' appears to contain, much as its name would suggest, a generous helping of some sort of alcoholic cider."
 				+ " On the label, there's an incredibly lewd illustration of a horse-boy slamming his massive cock deep into a girl's eager pussy.",
 			"attributeHorseMorphDrink",
-			Colour.ATTRIBUTE_PHYSIQUE,
+			PresetColour.ATTRIBUTE_PHYSIQUE,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -363,7 +364,7 @@ public class ItemType {
 			"The thick glass bottle of 'Bubble Milk' appears to contain, much as its name would suggest, a generous helping of milk."
 				+ " Looking through the glass, you see that there are little bubbles fizzing up in the liquid within, making this milk appear to be carbonated.",
 			"attributeCowMorphDrink",
-			Colour.ATTRIBUTE_PHYSIQUE,
+			PresetColour.ATTRIBUTE_PHYSIQUE,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -410,7 +411,7 @@ public class ItemType {
 			"Filled with a strong, alcoholic whiskey, this glass bottle has a label on the front which depicts a greater wolf-boy having sex with a trio of female humans."
 					+ " A slogan written above this reads: 'Wolf Whiskey; For a real alpha!'",
 			"attributeWolfMorphDrink",
-			Colour.ATTRIBUTE_PHYSIQUE,
+			PresetColour.ATTRIBUTE_PHYSIQUE,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -457,7 +458,7 @@ public class ItemType {
 			"A glass bottle of what appears to be some kind of moonshine."
 				+ " A label on the front shows an alligator-boy biting the top off a bottle just like this one.",
 			"attributeGatorMorphDrink",
-			Colour.ATTRIBUTE_PHYSIQUE,
+			PresetColour.ATTRIBUTE_PHYSIQUE,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -505,7 +506,7 @@ public class ItemType {
 			"A glass bottle of 'Black Rat's Rum', filled with orange-coloured alcohol."
 				+ " The label on the front shows an image of a black-furred rat-boy, wearing a thief's mask, pinning a rat-girl against a wall as he fucks her from behind.",
 			"attributeRatMorphDrink",
-			Colour.ATTRIBUTE_PHYSIQUE,
+			PresetColour.ATTRIBUTE_PHYSIQUE,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -554,7 +555,7 @@ public class ItemType {
 			"A delicate glass bottle filled with a thick, cream-like liquid."
 				+ " A label on the front shows a pair of cat-girls lovingly kissing one another, with the dominant partner slipping a hand down between her partner's legs.",
 			"attributeCatMorphDrink",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -601,7 +602,7 @@ public class ItemType {
 			"A delicate glass bottle filled with red wine."
 				+ " A bunch of grapes is painted onto the front of the label, and on the bottom of the bottle itself, the image of a snickering fox-morph is burned into the glass.",
 			"attributeFoxMorphDrink",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -648,7 +649,7 @@ public class ItemType {
 			"A plastic bottle filled with what appears to be nothing but water."
 				+ " While there's no label on the bottle, there is a slight indentation in its surface, and, holding it up to the light to get a better look, you see that the impression spells the words 'Vanilla Water'.",
 			"attributeHumanDrink",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -699,7 +700,7 @@ public class ItemType {
 			"A glass bottle of what looks to be some kind of beer."
 				+ " A label on the front shows a dog-boy lining himself up behind a beautiful girl, who's down on all fours, presenting her naked, dripping pussy to the throbbing dog-cock behind her.",
 			"attributeDogMorphDrink",
-			Colour.ATTRIBUTE_PHYSIQUE,
+			PresetColour.ATTRIBUTE_PHYSIQUE,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -748,7 +749,7 @@ public class ItemType {
 			"A glass bottle of what looks to be some kind of coffee."
 				+ " A label on the front shows a squirrel-girl fingering herself over the top of a bottle just like this one; her juices dripping down into the coffee to provide some extra cream.",
 			"attributeSquirrelMorphDrink",
-			Colour.ATTRIBUTE_PHYSIQUE,
+			PresetColour.ATTRIBUTE_PHYSIQUE,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -789,7 +790,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType INT_INGREDIENT_FRUIT_BAT_SQUASH = new AbstractItemType(15,
+	public static AbstractItemType INT_INGREDIENT_FRUIT_BAT_SQUASH = new AbstractItemType(20,
 			"a",
 			false,
 			"Fruit Bat's Juice Box",
@@ -797,7 +798,7 @@ public class ItemType {
 			"A small cardboard carton, labelled as 'Fruit Bat's Juice Box'."
 					+ " On one side of the carton, there's an image of a scantily-clad bat-girl squeezing the juice from all sorts of fruit over her breasts.",
 			"attributeBatMorphDrink",
-			Colour.ATTRIBUTE_ARCANE,
+			PresetColour.ATTRIBUTE_ARCANE,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -845,7 +846,7 @@ public class ItemType {
 			"A carton of 'Rudolph's Egg Nog'."
 				+ " A label on the front shows the drink's namesake, a buff, stark-naked reindeer-boy, drinking a glass of this carton's contents while receiving oral sex from three enraptured reindeer-girls.",
 			"attributeReindeerMorphDrink",
-			Colour.ATTRIBUTE_PHYSIQUE,
+			PresetColour.ATTRIBUTE_PHYSIQUE,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -894,7 +895,7 @@ public class ItemType {
 			"A glass bottle of what looks to be a kind of feminine perfume."
 				+ " There's a stylised image of a harpy's wings on the front of the bottle.",
 			"attributeHarpyPerfume",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -940,7 +941,7 @@ public class ItemType {
 			"A small glass bottle of luminescent, fizzy pop."
 					+ " The label on the front reads 'Slime Quencher', and, to one side, there's a picture of a completely naked slime-girl pressing her breasts together and smiling at you.",
 			"attributeSlimeDrink",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -980,7 +981,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType SEX_INGREDIENT_BUNNY_JUICE = new AbstractItemType(250,
+	public static AbstractItemType SEX_INGREDIENT_BUNNY_JUICE = new AbstractItemType(30,
 			"a bottle of",
 			false,
 			"Bunny Juice",
@@ -988,7 +989,7 @@ public class ItemType {
 			"A small plastic bottle of what appears to be some sort of carrot juice, labelled as 'Bunny Juice'."
 					+ " On the label, there's a rather obscene image of a rabbit-girl stuffing a carrot-shaped dildo into her pussy.",
 			"attributeRabbitMorphDrink",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -1035,7 +1036,7 @@ public class ItemType {
 			"A sweet pie, filled with a mixture of dried fruits and spices."
 					+ " Curiously, the pie seems to remain permanently warm to the touch, revealing that an enchantment of some sort must have been placed on it...",
 			"attributeNoRaceMincePie",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -1085,7 +1086,7 @@ public class ItemType {
 					+ " On the bottle's label, there is an image of Lilith's perfectly-formed, heart-shaped ass."
 					+ " Her delicate hands are reaching down to pull apart her soft ass cheeks, fully exposing her asshole and pussy, both of which are dripping wet from excitement.",
 			"attributeDemonDrink",
-			Colour.ATTRIBUTE_CORRUPTION,
+			PresetColour.ATTRIBUTE_CORRUPTION,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -1133,7 +1134,7 @@ public class ItemType {
 					+ " There's no label, but someone's helpfully, albeit crudely, written 'Impish Brew' in black marker pen on one side."
 					+ " You think you can guess what the thick, musky liquid is inside...",
 			"attributeImpDrink",
-			Colour.ATTRIBUTE_CORRUPTION,
+			PresetColour.ATTRIBUTE_CORRUPTION,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -1179,7 +1180,7 @@ public class ItemType {
 			"A delicate glass bottle, filled with a viscous, glowing-pink liquid."
 					+ " From the label on one side reading 'Mystery Kink', it's quite safe to assume that this concoction carries a potent enchantment, which somehow influences the drinker's fetishes.",
 			"fetishDrink",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			null,
 			null,
 			Rarity.EPIC,
@@ -1231,7 +1232,7 @@ public class ItemType {
 			"A vial of bubbling pink liquid, which was refined from a bottle of 'Mystery Kink'."
 					+ " Its potent enchantment is far more refined than that of the liquid it was distilled from, and is able to add or remove specific fetishes.",
 			"fetishDrinkRefined",
-			Colour.FETISH,
+			PresetColour.FETISH,
 			null,
 			null,
 			Rarity.LEGENDARY,
@@ -1278,7 +1279,7 @@ public class ItemType {
 			"A delicate crystal bottle, filled with a cool, blue liquid."
 					+ " Engraved into one side are the words 'Angel's Nectar', although you're unsure if this fluid really does have anything to do with them...",
 			"addictionRemoval",
-			Colour.RACE_HUMAN,
+			PresetColour.RACE_HUMAN,
 			null,
 			null,
 			Rarity.LEGENDARY,
@@ -1333,9 +1334,9 @@ public class ItemType {
 			"Angel's Purity",
 			"Angel's Purities",
 			"A vial of cool, light-blue liquid, which gives off a faint, steady glow."
-					+ " Being a refined, and far more specialised form of 'Angel's Nectar', this liquid has lost its ability to remove addictions, and instead, is able to permanently lower the corruption of whoever drinks it...",
+					+ " Being a refined form of 'Angel's Nectar', this liquid has lost its ability to remove addictions, but is instead able to permanently lower the corruption of whoever drinks it...",
 			"addictionRemovalRefined",
-			Colour.RACE_HUMAN,
+			PresetColour.RACE_HUMAN,
 			null,
 			null,
 			Rarity.LEGENDARY,
@@ -1402,7 +1403,7 @@ public class ItemType {
 			"Bioluminescent mushrooms such as these are commonly found growing in the Bat Caverns."
 					+ " The slimes which call those caverns their home are particularly fond of consuming these mushrooms, which is what causes their bodies to glow.",
 			"mushrooms",
-			Colour.BASE_BLUE_LIGHT,
+			PresetColour.BASE_BLUE_LIGHT,
 			null,
 			null,
 			Rarity.EPIC,
@@ -1452,7 +1453,7 @@ public class ItemType {
 			"Once thought to be lost forever, this bottle of bubbling pink liquid has made a surprise return, and can turn anyone who drinks it into a demon!"
 					+ "<br/>[style.italicsMinorGood(While this is a debug-only item, it should be safe to use anywhere.)]",
 			"raceDemonInnoxiasGift",
-			Colour.ATTRIBUTE_CORRUPTION,
+			PresetColour.ATTRIBUTE_CORRUPTION,
 			null,
 			null,
 			Rarity.LEGENDARY,
@@ -1500,7 +1501,7 @@ public class ItemType {
 			"This is no ordinary bottle of wine, as it turns anyone who drinks it into a youko! Additional consumption will increase the number of Youko tails the drinker has."
 					+ "<br/>[style.italicsMinorGood(While this is a debug-only item, it should be safe to use anywhere.)]",
 			"attributeFoxMorphDrink",
-			Colour.RACE_FOX_MORPH,
+			PresetColour.RACE_FOX_MORPH,
 			null,
 			null,
 			Rarity.LEGENDARY,
@@ -1546,7 +1547,7 @@ public class ItemType {
 			"A delicate glass vial full of a light turquoise liquid."
 					+ " There's an image of a weeping angel engraved into the glass, and you see that her tears are falling into a vial just like this one.",
 			"raceHumanAngelsTears",
-			Colour.RACE_HUMAN,
+			PresetColour.RACE_HUMAN,
 			null,
 			null,
 			Rarity.RARE,
@@ -1586,7 +1587,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_CAT_MORPH = new AbstractItemType(250,
+	public static AbstractItemType RACE_INGREDIENT_CAT_MORPH = new AbstractItemType(30,
 			"a",
 			false,
 			"Kitty's Reward",
@@ -1594,7 +1595,7 @@ public class ItemType {
 			"A small, square food tin with a ring-pull lid."
 					+ " A label on the side shows a greater cat-girl devouring a plate of what looks to be this can's contents; some sort of tinned salmon.",
 			"raceCatMorphKittysReward",
-			Colour.RACE_CAT_MORPH,
+			PresetColour.RACE_CAT_MORPH,
 			null,
 			null,
 			Rarity.RARE,
@@ -1635,7 +1636,7 @@ public class ItemType {
 	};
 	
 
-	public static AbstractItemType RACE_INGREDIENT_COW_MORPH  = new AbstractItemType(250,
+	public static AbstractItemType RACE_INGREDIENT_COW_MORPH  = new AbstractItemType(20,
 			"a pot of",
 			false,
 			"Bubble Cream",
@@ -1643,7 +1644,7 @@ public class ItemType {
 			"A small pot of yoghurt, with a black-and-white cow-pattern styled onto the lid."
 					+ " A label on the side declares it to be 'Bubble Cream', which seems to be a little misleading, as there isn't any sort of bubbling going on in the creamy mixture contained within.",
 			"raceCowMorphBubbleCream",
-			Colour.RACE_COW_MORPH,
+			PresetColour.RACE_COW_MORPH,
 			null,
 			null,
 			Rarity.RARE,
@@ -1687,14 +1688,14 @@ public class ItemType {
 	};
 	
 
-	public static AbstractItemType RACE_INGREDIENT_SQUIRREL_MORPH = new AbstractItemType(250,
+	public static AbstractItemType RACE_INGREDIENT_SQUIRREL_MORPH = new AbstractItemType(50,
 			"a bag of",
 			false,
 			"Round Nuts",
 			"Round Nuts",
 			"A small bag of round nuts. A label on one side shows a greater squirrel-girl stuffing a handful of nuts into her mouth.",
 			"raceSquirrelMorphRoundNuts",
-			Colour.RACE_SQUIRREL_MORPH,
+			PresetColour.RACE_SQUIRREL_MORPH,
 			null,
 			null,
 			Rarity.RARE,
@@ -1735,7 +1736,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_BAT_MORPH = new AbstractItemType(250,
+	public static AbstractItemType RACE_INGREDIENT_BAT_MORPH = new AbstractItemType(40,
 			"a",
 			false,
 			"Fruit Bat's Salad",
@@ -1743,7 +1744,7 @@ public class ItemType {
 			"A little plastic pot, containing a delicious-looking fruit salad."
 					+ " Printed into the film lid, there's a little picture of a bat-girl sitting cross-legged as she eats her way through a mountain of fruit.",
 			"raceBatMorphFruitSalad",
-			Colour.RACE_BAT_MORPH,
+			PresetColour.RACE_BAT_MORPH,
 			null,
 			null,
 			Rarity.RARE,
@@ -1782,7 +1783,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_RAT_MORPH = new AbstractItemType(250,
+	public static AbstractItemType RACE_INGREDIENT_RAT_MORPH = new AbstractItemType(80,
 			"a",
 			false,
 			"Brown Rat's Burger",
@@ -1790,7 +1791,7 @@ public class ItemType {
 			"A double-cheeseburger, wrapped up in greaseproof paper."
 					+ " On the wrapper, there's a picture of a brown-furred rat-boy greedily shoving one of these burgers into his mouth.",
 			"raceRatMorphBurger",
-			Colour.RACE_RAT_MORPH,
+			PresetColour.RACE_RAT_MORPH,
 			null,
 			null,
 			Rarity.RARE,
@@ -1831,7 +1832,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_RABBIT_MORPH = new AbstractItemType(250,
+	public static AbstractItemType RACE_INGREDIENT_RABBIT_MORPH = new AbstractItemType(40,
 			"a",
 			false,
 			"Bunny Carrot-Cake",
@@ -1839,7 +1840,7 @@ public class ItemType {
 			"An individually-wrapped slice of frosted carrot cake, complete with a decorative icing carrot on the top."
 					+ " On the wrapper, there's a very lewd image of a rabbit-girl being bred by a muscular rabbit-boy.",
 			"raceRabbitMorphCarrotCake",
-			Colour.RACE_RABBIT_MORPH,
+			PresetColour.RACE_RABBIT_MORPH,
 			null,
 			null,
 			Rarity.RARE,
@@ -1878,7 +1879,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_DOG_MORPH = new AbstractItemType(250,
+	public static AbstractItemType RACE_INGREDIENT_DOG_MORPH = new AbstractItemType(25,
 			"a",
 			false,
 			"Canine Crunch",
@@ -1886,7 +1887,7 @@ public class ItemType {
 			"An individually-wrapped dog-biscuit in the shape of a bone."
 					+ " It's obviously meant as a snack for dog-morphs, but is edible for all races.",
 			"raceDogMorphCanineCrunch",
-			Colour.RACE_DOG_MORPH,
+			PresetColour.RACE_DOG_MORPH,
 			null,
 			null,
 			Rarity.RARE,
@@ -1925,7 +1926,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_FOX_MORPH = new AbstractItemType(250,
+	public static AbstractItemType RACE_INGREDIENT_FOX_MORPH = new AbstractItemType(75,
 			"a",
 			false,
 			"Chicken Pot Pie",
@@ -1933,7 +1934,7 @@ public class ItemType {
 			"A tin containing a pie with a mix of vegetables and meat."
 					+ " While plenty of omnivorous races enjoy the taste of these pies, they are a particular favourite of fox-morphs.",
 			"raceFoxMorphPie",
-			Colour.RACE_FOX_MORPH,
+			PresetColour.RACE_FOX_MORPH,
 			null,
 			null,
 			Rarity.RARE,
@@ -1972,7 +1973,7 @@ public class ItemType {
 		}
 	};
 
-	public static AbstractItemType RACE_INGREDIENT_HORSE_MORPH = new AbstractItemType(250,
+	public static AbstractItemType RACE_INGREDIENT_HORSE_MORPH = new AbstractItemType(15,
 			"a",
 			false,
 			"Sugar Carrot Cube",
@@ -1980,7 +1981,7 @@ public class ItemType {
 			"A bright orange sugar cube, which smells of carrots."
 					+ " From the equine icon on the wrapper, this is obviously meant as a snack for horse-morphs, but is edible for all races.",
 			"raceHorseMorphSugarCarrotCube",
-			Colour.RACE_HORSE_MORPH,
+			PresetColour.RACE_HORSE_MORPH,
 			null,
 			null,
 			Rarity.RARE,
@@ -2019,14 +2020,14 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_REINDEER_MORPH = new AbstractItemType(250,
+	public static AbstractItemType RACE_INGREDIENT_REINDEER_MORPH = new AbstractItemType(25,
 			"a",
 			false,
 			"Sugar Cookie",
 			"Sugar Cookies",
 			"An individually-wrapped, icing-and-sprinkles-topped sugar cookie, which looks, rather surprisingly, extremely normal.",
 			"raceReindeerMorphSugarCookie",
-			Colour.RACE_REINDEER_MORPH,
+			PresetColour.RACE_REINDEER_MORPH,
 			null,
 			null,
 			Rarity.RARE,
@@ -2067,7 +2068,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_ALLIGATOR_MORPH = new AbstractItemType(250,
+	public static AbstractItemType RACE_INGREDIENT_ALLIGATOR_MORPH = new AbstractItemType(100,
 			"a",
 			false,
 			"Gator's Gumbo",
@@ -2075,7 +2076,7 @@ public class ItemType {
 			"An iron bowl, complete with a sealable lid."
 				+ " The contents take the form of a delicious-smelling variety of gumbo, containing meat, okra, and a variety of other mysterious vegetables.",
 			"raceGatorMorphGatorsGumbo",
-			Colour.RACE_ALLIGATOR_MORPH,
+			PresetColour.RACE_ALLIGATOR_MORPH,
 			null,
 			null,
 			Rarity.RARE,
@@ -2116,14 +2117,14 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_WOLF_MORPH = new AbstractItemType(250,
+	public static AbstractItemType RACE_INGREDIENT_WOLF_MORPH = new AbstractItemType(80,
 			"a package of",
 			false,
 			"Meat and Marrow",
 			"Meat and Marrows",
 			"A package of 'Meat and Marrow', which consists of a slab of some sort of raw meat, wrapped in grease-proof paper and tied up with brown string.",
 			"raceWolfMorphMeatAndMarrow",
-			Colour.RACE_WOLF_MORPH,
+			PresetColour.RACE_WOLF_MORPH,
 			null,
 			null,
 			Rarity.RARE,
@@ -2164,7 +2165,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_HARPY = new AbstractItemType(250,
+	public static AbstractItemType RACE_INGREDIENT_HARPY = new AbstractItemType(10,
 			"a",
 			false,
 			"Bubblegum Lollipop",
@@ -2172,7 +2173,7 @@ public class ItemType {
 			"A bright pink lollipop, with a little ball of gum at its core."
 				+ " Although it doesn't look out of the ordinary, it's somewhat unusual in the fact that it has an incredibly strong smell of bubblegum.",
 			"raceHarpyLollipop",
-			Colour.RACE_HARPY,
+			PresetColour.RACE_HARPY,
 			null,
 			null,
 			Rarity.RARE,
@@ -2225,7 +2226,7 @@ public class ItemType {
 			"A canister of glowing pink liquid, which has a thick, slimy consistency."
 					+ " The warning sign on the front makes it quite clear that drinking this would be a bad idea...",
 			"raceSlimeBiojuice",
-			Colour.RACE_SLIME,
+			PresetColour.RACE_SLIME,
 			null,
 			null,
 			Rarity.LEGENDARY,
@@ -2289,7 +2290,7 @@ public class ItemType {
 //			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 //					+ " Inside, there's a swirling  ",
 //			"bottledEssenceAngel",
-//			Colour.RARITY_LEGENDARY,
+//			PresetColour.RARITY_LEGENDARY,
 //			50,
 //			Rarity.LEGENDARY,
 //			null,
@@ -2426,9 +2427,9 @@ public class ItemType {
 			"Bottled Arcane Essence",
 			"Bottled Arcane Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.GENERIC_ARCANE.getName()+" glow of an arcane essence flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.GENERIC_ARCANE.getName()+" glow of an arcane essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceArcane",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2444,7 +2445,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.GENERIC_ARCANE, user, target);
+			return getEssenceAbsorptionText(PresetColour.GENERIC_ARCANE, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2463,9 +2464,9 @@ public class ItemType {
 			"Bottled Cat-morph Essence",
 			"Bottled Cat-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_CAT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a cat-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_CAT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a cat-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceCatMorph",
-			Colour.RACE_CAT_MORPH,
+			PresetColour.RACE_CAT_MORPH,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2481,7 +2482,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_CAT_MORPH, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_CAT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2501,9 +2502,9 @@ public class ItemType {
 			"Bottled Cow-morph Essence",
 			"Bottled Cow-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_COW_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a cow-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_COW_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a cow-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceCowMorph",
-			Colour.RACE_COW_MORPH,
+			PresetColour.RACE_COW_MORPH,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2519,7 +2520,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_COW_MORPH, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_COW_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2538,9 +2539,9 @@ public class ItemType {
 			"Bottled Demon Essence",
 			"Bottled Demon Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_DEMON.getName()+" glow of an arcane essence, imbued with the energy of a demon, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_DEMON.getName()+" glow of an arcane essence, imbued with the energy of a demon, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceDemon",
-			Colour.RACE_DEMON,
+			PresetColour.RACE_DEMON,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2556,7 +2557,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_DEMON, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_DEMON, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2575,9 +2576,9 @@ public class ItemType {
 			"Bottled Imp Essence",
 			"Bottled Imp Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_IMP.getName()+" glow of an arcane essence, imbued with the energy of an imp, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_IMP.getName()+" glow of an arcane essence, imbued with the energy of an imp, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceImp",
-			Colour.RACE_IMP,
+			PresetColour.RACE_IMP,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2593,7 +2594,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_IMP, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_IMP, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2612,9 +2613,9 @@ public class ItemType {
 			"Bottled Alligator-morph Essence",
 			"Bottled Alligator-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_ALLIGATOR_MORPH.getName()+" glow of an alligator-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_ALLIGATOR_MORPH.getName()+" glow of an alligator-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceGatorMorph",
-			Colour.RACE_ALLIGATOR_MORPH,
+			PresetColour.RACE_ALLIGATOR_MORPH,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2630,7 +2631,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_ALLIGATOR_MORPH, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_ALLIGATOR_MORPH, user, target);
 		}
 	};
 	
@@ -2642,9 +2643,9 @@ public class ItemType {
 			"Bottled Squirrel-morph Essence",
 			"Bottled Squirrel-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_SQUIRREL_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a squirrel-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_SQUIRREL_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a squirrel-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceSquirrelMorph",
-			Colour.RACE_SQUIRREL_MORPH,
+			PresetColour.RACE_SQUIRREL_MORPH,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2660,7 +2661,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_SQUIRREL_MORPH, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_SQUIRREL_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2679,9 +2680,9 @@ public class ItemType {
 			"Bottled Rat-morph Essence",
 			"Bottled Rat-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_RAT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a rat-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_RAT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a rat-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceRatMorph",
-			Colour.RACE_RAT_MORPH,
+			PresetColour.RACE_RAT_MORPH,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2697,7 +2698,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_RAT_MORPH, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_RAT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2716,9 +2717,9 @@ public class ItemType {
 			"Bottled Rabbit-morph Essence",
 			"Bottled Rabbit-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_RABBIT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a rabbit-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_RABBIT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a rabbit-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceRabbitMorph",
-			Colour.RACE_RABBIT_MORPH,
+			PresetColour.RACE_RABBIT_MORPH,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2734,7 +2735,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_RABBIT_MORPH, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_RABBIT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2753,9 +2754,9 @@ public class ItemType {
 			"Bottled Bat-morph Essence",
 			"Bottled Bat-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_BAT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a bat-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_BAT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a bat-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceBatMorph",
-			Colour.RACE_BAT_MORPH,
+			PresetColour.RACE_BAT_MORPH,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2771,7 +2772,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_BAT_MORPH, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_BAT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2790,9 +2791,9 @@ public class ItemType {
 			"Bottled Dog-morph Essence",
 			"Bottled Dog-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_DOG_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a dog-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_DOG_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a dog-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceDogMorph",
-			Colour.RACE_DOG_MORPH,
+			PresetColour.RACE_DOG_MORPH,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2808,7 +2809,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_DOG_MORPH, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_DOG_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2827,9 +2828,9 @@ public class ItemType {
 			"Bottled Harpy Essence",
 			"Bottled Harpy Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_HARPY.getName()+" glow of an arcane essence, imbued with the energy of a harpy, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_HARPY.getName()+" glow of an arcane essence, imbued with the energy of a harpy, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceHarpy",
-			Colour.RACE_HARPY,
+			PresetColour.RACE_HARPY,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2845,7 +2846,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_HARPY, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_HARPY, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2864,9 +2865,9 @@ public class ItemType {
 			"Bottled Horse-morph Essence",
 			"Bottled Horse-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_HORSE_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a horse-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_HORSE_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a horse-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceHorseMorph",
-			Colour.RACE_HORSE_MORPH,
+			PresetColour.RACE_HORSE_MORPH,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2882,7 +2883,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_HORSE_MORPH, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_HORSE_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2901,9 +2902,9 @@ public class ItemType {
 			"Bottled Reindeer-morph Essence",
 			"Bottled Reindeer-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_REINDEER_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a reindeer-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_REINDEER_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a reindeer-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceReindeerMorph",
-			Colour.RACE_REINDEER_MORPH,
+			PresetColour.RACE_REINDEER_MORPH,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2919,7 +2920,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_REINDEER_MORPH, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_REINDEER_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2938,9 +2939,9 @@ public class ItemType {
 			"Bottled Human Essence",
 			"Bottled Human Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_HUMAN.getName()+" glow of an arcane essence, imbued with the energy of a human, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_HUMAN.getName()+" glow of an arcane essence, imbued with the energy of a human, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceHuman",
-			Colour.RACE_HUMAN,
+			PresetColour.RACE_HUMAN,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2956,7 +2957,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_HUMAN, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_HUMAN, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2975,9 +2976,9 @@ public class ItemType {
 			"Bottled Wolf-morph Essence",
 			"Bottled Wolf-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_WOLF_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a wolf-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_WOLF_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a wolf-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceWolfMorph",
-			Colour.RACE_WOLF_MORPH,
+			PresetColour.RACE_WOLF_MORPH,
 			null,
 			null,
 			Rarity.EPIC,
@@ -2993,7 +2994,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_WOLF_MORPH, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_WOLF_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -3012,9 +3013,9 @@ public class ItemType {
 			"Bottled Fox-morph Essence",
 			"Bottled Fox-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_FOX_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a fox-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_FOX_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a fox-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceFoxMorph",
-			Colour.RACE_FOX_MORPH,
+			PresetColour.RACE_FOX_MORPH,
 			null,
 			null,
 			Rarity.EPIC,
@@ -3030,7 +3031,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_FOX_MORPH, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_FOX_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -3049,9 +3050,9 @@ public class ItemType {
 			"Bottled Slime Essence",
 			"Bottled Slime Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_SLIME.getName()+" glow of an arcane essence, imbued with the energy of a slime, flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+PresetColour.RACE_SLIME.getName()+" glow of an arcane essence, imbued with the energy of a slime, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceSlime",
-			Colour.RACE_SLIME,
+			PresetColour.RACE_SLIME,
 			null,
 			null,
 			Rarity.EPIC,
@@ -3067,7 +3068,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorptionText(Colour.RACE_SLIME, user, target);
+			return getEssenceAbsorptionText(PresetColour.RACE_SLIME, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -3091,7 +3092,7 @@ public class ItemType {
 			"A swirly lollipop that you got from the harpy matriarch [bimboHarpy.name]."
 				+ " Although it doesn't look out of the ordinary, you're pretty sure that eating it would result in a potent transformation...",
 			"bimboLollipop",
-			Colour.RARITY_LEGENDARY,
+			PresetColour.RARITY_LEGENDARY,
 			null,
 			null,
 			Rarity.LEGENDARY,
@@ -3137,7 +3138,7 @@ public class ItemType {
 			"A cock-shaped lollipop that you got from the harpy matriarch [nymphoHarpy.name]."
 				+ " Although it looks to be made from regular candy, you're pretty sure that eating it would result in a potent transformation...",
 			"nymphoLollipop",
-			Colour.RARITY_LEGENDARY,
+			PresetColour.RARITY_LEGENDARY,
 			null,
 			null,
 			Rarity.LEGENDARY,
@@ -3182,7 +3183,7 @@ public class ItemType {
 			"A bottle of perfume that you got from the harpy matriarch [dominantHarpy.name]."
 				+ " Although it looks to contain normal perfume, you're pretty sure that using it would result in a potent transformation...",
 			"dominantPerfume",
-			Colour.RARITY_LEGENDARY,
+			PresetColour.RARITY_LEGENDARY,
 			null,
 			null,
 			Rarity.LEGENDARY,
@@ -3234,7 +3235,7 @@ public class ItemType {
 			"Created by infusing arcane essences with a consumable item, potions such as these can hold a huge number of restorative effects or performance enhancements."
 					+ " As potion creation is limited to those with a high level of arcane proficiency, such as demons, they are quite rare, and fetch a high price.",
 			"refined_potion_container",
-			Colour.CLOTHING_PINK,
+			PresetColour.CLOTHING_PINK,
 			null,
 			null,
 			Rarity.RARE,
@@ -3282,7 +3283,7 @@ public class ItemType {
 			"Created by infusing arcane essences with a consumable item, elixirs such as these can hold a huge number of transformative effects."
 					+ " As elixir creation is limited to those with a high level of arcane proficiency, such as demons, they are quite rare, and fetch a high price.",
 			"refined_elixir_container",
-			Colour.CLOTHING_PINK,
+			PresetColour.CLOTHING_PINK,
 			null,
 			null,
 			Rarity.EPIC,
@@ -3333,7 +3334,7 @@ public class ItemType {
 			"A small, very ordinary-looking brush, of the sort used for fine detailing on canvas or models."
 					+ " On closer inspection, you notice a very faint purple glow emanating from the brush's tip, revealing its true nature as an arcane-enchanted dye-brush.",
 			"dyeBrush",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			null,
 			null,
 			Rarity.EPIC,
@@ -3383,7 +3384,7 @@ public class ItemType {
 			"A small hammer, with a solid metal head and wooden shaft."
 					+ " It has been imbued with a unique arcane enchantment, which has not only made it as light as a feather, but has also granted it the ability to instantly reforge any weapon.",
 			"reforge_hammer",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			null,
 			null,
 			Rarity.EPIC,
@@ -3432,7 +3433,7 @@ public class ItemType {
 			"used condoms",
 			"A used condom, tied at the top and filled with someone's cum. You'd have to be pretty dirty-minded to think of a use for this... <b>(Currently not implemented...)</b>",
 			"condomUsed",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			null,
 			null,
 			Rarity.COMMON,
@@ -3485,7 +3486,7 @@ public class ItemType {
 			"Hypno-Watches",
 			"A unique, incredibly-powerful arcane instrument. When enchanted, this Hypno-Watch has the ability to change a person's sexual orientation, at the cost of increasing their corruption...",
 			"hypnoClockBase",
-			Colour.ANDROGYNOUS,
+			PresetColour.ANDROGYNOUS,
 			null,
 			null,
 			Rarity.QUEST,
@@ -3557,7 +3558,7 @@ public class ItemType {
 			"A small, pink pill, individually packaged in a foil and plastic wrapper."
 				+ " While the text printed on the foil identifies this pill as an 'Orally-Administered Reproduction Enhancer', it's colloquially known as a 'breeder pill', and temporarily boosts both fertility and virility when ingested.",
 			"pill",
-			Colour.CLOTHING_PINK,
+			PresetColour.CLOTHING_PINK,
 			null,
 			null,
 			Rarity.COMMON,
@@ -3586,12 +3587,13 @@ public class ItemType {
 	public static AbstractItemType PROMISCUITY_PILL = new AbstractItemType(20,
 			"a",
 			false,
-			"slut pill",
-			"slut pills",
+			"sterility pill",
+			"sterility pills",
 			"A small, blue pill, individually packaged in a foil and plastic wrapper."
-					+ " While the text printed on the foil identifies this pill as an 'Orally-Administered Reproduction Inhibitor', it's colloquially known as a 'slut pill', and temporarily reduces both fertility and virility when ingested.",
+				+ " While the text printed on the foil identifies this pill as an 'Orally-Administered Reproduction Inhibitor',"
+					+ " it's colloquially known as either a 'sterility pill' or 'slut pill', and temporarily reduces both fertility and virility when ingested.",
 			"pill",
-			Colour.CLOTHING_BLUE,
+			PresetColour.CLOTHING_BLUE,
 			null,
 			null,
 			Rarity.COMMON,
@@ -3612,8 +3614,8 @@ public class ItemType {
 			return getGenericUseDescription(user, target,
 					"Popping the little blue pill out of its foil wrapper, you quickly put it in your mouth and swallow it down.",
 					"Popping the little blue pill out of its foil wrapper, you bring it up to [npc.namePos] [npc.lips], before forcing it into [npc.her] mouth and making sure that [npc.she] swallows it down.",
-					"[npc.Name] pops a slut pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.",
-					"[npc.Name] pops a slut pill out of its little foil wrapper, before bringing it up to your [pc.lips], forcing it into your mouth, and making sure that you swallow it down.");
+					"[npc.Name] pops a sterility pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.",
+					"[npc.Name] pops a sterility pill out of its little foil wrapper, before bringing it up to your [pc.lips], forcing it into your mouth, and making sure that you swallow it down.");
 		}
 	};
 	
@@ -3624,7 +3626,7 @@ public class ItemType {
 			"Moo Milkers",
 			"A manual cow-themed breast pump, capable of holding up to "+Units.fluid(1000)+" of liquid in the attached plastic beaker.",
 			"breastPump",
-			Colour.BASE_PURPLE_LIGHT,
+			PresetColour.BASE_PURPLE_LIGHT,
 			null,
 			null,
 			Rarity.COMMON,
@@ -3687,7 +3689,7 @@ public class ItemType {
 			"A manual cow-themed breast pump."
 					+ " The attached plastic beaker has been filled with milk, and, by unscrewing the pumping mechanism on top, you can gain access to the liquid at any time.",
 			"breastPumpFilled",
-			Colour.BASE_PURPLE_LIGHT,
+			PresetColour.BASE_PURPLE_LIGHT,
 			null,
 			null,
 			Rarity.COMMON,
@@ -3720,8 +3722,8 @@ public class ItemType {
 			"A small plastic wand, no longer than 15cm, which has a digital readout embedded in the middle."
 					+ " The small instruction leaflet that came with it says to 'swipe the tester over the target's stomach to find out who the father is!'",
 			"pregnancy_test",
-			Colour.CLOTHING_WHITE,
-			Colour.GENERIC_ARCANE,
+			PresetColour.CLOTHING_WHITE,
+			PresetColour.GENERIC_ARCANE,
 			null,
 			Rarity.COMMON,
 			null,
@@ -3755,7 +3757,7 @@ public class ItemType {
 			"A baby bottle filled with a rich, creamy milk."
 			+ " On the side, a little sticker declares that this drink is able to speed up your pregnancy.",
 			"mothers_milk",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			null,
 			null,
 			Rarity.COMMON,
@@ -3782,6 +3784,38 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType REJUVENATION_POTION = new AbstractItemType(1_000,
+			"a bottle of",
+			false,
+			"rejuvenation potion",
+			"rejuvenation potions",
+			"A decorative glass bottle with an ornate bronze-and-glass stopper."
+					+ " It's filled with a purple liquid, and a little informative sticker on the underside of the container informs you that it's a '<i>rejuvenating potion, guaranteed to restore and revitalise over-used orifices</i>'.",
+			"rejuvenation_potion",
+			PresetColour.CLOTHING_PURPLE,
+			PresetColour.CLOTHING_BRONZE,
+			PresetColour.CLOTHING_BLUE_GREY,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.REJUVENATION_POTION)),
+			Util.newArrayListOfValues(
+					ItemTag.DOMINION_ALLEYWAY_SPAWN,
+					ItemTag.SUBMISSION_TUNNEL_SPAWN,
+					ItemTag.SOLD_BY_RALPH)) {
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Bringing the bottle up to your [pc.lips], you take the teat-like opening into your mouth, before greedily starting to suckle down the creamy liquid within.",
+					"Bringing the bottle up to [npc.namePos] [npc.lips], you push the teat-like opening into [npc.her] mouth, before forcing [npc.herHim] to suckle down the creamy liquid within.",
+					"[npc.Name] produces a bottle of 'Mother's Milk', and, taking the teat-like opening into [npc.her] mouth, [npc.she] greedily starts to suckle down the creamy liquid within.",
+					"[npc.Name] produces a bottle of 'Mother's Milk', and, pushing the teat-like opening into your mouth, [npc.she] forces you to suckle down the creamy liquid within.");
+		}
+	};
+	
 	public static AbstractItemType CIGARETTE_PACK = new AbstractItemType(350,
 			"a pack of",
 			true,
@@ -3790,8 +3824,8 @@ public class ItemType {
 			"An unopened, purple-and-white cardboard pack which contains twenty 'Starr Cigarettes'."
 					+ " According to the information printed on the back of the box, these cigarettes are both 'enhanced with aura-fortifying supplements' and 'guaranteed to make you look cool'.",
 			"cigaretteBox",
-			Colour.CLOTHING_PURPLE_DARK,
-			Colour.CLOTHING_GOLD,
+			PresetColour.CLOTHING_PURPLE_DARK,
+			PresetColour.CLOTHING_GOLD,
 			null,
 			Rarity.COMMON,
 			null,
@@ -3824,9 +3858,9 @@ public class ItemType {
 			"A rolled up paper cylinder, fitted with a sponge-like filter, and packed with a combination of dried plant matter and aura-boosting supplements."
 					+ " It's been enchanted with a very weak fire spell, so that when placed in someone's mouth, it will self-ignite.",
 			"cigarette",
-			Colour.CLOTHING_ORANGE,
-			Colour.CLOTHING_BRASS,
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_ORANGE,
+			PresetColour.CLOTHING_BRASS,
+			PresetColour.CLOTHING_WHITE,
 			Rarity.COMMON,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CIGARETTE)),
@@ -3861,7 +3895,7 @@ public class ItemType {
 			"Yuletide Gift",
 			"A wrapped present, sold by one of the reindeer-morph overseers in Dominion. It contains a random item from their store, and can also be given as a gift to your offspring, slaves, or Lilaya.",
 			"present",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			null,
 			null,
 			Rarity.RARE,
@@ -3904,9 +3938,9 @@ public class ItemType {
 				+ " [Ashley.speech(Just in case you're clueless to the point that you don't even know the favourite colour of your intended recipient, every natural colour is included here.)]",
 			//				+ " If their favourite happens to be blue, tough luck; maybe you should try getting acquainted with another species of flower instead of going with what's safe.)] ",
 			"giftRoseBouquet",
-			Colour.BASE_RED,
-			Colour.BASE_ORANGE,
-			Colour.BASE_YELLOW,
+			PresetColour.BASE_RED,
+			PresetColour.BASE_ORANGE,
+			PresetColour.BASE_YELLOW,
 			Rarity.UNCOMMON,
 			null,
 			null,
@@ -3951,9 +3985,9 @@ public class ItemType {
 			"Chocolates",
 			"A box filled with various chocolates. [Ashley.speech(Generic, but tasty. Yeah, go ahead and pretend that you're buying this for someone other than yourself.)]",
 			"giftChocolates",
-			Colour.BASE_TAN,
-			Colour.BASE_BROWN_DARK,
-			Colour.BASE_YELLOW,
+			PresetColour.BASE_TAN,
+			PresetColour.BASE_BROWN_DARK,
+			PresetColour.BASE_YELLOW,
 			Rarity.UNCOMMON,
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.GIFT_CHOCOLATES)),
@@ -3993,8 +4027,8 @@ public class ItemType {
 			"A small bottle of perfume."
 					+ " [Ashley.speech(A generic scent that most people enjoy. Makes you more attractive to everyone, since nobody likes a stinker!)]",
 			"giftPerfume",
-			Colour.BASE_ROSE,
-			Colour.BASE_PURPLE_LIGHT,
+			PresetColour.BASE_ROSE,
+			PresetColour.BASE_PURPLE_LIGHT,
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
@@ -4036,7 +4070,7 @@ public class ItemType {
 			"A cute brown teddy bear, with the words 'Hug me!' sewed onto a little heart that it's holding."
 				+ " [Ashley.speech(Warning, this is an inanimate object; it does not actually yearn for your affection and cannot protect you from monsters hiding under the bed!)]",
 			"giftTeddyBear",
-			Colour.BASE_TAN,
+			PresetColour.BASE_TAN,
 			null,
 			null,
 			Rarity.UNCOMMON,
@@ -4084,7 +4118,7 @@ public class ItemType {
 			"Eggplants",
 			"A delicate, tropical perennial often cultivated as a tender or half-hardy annual in temperate climates. Also it kind of looks like a penis if you squint.",
 			"eggplant",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			null,
 			null,
 			Rarity.LEGENDARY,
@@ -4126,7 +4160,7 @@ public class ItemType {
 			"Eggplant Potions",
 			"A potion made from the bitter flesh of an eggplant. Just like the berry from which it was made, the bottle containing this potion sort of looks like a penis if you squint at it.",
 			"eggplant_potion",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			null,
 			null,
 			Rarity.LEGENDARY,
@@ -4175,7 +4209,7 @@ public class ItemType {
 			"Although this may look and taste like an ordinary burger, the packaging declares this 'Unlikely-Whammer' to be 100% meat free."
 			+ " Printed in very small, hard-to-read text, there's a disclaimer which states that the meat substitute is 'dangerously high in female hormones'...",
 			"raceRatMorphBurger",
-			Colour.GENERIC_SEX,
+			PresetColour.GENERIC_SEX,
 			null,
 			null,
 			Rarity.LEGENDARY,
@@ -4209,7 +4243,7 @@ public class ItemType {
 			"Arthur's Packages",
 			"A package that you collected from Arcane Arts. You need to deliver this to Arthur.",
 			"arthursPackage",
-			Colour.ANDROGYNOUS,
+			PresetColour.ANDROGYNOUS,
 			null,
 			null,
 			Rarity.QUEST,
@@ -4245,8 +4279,8 @@ public class ItemType {
 			"Fyrsia's Keys",
 			"An arcane key that you obtained from Fyrsia, the leader of an imp fortress in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central citadel.",
 			"impArcaneKey",
-			Colour.CLOTHING_SILVER,
-			Colour.GENERIC_ARCANE,
+			PresetColour.CLOTHING_SILVER,
+			PresetColour.GENERIC_ARCANE,
 			null,
 			Rarity.QUEST,
 			null,
@@ -4275,8 +4309,8 @@ public class ItemType {
 			"Jhortrax's Keys",
 			"An arcane key that you obtained from Jhortrax, the leader of an imp fortress in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central citadel.",
 			"impArcaneKey2",
-			Colour.CLOTHING_STEEL,
-			Colour.GENERIC_ARCANE,
+			PresetColour.CLOTHING_STEEL,
+			PresetColour.GENERIC_ARCANE,
 			null,
 			Rarity.QUEST,
 			null,
@@ -4305,8 +4339,8 @@ public class ItemType {
 			"Hyorlyss's Keys",
 			"An arcane key that you obtained from Hyorlyss, the leader of an imp fortress in Submission. When used in combination with keys obtained from the other two fortresses, it will grant entry to the central citadel.",
 			"impArcaneKey3",
-			Colour.CLOTHING_GOLD,
-			Colour.GENERIC_ARCANE,
+			PresetColour.CLOTHING_GOLD,
+			PresetColour.GENERIC_ARCANE,
 			null,
 			Rarity.QUEST,
 			null,
@@ -4337,9 +4371,9 @@ public class ItemType {
 			"Beautifully crafted from rose gold, and encrusted with precious gemstones, this ring has been enchanted to enslave whoever puts it on."
 					+ " If you were able to trick 'The Dark Siren' into wearing it, you could earn an audience with Lyssieth without needing to fight.",
 			"lyssiethsRing",
-			Colour.CLOTHING_ROSE_GOLD,
-			Colour.CLOTHING_RED_DARK,
-			Colour.CLOTHING_ROSE_GOLD,
+			PresetColour.CLOTHING_ROSE_GOLD,
+			PresetColour.CLOTHING_RED_DARK,
+			PresetColour.CLOTHING_ROSE_GOLD,
 			Rarity.QUEST,
 			null,
 			null, null) {
@@ -4369,7 +4403,7 @@ public class ItemType {
 			"arcane offspring maps",
 			"An arcane-enchanted map, obtained from Dominion's city hall, which is able to track the rough location of any of your offspring.",
 			"offspring_map",
-			Colour.BASE_BROWN,
+			PresetColour.BASE_BROWN,
 			null,
 			null,
 			Rarity.QUEST,
@@ -4421,8 +4455,8 @@ public class ItemType {
 			"Candi's Perfumes",
 			"A couple of bottles of perfume which you collected from Kate at Succubi's Secrets. You need to deliver these to Candi back at the Enforcer Headquarters.",
 			"candiPerfumes",
-			Colour.BASE_ROSE,
-			Colour.BASE_PURPLE_LIGHT,
+			PresetColour.BASE_ROSE,
+			PresetColour.BASE_PURPLE_LIGHT,
 			null,
 			Rarity.QUEST,
 			null,
@@ -4449,7 +4483,7 @@ public class ItemType {
 			"Boxes of Contraband Lollipops",
 			"A box full of contraband lollipops, seized by the Enforcers up in the Harpy Nests, and very much desired by Candi.",
 			"contrabandBox",
-			Colour.BASE_PINK_DEEP,
+			PresetColour.BASE_PINK_DEEP,
 			null,
 			null,
 			Rarity.QUEST,
@@ -4478,7 +4512,7 @@ public class ItemType {
 			"'A Hundred Kisses'",
 			"A limited-edition box containing a hundred differently-coloured lipsticks, produced by one of the most exclusive and upmarket cosmetics companies in all of Dominion.",
 			"candiHundredKisses",
-			Colour.BASE_PINK_DEEP,
+			PresetColour.BASE_PINK_DEEP,
 			null,
 			null,
 			Rarity.QUEST,
@@ -4507,7 +4541,7 @@ public class ItemType {
 			"A small, polished sphere, which has a single groove running around its entire circumference."
 					+ " Normally prohibited to citizens, Claire has given you this one so that you can send a signal to the SWORD Enforcers stationed near the Rat Warrens.",
 			"resonanceStone",
-			Colour.CLOTHING_PURPLE_VERY_DARK,
+			PresetColour.CLOTHING_PURPLE_VERY_DARK,
 			null,
 			null,
 			Rarity.QUEST,
@@ -4528,12 +4562,130 @@ public class ItemType {
 			return false;
 		}
 	};
+
+	public static AbstractItemType PAINT_CAN_PREMIUM = new AbstractItemType(1_500,
+			"a can of",
+			false,
+			"'Purple-star' golden paint",
+			"'Purple-star' golden paint",
+			"A can of golden paint, branded with the premium-grade 'Purple-star' logo, which you purchased from 'Argus's DIY Depot'."
+					+ " Hopefully Helena will appreciate how much this cost...",
+			"paint_can",
+			PresetColour.CLOTHING_GOLD,
+			PresetColour.CLOTHING_PURPLE_DARK,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "Unless they're a true paint connoisseur, nobody would ever believe how much you paid for this can of premium-grade 'Purple-star' paint...";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType PAINT_CAN = new AbstractItemType(250,
+			"a can of",
+			false,
+			"'Bronze-star' golden paint",
+			"'Bronze-star' golden paint",
+			"A can of golden paint, branded with the standard-grade 'Bronze-star' logo, which you purchased from 'Argus's DIY Depot'."
+					+ " Hopefully Helena won't be disappointed with this...",
+			"paint_can",
+			PresetColour.CLOTHING_GOLD,
+			PresetColour.CLOTHING_BRONZE,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "Although it's not the premium-grade 'Purple-star' can of paint which Helena specifically requested, you're sure that this will be good enough to get the job done...";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType ROLLED_UP_POSTERS = new AbstractItemType(0,
+			"half a dozen",
+			true,
+			"rolled-up enchanted poster",
+			"rolled-up enchanted posters",
+			"Half a dozen rolled-up posters, given to you by Helena with the order to paste them onto the walls near the entrance to Slaver Alley."
+					+ " Each one displays an enchanted, moving image of the beautiful harpy striking a seductive pose while wearing a skimpy bikini.",
+			"rolled_up_posters",
+			PresetColour.CLOTHING_DESATURATED_BROWN,
+			null,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "Although they're meant to be advertising 'Helena's Boutique', there's no mention of the harpy's store on any of these posters."
+					+ " Instead, each one displays an enchanted, moving image of Helena striking a seductive pose while wearing a skimpy bikini."
+					+ " The only text to be seen is at the bottom of each poster, and simply reads 'Helena' in fancy, cursive writing.";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType BUSINESS_CARDS = new AbstractItemType(0,
+			"a",
+			false,
+			"pack of business cards",
+			"packs of business cards",
+			"A pack of Helena's business cards, given to you by Scarlett along with the instructions to hand them out at the auction block in Slaver Alley."
+					+ " The pack itself has a fancy heart-shaped cut-out in the middle of its protective sleeve.",
+			"business_card_box_1",
+			PresetColour.CLOTHING_GOLD,
+			null,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "Carefully taking them out of their protective packaging, you see that Helena's business cards are very well designed, and clearly display both her name and the address of her store in Slaver Alley.";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
 	
 	// Standard non-racial transformatives:
 	
 //	MASOCHISTS_HEAVEN("a bottle of", "it", "Masochist's Heaven",
 //			"A clear plastic bottle of Masochist's Heaven. A girl, lying back in the missionary position, is prominently featured on the label, screaming in delight as a huge cock painfully stretches out her tight, dry pussy.",
-//			"potion", Colour.CLOTHING_WHITE, true, 25, Rarity.RARE, "Decreases orifice capacity, elasticity, and wetness.") {
+//			"potion", PresetColour.CLOTHING_WHITE, true, 25, Rarity.RARE, "Decreases orifice capacity, elasticity, and wetness.") {
 //		
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
@@ -4566,7 +4718,7 @@ public class ItemType {
 //	};
 //	GOING_BIG("a bottle of", "it", "Going Big",
 //			"A clear plastic bottle of a drink branded as 'Going Big'. A girl, presenting herself doggy-style, is prominently featured on the label, crying out in delight as a gigantic cock easily stretches out her tight, wet pussy.",
-//			"potion", Colour.CLOTHING_WHITE, true, 25, Rarity.RARE, "Decreases orifice capacity. Increases elasticity and wetness.") {
+//			"potion", PresetColour.CLOTHING_WHITE, true, 25, Rarity.RARE, "Decreases orifice capacity. Increases elasticity and wetness.") {
 //		
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
@@ -4599,7 +4751,7 @@ public class ItemType {
 //	WET_KISS("a bottle of", "it", "Wet Kiss",
 //			"A clear plastic bottle of the branded drink <i>Wet Kiss</i>, filled with a rose-coloured liquid. The label on the front is devoid"
 //					+ " of any images, and instead simply displays the name <i>Wet Kiss</i>, along with some incomprehensible technical details of the drink's manufacturing process.",
-//			"potion", Colour.CLOTHING_PINK_LIGHT, true, 25, Rarity.RARE, "Increases orifice wetness and capacity.") {
+//			"potion", PresetColour.CLOTHING_PINK_LIGHT, true, 25, Rarity.RARE, "Increases orifice wetness and capacity.") {
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
 //			if (user!=null && user.isPlayer() && target.isPlayer())
@@ -4635,7 +4787,7 @@ public class ItemType {
 //	BUBBLE_MILK("a bottle of", "it", "bubble-milk",
 //			"A clear plastic bottle of bubble-milk. Despite its name, the milk doesn't physically bubble, but instead refers to the feeling"
 //					+ " you get after drinking it. A busty greater cow-girl is prominently featured on the label, smiling as she milks her gigantic udder-tits into a metal bucket.",
-//			"potion", Colour.CLOTHING_WHITE, true, 25, Rarity.RARE, "Increases breast size and lactation.") {
+//			"potion", PresetColour.CLOTHING_WHITE, true, 25, Rarity.RARE, "Increases breast size and lactation.") {
 //		
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
@@ -4668,7 +4820,7 @@ public class ItemType {
 //	BUBBLE_CREAM("a bottle of", "it", "bubble-cream",
 //			"A clear plastic bottle of bubble-cream. Just like bubble-milk, the cream doesn't physically bubble, but instead refers"
 //					+ " to the feeling you get after drinking it. A greater cow-girl with three pairs of gigantic breasts is prominently featured on the label, smiling as she" + " milks her gigantic udder-tits into a metal bucket.",
-//			"potion", Colour.CLOTHING_WHITE, true, 100, Rarity.EPIC, "Increases breast size, count, and lactation.") {
+//			"potion", PresetColour.CLOTHING_WHITE, true, 100, Rarity.EPIC, "Increases breast size, count, and lactation.") {
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
 //			if (user!=null && user.isPlayer() && target.isPlayer())
@@ -4701,7 +4853,7 @@ public class ItemType {
 //	THROBBING_GLOW("a bottle of", "it", "Throbbing Glow",
 //			"A clear plastic bottle of the energy drink <i>Throbbing Glow</i>, filled with a bright blue liquid. A"
 //					+ " well-endowed greater horse-boy is prominently featured on the label, stroking his gigantic member with one hand, while bringing a bottle of <i>Throbbing Glow</i>" + " to his lips with the other.",
-//			"potion", Colour.CLOTHING_BLUE_LIGHT, true, 25, Rarity.RARE, "Increases penis and testicle size. Increases cum production.") {
+//			"potion", PresetColour.CLOTHING_BLUE_LIGHT, true, 25, Rarity.RARE, "Increases penis and testicle size. Increases cum production.") {
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
 //			if (user!=null && user.isPlayer() && target.isPlayer())
@@ -4734,7 +4886,7 @@ public class ItemType {
 //	FLOWERS_WARMTH("a bottle of", "it", "Flower's Warmth",
 //			"A clear plastic bottle of the energy drink <i>Flower's Warmth</i>, filled with a pale pink liquid. A"
 //					+ " greater cat-girl is featured prominently on the label, leaning back in a chair as another greater cat-girl laps hungrily at her exposed pussy.",
-//			"potion", Colour.CLOTHING_PINK_LIGHT, true, 25, Rarity.RARE, "Increases the body's feminine characteristics.") {
+//			"potion", PresetColour.CLOTHING_PINK_LIGHT, true, 25, Rarity.RARE, "Increases the body's feminine characteristics.") {
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
 //			if (user!=null && user.isPlayer() && target.isPlayer())
@@ -4769,7 +4921,7 @@ public class ItemType {
 //	SCARLET_WHISPER("a bottle of", "it", "Scarlet Whisper",
 //			"A delicate glass bottle of <i>Scarlet Whisper</i>, filled with a bright pink liquid. The label on the front displays"
 //					+ " the name <i>Scarlet Whisper</i> in a delicate, feminine font. The rest of the label is covered in simple images of pale pink flowers and looping linework.",
-//			"potion", Colour.CLOTHING_PINK, true, 25, Rarity.RARE, "Increases all feminine aspects.") {
+//			"potion", PresetColour.CLOTHING_PINK, true, 25, Rarity.RARE, "Increases all feminine aspects.") {
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
 //			if (user!=null && user.isPlayer() && target.isPlayer())
@@ -4802,7 +4954,7 @@ public class ItemType {
 //	FLAMING_THUNDER("a bottle of", "it", "Flaming Thunder",
 //			"A thick glass bottle of <i>Flaming Thunder</i>, filled with a deep blue liquid. The label on the front displays"
 //					+ " the name <i>Flaming Thunder</i> in a bold, striking font. The rest of the label is covered in simple images of lightning and bold linework.",
-//			"potion", Colour.CLOTHING_BLUE, true, 25, Rarity.RARE, "Increases all masculine aspects.") {
+//			"potion", PresetColour.CLOTHING_BLUE, true, 25, Rarity.RARE, "Increases all masculine aspects.") {
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
 //			if (user!=null && user.isPlayer() && target.isPlayer())
@@ -4932,21 +5084,21 @@ public class ItemType {
 			List<String> effectsString = Util.newArrayListOfValues(
 					"[style.boldExcellent(Permanently)] gain the spell '<b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+s.getName()+"</b>'.");
 			
-
-			Subspecies subspecies = Subspecies.ELEMENTAL_ARCANE;
 			if(s == Spell.ELEMENTAL_EARTH) {
-				subspecies = Subspecies.ELEMENTAL_EARTH;
+				effectsString.add("Adds "+Subspecies.ELEMENTAL_EARTH.getName(null)+" encyclopedia entry.");
 				
 			} else if(s == Spell.ELEMENTAL_WATER) {
-				subspecies = Subspecies.ELEMENTAL_WATER;
+				effectsString.add("Adds "+Subspecies.ELEMENTAL_WATER.getName(null)+" encyclopedia entry.");
 				
 			} else if(s == Spell.ELEMENTAL_AIR) {
-				subspecies = Subspecies.ELEMENTAL_AIR;
+				effectsString.add("Adds "+Subspecies.ELEMENTAL_AIR.getName(null)+" encyclopedia entry.");
 				
 			} else if(s == Spell.ELEMENTAL_FIRE) {
-				subspecies = Subspecies.ELEMENTAL_FIRE;
+				effectsString.add("Adds "+Subspecies.ELEMENTAL_FIRE.getName(null)+" encyclopedia entry.");
+				
+			} else if(s == Spell.ELEMENTAL_ARCANE) {
+				effectsString.add("Adds "+Subspecies.ELEMENTAL_ARCANE.getName(null)+" encyclopedia entry.");
 			}
-			effectsString.add("Adds "+subspecies.getName(null)+" encyclopedia entry.");
 //			effectsString.add("[style.boldExcellent(+5 "+Attribute.DAMAGE_ELEMENTAL.getName()+")]");
 			
 			
@@ -4973,7 +5125,6 @@ public class ItemType {
 							
 						} else if(s == Spell.ELEMENTAL_ARCANE) {
 							raceKnowledgeGained = getBookEffect(target, Subspecies.ELEMENTAL_ARCANE, true);
-							
 						}
 					}
 					
@@ -5288,7 +5439,7 @@ public class ItemType {
 							"A book which contains advanced lore concerning "+mainSubspecies.getNamePlural(null)+".",
 							"race_book",
 							mainSubspecies.getColour(null),
-							Colour.CLOTHING_GOLD,
+							PresetColour.CLOTHING_GOLD,
 							mainSubspecies.getColour(null),
 							Rarity.LEGENDARY,
 							null,

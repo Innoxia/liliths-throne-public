@@ -55,9 +55,9 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -101,7 +101,7 @@ public class RentalMommy extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.9")) {
 			this.setLevel(15);
 			this.resetPerksMap(true);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_WHITE, false), true, this);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
@@ -160,29 +160,29 @@ public class RentalMommy extends NPC {
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_HAZEL));
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_COW_MORPH, Colour.EYE_HAZEL));
-		this.setSkinCovering(new Covering(BodyCoveringType.BOVINE_FUR, CoveringPattern.SPOTTED, Colour.COVERING_WHITE, false, Colour.COVERING_BLACK, false), true);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_HAZEL));
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_COW_MORPH, PresetColour.EYE_HAZEL));
+		this.setSkinCovering(new Covering(BodyCoveringType.BOVINE_FUR, CoveringPattern.SPOTTED, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_BLACK, false), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BLACK), true);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_BOVINE_FUR, Colour.COVERING_BLACK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, PresetColour.COVERING_BLACK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_BOVINE_FUR, PresetColour.COVERING_BLACK), true);
 		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 		this.setHairStyle(HairStyle.STRAIGHT);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_BOVINE_FUR, Colour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_BOVINE_FUR, PresetColour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
-		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
-		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_RED));
-//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
-		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
-		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PINK));
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_RED));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_RED));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_RED));
+		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_RED));
+		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PINK));
 		
 		// Face:
 		this.setFaceVirgin(false);
@@ -238,18 +238,18 @@ public class RentalMommy extends NPC {
 
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_NURSING_BRA, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_tight_jeans", Colour.CLOTHING_BLUE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_NURSING_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_tight_jeans", PresetColour.CLOTHING_BLUE, false), true, this);
 		try {
 			this.equipClothingFromNowhere(
-					AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_rentalMommy_rental_mommy"), Colour.CLOTHING_WHITE, Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, false), true, this);
+					AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_rentalMommy_rental_mommy"), PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, false), true, this);
 		} catch(Exception ex) {
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torso_tshirt", Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torso_tshirt", PresetColour.CLOTHING_WHITE, false), true, this);
 		}
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_ankle_boots", Colour.CLOTHING_TAN, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_ankle_boots", PresetColour.CLOTHING_TAN, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_GOLD, false), true, this);
 
 	}
 	

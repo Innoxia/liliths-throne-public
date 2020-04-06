@@ -28,9 +28,9 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -246,7 +246,7 @@ public class TunnelImpsDialogue {
 					}
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit",
-								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+								"Due to your <b style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
 									+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
 								null);
 					} else {
@@ -450,7 +450,7 @@ public class TunnelImpsDialogue {
 					}
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit",
-									"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+									"Due to your <b style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
 										+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
 								null);
 					} else {
@@ -570,7 +570,7 @@ public class TunnelImpsDialogue {
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit (both)",
 								UtilText.parse(getMainCompanion(),
-									"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+									"Due to your <b style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
 										+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid, or to tell [npc.name] to do the same!"),
 								null);
 						
@@ -703,7 +703,7 @@ public class TunnelImpsDialogue {
 					};
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Spit",
-								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+								"Due to your <b style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
 									+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
 								null);
 					} else {
@@ -1371,7 +1371,7 @@ public class TunnelImpsDialogue {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "AFTER_VICTORY_SEX");
+			return UtilText.parseFromXMLFile("encounters/submission/impAttackCombatVictory"+(isCompanionDialogue()?"Companions":""), "AFTER_VICTORY_SEX", getImpGroup());
 		}
 
 		@Override

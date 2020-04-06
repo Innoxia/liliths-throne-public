@@ -174,7 +174,7 @@ public class Cell implements XMLSaving {
 	}
 	
 	public Vector2i getLocation() {
-		return location;
+		return new Vector2i(location);
 	}
 
 	public void setLocation(Vector2i location) {

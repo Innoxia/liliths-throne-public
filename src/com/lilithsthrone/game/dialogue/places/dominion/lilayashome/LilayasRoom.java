@@ -26,9 +26,9 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMasturbation;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -369,7 +369,7 @@ public class LilayasRoom {
 						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Rose.class).incrementAffection(Main.game.getPlayer(), 15));
 						Main.game.getNpc(Rose.class).unequipClothingIntoVoid(Main.game.getNpc(Rose.class).getClothingInSlot(InventorySlot.GROIN), true, Main.game.getNpc(Rose.class));
 						Main.game.getNpc(Rose.class).displaceClothingForAccess(CoverableArea.PENIS, null);
-						Main.game.getNpc(Rose.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PURPLE_DARK, false), true, Main.game.getNpc(Rose.class));
+						Main.game.getNpc(Rose.class).equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_penis_strapon", PresetColour.CLOTHING_PURPLE_DARK, false), true, Main.game.getNpc(Rose.class));
 					}
 				};
 					
@@ -465,7 +465,7 @@ public class LilayasRoom {
 //					public void effects() {
 //						Main.game.getNpc(Rose.class).unequipClothingIntoVoid(Main.game.getNpc(Rose.class).getClothingInSlot(InventorySlot.GROIN), true, Main.game.getNpc(Rose.class));
 //						Main.game.getNpc(Rose.class).displaceClothingForAccess(CoverableArea.PENIS);
-//						Main.game.getNpc(Rose.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, Colour.CLOTHING_PURPLE_DARK, false), true, Main.game.getNpc(Rose.class));
+//						Main.game.getNpc(Rose.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_PENIS_STRAPON, PresetColour.CLOTHING_PURPLE_DARK, false), true, Main.game.getNpc(Rose.class));
 //					}
 //				};
 //					

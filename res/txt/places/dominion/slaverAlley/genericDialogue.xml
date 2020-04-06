@@ -5,16 +5,22 @@
 	
 	<htmlContent tag="OUTSIDE"><![CDATA[
 	<p>
-		As you navigate through the labyrinthine passageways of Dominion's back-alleys, you start to hear the faint murmur of voices somewhere before you. Proceeding with caution, you slowly step around the next corner, and find yourself looking into a small, well-kept courtyard.
+		As you navigate through the labyrinthine passageways of Dominion's back-alleys, you start to hear the faint murmur of voices coming from somewhere up ahead. Proceeding with caution, you slowly make your way around the next corner, and find yourself [pc.stepping] into a well-kept courtyard, which is paved over in clean, grey cobblestones. Positioned in the very centre of this small square, there stands a finely-carved stone figure, depicting a beautiful human slave bowing her head in submission.
 	</p>
 	<p>
-		Clean, grey cobblestones line the floor, and in the middle of the little square, surrounded by wooden benches, a bubbling stream of water cascades out of a finely-crafted stone fountain. On three of its sides, multiple narrow entrances link this area to the surrounding alleyways, but it's what's on the fourth that draws your attention. A huge, open gateway, flanked by a pair of muscular horse-boys, has been built into the wall, and it's through this opening that the sound of a busy marketplace can be heard.
+		Continuing to move forwards, you see that multiple narrow entrances link three of this area's walled sides to the surrounding alleyways, while on the fourth there's a huge, open gateway, through which the sounds of a busy marketplace can be heard. The words 'Slaver Alley' have been cast into this gate's dull iron framing, while to either side of it, posters advertising a multitude of different slave traders have been plastered all over the weathered brick walls. A pair of muscular horse-boys are standing guard a little way inside, and from the fact that their attention is fixed entirely on looking inwards towards Slaver Alley, you suspect that their only job is to make sure that no runaway slaves slip past them.
 	</p>
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			There doesn't seem to be any sign that these horse-boys are affected by the ongoing arcane storm, and as a particularly large bolt of pink lightning flashes across the sky, you see the faint shimmer of a vast arcane shield protecting both them and all of Slaver Alley from its effects.
+		</p>
+	#ELSE
+		<p>
+			While it's nowhere near as busy as the main streets of Dominion, this area still sees a relatively high level of foot traffic. As you've been standing here, several shoppers, often accompanied by one or more slaves, have already crossed the courtyard, heading either to or from the heavily-patrolled alleyway which leads back out to the city's busy boulevard.
+		</p>
+	#ENDIF
 	<p>
-		As you step closer, neither of the guards react to your presence, and you notice that their attention is focused solely on who's trying to leave the area beyond. Crossing the courtyard, you see that the words 'Slaver Alley' have been cast into the dull iron framing of the gate, and on the walls to either side, promotional posters for different vendors have been plastered over the red bricks.
-	</p>
-	<p>
-		It looks as though any member of the public is free to come and go as they please.
+		If you wanted to, you could pass through the gateway and enter Slaver Alley right now...
 	</p>
 	]]>
 	</htmlContent>
@@ -24,13 +30,143 @@
 	
 	<htmlContent tag="GATEWAY"><![CDATA[
 	<p>
-		You find yourself standing in the gateway that links Slaver Alley to the rest of Dominion. On either side of you, horse-boy guards keep a watchful eye on anyone that passes through here; obviously on the lookout for runaway slaves.
+		You find yourself standing in the gateway which links Slaver Alley to the rest of Dominion. On either side of this entrance, two horse-boy private security guards are keeping a watchful eye on anyone who passes through here; they're mostly focused on looking inwards towards Slavery Alley, as their primary duty is being on the lookout for any runaway slaves.
 	</p>
 	<p>
-		A touristy-looking information board, looking quite out of place with its surroundings, has been fixed to a nearby wall, and upon reading it, you discover that a powerful arcane shield has been erected over the entire area, which prevents the effects of any on-going arcane storms from being felt by any of the marketplace's occupants. True enough, as you glance up at the sky above, you see the faint pink crackle of the shield's arcane energy, reassuring you that you needn't worry about attacks from any horny customers.
+		The brick walls to either side of this gateway have been plastered with promotional posters, and while the vast majority of them are advertising stores within Slaver Alley itself, you see plenty of others promoting everything from soft drinks to brothels in Dominion's red light district.
+		#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_ROMANCE_HELENA, QUEST_ROMANCE_HELENA_6_ADVERTISING))
+			 True to their word, the guards have prevented anyone from pasting adverts over the six enchanted posters of Helena which you put up in this area. As customers to Slaver Alley pass you by, you hear some of them commenting on the harpy matriarch's beautiful appearance.
+		#ELSE
+			 A large sign near to where the guards are standing declares that <i>'Permission must be obtained before putting up any advertisements!'</i>.
+		#ENDIF
 	</p>
 	<p>
-		There are only a couple of other pieces of information that are of any real relevance to you. In large red writing at the top of the information board, you read that you must be in possession of a slaver license before being able to buy or sell slaves here. Underneath, the sentence telling you that you can obtain a license from the Slaver Administration building is crossed out, and in scrawling writing, the words 'Slaver Licenses are not being issued' has been written beneath.
+		The only place not plastered with these promotional posters is the spot where a touristy-looking information board has been screwed to the wall, and upon reading it, you discover that a powerful arcane shield has been erected over the entire area, which protects everyone beneath it from the lust-inducing effects of any ongoing arcane storm. True enough, as you glance up at the sky, you see the faint pink crackle of the shield's arcane energy, reassuring you that you needn't worry about attacks from any horny citizens.
+	</p>
+	<p>
+		Continuing to skim over the information board, you read that a person must be in possession of a slaver license before being able to buy or sell slaves. According to the next paragraph, these slaver licenses may be obtained from the 'Slaver Administration' building, which is apparently only a short distance away from where you're currently standing.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GATEWAY_POSTERS"><![CDATA[
+	<p>
+		<i>You'd better speak to the guards before starting to put up Helena's posters...</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GATEWAY_POSTER_PERMISSION -->
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION"><![CDATA[
+	<p>
+		Knowing that Helena is expecting you to immediately get on with your task, you [pc.walk] directly over to the entrance of Slaver Alley, where you see that two horse-boy guards are standing on duty. A large sign fixed to one of the nearby walls declares that <i>'Permission must be obtained before putting up any advertisements!'</i>, and as the two guards are keeping a close watch on you, there'd be no way to put up Helena's posters without being seen and stopped by them. Realising that you have no choice but to first obtain their permission, you step up to the older-looking of the two, who you assume to be the one in charge, and ask him if you could put your six posters up.
+	</p>
+	<p>
+		[style.speechMasculineStrong(More posters, huh?)] he grunts, [style.speechMasculineStrong(Sure, you can put them up, but it's going to cost you a hundred flames.)]
+	</p>
+	#IF(pc.hasBreasts())
+		<p>
+			#IF(pc.isCoverableAreaExposed(CA_NIPPLES))
+				[style.speechMasculine(If you don't want to pay, you could let us get a good feel of your tits instead!)]
+			#ELSE
+				[style.speechMasculine(If you don't want to pay, you could flash us your tits instead!)]
+			#ENDIF
+			 the second, younger horse-boy interjects, [style.speechMasculine(That'll keep me going until the end of my shift!)]
+		</p>
+		<p>
+			The older horse-boy grunts in approval at this suggestion, letting you know that if you wanted to avoid paying the hundred flame fee, you could always do as his subordinate suggests...
+		</p>
+	#ELSE
+		<p>
+			From their stern glares, you realise that there wouldn't be much point in trying to convince them to waive the fee, and so you're left with the choice of either paying up now, or returning to give them their money at another time...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION_PAID"><![CDATA[
+	<p>
+		Producing the hundred flames asked of you, you hand them over to the senior of the two horse-boys. With an approving grunt and nod of his head he says, [style.speechMasculineStrong(Right, go on then, you can put your posters up.)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION_GROPED"><![CDATA[
+	<p>
+		Deciding to do as the younger guard suggests, you step forwards and push your [pc.breastSize] breasts out towards him, [pc.speech(Go on then, get a good feel!)]
+	</p>
+	<p>
+		Not hesitating for a moment, the horse-boy greedily reaches out and grabs your tits, letting out a horny grunt as he playfully squeezes your [pc.nipples] between his rough fingers. Not wanting to miss out on the action, the second horse-boy steps over and joins the first in groping your breasts, grinning lecherously at your exposed [pc.nipples] as you unwittingly let out [pc.a_moan+]. 
+	</p>
+	<p>
+		[style.speechMasculine(Fucking nice... That'll do for me!)] the younger horse-boy declares, giving your tits one final squeeze before stepping back to his post.
+	</p>
+	<p>
+		[style.speechMasculineStrong(Yeah, that'll keep me going until I can get a good fuck once my shift's over,)] his superior says, similarly giving your [pc.nipples+] one last pinch before stepping back. Waving his hand at the walls, he declares, [style.speechMasculineStrong(Go on then, you can put your posters up now!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION_FLASH_BREASTS"><![CDATA[
+	<p>
+		Deciding to do as the younger guard suggests, you shift aside your clothing so that your [pc.breastSize] breasts and [pc.nipples+] are fully exposed. Pointing them in the direction of the two guards, you ask, [pc.speech(Is this what you wanted to see?)]
+	</p>
+	<p>
+		[style.speechMasculine(Oh yeah, those're fucking nice!)] the younger horse-boy declares, grinning lustfully at your tits.
+	</p>
+	<p>
+		[style.speechMasculineStrong(Yeah, that'll keep me going until I can get a good fuck once my shift's over,)] his superior says while starting hungrily at your [pc.nipples]. Letting out a satisfied sigh, he waves his hand at the walls and declares, [style.speechMasculineStrong(Go on then, you can put your posters up now!)]
+	</p>
+	<p>
+		Moving your clothing back into their previous position, you prepare to do as the guard says...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION_END"><![CDATA[
+	<p>
+		Taking a look at the walls on either side of the gateway, you see that they're already completely plastered with advertisements, and there's not a single free spot available where you can put up yours. Sensing what it is you're thinking, the younger of the two horse-boy guards says, [style.speechMasculine(Just paste them over some other poster; someone else will be along to do the same to yours before too long anyway.)]
+	</p>
+	<p>
+		Hoping that that doesn't turn out to be the case, you unroll the first of the posters, and relying on its enchantment to stick itself to the wall, you press it down over the top of an advertisement for Starr cigarettes. Sure enough, the poster adheres to the wall without need for any glue, and after [pc.stepping] back and admiring the moving image of Helena posing in her bikini, you move over and get started on putting up the next one. Before you're able to do so, however, the senior horse-boy lets out a low whistle and comments, [style.speechMasculineStrong(Damn... I'm sure I've seen her on the cover a magazine before. Is she one of those harpy queens or something?)]
+	</p>
+	<p>
+		Replying in the affirmative, you finish putting up the next poster, which causes the younger of the two horse-boys to excitedly comment, [style.speechMasculine(Woah! This one's in a different pose to the last! Look at her tits! Harpies don't usually have them that big!)]
+	</p>
+	<p>
+		Sure enough, this second poster you've just put up shows Helena in a different pose to the first; provocatively leaning forwards towards the viewer, she's gently swaying her body from side-to-side, which is causing her [helena.cupSize]-cup breasts to ponderously swing back and forth. Urged to continue by the two horse-boys, you put up the third poster beside the second, before [pc.stepping] over to the opposite wall and putting up the remaining three on that side. Each of the six posters turns out to display a bikini-clad Helena in an unique pose, and as you finish putting up the last one, the senior horse-boy comments, [style.speechMasculineStrong(There's no way I'm letting anyone put their posters over the top of these! Damn... This job suddenly became a lot more bearable!)]
+	</p>
+	<p>
+		Before you can respond to this, you suddenly notice a dark figure quickly approaching from one side, and you turn to see that it's none other than Scarlett herself. With the usual scowl on her face, she's making her way directly towards you, and you wonder what it is she wants...
+	</p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION_LEAVE"><![CDATA[
+	<p>
+		Telling the guards that you'll come back to put up the posters another time, you step back and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GATEWAY_POSTER_PERMISSION_END_RETURN -->
+	
+	<htmlContent tag="GATEWAY_POSTER_PERMISSION_END_RETURN"><![CDATA[
+	<p>
+		Completely ignoring the two horse-boy guards, Scarlett walks up right in front of you and flatly states, [scarlett.speech(You're finally done with putting those stupid fucking posters up? Helena's got something else for you to do now.)]
+	</p>
+	<p>
+		[style.speechMasculine(I'd hardly call them stupid,)] the younger horse-boy comments as he hears what it is that Scarlett's saying.
+	</p>
+	<p>
+		[scarlett.speech(How about you shut the fuck up, you dumb fucking cunt? I wasn't fucking talking to you!)] the foul-mouthed harpy snaps, before turning back to you and ordering, [scarlett.speech(Follow me back to the store.)]
+	</p>
+	<p>
+		Before you can ask any further questions, the rude harpy simply turns her back on you and marches off. Leaving the younger horse-boy guard complaining to his senior about the mannerisms of harpies, you prepare to follow Scarlett back to Helena's Boutique...
 	</p>
 	]]>
 	</htmlContent>
@@ -272,13 +408,13 @@
 		Deciding that you'd like to take a look inside one of the many shops that fill Slaver Alley, you approach the entrance to the nearest building. In order to display yet more slaves to passing customers, you see that a series of large glass windows have been installed into the walls before you. As you walk up to the entrance, some of the slaves standing behind these windows glance your way; no doubt wondering if you'll be their next owner.
 	</p>
 	<p>
-		Pushing open the door, you step inside the shop, and find that the interior is surprisingly clean, well-lit, and airy. Yet more slaves line the walls around you, and in the middle of the room, the shop's owner calls out to you from behind a circular wooden desk, [genericMale.speech(Hey! You a member of the Zaibatsu Exchange?)]
+		Pushing open the door, you step inside the shop, and find that the interior is surprisingly clean, well-lit, and airy. Yet more slaves line the walls around you, and in the middle of the room, the shop's owner calls out to you from behind a circular wooden desk, [style.speechMasculine(Good [style.afternoon]! Are you here to hire some slaves for your business?)]
 	</p>
 	<p>
-		After answering in the negative, the shop owner insists that you need to leave. Apparently, this shop, like most of the ones in Slaver Alley, is owned by a powerful slaving conglomerate, which only does business with registered members of their organisation.
+		After answering in the negative, the shop owner informs you that his store is one of several throughout Slaver Alley which specialises in renting slaves to businesses. Apparently, most of his clients are managers of companies here in Dominion who occasionally have to rent slaves to cover for temporary labour shortages.
 	</p>
 	<p>
-		Stepping back out into the street, you wonder where to go to next...
+		As this store is of no use to you, there's not much for you to do except say goodbye and [pc.step] back out into the street...
 	</p>
 	]]>
 	</htmlContent>
@@ -288,10 +424,16 @@
 	
 	<htmlContent tag="MARKET_STALL_BULK"><![CDATA[
 	<p>
-		Near the entrance of Slaver Alley, a pair of huge warehouses take up the entirety of one side of the street. Looking up at the large lettering that's printed across the front of each of them, you see that these warehouses are owned by the 'Royal Dominion Company'.
+		Flanked on both sides by a pair of huge warehouses, the store you find yourself standing in front of is without doubt the largest in all of Slaver Alley. Looking up at the large lettering that's printed across all three of these large buildings, you see that they're part of something called the 'Zaibatsu Exchange'.
 	</p>
 	<p>
-		The premises don't appear to be open to the public, and you assume that they must deal with large-scale bulk transfers of slaves between companies. With nothing more to be gained by hanging around near here, you step back out into the street, before wondering where to go to next...
+		While the warehouses are quite clearly not open to the public, you can see through the store's large windows that there are dozens of slaves on sale within. Wondering if you should go inside and take a look around, you [pc.walk] nearer to the front entrance, but as you approach, a wolf-girl guard steps forwards to bar your way and roughly growls, [style.speechFeminine(Hey! I don't recognise your face! You're not a member, are you?!)]
+	</p>
+	<p>
+		Realising that it would be far more trouble than it's worth to lie to this aggressive wolf-girl, you truthfully reply in the negative. Letting out a deep, throaty growl, she says, [style.speechFeminine(Then you'd better not be thinking about trying to go inside. This place is for members only.)]
+	</p>
+	<p>
+		Seeing no reason to cause a scene, you turn your back on the wolf-girl and [pc.walk] off back into Slaver Alley...
 	</p>
 	]]>
 	</htmlContent>
@@ -301,10 +443,48 @@
 	
 	<htmlContent tag="MARKET_STALL_CAFE"><![CDATA[
 	<p>
-		Scattered around Slaver Alley, there appear to be several cozy-looking cafes. Wondering if you could enter one of these to get a drink, you step up to the front door, but your entrance is barred by a muscular-looking wolf-girl, who snarls, [genericFemale.speech(You're not a member of the Zaibatsu Exchange, are you, punk?!)]
+		You find yourself standing in front of one of the cozy cafes which are scattered throughout Slaver Alley. Open twenty-four hours a day, seven days of the week, these establishments offer a place in which weary members of the public can rest and recuperate.
 	</p>
 	<p>
-		Realising that this is definitely going to be more trouble than it's worth, you turn your back on the wolf-girl and step back out into the street, before wondering where to go to next...
+		#IF(game.isExtendedWorkTime())
+			Looking through the front windows, you see that the cafe is currently very busy, with almost all of the tables being occupied. Despite this, however, you think that you'd be able to find a seat if you wanted to go inside and get something to eat or drink...
+		#ELSE
+			Looking through the front windows, you see that the cafe is currently very quiet, with almost all of the tables being empty. If you wanted to, you could go inside and get something to eat or drink...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- MARKET_STALL_CAFE_INTERIOR -->
+	
+	<htmlContent tag="MARKET_STALL_CAFE_INTERIOR"><![CDATA[
+	<p>
+		Deciding that you'd like to take a break, you push open the door to the cafe and step inside. Noticing your entry, one of the waitresses hurries over to greet you, before leading you over to an empty table next to one of the windows. Handing you a menu, she informs you that all food and drink must be paid for at the moment of order, before flashing you a sunny smile and rushing over to another table which requires her attention.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_INTERIOR_ORDER"><![CDATA[
+	<p>
+		Calling over the waitress, you place an order for [#SPECIAL_PARSE_0] [#SPECIAL_PARSE_1], before handing over the [#SPECIAL_PARSE_2] flames she asks of you. Having received the payment, she hurries off into the kitchen, before returning to your table and placing the [#SPECIAL_PARSE_1] down in front of you. Flashing you a cheery smile, she then quickly turns around and hurries off to another table which requires her attention.
+	</p>
+	<p>
+		#IF(pc.hasCompanions())
+			Relaxing in your comfortable chair, you make small-talk with [com.name] as you [#SPECIAL_PARSE_3] your [#SPECIAL_PARSE_1]...
+		#ELSE
+			Relaxing in your comfortable chair, you gaze out of the cafe's window and do some people-watching as you [#SPECIAL_PARSE_3] your [#SPECIAL_PARSE_1]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MARKET_STALL_CAFE_INTERIOR_ORDER_COMPANION"><![CDATA[
+	<p>
+		Calling over the waitress, you place an order for [#SPECIAL_PARSE_0] [#SPECIAL_PARSE_1], before handing over the [#SPECIAL_PARSE_2] flames she asks of you. Having received the payment, she hurries off into the kitchen, before returning to your table and placing the [#SPECIAL_PARSE_1] down in front of [com.name]. Flashing the two of you a cheery smile, she then quickly turns around and hurries off to another table which requires her attention.
+	</p>
+	<p>
+		Relaxing in your comfortable chair, you make small-talk with [com.name] as [com.she] [#SPECIAL_PARSE_3] [com.her] [#SPECIAL_PARSE_1]...
 	</p>
 	]]>
 	</htmlContent>
@@ -374,7 +554,7 @@
 	
 	<htmlContent tag="AUCTION_BLOCK"><![CDATA[
 	<p>
-		As you walk towards Slaver Alley's central courtyard, the excited buzz of hundreds of voices grows louder and louder. The source of this incessant din is hard to miss, and takes the form a huge, bustling crowd, which has surrounded a raised wooden platform. Several noticeboards, elevated above the heads of the energetic mob by means of several-[unit.lSize]-high poles, declare this area to be for 'Public Auctions'.
+		As you walk towards Slaver Alley's central courtyard, the excited buzz of hundreds of voices grows louder and louder. The source of this incessant din is hard to miss, and takes the form a huge, bustling crowd, which has surrounded a raised wooden platform. Several noticeboards, elevated above the heads of the energetic mob by means of tall poles, declare this area to be for 'Public Auctions'.
 	</p>
 	<p>
 		#IF(pc.isHasSlaverLicense())
@@ -2018,7 +2198,7 @@
 		Walking around in front of you, [sean.name] grins and says, [sean.speech(Now, I was thinking of giving you a choice as to what happens to you. I can always mark you as being available for public use, or, if you'd like, I could spare you that and keep you all to myself instead.)]
 	</p>
 	<p>
-		Fishing around in his pocket, the [sean.race] produces a small pink pill, and holds it up in front of you as he explains, [sean.speech(Of course, if you want me to keep the public away from you, you'll have to swallow this [#ITEM_VIXENS_VIRILITY.getName(false)] and beg for me to breed you. You'd like me to pound your pussy and fill you with my virile seed, wouldn't you?)]
+		Fishing around in his pocket, the [sean.race] produces a small pink pill, and holds it up in front of you as he explains, [sean.speech(Of course, if you want me to keep the public away from you, you'll have to swallow this [#ITEM_VIXENS_VIRILITY.getName(false)] and beg for me to breed you. You'd like me to pound your pussy and knock you up, wouldn't you?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -2028,7 +2208,7 @@
 		Walking around in front of [com.name], [sean.name] grins and says, [sean.speech(Now, I was thinking of giving you a choice as to what happens to you. I can always mark you as being available for public use, or, if you'd like, I could spare you that and keep you all to myself instead.)]
 	</p>
 	<p>
-		Fishing around in his pocket, the [sean.race] produces a small pink pill, and holds it up in front of your [com.companion] he explains, [sean.speech(Of course, if you want me to keep the public away from you, you'll have to swallow this [#ITEM_VIXENS_VIRILITY.getName(false)] and beg for me to breed you. You'd like me to pound your pussy and fill you with my virile seed, wouldn't you?)]
+		Fishing around in his pocket, the [sean.race] produces a small pink pill, and holds it up in front of your [com.companion] he explains, [sean.speech(Of course, if you want me to keep the public away from you, you'll have to swallow this [#ITEM_VIXENS_VIRILITY.getName(false)] and beg for me to breed you. You'd like me to pound your pussy and knock you up, wouldn't you?)]
 	</p>
 	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyCompanionAcceptedDeal))
 		#IF(com.equals(brax))

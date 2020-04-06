@@ -21,9 +21,10 @@ import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
 import com.lilithsthrone.world.WorldType;
@@ -340,7 +341,7 @@ public class OccupantDialogue {
 									OCCUPANT_KICK_OUT) {
 								@Override
 								public Colour getHighlightColour() {
-									return Colour.GENERIC_BAD;
+									return PresetColour.GENERIC_BAD;
 								}
 								@Override
 								public void effects() {
@@ -1048,18 +1049,19 @@ public class OccupantDialogue {
 				
 			} else if(index-3<availableOccuaptions.size()) {
 				Occupation job = availableOccuaptions.get(index-3);
+				String jobName = job.getName(occupant());
 				if(occupant().getHistory().equals(job)) {
-					return new Response(Util.capitaliseSentence(job.getName()),
-							UtilText.parse(occupant(), "[npc.Name] is already employed as "+UtilText.generateSingularDeterminer(job.getName())+" "+job.getName()+"."),
+					return new Response(Util.capitaliseSentence(jobName),
+							UtilText.parse(occupant(), "[npc.Name] is already employed as "+UtilText.generateSingularDeterminer(jobName)+" "+jobName+"."),
 							null);
 					
 				} else if(occupant().getDesiredJobs().contains(job)) {
-					return new Response(Util.capitaliseSentence(job.getName()),
-							UtilText.parse(occupant(), "Tell [npc.name] to stop looking for a job as "+UtilText.generateSingularDeterminer(job.getName())+" "+job.getName()+"."),
+					return new Response(Util.capitaliseSentence(jobName),
+							UtilText.parse(occupant(), "Tell [npc.name] to stop looking for a job as "+UtilText.generateSingularDeterminer(jobName)+" "+jobName+"."),
 							OCCUPANT_JOB_SUGGESTION) {
 						@Override
 						public Colour getHighlightColour() {
-							return Colour.GENERIC_MINOR_GOOD;
+							return PresetColour.GENERIC_MINOR_GOOD;
 						}
 						@Override
 						public void effects() {
@@ -1068,8 +1070,8 @@ public class OccupantDialogue {
 					};
 					
 				} else {
-					return new Response(Util.capitaliseSentence(job.getName()),
-							UtilText.parse(occupant(), "Tell [npc.name] that [npc.she] should look for a job as "+UtilText.generateSingularDeterminer(job.getName())+" "+job.getName()+"."),
+					return new Response(Util.capitaliseSentence(jobName),
+							UtilText.parse(occupant(), "Tell [npc.name] that [npc.she] should look for a job as "+UtilText.generateSingularDeterminer(jobName)+" "+jobName+"."),
 							OCCUPANT_JOB_SUGGESTION) {
 						@Override
 						public void effects() {
@@ -1195,7 +1197,7 @@ public class OccupantDialogue {
 							OCCUPANT_KICK_OUT) {
 						@Override
 						public Colour getHighlightColour() {
-							return Colour.GENERIC_BAD;
+							return PresetColour.GENERIC_BAD;
 						}
 						@Override
 						public void effects() {
@@ -1454,7 +1456,7 @@ public class OccupantDialogue {
 								OCCUPANT_APARTMENT_REMOVE) {
 							@Override
 							public Colour getHighlightColour() {
-								return Colour.GENERIC_BAD;
+								return PresetColour.GENERIC_BAD;
 							}
 							@Override
 							public void effects() {

@@ -1,11 +1,19 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -98,7 +106,7 @@ public class ShoppingArcadeDialogue {
 		
 		@Override
 		public int getSecondsPassed() {
-			return CityPlaces.TRAVEL_TIME_STREET;
+			return DominionPlaces.TRAVEL_TIME_STREET;
 		}
 
 		@Override
@@ -202,5 +210,165 @@ public class ShoppingArcadeDialogue {
 			return getFastTravelResponses(responseTab, index);
 		}
 		
+	};
+	
+	public static final DialogueNode ANTIQUES = new DialogueNode("Antiques Shop", "-", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ANTIQUES");
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return getCoreResponseTab(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==0) {
+				if(index==1) {
+					if(!Main.game.isExtendedWorkTime()) {
+						return new Response("Enter", "The antiques shop is currently closed; you'll have to return at another time if you want to take a look inside.", null);
+					}
+					return new Response("Enter", "Step inside the antiques shop and take a look around.", ANTIQUES_INTERIOR);
+				}
+			}
+			return getFastTravelResponses(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode ANTIQUES_INTERIOR = new DialogueNode("Antiques Shop", "-", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ANTIQUES_INTERIOR"));
+			
+			if(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).contains(Main.game.getNpc(Scarlett.class))) {
+				sb.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ANTIQUES_INTERIOR_SCARLETT"));
+			} else {
+				sb.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ANTIQUES_INTERIOR_END"));
+			}
+			
+			return sb.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).contains(Main.game.getNpc(Scarlett.class))) {
+				if(index==1) {
+					return new Response("Scarlett", "Head over to the store's employee and ask them about Scarlett.", ANTIQUES_INTERIOR_SCARLETT) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ANTIQUES_INTERIOR_SCARLETT_START"));
+							if(Main.game.getNpc(Scarlett.class).getRace()!=Race.HARPY || (Main.game.getNpc(Scarlett.class).getGender()!=Gender.F_P_TRAP && Main.game.getNpc(Scarlett.class).getGender()!=Gender.F_P_B_SHEMALE)) {
+								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ANTIQUES_INTERIOR_SCARLETT_TRANSFORMED"));
+							} else {
+								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ANTIQUES_INTERIOR_SCARLETT"));
+							}
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ANTIQUES_INTERIOR_SCARLETT_END"));
+							
+							((Scarlett)Main.game.getNpc(Scarlett.class)).completeBodyReset();
+							Main.game.getNpc(Scarlett.class).setLocation(Main.game.getPlayer(), true);
+							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar")), true, Main.game.getNpc(Scarlett.class));
+						}
+					};
+				}
+			}
+			if(index==0) {
+				return new Response("Exit", "Head back out into the Shopping Arcade.", ANTIQUES);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode ANTIQUES_INTERIOR_SCARLETT = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Explain", "Explain that while you're not here from the business which the squirrel-boy is talking about, you <i>are</i> here to take Scarlett off his hands.", ANTIQUES_INTERIOR_SCARLETT_EXPLAIN);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode ANTIQUES_INTERIOR_SCARLETT_EXPLAIN = new DialogueNode("", "", true, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ANTIQUES_INTERIOR_SCARLETT_EXPLAIN");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if(Main.game.getPlayer().getMoney()<10_000) {
+					return new Response("Pay ("+UtilText.formatAsMoney(10_000, "span")+")", "You cannot afford to pay the squirrel-boy the ten thousand flames he's asking for!", null);
+					
+				} else {
+					return new Response("Pay ("+UtilText.formatAsMoney(10_000, "span")+")", "Pay the squirrel-boy the ten thousand flames he's asking for.", ANTIQUES_INTERIOR_SCARLETT_END) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ANTIQUES_INTERIOR_SCARLETT_PURCHASED"));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-10_000));
+						}
+					};
+				}
+				
+			} else if(index==2) {
+				return new Response("Haggle", "Haggle with the squirrel-boy in an attempt to drive down the price which he's asking for Scarlett.", ANTIQUES_INTERIOR_SCARLETT_END) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/generic", "ANTIQUES_INTERIOR_SCARLETT_HAGGLE"));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode ANTIQUES_INTERIOR_SCARLETT_END = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Scarlett.class).setHomeLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_SCARLETT_BEDROOM);
+			Main.game.getNpc(Scarlett.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
+			Main.game.getNpc(Scarlett.class).getClothingInSlot(InventorySlot.NECK).setSealed(false);
+			Main.game.getNpc(Scarlett.class).unequipClothingIntoVoid(Main.game.getNpc(Scarlett.class).getClothingInSlot(InventorySlot.NECK), true, Main.game.getNpc(Scarlett.class));
+			Main.game.getNpc(Scarlett.class).getOwner().removeSlave(Main.game.getNpc(Scarlett.class));
+			Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX()+1, Main.game.getPlayer().getLocation().getY()));
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaScarlettToldToReturn, true);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue",
+						"Continue on your way out into the Shopping Arcade.",
+						ARCADE);
+			}
+			return null;
+		}
 	};
 }

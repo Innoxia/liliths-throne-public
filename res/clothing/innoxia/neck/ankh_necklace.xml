@@ -47,8 +47,8 @@
 	<primaryColoursDye values="ALL_WITH_METALS"/>
 	<secondaryColours values="JUST_STEEL"/>
 	<secondaryColoursDye values="ALL_WITH_METALS"/>
-	<tertiaryColours/>
-	<tertiaryColoursDye/>
+	<tertiaryColours values="JUST_STEEL"/>
+	<tertiaryColoursDye values="ALL_WITH_METALS"/>
 
 	<itemTags>
 		<tag>SOLD_BY_NYAN</tag>

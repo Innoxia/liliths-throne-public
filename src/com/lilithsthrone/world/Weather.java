@@ -1,6 +1,7 @@
 package com.lilithsthrone.world;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -9,17 +10,17 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum Weather {
 	
-	CLOUD("cloudy", Colour.GENERIC_GOOD),
+	CLOUD("cloudy", PresetColour.GENERIC_GOOD),
 	
-	CLEAR("clear", Colour.GENERIC_GOOD),
+	CLEAR("clear", PresetColour.GENERIC_GOOD),
 	
-	RAIN("raining", Colour.GENERIC_BAD),
+	RAIN("raining", PresetColour.GENERIC_BAD),
 
-	SNOW("snowing", Colour.GENERIC_BAD),
+	SNOW("snowing", PresetColour.GENERIC_BAD),
 	
-	MAGIC_STORM_GATHERING("stormy sky", Colour.GENERIC_ARCANE),
+	MAGIC_STORM_GATHERING("stormy sky", PresetColour.GENERIC_ARCANE),
 	
-	MAGIC_STORM("arcane storm", Colour.GENERIC_ARCANE);
+	MAGIC_STORM("arcane storm", PresetColour.GENERIC_ARCANE);
 
 	private String name;
 	private Colour colour;

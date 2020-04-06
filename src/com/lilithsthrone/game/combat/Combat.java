@@ -27,9 +27,10 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * Singleton enforced by Enum.<br/>
@@ -268,7 +269,7 @@ public enum Combat {
 		
 		boolean enemy = enemies.contains(character);
 		
-		sb.append("<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid "+(enemy?Colour.GENERIC_MINOR_BAD:Colour.GENERIC_MINOR_GOOD).getShades()[0]+"; border-radius:5px;'>");
+		sb.append("<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid "+(enemy?PresetColour.GENERIC_MINOR_BAD:PresetColour.GENERIC_MINOR_GOOD).getShades()[0]+"; border-radius:5px;'>");
 
 			sb.append(
 					"<div class='container-full-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; text-align:center;'>"
@@ -280,11 +281,11 @@ public enum Combat {
 			sb.append("<div class='container-full-width'>");
 				for(String s : descriptions) {
 					if(!s.isEmpty()) {
-						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
+						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
 					}
 				}
 				if(!effects.isEmpty()) {
-					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>"+effects+"</div>");
+					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>"+effects+"</div>");
 				}
 			sb.append("</div>");
 				
@@ -553,7 +554,7 @@ public enum Combat {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (isEnemyPartyDefeated()) {
-					return new ResponseEffectsOnly("Victory", "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You are victorious!</span>"){
+					return new ResponseEffectsOnly("Victory", "<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>You are victorious!</span>"){
 						@Override
 						public void effects() {
 							endCombat(true);
@@ -605,7 +606,7 @@ public enum Combat {
 			if (index == 1) {
 				return new Response("Submit",
 						UtilText.parse(enemyLeader,
-								"Submit to [npc.name]. <span style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>This will cause you to lose the current combat!</span>"),
+								"Submit to [npc.name]. <span style='color:" + PresetColour.GENERIC_TERRIBLE.toWebHexString() + ";'>This will cause you to lose the current combat!</span>"),
 						SUBMIT_CONFIRM){
 					@Override
 					public void effects() {
@@ -755,7 +756,7 @@ public enum Combat {
 				
 			} else if(isEnemyPartyDefeated()) {
 				if (index == 1) {
-					return new ResponseEffectsOnly("Victory", UtilText.parse(enemyLeader, "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have defeated [npc.name]!</span>")){
+					return new ResponseEffectsOnly("Victory", UtilText.parse(enemyLeader, "<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>You have defeated [npc.name]!</span>")){
 						@Override
 						public void effects() {
 							endCombat(true);
@@ -808,9 +809,9 @@ public enum Combat {
 					@Override
 					public Colour getHighlightColour() {
 						if(Main.game.getPlayer().getRemainingAP() > 0) {
-							return Colour.GENERIC_BAD;
+							return PresetColour.GENERIC_BAD;
 						} else {
-							return Colour.GENERIC_GOOD;
+							return PresetColour.GENERIC_GOOD;
 						}
 					}
 				};
@@ -918,7 +919,7 @@ public enum Combat {
 								@Override
 								public Colour getHighlightColour() {
 									if(targetedAlly.getCombatBehaviour()==behaviour) {
-										return Colour.GENERIC_GOOD;
+										return PresetColour.GENERIC_GOOD;
 									}
 									return super.getHighlightColour();
 								}
@@ -1213,12 +1214,12 @@ public enum Combat {
 				
 			} else if (!activeCombatants.contains(character)) {
 				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
+						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
 				return false;
 				
 			} else if(attemptedEscape) {
 				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>You fail to escape!</span>")));
+						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>You fail to escape!</span>")));
 				return false;
 				
 			}
@@ -1231,12 +1232,12 @@ public enum Combat {
 				
 			} else if (!activeCombatants.contains(character)) {
 				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
+						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
 				return false;
 				
 			} else if(attemptedEscape) {
 				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>[npc.Name] fails to escape with you!</span>")));
+						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>[npc.Name] fails to escape with you!</span>")));
 				return false;
 				
 			}
@@ -1244,7 +1245,7 @@ public enum Combat {
 		} else {
 			if (!activeCombatants.contains(character)) {
 				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
+						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
 				return false;
 				
 			} else if(escaped) {
@@ -1360,15 +1361,15 @@ public enum Combat {
 																:"[style.colourBad(")
 														+" gaining "+manaAbsorbed+" aura)]!")));
 					} else {
-						predictionContent.put(character, Util.newArrayListOfValues("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Defeated...</span>"));
+						predictionContent.put(character, Util.newArrayListOfValues("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Defeated...</span>"));
 					}
 					
 				} else {
-					predictionContent.put(character, Util.newArrayListOfValues("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Defeated...</span>"));
+					predictionContent.put(character, Util.newArrayListOfValues("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Defeated...</span>"));
 				}
 				
 			} else if(character.isStunned()) {
-				predictionContent.put(character, Util.newArrayListOfValues("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Stunned!</span>"));
+				predictionContent.put(character, Util.newArrayListOfValues("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Stunned!</span>"));
 				
 			} else {
 				if(character.isPlayer()) {
@@ -1405,7 +1406,7 @@ public enum Combat {
 		int apRemaining = character.getRemainingAP();
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(" <b>(<span style='color:"+(apRemaining==0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD).toWebHexString()+";'>"+apRemaining+"</span>/"+character.getMaxAP()+" AP)</b>");
+		sb.append(" <b>(<span style='color:"+(apRemaining==0?PresetColour.GENERIC_GOOD:PresetColour.GENERIC_BAD).toWebHexString()+";'>"+apRemaining+"</span>/"+character.getMaxAP()+" AP)</b>");
 		
 		sb.append("<div class='container-full-width' style='text-align:center;'>");
 		
@@ -1413,7 +1414,7 @@ public enum Combat {
 		int shields = character.getShields(DamageType.HEALTH);
 		if(shields!=0) {
 			shieldsFound = true;
-			sb.append("<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+Colour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
+			sb.append("<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
 							+"<span style='color:"+DamageType.HEALTH.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
 							+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+DamageType.HEALTH+"' style='cursor:default;'></div>"
 						+ "</div>");
@@ -1428,7 +1429,7 @@ public enum Combat {
 				}
 				shieldsFound = true;
 				sb.append(
-						"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+Colour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
+						"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
 							+"<span style='color:"+dt.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
 							+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+dt+"' style='cursor:default;'></div>"
 						+ "</div>");
@@ -1442,7 +1443,7 @@ public enum Combat {
 			}
 			shieldsFound = true;
 			sb.append(
-					"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+Colour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
+					"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
 						+"<span style='color:"+DamageType.LUST.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
 						+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+DamageType.LUST+"' style='cursor:default;'></div>"
 					+ "</div>");
@@ -1456,7 +1457,7 @@ public enum Combat {
 	private static String getCombatContent() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid "+Colour.BASE_WHITE.toWebHexString()+"; border-radius:5px;'>");
+		sb.append("<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid "+PresetColour.BASE_WHITE.toWebHexString()+"; border-radius:5px;'>");
 
 			sb.append("<div class='container-full-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; text-align:center;'><b>Planning</b></div>");
 		
@@ -1464,10 +1465,10 @@ public enum Combat {
 				
 				sb.append("[style.boldGood(You)]"+ getTitleResources(Main.game.getPlayer()));
 				if(predictionContent.get(Main.game.getPlayer()).isEmpty()) {
-					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>[style.colourDisabled(No moves selected...)]</div>");
+					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>[style.colourDisabled(No moves selected...)]</div>");
 				} else {
 					for(String s : predictionContent.get(Main.game.getPlayer())) {
-						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
+						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
 					}
 				}
 				sb.append("</br>");
@@ -1475,7 +1476,7 @@ public enum Combat {
 				for(GameCharacter ally : Combat.getAllies(Main.game.getPlayer())) {
 					sb.append(UtilText.parse(ally, "</br>[style.boldMinorGood([npc.Name])]")+ getTitleResources(ally));
 					for(String s : predictionContent.get(ally)) {
-						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
+						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
 					}
 					sb.append("</br>");
 				}
@@ -1485,7 +1486,7 @@ public enum Combat {
 			for(GameCharacter enemy : Combat.getEnemies(Main.game.getPlayer())) {
 				sb.append(UtilText.parse(enemy, (Combat.enemyLeader.equals(enemy)?"[style.boldBad([npc.Name])]":"</br>[style.boldMinorBad([npc.Name])]"))+ getTitleResources(enemy));
 				for(String s : predictionContent.get(enemy)) {
-					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
+					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
 				}
 				sb.append("</br>");
 			}

@@ -50,27 +50,26 @@ import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.3
- * @version 0.3
+ * @version 0.3.7
  * @author Innoxia
  */
 public class SALyssiethSpecials {
 
 	public static final void playerGrowDemonicVagina() {
 		Main.game.getPlayer().setVaginaType(VaginaType.DEMON_COMMON, true);
-		Main.game.getPlayer().setVaginaVirgin(true);
 		Main.game.getPlayer().setVaginaLabiaSize(LabiaSize.ZERO_TINY);
 		Main.game.getPlayer().setVaginaWetness(Wetness.SEVEN_DROOLING);
 		Main.game.getPlayer().setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMinimumValue(), true);
 		Main.game.getPlayer().setVaginaElasticity(OrificeElasticity.FOUR_LIMBER.getValue());
 		Main.game.getPlayer().setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 
-		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_RED_DARK), false);
+		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_RED_DARK), false);
 	}
 
 	public static final void playerGrowDemonicPenis() {
@@ -82,7 +81,7 @@ public class SALyssiethSpecials {
 		Main.game.getPlayer().setPenisCumExpulsion(FluidExpulsion.FOUR_HUGE.getMedianValue());
 		Main.game.getPlayer().fillCumToMaxStorage();
 		
-		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED), false);
+		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED), false);
 	}
 
 	public static final void playerGrowDemonicBreasts(CupSize breastCup, CupSize crotchBreastCup) {
@@ -98,8 +97,8 @@ public class SALyssiethSpecials {
 			player.setMinimumBreastSize(breastCup);
 		}
 		
-		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.NIPPLES, Colour.SKIN_RED_DARK), false);
-		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, Colour.SKIN_RED_DARK), false);
+		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_RED_DARK), false);
+		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.NIPPLES_CROTCH, PresetColour.SKIN_RED_DARK), false);
 	}
 
 	public static final void playerGrowDemonicBreasts(CupSize breastCup) {
@@ -167,7 +166,7 @@ public class SALyssiethSpecials {
 			Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 			Main.game.getPlayer().setHeight(168);
 			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
-			Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
+			Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK), false);
 			playerGrowDemonicBreasts(CupSize.DD);
 			Main.game.getPlayer().setPenisType(PenisType.NONE);
 			playerGrowDemonicVagina();
@@ -236,7 +235,7 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 				Main.game.getPlayer().setHeight(168);
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
-				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
+				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK), false);
 				playerGrowDemonicBreasts(CupSize.AA);
 			} else {
 				Main.game.getPlayer().incrementFemininity(15);
@@ -247,13 +246,13 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 				Main.game.getPlayer().setHeight(168);
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
-				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
+				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK), false);
 				playerGrowDemonicBreasts(CupSize.DD);
 			}
 			
 			if(Main.game.getPlayer().hasPenis()) {
 				Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
-				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED), false);
+				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED), false);
 				Main.game.getPlayer().setPenisSize(8);
 				Main.game.getPlayer().setTesticleSize(TesticleSize.ONE_TINY);
 				Main.game.getPlayer().fillCumToMaxStorage();
@@ -321,7 +320,7 @@ public class SALyssiethSpecials {
 			
 			playerGrowDemonicPenis();
 			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
-			Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
+			Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK), false);
 			playerGrowDemonicBreasts();
 			
 			if(!Main.game.getPlayer().isFeminine()) {
@@ -523,7 +522,7 @@ public class SALyssiethSpecials {
 		public String getActionDescription() {
 			if(Main.game.getNpc(Lyssieth.class).getForeplayPreference(Main.game.getPlayer()).getTargetedSexArea()==SexAreaOrifice.ANUS) {
 				return "Ask Lyssieth to carry on fucking your ass instead.<br/>"
-							+ "[style.italicsFeminine(Lyssieth will fully feminise you!)]"//TODO
+							+ "[style.italicsFeminine(Lyssieth will fully feminise you!)]"
 							+ (Main.game.getPlayer().hasPenis()
 									?"<br/>[style.italicsTfSexual(Lyssieth will also fully sissify your cock!)]"
 									:"");
@@ -557,14 +556,14 @@ public class SALyssiethSpecials {
 			if(Main.game.getNpc(Lyssieth.class).getForeplayPreference(Main.game.getPlayer()).getTargetedSexArea()==SexAreaOrifice.ANUS) {
 				if(Main.game.getPlayer().hasPenis()) {
 					Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON);
-					Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED), false);
+					Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED), false);
 					Main.game.getPlayer().setPenisSize(3);
 					Main.game.getPlayer().setTesticleSize(TesticleSize.ZERO_VESTIGIAL);
 					Main.game.getPlayer().fillCumToMaxStorage();
 				}
 				if(Main.game.getPlayer().hasVagina()) {
 					// Add anal-only vagina sticker:
-					AbstractClothing pastie = AbstractClothingType.generateClothing("innoxia_vagina_sticker_anal_only", Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PINK_HOT, Colour.CLOTHING_PURPLE_VERY_DARK, false);
+					AbstractClothing pastie = AbstractClothingType.generateClothing("innoxia_vagina_sticker_anal_only", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_PURPLE_VERY_DARK, false);
 					pastie.getEffects().clear();
 					pastie.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.DRAIN, 0));
 					pastie.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_ANAL_RECEIVING, TFPotency.MAJOR_BOOST, 0));
@@ -576,7 +575,7 @@ public class SALyssiethSpecials {
 				}
 				if(Main.game.getPlayer().hasPenis()) {
 					// Add chastity cage:
-					AbstractClothing cage = AbstractClothingType.generateClothing("innoxia_bdsm_ornate_chastity_cage", Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PINK_HOT, Colour.CLOTHING_GOLD, false);
+					AbstractClothing cage = AbstractClothingType.generateClothing("innoxia_bdsm_ornate_chastity_cage", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_GOLD, false);
 					cage.getEffects().clear();
 					cage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.DRAIN, 0));
 					cage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BODY_PART, TFModifier.TF_MOD_FETISH_PENIS_RECEIVING, TFPotency.MAJOR_BOOST, 0));
@@ -659,7 +658,7 @@ public class SALyssiethSpecials {
 			Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 			Main.game.getPlayer().setHeight(168);
 			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
-			Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
+			Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK), false);
 			playerGrowDemonicBreasts(CupSize.F);
 			playerGrowDemonicVagina();
 			
@@ -726,7 +725,7 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 				Main.game.getPlayer().setHeight(168);
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
-				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
+				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK), false);
 				playerGrowDemonicBreasts(CupSize.F);
 				
 			} else {
@@ -738,7 +737,7 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 				Main.game.getPlayer().setHeight(168);
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
-				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, Colour.SKIN_RED_DARK), false);
+				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK), false);
 				playerGrowDemonicBreasts(CupSize.AA);
 			}
 			

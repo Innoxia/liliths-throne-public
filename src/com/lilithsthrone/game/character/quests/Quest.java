@@ -3,12 +3,14 @@ package com.lilithsthrone.game.character.quests;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.7
  * @author Innoxia
  */
 public enum Quest {
@@ -300,7 +302,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.3.7!)]<br/>"//TODO
+			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in v0.4!)]<br/>"
 					+ "[siren.Name] told you that you're going to need the help of the youko if you're to defeat the elder lilin pegataur, Lunette."
 					+ " She said that you should find and enlist the help of her old friend, [youkoGuide.name], who worked in her lab back when she was living in her citadel."
 					+ " [youkoGuide.Name] will have returned to the town of Elis, which is the settlement nearest to the Shinrin Forest, the youko's homeland.";
@@ -532,61 +534,6 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "The Hypno-Watch appeared to work, although Lilaya stopped the test before it had a permanent effect."
 					+ " She warned that it will have a strong corruptive effect upon the mind of the whoever is targeted, and disenchanted it for good measure, before handing it over to you.";
-		}
-	},
-	
-	
-	RELATIONSHIP_NYAN_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
-		@Override
-		public String getName() {
-			return "Offer Nyan your help";
-		}
-
-		@Override
-		public String getDescription() {
-			return "Nyan explained that she's unable to sell any enchanted clothing due to the fact that her suppliers don't offer any."
-					+ " Apparently, these suppliers have used force to drive all of their rivals out of the area, so she has no alternative but to use them...<br/>"
-					+ "Perhaps you could offer to convince these new suppliers to let the old ones back?";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return "You offered Nyan your help in convincing the new suppliers to let the old ones back.";
-		}
-	},
-	
-	RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 10, 50) {
-		@Override
-		public String getName() {
-			return "Confront the suppliers";
-		}
-
-		@Override
-		public String getDescription() {
-			return "Nyan explained that the suppliers still work out of the supply depot here in the Shopping Arcane."
-					+ " From all that Nyan's told you about these new suppliers, you should be prepared for a tough fight if you decide to go and talk to them...";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return "You put an end to the dobermanns' monopoly, and although they'll continue to work as clothing suppliers, they'll stop intimidating the others.";
-		}
-	},
-	
-	RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.RELATIONSHIP, 10, 100) {
-		@Override
-		public String getName() {
-			return "Reward";
-		}
-
-		@Override
-		public String getDescription() {
-			return "You should return to Nyan and get the reward she promised you.";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return "Nyan paid you the reward she promised, and also offered to give you a 25% discount in her store. She also let slip that she's single, in a clumsy attempt to hit on you...";
 		}
 	},
 	
@@ -1223,6 +1170,272 @@ public enum Quest {
 			return "Deciding that it would be best to let Claire know of the situation, you asked her if there was anything the Enforcers could do to help."
 					+ " Apparently, a SWORD team is already prepared to raid the Rat Warrens, but they need to know Vengar is inside before launching their assault."
 					+ " Claire gave you a resonance stone to activate if you want them to back you up once inside.";
+		}
+	},
+	
+	
+	// Romance quests:
+
+	RELATIONSHIP_NYAN_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
+		@Override
+		public String getName() {
+			return "Offer Nyan your help";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Nyan explained that she's unable to sell any enchanted clothing due to the fact that her suppliers don't offer any."
+					+ " Apparently, these suppliers have used force to drive all of their rivals out of the area, so she has no alternative but to use them...<br/>"
+					+ "Perhaps you could offer to convince these new suppliers to let the old ones back?";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You offered Nyan your help in convincing the new suppliers to let the old ones back.";
+		}
+	},
+	
+	RELATIONSHIP_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 10, 50) {
+		@Override
+		public String getName() {
+			return "Confront the suppliers";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Nyan explained that the suppliers still work out of the supply depot here in the Shopping Arcane."
+					+ " From all that Nyan's told you about these new suppliers, you should be prepared for a tough fight if you decide to go and talk to them...";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You put an end to the dobermanns' monopoly, and although they'll continue to work as clothing suppliers, they'll stop intimidating the others.";
+		}
+	},
+	
+	RELATIONSHIP_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.RELATIONSHIP, 10, 100) {
+		@Override
+		public String getName() {
+			return "Reward";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You should return to Nyan and get the reward she promised you.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Nyan paid you the reward she promised, and also offered to give you a 25% discount in her store. She also let slip that she's single, in a clumsy attempt to hit on you...";
+		}
+	},
+	
+	
+	
+	ROMANCE_HELENA_FAILED(QuestType.RELATIONSHIP, 1, 0) {
+		@Override
+		public String getName() {
+			return "Furious Matriarch";
+		}
+
+		@Override
+		public String getDescription() {
+			return "After you refused to sell Scarlett to Helena, the haughty harpy matriarch gave up on her plans to run a slavery business and stormed off back to her nest."
+					+ " With the way she ruthlessly insulted you before leaving, you can be sure that she's never going to want to see you again...";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+	
+	ROMANCE_HELENA_1_OFFER_HELP(QuestType.RELATIONSHIP, 1, 5) {
+		@Override
+		public String getName() {
+			return "Offer to help";
+		}
+
+		@Override
+		public String getDescription() {
+			return "After asking Helena about her business, you discovered that she's barely managing to keep the place running."
+					+ " After expressing her desire to make some improvements to her shop, Helena revealed that she simply doesn't have the time nor inclination to do the work herself."
+					+ " Perhaps you could offer her your help?";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You offered to help Helena make some improvements to her shop.";
+		}
+	},
+
+	ROMANCE_HELENA_2_PURCHASE_PAINT(QuestType.RELATIONSHIP, 1, 25) {
+		@Override
+		public String getName() {
+			return "Purchase Paint";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Helena revealed that the first thing she wants done is to have the entire exterior of her shop repainted."
+					+ " Having provided you with no money for expenses, the harpy is expecting you to travel to 'Argus's DIY Depot' and buy a can of 'Purple-star' branded golden paint."
+					+ " Once you've bought it, you need to return to Helena."
+					+ "<br/><i>('Argus's DIY Depot' can be found a short way to the north of Slaver Alley, next to the canal.)</i>";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You purchased the required paint from 'Argus's DIY Depot' and returned to Helena.";
+		}
+	},
+
+	ROMANCE_HELENA_3_A_EXTERIOR_DECORATOR(QuestType.RELATIONSHIP, 1, 10) {
+		@Override
+		public String getName() {
+			return "Exterior Decorator (1/3)";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Having purchased the golden paint, you returned to Helena only to have her demand that you get started on repainting the exterior of her shop as soon as possible...";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You stripped off all of the old paint from the front of Helena's store.";
+		}
+	},
+
+	ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR(QuestType.RELATIONSHIP, 1, 10) {
+		@Override
+		public String getName() {
+			return "Exterior Decorator (2/3)";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You need to return to Helena's store during opening hours to see what your next task will be...";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You repainted the entire frontage of Helena's store, and additionally received a delivery of furniture from a succutaur named 'Natalya'.";
+		}
+	},
+
+	ROMANCE_HELENA_3_C_EXTERIOR_DECORATOR(QuestType.RELATIONSHIP, 1, 10) {
+		@Override
+		public String getName() {
+			return "Exterior Decorator (3/3)";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You need to return to Helena's store during opening hours to see what your next task will be...";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Under the harpy matriarch's supervision, you painted the words 'Helena's Boutique' in golden lettering above the door to her store.";
+		}
+	},
+
+	ROMANCE_HELENA_4_SCARLETTS_RETURN(QuestType.RELATIONSHIP, 1, 100) {
+		@Override
+		public String getName() {
+			return "Scarlett's Return";
+		}
+
+		@Override
+		public String getDescription() {
+			boolean slave = Main.game.getNpc(Scarlett.class).isSlave() || Main.game.getNpc(Scarlett.class).getHomeWorldLocation()==WorldType.EMPTY;
+			boolean playerOwner = Main.game.getNpc(Scarlett.class).isSlave() && Main.game.getNpc(Scarlett.class).getOwner().isPlayer();
+			return "Helena revealed to you her plan to rebrand her slave shop as a place where clients could order custom slaves."
+					+ " The person she has in mind to train these custom slaves is her old etiquette coach, who apparently is none other than Scarlett's sister."
+					+ (slave
+						?" The condition she's given Helena is that she free her unruly sister from slavery, promise never to enslave her again, and then keep her employed..."
+							+ "<br/>"
+							+(playerOwner
+								?"You're going to have to bring Scarlett to Helena and sell her back to her..."
+								:"You're going to have to find Scarlett and purchase her from whoever is her new owner. According to Helena, she's apparently been purchased by the owner of an antique shop somewhere in the Shopping Arcade.")
+						:" The condition she's given Helena is that she keep her unruly sister employed and promise never to enslave her again..."
+							+ "<br/>"
+							+ "You're going to have to go up to Helena's nest, find Scarlett, and then tell her to return to Helena...");
+		}
+		
+		@Override
+		public String getCompletedDescription() {
+			return "According to the wishes of Helena's old etiquette coach, Scarlett will from now on be working as the harpy matriarch's personal assistant.";
+		}
+	},
+
+	ROMANCE_HELENA_5_SCARLETT_TRAINER(QuestType.RELATIONSHIP, 1, 5) {
+		@Override
+		public String getName() {
+			return "Harpy Helper";
+		}
+
+		@Override
+		public String getDescription() {
+			return "The two harpies left early to head off and visit Scarlett's sister. You need to return to Helena's store during opening hours to see what your next task will be...";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You returned to Helena's store to discover that everything is set up and ready for the harpy matriarch to start accepting customers. Before that, however, you need to help her with a couple mroe things...";
+		}
+	},
+
+	ROMANCE_HELENA_6_ADVERTISING(QuestType.RELATIONSHIP, 1, 15) {
+		@Override
+		public String getName() {
+			return "Advertising";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Having been given half a dozen enchanted posters showing off Helena's beauty, your task is to put them up at the entrance of Slaver Alley in order to help advertise her store.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You put up posters advertising 'Helena's Boutique' at the entrance to Slaver Alley.";
+		}
+	},
+
+	ROMANCE_HELENA_7_GRAND_OPENING_PREPARATION(QuestType.RELATIONSHIP, 1, 15) {
+		@Override
+		public String getName() {
+			return "Preparing for the Grand Opening";
+		}
+
+		@Override
+		public String getDescription() {
+			return "After putting up the posters, Scarlett appeared and lead you back to Helena's shop."
+					+ " Your new task is to get things ready for tomorrow's grand opening, which means working through the night...";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You and Scarlett finished the preparations for the store's grand opening.";
+		}
+	},
+
+	ROMANCE_HELENA_8_FINISH(QuestType.RELATIONSHIP, 1, 100) {
+		@Override
+		public String getName() {
+			return "Preparing drinks";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Not wanting Scarlett to cause any trouble during the grand opening, Helena has tasked the two of you with staying in the back room and making drinks for the guests.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You and Scarlett stayed in the back room making drinks until the grand opening was over."
+					+ "  Finally showing some appreciation for your efforts, Helena told you that she'd be willing to let you take her on a date as your reward...";
 		}
 	},
 	

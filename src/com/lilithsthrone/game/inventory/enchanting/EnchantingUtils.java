@@ -23,9 +23,10 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.75
@@ -309,7 +310,7 @@ public class EnchantingUtils {
 		
 		String s = ((AbstractItemType) ingredient.getEnchantmentItemType(effects)).getSVGString();
 		
-		Colour colour = Colour.CLOTHING_BLUE_LIGHT;
+		Colour colour = PresetColour.CLOTHING_BLUE_LIGHT;
 		
 		for(ItemEffect ie : effects) {
 			if(ie.getPrimaryModifier() != null && ie.getPrimaryModifier() != TFModifier.NONE) {
@@ -374,7 +375,7 @@ public class EnchantingUtils {
 		
 		String s = item.getSVGString();
 		
-		Colour colour = Colour.CLOTHING_BLUE_LIGHT;
+		Colour colour = PresetColour.CLOTHING_BLUE_LIGHT;
 		
 		for(ItemEffect ie : effects) {
 			if(ie.getPrimaryModifier() != null && ie.getPrimaryModifier() != TFModifier.NONE) {

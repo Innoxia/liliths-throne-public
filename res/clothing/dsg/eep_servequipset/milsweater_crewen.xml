@@ -9,7 +9,7 @@
 	
 	<coreAtributes>
 	
-		<authorTag><![CDATA[A small tag sewn into the side seam reads "MFD by DSG Threadworks."]]></authorTag>
+		<authorTag><![CDATA[A small tag sewn into the side seam reads "Offical Enforcer Issue, MFD by DSG Threadworks."]]></authorTag>
 	
 		<!-- The base value of this clothing. I roughly base things on 1 flame = 10p, so 10 flames = £1. -->
 		<value>300</value> 

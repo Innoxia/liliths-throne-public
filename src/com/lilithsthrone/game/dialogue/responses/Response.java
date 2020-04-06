@@ -23,8 +23,9 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.69
@@ -184,25 +185,25 @@ public class Response {
 	
 	public Colour getHighlightColour() {
 		if(isSexHighlight()) {
-			return Colour.GENERIC_SEX;
+			return PresetColour.GENERIC_SEX;
 			
 		} else if(isSexPenetrationHighlight()) {
-			return Colour.GENERIC_SEX;
+			return PresetColour.GENERIC_SEX;
 			
 		} else if(isSexPositioningHighlight()) {
-			return Colour.GENERIC_ARCANE;
+			return PresetColour.GENERIC_ARCANE;
 			
 		} else if(isCombatHighlight()) {
-			return Colour.GENERIC_COMBAT;
+			return PresetColour.GENERIC_COMBAT;
 			
 		} else if(isCorruptionHighlight()) {
-			return Colour.ATTRIBUTE_CORRUPTION;
+			return PresetColour.ATTRIBUTE_CORRUPTION;
 			
 		} else if(isTradeHighlight()) {
-			return Colour.BASE_YELLOW_LIGHT;
+			return PresetColour.BASE_YELLOW_LIGHT;
 			
 		} else {
-			return Colour.TEXT;
+			return PresetColour.TEXT;
 		}
 	}
 	
@@ -240,6 +241,15 @@ public class Response {
 	}
 
 	public void effects() {
+	}
+	
+	/**
+	 * These are the effects to be applied after the endTurn() has been called. (So effects in here happen after time has passed in the new scene.)
+	 * <br/><b>Note:</b> endTurn(0) is called after this, so that effects are refreshed absed on what heppens within this method.
+	 * @return true if effects were applied.
+	 */
+	public boolean postEndTurnEffects() {
+		return false;
 	}
 	
 	/**
@@ -378,13 +388,13 @@ public class Response {
 			for(AbstractPerk p : perksRequired){
 				if(Main.game.getPlayer().hasTrait(p, true)) {
 					SB.append("<br/>"
-							+"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
-							+ " (<span style='color:"+Colour.PERK.toWebHexString()+";'>Perk</span>): "
+							+"<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
+							+ " (<span style='color:"+PresetColour.PERK.toWebHexString()+";'>Perk</span>): "
 							+Util.capitaliseSentence(p.getName(Main.game.getPlayer())));
 				} else {
 					SB.append("<br/>"
-							+"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
-							+ " (<span style='color:"+Colour.PERK.toWebHexString()+";'>Perk</span>): "
+							+"<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
+							+ " (<span style='color:"+PresetColour.PERK.toWebHexString()+";'>Perk</span>): "
 							+Util.capitaliseSentence(p.getName(Main.game.getPlayer())));
 				}
 			}
@@ -393,12 +403,12 @@ public class Response {
 		if(femininityRequired!=null) {
 			if(isFemininityInRange()) {
 				SB.append("<br/>"
-						+"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
+						+"<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
 						+ " (Femininity): "
 						+ "<span style='color:"+femininityRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(femininityRequired.getName(false))+"</span>");
 			} else {
 				SB.append("<br/>"
-						+"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
+						+"<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
 						+ " (Femininity): "
 						+ "<span style='color:"+femininityRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(femininityRequired.getName(false))+"</span>");
 			}
@@ -407,12 +417,12 @@ public class Response {
 		if(raceRequired!=null) {
 			if(isRequiredRace()) {
 				SB.append("<br/>"
-						+"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
+						+"<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
 						+ " (Race): "
 						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName(false))+"</span>");
 			} else {
 				SB.append("<br/>"
-						+"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
+						+"<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
 						+ " (Race): "
 						+"<span style='color:"+raceRequired.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(raceRequired.getName(false))+"</span>");
 			}
@@ -421,11 +431,11 @@ public class Response {
 		if(sexActionType==SexActionType.SPEECH) {
 			if(!Main.sex.isOngoingActionsBlockingSpeech(Main.game.getPlayer())) {
 				SB.append("<br/>"
-						+"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
+						+"<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
 						+ " (Speech): [style.colourMinorGood(Unblocked mouth)]");
 			} else {
 				SB.append("<br/>"
-						+"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
+						+"<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requirement</b>"
 						+ " (Speech): [style.colourMinorBad(Unblocked mouth)]");
 			}
 		}
@@ -459,31 +469,31 @@ public class Response {
 				for(SexAreaInterface sArea : sexAreaAccessRequiredForPerformer) {
 					if(sArea!=null) {
 						String penetrationName = Util.capitaliseSentence(sArea.getName(characterPerformingSexAction));
-						String accessText = (penetrationAccess?"access":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>access</span>");
-						String freeText = (penetrationFree?"free":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>free</span>");
+						String accessText = (penetrationAccess?"access":"<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>access</span>");
+						String freeText = (penetrationFree?"free":"<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>free</span>");
 						String targetName = (characterPerformingSexAction.isPlayer()?"Your":UtilText.parse(characterPerformingSexAction, "[npc.Name]'s"));
 						
 						if(getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED
 								|| getSexActionType()==SexActionType.START_ONGOING
 								|| getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
 							if(penetrationAccess && penetrationFree) {
-								SB.append("<br/><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ penetrationName);
+								SB.append("<br/><b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ penetrationName);
 							} else {
-								SB.append("<br/><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ penetrationName);
+								SB.append("<br/><b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ penetrationName);
 							}
 							
 						} else if(getSexActionType()==SexActionType.REQUIRES_EXPOSED) {
 							if(penetrationAccess) {
-								SB.append("<br/><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
+								SB.append("<br/><b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
 							} else {
-								SB.append("<br/><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
+								SB.append("<br/><b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
 							}
 							
 						} else {
 							if(penetrationAccess) {
-								SB.append("<br/><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
+								SB.append("<br/><b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
 							} else {
-								SB.append("<br/><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
+								SB.append("<br/><b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ penetrationName);
 							}
 						}
 					}
@@ -509,31 +519,31 @@ public class Response {
 				for(SexAreaInterface sArea : sexAreaAccessRequiredForTargeted) {
 					if(sArea!=null) {
 						String orificeName = Util.capitaliseSentence(sArea.getName(characterTargetedForSexAction));
-						String accessText = (orificeAccess?"access":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>access</span>");
-						String freeText = (orificeFree?"free":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>free</span>");
+						String accessText = (orificeAccess?"access":"<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>access</span>");
+						String freeText = (orificeFree?"free":"<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>free</span>");
 						String targetName = (characterTargetedForSexAction.isPlayer()?"Your":UtilText.parse(characterTargetedForSexAction, "[npc.Name]'s"));
 						
 						if(getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED
 								|| getSexActionType()==SexActionType.START_ONGOING
 								|| getSexActionType()==SexActionType.REQUIRES_NO_PENETRATION) {
 							if(orificeAccess && orificeFree) {
-								SB.append("<br/><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ orificeName);
+								SB.append("<br/><b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ orificeName);
 							} else {
-								SB.append("<br/><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ orificeName);
+								SB.append("<br/><b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ orificeName);
 							}
 							
 						} else if(getSexActionType()==SexActionType.REQUIRES_EXPOSED) {
 							if(orificeAccess) {
-								SB.append("<br/><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
+								SB.append("<br/><b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
 							} else {
-								SB.append("<br/><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
+								SB.append("<br/><b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
 							}
 							
 						} else {
 							if(orificeAccess) {
-								SB.append("<br/><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
+								SB.append("<br/><b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
 							} else {
-								SB.append("<br/><b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
+								SB.append("<br/><b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Requirement</b> ("+accessText+"): "+targetName+" "+ orificeName);
 							}
 						}
 					}
@@ -551,14 +561,14 @@ public class Response {
 			for(Fetish f : fetishesRequired){
 				if(Main.game.getPlayer().hasFetish(f)) {
 					SB.append("<br/>"
-							+"<span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
-							+ " (<span style='color:"+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";'>owned</span>): "
+							+"<span style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
+							+ " (<span style='color:"+PresetColour.GENERIC_MINOR_GOOD.toWebHexString()+";'>owned</span>): "
 							+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 					
 				} else {
 					SB.append("<br/>"
-							+"<span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
-							+ " (<span style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>not owned</span>): "
+							+"<span style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
+							+ " (<span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>not owned</span>): "
 							+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 				}
 			}
@@ -567,13 +577,13 @@ public class Response {
 		if(corruptionBypass!=null) {
 			if(isCorruptionWithinRange()) {
 				SB.append("<br/>"
-						+"<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-						+ " (<span style='color:"+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";'>within range</span>): "
+						+"<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
+						+ " (<span style='color:"+PresetColour.GENERIC_MINOR_GOOD.toWebHexString()+";'>within range</span>): "
 						+ Util.capitaliseSentence(corruptionBypass.getName()));
 			} else {
 				SB.append("<br/>"
-						+"<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-						+ " (<span style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>out of range</span>): "
+						+"<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
+						+ " (<span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>out of range</span>): "
 						+ Util.capitaliseSentence(corruptionBypass.getName()));
 			}
 		}

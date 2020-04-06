@@ -18,6 +18,8 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.82
@@ -336,10 +338,14 @@ public class ClothingEmporium {
 					
 				} else if(!Main.game.getPlayer().hasQuest(QuestLine.RELATIONSHIP_NYAN_HELP)){
 					if(index==1) {
-						return new Response("Enchanted Clothing", "Ask Nyan if she stocks enchanted clothing.", SHOP_ENCHANTED_CLOTHING) {
+						return new Response("Enchanted Clothing", "Ask Nyan if she stocks enchanted clothing.<br/>[style.italicsQuestRomance(This will start Nyan's romance quest!)]", SHOP_ENCHANTED_CLOTHING) {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.RELATIONSHIP_NYAN_HELP));
+							}
+							@Override
+							public Colour getHighlightColour() {
+								return PresetColour.QUEST_RELATIONSHIP;
 							}
 						};
 					}

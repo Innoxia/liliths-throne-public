@@ -34,6 +34,7 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.colours.Colour;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -305,11 +306,22 @@ public class Util {
 		
 		return mergedMap;
 	}
-
+	
+	public static <T> T getHighestProbabilityEntryFromWeightedMap(Map<T, Integer> map) {
+		T top = null;
+		int high = 0;
+		for(Entry<T, Integer> entry : map.entrySet()) {
+			if(entry.getValue()>high) {
+				high = entry.getValue();
+				top = entry.getKey();
+			}
+		}
+		return top;
+	}
+	
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map) {
 		return getRandomObjectFromWeightedMap(map, Util.random);
 	}
-	
 	
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map, Random rnd) {
 		int total = 0;
@@ -590,9 +602,39 @@ public class Util {
 		return name != null? name : code.getName();
 	}
 
+	/**
+	 * @return A capitalised version of the sentence. This method ignores spaces and html formatting, so it should be safe to use on formatted inputs.
+	 */
 	public static String capitaliseSentence(String sentence) {
 		if(sentence==null || sentence.isEmpty()) {
 			return sentence;
+		}
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingAngular = 0;
+		int closingAngular = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		for(int i = 0; i<sentence.length(); i++) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)=='<') {
+				openingAngular++;
+			} else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			}
+			
+			if(openingCurly==closingCurly && openingAngular==closingAngular && openingSquare==closingSquare && sentence.charAt(i)!=' ') {
+				return (i>0?sentence.substring(0, i):"") + Character.toUpperCase(sentence.charAt(i)) + sentence.substring(i+1);
+			}
+			
+			if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='>') {
+				closingAngular++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
 		}
 		return Character.toUpperCase(sentence.charAt(0)) + sentence.substring(1);
 	}
@@ -840,7 +882,7 @@ public class Util {
 		return muffleSB.toString();
 	}
 
-	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", "~Ooh!~" };
+	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", " ~Ooh!~" };
 	/**
 	 * Turns a normal sentence into a sexy sentence.<br/>
 	 * Example:<br/>
@@ -935,13 +977,18 @@ public class Util {
 		slovenlySpeechReplacementMap.put("Them", "Dem");
 		slovenlySpeechReplacementMap.put("them", "dem");
 
+		slovenlySpeechReplacementMap.put("They", "Dey");
+		slovenlySpeechReplacementMap.put("they", "dey");
+		
 		slovenlySpeechReplacementMap.put("And", "'An");
 		slovenlySpeechReplacementMap.put("and", "an'");
 		
 		slovenlySpeechReplacementMap.put("Of", "O'");
 		slovenlySpeechReplacementMap.put("of", "o'");
-		slovenlySpeechReplacementMap.put("Who", "O'");
-		slovenlySpeechReplacementMap.put("who", "o'");
+		slovenlySpeechReplacementMap.put("Who", "'O");
+		slovenlySpeechReplacementMap.put("who", "'o");
+		slovenlySpeechReplacementMap.put("Whoever", "'Oever");
+		slovenlySpeechReplacementMap.put("whoever", "'oever");
 		
 		slovenlySpeechReplacementMap.put("Was", "Were");
 		slovenlySpeechReplacementMap.put("was", "were");

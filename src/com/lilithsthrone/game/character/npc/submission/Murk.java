@@ -68,9 +68,9 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -107,11 +107,11 @@ public class Murk extends NPC {
 			setStartingBody(true);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
-			this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_BROWN_DARK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_PALE), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_DARK), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_PALE), false);
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, PresetColour.COVERING_BROWN_DARK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, PresetColour.SKIN_PINK_PALE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_DARK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_PINK_PALE), false);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, PresetColour.COVERING_BROWN_DARK), false);
 			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
@@ -176,16 +176,16 @@ public class Murk extends NPC {
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 		
 		// Coverings:
-		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, Colour.EYE_YELLOW), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_BROWN_DARK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_PALE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_DARK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_PALE), false);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, PresetColour.EYE_YELLOW), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, PresetColour.COVERING_BROWN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, PresetColour.SKIN_PINK_PALE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_PINK_PALE), false);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, PresetColour.COVERING_BROWN_DARK), false);
 		this.setHairLength(0);
 		this.setHairStyle(HairStyle.NONE);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, PresetColour.COVERING_BROWN_DARK), false);
 		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
@@ -235,20 +235,20 @@ public class Murk extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		if(settings.contains(EquipClothingSetting.ADD_TATTOOS)) {
-			this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), Colour.CLOTHING_WHITE, Colour.CLOTHING_WHITE, Colour.CLOTHING_WHITE, false, null, null));
+			this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_WHITE, false, null, null));
 			this.setScar(InventorySlot.LEG, new Scar(ScarType.CLAW_MARKS, true));
 		}
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_bat_metal", DamageType.PHYSICAL, Colour.CLOTHING_GUNMETAL, Colour.CLOTHING_BLACK, null));
+			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_bat_metal", DamageType.PHYSICAL, PresetColour.CLOTHING_GUNMETAL, PresetColour.CLOTHING_BLACK, null));
 		}
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_crotchless_chaps", Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_crotchless_chaps", PresetColour.CLOTHING_BLACK, false), true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_wraps", Colour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		this.setPiercedNose(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_GOLD, false), true, this);
 	}
 	
 	@Override
@@ -301,17 +301,17 @@ public class Murk extends NPC {
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 		
 		// Coverings:
-		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, Colour.EYE_YELLOW), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, Colour.COVERING_BROWN_DARK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, Colour.SKIN_PINK_LIGHT), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_DARK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_PINK_PALE), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, Colour.SKIN_PINK_PALE), false);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.EYE_RAT, PresetColour.EYE_YELLOW), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, PresetColour.COVERING_BROWN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RAT_SKIN, PresetColour.SKIN_PINK_LIGHT), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_PINK_PALE), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_PINK_PALE), false);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, PresetColour.COVERING_BROWN_DARK), false);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH);
 		this.setHairStyle(HairStyle.LOOSE);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, Colour.COVERING_BROWN_DARK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, PresetColour.COVERING_BROWN_DARK), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.FOUR_NATURAL);
@@ -361,7 +361,7 @@ public class Murk extends NPC {
 
 	@Override
 	public String getSpeechColour() {
-		return Colour.BASE_BROWN.toWebHexString();
+		return PresetColour.BASE_BROWN.toWebHexString();
 	}
 	
 	@Override

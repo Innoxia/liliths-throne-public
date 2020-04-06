@@ -39,9 +39,9 @@ import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -167,7 +167,7 @@ public class RoomPlayer {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
 					return new Response("Calendar", "Take another look at the enchanted calendar that's pinned up on one wall.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
 				} else {
-					return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
+					return new Response("<span style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
 				}
 				
 			} else if (index == 6) {
@@ -183,7 +183,7 @@ public class RoomPlayer {
 					return new Response("Manage people", "Enter the management screen for your slaves and friendly occupants.", ROOM) {
 						@Override
 						public DialogueNode getNextDialogue() {
-							return OccupantManagementDialogue.getSlaveryRoomListDialogue(null);
+							return OccupantManagementDialogue.getSlaveryRoomListDialogue(null, null);
 						}
 						@Override
 						public void effects() {
@@ -1545,10 +1545,10 @@ public class RoomPlayer {
 						+ " Shaking your head, you flip back through the calendar to find out what the current date is,");
 			}
 			
-			UtilText.nodeContentSB.append(" and see that it's the <b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
+			UtilText.nodeContentSB.append(" and see that it's the <b style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>"
 						+ Units.date(Main.game.getDateNow(), Units.DateType.LONG)
 					+"</b>. From a quick calculation "+(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_ARCANE)<IntelligenceLevel.ONE_AVERAGE.getMaximumValue()?"(with some help from your phone's calculator)":"")
-					+ ", you figure out that it's been <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b> since you appeared in this world."
+					+ ", you figure out that it's been <b style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b> since you appeared in this world."
 					+ "</p>");
 			
 			if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
@@ -1749,9 +1749,9 @@ public class RoomPlayer {
 
 			UtilText.nodeContentSB.append(
 					"<h4 style='text-align:center;'>"
-							+ "<span style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>May</span>"
+							+ "<span style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>May</span>"
 							+ "<br/>"
-							+ "<span style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Mother's Week</span>"
+							+ "<span style='color:"+PresetColour.BASE_PINK_LIGHT.toWebHexString()+";'>Mother's Week</span>"
 					+ "</h4>"
 					+ "<p><i>"
 						+ "The second week of May is a time in which to celebrate mothers, motherhood, and the nature of the maternal bond between mother and child."
@@ -1782,9 +1782,9 @@ public class RoomPlayer {
 
 			UtilText.nodeContentSB.append(
 					"<h4 style='text-align:center;'>"
-							+ "<span style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>June</span>"
+							+ "<span style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>June</span>"
 							+ "<br/>"
-							+ "<span style='color:"+Colour.BASE_BLUE.toWebHexString()+";'>Father's Week</span>"
+							+ "<span style='color:"+PresetColour.BASE_BLUE.toWebHexString()+";'>Father's Week</span>"
 					+ "</h4>"
 					+ "<p><i>"
 						+ "The third week of June is a time in which to celebrate fathers, fatherhood, and the nature of the paternal bond between father and child."
@@ -1815,9 +1815,9 @@ public class RoomPlayer {
 
 			UtilText.nodeContentSB.append(
 					"<h4 style='text-align:center;'>"
-							+ "<span style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>October</span>"
+							+ "<span style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>October</span>"
 							+ "<br/>"
-							+ "<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month</span>"
+							+ "<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month</span>"
 					+ "</h4>"
 					+ "<p><i>"
 						+ "October was chosen by Lilith herself to be the month in which all of Dominion shows their devotion towards their glorious queen!"
@@ -1854,9 +1854,9 @@ public class RoomPlayer {
 
 			UtilText.nodeContentSB.append(
 					"<h4 style='text-align:center;'>"
-							+ "<span style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>December</span>"
+							+ "<span style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>December</span>"
 							+ "<br/>"
-							+ "<span style='color:"+Colour.BASE_GOLD.toWebHexString()+";'>Yuletide</span>"
+							+ "<span style='color:"+PresetColour.BASE_GOLD.toWebHexString()+";'>Yuletide</span>"
 					+ "</h4>"
 					+ "<i>"
 					+ "<p>"

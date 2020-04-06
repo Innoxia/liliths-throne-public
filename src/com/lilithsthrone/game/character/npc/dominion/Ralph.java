@@ -52,9 +52,10 @@ import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -129,27 +130,27 @@ public class Ralph extends NPC {
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 		
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, Colour.EYE_BROWN));
-		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_EBONY), true);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, PresetColour.EYE_BROWN));
+		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_EBONY), true);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, Colour.COVERING_BROWN_DARK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), true);
 		this.setHairLength(HairLength.TWO_SHORT);
 		this.setHairStyle(HairStyle.LOOSE);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, Colour.COVERING_BLACK), false);
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, Colour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HORSE_HAIR, PresetColour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
 		this.setAssHair(BodyHair.FOUR_NATURAL);
 		this.setPubicHair(BodyHair.THREE_TRIMMED);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 
-//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
-//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_RED));
-//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_RED));
-//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
-//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_PURPLE));
+//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_RED));
+//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_RED));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_RED));
+//		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_RED));
+//		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PURPLE));
 		
 		// Face:
 		this.setFaceVirgin(true);
@@ -201,10 +202,10 @@ public class Ralph extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_jeans", Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_GOLD, false), true, this);
 
 	}
 
@@ -241,8 +242,8 @@ public class Ralph extends NPC {
 			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
 				if(clothing.isCondom(clothing.getEquipSlots().get(0))) {
 					Colour condomColour = Util.randomItemFrom(clothing.getAvailablePrimaryColours());
-					Colour condomColourSec = Colour.CLOTHING_BLACK;
-					Colour condomColourTer = Colour.CLOTHING_BLACK;
+					Colour condomColourSec = PresetColour.CLOTHING_BLACK;
+					Colour condomColourTer = PresetColour.CLOTHING_BLACK;
 					
 					if(!clothing.getAvailableSecondaryColours().isEmpty()) {
 						condomColourSec = Util.randomItemFrom(clothing.getAvailableSecondaryColours());
@@ -303,7 +304,7 @@ public class Ralph extends NPC {
 			
 			if(isDiscountActive()){
 				descriptionSB.append("<p>"
-						+ "<b>Ralph is giving you a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"+Main.game.getDialogueFlags().ralphDiscount+"%</b> <b>discount!</b>"
+						+ "<b>Ralph is giving you a</b> <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>"+Main.game.getDialogueFlags().ralphDiscount+"%</b> <b>discount!</b>"
 							+ "</p>");
 			}else{
 				descriptionSB.append("<p>"
@@ -470,11 +471,11 @@ public class Ralph extends NPC {
 	// Vagina:
 	
 	@Override
-	public String getStretchingDescription(GameCharacter partner, SexAreaPenetration penetrationType, SexAreaOrifice orifice, boolean pastTense) {
+	public String getStretchingDescription(boolean initialPenetration, GameCharacter partner, SexAreaPenetration penetrationType, SexAreaOrifice orifice, boolean pastTense) {
 		switch(orifice) {
 			case MOUTH:
 				if(Math.random()<0.3) {
-					return super.getStretchingDescription(partner, penetrationType, orifice, pastTense);
+					return super.getStretchingDescription(initialPenetration, partner, penetrationType, orifice, pastTense);
 				} else {
 					return UtilText.returnStringAtRandom(
 							"You feel tears streaming down your face as you force the [ralph.cock+] down your throat.",
@@ -484,16 +485,16 @@ public class Ralph extends NPC {
 				}
 			case VAGINA:
 				if(Math.random()<0.3) {
-					return super.getStretchingDescription(partner, penetrationType, orifice, pastTense);
+					return super.getStretchingDescription(initialPenetration, partner, penetrationType, orifice, pastTense);
 				} else {
 					return UtilText.returnStringAtRandom(
 							"You squirm about uncomfortably on the counter-top as Ralph's [ralph.cock+] struggles to fit in your [pc.pussyCapacity] [pc.pussy].",
 							"Ralph's [ralph.cock+] painfully stretches you out as it rams its way in and out of your [pc.pussyCapacity] [pc.pussy].",
 							"Ralph's [ralph.cock+] is too large for your [pc.pussyCapacity] [pc.pussy], and you let out an uncomfortable whine as it stretches you out.",
-							"Your [pc.pussyCapacity] little [pc.pussy] struggles to accommodate the sheer size of Ralph's [ralph.cock+].");
+							"Your [pc.pussyCapacity] [pc.pussy] struggles to accommodate the sheer size of Ralph's [ralph.cock+].");
 				}
 			default:
-				return super.getStretchingDescription(partner, penetrationType, orifice, pastTense);
+				return super.getStretchingDescription(initialPenetration, partner, penetrationType, orifice, pastTense);
 		}
 	}
 	

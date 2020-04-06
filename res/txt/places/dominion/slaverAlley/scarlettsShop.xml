@@ -5,15 +5,15 @@
 	
 	<htmlContent tag="SCARLETTS_SHOP_EXTERIOR_CLOSED"><![CDATA[
 	<p>
-		Tucked away in one corner of Slaver Alley, you see a shop that's quite unlike all the others. Looking down from the words 'Scarlett's Shop' painted in fancy gold lettering above the door, you see that there's a sign hanging in one of the large glass windows, which reads, [style.italicsBad('Open every day, [unit.time(6)] to [unit.time(22)]')].
+		Tucked away in one corner of Slaver Alley, you see a shop that's quite unlike all the others. Looking down from the words 'Scarlett's Shop' painted in fancy gold lettering above the door, you see that there's a sign hanging in one of the large glass windows, which reads, [style.italicsMinorBad('Open every day, [unit.time(6)]-[unit.time(22)]')].
 	</p>
 	#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_HELENA)
 		<p>
-			As the shop is currently closed, there's nothing more for you to do here except turn around and leave. You also haven't yet gone to report to Scarlett's matriarch, [helena.name], so there wouldn't be much for you to do here even if the shop was open. Scarlett said that you can find [helena.name] up in the Harpy Nests...
+			As the shop is currently [style.colourBad(closed)], there's nothing more for you to do here except turn around and leave. You also haven't yet gone to report to Scarlett's matriarch, [helena.name], so there wouldn't be much for you to do here even if the shop was open. Scarlett said that you can find [helena.name] up in the Harpy Nests...
 		</p>
 	#ELSE
 		<p>
-			As the shop is currently closed, there's nothing more for you to do here except turn around and leave. If you wanted to talk to Scarlett, you'll have to come back at some time after six in the morning...
+			As the shop is currently [style.colourBad(closed)], there's nothing more for you to do here except turn around and leave. If you wanted to talk to Scarlett, you'll have to come back at some time after six in the morning...
 		</p>
 	#ENDIF
 	]]>
@@ -21,10 +21,10 @@
 	
 	<htmlContent tag="SCARLETTS_SHOP_EXTERIOR"><![CDATA[
 	<p>
-		Tucked away in one corner of Slaver Alley, you see a shop that's quite unlike all the others. Looking down from the words 'Scarlett's Shop' painted in fancy gold lettering above the door, you see that there's a sign hanging in one of the large glass windows, which reads, [style.italicsGood('Open every day, [unit.time(6)] to [unit.time(22)]')].
+		Tucked away in one corner of Slaver Alley, you see a shop that's quite unlike all the others. Looking down from the words 'Scarlett's Shop' painted in fancy gold lettering above the door, you see that there's a sign hanging in one of the large glass windows, which reads, [style.italicsMinorGood('Open every day, [unit.time(6)]-[unit.time(22)]')].
 	</p>
 	<p>
-		Despite the sign proclaiming that this shop is open for business, you don't see any sign of there being any slaves for sale inside. Furthermore, while the other shops in Slaver Alley use the area in front of their premises to proudly display advertisement boards and platforms upon which to display their goods, the area in front of 'Scarlett's Shop' is noticeably barren; yet further proof that this particular store must have fallen upon hard times.
+		Despite the fact that this shop should be [style.colourGood(open)] for business at this time, you don't see any sign of activity inside. Furthermore, while the other shops in Slaver Alley use the area in front of their premises to proudly display advertisement boards and platforms upon which to display their goods, the area in front of 'Scarlett's Shop' is noticeably barren; yet further proof that this particular store must have fallen upon hard times.
 	</p>
 	#IF(pc.getQuest(QUEST_LINE_MAIN) == QUEST_MAIN_1_E_REPORT_TO_HELENA)
 		<p>
@@ -39,26 +39,26 @@
 	
 	<htmlContent tag="SCARLETTS_SHOP_INTRO"><![CDATA[
 	<p>
-		Pushing open the door, you find that the shop's interior is just as bare as you feared. There isn't a single slave for sale in sight, and the only sign of life is a rather defeated-looking harpy slouched down at the shop's front desk.
+		Pushing open the door and stepping inside, you quickly discover that the interior of 'Scarlett's Shop' is just as bare as it appeared to be from the outside. There isn't a single slave for sale in sight, and the only sign of life is a rather defeated-looking, black-feathered harpy slouched down behind a counter at the far end of the shop.
 	</p>
 	<p>
-		The harpy, who you assume to be Scarlett, looks up at you as you enter the shop, and with an annoyed huff, she shouts out, [scarlett.speech(If you aren't here to donate any slaves, then you'd better turn around and fuck right off! I'm not in the mood to deal with any fucking morons like you today.)]
+		Looking up as she hears you enter the shop, the harpy lets out an annoyed huff, before shouting out, [scarlett.speech(If you aren't here to donate any slaves, then you'd better turn around and fuck right off! I'm not in the mood to deal with any fucking morons like you today.)]
 	</p>
 	<p>
-		Apparently this extremely rude harpy is the person that you need to deal with, and, letting out an annoyed sigh, you wonder if you should ask about Arthur now, or come back at another time.
+		As she's quite clearly the shop's owner, this extremely rude harpy must be 'Scarlett', who's the exact person you're looking for. As she rudely repeats her demand for you to get out of her store, you wonder if you should ask her about Arthur right now, or do as she says and come back at another time.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="SCARLETTS_SHOP"><![CDATA[
 	<p>
-		Pushing open the door, you find that the shop's interior is just as bare as you feared. There isn't a single slave for sale in sight, and the only sign of life is a rather defeated-looking harpy slouched down at the shop's front desk.
+		Pushing open the door and stepping inside, you quickly discover that the interior of 'Scarlett's Shop' is just as bare as it appeared to be from the outside. There isn't a single slave for sale in sight, and the only sign of life is a rather defeated-looking harpy slouched down behind a counter at the far end of the shop.
 	</p>
 	<p>
-		The harpy, who you assume to be Scarlett, looks up at you as you enter the shop, and with an annoyed huff, she shouts out, [scarlett.speech(If you aren't here to donate any slaves, then you'd better turn around and fuck right off! I'm not in the mood to deal with any fucking morons like you today.)]
+		Looking up as she hears you enter the shop, the harpy lets out an annoyed huff, before shouting out, [scarlett.speech(If you aren't here to donate any slaves, then you'd better turn around and fuck right off! I'm not in the mood to deal with any fucking morons like you today.)]
 	</p>
 	<p>
-		You're quite taken aback at Scarlett's rude words, and, deciding that it's probably best not to get involved with someone like that, you turn around and head for the exit.
+		You're quite taken aback at Scarlett's rude words, and deciding that it's probably best not to get involved with someone like that, you turn around and head for the exit.
 	</p>
 	]]>
 	</htmlContent>
@@ -71,31 +71,36 @@
 		Letting out a defeated sigh as you wonder why everything has to be so difficult, you walk towards the front desk where Scarlett is sitting.
 	</p>
 	<p>
-		[scarlett.speech(Didn't I tell you to fuck off already?)] the rude harpy calls out, sitting up in her chair as you approach.
+		[scarlett.speech(Did you not hear what I just said?! Fuck off already!)] the rude harpy shouts, sitting up in her chair and throwing a menacing sneer your way.
 	</p>
 	<p>
-		[pc.speech(Look, I just need to know if you've got a slave for sale going by the name of 'Arthur', ok?)]
+		[pc.speech(I just need to know if you've got a slave for sale going by the name of 'Arthur',)] you explain, hoping that you can resolve your business with the harpy as quickly as possible.
 	</p>
 	<p>
-		As you mention the name 'Arthur', Scarlett stands up from behind her desk, and her cheeks flush red as she starts to shout and curse, [scarlett.speech(If I hear that fucking name one more time, I swear I'm going to kill someone! Are you working with them?! Huh?! Those fucking cunts who fucked me over?! You've got five fucking seconds to start explaining!)]
+		As you mention the name 'Arthur', Scarlett stands up from behind her desk, and her cheeks flush red as she rants, [scarlett.speech(If I hear that fucking name one more time, I swear I'm going to kill someone! Are you working with them?! Huh?! Those fucking cunts who fucked me over?! Tell me who the fuck you are, right fucking now!)]
 	</p>
 	<p>
-		Despite her foul language and aggressive posturing, you find Scarlett's little outburst to be more embarrassing rather than anything else. She clearly lacks the physical strength required in order to follow through on any of her threats, so it's more out of a desire to calm her down rather than due to feeling intimidated that you start to answer her, [pc.speech(Calm down, I'm not working with 'them', whoever they might be. I'm just a friend of Arthur's who's been trying to track him down. I found out from a helpful Enforcer that he was meant to have been given to you. If you're still in possession of him, I'd like to see if I can buy his freedom, and if not, then could you [style.italics(please)] just tell me who you sold him to?)]
+		#IF(pc.isCowardly())
+			Although she looks as though she's lacking the physical strength required in order to follow through on any of her threats, Scarlett's foul language and aggressive posturing are more than enough to scare you. Wanting to escape from this threatening situation as quickly as possible, you answer the harpy,
+		#ELSE
+			Despite her foul language and aggressive posturing, you find Scarlett's outburst to be more embarrassing than intimidating. She clearly lacks the physical strength required in order to follow through on any of her threats, so it's more out of a desire to calm her down rather than due to feeling threatened that you start to answer her,
+		#ENDIF
+		 [pc.speech(Don't worry, I'm not working with 'them', whoever they might be. I'm just a friend of Arthur's who's been trying to track him down. I found out from the Enforcers that he was meant to have been given to you. If you're still in possession of him, I'd like to see if I can buy his freedom, and if not, then could you [style.italics(please)] just tell me who you sold him to?)]
 	</p>
 	<p>
-		[scarlett.speech(Huh,)] Scarlett huffs as she sits back down, [scarlett.speech(so I guess you really are as stupid as you look. Can't you see that I've got no slaves for sale? I'm fucking finished. And it's all thanks to that business with Arthur...)]
+		[scarlett.speech(Is that so?)] Scarlett huffs as she sits back down, [scarlett.speech(I guess you really are as stupid as you look. Can't you see that I've got no slaves for sale? Of course I'm not fucking still in possession of him. I'm fucking finished. <i>Finished!</i> And it's all thanks to your 'friend'...)]
 	</p>
 	<p>
-		Rolling your eyes at the annoying harpy's reaction, you don't get any time to respond before she continues, [scarlett.speech(There might be a way for both of us to profit here though. Yeah, I know what happened to Arthur, [style.italics(and)] where he's gone, but I'm also not going to tell a fucking idiot like you anything about it. Not without helping me out first, at least.)]
+		Hoping that this annoying harpy is about to tell you what you want to know, you listen as she continues, [scarlett.speech(There might be a way for both of us to profit here... Yeah, I know what happened to Arthur, <i>and</i> I know where he is right now, but hopefully even a fucking idiot like yourself can understand that I'm not going to be giving that information away for free. You want to know what I know? Then you're going to be fucking doing something to help me out first.)]
 	</p>
 	<p>
-		Wondering just how many different people you're going to have to deal with before finally finding Arthur, you sigh, [pc.speech(And what is it I'd need to do?)]
+		Wondering how many different people you're going to have to deal with before finally finding Arthur, you sigh, [pc.speech(So what do you need my help with?)]
 	</p>
 	<p>
-		[scarlett.speech(Even a clueless moron like you can see that this business is a complete failure,)] Scarlett grumbles as she leans back in her chair, [scarlett.speech(and my matriarch is [style.italics(not)] going to be happy when she finds out. If you want to find out what happened to your stupid little friend, you're going to go up to the Harpy Nests, find a matriarch called '[helena.name]', tell her that my business is bust, and take whatever punishment she'll decide upon on my behalf.)]
+		[scarlett.speech(Even a dumb cunt like you can see that this business is a complete failure, and my matriarch is [style.italics(not)] going to be happy when she finds out about it,)] the foul-mouthed harpy grumbles as she leans back in her chair, [scarlett.speech(If you want to know what happened to your stupid fucking friend, you're going to go up to the Harpy Nests, find a matriarch called '[helena.name]', tell her that my business is bust, and take whatever punishment she'll decide upon on my behalf. There's no fucking way I'm going to be the one who tells her about this.)]
 	</p>
 	<p>
-		You realise that if you ever want to find out what happened to Arthur, you're going to have to agree to Scarlett's demands, even if you don't actually plan on taking any punishment on her behalf.
+		You realise that if you ever want to find out what happened to Arthur, you're going to have to agree to Scarlett's demands, even if you don't plan on taking any 'punishment' on her behalf...
 	</p>
 	]]>
 	</htmlContent>
@@ -105,13 +110,13 @@
 	
 	<htmlContent tag="SCARLETT_IS_A_SUPER_BITCH"><![CDATA[
 	<p>
-		Deciding to just agree with the insufferable harpy for now, you respond, [pc.speech(Fine, I'll do it, but you'd better keep your end of the bargain here. When I get back, you're going to tell me exactly what's happened to Arthur, ok?)]
+		Deciding to agree with the insufferable harpy for now, you respond, [pc.speech(Fine, I'll do it, but you'd better keep your end of the bargain. When I get back, you're going to tell me exactly what's happened to Arthur, ok?)]
 	</p>
 	<p>
-		[scarlett.speech(Just fuck off and do it already! Fuck, you're a real asshole to try and talk to, you know?!)] Scarlett shouts, looking just as infuriated as you feel right now. [scarlett.speech(Don't bother coming back here until you've taken [helena.name]'s punishment, ok? And don't let her go easy on you, I'm gonna enjoy hearing what she did to you when you get back!)]
+		[scarlett.speech(Just fuck off and do it already! Fuck, you're a real asshole to try and talk to, you know?!)] Scarlett shouts, looking just as infuriated as you feel right now. [scarlett.speech(Don't bother coming back here until you've taken [helena.namePos] punishment! And don't let her go easy on you; I'm gonna enjoy hearing what she did to you when you get back!)]
 	</p>
 	<p>
-		Not wanting to waste any more time talking to her, you turn your back on Scarlett and walk out of the shop. As the door swings shut behind you, you find yourself wondering if you've ever met anyone as annoying as that harpy is. You seriously hope that this matriarch, '[helena.name]', is nothing like Scarlett, and as you set off in the direction of the Harpy Nests, you wonder how many more hurdles you'll be presented with before finally finding Arthur...
+		Not wanting to waste any more time talking to her, you turn your back on Scarlett and walk out of her shop. As the door swings shut behind you, you find yourself wondering if you've ever met anyone as rude as she is. You seriously hope that this matriarch, '[helena.name]', is nothing like Scarlett, and as you set off in the direction of the Harpy Nests, you wonder how many more hurdles you'll be presented with before finally finding Arthur...
 	</p>
 	]]>
 	</htmlContent>
@@ -121,78 +126,192 @@
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_HELENA_RETURNS"><![CDATA[
 	<p>
-		Once again, you find yourself standing before Scarlett's shop, but this time, you notice that the surrounding area is a lot quieter than usual. As you walk towards the front entrance, you pass a couple of wolf-girls as they hurry past the shop, and you can't help but overhear a snippet of their whispered conversation, [npcFemale.speech(...I'm telling you, it's <i>the</i> [helena.name] in there! Hurry up, before she sees us!)]
+		Once again you find yourself standing before 'Scarlett's Shop', but unlike the last time you were here, all of the blinds have been pulled down, preventing you from seeing into the store's interior. As you walk towards the front entrance, you pass a couple of gossiping wolf-girls, and you can't help but overhear a snippet of their conversation, [npcFemale.speech(...I'm telling you, I saw <i>the</i> [helena.name] going in there! You know, they say she's the most beautiful harpy in all of Lilith's Realm...)]
 	</p>
 	<p>
-		Stepping forwards, you see that the fancy gold lettering reading 'Scarlett's shop; open for business' has been roughly crossed out in red paint, and beneath, in the same scarlet hue, you read the new words '[helena.name]'s pet shop'.
+		Curious to find out what's become of Scarlett, you wonder if you should enter the shop now, or come back at another time...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_EXTERIOR_ROMANCE_FAILED"><![CDATA[
+	<p>
+		After you refused to sell Scarlett to her, Helena gave up on her plans of making this slave shop into a successful business. Now lying completely abandoned, the only hint of the matriarch's involvement in the refurbishment of these premises is the name 'Helena's Boutique' painted over the front entrance.
 	</p>
 	<p>
-		Curious to find out what's become of Scarlett, you wonder if you should enter the shop now, or come back later.
+		After spending a moment to reflect on the fact that it's extremely unlikely that this place will ever open its doors to customers again, there's nothing left for you to do except turn around and continue on your way elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTING"><![CDATA[
+	<p>
+		#IF(pc.getQuest(QUEST_LINE_ROMANCE_HELENA)==QUEST_ROMANCE_HELENA_3_C_EXTERIOR_DECORATOR)
+			Thanks to you, the entire frontage of Helena's shop has been repainted in a brilliant white, and is really starting to stand out from those around it. Looking around, you see that most people are at least glancing in its direction as they walk past. Unfortunately for the more curious of these passersby, however, Helena has replaced the sign displaying the shop's opening times with one that simply reads: 'Closed for renovations.'
+		#ELSE
+			Thanks to you, all of the paint has been stripped from the front of Helena's store, including the name 'Scarlett's Shop'. With just the bare woodwork left exposed, the frontage is starting to stand out from those around it, and you notice that a few members of the public are starting to look in its direction as they walk past. Unfortunately for the more curious of these passersby, however, Helena has replaced the sign displaying the shop's opening times with one that simply reads: 'Closed for renovations.'
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_EXTERIOR_GONE_HOME"><![CDATA[
+	<p>
+		Although you know that this sign wouldn't normally apply to you, Helena has gone home early for the day. As such, you'll be unable to enter the shop and speak with her again until
+		#IF(game.getDayOfWeek()==DOW_FRIDAY)
+			 [style.colourMinorBad(Monday morning at the earliest)].
+		#ELSE
+			 [style.colourMinorBad(tomorrow morning at the earliest)].
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTING_OPEN"><![CDATA[
+	<p>
+		Knowing that this sign doesn't apply to you, and seeing through the front windows that Helena is sitting behind the counter, you could enter the shop and talk to her right now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTING_CLOSED"><![CDATA[
+	<p>
+		Although you know that this sign wouldn't normally apply to you, Helena is only present from [style.italicsMinorBad([unit.time(9)]-[unit.time(17)] on weekdays, or up until [unit.time(21)] on Friday)]. As such, the store is currently [style.colourBad(closed)] even to you, and the harpy matriarch won't be present until 
+		#IF(game.getDayOfWeek()==DOW_FRIDAY)
+			 [style.colourMinorBad(Monday morning at the earliest)].
+		#ELSE
+			 [style.colourMinorBad(tomorrow morning at the earliest)].
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_EXTERIOR_FINISHED_OPEN"><![CDATA[
+	<p>
+		As a result of your hard work, the entire frontage of Helena's Boutique has not only been repainted in a brilliant white, but also proudly bears the words 'Helena's Boutique' in bright gold lettering over the entrance. Thanks to all of your efforts, the harpy matriarch's store is by far the most popular in all of Slaver Alley, which is evidenced by the large crowd of fans who are loitering around nearby in the hopes of catching a glimpse of Helena herself.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_EXTERIOR_FINISHED_CLOSED"><![CDATA[
+	<p>
+		As a result of your hard work, the entire frontage of Helena's Boutique has not only been repainted in a brilliant white, but also proudly bears the words 'Helena's Boutique' in bright gold lettering over the entrance. Thanks to all of your efforts, the harpy matriarch's store is by far the most popular in all of Slaver Alley, and even though it's currently closed, there are still a few dedicated fans loitering around nearby in the hopes of catching a glimpse of Helena herself.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTED"><![CDATA[
+	<p>
+		As a result of your hard work, the entire frontage of Helena's shop has not only been repainted in a brilliant white, but also proudly bears the words 'Helena's Boutique' in bright gold lettering over the entrance. Thanks to this, word of the harpy matriarch's presence in Slaver Alley has finally started to spread, which is clearly evidenced by the small crowd loitering around in front of its large glass windows. Unfortunately for these people hoping to catch a glimpse of Helena, however, the shop's blinds have all been pulled down, concealing the interior from their curious gaze. To further dash their hopes of meeting the harpy matriarch, there's a sign hanging in the window which reads: 'Closed until grand reopening.'
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTED_OPEN"><![CDATA[
+	<p>
+		Knowing both that this sign doesn't apply to you, and that Helena will be inside the shop at this time of day, you could step inside and talk to her right now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_EXTERIOR_PAINTED_CLOSED"><![CDATA[
+	<p>
+		Although you know that this sign wouldn't normally apply to you, Helena is only present from [style.italicsMinorBad([unit.time(9)]-[unit.time(17)] on weekdays, or up until [unit.time(21)] on Friday)]. As such, the store is currently [style.colourBad(closed)] even to you, and the harpy matriarch won't be present until 
+		#IF(game.getDayOfWeek()==DOW_FRIDAY)
+			 [style.colourMinorBad(Monday morning at the earliest)].
+		#ELSE
+			 [style.colourMinorBad(tomorrow morning at the earliest)].
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR"><![CDATA[
 	<p>
-		Once again, you find yourself standing in the quiet area in front of Scarlett's old shop. Stepping forwards, you see that the fancy gold lettering reading 'Scarlett's shop; open for business' has been roughly crossed out in red paint, and beneath, in the same scarlet hue, you read the words '[helena.name]'s Pet Shop'. Just as it was before, there's a sign hanging in one of the large glass windows, reading, [style.italicsGood('Open every day, [unit.time(6)] to [unit.time(22)]')].
+		Although the name 'Scarlett's Shop' is still painted in fancy gold lettering above its front entrance, you know that the store in front of you is no longer managed by the rude harpy who bears that name. Instead, it's now run by Helena, but despite the fact that this beautiful harpy matriarch is a well-known figure throughout Dominion, her store doesn't seem to be any more popular than it was when under Scarlett's management. In fact, not a single member of the public seems to be even glancing in its direction, and you can only image that it must be because none of them are aware of Helena's takeover.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_EXTERIOR_OPEN"><![CDATA[
+	<p>
+		Unlike the days when Scarlett was in charge, Helena's shop has rather limited opening times, which are clearly displayed for all to see on a sign hanging in the front window which reads: [style.italicsMinorGood('Open weekdays, [unit.time(9)]-[unit.time(17)]. Open until [unit.time(21)] on Friday.')]
 	</p>
 	<p>
-		You wonder if you should enter [helena.name]'s Pet Shop now, or come back later.
+		As her shop is currently [style.colourGood(open)] for business, you could always step inside and see Helena again right now...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_SHOP_EXTERIOR_CLOSED"><![CDATA[
 	<p>
-		Once again, you find yourself standing in the quiet area in front of Scarlett's old shop. Stepping forwards, you see that the fancy gold lettering reading 'Scarlett's shop; open for business' has been roughly crossed out in red paint, and beneath, in the same scarlet hue, you read the words '[helena.name]'s Pet Shop'. Just as it was before, there's a sign hanging in one of the large glass windows, reading, [style.italicsBad('Open every day, [unit.time(6)] to [unit.time(22)]')].
+		Unlike the days when Scarlett was in charge, Helena's shop has rather limited opening times, which are clearly displayed for all to see on a sign hanging in the front window which reads: [style.italicsMinorBad('Open weekdays, [unit.time(9)]-[unit.time(17)]. Open until [unit.time(21)] on Friday.')]
 	</p>
 	<p>
-		As the shop is currently closed, there's nothing more for you to do here except turn around and leave. If you wanted to talk to [helena.name], you'll have to come back at some time after six in the morning...
+		As her shop is currently [style.colourBad(closed)], there's nothing more for you to do here except turn around and leave. If you wanted to talk to [helena.name], you'll have to come back at a time when her shop is open...
 	</p>
 	]]>
 	</htmlContent>
 	
+	
+	<!-- HELENAS_SHOP -->
+	
 	<htmlContent tag="HELENAS_SHOP_INTRODUCTION"><![CDATA[
 	<p>
-		Pushing open the front door, you're greeted by the familiar, beautiful figure of [helena.name] sitting down behind the shop's counter. She throws you a delighted smile as you step inside the shop. [helena.speech(Ah, it's you again! Please, do come in!)]
+		Pushing open the front door and entering the shop, you're greeted by the sight of the beautiful figure of [helena.name] sitting down behind the shop's counter. With a delightful smile on her face, she greets you in her calm, regal voice, [helena.speech(What a pleasure it is to see you once again. May I enquire as to the reason for you following me here?)]
 	</p>
 	<p>
-		Doing as the harpy says, you walk up to the front desk, where you get right to business, [pc.speech(Hello, [helena.name]. Is Scarlett still around here somewhere? I really need to talk to her.)]
+		Seeing absolutely no sign of the raven-harpy you need to have a word with, you ask, [pc.speech(Is Scarlett still around here somewhere? I really need to talk to her.)]
 	</p>
 	<p>
-		[helena.name] grins up at you, before turning her head to one side and calling out, [helena.speech(Come, pet! This nice [pc.race] is asking after you!)]
+		Covering her mouth with one of her flawless, white-feathered wings, Helena lets out a soft, delicate laugh. Beckoning you forwards with her free hand, she looks down to one side of her and says, [helena.speech(My dear Scarlett, this [pc.race] is asking after you. Be a good girl and greet your friend.)]
 	</p>
 	<p>
-		[scarlett.speechNoEffects(M-Mrph...)]
+		[scarlett.speechNoEffects(~Mrph!~)] comes a quiet, muffled groan from somewhere behind the counter, and then a moment later, the submissive form of Scarlett obediently crawls out to kneel down in front of you. You can't help but stare as you see that she's wearing nothing except for a pink ball gag in her mouth and a heavy steel slave collar around her neck. With her groin fully on display, you're able to see that Scarlett's genitals consist solely of [scarlett.a_penisSize], light-skinned cock and accompanying pair of vestigial balls.
 	</p>
 	<p>
-		You hear a quiet, muffled groan come from one side of the shop, and, turning to look in the direction [helena.name] is now facing, you see the submissive form of Scarlett kneeling beneath one of the many empty platforms that line the edge of the room. Your eyes open wide as you watch her obey her matriarch; obediently crawling out from her refuge, you see that she's wearing nothing except for a pink ball gag in her mouth and a heavy steel slave collar around her neck. With her groin fully on display, you're able to see that Scarlett's genitals consist solely of [scarlett.a_penisSize] cock, which sways back and forth as she crawls over to her mistress.
+		[helena.speech(Good girl,)] [helena.name] says, standing up from behind the counter and stepping forwards to stroke Scarlett's plume of dark black head-feathers. With an underlying icy tone to her otherwise melodic voice, the matriarch calmly states, [helena.speech(As you can no doubt see, I've had to enslave my dear Scarlett so that she can use her body to pay me back for all the flames she's wasted while mismanaging this business I'd entrusted to her. I'm afraid that if you were hoping to speak with her about something, then you'll have to buy her from me first.)]
 	</p>
 	<p>
-		[helena.speech(Good pet!)] [helena.name] cries, leaning down to stroke Scarlett's plume of bright-red feathers. [helena.speech(Now stay!)]
-	</p>
-	<p>
-		Turning back towards you, the matriarch smiles. [helena.speech(As you might have seen from the sign outside, I've decided to re-brand my shop. And concerning Scarlett here, I've decided that she can pay me back for all her failures by being the first slave that I sell. So, if you were hoping to get some information from her, you'll have to buy her first.)]
-	</p>
-	<p>
-		You suppress a groan as you wonder just how many more hurdles you'll have to overcome before finally finding Arthur. No matter what your views on slavery might be, it looks as though you only have one option. You'll have to buy Scarlett, then demand that she tell you what happened to Arthur.
+		It seems as though yet another obstacle has been put in your way towards finding Arthur. No matter what your views on slavery might be, it looks as though you only have one option. You'll have to buy Scarlett, then demand that she tell you what happened to Arthur.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_SHOP_OFFER_SCARLETT"><![CDATA[
 	<p>
-		Pushing open the front door, you're greeted yet again by the beautiful matriarch, [helena.name], sitting down behind the shop's counter. She throws you a warm smile as you step inside the shop. [helena.speech(Hello again! Are you ready to buy Scarlett yet?)]
+		Pushing open the front door and entering the shop, you're greeted once again by the sight of the beautiful figure of [helena.name] sitting down behind the shop's counter. With a delightful smile on her face, she calls out in her calm, regal voice, [helena.speech(Good [style.evening]. Perchance have you returned to complete your purchase of my dear Scarlett?)]
 	</p>
 	<p>
-		[scarlett.speech(M-Mrph...)] Scarlett's muffled groan drifts out from the other side of the shop as she hears [helena.name] talk about selling her.
+		[scarlett.speechNoEffects(~Mrph!~)] Scarlett groans from the other side of the counter as she hears [helena.name] talk about selling her.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_SHOP"><![CDATA[
 	<p>
-		Pushing open the front door, you're greeted yet again by the beautiful matriarch, [helena.name], sitting down behind the shop's counter. She throws you a warm smile as you step inside the shop. [helena.speech(Hello again!)]
+		Pushing open the front door and entering the shop, you're greeted once again by the sight of the beautiful figure of [helena.name] sitting down behind the shop's counter. With a delightful smile on her face, she calls out in her calm, regal voice,
+		#IF(helena.hasSlaves())
+			 [helena.speech(Good [style.evening], [pc.name]. You're fast becoming a regular visitor to my humble shop. Perchance are you here to purchase a slave?)]
+		#ELSE
+			 [helena.speech(Good [style.evening], [pc.name]. Unfortunately, I must inform you that I have no slaves for sale at this time. I am expecting another couple to be delivered here tomorrow morning, so may I suggest that you return then?)]
+		#ENDIF
+	</p>
+	#IF(helena.hasSlaves())
+		<p>
+			#IF(helena.getSlavesOwned().size()==2)
+				Looking across to one side of the barren store, you see a pair of slaves obediently standing to attention. Wearing nothing but the slave collars locked in place around their necks, you're able to see that one is [npc.a_raceFull], while the other is [npc2.a_raceFull].
+			#ELSE
+				Looking across to one side of the barren store, you see a slave obediently standing to attention. Wearing nothing but the slave collar locked in place around [npc.her] neck, you're able to see that [npc.she] is [npc.a_raceFull].
+			#ENDIF
+		</p>
+	#ENDIF
+	<p>
+		#IF(pc.hasCompanion(scarlett))
+			After glancing across at [scarlett.name], the beautiful harpy courteously smiles at you and patiently waits to see what it is you'll do next.
+		#ELSE
+			Courteously smiling at you, the beautiful harpy patiently waits to see what it is you'll do next.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -202,38 +321,35 @@
 		[pc.speech(If that's what it takes, I'll buy Scarlett,)] you say.
 	</p>
 	<p>
-		[helena.speech(Excellent!)] [helena.name] cries, leaning forwards in her chair,
+		[helena.speech(What an excellent decision,)] [helena.name] calmly replies,
 		#IF(game.getDialogueFlags().hasFlag(FLAG_punishedByHelena))
-			 [helena.speech(Now, taking into consideration that you took that little punishment of mine on her behalf, I'm willing to give you a discount. Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about fifteen thousand flames, but for you, I'll sell her for ten thousand.)]
+			 [helena.speech(Now, taking into consideration the fact that you took that little punishment of mine on Scarlett's behalf, I'm willing to give you a discount. Although she is unquestionably loyal to me, I must inform you that Scarlett can be quite unpleasant towards others, and so would need a good deal of training to make her into a good slave. Taking this into account, I'd value Scarlett at fifteen thousand flames, but with the discount I'm willing to give you, you may purchase her for ten thousand.)]
 		#ELSE
-			 [helena.speech(Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about fifteen thousand flames. I'm not one for bargaining over price, so you can either pay up the fifteen thousand, or I'll sell her to someone else.)]
+			 [helena.speech(Although she is unquestionably loyal to me, I must inform you that Scarlett can be quite unpleasant towards others, and so would need a good deal of training to make her into a good slave. Taking this into account, I'd value Scarlett at fifteen thousand flames. I'm not one for haggling over prices, so you can either pay the full fifteen thousand, or else I'll find someone else to buy her.)]
 		#ENDIF
 	</p>
 	<p>
-		[pc.speech(Alright,)] you agree, not wanting [helena.name] to sell Scarlett to anyone else,
-		 [pc.speech(I'll agree to buy Scarlett for that price, so please can you save her for me?)]
+		[pc.speech(I'll pay that much for her,)] you readily agree, not wanting [helena.name] to sell Scarlett to anyone else.
 	</p>
 	<p>
-		[helena.speech(As you were so kind as to come up to my nest and inform me of Scarlett's failure, I'll agree to that,)]
-		 [helena.name] responds, reaching out to shake your [pc.hand].
-		 [helena.speech(I'll save Scarlett for you until you get the money. Oh, and of course I'll need to see your slaver license as well.)]
+		[helena.speech(As you were so kind as to come up to my nest and inform me of Scarlett's failure, I'll reserve her for you,)] [helena.name] says, [helena.speech(Simply let me know whenever you're ready to complete your purchase. Oh, and please do remember to bring your slaver license; as I'm sure you already know, it's required in order to complete any slave transaction.)]
 	</p>
-	#IF pc.isHasSlaverLicense()
-	#THEN
+	#IF(pc.isHasSlaverLicense())
 		<p>
 			[pc.speech(Of course,)] you reply, [pc.speech(I'll have that ready for you.)]
 		</p>
 		<p>
-			[helena.speech(Excellent! Just let me know when you're ready to complete your purchase!)]
+			[helena.speech(Most excellent. Please do let me know when you're ready to complete your purchase,)] the beautiful white-feathered harpy replies.
 		</p>
 	#ELSE
 		<p>
-			[pc.speech(Slaver license?)] you ask. [pc.speech(Where can I get one of those?)]
+			[pc.speech(My slaver license...)] you muse out loud, wondering where you could obtain one.
 		</p>
 		<p>
-			[helena.speech(You'll have to apply for one at the Slavery Administration building, just around the corner from here,)]
-			 [helena.name] explains.
-			 [helena.speech(I'll hold Scarlett here for you until you can get one sorted out.)]
+			[helena.speech(If you've misplaced yours, then I believe you should be able to fill out some forms and get a replacement at the Slavery Administration building,)] [helena.name] helpfully explains, [helena.speech(It's the same building as the one where you would have first obtained your license. In case you cannot remember, that would be the large one next to the square where all those public stocks are kept.)]
+		</p>
+		<p>
+			Thanking Helena for the information, and concealing the fact that you don't have a license lest the matriarch change her mind about reserving Scarlett for you, you prepare to set off and enquire about obtaining one at this 'Slavery Administration' building...
 		</p>
 	#ENDIF
 	]]>
@@ -241,171 +357,134 @@
 	
 	<htmlContent tag="HELENAS_SHOP_BUYING_SCARLETT"><![CDATA[
 	<p>
-		Walking up to [helena.name]'s desk, you place both your slaver license and the flames down in front of her. [pc.speech(There you go. I'd like to buy Scarlett now please.)]
+		Producing both your slaver license and the [#SPECIAL_PARSE_0] flames which Helena is asking for, you place them down on the counter in front of her, saying that you'd like to purchase Scarlett without any further delay. After quickly checking your license and the money to make sure that everything's in order, [helena.name] smiles at you and softly says, [helena.speech(Thank you for your custom. Please wait one moment while I prepare your slave.)]
 	</p>
 	<p>
-		After checking your license to make sure that everything's in order, [helena.name] counts out the coins, and, once satisfied that it's all there, she stands up from behind her desk. Walking over to Scarlett's hiding place, she reaches down and grabs her by the plume of feathers on top of her head. Dragging the unfortunate harpy over to you, [helena.name] throws her at your feet.
+		Turning to one side, [helena.name] leans down to where Scarlett is sitting behind the counter, before unfastening and removing her ballgag. Sitting back upright, she orders, [helena.speech(Go on, Scarlett, say hello to your new owner.)]
 	</p>
 	<p>
-		[helena.speech(It was a pleasure doing business with you,)] [helena.name] grins, before unfastening and removing the ballgag from your new slave, [helena.speech(she's all yours!)]
+		As she sulkily stands up and walks around from the other side of the counter, you see that Scarlett is still completely naked except for the metal collar around her neck. Upon seeing you waiting to take ownership of her, the gravity of her situation suddenly hits her, and with her cheeks flushing bright red, she turns back to her matriarch and screams, [scarlett.speech(You fucking bitch! You can't seriously be selling me to [pc.herHim]! You ugly whore, I'll make you pay for this!)]
 	</p>
 	<p>
-		As [helena.name] turns to walk back to her desk, Scarlett, still on her knees, turns and spits, [scarlett.speech(Fucking bitch! I'll make you pay for this! You fucking hideous skank!)]
-	</p>
-	<p>
-		[helena.name] stops in her tracks, and you can almost physically feel the icy rage radiating from her body. You'd better do something to silence Scarlett before she ends up causing a scene.
+		The pleasant smile on [helena.namePos] face instantly vanishes as she hears Scarlett calling her ugly, and as the feathers on her head and wings bristle up, you can almost physically feel the icy rage she's about to unleash on your new slave. You'd better do something to silence Scarlett before this escalates any further.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="HELENAS_SHOP_GENTLE"><![CDATA[
+	
+	<!-- HELENAS_SHOP_SCARLETT_PURCHASED -->
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_PURCHASED_GENTLE"><![CDATA[
 	<p>
-		You lean down and place [pc.a_hand] on Scarlett's shoulder, smiling reassuringly at her as she snaps back round to look up at you.
+		Thinking that it would best to show Scarlett some kindness, you reach up and place [pc.a_hand] on her shoulder, smiling reassuringly at her as she snaps back around to scowl angrily at you. Speaking in the softest tone you can manage, you say, [pc.speech(Calm down, Scarlett. It's going to be ok. Just take a deep breath and try to relax.)]
 	</p>
 	<p>
-		[pc.speech(Calm down, Scarlett,)] you say in the softest tone you can manage, [pc.speech(it's going to be ok. Just take a deep breath and try to relax.)]
+		The raven-harpy's face flushes bright red, and for a moment you think that she's about to unleash yet another barrage of foul language, but instead she simply glares into your [pc.eyes] without saying a word. Sharply yanking her shoulder back, she wriggles out of your grip and steps away from you. Realising that any more physical contact is likely to send her into another fit of rage, you simply smile at the angry harpy with as much warmth as you can muster. Seeing that Helena is still on the edge of launching into a furious rage of her own, you ask your new slave, [pc.speech(Could you please apologise to Helena?)]
 	</p>
 	<p>
-		Her face flushes bright red, and for a moment you think that she's about to turn her anger on you, but she simply glares up into your [pc.eyes] without saying a word. She sharply yanks her shoulder back, wriggling out of your grip as she sits back on her knees. You decide against providing more physical reassurance, and step back, smiling down at the angry little harpy with as much warmth as you can muster.
+		Although she's quick to anger, Scarlett isn't stupid, and quickly realises that as she's your slave, she'd better do as you say. Turning to face Helena, she mutters, [scarlett.speech(Sorry, Helena...)]
 	</p>
 	<p>
-		[pc.speech(Thanks, Scarlett,)] you say. [pc.speech(Now, do you think you can finally tell me where Arthur is?)]
+		Although the smile doesn't return to her face, Helena's head-feathers flatten back down, and she icily states, [helena.speech(Don't you <i>ever</i> speak to me like that again.)]
 	</p>
 	<p>
-		You see a flicker of defiance deep down in her [scarlett.eyeColour] [scarlett.eyes], but, folding her [scarlett.arms] and letting out a little huff, she answers, [scarlett.speech(Fine... It doesn't look like I have much choice anyway, what with being a <i>slave</i>!)] she throws that word in [helena.name]'s direction, scowling at her former matriarch.
+		Now that both harpies have calmed down, you ask Scarlett, [pc.speech(Now, do you think you can finally tell me where Arthur is?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_PURCHASED_SHOUT"><![CDATA[
+	<p>
+		Wanting to put Scarlett in her place, you angrily berate her, [pc.speech(You insolent bitch! How <i>dare</i> you?! You're only to speak when spoken to, and if I hear <i>one more</i> insult come out of that filthy mouth of yours, you're going to be sorry!)]
 	</p>
 	<p>
-		You raise an eyebrow at Scarlett, and she lets out a sigh, before continuing, [scarlett.speech(So I'm guessing you know that Arthur was enslaved by the Enforcers. Well, through a random lottery, I was the 'lucky' person who ended up taking possession of him. Not five minutes after he was delivered here, some <i>bastard incubus</i> came by and demanded that I give Arthur over to him, without any payment!)]
+		The raven-harpy's face flushes bright red, and for a moment you think that she's about to unleash yet another barrage of foul language, but instead she simply glares into your [pc.eyes] without saying a word. You hold her gaze, and after angrily staring at one another for a moment, Scarlett casts her eyes down to the floor. Seeing that Helena is still on the edge of launching into a furious rage of her own, you tell your new slave, [pc.speech(You're to apologise to Helena, right now!)]
 	</p>
 	<p>
-		You notice Scarlett fidgeting around as she starts getting more and more angry, and you gently ask her to calm down, before letting her continue, [scarlett.speech(So anyway, he produces all these documents of minor infractions I'd committed in setting this shop up, and, having to choose between being shut down or handing Arthur over, I chose the latter option.)]
+		Although she's quick to anger, Scarlett isn't stupid, and quickly realises that as she's your slave, she'd better do as you say. Turning to face Helena, she mutters, [scarlett.speech(Sorry, Helena...)]
+	</p>
+	<p>
+		Although the smile doesn't return to her face, Helena's head-feathers flatten back down, and she icily states, [helena.speech(Don't you <i>ever</i> speak to me like that again.)]
+	</p>
+	<p>
+		Now that both harpies have calmed down, you turn to face your new slave and order her, [pc.speech(Now, tell me where Arthur is!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_PURCHASED_SLAP"><![CDATA[
+	<p>
+		Wanting to put your insolent slave in her place, you step forwards, before quickly reaching up and delivering a sharp slap across her face. As she recoils back from your blow, you shout, [pc.speech(You insolent bitch! How <i>dare</i> you?! You're only to speak when spoken to, and if I hear <i>one more</i> insult come out of that filthy mouth of yours, you're going to be sorry!)]
+	</p>
+	<p>
+		With her mouth open wide in shock, the raven-harpy's face flushes bright red, and for a moment you think that she's about to unleash yet another barrage of foul language, but instead she simply glares into your [pc.eyes] without saying a word. You hold her gaze, and after angrily staring at one another for a moment, Scarlett casts her eyes down to the floor. Seeing that Helena is still on the edge of launching into a furious rage of her own, you tell your new slave, [pc.speech(You're to apologise to Helena, right now!)]
+	</p>
+	<p>
+		Although she's quick to anger, Scarlett isn't stupid, and quickly realises that as she's your slave, she'd better do as you say. Turning to face Helena, she mutters, [scarlett.speech(Sorry, Helena...)]
+	</p>
+	<p>
+		Although the smile doesn't return to her face, Helena's head-feathers flatten back down, and she icily states, [helena.speech(Don't you <i>ever</i> speak to me like that again.)]
+	</p>
+	<p>
+		Now that both harpies have calmed down, you turn to face your new slave and order her, [pc.speech(Now, tell me where Arthur is!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_PURCHASED"><![CDATA[
+	<p>
+		You see a flicker of defiance deep down in Scarlett's [scarlett.eyeColour] [scarlett.eyes], but she simply lets out a little huff, before rudely answering, [scarlett.speech(I don't have any fucking choice, do I? I'm guessing you know that Arthur was enslaved by the Enforcers. Well, through a random lottery, I was the 'lucky' person who ended up taking possession of him. Not five minutes after he was delivered here, some <i>bastard incubus</i> came by and demanded that I give Arthur over to him, without any payment!)]
+	</p>
+	<p>
+		You notice Scarlett fidgeting around as she starts getting angry at the thought of what happened to her, and she angrily curses, [scarlett.speech(That fucking cunt had all these official documents of minor infractions I'd committed while running this shop, and he made me fucking choose between being shut down or handing over Arthur! Obviously, I chose the latter option.)]
 	</p>
 	<p>
 		[pc.speech(Do you know the name of this incubus? Or where he lives?)] you ask, desperate to finally find out where Arthur is being held.
 	</p>
 	<p>
-		[scarlett.speech(His name is Zaranix,)] Scarlett growls, the very thought of his name making her angry, [scarlett.speech(he's not hard to miss; after all, how many demons do you know of that choose to stay in their male form? And yeah, I know where he lives. I had to verify his slaver license, and made a note of his address in Demon Home, so that I could get my revenge later... It's in the drawer over there.)]
+		[scarlett.speech(I don't know, it was some stupid fucking name beginning with 'Z'... Hmm... 'Zaranix', I think it was,)] Scarlett growls, the very thought of his name making her cheeks flush red with rage, [scarlett.speech(The cunt's not hard to miss; after all, how many demons do you see choosing to stay in their male form? If you want to know where he lives, then you can find his address on a piece of paper in my drawer over there... I had to verify the fucker's slaver license, and made a note of where he lived so that I could go and get my revenge later...)]
 	</p>
 	<p>
-		Scarlett points towards [helena.name]'s desk, and, having been listening in to your conversation, [helena.name] pulls open the drawers until she finds the note. Helpfully walking over and handing it to you, she then returns to sit in her chair once more. Looking down at the piece of paper, you groan as you realise that Arthur's been right under your nose this whole time; the address is just across the street from his apartment building.
+		Having overheard your conversation, [helena.name] pulls open the drawers beneath her counter until she finds the scrap of paper Scarlett's talking about. Helpfully walking over to where you're standing and handing it over to you, she then returns to sit in her chair once more. After taking a moment to decipher Scarlett's barely-legible handwriting, you groan as you realise that you're going to have to travel back over to Demon Home; the address where he's being kept is just a short way down the street from where his apartment building is.
 	</p>
 	<p>
-		Your thoughts about how you're going to approach this Zaranix character are suddenly interrupted by Scarlett's impatient shuffling, and you realise that you're going to have to decide what you're going to do with her before anything else.
+		Your thoughts about how you're going to deal with Zaranix are suddenly interrupted by Scarlett's impatient shuffling, and you realise that you're going to have to decide what you're going to do with her before anything else...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="HELENAS_SHOP_SHOUT"><![CDATA[
-	<p>
-		You step forwards, frowning down angrily at Scarlett as you start to berate her, [pc.speech(You insolent bitch! How <i>dare</i> you?! You're only to speak when spoken to, and if I hear <i>one more</i> insult come out of that filthy mouth of yours, you're going to be sorry!)]
-	</p>
-	<p>
-		Her face flushes bright red, and for a moment you think that she's about to turn her anger on you, but she simply glares up into your [pc.eyes] without saying a word. You hold her gaze, and after angrily staring at one another for a moment, Scarlett casts her eyes down to the floor and sits back on her knees.
-	</p>
-	<p>
-		[pc.speech(That's better,)] you say, looking down at the angry little harpy. [pc.speech(Now, you're going to tell me where Arthur is!)]
-	</p>
-	<p>
-		You see a flicker of defiance deep down in her [scarlett.eyeColour] [scarlett.eyes], but, folding her [scarlett.arms] and letting out a little huff, she answers, [scarlett.speech(Fine... It doesn't look like I have much choice anyway, what with being a <i>slave</i>!)] she throws that word in [helena.name]'s direction, scowling at her former matriarch.
-	</p>
-	<p>
-		You take a sharp intake of breath, and Scarlett lets out a sigh, deciding to drop the matter as she continues, [scarlett.speech(So I'm guessing you know that Arthur was enslaved by the Enforcers. Well, through a random lottery, I was the 'lucky' person who ended up taking possession of him. Not five minutes after he was delivered here, some <i>bast-</i> I mean, some <i>incubus</i> came by and demanded that I give Arthur over to him, without any payment!)]
-	</p>
-	<p>
-		You notice Scarlett fidgeting around as she starts getting more and more angry, and you remind her that she'd better watch her tone, before letting her continue, [scarlett.speech(So anyway, he produces all these documents of minor infractions I'd committed in setting this shop up, and, having to choose between being shut down or handing Arthur over, I chose the latter option.)]
-	</p>
-	<p>
-		[pc.speech(What's the name of this incubus? And where does he live?)] you ask, desperate to finally find out where Arthur is being held.
-	</p>
-	<p>
-		[scarlett.speech(His name is Zaranix,)] Scarlett growls, the very thought of his name making her angry, [scarlett.speech(he's not hard to miss; after all, how many demons do you know of that choose to stay in their male form? And yeah, I know where he lives. I had to verify his slaver license, and made a note of his address in Demon Home, so that I could get my revenge later... It's in the drawer over there.)]
-	</p>
-	<p>
-		Scarlett points towards [helena.name]'s desk, and, having been listening in to your conversation, the beautiful harpy pulls open the drawers until she finds the note. Helpfully walking over and handing it to you, she then returns to sit in her chair once more. Looking down at the piece of paper, you groan as you realise that Arthur's been right under your nose this whole time; the address is just across the street from his apartment building.
-	</p>
-	<p>
-		Your thoughts about how you're going to approach this Zaranix character are suddenly interrupted by Scarlett's impatient shuffling, and you realise that you're going to have to decide what you're going to do with her before anything else.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="HELENAS_SHOP_SLAP"><![CDATA[
-	<p>
-		You step forwards, before quickly leaning down to deliver a sharp slap across Scarlett's face, [pc.speech(You insolent bitch! How <i>dare</i> you?! You're only to speak when spoken to, and if I hear <i>one more</i> insult come out of that filthy mouth of yours, you're going to be sorry!)]
-	</p>
-	<p>
-		She brings her hands up to her face, recoiling back from you as her mouth opens wide in shock. For a moment you think that she's about to turn her anger on you, but she simply glares up into your [pc.eyes] without saying a word. You hold her gaze, and after angrily staring at one another for a moment, Scarlett casts her eyes down to the floor and sits back on her knees.
-	</p>
-	<p>
-		[pc.speech(That's better,)] you say, looking down at the angry little harpy. [pc.speech(Now, you're going to tell me where Arthur is!)]
-	</p>
-	<p>
-		You see a flicker of defiance deep down in her [scarlett.eyeColour] [scarlett.eyes], but, folding her [scarlett.arms] and letting out a little huff, she answers, [scarlett.speech(Fine... It doesn't look like I have much choice anyway, what with being a <i>slave</i>!)] she throws that word in [helena.name]'s direction, scowling at her former matriarch.
-	</p>
-	<p>
-		You take a sharp intake of breath, and Scarlett lets out a sigh, deciding to drop the matter as she continues, [scarlett.speech(So I'm guessing you know that Arthur was enslaved by the Enforcers. Well, through a random lottery, I was the 'lucky' person who ended up taking possession of him. Not five minutes after he was delivered here, some <i>bast-</i> I mean, some <i>incubus</i> came by and demanded that I give Arthur over to him, without any payment!)]
-	</p>
-	<p>
-		You notice Scarlett fidgeting around as she starts getting more and more angry, and you remind her that she'd better watch her tone, before letting her continue, [scarlett.speech(So anyway, he produces all these documents of minor infractions I'd committed in setting this shop up, and, having to choose between being shut down or handing Arthur over, I chose the latter option.)]
-	</p>
-	<p>
-		[pc.speech(What's the name of this incubus? And where does he live?)] you ask, desperate to finally find out where Arthur is being held.
-	</p>
-	<p>
-		[scarlett.speech(His name is Zaranix,)] Scarlett growls, the very thought of his name making her angry, [scarlett.speech(he's not hard to miss; after all, how many demons do you know of that choose to stay in their male form? And yeah, I know where he lives. I had to verify his slaver license, and made a note of his address in Demon Home so that I could get my revenge later... It's in the drawer over there.)]
-	</p>
-	<p>
-		Scarlett points towards [helena.name]'s desk, and, having been listening in to your conversation, the beautiful harpy pulls open the drawers until she finds the note. Helpfully walking over and handing it to you, she then returns to sit in her chair once more. Looking down at the piece of paper, you groan as you realise that Arthur's been right under your nose this whole time; the address is just across the street from his apartment building.
-	</p>
-	<p>
-		Your thoughts about how you're going to approach this Zaranix character are suddenly interrupted by Scarlett's impatient shuffling, and you realise that you're going to have to decide what you're going to do with her before anything else.
-	</p>
-	]]>
-	</htmlContent>
 	
 	<htmlContent tag="HELENAS_SHOP_BUYING_SCARLETT_KEEP_HER"><![CDATA[
 	<p>
-		Deciding that you're going to keep Scarlett, you turn towards [helena.name]. [pc.speech(Can I get Scarlett transferred somewhere? I don't have the time to escort her myself right now.)]
+		Deciding that you're going to keep Scarlett, you turn towards [helena.name] and ask, [pc.speech(Can I get Scarlett transferred somewhere? I don't have the time to escort her around right now.)]
 	</p>
 	<p>
-		[helena.speech(Well, of course! All newly-bought slaves have to go through the Slavery Administration first, I was just waiting for you to finish your business with her,)] [helena.name] cheerily responds, pointing to the door, [helena.speech(and it looks like their representative has arrived.)]
+		[helena.speech(Well, of course. All newly-bought slaves have to be processed through the Slavery Administration first; now that you've concluded your business with Scarlett, she can be held there until you're ready to collect her,)] [helena.name] responds, before motioning with her wing to one side of the shop, [helena.speech(Please wait over there, Scarlett, I'll take you down to the Slavery Administration building once [pc.name] has departed.)]
 	</p>
 	<p>
-		You turn around to see Finch pushing open the shop's door, before stepping inside and holding up a little glowing crystal. [finch.speech(Someone called for a slave transfer?)]
-	</p>
-	<p>
-		You greet Finch, before informing him that you've taken ownership of Scarlett. He quickly explains what [helena.name] already told you; that all slave purchases need to go through Slavery Administration. After agreeing to come by later and sort out the transfer to a more permanent location, Finch attaches a leash to Scarlett's collar and leads her out of the shop.
-	</p>
-	<p>
-		[helena.speech(By the way,)] [helena.name] calls out from behind her desk, [helena.speech(I've decided to have a bit of fun down here for a while. The nests get so <i>tedious</i> sometimes. I'm going to get this shop up and running properly, so if you ever need to buy or sell any slaves, you know where to come first!)]
+		You thank Helena for her cooperation and prepare to exit her store, but before you can leave, the harpy matriarch calls out, [helena.speech(I've decided to personally take over the management of this shop, so if you ever need to buy or sell any slaves, please keep me in mind!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_SHOP_BUYING_SCARLETT_FREE_HER"><![CDATA[
 	<p>
-		Deciding that you're going to free Scarlett, you turn towards [helena.name]. [pc.speech(Do I need to fill out some kind of form to set Scarlett free? I'm not too keen on owning her...)]
+		Not liking the idea of keeping Scarlett as a slave, you turn towards [helena.name] and ask, [pc.speech(Do I need to fill out some kind of form to set Scarlett free?)]
 	</p>
 	<p>
-		[helena.speech(Hah, so it turns out you're lucky after all!)] [helena.name] calls out to Scarlett, before turning to you. [helena.speech(You just have to inform the Slavery Administration of your intent to set the slave free, and, seeing as all newly-bought slaves have to go through them first, their representative should be turning up here at any moment.)]
+		[helena.speech(Oh my, it looks like today's your lucky day,)] [helena.name] calmly says to Scarlett, before turning to you and replying, [helena.speech(All that needs to be done is to inform the Slavery Administration of your intention to set Scarlett free. As all newly-bought slaves have to be processed at the same building, I'll fill out the necessary forms for you at the same time.)]
 	</p>
 	<p>
-		As [helena.name] says that, she points behind you, and you turn around to see Finch pushing open the shop's door, before stepping inside and holding up a little glowing crystal. [finch.speech(Someone called for a slave transfer?)]
+		[scarlett.speech(You're really setting me free?)] Scarlett asks, and as you reply in the affirmative, she mumbles, [scarlett.speech(Thank you... I guess...)]
 	</p>
 	<p>
-		You greet Finch, before informing him that you've taken ownership of Scarlett, and intend to set her free. He lets out a little laugh, before saying that now you've informed the Administration of your intent, all you need to do is take her collar off. With that, he turns around and leaves the shop, heading back to his post.
+		[helena.speech(Wait for me over there,)] [helena.name] calls out to Scarlett, using her wing to motion towards one side of the shop, [helena.speech(Once [pc.name] has left, I'll have you set free, and then you can return to my nest. Oh, and don't think that I've forgotten about your silly little outburst earlier; I'll make sure that you're punished for insulting me.)]
 	</p>
 	<p>
-		[scarlett.speech(Y-You're really setting me free?)] Scarlett asks as you bend down and unclasp her collar, and as you reply in the affirmative, she mumbles, [scarlett.speech(T-Thank you...)]
+		[scarlett.speech(Yes, [helena.name]...)] Scarlett mumbles, walking over to one side of the shop and obediently waiting there.
 	</p>
 	<p>
-		[helena.speech(If you're not a slave anymore,)] [helena.name] calls out to Scarlett from behind her desk, [helena.speech(you'd best be reporting in to Lucy back at the nest. And don't think I've forgotten about your silly little outburst earlier; I'll make sure you're punished for that.)]
-	</p>
-	<p>
-		[scarlett.speech(Yes, [helena.name]...)] Scarlett mumbles again, and before you can say anything, she dashes towards the door and runs out, heading back to [helena.name]'s nest.
-	</p>
-	<p>
-		[helena.speech(You may have freed her from slavery,)] [helena.name] says, [helena.speech(but that just makes her part of my flock again. Speaking of which, I've actually decided to let them get on by themselves for a while and have a bit of fun down here. The nests get so <i>tedious</i> sometimes. I'm going to get this shop up and running properly, so if you ever need to buy or sell any slaves, you know where to come first!)]
+		[helena.speech(I suppose I must thank you for returning a member of my flock to me,)] [helena.name] says, turning towards you with a smug smile on her face. Thanking Helena for her cooperation, you prepare to exit her store, but before you can leave, the harpy matriarch calls out, [helena.speech(I've decided to personally take over the management of this shop, so if you ever need to buy or sell any slaves, please keep me in mind!)]
 	</p>
 	]]>
 	</htmlContent>

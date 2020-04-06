@@ -1,6 +1,147 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 
+	<!-- BACK_ALLEYS_SAFE -->
+	
+	<htmlContent tag="BACK_ALLEYS_SAFE"><![CDATA[
+	<p>
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			The back alleys in this particular section of Dominion are not only considerably cleaner and wider than those found throughout the rest of the city, but they are also usually far more frequently travelled. As there's an ongoing arcane storm, however, they are currently just as deserted as any other.
+		#ELSE
+			The back alleys in this particular section of Dominion are not only considerably cleaner and wider than those found throughout the rest of the city, but they are also far more frequently travelled.
+			#IF(pc.getRace()==RACE_DEMON)
+				 While significantly less busy than the main streets of the city, you still often find yourself encountering groups of slow-moving shoppers, who invariably hurry to one side to let you pass as they see that you're [pc.a_race].
+			#ELSE
+				 While significantly less busy than the main streets of the city, you still often find yourself having to weave your way past groups of slow-moving shoppers, which greatly slows down your progress through these twisting passageways.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			While there is usually a large Enforcer presence in this area, it doesn't appear to be considered important enough to warrant the presence of demon officers, and so until the arcane storm passes, there will be nobody to come to your aid should you be attacked...
+		#ELSE
+			The reason for this alleyway being treated as a safe passage is due to an unusually large Enforcer presence in the area. A uniformed officer never seems to be more than one or two corners away, ready to rush to the aid of anyone who would call for it.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BACK_ALLEYS -->
+	
+	<htmlContent tag="BACK_ALLEYS"><![CDATA[
+	<p>
+		You find yourself walking through labyrinthine alleyways, with not a soul in sight. Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress. These less-travelled parts of Dominion have a dangerous feel to them, and you can't shake the feeling that you're being followed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- WAREHOUSE_DISTRICT -->
+	
+	<htmlContent tag="WAREHOUSE_DISTRICT"><![CDATA[
+	<p>
+		While there are countless industrial buildings scattered all throughout Dominion, there's no higher concentration of them than in the place you currently find yourself travelling through. The official name for this area is proudly displayed in several places as being simply 'Dominion's Warehouse District', which, while being somewhat generic, very accurately describes it.
+	</p>
+	<p>
+		Most of the buildings you see around you are constructed of either red brick or corrugated iron, and almost without exception they have numerous centaur-drawn carts parked outside of them.
+		#IF(game.isExtendedWorkTime())
+			#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+				 Thanks to its strategic position right next to Dominion's canal and near to one of the main boulevards, this area is typically heaving with industrial traffic, but due to the ongoing arcane storm, all activity has come to a halt, leaving the entire area completely deserted.
+			#ELSE
+				 Thanks to its strategic position right next to Dominion's canal and near to one of the main boulevards, this area is absolutely heaving with industrial traffic, and you often have to step aside to let goods-filled carts rumble past.
+			#ENDIF
+		#ELSE
+			#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+				 Thanks to its strategic position right next to Dominion's canal and near to one of the main boulevards, this area is typically heaving with industrial traffic, but due to the ongoing arcane storm, all activity has come to a halt, leaving the entire area completely deserted.
+			#ELSE
+				 Thanks to its strategic position right next to Dominion's canal and near to one of the main boulevards, a large quantity of industrial traffic is still moving through here, even despite the time of day.
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WAREHOUSE_DISTRICT_NO_BUSINESS"><![CDATA[
+	<p>
+		Although there are plenty of businesses established in this area, they're of the kind which only provide services to other large companies. With nothing being on offer to passing members of the public, and without having a specific reason to be here, there's not much for you to do except continue on your way elsewhere...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_HOTEL -->
+	
+	<htmlContent tag="HELENAS_HOTEL"><![CDATA[
+	<p>
+		[style.boldGold(The Golden Feather:)]
+		<br/>Helena's hotel, 'The Golden Feather', is located in this area. Now that you're aware of its existence, you could head inside and make use of the elevator to travel directly up to Helena's nest.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STREET_SHADED -->
+
+	<htmlContent tag="STREET_SHADED"><![CDATA[
+	<p>
+		[style.boldHarpy(Harpy Nests:)]
+		<br/>The wooden platforms and bridges of the rooftop Harpy Nests cast a shadow over these streets. Looking up, you see the occasional flash of brightly-coloured feathers as harpies swoop this way and that.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CANAL -->
+
+	<htmlContent tag="CANAL"><![CDATA[
+	#IF(game.isDayTime())
+		<p>
+			#IF(pc.hasCompanions())
+				You and [com.name] find yourselves travelling down the narrow dirt path which runs alongside the entire length of Dominion's extensive canal network.
+			#ELSE
+				You find yourself travelling down the narrow dirt path which runs alongside the entire length of Dominion's extensive canal network.
+			#ENDIF
+			 While the track occasionally widens out or runs past small clearings and gardens, it is for the most part closely flanked by dark, red-bricked buildings. Despite the fact that these high walls create a gloomy, oppressive atmosphere, you find yourself preferring to be in their presence rather than that of the more spacious, foliage-filled areas, as their leafy bushes, wooden fences, and waist-high walls provide ample hiding places from which muggers could launch an ambush.
+		</p>
+		<p>
+			Unlike the city's back-alleys, this canal-side path is not completely deserted, as every now and then you come across a harmless citizen, who invariably averts their gaze as they hurry past you. The wide waterway itself is also extremely busy, with a seemingly never-ending procession of barges slowly trawling past on their way to destinations unknown. While several of them seem to be for recreational purposes, the vast majority of these narrow boats are hauling cargo of one sort or another; their long decks are stacked high with crates, packed with industrial machinery, or filled with tarpaulin-covered mounds of raw materials.
+		</p>
+		<p>
+			Despite the high level of traffic on the canal itself, you get the feeling that nobody would come to your aid if you were to be attacked while travelling on this path. The distinct lack of any Enforcer presence is a clear indication that this area is ripe territory for muggers, and so you make sure to stay alert as you continue on your way...
+		</p>
+	#ELSE
+		<p>
+			#IF(pc.hasCompanions())
+				You and [com.name] find yourselves travelling down the narrow, dimly-lit dirt path which runs alongside the entire length of Dominion's extensive canal network.
+			#ELSE
+				You find yourself travelling down the narrow, dimly-lit dirt path which runs alongside the entire length of Dominion's extensive canal network.
+			#ENDIF
+			 While the track occasionally widens out or runs past small clearings and gardens, it is for the most part closely flanked by dark, red-bricked buildings. Despite the fact that the flickering arcane lights fixed to these high walls create a gloomy, sinister atmosphere, you find yourself preferring to be in their presence rather than that of the more spacious, foliage-filled areas, as their leafy bushes, wooden fences, and waist-high walls provide ample pitch-black hiding places from which muggers could launch an ambush.
+		</p>
+		<p>
+			Due to the fact that it's currently night-time, this canal-side path is completely deserted. The wide waterway itself is also far less busy than it is during the day, with just the occasional arcane spotlight sweeping over the gloomy waterway as the barge it's fixed to slowly trawls past. While there may be the infrequent recreational narrow boat to be seen during daylight hours, these night-time barges are invariably hauling cargo of one sort or another; their long decks are stacked high with crates, packed with industrial machinery, or filled with tarpaulin-covered mounds of raw materials.
+		</p>
+		<p>
+			Despite the fact that there are people keeping a lookout up on the decks of these barges, you get the feeling that none of them would come to your aid if you were to be attacked while travelling on this poorly-lit path. The distinct lack of any Enforcer presence is a clear indication that this area is ripe territory for muggers, and so you make sure to stay alert as you continue on your way...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+
+	<!-- CANAL_END -->
+
+	<htmlContent tag="CANAL_END"><![CDATA[
+	<p>
+		The path before you abruptly ends, and although the canal continues on its way to the outskirts of the city, there's no way for you to continue onwards...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CITY_EXIT_SEWERS -->
+
 	<htmlContent tag="CITY_EXIT_SEWERS"><![CDATA[
 	<p>
 		A large stone bridge has been built over Dominion's canal, and as you walk over it, you hear the unmistakable sound of rushing water coming from below. Peering over the side, you see the origin of the noise; a huge, brick-lined opening, covered in metal bars, has been dug out on one side of the waterway, and it's into this that the water from the canal is flowing. Looking closer, you see that on the other side of the bars, there's a wide set of stone steps leading down into the gloom below.

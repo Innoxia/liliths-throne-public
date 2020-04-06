@@ -106,21 +106,21 @@ public class PenisBreasts {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a happy [npc2.moan], and, eagerly opening [npc2.her] mouth to give the [npc.cockHead] of [npc.her] [npc.cock] a loving suck,"
-									+ " [npc2.name] then draw back, but not before planting a wet kiss on the very tip.",
+									+ " [npc2.name] then [npc2.verb(draw)] back, but not before planting a wet kiss on the very tip.",
 
 							" [npc2.Name] eagerly [npc2.verb(open)] [npc2.her] mouth to accept [npc.her] [npc.cock+], giving the [npc.cockHead] a hot, wet suck before drawing back to deliver a passionate kiss to the very tip."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+], and, quickly opening [npc2.her] mouth to give the [npc.cockHead] of [npc.her] [npc.cock] a forceful suck,"
-									+ " [npc2.name] then draw back, but not before planting a rough kiss on the very tip.",
+									+ " [npc2.name] then [npc2.verb(draw)] back, but not before planting a rough kiss on the very tip.",
 
 							" [npc2.Name] quickly [npc2.verb(open)] [npc2.her] mouth to accept [npc.her] [npc.cock+], giving the [npc.cockHead] a forceful suck before drawing back to deliver a rough kiss to the very tip."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out a little [npc2.moan], and, opening [npc2.her] mouth to give the [npc.cockHead] of [npc.her] [npc.cock] an obedient suck,"
-									+ " [npc2.name] then draw back, but not before planting a quick kiss on the very tip.",
+									+ " [npc2.name] then [npc2.verb(draw)] back, but not before planting a quick kiss on the very tip.",
 
 							" [npc2.Name] [npc2.verb(open)] [npc2.her] mouth to accept [npc.her] [npc.cock+], giving the [npc.cockHead] an obediently suck before drawing back to deliver a quick kiss to the very tip."));
 					break;

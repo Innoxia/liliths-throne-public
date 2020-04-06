@@ -26,12 +26,14 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -45,14 +47,15 @@ import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPosition;
+import com.lilithsthrone.game.sex.positions.SexPositionUnique;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
@@ -161,19 +164,19 @@ public class NightlifeDistrict {
 						case ZERO_SOBER:
 							break;
 						case ONE_TIPSY:
-							sb.append("[npc.Name] is currently <i style='color:"+Colour.ALCOHOL.toWebHexString()+";'>tipsy</i>.");
+							sb.append("[npc.Name] is currently <i style='color:"+PresetColour.ALCOHOL.toWebHexString()+";'>tipsy</i>.");
 							break;
 						case TWO_MERRY:
-							sb.append("[npc.Name] is currently <i style='color:"+Colour.ALCOHOL.toWebHexString()+";'>merry</i>.");
+							sb.append("[npc.Name] is currently <i style='color:"+PresetColour.ALCOHOL.toWebHexString()+";'>merry</i>.");
 							break;
 						case THREE_DRUNK:
-							sb.append("[npc.Name] is currently <i style='color:"+Colour.ALCOHOL.toWebHexString()+";'>drunk</i>.");
+							sb.append("[npc.Name] is currently <i style='color:"+PresetColour.ALCOHOL.toWebHexString()+";'>drunk</i>.");
 							break;
 						case FOUR_HAMMERED:
-							sb.append("[npc.Name] is currently <i style='color:"+Colour.ALCOHOL.toWebHexString()+";'>hammered</i>. Giving [npc.herHim] any more alcohol would be a bad idea.");
+							sb.append("[npc.Name] is currently <i style='color:"+PresetColour.ALCOHOL.toWebHexString()+";'>hammered</i>. Giving [npc.herHim] any more alcohol would be a bad idea.");
 							break;
 						case FIVE_WASTED:
-							sb.append("[npc.Name] is currently <i style='color:"+Colour.ALCOHOL.toWebHexString()+";'>wasted</i>."+(isPartnerSub()?" [npc.She] looks like [npc.sheIs] going to pass out.":""));
+							sb.append("[npc.Name] is currently <i style='color:"+PresetColour.ALCOHOL.toWebHexString()+";'>wasted</i>."+(isPartnerSub()?" [npc.She] looks like [npc.sheIs] going to pass out.":""));
 							break;
 					}
 			}
@@ -378,7 +381,7 @@ public class NightlifeDistrict {
 		
 		@Override
 		public int getSecondsPassed() {
-			return CityPlaces.TRAVEL_TIME_STREET;
+			return DominionPlaces.TRAVEL_TIME_STREET;
 		}
 		
 		@Override
@@ -449,7 +452,7 @@ public class NightlifeDistrict {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(!hasPartner()) {
-				if(index==1) {
+				if(index==0) {
 					return new ResponseEffectsOnly("Exit",
 							"Leave 'The Watering Hole' and head back out into the district of Dominion known as 'Nightlife'.") {
 						@Override
@@ -462,7 +465,7 @@ public class NightlifeDistrict {
 					};
 					
 				} else if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.passedJules)) {
-					if(index==2) {
+					if(index==1) {
 						return new Response("Wait", "Wait patiently in the queue to get in to the club.", WATERING_HOLE_ENTRANCE_WAITING) {
 							@Override
 							public void effects() {
@@ -472,7 +475,7 @@ public class NightlifeDistrict {
 							}
 						};
 						
-					} else if(index==3 && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.passedJules)) {
+					} else if(index==2 && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.passedJules)) {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 							return new Response("Suck cock", "You can't gain access to your mouth, so you can't suck Jules's cock!", null);
 						}
@@ -3450,6 +3453,25 @@ public class NightlifeDistrict {
 					return new Response("Toilet", "Use the toilet.", WATERING_HOLE_TOILETS_USE);
 					
 				} else if(index==2) {
+					List<InventorySlot> washSlots = Util.newArrayListOfValues(InventorySlot.HEAD, InventorySlot.EYES, InventorySlot.MOUTH, InventorySlot.NECK, InventorySlot.HAIR, InventorySlot.FINGER, InventorySlot.HAND, InventorySlot.WRIST);
+					return new Response("Wash",
+							"Use the sinks to wash your hands and face."
+								+ "<br/>[style.italicsGood(This will clean your "+Util.inventorySlotsToParsedStringList(washSlots, Main.game.getPlayer())+", as well as any clothing worn in these slots.)]"
+								+ "<br/>[style.italicsMinorBad(This does <b>not</b> clean companions.)]",
+								WATERING_HOLE_TOILETS_WASH) {
+						@Override
+						public void effects() {
+							for(InventorySlot slot : washSlots) {
+								Main.game.getPlayer().removeDirtySlot(slot);
+								AbstractClothing c = Main.game.getPlayer().getClothingInSlot(slot);
+								if(c!=null) {
+									c.setDirty(Main.game.getPlayer(), false);
+								}
+							}
+						}
+					};
+					
+				} else if(index==3) {
 					if((Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true))
 							|| (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
 							|| (!Main.game.getPlayer().hasPenis() && !Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true))) {
@@ -3469,7 +3491,7 @@ public class NightlifeDistrict {
 					}
 					
 					
-				} else if(index==3) {
+				} else if(index==4) {
 					if((Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true))
 							|| (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))
 							|| (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true))) {
@@ -3528,8 +3550,9 @@ public class NightlifeDistrict {
 				return new ResponseSex("Use glory hole", UtilText.parse(characters.get(0), "Do as [npc.name] says and step up to the glory hole."),
 						true, false,
 						new SMGloryHole(
-								Util.newHashMapOfValues(new Value<>(characters.get(0), SexSlotUnique.GLORY_HOLE_KNEELING)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE))) {
+								SexPositionUnique.GLORY_HOLE,
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)),
+								Util.newHashMapOfValues(new Value<>(characters.get(0), SexSlotUnique.GLORY_HOLE_KNEELING))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -3602,10 +3625,11 @@ public class NightlifeDistrict {
 				return new ResponseSex("Start (close door)", "Close the door, affording yourself some privacy as you start to service the cocks before you.",
 						true, false,
 						new SMGloryHole(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_KNEELING)),
+								SexPositionUnique.GLORY_HOLE,
 								Util.newHashMapOfValues(
 										new Value<>(characters.get(0), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE),
-										new Value<>(characters.get(1), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO))) {
+										new Value<>(characters.get(1), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_KNEELING))) {
 							@Override
 							public boolean isPublicSex() {
 								return false;
@@ -3622,13 +3646,16 @@ public class NightlifeDistrict {
 				return new ResponseSex("Start (public view)", "Leave the door open, so that everyone in the toilets can watch as you service the cocks before you.",
 						true, false,
 						new SMGloryHole(
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_KNEELING)),
+								SexPositionUnique.GLORY_HOLE,
 								Util.newHashMapOfValues(
 										new Value<>(characters.get(0), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE),
-										new Value<>(characters.get(1), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO))) {
+										new Value<>(characters.get(1), SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.GLORY_HOLE_KNEELING))) {
 						},
 						null,
-						null, WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING_PUBLIC", characters));
+						null,
+						WATERING_HOLE_TOILETS_GLORY_HOLE_SERVICING_POST_SEX,
+						UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_GLORY_HOLE_START_SERVICING_PUBLIC", characters));
 			}
 			return null;
 		}
@@ -3680,28 +3707,6 @@ public class NightlifeDistrict {
 		
 		npc.setRaceConcealed(true);
 		
-//		List<CoverableArea> blockedAreas = new ArrayList<>();
-//		Collections.addAll(blockedAreas, CoverableArea.values());
-//		blockedAreas.remove(CoverableArea.PENIS);
-//		blockedAreas.remove(CoverableArea.VAGINA);
-//		blockedAreas.remove(CoverableArea.TESTICLES);
-//		blockedAreas.remove(CoverableArea.THIGHS);
-//		blockedAreas.remove(CoverableArea.LEGS);
-//
-//		List<InventorySlot> concealedSlots = new ArrayList<>();
-//		Collections.addAll(concealedSlots, InventorySlot.values());
-//		concealedSlots.remove(InventorySlot.PENIS);
-//		concealedSlots.remove(InventorySlot.VAGINA);
-//		concealedSlots.remove(InventorySlot.GROIN);
-//		concealedSlots.remove(InventorySlot.LEG);
-//		
-//		npc.setExtraBlockedParts(new BlockedParts(
-//				DisplacementType.OPEN,
-//				new ArrayList<>(),
-//				blockedAreas,
-//				new ArrayList<>(),
-//				concealedSlots));
-		
 		double rnd = Math.random();
 		if(rnd<0.1f && !gloryholeNpcNameDescriptor.equals("wasted")) {
 			npc.useItem(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM), npc, false);
@@ -3747,7 +3752,9 @@ public class NightlifeDistrict {
 		if(npc.hasPenis()) {
 			npc.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
 		}
-		npc.displaceClothingForAccess(CoverableArea.PENIS, null);
+
+		npc.unequipAllClothingIntoVoid(true, true);
+		
 		npc.setPenisVirgin(false);
 		npc.setVaginaVirgin(false);
 		
@@ -3765,23 +3772,6 @@ public class NightlifeDistrict {
 		
 		npc.setRaceConcealed(true);
 		
-//		List<CoverableArea> blockedAreas = new ArrayList<>();
-//		Collections.addAll(blockedAreas, CoverableArea.values());
-//		blockedAreas.remove(CoverableArea.MOUTH);
-//
-//		List<InventorySlot> concealedSlots = new ArrayList<>();
-//		Collections.addAll(concealedSlots, InventorySlot.values());
-//		concealedSlots.remove(InventorySlot.MOUTH);
-//		concealedSlots.remove(InventorySlot.PIERCING_LIP);
-//		concealedSlots.remove(InventorySlot.PIERCING_TONGUE);
-//		
-//		npc.setExtraBlockedParts(new BlockedParts(
-//				DisplacementType.OPEN,
-//				new ArrayList<>(),
-//				blockedAreas,
-//				new ArrayList<>(),
-//				concealedSlots));
-
 		List<String> descriptors;
 		double rnd = Math.random();
 		if(rnd<0.1f) {
@@ -3827,13 +3817,15 @@ public class NightlifeDistrict {
 			npc.addFetish(Fetish.FETISH_ORAL_GIVING);
 		}
 		
-//		npc.displaceClothingForAccess(CoverableArea.MOUTH, null);
 		npc.unequipAllClothingIntoVoid(true, true);
 		
 		npc.setPenisVirgin(false);
 		npc.setVaginaVirgin(false);
 		npc.setAssVirgin(false);
 		npc.setFaceVirgin(false);
+		
+		npc.setAllAreasKnownByCharacter(Main.game.getPlayer(), false);
+		
 		try {
 			Main.game.addNPC(npc, false);
 			Main.game.setActiveNPC(npc);
@@ -3958,6 +3950,30 @@ public class NightlifeDistrict {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_USE", getClubbersPresent())
+					+ getClubberStatus(this.getSecondsPassed());
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return WATERING_HOLE_TOILETS.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode WATERING_HOLE_TOILETS_WASH = new DialogueNode("Toilets", "", false) {
+		
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
+		
+		@Override
+		public boolean isTravelDisabled() {
+			return isEndConditionMet(0);
+		}
+
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_WASH", getClubbersPresent())
 					+ getClubberStatus(this.getSecondsPassed());
 		}
 
