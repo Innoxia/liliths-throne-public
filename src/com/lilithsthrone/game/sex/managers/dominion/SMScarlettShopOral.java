@@ -36,6 +36,11 @@ public class SMScarlettShopOral extends SexManagerDefault {
 	}
 
 	@Override
+	public boolean isPublicSex() {
+		return false;
+	}
+	
+	@Override
 	public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 		Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
 		map.put(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA));

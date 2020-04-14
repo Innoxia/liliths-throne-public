@@ -105,7 +105,7 @@ public class SAScarlett {
 			SexParticipantType.NORMAL) {
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getCharacterPerformingAction().isPlayer()
+			return !Main.sex.getCharacterPerformingAction().isPlayer()
 					&& (Main.sex.getInitialSexManager() instanceof SMScarlettShopOral)
 					&& !SexFlags.genericFlags.containsKey("helenaInterruptedTurn")
 					&& SexFlags.genericFlags.containsKey("scarlettInterruptedTurn")
