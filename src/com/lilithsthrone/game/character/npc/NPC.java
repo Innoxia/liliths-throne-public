@@ -2671,7 +2671,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if((this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative() || this.getHistory()==Occupation.NPC_PROSTITUTE)
 								&& !this.isPregnant()
 								&& !this.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
-								&& this.hasItemType(ItemType.PROMISCUITY_PILL)) {
+								&& this.hasItemType(ItemType.PROMISCUITY_PILL)
+								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.PROMISCUITY_PILL)) {
 							return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
 										UtilText.parse(this, charactersPenetratingThisNpc.get(0),
 												"Taking a small blue '[#ITEM_PROMISCUITY_PILL.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before quickly slipping it into [npc.her] mouth and swallowing it down."
@@ -2683,7 +2684,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								&& !this.isPregnant()
 								&& (Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING || this.hasFetish(Fetish.FETISH_NON_CON_SUB)) // Do not want to get pregnant from rape unless they have the fetish
 								&& !this.hasStatusEffect(StatusEffect.VIXENS_VIRILITY)
-								&& this.hasItemType(ItemType.VIXENS_VIRILITY)) {
+								&& this.hasItemType(ItemType.VIXENS_VIRILITY)
+								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.VIXENS_VIRILITY)) {
 							return new Value<>(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY),
 									UtilText.parse(this, charactersPenetratingThisNpc.get(0),
 											"Taking a small pink '[#ITEM_VIXENS_VIRILITY.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before quickly slipping it into [npc.her] mouth and swallowing it down."
@@ -2698,7 +2700,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if(this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative()
 								&& !partner.isPregnant()
 								&& !this.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
-								&& this.hasItemType(ItemType.PROMISCUITY_PILL)) {
+								&& this.hasItemType(ItemType.PROMISCUITY_PILL)
+								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.PROMISCUITY_PILL)) {
 							return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
 										UtilText.parse(this, charactersThisNpcIsPenetrating.get(0),
 												"Taking a small blue '[#ITEM_PROMISCUITY_PILL.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before quickly slipping it into [npc.her] mouth and swallowing it down."
@@ -2710,7 +2713,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								&& !partner.isPregnant()
 								&& (Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING || this.hasFetish(Fetish.FETISH_NON_CON_SUB)) // Do not want to impregnate during rape unless they have the fetish
 								&& !this.hasStatusEffect(StatusEffect.VIXENS_VIRILITY)
-								&& this.hasItemType(ItemType.VIXENS_VIRILITY)) {
+								&& this.hasItemType(ItemType.VIXENS_VIRILITY)
+								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.VIXENS_VIRILITY)) {
 							return new Value<>(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY),
 									UtilText.parse(this, charactersThisNpcIsPenetrating.get(0),
 											"Taking a small pink '[#ITEM_VIXENS_VIRILITY.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before quickly slipping it into [npc.her] mouth and swallowing it down."
@@ -2729,7 +2733,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 									&& !partner.isPregnant()
 									&& (Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING || this.hasFetish(Fetish.FETISH_NON_CON_SUB))
 									&& !partner.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
-									&& this.hasItemType(ItemType.PROMISCUITY_PILL)) {
+									&& this.hasItemType(ItemType.PROMISCUITY_PILL)
+									&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.PROMISCUITY_PILL)) {
 								if(partner.isPlayer()) {
 									if(Main.sex.isForcingItemUse(this, partner)) {
 										return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
@@ -2756,7 +2761,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								&& !partner.isPregnant()
 								&& (Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING || this.hasFetish(Fetish.FETISH_NON_CON_SUB))
 								&& !partner.hasStatusEffect(StatusEffect.VIXENS_VIRILITY)
-								&& this.hasItemType(ItemType.VIXENS_VIRILITY)) {
+								&& this.hasItemType(ItemType.VIXENS_VIRILITY)
+								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.VIXENS_VIRILITY)) {
 							if(partner.isPlayer()) {
 								if(Main.sex.isForcingItemUse(this, partner)) {
 									return new Value<>(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY),
@@ -2782,39 +2788,39 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				}
 				if(charactersThisNpcIsPenetrating.contains(partner) && this.hasPenisIgnoreDildo()) { // Pills for when this NPC is penetrating the partner:
 					if(partner.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
-						if(!Main.sex.getItemUseDenials(this, partner).contains(ItemType.PROMISCUITY_PILL)) {
-							if(this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative()
-									&& !partner.isPregnant()
-									&& (Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING || this.hasFetish(Fetish.FETISH_NON_CON_SUB))
-									&& !partner.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
-									&& this.hasItemType(ItemType.PROMISCUITY_PILL)) {
-								if(partner.isPlayer()) {
-									if(Main.sex.isForcingItemUse(this, partner)) {
-										return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
-												"Taking a small blue '[#ITEM_PROMISCUITY_PILL.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before reaching over and pushing it into your mouth."
-												+ " Clasping [npc.her] [npc.hand] over your [pc.lips] to prevent you from spitting it out,"
-													+ (this.isMute()
-															?" [npc.name] lets out a commanding growl and refuses to let go until you've swallowed it down..."
-															:" [npc.name] forces you to swallow it down and growls, [npc.speech(I don't want to knock you up!)]"));
-										
-									} else {
-										return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
-												"Taking a small blue '[#ITEM_PROMISCUITY_PILL.getName(false)]' out of [npc.her] inventory, [npc.name] holds it out to you"
-													+ (this.isMute()
-															?" and makes a pleading whine as [npc.she] motions for you to swallow it..."
-															:" and asks, [npc.speech(Please swallow this; I don't want to knock you up!)]"));
-									}
+						if(this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative()
+								&& !partner.isPregnant()
+								&& (Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING || this.hasFetish(Fetish.FETISH_NON_CON_SUB))
+								&& !partner.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
+								&& this.hasItemType(ItemType.PROMISCUITY_PILL)
+								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.PROMISCUITY_PILL)) {
+							if(partner.isPlayer()) {
+								if(Main.sex.isForcingItemUse(this, partner)) {
+									return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
+											"Taking a small blue '[#ITEM_PROMISCUITY_PILL.getName(false)]' out of [npc.her] inventory, [npc.name] pops it out of its protective wrapper before reaching over and pushing it into your mouth."
+											+ " Clasping [npc.her] [npc.hand] over your [pc.lips] to prevent you from spitting it out,"
+												+ (this.isMute()
+														?" [npc.name] lets out a commanding growl and refuses to let go until you've swallowed it down..."
+														:" [npc.name] forces you to swallow it down and growls, [npc.speech(I don't want to knock you up!)]"));
 									
 								} else {
-									return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), ""); // Description is appended in the SexAction
+									return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL),
+											"Taking a small blue '[#ITEM_PROMISCUITY_PILL.getName(false)]' out of [npc.her] inventory, [npc.name] holds it out to you"
+												+ (this.isMute()
+														?" and makes a pleading whine as [npc.she] motions for you to swallow it..."
+														:" and asks, [npc.speech(Please swallow this; I don't want to knock you up!)]"));
 								}
+								
+							} else {
+								return new Value<>(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), ""); // Description is appended in the SexAction
 							}
 						}
 						if(this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive()
 								&& !partner.isPregnant()
 								&& (Main.sex.getSexPace(this)!=SexPace.SUB_RESISTING || this.hasFetish(Fetish.FETISH_NON_CON_SUB))
 								&& !partner.hasStatusEffect(StatusEffect.VIXENS_VIRILITY)
-								&& this.hasItemType(ItemType.VIXENS_VIRILITY)) {
+								&& this.hasItemType(ItemType.VIXENS_VIRILITY)
+								&& !Main.sex.getItemUseDenials(this, partner).contains(ItemType.VIXENS_VIRILITY)) {
 							if(partner.isPlayer()) {
 								if(Main.sex.isForcingItemUse(this, partner)) {
 									return new Value<>(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY),

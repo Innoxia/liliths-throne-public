@@ -2071,7 +2071,8 @@ public class Game implements XMLSaving {
 		
 		// Miscellaneous things:
 		
-		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL && !Main.game.getCurrentDialogueNode().isTravelDisabled()) { // Catch slavery management NPC not correctly being assigned to null:
+		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL
+				&& !Main.game.getCurrentDialogueNode().isTravelDisabled()) { // Catch slavery management NPC not correctly being assigned to null:
 			Main.game.getDialogueFlags().setManagementCompanion(null);
 		}
 		
@@ -3128,6 +3129,7 @@ public class Game implements XMLSaving {
 		savedDialogueNode = currentDialogueNode;
 		previousPastDialogueSBContents = pastDialogueSB.toString();
 	}
+	
 	
 	/**
 	 * Flashes a message at the bottom of the screen.

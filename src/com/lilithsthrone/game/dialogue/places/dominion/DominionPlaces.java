@@ -14,7 +14,6 @@ import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -190,183 +189,20 @@ public class DominionPlaces {
 
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			if (Main.game.isDayTime()) { // Day time:
-				if (Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
-					UtilText.nodeContentSB.append("<p>"
-							+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a strange feel to them that hints at the other-worldly nature of this place."
-							+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones.");
-					
-					switch(Main.game.getCurrentWeather()) {
-						case CLEAR:
-							UtilText.nodeContentSB.append(" Rows of trees and marble benches line either side of the pedestrianised streets, offering shade and a place to rest for weary shoppers."
-									+ " On either side of you, the building's clean facades gleam in the sunshine, and high above in the sky, you see harpies flying about on business of their own."
-									+ "</p>");
-							break;
-						case CLOUD:
-							UtilText.nodeContentSB.append(" Rows of trees and marble benches line either side of the pedestrianised streets, offering a place to rest."
-									+ " On either side of you, the building's clean facades gleam in the sunshine, and high above in the sky, you see harpies flying about on business of their own.</p>");
-							break;
-						case MAGIC_STORM_GATHERING:
-							UtilText.nodeContentSB.append(" Marble benches line either side of the pedestrianised streets, granted shade from the summer sun by rows of trees."
-									+ " The tree's branches sway as the wind starts to pick up, and the rustling of leaves can be head over the steady hum of the busy crowds."
-									+ " On either side of you, the glass frontages of the recently renovated buildings reflect the darkening sky."
-									+ "</p>");
-							break;
-						case RAIN:
-							UtilText.nodeContentSB.append(" Rows of trees and marble benches line either side of the pedestrianised streets, offering a place to rest and cover from the rain."
-									+ " On either side of you, large canvas awnings have been extended from the buildings, shielding passersby from the sudden downpour."
-									+ "</p>");
-							break;
-						case SNOW:
-							UtilText.nodeContentSB.append(" Large white snowflakes continue to fall all around you as you walk past the rows of trees and marble benches that line either side of the pedestrianised streets."
-									+ "</p>");
-							break;
-						case MAGIC_STORM:
-							break;
-					}
-					
-					UtilText.nodeContentSB.append("<p>"
-								+ "The streets are very busy at this time of day, and are packed with people hurrying to and fro."
-								+ " Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way."
-								+ " You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and"
-								+ " all the other sorts that you'd find in any old city."
-								+ " As the streets are so busy at this time, you find yourself having to occasionally push your way through the dense crowds."
-							+ "</p>"
-							+ "<p>"
-								+ "Most of the people around you are partial or lesser morphs, although there are a quite a few greater morphs to be seen walking the streets as well."
-								+ " Dog, cat and horse-morphs are by far the most common races that you see, but it wouldn't take long to find examples of every race."
-								+ " The rarest races that you see are humans and demons."
-								+ " The latter are very easy to spot, as wherever they walk, people hurriedly move to make way."
-							+ "</p>");
-
-					UtilText.nodeContentSB.append(getRandomStreetEvent());
-					
-					
-				} else { // Storm:
-					UtilText.nodeContentSB.append("<p>"
-								+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
-								+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
-								+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees and arcane-powered street lamps."
-								+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
-								+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
-							+ "</p>"
-							+ " <p>"
-								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
-								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
-								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street.");
-					
-					if(Main.game.getPlayer().getRace()==Race.DEMON) {
-						UtilText.nodeContentSB.append(" They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you.");
-					} else {
-						UtilText.nodeContentSB.append(" They sometimes cast a curious glance your way, but most are content to simply ignore you.");
-					}
-					
-					UtilText.nodeContentSB.append(
-							"</p>"
-							+ "<p>"
-								+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
-								+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
-								+ " If they catch you, they'll be sure to force you into a fight."
-							+ "</p>");
-				}
-				
-			} else { // Night time:
-				if (Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
-					UtilText.nodeContentSB.append("<p>"
-							+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a strange feel to them that hints at the other-worldly nature of this place."
-							+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
-							+ " Marble benches line both sides of the pedestrianised streets, and are interspersed by rows of trees, softly illuminated by the amber glow of arcane-powered street lamps.");
-					
-					switch(Main.game.getCurrentWeather()) {
-						case CLEAR: case CLOUD:
-							UtilText.nodeContentSB.append(" On either side of you, lights shine out from the windows of the tall buildings."
-									+ "</p>");
-							break;
-						case MAGIC_STORM_GATHERING:
-							UtilText.nodeContentSB.append(" The tree's branches sway as the wind starts to pick up, and the rustling of leaves fills the still night air."
-									+ "</p>");
-							break;
-						case RAIN:
-							UtilText.nodeContentSB.append(" On either side of you, large canvas awnings have been extended from the buildings, shielding passersby from the sudden downpour."
-									+ "</p>");
-							break;
-						case SNOW:
-							UtilText.nodeContentSB.append(" Large fluffy snowflakes continue to fall all around you; their haphazard paths illuminated by the lights shining out from the windows of the tall buildings."
-									+ "</p>");
-							break;
-						case MAGIC_STORM:
-							break;
-					}
-
-					UtilText.nodeContentSB.append("<p>"
-								+ "Although the streets are noticeably quieter than during the day, there are still plenty of people hurrying to and fro."
-								+ " Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way."
-								+ " You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and"
-								+ " all the other sorts that you'd find in any old city."
-								+ " As the streets are quiet at this time, you have plenty of room to weave your way through the sparse crowds."
-							+ "</p>"
-							+ "<p>"
-								+ "Most of the people around you are partial or lesser morphs, although there are a quite a few greater morphs to be seen walking the streets as well."
-								+ " Dog, cat and horse-morphs are by far the most common races that you see, but it wouldn't take long to find examples of every race."
-								+ " The rarest races that you see are humans and demons."
-								+ " The latter are very easy to spot, as wherever they walk, people hurriedly move to make way."
-							+ "</p>");
-					
-					UtilText.nodeContentSB.append(getRandomStreetEvent());
-
-				} else { // Storm:
-					UtilText.nodeContentSB.append("<p>"
-								+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
-								+ "The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
-								+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees, all illuminated by the soft amber glow of arcane-powered street lamps."
-								+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
-								+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
-							+ "</p>"
-							+ "<p>"
-								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
-								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
-								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street.");
-				
-				if(Main.game.getPlayer().getRace()==Race.DEMON) {
-					UtilText.nodeContentSB.append(" They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you.");
-				} else {
-					UtilText.nodeContentSB.append(" They sometimes cast a curious glance your way, but most are content to simply ignore you.");
-				}
-				
-				UtilText.nodeContentSB.append(
-							"</p>"
-							+ " <p>"
-								+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
-								+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
-								+ " If they catch you, they'll be sure to force you into a fight."
-							+ "</p>");
-					
-					
-				}
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "STREET"));
+			if (Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
+				sb.append(getRandomStreetEvent());
 			}
 			
 			if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
-				UtilText.nodeContentSB.append(
-					"<p>"
-						+ "<b style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b><br/>"
-						+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
-						+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
-					+ "</p>");
+				sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "STREET_EVENT_OCTOBER"));
 			}
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
-				UtilText.nodeContentSB.append(
-					"<p>"
-						+ "<b style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b><br/>"
-						+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
-						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
-					+ "</p>");
+				sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "STREET_EVENT_SNOW"));
 			}
-			
-			UtilText.nodeContentSB.append(getExtraStreetFeatures());
-			
-			return UtilText.nodeContentSB.toString();
+
+			return sb.toString();
 		}
 
 		@Override

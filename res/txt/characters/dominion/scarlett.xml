@@ -16,4 +16,63 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- CUSTOMER_INTERRUPTION -->
+	
+	<htmlContent tag="CUSTOMER_INTERRUPTION"><![CDATA[
+	#IF(scarlett.hasPenis())
+		Having spotted a customer heading towards her, Scarlett bucks her hips forwards and slams her [scarlett.cock+] down your throat, effectively silencing you as she calls out, 
+	#ELSE
+		Having spotted a customer heading towards her, Scarlett bucks her hips forwards and smothers your mouth with her [scarlett.pussy+], effectively silencing you as she calls out,
+	#ENDIF
+	 [scarlett.speechNoEffects(Ask one of the other harpies for help! I'm fucking busy here!)]
+	<br/><br/>
+	Scarlett's hostile exclamation effectively dissuades the customer from coming any closer, and after watching them turn around and walk off, the raven harpy draws back a little and hisses down at you,
+	#IF(scarlett.hasPenis())
+		 [scarlett.speechNoEffects(Keep sucking, bitch!)]
+	#ELSE
+		 [scarlett.speechNoEffects(Get that tongue working again, bitch!)]
+	#ENDIF
+	]]></htmlContent>
+	
+	<htmlContent tag="CUSTOMER_INTERRUPTION"><![CDATA[
+	#IF(scarlett.hasPenis())
+		Suddenly thrusting her [scarlett.cock+] down your throat, Scarlett calls out to an approaching customer,
+	#ELSE
+		Suddenly bucking her hips forwards and smothering your mouth with her [scarlett.pussy+], Scarlett calls out to an approaching customer,
+	#ENDIF
+	 [scarlett.speechNoEffects(Fuck off and bother one of the other harpies!)]
+	<br/><br/>
+	Clearly not wanting to argue with such a hostile harpy, the customer scurries off, leaving Scarlett to draw back a little and hiss down at you,
+	#IF(scarlett.hasPenis())
+		 [scarlett.speechNoEffects(Go on, bitch, keep sucking my cock!)]
+	#ELSE
+		 [scarlett.speechNoEffects(Go on, bitch, get your tongue in deep!)]
+	#ENDIF
+	]]></htmlContent>
+	
+	
+	<!-- HELENA_INTERRUPTION -->
+	
+	<htmlContent tag="HELENA_INTERRUPTION"><![CDATA[
+	#IF(scarlett.hasPenis())
+		Letting out a surprised gasp, Scarlett suddenly steps forwards and hilts her cock down your throat, effectively limiting the sounds you can produce to no more than a quiet, gargled splutter.
+	#ELSE
+		Letting out a surprised gasp, Scarlett suddenly steps forwards and smothers your mouth with her [scarlett.pussy+], effectively limiting the sounds you can produce to no more than a quiet, muffled splutter.
+	#ENDIF
+	 The reason for this unexpected move is very quickly made clear to you, as from up above, you hear the familiar, soft voice of Helena addressing your sexual partner, [helena.speechNoEffects(Scarlett, my dear, I've just received a complaint from one of our clients. Apparently, you've just been extremely rude to them. What do you have to say for yourself?)]
+	<br/><br/>
+	[scarlett.speechNoEffects(Ah! S-Sorry, Helena! I didn't mean to be so rude!)] the raven harpy quickly apologises, doing her best to hide the tone of arousal in her voice.
+	<br/><br/>
+	Thankfully, Helena seems to be oblivious as to what's happening beneath the counter in front of her, and after sharply scolding her subordinate, she lets out an exasperated sigh and asks, [helena.speechNoEffects(So did [pc.name] leave earlier? I thought [pc.she] would have come and said goodbye to me...)]
+	<br/><br/>
+	[scarlett.speechNoEffects(Yes, but I'm sure [pc.she]'ll be back soon,)] Scarlett says
+	#IF(scarlett.hasPenis())
+		 as she slowly grinds the base of her cock against your [pc.lips].
+	#ELSE
+		 as she slowly grinds her wet cunt against your [pc.lips].
+	#ENDIF
+	 Without saying another word, you hear the beautiful matriarch turn on the spot and head off back into the store, leaving Scarlett to let out a soft laugh and hiss down at you, [scarlett.speechNoEffects(You hear that? Once I've finished with you, Helena'll be wanting to see you. Now hurry up and finish me off!)]
+	]]></htmlContent>
+	
 </dialogue>

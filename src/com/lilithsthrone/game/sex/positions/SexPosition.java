@@ -3406,18 +3406,23 @@ public class SexPosition {
 				performerFree4 = false;
 			}
 			
+			// Sitting characters can kiss/use appendages on ones sitting next to them:
+			interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(SexSlotSitting.SITTING, SexSlotSitting.SITTING_TWO));
+			interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(SexSlotSitting.SITTING_TWO, SexSlotSitting.SITTING_THREE));
+			interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(SexSlotSitting.SITTING_THREE, SexSlotSitting.SITTING_FOUR));
+			
 			if(performerFree1) {
 				interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL, SexSlotSitting.SITTING));
 				if(performerFree2) {
-					interactions.add(StandardSexActionInteractions.faceToFace.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL, SexSlotSitting.PERFORMING_ORAL_TWO));
+					interactions.add(StandardSexActionInteractions.kneelingBeside.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL, SexSlotSitting.PERFORMING_ORAL_TWO));
 					interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL, SexSlotSitting.SITTING_TWO));
 				}
 				if(performerFree3) {
-					interactions.add(StandardSexActionInteractions.faceToFace.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL, SexSlotSitting.PERFORMING_ORAL_THREE));
+					interactions.add(StandardSexActionInteractions.kneelingBeside.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL, SexSlotSitting.PERFORMING_ORAL_THREE));
 					interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL, SexSlotSitting.SITTING_THREE));
 				}
 				if(performerFree4) {
-					interactions.add(StandardSexActionInteractions.faceToFace.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL, SexSlotSitting.PERFORMING_ORAL_FOUR));
+					interactions.add(StandardSexActionInteractions.kneelingBeside.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL, SexSlotSitting.PERFORMING_ORAL_FOUR));
 					interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL, SexSlotSitting.SITTING_FOUR));
 				}
 			}
@@ -3427,11 +3432,11 @@ public class SexPosition {
 					interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL_TWO, SexSlotSitting.SITTING));
 				}
 				if(performerFree3) {
-					interactions.add(StandardSexActionInteractions.faceToFace.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL_TWO, SexSlotSitting.PERFORMING_ORAL_THREE));
+					interactions.add(StandardSexActionInteractions.kneelingBeside.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL_TWO, SexSlotSitting.PERFORMING_ORAL_THREE));
 					interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL_TWO, SexSlotSitting.SITTING_THREE));
 				}
 				if(performerFree4) {
-					interactions.add(StandardSexActionInteractions.faceToFace.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL_TWO, SexSlotSitting.PERFORMING_ORAL_FOUR));
+					interactions.add(StandardSexActionInteractions.kneelingBeside.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL_TWO, SexSlotSitting.PERFORMING_ORAL_FOUR));
 					interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL_TWO, SexSlotSitting.SITTING_FOUR));
 				}
 			}
@@ -3444,7 +3449,7 @@ public class SexPosition {
 					interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL_THREE, SexSlotSitting.SITTING_THREE));
 				}
 				if(performerFree4) {
-					interactions.add(StandardSexActionInteractions.faceToFace.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL_THREE, SexSlotSitting.PERFORMING_ORAL_FOUR));
+					interactions.add(StandardSexActionInteractions.kneelingBeside.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL_THREE, SexSlotSitting.PERFORMING_ORAL_FOUR));
 					interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(SexSlotSitting.PERFORMING_ORAL_THREE, SexSlotSitting.SITTING_FOUR));
 				}
 			}

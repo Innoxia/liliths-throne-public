@@ -326,8 +326,7 @@ public class DialogueFlags implements XMLSaving {
 	}
 
 	public NPC getManagementCompanion() {
-		if(managementCompanion==null
-				|| managementCompanion.isEmpty()) {
+		if(managementCompanion==null || managementCompanion.isEmpty()) {
 			return null;
 		}
 		try {

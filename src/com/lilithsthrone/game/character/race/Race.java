@@ -12,14 +12,14 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.7.1
  * @author Innoxia
  */
 public enum Race {
 
-	NONE("none",
-			"none",
-			PresetColour.RACE_HUMAN,
+	NONE("no race",
+			"no race",
+			PresetColour.RACE_UNKNOWN,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
 			0.5f,
