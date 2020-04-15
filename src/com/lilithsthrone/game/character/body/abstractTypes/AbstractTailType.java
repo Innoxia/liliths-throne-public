@@ -579,6 +579,6 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 
 	@Override
 	public TFModifier getTFModifier() {
-		return getTFTypeModifier(TailType.getTailTypes(race));
+		return this == TailType.NONE ? TFModifier.REMOVAL : getTFTypeModifier(TailType.getTailTypes(race));
 	}
 }

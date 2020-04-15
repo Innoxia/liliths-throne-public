@@ -121,7 +121,7 @@ public enum WingType implements BodyPartTypeInterface {
 	
 	@Override
 	public TFModifier getTFModifier() {
-		return getTFTypeModifier(getWingTypes(race));
+		return this == NONE ? TFModifier.REMOVAL : getTFTypeModifier(getWingTypes(race));
 	}
 
 	private static Map<Race, List<WingType>> typesMap = new HashMap<>();
@@ -132,10 +132,10 @@ public enum WingType implements BodyPartTypeInterface {
 		
 		List<WingType> types = new ArrayList<>();
 		for(WingType type : WingType.values()) {
-			if(type.getRace()==r) {
+			if(type.getRace()==r && type!=WingType.NONE) {
 				types.add(type);
 			}
-			if(r!=Race.DEMON && r!=Race.ANGEL) { // All normal races have access to the generic wing types for transformations:
+			if(r!=Race.DEMON && r!=Race.ANGEL && r!=Race.NONE) { // All normal races have access to the generic wing types for transformations:
 				if(type.getRace()==Race.NONE && type!=WingType.NONE) {
 					types.add(type);
 				}

@@ -145,7 +145,7 @@ public abstract class AbstractHornType implements BodyPartTypeInterface {
 
 	@Override
 	public TFModifier getTFModifier() {
-		return getTFTypeModifier(HornType.getHornTypes(race));
+		return this == HornType.NONE ? TFModifier.REMOVAL : getTFTypeModifier(HornType.getHornTypes(race));
 	}
 
 //	@Override
