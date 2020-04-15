@@ -526,8 +526,7 @@ public abstract class AbstractRacialBody {
 	public List<WingType> getWingTypes() {
 		return wingTypes;
 	}
-
-
+	
 	public int getArmRows() {
 		return armRows;
 	}

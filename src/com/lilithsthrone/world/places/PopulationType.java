@@ -35,6 +35,8 @@ public enum PopulationType {
 	PRIVATE_SECURITY_GUARD("private security guard", "private security guards"),
 	
 	ENFORCER("Enforcer", "Enforcers"),
+
+	CENTAUR_CARTS("centaur-pulled cart", "centaur-pulled carts"),
 	
 	SHOPPER("shopper", "shoppers"),
 	

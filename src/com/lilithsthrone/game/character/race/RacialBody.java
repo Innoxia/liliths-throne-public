@@ -53,7 +53,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
+ * @version 0.3.7.1
  * @author Innoxia
  */
 public class RacialBody {
@@ -364,7 +364,7 @@ public class RacialBody {
 			PenisType.EQUINE, 23, PenetrationGirth.FOUR_FAT, TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE, Util.newArrayListOfValues(TailType.HORSE_MORPH),
 			TentacleType.NONE,
 			VaginaType.HORSE_MORPH, Wetness.THREE_WET, Capacity.THREE_SLIGHTLY_LOOSE, OrificeDepth.THREE_SPACIOUS, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			Util.newArrayListOfValues(WingType.NONE, WingType.PEGASUS), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 	};
 

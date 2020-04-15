@@ -250,7 +250,7 @@ public class MainController implements Initializable {
 		} else {
 			DialogueNodeType currentDialogueNodeType = Main.game.getCurrentDialogueNode().getDialogueNodeType();
 			if (currentDialogueNodeType == DialogueNodeType.NORMAL
-//					|| currentDialogueNodeType == DialogueNodeType.OCCUPANT_MANAGEMENT
+					|| currentDialogueNodeType == DialogueNodeType.OCCUPANT_MANAGEMENT // This was commented out at some point, which was causing issues with the opening/closing of the main menu screen.
 					|| (!Main.game.isInNewWorld() && currentDialogueNodeType != DialogueNodeType.CHARACTERS_PRESENT)) {
 				Main.game.saveDialogueNode();
 			}

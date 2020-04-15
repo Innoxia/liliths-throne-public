@@ -2150,7 +2150,7 @@ public class Body implements XMLSaving {
 		// Nose:
 		
 		if(face.isPiercedNose()) {
-			sb.append(" [npc.Her] [npc.nose] [npc.has] been pierced.");
+			sb.append(" [npc.Her] [npc.nose] has been pierced.");
 		}
 		
 		// Eyes:
@@ -2743,7 +2743,7 @@ public class Body implements XMLSaving {
 					break;
 				case NONE:
 					break;
-				case PEGASUS:
+				case FEATHERED:
 					sb.append("[npc.sheHasFull] a pair of [npc.wingSize] wings, which are covered in [npc.wingFullDescription(true)].");
 					break;
 			}

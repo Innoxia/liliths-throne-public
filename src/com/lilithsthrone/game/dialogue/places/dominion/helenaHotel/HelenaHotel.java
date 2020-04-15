@@ -30,6 +30,7 @@ import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
@@ -38,7 +39,6 @@ import com.lilithsthrone.game.sex.managers.SexManagerInterface;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
@@ -111,12 +111,19 @@ public class HelenaHotel {
 	private static SexManagerInterface getScarlettOralSexManager() {
 		return new SexManagerDefault(
 				false,
-				SexPosition.AGAINST_WALL,
-				Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Scarlett.class), SexSlotAgainstWall.BACK_TO_WALL)),
-				Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAgainstWall.PERFORMING_ORAL_WALL))) {
+				SexPosition.SITTING,
+				Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Scarlett.class), SexSlotSitting.SITTING)),
+				Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.PERFORMING_ORAL))) {
 			@Override
 			public boolean isPublicSex() {
 				return false;
+			}
+			@Override
+			public SexControl getSexControl(GameCharacter character) {
+				if(character.isPlayer()) {
+					return SexControl.ONGOING_ONLY;
+				}
+				return super.getSexControl(character);
 			}
 			@Override
 			public boolean isPositionChangingAllowed(GameCharacter character) {
@@ -170,22 +177,51 @@ public class HelenaHotel {
 		
 		return Main.game.getNpc(Helena.class).incrementAffection(Main.game.getPlayer(), affection);
 	}
-	
+
 	public static SexManagerInterface getHelenaSexManager(boolean helenaDom,
 			AbstractSexPosition position,
 			SexSlot helenaSlot,
 			SexSlot playerSlot,
 			SexType helenaPreference,
 			Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap) {
+		return getHelenaSexManager(helenaDom, false, !helenaDom, position, helenaSlot, null, playerSlot, helenaPreference, null, null, null, exposeAtStartOfSexMap);
+	}
+	
+	public static SexManagerInterface getHelenaSexManager(boolean helenaDom,
+			boolean scarlettDom,
+			boolean playerDom,
+			AbstractSexPosition position,
+			SexSlot helenaSlot,
+			SexSlot scarlettSlot,
+			SexSlot playerSlot,
+			SexType helenaToPlayerPreference,
+			SexType helenaToScarlettPreference,
+			SexType scarlettToPlayerPreference,
+			SexType scarlettToHelenaPreference,
+			Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap) {
 		return new SexManagerDefault(
 				false,
 				position,
-				helenaDom
-					?Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Helena.class), helenaSlot))
-					:Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), playerSlot)),
-				helenaDom
-					?Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), playerSlot))
-					:Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Helena.class), helenaSlot))) {
+				Util.newHashMapOfValues(
+						(helenaDom
+							?new Value<>(Main.game.getNpc(Helena.class), helenaSlot)
+							:null),
+						(scarlettDom && scarlettSlot!=null
+								?new Value<>(Main.game.getNpc(Scarlett.class), scarlettSlot)
+								:null),
+						(playerDom
+								?new Value<>(Main.game.getPlayer(), playerSlot)
+								:null)),
+				Util.newHashMapOfValues(
+						(!helenaDom
+							?new Value<>(Main.game.getNpc(Helena.class), helenaSlot)
+							:null),
+						(!scarlettDom && scarlettSlot!=null
+								?new Value<>(Main.game.getNpc(Scarlett.class), scarlettSlot)
+								:null),
+						(!playerDom
+								?new Value<>(Main.game.getPlayer(), playerSlot)
+								:null))) {
 			@Override
 			public boolean isPublicSex() {
 				return false;
@@ -208,15 +244,35 @@ public class HelenaHotel {
 			}
 			@Override
 			public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
-				if(!character.isPlayer() && helenaPreference!=null) {
-					return helenaPreference;
+				if(character.equals(Main.game.getNpc(Helena.class))) {
+					if(targetedCharacter.isPlayer() && helenaToPlayerPreference!=null) {
+						return helenaToPlayerPreference;
+					} else if(character.equals(Main.game.getNpc(Scarlett.class)) && helenaToScarlettPreference!=null) {
+						return helenaToScarlettPreference;
+					}
+				} else if(character.equals(Main.game.getNpc(Scarlett.class))) {
+					if(targetedCharacter.isPlayer() && scarlettToPlayerPreference!=null) {
+						return scarlettToPlayerPreference;
+					} else if(character.equals(Main.game.getNpc(Helena.class)) && scarlettToHelenaPreference!=null) {
+						return scarlettToHelenaPreference;
+					}
 				}
 				return super.getForeplayPreference(character, targetedCharacter);
 			}
 			@Override
 			public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
-				if(!character.isPlayer()) {
-					return getForeplayPreference(character, targetedCharacter);
+				if(character.equals(Main.game.getNpc(Helena.class))) {
+					if(targetedCharacter.isPlayer() && helenaToPlayerPreference!=null) {
+						return helenaToPlayerPreference;
+					} else if(character.equals(Main.game.getNpc(Scarlett.class)) && helenaToScarlettPreference!=null) {
+						return helenaToScarlettPreference;
+					}
+				} else if(character.equals(Main.game.getNpc(Scarlett.class))) {
+					if(targetedCharacter.isPlayer() && scarlettToPlayerPreference!=null) {
+						return scarlettToPlayerPreference;
+					} else if(character.equals(Main.game.getNpc(Helena.class)) && scarlettToHelenaPreference!=null) {
+						return scarlettToHelenaPreference;
+					}
 				}
 				return character.getMainSexPreference(targetedCharacter);
 			}
@@ -237,14 +293,25 @@ public class HelenaHotel {
 			}
 			@Override
 			public Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> getStartingWetAreas() {
-				if(helenaPreference.getPerformingSexArea()==SexAreaOrifice.ANUS && helenaPreference.getTargetedSexArea()==SexAreaPenetration.PENIS) {
+				if(helenaToPlayerPreference.getPerformingSexArea()==SexAreaOrifice.ANUS
+						&& helenaToPlayerPreference.getTargetedSexArea()==SexAreaPenetration.PENIS) {
 					Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> map = new HashMap<>();
 					map.put(Main.game.getNpc(Helena.class), new HashMap<>());
 					map.get(Main.game.getNpc(Helena.class)).put(SexAreaOrifice.ANUS, new HashMap<>());
 					map.get(Main.game.getNpc(Helena.class)).get(SexAreaOrifice.ANUS).put(Main.game.getPlayer(), Util.newHashSetOfValues(LubricationType.SALIVA));
 					return map;
 				}
-				if(Main.game.getNpc(Helena.class).isVaginaVirgin() && helenaPreference.getPerformingSexArea()==SexAreaOrifice.VAGINA && helenaPreference.getTargetedSexArea()==SexAreaPenetration.PENIS) {
+				if(helenaToScarlettPreference.getPerformingSexArea()==SexAreaOrifice.ANUS
+						&& helenaToScarlettPreference.getTargetedSexArea()==SexAreaPenetration.PENIS) {
+					Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> map = new HashMap<>();
+					map.put(Main.game.getNpc(Helena.class), new HashMap<>());
+					map.get(Main.game.getNpc(Helena.class)).put(SexAreaOrifice.ANUS, new HashMap<>());
+					map.get(Main.game.getNpc(Helena.class)).get(SexAreaOrifice.ANUS).put(Main.game.getNpc(Scarlett.class), Util.newHashSetOfValues(LubricationType.SALIVA));
+					return map;
+				}
+				if(Main.game.getNpc(Helena.class).isVaginaVirgin()
+						&& helenaToPlayerPreference.getPerformingSexArea()==SexAreaOrifice.VAGINA
+						&& helenaToPlayerPreference.getTargetedSexArea()==SexAreaPenetration.PENIS) {
 					Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> map = new HashMap<>();
 					map.put(Main.game.getNpc(Helena.class), new HashMap<>());
 					map.get(Main.game.getNpc(Helena.class)).put(SexAreaOrifice.VAGINA, new HashMap<>());
@@ -297,7 +364,7 @@ public class HelenaHotel {
 	public static final DialogueNode DATE_START = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getPlayer().removeAllCompanions(true); //TODO test elemental
+			Main.game.getPlayer().removeAllCompanions(true);
 			// Reset date flags:
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateRomanticSetup, false);
 		}
@@ -360,7 +427,7 @@ public class HelenaHotel {
 							} else {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_TRAVEL_RIDE_REPEAT"));
 							}
-							Main.game.getTextEndStringBuilder().append(incrementHelenaAffection(2));
+							Main.game.getTextEndStringBuilder().append(incrementHelenaAffection(5));
 						}
 					};
 				}
@@ -450,6 +517,10 @@ public class HelenaHotel {
 				if(index==1) {
 					return new Response("Thank her", "Thank Scarlett for agreeing to do as you've asked.", DATE_RESTAURANT_START) {
 						@Override
+						public int getSecondsPassed() {
+							return 5*60;
+						}
+						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_ROMANTIC_SETUP_THANKS"));
 							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.GIFT_ROSE_BOUQUET), 3, true);
@@ -472,6 +543,10 @@ public class HelenaHotel {
 						return new Response("Pay her ("+UtilText.formatAsMoneyUncoloured(1000, "span")+")", "You don't have enough money to pay Scarlett...", null);
 					}
 					return new Response("Pay her ("+UtilText.formatAsMoney(1000, "span")+")", "Pay Scarlett one thousand flames in exchange for her setting up the romantic scene in Helena's apartment.", DATE_RESTAURANT_START) {
+						@Override
+						public int getSecondsPassed() {
+							return 5*60;
+						}
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_ROMANTIC_SETUP_PAID"));
@@ -539,6 +614,16 @@ public class HelenaHotel {
 
 	public static final DialogueNode DATE_RESTAURANT_ROMANTIC_SETUP_AFTER_ORAL = new DialogueNode("Finished", "Now that she's orgasmed, Scarlett has had enough.", true) {
 		@Override
+		public void applyPreParsingEffects() { //TODO test
+			Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.GIFT_ROSE_BOUQUET), 3, true);
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateRomanticSetup, true);
+			Main.game.getPlayer().removeDirtySlot(InventorySlot.MOUTH);
+			Main.game.getPlayer().removeDirtySlot(InventorySlot.EYES);
+			Main.game.getPlayer().removeDirtySlot(InventorySlot.HAIR);
+			Main.game.getPlayer().removeDirtySlot(InventorySlot.HEAD);
+			Main.game.getPlayer().removeDirtySlot(InventorySlot.NECK);
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
@@ -549,17 +634,10 @@ public class HelenaHotel {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Clean up", "Quickly clean up before Helena arrives.", DATE_RESTAURANT_START) {
+				return new Response("Wait", "Wait for Helena to arrive.", DATE_RESTAURANT_START) {
 					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_ROMANTIC_SETUP_AFTER_ORAL_CLEANUP"));
-						Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.GIFT_ROSE_BOUQUET), 3, true);
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateRomanticSetup, true);
-						Main.game.getPlayer().removeDirtySlot(InventorySlot.MOUTH);
-						Main.game.getPlayer().removeDirtySlot(InventorySlot.EYES);
-						Main.game.getPlayer().removeDirtySlot(InventorySlot.HAIR);
-						Main.game.getPlayer().removeDirtySlot(InventorySlot.HEAD);
-						Main.game.getPlayer().removeDirtySlot(InventorySlot.NECK);
+					public int getSecondsPassed() {
+						return 3*60;
 					}
 				};
 			}
@@ -574,7 +652,7 @@ public class HelenaHotel {
 		}
 		@Override
 		public int getSecondsPassed() {
-			return 10*60;
+			return 15*60;
 		}
 		@Override
 		public String getContent() {
@@ -583,26 +661,7 @@ public class HelenaHotel {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Water", "Ask the harpy for a drink of water.", DATE_RESTAURANT_START) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_START_WATER"));
-						Main.game.getTextEndStringBuilder().append(incrementHelenaAffection(-2));
-					}
-				};
-				
-			} else if(index==2) {
-				return new Response("Beer", "Ask the harpy for a beer.", DATE_RESTAURANT_START) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_START_BEER"));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAlcoholLevel(0.05f));
-						Main.game.getTextEndStringBuilder().append(incrementHelenaAffection(-2));
-					}
-				};
-				
-			} else if(index==3) {
-				return new Response("Wine", "Ask the harpy for a bottle of wine.", DATE_RESTAURANT_START) {
+				return new Response("Wine", "Tell Helena and the harpy waitress that you'll also be drinking wine this evening.", DATE_RESTAURANT_TALKING) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_START_WINE"));
@@ -611,8 +670,27 @@ public class HelenaHotel {
 					}
 				};
 				
+			} else if(index==2) {
+				return new Response("Water", "Ask the harpy for a drink of water.", DATE_RESTAURANT_TALKING) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_START_WATER"));
+						Main.game.getTextEndStringBuilder().append(incrementHelenaAffection(-2));
+					}
+				};
+				
+			} else if(index==3) {
+				return new Response("Beer", "Ask the harpy for a beer.", DATE_RESTAURANT_TALKING) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_START_BEER"));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAlcoholLevel(0.05f));
+						Main.game.getTextEndStringBuilder().append(incrementHelenaAffection(-2));
+					}
+				};
+				
 			} else if(index==4) {
-				return new Response("Whiskey", "Ask the harpy for a glass of whiskey.", DATE_RESTAURANT_START) {
+				return new Response("Whiskey", "Ask the harpy for a glass of whiskey.", DATE_RESTAURANT_TALKING) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_START_WHISKEY"));
@@ -637,18 +715,12 @@ public class HelenaHotel {
 		}
 		@Override
 		public String getContent() {
-			StringBuilder sb = new StringBuilder();
-			
-			sb.append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_TALKING_START"));
-
-			// One of several talk topics
+			// One of several talk topics:
 			if(Main.game.getDialogueFlags().hasHelenaConversationTopic(talkTopic)) {
-				sb.append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_TALKING_"+talkTopic+"_REPEAT"));
+				return (UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_TALKING_"+talkTopic+"_REPEAT"));
 			} else {
-				sb.append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_TALKING_"+talkTopic));
+				return (UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_TALKING_"+talkTopic));
 			}
-			
-			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -668,6 +740,7 @@ public class HelenaHotel {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "RESPONSE_SLAVES_NECESSITY"));
+								Main.game.getTextEndStringBuilder().append(incrementHelenaAffection(1));
 							}
 						};
 						
@@ -697,6 +770,7 @@ public class HelenaHotel {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "RESPONSE_HARPY_NESTS_BALANCE"));
+								Main.game.getTextEndStringBuilder().append(incrementHelenaAffection(1));
 							}
 						};
 						
@@ -726,6 +800,7 @@ public class HelenaHotel {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "RESPONSE_RACES_INDIVIDUAL"));
+								Main.game.getTextEndStringBuilder().append(incrementHelenaAffection(1));
 							}
 						};
 						
@@ -755,6 +830,7 @@ public class HelenaHotel {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "RESPONSE_HARPIES_RUDE"));
+								Main.game.getTextEndStringBuilder().append(incrementHelenaAffection(1));
 							}
 						};
 						
@@ -784,6 +860,7 @@ public class HelenaHotel {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "RESPONSE_BUSINESS_CREDIT"));
+								Main.game.getTextEndStringBuilder().append(incrementHelenaAffection(1));
 							}
 						};
 						
@@ -1312,19 +1389,7 @@ public class HelenaHotel {
 						null,
 						null,
 						DATE_APARTMENT_BEDROOM_AFTER_ROMANCE_SEX,
-						UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "DATE_APARTMENT_BEDROOM_ROMANCE_PERFORM_CUNNILINGUS")
-						+ (Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE))==0
-							?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "CUNNILINGUS_FIRST_TIME")
-							:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "CUNNILINGUS_EXPERIENCED"))) {
-					@Override
-					public void effects() {
-						if(!Main.game.getNpc(Helena.class).getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isPositive()) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE));
-						}
-						if(!Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).addFetish(Fetish.FETISH_ORAL_RECEIVING));
-						}
-					}
+						UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "DATE_APARTMENT_BEDROOM_ROMANCE_PERFORM_CUNNILINGUS")) {
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
 						return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Helena.class), TongueVagina.CUNNILINGUS_START, false, true));
@@ -1842,8 +1907,9 @@ public class HelenaHotel {
 					}
 					
 				} else {
-					if(!Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
-						responses.add(new Response("Virginity", "Helena isn't going to want to discuss losing her virginity until she's received oral from you...", null));
+					if(!Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_ORAL_RECEIVING)
+							|| !Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_ORAL_GIVING)) {
+						responses.add(new Response("Virginity", "Helena isn't going to want to discuss losing her virginity until she's both received and given oral...", null));
 						
 					} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaDateVirginityTalk)) {
 						responses.add(new Response(
@@ -1866,7 +1932,10 @@ public class HelenaHotel {
 				
 				// Anal:
 				if(Main.game.isAnalContentEnabled()) {
-					if(Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_DOMINANT)) {
+					if(!Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
+						responses.add(new Response("Perform anilingus", "Helena will not want to receive anilingus until after she's received cunnilingus from you.", null));
+						
+					} else if(Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_DOMINANT)) {
 						responses.add(new ResponseSex(
 								"Anilingus face-sitting",
 								"Get Helena to sit on your face so that you can perform anilingus on her.",

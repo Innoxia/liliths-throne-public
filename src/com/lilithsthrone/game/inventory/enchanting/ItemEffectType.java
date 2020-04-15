@@ -217,47 +217,33 @@ public class ItemEffectType {
 				if(primaryModifier==TFModifier.ORIENTATION_GYNEPHILIC) {
 					boolean alreadyGynephilic = target.getSexualOrientation()==SexualOrientation.GYNEPHILIC;
 					target.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-					if(target.isPlayer()) {//TODO
-						return "<p style='text-align:center;'>"
-									+ (alreadyGynephilic?"[style.colourDisabled(You're already gynephilic, so nothing happens...)]":"You're now [style.colourFemininePlus(gynephilic)]!")
-								+ "</p>";
-					
-					} else {
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (alreadyGynephilic?"[style.colourDisabled([npc.Name] is already gynephilic, so nothing happens...)]":"[npc.Name] is now [style.colourFemininePlus(gynephilic)]!")
-									+ "</p>");
-					}
+					return UtilText.parse(target,
+							"<p style='text-align:center;'>"
+									+ (alreadyGynephilic
+											?"[style.colourDisabled([npc.NameIsFull] already gynephilic, so nothing happens...)]"
+											:"[npc.NameIsFull] now [style.colourFemininePlus(gynephilic)]!")
+								+ "</p>");
 					
 				} else if(primaryModifier==TFModifier.ORIENTATION_AMBIPHILIC) {
 					boolean alreadyAmbiphilic = target.getSexualOrientation()==SexualOrientation.AMBIPHILIC;
 					target.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-					if(target.isPlayer()) {//TODO
-						return "<p style='text-align:center;'>"
-									+ (alreadyAmbiphilic?"[style.colourDisabled(You're already ambiphilic, so nothing happens...)]":"You're now [style.colourAndrogynous(ambiphilic)]!")
-								+ "</p>";
+					return UtilText.parse(target,
+							"<p style='text-align:center;'>"
+									+ (alreadyAmbiphilic
+											?"[style.colourDisabled([npc.NameIsFull] already ambiphilic, so nothing happens...)]"
+											:"[npc.NameIsFull] now [style.colourAndrogynous(ambiphilic)]!")
+								+ "</p>");
 					
-					} else {
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (alreadyAmbiphilic?"[style.colourDisabled([npc.Name] is already ambiphilic, so nothing happens...)]":"[npc.Name] is now [style.colourAndrogynous(ambiphilic)]!")
-									+ "</p>");
-					}
 					
 				} else if(primaryModifier==TFModifier.ORIENTATION_ANDROPHILIC) {
 					boolean alreadyAndrophilic = target.getSexualOrientation()==SexualOrientation.ANDROPHILIC;
 					target.setSexualOrientation(SexualOrientation.ANDROPHILIC);
-					if(target.isPlayer()) {//TODO
-						return "<p style='text-align:center;'>"
-									+ (alreadyAndrophilic?"[style.colourDisabled(You're already androphilic, so nothing happens...)]":"You're now [style.colourMasculinePlus(androphilic)]!")
-								+ "</p>";
-					
-					} else {
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (alreadyAndrophilic?"[style.colourDisabled([npc.Name] is already androphilic, so nothing happens...)]":"[npc.Name] is now [style.colourMasculinePlus(androphilic)]!")
-									+ "</p>");
-					}
+					return UtilText.parse(target,
+							"<p style='text-align:center;'>"
+									+ (alreadyAndrophilic
+											?"[style.colourDisabled([npc.NameIsFull] already androphilic, so nothing happens...)]"
+											:"[npc.NameIsFull] now [style.colourMasculinePlus(androphilic)]!")
+								+ "</p>");
 					
 				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP) {
 					boolean alreadyLisp = target.hasPersonalityTrait(PersonalityTrait.LISP);
@@ -265,9 +251,9 @@ public class ItemEffectType {
 						target.removePersonalityTrait(PersonalityTrait.LISP);
 						return UtilText.parse(target,
 								"<p style='text-align:center;'>"
-										+ (alreadyLisp
-												?"[style.colourDisabled([npc.Name] already [npc.do]n't speak with a lisp, so nothing happens...)]"
-												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to speak without a lisp)]!")
+										+ (!alreadyLisp
+											?"[style.colourDisabled([npc.Name] already [npc.do]n't speak with a lisp, so nothing happens...)]"
+											:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to speak without a lisp)]!")
 									+ "</p>");
 						
 					} else {
@@ -275,8 +261,8 @@ public class ItemEffectType {
 						return UtilText.parse(target,
 								"<p style='text-align:center;'>"
 										+ (alreadyLisp
-												?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] with a lisp, so nothing happens...)]"
-												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a lisp)]!")
+											?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] with a lisp, so nothing happens...)]"
+											:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a lisp)]!")
 									+ "</p>");
 					}
 					
@@ -286,7 +272,7 @@ public class ItemEffectType {
 						target.removePersonalityTrait(PersonalityTrait.STUTTER);
 						return UtilText.parse(target,
 								"<p style='text-align:center;'>"
-										+ (alreadyStutter
+										+ (!alreadyStutter
 												?"[style.colourDisabled([npc.Name] already [npc.do]n't with a stutter, so nothing happens...)]"
 												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to speak without stuttering)]!")
 									+ "</p>");
@@ -307,7 +293,7 @@ public class ItemEffectType {
 						target.removePersonalityTrait(PersonalityTrait.SLOVENLY);
 						return UtilText.parse(target,
 								"<p style='text-align:center;'>"
-										+ (alreadySlovenly
+										+ (!alreadySlovenly
 												?"[style.colourDisabled([npc.Name] already [npc.do]n't speak in a slovenly manner, so nothing happens...)]"
 												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(no longer speaking in a slovenly manner)]!")
 									+ "</p>");

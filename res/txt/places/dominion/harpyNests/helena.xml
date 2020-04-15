@@ -340,80 +340,65 @@
 	
 	<htmlContent tag="HELENAS_NEST"><![CDATA[
 	<p>
-		You head up to see Helena.
+		Wanting to pay Helena a visit, you set off across the nest towards the tall platform upon which you know the regal matriarch is likely to be sitting. Before you're able to get too far, however, the same flustered-looking harpy who led you to Helena the last time you were here swoops down in front of you and declares, [style.speechFeminine(H-Hold on! You may have permission to enter our nest, but I need to know where you're going!)]
 	</p>
 	<p>
-		#IF(helena.hasFetish(FETISH_DOMINANT))
+		After you've told the pink-feathered harpy that you're going to see Helena again, she insists on accompanying you on your way through the nest. Not seeing any harm in it, you let your guide lead you though crowds of inquisitive harpies, over rickety rope bridges, and, finally, up several flights of wooden stairs. After a couple of minutes spent following the pink-feathered harpy in this manner, you eventually arrive at the tallest platform in the nest. Over on the far side, surrounded by a dozen or so other harpies, you see the beautiful, white-feathered form of Helena sitting on her delicate wooden throne. After briefly announcing your arrival, the harpy who was acting as your guide quickly scurries aside, and with a flap of her pink wings, flies off down to a lower part of the nest.
+	</p>
+	<p>
+		#IF(helena.isSlutty())
 			#IF(!game.getDialogueFlags().hasFlag(FLAG_helenaSlutSeen))
-				Helena lewdly greets you. Describe her new clothing.
+					Looking across to where the beautiful harpy matriarch is sitting, you find yourself almost not believing what you're seeing, as instead of her usual elegant white plunge dress,
+					#IF(helena.isVisiblyPregnant())
+						 Helena is now wearing an incredibly slutty outfit, and what's more, she's also very clearly pregnant.
+					#ELSE
+						 Helena is now wearing an incredibly slutty outfit.
+					#ENDIF
+					 Both her talons and the nails on the end of her feathered fingers are painted bright pink, which matches the colour of the glossy lipstick she's wearing. Her previously-unblemished white head feathers have been dyed with bleach-blonde highlights, and you notice too that she's taken to wearing thick black eyeliner and a noticeable amount of dark purple eye shadow.
+				</p>
+				<p>
+					Her big nipples are quite clearly visible as they push out against the tight white fabric of the tube top that's covering her large breasts, while her white micro skirt is so short that she shamelessly flashes her lacy black thong to anyone who peers down below her waistline. Instead of her usual fashionable dangle earrings, she's now wearing an assortment of trashy gold jewellery, which takes the form of hoop earrings, a nose ring, and a navel barbell. Around her neck, she's wearing a tight black velvet choker, and as she sees that it's you who's paying her a visit, she peers over the top of her gold aviator sunglasses
 			#ELSE
-				Sluttily-dressed Helena greets you.
+				#IF(helena.isVisiblyPregnant())
+					Looking across to where the beautiful harpy matriarch is sitting, you find yourself thinking that her regal posturing is somewhat at odds with the slutty micro skirt and tube top combo that she's taken a habit of wearing. It's not her choice of outfit that draws your attention the most, however, for you very quickly find your gaze drawn to her clearly-pregnant belly. Flashing you a smile as she sees what it is you're staring at, Helena peers over the top of her gold aviator sunglasses
+				#ELSE
+					Looking across to where the beautiful harpy matriarch is sitting, you find yourself thinking that her regal posturing is somewhat at odds with the slutty micro skirt and tube top combo that she's taken a habit of wearing. As she sees that it's you who's paying her a visit, she peers over the top of her gold aviator sunglasses
+				#ENDIF
 			#ENDIF
 			#IF(helena.isVisiblyPregnant())
 				#IF(!helena.isCharacterReactedToPregnancy(pc))
 					#IF(helena.getPregnantLitter().isFatherId(pc.getId()))
-						 Dominantly tells you that she's pregnant with your children.
+						 and seductively teases, [helena.speech(You know, [pc.name], by giving me that lovely big creampie, you've ended up fertilising my eggs...)]
 					#ELSE
-						 Dominantly tells you that she's pregnant with Scarlett's children.
+						 and playfully teases, [helena.speech(Thanks to you, [pc.name], my dear Scarlett's managed to fertilise my eggs...)]
 					#ENDIF
 				#ELSE
 					#IF(helena.getPregnantLitter().isFatherId(pc.getId()))
-						 Dominantly tells you that she's still pregnant with your children.
+						 and seductively teases, [helena.speech(Yes, [pc.name], I'm still carrying around the eggs you've fertilised...)]
 					#ELSE
-						 Dominantly tells you that she's still pregnant with Scarlett's children.
+						 and playfully teases, [helena.speech(Yes, [pc.name], I'm still carrying around the eggs which my dear Scarlett's fertilised...)]
 					#ENDIF
 				#ENDIF
-				#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
-					 Dominantly tells you that she'll fuck you tomorrow; she's already given you enough for today.
-				#ELSE
-					 Says that she's horny and wants to dom you down in her apartment.
-				#ENDIF
+				</p>
+				<p>
+					Ignoring the hushed whispering of the members of her inner-circle, the horny matriarch enticingly bites her lip and beckons you forwards. [pc.Stepping] up to where Helena is sitting, you find yourself caught a little off-guard as she grabs your [pc.hands] and guides them down to rub her clearly-swollen belly. After making this audacious move, the beautiful matriarch leans back in her throne and shamelessly teases,
 			#ELSE
 				#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
-					 Dominantly tells you that she'll fuck you tomorrow; she's already given you enough for today.
+					 and seductively teases,
 				#ELSE
-					 Dominantly tells you that she's ready to give you another taste of her pussy down in her apartment.
+					 and seductively teases,
 				#ENDIF
 			#ENDIF
-			
-		#ELSEIF(helena.isSlutty())
-			#IF(!game.getDialogueFlags().hasFlag(FLAG_helenaSlutSeen))
-				Helena lewdly greets you. Describe her new clothing.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
+				 [helena.speech(I'm still recovering from the time we spent together in my bedroom earlier, but if you're still hungry for my wet little pussy, perhaps you can return tomorrow and give it some more attention then...)]
 			#ELSE
-				Sluttily-dressed Helena greets you.
+				 [helena.speech(You know, [pc.name], I was hoping that you'd pay me a visit today. You see, my pussy keeps on getting wet whenever I think about you, and I was hoping that you could help me do something about it down in my bedroom...)]
 			#ENDIF
-			#IF(helena.isVisiblyPregnant())
-				#IF(!helena.isCharacterReactedToPregnancy(pc))
-					#IF(helena.getPregnantLitter().isFatherId(pc.getId()))
-						 Submissively tells you that she's pregnant with your children.
-					#ELSE
-						 Submissively tells you that she's pregnant with Scarlett's children.
-					#ENDIF
-				#ELSE
-					#IF(helena.getPregnantLitter().isFatherId(pc.getId()))
-						 Submissively tells you that she's still pregnant with your children.
-					#ELSE
-						 Submissively tells you that she's still pregnant with Scarlett's children.
-					#ENDIF
-				#ENDIF
-				#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
-					 Submissively tells you that you'll have to wait until tomorrow to fuck her; she's got too much to do today.
-				#ELSE
-					 Says that she's horny and wants you to fuck her down in her apartment.
-				#ENDIF
-			#ELSE
-				#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
-					 Submissively tells you that you'll have to wait until tomorrow to fuck her; she's got too much to do today.
-				#ELSE
-					 Submissively asks if you want another taste of her pussy down in her apartment.
-				#ENDIF
-			#ENDIF
-			
 		#ELSE
 			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaTalkedTo))
-				Helena greets you. Says she can't leave the nest at the moment, and she doesn't have time to talk. Suggests that you to come back and see her tomorrow.
+				As you look across to where the beautiful harpy matriarch is sitting, you see her flash you a delightful smile, before softly calling out, [helena.speech(Welcome back, [pc.name]. Unfortunately, I have no more time today in which to participate in idle conversation with you. If you were to return tomorrow, however, I'd love to spend some time chatting again.)]
 			#ELSE
-				Helena greets you. Says she can't leave the nest at the moment, but has some time to talk.
+				As you look across to where the beautiful harpy matriarch is sitting, you see her flash you a delightful smile, and as she beckons you forwards with one of her beautiful white wings, she softly calls out, [helena.speech(Welcome back, [pc.name]. What brings you here today?)]
 			#ENDIF
 		#ENDIF
 	</p>
@@ -424,29 +409,44 @@
 	<!-- HELENAS_NEST_TALK -->
 	
 	<htmlContent tag="HELENAS_NEST_TALK"><![CDATA[
-	#IF(helena.hasFetish(FETISH_DOMINANT))
+	#IF(helena.isSlutty())
 		<p>
-			You talk to Helena.
+			Simply wanting to spend some time talking with Helena, you ask her how she is and if anything interesting has happened in her nest today. Gesturing for you to sit beside her, the slutty matriarch spreads her legs a little in order to purposefully flash you her lacy black thong, before crossing them and replying,
 			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
-				 Dominantly tells you that she'll fuck you tomorrow; she's already given you enough for today.
+				 [helena.speech(I'm very well, [pc.name], thank you for asking. As to anything interesting happening today, I think the most noteworthy event was having a good, hard fuck with you in my bedroom.)]
 			#ELSE
-				 Dominantly tells you that she's ready to give you another taste of her pussy down in her apartment.
+				 [helena.speech(I'm very well, [pc.name], thank you for asking. Unfortunately, nothing of particular interest has happened today, but I'm sure that a good, hard fuck with you in my bedroom could change that.)]
 			#ENDIF
 		</p>
-	#ELSEIF(helena.isSlutty())
 		<p>
-			You talk to Helena.
-			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
-				 Submissively tells you that you'll have to wait until tomorrow to fuck her; she's got too much to do today.
+			You can't help but notice how several of the harpies who constitute Helena's inner-circle start whispering to one another as they hear their matriarch saying this. As you sit down beside her, Helena shoots a devious glance at one of the harpies who seems to be spreading rumours and flatly states,
+			#IF(scarlett.hasPenis())
+				 [helena.speech(Penelope, I really don't understand why you're getting so worked up. From what I've heard, you not only let my dear Scarlett fuck your ass every night, but that you've actually agreed to call her 'mistress' while she does so. Bearing that in mind, you should be the last person to be acting like a blushing maiden upon hearing that I'm intimately involved with [pc.name] here.)]
 			#ELSE
-				 Submissively asks if you want another taste of her pussy down in her apartment.
+				 [helena.speech(Penelope, I really don't understand why you're getting so worked up. From what I've heard, you not only let my dear Scarlett sit on your face every night, but that you've actually agreed to call her 'mistress' while she does so. Bearing that in mind, you should be the last person to be acting like a blushing maiden upon hearing that I'm intimately involved with [pc.name] here.)]
 			#ENDIF
 		</p>
 	#ELSE
 		<p>
-			You talk to Helena. She says that running the nest is once again taking up a lot of her time.
+			Simply wanting to spend some time talking with Helena, you ask her how she is and if anything interesting has happened in her nest today. Gesturing for you to sit beside her, the regal matriarch replies, [helena.speech(I'm very well, [pc.name], thank you for asking. Unfortunately, nothing of particular interest has happened today, at least not when compared to the fun you had in helping me get my Boutique up and running.)]
+		</p>
+		<p>
+			You can't help but notice how several of the harpies who constitute Helena's inner-circle start whispering to one another as they hear their matriarch saying this. As you sit down beside her, Helena shoots an icy glance at one of the harpies who seems to be spreading rumours and flatly states, [helena.speech(Sophia, I really don't understand why you're getting so worked up. I seem to recall a day a few months ago when you were begging me to allow your friend to sit amongst us. It seems odd now that you should be the one most distressed to see a friend of mine being allowed to sit amongst us.)]
 		</p>
 	#ENDIF
+	<p>
+		As the rest of the harpies start gossiping amongst themselves about this sudden revelation, you realise that talking with Helena in front of them is not going to be a simple affair. Nevertheless, you do your best to keep the conversation between the two of you flowing, and only have to stop now and then to let Helena stir up yet more discord amongst her gossiping followers.
+	</p>
+	<p>
+		#IF(helena.isSlutty() && !game.getDialogueFlags().hasFlag(FLAG_helenaNestFucked))
+			After half an hour, the regal matriarch seems to have run out of material with which to distract the other harpies, and says, [helena.speech(Conversing with you in this manner was most pleasing, [pc.name], but I'm afraid that I must bring this to an end. I have plenty of other matters to attend to in my nest, so unless you want to accompany me to my bedroom for a good fuck, then further conversation must wait until tomorrow.)]
+		#ELSE
+			After half an hour, the regal matriarch seems to have run out of material with which to distract the other harpies, and says, [helena.speech(Conversing with you in this manner was most pleasing, [pc.name], but I'm afraid that I must bring this to an end. I have plenty of other matters to attend to in my nest, so if you would like to spend more time talking with me, then it must wait until tomorrow.)]
+		#ENDIF
+	</p>
+	<p>
+		With the rest of the harpies looking on, you wonder what to do next...
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -454,13 +454,28 @@
 	<!-- HELENAS_NEST_APARTMENT_BEDROOM -->
 	
 	<htmlContent tag="HELENAS_NEST_APARTMENT_BEDROOM"><![CDATA[
+	<p>
+		Not being able to resist the temptation of having sex with the beautiful harpy matriarch again, you tell her that you'd love to spend some more time with her in her bedroom. Flashing you a hungry grin, she stands up and turns to her followers, before stating, [helena.speech(I shall be back in a short while. If any of you decide to sit upon my throne while I am gone, I'll have you act as the nest's public cumdump for a week.)]
+	</p>
 	#IF(helena.hasFetish(FETISH_DOMINANT))
 		<p>
-			You go down to Helena's apartment with her. Orders you to go into her bedroom. She goes to her dressing room and comes out wearing skimpy crotchless/cupless lingerie.
+			Ignoring the grovelling cries of her followers, Helena uses one of her flawless, white-feathered wings to gesture for you to follow her, before leading you down a hidden staircase behind her throne. A private elevator is located at the bottom of these steps, and as you follow Helena inside of it, she informs you that it leads directly down to the floor which her apartment is on. As the doors slide shut and the elevator lurches into motion, you suddenly find yourself being pinned against one wall by the horny harpy, and after planting a passionate, sloppy kiss on your [pc.lips], she draws back and teases, [helena.speech(I'm going to fuck you so hard...)] 
+		</p>
+		<p>
+			At that moment, the doors ping and slide open, and you're left to follow in Helena's footsteps as she excitedly skips down the corridor towards the door to her apartment. Just a couple of minutes later, the two of you are entering her bedroom, and after turning to plant yet another dominant, wet kiss on your [pc.lips], Helena pushes you down onto her bed before darting off into her walk-in wardrobe.
+		</p>
+		<p>
+			Thankfully, you aren't kept waiting for very long, as after just a few moments, the beautiful harpy returns. Holding her huge white wings up to conceal her body, she flashes you a sultry smile as she confidently strides forwards to stand before you. Sweeping her wings down to either side of her perfect body, she reveals the fact that she's wearing nothing but a cupless bra and skimpy crotchless thong. With her [helena.nipples+] and [helena.pussy+] fully on display, she teases, [helena.speech(Now, how should I fuck you today?)]
 		</p>
 	#ELSE
 		<p>
-			You go down to Helena's apartment with her. Leads you into her bedroom. She goes to her dressing room and comes out wearing white lacy lingerie.
+			Ignoring the grovelling cries of her followers, Helena uses one of her flawless, white-feathered wings to gesture for you to follow her, before leading you down a hidden staircase behind her throne. A private elevator is located at the bottom of these steps, and as you follow Helena inside of it, she informs you that it leads directly down to the floor which her apartment is on. As the doors slide shut and the elevator lurches into motion, you suddenly find yourself in the embrace of the horny harpy, and after planting a passionate, sloppy kiss on your [pc.lips], she draws back and teases, [helena.speech(I can't wait for the good, hard fucking you'll give me...)] 
+		</p>
+		<p>
+			At that moment, the doors ping and slide open, and you're left to follow in Helena's footsteps as she excitedly skips down the corridor towards the door to her apartment. Just a couple of minutes later, the two of you are entering her bedroom, and after turning to plant yet another desperate, wet kiss on your [pc.lips], Helena guides you over to her bed before darting off into her walk-in wardrobe.
+		</p>
+		<p>
+			Thankfully, you aren't kept waiting for very long, as after just a few moments, the beautiful harpy returns. Holding her huge white wings up to conceal her body, she flashes you a sultry smile as she confidently strides forwards to stand before you. Sweeping her wings down to either side of her perfect body, she reveals the fact that she's wearing nothing but a cupless bra and skimpy crotchless thong. With her [helena.nipples+] and [helena.pussy+] fully on display, she teases, [helena.speech(How would you like to fuck me today, [pc.name]?)]
 		</p>
 	#ENDIF
 	]]>
@@ -593,7 +608,7 @@
 	
 	<htmlContent tag="HELENAS_NEST_MEETING_SCARLETT_TO_SHOP"><![CDATA[
 	<p>
-		Ignoring Scarlett's rude comments, you tell her that Helena has asked for Scarlett's presence back down at her shop in Slaver Alley. As she hears you say this, the raven-harpy's head and tail feathers droop down, and after letting out an anguished groan, she turns to her two friends and says a half-hearted goodbye. Looking back at you, she asks, [scarlett.speech(She's not planning on enslaving me again, is she?)]
+		Ignoring Scarlett's rude comments, you tell her that Helena has asked for her presence back down in Slaver Alley. As she hears you say this, the raven-harpy's head and tail feathers droop down, and after letting out an anguished groan, she turns to her two friends and says a half-hearted goodbye. Looking back at you, she asks, [scarlett.speech(She's not planning on enslaving me again, is she?)]
 	</p>
 	<p>
 		After you've reassured her that there's no chance of that, Scarlett steps past you, before running up to the edge of the nest's platform and launching herself into the air. With a flap of her arm-wings, she wheels around and swoops off in the direction of Slaver Alley.

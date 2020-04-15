@@ -1016,14 +1016,16 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			List<Colour> availablePatternSecondaryDyeColours,
 			List<Colour> availablePatternTertiaryColours,
 			List<Colour> availablePatternTertiaryDyeColours) {
+
+		Set<Colour> colourSet = new HashSet<>();
+		
+		// Primary:
 		
 		this.availablePatternPrimaryColours = new ArrayList<>();
 		if (availablePatternPrimaryColours != null) {
 			this.availablePatternPrimaryColours.addAll(availablePatternPrimaryColours);
 		}
 
-		Set<Colour> colourSet = new HashSet<>();
-		
 		this.availablePatternPrimaryDyeColours = new ArrayList<>();
 		if (availablePatternPrimaryDyeColours != null) {
 			this.availablePatternPrimaryDyeColours.addAll(availablePatternPrimaryDyeColours);
@@ -1040,6 +1042,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				this.allAvailablePatternPrimaryColours.add(c);
 			}
 		}
+		if(allAvailablePatternPrimaryColours.isEmpty()) {
+			this.allAvailablePatternPrimaryColours.addAll(ColourListPresets.ALL);
+		}
+		
+		// Secondary:
 		
 		this.availablePatternSecondaryColours = new ArrayList<>();
 		if (availablePatternSecondaryColours != null) {
@@ -1061,6 +1068,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				this.allAvailablePatternSecondaryColours.add(c);
 			}
 		}
+		if(allAvailablePatternSecondaryColours.isEmpty()) {
+			this.allAvailablePatternSecondaryColours.addAll(ColourListPresets.ALL);
+		}
+
+		// Tertiary:
 		
 		this.availablePatternTertiaryColours = new ArrayList<>();
 		if (availablePatternTertiaryColours != null) {
@@ -1081,6 +1093,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			if(!this.allAvailablePatternTertiaryColours.contains(c)) {
 				this.allAvailablePatternTertiaryColours.add(c);
 			}
+		}
+		if(allAvailablePatternTertiaryColours.isEmpty()) {
+			this.allAvailablePatternTertiaryColours.addAll(ColourListPresets.ALL);
 		}
 	}
 

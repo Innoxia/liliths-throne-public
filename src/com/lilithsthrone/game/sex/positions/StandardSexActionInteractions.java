@@ -104,6 +104,39 @@ public class StandardSexActionInteractions {
 								OrgasmCumTarget.FLOOR)))));
 			}
 	};
+
+	public static VariableInteractions kneelingBeside = new VariableInteractions() {
+			@Override
+			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+				GameCharacter performer = getCharacter(performerSlot);
+				GameCharacter target = getCharacter(targetSlot);
+				
+				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+						new SexActionInteractions(
+						Util.mergeMaps(
+								!target.isTaur()
+									?SexActionPresets.appendagesToAllAreas
+									:(target.getLegConfiguration().isBipedalPositionedCrotchBoobs()
+											?SexActionPresets.appendagesToCrotchBoobs
+											:null),
+								!performer.isTaur()
+									?SexActionPresets.allAreasToAppendages
+									:(performer.getLegConfiguration().isBipedalPositionedCrotchBoobs()
+											?SexActionPresets.crotchBoobsToAppendages
+											:null),
+								SexActionPresets.appendagesToUpperHalf,
+								SexActionPresets.upperHalfToAppendages,
+								SexActionPresets.kissing,
+								SexActionPresets.mouthToBreasts,
+								SexActionPresets.breastsToMouth),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.SELF_LEGS,
+								OrgasmCumTarget.FLOOR),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.SELF_LEGS,
+								OrgasmCumTarget.FLOOR)))));
+			}
+	};
 	
 	public static VariableInteractions standingBehind = new VariableInteractions() {
 		@Override

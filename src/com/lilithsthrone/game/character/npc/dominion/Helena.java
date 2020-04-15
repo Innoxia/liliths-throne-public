@@ -143,6 +143,10 @@ public class Helena extends NPC {
 			this.setFetishDesire(Fetish.FETISH_KINK_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setHomeLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_HELENA_BEDROOM);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.1")) {
+			this.setDescription("Helena is an extremely powerful harpy matriarch, and is in control of one of the largest harpy flocks in Dominion."
+						+ " Her beauty rivals that of even the most gorgeous of succubi, which, combined with her sharp mind and regal personality, makes her somewhat of an idol in harpy society.");
+		}
 	}
 
 	@Override
@@ -339,7 +343,8 @@ public class Helena extends NPC {
 	@Override
 	public void turnUpdate() {
 		if(!Main.game.getCharactersPresent().contains(this)) {
-			boolean nestHours = Main.game.isDayTime() || (Main.game.getHourOfDay()>8 && Main.game.getHourOfDay()<21);
+			boolean nestHours = (Main.game.isDayTime() && Main.game.getDateNow().getDayOfWeek()!=DayOfWeek.FRIDAY) // If Friday, don't set Helena to her nest after work
+					|| (Main.game.getHourOfDay()>8 && Main.game.getHourOfDay()<21);
 			
 			if(!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_E_REPORT_TO_HELENA) || Main.game.getPlayer().isQuestFailed(QuestLine.ROMANCE_HELENA)) {
 				if(nestHours) {
@@ -508,7 +513,11 @@ public class Helena extends NPC {
 			this.setPiercedEar(true);
 			this.setPiercedNavel(false);
 			this.setPiercedNose(false);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_pearl_studs", PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_SILVER, null, false), true, this);
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaBedroomFromNest)) {
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_chain_dangle", PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
+			} else {
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_pearl_studs", PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_SILVER, null, false), true, this);
+			}
 
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_WHITE, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, PresetColour.CLOTHING_WHITE, false), true, this);
@@ -521,8 +530,5 @@ public class Helena extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_SHIMAPAN, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_WHITE, null, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_CHEMISE, PresetColour.CLOTHING_BLACK, false), true, this);
 	}
-	
-	
-	
 
 }
