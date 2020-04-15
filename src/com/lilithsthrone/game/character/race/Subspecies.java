@@ -52,7 +52,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.91
- * @version 0.3.4
+ * @version 0.3.7.1
  * @author tukaima, Innoxia
  */
 public enum Subspecies {
@@ -2044,7 +2044,7 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.getHorn().setType(null, HornType.NONE);
-			body.setWing(new Wing(WingType.PEGASUS, WingSize.THREE_LARGE.getValue()));
+			body.setWing(new Wing(WingType.FEATHERED, WingSize.THREE_LARGE.getValue()));
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
 			}
@@ -2102,7 +2102,7 @@ public enum Subspecies {
 			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
 			body.getHorn().setHornRows(null, 1);
 			body.getHorn().setHornsPerRow(null, 1);
-			body.setWing(new Wing(WingType.PEGASUS, WingSize.THREE_LARGE.getValue()));
+			body.setWing(new Wing(WingType.FEATHERED, WingSize.THREE_LARGE.getValue()));
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
 			}
@@ -2226,7 +2226,7 @@ public enum Subspecies {
 			body.getHorn().setType(null, HornType.NONE);
 			body.getLeg().setType(null, LegType.HORSE_MORPH);
 			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR, true);
-			body.setWing(new Wing(WingType.PEGASUS, WingSize.FOUR_HUGE.getValue()));
+			body.setWing(new Wing(WingType.FEATHERED, WingSize.FOUR_HUGE.getValue()));
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
 			}
@@ -2355,7 +2355,7 @@ public enum Subspecies {
 			body.getHorn().setHornsPerRow(null, 1);
 			body.getLeg().setType(null, LegType.HORSE_MORPH);
 			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR, true);
-			body.setWing(new Wing(WingType.PEGASUS, WingSize.FOUR_HUGE.getValue()));
+			body.setWing(new Wing(WingType.FEATHERED, WingSize.FOUR_HUGE.getValue()));
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
 			}
@@ -3920,7 +3920,7 @@ public enum Subspecies {
 			case HORSE_MORPH:
 				subspecies = Subspecies.HORSE_MORPH;
 				
-				if(body.getWing().getType()==WingType.PEGASUS) {
+				if(body.getWing().getType()==WingType.FEATHERED) {
 					if(body.getHorn().getType().equals(HornType.HORSE_STRAIGHT) && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
 						return Subspecies.HORSE_MORPH_ALICORN;
 					}
@@ -4735,17 +4735,22 @@ public enum Subspecies {
 		
 		return availableRaces;
 	}
-	
+
 	public static void addToSubspeciesMap(int weight, Gender gender, Subspecies subspecies, Map<Subspecies, Integer> map) {
+		addToSubspeciesMap(weight, gender, subspecies, map, null);
+	}
+	
+	public static void addToSubspeciesMap(int weight, Gender gender, Subspecies subspecies, Map<Subspecies, Integer> map, SubspeciesPreference userPreferenceOverride) {
 		if(gender.isFeminine()) {
-			if(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies)!=FurryPreference.HUMAN
-					&& Main.getProperties().getSubspeciesFemininePreferencesMap().get(subspecies).getValue()>0) {
-				map.put(subspecies, weight*Main.getProperties().getSubspeciesFemininePreferencesMap().get(subspecies).getValue());
+			if((Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies)!=FurryPreference.HUMAN && Main.getProperties().getSubspeciesFemininePreferencesMap().get(subspecies).getValue()>0)
+					|| userPreferenceOverride!=null) {
+				map.put(subspecies, weight*(userPreferenceOverride!=null?userPreferenceOverride:Main.getProperties().getSubspeciesFemininePreferencesMap().get(subspecies)).getValue());
 			}
+			
 		} else {
-			if(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies)!=FurryPreference.HUMAN
-					&& Main.getProperties().getSubspeciesMasculinePreferencesMap().get(subspecies).getValue()>0) {
-				map.put(subspecies, weight*Main.getProperties().getSubspeciesMasculinePreferencesMap().get(subspecies).getValue());
+			if((Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies)!=FurryPreference.HUMAN && Main.getProperties().getSubspeciesMasculinePreferencesMap().get(subspecies).getValue()>0)
+					|| userPreferenceOverride!=null) {
+				map.put(subspecies, weight*(userPreferenceOverride!=null?userPreferenceOverride:Main.getProperties().getSubspeciesMasculinePreferencesMap().get(subspecies)).getValue());
 			}
 		}
 	}

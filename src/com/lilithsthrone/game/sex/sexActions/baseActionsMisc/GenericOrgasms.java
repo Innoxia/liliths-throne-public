@@ -4803,7 +4803,7 @@ public class GenericOrgasms {
 	}
 	
 	private static String getForcedCreampieSpeech(SexAction sexAction) {
-		boolean knowsName = Main.sex.getCharacterTargetedForSexAction(sexAction).isPlayer() || Main.sex.getCharacterTargetedForSexAction(sexAction).isPlayerKnowsName();
+		boolean knowsName = (Main.sex.getCharacterTargetedForSexAction(sexAction).isPlayer() && Main.sex.getCharacterPerformingAction().isPlayerKnowsName()) || Main.sex.getCharacterTargetedForSexAction(sexAction).isPlayerKnowsName();
 		
 		if(isRealPenisFuckingCharacter(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(sexAction))) {
 			if(isAreaFuckedByTarget(sexAction, Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA)) {

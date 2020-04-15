@@ -651,11 +651,11 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 									sb.append("Sliding the [npc.cockHead+] of [npc.her] [npc.cock] up and down between [npc2.namePos] [npc2.labia+],"
-											+ " [npc.name] [npc.sexPaceVerb] thrust forwards, sinking [npc.her] [npc.cock+] into [npc2.namePos] [npc2.pussy+] before starting to fuck [npc2.herHim].");
+											+ " [npc.name] [npc.sexPaceVerb] thrust forwards, sinking [npc.her] [npc.cock+] into [npc2.her] [npc2.pussy+] before starting to fuck [npc2.herHim].");
 									break;
 								case DOM_ROUGH:
 									sb.append("Roughly grinding the [npc.cockHead+] of [npc.her] [npc.cock] up and down between [npc2.namePos] [npc2.labia+],"
-											+ " [npc.name] violently thrust forwards, sinking [npc.her] [npc.cock+] into [npc2.namePos] [npc2.pussy+] before starting to forcefully fuck [npc2.herHim].");
+											+ " [npc.name] violently thrust forwards, sinking [npc.her] [npc.cock+] into [npc2.her] [npc2.pussy+] before starting to forcefully fuck [npc2.herHim].");
 									break;
 								case SUB_RESISTING:
 									sb.append("[npc.Name] struggled and cried out to be left alone, but [npc.was] ultimately unable to prevent [npc.her] [npc.cock+] from being grabbed by [npc2.name] and guided into [npc2.her] [npc2.pussy+].");
@@ -669,7 +669,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 									break;
 								case SUB_EAGER:
 								case SUB_NORMAL:
-									sb.append(" [npc2.Moaning] in delight, [npc2.name] [npc2.sexPaceVerb] bucked [npc.her] hips to help drive [npc.namePos] [npc.cock+] deep into [npc2.her] [npc2.pussy+].");
+									sb.append(" [npc2.Moaning] in delight, [npc2.name] [npc2.sexPaceVerb] bucked [npc2.her] hips to help drive [npc.namePos] [npc.cock+] deep into [npc2.her] [npc2.pussy+].");
 									break;
 								case SUB_RESISTING:
 									sb.append(" Although [npc2.she] cried and pleaded to be left alone, [npc2.name] [npc2.was] unable to stop [npc.name] from fucking [npc2.her] [npc2.pussy+].");
@@ -1126,11 +1126,11 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 									sb.append("Sliding [npc.her] [npc.clit] up and down between [npc2.namePos] [npc2.labia+],"
-											+ " [npc.name] [npc.sexPaceVerb] thrust forwards, sinking [npc.her] [npc.clit+] into [npc2.namePos] [npc2.pussy+] before starting to fuck [npc2.herHim].");
+											+ " [npc.name] [npc.sexPaceVerb] thrust forwards, sinking [npc.her] [npc.clit+] into [npc2.her] [npc2.pussy+] before starting to fuck [npc2.herHim].");
 									break;
 								case DOM_ROUGH:
 									sb.append("Roughly grinding [npc.her] [npc.clit] up and down between [npc2.namePos] [npc2.labia+],"
-											+ " [npc.name] violently thrust forwards, sinking [npc.her] [npc.clit+] into [npc2.namePos] [npc2.pussy+] before starting to forcefully fuck [npc2.herHim].");
+											+ " [npc.name] violently thrust forwards, sinking [npc.her] [npc.clit+] into [npc2.her] [npc2.pussy+] before starting to forcefully fuck [npc2.herHim].");
 									break;
 								case SUB_RESISTING:
 									sb.append("[npc.Name] struggled and cried out to be left alone, but [npc.was] ultimately unable to prevent [npc.her] [npc.clit+] from being grabbed by [npc2.name] and guided into [npc2.her] [npc2.pussy+].");
@@ -2177,11 +2177,11 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 									sb.append("Sliding [npc.her] [npc.tail] up and down between [npc2.namePos] [npc2.labia+],"
-											+ " [npc.name] [npc.sexPaceVerb] thrust forwards, sinking [npc.her] [npc.tail+] into [npc2.namePos] [npc2.pussy+] before starting to tail-fuck [npc2.herHim].");
+											+ " [npc.name] [npc.sexPaceVerb] thrust forwards, sinking [npc.her] [npc.tail+] into [npc2.her] [npc2.pussy+] before starting to tail-fuck [npc2.herHim].");
 									break;
 								case DOM_ROUGH:
 									sb.append("Roughly grinding [npc.her] [npc.tail] up and down between [npc2.namePos] [npc2.labia+],"
-											+ " [npc.name] violently thrust forwards, sinking [npc.her] [npc.tail+] into [npc2.namePos] [npc2.pussy+] before starting to forcefully tail-fuck [npc2.herHim].");
+											+ " [npc.name] violently thrust forwards, sinking [npc.her] [npc.tail+] into [npc2.her] [npc2.pussy+] before starting to forcefully tail-fuck [npc2.herHim].");
 									break;
 								case SUB_RESISTING:
 									sb.append("[npc.Name] struggled and cried out to be left alone, but [npc.was] ultimately unable to prevent [npc.her] [npc.tail+] from being grabbed by [npc2.name] and guided into [npc2.her] [npc2.pussy+].");
@@ -2528,11 +2528,11 @@ public enum SexAreaPenetration implements SexAreaInterface {
 								case SUB_EAGER:
 								case SUB_NORMAL:
 									sb.append("Sliding [npc.her] [npc.tentacle] up and down between [npc2.namePos] [npc2.labia+],"
-											+ " [npc.name] [npc.sexPaceVerb] thrust forwards, sinking [npc.her] [npc.tentacle+] into [npc2.namePos] [npc2.pussy+] before starting to tentacle-fuck [npc2.herHim].");
+											+ " [npc.name] [npc.sexPaceVerb] thrust forwards, sinking [npc.her] [npc.tentacle+] into [npc2.her] [npc2.pussy+] before starting to tentacle-fuck [npc2.herHim].");
 									break;
 								case DOM_ROUGH:
 									sb.append("Roughly grinding [npc.her] [npc.tentacle] up and down between [npc2.namePos] [npc2.labia+],"
-											+ " [npc.name] violently thrust forwards, sinking [npc.her] [npc.tentacle+] into [npc2.namePos] [npc2.pussy+] before starting to forcefully tentacle-fuck [npc2.herHim].");
+											+ " [npc.name] violently thrust forwards, sinking [npc.her] [npc.tentacle+] into [npc2.her] [npc2.pussy+] before starting to forcefully tentacle-fuck [npc2.herHim].");
 									break;
 								case SUB_RESISTING:
 									sb.append("[npc.Name] struggled and cried out to be left alone, but [npc.was] ultimately unable to prevent [npc.her] [npc.tentacle+] from being grabbed by [npc2.name] and guided into [npc2.her] [npc2.pussy+].");
@@ -2831,7 +2831,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 //									break;
 //								case SUB_EAGER:
 //								case SUB_NORMAL:
-//									sb.append(" [npc2.Moaning] in delight, [npc2.name] [npc2.sexPaceVerb] bucked [npc.her] hips to help drive [npc.namePos] [npc.cock+] deep into [npc2.her] [npc2.pussy+].");
+//									sb.append(" [npc2.Moaning] in delight, [npc2.name] [npc2.sexPaceVerb] bucked [npc2.her] hips to help drive [npc.namePos] [npc.cock+] deep into [npc2.her] [npc2.pussy+].");
 //									break;
 //								case SUB_RESISTING:
 //									sb.append(" Although [npc2.she] cried and pleaded to be left alone, [npc2.name] [npc2.was] unable to stop [npc.name] from fucking [npc2.her] [npc2.pussy+].");

@@ -1468,6 +1468,7 @@ public enum TFModifier {
 		clothingAttributeList.add(TFModifier.CRITICAL_DAMAGE);
 		
 
+		tattooPrimaryList.add(TFModifier.CLOTHING_MAJOR_ATTRIBUTE);
 		tattooPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
 		tattooPrimaryList.add(TFModifier.TF_MOD_FETISH_BODY_PART);
 		tattooPrimaryList.add(TFModifier.TF_MOD_FETISH_BEHAVIOUR);

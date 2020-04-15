@@ -212,8 +212,10 @@ public class HarpyNestHelena {
 								null);
 						
 					} else {
+						if(Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA)) {
+							return new Response("Scarlett", "Head over to where Scarlett is surrounded by a crowd of harpies and say hello.<br/>[style.italicsBad(Will be added in the next version!)]", null);//TODO
+						}
 						return new Response("Scarlett", "Head over to where Scarlett is sitting and say hello.", HELENAS_NEST_MEETING_SCARLETT);
-						
 					}
 				}
 				
@@ -595,7 +597,7 @@ public class HarpyNestHelena {
 	public static final DialogueNode HELENAS_NEST_TALK = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 60*5;
+			return 30*60;
 		}
 		@Override
 		public String getContent() {
@@ -612,8 +614,8 @@ public class HarpyNestHelena {
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().setLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_HELENA_BEDROOM);
 			Main.game.getNpc(Helena.class).setLocation(Main.game.getPlayer(), false);
-			((Helena)Main.game.getNpc(Helena.class)).applyLingerie();
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaBedroomFromNest, true);
+			((Helena)Main.game.getNpc(Helena.class)).applyLingerie();
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -645,7 +647,6 @@ public class HarpyNestHelena {
 	};
 
 	//TODO
-//	Add Scarlett female sex variation at nest (WILL BUG OUT IF NOT ADDED!)
 	public static final DialogueNode HELENAS_NEST_MEETING_SCARLETT = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {

@@ -169,6 +169,7 @@ public enum DialogueFlagValue {
 	helenaShopScarlettTalkedTo(true),
 	helenaShopScarlettCounterOral(true),
 	helenaShopScarlettCafe(true),
+	helenaShopScarlettCafeRevealed,
 	helenaShopScarlettExtraTransformationDiscussed,
 	helenaShopScarlettExtraTransformationApplied,
 	helenaShopScarlettExtraTransformationHelenaReacted,

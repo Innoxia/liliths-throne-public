@@ -229,8 +229,7 @@ public class EnchantmentDialogue {
 						if(effect.getItemEffectType()==ItemEffectType.CLOTHING
 								|| effect.getItemEffectType()==ItemEffectType.WEAPON
 								|| effect.getItemEffectType()==ItemEffectType.TATTOO) {
-							if(effect.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE
-									|| effect.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
+							if(effect.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE || effect.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
 								int cost = Math.max(0, effect.getPotency().getClothingBonusValue());
 								if(effect.getSecondaryModifier()==TFModifier.CORRUPTION
 										|| effect.getSecondaryModifier()==TFModifier.FERTILITY

@@ -2531,7 +2531,7 @@ public class PenisMouth {
 					UtilText.nodeContentSB.append(
 							UtilText.parse(getCharactersForParsing(),
 							" [npc2.Name] [npc2.verb(let)] out a distressed [npc2.moan] in response,"
-									+ " which only gets louder and more frantic as [npc.name] [npc.verb(push)] "+getOngoingNames()+" aside in oder to take [npc2.her] [npc2.cock+] into [npc.her] mouth."));
+									+ " which only gets louder and more frantic as [npc.name] [npc.verb(push)] "+getOngoingNames()+" aside in order to take [npc2.her] [npc2.cock+] into [npc.her] mouth."));
 					break;
 				default: // Dom normal and sub eager:
 					UtilText.nodeContentSB.append(

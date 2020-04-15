@@ -37,7 +37,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
- * @version 0.3.1
+ * @version 0.3.7.1
  * @author Innoxia
  */
 public class ItemType {
@@ -4207,7 +4207,7 @@ public class ItemType {
 			"'Unlikely-Whammer'",
 			"'Unlikely-Whammers'",
 			"Although this may look and taste like an ordinary burger, the packaging declares this 'Unlikely-Whammer' to be 100% meat free."
-			+ " Printed in very small, hard-to-read text, there's a disclaimer which states that the meat substitute is 'dangerously high in female hormones'...",
+					+ " Printed in very small, hard-to-read text, there's a disclaimer which states that the meat substitute is 'dangerously high in female hormones'...",
 			"raceRatMorphBurger",
 			PresetColour.GENERIC_SEX,
 			null,
@@ -4229,8 +4229,8 @@ public class ItemType {
 							+ " Encouraged by the taste, it only takes you a few moments to wolf down the meal.",
 					"Unwrapping the paper covering, you quickly reveal the greasy cheeseburger within."
 							+ " Bringing it up to [npc.namePos] mouth, you force [npc.herHim] to eat the entire burger.",
-					"[npc.Name] pulls out a 'Brown Rat's Burger', and, after peeling off the wrapper, quickly wolfs down the contents.",
-					"[npc.Name] pulls out a 'Brown Rat's Burger', and, after peeling off the wrapper, forces you to eat the contents."
+					"[npc.Name] pulls out an 'Unlikely-Whammer', and, after peeling off the wrapper, quickly wolfs down the contents.",
+					"[npc.Name] pulls out an 'Unlikely-Whammer', and, after peeling off the wrapper, forces you to eat the contents."
 							+ " You quickly discover that it's absolutely delicious, and it only takes you a moment to finish off the entire burger.");
 		}
 	};

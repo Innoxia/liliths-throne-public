@@ -2238,6 +2238,7 @@ public class MainControllerInitMethod {
 			
 			if(Main.game.isStarted()
 					&& (Main.game.getCurrentDialogueNode().equals(CharacterCreation.CHOOSE_APPEARANCE)
+							|| Main.game.getCurrentDialogueNode().equals(CharacterCreation.CHOOSE_SEX_EXPERIENCE)
 							|| Main.game.getCurrentDialogueNode().equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY)
 							|| Main.game.getCurrentDialogueNode().equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_FINISH))) {
 				for(Month month : Month.values()) {

@@ -26,6 +26,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -75,12 +76,14 @@ import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
+import com.lilithsthrone.game.sex.managers.dominion.SMScarlettShopOral;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAgainstWall;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
@@ -90,6 +93,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
@@ -103,7 +107,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.83
- * @version 0.3.7
+ * @version 0.3.7.1
  * @author Innoxia
  */
 public class ScarlettsShop {
@@ -239,7 +243,7 @@ public class ScarlettsShop {
 		};
 	}
 	
-	private static SexManagerInterface getScarlettSilentOralSexManager(AbstractSexPosition position, SexSlot scarlettSlot, SexSlot playerSlot, SexType scarlettPreference, Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap) {
+	private static SexManagerInterface getScarlettSexManager(AbstractSexPosition position, SexSlot scarlettSlot, SexSlot playerSlot, SexType scarlettPreference, Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap) {
 		return new SexManagerDefault(
 				false,
 				position,
@@ -1016,9 +1020,37 @@ public class ScarlettsShop {
 						}
 					};
 					
-				} else if(index==4) {
-					return new Response("Date", "Ask Helena out on a date.<br/>[style.italicsBad(Not implemented yet!)]", null);
-					//TODO
+				}
+				//TODO
+//				else if(index==3 && ((Helena) Main.game.getNpc(Helena.class)).isSlutty()) {
+//					if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaScarlettThreesome)) {
+//						return new Response("Threesome", "Helena will be unwilling to have a threesome until after you've convinced her to do it in her bedroom.", null);
+//					}
+//					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopFucked)) {
+//						return new Response("Threesome", "You've already had sex with Helena in the back room today, and she doesn't have time to do it again...", null);
+//					}
+//					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)
+//							&& (!Main.game.getPlayer().hasPenis() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true))
+//							&& (!Main.game.getPlayer().hasVagina() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true))) {
+//						return new Response("Threesome", "As you are unable to gain access to your mouth or genitals, you can't have sex with Helena...", null);
+//					}
+//					return new Response("Threesome",
+//							"Ask Helena if she'd like to have a threesome with you and Scarlett in the back room...",
+//							HELENAS_SHOP_BACK_ROOM_THREESOME) {
+//						@Override
+//						public boolean isSexHighlight() {
+//							return true;
+//						}
+//						@Override
+//						public void effects() {
+//							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopFucked, true);
+//							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).incrementAffection(Main.game.getPlayer(), 5));
+//						}
+//					};
+//					
+//				}
+				else if(index==5) {
+					return new Response("Date", "Ask Helena out on a date.<br/>[style.italicsBad(Not implemented yet!)]", null); //TODO
 //					if(Main.game.getDayOfWeek()!=DayOfWeek.FRIDAY || Main.game.getHourOfDay()<17) {
 //						return new Response("Date", "You can only ask Helena out on a date on Fridays after [units.time(17)].", null);
 //					}
@@ -1028,9 +1060,12 @@ public class ScarlettsShop {
 //					return new Response("Date", "Ask Helena out on a date.", HelenaHotel.DATE_START);
 					
 				} else if(index==6) {
-					return new Response("Scarlett", "Ask Helena if you could spend some time with Scarlett.<br/>[style.italicsBad(Not implemented yet!)]", null);
-//					return new Response("Scarlett", "Ask Helena if you could spend some time with Scarlett.", HELENAS_SHOP_SCARLETT); TODO
-					
+					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafe)) {
+						return new Response("Scarlett", "As she's already spent her lunch break with you, Helena will not agree to giving Scarlett any more time off work in which to talk with you...", null);
+					} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCounterOral)) {
+						return new Response("Scarlett", "As you've already spent time with Scarlett today, Helena will not agree to giving her any more time off work in which to talk with you...", null);
+					}
+					return new Response("Scarlett", "Ask Helena if you could spend some time with Scarlett.", HELENAS_SHOP_SCARLETT);
 				}
 				return null;
 			}
@@ -2203,7 +2238,7 @@ public class ScarlettsShop {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_7_GRAND_OPENING_PREPARATION));
 						Main.game.getNpc(Helena.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaGoneHome, true);
-						Main.game.getPlayer().removeAllCompanions(true); //TODO test elemental
+						Main.game.getPlayer().removeAllCompanions(true);
 					}
 				};
 			}
@@ -3347,6 +3382,13 @@ public class ScarlettsShop {
 
 	public static final DialogueNode HELENAS_SHOP_BACK_ROOM = new DialogueNode("", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			AbstractClothing underwear = Main.game.getNpc(Helena.class).getClothingInSlot(InventorySlot.GROIN);
+			if(underwear!=null) {
+				Main.game.getNpc(Helena.class).unequipClothingIntoVoid(underwear, true, Main.game.getNpc(Helena.class));
+			}
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
@@ -3374,13 +3416,7 @@ public class ScarlettsShop {
 						null,
 						null,
 						HELENAS_SHOP_BACK_ROOM_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_SHOP_BACK_ROOM_PERFORM_CUNNILINGUS")) {
-					@Override
-					public void effects() {
-						if(!Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).addFetish(Fetish.FETISH_ORAL_RECEIVING));
-						}
-					}
+						UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_PERFORM_CUNNILINGUS")) {
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
 						return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Helena.class), TongueVagina.CUNNILINGUS_START, false, true));
@@ -3390,7 +3426,7 @@ public class ScarlettsShop {
 
 			if(Main.game.isAnalContentEnabled()) {
 				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-					responses.add(new Response("Anilingus", "As you cannot gain access to your mouth, you cannot perform anilingus on her Helena!", null));
+					responses.add(new Response("Anilingus", "As you cannot gain access to your mouth, you cannot perform anilingus on Helena!", null));
 				} else {
 					responses.add(new ResponseSex(
 							"Anilingus",
@@ -3405,10 +3441,7 @@ public class ScarlettsShop {
 							null,
 							null,
 							HELENAS_SHOP_BACK_ROOM_AFTER_SEX,
-							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_SHOP_BACK_ROOM_PERFORM_ANILINGUS")
-							+ (Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE))==0
-								?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "ANILINGUS_FIRST_TIME")
-								:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "ANILINGUS_EXPERIENCED"))) {
+							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_PERFORM_ANILINGUS")) { //TODO test if oral first time works
 						@Override
 						public void effects() {
 							if(!Main.game.getNpc(Helena.class).getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
@@ -3449,12 +3482,11 @@ public class ScarlettsShop {
 								null,
 								null,
 								HELENAS_SHOP_BACK_ROOM_AFTER_SEX,
-								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_SHOP_BACK_ROOM_RECEIVE_BLOWJOB")
-								+ (Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))==0
-									?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "BLOWJOB_FIRST_TIME")
-									:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "BLOWJOB_EXPERIENCED"))) {
+								(Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))==0
+									?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_RECEIVE_BLOWJOB_FIRST_TIME")
+									:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_RECEIVE_BLOWJOB_EXPERIENCED"))) {
 							@Override
-							public void effects() {
+							public void effects() {//TODO penis
 								if(!Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_ORAL_GIVING)) {
 									Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).addFetish(Fetish.FETISH_ORAL_GIVING));
 								}
@@ -3492,10 +3524,9 @@ public class ScarlettsShop {
 								null,
 								null,
 								HELENAS_SHOP_BACK_ROOM_AFTER_SEX,
-								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_SHOP_BACK_ROOM_RECEIVE_CUNNILINGUS")
-								+ (Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))==0
-									?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "GIVING_CUNNILINGUS_FIRST_TIME")
-									:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "GIVING_CUNNILINGUS_EXPERIENCED"))) {
+								(Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))==0
+									?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_RECEIVE_CUNNILINGUS_FIRST_TIME")
+									:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_RECEIVE_CUNNILINGUS_EXPERIENCED"))) {
 							@Override
 							public void effects() {
 								if(!Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_ORAL_GIVING)) {
@@ -3510,6 +3541,134 @@ public class ScarlettsShop {
 					}
 				}
 			}
+			
+			// Penetrative sex:
+			
+			if(Main.game.getPlayer().hasPenis()) {
+				if(Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_DOMINANT)) {
+					if(Main.game.getNpc(Helena.class).isVaginaVirgin()) {
+						responses.add(new Response("Ridden", "Helena is unwilling to lose her virginity in a situation like this!", null));
+						
+					} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+						responses.add(new Response("Ridden", "As you cannot gain access to your penis, you cannot fuck Helena.", null));
+						
+					} else {
+						responses.add(new ResponseSex(
+								"Ridden",
+								"Ask Helena to ride your cock.",
+								true, true,
+								HelenaHotel.getHelenaSexManager(true,
+										SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN,
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS),
+										Util.newHashMapOfValues(
+												new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+												new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
+								null,
+								null,
+								HELENAS_SHOP_BACK_ROOM_AFTER_SEX,
+								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_RIDDEN")) {
+							@Override
+							public List<InitialSexActionInformation> getInitialSexActions() {
+								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), PenisVagina.USING_PENIS_START, false, true));
+							}
+						});
+					}
+					if(Main.game.isAnalContentEnabled()) {
+						if(Main.game.getNpc(Helena.class).isAssVirgin()) {
+							responses.add(new Response("Ridden (anal)", "Helena is unwilling to lose her anal virginity in a situation like this!", null));
+							
+						} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+							responses.add(new Response("Ridden (anal)", "As you cannot gain access to your penis, you cannot fuck Helena's ass.", null));
+							
+						} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+							responses.add(new Response("Ridden (anal)", "Helena will want you to lubricate her ass before fucking it, and as you cannot gain access to your mouth, you cannot do this...", null));
+							
+						} else {
+							responses.add(new ResponseSex(
+									"Ridden (anal)",
+									"Ask Helena to anally ride your cock.<br/>[style.italicsSex(She will get you to lubricate her ass with your saliva before letting you penetrate her...)]",
+									true, true,
+									HelenaHotel.getHelenaSexManager(true,
+											SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN,
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.ANUS)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
+									null,
+									null,
+									HELENAS_SHOP_BACK_ROOM_AFTER_SEX,
+									UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_RIDDEN_ANAL")) {
+								@Override
+								public List<InitialSexActionInformation> getInitialSexActions() {
+									return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), PenisAnus.USING_PENIS_START, false, true));
+								}
+							});
+						}
+					}
+					
+				} else { // Submissive:
+					if(Main.game.getNpc(Helena.class).isVaginaVirgin()) {
+						responses.add(new Response("Fuck her", "Helena is unwilling to lose her virginity in a situation like this!", null));
+						
+					} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+						responses.add(new Response("Fuck her", "As you cannot gain access to your penis, you cannot fuck Helena.", null));
+						
+					} else {
+						responses.add(new ResponseSex(
+								"Fuck her",
+								"Bend Helena over a nearby desk and fuck her pussy.",
+								true, true,
+								HelenaHotel.getHelenaSexManager(false,
+										SexPosition.OVER_DESK, Main.game.getNpc(Helena.class).isVisiblyPregnant()?SexSlotDesk.OVER_DESK_ON_BACK:SexSlotDesk.OVER_DESK_ON_FRONT, SexSlotDesk.BETWEEN_LEGS,
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS),
+										Util.newHashMapOfValues(
+												new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+												new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
+								null,
+								null,
+								HELENAS_SHOP_BACK_ROOM_AFTER_SEX,
+								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_FUCK_HER")) {
+							@Override
+							public List<InitialSexActionInformation> getInitialSexActions() {
+								return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Helena.class), PenisVagina.PENIS_FUCKING_START, false, true));
+							}
+						});
+					}
+					if(Main.game.isAnalContentEnabled()) {
+						if(Main.game.getNpc(Helena.class).isAssVirgin()) {
+							responses.add(new Response("Fuck her (anal)", "Helena is unwilling to lose her anal virginity in a situation like this!", null));
+							
+						} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+							responses.add(new Response("Fuck her (anal)", "As you cannot gain access to your penis, you cannot fuck Helena's ass.", null));
+							
+						} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+							responses.add(new Response("Fuck her (anal)", "Helena will want you to lubricate her ass before fucking it, and as you cannot gain access to your mouth, you cannot do this...", null));
+							
+						} else {
+							responses.add(new ResponseSex(
+									"Fuck her (anal)",
+									"Bend Helena over a nearby desk and fuck her ass.<br/>[style.italicsSex(She will get you to lubricate her ass with your saliva before letting you penetrate her...)]",
+									true, true,
+									HelenaHotel.getHelenaSexManager(false,
+											SexPosition.OVER_DESK, Main.game.getNpc(Helena.class).isVisiblyPregnant()?SexSlotDesk.OVER_DESK_ON_BACK:SexSlotDesk.OVER_DESK_ON_FRONT, SexSlotDesk.BETWEEN_LEGS,
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.ANUS)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
+									null,
+									null,
+									HELENAS_SHOP_BACK_ROOM_AFTER_SEX,
+									UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_FUCK_HER_ANAL")) {
+								@Override
+								public List<InitialSexActionInformation> getInitialSexActions() {
+									return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Helena.class), PenisAnus.PENIS_FUCKING_START, false, true));
+								}
+							});
+						}
+					}
+				}
+			}
+			
 			for(int i=0; i<responses.size(); i++) {
 				if(index==i+1) {
 					return responses.get(i);
@@ -3539,6 +3698,835 @@ public class ScarlettsShop {
 			return ROMANCE_SHOP_CORE.getResponse(responseTab, index);
 		}
 	};
+	
+	//TODO
+	public static final DialogueNode HELENAS_SHOP_BACK_ROOM_THREESOME = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME");
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			if(index==0) {
+				return "Helena focus";
+			} else if(index==1) {
+				return "Scarlett focus";
+			}
+			return null;
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			List<Response> responses = new ArrayList<>();
+			
+			if(responseTab==0) { // Helena focus:
+				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+					responses.add(new Response("Cunnilingus", "As you cannot gain access to your mouth, you cannot eat Helena out!", null));
+				} else {
+					responses.add(new ResponseSex(
+							"Cunnilingus",
+							"Get Helena to lie down so that you can drop your head between her legs and eat her out while Scarlett sits on her face.",
+							true, true,
+							HelenaHotel.getHelenaSexManager(false,
+									true,
+									true,
+									SexPosition.LYING_DOWN, SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.FACE_SITTING, SexSlotLyingDown.MISSIONARY_ORAL,
+									new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
+									Main.game.getNpc(Scarlett.class).hasVagina()
+										?new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)
+										:new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS),
+									null,
+									Main.game.getNpc(Scarlett.class).hasVagina()
+										?new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)
+										:new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
+									Util.newHashMapOfValues(
+											new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+											Main.game.getNpc(Scarlett.class).hasVagina()
+												?new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA))
+												:new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+											new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+							null,
+							null,
+							HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_PERFORM_CUNNILINGUS")) {
+						@Override
+						public List<InitialSexActionInformation> getInitialSexActions() {
+							List<InitialSexActionInformation> list = new ArrayList<>();
+							list.add(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Helena.class), TongueVagina.CUNNILINGUS_START, false, true));
+							if(Main.game.getNpc(Scarlett.class).hasVagina()) {
+								list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), TongueVagina.CUNNILINGUS_START, false, true));
+							} else {
+								list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), PenisMouth.GIVING_BLOWJOB_START, false, true));
+							}
+							return list;
+						}
+					});
+				}
+
+				if(Main.game.isAnalContentEnabled()) {
+					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						responses.add(new Response("Anilingus", "As you cannot gain access to your mouth, you cannot perform anilingus on Helena!", null));
+					} else {
+						responses.add(new ResponseSex(
+								"Anilingus",
+								"Get Helena to sit on your face so that you can perform anilingus on her while she performs oral on Scarlett.",
+								true, true,
+								HelenaHotel.getHelenaSexManager(true,
+										true,
+										false,
+										SexPosition.LYING_DOWN, SexSlotLyingDown.FACE_SITTING, SexSlotLyingDown.BESIDE, SexSlotLyingDown.LYING_DOWN,
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE),
+										Main.game.getNpc(Scarlett.class).hasVagina()
+											?new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)
+											:new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS),
+										null,
+										Main.game.getNpc(Scarlett.class).hasVagina()
+											?new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)
+											:new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
+										Util.newHashMapOfValues(
+												new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.ANUS)),
+												Main.game.getNpc(Scarlett.class).hasVagina()
+													?new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA))
+													:new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+												new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+								null,
+								null,
+								HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_PERFORM_ANILINGUS")
+								+ (Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE))==0
+									?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "THREESOME_ANILINGUS_FIRST_TIME")
+									:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "THREESOME_ANILINGUS_EXPERIENCED"))) {
+							@Override
+							public void effects() {
+								if(!Main.game.getNpc(Helena.class).getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
+									Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.THREE_LIKE));
+								}
+							}
+							@Override
+							public List<InitialSexActionInformation> getInitialSexActions() {
+								List<InitialSexActionInformation> list = new ArrayList<>();
+								list.add(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Helena.class), TongueAnus.ANILINGUS_START, false, true));
+								if(Main.game.getNpc(Scarlett.class).hasVagina()) {
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), TongueVagina.CUNNILINGUS_START, false, true));
+								} else {
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), PenisMouth.GIVING_BLOWJOB_START, false, true));
+								}
+								return list;
+							}
+						});
+					}
+				}
+				
+				if(!Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_DOMINANT)) { // If Helena is dominant, she wants to be on the receiving end of oral
+					if(Main.game.getPlayer().hasPenis()) {
+						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+							responses.add(new Response("Get blowjob", "As you cannot gain access to your penis, Helena cannot suck your cock.", null));
+						} else {
+							if(Main.game.getNpc(Scarlett.class).hasPenis()
+									&& (!Main.game.getNpc(Helena.class).isAssVirgin() || !Main.game.getNpc(Helena.class).isVaginaVirgin())) {
+								if(!Main.game.getNpc(Helena.class).isAssVirgin()) {
+									responses.add(new ResponseSex(
+											"Get blowjob",
+											"Get Helena to give you a blowjob while she gets anally fucked by Scarlett from behind.",
+											true, true,
+											HelenaHotel.getHelenaSexManager(false,
+													true,
+													true,
+													SexPosition.ALL_FOURS, SexSlotAllFours.ALL_FOURS, SexSlotAllFours.BEHIND, SexSlotAllFours.IN_FRONT,
+													new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS),
+													new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS),
+													null,
+													new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS),
+													Util.newHashMapOfValues(
+															new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.MOUTH, CoverableArea.ANUS)),
+															new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+															new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
+											null,
+											null,
+											HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+											UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_RECEIVE_BLOWJOB_SCARLETT_ANAL")) {
+										@Override
+										public List<InitialSexActionInformation> getInitialSexActions() {
+											List<InitialSexActionInformation> list = new ArrayList<>();
+											list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), PenisMouth.GIVING_BLOWJOB_START, false, true));
+											list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getNpc(Helena.class), PenisAnus.PENIS_FUCKING_START, false, true));
+											return list;
+										}
+									});
+									
+								} else {
+									responses.add(new ResponseSex(
+											"Get blowjob",
+											"Get Helena to give you a blowjob while she gets fucked by Scarlett from behind.",
+											true, true,
+											HelenaHotel.getHelenaSexManager(false,
+													true,
+													true,
+													SexPosition.ALL_FOURS, SexSlotAllFours.ALL_FOURS, SexSlotAllFours.BEHIND, SexSlotAllFours.IN_FRONT,
+													new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS),
+													new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS),
+													null,
+													new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA),
+													Util.newHashMapOfValues(
+															new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.MOUTH, CoverableArea.VAGINA)),
+															new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+															new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
+											null,
+											null,
+											HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+											UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_RECEIVE_BLOWJOB_SCARLETT_VAGINAL")) {
+										@Override
+										public List<InitialSexActionInformation> getInitialSexActions() {
+											List<InitialSexActionInformation> list = new ArrayList<>();
+											list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), PenisMouth.GIVING_BLOWJOB_START, false, true));
+											list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getNpc(Helena.class), PenisVagina.PENIS_FUCKING_START, false, true));
+											return list;
+										}
+									});
+								}
+								
+							} else {
+								responses.add(new ResponseSex(
+										"Get blowjob",
+										"Get Helena to give you a blowjob while she sits on Scarlett's face.",
+										true, true,
+										HelenaHotel.getHelenaSexManager(true,
+												false,
+												true,
+												SexPosition.LYING_DOWN, SexSlotLyingDown.FACE_SITTING, SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.BESIDE,
+												new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS),
+												new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
+												null,
+												new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA),
+												Util.newHashMapOfValues(
+														new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.MOUTH, CoverableArea.VAGINA)),
+														new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.MOUTH)),
+														new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
+										null,
+										null,
+										HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+										UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_RECEIVE_BLOWJOB")
+										+ (Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))==0
+											?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "THREESOME_BLOWJOB_FIRST_TIME")
+											:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "THREESOME_BLOWJOB_EXPERIENCED"))) {
+									@Override
+									public void effects() {
+										if(!Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_ORAL_GIVING)) {
+											Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).addFetish(Fetish.FETISH_ORAL_GIVING));
+										}
+									}
+									@Override
+									public List<InitialSexActionInformation> getInitialSexActions() {
+										List<InitialSexActionInformation> list = new ArrayList<>();
+										list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), PenisMouth.GIVING_BLOWJOB_START, false, true));
+										list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
+										return list;
+									}
+								});
+							}
+						}
+					}
+		
+					if(Main.game.getPlayer().hasVagina()) {
+						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+							responses.add(new Response("Eaten out", "As you cannot gain access to your pussy, Helena cannot eat you out.", null));
+						} else {
+							if(Main.game.getNpc(Scarlett.class).hasPenis()
+									&& (!Main.game.getNpc(Helena.class).isAssVirgin() || !Main.game.getNpc(Helena.class).isVaginaVirgin())) {
+								if(!Main.game.getNpc(Helena.class).isAssVirgin()) {
+									responses.add(new ResponseSex(
+											"Eaten out",
+											"Get Helena to eat you out while she gets anally fucked by Scarlett from behind.",
+											true, true,
+											HelenaHotel.getHelenaSexManager(false,
+													true,
+													true,
+													SexPosition.ALL_FOURS, SexSlotAllFours.ALL_FOURS, SexSlotAllFours.BEHIND, SexSlotAllFours.IN_FRONT,
+													new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA),
+													new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS),
+													null,
+													new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS),
+													Util.newHashMapOfValues(
+															new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.MOUTH, CoverableArea.ANUS)),
+															new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+															new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)))),
+											null,
+											null,
+											HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+											UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_RECEIVE_CUNNILINGUS_SCARLETT_ANAL")) {
+										@Override
+										public List<InitialSexActionInformation> getInitialSexActions() {
+											List<InitialSexActionInformation> list = new ArrayList<>();
+											list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), TongueVagina.CUNNILINGUS_START, false, true));
+											list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getNpc(Helena.class), PenisAnus.PENIS_FUCKING_START, false, true));
+											return list;
+										}
+									});
+									
+								} else {
+									responses.add(new ResponseSex(
+											"Eaten out",
+											"Get Helena to eat you out while she gets fucked by Scarlett from behind.",
+											true, true,
+											HelenaHotel.getHelenaSexManager(false,
+													true,
+													true,
+													SexPosition.ALL_FOURS, SexSlotAllFours.ALL_FOURS, SexSlotAllFours.BEHIND, SexSlotAllFours.IN_FRONT,
+													new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA),
+													new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS),
+													null,
+													new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA),
+													Util.newHashMapOfValues(
+															new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.MOUTH, CoverableArea.VAGINA)),
+															new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+															new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)))),
+											null,
+											null,
+											HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+											UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_RECEIVE_CUNNILINGUS_SCARLETT_VAGINAL")) {
+										@Override
+										public List<InitialSexActionInformation> getInitialSexActions() {
+											List<InitialSexActionInformation> list = new ArrayList<>();
+											list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), TongueVagina.CUNNILINGUS_START, false, true));
+											list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getNpc(Helena.class), PenisVagina.PENIS_FUCKING_START, false, true));
+											return list;
+										}
+									});
+								}
+								
+							} else {
+								responses.add(new ResponseSex(
+										"Eaten out",
+										"Sit on Helena's face and have her eat you out while Scarlett drops down between her legs and performs cunnilingus on her.",
+										true, true,
+										HelenaHotel.getHelenaSexManager(false,
+												true,
+												true,
+												SexPosition.LYING_DOWN, SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.MISSIONARY_ORAL, SexSlotLyingDown.FACE_SITTING,
+												new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA),
+												new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
+												null,
+												new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA),
+												Util.newHashMapOfValues(
+														new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.MOUTH, CoverableArea.VAGINA)),
+														new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.MOUTH)),
+														new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA)))),
+										null,
+										null,
+										HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+										UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_RECEIVE_CUNNILINGUS")
+										+ (Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))==0
+											?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "GIVING_CUNNILINGUS_FIRST_TIME")
+											:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "GIVING_CUNNILINGUS_EXPERIENCED"))) {
+									@Override
+									public void effects() {
+										if(!Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_ORAL_GIVING)) {
+											Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).addFetish(Fetish.FETISH_ORAL_GIVING));
+										}
+									}
+									@Override
+									public List<InitialSexActionInformation> getInitialSexActions() {
+										List<InitialSexActionInformation> list = new ArrayList<>();
+										list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), TongueVagina.CUNNILINGUS_START, false, true));
+										list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
+										return list;
+									}
+								});
+							}
+						}
+					}
+				}
+				
+				// Penetrative sex:
+				
+				if(Main.game.getPlayer().hasPenis()) {
+					if(Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_DOMINANT)) {
+						if(Main.game.getNpc(Helena.class).isVaginaVirgin()) {
+							responses.add(new Response("Ridden", "Helena is unwilling to lose her virginity in a situation like this!", null));
+							
+						} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+							responses.add(new Response("Ridden", "As you cannot gain access to your penis, you cannot fuck Helena.", null));
+							
+						} else {
+							responses.add(new ResponseSex(
+									"Ridden",
+									"Get Helena to ride your cock while Scarlett sits on your face.",
+									true, true,
+									HelenaHotel.getHelenaSexManager(true,
+											true,
+											false,
+											SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.LYING_DOWN,
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS),
+											new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH),
+											Main.game.getNpc(Scarlett.class).hasVagina()
+												?new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)
+												:new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.VAGINA, CoverableArea.MOUTH)),
+													Main.game.getNpc(Scarlett.class).hasVagina()
+														?new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA, CoverableArea.MOUTH))
+														:new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.MOUTH)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.MOUTH)))),
+									null,
+									null,
+									HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+									UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_RIDDEN")) {
+								@Override
+								public List<InitialSexActionInformation> getInitialSexActions() {
+									List<InitialSexActionInformation> list = new ArrayList<>();
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), PenisVagina.USING_PENIS_START, false, true));
+									if(Main.game.getNpc(Scarlett.class).hasVagina()) {
+										list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
+									} else {
+										list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
+									}
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), TongueMouth.KISS_START, false, true));
+									return list;
+								}
+							});
+						}
+						if(Main.game.isAnalContentEnabled()) {
+							if(Main.game.getNpc(Helena.class).isAssVirgin()) {
+								responses.add(new Response("Ridden (anal)", "Helena is unwilling to lose her anal virginity in a situation like this!", null));
+								
+							} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+								responses.add(new Response("Ridden (anal)", "As you cannot gain access to your penis, you cannot fuck Helena's ass.", null));
+								
+							} else {
+								responses.add(new ResponseSex(
+										"Ridden (anal)",
+										"Get Helena to anally ride your cock while Scarlett sits on your face.",
+										true, true,
+										HelenaHotel.getHelenaSexManager(true,
+												true,
+												false,
+												SexPosition.LYING_DOWN, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.LYING_DOWN,
+												new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS),
+												new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH),
+												Main.game.getNpc(Scarlett.class).hasVagina()
+													?new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)
+													:new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
+												new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE),
+												Util.newHashMapOfValues(
+														new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.ANUS, CoverableArea.MOUTH)),
+														Main.game.getNpc(Scarlett.class).hasVagina()
+															?new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA, CoverableArea.MOUTH))
+															:new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.MOUTH)),
+														new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.MOUTH)))),
+										null,
+										null,
+										HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+										UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_RIDDEN_ANAL")) {
+									@Override
+									public List<InitialSexActionInformation> getInitialSexActions() {
+										List<InitialSexActionInformation> list = new ArrayList<>();
+										list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), PenisAnus.USING_PENIS_START, false, true));
+										if(Main.game.getNpc(Scarlett.class).hasVagina()) {
+											list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
+										} else {
+											list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
+										}
+										list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), TongueMouth.KISS_START, false, true));
+										return list;
+									}
+								});
+							}
+						}
+						
+					} else { // Submissive:
+						if(Main.game.getNpc(Helena.class).isVaginaVirgin()) {
+							responses.add(new Response("Fuck her", "Helena is unwilling to lose her virginity in a situation like this!", null));
+							
+						} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+							responses.add(new Response("Fuck her", "As you cannot gain access to your penis, you cannot fuck Helena.", null));
+							
+						} else {
+							responses.add(new ResponseSex(
+									"Fuck her",
+									"Push Helena down onto all fours and fuck her from behind while she performs oral on Scarlett.",
+									true, true,
+									HelenaHotel.getHelenaSexManager(false,
+											true,
+											true,
+											SexPosition.ALL_FOURS, SexSlotAllFours.ALL_FOURS, SexSlotAllFours.IN_FRONT, SexSlotAllFours.BEHIND,
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS),
+											Main.game.getNpc(Scarlett.class).hasVagina()
+												?new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)
+												:new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS),
+											null,
+											Main.game.getNpc(Scarlett.class).hasVagina()
+												?new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)
+												:new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.VAGINA, CoverableArea.MOUTH)),
+													Main.game.getNpc(Scarlett.class).hasVagina()
+														?new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA))
+														:new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
+									null,
+									null,
+									HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+									UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_FUCK_HER")) {
+								@Override
+								public List<InitialSexActionInformation> getInitialSexActions() {
+									List<InitialSexActionInformation> list = new ArrayList<>();
+									list.add(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Helena.class), PenisVagina.PENIS_FUCKING_START, false, true));
+									if(Main.game.getNpc(Scarlett.class).hasVagina()) {
+										list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getNpc(Helena.class), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
+									} else {
+										list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getNpc(Helena.class), PenisMouth.BLOWJOB_START, false, true));
+									}
+									return list;
+								}
+							});
+						}
+						if(Main.game.isAnalContentEnabled()) {
+							if(Main.game.getNpc(Helena.class).isAssVirgin()) {
+								responses.add(new Response("Fuck her (anal)", "Helena is unwilling to lose her anal virginity in a situation like this!", null));
+								
+							} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+								responses.add(new Response("Fuck her (anal)", "As you cannot gain access to your penis, you cannot fuck Helena's ass.", null));
+								
+							} else {
+								responses.add(new ResponseSex(
+										"Fuck her (anal)",
+										"Push Helena down onto all fours and fuck her ass while she performs oral on Scarlett.",
+										true, true,
+										HelenaHotel.getHelenaSexManager(false,
+												true,
+												true,
+												SexPosition.ALL_FOURS, SexSlotAllFours.ALL_FOURS, SexSlotAllFours.IN_FRONT, SexSlotAllFours.BEHIND,
+												new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS),
+												Main.game.getNpc(Scarlett.class).hasVagina()
+													?new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)
+													:new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS),
+												null,
+												Main.game.getNpc(Scarlett.class).hasVagina()
+													?new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)
+													:new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
+												Util.newHashMapOfValues(
+														new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.ANUS, CoverableArea.MOUTH)),
+														Main.game.getNpc(Scarlett.class).hasVagina()
+															?new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA))
+															:new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+														new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
+										null,
+										null,
+										HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+										UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_FUCK_HER_ANAL")) { // Player anilingus first
+									@Override
+									public List<InitialSexActionInformation> getInitialSexActions() {
+										List<InitialSexActionInformation> list = new ArrayList<>();
+										list.add(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Helena.class), PenisAnus.PENIS_FUCKING_START, false, true));
+										if(Main.game.getNpc(Scarlett.class).hasVagina()) {
+											list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getNpc(Helena.class), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
+										} else {
+											list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getNpc(Helena.class), PenisMouth.BLOWJOB_START, false, true));
+										}
+										return list;
+									}
+								});
+							}
+						}
+					}
+				}
+				
+			} else if(responseTab==1) { // Scarlett focus:
+				if(Main.game.getNpc(Scarlett.class).hasPenis()) {
+					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						responses.add(new Response("Blowjob", "As you cannot gain access to your mouth, you cannot give Scarlett a blowjob!", null));
+					} else {
+						responses.add(new ResponseSex(
+								"Blowjob",
+								"Join Helena in kneeling down and giving Scarlett a blowjob.",
+								true, true,
+								HelenaHotel.getHelenaSexManager(false,
+										true,
+										false,
+										SexPosition.SITTING, SexSlotSitting.PERFORMING_ORAL, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL_TWO,
+										null,
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS),
+										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
+										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
+										Util.newHashMapOfValues(
+												new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.MOUTH)),
+												new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
+												new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+								null,
+								null,
+								HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_SCARLETT_DOUBLE_BLOWJOB")) {
+							@Override
+							public List<InitialSexActionInformation> getInitialSexActions() {
+								List<InitialSexActionInformation> list = new ArrayList<>();
+								list.add(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Helena.class), PenisMouth.GIVING_BLOWJOB_START, false, true));
+								list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), PenisMouth.GIVING_BLOWJOB_START_ADDITIONAL, false, true));
+								return list;
+							}
+						});
+					}
+					
+				} else {
+					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						responses.add(new Response("Cunnilingus", "As you cannot gain access to your mouth, you cannot eat Scarlett out!", null));
+					} else {
+						responses.add(new ResponseSex(
+								"Cunnilingus",
+								"Join Helena in dropping down before Scarlett and orally servicing her pussy.",
+								true, true,
+								HelenaHotel.getHelenaSexManager(false,
+										true,
+										false,
+										SexPosition.SITTING, SexSlotSitting.PERFORMING_ORAL, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL_TWO,
+										null,
+										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA),
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
+										Util.newHashMapOfValues(
+												new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.MOUTH)),
+												new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+												new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+								null,
+								null,
+								HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_SCARLETT_DOUBLE_CUNNILINGUS")) {
+							@Override
+							public List<InitialSexActionInformation> getInitialSexActions() {
+								List<InitialSexActionInformation> list = new ArrayList<>();
+								list.add(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Helena.class), TongueVagina.CUNNILINGUS_START, false, true));
+								list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), TongueVagina.CUNNILINGUS_START_ADDITIONAL, false, true));
+								return list;
+							}
+						});
+					}
+				}
+				
+				if(Main.game.isAnalContentEnabled()) {
+					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						responses.add(new Response("Anilingus", "As you cannot gain access to your mouth, you cannot perform anilingus on Scarlett!", null));
+					} else {
+						responses.add(new ResponseSex(
+								"Anilingus",
+								"Get Scarlett to sit on your face so that you can perform anilingus on her while she performs oral on Helena.",
+								true, true,
+								HelenaHotel.getHelenaSexManager(true,
+										true,
+										false,
+										SexPosition.LYING_DOWN, SexSlotLyingDown.BESIDE, SexSlotLyingDown.FACE_SITTING, SexSlotLyingDown.LYING_DOWN,
+										null,
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
+										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE),
+										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA),
+										Util.newHashMapOfValues(
+												new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
+												new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.ANUS)),
+												new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+								null,
+								null,
+								HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+								UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_SCARLETT_ANILINGUS")) {
+							@Override
+							public List<InitialSexActionInformation> getInitialSexActions() {
+								List<InitialSexActionInformation> list = new ArrayList<>();
+								list.add(new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Scarlett.class), TongueAnus.ANILINGUS_START, false, true));
+								list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getNpc(Helena.class), TongueVagina.CUNNILINGUS_START, false, true));
+								return list;
+							}
+						});
+					}
+				}
+				
+				// Penetrative sex:
+
+				if(Main.game.getPlayer().hasPenis()) {
+					if(Main.game.getNpc(Scarlett.class).hasVagina()) {
+						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+							responses.add(new Response("Ridden", "As you cannot gain access to your penis, you cannot fuck Scarlett.", null));
+							
+						} else {
+							responses.add(new ResponseSex(
+									"Ridden",
+									"Get Scarlett to ride your cock while Helena sits on your face.",
+									true, true,
+									HelenaHotel.getHelenaSexManager(true,
+											true,
+											false,
+											SexPosition.LYING_DOWN, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN,
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
+											new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH),
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS),
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.VAGINA, CoverableArea.MOUTH)),
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA, CoverableArea.MOUTH)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.MOUTH)))),
+									null,
+									null,
+									HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+									UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_SCARLETT_RIDDEN")) {
+								@Override
+								public List<InitialSexActionInformation> getInitialSexActions() {
+									List<InitialSexActionInformation> list = new ArrayList<>();
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), PenisVagina.USING_PENIS_START, false, true));
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), TongueMouth.KISS_START, false, true));
+									return list;
+								}
+							});
+						}
+					}
+				}
+
+				if(Main.game.getNpc(Scarlett.class).hasVagina()) {
+					if(Main.game.getPlayer().hasPenis()) {
+						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+							responses.add(new Response("Ridden", "As you cannot gain access to your penis, you cannot fuck Scarlett.", null));
+							
+						} else {
+							responses.add(new ResponseSex(
+									"Ridden",
+									"Get Scarlett to ride your cock while Helena sits on your face.",
+									true, true,
+									HelenaHotel.getHelenaSexManager(true,
+											true,
+											false,
+											SexPosition.LYING_DOWN, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.LYING_DOWN,
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
+											new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH),
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS),
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.VAGINA, CoverableArea.MOUTH)),
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA, CoverableArea.MOUTH)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.MOUTH)))),
+									null,
+									null,
+									HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+									UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_SCARLETT_RIDDEN")) {
+								@Override
+								public List<InitialSexActionInformation> getInitialSexActions() {
+									List<InitialSexActionInformation> list = new ArrayList<>();
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), PenisVagina.USING_PENIS_START, false, true));
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), TongueMouth.KISS_START, false, true));
+									return list;
+								}
+							});
+						}
+					}
+				}
+
+				if(Main.game.getNpc(Scarlett.class).hasPenis()) {
+					if(Main.game.getPlayer().hasVagina()) {
+						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+							responses.add(new Response("Fucked", "As you cannot gain access to your pussy, Scarlett cannot fuck you.", null));
+							
+						} else {
+							responses.add(new ResponseSex(
+									"Fucked",
+									"Get Scarlett to fuck your pussy while you perform cunnilingus on Helena.",
+									true, true,
+									HelenaHotel.getHelenaSexManager(true,
+											true,
+											false,
+											SexPosition.ALL_FOURS, SexSlotAllFours.IN_FRONT, SexSlotAllFours.BEHIND, SexSlotAllFours.ALL_FOURS,
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
+											new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH),
+											new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA),
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.VAGINA, CoverableArea.MOUTH)),
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.MOUTH)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.VAGINA, CoverableArea.MOUTH)))),
+									null,
+									null,
+									HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+									UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_SCARLETT_FUCKED")) {
+								@Override
+								public List<InitialSexActionInformation> getInitialSexActions() {
+									List<InitialSexActionInformation> list = new ArrayList<>();
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), PenisVagina.PENIS_FUCKING_START, false, true));
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), TongueMouth.KISS_START, false, true));
+									return list;
+								}
+							});
+						}
+					}
+					if(Main.game.isAnalContentEnabled()) {
+						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+							responses.add(new Response("Fucked (anal)", "As you cannot gain access to your ass, Scarlett cannot fuck you.", null));
+							
+						} else {
+							responses.add(new ResponseSex(
+									"Fucked (anal)",
+									"Get Scarlett to fuck your ass while you perform cunnilingus on Helena.",
+									true, true,
+									HelenaHotel.getHelenaSexManager(true,
+											true,
+											false,
+											SexPosition.ALL_FOURS, SexSlotAllFours.IN_FRONT, SexSlotAllFours.BEHIND, SexSlotAllFours.ALL_FOURS,
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
+											new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH),
+											new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS),
+											new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.TONGUE),
+											Util.newHashMapOfValues(
+													new Value<>(Main.game.getNpc(Helena.class), Util.newArrayListOfValues(CoverableArea.VAGINA, CoverableArea.MOUTH)),
+													new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.MOUTH)),
+													new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS, CoverableArea.MOUTH)))),
+									null,
+									null,
+									HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME,
+									UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_THREESOME_SCARLETT_FUCKED_ANAL")) {
+								@Override
+								public List<InitialSexActionInformation> getInitialSexActions() {
+									List<InitialSexActionInformation> list = new ArrayList<>();
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), PenisAnus.PENIS_FUCKING_START, false, true));
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getPlayer(), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
+									list.add(new InitialSexActionInformation(Main.game.getNpc(Helena.class), Main.game.getNpc(Scarlett.class), TongueMouth.KISS_START, false, true));
+									return list;
+								}
+							});
+						}
+					}
+				}
+			}
+			
+			for(int i=0; i<responses.size(); i++) {
+				if(index==i+1) {
+					return responses.get(i);
+				}
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME = new DialogueNode("Finished", "Helena is done and need to return to work.", true) {
+		@Override
+		public void applyPreParsingEffects() { //TODO test
+			Main.game.getNpc(Helena.class).cleanAllClothing(true);
+			Main.game.getNpc(Helena.class).cleanAllDirtySlots();
+			Main.game.getNpc(Scarlett.class).cleanAllClothing(true);
+			Main.game.getNpc(Scarlett.class).cleanAllDirtySlots();
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return ROMANCE_SHOP_CORE.getResponse(responseTab, index);
+		}
+	};
+	
 	
 	// Scarlett:
 	
@@ -3589,24 +4577,38 @@ public class ScarlettsShop {
 					}
 				};
 				
-			// TODO If Helena has had sex with Scarlett, can double-team Helena or get double-dommed by her
-			
 			} else if(index==5) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafe)) {
-					return new Response("Cafe", "You've already been out to a cafe with Scarlett today...", null);
+					return new Response("Cafe", "You've already been out to the cafe with Scarlett today...", null);
 					
 				} else if(Main.game.getHourOfDay()<11) {
-					return new Response("Cafe", "It's too early for Scarlett to take a lunch break, and so she can't go out to a cafe with you. Try again between [units.time(11)] and [units.time(15)].", null);
+					return new Response(
+							Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafeRevealed)
+								?"Cafe"
+								:"Lunch break",
+							Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafeRevealed)
+								?"It's too early for Scarlett to take a lunch break, and so she can't go out to the cafe with you. Try again between [units.time(11)] and [units.time(15)]."
+								:"It's too early for Scarlett to take a lunch break. Try again between [units.time(11)] and [units.time(15)].",
+							null);
 					
 				} else if(Main.game.getHourOfDay()>15) {
-					return new Response("Cafe", "Scarlett has already taken her lunch break, and so she can't go out to a cafe with you. Try again another day between [units.time(11)] and [units.time(15)].", null);
+					return new Response(
+							Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafeRevealed)
+								?"Cafe"
+								:"Lunch break",
+							Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafeRevealed)
+								?"Scarlett has already taken her lunch break, and so she can't go out to a cafe with you. Try again another day between [units.time(11)] and [units.time(15)]."
+								:"Scarlett has already taken her lunch break, and so can't spend it with you. Try again another day between [units.time(11)] and [units.time(15)].",
+							null);
 				}
-				return new Response("Cafe", "Ask Scarlett if she'd like to go out to a cafe with you on her lunch break.", HELENAS_SHOP_SCARLETT_CAFE) {
-					@Override
-					public void effects() {
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopScarlettCafe, true);
-					}
-				};
+				return new Response(
+						Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafeRevealed)
+							?"Cafe"
+							:"Lunch break",
+						Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafeRevealed)
+							?"Ask Scarlett if she'd like to spend her lunch break with you at the cafe again."
+							:"Ask Scarlett if she'd like to spend her lunch break with you.",
+						HELENAS_SHOP_SCARLETT_CAFE);
 			}
 			return null;
 		}
@@ -3638,22 +4640,18 @@ public class ScarlettsShop {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) { //TODO Sex scene where you need to stay quiet. If not, then Scarlett ends it and slaps you. Sex action where Helena walks up and asks Scarlet if she's seen you. Scarlett says that you'll probably be back soon
+			if(index==1) {
 				if(Main.game.getNpc(Scarlett.class).hasPenis()) {
 					return new ResponseSex(
 							"Suck cock",
-							"Do as Scarlett says and quietly suck her cock...",
+							"Do as Scarlett says and suck her cock...",
 							true,
 							false,
-							getScarlettSilentOralSexManager(SexPosition.STANDING, SexSlotStanding.STANDING_DOMINANT, SexSlotStanding.PERFORMING_ORAL,
-									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
-									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
-											new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+							new SMScarlettShopOral(), //TODO test special actions
 							null,
 							null,
 							HELENAS_SHOP_SCARLETT_AFTER_COUNTER_ORAL,
-							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_SHOP_SCARLETT_COUNTER_ORAL_BLOWJOB_START")) {
+							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_COUNTER_ORAL_START")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
@@ -3663,18 +4661,14 @@ public class ScarlettsShop {
 				} else {
 					return new ResponseSex(
 							"Eat her out",
-							"Do as Scarlett says and quietly eat her out...",
+							"Do as Scarlett says and eat her out...",
 							true,
 							false,
-							getScarlettSilentOralSexManager(SexPosition.STANDING, SexSlotStanding.STANDING_DOMINANT, SexSlotStanding.PERFORMING_ORAL,
-									new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
-									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
-											new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+							new SMScarlettShopOral(), //TODO test special actions
 							null,
 							null,
 							HELENAS_SHOP_SCARLETT_AFTER_COUNTER_ORAL,
-							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_SHOP_SCARLETT_COUNTER_ORAL_CUNNILINGUS_START")) {
+							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_COUNTER_ORAL_START")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
 							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
@@ -3732,21 +4726,8 @@ public class ScarlettsShop {
 					return new Response("Cafe", "Let Scarlett lead you to the cafe she wants to visit.", HELENAS_SHOP_SCARLETT_CAFE_ARRIVE) {
 						@Override
 						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_ARRIVE_DONT_PAY"));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_CORE"));
 							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
-						}
-					};
-					
-				} else if(index==2) {
-					if(Main.game.getPlayer().getMoney()<150) {
-						return new Response("Offer ("+UtilText.formatAsMoneyUncoloured(150, "span")+")", "You don't have enough money to pay for Scarlett's lunch...", null);
-					}
-					return new Response("Offer ("+UtilText.formatAsMoneyUncoloured(150, "span")+")", "Tell Scarlett that you can pay for her lunch.", HELENAS_SHOP_SCARLETT_CAFE_ARRIVE) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_ARRIVE_PAY"));
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-150));
-							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 15));
 						}
 					};
 				}
@@ -3759,9 +4740,10 @@ public class ScarlettsShop {
 					return new Response("Pay ("+UtilText.formatAsMoneyUncoloured(150, "span")+")", "Tell Scarlett that you're willing to pay for her lunch.", HELENAS_SHOP_SCARLETT_CAFE_ARRIVE) {
 						@Override
 						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_ARRIVE_PAY"));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_PAY"));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_CORE"));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-150));
-							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 15));
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
 						}
 					};
 					
@@ -3793,6 +4775,8 @@ public class ScarlettsShop {
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().setNearestLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_CAFE, false);
 			Main.game.getNpc(Scarlett.class).setLocation(Main.game.getPlayer(), false);
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopScarlettCafe, true);
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopScarlettCafeRevealed, true);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -3808,11 +4792,13 @@ public class ScarlettsShop {
 				if(Main.game.getPlayer().getMoney()<150) {
 					return new Response("Order ("+UtilText.formatAsMoneyUncoloured(150, "span")+")", "You don't have enough money to order lunch...", null);
 				}
-				return new Response("Order ("+UtilText.formatAsMoneyUncoloured(150, "span")+")", "Order the same sandwich selection that Scarlett's choosing.", HELENAS_SHOP_SCARLETT_CAFE_ARRIVE) {
+				return new Response("Order ("+UtilText.formatAsMoneyUncoloured(150, "span")+")", "Order the same sandwich selection that Scarlett's choosing.", HELENAS_SHOP_SCARLETT_CAFE_EATING) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_EATING_LUNCH"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_ARRIVE_EATING_LUNCH"));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-150));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2));
+						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
 					}
 				};
 				
@@ -3820,7 +4806,8 @@ public class ScarlettsShop {
 				return new Response("Don't order", "Don't order anything and instead just sit and talk with Scarlett while she eats.", HELENAS_SHOP_SCARLETT_CAFE_EATING) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_EATING_NO_LUNCH"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_ARRIVE_NO_LUNCH"));
+						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
 					}
 				};
 			}
@@ -3852,7 +4839,9 @@ public class ScarlettsShop {
 				
 			} else {
 				if(index==1) {
-					return new Response("Discourage", "Discourage Scarlett from drinking the potion for the time being.<br/>[style.italics(You can get her to drink it another time, if you change your mind later on.)]", HELENAS_SHOP_SCARLETT_CAFE_END) {
+					return new Response("Discourage",
+							"Discourage Scarlett from drinking the potion for the time being.<br/>[style.italics(You can get her to drink it another time, if you change your mind later on.)]",
+							HELENAS_SHOP_SCARLETT_CAFE_END) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_EATING_NO_TRANSFORMATION"));
@@ -3861,22 +4850,31 @@ public class ScarlettsShop {
 					};
 					
 				} else if(index==2) {
-					return new Response("Drink", "Encourage Scarlett to drink the potion.", HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED) {
+					return new Response("Drink",
+							"Encourage Scarlett to drink the potion.<br/>"
+							+ (Main.game.getNpc(Scarlett.class).hasVagina()
+								?"[style.italicsTfSex(This will grow Scarlett's breasts into being C-cups, and will also make her appear more feminine!)]"
+								:"[style.italicsTfSex(This will increase Scarlett's cum production, as well as thickening her cock and expanding it to [style.sizes(20)] in length!)]"),
+							HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED"));
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopScarlettExtraTransformationDiscussed, true);
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopScarlettExtraTransformationApplied, true);
 							
 							if(Main.game.getNpc(Scarlett.class).hasVagina()) {
 								Main.game.getNpc(Scarlett.class).setFemininity(90);
 								Main.game.getNpc(Scarlett.class).setBreastSize(CupSize.C);
+								Main.game.getNpc(Scarlett.class).setVaginaWetness(Wetness.FIVE_SLOPPY);
 								
 							} else {
 								Main.game.getNpc(Scarlett.class).setPenisSize(20);
 								Main.game.getNpc(Scarlett.class).setPenisGirth(PenetrationGirth.TWO_AVERAGE);
 								Main.game.getNpc(Scarlett.class).setPenisCumStorage(50);
 							}
+
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED_CORE"));
+							
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopScarlettExtraTransformationDiscussed, true);
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopScarlettExtraTransformationApplied, true);
 						}
 					};
 					
@@ -3884,7 +4882,12 @@ public class ScarlettsShop {
 					if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)<10) {
 						return new Response("Boost (10 essences)", "You need at least ten arcane essences to boost the effects of the transformation potion!", null);
 					}
-					return new Response("Boost (10 essences)", "Encourage Scarlett to drink the potion.", HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED) {
+					return new Response("Boost (10 essences)",
+							"Use ten of your arcane essences to boost the effects of Scarlett's potion.<br/>"
+							+ (Main.game.getNpc(Scarlett.class).hasVagina()
+								?"[style.italicsTfSex(This will grow Scarlett's breasts into being D-cups, and will also make her appear far more feminine!)]"
+								:"[style.italicsTfSex(This will increase Scarlett's cum production, as well as thickening her cock and expanding it to [style.sizes(30)] in length!)]"),
+							HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED_EXTRA"));
@@ -3892,12 +4895,15 @@ public class ScarlettsShop {
 							if(Main.game.getNpc(Scarlett.class).hasVagina()) {
 								Main.game.getNpc(Scarlett.class).setFemininity(95);
 								Main.game.getNpc(Scarlett.class).setBreastSize(CupSize.D);
+								Main.game.getNpc(Scarlett.class).setVaginaWetness(Wetness.FIVE_SLOPPY);
 								
 							} else {
 								Main.game.getNpc(Scarlett.class).setPenisSize(30);
 								Main.game.getNpc(Scarlett.class).setPenisGirth(PenetrationGirth.THREE_THICK);
 								Main.game.getNpc(Scarlett.class).setPenisCumStorage(150);
 							}
+
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED_CORE"));
 							
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -10, false));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopScarlettExtraTransformationDiscussed, true);
@@ -3917,58 +4923,64 @@ public class ScarlettsShop {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED_END");
+			return "";
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Refuse", "Tell Scarlett that you just want to eat lunch with her.", HELENAS_SHOP_SCARLETT_CAFE_END) {
+				return new Response("Refuse", "Tell Scarlett that you don't want to do something so lewd with her.", HELENAS_SHOP_SCARLETT_CAFE_END) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED_NO_ORAL"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED_NO_SEX"));
 					}
 				};
 				
-			} else if(index==2) { //TODO Sex scene where you need to stay quiet. If not, then Scarlett ends it and slaps you. Sex action where waitress walks up and asks Scarlet if she's enjoying her sandwiches.
+			} else if(index==2) {
 				if(Main.game.getNpc(Scarlett.class).hasPenis()) {
 					return new ResponseSex(
-							"Suck cock",
-							"Do as Scarlett says and quietly suck her cock...",
+							"Handjob",
+							"Move around to sit next to Scarlett and give her a handjob...",
 							true,
 							false,
-							getScarlettSilentOralSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
-									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH),
+							getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.SITTING_TWO,
+									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)),
-											new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+											new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)))),
 							null,
 							null,
-							HELENAS_SHOP_SCARLETT_CAFE_AFTER_ORAL,
-							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_SHOP_SCARLETT_CAFE_ORAL_BLOWJOB_START")) {
+							HELENAS_SHOP_SCARLETT_CAFE_AFTER_SEX,
+							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_MASTURBATION_START")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
-							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
+							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), FingerPenis.COCK_MASTURBATED_START, false, true));
+						}
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
 						}
 					};
 					
 				} else {
 					return new ResponseSex(
-							"Eat her out",
-							"Do as Scarlett says and quietly eat her out...",
+							"Finger her",
+							"Move around to sit next to Scarlett and start fingering her...",
 							true,
 							false,
-							getScarlettSilentOralSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.PERFORMING_ORAL,
-									new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE),
+							getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.SITTING_TWO,
+									new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER),
 									Util.newHashMapOfValues(
-											new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)),
-											new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.MOUTH)))),
+											new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)))),
 							null,
 							null,
-							HELENAS_SHOP_SCARLETT_CAFE_AFTER_ORAL,
-							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "HELENAS_SHOP_SCARLETT_CAFE_ORAL_CUNNILINGUS_START")) {
+							HELENAS_SHOP_SCARLETT_CAFE_AFTER_SEX,
+							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_MASTURBATION_START")) {
 						@Override
 						public List<InitialSexActionInformation> getInitialSexActions() {
-							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
+							return Util.newArrayListOfValues(new InitialSexActionInformation(Main.game.getNpc(Scarlett.class), Main.game.getPlayer(), FingerVagina.FINGERED_START, false, true));
+						}
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Scarlett.class).incrementAffection(Main.game.getPlayer(), 5));
 						}
 					};
 				}
@@ -3977,14 +4989,14 @@ public class ScarlettsShop {
 		}
 	};
 	
-	public static final DialogueNode HELENAS_SHOP_SCARLETT_CAFE_AFTER_ORAL = new DialogueNode("Finished", "Scarlett is satisfied, and tells you to get back on your chair...", true) {
+	public static final DialogueNode HELENAS_SHOP_SCARLETT_CAFE_AFTER_SEX = new DialogueNode("Finished", "Scarlett is satisfied, and tells you to move away form her...", true) {
 		@Override
 		public int getSecondsPassed() {
 			return 10*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_AFTER_ORAL");
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_AFTER_SEX");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {

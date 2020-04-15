@@ -53,7 +53,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.3.6.9
+ * @version 0.3.7.1
  * @author Innoxia
  */
 public class Main extends Application {
@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.7";
+	public static final String VERSION_NUMBER = "0.3.7.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -86,11 +86,11 @@ public class Main extends Application {
 	public static String patchNotes =
 		
 		"<p>"
-			+ "Hello once again!"
+			+ "Hello again!"
 		+ "</p>"
 		
 		+ "<p>"
-			+ "Sorry about the unfinished state of this release. I'll try to get a more polished version out as soon as I can!"
+			+ "Once again, this version is in a little bit of a rough state. There will be a more polished release out very soon, which will include the completed Helena date content!"
 		+ "</p>"
 			
 		+ "<br/>"
@@ -101,6 +101,50 @@ public class Main extends Application {
 		+ "</p>"
 
 		+ "<br/>"
+		+ "<list>"
+		+ "<h6>v0.3.7.1</h6>"
+			+"<li>Other:</li>"
+			+"<ul>Added support for throat capacity, elasticity, plasticity, and wetness transformations from clothing. Also added depth transformations from clothing for all orifices.</ul>"
+			+"<ul>The chance for a client to just grope your prostitute slaves has been reduced from 20% to 5%.</ul>"
+			+"<ul>Added 'offspring birthed' and 'oral deflowerments' as tattoo counter types.</ul>"
+			+"<ul>Tattoos can now be enchanted with 'major' attributes, such as physique, arcane, health, etc.</ul>"
+			+"<ul>Slime and imp spawns in Submission's tunnels are no longer affected by user preferences (as they need to spawn for story/quest reasons).</ul>"
+			+"<ul>The feathered wing transformation, which was previously exclusive to horse-morphs (to make pegasi), are now available for all non-demonic and non-angelic races. (i.e. Any normal race's TF food item can now be enchanted to give feathered back wings.)</ul>"
+			+"<ul>Arousal gains from masochist/sadist special arousal effects are now limited to 10 per attack instead of 25.</ul>"
+			+"<ul>Added minor description of centaur-pulled carts being present throughout Dominion.</ul>"
+	
+			+"<li>Sex:</li>"
+			+"<ul>Added: Double cunnilingus support (i.e. two characters performing cunnilingus on one character at the same time).</ul>"
+			+"<ul>Fixed issue where characters in the 'kneeling oral' slots in the 'sitting' position could have sex/tribbing with one another.</ul>"
+			+"<ul>Characters sitting down in the 'sitting' position can now interact with characters sitting next to them.</ul>"
+			+"<ul>Random NPCs whose name you do not know (and therefore they do not know your name) will no longer call out your name during sex.</ul>"
+			+"<ul>In quick sex which involves multiple orgasms, characters will now regenerate 5 minutes' worth of cum regeneration between orgasms.</ul>"
+			+"<ul>Added stomach bulge text for too large penetrations inside of size queens and masochists.</ul>"
+	
+			+"<li>Bugs:</li>"
+			+"<ul>Parsing fixes.</ul>"
+			+"<ul>Fixed issue with imp and half-demon offspring not being encountered in Submission's tunnels.</ul>"
+			+"<ul>Fixed minor bug with incorrect colour parsing in offspring birthed list.</ul>"
+			+"<ul>Fixed bug where all femininity changes would be described as being masculine, even if they made the target more feminine.</ul>"
+			+"<ul>Fixed incorrect opening times being displayed in Enforcer HQ dialogue.</ul>"
+			+"<ul>Fixed Helena's description referring to her as 'Alexa'.</ul>"
+			+"<ul>Fixed bug where penis reveal dialogue was parsing incorrectly.</ul>"
+			+"<ul>Fixed personality trait removals from the hypno watch not being described correctly.</ul>"
+			+"<ul>Tattoo counters for sub/dom sex should now correctly increment for slaves who have sex while working as a prostitute or set as public use in the stocks.</ul>"
+			+"<ul>Fixed issue where sex experience buttons in character creation wouldn't work.</ul>"
+			+"<ul>Fixed some minor issues with 'dirty talk' parsing during sex.</ul>"
+			+"<ul>Characters who are visibly pregnant will no longer be described as having their stomach bulge out when their vagina or ass is penetrated too deeply.</ul>"
+			+"<ul>Fixed bug where job recommendations you've made to friendly occupants would be reset upon loading your game.</ul>"
+			+"<ul>Fixed clothing pattern dye colours not displaying in the dye menu.</ul>"
+			+"<ul>Fixed bug where opening/closing the main menu screen while managing a room or people in Lilaya's house would return you to a previous, unrelated scene.</ul>"
+			+"<ul>NPCs in sex will no longer keep on offering you pills after you've refused them the first time.</ul>"
+			+"<ul>Fixed bug where all management options would be disabled in the scene after having sex with a slave.</ul>"
+			+"<ul>Fixed bug in combat where enemies hit by sadists would have their arousal increased, instead of the sadistic attacker.</ul>"
+			+"<ul>Basic earrings are now considered to be unisex again.</ul>"
+		+"</list>"
+			
+		+ "<br/>"
+		
 		+ "<list>"
 		+ "<h6>v0.3.7</h6>"
 			+"<li>Engine:</li>"

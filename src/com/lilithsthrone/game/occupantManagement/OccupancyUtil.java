@@ -877,6 +877,7 @@ public class OccupancyUtil implements XMLSaving {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
+						
 					} else {
 						partnerGender = Gender.getGenderFromUserPreferences(false, true);
 						availablePartnerRaces = Subspecies.getGenericSexPartnerSubspeciesMap(partnerGender);
@@ -902,8 +903,8 @@ public class OccupancyUtil implements XMLSaving {
 					}
 //					System.out.println("partner spawned for "+slave.getName()+": "+partner.getWorldLocation()+" "+partner.getLocation().getX()+", "+partner.getLocation().getY());
 					
-					// If no settings are able to be used, or if a random roll is greater than 0.8, just add a groping event:
-					if(settingsEnabled.isEmpty() || Math.random()>0.8f) {
+					// If no settings are able to be used, or if a random roll is less than 0.05, just add a groping event:
+					if(settingsEnabled.isEmpty() || Math.random()<0.05f) {
 						effectDescriptions.append(UtilText.parse(slave,
 								UtilText.returnStringAtRandom(
 										partnerName+" groped and molested [npc.namePos] exposed body!",
