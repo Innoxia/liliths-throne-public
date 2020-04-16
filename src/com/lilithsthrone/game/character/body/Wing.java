@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.body;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -66,8 +67,11 @@ public class Wing implements BodyPartInterface {
 			if(type == WingType.NONE) {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.verb(lack)] wings, so nothing happens...)]</p>");
 				
-			} else {
+			} else if(type.getRace()!=Race.NONE) {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.wings] of [npc.a_wingRace], so nothing happens...)]</p>");
+				
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] "+type.getTransformName()+" [npc.wings], so nothing happens...)]</p>");
 			}
 			
 		} else {
@@ -140,15 +144,15 @@ public class Wing implements BodyPartInterface {
 							+ "[npc.Name] now [npc.has] [style.boldTfGeneric(no wings)].");
 				}
 				break;
-			case PEGASUS:
+			case FEATHERED:
 				if(owner.getLegConfiguration().isWingsOnLegConfiguration()) {
 					UtilText.transformationContentSB.append(
 							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], feathered wings push out from the sides of [npc.her] [npc.legConfiguration] body.<br/>"
-							+ "[npc.Name] now [npc.has] the [style.boldPegataur(feathered wings of a pegataur)].");
+							+ "[npc.Name] now [npc.has] [style.boldPegataur(feathered wings)].");
 				} else {
 					UtilText.transformationContentSB.append(
 							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], feathered wings push out from [npc.her] shoulder blades.<br/>"
-							+ "[npc.Name] now [npc.has] the [style.boldPegataur(feathered wings of a pegataur)].");
+							+ "[npc.Name] now [npc.has] [style.boldPegataur(feathered wings)].");
 				}
 				break;
 		}

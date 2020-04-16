@@ -888,7 +888,7 @@ public class PenisVagina {
 				
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						"Roughly slamming [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.pussy+],"
+						"Brutally pounding [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.pussy+],"
 								+ " [npc.name] [npc.verb(start)] roughly slamming [npc.her] [npc.hips] back and forth, letting out [npc.a_moan+] with every thrust as [npc.she] brutally [npc.verb(fuck)] [npc2.name].",
 						"Violently thrusting [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.pussy+],"
 								+ " [npc.name] [npc.verb(start)] roughly slamming [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] forcefully [npc.verb(fuck)] [npc2.herHim].",

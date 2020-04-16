@@ -9,9 +9,9 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -678,7 +678,7 @@ public class CMFetishAttack {
             CombatMoveType.TEASE,
             DamageType.LUST,
             "fetishes/fetish_cum_addict",
-            Util.newArrayListOfValues(Colour.CLOTHING_WHITE),
+            Util.newArrayListOfValues(PresetColour.CLOTHING_WHITE),
             false,
             true,
             false,

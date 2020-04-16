@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
@@ -14,60 +15,60 @@ import com.lilithsthrone.utils.Util;
  */
 public enum FluidFlavour {
 	
-	CUM("cum", Colour.BASE_WHITE,
+	CUM("cum", PresetColour.BASE_WHITE,
 			Util.newArrayListOfValues(
 					"salty")),
 	
-	MILK("milk", Colour.BASE_WHITE,
+	MILK("milk", PresetColour.BASE_WHITE,
 			Util.newArrayListOfValues(
 					"creamy")),
 	
-	GIRL_CUM("girl-cum", Colour.BASE_WHITE,
+	GIRL_CUM("girl-cum", PresetColour.BASE_WHITE,
 			Util.newArrayListOfValues(
 					"sweet")),
 
-	BUBBLEGUM("bubblegum", Colour.BASE_PINK_LIGHT,
+	BUBBLEGUM("bubblegum", PresetColour.BASE_PINK_LIGHT,
 			Util.newArrayListOfValues(
 					"sweet")),
 	
 	
-	BEER("beer", Colour.BASE_TAN,
+	BEER("beer", PresetColour.BASE_TAN,
 			Util.newArrayListOfValues(
 					"yeasty",
 					"beer-flavoured")),
 	
-	VANILLA("vanilla", Colour.BASE_YELLOW_LIGHT,
+	VANILLA("vanilla", PresetColour.BASE_YELLOW_LIGHT,
 			Util.newArrayListOfValues(
 					"sweet",
 					"vanilla-flavoured")),
 	
-	STRAWBERRY("strawberries", Colour.BASE_RED,
+	STRAWBERRY("strawberries", PresetColour.BASE_RED,
 			Util.newArrayListOfValues(
 					"sweet",
 					"strawberry-flavoured")),
 	
-	CHOCOLATE("chocolate", Colour.BASE_BROWN,
+	CHOCOLATE("chocolate", PresetColour.BASE_BROWN,
 			Util.newArrayListOfValues(
 					"chocolatey",
 					"chocolate-flavoured")),
 	
-	PINEAPPLE("pineapple", Colour.BASE_YELLOW_LIGHT,
+	PINEAPPLE("pineapple", PresetColour.BASE_YELLOW_LIGHT,
 			Util.newArrayListOfValues(
 					"tart",
 					"sour",
 					"tangy",
 					"pineapple-flavoured")),
 	
-	HONEY("honey", Colour.BASE_YELLOW,
+	HONEY("honey", PresetColour.BASE_YELLOW,
 			Util.newArrayListOfValues(
 					"sweet",
 					"honey-flavoured")),
 	
-	MINT("mint", Colour.BASE_GREEN_LIME,
+	MINT("mint", PresetColour.BASE_GREEN_LIME,
 			Util.newArrayListOfValues(
 					"minty")),
 	
-	CHERRY("cherry", Colour.BASE_CRIMSON,
+	CHERRY("cherry", PresetColour.BASE_CRIMSON,
 			Util.newArrayListOfValues(
 					"sweet",
 					"cherry-flavoured"))

@@ -12,7 +12,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.7.1
  * @author Innoxia
  */
 public enum WingType implements BodyPartTypeInterface {
@@ -25,7 +25,7 @@ public enum WingType implements BodyPartTypeInterface {
 
 	ANGEL(BodyCoveringType.ANGEL_FEATHER, Race.ANGEL, true),
 
-	PEGASUS(BodyCoveringType.FEATHERS, Race.HORSE_MORPH, true),
+	FEATHERED(BodyCoveringType.FEATHERS, Race.NONE, true),
 	;
 
 	private BodyCoveringType skinType;
@@ -43,7 +43,10 @@ public enum WingType implements BodyPartTypeInterface {
 	 */
 	public static WingType getTypeFromString(String value) {
 		if(value.equals("IMP")) {
-			value = "DEMON_COMMON";
+			return DEMON_COMMON;
+		}
+		if(value.equals("PEGASUS")) {
+			return FEATHERED;
 		}
 		return valueOf(value);
 	}
@@ -82,7 +85,7 @@ public enum WingType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("demonic", "feathered");
 			case NONE:
 				return "";
-			case PEGASUS:
+			case FEATHERED:
 				return UtilText.returnStringAtRandom("feathered");
 		}
 		return "";
@@ -99,8 +102,8 @@ public enum WingType implements BodyPartTypeInterface {
 				return "demonic feathered";
 			case NONE:
 				return "none";
-			case PEGASUS:
-				return "pegasus feathered";
+			case FEATHERED:
+				return "feathered";
 		}
 		return "";
 	}
@@ -125,6 +128,11 @@ public enum WingType implements BodyPartTypeInterface {
 		for(WingType type : WingType.values()) {
 			if(type.getRace()==r) {
 				types.add(type);
+			}
+			if(r!=Race.DEMON && r!=Race.ANGEL) { // All normal races have access to the generic wing types for transformations:
+				if(type.getRace()==Race.NONE && type!=WingType.NONE) {
+					types.add(type);
+				}
 			}
 		}
 		typesMap.put(r, types);

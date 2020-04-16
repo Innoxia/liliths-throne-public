@@ -33,8 +33,9 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.79
@@ -56,6 +57,16 @@ public class GenericActions {
 			subBanned = new ArrayList<>();
 		}
 		
+		List<SexType> sexTypesBanned = new ArrayList<>();
+		if(Main.sex.getInitialSexManager().getSexTypesBannedMap().get(dom)!=null) {
+			sexTypesBanned.addAll(Main.sex.getInitialSexManager().getSexTypesBannedMap().get(dom));
+		}
+		if(Main.sex.getInitialSexManager().getSexTypesBannedMap().get(sub)!=null) {
+			for(SexType st : Main.sex.getInitialSexManager().getSexTypesBannedMap().get(sub)) {
+				sexTypesBanned.add(st.getReversedSexType());
+			}
+		}
+		
 		if(preference==null && dom.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true) && !domBanned.contains(SexAreaOrifice.MOUTH)) {
 			if(sub.hasPenis() && !subBanned.contains(SexAreaPenetration.PENIS) && sub.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 				preference = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS);
@@ -64,6 +75,11 @@ public class GenericActions {
 				preference = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
 			}
 		}
+		
+		if(sexTypesBanned.contains(preference)) {
+			preference = null;
+		}
+		
 		if(preference==null) {
 			preference = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH); // At least give them something...
 		}
@@ -79,6 +95,16 @@ public class GenericActions {
 		List<SexAreaInterface> subBanned = Main.sex.getInitialSexManager().getAreasBannedMap().get(sub);
 		if(subBanned==null) {
 			subBanned = new ArrayList<>();
+		}
+
+		List<SexType> sexTypesBanned = new ArrayList<>();
+		if(Main.sex.getInitialSexManager().getSexTypesBannedMap().get(dom)!=null) {
+			sexTypesBanned.addAll(Main.sex.getInitialSexManager().getSexTypesBannedMap().get(dom));
+		}
+		if(Main.sex.getInitialSexManager().getSexTypesBannedMap().get(sub)!=null) {
+			for(SexType st : Main.sex.getInitialSexManager().getSexTypesBannedMap().get(sub)) {
+				sexTypesBanned.add(st.getReversedSexType());
+			}
 		}
 		
 		if(preference==null && dom.hasPenis() && !domBanned.contains(SexAreaPenetration.PENIS) && dom.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
@@ -111,6 +137,11 @@ public class GenericActions {
 				preference = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH);
 			}
 		}
+		
+		if(sexTypesBanned.contains(preference)) {
+			preference = null;
+		}
+		
 		if(preference==null) {
 			preference = new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.MOUTH); // At least give them something...
 		}
@@ -216,6 +247,11 @@ public class GenericActions {
 					sb.append("[style.boldPurple(Sex)] ([style.colourSexDom("+Util.capitaliseSentence(preference.getPerformingSexArea().getName(dom, true))+")]-[style.colourSexSub("+preference.getTargetedSexArea().getName(sub, true)+")]): ");
 					sb.append(dom.calculateGenericSexEffects(true, true, sub, preference, GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED, (preventCreampie?GenericSexFlag.PREVENT_CREAMPIE:null))); // This increments orgasms
 					sb.append("</p>");
+					
+					// Regenerate cum by 5 minutes' worth of cum after orgasm, so that there's cum for the next orgasm:
+					dom.incrementPenisStoredCum((5*60) * dom.getCumRegenerationPerSecond());
+					sub.incrementPenisStoredCum((5*60) * sub.getCumRegenerationPerSecond());
+					
 					if(orgamsNeeded>1) {
 						dom.generateSexChoices(false, sub);
 						preference = getMainSexPreference(dom, sub);
@@ -254,7 +290,7 @@ public class GenericActions {
 
 		@Override
 		public Colour getHighlightColour() {
-			return Colour.BASE_ORANGE;
+			return PresetColour.BASE_ORANGE;
 		}
 		
 		@Override
@@ -1111,7 +1147,7 @@ public class GenericActions {
 		
 		@Override
 		public String getActionTitle() {
-			return "Restrict self actions";
+			return "Forbid self actions";
 		}
 
 		@Override
@@ -1167,7 +1203,7 @@ public class GenericActions {
 			}
 			
 			UtilText.nodeContentSB.append("[npc.speech(I don't want to see you trying to get yourself off,)] you [npc.moanVerb] at [npc2.name].<br/><br/>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] will no longer use any self-penetrative actions.</i>");
+					+ "<i style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] will no longer use any self-penetrative actions.</i>");
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1210,7 +1246,7 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			return "[npc.speech(You can touch yourself all you want,)] you [npc.moanVerb] at [npc2.name].<br/><br/>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] is now able to use any self-penetrative actions.</i>";
+					+ "<i style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] is now able to use any self-penetrative actions.</i>";
 		}
 
 		@Override
@@ -1253,7 +1289,7 @@ public class GenericActions {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("[npc.speech(You're not to do anything without being told,)] you order [npc2.name].<br/><br/>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] now has a restricted level of control, and cannot initiate any non-self penetrative actions.</i>");
+					+ "<i style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] now has a restricted level of control, and cannot initiate any non-self penetrative actions.</i>");
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1299,7 +1335,7 @@ public class GenericActions {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("[npc.speech(You can do what you like,)] you say to [npc2.name], freeing [npc2.herHim] to do as [npc2.she] pleases.<br/><br/>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] now has an unrestricted level of control, and can initiate non-self penetrative actions at will.</i>");
+					+ "<i style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] now has an unrestricted level of control, and can initiate non-self penetrative actions at will.</i>");
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1326,7 +1362,7 @@ public class GenericActions {
 		
 		@Override
 		public String getActionTitle() {
-			return "Restrict positioning";
+			return "Forbid positioning";
 		}
 
 		@Override
@@ -1351,7 +1387,7 @@ public class GenericActions {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("[npc.speech(I don't want to see you attempting to switch positions,)] you [npc.moanVerb] at [npc2.name].<br/><br/>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] will no longer use any positioning actions.</i>");
+					+ "<i style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] will no longer use any positioning actions.</i>");
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1397,7 +1433,7 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			return "[npc.speech(If you'd like, you can switch to whatever position you're most comfortable with,)] you [npc.moanVerb] at [npc2.name].<br/><br/>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] is now able to use positioning actions.</i>";
+					+ "<i style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] is now able to use positioning actions.</i>";
 		}
 
 		@Override
@@ -1442,7 +1478,7 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			return "[npc.speech(Don't you <i>dare</i> try and touch any of my clothes!)] you growl at [npc2.name].<br/><br/>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] will not attempt to remove or displace any of your clothes.</i>";
+					+ "<i style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] will not attempt to remove or displace any of your clothes.</i>";
 		}
 
 		@Override
@@ -1481,7 +1517,7 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			return "[npc.speech(How about you help me take off some of these clothes?)] you [npc.moan].<br/><br/>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] is now able to manage your clothing.</i>";
+					+ "<i style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] is now able to manage your clothing.</i>";
 		}
 
 		@Override
@@ -1520,7 +1556,7 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			return "[npc.speech(Don't you <i>dare</i> try and touch your clothes!)] you growl at [npc2.name].<br/><br/>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] will not attempt to remove or displace any of [npc2.her] clothes.</i>";
+					+ "<i style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] will not attempt to remove or displace any of [npc2.her] clothes.</i>";
 		}
 
 		@Override
@@ -1559,7 +1595,7 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			return "[npc.speech(How about you start taking off some of your clothes?)] you [npc.moan].<br/><br/>"
-					+ "<i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] is now able to manage [npc2.her] clothing.</i>";
+					+ "<i style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>[npc2.Name] is now able to manage [npc2.her] clothing.</i>";
 		}
 
 		@Override

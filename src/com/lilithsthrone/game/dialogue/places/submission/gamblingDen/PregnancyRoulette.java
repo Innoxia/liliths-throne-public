@@ -44,9 +44,10 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -213,7 +214,7 @@ public class PregnancyRoulette {
 						return new Response("Male Bred ("+UtilText.formatAsMoney(10000, "span")+")", "Sign up as the mother for pregnancy roulette, asking to bred by the males.", PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION) {
 							@Override
 							public Colour getHighlightColour() {
-								return Colour.GENERIC_SEX;
+								return PresetColour.GENERIC_SEX;
 							}
 							@Override
 							public void effects() {
@@ -256,7 +257,7 @@ public class PregnancyRoulette {
 						return new Response("Futa Bred ("+UtilText.formatAsMoney(10000, "span")+")", "Sign up as the mother for pregnancy roulette, asking to bred by the futas.", PREGNANCY_ROULETTE_MOTHER_PRE_SELECTION) {
 							@Override
 							public Colour getHighlightColour() {
-								return Colour.GENERIC_SEX;
+								return PresetColour.GENERIC_SEX;
 							}
 							@Override
 							public void effects() {
@@ -293,7 +294,7 @@ public class PregnancyRoulette {
 						return new Response("Breeder ("+UtilText.formatAsMoney(10000, "span")+")", "Sign up as one of the breeders for pregnancy roulette.", PREGNANCY_ROULETTE_BREEDER) {
 							@Override
 							public Colour getHighlightColour() {
-								return Colour.GENERIC_SEX;
+								return PresetColour.GENERIC_SEX;
 							}
 							@Override
 							public void effects() {

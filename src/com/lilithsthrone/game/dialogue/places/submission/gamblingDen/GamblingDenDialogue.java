@@ -56,9 +56,10 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -826,7 +827,7 @@ public class GamblingDenDialogue {
 								AXEL_VENGAR) {
 							@Override
 							public Colour getHighlightColour() {
-								return Colour.QUEST_SIDE;
+								return PresetColour.QUEST_SIDE;
 							}
 							@Override
 							public void effects() {
@@ -851,7 +852,7 @@ public class GamblingDenDialogue {
 						return new Response("Visit Vengar", "Tell [axel.name] that you're ready to go with [axel.herHim] to visit Vengar now.", AXEL_VENGAR_VISIT) {
 							@Override
 							public Colour getHighlightColour() {
-								return Colour.QUEST_SIDE;
+								return PresetColour.QUEST_SIDE;
 							}
 							@Override
 							public void effects() {
@@ -957,7 +958,7 @@ public class GamblingDenDialogue {
 				return new Response("Visit Vengar", "Tell [axel.name] that you're ready to go with [axel.herHim] to visit Vengar now.", AXEL_VENGAR_VISIT) {
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.QUEST_SIDE;
+						return PresetColour.QUEST_SIDE;
 					}
 					@Override
 					public void effects() {
@@ -1028,7 +1029,7 @@ public class GamblingDenDialogue {
 						AXEL_VENGAR_VISIT_SISSIFIED) {
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.ANDROGYNOUS;
+						return PresetColour.ANDROGYNOUS;
 					}
 					@Override
 					public void effects() {
@@ -1352,7 +1353,7 @@ public class GamblingDenDialogue {
 								
 								for(Subspecies r : results) {
 									Main.game.getTextEndStringBuilder().append(
-											"<div class='modifier-icon' style='width:31.3%; margin:0 1%; border:3px solid "+(winner?Colour.GENERIC_EXCELLENT.toWebHexString():"")+"; display:inline-block;'>"
+											"<div class='modifier-icon' style='width:31.3%; margin:0 1%; border:3px solid "+(winner?PresetColour.GENERIC_EXCELLENT.toWebHexString():"")+"; display:inline-block;'>"
 													+"<div class='modifier-icon-content'>"+r.getSVGString(null)+"</div>"
 											+ "</div>");
 								}

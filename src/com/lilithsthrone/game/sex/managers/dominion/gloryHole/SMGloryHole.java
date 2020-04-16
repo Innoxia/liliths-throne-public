@@ -19,8 +19,8 @@ import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.places.Population;
 
 /**
@@ -125,7 +125,7 @@ public class SMGloryHole extends SexManagerDefault {
 
 	@Override
 	public String getPublicSexStartingDescription() {
-		return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+		return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 					+ "As you let out [pc.a_moan+], several of the people in the toilets turn around to see what's happening."
 					+ " Seeing the door to your stall left wide open, and with you about to get started on servicing the cocks before you, a few of them step up and prepare to watch..."
 				+ "</p>";
@@ -140,7 +140,7 @@ public class SMGloryHole extends SexManagerDefault {
 		if(!subspeciesSet.isEmpty()) {
 			Subspecies subspecies = Util.randomItemFrom(subspeciesSet);
 			
-			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+			return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 						+ UtilText.returnStringAtRandom(
 							"The people who've gathered to watch your lewd display laugh and cheer as they look on.",
 							"You hear someone in the crowd wolf-whistling as they watch you servicing the glory holes.",

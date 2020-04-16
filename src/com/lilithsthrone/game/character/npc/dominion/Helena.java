@@ -23,6 +23,8 @@ import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
@@ -39,6 +41,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
@@ -53,14 +56,20 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -81,7 +90,7 @@ public class Helena extends NPC {
 						+ " Her beauty rivals that of even the most gorgeous of succubi, which, combined with her sharp mind and regal personality, makes her somewhat of an idol in harpy society.",
 				26, Month.MAY, 3,
 				10, Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST, true);
+				new CharacterInventory(30), WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_HELENA_BEDROOM, true);
 		
 		if(!isImported) {
 			this.addSpell(Spell.SLAM);
@@ -121,14 +130,22 @@ public class Helena extends NPC {
 			this.setSurname("Labelle");
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.9")) {
-			this.equipClothing();
 			this.clearFetishes();
 			this.addFetish(Fetish.FETISH_PURE_VIRGIN);
 			this.resetPerksMap(true, false);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
-			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_PALE), true);
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BLUE_LIGHT));
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_PALE), true);
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, PresetColour.EYE_BLUE_LIGHT));
 			this.setHairStyle(HairStyle.STRAIGHT);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7")) {
+			this.equipClothing();
+			this.setFetishDesire(Fetish.FETISH_KINK_RECEIVING, FetishDesire.THREE_LIKE);
+			this.setHomeLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_HELENA_BEDROOM);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.1")) {
+			this.setDescription("Helena is an extremely powerful harpy matriarch, and is in control of one of the largest harpy flocks in Dominion."
+						+ " Her beauty rivals that of even the most gorgeous of succubi, which, combined with her sharp mind and regal personality, makes her somewhat of an idol in harpy society.");
 		}
 	}
 
@@ -159,6 +176,7 @@ public class Helena extends NPC {
 			this.setHistory(Occupation.NPC_HARPY_MATRIARCH);
 			
 			this.addFetish(Fetish.FETISH_PURE_VIRGIN);
+			this.setFetishDesire(Fetish.FETISH_KINK_RECEIVING, FetishDesire.THREE_LIKE);
 		}
 		
 		// Body:
@@ -170,26 +188,26 @@ public class Helena extends NPC {
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
 		
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_BLUE_LIGHT));
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_PALE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.COVERING_WHITE), true);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, PresetColour.EYE_BLUE_LIGHT));
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_PALE), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, PresetColour.COVERING_WHITE), true);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.COVERING_WHITE), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, PresetColour.COVERING_WHITE), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
 		this.setHairStyle(HairStyle.STRAIGHT);
 		
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HARPY, Colour.COVERING_WHITE), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HARPY, PresetColour.COVERING_WHITE), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.TWO_MANICURED);
 		this.setFacialHair(BodyHair.ZERO_NONE);
 		
-		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, Colour.COVERING_CLEAR));
-		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_CLEAR));
-//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, Colour.COVERING_BLACK));
-		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
-		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, Colour.COVERING_BLACK));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_CLEAR));
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_CLEAR));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_BLACK));
+		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_RED));
+		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+//		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_BLACK));
 		
 		// Face:
 		this.setFaceVirgin(true);
@@ -235,17 +253,35 @@ public class Helena extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.setPiercedEar(true);
-		this.setPiercedNavel(false);
-		this.setPiercedNose(false);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_hoops", Colour.CLOTHING_GOLD, false), true, this);
+		if(this.isSlutty()) {
+			this.setPiercedEar(true);
+			this.setPiercedNavel(true);
+			this.setPiercedNose(true);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_PURPLE_ROYAL, null, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_GOLD, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_velvet_choker", PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, PresetColour.CLOTHING_GOLD, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_PLUNGE_DRESS, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_tiara", Colour.CLOTHING_GOLD, false), true, this);
-//		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_GOLD, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_BLACK, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_TUBE_TOP, PresetColour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_micro_skirt_belted", PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GOLD, null, false), true, this);
+			
+		} else {
+			this.setPiercedEar(true);
+			this.setPiercedNavel(false);
+			this.setPiercedNose(false);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_chain_dangle", PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
 
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_tiara", PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, PresetColour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, PresetColour.CLOTHING_WHITE, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_PLUNGE_DRESS, PresetColour.CLOTHING_WHITE, false), true, this);
+		}
 	}
 	
 	@Override
@@ -264,10 +300,9 @@ public class Helena extends NPC {
 	
 	@Override
 	public void dailyUpdate() {
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaGoneHome, false);
-		
-		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
-			for(String id : this.getSlavesOwned()) {
+		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA)
+				&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
+			for(String id : new ArrayList<>(this.getSlavesOwned())) {
 				if(Main.game.isCharacterExisting(id)) {
 					Main.game.banishNPC(id);
 				}
@@ -294,7 +329,7 @@ public class Helena extends NPC {
 					newSlave.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 					addSlave(newSlave);
 					newSlave.resetInventory(true);
-					newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Helena.class));
+					newSlave.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false), true, Main.game.getNpc(Helena.class));
 					newSlave.setPlayerKnowsName(true);
 				}
 			}
@@ -308,26 +343,39 @@ public class Helena extends NPC {
 	@Override
 	public void turnUpdate() {
 		if(!Main.game.getCharactersPresent().contains(this)) {
-			if((Main.game.getPlayer().hasQuest(QuestLine.MAIN) && !Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_E_REPORT_TO_HELENA))
-					|| Main.game.getPlayer().isQuestFailed(QuestLine.ROMANCE_HELENA)) {
-				if(Main.game.isExtendedWorkTime()) {
-					this.setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST, true);
+			boolean nestHours = (Main.game.isDayTime() && Main.game.getDateNow().getDayOfWeek()!=DayOfWeek.FRIDAY) // If Friday, don't set Helena to her nest after work
+					|| (Main.game.getHourOfDay()>8 && Main.game.getHourOfDay()<21);
+			
+			if(!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_E_REPORT_TO_HELENA) || Main.game.getPlayer().isQuestFailed(QuestLine.ROMANCE_HELENA)) {
+				if(nestHours) {
+					this.setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST);
 					
 				} else {
-					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+					this.returnToHome();
 				}
 				
 			} else {
-				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaGoneHome)
-						&& ((Main.game.isWorkTime() && Main.game.getDateNow().getDayOfWeek()!=DayOfWeek.SATURDAY && Main.game.getDateNow().getDayOfWeek()!=DayOfWeek.SUNDAY) // Helena doesn't work over the weekend
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaGoneHome)) {
+					this.returnToHome();
+					
+				} else if(((Main.game.isWorkTime() && !Main.game.isWeekend()) // Helena doesn't work over the weekend
 							|| Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE
 							|| (Main.game.getDateNow().getDayOfWeek()==DayOfWeek.FRIDAY && Main.game.getHourOfDay()>12 && Main.game.getHourOfDay()<21))) { // Helena works late on Fridays
-					this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+					this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 					
 				} else {
-					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+					if(Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA)
+							&& Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
+							&& nestHours
+							&& (Main.game.isWeekend() || Main.game.getHourOfDay()>12)) { // Do not appear in nest before work
+						this.setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST);
+						
+					} else {
+						this.returnToHome();
+					}
 					
-					if(!this.getSlavesOwned().isEmpty() && !Main.game.isWorkTime() && Main.game.getHourOfDay()>12) {
+					// Helena's slaves after completing her romance quest are in holding for the player, and so should not be removed.
+					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA) && !this.getSlavesOwned().isEmpty() && !Main.game.isWorkTime() && Main.game.getHourOfDay()>12) {
 						sellOffRemainingSlaves();
 					}
 				}
@@ -339,14 +387,148 @@ public class Helena extends NPC {
 	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
+
+	@Override
+	public String getGiftReaction(AbstractCoreItem gift, boolean applyEffects) {
+		String text = null;
+		if(gift instanceof AbstractItem) {
+			AbstractItemType type = ((AbstractItem)gift).getItemType();
+			if(type.equals(ItemType.GIFT_CHOCOLATES)) {
+				text =  UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_CHOCOLATES")
+						+(applyEffects
+								?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
+								:"");
+				
+			} else if(type.equals(ItemType.GIFT_PERFUME)) {
+				text =  UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_PERFUME")
+					+(applyEffects
+							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
+							:"");
+				
+			} else if(type.equals(ItemType.GIFT_ROSE_BOUQUET)) {
+				text =  UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_ROSES")
+					+(applyEffects
+							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 10)
+							:"");
+				
+			} else if(type.equals(ItemType.GIFT_TEDDY_BEAR)) {
+				text =  UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_TEDDY_BEAR")
+					+(applyEffects
+							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), -5)
+							:"");
+			}
+			
+		} else if(gift instanceof AbstractClothing) {
+			AbstractClothingType type = ((AbstractClothing)gift).getClothingType();
+			if(type.equals(ClothingType.getClothingTypeFromId("innoxia_hair_rose"))) {
+				text = UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_SINGLE_ROSE")
+						+(applyEffects
+								?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
+								:"");
+					
+			}
+		}
+		
+		if(applyEffects) {
+			if(text!=null) {
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaGift, true);
+			}
+		}
+		return text;
+	}
 	
 	public void sellOffRemainingSlaves() {
-		for(String id : this.getSlavesOwned()) {
+		for(String id : new ArrayList<>(this.getSlavesOwned())) {
 			if(Main.game.isCharacterExisting(id)) {
 				Main.game.banishNPC(id);
 			}
 		}
 		this.removeAllSlaves();
+	}
+	
+	public boolean isSlutty() {
+		return !this.isVaginaVirgin() || this.hasFetish(Fetish.FETISH_LUSTY_MAIDEN);
+	}
+	
+	public void applySlut() {
+		// Hair:
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.HIGHLIGHTS, CoveringModifier.SMOOTH, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_BLEACH_BLONDE, false), true);
+		this.setPubicHair(BodyHair.ZERO_NONE);
+		
+		// Makeup:
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, CoveringPattern.NONE, CoveringModifier.SPARKLY, PresetColour.COVERING_PINK, false, PresetColour.COVERING_PINK, false));
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, CoveringPattern.NONE, CoveringModifier.SPARKLY, PresetColour.COVERING_PINK, false, PresetColour.COVERING_PINK, false));
+//		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_BLACK));
+		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, CoveringPattern.NONE, CoveringModifier.GLOSSY, PresetColour.COVERING_PINK, false, PresetColour.COVERING_PINK, false));
+		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
+		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.BASE_PURPLE_DARK));
+	}
+	
+	public void applyDressForDate() {
+		this.unequipAllClothingIntoVoid(true, true);
+		
+		if(this.isSlutty()) {
+			this.setPiercedEar(true);
+			this.setPiercedNavel(true);
+			this.setPiercedNose(true);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_PURPLE_ROYAL, null, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_GOLD, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_velvet_choker", PresetColour.CLOTHING_BLACK, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torso_plunge_club_dress", PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_GOLD, null, false), true, this);
+			
+		} else {
+			this.setPiercedEar(true);
+			this.setPiercedNavel(false);
+			this.setPiercedNose(false);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_pearl_studs", PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_SILVER, null, false), true, this);
+
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_tiara", PresetColour.CLOTHING_GOLD, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_diamond_necklace", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, null, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_chest_strapless_bra", PresetColour.CLOTHING_WHITE, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("phlarx_dresses_evening_gown", PresetColour.CLOTHING_WHITE, false), true, this);
+		}
+	}
+
+	public void applyLingerie() {
+		this.unequipAllClothingIntoVoid(true, true);
+		
+		if(this.isSlutty()) {
+			this.setPiercedEar(true);
+			this.setPiercedNavel(true);
+			this.setPiercedNose(true);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_PURPLE_ROYAL, null, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_GOLD, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
+			
+		} else {
+			this.setPiercedEar(true);
+			this.setPiercedNavel(false);
+			this.setPiercedNose(false);
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaBedroomFromNest)) {
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_chain_dangle", PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
+			} else {
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_pearl_studs", PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_SILVER, null, false), true, this);
+			}
+
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, PresetColour.CLOTHING_WHITE, false), true, this);
+		}
+	}
+	
+	public void applyDressForMorning() {
+		this.unequipAllClothingIntoVoid(true, true);
+
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_SHIMAPAN, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_WHITE, null, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_CHEMISE, PresetColour.CLOTHING_BLACK, false), true, this);
 	}
 
 }

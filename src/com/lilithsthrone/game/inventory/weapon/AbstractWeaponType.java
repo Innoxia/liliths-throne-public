@@ -41,10 +41,11 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.utils.colours.ColourListPresets;
 
 /**
  * @since 0.1.84
@@ -447,7 +448,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 					try {
 						if(values.isEmpty()) {
 							return colorsElement.getAllOf("colour").stream()
-									.map(Element::getTextContent).map(Colour::valueOf)
+									.map(Element::getTextContent).map(PresetColour::getColourFromId)
 									.collect(Collectors.toList());
 						} else {
 							return ColourListPresets.getColourListFromId(values);
@@ -574,7 +575,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		
 		if (primaryColour == null || !wt.getAllAvailablePrimaryColours().contains(primaryColour)) {
 			if(wt.getAvailablePrimaryColours().isEmpty()) {
-				c1 = Colour.CLOTHING_BLACK;
+				c1 = PresetColour.CLOTHING_BLACK;
 			} else {
 				c1 = wt.getAvailablePrimaryColours().get(Util.random.nextInt(wt.getAvailablePrimaryColours().size()));
 			}
@@ -582,7 +583,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		
 		if (secondaryColour == null || !wt.getAllAvailableSecondaryColours().contains(secondaryColour)) {
 			if(wt.getAvailableSecondaryColours().isEmpty()) {
-				c2 = Colour.CLOTHING_BLACK;
+				c2 = PresetColour.CLOTHING_BLACK;
 			} else {
 				c2 = wt.getAvailableSecondaryColours().get(Util.random.nextInt(wt.getAvailableSecondaryColours().size()));
 			}
@@ -590,7 +591,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 
 		if (tertiaryColour == null || !wt.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
 			if(wt.getAvailableTertiaryColours().isEmpty()) {
-				c3 = Colour.CLOTHING_BLACK;
+				c3 = PresetColour.CLOTHING_BLACK;
 			} else {
 				c3 = wt.getAvailableTertiaryColours().get(Util.random.nextInt(wt.getAvailableTertiaryColours().size()));
 			}
@@ -654,13 +655,12 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			this.availablePrimaryDyeColours.addAll(availablePrimaryDyeColours);
 		}
 		
-		this.allAvailablePrimaryColours = new ArrayList<>();
+		this.allAvailablePrimaryColours = new ArrayList<>(ColourListPresets.ALL_WITH_METALS);
 		colourSet.addAll(this.availablePrimaryColours);
 		if(availablePrimaryDyeColours!=null) {
 			colourSet.addAll(availablePrimaryDyeColours);
 		}
-		this.allAvailablePrimaryColours.addAll(colourSet);
-		this.allAvailablePrimaryColours.sort((c1, c2) -> c1.compareTo(c2));
+		this.allAvailablePrimaryColours.removeIf((c)->!colourSet.contains(c));
 		
 		// Secondary:
 		
@@ -675,15 +675,14 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 
 		colourSet.clear();
-		this.allAvailableSecondaryColours = new ArrayList<>();
+		this.allAvailableSecondaryColours = new ArrayList<>(ColourListPresets.ALL_WITH_METALS);
 		if(availableSecondaryColours!=null) {
 			colourSet.addAll(availableSecondaryColours);
 		}
 		if(availableSecondaryDyeColours!=null) {
 			colourSet.addAll(availableSecondaryDyeColours);
 		}
-		this.allAvailableSecondaryColours.addAll(colourSet);
-		this.allAvailableSecondaryColours.sort((c1, c2) -> c1.compareTo(c2));
+		this.allAvailableSecondaryColours.removeIf((c)->!colourSet.contains(c));
 
 		// Tertiary:
 
@@ -698,15 +697,14 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		}
 
 		colourSet.clear();
-		this.allAvailableTertiaryColours = new ArrayList<>();
+		this.allAvailableTertiaryColours = new ArrayList<>(ColourListPresets.ALL_WITH_METALS);
 		if(availableTertiaryColours!=null) {
 			colourSet.addAll(availableTertiaryColours);
 		}
 		if(availableTertiaryDyeColours!=null) {
 			colourSet.addAll(availableTertiaryDyeColours);
 		}
-		this.allAvailableTertiaryColours.addAll(colourSet);
-		this.allAvailableTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
+		this.allAvailableTertiaryColours.removeIf((c)->!colourSet.contains(c));
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -1019,15 +1017,15 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			}
 		}
 		
-		Colour pColour = Colour.CLOTHING_BLACK;
+		Colour pColour = PresetColour.CLOTHING_BLACK;
 		if(this.getAllAvailablePrimaryColours()!=null && !this.getAllAvailablePrimaryColours().isEmpty()) {
 			pColour = this.getAllAvailablePrimaryColours().get(0);
 		}
-		Colour sColour = Colour.CLOTHING_BLACK;
+		Colour sColour = PresetColour.CLOTHING_BLACK;
 		if(this.getAllAvailableSecondaryColours()!=null && !this.getAllAvailableSecondaryColours().isEmpty()) {
 			sColour = this.getAllAvailableSecondaryColours().get(0);
 		}
-		Colour tColour = Colour.CLOTHING_BLACK;
+		Colour tColour = PresetColour.CLOTHING_BLACK;
 		if(this.getAllAvailableTertiaryColours()!=null && !this.getAllAvailableTertiaryColours().isEmpty()) {
 			sColour = this.getAllAvailableTertiaryColours().get(0);
 		}
@@ -1116,15 +1114,15 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			}
 		}
 		
-		Colour pColour = Colour.CLOTHING_BLACK;
+		Colour pColour = PresetColour.CLOTHING_BLACK;
 		if(this.getAllAvailablePrimaryColours()!=null && !this.getAllAvailablePrimaryColours().isEmpty()) {
 			pColour = this.getAllAvailablePrimaryColours().get(0);
 		}
-		Colour sColour = Colour.CLOTHING_BLACK;
+		Colour sColour = PresetColour.CLOTHING_BLACK;
 		if(this.getAllAvailableSecondaryColours()!=null && !this.getAllAvailableSecondaryColours().isEmpty()) {
 			sColour = this.getAllAvailableSecondaryColours().get(0);
 		}
-		Colour tColour = Colour.CLOTHING_BLACK;
+		Colour tColour = PresetColour.CLOTHING_BLACK;
 		if(this.getAllAvailableTertiaryColours()!=null && !this.getAllAvailableTertiaryColours().isEmpty()) {
 			sColour = this.getAllAvailableTertiaryColours().get(0);
 		}

@@ -14,10 +14,11 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.1
@@ -84,7 +85,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving 
 		parentElement.appendChild(element);
 		
 		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
-		CharacterUtils.addAttribute(doc, element, "colour", String.valueOf(this.getColour()));
+		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().getId());
 		CharacterUtils.addAttribute(doc, element, "milkProvider", this.getMilkProviderId());
 		CharacterUtils.addAttribute(doc, element, "millilitresStored", String.valueOf(this.getMillilitresStored()));
 		
@@ -108,7 +109,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving 
 		}
 		return new AbstractFilledBreastPump(
 				ItemType.getIdToItemMap().get(parentElement.getAttribute("id")),
-				Colour.valueOf(parentElement.getAttribute("colour")),
+				PresetColour.getColourFromId(parentElement.getAttribute("colour")),
 				provider,
 				((Element) parentElement.getElementsByTagName("milk").item(0)==null
 					?new FluidMilk(FluidType.MILK_HUMAN, false)

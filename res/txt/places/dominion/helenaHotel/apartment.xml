@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- PLACE_HALLWAY -->
+	
+	<htmlContent tag="PLACE_HALLWAY"><![CDATA[
+	<p>
+		Hallway through Helena's apartment. Occasional harpy maids stop to curtsy as you pass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PLACE_BALCONY -->
+	
+	<htmlContent tag="PLACE_BALCONY"><![CDATA[
+	<p>
+		Balcony overlooking Dominion streets. Higher than buildings around, so still have privacy (apart from occasional harpy swooping around overhead).
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PLACE_ENTRANCE_HALL -->
+	
+	<htmlContent tag="PLACE_ENTRANCE_HALL"><![CDATA[
+	<p>
+		Large entrance hall. Luxuriously furnished.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PLACE_HELENA_BEDROOM -->
+	
+	<htmlContent tag="PLACE_HELENA_BEDROOM"><![CDATA[
+	<p>
+		Helena's bedroom is very large. King-sized bed and massive walk-in wardrobe.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PLACE_SCARLETT_BEDROOM -->
+	
+	<htmlContent tag="PLACE_SCARLETT_BEDROOM"><![CDATA[
+	<p>
+		Scarlett's bedroom is very large. King-sized bed and massive walk-in wardrobe.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PLACE_BEDROOM -->
+	
+	<htmlContent tag="PLACE_BEDROOM"><![CDATA[
+	<p>
+		Guest bedroom.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PLACE_OFFICE -->
+	
+	<htmlContent tag="PLACE_OFFICE"><![CDATA[
+	<p>
+		Helena's study room has several large bookcases stacked full of expensive-looking tomes.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PLACE_KITCHEN -->
+	
+	<htmlContent tag="PLACE_KITCHEN"><![CDATA[
+	<p>
+		Kitchen is staffed by professional harpy chef.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PLACE_DINING_ROOM -->
+	
+	<htmlContent tag="PLACE_DINING_ROOM"><![CDATA[
+	<p>
+		Large dining table with a dozen chairs. Harpy maid is standing ready to serve.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PLACE_LOUNGE -->
+	
+	<htmlContent tag="PLACE_LOUNGE"><![CDATA[
+	<p>
+		Huge lounge with a dozen comfortable sofas positioned around the place.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PLACE_HOT_TUB -->
+	
+	<htmlContent tag="PLACE_HOT_TUB"><![CDATA[
+	<p>
+		Arcane-powered hot tub in one corner of the balcony.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

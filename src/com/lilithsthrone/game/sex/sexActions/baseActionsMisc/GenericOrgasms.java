@@ -59,12 +59,12 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.69
- * @version 0.3.5
+ * @version 0.3.7
  * @author Innoxia
  */
 public class GenericOrgasms {
 	
-	private static boolean isTakingCock(GameCharacter character, GameCharacter penetrator) {
+	public static boolean isTakingCock(GameCharacter character, GameCharacter penetrator) {
 		return !Collections.disjoint(
 				Main.sex.getOngoingSexAreas(penetrator, SexAreaPenetration.PENIS, character),
 				Util.newArrayListOfValues(SexAreaOrifice.VAGINA, SexAreaOrifice.ANUS, SexAreaOrifice.NIPPLE, SexAreaOrifice.MOUTH, SexAreaOrifice.URETHRA_PENIS, SexAreaOrifice.URETHRA_VAGINA, SexAreaOrifice.BREAST, SexAreaPenetration.FOOT));
@@ -4453,7 +4453,6 @@ public class GenericOrgasms {
 		public String getDescription() {
 			String description = "";
 			
-			
 			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_GENTLE:
 					description = "[npc.Name] [npc.verb(let)] out a soft [npc.moan] of encouragement as [npc.she] [npc.verb(prepare)] for [npc2.name] to reach [npc2.her] orgasm.";
@@ -4488,6 +4487,11 @@ public class GenericOrgasms {
 	}
 	
 	private static boolean isSpecialCreampieLockConditionMet(SexAction sexAction, GameCharacter characterProvidingCreampie, GameCharacter characterReceivingCreampie, SexAreaInterface areaFucked) {
+		//Do not allow if sex manager has special pull out conditions:
+		if(Main.sex.getInitialSexManager().getCharacterOrgasmBehaviour(characterProvidingCreampie)==OrgasmBehaviour.PULL_OUT) {
+			return false;
+		}
+		
 		if(areaFucked==SexAreaOrifice.MOUTH) {
 			return (PenisMouth.getPrimaryBlowjobPerformer(characterProvidingCreampie).equals(characterReceivingCreampie));
 		}
@@ -4799,7 +4803,7 @@ public class GenericOrgasms {
 	}
 	
 	private static String getForcedCreampieSpeech(SexAction sexAction) {
-		boolean knowsName = Main.sex.getCharacterTargetedForSexAction(sexAction).isPlayer() || Main.sex.getCharacterTargetedForSexAction(sexAction).isPlayerKnowsName();
+		boolean knowsName = (Main.sex.getCharacterTargetedForSexAction(sexAction).isPlayer() && Main.sex.getCharacterPerformingAction().isPlayerKnowsName()) || Main.sex.getCharacterTargetedForSexAction(sexAction).isPlayerKnowsName();
 		
 		if(isRealPenisFuckingCharacter(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(sexAction))) {
 			if(isAreaFuckedByTarget(sexAction, Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA)) {

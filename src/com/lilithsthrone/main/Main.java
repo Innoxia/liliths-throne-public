@@ -30,8 +30,8 @@ import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -53,7 +53,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.3.6.9
+ * @version 0.3.7.1
  * @author Innoxia
  */
 public class Main extends Application {
@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.6.9";
+	public static final String VERSION_NUMBER = "0.3.7.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -86,16 +86,11 @@ public class Main extends Application {
 	public static String patchNotes =
 		
 		"<p>"
-			+ "Hello once again!"
+			+ "Hello again!"
 		+ "</p>"
 		
 		+ "<p>"
-			+ "Sorry about all the delays leading up to this version; I kept on getting sidetracked by fixing/adjusting things which kept on cropping up during the work on Helena's romance quest."
-			+ " As a result of all these unexpected issues eating up my time, her content still isn't finished, and so I've disabled the action which starts her quest until the next version (when it should all be finished)."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "I'll try to get the next update out in about a week from this release, but if it's going to take a little longer to get all of the content added which I have planned, then it might be delayed..."
+			+ "Once again, this version is in a little bit of a rough state. There will be a more polished release out very soon, which will include the completed Helena date content!"
 		+ "</p>"
 			
 		+ "<br/>"
@@ -106,6 +101,110 @@ public class Main extends Application {
 		+ "</p>"
 
 		+ "<br/>"
+		+ "<list>"
+		+ "<h6>v0.3.7.1</h6>"
+			+"<li>Other:</li>"
+			+"<ul>Added support for throat capacity, elasticity, plasticity, and wetness transformations from clothing. Also added depth transformations from clothing for all orifices.</ul>"
+			+"<ul>The chance for a client to just grope your prostitute slaves has been reduced from 20% to 5%.</ul>"
+			+"<ul>Added 'offspring birthed' and 'oral deflowerments' as tattoo counter types.</ul>"
+			+"<ul>Tattoos can now be enchanted with 'major' attributes, such as physique, arcane, health, etc.</ul>"
+			+"<ul>Slime and imp spawns in Submission's tunnels are no longer affected by user preferences (as they need to spawn for story/quest reasons).</ul>"
+			+"<ul>The feathered wing transformation, which was previously exclusive to horse-morphs (to make pegasi), are now available for all non-demonic and non-angelic races. (i.e. Any normal race's TF food item can now be enchanted to give feathered back wings.)</ul>"
+			+"<ul>Arousal gains from masochist/sadist special arousal effects are now limited to 10 per attack instead of 25.</ul>"
+			+"<ul>Added minor description of centaur-pulled carts being present throughout Dominion.</ul>"
+	
+			+"<li>Sex:</li>"
+			+"<ul>Added: Double cunnilingus support (i.e. two characters performing cunnilingus on one character at the same time).</ul>"
+			+"<ul>Fixed issue where characters in the 'kneeling oral' slots in the 'sitting' position could have sex/tribbing with one another.</ul>"
+			+"<ul>Characters sitting down in the 'sitting' position can now interact with characters sitting next to them.</ul>"
+			+"<ul>Random NPCs whose name you do not know (and therefore they do not know your name) will no longer call out your name during sex.</ul>"
+			+"<ul>In quick sex which involves multiple orgasms, characters will now regenerate 5 minutes' worth of cum regeneration between orgasms.</ul>"
+			+"<ul>Added stomach bulge text for too large penetrations inside of size queens and masochists.</ul>"
+	
+			+"<li>Bugs:</li>"
+			+"<ul>Parsing fixes.</ul>"
+			+"<ul>Fixed issue with imp and half-demon offspring not being encountered in Submission's tunnels.</ul>"
+			+"<ul>Fixed minor bug with incorrect colour parsing in offspring birthed list.</ul>"
+			+"<ul>Fixed bug where all femininity changes would be described as being masculine, even if they made the target more feminine.</ul>"
+			+"<ul>Fixed incorrect opening times being displayed in Enforcer HQ dialogue.</ul>"
+			+"<ul>Fixed Helena's description referring to her as 'Alexa'.</ul>"
+			+"<ul>Fixed bug where penis reveal dialogue was parsing incorrectly.</ul>"
+			+"<ul>Fixed personality trait removals from the hypno watch not being described correctly.</ul>"
+			+"<ul>Tattoo counters for sub/dom sex should now correctly increment for slaves who have sex while working as a prostitute or set as public use in the stocks.</ul>"
+			+"<ul>Fixed issue where sex experience buttons in character creation wouldn't work.</ul>"
+			+"<ul>Fixed some minor issues with 'dirty talk' parsing during sex.</ul>"
+			+"<ul>Characters who are visibly pregnant will no longer be described as having their stomach bulge out when their vagina or ass is penetrated too deeply.</ul>"
+			+"<ul>Fixed bug where job recommendations you've made to friendly occupants would be reset upon loading your game.</ul>"
+			+"<ul>Fixed clothing pattern dye colours not displaying in the dye menu.</ul>"
+			+"<ul>Fixed bug where opening/closing the main menu screen while managing a room or people in Lilaya's house would return you to a previous, unrelated scene.</ul>"
+			+"<ul>NPCs in sex will no longer keep on offering you pills after you've refused them the first time.</ul>"
+			+"<ul>Fixed bug where all management options would be disabled in the scene after having sex with a slave.</ul>"
+			+"<ul>Fixed bug in combat where enemies hit by sadists would have their arousal increased, instead of the sadistic attacker.</ul>"
+			+"<ul>Basic earrings are now considered to be unisex again.</ul>"
+		+"</list>"
+			
+		+ "<br/>"
+		
+		+ "<list>"
+		+ "<h6>v0.3.7</h6>"
+			+"<li>Engine:</li>"
+			+"<ul>Converted Colour Enum into a 'PresetColour' class, which contains static Colour classes.</ul>"
+			+"<ul>Added parsing commands for toy inserted into character's vagina.</ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul>Added first section of Helena's romance quest.</ul>"
+			+"<ul>The alleyway tile immediately to the north of Slaver Alley is now a 'safe' alleyway tile. Any NPC which was present in this tile has been moved to one of two new back alley tiles to the south-west of Dominion.</ul>"
+			+"<ul>You can now enter the cafes in Slaver Alley, and the descriptions of the inaccessible slaver stores have been slightly altered.</ul>"
+			
+			+"<li>Items:</li>"
+			+"<ul>Added: 'Velvet choker' (androgynous, neck slot, sold by Nyan).</ul>"
+			+"<ul>Added: 'Dangle chain earrings' (feminine, ear piercing slot, sold by Kate).</ul>"
+			+"<ul>Added: 'Plunge-neck clubbing dress' (feminine, torso slot, sold by Nyan).</ul>"
+			+"<ul>Added: 'Strapless bra' (feminine, chest slot, sold by Nyan).</ul>"
+			+"<ul>Added: 'Diamond necklace' (feminine, neck slot, sold by Nyan).</ul>"
+			+"<ul>Added item tag 'CHOKER_SNAP', which causes the item worn to snap when the wearer's throat bulges too much during sex. (Applied to the new 'velvet choker' item.)</ul>"
+			+"<ul>'Angel's Tears' now reduces the drinker's lust to their resting lust level.</ul>"
+			
+			+"<li>Sex:</li>"
+			+"<ul>The capacity of the 'throat' orifice now behaves in the same manner as other orifices, and will stretch/recover based on its plasticity/elasticity. (The references to 'blowjob ability' in character's description screens will be restored later on once I add effects for fetish experience.)</ul>"
+			+"<ul>Characters can now receive paizuri from the character they are sitting on while in the 'cowgirl' position (provided that they aren't riding that person's cock).</ul>"
+			+"<ul>Characters performing oral in missionary position (with their face between their partner's legs) can now force their partner to cum inside them.</ul>"
+			+"<ul>NPCs who are fucking someone (using their penis) will no longer start fingering their own anus/vagina.</ul>"
+			+"<ul>'Orgasm cum lock' actions are no longer available if the sex manager is setting a special pullout condition for the other NPC. (This will only affect a few special sex scenes.)</ul>"
+			+"<ul>The character lying underneath in the 69 position can now perform anilingus on their partner who's on top.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added 'grey-green' as a natural iris colour.</ul>"
+			+"<ul>Randomly-spawned fox-morphs should now correctly have orange-white, tan-white, grey-white, or black fur.</ul>"
+			+"<ul>Added penis diameter to characters' body overview tooltip.</ul>"
+			+"<ul>The 'dirty clothing' and 'dirty body' status effects now give +5 corruption each, instead of -2 arcane.</ul>"
+			+"<ul>Horse-morphs with anthro horse-morph faces now spawn in with 'natural' hair styles (representing a mane) if they are not feminine. If feminine, they have a 50% chance of having a mane.</ul>"
+			+"<ul>Randomly-selected hair styles are now additionally filtered by femininity. (This does not affect anything other than random NPC spawns.)</ul>"
+			+"<ul>Debug menu's '+50 essences' action is now '+1000 essences'.</ul>"
+			+"<ul>Slightly improved formatting of furry preferences screen.</ul>"
+			+"<ul>Reduced values of racial food items.</ul>"
+			+"<ul>Added button to randomise name in slave renaming management screen.</ul>"
+			+"<ul>Added throat capacity, depth, elasticity, and plasticity to self-transformation menu.</ul>"
+			+"<ul>Improved the UI for changing covering colours, as well as for the other options in Kate's shop.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Parsing fixes.</ul>"
+			+"<ul>Fixed incorrectly displaying 'dense crowds' as being present on Dominion's boulevard tiles during an arcane storm.</ul>"
+			+"<ul>Fixed incorrect name formatting for clothing which had a colour pattern.</ul>"
+			+"<ul>Performing/receiving paizuri will no longer output an error message to the error.log file.</ul>"
+			+"<ul>Fixed UI bug where the inventory overview panel's bottom border would grow when clicking on clothing during combat or sex.</ul>"
+			+"<ul>The ordering of the event log is no longer reversed when loading a game.</ul>"
+			+"<ul>Losing to Sean in his challenge now correctly moves you over to the public stocks tile.</ul>"
+			+"<ul>Fixed bug where knotting descriptions would sometimes incorrectly describe a character's tail as being the penetration type that had a knot instead of their penis.</ul>"
+			+"<ul>Fixed bug where you couldn't offer your ass to Scarlett when she was attracted to you, but you could if she wasn't attracted to you. Also fixed related bug where 'Offer ass' would be displayed in every response slot when it was available.</ul>"
+			+"<ul>Scarlett's sex scene in her nest is no longer treated as being 'public sex', and she will now correctly want to continue fucking your ass once started.</ul>"
+			+"<ul>Characters in unique sex scenes will no longer move into positions in which they can't satisfy their sex desires.</ul>"
+			+"<ul>Fixed minor bug where setting penis/vagina sex experience in character creation, then going back to remove your vagina/penis wouldn't reset the underlying sex experience.</ul>"
+			+"<ul>Fixed bug where some coloured words would not be capitalised as intended.</ul>"
+		+"</list>"
+			
+		+"<br/>"
+		
 		+ "<list>"
 		+ "<h6>v0.3.6.9</h6>"
 			+"<li>Contributors:</li>"
@@ -430,7 +529,7 @@ public class Main extends Application {
 		+"</list>"
 	;
 	
-	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
+	public static String disclaimer = "<h6 style='text-align: center; color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
 
 			+ "<p>This game is a <b>fictional</b> text-based erotic RPG. All content contained within this game forms part of a fictional universe that is not related to real-life places, people or events.<br/><br/>"
 
@@ -1050,16 +1149,16 @@ public class Main extends Application {
 	
 	public static void quickSaveGame() {
 		if (Main.game.isInCombat()) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot quicksave while in combat!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot quicksave while in combat!");
 			
 		} else if (Main.game.isInSex()) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot quicksave while in sex!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot quicksave while in sex!");
 			
 		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.NORMAL) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Can only quicksave in a normal scene!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Can only quicksave in a normal scene!");
 			
 		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogue(false))) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot save in this scene!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot save in this scene!");
 			
 		} else {
 			Main.getProperties().lastQuickSaveName = getQuickSaveName();
@@ -1077,15 +1176,15 @@ public class Main extends Application {
 	
 	public static void saveGame(String name, boolean allowOverwrite) {
 		if (name.length()==0) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Name too short!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too short!");
 			return;
 		}
 		if (name.length() > 32) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Name too long!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too long!");
 			return;
 		}
 		if (name.contains("\"")) {//!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9' _]*")) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Incompatible characters!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Incompatible characters!");
 			return;
 		}
 		
@@ -1142,7 +1241,7 @@ public class Main extends Application {
 			}
 			
 		} else {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
 		}
 	}
 	
@@ -1158,7 +1257,7 @@ public class Main extends Application {
 			}
 			
 		} else {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
 		}
 	}
 	
@@ -1174,7 +1273,7 @@ public class Main extends Application {
 			}
 			
 		} else {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
 		}
 	}
 	

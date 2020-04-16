@@ -7,6 +7,7 @@ import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexActionInteractions;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotBreedingStall;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -100,6 +101,39 @@ public class StandardSexActionInteractions {
 									?OrgasmCumTarget.GROIN
 									:null,
 								OrgasmCumTarget.LEGS,
+								OrgasmCumTarget.FLOOR)))));
+			}
+	};
+
+	public static VariableInteractions kneelingBeside = new VariableInteractions() {
+			@Override
+			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+				GameCharacter performer = getCharacter(performerSlot);
+				GameCharacter target = getCharacter(targetSlot);
+				
+				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
+						new SexActionInteractions(
+						Util.mergeMaps(
+								!target.isTaur()
+									?SexActionPresets.appendagesToAllAreas
+									:(target.getLegConfiguration().isBipedalPositionedCrotchBoobs()
+											?SexActionPresets.appendagesToCrotchBoobs
+											:null),
+								!performer.isTaur()
+									?SexActionPresets.allAreasToAppendages
+									:(performer.getLegConfiguration().isBipedalPositionedCrotchBoobs()
+											?SexActionPresets.crotchBoobsToAppendages
+											:null),
+								SexActionPresets.appendagesToUpperHalf,
+								SexActionPresets.upperHalfToAppendages,
+								SexActionPresets.kissing,
+								SexActionPresets.mouthToBreasts,
+								SexActionPresets.breastsToMouth),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.SELF_LEGS,
+								OrgasmCumTarget.FLOOR),
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.SELF_LEGS,
 								OrgasmCumTarget.FLOOR)))));
 			}
 	};
@@ -845,7 +879,8 @@ public class StandardSexActionInteractions {
 								SexActionPresets.allAreasToAppendages,
 								SexActionPresets.thighsToPenis,
 								SexActionPresets.vaginaToPenis,
-								SexActionPresets.assToGroin),
+								SexActionPresets.assToGroin,
+								SexActionPresets.penisToBreasts),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.GROIN,
@@ -1025,6 +1060,9 @@ public class StandardSexActionInteractions {
 						Util.mergeMaps(
 								SexActionPresets.mouthToVagina,
 								SexActionPresets.mouthToPenis,
+								performerSlot.hasTag(SexSlotTag.LYING_DOWN)
+									?SexActionPresets.mouthToAss
+									:null,
 								SexActionPresets.breastsToPenis,
 								SexActionPresets.mouthToCrotchBoobs,
 								SexActionPresets.tailToUpperTorso,

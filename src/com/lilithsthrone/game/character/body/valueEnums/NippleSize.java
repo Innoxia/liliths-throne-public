@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
@@ -9,11 +10,11 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum NippleSize {
 
-	ZERO_TINY(0, "tiny", Colour.GENERIC_SIZE_ONE),
-	ONE_SMALL(1, "small", Colour.GENERIC_SIZE_TWO),
-	TWO_BIG(2, "big", Colour.GENERIC_SIZE_THREE),
-	THREE_LARGE(3, "large", Colour.GENERIC_SIZE_FOUR),
-	FOUR_MASSIVE(4, "massive", Colour.GENERIC_SIZE_FIVE);
+	ZERO_TINY(0, "tiny", PresetColour.GENERIC_SIZE_ONE),
+	ONE_SMALL(1, "small", PresetColour.GENERIC_SIZE_TWO),
+	TWO_BIG(2, "big", PresetColour.GENERIC_SIZE_THREE),
+	THREE_LARGE(3, "large", PresetColour.GENERIC_SIZE_FOUR),
+	FOUR_MASSIVE(4, "massive", PresetColour.GENERIC_SIZE_FIVE);
 	
 	
 	private int value;

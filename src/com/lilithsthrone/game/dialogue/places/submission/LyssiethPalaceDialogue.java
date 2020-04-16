@@ -45,9 +45,10 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.game.sex.sexActions.submission.SALyssiethSpecials;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -227,7 +228,7 @@ public class LyssiethPalaceDialogue {
 						MERAXIS_DEMON_TF_START) {
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.RACE_DEMON;
+						return PresetColour.RACE_DEMON;
 					}
 					@Override
 					public void effects() {
@@ -761,7 +762,7 @@ public class LyssiethPalaceDialogue {
 						DEMON_TF_START) {
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.RACE_DEMON;
+						return PresetColour.RACE_DEMON;
 					}
 					@Override
 					public void effects() {

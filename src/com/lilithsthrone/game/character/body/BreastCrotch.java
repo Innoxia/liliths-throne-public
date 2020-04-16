@@ -16,9 +16,9 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.3.1
@@ -345,7 +345,7 @@ public class BreastCrotch implements BodyPartInterface {
 			return "";
 		} else {
 			return UtilText.parse(owner,
-					"<p style='text-align:center;'><i style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>"
+					"<p style='text-align:center;'><i style='color:"+PresetColour.BASE_YELLOW_LIGHT.toWebHexString()+";'>"
 							+ UtilText.returnStringAtRandom(
 									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.namePos] [npc.crotchMilk] squirts out of [npc.her] [npc.crotchNipples+].",
 									Units.fluid(lactationChange, Units.UnitType.LONG)+" of [npc.crotchMilk+] squirts out of [npc.namePos] [npc.crotchNipples+].",

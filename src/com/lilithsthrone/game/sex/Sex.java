@@ -10,8 +10,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,7 +35,6 @@ import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -73,10 +72,10 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.BaseColour;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.BaseColour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.comparators.ClothingZLayerComparator;
 
 /**
@@ -587,7 +586,7 @@ public class Sex {
 			sexSB.append(Main.sex.getInitialSexManager().getPublicSexStartingDescription());
 		}
 
-		sexSB.append("<p style='text-align:center;'><b>Starting Position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+sexManager.getPosition().getName()+"</b><br/>"
+		sexSB.append("<p style='text-align:center;'><b>Starting Position:</b> <b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>"+sexManager.getPosition().getName()+"</b><br/>"
 				+"<i><b>"+sexManager.getPosition().getDescription(Main.sex.getAllOccupiedSlots(false))+"</b></i></p>");
 		
 		sexSB.append(calculateWetAreas(true));
@@ -1028,6 +1027,30 @@ public class Sex {
 				}
 			}
 		}
+		// Throat:
+		if(participant.getFaceRawCapacityValue() != participant.getFaceStretchedCapacity() && areasStretched.get(participant).contains(SexAreaOrifice.MOUTH)) {
+			if(participant.getFacePlasticity() == OrificePlasticity.ZERO_RUBBERY){
+				participant.setFaceStretchedCapacity(participant.getFaceRawCapacityValue());
+				sb.append(getStretchInstantRecoveryDescription(false, "[style.italicsMouth(throat)]"));
+				
+			} else if(participant.getFacePlasticity().getCapacityIncreaseModifier()>=1){
+				participant.setFaceCapacity(participant.getFaceStretchedCapacity(), true);
+				sb.append(getStretchNoRecoveryDescription(false, "[style.italicsMouth(throat)]", Capacity.getCapacityFromValue(participant.getAssRawCapacityValue())));
+				
+			} else {
+				// Increment core capacity by the Plasticity's capacityIncreaseModifier:
+				participant.incrementFaceCapacity((participant.getFaceStretchedCapacity()-participant.getFaceRawCapacityValue())*participant.getFacePlasticity().getCapacityIncreaseModifier(), false);
+
+				if(participant.getFacePlasticity().getCapacityIncreaseModifier()>0) {
+					sb.append(getStretchPartialRecoveryDescription(
+							false, "[style.italicsMouth(throat)]", participant.getFaceElasticity(), Capacity.getCapacityFromValue(participant.getFaceRawCapacityValue()), Capacity.getCapacityFromValue(participant.getFaceStretchedCapacity())));
+					
+				} else {
+					sb.append(getStretchFullRecoveryDescription(
+							false, "[style.italicsMouth(throat)]", participant.getFaceElasticity(), Capacity.getCapacityFromValue(participant.getFaceRawCapacityValue()), Capacity.getCapacityFromValue(participant.getFaceStretchedCapacity())));
+				}
+			}
+		}
 		// Nipples:
 		if(participant.getNippleRawCapacityValue() != participant.getNippleStretchedCapacity() && areasStretched.get(participant).contains(SexAreaOrifice.NIPPLE)) {
 			if(participant.getNipplePlasticity() == OrificePlasticity.ZERO_RUBBERY){
@@ -1129,20 +1152,6 @@ public class Sex {
 							Capacity.getCapacityFromValue(participant.getVaginaUrethraRawCapacityValue()), Capacity.getCapacityFromValue(participant.getVaginaUrethraStretchedCapacity())));
 				}
 			}
-		}
-		// Special case for throat, as you aren't stretching it out, merely getting more experienced at sucking cock:
-		if(participant.getFaceRawCapacityValue() != participant.getFaceStretchedCapacity() && areasStretched.get(participant).contains(SexAreaOrifice.MOUTH)) {
-			// Increment core capacity by the Plasticity's capacityIncreaseModifier:
-			participant.incrementFaceCapacity(
-					(participant.getFaceStretchedCapacity()-participant.getFaceRawCapacityValue())*participant.getFacePlasticity().getCapacityIncreaseModifier(),
-					false);
-			participant.setFaceStretchedCapacity(participant.getFaceRawCapacityValue());
-			
-			PenisLength pSize = PenisLength.getPenisLengthFromInt((int)participant.getFaceRawCapacityValue());
-			sb.append("<p style='text-align:center;'><i>"
-						+ "From [npc.namePos] [style.italicsPlasticity(newfound oral experience)], [npc.sheIs] now experienced enough to comfortably suck "
-						+ "<span style='color:"+pSize.getColour().toWebHexString()+";'>"+pSize.getDescriptor() + "</span> cocks!"
-					+ "</i></p>");
 		}
 		
 		return UtilText.parse(participant, sb.toString());
@@ -1388,7 +1397,7 @@ public class Sex {
 		String s = endSexSB.toString();
 		if(!s.isEmpty()) {
 			endSexDescription ="<p style='text-align:center;'>"
-					+ "<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>End of sex status</b>"
+					+ "<b style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>End of sex status</b>"
 							+ "</p>"
 					+s;
 		} else {
@@ -1732,7 +1741,7 @@ public class Sex {
 							if(itemUseInformation==null || itemUseInformation.getKey().equals(character)) {
 								sexSB.append("<br/>"
 										+ "<p>"
-											+ "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>&gt; "+UtilText.parse(character, "[npc.Name]")+": "+(Util.capitaliseSentence(sexActionPartner.getActionTitle()))+"</span>"
+											+ "<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>&gt; "+UtilText.parse(character, "[npc.Name]")+": "+(Util.capitaliseSentence(sexActionPartner.getActionTitle()))+"</span>"
 											+ "</br>"
 											+ sexActionPartner.preDescriptionBaseEffects()
 											+ sexActionPartner.getDescription()
@@ -3282,7 +3291,7 @@ public class Sex {
 						try {
 							GameCharacter fluidCharacter = fluid.getFluidCharacter();
 							penetrationSB.append(
-									"<p style='text-align:center; margin-bottom:0; padding-bottom:0; color:"+Colour.BASE_ORANGE.toWebHexString()+";'><i>"
+									"<p style='text-align:center; margin-bottom:0; padding-bottom:0; color:"+PresetColour.BASE_ORANGE.toWebHexString()+";'><i>"
 										+ UtilText.parse(characterPenetrating, characterPenetrated, "[npc.Name] [npc.verb(find)] [npc.herself] swallowing down some fluids previously deposited in [npc2.namePos] "+orifice.getName(characterPenetrated)+"!")
 									+ "</i></p>"
 									+ characterPenetrating.ingestFluid(
@@ -3293,7 +3302,7 @@ public class Sex {
 						} catch(Exception ex) {
 							if(fluid.isCum()) {
 								penetrationSB.append(
-										"<p style='text-align:center; margin-bottom:0; padding-bottom:0; color:"+Colour.BASE_ORANGE.toWebHexString()+";'><i>"
+										"<p style='text-align:center; margin-bottom:0; padding-bottom:0; color:"+PresetColour.BASE_ORANGE.toWebHexString()+";'><i>"
 											+ UtilText.parse(characterPenetrating, characterPenetrated, "[npc.Name] [npc.verb(find)] [npc.herself] swallowing down some fluids previously deposited in [npc2.namePos] "+orifice.getName(characterPenetrated)+"!")
 										+ "</i></p>"
 										+ characterPenetrating.ingestFluid(
@@ -3305,7 +3314,7 @@ public class Sex {
 												fluid.getMillilitres()));
 							} else {
 								penetrationSB.append(
-										"<p style='text-align:center; margin-bottom:0; padding-bottom:0; color:"+Colour.BASE_ORANGE.toWebHexString()+";'><i>"
+										"<p style='text-align:center; margin-bottom:0; padding-bottom:0; color:"+PresetColour.BASE_ORANGE.toWebHexString()+";'><i>"
 											+ UtilText.parse(characterPenetrating, characterPenetrated, "[npc.Name] [npc.verb(find)] [npc.herself] swallowing down some fluids previously deposited in [npc2.namePos] "+orifice.getName(characterPenetrated)+"!")
 										+ "</i></p>"
 										+ characterPenetrating.ingestFluid(
@@ -3809,6 +3818,20 @@ public class Sex {
 						characterPenetrated.getFaceElasticity(), characterPenetrated.getFaceStretchedCapacity(), totalPenetratingDiameter, lubed)){
 					penetrationSB.append(UtilText.formatStretching(characterPenetrated.getStretchingDescription((initialPenetration || knotted), characterPenetrating, penetrationType, SexAreaOrifice.MOUTH, false)));
 
+					for(AbstractClothing clothing : new ArrayList<>(characterPenetrated.getClothingCurrentlyEquipped())) {
+						if(clothing.getItemTags().contains(ItemTag.CHOKER_SNAP)) {
+							if(clothing.isSealed()) {
+								clothing.setSealed(false);
+							}
+							penetrationSB.append(UtilText.parse(characterPenetrated, characterPenetrating,
+									"<p style='text-align:center;'>"
+											+ "[style.italicsSex([npc2.NamePos] "+penetrationType.getName(characterPenetrating)+" bulges [npc.namePos] throat so much that [npc.her] [style.boldBad("+clothing.getName()+" snaps)]!)]"
+											+ "<br/>"+characterPenetrated.addedItemToInventoryText(clothing, 1)
+									+ "</p>"));
+							characterPenetrated.unequipClothingIntoInventory(clothing, true, characterPenetrated);
+						}
+					}
+					
 					// Stretch out the orifice by a factor of elasticity's modifier.
 					characterPenetrated.incrementFaceStretchedCapacity(
 							Math.max(
@@ -4083,7 +4106,7 @@ public class Sex {
 	public void setUnequipClothingText(AbstractClothing clothing, String unequipClothingText) {
 		Main.sex.unequipClothingText =
 						"<p style='text-align:center;'>"
-								+ "<i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Clothing removal</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
+								+ "<i style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Clothing removal</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
 								+"<br/>"
 								+ unequipClothingText
 						+ "</p>";
@@ -4092,7 +4115,7 @@ public class Sex {
 	public void setUnequipWeaponText(AbstractWeapon weapon, String unequipClothingText) {
 		Main.sex.unequipClothingText = 
 				"<p style='text-align:center;'>"
-						+ "<i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Weapon removal</i>"+(weapon==null?"":": "+Util.capitaliseSentence(weapon.getName()))
+						+ "<i style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Weapon removal</i>"+(weapon==null?"":": "+Util.capitaliseSentence(weapon.getName()))
 						+"<br/>"
 						+ unequipClothingText
 				+ "</p>";
@@ -4101,7 +4124,7 @@ public class Sex {
 	public void setDisplaceClothingText(AbstractClothing clothing, String unequipClothingText) {
 		Main.sex.unequipClothingText = 
 				"<p style='text-align:center;'>"
-						+ "<i style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>Clothing displacement</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
+						+ "<i style='color:" + PresetColour.GENERIC_MINOR_BAD.toWebHexString() + ";'>Clothing displacement</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
 						+"<br/>"
 						+ unequipClothingText
 				+ "</p>";
@@ -4110,7 +4133,7 @@ public class Sex {
 	public void setEquipClothingText(AbstractClothing clothing, String unequipClothingText) {
 		Main.sex.unequipClothingText =
 				"<p style='text-align:center;'>"
-						+ "<i style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Clothing equip</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
+						+ "<i style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Clothing equip</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
 						+"<br/>"
 						+ unequipClothingText
 				+ "</p>";
@@ -4119,7 +4142,7 @@ public class Sex {
 	public void setJinxRemovalClothingText(AbstractClothing clothing, String unequipClothingText) {
 		Main.sex.unequipClothingText = 
 				"<p style='text-align:center;'>"
-						+ "<i style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Jinx removal</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
+						+ "<i style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Jinx removal</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
 						+"<br/>"
 						+ unequipClothingText
 				+ "</p>";
@@ -4692,7 +4715,7 @@ public class Sex {
 		}
 		
 		sexSB.append(
-				"<p style='text-align:center;'><b>New position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+Main.sex.sexManager.getPosition().getName()+"</b><br/>"
+				"<p style='text-align:center;'><b>New position:</b> <b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>"+Main.sex.sexManager.getPosition().getName()+"</b><br/>"
 				+"<i><b>"+Main.sex.sexManager.getPosition().getDescription(Main.sex.getAllOccupiedSlots(false))+"</b></i></p>");
 	}
 	

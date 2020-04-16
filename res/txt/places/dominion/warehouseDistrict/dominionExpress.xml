@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="WAREHOUSE_DISTRICT_DOMINION_EXPRESS"><![CDATA[
+	<p>
+		[style.boldBrown(Dominion Express)]<br/>
+		Looking at the business card given to you by Natalya, you see that the delivery company which employs her as a 'Stable Mistress' is very near to where you're currently standing, and is open to visiting members of the public between the hours of
+		#IF(game.isExtendedWorkTime())
+			 [style.colourMinorGood([unit.time(6)]-[unit.time(22)])]. As the warehouse out of which this 'Dominion Express' operates is currently [style.colourGood(open)], you could head inside and see if you could arrange to meet the [natalya.race] again...
+		#ELSE
+			 [style.colourMinorBad([unit.time(6)]-[unit.time(22)])]. As the warehouse out of which this 'Dominion Express' operates is currently [style.colourBad(closed)], you'll have to come back during opening hours if you wanted to meet the [natalya.race] again...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CORRIDOR -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CORRIDOR -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CORRIDOR -->
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

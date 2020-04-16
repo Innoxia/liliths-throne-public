@@ -12,8 +12,8 @@ import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.submission.Claire;
+import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -21,6 +21,7 @@ import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.ReindeerOverseerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.RentalMommyDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaHotel;
 import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -28,8 +29,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
@@ -37,10 +38,10 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.7
  * @author Innoxia
  */
-public class CityPlaces {
+public class DominionPlaces {
 
 	public static final int TRAVEL_TIME_STREET = 2*60;
 	
@@ -59,7 +60,7 @@ public class CityPlaces {
 				mommySB.append(
 						UtilText.parse(npc,
 								"<p>"
-									+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Mommy's House:</b><br/>"
+									+ "<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Mommy's House:</b><br/>"
 									+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 										?"Mommy's house is located down this street, but due to the ongoing arcane storm, her usual bench is currently unoccupied."
 												+ " If you wanted to interact with her, you'd better come back after the storm has passed..."
@@ -73,7 +74,7 @@ public class CityPlaces {
 				occupantSB.append(
 						UtilText.parse(npc,
 								"<p>"
-									+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>[npc.NamePos] Apartment:</b><br/>"
+									+ "<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>[npc.NamePos] Apartment:</b><br/>"
 									+ "[npc.Name], the [npc.race] that you rescued from a life of crime, lives in an apartment building nearby."
 									+ " If you wanted to, you could pay [npc.herHim] a visit..."
 								+ "</p>"));
@@ -83,7 +84,7 @@ public class CityPlaces {
 			if(npc instanceof Cultist) {
 				cultistSB.append(
 						"<p>"
-							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Cultist's Chapel:</b><br/>"
+							+ "<b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Cultist's Chapel:</b><br/>"
 							+ UtilText.parse(npc, "You remember that [npc.namePos] chapel is near here, and, if you were so inclined, you could easily find it again...")
 						+ "</p>");
 				break;
@@ -92,7 +93,7 @@ public class CityPlaces {
 			if(npc instanceof ReindeerOverseer) {
 				reindeerSB.append(
 						"<p>"
-							+ "<b style='color:"+Colour.RACE_REINDEER_MORPH.toWebHexString()+";'>Reindeer Workers:</b><br/>"
+							+ "<b style='color:"+PresetColour.RACE_REINDEER_MORPH.toWebHexString()+";'>Reindeer Workers:</b><br/>"
 							+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 								?UtilText.parse(npc, "The reindeer-morphs have all taken shelter from the ongoing arcane storm."
 										+ " If you wanted to speak with their overseer, you'd need to come back after the storm has passed.")
@@ -188,183 +189,20 @@ public class CityPlaces {
 
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			if (Main.game.isDayTime()) { // Day time:
-				if (Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
-					UtilText.nodeContentSB.append("<p>"
-							+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a strange feel to them that hints at the other-worldly nature of this place."
-							+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones.");
-					
-					switch(Main.game.getCurrentWeather()) {
-						case CLEAR:
-							UtilText.nodeContentSB.append(" Rows of trees and marble benches line either side of the pedestrianised streets, offering shade and a place to rest for weary shoppers."
-									+ " On either side of you, the building's clean facades gleam in the sunshine, and high above in the sky, you see harpies flying about on business of their own."
-									+ "</p>");
-							break;
-						case CLOUD:
-							UtilText.nodeContentSB.append(" Rows of trees and marble benches line either side of the pedestrianised streets, offering a place to rest."
-									+ " On either side of you, the building's clean facades gleam in the sunshine, and high above in the sky, you see harpies flying about on business of their own.</p>");
-							break;
-						case MAGIC_STORM_GATHERING:
-							UtilText.nodeContentSB.append(" Marble benches line either side of the pedestrianised streets, granted shade from the summer sun by rows of trees."
-									+ " The tree's branches sway as the wind starts to pick up, and the rustling of leaves can be head over the steady hum of the busy crowds."
-									+ " On either side of you, the glass frontages of the recently renovated buildings reflect the darkening sky."
-									+ "</p>");
-							break;
-						case RAIN:
-							UtilText.nodeContentSB.append(" Rows of trees and marble benches line either side of the pedestrianised streets, offering a place to rest and cover from the rain."
-									+ " On either side of you, large canvas awnings have been extended from the buildings, shielding passersby from the sudden downpour."
-									+ "</p>");
-							break;
-						case SNOW:
-							UtilText.nodeContentSB.append(" Large white snowflakes continue to fall all around you as you walk past the rows of trees and marble benches that line either side of the pedestrianised streets."
-									+ "</p>");
-							break;
-						case MAGIC_STORM:
-							break;
-					}
-					
-					UtilText.nodeContentSB.append("<p>"
-								+ "The streets are very busy at this time of day, and are packed with people hurrying to and fro."
-								+ " Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way."
-								+ " You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and"
-								+ " all the other sorts that you'd find in any old city."
-								+ " As the streets are so busy at this time, you find yourself having to occasionally push your way through the dense crowds."
-							+ "</p>"
-							+ "<p>"
-								+ "Most of the people around you are partial or lesser morphs, although there are a quite a few greater morphs to be seen walking the streets as well."
-								+ " Dog, cat and horse-morphs are by far the most common races that you see, but it wouldn't take long to find examples of every race."
-								+ " The rarest races that you see are humans and demons."
-								+ " The latter are very easy to spot, as wherever they walk, people hurriedly move to make way."
-							+ "</p>");
-
-					UtilText.nodeContentSB.append(getRandomStreetEvent());
-					
-					
-				} else { // Storm:
-					UtilText.nodeContentSB.append("<p>"
-								+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
-								+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
-								+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees and arcane-powered street lamps."
-								+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
-								+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
-							+ "</p>"
-							+ " <p>"
-								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
-								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
-								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street.");
-					
-					if(Main.game.getPlayer().getRace()==Race.DEMON) {
-						UtilText.nodeContentSB.append(" They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you.");
-					} else {
-						UtilText.nodeContentSB.append(" They sometimes cast a curious glance your way, but most are content to simply ignore you.");
-					}
-					
-					UtilText.nodeContentSB.append(
-							"</p>"
-							+ "<p>"
-								+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
-								+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
-								+ " If they catch you, they'll be sure to force you into a fight."
-							+ "</p>");
-				}
-				
-			} else { // Night time:
-				if (Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
-					UtilText.nodeContentSB.append("<p>"
-							+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a strange feel to them that hints at the other-worldly nature of this place."
-							+ " The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
-							+ " Marble benches line both sides of the pedestrianised streets, and are interspersed by rows of trees, softly illuminated by the amber glow of arcane-powered street lamps.");
-					
-					switch(Main.game.getCurrentWeather()) {
-						case CLEAR: case CLOUD:
-							UtilText.nodeContentSB.append(" On either side of you, lights shine out from the windows of the tall buildings."
-									+ "</p>");
-							break;
-						case MAGIC_STORM_GATHERING:
-							UtilText.nodeContentSB.append(" The tree's branches sway as the wind starts to pick up, and the rustling of leaves fills the still night air."
-									+ "</p>");
-							break;
-						case RAIN:
-							UtilText.nodeContentSB.append(" On either side of you, large canvas awnings have been extended from the buildings, shielding passersby from the sudden downpour."
-									+ "</p>");
-							break;
-						case SNOW:
-							UtilText.nodeContentSB.append(" Large fluffy snowflakes continue to fall all around you; their haphazard paths illuminated by the lights shining out from the windows of the tall buildings."
-									+ "</p>");
-							break;
-						case MAGIC_STORM:
-							break;
-					}
-
-					UtilText.nodeContentSB.append("<p>"
-								+ "Although the streets are noticeably quieter than during the day, there are still plenty of people hurrying to and fro."
-								+ " Despite their alarming appearances, the citizens of Dominion appear to be completely normal in every other way."
-								+ " You see those people who are always in a rush to be somewhere else, the crowds of shoppers lazily ambling by, the groups of friends laughing and chatting on benches, and"
-								+ " all the other sorts that you'd find in any old city."
-								+ " As the streets are quiet at this time, you have plenty of room to weave your way through the sparse crowds."
-							+ "</p>"
-							+ "<p>"
-								+ "Most of the people around you are partial or lesser morphs, although there are a quite a few greater morphs to be seen walking the streets as well."
-								+ " Dog, cat and horse-morphs are by far the most common races that you see, but it wouldn't take long to find examples of every race."
-								+ " The rarest races that you see are humans and demons."
-								+ " The latter are very easy to spot, as wherever they walk, people hurriedly move to make way."
-							+ "</p>");
-					
-					UtilText.nodeContentSB.append(getRandomStreetEvent());
-
-				} else { // Storm:
-					UtilText.nodeContentSB.append("<p>"
-								+ "Although the streets of Dominion look similar to those of Victorian-era London, there's a few major differences that reveal the other-worldly nature of this place."
-								+ "The roads that should be home to a city's heavy traffic are all paved over with clean white flagstones."
-								+ " Marble benches line either side of the pedestrianised streets, interspersed by rows of trees, all illuminated by the soft amber glow of arcane-powered street lamps."
-								+ " The tree's branches sway wildly in the storm's wind as it howls down the empty streets."
-								+ " The glass frontages of the surrounding buildings reflect each and every lightning strike, filling the streets with bright purple and pink flashes."
-							+ "</p>"
-							+ "<p>"
-								+ "Due to the ongoing storm, the entire city seems to be almost totally deserted."
-								+ " Doors are locked, windows are shuttered, and, for the most part, not a soul can be seen."
-								+ " The only people able to withstand the storm's thunderous power are demons, and every now and then you see one strutting down the street.");
-				
-				if(Main.game.getPlayer().getRace()==Race.DEMON) {
-					UtilText.nodeContentSB.append(" They sometimes cast a nod, a smile, or even a seductive glance your way, but most are on business of their own and content to simply ignore you.");
-				} else {
-					UtilText.nodeContentSB.append(" They sometimes cast a curious glance your way, but most are content to simply ignore you.");
-				}
-				
-				UtilText.nodeContentSB.append(
-							"</p>"
-							+ " <p>"
-								+ "The size and emptiness of the city streets fills you with a sense of foreboding, and you frantically look around for signs of danger as you hurry on your way."
-								+ " Remembering what happened the first night you arrived in this world, you know full well that any non-demons caught out in the storm will be filled with an uncontrollable lust."
-								+ " If they catch you, they'll be sure to force you into a fight."
-							+ "</p>");
-					
-					
-				}
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "STREET"));
+			if (Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
+				sb.append(getRandomStreetEvent());
 			}
 			
 			if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
-				UtilText.nodeContentSB.append(
-					"<p>"
-						+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b><br/>"
-						+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
-						+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
-					+ "</p>");
+				sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "STREET_EVENT_OCTOBER"));
 			}
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
-				UtilText.nodeContentSB.append(
-					"<p>"
-						+ "<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b><br/>"
-						+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
-						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
-					+ "</p>");
+				sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "STREET_EVENT_SNOW"));
 			}
-			
-			UtilText.nodeContentSB.append(getExtraStreetFeatures());
-			
-			return UtilText.nodeContentSB.toString();
+
+			return sb.toString();
 		}
 
 		@Override
@@ -415,8 +253,23 @@ public class CityPlaces {
 		return "";
 	}
 
+
+	public static final DialogueNode BACK_ALLEYS_SAFE = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 3*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "BACK_ALLEYS_SAFE");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
 	
-	public static final DialogueNode BACK_ALLEYS = new DialogueNode("Back Alleys", "", false) {
+	public static final DialogueNode BACK_ALLEYS = new DialogueNode("", "", false) {
 
 		@Override
 		public int getSecondsPassed() {
@@ -426,11 +279,8 @@ public class CityPlaces {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			UtilText.nodeContentSB.append("<p>"
-					+ "You find yourself walking through labyrinthine alleyways, with not a soul in sight."
-					+ " Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress."
-					+ " These less-travelled parts of Dominion have a dangerous feel to them, and you can't shake the feeling that you're being followed."
-					+ "</p>");
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "BACK_ALLEYS_SAFE"));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
 				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
@@ -555,7 +405,7 @@ public class CityPlaces {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
+							+ "<b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
 							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you walk down the all-but-deserted boulevard."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
@@ -581,7 +431,7 @@ public class CityPlaces {
 			if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
 				UtilText.nodeContentSB.append(
 					"<p>"
-						+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b><br/>"
+						+ "<b style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b><br/>"
 						+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
 						+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
 					+ "</p>");
@@ -589,7 +439,7 @@ public class CityPlaces {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
 				UtilText.nodeContentSB.append(
 					"<p>"
-						+ "<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b><br/>"
+						+ "<b style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b><br/>"
 						+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
 						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
 					+ "</p>");
@@ -642,7 +492,7 @@ public class CityPlaces {
 			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
+							+ "<b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
 							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
 							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza."
 							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
@@ -833,14 +683,64 @@ public class CityPlaces {
 		@Override
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
+			
 			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "WAREHOUSE_DISTRICT"));
-			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "WAREHOUSE_DISTRICT_NO_BUSINESS"));
+			
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR)) {
+				sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "WAREHOUSE_DISTRICT_DOMINION_EXPRESS"));
+			} else {
+				sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "WAREHOUSE_DISTRICT_NO_BUSINESS"));
+			}
+			
 			return sb.toString();
 		}
-
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			//TODO if strict succubus met, add her transportation business here
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR)) {
+				if(index==1) {
+					//TODO
+					return new Response("Dominion Express", "[style.italicsBad(This will be added soon!)]", null);
+//					if(!Main.game.isExtendedWorkTime()) {
+//						return new Response("Dominion Express",
+//								"Dominion Express is currently closed to visiting members of the public. If you wanted to meet with Natalya again, you'll have to return here between the hours of [unit.time(6)]-[unit.time(22)].",
+//								null);
+//					}
+//					return new Response("Dominion Express", "Head over to where Natalya's delivery company, Dominion Express, has its main warehouse.", DominionExpress.ENTRANCE) {
+//						@Override
+//						public void effects() {
+//							Main.game.getPlayer().setLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_EXIT);
+//						}
+//					};
+				}
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode HELENAS_HOTEL = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			sb.append(STREET.getContent());
+			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "STREET_SHADED"));
+			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "HELENAS_HOTEL"));
+			return sb.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Helena's Nest", "Use the elevator in the hotel to travel directly up to Helena's nest.", HelenaHotel.HOTEL_TRAVEL_TO_NEST) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST);
+					}
+				};
+			}
 			return null;
 		}
 	};

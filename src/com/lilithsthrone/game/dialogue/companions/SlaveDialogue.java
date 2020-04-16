@@ -239,12 +239,10 @@ public class SlaveDialogue {
 	};
 	
 	public static final DialogueNode SLAVE_START = new DialogueNode("", ".", true) {
-		
 		@Override
 		public String getLabel() {
 			return Main.game.getPlayer().getLocationPlace().getName();
 		}
-
 		@Override
 		public String getContent() {
 			String returnedLine;
@@ -3467,7 +3465,12 @@ public class SlaveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Decide what to do next.", SLAVE_START);
+				return new Response("Continue", "Decide what to do next.", SLAVE_START) {
+					@Override
+					public void effects() {
+						SlaveDialogue.initDialogue(getSlave(), false); // Need to re-init this dialogue as it gets cleared in Game turnUpdate during this scene.
+					}
+				};
 				
 			} else {
 				return null;

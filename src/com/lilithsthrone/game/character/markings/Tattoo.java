@@ -24,10 +24,11 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.6
@@ -129,14 +130,14 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 
 		CharacterUtils.addAttribute(doc, element, "name", this.getName());
 		
-		CharacterUtils.addAttribute(doc, element, "primaryColour", this.getPrimaryColour().toString());
+		CharacterUtils.addAttribute(doc, element, "primaryColour", this.getPrimaryColour().getId());
 
 		if(this.getSecondaryColour()!=null) {
-			CharacterUtils.addAttribute(doc, element, "secondaryColour", this.getSecondaryColour().toString());
+			CharacterUtils.addAttribute(doc, element, "secondaryColour", this.getSecondaryColour().getId());
 		}
 
 		if(this.getTertiaryColour()!=null) {
-			CharacterUtils.addAttribute(doc, element, "tertiaryColour", this.getTertiaryColour().toString());
+			CharacterUtils.addAttribute(doc, element, "tertiaryColour", this.getTertiaryColour().getId());
 		}
 		
 		CharacterUtils.addAttribute(doc, element, "glowing", String.valueOf(this.isGlowing()));
@@ -172,9 +173,9 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 			}
 			Tattoo tat = new Tattoo(
 					TattooType.getTattooTypeFromId(parentElement.getAttribute("id")),
-					Colour.valueOf(parentElement.getAttribute("primaryColour")),
-					parentElement.getAttribute("secondaryColour").isEmpty()?null:Colour.valueOf(parentElement.getAttribute("secondaryColour")),
-					parentElement.getAttribute("tertiaryColour").isEmpty()?null:Colour.valueOf(parentElement.getAttribute("tertiaryColour")),
+					PresetColour.getColourFromId(parentElement.getAttribute("primaryColour")),
+					parentElement.getAttribute("secondaryColour").isEmpty()?null:PresetColour.getColourFromId(parentElement.getAttribute("secondaryColour")),
+					parentElement.getAttribute("tertiaryColour").isEmpty()?null:PresetColour.getColourFromId(parentElement.getAttribute("tertiaryColour")),
 					Boolean.valueOf(parentElement.getAttribute("glowing")),
 					writing,
 					counter);
@@ -232,7 +233,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 				s = Util.inputStreamToString(is);
 				is.close();
 				
-				s = SvgUtil.colourReplacement("tattooGlow"+this.getPrimaryColour().toString(), this.getPrimaryColour(), this.getPrimaryColour(), this.getPrimaryColour(), s);
+				s = SvgUtil.colourReplacement("tattooGlow"+this.getPrimaryColour().getId(), this.getPrimaryColour(), this.getPrimaryColour(), this.getPrimaryColour(), s);
 				
 				SVGGlowMap.put(this.getPrimaryColour(), s);
 				
@@ -295,17 +296,17 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 					return "of "+(coloured?"<"+tag+" style='color:"+TFModifier.CLOTHING_SERVITUDE.getColour().toWebHexString()+";'>servitude</"+tag+">":"servitude");
 					
 				} else if(ie.getPrimaryModifier() == TFModifier.TF_MOD_FETISH_BEHAVIOUR || ie.getPrimaryModifier() == TFModifier.TF_MOD_FETISH_BODY_PART) {
-					return "of "+(coloured?"<"+tag+" style='color:"+Colour.FETISH.toWebHexString()+";'>"+ie.getSecondaryModifier().getDescriptor()+"</"+tag+">":ie.getSecondaryModifier().getDescriptor());
+					return "of "+(coloured?"<"+tag+" style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+ie.getSecondaryModifier().getDescriptor()+"</"+tag+">":ie.getSecondaryModifier().getDescriptor());
 					
 				} else if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE) {
 					String name = (this.isBadEnchantment()?this.getCoreEnchantment().getNegativeEnchantment():this.getCoreEnchantment().getPositiveEnchantment());
 					return "of "+(coloured?"<"+tag+" style='color:"+this.getCoreEnchantment().getColour().toWebHexString()+";'>"+name+"</"+tag+">":name);
 					
 				} else if(ie.getSecondaryModifier() == TFModifier.CLOTHING_SEALING) {
-					return "of "+(coloured?"<"+tag+" style='color:"+Colour.SEALED.toWebHexString()+";'>sealing</"+tag+">":"sealing");
+					return "of "+(coloured?"<"+tag+" style='color:"+PresetColour.SEALED.toWebHexString()+";'>sealing</"+tag+">":"sealing");
 					
 				} else {
-					return "of "+(coloured?"<"+tag+" style='color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+";'>transformation</"+tag+">":"transformation");
+					return "of "+(coloured?"<"+tag+" style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>transformation</"+tag+">":"transformation");
 				}
 			}
 		}
@@ -348,7 +349,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		attributeModifiers.clear();
 		
 		for(ItemEffect ie : getEffects()) {
-			if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE) {
+			if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || ie.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
 				if(attributeModifiers.containsKey(ie.getSecondaryModifier().getAssociatedAttribute())) {
 					attributeModifiers.put(ie.getSecondaryModifier().getAssociatedAttribute(), attributeModifiers.get(ie.getSecondaryModifier().getAssociatedAttribute()) + ie.getPotency().getClothingBonusValue());
 				} else {

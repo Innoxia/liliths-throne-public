@@ -1,0 +1,1425 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- DATE_START -->
+	
+	<htmlContent tag="DATE_START"><![CDATA[
+	<p>
+		#IF(pc.hasCompanions())
+			After telling [com.name] that [com.she] should return home, you ask Helena if she'd like to go out on a date with you this evening.
+		#ELSE
+			Knowing that Helena will be receptive to the idea, you ask her if she'd like to go out on a dinner date with you this evening.
+		#ENDIF
+		 Flashing you a delightful smile, the beautiful harpy replies,
+		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaDateFirstDateComplete))
+			 [helena.speech(That sounds wonderful, [pc.name]. I am sure I need not remind you, but I only dine at 'The Golden Feather', so we shall be going there.)]
+		#ELSE
+			 [helena.speech(That sounds wonderful, [pc.name]. I hope you haven't already made reservations anywhere, for I only dine at 'The Golden Feather' hotel, so we shall be going there.)]
+		#ENDIF
+	</p>
+	<p>
+		From the firm tone of her voice, you can tell that Helena is unwilling to negotiate on this point, and so after accepting her choice of destination, you ask her when she'll be ready to leave. With a swish of her wings, she declares, [helena.speech(I am ready to depart immediately. First, you shall accompany me to my apartment so that I can get ready for our date, and then you shall take me to the restaurant.)]
+	</p>
+	<p>
+		As you prepare to leave, Helena turns to Scarlett and orders, [helena.speech(I cannot trust you to be left alone, so your work here is finished for the day. I might have need of you later, however, so you shall meet the two of us at my apartment, where I shall give you further instructions if necessary.)]
+	</p>
+	<p>
+		[scarlett.speech(Yes, Helena,)] Scarlett replies, before quickly exiting the store and flying off in the direction of the Harpy Nests.
+	</p>
+	<p>
+		After informing one of her harpy employees that they're in charge until closing time, Helena turns back to face you, before smiling and saying, [helena.speech(Please lead the way, [pc.name].)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_TRAVEL_WALK"><![CDATA[
+	<p>
+		Escorting the beautiful matriarch out of her shop, you [pc.walk] by her side as the two of you travel through the streets of Dominion. Having told you that her apartment is located in the Harpy Nests, Helena happily engages you in idle conversation, which helps to make your somewhat lengthy journey pass in what seems like just a few moments. Before you know it, you find yourselves walking in the shadows cast by the Harpy Nest's huge, rooftop platforms, and as you arrive in the area beneath Helena's nest, the matriarch holds up one of her white-feathered wings to point at a huge building and declare, [helena.speech(That's 'The Golden Feather' hotel. We shall be dining in its restaurant this evening, but before that, I need to head up to my apartment and get changed.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_TRAVEL_WALK_REPEAT"><![CDATA[
+	<p>
+		Escorting the beautiful matriarch out of her shop, you [pc.walk] by her side as the two of you travel through the streets of Dominion. Helena happily engages you in idle conversation while you make your way towards her apartment in the Harpy Nests, which helps to make your somewhat lengthy journey pass in what seems like just a few moments. Before you know it, you once again find yourselves walking in the shadows cast by the Harpy Nest's huge, rooftop platforms, and as you arrive at 'The Golden Feather' hotel, Helena declares, [helena.speech(Let us head inside without delay; I wish to get changed as soon as possible.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_TRAVEL_FLY"><![CDATA[
+	<p>
+		Escorting the beautiful matriarch out of her shop, you suggest that the two of you should fly to her apartment so as to arrive there as quickly as possible. Liking the sound of your plan, Helena joins you in taking a short run down the street, before leaping into the air and flying up into the sky above Slaver Alley.
+	</p>
+	<p>
+		With the regal matriarch elegantly gliding along beside you, the two of you fly off in the direction of the Harpy Nests. Thanks to your ability to fly, it only takes a few minutes before you've arrived at your destination, and, letting Helena take the lead, you follow her as she swoops down and lands in the street beneath her nest. The reason for her choice of landing site is quickly revealed, for as you land beside her, the matriarch holds up one of her white-feathered wings to point at a huge building and declare, [helena.speech(That's 'The Golden Feather' hotel. We shall be dining in its restaurant this evening, but before that, I need to head up to my apartment and get changed. There is also a rooftop entrance to the hotel up in my nest, but I do not wish to deal with my followers right now, which is why we shall be entering from ground level.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_TRAVEL_FLY_REPEAT"><![CDATA[
+	<p>
+		Escorting the beautiful matriarch out of her shop, you suggest that the two of you should fly to her apartment so as to arrive there as quickly as possible. Liking the sound of your plan, Helena joins you in taking a short run down the street, before leaping into the air and flying up into the sky above Slaver Alley.
+	</p>
+	<p>
+		With the regal matriarch elegantly gliding along beside you, the two of you fly off in the direction of the Harpy Nests. Thanks to your ability to fly, it only takes a few minutes before you've arrived at your destination, and, letting Helena take the lead, you follow her as she swoops down and lands in the street beneath her nest. With 'The Golden Feather' hotel just across the street from your landing site, Helena declares, [helena.speech(Let us head inside without delay; I wish to get changed as soon as possible.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_TRAVEL_RIDE"><![CDATA[
+	<p>
+		Escorting the beautiful matriarch out of her shop, you suggest that she could ride on your back so as to arrive at her apartment as quickly as possible. Upon hearing what it is you're suggesting, Helena blushes a little and asks, [helena.speech(You would offer to let me ride upon your back? Are you not concerned that others might think you to be my slave?)]
+	</p>
+	<p>
+		Telling Helena that you don't care what others think, you turn to one side and present your [pc.legRace]'s body for her to sit upon. Continuing to blush a little, Helena flaps up to perch upon your back in a side-saddle position. After the surprisingly-light matriarch has told you that her apartment is located in the Harpy Nests, you set off at a canter off through the streets of Dominion.
+	</p>
+	<p>
+		Although she sometimes has to raise her voice a little to be heard over the chattering crowds of people, Helena happily engages you in idle conversation while you carry her towards her apartment, which helps to make your somewhat lengthy journey pass in what seems like just a few moments. Before you know it, you find yourself walking in the shadows cast by the Harpy Nest's huge, rooftop platforms, and as you arrive in the area beneath Helena's nest, the matriarch gets you to halt, before sliding off your back, pointing at a huge building, and declaring, [helena.speech(That's 'The Golden Feather' hotel. We shall be dining in its restaurant this evening, but before that, I need to head up to my apartment and get changed.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_TRAVEL_RIDE_REPEAT"><![CDATA[
+	<p>
+		Escorting the beautiful matriarch out of her shop, you suggest that she could ride on your back so as to arrive at her apartment as quickly as possible. Upon hearing what it is you're suggesting, Helena blushes a little and asks, [helena.speech(You would offer to let me ride upon your back? Are you not concerned that others might think you to be my slave?)]
+	</p>
+	<p>
+		Telling Helena that you don't care what others think, you turn to one side and present your [pc.legRace]'s body for her to sit upon. Continuing to blush a little, Helena flaps up to perch upon your back in a side-saddle position. After the surprisingly-light matriarch has told you that her apartment is located in the Harpy Nests, you set off at a canter off through the streets of Dominion.
+	</p>
+	<p>
+		Although she sometimes has to raise her voice a little to be heard over the chattering crowds of people, Helena happily engages you in idle conversation while you carry her towards her apartment, which helps to make your somewhat lengthy journey pass in what seems like just a few moments. Before you know it, you find yourself walking in the shadows cast by the Harpy Nest's huge, rooftop platforms, and as you once again arrive in front of 'The Golden Feather' hotel, you stop to let Helena slip off your back and declare, [helena.speech(Let us head inside without delay; I wish to get changed as soon as possible.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_TRAVEL -->
+	
+	<htmlContent tag="DATE_TRAVEL"><![CDATA[
+	<p>
+		As Helena starts to lead you towards the hotel's grand entrance, you realise that her apartment must also be in this building. The pretty harpy doorwoman on duty hurries to hold open the door for the two of you, and as she sees that it's none other than Helena herself who's passing her by, she bows down and squeaks, [style.speechFeminine(Good evening, ma'am!)] 
+	</p>
+	<p>
+		Returning the harpy's greeting, Helena strides through the open door and enters the hotel's grand, opulent foyer, before turning to smile at you and say, [helena.speech(My apartment is on the top floor of this hotel. I shall only be a short while, so it would be best for you to wait here for my return. Oh, look, my dear Scarlett is waiting over there, so you can talk with her while you wait!)]
+	</p>
+	<p>
+		Sure enough, you see Scarlett moodily slouched down on one of the many sofas which are positioned on the far side of the foyer, and as Helena strides over to a nearby elevator and disappears from sight, you decide to head over and say hello to the black-feathered harpy. As you approach, she looks up and
+		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			 says, [scarlett.speech(Hi, [pc.name]. It looks like both of us are having to wait for Helena's return, huh?)]
+		#ELSE
+			 mutters, [scarlett.speech(What the fuck do you want, [pc.name]? It's your fault that I'm having to hang around here and wait for Helena instead of finding some harpy slut to fuck...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_TRAVEL_WAIT"><![CDATA[
+	<p>
+		Deciding that it would be best to not risk angering Scarlett, you choose not to engage the raven-harpy in conversation and instead quietly wait upon the sofa for Helena to return. Seeming to be just as happy as you are to sit in silence, Scarlett slouches down on her seat, before lifting her bird-like legs and resting her sharp talons upon the coffee table positioned in front of her. Although you notice a couple of the members of staff pointedly glancing over at Scarlett's rude posturing, none of them dare to approach and tell her to stop, letting you know that they must already be aware of Scarlett's short temper.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_TRAVEL_SMALL_TALK"><![CDATA[
+	<p>
+		Deciding that it would be best to pass the time by engaging in conversation with Scarlett, you ask her how she is and if she visits this hotel often.
+		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			 Although she tries to hide it, the raven-harpy is clearly happy to be getting a chance to talk with you, and after telling you that she's well, she goes on to explain, [scarlett.speech(I never used to visit this place, but since I became Helena's PA, I've been staying in one of the guest bedrooms in her apartment, so I pretty much live here now. I don't know if she's told you yet, but Helena actually owns this entire hotel, and seeing as I'm so close to her, all the hotel staff let me do pretty much anything I want in here.)]
+		#ELSE
+			 Although at first she tries to dismiss your questioning with a barrage of her usual foul language, she eventually relents and reluctantly tells you that she's well. Once she starts talking, she can't seem to stop, and quickly goes on to explain, [scarlett.speech(I never used to visit this fucking place, but since I became Helena's PA, I've been staying in one of the guest bedrooms in her apartment, so I pretty much live here now. I don't know if she's told you yet, but Helena actually owns this entire hotel, and seeing as I'm so close to her, all the hotel staff let me do whatever the fuck I want in here.)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_RESTAURANT_ROMANTIC_SETUP -->
+	
+	<htmlContent tag="DATE_RESTAURANT_ROMANTIC_SETUP_AGREED"><![CDATA[
+	<p>
+		Wanting there to be a romantic atmosphere in Helena's apartment for when you escort her up there after your meal, you ask Scarlett if she could help you set something like that up. Letting out a sigh and slouching even further down on her sofa, the raven-harpy asks, [scarlett.speech(What sort of thing did you have in mind? I doubt just dimming the lights and lighting some candles is going to cut it...)]
+	</p>
+	<p>
+		Passing the trio of rose bouquets to Scarlett, you explain how you'd like her to scatter the petals leading from the entrance of Helena's apartment into her bedroom. Liking the sound of the dimmed lights and lit candles, you ask the raven-harpy if she could also do that for you. As you're one of the very few people which she actually likes, Scarlett takes the roses from you and agrees to do as you ask, [scarlett.speech(Sure, I could set all of that up for you. Hopefully it'll put Helena in a good mood over the weekend...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_ROMANTIC_SETUP_DECLINED"><![CDATA[
+	<p>
+		Wanting there to be a romantic atmosphere in Helena's apartment for when you escort her up there after your meal, you ask Scarlett if she could help you set something like that up. Flashing you a withering scowl, she starts to tell you to fuck off, before suddenly changing her mind mid-sentence and slyly offering,
+		#IF(scarlett.hasPenis())
+			 [scarlett.speech(Sure, I could set that up for you, but it's going to cost you. Either give a thousand flames, or get on your knees and give me a quick blowjob before Helena returns.)]
+		#ELSE
+			 [scarlett.speech(Sure, I could set that up for you, but it's going to cost you. Either give a thousand flames, or get on your knees and quickly eat me out before Helena returns.)]
+		#ENDIF
+	</p>
+	<p>
+		Lifting the skirt of her skater dress, Scarlett grabs hold of her boyshorts and slides them off, before spreading her legs and presenting you with her
+		#IF(scarlett.hasPenis())
+			 rapidly-hardening cock.
+		#ELSE
+			 wet pussy.
+		#ENDIF
+		 As the sofa which she's sitting on has its back to the rest of the foyer, you realise that if you were to perform oral on her, you would be able to do so while remaining out of sight from the staff and other guests who are standing nearby. Flashing you a devious grin, Scarlett asks, [scarlett.speech(So, what's it going to be, cunt? If you want to impress Helena and get to fuck her tight little pussy, you've got to do something for me first.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_ROMANTIC_SETUP_THANKS"><![CDATA[
+	<p>
+		Taking her feet off the coffee table, Scarlett stands up and lets out a big yawn. Wishing you luck with your date, she hurries off to carry out her task, leaving you alone while you wait for Helena. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_ROMANTIC_SETUP_REFUSED"><![CDATA[
+	<p>
+		Not liking the sound of what Scarlett is saying, you flatly tell her that those conditions are not acceptable. Letting out a dismissive huff, the raven-harpy slouches down and says, [scarlett.speech(If you don't fucking like it, then don't fucking bother me about it again!)]
+	</p>
+	<p>
+		With your refusal clearly having put Scarlett in a foul mood, you decide that it would be best not to pay the raven-harpy any more attention, and instead quietly wait upon the sofa for Helena to return. Seeming to be just as happy as you are to sit in silence, Scarlett slouches down even further on her seat, before lifting her bird-like legs and resting her sharp talons upon the coffee table positioned in front of her. Although you notice a couple of the members of staff pointedly glancing over at Scarlett's rude posturing, none of them dare to approach and tell her to stop, letting you know that they must already be aware of Scarlett's short temper.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_ROMANTIC_SETUP_PAID"><![CDATA[
+	<p>
+		Deciding that a thousand flames is a small price to pay in exchange for impressing Helena with a romantic gesture, you hand the money over to Scarlett. Sitting up on her sofa, the raven-harpy snatches the flames from out of your [pc.hand], before asking, [scarlett.speech(So what exactly do you fucking want me to do? I don't think just dimming the lights and lighting some candles is going to impress Helena...)]
+	</p>
+	<p>
+		Passing the trio of rose bouquets to Scarlett, you explain how you'd like her to scatter the petals leading from the entrance of Helena's apartment into her bedroom. Liking the sound of the dimmed lights and lit candles, you ask the raven-harpy if she could also do that for you. Having already received her payment, Scarlett snatches the roses from you and agrees to do as you ask, [scarlett.speech(Sure, I'll get that set up. It should put Helena in a good mood over the weekend, so it's good for me as well...)]
+	</p>
+	<p>
+		Taking her feet off the coffee table, Scarlett stands up and lets out a big yawn. Throwing one last sneer your way, she hurries off to carry out her task, leaving you alone to wait for Helena. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_ROMANTIC_SETUP_START_BLOWJOB"><![CDATA[
+	<p>
+		Deciding that sucking Scarlett's cock is a small price to pay in exchange for impressing Helena with a romantic gesture, you quickly move forwards and drop your head down between her legs. Grabbing you by
+		#IF(pc.hasHorns())
+			 your [pc.horns]
+		#ELSEIF(pc.hasHair())
+			 your [pc.hair]
+		#ELSE
+			 the back of your head
+		#ENDIF
+		, Scarlett pulls you down into her groin, forcing the [scarlett.cockHead+] of her dick to brush against your [pc.lips] as she teases, [scarlett.speechNoEffects(Hurry up and suck my cock, bitch! You wouldn't want Helena returning to see me balls-deep down your throat, so make sure you get to me cum as quickly as possible!)]
+	</p>
+	<p>
+		Agreeing with Scarlett's remark, you part your [pc.lips] and take her throbbing shaft into your mouth. Letting out an evil chuckle, the sadistic harpy slams your head down, forcing you to swallow her cock to the base as she teases, [scarlett.speechNoEffects(That's it, bitch! Keep going until I'm cumming down your throat!)]
+	</p>
+	<p>
+		With little choice now but to do as she says, you set about greedily sucking and slurping on Scarlett's cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_ROMANTIC_SETUP_START_CUNNILINGUS"><![CDATA[
+	<p>
+		Deciding that performing cunnilingus on Scarlett is a small price to pay in exchange for impressing Helena with a romantic gesture, you quickly move forwards and drop your head down between her legs. Grabbing you by
+		#IF(pc.hasHorns())
+			 your [pc.horns]
+		#ELSEIF(pc.hasHair())
+			 your [pc.hair]
+		#ELSE
+			 the back of your head
+		#ENDIF
+		, Scarlett pulls you down into her groin, forcing your [pc.lips] against her [scarlett.labia+] as she teases, [scarlett.speechNoEffects(Hurry up and eat me out, bitch! You wouldn't want Helena returning to see your tongue stuffed deep in my wet cunt, so make sure you get to me climax as quickly as possible!)]
+	</p>
+	<p>
+		Agreeing with Scarlett's remark, you part your [pc.lips] and start licking her sensitive little clit. Letting out an evil chuckle, the sadistic harpy slams your head down, grinding your mouth down against her pussy as she teases, [scarlett.speechNoEffects(That's it, bitch! Keep going until I'm squirting all over your face!)]
+	</p>
+	<p>
+		With little choice now but to do as she says, you set about greedily licking and kissing Scarlett's wet cunt...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_RESTAURANT_ROMANTIC_SETUP_AFTER_ORAL -->
+	
+	<htmlContent tag="DATE_RESTAURANT_ROMANTIC_SETUP_AFTER_ORAL"><![CDATA[
+	<p>
+		Having had her fun, Scarlett pushes you back a little, before commanding,
+		#IF(scarlett.hasPenis())
+			 [scarlett.speechNoEffects(Clean my cock, bitch, then I'll do what you want.)]
+		#ELSE
+			 [scarlett.speechNoEffects(Clean my pussy, bitch, then I'll do what you want.)]
+		#ENDIF
+	</p>
+	<p>
+		Having already gone this far, you see no harm in doing as Scarlett asks, and
+		#IF(scarlett.hasPenis())
+			 lean in to her groin to lick the excess cum and saliva off her cock.
+		#ELSE
+			 lean in to her groin to lick the excess fluids and saliva off her [scarlett.labia+].
+		#ENDIF
+		 Triumphantly chuckling to herself as you quickly finish cleaning her up, Scarlett leans back on the sofa and says, [scarlett.speech(Ok, bitch, that's enough. You can sit back down now. Oh, and you'd better wipe your face before Helena sees you...)]
+	</p>
+	<p>
+		Doing as the raven-harpy suggests, you sit back down on the sofa opposite hers, before grabbing a nearby tissue and hurriedly wiping the sexual fluids from off of your face. As you finish cleaning yourself up, Scarlett sits up on her sofa and asks, [scarlett.speech(So what exactly do you want me to do? I don't think just dimming the lights and lighting some candles is going to impress Helena...)]
+	</p>
+	<p>
+		Passing the trio of rose bouquets to Scarlett, you explain how you'd like her to scatter the petals leading from the entrance of Helena's apartment into her bedroom. Liking the sound of the dimmed lights and lit candles, you ask the raven-harpy if she could also do that for you. Having already received her 'payment' from you, Scarlett snatches the roses and agrees to do as you ask, [scarlett.speech(Sure, I'll get that set up. It should put Helena in a good mood over the weekend, so it's good for me as well...)]
+	</p>
+	<p>
+		Taking her feet off the coffee table, Scarlett stands up and lets out a big yawn. Throwing one last triumphant smirk your way, she hurries off to carry out her task, leaving you alone to wait for Helena. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_RESTAURANT_START -->
+	
+	<htmlContent tag="DATE_RESTAURANT_START"><![CDATA[
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaDateRomanticSetup))
+			After another few minutes spent waiting on the sofa, you see the elevator doors on the other side of the foyer slide open, and from within the regal figure of Helena emerges.
+		#ELSE
+			After another fifteen minutes spent in Scarlett's company, you see the elevator doors on the other side of the foyer slide open, and from within the regal figure of Helena emerges.
+		#ENDIF
+		#IF(helena.isSlutty())
+			 Matching the colour of her painted nails and lipstick, she's shamelessly wearing a bright pink, plunge-neck clubbing dress, which leaves most of her breasts and stomach completely exposed. Biting her lip and beckoning you over to her with one of her white wings, she does a little spin on the spot and sluttily teases, [helena.speech(I chose to wear this as I thought it'd be the easiest to slip out of once we get up to my bedroom later... Before that, however, should we proceed to dinner?)]
+		#ELSE
+			 Matching the colour of her flawless feathers, she's wearing an elegant white evening gown, which, along with her diamond necklace and delicate golden tiara, accentuates her beauty to the point where the hotel's staff members are left unable to do anything but stare at her in awe. Moving to meet her as she gracefully strides across the room, you offer the harpy a sincere compliment on her appearance, which causes her blush a little and reply, [helena.speech(I'm pleased to hear that you like my choice of dress. Now, shall we proceed to dinner?)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaDateRomanticSetup))
+			After you've replied in the positive, Helena tells Scarlett that her presence will not be needed after all, and after the raven-harpy has moodily stomped off, she
+		#ELSE
+			Clearly not requiring Scarlett's presence, Helena makes no mention of the fact that the raven-harpy is missing, and as soon as you've replied to her previous question in the positive, she
+		#ENDIF
+		#IF(helena.isSlutty())
+			 leans in close to lewdly whisper to you, [helena.speech(By the way, [pc.name], I was in such a hurry that I forgot to put on any underwear... I hope you won't be distracted by that thought...)]
+		#ELSE
+			 steps up close beside you and pointedly says, [helena.speech(The restaurant is through the doors over there, [pc.name].)]
+		#ENDIF
+	</p>
+	<p>
+		Escorting the beautiful matriarch across the room and into the extravagantly-furnished restaurant, you're immediately approached by a smartly-dressed harpy waitress, who politely and professionally leads you over to what she describes as the best table in the restaurant. Sure enough, as you and Helena sit down opposite to one another, you find that the position of your table near to the corner of the room grants you a decent level of privacy while also not feeling as though you've been placed somewhere out of sight.
+	</p>
+	<p>
+		After giving each of you a menu and describing the day's specials, the waitress asks what you'd like to drink. Knowing exactly what it is she wants, Helena asks for the most expensive bottle of wine on the list, before looking into your eyes and asking, [helena.speech(You'll share this bottle with me, won't you, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_START_WINE"><![CDATA[
+	<p>
+		Not wanting to let Helena down, you tell the waitress that you'll be sharing the bottle of wine with her. Having taken your drink orders, the harpy quickly darts off to fetch the bottle of wine, leaving Helena to smugly state,
+		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaDateFirstDateComplete))
+			 [helena.speech(As I own this hotel, there'll be no charge for anything on the menu, so just like the last time, you won't have the opportunity to impress me by offering to pay for the meal.)]
+		#ELSE
+			 [helena.speech(I don't think I've mentioned it to you yet, but I actually own this entire hotel. There'll be no charge for anything on the menu, so I'm afraid that you don't have the opportunity to impress me by offering to pay for the meal.)]
+		#ENDIF
+	</p>
+	<p>
+		At that moment, the harpy waitress returns with the bottle of wine, and after opening it and pouring a small amount in Helena's glass for her to taste, she proceeds to pour each of you a full glass. Having already looked over the menu, you're able to then give the waitress your order, and after Helena has also chosen what she'd like for her meal, the waitress bows and darts off, leaving the two of you alone at last. As you take a drink from your wine glass, Helena smiles at you and strikes up a conversation...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_START_WATER"><![CDATA[
+	<p>
+		Not wanting to drink any alcohol, you tell the waitress that you'd just like some water. Having taken your orders, the harpy quickly darts off to fetch your drinks, leaving Helena to pout and state,
+		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaDateFirstDateComplete))
+			 [helena.speech(I was hoping you'd share the wine with me, [pc.name]... Anyway, I just wanted to remind you that as I own this hotel, there'll be no charge for anything on the menu, so you won't have the opportunity to impress me by offering to pay for the meal.)]
+		#ELSE
+			 [helena.speech(I was hoping you'd share the wine with me, [pc.name]... Anyway, I don't think I've mentioned it to you yet, but I actually own this entire hotel. There'll be no charge for anything on the menu, so I'm afraid that you don't have the opportunity to impress me by offering to pay for the meal.)]
+		#ENDIF
+	</p>
+	<p>
+		At that moment, the harpy waitress returns with both your glass of water and Helena's chosen bottle of wine. After placing your drink down before you, she proceeds to open the bottle and pour a small amount in Helena's glass for her to taste. Expressing her approval, Helena waits for the waitress to pour her a full glass before telling her what she'd like to order for her meal. Having already looked over the menu, you're also able to give the waitress your order, and after you've done so, the harpy bows and darts off, leaving you and Helena alone at last. As you take a drink from your glass of water, Helena smiles at you and strikes up a conversation...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_START_BEER"><![CDATA[
+	<p>
+		Not liking the sound of sharing a bottle of wine with Helena, you tell the waitress that you'd like a beer instead. Having taken your orders, the harpy quickly darts off to fetch your drinks, leaving Helena to pout and state,
+		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaDateFirstDateComplete))
+			 [helena.speech(I was hoping you'd share the wine with me, [pc.name]... Anyway, I just wanted to remind you that as I own this hotel, there'll be no charge for anything on the menu, so you won't have the opportunity to impress me by offering to pay for the meal.)]
+		#ELSE
+			 [helena.speech(I was hoping you'd share the wine with me, [pc.name]... Anyway, I don't think I've mentioned it to you yet, but I actually own this entire hotel. There'll be no charge for anything on the menu, so I'm afraid that you don't have the opportunity to impress me by offering to pay for the meal.)]
+		#ENDIF
+	</p>
+	<p>
+		At that moment, the harpy waitress returns with both your beer and Helena's chosen bottle of wine. After placing your drink down before you, she proceeds to open the wine bottle and pour a small amount in Helena's glass for her to taste. Expressing her approval, Helena waits for the waitress to pour her a full glass before telling her what she'd like to order for her meal. Having already looked over the menu, you're also able to give the waitress your order, and after you've done so, the harpy bows and darts off, leaving you and Helena alone at last. As you take a drink of beer, Helena smiles at you and strikes up a conversation...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_START_WHISKEY"><![CDATA[
+	<p>
+		Not liking the sound of sharing a bottle of wine with Helena, you tell the waitress that you'd like a glass of whiskey instead. Having taken your orders, the harpy quickly darts off to fetch your drinks, leaving Helena to pout and state,
+		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaDateFirstDateComplete))
+			 [helena.speech(I was hoping you'd share the wine with me, [pc.name]... Anyway, I just wanted to remind you that as I own this hotel, there'll be no charge for anything on the menu, so you won't have the opportunity to impress me by offering to pay for the meal.)]
+		#ELSE
+			 [helena.speech(I was hoping you'd share the wine with me, [pc.name]... Anyway, I don't think I've mentioned it to you yet, but I actually own this entire hotel. There'll be no charge for anything on the menu, so I'm afraid that you don't have the opportunity to impress me by offering to pay for the meal.)]
+		#ENDIF
+	</p>
+	<p>
+		At that moment, the harpy waitress returns with both your whiskey and Helena's chosen bottle of wine. After placing your drink down before you, she proceeds to open the wine bottle and pour a small amount in Helena's glass for her to taste. Expressing her approval, Helena waits for the waitress to pour her a full glass before telling her what she'd like to order for her meal. Having already looked over the menu, you're also able to give the waitress your order, and after you've done so, the harpy bows and darts off, leaving you and Helena alone at last. As you take a drink of whiskey, Helena smiles at you and strikes up a conversation...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Slavery: -->
+	
+	<htmlContent tag="DATE_RESTAURANT_TALKING_SLAVES"><![CDATA[
+	<p>
+		[helena.speech(You weren't around at the time, [pc.name], or else I might have asked for your assistance in the matter, but the other day there was a group of protesters marching through Slaver Alley, shouting for slavery to be abolished,)] the matriarch reveals, the tone of her voice clearly conveying the fact that she disapproves of such protests. Taking another sip of her wine, she leans back in her chair and states, [helena.speech(That rabble kicked up such a fuss that I had to personally fly over to the Enforcer headquarters and demand they come and break it up. Needless to say, the sergeant on duty rushed to my aid, and within the hour all of the protesters had been arrested. A few of them actually ended up getting enslaved themselves as a punishment for assaulting the Enforcers who were trying to arrest them!)]
+	</p>
+	<p>
+		Clearly finding this fact amusing, Helena lets out a soft laugh, before asking, [helena.speech(What's your view on slavery, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_TALKING_SLAVES_REPEAT"><![CDATA[
+	<p>
+		[helena.speech(Some more protesters showed up in Slaver Alley the other day, shouting all kinds of nonsense about how slavery should be abolished,)] Helena says, before taking another sip of her wine and continuing, [helena.speech(Of course, I had the Enforcers come and arrest them, but I get the feeling that sooner or later those of them who weren't enslaved themselves will be back to start another protest. Honestly, I don't see why the Enforcers don't just enslave them all!)]
+	</p>
+	<p>
+		Letting out a weary sigh, Helena takes yet another sip of wine and asks, [helena.speech(Remind me, [pc.name], what do you think of slavery?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_SLAVES_NATURAL"><![CDATA[
+	<p>
+		Finding yourself approving of how Helena handled the protesters, you tell her that you believe slavery to be perfectly natural. Making the point that there are hierarchies everywhere you look in nature, you say that slaves fit into their rightful place at the very bottom of society. What's more, you argue that it's actually a blessing for most slaves to be given the chance to contribute in some way to society, for without slavery, criminals would have to be kept as prisoners at great expense to law-abiding tax payers.
+	</p>
+	<p>
+		Delighted to hear that your views line up with hers, Helena can't help but let a big smile cross her face, and as you finish giving your opinion, she continues to expand upon the points which you've laid out. In this manner, the two of you continue your discussion on how slavery is of great benefit to society, and before you know it, almost twenty minutes have passed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_SLAVES_NECESSITY"><![CDATA[
+	<p>
+		Although you know that Helena won't agree with what you're saying, you think it best to give her your honest opinion on the matter of slavery. Telling her that you disapprove of it from a moral standpoint, you reluctantly concede the fact that it seems like a necessity in Dominion's society. After all, without slavery as a means of deterring and punishing criminals, the Enforcers might struggle to keep law and order in a city which already seems to have a serious problem with muggers and rapists.
+	</p>
+	<p>
+		Although your point of view doesn't entirely line up with hers, Helena appears to be happy that you've given her your honest opinion, and after you've finished speaking, she respectfully argues that slavery is both natural and beneficial to society. In this manner, the two of you continue your discussion on slavery, and before you know it, almost twenty minutes have passed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_SLAVES_WRONG"><![CDATA[
+	<p>
+		Although you know that expressing your honest opinion on the matter of slavery is likely to annoy Helena, you feel as though you shouldn't lie to her just to get her to like you. With this in mind, you tell the matriarch that you think slavery is abhorrent, and you hope that one day it will be completely abolished. Considering the fact that Helena's business is completely reliant upon the slave trade, you hasten to add that you don't mean any ill-will towards her, but that you simply can't ever see a moral justification for owning other people as though they're nothing but property.
+	</p>
+	<p>
+		Just as you expected, your answer appears to annoy Helena, and after you've finished speaking, she flaps her wings in frustration and launches into a passionate argument for how slavery is both natural and beneficial to society. Although at times your discussion threatens to heat up to the point of serious conflict, the two of you manage to keep your cool as you argue for and against slavery, and before you know it, almost twenty minutes have passed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Harpy nests: -->
+	
+	<htmlContent tag="DATE_RESTAURANT_TALKING_HARPY_NESTS"><![CDATA[
+	<p>
+		#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_HARPY_PACIFICATION))
+			[helena.speech(So, I've heard that it was you who pacified the other matriarchs up in the Harpy Nests,)] Helena remarks, sipping her wine and smiling at you for a brief moment before continuing, [helena.speech(I've heard some people complain about the way we run things up there, but in truth it's not often that the Nests get into such a state. Besides, even if things do get a little chaotic every now and then, it's nobody's business but ours.)]
+		#ELSE
+			[helena.speech(You've no doubt heard about the other matriarchs kicking up a fuss in the Harpy Nests?)] Helena asks, stopping to sip her wine while she waits for your answer. After you've responded in the affirmative, she smiles at you and continues, [helena.speech(Well, I've heard some people complain about the way we run things up there, but in truth it's not often that the Nests get into such a state. Besides, even if things do get a little chaotic every now and then, it's nobody's business but ours.)]
+		#ENDIF
+	</p>
+	<p>
+		Leaning back in her chair and letting out a small sigh, the beautiful matriarch asks, [helena.speech(What's your opinion on the way the Harpy Nests are managed, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_TALKING_HARPY_NESTS_REPEAT"><![CDATA[
+	<p>
+		[helena.speech(You know, a complete stranger actually had the gall to try and complain to me directly about the state of the Harpy Nests the other day!)] Helena remarks, the tone of her voice conveying her disbelief at the fact that anyone would attempt to do such a thing. Taking a small sip of wine, she continues, [helena.speech(Of course, I had my followers subdue her and give her a proper punishment for her insolence, but the fact that she'd gone out of her way to stick her nose in my business really ruined my day. I must admit that after I'd had her punished, I was still so frustrated that I had the Enforcers arrest her for trying to stir up trouble in the Nests.)]
+	</p>
+	<p>
+		Leaning back in her chair and letting out a small sigh, the beautiful matriarch asks, [helena.speech(Anyway, could you remind me of your opinion on the way the Harpy Nests are managed, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_HARPY_NESTS_HELENA_TOP"><![CDATA[
+	<p>
+		Having seen first-hand the chaos that's caused when the Nests' matriarchs lose their cool, you tell Helena that things would most likely be a lot more stable under a more centralised system of control. Encouraged by the approving smile which Helena flashes you as you say this, you continue by saying that there should be a single harpy queen which all other matriarchs should swear fealty to, and that you couldn't think of a better candidate for this role than Helena herself.
+	</p>
+	<p>
+		Allowing a very smug smile to settle on her face, Helena tells you that she's often thought of the exact same thing, but unfortunately, the other harpy matriarchs would never agree to give up their power like that. Although she doesn't seem to have high hopes of it ever becoming a reality, Helena is more than happy to continue discussing the details of a feudal harpy society with you, and before you know it, almost twenty minutes have passed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_HARPY_NESTS_BALANCE"><![CDATA[
+	<p>
+		Thinking that the situation in the Harpy Nests isn't exactly good or bad, you tell Helena that things seem to have found a good balance up there. While there are always things that can be improved in any society, the harpy matriarchs, including her, seem to be doing a good job of keeping things under control.
+	</p>
+	<p>
+		Although she seems to be satisfied by your answer, Helena doesn't show any sign of being overly happy about what you've just said, and instead continues to press you on what areas of harpy society need improving. Focusing on the way the other matriarchs sometimes let their flocks get out of control, you continue to discuss the management of the Harpy Nests with Helena, and before you know it, almost twenty minutes have passed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_HARPY_NESTS_BAD"><![CDATA[
+	<p>
+		Thinking that the management of the Harpy Nests leaves much to be desired, you tell Helena that the entire system of matriarchs ruling over flocks of subservient harpies is not one that should be allowed to stay in place for much longer. Pointing out the fact that the other nests sometimes fall into complete chaos and disarray, you suggest that harpies should abandon their hierarchical social structure and instead try to integrate more into normal Dominion society.
+	</p>
+	<p>
+		Clearly taking great offence at your direct criticism of the society which she helps to maintain, Helena lets out a frustrated huff and crosses her wing-like arms. As you try to justify your opinion to her, she flaps her wings and starts passionately arguing back in an attempt to convince you of the necessity of matriarchs in harpy society. Although at times your discussion threatens to heat up to the point of serious conflict, the two of you manage to keep your cool as you argue about the management of the Harpy Nests, and before you know it, almost twenty minutes have passed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Races: -->
+	
+	<htmlContent tag="DATE_RESTAURANT_TALKING_RACES"><![CDATA[
+	<p>
+		[helena.speech(I  out of all the clients who've ordered custom slaves at my store, only one or two have asked for human slaves,)]
+	</p>
+	<p>
+		Topic of which race is the most beautiful.
+		Very disparaging comments about humans, saying that she's really doing human slaves a favour by transforming them into other races as specified by their new owners.
+		She asks you which race you think is the most beautiful.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_TALKING_RACES_REPEAT"><![CDATA[
+	<p>
+		Repeat topic about races.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_RACES_HARPIES"><![CDATA[
+	<p>
+		You flatter Helena by saying that harpies are the most beautiful, and she is unquestionably the most beautiful of all.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_RACES_INDIVIDUAL"><![CDATA[
+	<p>
+		You say that beauty depends on the individual, not the race. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_RACES_INNER_BEAUTY"><![CDATA[
+	<p>
+		You say that looks are only skin deep, and it's a person's personality that reveals their true beauty.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Harpies: -->
+	
+	<htmlContent tag="DATE_RESTAURANT_TALKING_HARPIES"><![CDATA[
+	<p>
+		One of the harpies (a raven-harpy) at another table is from a different flock, and Helena ruthlessly bitches about their appearance.
+		She says how her dear Scarlett is far more beautiful, although her temperament leaves much to be desired. She expresses regret at having sold her to you. Says that despite her mannerisms, Scarlett is the most loyal of all of her followers.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_TALKING_HARPIES_REPEAT"><![CDATA[
+	<p>
+		Repeat topic about harpies/Scarlett.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_HARPIES_CONTROL"><![CDATA[
+	<p>
+		You tell Helena that you are impressed by how she is able to control Scarlett.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_HARPIES_RUDE"><![CDATA[
+	<p>
+		You say that Scarlett is rude, but seems to be a loyal companion to Helena. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_HARPIES_BITCH"><![CDATA[
+	<p>
+		You say that Scarlett is a bitch and unworthy of Helena.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Business: -->
+	
+	<htmlContent tag="DATE_RESTAURANT_TALKING_BUSINESS"><![CDATA[
+	<p>
+		Topic of business (having had a busy day).
+		Says about one of the competing shops tried to set up something similar, but Helena spread bad rumours about them and it failed miserably. Wonders if their business will shut down (says if they're in severe debt, she'll inquire about enslaving them to get revenge).
+		Helena thanks you for your help again, and says how she is getting filthy rich off it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_TALKING_BUSINESS_REPEAT"><![CDATA[
+	<p>
+		Repeat topic about business.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_BUSINESS_FLATTER"><![CDATA[
+	<p>
+		You flatter Helena by saying only she could have pulled it off so well.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_BUSINESS_CREDIT"><![CDATA[
+	<p>
+		You say that you should also be given credit for its success.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RESPONSE_BUSINESS_SURPRISE"><![CDATA[
+	<p>
+		You say that you're surprised that it's so popular.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_RESTAURANT_PLAYER_TOPIC -->
+	
+	<htmlContent tag="DATE_RESTAURANT_PLAYER_TOPIC"><![CDATA[
+	<p>
+		Meals arrive.
+	</p>
+	<p>
+		You and Helena finish your meals and continue talking on the same subject for a while. harpy waitress returns and offers dessert. After placing your orders, you get the chance to shift the topic of conversation...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_PLAYER_TOPIC_HELENA"><![CDATA[
+	<p>
+		You turn the topic of conversation to Helena and her plans for the weekend. She likes talking about herself and tells you that she has work for a fashion magazine.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_PLAYER_TOPIC_ARCANE"><![CDATA[
+	<p>
+		You turn the topic of conversation to the arcane.
+		If took Scarlett's punishment, she reveals that she learned how to use arcane force when she underwent training at the university in the desert.
+		Else she says she's had training at the university in the desert.
+		She doesn't find it interesting, and to her, it was just a means to an end (it helped her assert herself as a powerful matriarch).
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_PLAYER_TOPIC_POLITICS"><![CDATA[
+	<p>
+		You turn the topic of conversation to politics and the manner in which Lilith rules over Dominion. Helena says she doesn't care about political affairs outside of the Harpy Nests.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_PLAYER_TOPIC_SEX_LIFE"><![CDATA[
+	<p>
+		You turn the topic of conversation to Helena's sex life.
+	</p>
+	<p>
+		#IF(!game.getDialogueFlags().hasFlag(FLAG_helenaDateVirginityTalk))
+			She is flustered and says she doesn't have one outside of seeing you. Reveals that she had never even kissed anyone before you, as she has been completely focused on her matriarchal duties. Says that she doesn't want to lose her virginity.
+		#ELSEIF(helena.isVaginaVirgin())
+			#IF(helena.isSlutty())
+				Once again reminds you that she doesn't want to lose her virginity, but says that you can use her ass/tits/mouth all you want.
+			#ELSE
+				Once again reminds you that she might be willing to do some sexual stuff with you, but doesn't want to lose her virginity.
+			#ENDIF
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_helenaScarlettThreesome))
+			#IF(helena.hasFetish(FETISH_DOMINANT))
+				#IF(scarlett.hasPenis())
+					She says she sometimes rides Scarlett's cock or gets her to eat her out when she gets horny, but other than that, she only wants to fuck you.
+				#ELSE
+					She says she sometimes sits on Scarlett's face or fucks her with a strapon when she gets horny, but other than that, she only wants to fuck you.
+				#ENDIF
+			#ELSE
+				#IF(scarlett.hasPenis())
+					She says she sometimes lets Scarlett hump her when she gets horny, but other than that, she only wants to be fucked by you.
+				#ELSE
+					She says she sometimes lets Scarlett sit on her face her when she gets horny, but other than that, she only wants to be fucked by you.
+				#ENDIF
+			#ENDIF
+		#ELSE
+			She says she's not done anything with anyone else but you, and will keep it that way.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_RESTAURANT_END -->
+	
+	<htmlContent tag="DATE_RESTAURANT_END"><![CDATA[
+	<p>
+		Soon enough, your empty dessert dishes are cleared away, and the harpy waitress informs Helena that, of course, the meal is on the house.
+	</p>
+	<p>
+		#IF(helena.isSlutty())
+			Helena says she's going to go up to her apartment. She's feeling horny and thinks that she's going to try on some skimpy lingerie.
+		#ELSE
+			Helena says she's going to retire for the evening.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_END_GOODBYE"><![CDATA[
+	<p>
+		You say goodbye to Helena. She looks a little disappointed that you didn't offer to accompany her up to her apartment.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_RESTAURANT_END_HOME -->
+	
+	<htmlContent tag="DATE_RESTAURANT_END_HOME"><![CDATA[
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaDateRomanticSetup))
+			#IF(helena.hasFetish(FETISH_DOMINANT))
+				You escort Helena up to her apartment. As a harpy maid opens it, you see the romantic scene before you again. Helena turns to face you and forces you to kiss her. She then dominantly pulls you along towards her bedroom...
+			#ELSE
+				You escort Helena up to her apartment. As a harpy maid opens it and quickly scurries away, the two of you see that the lights inside are dimmed, and there are rose petals leading down the hallways to her bedroom. She turns to face you with a bashful look on her face.
+			#ENDIF
+		#ELSEIF(helena.hasFetish(FETISH_DOMINANT))
+			You escort Helena up to her apartment. A harpy maid quickly answers the door when Helena knocks on it. After the door has opened, Helena dominantly pulls you along towards her bedroom...
+		#ELSE
+			You escort Helena up to her apartment. A harpy maid quickly answers the door when Helena knocks on it.
+			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaDateSexLifeTalk) && !helena.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_TWO_LIKE))
+				 Helena invites you inside.
+			#ELSE
+				 Helena doesn't invite you inside.
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_ROMANTIC_SCENE_BEDROOM"><![CDATA[
+	<p>
+		Helena pulls you along into her bedroom (she is slutty). She pushes you on the bed and steps into her wardrobe to slip into something more appropriate.
+		Returns a moment later wearing an open-cup bra and crotchess thong.
+		Drops down on her knees before you and says she wants to thank you for the romantic gesture...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_HELENA_DOM"><![CDATA[
+	<p>
+		You enter Helena's bedroom. She pushes you on the bed and steps into her wardrobe to slip into something more appropriate. Returns a moment later wearing an open-cup bra and crotchess thong. Asks you if you have any preference for how she's going to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_END_HOME_GOODBYE"><![CDATA[
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaDateSexLifeTalk))
+			You say you don't have time to come inside tonight and say goodbye to Helena. She is disappointed.
+		#ELSE
+			You say goodbye to Helena.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_END_HOME_GOODBYE_KISS"><![CDATA[
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaDateSexLifeTalk))
+			You say you don't have time to come inside tonight and kiss Helena on the cheek as you say goodbye. She is disappointed, but likes the kiss.
+		#ELSE
+			You kiss Helena on the cheek as you say goodbye. She likes the kiss.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_RESTAURANT_END_HOME_BEDROOM"><![CDATA[
+	<p>
+		You lead Helena directly into her bedroom. She asks you to sit on the bed and steps into her wardrobe to slip into something more appropriate. Returns a moment later wearing an open-cup bra and crotchess thong. Asks you if you have any preference for how she's going to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_APARTMENT_ROMANTIC_SCENE_KISS -->
+	
+	<htmlContent tag="DATE_APARTMENT_ROMANTIC_SCENE_KISS"><![CDATA[
+	<p>
+		You kiss Helena and lead her along the trail of rose petals towards her bedroom.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_ROMANTIC_SCENE_KISS_BEDROOM"><![CDATA[
+	<p>
+		You kiss Helena and lead her along the trail of rose petals towards her bedroom. Once inside, she goes into her walk-in wardrobe to slip into something more comfortable. Comes back out moments later wearing white lacy lingerie. She shyly asks if you want to give or receive oral...
+		(You think that it would be a good idea to do this to get her even more into the mood before suggesting to go further with her...)
+		Warn the player that if they want to take Helena's virginity (or fuck her), they should grow a cock or equip a dildo during this scene
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_APARTMENT_START -->
+	
+	<htmlContent tag="DATE_APARTMENT_START"><![CDATA[
+	<p>
+		You accept Helena's invitation to come inside. It is huge, with several harpy maids waiting on her. Led into the (huge) lounge, which overlooks the balcony and Dominion itself. Sit down on sofa next to Helena.
+	</p>
+	<p>
+		Variations based on slutty, lost kiss virginity, and affection.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_START_LEAVE"><![CDATA[
+	<p>
+		You tell Helena that it's time for you to leave. Her reaction varies based on slutty and affection. (If kissed, you kiss goodbye.)
+	</p>
+	<p>
+		Say goodnight and head back out into Dominion.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_START_BEDROOM"><![CDATA[
+	<p>
+		You suggest that the two of you head into Helena's bedroom. She asks you to sit on the bed and steps into her wardrobe to slip into something more appropriate.
+		Slutty: Returns a moment later wearing an open-cup bra and crotchess thong. Asks you how you want to fuck (or doms you).
+		Else: Once inside, she goes into her walk-in wardrobe to slip into something more comfortable. Comes back out moments later wearing white lacy lingerie.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_APARTMENT_COFFEE -->
+	
+	<htmlContent tag="DATE_APARTMENT_COFFEE"><![CDATA[
+	<p>
+		You and Helena have coffee. If she is slutty, she seems more interested in enticing you into the bedroom.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_APARTMENT_KISS -->
+	
+	<htmlContent tag="DATE_APARTMENT_KISS_FIRST"><![CDATA[
+	<p>
+		You convince Helena to let you take her first kiss. After kissing her, she gets really into it. Slides into your lap and sloppily continues to make out with you.
+	</p>
+	<p>
+		Despite any movement you make, she refuses to move off your lap, but eventually she leans back, panting, and says that she is overwhelmed and needs to lie down. She seems worried about how much she got into it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_KISS"><![CDATA[
+	<p>
+		You kiss Helena, once again causing her to really get into it. Slides into your lap and sloppily continues to make out with you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_KISS_FIRST_LEAVE"><![CDATA[
+	<p>
+		You let Helena hurry off in embarrassment at what just happened. A harpy maid shows you to the door.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_KISS_LEAVE"><![CDATA[
+	<p>
+		You tell Helena that you should be going now. She is disappointed (reaction based on slutty), and lets a harpy maid show you back to the door.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_KISS_BEDROOM"><![CDATA[
+	<p>
+		You suggest that the two of you head into Helena's bedroom. She asks you to sit on the bed and steps into her wardrobe to slip into something more appropriate.
+		Slutty: Returns a moment later wearing an open-cup bra and crotchess thong. Asks you how you want to fuck (or doms you).
+		Else: Once inside, she goes into her walk-in wardrobe to slip into something more comfortable. Comes back out moments later wearing white lacy lingerie.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_APARTMENT_BEDROOM -->
+	
+	<!-- Pre-virginity taking cunnilingus -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_ROMANCE_PERFORM_CUNNILINGUS"><![CDATA[
+	<p>
+		Wanting to get her lubricated and ready to lose her virginity, you push Helena down onto the bed, before dropping your head between her legs and starting to eat her out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CUNNILINGUS_FIRST_TIME"><![CDATA[
+	<p>
+		She squirms about a bit at first, but soon gets into it and is moaning and begging for more.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CUNNILINGUS_EXPERIENCED"><![CDATA[
+	<p>
+		Knowing what's coming, she spreads her legs and pushes the back of your head down into her crotch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Kissing breasts -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_KISS_BREASTS"><![CDATA[
+	#IF(pc.isTaur())
+		<p>
+			You step up to Helena and start to kiss her, before moving down to her breasts and sucking on her nipples.
+		</p>
+	#ELSE
+		<p>
+			You sit on Helena's bed, and she slides into your lap. You start to kiss her, before moving down to her breasts and sucking on her nipples.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BREASTS_FIRST_TIME"><![CDATA[
+	<p>
+		She lets out a surprised cry at the unfamiliar sensation, before quickly getting into it and begging for you to continue sucking on her nipples.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BREASTS_EXPERIENCED"><![CDATA[
+	<p>
+		Having already experienced this with you, Helena moans in delight as she feels your [pc.lips+] press against her breasts before sucking on her nipples.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Paizuri -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_RECEIVE_PAIZURI"><![CDATA[
+	<p>
+		You sit down and get Helena to kneel before you, push her breasts together, and perform paizuri on you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PAIZURI_FIRST_TIME"><![CDATA[
+	<p>
+		She is unsure at first, and clumsily lets your cock slip free, but soon starts panting and moaning as she really gets into it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PAIZURI_EXPERIENCED"><![CDATA[
+	<p>
+		With practised ease, she wraps her soft, pillowy breasts around your cock and starts giving you a titjob.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Cunnilingus -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_PERFORM_CUNNILINGUS"><![CDATA[
+	<p>
+		Wanting to perform oral on her, you push Helena down onto the bed, before dropping your head between her legs and preparing to eat her out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Receiving cunnilingus -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_RECEIVE_CUNNILINGUS"><![CDATA[
+	#IF(pc.isTaur())
+		<p>
+			You get Helena to drop down on her knees behind your lower [pc.legRace] body and eat you out.
+		</p>
+	#ELSE
+		<p>
+			You lie back on Helena's bed, spread your legs, and have her eat you out.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GIVING_CUNNILINGUS_FIRST_TIME"><![CDATA[
+	<p>
+		She is hesitant at first, but soon gets into it and is passionately thrusting her tongue into your [pc.pussy+].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GIVING_CUNNILINGUS_EXPERIENCED"><![CDATA[
+	<p>
+		Knowing what's coming, she passionately presses her lips against your [pc.labia+] and starts sloppily eating you out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Receiving cunnilingus -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_RECEIVE_BLOWJOB"><![CDATA[
+	#IF(pc.isTaur())
+		<p>
+			You get Helena to drop down on her knees beneath your [pc.legRace] body and give you a blowjob.
+		</p>
+	#ELSE
+		<p>
+			You lie back on Helena's bed and get her to give you a blowjob.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BLOWJOB_FIRST_TIME"><![CDATA[
+	<p>
+		She is very hesitant at first, and gives your [pc.cockHead+] a tentative lick. Encouraged by your [pc.moans], she wraps her lips around your cock and takes you into her mouth.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BLOWJOB_EXPERIENCED"><![CDATA[
+	<p>
+		Having done this before, Helena doesn't hesitate in kissing and licking your cock, before greedily taking you into her mouth.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Sixty-nine -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_SIXTY_NINE_HELENA_DOM"><![CDATA[
+	<p>
+		You ask to sixty-nine. Helena dominantly pushes you down on her bed, before sitting on your face and bending down to
+		#IF(pc.hasPenis())
+			 give you a blowjob.
+		#ELSE
+			 eat you out.
+		#ENDIF
+		 Her tail feathers drop down over your eyes.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_SIXTY_NINE_HELENA_SUB"><![CDATA[
+	<p>
+		You ask to sixty-nine. After Helena says yes, you position yourself over her face before bending down to start eating her out. Dropping your
+		#IF(pc.hasPenis())
+			 [pc.cock+] down onto her face, the beautiful matriarch is left with no other option but to start giving you a blowjob.
+		#ELSE
+			 [pc.pussy+] down onto her face, the beautiful matriarch is left with no other option but to start eating you out in return.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Scissoring -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_SCISSORING_HELENA_DOM"><![CDATA[
+	<p>
+		You suggest to Helena that the two of you scissor with one another on her bed. She pushes you down, lifts one of your legs up and throws her own leg over yours, before bumping her pussy against yours.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SCISSORING_FIRST_TIME"><![CDATA[
+	<p>
+		This being her first time doing this, Helena clumsily shuffles about a bit, before finally getting into a position where she can comfortably grind her clit up against yours.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SCISSORING_EXPERIENCED"><![CDATA[
+	<p>
+		Already having had experience doing this with you, Helena swiftly gets into a position where she can comfortably grind her clit up against yours.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_SCISSORING"><![CDATA[
+	<p>
+		You suggest to Helena that the two of you scissor with one another on her bed. She lies down with you, and the two of you get into position.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Sex -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_COWGIRL"><![CDATA[
+	<p>
+		You suggest to Helena that the two of you have sex again. She pushes you down onto the bed, before dominantly mounting you and slipping your cock into her pussy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_MISSIONARY"><![CDATA[
+	<p>
+		You suggest to Helena that the two of you have sex again. You push her back onto her bed, before moving forwards between her legs and pushing your cock into her hungry pussy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_DOGGY"><![CDATA[
+	<p>
+		You suggest to Helena that the two of you have sex again. You push her down onto all fours onto her bed, before moving forwards behind her and pushing your cock into her hungry pussy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_MATING_PRESS"><![CDATA[
+	<p>
+		You dominantly push her down onto her bed, before pushing her legs up and apart, and then squatting down over the top of her to start pounding her in the mating press position.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Virginity talk -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_VIRGINITY_TALK"><![CDATA[
+	<p>
+		You ask Helena if she's ready to lose her virginity to you. She swiftly and firmly replies in the negative.
+	</p>
+	<p>
+		#IF(helena.hasFetish(FETISH_ORAL_GIVING))
+			Says that she's happy to keep on performing and receiving oral with you...
+		#ELSEIF(helena.hasFetish(FETISH_ORAL_RECEIVING))
+			Says that she's happy to keep on receiving oral with you, and that she supposes she could also perform oral on you if you want...
+		#ELSE
+			Says that she's happy to receive oral from you, if you want...
+		#ENDIF
+	</p>
+	<p style='text-align:center;'>
+	<i>
+		The next time you start a date with Helena, you will have the opportunity to ask Scarlett to set up a romantic scene to help convince Helena to lose her virginity.
+		<br/>
+		[style.italicsMinorGood(You will require at least three 'Rose Bouquets' in your inventory to do this.)]
+	</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Anilingus (on Helena) -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_PERFORM_ANILINGUS_FACESITTING"><![CDATA[
+	<p>
+		You suggest to Helena that you could perform anilingus on her.
+		#IF(!helena.getFetishDesire(FETISH_ANAL_RECEIVING).isPositive())
+			 She is taken aback at first, but then decides to agree.
+		#ELSE
+			 She says she loved it the last time, and wants it again.
+		#ENDIF
+		 Pushes you down onto her bed and says that she'll be doing it on her terms. Turns around and sits back down on your face, taking a moment to spread her perfectly-smooth ass cheeks before smothering your mouth with her asshole. Her tail feathers drop down over your eyes.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANILINGUS_FIRST_TIME"><![CDATA[
+	<p>
+		This being her first time, Helena clumsily shifts around a little as she feels your lips and tongue press against her asshole, before relaxing and letting you get into it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANILINGUS_EXPERIENCED"><![CDATA[
+	<p>
+		Being accustomed to the sensation, Helena relaxes and starts moaning as she feels your lips and tongue press against her asshole.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_PERFORM_ANILINGUS"><![CDATA[
+	<p>
+		You suggest to Helena that you could perform anilingus on her.
+		#IF(!helena.getFetishDesire(FETISH_ANAL_RECEIVING).isPositive())
+			 She is taken aback at first, but then decides to agree.
+		#ELSE
+			 She says she loved it the last time, and wants it again.
+		#ENDIF
+		 She gets down on all fours and lifts her tail feathers to present her asshole to you. You drop down behind her and start making out with her butt.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Anilingus (from Helena) -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_RECEIVE_ANILINGUS_FACESITTING"><![CDATA[
+	<p>
+		You suggest to Helena that she could try performing anilingus on you.
+		#IF(!helena.getFetishDesire(FETISH_ANAL_GIVING).isPositive())
+			 She says she never would have considered it, but as you seemed to have so much fun doing it to her, she supposes that she could try it.
+		#ELSE
+			 She says she loved it the last time, and wants it again.
+		#ENDIF
+		 You push her down on the bed and sit on her face, smothering her mouth with your asshole.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PERFORMING_ANILINGUS_FIRST_TIME"><![CDATA[
+	<p>
+		She hesitantly kisses your asshole, before starting to get into it and perform anilingus on you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PERFORMING_ANILINGUS_EXPERIENCED"><![CDATA[
+	<p>
+		She eagerly licks your asshole, before enthusiastically performing anilingus on you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_RECEIVE_ANILINGUS"><![CDATA[
+	<p>
+		You suggest to Helena that she could try performing anilingus on you.
+		#IF(!helena.getFetishDesire(FETISH_ANAL_GIVING).isPositive())
+			 She says she never would have considered it, but as you seemed to have so much fun doing it to her, she supposes that she could try it.
+		#ELSE
+			 She says she loved it the last time, and wants it again.
+		#ENDIF
+		 You get down on all fours and present your asshole to her. She drops down behind you and starts making out with your butt.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Anal -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_ANAL_VIRGINITY"><![CDATA[
+	#IF(helena.hasFetish(FETISH_DOMINANT))
+		<p>
+			You suggest to Helena that you could take her anal virginity. She accepts, but says she's doing it her way. Makes you perform anilingus on her, before pushing you down onto the bed and anally mounting your cock.
+		</p>
+	#ELSE
+		<p>
+			You suggest to Helena that you could take her anal virginity. She accepts, and gets down on all fours on her bed. Lifts her tail-feathers to expose her asshole to you. Makes you perform anilingus on her, before letting you sink your cock into her butt.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_COWGIRL_ANAL"><![CDATA[
+	<p>
+		You suggest to Helena that you could do anal sex again. She accepts, makes you perform anilingus on her, pushes you down onto the bed and anally mounts your cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_DOGGY_ANAL"><![CDATA[
+	<p>
+		You suggest to Helena that you could do anal sex again. She accepts, and you push her down onto all fours on her bed. Lifts her tail-feathers to expose her asshole to you. Makes you perform anilingus on her, before letting you sink your cock into her butt.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_DESK_ANAL"><![CDATA[
+	<p>
+		You suggest to Helena that you could do anal sex again. She accepts, and you bend her over her desk. Lifts her tail-feathers to expose her asshole to you. Makes you perform anilingus on her, before letting you sink your cock into her butt.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Talonjob -->
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_TALONJOB"><![CDATA[
+	<p>
+		#IF(!helena.getFetishDesire(FETISH_FOOT_GIVING).isPositive())
+			You ask Helena to give you a footjob with her bird-like feet. She is surprised that you'd think that's a good idea, but nevertheless accepts. Sits down on her bed, and you kneel before her. She carefully wraps her talons around your cock, before softly moaning as you start to fuck them.
+		#ELSE
+			You ask Helena to give you a footjob with her bird-like feet. She accepts again. Sits down on her bed, and you kneel before her. She carefully wraps her talons around your cock, before softly moaning as you start to fuck them.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_APARTMENT_BEDROOM_AFTER_ROMANCE_SEX -->
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_ROMANCE_SEX"><![CDATA[
+	<p>
+		Helena says that's enough, and that she needs to catch her breath. You withdraw from her pussy, leaving it glistening in a slimy layer of saliva and girlcum. Her perfect breasts rise and fall under her laboured breathing, but despite her fatigue, you see her tentatively spreading her legs a little further, as though she's inviting you to take the final step and claim her virginity...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_ROMANCE_SEX_LEAVE"><![CDATA[
+	<p>
+		Not wanting to take Helena's virginity, you lie beside her and similarly catch your breath. After a short while, Helena gets up to use the bathroom, and you say that you need to get going. She is visibly disappointed, but kisses you to say goodbye.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_ROMANCE_SEX_VIRGINITY_SUB"><![CDATA[
+	#IF(pc.isTaur())
+		<p>
+			Leaning down to plant a kiss on her lower lips, you look up and ask Helena if she's ready to lose her virginity. She expresses some hesitation at losing it to your feral cock, but nevertheless agrees. Rolls over and pushes herself up onto all fours, presenting herself to you so that you can mount her.
+		</p>
+		<p>
+			You stand up and do just that; mounting the beautiful harpy, you feel your erect cock prodding at her behind. Shifting down a little, you feel her sloppy pussy rubbing against the head of your bestial cock.
+			#IF(pc.hasFetish(FETISH_SADIST))
+				 Wanting Helena to make sure she remembers this, you sadistically slam forwards, spearing her on your cock and causing her to let out a scream. Immediately starting to rut her, you hear her frenzied cries turn into desperate moans, and you can't help but evilly grin as you realise that the once-pure matriarch is now your slutty cock-sleeve...
+			#ELSE
+				 Pushing forwards, you spread her labia around your throbbing shaft. Giving Helena time to get accustomed to the feeling, you just push your head in and out a few times, before finally driving your cock into her pussy and taking her virginity, causing her to let out a frantic cry. Almost immediately, this turns into a desperate moan, and you can't help but smile as you realise that you've given this once-pure matriarch her first experience of penetrative sex...
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Leaning down to plant a kiss on her lower lips, you look up and ask Helena if she's ready to lose her virginity. She expresses some hesitation at losing it, but nevertheless agrees and spreads her legs a little further. Presenting herself to you so that you can fuck her, she furiously blushes and starts heavily panting in anticipation.
+		</p>
+		<p>
+			You position yourself between her legs and press your erect cock up against her sloppy pussy, before rubbing the head up and down over her slimy labia.
+			#IF(pc.hasFetish(FETISH_SADIST))
+				 Wanting Helena to make sure she remembers this, you sadistically slam forwards, spearing her on your cock and causing her to let out a scream. Immediately starting to thrust in and out of her, you hear her frenzied cries turn into desperate moans, and you can't help but evilly grin as you realise that the once-pure matriarch is now your slutty cock-sleeve...
+			#ELSE
+				 Pushing forwards, you spread her labia around your throbbing shaft. Giving Helena time to get accustomed to the feeling, you just push your head in and out a few times, before finally driving your cock into her pussy and taking her virginity, causing her to let out a frantic cry. Almost immediately, this turns into a desperate moan, and you can't help but smile as you realise that you've given this once-pure matriarch her first experience of penetrative sex...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_ROMANCE_SEX_VIRGINITY_DOM"><![CDATA[
+	#IF(pc.isTaur())
+		<p>
+			Leaning down to plant a kiss on her lower lips, you look up and ask Helena if she's ready to lose her virginity. She expresses some hesitation at losing it to your feral cock, but nevertheless agrees. You tell her that she can decide the pace, and roll over onto your back to present her with your [pc.cock+].
+		</p>
+		<p>
+			The beautiful harpy straddles you, before rubbing her sloppy pussy up and down over the length of your throbbing shaft. Getting more and more into it, she starts acting in a more dominant fashion, and makes you beg for her pussy before finally spearing herself on your cock and letting you take her virginity.
+		</p>
+	#ELSE
+		<p>
+			Leaning down to plant a kiss on her lower lips, you look up and ask Helena if she's ready to lose her virginity. She expresses some hesitation at losing it, but nevertheless agrees and spreads her legs a little further. You tell her that she can decide the pace, and roll over onto your back to present her with your [pc.cock+].
+		</p>
+		<p>
+			The beautiful harpy straddles you, before rubbing her sloppy pussy up and down over the length of your throbbing shaft. Getting more and more into it, she starts acting in a more dominant fashion, and makes you beg for her pussy before finally spearing herself on your cock and letting you take her virginity.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_APARTMENT_BEDROOM_AFTER_SEX -->
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_SEX_FROM_NEST"><![CDATA[
+	<p>
+		You and Helena collapse down onto the bed, panting. Eventually, Helena gets up to get washed and returns to ask if you're ready to return to her nest.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_SEX"><![CDATA[
+	<p>
+		You and Helena collapse down onto the bed, panting.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		After a short while, Helena gets up to use the bathroom, and you say that you need to get going. She is visibly disappointed, but kisses you to say goodbye.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_APARTMENT_BEDROOM_AFTER_VIRGINITY_LOST_SEX -->
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_VIRGINITY_LOST_SEX"><![CDATA[
+	<p>
+		You and Helena collapse down onto the bed, panting. Helena expresses her happiness at having lost her virginity, and says that you can fuck her dirty little pussy whenever you want now.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_VIRGINITY_LOST_SEX_LEAVE"><![CDATA[
+	<p>
+		 After a short while, Helena gets up to use the bathroom, and you say that you need to get going. She is very disappointed, and simply says goodbye.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_APARTMENT_BEDROOM_AFTER_SEX_SLEEP -->
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_SEX_SLEEP"><![CDATA[
+	<p>
+		At Helena's request, you wash up in her bathroom, before returning to slip into her bed with her. She wraps her beautiful wings around you and snuggles up against you as you fall asleep with her.
+	</p>
+	<p>
+		You wake up at the same time she does. She kisses you and asks if you're going to stay for breakfast.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_SEX_SLEEP_LEAVE"><![CDATA[
+	<p>
+		You say that you need to get going. She is a little disappointed, and kisses you goodbye.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_SEX_SLEEP_BREAKFAST"><![CDATA[
+	<p>
+		You stay for breakfast, much to Helena's delight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_SEX_MORNING_COWGIRL"><![CDATA[
+	<p>
+		You say that you know what you want for breakfast, and start passionately kissing her. She takes charge and straddles you, before leaning down to continue passionately making out with you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_SEX_MORNING_MISSIONARY"><![CDATA[
+	<p>
+		You say that you know what you want for breakfast, and start passionately kissing her. Taking charge, you get on top of her, before leaning down to continue passionately making out with her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_APARTMENT_BEDROOM_AFTER_SEX_MORNING -->
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_SEX_MORNING"><![CDATA[
+	<p>
+		The two of you spend a moment recovering, before using the bathroom to wash up. Helena asks if you want breakfast now.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_SEX_MORNING_LEAVE"><![CDATA[
+	<p>
+		You say that you need to get going. She is a little disappointed, and kisses you goodbye.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_SEX_MORNING_BREAKFST"><![CDATA[
+	<p>
+		You stay for breakfast, much to Helena's delight.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DATE_APARTMENT_BREAKFAST -->
+	
+	<htmlContent tag="DATE_APARTMENT_BEDROOM_AFTER_SEX_MORNING_BREAKFST"><![CDATA[
+	<p>
+		Helena says she needs to go to an appointment. Sloppily kisses you goodbye.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

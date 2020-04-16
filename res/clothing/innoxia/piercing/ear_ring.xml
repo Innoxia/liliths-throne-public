@@ -7,7 +7,7 @@
 		<namePlural pluralByDefault="true"><![CDATA[earrings]]></namePlural>
 		<description><![CDATA[A basic pair of latch back earrings, which are worn by sliding the pivoted metal loop through the piercing of a person's earlobe.]]></description>
 		<physicalResistance>0</physicalResistance>
-		<femininity>FEMININE</femininity>
+		<femininity>ANDROGYNOUS</femininity>
 		<slot>PIERCING_EAR</slot> 
 		<rarity>COMMON</rarity>
 		<clothingSet/> 

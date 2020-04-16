@@ -76,10 +76,11 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.4
@@ -177,7 +178,7 @@ public abstract class AbstractItemEffectType {
 		} else {
 			return subspecies.getBasicDescription(null)
 					+subspecies.getAdvancedDescription(null)
-					+"<p style='text-align:center; color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
+					+"<p style='text-align:center; color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
 						+ "Nothing further can be gained from re-reading this book..."
 					+ "</p>";
 		}
@@ -238,16 +239,27 @@ public abstract class AbstractItemEffectType {
 							?TFModifier.TF_MOD_BODY_HAIR
 							:null
 						);
-			case TF_FACE:
+			case TF_FACE: //TODO
 				return Util.newArrayListOfValues(
-						TFModifier.TF_MOD_SIZE,
+						TFModifier.TF_MOD_SIZE, // lip size
+						TFModifier.TF_MOD_SIZE_SECONDARY, // tongue size
+						TFModifier.TF_MOD_CAPACITY,
 						Main.game.isPenetrationLimitationsEnabled()
 							?TFModifier.TF_MOD_DEPTH
 							:null,
+						TFModifier.TF_MOD_ELASTICITY,
+						TFModifier.TF_MOD_PLASTICITY,
+						TFModifier.TF_MOD_WETNESS,
+
 						TFModifier.TF_MOD_ORIFICE_PUFFY,
 						TFModifier.TF_MOD_ORIFICE_RIBBED,
 						TFModifier.TF_MOD_ORIFICE_MUSCLED,
 						TFModifier.TF_MOD_ORIFICE_TENTACLED,
+						
+						TFModifier.TF_MOD_TONGUE_RIBBED,
+						TFModifier.TF_MOD_TONGUE_TENTACLED,
+						TFModifier.TF_MOD_TONGUE_BIFURCATED,
+						
 						Main.game.isFacialHairEnabled()
 							?TFModifier.TF_MOD_BODY_HAIR
 							:null
@@ -416,6 +428,8 @@ public abstract class AbstractItemEffectType {
 				switch(secondaryModifier) {
 					case TF_MOD_SIZE:
 						return LipSize.FOUR_HUGE.getValue();
+					case TF_MOD_SIZE_SECONDARY:
+						return TongueLength.FOUR_ABSURDLY_LONG.getMaximumValue();
 					case TF_MOD_BODY_HAIR:
 						return BodyHair.SEVEN_WILD.getValue();
 					default:
@@ -483,6 +497,8 @@ public abstract class AbstractItemEffectType {
 			orificeName = "teat (crotch)";
 		} else if(primaryModifier==TFModifier.TF_ASS) {
 			orificeName = "anus";
+		} else if(primaryModifier==TFModifier.TF_FACE) {
+			orificeName = "throat";
 		}
 		
 		switch(secondaryModifier) {
@@ -665,6 +681,15 @@ public abstract class AbstractItemEffectType {
 					case TF_MOD_ORIFICE_TENTACLED:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "throat internally tentacled", "throat tentacles"));
 						break;
+					case TF_MOD_TONGUE_RIBBED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "ribbed tongue",  "tongue ribbing"));
+						break;
+					case TF_MOD_TONGUE_TENTACLED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "tentacled tongue", "tongue tentacles"));
+						break;
+					case TF_MOD_TONGUE_BIFURCATED:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "bifurcated tongue", "tongue bifurcation"));
+						break;
 					case TF_MOD_BODY_HAIR:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "beard length", BodyHair.getBodyHairFromValue(limit).getName()));
 						break;
@@ -803,6 +828,7 @@ public abstract class AbstractItemEffectType {
 	}
 	
 	protected static String applyClothingTF(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		int depthIncrement = (potency.isNegative()?-1:1);
 		int capacityIncrement = (potency.isNegative()?-2:2);
 		int elasticityIncrement = (potency.isNegative()?-1:1);
 		int plasticityIncrement = (potency.isNegative()?-1:1);
@@ -867,7 +893,6 @@ public abstract class AbstractItemEffectType {
 //		System.out.println(timer.getTimePassed() + ", " + minutesRequired + ": " +TFCount);
 		
 		StringBuilder sb = new StringBuilder();
-		
 		for(int i=0; i<TFCount; i++) {
 			switch(primaryModifier) {
 				case TF_ASS:
@@ -891,6 +916,13 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.incrementAssCapacity(capacityIncrement, true));
 							} else if(isSetToLimit(capacityIncrement, target.getAssRawCapacityValue(), limit)) {
 								sb.append(target.setAssCapacity(limit, true));
+							}
+							break;
+						case TF_MOD_DEPTH:
+							if(isWithinLimits(depthIncrement, target.getAssDepth().getValue(), limit)) {
+								sb.append(target.incrementAssDepth(depthIncrement));
+							} else if(isSetToLimit(depthIncrement, target.getAssDepth().getValue(), limit)) {
+								sb.append(target.setAssDepth(limit));
 							}
 							break;
 						case TF_MOD_ELASTICITY:
@@ -1012,6 +1044,13 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.setNippleCapacity(limit, true));
 							}
 							break;
+						case TF_MOD_DEPTH:
+							if(isWithinLimits(depthIncrement, target.getNippleDepth().getValue(), limit)) {
+								sb.append(target.incrementNippleDepth(depthIncrement));
+							} else if(isSetToLimit(depthIncrement, target.getNippleDepth().getValue(), limit)) {
+								sb.append(target.setNippleDepth(limit));
+							}
+							break;
 						case TF_MOD_ELASTICITY:
 							if(isWithinLimits(elasticityIncrement, target.getNippleElasticity().getValue(), limit)) {
 								sb.append(target.incrementNippleElasticity(elasticityIncrement));
@@ -1117,6 +1156,13 @@ public abstract class AbstractItemEffectType {
 									sb.append(target.incrementNippleCrotchCapacity(capacityIncrement, true));
 								} else if(isSetToLimit(capacityIncrement, target.getNippleCrotchRawCapacityValue(), limit)) {
 									sb.append(target.setNippleCrotchCapacity(limit, true));
+								}
+								break;
+							case TF_MOD_DEPTH:
+								if(isWithinLimits(depthIncrement, target.getNippleCrotchDepth().getValue(), limit)) {
+									sb.append(target.incrementNippleCrotchDepth(depthIncrement));
+								} else if(isSetToLimit(depthIncrement, target.getNippleCrotchDepth().getValue(), limit)) {
+									sb.append(target.setNippleCrotchDepth(limit));
 								}
 								break;
 							case TF_MOD_ELASTICITY:
@@ -1237,7 +1283,7 @@ public abstract class AbstractItemEffectType {
 							break;
 					}
 					break;
-				case TF_FACE:
+				case TF_FACE: //TODO
 					switch(secondaryModifier) {
 						case TF_MOD_SIZE:
 							if(isWithinLimits(lipSizeIncrement, target.getLipSizeValue(), limit)) {
@@ -1251,6 +1297,41 @@ public abstract class AbstractItemEffectType {
 								sb.append(target.incrementTongueLength(lipSizeIncrement));
 							} else if(isSetToLimit(lipSizeIncrement, target.getTongueLengthValue(), limit)) {
 								sb.append(target.setTongueLength(limit));
+							}
+							break;
+						case TF_MOD_CAPACITY:
+							if(isWithinLimits(capacityIncrement, target.getFaceRawCapacityValue(), limit)) {
+								sb.append(target.incrementFaceCapacity(capacityIncrement, true));
+							} else if(isSetToLimit(capacityIncrement, target.getFaceRawCapacityValue(), limit)) {
+								sb.append(target.setFaceCapacity(limit, true));
+							}
+							break;
+						case TF_MOD_DEPTH:
+							if(isWithinLimits(depthIncrement, target.getFaceDepth().getValue(), limit)) {
+								sb.append(target.incrementFaceDepth(depthIncrement));
+							} else if(isSetToLimit(depthIncrement, target.getFaceDepth().getValue(), limit)) {
+								sb.append(target.setFaceDepth(limit));
+							}
+							break;
+						case TF_MOD_ELASTICITY:
+							if(isWithinLimits(elasticityIncrement, target.getFaceElasticity().getValue(), limit)) {
+								sb.append(target.incrementFaceElasticity(elasticityIncrement));
+							} else if(isSetToLimit(elasticityIncrement, target.getFaceElasticity().getValue(), limit)) {
+								sb.append(target.setFaceElasticity(limit));
+							}
+							break;
+						case TF_MOD_PLASTICITY:
+							if(isWithinLimits(plasticityIncrement, target.getFacePlasticity().getValue(), limit)) {
+								sb.append(target.incrementFacePlasticity(plasticityIncrement));
+							} else if(isSetToLimit(plasticityIncrement, target.getFacePlasticity().getValue(), limit)) {
+								sb.append(target.setFacePlasticity(limit));
+							}
+							break;
+						case TF_MOD_WETNESS:
+							if(isWithinLimits(wetnessIncrement, target.getFaceWetness().getValue(), limit)) {
+								sb.append(target.incrementFaceWetness(wetnessIncrement));
+							} else if(isSetToLimit(wetnessIncrement, target.getFaceWetness().getValue(), limit)) {
+								sb.append(target.setFaceWetness(limit));
 							}
 							break;
 						case TF_MOD_ORIFICE_PUFFY:
@@ -1294,6 +1375,39 @@ public abstract class AbstractItemEffectType {
 							} else {
 								if(target.hasFaceOrificeModifier(OrificeModifier.TENTACLED)) {
 									sb.append(target.removeFaceOrificeModifier(OrificeModifier.TENTACLED));
+								}
+							}
+							break;
+						case TF_MOD_TONGUE_RIBBED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasTongueModifier(TongueModifier.RIBBED)) {
+									sb.append(target.addTongueModifier(TongueModifier.RIBBED));
+								}
+							} else {
+								if(target.hasTongueModifier(TongueModifier.RIBBED)) {
+									sb.append(target.removeTongueModifier(TongueModifier.RIBBED));
+								}
+							}
+							break;
+						case TF_MOD_TONGUE_TENTACLED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasTongueModifier(TongueModifier.TENTACLED)) {
+									sb.append(target.addTongueModifier(TongueModifier.TENTACLED));
+								}
+							} else {
+								if(target.hasTongueModifier(TongueModifier.TENTACLED)) {
+									sb.append(target.removeTongueModifier(TongueModifier.TENTACLED));
+								}
+							}
+							break;
+						case TF_MOD_TONGUE_BIFURCATED:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasTongueModifier(TongueModifier.BIFURCATED)) {
+									sb.append(target.addTongueModifier(TongueModifier.BIFURCATED));
+								}
+							} else {
+								if(target.hasTongueModifier(TongueModifier.BIFURCATED)) {
+									sb.append(target.removeTongueModifier(TongueModifier.BIFURCATED));
 								}
 							}
 							break;
@@ -1350,6 +1464,13 @@ public abstract class AbstractItemEffectType {
 									sb.append(target.incrementPenisCapacity(capacityIncrement, true));
 								} else if(isSetToLimit(capacityIncrement, target.getPenisRawCapacityValue(), limit)) {
 									sb.append(target.setPenisCapacity(limit, true));
+								}
+								break;
+							case TF_MOD_DEPTH:
+								if(isWithinLimits(depthIncrement, target.getUrethraDepth().getValue(), limit)) {
+									sb.append(target.incrementUrethraDepth(depthIncrement));
+								} else if(isSetToLimit(depthIncrement, target.getUrethraDepth().getValue(), limit)) {
+									sb.append(target.setUrethraDepth(limit));
 								}
 								break;
 							case TF_MOD_ELASTICITY:
@@ -1467,6 +1588,13 @@ public abstract class AbstractItemEffectType {
 									sb.append(target.setVaginaCapacity(limit, true));
 								}
 								break;
+							case TF_MOD_DEPTH:
+								if(isWithinLimits(depthIncrement, target.getVaginaDepth().getValue(), limit)) {
+									sb.append(target.incrementVaginaDepth(depthIncrement));
+								} else if(isSetToLimit(depthIncrement, target.getVaginaDepth().getValue(), limit)) {
+									sb.append(target.setVaginaDepth(limit));
+								}
+								break;
 							case TF_MOD_ELASTICITY:
 								if(isWithinLimits(elasticityIncrement, target.getVaginaElasticity().getValue(), limit)) {
 									sb.append(target.incrementVaginaElasticity(elasticityIncrement));
@@ -1537,6 +1665,13 @@ public abstract class AbstractItemEffectType {
 									sb.append(target.incrementVaginaUrethraCapacity(capacityIncrement, true));
 								} else if(isSetToLimit(capacityIncrement, target.getVaginaUrethraRawCapacityValue(), limit)) {
 									sb.append(target.setVaginaUrethraCapacity(limit, true));
+								}
+								break;
+							case TF_MOD_DEPTH_2:
+								if(isWithinLimits(depthIncrement, target.getVaginaUrethraDepth().getValue(), limit)) {
+									sb.append(target.incrementVaginaUrethraDepth(depthIncrement));
+								} else if(isSetToLimit(depthIncrement, target.getVaginaUrethraDepth().getValue(), limit)) {
+									sb.append(target.setVaginaUrethraDepth(limit));
 								}
 								break;
 							case TF_MOD_ELASTICITY_2:
