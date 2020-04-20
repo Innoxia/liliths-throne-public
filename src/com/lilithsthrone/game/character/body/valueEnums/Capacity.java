@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import java.util.Set;
+
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -114,12 +116,14 @@ public enum Capacity {
 	}
 
 	/**
+	 * @param orificeModifiers The modifiers of the orifice being penetrated.
 	 * @param capacity The capacity of the orifice being penetrated.
 	 * @param diameter The total diameter of the penis(es) (or other penetrative object(s)) being inserted.
-	 * @return true if the diameter is <=60% of the orifice capacity.
+	 * @return true if the diameter is <=60% of the orifice capacity and the orificeModifiers does not contain MUSCLE_CONTROL.
 	 */
-	public static boolean isPenetrationDiameterTooSmall(float capacity, float diameter) {
-		return diameter <= capacity*0.6f;
+	public static boolean isPenetrationDiameterTooSmall(Set<OrificeModifier> orificeModifiers, float capacity, float diameter) {
+		return !orificeModifiers.contains(OrificeModifier.MUSCLE_CONTROL)
+				&& diameter <= capacity*0.6f;
 	}
 
 	/**

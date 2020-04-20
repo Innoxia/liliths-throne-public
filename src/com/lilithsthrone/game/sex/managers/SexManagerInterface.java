@@ -337,20 +337,28 @@ public interface SexManagerInterface {
 		Map<Boolean, Map<GameCharacter, Map<CoverableArea, List<InventorySlot>>>> map = new HashMap<>();
 		
 		map.put(false, new HashMap<>());
+		map.put(true, new HashMap<>());
 		
 		for(Entry<GameCharacter, List<CoverableArea>> e : this.exposeAtStartOfSexMap().entrySet()) {
-			map.get(false).put(e.getKey(), new HashMap<>());
+			map.get(isExposeAtStartOfSexMapRemoval(e.getKey())).put(e.getKey(), new HashMap<>());
 			
 			for(CoverableArea c : e.getValue()) {
-				map.get(false).get(e.getKey()).put(c, null);
+				map.get(isExposeAtStartOfSexMapRemoval(e.getKey())).get(e.getKey()).put(c, null);
 			}
 		}
-			
+		
 		return map;
 	}
 	
 	public default Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 		return new HashMap<>();
+	}
+	
+	/**
+	 * @return true if this character should prefer to remove their clothes in the clothing removal setup to this sex scene. (Returns false by default.)
+	 */
+	public default boolean isExposeAtStartOfSexMapRemoval(GameCharacter character) {
+		return false;
 	}
 	
 	public default List<CoverableArea> getAdditionalAreasToExposeDuringSex(GameCharacter performer, GameCharacter target) {
