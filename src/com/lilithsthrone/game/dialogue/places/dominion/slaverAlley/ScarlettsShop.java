@@ -1050,14 +1050,15 @@ public class ScarlettsShop {
 //					
 //				}
 				else if(index==5) {
-					return new Response("Date", "Ask Helena out on a date.<br/>[style.italicsBad(Not implemented yet!)]", null); //TODO
-//					if(Main.game.getDayOfWeek()!=DayOfWeek.FRIDAY || Main.game.getHourOfDay()<17) {
-//						return new Response("Date", "You can only ask Helena out on a date on Fridays after [units.time(17)].", null);
-//					}
-//					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-//						return new Response("Date", "As it will involve eating dinner, you [style.colourBad(require access to your mouth)] to ask Helena out on a date!", null);
-//					}
-//					return new Response("Date", "Ask Helena out on a date.", HelenaHotel.DATE_START);
+//					return new Response("Date", "Ask Helena out on a date.<br/>[style.italicsBad(Not implemented yet!)]", null); 
+					//TODO testing
+					if(Main.game.getDayOfWeek()!=DayOfWeek.FRIDAY || Main.game.getHourOfDay()<17) {
+						return new Response("Date", "You can only ask Helena out on a date on Fridays after [units.time(17)].", null);
+					}
+					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						return new Response("Date", "As it will involve eating dinner, you [style.colourBad(require access to your mouth)] to ask Helena out on a date!", null);
+					}
+					return new Response("Date", "Ask Helena out on a date.", HelenaHotel.DATE_START);
 					
 				} else if(index==6) {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafe)) {

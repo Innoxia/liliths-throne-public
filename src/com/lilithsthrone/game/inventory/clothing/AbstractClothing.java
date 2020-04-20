@@ -429,14 +429,14 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 						clothing.setSecondaryColour(secColour);
 					}
 				} else {
-					if(!clothing.getClothingType().getAvailableSecondaryColours().isEmpty()) {
-						clothing.setSecondaryColour(clothing.getClothingType().getAvailableSecondaryColours().get(0));
-						
-					} else if(!clothing.getClothingType().getAvailableSecondaryDyeColours().isEmpty()) {
-						clothing.setSecondaryColour(clothing.getClothingType().getAvailableSecondaryDyeColours().get(0));
-						
-					} else {
-						clothing.setSecondaryColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
+					clothing.setSecondaryColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
+					if(!clothing.getClothingType().getAllAvailableSecondaryColours().contains(AbstractClothingType.DEFAULT_COLOUR_VALUE)) {
+						if(!clothing.getClothingType().getAvailableSecondaryColours().isEmpty()) {
+							clothing.setSecondaryColour(clothing.getClothingType().getAvailableSecondaryColours().get(0));
+							
+						} else if(!clothing.getClothingType().getAvailableSecondaryDyeColours().isEmpty()) {
+							clothing.setSecondaryColour(clothing.getClothingType().getAvailableSecondaryDyeColours().get(0));
+						}
 					}
 				}
 			} catch(Exception ex) {
@@ -449,14 +449,14 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 					clothing.setTertiaryColour(terColour);
 				}
 			} else {
-				if(!clothing.getClothingType().getAvailableTertiaryColours().isEmpty()) {
-					clothing.setTertiaryColour(clothing.getClothingType().getAvailableTertiaryColours().get(0));
-					
-				} else if(!clothing.getClothingType().getAvailableTertiaryDyeColours().isEmpty()) {
-					clothing.setTertiaryColour(clothing.getClothingType().getAvailableTertiaryDyeColours().get(0));
-					
-				} else {
-					clothing.setTertiaryColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
+				clothing.setTertiaryColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
+				if(!clothing.getClothingType().getAllAvailableTertiaryColours().contains(AbstractClothingType.DEFAULT_COLOUR_VALUE)) {
+					if(!clothing.getClothingType().getAvailableTertiaryColours().isEmpty()) {
+						clothing.setTertiaryColour(clothing.getClothingType().getAvailableTertiaryColours().get(0));
+						
+					} else if(!clothing.getClothingType().getAvailableTertiaryDyeColours().isEmpty()) {
+						clothing.setTertiaryColour(clothing.getClothingType().getAvailableTertiaryDyeColours().get(0));
+					}
 				}
 			}
 		} catch(Exception ex) {

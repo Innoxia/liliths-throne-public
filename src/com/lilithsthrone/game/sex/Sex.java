@@ -3656,7 +3656,7 @@ public class Sex {
 
 					areasStretched.get(characterPenetrated).add(SexAreaOrifice.ANUS);
 
-				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getAssStretchedCapacity(), totalPenetratingDiameter)){
+				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getAssOrificeModifiers(), characterPenetrated.getAssStretchedCapacity(), totalPenetratingDiameter)){
 					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.ANUS));
 					areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.ANUS);
 				}
@@ -3688,7 +3688,7 @@ public class Sex {
 
 					areasStretched.get(characterPenetrated).add(SexAreaOrifice.VAGINA);
 
-				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getVaginaStretchedCapacity(), totalPenetratingDiameter)){
+				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getVaginaOrificeModifiers(), characterPenetrated.getVaginaStretchedCapacity(), totalPenetratingDiameter)){
 					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.VAGINA));
 					areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.VAGINA);
 				}
@@ -3718,7 +3718,7 @@ public class Sex {
 
 					areasStretched.get(characterPenetrated).add(SexAreaOrifice.NIPPLE);
 
-				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getNippleStretchedCapacity(), totalPenetratingDiameter)){
+				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getNippleOrificeModifiers(), characterPenetrated.getNippleStretchedCapacity(), totalPenetratingDiameter)){
 					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.NIPPLE));
 					areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.NIPPLE);
 				}
@@ -3748,7 +3748,7 @@ public class Sex {
 
 					areasStretched.get(characterPenetrated).add(SexAreaOrifice.NIPPLE_CROTCH);
 
-				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getNippleCrotchStretchedCapacity(), totalPenetratingDiameter)){
+				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getNippleCrotchOrificeModifiers(), characterPenetrated.getNippleCrotchStretchedCapacity(), totalPenetratingDiameter)){
 					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.NIPPLE_CROTCH));
 					areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.NIPPLE_CROTCH);
 				}
@@ -3778,7 +3778,7 @@ public class Sex {
 
 					areasStretched.get(characterPenetrated).add(SexAreaOrifice.URETHRA_PENIS);
 
-				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getPenisStretchedCapacity(), totalPenetratingDiameter)){
+				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getUrethraOrificeModifiers(), characterPenetrated.getPenisStretchedCapacity(), totalPenetratingDiameter)){
 					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.URETHRA_PENIS));
 					areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.URETHRA_PENIS);
 				}
@@ -3808,7 +3808,7 @@ public class Sex {
 
 					areasStretched.get(characterPenetrated).add(SexAreaOrifice.URETHRA_VAGINA);
 
-				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getVaginaUrethraStretchedCapacity(), totalPenetratingDiameter)){
+				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getVaginaUrethraOrificeModifiers(), characterPenetrated.getVaginaUrethraStretchedCapacity(), totalPenetratingDiameter)){
 					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.URETHRA_VAGINA));
 					areasTooLoose.get(characterPenetrated).add(SexAreaOrifice.URETHRA_VAGINA);
 				}
@@ -3852,7 +3852,7 @@ public class Sex {
 
 					areasStretched.get(characterPenetrated).add(SexAreaOrifice.MOUTH);
 
-				} else if(Capacity.isPenetrationDiameterTooSmall((int)characterPenetrated.getFaceStretchedCapacity(), totalPenetratingDiameter)){
+				} else if(Capacity.isPenetrationDiameterTooSmall(characterPenetrated.getFaceOrificeModifiers(), (int)characterPenetrated.getFaceStretchedCapacity(), totalPenetratingDiameter)){
 					penetrationSB.append(characterPenetrated.getTooLooseDescription(SexAreaOrifice.MOUTH));
 				}
 			}

@@ -15,7 +15,7 @@ import com.lilithsthrone.utils.Units;
 
 /**
  * @since 0.2.6
- * @version 0.2.10
+ * @version 0.3.7.2
  * @author Innoxia
  */
 public enum TattooCounterType {
@@ -24,6 +24,14 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			return 0;
+		}
+	},
+
+	
+	VALUE_AS_SLAVE("value as slave", "Displays how much the bearer is worth as a slave.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getValueAsSlave(false); 
 		}
 	},
 	
@@ -283,6 +291,17 @@ public enum TattooCounterType {
 			return count;
 		}
 	},
+
+	OFFSPRING_FATHERED("offspring fathered", "Counts how many children the bearer has fathered.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			int count = 0;
+			for(Litter litter : bearer.getLittersFathered()) {
+				count+=litter.getTotalLitterCount();
+			}
+			return count;
+		}
+	},
 	
 	PREGNANCY("pregnancy", "Keeps a count of the bearer's completed pregnancies.") {
 		@Override
@@ -338,13 +357,6 @@ public enum TattooCounterType {
 			}
 		}
 	},
-	
-	VALUE_AS_SLAVE("value as slave", "Displays how much the bearer is worth as a slave.") {
-		@Override
-		public int getCount(GameCharacter bearer) {
-			return bearer.getValueAsSlave(false); 
-		}
-	}
 	;
 	
 	private String name;

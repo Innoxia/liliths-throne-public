@@ -395,7 +395,7 @@
 				 [helena.speech(You know, [pc.name], I was hoping that you'd pay me a visit today. You see, my pussy keeps on getting wet whenever I think about you, and I was hoping that you could help me do something about it down in my bedroom...)]
 			#ENDIF
 		#ELSE
-			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaTalkedTo))
+			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaNestTalkedTo))
 				As you look across to where the beautiful harpy matriarch is sitting, you see her flash you a delightful smile, before softly calling out, [helena.speech(Welcome back, [pc.name]. Unfortunately, I have no more time today in which to participate in idle conversation with you. If you were to return tomorrow, however, I'd love to spend some time chatting again.)]
 			#ELSE
 				As you look across to where the beautiful harpy matriarch is sitting, you see her flash you a delightful smile, and as she beckons you forwards with one of her beautiful white wings, she softly calls out, [helena.speech(Welcome back, [pc.name]. What brings you here today?)]
@@ -478,6 +478,13 @@
 			Thankfully, you aren't kept waiting for very long, as after just a few moments, the beautiful harpy returns. Holding her huge white wings up to conceal her body, she flashes you a sultry smile as she confidently strides forwards to stand before you. Sweeping her wings down to either side of her perfect body, she reveals the fact that she's wearing nothing but a cupless bra and skimpy crotchless thong. With her [helena.nipples+] and [helena.pussy+] fully on display, she teases, [helena.speech(How would you like to fuck me today, [pc.name]?)]
 		</p>
 	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_RETURN_AFTER_SEX"><![CDATA[
+	<p>
+		
+	</p>
 	]]>
 	</htmlContent>
 	

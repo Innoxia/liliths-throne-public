@@ -2176,16 +2176,18 @@ public class VengarCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_3)) {
-				return new Response("Bedroom",
-						"Follow Shadow and Silence into the bedroom.",
-						Main.game.getDefaultDialogue(!Main.game.isExtendedWorkTime())) {
-					@Override
-					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-						Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-						Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
-					}
-				};
+				if(index==1) {
+					return new Response("Bedroom",
+							"Follow Shadow and Silence into the bedroom.",
+							VENGARS_HALL_DELIVERY_BIRTHING) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+							Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+							Main.game.getNpc(Silence.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS);
+						}
+					};
+				}
 					
 			} else {
 				if(index==1) {
