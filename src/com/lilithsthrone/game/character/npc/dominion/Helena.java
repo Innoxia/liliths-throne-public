@@ -290,6 +290,11 @@ public class Helena extends NPC {
 	}
 	
 	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
+	
+	@Override
 	public String getSpeechColour() {
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			return "#59005C";
@@ -394,28 +399,28 @@ public class Helena extends NPC {
 		if(gift instanceof AbstractItem) {
 			AbstractItemType type = ((AbstractItem)gift).getItemType();
 			if(type.equals(ItemType.GIFT_CHOCOLATES)) {
-				text =  UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_CHOCOLATES")
+				text = UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_CHOCOLATES")
 						+(applyEffects
-								?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
+								?this.incrementAffection(Main.game.getPlayer(), 5)
 								:"");
 				
 			} else if(type.equals(ItemType.GIFT_PERFUME)) {
-				text =  UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_PERFUME")
-					+(applyEffects
-							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
-							:"");
+				text = UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_PERFUME")
+						+(applyEffects
+								?this.incrementAffection(Main.game.getPlayer(), 5)
+								:"");
 				
 			} else if(type.equals(ItemType.GIFT_ROSE_BOUQUET)) {
-				text =  UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_ROSES")
-					+(applyEffects
-							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 10)
-							:"");
+				text = UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_ROSES")
+						+(applyEffects
+								?this.incrementAffection(Main.game.getPlayer(), 10)
+								:"");
 				
 			} else if(type.equals(ItemType.GIFT_TEDDY_BEAR)) {
-				text =  UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_TEDDY_BEAR")
-					+(applyEffects
-							?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), -5)
-							:"");
+				text = UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_TEDDY_BEAR")
+						+(applyEffects
+								?this.incrementAffection(Main.game.getPlayer(), -5)
+								:"");
 			}
 			
 		} else if(gift instanceof AbstractClothing) {
@@ -423,7 +428,7 @@ public class Helena extends NPC {
 			if(type.equals(ClothingType.getClothingTypeFromId("innoxia_hair_rose"))) {
 				text = UtilText.parseFromXMLFile("characters/dominion/helena", "GIFT_SINGLE_ROSE")
 						+(applyEffects
-								?Main.game.getNpc(Nyan.class).incrementAffection(Main.game.getPlayer(), 5)
+								?this.incrementAffection(Main.game.getPlayer(), 5)
 								:"");
 					
 			}
@@ -447,7 +452,7 @@ public class Helena extends NPC {
 	}
 	
 	public boolean isSlutty() {
-		return !this.isVaginaVirgin() || this.hasFetish(Fetish.FETISH_LUSTY_MAIDEN);
+		return !this.isVaginaVirgin() || !this.isAssVirgin();
 	}
 	
 	public void applySlut() {

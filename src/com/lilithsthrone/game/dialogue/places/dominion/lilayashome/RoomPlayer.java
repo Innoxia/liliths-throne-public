@@ -223,7 +223,7 @@ public class RoomPlayer {
 				return new Response("Quick shower",
 						"Use your room's ensuite to take a bath or shower."
 								+ "<br/>[style.italicsGood(Cleans <b>a maximum of "+Units.fluid(500)+"</b> of fluids from all orifices.)]"
-								+ "<br/>[style.italicsExcellent(This will clean <b>all</b> clothing in your inventory.)]"
+								+ "<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]"
 								+ "<br/>[style.italicsMinorBad(This does <b>not</b> clean companions.)]",
 						AUNT_HOME_PLAYERS_ROOM_QUICK_SHOWER){
 					@Override

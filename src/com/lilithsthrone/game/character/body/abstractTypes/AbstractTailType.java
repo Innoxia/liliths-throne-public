@@ -209,7 +209,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	public String getGirthDescription(GameCharacter owner) {
 		StringBuilder sb = new StringBuilder();
 		
-		if(this.getTags().contains(TailTypeTag.TYPE_SKIN) || this.getTags().contains(TailTypeTag.TYPE_FUR)) { //TODO split
+		if(this.getTags().contains(TailTypeTag.TYPE_SKIN)) {
 			if(owner.getTailCount()>1) {
 				sb.append(UtilText.parse(owner, " [npc.Her] [npc.tails] are"));
 			} else {
@@ -230,6 +230,30 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					break;
 				case FOUR_FAT:
 					sb.append(UtilText.parse(owner, " very thick in proportion to the rest of [npc.her] body."));
+					break;
+			}
+		}
+		if(this.getTags().contains(TailTypeTag.TYPE_FUR)) {
+			if(owner.getTailCount()>1) {
+				sb.append(UtilText.parse(owner, " [npc.Her] [npc.tails] are"));
+			} else {
+				sb.append(UtilText.parse(owner, " [npc.Her] [npc.tail] is"));
+			}
+			switch(owner.getTailGirth()) {
+				case ZERO_THIN:
+					sb.append(UtilText.parse(owner, " very thin and severely lacking in fluffiness in proportion to the rest of [npc.her] body."));
+					break;
+				case ONE_SLENDER:
+					sb.append(UtilText.parse(owner, " quite slender and lacking in fluffiness in proportion to the rest of [npc.her] body."));
+					break;
+				case TWO_AVERAGE:
+					sb.append(UtilText.parse(owner, " of an average thickness and fluffiness in proportion to the rest of [npc.her] body."));
+					break;
+				case THREE_THICK:
+					sb.append(UtilText.parse(owner, " quite big and very fluffy in proportion to the rest of [npc.her] body."));
+					break;
+				case FOUR_FAT:
+					sb.append(UtilText.parse(owner, " very big and extremely fluffy in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
