@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.managers;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,12 +13,14 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.LubricationType;
+import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
@@ -29,8 +32,8 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.places.Population;
 import com.lilithsthrone.world.places.PopulationType;
 
@@ -71,10 +74,11 @@ public interface SexManagerInterface {
 	}
 	
 	/**
+	 * @param partner The character who is deciding what action to use.
 	 * @param sexActionPlayer The action that the player just took before the partner's turn.
 	 * @return The action that the partner takes.
 	 */
-	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer);
+	public SexActionInterface getPartnerSexAction(NPC partner, SexActionInterface sexActionPlayer);
 	
 	
 	public default String getStartSexDescription() {
@@ -147,6 +151,7 @@ public interface SexManagerInterface {
 			case ZARANIX_HOUSE_FIRST_FLOOR:
 			case ZARANIX_HOUSE_GROUND_FLOOR:
 			case RAT_WARRENS:
+			case DOMINION_EXPRESS:
 				positions.add(SexPosition.OVER_DESK);
 				positions.add(SexPosition.SITTING);
 				break;
@@ -154,6 +159,7 @@ public interface SexManagerInterface {
 			case DOMINION:
 			case EMPTY:
 			case HARPY_NEST:
+			case HOME_IMPROVEMENTS:
 			case IMP_FORTRESS_ALPHA:
 			case IMP_FORTRESS_DEMON:
 			case IMP_FORTRESS_FEMALES:
@@ -165,6 +171,8 @@ public interface SexManagerInterface {
 			case SUBMISSION:
 			case WORLD_MAP:
 				break;
+		default:
+			break;
 		}
 		return positions;
 	}
@@ -238,6 +246,8 @@ public interface SexManagerInterface {
 	}
 	
 	public default void initStartingLustAndArousal(GameCharacter character) {
+		float startingLust = character.getLust();
+		
 		character.setLustNoText(50);
 		character.setArousal(0);
 		if(Main.sex.isDom(character)) {
@@ -252,6 +262,10 @@ public interface SexManagerInterface {
 				character.setLustNoText(85);
 				character.setArousal(10);
 			}
+		}
+		if(character.getLust()<startingLust) {
+			character.setLustNoText(startingLust);
+			character.setArousal(startingLust*0.15f);
 		}
 		
 		if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
@@ -359,11 +373,17 @@ public interface SexManagerInterface {
 	}
 	
 	/**
-	 * @param character
 	 * @return The OrgasmBehaviour for this character. Normally returns DEFAULT, but can also return CREAMPIE or PULL_OUT, in which case the character will ignore requests and treat associated orgasm actions as having a SexActionPriority of UNIQUE_MAX.
 	 */
 	public default OrgasmBehaviour getCharacterOrgasmBehaviour(GameCharacter character) {
 		return OrgasmBehaviour.DEFAULT;
+	}
+
+	/**
+	 * @return The OrgasmCumTarget for when this character is orgasming in an interaction with the target. Determines where they want to cum <b>only if they choose to pull out</b>, with a return of null signifying that there are no special targeting priorities.
+	 */
+	public default OrgasmCumTarget getCharacterPullOutOrgasmCumTarget(GameCharacter character, GameCharacter target) {
+		return null;
 	}
 	
 	public default boolean isPublicSex() {
@@ -401,14 +421,14 @@ public interface SexManagerInterface {
 				raceNames.add("many other races");
 			}
 			
-			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+			return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 					+ (Main.sex.isMasturbation()
 							?"A crowd of "+Util.stringsToStringList(raceNames, false)+" quickly forms around you, eager to watch your erotic display..."
 							:"A crowd of "+Util.stringsToStringList(raceNames, false)+" quickly forms around you and [npc.name], eager to watch your erotic display...")
 					+ "</p>";
 			
 		} else {
-			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+			return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 					+ (Main.sex.isMasturbation()
 							?""
 							:"A crowd quickly forms around you and [npc.name], eager to watch your erotic display...")
@@ -419,13 +439,13 @@ public interface SexManagerInterface {
 	public default String getRandomPublicSexDescription() {
 		boolean enforcersPresent = false;
 		for(Population pop : Main.game.getPlayer().getLocationPlace().getPlaceType().getPopulation()) {
-			if(pop.getType()==PopulationType.ENFORCERS) {
+			if(pop.getType()==PopulationType.ENFORCER) {
 				enforcersPresent = true;
 				break;
 			}
 		}
 		if(Main.sex.isMasturbation()) {
-			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+			return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 						+ UtilText.returnStringAtRandom(
 							"The crowd of onlookers laugh and cheer as they look on.",
 							"You hear someone in the crowd wolf-whistling as they watch you masturbating.",
@@ -440,7 +460,7 @@ public interface SexManagerInterface {
 					+"</p>";
 			
 		} else if(Main.sex.getAllParticipants(false).contains(Main.game.getPlayer())) {
-			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+			return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 						+ UtilText.parse(Main.sex.getTargetedPartner(Main.game.getPlayer()),
 							UtilText.returnStringAtRandom(
 								"The crowd of onlookers laugh and cheer as they look on.",
@@ -460,7 +480,7 @@ public interface SexManagerInterface {
 			
 		} else {
 			GameCharacter target = Util.randomItemFrom(Main.sex.getDominantParticipants(false).keySet());
-			return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+			return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 					+ UtilText.parse(target, Main.sex.getTargetedPartner(target),
 						UtilText.returnStringAtRandom(
 							"The crowd of onlookers laugh and cheer as they look on.",
@@ -479,11 +499,13 @@ public interface SexManagerInterface {
 				+"</p>";
 		}
 	}
+
+	public Map<GameCharacter, List<SexType>> getSexTypesBannedMap();
 	
 	public Map<GameCharacter, List<SexAreaInterface>> getAreasBannedMap();
 
 	public default boolean isAreasBannedMapAppliedToSelfActions(GameCharacter character) {
-		return getAreasBannedMap().containsKey(character);
+		return getAreasBannedMap()!=null && getAreasBannedMap().containsKey(character);
 	}
 	
 	// Revealing CoverableAreas:

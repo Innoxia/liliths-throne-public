@@ -1,12 +1,14 @@
 package com.lilithsthrone.game.character.gender;
-import java.util.HashMap;
+
+import java.util.HashMap;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.settings.ContentPreferenceValue;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -16,34 +18,34 @@ import com.lilithsthrone.utils.Util;
 public enum Gender {
 	
 	// Masculine:
-	M_P_V_B_HERMAPHRODITE(GenderNames.Y_PENIS_Y_VAGINA_Y_BREASTS, PronounType.MASCULINE, Colour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
-	M_P_V_HERMAPHRODITE(GenderNames.Y_PENIS_Y_VAGINA_N_BREASTS, PronounType.MASCULINE, Colour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
-	M_P_B_BUSTYBOY(GenderNames.Y_PENIS_N_VAGINA_Y_BREASTS, PronounType.MASCULINE, Colour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
-	M_P_MALE(GenderNames.Y_PENIS_N_VAGINA_N_BREASTS, PronounType.MASCULINE, Colour.MASCULINE, ContentPreferenceValue.THREE_AVERAGE),
-	M_V_B_BUTCH(GenderNames.N_PENIS_Y_VAGINA_Y_BREASTS, PronounType.MASCULINE, Colour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
-	M_V_CUNTBOY(GenderNames.N_PENIS_Y_VAGINA_N_BREASTS, PronounType.MASCULINE, Colour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
-	M_B_MANNEQUIN(GenderNames.N_PENIS_N_VAGINA_Y_BREASTS, PronounType.MASCULINE, Colour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
-	M_MANNEQUIN(GenderNames.N_PENIS_N_VAGINA_N_BREASTS, PronounType.MASCULINE, Colour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
+	M_P_V_B_HERMAPHRODITE(GenderNames.Y_PENIS_Y_VAGINA_Y_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
+	M_P_V_HERMAPHRODITE(GenderNames.Y_PENIS_Y_VAGINA_N_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
+	M_P_B_BUSTYBOY(GenderNames.Y_PENIS_N_VAGINA_Y_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
+	M_P_MALE(GenderNames.Y_PENIS_N_VAGINA_N_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.THREE_AVERAGE),
+	M_V_B_BUTCH(GenderNames.N_PENIS_Y_VAGINA_Y_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
+	M_V_CUNTBOY(GenderNames.N_PENIS_Y_VAGINA_N_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
+	M_B_MANNEQUIN(GenderNames.N_PENIS_N_VAGINA_Y_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
+	M_MANNEQUIN(GenderNames.N_PENIS_N_VAGINA_N_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
 	
 	// Feminine:
-	F_P_V_B_FUTANARI(GenderNames.Y_PENIS_Y_VAGINA_Y_BREASTS, PronounType.FEMININE, Colour.FEMININE, ContentPreferenceValue.ONE_MINIMAL),
-	F_P_V_FUTANARI(GenderNames.Y_PENIS_Y_VAGINA_N_BREASTS, PronounType.FEMININE, Colour.FEMININE, ContentPreferenceValue.ZERO_NONE),
-	F_P_B_SHEMALE(GenderNames.Y_PENIS_N_VAGINA_Y_BREASTS, PronounType.FEMININE, Colour.FEMININE, ContentPreferenceValue.ZERO_NONE),
-	F_P_TRAP(GenderNames.Y_PENIS_N_VAGINA_N_BREASTS, PronounType.FEMININE, Colour.FEMININE, ContentPreferenceValue.ONE_MINIMAL),
-	F_V_B_FEMALE(GenderNames.N_PENIS_Y_VAGINA_Y_BREASTS, PronounType.FEMININE, Colour.FEMININE, ContentPreferenceValue.THREE_AVERAGE),
-	F_V_FEMALE(GenderNames.N_PENIS_Y_VAGINA_N_BREASTS, PronounType.FEMININE, Colour.FEMININE, ContentPreferenceValue.ZERO_NONE),
-	F_B_DOLL(GenderNames.N_PENIS_N_VAGINA_Y_BREASTS, PronounType.FEMININE, Colour.FEMININE, ContentPreferenceValue.ZERO_NONE),
-	F_DOLL(GenderNames.N_PENIS_N_VAGINA_N_BREASTS, PronounType.FEMININE, Colour.FEMININE, ContentPreferenceValue.ZERO_NONE),
+	F_P_V_B_FUTANARI(GenderNames.Y_PENIS_Y_VAGINA_Y_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ONE_MINIMAL),
+	F_P_V_FUTANARI(GenderNames.Y_PENIS_Y_VAGINA_N_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ZERO_NONE),
+	F_P_B_SHEMALE(GenderNames.Y_PENIS_N_VAGINA_Y_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ZERO_NONE),
+	F_P_TRAP(GenderNames.Y_PENIS_N_VAGINA_N_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ONE_MINIMAL),
+	F_V_B_FEMALE(GenderNames.N_PENIS_Y_VAGINA_Y_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.THREE_AVERAGE),
+	F_V_FEMALE(GenderNames.N_PENIS_Y_VAGINA_N_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ZERO_NONE),
+	F_B_DOLL(GenderNames.N_PENIS_N_VAGINA_Y_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ZERO_NONE),
+	F_DOLL(GenderNames.N_PENIS_N_VAGINA_N_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ZERO_NONE),
 
 	// Neutral (treated as feminine for now):
-	N_P_V_B_HERMAPHRODITE(GenderNames.Y_PENIS_Y_VAGINA_Y_BREASTS, PronounType.NEUTRAL, Colour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
-	N_P_V_HERMAPHRODITE(GenderNames.Y_PENIS_Y_VAGINA_N_BREASTS, PronounType.NEUTRAL, Colour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
-	N_P_B_SHEMALE(GenderNames.Y_PENIS_N_VAGINA_Y_BREASTS, PronounType.NEUTRAL, Colour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
-	N_P_TRAP(GenderNames.Y_PENIS_N_VAGINA_N_BREASTS, PronounType.NEUTRAL, Colour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
-	N_V_B_TOMBOY(GenderNames.N_PENIS_Y_VAGINA_Y_BREASTS, PronounType.NEUTRAL, Colour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
-	N_V_TOMBOY(GenderNames.N_PENIS_Y_VAGINA_N_BREASTS, PronounType.NEUTRAL, Colour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
-	N_B_DOLL(GenderNames.N_PENIS_N_VAGINA_Y_BREASTS, PronounType.NEUTRAL, Colour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
-	N_NEUTER(GenderNames.N_PENIS_N_VAGINA_N_BREASTS, PronounType.NEUTRAL, Colour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE);
+	N_P_V_B_HERMAPHRODITE(GenderNames.Y_PENIS_Y_VAGINA_Y_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
+	N_P_V_HERMAPHRODITE(GenderNames.Y_PENIS_Y_VAGINA_N_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
+	N_P_B_SHEMALE(GenderNames.Y_PENIS_N_VAGINA_Y_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
+	N_P_TRAP(GenderNames.Y_PENIS_N_VAGINA_N_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
+	N_V_B_TOMBOY(GenderNames.N_PENIS_Y_VAGINA_Y_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
+	N_V_TOMBOY(GenderNames.N_PENIS_Y_VAGINA_N_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
+	N_B_DOLL(GenderNames.N_PENIS_N_VAGINA_Y_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
+	N_NEUTER(GenderNames.N_PENIS_N_VAGINA_N_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE);
 
 	
 	private GenderNames name;

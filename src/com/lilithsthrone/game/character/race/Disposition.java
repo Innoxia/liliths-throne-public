@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.race;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -8,10 +10,10 @@ package com.lilithsthrone.game.character.race;
  */
 public enum Disposition {
 
-	CIVILIZED("civilized", Colour.CLOTHING_GREEN),
-	NEUTRAL("neutral", Colour.CLOTHING_BLUE),
-	UNPREDICTABLE("unpredictable", Colour.CLOTHING_ORANGE),
-	SAVAGE("savage", Colour.CLOTHING_RED);
+	CIVILIZED("civilized", PresetColour.CLOTHING_GREEN),
+	NEUTRAL("neutral", PresetColour.CLOTHING_BLUE),
+	UNPREDICTABLE("unpredictable", PresetColour.CLOTHING_ORANGE),
+	SAVAGE("savage", PresetColour.CLOTHING_RED);
 
 	private String name;
 	private Colour colour;

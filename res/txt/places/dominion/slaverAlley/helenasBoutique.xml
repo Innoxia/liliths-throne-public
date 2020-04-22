@@ -1,0 +1,1512 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- ROMANCE_SHOP_CORE -->
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE"><![CDATA[
+	<p>
+		Once again, you find yourself pushing open the door to Helena's Boutique and stepping inside. Taking a quick look around, you see that most of the designer sofas which are scattered around the main shop floor are currently occupied by clients discussing business with Helena's harpy assistants.
+	</p>
+	<p>
+		#IF(helena.isSlutty())
+			#IF(!game.getDialogueFlags().hasFlag(FLAG_helenaSlutSeen))
+					Before you're able to advance further into the store, the beautiful harpy matriarch herself quickly strides forwards to greet you. As she approaches, you find yourself almost not believing what you're seeing, as instead of her usual elegant white plunge dress,
+					#IF(helena.isVisiblyPregnant())
+						 Helena is now wearing an incredibly slutty outfit, and what's more, she's also very clearly pregnant.
+					#ELSE
+						 Helena is now wearing an incredibly slutty outfit.
+					#ENDIF
+					 Both her talons and the nails on the end of her feathered fingers are painted bright pink, which matches the colour of the glossy lipstick she's wearing. Her previously-unblemished white head feathers have been dyed with bleach-blonde highlights, and you notice too that she's taken to wearing thick black eyeliner and a noticeable amount of dark purple eye shadow.
+				</p>
+				<p>
+					Her big nipples are quite clearly visible as they push out against the tight white fabric of the tube top that's covering her large breasts, while her white micro skirt is so short that she shamelessly flashes her lacy black thong to anyone who peers down below her waistline. Instead of her usual fashionable dangle earrings, she's now wearing an assortment of trashy gold jewellery, which takes the form of hoop earrings, a nose ring, and a navel barbell. Around her neck, she's wearing a tight black velvet choker, and as she comes to a halt in front of you, she peers over the top of her gold aviator sunglasses
+			#ELSE
+				#IF(helena.isVisiblyPregnant())
+					Before you're able to advance further into the store, the beautiful harpy matriarch herself elegantly strides forwards to greet you. Her regal posturing is somewhat at odds with the slutty micro skirt and tube top combo that she's taken a habit of wearing, but it's not her choice of outfit that draws your attention the most, for as she comes to a halt in front of you, you find yourself staring at her clearly-pregnant belly. Flashing you a smile as she sees what it is you're staring at, Helena peers over the top of her gold aviator sunglasses
+				#ELSE
+					Before you're able to advance further into the store, the beautiful harpy matriarch herself elegantly strides forwards to greet you. Her regal posturing is somewhat at odds with the slutty micro skirt and tube top combo that she's taken a habit of wearing, and as she comes to a halt in front of you, she peers over the top of her gold aviator sunglasses
+				#ENDIF
+			#ENDIF
+			#IF(helena.isVisiblyPregnant())
+				#IF(!helena.isCharacterReactedToPregnancy(pc))
+					#IF(helena.getPregnantLitter().isFatherId(pc.getId()))
+						 and seductively teases, [helena.speech(You know, [pc.name], by giving me that lovely big creampie, you've ended up fertilising my eggs...)]
+					#ELSE
+						 and playfully teases, [helena.speech(Thanks to you, [pc.name], my dear Scarlett's managed to fertilise my eggs...)]
+					#ENDIF
+				#ELSE
+					#IF(helena.getPregnantLitter().isFatherId(pc.getId()))
+						 and seductively teases, [helena.speech(Yes, [pc.name], I'm still carrying around the eggs you've fertilised...)]
+					#ELSE
+						 and playfully teases, [helena.speech(Yes, [pc.name], I'm still carrying around the eggs which my dear Scarlett's fertilised...)]
+					#ENDIF
+				#ENDIF
+				</p>
+				<p>
+					Stepping forwards, the horny harpy grabs your [pc.hands] and guides them down to rub her clearly-swollen belly. Caught a little off-guard by Helena's audacious move, you're not able to offer much of a response before she seductively licks her lips and leans forwards to tease,
+			#ELSE
+				#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+					 and seductively teases,
+				#ELSE
+					 and seductively teases,
+				#ENDIF
+			#ENDIF
+			#IF(game.getDayOfWeek()==DOW_FRIDAY)
+				#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+					 [helena.speech(That little romp in the back room wasn't nearly enough to satisfy me. I'm expecting you to take me out on a date tonight, and then we can go back to my place for a good hard fuck in my room...)]
+				#ELSE
+					 [helena.speech(I'm expecting you to take me out on a date tonight, [pc.name], and then we can go back to my place for a good hard fuck in my room...)]
+				#ENDIF
+			#ELSE
+				#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+					 [helena.speech(You know, if you were to visit my nest this evening, I'm sure I could be persuaded to give you a very personal tour of my bedroom again...)]
+				#ELSE
+					 [helena.speech(If you'd like, I could give you a very personal tour of the back room...)]
+				#ENDIF
+			#ENDIF
+		#ELSE
+			#IF(game.getDayOfWeek()==DOW_FRIDAY)
+				Before you're able to advance further into the store, the beautiful harpy matriarch herself quickly strides forwards to greet you. After flashing you a delightful smile, she softly says, [helena.speech(Welcome back, [pc.name]. Just so you know, I am expecting you to take me out on a date this evening. Now, with that out of the way, what brings you here today?)]
+			#ELSE
+				#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopTalkedTo))
+					Before you're able to advance further into the store, the beautiful harpy matriarch herself quickly strides forwards to greet you. After flashing you a delightful smile, she softly says, [helena.speech(Welcome back, [pc.name]. Unfortunately, I have no more time today in which to participate in idle conversation with you, but if you're here on matters of business, then of course I would be delighted to help you.)]
+				#ELSE
+					Before you're able to advance further into the store, the beautiful harpy matriarch herself quickly strides forwards to greet you. After flashing you a delightful smile, she softly says, [helena.speech(Welcome back, [pc.name]. What brings you here today?)]
+				#ENDIF
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF(scarlett.isVisiblyPregnant())
+			Before you're able to reply, the familiar figure of Scarlett, wearing her white dress and black choker, suddenly appears from the back room. Catching sight of you and Helena, she walks over to where you're standing, and as she approaches, you can't help but glance down at her swollen, pregnant belly.
+			#IF(helena.isVisiblyPregnant())
+				 Coming to a halt beside her matriarch in such a position that both of their pregnant bellies are side-by-side, the raven-harpy absently-mindedly strokes one of her wing-like arms over her rounded tummy
+			#ELSE
+				 Coming to a halt beside her matriarch, the raven-harpy absently-mindedly strokes one of her wing-like arms over her rounded tummy
+			#ENDIF
+			#IF(!scarlett.isCharacterReactedToPregnancy(pc))
+				#IF(scarlett.getPregnantLitter().isFatherId(pc.getId()))
+					#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+						 and sheepishly reveals, [scarlett.speech(Look what you did, [pc.name]... You got me pregnant...)]
+					#ELSE
+						 and snaps, [scarlett.speech(Look what you fucking did, [pc.name]! You got me pregnant! Do you know how fucking annoying this is?!)]
+					#ENDIF
+				#ELSE
+					#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+						 and sheepishly reveals, [scarlett.speech(One of my harpy friends got me pregnant...)]
+					#ELSE
+						 and snaps, [scarlett.speech(Not that it's any of your business, but just to let you know, it was one of my harpy friends who got me pregnant...)]
+					#ENDIF
+				#ENDIF
+			#ELSE
+				#IF(scarlett.getPregnantLitter().isFatherId(pc.getId()))
+					#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+						 and sheepishly greets you by saying, [scarlett.speech(Hey, [pc.name], I'm still pregnant with our kids...)]
+					#ELSE
+						 and snaps, [scarlett.speech(Yes, [pc.name], before you ask, I'm still pregnant with our kids, and it's fucking annoying!)]
+					#ENDIF
+				#ELSE
+					#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+						 and sheepishly greets you by stating the obvious, [scarlett.speech(Hey, [pc.name]... I'm still pregnant, if you were wondering...)]
+					#ELSE
+						 and snaps, [scarlett.speech(Not that it's any of your business, but yes, I'm still pregnant!)]
+					#ENDIF
+				#ENDIF
+			#ENDIF
+		#ELSE
+			Before you're able to reply, the familiar figure of Scarlett, wearing her white dress and black choker, suddenly appears from the back room. Catching sight of you and Helena, she walks over to where you're standing, and after quickly approaching and coming to a halt beside her matriarch, she
+			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+				 greets you by asking, [scarlett.speech(Hey, [pc.name], is there anything I can do to help?)]
+			#ELSE
+				 snaps, [scarlett.speech(You're back, huh?!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_END_CUSTOM_SLAVE_PROGRESS"><![CDATA[
+	<p>
+		Helena tells you that it will be another [#SPECIAL_PARSE_0] days until your slave is ready for collection, which will be on [#SPECIAL_PARSE_1].
+		#IF(helena.isSlutty())
+			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaScarlettThreesome) && !game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+				Brushing one of her flawless wings up against Scarlett's body, Helena once again teases, [helena.speech(Just to remind you, [pc.name], it will be another [#SPECIAL_PARSE_0] days until your slave is ready for collection, which will be on [#SPECIAL_PARSE_1]. Perhaps you're not here about that though? Maybe you're here to spend some time in the back room with the two of us, hmm?)]
+			#ELSEIF(!game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+				Telling Scarlett to step back, Helena once again teases, [helena.speech(Just to remind you, [pc.name], it will be another [#SPECIAL_PARSE_0] days until your slave is ready for collection, which will be on [#SPECIAL_PARSE_1]. Perhaps you're not here about that though? Maybe you're here to spend some time in the back room with me, hmm?)]
+			#ELSE
+				Telling Scarlett to step back, Helena once again teases, [helena.speech(Just to remind you, [pc.name], it will be another [#SPECIAL_PARSE_0] days until your slave is ready for collection, which will be on [#SPECIAL_PARSE_1]. So, what can I do for you?)]
+			#ENDIF
+		#ELSE
+			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+				Letting another gentle smile settle on her beautiful face, Helena gently states,
+			#ELSE
+				[helena.speech(Scarlett! Behave yourself!)] Helena icily warns her companion, before letting another gentle smile settle on her beautiful face and stating,
+			#ENDIF
+			 [helena.speech(Just to remind you, [pc.name], it will be another [#SPECIAL_PARSE_0] days until your slave is ready for collection, which will be on [#SPECIAL_PARSE_1]. So, what can I do for you?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_END_CUSTOM_SLAVE_READY"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaScarlettThreesome) && !game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+				Brushing one of her flawless wings up against Scarlett's body, Helena once again teases, [helena.speech(So, [pc.name], are you here to collect your slave? Or perhaps you'd like to spend some time in the back room with the two of us?)]
+			#ELSEIF(!game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+				Telling Scarlett to step back, Helena once again teases, [helena.speech(So, [pc.name], are you here to collect your slave? Or perhaps you'd like to spend some time in the back room with me?)]
+			#ELSE
+				Telling Scarlett to step back, Helena once again teases, [helena.speech(So, [pc.name], are you here to collect your slave?)]
+			#ENDIF
+		#ELSE
+			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+				Letting another gentle smile settle on her beautiful face, Helena gently asks again,
+			#ELSE
+				[helena.speech(Scarlett! Behave yourself!)] Helena icily warns her companion, before letting another gentle smile settle on her beautiful face and asking,
+			#ENDIF
+			 [helena.speech(So, [pc.name], are you here to collect your slave?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROMANCE_SHOP_CORE_END"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaScarlettThreesome) && !game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+				Brushing one of her flawless wings up against Scarlett's body, Helena once again teases, [helena.speech(So, [pc.name], is it business that you're here for? Or perhaps you'd like to spend some time in the back room with the two of us?)]
+			#ELSEIF(!game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+				Telling Scarlett to step back, Helena once again teases, [helena.speech(So, [pc.name], is it business that you're here for? Or perhaps you'd like to spend some time in the back room with me?)]
+			#ELSE
+				Telling Scarlett to step back, Helena once again teases, [helena.speech(So, [pc.name], what business is it you wish to discuss?)]
+			#ENDIF
+		#ELSE
+			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+				Letting another gentle smile settle on her beautiful face, Helena gently asks again,
+			#ELSE
+				[helena.speech(Scarlett! Behave yourself!)] Helena icily warns her companion, before letting another gentle smile settle on her beautiful face and asking,
+			#ENDIF
+			 [helena.speech(So, [pc.name], what can we do for you?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_START -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_START"><![CDATA[
+	<p>
+		After informing Helena that you're interested in ordering a custom slave, she turns to Scarlett and commands, [helena.speech(Run along and fetch the customisation forms from behind the counter.)]
+	</p>
+	<p>
+		As the raven-harpy hurries off to carry out her matriarch's order, Helena guides you over to a couple of nearby empty sofas.
+		#IF(helena.hasFetish(FETISH_DOMINANT))
+			 Sitting down on the one opposite to you, she flashes you a devious grin as she spreads her legs and gives you a clear view of the lacy black thong that she's wearing beneath her microskirt. Biting her lip, she teases, [helena.speech(Maybe after we're done with business, I'll take you into the back room and give you a taste of my dirty little pussy...)]
+		#ELSEIF(helena.hasFetish(FETISH_SUBMISSIVE))
+			 Sitting down on the one opposite to you, she submissively bats her eyelids as she spreads her legs and gives you a clear view of the lacy black thong that she's wearing beneath her microskirt. Biting her lip, she teases, [helena.speech(Maybe after we're done with business, you could take me into the back room and fuck my dirty little pussy...)]
+		#ELSE
+			 Sitting down on the one opposite to you, she throws you a subtle smile and gently says, [helena.speech(I am more than happy to personally assist you with your slave customisation, [pc.name].)]
+		#ENDIF
+	</p>
+	<p>
+		Before you can reply, Scarlett returns and places two stacks of forms down on on the coffee table in front of you, before saying, [scarlett.speech(I didn't know which template you wanted, so I got both the male and female ones.)]
+	</p>
+	<p>
+		[helena.speech(Thank you, Scarlett,)]
+		#IF(helena.hasFetish(FETISH_DOMINANT) || helena.hasFetish(FETISH_SUBMISSIVE))
+			 Helena replies, crossing her legs and blocking off your view of her slutty underwear. Gesturing towards the shop's counter, she continues, [helena.speech(Please wait for me over there.)]
+		#ELSE
+			 Helena replies, before gesturing towards the shop's counter and continuing, [helena.speech(Please wait for me over there.)]
+		#ENDIF
+	</p>
+	<p>
+		As the raven-harpy walks off, Helena turns back towards and you and explains the process ahead, [helena.speech(First of all, we'll start with either a female or male template, and then customise them from there. Your available options are not limited by your template choice; you could always customise the female template into a male slave, and vice versa, but that would just be an unnecessary waste of time. Anyway, let's begin!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_DECLINED -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_DECLINED"><![CDATA[
+	<p>
+		Having changed your mind about all of this, you thank Helena for her help, but say that you don't want to order a custom slave after all.
+	</p>
+	<p>
+		Standing up from her sofa and calling over Scarlett to take the forms away,
+		#IF(helena.hasFetish(FETISH_DOMINANT))
+			 the slutty matriarch steps close to lewdly whisper in your [pc.ear], [helena.speech(How about I take you into the back room and give you a good, hard fuck?)]
+		#ELSEIF(helena.hasFetish(FETISH_SUBMISSIVE))
+			 the slutty matriarch steps close to lewdly whisper in your [pc.ear], [helena.speech(How about you take me into the back room and give me a good, hard fuck?)]
+		#ELSE
+			 the regal matriarch lets out a small sigh and says, [helena.speech(That's no problem, [pc.name]. Is there anything else I can do for you today?)]
+		#ENDIF
+	</p>
+	<p>
+		With Helena waiting to hear your reply, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY"><![CDATA[
+	<p>
+		One of the forms is in a slightly different format to all of the rest, and as you take a look at it, Helena helpfully reveals, [helena.speech(We'll source a slave of whatever age you desire and start from there. Scarlett's sister is responsible for all of the other customisation options on this page. She'll put your slave through five days of intensive personality training to shape them into whatever you want them to be.)]
+	</p>
+	#IF(helena.isSlutty())
+		<p>
+			Looking down at the bottom of the form, the slutty matriarch licks her lips and adds, [helena.speech(We can make them love whatever dirty fetishes you want...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_CORE -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_CORE"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			The form in front of you is titled 'Transformation: Body Type', and as you start reading through it, Helena bites her lip and teases, [helena.speech(Show me what sort of body you'd like your slave to have...)]
+		#ELSE
+			The form in front of you is titled 'Transformation: Body Type', and as you start reading through it, Helena helpfully adds, [helena.speech(You can specify whatever type of body you'd like for your slave.)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_FACE -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_FACE"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			The form in front of you is titled 'Transformation: Face & Hair', and as you start reading through it, Helena lewdly adds, [helena.speech(With all these mouth and tongue options, I bet you could make a slave that's great at performing oral...)]
+		#ELSE
+			The form in front of you is titled 'Transformation: Face & Hair', and as you start reading through it, Helena says, [helena.speech(There really are quite a lot of options on this form. Please do take your time; there's no rush.)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			The form in front of you is titled 'Transformation: Ass & Hips', and as you start reading through it, Helena flashes you a cheeky grin and reveals,
+			#IF(game.isAnalContentEnabled())
+				 [helena.speech(You know, a lot of clients give their slaves at least some natural anal lubrication. Makes it easier to fuck their ass, I guess...)]
+			#ELSE
+				 [helena.speech(You know, it's easy to tell which clients are planning on breeding their slaves, as they give them really wide hips...)]
+			#ENDIF
+		#ELSE
+			The form in front of you is titled 'Transformation: Ass & Hips', and as you start reading through it, Helena says, [helena.speech(Please, don't hold back from any of the more extreme options on my account...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			The form in front of you is titled 'Transformation: Breasts', and as you start reading through it, Helena giggles and says, [helena.speech(Remember, if you want to fuck their boobs, make sure you increase their capacity!)]
+		#ELSE
+			The form in front of you is titled 'Transformation: Breasts', and as you start reading through it, Helena reveals, [helena.speech(Quite a few of our clients ask for their slaves to be heavily lactating. Apparently, the milking industry is most lucrative...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_VAGINA -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_VAGINA"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			The form in front of you is titled 'Transformation: Vagina', and as you start reading through it, Helena's eyes light up and she speculates, [helena.speech(Are you going to give them a hot little vice-like pussy? Or perhaps a loose, dripping-wet one with big fat labia? So many possibilities...)]
+		#ELSE
+			The form in front of you is titled 'Transformation: Vagina', and as you start reading through it, Helena says, [helena.speech(You can specify whatever kind of genitalia you desire...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_PENIS -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_PENIS"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			The form in front of you is titled 'Transformation: Penis', and as you start reading through it, Helena hungrily asks, [helena.speech(Are you going to give them a big, fat cock? If you do, then consider giving them a nice big pair of cum-filled balls...)]
+		#ELSE
+			The form in front of you is titled 'Transformation: Penis', and as you start reading through it, Helena says, [helena.speech(Please take your time in designing whatever sort of genitalia you'd like your slave to have...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			The form in front of you is titled 'Transformation: Crotch-boobs/Udders', and as you start reading through it, Helena grins and says, [helena.speech(You know, if you choose five pairs of boobs, five pairs of crotch-boobs, and four nipples per breast, you can give your slave forty nipples...)]
+		#ELSE
+			The form in front of you is titled 'Transformation: Crotch-boobs/Udders', and as you start reading through it, Helena says, [helena.speech(Most of these options are identical to those found on the main 'Transformation: Breasts' form.)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			The form in front of you is titled 'Miscellaneous: Cosmetics', and as you start reading through it, Helena excitedly asks, [helena.speech(Are you going to doll your slave up to look like some cheap whore? That'd be hot...)]
+		#ELSE
+			The form in front of you is titled 'Miscellaneous: Cosmetics', and as you start reading through it, Helena says, [helena.speech(We can apply whatever sort of makeup you'd like.)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS"><![CDATA[
+	<p>
+			The form in front of you is titled 'Miscellaneous: Piercings', and as you start reading through it, Helena says, [helena.speech(Mark down all the parts of your slave that you want us to pierce for you.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_FINISH -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_FINISH"><![CDATA[
+	<p>
+		Having finished customising your slave, you stack the forms back up on top of one another and hand them over to Helena. Smiling as she takes them from you, she slightly nods her head and says,
+		#IF(helena.isSlutty())
+		 [helena.speech(Thank you, [pc.name]. I shall now quickly calculate the cost of of your slave. In the meantime, please decide upon whether you want your slave delivered as a virgin, or whether they should get a good fucking before delivery. These choices are free of charge.)]
+		#ELSE
+		 [helena.speech(Thank you, [pc.name]. I shall now quickly calculate the cost of of your slave. In the meantime, please decide upon whether you want your slave delivered as a virgin, or whether they should be broken in before delivery. These choices are free of charge.)]
+		#ENDIF
+	</p>
+	<p>
+		Handing you a small form titled 'Sex Experience Preferences', Helena leaves you to look over it as she tallies up the cost of the slave you've ordered. Before you've had time to read over it, however, the harpy matriarch quietly clears her throat to get your attention and reveals, [helena.speech(The cost for this slave will be [#SPECIAL_PARSE_0] flames. We also offer a 'Slime special' option, where your slave will be transformed into a slime after undergoing all other transformations.)]
+	</p>
+	<p>
+		[pc.speech(How much is that?)] you ask.
+	</p>
+	<p>
+		[helena.speech(The slime transformation is an extra five thousand flames,)] Helena replies, [helena.speech(Oh, and before you ask, there have already been several suggestions for us to transform slaves into a slime, get them to self-transform, and then transform them back into a solid form in order to save costs on transformation potions. The issue with doing that is that the slave might end up not fully accepting their new form. By transforming them over the course of a week, combined with their intensive training, we can guarantee that your slave will be happy with the form you've specified for them.)]
+	</p>
+	<p>
+		Seeing that you've not filled in the sexual experience form yet, she sits back a little and says, [helena.speech(Please let me know when you've finished with that, or if there's anything you'd like to go back and change.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_ORDER"><![CDATA[
+	<p>
+		Telling Helena that you've finished filling out the sexual experience form, you hand both it and the [#SPECIAL_PARSE_0] flames over to her. Smiling happily as she receives the payment from you, the beautiful matriarch says, [helena.speech(It will take a full week to train and transform your slave, so you'll be able to return here and collect them next [#SPECIAL_PARSE_1] at the earliest. As we have such a high demand for our custom slave service, you won't be able to order another slave until this one has been delivered.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_ORDER_SLIME"><![CDATA[
+	<p>
+		Telling Helena that you've finished filling out the sexual experience form, and that you'd like to order the 'slime special', you hand both the piece of paper and the [#SPECIAL_PARSE_0] flames over to her. Smiling happily as she receives the payment from you, the beautiful matriarch says, [helena.speech(It will take a full week to train and transform your slave, so you'll be able to return here and collect them next [#SPECIAL_PARSE_1] at the earliest. As we have such a high demand for our custom slave service, you won't be able to order another slave until this one has been delivered.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_ORDER_END"><![CDATA[
+	<p>
+		Seeing that you and Helena have concluded your business, Scarlett walks over from where she was waiting and impudently asks, [scarlett.speech(So, you two are done? Helena, I'm hungry. I'm going to go and get something to eat, ok?)]
+	</p>
+	<p>
+		#IF(helena.isSlutty() && !game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+			Spreading her legs to give you an unobstructed view of her lacy black thong, Helena bites her lips and says, [helena.speech(You know, I'm hungry too... How about you come into the back room with me, [pc.name], so you can help me satisfy this craving I've got...)]
+		#ELSE
+			Letting out an exasperated sigh, Helena turns to the raven-harpy and says, [helena.speech(You can take a break later. For now, [pc.name] might have something more to discuss...)]
+		#ENDIF
+	</p>
+	<p>
+		As the two harpies turn to look expectantly at you, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_DELIVERY -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_DELIVERY"><![CDATA[
+	<p>
+		After you've told Helena that you'd like to take delivery of [npc.name], the regal matriarch turns to Scarlett and orders, [helena.speech(Scarlett, please fetch [pc.namePos] slave and bring [npc.herHim] out here.)]
+	</p>
+	<p>
+		Doing as she's told, Scarlet hurries off into the back room, and just moments later returns with the [npc.fullRace(true)] trailing along behind her. As you look at your new slave, who's wearing nothing but a steel slave collar, you see that [npc.sheIs] exactly as you ordered, and as [npc.she] comes to a halt in front of you, [npc.she]
+		#IF(npc.getObedienceBasic()==OBEDIENCE_BASIC_DISOBEDIENT)
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 scowls at you and disobediently mutters, [npc.speech(Eugh... So I'm going to be owned by <i>you</i>?)]
+			#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+				 sighs and disobediently comments, [npc.speech(So, I guess I'm going to be owned by you now, huh?)]
+			#ELSE
+				 smiles and disobediently exclaims, [npc.speech(Is this really it at last? I get to be owned by you?)]
+			#ENDIF
+		#ELSEIF(npc.getObedienceBasic()==OBEDIENCE_BASIC_NEUTRAL)
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 sighs and mutters, [npc.speech(Am I to your satisfaction?)]
+			#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+				 asks, [npc.speech(Am I to your satisfaction?)]
+			#ELSE
+				 smiles and asks, [npc.speech(Am I to your satisfaction?)]
+			#ENDIF
+		#ELSE
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 obediently bows [npc.her] head, completely concealing [npc.her] dislike of you as [npc.she] asks, [npc.speech(Am I to your satisfaction, [pc.name]?)]
+			#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+				 obediently bows [npc.her] head, before asking, [npc.speech(Am I to your satisfaction, [pc.name]?)]
+			#ELSE
+				 obediently bows [npc.her] head, completely concealing [npc.her] affection towards you as [npc.she] asks, [npc.speech(Am I to your satisfaction, [pc.name]?)]
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_DELIVERY_END"><![CDATA[
+	<p>
+		After you've replied in the positive, Helena motions for Scarlett to take [npc.name] away, before turning to you and explaining, [helena.speech(As per regulation, [npc.name] will be processed and held at the Slavery Administration building. You can collect [npc.herHim] from there at any time.)]
+	</p>
+	<p>
+		Obviously not wanting to be bothered with the task Helena had in mind for her, you see Scarlett hand your slave over to another of the harpies who work here. As they turn and lead your slave out of the shop, Scarlett quickly returns to hover nearby and join her matriarch in waiting to see if there's anything else you wanted of them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_TALK -->
+	
+	<htmlContent tag="HELENAS_SHOP_TALK"><![CDATA[
+	<p>
+		Wanting to spend some time talking with Helena, you ask her how her day's been so far. Clearly happy to be using your question as an excuse to take a break from work, the beautiful harpy flashes you a smile as she launches into describing today's customers and events.
+	</p>
+	#IF(helena.isSlutty())
+		<p>
+			#IF(helena.isVisiblyPregnant())
+				After a short while of talking about business, she starts making several graphic comments about how she keeps on thinking back to the evening in which
+				#IF(helena.getPregnantLitter().isFatherId(pc.getId()))
+					 you impregnated her. Stepping forwards, she grabs your [pc.hands] and makes you stroke her pregnant belly as she teases,
+					#IF(helena.hasFetish(FETISH_DOMINANT))
+						 [helena.speech(Once I've laid these eggs, maybe I'll ride your cock and get you to knock me up all over again...)]
+					#ELSE
+						 [helena.speech(Once I've laid these eggs, maybe you'll want to hump me and knock me up all over again...)]
+					#ENDIF
+				#ELSE
+					 Scarlett impregnated her. Stepping forwards, she grabs your [pc.hands] and makes you stroke her pregnant belly as she teases,
+					#IF(helena.hasFetish(FETISH_DOMINANT))
+						 [helena.speech(Once I've laid these eggs, maybe I'll get Scarlett to hump me and knock me up all over again...)]
+					#ELSE
+						 [helena.speech(Once I've laid these eggs, I wonder if Scarlett will want to hump me and knock me up all over again...)]
+					#ENDIF
+				#ENDIF
+			#ELSE
+				After a short while of talking about business, 
+				#IF(helena.hasFetish(FETISH_DOMINANT))
+					 she dominantly steps forwards and starts making several graphic comments about how she keeps on getting wet at the thought of 
+				#ELSE
+					 she steps forwards and starts making several graphic comments about how she keeps on getting wet at the thought of 
+				#ENDIF
+				#IF(helena.hasFetish(FETISH_ANAL_RECEIVING))
+					#IF(!helena.isVaginaVirgin())
+						 her horny little pussy and ass being filled with your cock.
+					#ELSE
+						 her slutty ass being filled with your cock.
+					#ENDIF
+					#IF(!game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+						 Biting her lip, she lowers her voice and coyly asks, [helena.speech(How about the two of step into the back room? I could do with some oral right about now...)]
+					#ELSE
+						 Biting her lip, she lowers her voice and coyly remarks, [helena.speech(I'm looking forward to our next date together. I wonder if you're going to want to fuck my butt or my tight, wet cunt?)]
+					#ENDIF
+				#ELSE
+					 her horny little pussy being filled with your cock.
+					#IF(!game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+						 Biting her lip, she lowers her voice and coyly asks, [helena.speech(How about the two of step into the back room? I could do with some oral right about now...)]
+					#ELSE
+						 Biting her lip, she lowers her voice and coyly remarks, [helena.speech(I'm looking forward to our next date together. I can't wait to feel you using my tight, wet cunt again...)]
+					#ENDIF
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			#IF(!game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+				After a few more minutes of teasing and making all sorts of lewd remarks, the regal matriarch pointedly asks, [helena.speech(So, [pc.name], do you want me to give you a very <i>personal</i> tour of the back room, or should I get back to work?)]
+			#ELSE
+				After a few more minutes of teasing and making all sorts of lewd remarks, the regal matriarch spots one of her harpy workers beckoning for her attention, and so steps back and declares, [helena.speech(I'd love to continue talking with you, [pc.name], but I need to get back on with work now.)]
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			After ten or so minutes of this sort of conversation, the regal matriarch spots one of her harpy workers beckoning for her attention, and so steps back and declares, [helena.speech(I'd love to continue talking with you, [pc.name], but I need to get back on with work now.)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_BACK_ROOM -->
+	
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM"><![CDATA[
+	<p>
+		Deciding to give the horny harpy matriarch what she wants, you tell Helena that you'd like to spend some time with her in the back room. As she hears what it is you're saying, the beautiful harpy's eyes light up, and with a sly wink and lick of her lips she seductively replies,
+		#IF(pc.hasCompanions())
+			 [helena.speech(Why, I'd love to give you a tour of the back room, [pc.name], but your friend will have to wait out here. Please follow me...)]
+		#ELSE
+			 [helena.speech(Why, I'd love to give you a tour of the back room, [pc.name]. Please follow me...)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasCompanions())
+			Telling [com.name] to wait here for your return, you follow Helena over to the door on the far side of the room. Flashing you a smile, the beautiful harpy opens it and ushers you forwards before promptly following you inside and locking the door behind her.
+		#ELSE
+			Quickly leading you over to the door on the far side of the room, Helena opens it and ushers you forwards, before promptly following you inside and locking the door behind her.
+		#ENDIF
+		 While the staff room you're now standing in appears to be unoccupied, there are some sounds of movement coming from behind the room dividers, letting you know that there are several slaves chained up in the storage area awaiting collection.
+	</p>
+	<p>
+		Seemingly not at all bothered by the fact that these slaves are able to overhear the two of you, Helena steps forwards and lifts her micro skirt, before hooking her feathered thumbs into the band of her lacy black thong and sliding it down the length of her flawless bird-like legs.
+		#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
+			 With her cloaca now fully on display, the slutty harpy uses her fingers to spread it and present her pussy to you, before
+		#ELSE
+			 With her groin now fully on display, the slutty harpy uses her fingers to spread her pussy and present it to you, before
+		#ENDIF
+		#IF(helena.hasFetish(FETISH_DOMINANT))
+			 dominantly teasing, [helena.speech(How should I use you today, I wonder?)]
+		#ELSE
+			 submissively teasing, [helena.speech(How would you like to use me, [pc.name]?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Cunnilingus -->
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM_PERFORM_CUNNILINGUS"><![CDATA[
+	<p>
+		Wanting to perform oral on Helena, you drop down onto your knees in front of her, before leaning forwards to plant a kiss on her exposed pussy. Letting out a playful giggle, the beautiful harpy takes a step to one side, before leaning back against the wall that's now behind her. Presenting her pussy to you once again, she teases, [helena.speechNoEffects(Come on then! Get a taste of my horny little pussy!)]
+	</p>
+	<p>
+		Doing as you're told, you eagerly shuffle forwards and press your [pc.lips+] against Helena's hungry pussy. Overcome with lust, the horny harpy drops her flawless white wings down to push your head further forwards between her legs. As you push your tongue in between her [helena.labia+], Helena squeals, [helena.speechNoEffects(~Ooh!~ Yes! Keep going, [pc.name]! ~Mmm!~ Yes, just like that!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Anilingus -->
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM_PERFORM_ANILINGUS"><![CDATA[
+	#IF(!helena.getFetishDesire(FETISH_ANAL_RECEIVING).isPositive())
+		<p>
+			Wanting to perform a different type of oral on Helena, you suggest
+			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
+				 that you could probe your tongue a little lower down within her cloaca and perform anilingus on her.
+			#ELSE
+				 that she could present her ass to you so that you can perform anilingus on her.
+			#ENDIF		
+			 Although by now accustomed to doing lewd things you, the regal harpy is still visibly shocked by your suggestion, and hesitantly asks, [helena.speechNoEffects(You mean... You want to lick my asshole?!)]
+		</p>
+		<p>
+			Confirming that that's what you want, you can't help but smile as Helena blushes and turns around, before stepping over to lean against a nearby wall and pushing her [helena.assSize] ass out towards you. Looking back over her shoulder, she lifts her beautiful white tail feathers to present you with
+			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
+				 the cloaca between her legs, and as you drop down behind her and press your [pc.lips+] against the lower part of her bird-like slit, she stammers, [helena.speechNoEffects(T-This had better feel good!)]
+			#ELSE
+				 her butt, and as you drop down behind her and press your [pc.lips+] against her virgin asshole, she stammers, [helena.speechNoEffects(T-This had better feel good!)]
+			#ENDIF
+		</p>
+		<p>
+			Wanting to make sure that Helena's first anal experience is a good one, you make sure to spend some time lovingly kissing and licking her rear entrance. Sure enough, after just a few minutes of this, the beautiful harpy's nervous sighs have turned into heavy moans, and she eagerly pushes her saliva-coated asshole out against your face as she breathlessly pants, [helena.speechNoEffects(~Ooh!~ Go on, [pc.name]! Eat my ass like you do to my pussy!)]
+		</p>
+		<p>
+			More than happy to do as she asks, you tightly press your [pc.lips] over Helena's asshole and start passionately making out with her virgin hole. From the lewd moans and desperate panting noises drifting down from above, you can tell that she's going to be eager to do a lot more anal play with you in the future...
+		</p>
+	#ELSE
+		<p>
+			Wanting to get a taste of Helena's ass, you suggest that you could perform anilingus on her again. Hearing what it is you want, the regal harpy bites her lips and playfully teases, [helena.speechNoEffects(Oh, my pussy isn't good enough for you, is it? You want to stick your tongue up my ass instead?)]
+		</p>
+		<p>
+			Confirming that that's what you want, you can't help but smile as Helena giggles and turns around, before stepping over to lean against a nearby wall and pushing her [helena.assSize] ass out towards you. Looking back over her shoulder, she lifts her beautiful white tail feathers to present you with
+			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
+				 the cloaca between her legs, and as you drop down behind her and press your [pc.lips+] against the lower part of her bird-like slit, she moans,
+			#ELSE
+				 her butt, and as you drop down behind her and press your [pc.lips+] against her exposed asshole, she moans,
+			#ENDIF
+			 [helena.speechNoEffects(~Mmm!~ That's it! ~Ooh!~ Eat my ass!)]
+		</p>
+		<p>
+			More than happy to do as she asks, you tightly press your [pc.lips] over Helena's asshole and start passionately licking and kissing her rear entrance. From the lewd moans and desperate panting noises which start drifting down from above, you can tell that she's as happy as ever to receive this kind of oral attention from you...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- Blowjob -->
+	<htmlContent tag="BLOWJOB_FIRST_TIME"><![CDATA[
+	<p>
+		Thinking that you should give Helena her first experience of what it's like to suck cock, you tell her that you want her to drop to her knees and give you a blowjob. Although she's eager to engage in other lewd acts, the thought of having a cock in her mouth causes the harpy matriarch to nervously ask, [helena.speechNoEffects(Y-You really want me to... Suck your cock?)]
+	</p>
+	<p>
+		After replying in the affirmative, you give the hesitant harpy a helping hand by pushing her down onto her knees in front of you.
+		#IF(pc.isTaur())
+			 Reassuring her that she'll be able to handle your feral [pc.cockRace] cock, you step forwards so that Helena is kneeling beneath your lower [pc.legRace] body.
+		#ELSE
+			 Reassuring her that she'll be fine, you lean back against a nearby wall and present Helena with your [pc.cockSize] cock.
+		#ENDIF
+		 Letting out a nervous sigh, she shuffles forwards until her mouth is hovering right in front of your rapidly-hardening shaft, before stuttering, [helena.speechNoEffects(G-Give me a moment...)]
+	</p>
+	<p>
+		Letting her do this at her own pace, you wait while Helena hesitantly leans forwards to plant a gentle kiss on the tip of your cock. Encouraged by the appreciative [pc.moan] that you let out, the harpy matriarch shuffles a little closer, before sticking out her tongue and giving your [pc.cockGirth] shaft a long, wet lick. Clearly enraptured by this new experience, Helena quickly steps up the pace, and after giving your cock another few licks, she presses her [helena.lipSize], juicy lips against the [pc.cockHead+] of your cock and gives it another wet kiss. As you start to let out [pc.a_moan+], the horny harpy giggles in excitement, before opening wide and taking you into her mouth.
+	</p>
+	<p>
+		From the hungry, squelching moans which she starts making as she takes your throbbing shaft down her throat, you can tell that Helena's very much enjoying the experience of sucking cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BLOWJOB_EXPERIENCED"><![CDATA[
+	<p>
+		Thinking that it would be good to get Helena to suck your cock again, you tell her that you want her to drop to her knees and give you a blowjob. Flashing you a cheeky smile as you say this, the lewd harpy matriarch blows you a wet kiss and teases, [helena.speechNoEffects(You want these lips wrapped around your cock again, hmm?)]
+	</p>
+	<p>
+		After you've replied in the affirmative, Helena quickly drops down onto her knees in front of you,
+		#IF(pc.isTaur())
+			 before impatiently shuffling forwards beneath your lower [pc.legRace] body.
+		#ELSE
+			 and as you lean back against a nearby wall and present her with your [pc.cockSize] cock, she lets out a hungry moan and impatiently shuffles forwards.
+		#ENDIF
+		 With her mouth now hovering right in front of your rapidly-hardening shaft, she licks her lips and exclaims, [helena.speechNoEffects(~Mmm!~ That's right, get nice and hard for me!)]
+	</p>
+	<p>
+		Only having to wait another couple of seconds until you're completely erect, Helena lets out a hungry moan as she leans forwards to plant a big wet kiss on the tip of your cock. Encouraged by the appreciative [pc.moan] that you let out, the harpy matriarch slides her tongue out to give your [pc.cockGirth] shaft a series of long, wet licks. Not able to hold back any longer, she giggles in excitement, before opening wide and greedily taking your hot cock into her mouth.
+	</p>
+	<p>
+		From the hungry, squelching moans which she starts making as she takes your throbbing shaft down her throat, you can tell that Helena's very much enjoying the opportunity to suck your cock again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Cunnilingus (Helena performing) -->
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM_RECEIVE_CUNNILINGUS_FIRST_TIME"><![CDATA[
+	<p>
+		Thinking that you should give Helena her first experience of what it's like to perform cunnilingus, you tell her that you want her to drop to her knees and eat you out. Although she's eager to engage in other lewd acts, the thought of performing oral causes the harpy matriarch to nervously ask, [helena.speechNoEffects(Y-You really want me to do that?)]
+	</p>
+	<p>
+		After replying in the affirmative, you give the hesitant harpy a helping hand by pushing her down onto her knees in front of you.
+		#IF(pc.isTaur())
+			 Reassuring her that she'll be able to handle your feral [pc.pussyRace] pussy, you turn around and step back so that Helena is kneeling behind your lower [pc.legRace] body.
+		#ELSE
+			 Reassuring her that she'll be fine, you lean back against a nearby wall and present Helena with your [pc.pussy+].
+		#ENDIF
+		 Letting out a nervous sigh, she shuffles forwards until her mouth is hovering right in front of your hot cunt, before stuttering, [helena.speechNoEffects(G-Give me a moment...)]
+	</p>
+	<p>
+		Letting her do this at her own pace, you wait while Helena hesitantly leans forwards to plant a gentle kiss on your [pc.labia+]. Encouraged by the appreciative [pc.moan] that you let out, the harpy matriarch shuffles a little closer, before sticking out her tongue and giving your [pc.clit+] a short, wet lick. Discovering that she likes this new experience, Helena quickly steps up the pace, and after giving your clit another few licks, she presses her [helena.lipSize], juicy lips against your feminine sex and starts passionately kissing your [pc.labia+]. As you let out [pc.a_moan+], the horny harpy greedily pushes her tongue into your [pc.pussy+] and starts enthusiastically eating you out.
+	</p>
+	<p>
+		From the hungry, wet moans which she immediately starts making, you can tell that Helena's very much enjoying the experience of performing oral on you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM_RECEIVE_CUNNILINGUS_EXPERIENCED"><![CDATA[
+	<p>
+		Thinking that it would be good to get Helena to perform cunnilingus on you again, you tell her that you want her to drop to her knees and eat you out. Flashing you a cheeky smile as you say this, the lewd harpy matriarch blows you a wet kiss and teases, [helena.speechNoEffects(You want to feel my tongue thrusting deep into your pussy again, hmm?)]
+	</p>
+	<p>
+		After you've quickly replied in the affirmative, Helena drops down onto her knees in front of you,
+		#IF(pc.isTaur())
+			 before impatiently shuffling around behind your lower [pc.legRace] body.
+		#ELSE
+			 and as you lean back against a nearby wall and present her with your [pc.pussy+], she lets out a hungry moan and impatiently shuffles forwards.
+		#ENDIF
+		 With her mouth now hovering right in front of your hot cunt, she licks her lips and exclaims, [helena.speechNoEffects(~Mmm!~ That's right, let me get a taste of your pussy!)]
+	</p>
+	<p>
+		Clearly eager to get started, Helena lets out a hungry moan as she leans forwards to plant a big wet kiss on your [pc.labia+]. Encouraged by the appreciative [pc.moan] that you let out, the harpy matriarch sticks out her tongue and gives your [pc.clit+] a series of short, wet licks. Not able to hold back any longer, she presses her [helena.lipSize], juicy lips against your feminine sex, and after taking a few moments to passionately kiss your [pc.labia+], she greedily pushes her tongue into your [pc.pussy+] and starts enthusiastically eating you out.
+	</p>
+	<p>
+		From the hungry, wet moans which she immediately starts making, you can tell that Helena's very much enjoying the opportunity to eat you out again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Sex -->
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM_RIDDEN"><![CDATA[
+	<p>
+		Wanting to make the most of this opportunity, you tell Helena that you want to fuck her again. Hearing what it is you're saying, the dominant harpy grins at you as she runs her feathered fingers down over her pussy, before lewdly teasing, [helena.speechNoEffects(You want to pound my [helena.pussyCapacity], wet pussy again, hmm?)]
+	</p>
+	<p>
+		After you've quickly replied in the affirmative, Helena smirks at you and sharply orders, [helena.speechNoEffects(In that case, get down on your back and present me with your cock. I'm going to be the one on top.)]
+	</p>
+	#IF(pc.isTaur())
+		<p>
+			As you have the lower body of [pc.a_legRace], lying down and rolling over onto your back is a somewhat awkward manoeuvre, but with the promise of getting to sink your [pc.cock+] into Helena's royal pussy, you're more than happy to put up with the minor discomfort. Checking to make sure that you aren't going to crash into a table or some other piece of furniture, you kneel down onto all fours, before rolling over and presenting Helena with both your vulnerable underbelly and rapidly-hardening cock.
+		</p>
+		<p>
+			Licking her lips in anticipation of what's to come, the harpy matriarch grabs hold of your rear legs, before stepping forwards and sinking down to perch on your stomach. Lifting her hips, she lets out an eager moan as she starts rubbing her wet pussy up and down the length of your hard shaft. Displaying the dominant streak which you awoke inside of her, she lets out a little laugh as she commands, [helena.speechNoEffects(Go on, [pc.name], beg for my pussy!)]
+		</p>
+	#ELSE
+		<p>
+			Deciding that it's best to do as you're asked, you lie down on a nearby rug, presenting Helena with your rapidly-hardening cock. Licking her lips in anticipation of what's to come, the harpy matriarch steps forwards and sinks down to perch on your stomach. Lifting her hips, she lets out an eager moan as she moves back and starts rubbing her wet pussy up and down the length of your hard shaft. Displaying the dominant streak which you awoke inside of her, she lets out a little laugh as she commands, [helena.speechNoEffects(Go on, [pc.name], beg for my pussy!)]
+		</p>
+	#ENDIF
+	<p>
+		Feeling extremely turned on and desperate to feel your cock slip inside Helena's hot cunt, you obediently [pc.moan], [pc.speech(Please, Helena! I want your pussy! Fuck me already!)]
+	</p>
+	<p>
+		Satisfied by your response, the regal harpy slides her hips forwards, before reaching down to position the [pc.cockHead+] of your cock up against her [helena.labia+]. Flashing you one last cheeky grin, she sinks down, spearing her [helena.pussy+] on your [pc.cock+] and causing you to let out [pc.a_moan+]. Joining her own horny [helena.moans] with yours, Helena starts dominantly sliding up and down on your cock, giving you exactly what it is you wanted...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM_RIDDEN_ANAL"><![CDATA[
+	<p>
+		Wanting to make the most of this opportunity, you tell Helena that you want to fuck her ass again. Hearing what it is you're saying, the dominant harpy grins at you and teases, [helena.speechNoEffects(You mean you're not interested in my hot little pussy, hmm?)]
+	</p>
+	<p>
+		Before you can reply, Helena smirks at you and sharply orders, [helena.speechNoEffects(If it's my ass you want, then you're to get down on your back and present me with your cock. I'm going to be the one on top.)]
+	</p>
+	#IF(pc.isTaur())
+		<p>
+			As you have the lower body of [pc.a_legRace], lying down and rolling over onto your back is a somewhat awkward manoeuvre, but with the promise of getting to sink your [pc.cock+] into Helena's royal butt, you're more than happy to put up with the minor discomfort. Checking to make sure that you aren't going to crash into a table or some other piece of furniture, you kneel down onto all fours, before rolling over and presenting Helena with both your vulnerable underbelly and rapidly-hardening cock.
+		</p>
+		<p>
+			Instead of positioning herself over your groin, however, the dominant harpy moves forwards to stand over your head, before sinking down onto her knees and planting her
+			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
+				 cloaca
+			#ELSE
+				 [helena.ass+]
+			#ENDIF
+			 firmly down over your face. Letting out a soft moan, she orders, [helena.speechNoEffects(Go on, [pc.name]! Eat my ass like you did before!)]
+		</p>
+	#ELSE
+		<p>
+			Deciding that it's best to do as you're asked, you lie down on a nearby rug, presenting Helena with your rapidly-hardening cock. Instead of positioning herself over your groin, however, the dominant harpy moves forwards to stand over your head, before sinking down onto her knees and planting her
+			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
+				 cloaca
+			#ELSE
+				 [helena.ass+]
+			#ENDIF
+			 firmly down over your face. Letting out a soft moan, she orders, [helena.speechNoEffects(Go on, [pc.name]! Eat my ass!)]
+		</p>
+	#ENDIF
+	<p>
+		With little choice but to do as you're told, you start eagerly kissing and licking Helena's asshole, causing her to let out a series of deep, passionate moans. Once her rear entrance is nicely lubricated by your saliva, she stands up, leaving you gasping for air as she moves down to straddle your stomach. After taking a moment to slide her
+		#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
+			 slimy cloaca
+		#ELSE
+			 slimy asshole 
+		#ENDIF
+		 up and down over your hard shaft, the regal harpy reaches down to position the [pc.cockHead+] of your cock up against her rear entrance. Flashing you one last cheeky grin, she sinks down, spearing her [helena.asshole+] on your [pc.cock+] and causing you to let out [pc.a_moan+]. Joining her own horny [helena.moans] with yours, Helena starts dominantly sliding up and down on your cock, giving you exactly what it is you wanted...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM_FUCK_HER"><![CDATA[
+	<p>
+		Wanting to make the most of this opportunity, you [pc.step] forwards and tell Helena that you're going to fuck her again. Hearing what it is you're saying, the submissive harpy bites her lip and steps over to a nearby table,
+		#IF(helena.isVisiblyPregnant())
+			 before lying back on it and presenting you with her pussy. Rubbing her beautiful wings over her swollen, pregnant belly, she spreads her bird-like legs and teases,
+		#ELSE
+			 before bending forwards over it and presenting you with her pussy. Looking back over her shoulder, she teases,
+		#ENDIF
+		 [helena.speechNoEffects(Come on then, [pc.name], pound my [helena.pussyCapacity], wet pussy!)]
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			More than happy to do as she asks, you rear up on the hind legs and swiftly move forwards to mount her. With your lower [pc.a_legRace]'s body now positioned over the top of the horny harpy, you buck your hips forwards until you feel the [pc.cockHead+] of your cock pushing against her
+			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
+				 cloaca. Encouraged by the feel of Helena's soft, delicate wings guiding your throbbing shaft to prod at her [helena.labia+], you buck forwards, sinking your hard cock into her [helena.pussy+] and causing her to let out a desperate moan,
+			#ELSE
+				 [helena.labia+]. Not wanting to wait another moment, you immediately buck forwards, sinking your hard cock into her [helena.pussy+] and causing her to let out a desperate moan,
+			#ENDIF
+		#ELSE
+			More than happy to do as she asks, you [pc.step] forwards and press the [pc.cockHead+] of your cock against her
+			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
+				 cloaca.
+			#ELSE
+				 [helena.labia+].
+			#ENDIF
+			 Not wanting to wait another moment, you immediately buck forwards, sinking your hard cock into her [helena.pussy+] and causing her to let out a desperate moan,
+		#ENDIF
+		 [helena.speechNoEffects(~Ooh!~ Yes! Fuck me!)]
+	</p>
+	<p>
+		Doing as the regal harpy says, you pull back and thrust forwards again, filling her [helena.pussy+] with your [pc.cock+] and letting out [pc.a_moan+]. Continuing to move your hips back and forth, you settle into a steady rhythm as you fuck Helena over the table... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM_FUCK_HER_ANAL"><![CDATA[
+	<p>
+		Wanting to make the most of this opportunity, you [pc.step] forwards and tell Helena that you're going to fuck her ass again. Hearing what it is you're saying, the submissive harpy bites her lip and steps over to a nearby table,
+		#IF(helena.isVisiblyPregnant())
+			 before lying back on it and presenting you with her
+			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
+				 cloaca.
+			#ELSE
+				 ass.
+			#ENDIF
+			 Rubbing her beautiful wings over her swollen, pregnant belly, she spreads her bird-like legs and teases,
+		#ELSE
+			 before bending forwards over it and presenting you with her
+			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
+				 cloaca.
+			#ELSE
+				 ass.
+			#ENDIF
+			 Looking back over her shoulder, she teases,
+		#ENDIF
+		 [helena.speechNoEffects(Come on, [pc.name]! Eat my ass and get me all nice and wet!)]
+	</p>
+	<p>
+		More than happy to do as she asks, you kneel down and start eagerly kissing and licking Helena's asshole, causing her to let out a series of deep, passionate moans. Once her rear entrance is nicely lubricated by your saliva,
+		#IF(pc.isTaur())
+			 you rear up on the hind legs and swiftly move forwards to mount her. With your lower [pc.a_legRace]'s body now positioned over the top of the horny harpy, you buck your hips forwards until you feel the [pc.cockHead+] of your cock pushing against her
+			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
+				 slimy cloaca. Encouraged by the feel of Helena's soft, delicate wings guiding your throbbing shaft to prod at her asshole, you buck forwards, sinking your hard cock into her rear entrance and causing her to let out a desperate moan,
+			#ELSE
+				 slimy rear entrance. Not wanting to wait another moment, you immediately buck forwards, sinking your hard cock into her asshole and causing her to let out a desperate moan,
+			#ENDIF
+		#ELSE
+			 you stand up an move forwards and press the [pc.cockHead+] of your cock against her
+			#IF(helena.getGenitalArrangement()==GENITALS_CLOACA)
+				 slimy cloaca.
+			#ELSE
+				 slimy rear entrance.
+			#ENDIF
+			 Not wanting to wait another moment, you immediately buck forwards, sinking your hard cock into her asshole and causing her to let out a desperate moan,
+		#ENDIF
+		 [helena.speechNoEffects(~Ooh!~ Yes! Fuck me!)]
+	</p>
+	<p>
+		Doing as the regal harpy says, you pull back and thrust forwards again, filling her wet asshole with your [pc.cock+] and letting out [pc.a_moan+]. Continuing to move your hips back and forth, you settle into a steady rhythm as you fuck Helena over the table... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_BACK_ROOM_AFTER_SEX -->
+	
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM_AFTER_SEX"><![CDATA[
+	<p>
+		With a deep, contented moan, Helena stands up and moves over to retrieve her discarded thong, before pulling it back on and playfully teasing, [helena.speech(~Mmm!~ You sure know how to satisfy me, [pc.name]...)]
+	</p>
+	<p>
+		Getting your own things in order, you join the regal harpy as she steps over to unlock the door to the back room. Turning to plant one last wet kiss on your cheek, she bats her long eyelashes at you and says,
+		#IF(game.getDayOfWeek()==DOW_FRIDAY)
+			 [helena.speech(I won't be able to take any more time off work until later this evening, when I'm expecting you to come and collect me so that we can go on a date together...)]
+		#ELSE
+			 [helena.speech(I won't be able to take any more time off work today, but if you come up to my nest this evening, we could always have some more fun in my bedroom...)]
+		#ENDIF
+	</p>
+	<p>
+		Not giving you any time in which to reply, the beautiful harpy opens the door and swiftly strides back out into the shop. Following in her wake, you see Scarlett step forwards to once again stand by her matriarch's side, and you wonder what you should do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_SCARLETT -->
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT"><![CDATA[
+	<p>
+		Wanting to spend some time with Scarlett, you ask Helena if the raven-harpy could be given a short break from work.
+		#IF(helena.isSlutty())
+			 Pouting at you in response, the beautiful harpy matriarch whines, [helena.speech(Fine, but you'd better give me some extra attention later...)]
+		#ELSE
+			 Letting out a short sigh, the beautiful harpy matriarch agrees by saying, [helena.speech(I suppose that would be acceptable, but please don't keep her from her work for too long.)]
+		#ENDIF
+	</p>
+	<p>
+		As Helena walks off to leave the two of you alone together, Scarlett
+		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			 flashes you a rare smile and asks,
+			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopScarlettCounterOral))
+				#IF(scarlett.hasPenis())
+					 [scarlett.speech(So, what did you want, [pc.name]? I don't have time for you to suck my cock under the counter again...)]
+				#ELSE
+					 [scarlett.speech(So, what did you want, [pc.name]? I don't have time for you to eat me out under the counter again...)]
+				#ENDIF
+			#ELSE
+				#IF(scarlett.hasPenis())
+					 [scarlett.speech(So, what did you want, [pc.name]? You know, I haven't had my cock sucked all day; how about you help me change that?)]
+				#ELSE
+					 [scarlett.speech(So, what did you want, [pc.name]? You know, I haven't had my cunt licked today; how about you help me change that?)]
+				#ENDIF
+			#ENDIF
+		#ELSE
+			 scowls at you and rudely asks,
+			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopScarlettCounterOral))
+				#IF(scarlett.hasPenis())
+					 [scarlett.speech(What the fuck do you want now, [pc.name]? I don't have time to fuck your face under the counter again.)]
+				#ELSE
+					 [scarlett.speech(What the fuck do you want now, [pc.name]? I don't have time for you to lick my cunt again.)]
+				#ENDIF
+			#ELSE
+				#IF(scarlett.hasPenis())
+					 [scarlett.speech(What the fuck do you want now, [pc.name]? If you're not here to suck my cock, then you can fuck off.)]
+				#ELSE
+					 [scarlett.speech(What the fuck do you want now, [pc.name]? If you're not here to lick my cunt, then you can fuck off.)]
+				#ENDIF
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_END"><![CDATA[
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopScarlettTalkedTo))
+			Not having anything more to discuss with Scarlett, you tell her that you'd better let her get back on with work.
+			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+				 Failing to hide the disappointment in her voice, she replies, [scarlett.speech(Oh, ok... I'll call Helena back over.)]
+			#ELSE
+				 Failing to hide the relief in her voice, she replies, [scarlett.speech(Fucking finally... I'll call Helena back over.)]
+			#ENDIF
+		#ELSE
+			Not having anything more to discuss with Scarlett, 
+		#ENDIF
+	</p>
+	<p>
+		Waving one of her black feathered wings, Scarlett shouts out to Helena that you've finished talking with her. The beautiful matriarch quickly strides over to where you're standing, before scolding her subordinate, [helena.speech(Scarlett! I've told you this a hundred times; don't shout like that in front of the customers!)]
+	</p>
+	<p>
+		Shuffling about on her bird-like talons, the raven-harpy mutters an apology to Helena. Letting out a short sigh, the matriarch turns towards you and sweetly asks, [helena.speech(Is there anything else I can help you with today, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_SCARLETT_TALK -->
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_TALK"><![CDATA[
+	<p>
+		Taking advantage of the fact that the two of you now have some time alone together, you try to engage Scarlett in conversation by asking her how her day is going.
+		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			 Blushing a little as she hears that you're interested in finding out how she is, the raven-harpy hesitantly replies, [scarlett.speech(Oh, well, you know, I guess it's just the same as ever...)]
+		#ELSE
+			 Rolling her eyes as she hears your question, the rude harpy snaps, [scarlett.speech(Why the fuck do you care? It's not like you actually give a shit.)]
+		#ENDIF
+	</p>
+	<p>
+		Not satisfied with Scarlett's answer, you press her on the point and again ask her how her day has been so far. Convinced by your persistent questioning that you must actually care about her, the raven-harpy
+		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			 continues to blush as she says, [scarlett.speech(If you really want to know, then I guess I can tell you about my day.)]
+		#ELSE
+			 lets out an annoyed sigh and says, [scarlett.speech(Fine, if it's what it's going to take to get you to fuck off, then I'll tell you about my day.)]
+		#ENDIF
+	</p>
+	<p>
+		Leaning back against the nearby counter, Scarlett starts to recount everything that's happened to her today. To start with, she explains how she had to wake up early so as to be ready to assist her matriarch with anything she might require of her. After that, she moves on to tell you how that after eating breakfast, she accompanied Helena to work, and from then on she's had a mostly uneventful day.
+	</p>
+	<p>
+		Although at first she was hesitant to recount all of this to you, by the time she's finished speaking, Scarlett looks and sounds as though she's a lot happier. Letting a brief smile flash across her face,
+		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			 she crosses her wing-like arms and sighs, [scarlett.speech(So, is there anything else you wanted?)]
+		#ELSE
+			 she crosses her wing-like arms and sighs, [scarlett.speech(Now that that's fucking over, is there anything else you wanted?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_SCARLETT_COUNTER_ORAL -->
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_COUNTER_ORAL"><![CDATA[
+	<p>
+		Wanting to take up Scarlett's offer of performing oral on her, you tell the raven-harpy that you'd be willing to
+		#IF(scarlett.hasPenis())
+			 suck her cock.
+		#ELSE
+			 eat her out.
+		#ENDIF
+		 Flashing you a devious grin as she hears what it is you're saying, Scarlett briefly glances around to make sure that nobody's paying the two of you any attention, before grabbing you by the [pc.hand] and quickly leading you over behind the shop's counter. Once again checking to make sure that you're not being watched by anyone, Scarlett roughly pushes you down so that you can't be seen by anyone but her.
+		#IF(pc.isTaur())
+			 Since you have the lower body of [pc.a_legRace], you find the space under the shop's counter to be a very tight squeeze, but with a little shuffling about, you manage to get into a somewhat comfortable position. 
+		#ELSEIF(pc.getHeightValue()>=200)
+			 Since you're quite tall, you find the space under the shop's counter to be a very tight squeeze, but with a little shuffling about, you manage to get into a somewhat comfortable position. 
+		#ENDIF
+	</p>
+	<p>
+		Grinning down at you, Scarlett lifts the bottom of her dress to reveal that she's wearing a pair of black boyshorts. Stepping a little closer, she hisses, [scarlett.speechNoEffects(What are you waiting for? Pull them down for me!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_COUNTER_ORAL_START"><![CDATA[
+	<p>
+		Doing as you're told, you pull down Scarlett's underwear to reveal
+		#IF(scarlett.getGenitalArrangement()==GENITALS_CLOACA)
+			 her bird-like cloaca.
+			#IF(scarlett.hasPenis())
+				 Her rapidly-hardening cock is already pushing out from between her folds, and as she bucks her hips forwards to push the [scarlett.cockHead+] against your [pc.lips+], she again hisses,
+			#ELSE
+				 Reaching down with one of her black-feathered wings, she spreads her folds to present you with her [scarlett.pussy+]. Bucking her hips forwards, she again hisses,
+			#ENDIF 
+		#ELSE
+			#IF(scarlett.hasPenis())
+				 her rapidly-hardening cock. Bucking her hips forwards to push the [scarlett.cockHead+] against your [pc.lips+], she again hisses,
+			#ELSE
+				 her [scarlett.pussy+]. Bucking her hips forwards, she again hisses,
+			#ENDIF
+		#ENDIF
+		 [scarlet.speechNoEffects(Come on! Get started already!)]
+	</p>
+	<p>
+		Once again doing as you're told, you lean forwards
+		#IF(scarlett.hasPenis())
+			 and open your mouth to deliver a long, wet lick up the length of Scarlett's [scarlett.cock+]. Lapping up the salty bead of precum that's leaking out of the tip of her [scarlett.cock+], you part your [pc.lips+] and take her fully into your mouth. As you start giving her a blowjob, you hear her warning,
+		#ELSE
+			 and open your mouth to deliver a long, wet lick up the length of Scarlett's [scarlett.labia+]. Planting a series of wet kisses on her feminine sex, you bury your face between her legs and slide your tongue into her hot, wet cunt. As you start enthusiastically eating her out, you hear her warning,
+		#ENDIF
+		 [scarlett.speechNoEffects(Stay quiet under there! We can't let anyone find out what's going on, or else we'll both be in for it!)]
+	</p>
+	<p>
+		Knowing that what Scarlett is saying is important, you realise that you'd better nor risk making any noise while doing this, or else both you and Scarlett will end up suffering Helena's wrath...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_SCARLETT_AFTER_COUNTER_ORAL -->
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_AFTER_COUNTER_ORAL"><![CDATA[
+	<p>
+		Satisfied with your performance, Scarlett steps back, before pulling up her boyshorts and flattening down her skirt. Realising that the danger of being discovered still isn't past, you wait under the counter until the raven-harpy hisses, [scarlett.speech(Nobody's looking, get up!)]
+	</p>
+	<p>
+		Shuffling forwards and rising to your [pc.feet], you manage to quickly [pc.step] around to the other side of the counter before anyone notices what's going on. Before you and Scarlett can exchange any more words with one another, Helena suddenly catches sight of you, and swiftly glides over from the other side of the store to greet you, [helena.speech(Hello again, [pc.name]. My dear Scarlett here informed me earlier that you'd left the store, but I see that you've now returned. Is there anything that I can help you with?)]
+	</p>
+	<p>
+		Moving around to stand just behind her matriarch, Scarlett flashes you a cheeky grin as she joins Helena in waiting to hear what it is you're after next... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_SCARLETT_CAFE -->
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopScarlettCafeRevealed))
+		<p>
+			Wanting to spend more than just a few minutes talking with Scarlett, you ask her if she'd like to spend her lunch break with you again.
+			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+				 Blushing a little as she hears your suggestion, the raven-harpy replies, [scarlett.speech(I was thinking of going back to the cafe we went to last time, so I guess you could tag along if you want...)]
+			#ELSE
+				 Letting a look of absolute disgust quickly settle on her face, the rude harpy sneers, [scarlett.speech(Pay for my lunch again, cunt, and I'll consider letting you tag along.)]
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Wanting to spend more than just a few minutes talking with Scarlett, you ask her if she'd like to spend her lunch break with you.
+			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+				 Blushing a little as she hears your suggestion, the raven-harpy replies, [scarlett.speech(I usually go and eat at a nearby cafe, so I guess you could tag along if you want...)]
+			#ELSE
+				 Letting a look of absolute disgust quickly settle on her face, the rude harpy sneers, [scarlett.speech(You think I'd willingly spend my free time with a cunt like you? Perhaps if you pay for my lunch, I'll consider it.)]
+			#ENDIF
+		</p>
+	#ENDIF
+	<p>
+		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			Telling Scarlett that you'd love to accompany her to the cafe, you patiently wait as she darts off to get Helena's permission to take her lunch break. Quickly securing her matriarch's blessing, the raven-harpy returns to you and excitedly says, [scarlett.speech(Ok, I've got an hour for lunch, so let's go!)]
+		#ELSE
+			Crossing her black wing-like arms, Scarlett continues to sneer at you as she waits to hear what it is you'll say in response to her demand. If you want to accompany her on her lunch break, then it looks like you'll have to pay up...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_PAY"><![CDATA[
+	<p>
+		Deciding that it's an acceptable price to pay in exchange for having lunch with Scarlett, you hold out a hundred and fifty flames to the raven-harpy. Rudely snatching them out of your [pc.hand], she sneers, [scarlett.speech(That's a good bitch. Now stay here while I go tell Helena where we're going.)]
+	</p>
+	<p>
+		Doing as you're asked, you patiently wait as the raven-harpy darts off to get Helena's permission to take her lunch break. Quickly securing her matriarch's blessing, Scarlett returns to you and snaps, [scarlett.speech(Ok, I've got an hour for lunch. Come on, bitch, you can tag along.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_CORE"><![CDATA[
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopScarlettCafeRevealed))
+			Letting Scarlett lead the way, you accompany her out of Helena's Boutique and down the busy street to the same cafe which the two of you visited last time.
+		#ELSE
+			Letting Scarlett lead the way, you accompany her out of Helena's Boutique and down the busy street to a nearby cafe.
+		#ENDIF
+		#IF(pc.hasCompanions())
+			 Before reaching the entrance, you let Scarlett get a little way ahead of you, before turning to [com.name] and telling [com.herHim] that [com.she]'d better wait outside. Happy enough to be avoiding the prospect of having Scarlett relentlessly insult [com.herHim], your companion readily agrees, and as the raven-harpy pushes open the cafe's front door, [com.she] hangs back and waits outside.
+		#ELSE
+			 Eager to arrive at her destination, Scarlett doesn't even attempt to strike up a conversation with you, and rudely shoves her way past anyone who dares get in her way as she single-mindedly strides forwards and pushes open the cafe's front door.
+		#ENDIF
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopScarlettCafeRevealed))
+		<p>
+			Following Scarlett's lead, you enter the busy cafe and join her in sitting down at one of the few empty tables. Having noticed your arrival, the same energetic rabbit-girl waitress from before bounces forwards and asks if she can take your orders. Returning her greeting with the usual angry scowl, Scarlett snaps, [scarlett.speech(Fucking hell, Beth, we've only just sat down!)]
+		</p>
+		<p>
+			Placing her hands on her hips, the rabbit-girl pouts at Scarlett and whines,
+			#IF(scarlett.hasPenis())
+				 [style.speechFeminine(Stop being so mean, Scarlett! If you keep on acting like this to me, I'll stop letting you hump my ass after work!)]
+			#ELSE
+				 [style.speechFeminine(Stop being so mean, Scarlett! If you keep on acting like this to me, I'll stop going down on you after work!)]
+			#ENDIF
+		</p>
+		<p>
+			[scarlett.speech(As if you'd ever say no to me!)] your companion sneers, before throwing a glance over at you and saying, [scarlett.speech(I'm going to get the sandwiches again. What are you ordering, [pc.name]?)]
+		</p>
+	#ELSE
+		<p>
+			Following Scarlett's lead, you enter the busy cafe and join her in sitting down at one of the few empty tables. Having noticed your arrival, an energetic rabbit-girl waitress bounces forwards and asks if she can take your orders. Flashing her an angry scowl, Scarlett snaps, [scarlett.speech(Give me a fucking minute, Beth, I've only just sat down.)]
+		</p>
+		<p>
+			Clearly being on familiar terms with one another, the rabbit-girl places her hands on her hips and pouts at Scarlett, before whining,
+			#IF(scarlett.hasPenis())
+				 [style.speechFeminine(You're always so mean to me, Scarlett! How many times does a girl have to let you hump their ass before you start acting nicely to them?)]
+			#ELSE
+				 [style.speechFeminine(You're always so mean to me, Scarlett! How many times does a girl have to go down on you before you start acting nicely to them?)]
+			#ENDIF
+		</p>
+		<p>
+			[scarlett.speech(Eugh! You're so annoying! I guess I'll just have the usual sandwich selection,)] your companion snaps, before throwing a glance over at you and asking, [scarlett.speech(What are you getting, [pc.name]?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_SCARLETT_CAFE_REFUSE_TO_PAY -->
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_REFUSE_TO_PAY"><![CDATA[
+	<p>
+		Unwilling to hand over any money to the rude harpy, you tell Scarlett that you're not going to pay for her lunch. With an angry scowl on her face, she responds to your refusal by cursing at you, [scarlett.speech(Fucking cunt! Don't fucking ask me about lunch again unless you're willing to pay!)]
+	</p>
+	<p>
+		With the rude harpy continuing to scowl and sneer at you, you wonder what you should say to her next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_SCARLETT_CAFE_ARRIVE -->
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_ARRIVE_EATING_LUNCH"><![CDATA[
+	<p>
+		With not much on the menu that grabs your interest, you decide to play it safe and order the same sandwich selection which Scarlett has gone for. After telling the waitress what you've chosen and handing over the one hundred and fifty flames she asks for, you and Scarlett are left alone while she hurries off to fetch your food.
+	#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			 Clearly liking you more than most other people she knows, Scarlett flashes you a slight smile, before slouching down in the chair opposite to yours and asking, [scarlett.speech(So, [pc.name], why did you want to spend lunch with me?)]
+		</p>
+		<p>
+			Knowing that she's still likely to lose her temper if you don't handle this correctly, you tell Scarlett that you simply wanted to spend some time with her in order to get to know her better. Upon hearing this, the rude harpy's cheeks flush red, and after crossing her wing-like arms, she huffs, [scarlett.speech(Well, I don't mind that, I guess...)] 
+		</p>
+	#ELSE
+			 Despite the fact that you've paid for her lunch, Scarlett still doesn't show any sign of liking you, and as you wait for the waitress to return, she slouches down in the chair opposite to yours and asks,
+			#IF(scarlett.hasPenis())
+				 [scarlett.speech(So go on then, cunt, tell me why the fuck you wanted to ruin my lunch break. Were you hoping to suck my cock or something?)]
+			#ELSE
+				 [scarlett.speech(So go on then, bitch, tell me why the fuck you wanted to ruin my lunch break. Were you hoping to get a taste of my cunt or something?)]
+			#ENDIF
+		</p>
+		<p>
+			Knowing that she's likely to lose her temper if you don't handle this correctly, you tell Scarlett that you simply wanted to spend some time with her in order to get to know her better. Upon hearing this, the rude harpy's cheeks flush red, and after crossing her wing-like arms, she huffs, [scarlett.speech(I don't even fucking care... Just don't do anything to piss me off!)] 
+		</p>
+	#ENDIF
+	<p>
+		At that moment, the rabbit-girl waitress bounces back over to your table, and after placing the sandwiches down in front of the two of you, she cheerily asks, [style.speechFeminine(Is there anything else I can get you?)]
+	</p>
+	<p>
+		[scarlett.speech(No, Beth, just fucking leave us alone already!)] Scarlett rudely replies, causing the rabbit-girl to playfully pout at her before turning around and skipping off. Turning her attention to the collection of sandwiches in front of her, Scarlett starts greedily wolfing them down. Following her lead, you get tucked into your own plate of food, and spend the next several minutes working your way through the impressive selection of sandwiches.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_ARRIVE_NO_LUNCH"><![CDATA[
+	<p>
+		With not much on the menu that grabs your interest, you decide not to order anything. After telling the waitress that it's just Scarlett who's ordering food, the two of you are left alone while she hurries off to fetch your companion's food.
+	#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			 Clearly liking you more than most other people she knows, Scarlett flashes you a slight smile, before slouching down in the chair opposite to yours and asking, [scarlett.speech(So, [pc.name], why did you want to spend lunch with me?)]
+		</p>
+		<p>
+			Knowing that she's still likely to lose her temper if you don't handle this correctly, you tell Scarlett that you simply wanted to spend some time with her in order to get to know her better. Upon hearing this, the rude harpy's cheeks flush red, and after crossing her wing-like arms, she huffs, [scarlett.speech(Well, I don't mind that, I guess...)] 
+		</p>
+	#ELSE
+			 Despite the fact that you've paid for her lunch, Scarlett still doesn't show any sign of liking you, and as you wait for the waitress to return, she slouches down in the chair opposite to yours and asks,
+			#IF(scarlett.hasPenis())
+				 [scarlett.speech(So go on then, cunt, tell me why the fuck you wanted to ruin my lunch break. Were you hoping to suck my cock or something?)]
+			#ELSE
+				 [scarlett.speech(So go on then, bitch, tell me why the fuck you wanted to ruin my lunch break. Were you hoping to get a taste of my cunt or something?)]
+			#ENDIF
+		</p>
+		<p>
+			Knowing that she's likely to lose her temper if you don't handle this correctly, you tell Scarlett that you simply wanted to spend some time with her in order to get to know her better. Upon hearing this, the rude harpy's cheeks flush red, and after crossing her wing-like arms, she huffs, [scarlett.speech(I don't even fucking care... Just don't do anything to piss me off!)] 
+		</p>
+	#ENDIF
+	<p>
+		At that moment, the rabbit-girl waitress bounces back over to your table, and after placing the sandwiches down in front of Scarlett, she cheerily asks, [style.speechFeminine(Is there anything else I can get you?)]
+	</p>
+	<p>
+		[scarlett.speech(No, Beth, just fucking leave us alone already!)] Scarlett rudely replies, causing the rabbit-girl to playfully pout at her before turning around and skipping off. Turning her attention to the collection of sandwiches in front of her, Scarlett starts greedily wolfing them down, leaving you to spend the next several minutes with little to do other than watch the hungry harpy work her way through her lunch.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMATION_DISCUSSION"><![CDATA[
+	<p>
+		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair a letting out a huge burp, she comments, [scarlett.speech(You know, [pc.name], I actually wanted to ask your opinion on something...)]
+	</p>
+	<p>
+		Wondering what that could be, you watch as the raven-harpy produces a small bottle of what looks like a transformative potion, and after she's placed it down on the table in front of her, you listen attentively as she explains,
+		#IF(scarlett.hasPenis())
+			 [scarlett.speech(Helena gave this to me for 'being a good girl', and said that it'd make my cock bigger. Pretty much all female harpies prefer their partners' cocks to be as small and feminine as possible, but seeing as all the nest knows that I'm Helena's personal assistant, they won't care if I'm bigger than they normally like. After all, they'll be closer to Helena by association if they get fucked by me, so it's not like having a bigger cock will make me unfuckable. I guess having a bigger cock would be nice, but I'm still not sure whether I should drink this or not...)]
+		#ELSE
+			 [scarlett.speech(Helena gave this to me for 'being a good girl', and said that it'd make me even more feminine, as well as make my tits grow bigger. It's actually really annoying to have big tits when you're trying to fly around and show off to the other harpies, but seeing as all the nest knows that I'm Helena's personal assistant, there's no real need for me to perform any aerobatics. After all, I already have over a dozen harpies willing to do literally anything I ask them just so that they'll be closer to Helena by association. I guess being more attractive would be nice, but I'm still not sure whether I should drink this or not...)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			As she trails off and falls silent, you realise that Scarlett is wanting to hear your input on this manner. As you consider whether or not to encourage her to drink the potion, she blushes a little and asks, [scarlett.speech(So, what do you think?)]
+		#ELSE
+			As she trails off and falls silent, you realise that Scarlett is wanting to hear your input on this manner. As you consider whether or not to encourage her to drink the potion, she lets out a frustrated sigh and asks, [scarlett.speech(Come on, what do you think?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMATION_DISCUSSION_REPEAT"><![CDATA[
+	<p>
+		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair a letting out a huge burp, she comments, [scarlett.speech(You know, [pc.name], I've still got that potion Helena gave to me...)]
+	</p>
+	<p>
+		Before you can offer a reply, the harpy produces the same small bottle of transformative potion that she showed you before, and after she's placed it down on the table in front of her, she asks,
+		#IF(scarlett.hasPenis())
+			 [scarlett.speech(Do you think I should drink it now? Having a bigger cock wouldn't be so bad...)]
+		#ELSE
+			 [scarlett.speech(Do you think I should drink it now? Having bigger boobs wouldn't be so bad...)]
+		#ENDIF
+	</p>
+	<p>
+		As she trails off and falls silent, you realise that you've got another chance in which to encourage her to transform herself. Then again, if you're still of the same mind as last time, you could always tell her not to go ahead with drinking it...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMATION_APPLIED"><![CDATA[
+	<p>
+		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair a letting out a huge burp, she flashes you a cheeky grin and comments,
+		#IF(scarlett.hasPenis())
+			 [scarlett.speech(You know, [pc.name], since you convinced me to take that potion, my big cock's always desperate for attention. How about you take responsibility for getting me to transform myself and give me a quick handjob?)]
+		#ELSE
+			 [scarlett.speech(You know, [pc.name], since you convinced me to take that potion, my horny little cunt's always wet and hungry for attention. How about you take responsibility for getting me to transform myself and give me a quick fingering?)]
+		#ENDIF
+	</p>
+	<p>
+		Pushing her chair back a little, Scarlett spreads her legs and gestures for you to come and sit down beside her. As there's a large cloth draped over the table, you're sure that nobody would be able to see you
+		#IF(scarlett.hasPenis())
+			 jerking the horny harpy off
+		#ELSE
+			 fingering the horny harpy
+		#ENDIF
+		, but if you'd rather not risk it, you could always just say no...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_NO_TRANSFORMATION"><![CDATA[
+	<p>
+		Not wanting Scarlett to be transformed, you tell her that she shouldn't drink the potion, as she might not be happy with what happens to her. Letting out an annoyed huff and rolling her eyes, the harpy nevertheless listens to what you have to say, and after putting the potion away, she mutters, [scarlett.speech(I'll hold on to it in case I decide to drink it at another time...)]
+	</p>
+	<p>
+		With still plenty of time left until her lunch break is over, Scarlett sinks down in her chair and lets out a relaxed sigh.
+		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			 Taking this opportunity to get to know her a little better, you strike up a conversation with the raven-harpy, and much to your delight, she readily starts talking with you about the recent mundane events both in her life and in Dominion as whole.
+		#ELSE
+			 Taking this opportunity to get to know her a little better, you strike up a conversation with the raven-harpy, and much to your delight, she actually proves willing to talk with you about the recent mundane events both in her life and in Dominion as whole.
+		#ENDIF
+	</p>
+	<p>
+		After a good while spent talking with one another in this manner, Scarlett suddenly pushes her chair back and stands up. With a huge stretch of her black-feathered wing-like arms, she declares, [scarlett.speech(It's time for me to get back to work. Helena'll be pissed off if I'm late...)]
+	</p>
+	<p>
+		Following Scarlett's lead, you stand up and follow her out of the cafe.
+		#IF(pc.hasCompanions())
+			 Meeting up with [com.name] again, the three of you set off on your way back to Helena's Boutique...
+		#ELSE
+			 [pc.Stepping] back out into the streets of Slaver Alley, the two of you set off on your way back to Helena's Boutique...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED"><![CDATA[
+	<p>
+		#IF(scarlett.hasPenis())
+			Thinking that it would be good for Scarlett to have a larger cock, you tell her that she should drink the transformation potion.
+		#ELSE
+			Thinking that it would be good for Scarlett to have larger breasts and more feminine features, you tell her that she should drink the transformation potion.
+		#ENDIF
+		 Not needing any more convincing than that, the raven-harpy pulls out the bottle's stopper, and after throwing one last glance your way to make sure that you're not tricking her, she brings the vessel up to her waiting lips and quickly downs all of the liquid contained within.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED_EXTRA"><![CDATA[
+	<p>
+		#IF(scarlett.hasPenis())
+			Thinking that it would be good for Scarlett to have a much larger cock, you tell her that you could spend some of your arcane essences to boost the effects of her transformative potion.
+		#ELSE
+			Thinking that it would be good for Scarlett to have much larger breasts and far more feminine features, you tell her that you could spend some of your arcane essences to boost the effects of her transformative potion.
+		#ENDIF
+		 Throwing you a sly smirk, the raven-harpy slides the potion across the table, before saying, [scarlett.speech(Go on then, make it more powerful!)]
+	</p>
+	<p>
+		By channelling ten of your arcane essences into the potion, you're able to boost the potency of its transformative effects. Satisfied with the result of your enchantment, you pass the bottle back to Scarlett, who immediately pulls out the stopper and brings the vessel up to her waiting lips. Flashing you one last smirk, she quickly downs all of the liquid contained within, before slamming the now-empty bottle back down onto the table and letting out a small burp.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED_CORE"><![CDATA[
+	<p>
+		#IF(scarlett.hasPenis())
+			[scarlett.speech(~Ooh!~ I feel hot...)] Scarlett half-pants, half-moans, before pushing back on her chair a little and looking down between her legs. Showing no shame, she lifts up the skirt of her dress and pulls her boyshorts to one side, which results in her rapidly-hardening cock to being completely exposed to you. Letting out a devious chuckle, the raven-harpy runs her feathered fingers up and down over the length of her erect shaft, and as she does so, you see it growing in both length and girth. Within moments, it's expanded from being both slender and [style.sizes(8)] in length to being [scarlett.a_cockGirth] and [scarlett.cockLengthValue]. With a delighted grin on her face, the raven-harpy looks up at you and moans, [scarlett.speech(Come and take responsibility for what you've made me do! I want you jerking my big cock off until I cum all over your [pc.hands]!)]
+		#ELSE
+				[scarlett.speech(~Ooh!~ I feel hot...)] Scarlett half-pants, half-moans, before lifting her feathered hands up to her chest and shamelessly groping her small, B-cup breasts. As she feels herself up, you can't help but stare as you see her tits quickly expand and grow into what must be [scarlett.cupSize]-cups. While not large by Dominion standards, they certainly are for a harpy, and Scarlett can't help but coo in delight as she realises that she's now one of the bustiest harpies in all of Helena's flock. While making these happy little noises, her face softens and subtly shifts into being a distinctly more beautiful version of how she looked just a few moments ago.
+			</p>
+			<p>
+				As these changes come to an end, Scarlett suddenly gasps and drops one of her feathered hands down between her bird-like legs. Biting her lip and shuffling about on her chair, she whines, [scarlett.speech(Fuck! I'm so wet down here! Come and take responsibility for what you've made me do! I want you fingering my hot little cunt until I'm squirting all over your [pc.hands]!)]
+		#ENDIF
+	</p>
+	<p>
+		Pulling her chair forwards again, Scarlett spreads her legs and gestures for you to come and sit down beside her. As there's a large cloth draped over the table, you're sure that nobody would be able to see you
+		#IF(scarlett.hasPenis())
+			 jerking the horny harpy off
+		#ELSE
+			 fingering the horny harpy
+		#ENDIF
+		, but if you'd rather not risk it, you could always just say no...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED_END -->
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED_NO_SEX"><![CDATA[
+	<p>
+		Not wanting to
+		#IF(scarlett.hasPenis())
+			 give Scarlett a handjob
+		#ELSE
+			 finger Scarlett
+		#ENDIF
+		 in such a public setting, you tell her that she'll have to make do with masturbating if she's really that horny. Letting out an annoyed huff, the raven-harpy
+		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			 whines, [scarlett.speech(Fine... I'll just do it myself later...)]
+		#ELSE
+			 snaps, [scarlett.speech(It's not like I actually expected a fucking cunt like you to help me out. I'll just do it myself later...)]
+		#ENDIF
+	</p>
+	<p>
+		Before you have a chance to respond, Scarlett suddenly pushes her chair back and stands up. With a huge stretch of her black-feathered wing-like arms, she declares, [scarlett.speech(It's time for me to get back to work. Helena'll be pissed off if I'm late...)]
+	</p>
+	<p>
+		Following Scarlett's lead, you stand up and follow her out of the cafe.
+		#IF(pc.hasCompanions())
+			 Meeting up with [com.name] again, the three of you set off on your way back to Helena's Boutique...
+		#ELSE
+			 [pc.Stepping] back out into the streets of Slaver Alley, the two of you set off on your way back to Helena's Boutique...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_MASTURBATION_START"><![CDATA[
+	<p>
+		Not wanting to disappoint your feathered friend, you move around to the other side of the table and sit down next to her, before sliding one of your [pc.hands] down under the table to stroke her smooth, bird-like leg. Shuffling a little closer to you, Scarlett reaches down to grab your [pc.hand], before impatiently guiding up between her legs and hissing, [scarlett.speechNoEffects(Come on, get to work!)]
+	</p>
+	<p>
+		Doing as you're told,
+		#IF(scarlett.hasPenis())
+			 you wrap your [pc.fingers+] around the raven-harpy's erect cock and start jerking her off under the table. Letting out a quiet sigh, Scarlett leans back in her chair and grins as you continue to give her a handjob...
+		#ELSE
+			 you slide your [pc.fingers+] up an down over the raven-harpy's [scarlett.labia+], before pushing them into her wet pussy and starting to finger her under the table. Letting out a quiet sigh, Scarlett leans back in her chair and grins as you continue to stimulate her horny cunt...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_SCARLETT_CAFE_AFTER_ORAL -->
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_AFTER_SEX"><![CDATA[
+	<p>
+		#IF(scarlett.hasPenis())
+			Having had enough of the handjob you've been giving her, Scarlett pushes your [pc.hand] away from her softening cock
+		#ELSE
+			Having had enough of being fingered, Scarlett pushes your [pc.hand] away from her sopping-wet pussy
+		#ENDIF
+		 and declares, [scarlett.speech(Good job, [pc.name], that was fun... Now it's time for me to get back to work. Helena'll be pissed off if I'm late...)]
+	</p>
+	<p>
+		Before you have a chance to do anything, Scarlett pulls her boyshorts and dress back into their proper position, before pushing her chair back and standing up. With a huge stretch of her black-feathered wing-like arms, she turns around and sets off towards the cafe's exit. Following her lead, you stand up and follow Scarlett out of the cafe.
+		#IF(pc.hasCompanions())
+			 Meeting up with [com.name] again, the three of you set off on your way back to Helena's Boutique...
+		#ELSE
+			 [pc.Stepping] back out into the streets of Slaver Alley, the two of you set off on your way back to Helena's Boutique...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_SCARLETT_CAFE_RETURNED -->
+	
+	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_RETURNED"><![CDATA[
+	<p>
+		After just a few more minutes, you and Scarlett find yourselves once again stepping inside Helena's Boutique. Almost immediately, the beautiful harpy matriarch notices your return and sweeps across the shop floor to softly greet you, [helena.speech(Hello again, [pc.name]. I trust that you and my dear Scarlett had a pleasant time together?)]
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopScarlettExtraTransformationApplied) && scarlett.hasVagina() && !game.getDialogueFlags().hasFlag(FLAG_helenaShopScarlettExtraTransformationHelenaReacted))
+		<p>
+			After you've answered in the affirmative, Helena flashes you a smile and turns towards the raven-harpy standing beside you. Obviously having noticed her subordinate's beautiful face and large bust, she says, [helena.speech(Good, I see that you've taken the transformation potion which I gave you. I was concerned that people might think you not attractive enough to be so close to me, but now that I've had you improved, that will no longer be an issue.)]
+		</p>
+		<p>
+			Awkwardly shuffling around on her talons, Scarlett mutters, [scarlett.speech(Thank you, Helena...)]
+		</p>
+	#ELSE
+		<p>
+			After you've answered in the affirmative, Helena flashes you a smile and turns towards the raven-harpy standing beside you. Narrowing her eyes a little, she says, [helena.speech(I hope that you treated [pc.name] with respect, my dear.)]
+		</p>
+		<p>
+			Awkwardly shuffling around on her talons, Scarlett mutters, [scarlett.speech(Yes, Helena...)]
+		</p>
+	#ENDIF
+	<p>
+		Turning back to face you, the beautiful harpy matriarch asks, [helena.speech(So, [pc.name], is there anything I can help you with?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+</dialogue>

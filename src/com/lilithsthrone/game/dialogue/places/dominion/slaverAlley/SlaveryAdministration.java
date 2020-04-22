@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.slaverAlley;
-import com.lilithsthrone.game.character.npc.dominion.Finch;
+
+import com.lilithsthrone.game.character.npc.dominion.Finch;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -10,7 +11,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.3.2 (content from 0.1.0)
@@ -60,9 +61,13 @@ public class SlaveryAdministration {
 				} else if (index == 5) {
 					return new Response("Slave Manager", "Open the slave management screen.", SLAVERY_ADMINISTRATION) {
 						@Override
+						public boolean isTradeHighlight() {
+							return true;
+						}
+						@Override
 						public DialogueNode getNextDialogue() {
 							CompanionManagement.initManagement(null, 0, null);
-							return OccupantManagementDialogue.getSlaveryManagementDialogue(null);
+							return OccupantManagementDialogue.getSlaveryManagementDialogue(null, null);
 						}
 					};
 
@@ -85,7 +90,7 @@ public class SlaveryAdministration {
 						
 					} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED) {
 						if(Main.game.getPlayer().getMoney() >= slaverLicenseCost) {
-							return new Response("Present letter (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> "+slaverLicenseCost+")",
+							return new Response("Present letter (<span style='color:" + PresetColour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> "+slaverLicenseCost+")",
 									"Show Finch the letter of recommendation you obtained from Lilaya, and then pay "+slaverLicenseCost+" flames to obtain a slaver license.", SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED) {
 								@Override
 								public void effects() {

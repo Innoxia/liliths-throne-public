@@ -37,8 +37,8 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -251,143 +251,132 @@ public class DominionSuccubusAttacker extends NPC {
 				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].", null, null);
 	}
 	
-	// Losing virginity:
-	private static StringBuilder StringBuilderSB;
 	@Override
-	public String getVirginityLossOrificeDescription(GameCharacter characterPenetrating, SexAreaPenetration penetrationType, GameCharacter characterPenetrated, SexAreaOrifice orifice){
-		if(!characterPenetrated.isPlayer() || penetrationType!=SexAreaPenetration.PENIS || orifice!=SexAreaOrifice.VAGINA || !characterPenetrating.equals(this) || this.isSlave()) {
-			return super.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
+	public String getSpecialPlayerVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating, GameCharacter receivingCharacter, SexAreaOrifice penetrated) {
+		if(!receivingCharacter.isPlayer() || penetrating!=SexAreaPenetration.PENIS || penetrated!=SexAreaOrifice.VAGINA || !penetratingCharacter.equals(this) || this.isSlave()) {
+			return "";
 		}
 		
-		StringBuilderSB = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 		
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-			StringBuilderSB.append(
-							"<p>"
-								+ "As the dominant [npc.race] drives [npc.her] [npc.cock+] deep into your [pc.pussy+], your vision explodes in stars, and a painful, high-pitched shriek escapes from between your lips."
-								+ " Due to the fact that you're still a virgin, the sudden, violent penetration is like nothing you've ever felt before,"
-									+ " and your shriek turns into a shuddering cry as you find yourself overwhelmed by the agony of your first penetration."
-							+ "</p>"
-							+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)
-									?"<p>"
-										+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
-										+ " The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
-									+ "</p>"
-									:"")
-							+"<p>"
-								+ "Glancing down, you see a small trickle of blood flowing out of your now-broken-in pussy, and you realise that your hymen has been completely torn."
-								+ " As you let out a desperate sigh, you hear the [npc.race] giggling at your reaction."
-							+ "</p>"
-							+"<p>"
-								+ "Looking up at [npc.herHim], you see a wild, crazed look in [npc.her] eyes."
-								+ " Another jolt of pain shoots up between your legs as [npc.she] drives [npc.her] [npc.cock+] even deeper into your [pc.pussy+]."
-								+ " Leaning into you, [npc.she] pulls you into a sloppy kiss, and with a final, violent thrust into your groin, you feel the base of [npc.her] cock grind up against your [pc.labia+]."
-							+ "</p>"
-							+ "<p>"
-								+ "Still keeping [npc.her] [npc.cock] fully hilted in your [pc.pussy], [npc.she] breaks off the kiss, raising [npc.her] hand to cover your mouth as [npc.she] muffles your painful cries."
-								+ " Playfully biting [npc.her] lip, [npc.she] starts taunting you, clearly getting incredibly excited about being the one to take your virginity."
-							+ "</p>"
-							+ "<p>"
-								+ "[npc.speechNoEffects(~Mmm!~ Doesn't that feel good?! Aww, I wonder if you were saving yourself for someone?)]"
-								+ " [npc.She] pauses for a moment to let out a mocking laugh, before continuing,"
-								+ " [npc.speechNoEffects(Well, I guess you were saving yourself for me in the end! Which is a shame, really, because you're just another easy fuck to me.)]"
-							+ "</p>"
-							+ "<p>"
-								+ "You let out a protesting moan, but the [npc.race] just presses [npc.her] hand down even tighter over your mouth as [npc.she] continues, "
-								+ "[npc.speechNoEffects(What's that? You want me to do it again?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Letting out a manic laugh, the [npc.race] suddenly drops [npc.her] hips, allowing [npc.her] [npc.cock+] to slide fully out of your [pc.pussy+]."
-								+ " Lining [npc.herself] up once more, [npc.she] wastes no time before violently thrusting up into you for a second time."
-								+ " Although still uncomfortable enough to cause you to cry out into the palm of [npc.her] hand, it's nothing like the agony you experienced on the first thrust,"
-									+ " and as you feel [npc.her] throbbing length filling you up once more, you find yourself letting out a desperate little moan."
-							+ "</p>"
-							+ "<p>"
-								+ "The [npc.race] looks delighted at your reaction, and leans in as [npc.she] continues teasing you,"
-								+ " [npc.speechNoEffects(~Ooh!~ So, you're a slut for demon dick? Can you feel it, pushing <i>deep</i>, claiming your precious little virginity?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Dropping [npc.her] hips a little, [npc.she] starts thrusting in and out of your [pc.pussy], taking [npc.her] hand away from your mouth as you find yourself letting out a series of lewd moans."
-								+ " Moving [npc.her] hands down to take hold of your waist, [npc.she] carries on taunting you, repeating that you'll always remember this moment as the time you discovered that you're just a slut for big, thick demon cock."
-								+ " As the pain between your legs fades away into a dull ache, you find yourself letting out moan after desperate moan, and you start to worry that the [npc.race] might be right..."
-							+ "</p>");
+		if(Main.game.getPlayer().hasHymen()) {
+			sb.append("<p>"
+							+ "As the dominant [npc.race] drives [npc.her] [npc.cock+] deep into your [pc.pussy+], your vision explodes in stars, and a painful, high-pitched shriek escapes from between your lips."
+							+ " Due to the fact that you're still a virgin, the sudden, violent penetration is like nothing you've ever felt before,"
+								+ " and your shriek turns into a shuddering cry as you find yourself overwhelmed by the agony of your first penetration."
+						+ "</p>"
+						+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)
+								?"<p>"
+									+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
+									+ " The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
+								+ "</p>"
+								:"")
+						+"<p>"
+							+ "Glancing down, you see a small trickle of blood flowing out of your now-broken-in pussy, and you realise that your hymen has been completely torn."
+							+ " As you let out a desperate sigh, you hear the [npc.race] giggling at your reaction."
+						+ "</p>"
+						+"<p>"
+							+ "Looking up at [npc.herHim], you see a wild, crazed look in [npc.her] eyes."
+							+ " Another jolt of pain shoots up between your legs as [npc.she] drives [npc.her] [npc.cock+] even deeper into your [pc.pussy+]."
+							+ " Leaning into you, [npc.she] pulls you into a sloppy kiss, and with a final, violent thrust into your groin, you feel the base of [npc.her] cock grind up against your [pc.labia+]."
+						+ "</p>"
+						+ "<p>"
+							+ "Still keeping [npc.her] [npc.cock] fully hilted in your [pc.pussy], [npc.she] breaks off the kiss, raising [npc.her] hand to cover your mouth as [npc.she] muffles your painful cries."
+							+ " Playfully biting [npc.her] lip, [npc.she] starts taunting you, clearly getting incredibly excited about being the one to take your virginity."
+						+ "</p>"
+						+ "<p>"
+							+ "[npc.speechNoEffects(~Mmm!~ Doesn't that feel good?! Aww, I wonder if you were saving yourself for someone?)]"
+							+ " [npc.She] pauses for a moment to let out a mocking laugh, before continuing,"
+							+ " [npc.speechNoEffects(Well, I guess you were saving yourself for me in the end! Which is a shame, really, because you're just another easy fuck to me.)]"
+						+ "</p>"
+						+ "<p>"
+							+ "You let out a protesting moan, but the [npc.race] just presses [npc.her] hand down even tighter over your mouth as [npc.she] continues, "
+							+ "[npc.speechNoEffects(What's that? You want me to do it again?!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Letting out a manic laugh, the [npc.race] suddenly drops [npc.her] hips, allowing [npc.her] [npc.cock+] to slide fully out of your [pc.pussy+]."
+							+ " Lining [npc.herself] up once more, [npc.she] wastes no time before violently thrusting up into you for a second time."
+							+ " Although still uncomfortable enough to cause you to cry out into the palm of [npc.her] hand, it's nothing like the agony you experienced on the first thrust,"
+								+ " and as you feel [npc.her] throbbing length filling you up once more, you find yourself letting out a desperate little moan."
+						+ "</p>"
+						+ "<p>"
+							+ "The [npc.race] looks delighted at your reaction, and leans in as [npc.she] continues teasing you,"
+							+ " [npc.speechNoEffects(~Ooh!~ So, you're a slut for demon dick? Can you feel it, pushing <i>deep</i>, claiming your precious little virginity?!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Dropping [npc.her] hips a little, [npc.she] starts rapidly thrusting in and out of your [pc.pussy], taking [npc.her] hand away from your mouth as you find yourself letting out a series of lewd moans."
+							+ " Moving [npc.her] hands down to take hold of your waist, [npc.she] carries on taunting you, repeating that you'll always remember this moment as the time you discovered that you're just a slut for big, thick demon cock."
+							+ " As the pain between your legs fades away into a dull ache, you find yourself letting out moan after desperate moan, and you start to worry that the [npc.race] might be right..."
+						+ "</p>");
+			sb.append(UtilText.formatVirginityLoss("Your hymen has been torn; you have lost your virginity!"));
 		} else {
-			StringBuilderSB.append(
+			sb.append(
 					"<p>"
-						+ "As the dominant [npc.race] drives [npc.her] [npc.cock+] deep into your [pc.pussy+], your vision explodes in stars, and a desperate, high-pitched wail escapes from between your lips."
-						+ " Due to the fact that you're still a virgin, the sudden, violent penetration is like nothing you've ever felt before, and your wail turns into a shuddering cry as you collapse back against the wall."
+						+ "As the dominant [npc.race] drives [npc.her] [npc.cock+] deep into your [pc.pussy+], you can't stop a desperate, high-pitched wail from bursting out of your mouth."
+						+ " Due to the fact that you're still a virgin, the sudden, violent penetration is like nothing you've ever felt before, and your wail turns into a shuddering cry as you find yourself overwhelmed byt this new sensation."
 					+ "</p>"
-					+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)
-							?"<p>"
-								+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
-								+ " The discomfort between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
-							+ "</p>"
-							:"")
 					+"<p>"
-						+ "Letting out a sigh as you realise that your hymen is now completely torn, you look up at the [npc.race], and see a wild, crazed look in [npc.her] eyes."
-						+ " Another little painful jolt shoots up between your legs as [npc.she] drives [npc.her] [npc.cock+] even deeper into your [pc.pussy+]."
-						+ " Leaning into you, [npc.she] pulls you into a sloppy kiss, and with a final, violent thrust into your groin, you feel the base of [npc.her] cock grind up against your [pc.labia+]."
+						+ "As your hymen has been previously torn, the penetration isn't painful, but from your surprised reaction, [npc.name] is still able to realise that [npc.sheHas] just taken your virginity."
+						+ " With a wild, crazed look in [npc.her] eyes, [npc.name] violently thrusts into your groin, driving [npc.her] [npc.cock+] as deep as [npc.she] possibly can into your [pc.pussy+]."
+						+ " Keeping [npc.her] throbbing demonic cock driven as deep as possible into your [pc.pussy+], [npc.name] playfully licks [npc.her] [npc.lips], before starting to taunt you."
 					+ "</p>"
 					+ "<p>"
-						+ "Still keeping [npc.her] demonic cock fully hilted in your [pc.pussy+], [npc.she] breaks off the kiss, raising [npc.her] hand to cover your mouth as [npc.she] muffles your desperate cries."
-						+ " Playfully biting [npc.her] lip, [npc.she] starts taunting you, clearly getting incredibly excited about being the one to take your virginity."
+						+ "[npc.speechNoEffects(~Mmm!~ Having a big demonic cock stuffed into your pussy feels good, doesn't it?! ~Ooh!~ I wonder if you were saving your first time for a special someone in your life?)]"
+						+ " [npc.she] asks, before pausing to let out a mocking laugh. Clearly getting incredibly excited about being the one to take your virginity, [npc.she] impatiently continues,"
+						+ " [npc.speechNoEffects(It looks like you were saving yourself for me in the end! Which is a shame, really, because you're just another easy fuck to me.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[npc.speechNoEffects(~Mmm!~ Doesn't that feel good?! Aww, I wonder if you were saving yourself for someone?)]"
-						+ " [npc.She] pauses for a moment to let out a mocking laugh, before continuing,"
-						+ " [npc.speechNoEffects(Well, I guess you were saving yourself for me in the end! Which is a shame, really, because you're just another easy fuck to me.)]"
+						+ "You can't help but let out [pc.a_moan+] as you feel [npc.namePos] [npc.cock+] throbbing deep within your cunt, which causes [npc.her] to let out another mocking laugh and ask,"
+						+ " [npc.speechNoEffects(What's that? You want me to do it again?!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "You let out a protesting moan, but the [npc.race] just presses [npc.her] hand down even tighter over your mouth as [npc.she] continues, "
-						+ "[npc.speechNoEffects(What's that? You want me to do it again?!)]"
+						+ "Not waiting to hear your response, the [npc.race] suddenly pulls [npc.her] hips back, allowing [npc.her] [npc.cock+] to slide fully out of your [pc.pussy+]."
+						+ " Lining [npc.herself] up once more, [npc.she] immediately thrusts into you for a second time, and as you feel [npc.her] hot cock filling you up once more, you find yourself letting out a desperate [pc.moan]."
+						+ " [npc.Name] looks delighted at your reaction, and pushes [npc.her] demonic cock in a little deeper as [npc.she] teases,"
+						+ " [npc.speechNoEffects(~Ooh!~ So, you're a dirty slut for demon dick, are you? You like that feeling? ~Mmm!~ Having my cock push <i>deep</i> into your horny little pussy, claiming your precious virginity?!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Letting out a manic laugh, the [npc.race] suddenly drops [npc.her] hips, allowing [npc.her] [npc.cock+] to slide fully out of your [pc.pussy+]."
-						+ " Lining [npc.herself] up once more, [npc.she] wastes no time before violently thrusting up into you for a second time."
-						+ " Although still uncomfortable enough to cause you to cry out into the palm of [npc.her] hand, it's nothing like the agony you experienced on the first thrust,"
-							+ " and as you feel [npc.her] throbbing length filling you up once more, you find yourself letting out a desperate little moan."
-					+ "</p>"
-					+ "<p>"
-						+ "The [npc.race] looks delighted at your reaction, and leans in as [npc.she] continues teasing you,"
-						+ " [npc.speechNoEffects(~Ooh!~ So, you're a slut for demon dick? Can you feel it, pushing <i>deep</i>, claiming your precious little virginity?!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Dropping [npc.her] hips a little, [npc.she] starts thrusting in and out of your [pc.pussy], taking [npc.her] hand away from your mouth as you find yourself letting out a series of lewd moans."
-						+ " Moving [npc.her] hands down to take hold of your waist, [npc.she] carries on taunting you, repeating that you'll always remember this moment as the time you discovered that you're just a slut for big, thick demon cock."
-						+ " As the pain between your legs fades away into a dull ache, you find yourself letting out moan after desperate moan, and you start to worry that the [npc.race] might be right..."
+						+ "Pulling back a little, [npc.she] starts thrusting in and out of your [pc.pussy+], grinning in delight as [npc.she] hears you let out a series of lewd [pc.moans]."
+						+ " As [npc.her] cock continues to pound your cunt, [npc.name] carries on taunting you, repeating that you'll always remember this moment as the time you discovered that you're just a slut for demonic cock."
+						+ " As [npc.she] says this, you find yourself letting out moan after desperate moan, and you start to worry that the [npc.race] might be right..."
 					+ "</p>");
-			
+			sb.append(UtilText.formatVirginityLoss("Although your hymen had already been torn, you've now officially lost your virginity!"));
 		}
-		
-		StringBuilderSB.append(formatVirginityLoss("Your hymen has been torn; you have lost your virginity!"));
 		
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN))
-			StringBuilderSB.append("<p style='text-align:center;'>"
-					+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
-				+ "</p>"
-				+ "<p>"
-					+ "As the [npc.race] carries on pounding away between your legs, the sudden realisation of what's just happened hits you like a sledgehammer."
-				+ "</p>"
-				+ "<p style='text-align:center;'>"
-					+ UtilText.parsePlayerThought("I-I've lost my virginity?!<br/>"
-							+ "To... <b>her</b>?!")
-				+ "</p>"
-				+ "<p>"
-					+ "You don't know what's worse, losing the virginity that you prized so highly, or the fact that you're actually enjoying it."
-					+ " As your labia spread lewdly around the hot, thick demon-dick, you find yourself starting to agree with what the [npc.race] is telling you."
-				+ "</p>"
-				+ "<p style='text-align:center;'>"
-				+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...<br/>"
-						+ "Just a slut for demon cock...<br/>"
-						+ "She's right, I'm just another easy fuck for someone like her...")
-				+ "</p>"
-				+ "<p>"
-					+ "You're vaguely aware of the [npc.race]'s taunts fading away as [npc.she] starts to focus [npc.her] concentration on fucking you."
-					+ " With a desperate moan, you start bucking your hips back against [npc.herHim], resigning yourself to the fact that now you're nothing more than a"
-					+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
-				+ "</p>");
+			sb.append("<p style='text-align:center;'>"
+							+ "<b style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
+						+ "</p>"
+						+ "<p>"
+							+ "As the [npc.race] carries on pounding away between your legs, the sudden realisation of what's just happened hits you like a sledgehammer."
+						+ "</p>"
+						+ "<p style='text-align:center;'>"
+							+ UtilText.parsePlayerThought("I-I've lost my virginity?!<br/>"
+									+ "To... <b>her</b>?!")
+						+ "</p>"
+						+ "<p>"
+							+ "You don't know what's worse, losing the virginity that you prized so highly, or the fact that you're actually enjoying it."
+							+ " As your labia spread lewdly around the hot, thick demon-dick, you find yourself starting to agree with what the [npc.race] is telling you."
+						+ "</p>"
+						+ "<p style='text-align:center;'>"
+						+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...<br/>"
+								+ "Just a slut for demon cock...<br/>"
+								+ "She's right, I'm just another easy fuck for someone like her...")
+						+ "</p>"
+						+ "<p>"
+							+ "You're vaguely aware of the [npc.race]'s taunts fading away as [npc.she] starts to focus [npc.her] concentration on fucking you."
+							+ " With a desperate moan, you start bucking your hips back against [npc.herHim], resigning yourself to the fact that now you're nothing more than a"
+							+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
+						+ "</p>");
+
+		if(this.hasFetish(Fetish.FETISH_DEFLOWERING)) {
+			sb.append("<p style='text-align:center;'>"
+										+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
+										+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(this)+")] [style.italicsArcane(experience!)]"
+								+ "</p>");
+		}
 		
-		return UtilText.parse(this, StringBuilderSB.toString());
+		return UtilText.parse(this, sb.toString());
 	}
 	
 	// Dirty talk:

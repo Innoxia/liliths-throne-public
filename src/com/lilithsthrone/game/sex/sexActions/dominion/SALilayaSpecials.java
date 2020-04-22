@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
-import com.lilithsthrone.game.character.attributes.ArousalLevel;
+
+import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -93,7 +94,7 @@ public class SALilayaSpecials {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.getAllContactingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
+			return !Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
 					&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
 					&& Main.sex.getCharacterPerformingAction().equals(Main.game.getNpc(Lilaya.class));
 		}

@@ -12,7 +12,12 @@
 		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
 			 demon
 		#ENDIF
-		 Enforcers loitering about the courtyard, with several more standing guard at each of the three main entrances. While the signs beside two of these doorways inform you that they're for Enforcer use only, the third bears the words 'Public Inquiries; Reception open [units.time(9)]-[units.time(17)]'. If you had any sort of business to conduct here, then this would be the door for you.
+		 Enforcers loitering about the courtyard, with several more standing guard at each of the three main entrances. While the signs beside two of these doorways inform you that they're for Enforcer use only, the third bears the words
+		#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<=17)
+			 'Public Inquiries; Reception open [style.colourMinorGood([units.time(9)]-[units.time(17)])]'. If you had any sort of business to conduct here, then this would be the door for you.
+		#ELSE
+			 'Public Inquiries; Reception open [style.colourMinorBad([units.time(9)]-[units.time(17)])]'. While the reception within may currently be [style.colourBad(closed)], you're still able to enter the building through this door.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -61,7 +66,7 @@
 			#IF(game.getDialogueFlags().hasFlag(FLAG_accessToEnforcerHQ))
 				 From the moment you entered the waiting area, he hasn't taken his eyes off of you, making sure that you aren't able to sneak past him.
 			#ELSE
-				 From the moment you entered the waiting area, he hasn't taken his eyes off of you, and you realise that there's absolutely no possibility of being able to sneak through the door he's guarding. If you wanted to get access to the HQ's interior, you'll have to come back during the reception desk's opening hours, which are from [style.colourMinorBad([units.time(9)] to [units.time(5)])], and then speak to the receptionist.
+				 From the moment you entered the waiting area, he hasn't taken his eyes off of you, and you realise that there's absolutely no possibility of being able to sneak through the door he's guarding. If you wanted to get access to the HQ's interior, you'll have to come back during the reception desk's opening hours, which are from [style.colourMinorBad([units.time(9)]-[units.time(17)])], and then speak to the receptionist.
 			#ENDIF
 		</p>
 	#ELSE
@@ -175,7 +180,7 @@
 	<htmlContent tag="RECEPTION_DESK"><![CDATA[
 	#IF(!game.isWorkTime())
 		<p>
-			The reception desk before you, at which all public inquiries are to be made, is currently deserted. The lights behind the desk are all switched off, and there's a little placard sitting on the counter top which informs you that it is currently [style.colourBad(closed)], and will only be [style.colourMinorBad(open between the hours of [units.time(9)] to [units.time(5)])].
+			The reception desk before you, at which all public inquiries are to be made, is currently deserted. The lights behind the desk are all switched off, and there's a little placard sitting on the counter top which informs you that it is currently [style.colourBad(closed)], and will only be open between the hours of [style.colourMinorBad([units.time(9)]-[units.time(17)])].
 		</p>
 		<p>
 			It looks as though you'll have to return later...
@@ -753,7 +758,7 @@
 		[pc.speech(Yeah, you should definitely use one! Right Bree?!)] you ask the submissive wolf-girl.
 	</p>
 	<p>
-		[brax.speech(I-If you want...)] she meekly replies.
+		[brax.speechNoEffects(I-If you want...)] she meekly replies.
 	</p>
 	<p>
 		[candi.speechNoEffects(Good girl, Bree!)] Candi squeals, excitedly pulling out a potion from beneath her desk. [candi.speechNoEffects(I got this made to be, like, pink flavour, so it's gonna taste good!)]

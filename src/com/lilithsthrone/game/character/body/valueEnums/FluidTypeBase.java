@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.0
@@ -8,11 +10,11 @@ package com.lilithsthrone.game.character.body.valueEnums;
  */
 public enum FluidTypeBase {
 	
-	CUM(Colour.CUM),
+	CUM(PresetColour.CUM),
 	
-	GIRLCUM(Colour.GIRLCUM),
+	GIRLCUM(PresetColour.GIRLCUM),
 	
-	MILK(Colour.MILK);
+	MILK(PresetColour.MILK);
 	
 	
 	private Colour colour;

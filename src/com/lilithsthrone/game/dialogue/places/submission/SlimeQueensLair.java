@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission;
-import com.lilithsthrone.game.character.GameCharacter;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -27,9 +28,10 @@ import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -1179,7 +1181,7 @@ public class SlimeQueensLair {
 					return new Response("Slime Bath", "Have a bath with [slimeQueen.name]. <b>This will transform you into a slime!</b>", SLIME_QUEEN_BATH_TRANSFORM) {
 						@Override
 						public Colour getHighlightColour() {
-							return Colour.TRANSFORMATION_GENERIC;
+							return PresetColour.TRANSFORMATION_GENERIC;
 						}
 						@Override
 						public void effects() {

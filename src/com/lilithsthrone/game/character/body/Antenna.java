@@ -1,8 +1,10 @@
 package com.lilithsthrone.game.character.body;
-import com.lilithsthrone.game.character.GameCharacter;
+
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAntennaType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.83
@@ -11,25 +13,21 @@ import com.lilithsthrone.utils.Util;
  */
 public class Antenna implements BodyPartInterface {
 	
-	protected AntennaType type;
+	protected AbstractAntennaType type;
 	protected int rows;
 	
-	public Antenna(AntennaType type) {
+	public Antenna(AbstractAntennaType type) {
 		this.type = type;
 	}
 
 	@Override
-	public AntennaType getType() {
+	public AbstractAntennaType getType() {
 		return type;
 	}
 	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
-		if(gc.getAntennaRows()==1) {
-			return "a pair of";
-		} else {
-			return Util.intToString(gc.getAntennaRows())+" pairs of";
-		}
+		return type.getDeterminer(gc);
 	}
 
 	@Override
@@ -52,41 +50,45 @@ public class Antenna implements BodyPartInterface {
 		return type.getDescriptor(gc);
 	}
 
-	public String setType(GameCharacter owner, AntennaType type) {
+	public String setType(GameCharacter owner, AbstractAntennaType type) {
+		if(!Main.game.isStarted() || owner==null) {
+			this.type = type;
+			if(owner!=null) {
+				owner.postTransformationCalculation();
+			}
+			return "";
+		}
+		
 		if (type == getType()) {
-			if(type == AntennaType.NONE) {
+			if(type.equals(AntennaType.NONE)) {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.verb(lack)] antennae, so nothing happens...)]</p>");
 			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.antennae] of [npc.a_antennaRace], so nothing happens...)]</p>");
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.antenna] of [npc.a_antennaRace], so nothing happens...)]</p>");
 			}
 		}
 		
 		UtilText.transformationContentSB.setLength(0);
 		
-		if(this.type == AntennaType.NONE) {
-			UtilText.transformationContentSB.append(
+		if(this.type.equals(AntennaType.NONE)) {
+			UtilText.transformationContentSB.append(UtilText.parse(owner, 
 					"<p>"
-						+ "[npc.Name] [npc.verb(rub)] at [npc.her] forehead as [npc.she] [npc.verb(feel)] it growing hot and sensitive, and as [npc.she] [npc.do] so, something starts pushing out from under [npc.her] [npc.faceSkin].");
+						+ "[npc.Name] [npc.verb(let)] out a surprised gasp and [npc.verb(rub)] at [npc.her] forehead as [npc.she] [npc.verb(feel)] it growing hot and sensitive."
+						+ " After just a moment, [npc.her] [npc.eyes] widen in shock as something starts pushing out from under the [npc.faceSkin] of [npc.her] forehead."));
 		} else {
-			UtilText.transformationContentSB.append(
+			UtilText.transformationContentSB.append(UtilText.parse(owner, 
 					"<p>"
-						+ "[npc.Name] [npc.verb(feel)] an odd tingling sensation at the base of [npc.her] [npc.antennae], and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] them start to transform.");
+						+ "[npc.Name] [npc.verb(let)] out a surprised gasp as [npc.she] [npc.verb(feel)] an odd tingling sensation at the base of [npc.her] [npc.antennae]."
+						+ " Before [npc.she] [npc.has] any time in which to react, they rapidly crumble away, and within moments they've completely disappeared. "));
 		}
 		
-		switch (type) {
-			case NONE:
-				UtilText.transformationContentSB.append(
-							" Pieces of [npc.her] [npc.antennae] fall to the floor as they start to crumble away, and within moments they've completely disappeared."
-							+ "<br/>"
-							+ "[npc.Name] now [npc.has] [style.boldTfGeneric(no antennae)].");
-				break;
+		if(type!=AntennaType.NONE) {
+			UtilText.transformationContentSB.append(UtilText.parse(owner, 
+					" Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] them quickly grow out into "));
 		}
 		
-		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
-		UtilText.transformationContentSB.setLength(0);
-		UtilText.transformationContentSB.append(s);
 		this.type = type;
+		
+		UtilText.transformationContentSB.append(type.getTransformationDescription(owner));
 		
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
 				+ "<p>"
@@ -107,7 +109,7 @@ public class Antenna implements BodyPartInterface {
 		
 		this.rows = rows;
 		
-		if (owner.getAntennaType() == AntennaType.NONE) {
+		if(owner.getAntennaType() == AntennaType.NONE) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		

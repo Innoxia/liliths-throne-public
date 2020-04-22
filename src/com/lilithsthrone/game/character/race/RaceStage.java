@@ -1,7 +1,9 @@
 package com.lilithsthrone.game.character.race;
-import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -11,7 +13,7 @@ import com.lilithsthrone.utils.Util;
 public enum RaceStage {
 	/**No animal-morph parts whatsoever.<br/>
 	 * <i>"Not furry"</i> by any standard.*/
-	HUMAN("", Colour.TRANSFORMATION_HUMAN) {
+	HUMAN("", PresetColour.TRANSFORMATION_HUMAN) {
 		@Override
 		public boolean isAntennaFurry() {
 			return false;
@@ -81,7 +83,7 @@ public enum RaceStage {
 	/**Some minor animal-morph parts.<br/>
 	 * When used in GameCharacter's setBody() method, will grant <b>only</b> hair, ears, eyes, tail, horns, antenna, and wings (no genitalia).<br/>
 	 * <i>"Not furry"</i> by most standards.*/
-	PARTIAL("partial", Colour.TRANSFORMATION_PARTIAL) {
+	PARTIAL("partial", PresetColour.TRANSFORMATION_PARTIAL) {
 		@Override
 		public boolean isAntennaFurry() {
 			return true;
@@ -150,7 +152,7 @@ public enum RaceStage {
 
 	/**All minor animal-morph parts (including genitalia).<br/>
 	 * <i>"Borderline furry"</i> by most standards.*/
-	PARTIAL_FULL("minor", Colour.TRANSFORMATION_PARTIAL_FULL) {
+	PARTIAL_FULL("minor", PresetColour.TRANSFORMATION_PARTIAL_FULL) {
 		@Override
 		public boolean isAntennaFurry() {
 			return true;
@@ -219,7 +221,7 @@ public enum RaceStage {
 
 	/**All minor animal-morph parts (including genitalia), plus animal-morph arms and legs.<br/>
 	 * <i>"Low-level furry"</i> by most standards.*/
-	LESSER("lesser", Colour.TRANSFORMATION_LESSER) {
+	LESSER("lesser", PresetColour.TRANSFORMATION_LESSER) {
 		@Override
 		public boolean isAntennaFurry() {
 			return true;
@@ -288,7 +290,7 @@ public enum RaceStage {
 
 	/**All minor animal-morph parts, animal-morph arms and legs, and animal-morph skin and face.<br/>
 	 * <i>"Furry"</i> by all standards.*/
-	GREATER("greater", Colour.TRANSFORMATION_GREATER) {
+	GREATER("greater", PresetColour.TRANSFORMATION_GREATER) {
 		@Override
 		public boolean isAntennaFurry() {
 			return true;

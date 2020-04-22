@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.baseActions;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -112,7 +113,7 @@ public class FingerMouth {
 			boolean available = getBlowjobReceiver()!=null
 					&& getBlowjobReceiver()!=Main.sex.getCharacterPerformingAction()
 					&& (mouthFinger || mouthFingerReversed)
-					&& Main.sex.getFirstContactingSexAreaPenetration(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH) == SexAreaPenetration.PENIS
+					&& Main.sex.getFirstOngoingSexAreaPenetration(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.MOUTH) == SexAreaPenetration.PENIS
 					&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 			
 //			System.out.println(Main.sex.getCharacterPerformingAction().getName()+" "+Main.sex.getCharacterTargetedForSexAction(this).getName()+" "+available);

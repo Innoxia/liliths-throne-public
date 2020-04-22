@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.enchanting;
-import com.lilithsthrone.main.Main;
+
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.0

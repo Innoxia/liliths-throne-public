@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.persona;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.79
@@ -7,11 +9,11 @@ package com.lilithsthrone.game.character.persona;
  * @author Innoxia
  */
 public enum SexualOrientation {
-	ANDROPHILIC("androphilic", false, true, Colour.MASCULINE, SexualOrientationPreference.THREE_AVERAGE),
+	ANDROPHILIC("androphilic", false, true, PresetColour.MASCULINE, SexualOrientationPreference.THREE_AVERAGE),
 
-	AMBIPHILIC("ambiphilic", true, true, Colour.ANDROGYNOUS, SexualOrientationPreference.THREE_AVERAGE),
+	AMBIPHILIC("ambiphilic", true, true, PresetColour.ANDROGYNOUS, SexualOrientationPreference.THREE_AVERAGE),
 
-	GYNEPHILIC("gynephilic", true, false, Colour.FEMININE, SexualOrientationPreference.THREE_AVERAGE);
+	GYNEPHILIC("gynephilic", true, false, PresetColour.FEMININE, SexualOrientationPreference.THREE_AVERAGE);
 
 	private String name;
 	private Colour colour;

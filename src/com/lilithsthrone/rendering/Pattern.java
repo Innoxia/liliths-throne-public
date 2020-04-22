@@ -1,5 +1,6 @@
 package com.lilithsthrone.rendering;
-import java.io.File;
+
+import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,8 +12,8 @@ import java.util.TreeMap;
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.controller.xmlParsing.XMLMissingTagException;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
+import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.2.6

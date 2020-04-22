@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -232,9 +233,14 @@ public class SexActionPresets {
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> assToPenis = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> anusToPenis = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> penisToPenis = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> thighsToPenis = new HashMap<>();
+	
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> vaginaToAppendages = new HashMap<>();
+	public static HashMap<SexAreaInterface, List<SexAreaInterface>> assToAppendages = new HashMap<>();
 
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> vaginaToMouth = new HashMap<>();
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> assToMouth = new HashMap<>();
+	
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> assToGroin = new HashMap<>();
 
 	public static HashMap<SexAreaInterface, List<SexAreaInterface>> kissing = new HashMap<>();
@@ -350,7 +356,9 @@ public class SexActionPresets {
 			
 			breastsToPenis.put(area, penisAreas);
 		}
-		
+		for(SexAreaInterface area : thighAreas) {
+			thighsToPenis.put(area, penisAreas);
+		}
 		for(SexAreaInterface area : penisAreas) {
 			penisToAss.put(area, assAreas);
 			penisToVagina.put(area, vaginaAreas);
@@ -364,11 +372,13 @@ public class SexActionPresets {
 			assToPenis.put(area, penisAreas);
 			assToMouth.put(area, mouthAreas);
 			assToGroin.put(area, groinAreas);
+			assToAppendages.put(area, appendageAreas);
 		}
 		for(SexAreaInterface area : vaginaAreas) {
 			vaginaToPenis.put(area, penisAreas);
 			vaginaToMouth.put(area, mouthAreas);
 			vaginaToVagina.put(area, vaginaAreas);
+			vaginaToAppendages.put(area, appendageAreas);
 		}
 	}
 

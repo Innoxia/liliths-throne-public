@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.utils;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -26,6 +27,7 @@ import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Loppy;
 import com.lilithsthrone.game.character.npc.dominion.Lumi;
+import com.lilithsthrone.game.character.npc.dominion.Natalya;
 import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.npc.dominion.Pazu;
 import com.lilithsthrone.game.character.npc.dominion.Pix;
@@ -33,6 +35,7 @@ import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.npc.dominion.Sean;
 import com.lilithsthrone.game.character.npc.dominion.SupplierLeader;
 import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
@@ -164,22 +167,23 @@ public enum ParserTarget {
 			},
 	
 	COMPANION(Util.newArrayListOfValues(
-			"companion",
-			"companion1",
-			"companion2",
-			"companion3",
-			"companion4",
-			"companion5",
-			"companion6"),
+			"com",
+			"com1",
+			"com2",
+			"com3",
+			"com4",
+			"com5",
+			"com6"),
 			"The companions of the player.<br/>"
-			+"<b>The tag 'companion' can be extended with a number, starting at 1, to signify which companion it is referring to!</b> e.g. 'companion1' is the first companion, 'companion2' is the second, etc.") {
+			+"<b>The tag 'companion' can be extended with a number, starting at 1, to signify which companion it is referring to!</b> e.g. 'com1' is the first companion, 'com2' is the second, etc.") {
 				@Override
 				public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) throws NullPointerException {
 					if(Main.game.getPlayer().getCompanions().size()>=1) {
-						if(tag.equalsIgnoreCase("companion")) {
+						if(tag.equalsIgnoreCase("com")) {
 							return Main.game.getPlayer().getCompanions().get(0);
+							
 						} else {
-							int index = Integer.parseInt(tag.substring(9));
+							int index = Integer.parseInt(tag.substring(tag.length()-1));
 							if(Main.game.getPlayer().getCompanions().size()>=index) {
 								return Main.game.getPlayer().getCompanions().get(Math.max(0, index-1));
 							}
@@ -909,6 +913,28 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Murk.class);
+		}
+	},
+	
+	SEAN(Util.newArrayListOfValues("sean"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Sean.class).getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Sean.class);
+		}
+	},
+	
+	NATALYA(Util.newArrayListOfValues("natalya"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Natalya.class).getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Natalya.class);
 		}
 	},
 	

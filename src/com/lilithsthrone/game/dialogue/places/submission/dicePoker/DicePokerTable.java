@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.submission.dicePoker;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.6
@@ -8,9 +10,9 @@ package com.lilithsthrone.game.dialogue.places.submission.dicePoker;
  */
 public enum DicePokerTable {
 	
-	COPPER("copper", 500, 250, Colour.CLOTHING_COPPER),
-	SILVER("silver", 2500, 1000, Colour.CLOTHING_SILVER),
-	GOLD("gold", 10000, 5000, Colour.CLOTHING_GOLD);
+	COPPER("copper", 500, 250, PresetColour.CLOTHING_COPPER),
+	SILVER("silver", 2500, 1000, PresetColour.CLOTHING_SILVER),
+	GOLD("gold", 10000, 5000, PresetColour.CLOTHING_GOLD);
 	
 	private String name;
 	private Colour colour;

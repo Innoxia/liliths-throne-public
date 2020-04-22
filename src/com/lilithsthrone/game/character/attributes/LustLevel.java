@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.attributes;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -12,7 +13,8 @@ import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.97
@@ -21,42 +23,42 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum LustLevel {
 
-	ZERO_COLD("cold", 0, 10, 0.5f, Colour.LUST_STAGE_ZERO, SexPace.SUB_RESISTING, SexPace.DOM_GENTLE) {
+	ZERO_COLD("cold", 0, 10, 0.5f, PresetColour.LUST_STAGE_ZERO, SexPace.SUB_RESISTING, SexPace.DOM_GENTLE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_0;
 		}
 	},
 
-	ONE_HORNY("horny", 10, 25, 0.75f, Colour.LUST_STAGE_ONE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
+	ONE_HORNY("horny", 10, 25, 0.75f, PresetColour.LUST_STAGE_ONE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_1;
 		}
 	},
 
-	TWO_AMOROUS("sensual", 25, 50, 1f, Colour.LUST_STAGE_TWO, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
+	TWO_AMOROUS("sensual", 25, 50, 1f, PresetColour.LUST_STAGE_TWO, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_2;
 		}
 	},
 
-	THREE_LUSTFUL("amorous", 50, 75, 1.25f, Colour.LUST_STAGE_THREE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
+	THREE_LUSTFUL("amorous", 50, 75, 1.25f, PresetColour.LUST_STAGE_THREE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_3;
 		}
 	},
 
-	FOUR_IMPASSIONED("lustful", 75, 90, 1.5f, Colour.LUST_STAGE_FOUR, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
+	FOUR_IMPASSIONED("lustful", 75, 90, 1.5f, PresetColour.LUST_STAGE_FOUR, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_4;
 		}
 	},
 	
-	FIVE_BURNING("impassioned", 90, 100, 1.5f, Colour.LUST_STAGE_FIVE, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
+	FIVE_BURNING("impassioned", 90, 100, 1.5f, PresetColour.LUST_STAGE_FIVE, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_5;
@@ -332,27 +334,27 @@ public enum LustLevel {
 				case ONE_HORNY:
 					sb.append("[npc.NameIsFull] currently quite horny, but [npc.is] still in control of [npc.her] lust.");
 					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
-						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>It seems you're beginning to attract trouble.");
+						sb.append("<br><b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>It seems you're beginning to attract trouble.");
 					break;
 				case TWO_AMOROUS:
 					sb.append("[npc.NameIsFull] currently feeling more than a little lustful, and [npc.is] thinking about sex quite a lot.");
 					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
-						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>You can feel more and more troublesome gazes.");
+						sb.append("<br><b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>You can feel more and more troublesome gazes.");
 					break;
 				case THREE_LUSTFUL:
 					sb.append("[npc.NameIsFull] currently burning with lust, and [npc.is] struggling to think of anything other than sex.");
 					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
-						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your lust-filled aura can no longer be denied.");
+						sb.append("<br><b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Your lust-filled aura can no longer be denied.");
 					break;
 				case FOUR_IMPASSIONED:
 					sb.append("[npc.NameIsFull] completely burning with lust, and [npc.is] struggling to think of anything other than sex.");
 					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
-						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Almost every passerby turns to you with lustful gazes.");
+						sb.append("<br><b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Almost every passerby turns to you with lustful gazes.");
 					break;
 				case FIVE_BURNING:
 					sb.append("[npc.NameIsFull] completely overwhelmed with lust, and [npc.is] incapable of thinking of anything but sex.");
 					if(Main.game.isOpportunisticAttackersEnabled() && character.isPlayer())
-						sb.append("<br><b style='color:" + Colour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Everyone can tell you're completely filled with lust. Some will probably try take advantage.");
+						sb.append("<br><b style='color:" + PresetColour.BASE_GREY.toWebHexString() +";'>Opportunistic Attackers</b><br>Everyone can tell you're completely filled with lust. Some will probably try take advantage.");
 					break;
 			}
 		}

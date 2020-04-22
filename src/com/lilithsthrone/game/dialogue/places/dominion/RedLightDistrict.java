@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -55,7 +56,7 @@ public class RedLightDistrict {
 		
 		@Override
 		public int getSecondsPassed() {
-			return CityPlaces.TRAVEL_TIME_STREET;
+			return DominionPlaces.TRAVEL_TIME_STREET;
 		}
 
 		@Override

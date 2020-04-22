@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ;
-import com.lilithsthrone.game.character.attributes.Attribute;
+
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -47,9 +48,9 @@ import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -73,20 +74,20 @@ public class BraxOffice {
 	
 	private static void givePlayerEnforcerUniform(StringBuilder sb) {
 		if(Main.game.getPlayer().isFeminine()) {
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfskirt", Colour.CLOTHING_BLACK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_flsldshirt", Colour.CLOTHING_PINK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdjacket_pc", Colour.CLOTHING_BLACK, Colour.CLOTHING_PINK, Colour.CLOTHING_GOLD, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", Colour.CLOTHING_DESATURATED_BROWN, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfpumps", Colour.CLOTHING_BLACK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_bwhat", Colour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfskirt", PresetColour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_flsldshirt", PresetColour.CLOTHING_PINK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdjacket_pc", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_PINK, PresetColour.CLOTHING_GOLD, false), false));
+			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false), false));
+			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfpumps", PresetColour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_bwhat", PresetColour.CLOTHING_BLACK, false), false));
 			
 		} else {
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdslacks", Colour.CLOTHING_BLACK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_lsldshirt", Colour.CLOTHING_BLUE, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdjacket_pc", Colour.CLOTHING_BLACK, Colour.CLOTHING_BLUE, Colour.CLOTHING_GOLD, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", Colour.CLOTHING_DESATURATED_BROWN, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_tacequipset_cboots", Colour.CLOTHING_BLACK, false), false));
-			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_pcap", Colour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdslacks", PresetColour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_lsldshirt", PresetColour.CLOTHING_BLUE, false), false));
+			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdjacket_pc", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLUE, PresetColour.CLOTHING_GOLD, false), false));
+			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false), false));
+			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_tacequipset_cboots", PresetColour.CLOTHING_BLACK, false), false));
+			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false), false));
 		}
 	}
 	
@@ -260,6 +261,7 @@ public class BraxOffice {
 						setBraxsPostQuestStatus();
 					}
 				};
+				
 			} else {
 				return null;
 			}
@@ -339,7 +341,6 @@ public class BraxOffice {
 						null,
 						AFTER_SUBMISSIVE_SEX,
 						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "INTERIOR_BRAX_GETTING_TEASED_UH_OH_GET_FUCKED"));
-//				givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder()); //TODO
 					
 			} else if (index == 3) {
 				return new ResponseSex("Take control", "Take control of the situation and turn [brax.name] into your little bitch.", Util.newArrayListOfValues(Fetish.FETISH_DOMINANT),
@@ -352,7 +353,6 @@ public class BraxOffice {
 								null),
 						AFTER_DOMINANT_SEX,
 						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "INTERIOR_BRAX_GETTING_TEASED_UH_OH_TAKE_CONTROL"));
-//				givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder()); //TODO
 					
 			} else {
 				return null;
@@ -376,6 +376,7 @@ public class BraxOffice {
 						setBraxsPostQuestStatus();
 					}
 				};
+				
 			} else {
 				return null;
 			}
@@ -419,12 +420,7 @@ public class BraxOffice {
 						null,
 						null,
 						AFTER_DOMINANT_SEX,
-						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "AFTER_COMBAT_VICTORY_DOMINATE")) {
-					@Override
-					public void effects() {
-//						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder()); //TODO
-					}
-				};
+						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "AFTER_COMBAT_VICTORY_DOMINATE"));
 				
 			} else if (index == 3) {
 				return new ResponseSex("Submit to Brax",
@@ -437,12 +433,7 @@ public class BraxOffice {
 						null,
 						null,
 						AFTER_SUBMISSIVE_SEX,
-						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "AFTER_COMBAT_VICTORY_SUBMIT")) {
-					@Override
-					public void effects() {
-//						givePlayerEnforcerUniform(Main.game.getTextEndStringBuilder()); //TODO
-					}
-				};
+						UtilText.parseFromXMLFile("places/dominion/enforcerHQ/brax", "AFTER_COMBAT_VICTORY_SUBMIT"));
 				
 			} else {
 				return null;
@@ -466,6 +457,7 @@ public class BraxOffice {
 						setBraxsPostQuestStatus();
 					}
 				};
+				
 			} else {
 				return null;
 			}
@@ -492,7 +484,7 @@ public class BraxOffice {
 				}
 				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 					return new Response("Spit",
-							"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+							"Due to your <b style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
 								+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
 							null);
 				} else {
@@ -529,9 +521,9 @@ public class BraxOffice {
 								if(!Main.game.getPlayer().hasVagina()) {
 									Main.game.getPlayer().setVaginaType(VaginaType.HUMAN);
 								}
-								Main.game.getPlayer().setEarType(EarType.LYCAN);
-								Main.game.getPlayer().setEyeType(EyeType.LYCAN);
-								Main.game.getPlayer().setTailType(TailType.LYCAN);
+								Main.game.getPlayer().setEarType(EarType.WOLF_MORPH);
+								Main.game.getPlayer().setEyeType(EyeType.WOLF_MORPH);
+								Main.game.getPlayer().setTailType(TailType.WOLF_MORPH);
 								Main.game.getPlayer().setHornType(HornType.NONE);
 								Main.game.getPlayer().setAntennaType(AntennaType.NONE);
 								Main.game.getPlayer().setWingType(WingType.NONE);
@@ -542,9 +534,9 @@ public class BraxOffice {
 								Main.game.getPlayer().setPenisType(PenisType.NONE);
 								Main.game.getPlayer().setVaginaType(VaginaType.WOLF_MORPH);
 								
-								Main.game.getPlayer().setEarType(EarType.LYCAN);
-								Main.game.getPlayer().setEyeType(EyeType.LYCAN);
-								Main.game.getPlayer().setTailType(TailType.LYCAN);
+								Main.game.getPlayer().setEarType(EarType.WOLF_MORPH);
+								Main.game.getPlayer().setEyeType(EyeType.WOLF_MORPH);
+								Main.game.getPlayer().setTailType(TailType.WOLF_MORPH);
 								Main.game.getPlayer().setHornType(HornType.NONE);
 								Main.game.getPlayer().setAntennaType(AntennaType.NONE);
 								Main.game.getPlayer().setWingType(WingType.NONE);
@@ -562,9 +554,9 @@ public class BraxOffice {
 								Main.game.getPlayer().setPenisType(PenisType.NONE);
 								Main.game.getPlayer().setVaginaType(VaginaType.WOLF_MORPH);
 								
-								Main.game.getPlayer().setEarType(EarType.LYCAN);
-								Main.game.getPlayer().setEyeType(EyeType.LYCAN);
-								Main.game.getPlayer().setTailType(TailType.LYCAN);
+								Main.game.getPlayer().setEarType(EarType.WOLF_MORPH);
+								Main.game.getPlayer().setEyeType(EyeType.WOLF_MORPH);
+								Main.game.getPlayer().setTailType(TailType.WOLF_MORPH);
 								Main.game.getPlayer().setHornType(HornType.NONE);
 								Main.game.getPlayer().setAntennaType(AntennaType.NONE);
 								Main.game.getPlayer().setWingType(WingType.NONE);
@@ -576,7 +568,7 @@ public class BraxOffice {
 								Main.game.getPlayer().setLegType(LegType.WOLF_MORPH);
 								
 								Main.game.getPlayer().setSkinType(SkinType.LYCAN);
-								Main.game.getPlayer().setFaceType(FaceType.LYCAN);
+								Main.game.getPlayer().setFaceType(FaceType.WOLF_MORPH);
 								
 								Main.game.getPlayer().setBreastRows(3);
 								break;
@@ -588,9 +580,9 @@ public class BraxOffice {
 							Main.game.getPlayer().setVaginaWetness(Wetness.THREE_WET.getValue());
 						}
 						
-						Main.game.getPlayer().setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
-						Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK), true);
-						Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE), true);
+						Main.game.getPlayer().setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, PresetColour.EYE_YELLOW));
+						Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, PresetColour.COVERING_BLACK), true);
+						Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, PresetColour.COVERING_WHITE), true);
 						
 						if(Main.game.getPlayer().getBreastRawSizeValue()<CupSize.E.getMeasurement()) {
 							Main.game.getPlayer().setBreastSize(CupSize.E.getMeasurement());
@@ -695,6 +687,7 @@ public class BraxOffice {
 					public void effects() {
 						if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN)) {
 							setBraxsPostQuestStatus();
+							
 						} else {
 							Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
 						}

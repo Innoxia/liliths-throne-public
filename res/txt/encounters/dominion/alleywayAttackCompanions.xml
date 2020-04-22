@@ -1012,7 +1012,11 @@
 	
 	<htmlContent tag="STORM_ATTACK"><![CDATA[
 	<p>
-		You find yourself walking down the deserted streets of Dominion, the eerie silence broken only by the occasional crash of arcane thunder high above you. There are many hiding places for a would-be attacker to conceal themselves in, and as you pass one such place, taking the form of a building's shadowy doorway, a figure suddenly leaps out at you. Thankfully, as you were taking care to be alert, you quickly step backwards and manage to avoid a punch aimed at your stomach.
+		#IF(pc.getLocationPlace().getPlaceType()==PLACE_TYPE_DOMINION_BACK_ALLEYS_SAFE)
+			With [com.name] by your side, you find yourself [pc.walking] down the wide alleyway, the eerie silence broken only by the occasional crash of arcane thunder high above you. There are many hiding places for a would-be attacker to conceal themselves in, and sure enough, as you pass a building's shadowy doorway, a figure suddenly leaps out at you. Thankfully, as you were taking care to be alert, you quickly step backwards and manage to avoid a punch aimed at your stomach.
+		#ELSE
+			With [com.name] by your side, you find yourself [pc.walking] down the deserted streets of Dominion, the eerie silence broken only by the occasional crash of arcane thunder high above you. There are many hiding places for a would-be attacker to conceal themselves in, and sure enough, as you pass a building's shadowy doorway, a figure suddenly leaps out at you. Thankfully, as you were taking care to be alert, you quickly step backwards and manage to avoid a punch aimed at your stomach.
+		#ENDIF
 	</p>
 	<p>
 		[npc2.speech(Hey!)] [npc2.name] calls out, stepping forwards to stand by your side and confront this unknown assailant.

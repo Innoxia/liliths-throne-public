@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>100</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[nose ring]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[nose rings]]></namePlural>
+		<description><![CDATA[A simple nose ring. The little disc found on one end rests inside the nostril, holding it in place, while the rest of the ring is on display.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>PIERCING_NOSE</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>nose_ring.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL_METAL"/> 
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the ring into [npc.her] [npc.nose] piercing.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the ring into [npc2.namePos] [npc2.nose] piercing.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(slide)] the ring into [npc2.namePos] [npc2.nose] piercing.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] ring out of [npc.her] [npc.nose] piercing.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] ring out of [npc2.her] [npc2.nose] piercing.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] ring out of [npc2.her] [npc2.nose] piercing.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

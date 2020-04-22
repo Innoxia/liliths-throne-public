@@ -1,5 +1,6 @@
 package com.lilithsthrone.world;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -173,7 +174,7 @@ public class Cell implements XMLSaving {
 	}
 	
 	public Vector2i getLocation() {
-		return location;
+		return new Vector2i(location);
 	}
 
 	public void setLocation(Vector2i location) {

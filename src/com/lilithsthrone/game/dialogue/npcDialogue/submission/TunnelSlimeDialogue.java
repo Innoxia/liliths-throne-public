@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.submission;
-import com.lilithsthrone.game.character.GameCharacter;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -20,9 +21,10 @@ import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.5
@@ -147,7 +149,7 @@ public class TunnelSlimeDialogue {
 						return new Response("Submit", "Allow [npc.name] to transform you into a slime!", TRANSFORMED) {
 							@Override
 							public Colour getHighlightColour() {
-								return Colour.TRANSFORMATION_GENERIC;
+								return PresetColour.TRANSFORMATION_GENERIC;
 							}
 							@Override
 							public void effects() {
@@ -191,7 +193,7 @@ public class TunnelSlimeDialogue {
 						return new ResponseSex("Offer body", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
 								Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
 								null, null, null,
-								true, true,
+								true, false,
 								new SMGeneric(
 										Util.newArrayListOfValues(getSlime()),
 										Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -792,7 +794,7 @@ public class TunnelSlimeDialogue {
 					}
 					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 						return new Response("Resist",
-								"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+								"Due to your <b style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
 									+"</b> fetish, you love being transformed so much that you can't bring yourself to resist!",
 								null);
 					} else {
@@ -803,7 +805,7 @@ public class TunnelSlimeDialogue {
 					return new Response("Submit", "Allow [npc.name] to transform you into a slime!", TRANSFORMED) {
 						@Override
 						public Colour getHighlightColour() {
-							return Colour.TRANSFORMATION_GENERIC;
+							return PresetColour.TRANSFORMATION_GENERIC;
 						}
 						@Override
 						public void effects() {

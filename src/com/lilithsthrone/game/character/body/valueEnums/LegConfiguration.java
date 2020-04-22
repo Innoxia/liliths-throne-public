@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Anus;
@@ -89,7 +90,7 @@ public enum LegConfiguration {
 			}
 			@Override
 			public void setLegsToDemon(GameCharacter character) {
-				character.setLegType(LegType.DEMON_HOOFED);
+				character.setLegType(LegType.DEMON_HORSE_HOOFED);
 			}
 	},
 
@@ -133,7 +134,6 @@ public enum LegConfiguration {
 			"A configuration in which the character's legs and groin are replaced by an extremely long tail of the associated animal-morph, with their genitals shifting to be located within a cloaca."
 				+ " The most common example of this is the 'lamia', in which the character's legs and groin are replaced by the body and genitals of a snake.",
 			"Above [npc.her] groin, occupying the lower region of [npc.her] humanoid abdomen,") {
-
 		@Override
 		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
 			return new BodyPartClothingBlock(
@@ -145,6 +145,38 @@ public enum LegConfiguration {
 					Util.newArrayListOfValues(
 							ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
 							ItemTag.FITS_LONG_TAIL_BODY));
+		}
+		@Override
+		public String getMovementVerbPresentFirstPersonSingular() {
+			return "slither";
+		}
+		@Override
+		public String getMovementVerbPresentThirdPersonSingular() {
+			return "slithers";
+		}
+		@Override
+		public String getMovementVerbPresentParticiple() {
+			return "slithering";
+		}
+		@Override
+		public String getMovementVerbPastParticiple() {
+			return "slithered";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentFirstPersonSingular() {
+			return "slide";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentThirdPersonSingular() {
+			return "slides";
+		}
+		@Override
+		public String getIndividualMovementVerbPresentParticiple() {
+			return "sliding";
+		}
+		@Override
+		public String getIndividualMovementVerbPastParticiple() {
+			return "slid";
 		}
 	},
 
@@ -332,6 +364,38 @@ public enum LegConfiguration {
 		return name;
 	}
 
+	public String getMovementVerbPresentFirstPersonSingular() {
+		return "walk";
+	}
+
+	public String getMovementVerbPresentThirdPersonSingular() {
+		return "walks";
+	}
+
+	public String getMovementVerbPresentParticiple() {
+		return "walking";
+	}
+
+	public String getMovementVerbPastParticiple() {
+		return "walked";
+	}
+
+	public String getIndividualMovementVerbPresentFirstPersonSingular() {
+		return "step";
+	}
+
+	public String getIndividualMovementVerbPresentThirdPersonSingular() {
+		return "steps";
+	}
+
+	public String getIndividualMovementVerbPresentParticiple() {
+		return "stepping";
+	}
+
+	public String getIndividualMovementVerbPastParticiple() {
+		return "stepped";
+	}
+	
 	public int getLandSpeedModifier() {
 		return landSpeedModifier;
 	}

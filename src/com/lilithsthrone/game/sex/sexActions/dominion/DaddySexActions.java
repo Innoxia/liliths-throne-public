@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -123,9 +124,7 @@ public class DaddySexActions {
 
 		@Override
 		public void applyEffects() {
-			Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.BACK, true).applyEffects();
-			// Pull out:
-			GenericOrgasms.GENERIC_ORGASM_FLOOR.applyEffects();
+			GenericOrgasms.applyGenericPullOutEffects(this, OrgasmCumTarget.BACK);
 		}
 
 		@Override
@@ -181,9 +180,7 @@ public class DaddySexActions {
 
 		@Override
 		public void applyEffects() {
-			Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.SELF_STOMACH, true).applyEffects();
-			// Pull out:
-			GenericOrgasms.GENERIC_ORGASM_FLOOR.applyEffects();
+			GenericOrgasms.applyGenericPullOutEffects(this, OrgasmCumTarget.SELF_STOMACH);
 		}
 
 		@Override

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -505,9 +506,10 @@ public class LilayaBirthing {
 				try {
 					GameCharacter offspring = Main.game.getNPCById(id);
 					String descriptor = getOffspringDescriptor(offspring);
-					UtilText.nodeContentSB.append("<br/><i style='color:"+offspring.getSubspecies().getColour(offspring).toWebHexString()+";'>"
-							+ UtilText.parse(offspring, Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor+" [npc.race]")
-							+ "</i>");
+					UtilText.nodeContentSB.append("<br/>"
+							+ Util.capitaliseSentence(UtilText.generateSingularDeterminer(descriptor))+" "+descriptor
+							+ " <i style='color:"+offspring.getGender().getColour().toWebHexString()+";'>"+offspring.getGender().getName()+"</i>"
+							+ " <i style='color:"+offspring.getSubspecies().getColour(offspring).toWebHexString()+";'>"+UtilText.parse(offspring,"[npc.race]")+"</i>");
 				} catch(Exception ex) {
 				}
 			}

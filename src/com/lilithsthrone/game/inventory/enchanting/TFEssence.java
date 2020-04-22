@@ -1,13 +1,15 @@
 package com.lilithsthrone.game.inventory.enchanting;
-import java.io.IOException;
+
+import java.io.IOException;
 import java.io.InputStream;
 
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.7
@@ -20,7 +22,7 @@ public enum TFEssence {
 			"An exceedingly rare pure arcane essence.",
 			"arcane",
 			"essenceArcane",
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			Rarity.LEGENDARY);
 	
 
@@ -46,7 +48,7 @@ public enum TFEssence {
 			String base = Util.inputStreamToString(is);
 			
 			String s = base;
-			s = SvgUtil.colourReplacement(this.toString(), Colour.BASE_GREY, s);
+			s = SvgUtil.colourReplacement(this.toString(), PresetColour.BASE_GREY, s);
 			this.SVGStringUncoloured = s;
 
 			String s2 = base;

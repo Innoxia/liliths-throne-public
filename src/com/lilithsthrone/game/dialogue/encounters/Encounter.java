@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.encounters;
-import java.time.LocalDateTime;
+
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,7 +36,6 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
-import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelImpsDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -303,7 +303,7 @@ public enum Encounter {
 								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
 								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
 								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)
-							&& (npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()!=Race.HARPY)));
+							|| (npc.getHalfDemonSubspecies()!=null && npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION))));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -432,7 +432,11 @@ public enum Encounter {
 									|| npc.getSubspecies()==Subspecies.SLIME
 									|| npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
 									|| npc.getSubspecies()==Subspecies.RAT_MORPH)
-								&& (npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()!=Race.HARPY)));
+								|| (npc.getHalfDemonSubspecies()!=null
+										&& (npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+												|| npc.getHalfDemonSubspecies()==Subspecies.SLIME
+												|| npc.getHalfDemonSubspecies()==Subspecies.ALLIGATOR_MORPH
+												|| npc.getHalfDemonSubspecies()==Subspecies.RAT_MORPH))));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -489,7 +493,7 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 						npc -> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST)
-								&& (npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()==Race.HARPY)));
+								|| (npc.getHalfDemonSubspecies()!=null && npc.getHalfDemonSubspecies().getRace()==Race.HARPY)));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -578,7 +582,7 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 						npc -> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST)
-								&& (npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()==Race.HARPY)));
+								|| (npc.getHalfDemonSubspecies()!=null && npc.getHalfDemonSubspecies().getRace()==Race.HARPY)));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -643,8 +647,7 @@ public enum Encounter {
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			
-			if (node == EncounterType.SUBMISSION_TUNNEL_ATTACK) {
-
+			if(node == EncounterType.SUBMISSION_TUNNEL_ATTACK) {
 				List<String> impAdjectives = new ArrayList<>();
 				// If non-pacified imp tunnel, imp attack:
 				if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA)
@@ -693,7 +696,6 @@ public enum Encounter {
 					} catch (Exception e) {
 					}
 					
-					TunnelImpsDialogue.setImpGroup(impGroup);
 					return ((NPC) impGroup.get(0)).getEncounterDialogue();
 					
 				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_DEMON)
@@ -743,7 +745,6 @@ public enum Encounter {
 					} catch (Exception e) {
 					}
 					
-					TunnelImpsDialogue.setImpGroup(impGroup);
 					return ((NPC) impGroup.get(0)).getEncounterDialogue();
 					
 				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)
@@ -789,7 +790,6 @@ public enum Encounter {
 					} catch (Exception e) {
 					}
 					
-					TunnelImpsDialogue.setImpGroup(impGroup);
 					return ((NPC) impGroup.get(0)).getEncounterDialogue();
 					
 				} else if(Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_MALES)
@@ -840,10 +840,10 @@ public enum Encounter {
 					} catch (Exception e) {
 					}
 					
-					TunnelImpsDialogue.setImpGroup(impGroup);
 					return ((NPC) impGroup.get(0)).getEncounterDialogue();
-					
 				}
+				
+				// Normal tunnel tiles:
 
 				// Prioritise re-encountering the NPC on this tile:
 				List<NPC> encounterPossibilities = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
@@ -856,7 +856,7 @@ public enum Encounter {
 				if(Math.random()<IncestEncounterRate()) {
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
 						npc -> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION)
-								&& (npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION))));
+								|| (npc.getHalfDemonSubspecies()!=null && npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION))));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -968,7 +968,7 @@ public enum Encounter {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vengarCaptiveVengarSatisfied)) {
 				map.put(EncounterType.VENGAR_CAPTIVE_VENGAR_FUCK, 10f);
 			}
-			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vengarCaptiveGangBanged)) {
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.vengarCaptiveGangBanged)) { //TODO this is not set anywhere?
 				map.put(EncounterType.VENGAR_CAPTIVE_GROUP_SEX, 2f);
 			}
 			

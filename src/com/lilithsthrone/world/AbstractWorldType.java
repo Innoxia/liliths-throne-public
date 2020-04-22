@@ -1,10 +1,11 @@
 package com.lilithsthrone.world;
-import java.awt.Color;
+
+import java.awt.Color;
 import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 
 /**

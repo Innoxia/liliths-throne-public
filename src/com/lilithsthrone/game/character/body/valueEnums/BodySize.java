@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
@@ -8,11 +10,11 @@ import com.lilithsthrone.utils.Colour;
  * @author Innoxia
  */
 public enum BodySize {
-	ZERO_SKINNY("skinny", 0, 20, Colour.BODY_SIZE_ZERO),
-	ONE_SLENDER("slender", 20, 40, Colour.BODY_SIZE_ONE),
-	TWO_AVERAGE("average", 40, 60, Colour.BODY_SIZE_TWO),
-	THREE_LARGE("large", 60, 80, Colour.BODY_SIZE_THREE),
-	FOUR_HUGE("huge", 80, 100, Colour.BODY_SIZE_FOUR);
+	ZERO_SKINNY("skinny", 0, 20, PresetColour.BODY_SIZE_ZERO),
+	ONE_SLENDER("slender", 20, 40, PresetColour.BODY_SIZE_ONE),
+	TWO_AVERAGE("average", 40, 60, PresetColour.BODY_SIZE_TWO),
+	THREE_LARGE("large", 60, 80, PresetColour.BODY_SIZE_THREE),
+	FOUR_HUGE("huge", 80, 100, PresetColour.BODY_SIZE_FOUR);
 
 	private String name;
 	private int minimumBodySize, maximumBodySize;

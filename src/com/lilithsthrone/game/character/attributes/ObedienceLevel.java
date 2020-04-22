@@ -1,7 +1,9 @@
 package com.lilithsthrone.game.character.attributes;
-import com.lilithsthrone.game.character.GameCharacter;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.82
@@ -11,27 +13,27 @@ import com.lilithsthrone.utils.Colour;
 public enum ObedienceLevel {
 	
 	
-	NEGATIVE_FIVE_REBELLIOUS("rebellious", -100, -90, Colour.AFFECTION_NEGATIVE_FIVE),
+	NEGATIVE_FIVE_REBELLIOUS("rebellious", -100, -90, PresetColour.AFFECTION_NEGATIVE_FIVE),
 	
-	NEGATIVE_FOUR_DEFIANT("defiant", -90, -70, Colour.AFFECTION_NEGATIVE_FOUR),
+	NEGATIVE_FOUR_DEFIANT("defiant", -90, -70, PresetColour.AFFECTION_NEGATIVE_FOUR),
 	
-	NEGATIVE_THREE_STRONG_INSUBORDINATE("insubordinate", -70, -50, Colour.AFFECTION_NEGATIVE_THREE),
+	NEGATIVE_THREE_STRONG_INSUBORDINATE("insubordinate", -70, -50, PresetColour.AFFECTION_NEGATIVE_THREE),
 	
-	NEGATIVE_TWO_UNRULY("unruly", -50, -30, Colour.AFFECTION_NEGATIVE_TWO),
+	NEGATIVE_TWO_UNRULY("unruly", -50, -30, PresetColour.AFFECTION_NEGATIVE_TWO),
 	
-	NEGATIVE_ONE_DISOBEDIENT("disobedient", -30, -10, Colour.AFFECTION_NEGATIVE_ONE),
+	NEGATIVE_ONE_DISOBEDIENT("disobedient", -30, -10, PresetColour.AFFECTION_NEGATIVE_ONE),
 
-	ZERO_FREE_WILLED("free-willed", -10, 10, Colour.AFFECTION_NEUTRAL),
+	ZERO_FREE_WILLED("free-willed", -10, 10, PresetColour.AFFECTION_NEUTRAL),
 
-	POSITIVE_ONE_AGREEABLE("agreeable", 10, 30, Colour.AFFECTION_POSITIVE_ONE),
+	POSITIVE_ONE_AGREEABLE("agreeable", 10, 30, PresetColour.AFFECTION_POSITIVE_ONE),
 
-	POSITIVE_TWO_OBEDIENT("obedient", 30, 50, Colour.AFFECTION_POSITIVE_TWO),
+	POSITIVE_TWO_OBEDIENT("obedient", 30, 50, PresetColour.AFFECTION_POSITIVE_TWO),
 
-	POSITIVE_THREE_DISCIPLINED("disciplined", 50, 70, Colour.AFFECTION_POSITIVE_THREE),
+	POSITIVE_THREE_DISCIPLINED("disciplined", 50, 70, PresetColour.AFFECTION_POSITIVE_THREE),
 
-	POSITIVE_FOUR_DUTIFUL("dutiful", 70, 90, Colour.AFFECTION_POSITIVE_FOUR),
+	POSITIVE_FOUR_DUTIFUL("dutiful", 70, 90, PresetColour.AFFECTION_POSITIVE_FOUR),
 
-	POSITIVE_FIVE_SUBSERVIENT("subservient", 90, 100, Colour.AFFECTION_POSITIVE_FIVE);
+	POSITIVE_FIVE_SUBSERVIENT("subservient", 90, 100, PresetColour.AFFECTION_POSITIVE_FIVE);
 	
 	
 	private String name;

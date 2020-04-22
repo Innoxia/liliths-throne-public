@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.occupantManagement;
-import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.2
@@ -9,13 +10,13 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum SlaveEventTag {
 	
-	WASHED_BODY_ANAL_CREAMPIE("<span style='color:"+Colour.BASE_AQUA.toWebHexString()+";'>Cleaned Anal Creampie</span>"),
+	WASHED_BODY_ANAL_CREAMPIE("<span style='color:"+PresetColour.BASE_AQUA.toWebHexString()+";'>Cleaned Anal Creampie</span>"),
 	
-	WASHED_BODY_VAGINAL_CREAMPIE("<span style='color:"+Colour.BASE_AQUA.toWebHexString()+";'>Cleaned Pussy Creampie</span>"),
+	WASHED_BODY_VAGINAL_CREAMPIE("<span style='color:"+PresetColour.BASE_AQUA.toWebHexString()+";'>Cleaned Pussy Creampie</span>"),
 	
-	WASHED_BODY_NIPPLE_CREAMPIE("<span style='color:"+Colour.BASE_AQUA.toWebHexString()+";'>Cleaned Nipple Creampie</span>"),
+	WASHED_BODY_NIPPLE_CREAMPIE("<span style='color:"+PresetColour.BASE_AQUA.toWebHexString()+";'>Cleaned Nipple Creampie</span>"),
 
-	WASHED_CLOTHES("<span style='color:"+Colour.BASE_AQUA.toWebHexString()+";'>Cleaned Clothes</span>"),
+	WASHED_CLOTHES("<span style='color:"+PresetColour.BASE_AQUA.toWebHexString()+";'>Cleaned Clothes</span>"),
 
 	// Muscle:
 	

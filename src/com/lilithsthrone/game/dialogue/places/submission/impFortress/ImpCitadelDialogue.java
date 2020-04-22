@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission.impFortress;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
@@ -55,9 +55,10 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -504,34 +505,51 @@ public class ImpCitadelDialogue {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY", getAllCharacters());
+			if(getImpGroup().isEmpty()) {
+				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY_ALL_ENSLAVED");
+				
+			} else if(getImpGroup().size()==1) {
+				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY_ENSLAVED_ONE", getImpGroup());
+				
+			} else if(getImpGroup().size()<4) {
+				return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY_ENSLAVED", getImpGroup());
+			}
+			return UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_FIGHT_AFTER_COMBAT_VICTORY", getImpGroup());
 			// IMP_FIGHT_AFTER_COMBAT_VICTORY_ATTRIBUTE_BOOST is appended to this (in ImpAttacker class's endCombat() method)
 		}
 
 		@Override
 		public String getResponseTabTitle(int index) {
-			if(index==0) {
-				return "Standard";
-				
-			} else if(index==1) {
-				return "Inventories";
-				
-			} else if(index==2) {
-				return "Transformations";
-				
+			if(!getImpGroup().isEmpty()) {
+				if(index==0) {
+					return "Standard";
+					
+				} else if(index==1) {
+					return "Inventories";
+					
+				} else if(index==2) {
+					return "Transformations";
+					
+				}
 			}
  			return null;
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(getImpGroup().isEmpty()) {
+				if(index==1) {
+					return new Response("Continue", "As you've enslaved all of the imps, there's nothing left to do but continue on your way through the citadel...", Main.game.getDefaultDialogue(false));
+				}
+				return null;
+			}
 			if(!isCompanionDialogue()) {
 				if(responseTab == 0) {
 					if (index == 1) {
 						return new Response("Scare off", "Tell the imps to get out of here while they still can...", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SCARE_OFF", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SCARE_OFF", getImpGroup()));
 								banishImps();
 							}
 						};
@@ -545,7 +563,7 @@ public class ImpCitadelDialogue {
 								getImpGroup(),
 								null,
 								null,
-								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX", getAllCharacters()));
+								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX", getImpGroup()));
 						
 					} else if (index == 3) {
 						return new ResponseSex("Gentle Sex",
@@ -557,7 +575,7 @@ public class ImpCitadelDialogue {
 								null,
 								null,
 								IMP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_GENTLE", getImpGroup()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
 					} else if (index == 4) {
 						return new ResponseSex("Rough Sex",
@@ -569,7 +587,7 @@ public class ImpCitadelDialogue {
 								null,
 								null,
 								IMP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_ROUGH", getImpGroup()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
 					} else if (index == 5) {
 						return new ResponseSex("Submit",
@@ -587,7 +605,7 @@ public class ImpCitadelDialogue {
 								null,
 								null,
 								IMP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_SUBMIT", getImpGroup()));
 					}
 					
 				} else if(responseTab == 1) {
@@ -629,7 +647,7 @@ public class ImpCitadelDialogue {
 						return new Response("Scare off", "Tell the imps to get out of here while they still can...", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SCARE_OFF", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SCARE_OFF", getImpGroup()));
 								banishImps();
 							}
 						};
@@ -643,7 +661,7 @@ public class ImpCitadelDialogue {
 								getImpGroup(),
 								Util.newArrayListOfValues(getMainCompanion()),
 								null,
-								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX", getAllCharacters()));
+								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX", getImpGroup()));
 						
 					} else if (index == 3) {
 						return new ResponseSex("Solo sex (Gentle)",
@@ -655,7 +673,7 @@ public class ImpCitadelDialogue {
 								Util.newArrayListOfValues(getMainCompanion()),
 								null,
 								IMP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_GENTLE", getImpGroup()), ResponseTag.START_PACE_PLAYER_DOM_GENTLE);
 						
 					} else if (index == 4) {
 						return new ResponseSex("Solo sex (Rough)",
@@ -667,7 +685,7 @@ public class ImpCitadelDialogue {
 								Util.newArrayListOfValues(getMainCompanion()),
 								null,
 								IMP_AFTER_SEX_VICTORY,
-								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
+								UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_ROUGH", getImpGroup()), ResponseTag.START_PACE_PLAYER_DOM_ROUGH);
 						
 					} else if (index == 5) {
 						return new ResponseSex("Solo submission",
@@ -684,7 +702,7 @@ public class ImpCitadelDialogue {
 								Util.newArrayListOfValues(Main.game.getPlayer()),
 								null,
 								Util.newArrayListOfValues(getMainCompanion()),
-								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+								IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_SEX_SUBMIT", getImpGroup()));
 						
 					} else if (index == 6) {
 						GameCharacter companion = getMainCompanion();
@@ -702,7 +720,7 @@ public class ImpCitadelDialogue {
 									getImpGroup(),
 									null,
 									null,
-									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GROUP_SEX", getAllCharacters()));
+									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GROUP_SEX", getImpGroup()));
 						}
 						
 					} else if (index == 7) {
@@ -721,7 +739,7 @@ public class ImpCitadelDialogue {
 									Main.game.getPlayer().getParty(),
 									null,
 									null,
-									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getAllCharacters()));
+									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GROUP_SEX_SUBMISSION", getImpGroup()));
 						}
 						
 					} else if (index == 8) {
@@ -740,7 +758,7 @@ public class ImpCitadelDialogue {
 									getImpGroup(),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GIVE_TO_COMPANION", getAllCharacters()));
+									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_GIVE_TO_COMPANION", getImpGroup()));
 						}
 						
 					} else if (index == 9 && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
@@ -760,7 +778,7 @@ public class ImpCitadelDialogue {
 									Util.newArrayListOfValues(getMainCompanion()),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer()),
-									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_OFFER_COMPANION", getAllCharacters())) {
+									IMP_AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "IMP_COMBAT_VICTORY_OFFER_COMPANION", getImpGroup())) {
 								@Override
 								public void effects() {
 									if(!companion.isAttractedTo(getImpGroupLeader()) && Main.game.isNonConEnabled()) {
@@ -1331,7 +1349,7 @@ public class ImpCitadelDialogue {
 					}
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.TRANSFORMATION_GENERIC;
+						return PresetColour.TRANSFORMATION_GENERIC;
 					}
 				};
 
@@ -1412,7 +1430,7 @@ public class ImpCitadelDialogue {
 					}
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.TRANSFORMATION_GENERIC;
+						return PresetColour.TRANSFORMATION_GENERIC;
 					}
 				};
 
@@ -1513,7 +1531,7 @@ public class ImpCitadelDialogue {
 					}
 					@Override
 					public Colour getHighlightColour() {
-						return Colour.TRANSFORMATION_GENERIC;
+						return PresetColour.TRANSFORMATION_GENERIC;
 					}
 				};
 				
@@ -1764,17 +1782,17 @@ public class ImpCitadelDialogue {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(15000));
 						
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(
-										AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_darkSiren_siren_amulet"), Colour.CLOTHING_RED_VERY_DARK, Colour.CLOTHING_BLACK_STEEL, Colour.CLOTHING_PURPLE_DARK, false),
+										AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_darkSiren_siren_amulet"), PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_PURPLE_DARK, false),
 										false));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(
-								AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_darkSiren_siren_cloak"), Colour.CLOTHING_BLACK, Colour.CLOTHING_RED_VERY_DARK, Colour.CLOTHING_STEEL, false),
+								AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_darkSiren_siren_cloak"), PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_STEEL, false),
 								false));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addClothing(
-								AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_darkSiren_siren_seal"), Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, false),
+								AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_darkSiren_siren_seal"), PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, false),
 								false));
 
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(
-								AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.PHYSICAL, Colour.CLOTHING_BLACK_STEEL, Colour.CLOTHING_RED_DARK),
+								AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.PHYSICAL, PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_RED_DARK),
 								false));
 					}
 				};
@@ -2437,21 +2455,22 @@ public class ImpCitadelDialogue {
 							:PRISONER_STRIPPED) {
 					@Override
 					public void effects() {
-						List<AbstractClothing> clothingRemoved = Main.game.getPlayer().unequipAllClothing(getOwner(), true);
-
-						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED"+getOwnerDialogueIdEnding(), getAllCharacters()));
-						
-						for(AbstractClothing clothing : clothingRemoved) {
-							Main.game.getWorlds().get(WorldType.IMP_FORTRESS_DEMON).getCell(PlaceType.FORTRESS_DEMON_TREASURY).getInventory().addClothing(clothing);
-						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().getUnequipAllClothingDescription());
+						//TODO remove everything like in Rat Warrens captive
+//						List<AbstractClothing> clothingRemoved = Main.game.getPlayer().unequipAllClothing(getOwner(), true);
+//
+//						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED"+getOwnerDialogueIdEnding(), getAllCharacters()));
+//						
+//						for(AbstractClothing clothing : clothingRemoved) {
+//							Main.game.getWorlds().get(WorldType.IMP_FORTRESS_DEMON).getCell(PlaceType.FORTRESS_DEMON_TREASURY).getInventory().addClothing(clothing);
+//						}
+//						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().getUnequipAllClothingDescription());
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_END"+getOwnerDialogueIdEnding(), getAllCharacters()));
 						
 						// Equip collar and wrist restraints
-						Colour c = Colour.CLOTHING_PINK_HOT;
+						Colour c = PresetColour.CLOTHING_PINK_HOT;
 						if(isPrisonerFemale()) {
-							c = Colour.CLOTHING_BLACK;
+							c = PresetColour.CLOTHING_BLACK;
 						}
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));
@@ -2488,20 +2507,22 @@ public class ImpCitadelDialogue {
 						PRISONER_STRIPPED) {
 					@Override
 					public void effects() {
-						List<AbstractClothing> clothingRemoved = getMainCompanion().unequipAllClothing(getOwner(), true);
+						//TODO remove everything like in Rat Warrens captive
+//						List<AbstractClothing> clothingRemoved = getMainCompanion().unequipAllClothing(getOwner(), true);
+//						
+//						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_COMPANION"+getOwnerDialogueIdEnding(), getAllCharacters()));
+//						clothingRemoved = getMainCompanion().unequipAllClothing(getOwner(), true);
+//						for(AbstractClothing clothing : clothingRemoved) {
+//							Main.game.getWorlds().get(WorldType.IMP_FORTRESS_DEMON).getCell(PlaceType.FORTRESS_DEMON_TREASURY).getInventory().addClothing(clothing);
+//						}
+//						Main.game.getTextEndStringBuilder().append(getMainCompanion().getUnequipAllClothingDescription());
 						
-						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_COMPANION"+getOwnerDialogueIdEnding(), getAllCharacters()));
-						clothingRemoved = getMainCompanion().unequipAllClothing(getOwner(), true);
-						for(AbstractClothing clothing : clothingRemoved) {
-							Main.game.getWorlds().get(WorldType.IMP_FORTRESS_DEMON).getCell(PlaceType.FORTRESS_DEMON_TREASURY).getInventory().addClothing(clothing);
-						}
-						Main.game.getTextEndStringBuilder().append(getMainCompanion().getUnequipAllClothingDescription());
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "PRISONER_STRIPPED_COMPANION_END"+getOwnerDialogueIdEnding(), getAllCharacters()));
 
 						// Equip collar and wrist restraints
-						Colour c = Colour.CLOTHING_PINK_LIGHT;
+						Colour c = PresetColour.CLOTHING_PINK_LIGHT;
 						if(isPrisonerFemale()) {
-							c = Colour.CLOTHING_BROWN_DARK;
+							c = PresetColour.CLOTHING_BROWN_DARK;
 						}
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_CHOKER, c, false), true, getOwner()));
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, c, false), true, getOwner()));

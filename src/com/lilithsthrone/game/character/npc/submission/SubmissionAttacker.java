@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.submission;
-import java.time.Month;
+
+import java.time.Month;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,15 +11,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -30,8 +22,10 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.SubspeciesPreference;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
@@ -85,67 +79,30 @@ public class SubmissionAttacker extends NPC {
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
 				if(s==Subspecies.SLIME) {
-					Subspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces);
+					Subspecies.addToSubspeciesMap(slimeChance, gender, s, availableRaces, SubspeciesPreference.FOUR_ABUNDANT);
 					
-				} else if(Subspecies.getWorldSpecies().get(WorldType.SUBMISSION).containsKey(s)) {
-					Subspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies().get(WorldType.SUBMISSION).get(s).getChanceMultiplier()), gender, s, availableRaces);
+				} else if(s==Subspecies.IMP || s==Subspecies.IMP_ALPHA) {
+					Subspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces, SubspeciesPreference.FOUR_ABUNDANT);
+					
+				} else if(Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).containsKey(s)) {
+					Subspecies.addToSubspeciesMap((int) (100 * Subspecies.getWorldSpecies(WorldType.SUBMISSION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 				}
 			}
-			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
+
+			Subspecies randomSpecies = Util.getRandomObjectFromWeightedMap(availableRaces);
+			if(randomSpecies==Subspecies.SLIME || randomSpecies==Subspecies.IMP || randomSpecies==Subspecies.IMP_ALPHA) {
+				this.setBody(gender, randomSpecies, RaceStage.GREATER, true);
+				
+			} else {
+				this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
+			}
 			
 			if(Math.random()<0.05 && !this.getRace().equals(Race.DEMON) && this.getSubspecies()!=Subspecies.SLIME) { //5% chance for the NPC to be a half-demon
 				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
 			}
 			
 			if(Main.getProperties().taurFurryLevel>0 && Math.random()<0.05 && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { //5% chance for the NPC to be a taur
-				int taurLevel = Main.getProperties().taurFurryLevel;
-				if(this.getRace()==Race.DEMON) {
-					taurLevel = 3; // Demons should always be untouched
-				}
-				switch(taurLevel) {
-					case 1:
-						this.setLegConfiguration(LegConfiguration.TAUR, true);
-						this.setAntennaType(AntennaType.NONE);
-						this.setArmType(ArmType.HUMAN);
-						this.setBreastType(BreastType.HUMAN);
-						this.setEarType(EarType.HUMAN);
-						this.setEyeType(EyeType.HUMAN);
-						this.setFaceType(FaceType.HUMAN);
-						this.setHairType(HairType.HUMAN);
-						this.setHornType(HornType.NONE);
-						this.setSkinType(SkinType.HUMAN);
-						break;
-					case 2:
-						this.setLegConfiguration(LegConfiguration.TAUR, true);
-						this.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(this.getLegRace())));
-						this.setArmType(ArmType.HUMAN);
-						this.setBreastType(BreastType.HUMAN);
-						this.setEarType(Util.randomItemFrom(EarType.getEarTypes(this.getLegRace())));
-						this.setEyeType(Util.randomItemFrom(EyeType.getEyeTypes(this.getLegRace())));
-						this.setFaceType(FaceType.HUMAN);
-						this.setHairType(Util.randomItemFrom(HairType.getHairTypes(this.getLegRace())));
-						this.setHornType(Util.randomItemFrom(HornType.getHornTypes(this.getLegRace())));
-						this.setSkinType(SkinType.HUMAN);
-						break;
-					case 3:
-						this.setLegConfiguration(LegConfiguration.TAUR, true);
-						break;
-					case 4:
-						this.setLegConfiguration(LegConfiguration.TAUR, true);
-						this.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(this.getLegRace())));
-						this.setArmType(Util.randomItemFrom(ArmType.getArmTypes(this.getLegRace())));
-						this.setBreastType(Util.randomItemFrom(BreastType.getBreastTypes(this.getLegRace())));
-						this.setEarType(Util.randomItemFrom(EarType.getEarTypes(this.getLegRace())));
-						this.setEyeType(Util.randomItemFrom(EyeType.getEyeTypes(this.getLegRace())));
-						this.setFaceType(Util.randomItemFrom(FaceType.getFaceTypes(this.getLegRace())));
-						this.setHairType(Util.randomItemFrom(HairType.getHairTypes(this.getLegRace())));
-						this.setHornType(Util.randomItemFrom(HornType.getHornTypes(this.getLegRace())));
-						this.setSkinType(Util.randomItemFrom(SkinType.getSkinTypes(this.getLegRace())));
-						break;
-					default:
-						break;
-				}
+				CharacterUtils.applyTaurConversion(this);
 			}
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.baseActions;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -316,7 +317,7 @@ public class TongueAnus {
 			SexActionType.ONGOING,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.THREE_DIRTY,
+			CorruptionLevel.ZERO_PURE,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS)),
 			SexParticipantType.NORMAL,
 			SexPace.SUB_RESISTING) {

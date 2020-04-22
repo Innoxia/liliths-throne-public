@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.item;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -15,9 +16,9 @@ import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -62,7 +63,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 
 		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
 		CharacterUtils.addAttribute(doc, element, "name", this.getName());
-		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
+		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().getId());
 		
 		Element innerElement = doc.createElement("itemEffects");
 		element.appendChild(innerElement);
@@ -95,12 +96,13 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 			
 			if(!effectsToBeAdded.isEmpty()
 					&& (item.getItemType().getId().equals(ItemType.ELIXIR.getId()) || item.getItemType().getId().equals(ItemType.POTION.getId()) || item.getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId()))) {
-				item.setSVGString(EnchantingUtils.getImportedSVGString(item, (parentElement.getAttribute("colour").isEmpty()?Colour.GENERIC_ARCANE:Colour.valueOf(parentElement.getAttribute("colour"))), effectsToBeAdded));
+				item.setSVGString(EnchantingUtils.getImportedSVGString(item, (parentElement.getAttribute("colour").isEmpty()?PresetColour.GENERIC_ARCANE:PresetColour.getColourFromId(parentElement.getAttribute("colour"))), effectsToBeAdded));
 			}
 			
 			return item;
 		} catch(Exception ex) {
 			System.err.println("Warning: An instance of AbstractItem was unable to be imported. ("+parentElement.getAttribute("id")+")");
+			ex.printStackTrace();
 			return null;
 		}
 	}

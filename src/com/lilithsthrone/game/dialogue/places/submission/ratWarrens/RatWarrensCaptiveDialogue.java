@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission.ratWarrens;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -62,9 +63,10 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -80,13 +82,6 @@ public class RatWarrensCaptiveDialogue {
 	private static CaptiveInteractionType playerInteraction;
 	private static boolean playerMurkSex;
 	private static Value<SexSlot, SexType> playerFuckedSexType;
-	
-	public static void applyDailyReset() {
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveCompanionGivenBirth, false);
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveOwnerCompanionSex, false);
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveOwnerSex, false);
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveDailyTransformed, false);
-	}
 	
 	private static List<GameCharacter> getCharacters(boolean includeCompanion, boolean includeMilkers) {
 		List<GameCharacter> guards = new ArrayList<>();
@@ -137,7 +132,7 @@ public class RatWarrensCaptiveDialogue {
 	}
 
 	public static String equipCollar(GameCharacter character, Colour collarColour) {
-		AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", collarColour, Colour.CLOTHING_STEEL, Colour.CLOTHING_GUNMETAL, false);
+		AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", collarColour, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_GUNMETAL, false);
 		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_ENSLAVEMENT, TFPotency.MINOR_BOOST, 0));
 		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_BOOST, 0));
 		collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_DRAIN, 0));
@@ -145,7 +140,7 @@ public class RatWarrensCaptiveDialogue {
 	}
 	
 	private static String equipRingGag(GameCharacter character) {
-		AbstractClothing gag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, Colour.CLOTHING_PINK_HOT, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_STEEL, false);
+		AbstractClothing gag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_STEEL, false);
 		gag.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.BOOST, 0));
 		gag.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_BOOST, 0));
 		return character.equipClothingFromNowhere(gag, true, getOwner());
@@ -879,7 +874,7 @@ public class RatWarrensCaptiveDialogue {
 							}
 							if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
 								return new Response("Spit",
-										"Due to your <b style='color:"+Colour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
+										"Due to your <b style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+Fetish.FETISH_TRANSFORMATION_RECEIVING.getName(Main.game.getPlayer())
 											+"</b> fetish, you love being transformed so much that you can't bring yourself to spit out the transformative liquid!",
 										null);
 							}
@@ -995,10 +990,10 @@ public class RatWarrensCaptiveDialogue {
 									return false;
 								}
 								if(playerFuckedSexType.getValue().getTargetedSexArea()==SexAreaOrifice.VAGINA) {
-									return !Capacity.isPenisSizeTooBig(Main.game.getPlayer().getVaginaElasticity(), Main.game.getPlayer().getVaginaStretchedCapacity(), getOwner().getPenisGirth(), getOwner().getPenisRawSizeValue(), true, false);
+									return !Capacity.isPenetrationDiameterTooBig(Main.game.getPlayer().getVaginaElasticity(), Main.game.getPlayer().getVaginaStretchedCapacity(), getOwner().getPenisDiameter(), true);
 								}
 								if(playerFuckedSexType.getValue().getTargetedSexArea()==SexAreaOrifice.ANUS) {
-									return !Capacity.isPenisSizeTooBig(Main.game.getPlayer().getAssElasticity(), Main.game.getPlayer().getAssStretchedCapacity(), getOwner().getPenisGirth(), getOwner().getPenisRawSizeValue(), true, false);
+									return !Capacity.isPenetrationDiameterTooBig(Main.game.getPlayer().getAssElasticity(), Main.game.getPlayer().getAssStretchedCapacity(), getOwner().getPenisDiameter(), true);
 								}
 								return true;
 							}
@@ -1101,7 +1096,7 @@ public class RatWarrensCaptiveDialogue {
 						@Override
 						public void effects() {
 							playerFuckedSexType =  new Value<>(SexSlotMilkingStall.BEHIND_MILKING_STALL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA));
-							AbstractClothing buttplug = AbstractClothingType.generateClothing("innoxia_buttPlug_butt_plug_jewel", Colour.CLOTHING_SILVER, Colour.CLOTHING_PINK_LIGHT, null, false);
+							AbstractClothing buttplug = AbstractClothingType.generateClothing("innoxia_buttPlug_butt_plug_jewel", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PINK_LIGHT, null, false);
 							buttplug.setSealed(true);
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(buttplug, true, getOwner()));
 						}
@@ -1918,7 +1913,7 @@ public class RatWarrensCaptiveDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_RELEASED_AFTER_SEX_LOCKED_UP", getCharacters(true, false)));
-						equipCollar(Main.game.getPlayer(), Colour.CLOTHING_PINK_LIGHT);
+						equipCollar(Main.game.getPlayer(), PresetColour.CLOTHING_PINK_LIGHT);
 					}
 				};
 				
@@ -1956,7 +1951,7 @@ public class RatWarrensCaptiveDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "STOCKS_RELEASED_OFFER_COMPANY_LOCKED_UP", getCharacters(true, false)));
-						equipCollar(Main.game.getPlayer(), Colour.CLOTHING_PINK_LIGHT);
+						equipCollar(Main.game.getPlayer(), PresetColour.CLOTHING_PINK_LIGHT);
 					}
 				};
 			}

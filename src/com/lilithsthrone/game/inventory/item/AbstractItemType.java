@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.item;
-import java.io.IOException;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,9 +21,10 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.84
@@ -83,17 +85,17 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		}
 
 		if (colourPrimary == null) {
-			this.colourPrimary = Colour.CLOTHING_BLACK;
+			this.colourPrimary = PresetColour.CLOTHING_BLACK;
 		} else {
 			this.colourPrimary = colourPrimary;
 		}
 		if (colourSecondary == null) {
-			this.colourSecondary = Colour.CLOTHING_BLACK;
+			this.colourSecondary = PresetColour.CLOTHING_BLACK;
 		} else {
 			this.colourSecondary = colourSecondary;
 		}
 		if (colourTertiary == null) {
-			this.colourTertiary = Colour.CLOTHING_BLACK;
+			this.colourTertiary = PresetColour.CLOTHING_BLACK;
 		} else {
 			this.colourTertiary = colourTertiary;
 		}

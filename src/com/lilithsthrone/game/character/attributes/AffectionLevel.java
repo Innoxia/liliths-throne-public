@@ -1,47 +1,49 @@
 package com.lilithsthrone.game.character.attributes;
-import com.lilithsthrone.game.character.GameCharacter;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.78
- * @version 0.1.86
+ * @version 0.3.7
  * @author Innoxia
  */
 public enum AffectionLevel {
 	
 	/** -100 to -90*/
-	NEGATIVE_FIVE_LOATHE("loathing", "loathes", -100, -90, Colour.AFFECTION_NEGATIVE_FIVE),
+	NEGATIVE_FIVE_LOATHE("loathing", "loathes", -100, -90, PresetColour.AFFECTION_NEGATIVE_FIVE),
 
 	/** -90 to -70*/
-	NEGATIVE_FOUR_HATE("hatred", "hates", -90, -70, Colour.AFFECTION_NEGATIVE_FOUR),
+	NEGATIVE_FOUR_HATE("hatred", "hates", -90, -70, PresetColour.AFFECTION_NEGATIVE_FOUR),
 
 	/** -70 to -50*/
-	NEGATIVE_THREE_STRONG_DISLIKE("strong dislike", "strongly dislikes", -70, -50, Colour.AFFECTION_NEGATIVE_THREE),
+	NEGATIVE_THREE_STRONG_DISLIKE("strong dislike", "strongly dislikes", -70, -50, PresetColour.AFFECTION_NEGATIVE_THREE),
 
 	/** -50 to -30*/
-	NEGATIVE_TWO_DISLIKE("dislike", "dislikes", -50, -30, Colour.AFFECTION_NEGATIVE_TWO),
+	NEGATIVE_TWO_DISLIKE("dislike", "dislikes", -50, -30, PresetColour.AFFECTION_NEGATIVE_TWO),
 
 	/** -30 to -10*/
-	NEGATIVE_ONE_ANNOYED("annoyed", "is annoyed with", -30, -10, Colour.AFFECTION_NEGATIVE_ONE),
+	NEGATIVE_ONE_ANNOYED("annoyed", "is annoyed with", -30, -10, PresetColour.AFFECTION_NEGATIVE_ONE),
 
 	/** -10 to 10*/
-	ZERO_NEUTRAL("neutral", "neither likes nor dislikes", -10, 10, Colour.AFFECTION_NEUTRAL),
+	ZERO_NEUTRAL("neutral", "neither likes nor dislikes", -10, 10, PresetColour.AFFECTION_NEUTRAL),
 
 	/** 10 to 30*/
-	POSITIVE_ONE_FRIENDLY("friendly", "is friendly towards", 10, 30, Colour.AFFECTION_POSITIVE_ONE),
+	POSITIVE_ONE_FRIENDLY("friendly", "is friendly towards", 10, 30, PresetColour.AFFECTION_POSITIVE_ONE),
 
 	/** 30 to 50*/
-	POSITIVE_TWO_LIKE("likes", "likes", 30, 50, Colour.AFFECTION_POSITIVE_TWO),
+	POSITIVE_TWO_LIKE("likes", "likes", 30, 50, PresetColour.AFFECTION_POSITIVE_TWO),
 
 	/** 50 to 70*/
-	POSITIVE_THREE_CARING("caring", "cares for", 50, 70, Colour.AFFECTION_POSITIVE_THREE),
+	POSITIVE_THREE_CARING("caring", "cares for", 50, 70, PresetColour.AFFECTION_POSITIVE_THREE),
 
 	/** 70 to 90*/
-	POSITIVE_FOUR_LOVE("love", "loves", 70, 90, Colour.AFFECTION_POSITIVE_FOUR),
+	POSITIVE_FOUR_LOVE("love", "loves", 70, 90, PresetColour.AFFECTION_POSITIVE_FOUR),
 
 	/** 90 to 100*/
-	POSITIVE_FIVE_WORSHIP("worshipping", "worships", 90, 100, Colour.AFFECTION_POSITIVE_FIVE);
+	POSITIVE_FIVE_WORSHIP("worshipping", "worships", 90, 100, PresetColour.AFFECTION_POSITIVE_FIVE);
 	
 	
 	private String name;
@@ -168,7 +170,7 @@ public enum AffectionLevel {
 	public int getMedianValue() {
 		return (minimumValue + maximumValue) / 2;
 	}
-
+	
 	public Colour getColour() {
 		return colour;
 	}
@@ -179,5 +181,13 @@ public enum AffectionLevel {
 				return al;
 		}
 		return POSITIVE_FIVE_WORSHIP;
+	}
+	
+	public boolean isLessThan(AffectionLevel levelToCompare) {
+		return this.getMedianValue()<levelToCompare.getMedianValue();
+	}
+	
+	public boolean isGreaterThan(AffectionLevel levelToCompare) {
+		return this.getMedianValue()>levelToCompare.getMedianValue();
 	}
 }

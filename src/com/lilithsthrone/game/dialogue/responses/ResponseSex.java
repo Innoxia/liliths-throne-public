@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.responses;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -27,9 +28,10 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.69
@@ -366,9 +368,9 @@ public class ResponseSex extends Response {
 	@Override
 	public Colour getHighlightColour() {
 		if(isPlayerDom()) {
-			return Colour.GENERIC_SEX_AS_DOM;
+			return PresetColour.GENERIC_SEX_AS_DOM;
 		} else {
-			return Colour.GENERIC_SEX;
+			return PresetColour.GENERIC_SEX;
 		}
 	}
 	

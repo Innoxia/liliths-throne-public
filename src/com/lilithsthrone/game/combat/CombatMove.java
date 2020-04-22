@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.combat;
-import java.io.IOException;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -16,10 +17,11 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * A class containing logic for Combat Moves. Additionally contains all the registered combat moves in the game.
@@ -79,7 +81,7 @@ public class CombatMove {
                 CombatMoveType.ATTACK,
                 DamageType.UNARMED,
                 "moves/strike",
-                Util.newArrayListOfValues(Colour.BASE_CRIMSON),
+                Util.newArrayListOfValues(PresetColour.BASE_CRIMSON),
                 false,
                 true,
                 false,
@@ -317,7 +319,7 @@ public class CombatMove {
                 CombatMoveType.ATTACK,
                 DamageType.UNARMED,
                 "moves/strike_offhand",
-                Util.newArrayListOfValues(Colour.BASE_ORANGE),
+                Util.newArrayListOfValues(PresetColour.BASE_ORANGE),
                 false,
                 true,
                 false,
@@ -555,7 +557,7 @@ public class CombatMove {
                 CombatMoveType.ATTACK,
                 DamageType.UNARMED,
                 "moves/strike_twin",
-                Util.newArrayListOfValues(Colour.BASE_CRIMSON, Colour.BASE_ORANGE),
+                Util.newArrayListOfValues(PresetColour.BASE_CRIMSON, PresetColour.BASE_ORANGE),
                 false,
                 true,
                 false,
@@ -807,7 +809,7 @@ public class CombatMove {
                 CombatMoveType.DEFEND,
                 DamageType.HEALTH,
                 "moves/block",
-                Util.newArrayListOfValues(Colour.BASE_GREY),
+                Util.newArrayListOfValues(PresetColour.BASE_GREY),
                 false,
                 false,
                 true,
@@ -1212,7 +1214,7 @@ public class CombatMove {
                 CombatMoveType.ATTACK,
                 DamageType.PHYSICAL,
                 "moves/arcane_strike",
-                Util.newArrayListOfValues(Colour.GENERIC_ARCANE),
+                Util.newArrayListOfValues(PresetColour.GENERIC_ARCANE),
                 false,
                 true,
                 false,
@@ -1250,7 +1252,7 @@ public class CombatMove {
                 				+ " to deal "
                 				+ getFormattedDamage(getDamageType(source), getDamage(source, target), null, false)
                 				+ " damage"
-                				+ " and gain <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+(getManaGain(source)*(isCrit?2:1))+" "+Attribute.MANA_MAXIMUM.getName()+"</span>.");
+                				+ " and gain <span style='color:" + PresetColour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+(getManaGain(source)*(isCrit?2:1))+" "+Attribute.MANA_MAXIMUM.getName()+"</span>.");
             }
 
             @Override
@@ -1258,7 +1260,7 @@ public class CombatMove {
                 return UtilText.parse(source,
                 		"Strike [npc.her] target with a bolt of pure arcane energy, dealing base "
                 				+ getFormattedDamage(getDamageType(source), getBaseDamage(source), null, false) + " damage"
-                				+ " and recovering base <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+getManaGain(source)+" "+Attribute.MANA_MAXIMUM.getName()+"</span>.");
+                				+ " and recovering base <span style='color:" + PresetColour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+getManaGain(source)+" "+Attribute.MANA_MAXIMUM.getName()+"</span>.");
             }
 
             @Override
@@ -1284,7 +1286,7 @@ public class CombatMove {
         		attackStringBuilder.append(formatAttackOutcome(source, target,
         				"Harnessing [npc.her] knowledge of the arcane, [npc.name] [npc.verb(focus)] on replenishing [npc.her] aura as [npc.she] [npc.verb(launch)] a bolt of pure arcane energy at [npc2.name]!"+damageValue.getKey(),
         				"[npc2.Name] took " + getFormattedDamage(getDamageType(source), dealtDamage, target, true) + " damage, while [npc.name] recovered"
-        						+ " <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+manaGain+" "+Attribute.MANA_MAXIMUM.getName()+"</span>!",
+        						+ " <span style='color:" + PresetColour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+manaGain+" "+Attribute.MANA_MAXIMUM.getName()+"</span>!",
         				isCrit?"":null,
         				isCrit?"Aura gain was doubled!":""));
         		
@@ -1326,7 +1328,7 @@ public class CombatMove {
             CombatMoveType.DEFEND,
             DamageType.HEALTH,
             "moves/block",
-            Util.newArrayListOfValues(Colour.GENERIC_MINOR_GOOD),
+            Util.newArrayListOfValues(PresetColour.GENERIC_MINOR_GOOD),
             false,
             false,
             true,
@@ -1490,7 +1492,7 @@ public class CombatMove {
 				damage /= 2;
 			}
 			return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(damage*2) + " " + damageType.getName() + "</span>"
-					+ " and <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>" + String.valueOf(damage) + " " + Attribute.MANA_MAXIMUM.getName() + "</span>";
+					+ " and <span style='color:" + PresetColour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>" + String.valueOf(damage) + " " + Attribute.MANA_MAXIMUM.getName() + "</span>";
 		}
 		return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(damage) + " " + damageType.getName() + "</span>";
 	}
@@ -1523,7 +1525,7 @@ public class CombatMove {
 		
 		if(criticalText!=null) {
 			sb.append("<p>"
-							+ "<span style='color:"+Colour.CRIT.toWebHexString()+";'>Critical</span>: <i>"+criticalEffectText+"</i>"
+							+ "<span style='color:"+PresetColour.CRIT.toWebHexString()+";'>Critical</span>: <i>"+criticalEffectText+"</i>"
 						+ "</p>");
 		}
 		

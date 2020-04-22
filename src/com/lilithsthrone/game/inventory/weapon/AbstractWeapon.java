@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.weapon;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +29,10 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -159,9 +161,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append(WeaponType.getIdFromWeaponType(this.getWeaponType()));
-		sb.append(this.getColour().toString());
-		sb.append(this.getSecondaryColour()!=null?this.getSecondaryColour().toString():"ns");
-		sb.append(this.getTertiaryColour()!=null?this.getTertiaryColour().toString():"nt");
+		sb.append(this.getColour().getId());
+		sb.append(this.getSecondaryColour()!=null?this.getSecondaryColour().getId():"ns");
+		sb.append(this.getTertiaryColour()!=null?this.getTertiaryColour().getId():"nt");
 		sb.append(this.getDamageType().toString());
 		sb.append(this.getCoreEnchantment()==null?"ne":this.getCoreEnchantment().toString());
 		
@@ -226,9 +228,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		CharacterUtils.addAttribute(doc, element, "name", name);
 		CharacterUtils.addAttribute(doc, element, "damageType", this.getDamageType().toString());
 		CharacterUtils.addAttribute(doc, element, "coreEnchantment", (this.getCoreEnchantment()==null?"null":this.getCoreEnchantment().toString()));
-		CharacterUtils.addAttribute(doc, element, "colourPrimary", this.getPrimaryColour().toString());
-		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
-		CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().toString());
+		CharacterUtils.addAttribute(doc, element, "colourPrimary", this.getPrimaryColour().getId());
+		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().getId());
+		CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().getId());
 		
 		Element innerElement = doc.createElement("effects");
 		element.appendChild(innerElement);
@@ -277,9 +279,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		
 		// Try to load colour:
 		try {
-			weapon.setPrimaryColour(Colour.valueOf(parentElement.getAttribute("colourPrimary")));
-			weapon.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
-			weapon.setTertiaryColour(Colour.valueOf(parentElement.getAttribute("colourTertiary")));
+			weapon.setPrimaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colourPrimary")));
+			weapon.setSecondaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colourSecondary")));
+			weapon.setTertiaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colourTertiary")));
 		} catch(Exception ex) {
 		}
 
@@ -415,7 +417,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		descriptionSB.append("<p>It has a value of " + UtilText.formatAsMoney(getValue()) + ".</p>");
 
 		if (getWeaponType().getClothingSet() != null) {
-			descriptionSB.append("<p>" + (getWeaponType().isPlural() ? "They are" : "It is") + " part of the <b style='color:" + Colour.RARITY_EPIC.toWebHexString() + ";'>"
+			descriptionSB.append("<p>" + (getWeaponType().isPlural() ? "They are" : "It is") + " part of the <b style='color:" + PresetColour.RARITY_EPIC.toWebHexString() + ";'>"
 					+ getWeaponType().getClothingSet().getName() + "</b> set." + "</p>");
 		}
 		
@@ -426,16 +428,16 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	public int getValue() {
 		float runningTotal = this.getWeaponType().getBaseValue();
 
-		if (this.getPrimaryColour() == Colour.CLOTHING_PLATINUM) {
+		if (this.getPrimaryColour() == PresetColour.CLOTHING_PLATINUM) {
 			runningTotal *= 2f;
 			
-		} else if (this.getPrimaryColour() == Colour.CLOTHING_GOLD) {
+		} else if (this.getPrimaryColour() == PresetColour.CLOTHING_GOLD) {
 			runningTotal *= 1.75f;
 			
-		} else if (this.getPrimaryColour() == Colour.CLOTHING_ROSE_GOLD) {
+		} else if (this.getPrimaryColour() == PresetColour.CLOTHING_ROSE_GOLD) {
 			runningTotal *= 1.5f;
 			
-		} else if (this.getPrimaryColour() == Colour.CLOTHING_SILVER) {
+		} else if (this.getPrimaryColour() == PresetColour.CLOTHING_SILVER) {
 			runningTotal *= 1.25f;
 		}
 		

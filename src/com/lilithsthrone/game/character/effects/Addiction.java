@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.effects;
-import java.util.HashSet;
+
+import java.util.HashSet;
 import java.util.Set;
 
 import org.w3c.dom.Document;

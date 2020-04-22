@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.positions;
-import java.util.Collections;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -100,7 +101,7 @@ public abstract class AbstractSexPosition {
 				if(action.getSexAreaInteractions().containsKey(SexAreaPenetration.PENIS)
 						&& Collections.disjoint(action.getSexAreaInteractions().values(), SexActionPresets.appendageAreas)) {
 					boolean ongoingAllowedFound = false;
-					for(SexAreaInterface sa : Main.sex.getContactingSexAreas(target, SexAreaPenetration.PENIS, performer)) {
+					for(SexAreaInterface sa : Main.sex.getOngoingSexAreas(target, SexAreaPenetration.PENIS, performer)) {
 						if(!SexActionPresets.allowedInterPenetrationAreas.contains(sa)) {
 							return true;
 						} else if(sa==SexAreaOrifice.VAGINA) {
@@ -121,7 +122,7 @@ public abstract class AbstractSexPosition {
 				if(action.getSexAreaInteractions().values().contains(SexAreaPenetration.PENIS)
 						&& Collections.disjoint(action.getSexAreaInteractions().keySet(), SexActionPresets.appendageAreas)) {
 					boolean ongoingAllowedFound = false;
-					for(SexAreaInterface sa : Main.sex.getContactingSexAreas(performer, SexAreaPenetration.PENIS, target)) {
+					for(SexAreaInterface sa : Main.sex.getOngoingSexAreas(performer, SexAreaPenetration.PENIS, target)) {
 						if(!SexActionPresets.allowedInterPenetrationAreas.contains(sa)) {
 							return true;
 						} else if(sa==SexAreaOrifice.VAGINA) {

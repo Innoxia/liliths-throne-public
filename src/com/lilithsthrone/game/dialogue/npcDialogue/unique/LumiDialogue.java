@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.unique;
-import com.lilithsthrone.game.PropertyValue;
+
+import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.dominion.Lumi;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;

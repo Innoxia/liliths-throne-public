@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>120</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[piercing ring]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[piercing rings]]></namePlural>
+		<description><![CDATA[A ring that's designed to fit into a pierced penis. A removable segment on one side allows the wearer to easily slide the ring into place.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>PIERCING_PENIS</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>penis_ring.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL_METAL"/> 
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pop)] out the removable segment and [npc.verb(slide)] the ring into [npc.her] pierced [npc.cock].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pop)] out the removable segment and [npc.verb(slide)] the ring into [npc2.namePos] pierced [npc2.cock].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(pop)] out the removable segment and roughly [npc.verb(slide)] the ring into [npc2.namePos] pierced [npc2.cock].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pop)] out the removable segment and [npc.verb(slide)] the ring out of [npc.her] pierced [npc.cock].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pop)] out the removable segment and [npc.verb(slide)] the ring out of [npc2.namePos] pierced [npc2.cock].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(pop)] out the removable segment and roughly [npc.verb(pull)] the ring out of [npc2.namePos] pierced [npc2.cock].]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

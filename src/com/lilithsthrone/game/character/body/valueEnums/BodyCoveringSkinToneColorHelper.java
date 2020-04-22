@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.List;
@@ -7,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
 
 public class BodyCoveringSkinToneColorHelper {
 	private static final List<BodyCoveringType> NOT_FOR_THESE_BCTS = 

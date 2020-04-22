@@ -1,12 +1,14 @@
 package com.lilithsthrone.world;
-import java.awt.Color;
+
+import java.awt.Color;
 import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -20,7 +22,7 @@ public enum WorldType {
 	// Dominion:
 	
 	WORLD_MAP("Lilith's Realm",
-			Colour.BASE_TAN,
+			PresetColour.BASE_TAN,
 			1,
 			true,
 			TeleportPermissions.BOTH,
@@ -71,7 +73,7 @@ public enum WorldType {
 	
 	
 	DOMINION("Dominion",
-			Colour.BASE_PURPLE,
+			PresetColour.BASE_PURPLE,
 			1,
 			true,
 			TeleportPermissions.BOTH,
@@ -83,6 +85,7 @@ public enum WorldType {
 					new Value<>(new Color(0x404040), PlaceType.DOMINION_BOULEVARD),
 					new Value<>(new Color(0x808000), PlaceType.DOMINION_EXIT_TO_SUBMISSION),
 					
+					new Value<>(new Color(0xbf8000), PlaceType.DOMINION_BACK_ALLEYS_SAFE),
 					new Value<>(new Color(0xc10000), PlaceType.DOMINION_BACK_ALLEYS),
 					new Value<>(new Color(0x5b0000), PlaceType.DOMINION_DARK_ALLEYS),
 					new Value<>(new Color(0x40b4ff), PlaceType.DOMINION_ALLEYS_CANAL_CROSSING),
@@ -95,7 +98,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff9100), PlaceType.DOMINION_DEMON_HOME_ARTHUR),
 					new Value<>(new Color(0x8000ff), PlaceType.DOMINION_CITY_HALL),
 					new Value<>(new Color(0xff00ff), PlaceType.DOMINION_LILITHS_TOWER),
-
+					
 					new Value<>(new Color(0x8080ff), PlaceType.DOMINION_EXIT_WEST),
 					new Value<>(new Color(0xff4a00), PlaceType.DOMINION_EXIT_NORTH),
 					new Value<>(new Color(0x008040), PlaceType.DOMINION_EXIT_EAST),
@@ -103,7 +106,7 @@ public enum WorldType {
 					
 					new Value<>(new Color(0x008080), PlaceType.DOMINION_STREET_HARPY_NESTS),
 					new Value<>(new Color(0x00ff80), PlaceType.DOMINION_HARPY_NESTS_ENTRANCE),
-
+					
 					new Value<>(new Color(0x004000), PlaceType.DOMINION_PLAZA),
 					new Value<>(new Color(0x00ffff), PlaceType.DOMINION_AUNTS_HOME),
 					new Value<>(new Color(0xffff00), PlaceType.DOMINION_SHOPPING_ARCADE),
@@ -111,14 +114,15 @@ public enum WorldType {
 					new Value<>(new Color(0x000080), PlaceType.DOMINION_NIGHTLIFE_DISTRICT),
 					new Value<>(new Color(0xff0000), PlaceType.DOMINION_SLAVER_ALLEY),
 					new Value<>(new Color(0x4bff00), PlaceType.DOMINION_PARK),
-					new Value<>(new Color(0xff4000), PlaceType.DOMINION_RED_LIGHT_DISTRICT)
-					
+					new Value<>(new Color(0xff4000), PlaceType.DOMINION_RED_LIGHT_DISTRICT),
+					new Value<>(new Color(0xffbf00), PlaceType.DOMINION_HOME_IMPROVEMENT),
+					new Value<>(new Color(0xff0080), PlaceType.DOMINION_WAREHOUSES)
 					)),
 	
 
 	// Empty:
 	EMPTY("City",
-			Colour.BASE_BROWN,
+			PresetColour.BASE_BROWN,
 			1,
 			false,
 			TeleportPermissions.NONE,
@@ -130,7 +134,7 @@ public enum WorldType {
 					new Value<>(new Color(0x0080ff), PlaceType.GENERIC_MUSEUM))),
 
 	MUSEUM("Museum",
-			Colour.BASE_BROWN,
+			PresetColour.BASE_BROWN,
 			1,
 			false,
 			TeleportPermissions.NONE,
@@ -151,7 +155,7 @@ public enum WorldType {
 	},
 
 	MUSEUM_LOST("Museum",
-			Colour.BASE_BROWN,
+			PresetColour.BASE_BROWN,
 			1,
 			false,
 			TeleportPermissions.NONE,
@@ -168,7 +172,7 @@ public enum WorldType {
 	},
 	
 	LILAYAS_HOUSE_GROUND_FLOOR("Lilaya's Home GF",
-			Colour.BASE_BLUE_LIGHT,
+			PresetColour.BASE_BLUE_LIGHT,
 			1,
 			true,
 			TeleportPermissions.BOTH,
@@ -193,7 +197,7 @@ public enum WorldType {
 	},
 	
 	LILAYAS_HOUSE_FIRST_FLOOR("Lilaya's Home 1F",
-			Colour.BASE_BLUE_LIGHT,
+			PresetColour.BASE_BLUE_LIGHT,
 			1,
 			true,
 			TeleportPermissions.BOTH,
@@ -214,7 +218,7 @@ public enum WorldType {
 	},
 	
 	ZARANIX_HOUSE_FIRST_FLOOR("Zaranix's Home 1F",
-			Colour.BASE_CRIMSON,
+			PresetColour.BASE_CRIMSON,
 			1,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -228,7 +232,7 @@ public enum WorldType {
 					new Value<>(new Color(0x8000ff), PlaceType.ZARANIX_FF_MAID))),
 	
 	ZARANIX_HOUSE_GROUND_FLOOR("Zaranix's Home GF",
-			Colour.BASE_CRIMSON,
+			PresetColour.BASE_CRIMSON,
 			1,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -246,7 +250,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff8000), PlaceType.ZARANIX_GF_GARDEN_ENTRY))),
 
 	HARPY_NEST("Harpy Nests",
-			Colour.BASE_CRIMSON,
+			PresetColour.BASE_CRIMSON,
 			1,
 			true,
 			TeleportPermissions.BOTH,
@@ -264,7 +268,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff9100), PlaceType.HARPY_NESTS_HELENAS_NEST))),
 	
 	SLAVER_ALLEY("Slaver Alley",
-			Colour.BASE_RED,
+			PresetColour.BASE_RED,
 			1,
 			true,
 			TeleportPermissions.BOTH,
@@ -295,7 +299,7 @@ public enum WorldType {
 					new Value<>(new Color(0x00ff00), PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))),
 	
 	SHOPPING_ARCADE("Shopping Arcade",
-			Colour.BASE_YELLOW,
+			PresetColour.BASE_YELLOW,
 			1,
 			true,
 			TeleportPermissions.BOTH,
@@ -311,7 +315,8 @@ public enum WorldType {
 					new Value<>(new Color(0xff8000), PlaceType.SHOPPING_ARCADE_KATES_SHOP),
 					new Value<>(new Color(0xff00ff), PlaceType.SHOPPING_ARCADE_GENERIC_SHOP),
 					new Value<>(new Color(0x008000), PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP),
-					new Value<>(new Color(0x00ff00), PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT)
+					new Value<>(new Color(0x00ff00), PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT),
+					new Value<>(new Color(0x808000), PlaceType.SHOPPING_ARCADE_ANTIQUES)
 					)){
 		@Override
 		public boolean isRevealedOnStart() {
@@ -320,7 +325,7 @@ public enum WorldType {
 	},
 	
 	SUPPLIER_DEN("Supplier Depot",
-			Colour.BASE_CRIMSON,
+			PresetColour.BASE_CRIMSON,
 			1,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -334,7 +339,7 @@ public enum WorldType {
 					new Value<>(new Color(0x00ff00), PlaceType.SUPPLIER_DEPOT_OFFICE))),
 	
 	ENFORCER_HQ("Enforcer HQ",
-			Colour.BASE_BLUE,
+			PresetColour.BASE_BLUE,
 			1,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -360,7 +365,7 @@ public enum WorldType {
 					)),
 
 	ENFORCER_WAREHOUSE("SWORD Warehouse",
-			Colour.BASE_BLUE,
+			PresetColour.BASE_BLUE,
 			1,
 			false,
 			TeleportPermissions.NONE,
@@ -381,14 +386,10 @@ public enum WorldType {
 					new Value<>(new Color(0xff8000), PlaceType.ENFORCER_WAREHOUSE_CRATES),
 					new Value<>(new Color(0xffff00), PlaceType.ENFORCER_WAREHOUSE_CRATES_ARK),
 					new Value<>(new Color(0xff00ff), PlaceType.ENFORCER_WAREHOUSE_CRATES_LUST_WEAPON),
-					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_WAREHOUSE_CRATES_SPELL_BOOK)
-
-					
-					
-					)),
+					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_WAREHOUSE_CRATES_SPELL_BOOK))),
 	
 	CITY_HALL("City Hall",
-			Colour.BASE_PURPLE,
+			PresetColour.BASE_PURPLE,
 			1,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -405,8 +406,42 @@ public enum WorldType {
 					new Value<>(new Color(0xff00ff), PlaceType.CITY_HALL_ARCHIVES),
 					new Value<>(new Color(0xffff80), PlaceType.CITY_HALL_BUREAU_OF_PROPERTY_RIGHTS_AND_COMMERCE))),
 	
+
+	HOME_IMPROVEMENTS("Argus's DIY Depot",
+			PresetColour.BASE_ORANGE,
+			1,
+			false,
+			TeleportPermissions.OUTGOING_ONLY,
+			"/com/lilithsthrone/res/map/dominion/homeImprovements/homeImprovements.png",
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.HOME_IMPROVEMENTS_ENTRANCE, Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.HOME_IMPROVEMENTS_CORRIDOR),
+					new Value<>(new Color(0x00ff00), PlaceType.HOME_IMPROVEMENTS_ENTRANCE),
+					new Value<>(new Color(0xffff00), PlaceType.HOME_IMPROVEMENTS_SHELVING_PREMIUM),
+					new Value<>(new Color(0xff80ff), PlaceType.HOME_IMPROVEMENTS_SHELVING_STANDARD),
+					new Value<>(new Color(0xff8000), PlaceType.HOME_IMPROVEMENTS_BUILDING_SUPPLIES),
+					new Value<>(new Color(0xff0080), PlaceType.HOME_IMPROVEMENTS_OFFICE),
+					new Value<>(new Color(0x00ffff), PlaceType.HOME_IMPROVEMENTS_TOILETS))),
+
+	
+	DOMINION_EXPRESS("Dominion Express",
+			PresetColour.BASE_BROWN,
+			1,
+			false,
+			TeleportPermissions.OUTGOING_ONLY,
+			"/com/lilithsthrone/res/map/dominion/dominionExpress/dominionExpress.png",
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.HOME_IMPROVEMENTS_ENTRANCE, Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.DOMINION_EXPRESS_CORRIDOR),
+					new Value<>(new Color(0xff0000), PlaceType.DOMINION_EXPRESS_EXIT),
+					new Value<>(new Color(0xff00ff), PlaceType.DOMINION_EXPRESS_STORAGE),
+					new Value<>(new Color(0x00ffff), PlaceType.DOMINION_EXPRESS_OFFICE),
+					new Value<>(new Color(0xffff00), PlaceType.DOMINION_EXPRESS_OFFICE_STABLE),
+					new Value<>(new Color(0xff8000), PlaceType.DOMINION_EXPRESS_STABLES))),
+	
+	
 	ANGELS_KISS_GROUND_FLOOR("Angel's Kiss GF",
-			Colour.BASE_MAGENTA,
+			PresetColour.BASE_MAGENTA,
 			1,
 			false,
 			TeleportPermissions.BOTH,
@@ -420,7 +455,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff00ff), PlaceType.ANGELS_KISS_BEDROOM))),
 	
 	ANGELS_KISS_FIRST_FLOOR("Angel's Kiss 1F",
-			Colour.BASE_MAGENTA,
+			PresetColour.BASE_MAGENTA,
 			1,
 			false,
 			TeleportPermissions.BOTH,
@@ -434,7 +469,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff8000), PlaceType.ANGELS_KISS_BEDROOM_LOPPY))),
 	
 	NIGHTLIFE_CLUB("The Watering Hole",
-			Colour.BASE_BLUE,
+			PresetColour.BASE_BLUE,
 			1,
 			false,
 			TeleportPermissions.NONE,
@@ -459,7 +494,7 @@ public enum WorldType {
 	},
 	
 	DADDYS_APARTMENT("Daddy's apartment",
-			Colour.RACE_DEMON,
+			PresetColour.RACE_DEMON,
 			1,
 			false,
 			TeleportPermissions.NONE,
@@ -482,10 +517,39 @@ public enum WorldType {
 		}
 	},
 	
+	HELENAS_APARTMENT("Helena's apartment",
+			PresetColour.BASE_GOLD,
+			1,
+			false,
+			TeleportPermissions.NONE,
+			"/com/lilithsthrone/res/map/dominion/helenaApartment/apartment.png",
+			PlaceType.WORLD_MAP_DOMINION, PlaceType.DOMINION_HELENA_HOTEL, Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					
+					new Value<>(new Color(0x808080), PlaceType.HELENA_APARTMENT_HALLWAY),
+					new Value<>(new Color(0x00ffff), PlaceType.HELENA_APARTMENT_BALCONY),
+					
+					new Value<>(new Color(0x00ff00), PlaceType.HELENA_APARTMENT_ENTRANCE),
+					new Value<>(new Color(0xff00ff), PlaceType.HELENA_APARTMENT_HELENA_BEDROOM),
+					new Value<>(new Color(0xff0080), PlaceType.HELENA_APARTMENT_SCARLETT_BEDROOM),
+					new Value<>(new Color(0xff80ff), PlaceType.HELENA_APARTMENT_BEDROOM),
+					new Value<>(new Color(0x0000ff), PlaceType.HELENA_APARTMENT_BATHROOM),
+					new Value<>(new Color(0x8080ff), PlaceType.HELENA_APARTMENT_OFFICE),
+					new Value<>(new Color(0xff8000), PlaceType.HELENA_APARTMENT_KITCHEN),
+					new Value<>(new Color(0x008000), PlaceType.HELENA_APARTMENT_DINING_ROOM),
+					new Value<>(new Color(0xffff00), PlaceType.HELENA_APARTMENT_LOUNGE),
+					new Value<>(new Color(0x8000ff), PlaceType.HELENA_APARTMENT_HOT_TUB)
+					)){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
+	
 	// Other:
 
 	SUBMISSION("Submission",
-			Colour.BASE_GREEN,
+			PresetColour.BASE_GREEN,
 			1,
 			true,
 			TeleportPermissions.BOTH,
@@ -521,7 +585,7 @@ public enum WorldType {
 
 
 	LYSSIETH_PALACE("Lyssieth's Palace",
-			Colour.BASE_PURPLE,
+			PresetColour.BASE_PURPLE,
 			1,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -543,7 +607,7 @@ public enum WorldType {
 					)),
 	
 	IMP_FORTRESS_ALPHA("Imp Fortress A",
-			Colour.BASE_CRIMSON,
+			PresetColour.BASE_CRIMSON,
 			1,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -560,7 +624,7 @@ public enum WorldType {
 	},
 
 	IMP_FORTRESS_DEMON("Imp Citadel",
-			Colour.BASE_PURPLE,
+			PresetColour.BASE_PURPLE,
 			1,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -583,7 +647,7 @@ public enum WorldType {
 	},
 
 	IMP_FORTRESS_FEMALES("Imp Fortress F",
-			Colour.BASE_PINK,
+			PresetColour.BASE_PINK,
 			1,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -600,7 +664,7 @@ public enum WorldType {
 	},
 
 	IMP_FORTRESS_MALES("Imp Fortress M",
-			Colour.BASE_BLUE,
+			PresetColour.BASE_BLUE,
 			1,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -617,7 +681,7 @@ public enum WorldType {
 	},
 
 	BAT_CAVERNS("Bat Caverns",
-			Colour.BASE_BLACK,
+			PresetColour.BASE_BLACK,
 			1,
 			true,
 			TeleportPermissions.BOTH,
@@ -637,7 +701,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff80ff), PlaceType.BAT_CAVERN_SLIME_QUEEN_LAIR))),
 
 	SLIME_QUEENS_LAIR_GROUND_FLOOR("Slime Queen's Tower GF",
-			Colour.BASE_PINK,
+			PresetColour.BASE_PINK,
 			1,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -658,7 +722,7 @@ public enum WorldType {
 					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))),
 
 	SLIME_QUEENS_LAIR_FIRST_FLOOR("Slime Queen's Tower 1F",
-			Colour.BASE_PINK,
+			PresetColour.BASE_PINK,
 			1,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -676,7 +740,7 @@ public enum WorldType {
 					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))),
 
 	GAMBLING_DEN("Gambling Den",
-			Colour.BASE_GOLD,
+			PresetColour.BASE_GOLD,
 			1,
 			false,
 			TeleportPermissions.OUTGOING_ONLY,
@@ -704,7 +768,7 @@ public enum WorldType {
 	},
 	
 	RAT_WARRENS("Rat Warrens",
-			Colour.BASE_BROWN,
+			PresetColour.BASE_BROWN,
 			1,
 			false,
 			TeleportPermissions.NONE,

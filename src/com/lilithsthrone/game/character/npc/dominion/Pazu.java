@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
-import java.time.Month;
+
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -23,7 +24,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -58,10 +59,10 @@ public class Pazu extends NPC {
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_PINK));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.COVERING_LILAC), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.COVERING_LILAC), true);
-			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, PresetColour.EYE_PINK));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, PresetColour.COVERING_LILAC), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, PresetColour.COVERING_LILAC), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
 	
 			this.setAssVirgin(true);
 			this.setFaceVirgin(true);
@@ -81,7 +82,7 @@ public class Pazu extends NPC {
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_ORAL_GIVING);
 	
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_shorts", Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_shorts", PresetColour.CLOTHING_WHITE, false), true, this);
 		}
 	}
 	

@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * Arbitrary measurements in increments of 1, going from 0 to 7.
@@ -11,21 +13,21 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum HipSize {
 	
-	ZERO_NO_HIPS("completely straight", 0, Colour.GENERIC_SIZE_ONE),
+	ZERO_NO_HIPS("completely straight", 0, PresetColour.GENERIC_SIZE_ONE),
 	
-	ONE_VERY_NARROW("very narrow", 1, Colour.GENERIC_SIZE_TWO),
+	ONE_VERY_NARROW("very narrow", 1, PresetColour.GENERIC_SIZE_TWO),
 	
-	TWO_NARROW("narrow", 2, Colour.GENERIC_SIZE_THREE),
+	TWO_NARROW("narrow", 2, PresetColour.GENERIC_SIZE_THREE),
 	
-	THREE_GIRLY("girly", 3, Colour.GENERIC_SIZE_FOUR),
+	THREE_GIRLY("girly", 3, PresetColour.GENERIC_SIZE_FOUR),
 	
-	FOUR_WOMANLY("womanly", 4, Colour.GENERIC_SIZE_FIVE),
+	FOUR_WOMANLY("womanly", 4, PresetColour.GENERIC_SIZE_FIVE),
 	
-	FIVE_VERY_WIDE("very wide", 5, Colour.GENERIC_SIZE_SIX),
+	FIVE_VERY_WIDE("very wide", 5, PresetColour.GENERIC_SIZE_SIX),
 	
-	SIX_EXTREMELY_WIDE("extremely wide", 6, Colour.GENERIC_SIZE_SEVEN),
+	SIX_EXTREMELY_WIDE("extremely wide", 6, PresetColour.GENERIC_SIZE_SEVEN),
 	
-	SEVEN_ABSURDLY_WIDE("absurdly wide", 7, Colour.GENERIC_SIZE_EIGHT);
+	SEVEN_ABSURDLY_WIDE("absurdly wide", 7, PresetColour.GENERIC_SIZE_EIGHT);
 
 	
 	private String descriptor;

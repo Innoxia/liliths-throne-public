@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -454,6 +455,8 @@ public class SexType implements XMLSaving {
 					break;
 				case FETISH_FOOT_RECEIVING:
 					oppositeFetishes.add(Fetish.FETISH_FOOT_GIVING);
+					break;
+				case FETISH_SIZE_QUEEN:
 					break;
 			}
 		}

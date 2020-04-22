@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.attributes;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.95
@@ -9,13 +11,13 @@ package com.lilithsthrone.game.character.attributes;
 public enum ObedienceLevelBasic {
 
 	/** -100 to -30*/
-	DISOBEDIENT("disobedient", -100, -30, Colour.AFFECTION_NEGATIVE_FIVE),
+	DISOBEDIENT("disobedient", -100, -30, PresetColour.AFFECTION_NEGATIVE_FIVE),
 
 	/** -30 to 30*/
-	NEUTRAL("neutral", -30, 30, Colour.AFFECTION_NEUTRAL),
+	NEUTRAL("neutral", -30, 30, PresetColour.AFFECTION_NEUTRAL),
 
 	/** 30 to 100*/
-	OBEDIENT("obedient", 30, 100, Colour.AFFECTION_POSITIVE_FIVE);
+	OBEDIENT("obedient", 30, 100, PresetColour.AFFECTION_POSITIVE_FIVE);
 	
 	
 	private String name;

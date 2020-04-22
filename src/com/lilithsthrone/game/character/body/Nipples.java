@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -21,7 +22,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.3.1
+ * @version 0.3.7
  * @author Innoxia
  */
 public class Nipples implements BodyPartInterface {
@@ -35,13 +36,13 @@ public class Nipples implements BodyPartInterface {
 	protected boolean pierced;
 	protected boolean crotchNipples;
 
-	public Nipples(NippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, int wetness, float capacity, int elasticity, int plasticity, boolean virgin, boolean crotchNipples) {
+	public Nipples(NippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin, boolean crotchNipples) {
 		this.type = type;
 		this.nippleSize = nippleSize;
 		this.nippleShape = nippleShape;
 		areolaeShape = AreolaeShape.NORMAL;
 		this.areolaeSize = areolaeSize;
-		orificeNipples = new OrificeNipples(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
+		orificeNipples = new OrificeNipples(wetness, capacity, depth, elasticity, plasticity, virgin, crotchNipples, type.getDefaultRacialOrificeModifiers());
 		this.crotchNipples = crotchNipples;
 	}
 	

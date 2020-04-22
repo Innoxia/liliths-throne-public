@@ -1,8 +1,10 @@
 package com.lilithsthrone.game.occupantManagement;
-import java.util.List;
 
-import com.lilithsthrone.utils.Colour;
+import java.util.List;
+
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.87
@@ -12,7 +14,7 @@ import com.lilithsthrone.utils.Util;
 public enum SlavePermission {
 
 
-	BEHAVIOUR(Colour.BASE_TEAL,
+	BEHAVIOUR(PresetColour.BASE_TEAL,
 			"Behaviour",
 			Util.newArrayListOfValues(
 					SlavePermissionSetting.BEHAVIOUR_SLUTTY,
@@ -22,7 +24,7 @@ public enum SlavePermission {
 					SlavePermissionSetting.BEHAVIOUR_WHOLESOME),
 			true),
 	
-	GENERAL(Colour.TRANSFORMATION_GENERIC,
+	GENERAL(PresetColour.TRANSFORMATION_GENERIC,
 			"General",
 			Util.newArrayListOfValues(
 					SlavePermissionSetting.GENERAL_SILENCE,
@@ -31,7 +33,7 @@ public enum SlavePermission {
 					SlavePermissionSetting.GENERAL_OUTSIDE_FREEDOM),
 			false),
 	
-	SEX(Colour.GENERIC_SEX,
+	SEX(PresetColour.GENERIC_SEX,
 			"Sex",
 			Util.newArrayListOfValues(
 					SlavePermissionSetting.SEX_MASTURBATE,
@@ -42,7 +44,7 @@ public enum SlavePermission {
 					SlavePermissionSetting.SEX_IMPREGNATE),
 			false),
 
-	PREGNANCY(Colour.BASE_PURPLE_LIGHT,
+	PREGNANCY(PresetColour.BASE_PURPLE_LIGHT,
 			"Pregnancy",
 			Util.newArrayListOfValues(
 					SlavePermissionSetting.PREGNANCY_PROMISCUITY_PILLS,
@@ -50,7 +52,7 @@ public enum SlavePermission {
 					SlavePermissionSetting.PREGNANCY_VIXENS_VIRILITY),
 			true),
 	
-	DIET(Colour.BODY_SIZE_TWO,
+	DIET(PresetColour.BODY_SIZE_TWO,
 			"Diet",
 			Util.newArrayListOfValues(
 					SlavePermissionSetting.FOOD_DIET_EXTREME,
@@ -60,7 +62,7 @@ public enum SlavePermission {
 					SlavePermissionSetting.FOOD_LAVISH),
 			true),
 
-	EXERCISE(Colour.MUSCLE_TWO,
+	EXERCISE(PresetColour.MUSCLE_TWO,
 			"Exercise",
 			Util.newArrayListOfValues(
 					SlavePermissionSetting.EXERCISE_FORBIDDEN,
@@ -70,7 +72,7 @@ public enum SlavePermission {
 					SlavePermissionSetting.EXERCISE_BODY_BUILDING),
 			true),
 	
-	CLEANLINESS(Colour.BASE_BLUE_LIGHT,
+	CLEANLINESS(PresetColour.BASE_BLUE_LIGHT,
 			"Cleanliness",
 			Util.newArrayListOfValues(
 					SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES,

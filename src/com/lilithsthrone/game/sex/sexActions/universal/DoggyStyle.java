@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.universal;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -569,7 +570,7 @@ public class DoggyStyle {
 				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "As [npc.name] [npc.verb(slide)] [npc.her] still-throbbing shaft out from [npc2.namePos] well-used [npc2.ass], [npc.she] [npc.verb(feel)] a second orgasm building deep in [npc.her] groin."
 						+ " Grabbing [npc2.namePos] hips to brace [npc.herself], [npc.name] [npc.verb(start)] to go weak at the knees before clenching [npc.her] thighs together as [npc.her] [npc.ass+] shudders and quivers."
-						+ " A mind-splitting orgasm washes through [npc.her], and [npc.name] [npc.moanVerb] in delight as [npc.her] feminine sex joins in on the fun.");
+						+ " A mind-splitting orgasm washes through [npc.herHim], and [npc.name] [npc.moanVerb] in delight as [npc.her] feminine sex joins in on the fun.");
 				
 			} else {
 				UtilText.nodeContentSB.append("<br/><br/>"
@@ -713,7 +714,7 @@ public class DoggyStyle {
 				UtilText.nodeContentSB.append("<br/><br/>"
 						+ "As [npc.name] [npc.verb(slide)] [npc.her] still-throbbing shaft out from [npc2.namePos] well-used [npc2.pussy], [npc.she] [npc.verb(feel)] a second orgasm building deep in [npc.her] groin."
 						+ " Grabbing [npc2.namePos] hips to brace [npc.herself], [npc.name] [npc.verb(start)] to go weak at the knees before clenching [npc.her] thighs together as [npc.her] [npc.pussy+] shudders and quivers."
-						+ " A mind-splitting orgasm washes through [npc.her], and [npc.name] [npc.moanVerb] in delight as [npc.her] feminine sex joins in on the fun.");
+						+ " A mind-splitting orgasm washes through [npc.herHim], and [npc.name] [npc.moanVerb] in delight as [npc.her] feminine sex joins in on the fun.");
 				
 			} else {
 				UtilText.nodeContentSB.append("<br/><br/>"

@@ -1,23 +1,25 @@
 package com.lilithsthrone.game.character.race;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.7.1
  * @author Innoxia
  */
 public enum Race {
 
-	NONE("none",
-			"none",
-			Colour.RACE_HUMAN,
+	NONE("no race",
+			"no race",
+			PresetColour.RACE_UNKNOWN,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
 			0.5f,
@@ -31,7 +33,7 @@ public enum Race {
 	// HUMAN:
 	HUMAN("human",
 			"human",
-			Colour.RACE_HUMAN,
+			PresetColour.RACE_HUMAN,
 			
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
@@ -53,7 +55,7 @@ public enum Race {
 	// ANGEL:
 	ANGEL("angel",
 			"angel",
-			Colour.CLOTHING_WHITE,
+			PresetColour.CLOTHING_WHITE,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
@@ -69,8 +71,8 @@ public enum Race {
 
 	// DEMON:
 	DEMON("demon",
-			"demonic-horse",
-			Colour.RACE_DEMON,
+			"demon",
+			PresetColour.RACE_DEMON,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
 					Attack.SPECIAL_ATTACK,
@@ -104,7 +106,7 @@ public enum Race {
 	// BOVINES:
 	COW_MORPH("cow-morph",
 			"cow",
-			Colour.RACE_COW_MORPH,
+			PresetColour.RACE_COW_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
@@ -121,7 +123,7 @@ public enum Race {
 	// CANINES:
 	DOG_MORPH("dog-morph",
 			"dog",
-			Colour.RACE_DOG_MORPH,
+			PresetColour.RACE_DOG_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
 			0.5f,
@@ -135,7 +137,7 @@ public enum Race {
 
 	WOLF_MORPH("wolf-morph",
 			"wolf",
-			Colour.RACE_WOLF_MORPH,
+			PresetColour.RACE_WOLF_MORPH,
 			Disposition.SAVAGE,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
@@ -151,7 +153,7 @@ public enum Race {
 	
 	FOX_MORPH("fox-morph",
 			"fox",
-			Colour.RACE_FOX_MORPH,
+			PresetColour.RACE_FOX_MORPH,
 			Disposition.UNPREDICTABLE,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
@@ -169,7 +171,7 @@ public enum Race {
 	// FELINES:
 	CAT_MORPH("cat-morph",
 			"cat",
-			Colour.RACE_CAT_MORPH,
+			PresetColour.RACE_CAT_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
@@ -186,7 +188,7 @@ public enum Race {
 	// EQUINE:
 	HORSE_MORPH("horse-morph",
 			"horse",
-			Colour.RACE_HORSE_MORPH,
+			PresetColour.RACE_HORSE_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
@@ -203,7 +205,7 @@ public enum Race {
 	
 	 REINDEER_MORPH("reindeer-morph",
 			"reindeer",
-			Colour.RACE_REINDEER_MORPH,
+			PresetColour.RACE_REINDEER_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
@@ -220,7 +222,7 @@ public enum Race {
 
 	SQUIRREL_MORPH("squirrel-morph",
 			"squirrel",
-			Colour.RACE_SQUIRREL_MORPH,
+			PresetColour.RACE_SQUIRREL_MORPH,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
 					Attack.MAIN),
@@ -235,7 +237,7 @@ public enum Race {
 
 	RAT_MORPH("rat-morph",
 			"rat",
-			Colour.RACE_RAT_MORPH,
+			PresetColour.RACE_RAT_MORPH,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
@@ -251,7 +253,7 @@ public enum Race {
 
 	RABBIT_MORPH("rabbit-morph",
 			"rabbit",
-			Colour.RACE_RABBIT_MORPH,
+			PresetColour.RACE_RABBIT_MORPH,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
@@ -267,7 +269,7 @@ public enum Race {
 	
 	BAT_MORPH("bat-morph",
 			"bat",
-			Colour.RACE_BAT_MORPH,
+			PresetColour.RACE_BAT_MORPH,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
@@ -283,7 +285,7 @@ public enum Race {
 	
 	ALLIGATOR_MORPH("alligator-morph",
 			"alligator",
-			Colour.RACE_ALLIGATOR_MORPH,
+			PresetColour.RACE_ALLIGATOR_MORPH,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
 					Attack.MAIN,
@@ -300,7 +302,7 @@ public enum Race {
 	// SLIME:
 	SLIME("slime",
 			"slime",
-			Colour.RACE_SLIME,
+			PresetColour.RACE_SLIME,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(Attack.SEDUCTION),
 			0.5f,
@@ -315,7 +317,7 @@ public enum Race {
 	// AVIAN:
 	HARPY("harpy",
 			"avian",
-			Colour.RACE_HARPY,
+			PresetColour.RACE_HARPY,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
 					Attack.SEDUCTION,
@@ -338,7 +340,7 @@ public enum Race {
 //			"earth elementals",
 //			"earth elementals",
 //
-//			Colour.SPELL_SCHOOL_EARTH,
+//			PresetColour.SPELL_SCHOOL_EARTH,
 //			Disposition.NEUTRAL,
 //			Util.newArrayListOfValues(
 //					Attack.MAIN,
@@ -359,7 +361,7 @@ public enum Race {
 //			"water elementals",
 //			"water elementals",
 //
-//			Colour.SPELL_SCHOOL_WATER,
+//			PresetColour.SPELL_SCHOOL_WATER,
 //			Disposition.NEUTRAL,
 //			Util.newArrayListOfValues(
 //					Attack.MAIN,
@@ -380,7 +382,7 @@ public enum Race {
 //			"air elementals",
 //			"air elementals",
 //
-//			Colour.SPELL_SCHOOL_AIR,
+//			PresetColour.SPELL_SCHOOL_AIR,
 //			Disposition.NEUTRAL,
 //			Util.newArrayListOfValues(
 //					Attack.MAIN,
@@ -401,7 +403,7 @@ public enum Race {
 //			"fire elementals",
 //			"fire elementals",
 //
-//			Colour.SPELL_SCHOOL_FIRE,
+//			PresetColour.SPELL_SCHOOL_FIRE,
 //			Disposition.NEUTRAL,
 //			Util.newArrayListOfValues(
 //					Attack.MAIN,
@@ -423,7 +425,7 @@ public enum Race {
 //			"arcane elementals",
 //			"arcane elementals",
 //
-//			Colour.SPELL_SCHOOL_ARCANE,
+//			PresetColour.SPELL_SCHOOL_ARCANE,
 //			Disposition.NEUTRAL,
 //			Util.newArrayListOfValues(
 //					Attack.SEDUCTION,
@@ -439,7 +441,7 @@ public enum Race {
 
 	ELEMENTAL("elemental",
 			"elemental",
-			Colour.SPELL_SCHOOL_ARCANE,
+			PresetColour.SPELL_SCHOOL_ARCANE,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
 					Attack.MAIN,

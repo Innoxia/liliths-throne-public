@@ -1,8 +1,10 @@
 package com.lilithsthrone.game.sex.managers.dominion;
-import java.util.List;
+
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
@@ -28,14 +30,14 @@ public class SexManagerRalphDiscount extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
+	public SexActionInterface getPartnerSexAction(NPC partner, SexActionInterface sexActionPlayer) {
 		if(Main.sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES)) {
 			return RalphOral.PARTNER_PENETRATES;
 		} else if(Main.sex.getAvailableSexActionsPartner().contains(RalphOral.PARTNER_PENETRATES_ANUS)) {
 			return RalphOral.PARTNER_PENETRATES_ANUS;
 		}
 		
-		return super.getPartnerSexAction(sexActionPlayer);
+		return super.getPartnerSexAction(partner, sexActionPlayer);
 	}
 	
 	@Override

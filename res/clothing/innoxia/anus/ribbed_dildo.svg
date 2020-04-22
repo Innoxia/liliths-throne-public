@@ -1,0 +1,32 @@
+<svg cursor="default" version="1.1" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="innoGrad2">
+   <stop stop-color="#ffd5d5" offset="0"/>
+   <stop stop-color="#ffd5d5" stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient896" x1="-220.75" x2="-219.12" y1="241.9" y2="-1.6271" gradientTransform="matrix(.79652 -.75865 .75865 .79652 196.22 -146.91)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#ff8080" offset="0"/>
+   <stop stop-color="#f55" offset=".097973"/>
+   <stop stop-color="#f55" offset=".1723"/>
+   <stop stop-color="#ff8080" offset=".27027"/>
+   <stop stop-color="#ff8080" offset=".43468"/>
+   <stop stop-color="#f55" offset=".48986"/>
+   <stop stop-color="#f55" offset=".52703"/>
+   <stop stop-color="#ff8080" offset=".59685"/>
+   <stop stop-color="#ff8080" offset=".68694"/>
+   <stop stop-color="#f55" offset=".73206"/>
+   <stop stop-color="#f55" offset=".76812"/>
+   <stop stop-color="#ff8080" offset=".84252"/>
+   <stop stop-color="#ff8080" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient944" cx="165.39" cy="173.26" r="7.5744" gradientTransform="matrix(1.4719 1.7747e-8 -3.3604e-8 2.6018 -340 -270.6)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+  <radialGradient id="radialGradient944-1" cx="165.39" cy="173.26" r="7.5744" gradientTransform="matrix(1.3217 1.2221e-8 -3.861e-8 2.2302 -282.79 -269.11)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+  <radialGradient id="radialGradient944-4" cx="165.39" cy="173.26" r="7.5744" gradientTransform="matrix(1.1452 1.7934e-8 -3.5472e-8 1.91 -220.58 -268.05)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+ </defs>
+ <g>
+  <path d="m170.2 243.61c-9.0732-8.5726 15.055-28.737-1.8494-46.594-14.401-15.212-27.909 3.0166-48.49-18.338-9.5222-9.8802-5.1991-35.317-15.779-46.248-11.202-11.575-22.389-2.7885-33.67-14.777-11.995-12.747-2.4444-23.585-12.832-34.336-9.8845-10.23-14.954-5.1952-23.328-13.248-10.385-9.9868-1.7311-19.477-11.493-30.591-6.3239-7.1999-11.904-18.088-5.1341-24.676 6.9093-6.4412 17.513-0.3378 24.397 6.329 10.626 10.291 20.526 2.1093 29.996 12.968 7.636 8.7565 2.36 13.575 12.097 23.946 10.232 10.898 21.523 1.8866 33.671 14.488 11.425 11.851 2.1051 22.597 13.121 34.349 10.403 11.099 36.02 8.019 45.425 18.011 20.328 21.596 1.4637 34.201 15.957 49.325 17.013 17.754 38.328-5.3648 46.449 4.1149 5.9219 6.9128-8.5845 26.158-25.516 41.829-16.476 16.149-36.405 29.701-43.021 23.45z" fill="url(#linearGradient896)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".75"/>
+  <ellipse transform="matrix(.19864 -.98007 .9776 .21049 0 0)" cx="-96.553" cy="180.18" rx="11.149" ry="19.707" fill="url(#radialGradient944)"/>
+  <ellipse transform="matrix(.25709 -.96639 .98881 .14919 0 0)" cx="-64.192" cy="117.29" rx="10.011" ry="16.893" fill="url(#radialGradient944-1)"/>
+  <ellipse transform="matrix(.27137 -.96248 .99111 .13307 0 0)" cx="-31.166" cy="62.867" rx="8.6746" ry="14.467" fill="url(#radialGradient944-4)"/>
+ </g>
+</svg>

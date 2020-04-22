@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -179,7 +180,7 @@ public abstract class SexAction implements SexActionInterface {
 	public abstract String getDescription();
 
 	private static String formatFlavour(String input) {
-		return "<p style='margin:0; padding:0; text-align:center;'><i>"
+		return "<p style='text-align:center; margin:0; padding:0;'><i>"
 				+ input
 			+ "</i></p>";
 	}

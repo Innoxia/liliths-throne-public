@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * Defined according to how much fluid is replenished every day, in ml.
@@ -11,19 +13,19 @@ package com.lilithsthrone.game.character.body.valueEnums;
 public enum FluidRegeneration {
 
 	/** 0-249 ml/day. */
-	ZERO_SLOW("slow", 0, 250, "slowly", Colour.GENERIC_SIZE_ONE),
+	ZERO_SLOW("slow", 0, 250, "slowly", PresetColour.GENERIC_SIZE_ONE),
 	
 	/** 250-749 ml/day. <b>Median value of 500ml/day is roughly the average for breasts producing milk.</b> */
-	ONE_AVERAGE("average", 250, 750, "", Colour.GENERIC_SIZE_TWO),
+	ONE_AVERAGE("average", 250, 750, "", PresetColour.GENERIC_SIZE_TWO),
 
 	/** 750-4999 ml/day. Maximum value is roughly 3.5ml per minute. */
-	TWO_FAST("fast", 750, 5000, "quickly", Colour.GENERIC_SIZE_THREE),
+	TWO_FAST("fast", 750, 5000, "quickly", PresetColour.GENERIC_SIZE_THREE),
 
 	/** 5000-99,999 ml/day. <b>This median value of ~50,000ml/day is a more realistic average for seminal fluid replenishment, but for gameplay purposes, the default is 10,000.</b> Maximum value is roughly 1.15ml per second. */
-	THREE_RAPID("rapid", 5000, 100_000, "rapidly", Colour.GENERIC_SIZE_FOUR),
+	THREE_RAPID("rapid", 5000, 100_000, "rapidly", PresetColour.GENERIC_SIZE_FOUR),
 	
 	/** 100,000-500,000 ml/day. Maximum value is roughly 5.8ml per second. */
-	FOUR_VERY_RAPID("very rapid", 100_000, 500_000, "very rapidly", Colour.GENERIC_SIZE_FIVE);
+	FOUR_VERY_RAPID("very rapid", 100_000, 500_000, "very rapidly", PresetColour.GENERIC_SIZE_FIVE);
 	
 
 	private int minimumValue;

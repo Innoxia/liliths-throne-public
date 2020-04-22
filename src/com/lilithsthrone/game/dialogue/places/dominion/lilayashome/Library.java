@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -16,7 +17,7 @@ import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 
@@ -371,29 +372,29 @@ public class Library {
 					+ "<p style='text-align:center;'>"
 						+ "In the book's centre-fold, there's a table which shows how demonic breeding works:<br/><br/>"
 						+ "<table style='margin: 0px auto;'>"
-						+ "<tr style='font-weight:bold; text-align:left; color:"+Colour.MASCULINE.toWebHexString()+";'>"
+						+ "<tr style='font-weight:bold; text-align:left; color:"+PresetColour.MASCULINE.toWebHexString()+";'>"
 							+ "<td>[style.boldFeminine(Mother)]/[style.boldMasculine(Father)]</td><td>Lilin</td><td>Demon</td><td>Half-demon</td><td>Human half-demon</td><td>Non-demon</td><td>Human</td><td>Imp</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Lilin</td><td>[style.boldtfGreater(Ln)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Lilin</td><td>[style.boldtfGreater(Ln)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Demon</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Demon</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfLesser(Dn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Half-demon</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Half-demon</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Human half-demon</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Human half-demon</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldtfPartial(Hhdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Non-demon</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Non-demon</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Human</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldHuman(Hn)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Human</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfPartial(Hhdn)]</td</td><td>[style.boldtfMinor(Hdn)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldtfGeneric(Nd)]</td><td>[style.boldHuman(Hn)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "<tr>"
-							+ "<td style='font-weight:bold; color:"+Colour.FEMININE.toWebHexString()+";'>Imp</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>"
+							+ "<td style='font-weight:bold; color:"+PresetColour.FEMININE.toWebHexString()+";'>Imp</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>"
 						+ "</tr>"
 						+ "</table>"
 						+ "<br/><br/>"

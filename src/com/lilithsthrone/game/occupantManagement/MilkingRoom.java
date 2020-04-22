@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.occupantManagement;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,11 +27,12 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
@@ -300,9 +302,9 @@ public class MilkingRoom implements XMLSaving {
 	public String getRoomDescription() {
 		StringBuilder milkyMilknessSB = new StringBuilder();
 		
-		milkyMilknessSB.append(getFluidEntries(this.getMilkFluidsStored(), Colour.MILK, "Milk Stored"));
-		milkyMilknessSB.append(getFluidEntries(this.getCumFluidsStored(), Colour.CUM, "Cum Stored"));
-		milkyMilknessSB.append(getFluidEntries(this.getGirlcumFluidsStored(), Colour.GIRLCUM, "Girlcum Stored"));
+		milkyMilknessSB.append(getFluidEntries(this.getMilkFluidsStored(), PresetColour.MILK, "Milk Stored"));
+		milkyMilknessSB.append(getFluidEntries(this.getCumFluidsStored(), PresetColour.CUM, "Cum Stored"));
+		milkyMilknessSB.append(getFluidEntries(this.getGirlcumFluidsStored(), PresetColour.GIRLCUM, "Girlcum Stored"));
 		
 		return milkyMilknessSB.toString();
 	}
@@ -335,7 +337,7 @@ public class MilkingRoom implements XMLSaving {
 				
 				fluidsFound = true;
 				
-				milkyMilknessSB.append("<div class='container-full-width' style='margin-top:2px; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>");
+				milkyMilknessSB.append("<div class='container-full-width' style='margin-top:2px; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>");
 				
 					milkyMilknessSB.append(
 							"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
@@ -412,7 +414,7 @@ public class MilkingRoom implements XMLSaving {
 			}
 			
 			if(!fluidsFound) {
-				milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>[style.colourDisabled(None...)]</div>");
+				milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>[style.colourDisabled(None...)]</div>");
 			}
 
 		milkyMilknessSB.append("</div>");

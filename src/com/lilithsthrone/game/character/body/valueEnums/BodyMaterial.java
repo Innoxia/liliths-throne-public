@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.character.body.valueEnums;
-import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
@@ -27,37 +29,37 @@ public enum BodyMaterial {
 			"shell", "shelled",
 			"nails", "hard",
 			"keratin", "keratinous",
-			Colour.BASE_PINK_LIGHT,
+			PresetColour.BASE_PINK_LIGHT,
 			DamageType.PHYSICAL,
 			true,
 			false,
 			true),
 	
-	SLIME("slime", Colour.RACE_SLIME, DamageType.PHYSICAL, false, true, false),
+	SLIME("slime", PresetColour.RACE_SLIME, DamageType.PHYSICAL, false, true, false),
 
 	// Fire elementals:
 	
-	FIRE("fire", "burning", Colour.BASE_ORANGE, DamageType.FIRE, false, false, false),
+	FIRE("fire", "burning", PresetColour.BASE_ORANGE, DamageType.FIRE, false, false, false),
 
 	// Water elementals:
 
-	WATER("water", "cool", Colour.BASE_AQUA, DamageType.ICE, false, true, false),
+	WATER("water", "cool", PresetColour.BASE_AQUA, DamageType.ICE, false, true, false),
 	
-	ICE("ice", "freezing", Colour.BASE_BLUE_LIGHT, DamageType.ICE, true, true, true),
+	ICE("ice", "freezing", PresetColour.BASE_BLUE_LIGHT, DamageType.ICE, true, true, true),
 
 	// Air elementals:
 
-	AIR("storm-clouds", "swirling", Colour.BASE_BLUE_STEEL, DamageType.POISON, false, false, false),
+	AIR("storm-clouds", "swirling", PresetColour.BASE_BLUE_STEEL, DamageType.POISON, false, false, false),
 
 	// Earth elementals:
 	
-	STONE("stone", "hard", Colour.BASE_GREY, DamageType.PHYSICAL, true, false, true),
+	STONE("stone", "hard", PresetColour.BASE_GREY, DamageType.PHYSICAL, true, false, true),
 	
-	RUBBER("rubber", Colour.BASE_BLACK, DamageType.PHYSICAL, true, false, true),
+	RUBBER("rubber", PresetColour.BASE_BLACK, DamageType.PHYSICAL, true, false, true),
 	
 	// Arcane elementals:
 	
-	ARCANE("energy", Colour.GENERIC_ARCANE, DamageType.PHYSICAL, false, false, false),
+	ARCANE("energy", PresetColour.GENERIC_ARCANE, DamageType.PHYSICAL, false, false, false),
 	;
 
 	private String name;
@@ -393,5 +395,12 @@ public enum BodyMaterial {
 
 	public boolean isAbleToWearMakeup() {
 		return ableToWearMakeup;
+	}
+
+	/**
+	 * @return true if this body material is subject to limited depth of orifices.
+	 */
+	public boolean isOrificesLimitedDepth() {
+		return this==FLESH;
 	}
 }

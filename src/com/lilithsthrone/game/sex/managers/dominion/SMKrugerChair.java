@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.managers.dominion;
-import java.util.List;
+
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -11,8 +12,8 @@ import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.69.9
@@ -50,7 +51,7 @@ public class SMKrugerChair extends SexManagerDefault {
 
 	@Override
 	public String getPublicSexStartingDescription() {
-		return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+		return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 				+ "The lionesses and zebra-girls sitting around the booth start to giggle and touch themselves as they watch you about to get fucked by Kruger..."
 				+ "</p>";
 	}
@@ -94,7 +95,7 @@ public class SMKrugerChair extends SexManagerDefault {
 			descriptions.add("A zebra-girl leans in against Kruger, and, grinning across at you, she encourages him, [genericFemale.speech(Oh yeah, Kruger, you put that dirty butt-slut in [pc.her] place!)]");
 		}
 		
-		return "<p style='color:"+Colour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
+		return "<p style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+"; font-style:italic; text-align:center;'>"
 					+Util.randomItemFrom(descriptions)
 				+"</p>";
 	}

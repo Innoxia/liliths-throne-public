@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.markings;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,9 +9,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.ColourListPresets;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.6
@@ -63,7 +65,7 @@ public class TattooWriting implements XMLSaving {
 		Element element = doc.createElement("tattooWriting");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
+		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().getId());
 		CharacterUtils.addAttribute(doc, element, "glow", String.valueOf(this.isGlow()));
 		
 		element.appendChild(doc.createCDATASection(this.getText().trim()));
@@ -96,7 +98,7 @@ public class TattooWriting implements XMLSaving {
 			String text = parentElement.getTextContent();
 			
 			TattooWriting tw = new TattooWriting(text.trim(),
-					Colour.valueOf(parentElement.getAttribute("colour")),
+					PresetColour.getColourFromId(parentElement.getAttribute("colour")),
 					Boolean.valueOf(parentElement.getAttribute("glow")));
 			
 			tw.styles = importedStyles;

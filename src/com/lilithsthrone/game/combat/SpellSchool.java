@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.combat;
-import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.1
@@ -22,7 +24,7 @@ public enum SpellSchool {
 				+ " Easily learned by anyone possessing a demon-strength aura, and outlined in the introduction of all Earth spell books, this ability allows the practitioner to change the colour and material of any object."
 			+ "</p>",
 			"Dye clothing and reforge weapons at will.",
-			Colour.BASE_BROWN),
+			PresetColour.BASE_BROWN),
 
 	WATER("water",
 			"<p>"
@@ -36,7 +38,7 @@ public enum SpellSchool {
 				+ "Students of the school of Water are able to effortlessly manipulate all fluids, allowing them to enchant any fluid-related potions without needing to expend arcane essences."
 			+ "</p>",
 			"All fluid-related enchantments are free.",
-			Colour.BASE_AQUA),
+			PresetColour.BASE_AQUA),
 	
 	AIR("air",
 			"<p>"
@@ -51,7 +53,7 @@ public enum SpellSchool {
 				+ "Students of the school of Air are able to effortlessly control the temperature of air around them, making sure that they're never too hot or too cold."
 			+ "</p>",
 			"Passive "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+" regeneration is doubled.",
-			Colour.BASE_BLUE_LIGHT),
+			PresetColour.BASE_BLUE_LIGHT),
 	
 	FIRE("fire",
 			"<p>"
@@ -65,7 +67,7 @@ public enum SpellSchool {
 				+ "By sacrificing a portion of their health, students of the school of Fire are able to cast Fire spells even when out of aura."
 			+ "</p>",
 			"When out of aura, fire spells will be cast at 1/4 spell cost by using "+Attribute.HEALTH_MAXIMUM.getName()+".",
-			Colour.BASE_ORANGE),
+			PresetColour.BASE_ORANGE),
 
 	ARCANE("arcane",
 			"<p>"
@@ -80,7 +82,7 @@ public enum SpellSchool {
 					+ " and will be able to accurately predict when the next arcane storm will break."
 			+ "</p>",
 			"Know the exact time until the next arcane storm breaks.",
-			Colour.GENERIC_ARCANE);
+			PresetColour.GENERIC_ARCANE);
 	
 	
 	private String name;

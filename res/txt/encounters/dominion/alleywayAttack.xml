@@ -674,7 +674,11 @@
 	
 	<htmlContent tag="STORM_ATTACK"><![CDATA[
 	<p>
-		You find yourself walking down the deserted streets of Dominion, the eerie silence broken only by the occasional crash of arcane thunder high above you. There are many hiding places for a would-be attacker to conceal themselves in, and as you pass one such place, taking the form of a building's shadowy doorway, a figure suddenly leaps out at you. Thankfully, as you were taking care to be alert, you quickly step backwards and manage to avoid a punch aimed at your stomach.
+		#IF(pc.getLocationPlace().getPlaceType()==PLACE_TYPE_DOMINION_BACK_ALLEYS_SAFE)
+			You find yourself [pc.walking] down the wide alleyway, the eerie silence broken only by the occasional crash of arcane thunder high above you. There are many hiding places for a would-be attacker to conceal themselves in, and sure enough, as you pass a building's shadowy doorway, a figure suddenly leaps out at you. Thankfully, as you were taking care to be alert, you quickly step backwards and manage to avoid a punch aimed at your stomach.
+		#ELSE
+			You find yourself [pc.walking] down the deserted streets of Dominion, the eerie silence broken only by the occasional crash of arcane thunder high above you. There are many hiding places for a would-be attacker to conceal themselves in, and sure enough, as you pass a building's shadowy doorway, a figure suddenly leaps out at you. Thankfully, as you were taking care to be alert, you quickly step backwards and manage to avoid a punch aimed at your stomach.
+		#ENDIF
 	</p>
 	<p>
 		Turning to face the assailant, you see [npc.a_fullRace(true)] grinning devilishly at you. There's no mistaking that hungry look in [npc.her] [npc.eyes], and you know that the arcane thunder has driven [npc.herHim] into a state of uncontrollable lust. [npc.She] looks determined to claim you as [npc.her] prize, and is ready to fight you in order to claim your body.

@@ -1,5 +1,6 @@
 package com.lilithsthrone.utils;
-import java.awt.Desktop;
+
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +24,9 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -31,6 +34,7 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.colours.Colour;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -302,11 +306,22 @@ public class Util {
 		
 		return mergedMap;
 	}
-
+	
+	public static <T> T getHighestProbabilityEntryFromWeightedMap(Map<T, Integer> map) {
+		T top = null;
+		int high = 0;
+		for(Entry<T, Integer> entry : map.entrySet()) {
+			if(entry.getValue()>high) {
+				high = entry.getValue();
+				top = entry.getKey();
+			}
+		}
+		return top;
+	}
+	
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map) {
 		return getRandomObjectFromWeightedMap(map, Util.random);
 	}
-	
 	
 	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map, Random rnd) {
 		int total = 0;
@@ -587,9 +602,39 @@ public class Util {
 		return name != null? name : code.getName();
 	}
 
+	/**
+	 * @return A capitalised version of the sentence. This method ignores spaces and html formatting, so it should be safe to use on formatted inputs.
+	 */
 	public static String capitaliseSentence(String sentence) {
 		if(sentence==null || sentence.isEmpty()) {
 			return sentence;
+		}
+		int openingCurly = 0;
+		int closingCurly = 0;
+		int openingAngular = 0;
+		int closingAngular = 0;
+		int openingSquare = 0;
+		int closingSquare = 0;
+		for(int i = 0; i<sentence.length(); i++) {
+			if(sentence.charAt(i)=='(') {
+				openingCurly++;
+			} else if(sentence.charAt(i)=='<') {
+				openingAngular++;
+			} else if(sentence.charAt(i)=='[') {
+				openingSquare++;
+			}
+			
+			if(openingCurly==closingCurly && openingAngular==closingAngular && openingSquare==closingSquare && sentence.charAt(i)!=' ') {
+				return (i>0?sentence.substring(0, i):"") + Character.toUpperCase(sentence.charAt(i)) + sentence.substring(i+1);
+			}
+			
+			if(sentence.charAt(i)==')') {
+				closingCurly++;
+			} else if(sentence.charAt(i)=='>') {
+				closingAngular++;
+			} else if(sentence.charAt(i)==']') {
+				closingSquare++;
+			}
 		}
 		return Character.toUpperCase(sentence.charAt(0)) + sentence.substring(1);
 	}
@@ -837,7 +882,7 @@ public class Util {
 		return muffleSB.toString();
 	}
 
-	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", "~Ooh!~" };
+	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", " ~Ooh!~" };
 	/**
 	 * Turns a normal sentence into a sexy sentence.<br/>
 	 * Example:<br/>
@@ -897,12 +942,16 @@ public class Util {
 //			.replaceAll("so", "sho");
 	}
 
-	private static Map<String, String> slovenlySpeechReplacementMap = new HashMap<>();
+	private static Map<String, String> slovenlySpeechReplacementMap = new LinkedHashMap<>();
 	static {
+		slovenlySpeechReplacementMap.put("What are", "Wot's");
+		slovenlySpeechReplacementMap.put("what are", "wot's");
+		
 		slovenlySpeechReplacementMap.put("Are", "Is");
 		slovenlySpeechReplacementMap.put("are", "is");
-		
-		slovenlySpeechReplacementMap.put("ou're", "er");
+
+		slovenlySpeechReplacementMap.put("You're", "Yer");
+		slovenlySpeechReplacementMap.put("you're", "yer");
 		
 		slovenlySpeechReplacementMap.put("Your", "Yer");
 		slovenlySpeechReplacementMap.put("your", "yer");
@@ -916,6 +965,9 @@ public class Util {
 		slovenlySpeechReplacementMap.put("You'd", "You's");
 		slovenlySpeechReplacementMap.put("you'd", "you's");
 		
+		slovenlySpeechReplacementMap.put("Going to", "Gonna");
+		slovenlySpeechReplacementMap.put("going to", "gonna");
+		
 		slovenlySpeechReplacementMap.put("To", "Ta");
 		slovenlySpeechReplacementMap.put("to", "ta");
 
@@ -923,15 +975,20 @@ public class Util {
 		slovenlySpeechReplacementMap.put("the", "da");
 
 		slovenlySpeechReplacementMap.put("Them", "Dem");
-		slovenlySpeechReplacementMap.put("them!", "dem");
+		slovenlySpeechReplacementMap.put("them", "dem");
 
+		slovenlySpeechReplacementMap.put("They", "Dey");
+		slovenlySpeechReplacementMap.put("they", "dey");
+		
 		slovenlySpeechReplacementMap.put("And", "'An");
 		slovenlySpeechReplacementMap.put("and", "an'");
 		
 		slovenlySpeechReplacementMap.put("Of", "O'");
 		slovenlySpeechReplacementMap.put("of", "o'");
-		slovenlySpeechReplacementMap.put("Who", "O'");
-		slovenlySpeechReplacementMap.put("who", "o'");
+		slovenlySpeechReplacementMap.put("Who", "'O");
+		slovenlySpeechReplacementMap.put("who", "'o");
+		slovenlySpeechReplacementMap.put("Whoever", "'Oever");
+		slovenlySpeechReplacementMap.put("whoever", "'oever");
 		
 		slovenlySpeechReplacementMap.put("Was", "Were");
 		slovenlySpeechReplacementMap.put("was", "were");
@@ -944,19 +1001,14 @@ public class Util {
 		slovenlySpeechReplacementMap.put("Aren't", "Ain't");
 		slovenlySpeechReplacementMap.put("aren't", "ain't");
 		
-		slovenlySpeechReplacementMap.put("One", "'Un");
-		slovenlySpeechReplacementMap.put("one", "'un");
+		slovenlySpeechReplacementMap.put("This one", "This 'un");
+		slovenlySpeechReplacementMap.put("this one", "this 'un");
 		
 		slovenlySpeechReplacementMap.put("Before", "'Afore");
 		slovenlySpeechReplacementMap.put("before", "'afore");
 		
 		slovenlySpeechReplacementMap.put("Give me", "Gimme");
 		slovenlySpeechReplacementMap.put("give me", "gimme");
-		
-		slovenlySpeechReplacementMap.put("Going to", "Gonna");
-		slovenlySpeechReplacementMap.put("going to", "gonna");
-		
-		slovenlySpeechReplacementMap.put("ing", "in'");
 		
 		slovenlySpeechReplacementMap.put("We're", "We's");
 		slovenlySpeechReplacementMap.put("we're", "we's");
@@ -1011,7 +1063,7 @@ public class Util {
 			<br/>Was -> Were
 			<br/>Isn't -> ain't
 			<br/>Aren't -> ain't
-			<br/>One -> 'Un
+			<br/>This one -> This 'un
 			<br/>Before -> 'afore
 			<br/>Give me -> Gimme
 			<br/>Going to -> gonna
@@ -1035,8 +1087,9 @@ public class Util {
 		//Use non-letter regex replacement ([^A-Za-z0-9]) 
 		String modifiedSentence = sentence;
 		for(Entry<String, String> entry : slovenlySpeechReplacementMap.entrySet()) {
-			modifiedSentence = modifiedSentence.replaceAll("([^A-Za-z0-9])"+entry.getKey()+"([^A-Za-z0-9])", "$1"+entry.getValue()+"$2");
+			modifiedSentence = modifiedSentence.replaceAll("([^A-Za-z0-9]|^)"+entry.getKey()+"([^A-Za-z0-9])", "$1"+entry.getValue()+"$2");
 		}
+		modifiedSentence = modifiedSentence.replaceAll("ing([^A-Za-z0-9])", "in'$1");
 		return modifiedSentence;
 	}
 	
@@ -1269,5 +1322,15 @@ public class Util {
 	
 	public static String getFileIdentifier(String filePath) {
 		return filePath.substring(0, filePath.lastIndexOf('.')).replaceAll("'", "Q");
+	}
+
+	public static  <T extends Enum<T>> List<T> toEnumList(final Collection<Element> elements, final Class<T> enumType) {
+		return elements.stream()
+			.map(Element::getTextContent)
+			.map(x -> {
+				try { return T.valueOf(enumType, x); }
+				catch (Exception e) { return null; } })
+			.filter(x -> x != null)
+			.collect(Collectors.toList());
 	}
 }

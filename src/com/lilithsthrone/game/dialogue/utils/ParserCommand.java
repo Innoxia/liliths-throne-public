@@ -1,9 +1,10 @@
 package com.lilithsthrone.game.dialogue.utils;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.?
@@ -60,8 +61,8 @@ public abstract class ParserCommand {
 	}
 
 	public String getExampleBeforeParse(String target, String arguments) {
-		return "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>"+target+"</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+tags.get(0)+"</i>"
-				+(arguments==""?"":"<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>("+arguments+")</i>")+"]";
+		return "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>"+target+"</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+tags.get(0)+"</i>"
+				+(arguments==""?"":"<i style='color:"+PresetColour.CLOTHING_YELLOW.toWebHexString()+";'>("+arguments+")</i>")+"]";
 	}
 	
 	public abstract String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character);

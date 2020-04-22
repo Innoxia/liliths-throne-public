@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.persona;
-import com.lilithsthrone.game.character.GameCharacter;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.gender.PronounType;
 
 // TODO: needs plural forms

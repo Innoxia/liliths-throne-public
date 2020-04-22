@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.encounters;
-import java.time.Month;
+
+import java.time.Month;
 
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -150,7 +151,7 @@ public class DominionEncounterDialogue {
 		public String getContent() {
 			
 			if(Main.game.getDateNow().getMonth()==Month.MAY) { // Mother's day:
-				String name = Util.randomItemFrom(Subspecies.getWorldSpecies().get(WorldType.DOMINION).keySet()).getSingularFemaleName(null);
+				String name = Util.randomItemFrom(Subspecies.getWorldSpecies(WorldType.DOMINION, false).keySet()).getSingularFemaleName(null);
 				String litter = Util.randomItemFrom(new String[] {"twins", "triplets", "quadruplets", "quintuplets", "sextuplets"});
 				UtilText.addSpecialParsingString(name, true);
 				UtilText.addSpecialParsingString(litter, false);
@@ -158,7 +159,7 @@ public class DominionEncounterDialogue {
 				return UtilText.parseFromXMLFile("encounters/dominion/generic", "DOMINION_STREET_PILL_HANDOUT_MOTHER");
 				
 			} else { // Father's day:
-				String name = Util.randomItemFrom(Subspecies.getWorldSpecies().get(WorldType.DOMINION).keySet()).getSingularMaleName(null);
+				String name = Util.randomItemFrom(Subspecies.getWorldSpecies(WorldType.DOMINION, false).keySet()).getSingularMaleName(null);
 				UtilText.addSpecialParsingString(name, true);
 
 				return UtilText.parseFromXMLFile("encounters/dominion/generic", "DOMINION_STREET_PILL_HANDOUT_FATHER");

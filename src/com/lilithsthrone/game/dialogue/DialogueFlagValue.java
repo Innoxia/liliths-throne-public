@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.3.5.5
+ * @version 0.3.7
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -76,13 +76,13 @@ public enum DialogueFlagValue {
 	// Shopping arcade:
 	ralphAskedAboutHundredKisses,
 	
-	nyanTalkedTo,
-	nyanComplimented,
-	nyanFlirtedWith,
-	nyanKissed,
-	nyanMakeOut,
-	nyanSex,
-	nyanGift,
+	nyanTalkedTo(true),
+	nyanComplimented(true),
+	nyanFlirtedWith(true),
+	nyanKissed(true),
+	nyanMakeOut(true),
+	nyanSex(true),
+	nyanGift(true),
 	
 	supplierDepotDoorUnlocked,
 	suppliersEncountered,
@@ -138,7 +138,55 @@ public enum DialogueFlagValue {
 	
 	// Slaver Alley:
 	finchIntroduced,
+	seanIntroduced,
+	seanSeenBrax,
 	statueTruthRevealed,
+	slaverAlleyTalked,
+	slaverAlleyTalkedBraxReveal,
+	slaverAlleyTalkedFreedSlaves,
+	slaverAlleyComplained,
+	slaverAlleyVisitedHiddenAlleyway,
+	slaverAlleyBribed,
+	slaverAlleyTookPlace,
+	slaverAlleyCompanionInStocks,
+	slaverAlleyAcceptedDeal,
+	slaverAlleyCompanionAcceptedDeal,
+	slaverAlleySlavesFreed, // Reset every day at midnight (as part of stocks reset method)
+	
+	// Helena (romance quest):
+	helenaCheapPaint,
+	helenaGoneHome(true),
+	scarlettGoneHome(true),
+	helenaScarlettToldToReturn,
+	helenaScarlettSleepoverSex,
+
+	// Helena (post-romance quest):
+	helenaSlutSeen,
+	helenaShopTalkedTo(true),
+	helenaShopFucked(true),
+	helenaNestTalkedTo(true),
+	helenaNestFucked(true),
+	helenaShopScarlettTalkedTo(true),
+	helenaShopScarlettCounterOral(true),
+	helenaShopScarlettCafe(true),
+	helenaShopScarlettCafeRevealed,
+	helenaShopScarlettExtraTransformationDiscussed,
+	helenaShopScarlettExtraTransformationApplied,
+	helenaShopScarlettExtraTransformationHelenaReacted,
+
+	helenaDateFirstDateComplete,
+	helenaDateRomanticSetup,
+	helenaGift,
+	helenaDateSexLifeTalk,
+	helenaDateVirginityTalk,
+	helenaScarlettThreesome,
+	
+	helenaBedroomFromNest,
+	
+	// Natalya:
+	playerSubmittedToNatalya,
+	natalyaDemandedFacial,
+	playerReceivedNatalyaFacial,
 	
 	// Zaranix:
 	zaranixDiscoveredHome,
@@ -267,13 +315,13 @@ public enum DialogueFlagValue {
 	vengarSeduced,
 	ratWarrensRaid,
 
-	vengarCaptiveRoomCleaned, // Reset to false every day
-	vengarCaptiveVengarSatisfied, // Reset to false every day
-	vengarCaptiveShadowSatisfied, // Reset to false every day
-	vengarCaptiveSilenceSatisfied, // Reset to false every day
-	vengarCaptiveCompanionGivenBirth, // Reset to false every day
-	vengarCaptiveGangBanged, // Reset to false every day
-	
+	vengarCaptiveRoomCleaned(true),
+	vengarCaptiveVengarSatisfied(true),
+	vengarCaptiveShadowSatisfied(true),
+	vengarCaptiveSilenceSatisfied(true),
+	vengarCaptiveCompanionGivenBirth(true),
+	vengarCaptiveGangBanged(true),
+
 	ratWarrensCaptiveAttemptingEscape,
 	ratWarrensCaptiveEscaped,
 	ratWarrensCaptiveTransformationsStarted,
@@ -291,9 +339,24 @@ public enum DialogueFlagValue {
 
 	ratWarrensCaptiveCalledOut, // Reset to false when sleep
 	
-	ratWarrensCaptiveCompanionGivenBirth, // Reset to false every day
-	ratWarrensCaptiveOwnerSex, // Reset to false every day
-	ratWarrensCaptiveOwnerCompanionSex, // Reset to false every day
-	ratWarrensCaptiveDailyTransformed // Reset to false every day
+	ratWarrensCaptiveCompanionGivenBirth(true),
+	ratWarrensCaptiveOwnerSex(true),
+	ratWarrensCaptiveOwnerCompanionSex(true),
+	ratWarrensCaptiveDailyTransformed(true)
 	;
+	
+	boolean dailyReset;
+
+	private DialogueFlagValue() {
+		this(false);
+	}
+	
+	private DialogueFlagValue(boolean dailyReset) {
+		this.dailyReset = dailyReset;
+	}
+
+	public boolean isDailyReset() {
+		return dailyReset;
+	}
+	
 }

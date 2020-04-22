@@ -559,7 +559,7 @@
 				#THEN
 					#IF npc2.getPregnantLitter().isFatherId(npc.getId())
 					#THEN
-						[npc.speech(You're both still pregnant with our kids, huh?)] [npc.name] observes, flashing you and [npc2.name] a delighted smile as [npc.she] steps forwards and places a [npc.hand] on each of your swollen bellies. [npc.speech(Make sure to take good care of our kids...)]
+						[npc.speech(You're both still pregnant with our kids, huh?)] [npc.name] observes, flashing you and [npc2.name] a delighted smile as [npc.she] steps forwards and places a [npc.hand] on each of your swollen bellies. [npc.speech(Make sure to take good care of them...)]
 					#ELSE
 						[npc.speech(You're both still pregnant, huh?)] [npc.name] observes, flashing you and [npc2.name] a delighted smile as [npc.she] steps forwards and places a [npc.hand] on your swollen belly. [npc.speech(Make sure to take good care of our kids, [pc.name]...)]
 					#ENDIF
@@ -569,7 +569,7 @@
 			#ELSE
 				#IF pc.getPregnantLitter().isFatherId(npc.getId())
 				#THEN
-					[npc.speech(You're still pregnant with our kids, huh?)] [npc.name] observes, flashing you a smile as [npc.she] steps forwards and places a [npc.hand] on your swollen belly. [npc.speech(You make sure to take good care of our kids...)]
+					[npc.speech(You're still pregnant with our kids, huh?)] [npc.name] observes, flashing you a smile as [npc.she] steps forwards and places a [npc.hand] on your swollen belly. [npc.speech(You make sure to take good care of them...)]
 				#ELSE
 					[npc.speech(You're still pregnant, huh?)] [npc.name] observes, flashing you a smile. [npc.speech(You make sure to take good care of your kids...)]
 				#ENDIF
@@ -577,7 +577,7 @@
 		#ELSE
 			#IF npc2.getPregnantLitter().isFatherId(npc.getId())
 			#THEN
-				[npc.speech(You're still pregnant with our kids, huh?)] [npc.name] observes, flashing [npc2.name] a smile as [npc.she] steps forwards and places a [npc.hand] on [npc2.her] swollen belly. [npc.speech(You make sure to take good care of our kids...)]
+				[npc.speech(You're still pregnant with our kids, huh?)] [npc.name] observes, flashing [npc2.name] a smile as [npc.she] steps forwards and places a [npc.hand] on [npc2.her] swollen belly. [npc.speech(You make sure to take good care of them...)]
 			#ELSE
 				[npc.speech(You're still pregnant, huh?)] [npc.name] observes, flashing [npc2.name] a smile. [npc.speech(You make sure to take good care of your kids...)]
 			#ENDIF

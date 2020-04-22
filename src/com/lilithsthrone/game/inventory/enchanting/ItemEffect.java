@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.inventory.enchanting;
-import java.util.List;
+
+import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -166,6 +167,12 @@ public class ItemEffect implements XMLSaving {
 				break;
 			case "CLOTHING_ANTI_SELF_TRANSFORMATION":
 				secondaryMod = "CLOTHING_SERVITUDE";
+				break;
+			case "TF_MOD_ORIFICE_DEEP":
+				secondaryMod = "TF_MOD_DEPTH";
+				break;
+			case "TF_MOD_ORIFICE_DEEP_2":
+				secondaryMod = "TF_MOD_DEPTH_2";
 				break;
 		}
 		

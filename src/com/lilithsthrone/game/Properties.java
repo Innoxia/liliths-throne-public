@@ -1,5 +1,6 @@
 package com.lilithsthrone.game;
-import java.io.File;
+
+import java.io.File;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -633,6 +634,12 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.3.5.9")) {
 						values.add(PropertyValue.levelDrain);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.6.6")) {
+						values.add(PropertyValue.furryHairContent);
+					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.6.7")) {
+						values.add(PropertyValue.penetrationLimitations);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						
@@ -641,6 +648,7 @@ public class Properties {
 						} catch(Exception ex) {
 						}
 					}
+					
 				} else {
 					// Old values support:
 					nodes = doc.getElementsByTagName("settings");
@@ -1019,6 +1027,35 @@ public class Properties {
 		}
 	}
 	
+	public void resetContentOptions() {
+		autoSaveFrequency = 0;
+		multiBreasts = 1;
+		udders = 1;
+		forcedTFPercentage = 40;
+		forcedFetishPercentage = 40;
+		setForcedFetishTendency(ForcedFetishTendency.NEUTRAL);
+		setForcedTFTendency(ForcedTFTendency.NEUTRAL);
+		setForcedTFPreference(FurryPreference.NORMAL);
+		
+		pregnancyBreastGrowthVariance = 2;
+		pregnancyBreastGrowth = 1;
+		pregnancyUdderGrowth = 1;
+		
+		pregnancyBreastGrowthLimit = CupSize.E.getMeasurement();
+		pregnancyUdderGrowthLimit = CupSize.E.getMeasurement();
+		
+		pregnancyLactationIncreaseVariance = 100;
+		pregnancyLactationIncrease = 250;
+		pregnancyUdderLactationIncrease = 250;
+		
+		pregnancyLactationLimit = 1000;
+		pregnancyUdderLactationLimit = 1000;
+		
+		breastSizePreference = 0;
+		udderSizePreference = 0;
+		penisSizePreference = 0;
+	}
+	
 	// Add discoveries:
 	
 	public boolean addItemDiscovered(AbstractItemType itemType) {
@@ -1032,6 +1069,10 @@ public class Properties {
 	public boolean isItemDiscovered(AbstractItemType itemType) {
 		return itemsDiscovered.contains(itemType);
 	}
+
+	public void resetItemDiscovered() {
+		itemsDiscovered.clear();
+	}
 	
 	public boolean addClothingDiscovered(AbstractClothingType clothingType) {
 		if(clothingDiscovered.add(clothingType)) {
@@ -1043,6 +1084,10 @@ public class Properties {
 	
 	public boolean isClothingDiscovered(AbstractClothingType clothingType) {
 		return clothingDiscovered.contains(clothingType);
+	}
+
+	public void resetClothingDiscovered() {
+		clothingDiscovered.clear();
 	}
 	
 	public boolean addWeaponDiscovered(AbstractWeaponType weaponType) {
@@ -1056,6 +1101,10 @@ public class Properties {
 	public boolean isWeaponDiscovered(AbstractWeaponType weaponType) {
 		return weaponsDiscovered.contains(weaponType);
 	}
+
+	public void resetWeaponDiscovered() {
+		weaponsDiscovered.clear();
+	}
 	
 	public boolean addRaceDiscovered(Subspecies subspecies) {
 		if(subspeciesDiscovered.add(subspecies)) {
@@ -1068,6 +1117,10 @@ public class Properties {
 	
 	public boolean isRaceDiscovered(Subspecies subspecies) {
 		return subspeciesDiscovered.contains(subspecies);
+	}
+
+	public void resetRaceDiscovered() {
+		subspeciesDiscovered.clear();
 	}
 	
 	public boolean addAdvancedRaceKnowledge(Subspecies subspecies) {
@@ -1089,6 +1142,10 @@ public class Properties {
 		}
 		
 		return false;
+	}
+
+	public void resetAdvancedRaceKnowledge() {
+		subspeciesAdvancedKnowledge.clear();
 	}
 	
 	public void setFeminineFurryPreference(Subspecies subspecies, FurryPreference furryPreference) {

@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.gender;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.86
@@ -7,9 +9,9 @@ package com.lilithsthrone.game.character.gender;
  * @author Innoxia
  */
 public enum PronounType {
-	FEMININE("feminine", Colour.FEMININE),
-	NEUTRAL("androgynous", Colour.ANDROGYNOUS),
-	MASCULINE("masculine", Colour.MASCULINE);
+	FEMININE("feminine", PresetColour.FEMININE),
+	NEUTRAL("androgynous", PresetColour.ANDROGYNOUS),
+	MASCULINE("masculine", PresetColour.MASCULINE);
 	
 	private String name;
 	private Colour colour;

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission.ratWarrens;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -93,9 +94,9 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -114,12 +115,6 @@ public class VengarCaptiveDialogue {
 		for(VengarCompanionBehaviour cb : VengarCompanionBehaviour.values()) {
 			dailyCompanionBehaviours.put(cb, cb.getChanceOfOccurance());
 		}
-		
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveCompanionGivenBirth, false);
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveRoomCleaned, false);
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveVengarSatisfied, false);
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveShadowSatisfied, false);
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vengarCaptiveSilenceSatisfied, false);
 	}
 	
 	private static GameCharacter getMainCompanion() {
@@ -300,7 +295,7 @@ public class VengarCaptiveDialogue {
 	}
 	
 	private static void applyTattoo(GameCharacter target, String text) {
-		Tattoo tattoo = new Tattoo(TattooType.NONE, Colour.CLOTHING_GREY, null, null, false, new TattooWriting(text, Colour.BASE_PINK, false), null);
+		Tattoo tattoo = new Tattoo(TattooType.NONE, PresetColour.CLOTHING_GREY, null, null, false, new TattooWriting(text, PresetColour.BASE_PINK, false), null);
 		tattoo.setName("'"+text+"' tattoo");
 		target.addTattoo(InventorySlot.GROIN, tattoo);
 	}

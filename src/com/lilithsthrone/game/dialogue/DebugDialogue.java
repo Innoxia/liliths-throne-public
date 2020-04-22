@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.dialogue;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,9 +44,10 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.BaseColour;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.BaseColour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -177,11 +180,11 @@ public class DebugDialogue {
 					};
 					
 				} else if (index == 12) {
-					return new Response("+50 essences", "Add 50 arcane essences.", DEBUG_MENU){
+					return new Response("+1000 essences", "Add 1000 arcane essences.", DEBUG_MENU){
 						@Override
 						public void effects() {
 							for(TFEssence essence : TFEssence.values()) {
-								Main.game.getPlayer().incrementEssenceCount(essence, 50, false);
+								Main.game.getPlayer().incrementEssenceCount(essence, 1000, false);
 							}
 						}
 					};
@@ -193,7 +196,7 @@ public class DebugDialogue {
 				
 			} else if(responseTab==1) {
 				if (index == 1) {
-					return new Response("<span style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>+500 xp</span>", "Give yourself 500xp.", DEBUG_MENU){
+					return new Response("<span style='color:"+PresetColour.GENERIC_EXPERIENCE.toWebHexString()+";'>+500 xp</span>", "Give yourself 500xp.", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementExperience(500, false);
@@ -202,7 +205,7 @@ public class DebugDialogue {
 					};
 					
 				} else if(index==2) {
-					return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+";'>Physique</span>", "", DEBUG_MENU){
+					return new Response("<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+PresetColour.ATTRIBUTE_PHYSIQUE.toWebHexString()+";'>Physique</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_PHYSIQUE, 5);
@@ -210,7 +213,7 @@ public class DebugDialogue {
 					};
 					
 				} else if(index==3) {
-					return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Arcane</span>", "", DEBUG_MENU){
+					return new Response("<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+PresetColour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Arcane</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, 5);
@@ -218,7 +221,7 @@ public class DebugDialogue {
 					};
 					
 				} else if(index==4) {
-					return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+";'>Corruption</span>", "", DEBUG_MENU){
+					return new Response("<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString()+";'>Corruption</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_CORRUPTION, 5);
@@ -226,7 +229,7 @@ public class DebugDialogue {
 					};
 					
 				} else if(index==5) {
-					return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Max all attributes</span>", "", DEBUG_MENU){
+					return new Response("<span style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>Max all attributes</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setAttribute(Attribute.MAJOR_PHYSIQUE, 100);
@@ -236,7 +239,7 @@ public class DebugDialogue {
 					};
 					
 				}  else if(index==6) {
-					return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>+1</span> <span style='color:"+Colour.PERK.toWebHexString()+";'>Perk point</span>", "", DEBUG_MENU){
+					return new Response("<span style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>+1</span> <span style='color:"+PresetColour.PERK.toWebHexString()+";'>Perk point</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementPerkPoints(1);
@@ -244,21 +247,21 @@ public class DebugDialogue {
 					};
 					
 				} else if(index==7) {
-					return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+";'>Physique</span>", "", DEBUG_MENU){
+					return new Response("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+PresetColour.ATTRIBUTE_PHYSIQUE.toWebHexString()+";'>Physique</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_PHYSIQUE, -5);
 						}
 					};
 				} else if(index==8) {
-					return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Arcane</span>", "", DEBUG_MENU){
+					return new Response("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+PresetColour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Arcane</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, -5);
 						}
 					};
 				} else if(index==9) {
-					return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+";'>Corruption</span>", "", DEBUG_MENU){
+					return new Response("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString()+";'>Corruption</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_CORRUPTION, -5);
@@ -285,6 +288,40 @@ public class DebugDialogue {
 						}
 					};
 					
+				} else if (index == 13) {
+					return new Response("[style.colourGood(Complete)] Encyclopedia", "Unlock every entry in your encyclopedia.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							for(Subspecies subspecies : Subspecies.values()) {
+								Main.getProperties().addRaceDiscovered(subspecies);
+								Main.getProperties().addAdvancedRaceKnowledge(subspecies);
+							}
+							for(AbstractItemType itemType : ItemType.getAllItems()) {
+								Main.getProperties().addItemDiscovered(itemType);
+							}
+							for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
+								Main.getProperties().addClothingDiscovered(clothingType);
+							}
+							for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
+								Main.getProperties().addWeaponDiscovered(weaponType);
+							}
+							Main.saveProperties();
+						}
+					};
+					
+				} else if (index == 14) {
+					return new Response("[style.colourBad(Reset)] Encyclopedia", "Delete every entry in your encyclopedia.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							Main.getProperties().resetRaceDiscovered();
+							Main.getProperties().resetAdvancedRaceKnowledge();
+							Main.getProperties().resetItemDiscovered();
+							Main.getProperties().resetClothingDiscovered();
+							Main.getProperties().resetWeaponDiscovered();
+								
+							Main.saveProperties();
+						}
+					};
 				}
 				
 			} else if(responseTab==2) {
@@ -293,11 +330,13 @@ public class DebugDialogue {
 						@Override
 						public void effects() {
 							coloursSB = new StringBuilder("<p>");
-							for (Colour c : Colour.values())
-								coloursSB.append(c + ": <span style='color:" + c.toWebHexString() + ";'>Test text for readability.</span><br/>");
+							for (Colour c : PresetColour.getAllPresetColours()) {
+								coloursSB.append(c.getId() + ": <span style='color:" + c.toWebHexString() + ";'>Test text for readability.</span><br/>");
+							}
 							coloursSB.append("<br/><br/>");
-							for (BaseColour bc : BaseColour.values())
-								coloursSB.append(bc + ": <span style='color:" + bc.toWebHexString() + ";'>Test text for readability.</span><br/>");
+							for (BaseColour bc : BaseColour.values()) {
+								coloursSB.append(bc.toString() + ": <span style='color:" + bc.toWebHexString() + ";'>Test text for readability.</span><br/>");
+							}
 							coloursSB.append("</p>");
 							
 						}
@@ -605,12 +644,15 @@ public class DebugDialogue {
 	static {
 		clothingTotal.addAll(ClothingType.getAllClothing());
 		clothingTotal.removeIf((c) -> c.getDefaultItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || c.getDefaultItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
+		Collections.sort(clothingTotal, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 		
 		weaponsTotal.addAll(WeaponType.getAllWeapons());
 		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || w.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
+		Collections.sort(weaponsTotal, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 
 		itemsTotal.addAll(ItemType.getAllItems());
 		itemsTotal.removeIf((i) -> i.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || i.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
+		Collections.sort(itemsTotal, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 		
 	}
 	private static StringBuilder inventorySB = new StringBuilder();
@@ -627,10 +669,10 @@ public class DebugDialogue {
 						+ (itemTag==ItemTag.HIDDEN_IN_DEBUG_SPAWNER
 							?"[style.boldExcellent(Hidden Spawn Menu)]"
 							:(activeSlot==null
-								?"<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Spawn Item</b>"
+								?"<b style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>Spawn Item</b>"
 								:(activeSlot.isWeapon()
-									? "<b style='color:"+Colour.BASE_RED_LIGHT.toWebHexString()+";'>Spawn Weapon</b> ("+Util.capitaliseSentence(activeSlot==InventorySlot.WEAPON_MAIN_1?"Melee":"Ranged")+")"
-									: "<b style='color:"+Colour.BASE_YELLOW_LIGHT.toWebHexString()+";'>Spawn Clothing</b> ("+Util.capitaliseSentence(activeSlot.getName())+")")))
+									? "<b style='color:"+PresetColour.BASE_RED_LIGHT.toWebHexString()+";'>Spawn Weapon</b> ("+Util.capitaliseSentence(activeSlot==InventorySlot.WEAPON_MAIN_1?"Melee":"Ranged")+")"
+									: "<b style='color:"+PresetColour.BASE_YELLOW_LIGHT.toWebHexString()+";'>Spawn Clothing</b> ("+Util.capitaliseSentence(activeSlot.getName())+")")))
 					+"</p>");
 			
 			int count=0;
@@ -741,7 +783,7 @@ public class DebugDialogue {
 						&& slot!=InventorySlot.WEAPON_OFFHAND_2
 						&& slot!=InventorySlot.WEAPON_OFFHAND_3) {
 					inventorySB.append("<div class='normal-button' id='"+slot+"_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"
-							+ (slot.isWeapon() ? Colour.BASE_RED_LIGHT.toWebHexString() : Colour.BASE_YELLOW_LIGHT.toWebHexString())+";'>"
+							+ (slot.isWeapon() ? PresetColour.BASE_RED_LIGHT.toWebHexString() : PresetColour.BASE_YELLOW_LIGHT.toWebHexString())+";'>"
 							+(slot == InventorySlot.WEAPON_MAIN_1
 								?"Melee"
 								:(slot == InventorySlot.WEAPON_OFFHAND_1
@@ -750,11 +792,11 @@ public class DebugDialogue {
 							+"</div>");
 				}
 			}
-			inventorySB.append("<div class='normal-button' id='ITEM_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Items</div>");
-			inventorySB.append("<div class='normal-button' id='ESSENCE_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Essences</div>");
-			inventorySB.append("<div class='normal-button' id='BOOK_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.BASE_ORANGE.toWebHexString()+";'>Books</div>");
-			inventorySB.append("<div class='normal-button' id='SPELL_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+Colour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Spells</div>");
-			inventorySB.append("<div class='normal-button' id='HIDDEN_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; opacity:0; cursor:default; font-size:0.9em; color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Hidden</div>");
+			inventorySB.append("<div class='normal-button' id='ITEM_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>Items</div>");
+			inventorySB.append("<div class='normal-button' id='ESSENCE_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Essences</div>");
+			inventorySB.append("<div class='normal-button' id='BOOK_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.BASE_ORANGE.toWebHexString()+";'>Books</div>");
+			inventorySB.append("<div class='normal-button' id='SPELL_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Spells</div>");
+			inventorySB.append("<div class='normal-button' id='HIDDEN_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; opacity:0; cursor:default; font-size:0.9em; color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>Hidden</div>");
 			inventorySB.append("</div>");
 			
 			return inventorySB.toString();
@@ -963,14 +1005,16 @@ public class DebugDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index != 0 && index < Subspecies.values().length) {
-				String name = Subspecies.values()[index - 1].getName(null);
+				Subspecies subspecies = Subspecies.values()[index - 1];
+				String name = subspecies.getName(null);
+				
 				return new Response(
 						Util.capitaliseSentence(name),
 						"Set your body as that of "+UtilText.generateSingularDeterminer(name)+" "+name+".",
 						BODY_PART_RACE_RESET){
 					@Override
 					public void effects() {
-						if(Subspecies.values()[index - 1]==Subspecies.HALF_DEMON) {
+						if(subspecies==Subspecies.HALF_DEMON) {
 							Main.game.getPlayer().setSubspeciesOverride(null);
 							Main.game.getPlayer().setBody(
 									CharacterUtils.generateHalfDemonBody(Main.game.getPlayer(), Main.game.getPlayer().getGender(), Subspecies.HUMAN, false),
@@ -978,18 +1022,25 @@ public class DebugDialogue {
 							System.out.println(Main.game.getPlayer().getSubspeciesOverride());
 							
 						} else {
+							Main.game.getPlayer().setSubspeciesOverride(null);
+							RaceStage stage = responseTab==0
+									?RaceStage.PARTIAL
+									:(responseTab==1
+										?RaceStage.PARTIAL_FULL
+										:(responseTab==2
+											?RaceStage.LESSER
+											:RaceStage.GREATER));
+							
+							if(subspecies==Subspecies.DEMON) {
+								stage = RaceStage.GREATER;
+							}
+							
 							CharacterUtils.reassignBody(
 									Main.game.getPlayer(),
 									Main.game.getPlayer().getBody(),
 									Main.game.getPlayer().getGender(),
-									Subspecies.values()[index - 1],
-									responseTab==0
-										?RaceStage.PARTIAL
-										:(responseTab==1
-											?RaceStage.PARTIAL_FULL
-											:(responseTab==2
-												?RaceStage.LESSER
-												:RaceStage.GREATER)),
+									subspecies,
+									stage,
 									false);
 						}
 						Main.game.getTextEndStringBuilder().append(
@@ -1174,14 +1225,14 @@ public class DebugDialogue {
 					+ "<p>"
 					+ "<h6>Input:</h6><br/>"
 					+"Everything is parsed using square brackets, split into the following pattern:<br/>"
-					+"[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
+					+"[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
 					+"or, for the few special commands that require arguments:<br/>"
-					+"[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
-							+ "<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]<br/>"
+					+"[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
+							+ "<i style='color:"+PresetColour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]<br/>"
 					+"or, for parsing as a script:<br/>"
-					+"[#<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
+					+"[#<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
 					+"or, for parsing as a script which suppresses output:<br/>"
-					+"[##<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
+					+"[##<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
 					+ "<i>(This means that the command will be executed, but no String output will be displayed.)</i>"
 					+ "</p>"
 					
@@ -1196,20 +1247,20 @@ public class DebugDialogue {
 					+ "<br/>"
 					
 					
-					+"<h6><b style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>Target</b> <b>tag:</b></h6>"
+					+"<h6><b style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>Target</b> <b>tag:</b></h6>"
 					+"<p>"
 					+"The target of a command is an NPC's name, or 'pc' for the player character. Target tags are <b>case-insensitive.</b> (i.e. pc is treated the same as PC, pC, or Pc)<br/>"
 					+" If an unrecognised name is passed, the output will read 'INVALID_TARGET_NAME'.<br/>"
 					+" Currently accepted target tags can be viewed in the 'Targets' page.<br/>"
 					+ "e.g.:<br/>"
-					+ "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>lilaya</i>.command]<br/>"
-					+ "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>pc</i>.command(arguments)]<br/>"
-					+ "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>npc</i>.command]"
+					+ "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>lilaya</i>.command]<br/>"
+					+ "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>pc</i>.command(arguments)]<br/>"
+					+ "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>npc</i>.command]"
 					+ "</p>"
 					+ "<br/>"
 					
 					
-					+"<h6><b style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>Command</b> <b>and</b> <b style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>argument</b> <b>tags:</b></h6>"
+					+"<h6><b style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>Command</b> <b>and</b> <b style='color:"+PresetColour.CLOTHING_YELLOW.toWebHexString()+";'>argument</b> <b>tags:</b></h6>"
 					+"<p>"
 					+"Command tags determine what output is returned. They come in two varieties; with and without arguments.<br/>"
 					+"Arguments are passed inside brackets that follow the command, ignoring any spaces that you may insert.<br/>"
@@ -1217,7 +1268,7 @@ public class DebugDialogue {
 					+"Command tags are <b>only case-sensitive for the first letter</b>. (i.e. command is treated the same as cOMMAND, cOmMaNd, or commanD)<br/>"
 					+ "Arguments are specific to each command, and you'll have to refer to the command documentation to find out what arguments a command takes. (Don't worry, there aren't many that take arguments.)<br/>"
 					+ "e.g.:<br/>"
-					+ "[pc.speech<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>(Hello reader!)</i>] outputs "+UtilText.parsePlayerSpeech("Hello reader!")+""
+					+ "[pc.speech<i style='color:"+PresetColour.CLOTHING_YELLOW.toWebHexString()+";'>(Hello reader!)</i>] outputs "+UtilText.parsePlayerSpeech("Hello reader!")+""
 					+ ""
 					+ "</p>"
 					
@@ -1225,15 +1276,15 @@ public class DebugDialogue {
 					+ "<b>Command modifier (a_ an_)</b><br/>"
 					+"You may insert 'a_' or 'an_' to automatically generate the appropriate pronoun before an argument. (It's your choice if you prefer a_ or an_, they both work in exactly the same way.)<br/>"
 					+"e.g.:<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>height</i>] outputs 'tall'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>a_height</i>] outputs 'a tall'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>an_height</i>] <b>also</b> outputs 'a tall'<br/><br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>height</i>] outputs 'tall'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>a_height</i>] outputs 'a tall'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>an_height</i>] <b>also</b> outputs 'a tall'<br/><br/>"
 					
 					+"For some body part names, this provides a little more complexity.<br/>"
 					+ "e.g.:<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>arms</i>] outputs 'wings'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>a_arms</i>] outputs 'a pair of wings'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>an_arms</i>] <b>also</b> outputs 'a pair of wings'<br/><br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>arms</i>] outputs 'wings'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>a_arms</i>] outputs 'a pair of wings'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>an_arms</i>] <b>also</b> outputs 'a pair of wings'<br/><br/>"
 					+ "</p>"
 					
 					+"<p>"
@@ -1241,12 +1292,12 @@ public class DebugDialogue {
 					+"Most commands are able to apply capitalisation. The ones that don't, such as numeric output commands, will still happily take a capitalised command, but capitalisation won't be applied.<br/>"
 					+ "To capitalise an output, all you have to do is capitalise <b>the first letter</b> of the command name.<br/>"
 					+"e.g.:<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>height</i>] outputs 'tall'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>hEIGHT</i>] <b>also</b> outputs 'tall' (I'm sure nobody would ever do this...)<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>Height</i>] outputs 'Tall'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>a_height</i>] outputs 'a tall'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>A_height</i>]  outputs 'A tall'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>a_Height</i>] <b>also</b> outputs 'A tall'<br/><br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>height</i>] outputs 'tall'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>hEIGHT</i>] <b>also</b> outputs 'tall' (I'm sure nobody would ever do this...)<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>Height</i>] outputs 'Tall'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>a_height</i>] outputs 'a tall'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>A_height</i>]  outputs 'A tall'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>a_Height</i>] <b>also</b> outputs 'A tall'<br/><br/>"
 					
 					+"<p>"
 					+ "<b>Command modifier (+ D)</b><br/>"
@@ -1254,58 +1305,58 @@ public class DebugDialogue {
 					+ "To apply additional descriptors to the returned output, all you have to do is add a '+', 'd', or 'D' to the end of the command.<br/>"
 					+ "<b>This works in combination with 'a_ an_' and 'Capitalisation' modifiers.</b><br/>"
 					+"e.g.:<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>arms</i>] outputs 'wings'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>arms+</i>] outputs 'feathered wings'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>armsD</i>] <b>also</b> outputs 'feathered wings'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>armsd</i>] <b>also</b> outputs 'feathered wings'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>ArmsD</i>] outputs 'Feathered wings'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>a_arms+</i>] outputs 'a pair of feathered wings'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>A_arms+</i>]  outputs 'A pair of feathered wings'<br/><br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>arms</i>] outputs 'wings'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>arms+</i>] outputs 'feathered wings'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>armsD</i>] <b>also</b> outputs 'feathered wings'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>armsd</i>] <b>also</b> outputs 'feathered wings'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>ArmsD</i>] outputs 'Feathered wings'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>a_arms+</i>] outputs 'a pair of feathered wings'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>A_arms+</i>]  outputs 'A pair of feathered wings'<br/><br/>"
 					
 					+"Some outputs have more randomisation than others.<br/>"
 					+ "e.g.:<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>pussy</i>] outputs 'slit'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>pussy</i>] outputs 'cunt'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>pussy+</i>] outputs 'wet pussy'<br/>"
-					+ "[npc.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>pussy+</i>] outputs 'tentacle-lined twat'<br/><br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>pussy</i>] outputs 'slit'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>pussy</i>] outputs 'cunt'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>pussy+</i>] outputs 'wet pussy'<br/>"
+					+ "[npc.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>pussy+</i>] outputs 'tentacle-lined twat'<br/><br/>"
 					+ "</p>"
 					+ "<br/>"
 
 					+ "<h6>Conclusion:</h6><br/>"
 					+"<p>"
 					+"<b>Valid</b> command syntax:<br/>"
-					+"[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
+					+"[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>]<br/>"
 					+"or<br/>"
-					+"[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
-							+ "<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]<br/><br/>"
+					+"[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
+							+ "<i style='color:"+PresetColour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]<br/><br/>"
 					+ "<br/>"
 
 					+ "<h6>Examples:</h6><br/>"
-					+ "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>brax</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>name</i>]"
-						+ " leans back in [<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>brax</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>his</i>]"
-						+ " chair, wondering what happened to [<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>arthur</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>name</i>]"
-						+ " after [<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>brax</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>he</i>]"
-						+ " handed [[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>arthur</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>him</i>]] over to Scarlett.<br/>"
+					+ "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>brax</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>name</i>]"
+						+ " leans back in [<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>brax</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>his</i>]"
+						+ " chair, wondering what happened to [<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>arthur</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>name</i>]"
+						+ " after [<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>brax</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>he</i>]"
+						+ " handed [[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>arthur</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>him</i>]] over to Scarlett.<br/>"
 					+ "outputs:<br/>"
 					+ "'Brax leans back in his chair, wondering what happened to Arthur after he handed him over to Scarlett.'<br/><br/>"
 					
-					+ "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>rose</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>name</i>]"
+					+ "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>rose</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>name</i>]"
 						+ " leans back in "
-						+ "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>rose</i>.<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>herHuis</i>]"
+						+ "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>rose</i>.<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>herHuis</i>]"
 						+ " chair, letting out a sigh as "
-						+ "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>rose</i>.<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>shyeHe</i>]"
-						+ " takes a sip of [<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>rose</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>name</i>] coffee.<br/>"
+						+ "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>rose</i>.<i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>shyeHe</i>]"
+						+ " takes a sip of [<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>rose</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>name</i>] coffee.<br/>"
 					+ "outputs:<br/>"
 					+ UtilText.parse("[rose.name] leans back in [rose.herHuis] chair, letting out a sigh as [rose.shyeHe] takes a sip of [rose.name] coffee.")+"<br/>"
-					+ "<b>Note:</b> <i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Typos</i> will cause the parsing system to return an invalid command string, whereas"
-							+ " <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>incorrect commands</i> (such as typing .name instead of .herHis) will not throw an error!<br/><br/>"
+					+ "<b>Note:</b> <i style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Typos</i> will cause the parsing system to return an invalid command string, whereas"
+							+ " <i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>incorrect commands</i> (such as typing .name instead of .herHis) will not throw an error!<br/><br/>"
 					
-					+ "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>lilaya</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>name</i>]"
-						+ " storms up to [<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>innoxia</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>name</i>],"
+					+ "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>lilaya</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>name</i>]"
+						+ " storms up to [<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>innoxia</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>name</i>],"
 						+ " shouting angrily in response to finding out that"
-						+ " [<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>lilaya</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>her</i>] sex scenes haven't been fixed yet,"
-								+ " [<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>lilaya</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>speech</i>"
-										+ "<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>(What the hell are you doing Innoxia?! You said my scenes were going to be re-written weeks ago!)</i>]<br/>"
+						+ " [<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>lilaya</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>her</i>] sex scenes haven't been fixed yet,"
+								+ " [<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>lilaya</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>speech</i>"
+										+ "<i style='color:"+PresetColour.CLOTHING_YELLOW.toWebHexString()+";'>(What the hell are you doing Innoxia?! You said my scenes were going to be re-written weeks ago!)</i>]<br/>"
 					+ "outputs:<br/>"
 					+ "'Lilaya storms up to Innoxia, shouting angrily in response to finding out that her sex scenes haven't been fixed yet, "
 						+UtilText.parseSpeech("What the hell are you doing Innoxia?! You said my scenes were going to be re-written weeks ago!", Main.game.getNpc(Lilaya.class))+"'"
@@ -1355,9 +1406,9 @@ public class DebugDialogue {
 		public String getHeaderContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append("<p>Here are a list of accepted <i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>targets</i>, for use in the parsing syntax:<br/>"
-					+ "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
-							+ "<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]</p>");
+			UtilText.nodeContentSB.append("<p>Here are a list of accepted <i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>targets</i>, for use in the parsing syntax:<br/>"
+					+ "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
+							+ "<i style='color:"+PresetColour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]</p>");
 			
 			for(ParserTarget character : ParserTarget.values()) {
 				UtilText.nodeContentSB.append("<hr/>"
@@ -1365,7 +1416,7 @@ public class DebugDialogue {
 				
 				boolean first=true;
 				for(String s : character.getTags()) {
-					UtilText.nodeContentSB.append((first?"":" | ") +"<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>"+s+"</i>");
+					UtilText.nodeContentSB.append((first?"":" | ") +"<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>"+s+"</i>");
 					first = false;
 				}
 				
@@ -1419,9 +1470,9 @@ public class DebugDialogue {
 		public String getHeaderContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append("<p>Here are a list of accepted <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>commands</i>, for use in the parsing syntax:<br/>"
-						+ "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
-						+ "<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]</p>"
+			UtilText.nodeContentSB.append("<p>Here are a list of accepted <i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>commands</i>, for use in the parsing syntax:<br/>"
+						+ "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
+						+ "<i style='color:"+PresetColour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]</p>"
 						+ "<p>"
 							+ "<b>Please don't be intimidated by the number of commands!</b>"
 							+ " The <i>vast</i> majority of them are automatically generated 'standard' variations for body parts, following a (hopefully) intuitive naming system."
@@ -1431,11 +1482,11 @@ public class DebugDialogue {
 			for(ParserCommand command : UtilText.commandsList) {
 				UtilText.nodeContentSB.append("<hr/>"
 						+ "<p>"
-						+ "<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+String.format("%03d.", count)+"</b> <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(0)+"</i>");
+						+ "<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"+String.format("%03d.", count)+"</b> <i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(0)+"</i>");
 				
 				if(command.getTags().size()>1) {
 					for(int i = 1; i<command.getTags().size(); i++)
-						UtilText.nodeContentSB.append(" | <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(i)+"</i>");
+						UtilText.nodeContentSB.append(" | <i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(i)+"</i>");
 				}
 				
 				UtilText.nodeContentSB.append("</p>");
@@ -1487,9 +1538,9 @@ public class DebugDialogue {
 		public String getHeaderContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append("<p>Here are a list of accepted <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>commands</i>, for use in the parsing syntax:<br/>"
-						+ "[<i style='color:"+Colour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
-						+ "<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]</p>"
+			UtilText.nodeContentSB.append("<p>Here are a list of accepted <i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>commands</i>, for use in the parsing syntax:<br/>"
+						+ "[<i style='color:"+PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()+";'>target</i>.<i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>command</i>"
+						+ "<i style='color:"+PresetColour.CLOTHING_YELLOW.toWebHexString()+";'>(arguments)</i>]</p>"
 						+ "<p>"
 							+ "<b>Please don't be intimidated by the number of commands!</b>"
 							+ " The <i>vast</i> majority of them are automatically generated 'standard' variations for body parts, following a (hopefully) intuitive naming system."
@@ -1498,22 +1549,22 @@ public class DebugDialogue {
 			int count = 1;
 			for(BodyPartType bpt : BodyPartType.values()) {
 				UtilText.nodeContentSB.append("<details>"
-						+ "<summary style='cursor:pointer;'><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>("
+						+ "<summary style='cursor:pointer;'><b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>("
 							+String.format("%03d", count)+" - "+String.format("%03d", count+UtilText.commandsMap.get(bpt).size()-1)+")</b> "+Util.capitaliseSentence(bpt.getName())+"</summary>");
 				for(ParserCommand command : UtilText.commandsMap.get(bpt)) {
 					UtilText.nodeContentSB.append("<p>"
 							+ "<hr/>"
-							+ "<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+String.format("%03d.", count)+"</b> <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(0)+"</i>");
+							+ "<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"+String.format("%03d.", count)+"</b> <i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(0)+"</i>");
 					
 					if(command.getTags().size()>1) {
 						for(int i = 1; i<command.getTags().size(); i++)
-							UtilText.nodeContentSB.append(" | <i style='color:"+Colour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(i)+"</i>");
+							UtilText.nodeContentSB.append(" | <i style='color:"+PresetColour.CLOTHING_PINK_LIGHT.toWebHexString()+";'>"+command.getTags().get(i)+"</i>");
 					}
 					
 					UtilText.nodeContentSB.append("<br/>"
-							+(command.getArguments()==""?"<i style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No arguments</i>":"<i style='color:"+Colour.CLOTHING_YELLOW.toWebHexString()+";'>"+command.getArguments()+"</i>")+"<br/>"
-							+(command.isAllowsCapitalisation()?"<i style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Capitalisation</i>":"<i style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Capitalisation</i>")
-								+ " | " +(command.isAllowsPronoun()?"<i style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Pronouns</i>":"<i style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Pronouns</i>")
+							+(command.getArguments()==""?"<i style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No arguments</i>":"<i style='color:"+PresetColour.CLOTHING_YELLOW.toWebHexString()+";'>"+command.getArguments()+"</i>")+"<br/>"
+							+(command.isAllowsCapitalisation()?"<i style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Capitalisation</i>":"<i style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>Capitalisation</i>")
+								+ " | " +(command.isAllowsPronoun()?"<i style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Pronouns</i>":"<i style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>Pronouns</i>")
 								+"<br/>"
 							+command.getDescription()+"<br/>"
 							+"Examples:<br/>"

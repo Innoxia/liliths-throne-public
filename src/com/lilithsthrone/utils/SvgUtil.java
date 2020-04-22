@@ -1,5 +1,8 @@
 package com.lilithsthrone.utils;
 
+import com.lilithsthrone.utils.colours.BaseColour;
+import com.lilithsthrone.utils.colours.Colour;
+
 /**
  * Put any static util methods related to .svg files in here.
  * 
@@ -13,7 +16,7 @@ public class SvgUtil {
 		String s = inputString;
 	
 		s = s.replaceAll("linearGradient\\d|innoGrad\\d|radialGradient\\d",
-				gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "$0");
+				gradientReplacementID + colour.getId() + (colourSecondary!=null?colourSecondary.getId():"") + (colourTertiary!=null?colourTertiary.getId():"") + "$0");
 
 		s = sanitizeImageString(s, false);
 		
@@ -57,7 +60,7 @@ public class SvgUtil {
 		
 		if(gradientReplacementID!=null) {
 			s = s.replaceAll("linearGradient\\d|innoGrad\\d|radialGradient\\d",
-					gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + (colourQuaternary!=null?colourQuaternary.toString():"") + "$0");
+					gradientReplacementID + colour.getId() + (colourSecondary!=null?colourSecondary.getId():"") + (colourTertiary!=null?colourTertiary.getId():"") + (colourQuaternary!=null?colourQuaternary.getId():"") + "$0");
 		}
 
 		s = sanitizeImageString(s, true);

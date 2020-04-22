@@ -1,10 +1,11 @@
 package com.lilithsthrone.controller.eventListeners.tooltips;
-import org.w3c.dom.events.Event;
+
+import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.69.9
@@ -23,7 +24,7 @@ public class TooltipCopyInfoEventListener implements EventListener {
 				+ "</div>"
 				+ "<div class='description'>"
 				+ "Click to copy the currently displayed dialogue to your clipboard.<br/><br/>"
-				+ "This scene was written by <b style='color:"+Colour.ANDROGYNOUS.toWebHexString()+";'>"
+				+ "This scene was written by <b style='color:"+PresetColour.ANDROGYNOUS.toWebHexString()+";'>"
 				+ Main.game.getCurrentDialogueNode().getAuthor()
 				+ "</b></div>");
 		

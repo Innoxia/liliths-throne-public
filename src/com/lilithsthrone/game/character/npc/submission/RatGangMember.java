@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.submission;
-import java.time.Month;
+
+import java.time.Month;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,8 +38,8 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -165,7 +166,7 @@ public class RatGangMember extends NPC {
 		this.clearNonEquippedInventory(false);
 		
 		if(settings.contains(EquipClothingSetting.ADD_TATTOOS)) {
-			this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, false, null, null));
+			this.addTattoo(InventorySlot.WRIST, new Tattoo(TattooType.getTattooTypeFromId("innoxia_gang_rat_skull"), PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, false, null, null));
 		}
 		
 		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
@@ -228,7 +229,8 @@ public class RatGangMember extends NPC {
 				public void effects() {
 					if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_DORMITORY_LEFT
 							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_MILKING_ROOM
-							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_MILKING_STORAGE) {
+							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_MILKING_STORAGE
+							|| Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_CORRIDOR_LEFT) {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensClearedLeft, true);
 						
 					} else if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.RAT_WARRENS_DORMITORY_RIGHT) {

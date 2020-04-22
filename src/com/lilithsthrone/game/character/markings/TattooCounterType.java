@@ -1,8 +1,10 @@
 package com.lilithsthrone.game.character.markings;
-import java.util.Objects;
+
+import java.util.Objects;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.Litter;
 import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -226,6 +228,40 @@ public enum TattooCounterType {
 			return count; 
 		}
 	},
+	
+	VIRGINITIES_TAKEN_ORAL("oral deflowerments", "Keeps a count of how many oral virginities the bearer has taken.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			int count = 0;
+			
+			for(GameCharacter character : Main.game.getAllNPCs()) {
+				if(!character.equals(bearer)) {
+					for(SexAreaPenetration pen : SexAreaPenetration.values()) {
+						if(pen.isTakesVirginity()
+								&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pen))!=null
+								&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pen)).getKey().equals(bearer.getId())) {
+							count++;
+							break;
+						}
+					}
+				}
+			}
+			
+			GameCharacter character = Main.game.getPlayer();
+			if(!character.equals(bearer)) {
+				for(SexAreaPenetration pen : SexAreaPenetration.values()) {
+					if(pen.isTakesVirginity()
+							&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pen))!=null
+							&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, pen)).getKey().equals(bearer.getId())) {
+						count++;
+						break;
+					}
+				}
+			}
+			
+			return count; 
+		}
+	},
 
 	CURRENT_PREGNANCY("litter size", "Counts how many children the bearer is currently pregnant with.") {
 		@Override
@@ -234,6 +270,17 @@ public enum TattooCounterType {
 				return 0;
 			}
 			return bearer.getPregnantLitter().getTotalLitterCount();
+		}
+	},
+
+	OFFSPRING_BIRTHED("offspring birthed", "Counts how many children the bearer has given birth to.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			int count = 0;
+			for(Litter litter : bearer.getLittersBirthed()) {
+				count+=litter.getTotalLitterCount();
+			}
+			return count;
 		}
 	},
 	

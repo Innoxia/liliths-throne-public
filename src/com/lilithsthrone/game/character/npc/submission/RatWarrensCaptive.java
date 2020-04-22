@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.submission;
-import java.time.Month;
+
+import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -11,6 +12,7 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.FluidCum;
+import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
@@ -41,8 +43,8 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -109,8 +111,8 @@ public class RatWarrensCaptive extends NPC {
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
-			this.setVaginaCapacity(32*PenetrationGirth.FOUR_FAT.getOrificeStretchFactor(), true);
-			this.setAssCapacity(32*PenetrationGirth.FOUR_FAT.getOrificeStretchFactor(), true);
+			this.setVaginaCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
+			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
 		}
@@ -143,14 +145,14 @@ public class RatWarrensCaptive extends NPC {
 		
 		// From anal sex:
 		if(Main.game.isAnalContentEnabled()) {
-			this.setAssCapacity(32*PenetrationGirth.FOUR_FAT.getOrificeStretchFactor(), true);
+			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
 			this.setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 			this.setAssPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		}
 
 		// From vaginal sex:
 		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
-		this.setVaginaCapacity(32*PenetrationGirth.FOUR_FAT.getOrificeStretchFactor(), true);
+		this.setVaginaCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		
@@ -175,7 +177,7 @@ public class RatWarrensCaptive extends NPC {
 		this.clearNonEquippedInventory(false);
 		this.clearTattoosAndScars();
 		
-		AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_STEEL, Colour.CLOTHING_GUNMETAL, false);
+		AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_GUNMETAL, false);
 		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_ENSLAVEMENT, TFPotency.MINOR_BOOST, 0));
 		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_BOOST, 0));
 		collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_DRAIN, 0));
@@ -184,11 +186,11 @@ public class RatWarrensCaptive extends NPC {
 	
 	public void applyDildos(boolean equip) {
 		if(equip) {
-			AbstractClothing dildo = AbstractClothingType.generateClothing("norin_dildos_realistic_dildo", Colour.CLOTHING_PINK_HOT, false);
+			AbstractClothing dildo = AbstractClothingType.generateClothing("norin_dildos_realistic_dildo", PresetColour.CLOTHING_PINK_HOT, false);
 			dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
 			this.equipClothingFromNowhere(dildo, InventorySlot.VAGINA, true, this);
 			
-			dildo = AbstractClothingType.generateClothing("norin_dildos_realistic_dildo", Colour.CLOTHING_PINK_HOT, false);
+			dildo = AbstractClothingType.generateClothing("norin_dildos_realistic_dildo", PresetColour.CLOTHING_PINK_HOT, false);
 			dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
 			this.equipClothingFromNowhere(dildo, InventorySlot.ANUS, true, this);
 			

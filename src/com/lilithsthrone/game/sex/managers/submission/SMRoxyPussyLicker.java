@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.managers.submission;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,9 +36,7 @@ public class SMRoxyPussyLicker extends SexManagerDefault {
 	@Override
 	public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 		Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-		map.put(Main.game.getNpc(Roxy.class),
-				Util.newArrayListOfValues(
-						CoverableArea.VAGINA));
+		map.put(Main.game.getNpc(Roxy.class), Util.newArrayListOfValues(CoverableArea.VAGINA));
 		return map;
 	}
 

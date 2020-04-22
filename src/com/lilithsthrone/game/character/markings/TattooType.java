@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.markings;
-import java.io.File;
+
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.ColourListPresets;
 
 /**
  * @since 0.2.6

@@ -1,9 +1,11 @@
 package com.lilithsthrone.game.combat;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * Move type used in combat. Determines certain interactions, but doesn't have inherent power to itself.
@@ -14,12 +16,12 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum CombatMoveType {
 
-    ATTACK("Attack", Colour.DAMAGE_TYPE_PHYSICAL),
-    DEFEND("Defend", Colour.SPELL_SCHOOL_WATER),
-    TEASE("Tease", Colour.GENERIC_SEX),
-    SPELL("Spell", Colour.GENERIC_ARCANE),
-    SKILL("Skill", Colour.GENERIC_GOOD),
-    ATTACK_DEFEND("Defensive Attack", Colour.SPELL_SCHOOL_WATER, new ArrayList<>(Arrays.asList(CombatMoveType.ATTACK, CombatMoveType.DEFEND)));
+    ATTACK("Attack", PresetColour.DAMAGE_TYPE_PHYSICAL),
+    DEFEND("Defend", PresetColour.SPELL_SCHOOL_WATER),
+    TEASE("Tease", PresetColour.GENERIC_SEX),
+    SPELL("Spell", PresetColour.GENERIC_ARCANE),
+    SKILL("Skill", PresetColour.GENERIC_GOOD),
+    ATTACK_DEFEND("Defensive Attack", PresetColour.SPELL_SCHOOL_WATER, new ArrayList<>(Arrays.asList(CombatMoveType.ATTACK, CombatMoveType.DEFEND)));
 
     private String name;
     private List<CombatMoveType> countsAsList;

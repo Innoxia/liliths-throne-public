@@ -318,7 +318,7 @@
 				Wasting no time, Amber clicks her fingers once more, pointing down at her side as she motions for you to follow her like a dog. Looking across to your companion, she then snarls, [amber.speech(You stay here, bitch. If you cause any trouble, I'll be sure to make you pay.)]
 			</p>
 			<p>
-				Eager to get this whole business with Arthur settled once and for all, you tell [companion.name] to do as Amber says, before obediently moving forwards alongside the succubus maid. Giving you one last disgusted glance, Amber sets off into the house, with you pathetically
+				Eager to get this whole business with Arthur settled once and for all, you tell [com.name] to do as Amber says, before obediently moving forwards alongside the succubus maid. Giving you one last disgusted glance, Amber sets off into the house, with you pathetically
 				#IF(pc.isTaur())
 					 moving
 				#ELSE

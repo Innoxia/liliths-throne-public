@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.attributes;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.95
@@ -9,13 +11,13 @@ package com.lilithsthrone.game.character.attributes;
 public enum AffectionLevelBasic {
 	
 	/** -100 to -30*/
-	DISLIKE("dislikes", -100, -30, Colour.AFFECTION_NEGATIVE_TWO),
+	DISLIKE("dislikes", -100, -30, PresetColour.AFFECTION_NEGATIVE_TWO),
 
 	/** -30 to 30*/
-	NEUTRAL("neutral", -30, 30, Colour.AFFECTION_POSITIVE_ONE),
+	NEUTRAL("neutral", -30, 30, PresetColour.AFFECTION_POSITIVE_ONE),
 
 	/** -30 to 100*/
-	LIKE("likes", 30, 100, Colour.AFFECTION_POSITIVE_FIVE);
+	LIKE("likes", 30, 100, PresetColour.AFFECTION_POSITIVE_FIVE);
 	
 	
 	private String name;

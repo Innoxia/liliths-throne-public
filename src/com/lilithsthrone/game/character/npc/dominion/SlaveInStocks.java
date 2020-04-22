@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
-import java.time.Month;
+
+import java.time.Month;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,19 +104,6 @@ public class SlaveInStocks extends NPC {
 			// PERSONALITY & BACKGROUND:
 
 			this.setHistory(Occupation.NPC_SLAVE);
-//			if(this.isFeminine()) {
-//				if(Math.random()>0.5f) {
-//					this.setHistory(Occupation.NPC_PROSTITUTE);
-//					setSexualOrientation(SexualOrientation.AMBIPHILIC);
-//					setName(Name.getRandomProstituteTriplet());
-//					useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
-//				} else {
-//					this.setHistory(Occupation.NPC_MUGGER);
-//				}
-//				
-//			} else {
-//				this.setHistory(Occupation.NPC_MUGGER);
-//			}
 			
 			// ADDING FETISHES:
 			

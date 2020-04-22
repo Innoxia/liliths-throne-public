@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>120</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[basic barbell]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[basic barbells]]></namePlural>
+		<description><![CDATA[Each of these basic barbells consists of a thin cylinder of metal, with an unscrewable sphere on either end. They could be slid into place through either a pair of pierced nipples or 'industrial' ear piercings.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+		  <slot>PIERCING_NIPPLE</slot>
+		  <slot>PIERCING_EAR</slot>
+		</equipSlots>
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>basic_barbell_pair.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList slot="PIERCING_NIPPLE">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<blockedPartsList slot="PIERCING_EAR">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="PIERCING_NIPPLE"/>
+		<incompatibleSlots slot="PIERCING_EAR"/>
+		
+		<primaryColours values="ALL_METAL"/> 
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText slot="PIERCING_NIPPLE" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the barbells into [npc.her] nipple piercings.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the barbells into [npc2.namePos] nipple piercings.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(slide)] the barbells into [npc2.namePos] nipple piercings.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText slot="PIERCING_NIPPLE" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] barbells out of [npc.her] nipple piercings.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] barbells out of [npc2.her] nipple piercings.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] barbells out of [npc2.her] nipple piercings.]]>
+    </otherRough>
+  </displacementText>
+
+  <replacementText slot="PIERCING_EAR" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the barbells into [npc.her] [npc.ear]'s industrial piercings.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the barbells into [npc2.namePos] [npc2.ear]'s industrial piercings.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(slide)] the barbells into [npc2.namePos] [npc2.ear]'s industrial piercings.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText slot="PIERCING_EAR" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] barbells out of [npc.her] [npc.ear]'s industrial piercings.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] barbells out of [npc2.her] [npc2.ear]'s industrial piercings.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] barbells out of [npc2.her] [npc2.ear]'s industrial piercings.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

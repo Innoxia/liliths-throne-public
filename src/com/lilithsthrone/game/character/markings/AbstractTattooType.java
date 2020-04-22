@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.markings;
-import java.io.File;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -22,10 +23,11 @@ import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.ColourListPresets;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.6
@@ -78,7 +80,7 @@ public class AbstractTattooType extends AbstractCoreType {
 		
 		this.availablePrimaryColours = new ArrayList<>();
 		if (availablePrimaryColours == null) {
-			this.availablePrimaryColours.add(Colour.CLOTHING_BLACK);
+			this.availablePrimaryColours.add(PresetColour.CLOTHING_BLACK);
 		} else {
 			this.availablePrimaryColours.addAll(availablePrimaryColours);
 		}
@@ -199,7 +201,7 @@ public class AbstractTattooType extends AbstractCoreType {
 			NodeList coloursNodeList = coloursElement.getElementsByTagName("colour");
 			List<Colour> result = new ArrayList<>(coloursNodeList.getLength());
 			for(int i = 0; i < coloursNodeList.getLength(); i++){
-				result.add(Colour.valueOf(((Element)coloursNodeList.item(i)).getTextContent()));
+				result.add(PresetColour.getColourFromId(((Element)coloursNodeList.item(i)).getTextContent()));
 			}
 			return result;
 		}

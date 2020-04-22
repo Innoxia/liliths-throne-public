@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.inventory;
-import com.lilithsthrone.utils.Colour;
+
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -8,19 +10,19 @@ package com.lilithsthrone.game.inventory;
  */
 public enum Rarity {
 
-	COMMON("common", Colour.RARITY_COMMON, Colour.RARITY_COMMON_BACKGROUND),
+	COMMON("common", PresetColour.RARITY_COMMON, PresetColour.RARITY_COMMON_BACKGROUND),
 	
-	UNCOMMON("uncommon", Colour.RARITY_UNCOMMON, Colour.RARITY_UNCOMMON_BACKGROUND),
+	UNCOMMON("uncommon", PresetColour.RARITY_UNCOMMON, PresetColour.RARITY_UNCOMMON_BACKGROUND),
 	
-	RARE("rare", Colour.RARITY_RARE, Colour.RARITY_RARE_BACKGROUND),
+	RARE("rare", PresetColour.RARITY_RARE, PresetColour.RARITY_RARE_BACKGROUND),
 	
-	EPIC("epic", Colour.RARITY_EPIC, Colour.RARITY_EPIC_BACKGROUND),
+	EPIC("epic", PresetColour.RARITY_EPIC, PresetColour.RARITY_EPIC_BACKGROUND),
 	
-	LEGENDARY("legendary", Colour.RARITY_LEGENDARY, Colour.RARITY_LEGENDARY_BACKGROUND),
+	LEGENDARY("legendary", PresetColour.RARITY_LEGENDARY, PresetColour.RARITY_LEGENDARY_BACKGROUND),
 	
-	QUEST("unique", Colour.RARITY_QUEST, Colour.RARITY_QUEST_BACKGROUND),
+	QUEST("unique", PresetColour.RARITY_QUEST, PresetColour.RARITY_QUEST_BACKGROUND),
 	
-	JINXED("jinxed", Colour.RARITY_JINXED, Colour.RARITY_JINXED_BACKGROUND);
+	JINXED("jinxed", PresetColour.RARITY_JINXED, PresetColour.RARITY_JINXED_BACKGROUND);
 
 	private String name;
 	private Colour colour;

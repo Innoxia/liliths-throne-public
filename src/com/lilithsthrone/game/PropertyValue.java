@@ -40,11 +40,13 @@ public enum PropertyValue {
 	incestContent(false),
 	inflationContent(true),
 	
-	facialHairContent(false),
-	pubicHairContent(false),
+	facialHairContent(true),
+	pubicHairContent(true),
 	bodyHairContent(false),
 	assHairContent(false),
 	feminineBeardsContent(false),
+	furryHairContent(true),
+	scalyHairContent(false),
 	
 	lactationContent(true),
 	cumRegenerationContent(true),
@@ -53,6 +55,7 @@ public enum PropertyValue {
 	analContent(true),
 	footContent(true),
 	gapeContent(true),
+	penetrationLimitations(true),
 	
 	futanariTesticles(true),
 	bipedalCloaca(true),
@@ -72,7 +75,6 @@ public enum PropertyValue {
 	newItemDiscovered(false),
 	newRaceDiscovered(false);
 
-	
 	private boolean defaultValue;
 
 	private PropertyValue(boolean defaultValue) {

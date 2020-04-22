@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
-import com.lilithsthrone.game.character.attributes.Attribute;
+
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.npc.NPC;

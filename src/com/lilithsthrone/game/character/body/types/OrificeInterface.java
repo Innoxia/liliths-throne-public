@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.character.body.types;
-import com.lilithsthrone.game.character.GameCharacter;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
@@ -8,7 +10,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.3.7
  * @author Innoxia
  */
 public interface OrificeInterface {
@@ -22,6 +24,12 @@ public interface OrificeInterface {
 	public float getStretchedCapacity();
 	public boolean setStretchedCapacity(float stretchedCapacity);
 
+	public int getMaximumPenetrationDepthComfortable(GameCharacter owner);
+	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner);
+
+	public OrificeDepth getDepth(GameCharacter owner);
+	public String setDepth(GameCharacter owner, int depth);
+	
 	public OrificeElasticity getElasticity();
 	public String setElasticity(GameCharacter owner, int elasticity);
 	

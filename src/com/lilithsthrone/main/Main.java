@@ -1,5 +1,6 @@
 package com.lilithsthrone.main;
-import java.io.File;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.nio.file.Paths;
@@ -29,8 +30,8 @@ import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.CreditsSlot;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -52,7 +53,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.5
+ * @version 0.3.7.1
  * @author Innoxia
  */
 public class Main extends Application {
@@ -68,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.6.1";
+	public static final String VERSION_NUMBER = "0.3.7.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -85,21 +86,11 @@ public class Main extends Application {
 	public static String patchNotes =
 		
 		"<p>"
-			+ "Hello once again!"
+			+ "Hello again!"
 		+ "</p>"
 		
 		+ "<p>"
-			+ "I've got all of the core dialogue for Axel's quest filled in, although the loss scenes (involving the player being held captive by wither Murk or Vengar) are still all placeholders."
-			+ " I've really been struggling to get this writing finished, and I think that it's already cost me far too much time, so I'm going to go on and push ahead with other content, and will come back and fill it in another time."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "Speaking of which, the next update will be focused around adding Helena's romance quest, as well as some Enforcer encounters and size difference mechanics/content."
-			+ " I'll try to get all that done as quickly as possible, so that I can then finally move on to adding more main quest content."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "v0.3.6.1 was a hotfix to address some major bugs."
+			+ "Once again, this version is in a little bit of a rough state. There will be a more polished release out very soon, which will include the completed Helena date content!"
 		+ "</p>"
 			
 		+ "<br/>"
@@ -110,413 +101,435 @@ public class Main extends Application {
 		+ "</p>"
 
 		+ "<br/>"
-
 		+ "<list>"
-			+ "<h6>v0.3.6.1</h6>"
-			+"<li>Bugs:</li>"
-			+"<ul>Fixed issue where the game would sometimes freeze or throw other errors when opening the player's selfie menu.</ul>"
-			+"<ul>Fixed game freeze in combat when sadist/masochist dealt/took damage while at 100 lust.</ul>"
-			+"<ul>Fixed a parsing bug in the Rat Warrens' Milking Room.</ul>"
-			+"<ul>Fixed bug where Helena would add three new slaves to her shop every day and never remove the old ones, which was eventually causing a huge number of slaves to stack up on that tile.</ul>"
-		+"</list>"
-
-		+ "<br/>"
-		+ "<list>"
-			+ "<h6>v0.3.6</h6>"
-			+"<li>Engine:</li>"
-			+"<ul>Removed all of the Sex class's static methods. Sex methods are now called via 'Main.sex.' in the code, or 'sex.' in the parsing engine. This was done to enable sex methods to be referenced in text file parsing.</ul>"
-			+"<ul>Added parsing command 'companion', which returns either your companion's relation to you (i.e. 'son', 'daughter', etc.) or the word 'companion'.</ul>"
-			+"<ul>Added support for tiles to contain multiple generic Population types.</ul>"
-			
-			+"<li>Gameplay:</li>"
-			+"<ul>Filled in a lot of Axel's quest placeholders. (The two loss routes and the post-quest interactions with Vengar & MUrk still need to be filled in...)</ul>"
-			+"<ul>Added tail girth. You can alter tail girth via enchanting potions or the self-TF menu (for demons and slimes).</ul>"
-			
-			+"<li>Items:</li>"
-			+"<ul>Some items of clothing now provide a key to the equipping character when equipped (such as chastity cages, chastity belts, other bondage gear). While in possession of this key, unjinxing (i.e. unlocking) the clothing costs no essences.</ul>"
-			+"<ul>For modders: Items of clothing can be defined as providing a key with the new PROVIDES_KEY tag.</ul>"
-			+"<ul>Unjinxing sealed clothing no longer removes the sealing enchantment. Instead, it simply unlocks the clothing so that it can be removed, but if put on again, will seal itself back onto the character. Seals can still be removed via the enchanting menu.</ul>"
-			+"<ul>Chastity cages are now tagged as being able to be equipped during sex.</ul>"
-			+"<ul>All clothing types which can be equipped during sex (and so are assumed to be sex toys), or which fit into the 'groin' slot, can now be enchanted with a 'vibration' effect (as a secondary modifier to a 'special effect' primary modifier), increasing the wearer's resting lust value and also giving them bonus arousal increases every turn in sex.</ul>"
-			+"<ul>The item 'Mother's Milk' now advances pregnancy directly to the next stage, instead of skipping it forwards to an hour before the next stage.</ul>"
-			
-			+"<li>Sex:</li>"
-			+"<ul>NPCs will no longer start ongoing mouth-nipple actions if the character whose nipples are to be sucked does not have breasts.</ul>"
-			+"<ul>Quick sex: NPCs will now take into account the sex scene's special preferences when choosing what their foreplay/main sex actions are.</ul>"
-			+"<ul>Quick sex: NPCs' action choice should no longer select actions that are meant to be banned from your content options.</ul>"
-			+"<ul>Quick sex: In consensual sex, characters will no longer creampie others if their pregnancy fetish is negative.</ul>"
-			+"<ul>Quick sex: In consensual sex, dominant partners will go past their orgasm limit to make sure the subs are also satisfied.</ul>"
-			+"<ul>Quick sex: The dominant character now automatically uses 'Orgasmic level drain' (if available) when using quick sex.</ul>"
-			
+		+ "<h6>v0.3.7.1</h6>"
 			+"<li>Other:</li>"
-			+"<ul>Added a small chance (0.5%) for the 'finding an item' encounter in Dominion's alleyways to give you a joke burger item if you are playing in silly mode. The 'eggplant' joke item is now also restricted to being found only in silly mode.</ul>"
-			+"<ul>Improved colouring of post-sex stretch effects text.</ul>"
-			+"<ul>Added indication of a character's resting lust value in their lust bar tooltip.</ul>"
-			+"<ul>Arcane storm vulnerability now gives +75 to resting lust level, instead of setting it to a base of 75.</ul>"
-			+"<ul>Lust gains from sadist & masochist fetishes are now capped to a maximum of 25.</ul>"
-			+"<ul>Characters will no longer refer to a penis as a 'shaft' in speech (as I thought it sounded quite awkward).</ul>"
-			
+			+"<ul>Added support for throat capacity, elasticity, plasticity, and wetness transformations from clothing. Also added depth transformations from clothing for all orifices.</ul>"
+			+"<ul>The chance for a client to just grope your prostitute slaves has been reduced from 20% to 5%.</ul>"
+			+"<ul>Added 'offspring birthed' and 'oral deflowerments' as tattoo counter types.</ul>"
+			+"<ul>Tattoos can now be enchanted with 'major' attributes, such as physique, arcane, health, etc.</ul>"
+			+"<ul>Slime and imp spawns in Submission's tunnels are no longer affected by user preferences (as they need to spawn for story/quest reasons).</ul>"
+			+"<ul>The feathered wing transformation, which was previously exclusive to horse-morphs (to make pegasi), are now available for all non-demonic and non-angelic races. (i.e. Any normal race's TF food item can now be enchanted to give feathered back wings.)</ul>"
+			+"<ul>Arousal gains from masochist/sadist special arousal effects are now limited to 10 per attack instead of 25.</ul>"
+			+"<ul>Added minor description of centaur-pulled carts being present throughout Dominion.</ul>"
+	
+			+"<li>Sex:</li>"
+			+"<ul>Added: Double cunnilingus support (i.e. two characters performing cunnilingus on one character at the same time).</ul>"
+			+"<ul>Fixed issue where characters in the 'kneeling oral' slots in the 'sitting' position could have sex/tribbing with one another.</ul>"
+			+"<ul>Characters sitting down in the 'sitting' position can now interact with characters sitting next to them.</ul>"
+			+"<ul>Random NPCs whose name you do not know (and therefore they do not know your name) will no longer call out your name during sex.</ul>"
+			+"<ul>In quick sex which involves multiple orgasms, characters will now regenerate 5 minutes' worth of cum regeneration between orgasms.</ul>"
+			+"<ul>Added stomach bulge text for too large penetrations inside of size queens and masochists.</ul>"
+	
 			+"<li>Bugs:</li>"
-			+"<ul>Parsing & typo fixes.</ul>"
-			+"<ul>Fixed issue where unique NPCs were not immune to 'orgasmic level drain', but normal random characters were, instead of the other way around.</ul>"
-			+"<ul>Fixed some minor incorrect text in the 'orgasmic level drain' perk description.</ul>"
-			+"<ul>Fixed incorrect clothing on the four 'milkers' in the Rat Warrens.</ul>"
-			+"<ul>Fixed issue where there was more than one removal button for when an effect has multiple descriptions in the enchantment screen, with the duplicate buttons doing nothing.</ul>"
-			+"<ul>Fixed issues with Murk's 'milkers' clothing not being equipped or lacking correct colours/enchantments.</ul>"
-			+"<ul>Fixed bug where some weapons (such as the broomstick and the scythe) would not grant the wielder the spells they were meant to unlock.</ul>"
-			+"<ul>Fixed several issues in the Rat Warrens regarding hostile rats not spawning correctly at checkpoints or in the dice den. Also fixed some actions incorrectly being available at the entrance after clearing out the entrance guards.</ul>"
-			+"<ul>Corrected corruption values of all unique NPCs.</ul>"
-			+"<ul>Fixed issue where Lyssieth would sometimes not have her elder lilin subspecies status effect applied to her.</ul>"
-			+"<ul>Fixed multiple minor issues with the flow of dialogue in scenes in the Rat Warrens.</ul>"
-			+"<ul>Fixed bug (from 0.3.5.10) where newly-spawned characters would throw a background error.</ul>"
-			+"<ul>Fixed issue with lust gains from sadist & masochist fetishes always defaulting to 1.</ul>"
-			+"<ul>Lust damage from masochist and sadist fetishes now correctly damages energy and aura when lust is at 100.</ul>"
-			+"<ul>Fixed issues of 'feet' being displayed in some scenes even if your game was meant to be using metric values for length.</ul>"
-			+"<ul>Corrected minor issue of Lyssieth's breast size incorrectly being described as increasing during her demonic transformation scenes.</ul>"
-			+"<ul>Fixed issue where Enforcers were described as being present in group sex scenes in areas where Enforcers should not have been present.</ul>"
-			+"<ul>Fixed issue where cum 'wetness' enchantment was described as increasing cum production instead of cum storage.</ul>"
-			+"<ul>Fixed issue where the magnitude of potion effects would be doubled every time you loaded a game while playing with the 'chef' background.</ul>"
-			+"<ul>Fixed bug (from 0.3.5.11) where encounters with a companion in your party would bug out and not initialise correctly.</ul>"
-			+"<ul>Fixed numerous parsing errors (from 0.3.5.11) when in the Rat Warrens with a companion.</ul>"
-			+"<ul>Fixed an issue where using 'Quick sex' could sometimes cause the game to freeze.</ul>"
-			+"<ul>Fixed debug menu's clothing spawn 'head' category not working.</ul>"
+			+"<ul>Parsing fixes.</ul>"
+			+"<ul>Fixed issue with imp and half-demon offspring not being encountered in Submission's tunnels.</ul>"
+			+"<ul>Fixed minor bug with incorrect colour parsing in offspring birthed list.</ul>"
+			+"<ul>Fixed bug where all femininity changes would be described as being masculine, even if they made the target more feminine.</ul>"
+			+"<ul>Fixed incorrect opening times being displayed in Enforcer HQ dialogue.</ul>"
+			+"<ul>Fixed Helena's description referring to her as 'Alexa'.</ul>"
+			+"<ul>Fixed bug where penis reveal dialogue was parsing incorrectly.</ul>"
+			+"<ul>Fixed personality trait removals from the hypno watch not being described correctly.</ul>"
+			+"<ul>Tattoo counters for sub/dom sex should now correctly increment for slaves who have sex while working as a prostitute or set as public use in the stocks.</ul>"
+			+"<ul>Fixed issue where sex experience buttons in character creation wouldn't work.</ul>"
+			+"<ul>Fixed some minor issues with 'dirty talk' parsing during sex.</ul>"
+			+"<ul>Characters who are visibly pregnant will no longer be described as having their stomach bulge out when their vagina or ass is penetrated too deeply.</ul>"
+			+"<ul>Fixed bug where job recommendations you've made to friendly occupants would be reset upon loading your game.</ul>"
+			+"<ul>Fixed clothing pattern dye colours not displaying in the dye menu.</ul>"
+			+"<ul>Fixed bug where opening/closing the main menu screen while managing a room or people in Lilaya's house would return you to a previous, unrelated scene.</ul>"
+			+"<ul>NPCs in sex will no longer keep on offering you pills after you've refused them the first time.</ul>"
+			+"<ul>Fixed bug where all management options would be disabled in the scene after having sex with a slave.</ul>"
+			+"<ul>Fixed bug in combat where enemies hit by sadists would have their arousal increased, instead of the sadistic attacker.</ul>"
+			+"<ul>Basic earrings are now considered to be unisex again.</ul>"
 		+"</list>"
 			
 		+ "<br/>"
 		
 		+ "<list>"
-			+ "<h6>v0.3.5.9</h6>"
-			+"<li>Contributions:</li>"
-			+"<ul>Fixed NullPointerException bug when visiting Lyssieth. (by Stadler)</ul>"
-			+"<ul>Fixed several bugs and typos. (PR#1250 by LewdAlt)</ul>"
-			+"<ul>Added finger to crotch-nipple interactions. (PR#1243 by LewdAlt)</ul>"
-			+"<ul>Fixed issue with sex in an apartment being public when the occupant has just moved in. (PR#1251 by AceXP)</ul>"
-			
-			+"<li>Artwork:</li>"
-			+"<ul>Added artwork of Meraxis, drawn by FriendlyAlienFriend. There are 6 images of her as a half-demon, and 6 variations for when she's a full demon. These include pregnant and non-pregnant variations.</ul>"
+		+ "<h6>v0.3.7</h6>"
+			+"<li>Engine:</li>"
+			+"<ul>Converted Colour Enum into a 'PresetColour' class, which contains static Colour classes.</ul>"
+			+"<ul>Added parsing commands for toy inserted into character's vagina.</ul>"
 			
 			+"<li>Gameplay:</li>"
-			+"<ul>Filled in some of the Axel's quest placeholders, although there are still a lot of placeholders left (will all be filled in for the next update).</ul>"
-			+"<ul>Added 'slovenly' speech modifier, which converts all speech into a representation of speaking with poor pronunciation. There is a 25% chance for muggers and alleyway prostitutes to have this modifier.</ul>"
+			+"<ul>Added first section of Helena's romance quest.</ul>"
+			+"<ul>The alleyway tile immediately to the north of Slaver Alley is now a 'safe' alleyway tile. Any NPC which was present in this tile has been moved to one of two new back alley tiles to the south-west of Dominion.</ul>"
+			+"<ul>You can now enter the cafes in Slaver Alley, and the descriptions of the inaccessible slaver stores have been slightly altered.</ul>"
 			
 			+"<li>Items:</li>"
-			+"<ul>Moved demonstone melee weapons out into external res folder.</ul>"
-			+"<ul>Added support for weapon mods to have spells based on their damage type, and also a variable to set whether spells should regenerate when the weapon's damage type is changed.</ul>"
-			+"<ul>Added support for weapons to use unarmed damage calculations. Demonstones and knuckle dusters now use unarmed damage calculations instead of those for melee weapon.</ul>"
-			+"<ul>Slightly improved the 'arm wraps' icon.</ul>"
-			+"<ul>Moved all 'head' slot clothing items out into external res folder. Slightly tweaked some base values of these items, and the 'circlet' is now unisex. Added dye options to the 'antler headband'.</ul>"
-			+"<ul>Added 'paw-print' and 'horse-shoe' tattoos.</ul>"
-			
-			+"<li>Other:</li>"
-			+"<ul>Added 'pale pink' as a skin colour, and changed default rat tail skin colour from light pink to pale pink.</ul>"
-			+"<ul>Random attackers in Submission's tunnels now have a 5% chance to be taurs.</ul>"
-			+"<ul>Arctic-fox-morphs now have white hair and pale skin by default.</ul>"
-			+"<ul>NPCs who are able to self-transform back into their preferred gender identity (after you've transformed them into something else), will now only alter their femininity, breast size, and genitals. They will no longer completely reset all aspects of their bodies.</ul>"
-			+"<ul>The 'Slap ass' sex action can now be used on characters bent over a desk/table by the character standing behind.</ul>"
-			+"<ul>Scarlett (and Helena) now close their slave shop at 22:00 and open it again at 06:00.</ul>"
-			+"<ul>If you equipped jinxed clothing which also has the 'servitude' enchantment (preventing you from unjinxing clothing), you can now visit Lilaya to have your clothing unjinxed.</ul>"
-			+"<ul>Added 'arctic-youko-morph' subspecies detection.</ul>"
-			+"<ul>Added a small warning about there being a potential fight in the tile outside Brax's office.</ul>"
-			+"<ul>Improved naturally-spawning wolf-morph fur colours to be closer to realistic values.</ul>"
-			+"<ul>NPCs now require both oral fetishes to start sucking their own tails.</ul>"
-			+"<ul>Slightly improved 'Object of desire' perk icon, and changed 'Convincing requests' perk icon.</ul>"
-			+"<ul>Added 'orgasmic level drain' perk, which allows you (and NPCs) to drain levels from orgasming partners in sex. (NPCs will not randomly spawn with this perk, and you can disable unique NPC usage of this perk in the content settings.)</ul>"
-			+"<ul>Amber now drains your levels in sex while you're wearing her collar (but only if the 'Level drain' setting is enabled).</ul>"
-			
-			+"<li>Bugs:</li>"
-			+"<ul>Typo and parsing fixes.</ul>"
-			+"<ul>Fixed issues with fetish tease attack descriptions not making much sense when enemies were using them.</ul>"
-			+"<ul>Using the fast travel actions in Lilaya's house now correctly sets the response tab to 'actions' upon arrival.</ul>"
-			+"<ul>Fixed missing dialogue when playing without a companion and offering your body to a random attacker in Dominion's alleyways.</ul>"
-			+"<ul>Fixed issue where random demonic attackers could spawn as taurs, even if you had taurs turned off.</ul>"
-			+"<ul>Fixed bug where performing any action in your room would cause the 'Bathroom' tab to disappear.</ul>"
-			+"<ul>Fixed bug where you could rape non-slave companions via interacting with a slave in that slave's room.</ul>"
-			+"<ul>Lyssieth now correctly reverts to her human form after having sex with her in her lilin form.</ul>"
-			+"<ul>Fixed issue where demons encountered in Dominion's 'dark alleyway' tiles would disappear after sex, and would also be unable to be talked to.</ul>"
-			+"<ul>Fixed feral half-demon taur genitals always being referred to as being that of a 'demonic-horse', and not the subspecies that was appropriate.</ul>"
-			+"<ul>Fixed speech actions which had 'blocked mouth' alternative text being unavailable when the performing character's mouth was blocked in sex.</ul>"
-			+"<ul>Unique NPCs can no longer be fed transformative or fetish-altering consumables during post-combat-victory sex scenes.</ul>"
-			+"<ul>Fixed issue where requesting to perform oral on a taur would sometimes result in them responding with a blank action.</ul>"
-			+"<ul>Fixed Helena being duplicated if loading in from an older version.</ul>"
-			+"<ul>Fixed Silence's high affection towards Shadow incorrectly being set as being towards herself.</ul>"
-			+"<ul>Arcane feathers now correctly grant spells when equipped, based on their damage type (like they used to a version or two ago).</ul>"
-			+"<ul>Fixed Maximillian's surname to properly reflect his demonic heritage.</ul>"
-			+"<ul>Fixed bug where selection of randomly spawned weapons in Dominion's alleyways was very limited.</ul>"
-			+"<ul>Shadow now spawns wearing both arm wraps and a stomach sarachi (so that her crotch boobs (if enabled) are not exposed). </ul>"
-			+"<ul>Fixed 'addiction satisfied' and' psychoactive effect applied' descriptions being displayed every turn in sex when you were eating someone out who had those appropriate modifiers on their girlcum (although the effects are still applied).</ul>"
-			+"<ul>Fixed bug where using the 'Quick sex' action would not count participants having orgasmed, causing post-sex scenes to show the 'not satisfied' variant (if one existed).</ul>"
-			+"<ul>Fixed related bug to the one above where dominant partners would not use the correct number of sex actions corresponding to their desired orgasms when using the 'Quick sex' action.</ul>"
-			+"<ul>Fixed several issues with sex actions being incorrectly available when in missionary sex with a taur.</ul>"
-			+"<ul>Fixed the debug menu's 'Centaur' action sometimes spawning a human.</ul>"
-			+"<ul>Fixed bug where characters could have their birthday set to February 29th in a non-leap year.</ul>"
-			+"<ul>Fixed cause of an issue where the game would sometimes randomly freeze for seemingly no reason. (This was being caused by pregnant NPCs with sealed clothing giving birth in the background update loop.)</ul>"
-			+"<ul>Fixed bug where passing into a new year would cause the game to think it was always night time.</ul>"
-			+"<ul>Fixed Murk's penis shrinking transformation incorrectly causing your penis to grow.</ul>"
-			+"<ul>Characters can now take less than 1 lust damage from the self-inflicting lust damage effect of masochist and sadist fetishes.</ul>"
-			+"<ul>Sex count tracking is now only incremented for non-spectators (so watching two people have sex no longer counts as you having had sex as well).</ul>"
-			+"<ul>Fixed 'quick sex' not counting creampies correctly, causing tattoo counters to not increment.</ul>"
-			+"<ul>Fixed bug where dying/reforging equipped unique weapons would duplicate the weapon into your inventory.</ul>"
-			+"<ul>Friendly occupants who have a job are now correctly displayed as generating 100 flames per day (to cover their room's upkeep cost).</ul>"
-			+"<ul>Fixed an issue in clothing displacement method which could sometimes cause bugs.</ul>"
-		+ "</list>"
-			
-		+ "<br/>"
-			
-		+ "<list>"
-			+ "<h6>v0.3.5.8</h6>"
-			+"<li>Axel's quest:</li>"
-			+"<ul>Tidied up fetish gain text in captive TF routes.</ul>"
-			+"<ul>Fixed issues with NPC targeting in the post-combat-loss stocks sex scene.</ul>"
-			+"<ul>Fixed numerous bugs and issues with dialogue flow in the Murk captive loss route.</ul>"
-			+"<ul>Added and altered some scenes in Murk's captive loss route.</ul>"
-			+"<ul>Locked several of the transformation administered by Murk behind the new 'gape' content toggle.</ul>"
-			+"<ul>Murk now wields a metal bat.</ul>"
-			+"<ul>If involuntary NTR is off, you now get the option to have your companion escape at the end of combat losses.</ul>"
-			+"<ul>You can now save the game when Murk's captive (at night, when you can move around).</ul>"
-			
-			+"<li>Items:</li>"
-			+"<ul>Added: 'Wooden bat' and 'Metal bat' melee weapons. One-handed, sold by Vicky. Muggers can sometimes be found using them.</ul>"
+			+"<ul>Added: 'Velvet choker' (androgynous, neck slot, sold by Nyan).</ul>"
+			+"<ul>Added: 'Dangle chain earrings' (feminine, ear piercing slot, sold by Kate).</ul>"
+			+"<ul>Added: 'Plunge-neck clubbing dress' (feminine, torso slot, sold by Nyan).</ul>"
+			+"<ul>Added: 'Strapless bra' (feminine, chest slot, sold by Nyan).</ul>"
+			+"<ul>Added: 'Diamond necklace' (feminine, neck slot, sold by Nyan).</ul>"
+			+"<ul>Added item tag 'CHOKER_SNAP', which causes the item worn to snap when the wearer's throat bulges too much during sex. (Applied to the new 'velvet choker' item.)</ul>"
+			+"<ul>'Angel's Tears' now reduces the drinker's lust to their resting lust level.</ul>"
 			
 			+"<li>Sex:</li>"
-			+"<ul>Orifice elasticity is now factored into the calculation of whether a penetration is too big to fit comfortably into an orifice. The stretch calculation also now more accurately takes into consideration the penetrating object's size.</ul>"
-			+"<ul>At lower elasticity values, orifices now stretch out slower and stretch out to sizes closer to the penetrating object's size (due to the change above).</ul>"
-			+"<ul>Penis girth is now factored in when calculating if a penis is too large for an orifice.</ul>"
-			+"<ul>NPCs will no longer start sucking their own tail during sex unless they have an oral fetish.</ul>"
-			+"<ul>Crotch-nipples now have stretch effects when being penetrated in sex like all other orifices.</ul>"
+			+"<ul>The capacity of the 'throat' orifice now behaves in the same manner as other orifices, and will stretch/recover based on its plasticity/elasticity. (The references to 'blowjob ability' in character's description screens will be restored later on once I add effects for fetish experience.)</ul>"
+			+"<ul>Characters can now receive paizuri from the character they are sitting on while in the 'cowgirl' position (provided that they aren't riding that person's cock).</ul>"
+			+"<ul>Characters performing oral in missionary position (with their face between their partner's legs) can now force their partner to cum inside them.</ul>"
+			+"<ul>NPCs who are fucking someone (using their penis) will no longer start fingering their own anus/vagina.</ul>"
+			+"<ul>'Orgasm cum lock' actions are no longer available if the sex manager is setting a special pullout condition for the other NPC. (This will only affect a few special sex scenes.)</ul>"
+			+"<ul>The character lying underneath in the 69 position can now perform anilingus on their partner who's on top.</ul>"
 			
 			+"<li>Other:</li>"
-			+"<ul>The 'locked in bondage' clothing set is now activated when wearing at least 3 set items instead of at least 4.</ul>"
-			+"<ul>Zebra, leopard, and lion morphs now have 5 Fire shielding. Snow leopard morphs now have 5 Cold shielding.</ul>"
-			+"<ul>Added 'arctic-fox' subspecies, which is detected by being a fox-morph with white fox-fur.</ul>"
-			+"<ul>Added 'dark blue' and 'blue' to eye colours. The old value of 'blue' eyes is now classified as 'light blue'.</ul>"
-			+"<ul>Slightly reduced save file size.</ul>"
-			+"<ul>Swapped 'thin' and 'slender' penis girth decriptors (so 'thin' is now the thinnest).</ul>"
-			+"<ul>Character view's capacity descriptors for anus and vagina are now coloured according to their capacity.</ul>"
-			+"<ul>Added inverted nipples as a new nipple shape. There's a 2.5% chance for characters with breasts to spawn in with inverted nipples. Added a transformation for inverted nipple shape.</ul>"
+			+"<ul>Added 'grey-green' as a natural iris colour.</ul>"
+			+"<ul>Randomly-spawned fox-morphs should now correctly have orange-white, tan-white, grey-white, or black fur.</ul>"
+			+"<ul>Added penis diameter to characters' body overview tooltip.</ul>"
+			+"<ul>The 'dirty clothing' and 'dirty body' status effects now give +5 corruption each, instead of -2 arcane.</ul>"
+			+"<ul>Horse-morphs with anthro horse-morph faces now spawn in with 'natural' hair styles (representing a mane) if they are not feminine. If feminine, they have a 50% chance of having a mane.</ul>"
+			+"<ul>Randomly-selected hair styles are now additionally filtered by femininity. (This does not affect anything other than random NPC spawns.)</ul>"
+			+"<ul>Debug menu's '+50 essences' action is now '+1000 essences'.</ul>"
+			+"<ul>Slightly improved formatting of furry preferences screen.</ul>"
+			+"<ul>Reduced values of racial food items.</ul>"
+			+"<ul>Added button to randomise name in slave renaming management screen.</ul>"
+			+"<ul>Added throat capacity, depth, elasticity, and plasticity to self-transformation menu.</ul>"
+			+"<ul>Improved the UI for changing covering colours, as well as for the other options in Kate's shop.</ul>"
 			
 			+"<li>Bugs:</li>"
 			+"<ul>Parsing fixes.</ul>"
-			+"<ul>Fixes issue with 'Anal control' action being unlocked by having an internally-muscled vagina, instead of internally-muscled anus.</ul>"
-			+"<ul>Fixed some (harmless) background errors being thrown when half-demon characters were generated.</ul>"
-		+ "</list>"
+			+"<ul>Fixed incorrectly displaying 'dense crowds' as being present on Dominion's boulevard tiles during an arcane storm.</ul>"
+			+"<ul>Fixed incorrect name formatting for clothing which had a colour pattern.</ul>"
+			+"<ul>Performing/receiving paizuri will no longer output an error message to the error.log file.</ul>"
+			+"<ul>Fixed UI bug where the inventory overview panel's bottom border would grow when clicking on clothing during combat or sex.</ul>"
+			+"<ul>The ordering of the event log is no longer reversed when loading a game.</ul>"
+			+"<ul>Losing to Sean in his challenge now correctly moves you over to the public stocks tile.</ul>"
+			+"<ul>Fixed bug where knotting descriptions would sometimes incorrectly describe a character's tail as being the penetration type that had a knot instead of their penis.</ul>"
+			+"<ul>Fixed bug where you couldn't offer your ass to Scarlett when she was attracted to you, but you could if she wasn't attracted to you. Also fixed related bug where 'Offer ass' would be displayed in every response slot when it was available.</ul>"
+			+"<ul>Scarlett's sex scene in her nest is no longer treated as being 'public sex', and she will now correctly want to continue fucking your ass once started.</ul>"
+			+"<ul>Characters in unique sex scenes will no longer move into positions in which they can't satisfy their sex desires.</ul>"
+			+"<ul>Fixed minor bug where setting penis/vagina sex experience in character creation, then going back to remove your vagina/penis wouldn't reset the underlying sex experience.</ul>"
+			+"<ul>Fixed bug where some coloured words would not be capitalised as intended.</ul>"
+		+"</list>"
+			
+		+"<br/>"
 		
+		+ "<list>"
+		+ "<h6>v0.3.6.9</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Added sleeveless Enforcer over-torso clothing variations (intended for Enforcers who cannot wear regular jackets, due to having wing-arms). This includes 5 'waistcoat' and 2 'sweater vest' variations. (by DSG)</ul>"
+			+"<ul>Added 'Short-sleeved combat shirt' and 'Enforcer's short-sleeved combat shirt' as short-sleeved variations for the two combat shirts. (by DSG)</ul>"
+			+"<ul>Typo fix. (PR#1290 by TadUnlikely)</ul>"
+			+"<ul>Fixed bug where you couldn't orgasm when having sex with Amber when not wearing any neck clothing. (PR#1298 by triples941)</ul>"
+	
+			+"<li>Engine/Code:</li>"
+			+"<ul>Converted the following Enums into classes: AntennaType, AnusType, EyeType, TongueType, MouthType, FaceType, and TailType.</ul>"
+			+"<ul>Body class now additionally saves the version it was created in.</ul>"
+			+"<ul>Reformatted all of the Orifice classes.</ul>"
+			+"<ul>Moved all piercing clothing items into external res files.</ul>"
+	
+			+"<li>Gameplay:</li>"
+			+"<ul>Added 'Argus's DIY Depot' as a new location in Dominion (several tiles south of Slaver Alley, next to the canal). (I have plans for this location to be involved in property improvement content later on.)</ul>"
+			+"<ul>Added 'Warehouse District' as a new location in Dominion (several tiles north of Slaver Alley, next to the canal). (I also have plans for this area later on.)</ul>"
+			+"<ul>Added a repeat sex scene with Scarlett in Helena's nest (for if she's present up there after choosing to free her).</ul>"
+			+"<ul>Vaginal virginity can no longer ever be regained. Removing/regrowing a vagina now only restores your hymen, not the concept of virginity itself. Regrowing a hymen in this way (and also losing your hymen via using sex toys) applies modifiers to the 'pure virgin' status effect.</ul>"
+			+"<ul>Edited and updated all of Helena's and Scarlett's dialogue.</ul>"
+			+"<ul>Updated some of Helena's and Scarlett's stats, fetishes, and clothing.</ul>"
+	
+			+"<li>Penetrative size-difference:</li>"
+			+"<ul>Fixed bug where diameters of tails and penises could be less than or equal to zero.</ul>"
+			+"<ul>Tails' diameter now tapers off from the base, depending on the tail type's tapering factor. Demonic tails have an exponential taper, alligator tails have linear tapering, and most furry tails have no tapering. You can see the diameter tapering in the body stats menu.</ul>"
+			+"<ul>The tapered diameter of tails is now factored into how much an orifice stretches (so it only stretches up to the diameter of the length of maximum tail insertion).</ul>"
+			+"<ul>The 'size queen' fetish now correctly applies positive arousal gains from 'stretching' and 'uncomfortably deep' penetrations in sex.</ul>"
+			+"<ul>Added indication in subspecies status effect tooltip for if your body material is allowing extra long penetrations (only slimes and elementals have this).</ul>"
+			+"<ul>Slimes and elementals now consider penises to be 'far too short' as if their orifices were a normal depth (to prevent them from considering pretty much every partner to be too small).</ul>"
+			+"<ul>Ongoing penetration tooltips now display how much of a penetration is inserted into the orifice, as well as its maximum length, and also the comfortable/uncomfortable depth of the orifice.</ul>"
+			+"<ul>Fixed issue with submissive partners in sex 'uncomfortably' penetrating a dominant partner who didn't want to be fully penetrated.</ul>"
+			+"<ul>Dominant characters (including the player) will now choose to get 'uncomfortably' penetrated if they have the size queen or masochist fetish.</ul>"
+			+"<ul>'Uncomfortable' penetrative length descriptions are now always described from the dominant's point of view (showing that they are the ones deciding whether to get 'uncomfortably' penetrated or not).</ul>"
+			+"<ul>Improved initial penetrative length descriptions, and added a small ongoing description for if an ongoing sex action is uncomfortable (similar to the ongoing ones describing whether an orifice is stretching or too loose).</ul>"
+			+"<ul>Arousal modifiers from being uncomfortably penetrated have been altered from +4/-6 to +2.5/-10. (The positive value is for masochists and size queens. The negative value is for everyone else.)</ul>"
+			+"<ul>Made some general improvements to the formatting and content of penetrative length descriptions.</ul>"
+			+"<ul>Increased base vagina depth from 8% of character's height to 10%.</ul>"
+			+"<ul>NPCs will no longer uncomfortably penetrate themselves if they are in the rough pace (unless they are also masochists or size queens).</ul>"
+			+"<ul><b>Depth is now a modifiable stat</b> like elasticity and plasticity. Values go from 0 to 7, and apply a percentage modifier to the depth of the orifice. The average value of 2 represents 100% of the base depth, while the minimum of 0 applies a 50% modifier, and the maximum of 7 applies a 400% modifier.</ul>"
+			+"<ul>The 'Extra deep' orifice modifier has been removed, as it was made redundant from the newly-added depth stat. When loading into this version, any character with 'extra deep' orifice modifiers will instead be given +2 to their depth value.</ul>"
+			+"<ul>Instead of having hidden modifiers in the code, taurs now simply spawn with +2 depth to their base orifice depth values. Slimes and other non-flesh characters (such as elementals) have their orifice depths locked to 7. Their 'too short' sex modifier threshold acts as though their orifice is of an average depth (so while they have very deep orifices, they don't require gigantic penises to be satisfied).</ul>"
+			+"<ul>Updated body stats page and body description with new depth values.</ul>"
+			+"<ul>Resisting characters will no longer act as through they are eagerly taking big penetrations.</ul>"
+			+"<ul>Penetrations are now considered to be 'too short' if they are 33% or less the length of the orifice's depth (instead of 50%).</ul>"
+	
+			+"<li>Items:</li>"
+			+"<ul>Added: 'Horseshoe necklace' (neck/wrist slot, sold by Nyan).</ul>"
+			+"<ul>Added: 'Thick-rimmed glasses' (eyes slot, sold by Nyan).</ul>"
+			+"<ul>Added: 'Ball stud earrings' (ear piercing slot, sold by Kate).</ul>"
+			+"<ul>Added: 'Ribbed dildo' (anus/vagina/mouth slot, sold by Finch).</ul>"
+			+"<ul>Added: 'Rejuvenation potion' (common item, sold by Ralph). Consuming it instantly recovers all of your stretched orifices to their natural capacity, as well as filling your cum & milk up to their maximum storage values.</ul>"
+			+"<ul>Renamed 'slut pill' to 'sterility pill'.</ul>"
+			+"<ul>The clothing items 'v-necked commando sweater', 'combat shirt', and 'commando sweater' are no longer counted as being part of the Enforcer set. Also, their rarities are now all set to 'Uncommon'.</ul>"
+			+"<ul>Added 'bronze' as a metallic colour for clothing & weapon dying.</ul>"
+			+"<ul>Increased value of the three crystal weapons.</ul>"
+			+"<ul>Slightly updated the available shades of red for clothing/weapon dying. Also added 'royal purple'.</ul>"
+			+"<ul>Slightly improved necklace and  'Mystery kink' icons.</ul>"
+			+"<ul>The debug-only item 'Innoxia's Gift' now works on the player character.</ul>"
+			+"<ul>Slightly improved earring, cattle tag, cattle nose ring, gemstone barbell, and ringed barbell icons.</ul>"
+			+"<ul>Increased value of all earrings.</ul>"
+			+"<ul>All of the 'sun' and 'snowflake' jewellery is now sold by Kate, not Nyan.</ul>"
+			+"<ul>Tongue barbell is now called 'basic barbell' and can now also be equipped into the ear piercing slot (representing an 'industrial' piercing).</ul>"
+			+"<ul>Nipple barbells are now called 'basic barbells' and can now also be equipped into the ear piercing slot (representing 'industrial' piercings).</ul>"
+			+"<ul>Gemstone and ringed barbells can now be fit into either the navel or vaginal piercing slots.</ul>"
+	
+			+"<li>Sex toys:</li>"
+			+"<ul>Clothing which is able to be inserted into orifices no longer uses the old 'DILDO' tags to define their length. Instead, clothing xml files now have a couple of extra sections which are used to define length, girth, and modifiers of penetrative sex toys.</ul>"
+			+"<ul>For an example of how this works (if you are wanting to make a modded sex toy item), see either the 'mods/innoxia/item/clothing/template/socks.xml' or the 'res/clothing/innoxia/buttPLugs/butt_plug.xml' file.</ul>"
+			+"<ul>Sex toys now stretch the orifice they are inserted into, and if penetration length content is turned on, toys which are too long cause discomfort to the wearer.</ul>"
+			+"<ul>Sex toys inserted into the vagina now tear any hymen which is present.</ul>"
+			+"<ul>Non-slave NPCs will automatically remove clothing which is uncomfortable for them to be wearing.</ul>"
+	
+			+"<li>Sex:</li>"
+			+"<ul>Fixed issue where random attackers would consider you to be an equal partner in sex where you 'offer body', meaning that they would never end sex if you didn't orgasm at least once.</ul>"
+			+"<ul>Fixed issue with character targeting during creampie action sometimes not working correctly.</ul>"
+			+"<ul>Fixed bug where a character with a large amount of lust would sometimes have it lowered at the start of sex.</ul>"
+			+"<ul>Ongoing penetration tooltips in sex now display the capacity of the orifice, as well as the diameter of the penetration type being inserted (i.e. penis or tail diameter).</ul>"
+			+"<ul>The 'Knotting' orgasm action is now a separate action from 'Creampie', so you can choose whether or not to insert your knot when orgasming.</ul>"
+			+"<ul>Using the 'Knotting' orgasm action now effectively doubles the diameter of the penis in that one turn in which the action is taking place (so the knot can stretch out the orifice).</ul>"
+			+"<ul>If 'Penetrative size-difference' is turned on, then knotting cannot be performed if the penis is too long to fit inside the orifice. Also, if long enough, the 'Knotting' action will push the penis into the 'uncomfortable' depth for that one turn.</ul>"
+			+"<ul>Improved NPC's penis reveal reactions. They will now comment on the size of a penis as it relates to the depth of their orifices, instead of just by the penis length. (So imps will be more impressed by a 'large' cock than a centaur.)</ul>"
+			+"<ul>Fixed issue where seemingly-happy submissive NPCs could enter resisting pace after orgasming, even if they had very high lust before the moment of orgasm. Now a character's lust will drop to a minimum of 15 upon orgasm.</ul>"
+			+"<ul>Updated the 'glory hole' sex position: taurs can no longer put their cocks through the glory hole; the character servicing the holes is now considered to be the submissive; improved starting descriptions if taurs are present; split the 'getting fucked' slot into anal/vaginal fucked slots (to give the sub control over which hole they want penetrated).</ul>"
+			+"<ul>Added paizuri as a possible action for the sub in glory hole sex.</ul>"
+			+"<ul>A character's asshole is now correctly revealed if they are presenting a cloaca to a glory hole.</ul>"
+			+"<ul>Fixed bug where the 'fondle balls' action would never be available.</ul>"
+			+"<ul>Added some minor variations to the penis masturbation sex action descriptions for if the cock is precumming.</ul>"
+	
+			+"<li>Other:</li>"
+			+"<ul>Increased default length of most non-human tongues.</ul>"
+			+"<ul>Added Encyclopedia reset button to debug menu (in 'stats' tab). Also moved 'Unlock Encyclopedia' button to the 'Stats' tab.</ul>"
+			+"<ul>Added 'wide', 'flat', and 'strong' as available tongue modifiers. These new modifiers will be added to applicable characters (including the player) when loading into this version (such as 'flat' and 'wide' being added to characters who have dog-morph tongues).</ul>"
+			+"<ul>The 'interior' colour of nipples which cannot be penetrated is no longer displayed when referring to nipple colour.</ul>"
+			+"<ul>Split up the 'Content Options' screen into categories, to help with readability of options.</ul>"
+			+"<ul>Offspring race generation no longer factors in your 'furry stage' content preference (as it was messing with the generation and producing results that made no sense). Human + anthro offspring now have a chance to 'degrade' the furry race stage of the offspring (e.g. A greater dog-moprh + human has a chance to birth 'lesser' or 'partial' dog-morphs).</ul>"
+			+"<ul>Added a small colour icon next to each body element in the character view tooltip.</ul>"
+			+"<ul>Urethral enchantment modifiers are no longer displayed in the enchantement options if you have urethral content turned off.</ul>"
+			+"<ul>Added more orifice parsing commands (depth, capacity, elasticity, plasticity) to orifices which lacked them.</ul>"
+			+"<ul>Added clitoris transformations and orifice depths to the self-TF menu. Also slightly improved formatting.</ul>"
+			+"<ul>Slave permission settings are no longer saved unless the character is actually a slave, which cuts down on save file size.</ul>"
+			+"<ul>Made it slightly more likely for randomly-generated fox-morphs and unicorns to have an arcane background.</ul>"
+			+"<ul>Added more metallic colours to fur/hair/feathers coverings, added 'light green' as a demon/unnatural skin colour, added 'pale lilac' and 'indigo' as covering colours. Slime, horn, antler, and skin coverings now get all the same dye options. Fixed 'lilac' not actually being a lilac colour.</ul>"
+			+"<ul>Items in the debug spawn menus are now sorted by rarity.</ul>"
+			+"<ul>Added 'wash' action to the public toilets area in 'The Watering Hole'.</ul>"
+			+"<ul>Added a day of the week indication beneath the current date display.</ul>"
+			+"<ul>Reduced corruption gain from harpy subspecies status effect, as well as from the harpy flock member background perks.</ul>"
+			+"<ul>Defined names for demonic centaurs as 'demotaur', with 'incutaur/succutaur' being masculine/feminine versions.</ul>"
+			+"<ul>'Facial hair' and 'Pubic hair' are now on by default (only takes effect when resetting proprty values or starting a game when there is no properties.xml file present).</ul>"
+			+"<ul>'Virginity' fetish has been renamed to 'Vaginal virginity' fetish, to better reflect the fact that it is solely fetishising the character's vaginal virginity.</ul>"
+			+"<ul>Urethral virginities are no longer restored upon removing/regrowing a character's penis or vagina.</ul>"
+			+"<ul>Added 'demonic-horse' as an alternate leg type for demons. It is similar to the 'demonic-hoofed' leg type, except that they are covered in horse-like hair. Demonic taurs now have this leg type by default.</ul>"
+			+"<ul>Demonic horse tails are now separately coloured from the character's hair by using the 'demon horse hair' colour.</ul>"
+			+"<ul>Added weighting to covering pattern spawns (so there will be more consistently-coloured fur for horses, foxes, and a few other races), and also removed 'blonde', 'ginger', and 'jet black' from natural fur colours.</ul>"
+	
+			+"<li>Bugs:</li>"
+			+"<ul>Parsing, formatting, and typo fixes.</ul>"
+			+"<ul>Fixed the 'Throat control' sex action not working.</ul>"
+			+"<ul>Fixed issue with crowds still being shown and described as being present on Dominion street tiles during an arcane storm.</ul>"
+			+"<ul>Fixed bug where trying to import a character created before v0.3.6.4 would throw an error and not work.</ul>"
+			+"<ul>Added catch for a potential error thrown by weapons being imported from old saves or character exports.</ul>"
+			+"<ul>Fixed bug where non-elemental spell books were erroneously describing one of the effects as being the unlocking of the associated elemental encyclopedia entry.</ul>"
+			+"<ul>Updated 'Double Size Bed' and 'Small Steel Bed' room upgrade descriptions to bring them more in line with the room's main description.</ul>"
+			+"<ul>Fixed issue with three horns per row being described as a 'pair' instead of a 'trio'.</ul>"
+			+"<ul>Fixed bug where a slime's crotch nipples may sometimes not have been the correct colour.</ul>"
+			+"<ul>Fixed bug where items in an NPCs inventory would be greyed out even if you were able to interact with them.</ul>"
+			+"<ul>Disabling lactation and/or incest now correctly hides the related fetishes from your phone's fetish menu screen, as well as from fetish potion enchanting.</ul>"
+			+"<ul>Fixed some minor parsing issues with NPC dialogue during sex.</ul>"
+			+"<ul>Fixed issue with a couple of 'resist' sex actions giving you corruption.</ul>"
+			+"<ul>Fixed bug where entering the last stage of pregnancy would reference your 'crotch boobs' even if you didn't have any.</ul>"
+			+"<ul>Fixed instances of descriptions of nipple sucking making mention of 'eating out' pussy-nipples, even if they were not able to be penetrated.</ul>"
+			+"<ul>Fixed offspring of a human + anthro sometimes being a full human (which was contradicting the lore).</ul>"
+			+"<ul>Fixed (harmless) background errors being thrown when there was an ongoing penetration with a non-internal orifice (such as breasts or thighs).</ul>"
+			+"<ul>NPCs will no longer react as though they are seeing your exposed sexual areas for the first time if your areas were already exposed before starting sex.</ul>"
+			+"<ul>Fixed some bugs with the gloryhole scenes accidentally revealing your partners' bodies.</ul>"
+			+"<ul>The brief body overview tooltip now displays known sexual areas for characters whose race is otherwise concealed (such as the characters in the gloryholes).</ul>"
+			+"<ul>Fixed bug where using the 'Quick sex' action would add entries for sex stat tracking three times instead of just once.</ul>"
+			+"<ul>Fixed another bug when using 'Quick sex', where orgasming characters wouldn't have their cum storage depleted from their orgasms.</ul>"
+			+"<ul>Fixed some formatting issues with player's anal and vaginal virginity loss scenes.</ul>"
+			+"<ul>Removed metallic silver as a natural fur colour.</ul>"
+			+"<ul>Fixed bug where using the milking machines in the milking room would not correctly drain your cum/milk.</ul>"
+			+"<ul>Fixed bug where reindeer overseers would not have their inventory correctly updated each day.</ul>"
+			+"<ul>Dialogue in Scarlett's shop now correctly passes time.</ul>"
+			+"<ul>Selling a slave now automatically returns all of their unique clothing/weapons/items to you.</ul>"
+			+"<ul>Fixed some issues with the flow of dialogue between slave management screens.</ul>"
+			+"<ul>You can no longer see the date in the time tooltip before having looked at the calendar in your room.</ul>"
+			+"<ul>Fixed tattoo tooltip's information being cut off at the bottom.</ul>"
+			+"<ul>Fixed bug where characters could spawn in with covering patterns of the same colour. (e.g. 'Brown, brown-striped fur' or 'Blue-and-blue heterochromatic irises'.)</ul>"
+			+"<ul>Fixed issue where orgasming in sex would apply any special orgasm effects multiple times in the background (potentially causing issues for Lyssieth's and Lilaya's sex scenes).</ul>"
+		+"</list>"
+		
+		+"<br/>"
+		
+		+ "<list>"
+			+ "<h6>v0.3.6.8</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Added FaceTypeTag enum for improved handling of face features. The 'Bite' special attack is now available to any face type which has a muzzle, fangs, beak, or shark teeth. (PR#1286 by Stadler)</ul>"
+			+"<ul>Added graceful error handling for if an invalid ItemTag is detected when loading Clothing/Weapons from xml files. (PR#1278 by Stadler)</ul>"
+			+"<ul>Fixed bug: Restocking of items sold by Vicky (Arcane Arts) produces wrong prices after buying all items of a single type. (PR#1276)</ul>"
+			+"<ul>Fixed the issue where the NPC in the prologue knows about the player's penis when this shouldn't be the case. (PR#1274 by AxeXP)</ul>"
+			+"<ul>Improved interaction between wing-arms (as seen on harpies and bat-morphs) and clothing. (PR#1249 by Stadler)</ul>"
+			+"<ul>Fixed the phone menu sex stats display for blowjobs performed and received being the wrong way around. (PR#1270 by AceXP)</ul>"
+			+"<ul>Fixed bug where CoverableArea.MOUTH could never be discovered, blocking knowledge of NPCs' oral skills. (PR#1260 by AceXP)</ul>"
+			+"<ul>Altered race tooltip to better reflect knowledge from 'observant', and improved some of the related text in the full appearance description page. (PR#1236 by NoStepOnSneks)</ul>"
+			+"<ul>Fixed bug where you could become an angel by self-transforming into the appearance of one while being a slime, and then solidifying into flesh via a TF potion. (PR#1292 by NoStepOnSneks)</ul>"
+			
+			+"<li>Engine/Code:</li>"
+			+"<ul>Tidied up the default enslavement dialogue node and moved related text out into external txt files (into the txt/characters and txt/characters/offspring files).</ul>"
+			+"<ul>Moved fluid modifier ingestion effects out of GameCharacter's ingestFluid method and into the corresponding FluidModifier Enum values.</ul>"
+			+"<ul>Added methods in Game class for detection of metric sizes, weights, and fluids, so that these values can easily be found out when using the parsing engine.</ul>"
+			+"<ul>Added hooks to item, weapon, and clothing types in the parser, under ITEM_id, WEAPON_id, and CLOTHING_id, where 'id' is the id of the item you want to reference.</ul>"
+			+"<ul>Added functionality for NPCs to use items during sex.</ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul>Added 'construction worker' as a background that can be chosen during character creation. It offers some physical attribute buffs, as well as halving all room upgrade costs.</ul>"
+			+"<ul>Slightly altered friendly occupant job search mechanics. You can now prevent friendly occupants who don't have their own apartment from getting a job, and suggest to them that they quit their current job if they've already found one.</ul>"
+			+"<ul>'Orgasmic level drain' is now an equippable trait.</ul>"
+			+"<ul>The 'Hypno watch' which you get from Arthur can now be enchanted to add or remove lisp, stutter, and slovenely speech. (Only works on random NPCs and yourself.)</ul>"
+			
+			+"<li>Penetrative size-difference:</li>"
+			+"<ul>Changed orifice capacity (and therefore related stretch mechanics) to be based on penetrative objects' diameter, not length.</ul>"
+			+"<ul>Added calculation for penis diameter, based on a character's penis length, girth, and modifiers (flared gives +5% diameter, tapered gives -5%).</ul>"
+			+"<ul>Added calculation for tail length, based on a character's height and tail type.</ul>"
+			+"<ul>Added calculation for tail diameter, based on a character's tail length and girth.</ul>"
+			+"<ul>Tails now stretch orifices in the same way that penises do.</ul>"
+			+"<ul>All of the following changes can be toggled off via the content option 'Penetration Limitations' (which is on by default):</ul>"
+			+"<ul>Internal orifices now have depth values, which are based on the character's height, if they are a taur, and if they have a non-flesh body material. Depth values be seen in the character description page (and in your phone menu's 'body stats' page).</ul>"
+			+"<ul>Depth values have 'comfortable' and 'uncomfortable' components. Taking an insertion past the 'comfortable' limit will cause severe arousal losses per turn for any non-masochistic character being penetrated.</ul>"
+			+"<ul>Characters in the 'rough' pace in sex will penetrate past the 'comfortable' depth limit, but all other paces will stop before passing into the 'uncomfortable' depth.</ul>"
+			+"<ul>Added a 'size-queen' fetish, which makes all depth values for that character's orifices considered to be 'comfortable'.</ul>"
+			+"<ul>Added 'extra-deep' orifice TF modifier, which doubles the depth of the orifice. This can be applied via the self-TF menu or by crafting TF potions.</ul>"
+			
+			+"<li>Sex:</li>"
+			+"<ul>NPCs will now use pills during sex, depending on their fetishes, ongoing actions, mouth access, and whether or not they actually have any pills in their inventory.</ul>"
+			+"<ul>When performing oral on any orifice, the performing character will now swallow fluids previously deposited in that orifice, at a rate of 25ml per turn.</ul>"
+			+"<ul>NPCs who have the 'orgasmic level drain' perk will no longer choose to drain their slaves or companions.</ul>"
+			+"<ul>Elementals are now immune to the 'orgasmic level drain' effect.</ul>"
+			+"<ul>Added intercrural action availability to 'cowgirl' and 'reverse cowgirl' positions.</ul>"
+			+"<ul>Added 'throat control' sex action for if a character is performing a blowjob and has the 'internal muscles' orifice modifier for their throat.</ul>"
+			+"<ul>Characters now get +0.5 arousal/turn from an orifice they're penetrating being very tight, instead of -1/turn.</ul>"
+			+"<ul>Masochists now gain arousal per turn, instead of losing it, while their orifices are being stretched or penetrated too deeply.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added quicksave and quickload buttons in the bottom-right of the game window, which grey-out when unavailable.</ul>"
+			+"<ul>Humans are no longer listed in the 'Races Present' tooltip for Enforcers present in tiles.</ul>"
+			+"<ul>In the inventory screen, added a colour indication to the 'Equip' action whenever enslavement-enchanted clothing to be equipped on an NPC will either succeed or fail to enslave them.</ul>"
+			+"<ul>You can no longer enslave NPCs before you have obtained a slaver license.</ul>"
+			+"<ul>Slightly tidied up the action titles for using & equipping items/clothing/weapons on NPCs in the inventory dialogue.</ul>"
+			+"<ul>Added fluid modifiers to the self-transformation menu for milk, crotch-milk, girlcum, and cum.</ul>"
+			+"<ul>Doubled the amount of essences which Sean has (to make sure that he doesn't run out of them during a fight).</ul>"
+			+"<ul>The 'scratch' and 'squirrel scratch' special attacks now have a 1-turn cooldown.</ul>"
+			+"<ul>You can no longer force the harpy matriarchs to drink fetish-altering potions (as that has the potential to alter their personalities in such a way so as to make future interactions with them completely nonsensical).</ul>"
+			+"<ul>Renamed 'Vixen's Virility' to 'Breeder pill', and 'Promiscuity pill' to 'Slut pill'. Improved effects tooltip for both of these items.</ul>"
+			+"<ul>Random NPCs who have a positive or negative desire towards either the pregnancy or impregnation fetish will now spawn in with slut pills or breeder pill in their inventory.</ul>"
+			+"<ul>Randomly-generated non-slave NPCs will now refresh their inventories every day.</ul>"
+			+"<ul>'Slut pills' are now far more expensive to buy from shopkeepers than 'breeder pills', due to a tax on their sale.</ul>"
+			+"<ul>Added an action in the debug menu to unlock all encyclopedia entries (under the 'Misc.' tab).</ul>"
+			+"<ul>Added two toggles in content options for allowing/disallowing furry or scaly characters to spawn in with hair. By default, furry hair is on, but scaly hair is off.</ul>"
+			+"<ul>Alligator 'hair' has been changed from 'head-scales' to 'hair', due to their default state of lacking hair now being correctly handled.</ul>"
+			+"<ul>NPCs who you invite to come and live with you now have their occupation reset to 'unemployed' when they move in, instead of remaining as a 'mugger' or 'prostitute' until finding a new job. (This is also retroactively applied to friendly occupants with no job when loading in.)</ul>"
+			+"<ul>Added some missing colours to slimes (including metallic colours as unnatural slime dye choices).</ul>"
+			+"<ul>Added basic tooltips to the buttons in the bottom-left of the game window (to make it a little more obvious that there are hotkey shortcuts for them).</ul>"
+			+"<ul>Improved formatting of the prices overlaid on item icons when trading in shops.</ul>"
+			+"<ul>The 'milk maid' clothing set bonus now has a far more powerful alternative version for if your background occupation is that of a maid. (In the same way that the basic 'maid' set bonus is buffed.)</ul>"
+			+"<ul>Slightly improved formatting of body description screen.</ul>"
+			+"<ul>Removed '+10 aura' effect from the crossdresser fetish.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Parsing and typo fixes.</ul>"
+			+"<ul>Fixed issue of the debug menu's self-TF function treating you as though you're a slime even if you weren't one.</ul>"
+			+"<ul>Fixed bug where a significant amount of unique NPCs would have their core corruption stat reset every time you loaded the game. (This appeared to be most noticeable with Brax.)</ul>"
+			+"<ul>Fixed issue with defining itemTags in clothing. If an itemTags element without a defined slot was present in the xml file, then itemTags with defined slots would accidentally override its tags (instead of being added on top of what was meant to be slot-independent tags).</ul>"
+			+"<ul>Defeating the rats after attempting to beat Murk up now correctly sets that area of the Rat Warrens as being cleared, which resolves the issue of Murk being incorrectly treated as still being present in the Milking Room.</ul>"
+			+"<ul>Fixed issue where enslaving the first of the defeated gang members in the post-combat scenes in the Rat Warrens would immediately return you to the tile's default dialogue, while leaving the other 5 rats on the tile.</ul>"
+			+"<ul>Fixed bug where there would be no dialogue displayed in the left and right corridors of the Rat Warrens after clearing them out.</ul>"
+			+"<ul>Fixed bug where you could choose the 'Leave' action in the Rat Warrens' Milking Room even after clearing that area of rats, which would cause Murk to reappear on the Milking Storage tile.</ul>"
+			+"<ul>You can now enslave the imps found in gangs in the tunnels in Submission.</ul>"
+			+"<ul>Fixed issue with slovenly speech not parsing correctly in some instances.</ul>"
+			+"<ul>Fixed issue with feathers and scales being incorrectly referred to in their singular form in standard parsing.</ul>"
+			+"<ul>Companions are no longer able to give birth while in your party.</ul>"
+			+"<ul>The occupancy ledger now keeps track of when a slave has given birth.</ul>"
+			+"<ul>Fixed issue where upon loading a saved game, all crotch-milk modifiers, including flavour, would be reset to the same modifiers of the character's main breast milk.</ul>"
+			+"<ul>After defeating them and driving them off, the demon leaders in the three Submission Fortresses will now correctly re-equip their clothing in time for your next encounter with them.</ul>"
+			+"<ul>Fixed Rose having the 'prude' personality trait. She now has the 'cowardly' and 'selfish' traits instead.</ul>"
+			+"<ul>Fixed a reference to the world map being 150 square kilometers, instead of correctly being described as 150km*150km.</ul>"
+			+"<ul>Fixed bug where Cultists would swallow promiscuity pills which you offered them, even though the text implied that they knocked it out of your hand.</ul>"
+			+"<ul>Fixed minor parsing issue with item tooltips having a greater height than was needed to fit the displayed information.</ul>"
+			+"<ul>Fixed bug with light theme tooltips not displaying correctly, and also fixed some other minor bugs related to light theme's formatting and appearance.</ul>"
+			+"<ul>Fixed minor issue with random German-shepherd-morph NPCs not having correct determiners appended in front of their name (such as 'a' or 'the').</ul>"
+			+"<ul>Fixed issue where demons in dark alleyway tiles would incorrectly reference pregnancies as having imps as the resulting offspring.</ul>"
+			+"<ul>The 'Double creampie' action now correctly applies penetrative effects to the second character (i.e. taking their virginity, starting to stretch them them out, etc.).</ul>"
+			+"<ul>Fixed issues with the availability of the 'slap ass' sex action.</ul>"
+			+"<ul>Bike shorts no longer block intercrural sex actions.</ul>"
+			+"<ul>Fixed bug where if you had the 'Servant of fire' spell upgrade (or any of the other elemental school equivalents), your elemental would refuse to have dominant sex with you, instead of refusing to have submissive sex.</ul>"
+			+"<ul>Fixed issue with slimes' subspecies detection not being based on the slime colour, but the character's underlying (hidden) subspecies colour. (e.g. A blue harpy-slime was being incorrectly identified as a phoenix-harpy-slime if the characters' 'feather colour' was glowing red, even though these feathers cannot be seen.)</ul>"
+			+"<ul>Menu buttons in the bottom-left of the game window now correctly refresh when loading a game.</ul>"
+			+"<ul>Fixed bug where the hypno watch could disappear from your inventory upon loading your game.</ul>"
+			+"<ul>Fixed bug where random characters who used you in the stocks would not disappear after the scene had ended.</ul>"
+			+"<ul>Fixed issue with incorrect Enforcer races being displayed as being present in Submission's safe path tiles.</ul>"
+			+"<ul>Fixed potential issue with Brax not being found at the Enforcer HQ's reception desk after completing his part of the main quest.</ul>"
+			+"<ul>Fixed issue with the debug menu's 'race resets' not working correctly for 'half-demon' and 'demon' options. Resetting your race to something other than a demon will now also correctly remove your underlying demon identification.</ul>"
+			+"<ul>Fixed characters being able to use 'muscle control' sex actions while in the 'resisting' pace.</ul>"
+			+"<ul>Urethra and nipple internal orifice modifiers (ribbed, muscled, tentacled), are now only applied if the orifice is able to be penetrated.</ul>"
+			+"<ul>Fixed incorrect name parsing for all orifice modifier addition/removal descriptions, and incorrect references to a character's breasts when modifying crotch-boobs.</ul>"
+			+"<ul>If you have the related content options turned off, then anal and foot fetishes will no longer show up in your fetish menu, nor in the fetish enchantment options.</ul>"
+			+"<ul>Fixed several instances where ingesting fluids could throw a background error and potentially cause the game to become unresponsive.</ul>"
+		+"</list>"
+
 		+ "<br/>"
 		
 		+ "<list>"
-			+ "<h6>v0.3.5.7</h6>"
-			+"<li>Contributions:</li>"
-			+"<ul>Fixed some stores in the Shopping Arcade causing a softlock. (PR#1227 by triples941)</ul>"
-			+"<ul>Fixed several issues with random attacker dialogue not displaying correctly. (PR#1231 by triples941)</ul>"
-			+"<ul>Made some slight adjustments to Maven configuration. (PR#1235 by Zsar)</ul>"
-			+"<ul>Fixed issue with NPC sex positioning sometimes causing a game-breaking bug in sex. (by Rist)</ul>"
-			
-			+"<li>Gameplay:</li>"
-			+"<ul>Added a new quest for Axel. (There is a lot of placeholder dialogue for now, and is still very rough around the edges. It will be improved for the next update!)</ul>"
-			+"<ul>Added a 'Quick Sex' action to sex, under the 'Misc. Actions' tab. Selecting this will immediately end sex, but apply all effects as though (some basic) sex had taken place. A short description of the sex actions performed will be displayed.</ul>"
-			+"<ul>Added a 'Gape content' preference, which by default is turned on (keeping the game's behaviour as it always has been). When turned off, 'gaping' descriptions of orifices are replaced with less extreme descriptions (such as just 'loose'), and any special gape-related content will be hidden.</ul>"
-			
-			+"<li>Artwork:</li>"
-			+"<ul>Added: 16 images for Lyssieth drawn by FriendlyAlienFriend. These include variations for human/lilin forms, pregnancy, and futa.</ul>"
-			
-			+"<li>Other:</li>"
-			+"<ul>Demons no longer spawn with tentacles in their anus and vagina. (I'll add those for different demon varieties in the jungle and some other places later on.)</ul>"
-			+"<ul>Improved generic sex effects (such as when slaves are having sex when you are not present) to take into account girlcum and milk being drunk, condoms being used, orifices being stretched, and body parts being dirtied by cum.</ul>"
-			+"<ul>Moved dice poker and some more of Slaver Alley's dialogue text into external .txt files.</ul>"
-			+"<ul>Added 'Bounty Hunter Lodge' location in Slaver Alley.</ul>"
-			+"<ul>Renamed 'Alexa' to 'Helena'. (For three reasons: I felt there were a disproportionate amount of 'A'-named unique NPCs; I wanted her name to be similar to a beautiful character from mythology; I didn't want her to share a name with a popular intrusive electronic device.)</ul>"
-			+"<ul>NPCs will now prefer to move out of the 'standing' position if they want to have penetrative sex.</ul>"
-			+"<ul>Added day incrementing to debug menu's 'Misc.' actions.</ul>"
-			+"<ul>In combat, NPCs should now only cast status-effect-application spells on suitable targets (i.e. they should no longer continuously use spells such as 'poison vapours' on a target which already has has associated status effect).</ul>"
-			+"<ul>In combat, NPCs will now use a wider range of moves available to them, and will be a lot more willing to cast defensive spells on themselves or their allies.</ul>"
-			+"<ul>You can now transform vaginas of pregnant characters (but cannot remove them). The unborn offspring are unaffected by this.</ul>"
-			+"<ul>Added 'Mute' personality trait, which at the moment is unavailable to the player, and has a 0.01% of being given to a random NPC.</ul>"
-			+"<ul>Added options to have repeat sex with Lyssieth in her lilin form after you've been transformed into a demon.</ul>"
-			+"<ul>Improved Lyssieth's sex preferences when having repeat sex with her in her office.</ul>"
-			
-			+"<li>Items:</li>"
-			+"<ul>Added: 'Pistol crossbow' (common, one-handed, ranged, sold by Vicky).</ul>"
-			+"<ul>Updated: Chaos feather (rare) to 'rough arcane feather', and Chaos feather (Epic) to 'arcane feather'. Updated icons for each, and increased their value.</ul>"
-			+"<ul>Added: 'Pristine arcane feather' (legendary, one-handed, ranged, sold by Vicky).</ul>"
-			+"<ul>Added support for tertiary colouring of weapons.</ul>"
-			+"<ul>Added a 'self-transformation inhibition' enchantment, which can be added to clothing and tattoos by selecting the primary modifier 'Special effects' and then the secondary modifier 'Self-Transformation inhibition'. While worn/tattooed onto someone, this enchantment prevents demons and slimes from accessing the self-transformation menu.</ul>"
-			+"<ul>Moved slave collar into res folder, improved icon and description, and added more recolouring options. Default enchantments for slave collar are now -15 arcane, -15 lust resist, sealing, enslavement, and self-transformation inhibition.</ul>"
-			+"<ul>Added 'removal' as a secondary modifier for breast transformation potions, which completely flattens breasts when used.</ul>"
-			+"<ul>Moved all leg clothing into external res folder, and slightly improved several leg clothing icons (skirt, miniskirt, pleated microskirt, belted microskirt, bike shorts, hotpants, tight jeans, jeans).</ul>"
-			+"<ul>Added a requirements element to tattoo xml files, so you can limit tattoo availability based on the target who is receiving it. (See the 'heart womb' tattoo xml file for an example.)</ul>"
-			
-			+"<li>Bugs:</li>"
-			+"<ul>Fixed background error sometimes being thrown when generating half-demons, which was blocking randomly-spawned characters from being half-demons.</ul>"
-			+"<ul>Quite a few typo, parsing, and formatting fixes.</ul>"
-			+"<ul>Fixed some background errors when in non-companion dialogue for the random harpy attackers, Submission tunnel attackers, and Bat cavern attackers.</ul>"
-			+"<ul>Fixed incorrect descriptions when an enemy forces a transformation potion onto your companion (after being defeated in combat).</ul>"
-			+"<ul>Asymmetrical skirt now correctly blocks the anus slot when not pulled up.</ul>"
-			+"<ul>NPCs spawning with randomly generated weapons will now have enough essences to use their weapons (if any of them have an essence cost).</ul>"
-			+"<ul>Fixed incorrect public sex descriptions from being displayed while you were watching sex in public places.</ul>"
-			+"<ul>Fixed 'Offer body' dialogue not working in random attacker scenes when you didn't have a companion with you.</ul>"
-			+"<ul>Fixed bug where bat cavern random bat-morph attackers would not initialise correctly (and therefore no bat-morph enemies would spawn when you were travelling through or exploring the tunnels of the bat caverns).</ul>"
-			+"<ul>Fixed issue where randomly spawned clients in Angel's Kiss might sometimes not be cleared up correctly.</ul>"
-			+"<ul>Fixed formatting bug where expanding a character's 'Stats' information box would conceal the 'Perks' information box beneath it.</ul>"
-			+"<ul>Fixed some cases where menu navigation could get slightly broken when sending companions home or dismissing elementals.</ul>"
-			+"<ul>Fixed issue where characters would not be recognised as half-siblings if one or more of the three relevant parents were removed from the game.</ul>"
-			+"<ul>Corrected Slime Queen's job perk icon.</ul>"
-			+"<ul>Companion's elementals should no longer do increased damage if the difficulty setting is meant to be boosting enemy damage.</ul>"
-			+"<ul>Fixed application of lisp and stutter in speech causing style tags to break.</ul>"
-			+"<ul>Fixed player's gender identity not being correctly set (this shouldn't affect anything, and if it's used in future content, I'll provide a way to define it).</ul>"
-			+"<ul>Breast feeding and other oral+nipple actions are no loner blocked when nipple penetration content is turned off.</ul>"
-			+"<ul>Fixed issue where the UI could sometimes freeze on the 1st of every month.</ul>"
-			+"<ul>Fixed bug where half-demon offspring would not initialise correctly and cause game-breaking freezes. This was being encountered at the moment of impregnation if generated offspring were half-demons.</ul>"
-			+"<ul>Fixed mouth orifice always being referred to as 'a mouth'.</ul>"
-			+"<ul>Fixed issues with Roxy sometimes being happy to switch to anilingus or other sex types.</ul>"
-			+"<ul>Random NPCs will no longer spawn wearing Enforcer's tactical combat boots.</ul>"
-			+"<ul>'Impregnations' tattoo counter should now function correctly.</ul>"
-			+"<ul>Helena will no longer return to her nest after taking over Scarlet's shop in slaver alley.</ul>"
-			+"<ul>Fixed bug where clothing unequipped as a result of a body part transformation (such as unequipping a tail ribbon when losing your tail) would not revert attribute modifications from that clothing item.</ul>"
-			+"<ul>Clothing which requires a penis to be equipped (condoms & chastity cages) can no longer be equipped onto strapons or dildos. (This change was made due to an underlying conflict in the code, but I will try to refactor it at some point to re-enable this behaviour.)</ul>"
-			+"<ul>Meraxis (The Dark Siren) will now correctly use all of the spells at her disposal.</ul>"
-			+"<ul>Fixed minor issue where NPCs' home locations were not cleared correctly upon being removed from the game.</ul>"
-			+"<ul>Fixed issue with NPCs' combat move selection not working correctly.</ul>"
-			+"<ul>Fixed some incorrect skin colours on Axel.</ul>"
-			+"<ul>Fixed 'Offer body' in the post-loss dice poker scene being available even if the gambler is not attracted to you.</ul>"
-		+ "</list>"
-			
-		+ "<br/>"
-		
-		+ "<list>"
-			+ "<h6>v0.3.5.4</h6>"
-			+"<li>Engine:</li>"
-			+"<ul>Improved handling of turn updates, which has reduced the amount of lag encountered each turn, especially when the time would pass into a new hour.</ul>"
-			+"<ul>Improved speed of body generation for randomly-generated NPCs.</ul>"
-			+"<ul>Moved more text content into external txt files.</ul>"
+			+ "<h6>v0.3.6.4</h6>"
+			+"<li>Engine/Code:</li>"
+			+"<ul>Fixed issue with incorrect line endings at the top of most files.</ul>"
+			+"<ul>Moved remaining Slaver Alley dialogue into the external .txt file.</ul>"
+			+"<ul>Tidied up virginity loss code.</ul>"
+			+"<ul>The 'companion' parser target has been shortened to 'com', and should now work correctly in conditional statements.</ul>"
 
 			+"<li>Gameplay:</li>"
-			+"<ul>Day/night time is now based on real-world sunrise/sunset times for the coordinates 51.4934 N, 0.0000 E, so days are shorter in winter, and longer in summer.</ul>"
-			+"<ul>Added a minor darkening effect to the map when in civil & nautical twilight, and a major darkening effect when in astronomical twilight or night time.</ul>"
-			+"<ul>Added sunrise/sunset info to the clock tooltip.</ul>"
-			+"<ul>Sleeping in your room or a friend's apartment is now to the next sunrise or sunset, instead of to 07:00 or 21:00.</ul>"
-			+"<ul>All shops in the Shopping Arcade are now only open between 06:00 and 22:00.</ul>"
-			+"<ul>Candi's desk is only open between 09:00 and 17:00.</ul>"
-			+"<ul>Zaranix's home is locked up between 22:00 and 06:00.</ul>"
-			+"<ul>The harpy matriarchs go to sleep between 22:00 and 06:00.</ul>"
-			+"<ul>Lilaya and Rose go to bed at 22:00 and return to the lab at 06:00. The 'lab assistant' and 'test subject' slave jobs are no longer available during these times.</ul>"
-			+"<ul>Breastfeeding/Nipple-kissing is now an ongoing action, with the target's milk (if they are lactating) being drunk every turn. Also improved descriptions of these actions to factor in nipple-shape.</ul>"
-			+"<ul>You can now take a bath in your room's ensuite, which cleans your companions and applies a regenerative-boosting status effect. (Descriptions are still a 'TODO')</ul>"
-			+"<ul>Roxy now smokes and has this reflected in her dialogue. She also no longer wears lipstick (which I thought might be weird on a greater rat-morph face).</ul>"
-			+"<ul>Added some unique sex actions in Roxy's facesitting scene: her smoking; her teasing you; a customer briefly interrupting her. Her sex scene now also correctly starts with you eating her out, and her dress pulled up.</ul>"
-
-			+"<li>Items:</li>"
-			+"<ul>Added cigarettes as individual items and as packs of 20. Smoking cigarettes provides a status effect which applies +10 aura and -5 health.</ul>"
-			+"<ul>Added  'rat skull' tattoo.</ul>"
-			+"<ul>Slightly improved the short sleeve shirt icon and added dye colours for the buttons & label.</ul>"
-			+"<ul>Added 'Kerambit' weapon (one handed, sold by Vicky).</ul>"
-			+"<ul>Added 'Gemstone ring' (finger slot, sold by Nyan).</ul>"
-			+"<ul>Added 'Demonstone necklace' (neck slot, sold by Nyan).</ul>"
-			+"<ul>Moved internal finger and neck clothing into the res folder.</ul>"
-			+"<ul>Added secondary colours to heart and ankh necklaces, and you can now equip these necklaces (as well as sun and snowflake necklaces) into the wrist slot.</ul>"
-			+"<ul>Improved bell collar and added secondary and tertiary dye colours for metal parts.</ul>"
-
+			+"<ul>Added content for the 'Complain' action in Slaver Alley's public stocks tile, which includes a new unique Enforcer NPC. (There are some additional dialogue variations for if Brax is in your party.)</ul>"
+			
 			+"<li>Other:</li>"
-			+"<ul>You can now equip unique clothing & weapons onto NPCs. If these NPCs are removed from the game at any point, the unique clothing/weapons which they have equipped are returned to your inventory.</ul>"
-			+"<ul>Reduced the arcane lightning globe's base damage from 25 to 15, and reduced its value from 500,000 to 250,000.</ul>"
-			+"<ul>If you have an alligator-morph vagina, you now get the egg-laying birthing variation.</ul>"
-			+"<ul>Changed the 'rose' gift item into an item of clothing, which can now be worn in the 'hair' slot. Any roses already in your game will be automatically converted into their clothing counterpart when you load into this version.</ul>"
-			+"<ul>Added 'pitch black' for eye colours.</ul>"
-			+"<ul>Added 'bun' and 'chignon' hair styles, and reduced the chance of NPCs spawning with 'unusual' hair styles (from 20% to 10%).</ul>"
-			+"<ul>Added a debug consumable item which turns the drinker into a youko, and adds a tail to drinkers who are already a youko.</ul>"
-			+"<ul>Added 'footjobs' to the sex stats screen (only displayed if you have foot content turned on). Anal, nipple-penetration, and urethral sex stats are now hidden if you have the associated content disabled.</ul>"
-			+"<ul>Added personality setting tab to debug menu.</ul>"
-			+"<ul>Clothing & weapons enchanted to remove corruption now cost enchantment stability, equal to the value of corruption removed.</ul>"
-			+"<ul>NPCs who have a positive desire towards the 'cum stud' or 'impregnation' fetishes, and are either selfish or in the rough pace, will now refuse to wear condoms in sex. </ul>"
-			+"<ul>Added a 'fast travel' tab which is available everywhere within the shopping arcade.</ul>"
-			+"<ul>You can now suggest a job (or change of job) to any of the friendly occupants either living with you or in their own apartment.</ul>"
-			+"<ul>Added an indication that the main quest currently ends at the 'Finding the youko' quest in the quest log.</ul>"
-			+"<ul>Added more slave greeting and sleeping dialogue variations for when they are assigned to your room. Also added slave-related quick/thorough wash descriptions.</ul>"
-			+"<ul>Added office tile to gambling den map.</ul>"
-			+"<ul>Reduced 'vaccuum' spell's 'secondary voids' effects from -20 to -5 energy shielding, and -25 to -15 critical damage.</ul>"
-
-			+"<li>Forced-transformation content:</li>"
-			+"<ul>NPCs now have a gender, subspecies, and race-stage preference, instead of a fully pre-generated body preference. This should help to cut down on save file size.</ul>"
-			+"<ul>NPCs will no longer try to transform you if you are a demon, nor try to transform you into a demon or imp (although they will still force non-racial transformations onto you). Youko tail addition/removal transformations have also been disabled.</ul>"
-			+"<ul>Fixed issues with forced TF potions not applying genital changes correctly, and the NPC getting stuck on trying to change your genitals even when you had the genitals they wanted.</ul>"
-			+"<ul>Fixed issue with NPCs trying to transform away any strap-on that you were wearing.</ul>"
-			+"<ul>Improved NPCs transformation selection for the potions they force on you.</ul>"
-			+"<ul>Added more dialogue for each part that an NPC transforms.</ul>"
-			+"<ul>Forced transformation content availability is no longer linked to the non-con content toggle.</ul>"
-			+"<ul>NPCs who want to transform you into a slime will now be able to do so without getting stuck.</ul>"
-			+"<ul>Demons in the dark alleyway tiles have had forced transformation behaviour added to them. (They usually end up preferring demons, however, in which case they will only attempt to transform your gender.)</ul>"
-			+"<ul>Added penis girth, ball size, body size, muscle, vagina capacity, ass capacity, and ass wetness to forced transformation variations.</ul>"
-			+"<ul>Increased non-racial TF amounts in a single forced-TF (such as ass size or height being increased/reduced by larger amounts).</ul>"
-			+"<ul>NPCs will now transform both you and your companion.</ul>"
-			+"<ul>NPCs will now apply fetish changes as well as body transformations in the same scene.</ul>"
-			+"<ul>NPCs will no longer TF if mouth blocked.</ul>"
-
-			+"<li>Random encounters:</li>"
-			+"<ul>Changed and expanded dialogue for post-defeat transformations and sex for: Dominion alleyway; Harpy nest; Submission tunnels; Demon alleyway; Cavern attacker/slime/bat.</ul>"
-			+"<ul>Added quick TF options (in the combat's post-victory actions) to all these scenes.</ul>"
-			+"<ul>NPCs will now choose whether to have sex with you, your companion, or both of you after defeating you.</ul>"
-			+"<ul>NPCs who dislike raping will no longer rape.</ul>"
+			+"<ul>The 'Tail swipe' combat move is now available to anyone who has a prehensile tail which has a girth of at least 'thick'.</ul>"
+			+"<ul>Alligator-morph tails are now considered to be suitable for penetrative actions.</ul>"
+			+"<ul>Added ability to have your companion join in on sex with slaves locked up in the stocks in Slaver Alley.</ul>"
+			+"<ul>Added 'sandy' as a covering colour.</ul>"
+			+"<ul>Slightly improved slovenly speech parsing.</ul>"
+			+"<ul>Gave Helena a new surname and some clothes to wear.</ul>"
+			+"<ul>Level drain option now defaults to 'off' in sex scenes which include your companion, slaves, or friendly occupants.</ul>"
+			+"<ul>Scarlett and Brax can now have their levels drained via the use of the 'Orgasmic level drain' once they've been enslaved.</ul>"
+			+"<ul>Added kissing interaction availability to 'mating press' + 'lying down' positions, and anilingus availability to 'face between legs' + 'lying down' positions.</ul>"
+			+"<ul>Added 'phoenix-harpy' subspecies, which is just a harpy with glowing red, orange, or yellow feathers. They can only be found naturally spawning in the Harpy Nests as an extremely rare chance.</ul>"
 
 			+"<li>Bugs:</li>"
-			+"<ul>Typo and parsing fixes.</ul>"
-			+"<ul>Fixed issue with the Office's 'Occupancy ledger' sometimes causing a background error to be thrown, which was sometimes breaking the game.</ul>"
-			+"<ul>Fixed similar issue where accessing inventories through the slave list would sometimes result in not being able to close the inventory, leading to numerous background errors being thrown.</ul>"
-			+"<ul>Fixed another issue with the 'Occupancy Ledger', where inspecting a friendly occupant would cause the game to throw several background errors.</ul>"
-			+"<ul>Fixed bug where slaves assigned to sex-related jobs would have their virginity loss descriptions reset.</ul>"
-			+"<ul>Jules no longer wears socks on his hoofs.</ul>"
-			+"<ul>Fixed bug where previously-creampied orifices would not be recognised as being lubricated by cum at the start of sex.</ul>"
-			+"<ul>Fixed bug where room upgrades were not affecting obedience & affection gains for slaves working there.</ul>"
-			+"<ul>Any weapons that are unequipped during sex are now correctly re-equipped when sex ends.</ul>"
-			+"<ul>Fixed bug where backing out of the inventory screen during sex would sometimes return you to the scene you were in before sex, while not correctly ending sex, causing the game to break.</ul>"
-			+"<ul>Fixed yet more bugs in stuttering characters' speech effects.</ul>"
-			+"<ul>Fixed minor issue where checking imp gang inventories defaulted the response tab to the empty 'selected item' one, rather than the 'overview' one.</ul>"
-			+"<ul>Fixed bug where breast/nipple interactions would be disabled when receiving a blowjob in the sixty-nine position.</ul>"
-			+"<ul>Fixed bug where clothing tooltips would display the rarity of unidentified items, letting you know if they were jinxed or not without first identifying them.</ul>"
-			+"<ul>Fixed 'Mystery Kink' not being recognised as a fetish-giving item, and 'Glowing Mushrooms' not being recognised as transformative, which was allowing some unique NPCs to consume them during sex.</ul>"
-			+"<ul>Fixed issue where offspring could sometimes spawn with 'heterochromatic' eyes that both had the same colour.</ul>"
-			+"<ul>Fixed bug causing incorrect descriptions when removing horns.</ul>"
-			+"<ul>Fixed incorrect action labels in debug's race reset screen.</ul>"
-			+"<ul>Fixed bug where buying items from Vicky would clear the entire stack of that item from her inventory the next time you opened her trade menu.</ul>"
-			+"<ul>Fixed Takahashi not having 3 youko tails as intended.</ul>"
-			+"<ul>Fixed Fury offspring (half-demon harpies) spawning in Dominion (they now only spawn in the harpy nests). Also fixed offspring of non-Submission half-demon subspecies spawning in Submission's tunnels.</ul>"
-			+"<ul>Fixed equipped piercings displaying a 'No tattoo' tooltip when hovering over them in tattoo view mode.</ul>"
-			+"<ul>Fixed tertiary dye colours not displaying for several items of clothing.</ul>"
-			+"<ul>If, in a previous version, Brax has somehow bugged out after completing the side quest to obtain him, he will correctly have his ownership transferred to you when you load into this version.</ul>"
-			+"<ul>Fixed item and clothing encyclopedia entries not being added if you used an item from an NPC's inventory, or equipped clothing onto an NPC.</ul>"
-			+"<ul>Fixed incorrectly describing Kate's breasts as E-cup.</ul>"
-			+"<ul>Fixed footjob climax tattoo counter not working.</ul>"
-			+"<ul>Fixed bug where footjob sex stats were not being saved/loaded correctly.</ul>"
-			+"<ul>Fixed sex bug where characters couldn't start oral actions while they were receiving a footjob.</ul>"
-			+"<ul>Fixed bug where performing/receiving foot-related actions would result in a huge lust drain per turn if neither participant had a positive desire towards foot fetishes. This will not affect NPCs' decision to use foot actions (which they prefer to avoid unless they have an associated fetish).</ul>"
-			+"<ul>Fixed bug where the 'Localised Storm' upgrade for the Arcane Cloud spell would affect enemies of the target, instead of all their allies.</ul>"
-			+"<ul>Fixed bug where clothing was able to be equipped in sex into slots which were not supposed to be available.</ul>"
-			+"<ul>You can no longer equip clothing during sex into inventory slots that are involved in an ongoing action.</ul>"
-			+"<ul>Fixed Rose's handholding sex scene missing the mouth-finger interactions which were present in older versions.</ul>"
-			+"<ul>Fixed 'Suck clit' sex action having arousal increment values reversed for the performer/target.</ul>"
-			+"<ul>Fixed enslavement collars not spawning with the enslavement enchantment.</ul>"
-			+"<ul>Fixed dates before 0CE being displayed as a negative value, and are now correctly displayed as 'xxxx BCE'.</ul>"
-			+"<ul>Fixed bug in the flow of dialogue when talking to Candi for the first time about Brax.</ul>"
-			+"<ul>Fixed clothing enchantments which reduce corruption being regarded as 'bad' enchantments.</ul>"
-			+"<ul>Fixed broken condom equip behaviour for cultists, dark alleyway demon attackers, Kate, and Ralph.</ul>"
-			+"<ul>Fixed bug where slaves who were given the permission to use you would only do so when they were supposed to be at work, instead of when they had free time (set to 'idle').</ul>"
-			+"<ul>Actions using a parnter's clit are no longer displayed as greyed-out actions, until you know that the partner has a vagina.</ul>"
-			+"<ul>Fixed another cause of the bug where slaves jumping you when sleeping would not work correctly.</ul>"
-			+"<ul>Fixed some issues with the lactation fetish special tease attack, and made it available to characters who have crotch boobs which are lactating.</ul>"
-			+"<ul>When starting sex, the active response tab should no longer start on one that has no actions available in it.</ul>"
-			+"<ul>Fixed some incorrect descriptions of the 'choke' action in multiple-character sex scenes.</ul>"
-			+"<ul>Fixed bug where character home icons would not be shown on any tiles that bordered the map's lower or left edges.</ul>"
-			+"<ul>Fixed some references to Jhortrax fathering imps instead of half-demons.</ul>"
-			+"<ul>Girlcum fluid modifiers are now described in a character's appearance page.</ul>"
-			+"<ul>Characters performing oral on a vagina will now correctly ingest girlcum (once the vagina is lubricated by girlcum).</ul>"
-			+"<ul>Fixed bug where incorrect dialogue would be displayed when slaves jumped you for sex after sleeping.</ul>"
-			+"<ul>Fixed some issues with half-demon subspecies detection, which should have resolved the unusual self-transformation behaviour encountered after turning yourself into a half-demon through the debug menu.</ul>"
-			+"<ul>Fixed alligator hair-scales and slime hair being called by the wrong name.</ul>"
-			+"<ul>Fixed branching quests not correctly saving/loading the quest route you selected (was just affecting the slime queen quest, but wasn't having any impact on gameplay).</ul>"
-			+"<ul>Blaze and Crystal (the Slime Queen's guards) are now correctly identified in the code as being siblings (but only if you have incest content turned on).</ul>"
-			+"<ul>Fixed bug where post-sex dialogue after beating and then submitting to the imps in the Dark Siren's fortress would be the 'defeated' variant instead of the correct 'victory' variant.</ul>"
-		+ "</list>"
-		
+			+"<ul>Numerous parsing fixes (most of them in the new Rat Warrens dialogue).</ul>"
+			+"<ul>Feminising Murk will now correctly give her a vagina. (Fix is also retroactively applied if you've already feminised him.)</ul>"
+			+"<ul>Fixed tail girth description in selfie/character viewer not updating to describe the character's actual tail girth.</ul>"
+			+"<ul>Disabled unique position switching actions in stocks sex when there were more than two participants, as it was causing some issues. (You can still change position as the dom using the more in-depth position selection action.)</ul>"
+			+"<ul>Quick sex now correctly takes into account each participant's banned areas. (i.e. In slaver alley stocks sex, the slave's orifices which are banned will be excluded from quick sex.)</ul>"
+			+"<ul>Fixed more issues of quick sex ignoring the availability of sex areas.</ul>"
+			+"<ul>Quick sex will no longer apply level drain to targets who should be immune (i.e. unique characters).</ul>"
+			+"<ul>Characters with the deflowering fetish now correctly gain experience from taking virginities in quick sex.</ul>"
+			+"<ul>Removed line in alleyway demon encounter which suggested that the demon grows a cock when you offer yourself to her.</ul>"
+			+"<ul>Fixed bug where companions would go to work while being held as a captive (bug was present in the Rat Warrens loss scenes).</ul>"
+			+"<ul>Parsing and dialogue flow fixes in scene where you get sent to the cells after losing in the Enforcer Warehouse.</ul>"
+			+"<ul>Fixed bug in the post-loss Enforcer Warehouse cells scene, where you'd remain in the Enforcer HQ's cells after you were supposed to have been escorted outside by Claire.</ul>"
+			+"<ul>Fixed inactive 'Continue' button being shown after Claire has warned you about the SWORD Enforcers in the Warehouse.</ul>"
+			+"<ul>Your clothing now correctly gets unequipped when locked into the stocks (in the Enforcer Warehouse loss scene).</ul>"
+			+"<ul>Fixed post-sex stretching information referring to every stretched orifice as the character's 'asshole', instead of the correct orifice.</ul>"
+			+"<ul>Fixed issue with Helena returning to her nest when she should have been in Scarlett's Shop in Slaver Alley.</ul>"
+			+"<ul>Fixed some minor issues with dialogue flow when talking to Candi and when getting the Lipsticks from Ralph (as part of the 'Buying Brax' quest).</ul>"
+			+"<ul>Fixed awkward phrasing of the exhibitionist fetish's short description.</ul>"
+			+"<ul>Quick sex should now display correct behaviour for if a sex scene is meant to end in a creampie or not.</ul>"
+			+"<ul>Fixed issue with quick sex where it would sometimes throw a background error and not work.</ul>"
+			+"<ul>Fixed bug in quick sex where characters with impregnation fetish would sometimes pull out of a partner willing to be impregnated.</ul>"
+			+"<ul>Fixed 'ready for birthing' status effect having a nonsensical description for taur characters.</ul>"
+			+"<ul>Fixed bug where you could request Claire's help in dealing with Vengar even after you'd completed his quest.</ul>"
+			+"<ul>Fixed incorrect parsing in combat when sadistic characters took lust damage from dealing damage to their target.</ul>"
+			+"<ul>Fixed bug where the breeder collar would spawn with a duplicate sealing enchantment.</ul>"
+			+"<ul>Fixed bug where Murk's dialogue in the Rat Warrens would still be working even after he'd meant to have been enslaved.</ul>"
+			+"<ul>Fixed Bree gaining a random colour for her vagina when undergoing her initial feminisation from Brax.</ul>"
+			+"<ul>Fixed issue where opening the positioning menu on the 'sitting' position would place both doms and subs into sitting slots.</ul>"
+		+"</list>"
 	;
 	
-	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
+	public static String disclaimer = "<h6 style='text-align: center; color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
 
 			+ "<p>This game is a <b>fictional</b> text-based erotic RPG. All content contained within this game forms part of a fictional universe that is not related to real-life places, people or events.<br/><br/>"
 
@@ -565,6 +578,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("GentleTark", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("QW", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Master Isami", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Valeiya", "", 0, 0, 0, 0, Subspecies.DEMON));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
@@ -749,10 +763,10 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Pierre Mura", "", 0, 0, 0, 11));
 		credits.add(new CreditsSlot("Pokys", "", 0, 0, 9, 0));
 		credits.add(new CreditsSlot("PoyntFury", "", 0, 0, 1, 4, Subspecies.DEMON));
-		credits.add(new CreditsSlot("QQQ", "", 0, 0, 0, 19));
+		credits.add(new CreditsSlot("QQQ", "", 0, 0, 0, 19, Subspecies.DEMON));
 		credits.add(new CreditsSlot("awrfyu_", "", 0, 0, 0, 7));
 		credits.add(new CreditsSlot("Rakesh", "", 0, 0, 8, 0));
-		credits.add(new CreditsSlot("R.W", "", 0, 3, 11, 0));
+		credits.add(new CreditsSlot("R.W", "", 0, 3, 11, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Raruke", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("The Void Prince", "", 0, 0, 13, 0));
 		credits.add(new CreditsSlot("Master's dumb bitch", "", 0, 0, 0, 19));
@@ -1098,34 +1112,62 @@ public class Main extends Application {
 		properties.savePropertiesAsXML();
 	}
 	
+	public static boolean isQuickSaveAvailable() {
+		return Main.game.isStarted()
+				&& !Main.game.isInCombat()
+				&& !Main.game.isInSex()
+				&& Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL
+				&& Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogue(false));
+	}
+	
+	public static String getQuickSaveUnavailabilityDescription() {
+		if (!Main.game.isInNewWorld()) {
+			return "You cannot save the game during the character creation process or prologue!";
+			
+		} else if (Main.game.isInCombat()) {
+			return "You cannot save the game while while in combat!";
+			
+		} else if (Main.game.isInSex()) {
+			return "You cannot save the game while in a sex scene!";
+			
+		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.NORMAL) {
+			return "You cannot save the game unless you are in a neutral scene!";
+			
+		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogue(false))) {
+			return "You cannot save the game unless you are in a neutral scene!";
+		}
+		
+		return "";
+	}
+	
+	public static String getQuickSaveName() {
+		if(!Main.game.isStarted()) {
+			return "QuickSave_intro";
+		}
+		return "QuickSave_"+Main.game.getPlayer().getName(false);
+	}
 	
 	public static void quickSaveGame() {
 		if (Main.game.isInCombat()) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot quicksave while in combat!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot quicksave while in combat!");
 			
 		} else if (Main.game.isInSex()) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot quicksave while in sex!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot quicksave while in sex!");
 			
 		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.NORMAL) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Can only quicksave in a normal scene!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Can only quicksave in a normal scene!");
 			
 		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogue(false))) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot save in this scene!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot save in this scene!");
 			
 		} else {
-			Main.getProperties().lastQuickSaveName = "QuickSave_"+Main.game.getPlayer().getName(false);
-			saveGame("QuickSave_"+Main.game.getPlayer().getName(false), true);
+			Main.getProperties().lastQuickSaveName = getQuickSaveName();
+			saveGame(getQuickSaveName(), true);
 		}
 	}
 
 	public static void quickLoadGame() {
-		String name = "QuickSave_"+Main.game.getPlayer().getName(false);
-		
-//		if(new File("data/saves/"+name+".lts").exists()) {
-			loadGame(name);
-//		} else {
-//			loadGame(Main.getProperties().lastQuickSaveName);
-//		}
+		loadGame(getQuickSaveName());
 	}
 
 	public static boolean isSaveGameAvailable() {
@@ -1134,15 +1176,15 @@ public class Main extends Application {
 	
 	public static void saveGame(String name, boolean allowOverwrite) {
 		if (name.length()==0) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Name too short!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too short!");
 			return;
 		}
 		if (name.length() > 32) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Name too long!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Name too long!");
 			return;
 		}
 		if (name.contains("\"")) {//!name.matches("[a-zA-Z0-9]+[a-zA-Z0-9' _]*")) {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "Incompatible characters!");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Incompatible characters!");
 			return;
 		}
 		
@@ -1179,10 +1221,12 @@ public class Main extends Application {
 		if (isLoadGameAvailable(name)) {
 			Game.importGame(name);
 		}
+		MainController.updateUIButtons();
 	}
 
 	public static void loadGame(File f) {
 		Game.importGame(f);
+		MainController.updateUIButtons();
 	}
 	
 	public static void deleteGame(String name) {
@@ -1197,7 +1241,7 @@ public class Main extends Application {
 			}
 			
 		} else {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
 		}
 	}
 	
@@ -1213,7 +1257,7 @@ public class Main extends Application {
 			}
 			
 		} else {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
 		}
 	}
 	
@@ -1229,7 +1273,7 @@ public class Main extends Application {
 			}
 			
 		} else {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
+			Main.game.flashMessage(PresetColour.GENERIC_BAD, "File not found...");
 		}
 	}
 	

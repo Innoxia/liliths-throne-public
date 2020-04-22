@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission.ratWarrens;
-import java.util.LinkedHashMap;
+
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -17,7 +18,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -151,11 +152,11 @@ public enum CaptiveTransformation {
 			}
 			
 			if(sissy) {
-				if(target.getPenisRawSizeValue()>PenisSize.ONE_TINY.getMedianValue()) {
+				if(target.getPenisRawSizeValue()>PenisLength.ONE_TINY.getMedianValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("I want yer cock nice an' small, so that yer feel ashamed o' it when yer look at 'ow big mine is!"
 							+(!selfTransform?"":" Go on, make it tiny!"),
-							target.setPenisSize(PenisSize.ONE_TINY.getMedianValue()));
+							target.setPenisSize(PenisLength.ONE_TINY.getMedianValue()));
 				}
 
 				if(target.getPenisRawGirthValue()>PenetrationGirth.TWO_AVERAGE.getValue()) {
@@ -166,11 +167,11 @@ public enum CaptiveTransformation {
 				}
 				
 			} else {
-				if(target.getPenisRawSizeValue()<PenisSize.FIVE_ENORMOUS.getMedianValue()) {
+				if(target.getPenisRawSizeValue()<PenisLength.FIVE_ENORMOUS.getMedianValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("Yer cock's gonna need ta be bigger'n that, otherwise the milkin' tube might slip right off while we're milkin' ya!"
 							+(!selfTransform?"":" Go on, make it bigger!"),
-							target.setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue()));
+							target.setPenisSize(PenisLength.FIVE_ENORMOUS.getMedianValue()));
 				}
 
 				if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {
@@ -459,11 +460,11 @@ public enum CaptiveTransformation {
 							target.setPenisType(RacialBody.valueOfRace(target.getRace()).getPenisType()));
 				}
 				
-				if(target.getPenisRawSizeValue()<PenisSize.FIVE_ENORMOUS.getMedianValue()) {
+				if(target.getPenisRawSizeValue()<PenisLength.FIVE_ENORMOUS.getMedianValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("Yer cock's gonna need ta be bigger'n that, otherwise the milkin' tube might slip right off while we're milkin' ya!"
 							+(!selfTransform?"":" Go on, make it bigger!"),
-							target.setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue()));
+							target.setPenisSize(PenisLength.FIVE_ENORMOUS.getMedianValue()));
 				}
 				
 				if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {

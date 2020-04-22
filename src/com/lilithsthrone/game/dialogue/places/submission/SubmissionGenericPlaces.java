@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.submission;
-import java.util.List;
+
+import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -34,9 +35,10 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -108,7 +110,7 @@ public class SubmissionGenericPlaces {
 			
 			if(!pacified) {
 				UtilText.nodeContentSB.append(
-						"<span style='color:"+Main.game.getPlayer().getLocationPlace().getPlaceType().getColourString()+";'>"
+						"<span style='color:"+Main.game.getPlayer().getLocationPlace().getPlaceType().getColour().toWebHexString()+";'>"
 								+ UtilText.parseFromXMLFile("places/submission/submissionPlaces", "TUNNEL_IMP_CONTROL")
 						+"</span>");
 			}
@@ -1068,7 +1070,8 @@ public class SubmissionGenericPlaces {
 			} else if(index==5
 					&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)
 					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_COOPERATION)
-					&& !Main.game.getPlayer().isSubQuestCompleted(Quest.VENGAR_OPTIONAL_CLAIRE, QuestLine.SIDE_VENGAR)) {
+					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_OPTIONAL_CLAIRE)
+					&& !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
 				return new Response("Vengar", "Ask for Claire's help with dealing with Vengar.", CLAIRE_VENGAR_HELP) {
 					@Override
 					public void effects() {
@@ -1088,7 +1091,7 @@ public class SubmissionGenericPlaces {
 						}
 						@Override
 						public Colour getHighlightColour() {
-							return Colour.QUEST_SIDE;
+							return PresetColour.QUEST_SIDE;
 						}
 					};
 					

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
-import java.util.ArrayList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.quests.Quest;
@@ -14,7 +15,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -129,7 +130,7 @@ public class HarpyNestsDialogue {
 						+ "</p>"
 						+(Main.game.getPlayer().getLevel()<5
 								? "<p>"
-								+ "<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>It's recommended that you be at least level 5 before exploring the Harpy nests!</b>"
+								+ "<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>It's recommended that you be at least level 5 before exploring the Harpy nests!</b>"
 							+ "</p>"
 							:""));
 			}
@@ -288,7 +289,7 @@ public class HarpyNestsDialogue {
 								+ " [style.speechFeminine(I'm serious about these harpies! They're far more dangerous than any old mugger you might meet in the alleyways below!)]"
 							+ "</p>"
 							+ "<p>"
-								+ "<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>It's recommended that you be at least level 5 before exploring the Harpy nests!</b>"
+								+ "<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>It's recommended that you be at least level 5 before exploring the Harpy nests!</b>"
 							+ "</p>"
 							:"");
 				
@@ -335,7 +336,7 @@ public class HarpyNestsDialogue {
 								+ " [style.speechMasculine(I'm serious about these harpies! They're far more dangerous than any old mugger you might meet in the alleyways below!)]"
 							+ "</p>"
 							+ "<p>"
-								+ "<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>It's recommended that you be at least level 5 before exploring the Harpy nests!</b>"
+								+ "<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>It's recommended that you be at least level 5 before exploring the Harpy nests!</b>"
 							+ "</p>"
 							:"");
 			}
@@ -479,10 +480,10 @@ public class HarpyNestsDialogue {
 						+ "Having received your reward, you say farewell to the happy horse-boy, and, walking out of his office, head back into the Enforcer Post."
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
-						+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>You have received:</b> <b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>"+UtilText.getCurrencySymbol()+"</b> <b>5,000</b>"
+						+ "<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>You have received:</b> <b style='color:"+PresetColour.CURRENCY_GOLD.toWebHexString()+";'>"+UtilText.getCurrencySymbol()+"</b> <b>5,000</b>"
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
-						+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>The Harpy Nests are now safe to travel through!</b>"
+						+ "<b style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>The Harpy Nests are now safe to travel through!</b>"
 					+ "</p>";
 		}
 		
