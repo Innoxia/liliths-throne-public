@@ -22510,12 +22510,24 @@ public abstract class GameCharacter implements XMLSaving {
 
 	/**
 	 * Overrides all clothing equip checks, making sure that this piece of clothing is equipped, no matter what. Should only be used in exceptional circumstances.
-	 * @param newClothing
+	 * @param newClothing The clothing to be equipped.
+	 * @param slotToEquipInto The slot into which the newClothing should be equipped.
+	 * @param replaceClothing true if you want this newClothing to replace whatever clothing is already in slotToEquipTo (any clothing in that slot is added to this character's inventory).
+	 * @param removeFromInventoryOrFloor true if you want the newClothing to be removed from the floor or inventory of this character. The floor is checked for newCLothing before this character's inventory.
 	 */
 	public void equipClothingOverride(AbstractClothing newClothing, InventorySlot slotToEquipInto, boolean replaceClothing, boolean removeFromInventoryOrFloor) {
 		List<InventorySlot> slotsToClear = new ArrayList<>();
 		slotsToClear.add(slotToEquipInto);
 		slotsToClear.addAll(newClothing.getClothingType().getIncompatibleSlots(this, slotToEquipInto));
+
+		if(removeFromInventoryOrFloor) {
+			if(Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().hasClothing(newClothing)) {
+				Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(newClothing);
+				
+			} else {
+				this.removeClothing(newClothing);
+			}
+		}
 		
 		for(InventorySlot slot : slotsToClear) {
 			AbstractClothing clothing = this.getClothingInSlot(slot);
@@ -22533,10 +22545,6 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		applyEquipClothingEffects(newClothing, slotToEquipInto, null, false);
 		
-		if(removeFromInventoryOrFloor) {
-			this.removeClothing(newClothing);
-			Main.game.getWorlds().get(getWorldLocation()).getCell(getLocation()).getInventory().removeClothing(newClothing);
-		}
 		updateInventoryListeners();
 	}
 
@@ -27760,6 +27768,9 @@ public abstract class GameCharacter implements XMLSaving {
 		getCurrentPenis().getOrificeUrethra().setVirgin(virgin);
 	}
 	// Modifiers:
+	public Set<OrificeModifier> getUrethraOrificeModifiers() {
+		return getCurrentPenis().getOrificeUrethra().getOrificeModifiers();
+	}
 	public boolean hasUrethraOrificeModifier(OrificeModifier modifier) {
 		return getCurrentPenis().getOrificeUrethra().hasOrificeModifier(modifier);
 	}
@@ -27902,6 +27913,9 @@ public abstract class GameCharacter implements XMLSaving {
 		body.getSecondPenis().getOrificeUrethra().setVirgin(virgin);
 	}
 	// Modifiers:
+	public Set<OrificeModifier> getSecondUrethraOrificeModifiers() {
+		return body.getSecondPenis().getOrificeUrethra().getOrificeModifiers();
+	}
 	public boolean hasSecondUrethraOrificeModifier(OrificeModifier modifier) {
 		return body.getSecondPenis().getOrificeUrethra().hasOrificeModifier(modifier);
 	}
@@ -28871,6 +28885,9 @@ public abstract class GameCharacter implements XMLSaving {
 		body.getVagina().getOrificeUrethra().setVirgin(virgin);
 	}
 	// Modifiers:
+	public Set<OrificeModifier> getVaginaUrethraOrificeModifiers() {
+		return body.getVagina().getOrificeUrethra().getOrificeModifiers();
+	}
 	public boolean hasVaginaUrethraOrificeModifier(OrificeModifier modifier) {
 		return body.getVagina().getOrificeUrethra().hasOrificeModifier(modifier);
 	}

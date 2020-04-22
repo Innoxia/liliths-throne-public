@@ -631,21 +631,6 @@ public class HarpyNestHelena {
 		}
 	};
 
-	public static final DialogueNode HELENAS_NEST_RETURN_AFTER_SEX = new DialogueNode("", "", true, true) {
-		@Override
-		public int getSecondsPassed() {
-			return 60*5;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_RETURN_AFTER_SEX");
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return HELENAS_NEST.getResponse(responseTab, index);
-		}
-	};
-
 	//TODO
 	public static final DialogueNode HELENAS_NEST_MEETING_SCARLETT = new DialogueNode("", "", true) {
 		@Override
@@ -918,9 +903,9 @@ public class HarpyNestHelena {
 						@Override
 						public void effects() {
 							// Move them both here to make sure they haven't gone due to time ticking over into night time when player arrives:
-							Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SLAVER_ALLEY), PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+							Main.game.getPlayer().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 							Main.game.getNpc(Scarlett.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
-							Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+							Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/harpyNests/helena", "HELENAS_NEST_MEETING_SCARLETT_TO_SHOP_FLY_AFTER"));
 						}
 					};

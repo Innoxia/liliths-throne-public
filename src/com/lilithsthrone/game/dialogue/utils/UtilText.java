@@ -649,7 +649,7 @@ public class UtilText {
 	public static String runXmlTest(String pathName, List<GameCharacter> specialNPC) {
 		File file = new File(pathName);
 
-		Map<String, String> strings = new HashMap<>();
+		Map<String, List<String>> strings = new HashMap<>();
 		
 		if (file.exists()) {
 			try {
@@ -663,7 +663,8 @@ public class UtilText {
 				for(int i=0; i<((Element) doc.getElementsByTagName("dialogue").item(0)).getElementsByTagName("htmlContent").getLength(); i++){
 					Element e = (Element) ((Element) doc.getElementsByTagName("dialogue").item(0)).getElementsByTagName("htmlContent").item(i);
 					
-					strings.put(e.getAttribute("tag"), e.getTextContent().replaceFirst("<!\\[CDATA\\[", "").replaceAll("\\]\\]>", ""));
+					strings.putIfAbsent(e.getAttribute("tag"), new ArrayList<>());
+					strings.get(e.getAttribute("tag")).add(e.getTextContent().replaceFirst("<!\\[CDATA\\[", "").replaceAll("\\]\\]>", ""));
 				}
 				
 			} catch (Exception e) {
@@ -676,14 +677,20 @@ public class UtilText {
 
 		} else {
 			StringBuilder sb = new StringBuilder();
-			for(Entry<String, String> s : strings.entrySet()) {
-				sb.append("<p>"
-							+ "<b>Dialogue tag: "+s.getKey()+"</b>"
-						+ "</p>");
-				sb.append(parse(specialNPC, s.getValue(), true)
-						+"<br/><br/>");
+			StringBuilder duplicationSB = new StringBuilder();
+			for(Entry<String, List<String>> s : strings.entrySet()) {
+				if(s.getValue().size()>1) {
+					duplicationSB.append("[style.italicsMinorBad(XML test duplication: tag '"+s.getKey()+"' is repeated "+s.getValue().size()+" times!)]<br/>");
+				}
+				for(String savedString : s.getValue()) {
+					sb.append("<p>"
+								+ "<b>Dialogue tag: "+s.getKey()+"</b>"
+							+ "</p>"
+							+ parse(specialNPC, savedString, true)
+							+"<br/><br/>");
+				}
 			}
-			return sb.toString();
+			return duplicationSB.toString() + sb.toString();
 		}
 	}
 	

@@ -106,10 +106,10 @@ public class InventoryDialogue {
 	private static String unequipAll(GameCharacter character) {
 		StringBuilder sb = new StringBuilder();
 		
-		for(int i=0; i<character.getArmRows(); i++) {
-			sb.append(character.unequipMainWeapon(i, false, character.isPlayer()));
-			sb.append(character.unequipOffhandWeapon(i, false, character.isPlayer()));
-		}
+//		for(int i=0; i<character.getArmRows(); i++) {
+//			sb.append(character.unequipMainWeapon(i, false, character.isPlayer()));
+//			sb.append(character.unequipOffhandWeapon(i, false, character.isPlayer()));
+//		}
 		
 		List<AbstractClothing> zlayerClothing = new ArrayList<>(character.getClothingCurrentlyEquipped());
 		zlayerClothing.sort(new ClothingZLayerComparator());
@@ -8419,28 +8419,32 @@ public class InventoryDialogue {
 							:INVENTORY_MENU) {
 				@Override
 				public void effects() {
+					String s = "";
 					if(ownsKey) {
 						Main.game.getPlayer().removeFromUnlockKeyMap(owner.getId(), clothing.getSlotEquippedTo());
-						Main.game.getTextEndStringBuilder().append(
-								"<p>"
-									+ "Using the key which is in your possession, you unlock the "+clothing.getName()+"!"
-								+ "</p>");
+						s = "<p>"
+								+ "Using the key which is in your possession, you unlock the "+clothing.getName()+"!"
+							+ "</p>";
 						
 					} else {
 						Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -removalCost, false);
-						Main.game.getTextEndStringBuilder().append(UtilText.parse(owner,
+						s = UtilText.parse(owner,
 								"<p>"
 									+ "You channel the power of your arcane essences into [npc.namePos] "+clothing.getName()+", and with a bright purple flash, you manage to remove the jinx!"
 								+ "</p>"
 								+ "<p style='text-align:center;'>"
 									+ "Removing the jinx has cost you [style.boldBad("+removalCost+")] [style.boldArcane(Arcane Essences)]!"
-								+ "</p>"));
+								+ "</p>");
 					}
 					clothing.setSealed(false);
 					if(interactionType==InventoryInteraction.SEX) {
+						Main.sex.setUnequipClothingText(clothing, s);
 						Main.mainController.openInventory();
 						Main.sex.endSexTurn(SexActionUtility.CLOTHING_REMOVAL);
 						Main.sex.setSexStarted(true);
+						
+					} else {
+						Main.game.getTextEndStringBuilder().append(s);
 					}
 				}
 			};
