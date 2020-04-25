@@ -4736,7 +4736,7 @@ public class CharacterModificationUtils {
 				false);
 	}
 	
-	public static String getKatesDivHairStyles(boolean withCost, String title, String description) {
+	public static String getKatesDivHairStyles(boolean withCost, String title, String description, boolean selfStyle) {
 		contentSB.setLength(0);
 
 		boolean noCost = !withCost;
@@ -4744,21 +4744,23 @@ public class CharacterModificationUtils {
 			if (BodyChanging.getTarget().getHairStyle() == hairStyle) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>" + Util.capitaliseSentence(hairStyle.getName()) + "</span>"
-						+ "</div>");
+								+ "<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(hairStyle.getName()) + "</span>"
+								+ "</div>");
 			} else {
-				if(BodyChanging.getTarget().getHairRawLengthValue() >= hairStyle.getMinimumLengthRequired()) {
-					contentSB.append(
-							"<div id='HAIR_STYLE_"+hairStyle+"' class='cosmetics-button'>"
-									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_STYLE_COST || noCost
-											? "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(hairStyle.getName()) + "</span>"
-											: "[style.colourDisabled(" + Util.capitaliseSentence(hairStyle.getName()) + ")]")
-							+ "</div>");
-				} else {
-					contentSB.append(
-							"<div class='cosmetics-button disabled'>"
-								+ "[style.colourDisabled(" + Util.capitaliseSentence(hairStyle.getName()) + ")]"
-							+ "</div>");
+				if (!selfStyle || hairStyle.isSelfApply()) {
+					if (BodyChanging.getTarget().getHairRawLengthValue() >= hairStyle.getMinimumLengthRequired()) {
+						contentSB.append(
+								"<div id='HAIR_STYLE_" + hairStyle + "' class='cosmetics-button'>"
+										+ (Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_HAIR_STYLE_COST || noCost
+										? "<span style='color:" + PresetColour.TRANSFORMATION_GENERIC.getShades()[0] + ";'>" + Util.capitaliseSentence(hairStyle.getName()) + "</span>"
+										: "[style.colourDisabled(" + Util.capitaliseSentence(hairStyle.getName()) + ")]")
+										+ "</div>");
+					} else {
+						contentSB.append(
+								"<div class='cosmetics-button disabled'>"
+										+ "[style.colourDisabled(" + Util.capitaliseSentence(hairStyle.getName()) + ")]"
+										+ "</div>");
+					}
 				}
 			}
 		}

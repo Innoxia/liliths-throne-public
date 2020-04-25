@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventTarget;
 
@@ -4599,15 +4600,16 @@ public class MainControllerInitMethod {
 			
 			for(HairStyle hairStyle: HairStyle.values()) {
 				id = "HAIR_STYLE_"+hairStyle;
-				
+				boolean selfStyle = Main.game.getCurrentDialogueNode() == RoomPlayer.AUNT_HOME_PLAYERS_ROOM_FIX_HAIR;
+
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_HAIR_STYLE_COST || noCost) {
+						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_HAIR_STYLE_COST || noCost || selfStyle) {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									if(!noCost) {
+									if(!noCost && !selfStyle) {
 										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_HAIR_STYLE_COST);
 									}
 									BodyChanging.getTarget().setHairStyle(hairStyle);

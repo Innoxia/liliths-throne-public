@@ -17,43 +17,45 @@ public enum HairStyle {
 //	- shaved (different from bald)
 //	- punk (hair draped over face)
 	
-	NONE("natural", Femininity.ANDROGYNOUS, HairLength.ZERO_BALD),
-	MESSY("messy", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT),
-	LOOSE("loose", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT),
-	CURLY("curly", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT),
-	STRAIGHT("straight", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT),
-	SLICKED_BACK("slicked-back", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT),
-	SIDECUT("sidecut", Femininity.ANDROGYNOUS, HairLength.TWO_SHORT),
-	MOHAWK("mohawk", Femininity.ANDROGYNOUS, HairLength.TWO_SHORT),
-	DREADLOCKS("dreadlocks", Femininity.ANDROGYNOUS, HairLength.TWO_SHORT),
+	NONE("natural", Femininity.ANDROGYNOUS, HairLength.ZERO_BALD, true),
+	MESSY("messy", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT, true),
+	LOOSE("loose", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT, true),
+	CURLY("curly", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT, true),
+	STRAIGHT("straight", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT, true),
+	SLICKED_BACK("slicked-back", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT, true),
+	SIDECUT("sidecut", Femininity.ANDROGYNOUS, HairLength.TWO_SHORT, false),
+	MOHAWK("mohawk", Femininity.ANDROGYNOUS, HairLength.TWO_SHORT, false),
+	DREADLOCKS("dreadlocks", Femininity.ANDROGYNOUS, HairLength.TWO_SHORT, false),
 	
-	AFRO("afro", Femininity.MASCULINE, HairLength.ONE_VERY_SHORT),
-	TOPKNOT("topknot", Femininity.MASCULINE, HairLength.THREE_SHOULDER_LENGTH),
+	AFRO("afro", Femininity.MASCULINE, HairLength.ONE_VERY_SHORT, true),
+	TOPKNOT("topknot", Femininity.MASCULINE, HairLength.THREE_SHOULDER_LENGTH, false),
 	
-	PIXIE("pixie-cut", Femininity.FEMININE, HairLength.TWO_SHORT),
-	BUN("bun", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
-	BOB_CUT("bob-cut", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
-	CHONMAGE("chonmage", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
-	WAVY("wavy", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
-	PONYTAIL("ponytail", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
-	LOW_PONYTAIL("low ponytail", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
-	TWIN_TAILS("twintails", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH),
-	CHIGNON("chignon", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
-	BRAIDED("braided", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
-	TWIN_BRAIDS("twin braids", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
-	CROWN_BRAID("crown braid", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
-	DRILLS("drill hair", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
-	HIME_CUT("hime-cut", Femininity.FEMININE, HairLength.FOUR_MID_BACK),
-	BIRD_CAGE("bird cage", Femininity.FEMININE, HairLength.SEVEN_TO_FLOOR);
-	
+	PIXIE("pixie-cut", Femininity.FEMININE, HairLength.TWO_SHORT, false),
+	BUN("bun", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH, true),
+	BOB_CUT("bob-cut", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH, false),
+	CHONMAGE("chonmage", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH, false),
+	WAVY("wavy", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH, false),
+	PONYTAIL("ponytail", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH, true),
+	LOW_PONYTAIL("low ponytail", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH, true),
+	TWIN_TAILS("twintails", Femininity.FEMININE, HairLength.THREE_SHOULDER_LENGTH, false),
+	CHIGNON("chignon", Femininity.FEMININE, HairLength.FOUR_MID_BACK, false),
+	BRAIDED("braided", Femininity.FEMININE, HairLength.FOUR_MID_BACK, false),
+	TWIN_BRAIDS("twin braids", Femininity.FEMININE, HairLength.FOUR_MID_BACK, false),
+	CROWN_BRAID("crown braid", Femininity.FEMININE, HairLength.FOUR_MID_BACK, false),
+	DRILLS("drill hair", Femininity.FEMININE, HairLength.FOUR_MID_BACK, false),
+	HIME_CUT("hime-cut", Femininity.FEMININE, HairLength.FOUR_MID_BACK, false),
+	BIRD_CAGE("bird cage", Femininity.FEMININE, HairLength.SEVEN_TO_FLOOR, false);
+
 	private String descriptor;
 	private Femininity femininity;
 	private int minimumLengthRequired;
+	private boolean selfapply;
 
-	private HairStyle(String descriptor, Femininity femininity, HairLength minimumLengthRequired) {
+	private HairStyle(String descriptor, Femininity femininity, HairLength minimumLengthRequired, boolean selfApply) {
 		this.descriptor = descriptor;
 		this.femininity = femininity;
 		this.minimumLengthRequired = minimumLengthRequired.getMinimumValue();
+		this.selfapply = selfApply;
 	}
 
 	public String getName() {
@@ -68,7 +70,11 @@ public enum HairStyle {
 	public int getMinimumLengthRequired() {
 		return minimumLengthRequired;
 	}
-	
+
+	public boolean isSelfApply() {
+		return selfapply;
+	}
+
 	/**
 	 * @return A random hair style, filtered by femininity and length limitations.
 	 */
