@@ -984,6 +984,9 @@ public class TailType {
 				types.add(type);
 			}
 		}
+		if(types.isEmpty()) {
+			types.add(TailType.NONE);
+		}
 		typesMap.put(r, types);
 		return types;
 	}
