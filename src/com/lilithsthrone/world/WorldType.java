@@ -360,7 +360,7 @@ public class WorldType {
 		}
 		@Override
 		public String getCompanionSexBlockedReason(GameCharacter companion) {
-			if(!companion.getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_PATH)) {
+			if((companion != null) && !companion.getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_PATH)) {
 				return "This isn't a suitable place in which to be having sex!";
 			}
 			return "";
