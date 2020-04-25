@@ -1,6 +1,6 @@
 package com.lilithsthrone.game.sex;
 
-import com.lilithsthrone.utils.BaseColour;
+import com.lilithsthrone.utils.colours.BaseColour;
 
 /**
  * @since 0.1.69.9

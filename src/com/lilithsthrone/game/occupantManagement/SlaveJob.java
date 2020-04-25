@@ -12,9 +12,11 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
@@ -36,7 +38,7 @@ public enum SlaveJob {
 			allow groping
 	 */
 	
-	IDLE(Colour.BASE_GREY_DARK, -1, -1, "Idle", "Idle",
+	IDLE(PresetColour.BASE_GREY_DARK, -1, -1, "Idle", "Idle",
 			"Do not assign any job to this slave.",
 			0, 0,
 			0,
@@ -51,7 +53,7 @@ public enum SlaveJob {
 		}
 	},
 	
-	CLEANING(Colour.BASE_BLUE_LIGHT, 20, 2, "maid", "manservant",
+	CLEANING(PresetColour.BASE_BLUE_LIGHT, 20, 2, "maid", "manservant",
 			"Assign this slave to help Rose keep the house clean, deal with visitors, and perform all sorts of menial housework.",
 			0, 0.5f,
 			80,
@@ -72,7 +74,7 @@ public enum SlaveJob {
 			
 			} else {
 				// 50/50 of being upstairs or downstairs:
-				WorldType worldTypeToUse = WorldType.LILAYAS_HOUSE_FIRST_FLOOR;
+				AbstractWorldType worldTypeToUse = WorldType.LILAYAS_HOUSE_FIRST_FLOOR;
 				if(Math.random()>0.5f) {
 					worldTypeToUse = WorldType.LILAYAS_HOUSE_GROUND_FLOOR;
 				}
@@ -82,7 +84,7 @@ public enum SlaveJob {
 		}
 	},
 	
-	LIBRARY(Colour.BASE_TEAL, 5, 1.5f, "librarian", "librarian",
+	LIBRARY(PresetColour.BASE_TEAL, 5, 1.5f, "librarian", "librarian",
 			"Assign this slave to work in Lilaya's library.",
 			0, 0.25f, 
 			80,
@@ -92,7 +94,7 @@ public enum SlaveJob {
 			null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LIBRARY),
 	
-	KITCHEN(Colour.BASE_TAN, 5, 2, "cook", "cook",
+	KITCHEN(PresetColour.BASE_TAN, 5, 2, "cook", "cook",
 			"Assign this slave to work in Lilaya's kitchen as a cook.",
 			0, 0.25f,
 			80,
@@ -102,7 +104,7 @@ public enum SlaveJob {
 			null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_KITCHEN),
 	
-	LAB_ASSISTANT(Colour.BASE_GREEN_LIME, 1, 1, "lab assistant", "lab assistant",
+	LAB_ASSISTANT(PresetColour.BASE_GREEN_LIME, 1, 1, "lab assistant", "lab assistant",
 			"Assign this slave to help Lilaya in her lab.",
 			0, 0.25f,
 			100,
@@ -127,7 +129,7 @@ public enum SlaveJob {
 		}
 	},
 
-	TEST_SUBJECT(Colour.BASE_RED_LIGHT, 5, 3, "test subject", "test subject",
+	TEST_SUBJECT(PresetColour.BASE_RED_LIGHT, 5, 3, "test subject", "test subject",
 			"Allow Lilaya to use this slave as a test subject for her experiments.",
 			-0.5f, 0.5f,
 			150,
@@ -161,7 +163,7 @@ public enum SlaveJob {
 		}
 	},
 	
-	PUBLIC_STOCKS(Colour.BASE_PINK_LIGHT, 5, 2, "public use", "public use",
+	PUBLIC_STOCKS(PresetColour.BASE_PINK_LIGHT, 5, 2, "public use", "public use",
 			"Assign this slave to be locked in the public-use stocks in slaver ally.",
 			-5f, 1f,
 			0,
@@ -184,7 +186,7 @@ public enum SlaveJob {
 		}
 	},
 	
-	PROSTITUTE(Colour.BASE_PINK_DEEP, 10, 2.5f, "Prostitute", "Prostitute",
+	PROSTITUTE(PresetColour.BASE_PINK_DEEP, 10, 2.5f, "Prostitute", "Prostitute",
 			"Assign this slave to work as a prostitute at the brothel 'Angel's Kiss'.",
 			-0.25f, 0.5f,
 			200,
@@ -232,7 +234,7 @@ public enum SlaveJob {
 		}
 	},
 	
-	MILKING(Colour.BASE_YELLOW_LIGHT, -1, 2, "Dairy Cow", "Dairy Bull",
+	MILKING(PresetColour.BASE_YELLOW_LIGHT, -1, 2, "Dairy Cow", "Dairy Bull",
 			"Assign this slave to the cow stalls, ready for milking or breeding (or perhaps both). Income is based off of the assigned slave's milk, cum, and girlcum production.",
 			-0.25f, 1f,
 			0,
@@ -290,7 +292,7 @@ public enum SlaveJob {
 		}
 		
 		@Override
-		public WorldType getWorldLocation(GameCharacter character) {
+		public AbstractWorldType getWorldLocation(GameCharacter character) {
 			Cell c = MilkingRoom.getMilkingCell(character, false);
 			if(c==null) {
 				return null;
@@ -326,7 +328,7 @@ public enum SlaveJob {
 		}
 	},
 	
-	OFFICE(Colour.BASE_LILAC,
+	OFFICE(PresetColour.BASE_LILAC,
 			4,
 			2,
 			"office worker",
@@ -376,7 +378,7 @@ public enum SlaveJob {
 		}
 		
 		@Override
-		public WorldType getWorldLocation(GameCharacter character) {
+		public AbstractWorldType getWorldLocation(GameCharacter character) {
 			Cell c = getOfficeCell();
 			if(c==null) {
 				return null;
@@ -411,7 +413,7 @@ public enum SlaveJob {
 		}
 	},
 
-	BEDROOM(Colour.BASE_PERIWINKLE, 4, -1f, "bedroom", "bedroom",
+	BEDROOM(PresetColour.BASE_PERIWINKLE, 4, -1f, "bedroom", "bedroom",
 			"Assign this slave to wait upon you in your bedroom.",
 			0, 0.25f,
 			0,
@@ -447,7 +449,7 @@ public enum SlaveJob {
 	private List<SlaveJobSetting> mutualSettings;
 	private Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings;
 	private List<SlaveJobSetting> defaultMutuallyExclusiveSettings;
-	private WorldType worldLocation;
+	private AbstractWorldType worldLocation;
 	private AbstractPlaceType placeLocation;
 	
 	private SlaveJob(
@@ -465,7 +467,7 @@ public enum SlaveJob {
 			List<SlaveJobSetting> mutualSettings,
 			Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings,
 			List<SlaveJobSetting> defaultMutuallyExclusiveSettings,
-			WorldType worldLocation,
+			AbstractWorldType worldLocation,
 			AbstractPlaceType placeLocation) {
 		this.colour = colour;
 		this.slaveLimit = slaveLimit;
@@ -611,7 +613,7 @@ public enum SlaveJob {
 		return defaultMutuallyExclusiveSettings;
 	}
 
-	public WorldType getWorldLocation(GameCharacter character) {
+	public AbstractWorldType getWorldLocation(GameCharacter character) {
 		return worldLocation;
 	}
 
@@ -620,7 +622,7 @@ public enum SlaveJob {
 	}
 	
 	public Cell getWorkDestinationCell(int hour, GameCharacter slave) {
-		WorldType wType = slave.getSlaveJob(hour).getWorldLocation(slave);
+		AbstractWorldType wType = slave.getSlaveJob(hour).getWorldLocation(slave);
 		if(wType==null) {
 			return null;
 		}

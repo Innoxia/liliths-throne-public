@@ -11,11 +11,11 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Pathing;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * Singleton enforced by Enum. Because everyone loves Enums.
@@ -135,6 +135,7 @@ public enum PerkManager {
 		leftMidA = addPerkEntry(perkTree, PerkCategory.LUST, 2, Perk.SEDUCTION_BOOST, both1);
 		
 		leftMidB = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.SEDUCTION_BOOST, leftMidA);
+		addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.ORGASMIC_LEVEL_DRAIN, leftMidA);
 		rightMidA = addPerkEntry(perkTree, PerkCategory.LUST, 3, Perk.SEDUCTION_DEFENCE_BOOST, leftMidA);
 
 		leftMidB = addPerkEntry(perkTree, PerkCategory.LUST, 4, Perk.SEDUCTION_BOOST, leftMidB);
@@ -431,7 +432,7 @@ public enum PerkManager {
 	}
 	
 	public Map<Integer, Map<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>>> getPerkTree(GameCharacter character) {
-		if(character instanceof Elemental) {
+		if(character.isElemental()) {
 			return elementalPerkTree;
 		} else {
 			return perkTree;
@@ -439,7 +440,7 @@ public enum PerkManager {
 	}
 	
 	public static List<TreeEntry<PerkCategory, AbstractPerk>> getStartingPerks(GameCharacter character) {
-		if(character instanceof Elemental) {
+		if(character.isElemental()) {
 			return MANAGER.elementalStartingPerks;
 		} else {
 			return MANAGER.standardStartingPerks;
@@ -454,7 +455,7 @@ public enum PerkManager {
 		Random rnd = new Random((character.getId()).hashCode());
 
 		// Add a unique background perk based on weighting:
-		if(!character.isUnique() && !(character instanceof Elemental) && rnd.nextInt(100)<=50) {
+		if(!character.isUnique() && !(character.isElemental()) && rnd.nextInt(100)<=50) {
 			Map<PerkCategory, Integer> perkWeightingMap = new HashMap<>(character.getSubspecies().getPerkWeighting(character));
 			
 			PerkCategory pc = Util.getRandomObjectFromWeightedMap(perkWeightingMap, rnd);
@@ -521,7 +522,7 @@ public enum PerkManager {
 			character.addPerk(perk.getRow(), perk.getEntry());
 		}
 		
-		if(character instanceof Elemental) {
+		if(character.isElemental()) {
 			
 		} else {
 			if(!character.isPlayer() && autoSelectPerks) {
@@ -540,6 +541,7 @@ public enum PerkManager {
 				// Perks that should not be chosen outside of requirements:
 				List<AbstractPerk> deniedPerks = new ArrayList<>();
 				deniedPerks.add(Perk.OBSERVANT);
+				deniedPerks.add(Perk.ORGASMIC_LEVEL_DRAIN);
 				deniedPerks.add(Perk.CHUUNI);
 				deniedPerks.add(Perk.BARREN);
 				deniedPerks.add(Perk.FIRING_BLANKS);
@@ -616,7 +618,7 @@ public enum PerkManager {
 		
 		treeSB.append(
 				"<div id='OCCUPATION_" + Perk.getIdFromPerk(character.getHistory().getAssociatedPerk())
-						+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>"
+						+ "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + PresetColour.GENERIC_EXCELLENT.toWebHexString() + ";'>"
 					+ "<div class='square-button-content'>"+character.getHistory().getAssociatedPerk().getSVGString(character)+"</div>"
 				+ "</div>");
 		
@@ -626,7 +628,7 @@ public enum PerkManager {
 				p = character.getTraits().get(i);
 			}
 			if(p!=null) {
-				treeSB.append("<div id='TRAIT_" + Perk.getIdFromPerk(p) + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
+				treeSB.append("<div id='TRAIT_" + Perk.getIdFromPerk(p) + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + PresetColour.TRAIT.toWebHexString() + ";'>"
 						+ "<div class='square-button-content'>"+p.getSVGString(character)+"</div>"
 						+ "</div>");
 				
@@ -646,7 +648,7 @@ public enum PerkManager {
 				for(AbstractPerk hiddenPerk : Perk.getHiddenPerks()) {
 					if(character.hasPerkAnywhereInTree(hiddenPerk)) {
 						treeSB.append(
-								"<div id='HIDDEN_PERK_" + Perk.getIdFromPerk(hiddenPerk) + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border-color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"
+								"<div id='HIDDEN_PERK_" + Perk.getIdFromPerk(hiddenPerk) + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border-color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>"
 								+ "<div class='square-button-content'>"+hiddenPerk.getSVGString(character)+"</div>"
 								+ "</div>");
 					}
@@ -796,7 +798,7 @@ public enum PerkManager {
 		entrySB.append("<div class='square-button"+(perkEntry.getEntry().isEquippableTrait()?"":" round")+(disabled?" disabled":"")+"' style='width:16%; margin:16px "+getMargin(size)+"%; "+
 							(isPerkOwned(character, perkEntry)
 									?character.hasTraitActivated(perkEntry.getEntry())
-										?"border-color:"+Colour.TRAIT.toWebHexString()+";"
+										?"border-color:"+PresetColour.TRAIT.toWebHexString()+";"
 										:"border-color:"+borderColour.toWebHexString()+";"
 									:"")+"' id='"+perkEntry.getRow()+"_"+perkEntry.getCategory()+"_"+Perk.getIdFromPerk(perkEntry.getEntry())+"'>"
 				+ "<div class='square-button-content'>"+perkEntry.getEntry().getSVGString(character)+"</div>"
@@ -871,8 +873,8 @@ public enum PerkManager {
 		return isPerkOwned(character, entry) && parentOwned
 				?entry.getCategory().getColour()
 				:isPerkAvailable(character, entry)
-					?Colour.BASE_GREY
-					:Colour.TEXT_GREY_DARK;
+					?PresetColour.BASE_GREY
+					:PresetColour.TEXT_GREY_DARK;
 	}
 	
 	private Colour getPerkLineChildColour(GameCharacter character, TreeEntry<PerkCategory, AbstractPerk> entry) {
@@ -890,8 +892,8 @@ public enum PerkManager {
 		return isPerkOwned(character, entry) && childOwned
 				?entry.getCategory().getColour()
 				:childAvailable
-					?Colour.BASE_GREY
-					:Colour.TEXT_GREY_DARK;
+					?PresetColour.BASE_GREY
+					:PresetColour.TEXT_GREY_DARK;
 	}
 	
 	private Colour getPerkLineSiblingColour(GameCharacter character, TreeEntry<PerkCategory, AbstractPerk> entry) {
@@ -909,8 +911,8 @@ public enum PerkManager {
 		return isPerkOwned(character, entry) && siblingOwned
 				?entry.getCategory().getColour()
 				:siblingAvailable
-					?Colour.BASE_GREY
-					:Colour.TEXT_GREY_DARK;
+					?PresetColour.BASE_GREY
+					:PresetColour.TEXT_GREY_DARK;
 	}
 	
 	public TreeEntry<PerkCategory, AbstractPerk> getFirstPerkEntry(GameCharacter character, AbstractPerk perk) {

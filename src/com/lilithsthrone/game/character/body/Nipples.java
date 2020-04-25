@@ -16,14 +16,13 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.3.1
+ * @version 0.3.7
  * @author Innoxia
  */
 public class Nipples implements BodyPartInterface {
@@ -37,13 +36,13 @@ public class Nipples implements BodyPartInterface {
 	protected boolean pierced;
 	protected boolean crotchNipples;
 
-	public Nipples(NippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, int wetness, float capacity, int elasticity, int plasticity, boolean virgin, boolean crotchNipples) {
+	public Nipples(NippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin, boolean crotchNipples) {
 		this.type = type;
 		this.nippleSize = nippleSize;
 		this.nippleShape = nippleShape;
 		areolaeShape = AreolaeShape.NORMAL;
 		this.areolaeSize = areolaeSize;
-		orificeNipples = new OrificeNipples(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
+		orificeNipples = new OrificeNipples(wetness, capacity, depth, elasticity, plasticity, virgin, crotchNipples, type.getDefaultRacialOrificeModifiers());
 		this.crotchNipples = crotchNipples;
 	}
 	
@@ -131,8 +130,8 @@ public class Nipples implements BodyPartInterface {
 			}
 		}
 		
-		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
-			if(Sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.NIPPLE)) {
+		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(owner)) {
+			if(Main.sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.NIPPLE)) {
 				descriptorList.add("wet");
 			}
 		}
@@ -216,6 +215,19 @@ public class Nipples implements BodyPartInterface {
 		String transformation = "";
 		
 		switch(nippleShape) {
+			case INVERTED:
+				if(owner.isPlayer()) {
+					transformation = "<p>"
+										+ "Your [pc.nipples] suddenly grow sore and sensitive, and before you have any time to react, they suddenly transform into normal-looking nipples, before pulling inwards and inverting!<br/>"
+										+ "Your [pc.nipplesFullDescriptionColour] [pc.nipples] have transformed into [style.boldSex(inverted nipples)]!"
+									+ "</p>";
+				} else {
+					transformation = "<p>"
+										+ "[npc.Name] shifts about uncomfortably as [npc.her] [npc.nipples] start to grow sore and sensitive, before suddenly transforming into normal-looking nipples, before pulling inwards and inverting!<br/>"
+										+ "[npc.NamePos] [npc.nipplesFullDescriptionColour] [npc.nipples] have transformed into [style.boldSex(inverted nipples)]!"
+									+ "</p>";
+				}
+				break;
 			case NORMAL:
 				if(owner.isPlayer()) {
 					transformation = "<p>"

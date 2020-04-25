@@ -9,7 +9,11 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.submission.Roxy;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexControl;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
@@ -32,10 +36,16 @@ public class SMRoxyPussyLicker extends SexManagerDefault {
 	@Override
 	public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
 		Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
-		map.put(Main.game.getNpc(Roxy.class),
-				Util.newArrayListOfValues(
-						CoverableArea.VAGINA));
+		map.put(Main.game.getNpc(Roxy.class), Util.newArrayListOfValues(CoverableArea.VAGINA));
 		return map;
+	}
+
+	@Override
+	public SexControl getSexControl(GameCharacter character) {
+		if(character.isPlayer()) {
+			return SexControl.ONGOING_ONLY;
+		}
+		return super.getSexControl(character);
 	}
 	
 	@Override
@@ -60,7 +70,23 @@ public class SMRoxyPussyLicker extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-		return Sex.getNumberOfOrgasms(Main.game.getNpc(Roxy.class))>=1;
+		return Main.sex.getNumberOfOrgasms(Main.game.getNpc(Roxy.class))>=1;
+	}
+
+	@Override
+	public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
+		if(!character.isPlayer()) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
+		}
+		return super.getForeplayPreference(character, targetedCharacter);
+	}
+
+	@Override
+	public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
+		if(!character.isPlayer()) {
+			return getForeplayPreference(character, targetedCharacter);
+		}
+		return super.getMainSexPreference(character, targetedCharacter);
 	}
 
 	@Override

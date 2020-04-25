@@ -12,7 +12,12 @@
 		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
 			 demon
 		#ENDIF
-		 Enforcers loitering about the courtyard, with several more standing guard at each of the three main entrances. While the signs beside two of these doorways inform you that they're for Enforcer use only, the third bears the words 'Public Inquiries; Reception open [units.time(9)]-[units.time(17)]'. If you had any sort of business to conduct here, then this would be the door for you.
+		 Enforcers loitering about the courtyard, with several more standing guard at each of the three main entrances. While the signs beside two of these doorways inform you that they're for Enforcer use only, the third bears the words
+		#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<=17)
+			 'Public Inquiries; Reception open [style.colourMinorGood([units.time(9)]-[units.time(17)])]'. If you had any sort of business to conduct here, then this would be the door for you.
+		#ELSE
+			 'Public Inquiries; Reception open [style.colourMinorBad([units.time(9)]-[units.time(17)])]'. While the reception within may currently be [style.colourBad(closed)], you're still able to enter the building through this door.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -26,7 +31,21 @@
 	</p>
 	]]>
 	</htmlContent>
-
+	
+	<htmlContent tag="CORRIDOR_BRAX_WARNING"><![CDATA[
+	#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_C_WOLFS_DEN))
+		<p>
+			The door nearest to you is marked with the name 'Inspector [brax.nameFull]', letting you know that this is the office you were looking for.
+			#IF(pc.getLevel()<5)
+				 [style.italicsBad(Be prepared for a potentially difficult fight before entering his office!)]
+			#ELSE
+				 [style.italicsMinorBad(Be prepared for a possible fight before entering his office!)]
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
 	
 	<!-- ENTRANCE -->
 
@@ -47,7 +66,7 @@
 			#IF(game.getDialogueFlags().hasFlag(FLAG_accessToEnforcerHQ))
 				 From the moment you entered the waiting area, he hasn't taken his eyes off of you, making sure that you aren't able to sneak past him.
 			#ELSE
-				 From the moment you entered the waiting area, he hasn't taken his eyes off of you, and you realise that there's absolutely no possibility of being able to sneak through the door he's guarding. If you wanted to get access to the HQ's interior, you'll have to come back during the reception desk's opening hours, which are from [style.colourMinorBad([units.time(9)] to [units.time(5)])], and then speak to the receptionist.
+				 From the moment you entered the waiting area, he hasn't taken his eyes off of you, and you realise that there's absolutely no possibility of being able to sneak through the door he's guarding. If you wanted to get access to the HQ's interior, you'll have to come back during the reception desk's opening hours, which are from [style.colourMinorBad([units.time(9)]-[units.time(17)])], and then speak to the receptionist.
 			#ENDIF
 		</p>
 	#ELSE
@@ -161,7 +180,7 @@
 	<htmlContent tag="RECEPTION_DESK"><![CDATA[
 	#IF(!game.isWorkTime())
 		<p>
-			The reception desk before you, at which all public inquiries are to be made, is currently deserted. The lights behind the desk are all switched off, and there's a little placard sitting on the counter top which informs you that it is currently [style.colourBad(closed)], and will only be [style.colourMinorBad(open between the hours of [units.time(9)] to [units.time(5)])].
+			The reception desk before you, at which all public inquiries are to be made, is currently deserted. The lights behind the desk are all switched off, and there's a little placard sitting on the counter top which informs you that it is currently [style.colourBad(closed)], and will only be open between the hours of [style.colourMinorBad([units.time(9)]-[units.time(17)])].
 		</p>
 		<p>
 			It looks as though you'll have to return later...
@@ -739,7 +758,7 @@
 		[pc.speech(Yeah, you should definitely use one! Right Bree?!)] you ask the submissive wolf-girl.
 	</p>
 	<p>
-		[brax.speech(I-If you want...)] she meekly replies.
+		[brax.speechNoEffects(I-If you want...)] she meekly replies.
 	</p>
 	<p>
 		[candi.speechNoEffects(Good girl, Bree!)] Candi squeals, excitedly pulling out a potion from beneath her desk. [candi.speechNoEffects(I got this made to be, like, pink flavour, so it's gonna taste good!)]
@@ -848,17 +867,17 @@
 	<htmlContent tag="AFTER_SEX_CANDI"><![CDATA[
 	#IF(candi.isSatisfiedFromLastSex())
 		<p>
-			With a deeply satisfied sigh, Candi moans, [candi.speechNoEffects(~Mmm!~ Fuck, that was, like, sooo good... I, like, super needed that.)]
+			With a deeply satisfied sigh, Candi moans, [candi.speechNoEffects(~Mmm!~ Fuck! That was, like, sooo good... I, like, super needed that.)]
 		</p>
 		<p>
-			With that, the two of you gather your things and head out of her office. Moving back around to the correct side of the desk, you prepare to continue on your way...
+			Leaving the cat-girl to pant and moan on the floor of her office, you gather your things and head out of her office. Moving back around to the correct side of the desk, you prepare to continue on your way...
 		</p>
 	#ELSE
 		<p>
-			With an immensely frustrated sigh, Candi moans, [candi.speechNoEffects(~Aah!~ Fuck, that was, like, super not satisfying! You need to, like, do better than that next time!)]
+			With an immensely frustrated sigh, Candi moans, [candi.speechNoEffects(~Aah!~ Fuck! That was, like, super not satisfying! You're, like, super bad at sex and stuff!)]
 		</p>
 		<p>
-			With that, the still-desperately-horny cat-girl pulls on her clothes dashes out of the office, before sitting chair down on her and continuing to masturbate. Collecting your things, you prepare to continue on your way...
+			With that, the desperately horny cat-girl hastily pulls on her clothes and dashes out of her office, before sinking down into her chair and shamelessly continuing to masturbate. Collecting your things, you follow her out of the office and move back around to the correct side of the desk, before preparing to continue on your way...
 		</p>
 	#ENDIF
 	]]>

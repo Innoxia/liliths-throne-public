@@ -16,8 +16,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
-import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.combat.Spell;
@@ -29,7 +27,7 @@ import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -43,11 +41,11 @@ import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.BaseColour;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.BaseColour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
@@ -55,14 +53,14 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.75
- * @version 0.3.5
+ * @version 0.3.5.8
  * @author Innoxia
  */
 public class LilayaHomeGeneric {
 	
 	public static List<NPC> getSlavesAndOccupantsPresent() {
 		List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
-		charactersPresent.removeIf((character) -> character instanceof Elemental);
+		charactersPresent.removeIf((character) -> character.isElemental());
 		return charactersPresent;
 	}
 	
@@ -76,6 +74,10 @@ public class LilayaHomeGeneric {
 				return "Actions";
 			case 1:
 				return "Fast Travel";
+			case 2:
+				if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_ROOM_PLAYER) {
+					return "Bathroom";
+				}
 		}
 		return null;
 	}
@@ -89,6 +91,7 @@ public class LilayaHomeGeneric {
 				@Override
 				public void effects() {
 					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
+					Main.game.setResponseTab(0);
 				}
 			};
 
@@ -100,6 +103,7 @@ public class LilayaHomeGeneric {
 				@Override
 				public void effects() {
 					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_LAB, true);
+					Main.game.setResponseTab(0);
 				}
 			};
 			
@@ -111,6 +115,7 @@ public class LilayaHomeGeneric {
 				@Override
 				public void effects() {
 					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_KITCHEN, true);
+					Main.game.setResponseTab(0);
 				}
 			};
 			
@@ -122,6 +127,7 @@ public class LilayaHomeGeneric {
 				@Override
 				public void effects() {
 					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_LIBRARY, true);
+					Main.game.setResponseTab(0);
 				}
 			};
 			
@@ -133,6 +139,7 @@ public class LilayaHomeGeneric {
 				@Override
 				public void effects() {
 					Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
+					Main.game.setResponseTab(0);
 				}
 			};
 		}
@@ -144,7 +151,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public int getSecondsPassed() {
-			return CityPlaces.TRAVEL_TIME_STREET;
+			return DominionPlaces.TRAVEL_TIME_STREET;
 		}
 
 		@Override
@@ -164,7 +171,7 @@ public class LilayaHomeGeneric {
 				if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.daddyFound)
 						&& !Main.game.getPlayer().getFetishDesire(Fetish.FETISH_INCEST).isNegative()
 						&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN) // Only trigger after having met Lyssieth
-						&& Main.game.getHourOfDay()>=7 && Main.game.getHourOfDay()<=21
+						&& Main.game.isExtendedWorkTime()
 						&& time.getMonth().equals(Month.JUNE) && time.getDayOfMonth()>=14 && time.getDayOfMonth()<=21) { // Father's day timing, 3rd week of June
 					return new Response("Enter", "Knock on the door and wait for Rose to let you in.", DaddyDialogue.FIRST_ENCOUNTER) {
 						@Override
@@ -382,7 +389,7 @@ public class LilayaHomeGeneric {
 				return new Response("Manage people", "Enter the management screen for your slaves and friendly occupants.", CORRIDOR) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return OccupantManagementDialogue.getSlaveryRoomListDialogue(null);
+						return OccupantManagementDialogue.getSlaveryRoomListDialogue(null, null);
 					}
 					@Override
 					public void effects() {
@@ -479,7 +486,7 @@ public class LilayaHomeGeneric {
 							UtilText.parse(getMilkingTarget(), "There are no free milking machines for [npc.name] to use!"),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental) && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
+				} else if(!getMilkingTarget().isPlayer() && getMilkingTarget().isAbleToRefuseSexAsCompanion() && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.Name]")),
 							UtilText.parse(getMilkingTarget(),
@@ -487,7 +494,7 @@ public class LilayaHomeGeneric {
 											+ " <span style='color:"+AffectionLevel.POSITIVE_FOUR_LOVE.getColour().toWebHexString()+";'>"+AffectionLevel.POSITIVE_FOUR_LOVE.getDescriptor()+"</span> you."),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental)
+				} else if(!getMilkingTarget().isPlayer() && getMilkingTarget().isAbleToRefuseSexAsCompanion()
 						&& (getMilkingTarget().getFetishDesire(Fetish.FETISH_LACTATION_SELF).isNegative() || getMilkingTarget().getFetishDesire(Fetish.FETISH_BREASTS_SELF).isNegative())) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]")),
@@ -512,7 +519,6 @@ public class LilayaHomeGeneric {
 								milked = (int) Math.min(getMilkingTarget().getBreastRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(getMilkingTarget()));
 							}
 							room.incrementFluidStored(new FluidStored(getMilkingTarget().getId(), getMilkingTarget().getMilk(), milked), milked);
-							getMilkingTarget().incrementBreastStoredMilk(-milked);
 
 							if(getMilkingTarget().isPlayer()) {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/milking", "MILKING_PLAYER"));
@@ -525,9 +531,15 @@ public class LilayaHomeGeneric {
 							}
 							
 							Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center; color:"+Colour.MILK.toWebHexString()+";'>"
+								"<p style='text-align:center; color:"+PresetColour.MILK.toWebHexString()+";'>"
 										+ Units.fluid(milked) + UtilText.parse(getMilkingTarget(), " of [npc.milk] added to this room's storage!")
 								+ "</p>");
+						}
+						@Override
+						public boolean postEndTurnEffects() {
+							int milked = MilkingRoom.getActualMilkPerHour(getMilkingTarget());
+							getMilkingTarget().incrementBreastStoredMilk(-milked);
+							return true;
 						}
 					};
 				}
@@ -557,7 +569,7 @@ public class LilayaHomeGeneric {
 							UtilText.parse(getMilkingTarget(), "There are no free milking machines for [npc.name] to use!"),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental) && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
+				} else if(!getMilkingTarget().isPlayer() && getMilkingTarget().isAbleToRefuseSexAsCompanion() && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]"))+" cum",
 							UtilText.parse(getMilkingTarget(),
@@ -565,7 +577,7 @@ public class LilayaHomeGeneric {
 											+ " <span style='color:"+AffectionLevel.POSITIVE_FOUR_LOVE.getColour().toWebHexString()+";'>"+AffectionLevel.POSITIVE_FOUR_LOVE.getDescriptor()+"</span> you."),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental)
+				} else if(!getMilkingTarget().isPlayer() && getMilkingTarget().isAbleToRefuseSexAsCompanion()
 						&& (getMilkingTarget().getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative() || getMilkingTarget().getFetishDesire(Fetish.FETISH_PENIS_GIVING).isNegative())) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]"))+" cum",
@@ -599,9 +611,15 @@ public class LilayaHomeGeneric {
 							}
 
 							Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center; color:"+Colour.CUM.toWebHexString()+";'>"
+								"<p style='text-align:center; color:"+PresetColour.CUM.toWebHexString()+";'>"
 										+ Units.fluid(milked) + UtilText.parse(getMilkingTarget(), " of [npc.cum] added to this room's storage!")
 								+ "</p>");
+						}
+						@Override
+						public boolean postEndTurnEffects() {
+							int milked = MilkingRoom.getActualCumPerHour(getMilkingTarget());
+							getMilkingTarget().incrementPenisStoredCum(-milked);
+							return true;
 						}
 					};
 				}
@@ -631,7 +649,7 @@ public class LilayaHomeGeneric {
 							UtilText.parse(getMilkingTarget(), "There are no free milking machines for [npc.name] to use!"),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental) && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
+				} else if(!getMilkingTarget().isPlayer() && getMilkingTarget().isAbleToRefuseSexAsCompanion() && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]"))+" girlcum",
 							UtilText.parse(getMilkingTarget(),
@@ -639,7 +657,7 @@ public class LilayaHomeGeneric {
 											+ " <span style='color:"+AffectionLevel.POSITIVE_FOUR_LOVE.getColour().toWebHexString()+";'>"+AffectionLevel.POSITIVE_FOUR_LOVE.getDescriptor()+"</span> you."),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental) && getMilkingTarget().getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isNegative()) {
+				} else if(!getMilkingTarget().isPlayer() && getMilkingTarget().isAbleToRefuseSexAsCompanion() && getMilkingTarget().getFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING).isNegative()) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]"))+" girlcum",
 							UtilText.parse(getMilkingTarget(), "As [npc.sheIs] not your slave, [npc.name] not let you do this, as [npc.she] has a negative desire for the "+Fetish.FETISH_VAGINAL_RECEIVING.getName(getMilkingTarget())+" fetish."),
@@ -666,7 +684,7 @@ public class LilayaHomeGeneric {
 							}
 
 							Main.game.getTextEndStringBuilder().append(
-									"<p style='text-align:center; color:"+Colour.GIRLCUM.toWebHexString()+";'>"
+									"<p style='text-align:center; color:"+PresetColour.GIRLCUM.toWebHexString()+";'>"
 										+ Units.fluid(milked) + UtilText.parse(getMilkingTarget(), " of [npc.girlcum] added to this room's storage!")
 									+ "</p>");
 						}
@@ -707,7 +725,7 @@ public class LilayaHomeGeneric {
 							UtilText.parse(getMilkingTarget(), "There are no free milking machines for [npc.name] to use!"),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental) && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
+				} else if(!getMilkingTarget().isPlayer() && getMilkingTarget().isAbleToRefuseSexAsCompanion() && getMilkingTarget().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue()) {
 					return new Response(
 							(getMilkingTarget().isPlayer()
 									?"Milk self [pc.crotchBoobs]"
@@ -717,7 +735,7 @@ public class LilayaHomeGeneric {
 											+ " <span style='color:"+AffectionLevel.POSITIVE_FOUR_LOVE.getColour().toWebHexString()+";'>"+AffectionLevel.POSITIVE_FOUR_LOVE.getDescriptor()+"</span> you."),
 							null);
 					
-				} else if(!getMilkingTarget().isPlayer() && !getMilkingTarget().isSlave() && !(getMilkingTarget() instanceof Elemental)
+				} else if(!getMilkingTarget().isPlayer() && getMilkingTarget().isAbleToRefuseSexAsCompanion()
 						&& (getMilkingTarget().getFetishDesire(Fetish.FETISH_LACTATION_SELF).isNegative() || getMilkingTarget().getFetishDesire(Fetish.FETISH_BREASTS_SELF).isNegative())) {
 					return new Response(
 							(getMilkingTarget().isPlayer()
@@ -746,7 +764,6 @@ public class LilayaHomeGeneric {
 								milked = (int) Math.min(getMilkingTarget().getBreastCrotchRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(getMilkingTarget()));
 							}
 							room.incrementFluidStored(new FluidStored(getMilkingTarget().getId(), getMilkingTarget().getMilkCrotch(), milked), milked);
-							getMilkingTarget().incrementBreastCrotchStoredMilk(-milked);
 
 							if(getMilkingTarget().isPlayer()) {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/milking", "MILKING_UDDERS_PLAYER"));
@@ -759,9 +776,15 @@ public class LilayaHomeGeneric {
 							}
 							
 							Main.game.getTextEndStringBuilder().append(
-								"<p style='text-align:center; color:"+Colour.MILK.toWebHexString()+";'>"
+								"<p style='text-align:center; color:"+PresetColour.MILK.toWebHexString()+";'>"
 										+ Units.fluid(milked) + UtilText.parse(getMilkingTarget(), " of [npc.crotchMilk] added to this room's storage!")
 								+ "</p>");
+						}
+						@Override
+						public boolean postEndTurnEffects() {
+							int milked = MilkingRoom.getActualCrotchMilkPerHour(getMilkingTarget());
+							getMilkingTarget().incrementBreastCrotchStoredMilk(-milked);
+							return true;
 						}
 					};
 				}
@@ -825,7 +848,7 @@ public class LilayaHomeGeneric {
 					return new Response("Occupancy ledger", "Open the occupancy ledger screen, from which you can manage all rooms, slaves, and friendly occupants.", CORRIDOR) {
 						@Override
 						public DialogueNode getNextDialogue() {
-							return OccupantManagementDialogue.getSlaveryOverviewDialogue();
+							return OccupantManagementDialogue.getSlaveryOverviewDialogue(null);
 						}
 						@Override
 						public void effects() {
@@ -940,7 +963,7 @@ public class LilayaHomeGeneric {
 				return new Response("Continue", "Unstrap yourself from the milking machine and continue on your way.", MILKED) {
 					@Override
 					public DialogueNode getNextDialogue() {
-						return Main.game.getDefaultDialogueNoEncounter();
+						return Main.game.getDefaultDialogue(false);
 					}
 				};
 			} else {
@@ -1369,37 +1392,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "The sight of the numerous arcane instruments and beakers of bubbling, brightly-coloured liquid that are scattered over every surface fills you with curiosity, and you can't help but ask,"
-						+ " [pc.speech(What sort of experiments are you working on?"+((Main.game.getPlayer().getName(false).equals("Eru") && Main.game.getPlayer().getSurname().equals("Chitanda"))?" Watashi ki ni narimasu!":"")+")]"
-					+ "</p>"
-					+ "<p>"
-						+ "[arthur.speech(Nothing too interesting, really;"
-							+ " Lilaya's tasked me to repeat one of her experiments that's related to detecting inter-dimensional particles."
-							+ " I've already told her that it doesn't hold up in theory, let alone practice, but she doesn't listen,)]"
-							+ " Arthur sighs, before a mischievous look flashes across his face."
-						+ " [arthur.speech(You know... there is <i>something</i> a little more interesting that I could do."
-							+ " You see, back when I was working for Zaranix, one of his ideas was to get me to find an arcane method of changing a person's sexual orientation."
-							+ " At first I thought it might prove impossible, like all his other ideas, but after doing a little research into it, I think I might actually have found a way to enchant a certain item that could do the trick."
-							+ " I'd never have use for such an instrument myself, you understand, but in the name of scientific curiosity, I'd very much like to test my theory.)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Seeing where this conversation is headed, you sigh,"
-						+ " [pc.speech(Why do I get the feeling you're about to ask me to do something?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[arthur.speech(Well, it's only a small errand. I just need a package collected from Vicky over at Arcane Arts."
-							+ " I would ask Lilaya to send Rose, but I can't afford the hour's worth of lecturing I receive every time I talk to her...)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.speech(Well, if it's just picking up a package, I could do that the next time I'm over in the Shopping Arcade,)]"
-						+ " you offer."
-					+ "</p>"
-					+ "<p>"
-						+ "[arthur.speech(Excellent!)]"
-						+ " Arthur exclaims."
-						+ " [arthur.speech(Thank you so much, [pc.name]! Now, I really should get on with this pointless experiment, or else Lilaya'll have yet more ammunition to use against me...)]"
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROOM_ARTHUR_HYPNO_WATCH_START");
 		}
 
 		@Override
@@ -1420,73 +1413,7 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "Presenting the package to Arthur, you ask the question at the forefront of your mind,"
-						+ " [pc.speech(Here's the package from Arcane Arts. I couldn't help but wonder, though, what's inside?)]" // What's in the box?!
-					+ "</p>"
-					+ "<p>"
-						+ "[arthur.speech(Ah! Thank you, [pc.name]! I hope you didn't have any trouble with Vicky; she can be a little overwhelming sometimes,)]"
-						+ " Arthur says, taking the package from you and ringing the bell-pull in the corner of his room."
-						+ " [arthur.speech(As to what's inside, I'll show you right now!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Tearing off the tape that's holding the box together, Arthur quickly opens it up and reaches inside."
-						+ " Stepping closer to get a better look, you see him pull out a silver pocket-watch, with a long chain attached to the top."
-						+ " The hour and minute hands don't look as though they're moving, and the time that's shown is stuck at four minutes past ten."
-					+ "</p>"
-					+ "<p>"
-						+ "[pc.speech(A broken pocket watch?)]"
-						+ " You ask, a little unimpressed."
-					+ "</p>"
-					+ "<p>"
-						+ "Before Arthur can answer, there's a knock at the door, before Rose steps inside the room."
-						+ " [rose.speech(You called, sir?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[arthur.speech(Ah, yes, Rose! Could you please ask Lilaya to come up here? I need her help with a special experiment,)]"
-						+ " Arthur asks, and Rose obediently steps back and hurries off to fetch her mistress."
-					+ "</p>"
-					+ "<p>"
-						+ "Arthur hurriedly grabs several pages of notes, before placing them beside the watch on the table in front of you."
-						+ " Before he has any time to explain what his plan is, the door suddenly bursts open, and a very angry-looking Lilaya strides into the room."
-						+ " [lilaya.speech(What is it now Arthur?! Oh, [pc.name], you're here too!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[arthur.speech(Well, Lilaya, you know I told you about that research I did into changing a person's sexual orientation? Well, I-)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[lilaya.speech(Yes, I remember,)]"
-						+ " Lilaya interrupts,"
-						+ " [lilaya.speech(and do you remember <i>me</i> telling <i>you</i> about how I thought it was irresponsible to want to go around changing people's nature like that?!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[arthur.speech(I don't intend to use it, Lilaya!)]"
-						+ " Arthur objects."
-						+ " [arthur.speech(It's only for research purposes! If I could harness the arcane, I'd do it all myself... Please, all I need you to do is follow these instructions and enchant this watch.)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[lilaya.speech(Eugh, fine... But you're writing up a full report on this, on top of the work I've already assigned to you,)]"
-						+ " Lilaya sighs, before stepping over to the desk and starting to follow Arthur's instructions."
-					+ "</p>"
-					+ "<p>"
-						+ "After a few minutes, and several flashes of arcane energy, Lilaya's work is done, and you step forwards to see that the watch has undergone a drastic change."
-						+ " Now, instead of looking like a regular time-piece, the face of the watch is a swirling vortex of purple energy."
-						+ " Before you can take a closer look, Lilaya picks the watch up by the chain, and turns to Arthur."
-						+ " [lilaya.speech(So how does this thing work?)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[arthur.speech(C-Careful, Lilaya!)]"
-						+ " Arthur exclaims, averting his eyes from the watch."
-						+ " [arthur.speech(You just have to swing it back and forth in front of someone, and they should undergo a hypnotic-type effect, which, if my calculations are correct, will change their orientation."
-							+ " Oh, you should be able to channel arcane essences into it to change the desired orientation as well."
-							+ " We really need a test subject for this...)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[lilaya.speech(Well, whatever the result is, we can always undo it, right?"
-							+ " I want to be the one who uses it, as I'll be able to sense if anything starts to go wrong, and you can't be the test subject, Arthur, as you'll need to be the one to fix any unexpected effects...)]"
-						+ " Lilaya muses, before both she and Arthur turn towards you."
-						+ " [lilaya.speech([pc.Name]! You're ok letting us test this on you, aren't you? I promise that I won't apply the full effect, so there's really nothing to worry about!)]"
-					+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROOM_ARTHUR_HYPNO_WATCH_DELIVERY");
 		}
 
 		@Override
@@ -1544,114 +1471,12 @@ public class LilayaHomeGeneric {
 //			return null;
 		}
 	};
-
-	private static SexualOrientation orientationTarget(GameCharacter target) {
-		switch(target.getSexualOrientation()) {
-			case AMBIPHILIC:
-				if(target.isFeminine()) {
-					return SexualOrientation.ANDROPHILIC;
-				} else {
-					return SexualOrientation.GYNEPHILIC;
-				}
-			default:
-				return SexualOrientation.AMBIPHILIC;
-		}
-	}
 	
 	public static final DialogueNode ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF = new DialogueNode("Arthur's Room", ".", true, true) {
 
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append("<p>"
-						+ "Reassured by the fact Lilaya and Arthur are both highly-competent arcane researchers, you step forwards."
-						+ " [pc.speech(Ok, ok... But this had better not be permanent. Seeing as I'm "+Main.game.getPlayer().getSexualOrientation().getName()+", you'll probably need to set the watch to something other than that...)]"
-					+ "</p>"
-					+ "<p>"
-						+ "[arthur.speech(Don't worry, this process is completely reversible,)]"
-						+ " Arthur says, before turning to Lilaya,");
-			
-			switch(orientationTarget(Main.game.getPlayer())) {
-				case AMBIPHILIC:
-					UtilText.nodeContentSB.append(" [arthur.speech(Ok, Lilaya, enchant the watch to try and change [pc.name] into being ambiphilic.)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Holding the watch by the chain in one hand, Lilaya reaches up with her other, and, with a little flash of lilac, enchants the watch as Arthur instructs."
-								+ " The swirling purple face slowly shifts into a light purple, and, instructed by Arthur to keep focused on the watch, you fix your gaze on the mesmerising surface as Lilaya starts slowly swaying it back and forth."
-								+ " You feel your head rocking from side to side in time with each swing, and, starting to feel quite light-headed, you begin to find it very hard to remember what it is you're doing..."
-							+ "</p>"
-							+ "<i><p>"
-								+ "[lilaya.speech(Perhaps we can leave the experiment for later,)] Lilaya moans, placing the watch to one side, before stepping forwards and planting a wet kiss on your lips."
-							+ "</p>"
-							+ "<p>"
-								+ "[arthur.speech(We could all use a break,)] Arthur joins in, stepping around to take a firm hold of your waist."
-							+ "</p>"
-							+ "<p>"
-								+ "[pc.speech(Mmm, yes...)] you moan, feeling a jolt of excitement as Arthur's hands run down to your groin."
-								+ " Leaning back into him, you pull your [lilaya.relation(pc)] forwards, passionately thrusting your tongue into her mouth as you reach down to help guide Arthur's fingers between your legs..."
-							+ "</p>"
-							+ "<p>"
-								+ "[lilaya.speech(Wake up, [pc.name]...)] Lilaya sighs..."
-							+ "</p></i>");
-					break;
-				case ANDROPHILIC:
-					UtilText.nodeContentSB.append(" [arthur.speech(Ok, Lilaya, enchant the watch to try and change [pc.name] into being androphilic.)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Holding the watch by the chain in one hand, Lilaya reaches up with her other, and, with a little flash of turquoise, enchants the watch as Arthur instructs."
-								+ " The swirling purple face slowly shifts into a deep shade of blue, and, instructed by Arthur to keep focused on the watch,"
-									+ " you fix your gaze on the mesmerising surface as Lilaya starts slowly swaying it back and forth."
-								+ " You feel your head rocking from side to side in time with each swing, and, starting to feel quite light-headed, you begin to find it very hard to remember what it is you're doing..."
-							+ "</p>"
-							+ "<i><p>"
-								+ "[arthur.speech(Perhaps we can leave the experiment for later,)] Arthur states, getting Lilaya to put the watch to one side, before leading her out of the room."
-							+ "</p>"
-							+ "<p>"
-								+ "[pc.speech(What's wrong? Is it not work- ~Aah!~)] you start to question, but Arthur confidently steps around behind you and takes a firm hold of your waist."
-							+ "</p>"
-							+ "<p>"
-								+ "[arthur.speech(I could see that look in your eyes...)] he says, and a jolt of excitement suddenly runs through you as you feel Arthur's hands run down to your groin."
-							+ "</p>"
-							+ "<p>"
-								+ "[pc.speech(Mmm... Yes...)] you moan, turning your head and pressing your lips against Arthur's."
-								+ " Leaning back into him, you passionately thrust your tongue into his mouth as you reach down to help guide his fingers between your legs..."
-							+ "</p>"
-							+ "<p>"
-								+ "[lilaya.speech(Wake up, [pc.name]...)] you hear Lilaya call from the other side of the door..."
-							+ "</p></i>");
-					break;
-				case GYNEPHILIC:
-					UtilText.nodeContentSB.append(" [arthur.speech(Ok, Lilaya, enchant the watch to try and change [pc.name] into being gynephilic.)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Holding the watch by the chain in one hand, Lilaya reaches up with her other, and, with a little flash of scarlet, enchants the watch as Arthur instructs."
-								+ " The swirling purple face slowly shifts into a deep shade of pink, and, instructed by Arthur to keep focused on the watch,"
-									+ " you fix your gaze on the mesmerising surface as Lilaya starts slowly swaying it back and forth."
-								+ " You feel your head rocking from side to side in time with each swing, and, starting to feel quite light-headed, you begin to find it very hard to remember what it is you're doing..."
-							+ "</p>"
-							+ "<i><p>"
-								+ "[lilaya.speech(Honestly, Arthur, we should leave this experiment for later,)] Lilaya states, putting the watch to one side, before leading Arthur out of the room."
-							+ "</p>"
-							+ "<p>"
-								+ "[pc.speech(What's wrong? Is it not work- ~Aah!~)] you start to question, but Lilaya suddenly steps around behind you, and with a little giggle, reaches forwards to wrap her arms around you."
-							+ "</p>"
-							+ "<p>"
-								+ "[lilaya.speech(I could see that look in your eyes...)] she says, and a jolt of excitement suddenly runs through you as you feel your [lilaya.relation(pc)]'s hands run down to your groin."
-							+ "</p>"
-							+ "<p>"
-								+ "[pc.speech(Mmm... Yes...)] you moan, turning your head and pressing your lips against Lilaya's."
-								+ " Leaning back into her, you passionately thrust your tongue into her mouth as you reach down to help guide her fingers between your legs..."
-							+ "</p>"
-							+ "<p>"
-								+ "[lilaya.speech(Wake up, [pc.name]...)] Lilaya sighs..."
-							+ "</p></i>");
-					break;
-			}
-			
-			// Wake up and... smell the ashes...
-			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF");
 		}
 		
 		@Override
@@ -1677,74 +1502,24 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "[lilaya.speech([pc.Name]? Wake up!)] Lilaya calls, and, with a blink, you suddenly snap out of the dream-like trance."
-					+ " You're standing just where you were when the experiment started, but Lilaya, now with a mildly-concerned expression on her face, has placed the watch to one side, and is holding you by the shoulders."
-				+ "</p>"
-				+ "<p>"
-					+ "[pc.speech(W-What was that?!)] you ask, trying to shake the vision you just had from your head."
-					+ " [pc.speech(It was so real! We were... well...)]"
-				+ "</p>"
-				+ "<p>"
-					+ "[lilaya.speech(Good, you're ok,)]"
-					+ " Lilaya says, releasing you and stepping back."
-					+ " [lilaya.speech(I stopped the test before the change in orientation became permanent, and, more importantly, before a surge of corruptive arcane energy seeped into your mind.)]"
-				+ "</p>"
-				+ "<p>"
-					+ "[pc.speech(Wait... What?! Nobody mentioned anything about that!)]"
-				+ "</p>"
-				+ "<p>"
-					+ "[arthur.speech(I'm sorry, [pc.name], I didn't know that could be a side-effect,)]"
-					+ " Arthur says, stepping forwards."
-					+ " [arthur.speech(It's a good job Lilaya was the one to carry out the test...)]"
-				+ "</p>"
-				+ "<p>"
-					+ "[lilaya.speech(Well, at least you've come to no harm, [pc.name],)]"
-					+ " Lilaya says."
-					+ " [lilaya.speech(You see, just as you appeared to enter that strange trance, I felt a wave of corruptive energy surging forwards."
-						+ " If I hadn't stopped the test, not only would your sexual orientation have been permanently changed, but whatever vision you were witnessing would have undoubtedly played out in full;"
-							+ " corrupting your mind in the process.)]"
-				+ "</p>"
-				+ "<p>"
-					+ "[pc.speech(Thank you, Lilaya,)]"
-					+ " you say, stepping forwards to give your [lilaya.relation(pc)] a loving hug,"
-					+ " [pc.speech(you saved me again, huh?)]"
-				+ "</p>"
-				+ "<p>"
-					+ "[lilaya.speech(Y-Yes, well, y-you're welcome,)]"
-					+ " she stammers, clearly a little embarrassed to be hugged in front of Arthur."
-					+ " After a moment, she breaks off the hug, and, turning to pick up the watch, waves her hand over the face."
-					+ " The swirling vortex fades away, leaving the watch looking just like any other, and, satisfied with the result, Lilaya hands it to you."
-					+ " [lilaya.speech(I've removed the enchantment, so there's no fear of accidentally subjecting anyone else to those effects."
-						+ " I think you should keep hold of this. After all, now that you know what it feels like to be on the receiving end, I'm sure you have a greater respect for this item's power.)]"
-				+ "</p>"
-				+ "<p>"
-					+ "You take the watch from Lilaya, nodding at her words."
-					+ " [pc.speech(I'll take good care of it.)]"
-				+ "</p>"
-				+ "<p>"
-					+ "Turning to Arthur, Lilaya puts on a stern voice,"
-					+ " [lilaya.speech(I expect a full report on my desk by this time tomorrow. And not a minute later!)]"
-				+ "</p>"
-				+ "<p>"
-					+ "With that, Lilaya strides out of the room, leaving you alone with Arthur, who proceeds to glance over at you with a rather defeated-looking expression on his face."
-					+ " [arthur.speech(Well, it <i>does</i> work, at least... Sorry about all that, [pc.name]. I really should get on with this report now...)]"
-				+ "</p>"
-				+ "<p>"
-					+ "With the hypnotic, orientation-changing watch now in your possession, you leave Arthur to get on with his work."
-				+ "</p>";
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROOM_ARTHUR_HYPNO_WATCH_OFFER_SELF_WAKE_UP");
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Let Arthur continue with his other experiments.", ROOM_ARTHUR);
+				return new Response("Continue", "Let Arthur continue with his other experiments.", CORRIDOR) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setNearestLocation(Main.game.getPlayer().getWorldLocation(), PlaceType.LILAYA_HOME_CORRIDOR, false);
+					}
+				};
+				
 			} else {
 				return null;
 			}
 		}
 	};
-	
 	
 	
 	public static final DialogueNode ROOM_ARTHUR_HYPNO_WATCH_OFFER_SLAVE = new DialogueNode("Arthur's Room", ".", true, true) {
@@ -1767,6 +1542,7 @@ public class LilayaHomeGeneric {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Continue", "Let Arthur continue with his other experiments.", ROOM_ARTHUR);
+				
 			} else {
 				return null;
 			}

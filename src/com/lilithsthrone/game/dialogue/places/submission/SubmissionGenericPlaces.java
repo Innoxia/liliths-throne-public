@@ -5,7 +5,6 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Elizabeth;
@@ -22,6 +21,7 @@ import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePokerTabl
 import com.lilithsthrone.game.dialogue.places.submission.gamblingDen.GamblingDenDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
+import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -35,9 +35,10 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -109,8 +110,8 @@ public class SubmissionGenericPlaces {
 			
 			if(!pacified) {
 				UtilText.nodeContentSB.append(
-						"<span color:"+Main.game.getPlayer().getLocationPlace().getPlaceType().getColourString()+";>"
-						+ UtilText.parseFromXMLFile("places/submission/submissionPlaces", "TUNNEL_IMP_CONTROL")
+						"<span style='color:"+Main.game.getPlayer().getLocationPlace().getPlaceType().getColour().toWebHexString()+";'>"
+								+ UtilText.parseFromXMLFile("places/submission/submissionPlaces", "TUNNEL_IMP_CONTROL")
 						+"</span>");
 			}
 			
@@ -127,6 +128,10 @@ public class SubmissionGenericPlaces {
 				return new ResponseEffectsOnly(
 						"Explore",
 						"Explore the tunnels. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+							@Override
+							public int getSecondsPassed() {
+								return 30*60;
+							}
 							@Override
 							public void effects() {
 								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
@@ -169,28 +174,33 @@ public class SubmissionGenericPlaces {
 	};
 	
 	public static final DialogueNode RAT_WARREN = new DialogueNode("Rat Warrens", "", false) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 3*60;
 		}
-		
 		@Override
 		public String getContent() {
+			if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)) {
+				return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "RAT_WARREN_CLOSED");
+			}
 			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "RAT_WARREN");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Knock",
-						"Knock on the door and wait to see if anyone answers. [style.italicsGood(Will be added in the next version!)]",
-						null);
-//						RAT_WARREN_KNOCK_ON_DOOR);
-				
-			} else {
-				return null;
+			if(!Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)) {
+				if(index==1) {
+					return new Response("Knock",
+							"Knock on the door and wait to see if anyone answers.",
+							RAT_WARREN_KNOCK_ON_DOOR) {
+						@Override
+						public void effects() {
+							RatWarrensDialogue.init();
+							Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE);
+						}
+					};
+				}
 			}
+			return null;
 		}
 	};
 	
@@ -203,35 +213,42 @@ public class SubmissionGenericPlaces {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "RAT_WARREN_KNOCK_ON_DOOR");
+			return UtilText.parseFromXMLFile("places/submission/submissionPlaces", "RAT_WARREN_KNOCK_ON_DOOR", RatWarrensDialogue.getGuards(false));
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
+			boolean freeEntry = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensEntry) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensEntryWhore);
+			if(index == 1) {
+				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)) {
+					return new Response("Enter",
+							"You're not able to gain access to the Rat Warrens without a good reason...",
+							null);
+				} else {
+					if(freeEntry) {
+						return new Response("Enter",
+								"As the guards have recognised you, you're able to freely enter the Rat Warrens.",
+								RatWarrensDialogue.RAT_WARREN_INITIAL_ENTRY);
+					}
+					return new Response("Explain",
+							"Tell the guards that you've come here to do business with Vengar, on behalf of Axel.",
+							RatWarrensDialogue.RAT_WARREN_INITIAL_ENTRY);
+				}
+				
+			} else if(index==2) {
 				return new Response("Step back",
-						Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)
+						freeEntry
 							?"Decide against entering the Rat Warrens, and instead step away from the door."
-							:"As you don't know the password, you're not going to be able to get in...",
+							:"As you don't have any business here, you're not going to be able to get in. It would be best to step back and take your leave before the guards follow through on their threats...",
 						RAT_WARREN_STEP_BACK) {
 					@Override
 					public void effects() {
-						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)) {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "RAT_WARREN_ENTRY_STEP_BACK"));
+						if(freeEntry) {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "RAT_WARREN_ENTRY_STEP_BACK", RatWarrensDialogue.getGuards(false)));
 						} else {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "RAT_WARREN_STEP_BACK"));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "RAT_WARREN_STEP_BACK", RatWarrensDialogue.getGuards(false)));
 						}
-					}
-				};
-				
-			} else if(index==2 && Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)) {
-				return new Response("Enter",
-						"Push open the door and enter the Rat Warrens.",
-						RatWarrensDialogue.RAT_WARREN_INITIAL_ENTRY) {
-					@Override
-					public void effects() {
-						RatWarrensDialogue.init();
-						Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE);
+						RatWarrensDialogue.exit();
 					}
 				};
 			}
@@ -1056,7 +1073,9 @@ public class SubmissionGenericPlaces {
 				
 			} else if(index==5
 					&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)
-					&& !Main.game.getPlayer().isSubQuestCompleted(Quest.VENGAR_OPTIONAL_CLAIRE, QuestLine.SIDE_VENGAR)) {
+					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_COOPERATION)
+					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_OPTIONAL_CLAIRE)
+					&& !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
 				return new Response("Vengar", "Ask for Claire's help with dealing with Vengar.", CLAIRE_VENGAR_HELP) {
 					@Override
 					public void effects() {
@@ -1076,7 +1095,7 @@ public class SubmissionGenericPlaces {
 						}
 						@Override
 						public Colour getHighlightColour() {
-							return Colour.QUEST_SIDE;
+							return PresetColour.QUEST_SIDE;
 						}
 					};
 					
@@ -1189,7 +1208,7 @@ public class SubmissionGenericPlaces {
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addOptionalQuestProgress(QuestLine.SIDE_VENGAR, Quest.VENGAR_OPTIONAL_CLAIRE));
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.RESONANCE_STONE), false));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.RESONANCE_STONE), false, true));
 					}
 				};
 			}
@@ -1314,7 +1333,7 @@ public class SubmissionGenericPlaces {
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "ENFORCER_WARHOUSE_APPEARANCE"));
 						
 						if(Main.game.getPlayer().hasCompanions()) {
-							if(Main.game.getPlayer().getMainCompanion() instanceof Elemental) {
+							if(Main.game.getPlayer().getMainCompanion().isElemental()) {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "ENFORCER_WARHOUSE_APPEARANCE_ELEMENTAL", Main.game.getPlayer().getMainCompanion()));
 							} else {
 								Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/submissionPlaces", "ENFORCER_WARHOUSE_APPEARANCE_COMPANIONS", Main.game.getPlayer().getMainCompanion()));

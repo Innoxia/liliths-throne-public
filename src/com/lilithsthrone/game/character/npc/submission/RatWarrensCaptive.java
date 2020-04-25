@@ -6,38 +6,45 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.FluidCum;
+import com.lilithsthrone.game.character.body.Penis;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.markings.Tattoo;
-import com.lilithsthrone.game.character.markings.TattooCountType;
-import com.lilithsthrone.game.character.markings.TattooCounter;
-import com.lilithsthrone.game.character.markings.TattooCounterType;
-import com.lilithsthrone.game.character.markings.TattooType;
-import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -73,9 +80,8 @@ public class RatWarrensCaptive extends NPC {
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(false);
 			this.setGenericName("captive");
-			
+
 			CharacterUtils.randomiseBody(this, true);
-			
 			
 			// INVENTORY:
 			
@@ -83,16 +89,17 @@ public class RatWarrensCaptive extends NPC {
 			inventory.setMoney(0);
 	
 //			CharacterUtils.applyMakeup(this, true);
-			
-			//TODO set sex had
-			this.setSexAsSubCount("", 100+Util.random.nextInt(200));
-			
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
+
+
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
 			this.setStartingCombatMoves();
 			loadImages();
 
 			initHealthAndManaToMax();
+			
 		}
 		
 //		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
@@ -101,6 +108,14 @@ public class RatWarrensCaptive extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
+			this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
+			this.setVaginaCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
+			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
+		}
 	}
 
 	@Override
@@ -117,6 +132,10 @@ public class RatWarrensCaptive extends NPC {
 
 			this.setFetishDesire(Fetish.FETISH_NON_CON_SUB, FetishDesire.THREE_LIKE);
 		}
+
+		this.setFaceVirgin(false);
+		this.setAssVirgin(false);
+		this.setVaginaVirgin(false);
 		
 		// Milking:
 		this.setBreastSize(CupSize.DD.getMeasurement()+Util.random.nextInt(6));
@@ -124,36 +143,84 @@ public class RatWarrensCaptive extends NPC {
 		this.setBreastMilkStorage(Lactation.SIX_EXTREME_AMOUNT_DRIPPING.getMedianValue()+Util.random.nextInt(Lactation.SIX_EXTREME_AMOUNT_DRIPPING.getMedianValue()));
 		this.setBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()+Util.random.nextInt(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()));
 		
-		// From sex:
-		this.setVaginaCapacity(Util.randomItemFrom(new Capacity[] {Capacity.THREE_SLIGHTLY_LOOSE, Capacity.FOUR_LOOSE, Capacity.FIVE_ROOMY, Capacity.SIX_STRETCHED_OPEN}), true);
+		// From anal sex:
+		if(Main.game.isAnalContentEnabled()) {
+			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
+			this.setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+			this.setAssPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
+		}
+
+		// From vaginal sex:
+		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
+		this.setVaginaCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		
 	}
 
 	@Override
+	public String getDescription() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("This woman is one of Murk's 'milkers', and is whored out to anyone who can afford her."
+				+ " While not being fucked by Murk or some stranger, this 'milker' earns her name by having her breasts milked by an arcane-powered machine.");
+		
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensMilkersBackground)) {
+			sb.append("<br/>"
+					+ "After asking Murk about the milkers, you discovered that they were originally kidnapped and forced to be milked against their will."
+					+ " Over time, however, the rat-boy totally broke their will to resist, to the point where they now desperately plead to get fucked by him...");
+		}
+		return sb.toString();
+	}
+	
+	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.clearNonEquippedInventory(false);
+		this.clearTattoosAndScars();
 		
-		if(settings.contains(EquipClothingSetting.ADD_TATTOOS)) {
-			//Tattoo of milk flavour:
-			String name = "Flavour: "+this.getMilkFlavour().getName();
-			this.addTattoo(InventorySlot.CHEST, new Tattoo(TattooType.NONE, Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, false, new TattooWriting(name, Colour.CLOTHING_BLACK, false), null));
+		AbstractClothing collar = AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_GUNMETAL, false);
+		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_ENSLAVEMENT, TFPotency.MINOR_BOOST, 0));
+		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_BOOST, 0));
+		collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_DRAIN, 0));
+		this.equipClothingFromNowhere(collar, true, this);
+	}
+	
+	public void applyDildos(boolean equip) {
+		if(equip) {
+			AbstractClothing dildo = AbstractClothingType.generateClothing("norin_dildos_realistic_dildo", PresetColour.CLOTHING_PINK_HOT, false);
+			dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
+			this.equipClothingFromNowhere(dildo, InventorySlot.VAGINA, true, this);
 			
-			// Tattoo for times fucked:
-			this.addTattoo(InventorySlot.TORSO_UNDER, new Tattoo(TattooType.NONE, Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, Colour.CLOTHING_BLACK, false,
-					new TattooWriting("Times fucked", Colour.CLOTHING_BLACK, false),
-					new TattooCounter(TattooCounterType.SEX_SUB, TattooCountType.TALLY, Colour.BASE_BLACK, false)));
+			dildo = AbstractClothingType.generateClothing("norin_dildos_realistic_dildo", PresetColour.CLOTHING_PINK_HOT, false);
+			dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
+			this.equipClothingFromNowhere(dildo, InventorySlot.ANUS, true, this);
+			
+		} else {
+			if(this.getClothingInSlot(InventorySlot.VAGINA)!=null) {
+				this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.VAGINA), true, Main.game.getNpc(Murk.class));
+			}
+			if(this.getClothingInSlot(InventorySlot.ANUS)!=null) {
+				this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.ANUS), true, Main.game.getNpc(Murk.class));
+			}
 		}
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, Colour.CLOTHING_STEEL, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_SPREADER_BAR, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.BDSM_WRIST_RESTRAINTS, Colour.CLOTHING_BLACK, false), true, this);
 	}
 	
 	@Override
 	public boolean isUnique() {
 		return false;
+	}
+	
+	@Override
+	public void hourlyUpdate() {
+		// If the player is not a captive, and Murk has not been enslaved, then keep rolling for sex effects:
+		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive) && !Main.game.getNpc(Murk.class).isSlave()) {
+			float rnd = (float) Math.random();
+			if(rnd<0.005f && Main.game.isAnalContentEnabled()) { // Average fucked once every week
+				this.ingestFluid(null, Subspecies.RAT_MORPH, Subspecies.RAT_MORPH, new FluidCum(FluidType.CUM_RAT_MORPH), SexAreaOrifice.ANUS, 20+Util.random.nextInt(100));
+				
+			} else if(rnd<0.05f) { // Average fucked once or twice a day
+				this.ingestFluid(null, Subspecies.RAT_MORPH, Subspecies.RAT_MORPH, new FluidCum(FluidType.CUM_RAT_MORPH), SexAreaOrifice.VAGINA, 20+Util.random.nextInt(100));
+			}
+		}
 	}
 	
 	@Override

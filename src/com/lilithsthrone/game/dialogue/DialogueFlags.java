@@ -10,6 +10,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaConversationTopic;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -18,31 +19,37 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.3.5
+ * @version 0.3.7
  * @author Innoxia
  */
 public class DialogueFlags implements XMLSaving {
 
 	public Set<DialogueFlagValue> values;
 	
-	public long ralphDiscountStartTime;
 	public int ralphDiscount;
 	public int scarlettPrice;
 	public int eponaStamps;
+	
+	// Timers:
+	public long ralphDiscountStartTime;
 	public long kalahariBreakStartTime;
 	public long daddyResetTimer;
 	public long candiSexTimer;
 	public long ralphSexTimer;
-
 	public long impFortressAlphaDefeatedTime;
 	public long impFortressDemonDefeatedTime;
 	public long impFortressFemalesDefeatedTime;
 	public long impFortressMalesDefeatedTime;
+	public int helenaSlaveOrderDay;
 
 	public int impCitadelImpWave;
 	
 	// Amount of dialogue choices you can make before offspring interaction ends:
 	public int offspringDialogueTokens = 2;
+	
+	// Sets:
+
+	private Set<String> helenaConversationTopics = new HashSet<>();
 	
 	// Reindeer event related flags:
 	private Set<String> reindeerEncounteredIDs = new HashSet<>();
@@ -54,6 +61,11 @@ public class DialogueFlags implements XMLSaving {
 	
 	// Storage tiles checked:
 	public Set<Vector2i> supplierStorageRoomsChecked = new HashSet<>();
+	
+	// Murk transformation stage tracking:
+	private int murkPlayerTfStage;
+	private int murkCompanionTfStage;
+	
 	
 	private String slaveTrader;
 	
@@ -73,6 +85,7 @@ public class DialogueFlags implements XMLSaving {
 		daddyResetTimer = -1;
 		candiSexTimer = -1;
 		ralphSexTimer = -1;
+		helenaSlaveOrderDay = -1;
 				
 		ralphDiscount = 0;
 		
@@ -87,6 +100,9 @@ public class DialogueFlags implements XMLSaving {
 			= -50000;
 		
 		impCitadelImpWave = 0;
+		
+		murkPlayerTfStage = 0;
+		murkCompanionTfStage = 0;
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -99,6 +115,7 @@ public class DialogueFlags implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, element, "eponaStamps", String.valueOf(eponaStamps));
 		CharacterUtils.createXMLElementWithValue(doc, element, "kalahariBreakStartTime", String.valueOf(kalahariBreakStartTime));
 		CharacterUtils.createXMLElementWithValue(doc, element, "daddyResetTimer", String.valueOf(daddyResetTimer));
+		CharacterUtils.createXMLElementWithValue(doc, element, "helenaSlaveOrderDay", String.valueOf(helenaSlaveOrderDay));
 
 		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressAlphaDefeatedTime", String.valueOf(impFortressAlphaDefeatedTime));
 		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressDemonDefeatedTime", String.valueOf(impFortressDemonDefeatedTime));
@@ -106,6 +123,9 @@ public class DialogueFlags implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressMalesDefeatedTime", String.valueOf(impFortressMalesDefeatedTime));
 
 		CharacterUtils.createXMLElementWithValue(doc, element, "impCitadelImpWave", String.valueOf(impCitadelImpWave));
+
+		CharacterUtils.createXMLElementWithValue(doc, element, "murkPlayerTfStage", String.valueOf(murkPlayerTfStage));
+		CharacterUtils.createXMLElementWithValue(doc, element, "murkCompanionTfStage", String.valueOf(murkCompanionTfStage));
 		
 		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
@@ -117,10 +137,13 @@ public class DialogueFlags implements XMLSaving {
 			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "dialogueValue", value.toString());
 		}
 		
+		
+		saveSet(element, doc, helenaConversationTopics, "helenaConversationTopics");
+		
 		saveSet(element, doc, reindeerEncounteredIDs, "reindeerEncounteredIDs");
 		saveSet(element, doc, reindeerWorkedForIDs, "reindeerWorkedForIDs");
 		saveSet(element, doc, reindeerFuckedIDs, "reindeerFuckedIDs");
-
+		
 		saveSet(element, doc, warehouseDefeatedIDs, "warehouseDefeatedIDs");
 		
 		Element supplierStorageRoomsCheckedElement = doc.createElement("supplierStorageRoomsChecked");
@@ -161,7 +184,12 @@ public class DialogueFlags implements XMLSaving {
 			newFlags.daddyResetTimer = Long.valueOf(((Element)parentElement.getElementsByTagName("daddyResetTimer").item(0)).getAttribute("value"));
 		} catch(Exception ex) {
 		}
-
+		
+		try {
+			newFlags.helenaSlaveOrderDay = Integer.valueOf(((Element)parentElement.getElementsByTagName("helenaSlaveOrderDay").item(0)).getAttribute("value"));
+		} catch(Exception ex) {
+		}
+		
 		try {
 			if(!Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) {
 				newFlags.impFortressAlphaDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressAlphaDefeatedTime").item(0)).getAttribute("value"));
@@ -176,13 +204,23 @@ public class DialogueFlags implements XMLSaving {
 			newFlags.impCitadelImpWave = Integer.valueOf(((Element)parentElement.getElementsByTagName("impCitadelImpWave").item(0)).getAttribute("value"));
 		} catch(Exception ex) {
 		}
-		
+
+		try {
+			newFlags.murkPlayerTfStage = Integer.valueOf(((Element)parentElement.getElementsByTagName("murkPlayerTfStage").item(0)).getAttribute("value"));
+			newFlags.murkCompanionTfStage = Integer.valueOf(((Element)parentElement.getElementsByTagName("murkCompanionTfStage").item(0)).getAttribute("value"));
+		} catch(Exception ex) {
+		}
 		
 		for(int i=0; i<((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").getLength(); i++){
 			Element e = (Element) ((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").item(i);
 			
 			try {
-				newFlags.values.add(DialogueFlagValue.valueOf(e.getAttribute("value")));
+				String flag = e.getAttribute("value");
+				if(flag.equalsIgnoreCase("punishedByAlexa")) {
+					newFlags.values.add(DialogueFlagValue.punishedByHelena);
+				} else {
+					newFlags.values.add(DialogueFlagValue.valueOf(flag));
+				}
 			} catch(Exception ex) {
 			}
 		}
@@ -199,7 +237,9 @@ public class DialogueFlags implements XMLSaving {
 			newFlags.values.add(DialogueFlagValue.impFortressFemalesDefeated);
 			newFlags.values.add(DialogueFlagValue.impFortressMalesDefeated);
 		}
-
+		
+		loadSet(parentElement, doc, newFlags.helenaConversationTopics, "helenaConversationTopics");
+		
 		loadSet(parentElement, doc, newFlags.reindeerEncounteredIDs, "reindeerEncounteredIDs");
 		loadSet(parentElement, doc, newFlags.reindeerWorkedForIDs, "reindeerWorkedForIDs");
 		loadSet(parentElement, doc, newFlags.reindeerFuckedIDs, "reindeerFuckedIDs");
@@ -239,6 +279,10 @@ public class DialogueFlags implements XMLSaving {
 			}
 		} catch(Exception ex) {
 		}
+	}
+
+	public void dailyReset() {
+		values.removeIf((flag)->flag.isDailyReset());
 	}
 
 	public boolean hasFlag(DialogueFlagValue flag) {
@@ -282,8 +326,7 @@ public class DialogueFlags implements XMLSaving {
 	}
 
 	public NPC getManagementCompanion() {
-		if(managementCompanion==null
-				|| managementCompanion.isEmpty()) {
+		if(managementCompanion==null || managementCompanion.isEmpty()) {
 			return null;
 		}
 		try {
@@ -320,6 +363,14 @@ public class DialogueFlags implements XMLSaving {
 		this.slaveryManagerJobSelected = slaveryManagerJobSelected;
 	}
 
+	public void addHelenaConversationTopic(HelenaConversationTopic topic) {
+		helenaConversationTopics.add(topic.toString());
+	}
+	
+	public boolean hasHelenaConversationTopic(HelenaConversationTopic topic) {
+		return reindeerEncounteredIDs.contains(topic.toString());
+	}
+	
 	public void addReindeerEncountered(String reindeerID) {
 		reindeerEncounteredIDs.add(reindeerID);
 	}
@@ -352,13 +403,18 @@ public class DialogueFlags implements XMLSaving {
 		reindeerWorkedForIDs.remove(reindeerID);
 	}
 	
-	public void resetNyanActions() {
-		this.setFlag(DialogueFlagValue.nyanTalkedTo, false);
-		this.setFlag(DialogueFlagValue.nyanComplimented, false);
-		this.setFlag(DialogueFlagValue.nyanFlirtedWith, false);
-		this.setFlag(DialogueFlagValue.nyanKissed, false);
-		this.setFlag(DialogueFlagValue.nyanMakeOut, false);
-		this.setFlag(DialogueFlagValue.nyanSex, false);
-		this.setFlag(DialogueFlagValue.nyanGift, false);
+	public int getMurkTfStage(GameCharacter target) {
+		if(target.isPlayer()) {
+			return murkPlayerTfStage;
+		}
+		return murkCompanionTfStage;
+	}
+	
+	public void setMurkTfStage(GameCharacter target, int stage) {
+		if(target.isPlayer()) {
+			this.murkPlayerTfStage = stage;
+		} else {
+			this.murkCompanionTfStage = stage;
+		}
 	}
 }

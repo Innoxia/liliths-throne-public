@@ -1,5 +1,8 @@
 package com.lilithsthrone.utils;
 
+import com.lilithsthrone.utils.colours.BaseColour;
+import com.lilithsthrone.utils.colours.Colour;
+
 /**
  * Put any static util methods related to .svg files in here.
  * 
@@ -13,7 +16,7 @@ public class SvgUtil {
 		String s = inputString;
 	
 		s = s.replaceAll("linearGradient\\d|innoGrad\\d|radialGradient\\d",
-				gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "$0");
+				gradientReplacementID + colour.getId() + (colourSecondary!=null?colourSecondary.getId():"") + (colourTertiary!=null?colourTertiary.getId():"") + "$0");
 
 		s = sanitizeImageString(s, false);
 		
@@ -45,15 +48,19 @@ public class SvgUtil {
 	}
 	
 	public static String colourReplacement(String gradientReplacementID, Colour colour, String inputString) {
-		return colourReplacement(gradientReplacementID, colour, null, null, inputString);
+		return colourReplacement(gradientReplacementID, colour, null, null, null, inputString);
+	}
+	
+	public static String colourReplacement(String gradientReplacementID, Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
+		return colourReplacement(gradientReplacementID, colour, colourSecondary, colourTertiary, null, inputString);
 	}
 
-	public static String colourReplacement(String gradientReplacementID, Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
+	public static String colourReplacement(String gradientReplacementID, Colour colour, Colour colourSecondary, Colour colourTertiary, Colour colourQuaternary, String inputString) {
 		String s = inputString;
-	
+		
 		if(gradientReplacementID!=null) {
 			s = s.replaceAll("linearGradient\\d|innoGrad\\d|radialGradient\\d",
-					gradientReplacementID + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "$0");
+					gradientReplacementID + colour.getId() + (colourSecondary!=null?colourSecondary.getId():"") + (colourTertiary!=null?colourTertiary.getId():"") + (colourQuaternary!=null?colourQuaternary.getId():"") + "$0");
 		}
 
 		s = sanitizeImageString(s, true);
@@ -80,6 +87,14 @@ public class SvgUtil {
 			s = s.replaceAll("#ffe680", colourTertiary.getShades()[2]);
 			s = s.replaceAll("#ffeeaa|#fea(?!\\d)", colourTertiary.getShades()[3]);
 			s = s.replaceAll("#fff6d5", colourTertiary.getShades()[4]);
+		}
+		
+		if(colourQuaternary!=null) {
+			s = s.replaceAll("#abc837", colourQuaternary.getShades()[0]);
+			s = s.replaceAll("#bcd35f", colourQuaternary.getShades()[1]);
+			s = s.replaceAll("#cdde87", colourQuaternary.getShades()[2]);
+			s = s.replaceAll("#dde9af", colourQuaternary.getShades()[3]);
+			s = s.replaceAll("#eef4d7", colourQuaternary.getShades()[4]);
 		}
 		
 		return s;

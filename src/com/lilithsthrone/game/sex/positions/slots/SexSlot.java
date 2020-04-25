@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexActionInteractions;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexType;
@@ -80,9 +80,22 @@ public class SexSlot {
 	 * @return A generic orgasm description, based on who the character in this slot is targeting. Will be returned if orgasmDescription is null.
 	 */
 	public String getGenericOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
-		return "Pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.";
+		return UtilText.parse(orgasmingCharacter, targetedCharacter,
+				"Pressing [npc.herself] against [npc2.name], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.");
 	}
 
+	/**
+	 * @return A generic end of sex description, based on who the character in this slot is targeting. Should be overridden if a SexSlot needs a unique end-of-sex description.
+	 */
+	public String getGenericEndSexDescription(GameCharacter endingCharacter, GameCharacter targetedCharacter) {
+		if(Main.game.isInSex() && Main.sex.isMasturbation()) {
+			return UtilText.parse(endingCharacter, "Deciding that [npc.sheHas] had enough for now, [npc.name] [npc.verb(put)] an end to [npc.her] masturbation session and [npc.verb(prepare)] to continue on [npc.her] way.");
+		}
+		return UtilText.parse(endingCharacter, targetedCharacter,
+				"With a satisfied sigh, [npc.name] [npc.verb(disentangle)] [npc.herself] from [npc2.namePos] clutches, before stating that [npc.sheHas] had enough for now.");
+	}
+	
+	
 	/**
 	 * Used to check whether the position can use both feet or just one. (If standing, can only use one.)
 	 * @param target The person in this slot.
@@ -109,7 +122,7 @@ public class SexSlot {
 			}
 		}
 		
-		return Sex.getCharacterInPosition(targetedSlot);
+		return Main.sex.getCharacterInPosition(targetedSlot);
 	}
 		
 	public boolean isMeetsPreferenceCriteria(GameCharacter character, AbstractSexPosition position, SexSlot targetedSlot, SexType preference) {

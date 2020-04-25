@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
@@ -80,36 +81,38 @@ public class SexType implements XMLSaving {
 	/**
 	 * @return A crude description of the sex that took place while using this SexType.
 	 */
-	public String getPerformanceDescription(boolean isDom, GameCharacter performer, GameCharacter target) {
-		if(isDom) {
-			if(this.getPerformingSexArea().isPenetration()) {
-				if(this.getTargetedSexArea().isPenetration()) {
-					return UtilText.parse(performer, target, "[npc.Name] rubbed [npc.her] "+this.getPerformingSexArea().getName(performer)+" against [npc2.namePos] "+this.getTargetedSexArea().getName(target)+".");
-				} else {
-					return UtilText.parse(performer, target, "[npc.Name] used [npc.her] "+this.getPerformingSexArea().getName(performer)+" to fuck [npc2.namePos] "+this.getTargetedSexArea().getName(target)+".");
-				}
-				
-			} else {
-				if(this.getTargetedSexArea().isPenetration()) {
-					return UtilText.parse(performer, target, "[npc.Name] had [npc.her] "+this.getPerformingSexArea().getName(performer)+" fucked by [npc2.namePos] "+this.getTargetedSexArea().getName(target)+".");
-				} else {
-					return UtilText.parse(performer, target, "[npc.Name] rubbed [npc.her] "+this.getPerformingSexArea().getName(performer)+" against [npc2.namePos] "+this.getTargetedSexArea().getName(target)+".");
-				}
+	public String getPerformanceDescription(boolean pastTense, boolean extendedDescription, GameCharacter performer, GameCharacter target) {
+		SexAreaInterface areaPerforming = this.getPerformingSexArea();
+		SexAreaInterface areaTargeted = this.getTargetedSexArea();
+		
+		if(extendedDescription) {
+			SexPace performerPace = SexPace.DOM_NORMAL;
+			SexPace targetPace = SexPace.DOM_NORMAL;
+			if(Main.game.isInSex()) {
+				performerPace = Main.sex.getSexPace(performer);
+				targetPace = Main.sex.getSexPace(target);
 			}
-		} else {
-			if(this.getPerformingSexArea().isPenetration()) {
-				if(this.getTargetedSexArea().isPenetration()) {
-					return UtilText.parse(target, performer, "[npc.Name] rubbed [npc.her] "+this.getPerformingSexArea().getName(target)+" against [npc2.namePos] "+this.getTargetedSexArea().getName(performer)+".");
-				} else {
-					return UtilText.parse(target, performer, "[npc.Name] used [npc.her] "+this.getPerformingSexArea().getName(target)+" to fuck [npc2.namePos] "+this.getTargetedSexArea().getName(performer)+".");
-				}
-				
+			
+			String description = areaPerforming.getSexDescription(pastTense, performer, performerPace, target, targetPace, areaTargeted);
+			if(!description.isEmpty()) {
+				return description;
+			}
+			
+			System.err.println("SexType.getPerformanceDescription() error: No description found for "+areaPerforming+" targeting "+areaTargeted+"!");
+		}
+		
+		if(areaPerforming.isPenetration()) {
+			if(areaTargeted.isPenetration()) {
+				return UtilText.parse(performer, target, "[npc.Name] rubbed [npc.her] "+areaPerforming.getName(performer)+" against [npc2.namePos] "+areaTargeted.getName(target)+".");
 			} else {
-				if(this.getTargetedSexArea().isPenetration()) {
-					return UtilText.parse(target, performer, "[npc.Name] had [npc.her] "+this.getPerformingSexArea().getName(target)+" fucked by [npc2.namePos] "+this.getTargetedSexArea().getName(performer)+".");
-				} else {
-					return UtilText.parse(target, performer, "[npc.Name] rubbed [npc.her] "+this.getPerformingSexArea().getName(target)+" against [npc2.namePos] "+this.getTargetedSexArea().getName(performer)+".");
-				}
+				return UtilText.parse(performer, target, "[npc.Name] used [npc.her] "+areaPerforming.getName(performer)+" to fuck [npc2.namePos] "+areaTargeted.getName(target)+".");
+			}
+			
+		} else {
+			if(areaTargeted.isPenetration()) {
+				return UtilText.parse(performer, target, "[npc.Name] had [npc.her] "+areaPerforming.getName(performer)+" fucked by [npc2.namePos] "+areaTargeted.getName(target)+".");
+			} else {
+				return UtilText.parse(performer, target, "[npc.Name] rubbed [npc.her] "+areaPerforming.getName(performer)+" against [npc2.namePos] "+areaTargeted.getName(target)+".");
 			}
 		}
 	}
@@ -452,6 +455,8 @@ public class SexType implements XMLSaving {
 					break;
 				case FETISH_FOOT_RECEIVING:
 					oppositeFetishes.add(Fetish.FETISH_FOOT_GIVING);
+					break;
+				case FETISH_SIZE_QUEEN:
 					break;
 			}
 		}

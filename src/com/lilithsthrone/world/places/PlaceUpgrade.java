@@ -3,15 +3,17 @@ package com.lilithsthrone.world.places;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 
@@ -25,7 +27,7 @@ public enum PlaceUpgrade {
 	//**** MISC. UPGRADES ****//
 	
 	SLAVERY_ADMINISTRATION_CELLS(true,
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			"Dingy Cells",
 			"-",
 			"",
@@ -39,7 +41,7 @@ public enum PlaceUpgrade {
 			null),
 	
 	LILAYA_EMPTY_ROOM(true,
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			"Empty Room",
 			"Rose will return this room to its original state, which will render it unsuitable for housing any of your slaves.",
 			"This room is empty, and would need conversion work to be done if you'd like to house any of your slaves here.",
@@ -93,7 +95,7 @@ public enum PlaceUpgrade {
 	},
 	
 	LILAYA_ARTHUR_ROOM(true,
-			Colour.RACE_HUMAN,
+			PresetColour.RACE_HUMAN,
 			"Arthur's Room",
 			"Help Rose to move arcane instrumentation into this room in order to make it suitable for Arthur to stay in. <b>This is a permanent modification, and can never be undone!</b>",
 			"This room now belongs to Arthur, who uses it as his personal lab-cum-bedroom.",
@@ -138,7 +140,7 @@ public enum PlaceUpgrade {
 	//**** GUEST ROOM ****//
 	
 	LILAYA_GUEST_ROOM(true,
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			"Guest Room",
 			"Rose will prepare this room for one of your guests, making it suitable for housing one person."
 					+ " While not the most economical option, the occupant of this room will no doubt appreciate having their own personal space.",
@@ -189,7 +191,7 @@ public enum PlaceUpgrade {
 	//**** SLAVE UPGRADES ****//
 	
 	LILAYA_SLAVE_ROOM(true,
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			"Slave's Room",
 			"Rose will prepare this room just like she would for any other guest, making it suitable for housing just one of your slaves."
 					+ " While not the most economical choice if you plan on owning a large number of slaves, the occupant of this room will no doubt appreciate having their own personal space.",
@@ -253,7 +255,7 @@ public enum PlaceUpgrade {
 	},
 	
 	LILAYA_SLAVE_ROOM_DOUBLE(true,
-			Colour.BASE_MAGENTA,
+			PresetColour.BASE_MAGENTA,
 			"Double Slave Room",
 			"Rose will prepare this room just like she would for any other guest, making it suitable for housing two of your slaves."
 					+ " While more cost-effective than giving each slave their own room, the occupants will no doubt be a little frustrated at having to share their personal space with another slave,"
@@ -323,7 +325,7 @@ public enum PlaceUpgrade {
 	},
 	
 	LILAYA_SLAVE_ROOM_QUADRUPLE(true,
-			Colour.BASE_MAGENTA,
+			PresetColour.BASE_MAGENTA,
 			"Quadruple Slave Room",
 			"Rose will prepare this room just like she would for any other guest, making it suitable for housing four of your slaves."
 					+ " While a lot more cost-effective than giving each slave their own room, the occupants will no doubt be a little frustrated at having to share their personal space with another slave,"
@@ -398,7 +400,7 @@ public enum PlaceUpgrade {
 	},
 	
 	LILAYA_SLAVE_ROOM_DOWNGRADE_BED(false,
-			Colour.GENERIC_BAD,
+			PresetColour.GENERIC_BAD,
 			"Small Steel Bed",
 			"Replace the bed in this room with a steel-framed one, complete with an uncomfortable mattress, a hard pillow, and a thin blanket."
 					+ " These changes will leave no doubt in the occupant's mind that they're a slave.",
@@ -412,7 +414,23 @@ public enum PlaceUpgrade {
 			-0.1f,
 			0.2f,
 			null) {
-		
+		@Override
+		public String getRoomDescription(Cell c) {
+			GenericPlace place = c.getPlace();
+			
+			if(place.getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_QUADRUPLE)) {
+				return "The four single-sized beds in this room have all been replaced with basic, steel-framed ones, and are equipped with uncomfortable mattress, hard pillows, and thin blankets."
+						+ " Providing this room's occupants with such uncomfortable places to sleep will definitely help them to accept the fact that they're slaves, but at the same time, they're bound to dislike you more...";
+				
+			} else if(place.getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return "This room's pair of single-sized beds have been replaced with basic, steel-framed ones, and are equipped with uncomfortable mattress, hard pillows, and thin blankets."
+						+ " Providing this room's occupants with such uncomfortable places to sleep will definitely help them to accept the fact that they're slaves, but at the same time, they're bound to dislike you more...";
+				
+			} else {
+				return "A double size bed, complete with a comfortable mattress, fluffy pillows, and a warm duvet, sits against one side of the room."
+						+ " Providing this room's occupant with such an uncomfortable place to sleep will definitely help them to accept the fact that they're a slave, but at the same time, they're bound to dislike you more...";
+			}
+		}
 		@Override
 		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
 			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_UPGRADE_BED)) {
@@ -423,7 +441,7 @@ public enum PlaceUpgrade {
 	},
 	
 	LILAYA_SLAVE_ROOM_UPGRADE_BED(false,
-			Colour.GENERIC_GOOD,
+			PresetColour.GENERIC_GOOD,
 			"Double Size Bed",
 			"Install a double size bed in this room, along with a more comfortable mattress, fluffy pillows, and a warm duvet."
 					+ " The occupant of this room is sure to appreciate these upgrades.",
@@ -437,20 +455,23 @@ public enum PlaceUpgrade {
 			0.2f,
 			-0.1f,
 			null) {
-		
 		@Override
 		public String getRoomDescription(Cell c) {
 			GenericPlace place = c.getPlace();
 			
-			if(place.getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_DOUBLE)) {
-				return "This room's pair of single-sized beds have been replaced with a solitary double-sized one, complete with a comfortable mattress, fluffy pillows, and a warm duvet."
-						+ " The pair of slaves assigned to be this room's occupants will have to learn to live with the fact that they now sleep in the same bed...";
+			if(place.getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_QUADRUPLE)) {
+				return "The four single-sized beds in this room have all been replaced with double-sized ones, and come complete with comfortable mattresses, fluffy pillows, and warm duvets."
+						+ " Providing this room's occupants with such comfortable places to sleep will definitely get them to like you more, although such luxury might make them forget their place...";
+				
+			} else if(place.getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return "This room's pair of single-sized beds have been replaced with double-sized ones, and come complete with comfortable mattresses, fluffy pillows, and warm duvets."
+						+ " Providing this room's occupants with such comfortable places to sleep will definitely get them to like you more, although such luxury might make them forget their place...";
+				
 			} else {
 				return "A double size bed, complete with a comfortable mattress, fluffy pillows, and a warm duvet, sits against one side of the room."
 						+ " Providing this room's occupant with such a delightful place to sleep will definitely get them to like you more, although such luxury might make them forget their place...";
 			}
 		}
-		
 		@Override
 		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
 			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_DOWNGRADE_BED)) {
@@ -461,7 +482,7 @@ public enum PlaceUpgrade {
 	},
 	
 	LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER(false,
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			"Obedience Trainer",
 			"Lilaya has asked you if you'd consider installing one of her experimental devices in this room; a so-called 'obedience trainer'."
 					+ " This particular addition takes the form of a large, glowing crystal that is to be placed in the centre of the room."
@@ -480,25 +501,58 @@ public enum PlaceUpgrade {
 			0.4f,
 			null),
 	
+	LILAYA_SLAVE_ROOM_DOG_BOWLS(false,
+			PresetColour.GENERIC_BAD,
+			"Dog Bowls",
+			"Have meals served to this room's occupants in dog bowls placed upon the floor."
+					+ " Being forced to eat in such a humiliating fashion is sure to make your slaves dislike you, but it will also serve to emphasise the fact that they're nothing more than your property.",
+			"Metal dog bowls have been placed upon the floor in this room, and it's from out of these that this room's occupants are made to eat their meals."
+					+ " Being forced to eat in such a humiliating fashion is making your slaves dislike you, but it is also serving to emphasise the fact that they're nothing more than your property.",
+			"A series of metal dog bowls have been placed in one corner of the room, and it's from out of these that this room's occupants are expected to eat and drink."
+					+ " Being forced to get down on all fours and eat their meals like a dog is making your slaves dislike you, but at the same time, it's hammering home the fact that they're nothing more than your property...",
+			100,
+			0,
+			10,
+			0,
+			-0.2f,
+			0.25f,
+			null) {
+		@Override
+		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
+			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_ROOM_SERVICE)) {
+				return new Value<>(false, "The 'Room Service' upgrade must be removed before the 'Dog Bowls' can be used.");
+			}
+			return super.getExtraConditionalAvailability(cell);
+		}
+	},
+	
 	LILAYA_SLAVE_ROOM_ROOM_SERVICE(false,
-			Colour.GENERIC_ARCANE,
-			"Room service",
+			PresetColour.GENERIC_ARCANE,
+			"Room Service",
 			"You could offer this room's occupant unlimited room service."
 					+ " This isn't exactly how most owners treat their slaves, and while it's sure to make the occupant like you more, it's also going to cost quite a bit in upkeep, as well as have some negative effects on their obedience...",
-			"You've offered unlimited room service to the occupant of this room."
-					+ " It's definitely making them like you more, but it's also costing a fair amount in upkeep, and is having a negative effect on your slave's obedience...",
-			"A little push-trolley with a few empty silver plates and glasses stacked on top of it is evidence that the slave who lives here is taking full advantage of the unlimited room service you've offered to them."
-					+ " It's definitely making them like you more, but having such a luxury available to them is also having a negative impact on their obedience, not to mention the damage it's doing to your bank account...",
-			100,
+			"You've offered unlimited room service to the occupants of this room."
+					+ " It's definitely making them like you more, but it's also costing a fair amount in upkeep, and is having a negative effect on your slaves' obedience...",
+			"A little push-trolley with a few empty silver plates and glasses stacked on top of it is evidence that the slaves who live here are taking full advantage of the unlimited room service you've offered to them."
+					+ " It's definitely making them like you more, but having such a luxury available to them is also having a negative impact on their obedience, not to mention the damage it's doing to your finances...",
+			500,
 			0,
 			250,
 			0,
 			0.4f,
 			-0.2f,
-			null),
+			null) {
+		@Override
+		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
+			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_DOG_BOWLS)) {
+				return new Value<>(false, "The 'Dog Bowls' upgrade must be removed before the 'Room Service' can be used.");
+			}
+			return super.getExtraConditionalAvailability(cell);
+		}
+	},
 	
 	LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS(false,
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			"Arcane Instruments",
 			"Allow Lilaya to install arcane sensors in this room, so that she can gather useful data on your slave's aura."
 					+ " Your slaves will find this to be an intrusion on what little personal space they have, and their affection towards you will suffer as a result.",
@@ -518,7 +572,7 @@ public enum PlaceUpgrade {
 	//**** MILKING UPGRADES ****//
 	
 	LILAYA_MILKING_ROOM(true,
-			Colour.BASE_ORANGE,
+			PresetColour.BASE_ORANGE,
 			"Milking Room",
 			"Install milking machines in this room, allowing [style.colourGood(eight)] of your slaves to be assigned to work in here, each of which will be milked of their milk and cum.<br/>"
 					+ "<i>Milk: "+Units.fluid(MilkingRoom.BASE_MILKING_AMOUNT)+" per hour<br/>"
@@ -568,7 +622,7 @@ public enum PlaceUpgrade {
 	},
 	
 	LILAYA_MILKING_ROOM_ARTISAN_MILKERS(false,
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			"Artisan Milkers",
 			"You could replace the standard milking machines in this room with very expensive artisan ones."
 					+ " While being far more comfortable for the slaves that use them, these milking machines seem to be designed more for show than practicality, and deliver a slightly lower milk output than the regular machines.<br/>"
@@ -600,7 +654,7 @@ public enum PlaceUpgrade {
 	},
 	
 	LILAYA_MILKING_ROOM_INDUSTRIAL_MILKERS(false,
-			Colour.GENERIC_ARCANE,
+			PresetColour.GENERIC_ARCANE,
 			"Industrial Milkers",
 			"You could replace the standard milking machines in this room with industrial-grade ones."
 					+ " While being far less comfortable for the slaves that use them, these milking machines maximise both milk output and profit.<br/>"
@@ -632,7 +686,7 @@ public enum PlaceUpgrade {
 	},
 	
 	LILAYA_MILKING_ROOM_MILK_EFFICIENCY(false,
-			Colour.MILK,
+			PresetColour.MILK,
 			"Lact-o-Cups",
 			"The company that makes the milking machines also offers a selection of aftermarket upgrades. One of these is 'Lact-o-Cups', which promises to double the machine's maximum hourly milking efficiency.",
 			"You've added the optional 'Lact-o-Cups' to the milking machines in this room, doubling their maximum hourly milking efficiency.",
@@ -646,7 +700,7 @@ public enum PlaceUpgrade {
 			null),
 	
 	LILAYA_MILKING_ROOM_CUM_EFFICIENCY(false,
-			Colour.CUM,
+			PresetColour.CUM,
 			"Succ-u-Buses",
 			"The company that makes the milking machines also offers a selection of aftermarket upgrades. One of these is 'Succ-u-Buses', which promises to double the machine's maximum hourly cum-milking efficiency.",
 			"You've added the optional 'Succ-u-Buses' to the milking machines in this room, doubling their maximum hourly cum-milking efficiency.",
@@ -660,7 +714,7 @@ public enum PlaceUpgrade {
 			null),
 
 	LILAYA_MILKING_ROOM_GIRLCUM_EFFICIENCY(false,
-			Colour.GIRLCUM,
+			PresetColour.GIRLCUM,
 			"Vibro-Pumps",
 			"The company that makes the milking machines also offers a selection of aftermarket upgrades. One of these is 'Vibro-Pumps', which promises to double the machine's maximum hourly girlcum-milking efficiency.",
 			"You've added the optional 'Vibro-Pumps' to the milking machines in this room, doubling their maximum hourly girlcum-milking efficiency.",
@@ -677,7 +731,7 @@ public enum PlaceUpgrade {
 	//**** OFFICE UPGRADES ****//
 	
 	LILAYA_OFFICE(true,
-			Colour.BASE_TEAL,
+			PresetColour.BASE_TEAL,
 			"Office",
 			"Due to the heavily-regulated exotic materials which Lilaya regularly orders for use in her laboratory, she has a significant amount of paperwork which needs to be completed each month."
 					+ " By having Rose replace this room's furniture with desks, chairs, and filing cabinets, you could have it turned into an office space in which [style.colourGood(four)] of your slaves could be paid to complete this work for her."
@@ -721,15 +775,15 @@ public enum PlaceUpgrade {
 	},
 	
 	LILAYA_OFFICE_EXECUTIVE_UPGRADE(false,
-			Colour.BASE_GOLD,
+			PresetColour.BASE_GOLD,
 			"Executive Office",
 			"Tell Rose to outfit this office with the most luxurious and extravagant furnishings she can get her hands on."
 					+ " Although sure to instill a sense of respect in any worker who's assigned to this office, the finest furniture in Dominion doesn't exactly come cheap...",
 			"You've had this office fitted out with the most upmarket furnishings available, which are sure to instill a sense of respect for you in anyone who's assigned to work here.",
 			"You've had this office outfitted with the most luxurious and extravagantly opulent furnishings which money can buy."
 					+ " Each of the four work stations have their own masterfully carved mahogany desk, and fixed to the walls behind them are shelves filled with artisanal leather-bound record books.",
-			500000,
-			-200000,
+			500_000,
+			-200_000,
 			50,
 			0,
 			0.25f,
@@ -737,7 +791,7 @@ public enum PlaceUpgrade {
 			null),
 	
 	LILAYA_OFFICE_COFFEE_MACHINE(false,
-			Colour.BASE_BROWN_DARK,
+			PresetColour.BASE_BROWN_DARK,
 			"Coffee Machine",
 			"Rose has informed you that she knows of an excellent arcane-powered coffee machine available for purchase."
 					+ " Capable of dispensing a wide range of both hot and cold caffeinated beverages, such a machine is sure to be appreciated by the workers assigned to this office.",
@@ -752,7 +806,7 @@ public enum PlaceUpgrade {
 			null),
 	
 	LILAYA_OFFICE_PARTITIONING_WALLS(false,
-			Colour.BASE_TAN,
+			PresetColour.BASE_TAN,
 			"Partitioning Walls",
 			"You could have some partitioning walls set up in this office, which would give each of the four potential workers assigned here their own personal space in which to get on with their work.",
 			"You've had several partitioning walls set up in this office, which afford each worker a little more privacy and peace in which to get on with the work that's assigned to them.",
@@ -768,7 +822,7 @@ public enum PlaceUpgrade {
 	// Player's room:
 
 	LILAYA_PLAYER_ROOM_BED(false,
-			Colour.BASE_GOLD,
+			PresetColour.BASE_GOLD,
 			"Emperor-Size Bed",
 			"Have your current, king-size bed replaced by a huge, 'emperor-size' one. [style.italicsGood(This will improve the 'well rested' bonus gained from resting in your room.)]",
 			"Your old, king-size bed has been replaced by a huge, 'emperor-size' one. [style.italicsGood(The 'well rested' bonus gained from resting in your room has been improved!)]",
@@ -787,7 +841,7 @@ public enum PlaceUpgrade {
 	},
 
 	LILAYA_PLAYER_ROOM_BATH(false,
-			Colour.BASE_BLUE_LIGHT,
+			PresetColour.BASE_BLUE_LIGHT,
 			"Bathroom Extension",
 			"By knocking through into an adjacent storage room, it would be possible to greatly extend the size of your bathroom."
 					+ " With this extra space, you could turn it into a private spa, installing not only a huge new bathtub, but also a sauna and self-contained steam room.",
@@ -864,6 +918,7 @@ public enum PlaceUpgrade {
 				
 		slaveQuartersUpgradesSingle = Util.newArrayListOfValues(
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOG_BOWLS,
 				
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED,
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED,
@@ -878,6 +933,7 @@ public enum PlaceUpgrade {
 		
 		slaveQuartersUpgradesDouble = Util.newArrayListOfValues(
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOG_BOWLS,
 				
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED,
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED,
@@ -891,6 +947,7 @@ public enum PlaceUpgrade {
 		
 		slaveQuartersUpgradesQuadruple = Util.newArrayListOfValues(
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE,
+				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOG_BOWLS,
 				
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED,
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED,
@@ -1026,10 +1083,19 @@ public enum PlaceUpgrade {
 	}
 
 	public int getInstallCost() {
+		if(Main.game.getPlayer().hasTrait(Perk.JOB_PLAYER_CONSTRUCTION_WORKER, true)) {
+			return installCost/2;
+		}
 		return installCost;
 	}
 
 	public int getRemovalCost() {
+		if(Main.game.getPlayer().hasTrait(Perk.JOB_PLAYER_CONSTRUCTION_WORKER, true)) {
+			if(removalCost>0) {
+				return removalCost;
+			}
+			return Math.max(-(installCost/2), removalCost);
+		}
 		return removalCost;
 	}
 

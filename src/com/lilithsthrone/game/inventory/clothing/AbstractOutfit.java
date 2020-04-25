@@ -20,12 +20,15 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.ColourListPresets;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.ColourListPresets;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldType;
 
 /**
@@ -40,7 +43,7 @@ public abstract class AbstractOutfit {
 	private String filePath;
 	private String name;
 	private String description;
-	private List<WorldType> worldTypes;
+	private List<AbstractWorldType> worldTypes;
 	private Femininity femininity;
 	private List<OutfitType> outfitTypes;
 	private List<LegConfiguration> acceptableLegConfigurations;
@@ -70,7 +73,7 @@ public abstract class AbstractOutfit {
 					.getMandatoryFirstOf("worldTypes") 
 					.getAllOf("world") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
 					.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
-					.map( e -> WorldType.valueOf(e.getTextContent())) // Take every element and do something with them, return a Stream of results after this action. Here we load outfit types and get Stream<OutfitType>
+					.map( e -> WorldType.getWorldTypeFromId(e.getTextContent())) // Take every element and do something with them, return a Stream of results after this action. Here we load outfit types and get Stream<OutfitType>
 					.filter(Objects::nonNull) // Ensure that we only add non-null effects
 					.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<OutfitType> we need! 
 			}
@@ -206,7 +209,7 @@ public abstract class AbstractOutfit {
 									if(text.startsWith("presetColourGroup")) {
 										randomColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
 									} else {
-										randomColours.add(Colour.valueOf(text));
+										randomColours.add(PresetColour.getColourFromId(text));
 									}
 								} catch(Exception ex) {
 									// Just catch and continue when there are no more clothingConditional elements.
@@ -243,7 +246,11 @@ public abstract class AbstractOutfit {
 							weapons.add(getWeapon(e));
 						}
 						if(!weapons.isEmpty()) {
-							character.equipMainWeaponFromNowhere(Util.randomItemFrom(weapons));
+							AbstractWeapon wep = Util.randomItemFrom(weapons);
+							character.equipMainWeaponFromNowhere(wep);
+							if(wep.getWeaponType().getArcaneCost()>0) {
+								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(2+Util.random.nextInt(9)), false); // GIve them enough essences for 2-10 shots
+							}
 						}
 					} catch(Exception e){
 						e.printStackTrace();
@@ -263,7 +270,11 @@ public abstract class AbstractOutfit {
 							weapons.add(getWeapon(e));
 						}
 						if(!weapons.isEmpty()) {
-							character.equipOffhandWeaponFromNowhere(Util.randomItemFrom(weapons));
+							AbstractWeapon wep = Util.randomItemFrom(weapons);
+							character.equipOffhandWeaponFromNowhere(wep);
+							if(wep.getWeaponType().getArcaneCost()>0) {
+								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(2+Util.random.nextInt(9)), false); // GIve them enough essences for 2-10 shots
+							}
 						}
 					} catch(Exception e){
 						e.printStackTrace();
@@ -586,7 +597,7 @@ public abstract class AbstractOutfit {
 						if(text.startsWith("presetColourGroup")) {
 							primaryColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
 						} else {
-							primaryColours.add(Colour.valueOf(text));
+							primaryColours.add(PresetColour.getColourFromId(text));
 						}
 					}
 				}
@@ -608,7 +619,7 @@ public abstract class AbstractOutfit {
 						if(text.startsWith("presetColourGroup")) {
 							secondaryColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
 						} else {
-							secondaryColours.add(Colour.valueOf(text));
+							secondaryColours.add(PresetColour.getColourFromId(text));
 						}
 					}
 				}
@@ -630,7 +641,7 @@ public abstract class AbstractOutfit {
 						if(text.startsWith("presetColourGroup")) {
 							tertiaryColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
 						} else {
-							tertiaryColours.add(Colour.valueOf(text));
+							tertiaryColours.add(PresetColour.getColourFromId(text));
 						}
 					}
 				}
@@ -670,7 +681,7 @@ public abstract class AbstractOutfit {
 					if(text.startsWith("presetColourGroup")) {
 						primaryColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
 					} else {
-						primaryColours.add(Colour.valueOf(text));
+						primaryColours.add(PresetColour.getColourFromId(text));
 					}
 				}
 			} catch(Exception ex) {
@@ -684,7 +695,7 @@ public abstract class AbstractOutfit {
 					if(text.startsWith("presetColourGroup")) {
 						secondaryColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
 					} else {
-						secondaryColours.add(Colour.valueOf(text));
+						secondaryColours.add(PresetColour.getColourFromId(text));
 					}
 				}
 			} catch(Exception ex) {
@@ -730,7 +741,7 @@ public abstract class AbstractOutfit {
 		return femininity;
 	}
 
-	public List<WorldType> getWorldTypes() {
+	public List<AbstractWorldType> getWorldTypes() {
 		return worldTypes;
 	}
 

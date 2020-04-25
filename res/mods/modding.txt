@@ -12,7 +12,7 @@ Just to clarify, (yourName) should be whatever nickname the mod creator is using
 
 Within these mod folders (which you create), place the .xml and .svg files that are needed for each piece of clothing/tattoo.
 
-I've included at least one example in each directory for you to reference. If you need any help, there is a 'mod-discussion' channel in the LT discord. ^^
+I've included at least one example in each directory for you to reference (the 'clothing' example is in the 'template' folder). If you need any help, there is a 'mod-discussion' channel in the LT discord. ^^
 
 
 

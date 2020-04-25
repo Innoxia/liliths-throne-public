@@ -6,7 +6,7 @@
 		Keen to put an end to your lengthy pursuit of Arthur, you once again find yourself travelling through the district of Dominion known as 'Demon Home'. Following the directions that you received from Scarlett, you soon locate Zaranix's house, which lies only a couple of streets away from your elusive quarry's apartment building. With a wry grin, you take a moment to reflect on the fact that Arthur was right under your nose this whole time, before focusing your attention on the building in front of you.
 	</p>
 	<p>
-		Much like all the other buildings in this area of the city, Zaranix's home takes the form of a grand, regency-style town-house. Unlike the majority of the other buildings, however, his home has what appears to be a modestly sized private garden adjoining the property to the right-hand side. A cast-iron fence, standing at around eight-feet tall, separates the garden from the street in which you're standing, but despite its height, you're sure that you could climb over it if you wanted to try and sneak inside.
+		Much like all the other buildings in this area of the city, Zaranix's home takes the form of a grand, regency-style town-house. Unlike the majority of the other buildings, however, his home has what appears to be a modestly sized private garden adjoining the property to the right-hand side. A cast-iron fence, standing at around [units.size(250)], separates the garden from the street in which you're standing, but despite its height, you're sure that you could climb over it if you wanted to try and sneak inside.
 	</p>
 	<p>
 		#IF(game.isExtendedWorkTime())
@@ -318,7 +318,7 @@
 				Wasting no time, Amber clicks her fingers once more, pointing down at her side as she motions for you to follow her like a dog. Looking across to your companion, she then snarls, [amber.speech(You stay here, bitch. If you cause any trouble, I'll be sure to make you pay.)]
 			</p>
 			<p>
-				Eager to get this whole business with Arthur settled once and for all, you tell [companion.name] to do as Amber says, before obediently moving forwards alongside the succubus maid. Giving you one last disgusted glance, Amber sets off into the house, with you pathetically
+				Eager to get this whole business with Arthur settled once and for all, you tell [com.name] to do as Amber says, before obediently moving forwards alongside the succubus maid. Giving you one last disgusted glance, Amber sets off into the house, with you pathetically
 				#IF(pc.isTaur())
 					 moving
 				#ELSE
@@ -378,7 +378,7 @@
 		Doing as you're told, your remain in place, the two of you waiting in silence as you anticipate the arrival of Zaranix. Afforded a moment in which to take a closer look at Amber, you glance over in her direction. Her luminescent hair and eyes are quite obviously the features from which she gets her name, and combined with her almost pitch-black ebony skin, you find yourself comparing her appearance to that of a volcano; an image all the more appropriate considering her fiery personality.
 	</p>
 	<p>
-		Obviously hearing her master's approach, she suddenly leans forwards and opens the door. As the maid steps aside, the figure of Zaranix strides forwards into the room. At well over six feet tall, well dressed in a grey shirt and smart trousers, and with a broad chest and purple-skinned, muscular body, the incubus cuts an impressive figure. He strides over towards the sofa opposite to where you're sitting, and, clearly having missed you at first, he does a double-take as he catches sight of you.
+		Obviously hearing her master's approach, she suddenly leans forwards and opens the door. As the maid steps aside, the figure of Zaranix strides forwards into the room. Standing at well over [units.size(183)], well dressed in a grey shirt and smart trousers, and with a broad chest and purple-skinned, muscular body, the incubus cuts an impressive figure. He strides over towards the sofa opposite to where you're sitting, and, clearly having missed you at first, he does a double-take as he catches sight of you.
 	</p>
 	<p>
 		[zaranix.speech(Hah!)] he cries, not at all in a mean-spirited manner, but in one more of mild surprise. [zaranix.speech(I'll wager this is Amber's doing! Well, if you're comfortable down there, no need to move!)]
@@ -400,7 +400,7 @@
 		She suddenly cuts her sentence off and freezes mid-stride. Her luminescent hair and eyes still burning with the same fury as that of her volcanic personality, Amber throws one last scowl your way before turning around and rushing over to the door through which you entered.
 	</p>
 	<p>
-		Obviously having heard her master's approach, she leans forwards and opens the door just in time to allow the figure of Zaranix to stride forwards into the room. At well over six feet tall, well dressed in a grey shirt and smart trousers, and with a broad chest and purple-skinned, muscular body, the incubus cuts an impressive figure. He strides over towards the sofa opposite to the one upon which you're sitting, and as he approaches, he looks over in your direction.
+		Obviously having heard her master's approach, she leans forwards and opens the door just in time to allow the figure of Zaranix to stride forwards into the room. Standing at well over [units.size(183)], well dressed in a grey shirt and smart trousers, and with a broad chest and purple-skinned, muscular body, the incubus cuts an impressive figure. He strides over towards the sofa opposite to the one upon which you're sitting, and as he approaches, he looks over in your direction.
 	</p>
 	<p>
 		[zaranix.speech(Greetings!)] he cries in a booming voice. [zaranix.speech(I hope Amber hasn't been too much trouble for you!)]

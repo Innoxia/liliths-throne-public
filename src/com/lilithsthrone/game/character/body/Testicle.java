@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.body;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +11,9 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
@@ -325,7 +324,7 @@ public class Testicle implements BodyPartInterface {
 		if (cumChange <= 0) {
 			return "";
 		} else {
-			return UtilText.parse(owner, "<p style='text-align:center;'><i style='color:"+Colour.CUM.toWebHexString()+";'>"
+			return UtilText.parse(owner, "<p style='text-align:center;'><i style='color:"+PresetColour.CUM.toWebHexString()+";'>"
 					+ UtilText.returnStringAtRandom(
 							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] squirts out of [npc.her] [npc.cock+].",
 							Units.fluid(cumChange, Units.UnitType.LONG)+" of [npc.cum+] shoots out of [npc.her] [npc.cock+].",

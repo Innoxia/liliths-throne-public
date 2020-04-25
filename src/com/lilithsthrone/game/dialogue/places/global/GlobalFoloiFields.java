@@ -39,7 +39,7 @@ public class GlobalFoloiFields {
 								PlaceType.DOMINION_PLAZA,//Main.game.getWorlds().get(wt).getCell(pt).getLocation(),
 								false);
 						
-						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 					}
 				};
 			

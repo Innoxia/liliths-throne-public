@@ -123,7 +123,12 @@
 		</blockedPartsList>
 		
 		<!-- Inventory slots that are incompatible with this clothing. The game's swimsuit makes use of this, and, while fitting into the 'CHEST' slot, also blocks 'GROIN' and 'STOMACH'. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java 
-			- Example: You need to define an "incompatibleSlots" element for each slot that the clothing can be equipped into, so here, I've defined an empty one for "SOCK", and another empty one for "HAND".-->
+			- Example: You need to define an "incompatibleSlots" element for each slot that the clothing can be equipped into, so here, I've defined an empty one for "SOCK", and another empty one for "HAND".
+			- Example 2: If you want to add slots, then use the element like so (which would block the FINGER slot when equipped into the WRIST slot): 
+				<incompatibleSlots slot="WRIST">
+					<slot>FINGER</slot>
+				</incompatibleSlots>
+		-->
 		<incompatibleSlots slot="SOCK"/>
 		<incompatibleSlots slot="HAND"/>
 		
@@ -211,7 +216,39 @@
 			<tag>HINDERS_ARM_MOVEMENT</tag>
 		</itemTags>
 	</coreAttributes>
-
+	
+	
+	<!-- See the 'res/clothing/innoxia/buttPLugs/butt_plug.xml' file for a working example of this: -->
+	<sexAttributesSelf> <!-- These are the sex attributes applicable to the wearer (i.e. when inserted in the wearer's orifices or when the wearer is penetrating this clothing type. Mainly used for insertable dildos.) -->
+		<penetration/> <!-- This item has no penetration stats -->
+		<!-- If you want an item to be able to be used as a self-insertable sex-toy, use this format:
+		<penetration>
+			<length>15</length> cm value
+			<girth>4</girth> 0-4 corresponding to PenetrationGirth Enum values
+			<modifiers> For adding modifiers, use this format below:
+				<mod>VEINY</mod> Drawn from PenetrationModifier Enum values
+			</modifiers>
+		</penetration>
+		-->
+		<orifice/> <!-- This item has no orifice stats -->
+		<!-- Warning! As of v0.3.7, orifice sex toy support is not fully implemented into the game! -->
+		<!--
+		<orifice>
+			<depth>0</depth> cm value
+			<capacity>0</capacity> cm value corresponding to diameter of orifice
+			<elasticity>3</elasticity> 0-7 corresponding to OrificeElasticity Enum values
+			<plasticity>3</plasticity> 0-7 corresponding to OrificePlasticity Enum values
+			<wetness>0</wetness> 0-7 corresponding to Wetness Enum values
+			<modifiers>
+				<mod>PUFFY</mod> Drawn from OrificeModifier Enum values
+			</modifiers>
+		</orifice>
+		-->
+	</sexAttributesSelf>
+	
+	<!-- See the 'res/clothing/norin/strapless_dildo/strapless_dildo.xml' file for a working example of this: -->
+	<sexAttributesOther/> <!-- These are the sex attributes applicable to someone who is interacting with the wearer (i.e. the penetration/orifice which is available for people other than the wearer. Mainly used for strap-on dildos.) -->
+	
 	
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	<!-- - Example: This is the equip text for when socks are equipped to the "SOCK" slot:-->

@@ -4,34 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.AnusType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAnusType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.3.1
+ * @version 0.3.7
  * @author Innoxia
  */
 public class Anus implements BodyPartInterface {
-
 	
 	// Asshole variables:
-	protected AnusType type;
+	protected AbstractAnusType type;
 	protected OrificeAnus orificeAnus;
 	protected boolean bleached;
 	protected BodyHair assHair;
 
-	public Anus(AnusType type, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
+	public Anus(AbstractAnusType type, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		
-		orificeAnus = new OrificeAnus(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
+		orificeAnus = new OrificeAnus(wetness, capacity, depth, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
 		
 		bleached = false;
 		assHair = BodyHair.ZERO_NONE;
@@ -66,8 +64,8 @@ public class Anus implements BodyPartInterface {
 		}
 		
 		String wetnessDescriptor = orificeAnus.getWetness(owner).getDescriptor();
-		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
-			if(Sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.ANUS)) {
+		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(owner)) {
+			if(Main.sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.ANUS)) {
 				wetnessDescriptor = "wet";
 			}
 		}
@@ -79,7 +77,7 @@ public class Anus implements BodyPartInterface {
 		if(owner.isAnusBestial()) {
 			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
 					"feral",
-					owner.getAssRace().getName(true)+"-",
+					owner.getAssRace().getName(owner, true)+"-",
 					"bestial",
 					"animalistic")));
 		} else {
@@ -92,11 +90,11 @@ public class Anus implements BodyPartInterface {
 	}
 
 	@Override
-	public AnusType getType() {
+	public AbstractAnusType getType() {
 		return type;
 	}
 	
-	public void setType(AnusType type) {
+	public void setType(AbstractAnusType type) {
 		this.type = type;
 	}
 	
@@ -117,19 +115,12 @@ public class Anus implements BodyPartInterface {
 		this.bleached = bleached;
 		
 		if(bleached) {
-			if(owner.isPlayer()) {
-				return "<p>[style.boldTfSex(Your asshole is now bleached!)]</p>";
-			} else {
-				return UtilText.parse(owner,
-						"<p>[style.boldTfSex([npc.NamePos] asshole is now bleached!)]</p>");
-			}
+			return UtilText.parse(owner,
+					"<p>[style.boldTfSex([npc.NamePos] asshole is now bleached!)]</p>");
+			
 		} else {
-			if(owner.isPlayer()) {
-				return "<p>[style.boldTfSex(Your asshole is no longer bleached!)]</p>";
-			} else {
-				return UtilText.parse(owner,
-						"<p>[style.boldTfSex([npc.NamePos] asshole is no longer bleached!)]</p>");
-			}
+			return UtilText.parse(owner,
+					"<p>[style.boldTfSex([npc.NamePos] asshole is no longer bleached!)]</p>");
 		}
 	}
 

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-
 import java.util.List;
 
 import com.lilithsthrone.game.character.npc.NPC;
@@ -11,6 +10,7 @@ import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldType;
 
 /**
@@ -21,7 +21,7 @@ import com.lilithsthrone.world.WorldType;
 public class OffspringMapDialogue {
 	
 	private static List<NPC> getOffspringList() {
-		WorldType worldType = Main.game.getPlayer().getWorldLocation();
+		AbstractWorldType worldType = Main.game.getPlayer().getWorldLocation();
 		
 		return Main.game.getOffspringNotSpawned(npc->
 			npc.getSubspecies().getWorldLocations().keySet().contains(worldType)
@@ -31,6 +31,7 @@ public class OffspringMapDialogue {
 				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
 						&& (npc.getSubspecies()==Subspecies.ANGEL
 							|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
+							|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
 							|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC))
 				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
 						&& (npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
@@ -86,7 +87,7 @@ public class OffspringMapDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return new Response("Back", "Decide not to look for any of your offspring in this location after all.", Main.game.getDefaultDialogueNoEncounter());
+				return new Response("Back", "Decide not to look for any of your offspring in this location after all.", Main.game.getDefaultDialogue(false));
 				
 			} else if(index-1 < Main.game.getOffspringNotSpawned(npc->true).size()) {
 				NPC offspring = Main.game.getOffspringNotSpawned(npc->true).get(index-1);

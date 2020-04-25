@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -126,7 +127,7 @@ public class NPCOffspring extends NPC {
 
 		initHealthAndManaToMax();
 
-		this.setEnslavementDialogue(GenericOffspringDialogue.ENSLAVEMENT_DIALOGUE, true);
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 	}
 	
 	
@@ -141,21 +142,8 @@ public class NPCOffspring extends NPC {
 		} else if(Math.abs((int) ChronoUnit.DAYS.between(this.getConceptionDate(), this.getBirthday()))>300) {
 			this.setConceptionDate(this.getBirthday().minusMonths(2));
 		}
-		this.setEnslavementDialogue(GenericOffspringDialogue.ENSLAVEMENT_DIALOGUE, true);
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 	}
-
-//	@Override
-//	public DialogueNode getEnslavementDialogue(AbstractClothing enslavementClothing) {
-//		SlaveDialogue.setEnslavementTarget(this);
-//		this.enslavementClothing = enslavementClothing;
-//		
-//		return GenericOffspringDialogue.ENSLAVEMENT_DIALOGUE;
-//	}
-	
-//	@Override
-//	public boolean isAbleToBeEnslaved() {
-//		return this.getSubspecies()!=Subspecies.DEMON;
-//	}
 	
 	@Override
 	public void setStartingBody(boolean setPersona) {

@@ -68,7 +68,19 @@ public enum Occupation {
 	NPC_GANG_LEADER(Perk.JOB_GANG_LEADER, "gang leader", "[npc.NameIsFull] the leader of a notorious criminal gang.", OccupationTag.HAS_PREREQUISITES),
 	NPC_GANG_BODY_GUARD(Perk.JOB_GANG_BODY_GUARD, "gang body guard", "[npc.NameIsFull] a personal body guard of her gang's leader.", OccupationTag.HAS_PREREQUISITES),
 	NPC_GANG_MEMBER(Perk.JOB_GANG_MEMBER, "gang member", "[npc.NameIsFull] a member of a notorious criminal gang.", OccupationTag.HAS_PREREQUISITES),
-
+	
+	NPC_STABLE_MISTRESS(Perk.JOB_NPC_STABLE_MISTRESS, "stable mistress", "[npc.NameIsFull] responsible for the training and care of a large number of centaur slaves.") {
+		@Override
+		public String getName(GameCharacter character) {
+			if(character==null) {
+				return "stable manager";
+			} else if(character.isFeminine()) {
+				return "stable mistress";
+			}
+			return "stable master";
+		}
+	},
+	
 	NPC_LYSSIETH_GUARD(Perk.JOB_LYSSIETH_GUARD, "Lyssieth's guard", "[npc.NameIsFull] one of Lyssieth's unrecognised daughters, and has been assigned to guard her mother's palace.", OccupationTag.HAS_PREREQUISITES),
 	
 	NPC_ELDER_LILIN(Perk.JOB_ELDER_LILIN, "elder lilin", "[npc.NameIs] one of the seven elder lilin; the recognised daughters of Lilith herself.", OccupationTag.HAS_PREREQUISITES),
@@ -160,7 +172,17 @@ public enum Occupation {
 		}
 	},
 
-	NPC_OFFICE_WORKER(Perk.JOB_MISC, "office worker", "-"),
+	NPC_OFFICE_WORKER(Perk.JOB_NPC_OFFICE_WORKER, "office worker", "[npc.NameHasFull] works for a large business, and [npc.has] manage [npc.her] subordinates, company finances, and difficult customers on a daily basis.") {
+		@Override
+		public String getName(GameCharacter character) {
+			if(character==null) {
+				return "office worker";
+			} else if(character.isFeminine()) {
+				return "businesswoman";
+			}
+			return "businessman";
+		}
+	},
 	
 	NPC_RECEPTIONIST(Perk.JOB_MISC, "receptionist", "-"),
 	
@@ -195,43 +217,58 @@ public enum Occupation {
 
 	UNEMPLOYED(Perk.JOB_UNEMPLOYED,
 			"unemployed",
-			"You've been out of work for a little while now.", OccupationTag.PLAYER_ONLY),
+			"You've been out of work for a little while now.",
+			OccupationTag.PLAYER_ONLY),
 	
 	OFFICE_WORKER(Perk.JOB_OFFICE_WORKER,
 			"office worker",
-			"You work in a local office, handling paperwork, answering phonecalls and emails, and generally doing a little bit of everything.", OccupationTag.PLAYER_ONLY),
+			"You work in a local office, handling paperwork, answering phonecalls and emails, and generally doing a little bit of everything.",
+			OccupationTag.PLAYER_ONLY),
 	
 	STUDENT(Perk.JOB_STUDENT,
 			"student",
-			"You're a student at the city's university, but you haven't quite decided what to take as your major just yet.", OccupationTag.PLAYER_ONLY),
+			"You're a student at the city's university, but you haven't quite decided what to take as your major just yet.",
+			OccupationTag.PLAYER_ONLY),
 
 	MUSICIAN(Perk.JOB_MUSICIAN,
 			"musician",
-			"You're a musician, and as well as being able to play a wide variety of instruments, you are also a very good singer.", OccupationTag.PLAYER_ONLY),
+			"You're a musician, and as well as being able to play a wide variety of instruments, you are also a very good singer.",
+			OccupationTag.PLAYER_ONLY),
 	
 	TEACHER(Perk.JOB_TEACHER,
 			"teacher",
-			"You're a teacher, and have been working at a local school for a few years.", OccupationTag.PLAYER_ONLY),
+			"You're a teacher, and have been working at a local school for a few years.",
+			OccupationTag.PLAYER_ONLY),
 	
 	WRITER(Perk.JOB_WRITER,
 			"writer",
-			"You're a writer, and have been working on your latest novel for the last few months.", OccupationTag.PLAYER_ONLY),
+			"You're a writer, and have been working on your latest novel for the last few months.",
+			OccupationTag.PLAYER_ONLY),
 	
 	CHEF(Perk.JOB_CHEF,
 			"chef",
-			"You're the head chef at a local restaurant.", OccupationTag.PLAYER_ONLY),
+			"You're the head chef at a local restaurant.",
+			OccupationTag.PLAYER_ONLY),
+
+	CONSTRUCTION_WORKER(Perk.JOB_PLAYER_CONSTRUCTION_WORKER,
+			"construction worker",
+			"You're an experienced and highly skilled construction worker.",
+			OccupationTag.PLAYER_ONLY),
 	
 	SOLDIER(Perk.JOB_SOLDIER,
 			"soldier",
-			"You're a soldier, and are currently making the most of your leave.", OccupationTag.PLAYER_ONLY),
+			"You're a soldier, and are currently making the most of your leave.",
+			OccupationTag.PLAYER_ONLY),
 	
 	ATHLETE(Perk.JOB_ATHLETE,
 			"athlete",
-			"You're an athlete, and are currently training for your next big event.", OccupationTag.PLAYER_ONLY),
+			"You're an athlete, and are currently training for your next big event.",
+			OccupationTag.PLAYER_ONLY),
 	
 	MAID(Perk.JOB_MAID,
 		"maid",
-		"You're a maid, hired by a wealthy family to keep their mansion clean.", OccupationTag.PLAYER_ONLY) {
+		"You're a maid, hired by a wealthy family to keep their mansion clean.",
+		OccupationTag.PLAYER_ONLY) {
 		@Override
 		public boolean isAvailable(GameCharacter character) {
 			return character.isFeminine();
@@ -240,7 +277,8 @@ public enum Occupation {
 	
 	BUTLER(Perk.JOB_BUTLER,
 			"butler",
-			"You're a butler, hired by a wealthy family to oversee the maids and deal with any visitors.", OccupationTag.PLAYER_ONLY) {
+			"You're a butler, hired by a wealthy family to oversee the maids and deal with any visitors.",
+			OccupationTag.PLAYER_ONLY) {
 		@Override
 		public boolean isAvailable(GameCharacter character) {
 			return !character.isFeminine();
@@ -318,7 +356,7 @@ public enum Occupation {
 		return associatedPerk;
 	}
 	
-	public String getName() {
+	public String getName(GameCharacter character) {
 		return name;
 	}
 

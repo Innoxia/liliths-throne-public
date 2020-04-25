@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
-import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -8,11 +9,11 @@ import com.lilithsthrone.utils.Colour;
  * @author Innoxia
  */
 public enum Femininity {
-	MASCULINE_STRONG(0, 19, Colour.MASCULINE_PLUS),
-	MASCULINE(20, 39, Colour.MASCULINE),
-	ANDROGYNOUS(40, 59, Colour.ANDROGYNOUS),
-	FEMININE(60, 79, Colour.FEMININE),
-	FEMININE_STRONG(80, 100, Colour.FEMININE_PLUS);
+	MASCULINE_STRONG(0, 19, PresetColour.MASCULINE_PLUS),
+	MASCULINE(20, 39, PresetColour.MASCULINE),
+	ANDROGYNOUS(40, 59, PresetColour.ANDROGYNOUS),
+	FEMININE(60, 79, PresetColour.FEMININE),
+	FEMININE_STRONG(80, 100, PresetColour.FEMININE_PLUS);
 
 	private int minimumFemininity, maximumFemininity;
 	private Colour colour;

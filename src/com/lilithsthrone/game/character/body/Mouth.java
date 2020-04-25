@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.MouthType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractMouthType;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -15,25 +15,24 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.3.1
+ * @version 0.3.7
  * @author Innoxia
  */
 public class Mouth implements BodyPartInterface {
-
 	
-	protected MouthType type;
+	protected AbstractMouthType type;
 	protected OrificeMouth orificeMouth;
 	protected int lipSize;
 	protected boolean piercedLip;
 
-	public Mouth(MouthType type, int lipSize, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
+	public Mouth(AbstractMouthType type, int lipSize, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.lipSize = lipSize;
-		orificeMouth = new OrificeMouth(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
+		orificeMouth = new OrificeMouth(wetness, capacity, depth, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
 	}
 
 	@Override
-	public MouthType getType() {
+	public AbstractMouthType getType() {
 		return type;
 	}
 
@@ -48,7 +47,14 @@ public class Mouth implements BodyPartInterface {
 
 	@Override
 	public String getName(GameCharacter owner) {
-		return getNamePlural(owner);
+		return getNameSingular(owner);
+	}
+	
+	@Override
+	public String getName(GameCharacter gc, boolean withDescriptor) {
+		String name = getName(gc);
+		return //UtilText.generateSingularDeterminer(name)+" "+
+				name;
 	}
 
 	@Override
@@ -98,7 +104,7 @@ public class Mouth implements BodyPartInterface {
 		return Util.randomItemFrom(descriptorList);
 	}
 
-	public void setType(MouthType type) {
+	public void setType(AbstractMouthType type) {
 		this.type = type;
 	}
 

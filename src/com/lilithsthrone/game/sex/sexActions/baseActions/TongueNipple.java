@@ -6,13 +6,13 @@ import java.util.Map;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -42,21 +42,22 @@ public class TongueNipple {
 		
 		@Override
 		public String getActionTitle() {
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Suckle lipples";
 					} else {
 						return "Kiss lipples";
 					}
+				case INVERTED:
 				case NORMAL:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Suckle nipples";
 					} else {
 						return "Kiss nipples";
 					}
 				case VAGINA:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Suckle nipple-cunts";
 					} else {
 						return "Kiss nipple-cunts";
@@ -68,10 +69,11 @@ public class TongueNipple {
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
 					sb.append("Press your [npc.lips] up to [npc2.namePos] [npc2.breast+] and start kissing [npc2.her] lip-like nipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Press your [npc.lips] up to [npc2.namePos] [npc2.breast+] and start sucking on [npc2.her] [npc2.nipple+].");
 					break;
@@ -79,7 +81,7 @@ public class TongueNipple {
 					sb.append("Press your [npc.lips] up to [npc2.namePos] [npc2.breast+] and start kissing [npc2.her] pussy-like nipples.");
 					break;
 			}
-			sb.append((Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0
+			sb.append((Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0
 						?" As [npc2.sheIsFull] [style.colourMinorGood(lactating)], you will get to drink [npc2.her] [npc2.milk] while performing this action."
 						:""));
 			return sb.toString();
@@ -95,26 +97,27 @@ public class TongueNipple {
 					new Value<>(SexPace.DOM_NORMAL, Util.newArrayListOfValues("eagerly", "greedily")),
 					new Value<>(SexPace.DOM_ROUGH, Util.newArrayListOfValues("forcefully", "roughly")));
 			
-			List<String> desList = descriptors.get(Sex.getSexPace(Sex.getCharacterPerformingAction()));
+			List<String> desList = descriptors.get(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()));
 			int index = Util.random.nextInt(desList.size());
 			String[] desc = new String[] {desList.get(index), desList.get((index+1)%desList.size())};
 			
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] "+desc[0]+" [npc.verb(lean)] in towards [npc2.namePos] [npc2.breasts+], before pressing [npc.her] [npc.lips+] against [npc2.her] lipples and "+desc[1]+" starting to make out with them.",
 							Util.capitaliseSentence(desc[0])+" pressing [npc.her] [npc.lips+] against ones of [npc2.namePos] [npc2.breasts+], [npc.name] [npc.verb(start)] "+desc[1]+" to making out with [npc2.her] lipples."));
 					
-					if(Sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
 						UtilText.nodeContentSB.append(" Just like a real mouth, [npc2.namePos] lip-like nipples part to reveal a throat-like orifice, allowing [npc.name] to thrust [npc.her] tongue into [npc2.her] [npc2.breast].");
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] "+desc[0]+" [npc.verb(press)] [npc.her] [npc.lips+] against one of [npc2.namePos] [npc2.breasts+], before starting to "+desc[1]+" suck and kiss [npc2.her] [npc2.nipple+].",
 							Util.capitaliseSentence(desc[0])+" pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast], [npc.name] [npc.verb(start)] "+desc[1]+" sucking and kissing [npc2.her] [npc2.nipple+]."));
 
-					if(Sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
 						UtilText.nodeContentSB.append(" [npc.Name] [npc.verb(feel)] that the centre of [npc2.namePos] nipple opens up to reveal an orifice, allowing [npc.herHim] to thrust [npc.her] tongue into [npc2.her] [npc2.breast].");
 					}
 					break;
@@ -123,14 +126,14 @@ public class TongueNipple {
 							"[npc.Name] "+desc[0]+" [npc.verb(lean)] in towards [npc2.namePos] [npc2.breasts+], before pressing [npc.her] [npc.lips+] against one of [npc2.her] pussy-like nipples and "+desc[1]+" starting to kiss and lick it.",
 							Util.capitaliseSentence(desc[0])+" pressing [npc.her] [npc.lips+] against one of [npc2.namePos] [npc2.breasts], [npc.name] [npc.verb(start)] "+desc[1]+" sucking and kissing [npc2.her] pussy-like nipple."));
 					
-					if(Sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
 						UtilText.nodeContentSB.append(" Just like a real vagina, the centre of [npc2.namePos] cunt-like nipple houses an orifice, allowing [npc.name] to thrust [npc.her] tongue into [npc2.her] [npc2.breast].");
 					}
 					break;
 			}
 			
-			if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) { // Milk:
-				switch(Sex.getCharacterTargetedForSexAction(this).getBreastStoredMilk()) {
+			if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) { // Milk:
+				switch(Main.sex.getCharacterTargetedForSexAction(this).getBreastStoredMilk()) {
 					case ZERO_NONE:
 						break;
 					case ONE_TRICKLE:
@@ -154,7 +157,7 @@ public class TongueNipple {
 						break;
 				}
 				
-				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.name] can't help but let out a soft sigh in response to the deeply satisfying feeling.",
@@ -180,7 +183,7 @@ public class TongueNipple {
 				}
 				
 			} else { // No milk:
-				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" Pushing [npc2.her] chest out, [npc2.name] can't help but let out a happy little sigh in response to the delightful feeling of having [npc2.her] [npc2.nipple] sucked on.",
@@ -211,19 +214,19 @@ public class TongueNipple {
 		
 		@Override
 		public String applyEffectsString() {
-			if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
-				float suckleAmount = Math.max(5, Math.min(100, Sex.getCharacterTargetedForSexAction(this).getBreastRawMilkStorageValue()/5));
+			if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+				float suckleAmount = Math.max(5, Math.min(100, Main.sex.getCharacterTargetedForSexAction(this).getBreastRawMilkStorageValue()/5));
 				
-				if(suckleAmount>Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()) {
-					suckleAmount = Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue();
+				if(suckleAmount>Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()) {
+					suckleAmount = Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue();
 				}
 				
-				String rs = Sex.getCharacterPerformingAction().ingestFluid(
-							Sex.getCharacterTargetedForSexAction(this),
-							Sex.getCharacterTargetedForSexAction(this).getMilk(),
+				String rs = Main.sex.getCharacterPerformingAction().ingestFluid(
+							Main.sex.getCharacterTargetedForSexAction(this),
+							Main.sex.getCharacterTargetedForSexAction(this).getMilk(),
 							SexAreaOrifice.MOUTH,
 							suckleAmount);
-				Sex.getCharacterTargetedForSexAction(this).incrementBreastStoredMilk(-suckleAmount);
+				Main.sex.getCharacterTargetedForSexAction(this).incrementBreastStoredMilk(-suckleAmount);
 				return rs;
 			}
 			return "";
@@ -232,14 +235,15 @@ public class TongueNipple {
 
 	private static String getTargetedCharacterResponse(SexAction action) {
 		String actionDescription = "";
-		switch(Sex.getCharacterTargetedForSexAction(action).getNippleShape()) {
+		switch(Main.sex.getCharacterTargetedForSexAction(action).getNippleShape()) {
 			case LIPS:
 				actionDescription = UtilText.returnStringAtRandom(
 						"making out with [npc2.her] mouth-like lipple",
 						"kissing [npc2.her] lipple");
 				break;
+			case INVERTED:
 			case NORMAL:
-				if(Sex.getCharacterTargetedForSexAction(action).getBreastRawStoredMilkValue()>0) {
+				if(Main.sex.getCharacterTargetedForSexAction(action).getBreastRawStoredMilkValue()>0) {
 					actionDescription = UtilText.returnStringAtRandom(
 							"suckling [npc2.her] [npc2.nipple+]",
 							"suckling the [npc2.milk] from [npc2.her] nipple");
@@ -250,7 +254,7 @@ public class TongueNipple {
 				}
 				break;
 			case VAGINA:
-				if(Sex.getCharacterTargetedForSexAction(action).isBreastFuckableNipplePenetration()) {
+				if(Main.sex.getCharacterTargetedForSexAction(action).isBreastFuckableNipplePenetration()) {
 					actionDescription = UtilText.returnStringAtRandom(
 							"eating out [npc2.her] pussy-like nipple-cunt",
 							"tongue-fucking [npc2.her] nipple-cunt");
@@ -262,7 +266,7 @@ public class TongueNipple {
 				break;
 		}
 		
-		switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(action))) {
+		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
 			case SUB_EAGER:
 			case DOM_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -324,21 +328,22 @@ public class TongueNipple {
 		
 		@Override
 		public String getActionTitle() {
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Gentle lipple suckle";
 					} else {
 						return "Gentle lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Gentle nipple suckle";
 					} else {
 						return "Gentle nipple kiss";
 					}
 				case VAGINA:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Gentle nipple-cunt suckle";
 					} else {
 						return "Gentle nipple-cunt kiss";
@@ -350,10 +355,11 @@ public class TongueNipple {
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
 					sb.append("Gently kiss and make-out with [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Gently kiss and suck [npc2.namePos] nipples.");
 					break;
@@ -361,7 +367,7 @@ public class TongueNipple {
 					sb.append("Gently kiss and lick [npc2.namePos] pussy-like nipple-cunts.");
 					break;
 			}
-			sb.append((Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0
+			sb.append((Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0
 						?" As [npc2.sheIsFull] [style.colourMinorGood(lactating)], you will get to drink [npc2.her] [npc2.milk] while performing this action."
 						:""));
 			return sb.toString();
@@ -371,9 +377,9 @@ public class TongueNipple {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] mouth-like lipple, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
@@ -389,8 +395,9 @@ public class TongueNipple {
 										+ " before starting to make out with it and drink down the [npc2.milk] which flows forth."));
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(suck)] and [npc.verb(kiss)] [npc2.her] [npc2.nipple+], letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
@@ -407,18 +414,20 @@ public class TongueNipple {
 					}
 					break;
 				case VAGINA:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on gently eating out [npc2.namePos] pussy-like nipple-cunt.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on gently "
+										+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")+" [npc2.namePos] pussy-like nipple-cunt.",
 								"Gently running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt, before starting to slowly kiss and lick it."));
 						
 					} else {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Gently pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.verb(drink)] down the [npc2.milk] that flows forth.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on gently eating out [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on gently "+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")
+									+" [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
 								"Gently running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt,"
 										+ " before starting to lick it and drink down the [npc2.milk] which flows forth."));
 					}
@@ -447,21 +456,22 @@ public class TongueNipple {
 
 		@Override
 		public String getActionTitle() {
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Lipple suckle";
 					} else {
 						return "Lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Nipple suckle";
 					} else {
 						return "Nipple kiss";
 					}
 				case VAGINA:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Nipple-cunt suckle";
 					} else {
 						return "Nipple-cunt kiss";
@@ -473,10 +483,11 @@ public class TongueNipple {
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
 					sb.append("Kiss and make-out with [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Kiss and suck [npc2.namePos] nipples.");
 					break;
@@ -484,7 +495,7 @@ public class TongueNipple {
 					sb.append("Kiss and lick [npc2.namePos] pussy-like nipple-cunts.");
 					break;
 			}
-			sb.append((Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0
+			sb.append((Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0
 						?" As [npc2.sheIsFull] [style.colourMinorGood(lactating)], you will get to drink [npc2.her] [npc2.milk] while performing this action."
 						:""));
 			return sb.toString();
@@ -494,9 +505,9 @@ public class TongueNipple {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] mouth-like lipple, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
@@ -512,8 +523,9 @@ public class TongueNipple {
 										+ " before starting to make out with it and drink down the [npc2.milk] which flows forth."));
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(suck)] and [npc.verb(kiss)] [npc2.her] [npc2.nipple+], letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
@@ -530,18 +542,20 @@ public class TongueNipple {
 					}
 					break;
 				case VAGINA:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily eating out [npc2.namePos] pussy-like nipple-cunt.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily "
+										+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")+" [npc2.namePos] pussy-like nipple-cunt.",
 								"Eagerly running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt, before starting to desperately kiss and lick it."));
 						
 					} else {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.verb(drink)] down the [npc2.milk] that flows forth.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily eating out [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily "+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")
+										+" [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
 								"Eagerly running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt,"
 										+ " before starting to lick it and drink down the [npc2.milk] which flows forth."));
 					}
@@ -570,21 +584,22 @@ public class TongueNipple {
 
 		@Override
 		public String getActionTitle() {
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Rough lipple suckle";
 					} else {
 						return "Rough lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Rough nipple suckle";
 					} else {
 						return "Rough nipple kiss";
 					}
 				case VAGINA:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Rough nipple-cunt suckle";
 					} else {
 						return "Rough nipple-cunt kiss";
@@ -596,10 +611,11 @@ public class TongueNipple {
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
 					sb.append("Roughly kiss and make-out with [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Roughly kiss and suck [npc2.namePos] nipples.");
 					break;
@@ -607,7 +623,7 @@ public class TongueNipple {
 					sb.append("Roughly kiss and lick [npc2.namePos] pussy-like nipple-cunts.");
 					break;
 			}
-			sb.append((Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0
+			sb.append((Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0
 						?" As [npc2.sheIsFull] [style.colourMinorGood(lactating)], you will get to drink [npc2.her] [npc2.milk] while performing this action."
 						:""));
 			return sb.toString();
@@ -617,9 +633,9 @@ public class TongueNipple {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Roughly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] mouth-like lipple, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
@@ -635,8 +651,9 @@ public class TongueNipple {
 										+ " before starting to make out with it and drink down the [npc2.milk] which flows forth."));
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Roughly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(suck)] and [npc.verb(kiss)] [npc2.her] [npc2.nipple+], letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
@@ -653,18 +670,21 @@ public class TongueNipple {
 					}
 					break;
 				case VAGINA:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Roughly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on roughly eating out [npc2.namePos] pussy-like nipple-cunt.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on roughly "
+										+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")+" [npc2.namePos] pussy-like nipple-cunt.",
 								"Roughly running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt, before starting to forcefully kiss and lick it."));
 						
 					} else {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Roughly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.verb(drink)] down the [npc2.milk] that flows forth.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on roughly eating out [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on roughly "
+										+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")
+										+" [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
 								"Roughly running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt,"
 										+ " before starting to lick it and drink down the [npc2.milk] which flows forth."));
 					}
@@ -693,21 +713,22 @@ public class TongueNipple {
 		
 		@Override
 		public String getActionTitle() {
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Resist lipple suckle";
 					} else {
 						return "Resist lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Resist nipple suckle";
 					} else {
 						return "Resist nipple kiss";
 					}
 				case VAGINA:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Resist nipple-cunt suckle";
 					} else {
 						return "Resist nipple-cunt kiss";
@@ -719,10 +740,11 @@ public class TongueNipple {
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
 					sb.append("Try to pull away from [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Try to pull away from [npc2.namePos] nipples.");
 					break;
@@ -738,7 +760,7 @@ public class TongueNipple {
 
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(try)] to pull [npc.her] [npc.face] back, but [npc2.name] [npc2.verb(continue)] gently pressing [npc2.her] [npc2.nipple+] down against [npc.her] [npc.lips+],"
@@ -784,21 +806,22 @@ public class TongueNipple {
 
 		@Override
 		public String getActionTitle() {
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Lipple suckle";
 					} else {
 						return "Lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Nipple suckle";
 					} else {
 						return "Nipple kiss";
 					}
 				case VAGINA:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Nipple-cunt suckle";
 					} else {
 						return "Nipple-cunt kiss";
@@ -810,10 +833,11 @@ public class TongueNipple {
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
 					sb.append("Kiss and make-out with [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Kiss and suck [npc2.namePos] nipples.");
 					break;
@@ -821,7 +845,7 @@ public class TongueNipple {
 					sb.append("Kiss and lick [npc2.namePos] pussy-like nipple-cunts.");
 					break;
 			}
-			sb.append((Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0
+			sb.append((Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0
 						?" As [npc2.sheIsFull] [style.colourMinorGood(lactating)], you will get to drink [npc2.her] [npc2.milk] while performing this action."
 						:""));
 			return sb.toString();
@@ -831,9 +855,9 @@ public class TongueNipple {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] mouth-like lipple, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
@@ -849,8 +873,9 @@ public class TongueNipple {
 										+ " before starting to make out with it and drink down the [npc2.milk] which flows forth."));
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(suck)] and [npc.verb(kiss)] [npc2.her] [npc2.nipple+], letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
@@ -867,18 +892,20 @@ public class TongueNipple {
 					}
 					break;
 				case VAGINA:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on eating out [npc2.namePos] pussy-like nipple-cunt.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on "
+										+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")+" [npc2.namePos] pussy-like nipple-cunt.",
 								"Running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt, before starting to desperately kiss and lick it."));
 						
 					} else {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.verb(drink)] down the [npc2.milk] that flows forth.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on eating out [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on "+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")
+									+" [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
 								"Running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt,"
 										+ " before starting to lick it and drink down the [npc2.milk] which flows forth."));
 					}
@@ -907,21 +934,22 @@ public class TongueNipple {
 
 		@Override
 		public String getActionTitle() {
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Eager lipple suckle";
 					} else {
 						return "Eager lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Eager nipple suckle";
 					} else {
 						return "Eager nipple kiss";
 					}
 				case VAGINA:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Eager nipple-cunt suckle";
 					} else {
 						return "Eager nipple-cunt kiss";
@@ -933,10 +961,11 @@ public class TongueNipple {
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
 					sb.append("Eagerly kiss and make-out with [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Eagerly kiss and suck [npc2.namePos] nipples.");
 					break;
@@ -944,7 +973,7 @@ public class TongueNipple {
 					sb.append("Eagerly kiss and lick [npc2.namePos] pussy-like nipple-cunts.");
 					break;
 			}
-			sb.append((Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0
+			sb.append((Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0
 						?" As [npc2.sheIsFull] [style.colourMinorGood(lactating)], you will get to drink [npc2.her] [npc2.milk] while performing this action."
 						:""));
 			return sb.toString();
@@ -954,9 +983,9 @@ public class TongueNipple {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] mouth-like lipple, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
@@ -972,8 +1001,9 @@ public class TongueNipple {
 										+ " before starting to make out with it and drink down the [npc2.milk] which flows forth."));
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(suck)] and [npc.verb(kiss)] [npc2.her] [npc2.nipple+], letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
@@ -990,18 +1020,20 @@ public class TongueNipple {
 					}
 					break;
 				case VAGINA:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()==0) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.do] so.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily eating out [npc2.namePos] pussy-like nipple-cunt.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily "
+										+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")+" [npc2.namePos] pussy-like nipple-cunt.",
 								"Eagerly running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt, before starting to desperately kiss and lick it."));
 						
 					} else {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Eagerly pressing [npc.her] [npc.lips+] against [npc2.namePos] [npc2.breast+],"
 										+ " [npc.name] [npc.verb(kiss)] [npc2.her] pussy-like nipple-cunt, letting out a muffled [npc.moan] as [npc.she] [npc.verb(drink)] down the [npc2.milk] that flows forth.",
-								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily eating out [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
+								"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on greedily "+(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()?"eating out":"kissing and licking")
+									+" [npc2.namePos] pussy-like nipple-cunt, drinking down the [npc2.milk] that flows out in the process.",
 								"Eagerly running the tip of [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.breast+], [npc.name] [npc.verb(home)] in on [npc2.her] nipple-cunt,"
 										+ " before starting to lick it and drink down the [npc2.milk] which flows forth."));
 					}
@@ -1029,21 +1061,22 @@ public class TongueNipple {
 		
 		@Override
 		public String getActionTitle() {
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Stop lipple suckle";
 					} else {
 						return "Stop lipple kiss";
 					}
+				case INVERTED:
 				case NORMAL:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Stop nipple suckle";
 					} else {
 						return "Stop nipple kiss";
 					}
 				case VAGINA:
-					if(Sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).getBreastRawStoredMilkValue()>0) {
 						return "Stop nipple-cunt suckle";
 					} else {
 						return "Stop nipple-cunt kiss";
@@ -1055,10 +1088,11 @@ public class TongueNipple {
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
 					sb.append("Pull away from [npc2.namePos] mouth-like lipples.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Pull away from [npc2.namePos] nipples.");
 					break;
@@ -1074,7 +1108,7 @@ public class TongueNipple {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 			case DOM_ROUGH:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With one last rough lick, [npc.name] [npc.verb(pull)] [npc.her] [npc.face] away from [npc2.namePos] [npc2.nipple+].",
@@ -1087,7 +1121,7 @@ public class TongueNipple {
 				break;
 		}
 		
-		switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 			case SUB_RESISTING:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" [npc2.Name] [npc2.verb(continue)] to struggle against [npc.name], [npc2.sobbing] and squirming in discomfort as [npc2.she] realise that [npc.name] isn't completely finished with [npc2.herHim] just yet.",
@@ -1116,7 +1150,7 @@ public class TongueNipple {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
+			if(Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
 				return "Breastfeed";
 			}
 			return "Get nipples sucked";
@@ -1124,12 +1158,13 @@ public class TongueNipple {
 
 		@Override
 		public String getActionDescription() {
-			if(Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
+			if(Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
 				return "Pull [npc2.namePos] face into your [npc.breasts] and get [npc2.herHim] to start drinking your [npc.milk].";
 			}
-			switch(Sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
+			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
 				case LIPS:
 					return "Pull [npc2.namePos] face into your [npc.breasts] and get [npc2.herHim] to start kissing your lipples.";
+				case INVERTED:
 				case NORMAL:
 					return "Pull [npc2.namePos] face into your [npc.breasts] and get [npc2.herHim] to start kissing and sucking your nipples.";
 				case VAGINA:
@@ -1151,27 +1186,28 @@ public class TongueNipple {
 					new Value<>(SexPace.DOM_NORMAL, Util.newArrayListOfValues("eagerly", "greedily")),
 					new Value<>(SexPace.DOM_ROUGH, Util.newArrayListOfValues("forcefully", "roughly")));
 			
-			List<String> desList = descriptors.get(Sex.getSexPace(Sex.getCharacterPerformingAction()));
+			List<String> desList = descriptors.get(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()));
 			int index = Util.random.nextInt(desList.size());
 			String[] desc = new String[] {desList.get(index), desList.get((index+1)%desList.size())};
 			
-			switch(Sex.getCharacterPerformingAction().getNippleShape()) {
+			switch(Main.sex.getCharacterPerformingAction().getNippleShape()) {
 				case LIPS:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Taking hold of [npc2.namePos] head, [npc.name] "+desc[0]+" [npc.verb(guide)] [npc2.her] [npc2.lips+] up to one of [npc.her] [npc.breasts+],"
 									+ " before "+desc[1]+" getting [npc2.herHim] to kiss and make out with [npc.her] lipple.",
 							"Taking hold of [npc2.namePos] head, [npc.name] "+desc[0]+" [npc.verb(pull)] [npc2.herHim] into [npc.her] [npc.breasts+], before "+desc[1]+" getting [npc2.herHim] to kiss [npc.her] mouth-like lipple."));
 					
-					if(Sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
 						UtilText.nodeContentSB.append(" Just like a real mouth, [npc.namePos] lip-like nipples part to reveal a throat-like orifice, allowing [npc2.name] to thrust [npc2.her] tongue into [npc.her] [npc.breast].");
 					}
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Taking hold of [npc2.namePos] head, [npc.name] "+desc[0]+" [npc.verb(guide)] [npc2.her] [npc2.lips+] up to one of [npc.her] [npc.breasts+], before "+desc[1]+" getting [npc2.herHim] to suck and kiss [npc.her] [npc.nipple+].",
 							"Taking hold of [npc2.namePos] head, [npc.name] "+desc[0]+" [npc.verb(pull)] [npc2.herHim] into [npc.her] [npc.breasts+], before "+desc[1]+" getting [npc2.herHim] to suck and kiss [npc.her] [npc.nipple+]."));
 
-					if(Sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
 						UtilText.nodeContentSB.append(" [npc2.Name] [npc2.verb(feel)] that the centre of [npc.namePos] nipple opens up to reveal an orifice, allowing [npc2.herHim] to thrust [npc2.her] tongue into [npc.her] [npc.breast].");
 					}
 					break;
@@ -1180,14 +1216,14 @@ public class TongueNipple {
 							"Taking hold of [npc2.namePos] head, [npc.name] "+desc[0]+" [npc.verb(guide)] [npc2.her] [npc2.lips+] up to one of [npc.her] [npc.breasts+], before "+desc[1]+" getting [npc2.herHim] to lick and kiss [npc.her] nipple-cunt.",
 							"Taking hold of [npc2.namePos] head, [npc.name] "+desc[0]+" [npc.verb(pull)] [npc2.herHim] into [npc.her] [npc.breasts+], before "+desc[1]+" getting [npc2.herHim] to lick and kiss [npc.her] nipple-cunt."));
 					
-					if(Sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).isBreastFuckableNipplePenetration()) {
 						UtilText.nodeContentSB.append(" Just like a real vagina, the centre of [npc.namePos] pussy-like nipple houses an orifice, allowing [npc2.name] to thrust [npc2.her] tongue into [npc.her] [npc.breast].");
 					}
 					break;
 			}
 
-			if(Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) { // Milk:
-				switch (Sex.getCharacterPerformingAction().getBreastStoredMilk()) {
+			if(Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) { // Milk:
+				switch (Main.sex.getCharacterPerformingAction().getBreastStoredMilk()) {
 					case ZERO_NONE:
 						break;
 					case ONE_TRICKLE:
@@ -1211,7 +1247,7 @@ public class TongueNipple {
 						break;
 				}
 				
-				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" and, with a soft, muffled sigh, [npc2.she] [npc2.verb(bury)] [npc2.her] face in [npc.namePos] [npc.breasts+] and [npc2.verb(continue)] drinking [npc.her] [npc.milk].",
@@ -1238,10 +1274,11 @@ public class TongueNipple {
 			
 			} else { // No milk:
 				String suckleDesc = "";
-				switch(Sex.getCharacterPerformingAction().getNippleShape()) {
+				switch(Main.sex.getCharacterPerformingAction().getNippleShape()) {
 					case LIPS:
 						suckleDesc = "[npc2.verb(kiss)]";
 						break;
+					case INVERTED:
 					case NORMAL:
 						suckleDesc = "[npc2.verb(suck)] and [npc2.verb(kiss)]";
 						break;
@@ -1249,7 +1286,7 @@ public class TongueNipple {
 						suckleDesc = "[npc2.verb(kiss)] and [npc2.verb(lick)]";
 						break;
 				}
-				switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" With a soft, muffled sigh, [npc2.she] [npc2.verb(bury)] [npc2.her] face in [npc.namePos] [npc.breasts+] and gently "+suckleDesc+" [npc.her] [npc.nipple+].",
@@ -1279,19 +1316,19 @@ public class TongueNipple {
 		
 		@Override
 		public String applyEffectsString() {
-			if(Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
-				float suckleAmount = Math.max(5, Math.min(100, Sex.getCharacterPerformingAction().getBreastRawMilkStorageValue()/5));
+			if(Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
+				float suckleAmount = Math.max(5, Math.min(100, Main.sex.getCharacterPerformingAction().getBreastRawMilkStorageValue()/5));
 				
-				if(suckleAmount>Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()) {
-					suckleAmount = Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue();
+				if(suckleAmount>Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()) {
+					suckleAmount = Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue();
 				}
 				
-				String rs = Sex.getCharacterTargetedForSexAction(this).ingestFluid(
-						Sex.getCharacterPerformingAction(),
-						Sex.getCharacterPerformingAction().getMilk(),
+				String rs = Main.sex.getCharacterTargetedForSexAction(this).ingestFluid(
+						Main.sex.getCharacterPerformingAction(),
+						Main.sex.getCharacterPerformingAction().getMilk(),
 						SexAreaOrifice.MOUTH,
 						suckleAmount);
-				Sex.getCharacterPerformingAction().incrementBreastStoredMilk(-suckleAmount);
+				Main.sex.getCharacterPerformingAction().incrementBreastStoredMilk(-suckleAmount);
 				return rs;
 			}
 			return "";
@@ -1301,14 +1338,15 @@ public class TongueNipple {
 
 	private static String getTargetedCharacterReceivingResponse(SexAction action) {
 		String actionDescription = "";
-		switch(Sex.getCharacterPerformingAction().getNippleShape()) {
+		switch(Main.sex.getCharacterPerformingAction().getNippleShape()) {
 			case LIPS:
 				actionDescription = UtilText.returnStringAtRandom(
 						"making out with [npc.her] mouth-like lipple",
 						"kissing [npc.her] lipple");
 				break;
+			case INVERTED:
 			case NORMAL:
-				if(Sex.getCharacterTargetedForSexAction(action).getBreastRawStoredMilkValue()>0) {
+				if(Main.sex.getCharacterTargetedForSexAction(action).getBreastRawStoredMilkValue()>0) {
 					actionDescription = UtilText.returnStringAtRandom(
 							"suckling [npc.her] [npc.nipple+]",
 							"suckling the [npc.milk] from [npc.her] nipple");
@@ -1319,7 +1357,7 @@ public class TongueNipple {
 				}
 				break;
 			case VAGINA:
-				if(Sex.getCharacterTargetedForSexAction(action).isBreastFuckableNipplePenetration()) {
+				if(Main.sex.getCharacterTargetedForSexAction(action).isBreastFuckableNipplePenetration()) {
 					actionDescription = UtilText.returnStringAtRandom(
 							"eating out [npc.her] pussy-like nipple-cunt",
 							"tongue-fucking [npc.her] nipple-cunt");
@@ -1331,7 +1369,7 @@ public class TongueNipple {
 				break;
 		}
 		
-		switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(action))) {
+		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
 			case SUB_EAGER:
 			case DOM_NORMAL:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1380,7 +1418,7 @@ public class TongueNipple {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
+			if(Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
 				return "Gentle breastfeed";
 			}
 			return "Gentle nipples sucked";
@@ -1389,10 +1427,11 @@ public class TongueNipple {
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
-			switch(Sex.getCharacterPerformingAction().getNippleShape()) {
+			switch(Main.sex.getCharacterPerformingAction().getNippleShape()) {
 				case LIPS:
 					sb.append("Gently push your lipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and make-out with them.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Gently push your nipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and suck on them.");
 					break;
@@ -1400,7 +1439,7 @@ public class TongueNipple {
 					sb.append("Gently push your nipple-cunts down against [npc2.namePos] mouth and get [npc2.herHim] to lick them.");
 					break;
 			}
-			sb.append((Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0
+			sb.append((Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0
 						?" As you are [style.colourMinorGood(lactating)], you will get [npc2.herHim] to drink your [npc.milk] while performing this action."
 						:""));
 			return sb.toString();
@@ -1410,13 +1449,14 @@ public class TongueNipple {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getCharacterPerformingAction().getNippleShape()) {
+			switch(Main.sex.getCharacterPerformingAction().getNippleShape()) {
 				case LIPS:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(push)] [npc.her] mouth-like lipple against [npc2.namePos] [npc2.lips+], before using [npc.her] control over it to gently kiss [npc2.herHim].",
 							"With [npc.a_moan+], [npc.name] gently [npc.verb(press)] [npc.her] lipple against [npc2.namePos] mouth, before kissing [npc2.herHim] fully on the [npc2.lips+].",
 							"Letting out a soft [npc.moan], [npc.name] [npc.verb(use)] [npc.her] control over [npc.her] lipple to kiss [npc2.name] fully on the [npc2.lips]."));
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] gently [npc.verb(push)] [npc.her] [npc.nipple+] against [npc2.namePos] [npc2.lips+].",
@@ -1453,7 +1493,7 @@ public class TongueNipple {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
+			if(Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
 				return "Breastfeed";
 			}
 			return "Nipples sucked";
@@ -1462,10 +1502,11 @@ public class TongueNipple {
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
-			switch(Sex.getCharacterPerformingAction().getNippleShape()) {
+			switch(Main.sex.getCharacterPerformingAction().getNippleShape()) {
 				case LIPS:
 					sb.append("Push your lipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and make-out with them.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Push your nipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and suck on them.");
 					break;
@@ -1473,7 +1514,7 @@ public class TongueNipple {
 					sb.append("Push your nipple-cunts down against [npc2.namePos] mouth and get [npc2.herHim] to lick them.");
 					break;
 			}
-			sb.append((Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0
+			sb.append((Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0
 						?" As you are [style.colourMinorGood(lactating)], you will get [npc2.herHim] to drink your [npc.milk] while performing this action."
 						:""));
 			return sb.toString();
@@ -1483,13 +1524,14 @@ public class TongueNipple {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getCharacterPerformingAction().getNippleShape()) {
+			switch(Main.sex.getCharacterPerformingAction().getNippleShape()) {
 				case LIPS:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(push)] [npc.her] mouth-like lipple against [npc2.namePos] [npc2.lips+], before using [npc.her] control over it to passionately kiss [npc2.herHim].",
 							"With [npc.a_moan+], [npc.name] [npc.verb(press)] [npc.her] lipple against [npc2.namePos] mouth, before passionately kissing [npc2.herHim] fully on the [npc2.lips+].",
 							"Letting out [npc.a_moan+], [npc.name] [npc.verb(use)] [npc.her] control over [npc.her] lipple to passionately kiss [npc2.name] fully on the [npc2.lips]."));
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] eagerly [npc.verb(push)] [npc.her] [npc.nipple+] against [npc2.namePos] [npc2.lips+].",
@@ -1526,7 +1568,7 @@ public class TongueNipple {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
+			if(Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
 				return "Rough breastfeed";
 			}
 			return "Rough nipples sucked";
@@ -1535,10 +1577,11 @@ public class TongueNipple {
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
-			switch(Sex.getCharacterPerformingAction().getNippleShape()) {
+			switch(Main.sex.getCharacterPerformingAction().getNippleShape()) {
 				case LIPS:
 					sb.append("Roughly push your lipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and make-out with them.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Roughly push your nipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and suck on them.");
 					break;
@@ -1546,7 +1589,7 @@ public class TongueNipple {
 					sb.append("Roughly push your nipple-cunts down against [npc2.namePos] mouth and get [npc2.herHim] to lick them.");
 					break;
 			}
-			sb.append((Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0
+			sb.append((Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0
 						?" As you are [style.colourMinorGood(lactating)], you will get [npc2.herHim] to drink your [npc.milk] while performing this action."
 						:""));
 			return sb.toString();
@@ -1556,13 +1599,14 @@ public class TongueNipple {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getCharacterPerformingAction().getNippleShape()) {
+			switch(Main.sex.getCharacterPerformingAction().getNippleShape()) {
 				case LIPS:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] roughly [npc.verb(push)] [npc.her] mouth-like lipple against [npc2.namePos] [npc2.lips+], before using [npc.her] control over it to forcefully kiss [npc2.herHim].",
 							"With [npc.a_moan+], [npc.name] roughly [npc.verb(press)] [npc.her] lipple against [npc2.namePos] mouth, before forcefully kissing [npc2.herHim] fully on the [npc2.lips+].",
 							"Letting out [npc.a_moan+], [npc.name] [npc.verb(use)] [npc.her] control over [npc.her] lipple to forcefully kiss [npc2.name] fully on the [npc2.lips]."));
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] roughly [npc.verb(push)] [npc.her] [npc.nipple+] against [npc2.namePos] [npc2.lips+].",
@@ -1599,7 +1643,7 @@ public class TongueNipple {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
+			if(Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
 				return "Resist breastfeeding";
 			}
 			return "Resist nipples sucked";
@@ -1615,7 +1659,7 @@ public class TongueNipple {
 
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] desperately [npc.verb(try)] to pull [npc.her] [npc.breasts] away from [npc2.namePos] [npc2.face],"
@@ -1661,7 +1705,7 @@ public class TongueNipple {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
+			if(Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
 				return "Breastfeed";
 			}
 			return "Nipples sucked";
@@ -1670,10 +1714,11 @@ public class TongueNipple {
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
-			switch(Sex.getCharacterPerformingAction().getNippleShape()) {
+			switch(Main.sex.getCharacterPerformingAction().getNippleShape()) {
 				case LIPS:
 					sb.append("Push your lipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and make-out with them.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Push your nipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and suck on them.");
 					break;
@@ -1681,7 +1726,7 @@ public class TongueNipple {
 					sb.append("Push your nipple-cunts down against [npc2.namePos] mouth and get [npc2.herHim] to lick them.");
 					break;
 			}
-			sb.append((Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0
+			sb.append((Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0
 						?" As you are [style.colourMinorGood(lactating)], you will get [npc2.herHim] to drink your [npc.milk] while performing this action."
 						:""));
 			return sb.toString();
@@ -1691,13 +1736,14 @@ public class TongueNipple {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getCharacterPerformingAction().getNippleShape()) {
+			switch(Main.sex.getCharacterPerformingAction().getNippleShape()) {
 				case LIPS:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(push)] [npc.her] mouth-like lipple against [npc2.namePos] [npc2.lips+], before using [npc.her] control over it to passionately kiss [npc2.herHim].",
 							"With [npc.a_moan+], [npc.name] [npc.verb(press)] [npc.her] lipple against [npc2.namePos] mouth, before passionately kissing [npc2.herHim] fully on the [npc2.lips+].",
 							"Letting out [npc.a_moan+], [npc.name] [npc.verb(use)] [npc.her] control over [npc.her] lipple to passionately kiss [npc2.name] fully on the [npc2.lips]."));
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(push)] [npc.her] [npc.nipple+] against [npc2.namePos] [npc2.lips+].",
@@ -1734,7 +1780,7 @@ public class TongueNipple {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
+			if(Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
 				return "Eagerly breastfeed";
 			}
 			return "Eager nipples sucked";
@@ -1743,10 +1789,11 @@ public class TongueNipple {
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
-			switch(Sex.getCharacterPerformingAction().getNippleShape()) {
+			switch(Main.sex.getCharacterPerformingAction().getNippleShape()) {
 				case LIPS:
 					sb.append("Eagerly push your lipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and make-out with them.");
 					break;
+				case INVERTED:
 				case NORMAL:
 					sb.append("Eagerly push your nipples down against [npc2.namePos] mouth and get [npc2.herHim] to kiss and suck on them.");
 					break;
@@ -1754,7 +1801,7 @@ public class TongueNipple {
 					sb.append("Eagerly push your nipple-cunts down against [npc2.namePos] mouth and get [npc2.herHim] to lick them.");
 					break;
 			}
-			sb.append((Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0
+			sb.append((Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0
 						?" As you are [style.colourMinorGood(lactating)], you will get [npc2.herHim] to drink your [npc.milk] while performing this action."
 						:""));
 			return sb.toString();
@@ -1764,13 +1811,14 @@ public class TongueNipple {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getCharacterPerformingAction().getNippleShape()) {
+			switch(Main.sex.getCharacterPerformingAction().getNippleShape()) {
 				case LIPS:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(push)] [npc.her] mouth-like lipple against [npc2.namePos] [npc2.lips+], before using [npc.her] control over it to passionately kiss [npc2.herHim].",
 							"With [npc.a_moan+], [npc.name] [npc.verb(press)] [npc.her] lipple against [npc2.namePos] mouth, before passionately kissing [npc2.herHim] fully on the [npc2.lips+].",
 							"Letting out [npc.a_moan+], [npc.name] [npc.verb(use)] [npc.her] control over [npc.her] lipple to passionately kiss [npc2.name] fully on the [npc2.lips]."));
 					break;
+				case INVERTED:
 				case NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] eagerly [npc.verb(push)] [npc.her] [npc.nipple+] against [npc2.namePos] [npc2.lips+].",
@@ -1806,7 +1854,7 @@ public class TongueNipple {
 		
 		@Override
 		public String getActionTitle() {
-			if(Sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
+			if(Main.sex.getCharacterPerformingAction().getBreastRawStoredMilkValue()>0) {
 				return "Stop breastfeeding";
 			}
 			return "Stop nipples sucked";
@@ -1822,7 +1870,7 @@ public class TongueNipple {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPace(Sex.getCharacterPerformingAction())) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Roughly yanking [npc2.namePos] head away from [npc.her] [npc.breasts+], [npc.name] [npc.verb(order)] [npc2.herHim] to stop kissing [npc.her] [npc.nipple].",
@@ -1835,7 +1883,7 @@ public class TongueNipple {
 					break;
 			}
 			
-			switch(Sex.getSexPace(Sex.getCharacterTargetedForSexAction(this))) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" With tears streaming down [npc2.her] [npc2.face], [npc2.name] [npc2.verb(let)] out [npc2.a_sob+] as [npc2.she] realises that [npc.nameIsFull]n't finished with [npc2.herHim] just yet.",

@@ -7,7 +7,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.1
- * @version 0.3.4
+ * @version 0.3.6
  * @author Innoxia
  */
 public enum ItemTag {
@@ -48,8 +48,15 @@ public enum ItemTag {
 	
 	WEAPON_BLADE(false), // Should be added to all weapons that use an arcane blade
 	
+	WEAPON_UNARMED(false), // Should be added to all weapons that should use unarmed damage calculations instead of melee
+	
 	DRESS(false), // For helping to generate clothing in CharacterUtils
 
+	PROVIDES_KEY( // The person whi equips this clothing will get an unlock key, making the removal cost for jinxes equal to 0
+			Util.newArrayListOfValues(
+					"[style.colourGood(Provides equipper with key)]"),
+			false),
+	
 	SPREADS_FEET( // Prevents double foot actions, like wrap-around footjobs
 			Util.newArrayListOfValues(
 					"[style.colourBad(Restricts sex actions)]"),
@@ -123,11 +130,27 @@ public enum ItemTag {
 					"[style.colourBestial(Fits talons)]"),
 			false),
 	
-	FITS_HARPY_WINGS_EXCLUSIVE(
+	FITS_FEATHERED_ARM_WINGS_EXCLUSIVE(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Only fits feathered arm-wings)]"),
+			false),
+	FITS_FEATHERED_ARM_WINGS(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Fits feathered arm-wings)]"),
+			false),
+	FITS_LEATHERY_ARM_WINGS_EXCLUSIVE(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Only fits leathery arm-wings)]"),
+			false),
+	FITS_LEATHERY_ARM_WINGS(
+			Util.newArrayListOfValues(
+					"[style.colourBestial(Fits leathery arm-wings)]"),
+			false),
+	FITS_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
 					"[style.colourBestial(Only fits arm-wings)]"),
 			false),
-	FITS_HARPY_WINGS(
+	FITS_ARM_WINGS(
 			Util.newArrayListOfValues(
 					"[style.colourBestial(Fits arm-wings)]"),
 			false),
@@ -172,6 +195,10 @@ public enum ItemTag {
 	/**<b>IMPORTANT</b> This tag should only ever be given to clothing going into the PENIS InventorySlot, as otherwise it will throw errors.*/
 	CONDOM(true), // Gives this clothing condom behaviour
 	
+	CHOKER_SNAP( // Snaps (into wearer's inventory) if throat stretches.
+			Util.newArrayListOfValues(
+					"[style.colourSex(Snaps if throat bulges too much during sex)]"),
+			true),
 	
 	// To detect whether creampies should leak out or not:
 	
@@ -210,35 +237,30 @@ public enum ItemTag {
 			Util.newArrayListOfValues(
 					"[style.colourSex(Seals nipples (does not get dirty from creampies))]"),
 			true),
-
 	
-	DILDO_TINY( // 3 inches
+	
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	DILDO_SELF(
 			Util.newArrayListOfValues(
-					"[style.colourSex(3-inch dildo)]"),
+					"[style.colourSub(Insertable)] [style.colourSex(dildo)]"),
 			true),
-	DILDO_AVERAGE( // 6 inches
+
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	DILDO_OTHER(
 			Util.newArrayListOfValues(
-					"[style.colourSex(6-inch dildo)]"),
+					"[style.colourDom(Wearable)] [style.colourSex(dildo)]"),
 			true),
-	DILDO_LARGE( // 10 inches
+
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	ONAHOLE_SELF(
 			Util.newArrayListOfValues(
-					"[style.colourSex(10-inch dildo)]"),
+					"[style.colourSex(Fuckable onahole)]"),
 			true),
-	DILDO_HUGE( // 14 inches
+
+	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
+	ONAHOLE_OTHER(
 			Util.newArrayListOfValues(
-					"[style.colourSex(14-inch dildo)]"),
-			true),
-	DILDO_ENORMOUS( // 18 inches
-			Util.newArrayListOfValues(
-					"[style.colourSex(18-inch dildo)]"),
-			true),
-	DILDO_GIGANTIC( // 22 inches
-			Util.newArrayListOfValues(
-					"[style.colourSex(22-inch dildo)]"),
-			true),
-	DILDO_STALLION( // 32 inches
-			Util.newArrayListOfValues(
-					"[style.colourSex(32-inch dildo)]"),
+					"[style.colourSex(Wearable onahole)]"),
 			true),
 	;
 

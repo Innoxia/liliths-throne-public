@@ -14,7 +14,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.3.1
+ * @version 0.3.7
  * @author Innoxia
  */
 public enum NippleType implements BodyPartTypeInterface {
@@ -92,12 +92,18 @@ public enum NippleType implements BodyPartTypeInterface {
 		switch(gc.getNippleShape()) {
 			case LIPS:
 				return  UtilText.returnStringAtRandom("lipple", "nipple-lip");
+			case INVERTED:
+				if(gc.hasBreasts()) {
+					return UtilText.returnStringAtRandom("inverted nipple", "inverted teat");
+				} else {
+					return "inverted nipple";
+				}
 			case NORMAL:
 				if(gc.hasBreasts()) {
 					return UtilText.returnStringAtRandom("nipple", "teat");
 					
 				} else {
-					return "nipples";
+					return "nipple";
 				}
 			case VAGINA:
 				return UtilText.returnStringAtRandom("nipple-cunt", "nipple-pussy");
@@ -110,10 +116,15 @@ public enum NippleType implements BodyPartTypeInterface {
 		switch(gc.getNippleShape()) {
 			case LIPS:
 				return  UtilText.returnStringAtRandom("lipples", "nipple-lips");
+			case INVERTED:
+				if(gc.hasBreasts()) {
+					return UtilText.returnStringAtRandom("inverted nipples", "inverted teats");
+				} else {
+					return "inverted nipples";
+				}
 			case NORMAL:
 				if(gc.hasBreasts()) {
 					return UtilText.returnStringAtRandom("nipples", "teats");
-					
 				} else {
 					return "nipples";
 				}
@@ -129,26 +140,38 @@ public enum NippleType implements BodyPartTypeInterface {
 			switch(gc.getNippleShape()) {
 				case LIPS:
 					return  UtilText.returnStringAtRandom("udder-lipple", "udder-nipple-lip");
+				case INVERTED:
+					if(gc.hasBreasts()) {
+						return UtilText.returnStringAtRandom("inverted udder-nipple", "inverted udder-teat");
+					} else {
+						return "inverted udder-nipple";
+					}
 				case NORMAL:
 					if(gc.hasBreasts()) {
 						return UtilText.returnStringAtRandom("udder-nipple", "udder-teat");
-						
 					} else {
-						return "udder-nipples";
+						return "udder-nipple";
 					}
 				case VAGINA:
 					return UtilText.returnStringAtRandom("udder-nipple-cunt", "udder-nipple-pussy");
 			}
+			
 		} else {
 			switch(gc.getNippleShape()) {
 				case LIPS:
 					return  UtilText.returnStringAtRandom("crotch-lipple", "crotch-nipple-lip");
+				case INVERTED:
+					if(gc.hasBreasts()) {
+						return UtilText.returnStringAtRandom("inverted crotch-nipple", "inverted crotch-teat");
+					} else {
+						return "inverted crotch-nipple";
+					}
 				case NORMAL:
 					if(gc.hasBreasts()) {
 						return UtilText.returnStringAtRandom("crotch-nipple", "crotch-teat");
 						
 					} else {
-						return "crotch-nipples";
+						return "crotch-nipple";
 					}
 				case VAGINA:
 					return UtilText.returnStringAtRandom("crotch-nipple-cunt", "crotch-nipple-pussy");
@@ -163,6 +186,12 @@ public enum NippleType implements BodyPartTypeInterface {
 			switch(gc.getNippleShape()) {
 				case LIPS:
 					return  UtilText.returnStringAtRandom("udder-lipples", "udder-nipple-lips");
+				case INVERTED:
+					if(gc.hasBreasts()) {
+						return UtilText.returnStringAtRandom("inverted udder-nipples", "inverted udder-teats");
+					} else {
+						return "inverted udder-nipples";
+					}
 				case NORMAL:
 					if(gc.hasBreasts()) {
 						return UtilText.returnStringAtRandom("udder-nipples", "udder-teats");
@@ -177,6 +206,12 @@ public enum NippleType implements BodyPartTypeInterface {
 			switch(gc.getNippleShape()) {
 				case LIPS:
 					return  UtilText.returnStringAtRandom("crotch-lipples", "crotch-nipple-lips");
+				case INVERTED:
+					if(gc.hasBreasts()) {
+						return UtilText.returnStringAtRandom("inverted crotch-nipples", "inverted crotch-teats");
+					} else {
+						return "inverted crotch-nipples";
+					}
 				case NORMAL:
 					if(gc.hasBreasts()) {
 						return UtilText.returnStringAtRandom("crotch-nipples", "crotch-teats");

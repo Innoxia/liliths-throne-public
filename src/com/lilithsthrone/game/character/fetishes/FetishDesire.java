@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.99
@@ -17,15 +18,15 @@ import com.lilithsthrone.utils.Util;
  */
 public enum FetishDesire {
 	
-	ZERO_HATE(0, "hate", "hate", "hates", "fondness1", Colour.BASE_CRIMSON),
+	ZERO_HATE(0, "hate", "hate", "hates", "fondness1", PresetColour.BASE_CRIMSON),
 	
-	ONE_DISLIKE(1, "dislike", "dislike", "dislikes", "fondness2", Colour.BASE_RED),
+	ONE_DISLIKE(1, "dislike", "dislike", "dislikes", "fondness2", PresetColour.BASE_RED),
 	
-	TWO_NEUTRAL(2, "indifferent", "are indifferent to", "is indifferent to", "fondness3", Colour.BASE_BLUE_STEEL),
+	TWO_NEUTRAL(2, "indifferent", "are indifferent to", "is indifferent to", "fondness3", PresetColour.BASE_BLUE_STEEL),
 	
-	THREE_LIKE(3, "like", "like", "likes", "fondness4", Colour.BASE_PINK_LIGHT),
+	THREE_LIKE(3, "like", "like", "likes", "fondness4", PresetColour.BASE_PINK_LIGHT),
 	
-	FOUR_LOVE(4, "love", "love", "loves", "fondness5", Colour.BASE_PINK);
+	FOUR_LOVE(4, "love", "love", "loves", "fondness5", PresetColour.BASE_PINK);
 	
 	private int value;
 	private String name;
@@ -60,7 +61,7 @@ public enum FetishDesire {
 			
 			SVGImageDesaturated = base;
 			
-			SVGImageDesaturated = SvgUtil.colourReplacement(this.toString(), Colour.BASE_GREY, SVGImageDesaturated);
+			SVGImageDesaturated = SvgUtil.colourReplacement(this.toString(), PresetColour.BASE_GREY, SVGImageDesaturated);
 
 			is.close();
 

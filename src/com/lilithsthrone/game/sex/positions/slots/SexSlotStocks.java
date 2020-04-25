@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.sex.positions.slots;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.main.Main;
 
 /**
  * All SexSlots that are used in the STOCKS position.
@@ -72,7 +72,7 @@ public class SexSlotStocks {
 			SexSlotTag.PERFORMING_ORAL_STOCKS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 	public static final SexSlot PERFORMING_ORAL_TWO = new SexSlot(
@@ -83,7 +83,7 @@ public class SexSlotStocks {
 			SexSlotTag.PERFORMING_ORAL_STOCKS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 	public static final SexSlot PERFORMING_ORAL_THREE = new SexSlot(
@@ -94,7 +94,7 @@ public class SexSlotStocks {
 			SexSlotTag.PERFORMING_ORAL_STOCKS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 	public static final SexSlot PERFORMING_ORAL_FOUR = new SexSlot(
@@ -105,7 +105,7 @@ public class SexSlotStocks {
 			SexSlotTag.PERFORMING_ORAL_STOCKS) {
 		@Override
 		public boolean isStanding(GameCharacter target) {
-			return Sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
+			return Main.sex.getTargetedPartner(target).isSizeDifferenceTallerThan(target);
 		}
 	};
 	

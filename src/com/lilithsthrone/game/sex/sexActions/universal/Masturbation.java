@@ -2,13 +2,13 @@ package com.lilithsthrone.game.sex.sexActions.universal;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.sex.ArousalIncrease;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMasturbation;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -29,9 +29,9 @@ public class Masturbation {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return SexPosition.MASTURBATION.isSlotUnlocked(Sex.getCharacterPerformingAction(), SexSlotMasturbation.STANDING, Sex.getAllOccupiedSlots(true)).getKey()
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotMasturbation.KNEELING_PANTIES
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotMasturbation.STANDING;
+			return SexPosition.MASTURBATION.isSlotUnlocked(Main.sex.getCharacterPerformingAction(), SexSlotMasturbation.STANDING, Main.sex.getAllOccupiedSlots(true)).getKey()
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotMasturbation.KNEELING_PANTIES
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotMasturbation.STANDING;
 		}
 		@Override
 		public String getActionTitle() {
@@ -43,7 +43,7 @@ public class Masturbation {
 		}
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 				return "Deciding that it would be better to continue masturbating while standing upright, [npc.name] [npc.verb(push)] [npc.herself] up onto [npc.her] [npc.feet],"
 						+ " before dropping [npc.her] [npc.hands] down between [npc.her] [npc.legs] and preparing to continue where [npc.she] left off...";
 			} else {
@@ -53,13 +53,13 @@ public class Masturbation {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SexManagerDefault(
+			Main.sex.setSexManager(new SexManagerDefault(
 					SexPosition.MASTURBATION,
-					Sex.isDom(Sex.getCharacterPerformingAction())
-						?Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotMasturbation.STANDING))
+					Main.sex.isDom(Main.sex.getCharacterPerformingAction())
+						?Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotMasturbation.STANDING))
 						:null,
-					!Sex.isDom(Sex.getCharacterPerformingAction())
-						?Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotMasturbation.STANDING))
+					!Main.sex.isDom(Main.sex.getCharacterPerformingAction())
+						?Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotMasturbation.STANDING))
 						:null){
 			});
 		}
@@ -75,9 +75,9 @@ public class Masturbation {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return SexPosition.MASTURBATION.isSlotUnlocked(Sex.getCharacterPerformingAction(), SexSlotMasturbation.SITTING, Sex.getAllOccupiedSlots(true)).getKey()
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotMasturbation.KNEELING_PANTIES
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotMasturbation.SITTING;
+			return SexPosition.MASTURBATION.isSlotUnlocked(Main.sex.getCharacterPerformingAction(), SexSlotMasturbation.SITTING, Main.sex.getAllOccupiedSlots(true)).getKey()
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotMasturbation.KNEELING_PANTIES
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotMasturbation.SITTING;
 		}
 		@Override
 		public String getActionTitle() {
@@ -94,13 +94,13 @@ public class Masturbation {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SexManagerDefault(
+			Main.sex.setSexManager(new SexManagerDefault(
 					SexPosition.MASTURBATION,
-					Sex.isDom(Sex.getCharacterPerformingAction())
-						?Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotMasturbation.SITTING))
+					Main.sex.isDom(Main.sex.getCharacterPerformingAction())
+						?Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotMasturbation.SITTING))
 						:null,
-					!Sex.isDom(Sex.getCharacterPerformingAction())
-						?Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotMasturbation.SITTING))
+					!Main.sex.isDom(Main.sex.getCharacterPerformingAction())
+						?Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotMasturbation.SITTING))
 						:null){
 			});
 		}
@@ -116,9 +116,9 @@ public class Masturbation {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return SexPosition.MASTURBATION.isSlotUnlocked(Sex.getCharacterPerformingAction(), SexSlotMasturbation.KNEELING, Sex.getAllOccupiedSlots(true)).getKey()
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotMasturbation.KNEELING_PANTIES
-					&& Sex.getSexPositionSlot(Sex.getCharacterPerformingAction())!=SexSlotMasturbation.KNEELING;
+			return SexPosition.MASTURBATION.isSlotUnlocked(Main.sex.getCharacterPerformingAction(), SexSlotMasturbation.KNEELING, Main.sex.getAllOccupiedSlots(true)).getKey()
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotMasturbation.KNEELING_PANTIES
+					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotMasturbation.KNEELING;
 		}
 		@Override
 		public String getActionTitle() {
@@ -130,7 +130,7 @@ public class Masturbation {
 		}
 		@Override
 		public String getDescription() {
-			if(!Sex.getCharacterPerformingAction().isTaur()) {
+			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 				return "Deciding that it would be better to continue masturbating while kneeling down on the ground, [npc.name] [npc.verb(drop)] down into such a position,"
 						+ " before sliding [npc.her] [npc.hands] down between [npc.her] [npc.legs] and preparing to continue where [npc.she] left off...";
 			} else {
@@ -140,13 +140,13 @@ public class Masturbation {
 		}
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SexManagerDefault(
+			Main.sex.setSexManager(new SexManagerDefault(
 					SexPosition.MASTURBATION,
-					Sex.isDom(Sex.getCharacterPerformingAction())
-						?Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotMasturbation.KNEELING))
+					Main.sex.isDom(Main.sex.getCharacterPerformingAction())
+						?Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotMasturbation.KNEELING))
 						:null,
-					!Sex.isDom(Sex.getCharacterPerformingAction())
-						?Util.newHashMapOfValues(new Value<>(Sex.getCharacterPerformingAction(), SexSlotMasturbation.KNEELING))
+					!Main.sex.isDom(Main.sex.getCharacterPerformingAction())
+						?Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotMasturbation.KNEELING))
 						:null){
 			});
 		}

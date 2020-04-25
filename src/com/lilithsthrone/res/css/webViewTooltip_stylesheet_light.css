@@ -89,66 +89,59 @@ h6{
 	box-sizing: border-box;
 	width: calc(100% - 16px);
 }
-
 .subTitle{
-	font-size:1.2em;
+	font-size:16px;
 	font-weight: bold;
 	text-align:center;
 	line-height:18px;
 	background-color:#fcfcfc;
 	
 	margin:8px 8px 0 8px;
-	padding:8px;
+	padding:4px;
 	
 	box-sizing: border-box;
 	width: calc(100% - 16px);
 }
 .subTitle-third{
-	font-size:1.2em;
+	font-size:16px;
 	font-weight: bold;
 	text-align:center;
 	line-height:18px;
 	background-color:#fcfcfc;
 	
 	margin:8px 8px 0 8px;
-	padding:8px;
+	padding:4px;
 	
 	box-sizing: border-box;
 	width: calc(33.3% - 16px);
 }
-.subTitle-third.combatValue{
-	height:16px;
-	margin:4px 8px 0 8px;
-}
+
 .subTitle-half{
-	font-size:1.1em;
+	font-size:16px;
 	font-weight: bold;
 	text-align:center;
 	line-height:18px;
 	background-color:#fcfcfc;
 	
 	margin:8px 8px 0 8px;
-	padding:8px;
+	padding:4px;
 	
 	box-sizing: border-box;
 	width: calc(50% - 16px);
 }
 .subTitle-half.body{
-	height:40px;
-}
-.subTitle-half.combatValue{
-	line-height:16px;
+	height:50px;
 }
 
 .subTitle-picture{
-	font-size:1.2em;
+	font-size:16px;
 	font-weight: bold;
 	text-align:center;
 	line-height:18px;
 	background-color:#fcfcfc;
 	
 	margin:8px 8px 0 8px;
-	padding:8px;
+	padding:4px;
 	width:calc((352px/3)*2 - 32px);
 	min-height:calc(352px/3 - 32px);
 }
@@ -161,7 +154,7 @@ h6{
 	background-color:#fcfcfc;
 	
 	margin:8px 8px 0 8px;
-	padding:8px;
+	padding:4px;
 	width:calc(352px/3 - 32px);
 	height:calc(352px/3 - 32px);
 }
@@ -174,26 +167,28 @@ h6{
 .description{
 	margin:8px 8px 0 8px;
 	padding:8px;
-	width:calc(352px - 32px);
-	height:90px;
+	height:106px;
 	background-color:#fcfcfc;
+	box-sizing: border-box;
+	width: calc(100% - 16px);
 }
 .description-half{
 	margin:8px 8px 0 8px;
 	padding:8px;
-	width:calc(352px - 32px);
-	height:50px;
+	height:66px;
 	background-color:#fcfcfc;
+	box-sizing: border-box;
+	width: calc(100% - 16px);
 }
 .description-small{
 	text-align:center;
 	margin:8px 8px 0 8px;
 	padding:8px;
-	width:calc(352px - 32px);
-	height:30px;
+	height:46px;
 	background-color:#fcfcfc;
+	box-sizing: border-box;
+	width: calc(100% - 16px);
 }
-
 
 /******************************************************/
 /*NEW*/
@@ -297,4 +292,16 @@ h6{
 	margin:0;
 	padding:0;
 	cursor:pointer;
+}
+
+/*ITEM VIEW SPECIFIC*/
+.colour-box {
+	position:relative;
+	float:left;
+	width:20px;
+	height:20px;
+	padding:0;
+	margin:2px;
+	background-color: #333333;
+	-webkit-user-select: none;
 }

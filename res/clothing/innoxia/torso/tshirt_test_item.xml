@@ -69,7 +69,9 @@
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
 	</coreAttributes>
 
   <replacementText type="REMOVE_OR_EQUIP">

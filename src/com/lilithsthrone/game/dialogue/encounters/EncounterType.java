@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue.encounters;
 
 /**
  * @since 0.1.69.9
- * @version 0.3.2
+ * @version 0.3.5.5
  * @author Innoxia
  */
 public enum EncounterType {
@@ -24,7 +24,7 @@ public enum EncounterType {
 	
 	
 	HARPY_NEST_ATTACK(true),
-	HARPY_NEST_ATTACK_STORM(true),
+//	HARPY_NEST_ATTACK_STORM(true),
 	HARPY_NEST_FIND_ITEM,
 	
 	SUBMISSION_TUNNEL_ATTACK(true),
@@ -32,7 +32,18 @@ public enum EncounterType {
 
 	BAT_CAVERN_BAT_ATTACK(true),
 	BAT_CAVERN_SLIME_ATTACK(true),
-	BAT_CAVERN_FIND_ITEM
+	BAT_CAVERN_FIND_ITEM,
+	
+	VENGAR_CAPTIVE_SERVE,
+	VENGAR_CAPTIVE_GROPED,
+	VENGAR_CAPTIVE_VENGAR_FUCK,
+	VENGAR_CAPTIVE_RAT_FUCK,
+	VENGAR_CAPTIVE_ORAL_UNDER_TABLE,
+	VENGAR_CAPTIVE_GROUP_SEX,
+	
+	VENGAR_CAPTIVE_CLEAN_ROOM,
+	VENGAR_CAPTIVE_SHADOW_SILENCE_DOMINATE,
+	VENGAR_CAPTIVE_ROOM_BARRED
 	;
 
 	EncounterType() {}

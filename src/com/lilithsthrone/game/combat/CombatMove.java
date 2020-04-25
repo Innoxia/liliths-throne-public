@@ -17,10 +17,11 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * A class containing logic for Combat Moves. Additionally contains all the registered combat moves in the game.
@@ -80,7 +81,7 @@ public class CombatMove {
                 CombatMoveType.ATTACK,
                 DamageType.UNARMED,
                 "moves/strike",
-                Util.newArrayListOfValues(Colour.BASE_CRIMSON),
+                Util.newArrayListOfValues(PresetColour.BASE_CRIMSON),
                 false,
                 true,
                 false,
@@ -275,7 +276,7 @@ public class CombatMove {
             }
             
             @Override
-            public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             	int essenceCost = getArcaneCost(source);
             	int weaponCount = 0;
         		for(int i=0; i<Math.min(source.getArmRows(), source.getMainWeaponArray().length); i++) {
@@ -288,7 +289,7 @@ public class CombatMove {
             	if(source.getEssenceCount(TFEssence.ARCANE)<essenceCost) {
             		return "You don't have enough arcane essences to use your weapon"+(weaponCount>1?"s":"")+"! ("+Util.capitaliseSentence(Util.intToString(essenceCost))+" "+(essenceCost==1?"is":"are")+" required.)";
             	}
-            	return super.isUseable(source, target, enemies, allies);
+            	return super.isUsable(source, target, enemies, allies);
             }
             
             @Override
@@ -311,14 +312,14 @@ public class CombatMove {
          *
          *
          */
-        newCombatMove = new CombatMove("offhand strike",
+        newCombatMove = new CombatMove("offhand-strike",
                 "offhand strike",
                 0,
                 1,
                 CombatMoveType.ATTACK,
                 DamageType.UNARMED,
                 "moves/strike_offhand",
-                Util.newArrayListOfValues(Colour.BASE_ORANGE),
+                Util.newArrayListOfValues(PresetColour.BASE_ORANGE),
                 false,
                 true,
                 false,
@@ -513,7 +514,7 @@ public class CombatMove {
             }
             
             @Override
-            public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             	int essenceCost = getArcaneCost(source);
             	int weaponCount = 0;
         		for(int i=0; i<Math.min(source.getArmRows(), source.getOffhandWeaponArray().length); i++) {
@@ -526,7 +527,7 @@ public class CombatMove {
             	if(source.getEssenceCount(TFEssence.ARCANE)<essenceCost) {
             		return "You don't have enough arcane essences to use your weapon"+(weaponCount>1?"s":"")+"! ("+Util.capitaliseSentence(Util.intToString(essenceCost))+" "+(essenceCost==1?"is":"are")+" required.)";
             	}
-            	return super.isUseable(source, target, enemies, allies);
+            	return super.isUsable(source, target, enemies, allies);
             }
             
             @Override
@@ -556,7 +557,7 @@ public class CombatMove {
                 CombatMoveType.ATTACK,
                 DamageType.UNARMED,
                 "moves/strike_twin",
-                Util.newArrayListOfValues(Colour.BASE_CRIMSON, Colour.BASE_ORANGE),
+                Util.newArrayListOfValues(PresetColour.BASE_CRIMSON, PresetColour.BASE_ORANGE),
                 false,
                 true,
                 false,
@@ -767,7 +768,7 @@ public class CombatMove {
             }
             
             @Override
-            public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             	if(source.getArmRows()==1) {
 	            	if(source.getMainWeapon(0)!=null && source.getMainWeapon(0).getWeaponType().isTwoHanded()) {
 	            		return "You are using a two-handed weapon, so have no free hand with which to use an all-out strike!";
@@ -780,7 +781,7 @@ public class CombatMove {
             	if(source.getEssenceCount(TFEssence.ARCANE)<cost) {
             		return "You don't have enough arcane essences to use your weapon! ("+Util.capitaliseSentence(Util.intToString(cost))+" "+(cost==1?"is":"are")+" required.)";
             	}
-            	return super.isUseable(source, target, enemies, allies);
+            	return super.isUsable(source, target, enemies, allies);
             }
             
             @Override
@@ -808,7 +809,7 @@ public class CombatMove {
                 CombatMoveType.DEFEND,
                 DamageType.HEALTH,
                 "moves/block",
-                Util.newArrayListOfValues(Colour.BASE_GREY),
+                Util.newArrayListOfValues(PresetColour.BASE_GREY),
                 false,
                 false,
                 true,
@@ -999,12 +1000,11 @@ public class CombatMove {
             public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
                 boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
                 
-                GameCharacter targetedEnemy = Combat.getTargetedCombatant(source);
-                return (formatAttackOutcome(source, targetedEnemy,
-        				"[npc.Name] focused on resisting [npc2.namePos] seductive moves.",
+                return formatAttackOutcome(source, target,
+        				"[npc.Name] focused on resisting any attempts at seduction.",
         				"[npc.SheIs] now protected against " + getFormattedDamage(getDamageType(source), getBlock(isCrit), target, true) + " damage!",
         				isCrit?"":null,
-        				isCrit?"[npc.Name] [npc.verb(double)] [npc.her] shielding!":""));
+        				isCrit?"[npc.Name] [npc.verb(double)] [npc.her] shielding!":"");
             }
 
             @Override
@@ -1186,8 +1186,8 @@ public class CombatMove {
                 }
 
                 @Override
-                public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-                    String reason = super.isUseable(source, target, enemies, allies);
+                public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+                    String reason = super.isUsable(source, target, enemies, allies);
                     if(reason == null) {
                         if((getAssociatedSpell().getSpellSchool()!=SpellSchool.FIRE || !source.hasStatusEffect(StatusEffect.FIRE_MANA_BURN)) && source.getMana()<getAssociatedSpell().getModifiedCost(source)) {
                             reason = "Not enough aura to cast this spell!";
@@ -1214,7 +1214,7 @@ public class CombatMove {
                 CombatMoveType.ATTACK,
                 DamageType.PHYSICAL,
                 "moves/arcane_strike",
-                Util.newArrayListOfValues(Colour.GENERIC_ARCANE),
+                Util.newArrayListOfValues(PresetColour.GENERIC_ARCANE),
                 false,
                 true,
                 false,
@@ -1252,7 +1252,7 @@ public class CombatMove {
                 				+ " to deal "
                 				+ getFormattedDamage(getDamageType(source), getDamage(source, target), null, false)
                 				+ " damage"
-                				+ " and gain <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+(getManaGain(source)*(isCrit?2:1))+" "+Attribute.MANA_MAXIMUM.getName()+"</span>.");
+                				+ " and gain <span style='color:" + PresetColour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+(getManaGain(source)*(isCrit?2:1))+" "+Attribute.MANA_MAXIMUM.getName()+"</span>.");
             }
 
             @Override
@@ -1260,7 +1260,7 @@ public class CombatMove {
                 return UtilText.parse(source,
                 		"Strike [npc.her] target with a bolt of pure arcane energy, dealing base "
                 				+ getFormattedDamage(getDamageType(source), getBaseDamage(source), null, false) + " damage"
-                				+ " and recovering base <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+getManaGain(source)+" "+Attribute.MANA_MAXIMUM.getName()+"</span>.");
+                				+ " and recovering base <span style='color:" + PresetColour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+getManaGain(source)+" "+Attribute.MANA_MAXIMUM.getName()+"</span>.");
             }
 
             @Override
@@ -1286,7 +1286,7 @@ public class CombatMove {
         		attackStringBuilder.append(formatAttackOutcome(source, target,
         				"Harnessing [npc.her] knowledge of the arcane, [npc.name] [npc.verb(focus)] on replenishing [npc.her] aura as [npc.she] [npc.verb(launch)] a bolt of pure arcane energy at [npc2.name]!"+damageValue.getKey(),
         				"[npc2.Name] took " + getFormattedDamage(getDamageType(source), dealtDamage, target, true) + " damage, while [npc.name] recovered"
-        						+ " <span style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+manaGain+" "+Attribute.MANA_MAXIMUM.getName()+"</span>!",
+        						+ " <span style='color:" + PresetColour.ATTRIBUTE_MANA.toWebHexString() + ";'>"+manaGain+" "+Attribute.MANA_MAXIMUM.getName()+"</span>!",
         				isCrit?"":null,
         				isCrit?"Aura gain was doubled!":""));
         		
@@ -1328,7 +1328,7 @@ public class CombatMove {
             CombatMoveType.DEFEND,
             DamageType.HEALTH,
             "moves/block",
-            Util.newArrayListOfValues(Colour.GENERIC_MINOR_GOOD),
+            Util.newArrayListOfValues(PresetColour.GENERIC_MINOR_GOOD),
             false,
             false,
             true,
@@ -1492,7 +1492,7 @@ public class CombatMove {
 				damage /= 2;
 			}
 			return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(damage*2) + " " + damageType.getName() + "</span>"
-					+ " and <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>" + String.valueOf(damage) + " " + Attribute.MANA_MAXIMUM.getName() + "</span>";
+					+ " and <span style='color:" + PresetColour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>" + String.valueOf(damage) + " " + Attribute.MANA_MAXIMUM.getName() + "</span>";
 		}
 		return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + String.valueOf(damage) + " " + damageType.getName() + "</span>";
 	}
@@ -1525,7 +1525,7 @@ public class CombatMove {
 		
 		if(criticalText!=null) {
 			sb.append("<p>"
-							+ "<span style='color:"+Colour.CRIT.toWebHexString()+";'>Critical</span>: <i>"+criticalEffectText+"</i>"
+							+ "<span style='color:"+PresetColour.CRIT.toWebHexString()+";'>Critical</span>: <i>"+criticalEffectText+"</i>"
 						+ "</p>");
 		}
 		
@@ -1734,7 +1734,7 @@ public class CombatMove {
      * @param enemies Enemies of the character
      * @param allies Allies of the character
      */
-    public String isUseable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    public String isUsable(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         if(target != null) {
             if(!canTargetSelf && source == target) {
                 return "This action can't be used on yourself!";

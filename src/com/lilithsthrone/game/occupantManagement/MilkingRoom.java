@@ -27,11 +27,13 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
@@ -43,7 +45,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
  */
 public class MilkingRoom implements XMLSaving {
 	
-	private WorldType worldType;
+	private AbstractWorldType worldType;
 	private Vector2i location;
 	
 	private List<FluidStored> fluidsStored;
@@ -64,7 +66,7 @@ public class MilkingRoom implements XMLSaving {
 	public static final int BASE_GIRLCUM_MILKING_AMOUNT = 50;
 	public static final int INDUSTRIAL_GIRLCUM_MILKING_AMOUNT = 100;
 	
-	public MilkingRoom(WorldType worldType, Vector2i location) {
+	public MilkingRoom(AbstractWorldType worldType, Vector2i location) {
 		this.worldType = worldType;
 		this.location = new Vector2i(location.getX(), location.getY());
 		
@@ -75,7 +77,7 @@ public class MilkingRoom implements XMLSaving {
 		Element element = doc.createElement("milkingRoom");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "worldType", this.getWorldType().toString());
+		CharacterUtils.addAttribute(doc, element, "worldType", WorldType.getIdFromWorldType(this.getWorldType()));
 		CharacterUtils.addAttribute(doc, element, "x", String.valueOf(this.getLocation().getX()));
 		CharacterUtils.addAttribute(doc, element, "y", String.valueOf(this.getLocation().getY()));
 
@@ -89,7 +91,7 @@ public class MilkingRoom implements XMLSaving {
 	public static MilkingRoom loadFromXML(Element parentElement, Document doc) {
 		try {
 			MilkingRoom room = new MilkingRoom(
-					WorldType.valueOf(parentElement.getAttribute("worldType")),
+					WorldType.getWorldTypeFromId(parentElement.getAttribute("worldType")),
 					new Vector2i(
 							Integer.valueOf(parentElement.getAttribute("x")),
 							Integer.valueOf(parentElement.getAttribute("y"))));
@@ -250,7 +252,7 @@ public class MilkingRoom implements XMLSaving {
 		return Math.min(getMaximumGirlcumPerHour(character), character.getVaginaWetness().getValue()*(character.isVaginaSquirter()?2:1));
 	}
 
-	public WorldType getWorldType() {
+	public AbstractWorldType getWorldType() {
 		return worldType;
 	}
 
@@ -301,9 +303,9 @@ public class MilkingRoom implements XMLSaving {
 	public String getRoomDescription() {
 		StringBuilder milkyMilknessSB = new StringBuilder();
 		
-		milkyMilknessSB.append(getFluidEntries(this.getMilkFluidsStored(), Colour.MILK, "Milk Stored"));
-		milkyMilknessSB.append(getFluidEntries(this.getCumFluidsStored(), Colour.CUM, "Cum Stored"));
-		milkyMilknessSB.append(getFluidEntries(this.getGirlcumFluidsStored(), Colour.GIRLCUM, "Girlcum Stored"));
+		milkyMilknessSB.append(getFluidEntries(this.getMilkFluidsStored(), PresetColour.MILK, "Milk Stored"));
+		milkyMilknessSB.append(getFluidEntries(this.getCumFluidsStored(), PresetColour.CUM, "Cum Stored"));
+		milkyMilknessSB.append(getFluidEntries(this.getGirlcumFluidsStored(), PresetColour.GIRLCUM, "Girlcum Stored"));
 		
 		return milkyMilknessSB.toString();
 	}
@@ -336,7 +338,7 @@ public class MilkingRoom implements XMLSaving {
 				
 				fluidsFound = true;
 				
-				milkyMilknessSB.append("<div class='container-full-width' style='margin-top:2px; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>");
+				milkyMilknessSB.append("<div class='container-full-width' style='margin-top:2px; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>");
 				
 					milkyMilknessSB.append(
 							"<div class='container-half-width' style='margin:0; padding:2px; width:15%; background:transparent;'>"
@@ -413,7 +415,7 @@ public class MilkingRoom implements XMLSaving {
 			}
 			
 			if(!fluidsFound) {
-				milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center; background:"+Colour.BACKGROUND_ALT.toWebHexString()+";'>[style.colourDisabled(None...)]</div>");
+				milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>[style.colourDisabled(None...)]</div>");
 			}
 
 		milkyMilknessSB.append("</div>");

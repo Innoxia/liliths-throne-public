@@ -29,6 +29,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -126,7 +127,10 @@ public class ImpAttacker extends NPC {
 			loadImages();
 
 			initHealthAndManaToMax();
+			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 		}
+		
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
 	}
 	
 	@Override
@@ -135,7 +139,10 @@ public class ImpAttacker extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3")) {
 			this.setHomeLocation();
 		}
-		
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
+			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+		}
 		setStartingCombatMoves();
 	}
 	
@@ -262,18 +269,13 @@ public class ImpAttacker extends NPC {
 	public DialogueNode getEncounterDialogue() {
 		return TunnelImpsDialogue.IMP_ATTACK;
 	}
-	
+
 	@Override
-	public DialogueNode getEnslavementDialogue(AbstractClothing enslavementClothing) {
-		SlaveDialogue.setEnslavementTarget(this);
-		this.enslavementClothing = enslavementClothing;
-		
-		if(this.getWorldLocation()==WorldType.SUBMISSION) { //TODO handle enslavement in fortresses
-			if(Main.game.getCharactersPresent(this.getCell()).stream().filter((character) -> character instanceof ImpAttacker).count()<=1) { //TODO Add support for enslavement of imp groups
-				return TunnelImpsDialogue.IMP_ENSLAVEMENT_DIALOGUE;
-			}
-		}
-		return null;
+	public boolean isAbleToBeEnslaved() {
+		return this.getWorldLocation()!=WorldType.IMP_FORTRESS_ALPHA
+				&& this.getWorldLocation()!=WorldType.IMP_FORTRESS_DEMON
+				&& this.getWorldLocation()!=WorldType.IMP_FORTRESS_FEMALES
+				&& this.getWorldLocation()!=WorldType.IMP_FORTRESS_MALES;
 	}
 	
 	// Combat:
@@ -363,12 +365,14 @@ public class ImpAttacker extends NPC {
 				Value<AbstractItemType, Map<ItemEffect, String>> effects = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer());
 				if(effects!=null) {
 					AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+					potion.setName("Imp's Elixir");
 					TunnelImpsDialogue.getImpGroup().get(1).addItem(potion, false);
 				}
 				if(!Main.game.getPlayer().getNonElementalCompanions().isEmpty()) {
 					Value<AbstractItemType, Map<ItemEffect, String>> effects2 = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer().getMainCompanion());
 					if(effects2!=null) {
 						AbstractItem potion2 = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects2.getKey()), new ArrayList<>(effects2.getValue().keySet()));
+						potion2.setName("Imp's Elixir");
 						TunnelImpsDialogue.getImpGroup().get(1).addItem(potion2, false);
 					}
 				}

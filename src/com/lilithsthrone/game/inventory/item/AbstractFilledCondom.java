@@ -16,10 +16,11 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.86
@@ -86,7 +87,7 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 		parentElement.appendChild(element);
 		
 		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
-		CharacterUtils.addAttribute(doc, element, "colour", String.valueOf(this.getColour()));
+		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().getId());
 		CharacterUtils.addAttribute(doc, element, "cumProvider", this.getCumProviderId());
 		CharacterUtils.addAttribute(doc, element, "millilitresStored", String.valueOf(this.getMillilitresStored()));
 		
@@ -111,7 +112,7 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 		
 		return new AbstractFilledCondom(
 				ItemType.getIdToItemMap().get(parentElement.getAttribute("id")),
-				Colour.valueOf(parentElement.getAttribute("colour")),
+				PresetColour.getColourFromId(parentElement.getAttribute("colour")),
 				provider,
 				((Element) parentElement.getElementsByTagName("cum").item(0)==null
 					?new FluidCum(FluidType.CUM_HUMAN)
@@ -142,16 +143,16 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 	@Override
 	public String applyEffect(GameCharacter user, GameCharacter target) {
 		if(target.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
-			return UtilText.parse(user, target,
+			return UtilText.parse(target, user,
 					"<p>"
 						+ "[npc.Name] can't help but let out a delighted [npc.moan] as [npc.she] greedily [npc.verb(gulp)] down the slimy fluid."
 						+ " Darting [npc.her] [npc.tongue] out, [npc.she] desperately [npc.verb(lick)] up every last drop of cum; only discarding the condom once [npc.sheIs] sure that's it's completely empty."
 					+ "</p>"
 					+ target.ingestFluid(getCumProvider(), cum, SexAreaOrifice.MOUTH, millilitresStored));
 		} else {
-			return UtilText.parse(user, target,
+			return UtilText.parse(target, user,
 					"<p>"
-						+ "[npc.Name] scrunches [npc.her] [npc.eyes] shut as [npc.she] [npc.verb(gulp)] down the slimy fluid,"
+						+ "[npc.Name] [npc.verb(scrunch)] [npc.her] [npc.eyes] shut as [npc.she] [npc.verb(gulp)] down the slimy fluid,"
 						+ " trying [npc.her] best not to think about what [npc.sheHas] just done as "+(user.equals(target)?"[npc.she] [npc.verb(throw)]":"[npc2.name] [npc2.verb(throw)]")+" the now-empty condom to the floor..."
 					+ "</p>"
 					+ target.ingestFluid(getCumProvider(), cum, SexAreaOrifice.MOUTH, millilitresStored));

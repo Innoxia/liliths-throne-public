@@ -32,7 +32,7 @@ public class Cell implements XMLSaving {
 
 	public static final int CELL_MAXIMUM_INVENTORY_SPACE = 48;
 	
-	private WorldType type;
+	private AbstractWorldType type;
 
 	private Vector2i location;
 
@@ -44,7 +44,7 @@ public class Cell implements XMLSaving {
 	private Set<String> charactersHomeIds;
 	private Set<String> charactersGlobalIds;
 
-	public Cell(WorldType type, Vector2i location) {
+	public Cell(AbstractWorldType type, Vector2i location) {
 		this.type = type;
 		this.location = location;
 		
@@ -76,7 +76,7 @@ public class Cell implements XMLSaving {
 		return element;
 	}
 	
-	public static Cell loadFromXML(Element parentElement, Document doc, WorldType type) {
+	public static Cell loadFromXML(Element parentElement, Document doc, AbstractWorldType type) {
 		
 		Element locationElement = ((Element)parentElement.getElementsByTagName("location").item(0));
 		
@@ -126,11 +126,11 @@ public class Cell implements XMLSaving {
 		return type.toString()+"-X:"+location.getX()+"-Y:"+location.getY();
 	}
 
-	public WorldType getType() {
+	public AbstractWorldType getType() {
 		return type;
 	}
 
-	public void setType(WorldType type) {
+	public void setType(AbstractWorldType type) {
 		this.type = type;
 	}
 	
@@ -174,7 +174,7 @@ public class Cell implements XMLSaving {
 	}
 	
 	public Vector2i getLocation() {
-		return location;
+		return new Vector2i(location);
 	}
 
 	public void setLocation(Vector2i location) {

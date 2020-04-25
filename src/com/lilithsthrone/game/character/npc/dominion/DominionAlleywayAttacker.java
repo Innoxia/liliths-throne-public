@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -12,15 +13,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -28,7 +20,6 @@ import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -107,6 +98,7 @@ public class DominionAlleywayAttacker extends NPC {
 					case IMP:
 					case IMP_ALPHA:
 					case FOX_ASCENDANT:
+					case FOX_ASCENDANT_ARCTIC:
 					case FOX_ASCENDANT_FENNEC:
 					case ELEMENTAL_AIR:
 					case ELEMENTAL_ARCANE:
@@ -130,19 +122,19 @@ public class DominionAlleywayAttacker extends NPC {
 					// Special spawns:
 					case REINDEER_MORPH:
 						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-							Subspecies.addToSubspeciesMap((int) ((canalSpecies?50:1000)* Subspecies.getWorldSpecies().get(WorldType.DOMINION).get(s).getChanceMultiplier()), gender, s, availableRaces);
+							Subspecies.addToSubspeciesMap((int) ((canalSpecies?50:1000)* Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 						}
 						break;
 						
 					// Regular spawns:
 					default:
-						if(Subspecies.getWorldSpecies().get(WorldType.DOMINION).containsKey(s)) {
-							Subspecies.addToSubspeciesMap((int) (canalSpecies?250:1000 * Subspecies.getWorldSpecies().get(WorldType.DOMINION).get(s).getChanceMultiplier()), gender, s, availableRaces);
+						if(Subspecies.getWorldSpecies(WorldType.DOMINION, false).containsKey(s)) {
+							Subspecies.addToSubspeciesMap((int) (canalSpecies?250:1000 * Subspecies.getWorldSpecies(WorldType.DOMINION, false).get(s).getChanceMultiplier()), gender, s, availableRaces);
 						}
 				}
 			}
 			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces, true);
+			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			
 			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
 				if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
@@ -150,54 +142,8 @@ public class DominionAlleywayAttacker extends NPC {
 				}
 			}
 			
-			if(Math.random()<0.05 && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { //5% chance for the NPC to be a taur
-				int taurLevel = Main.getProperties().taurFurryLevel;
-				if(this.getRace()==Race.DEMON) {
-					taurLevel = 3; // Demons should always be untouched
-				}
-				switch(taurLevel) {
-					case 1:
-						this.setLegConfiguration(LegConfiguration.TAUR, true);
-						this.setAntennaType(AntennaType.NONE);
-						this.setArmType(ArmType.HUMAN);
-						this.setBreastType(BreastType.HUMAN);
-						this.setEarType(EarType.HUMAN);
-						this.setEyeType(EyeType.HUMAN);
-						this.setFaceType(FaceType.HUMAN);
-						this.setHairType(HairType.HUMAN);
-						this.setHornType(HornType.NONE);
-						this.setSkinType(SkinType.HUMAN);
-						break;
-					case 2:
-						this.setLegConfiguration(LegConfiguration.TAUR, true);
-						this.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(this.getLegRace())));
-						this.setArmType(ArmType.HUMAN);
-						this.setBreastType(BreastType.HUMAN);
-						this.setEarType(Util.randomItemFrom(EarType.getEarTypes(this.getLegRace())));
-						this.setEyeType(Util.randomItemFrom(EyeType.getEyeTypes(this.getLegRace())));
-						this.setFaceType(FaceType.HUMAN);
-						this.setHairType(Util.randomItemFrom(HairType.getHairTypes(this.getLegRace())));
-						this.setHornType(Util.randomItemFrom(HornType.getHornTypes(this.getLegRace())));
-						this.setSkinType(SkinType.HUMAN);
-						break;
-					case 3:
-						this.setLegConfiguration(LegConfiguration.TAUR, true);
-						break;
-					case 4:
-						this.setLegConfiguration(LegConfiguration.TAUR, true);
-						this.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(this.getLegRace())));
-						this.setArmType(Util.randomItemFrom(ArmType.getArmTypes(this.getLegRace())));
-						this.setBreastType(Util.randomItemFrom(BreastType.getBreastTypes(this.getLegRace())));
-						this.setEarType(Util.randomItemFrom(EarType.getEarTypes(this.getLegRace())));
-						this.setEyeType(Util.randomItemFrom(EyeType.getEyeTypes(this.getLegRace())));
-						this.setFaceType(Util.randomItemFrom(FaceType.getFaceTypes(this.getLegRace())));
-						this.setHairType(Util.randomItemFrom(HairType.getHairTypes(this.getLegRace())));
-						this.setHornType(Util.randomItemFrom(HornType.getHornTypes(this.getLegRace())));
-						this.setSkinType(Util.randomItemFrom(SkinType.getSkinTypes(this.getLegRace())));
-						break;
-					default:
-						break;
-				}
+			if(Main.getProperties().taurFurryLevel>0 && Math.random()<0.05 && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { //5% chance for the NPC to be a taur
+				CharacterUtils.applyTaurConversion(this);
 			}
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
@@ -277,12 +223,13 @@ public class DominionAlleywayAttacker extends NPC {
 	public void hourlyUpdate() {
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE && this.getLocationPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
 			// Remove client:
-			List<NPC> charactersPresent = Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation());
+			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation()));
 			charactersPresent.removeAll(Main.game.getPlayer().getCompanions());
 			if(charactersPresent.size()>1) {
 				for(NPC npc : charactersPresent) {
 					if(npc instanceof GenericSexualPartner) {
-	//					System.out.println("partner removed for "+slave.getName());
+//						System.out.println("partner removed for "+this.getName());
+//						System.out.println(npc.getId());
 						Main.game.banishNPC(npc);
 					}
 				}

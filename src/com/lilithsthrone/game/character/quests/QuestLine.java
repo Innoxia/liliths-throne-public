@@ -44,10 +44,6 @@ public enum QuestLine {
 	SIDE_HYPNO_WATCH("Arthur's Experiment", "You helped Arthur to complete his research into an orientation-changing Hypno-Watch, which is now in your possession!",
 			QuestType.SIDE,
 			QuestTree.hypnoWatchTree),
-	
-	RELATIONSHIP_NYAN_HELP("Supplier Issues", "You helped Nyan solve the problem she was having with her suppliers.",
-			QuestType.RELATIONSHIP,
-			QuestTree.nyanTree),
 
 	SIDE_HARPY_PACIFICATION("Angry Harpies", "You managed to calm down all three of the harpy matriarchs, resulting in the Harpy Nests being safe to travel through!",
 			QuestType.SIDE,
@@ -71,8 +67,17 @@ public enum QuestLine {
 
 	SIDE_VENGAR("Vengar's Tyranny", "You dealt with Vengar and made sure that Axel doesn't have to worry about him again.",
 			QuestType.SIDE,
-			QuestTree.vengarTree)
+			QuestTree.vengarTree),
 	
+	// Romance quests:
+	
+	RELATIONSHIP_NYAN_HELP("Supplier Issues", "You helped Nyan solve the problem she was having with her suppliers.",
+			QuestType.RELATIONSHIP,
+			QuestTree.nyanTree),
+
+	ROMANCE_HELENA("Her Highness's Helper", "You successfully completed every task which Helena gave to you, and as a reward, you can both order custom slaves from her an take her on a date each Friday evening.",
+			QuestType.RELATIONSHIP,
+			QuestTree.helenaTree),
 	;
 
 	private String name, completedDescription;

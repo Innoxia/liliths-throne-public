@@ -277,6 +277,13 @@
 	
 	<!-- GUARDS_AFTER_COMBAT_VICTORY -->
 	
+	<htmlContent tag="GUARDS_AFTER_COMBAT_VICTORY_ALL_ENSLAVED"><![CDATA[
+	<p>
+		Having enslaved the imp guards, there's nothing left for you to do except continue on your way into the fortress...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="GUARDS_AFTER_COMBAT_VICTORY"><![CDATA[
 	<p>
 		The two guards slump to the floor, their weapons falling from their hands to clatter harmlessly against the rocks underfoot. Looking up at you as [npc.she] gasps for breath, the leader pleads, [npc.speech(N-No more... Y-Ya got us...)]

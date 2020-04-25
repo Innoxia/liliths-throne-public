@@ -29,14 +29,14 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -48,8 +48,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class Lab {
 	
 	private static boolean isLilayaAngryAtPlayerDemonTF() {
-		return Main.game.getPlayer().getSubspeciesOverride()!=null
-				&& Main.game.getPlayer().getSubspeciesOverride().getRace()==Race.DEMON
+		return Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON
 				&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN);
 	}
 	
@@ -136,7 +135,7 @@ public class Lab {
 	private static List<Response> getLabEntryGeneratedResponses() {
 		List<Response> generatedResponses = new ArrayList<>();
 		
-		if (Main.game.getPlayer().isVisiblyPregnant()) {
+		if(Main.game.getPlayer().isVisiblyPregnant()) {
 			if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
 				generatedResponses.add(new Response("Pregnancy", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your pregnancy.", null));
 				
@@ -331,6 +330,21 @@ public class Lab {
 			}
 		}
 		
+		if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)
+				&& Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSelfTransformationInhibiting())
+				&& Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSealed())) {
+			generatedResponses.add(new Response("Jinxed problem",
+					"Tell Lilaya that you have some jinxed clothing sealed onto you, and that due to an enchantment on some of your clothing, you cannot remove it."
+							+ "<br/>[style.italicsMinorGood(Lilaya will remove all jinxes on all your clothing!)]",
+						LAB_JINX_REMOVAL){
+				@Override
+				public void effects() {
+					for(AbstractClothing clothing : new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped())) {
+						clothing.setSealed(false);
+					}
+				}
+			});
+		}
 		
 		return generatedResponses;
 	}
@@ -421,7 +435,7 @@ public class Lab {
 							LAB_DEMON_TF_AGREE){
 						@Override
 						public Colour getHighlightColour() {
-							return Colour.RACE_DEMON;
+							return PresetColour.RACE_DEMON;
 						}
 						@Override
 						public void effects() {
@@ -493,7 +507,7 @@ public class Lab {
 								LAB_DEMON_TF_AGREE) {
 							@Override
 							public Colour getHighlightColour() {
-								return Colour.RACE_DEMON;
+								return PresetColour.RACE_DEMON;
 							}
 							@Override
 							public void effects() {
@@ -589,7 +603,7 @@ public class Lab {
 					&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()) {
 				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_END_SEX_CREAMPIE");
 			} else {
-				if(Sex.getNumberOfOrgasms(Main.game.getNpc(Lilaya.class))==0) {
+				if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lilaya.class))==0) {
 					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_END_SEX_NO_ORGASM");
 				} else {
 					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_END_SEX");
@@ -814,7 +828,7 @@ public class Lab {
 				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "END_SEX_GEISHA_CREAMPIE");
 				
 			} else {
-				if(Sex.getNumberOfOrgasms(Main.game.getNpc(Lilaya.class))==0) {
+				if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(Lilaya.class))==0) {
 					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "END_SEX_GEISHA_NO_ORGASM");
 				} else {
 					return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "END_SEX_GEISHA");
@@ -861,6 +875,18 @@ public class Lab {
 		}
 	};
 	
+	public static final DialogueNode LAB_JINX_REMOVAL = new DialogueNode("", "", true) {
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LAB_JINX_REMOVAL");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LAB_ENTRY.getResponse(0, index);
+		}
+	};
 	
 	public static final DialogueNode LILAYA_EXPLAINS_ESSENCES = new DialogueNode("", "", true, true) {
 		
@@ -960,7 +986,7 @@ public class Lab {
 								
 								Main.game.getTextEndStringBuilder().append(
 										"<p style='text-align:center;'>"
-											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Item added to inventory:</b> <b>" + (TFEssence.essenceToItem(TFEssence.ARCANE)).getDisplayName(true) + "</b>"
+											+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Item added to inventory:</b> <b>" + (TFEssence.essenceToItem(TFEssence.ARCANE)).getDisplayName(true) + "</b>"
 										+ "</p>"
 										+ "<p>"
 											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
@@ -992,7 +1018,7 @@ public class Lab {
 											+ "Grabbing another vial, you set about repeating the process several times..."
 										+ "</p>"
 										+ "<p style='text-align:center;'>"
-											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>5x</b> <b>" + TFEssence.essenceToItem(TFEssence.ARCANE).getDisplayName(true) + "</b>"
+											+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>5x</b> <b>" + TFEssence.essenceToItem(TFEssence.ARCANE).getDisplayName(true) + "</b>"
 										+ "</p>"
 										+ "<p>"
 											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
@@ -1023,7 +1049,7 @@ public class Lab {
 											+ "Grabbing another vial, you set about repeating the process several times..."
 										+ "</p>"
 										+ "<p style='text-align:center;'>"
-											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>25x</b> <b>" + TFEssence.essenceToItem(TFEssence.ARCANE).getDisplayName(true) + "</b>"
+											+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>25x</b> <b>" + TFEssence.essenceToItem(TFEssence.ARCANE).getDisplayName(true) + "</b>"
 										+ "</p>"
 										+ "<p>"
 											+ "You now have <b>"+count+" "+(count>1?TFEssence.essenceToItem(TFEssence.ARCANE).getNamePlural(true):TFEssence.essenceToItem(TFEssence.ARCANE).getName(true))+"</b> in your inventory."
@@ -1054,7 +1080,7 @@ public class Lab {
 											+ "Grabbing another vial, you set about repeating the process several times..."
 										+ "</p>"
 										+ "<p style='text-align:center;'>"
-											+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>"+Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)+"x</b> <b>"
+											+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Items added to inventory:</b> <b>"+Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)+"x</b> <b>"
 												+ TFEssence.essenceToItem(TFEssence.ARCANE).getDisplayName(true) + "</b>"
 										+ "</p>"
 										+ "<p>"

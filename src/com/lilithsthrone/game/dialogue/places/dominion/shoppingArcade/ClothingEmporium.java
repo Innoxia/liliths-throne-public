@@ -12,13 +12,14 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.82
@@ -251,7 +252,7 @@ public class ClothingEmporium {
 							return new Response("Gift", "Give Nyan a gift (opens gift selection screen).", ROMANCE_GIFT) {
 								@Override
 								public DialogueNode getNextDialogue() {
-									return GiftDialogue.getGiftDialogue(Main.game.getNpc(Nyan.class), SHOP_CLOTHING_REPEAT, 1, ROMANCE_GIFT, 1);
+									return GiftDialogue.getGiftDialogue(Main.game.getNpc(Nyan.class), ROMANCE_GIFT, 1);
 								}
 								@Override
 								public void effects() {
@@ -337,10 +338,14 @@ public class ClothingEmporium {
 					
 				} else if(!Main.game.getPlayer().hasQuest(QuestLine.RELATIONSHIP_NYAN_HELP)){
 					if(index==1) {
-						return new Response("Enchanted Clothing", "Ask Nyan if she stocks enchanted clothing.", SHOP_ENCHANTED_CLOTHING) {
+						return new Response("Enchanted Clothing", "Ask Nyan if she stocks enchanted clothing.<br/>[style.italicsQuestRomance(This will start Nyan's romance quest!)]", SHOP_ENCHANTED_CLOTHING) {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.RELATIONSHIP_NYAN_HELP));
+							}
+							@Override
+							public Colour getHighlightColour() {
+								return PresetColour.QUEST_RELATIONSHIP;
 							}
 						};
 					}
@@ -723,7 +728,7 @@ public class ClothingEmporium {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfOrgasms(Main.game.getNpc(Nyan.class))==0) {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(Nyan.class))==0) {
 				return UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_END_SEX_NO_ORGASM");
 			} else {
 				return UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_END_SEX");
@@ -741,7 +746,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNode ROMANCE_GIFT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
+	public static final DialogueNode ROMANCE_GIFT = new DialogueNode("Nyan's Clothing Emporium", "-", true, true) {
 
 		@Override
 		public String getContent() {

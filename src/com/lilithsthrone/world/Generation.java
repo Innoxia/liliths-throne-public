@@ -3,11 +3,13 @@ package com.lilithsthrone.world;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.places.GenericPlace;
+
 import javafx.concurrent.Task;
 
 /**
@@ -24,10 +26,10 @@ public class Generation extends Task<Boolean> {
 
 	@Override
 	public Boolean call() {
-		int maxSize = WorldType.values().length;
+		int maxSize = WorldType.getAllWorldTypes().size();
 		int count = 0;
 		
-		for(WorldType wt : WorldType.values()) {
+		for(AbstractWorldType wt : WorldType.getAllWorldTypes()) {
 			if(debug) {
 				System.out.println(wt);
 			}
@@ -39,7 +41,7 @@ public class Generation extends Task<Boolean> {
 		return true;
 	}
 
-	public void worldGeneration(WorldType worldType) {
+	public void worldGeneration(AbstractWorldType worldType) {
 //		System.out.println(worldType);
 		if(worldType.isUsesFile()) {
 			try {

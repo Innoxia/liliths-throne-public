@@ -166,7 +166,7 @@ h6{
 	width:10%;
 }
 .icon.effect {
-	width:10.5%;
+	width:12.28%;
 }
 .icon-content {
 	position: absolute;
@@ -528,6 +528,14 @@ h6{
 	height:40%;
 	left:0;
 	bottom:0;
+	pointer-events: none;
+	-webkit-user-select: none;
+}
+.stretchIcon{
+	position:absolute;
+	width:40%;
+	height:40%;
+	left:0;
 	pointer-events: none;
 	-webkit-user-select: none;
 }

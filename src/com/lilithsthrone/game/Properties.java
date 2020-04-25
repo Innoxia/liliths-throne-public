@@ -1,9 +1,35 @@
 package com.lilithsthrone.game;
 
+import java.io.File;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.gender.*;
+import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
+import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.gender.GenderNames;
+import com.lilithsthrone.game.character.gender.GenderPronoun;
+import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -15,24 +41,12 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.settings.*;
+import com.lilithsthrone.game.settings.DifficultyLevel;
+import com.lilithsthrone.game.settings.ForcedFetishTendency;
+import com.lilithsthrone.game.settings.ForcedTFTendency;
+import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
+import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.util.*;
 
 /**
  * @since 0.1.0
@@ -65,6 +79,7 @@ public class Properties {
 			"Randomly-generated NPCs will only have multiple rows of breasts if they have furry skin. (Default setting.)",
 			"Randomly-generated NPCs will have multiple rows of breasts if their breast type is furry (starts at 'Minor morph' level)."};
 	
+	/** 0=off, 1=taur-only, 2=on*/
 	public int udders = 1;
 	public static String[] uddersLabels = new String[] {"Off", "Taur-only", "On"};
 	public static String[] uddersDescriptions = new String[] {
@@ -613,6 +628,18 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.3.3.9")) {
 						values.add(PropertyValue.enchantmentLimits);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.5.8")) {
+						values.add(PropertyValue.gapeContent);
+					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.5.9")) {
+						values.add(PropertyValue.levelDrain);
+					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.6.6")) {
+						values.add(PropertyValue.furryHairContent);
+					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.6.7")) {
+						values.add(PropertyValue.penetrationLimitations);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						
@@ -621,6 +648,7 @@ public class Properties {
 						} catch(Exception ex) {
 						}
 					}
+					
 				} else {
 					// Old values support:
 					nodes = doc.getElementsByTagName("settings");
@@ -999,6 +1027,35 @@ public class Properties {
 		}
 	}
 	
+	public void resetContentOptions() {
+		autoSaveFrequency = 0;
+		multiBreasts = 1;
+		udders = 1;
+		forcedTFPercentage = 40;
+		forcedFetishPercentage = 40;
+		setForcedFetishTendency(ForcedFetishTendency.NEUTRAL);
+		setForcedTFTendency(ForcedTFTendency.NEUTRAL);
+		setForcedTFPreference(FurryPreference.NORMAL);
+		
+		pregnancyBreastGrowthVariance = 2;
+		pregnancyBreastGrowth = 1;
+		pregnancyUdderGrowth = 1;
+		
+		pregnancyBreastGrowthLimit = CupSize.E.getMeasurement();
+		pregnancyUdderGrowthLimit = CupSize.E.getMeasurement();
+		
+		pregnancyLactationIncreaseVariance = 100;
+		pregnancyLactationIncrease = 250;
+		pregnancyUdderLactationIncrease = 250;
+		
+		pregnancyLactationLimit = 1000;
+		pregnancyUdderLactationLimit = 1000;
+		
+		breastSizePreference = 0;
+		udderSizePreference = 0;
+		penisSizePreference = 0;
+	}
+	
 	// Add discoveries:
 	
 	public boolean addItemDiscovered(AbstractItemType itemType) {
@@ -1012,6 +1069,10 @@ public class Properties {
 	public boolean isItemDiscovered(AbstractItemType itemType) {
 		return itemsDiscovered.contains(itemType);
 	}
+
+	public void resetItemDiscovered() {
+		itemsDiscovered.clear();
+	}
 	
 	public boolean addClothingDiscovered(AbstractClothingType clothingType) {
 		if(clothingDiscovered.add(clothingType)) {
@@ -1023,6 +1084,10 @@ public class Properties {
 	
 	public boolean isClothingDiscovered(AbstractClothingType clothingType) {
 		return clothingDiscovered.contains(clothingType);
+	}
+
+	public void resetClothingDiscovered() {
+		clothingDiscovered.clear();
 	}
 	
 	public boolean addWeaponDiscovered(AbstractWeaponType weaponType) {
@@ -1036,6 +1101,10 @@ public class Properties {
 	public boolean isWeaponDiscovered(AbstractWeaponType weaponType) {
 		return weaponsDiscovered.contains(weaponType);
 	}
+
+	public void resetWeaponDiscovered() {
+		weaponsDiscovered.clear();
+	}
 	
 	public boolean addRaceDiscovered(Subspecies subspecies) {
 		if(subspeciesDiscovered.add(subspecies)) {
@@ -1048,6 +1117,10 @@ public class Properties {
 	
 	public boolean isRaceDiscovered(Subspecies subspecies) {
 		return subspeciesDiscovered.contains(subspecies);
+	}
+
+	public void resetRaceDiscovered() {
+		subspeciesDiscovered.clear();
 	}
 	
 	public boolean addAdvancedRaceKnowledge(Subspecies subspecies) {
@@ -1069,6 +1142,10 @@ public class Properties {
 		}
 		
 		return false;
+	}
+
+	public void resetAdvancedRaceKnowledge() {
+		subspeciesAdvancedKnowledge.clear();
 	}
 	
 	public void setFeminineFurryPreference(Subspecies subspecies, FurryPreference furryPreference) {

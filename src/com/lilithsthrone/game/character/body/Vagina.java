@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -13,7 +12,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
-import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -21,14 +20,13 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.7
  * @author Innoxia
  */
 public class Vagina implements BodyPartInterface {
@@ -43,15 +41,15 @@ public class Vagina implements BodyPartInterface {
 	protected FluidGirlCum girlcum;
 	protected OrificeVaginaUrethra orificeUrethra;
 
-	public Vagina(VaginaType type, int labiaSize, int clitSize, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
+	public Vagina(VaginaType type, int labiaSize, int clitSize, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.labiaSize = labiaSize;
-		this.clitoris = new Clitoris(clitSize, PenisGirth.TWO_AVERAGE.getValue());
+		this.clitoris = new Clitoris(clitSize, PenetrationGirth.TWO_AVERAGE.getValue());
 		pierced = false;
 		
-		orificeVagina = new OrificeVagina(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
+		orificeVagina = new OrificeVagina(wetness, capacity, depth, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
 
-		orificeUrethra = new OrificeVaginaUrethra(Wetness.TWO_MOIST.getValue(), 0, OrificeElasticity.ZERO_UNYIELDING.getValue(), OrificePlasticity.THREE_RESILIENT.getValue(), true, new ArrayList<>());
+		orificeUrethra = new OrificeVaginaUrethra(Wetness.TWO_MOIST.getValue(), 0, 2, OrificeElasticity.ZERO_UNYIELDING.getValue(), OrificePlasticity.THREE_RESILIENT.getValue(), true, new ArrayList<>());
 		
 		girlcum = new FluidGirlCum(type.getFluidType());
 	}
@@ -102,8 +100,8 @@ public class Vagina implements BodyPartInterface {
 		}
 		
 		String wetnessDescriptor = orificeVagina.getWetness(owner).getDescriptor();
-		if(Main.game.isInSex() && Sex.getAllParticipants().contains(owner)) {
-			if(Sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.VAGINA)) {
+		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(owner)) {
+			if(Main.sex.hasLubricationTypeFromAnyone(owner, SexAreaOrifice.VAGINA)) {
 				wetnessDescriptor = "wet";
 			}
 		}
@@ -120,7 +118,7 @@ public class Vagina implements BodyPartInterface {
 			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
 					(this.getType().getRace()==Race.HORSE_MORPH?"mare":null),
 					"feral",
-					owner.getVaginaRace().getName(true)+"-",
+					owner.getVaginaRace().getName(owner, true)+"-",
 					"bestial",
 					"animalistic")));
 		} else {
@@ -167,50 +165,29 @@ public class Vagina implements BodyPartInterface {
 		}
 		
 		if (type == owner.getVaginaType()) {
-			if(owner.isPlayer()) {
-				if(type == VaginaType.NONE) {
-					return "<p style='text-align:center;'>[style.colourDisabled(You already lack a vagina, so nothing happens...)]</p>";
-				} else {
-					return "<p style='text-align:center;'>[style.colourDisabled(You already have [pc.a_vaginaRace]'s pussy, so nothing happens...)]</p>";
-				}
-				
+			if(type == VaginaType.NONE) {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.verb(lack)] a vagina, so nothing happens...)]</p>");
 			} else {
-				if(type == VaginaType.NONE) {
-					return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already lacks a vagina, so nothing happens...)]</p>");
-				} else {
-					return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already has [npc.a_vaginaRace] pussy, so nothing happens...)]</p>");
-				}
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] [npc.a_vaginaRace] pussy, so nothing happens...)]</p>");
 			}
 		}
 		
 		UtilText.transformationContentSB.setLength(0);
 		
 		// Cannot transform if pregnant:
-		if (!overridePregnancyPrevention && (owner.isPregnant() || owner.hasStatusEffect(StatusEffect.PREGNANT_0))) {
-			if(owner.isPlayer()) {
-				UtilText.transformationContentSB.append(
-						"<p>"
-							+ "You feel your [pc.pussy+] start to grow hot and sensitive, and you let out a lewd moan as a wave of tingling excitement washes through your lower abdomen."
-							+ " Much to your surprise, the feeling fades away almost as quickly as it came, and you realise that "
-							+ (owner.hasStatusEffect(StatusEffect.PREGNANT_0)
-									?"<b>the possibility of being pregnant has prevented your vagina from transforming</b>!"
-									:"<b>your ongoing pregnancy has prevented your vagina from transforming</b>!")
-							+ "<br/>"
-							+ "Your pussy remains [style.boldTfSex(unchanged)]."
-						+ "</p>");
-			} else {
-				UtilText.transformationContentSB.append(UtilText.parse(owner,
-						"<p>"
-							+ "[npc.Name] lets out a lewd moan as [npc.she] feels [npc.her] [npc.pussy+] starting to grow hot and sensitive,"
-								+ " and as a wave of tingling excitement washes through [npc.her] lower abdomen, [npc.her] moan turns into a desperate gasp."
-							+ " Much to [npc.her] surprise, the feeling fades away almost as quickly as it came, and with a sigh, [npc.she] realises that "
-							+ (owner.hasStatusEffect(StatusEffect.PREGNANT_0)
-									?"<b>the possibility of being pregnant has prevented [npc.her] vagina from transforming</b>!"
-									:"<b>[npc.her] ongoing pregnancy has prevented [npc.her] vagina from transforming</b>!")
-							+ "<br/>"
-							+ "[npc.NamePos] pussy remains [style.boldTfSex(unchanged)]."
-						+ "</p>"));
-			}
+		if (!overridePregnancyPrevention && type==VaginaType.NONE && (owner.isPregnant() || owner.hasStatusEffect(StatusEffect.PREGNANT_0))) {
+			UtilText.transformationContentSB.append(UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a lewd moan as [npc.she] [npc.verb(feel)] [npc.her] [npc.pussy+] starting to grow hot and sensitive,"
+							+ " and as a wave of tingling excitement washes through [npc.her] lower abdomen, [npc.her] moan turns into a desperate gasp."
+						+ " Much to [npc.her] surprise, the feeling fades away almost as quickly as it came, and with a sigh, [npc.she] [npc.verb(realise)] that "
+						+ (owner.hasStatusEffect(StatusEffect.PREGNANT_0)
+								?"<b>the possibility of being pregnant has prevented [npc.her] vagina from being removed</b>!"
+								:"<b>[npc.her] ongoing pregnancy has prevented [npc.her] vagina from being removed</b>!")
+						+ "<br/>"
+						+ "[npc.NamePos] pussy remains [style.boldTfSex(unchanged)]."
+					+ "</p>"));
+			
 			return UtilText.transformationContentSB.toString()
 					+ "<p>"
 						+owner.postTransformationCalculation()
@@ -219,80 +196,67 @@ public class Vagina implements BodyPartInterface {
 		
 		// If have no vagina:
 		if (owner.getVaginaType() == VaginaType.NONE) {
-			if (owner.isPlayer()) {
-				UtilText.transformationContentSB.append(
-						"<p>"
-							+ "You feel a strange heat spreading through your groin, and you let out an involuntary moan as you feel the [pc.skin] between your [pc.legs] starting to cave inwards."
-							+ " Within moments, a deep furrow has formed "
-							+ (owner.getPenisType() == PenisType.NONE
-								? "in the middle of your groin,"
-								: "beneath your cock,")
-							+ " and you start panting and squirming as the strange feeling shows no sign of stopping there."
-							+ " A sudden, penetrating sensation tears through your groin, and while it isn't painful, you still cry out in shock as the groove between your legs splits and forms into a new, virgin pussy."
-							+ " As the feeling finally starts to fade away, your new clit and labia finish forming, and a trickle of girl-cum leaks out from your excited slit."
-						+ "</p>"
-						+ "<p>"
-							+ "Just as you start thinking that the transformation is over, a warm, tingling feeling shoots up into your lower abdomen,"
-								+ " and you can't help but let out a desperate squeal as you feel a full female reproductive system rapidly growing inside of you."
-							+ " As your transformation finally comes to an end, you're left panting and covered in sweat, and you feel that your new cunt is already soaking wet from arousal."
-							+ "<br/>"
-							+ "You now have a [style.boldTfSex(vagina)]!"
-						+ "</p>");
-				
-				if(owner.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-					UtilText.transformationContentSB.append(
-							"<p style='text-align:center;'>"
-									+ "[style.boldExcellent(Pure Virgin)]"
-							+ "</p>"
-							+ "<p>"
-								+ "You can't remember the last time you felt so good."
-								+ " As your new pussy finishes growing, you realise that you're now technically a virgin once more."
-								+ " After all, this pussy has never been penetrated before!"
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "[pc.thought(I-I'm a virgin?!"
-								+ "<br/>"
-								+ "Yes! I'm a virgin!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "The elation you feel at discovering that you're a virgin again is unlike anything you've ever felt before."
-								+ " Tears start to well up in your eyes as you find yourself overcome with joy."
-							+ "</p>"
-							+ "<p>"
-								+ "You are invincible."
-								+ " You can overcome any obstacle that's placed in your way."
-								+ " You are..."
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "[style.boldExcellent(A Pure Virgin!)]"
-							+ "</p>"
-							);
-				}
-				
+			UtilText.transformationContentSB.append(UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(blush)] as [npc.she] [npc.verb(feel)] a strange heat spreading through [npc.her] groin, and can't help but let out a low [npc.moan] as the [npc.skin] "
+						+ (!owner.hasPenisIgnoreDildo()
+							? "in the middle of [npc.her] groin,"
+							: (!owner.isTaur()
+									?"beneath [npc.her] cock,"
+									:"above and behind [npc.her] cock,"))
+						+ " starts to cave inwards and form a shallow furrow."
+						+ " Showing no sign of stopping, this strange new indentation continues to deepen, sending another burst of heat shooting up into [npc.namePos] lower abdomen."
+						+ " As this second wave of heat fades away, a sharp, penetrating sensation shoots up into [npc.her] groin, and while it isn't painful,"
+							+ " [npc.she] can't help but cry out in shock as this groove suddenly splits and opens up to reveal a deep channel."
+						+ " The opening to this new orifice then quickly transforms into the distinctive shape of a vagina, complete with a [npc.clitSize] clit and [npc.labiaSize] labia."
+					+ "</p>"
+					+ "<p>"
+						+ "Just as [npc.she] [npc.verb(start)] to think that the transformation is over, one final intense wave of heat pulses up into [npc.namePos] lower abdomen,"
+							+ " and [npc.she] can't help but let out a desperate [npc.moan] as [npc.she] instinctively [npc.verb(realise)] that a completely-functional female reproductive system has grown inside of [npc.herHim]."
+						+ " As [npc.her] transformation finally comes to an end, [npc.namePos] suddenly [npc.verb(become)] aware of the fact that [npc.her] new cunt is already soaking wet from arousal, "
+							+ "causing [npc.herHim] to let out one final, sensual [npc.moan]."
+						+ "<br/>"));
+			
+			if(owner.isVaginaVirgin()) {
+				UtilText.transformationContentSB.append("[npc.Name] now [npc.has] a [style.colourExcellent(virgin)] [style.boldTfSex(vagina)], complete with an [style.colourExcellent(unbroken hymen)]!");
 			} else {
-				UtilText.transformationContentSB.append(UtilText.parse(owner,
-						"<p>"
-							+ "[npc.Name] blushes as [npc.she] feels a strange heat spreading through [npc.her] groin,"
-								+ " and can't help but let out an involuntary moan as [npc.she] feels the [npc.skin] between [npc.her] [npc.legs] starting to cave inwards."
-							+ " Within moments, a deep furrow has formed "
-							+ (!owner.hasPenisIgnoreDildo()
-								? "in the middle of [npc.her] groin,"
-								: (!owner.isTaur()
-										?"beneath [npc.her] cock,"
-										:"above and behind [npc.her] cock,"))
-							+ " and [npc.she] starts panting and squirming as the strange feeling shows no sign of stopping there."
-							+ " A sudden, penetrating sensation tears through [npc.her] groin, and while it isn't painful, [npc.she] still cries out in shock as the groove between [npc.her] legs splits and forms into a new, virgin pussy."
-							+ " As the feeling finally starts to fade away, [npc.her] new clit and labia finish forming, and a trickle of girl-cum leaks out from [npc.her] excited slit."
-						+ "</p>"
-						+ "<p>"
-							+ "Just as [npc.she] starts to think that the transformation is over, a warm, tingling feeling shoots up into [npc.her] lower abdomen,"
-								+ " and [npc.she] can't help but let out a desperate squeal as [npc.she] feels a full female reproductive system rapidly growing inside of [npc.herHim]."
-							+ " As [npc.her] transformation finally comes to an end, [npc.sheIs] left panting and covered in sweat, and [npc.she] lets out a lewd moan as [npc.she] feels that [npc.her] new cunt is already soaking wet from arousal."
-							+ "<br/>"
-							+ "[npc.Name] now has a [style.boldTfSex(vagina)]!"
-						+ "</p>"));
+				UtilText.transformationContentSB.append("[npc.Name] now [npc.has] a new [style.boldTfSex(vagina)], and although [npc.she] can't consider [npc.herself] a virgin, [npc.she] at least [npc.has] an [style.colourExcellent(unbroken hymen)]!");
 			}
-
+					
+			UtilText.transformationContentSB.append("</p>");
+				
+			if(owner.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+				if(owner.isVaginaVirgin()) {
+					UtilText.transformationContentSB.append(UtilText.parse(owner,
+							"<p style='text-align:center;'>"
+								+ "[style.boldExcellent(Pure Virgin)]"
+								+ "<br/><i>"
+								+ "Now that [npc.name] [npc.has] a vagina, [npc.she] can finally consider [npc.herself] to be a truly pure virgin!"
+								+ " Letting a delighted smile settle on [npc.her] [npc.face], [npc.she] can't help but feel extremely elated, and that for as long as [npc.she] [npc.verb(retain)] [npc.her] virginity,"
+									+ " [npc.she]'ll represent the perfect image of a proud, virtuous being!"
+								+ "</i>"
+								+ "<br/>"
+								+ "[npc.NameIsFull] now a [style.boldExcellent(Pure Virgin)]!"
+							+ "</p>"));
+				} else {
+					UtilText.transformationContentSB.append(UtilText.parse(owner,
+							"<p style='text-align:center;'>"
+								+ "[style.boldGood(Pure 'Virgin')]"
+								+ "<br/><i>"
+								+ "Finding [npc.herself] once again in possession of an unspoiled vagina, a huge wave of euphoria crashes over [npc.name]."
+								+ " Convincing [npc.herself] that [npc.her] unbroken hymen means that [npc.sheIs] technically a virgin again, [npc.she] [npc.verb(feel)] tears of joy start to well up in [npc.her] [npc.eyes]."
+								+ " Despite this feeling of elation, however, there's a small nagging voice in the back of [npc.her] mind which reminds [npc.herHim] that [npc.she]'ll never be a 'real' virgin ever again."
+								+ "<br/>"
+								+ "Shaking [npc.her] head clear of this unwelcome thought, [npc.name] [npc.verb(focus)] on the fact that for as long as [npc.her] hymen remains intact, [npc.she] can at least pretend that [npc.sheHas] never been fucked before."
+								+ " Not even wanting to consider the notion that [npc.her] pussy might at some point be broken in again,"
+									+ " [npc.she] [npc.verb(hold)] [npc.her] head up high and [npc.verb(tell)] [npc.herself] that [npc.sheIs] once again the perfect image of a proud, virtuous being!"
+								+ "</i>"
+								+ "<br/>"
+								+ "[npc.NameIsFull] now a [style.boldGood(Pure 'Virgin')]!"
+							+ "</p>"));
+				}
+			}
+			
 			this.type = VaginaType.HUMAN;
 			owner.resetAreaKnownByCharacters(CoverableArea.VAGINA);
 			
@@ -315,7 +279,7 @@ public class Vagina implements BodyPartInterface {
 			} else {
 				UtilText.transformationContentSB.append(UtilText.parse(owner,
 						"<p>"
-							+"[npc.Name] suddenly blushes and squeezes [npc.her] thighs together as [npc.she] feels [npc.her] pussy starting to transform."));
+							+"[npc.Name] suddenly blushes and squeezes [npc.her] thighs together as [npc.she] [npc.verb(feel)] [npc.her] pussy starting to transform."));
 			}
 		}
 		
@@ -344,53 +308,33 @@ public class Vagina implements BodyPartInterface {
 				
 				if(owner.isPlayer() && owner.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
 					if(!owner.isVaginaVirgin()) {
-						UtilText.transformationContentSB.append(
+						UtilText.transformationContentSB.append(UtilText.parse(owner,
 								"<p style='text-align:center;'>"
 									+ "[style.boldGood(Unbroken Virgin)]"
-								+ "</p>"
-								+ "<p>"
-									+ "As the reality of losing your worthless fuck-hole finally sinks in, you start to think of yourself as something more than just a cheap whore."
-									+ " After all, if you don't have a pussy, it's technically not possible for you to have lost your virginity!"
-								+ "</p>"
-								+ "<p style='text-align:center;'>"
-										+"[pc.thought(I-I'm no longer just a worthless fuck-toy..."
-										+ "<br/>"
-										+ "It's not possible for me to have lost my virginity if I don't have a vagina!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "With a deep sigh, you realise that you no longer have to worry about being a broken-in slut."
-									+ " Despite the fact that you can now finally see yourself as a real person again, not having a pussy is making you feel a little restless."
-								+ "</p>"
-								+ "<p style='text-align:center;'>"
-									+"[pc.thought(I need to find a way to get a new pussy!"
-										+ "<br/>"
-										+ "Then I'll be a pure virgin again!)]"
-								+ "</p>"
-								+ "<p style='text-align:center;'>"
-									+ "<b>You are</b> [style.boldGood(no longer a)] [style.boldTerrible(Broken Virgin)]<b>!</b>"
-								+ "</p>"
-								);
+									+ "<br/><i>"
+										+ "As the reality of losing [npc.her] worthless cunt sinks in, [npc.name] [npc.verb(start)] to think of [npc.herself] as something more than a dirty slut."
+										+ " After all, if [npc.she] [npc.do]n't have a pussy, it's technically not possible for [npc.herHim] to have lost [npc.her] virginity!"
+										+ " Letting out a deep sigh, [npc.she] [npc.verb(manage)] to convince [npc.herself] that [npc.she] no longer [npc.has] to worry about being a broken virgin."
+									+ "<br/>"
+										+ "Despite being able to finally see [npc.herself] as a dignified individual once again, the fact that [npc.sheIs] lacking the familiar feeling of having a pussy is making [npc.her] restless."
+										+ " Perhaps if [npc.she] [npc.was] able to grow a new pussy, [npc.she]'d gain an unbroken hymen, thereby making [npc.herHim] a pure 'virgin' once again..."
+									+ "</i><br/>"
+									+ "[npc.NameIsFull] [style.boldGood(no longer a broken virgin)]!"
+								+ "</p>"));
 					} else {
-						UtilText.transformationContentSB.append(
+						UtilText.transformationContentSB.append(UtilText.parse(owner,
 								"<p style='text-align:center;'>"
-										+ "[style.boldBad(Pure Virgin?)]"
+									+ "[style.boldBad(Pure Virgin?)]"
+									+ "<br/><i>"
+									+ "As the reality of losing [npc.her] vagina sinks in, [npc.name] [npc.verb(start)] to feel a rising panic in the back of [npc.her] mind."
+									+ " After all, if [npc.she] [npc.do]n't have a pussy, [npc.she] can't be considered a pure virgin!"
+									+ "</i><br/>"
+									+ "Until [npc.name] can [npc.verb(regain)] [npc.her] lost vagina, [npc.she] will [style.boldBad(no longer be considered a pure virgin)]!"
 								+ "</p>"
-								+ "<p>"
-									+ "As the reality of losing your vagina finally sinks in, you start to feel a rising panic in the back of your mind."
-									+ " After all, if you don't have a pussy, you can't call yourself a pure virgin!"
-								+ "</p>"
-								+ "<p style='text-align:center;'>"
-									+ "[pc.thought(~Aah!~ I need to get my pussy back!)]"
-								+ "</p>"
-								+ "<p style='text-align:center;'>"
-									+ "<b>Until you get your vagina back, you are</b> [style.boldBad(no longer a)] [style.boldExcellent(Pure Virgin)]<b>!</b>"
-								+ "</p>"
-								);
+								));
 					}
 				}
-				
-				owner.setVaginaVirgin(true);
-				orificeUrethra.setVirgin(true);
+				owner.setHymen(true);
 				owner.setPiercedVagina(false);
 				break;
 			case HUMAN:
@@ -902,15 +846,9 @@ public class Vagina implements BodyPartInterface {
 			orificeVagina.addOrificeModifier(owner, om);
 		}
 
-		if (owner.isPlayer()) {
-			UtilText.transformationContentSB.append(
-					"<p>"
-					+ "Any old modifiers that your pussy might have had have [style.boldShrink(transformed away)]!");
-		} else {
-			UtilText.transformationContentSB.append(
-					"<p>"
-					+ "Any old modifiers that [npc.her] pussy might have had have [style.boldShrink(transformed away)]!");
-		}
+		UtilText.transformationContentSB.append(
+				"<p>"
+				+ "Any old modifiers which [npc.her] pussy might have had have [style.boldShrink(transformed away)]!");
 		
 		if(orificeVagina.getOrificeModifiers().isEmpty()) {
 			UtilText.transformationContentSB.append("</p>");

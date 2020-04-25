@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -28,9 +27,10 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * Singleton enforced by Enum.<br/>
@@ -51,9 +51,9 @@ public enum Combat {
 	private static GameCharacter targetedEnemy;
 	private static NPC enemyLeader;
 	
-	private static List<NPC> allies;
-	private static List<NPC> enemies;
-	private static List<NPC> allCombatants;
+	private static List<NPC> allies = new ArrayList<>();
+	private static List<NPC> enemies = new ArrayList<>();
+	private static List<NPC> allCombatants = new ArrayList<>();
 	private static List<GameCharacter> activeCombatants; // A list of combatants who are still active in the fight. This is updated at the very end of each combat turn, and removes characters which have been defeated during the last turn.
 	
 	private static float escapeChance = 0;
@@ -269,7 +269,7 @@ public enum Combat {
 		
 		boolean enemy = enemies.contains(character);
 		
-		sb.append("<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid "+(enemy?Colour.GENERIC_MINOR_BAD:Colour.GENERIC_MINOR_GOOD).getShades()[0]+"; border-radius:5px;'>");
+		sb.append("<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid "+(enemy?PresetColour.GENERIC_MINOR_BAD:PresetColour.GENERIC_MINOR_GOOD).getShades()[0]+"; border-radius:5px;'>");
 
 			sb.append(
 					"<div class='container-full-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; text-align:center;'>"
@@ -281,11 +281,11 @@ public enum Combat {
 			sb.append("<div class='container-full-width'>");
 				for(String s : descriptions) {
 					if(!s.isEmpty()) {
-						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
+						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
 					}
 				}
 				if(!effects.isEmpty()) {
-					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>"+effects+"</div>");
+					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>"+effects+"</div>");
 				}
 			sb.append("</div>");
 				
@@ -317,7 +317,7 @@ public enum Combat {
 			}
 			
 			for(NPC ally : allies) {
-				if(!(ally instanceof Elemental)) {
+				if(!(ally.isElemental())) {
 					postCombatStringBuilder.append(ally.incrementExperience(xp, true));
 				}
 			}
@@ -375,6 +375,7 @@ public enum Combat {
 								postCombatStringBuilder.append(
 										UtilText.parse(enemy,
 										"<p>"
+										+ "<i>"
 											+ "[npc.Name] staggers back, defeated, but before you have a chance to react to your victory, the world around you seems to somehow shift out of focus."
 											+ " The pants and gasps coming from [npc.her] mouth start to sound muffled and faint; as though you're listening to [npc.her] while submerged under water."
 											+ " After fruitlessly trying to shake your head clear, you look down at [npc.name] to see if [npc.sheIs] being affected by this peculiar phenomenon as well, but as you do, you feel your eyes going wide in shock."
@@ -391,6 +392,7 @@ public enum Combat {
 										+ "<p>"
 											+ "Looking back down at [npc.name], you see no sign of the shimmering pink field that was surrounding [npc.herHim] a moment ago, and, what's more, [npc.she] seems completely oblivious to what you've just witnessed."
 											+ " You think that it would probably be best to go and ask Lilaya about what just happened, but first you'd better deal with this troublesome [npc.race]..."
+										+ "</i>"
 										+ "</p>"
 										+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):"")));
 								
@@ -398,6 +400,7 @@ public enum Combat {
 								postCombatStringBuilder.append(
 										UtilText.parse(enemy,
 										"<p>"
+										+ "<i>"
 											+ "[npc.Name] staggers back, defeated, but before you have a chance to react to your victory, the world around you seems to somehow shift out of focus."
 											+ " The pants and gasps coming from [npc.her] mouth start to sound muffled and faint; as though you're listening to [npc.her] while submerged under water."
 											+ " After fruitlessly trying to shake your head clear, you look down at [npc.name] to see if [npc.sheIs] being affected by this peculiar phenomenon as well, but as you do, you feel your eyes going wide in shock."
@@ -415,6 +418,7 @@ public enum Combat {
 											+ "Looking back down at [npc.name], you see no sign of the shimmering pink field that was surrounding [npc.herHim] a moment ago, and, what's more, [npc.she] seems completely oblivious to what you've just witnessed."
 											+ " You suddenly remember what Lilaya told you about absorbing essences, and how it's absolutely harmless for both parties involved."
 											+ " Breathing a sigh of relief, you turn your attention back to this troublesome [npc.race]..."
+										+ "</i>"
 										+ "</p>"));
 							}
 						}
@@ -438,7 +442,7 @@ public enum Combat {
 			int xpGain = (Main.game.getPlayer().getLevel()*2);
 			
 			for(NPC enemy : enemies) {
-				if(!(enemy instanceof Elemental)) {
+				if(!(enemy.isElemental())) {
 					postCombatStringBuilder.append(enemy.incrementExperience(xpGain, true));
 				}
 			}
@@ -550,7 +554,7 @@ public enum Combat {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (isEnemyPartyDefeated()) {
-					return new ResponseEffectsOnly("Victory", "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You are victorious!</span>"){
+					return new ResponseEffectsOnly("Victory", "<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>You are victorious!</span>"){
 						@Override
 						public void effects() {
 							endCombat(true);
@@ -602,7 +606,7 @@ public enum Combat {
 			if (index == 1) {
 				return new Response("Submit",
 						UtilText.parse(enemyLeader,
-								"Submit to [npc.name]. <span style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>This will cause you to lose the current combat!</span>"),
+								"Submit to [npc.name]. <span style='color:" + PresetColour.GENERIC_TERRIBLE.toWebHexString() + ";'>This will cause you to lose the current combat!</span>"),
 						SUBMIT_CONFIRM){
 					@Override
 					public void effects() {
@@ -692,6 +696,9 @@ public enum Combat {
 		
 		@Override
 		public String getResponseTabTitle(int index) {
+			if(enemyLeader.interruptCombatSpecialCase()!=null) {
+				return null;
+			}
 			if(index==0) {
 				return "Core moves";
 				
@@ -712,6 +719,13 @@ public enum Combat {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			//TODO
+			if(enemyLeader.interruptCombatSpecialCase()!=null) {
+				if(index == 1) {
+					return enemyLeader.interruptCombatSpecialCase();
+				}
+				return null;
+			}
 			if(Main.game.getPlayer().isStunned()) {
 				if (index == 1) {
 					return new Response("Stunned!", "You are unable to make an action this turn!", ENEMY_ATTACK){
@@ -726,23 +740,23 @@ public enum Combat {
 					return null;
 				}
 				
-			} else if (escaped) {
+			} else if(escaped) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
 						public void effects() {
 							enemyLeader.applyEscapeCombatEffects();
 							Main.game.setInCombat(false);
-							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogueNoEncounter()));
+							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 						}
 					};
 				} else {
 					return null;
 				}
 				
-			} else if (isEnemyPartyDefeated()) {
+			} else if(isEnemyPartyDefeated()) {
 				if (index == 1) {
-					return new ResponseEffectsOnly("Victory", UtilText.parse(enemyLeader, "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have defeated [npc.name]!</span>")){
+					return new ResponseEffectsOnly("Victory", UtilText.parse(enemyLeader, "<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>You have defeated [npc.name]!</span>")){
 						@Override
 						public void effects() {
 							endCombat(true);
@@ -752,7 +766,7 @@ public enum Combat {
 				} else
 					return null;
 				
-			}  else if (isAlliedPartyDefeated()) {
+			}  else if(isAlliedPartyDefeated()) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Defeat", "You have been defeated!"){
 						@Override
@@ -795,9 +809,9 @@ public enum Combat {
 					@Override
 					public Colour getHighlightColour() {
 						if(Main.game.getPlayer().getRemainingAP() > 0) {
-							return Colour.GENERIC_BAD;
+							return PresetColour.GENERIC_BAD;
 						} else {
-							return Colour.GENERIC_GOOD;
+							return PresetColour.GENERIC_GOOD;
 						}
 					}
 				};
@@ -905,7 +919,7 @@ public enum Combat {
 								@Override
 								public Colour getHighlightColour() {
 									if(targetedAlly.getCombatBehaviour()==behaviour) {
-										return Colour.GENERIC_GOOD;
+										return PresetColour.GENERIC_GOOD;
 									}
 									return super.getHighlightColour();
 								}
@@ -942,7 +956,7 @@ public enum Combat {
 				}
 				
 			} else if(index==11) {
-				return new ResponseEffectsOnly("[style.colourGood(Target:)] "+(Combat.getTargetedAlliedCombatant(Main.game.getPlayer()).isPlayer()?"Yourself":Util.capitaliseSentence(Combat.getTargetedAlliedCombatant(Main.game.getPlayer()).getName())),
+				return new ResponseEffectsOnly("[style.colourGood(Target:)] "+(Combat.getTargetedAlliedCombatant().isPlayer()?"Yourself":Util.capitaliseSentence(Combat.getTargetedAlliedCombatant().getName())),
 						"You can cycle through your targeted allied combatant by either using this action, or clicking on their name on the right-hand side of the screen.") {
 					@Override
 					public void effects() {
@@ -952,7 +966,7 @@ public enum Combat {
 							return;
 						}
 						for(int i=0; i<alliesPlusPlayer.size(); i++) {
-							if(alliesPlusPlayer.get(i).equals(Combat.getTargetedAlliedCombatant(Main.game.getPlayer()))) {
+							if(alliesPlusPlayer.get(i).equals(Combat.getTargetedAlliedCombatant())) {
 								if(i+1<alliesPlusPlayer.size()) {
 									Combat.setTargetedCombatant(alliesPlusPlayer.get(i+1));
 									break;
@@ -966,7 +980,7 @@ public enum Combat {
 				};
 
 			} else if(index==12) {
-				return new ResponseEffectsOnly("[style.colourBad(Target:)] "+Util.capitaliseSentence(Combat.getTargetedCombatant(Main.game.getPlayer()).getName()),
+				return new ResponseEffectsOnly("[style.colourBad(Target:)] "+Util.capitaliseSentence(Combat.getTargetedCombatant().getName()),
 						"You can cycle through your targeted enemy combatant by either using this action, or clicking on their name on the right-hand side of the screen.") {
 					@Override
 					public void effects() {
@@ -975,7 +989,7 @@ public enum Combat {
 							return;
 						}
 						for(int i=0; i<playerEnemies.size(); i++) {
-							if(playerEnemies.get(i).equals(Combat.getTargetedCombatant(Main.game.getPlayer()))) {
+							if(playerEnemies.get(i).equals(Combat.getTargetedCombatant())) {
 								if(i+1<playerEnemies.size()) {
 									Combat.setTargetedCombatant(playerEnemies.get(i+1));
 									break;
@@ -1028,11 +1042,11 @@ public enum Combat {
 	};
 	
 	private static Response getMoveResponse(CombatMove move, List<GameCharacter> pcEnemies, List<GameCharacter> pcAllies) {
-		GameCharacter moveTarget = move.isCanTargetAllies()||move.isCanTargetSelf()?getTargetedAlliedCombatant(Main.game.getPlayer()):getTargetedCombatant(Main.game.getPlayer());
+		GameCharacter moveTarget = move.isCanTargetAllies()||move.isCanTargetSelf()?getTargetedAlliedCombatant():getTargetedCombatant();
 
 		int selectedMoveIndex = Main.game.getPlayer().getSelectedMoves().size();
 		
-		String rejectionReason = move.isUseable(Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies);
+		String rejectionReason = move.isUsable(Main.game.getPlayer(), moveTarget, pcEnemies, pcAllies);
 		if(rejectionReason != null) {
 			return new Response(Util.capitaliseSentence(move.getName(selectedMoveIndex, Main.game.getPlayer())),
 								rejectionReason,
@@ -1200,12 +1214,12 @@ public enum Combat {
 				
 			} else if (!activeCombatants.contains(character)) {
 				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
+						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
 				return false;
 				
 			} else if(attemptedEscape) {
 				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>You fail to escape!</span>")));
+						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>You fail to escape!</span>")));
 				return false;
 				
 			}
@@ -1218,12 +1232,12 @@ public enum Combat {
 				
 			} else if (!activeCombatants.contains(character)) {
 				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
+						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
 				return false;
 				
 			} else if(attemptedEscape) {
 				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>[npc.Name] fails to escape with you!</span>")));
+						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>[npc.Name] fails to escape with you!</span>")));
 				return false;
 				
 			}
@@ -1231,7 +1245,7 @@ public enum Combat {
 		} else {
 			if (!activeCombatants.contains(character)) {
 				combatContent.put(character,
-						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
+						Util.newArrayListOfValues(UtilText.parse(character, "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>[npc.NameHasFull] been defeated!</span>")));
 				return false;
 				
 			} else if(escaped) {
@@ -1322,7 +1336,7 @@ public enum Combat {
 				if(activeCombatants.remove(character)) {
 					List<String> vampyres = new ArrayList<>();
 					boolean playerVampyre = false;
-					float manaAbsorbed = character.getMana()/2;
+					float manaAbsorbed = Math.round(character.getMana()/2);
 					for(GameCharacter c2 : combatants) {
 						if(!isCombatantDefeated(c2) && c2.hasTraitActivated(Perk.ARCANE_VAMPYRISM)) {
 							if(c2.isPlayer()) {
@@ -1340,22 +1354,22 @@ public enum Combat {
 						predictionContent.put(character, Util.newArrayListOfValues(
 										UtilText.parse(character,
 												"[style.boldArcane("+(Util.capitaliseSentence(Perk.ARCANE_VAMPYRISM.getName(Main.game.getPlayer())))+":)]<br/>"
-														+Util.capitaliseSentence(Util.stringsToStringList(vampyres, false))+(vampyres.size()>1 || playerVampyre?" absorb":"absorbs")
+														+Util.capitaliseSentence(Util.stringsToStringList(vampyres, false))+(vampyres.size()>1 || playerVampyre?" absorb":" absorbs")
 														+" half of [npc.namePos] remaining aura,"
 														+ (Combat.enemies.contains(character)
 																?"[style.colourGood("
 																:"[style.colourBad(")
 														+" gaining "+manaAbsorbed+" aura)]!")));
 					} else {
-						predictionContent.put(character, Util.newArrayListOfValues("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Defeated...</span>"));
+						predictionContent.put(character, Util.newArrayListOfValues("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Defeated...</span>"));
 					}
 					
 				} else {
-					predictionContent.put(character, Util.newArrayListOfValues("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Defeated...</span>"));
+					predictionContent.put(character, Util.newArrayListOfValues("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Defeated...</span>"));
 				}
 				
 			} else if(character.isStunned()) {
-				predictionContent.put(character, Util.newArrayListOfValues("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Stunned!</span>"));
+				predictionContent.put(character, Util.newArrayListOfValues("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Stunned!</span>"));
 				
 			} else {
 				if(character.isPlayer()) {
@@ -1392,7 +1406,7 @@ public enum Combat {
 		int apRemaining = character.getRemainingAP();
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(" <b>(<span style='color:"+(apRemaining==0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD).toWebHexString()+";'>"+apRemaining+"</span>/"+Main.game.getPlayer().getMaxAP()+" AP)</b>");
+		sb.append(" <b>(<span style='color:"+(apRemaining==0?PresetColour.GENERIC_GOOD:PresetColour.GENERIC_BAD).toWebHexString()+";'>"+apRemaining+"</span>/"+character.getMaxAP()+" AP)</b>");
 		
 		sb.append("<div class='container-full-width' style='text-align:center;'>");
 		
@@ -1400,7 +1414,7 @@ public enum Combat {
 		int shields = character.getShields(DamageType.HEALTH);
 		if(shields!=0) {
 			shieldsFound = true;
-			sb.append("<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+Colour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
+			sb.append("<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
 							+"<span style='color:"+DamageType.HEALTH.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
 							+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+DamageType.HEALTH+"' style='cursor:default;'></div>"
 						+ "</div>");
@@ -1415,7 +1429,7 @@ public enum Combat {
 				}
 				shieldsFound = true;
 				sb.append(
-						"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+Colour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
+						"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
 							+"<span style='color:"+dt.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
 							+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+dt+"' style='cursor:default;'></div>"
 						+ "</div>");
@@ -1429,7 +1443,7 @@ public enum Combat {
 			}
 			shieldsFound = true;
 			sb.append(
-					"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+Colour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
+					"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
 						+"<span style='color:"+DamageType.LUST.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
 						+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+DamageType.LUST+"' style='cursor:default;'></div>"
 					+ "</div>");
@@ -1443,7 +1457,7 @@ public enum Combat {
 	private static String getCombatContent() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid "+Colour.BASE_WHITE.toWebHexString()+"; border-radius:5px;'>");
+		sb.append("<div class='container-full-width' style='text-align:center; box-sizing: border-box; border:6px solid "+PresetColour.BASE_WHITE.toWebHexString()+"; border-radius:5px;'>");
 
 			sb.append("<div class='container-full-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; text-align:center;'><b>Planning</b></div>");
 		
@@ -1451,10 +1465,10 @@ public enum Combat {
 				
 				sb.append("[style.boldGood(You)]"+ getTitleResources(Main.game.getPlayer()));
 				if(predictionContent.get(Main.game.getPlayer()).isEmpty()) {
-					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>[style.colourDisabled(No moves selected...)]</div>");
+					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>[style.colourDisabled(No moves selected...)]</div>");
 				} else {
 					for(String s : predictionContent.get(Main.game.getPlayer())) {
-						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
+						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
 					}
 				}
 				sb.append("</br>");
@@ -1462,7 +1476,7 @@ public enum Combat {
 				for(GameCharacter ally : Combat.getAllies(Main.game.getPlayer())) {
 					sb.append(UtilText.parse(ally, "</br>[style.boldMinorGood([npc.Name])]")+ getTitleResources(ally));
 					for(String s : predictionContent.get(ally)) {
-						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
+						sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
 					}
 					sb.append("</br>");
 				}
@@ -1472,7 +1486,7 @@ public enum Combat {
 			for(GameCharacter enemy : Combat.getEnemies(Main.game.getPlayer())) {
 				sb.append(UtilText.parse(enemy, (Combat.enemyLeader.equals(enemy)?"[style.boldBad([npc.Name])]":"</br>[style.boldMinorBad([npc.Name])]"))+ getTitleResources(enemy));
 				for(String s : predictionContent.get(enemy)) {
-					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+Colour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
+					sb.append("<div class='container-half-width' style='margin:2px; padding:4px; width:100%; border-radius:5px; background:"+PresetColour.BACKGROUND.toWebHexString()+";'>"+s+"</div>");
 				}
 				sb.append("</br>");
 			}
@@ -1515,59 +1529,18 @@ public enum Combat {
 		}
 	}
 	
-	public static GameCharacter getTargetedCombatant(GameCharacter attacker) {
-		if(attacker.isPlayer()) {
-			return targetedEnemy;
-		}
-		
-		if(allies.contains(attacker)) {
-			for(NPC enemy : enemies) {
-				if(!isCombatantDefeated(enemy)) {
-//					System.out.println("T1: "+enemy.getName());
-					return enemy;
-				}
-			}
-			return enemyLeader;
-		}
-		
-		if(enemies.contains(attacker)) {
-			for(NPC playerAlly : allies) {
-				if(!isCombatantDefeated(playerAlly)) {
-//					System.out.println("T2: "+playerAlly.getName());
-					return playerAlly;
-				}
-			}
-		}
-		
-		return Main.game.getPlayer();
+	/**
+	 * @return The enemy NPC which the player is targeting. Use COmbatMove's getPreferredTarget for NPC targeting.
+	 */
+	public static GameCharacter getTargetedCombatant() {
+		return targetedEnemy;
 	}
-	
-	public static GameCharacter getTargetedAlliedCombatant(GameCharacter attacker) {
-		if(attacker.isPlayer()) {
-			return targetedAlly;
-		}
-		
-		if(allies.contains(attacker)) {
-			if(Math.random()>0.5f && !isCombatantDefeated(Main.game.getPlayer())) {
-				return Main.game.getPlayer();
-			}
-			for(NPC ally : allies) {
-				if(!isCombatantDefeated(ally)) {
-					return ally;
-				}
-			}
-			return allies.get(0);
-		}
-		
-		if(enemies.contains(attacker)) {
-			for(NPC enemy : enemies) {
-				if(!isCombatantDefeated(enemy)) {
-					return enemy;
-				}
-			}
-		}
-		
-		return Main.game.getPlayer();
+
+	/**
+	 * @return The allied NPC which the player is targeting. Use COmbatMove's getPreferredTarget for NPC targeting.
+	 */
+	public static GameCharacter getTargetedAlliedCombatant() {
+		return targetedAlly;
 	}
 
 	public static void setTargetedCombatant(GameCharacter targetedCombatant) {
@@ -1740,6 +1713,13 @@ public enum Combat {
 		setTotalDamageTaken(character, getTotalDamageTaken(character) + increment);
 	}
 
+	public static boolean isCharacterVictory(GameCharacter character) {
+		if(getEnemies(character).contains(Main.game.getPlayer())) {
+			return !playerVictory;
+		}
+		return playerVictory;
+	}
+	
 	/**
 	 * @return true if the last combat that took place resulted in the player's victory.
 	 */

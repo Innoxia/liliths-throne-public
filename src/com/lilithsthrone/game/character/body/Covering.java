@@ -2,11 +2,13 @@ package com.lilithsthrone.game.character.body;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
@@ -28,21 +30,23 @@ public class Covering  {
 	 * @param type The BodyCoveringType to set this skin to.
 	 */
 	public Covering(BodyCoveringType type) {
-		this(type, type.getNaturalPatterns().get(Util.random.nextInt(type.getNaturalPatterns().size())),
+		this(type,
+				Util.getRandomObjectFromWeightedMap(type.getNaturalPatterns()),
 				type.getNaturalColoursPrimary().get(Util.random.nextInt(type.getNaturalColoursPrimary().size())), false,
 				(type.getNaturalColoursSecondary().isEmpty()
-						?type.getNaturalColoursPrimary().get(Util.random.nextInt(type.getNaturalColoursPrimary().size()))
-						:type.getNaturalColoursSecondary().get(Util.random.nextInt(type.getNaturalColoursSecondary().size()))), false);
+					?type.getNaturalColoursPrimary().get(Util.random.nextInt(type.getNaturalColoursPrimary().size()))
+					:type.getNaturalColoursSecondary().get(Util.random.nextInt(type.getNaturalColoursSecondary().size()))), false);
 	}
 	
 	/**
 	 * Constructor.<br/>
-	 * Initialises CoveringPattern pattern to the first value, boolean glowing to false, and secondaryColour to same as primaryColour (where available).
+	 * Initialises CoveringPattern pattern to the value with the highest probability, boolean glowing to false, and secondaryColour to same as primaryColour (where available).
 	 * @param type
 	 * @param primaryColour
 	 */
 	public Covering(BodyCoveringType type, Colour primaryColour) {
-		this(type, type.getNaturalPatterns().get(0),
+		this(type,
+				Util.getHighestProbabilityEntryFromWeightedMap(type.getNaturalPatterns()),
 				primaryColour, false,
 				(type.getNaturalColoursSecondary().contains(primaryColour) || type.getNaturalColoursSecondary().isEmpty()
 						?primaryColour
@@ -51,12 +55,13 @@ public class Covering  {
 	
 	/**
 	 * Constructor.<br/>
-	 * Initialises CoveringPattern pattern to the first value, boolean glowing to false, and secondaryColour to same as primaryColour (where available).
+	 * Initialises CoveringPattern pattern to the value with the highest probability, boolean glowing to false, and secondaryColour to same as primaryColour (where available).
 	 * @param type
 	 * @param primaryColour
 	 */
 	public Covering(BodyCoveringType type, Colour primaryColour, Colour secondaryColour) {
-		this(type, type.getNaturalPatterns().get(0),
+		this(type,
+				Util.getHighestProbabilityEntryFromWeightedMap(type.getNaturalPatterns()),
 				primaryColour, false,
 				secondaryColour, false);
 	}
@@ -155,7 +160,15 @@ public class Covering  {
 				case ORIFICE_ANUS:
 					return getFormattedColour(primaryColour, "-rimmed", primaryGlowing, capitalised)+", "+getFormattedColour(secondaryColour, "-interiored", secondaryGlowing, capitalised);
 				case ORIFICE_NIPPLE:
-					return getFormattedColour(primaryColour, "", primaryGlowing, capitalised)+", "+getFormattedColour(secondaryColour, "-interiored", secondaryGlowing, capitalised);
+					return getFormattedColour(primaryColour, "", primaryGlowing, capitalised)
+								+(gc.getNippleCapacity()==Capacity.ZERO_IMPENETRABLE
+									?""
+									:", "+getFormattedColour(secondaryColour, "-interiored", secondaryGlowing, capitalised));
+				case ORIFICE_NIPPLE_CROTCH:
+					return getFormattedColour(primaryColour, "", primaryGlowing, capitalised)
+								+(gc.getNippleCrotchCapacity()==Capacity.ZERO_IMPENETRABLE
+									?""
+									:", "+getFormattedColour(secondaryColour, "-interiored", secondaryGlowing, capitalised));
 				case ORIFICE_VAGINA:
 					return getFormattedColour(primaryColour, "-lipped", primaryGlowing, capitalised)+", "+getFormattedColour(secondaryColour, "-interiored", secondaryGlowing, capitalised);
 				case ORIFICE_MOUTH:
@@ -198,6 +211,8 @@ public class Covering  {
 				case ORIFICE_ANUS:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName+"-rimmed";
 				case ORIFICE_NIPPLE:
+					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName;
+				case ORIFICE_NIPPLE_CROTCH:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName;
 				case ORIFICE_VAGINA:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName+"-lipped";
@@ -256,7 +271,7 @@ public class Covering  {
 				case NONE:
 				case FLUID:
 				case FRECKLED_FACE:
-					if(primaryColour==Colour.COVERING_NONE) {
+					if(primaryColour==PresetColour.COVERING_NONE) {
 						return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>";
 					}
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>"
@@ -293,8 +308,15 @@ public class Covering  {
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"-rimmed anus</span>, with "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" internal walls</span>";
 				case ORIFICE_NIPPLE:
-					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+" nipples</span>, with "
-							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" internal walls</span>";
+					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+" nipples</span>"
+							+(gc.getNippleCapacity()==Capacity.ZERO_IMPENETRABLE
+								?""
+								:", with "+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" internal walls</span>");
+				case ORIFICE_NIPPLE_CROTCH:
+					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+" nipples</span>"
+							+(gc.getNippleCrotchCapacity()==Capacity.ZERO_IMPENETRABLE
+								?""
+								:", with "+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" internal walls</span>");
 				case ORIFICE_VAGINA:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"-lipped pussy</span>, with "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" internal walls</span>";
@@ -324,7 +346,7 @@ public class Covering  {
 				case NONE:
 				case FLUID:
 				case FRECKLED_FACE:
-					if(primaryColour==Colour.COVERING_NONE) {
+					if(primaryColour==PresetColour.COVERING_NONE) {
 						return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName();
 					}
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+name;
@@ -352,7 +374,15 @@ public class Covering  {
 				case ORIFICE_ANUS:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+"-rimmed anus, with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" internal walls";
 				case ORIFICE_NIPPLE:
-					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+" nipples, with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" internal walls";
+					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+" nipples"
+							+(gc.getNippleCapacity()==Capacity.ZERO_IMPENETRABLE
+								?""
+								:", with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" internal walls");
+				case ORIFICE_NIPPLE_CROTCH:
+					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+" nipples"
+							+(gc.getNippleCrotchCapacity()==Capacity.ZERO_IMPENETRABLE
+								?""
+								:", with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" internal walls");
 				case ORIFICE_VAGINA:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+"-lipped pussy, with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" internal walls";
 				case ORIFICE_MOUTH:
