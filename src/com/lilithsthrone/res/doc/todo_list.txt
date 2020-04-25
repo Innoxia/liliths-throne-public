@@ -25,73 +25,20 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Engine:
-		Converted WorldType enum to classes.
-		Moved all Harpy Nests dialogue out into external .txt file.
-		Naming artwork files with 'penis' or 'vagina' in them will now remove those images from in-game display if that character does have a penis or vagina, respectively. (e.g. An artwork image named 'npc_penis' would only be displayed in-game if the character has a penis.)
-	
-	Gameplay:
-		Added the variation to Scarlett's content in Helena's nest for after you've completed Helena's romance quest.
-		Filled in Scarlett's missing sex dialogue for if you were fucked by her vaginally or orally up in Helena's nest (prior to completing Helena's romance quest).
-		You can no longer encounter NPCs in alleyways/canals/harpy nests during an arcane storm, as they all go into hiding until it's passed.
-		You can now find items, clothing, and weapons in random encounters on Dominion canal tiles just like you can in alleyway tiles.
-		Exploring tiles (alleyways, canals, Submission tunnels, Harpy Nest walkways, etc.) now takes 30 minutes instead of 0 minutes.
-	
-	Other:
-		Characters now use simpler descriptions of orifice capacities when talking. (e.g. Instead of saying 'somewhat tight, wet pussy', an NPC will now say 'tight, wet pussy'.)
-		NPCs are now only added to your contacts list once you discover their name (so entering Slaver Alley no longer adds 'Enforcer' to your contacts list until you talk to him and discover his name).
-		Reduced chance of random characters being virgins from 10% to 5%.
-		Maximum 'resting lust' is now capped at 80, so highly corrupt NPCs will no longer get stuck at 100 lust during an arcane storm, which was allowing you to instantly beat them over and over again.
-		Fast-travel via flying is now restricted in most indoor areas.
-		NPCs present in canal tiles now have the same 'Character lurking in this area' overview text as alleyway tiles.
-		Made some slight improvements to dialogue in Harpy Nests.
-		Added reference to horse and centaur-pulled carts to Dominion's boulevard descriptions.
-		Scarlett's naked in-game images drawn by Jam will now correctly display the penis/vagina variations based on whether Scarlett has a penis or vagina.
-		Added action in debug menu (in 'stats' tab) to give your companions 500xp.
-		If Scarlett likes you, she will no longer allow random harpies to impregnate her (when she has sex with other harpies after gaining a vagina).
-		
-	Bugs:
-		Typo, parsing, and grammatical fixes.
-		Fixed parsing bug in imp tunnels.
-		Fixed some parsing bugs in Helena's new content.
-		Reset Loppy's age to 22, as it was accidentally set to a far higher value in a previous version.
-		Fixed issue with NPCs' birth dates not matching up with the lore of all characters aging by 18 years after birth.
-		Fixed issue where obedience description could reveal the gender of concealed characters.
-		Fixed bug where knowing what an NPCs' ass looks like would also reveal their anus to you, even if it was still concealed by clothing.
-		Fixed incorrect naming of the elixirs which spawn in imps' inventories in Submission's tunnels.
-		The 'too feminine'/'too masculine' clothing status effects now display correct tooltip descriptions when applied to NPCs.
-		Fixed bug where the status effect 'Broken Virgin' (lost virginity, no hymen) would be active at the same time as the 'Pure 'Virgin' (lost virginity, regrown hymen) status effect.
-		The 'Sex action bypass' content setting should now work correctly. (i.e. When this setting is turned off, sex actions which would result in your character gaining corruption are disabled.)
-		The 'Calming suggestion' and 'Lustful suggestion' sex actions are now correctly greyed-out when not available.
-		Fixed bug where Helena would be described as not being in her nest even if she was actually there.
-		Fixed throat plasticity self-transformation buttons not working.
-		Fixed bug where the 'safe alleyways' description was being shown for all alleyway tiles, not just the one to the direct north of Slaver Alley.
-		Fixed bug where prostitutes were 4 times more likely than other characters to spawn with the 'pure virgin' fetish, instead of the other way around. 
-		Fixed issue where clicking on a slav's name/race icon to view them while in their slave management screen would cause a background error to be thrown when exiting the character view screen. This was resulting in game-freezes or displaying previous encounter dialogue.
-		Fixed some incorrect sex action availabilities in the face-to-wall position when there is a sze-difference between the two participants.
-		Fixed bug where giving a gift to Helena would prevent you from being able to give her another gift the next time you took her out on a date.
-		Fixed rare issue in Helena's 'romantic' sex scene where you'd be forced to repeat her oral scene after completing it once.
-		Fixed tooltip description of your arcane attribute describing a new player's starting value of 20 as being weaker than it was when you first entered this world.
-		Fixed bug where viewing an NPC's weapon would not work and throw a background error if your inventory was full.
-		Fixed bug where NPCs who failed to get pregnant would have their name stuck in the pregnancy stats screen as being 'Ready for birthing'.
-		Fixed bug where imp offspring could spawn in Dominion's alleyway tiles.
-		Fixed issue where dirty talk during nipple kissing would make reference to the character's nipples being penetrated, even if they weren't fuckable.
-		Fixed some issues with the flow and restoration of dialogue in Nyan's and Helena's gift-giving scenes.
-		The TF potion which you can get Scarlett to drink on her lunch break now increases her breast size by +1/+2 cup-size, instead of to C/D-cups (as she may have already had her cup size increase via pregnancy).
-		Scarlett will no longer remove clothing or start other sex actions in her fingering/handjob scene in the cafe during her lunch break, or during her 'sleepover' sex scene near the end of Helena's romance quest (to stop her from performing unintended actions).
-		Fixed issue with dialogue flow in Candi's post-sex scene.
-		Fixed bug in Helena's romance quest where (if you'd previously set her free) Scarlett would stay in Helena's nest after you've told her that Helena wants her.
-		Fixed Scarlett's perk map not being able to be reset while she was your slave.
-		Fixed related issue where unique NPCs would always have their perk maps reset to their starting values upon every game load, even if they had been legitimately modified.
-		Fixed bug where changing a character's image could cause you to get stuck in their character view screen.
-		Fixed bug where characters could summon a fire elemental using health even if they didn't have that ability unlocked (by knowing at least 3 fire spells).
-		Added error handling for an instance of incorrectly configured clothing mods causing background errors to be thrown.
 	
 	
 	
 	
 	
 	
+	add an option to remove the circular bloom on the map? I honestly prefer the map to have the same amount of lighting across its entirety
+	
+	Angels nectar being able to be enchanted intoa  potion that restores hymens
+	
+	set slaves to be given Mother's Milk, so that we don't have to wait days until they give birth? I remember us talking at one point about changing the pregnancy length in the settings, but I imagine that's a way off, so having the option to speed it up through an item in the world would be nice
+	
+	THE SLAVE SCREEN IS BROKEN AGAIN
+	I'm not sure what caused it, but I couldn't back out of one of my slave's screens, and I couldn't revert to another save because the main menu buttons wouldn't respond
 	
 	[] Scarlett handjob cafe scene and shop oral scene needs to be locked by attraction
 	[] Need Helena dirty talk override
