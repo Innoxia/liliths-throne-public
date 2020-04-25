@@ -16,6 +16,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
@@ -73,7 +74,7 @@ public enum SlaveJob {
 			
 			} else {
 				// 50/50 of being upstairs or downstairs:
-				WorldType worldTypeToUse = WorldType.LILAYAS_HOUSE_FIRST_FLOOR;
+				AbstractWorldType worldTypeToUse = WorldType.LILAYAS_HOUSE_FIRST_FLOOR;
 				if(Math.random()>0.5f) {
 					worldTypeToUse = WorldType.LILAYAS_HOUSE_GROUND_FLOOR;
 				}
@@ -291,7 +292,7 @@ public enum SlaveJob {
 		}
 		
 		@Override
-		public WorldType getWorldLocation(GameCharacter character) {
+		public AbstractWorldType getWorldLocation(GameCharacter character) {
 			Cell c = MilkingRoom.getMilkingCell(character, false);
 			if(c==null) {
 				return null;
@@ -377,7 +378,7 @@ public enum SlaveJob {
 		}
 		
 		@Override
-		public WorldType getWorldLocation(GameCharacter character) {
+		public AbstractWorldType getWorldLocation(GameCharacter character) {
 			Cell c = getOfficeCell();
 			if(c==null) {
 				return null;
@@ -448,7 +449,7 @@ public enum SlaveJob {
 	private List<SlaveJobSetting> mutualSettings;
 	private Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings;
 	private List<SlaveJobSetting> defaultMutuallyExclusiveSettings;
-	private WorldType worldLocation;
+	private AbstractWorldType worldLocation;
 	private AbstractPlaceType placeLocation;
 	
 	private SlaveJob(
@@ -466,7 +467,7 @@ public enum SlaveJob {
 			List<SlaveJobSetting> mutualSettings,
 			Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings,
 			List<SlaveJobSetting> defaultMutuallyExclusiveSettings,
-			WorldType worldLocation,
+			AbstractWorldType worldLocation,
 			AbstractPlaceType placeLocation) {
 		this.colour = colour;
 		this.slaveLimit = slaveLimit;
@@ -612,7 +613,7 @@ public enum SlaveJob {
 		return defaultMutuallyExclusiveSettings;
 	}
 
-	public WorldType getWorldLocation(GameCharacter character) {
+	public AbstractWorldType getWorldLocation(GameCharacter character) {
 		return worldLocation;
 	}
 
@@ -621,7 +622,7 @@ public enum SlaveJob {
 	}
 	
 	public Cell getWorkDestinationCell(int hour, GameCharacter slave) {
-		WorldType wType = slave.getSlaveJob(hour).getWorldLocation(slave);
+		AbstractWorldType wType = slave.getSlaveJob(hour).getWorldLocation(slave);
 		if(wType==null) {
 			return null;
 		}

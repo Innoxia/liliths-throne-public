@@ -131,8 +131,103 @@
 	
 	<htmlContent tag="BACK_ALLEYS"><![CDATA[
 	<p>
-		You find yourself walking through labyrinthine alleyways, with not a soul in sight. Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress. These less-travelled parts of Dominion have a dangerous feel to them, and you can't shake the feeling that you're being followed.
+		You find yourself walking through labyrinthine alleyways, with not a soul in sight. Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress.
 	</p>
+	<p>
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the arcane storm raging overhead has sent any would-be muggers into hiding...
+		#ELSEIF(game.getNonCompanionCharactersPresent().isEmpty())
+			Due to the abundance of hiding places from which an ambush could be sprung, you recognise this as being a [style.colourBad(dangerous)] area, and you realise that you could be attacked at any moment...
+		#ELSEIF(npc.isRelatedTo(pc))
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is your [npc.relation(pc)], [npc.name]...
+		#ELSEIF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE)
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is far more interested in whoring [npc.herself] out rather than fighting anyone...
+		#ELSE
+			#IF(npc.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				Due to the abundance of hiding places from which an ambush could be sprung, you recognise this as being a [style.colourBad(dangerous)] area, and you realise that you could be attacked at any moment...
+			#ELSE
+				Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is on friendly terms with you...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BACK_ALLEYS -->
+	
+	<htmlContent tag="DARK_ALLEYS"><![CDATA[
+	<p>
+		You find yourself walking through labyrinthine alleyways, with not a soul in sight. Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress.
+	</p>
+	<p>
+		#IF(game.getNonCompanionCharactersPresent().isEmpty())
+			Due to the abundance of hiding places from which an ambush could be sprung, as well as your significant distance from any of Dominion's main streets, you recognise this as being a [style.colourTerrible(very dangerous)] area, and you realise that you could be attacked at any moment...
+		#ELSEIF(npc.isRelatedTo(pc))
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is your [npc.relation(pc)], [npc.name]...
+		#ELSEIF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE)
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is far more interested in whoring [npc.herself] out rather than fighting anyone...
+		#ELSE
+			#IF(npc.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				Due to the abundance of hiding places from which an ambush could be sprung, as well as your significant distance from any of Dominion's main streets, you recognise this as being a [style.colourTerrible(very dangerous)] area, and you realise that you could be attacked at any moment...
+			#ELSE
+				Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is on friendly terms with you...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BACK_ALLEYS_CANAL -->
+	
+	<htmlContent tag="BACK_ALLEYS_CANAL"><![CDATA[
+	<p>
+		At the junction between the canal and Dominion's dingy back-alleys, a series of crude wooden walkways criss-cross over the water. Providing a bridge between the numerous passageways set into the flanking buildings on both sides of the waterway, these makeshift constructs are quite clearly the work of the denizens that haunt this area.
+	</p>
+	<p>
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the arcane storm raging overhead has sent any would-be muggers into hiding...
+		#ELSEIF(game.getNonCompanionCharactersPresent().isEmpty())
+			Cautiously glancing around your deserted, [style.colourBad(dangerous)] surroundings, you half-expect to see a shadowy figure emerge from one of the gloomy openings, but much to your relief, there doesn't seem to be anyone waiting in ambush. Letting out a sigh, you continue on your way, happy that you didn't run into any of the lowlifes that operate in this area...
+		#ELSEIF(npc.isRelatedTo(pc))
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is your [npc.relation(pc)], [npc.name]...
+		#ELSEIF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE)
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is far more interested in whoring [npc.herself] out rather than fighting anyone...
+		#ELSE
+			#IF(npc.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				Cautiously glancing around your deserted, [style.colourBad(dangerous)] surroundings, you half-expect to see a shadowy figure emerge from one of the gloomy openings, but much to your relief, there doesn't seem to be anyone waiting in ambush. Letting out a sigh, you continue on your way, happy that you didn't run into any of the lowlifes that operate in this area...
+			#ELSE
+				Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is on friendly terms with you...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BOULEVARD -->
+	
+	<htmlContent tag="BOULEVARD"><![CDATA[
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			You find yourself walking down one of Dominion's main boulevards, which is at least twice the width of all the other streets that you've seen in the city. Large, immaculately-maintained residential and commercial buildings flank the road on each side; their white marble façades decorated with countless flags bearing the black pentagram of Lilith. Thanks to the ongoing arcane storm, these wide, paved roads which are normally home to horse or centaur-pulled wooden carts are almost completely deserted.
+		</p>
+		<p>
+			The only people who you see out and about are demons, with a significant proportion of them being smartly-dressed Enforcers. Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you walk down quiet boulevard. There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace...
+		</p>
+	#ELSE
+		<p>
+			You find yourself walking down one of Dominion's main boulevards, which is at least twice the width of all the other streets that you've seen in the city. Large, immaculately-maintained residential and commercial buildings flank the road on each side; their white marble façades decorated with countless flags bearing the black pentagram of Lilith. A never-ending stream of horse and centaur-pulled carts trundle back and forth down the middle of the wide, paved street as they transport all manner of goods to and from the countless businesses and residences found throughout the city.
+		</p>
+		<p>
+			#IF(game.isDayTime())
+				Being one of Dominion's main thoroughfares, this boulevard is packed with pedestrians, and you walk past individuals of all different races and appearances as you continue onwards through the crowds. Although dog, cat and horse-morphs are the most common races that you see, there are a significant number of demons and other more exotic races mixed in with the crowds here. Demons and half-demons in particular are very easy to spot, as wherever they walk, people hurriedly move to make way for them.
+			#ELSE
+				Despite the fact that it's night-time, this boulevard is packed with pedestrians, and you walk past individuals of all different races and appearances as you continue onwards through the crowds. Although dog, cat and horse-morphs are the most common races that you see, there are a significant number of demons and other more exotic races mixed in with the crowds here. Demons and half-demons in particular are very easy to spot, as wherever they walk, people hurriedly move to make way for them.
+			#ENDIF
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -207,9 +302,6 @@
 		<p>
 			Unlike the city's back-alleys, this canal-side path is not completely deserted, as every now and then you come across a harmless citizen, who invariably averts their gaze as they hurry past you. The wide waterway itself is also extremely busy, with a seemingly never-ending procession of barges slowly trawling past on their way to destinations unknown. While several of them seem to be for recreational purposes, the vast majority of these narrow boats are hauling cargo of one sort or another; their long decks are stacked high with crates, packed with industrial machinery, or filled with tarpaulin-covered mounds of raw materials.
 		</p>
-		<p>
-			Despite the high level of traffic on the canal itself, you get the feeling that nobody would come to your aid if you were to be attacked while travelling on this path. The distinct lack of any Enforcer presence is a clear indication that this area is ripe territory for muggers, and so you make sure to stay alert as you continue on your way...
-		</p>
 	#ELSE
 		<p>
 			#IF(pc.hasCompanions())
@@ -222,10 +314,32 @@
 		<p>
 			Due to the fact that it's currently night-time, this canal-side path is completely deserted. The wide waterway itself is also far less busy than it is during the day, with just the occasional arcane spotlight sweeping over the gloomy waterway as the barge it's fixed to slowly trawls past. While there may be the infrequent recreational narrow boat to be seen during daylight hours, these night-time barges are invariably hauling cargo of one sort or another; their long decks are stacked high with crates, packed with industrial machinery, or filled with tarpaulin-covered mounds of raw materials.
 		</p>
-		<p>
-			Despite the fact that there are people keeping a lookout up on the decks of these barges, you get the feeling that none of them would come to your aid if you were to be attacked while travelling on this poorly-lit path. The distinct lack of any Enforcer presence is a clear indication that this area is ripe territory for muggers, and so you make sure to stay alert as you continue on your way...
-		</p>
 	#ENDIF
+	<p>
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the arcane storm raging overhead has sent any would-be muggers into hiding...
+		#ELSEIF(game.getNonCompanionCharactersPresent().isEmpty())
+			#IF(game.isDayTime())
+				Despite the high level of traffic on the canal itself, you get the feeling that nobody would come to your aid if you were to be attacked while travelling on this path. The distinct lack of any Enforcer presence is a clear indication that this [style.colourBad(dangerous)] area is ripe territory for muggers, and so you make sure to stay alert as you continue on your way...
+			#ELSE
+				Despite the fact that there are people keeping a lookout up on the decks of these barges, you get the feeling that none of them would come to your aid if you were to be attacked while travelling on this poorly-lit path. The distinct lack of any Enforcer presence is a clear indication that this [style.colourBad(dangerous)] area is ripe territory for muggers, and so you make sure to stay alert as you continue on your way...
+			#ENDIF
+		#ELSEIF(npc.isRelatedTo(pc))
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is your [npc.relation(pc)], [npc.name]...
+		#ELSEIF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE)
+			Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is far more interested in whoring [npc.herself] out rather than fighting anyone...
+		#ELSE
+			#IF(npc.getAffectionLevel(pc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				#IF(game.isDayTime())
+					Despite the high level of traffic on the canal itself, you get the feeling that nobody would come to your aid if you were to be attacked while travelling on this path. The distinct lack of any Enforcer presence is a clear indication that this [style.colourBad(dangerous)] area is ripe territory for muggers, and so you make sure to stay alert as you continue on your way...
+				#ELSE
+					Despite the fact that there are people keeping a lookout up on the decks of these barges, you get the feeling that none of them would come to your aid if you were to be attacked while travelling on this poorly-lit path. The distinct lack of any Enforcer presence is a clear indication that this [style.colourBad(dangerous)] area is ripe territory for muggers, and so you make sure to stay alert as you continue on your way...
+				#ENDIF
+			#ELSE
+				Despite the abundance of hiding places from which an ambush could be sprung, you feel quite [style.colourGood(safe)] in this area, as the only person you're likely to encounter is [npc.name], who is on friendly terms with you...
+			#ENDIF
+		#ENDIF
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -234,7 +348,7 @@
 
 	<htmlContent tag="CANAL_END"><![CDATA[
 	<p>
-		The path before you abruptly ends, and although the canal continues on its way to the outskirts of the city, there's no way for you to continue onwards...
+		<i>The path before you abruptly ends, and although the canal continues on its way to the outskirts of the city, there's no way for you to continue onwards...</i>
 	</p>
 	]]>
 	</htmlContent>

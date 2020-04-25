@@ -746,7 +746,7 @@ public class TooltipInformationEventListener implements EventListener {
 							+ "</div>");
 
 					int knownAreas = 0;
-					if(Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.ASS, owner)) {
+					if(Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.ANUS, owner)) {
 						knownAreas++;
 						tooltipSB.append(getBodyPartDiv(owner, "Anus", owner.getAssRace(), owner.getAssType().getAnusType().getBodyCoveringType(owner), owner.isAnusBestial()));
 					}

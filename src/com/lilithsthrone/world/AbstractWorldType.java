@@ -15,11 +15,14 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
  */
 public abstract class AbstractWorldType {
 
-	private String name;
-	private String fileLocation;
+	private final String name;
+	private final String fileLocation;
 	private Colour colour;
 	private int worldSize;
 	private int timeToTransition;
+	
+	private boolean loiteringEnabled;
+	private boolean flightEnabled;
 	
 	private int tileSetRowNumber;
 	private int moveCost;
@@ -28,40 +31,22 @@ public abstract class AbstractWorldType {
 	private List<AbstractPlaceType> places;
 	private List<AbstractPlaceType> dangerousPlaces;
 	
+	private TeleportPermissions teleportPermissions;
+	
 	private boolean usesFile;
+	private AbstractPlaceType globalMapLocation;
+	private AbstractPlaceType entryFromGlobalMapLocation;
 	private Map<Color, AbstractPlaceType> placesMap;
 	
-	@Deprecated
-	AbstractWorldType(int worldSize,
-			String name,
+	AbstractWorldType(String name,
 			Colour colour,
 			int timeToTransition,
-			AbstractPlaceType standardPlace,
-			AbstractPlaceType cutOffZone,
-			List<AbstractPlaceType> places,
-			List<AbstractPlaceType> dangerousPlaces) {
-		this.worldSize=worldSize;
-		
-		this.name = name;
-		this.colour = colour;
-		this.timeToTransition=timeToTransition;
-		this.moveCost = 5;
-
-		this.standardPlace = standardPlace;
-		this.cutOffZone = cutOffZone;
-
-		this.places = places;
-		this.dangerousPlaces = dangerousPlaces;
-		
-		fileLocation = null;
-		usesFile = false;
-	}
-	
-	protected AbstractWorldType(String name,
-			Colour colour,
-			int timeToTransition,
+			boolean loiteringEnabled,
+			boolean flightEnabled,
+			TeleportPermissions teleportPermissions,
 			String fileLocation,
-			Map<Color, AbstractPlaceType> placesMap) {
+			AbstractPlaceType globalMapLocation,
+			AbstractPlaceType entryFromGlobalMapLocation, Map<Color, AbstractPlaceType> placesMap) {
 		this.name = name;
 		this.colour = colour;
 		this.timeToTransition=timeToTransition;
@@ -70,8 +55,16 @@ public abstract class AbstractWorldType {
 		standardPlace = null;
 		cutOffZone = null;
 
+		this.globalMapLocation = globalMapLocation;
+		this.entryFromGlobalMapLocation = entryFromGlobalMapLocation;
+		
 		places = null;
 		dangerousPlaces = null;
+		
+		this.loiteringEnabled = loiteringEnabled;
+		this.flightEnabled = flightEnabled;
+		
+		this.teleportPermissions = teleportPermissions;
 		
 		this.fileLocation = fileLocation;
 		usesFile = true;
@@ -79,15 +72,11 @@ public abstract class AbstractWorldType {
 	}
 	
 	@Override
-	public boolean equals(Object o) { // I know it doesn't include everything, but this should be enough to check for equality.
+	public boolean equals(Object o) { // Just placesMap and fileLocation should be enough to check for equality.
 		if(super.equals(o)){
 			if(o instanceof AbstractWorldType){
-				if(((AbstractWorldType)o).getName().equals(getName())
-						&& ((AbstractWorldType)o).getName().equals(getName())
-						&& ((AbstractWorldType)o).getColour() == getColour()
-						&& ((AbstractWorldType)o).getColour() == getColour()
-						&& ((AbstractWorldType)o).getPlacesMap().equals(getPlacesMap())
-						){
+				if(((AbstractWorldType)o).getPlacesMap().equals(getPlacesMap())
+						&& ((AbstractWorldType)o).getFileLocation().equals(getFileLocation())){
 					return true;
 				}
 			}
@@ -96,17 +85,20 @@ public abstract class AbstractWorldType {
 	}
 	
 	@Override
-	public int hashCode() { // I know it doesn't include everything, but this should be enough to check for equality.
+	public int hashCode() { // Just placesMap and fileLocation should be enough to check for equality.
 		int result = 17;
-		result = 31 * result + getName().hashCode();
-		result = 31 * result + getColour().hashCode();
-		if(getFileLocation()!=null) {
-			result = 31 * result + getFileLocation().hashCode();
-		}
+		result = 31 * result + getFileLocation().hashCode();
 		result = 31 * result + getPlacesMap().hashCode();
 		return result;
 	}
 	
+	@Override
+	public String toString() {
+//		throw new IllegalAccessError();
+		System.err.println("Warning: AbstractWorldType's toString() method is being called!");
+		return super.toString();
+	}
+
 	public int getTileSetRowNumber() {
 		return tileSetRowNumber;
 	}
@@ -127,6 +119,20 @@ public abstract class AbstractWorldType {
 		return moveCost;
 	}
 	
+	public boolean isLoiteringEnabled() {
+		return loiteringEnabled;
+	}
+	
+	/**
+	 * Reveals all tiles as though the player knows about them, but has not travelled to them. Behaviour may be overridden by isRevealedOnStart().
+	 */
+	public boolean isDiscoveredOnStart() {
+		return false;
+	}
+	
+	/**
+	 * Reveals all tiles as though the player has already travelled to them.
+	 */
 	public boolean isRevealedOnStart() {
 		return false;
 	}
@@ -147,6 +153,14 @@ public abstract class AbstractWorldType {
 		return dangerousPlaces;
 	}
 
+	public AbstractPlaceType getGlobalMapLocation() {
+		return globalMapLocation;
+	}
+
+	public AbstractPlaceType getEntryFromGlobalMapLocation() {
+		return entryFromGlobalMapLocation;
+	}
+
 	public String getFileLocation() {
 		return fileLocation;
 	}
@@ -162,11 +176,28 @@ public abstract class AbstractWorldType {
 	public int getWorldSize() {
 		return worldSize;
 	}
+
+	public TeleportPermissions getTeleportPermissions() {
+		return teleportPermissions;
+	}
+	
+	public boolean isFlightEnabled() {
+		return flightEnabled;
+	}
 	
 	public boolean isCompanionSexBlocked(GameCharacter companion) {
 		return getCompanionSexBlockedReason(companion)!=null || getCompanionSexBlockedReason(companion).isEmpty();
 	}
 	
-	public abstract String getCompanionSexBlockedReason(GameCharacter companion);
+	public String getCompanionSexBlockedReason(GameCharacter companion) {
+		return "";
+	}
+
+	/**
+	 * @return true if over-desk and on chair sex positions are available in this location.
+	 */
+	public boolean isFurniturePresent() {
+		return false;
+	}
 
 }

@@ -944,7 +944,7 @@ public interface SexActionInterface {
 				
 				return convertToResponse();
 				
-			} else {
+			} else { // ONGOING (and others?):
 				if(!this.getSexAreaInteractions().isEmpty()) {
 					boolean ongoingFound = false;
 					// TODO check

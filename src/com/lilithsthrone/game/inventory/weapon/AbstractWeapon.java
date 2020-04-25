@@ -491,10 +491,17 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 				: "")
 				+ " "+damageType.getWeaponDescriptor() + (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
 	}
-	
+
+	@Override
 	public String getDisplayName(boolean withRarityColour) {
 		return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(damageType.getWeaponDescriptor()) + "</span> "
 				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name);
+	}
+	
+	@Override
+	public String getDisplayNamePlural(boolean withRarityColour) {
+		return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(damageType.getWeaponDescriptor()) + "</span> "
+				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>") : namePlural);
 	}
 
 	@Override

@@ -2036,7 +2036,12 @@ public class CharacterInventory implements XMLSaving {
 		// For every piece of equipped clothing, if it's blocking the coverable area, see if it can be displaced or removed.
 		// If it can't, continue searching to see if another displacement type has revealed that area.
  		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
-			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsMap(character, clothing.getSlotEquippedTo())) {
+ 			List<BlockedParts> blockedPartsMap = clothing.getClothingType().getBlockedPartsMap(character, clothing.getSlotEquippedTo());
+ 			if(blockedPartsMap==null) {
+ 				System.err.println("Clothing error in getBlockingCoverableAreaClothingList(): blockedPartsMap is returning null!");
+ 				continue;
+ 			}
+			for (BlockedParts bp : blockedPartsMap) {
 				if (bp.blockedBodyParts.contains(area)) {// If this clothing is blocking the area you are trying to access:
 					if (!clothing.getDisplacedList().contains(bp.displacementType)) { // If the clothing  hasn't been displaced:
 						if (byRemovingClothing) {

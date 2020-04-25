@@ -68,6 +68,9 @@ public class CompanionManagement {
 	}
 
 	public static void initManagement(DialogueNode coreNode, int defaultResponseTab, NPC targetedCharacter) {
+		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) {
+			Main.game.saveDialogueNode();
+		}
 		CompanionManagement.coreNode = coreNode;
 		CompanionManagement.defaultResponseTab = defaultResponseTab;
 		Main.game.getDialogueFlags().setManagementCompanion(targetedCharacter);

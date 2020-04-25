@@ -107,6 +107,7 @@ import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
@@ -7989,8 +7990,8 @@ public class UtilText {
 		for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
 			engine.put("PENETRATION_"+penetration.toString(), penetration);
 		}
-		for(WorldType worldType : WorldType.values()) {
-			engine.put("WORLD_TYPE_"+worldType.toString(), worldType);
+		for(AbstractWorldType worldType : WorldType.getAllWorldTypes()) {
+			engine.put("WORLD_TYPE_"+WorldType.getIdFromWorldType(worldType), worldType);
 		}
 		for(AbstractPlaceType placeType : PlaceType.getAllPlaceTypes()) {
 			engine.put("PLACE_TYPE_"+PlaceType.getIdFromPlaceType(placeType), placeType);

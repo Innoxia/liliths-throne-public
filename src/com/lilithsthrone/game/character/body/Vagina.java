@@ -846,15 +846,9 @@ public class Vagina implements BodyPartInterface {
 			orificeVagina.addOrificeModifier(owner, om);
 		}
 
-		if (owner.isPlayer()) {
-			UtilText.transformationContentSB.append(
-					"<p>"
-					+ "Any old modifiers that your pussy might have had have [style.boldShrink(transformed away)]!");
-		} else {
-			UtilText.transformationContentSB.append(
-					"<p>"
-					+ "Any old modifiers that [npc.her] pussy might have had have [style.boldShrink(transformed away)]!");
-		}
+		UtilText.transformationContentSB.append(
+				"<p>"
+				+ "Any old modifiers which [npc.her] pussy might have had have [style.boldShrink(transformed away)]!");
 		
 		if(orificeVagina.getOrificeModifiers().isEmpty()) {
 			UtilText.transformationContentSB.append("</p>");
