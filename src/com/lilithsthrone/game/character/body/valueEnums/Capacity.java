@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
 
 import java.util.Set;
 
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -10,22 +11,22 @@ import com.lilithsthrone.utils.colours.PresetColour;
  * Measured in cm of <b>diameter</b> of a penetrative object which could fit comfortably within an orifice.
  * 
  * @since 0.1.0
- * @version 0.3.6.6
+ * @version 0.3.7.3
  * @author Innoxia
  */
 public enum Capacity {
 	
-	ZERO_IMPENETRABLE("extremely tight", 0f, 1f, PresetColour.GENERIC_SIZE_ONE),
+	ZERO_IMPENETRABLE("extremely tight", "tight", 0f, 1f, PresetColour.GENERIC_SIZE_ONE),
 	
-	ONE_EXTREMELY_TIGHT("tight", 1f, 2.5f, PresetColour.GENERIC_SIZE_TWO),
+	ONE_EXTREMELY_TIGHT("tight", "tight", 1f, 2.5f, PresetColour.GENERIC_SIZE_TWO),
 	
-	TWO_TIGHT("somewhat tight", 2.5f, 5f, PresetColour.GENERIC_SIZE_THREE),
+	TWO_TIGHT("somewhat tight", "tight", 2.5f, 5f, PresetColour.GENERIC_SIZE_THREE),
 	
-	THREE_SLIGHTLY_LOOSE("slightly loose", 5f, 7.5f, PresetColour.GENERIC_SIZE_FOUR),
+	THREE_SLIGHTLY_LOOSE("slightly loose", "loose", 5f, 7.5f, PresetColour.GENERIC_SIZE_FOUR),
 	
-	FOUR_LOOSE("loose", 7.5f, 10f, PresetColour.GENERIC_SIZE_FIVE),
+	FOUR_LOOSE("loose", "loose", 7.5f, 10f, PresetColour.GENERIC_SIZE_FIVE),
 	
-	FIVE_ROOMY("very loose", 10f, 12.5f, PresetColour.GENERIC_SIZE_SIX) {
+	FIVE_ROOMY("very loose", "loose", 10f, 12.5f, PresetColour.GENERIC_SIZE_SIX) {
 		@Override
 		public String getDescriptor() {
 			if(!Main.game.isGapeContentEnabled()) {
@@ -42,7 +43,7 @@ public enum Capacity {
 		}
 	},
 	
-	SIX_STRETCHED_OPEN("stretched open", 12.5f, 20f, PresetColour.GENERIC_SIZE_SEVEN) {
+	SIX_STRETCHED_OPEN("stretched open", "gaping", 12.5f, 20f, PresetColour.GENERIC_SIZE_SEVEN) {
 		@Override
 		public String getDescriptor() {
 			if(!Main.game.isGapeContentEnabled()) {
@@ -59,7 +60,7 @@ public enum Capacity {
 		}
 	},
 	
-	SEVEN_GAPING("gaping wide", 20f, 25f, PresetColour.GENERIC_SIZE_EIGHT) {
+	SEVEN_GAPING("gaping wide", "gaping", 20f, 25f, PresetColour.GENERIC_SIZE_EIGHT) {
 		@Override
 		public String getDescriptor() {
 			if(!Main.game.isGapeContentEnabled()) {
@@ -78,12 +79,14 @@ public enum Capacity {
 
 	
 	private String descriptor;
+	private String speechDescriptor;
 	private float minimumSizeComfortable;
 	private float maximumSizeComfortable;
 	private Colour colour;
 
-	private Capacity(String descriptor, float minimumSizeComfortable, float maximumSizeComfortable, Colour colour) {
+	private Capacity(String descriptor, String speechDescriptor, float minimumSizeComfortable, float maximumSizeComfortable, Colour colour) {
 		this.descriptor = descriptor;
+		this.speechDescriptor = speechDescriptor;
 
 		this.minimumSizeComfortable = minimumSizeComfortable;
 		this.maximumSizeComfortable = maximumSizeComfortable;
@@ -147,8 +150,12 @@ public enum Capacity {
 	 * To fit into a sentence:
 	 * <br/>"Your vagina is "+getDescriptor()+"."
 	 * <br/>"Your "+getDescriptor()+" asshole is stretched wide open."
+	 * @return A descriptor of this capacity. A simpler descriptor is returned if the game is parsing speech.
 	 */
 	public String getDescriptor() {
+		if(UtilText.isInSpeech()) {
+			return speechDescriptor;
+		}
 		return descriptor;
 	}
 	

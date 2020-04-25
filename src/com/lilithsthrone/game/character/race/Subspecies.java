@@ -47,6 +47,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.WorldType;
 
@@ -3364,13 +3365,13 @@ public enum Subspecies {
 	protected String halfDemonSVGString;
 	protected String demonSVGString;
 	
-	private Map<WorldType, SubspeciesSpawnRarity> worldLocations;
+	private Map<AbstractWorldType, SubspeciesSpawnRarity> worldLocations;
 
 	private static Map<Integer, String> youkoIconMap;
 	private static Map<Integer, String> youkoDesaturatedIconMap;
 	private static Map<Integer, String> youkoHalfDemonIconMap;
 	
-	private static Map<WorldType, Map<Subspecies, SubspeciesSpawnRarity>> worldSpecies;
+	private static Map<AbstractWorldType, Map<Subspecies, SubspeciesSpawnRarity>> worldSpecies;
 	private static Map<Subspecies, SubspeciesSpawnRarity> dominionStormImmuneSpecies;
 	private static Map<Race, List<Subspecies>> subspeciesFromRace;
 	
@@ -3437,7 +3438,7 @@ public enum Subspecies {
 		for(Subspecies species : Subspecies.values()) {
 			subspeciesFromRace.putIfAbsent(species.getRace(), new ArrayList<>());
 			subspeciesFromRace.get(species.getRace()).add(species);
-			for(Entry<WorldType, SubspeciesSpawnRarity> type : species.getWorldLocations().entrySet()) {
+			for(Entry<AbstractWorldType, SubspeciesSpawnRarity> type : species.getWorldLocations().entrySet()) {
 				worldSpecies.putIfAbsent(type.getKey(), new HashMap<>());
 				worldSpecies.get(type.getKey()).put(species, type.getValue());
 				
@@ -3478,7 +3479,7 @@ public enum Subspecies {
 			Colour colour,
 			SubspeciesPreference subspeciesPreferenceDefault,
 			String description,
-			Map<WorldType, SubspeciesSpawnRarity> worldLocations) {
+			Map<AbstractWorldType, SubspeciesSpawnRarity> worldLocations) {
 		
 		this.name = name;
 		this.namePlural = namePlural;
@@ -4475,7 +4476,7 @@ public enum Subspecies {
 		}
 	}
 
-	public Map<WorldType, SubspeciesSpawnRarity> getWorldLocations() {
+	public Map<AbstractWorldType, SubspeciesSpawnRarity> getWorldLocations() {
 		return worldLocations;
 	}
 
@@ -4484,7 +4485,7 @@ public enum Subspecies {
 	 * @param onlyCoreRaceSpecies true if only core Subspecies should be returned. (e.g. Cat-morph would be returned, but not Lion-morph, Tiger-morph, etc.)
 	 * @param subspeciesToExclude Any Subspecies that should be excluded from the returned map.
 	 */
-	public static Map<Subspecies, SubspeciesSpawnRarity> getWorldSpecies(WorldType worldType, boolean onlyCoreRaceSpecies, Subspecies... subspeciesToExclude) {
+	public static Map<Subspecies, SubspeciesSpawnRarity> getWorldSpecies(AbstractWorldType worldType, boolean onlyCoreRaceSpecies, Subspecies... subspeciesToExclude) {
 		worldSpecies.putIfAbsent(worldType, new HashMap<>());
 		
 		Map<Subspecies, SubspeciesSpawnRarity> map = new HashMap<>(worldSpecies.get(worldType));

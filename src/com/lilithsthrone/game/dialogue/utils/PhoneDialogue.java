@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
@@ -70,6 +69,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.comparators.ClothingTypeRarityComparator;
 import com.lilithsthrone.utils.comparators.ItemTypeRarityComparator;
 import com.lilithsthrone.utils.comparators.WeaponTypeRarityComparator;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldType;
 
 /**
@@ -1606,7 +1606,7 @@ public class PhoneDialogue {
 					+ "<br/>"
 					+ "[style.bold(Possible partners:)]");
 			
-			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsMother()){
+			for(PregnancyPossibility pp : new ArrayList<>(Main.game.getPlayer().getPotentialPartnersAsMother())){
 				if(pp.getFather()!=null) {
 					contentSB.append(UtilText.parse(pp.getFather(),
 							"<br/><b>[npc.Name(A)] (</b>"
@@ -1679,7 +1679,7 @@ public class PhoneDialogue {
 		contentSB.append("<span style='height:16px;width:100%;float:left;'></span>"
 				+ "<div class='subTitle'>Fathered children</div>");
 		
-		for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsFather()){
+		for(PregnancyPossibility pp : new ArrayList<>(Main.game.getPlayer().getPotentialPartnersAsFather())) {
 			if(pp.getMother()!=null) {
 				contentSB.append(UtilText.parse(pp.getMother(),
 						"<div class='container-full-width' style='text-align:center;'>"
@@ -1708,6 +1708,7 @@ public class PhoneDialogue {
 					} else {
 						contentSB.append("Certainty");
 					}
+					
 				} else {
 					if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_1)) {
 						contentSB.append("<br/>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_1.getName(pp.getMother()))+")]");
@@ -2684,7 +2685,7 @@ public class PhoneDialogue {
 			+ "</div>";
 	}
 	
-	public static WorldType worldTypeMap = WorldType.DOMINION;
+	public static AbstractWorldType worldTypeMap = WorldType.DOMINION;
 
 	public static final DialogueNode MAP = new DialogueNode("Maps", "", true) {
 		@Override
@@ -2705,8 +2706,8 @@ public class PhoneDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			int i=2;
-			List<WorldType> worldTypes = Main.getProperties().hasValue(PropertyValue.mapReveal)?Arrays.asList(WorldType.values()):new ArrayList<>(Main.game.getPlayer().getWorldsVisited());
-			for(WorldType world : worldTypes) {//WorldType.values()) {
+			List<AbstractWorldType> worldTypes = Main.getProperties().hasValue(PropertyValue.mapReveal)?WorldType.getAllWorldTypes():new ArrayList<>(Main.game.getPlayer().getWorldsVisited());
+			for(AbstractWorldType world : worldTypes) {//WorldType.values()) {
 				if(world != WorldType.WORLD_MAP
 						&& world != WorldType.EMPTY
 						&& world != WorldType.MUSEUM

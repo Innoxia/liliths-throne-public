@@ -46,6 +46,7 @@ public class OccupantDialogue {
 	private static boolean initFromCharactersPresent;
 	
 	public static void initDialogue(NPC targetedOccupant, boolean isApartment, boolean initFromCharactersPresent) {
+		Main.game.saveDialogueNode();
 		CompanionManagement.initManagement(OCCUPANT_START, 2, targetedOccupant);
 		occupant = targetedOccupant;
 		characterForSex = targetedOccupant;

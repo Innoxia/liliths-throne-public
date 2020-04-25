@@ -365,12 +365,14 @@ public class ImpAttacker extends NPC {
 				Value<AbstractItemType, Map<ItemEffect, String>> effects = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer());
 				if(effects!=null) {
 					AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+					potion.setName("Imp's Elixir");
 					TunnelImpsDialogue.getImpGroup().get(1).addItem(potion, false);
 				}
 				if(!Main.game.getPlayer().getNonElementalCompanions().isEmpty()) {
 					Value<AbstractItemType, Map<ItemEffect, String>> effects2 = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer().getMainCompanion());
 					if(effects2!=null) {
 						AbstractItem potion2 = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects2.getKey()), new ArrayList<>(effects2.getValue().keySet()));
+						potion2.setName("Imp's Elixir");
 						TunnelImpsDialogue.getImpGroup().get(1).addItem(potion2, false);
 					}
 				}

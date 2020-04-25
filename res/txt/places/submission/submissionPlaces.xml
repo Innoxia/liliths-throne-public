@@ -588,7 +588,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="TUNNEL_IMP_CONTROL"><![CDATA[
-	<p style='color:[#pc.getLocationPlace().getPlaceType().getColourString()];'>
+	<p style='color:[#pc.getLocationPlace().getPlaceType().getColour().toWebHexString()];'>
 		<i>This tunnel is part of a network that's currently being controlled by an imp fortress! Until the fortress is cleared, anyone who calls these tunnels home is sure to remain in hiding...</i>
 	</p>
 	]]>

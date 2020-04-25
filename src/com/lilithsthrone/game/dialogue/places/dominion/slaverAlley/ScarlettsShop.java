@@ -14,7 +14,6 @@ import java.util.Set;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
-import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
@@ -177,6 +176,22 @@ public class ScarlettsShop {
 				return false;
 			}
 			@Override
+			public SexControl getSexControl(GameCharacter character) {
+				return SexControl.ONGOING_ONLY; // So Scarlett doesn't start anything else.
+			}
+			@Override
+			public boolean isAbleToEquipSexClothing(GameCharacter character){
+				return false;
+			}
+			@Override
+			public boolean isAbleToRemoveSelfClothing(GameCharacter character){
+				return true;
+			}
+			@Override
+			public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
+				return false;
+			}
+			@Override
 			public boolean isPositionChangingAllowed(GameCharacter character) {
 				return false;
 			}
@@ -243,7 +258,7 @@ public class ScarlettsShop {
 		};
 	}
 	
-	private static SexManagerInterface getScarlettSexManager(AbstractSexPosition position, SexSlot scarlettSlot, SexSlot playerSlot, SexType scarlettPreference, Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap) {
+	private static SexManagerInterface getScarlettCafeSexManager(AbstractSexPosition position, SexSlot scarlettSlot, SexSlot playerSlot, SexType scarlettPreference, Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap) {
 		return new SexManagerDefault(
 				false,
 				position,
@@ -255,10 +270,19 @@ public class ScarlettsShop {
 			}
 			@Override
 			public SexControl getSexControl(GameCharacter character) {
-				if(character.isPlayer()) {
-					return SexControl.ONGOING_ONLY;
-				}
-				return super.getSexControl(character);
+				return SexControl.ONGOING_ONLY; // So Scarlett doesn't start anything else.
+			}
+			@Override
+			public boolean isAbleToEquipSexClothing(GameCharacter character){
+				return false;
+			}
+			@Override
+			public boolean isAbleToRemoveSelfClothing(GameCharacter character){
+				return false;
+			}
+			@Override
+			public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
+				return false;
 			}
 			@Override
 			public boolean isPositionChangingAllowed(GameCharacter character) {
@@ -1050,8 +1074,6 @@ public class ScarlettsShop {
 //					
 //				}
 				else if(index==5) {
-//					return new Response("Date", "Ask Helena out on a date.<br/>[style.italicsBad(Not implemented yet!)]", null); 
-					//TODO testing
 					if(Main.game.getDayOfWeek()!=DayOfWeek.FRIDAY || Main.game.getHourOfDay()<17) {
 						return new Response("Date", "You can only ask Helena out on a date on Fridays after [units.time(17)].", null);
 					}
@@ -2058,6 +2080,7 @@ public class ScarlettsShop {
 		public void applyPreParsingEffects() {
 			Main.game.getNpc(Helena.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 			Main.game.getNpc(Scarlett.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+			Main.game.getNpc(Scarlett.class).setHomeLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_SCARLETT_BEDROOM);
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaGoneHome, true);
 			
 			if(Main.game.getNpc(Helena.class).getAffection(Main.game.getNpc(Scarlett.class))<0) {
@@ -3442,7 +3465,7 @@ public class ScarlettsShop {
 							null,
 							null,
 							HELENAS_SHOP_BACK_ROOM_AFTER_SEX,
-							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_PERFORM_ANILINGUS")) { //TODO test if oral first time works
+							UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_PERFORM_ANILINGUS")) {
 						@Override
 						public void effects() {
 							if(!Main.game.getNpc(Helena.class).getFetishDesire(Fetish.FETISH_ANAL_RECEIVING).isPositive()) {
@@ -3487,7 +3510,10 @@ public class ScarlettsShop {
 									?UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_RECEIVE_BLOWJOB_FIRST_TIME")
 									:UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_BACK_ROOM_RECEIVE_BLOWJOB_EXPERIENCED"))) {
 							@Override
-							public void effects() {//TODO penis
+							public void effects() {
+								if(!Main.game.getNpc(Helena.class).getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isPositive()) {
+									Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.THREE_LIKE));
+								}
 								if(!Main.game.getNpc(Helena.class).hasFetish(Fetish.FETISH_ORAL_GIVING)) {
 									Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).addFetish(Fetish.FETISH_ORAL_GIVING));
 								}
@@ -3682,7 +3708,7 @@ public class ScarlettsShop {
 
 	public static final DialogueNode HELENAS_SHOP_BACK_ROOM_AFTER_SEX = new DialogueNode("Finished", "Helena is done and need to return to work.", true) {
 		@Override
-		public void applyPreParsingEffects() { //TODO test
+		public void applyPreParsingEffects() {
 			Main.game.getNpc(Helena.class).cleanAllClothing(true);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots();
 		}
@@ -4508,7 +4534,7 @@ public class ScarlettsShop {
 
 	public static final DialogueNode HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME = new DialogueNode("Finished", "Helena is done and need to return to work.", true) {
 		@Override
-		public void applyPreParsingEffects() { //TODO test
+		public void applyPreParsingEffects() {
 			Main.game.getNpc(Helena.class).cleanAllClothing(true);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots();
 			Main.game.getNpc(Scarlett.class).cleanAllClothing(true);
@@ -4648,7 +4674,7 @@ public class ScarlettsShop {
 							"Do as Scarlett says and suck her cock...",
 							true,
 							false,
-							new SMScarlettShopOral(), //TODO test special actions
+							new SMScarlettShopOral(),
 							null,
 							null,
 							HELENAS_SHOP_SCARLETT_AFTER_COUNTER_ORAL,
@@ -4665,7 +4691,7 @@ public class ScarlettsShop {
 							"Do as Scarlett says and eat her out...",
 							true,
 							false,
-							new SMScarlettShopOral(), //TODO test special actions
+							new SMScarlettShopOral(),
 							null,
 							null,
 							HELENAS_SHOP_SCARLETT_AFTER_COUNTER_ORAL,
@@ -4722,7 +4748,7 @@ public class ScarlettsShop {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getNpc(Scarlett.class).getAffectionLevelBasic(Main.game.getPlayer())==AffectionLevelBasic.LIKE) {
+			if(((Scarlett)Main.game.getNpc(Scarlett.class)).isLikesPlayer()) {
 				if(index==1) {
 					return new Response("Cafe", "Let Scarlett lead you to the cafe she wants to visit.", HELENAS_SHOP_SCARLETT_CAFE_ARRIVE) {
 						@Override
@@ -4738,7 +4764,7 @@ public class ScarlettsShop {
 					if(Main.game.getPlayer().getMoney()<150) {
 						return new Response("Pay ("+UtilText.formatAsMoneyUncoloured(150, "span")+")", "You don't have enough money to pay for Scarlett's lunch...", null);
 					}
-					return new Response("Pay ("+UtilText.formatAsMoneyUncoloured(150, "span")+")", "Tell Scarlett that you're willing to pay for her lunch.", HELENAS_SHOP_SCARLETT_CAFE_ARRIVE) {
+					return new Response("Pay ("+UtilText.formatAsMoney(150, "span")+")", "Tell Scarlett that you're willing to pay for her lunch.", HELENAS_SHOP_SCARLETT_CAFE_ARRIVE) {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_PAY"));
@@ -4793,7 +4819,7 @@ public class ScarlettsShop {
 				if(Main.game.getPlayer().getMoney()<150) {
 					return new Response("Order ("+UtilText.formatAsMoneyUncoloured(150, "span")+")", "You don't have enough money to order lunch...", null);
 				}
-				return new Response("Order ("+UtilText.formatAsMoneyUncoloured(150, "span")+")", "Order the same sandwich selection that Scarlett's choosing.", HELENAS_SHOP_SCARLETT_CAFE_EATING) {
+				return new Response("Order ("+UtilText.formatAsMoney(150, "span")+")", "Order the same sandwich selection that Scarlett's choosing.", HELENAS_SHOP_SCARLETT_CAFE_EATING) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_SCARLETT_CAFE_ARRIVE_EATING_LUNCH"));
@@ -4854,7 +4880,8 @@ public class ScarlettsShop {
 					return new Response("Drink",
 							"Encourage Scarlett to drink the potion.<br/>"
 							+ (Main.game.getNpc(Scarlett.class).hasVagina()
-								?"[style.italicsTfSex(This will grow Scarlett's breasts into being C-cups, and will also make her appear more feminine!)]"
+								?"[style.italicsTfSex(This will grow Scarlett's breasts by one cup size (to "+CupSize.getCupSizeFromInt(Main.game.getNpc(Scarlett.class).getBreastSize().getMeasurement()+1)+"-cups),"
+										+ " and will also make her appear more feminine!)]"
 								:"[style.italicsTfSex(This will increase Scarlett's cum production, as well as thickening her cock and expanding it to [style.sizes(20)] in length!)]"),
 							HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED) {
 						@Override
@@ -4863,7 +4890,7 @@ public class ScarlettsShop {
 							
 							if(Main.game.getNpc(Scarlett.class).hasVagina()) {
 								Main.game.getNpc(Scarlett.class).setFemininity(90);
-								Main.game.getNpc(Scarlett.class).setBreastSize(CupSize.C);
+								Main.game.getNpc(Scarlett.class).setBreastSize(Main.game.getNpc(Scarlett.class).getBreastSize().getMeasurement()+1);
 								Main.game.getNpc(Scarlett.class).setVaginaWetness(Wetness.FIVE_SLOPPY);
 								
 							} else {
@@ -4883,10 +4910,11 @@ public class ScarlettsShop {
 					if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)<10) {
 						return new Response("Boost (10 essences)", "You need at least ten arcane essences to boost the effects of the transformation potion!", null);
 					}
-					return new Response("Boost (10 essences)",
+					return new Response("Boost ([style.colourArcane(10 essences)])",
 							"Use ten of your arcane essences to boost the effects of Scarlett's potion.<br/>"
 							+ (Main.game.getNpc(Scarlett.class).hasVagina()
-								?"[style.italicsTfSex(This will grow Scarlett's breasts into being D-cups, and will also make her appear far more feminine!)]"
+								?"[style.italicsTfSex(This will grow Scarlett's breasts by two cup sizes (to "+CupSize.getCupSizeFromInt(Main.game.getNpc(Scarlett.class).getBreastSize().getMeasurement()+2)+"-cups),"
+										+ " and will also make her appear far more feminine!)]"
 								:"[style.italicsTfSex(This will increase Scarlett's cum production, as well as thickening her cock and expanding it to [style.sizes(30)] in length!)]"),
 							HELENAS_SHOP_SCARLETT_CAFE_EATING_TRANSFORMED) {
 						@Override
@@ -4895,7 +4923,7 @@ public class ScarlettsShop {
 							
 							if(Main.game.getNpc(Scarlett.class).hasVagina()) {
 								Main.game.getNpc(Scarlett.class).setFemininity(95);
-								Main.game.getNpc(Scarlett.class).setBreastSize(CupSize.D);
+								Main.game.getNpc(Scarlett.class).setBreastSize(Main.game.getNpc(Scarlett.class).getBreastSize().getMeasurement()+2);
 								Main.game.getNpc(Scarlett.class).setVaginaWetness(Wetness.FIVE_SLOPPY);
 								
 							} else {
@@ -4943,7 +4971,7 @@ public class ScarlettsShop {
 							"Move around to sit next to Scarlett and give her a handjob...",
 							true,
 							false,
-							getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.SITTING_TWO,
+							getScarlettCafeSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.SITTING_TWO,
 									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER),
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.PENIS)))),
@@ -4967,7 +4995,7 @@ public class ScarlettsShop {
 							"Move around to sit next to Scarlett and start fingering her...",
 							true,
 							false,
-							getScarlettSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.SITTING_TWO,
+							getScarlettCafeSexManager(SexPosition.SITTING, SexSlotSitting.SITTING, SexSlotSitting.SITTING_TWO,
 									new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER),
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getNpc(Scarlett.class), Util.newArrayListOfValues(CoverableArea.VAGINA)))),
@@ -5005,7 +5033,7 @@ public class ScarlettsShop {
 		}
 	};
 
-	public static final DialogueNode HELENAS_SHOP_SCARLETT_CAFE_END = new DialogueNode("", "", true) {
+	public static final DialogueNode HELENAS_SHOP_SCARLETT_CAFE_END = new DialogueNode("", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;

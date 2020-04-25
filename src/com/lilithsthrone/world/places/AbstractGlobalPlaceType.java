@@ -9,7 +9,7 @@ import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
-import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.AbstractWorldType;
 
 /**
  * @since 0.3.1
@@ -93,5 +93,5 @@ public abstract class AbstractGlobalPlaceType extends AbstractPlaceType {
 		return this;
 	}
 	
-	public abstract WorldType getGlobalLinkedWorldType();
+	public abstract AbstractWorldType getGlobalLinkedWorldType();
 }

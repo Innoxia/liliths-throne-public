@@ -171,7 +171,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 				: "")
 				+ " "+(withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
 	}
-	
+
+	@Override
 	public String getDisplayName(boolean withRarityColour) {
 		return Util.capitaliseSentence(
 				(!itemType.getDeterminer().equalsIgnoreCase("a") && !itemType.getDeterminer().equalsIgnoreCase("an")
@@ -179,7 +180,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 						: UtilText.generateSingularDeterminer(name))
 				+ " "+ (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
 	}
-	
+
+	@Override
 	public String getDisplayNamePlural(boolean withRarityColour) {
 		return Util.capitaliseSentence((withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>") : namePlural));
 	}

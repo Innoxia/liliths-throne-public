@@ -80,6 +80,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Bearing;
 import com.lilithsthrone.world.TeleportPermissions;
 import com.lilithsthrone.world.Weather;
@@ -4264,7 +4265,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0x6b8f7e)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4276,7 +4277,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0x8fbfa8)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4288,7 +4289,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xb377b0)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	};
@@ -4300,7 +4301,7 @@ public class PlaceType {
 			PresetColour.BASE_BLACK,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4312,7 +4313,7 @@ public class PlaceType {
 			PresetColour.BASE_GREY_DARK,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4324,7 +4325,7 @@ public class PlaceType {
 			PresetColour.BASE_GREY_LIGHT,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4336,7 +4337,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xeeeeee)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4348,7 +4349,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xbbf0f1)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4363,7 +4364,7 @@ public class PlaceType {
 			null,
 			"in the outskirts of Dominion") {
 		@Override
-		public WorldType getGlobalLinkedWorldType() {
+		public AbstractWorldType getGlobalLinkedWorldType() {
 			return WorldType.DOMINION;
 		}
 	};
@@ -4377,7 +4378,7 @@ public class PlaceType {
 			null,
 			"") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4391,7 +4392,7 @@ public class PlaceType {
 			null,
 			"") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	};
@@ -4406,7 +4407,7 @@ public class PlaceType {
 			null,
 			"") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4421,7 +4422,7 @@ public class PlaceType {
 			null,
 			"") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	};
@@ -4436,7 +4437,7 @@ public class PlaceType {
 			null,
 			"") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	};
@@ -4448,7 +4449,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xc1f1ee)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4460,7 +4461,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0x6ccc74)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4471,7 +4472,7 @@ public class PlaceType {
 			PresetColour.BASE_BLUE_DARK,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4483,7 +4484,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0x8264b0)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	};
@@ -4495,7 +4496,7 @@ public class PlaceType {
 			PresetColour.BASE_YELLOW_LIGHT,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4507,7 +4508,7 @@ public class PlaceType {
 			PresetColour.BASE_TAN,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4519,7 +4520,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xffe7a7)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4531,7 +4532,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xffdb7a)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4543,7 +4544,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xd5445e)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	};
@@ -4555,7 +4556,7 @@ public class PlaceType {
 			PresetColour.BASE_ORANGE,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4567,7 +4568,7 @@ public class PlaceType {
 			PresetColour.BASE_BLACK,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();

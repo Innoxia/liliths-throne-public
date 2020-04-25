@@ -51,7 +51,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.7.3
  * @author Innoxia
  */
 public class DebugDialogue {
@@ -196,15 +196,27 @@ public class DebugDialogue {
 				
 			} else if(responseTab==1) {
 				if (index == 1) {
-					return new Response("<span style='color:"+PresetColour.GENERIC_EXPERIENCE.toWebHexString()+";'>+500 xp</span>", "Give yourself 500xp.", DEBUG_MENU){
+					return new Response("<span style='color:"+PresetColour.GENERIC_EXPERIENCE.toWebHexString()+";'>+500 xp</span> (self)", "Give yourself 500xp.", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementExperience(500, false);
-							
 						}
 					};
 					
-				} else if(index==2) {
+				} else if (index == 2) {
+					if(!Main.game.getPlayer().hasCompanions()) {
+						return new Response("+500 xp (party)", "You do not have any companions, so there's nobody to give experience to...", null);
+					}
+					return new Response("<span style='color:"+PresetColour.GENERIC_EXPERIENCE.toWebHexString()+";'>+500 xp</span> (party)", "Give each of your party members 500xp.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							for(GameCharacter character : Main.game.getPlayer().getParty()) {
+								character.incrementExperience(500, false);
+							}
+						}
+					};
+					
+				} else if(index==3) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+PresetColour.ATTRIBUTE_PHYSIQUE.toWebHexString()+";'>Physique</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -212,7 +224,7 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==3) {
+				} else if(index==4) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+PresetColour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Arcane</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -220,7 +232,7 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==4) {
+				} else if(index==5) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString()+";'>Corruption</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -228,7 +240,7 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==5) {
+				} else if(index==6) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>Max all attributes</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -238,7 +250,7 @@ public class DebugDialogue {
 						}
 					};
 					
-				}  else if(index==6) {
+				}  else if(index==7) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>+1</span> <span style='color:"+PresetColour.PERK.toWebHexString()+";'>Perk point</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -246,21 +258,21 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==7) {
+				} else if(index==8) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+PresetColour.ATTRIBUTE_PHYSIQUE.toWebHexString()+";'>Physique</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_PHYSIQUE, -5);
 						}
 					};
-				} else if(index==8) {
+				} else if(index==9) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+PresetColour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Arcane</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, -5);
 						}
 					};
-				} else if(index==9) {
+				} else if(index==10) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString()+";'>Corruption</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -598,7 +610,8 @@ public class DebugDialogue {
 				if(npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 					isBorn = false;
 				}
-				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span> ("+npc.getSubspecies().getName(npc)+")"
+				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span>"
+						+ " ("+npc.getSubspecies().getName(npc)+" | "+npc.getHalfDemonSubspecies()+")"
 						+ " M:"+npc.getMother().getName(true)+" F:"+npc.getFather().getName(true)+"<br/>");
 			}
 			if(activeOffspring!=null) {

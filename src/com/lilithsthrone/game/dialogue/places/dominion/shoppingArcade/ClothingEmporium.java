@@ -252,7 +252,7 @@ public class ClothingEmporium {
 							return new Response("Gift", "Give Nyan a gift (opens gift selection screen).", ROMANCE_GIFT) {
 								@Override
 								public DialogueNode getNextDialogue() {
-									return GiftDialogue.getGiftDialogue(Main.game.getNpc(Nyan.class), SHOP_CLOTHING_REPEAT, 1, ROMANCE_GIFT, 1);
+									return GiftDialogue.getGiftDialogue(Main.game.getNpc(Nyan.class), ROMANCE_GIFT, 1);
 								}
 								@Override
 								public void effects() {
@@ -746,7 +746,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNode ROMANCE_GIFT = new DialogueNode("Nyan's Clothing Emporium", "-", true) {
+	public static final DialogueNode ROMANCE_GIFT = new DialogueNode("Nyan's Clothing Emporium", "-", true, true) {
 
 		@Override
 		public String getContent() {
