@@ -133,47 +133,11 @@ public interface SexManagerInterface {
 				SexPosition.LYING_DOWN,
 				SexPosition.STANDING);
 		
-		switch(Main.game.getPlayerCell().getType()) {
-			case ANGELS_KISS_FIRST_FLOOR:
-			case ANGELS_KISS_GROUND_FLOOR:
-			case CITY_HALL:
-			case DADDYS_APARTMENT:
-			case ENFORCER_HQ:
-			case ENFORCER_WAREHOUSE:
-			case GAMBLING_DEN:
-			case LILAYAS_HOUSE_FIRST_FLOOR:
-			case LILAYAS_HOUSE_GROUND_FLOOR:
-			case LYSSIETH_PALACE:
-			case MUSEUM:
-			case MUSEUM_LOST:
-			case SHOPPING_ARCADE:
-			case SUPPLIER_DEN:
-			case ZARANIX_HOUSE_FIRST_FLOOR:
-			case ZARANIX_HOUSE_GROUND_FLOOR:
-			case RAT_WARRENS:
-			case DOMINION_EXPRESS:
-				positions.add(SexPosition.OVER_DESK);
-				positions.add(SexPosition.SITTING);
-				break;
-			case BAT_CAVERNS:
-			case DOMINION:
-			case EMPTY:
-			case HARPY_NEST:
-			case HOME_IMPROVEMENTS:
-			case IMP_FORTRESS_ALPHA:
-			case IMP_FORTRESS_DEMON:
-			case IMP_FORTRESS_FEMALES:
-			case IMP_FORTRESS_MALES:
-			case NIGHTLIFE_CLUB:
-			case SLAVER_ALLEY:
-			case SLIME_QUEENS_LAIR_FIRST_FLOOR:
-			case SLIME_QUEENS_LAIR_GROUND_FLOOR:
-			case SUBMISSION:
-			case WORLD_MAP:
-				break;
-		default:
-			break;
+		if(Main.game.getPlayerCell().getType().isFurniturePresent()) {
+			positions.add(SexPosition.OVER_DESK);
+			positions.add(SexPosition.SITTING);
 		}
+		
 		return positions;
 	}
 	
@@ -302,19 +266,6 @@ public interface SexManagerInterface {
 	 * @return true if this character is able to remove other people's clothing in sex.
 	 */
 	public default boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
-		// Is now handled in SexManager as of v0.3.3.8
-//		if(clothing!=null
-//				&& !Main.sex.isDom(character)
-//				&& clothing.getClothingType().isSexToy()) {
-//			return false;
-//		}
-		
-//		if(character.isPlayer()) {
-//			return true;
-//		}
-//		
-//		return Main.sex.getSexControl(character)==SexControl.FULL;
-		
 		// The only thing that should limit this is overridden special conditions:
 		return true;
 	}

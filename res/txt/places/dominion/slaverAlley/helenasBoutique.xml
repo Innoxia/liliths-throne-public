@@ -78,7 +78,7 @@
 	</p>
 	<p>
 		#IF(scarlett.isVisiblyPregnant())
-			Before you're able to reply, the familiar figure of Scarlett, wearing her white dress and black choker, suddenly appears from the back room. Catching sight of you and Helena, she walks over to where you're standing, and as she approaches, you can't help but glance down at her swollen, pregnant belly.
+			Before you're able to reply, the familiar figure of Scarlett, wearing her light pink dress and black choker, suddenly appears from the back room. Catching sight of you and Helena, she walks over to where you're standing, and as she approaches, you can't help but glance down at her swollen, pregnant belly.
 			#IF(helena.isVisiblyPregnant())
 				 Coming to a halt beside her matriarch in such a position that both of their pregnant bellies are side-by-side, the raven-harpy absently-mindedly strokes one of her wing-like arms over her rounded tummy
 			#ELSE
@@ -86,13 +86,13 @@
 			#ENDIF
 			#IF(!scarlett.isCharacterReactedToPregnancy(pc))
 				#IF(scarlett.getPregnantLitter().isFatherId(pc.getId()))
-					#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+					#IF(scarlett.isLikesPlayer())
 						 and sheepishly reveals, [scarlett.speech(Look what you did, [pc.name]... You got me pregnant...)]
 					#ELSE
 						 and snaps, [scarlett.speech(Look what you fucking did, [pc.name]! You got me pregnant! Do you know how fucking annoying this is?!)]
 					#ENDIF
 				#ELSE
-					#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+					#IF(scarlett.isLikesPlayer())
 						 and sheepishly reveals, [scarlett.speech(One of my harpy friends got me pregnant...)]
 					#ELSE
 						 and snaps, [scarlett.speech(Not that it's any of your business, but just to let you know, it was one of my harpy friends who got me pregnant...)]
@@ -100,13 +100,13 @@
 				#ENDIF
 			#ELSE
 				#IF(scarlett.getPregnantLitter().isFatherId(pc.getId()))
-					#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+					#IF(scarlett.isLikesPlayer())
 						 and sheepishly greets you by saying, [scarlett.speech(Hey, [pc.name], I'm still pregnant with our kids...)]
 					#ELSE
 						 and snaps, [scarlett.speech(Yes, [pc.name], before you ask, I'm still pregnant with our kids, and it's fucking annoying!)]
 					#ENDIF
 				#ELSE
-					#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+					#IF(scarlett.isLikesPlayer())
 						 and sheepishly greets you by stating the obvious, [scarlett.speech(Hey, [pc.name]... I'm still pregnant, if you were wondering...)]
 					#ELSE
 						 and snaps, [scarlett.speech(Not that it's any of your business, but yes, I'm still pregnant!)]
@@ -114,8 +114,8 @@
 				#ENDIF
 			#ENDIF
 		#ELSE
-			Before you're able to reply, the familiar figure of Scarlett, wearing her white dress and black choker, suddenly appears from the back room. Catching sight of you and Helena, she walks over to where you're standing, and after quickly approaching and coming to a halt beside her matriarch, she
-			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			Before you're able to reply, the familiar figure of Scarlett, wearing her light pink dress and black choker, suddenly appears from the back room. Catching sight of you and Helena, she walks over to where you're standing, and after quickly approaching and coming to a halt beside her matriarch, she
+			#IF(scarlett.isLikesPlayer())
 				 greets you by asking, [scarlett.speech(Hey, [pc.name], is there anything I can do to help?)]
 			#ELSE
 				 snaps, [scarlett.speech(You're back, huh?!)]
@@ -137,7 +137,7 @@
 				Telling Scarlett to step back, Helena once again teases, [helena.speech(Just to remind you, [pc.name], it will be another [#SPECIAL_PARSE_0] days until your slave is ready for collection, which will be on [#SPECIAL_PARSE_1]. So, what can I do for you?)]
 			#ENDIF
 		#ELSE
-			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			#IF(scarlett.isLikesPlayer())
 				Letting another gentle smile settle on her beautiful face, Helena gently states,
 			#ELSE
 				[helena.speech(Scarlett! Behave yourself!)] Helena icily warns her companion, before letting another gentle smile settle on her beautiful face and stating,
@@ -159,7 +159,7 @@
 				Telling Scarlett to step back, Helena once again teases, [helena.speech(So, [pc.name], are you here to collect your slave?)]
 			#ENDIF
 		#ELSE
-			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			#IF(scarlett.isLikesPlayer())
 				Letting another gentle smile settle on her beautiful face, Helena gently asks again,
 			#ELSE
 				[helena.speech(Scarlett! Behave yourself!)] Helena icily warns her companion, before letting another gentle smile settle on her beautiful face and asking,
@@ -181,7 +181,7 @@
 				Telling Scarlett to step back, Helena once again teases, [helena.speech(So, [pc.name], what business is it you wish to discuss?)]
 			#ENDIF
 		#ELSE
-			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			#IF(scarlett.isLikesPlayer())
 				Letting another gentle smile settle on her beautiful face, Helena gently asks again,
 			#ELSE
 				[helena.speech(Scarlett! Behave yourself!)] Helena icily warns her companion, before letting another gentle smile settle on her beautiful face and asking,
@@ -634,7 +634,7 @@
 			#ENDIF
 		</p>
 		<p>
-			Wanting to make sure that Helena's first anal experience is a good one, you make sure to spend some time lovingly kissing and licking her rear entrance. Sure enough, after just a few minutes of this, the beautiful harpy's nervous sighs have turned into heavy moans, and she eagerly pushes her saliva-coated asshole out against your face as she breathlessly pants, [helena.speechNoEffects(~Ooh!~ Go on, [pc.name]! Eat my ass like you do to my pussy!)]
+			Wanting to make sure that Helena's first anal experience is a good one, you make sure to spend some time lovingly kissing and licking her rear entrance. Sure enough, after just a few minutes of this, the beautiful harpy's nervous sighs have turned into heavy moans, and she eagerly pushes her saliva-coated asshole out against your face as she breathlessly pants, [helena.speechNoEffects(~Ooh!~ Go on, [pc.name]! Eat my ass!)]
 		</p>
 		<p>
 			More than happy to do as she asks, you tightly press your [pc.lips] over Helena's asshole and start passionately making out with her virgin hole. From the lewd moans and desperate panting noises drifting down from above, you can tell that she's going to be eager to do a lot more anal play with you in the future...
@@ -939,7 +939,7 @@
 	</p>
 	<p>
 		As Helena walks off to leave the two of you alone together, Scarlett
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			 flashes you a rare smile and asks,
 			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopScarlettCounterOral))
 				#IF(scarlett.hasPenis())
@@ -978,7 +978,7 @@
 	<p>
 		#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopScarlettTalkedTo))
 			Not having anything more to discuss with Scarlett, you tell her that you'd better let her get back on with work.
-			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			#IF(scarlett.isLikesPlayer())
 				 Failing to hide the disappointment in her voice, she replies, [scarlett.speech(Oh, ok... I'll call Helena back over.)]
 			#ELSE
 				 Failing to hide the relief in her voice, she replies, [scarlett.speech(Fucking finally... I'll call Helena back over.)]
@@ -1002,7 +1002,7 @@
 	<htmlContent tag="HELENAS_SHOP_SCARLETT_TALK"><![CDATA[
 	<p>
 		Taking advantage of the fact that the two of you now have some time alone together, you try to engage Scarlett in conversation by asking her how her day is going.
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			 Blushing a little as she hears that you're interested in finding out how she is, the raven-harpy hesitantly replies, [scarlett.speech(Oh, well, you know, I guess it's just the same as ever...)]
 		#ELSE
 			 Rolling her eyes as she hears your question, the rude harpy snaps, [scarlett.speech(Why the fuck do you care? It's not like you actually give a shit.)]
@@ -1010,7 +1010,7 @@
 	</p>
 	<p>
 		Not satisfied with Scarlett's answer, you press her on the point and again ask her how her day has been so far. Convinced by your persistent questioning that you must actually care about her, the raven-harpy
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			 continues to blush as she says, [scarlett.speech(If you really want to know, then I guess I can tell you about my day.)]
 		#ELSE
 			 lets out an annoyed sigh and says, [scarlett.speech(Fine, if it's what it's going to take to get you to fuck off, then I'll tell you about my day.)]
@@ -1021,7 +1021,7 @@
 	</p>
 	<p>
 		Although at first she was hesitant to recount all of this to you, by the time she's finished speaking, Scarlett looks and sounds as though she's a lot happier. Letting a brief smile flash across her face,
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			 she crosses her wing-like arms and sighs, [scarlett.speech(So, is there anything else you wanted?)]
 		#ELSE
 			 she crosses her wing-like arms and sighs, [scarlett.speech(Now that that's fucking over, is there anything else you wanted?)]
@@ -1071,7 +1071,7 @@
 				 her [scarlett.pussy+]. Bucking her hips forwards, she again hisses,
 			#ENDIF
 		#ENDIF
-		 [scarlet.speechNoEffects(Come on! Get started already!)]
+		 [scarlett.speechNoEffects(Come on! Get started already!)]
 	</p>
 	<p>
 		Once again doing as you're told, you lean forwards
@@ -1111,7 +1111,7 @@
 	#IF(game.getDialogueFlags().hasFlag(FLAG_helenaShopScarlettCafeRevealed))
 		<p>
 			Wanting to spend more than just a few minutes talking with Scarlett, you ask her if she'd like to spend her lunch break with you again.
-			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			#IF(scarlett.isLikesPlayer())
 				 Blushing a little as she hears your suggestion, the raven-harpy replies, [scarlett.speech(I was thinking of going back to the cafe we went to last time, so I guess you could tag along if you want...)]
 			#ELSE
 				 Letting a look of absolute disgust quickly settle on her face, the rude harpy sneers, [scarlett.speech(Pay for my lunch again, cunt, and I'll consider letting you tag along.)]
@@ -1120,7 +1120,7 @@
 	#ELSE
 		<p>
 			Wanting to spend more than just a few minutes talking with Scarlett, you ask her if she'd like to spend her lunch break with you.
-			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			#IF(scarlett.isLikesPlayer())
 				 Blushing a little as she hears your suggestion, the raven-harpy replies, [scarlett.speech(I usually go and eat at a nearby cafe, so I guess you could tag along if you want...)]
 			#ELSE
 				 Letting a look of absolute disgust quickly settle on her face, the rude harpy sneers, [scarlett.speech(You think I'd willingly spend my free time with a cunt like you? Perhaps if you pay for my lunch, I'll consider it.)]
@@ -1128,7 +1128,7 @@
 		</p>
 	#ENDIF
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			Telling Scarlett that you'd love to accompany her to the cafe, you patiently wait as she darts off to get Helena's permission to take her lunch break. Quickly securing her matriarch's blessing, the raven-harpy returns to you and excitedly says, [scarlett.speech(Ok, I've got an hour for lunch, so let's go!)]
 		#ELSE
 			Crossing her black wing-like arms, Scarlett continues to sneer at you as she waits to hear what it is you'll say in response to her demand. If you want to accompany her on her lunch break, then it looks like you'll have to pay up...
@@ -1213,7 +1213,7 @@
 	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_ARRIVE_EATING_LUNCH"><![CDATA[
 	<p>
 		With not much on the menu that grabs your interest, you decide to play it safe and order the same sandwich selection which Scarlett has gone for. After telling the waitress what you've chosen and handing over the one hundred and fifty flames she asks for, you and Scarlett are left alone while she hurries off to fetch your food.
-	#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+	#IF(scarlett.isLikesPlayer())
 			 Clearly liking you more than most other people she knows, Scarlett flashes you a slight smile, before slouching down in the chair opposite to yours and asking, [scarlett.speech(So, [pc.name], why did you want to spend lunch with me?)]
 		</p>
 		<p>
@@ -1243,7 +1243,7 @@
 	<htmlContent tag="HELENAS_SHOP_SCARLETT_CAFE_ARRIVE_NO_LUNCH"><![CDATA[
 	<p>
 		With not much on the menu that grabs your interest, you decide not to order anything. After telling the waitress that it's just Scarlett who's ordering food, the two of you are left alone while she hurries off to fetch your companion's food.
-	#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+	#IF(scarlett.isLikesPlayer())
 			 Clearly liking you more than most other people she knows, Scarlett flashes you a slight smile, before slouching down in the chair opposite to yours and asking, [scarlett.speech(So, [pc.name], why did you want to spend lunch with me?)]
 		</p>
 		<p>
@@ -1283,7 +1283,7 @@
 		#ENDIF
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			As she trails off and falls silent, you realise that Scarlett is wanting to hear your input on this manner. As you consider whether or not to encourage her to drink the potion, she blushes a little and asks, [scarlett.speech(So, what do you think?)]
 		#ELSE
 			As she trails off and falls silent, you realise that Scarlett is wanting to hear your input on this manner. As you consider whether or not to encourage her to drink the potion, she lets out a frustrated sigh and asks, [scarlett.speech(Come on, what do you think?)]
@@ -1337,7 +1337,7 @@
 	</p>
 	<p>
 		With still plenty of time left until her lunch break is over, Scarlett sinks down in her chair and lets out a relaxed sigh.
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			 Taking this opportunity to get to know her a little better, you strike up a conversation with the raven-harpy, and much to your delight, she readily starts talking with you about the recent mundane events both in her life and in Dominion as whole.
 		#ELSE
 			 Taking this opportunity to get to know her a little better, you strike up a conversation with the raven-harpy, and much to your delight, she actually proves willing to talk with you about the recent mundane events both in her life and in Dominion as whole.
@@ -1420,7 +1420,7 @@
 			 finger Scarlett
 		#ENDIF
 		 in such a public setting, you tell her that she'll have to make do with masturbating if she's really that horny. Letting out an annoyed huff, the raven-harpy
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			 whines, [scarlett.speech(Fine... I'll just do it myself later...)]
 		#ELSE
 			 snaps, [scarlett.speech(It's not like I actually expected a fucking cunt like you to help me out. I'll just do it myself later...)]

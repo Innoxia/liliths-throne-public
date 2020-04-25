@@ -256,6 +256,7 @@ import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
@@ -315,8 +316,8 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	// Location:
-	protected WorldType worldLocation;
-	protected WorldType homeWorldLocation;
+	protected AbstractWorldType worldLocation;
+	protected AbstractWorldType homeWorldLocation;
 	protected Vector2i location;
 	protected Vector2i homeLocation;
 	protected Vector2i globalLocation;
@@ -469,7 +470,7 @@ public abstract class GameCharacter implements XMLSaving {
 			Subspecies startingSubspecies,
 			RaceStage stage,
 			CharacterInventory inventory,
-			WorldType worldLocation,
+			AbstractWorldType worldLocation,
 			AbstractPlaceType startingPlace) {
 		
 		id = "NOT_SET"; // id gets set in Game's addNPC method, so it doesn't matter if this is unique or not... Right?
@@ -798,8 +799,8 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		Element locationInformation = doc.createElement("locationInformation");
 		properties.appendChild(locationInformation);
-		CharacterUtils.createXMLElementWithValue(doc, locationInformation, "worldLocation", this.getWorldLocation().toString());
-		CharacterUtils.createXMLElementWithValue(doc, locationInformation, "homeWorldLocation", this.getHomeWorldLocation().toString());
+		CharacterUtils.createXMLElementWithValue(doc, locationInformation, "worldLocation", WorldType.getIdFromWorldType(this.getWorldLocation()));
+		CharacterUtils.createXMLElementWithValue(doc, locationInformation, "homeWorldLocation", WorldType.getIdFromWorldType(this.getHomeWorldLocation()));
 		Element location = doc.createElement("location");
 		locationInformation.appendChild(location);
 		CharacterUtils.addAttribute(doc, location, "x", String.valueOf(this.getLocation().getX()));
@@ -1801,7 +1802,7 @@ public abstract class GameCharacter implements XMLSaving {
 							true);
 					
 				} else {
-					WorldType worldType = WorldType.valueOf(worldName);
+					AbstractWorldType worldType = WorldType.getWorldTypeFromId(worldName);
 					
 					if((worldType==WorldType.DOMINION || worldType==WorldType.SUBMISSION || worldType==WorldType.HARPY_NEST) && Main.isVersionOlderThan(version, "0.2.1.5")) {
 						AbstractPlaceType placeType = PlaceType.DOMINION_BACK_ALLEYS;
@@ -1895,7 +1896,7 @@ public abstract class GameCharacter implements XMLSaving {
 										Integer.valueOf(((Element)element.getElementsByTagName("location").item(0)).getAttribute("y"))),
 								false);
 						character.setHomeLocation(
-								WorldType.valueOf(((Element)element.getElementsByTagName("homeWorldLocation").item(0)).getAttribute("value")),
+								WorldType.getWorldTypeFromId(((Element)element.getElementsByTagName("homeWorldLocation").item(0)).getAttribute("value")),
 								new Vector2i(
 										Integer.valueOf(((Element)element.getElementsByTagName("homeLocation").item(0)).getAttribute("x")),
 										Integer.valueOf(((Element)element.getElementsByTagName("homeLocation").item(0)).getAttribute("y"))));
@@ -2033,7 +2034,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		// Perks:
-		character.resetPerksMap(false);
+		character.completePerkReset();
 		nodes = parentElement.getElementsByTagName("traits");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
@@ -2980,7 +2981,7 @@ public abstract class GameCharacter implements XMLSaving {
 			for(Artist artist : Artwork.allArtists) {
 				File f = new File("res/images/characters/" + folder + "/" + artist.getFolderName());
 				if(f.exists() && f.isDirectory()) {
-					Artwork art = new Artwork(f, artist);
+					Artwork art = new Artwork(this, f, artist);
 					// Cull empty artwork lists
 					if (art.getTotalArtworkCount() > 0) {
 						artworkList.add(art);
@@ -3116,9 +3117,13 @@ public abstract class GameCharacter implements XMLSaving {
 				infoScreenSB.append(
 						"<div class='full-width-container' style='position:relative; float:right; width:"+percentageWidth+"%; max-width:"+width+"; object-fit:scale-down;'>"
 								+ "<div class='full-width-container' style='width:100%; margin:0;'>"
-								+ "<img id='CHARACTER_IMAGE' style='"+(revealed ? "" : "-webkit-filter: brightness(0%);")+" width:100%;' src='"+imageString+"'/>"//file:/
+								+(imageString.isEmpty()
+									?"<div class='full-width-container' style='width:100%; margin:0; text-align:center;'>No image!</div>"
+									:"<img id='CHARACTER_IMAGE' style='"+(revealed ? "" : "-webkit-filter: brightness(0%);")+" width:100%;' src='"+imageString+"'/>")
 								+ "<div class='overlay no-pointer no-highlight' style='text-align:center;'>" // Add overlay div to stop javaFX's insane image drag+drop
-								+ (revealed ? "" : "<p style='margin-top:50%; font-weight:bold; color:"+PresetColour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
+								+ (revealed || imageString.isEmpty()
+										? ""
+										: "<p style='margin-top:50%; font-weight:bold; color:"+PresetColour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
 								+ "</div>"
 								+ "<div class='title-button' id='ARTWORK_ADD' style='background:transparent; left:auto; right:28px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getAddIcon()+"</div>"
 								+ "<div class='title-button' id='ARTWORK_INFO' style='background:transparent; left:auto; right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
@@ -3146,9 +3151,12 @@ public abstract class GameCharacter implements XMLSaving {
 					+ this.getDescription());
 		
 		if(Main.game.getPlayer().getId().equals(this.getMotherId())) {
-			infoScreenSB.append(UtilText.parse(this, " You gave birth to [npc.herHim] on the "+this.getBirthdayString()+"."));
+			infoScreenSB.append(UtilText.parse(this,
+					" You gave birth to [npc.herHim] on the "+this.getBirthdayString()+", making [npc.herHim] <span style='color:"+this.getAge().getColour().toWebHexString()+";'>"+Util.intToString(this.getAgeValue())+"</span> years old."));
+			
 		} else if(this.isPlayer() || (this.isPlayerKnowsName() && (this.getAffection(Main.game.getPlayer())>=AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue() || this.isSlave()))) {
-			infoScreenSB.append(UtilText.parse(this, " [npc.She] [npc.was] born on the "+this.getBirthdayString()+"."));
+			infoScreenSB.append(UtilText.parse(this,
+					" [npc.She] [npc.was] born on the "+this.getBirthdayString()+", making [npc.herHim] <span style='color:"+this.getAge().getColour().toWebHexString()+";'>"+Util.intToString(this.getAgeValue())+"</span> years old."));
 		}
 		
 		String relationships = this.getRelationshipStrTo(Main.game.getPlayer());
@@ -3251,7 +3259,7 @@ public abstract class GameCharacter implements XMLSaving {
 					+ "<p>"
 						+ UtilText.parse(this, "As [npc.namePos] body is mostly concealed, your knowledge of [npc.her] appearance is severely limited...")
 					+ "</p>"
-					+ (Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.ASS, this)
+					+ (Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.ANUS, this)
 							?"<p>"
 								+ this.getAssDescription(false)
 							+ "</p>"
@@ -3819,19 +3827,22 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public LocalDateTime getBirthday() {
+		if(Main.game.isInNewWorld() && !this.isPlayer()) {
+			return birthday.plusYears(MINIMUM_AGE);
+		}
 		return birthday;
 	}
 
 	public void setBirthday(LocalDateTime birthday) {
 		this.birthday = birthday;
-
+		
 		long age = ChronoUnit.YEARS.between(birthday, Main.game.getDateNow());
 		if(age<MINIMUM_AGE) {
-			this.birthday = (this.getBirthday().minusYears(MINIMUM_AGE-age));
+			this.birthday = (this.birthday.minusYears(MINIMUM_AGE-age));
 		}
 		
 		if(this.isPlayer() && age>50) {
-			this.birthday = this.getBirthday().plusYears(age-50);
+			this.birthday = this.birthday.plusYears(age-50);
 		}
 	}
 
@@ -4980,59 +4991,12 @@ public abstract class GameCharacter implements XMLSaving {
 				|| getCompanionSexRejectionReason(companionIsSub).isEmpty();
 	}
 	
-	//TODO move to PlaceType
 	public final Value<Boolean, String> getSexAvailabilityBasedOnLocation() {
-		switch(this.getWorldLocation()) {
-			case WORLD_MAP:
-			case MUSEUM:
-			case MUSEUM_LOST:
-			case ANGELS_KISS_FIRST_FLOOR:
-			case ANGELS_KISS_GROUND_FLOOR:
-			case BAT_CAVERNS:
-			case DOMINION:
-			case EMPTY:
-			case SLAVER_ALLEY:
-			case SUBMISSION:
-			case HARPY_NEST:
-			case LILAYAS_HOUSE_FIRST_FLOOR:
-			case LILAYAS_HOUSE_GROUND_FLOOR:
-			case NIGHTLIFE_CLUB:
-				break;
-				
-			case ENFORCER_HQ:
-				return new Value<>(false, "You can't have sex in the Enforcer HQ!");
-			case ENFORCER_WAREHOUSE:
-				return new Value<>(false, "You can't have sex in such a dangerous place!");
-				
-			case SHOPPING_ARCADE:
-				if(!this.getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_PATH)) {
-					return new Value<>(false, "This isn't a suitable place in which to be having sex!");
-				}
-				break;
-			case SUPPLIER_DEN:
-			case SLIME_QUEENS_LAIR_GROUND_FLOOR:
-			case SLIME_QUEENS_LAIR_FIRST_FLOOR:
-			case GAMBLING_DEN:
-			case IMP_FORTRESS_ALPHA:
-			case IMP_FORTRESS_DEMON:
-			case IMP_FORTRESS_FEMALES:
-			case IMP_FORTRESS_MALES:
-			case CITY_HALL:
-			case RAT_WARRENS:
-			case HOME_IMPROVEMENTS:
-			case DOMINION_EXPRESS:
-				return new Value<>(false, "This isn't a suitable place in which to be having sex!");
-			case ZARANIX_HOUSE_FIRST_FLOOR:
-			case ZARANIX_HOUSE_GROUND_FLOOR:
-				return new Value<>(false, "You can't have sex while in Zaranix's house!");
-			case LYSSIETH_PALACE:
-				return new Value<>(false, "You can't have sex while in Lyssieth's Palace!");
-			case DADDYS_APARTMENT:
-				return new Value<>(false, "You can't have sex while in [daddy.namePos] apartment!");
-			case HELENAS_APARTMENT:
-				return new Value<>(false, "You can't have sex while in Helena's apartment!");
+		if(this.getWorldLocation().isCompanionSexBlocked(getMainCompanion())) {
+			return new Value<>(false, this.getWorldLocation().getCompanionSexBlockedReason(this.getMainCompanion()));
 		}
-		
+
+		//TODO move to PlaceType
 		AbstractPlaceType placeType = this.getLocationPlace().getPlaceType();
 		boolean charactersImmediatelyPresent = 
 				!placeType.equals(PlaceType.DOMINION_BACK_ALLEYS)
@@ -5369,12 +5333,12 @@ public abstract class GameCharacter implements XMLSaving {
 			return "";
 		}
 		return UtilText.parse(this, 
-				"<div class='container-full-width' style='text-align:center;'>"
+				"<p style='text-align:center; padding:0; margin:0;'>"
 					+ "[npc.Name] [style.colourGood(gained)] <b style='color:" + PresetColour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + xpIncrement + " xp</b>!"
 					+(withExtraModifiers && this.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true)
 							?"<br/>[style.italicsBad(Experience gain was reduced by 95% due to having the '"+Perk.ORGASMIC_LEVEL_DRAIN.getName(this)+"' trait!)]"
 							:"")
-				+"</div>");
+				+"</p>");
 	}
 
 	public void levelDown() {
@@ -5752,11 +5716,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return true;
 	}
 
-	public void resetPerksMap(boolean autoSelectPerks) {
-		resetPerksMap(autoSelectPerks, false);
-	}
-	
-	public void resetPerksMap(boolean autoSelectPerks, boolean boostCorruption) {
+	protected void completePerkReset() {
 		HashMap<Integer, Set<AbstractPerk>> currentPerks;
 		if(perks!=null) {
 			currentPerks = new HashMap<>(perks);
@@ -5772,6 +5732,14 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 
 		this.clearTraits();
+	}
+	
+	public void resetPerksMap(boolean autoSelectPerks) {
+		resetPerksMap(autoSelectPerks, false);
+	}
+	
+	public void resetPerksMap(boolean autoSelectPerks, boolean boostCorruption) {
+		completePerkReset();
 		
 		updateAttributeListeners();
 		
@@ -9679,20 +9647,20 @@ public abstract class GameCharacter implements XMLSaving {
 						case DOM_NORMAL:
 							returnedLine = UtilText.returnStringAtRandom(
 									"Oh yes! Keep sucking on my nipples!",
-									"Good [npc2.girl]! Get that [npc2.tongue] of yours deep into my nipples!",
+									"Good [npc2.girl]! Keep that [npc2.tongue] of yours busy!",
 									"Keep going! My tits love the feel of your [npc2.tongue]!");
 							break;
 						case DOM_ROUGH:
 							returnedLine = UtilText.returnStringAtRandom(
 									"That's right slut, keep sucking on my tits like the worthless little fuck toy you are!",
-									"Come on bitch! Get that [npc2.tongue] of yours deeper into my nipples!",
+									"Come on bitch! Keep that [npc2.tongue] of yours busy!",
 									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on my tits like this?!");
 							break;
 						case SUB_EAGER:
 							returnedLine = UtilText.returnStringAtRandom(
 									"Yes! I love the feeling of your lips on my tits! Don't stop!",
 									"Don't stop! Suck on my tits! Yes, yes, yes!",
-									"Oh yes! Lick my nipples! I love your [npc2.tongue]! Get it deeper!");
+									"Oh yes! Lick my nipples! I love the feel of your [npc2.tongue]!");
 							break;
 						case SUB_NORMAL:
 							returnedLine = UtilText.returnStringAtRandom(
@@ -9703,12 +9671,12 @@ public abstract class GameCharacter implements XMLSaving {
 						case SUB_RESISTING:
 							returnedLine = UtilText.returnStringAtRandom(
 									"Stop it! Stop! Please!",
-									"Please, no more! Take your tongue out of my nipple!",
+									"Please, no more! Get away from me!",
 									"Leave me alone! Stop! Please!");
 							break;
 						default:
 							returnedLine = UtilText.returnStringAtRandom(
-									"Yes! Get that tongue deeper!",
+									"Yes! Keep that [npc2.tongue] of yours busy!",
 									"Oh yeah! Keep going!",
 									"Deeper! Don't stop!");
 							break;
@@ -15064,7 +15032,7 @@ public abstract class GameCharacter implements XMLSaving {
 					sb.append(" to accommodate the full length of [npc.her] "+nameLength+".");
 					
 					// Core penetration information is displayed last:
-					sb.append("<br/>[style.italicsSex([npc.NamePos] "+name+" [npc.is] reaching the limit of [npc2.namePos] "+orificeName+", at [style.sizeShort("+uncomfortable+")] deep!)]");
+					sb.append("<br/>[style.italicsSex([npc.NamePos] "+name+(penetrationType.isPlural()?" are":" is")+" reaching the limit of [npc2.namePos] "+orificeName+", at [style.sizeShort("+uncomfortable+")] deep!)]");
 					
 				} else {
 					// Core penetration information is displayed last:
@@ -16926,6 +16894,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public void alignLustToRestingLust(int secondsPassed) {
 		if(this.getLust()<75 && hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
 			setLustNoText(75);
+			
 		} else {
 			if(getLust()>getRestingLust()) {
 				incrementLust(-Math.min(getLust()-getRestingLust(), 0.008f*secondsPassed), false);
@@ -16960,7 +16929,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
-		return restingLust;
+		return Math.min(restingLust, 80);
 	}
 	
 	public String setLust(float lust) {
@@ -17306,15 +17275,16 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @param withBirth True if this pregnancy ends by giving birth.
 	 */
 	public void endPregnancy(boolean withBirth) {
-		if(!this.isPregnant()) {
-			return;
-		}
 		for(PregnancyPossibility pregPoss : potentialPartnersAsMother) {
 			if(pregPoss.getFather()!=null) {
 				pregPoss.getFather().getPotentialPartnersAsFather().remove(pregPoss);
 			}
 		}
 		potentialPartnersAsMother.clear();
+		
+		if(!this.isPregnant()) {
+			return;
+		}
 		
 		if(withBirth) {
 			AbstractClothing c = getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
@@ -17661,11 +17631,11 @@ public abstract class GameCharacter implements XMLSaving {
 		return homeLocation;
 	}
 	
-	public WorldType getWorldLocation() {
+	public AbstractWorldType getWorldLocation() {
 		return worldLocation;
 	}
 	
-	public WorldType getHomeWorldLocation() {
+	public AbstractWorldType getHomeWorldLocation() {
 		return homeWorldLocation;
 	}
 
@@ -17697,7 +17667,7 @@ public abstract class GameCharacter implements XMLSaving {
 		setLocation(character.getWorldLocation(), character.getLocation(), setAsHomeLocation);
 	}
 	
-	public void setLocation(WorldType worldLocation, Vector2i location, boolean setAsHomeLocation) {
+	public void setLocation(AbstractWorldType worldLocation, Vector2i location, boolean setAsHomeLocation) {
 		getCell().removeCharacterPresentId(this.getId());
 		
 		if(this.worldLocation != worldLocation && this.isPlayer()) {
@@ -17727,14 +17697,14 @@ public abstract class GameCharacter implements XMLSaving {
 		updateLocationListeners();
 	}
 
-	public void setRandomUnoccupiedLocation(WorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
+	public void setRandomUnoccupiedLocation(AbstractWorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
 		setLocation(worldType, Main.game.getWorlds().get(worldType).getRandomUnoccupiedCell(placeType).getLocation(), setAsHomeLocation);
 	}
 
 	/**
 	 * Moves this character to a random unoccupied cell, of one of the supplied placeTypes. If none of the placeTypes have an unoccupied cell, this character is moved to a random occupied one instead.
 	 */
-	public void setRandomUnoccupiedLocation(WorldType worldType, boolean setAsHomeLocation, AbstractPlaceType... placeTypes) {
+	public void setRandomUnoccupiedLocation(AbstractWorldType worldType, boolean setAsHomeLocation, AbstractPlaceType... placeTypes) {
 		List<Cell> unoccupiedCells = new ArrayList<>();
 		List<Cell> occupiedCells = new ArrayList<>();
 		
@@ -17754,19 +17724,19 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	
-	public void setRandomLocation(WorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
+	public void setRandomLocation(AbstractWorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
 		setLocation(worldType, Main.game.getWorlds().get(worldType).getRandomCell(placeType).getLocation(), setAsHomeLocation);
 	}
 	
-	public void setNearestLocation(WorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
+	public void setNearestLocation(AbstractWorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
 		setLocation(worldType, Main.game.getWorlds().get(worldType).getNearestCell(placeType, this.getLocation()).getLocation(), setAsHomeLocation);
 	}
 	
-	public void setLocation(WorldType worldType, AbstractPlaceType placeType) {
+	public void setLocation(AbstractWorldType worldType, AbstractPlaceType placeType) {
 		setLocation(worldType, placeType, false);
 	}
 	
-	public void setLocation(WorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
+	public void setLocation(AbstractWorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
 		setLocation(worldType, Main.game.getWorlds().get(worldType).getClosestCell(this.getLocation(), placeType).getLocation(), setAsHomeLocation);
 	}
 	
@@ -17814,11 +17784,11 @@ public abstract class GameCharacter implements XMLSaving {
 		setHomeLocation(this.getWorldLocation(), this.getLocation());
 	}
 	
-	public void setHomeLocation(WorldType homeWorldLocation, AbstractPlaceType placeType) {
+	public void setHomeLocation(AbstractWorldType homeWorldLocation, AbstractPlaceType placeType) {
 		setHomeLocation(homeWorldLocation, Main.game.getWorlds().get(homeWorldLocation).getCell(placeType).getLocation());
 	}
 	
-	public void setHomeLocation(WorldType homeWorldLocation, Vector2i location) {
+	public void setHomeLocation(AbstractWorldType homeWorldLocation, Vector2i location) {
 		getHomeCell().removeCharacterHomeId(this.getId());
 		this.homeWorldLocation = homeWorldLocation;
 		this.homeLocation = location;
@@ -18059,9 +18029,9 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		if(money>0) {
-			return "<div class='container-full-width' style='text-align:center;'>"+UtilText.parse(this, "[npc.Name]")+" [style.colourGood(gained)] " + UtilText.formatAsMoney(money) + "!</div>";
+			return "<p style='text-align:center; padding:0; margin:0;'>"+UtilText.parse(this, "[npc.Name]")+" [style.colourGood(gained)] " + UtilText.formatAsMoney(money) + "!</p>";
 		} else {
-			return "<div class='container-full-width' style='text-align:center;'>"+UtilText.parse(this, "[npc.Name]")+" [style.colourBad(lost)] " + UtilText.formatAsMoney(moneyLoss) + "!</div>";
+			return "<p style='text-align:center; padding:0; margin:0;'>"+UtilText.parse(this, "[npc.Name]")+" [style.colourBad(lost)] " + UtilText.formatAsMoney(moneyLoss) + "!</p>";
 		}
 	}
 	
@@ -18106,8 +18076,11 @@ public abstract class GameCharacter implements XMLSaving {
 								"[style.colourMinorGood(Gained)]", increment+" <span style='color:"+essence.getColour().toWebHexString()+";'>"+essence.getName()+" essence"+(increment>1?"s":"")+"</span>"),
 						false);
 			}
-			return "You gained "+UtilText.formatAsEssences(increment, "b", false)+" <b style='color:"+essence.getColour().toWebHexString()+";'>"+essence.getName()+" essence"+(increment>1?"s":"")+"</b>!"
-						+ additional;
+			return UtilText.parse(this,
+					"<div style='text-align:center; padding:0; margin:0;'>"
+						+ "[npc.Name] [style.colourGood(gained)] "+UtilText.formatAsEssences(increment, "b", false)+" <b style='color:"+essence.getColour().toWebHexString()+";'>"+essence.getName()+" essence"+(increment>1?"s":"")+"</b>!"
+						+ additional
+					+"</div>");
 			
 		} else {
 			if(Main.game.isStarted() && this.isPlayer()) {
@@ -18117,7 +18090,10 @@ public abstract class GameCharacter implements XMLSaving {
 								"[style.colourMinorBad(Spent)]", Math.abs(increment)+" <span style='color:"+essence.getColour().toWebHexString()+";'>"+essence.getName()+" essence"+(increment<-1?"s":"")+"</span>"),
 						false);
 			}
-			return "You lost "+UtilText.formatAsEssences(-increment, "b", false)+" <b style='color:"+essence.getColour().toWebHexString()+";'>"+essence.getName()+" essence"+(increment<-1?"s":"")+"</b>!";
+			return UtilText.parse(this,
+					"<div style='text-align:center; padding:0; margin:0;'>"
+						+ "[npc.Name] [style.colourBad(lost)] "+UtilText.formatAsEssences(-increment, "b", false)+" <b style='color:"+essence.getColour().toWebHexString()+";'>"+essence.getName()+" essence"+(increment<-1?"s":"")+"</b>!"
+					+ "</div>");
 		}
 	}
 	

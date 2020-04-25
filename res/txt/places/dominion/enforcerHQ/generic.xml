@@ -867,17 +867,17 @@
 	<htmlContent tag="AFTER_SEX_CANDI"><![CDATA[
 	#IF(candi.isSatisfiedFromLastSex())
 		<p>
-			With a deeply satisfied sigh, Candi moans, [candi.speechNoEffects(~Mmm!~ Fuck, that was, like, sooo good... I, like, super needed that.)]
+			With a deeply satisfied sigh, Candi moans, [candi.speechNoEffects(~Mmm!~ Fuck! That was, like, sooo good... I, like, super needed that.)]
 		</p>
 		<p>
-			With that, the two of you gather your things and head out of her office. Moving back around to the correct side of the desk, you prepare to continue on your way...
+			Leaving the cat-girl to pant and moan on the floor of her office, you gather your things and head out of her office. Moving back around to the correct side of the desk, you prepare to continue on your way...
 		</p>
 	#ELSE
 		<p>
-			With an immensely frustrated sigh, Candi moans, [candi.speechNoEffects(~Aah!~ Fuck, that was, like, super not satisfying! You need to, like, do better than that next time!)]
+			With an immensely frustrated sigh, Candi moans, [candi.speechNoEffects(~Aah!~ Fuck! That was, like, super not satisfying! You're, like, super bad at sex and stuff!)]
 		</p>
 		<p>
-			With that, the still-desperately-horny cat-girl pulls on her clothes dashes out of the office, before sitting chair down on her and continuing to masturbate. Collecting your things, you prepare to continue on your way...
+			With that, the desperately horny cat-girl hastily pulls on her clothes and dashes out of her office, before sinking down into her chair and shamelessly continuing to masturbate. Collecting your things, you follow her out of the office and move back around to the correct side of the desk, before preparing to continue on your way...
 		</p>
 	#ENDIF
 	]]>

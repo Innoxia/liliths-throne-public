@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 
@@ -88,7 +89,6 @@ public class Loppy extends NPC {
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
-			this.setBirthday(this.getBirthday().minusYears(3).minusMonths(1).minusDays(6));
 			this.setDescription("Loppy is one of the two prostitutes Angel has working for her."
 						+ " Just like her younger sister, Bunny, Loppy is a rabbit-morph, and seems to genuinely love her line of work.");
 		}
@@ -98,6 +98,9 @@ public class Loppy extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
 					PersonalityTrait.LEWD);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.3")) {
+			this.setBirthday(LocalDateTime.of(Main.game.getStartingDate().getYear()-22, Month.JANUARY, 7, 12, 0));
 		}
 	}
 

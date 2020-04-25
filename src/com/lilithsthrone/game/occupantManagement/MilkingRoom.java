@@ -33,6 +33,7 @@ import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
@@ -44,7 +45,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
  */
 public class MilkingRoom implements XMLSaving {
 	
-	private WorldType worldType;
+	private AbstractWorldType worldType;
 	private Vector2i location;
 	
 	private List<FluidStored> fluidsStored;
@@ -65,7 +66,7 @@ public class MilkingRoom implements XMLSaving {
 	public static final int BASE_GIRLCUM_MILKING_AMOUNT = 50;
 	public static final int INDUSTRIAL_GIRLCUM_MILKING_AMOUNT = 100;
 	
-	public MilkingRoom(WorldType worldType, Vector2i location) {
+	public MilkingRoom(AbstractWorldType worldType, Vector2i location) {
 		this.worldType = worldType;
 		this.location = new Vector2i(location.getX(), location.getY());
 		
@@ -76,7 +77,7 @@ public class MilkingRoom implements XMLSaving {
 		Element element = doc.createElement("milkingRoom");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.addAttribute(doc, element, "worldType", this.getWorldType().toString());
+		CharacterUtils.addAttribute(doc, element, "worldType", WorldType.getIdFromWorldType(this.getWorldType()));
 		CharacterUtils.addAttribute(doc, element, "x", String.valueOf(this.getLocation().getX()));
 		CharacterUtils.addAttribute(doc, element, "y", String.valueOf(this.getLocation().getY()));
 
@@ -90,7 +91,7 @@ public class MilkingRoom implements XMLSaving {
 	public static MilkingRoom loadFromXML(Element parentElement, Document doc) {
 		try {
 			MilkingRoom room = new MilkingRoom(
-					WorldType.valueOf(parentElement.getAttribute("worldType")),
+					WorldType.getWorldTypeFromId(parentElement.getAttribute("worldType")),
 					new Vector2i(
 							Integer.valueOf(parentElement.getAttribute("x")),
 							Integer.valueOf(parentElement.getAttribute("y"))));
@@ -251,7 +252,7 @@ public class MilkingRoom implements XMLSaving {
 		return Math.min(getMaximumGirlcumPerHour(character), character.getVaginaWetness().getValue()*(character.isVaginaSquirter()?2:1));
 	}
 
-	public WorldType getWorldType() {
+	public AbstractWorldType getWorldType() {
 		return worldType;
 	}
 

@@ -366,6 +366,7 @@ public class ImpAttacker extends NPC {
 					AbstractItem potion = EnchantingUtils.craftItem(
 						AbstractItemType.generateItem(effects.getItemType()),
 						effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+					potion.setName("Imp's Elixir");
 					TunnelImpsDialogue.getImpGroup().get(1).addItem(potion, false);
 				}
 				if(!Main.game.getPlayer().getNonElementalCompanions().isEmpty()) {
@@ -374,6 +375,7 @@ public class ImpAttacker extends NPC {
 						AbstractItem potion2 = EnchantingUtils.craftItem(
 							AbstractItemType.generateItem(effects2.getItemType()),
 							effects2.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+						potion2.setName("Imp's Elixir");
 						TunnelImpsDialogue.getImpGroup().get(1).addItem(potion2, false);
 					}
 				}

@@ -43,11 +43,11 @@ public class HarpyAttackerDialogue {
 	private static boolean transformationsApplied = false;
 	
 	private static boolean isStorm() {
-		return false; //TODO
+		return false;
 	}
 	
 	private static boolean isWantsToFight() {
-		return getHarpy().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue();
+		return getHarpy().getAffectionLevel(Main.game.getPlayer()).isLessThan(AffectionLevel.POSITIVE_ONE_FRIENDLY);
 	}
 
 	private static boolean isCompanionDialogue() {

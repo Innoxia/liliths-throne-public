@@ -929,21 +929,26 @@ public class EnforcerHQDialogue {
 		}
 	};
 	
-	public static final DialogueNode AFTER_SEX_CANDI = new DialogueNode("Finished", "Step back around to the other side of the reception desk.", false) {
-		@Override
-		public void applyPreParsingEffects() {
-			Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_WAITING_AREA);
-		}
+	public static final DialogueNode AFTER_SEX_CANDI = new DialogueNode("Finished", "Step back around to the other side of the reception desk.", true) {
 		@Override
 		public String getContent() {
-			StringBuilder sb = new StringBuilder();
-			sb.append(UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "AFTER_SEX_CANDI"));
-			sb.append(WAITING_AREA.getContent());
-			return sb.toString();
+			return UtilText.parseFromXMLFile("places/dominion/enforcerHQ/generic", "AFTER_SEX_CANDI");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return WAITING_AREA.getResponse(responseTab, index);
+			if(index==1) {
+				return new Response("Leave",
+						Main.game.getNpc(CandiReceptionist.class).isSatisfiedFromLastSex()
+							?"Leave Candi to get herself cleaned up and back out into the waiting area."
+							:"Leave Candi to finish herself off and back out into the waiting area.",
+						WAITING_AREA) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_WAITING_AREA);
+					}
+				};
+			}
+			return null;
 		}
 	};
 	

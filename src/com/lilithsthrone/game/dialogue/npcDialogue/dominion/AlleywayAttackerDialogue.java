@@ -57,7 +57,7 @@ public class AlleywayAttackerDialogue {
 	}
 	
 	private static boolean isWantsToFight() {
-		return getMugger().getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue();
+		return getMugger().getAffectionLevel(Main.game.getPlayer()).isLessThan(AffectionLevel.POSITIVE_ONE_FRIENDLY);
 	}
 
 	private static boolean isCompanionDialogue() {

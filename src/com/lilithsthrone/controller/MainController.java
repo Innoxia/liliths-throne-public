@@ -110,8 +110,8 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.DayPeriod;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
-import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.Population;
@@ -1158,7 +1158,7 @@ public class MainController implements Initializable {
 			addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 			
 			boolean moveFromMapMenu = Main.game.getCurrentDialogueNode()==PhoneDialogue.MAP;
-			WorldType worldType = moveFromMapMenu?PhoneDialogue.worldTypeMap:Main.game.getPlayer().getWorldLocation();
+			AbstractWorldType worldType = moveFromMapMenu?PhoneDialogue.worldTypeMap:Main.game.getPlayer().getWorldLocation();
 			
 			TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setCell(c);
 			
@@ -2543,7 +2543,7 @@ public class MainController implements Initializable {
 	 * @param forward
 	 *            true if move to next world, false if move to previous world
 	 */
-	public void moveGameWorld(WorldType worldType, AbstractPlaceType placeType, boolean setDefaultDialogue) {
+	public void moveGameWorld(AbstractWorldType worldType, AbstractPlaceType placeType, boolean setDefaultDialogue) {
 		int timeToTransition = Main.game.getActiveWorld().getWorldType().getTimeToTransition();
 
 		Main.game.setActiveWorld(Main.game.getWorlds().get(worldType), placeType, setDefaultDialogue);

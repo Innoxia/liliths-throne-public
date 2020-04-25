@@ -524,15 +524,9 @@ public class Penis implements BodyPartInterface {
 		penisModifiers.clear();
 		penisModifiers.addAll(type.getDefaultPenisModifiers());
 
-		if (owner.isPlayer()) {
-			UtilText.transformationContentSB.append(
-					"<br/>"
-					+ "Any old modifiers that your penis might have had have [style.boldShrink(transformed away)]!");
-		} else {
-			UtilText.transformationContentSB.append(
-					"<br/>"
-					+ "Any old modifiers that [npc.her] penis might have had have [style.boldShrink(transformed away)]!");
-		}
+		UtilText.transformationContentSB.append(
+				"<br/>"
+				+ "Any old modifiers which [npc.her] penis might have had have [style.boldShrink(transformed away)]!");
 		
 		if(penisModifiers.isEmpty()) {
 			UtilText.transformationContentSB.append("</p>");

@@ -903,6 +903,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	 * @param withRarityColour If true, the name will be coloured to its rarity.
 	 * @return A string in the format "Blue cap of frostbite" or "Gold circlet of anti-magic"
 	 */
+	@Override
 	public String getDisplayName(boolean withRarityColour) {
 		return getDisplayName(withRarityColour, true);
 	}
