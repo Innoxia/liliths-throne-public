@@ -97,31 +97,6 @@ public enum LegConfiguration {
 			}
 	},
 
-//	/**
-//	 * This LegConfiguration is available for almost every mammalian race, with some notable exceptions being humans, demons, and angels.
-//	 */
-//	TAUR_WINGED("winged taur",
-//			true,
-//			true,
-//			false,
-//			"A configuration in which the character's legs and groin are replaced by the quadrupedal, winged, bestial body of the associated animal-morph, with their genitals shifting to be found in the same place as their animal equivalent."
-//				+ " The most common example of this is the 'pegatuar', in which the character's legs and groin are replaced by the body and genitals of a winged horse.",
-//			"Down beneath the groin on [npc.her] animal body,") {
-//
-//		@Override
-//		public BodyPartClothingBlock getBodyPartClothingBlock(GameCharacter character) {
-//			return new BodyPartClothingBlock(
-//					Util.newArrayListOfValues(
-//							InventorySlot.LEG,
-//							InventorySlot.GROIN),
-//					character.getLegType().getRace(),
-//					"Due to the fact that [npc.nameHasFull] the lower body of [npc.a_legRace], only taur-suitable clothing can be worn in this slot.",
-//					Util.newArrayListOfValues(
-//							ItemTag.FITS_NON_BIPED_BODY_HUMANOID,
-//							ItemTag.FITS_TAUR_BODY));
-//		}
-//	},
-
 	/**
 	 * This LegConfiguration is available for snakes and eels.
 	 */
@@ -355,16 +330,6 @@ public enum LegConfiguration {
 
 		this.tfModifier = tfModifier;
 	}
-
-	// I didn't implement this in the end, as upon further reflection, I came to the conclusion that blocking the player's choices for the sake of more 'realistic' taur bodies is a bad idea.
-	// All of the pre-generated ones will be accurate anyway, so all this would do is limit the player unnecessarily.
-//	/**
-//	 * @return A list of BodyPartInterface classes of whose <b>type</b> cannot be transformed outside of the LegType's Race while the character has this LegConfiguration.
-//	 *  Their other modifiers can still be freely transformed. Penis and Vagina can still be set to NONE.
-//	 */
-//	public List<Class<? extends BodyPartInterface>> getBlockedTransformations() {
-//		return getBestialParts();
-//	}
 
 	/**
 	 * @return A list of BodyPartInterface classes which are considered to be fully animalistic as part of this LegConfiguration. e.g. A taur's Tail, Ass, BreastCrotch, Penis, and Vagina are all animalistic.

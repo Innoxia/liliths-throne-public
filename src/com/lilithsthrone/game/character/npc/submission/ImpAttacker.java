@@ -16,12 +16,18 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -457,15 +463,17 @@ public class ImpAttacker extends NPC {
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 					"Let's give yer a nice new cunt!"));
 			}
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				"Yer pussy needs ta be soppin' wet an ready ta get fucked!"));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				""));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				""));
+			if(target.getVaginaWetness().getValue()<Wetness.SIX_SOPPING_WET.getValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Yer pussy needs ta be soppin' wet an ready ta get fucked!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
 			
 			// Add penis:
 			if(!target.hasPenisIgnoreDildo()) {
@@ -473,15 +481,19 @@ public class ImpAttacker extends NPC {
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 					"Yer gonna need a cock to satisfy us!"));
 			}
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-				"Yer cock's gonna need ta be bigger'n than!"));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-				""));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				"Ready ta be cummin' buckets fer us?"));
+			if(target.getPenisRawSizeValue()<PenisLength.THREE_LARGE.getMedianValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					"Yer cock's gonna need ta be bigger'n than!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
+			if(target.getPenisRawCumStorageValue()<100) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Yer gonna be cummin' all over the place!"));
+			}
 			
 		} else if(target.getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_DEMON)) {
 			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE
@@ -497,21 +509,27 @@ public class ImpAttacker extends NPC {
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 					"Yer gonna need a cock to satisfy us!"));
 			}
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-				"Yer cock's gonna need ta be bigger'n than!"));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-				""));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
-				"Let's get yer cock nice an' fat!"));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				"Ready ta be cummin' buckets fer us?"));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				""));
+			if(target.getPenisRawSizeValue()<PenisLength.THREE_LARGE.getMedianValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					"Yer cock's gonna need ta be bigger'n than!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
+			if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
+					"Let's get yer cock nice an' thick!"));
+			}
+			if(target.getPenisRawCumStorageValue()<250) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Ready ta be cummin' buckets fer us?"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
 			
 			// Add wet vagina:
 			if(!target.hasVagina()) {
@@ -519,15 +537,17 @@ public class ImpAttacker extends NPC {
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 					"Let's give yer a nice new cunt!"));
 			}
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				"Yer pussy needs ta be soppin' wet an ready ta get fucked!"));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				""));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				""));
+			if(target.getVaginaWetness().getValue()<Wetness.SIX_SOPPING_WET.getValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Yer pussy needs ta be soppin' wet an ready ta get fucked!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
 			
 		} else if(target.getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)) {
 			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE
@@ -541,39 +561,46 @@ public class ImpAttacker extends NPC {
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 					"Yer gonna need a cock to satisfy us!"));
 			}
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-				"Yer cock's gonna need ta be bigger'n than!"));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-				""));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
-				"Let's get yer cock nice an' fat!"));
+			if(target.getPenisRawSizeValue()<PenisLength.THREE_LARGE.getMedianValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					"Yer cock's gonna need ta be bigger'n than!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
+			if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
+					"Let's get yer cock nice an' thick!"));
+			}
 
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
-				"Gonna make yer balls big an' heavy!"));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
-				""));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
-				""));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				"Ready ta be cummin' buckets fer us?"));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				""));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				""));
+			if(target.getTesticleSize().getValue()<TesticleSize.FOUR_HUGE.getValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
+					"Gonna make yer balls big an' heavy!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
+					""));
+			}
+			if(target.getPenisRawCumStorageValue()<250) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Ready ta be cummin' buckets fer us?"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
 			
 			// Add long tongue (for cunnilingus):
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1),
-				"Yer tongue's betta off being nice an' long, so that yer can give us a special time when eatin' us out!"));
+			if(target.getTongueLengthValue()<TongueLength.TWO_VERY_LONG.getMedianValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1),
+					"Yer tongue's betta off being nice an' long, so that yer can give us a special time when eatin' us out!"));
+			}
 			
 		} else if(target.getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_MALES)) {
 			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE
@@ -582,15 +609,26 @@ public class ImpAttacker extends NPC {
 			}
 			
 			// Add wet vagina:
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				"Yer pussy needs ta be soppin' wet an ready ta get fucked!"));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				""));
-			effects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-				""));
+			if(!target.hasVagina()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+					"Let's give yer a cunt ta fuck!"));
+			}
+			if(target.getVaginaWetness().getValue()<Wetness.SIX_SOPPING_WET.getValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Yer pussy needs ta be soppin' wet an ready ta get fucked!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
+		}
+
+		if(effects.isEmpty()) {
+			return null;
 		}
 		
 		return new TransformativePotion(itemType, effects);

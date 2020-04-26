@@ -218,9 +218,11 @@ public class Vagina implements BodyPartInterface {
 						+ "<br/>"));
 			
 			if(owner.isVaginaVirgin()) {
-				UtilText.transformationContentSB.append("[npc.Name] now [npc.has] a [style.colourExcellent(virgin)] [style.boldTfSex(vagina)], complete with an [style.colourExcellent(unbroken hymen)]!");
+				UtilText.transformationContentSB.append(UtilText.parse(owner,
+						"[npc.Name] now [npc.has] a [style.colourExcellent(virgin)] [style.boldTfSex(vagina)], complete with an [style.colourExcellent(unbroken hymen)]!"));
 			} else {
-				UtilText.transformationContentSB.append("[npc.Name] now [npc.has] a new [style.boldTfSex(vagina)], and although [npc.she] can't consider [npc.herself] a virgin, [npc.she] at least [npc.has] an [style.colourExcellent(unbroken hymen)]!");
+				UtilText.transformationContentSB.append(UtilText.parse(owner,
+						"[npc.Name] now [npc.has] a new [style.boldTfSex(vagina)], and although [npc.she] can't consider [npc.herself] a virgin, [npc.she] at least [npc.has] an [style.colourExcellent(unbroken hymen)]!"));
 			}
 					
 			UtilText.transformationContentSB.append("</p>");

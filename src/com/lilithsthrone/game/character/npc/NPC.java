@@ -1373,7 +1373,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		List<PossibleItemEffect> possibleEffects = new ArrayList<>();
 		AbstractItemType itemType = ItemType.RACE_INGREDIENT_HUMAN;
 		int numberOfTransformations = (2+Util.random.nextInt(4)) * (target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)?2:1);
-		boolean cannotTransformPreference = getSubspeciesPreference().getRace()==Race.DEMON;
+		boolean cannotTransformPreference = getSubspeciesPreference().getRace()==Race.DEMON || getSubspeciesPreference().getRace()==Race.ANGEL;
 		
 		if(this.getSubspeciesPreference()==Subspecies.SLIME && target.getBodyMaterial()!=BodyMaterial.SLIME) {
 			possibleEffects.add(new PossibleItemEffect(
@@ -1474,7 +1474,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		AbstractItemType genitalsItemType = itemType;
 		boolean skipGenitalsTF = false;
 		
-		Body body = CharacterUtils.generateBody(null, this.getGenderPreference(), this.getSubspeciesPreference(), this.getRaceStagePreference());
+		Body body;
+		if(cannotTransformPreference) { // As demons and angels cannot be created via transformation, use the target's current body as Subspecies preference (so that gender changes use that Subspecies' body parts) 
+			body = CharacterUtils.generateBody(null, this.getGenderPreference(), target.getSubspecies(), target.getRaceStage());
+			
+		} else {
+			body = CharacterUtils.generateBody(null, this.getGenderPreference(), this.getSubspeciesPreference(), this.getRaceStagePreference());
+		}
 
 		boolean vaginaSet = target.getVaginaType()==body.getVagina().getType();
 		boolean penisSet = target.getPenisType()==body.getPenis().getType();

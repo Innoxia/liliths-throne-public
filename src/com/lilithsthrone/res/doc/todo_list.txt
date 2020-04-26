@@ -25,15 +25,35 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Contributors:
+		Refactored and cleaned up code handling forced transformations. (PR#1255 by Stadler76)
+	
+	Bugs:
+		Parsing fixes.
+		Fixed some incorrect paragraph formatting in some transformation descriptions.
+		Fixed bug where imps and demons would sometimes say they were trying to forcibly transform you into a demon, even though that's not possible.
+		Fixed bug where imp gangs in Submission would try to force-feed you transformation potions even if all the effects did nothing.
+	
+	
+	
+	[x] Test normal attacker forced potion
+	[x] Test imps forced potion
+		[x] Imps with preferred body as demon say they'll give demon parts, but actually give player's current parts.
+		[x] Imp gang forced TF applying effects which do nothing
+	[x] Test arcanist fox potion
 	
 	
 	
 	
-	
+	masturbation is broken
 	
 	add an option to remove the circular bloom on the map? I honestly prefer the map to have the same amount of lighting across its entirety
 	
-	Angels nectar being able to be enchanted intoa  potion that restores hymens
+	Angels nectar being able to be enchanted into a potion that restores hymens
+	
+	Can quick-sex imp fortress bosses? (Does it bypass clothing equips?)
+	
+	SexType.getPerformanceDescription() error: No description found for ANUS targeting FINGER!
 	
 	set slaves to be given Mother's Milk, so that we don't have to wait days until they give birth? I remember us talking at one point about changing the pregnancy length in the settings, but I imagine that's a way off, so having the option to speed it up through an item in the world would be nice
 	
@@ -60,6 +80,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	- You can instantly re-encounter clubbing partners...
 	
 	make tattoos an object we can save, too? Having to apply the same shapes, colors, and text to nearly 100 slaves is a nightmare
+	
+	bring back a way to have dom sex with your partner and the loser as both subs?
+		I used to do it by fucking partner, then changing position so that the mugger is forced to join, but now it's only possible to have dominant sex with one or the either
 	
 	Clothing:
 		little spherical bell on a thin bit of ribbon for the tail slot
