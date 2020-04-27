@@ -897,7 +897,7 @@
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT"><![CDATA[
 	#IF(scarlett.isLikesPlayer())
 		<p>
-			Wanting to show Scarlett how much you appreciate the kindness she's shown towards you, you turn down her generous offer of being allowed to relax beside her as her equal and instead ask if she'd allow you to act as her servant for the day. Raising her eyebrows in surprise, the raven-harpy exclaims, [scarlett.speech(You want to act as my servant?! Well, I'm not going to say or anything, but if you're choosing to do that, I'm going to have to treat you like all these other harpy sluts.)]
+			Wanting to show Scarlett how much you appreciate the kindness she's shown towards you, you turn down her generous offer of being allowed to relax beside her as her equal and instead ask if she'd allow you to act as her servant for the day. Raising her eyebrows in surprise, the raven-harpy exclaims, [scarlett.speech(You want to act as my servant?! Well, I'm not going to say no or anything, but if you're choosing to do that, I'm going to have to treat you like all these other harpy sluts.)]
 		</p>
 	#ELSE
 		<p>

@@ -27,23 +27,46 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Contributors:
 		Refactored and cleaned up code handling forced transformations. (PR#1255 by Stadler76)
+		Fixed bug where the phone menu wouldn't work in the SHopping Arcade. (PR#1328 by zR1OQicz)
 	
 	Bugs:
-		Parsing fixes.
+		Parsing and typo fixes.
 		Fixed some incorrect paragraph formatting in some transformation descriptions.
 		Fixed bug where imps and demons would sometimes say they were trying to forcibly transform you into a demon, even though that's not possible.
 		Fixed bug where imp gangs in Submission would try to force-feed you transformation potions even if all the effects did nothing.
 	
 	
+	PR bug fixes
 	
-	[x] Test normal attacker forced potion
-	[x] Test imps forced potion
-		[x] Imps with preferred body as demon say they'll give demon parts, but actually give player's current parts.
-		[x] Imp gang forced TF applying effects which do nothing
-	[x] Test arcanist fox potion
+	All bugs reported
 	
+	Natalya
 	
 	
+	Shopping arcade phone bug:
+		java.lang.NullPointerException
+			at com.lilithsthrone.world.WorldType$12.getCompanionSexBlockedReason(WorldType.java:363)
+			at com.lilithsthrone.world.AbstractWorldType.isCompanionSexBlocked(AbstractWorldType.java:189)
+			at com.lilithsthrone.game.character.GameCharacter.getSexAvailabilityBasedOnLocation(GameCharacter.java:4995)
+			at com.lilithsthrone.game.dialogue.utils.PhoneDialogue$1.getResponse(PhoneDialogue.java:219)
+			at com.lilithsthrone.game.Game.getResponsesDiv(Game.java:2853)
+			at com.lilithsthrone.game.Game.setContent(Game.java:2613)
+			at com.lilithsthrone.game.Game.setContent(Game.java:2711)
+	
+	Whenever I talk to someone or finish a scene the buttons for the phone don't show up but they're still clickable
+	
+	 slaves should have a rule that makes them remove all clothing and keep it in their inventory
+	 Also, I don't know if this was intended, but if you import a character that has a weapon already equipped, the demonstone that you start with overrides it and replaces it
+	 it would also be kinda neat if rando npcs spawned with tattoos!
+	
+	The rainbow gloves are probably not supposed to be in the feminine accessories section at Nyan's Emporium
+	
+	 Buying imported slaves does not give you a key to their collar if they're wearing one
+	
+	Will random encounter (first time meeting) a Character in the alleys every have random "previous partners"? I.E. her cooter is gaping wide but no sexual partners (numbers) listed.
+	
+	(Helena quest warning?)
+	"a very rough state in this version"
 	
 	masturbation is broken
 	
@@ -59,6 +82,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	THE SLAVE SCREEN IS BROKEN AGAIN
 	I'm not sure what caused it, but I couldn't back out of one of my slave's screens, and I couldn't revert to another save because the main menu buttons wouldn't respond
+	the bug I told you about occurs when you move from the manage tab to the sex tab on a slave. (I narrowed it down a little further; if you don't click on an option in the sex tab, you are still able to move to other tabs and interact properly)
+	 it doesn't seem to happen if you haven't clicked on manage though
+	 like it's only happened when I've clicked the sex tab on accident
+	
+	
+	 Also, when giving a slave a fetish endowment, she got excited and called it by its inventory name, rather than just a fetish endowment, which is weird, since she shouldn't know the specific name i gave it
+	
 	
 	[] Scarlett handjob cafe scene and shop oral scene needs to be locked by attraction
 	[] Need Helena dirty talk override
