@@ -1405,6 +1405,99 @@ public class MainControllerInitMethod {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
 				MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(Main.game.getPlayerCell().getType(), Main.game.getPlayerCell().getLocation());
 
+				// Fluid amount button listeners:
+				id = "AMOUNT_MINUS_ONE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						if (MilkingRoom.INGESTION_AMOUNT >= 6) {
+							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT - 1;
+						}
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+
+				id = "AMOUNT_MINUS_TEN";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						if (MilkingRoom.INGESTION_AMOUNT >= 16) {
+							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT - 10;
+						} else {
+							MilkingRoom.INGESTION_AMOUNT = 5;
+						}
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+
+				id = "AMOUNT_MINUS_HUNDRED";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						if (MilkingRoom.INGESTION_AMOUNT >= 106) {
+							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT - 100;
+						} else {
+							MilkingRoom.INGESTION_AMOUNT = 5;
+						}
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+
+				id = "AMOUNT_MINUS_THOUSAND";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						if (MilkingRoom.INGESTION_AMOUNT >= 1006) {
+							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT - 1000;
+						} else {
+							MilkingRoom.INGESTION_AMOUNT = 5;
+						}
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+
+				id = "AMOUNT_PLUS_ONE";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						if (MilkingRoom.INGESTION_AMOUNT <= 4999) {
+							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT + 1;
+						}
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+
+				id = "AMOUNT_PLUS_TEN";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						if (MilkingRoom.INGESTION_AMOUNT <= 4990) {
+							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT + 10;
+						} else {
+							MilkingRoom.INGESTION_AMOUNT = 5000;
+						}
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+
+				id = "AMOUNT_PLUS_HUNDRED";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						if (MilkingRoom.INGESTION_AMOUNT <= 4900) {
+							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT + 100;
+						} else {
+							MilkingRoom.INGESTION_AMOUNT = 5000;
+						}
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+
+				id = "AMOUNT_PLUS_THOUSAND";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						if (MilkingRoom.INGESTION_AMOUNT <= 4000) {
+							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT + 1000;
+						} else {
+							MilkingRoom.INGESTION_AMOUNT = 5000;
+						}
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+
 				for(FluidStored fluid : room.getFluidsStored()) {
 					fluidHandler(room, fluid);
 				}

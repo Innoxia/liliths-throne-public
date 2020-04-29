@@ -52,7 +52,7 @@ public class MilkingRoom implements XMLSaving {
 	
 	private static GameCharacter targetedCharacter = Main.game.getPlayer();
 	
-	public static final int INGESTION_AMOUNT = 100;
+	public static int INGESTION_AMOUNT = 100;
 
 	public static final int ARTISAN_MILKING_AMOUNT = 2000;
 	public static final int BASE_MILKING_AMOUNT = 2500;
@@ -302,6 +302,46 @@ public class MilkingRoom implements XMLSaving {
 	
 	public String getRoomDescription() {
 		StringBuilder milkyMilknessSB = new StringBuilder();
+
+		milkyMilknessSB.append("<div class='container-full-width' style='margin-bottom:2px; text-align:center;'><b style='color:" + PresetColour.BASE_BLUE_DARK.toWebHexString() + ";'>Amount of pumped fluid</b></div>");
+		milkyMilknessSB.append("<div class='container-full-width' style='text-align:center;'>");
+		milkyMilknessSB.append(
+				"<div id='AMOUNT_MINUS_THOUSAND' class='normal-button' style='width:100px; margin-right:10px;'>"
+						+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>-" + Units.fluid(1000) + "</b>"
+						+ "</div>");
+		milkyMilknessSB.append(
+				"<div id='AMOUNT_MINUS_HUNDRED' class='normal-button' style='width:100px; margin-right:10px;'>"
+						+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>-" + Units.fluid(100) + "</b>"
+						+ "</div>");
+		milkyMilknessSB.append(
+				"<div id='AMOUNT_MINUS_TEN' class='normal-button' style='width:100px; margin-right:10px;'>"
+						+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>-" + Units.fluid(10) + "</b>"
+						+ "</div>");
+		milkyMilknessSB.append(
+				"<div id='AMOUNT_MINUS_ONE' class='normal-button' style='width:100px; margin-right:10px;'>"
+						+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>-" + Units.fluid(1) + "</b>"
+						+ "</div>");
+		milkyMilknessSB.append(
+				"<div id='AMOUNT_PLUS_ONE' class='normal-button' style='width:100px; margin-right:10px;'>"
+						+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>+" + Units.fluid(1) + "</b>"
+						+ "</div>");
+		milkyMilknessSB.append(
+				"<div id='AMOUNT_PLUS_TEN' class='normal-button' style='width:100px; margin-right:10px;'>"
+						+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>+" + Units.fluid(10) + "</b>"
+						+ "</div>");
+		milkyMilknessSB.append(
+				"<div id='AMOUNT_PLUS_HUNDRED' class='normal-button' style='width:100px; margin-right:10px;'>"
+						+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>+" + Units.fluid(100) + "</b>"
+						+ "</div>");
+		milkyMilknessSB.append(
+				"<div id='AMOUNT_PLUS_THOUSAND' class='normal-button' style='width:100px; margin-right:10px;'>"
+						+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>+" + Units.fluid(1000) + "</b>"
+						+ "</div>");
+		milkyMilknessSB.append(
+				"<div class='container-full-width' style='text-align:center;'>"
+						+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>The control valve is currently set to allow " + Units.fluid(INGESTION_AMOUNT) + " of fluid output.</b>"
+						+ "</div>");
+		milkyMilknessSB.append("</div>");
 		
 		milkyMilknessSB.append(getFluidEntries(this.getMilkFluidsStored(), PresetColour.MILK, "Milk Stored"));
 		milkyMilknessSB.append(getFluidEntries(this.getCumFluidsStored(), PresetColour.CUM, "Cum Stored"));
