@@ -1876,13 +1876,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		//--- FACE ---//
 		
 		// Lip size:
-		if(target.getLipSize().getValue() < body.getFace().getMouth().getLipSize().getValue()) {
+		if(target.getLipSize().getValue() + 1 < body.getFace().getMouth().getLipSize().getValue()) {
 			possibleEffects.add(new PossibleItemEffect(
 				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
 				"Your [pc.lips] are too small!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 			
-		} else if(target.getLipSize().getValue() > body.getFace().getMouth().getLipSize().getValue()) {
+		} else if(target.getLipSize().getValue() - 1 > body.getFace().getMouth().getLipSize().getValue()) {
 			possibleEffects.add(new PossibleItemEffect(
 				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
 				"Your [pc.lips] are too big!"));
