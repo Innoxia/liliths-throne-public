@@ -55,7 +55,6 @@ public class DominionPlaces {
 		characters.addAll(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()));
 		
 		for(NPC npc : characters) {
-
 			if(npc instanceof RentalMommy) {
 				mommySB.append(
 						UtilText.parse(npc,
@@ -69,7 +68,6 @@ public class DominionPlaces {
 								+ "</p>"));
 				break;
 			}
-			
 			if(Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId())) {
 				occupantSB.append(
 						UtilText.parse(npc,
@@ -194,6 +192,8 @@ public class DominionPlaces {
 			if (Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
 				sb.append(getRandomStreetEvent());
 			}
+
+			sb.append(getExtraStreetFeatures());
 			
 			if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
 				sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "STREET_EVENT_OCTOBER"));
@@ -201,7 +201,7 @@ public class DominionPlaces {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
 				sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "STREET_EVENT_SNOW"));
 			}
-
+			
 			return sb.toString();
 		}
 
@@ -280,10 +280,10 @@ public class DominionPlaces {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "BACK_ALLEYS_SAFE"));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "BACK_ALLEYS", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(Main.game.getCurrentWeather()==Weather.MAGIC_STORM));
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -295,12 +295,16 @@ public class DominionPlaces {
 				return new ResponseEffectsOnly(
 						"Explore",
 						"Explore the alleyways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
-							@Override
-							public void effects() {
-								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
-								Main.game.setContent(new Response("", "", dn));
-							}
-						};
+						@Override
+						public int getSecondsPassed() {
+							return 30*60;
+						}
+						@Override
+						public void effects() {
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							Main.game.setContent(new Response("", "", dn));
+						}
+					};
 			} else {
 				return null;
 			}
@@ -317,14 +321,11 @@ public class DominionPlaces {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			UtilText.nodeContentSB.append("<p>"
-						+ "You find yourself walking through labyrinthine alleyways, with not a soul in sight."
-						+ " Back-doors and steaming vents line the dark brick walls, and you often have to navigate around overflowing bins and stacks of empty crates in order to make progress."
-						+ " You're far away from the safety of the main street, and you can't shake the feeling that there's something <b>extremely dangerous</b> lurking around the next corner..."
-					+ "</p>");
-
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "DARK_ALLEYS", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
+			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(false));
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -336,12 +337,16 @@ public class DominionPlaces {
 				return new ResponseEffectsOnly(
 						"Explore",
 						"Explore the alleyways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
-							@Override
-							public void effects() {
-								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
-								Main.game.setContent(new Response("", "", dn));
-							}
-						};
+						@Override
+						public int getSecondsPassed() {
+							return 30*60;
+						}
+						@Override
+						public void effects() {
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							Main.game.setContent(new Response("", "", dn));
+						}
+					};
 			} else {
 				return null;
 			}
@@ -357,14 +362,15 @@ public class DominionPlaces {
 		
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "At the junction between the canal and Dominion's dingy backalleys, a series of crude wooden walkways criss-cross over the water."
-						+ " Providing a bridge between the numerous passageways set into the flanking buildings on both sides of the waterway, these makeshift constructs are quite clearly the work of the denizens that haunt this area."
-					+ "</p>"
-					+ "<p>"
-						+ "Cautiously glancing around your deserted surroundings, you half-expect to see a shadowy figure emerge from one of the gloomy openings, but, much to your relief, there doesn't seem to be anyone waiting in ambush."
-						+ " Letting out a sigh, you continue on your way, happy that you didn't run into any of the lowlives that operate in this area."
-					+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "BACK_ALLEYS_CANAL", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
+			
+			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(Main.game.getCurrentWeather()==Weather.MAGIC_STORM));
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 		
 		@Override
@@ -373,12 +379,16 @@ public class DominionPlaces {
 				return new ResponseEffectsOnly(
 						"Explore",
 						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
-							@Override
-							public void effects() {
-								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
-								Main.game.setContent(new Response("", "", dn));
-							}
-						};
+						@Override
+						public int getSecondsPassed() {
+							return 30*60;
+						}
+						@Override
+						public void effects() {
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							Main.game.setContent(new Response("", "", dn));
+						}
+					};
 			} else {
 				return null;
 			}
@@ -394,60 +404,20 @@ public class DominionPlaces {
 
 		@Override
 		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-
-			UtilText.nodeContentSB.append(
-					"<p>"
-						+ "You find yourself walking down one of Dominion's main boulevards, which is at least twice the width of all the other streets that you've seen in the city."
-						+ " Large, immaculately-maintained residential and commercial buildings flank the road on each side; their white marble facades decorated with countless dark-purple flags bearing the black pentagram of Lilith."
-					+ "</p>");
+			StringBuilder sb = new StringBuilder();
 			
-			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "<b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b><br/>"
-							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
-							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you walk down the all-but-deserted boulevard."
-							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
-						+ "</p>");
-			} else {
-				if(Main.game.isDayTime()) {
-					UtilText.nodeContentSB.append(
-							"<p>"
-								+ "Being one of Dominion's main thoroughfares, this boulevard is immensely busy, and you walk past individuals of all different races and appearances as you continue onwards through the crowds."
-								+ " Although dog, cat and horse-morphs are still the most common races that you see, there are noticeably more demons mixed in with the crowds here."
-								+ " These succubi and incubi are very easy to spot, as wherever they walk, people hurriedly move to make way."
-							+ "</p>");
-				} else {
-					UtilText.nodeContentSB.append(
-							"<p>"
-								+ "Despite the fact that it's night-time, this boulevard is immensely busy, and you walk past individuals of all different races and appearances as you continue onwards through the crowds."
-								+ " Although dog, cat and horse-morphs are still the most common races that you see, there are noticeably more demons mixed in with the crowds here."
-								+ " These succubi and incubi are very easy to spot, as wherever they walk, people hurriedly move to make way."
-							+ "</p>");
-				}
-			}
-
+			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "BOULEVARD"));
+			
+			sb.append(getExtraStreetFeatures());
+			
 			if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
-				UtilText.nodeContentSB.append(
-					"<p>"
-						+ "<b style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b><br/>"
-						+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
-						+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
-					+ "</p>");
+				sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "STREET_EVENT_OCTOBER"));
 			}
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
-				UtilText.nodeContentSB.append(
-					"<p>"
-						+ "<b style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b><br/>"
-						+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
-						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
-					+ "</p>");
+				sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "STREET_EVENT_SNOW"));
 			}
 			
-			UtilText.nodeContentSB.append(getExtraStreetFeatures());
-			
-			return UtilText.nodeContentSB.toString();
+			return sb.toString();
 		}
 
 		@Override
@@ -781,7 +751,15 @@ public class DominionPlaces {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CANAL");
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CANAL", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
+			
+			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(Main.game.getCurrentWeather()==Weather.MAGIC_STORM));
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 		
 		@Override
@@ -790,12 +768,16 @@ public class DominionPlaces {
 				return new ResponseEffectsOnly(
 						"Explore",
 						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
-							@Override
-							public void effects() {
-								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
-								Main.game.setContent(new Response("", "", dn));
-							}
-						};
+						@Override
+						public int getSecondsPassed() {
+							return 30*60;
+						}
+						@Override
+						public void effects() {
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							Main.game.setContent(new Response("", "", dn));
+						}
+					};
 			}
 			return null;
 		}
@@ -810,10 +792,16 @@ public class DominionPlaces {
 
 		@Override
 		public String getContent() {
-			StringBuilder sb = new StringBuilder();
-			sb.append(CANAL.getContent());
-			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CANAL_END"));
-			return sb.toString();
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CANAL", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CANAL_END", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
+			
+			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(Main.game.getCurrentWeather()==Weather.MAGIC_STORM));
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -822,12 +810,16 @@ public class DominionPlaces {
 				return new ResponseEffectsOnly(
 						"Explore",
 						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
-							@Override
-							public void effects() {
-								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
-								Main.game.setContent(new Response("", "", dn));
-							}
-						};
+						@Override
+						public int getSecondsPassed() {
+							return 30*60;
+						}
+						@Override
+						public void effects() {
+							DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
+							Main.game.setContent(new Response("", "", dn));
+						}
+					};
 			} else {
 				return null;
 			}

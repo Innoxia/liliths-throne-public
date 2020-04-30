@@ -12,10 +12,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 
@@ -168,12 +170,20 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		return name;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public String getNamePlural() {
 		return namePlural;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getDisplayName(boolean withRarityColour) {
+		return Util.capitaliseSentence(UtilText.generateSingularDeterminer(name))+ " "+ (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name);
+	}
+	
+	public String getDisplayNamePlural(boolean withRarityColour) {
+		return Util.capitaliseSentence((withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>") : namePlural));
 	}
 	
 	public String getSVGString() {

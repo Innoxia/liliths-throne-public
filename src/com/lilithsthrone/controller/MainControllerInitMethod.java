@@ -200,6 +200,7 @@ import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.ColourListPresets;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -550,7 +551,8 @@ public class MainControllerInitMethod {
 					id = "GIFT_" + entry.getKey().hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.setContent(new Response("Give Gift", ":3", GiftDialogue.getDialogueToProceedTo()){
+							Main.game.restoreSavedContent(false);
+							Main.game.setContent(new Response("Give Gift", "", GiftDialogue.getDialogueToProceedTo()){
 								@Override
 								public void effects() {
 									Main.game.setResponseTab(GiftDialogue.getProceedDialogueTab());
@@ -570,7 +572,8 @@ public class MainControllerInitMethod {
 					id = "GIFT_" + entry.getKey().hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.setContent(new Response("Give Gift", ":3", GiftDialogue.getDialogueToProceedTo()){
+							Main.game.restoreSavedContent(false);
+							Main.game.setContent(new Response("Give Gift", "", GiftDialogue.getDialogueToProceedTo()){
 								@Override
 								public void effects() {
 									Main.game.setResponseTab(GiftDialogue.getProceedDialogueTab());
@@ -590,7 +593,8 @@ public class MainControllerInitMethod {
 					id = "GIFT_" + entry.getKey().hashCode();
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.setContent(new Response("Give Gift", ":3", GiftDialogue.getDialogueToProceedTo()){
+							Main.game.restoreSavedContent(false);
+							Main.game.setContent(new Response("Give Gift", "", GiftDialogue.getDialogueToProceedTo()){
 								@Override
 								public void effects() {
 									Main.game.setResponseTab(GiftDialogue.getProceedDialogueTab());
@@ -3327,10 +3331,10 @@ public class MainControllerInitMethod {
 				}
 				
 				for(OrificePlasticity plasticity: OrificePlasticity.values()) {
-					id = "ANUS_PLASTICITY_"+plasticity;
+					id = "THROAT_PLASTICITY_"+plasticity;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							BodyChanging.getTarget().setAssPlasticity(plasticity.getValue());
+							BodyChanging.getTarget().setFacePlasticity(plasticity.getValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -5567,7 +5571,7 @@ public class MainControllerInitMethod {
 			}
 			
 			if (Main.game.getCurrentDialogueNode().equals(PhoneDialogue.MAP)) {
-				WorldType worldType = PhoneDialogue.worldTypeMap;
+				AbstractWorldType worldType = PhoneDialogue.worldTypeMap;
 				Cell[][] grid = Main.game.getWorlds().get(worldType).getGrid();
 
 				for(int i=grid[0].length-1; i>=0; i--) {

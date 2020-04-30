@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -274,6 +273,10 @@ public class Response {
 		if(!hasRequirements()) {
 			return true;
 		}
+		if(!Main.game.isBypassSexActions() && !isCorruptionWithinRange() && !isAvailableFromFetishes()) {
+			return false;
+		}
+		
 		boolean corruptionOrFetishReqs = false;
 		if(sexActionType!=null) {
 			corruptionOrFetishReqs = isCorruptionWithinRange() || isAvailableFromFetishes() || (corruptionBypass==null && fetishesRequired==null);
@@ -298,13 +301,13 @@ public class Response {
 	 */
 	public boolean isAbleToBypass(){
 		if(!isAvailable()
-				&& (!Main.game.isInSex() || Main.getProperties().hasValue(PropertyValue.bypassSexActions))
+				&& (!Main.game.isInSex() || Main.game.isBypassSexActions())
 				&& !isBlockedFromPerks()
 				&& isFemininityInRange()
 				&& isRequiredRace()
 				&& !isAvailableFromFetishes()
 				&& (isAvailableFromAdditionalOngoingAvailableMap() || (isPenetrationTypeAvailable() && isOrificeTypeAvailable()))) {
-			if(!Main.game.isInSex() && corruptionBypass==null) { // DO not allow bypass out of sex if there is no corruption bypassing
+			if(!Main.game.isInSex() && corruptionBypass==null) { // Do not allow bypass out of sex if there is no corruption bypassing
 				return false;
 			}
 			return !isCorruptionWithinRange();
@@ -318,7 +321,13 @@ public class Response {
 		SB = new StringBuilder();
 		
 		if(!isAvailable() && !isAbleToBypass()) {
-			SB.append("This action is being blocked, due to not meeting certain [style.colourBad(requirements)].");
+			if(!Main.game.isBypassSexActions() && !isCorruptionWithinRange()) {
+				SB.append("This action is blocked as [style.colourTerrible(you are not corrupt enough)] to think of performing it.");
+				
+			} else {
+				SB.append("This action is blocked due to not meeting certain [style.colourBad(requirements)].");
+			}
+			
 		} else {
 			if(isAvailableFromFetishes()) {
 				SB.append("Your [style.colourFetish(fetish)] bypasses this action's [style.colourCorruption(corruption)] requirements!");
@@ -326,11 +335,12 @@ public class Response {
 			}
 			
 			if(corruptionBypass != null) {
-				if(isCorruptionWithinRange())
+				if(isCorruptionWithinRange()) {
 					SB.append("Your <span style='color:"+Main.game.getPlayer().getCorruptionLevel().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Main.game.getPlayer().getCorruptionLevel().getName())+"</span>"
 							+ " [style.colourCorruption(corruption)] has unlocked this action!");
-				else
+				} else {
 					SB.append("You will gain <b>+"+corruptionBypass.getCorruptionBypass()+"</b> [style.boldCorruption(corruption)], as you don't meet the [style.colourCorruption(corruption)] or [style.colourFetish(fetish)] requirements!");
+				}
 			} else {
 				SB.append("This action cannot be unlocked with [style.colourCorruption(corruption)].");
 			}
@@ -561,13 +571,13 @@ public class Response {
 			for(Fetish f : fetishesRequired){
 				if(Main.game.getPlayer().hasFetish(f)) {
 					SB.append("<br/>"
-							+"<span style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
+							+"[style.colourFetish(Associated Fetish)]"
 							+ " (<span style='color:"+PresetColour.GENERIC_MINOR_GOOD.toWebHexString()+";'>owned</span>): "
 							+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 					
 				} else {
 					SB.append("<br/>"
-							+"<span style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
+							+"[style.colourFetish(Associated Fetish)]"
 							+ " (<span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>not owned</span>): "
 							+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 				}
@@ -577,13 +587,15 @@ public class Response {
 		if(corruptionBypass!=null) {
 			if(isCorruptionWithinRange()) {
 				SB.append("<br/>"
-						+"<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-						+ " (<span style='color:"+PresetColour.GENERIC_MINOR_GOOD.toWebHexString()+";'>within range</span>): "
+						+"[style.colourCorruption(Associated Corruption)]"
+						+ " ([style.colourMinorGood(within range)]): "
 						+ Util.capitaliseSentence(corruptionBypass.getName()));
 			} else {
 				SB.append("<br/>"
-						+"<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-						+ " (<span style='color:"+PresetColour.GENERIC_MINOR_BAD.toWebHexString()+";'>out of range</span>): "
+						+"[style.colourCorruption(Associated Corruption)]"
+						+ (!Main.game.isBypassSexActions()
+								?" ([style.colourTerrible(out of range)]): "
+								:" ([style.colourMinorBad(out of range)]): ")
 						+ Util.capitaliseSentence(corruptionBypass.getName()));
 			}
 		}

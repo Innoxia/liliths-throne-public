@@ -62,6 +62,7 @@ import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.colours.BaseColour;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
@@ -1634,7 +1635,7 @@ public enum RenderingEngine {
 		}
 	}
 	
-	public String getFullMap(WorldType world, boolean withFastTravel, boolean withNPCIcons) {
+	public String getFullMap(AbstractWorldType world, boolean withFastTravel, boolean withNPCIcons) {
 
 //		long t1 = System.nanoTime();
 		

@@ -6,7 +6,8 @@
 
 https://www.eclipse.org/downloads/
 
-http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase8-2177648.html
+You will need java version 8u172 
 
 
 1. Open Eclipse

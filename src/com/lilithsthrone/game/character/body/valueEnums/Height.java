@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
 
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.86
@@ -65,7 +66,11 @@ public enum Height {
 	}
 
 	public int getMedianValue() {
-		return minimumValue + (maximumValue - minimumValue) / 2;
+		return (minimumValue + maximumValue) / 2;
+	}
+
+	public int getRandomValue() {
+		return minimumValue + Util.random.nextInt(maximumValue - minimumValue);
 	}
 	
 	/**

@@ -3,8 +3,6 @@ package com.lilithsthrone.game.dialogue.npcDialogue.submission;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -27,15 +25,15 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.FetishPotion;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.occupantManagement.OccupancyUtil;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 
@@ -1081,9 +1079,9 @@ public class BatCavernDialogue {
 	};
 
 	private static String applyTransformation(GameCharacter target,
-			Value<AbstractItemType, Map<ItemEffect,String>> potion,
+			TransformativePotion potion,
 			boolean forcedTF,
-			Value<AbstractItemType, Map<ItemEffect,String>> fetishPotion,
+			FetishPotion fetishPotion,
 			boolean forcedFetish) {
 		
 		StringBuilder sb = new StringBuilder();
@@ -1094,15 +1092,7 @@ public class BatCavernDialogue {
 						+ "[npc.Name] steps back, grinning down at [npc2.name] as [npc2.she] obediently [npc2.verb(swallow)] the strange liquid."
 						+ " [npc.speech(Good [npc2.girl]! I'm going to turn you into my perfect "+getMugger().getPreferredBodyDescription("b")+"!)]"
 					+ "</p>"));
-			for(Entry<ItemEffect, String> e : potion.getValue().entrySet()) {
-				sb.append(UtilText.parse(getMugger(),
-						(e.getValue()!=null && !e.getValue().isEmpty()
-							?"<p>"
-								+ "[npc.speech("+e.getValue()+")]"
-							+ "</p>"
-							:"")
-						+ e.getKey().applyEffect(getMugger(), target, 1)));
-			}
+			sb.append(getMugger().applyPotion(potion, target));
 		}
 		
 		if(fetishPotion!=null && forcedFetish) {
@@ -1111,25 +1101,17 @@ public class BatCavernDialogue {
 						+ "With a look of fiendish delight in [npc.her] [npc.eyes], [npc.name] excitedly cries out,"
 						+ " [npc.speech(That's right, swallow it all down! These changes are all for the better!)]"
 					+ "</p>"));
-			for(Entry<ItemEffect, String> e : fetishPotion.getValue().entrySet()) {
-				sb.append(UtilText.parse(getMugger(),
-						(e.getValue()!=null && !e.getValue().isEmpty()
-							?"<p>"
-								+ "[npc.speech("+e.getValue()+")]"
-							+ "</p>"
-							:"")
-						+ e.getKey().applyEffect(getMugger(), target, 1)));
-			}
+			sb.append(getMugger().applyPotion(fetishPotion, target));
 		}
 		return sb.toString();
 	}
 	
 	public static final DialogueNode AFTER_COMBAT_DEFEAT = new DialogueNode("Defeat", "", true) {
 
-		Value<AbstractItemType, Map<ItemEffect,String>> potion = null;
-		Value<AbstractItemType, Map<ItemEffect,String>> companionPotion = null;
-		Value<AbstractItemType, Map<ItemEffect,String>> fetishPotion = null;
-		Value<AbstractItemType, Map<ItemEffect,String>> companionFetishPotion = null;
+		TransformativePotion potion = null;
+		TransformativePotion companionPotion = null;
+		FetishPotion fetishPotion = null;
+		FetishPotion companionFetishPotion = null;
 		
 		public void applyPreParsingEffects() {
 			transformationsApplied = false;

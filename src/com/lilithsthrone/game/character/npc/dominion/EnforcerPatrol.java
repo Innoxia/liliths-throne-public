@@ -30,6 +30,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -51,7 +52,7 @@ public class EnforcerPatrol extends NPC {
 		this(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.F_V_B_FEMALE, WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELLS_OFFICE, isImported);
 	}
 	
-	public EnforcerPatrol(Occupation occupation, Gender gender, WorldType world, AbstractPlaceType place, boolean isImported, NPCGenerationFlag... generationFlags) {
+	public EnforcerPatrol(Occupation occupation, Gender gender, AbstractWorldType world, AbstractPlaceType place, boolean isImported, NPCGenerationFlag... generationFlags) {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				5, gender, null, null,

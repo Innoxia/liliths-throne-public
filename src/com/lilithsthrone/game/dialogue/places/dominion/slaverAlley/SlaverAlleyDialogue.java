@@ -1426,12 +1426,7 @@ public class SlaverAlleyDialogue {
 						Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slaverAlleyComplained)
 							?"You see [sean.name] watching over the area, so perhaps you could go and talk to [sean.herHim] again..."
 							:"There appears to be an Enforcer watching over the area. Perhaps you could go and talk to him...",
-							PUBLIC_STOCKS_SEAN) {
-					@Override
-					public void effects() {
-						Main.game.getNpc(Sean.class).setGenericName("Constable "+Main.game.getNpc(Sean.class).getSurname());
-					}
-				};
+							PUBLIC_STOCKS_SEAN);
 			}
 			
 			if(index>1) {
@@ -1540,6 +1535,8 @@ public class SlaverAlleyDialogue {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getNpc(Sean.class).setGenericName(UtilText.parse("Constable [sean.surname]"));
+			Main.game.getPlayer().addCharacterEncountered(Main.game.getNpc(Sean.class));
+			
 		}
 		@Override
 		public int getSecondsPassed() {

@@ -33,6 +33,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
+import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
@@ -47,6 +48,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.WorldType;
 
@@ -536,7 +538,7 @@ public enum Subspecies {
 					new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.FOUR_COMMON))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-			body.setHeight(Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue() + Util.random.nextInt(Height.NEGATIVE_TWO_MIMIMUM.getMaximumValue() - Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue()));
+			body.setHeight(Height.NEGATIVE_TWO_MIMIMUM.getRandomValue());
 			body.getPenis().setPenisLength(null, 8+Util.random.nextInt(8)); // 3-7 inches
 			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
 		}
@@ -589,7 +591,7 @@ public enum Subspecies {
 					new Value<>(WorldType.SUBMISSION, SubspeciesSpawnRarity.TWO_RARE))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
-			body.setHeight(Height.NEGATIVE_ONE_TINY.getMinimumValue() + Util.random.nextInt(Height.NEGATIVE_ONE_TINY.getMaximumValue() - Height.NEGATIVE_ONE_TINY.getMinimumValue()));
+			body.setHeight(Height.NEGATIVE_ONE_TINY.getRandomValue());
 			body.getPenis().setPenisLength(null, 8+Util.random.nextInt(12)); // 3-8 inches
 			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
 		}
@@ -1989,6 +1991,7 @@ public enum Subspecies {
 			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
 			body.getHorn().setHornRows(null, 1);
 			body.getHorn().setHornsPerRow(null, 1);
+			body.getHorn().setHornLength(null, HornLength.TWO_LONG.getMedianValue());
 			body.getWing().setType(null, WingType.NONE);
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
@@ -2102,6 +2105,7 @@ public enum Subspecies {
 			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
 			body.getHorn().setHornRows(null, 1);
 			body.getHorn().setHornsPerRow(null, 1);
+			body.getHorn().setHornLength(null, HornLength.TWO_LONG.getMedianValue());
 			body.setWing(new Wing(WingType.FEATHERED, WingSize.THREE_LARGE.getValue()));
 			if(body.getFace().getType()==FaceType.HORSE_MORPH && (!body.isFeminine() || Math.random()<0.5f)) {
 				body.getHair().setStyle(null, HairStyle.NONE); // Sets hair style to mane
@@ -2289,6 +2293,7 @@ public enum Subspecies {
 			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
 			body.getHorn().setHornRows(null, 1);
 			body.getHorn().setHornsPerRow(null, 1);
+			body.getHorn().setHornLength(null, HornLength.TWO_LONG.getMedianValue());
 			body.getLeg().setType(null, LegType.HORSE_MORPH);
 			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR, true);
 			body.getWing().setType(null, WingType.NONE);
@@ -2353,6 +2358,7 @@ public enum Subspecies {
 			body.getHorn().setType(null, HornType.HORSE_STRAIGHT);
 			body.getHorn().setHornRows(null, 1);
 			body.getHorn().setHornsPerRow(null, 1);
+			body.getHorn().setHornLength(null, HornLength.TWO_LONG.getMedianValue());
 			body.getLeg().setType(null, LegType.HORSE_MORPH);
 			LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.TAUR, true);
 			body.setWing(new Wing(WingType.FEATHERED, WingSize.FOUR_HUGE.getValue()));
@@ -3364,13 +3370,13 @@ public enum Subspecies {
 	protected String halfDemonSVGString;
 	protected String demonSVGString;
 	
-	private Map<WorldType, SubspeciesSpawnRarity> worldLocations;
+	private Map<AbstractWorldType, SubspeciesSpawnRarity> worldLocations;
 
 	private static Map<Integer, String> youkoIconMap;
 	private static Map<Integer, String> youkoDesaturatedIconMap;
 	private static Map<Integer, String> youkoHalfDemonIconMap;
 	
-	private static Map<WorldType, Map<Subspecies, SubspeciesSpawnRarity>> worldSpecies;
+	private static Map<AbstractWorldType, Map<Subspecies, SubspeciesSpawnRarity>> worldSpecies;
 	private static Map<Subspecies, SubspeciesSpawnRarity> dominionStormImmuneSpecies;
 	private static Map<Race, List<Subspecies>> subspeciesFromRace;
 	
@@ -3437,7 +3443,7 @@ public enum Subspecies {
 		for(Subspecies species : Subspecies.values()) {
 			subspeciesFromRace.putIfAbsent(species.getRace(), new ArrayList<>());
 			subspeciesFromRace.get(species.getRace()).add(species);
-			for(Entry<WorldType, SubspeciesSpawnRarity> type : species.getWorldLocations().entrySet()) {
+			for(Entry<AbstractWorldType, SubspeciesSpawnRarity> type : species.getWorldLocations().entrySet()) {
 				worldSpecies.putIfAbsent(type.getKey(), new HashMap<>());
 				worldSpecies.get(type.getKey()).put(species, type.getValue());
 				
@@ -3478,7 +3484,7 @@ public enum Subspecies {
 			Colour colour,
 			SubspeciesPreference subspeciesPreferenceDefault,
 			String description,
-			Map<WorldType, SubspeciesSpawnRarity> worldLocations) {
+			Map<AbstractWorldType, SubspeciesSpawnRarity> worldLocations) {
 		
 		this.name = name;
 		this.namePlural = namePlural;
@@ -4475,7 +4481,7 @@ public enum Subspecies {
 		}
 	}
 
-	public Map<WorldType, SubspeciesSpawnRarity> getWorldLocations() {
+	public Map<AbstractWorldType, SubspeciesSpawnRarity> getWorldLocations() {
 		return worldLocations;
 	}
 
@@ -4484,7 +4490,7 @@ public enum Subspecies {
 	 * @param onlyCoreRaceSpecies true if only core Subspecies should be returned. (e.g. Cat-morph would be returned, but not Lion-morph, Tiger-morph, etc.)
 	 * @param subspeciesToExclude Any Subspecies that should be excluded from the returned map.
 	 */
-	public static Map<Subspecies, SubspeciesSpawnRarity> getWorldSpecies(WorldType worldType, boolean onlyCoreRaceSpecies, Subspecies... subspeciesToExclude) {
+	public static Map<Subspecies, SubspeciesSpawnRarity> getWorldSpecies(AbstractWorldType worldType, boolean onlyCoreRaceSpecies, Subspecies... subspeciesToExclude) {
 		worldSpecies.putIfAbsent(worldType, new HashMap<>());
 		
 		Map<Subspecies, SubspeciesSpawnRarity> map = new HashMap<>(worldSpecies.get(worldType));

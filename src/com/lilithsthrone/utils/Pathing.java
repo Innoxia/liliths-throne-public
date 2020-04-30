@@ -17,6 +17,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -28,14 +29,14 @@ import com.lilithsthrone.world.places.PlaceType;
  * It was useful later on.
  * 
  * @since 0.1.0
- * @version 0.3.5
+ * @version 0.3.7.3
  * @author Innoxia
  */
 public class Pathing {
 	
 	private static List<Cell> pathingCells = new ArrayList<>();
 	private static Vector2i endPoint = new Vector2i(0, 0);
-	private static WorldType destinationWorld = WorldType.DOMINION;
+	private static AbstractWorldType destinationWorld = WorldType.DOMINION;
 	
 	private static int travelTime = 0;
 	private static int dangerousTiles = 0;
@@ -296,7 +297,7 @@ public class Pathing {
 	 * @param endPoint New endPoint.
 	 * @param worldForRecalculatingFlyTime Pass in null if you don't want to recalculate the flight time.
 	 */
-	public static void setEndPoint(Vector2i endPoint, Cell cell, WorldType worldForRecalculatingFlyTime) {
+	public static void setEndPoint(Vector2i endPoint, Cell cell, AbstractWorldType worldForRecalculatingFlyTime) {
 		Pathing.endPoint = endPoint;
 		if(worldForRecalculatingFlyTime!=null) {
 			List<Cell> route = Pathing.aStarPathing(Main.game.getWorlds().get(worldForRecalculatingFlyTime).getCellGrid(), Main.game.getPlayer().getLocation(), endPoint, false);
@@ -330,7 +331,7 @@ public class Pathing {
 		return travelTime;
 	}
 
-	public static WorldType getDestinationWorld() {
+	public static AbstractWorldType getDestinationWorld() {
 		return destinationWorld;
 	}
 

@@ -455,8 +455,8 @@ public class SexPosition {
 				}
 				if(!names.isEmpty()) {
 					sizeDifferenceAdditions.add(UtilText.parse(sub,
-							"As [npc.nameIs] considerably shorter than "+Util.stringsToStringList(names, false)
-								+", [npc.she] [npc.is] in a position to perform oral on "+(names.size()>1?(playerInDoms?"you":"them"):UtilText.parse(mainDom, "[npc.herHim]"))+", even though [npc.sheIs] standing fully upright."));
+							"As [npc.nameIsFull] considerably shorter than "+Util.stringsToStringList(names, false)
+								+", [npc.sheIs] in a position to perform oral on "+(names.size()>1?(playerInDoms?"you":"them"):UtilText.parse(mainDom, "[npc.herHim]"))+", even though [npc.sheIs] standing fully upright."));
 				}
 			}
 			for(GameCharacter sub : subsStandingBehind) {
@@ -472,8 +472,8 @@ public class SexPosition {
 				}
 				if(!names.isEmpty()) {
 					sizeDifferenceAdditions.add(UtilText.parse(sub,
-							"As [npc.nameIs] considerably shorter than "+Util.stringsToStringList(names, false)
-								+", [npc.she] [npc.is] in a position to perform oral on "
+							"As [npc.nameIsFull] considerably shorter than "+Util.stringsToStringList(names, false)
+								+", [npc.sheIs] in a position to perform oral on "
 									+(names.size()>1?(playerInDoms?"your rear end":"their rear ends"):UtilText.parse(mainDom, "[npc.namePos] [npc.ass+]"))+", even though [npc.sheIs] standing fully upright."));
 				}
 			}
@@ -489,8 +489,8 @@ public class SexPosition {
 				}
 				if(!names.isEmpty()) {
 					sizeDifferenceAdditions.add(UtilText.parse(dom,
-							"As [npc.nameIs] considerably shorter than "+Util.stringsToStringList(names, false)
-								+", [npc.she] [npc.is] in a position to perform oral on "+(names.size()>1?(playerInSubs?"you":"them"):UtilText.parse(mainSub, "[npc.herHim]"))+", even though [npc.sheIs] standing fully upright."));
+							"As [npc.nameIsFull] considerably shorter than "+Util.stringsToStringList(names, false)
+								+", [npc.sheIs] in a position to perform oral on "+(names.size()>1?(playerInSubs?"you":"them"):UtilText.parse(mainSub, "[npc.herHim]"))+", even though [npc.sheIs] standing fully upright."));
 				}
 			}
 			for(String s : sizeDifferenceAdditions) {

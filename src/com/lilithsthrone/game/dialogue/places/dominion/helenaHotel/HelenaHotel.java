@@ -8,7 +8,6 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
-import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -388,6 +387,7 @@ public class HelenaHotel {
 			Main.game.getPlayer().removeAllCompanions(true);
 			// Reset date flags:
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateRomanticSetup, false);
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateRomanticSetupEatenOut, false);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -526,7 +526,7 @@ public class HelenaHotel {
 		}
 		@Override
 		public String getContent() {
-			if(Main.game.getNpc(Scarlett.class).getAffectionLevelBasic(Main.game.getPlayer())==AffectionLevelBasic.LIKE) {
+			if(((Scarlett)Main.game.getNpc(Scarlett.class)).isLikesPlayer()) {
 				return UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_ROMANTIC_SETUP_AGREED");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_ROMANTIC_SETUP_DECLINED");
@@ -534,7 +534,7 @@ public class HelenaHotel {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getNpc(Scarlett.class).getAffectionLevelBasic(Main.game.getPlayer())==AffectionLevelBasic.LIKE) {
+			if(((Scarlett)Main.game.getNpc(Scarlett.class)).isLikesPlayer()) {
 				if(index==1) {
 					return new Response("Thank her", "Thank Scarlett for agreeing to do as you've asked.", DATE_RESTAURANT_START) {
 						@Override
@@ -970,7 +970,7 @@ public class HelenaHotel {
 							DATE_RESTAURANT_PLAYER_TOPIC) {
 						@Override
 						public DialogueNode getNextDialogue() {
-							return GiftDialogue.getGiftDialogue(Main.game.getNpc(Helena.class), DATE_RESTAURANT_PLAYER_TOPIC, 0, DATE_RESTAURANT_GIFT, 0); //TODO test
+							return GiftDialogue.getGiftDialogue(Main.game.getNpc(Helena.class), DATE_RESTAURANT_GIFT, 0);
 						}
 					};
 				}
@@ -979,7 +979,7 @@ public class HelenaHotel {
 		}
 	};
 	
-	public static final DialogueNode DATE_RESTAURANT_GIFT = new DialogueNode("", "", true) {
+	public static final DialogueNode DATE_RESTAURANT_GIFT = new DialogueNode("", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
@@ -2280,8 +2280,7 @@ public class HelenaHotel {
 					};
 				}
 				
-			} else { // Player has no penis:
-				//TODO test (need to reset romance or something...)
+			} else {
 				return DATE_APARTMENT_BEDROOM.getResponse(responseTab, index-1);
 			}
 			return null;
@@ -2455,7 +2454,7 @@ public class HelenaHotel {
 	
 	public static final DialogueNode DATE_APARTMENT_BEDROOM_AFTER_SEX_MORNING = new DialogueNode("Finished", "Helena seems to have had enough and pulls away...", true) {
 		@Override
-		public void applyPreParsingEffects() { //TODO test
+		public void applyPreParsingEffects() {
 			Main.game.getPlayer().cleanAllClothing(true);
 			Main.game.getPlayer().cleanAllDirtySlots();
 			Main.game.getNpc(Helena.class).cleanAllClothing(true);

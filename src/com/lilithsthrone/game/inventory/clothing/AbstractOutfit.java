@@ -26,8 +26,9 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
-import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.colours.ColourListPresets;
+import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldType;
 
 /**
@@ -42,7 +43,7 @@ public abstract class AbstractOutfit {
 	private String filePath;
 	private String name;
 	private String description;
-	private List<WorldType> worldTypes;
+	private List<AbstractWorldType> worldTypes;
 	private Femininity femininity;
 	private List<OutfitType> outfitTypes;
 	private List<LegConfiguration> acceptableLegConfigurations;
@@ -72,7 +73,7 @@ public abstract class AbstractOutfit {
 					.getMandatoryFirstOf("worldTypes") 
 					.getAllOf("world") // Get all child elements with this tag (checking only contents of parent element) and return them as List<Element>
 					.stream() // Convert this list to Stream<Element>, which lets us do some nifty operations on every element at once
-					.map( e -> WorldType.valueOf(e.getTextContent())) // Take every element and do something with them, return a Stream of results after this action. Here we load outfit types and get Stream<OutfitType>
+					.map( e -> WorldType.getWorldTypeFromId(e.getTextContent())) // Take every element and do something with them, return a Stream of results after this action. Here we load outfit types and get Stream<OutfitType>
 					.filter(Objects::nonNull) // Ensure that we only add non-null effects
 					.collect(Collectors.toList()); // Collect stream back into a list, but this time we get List<OutfitType> we need! 
 			}
@@ -740,7 +741,7 @@ public abstract class AbstractOutfit {
 		return femininity;
 	}
 
-	public List<WorldType> getWorldTypes() {
+	public List<AbstractWorldType> getWorldTypes() {
 		return worldTypes;
 	}
 

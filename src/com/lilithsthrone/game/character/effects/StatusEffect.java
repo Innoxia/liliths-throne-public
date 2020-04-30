@@ -407,11 +407,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "Your natural arcane ability is little weaker than it was when first entering this world.";
-			} else {
-				return UtilText.parse(target, "[npc.Name] is proficient at harnessing the arcane, and [npc.her] spells are not only easier to cast, but also do more damage.");
-			}
+			return UtilText.parse(target, "[npc.NameIsFull] proficient at harnessing the arcane, and [npc.her] spells are not only easier to cast, but also do more damage.");
 		}
 
 		@Override
@@ -1953,28 +1949,26 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -15f)),
 			null) {
-
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "Some of your clothes are too feminine for your masculine figure."
-					+ " You find yourself incredibly embarrassed by wearing such clothing, causing you to struggle to think clearly.";
+			return UtilText.parse(target,
+					"Some of [npc.namePos] clothes are too feminine for [npc.her] masculine figure."
+						+ " [npc.She] [npc.verb(find)] [npc.herself] incredibly embarrassed by wearing such clothing and [npc.is] struggling to think clearly.");
 		}
-
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(target.hasFetish(Fetish.FETISH_CROSS_DRESSER) || target.hasPerkAnywhereInTree(Perk.SPECIAL_CLOTHING_FEMININITY_INDIFFERENCE)) {
 				return false;
 			}
-			
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-				if (c.getClothingType().getFemininityMinimum() > target.getFemininityValue()) {
+			for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+				if(c.getClothingType().getFemininityMinimum() > target.getFemininityValue()) {
 					return true;
 				}
 			}
-			
 			return false;
 		}
 	},
+	
 	CLOTHING_MASCULINITY(
 			85,
 			"clothing too masculine",
@@ -1986,22 +1980,20 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "Some of your clothes are too masculine for your feminine figure."
-					+ " You find yourself incredibly embarrassed by wearing such clothing, causing you to struggle to think clearly.";
+			return UtilText.parse(target,
+					"Some of [npc.namePos] clothes are too masculine for [npc.her] feminine figure."
+						+ " [npc.She] [npc.verb(find)] [npc.herself] incredibly embarrassed by wearing such clothing and [npc.is] struggling to think clearly.");
 		}
-
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(target.hasFetish(Fetish.FETISH_CROSS_DRESSER) || target.hasPerkAnywhereInTree(Perk.SPECIAL_CLOTHING_MASCULINITY_INDIFFERENCE)) {
 				return false;
 			}
-			
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-				if (c.getClothingType().getFemininityMaximum() < target.getFemininityValue()) {
+			for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+				if(c.getClothingType().getFemininityMaximum() < target.getFemininityValue()) {
 					return true;
 				}
 			}
-			
 			return false;
 		}
 	},
@@ -2022,12 +2014,9 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer())
-				return "Some of your clothes have been covered in cum, milk or other sexual fluids."
-						+ " You find yourself incredibly embarrassed to be walking around in such filthy clothing.";
-			else
-				return "Some of "+target.getName("the")+"'s clothes have been covered in cum, milk or other sexual fluids."
-						+ " [npc.sheIs] feeling incredibly embarrassed to be walking around in such filthy clothing.";
+			return UtilText.parse(target,
+					"Some of [npc.namePos] clothes have been covered in cum, milk or other sexual fluids."
+						+ " [npc.SheIs] feeling incredibly embarrassed to be walking around in such filthy clothing.");
 		}
 
 		@Override
@@ -6127,6 +6116,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	FETISH_PURE_VIRGIN_NO_HYMEN(
 			80,
 			"'Pure' Virgin",
@@ -6155,6 +6145,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	FETISH_PURE_VIRGIN_ONLY_HYMEN(
 			80,
 			"Pure 'Virgin'",
@@ -6182,6 +6173,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	FETISH_BROKEN_VIRGIN(
 			80,
 			"Broken Virgin",
@@ -6200,7 +6192,11 @@ public enum StatusEffect {
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN) && !target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN) && target.hasVagina() && !target.isVaginaVirgin();
+			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN)
+					&& !target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN)
+					&& target.hasVagina()
+					&& !target.isVaginaVirgin()
+					&& !target.hasHymen();
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -6236,6 +6232,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	FETISH_LUSTY_MAIDEN_NO_HYMEN(
 			80,
 			"Lusty 'Maiden'",
@@ -6264,6 +6261,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	FETISH_LUSTY_MAIDEN_ONLY_HYMEN(
 			80,
 			"Lusty 'Maiden'",
@@ -6291,6 +6289,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	FETISH_LUSTY_MAIDEN_BROKEN(
 			80,
 			"Broken Maiden",

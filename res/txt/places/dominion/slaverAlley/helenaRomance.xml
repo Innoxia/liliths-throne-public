@@ -131,7 +131,7 @@
 		 As you sit down beside your slave, Helena flashes you a slight smile and states, [helena.speech(My offer for the purchase of my dear Scarlett stands at [#SPECIAL_PARSE_0] flames. I am sure that I need not remind you, but you will either accept my offer, or else I will have no choice but to close this business down.)]
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			Looking across at your slave, you see her cast an affectionate glance your way, as though [scarlett.sheIs] trying to make it known that [scarlett.she]'d rather stay by your side. Picking up on the fact that the [scarlett.race] is quite fond of you, Helena kindly offers, [helena.speech(I have no intention of keeping you from seeing one another; you will always be welcome to visit my dear Scarlett at any time.)]
 		#ELSE
 			Looking across at your slave, you see her roll [scarlett.her] [scarlett.eyes], as though [scarlett.sheIs] trying to make it known that [scarlett.she] doesn't care what happens to [scarlett.herHim]. Unsure of whether or not the two of you are close to one another, Helena kindly offers, [helena.speech(I have no intention of keeping you from seeing one another; you will always be welcome to visit my dear Scarlett at any time.)]
@@ -154,7 +154,7 @@
 	</htmlContent>
 	
 	<htmlContent tag="ROMANCE_SHOP_CORE_4_SCARLETT"><![CDATA[
-	#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+	#IF(scarlett.isLikesPlayer())
 		<p>
 			As you push open the door and [pc.step] inside Helena's shop, you can't help but be reminded of the very first time you ever set foot in here. Over on the far side of the room, the black-feathered form of Scarlett is slouched down behind the shop's trendy counter, and as she sees you enter she calls out, [scarlett.speech([pc.Name]?! You're back!)]
 		</p>
@@ -199,7 +199,7 @@
 	<p>
 		#IF(scarlett.isAbleToFly())
 			[style.speechFeminine(There she is! Helena! Helena! I'm your biggest fan!)] one of the members of the nearby crowd calls out as she sees the three of you exit the store. As the rest of Helena's fans start to shout and rush forwards, the harpy matriarch coolly tells them that she has no time at the moment, before gracefully skipping off and launching herself into the air.
-			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			#IF(scarlett.isLikesPlayer())
 				 Giving you one last smile,
 			#ELSE
 				 Giving you one last scowl,
@@ -207,7 +207,7 @@
 			 Scarlett follows her matriarch, and as the two of them fly off, the fans let out out a collective sigh of disappointment.
 		#ELSE
 			[style.speechFeminine(There she is! Helena! Helena! I'm your biggest fan!)] one of the members of the nearby crowd calls out as she sees the three of you exit the store. As the rest of Helena's fans start to shout and rush forwards, the harpy matriarch coolly tells them that she has no time at the moment, before gracefully striding off down the street.
-			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			#IF(scarlett.isLikesPlayer())
 				 Giving you one last smile,
 			#ELSE
 				 Giving you one last scowl,
@@ -1092,7 +1092,7 @@
 				As you set the letter back down on the coffee table, Helena lets out a small sigh and confirms what you've just read, [helena.speech(Yes, my dear Scarlett here is the sister of my old etiquette tutor. If I am to ever to realise my plans, I must once again take her under my wing, which necessitates this ultimatum; either you will accept my generous offer of [#SPECIAL_PARSE_0] flames in exchange for selling Scarlett to me, or else I will have no choice but to close this business down.)]
 			</p>
 			<p>
-				#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+				#IF(scarlett.isLikesPlayer())
 					Looking across at [scarlett.name], you see her cast an affectionate glance your way, as though [scarlett.sheIs] trying to make it known that [scarlett.she]'d rather stay by your side. Picking up on the fact that the [scarlett.race] is quite fond of you, Helena kindly offers, [helena.speech(I have no intention of keeping you from seeing one another; you will always be welcome to visit my dear Scarlett at any time.)]
 				#ELSE
 					Looking across at [scarlett.name], you see her roll [scarlett.her] [scarlett.eyes], as though [scarlett.sheIs] trying to make it known that [scarlett.she] doesn't care what happens to [scarlett.herHim]. Unsure of whether or not the two of you are close to one another, Helena kindly offers, [helena.speech(I have no intention of keeping you from seeing one another; you will always be welcome to visit my dear Scarlett at any time.)]
@@ -1191,9 +1191,9 @@
 	</htmlContent>
 	
 	<htmlContent tag="ROMANCE_SCARLETT_SOLD_REACTION"><![CDATA[
-	#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+	#IF(scarlett.isLikesPlayer())
 		<p>
-			[scarlett.speech(You will come back and visit me again, won't you, [pc.name]?)] Scarlett asks, blushing a little as [scarlet.she] reveals [scarlett.her] affection towards you.
+			[scarlett.speech(You will come back and visit me again, won't you, [pc.name]?)] Scarlett asks, blushing a little as [scarlett.she] reveals [scarlett.her] affection towards you.
 		</p>
 		<p>
 			Assuring the [scarlett.race] that you will, you can't help but smile as you see a happy look settle on your ex-slave's face. Turning towards Helena, [scarlett.she] asks, [scarlett.speech(What would you like me to do now?)]
@@ -1387,7 +1387,7 @@
 	<htmlContent tag="ROMANCE_RETURN_AFTER_POSTERS"><![CDATA[
 	<p>
 		Not wanting to keep Helena waiting, you decide to do as Scarlett says and follow her back to the store. As you hurry forwards and [pc.walk] along beside her,
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			 the harpy blushes a little and reveals, [scarlett.speech(You know, I think Helena's going to have us work on something together for the rest of the day...)]
 		#ELSE
 			 the rude harpy reveals, [scarlett.speech(Don't think that I'm happy about it, cunt, but I think Helena's going to have us work on something together for the rest of the day...)]
@@ -1406,7 +1406,7 @@
 		[scarlett.speech(You're meant to be having a meeting back up in the nest in five minutes,)] Scarlett suddenly interjects, glancing up at a clock on the nearby wall which reads [units.currentTime].
 	</p>
 	<p>
-		[helena.speech(Yes, Scarlett, I aware,)] the regal matriarch coolly replies, before turning back to you and continuing, [helena.speech(You and Scarlett are to work together to get some final things ready for tomorrow. Please follow me, and I shall briefly explain what it is you are to do.)]
+		[helena.speech(Yes, Scarlett, I am aware,)] the regal matriarch coolly replies, before turning back to you and continuing, [helena.speech(You and Scarlett are to work together to get some final things ready for tomorrow. Please follow me, and I shall briefly explain what it is you are to do.)]
 	</p>
 	<p>
 		Sensing that this will be the final task assigned to you by Helena, you see no reason to refuse her request for assistance, and move forwards to do as she asks...
@@ -1448,7 +1448,7 @@
 		#ENDIF
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			[scarlett.speech(I guess having to work with you isn't too bad,)] Scarlett mutters, blushing a little before turning away and stomping off into the back room. Thankful for the fact that your harpy co-worker isn't as rude or aggressive towards you as she is to others, you prepare to get started on the tasks Helena assigned to you...
 		#ELSE
 			[scarlett.speech(This fucking sucks; not only do I have to spend the night here, but I've got to put up with you,)] Scarlett rudely complains, before turning away and stomping off into the back room.
@@ -1469,7 +1469,7 @@
 	<p>
 		Seeing no reason to delay, you pick up the cleaning products which Helena has proved, before moving them out into the main store. While the place doesn't look dirty upon first glance, a more careful inspection reveals a fine layer of dust covering both the floor and furniture, while here and there, you spot the odd black or white feather that's been shed from Helena's and Scarlett's wings. From your time spent painting the shop's frontage, you know that the exterior windows are very clean, but as you move over to open the blinds, you see that the inside of the glass is quite smudged and dirty.
 	</p>
-	#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+	#IF(scarlett.isLikesPlayer())
 		<p>
 			[scarlett.speech(So, what do we need to do?)] Scarlett asks as she reappears from the back room. Turning to look at her, you see that she's grabbed a cereal bar from out of the provisions that Helena left for you, and as she starts loudly munching on it, you can't help but notice how she's scattering crumbs all over the floor.
 		</p>
@@ -1501,7 +1501,7 @@
 		Knowing that she's likely to react in a hostile manner if you do anything but treat her nicely, you [pc.step] over to where Scarlett is sitting on the counter and kindly ask her if she'd please help you with the cleaning.
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			[scarlett.speech(Of course I'll help!)] she eagerly replies, before blushing a little and muttering, [scarlett.speech(I mean... I guess it would be a good idea if the two of us worked together on this...)]
 		#ELSE
 			[scarlett.speech(Fucking hell,)] she sighs, before jumping down off the counter and muttering, [scarlett.speech(Fine... I guess it would be a good idea if the two of us worked together on this...)]
@@ -1515,7 +1515,7 @@
 		Knowing that the best way to deal with Scarlett is to show her who's boss, you [pc.step] over to where she's is sitting on the counter and firmly scold her for lazing about while you're the one doing all the cleaning.
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			[scarlett.speech(Fine, I'll help...)] she sulkily replies, before muttering, [scarlett.speech(I guess it <i>would</i> be a good idea if the two of us worked together on this...)]
 		#ELSE
 			[scarlett.speech(Fucking hell,)] she sighs, before jumping down off the counter and muttering, [scarlett.speech(Fine... I guess it <i>would</i> be a good idea if the two of us worked together on this...)]
@@ -1533,7 +1533,7 @@
 	</p>
 	<p>
 		Sharing out the food provided to you by Helena, you and Scarlett sit in silence for a while as the two of you eat. Finishing her meal before you, the harpy shuffles about a little and admits,
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			 [scarlett.speech(You know, I actually kind of like getting to spend this time with you, [pc.name]...)]
 		#ELSE
 			 [scarlett.speech(I guess this isn't really too bad. It sure beats being a slave, anyway...)]
@@ -1559,7 +1559,7 @@
 		Without caring about your presence, Scarlett strips off her dress, revealing that she's wearing a matching pair of black boyshorts and croptop bra. Grabbing something from out of one of the fridges, she collapses down on the sofa opposite to yours, before showing off what turns out to be a bottle of whiskey and saying, [scarlett.speech(That fridge is stocked with some good shit. Helena said we could drink whatever's here, so I'm having this.)]
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			Unscrewing the cap, the harpy takes a swig straight out of the bottle, before grinning and holding it out to you, saying, [scarlett.speech(Go on, you can have some too...)]
 		#ELSE
 			Unscrewing the cap, the harpy takes a swig straight out of the bottle, before rolling her eyes and holding it out to you, saying, [scarlett.speech(Fine, you can have some too...)]
@@ -1640,7 +1640,7 @@
 			#ENDIF
 		</p>
 		<p>
-			#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+			#IF(scarlett.isLikesPlayer())
 				Continuing to advance towards you, the horny, drunk harpy lustfully pants, [scarlett.speechNoEffects(Y'know, [pc.name], I really kinda like you... I've been wantin' to 'ave some fun with you fer a good long while... You're gonna love bein' my bitch...)]
 			#ELSE
 				Continuing to advance towards you, the horny, drunk harpy lustfully pants, [scarlett.speechNoEffects(Y'know, [pc.name], you really piss me off... I've been wantin' to give ya a good, hard hate-fuck fer a real long while... I'm gonna make ya my bitch...)]
@@ -1986,14 +1986,14 @@
 		The group of harpies hovering nearby immediately start agreeing and flattering their matriarch, and only stop with their grovelling praise once Helena raises one of her beautiful white wings to silence them. Allowing a faint smile to settle on her face, she continues, [helena.speech(As I am now accepting my followers' help once again, I shall not require your services after today, [pc.name]. Before then, however, I do have one last thing which I must ask of you; I require you to look after my dear Scarlett for the day, as I shall be too busy with entertaining my guests to keep an eye on her.)]
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			[scarlett.speech(You mean I'm going to be spending more time with [pc.name]?)] Scarlett asks, having returned from the back room to overhear the what it is Helena's asking of you.
 		#ELSE
 			[scarlett.speech(You mean I've got to spend more time with this cunt?)] Scarlett asks, having returned from the back room to overhear the what it is Helena's asking of you.
 		#ENDIF
 	</p>
 	<p>
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			[helena.speech(That is correct,)] the matriarch replies, before gesturing through the shop's windows at the huge crowd of fans and potential customers which has assembled outside. [helena.speech(As you can see, I am expecting many visitors today, and so the two of you shall stay in the back room and prepare drinks for them. My girls here will be able to handle everything else.)]
 		#ELSE
 			[helena.speech(Do not speak in such a manner in my presence,)] the matriarch icily replies, causing Scarlett to visibly flinch and apologise. Gesturing through the shop's windows at the huge crowd of fans and potential customers which has assembled outside, she continues, [helena.speech(As you can see, I am expecting many visitors today, and so the two of you shall stay in the back room and prepare drinks for them. My girls here will be able to handle everything else.)]
@@ -2061,7 +2061,7 @@
 	
 	<htmlContent tag="ROMANCE_END_KISSED"><![CDATA[
 	<p>
-		[helena.speech(T-That was the second part of your reward!)] she quickly blurts out, and while still keeping her back to you, she continues, [helena.speech(A-As a further expression of my gratitude, I will allow you to... t-to take me out a date each Friday night! I intend to work late on Fridays, so you shall meet me here between five and nine in the evening! Y-You are also permitted to come and see me in my nest at weekends and when I'm not working here. That is all!)]
+		[helena.speech(T-That was the second part of your reward!)] she quickly blurts out, and while still keeping her back to you, she continues, [helena.speech(A-As a further expression of my gratitude, I will allow you to... t-to take me out on a date each Friday night! I intend to work late on Fridays, so you shall meet me here between five and nine in the evening! Y-You are also permitted to come and see me in my nest at weekends and when I'm not working here. That is all!)]
 	</p>
 	<p>
 		Clearly still too embarrassed to look at you, the blushing matriarch swiftly darts out of the room, before rushing past her harpy followers and exiting the store. Immediately skipping off down the street, she leaps into the air and flies off in the direction of her nest. Suddenly finding yourself with little else to do but leave, you walk across the shop floor towards the exit, ignoring the inquisitive glances thrown your way by the eight harpies who've remained behind to clean up. Pushing open the door, you [pc.step] out into Slaver Alley and wonder where to head next...

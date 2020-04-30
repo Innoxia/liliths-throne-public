@@ -217,8 +217,7 @@ public class Penis implements BodyPartInterface {
 					length = 1;
 				}
 				UtilText.transformationContentSB.append(
-						"<p>"
-							+ "[npc.Name] [npc.verb(feel)] an intense heat building up in [npc.her] groin, and [npc.she] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] the [npc.skin] "
+						"[npc.Name] [npc.verb(feel)] an intense heat building up in [npc.her] groin, and [npc.she] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] the [npc.skin] "
 									+ (owner.hasVagina()
 											? (!owner.isTaur()
 												?"above [npc.her] pussy"
@@ -255,13 +254,9 @@ public class Penis implements BodyPartInterface {
 				
 			} else {
 				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							"<p>"
-								+ "You let out a gasp as you feel your [pc.cock] suddenly stand to attention, and, trying to get your unexpected erection under control, your gasp soon turns into [pc.a_moan+] as it transforms.<br/>");
+					UtilText.transformationContentSB.append("You let out a gasp as you feel your [pc.cock] suddenly stand to attention, and, trying to get your unexpected erection under control, your gasp soon turns into [pc.a_moan+] as it transforms.");
 				} else {
-					UtilText.transformationContentSB.append(
-							"<p>"
-								+ "[npc.Name] suddenly blushes and lets out [npc.a_moan+], squeezing [npc.her] thighs together as [npc.her] [npc.cock] transforms.<br/>");
+					UtilText.transformationContentSB.append("[npc.Name] suddenly blushes and lets out [npc.a_moan+], squeezing [npc.her] thighs together as [npc.her] [npc.cock] transforms.");
 				}
 			}
 		}
@@ -269,6 +264,7 @@ public class Penis implements BodyPartInterface {
 		// Parse existing content before transformation:
 		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
 		UtilText.transformationContentSB.setLength(0);
+		UtilText.transformationContentSB.append("<p>");
 		UtilText.transformationContentSB.append(s);
 		this.type = type;
 		testicle.setType(owner, type.getTesticleType());
@@ -281,14 +277,14 @@ public class Penis implements BodyPartInterface {
 			case NONE:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-							"You squirm and moan as your cock and balls rapidly shrink away, and within seconds, nothing's left to remind you of your manhood.<br/>"
-							+ "You now have [style.boldSex(no penis)]."
-							+ "</p>");
+							"<br/>"
+							+ "You squirm and moan as your cock and balls rapidly shrink away, and within seconds, nothing's left to remind you of your manhood.<br/>"
+							+ "You now have [style.boldSex(no penis)].");
 				} else {
 					UtilText.transformationContentSB.append(
-							"[npc.She] squirms and moans as [npc.her] cock and balls rapidly shrink away, and within seconds, nothing's left to remind [npc.herHim] of [npc.her] manhood.<br/>"
-							+ "[npc.Name] now has [style.boldSex(no penis)]."
-							+ "</p>");
+							"<br/>"
+							+ "[npc.She] squirms and moans as [npc.her] cock and balls rapidly shrink away, and within seconds, nothing's left to remind [npc.herHim] of [npc.her] manhood.<br/>"
+							+ "[npc.Name] now has [style.boldSex(no penis)].");
 				}
 				owner.setPiercedPenis(false);
 				break;
@@ -520,23 +516,16 @@ public class Penis implements BodyPartInterface {
 				}
 				break;
 		}
-
+		UtilText.transformationContentSB.append("</p>");
+		
 		penisModifiers.clear();
 		penisModifiers.addAll(type.getDefaultPenisModifiers());
 
-		if (owner.isPlayer()) {
-			UtilText.transformationContentSB.append(
-					"<br/>"
-					+ "Any old modifiers that your penis might have had have [style.boldShrink(transformed away)]!");
-		} else {
-			UtilText.transformationContentSB.append(
-					"<br/>"
-					+ "Any old modifiers that [npc.her] penis might have had have [style.boldShrink(transformed away)]!");
-		}
+		UtilText.transformationContentSB.append(
+				"<p>"
+				+ "Any old modifiers which [npc.her] penis might have had have [style.boldShrink(transformed away)]!");
 		
-		if(penisModifiers.isEmpty()) {
-			UtilText.transformationContentSB.append("</p>");
-		} else {
+		if(!penisModifiers.isEmpty()) {
 			if (owner.isPlayer()) {
 				UtilText.transformationContentSB.append(
 						"<br/>"
@@ -550,8 +539,8 @@ public class Penis implements BodyPartInterface {
 			for(PenetrationModifier pm : penisModifiers) {
 				UtilText.transformationContentSB.append("<br/>[style.boldGrow("+Util.capitaliseSentence(pm.getName())+")]");
 			}
-			UtilText.transformationContentSB.append("</p>");
 		}
+		UtilText.transformationContentSB.append("</p>");
 		
 		String postTF = owner.postTransformationCalculation(false); // Calculate this before parsing, as it updates covering colours
 		

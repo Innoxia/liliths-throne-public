@@ -6,8 +6,10 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -117,6 +119,11 @@ public abstract class AbstractEarType implements BodyPartTypeInterface {
 	@Override
 	public Race getRace() {
 		return race;
+	}
+
+	@Override
+	public TFModifier getTFModifier() {
+		return getTFTypeModifier(EarType.getEarTypes(race));
 	}
 
 //	@Override

@@ -129,6 +129,10 @@ public class SubmissionGenericPlaces {
 						"Explore",
 						"Explore the tunnels. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
 							@Override
+							public int getSecondsPassed() {
+								return 30*60;
+							}
+							@Override
 							public void effects() {
 								DialogueNode dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true, true);
 								Main.game.setContent(new Response("", "", dn));

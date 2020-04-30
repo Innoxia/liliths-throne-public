@@ -24,7 +24,7 @@ public enum EncounterType {
 	
 	
 	HARPY_NEST_ATTACK(true),
-	HARPY_NEST_ATTACK_STORM(true),
+//	HARPY_NEST_ATTACK_STORM(true),
 	HARPY_NEST_FIND_ITEM,
 	
 	SUBMISSION_TUNNEL_ATTACK(true),
