@@ -1410,7 +1410,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						if (MilkingRoom.INGESTION_AMOUNT >= 6) {
-							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT - 1;
+							MilkingRoom.INGESTION_AMOUNT -= 1;
 						}
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
@@ -1420,7 +1420,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						if (MilkingRoom.INGESTION_AMOUNT >= 16) {
-							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT - 10;
+							MilkingRoom.INGESTION_AMOUNT -= 10;
 						} else {
 							MilkingRoom.INGESTION_AMOUNT = 5;
 						}
@@ -1432,7 +1432,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						if (MilkingRoom.INGESTION_AMOUNT >= 106) {
-							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT - 100;
+							MilkingRoom.INGESTION_AMOUNT -= 100;
 						} else {
 							MilkingRoom.INGESTION_AMOUNT = 5;
 						}
@@ -1444,7 +1444,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						if (MilkingRoom.INGESTION_AMOUNT >= 1006) {
-							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT - 1000;
+							MilkingRoom.INGESTION_AMOUNT -= 1000;
 						} else {
 							MilkingRoom.INGESTION_AMOUNT = 5;
 						}
@@ -1456,7 +1456,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						if (MilkingRoom.INGESTION_AMOUNT <= 4999) {
-							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT + 1;
+							MilkingRoom.INGESTION_AMOUNT += 1;
 						}
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
@@ -1466,7 +1466,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						if (MilkingRoom.INGESTION_AMOUNT <= 4990) {
-							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT + 10;
+							MilkingRoom.INGESTION_AMOUNT += 10;
 						} else {
 							MilkingRoom.INGESTION_AMOUNT = 5000;
 						}
@@ -1478,7 +1478,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						if (MilkingRoom.INGESTION_AMOUNT <= 4900) {
-							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT + 100;
+							MilkingRoom.INGESTION_AMOUNT += 100;
 						} else {
 							MilkingRoom.INGESTION_AMOUNT = 5000;
 						}
@@ -1490,7 +1490,7 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						if (MilkingRoom.INGESTION_AMOUNT <= 4000) {
-							MilkingRoom.INGESTION_AMOUNT = MilkingRoom.INGESTION_AMOUNT + 1000;
+							MilkingRoom.INGESTION_AMOUNT += 1000;
 						} else {
 							MilkingRoom.INGESTION_AMOUNT = 5000;
 						}
