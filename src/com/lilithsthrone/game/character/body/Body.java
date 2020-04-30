@@ -2929,6 +2929,11 @@ public class Body implements XMLSaving {
 				this.raceStage = RaceStage.GREATER;
 				break;
 			case FIRE:
+				race = getRaceFromPartWeighting();
+				if (race == Race.HARPY) {
+					this.raceStage = getRaceStageFromPartWeighting();
+					break;
+				}
 				race = Race.ELEMENTAL;
 				this.raceStage = RaceStage.GREATER;
 				break;
