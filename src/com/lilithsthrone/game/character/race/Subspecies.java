@@ -3102,7 +3102,7 @@ public enum Subspecies {
 			"phoenix-harpies",
 			"phoenix-harpies",
 			"phoenix",
-			"While just as obsessed with [npc.her] looks as other harpies, [npc.name] is also naturally talented at harnessing the arcane, allowing [npc.herHim] to learn and cast spells with relative ease."
+			"While just as obsessed with [npc.her] looks as other harpies, [npc.nameIs] also naturally talented at harnessing the arcane, allowing [npc.herHim] to learn and cast spells with relative ease."
 				+ " In particular, [npc.she] [npc.has] an exceptionally high affinity with arcane fire...",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
