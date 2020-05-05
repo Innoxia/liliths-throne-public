@@ -12,3 +12,4 @@ target/
 
 # Ignore all generic character images
 res/images/characters/generic/
+/tail.txt

@@ -782,9 +782,12 @@ public class Sex {
 				for(AbstractClothing c : equippedClothing) {
 					AbstractClothing clean = new AbstractClothing(c) {};
 					clean.setDirty(null, false);
-					if(!entry.getValue().get(c.getSlotEquippedTo()).keySet().contains(c) && !entry.getValue().get(c.getSlotEquippedTo()).keySet().contains(clean)) {
+					if(entry.getValue().get(c.getSlotEquippedTo())!=null && !entry.getValue().get(c.getSlotEquippedTo()).keySet().contains(c) && !entry.getValue().get(c.getSlotEquippedTo()).keySet().contains(clean)) {
 						character.forceUnequipClothingIntoVoid(character, c);
 						character.getCell().getInventory().addClothing(c);
+					}
+					else {
+						character.unequipClothingIntoInventory(c, true, character);
 					}
 				}
 			}
