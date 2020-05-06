@@ -319,7 +319,7 @@
 		Looking across to one of her followers in confusion, Helana asks, [helena.speech(Is [pc.she]... <i>enjoying</i> this?)]
 	</p>
 	<p>
-		[style.speechFeminineStrong(I believe so,)] the harpy replies, [style.speechFeminineStrong(perhaps if you were to hit [pc.herHim] harder, [npc.she]'d understand that this is a punishment.)]
+		[style.speechFeminineStrong(I believe so,)] the harpy replies, [style.speechFeminineStrong(perhaps if you were to hit [pc.herHim] harder, [pc.she]'d understand that this is a punishment.)]
 	</p>
 	<p>
 		Helena clearly approves of her follower's suggestion, as the next blow that lands on your ass is far more powerful than the ones before, and despite your burning arousal, you can't help but let out a whimpering scream. Encouraged by your painful cry, and seemingly oblivious to the fact that you're still enjoying it, each of [helena.name]'s smacks grow harder and harder, drawing out desperate wails and pleasurable moans from between your [pc.lips].
@@ -509,7 +509,7 @@
 		After you've informed this overzealous harpy that you're not here to see Helena, but are actually here to talk to Scarlett, she apologetically steps to one side and bows her head, before stuttering, [style.speechFeminineStrong(S-Sorry for the misunderstanding!)]
 	</p>
 	<p>
-		With your way to zScarlett now clear, you advance towards the small crowd of brightly-coloured harpies who are currently surrounding her.
+		With your way to Scarlett now clear, you advance towards the small crowd of brightly-coloured harpies who are currently surrounding her.
 		#IF(scarlett.isVisiblyPregnant())
 			 As you approach the raven-harpy and get a closer look at her, you see that her belly is visibly swollen, making it immediately obvious that she's pregnant. Noticing your approach, Scarlett absently-mindedly strokes one of her wing-like arms over her rounded tummy, while using the other to beckon you forwards as she
 			#IF(!scarlett.isCharacterReactedToPregnancy(pc))
@@ -637,7 +637,7 @@
 	</p>
 	#IF(game.getDayMinutes()>=19*60 && scarlett.isAttractedTo(pc))
 		<p>
-			[style.minorBad(If you wanted to act as Scarlett's servant, you'll have to come back and visit her another day before [units.time(19)]!)]
+			[style.italicsMinorBad(If you wanted to act as Scarlett's servant, you'll have to come back and visit her another day before [units.time(19)]!)]
 		</p>
 	#ENDIF
 	]]>

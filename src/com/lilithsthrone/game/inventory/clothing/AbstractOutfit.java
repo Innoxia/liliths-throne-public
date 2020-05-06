@@ -3,7 +3,10 @@ package com.lilithsthrone.game.inventory.clothing;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -33,7 +36,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.3.1
- * @version 0.3.2
+ * @version 0.3.7.4
  * @author Innoxia
  */
 public abstract class AbstractOutfit {
@@ -52,7 +55,8 @@ public abstract class AbstractOutfit {
 	
 	// For use when reading:
 	
-	private List<String> innerConditionals;
+	/** Mapping tags to conditionals. */
+	private Map<String, String> innerConditionals;
 	private List<List<Colour>> presetColourGroups;
 	
 	public AbstractOutfit(File outfitXMLFile) throws XMLLoadException {
@@ -112,9 +116,7 @@ public abstract class AbstractOutfit {
 		switch(this.getFemininity()) {
 			case FEMININE:
 			case FEMININE_STRONG:
-				if(character.isFeminine()
-						?character.hasFetish(Fetish.FETISH_CROSS_DRESSER)
-						:!character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) {
+				if(!character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) {
 					return false;
 				}
 				break;
@@ -122,9 +124,7 @@ public abstract class AbstractOutfit {
 				break;
 			case MASCULINE:
 			case MASCULINE_STRONG:
-				if(character.isFeminine()
-						?!character.hasFetish(Fetish.FETISH_CROSS_DRESSER)
-						:character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) {
+				if(character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) {
 					return false;
 				}
 				break;
@@ -175,17 +175,20 @@ public abstract class AbstractOutfit {
 				Element outfitElement = Element.getDocumentRootElement(outfitXMLFile); // Loads the document and returns the root element - in outfit mods it's <outfit>
 				Element generationAttributes = outfitElement.getMandatoryFirstOf("generationAttributes");
 				
-				innerConditionals = new ArrayList<>();
+				innerConditionals = new HashMap<>();
 				try {
-					for(int i=1; i<20; i++) {
-						Element innerConditional = generationAttributes.getMandatoryFirstOf("clothingConditional"+i);
-						if(Boolean.valueOf(innerConditional.getAttribute("constant"))) {
-							innerConditionals.add(String.valueOf(evalConditional(character, innerConditional.getTextContent())));
-						} else {
-							innerConditionals.add(innerConditional.getTextContent());
+					for(Element el: generationAttributes.getAll()) {
+						String tagName = el.getTagName();
+						if(tagName.startsWith("clothingConditional") || tagName.startsWith("cond")) {
+							if(Boolean.valueOf(el.getAttribute("constant"))) {
+								innerConditionals.put(tagName, String.valueOf(evalConditional(character, el.getTextContent())));
+							} else {
+								innerConditionals.put(tagName, el.getTextContent());
+							}
 						}
 					}
 				} catch(Exception ex) {
+					ex.printStackTrace();
 					// Just catch and continue when there are no more clothingConditional elements.
 				}
 				
@@ -249,7 +252,7 @@ public abstract class AbstractOutfit {
 							AbstractWeapon wep = Util.randomItemFrom(weapons);
 							character.equipMainWeaponFromNowhere(wep);
 							if(wep.getWeaponType().getArcaneCost()>0) {
-								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(2+Util.random.nextInt(9)), false); // GIve them enough essences for 2-10 shots
+								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(10+Util.random.nextInt(21)), false); // Give them enough essences for 10-20 shots
 							}
 						}
 					} catch(Exception e){
@@ -273,7 +276,7 @@ public abstract class AbstractOutfit {
 							AbstractWeapon wep = Util.randomItemFrom(weapons);
 							character.equipOffhandWeaponFromNowhere(wep);
 							if(wep.getWeaponType().getArcaneCost()>0) {
-								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(2+Util.random.nextInt(9)), false); // GIve them enough essences for 2-10 shots
+								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(10+Util.random.nextInt(21)), false); // Give them enough essences for 10-20 shots
 							}
 						}
 					} catch(Exception e){
@@ -572,8 +575,8 @@ public abstract class AbstractOutfit {
 	
 	private boolean evalConditional(GameCharacter character, String conditional) {
 		if(innerConditionals!=null) {
-			for(int i=1; i<=innerConditionals.size(); i++) {
-				conditional = conditional.replaceAll("clothingConditional"+String.valueOf(i), innerConditionals.get(i-1));
+			for(Entry<String, String> entry : innerConditionals.entrySet()) {
+				conditional = conditional.replaceAll(entry.getKey(), entry.getValue());
 			}
 		}
 		try {
@@ -660,7 +663,19 @@ public abstract class AbstractOutfit {
 			List<DamageType> dtList;
 			DamageType dt = null;
 			
-			wt = WeaponType.getWeaponTypeFromId(e.getMandatoryFirstOf("type").getTextContent());
+			if(e.getOptionalFirstOf("types").isPresent()) {
+				wt = Util.randomItemFrom(e
+						.getMandatoryFirstOf("types")
+						.getAllOf("type")
+						.stream()
+						.map( el -> {
+							return WeaponType.getWeaponTypeFromId(el.getTextContent());
+						})
+						.filter(Objects::nonNull)
+						.collect(Collectors.toList()));
+			} else {
+				wt = WeaponType.getWeaponTypeFromId(e.getMandatoryFirstOf("type").getTextContent());
+			}
 			
 			dtList = e
 					.getMandatoryFirstOf("damageTypes") 

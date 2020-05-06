@@ -398,6 +398,7 @@ public class Lyssieth extends NPC {
 		Main.game.getPlayer().setTailType(TailType.DEMON_COMMON);
 		Main.game.getPlayer().setTailGirth(PenetrationGirth.THREE_THICK);
 		Main.game.getPlayer().setHornType(HornType.SWEPT_BACK);
+		Main.game.getPlayer().setHornLength(HornLength.ONE_SMALL.getMedianValue());
 		Main.game.getPlayer().setMinimumHornsPerRow(2);
 		Main.game.getPlayer().getLegConfiguration().setWingsToDemon(Main.game.getPlayer());
 		Main.game.getPlayer().setEarType(EarType.DEMON_COMMON);
@@ -570,10 +571,15 @@ public class Lyssieth extends NPC {
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
-								Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
 								Main.game.getPlayer().setArmType(ArmType.DEMON_COMMON);
 								Main.game.getPlayer().getLegConfiguration().setLegsToDemon(Main.game.getPlayer());
 								Main.game.getPlayer().setArousal(100, true);
+							}
+						}
+						@Override
+						public void applyEndEffects() {
+							if(applyExtraEffects) {
+								Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
 							}
 						}
 					};
@@ -592,12 +598,17 @@ public class Lyssieth extends NPC {
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
+								setPlayerToFullDemon();
+							}
+						}
+						@Override
+						public void applyEndEffects() {
+							if(applyExtraEffects) {
 								if(Main.sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotLyingDown.MATING_PRESS) {
 									Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
 								} else {
 									Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Tail.class));
 								}
-								setPlayerToFullDemon();
 							}
 						}
 					};

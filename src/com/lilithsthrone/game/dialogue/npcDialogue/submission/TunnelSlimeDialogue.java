@@ -6,6 +6,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -177,10 +178,12 @@ public class TunnelSlimeDialogue {
 									new Value<>(getSlime(), "")));
 				
 				} else if (index == 2) {
-					if(Main.game.getPlayer().getMoney()<250) {
-						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
+					if(Main.game.getPlayer().getMoney()<DialogueFlags.MUGGER_DEMAND_2) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(DialogueFlags.MUGGER_DEMAND_2, "span")+")",
+								"You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
 					} else {
-						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", OFFER_MONEY) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(DialogueFlags.MUGGER_DEMAND_2, "span")+")",
+								"Offer to pay [npc.name] "+Util.intToString(DialogueFlags.MUGGER_DEMAND_2)+" flames to leave you alone.", OFFER_MONEY) {
 							@Override
 							public void effects() {
 								Main.game.getPlayer().incrementMoney(-250);

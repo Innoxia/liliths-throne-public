@@ -2151,7 +2151,7 @@ public enum StatusEffect {
 				}
 			}
 			for(InventorySlot slotToClean : slotsToClean) {
-				target.removeDirtySlot(slotToClean);
+				target.removeDirtySlot(slotToClean, false);
 			}
 			
 			if(target.isPlayer()) {
@@ -5732,13 +5732,8 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer()) {
-				return "You've recently had a sexual encounter in which you didn't manage to cum."
-						+ " As a result, you're feeling extremely horny and frustrated...";
-			} else {
-				return UtilText.parse(target, "[npc.Name] recently had a sexual encounter in which [npc.she] didn't manage to cum."
-						+ " As a result, [npc.sheIs] feeling extremely horny and frustrated...");
-			}
+			return UtilText.parse(target, "[npc.Name] recently had a sexual encounter in which [npc.she] didn't manage to cum."
+					+ " As a result, [npc.sheIs] feeling extremely horny and frustrated...");
 		}
 		
 		@Override
@@ -5746,8 +5741,6 @@ public enum StatusEffect {
 			return "";
 		}
 
-		
-		
 		@Override
 		public boolean isSexEffect() {
 			return true;
@@ -6860,7 +6853,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_MELEE_WEAPON, 15f)),
 			null) {
 
 		@Override
@@ -6869,9 +6862,8 @@ public enum StatusEffect {
 				return UtilText.parse(target,
 						"The Japanese term 'Daisho', meaning 'big-little', is used to describe the simultaneous wearing of a katana (the big) and wakizashi (the little)."
 						+ " Wearing both of these swords at once marks the wielder as a member of the samurai class.");
-			} else {
-				return "";
 			}
+			return "";
 		}
 
 		@Override

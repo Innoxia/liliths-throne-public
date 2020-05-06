@@ -2250,8 +2250,7 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.setStartingDateMonth(month);
-							int age = Math.max(18, BodyChanging.getTarget().getAgeValue());
-							CharacterModificationUtils.performAgeCheck(age);
+							CharacterModificationUtils.performAgeCheck();
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2261,36 +2260,32 @@ public class MainControllerInitMethod {
 				id = "BIRTH_DAY_INCREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						int age = BodyChanging.getTarget().getAgeValue();
 						BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().plusDays(1));
-						CharacterModificationUtils.performAgeCheck(age);
+						CharacterModificationUtils.performAgeCheck();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "BIRTH_DAY_INCREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						int age = BodyChanging.getTarget().getAgeValue();
 						BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().plusDays(5));
-						CharacterModificationUtils.performAgeCheck(age);
+						CharacterModificationUtils.performAgeCheck();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "BIRTH_DAY_DECREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						int age = BodyChanging.getTarget().getAgeValue();
 						BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().minusDays(1));
-						CharacterModificationUtils.performAgeCheck(age);
+						CharacterModificationUtils.performAgeCheck();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "BIRTH_DAY_DECREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						int age = BodyChanging.getTarget().getAgeValue();
 						BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().minusDays(5));
-						CharacterModificationUtils.performAgeCheck(age);
+						CharacterModificationUtils.performAgeCheck();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -2299,36 +2294,32 @@ public class MainControllerInitMethod {
 				id = "BIRTH_MONTH_INCREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						int age = BodyChanging.getTarget().getAgeValue();
 						BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().plusMonths(1));
-						CharacterModificationUtils.performAgeCheck(age);
+						CharacterModificationUtils.performAgeCheck();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "BIRTH_MONTH_INCREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						int age = BodyChanging.getTarget().getAgeValue();
 						BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().plusMonths(5));
-						CharacterModificationUtils.performAgeCheck(age);
+						CharacterModificationUtils.performAgeCheck();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "BIRTH_MONTH_DECREASE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						int age = BodyChanging.getTarget().getAgeValue();
 						BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().minusMonths(1));
-						CharacterModificationUtils.performAgeCheck(age);
+						CharacterModificationUtils.performAgeCheck();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "BIRTH_MONTH_DECREASE_LARGE";
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						int age = BodyChanging.getTarget().getAgeValue();
 						BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().minusMonths(5));
-						CharacterModificationUtils.performAgeCheck(age);
+						CharacterModificationUtils.performAgeCheck();
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -2338,9 +2329,8 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().minusYears(1));
-						if(!BodyChanging.getTarget().isPlayer() && BodyChanging.getTarget().getAgeValue()>60) {
-							BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().plusYears(BodyChanging.getTarget().getAgeValue()-60));
-						}
+						CharacterModificationUtils.performAgeCheck();
+						
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -2348,9 +2338,8 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().minusYears(5));
-						if(!BodyChanging.getTarget().isPlayer() && BodyChanging.getTarget().getAgeValue()>60) {
-							BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().plusYears(BodyChanging.getTarget().getAgeValue()-60));
-						}
+						CharacterModificationUtils.performAgeCheck();
+						
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -2358,9 +2347,8 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().plusYears(1));
-						if(!BodyChanging.getTarget().isPlayer() && BodyChanging.getTarget().getAgeValue()>60) {
-							BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().plusYears(BodyChanging.getTarget().getAgeValue()-60));
-						}
+						CharacterModificationUtils.performAgeCheck();
+						
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -2368,9 +2356,8 @@ public class MainControllerInitMethod {
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().plusYears(5));
-						if(!BodyChanging.getTarget().isPlayer() && BodyChanging.getTarget().getAgeValue()>60) {
-							BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().plusYears(BodyChanging.getTarget().getAgeValue()-60));
-						}
+						CharacterModificationUtils.performAgeCheck();
+						
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -4577,6 +4564,30 @@ public class MainControllerInitMethod {
 				}
 			}
 			
+			
+			id = "MAKEUP_LIPSTICK_HEAVY_ON";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+						@Override
+						public void effects() {
+							BodyChanging.getTarget().addHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+						}
+					});
+				}, false);
+			}
+			id = "MAKEUP_LIPSTICK_HEAVY_OFF";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+						@Override
+						public void effects() {
+							BodyChanging.getTarget().removeHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+						}
+					});
+				}, false);
+			}
+			
 			for(HairLength hairLength : HairLength.values()) {
 				id = "HAIR_LENGTH_"+hairLength;
 				
@@ -6166,6 +6177,7 @@ public class MainControllerInitMethod {
 					new Value<>("FUTA_BALLS", PropertyValue.futanariTesticles),
 					new Value<>("CLOACA", PropertyValue.bipedalCloaca),
 					new Value<>("AGE", PropertyValue.ageContent),
+					new Value<>("LIPSTICK_MARKING", PropertyValue.lipstickMarkingContent),
 					new Value<>("HAIR_PUBIC", PropertyValue.pubicHairContent),
 					new Value<>("HAIR_BODY", PropertyValue.bodyHairContent),
 					new Value<>("HAIR_ASS", PropertyValue.assHairContent),
@@ -6385,7 +6397,24 @@ public class MainControllerInitMethod {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
+
 			
+			id = "TRAP_PENIS_SIZE_PREFERENCE_ON";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().trapPenisSizePreference = Math.min(100, Main.getProperties().trapPenisSizePreference+10);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "TRAP_PENIS_SIZE_PREFERENCE_OFF";
+			if (((EventTarget) MainController.document.getElementById(id)) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().trapPenisSizePreference = Math.max(-90, Main.getProperties().trapPenisSizePreference-10);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
 			
 			
 			id = "FORCED_FETISH_ON";

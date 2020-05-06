@@ -73,6 +73,7 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -324,6 +325,12 @@ public class Kate extends NPC {
 	@Override
 	public void dailyUpdate() {
 		clearNonEquippedInventory(false);
+
+		for(AbstractItemType item : ItemType.getAllItems()) {
+			if(item.getItemTags().contains(ItemTag.SOLD_BY_KATE)) {
+				this.addItem(AbstractItemType.generateItem(item), !item.isConsumedOnUse()?1:(6+Util.random.nextInt(12)), false, false);
+			}
+		}
 		
 		List<AbstractClothing> clothingToSell = new ArrayList<>();
 		

@@ -555,6 +555,15 @@ h6{
 	pointer-events: none;
 	-webkit-user-select: none;
 }
+.lipstickIcon{
+	position:absolute;
+	width:40%;
+	height:40%;
+	right:0;
+	bottom:0;
+	pointer-events: none;
+	-webkit-user-select: none;
+}
 .raceBlockIcon{
 	position:absolute;
 	width:75%;

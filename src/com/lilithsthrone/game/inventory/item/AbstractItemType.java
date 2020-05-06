@@ -265,7 +265,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	}
 	
 	public String getUseTooltipDescription(GameCharacter user, GameCharacter target) {
-		if(user.equals(target)) {
+		if(user==null || target==null || user.equals(target)) {
 			return Util.capitaliseSentence(getUseName()) + " the " + getName(false) + ".";
 		} else {
 			return UtilText.parse(target, "Get [npc.name] to " + getUseName() + " the " + getName(false) + ".");

@@ -52,6 +52,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.DominionExpress;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -107,6 +108,9 @@ public class Natalya extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7")) {
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_GREY_GREEN));
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.5")) {
+			this.setLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_OFFICE_STABLE, true);
 		}
 	}
 
@@ -278,6 +282,12 @@ public class Natalya extends NPC {
 	@Override
 	public DialogueNode getEncounterDialogue() {
 		return null;
+	}
+	
+	@Override
+	public void dailyUpdate() {
+		Main.game.getDialogueFlags().incrementNatalyaPoints(-2);
+		Main.game.getDialogueFlags().incrementNatalyaWages(DominionExpress.COLLAR_DAILY_WAGE_MAP.get(DominionExpress.getColourFromPoints()));
 	}
 	
 	@Override

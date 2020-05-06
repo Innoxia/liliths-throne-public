@@ -26,69 +26,192 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Patch notes:
 	
 	Contributors:
-		Refactored and cleaned up code handling forced transformations. (PR#1255 by Stadler76)
+		Refactored and cleaned up code handling forced transformations. This fixed a few issues with forced transformations, such as your leg configuration never being transformed into that of a centaur. (PR#1255 by Stadler76)
 		Fixed bug where the phone menu wouldn't work in the SHopping Arcade. (PR#1328 by zR1OQicz)
+	
+	Engine:
+		Moved all eye clothing and final hard-coded weapons into external res folders.
+		Outfit files no longer require clothing conditionals to be numbered, and can be called anything, so long as they start with 'clothingConditional' or 'cond'. (e.g. 'clothingConditionalMelee' or 'condDress' are now both valid conditional tags.)
+		You can now define multiple weapon types to be drawn from at random in one weapon element in outfit files (see mugger files for examples).
+	
+	Gameplay:
+		Added framework of Natalya's content. It's all still placeholder dialogue at the moment, so only play through if you want to see the sort of content it has. The dialogue will be completely filled in for v0.3.8.
+		Random storm attackers will no longer force transformation potions on you if you lose to them. (As they are non-persistent, it didn't make much sense to have them apply partial transformations to you when they'd never get the chance to complete them.)
+		You can no longer pay off demon attackers in dark alleyway tiles (as they are only interested in sex, not money).
+		Characters can now have a 'heavy layer' of lipstick applied, which causes lipstick marks to be left on kissed body parts during sex. There is a content option to disable this feature in the 'sex' category.
+	
+	Balance:
+		Dominion alleyway muggers will now only spawn with physical damage weapons, and will no longer spawn with pistol crossbows.
+		Submission tunnel attackers can now spawn with kerambits, opaque demonstones, and rough arcane feathers.
+		All imps in Submission now wear rags and carry weapons, not just the ones in the imp fortress tunnels.
+		Dominion dark alleyway demons now have their own outfit files and spawn with weapons.
+		Increased natural physical shielding of all non-Enforcer clothing items.
+		Buffed damage of most weapons (swords in particular have had their damage increased a lot). Increased value of most weapons.
+		Submission enemies now demand 500 flames instead of 250.
+		The +15 physical damage on the 'Daisho' set bonus has been replaced by +15 melee weapon damage.
+		
+	Items:
+		Added clothing: 'Filly choker' (neck slot, feminine). Can only be obtained during Natalya's content (or spawned from the debug menu).
+		Added item: 'Arcane makeup set'. Can be bought from Ralph or Kate, and when used, opens the makeup application screen.
+		Renamed old Enforcer's shirt, shorts, and skirt to 'fancy-dress' items, to make it clearer that they aren't official Enforcer uniform items.
+		Added a sheathed icon for the Zweihander.
+		Added recolouring options for the shortbow.
+		'Amber's bitch collar' now spawns with the servitude enchantment (so you can't self-transform or unjinx it while worn).
+		
+	Other:
+		Reduced reindeer and rabbit tail lengths from 15% and 10% of body height, respectively, to 5% and 7.5%.
+		Added an option under the 'Bodies' tab in the content settings to set how much smaller (or bigger) trap penises should be than normal.
+		The debug menu now enables you to change the number of your tails if you are a youko (which is also only possible via the debug menu at the moment).
+		Improved clothing/weapon/item tooltips in debug menu's item view screens.
+		Offspring encountered will now spawn with correct clothing for their background/race/location.
+		Increased number of essences NPCs will spawn with when they spawn with a weapon which requires essences to fire.
+		Added a 'Wiki' button to the main menu, which, like the github and blog buttons, opens a page in your default web-browser to display the game's wiki.
+		Spell efficiency is now listed under combat stats instead of miscellaneous stats in the phone's stats menu.
+		Improved demon alleyway encounter dialogue.
+		Added 'penile deflowerments' as a tattoo counter.
+		Added crit requirements to spell tooltips in the phone menu.
+		Characters who have their cum or girlcum milked in a milking room are now considered to have orgasmed, and so have their 'Frustrated' or 'Pent-up' status effects removed.
+		Half-demons with no human body parts are now counted as having a race-stage of 'greater' instead of 'lesser'.
+		Made some very minor improvements and fixes to Helena's date content.
+		Added generic 'leathery' wings as a counterpart to generic 'feathered' wings.
+		Demons now have a 20% chance to spawn with 4 testicles instead of 2, instead of 100%.
+		Slightly adjusted clothing slot positions in the UI (by swapping mouth-neck slots and moving wrists-hands-stomach slots around).
+		Increased Ralph's penis size from 20cm to 30cm.
+		Added 'makeup' screen to the debug menu's self-transformation menu.
+		The primary colour requirement for being classed as a Dobermann-morph is now either 'black' or 'pitch black', instead of just 'black'.
 	
 	Bugs:
 		Parsing and typo fixes.
 		Fixed some incorrect paragraph formatting in some transformation descriptions.
 		Fixed bug where imps and demons would sometimes say they were trying to forcibly transform you into a demon, even though that's not possible.
 		Fixed bug where imp gangs in Submission would try to force-feed you transformation potions even if all the effects did nothing.
+		Fixed bug where masturbate action would always be greyed-out.
+		Fixed bug where a saved game would fail to load if it was saved in a state where an item of clean, sealed clothing was about to be dirtied on the next turn. (This was most apparent in the autosave immediately after losing to any of the imp fortress bosses.)
+		NPCs will no longer refer to fetish endowment potions by whatever name you've given it (as they logically wouldn't know what you've called the potion).
+		Fixed missing descriptions in quick sex for fingering someone's ass.
+		Fixed bug where 'Orgasmic Level Drain' was not working for the player character.
+		Fixed issue where NPCs would sometimes reset their combat moves to the basic starter moves without being told to do so.
+		Fixed bug in slave management where navigating from any of a slave's management screens to a sex scene would cause a background error to be thrown.
+		Fixed bug where slaves created using Helena's custom slave designer would not be able to have their age changed.
+		Fixed bug where NPC birthdays would end up being incorrect after saving/loading a few times. As part of fixing this bug, all NPC birthdays have been reset to what should be accurate values.
+		Fixed bug where newly-spawned NPCs would be a lot older than they should have been.
+		Fixed bug where setting forced transformations to 0% would still result in being forcibly transformed if you had forced fetishes turned on as well.
+		Fixed bug where if you tried to send a companion home while you had an elemental summoned you'd get stuck in the phone menu.
+		Fixed tails being treated as plural in parsing, even if the character with the tail only had one.
+		Fixed bug where if you failed to be chosen by Scarlett after acting as her servant (in Helena's nest after completing Helena's romance quest), you were placed in Scarlett's room and got stuck in Helena's apartment.
+		Fixed missing descriptions for receiving a blowjob from Helena in her store's back room.
+		Fixed rare bug during Lyssieth's demon transformation sex scene where the game could freeze when she orgasms. (Was being triggered by having her orgasm while fucking her and giving her a handjob at the same time.)
+		Characters no longer lose their penile virginity if they penetrate someone using a dildo in quick sex.
+		Being transformed into a demon now sets your horn length to 10cm, instead of leaving it as 0cm.
+		Fixed bug where actions outside of sex which had perk, fetish, race, or femininity requirements would not be available to choose if you had the 'Sex action bypass' content option disabled.
+		Fixed bug where speech would not parse correctly in tooltip descriptions.
+		Fixed bug where outfits files marked as being 'feminine' would sometimes be applied to masculine characters.
+		Fixed bug where randomly-generated NPCs would sometimes have a date of conception many years before their birthday.
+		Fixed issue where NPC forced-TF potion generation would be based on a slightly different body preference each time you met them.
+		Choosing 'Unequip all' during character creation now correctly puts the clothing into storage, not your inventory.
+		Fixed bug where you could clone earrings and other piercing clothing during character creation.
+		Fixed bug where horn type wasn't being factored in when calculating a character's race (so characters with just a unicorn horn, for example were not being identified as being a unicorn).
+		Fixed bug where if non-con content was turned off, you couldn't manually milk your slaves who were being milked in a milking room.
+		Taking a shower in Helena's room after sex will no longer clean all clothes in your inventory.
+		Kate now correctly sells items marked as being 'SOLD_BY_KATE'.
 	
 	
-	PR bug fixes
 	
-	All bugs reported
+	Need lipstick on inventory slots
+		[x] Needs to be Coverings
+		[x] Remove when wash
+			[x] NPCs wash when player not present?
+		[x] Tooltips
+		[x] Heavy makeup
+			[x] description in body
+		[x] Content setting
+			[x] apply effects
+			[x] in options
+		[x] Add in sex
+			[x] Description
+			[x] post-sex removal
+	
+	After sex titles/descriptions
+	
+	Need point levels shown to player & wages/day
+	
+	Horse-morph ass/penis colours
+	
+	Need Natalya taking anal virginity text
+	
+	Need warehouse mostly closed at night
+		Change description after interview and when filly
+		Allow entry when filly
 	
 	Natalya
+		special dialogue for when Natalya tries to give you the filly choker but you have Amber's collar equipped please
+		
+		
+	make Roxy charge more every time you visit
 	
+	PATTERN PR
 	
-	Shopping arcade phone bug:
-		java.lang.NullPointerException
-			at com.lilithsthrone.world.WorldType$12.getCompanionSexBlockedReason(WorldType.java:363)
-			at com.lilithsthrone.world.AbstractWorldType.isCompanionSexBlocked(AbstractWorldType.java:189)
-			at com.lilithsthrone.game.character.GameCharacter.getSexAvailabilityBasedOnLocation(GameCharacter.java:4995)
-			at com.lilithsthrone.game.dialogue.utils.PhoneDialogue$1.getResponse(PhoneDialogue.java:219)
-			at com.lilithsthrone.game.Game.getResponsesDiv(Game.java:2853)
-			at com.lilithsthrone.game.Game.setContent(Game.java:2613)
-			at com.lilithsthrone.game.Game.setContent(Game.java:2711)
+	still saving characters had sex with?!
 	
-	Whenever I talk to someone or finish a scene the buttons for the phone don't show up but they're still clickable
+	----
+	
+	Nerdlinger clothing
+	
+	slaver license
+	
+	---
+	
+	Add makeup screen to room?
+	
+	Check Tattoos should be removed when losing that body part
+	
+	Like with prostitutes, except I want to pay them to fuck off before fucking them
+	
+	makeup needs to wear off
+	do marker-writings using the makeup box
+	
+	 also, can we get a buggy cheat to unlock all spells immediately?
+	
+	Kate's womb tattoo should either have an offspring birthed counter, or a litter size counter
+	
+	loitering should have a bit more optional variety to it. I get that four hours is a good base, but sometimes I only need 2
+	
+	allow hypno watch usage on non-unique NPCs
+	
+	set weapon damage as tier constants
+	
+	slightly reduce weapon buffs
+	
+	Enchanting a Burning opaque demonstone with + Fire damage doesn't affect unarmed fire damage
+		only + unarmed damage is affecting its melee damage. +fire damage isn't applying at all
+	
+	Need storm alley encounters
+	
+	I managed to get the 'Mommy' NPC pregnant. I'm slightly disappointed that she doesn't make mention of that when I run into her again XD
+	
+	Add custom clothing sets (and DSG requests)
+	
+	Buying imported slaves does not give you a key to their collar if they're wearing one
+	
+	set slaves to be given Mother's Milk, so that we don't have to wait days until they give birth? I remember us talking at one point about changing the pregnancy length in the settings, but I imagine that's a way off, so having the option to speed it up through an item in the world would be nice
+	
+	Angels nectar being able to be enchanted into a potion that restores hymens
+	
+	add an option to remove the circular bloom on the map? I honestly prefer the map to have the same amount of lighting across its entirety
+	
+	-Enchanted potions are way too broken right now and should maybe be capped at a +/-25  (+/-15 for Physique/Arcane/Corruption), +/-50 for Chefs (+/-20 for Physique/Arcane/Corruption) making the job class a little more useful.
+	
+	blog bugs
+	
+	PRs
+	
+	-Spells are also crazy weak for how expensive they are with the exceptions of Stun-spells which are way too good and break the game completely.
+	
+	add forced TF covering changes to account for subspecies
 	
 	 slaves should have a rule that makes them remove all clothing and keep it in their inventory
 	 Also, I don't know if this was intended, but if you import a character that has a weapon already equipped, the demonstone that you start with overrides it and replaces it
 	 it would also be kinda neat if rando npcs spawned with tattoos!
-	
-	The rainbow gloves are probably not supposed to be in the feminine accessories section at Nyan's Emporium
-	
-	 Buying imported slaves does not give you a key to their collar if they're wearing one
-	
-	Will random encounter (first time meeting) a Character in the alleys every have random "previous partners"? I.E. her cooter is gaping wide but no sexual partners (numbers) listed.
-	
-	(Helena quest warning?)
-	"a very rough state in this version"
-	
-	masturbation is broken
-	
-	add an option to remove the circular bloom on the map? I honestly prefer the map to have the same amount of lighting across its entirety
-	
-	Angels nectar being able to be enchanted into a potion that restores hymens
-	
-	Can quick-sex imp fortress bosses? (Does it bypass clothing equips?)
-	
-	SexType.getPerformanceDescription() error: No description found for ANUS targeting FINGER!
-	
-	set slaves to be given Mother's Milk, so that we don't have to wait days until they give birth? I remember us talking at one point about changing the pregnancy length in the settings, but I imagine that's a way off, so having the option to speed it up through an item in the world would be nice
-	
-	THE SLAVE SCREEN IS BROKEN AGAIN
-	I'm not sure what caused it, but I couldn't back out of one of my slave's screens, and I couldn't revert to another save because the main menu buttons wouldn't respond
-	the bug I told you about occurs when you move from the manage tab to the sex tab on a slave. (I narrowed it down a little further; if you don't click on an option in the sex tab, you are still able to move to other tabs and interact properly)
-	 it doesn't seem to happen if you haven't clicked on manage though
-	 like it's only happened when I've clicked the sex tab on accident
-	
-	
-	 Also, when giving a slave a fetish endowment, she got excited and called it by its inventory name, rather than just a fetish endowment, which is weird, since she shouldn't know the specific name i gave it
-	
 	
 	[] Scarlett handjob cafe scene and shop oral scene needs to be locked by attraction
 	[] Need Helena dirty talk override
@@ -98,12 +221,18 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Bathroom placeholders
 	
-	PRs:
-		Add difficulty in bottom-right (merge difficulty PR)
-		If I set Forced TF to 0% and Forced Fetishes to 100%, any NPC that beats me in combat still forcibly transforms me. (PR should fix?)
-			Storm attacks shouldn't transform
+	Add difficulty in bottom-right
+	
+	Natalya
 	
 	
+	
+	Lyssieth TF player speech needs feminine shift
+	
+	Split cat- panther
+	Split cat-morphs into cat-morphs and panther-morphs
+	
+	Need arcane web and chameleon spell (demons)
 	
 	- Mute attackers need dialogue variations
 	- Roxy recognize if you've consumed a bottle of Angel's Nectar to cure the addiction to her at the very least
@@ -222,8 +351,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	my daughters that have already moved out seem to be treated as though they haven't. All the dialogue options are reverted back as if they're still living with me. (Can ask what they think about my slaves, ask them to move out, etc.)
 	
 	Add bath/spa dialogue
-	
-	Split cat-morphs into cat-morphs and panther-morphs
 	
 	Add tail length modifier TFs (5 step)
 	
@@ -449,6 +576,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Restrict for some others? (Jhortrax need it?)
 		[] Need to also pass in sex manager so can calculate which actions are available? Take into account which positions are available as well.
 			[] SexManager needs to also be used to get preferences
+	
+	[] Adding an option to not get transformed (not drink the potion) when you lose and stay a human slave with no morphs/submissive kinks
 	
 	[] Skull bandana
 	[] vagina ring(s)

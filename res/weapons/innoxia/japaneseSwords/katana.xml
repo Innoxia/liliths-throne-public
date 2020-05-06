@@ -2,7 +2,7 @@
 <weapon>
 	<coreAttributes>
 	
-		<value>5000</value> 
+		<value>10000</value> 
 		
 		<melee>true</melee>
 		
@@ -32,7 +32,7 @@
 		
 		<imageEquippedName>katana.svg</imageEquippedName> 
 		
-		<damage>16</damage> 
+		<damage>35</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		

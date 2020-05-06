@@ -27,7 +27,7 @@
 		<description><![CDATA[A helmet comprised of a ballistic outer shell concealed with a tough fabric cover and a shock-absorbing foam liner. The attached suspension system has plenty of adjustment to fit a variety of head shapes but the faint Dominion star on the forehead gives you little doubt as to the intended wearer.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
-		<physicalResistance>4</physicalResistance> 
+		<physicalResistance>6</physicalResistance> 
 		
 		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties. -->
 		<femininity>ANDROGYNOUS</femininity> 

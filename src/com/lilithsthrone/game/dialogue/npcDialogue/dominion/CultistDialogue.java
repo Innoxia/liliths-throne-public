@@ -18,7 +18,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionary;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionarySealed;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMCultistKneeling;
@@ -425,7 +424,7 @@ public class CultistDialogue {
 						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", colour, false));
 						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", colour, PresetColour.CLOTHING_GOLD, colour, false));
 						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", colour, PresetColour.CLOTHING_GOLD, colour, false));
-						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
+						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon("innoxia_cleaning_witch_broom"));
 					}
 				};
 			
@@ -768,7 +767,7 @@ public class CultistDialogue {
 						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", PresetColour.CLOTHING_BLACK, false));
 						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_BLACK, false));
 						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
+						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon("innoxia_cleaning_witch_broom"));
 					}
 				};
 				
@@ -808,7 +807,7 @@ public class CultistDialogue {
 						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_dress", PresetColour.CLOTHING_BLACK, false));
 						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_BLACK, false));
 						Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing("innoxia_witch_witch_hat_wide", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_BLACK, false));
-						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WITCH_BROOM));
+						Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon("innoxia_cleaning_witch_broom"));
 					}
 				};
 				

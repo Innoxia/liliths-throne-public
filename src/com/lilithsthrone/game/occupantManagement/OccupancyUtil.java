@@ -566,7 +566,7 @@ public class OccupancyUtil implements XMLSaving {
 						}
 						if(slave.hasPenisIgnoreDildo() && slave.getPenisRawStoredCumValue()>0 && !slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_CUM_DISABLE)) {
 							int milked = MilkingRoom.getActualCumPerHour(slave);
-	
+							
 							if(milked>0) {
 								if(slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_CUM_AUTO_SELL)) {
 									income += Math.max(1, (int) (milked * slave.getCum().getValuePerMl()));
@@ -576,6 +576,8 @@ public class OccupancyUtil implements XMLSaving {
 									room.incrementFluidStored(new FluidStored(slave, slave.getCum(), milked), milked);
 									milkingStored.add("[style.colourCum("+ Units.fluid(milked) +")] [npc.cum] stored.");
 								}
+								slave.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
+								slave.setLastTimeOrgasmed(((Main.game.getDayNumber()*24)+hour)*60);
 							}
 						}
 						if(slave.hasVagina() && !slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {
@@ -590,6 +592,8 @@ public class OccupancyUtil implements XMLSaving {
 									room.incrementFluidStored(new FluidStored(slave.getId(), slave.getGirlcum(), milked), milked);
 									milkingStored.add("[style.colourGirlCum("+ Units.fluid(milked) +")] [npc.girlcum] stored.");
 								}
+								slave.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
+								slave.setLastTimeOrgasmed(((Main.game.getDayNumber()*24)+hour)*60);
 							}
 						}
 						generatedIncome += income;

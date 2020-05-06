@@ -47,13 +47,13 @@
 		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] crude shield away.]]></unequipText>
 		
 		<!-- The file name of this weapon's image when in the character's inventory. The only supported file type is .svg. I use the free program "Inkscape" to make .svg images for the game. -->
-		<imageName>crude_shield.svg</imageName> 
+		<imageName>crude_wooden.svg</imageName> 
 		
 		<!-- The file name of this weapon's image when equipped. Can be (and usually is) the same as the imageName (which in this example would be "dagger_sheathed.svg"). -->
-		<imageEquippedName>crude_shield.svg</imageEquippedName>
+		<imageEquippedName>crude_wooden.svg</imageEquippedName>
 		
 		<!-- How much natural physical resistance this weapon provides when equipped. Should only really be above 0 for shields or other such protective weapons. -->
-		<physicalResistance>0.5</physicalResistance> 
+		<physicalResistance>2</physicalResistance> 
 		
 		<!-- The base damage that this weapon deals. -->
 		<damage>6</damage> 

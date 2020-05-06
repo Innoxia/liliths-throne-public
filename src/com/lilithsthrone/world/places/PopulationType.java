@@ -4,7 +4,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.12
- * @version 0.3.7
+ * @version 0.3.7.5
  * @author Innoxia
  */
 public enum PopulationType {
@@ -53,6 +53,8 @@ public enum PopulationType {
 	SLAVE("slave", "slaves"),
 	
 	OFFICE_WORKER("office worker", "office workers"),
+	
+	RECEPTIONIST("receptionist", "receptionists"),
 
 	GANG_MEMBER("gang member", "gang members");
 

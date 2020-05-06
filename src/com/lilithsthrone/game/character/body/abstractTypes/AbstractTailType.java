@@ -146,7 +146,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	
 	@Override
 	public boolean isDefaultPlural() {
-		return true;
+		return false;
 	}
 	
 	@Override

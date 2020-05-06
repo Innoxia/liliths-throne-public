@@ -422,7 +422,7 @@ public class Axel extends NPC {
 				
 			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelClothingWhore)) {
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_head_headband", PresetColour.CLOTHING_BLACK, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PURPLE, null, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_eye_aviators", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PURPLE, null, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_neck_heart_necklace", PresetColour.CLOTHING_GOLD, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, PresetColour.CLOTHING_BLACK, false), true, this);
 				this.isAbleToBeDisplaced(this.getClothingInSlot(InventorySlot.TORSO_OVER), DisplacementType.UNZIPS, true, true, this);

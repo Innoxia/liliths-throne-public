@@ -3887,6 +3887,46 @@ public class ItemType {
 							+ " Breathing in, you inhale the smoke that's produced from the burning plant matter, before exhaling and creating a small white cloud in front of your face.");
 		}
 	};
+
+	public static AbstractItemType MAKEUP_SET = new AbstractItemType(5000,
+			"an",
+			false,
+			"arcane makeup set",
+			"arcane makeup set",
+			"A highly sought-after compact makeup set."
+				+ " The cosmetics contained within have been enchanted in such a way as to enable the user to change their colour at will."
+				+ " Even more impressively, no matter how much they're used, the makeup never expires.",
+			"makeupSet",
+			PresetColour.CLOTHING_BLACK,
+			PresetColour.CLOTHING_BLACK,
+			PresetColour.CLOTHING_BLACK,
+			Rarity.EPIC,
+			null,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.MAKEUP_SET)),
+			Util.newArrayListOfValues(
+					ItemTag.SOLD_BY_RALPH,
+					ItemTag.SOLD_BY_KATE)) {
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return false;
+		}
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
+			return false;
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		@Override
+		public String getUseName() {
+			return "use";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "";
+		}
+	};
 	
 	public static AbstractItemType PRESENT = new AbstractItemType(250,
 			"a",

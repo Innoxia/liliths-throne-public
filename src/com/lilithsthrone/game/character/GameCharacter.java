@@ -249,6 +249,7 @@ import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.CachedImage;
 import com.lilithsthrone.rendering.ImageCache;
 import com.lilithsthrone.rendering.SVGImages;
+import com.lilithsthrone.utils.SizedStack;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -335,6 +336,7 @@ public abstract class GameCharacter implements XMLSaving {
 	private List<Outfit> savedOutfits;
 	private Map<InventorySlot, Scar> scars;
 	private Map<InventorySlot, Tattoo> tattoos;
+	private Map<InventorySlot, SizedStack<Covering>> lipstickMarks;
 	/** Clothing which has been temporarily unequipped as part of a scene which requires this character to be naked. */
 	private Map<InventorySlot, AbstractClothing> holdingClothing;
 	
@@ -485,6 +487,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(birthday==null) {
 			setBirthday(Main.game.getDateNow());
+			
 		} else {
 			this.setBirthday(birthday);
 		}
@@ -536,7 +539,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		motherId = "";
 		fatherId = "";
-		conceptionDate = this.birthday.minusDays(280);
+		conceptionDate = this.birthday.minusDays(this.isPlayer()?280:60);
 		
 		experience = 0;
 
@@ -550,6 +553,8 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		scars = new HashMap<>();
 		tattoos = new HashMap<>();
+		lipstickMarks = new HashMap<>();
+		
 		holdingClothing = new HashMap<>();
 
 		shields = new EnumMap<>(DamageType.class);
@@ -675,11 +680,8 @@ public abstract class GameCharacter implements XMLSaving {
 			calculateStatusEffects(0);
 			
 			initPerkTreeAndBackgroundPerks();
-			
-			// Default moves
-			equipBasicCombatMoves();
 		}
-		
+
 		artworkList = new ArrayList<>();
 		if(isUnique()) {
 			loadImages();
@@ -851,24 +853,42 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		// ************** Markings **************//
 		
-		Element scarsElement = doc.createElement("scars");
-		properties.appendChild(scarsElement);
-		for(Entry<InventorySlot, Scar> scar : this.scars.entrySet()) {
-			Element element = doc.createElement("scarEntry");
-			scarsElement.appendChild(element);
-
-			CharacterUtils.addAttribute(doc, element, "slot", scar.getKey().toString());
-			scar.getValue().saveAsXML(element, doc);
+		if(!this.scars.isEmpty()) {
+			Element scarsElement = doc.createElement("scars");
+			properties.appendChild(scarsElement);
+			for(Entry<InventorySlot, Scar> scar : this.scars.entrySet()) {
+				Element element = doc.createElement("scarEntry");
+				scarsElement.appendChild(element);
+	
+				CharacterUtils.addAttribute(doc, element, "slot", scar.getKey().toString());
+				scar.getValue().saveAsXML(element, doc);
+			}
 		}
-		
-		Element tattooElement = doc.createElement("tattoos");
-		properties.appendChild(tattooElement);
-		for(Entry<InventorySlot, Tattoo> tattoo : this.tattoos.entrySet()) {
-			Element element = doc.createElement("tattooEntry");
-			tattooElement.appendChild(element);
 
-			CharacterUtils.addAttribute(doc, element, "slot", tattoo.getKey().toString());
-			tattoo.getValue().saveAsXML(element, doc);
+		if(!this.tattoos.isEmpty()) {
+			Element tattooElement = doc.createElement("tattoos");
+			properties.appendChild(tattooElement);
+			for(Entry<InventorySlot, Tattoo> tattoo : this.tattoos.entrySet()) {
+				Element element = doc.createElement("tattooEntry");
+				tattooElement.appendChild(element);
+	
+				CharacterUtils.addAttribute(doc, element, "slot", tattoo.getKey().toString());
+				tattoo.getValue().saveAsXML(element, doc);
+			}
+		}
+
+		if(!this.lipstickMarks.isEmpty()) {
+			Element lipstickMarksElement = doc.createElement("lipstickMarks");
+			properties.appendChild(lipstickMarksElement);
+			for(Entry<InventorySlot, SizedStack<Covering>> lipstickEntry : this.lipstickMarks.entrySet()) {
+				Element element = doc.createElement("lipstickEntry");
+				lipstickMarksElement.appendChild(element);
+				CharacterUtils.addAttribute(doc, element, "slot", lipstickEntry.getKey().toString());
+				
+				for(Covering covering : lipstickEntry.getValue()) {
+					covering.saveAsXML(element, doc);
+				}
+			}
 		}
 		
 		
@@ -1431,6 +1451,7 @@ public abstract class GameCharacter implements XMLSaving {
 			int year = Integer.valueOf(((Element)element.getElementsByTagName("yearOfBirth").item(0)).getAttribute("value"));
 			
 			character.setBirthday(LocalDateTime.of(year, month, day, 12, 0));
+			
 		} catch(Exception ex) {
 		}
 		
@@ -2011,6 +2032,22 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
+
+		nodes = parentElement.getElementsByTagName("lipstickMarks");
+		Element lipstickMarksElement = (Element) nodes.item(0);
+		if(lipstickMarksElement!=null) {
+			NodeList lipstickEntries = lipstickMarksElement.getElementsByTagName("lipstickEntry");
+			for(int i=0; i<lipstickEntries.getLength(); i++){
+				Element e = ((Element)lipstickEntries.item(i));
+				
+				InventorySlot slot = InventorySlot.valueOf(e.getAttribute("slot"));
+				
+				NodeList coveringEntries = e.getElementsByTagName("covering");
+				for(int ic=0; ic<coveringEntries.getLength(); ic++){ // It doesn't really matter too much about the order of lipsticks in the stack, as the ordering is only really important during sex.
+					character.addLipstickMarking(null, slot, Covering.loadFromXML(log, ((Element)coveringEntries.item(ic)), doc));
+				}
+			}
+		}
 		
 		
 		// ************** Attributes **************//
@@ -2375,6 +2412,15 @@ public abstract class GameCharacter implements XMLSaving {
 				int year = Integer.valueOf(((Element)familyElement.getElementsByTagName("yearOfConception").item(0)).getAttribute("value"));
 				
 				character.setConceptionDate(LocalDateTime.of(year, month, day, 12, 0));
+				
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.4")) { //Birthdays prior to v0.3.7.4 are loaded based on conception date, as a bug introduced in v0.3.7.3 caused birthdays to regress by 18 years:
+					if(year+18<=Main.game.getDateNow().getYear()) {
+						character.setBirthday(LocalDateTime.of(year+18, character.getBirthMonth(), character.getDayOfBirth(), 12, 0));
+						character.setConceptionDate(LocalDateTime.of(year+18, character.getBirthMonth(), character.getDayOfBirth(), 12, 0).minusDays(15+Util.random.nextInt(30)));
+					} else {
+						character.setBirthday(LocalDateTime.of(year, character.getBirthMonth(), character.getDayOfBirth(), 12, 0));
+					}
+				}
 				
 			} catch(Exception ex) {
 			}
@@ -3576,11 +3622,6 @@ public abstract class GameCharacter implements XMLSaving {
 		sexualOrientation = startingRace.getSexualOrientation(gender);
 		
 		initPerkTreeAndBackgroundPerks();
-		
-		// Default moves
-		equipBasicCombatMoves();
-		
-//		calculateStatusEffects(0);
 	}
 	
 	/**
@@ -3827,23 +3868,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public LocalDateTime getBirthday() {
-		if(Main.game.isInNewWorld() && !this.isPlayer()) {
-			return birthday.plusYears(MINIMUM_AGE);
-		}
 		return birthday;
 	}
 
 	public void setBirthday(LocalDateTime birthday) {
 		this.birthday = birthday;
-		
-		long age = ChronoUnit.YEARS.between(birthday, Main.game.getDateNow());
-		if(age<MINIMUM_AGE) {
-			this.birthday = (this.birthday.minusYears(MINIMUM_AGE-age));
-		}
-		
-		if(this.isPlayer() && age>50) {
-			this.birthday = this.birthday.plusYears(age-50);
-		}
 	}
 
 	public AgeCategory getAppearsAsAge() {
@@ -3860,12 +3889,11 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public int getAgeValue() {
 		int age = (int) ChronoUnit.YEARS.between(birthday, Main.game.getDateNow());
-		
-		if(birthday.getYear()>=Main.game.getStartingDate().getYear()) {
+		if(this.isPlayer()) {
+			return age;
+		} else { // All non-player characters start as 18.
 			return MINIMUM_AGE + age;
 		}
-		
-		return Math.max(MINIMUM_AGE, age);
 	}
 	
 	public int getAgeAppearanceDifference() {
@@ -4992,8 +5020,8 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public final Value<Boolean, String> getSexAvailabilityBasedOnLocation() {
-		if(this.getWorldLocation().isCompanionSexBlocked(getMainCompanion())) {
-			return new Value<>(false, this.getWorldLocation().getCompanionSexBlockedReason(this.getMainCompanion()));
+		if(this.getWorldLocation().isSexBlocked(this)) {
+			return new Value<>(false, this.getWorldLocation().getSexBlockedReason(this));
 		}
 
 		//TODO move to PlaceType
@@ -6700,21 +6728,34 @@ public abstract class GameCharacter implements XMLSaving {
 		return Main.game.getMinutesPassed()-getLastTimeHadSex();
 	}
 	
+	/**
+	 * @return A value <b>in minutes</b> for when this character last had sex.
+	 */
 	public long getLastTimeHadSex() {
 		return lastTimeHadSex;
 	}
-	
+
+	/**
+	 * @param lastTimeHadSex A value <b>in minutes</b> for when this character last had sex.
+	 * @param orgasmed true if this sex included an orgasm.
+	 */
 	public void setLastTimeHadSex(long lastTimeHadSex, boolean orgasmed) {
 		this.lastTimeHadSex = lastTimeHadSex;
 		if(orgasmed) {
 			setLastTimeOrgasmed(lastTimeHadSex);
 		}
 	}
-	
+
+	/**
+	 * @return A value <b>in minutes</b> for when this character last orgasmed.
+	 */
 	public long getLastTimeOrgasmed() {
 		return lastTimeOrgasmed;
 	}
-	
+
+	/**
+	 * param lastTimeOrgasmed A value <b>in minutes</b> for when this character last orgasmed.
+	 */
 	public void setLastTimeOrgasmed(long lastTimeOrgasmed) {
 		this.lastTimeOrgasmed = lastTimeOrgasmed;
 	}
@@ -6959,7 +7000,7 @@ public abstract class GameCharacter implements XMLSaving {
 					partnerCondom = partnerPresent && partner.isWearingCondom();
 					if(performingArea.isOrifice() && ((SexAreaOrifice)performingArea).isInternalOrifice()) {
 						if(partnerPresent) {
-							if(partner.isPenisVirgin()) {
+							if(partner.isPenisVirgin() && partner.hasPenisIgnoreDildo()) {
 								partner.setVirginityLoss(partnerSexType, this, this.getLostVirginityDescriptor());
 								partner.setPenisVirgin(false);
 								if(descriptionNeeded) {
@@ -7416,7 +7457,7 @@ public abstract class GameCharacter implements XMLSaving {
 					thisCummed = this.hasPenisIgnoreDildo() && this.getPenisRawCumStorageValue()>0 && includesOrgasm;
 					thisCondom = this.isWearingCondom();
 					if(targetedArea.isOrifice() && ((SexAreaOrifice)targetedArea).isInternalOrifice()) {
-						if(this.isPenisVirgin()) {
+						if(this.isPenisVirgin() && this.hasPenisIgnoreDildo()) {
 							this.setPenisVirgin(false);
 							if(descriptionNeeded) {
 								sexDescriptionSB.append(UtilText.parse(this, "<p class='centre noPad'>[style.italicsTerrible([npc.Name] lost [npc.her] penile virginity!)]</p>"));
@@ -8555,10 +8596,14 @@ public abstract class GameCharacter implements XMLSaving {
 		return this.isPlayer() || (Main.game.isInSex() && Main.sex.isDom(this));
 	}
 	
+	/**
+	 * @param target The target to be level drained.
+	 * @return true if the target is not this character's slave or companion.
+	 */
 	public boolean isWantingToLevelDrain(GameCharacter target) {
 		return (!target.isSlave() || !target.getOwner().equals(this))
-					&& (!this.isPlayer() || !Main.game.getPlayer().getFriendlyOccupants().contains(target.getId()))
-//					&& !target.getCompanions().contains(this) // Allow followers to drain leader
+//					&& (!this.isPlayer() || !Main.game.getPlayer().getFriendlyOccupants().contains(target.getId()))
+					&& !target.getCompanions().contains(this)
 					&& !this.getCompanions().contains(target);
 	}
 	
@@ -17299,8 +17344,8 @@ public abstract class GameCharacter implements XMLSaving {
 			this.drainTotalFluidsStored(SexAreaOrifice.VAGINA, this.getTotalFluidInArea(SexAreaOrifice.VAGINA));
 			this.drainTotalFluidsStored(SexAreaOrifice.URETHRA_VAGINA, this.getTotalFluidInArea(SexAreaOrifice.URETHRA_VAGINA));
 			
-			this.removeDirtySlot(InventorySlot.VAGINA);
-			this.removeDirtySlot(InventorySlot.PIERCING_VAGINA);
+			this.removeDirtySlot(InventorySlot.VAGINA, true);
+			this.removeDirtySlot(InventorySlot.PIERCING_VAGINA, true);
 			
 			Litter birthedLitter = pregnantLitter;
 
@@ -19287,7 +19332,11 @@ public abstract class GameCharacter implements XMLSaving {
 		for(NPC npc : Main.game.getAllNPCs()) {
 			npc.removeFromUnlockKeyMap(this.getId(), slot);
 		}
-		Main.game.getPlayer().removeFromUnlockKeyMap(this.getId(), slot);
+		if(Main.game.getPlayer()!=null) {
+			Main.game.getPlayer().removeFromUnlockKeyMap(this.getId(), slot);
+		} else {
+			System.err.println("Warning: Sealed clothing '"+clothing.getName()+"' did not have associated unlock key removed from player key mappings.");
+		}
 		
 		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(this)) {
 			if(clothing.getItemTags().contains(ItemTag.DILDO_OTHER)) {
@@ -20226,7 +20275,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean isDirtySlot(InventorySlot slot) {
 		if(!slot.isPhysicallyAvailable(this)) {
-			removeDirtySlot(slot);
+			removeDirtySlot(slot, true);
 		}
 		return inventory.isDirtySlot(slot);
 	}
@@ -20238,12 +20287,18 @@ public abstract class GameCharacter implements XMLSaving {
 		return false;
 	}
 	
-	public boolean removeDirtySlot(InventorySlot slot) {
+	public boolean removeDirtySlot(InventorySlot slot, boolean includeLipstickMarkings) {
+		if(includeLipstickMarkings) {
+			this.clearLipstickMarkings(slot);
+		}
 		return inventory.removeDirtySlot(slot);
 	}
 
-	public void cleanAllDirtySlots() {
+	public void cleanAllDirtySlots(boolean includeLipstickMarkings) {
 		inventory.cleanAllDirtySlots();
+		if(includeLipstickMarkings) {
+			this.clearAllLipstickMarkings();
+		}
 	}
 
 	// Sex toys:
@@ -21121,10 +21176,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	/**
-	 * Elementals, demons, and slimes can't have their race transformed.
+	 * Elementals, demons, angels, and slimes can't have their race transformed.
 	 */
-	public boolean isAbleToHaveRaceTransformed() {
+	public boolean isAbleToHaveRaceTransformed() { //TODO move into Race
 		return !(this.isElemental())
+				&& this.getRace()!=Race.ANGEL
 				&& this.getRace()!=Race.DEMON
 				&& this.getRace()!=Race.SLIME;
 	}
@@ -21315,7 +21371,7 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getRaceStage();
 	}
 
-	// Tattoos and markings:
+	// Tattoos, scars, and lipstick markings:
 	
 	public void clearTattoosAndScars() {
 		for(InventorySlot slot : InventorySlot.values()) {
@@ -21340,6 +21396,62 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return null;
 	}
+
+	/**
+	 * Add a lipstick marking to this character's inventory slot. <b>Only adds the covering if this covering is not already present in this slot!</b>
+	 * @param partner The person who is applying this lipstick via kissing. Only used for the returned description.
+	 */
+	public String addLipstickMarking(GameCharacter partner, InventorySlot invSlot, Covering covering) {
+		lipstickMarks.putIfAbsent(invSlot, new SizedStack<>(3));
+		
+		Covering lipstickToAdd = new Covering(covering);
+		
+		if(!lipstickMarks.get(invSlot).contains(lipstickToAdd)) {
+			lipstickMarks.get(invSlot).push(lipstickToAdd);
+			if(partner!=null) {
+				if(partner.equals(this)) {
+					return UtilText.parse(this, partner,
+							"<p style='text-align:center;'><i>"
+								+ "[npc.NamePos] "+invSlot.getNameOfAssociatedPart(this)+" "+(invSlot.isPlural()?"are":"is")+" [style.italicsPinkDeep(marked)] by [npc.her] "+lipstickToAdd.getFullDescription(partner, true)+"!"
+							+ "</i></p>");
+					
+				} else {
+					return UtilText.parse(this, partner,
+							"<p style='text-align:center;'><i>"
+								+ "[npc.NamePos] "+invSlot.getNameOfAssociatedPart(this)+" "+(invSlot.isPlural()?"are":"is")+" [style.italicsPinkDeep(marked)] by [npc2.namePos] "+lipstickToAdd.getFullDescription(partner, true)+"!"
+							+ "</i></p>");
+				}
+			}
+		}
+		return "";
+	}
+
+	/**
+	 * Removes all lipstickMarkings in this slot.
+	 */
+	public void clearLipstickMarkings(InventorySlot invSlot) {
+		lipstickMarks.remove(invSlot);
+	}
+
+	/**
+	 * Clears <b>all lipstickMarkings</b> from this character.
+	 */
+	public void clearAllLipstickMarkings() {
+		lipstickMarks.clear();
+	}
+	
+	/**
+	 * @param invSlot The InventorySlot to check for lipstick markings.
+	 * @return A SizedStack of length 3. <b>Returns null if there are no lipstick markings in this slot!</b>
+	 */
+	public SizedStack<Covering> getLipstickMarkingsInSlot(InventorySlot invSlot) {
+		if(lipstickMarks.containsKey(invSlot)) {
+			return lipstickMarks.get(invSlot);
+		}
+		return null;
+	}
+	
+	
 	
 	/**
 	 * DO NOT MODIFY!
@@ -25004,6 +25116,18 @@ public abstract class GameCharacter implements XMLSaving {
 	public String getSkinPronoun() {
 		return body.getSkin().getType().getPronoun();
 	}
+	public Set<BodyCoveringType> getHeavyMakeup() {
+		return body.getHeavyMakeup();
+	}
+	public boolean isHeavyMakeup(BodyCoveringType type) {
+		return body.isHeavyMakeup(type);
+	}
+	public void addHeavyMakeup(BodyCoveringType type) {
+		body.addHeavyMakeup(type);
+	}
+	public boolean removeHeavyMakeup(BodyCoveringType type) {
+		return body.removeHeavyMakeup(type);
+	}
 	public BodyCoveringType getCovering(BodyPartInterface bodyPart) {
 		return bodyPart.getBodyCoveringType(this);
 	}
@@ -25195,6 +25319,7 @@ public abstract class GameCharacter implements XMLSaving {
 				case STONE:
 				case TONGUE:
 				case WATER:
+				case WING_LEATHER:
 					return body.getCoverings().get(BodyCoveringType.SLIME);
 			}
 		}

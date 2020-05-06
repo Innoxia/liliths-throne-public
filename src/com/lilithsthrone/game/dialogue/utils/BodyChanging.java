@@ -90,6 +90,9 @@ public class BodyChanging {
 	
 	private static Response getBodyChangingResponse(int responseTab, int index) {
 		if(index==1) {
+			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_CORE) {
+				return new Response("Core", "You are already in this screen!", null);
+			}
 			return new Response("Core",
 					getTarget().isPlayer()
 						?"Change core aspects of your body."
@@ -97,6 +100,9 @@ public class BodyChanging {
 					BODY_CHANGING_CORE);
 			
 		} else if(index==2) {
+			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_FACE) {
+				return new Response("Head", "You are already in this screen!", null);
+			}
 			return new Response("Head", 
 					getTarget().isPlayer()
 						?"Change aspects of your face and hair."
@@ -104,6 +110,9 @@ public class BodyChanging {
 					BODY_CHANGING_FACE);
 			
 		} else if(index==3) {
+			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_ASS) {
+				return new Response("Ass", "You are already in this screen!", null);
+			}
 			return new Response("Ass",
 					getTarget().isPlayer()
 						?"Change aspects of your ass."
@@ -111,6 +120,9 @@ public class BodyChanging {
 					BODY_CHANGING_ASS);
 			
 		} else if(index==4) {
+			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_BREASTS) {
+				return new Response("Breasts", "You are already in this screen!", null);
+			}
 			return new Response("Breasts",
 					getTarget().isPlayer()
 						?"Change aspects of your breasts."
@@ -118,6 +130,9 @@ public class BodyChanging {
 					BODY_CHANGING_BREASTS);
 			
 		} else if(index==5) {
+			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_VAGINA) {
+				return new Response("Vagina", "You are already in this screen!", null);
+			}
 			return new Response("Vagina", 
 					getTarget().isPlayer()
 						?"Change aspects of your vagina."
@@ -125,6 +140,9 @@ public class BodyChanging {
 						BODY_CHANGING_VAGINA);
 			
 		} else if(index==6) {
+			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_PENIS) {
+				return new Response("Penis", "You are already in this screen!", null);
+			}
 			return new Response("Penis", 
 					getTarget().isPlayer()
 						?"Change aspects of your penis."
@@ -132,6 +150,9 @@ public class BodyChanging {
 						BODY_CHANGING_PENIS);
 			
 		} else if(index==7 && (Main.getProperties().udders!=0 || debugMenu)) {
+			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_BREASTS_CROTCH) {
+				return new Response(BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs", "You are already in this screen!", null);
+			}
 			if(debugMenu) {
 				if(Main.getProperties().udders==0) {
 					return new Response(
@@ -168,7 +189,15 @@ public class BodyChanging {
 					UtilText.parse(getTarget(), "Change aspects of [npc.namePos] [npc.crotchBoobs]."),
 					BODY_CHANGING_BREASTS_CROTCH);
 			
-		} else if(index==0) {
+		} else if(index==8 && debugMenu) {
+			if(Main.game.getCurrentDialogueNode()==BODY_CHANGING_MAKEUP) {
+				return new Response("Makeup", "You are already in this screen!", null);
+			}
+			return new Response("Makeup", 
+					UtilText.parse(getTarget(), "Change aspects of [npc.namePos] makeup."),
+					BODY_CHANGING_MAKEUP);
+			
+		}  else if(index==0) {
 			if(debugMenu) {
 				return new Response("Back", "Return to the previous screen.", DebugDialogue.DEBUG_MENU);
 				
@@ -622,12 +651,7 @@ public class BodyChanging {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Core", "You are already in this screen!", null);
-				
-			} else {
-				return getBodyChangingResponse(responseTab, index);
-			}
+			return getBodyChangingResponse(responseTab, index);
 		}
 
 		@Override
@@ -1057,12 +1081,7 @@ public class BodyChanging {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==2) {
-				return new Response("Head", "You are already in this screen!", null);
-				
-			} else {
-				return getBodyChangingResponse(responseTab, index);
-			}
+			return getBodyChangingResponse(responseTab, index);
 		}
 
 		@Override
@@ -1161,12 +1180,7 @@ public class BodyChanging {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==3) {
-				return new Response("Ass", "You are already in this screen!", null);
-				
-			} else {
-				return getBodyChangingResponse(responseTab, index);
-			}
+			return getBodyChangingResponse(responseTab, index);
 		}
 
 		@Override
@@ -1237,12 +1251,7 @@ public class BodyChanging {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==4) {
-				return new Response("Breasts", "You are already in this screen!", null);
-				
-			} else {
-				return getBodyChangingResponse(responseTab, index);
-			}
+			return getBodyChangingResponse(responseTab, index);
 		}
 
 		@Override
@@ -1333,12 +1342,7 @@ public class BodyChanging {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==5) {
-				return new Response("Vagina", "You are already in this screen!", null);
-				
-			} else {
-				return getBodyChangingResponse(responseTab, index);
-			}
+			return getBodyChangingResponse(responseTab, index);
 		}
 
 		@Override
@@ -1424,12 +1428,7 @@ public class BodyChanging {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==6) {
-				return new Response("Penis", "You are already in this screen!", null);
-				
-			} else {
-				return getBodyChangingResponse(responseTab, index);
-			}
+			return getBodyChangingResponse(responseTab, index);
 		}
 
 		@Override
@@ -1502,12 +1501,48 @@ public class BodyChanging {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==7) {
-				return new Response(BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs", "You are already in this screen!", null);
-				
-			} else {
-				return getBodyChangingResponse(responseTab, index);
-			}
+			return getBodyChangingResponse(responseTab, index);
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.PHONE;
+		}
+	};
+	
+	public static final DialogueNode BODY_CHANGING_MAKEUP = new DialogueNode("Makeup", "", true) {
+		
+		@Override
+		public String getHeaderContent() {
+			return getSelfTransformDescription("makeup")
+							
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
+					
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, true);
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return getBodyChangingResponse(responseTab, index);
 		}
 
 		@Override

@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.main.Main;
 
 /**
@@ -35,6 +36,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.PENIS;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.PENIS;
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -707,6 +712,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return CoverableArea.VAGINA;
 		}
 		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.VAGINA;
+		}
+		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
 			if(performer==target) {
@@ -1180,6 +1189,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return CoverableArea.MOUTH;
 		}
 		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.MOUTH;
+		}
+		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
 			if(performer==target) {
@@ -1471,6 +1484,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.NONE;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.FINGER;
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -1773,6 +1790,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 			return CoverableArea.FEET;
 		}
 		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.FOOT;
+		}
+		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
 			if(performer==target) {
@@ -1877,10 +1898,13 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public boolean isFree(GameCharacter owner) {
 			return Main.sex.isPenetrationTypeFree(owner, this);
 		}
-
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.NONE;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.TAIL;
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
@@ -2232,6 +2256,10 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		@Override
 		public CoverableArea getRelatedCoverableArea() {
 			return CoverableArea.NONE;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot() {
+			return InventorySlot.TORSO_UNDER; //TODO
 		}
 		@Override
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {

@@ -116,7 +116,11 @@ public class InventoryDialogue {
 		
 		for(AbstractClothing c : zlayerClothing) { 
 			if(!Main.game.isInSex() || !c.getSlotEquippedTo().isJewellery()) {
-				character.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+				if(Main.game.isInNewWorld()) {
+					character.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+				} else {
+					character.unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+				}
 				sb.append("<p style='text-align:center;'>"+character.getUnequipDescription()+"</p>");
 			}
 		}
@@ -1124,19 +1128,7 @@ public class InventoryDialogue {
 									
 								} else {
 									if(item.isBreakOutOfInventory()) {
-										return new ResponseEffectsOnly(
-												Util.capitaliseSentence(item.getItemType().getUseName()) +" all (Self)",
-												item.getItemType().getUseTooltipDescription(owner, owner)
-													+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in your inventory.)]"){
-											@Override
-											public void effects(){
-												int itemCount = Main.game.getPlayer().getItemCount(item);
-												for(int i=0;i<itemCount;i++) {
-													Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false);
-												}
-												resetPostAction();
-											}
-										};
+										return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)", "As this item has special effects, you can only use one at a time!", null);
 									}
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)",
@@ -1394,19 +1386,7 @@ public class InventoryDialogue {
 									
 								} else {
 									if(item.isBreakOutOfInventory()) {
-										return new ResponseEffectsOnly(
-											Util.capitaliseSentence(item.getItemType().getUseName()) +" (Self)",
-											item.getItemType().getUseTooltipDescription(owner, owner)
-												+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in your inventory.)]"){
-											@Override
-											public void effects(){
-												int itemCount = Main.game.getPlayer().getItemCount(item);
-												for(int i=0;i<itemCount;i++) {
-													Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false);
-												}
-												resetPostAction();
-											}
-										};
+										return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)", "As this item has special effects, you can only use one at a time!", null);
 									}
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)",
@@ -1495,18 +1475,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"), item.getUnableToBeUsedDescription(inventoryNPC), null);
 									
 								} else if(item.isBreakOutOfInventory()) {
-									return new ResponseEffectsOnly(
-											Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"),
-											item.getItemType().getUseTooltipDescription(owner, owner)){
-										@Override
-										public void effects(){
-											int itemCount = Main.game.getPlayer().getItemCount(item);
-											for(int i=0;i<itemCount;i++) {
-												Main.game.getPlayer().useItem(item, inventoryNPC, false);
-											}
-											resetPostAction();
-										}
-									};
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"), "As this item has special effects, you can only use one at a time!", null);
 									
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"),
@@ -1796,18 +1765,7 @@ public class InventoryDialogue {
 									
 								} else {
 									if(item.isBreakOutOfInventory()) {
-										return new ResponseEffectsOnly(
-												Util.capitaliseSentence(item.getItemType().getUseName()) +" (Self)",
-												item.getItemType().getUseTooltipDescription(owner, owner)){
-											@Override
-											public void effects(){
-												int itemCount = Main.game.getPlayer().getItemCount(item);
-												for(int i=0;i<itemCount;i++) {
-													Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false);
-												}
-												resetPostAction();
-											}
-										};
+										return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)", "As this item has special effects, you can only use one at a time!", null);
 									}
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)",
@@ -1981,18 +1939,7 @@ public class InventoryDialogue {
 									
 								} else {
 									if(item.isBreakOutOfInventory()) {
-										return new ResponseEffectsOnly(
-												Util.capitaliseSentence(item.getItemType().getUseName()) +" (Self)",
-												item.getItemType().getUseTooltipDescription(owner, owner)){
-											@Override
-											public void effects(){
-												int itemCount = Main.game.getPlayerCell().getInventory().getItemCount(item);
-												for(int i=0;i<itemCount;i++) {
-													Main.game.getPlayer().useItem(item, Main.game.getPlayer(), true);
-												}
-												resetPostAction();
-											}
-										};
+										return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (Self)", "As this item has special effects, you can only use one at a time!", null);
 									}
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)",
@@ -2216,18 +2163,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"), item.getUnableToBeUsedDescription(inventoryNPC), null);
 									
 								} else if(item.isBreakOutOfInventory()) {
-									return new ResponseEffectsOnly(
-											Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"),
-											item.getItemType().getUseTooltipDescription(owner, owner)){
-										@Override
-										public void effects(){
-											int itemCount = Main.game.getPlayer().getItemCount(item);
-											for(int i=0;i<itemCount;i++) {
-												Main.game.getPlayer().useItem(item, inventoryNPC, false);
-											}
-											resetPostAction();
-										}
-									};
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"), "As this item has special effects, you can only use one at a time!", null);
 									
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(

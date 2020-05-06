@@ -12,12 +12,14 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -44,7 +46,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.69
- * @version 0.3.5.5
+ * @version 0.3.7.4
  * @author Innoxia
  */
 public class DominionSuccubusAttacker extends NPC {
@@ -68,10 +70,14 @@ public class DominionSuccubusAttacker extends NPC {
 			}
 			
 			CharacterUtils.randomiseBody(this, true);
+
+			CharacterUtils.setHistoryAndPersonality(this, false);
 			
 			addFetish(Fetish.FETISH_DEFLOWERING);
 			addFetish(Fetish.FETISH_DOMINANT);
 			CharacterUtils.addFetishes(this);
+
+			setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
 			
@@ -81,7 +87,7 @@ public class DominionSuccubusAttacker extends NPC {
 			this.setNippleVirgin(false);
 			this.setPenisVirgin(false);
 			
-			setLevel(Util.random.nextInt(3) + 4);
+			setLevel(Util.random.nextInt(5) + 4);
 			
 			setName(Name.getRandomTriplet(Race.DEMON));
 			this.setPlayerKnowsName(false);
@@ -134,7 +140,7 @@ public class DominionSuccubusAttacker extends NPC {
 		this.clearNonEquippedInventory(false);
 		CharacterUtils.generateItemsInInventory(this);
 		
-		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
+		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 	}
 	
 	@Override
@@ -183,26 +189,35 @@ public class DominionSuccubusAttacker extends NPC {
 		return AlleywayDemonDialogue.DEMON_ATTACK;
 	}
 
+	@Override
+	public boolean isAffectionHighEnoughToInviteHome() {
+		if(this.isRelatedTo(Main.game.getPlayer())) {
+			return this.getAffection(Main.game.getPlayer())>=AffectionLevel.POSITIVE_TWO_LIKE.getMinimumValue();
+		} else {
+			return this.getAffection(Main.game.getPlayer())>=AffectionLevel.POSITIVE_FOUR_LOVE.getMinimumValue();
+		}
+	}
+
 	// Combat:
 
 	@Override
 	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
-		if(this.isSlave()) {
-			return super.getMainAttackDescription(armRow, target, isHit);
+		if(!this.isSlave() && this.getMainWeapon(0)==null) {
+			if(this.isFeminine()) {
+				return UtilText.parse(this, target,
+						UtilText.returnStringAtRandom(
+								"[npc.Name] looks annoyed that [npc2.nameIs] trying to put up a fight, and leaps forwards to deliver a stinging slap across [npc2.her] face.",
+								"With an angry little click of her tongue, [npc.Name] slaps [npc2.name] across the face.",
+								"With a frustrated whine, [npc.Name] kicks out at [npc2.namePos] shins."));
+			} else {
+				return UtilText.parse(this, target,
+						UtilText.returnStringAtRandom(
+								"[npc.Name] looks annoyed that [npc2.nameIs] trying to put up a fight, and leaps forwards to deliver a solid punch to [npc2.her] [npc2.arm].",
+								"With an angry shout, [npc.Name] darts forwards and punches [npc2.name] right in the chest!",
+								"With a frustrated cry, [npc.Name] kicks out at [npc2.namePos] shins."));
+			}
 		}
-		if(this.isFeminine()) {
-			return UtilText.parse(this, target,
-					UtilText.returnStringAtRandom(
-							"[npc.Name] looks annoyed that [npc2.nameIs] trying to put up a fight, and leaps forwards to deliver a stinging slap across [npc2.her] face.",
-							"With an angry little click of her tongue, [npc.Name] slaps [npc2.name] across the face.",
-							"With a frustrated whine, [npc.Name] kicks out at [npc2.namePos] shins."));
-		} else {
-			return UtilText.parse(this, target,
-					UtilText.returnStringAtRandom(
-							"[npc.Name] looks annoyed that [npc2.nameIs] trying to put up a fight, and leaps forwards to deliver a solid punch to [npc2.her] [npc2.arm].",
-							"With an angry shout, [npc.Name] darts forwards and punches [npc2.name] right in the chest!",
-							"With a frustrated cry, [npc.Name] kicks out at [npc2.namePos] shins."));
-		}
+		return super.getMainAttackDescription(armRow, target, isHit);
 	}
 
 	@Override

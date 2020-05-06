@@ -42,13 +42,19 @@ import com.lilithsthrone.game.character.CharacterChangeEventListener;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
+import com.lilithsthrone.game.character.markings.Scar;
+import com.lilithsthrone.game.character.markings.ScarType;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
@@ -492,21 +498,18 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-//							System.out.println(Main.isVersionOlderThan("0.3.5.9", "0.3.5.10"));
-//							for(NPC npc : Main.game.getAllNPCs()) {
-//								if(npc.isUnique()) {
-//									System.out.println(npc.getNameIgnoresPlayerKnowledge()+": "+npc.getAttributeValue(Attribute.MAJOR_CORRUPTION));
-//								}
+//							for(AbstractWeaponType ct : WeaponType.getAllWeapons()) {
+//								System.out.println(ct.getName()+": "+ct.getDamage());
 //							}
-//							Main.game.getNpc(Lyssieth.class).getSubspecies();
-							
-//							Main.game.getPlayer().setInventory(Main.game.getSavedInventories().get(Main.game.getPlayer().getId()));
-//							for(SolarElevationAngle sea : SolarElevationAngle.values()) {
-//								LocalDateTime[] ldt = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), sea, Game.DOMINION_LONGITUDE, Game.DOMINION_LATITUDE);
-//								System.out.println(sea+": "+ ldt[0] + " | " + ldt[1]);
-//							}
-//							
-//							System.out.println(DateAndTime.getDayPeriod(Main.game.getDateNow(), Game.DOMINION_LONGITUDE, Game.DOMINION_LATITUDE));
+							Main.game.getPlayer().setScar(InventorySlot.HIPS, new Scar(ScarType.STRAIGHT_SCAR, false));
+							System.out.println(Main.game.getNpc(Nyan.class).addLipstickMarking(
+									Main.game.getNpc(Nyan.class), InventorySlot.FOOT, new Covering(BodyCoveringType.MAKEUP_LIPSTICK, CoveringPattern.NONE, PresetColour.COVERING_RED_DARK, false, PresetColour.COVERING_RED_DARK, true)));
+							System.out.println(Main.game.getPlayer().addLipstickMarking(
+									Main.game.getNpc(Nyan.class), InventorySlot.HIPS, new Covering(BodyCoveringType.MAKEUP_LIPSTICK, CoveringPattern.STRIPED, PresetColour.COVERING_BLUE_DARK, false, PresetColour.COVERING_BLUE, false)));
+							System.out.println(Main.game.getPlayer().addLipstickMarking(
+									Main.game.getNpc(Nyan.class), InventorySlot.PENIS, new Covering(BodyCoveringType.MAKEUP_LIPSTICK, CoveringPattern.NONE, PresetColour.COVERING_PINK, false, PresetColour.COVERING_PINK, false)));
+							System.out.println(Main.game.getPlayer().addLipstickMarking(
+									Main.game.getNpc(Nyan.class), InventorySlot.PENIS, new Covering(BodyCoveringType.MAKEUP_LIPSTICK, CoveringPattern.NONE, PresetColour.COVERING_GREEN, true, PresetColour.COVERING_GREEN, true)));
 						}
 						 
 
@@ -1424,7 +1427,7 @@ public class MainController implements Initializable {
 		String id = "TAIL_COUNT_"+i;
 		if (((EventTarget) document.getElementById(id)) != null) {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setTailCount(i, false);
+				BodyChanging.getTarget().setTailCount(i, BodyChanging.isDebugMenu());
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}

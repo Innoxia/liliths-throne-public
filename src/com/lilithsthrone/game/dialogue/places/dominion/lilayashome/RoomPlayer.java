@@ -94,7 +94,7 @@ public class RoomPlayer {
 		
 		sb.append(character.washAllOrifices(washAllOrifices));
 		character.calculateStatusEffects(0);
-		character.cleanAllDirtySlots();
+		character.cleanAllDirtySlots(true);
 		sb.append(character.cleanAllClothing(cleanAllClothing));
 
 		character.removeStatusEffect(StatusEffect.BATH);

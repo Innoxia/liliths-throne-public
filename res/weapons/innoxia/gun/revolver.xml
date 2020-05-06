@@ -2,7 +2,7 @@
 <weapon>
 	<coreAttributes>
 	
-		<value>10000</value> 
+		<value>25000</value> 
 		
 		<melee>false</melee>
 		
@@ -14,7 +14,7 @@
 		
 		<namePlural pluralByDefault="false"><![CDATA[arcane revolvers]]></namePlural> 
 		
-		<description><![CDATA[Although this revolver appears to be of the top-break variety, there's actually no way to open and reload it, as, instead of bullets, it fires concentrated arcane essences. This weapon is only seen being carried by Lyssieth's elite guards.]]></description> 
+		<description><![CDATA[Although this revolver appears to be of the top-break variety, there's actually no way to open and reload it, as instead of bullets, it fires concentrated arcane essences. This weapon is only seen being carried by Lyssieth's elite guards.]]></description> 
 		
 		<attackDescriptor>fire</attackDescriptor>
 		
@@ -32,7 +32,7 @@
 		
 		<imageEquippedName/>
 		
-		<damage>20</damage> 
+		<damage>50</damage> 
 		
 		<arcaneCost>1</arcaneCost> 
 		

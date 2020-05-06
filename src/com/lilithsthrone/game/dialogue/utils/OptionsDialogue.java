@@ -220,7 +220,7 @@ public class OptionsDialogue {
 			} else if (index == 9) {
 				return new Response("Credits", "View the game's credits screen.", CREDITS);
 				
-			} else if (index == 10) {
+			} else if (index == 11) {
 				return new ResponseEffectsOnly("Blog", "Opens the page:<br/><br/><i>https://lilithsthrone.blogspot.co.uk/</i><br/><br/><b>Externally in your default browser.</b>"){
 					@Override
 					public void effects() {
@@ -229,11 +229,20 @@ public class OptionsDialogue {
 					}
 				};
 			
-			} else if (index == 11) {
+			} else if (index == 12) {
 				return new ResponseEffectsOnly("Github", "Opens the page:<br/><br/><i>https://github.com/Innoxia/liliths-throne-public</i><br/><br/><b>Externally in your default browser.</b>"){
 					@Override
 					public void effects() {
 						Util.openLinkInDefaultBrowser("https://github.com/Innoxia/liliths-throne-public");
+						confirmNewGame=false;
+					}
+				};
+			
+			} else if (index == 13) {
+				return new ResponseEffectsOnly("Wiki", "Opens the page:<br/><br/><i>https://www.lilithsthrone.com/wiki/doku.php</i><br/><br/><b>Externally in your default browser.</b>"){
+					@Override
+					public void effects() {
+						Util.openLinkInDefaultBrowser("https://www.lilithsthrone.com/wiki/doku.php");
 						confirmNewGame=false;
 					}
 				};
@@ -1976,6 +1985,13 @@ public class OptionsDialogue {
 							"Sadistic sex",
 							"This unlocks 'sadistic' sex actions, such as choking, slapping, and spitting on partners in sex.",
 							Main.getProperties().hasValue(PropertyValue.sadisticSexContent)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
+							"LIPSTICK_MARKING",
+							PresetColour.BASE_RED_DARK,
+							"Lipstick marking",
+							"This enables lipstick marking of bodyparts via kisses during sex.",
+							Main.getProperties().hasValue(PropertyValue.lipstickMarkingContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
 							"SILLY",
@@ -2358,6 +2374,16 @@ public class OptionsDialogue {
 								Main.getProperties().penisSizePreference,
 								-20,
 								20));
+
+				UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+								"TRAP_PENIS_SIZE_PREFERENCE",
+								PresetColour.BASE_PINK_LIGHT,
+								Util.capitaliseSentence(Gender.N_P_TRAP.getName())+" penis size",
+								"The penis size of randomly-generated "+Gender.N_P_TRAP.getName()+"s. 100% represents an unaltered size. Testicle size and cum production will also be altered in proportion to this setting.",
+								(100+Main.getProperties().trapPenisSizePreference)+"%",
+								Main.getProperties().trapPenisSizePreference,
+								-90,
+								100));
 			}
 			
 			return UtilText.nodeContentSB.toString();

@@ -256,8 +256,8 @@ public class SubmissionCitadelArcanist extends NPC {
 		
 //		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, PresetColour.CLOTHING_BLACK, false), true, this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SCIENTIST_TORSO_OVER_LAB_COAT, PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_scientist_lab_coat", PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_scientist_safety_goggles", false), true, this);
 		
 		this.setPiercedEar(true);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_elemental_piercing_ear_snowflakes", PresetColour.CLOTHING_SILVER, false), true, this);

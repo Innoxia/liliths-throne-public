@@ -125,9 +125,28 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="ROMANCE_SHOP_CORE_END_DATE"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			#IF(!game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+				Telling Scarlett to step back, Helena once again teases, [helena.speech(So, [pc.name], are you here to take me out on a date? Or perhaps before we get to that, you'd like to spend some time in the back room with me?)]
+			#ELSE
+				Telling Scarlett to step back, Helena once again teases, [helena.speech(So, [pc.name], are you here to take me out on a date?)]
+			#ENDIF
+		#ELSE
+			#IF(scarlett.isLikesPlayer())
+				Letting another gentle smile settle on her beautiful face, Helena gently asks again,
+			#ELSE
+				[helena.speech(Scarlett! Behave yourself!)] Helena icily warns her companion, before letting another gentle smile settle on her beautiful face and asking,
+			#ENDIF
+			 [helena.speech(So, [pc.name], are you here to take me out on a date?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="ROMANCE_SHOP_CORE_END_CUSTOM_SLAVE_PROGRESS"><![CDATA[
 	<p>
-		Helena tells you that it will be another [#SPECIAL_PARSE_0] days until your slave is ready for collection, which will be on [#SPECIAL_PARSE_1].
 		#IF(helena.isSlutty())
 			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaScarlettThreesome) && !game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
 				Brushing one of her flawless wings up against Scarlett's body, Helena once again teases, [helena.speech(Just to remind you, [pc.name], it will be another [#SPECIAL_PARSE_0] days until your slave is ready for collection, which will be on [#SPECIAL_PARSE_1]. Perhaps you're not here about that though? Maybe you're here to spend some time in the back room with the two of us, hmm?)]
@@ -660,7 +679,7 @@
 	</htmlContent>
 	
 	<!-- Blowjob -->
-	<htmlContent tag="BLOWJOB_FIRST_TIME"><![CDATA[
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM_RECEIVE_BLOWJOB_FIRST_TIME"><![CDATA[
 	<p>
 		Thinking that you should give Helena her first experience of what it's like to suck cock, you tell her that you want her to drop to her knees and give you a blowjob. Although she's eager to engage in other lewd acts, the thought of having a cock in her mouth causes the harpy matriarch to nervously ask, [helena.speechNoEffects(Y-You really want me to... Suck your cock?)]
 	</p>
@@ -682,7 +701,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="BLOWJOB_EXPERIENCED"><![CDATA[
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM_RECEIVE_BLOWJOB_EXPERIENCED"><![CDATA[
 	<p>
 		Thinking that it would be good to get Helena to suck your cock again, you tell her that you want her to drop to her knees and give you a blowjob. Flashing you a cheeky smile as you say this, the lewd harpy matriarch blows you a wet kiss and teases, [helena.speechNoEffects(You want these lips wrapped around your cock again, hmm?)]
 	</p>

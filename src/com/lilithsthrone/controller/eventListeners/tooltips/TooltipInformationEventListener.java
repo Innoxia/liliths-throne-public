@@ -556,7 +556,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 			int yIncrease = (spell.getModifiersAsStringList().size() > 5 ? spell.getModifiersAsStringList().size() - 5 : 0);
 
-			Main.mainController.setTooltipSize(360, 332 + (yIncrease * LINE_HEIGHT));
+			Main.mainController.setTooltipSize(360, 312 + (yIncrease * LINE_HEIGHT));
 
 			// Title:
 			tooltipSB.setLength(0);
@@ -593,7 +593,11 @@ public class TooltipInformationEventListener implements EventListener {
 					"<div class='description'>"
 							+ (spell.isForbiddenSpell() && !owner.hasSpell(spell)?"[style.italicsArcane(This is a forbidden spell, and can only be discovered through a special quest!)]<br/>":"")
 							+ spell.getDescription(owner)
-					+ "</div>"
+							+ "<br/>[style.colourExcellent(Crit requirements)]: ");
+			for(String s : spell.getCritRequirements(owner, null, null, null)) {
+				tooltipSB.append(s);
+			}
+			tooltipSB.append("</div>"
 					+ "<div class='subTitle'>"
 						+ "<b style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Costs</b> <b>" + (spell.getModifiedCost(owner)) + "</b> <b style='color:" + PresetColour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura</b>"
 					+ "</div>");

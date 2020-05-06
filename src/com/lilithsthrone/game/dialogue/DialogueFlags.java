@@ -11,11 +11,15 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaConversationTopic;
+import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.DominionExpress;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -23,7 +27,10 @@ import com.lilithsthrone.utils.XMLSaving;
  * @author Innoxia
  */
 public class DialogueFlags implements XMLSaving {
-
+	
+	public static int MUGGER_DEMAND_1 = 250;
+	public static int MUGGER_DEMAND_2 = 500;
+	
 	public Set<DialogueFlagValue> values;
 	
 	public int ralphDiscount;
@@ -47,8 +54,21 @@ public class DialogueFlags implements XMLSaving {
 	// Amount of dialogue choices you can make before offspring interaction ends:
 	public int offspringDialogueTokens = 2;
 	
-	// Sets:
-
+	// Murk transformation stage tracking:
+	private int murkPlayerTfStage;
+	private int murkCompanionTfStage;
+	
+	private String slaveTrader;
+	
+	private String managementCompanion;
+	private SlaveJob slaveryManagerJobSelected;
+	
+	private Colour natalyaCollarColour;
+	private int natalyaPoints;
+	private int natalyaWages;
+	
+	// --- Sets: --- //
+	
 	private Set<String> helenaConversationTopics = new HashSet<>();
 	
 	// Reindeer event related flags:
@@ -62,15 +82,6 @@ public class DialogueFlags implements XMLSaving {
 	// Storage tiles checked:
 	public Set<Vector2i> supplierStorageRoomsChecked = new HashSet<>();
 	
-	// Murk transformation stage tracking:
-	private int murkPlayerTfStage;
-	private int murkCompanionTfStage;
-	
-	
-	private String slaveTrader;
-	
-	private String managementCompanion;
-	private SlaveJob slaveryManagerJobSelected;
 	
 	public DialogueFlags() {
 		values = new HashSet<>();
@@ -103,6 +114,10 @@ public class DialogueFlags implements XMLSaving {
 		
 		murkPlayerTfStage = 0;
 		murkCompanionTfStage = 0;
+		
+		natalyaCollarColour = PresetColour.CLOTHING_STEEL;
+		natalyaPoints = 0;
+		natalyaWages = 0;
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -130,6 +145,11 @@ public class DialogueFlags implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveryManagerSlaveSelected", managementCompanion);
+
+		CharacterUtils.createXMLElementWithValue(doc, element, "natalyaCollarColour", PresetColour.getIdFromColour(natalyaCollarColour));
+		CharacterUtils.createXMLElementWithValue(doc, element, "natalyaPoints", String.valueOf(natalyaPoints));
+		CharacterUtils.createXMLElementWithValue(doc, element, "natalyaWages", String.valueOf(natalyaWages));
+		
 		
 		Element valuesElement = doc.createElement("dialogueValues");
 		element.appendChild(valuesElement);
@@ -208,6 +228,13 @@ public class DialogueFlags implements XMLSaving {
 		try {
 			newFlags.murkPlayerTfStage = Integer.valueOf(((Element)parentElement.getElementsByTagName("murkPlayerTfStage").item(0)).getAttribute("value"));
 			newFlags.murkCompanionTfStage = Integer.valueOf(((Element)parentElement.getElementsByTagName("murkCompanionTfStage").item(0)).getAttribute("value"));
+		} catch(Exception ex) {
+		}
+
+		try {
+			newFlags.natalyaCollarColour = PresetColour.getColourFromId(((Element)parentElement.getElementsByTagName("natalyaCollarColour").item(0)).getAttribute("value"));
+			newFlags.natalyaPoints = Integer.valueOf(((Element)parentElement.getElementsByTagName("natalyaPoints").item(0)).getAttribute("value"));
+			newFlags.natalyaWages = Integer.valueOf(((Element)parentElement.getElementsByTagName("natalyaWages").item(0)).getAttribute("value"));
 		} catch(Exception ex) {
 		}
 		
@@ -416,5 +443,57 @@ public class DialogueFlags implements XMLSaving {
 		} else {
 			this.murkCompanionTfStage = stage;
 		}
+	}
+
+	public Colour getNatalyaCollarColour() {
+		return natalyaCollarColour;
+	}
+
+	public void setNatalyaCollarColour(Colour natalyaCollarColour) {
+		this.natalyaCollarColour = natalyaCollarColour;
+	}
+
+	public int getNatalyaPoints() {
+		return natalyaPoints;
+	}
+
+	public void setNatalyaPoints(int natalyaPoints) {
+		this.natalyaPoints = natalyaPoints;
+		if(this.natalyaPoints<0) {
+			this.natalyaPoints = 0;
+		}
+	}
+	
+	public String incrementNatalyaPoints(int increment) {
+		setNatalyaPoints(getNatalyaPoints()+increment);
+		boolean plural = increment!=1;
+		StringBuilder sb = new StringBuilder();
+		sb.append("<p style='text-align:center;'>");
+			if(increment>0) {
+				sb.append("You [style.colourGood(gained "+increment+")] filly point"+(plural?"s":"")+"!");
+			} else {
+				sb.append("You [style.colourBad(lost "+increment+")] filly point"+(plural?"s":"")+"!");
+			}
+			sb.append("<br/>");
+			Colour colour = DominionExpress.getColourFromPoints();
+			sb.append("You now have "+getNatalyaPoints()+" filly points, qualifying you for "+UtilText.generateSingularDeterminer(colour.getName())+" <span style='color:"+colour.toWebHexString()+";'>"+colour.getName()+"</span> choker!");
+		sb.append("</p>");
+		return sb.toString();
+	}
+	
+
+	public int getNatalyaWages() {
+		return natalyaWages;
+	}
+
+	public void setNatalyaWages(int natalyaWages) {
+		this.natalyaWages = natalyaWages;
+		if(this.natalyaWages<0) {
+			this.natalyaWages = 0;
+		}
+	}
+	
+	public void incrementNatalyaWages(int increment) {
+		setNatalyaWages(getNatalyaWages()+increment);
 	}
 }

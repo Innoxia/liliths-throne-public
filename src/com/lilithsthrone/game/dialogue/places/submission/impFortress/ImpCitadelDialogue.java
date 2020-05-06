@@ -196,7 +196,7 @@ public class ImpCitadelDialogue {
 					
 				} else if(i==1) {
 					imp.setGenericName("alpha-imp archer");
-					imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BOW_AND_ARROW));
+					imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_bow_shortbow"));
 					
 				} else if(i==2) {
 					imp.setGenericName("alpha-imp arcanist");

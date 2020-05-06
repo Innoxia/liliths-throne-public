@@ -54,7 +54,7 @@ import com.lilithsthrone.main.Main;
  * @author Innoxia
  */
 public class Properties {
-
+	
 	public String lastSaveLocation = "";
 	public String lastQuickSaveName = "";
 	public String nameColour = "";
@@ -117,6 +117,7 @@ public class Properties {
 	public int breastSizePreference = 0;
 	public int udderSizePreference = 0;
 	public int penisSizePreference = 0;
+	public int trapPenisSizePreference = -70;
 	
 	public Set<PropertyValue> values;
 
@@ -292,6 +293,7 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "breastSizePreference", String.valueOf(breastSizePreference));
 			createXMLElementWithValue(doc, settings, "udderSizePreference", String.valueOf(udderSizePreference));
 			createXMLElementWithValue(doc, settings, "penisSizePreference", String.valueOf(penisSizePreference));
+			createXMLElementWithValue(doc, settings, "trapPenisSizePreference", String.valueOf(trapPenisSizePreference));
 			
 			createXMLElementWithValue(doc, settings, "forcedFetishPercentage", String.valueOf(forcedFetishPercentage));
 
@@ -640,6 +642,9 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.3.6.7")) {
 						values.add(PropertyValue.penetrationLimitations);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.7.5")) {
+						values.add(PropertyValue.lipstickMarkingContent);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						
@@ -789,6 +794,11 @@ public class Properties {
 					udderSizePreference = Integer.valueOf(((Element)element.getElementsByTagName("udderSizePreference").item(0)).getAttribute("value"));
 					
 					penisSizePreference = Integer.valueOf(((Element)element.getElementsByTagName("penisSizePreference").item(0)).getAttribute("value"));
+				}catch(Exception ex) {
+				}
+
+				try {
+					trapPenisSizePreference = Integer.valueOf(((Element)element.getElementsByTagName("trapPenisSizePreference").item(0)).getAttribute("value"));
 				}catch(Exception ex) {
 				}
 				
@@ -1054,6 +1064,7 @@ public class Properties {
 		breastSizePreference = 0;
 		udderSizePreference = 0;
 		penisSizePreference = 0;
+		trapPenisSizePreference = -70;
 	}
 	
 	// Add discoveries:

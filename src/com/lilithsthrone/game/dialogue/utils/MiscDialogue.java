@@ -2,7 +2,9 @@ package com.lilithsthrone.game.dialogue.utils;
 
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -52,6 +54,60 @@ public class MiscDialogue {
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.STATUS_EFFECT_MESSAGE;
+		}
+	};
+	
+
+	public static final DialogueNode BODY_CHANGING_MAKEUP = new DialogueNode("Makeup", "", true) {
+		@Override
+		public String getHeaderContent() {
+			return "<div class='container-full-width' style='text-align:center;'>"
+						+ (BodyChanging.getTarget().isPlayer()
+							?"You open the arcane makeup set and prepare to get started..."
+							:"You open the arcane makeup set and prepare to get started on applying makeup to [npc.name]...")
+					+ "</div>"
+							
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
+					
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, true);
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new ResponseEffectsOnly("Finished", "Return to your inventory screen.") {
+					@Override
+					public void effects() {
+						if(BodyChanging.getTarget().isPlayer()) {
+							Main.mainController.openInventory();
+						} else {
+							Main.mainController.openInventory((NPC) BodyChanging.getTarget(), InventoryInteraction.FULL_MANAGEMENT);
+						}
+					}
+				};
+			}
+			return null;
+		}
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.PHONE;
 		}
 	};
 }

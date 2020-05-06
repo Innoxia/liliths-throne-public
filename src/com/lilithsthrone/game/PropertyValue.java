@@ -39,7 +39,8 @@ public enum PropertyValue {
 	sadisticSexContent(false),
 	incestContent(false),
 	inflationContent(true),
-	
+
+	lipstickMarkingContent(true),
 	facialHairContent(true),
 	pubicHairContent(true),
 	bodyHairContent(false),

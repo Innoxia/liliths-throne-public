@@ -2,7 +2,7 @@
 <weapon>
 	<coreAttributes>
 	
-		<value>5000</value> 
+		<value>7500</value> 
 		
 		<melee>true</melee>
 		
@@ -32,7 +32,7 @@
 		
 		<imageEquippedName>wakizashi.svg</imageEquippedName> 
 		
-		<damage>10</damage> 
+		<damage>25</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		

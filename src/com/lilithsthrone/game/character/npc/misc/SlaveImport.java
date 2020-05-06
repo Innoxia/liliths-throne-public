@@ -73,7 +73,7 @@ public class SlaveImport extends NPC {
 
 			this.washAllOrifices(true);
 			this.calculateStatusEffects(0);
-			this.cleanAllDirtySlots();
+			this.cleanAllDirtySlots(true);
 			this.cleanAllClothing(true);
 			
 			this.clearNonEquippedInventory(true);

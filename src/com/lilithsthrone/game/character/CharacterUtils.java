@@ -75,7 +75,6 @@ import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
@@ -86,8 +85,6 @@ import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
-import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
-import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -1752,7 +1749,8 @@ public class CharacterUtils {
 			if(character.getBirthMonth() == Month.FEBRUARY) { // Don't set a character's birthday to a leap day as otherwise it ends up causing messy issues.
 				dayOfMonth = Math.min(dayOfMonth, 28);
 			}
-			character.setBirthday(LocalDateTime.of(Main.game.getStartingDate().getYear()-AgeCategory.getAgeFromPreferences(character.getGender()), character.getBirthMonth(), dayOfMonth, 12, 0));
+			character.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear()-(AgeCategory.getAgeFromPreferences(character.getGender())-GameCharacter.MINIMUM_AGE), character.getBirthMonth(), dayOfMonth, 12, 0));
+			character.setConceptionDate(character.getBirthday().minusDays(15+Util.random.nextInt(30)));
 			
 			if(character.getRace()==Race.DEMON || character.getRace()==Race.HARPY) {
 				character.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(9));
@@ -1895,10 +1893,17 @@ public class CharacterUtils {
 			} else {
 				character.setPenisVirgin(true);
 			}
-			if((character.getGender()==Gender.F_P_TRAP || character.getGender()==Gender.N_P_TRAP) && Math.random()>=0.1f) { // Most traps have a small cock:
-				character.setPenisSize(PenisLength.ONE_TINY.getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
-				character.setTesticleSize(TesticleSize.ONE_TINY.getValue());
-				character.setPenisCumStorage(CumProduction.ONE_TRICKLE.getMedianValue());
+			if((character.getGender()==Gender.F_P_TRAP || character.getGender()==Gender.N_P_TRAP)) {
+				float sizeAlteration = (100+Main.getProperties().trapPenisSizePreference)/100f;
+
+				character.setPenisSize(character.getPenisSize().getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
+				character.setPenisSize(Math.max(1, (int)(character.getPenisRawSizeValue()*sizeAlteration)));
+				
+//				character.setPenisGirth(Math.round(character.getPenisGirth().getValue()*sizeAlteration));
+				
+				character.setTesticleSize(Math.round(character.getTesticleSize().getValue()*sizeAlteration));
+
+				character.setPenisCumStorage(Math.max(1, (int)(character.getCurrentPenisRawCumStorageValue()*sizeAlteration)));
 				
 			} else {
 				character.setPenisSize(character.getPenisSize().getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);

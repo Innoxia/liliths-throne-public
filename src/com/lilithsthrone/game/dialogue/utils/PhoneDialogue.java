@@ -721,8 +721,6 @@ public class PhoneDialogue {
 							"<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit()))+"</b> Fertility Factor")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.VIRILITY,
 							"<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit()))+"</b> Virility Factor")
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.SPELL_COST_MODIFIER,
-							"<b>-"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.SPELL_COST_MODIFIER), Attribute.SPELL_COST_MODIFIER.getUpperLimit()))+"%</b> Spell cost")
 
 					+ "<div class='container-full-width' style='text-align:center; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>"
 						+ "<b style='color:"+PresetColour.BASE_PINK_LIGHT.toWebHexString()+";'>Pregnancy calculation:</b> <i>"+GameCharacter.PREGNANCY_CALCULATION+"</i>"
@@ -738,15 +736,17 @@ public class PhoneDialogue {
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.ENERGY_SHIELDING,
 							"<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.ENERGY_SHIELDING), Attribute.ENERGY_SHIELDING.getUpperLimit()))+"</b> Health Block/Turn",
 							true)
-					
 
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.SPELL_COST_MODIFIER,
+							"<b>-"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.SPELL_COST_MODIFIER), Attribute.SPELL_COST_MODIFIER.getUpperLimit()))+"%</b> Spell cost")
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS,
+							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit())))+"%</b> Spell Damage",
+							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_UNARMED,
 							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED), Attribute.DAMAGE_UNARMED.getUpperLimit())))+"%</b> Unarmed Damage",
 							true)
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS,
-							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit())))+"%</b> Spell Damage",
-							true)
+					
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_MELEE_WEAPON,
 							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON), Attribute.DAMAGE_MELEE_WEAPON.getUpperLimit())))+"%</b> Melee Damage",

@@ -184,7 +184,22 @@ public enum Race {
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
 			true),
-
+	
+//	PANTHER_MORPH("panther-morph",
+//			"panther",
+//			PresetColour.RACE_PANTHER_MORPH,
+//			Disposition.UNPREDICTABLE,
+//			Util.newArrayListOfValues(
+//					Attack.MAIN,
+//					Attack.SPECIAL_ATTACK),
+//			0.5f,
+//			1,
+//			2,
+//			Attribute.DAMAGE_PANTHER_MORPH,
+//			FurryPreference.NORMAL,
+//			FurryPreference.NORMAL,
+//			true),
+	
 	// EQUINE:
 	HORSE_MORPH("horse-morph",
 			"horse",
@@ -1134,16 +1149,13 @@ public enum Race {
 	
 	private Race(String name,
 			String nameBestial,
-			
 			Colour colour,
 			Disposition disposition,
 			List<Attack> preferredAttacks,
 			float chanceForMaleOffspring,
 			int numberOfOffspringLow,
-			
 			int numberOfOffspringHigh,
 			Attribute damageMultiplier,
-			
 			FurryPreference defaultFemininePreference,
 			FurryPreference defaultMasculinePreference,
 			boolean affectedByFurryPreference) {

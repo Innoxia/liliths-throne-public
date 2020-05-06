@@ -11,14 +11,90 @@
 			 [style.colourMinorBad([unit.time(6)]-[unit.time(22)])]. As the warehouse out of which this 'Dominion Express' operates is currently [style.colourBad(closed)], you'll have to come back during opening hours if you wanted to meet the [natalya.race] again...
 		#ENDIF
 	</p>
+	<p>
+		[style.italicsBad(Natalya's content is in a very rough state in this version! Only enter the warehouse and play through her content if you are prepared to see lots of placeholders! It will be finished for v0.3.8!)]
+	</p>
 	]]>
 	</htmlContent>
 	
 	
-	<!-- CORRIDOR -->
+	<!-- Filly detection -->
 	
-	<htmlContent tag="CORRIDOR"><![CDATA[
+	<htmlContent tag="FILLY_DETECTION"><![CDATA[
+	<p style='text-align:center;'>
+		A small arcane device screwed to the wall detects that you're a filly, and after letting out a high-pitched beep, it projects a series of pink words into the air:
+		<br/>
+		<b>[style.italicsPink(Filly: [pc.name])]</b>
+		<br/>
+		[style.italicsPink(Filly points: [#SPECIAL_PARSE_0])]
+		<br/>
+		[style.italicsPink(Wages ready for collection: [#SPECIAL_PARSE_1])]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FILLY_DETECTION_PROMOTION"><![CDATA[
+	<p style='text-align:center;'>
+		Just as you start to turn away from the display, some additional words flash up underneath the others, but this time they're bright gold in colour:
+		<br/>
+		<b>[style.italicsGold(Promotion available!)]</b>
+		<br/>
+		[style.italicsGold(Report to Mistress Natalya!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FILLY_DETECTION_DEMOTION"><![CDATA[
+	<p style='text-align:center;'>
+		Just as you start to turn away from the display, some additional words flash up underneath the others, but this time they're bright crimson in colour:
+		<br/>
+		<b>[style.italicsCrimson(Demotion required!)]</b>
+		<br/>
+		[style.italicsCrimson(Report to Mistress Natalya!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- INITIAL_ENTRANCE -->
+	
+	<htmlContent tag="INITIAL_ENTRANCE"><![CDATA[
+	#VAR
+		var collar = pc.getClothingInSlot(IS_NECK);
+	#ENDVAR
+	
 	<p>
+		Approaching the front entrance...
+	</p>
+	#IF(collar!=null && collar.getClothingType().getId()=="innoxia_neck_filly_choker")
+		<p>
+			One of the horse-girl receptionists tells you that there are centaurs waiting for relief in the stables, and so lets you in.
+		</p>
+	#ELSEIF(pc.hasQuest(QUEST_LINE_ROMANCE_NATALYA))
+		<p>
+			One of the horse-girl receptionists has been informed that you're training to be one of Natalya's fillies, and so lets you in.
+		</p>
+	#ELSE
+		<p>
+			One of the horse-girl receptionists stops you and demands ID.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="INITIAL_ENTRANCE_CARD_SHOWN"><![CDATA[
+	<p>
+		You show the receptionist the card Natalya gave you and she lets you in.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRANCE -->
+	
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	<p>
+		Having already let you in, the horse-girl receptionists pay you no notice and continue chatting amongst themselves.
 	</p>
 	]]>
 	</htmlContent>
@@ -28,17 +104,1452 @@
 	
 	<htmlContent tag="CORRIDOR"><![CDATA[
 	<p>
+		A couple of the centaur slaves are walking down the corridor on their way out to Dominion to pick up or deliver cargo.
 	</p>
 	]]>
 	</htmlContent>
 	
 	
-	<!-- CORRIDOR -->
+	<!-- STORAGE -->
 	
-	<htmlContent tag="CORRIDOR"><![CDATA[
+	<htmlContent tag="STORAGE"><![CDATA[
 	<p>
+		A couple of the centaur slaves are moving cargo in this area.
 	</p>
 	]]>
 	</htmlContent>
+	
+	
+	<!-- OFFICE -->
+	
+	<htmlContent tag="OFFICE"><![CDATA[
+	<p>
+		Looking through the office's windows, you see a dozen or so workers filling out forms or planning deliveries. 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STABLES -->
+	
+	<htmlContent tag="STABLES"><![CDATA[
+	#VAR
+		var collar = pc.getClothingInSlot(IS_NECK);
+	#ENDVAR
+	
+	<p>
+		A large annex connected to the main warehouse houses Dominion Express's centaur slaves. At least fifty stalls, looking almost exactly like the sort which you'd see in a regular stable, are located in this area.
+	</p>
+	<p>
+		If night, most of the lights are turned off, and many of the stalls are occupied by sleeping centaurs.
+	</p>
+	<p>
+		#IF(collar!=null && collar.getClothingType().getId()=="innoxia_neck_filly_choker")
+			The centaur on guard duty sees you wearing a filly choker and lets you in.
+		#ELSE
+			The centaur on guard duty tells you that visitors aren't allowed into the stables proper.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STABLES_ENTERED -->
+	
+	<htmlContent tag="STABLES_ENTERED"><![CDATA[
+	<p>
+		You enter the stables proper. Wonder if you should search for a slave to service...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STABLES_EXIT"><![CDATA[
+	<p>
+		You decide to exit the stables...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STABLE_SEX_FIND_PARTNER"><![CDATA[
+	<p>
+		You search for a [npc.race] who looks to be pent-up. After just a minute, you find one pacing back and forth in [npc.her] stall and offer to help [npc.herHim] get some release. [npc.She] pulls you into [npc.her] stall and tells you that [npc.she]'ll give you [#SPECIAL_PARSE_0] filly points if you make [npc.herHim] cum.
+	</p>
+	<p>
+		You dutifully kneel down to kiss [npc.her] asshole and show your submission to [npc.herHim], which is enough to give [npc.herHim] an erection. Asks how you intend to make [npc.herHim] cum...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STABLE_SEX -->
+	
+	<htmlContent tag="STABLE_SEX_ORAL"><![CDATA[
+	<p>
+		You decide to relieve [npc.namePos] stress by using your mouth. Dropping down onto your knees, you take [npc.her] [npc.cock+] into your mouth and start sucking...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STABLE_SEX_ANILINGUS"><![CDATA[
+	<p>
+		You decide to relieve [npc.namePos] stress by using your mouth. Dropping down onto your knees behind [npc.herHim], you reach down to start stroking [npc.her] [npc.cock+] as you bury your face in [npc.her] [npc.ass+] and start giving [npc.herHim] a rimjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STABLE_SEX_MOUNTED"><![CDATA[
+	<p>
+		You decide to relieve [npc.namePos] stress by offering [npc.herHim] the use of your ass. Turning around to present yourself to [npc.herHim], you're quickly mounted and having your [pc.asshole+] penetrated by [npc.her] [npc.cock+]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_STABLE_SEX -->
+	
+	<htmlContent tag="AFTER_STABLE_SEX"><![CDATA[
+	<p>
+		Satisfied, [npc.name] makes you clean their cock with your mouth, before tossing [#SPECIAL_PARSE_0] small arcane beads at you and collapsing down onto the straw. The beads disintegrate into arcane energy and are absorbed into your filly collar.
+	</p>
+	<p>
+		#IF(game.getHourOfDay()<4 || game.getHourOfDay()>22)
+			[npc.Name] shuffles up on [npc.her] straw bedding and offers you another couple of points if you sleep with [npc.herHim].
+		#ELSE
+			[npc.Name] tells you that [npc.sheHas] got to do a delivery soon, so go and service some other slave.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_STABLE_SEX_LEAVE"><![CDATA[
+	<p>
+		You leave [npc.name] behind and exit the stall, before continuing out into the stables...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_STABLE_SEX_SLEEP -->
+	
+	<htmlContent tag="AFTER_STABLE_SEX_SLEEP"><![CDATA[
+	<p>
+		You accept [npc.namePos] offer of sleeping with [npc.herHim]. Lying down on the straw next to [npc.herHim], you fall asleep smelling of sex...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_STABLE_SEX_SLEEP_NO_SEX"><![CDATA[
+	<p>
+		You wake up the next morning to [npc.name] standing up and stretching. Thanks you for spending the night with [npc.herHim] and says [npc.she] has to get to work. Gives you another two filly point beads and tells you to go and service another slave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_STABLE_SEX_SLEEP_BLOWJOB"><![CDATA[
+	<p>
+		You dream of a big, fat horse-cock pushing against your [pc.lips] and smearing musky precum all over your face. Pushing against your mouth a couple of times, the [npc.race] manages to push the flared head of [npc.her] feral horse-cock into your mouth.
+	</p>
+	<p>
+		You suddenly wake to discover that [npc.name] is forcing [npc.her] cock into your mouth. Seeing you wake up, [npc.she] tells you to get sucking.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_STABLE_SEX_SLEEP_ANILINGUS"><![CDATA[
+	<p>
+		You dream of a hot, musky horse-ass pushing against your [pc.lips] and smothering your face. Grinding [npc.her] puffy asshole against your [pc.lips], the [npc.race] forces you to start giving [npc.her] a rimjob...
+	</p>
+	<p>
+		You suddenly wake to discover that [npc.name] is sitting on your face and smothering your mouth with [npc.her] [npc.asshole+]. Seeing you wake up, [npc.she] tells you to get licking.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_STABLE_SEX_SLEEP_MOUNTED"><![CDATA[
+	<p>
+		You dream of a big, fat horse-cock pushing against your [pc.asshole] and smearing musky precum all over your ass. Pushing against your rear entrance a couple of times, the [npc.race] manages to push the flared head of [npc.her] feral horse-cock into your asshole.
+	</p>
+	<p>
+		You suddenly wake to discover that [npc.name] has mounted you and is thrusting [npc.her] cock into your asshole. Seeing you wake up, [npc.she] tells you to take it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Responses -->
+	<htmlContent tag="AFTER_STABLE_SEX_SLEEP_LEAVE"><![CDATA[
+	<p>
+		You leave [npc.name] behind and exit the stall, before continuing out into the stables...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_STABLE_SEX_SLEEP_START_BLOWJOB"><![CDATA[
+	<p>
+		Left with little choice but to do as [npc.she] says, you continue sucking [npc.namePos] cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_STABLE_SEX_SLEEP_START_ANILINGUS"><![CDATA[
+	<p>
+		Left with little choice but to do as [npc.she] says, you start licking [npc.namePos] asshole...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_STABLE_SEX_SLEEP_START_MOUNTED"><![CDATA[
+	<p>
+		Left with little choice but to do as [npc.she] says, you start pushing back into [npc.namePos] cock as [npc.she] fucks you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_STABLE_SEX_SLEEP_AFTER_WAKEUP_SEX -->
+	
+	<htmlContent tag="AFTER_STABLE_SEX_SLEEP_AFTER_WAKEUP_SEX_BLOWJOB"><![CDATA[
+	<p>
+		Having had [npc.her] fun, [npc.name] makes you clean her cock before telling you that [npc.sheHas] got to get to work. Gives you another two filly point beads and tells you to go and service another slave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_STABLE_SEX_SLEEP_AFTER_WAKEUP_SEX_ANILINGUS"><![CDATA[
+	<p>
+		Having had [npc.her] fun, [npc.name] makes you clean her cock before telling you that [npc.sheHas] got to get to work. Gives you another two filly point beads and tells you to go and service another slave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_FILLY_AFTER_MOUNTED"><![CDATA[
+	<p>
+		Having had [npc.her] fun, [npc.name] makes you clean her cock before telling you that [npc.sheHas] got to get to work. Gives you another two filly point beads and tells you to go and service another slave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Responses -->
+	<htmlContent tag="AFTER_STABLE_SEX_SLEEP_AFTER_WAKEUP_SEX_LEAVE"><![CDATA[
+	<p>
+		You leave [npc.name] behind and exit the stall, before continuing out into the stables...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- STABLE_SHOWER -->
+	
+	<htmlContent tag="STABLE_SHOWER"><![CDATA[
+	<p>
+		You decide to make use of the stable's shower facilities. Enter a stall and let the directed jets of water wash your body clean...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE -->
+	
+	<htmlContent tag="OFFICE_STABLE"><![CDATA[
+	<p>
+		While the plaque on the door informs you that this office is home to 'Mistress Natalya', you can only see horse-morph and centaur office workers through the windows of the office. A door on the far side looks to lead to an inner-office, and you assume that Natalya must be in there.
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaBusy))
+		<p>
+			[style.italicsMinorBad(Having told you not to disturb her again until tomorrow, you know that you shouldn't enter Natalya's office...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_PREGNANT"><![CDATA[
+	<p>
+		Before you can even think about entering the office, a small arcane device fixed to one side of the door starts emitting an annoying buzzing sound, which quickly attracts the attention of a nearby centaur slave. Quickly stepping up to you, he warns, [style.speechMasculine(Hey! That device going off means you're pregnant! I wouldn't go into that office if I was you; Mistress Natalaya despises pregnant people, and the very least she'll do is have you thrown out of here...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_ENTRY -->
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY"><![CDATA[
+	<p>
+		#IF(pc.isQuestCompleted(QUEST_LINE_ROMANCE_NATALYA))
+			#IF(pc.hasCompanions())
+				Knowing that [com.she]'ll have to wait outside, you tell your companion to remain in the corridor, before pushing open the door and entering the office.
+			#ELSE
+				You push open the door and enter the office.
+			#ENDIF
+			 Being recognised as a qualified filly, the office works don't pay you much attention, leaving you to walk over to Natalya's office without escorting you.
+		#ELSE
+			#IF(pc.hasCompanions())
+				#IF(pc.hasQuest(QUEST_LINE_ROMANCE_NATALYA))
+					Knowing that [com.she]'ll have to wait outside, you tell your companion to remain in the corridor, before knocking on the door and entering the office. One of the workers leads you across the office to the door of Natalya's office.
+				#ELSE
+					You knock on the door and enter the office. One of the workers tells you that your companion has to wait outside, before leading you across the office to the door of Natalya's office.
+				#ENDIF
+			#ELSE
+				You knock on the door and enter the office. One of the workers leads you across the office to the door of Natalya's office.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		You knock on the door and enter Natalya's office.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_INTERVIEW"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaInterviewFailed))
+		<p>
+			Natalya curtly greets you. Tells you that she has time to repeat your interview for the position of filly. Tells you to take a seat.
+		</p>
+	#ELSE
+		<p>
+			Natalya recognises you as 'Helena's slave'.
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_playerSubmittedToNatalya))
+				Says that you were a good slave to have submitted to her before. You will be getting more of her cock soon enough.
+			#ELSE
+				Says that she thinks you will make an acceptable filly.
+			#ENDIF
+		</p>
+		<p>
+			Tells you that she has time to give you an interview for the position of filly, which involves sexually servicing centaur slaves. Tells you that she knows you'll love being her slaves' cum-dump and tells you to take a seat.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_CONTRACT"><![CDATA[
+	<p>
+		Natalya curtly greets you and places the filly contract on the desk. Tells you to sign it or get out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_WRONG_BODY"><![CDATA[
+	#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_ROMANCE_NATALYA, QUEST_ROMANCE_NATALYA_3_TRAINING_1))
+		#IF(!pc.isAbleToHaveRaceTransformed())
+			Natalya orders you self-transform into a taur.
+		#ELSE
+			#IF(pc.getRace()!=RACE_HORSE_MORPH && pc.getLegType().isLegConfigurationAvailable(LEG_CONFIGURATION_TAUR))
+				Natalya fetches a couple of transformation potions and asks if you want to be a centauress or a [pc.race] taur.
+			#ELSE
+				Natalya fetches a transformation potion and tells you that it's time to turn you into a centauress.
+			#ENDIF
+		#ENDIF
+	#ELSE
+		<p>
+			#IF(pc.getLegConfiguration()!=LEG_CONFIGURATION_TAUR)
+				Seeing that you no longer have a tuaric lower body, Natalya furiously scolds you.
+			#ELSEIF(!pc.isFeminine())
+				Seeing that you are no longer feminine, Natalya furiously scolds you.
+			#ELSEIF(pc.hasVagina())
+				Sensing that something's not quite right, Natalya has you present yourself to her, and she furiously scolds you when she sees that you have a pussy.
+			#ELSE
+				Sensing that something's not quite right, Natalya has you present yourself to her, and she furiously scolds you when she sees that you don't have a cock.
+			#ENDIF
+		</p>
+	#ENDIF
+	<p>
+		#IF(!pc.isAbleToHaveRaceTransformed())
+			#IF(!pc.isAbleToSelfTransform())
+				As you are not able to be transformed via potions, and cannot self-transform, Natalya tells you to get out and only return when you've sorted yourself out.
+			#ELSE
+				Natalya orders you self-transform into a taur.
+			#ENDIF
+		#ELSE
+			#IF(pc.getRace()!=RACE_HORSE_MORPH && pc.getLegType().isLegConfigurationAvailable(LEG_CONFIGURATION_TAUR))
+				Natalya fetches a couple of transformation potions and angrily asks if you want to be a centauress or a [pc.race] taur.
+			#ELSE
+				Natalya fetches a transformation potion and angrily tells you that it's time to turn you back into a centauress.
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_TRAINING_1"><![CDATA[
+	<p>
+		Natalya is pleased to see that you've transformed into [pc.a_gender] [pc.race]. Says that it's time to start your training.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_TRAINING_2"><![CDATA[
+	<p>
+		Natalya says that it's time to continue your training. Today you will learn to love giving rimjobs.
+	</p>
+	<p>
+		Tells you to come and kneel down beside her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_TRAINING_3"><![CDATA[
+	<p>
+		Natalya says that it's time to finish your training. Today you will be performing anilingus on a slave while she fucks your ass. After that, the slave will fuck you.
+	</p>
+	<p>
+		Tells you to kneel down and wait while she fetches a slave.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_NO_COLLAR_CANNOT_EQUIP"><![CDATA[
+	<p>
+		Seeing that you're no longer wearing your filly choker, and that you cannot equip a new one, Natalya scolds you and throws you out.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_NO_COLLAR"><![CDATA[
+	<p>
+		Seeing that you're no longer wearing your filly choker, Natalya scolds you and fetches a new one from out of her desk.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_COLLAR_DYED"><![CDATA[
+	<p>
+		Seeing that you've dyed your choker, Natalya scolds you and grabs a dye brush out of her desk.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_COLLAR_UPGRADE"><![CDATA[
+	<p>
+		Mistress Natalya praises you for gaining enough points to have your collar upgraded. Grabs a dye brush out of her desk.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_COLLAR_DOWNGRADE"><![CDATA[
+	<p>
+		Mistress Natalya says she is disappointed that you were unable to maintain your points. Tells you that you are to be demoted and grabs a dye brush out of her desk.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_WITH_COLLAR"><![CDATA[
+	#VAR
+		var collar = pc.getClothingInSlot(IS_NECK);
+	#ENDVAR
+	
+	#IF(collar.getColour()==COLOUR_CLOTHING_GOLD)
+		<p>
+			Mistress Natalya greets you as one of her special gold fillies.
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you today, she says that you'll have to come back tomorrow if you want some more of her.
+			#ELSE
+				Asks if you'd like to fuck her ass.
+			#ENDIF
+		</p>
+	#ELSEIF(collar.getColour()==COLOUR_CLOTHING_SILVER)
+		<p>
+			Mistress Natalya greets you as one of her good silver fillies.
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you today, she says that you'll have to come back tomorrow if you want some more of her.
+			#ELSE
+				Asks if you'd like her to mount you.
+			#ENDIF
+		</p>
+	#ELSEIF(collar.getColour()==COLOUR_CLOTHING_BRONZE)
+		<p>
+			Mistress Natalya greets you as one of her promising bronze fillies.
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you today, she says that you'll have to come back tomorrow if you want some more of her.
+			#ELSE
+				Asks if you'd like to suck her cock or get a taste of her ass.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Mistress Natalya greets you as one of her steel fillies.
+		</p>
+		<p>
+			Tells you that you need to go and service centaurs to climb the ranks if you ever want to get special rewards from her.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- Responses: -->
+	<htmlContent tag="OFFICE_STABLE_ENTRY_INTERVIEW_LEAVE"><![CDATA[
+	<p>
+		You tell Natalya that you'll come back for an interview another time. She tells you to get out and not bother her until tomorrow.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_CONTRACT_OFFERED_REPEAT"><![CDATA[
+	<p>
+		You sit down and read over the contract.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_SELF_TF_BLOCKED"><![CDATA[
+	<p>
+		Doing as you're told, you leave Natalya's office...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_TRANSFORMED_SELF"><![CDATA[
+	<p>
+		Doing as you're told, you set about transforming yourself into [style.a_shemale] [pc.race]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_TRANSFORMED_CENTAURESS"><![CDATA[
+	<p>
+		You ask to be transformed into a centauress. Natalya makes you drink the potion to turn you into [style.a_shemale] [pc.race]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_TRANSFORMED_KEEP_RACE"><![CDATA[
+	<p>
+		You ask to keep your race. Natalya makes you drink the potion...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_TRAINING_LEAVE"><![CDATA[
+	<p>
+		Not wanting to continue your training, you make an excuse and leave, much to Natalya's annoyance...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_NO_COLLAR_THROWN_OUT"><![CDATA[
+	<p>
+		You exit the office and head back out into the warehouse...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_NO_COLLAR_EQUIPPED_UPGRADE"><![CDATA[
+	<p>
+		Natalya subtracts 25 of your filly points, but even with this she says you're due for a promotion. The choker she straps around your neck has the word 'filly' spelt out in [#SPECIAL_PARSE_0] lettering.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_NO_COLLAR_EQUIPPED_DOWNGRADE"><![CDATA[
+	<p>
+		Natalya subtracts 25 of your filly points, saying that you're now low enough to be demoted. The choker she straps around your neck has the word 'filly' spelt out in [#SPECIAL_PARSE_0] lettering.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_NO_COLLAR_EQUIPPED"><![CDATA[
+	
+	<p>
+		Natalya subtracts 25 of your filly points, saying that luckily for you it's not enough to be demoted. The choker she straps around your neck has the word 'filly' spelt out in [#SPECIAL_PARSE_0] lettering.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_COLLAR_DYED_UPGRADE"><![CDATA[
+	<p>
+		Natalya subtracts 25 of your filly points, but even with this she says you're due for a promotion. She uses her dye-brush to recolour the letters spelling out 'filly' to be [#SPECIAL_PARSE_0].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_COLLAR_DYED_DOWNGRADE"><![CDATA[
+	<p>
+		Natalya subtracts 25 of your filly points, saying that you're now low enough to be demoted. She uses her dye-brush to recolour the letters spelling out 'filly' to be [#SPECIAL_PARSE_0].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_COLLAR_DYED"><![CDATA[
+	<p>
+		Natalya subtracts 25 of your filly points, saying that luckily for you it's not enough to be demoted. She uses her dye-brush to recolour the letters spelling out 'filly' to be [#SPECIAL_PARSE_0].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_POST_NO_COLLAR"><![CDATA[
+	#VAR
+		var collar = pc.getClothingInSlot(IS_NECK);
+	#ENDVAR
+	
+	<p>
+		For daring to mess with your choker, Natalya steps around behind you and spanks you. Makes you say that you're a bad filly and promise her you won't touch it again.
+	</p>
+	#IF(collar.getColour()==COLOUR_CLOTHING_GOLD)
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you today, she says that you'll have to come back tomorrow if you want some more of her.
+			#ELSE
+				Says that even though you've been naughty, you're still one of her special golden fillies, so if you'd like, you can mount her and fuck her ass.
+			#ENDIF
+		</p>
+	#ELSEIF(collar.getColour()==COLOUR_CLOTHING_SILVER)
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you today, she says that you'll have to come back tomorrow if you want some more of her.
+			#ELSE
+				Says that even though you've been naughty, you're still a good silver filly, and so if you'd like her to, she'll mount you and fuck your ass.
+			#ENDIF
+		</p>
+	#ELSEIF(collar.getColour()==COLOUR_CLOTHING_BRONZE)
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you today, she says that you'll have to come back tomorrow if you want some more of her.
+			#ELSE
+				Says that even though you've been naughty, you're still a good bronze filly, and so if you'd like, she'll let you suck her cock or get a taste of her ass.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Tells you that you need to go and service centaurs to climb the ranks if you ever want to get special rewards from her.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_COLLAR_UPGRADE"><![CDATA[
+	<p>
+		Natalya uses her dye-brush to recolour the letters spelling out 'filly' to be [#SPECIAL_PARSE_0].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_COLLAR_DOWNGRADE"><![CDATA[
+	<p>
+		Natalya uses her dye-brush to recolour the letters spelling out 'filly' to be [#SPECIAL_PARSE_0].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_FILLY_LEAVE"><![CDATA[
+	<p>
+		You tell Natalya that you'll get back to your duties and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_PAYOUT"><![CDATA[
+	<p>
+		You ask Natalya for your wages. She makes you kiss her asshole first, than hands over your [#SPECIAL_PARSE_0] flames.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_ENTRY_TRANSFORMED -->
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_TRANSFORMED_COLLAR_MISSING"><![CDATA[
+	<p>
+		Seeing that you're no longer wearing your filly choker, Natalya scolds you even more and fetches a new one from out of her desk.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_TRANSFORMED_COLLAR_DYED"><![CDATA[
+	<p>
+		Seeing that you've dyed your choker, Natalya scolds you even more and grabs a dye brush out of her desk.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_TRANSFORMED_COLLAR_UPGRADE"><![CDATA[
+	<p>
+		Natalya says that even with your lost points, you're due for a promotion. She uses her dye-brush to recolour the letters spelling out 'filly' to be [#SPECIAL_PARSE_0].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_TRANSFORMED_COLLAR_DOWNGRADE"><![CDATA[
+	<p>
+		Natalya says that thanks to your lost points, you're due for a demotion. She uses her dye-brush to recolour the letters spelling out 'filly' to be [#SPECIAL_PARSE_0].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_ENTRY_TRANSFORMED_END"><![CDATA[
+	#VAR
+		var collar = pc.getClothingInSlot(IS_NECK);
+	#ENDVAR
+	
+	<p>
+		For daring to transform yourself, Natalya steps around behind you and spanks you. Makes you say that you're a bad filly and promise her you won't get transformed again.
+	</p>
+	#IF(collar.getColour()==COLOUR_CLOTHING_GOLD)
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you today, she says that you'll have to come back tomorrow if you want some more of her.
+			#ELSE
+				Says that even though you've been naughty, you're still one of her special golden fillies, so if you'd like, you can mount her and fuck her ass.
+			#ENDIF
+		</p>
+	#ELSEIF(collar.getColour()==COLOUR_CLOTHING_SILVER)
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you today, she says that you'll have to come back tomorrow if you want some more of her.
+			#ELSE
+				Says that even though you've been naughty, you're still a good silver filly, and so if you'd like her to, she'll mount you and fuck your ass.
+			#ENDIF
+		</p>
+	#ELSEIF(collar.getColour()==COLOUR_CLOTHING_BRONZE)
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you today, she says that you'll have to come back tomorrow if you want some more of her.
+			#ELSE
+				Says that even though you've been naughty, you're still a good bronze filly, and so if you'd like, she'll let you suck her cock or get a taste of her ass.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Tells you that you need to go and service centaurs to climb the ranks if you ever want to get special rewards from her.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_INTERVIEW_1 -->
+	
+	<htmlContent tag="OFFICE_STABLE_INTERVIEW_1"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaInterviewFailed))
+		<p>
+			Says that she is obliged to repeat the interview from the start, and if you don't want to hear her repeat herself, then maybe you shouldn't have been a bad filly the last time.
+		</p>
+	#ENDIF
+	<p>
+		Needs more 'fillies' (indentured servants) who can relieve stress for the slaves. Says she would have liked to enslave you, but their slave quota is already full, so you're being interviewed for a position as a filly, which is almost the same thing.
+	</p>
+	<p>
+		Tells you that good fillies are expected to spend a lot of their time on their knees servicing slaves. Tells you to kneel for her and show her that you can be a good filly.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_INTERVIEW_FAIL_1"><![CDATA[
+	<p>
+		You don't like the sound of being a 'filly', and refuse to kneel. Natalya tells you to get out and come back when you've accepted your place.
+	</p>
+	<p>
+		You leave and head back out into the warehouse.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_INTERVIEW_2 -->
+	
+	<htmlContent tag="OFFICE_STABLE_INTERVIEW_2"><![CDATA[
+	<p>
+		You do as you're told and drop down onto your knees.
+		#IF(game.getDialogueFlags().hasFlag(FLAG_playerSubmittedToNatalya))
+			 Natlaya says she knew you'd be a good filly from how you submitted to her in that alleyway.
+		#ELSE
+			 Natlaya says she knew you'd be a good filly.
+		#ENDIF
+	</p>
+	<p>
+		She says how you'll be expected to perform oral, anilingus, and to be mounted and anally fucked. Tells you that you will love servicing horse-cocks all day.
+	</p>
+	<p>
+		Says that your training will be in three parts, and will take the form of performing oral on her, then anilingus on her, and then being fucked by her. Before moving on to the next stage, you will be repeating those acts on slaves.
+	</p>
+	<p>
+		Stepping around from the other side of her desk, she says that you can get the first stage started now by giving her oral. Orders you to lift her skirt. (you see precum dripping down onto the floor...)
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_INTERVIEW_FAIL_2"><![CDATA[
+	<p>
+		You really don't like the sound of what Natalya has in store for you, and so you refuse to do as she asks and instead rise to your feet. Natalya is angry and tells you to get out and come back when you've accepted your place.
+	</p>
+	<p>
+		You leave and head back out into the warehouse.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_INTERVIEW_3 -->
+	
+	<htmlContent tag="OFFICE_STABLE_INTERVIEW_3"><![CDATA[
+	<p>
+		You lift her skirt to reveal her huge, feral horse-cock. She says how all of the slaves are either males or [style.shemale]s, and all fillies are [style.shemale]s.
+	</p>
+	<p>
+		She says how vaginas are disgusting and lead to pregnancies, which makes slaves unable to work. You will be transformed into a shemale, and will be trained to love anal and hate vaginal just like she does.
+	</p>
+	<p>
+		Turns around to present her puffy, naturally-lubricated asshole you. Tells you to kiss her asshole to show that you're going to be willing to be a good anal-loving filly and then get started on sucking her cock. Tells you that you will be sucking centaur cock for the first stage of your training.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_INTERVIEW_RELUCTANT_KISS"><![CDATA[
+	<p>
+		You reluctantly kiss Natalya's asshole. Sensing your hesitation, she pushes back and forcefully rubs her butt into your face. Snaps at you that she'll train you to love it before she's finished with you.
+	</p>
+	<p>
+		Turning to one side, she makes you get down beneath her and start to suck her cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_INTERVIEW_EAGER_KISS"><![CDATA[
+	<p>
+		You eagerly kiss Natalya's asshole. Letting out a delighted moan at your enthusiasm, she pushes back and forcefully rubs her butt into your face. Tells you that she'll enjoy training you to give anilingus later on, but for now it's her cock you need to service.
+	</p>
+	<p>
+		Turning to one side, she makes you get down beneath her and start to suck her cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_INTERVIEW_FAIL_3"><![CDATA[
+	<p>
+		The prospect of kissing Natalya's asshole is too much for you, and so you refuse to do as she asks and instead rise to your feet. Natalya is angry and tells you to get out and come back when you've accepted your place.
+	</p>
+	<p>
+		You leave and head back out into the warehouse.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_INTERVIEW_AFTER_SEX -->
+	
+	<htmlContent tag="OFFICE_STABLE_INTERVIEW_AFTER_SEX"><![CDATA[
+	<p>
+		Natalya slaps her cock against your cum-covered face a couple of times and calls you a good filly.
+	</p>
+	<p>
+		Pulls back, she then orders you to follow her around behind her desk and continue to clean her cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_INTERVIEW_AFTER_SEX_COCK_CLEAN"><![CDATA[
+	<p>
+		Doing as you're told, you crawl after Natalya and spend a few minutes licking the excess saliva and cum off her softening horse-cock while she fills out some forms. Eventually, she tells you to get around to the other side of her desk and read over your contract.
+	</p>
+	<p>
+		Doing as you're told you return to the other side of the desk and look down at the papers in front of you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_CONTRACT_OFFERED -->
+	
+	<htmlContent tag="OFFICE_STABLE_CONTRACT_OFFERED"><![CDATA[
+	<p>
+		There's a lot of legal terminology, but Natalya points out the most important parts. First of all, the prerequisites for being a 'filly' at Dominion Express are that you are [style.a_shemale] taur, and that you complete your training under the stable Mistress.
+	</p>
+	<p>
+		You will be a non-exclusive, free-roaming indentured servant, meaning that while you are able to choose when and how often you work, there is never any requirement for Dominion Express to pay you anything. Your duties will be to service slaves, and while you are not entitled to any reward, Natalya informs you that there is a payment grade based on your 'filly points'. The colour of your filly choker reflects what grade you are on, and goes from steel to bronze to silver to gold.
+	</p>
+	<p>
+		Slaves earn points to give to fillies by working hard, and so you an earn points by pleasing them. If you ever need to be transformed back into [pc.a_shemale] taur or need to be given another choker, you will incur heavy point losses. You also lose two points every day, meaning that you need to stay active to retain your rank.
+	</p>
+	<p>
+		Natalya says she also offers personal rewards. After training is complete, she will not let you service her unless you are bronze. At silver, you can have her fuck you, and at gold she will let you mount her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_CONTRACT_OFFERED_NO_TF"><![CDATA[
+	<p>
+		Says that seeing as you're already [pc.a_shemale] [pc.race], there will be no need for transformations, so after you've signed, you can immediately move on to your first stage of training, which will be sucking a centaur slave's cock.
+	</p>
+	<p>
+		Tells you to sign it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_CONTRACT_OFFERED_TF"><![CDATA[
+	<p>
+		Says that she's looking forwards to seeing how you'll look as [pc.a_shemale] taur, so after you've signed, she'll have you immediately transformed and then you can immediately move on to your first stage of training, which will be sucking a centaur slave's cock.
+	</p>
+	<p>
+		Tells you to sign it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_CONTRACT_OFFERED_REFUSED"><![CDATA[
+	<p>
+		You refuse to sign the contract. Natalya is extremely angry and throws you out, telling you to return when you've accepted your place.
+	</p>
+	<p>
+		You head back out into the warehouse.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_CONTRACT_SIGNED -->
+	
+	<htmlContent tag="OFFICE_STABLE_CONTRACT_SIGNED_NO_TF"><![CDATA[
+	<p>
+		As you're already [pc.a_gender] [pc.race], there's no need for you to be transformed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_CONTRACT_SIGNED"><![CDATA[
+	<p>
+		#IF(!pc.isAbleToHaveRaceTransformed())
+			#IF(!pc.isAbleToSelfTransform())
+				As you are not able to be transformed via potions, and cannot self-transform, Natalya tells you to get out and only return when you've sorted yourself out.
+			#ELSE
+				Natalya orders you self-transform into a taur.
+			#ENDIF
+		#ELSE
+			#IF(pc.getRace()!=RACE_HORSE_MORPH && pc.getLegType().isLegConfigurationAvailable(LEG_CONFIGURATION_TAUR))
+				Natalya fetches a couple of transformation potions and asks if you want to be a centauress or a [pc.race] taur.
+			#ELSE
+				Natalya fetches a transformation potion and tells you that it's time to turn you into a centauress.
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_CONTRACT_SIGNED_SELF_TF_BLOCKED"><![CDATA[
+	<p>
+		Doing as you're told, you leave Natalya's office...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_CONTRACT_SIGNED_TRANSFORMED_SELF"><![CDATA[
+	<p>
+		Doing as you're told, you set about transforming yourself into [style.a_shemale] [pc.race]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_CONTRACT_SIGNED_TRANSFORMED_CENTAURESS"><![CDATA[
+	<p>
+		You ask to be transformed into a centauress. Natalya makes you drink the potion to turn you into [style.a_shemale] [pc.race]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_CONTRACT_SIGNED_TRANSFORMED_KEEP_RACE"><![CDATA[
+	<p>
+		You ask to keep your race. Natalya makes you drink the potion...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRANSFORMED"><![CDATA[
+	<p>
+		As you've sucked Natalya's cock as part of your interview, you're ready to finish stage one of your training. This will involve kissing a slave's asshole and sucking their cock. Natalya asks if you'd like one of her 'girls' or boys.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_TRAINING_1 -->
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_1"><![CDATA[
+	<p>
+		You ask for [npc.a_race]. Natalya tells you to remain in her office and leaves for a moment.
+	</p>
+	<p>
+		A couple of minutes later, she returns with [npc.a_gender] [npc.race] slave. Natalya introduces [npc.herHim] as [npc.name] and has [npc.herHim] present you with [npc.her] asshole.
+	</p>
+	<p>
+		Natalya tells you that a good filly is expected to be submissive to slaves, and always starts by kissing the slave's asshole. Makes you kiss [npc.her] asshole and kneel down to service [npc.her] cock. Natalya tells you to show her that you love feral horse-cock.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_1_RELUCTANT_LICK"><![CDATA[
+	<p>
+		You hesitantly lick [npc.namePos] hot cock. Natalya spanks you and makes you say that horse-cock is your favourite. Makes you lick [npc.herHim] again and feeds you [npc.her] precum.
+	</p>
+	<p>
+		Natalya continues making you kiss and lick [npc.namePos] cock until you're eagerly doing it of your own accord. Has you say that you're a good filly who loves horse cock, then orders you to take [npc.herHim] into your mouth and give [npc.herHim] a blowjob.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_1_EAGER_LICK"><![CDATA[
+	<p>
+		You eagerly lick [npc.namePos] hot cock. Natalya is delighted and makes you say that horse-cock is your favourite. Makes you lick [npc.herHim] again and feeds you [npc.her] precum.
+	</p>
+	<p>
+		Natalya is satisfied by your enthusiasm and makes you say that you're a good filly who loves horse cock, then orders you to take [npc.herHim] into your mouth and give [npc.herHim] a blowjob.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_TRAINING_1_SEX -->
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_1_SEX"><![CDATA[
+	<p>
+		Tells you that you can now have your reward and suck [npc.namePos] cock. Natalya has some paperwork to do, so try not to be too loud.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_1_SEX_SUCK_COCK"><![CDATA[
+	<p>
+		As you wrap your [pc.lips+] around [npc.namePos] cock, Natalya says that [npc.name] is one of her more troublesome slaves, and often fucks the other fillies too hard. Tells you that this will be good training, and tells [npc.name] to not hold back. Before you can react, the [npc.race] slams [npc.her] [npc.cock+] down your throat and starts roughly fucking your face.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_TRAINING_1_AFTER_SEX -->
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_1_AFTER_SEX"><![CDATA[
+	<p>
+		Having had [npc.her] fun, [npc.name] steps back, sliding [npc.her] fat, feral horse-cock out from your throat. With a steady stream of cum and saliva drooling down from your [pc.lips], you look over to see Natalya smirking at you from behidn her desk. 
+	</p>
+	<p>
+		She tells you that you did well, and to remember the fact that you're a submissive filly who loves ass and cock. [npc.Name] pointedly steps forwards to slap [npc.her] cock against your face, and as you start cleaning it with your tongue, Natalya says that she's convinced that you're a slut for horse-cock.
+	</p>
+	<p>
+		Not even bothering to say anything to you, the slave asks for Natalya's permission to get back to work. As [npc.name] leaves, Natalya tells you that your next training session will be focused on making you into a slut for horse ass. Tells you to return tomorrow for more training.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_1_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Doing as you're told, you leave Natalya's office and head back out into the warehouse corridor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_TRAINING_2 -->
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_2"><![CDATA[
+	<p>
+		You do as you're told and kneel down beside Mistress Natalya. She gets three tubes of lipstick out of her drawer and tells you that before she trains you to love performing anilingus, you need look like the sort of slut who services horse-ass for a living.
+	</p>
+	<p>
+		Tells you that she bought these lipsticks on a whim, but felt as though they made her look too slutty. Asks you which colour you'd like.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_2_LIPSTICK_DARK_BLUE"><![CDATA[
+	<p>
+		You choose the matte dark blue lipstick. Natalya applies it to your lips and says that that colour will look good on her asshole.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_2_LIPSTICK_SPARKLY_GOLD"><![CDATA[
+	<p>
+		You choose the sparkly gold lipstick. Natalya applies it to your lips and says that that colour will look good on her asshole.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_2_LIPSTICK_GLOWING_PINK"><![CDATA[
+	<p>
+		You choose the glowing pink lipstick. Natalya applies it to your lips and says that that colour will look good on her asshole.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_TRAINING_2_MAKEUP -->
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_2_MAKEUP"><![CDATA[
+	<p>
+		Natalya gets you to pull up her skirt, after which she presents her puffy ebony asshole to you. While its shaped like a horse's asshole, it's quite clearly demonic, as it's leaking natural lubricant and looks more like a sexual orifice than a regular asshole.
+	</p>
+	<p>
+		Natalya tells you to be a good filly and paint her asshole with your lips.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_2_MAKEUP_RELUCTANT_KISSES"><![CDATA[
+	<p>
+		You hold back a little as you plant a wet kiss on Natalya's ebony asshole. Sensing your hesitation, she pushes back, smothering your face with her ass and telling you to be a good filly.
+	</p>
+	<p>
+		With little choice but to do as she says, you continue kissing the [natalya.race]'s asshole, and soon find yourself getting into it.
+	</p>
+	<p>
+		After several minutes of this, Natalya's asshole is painted [#SPECIAL_PARSE_0], and she turns around to command, [natalya.speech(Get stuck in, filly! You're going to use your tongue to make me cum from this!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_2_MAKEUP_EAGER_KISSES"><![CDATA[
+	<p>
+		You eagerly start planting a series of wet kisses on Natalya's ebony asshole. Moaning in delight, she pushes back, smothering your face with her ass and telling you that you're proving to be a very good filly.
+	</p>
+	<p>
+		Encouraged by her words, you continue kissing ass, and after several minutes, Natalya's asshole is painted [#SPECIAL_PARSE_0]. Satisfied with your performance so far, she turns around to command, [natalya.speech(Get stuck in, filly! You're going to use your tongue to make me cum from this!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_TRAINING_2_MAKEUP_ANILINGUS -->
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_2_MAKEUP_ANILINGUS_START"><![CDATA[
+	<p>
+		Doing as you're told, you start trusting your tongue into Natalya's asshole.
+	</p>
+	<p>
+		You continue to make out with her ass as she starts to moan and pant in delight, determined to make her cum from this...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_TRAINING_2_AFTER_SEX -->
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_2_AFTER_SEX"><![CDATA[
+	<p>
+		Having emptied her balls all over the floor, Natalya lets out a deeply-satisfied sigh and steps away from you. Using a nearby mirror to comment on how her slimy asshole looks good painted in [#SPECIAL_PARSE_0], she says that you're sure to be a popular filly ass-licker amongst the slaves.
+	</p>
+	<p>
+		Tells you that your next training will involve repeating your performance on a slave, and while you're showing them how skilled you are with your tongue, she'll be mounting you and fucking your ass.
+	</p>
+	<p>
+		She says that after that, the slave will have a go at mounting you, and then she'll equip your filly choker. Tells you to leave now and only return if you're able to equip the choker.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_2_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Thanking Natalya for the experience, you leave and head back out into the warehouse...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_TRAINING_3 -->
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_3"><![CDATA[
+	<p>
+		You do as you're told and kneel down on the floor of Natalya's office. Walking to the door, the [natalya.race] turns to ask if you'd like to be eating the ass of a centaur or centauress. Reminds you that they'll also be fucking you after she's pounded your ass.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_3_SLAVE_ENTRY"><![CDATA[
+	<p>
+		You ask for [npc.a_race]. Natalya fetches one and stands beside the slave as you kiss each of their asses.
+	</p>
+	<p>
+		Natalya says that she knows you're a slut for horse-ass by now, but she needs to make sure you're an eager filly for getting mounted and anally pounded. Tells you to present yourself to her and beg to be fucked.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_3_SLAVE_ENTRY_OBEY"><![CDATA[
+	<p>
+		You hesitantly present yourself to Natalya and ask her to mount you. Not satisfied with your lack of enthusiasm, she slaps your ass and makes you beg for it.
+	</p>
+	<p>
+		Much to your surprise, your Mistress doesn't mount you straight away, and instead leans down to plant a wet kiss on your asshole. Plays with your butt for a minute, alternating between using her lips and fingers.
+	</p>
+	<p>
+		Once you're moaning and panting from the anal attention, she rears up on her hind legs and mounts you. The flared head of her cock prods at your wet asshole, smearing precum all over it, but before she penetrates you, she orders the slave to smother your face with [npc.her] asshole.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_3_SLAVE_ENTRY_EAGERLY_OBEY"><![CDATA[
+	<p>
+		You present yourself to Natalya and eagerly beg for her to mount you.
+	</p>
+	<p>
+		Much to your surprise, your Mistress doesn't mount you straight away, and instead leans down to plant a wet kiss on your asshole. Plays with your butt for a minute, alternating between using her lips and fingers.
+	</p>
+	<p>
+		Once you're moaning and panting from the anal attention, she rears up on her hind legs and mounts you. The flared head of her cock prods at your wet asshole, smearing precum all over it, but before she penetrates you, she orders the slave to smother your face with [npc.her] asshole.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_TRAINING_3_FUCKED -->
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_3_FUCKED_START"><![CDATA[
+	<p>
+		Doing as [npc.sheIs] told, the slave steps back and smothers your face with [npc.her] sweaty, puffy asshole. As you start to kiss and lick [npc.her] butt, Natalya thrusts forwards, filling your ass with her fat, throbbing cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_TRAINING_3_AFTER_SEX -->
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_3_AFTER_SEX"><![CDATA[
+	<p>
+		Natalya pulls back, letting a huge gush of cum stream out of your well-fucked asshole. Stepping around to watch you plant a final few kisses on [npc.namePos] slimy, saliva-coated asshole, she tells you that all you need to do now to be a fully qualified filly is to have your ass fucked by a slave.
+	</p>
+	<p>
+		Returns to her desk and calls out for [npc.name] to mount you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_3_AFTER_SEX_ROUND_TWO"><![CDATA[
+	<p>
+		Doing as [npc.sheIs] told, [npc.name] trots around and quickly mounts you. Wastes no time in thrusting [npc.her] [npc.cock+] into your asshole...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_TRAINING_3_AFTER_SEX_SECOND -->
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_3_AFTER_SEX_SECOND"><![CDATA[
+	<p>
+		[npc.Name] steps back, letting you sink down onto your knees and gasp for breath. Smirking down at the cum leaking from your abused asshole, Natalya returns to declare that you're now a fully qualified filly.
+	</p>
+	<p>
+		She tells the slave to return to work and holds up a collar with the word 'filly' spelled out in steel letters. Natalya tells you to hold your head up so she can equip it on you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_TRAINING_3_CHOKER_EQUIPPED -->
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_3_CHOKER_EQUIPPED"><![CDATA[
+	<p>
+		You let Natalya strap the filly choker around your neck. You instantly feel that it's been enchanted, and not only is it sealed into place around your neck, but it's also making you feel a lot more submissive.
+	</p>
+	<p>
+		Natalya says that your duty is now to service slaves, just as she's taught you. While wearing your filly choker, you will be allowed into the stables. You can now earn 'filly points', and the colour of your new filly choker reflects what grade you are on, from steel to bronze to silver to gold.
+	</p>
+	<p>
+		Slaves earn points, in the form of small arcane beads, to give to fillies by working hard, and so you can earn points by pleasing them. Beads are absorbed into your filly collar when given to you, which tracks points. Natalya gives you ten of these beads as a reward for completing your training.
+	</p>
+	<p>
+		If you ever need to be transformed back into [pc.a_shemale] taur or need to be given another choker, you will incur heavy point losses. You also lose two points every day, meaning that you need to stay active to retain your rank. You will be promoted or demoted each time you visit Natalya, if your points allow it.
+	</p>
+	<p>
+		Natalya says she will no longer let you service her unless you are bronze. At silver, you can have her fuck you, and at gold she will let you mount her.
+	</p>
+	<p>
+		Tells you to leave and start earning those points.
+	<p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_TRAINING_3_CHOKER_EQUIPPED_LEAVE"><![CDATA[
+	<p>
+		You exit Natalya's office and wonder if you should visit the stables...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_COLLAR_UPGRADED -->
+	
+	<htmlContent tag="OFFICE_STABLE_COLLAR_UPGRADED"><![CDATA[
+	#VAR
+		var collar = pc.getClothingInSlot(IS_NECK);
+	#ENDVAR
+	
+	#IF(collar.getColour()==COLOUR_CLOTHING_GOLD)
+		<p>
+			Mistress Natalya tells you that you're now one of her special gold fillies. You will earn [#SPECIAL_PARSE_0] a day at this top rank.
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you, she says that she doesn't have time for more today, but if you come back tomorrow you can fuck her ass.
+			#ELSE
+				Asks if you'd like to fuck her ass.
+			#ENDIF
+		</p>
+	#ELSEIF(collar.getColour()==COLOUR_CLOTHING_SILVER)
+		<p>
+			Mistress Natalya tells you that you're now one of her good silver fillies. You will earn [#SPECIAL_PARSE_0] a day at this rank.
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you, she says that she doesn't have time for more today, but if you come back tomorrow she'll happily fuck your ass.
+			#ELSE
+				Asks if you'd like her to mount you.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Mistress Natalya tells you that you're now one of her promising bronze fillies. You will earn [#SPECIAL_PARSE_0] a day at this rank.
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you, she says that she doesn't have time for more today, but if you come back tomorrow she'll happily let you suck her cock or eat her ass.
+			#ELSE
+				Asks if you'd like to suck her cock or get a taste of her ass.
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_COLLAR_DOWNGRADED -->
+	
+	<htmlContent tag="OFFICE_STABLE_COLLAR_DOWNGRADED"><![CDATA[
+	#VAR
+		var collar = pc.getClothingInSlot(IS_NECK);
+	#ENDVAR
+	
+	#IF(collar.getColour()==COLOUR_CLOTHING_SILVER)
+		<p>
+			Mistress Natalya tells you that you're now just a silver filly. Says that you can no longer fuck her. You will earn [#SPECIAL_PARSE_0] a day at this rank.
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you, she says that she doesn't have time for more today, but if you come back tomorrow she'll happily fuck your ass.
+			#ELSE
+				If you'd like, she'll fuck your ass.
+			#ENDIF
+		</p>
+	#ELSEIF(collar.getColour()==COLOUR_CLOTHING_BRONZE)
+		<p>
+			Mistress Natalya tells you that you're now just a bronze filly. Says that you can only perform oral on her now. You will earn [#SPECIAL_PARSE_0] a day at this rank.
+		</p>
+		<p>
+			#IF(game.getDialogueFlags().hasFlag(FLAG_natalyaDailySex))
+				As she's already had sex with you, she says that she doesn't have time for more today, but if you come back tomorrow she'll happily let you suck her cock or eat her ass.
+			#ELSE
+				Asks if you'd like to suck her cock or get a taste of her ass.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Mistress Natalya tells you that you're now the lowest rank; a steel filly. You will earn [#SPECIAL_PARSE_0] a day at this rank.
+		</p>
+		<p>
+			Says if you want payment or some fun with her, then you'd better get out there and start servicing slaves.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_FILLY_ORAL -->
+	
+	<htmlContent tag="OFFICE_STABLE_FILLY_ORAL"><![CDATA[
+	<p>
+		You ask Natalya if you can perform oral on her. Smirking, she steps around from the other side of the desk and gets you to lift up her skirt.
+	</p>
+	<p>
+		Presents you with her asshole and asks if you want to suck her cock or give her a rimjob.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_FILLY_ORAL_BLOWJOB"><![CDATA[
+	<p>
+		You kiss Natalya's asshole then shuffle around to start sucking her cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_FILLY_ORAL_ANILINGUS"><![CDATA[
+	<p>
+		You kiss Natalya's asshole then bury your face in her ass and start performing anilingus...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_FILLY_MOUNTED -->
+	
+	<htmlContent tag="OFFICE_STABLE_FILLY_MOUNTED"><![CDATA[
+	<p>
+		You ask Natalya if she can mount you and fuck your ass. Smirking, she steps around from the other side of the desk and gets you to lift up her skirt.
+	</p>
+	<p>
+		Presents you with her asshole and tells you to kiss it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_FILLY_MOUNTED_START"><![CDATA[
+	<p>
+		You kiss Natalya's asshole and then present yourself to her. She kisses your asshole and teases you with her fingers a little before mounting and quickly penetrating your ass. She then starts to fuck you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_FILLY_MOUNTED -->
+	
+	<htmlContent tag="OFFICE_STABLE_FILLY_MOUNT_HER"><![CDATA[
+	<p>
+		You ask Natalya if you can mount her and fuck her ass. Smirking, she steps around from the other side of the desk and gets you to lift up her skirt.
+	</p>
+	<p>
+		Presents you with her asshole and tells you to kiss it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_FILLY_MOUNT_HER_START"><![CDATA[
+	<p>
+		You kiss Natalya's asshole and then she tells you to mount her. You do so and quickly penetrate her ass, before starting to fuck her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- OFFICE_STABLE_FILLY_AFTER_SEX -->
+	
+	<htmlContent tag="OFFICE_STABLE_FILLY_AFTER_BLOWJOB"><![CDATA[
+	<p>
+		Natalya makes you clean her cock off, before returning to the other side of her desk and asking if you need anything else.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_FILLY_AFTER_ANILINGUS"><![CDATA[
+	<p>
+		Natalya makes you clean her cock off, before returning to the other side of her desk and asking if you need anything else.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_FILLY_AFTER_MOUNTED"><![CDATA[
+	<p>
+		Natalya makes you clean her cock off, before returning to the other side of her desk and asking if you need anything else.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OFFICE_STABLE_FILLY_AFTER_MOUNT_HER"><![CDATA[
+	<p>
+		Natalya makes you clean her cock off, before returning to the other side of her desk and asking if you need anything else.
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 </dialogue>

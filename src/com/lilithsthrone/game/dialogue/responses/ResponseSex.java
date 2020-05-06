@@ -394,7 +394,7 @@ public class ResponseSex extends Response {
 	/**
 	 * This method is applied after the initSex() method has been called. It will not affect the content of the scene, so should just be used for modifying sex or foreplay preferences, or other background data.
 	 */
-	public void postSexInitEffects() {	
+	public void postSexInitEffects() {
 	}
 
 	private void generateOralPosition(List<GameCharacter> submissives, List<GameCharacter> sortedDominants, List<GameCharacter> dominantSpectators, List<GameCharacter> submissiveSpectators, ResponseTag... tags) {

@@ -11,6 +11,7 @@ import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
@@ -46,6 +47,7 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
+import com.lilithsthrone.utils.SizedStack;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -213,51 +215,13 @@ public class TooltipInventoryEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (genericItem != null) {
-			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 416);
-
-			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(genericItem.getName(true)) + "</div>"
-
-					+ "<div class='picture full' style='position:relative;'>" + genericItem.getSVGString() + "</div>");
-			
-			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+			itemTooltip(AbstractItemType.generateItem(genericItem));
 			
 		} else if (genericClothing != null) {
-			String author = genericClothing.getAuthorDescription();
-			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 480+(author.isEmpty()?0:64));
-			
-			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title' style='color:" + genericClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(genericClothing.getName()) + "</div>"
-					
-					+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
-
-					+ "<div class='picture' style='position:relative; width:"+(TOOLTIP_WIDTH-24)+"px; margin:8px; padding:0; height:"+(TOOLTIP_WIDTH-24)+"px;'>"
-						+ genericClothing.getSVGImage(
-								genericClothing.getEquipSlots().get(0),
-								colour, genericClothing.getAvailableSecondaryColours().isEmpty()?null:genericClothing.getAvailableSecondaryColours().get(0),
-								genericClothing.getAvailableTertiaryColours().isEmpty()?null:genericClothing.getAvailableTertiaryColours().get(0),
-								null, null, null, null)
-					+ "</div>"
-					+ (author.isEmpty()?"":"<div class='description' style='height:48px;'>" + author + "</div>"));
-			
-			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+			clothingTooltip(AbstractClothingType.generateClothing(genericClothing, colour, false));
 
 		} else if (genericWeapon != null) {
-
-			String author = genericWeapon.getAuthorDescription();
-			Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 480+(author.isEmpty()?0:64));
-
-			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title' style='color:" + genericWeapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(genericWeapon.getName()) + "</div>"
-
-					+ "<div class='subTitle'>" + Util.capitaliseSentence(dt.getName()) + "</div>"
-
-					+ "<div class='picture'style='position:relative; width:"+(TOOLTIP_WIDTH-24)+"px; margin:8px; padding:0; height:"+(TOOLTIP_WIDTH-24)+"px;'>"
-						+ genericWeapon.getSVGImage(dt, null, null, null)
-					+ "</div>"
-					+ (author.isEmpty()?"":"<div class='description' style='height:48px;'>" + author + "</div>"));
-
-			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+			weaponTooltip(AbstractWeaponType.generateWeapon(genericWeapon, dt));
 
 		} else if (invSlot != null) {
 			if (invSlot == InventorySlot.WEAPON_MAIN_1) {
@@ -1058,7 +1022,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		tooltipSB.append("</div>");
 
 		tooltipSB.append("<div class='container-full-width' style='padding:8px; height:106px;'>"
-						+ absWep.getWeaponType().getDescription()
+						+ UtilText.parse(absWep.getWeaponType().getDescription())
 					+ "</div>");
 
 		if(owner!=null && owner.getEssenceCount(TFEssence.ARCANE)<absWep.getWeaponType().getArcaneCost()) {
@@ -1357,11 +1321,12 @@ public class TooltipInventoryEventListener implements EventListener {
 	
 	
 	private void scarTooltip(Scar scar) {
+		int yIncrease = 0;
 		// Title:
 		tooltipSB.setLength(0);
 		tooltipSB.append("<body>"
 			+ "<div class='container-full-width center'><h5>No tattoo</h5></div>");
-
+		
 		// Core info:
 		tooltipSB.append("<div class='container-half-width titular'>" + Util.capitaliseSentence(invSlot.getTattooSlotName()) + "</div>");
 		tooltipSB.append("<div class='container-half-width titular'>"
@@ -1370,13 +1335,25 @@ public class TooltipInventoryEventListener implements EventListener {
 									: "<span style='color:" + PresetColour.SCAR.toWebHexString() + ";'>"+Util.capitaliseSentence(owner.getScarInSlot(invSlot).getName())+"</span>")
 						+ "</div>");
 		
-		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 88);
+		SizedStack<Covering> lipsticks = owner.getLipstickMarkingsInSlot(invSlot);
+		if(lipsticks!=null) {
+			yIncrease = 24 + (1+lipsticks.size())*LINE_HEIGHT;
+			tooltipSB.append("<div class='container-full-width' style='text-align:center; padding:8px; height:"+(16+(1+lipsticks.size())*LINE_HEIGHT)+"px;'>");
+			tooltipSB.append(UtilText.parse(owner, "[npc.NamePos] ")+invSlot.getNameOfAssociatedPart(owner)+" "+(invSlot.isPlural()?"have":"has")+" been marked by:");
+				for(int i=lipsticks.size()-1; i>=0; i--) {
+					tooltipSB.append("<br/>"+Util.capitaliseSentence(lipsticks.get(i).getFullDescription(owner, true)));
+				}
+			tooltipSB.append("</div>");
+		}
+		
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, yIncrease+88);
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 	}
 	
 	private void tattooTooltip(Tattoo tattoo) {
 		int yIncrease = 0;
 		int specialIncrease = 0;
+		int lipstickYIncrease = 0;
 		
 		if (tattoo.getWriting()!=null && !tattoo.getWriting().getText().isEmpty()) {
 			specialIncrease+=8;
@@ -1513,13 +1490,24 @@ public class TooltipInventoryEventListener implements EventListener {
 		}
 		
 		tooltipSB.append("</div>");
+
+		SizedStack<Covering> lipsticks = owner.getLipstickMarkingsInSlot(invSlot);
+		if(lipsticks!=null) {
+			lipstickYIncrease = 24 + (1+lipsticks.size())*LINE_HEIGHT;
+			tooltipSB.append("<div class='container-full-width' style='text-align:center; padding:8px; height:"+(16+(1+lipsticks.size())*LINE_HEIGHT)+"px;'>");
+			tooltipSB.append(UtilText.parse(owner, "[npc.NamePos] ")+invSlot.getNameOfAssociatedPart(owner)+" "+(invSlot.isPlural()?"have":"has")+" been marked by:");
+				for(int i=lipsticks.size()-1; i>=0; i--) {
+					tooltipSB.append("<br/>"+Util.capitaliseSentence(lipsticks.get(i).getFullDescription(owner, true)));
+				}
+			tooltipSB.append("</div>");
+		}
 		
 		tooltipSB.append("</body>");
 
 		if(tattoo.getDisplayName(false).length()>40) {
 			specialIncrease = 26;
 		}
-		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 392 + (Main.game.isEnchantmentCapacityEnabled()?32:0) + (yIncrease * LINE_HEIGHT) + specialIncrease);
+		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 392 + (Main.game.isEnchantmentCapacityEnabled()?32:0) + (yIncrease * LINE_HEIGHT) + lipstickYIncrease + specialIncrease);
 		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 	}
 	

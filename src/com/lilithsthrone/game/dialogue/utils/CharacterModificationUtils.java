@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.utils;
 
 import java.time.Month;
 import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.Set;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
@@ -108,6 +110,7 @@ import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -140,7 +143,9 @@ public class CharacterModificationUtils {
 	public static final int FLUID_REGEN_INCREMENT_SMALL = 100;
 	public static final int FLUID_REGEN_INCREMENT_AVERAGE = 1000;
 	public static final int FLUID_REGEN_INCREMENT_LARGE = 10_000;
-	
+
+	public static final int MAX_AGE_PLAYER = 50;
+	public static final int MAX_AGE_NPC = 60;
 
 	public static String getInformationDiv(String id, TooltipInformationEventListener information) {
 		return getInformationDiv(id, information, false);
@@ -404,16 +409,22 @@ public class CharacterModificationUtils {
 	}
 	
 	
-	public static void performAgeCheck(int ageTarget) {
-		int ageDiff = Math.abs(BodyChanging.getTarget().getAgeValue()-ageTarget);
+	public static void performAgeCheck() {
+		int age = (int) ChronoUnit.YEARS.between(BodyChanging.getTarget().getBirthday(), Main.game.getDateNow());
 		
-		if(ageDiff>0) {
-			if(BodyChanging.getTarget().getAgeValue()>ageTarget) {
-				BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().plusYears(ageDiff));
-				
-			} else if(BodyChanging.getTarget().getAgeValue()<ageTarget) {
-				BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().minusYears(ageDiff));
-			}
+		if(BodyChanging.getTarget().isPlayer() && age>CharacterModificationUtils.MAX_AGE_PLAYER) {
+			BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().plusYears(age-CharacterModificationUtils.MAX_AGE_PLAYER));
+			
+		} else if(!BodyChanging.getTarget().isPlayer() && age>(CharacterModificationUtils.MAX_AGE_NPC-GameCharacter.MINIMUM_AGE)) {
+			BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().plusYears(age-(CharacterModificationUtils.MAX_AGE_NPC-GameCharacter.MINIMUM_AGE)));
+		}
+		
+		if(BodyChanging.getTarget().isPlayer() && age<18) {
+			BodyChanging.getTarget().setBirthday(BodyChanging.getTarget().getBirthday().minusYears(18-age));
+		}
+		
+		if(age<0) {
+			BodyChanging.getTarget().setBirthday(Main.game.getDateNow());
 		}
 	}
 	
@@ -444,7 +455,9 @@ public class CharacterModificationUtils {
 					contentSB.append(applyDateWrapper("Age", "AGE", "", "",
 							String.valueOf(BodyChanging.getTarget().getAgeValue()),
 							BodyChanging.getTarget().getAgeValue()<=18,
-							BodyChanging.getTarget().getAgeValue()>=50));
+							BodyChanging.getTarget().isPlayer()
+								?BodyChanging.getTarget().getAgeValue()>=MAX_AGE_PLAYER
+								:BodyChanging.getTarget().getAgeValue()>=MAX_AGE_NPC));
 				contentSB.append("</div>");
 				
 			contentSB.append("</div>");
@@ -486,7 +499,9 @@ public class CharacterModificationUtils {
 			contentSB.append(applyDateWrapper("Age", "AGE", "", "",
 					String.valueOf(BodyChanging.getTarget().getAgeValue()),
 					BodyChanging.getTarget().getAgeValue()<=18,
-					BodyChanging.getTarget().getAgeValue()>=60));
+					BodyChanging.getTarget().isPlayer()
+						?BodyChanging.getTarget().getAgeValue()>=MAX_AGE_PLAYER
+						:BodyChanging.getTarget().getAgeValue()>=MAX_AGE_NPC));
 		contentSB.append("</div>");
 		
 		return contentSB.toString();
@@ -977,6 +992,10 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformTailCountDiv() {
 		contentSB.setLength(0);
 		
+		boolean isYouko = (BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT
+				|| BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
+				|| BodyChanging.getTarget().getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC);
+		
 		for(int i=1; i <= Tail.MAXIMUM_COUNT; i++) {
 			if(BodyChanging.getTarget().getTailCount() == i) {
 				contentSB.append(
@@ -985,15 +1004,26 @@ public class CharacterModificationUtils {
 						+ "</div>");
 				
 			} else {
-				contentSB.append(
-						"<div id='TAIL_COUNT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
-						+ "</div>");
+				if(!BodyChanging.isDebugMenu() && isYouko) {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ Util.capitaliseSentence(Util.intToString(i))
+							+ "</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='TAIL_COUNT_"+i+"' class='cosmetics-button'>"
+								+ "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "</div>");
+				}
 			}
 		}
 
 		return applyWrapper("Tail Count",
-				UtilText.parse(BodyChanging.getTarget(), "Change how many [npc.tails] [npc.name] [npc.has]."
+				UtilText.parse(BodyChanging.getTarget(),
+						(isYouko
+							?"As [npc.nameIsFull] a youko, [npc.she] cannot change the number of tails [npc.she] [npc.has]!"
+							:"Change how many [npc.tails] [npc.name] [npc.has].")
 						+ "<br/><i>The number of tails is taken into consideration when checking to see if there's a tail available for penetrative actions during sex.</i>"),
 				"TAIL_COUNT",
 				contentSB.toString(),
@@ -5130,6 +5160,40 @@ public class CharacterModificationUtils {
 			
 			sb.append("</div>");
 
+			if(coveringType==BodyCoveringType.MAKEUP_LIPSTICK && Main.getProperties().hasValue(PropertyValue.lipstickMarkingContent)) {
+				boolean heavyLipstick = BodyChanging.getTarget().isHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+				sb.append("<div class='container-full-width' style='width:100%; padding:0; margin:0; text-align:center; "+border+"'>");
+					sb.append("<div class='container-full-width' style='width:60%; padding:0; margin:0; text-align:center;'>");
+						sb.append(UtilText.parse(BodyChanging.getTarget(),
+								"By applying a heavy layer of lipstick, [npc.name] will leave marks on any part [npc.she] [npc.verb(kiss)]!"
+								+ "<br/>[style.italics(Heavy lipstick needs to be re-applied after a sex scene in which it's used.)]"));
+					sb.append("</div>");
+					sb.append("<div class='container-full-width' style='width:40%; padding:0; margin:0; text-align:center;'>");
+						if(!heavyLipstick) {
+							sb.append(
+									"<div class='cosmetics-button active'>"
+										+ "<span style='color:" + PresetColour.BASE_PINK_LIGHT.toWebHexString() + ";'>Normal</span>"
+									+ "</div>");
+						} else {
+							sb.append(
+									"<div id='MAKEUP_LIPSTICK_HEAVY_OFF' class='cosmetics-button'>"
+										+ "<span style='color:"+PresetColour.BASE_PINK_LIGHT.getShades()[0]+";'>Normal</span>"
+									+ "</div>");
+						}
+						if(heavyLipstick) {
+							sb.append(
+									"<div class='cosmetics-button active'>"
+										+ "<span style='color:" + PresetColour.BASE_PINK_DEEP.toWebHexString() + ";'>Heavy</span>"
+									+ "</div>");
+						} else {
+							sb.append(
+									"<div id='MAKEUP_LIPSTICK_HEAVY_ON' class='cosmetics-button'>"
+										+ "<span style='color:"+PresetColour.BASE_PINK_DEEP.getShades()[0]+";'>Heavy</span>"
+									+ "</div>");
+						}
+					sb.append("</div>");
+				sb.append("</div>");
+			}
 			
 			// Reset/Apply changes buttons:
 			sb.append("<div class='container-full-width' style='width:100%; padding:0; margin:0; text-align:center;'>");
@@ -5171,243 +5235,6 @@ public class CharacterModificationUtils {
 		
 		return sb.toString();
 	}
-	
-//	public static String getKatesDivCoveringsNew(boolean withCost, BodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow, boolean withDyeAndExtraPatterns) {
-//		boolean disabledButton = !coveringsToBeApplied.containsKey(coveringType) || coveringsToBeApplied.get(coveringType).equals(BodyChanging.getTarget().getCovering(coveringType));
-//		
-//		contentSB = new StringBuilder(
-//				"<div class='container-full-width' style='text-align:center;'>"
-//					+ "<div class='container-quarter-width'>"
-//						+ "<p>"
-//							+ "<b>"
-//								+ Util.capitaliseSentence(title)
-//							+ "</b>"
-//						+ "</p>"
-//						+ "<p>"
-//							+ "Currently:<br/><i>"+BodyChanging.getTarget().getCovering(coveringType).getFullDescription(BodyChanging.getTarget(), true)+"</i>"
-//						+ "</p>"
-//							+ (disabledButton
-//									?"<div class='normal-button disabled' style='width:90%; margin:2% auto; padding:0; text-align:center; bottom:0;'>"
-//										+"<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>Apply Changes"
-//											+ (withCost
-//												?"<br/>("+UtilText.formatAsMoneyUncoloured(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b")+")"
-//												:"")
-//										+"</span>"
-//									+ "</div>"
-//									:"<div class='normal-button' style='width:90%; margin:2% auto; padding:0; text-align:center; bottom:0;' id='APPLY_COVERING_"+coveringType+"'>"
-//										+ "Apply Changes"
-//										+ (withCost
-//											?"<br/>("
-//												+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
-//													? UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b")
-//													: UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b", PresetColour.GENERIC_BAD))+")"
-//											:"")
-//										+ "</div>")
-//						
-//						
-//					+ "</div>"
-//					+ "<div class='container-quarter-width'>"
-//					+ "Pattern:<br/>");
-//
-//		Covering activeCovering = !coveringsToBeApplied.containsKey(coveringType)
-//										?BodyChanging.getTarget().getCovering(coveringType)
-//										:coveringsToBeApplied.get(coveringType);
-//		
-//		List<CoveringPattern> availablePatterns = new ArrayList<>(withDyeAndExtraPatterns
-//																	?coveringType.getAllPatterns().keySet()
-//																	:coveringType.getNaturalPatterns().keySet());
-//		for (CoveringPattern pattern : availablePatterns) {
-//			if (activeCovering.getPattern() == pattern) {
-//				contentSB.append(
-//						"<div class='cosmetics-button active'>"
-//							+ "<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getName()) + "</span>"
-//						+ "</div>");
-//			} else {
-//				contentSB.append(
-//						"<div id='"+coveringType+"_PATTERN_"+pattern+"' class='cosmetics-button'>"
-//								+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
-//									? "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getName()) + "</span>"
-//									: "[style.colourDisabled(" + Util.capitaliseSentence(pattern.getName()) + ")]")
-//						+ "</div>");
-//			}
-//		}
-//		contentSB.append("</div>");
-//		contentSB.append("<div class='container-half-width''>");
-//		contentSB.append( "<div class='container-half-width'>"
-//					+ "Primary Colour:<br/>");
-//	
-//	
-//			List<Colour> availablePrimaryColours = new ArrayList<>(withDyeAndExtraPatterns
-//															?coveringType.getAllPrimaryColours()
-//															:coveringType.getNaturalColoursPrimary());
-//			int rainbowIncrement=5;
-//			String rainbow = "";
-//			Collections.sort(availablePrimaryColours, (c1, c2)->c2.isMetallic()?(c1.isMetallic()?0:-1):(c1.isMetallic()?1:0));
-//			
-//			for (Colour c : availablePrimaryColours) {
-//				if(c.getRainbowColours()!=null) {
-//					rainbow = c.getRainbowDiv(5);
-//				} else {
-//					rainbow = "";
-//				}
-//				contentSB.append("<div class='normal-button"+(activeCovering.getPrimaryColour()==c?" selected":"")+"' id='"+coveringType+"_PRIMARY_"+c.getId()+"'"
-//										+ " style='width:auto; margin-right:4px;"+(activeCovering.getPrimaryColour()==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-//									+ (c.isMetallic()
-//											?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-//											:(c.getRainbowColours()!=null
-//												?"<div class='phone-item-colour' style='background: "+rainbow
-//												:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
-//										+(c==PresetColour.COVERING_NONE
-//											?" color:"+PresetColour.BASE_RED.toWebHexString()+";'>X"
-//											:"'>")
-//									+"</div>"
-//								+ "</div>");
-//			}
-//			contentSB.append("<br/>");
-//			if(activeCovering.getPrimaryColour() == PresetColour.COVERING_NONE || !withGlow) { // Disable glow:
-//				
-//			} else {
-//				if(activeCovering.isPrimaryGlowing()) {
-//					contentSB.append(
-//							"<div class='normal-button active' id='"+coveringType+"_PRIMARY_GLOW_OFF' style='width:100%; margin:2% auto; padding:0; text-align:center;'>"
-//								+ "[style.boldArcane(Arcane Glow)]"
-//							+ "</div>");
-//				} else {
-//					contentSB.append(
-//							"<div id='"+coveringType+"_PRIMARY_GLOW_ON' class='normal-button' style='width:100%; margin:2% auto; padding:0; text-align:center;'>"
-//								+ "<span style='color:"+PresetColour.GENERIC_ARCANE.getShades()[0]+";'>Arcane Glow</span>"
-//							+ "</div>");
-//				}
-//			}
-//			contentSB.append("<p>"
-//						+ "<span style='color:"+activeCovering.getPrimaryColour().toWebHexString()+";"
-//								+(activeCovering.isPrimaryGlowing()
-//										?"text-shadow: 0px 0px 4px "+activeCovering.getPrimaryColour().getShades()[4]+";"
-//										:"")+"'>"
-//							+Util.capitaliseSentence(activeCovering.getPrimaryColour().getName())
-//						+"</span>"
-//					+ "</p>");
-//			
-//			contentSB.append("</div>"
-//					+ "<div class='container-half-width'>"
-//					+ "Secondary Colour:<br/>");
-//	
-//			List<Colour> availableSecondaryColours = new ArrayList<>(withDyeAndExtraPatterns
-//														?coveringType.getAllSecondaryColours()
-//														:coveringType.getNaturalColoursSecondary());
-//			Collections.sort(availableSecondaryColours, (c1, c2)->c2.isMetallic()?(c1.isMetallic()?0:-1):(c1.isMetallic()?1:0));
-//			for (Colour c : availableSecondaryColours) {
-//				if(activeCovering.getPattern()==CoveringPattern.NONE
-//						|| activeCovering.getPattern()==CoveringPattern.EYE_IRISES
-//						|| activeCovering.getPattern()==CoveringPattern.EYE_PUPILS
-//						|| activeCovering.getPattern()==CoveringPattern.EYE_SCLERA
-//						|| !withSecondary) {
-//					contentSB.append("<div class='normal-button disabled' style='width:auto; margin-right:4px;'>"
-//						+ "<div class='phone-item-colour' style='background-color:" + c.getShades()[0] + ";'></div>"
-//					+ "</div>");
-//					
-//				} else {
-//					int i=0;
-//					if(c.getRainbowColours()!=null) {
-//						StringBuilder sb = new StringBuilder();
-//						sb.append("repeating-linear-gradient(135deg,");
-//						for(String s : c.getRainbowColours()) {
-//							sb.append(" "+s+" "+(i*rainbowIncrement)+"px, "+s+" "+((i+1)*rainbowIncrement)+"px,");
-//							i++;
-//						}
-//						sb.deleteCharAt(sb.length()-1);
-//						sb.append(");");
-//						rainbow = sb.toString();
-//					} else {
-//						rainbow = "";
-//					}
-//					contentSB.append("<div class='normal-button"+(activeCovering.getSecondaryColour()==c?" selected":"")+"' id='"+coveringType+"_SECONDARY_"+c.getId()+"'"
-//											+ " style='width:auto; margin-right:4px;"+(activeCovering.getSecondaryColour()==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-//											+ (c.isMetallic()
-//													?"<div class='phone-item-colour' style='background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-//													:(c.getRainbowColours()!=null
-//														?"<div class='phone-item-colour' style='background: "+rainbow
-//														:"<div class='phone-item-colour' style='background-color:" + (c.isJetBlack()?BaseColour.PITCH_BLACK.toWebHexString():c.toWebHexString()) + ";"))
-//												+(c==PresetColour.COVERING_NONE?" color:"+PresetColour.BASE_RED.toWebHexString()+";'>X":"'>")
-//											+"</div>"
-//									+ "</div>");
-//				}
-//			}
-//			contentSB.append("<br/>");
-//			if(activeCovering.getSecondaryColour() == PresetColour.COVERING_NONE || !withGlow || activeCovering.getPattern()==CoveringPattern.NONE || !withSecondary) { // Disable glow:
-//				
-//			} else {
-//				if(activeCovering.isSecondaryGlowing()) {
-//					contentSB.append(
-//							"<div class='normal-button active' id='"+coveringType+"_SECONDARY_GLOW_OFF' style='width:100%; margin:2% auto; padding:0; text-align:center;'>"
-//								+ "[style.boldArcane(Arcane Glow)]"
-//							+ "</div>");
-//				} else {
-//					contentSB.append(
-//							"<div id='"+coveringType+"_SECONDARY_GLOW_ON' class='normal-button' style='width:100%; margin:2% auto; padding:0; text-align:center;'>"
-//								+ "<span style='color:"+PresetColour.GENERIC_ARCANE.getShades()[0]+";'>Arcane Glow</span>"
-//							+ "</div>");
-//				}
-//			}
-//			if(activeCovering.getPattern()==CoveringPattern.NONE
-//					|| activeCovering.getPattern()==CoveringPattern.EYE_IRISES
-//					|| activeCovering.getPattern()==CoveringPattern.EYE_PUPILS
-//					|| activeCovering.getPattern()==CoveringPattern.EYE_SCLERA
-//					|| !withSecondary) {
-//				contentSB.append("<p>"
-//						+ "[style.boldDisabled(Disabled)]"
-//					+ "</p>");
-//				
-//			} else {
-//				contentSB.append("<p>"
-//						+ "<span style='color:"+activeCovering.getSecondaryColour().toWebHexString()+";"
-//								+(activeCovering.isSecondaryGlowing()?"text-shadow: 0px 0px 4px "+activeCovering.getSecondaryColour().getShades()[4]+";":"")+"'>"
-//							+Util.capitaliseSentence(activeCovering.getSecondaryColour().getName())
-//						+"</span>"
-//					+ "</p>");
-//			}
-//			contentSB.append("</div>");
-//			
-//			if(activeCovering.getType().getNaturalModifiers().size() + activeCovering.getType().getExtraModifiers().size()>1) {
-//				contentSB.append("<div class='container-full-width'>");
-//				for(CoveringModifier mod : activeCovering.getType().getNaturalModifiers()) {
-//					if (activeCovering.getModifier() == mod) {
-//						contentSB.append(
-//								"<div class='cosmetics-button active'>"
-//									+ "<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(mod.getName()) + "</span>"
-//								+ "</div>");
-//					} else {
-//						contentSB.append(
-//								"<div id='"+coveringType+"_MODIFIER_"+mod+"' class='cosmetics-button'>"
-//										+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
-//											? "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(mod.getName()) + "</span>"
-//											: "[style.colourDisabled(" + Util.capitaliseSentence(mod.getName()) + ")]")
-//								+ "</div>");
-//					}
-//				}
-//				for(CoveringModifier mod : activeCovering.getType().getExtraModifiers()) {
-//					if (activeCovering.getModifier() == mod) {
-//						contentSB.append(
-//								"<div class='cosmetics-button active'>"
-//									+ "<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(mod.getName()) + "</span>"
-//								+ "</div>");
-//					} else {
-//						contentSB.append(
-//								"<div id='"+coveringType+"_MODIFIER_"+mod+"' class='cosmetics-button'>"
-//										+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
-//											? "<span style='color:"+PresetColour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(mod.getName()) + "</span>"
-//											: "[style.colourDisabled(" + Util.capitaliseSentence(mod.getName()) + ")]")
-//								+ "</div>");
-//					}
-//				}
-//				contentSB.append("</div>");
-//			}
-//		contentSB.append("</div>");
-//		
-//		contentSB.append("</div>");
-//		
-//		return contentSB.toString();
-//	}
 	
 	public static String getKatesDivPiercings(boolean noCost) {
 		contentSB.setLength(0);

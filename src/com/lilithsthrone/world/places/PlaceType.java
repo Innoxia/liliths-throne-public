@@ -18,7 +18,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
-import com.lilithsthrone.game.dialogue.places.dominion.DominionExpress;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.dialogue.places.dominion.HomeImprovements;
@@ -52,6 +51,8 @@ import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SupplierDe
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaveryAdministration;
+import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.DominionExpress;
+import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.Warehouses;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloorRepeat;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
@@ -72,7 +73,6 @@ import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiv
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
@@ -638,7 +638,7 @@ public class PlaceType {
 			"While there are countless industrial buildings scattered throughout Dominion, the area with the largest concentration of them is in this dedicated warehouse district.",
 			"dominion/warehouse",
 			PresetColour.BASE_BROWN,
-			DominionPlaces.WAREHOUSE_DISTRICT,
+			Warehouses.WAREHOUSE_DISTRICT,
 			Encounter.DOMINION_STREET,
 			"in the streets of Dominion") {
 		@Override
@@ -1313,10 +1313,10 @@ public class PlaceType {
 			PresetColour.BASE_BLACK,
 			DominionExpress.CORRIDOR,
 			null,
-			"in the 'Dominion Express' warehouse")  {
+			"in the 'Dominion Express' warehouse") {
 		@Override
-		public List<Population> getPopulation() {//TODO
-			return Util.newArrayListOfValues(new Population(true, PopulationType.OFFICE_WORKER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(true, PopulationType.SLAVE, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
 		}
 	}.initWeatherImmune();
 
@@ -1327,8 +1327,12 @@ public class PlaceType {
 			PresetColour.BASE_RED,
 			DominionExpress.ENTRANCE,
 			null,
-			"in the 'Dominion Express' warehouse")
-	.initWeatherImmune();
+			"in the 'Dominion Express' warehouse") {
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(true, PopulationType.RECEPTIONIST, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+		}
+	}.initWeatherImmune();
 
 	public static final AbstractPlaceType DOMINION_EXPRESS_STORAGE = new AbstractPlaceType(
 			"Storage",
@@ -1337,22 +1341,30 @@ public class PlaceType {
 			PresetColour.BASE_ORANGE,
 			DominionExpress.STORAGE,
 			null,
-			"in the 'Dominion Express' warehouse")
-	.initWeatherImmune();
+			"in the 'Dominion Express' warehouse") {
+		@Override
+		public List<Population> getPopulation() {
+			return DOMINION_EXPRESS_CORRIDOR.getPopulation();
+		}
+	}.initWeatherImmune();
 
 	public static final AbstractPlaceType DOMINION_EXPRESS_OFFICE = new AbstractPlaceType(
 			"Office",
-			"The day-to-day running of 'Dominion Express' is handled within the offices which line one side of the warehouse's corridor.",
+			"The day-to-day running of 'Dominion Express' is handled within these offices.",
 			"dominion/dominionExpress/office",
 			PresetColour.BASE_BLUE_LIGHT,
 			DominionExpress.OFFICE,
 			null,
-			"in the 'Dominion Express' warehouse")
-	.initWeatherImmune();
+			"in the 'Dominion Express' warehouse") {
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(true, PopulationType.OFFICE_WORKER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+		}
+	}.initWeatherImmune();
 
 	public static final AbstractPlaceType DOMINION_EXPRESS_OFFICE_STABLE = new AbstractPlaceType(
 			"Stable Mistress's office",
-			"The office responsible for the care and management of the centaur slaves is, quite logically, located adjacent to their stables.",
+			"The office responsible for the care and management of the centaur slaves is located at the far end of the warehouse's corridor.",
 			"dominion/dominionExpress/officeStable",
 			PresetColour.BASE_TAN,
 			DominionExpress.OFFICE_STABLE,
@@ -1367,8 +1379,12 @@ public class PlaceType {
 			PresetColour.BASE_BROWN,
 			DominionExpress.STABLES,
 			null,
-			"in the stables at the 'Dominion Express' warehouse")
-	.initWeatherImmune();
+			"in the stables at the 'Dominion Express' warehouse") {
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(true, PopulationType.SLAVE, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+		}
+	}.initWeatherImmune();
 	
 	
 	
@@ -1702,7 +1718,7 @@ public class PlaceType {
 			"in Lilaya's lab") {
 		@Override
 		public void applyInventoryInit(CharacterInventory inventory) {
-			inventory.addClothing(AbstractClothingType.generateClothing(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES, PresetColour.CLOTHING_BLACK, false));
+			inventory.addClothing(AbstractClothingType.generateClothing("innoxia_scientist_safety_goggles", false));
 		}
 	}.initItemsPersistInTile()
 			.initWeatherImmune();

@@ -821,8 +821,10 @@ public class Game implements XMLSaving {
 						gen.worldGeneration(WorldType.DOMINION_EXPRESS);
 					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.3.7")) {
-						gen.worldGeneration(WorldType.DOMINION_EXPRESS);
 						gen.worldGeneration(WorldType.HELENAS_APARTMENT);
+					}
+					if(Main.isVersionOlderThan(loadingVersion, "0.3.7.5")) {
+						gen.worldGeneration(WorldType.DOMINION_EXPRESS);
 					}
 					if(Main.game.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
@@ -1814,7 +1816,7 @@ public class Game implements XMLSaving {
 						npc.cleanAllClothing(true);
 					}
 					if(!npc.isSlave() || npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_BODY)) {
-						npc.cleanAllDirtySlots();
+						npc.cleanAllDirtySlots(true);
 					}
 				}
 			}
@@ -2218,6 +2220,7 @@ public class Game implements XMLSaving {
 				
 			} else if(response instanceof ResponseSex) {
 				setContent(new Response("", "", ((ResponseSex)response).initSex()));
+				Main.sex.postSexInitSetup();
 				((ResponseSex)response).postSexInitEffects();
 				Main.mainController.updateUILeftPanel();
 				return;
@@ -2435,6 +2438,7 @@ public class Game implements XMLSaving {
 			
 		} else if(response instanceof ResponseSex) {
 			setContent(new Response("", "", ((ResponseSex)response).initSex()));
+			Main.sex.postSexInitSetup();
 			((ResponseSex)response).postSexInitEffects();
 			Main.mainController.updateUILeftPanel();
 			return;
@@ -3519,22 +3523,21 @@ public class Game implements XMLSaving {
 	}
 
 	public String getDisplayDate(boolean withYear) {
-		if(isInNewWorld()) {
-			if(getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)) {
-				if(withYear) {
-					return Units.date(getDateNow(), Units.DateType.LONG);
-				} else {
-					String date = Units.date(getDateNow(), Units.DateType.LONG);
-					return date.substring(0, date.length()-5);
-				}
-			}
+		String date = Units.date(getDateNow(), Units.DateType.LONG);
+		
+		if(isInNewWorld() && !getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)) {
 			return UtilText.parse("[style.colourMinorBad(Unknown date)]");
 		}
 		
+//		if(withYear) {
+//			return Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
+//		} else {
+//			String date = Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
+//			return date.substring(0, date.length()-5);
+//		}
 		if(withYear) {
-			return Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
+			return Units.date(getDateNow(), Units.DateType.LONG);
 		} else {
-			String date = Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
 			return date.substring(0, date.length()-5);
 		}
 	}
@@ -4006,7 +4009,6 @@ public class Game implements XMLSaving {
 	public boolean isPlayerTileFull() {
 		return getActiveWorld().getCell(getPlayer().getLocation()).getInventory().isInventoryFull();
 	}
-
 	
 	public String runXmlTest(String pathName) {
 		return UtilText.runXmlTest(pathName);
@@ -4066,6 +4068,10 @@ public class Game implements XMLSaving {
 	
 	public boolean isSadisticSexContent() {
 		return Main.getProperties().hasValue(PropertyValue.sadisticSexContent);
+	}
+	
+	public boolean isLipstickMarkingEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.lipstickMarkingContent);
 	}
 	
 	public boolean isFacialHairEnabled() {

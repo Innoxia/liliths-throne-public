@@ -129,145 +129,6 @@ public class ClothingType {
 //		}
 //	};
 	
-	
-	// EYES
-	public static AbstractClothingType EYES_GLASSES = new AbstractClothingType(800,
-			"a pair of",
-			true,
-			"glasses",
-			"glasses",
-			"A pair of thin-rimmed glasses.",
-			0,
-			null,
-			InventorySlot.EYES,
-			Rarity.COMMON,
-			null,
-			"clothing/eye_glasses",
-			null,
-			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.EYES), null, null, null)),
-			null,
-			ColourListPresets.JUST_STEEL,
-			ColourListPresets.ALL_METAL,
-			ColourListPresets.JUST_STEEL,
-			ColourListPresets.ALL_METAL,
-			ColourListPresets.JUST_GREY,
-			ColourListPresets.ALL,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You put on your glasses.",
-					"You push the glasses onto [npc.namePos] face.",
-					null,
-					"[npc.Name] puts on [npc.her] glasses.",
-					"[npc.Name] pushes the pair of glasses onto your face.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You take off your glasses.",
-					"You take off [npc.namePos] glasses.",
-					"You grab [npc.namePos] glasses and roughly pull them off.", // Rude!
-					"[npc.Name] takes [npc.her] glasses off.",
-					"[npc.Name] takes your glasses off.",
-					"[npc.Name] grabs your glasses and roughly pulls them off.", null, null);
-		}
-	};
-	public static AbstractClothingType EYES_AVIATORS = new AbstractClothingType(1200,
-			"a pair of",
-			true,
-			"aviators",
-			"aviators",
-			"A pair of aviator sunglasses.",
-			0,
-			null,
-			InventorySlot.EYES,
-			Rarity.COMMON,
-			null,
-			"clothing/eye_aviators",
-			null,
-			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.EYES), null, null, null)),
-			null,
-			ColourListPresets.ALL_METAL,
-			ColourListPresets.ALL_WITH_METALS,
-			ColourListPresets.JUST_ORANGE,
-			ColourListPresets.ALL,
-			null,
-			null, 
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-			@Override
-			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-						"You put on your aviators.",
-						"You push the aviators onto [npc.namePos] face.",
-						null,
-						"[npc.Name] puts on [npc.her] aviators.",
-						"[npc.Name] pushes the pair of aviators onto your face.",
-						null, null, null);
-			}
-
-			@Override
-			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-						"You take off your aviators.",
-						"You take off [npc.namePos] aviators.",
-						"You grab [npc.namePos] aviators and roughly pull them off.", // Rude!
-						"[npc.Name] takes [npc.her] aviators off.",
-						"[npc.Name] takes your aviators off.",
-						"[npc.Name] grabs your aviators and roughly pulls them off.", null, null);
-			}
-	};
-	
-	public static AbstractClothingType EYES_PATCH = new AbstractClothingType(200,
-			"an",
-			false,
-			"eye-patch",
-			"eye-patches",
-			"A small patch, made from cloth, which is attached to an elastic band and designed to be worn around the head.",
-			0,
-			null,
-			InventorySlot.EYES,
-			Rarity.COMMON,
-			null,
-			"clothing/eye_patch",
-			null,
-			Util.newArrayListOfValues(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(ClothingAccess.EYES), null, null, null)),
-			null,
-			ColourListPresets.JUST_BLACK,
-			ColourListPresets.ALL,
-			ColourListPresets.JUST_BLACK,
-			ColourListPresets.ALL,
-			null,
-			null, 
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-			@Override
-			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-						"You fasten the eye patch around your head, before moving it into place to cover your eye.",
-						"You fasten the eye patch around [npc.namePos] head, before moving it into place to cover [npc.her] eye.",
-						null,
-						"[npc.Name] fastens the eye patch around [npc.her] head, before moving it into place to cover [npc.her] eye.",
-						"[npc.Name] fastens the eye patch around your head, before moving it into place to cover your eye.",
-						null, null, null);
-			}
-
-			@Override
-			public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-				return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-						"You take off your eye patch.",
-						"You take off [npc.namePos] eye patch.",
-						"You grab [npc.namePos] eye patch and roughly pull it off.",
-						"[npc.Name] takes [npc.her] eye patch off.",
-						"[npc.Name] takes your eye patch off.",
-						"[npc.Name] grabs your eye patch and roughly pulls it off.", null, null);
-			}
-	};
-	
 
 	// MOUTH
 	public static AbstractClothingType MOUTH_BANDANA = new AbstractClothingType(80,
@@ -727,7 +588,7 @@ public class ClothingType {
 			"women's leather jacket",
 			"women's leather jackets",
 			"A feminine leather jacket, able to be worn both open and, by means of a zip, closed.",
-			0.5f,
+			2f,
 			Femininity.FEMININE,
 			InventorySlot.TORSO_OVER,
 			Rarity.COMMON,
@@ -1575,7 +1436,7 @@ public class ClothingType {
 			"corset dresses",
 			"An overbust corset, which is tied up and tightened by a series of strings running up the front."
 					+ " A long skirt is attached to the bottom rim, turning it into a dress.",
-			0.1f,
+			0,
 			Femininity.FEMININE,
 			InventorySlot.TORSO_UNDER,
 			Rarity.COMMON,
@@ -2927,7 +2788,7 @@ public class ClothingType {
 			"chest sarashi",
 			"chest sarashis",
 			"A long strip of thick cotton, wrapped around the chest as an added layer of protection, or to flatten the wearer's breasts.",
-			0.1f,
+			0,
 			null,
 			InventorySlot.CHEST,
 			Rarity.COMMON,
@@ -3049,7 +2910,7 @@ public class ClothingType {
 			"lowback bodysuit",
 			"lowback bodysuits",
 			"A bodysuit with a scooped low back and removable straps.",
-			0.1f,
+			0,
 			Femininity.FEMININE,
 			InventorySlot.STOMACH,
 			Rarity.COMMON,
@@ -3165,7 +3026,7 @@ public class ClothingType {
 			"underbust corset",
 			"underbust corsets",
 			"A corset that keeps the wearer's stomach nicely shaped, while leaving their breasts totally exposed. It has a series of laces at the back that are used to tighten it.",
-			0.1f,
+			0,
 			Femininity.FEMININE,
 			InventorySlot.STOMACH,
 			Rarity.COMMON,
@@ -3219,7 +3080,7 @@ public class ClothingType {
 			"overbust corset",
 			"overbust corsets",
 			"A corset that keeps the wearer's stomach nicely shaped, while also covering their breasts. It has a series of laces at the back that are used to tighten it.",
-			0.1f,
+			0,
 			Femininity.FEMININE,
 			InventorySlot.STOMACH,
 			Rarity.COMMON,
@@ -3281,7 +3142,7 @@ public class ClothingType {
 			"stomach sarashi",
 			"stomach sarashis",
 			"A long strip of thick cotton, wrapped around the stomach as an added layer of protection, or to gain a slim figure.",
-			0.1f,
+			0,
 			null,
 			InventorySlot.STOMACH,
 			Rarity.COMMON,
@@ -5139,7 +5000,7 @@ public class ClothingType {
 			"wrist restraints",
 			"wrist restraints",
 			"A pair of leather wrist restraints.",
-			0.1f,
+			0,
 			null,
 			InventorySlot.WRIST,
 			Rarity.EPIC,
@@ -5435,12 +5296,12 @@ public class ClothingType {
 	};
 	
 	public static AbstractClothingType ENFORCER_SHIRT = new AbstractClothingType(1500,
-			"an",
+			"a",
 			false,
-			"Enforcer's shirt",
-			"Enforcer's shirts",
-			"An Enforcer's shirt, it comes with what appears to be a stab-proof vest.",
-			0.2f,
+			"fancy-dress Enforcer's shirt",
+			"fancy-dress Enforcer's shirts",
+			"A fancy-dress version of an Enforcer's shirt, complete with an imitation stab-proof vest.",
+			1f,
 			null,
 			InventorySlot.TORSO_UNDER,
 			Rarity.EPIC,
@@ -5504,9 +5365,9 @@ public class ClothingType {
 	public static AbstractClothingType ENFORCER_SHORTS = new AbstractClothingType(600,
 			"a pair of",
 			true,
-			"Enforcer's shorts",
-			"Enforcer's shorts",
-			"A pair of shorts, they come with a utility belt.",
+			"fancy-dress Enforcer's shorts",
+			"fancy-dress Enforcer's shorts",
+			"A pair of fancy-dress Enforcer's shorts, complete with a utility belt.",
 			0,
 			null,
 			InventorySlot.LEG,
@@ -5575,11 +5436,11 @@ public class ClothingType {
 	};
 	
 	public static AbstractClothingType ENFORCER_MINI_SKIRT = new AbstractClothingType(600,
-			"an",
+			"a",
 			false,
-			"Enforcer's miniskirt",
-			"Enforcer's miniskirts",
-			"A very short skirt, equipped with a utility belt, which barely reaches down to mid-thigh.",
+			"fancy-dress Enforcer's miniskirt",
+			"fancy-dress Enforcer's miniskirts",
+			"A fancy-dress Enforcer's skirt, complete with a utility belt, which is so short that it barely reaches down to mid-thigh.",
 			0,
 			Femininity.FEMININE,
 			InventorySlot.LEG,
@@ -6569,195 +6430,6 @@ public class ClothingType {
 	};
 	
 	
-	public static AbstractClothingType SCIENTIST_TORSO_OVER_LAB_COAT = new AbstractClothingType(800,
-			"a",
-			false,
-			"lab coat",
-			"lab coats",
-			"A knee-length cotton overcoat which helps protect the wearer against accidental chemical spills.",
-			0,
-			null,
-			InventorySlot.TORSO_OVER,
-			Rarity.EPIC,
-			SetBonus.SCIENTIST,
-			"clothing/torso_over_lab_coat",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_FIRE, TFPotency.BOOST, 0), 
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.BOOST, 0), 
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_POISON, TFPotency.BOOST, 0)),
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							null,
-							Util.newArrayListOfValues(CoverableArea.BACK),
-							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER), 
-							null
-							),
-					new BlockedParts(
-							DisplacementType.PULLS_UP,
-							null,
-							Util.newArrayListOfValues(
-									CoverableArea.ANUS,
-									CoverableArea.PENIS,
-									CoverableArea.VAGINA),
-							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS),
-							PresetConcealmentLists.CONCEALED_GROIN.getPresetInventorySlotList()),
-					new BlockedParts(
-							DisplacementType.UNBUTTONS,
-							null,
-							Util.newArrayListOfValues(
-									CoverableArea.BREASTS,
-									CoverableArea.NIPPLES,
-									CoverableArea.PENIS,
-									CoverableArea.VAGINA,
-									CoverableArea.STOMACH),
-							Util.newArrayListOfValues(
-									ClothingAccess.GROIN,
-									ClothingAccess.ANUS,
-									ClothingAccess.CHEST,
-									ClothingAccess.WAIST),
-							PresetConcealmentLists.CONCEALED_DRESS_FRONT_FULL.getPresetInventorySlotList())),
-			null,
-			ColourListPresets.BLACK_OR_WHITE,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull on the lab coat.",
-					"You guide [npc.namePos] [npc.arms] through the lab coat's sleeves as you pull it on [npc.herHim].",
-					null,
-					"[npc.Name] pulls on the lab coat.",
-					"[npc.Name] guides your [pc.arms] through the lab coat's sleeves as [npc.she] pulls it on you.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You take off your lab coat.",
-					"You pull off [npc.namePos] lab coat.",
-					null,
-					"[npc.Name] takes [npc.her] lab coat off.",
-					"[npc.Name] pulls your lab coat off.",
-					null, null, null);
-		}
-	};
-	
-	public static AbstractClothingType SCIENTIST_EYES_SAFETY_GOGGLES = new AbstractClothingType(150,
-			"a pair of",
-			true,
-			"safety goggles",
-			"safety goggles",
-			"A pair of safety goggles. They're the type worn by scientists when handling chemicals.",
-			0.1f,
-			null,
-			InventorySlot.EYES,
-			Rarity.EPIC,
-			SetBonus.SCIENTIST,
-			"clothing/eye_safety_goggles",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_FIRE, TFPotency.BOOST, 0), 
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.BOOST, 0), 
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_POISON, TFPotency.BOOST, 0)),
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(
-									ClothingAccess.HEAD,
-									ClothingAccess.EYES),
-							null,
-							null, null)),
-			null,
-			ColourListPresets.JUST_BLACK,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You put on the safety goggles.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] puts on " + clothing.getName(true) + ".");
-			else {
-				if (rough) {
-					if (clothingOwner.isPlayer())
-						return "[npc.Name] holds you by the chin and pushes " + clothing.getName(true) + " onto your face, before looping the elastic strap over your head.";
-					else
-						return UtilText.parse(clothingOwner,
-								"You firmly hold [npc.namePos] chin and push the safety goggles onto [npc.her] face," + " before looping the elastic strap over [npc.her] head.");
-				} else {
-					if (clothingOwner.isPlayer())
-						return UtilText.parse(clothingOwner,
-								"[npc.Name] places " + clothing.getName(true) + " onto your face," + " before looping the elastic strap over your head.");
-					else
-						return UtilText.parse(clothingOwner,
-								"You place the safety goggles onto [npc.namePos] face," + " before looping the elastic strap over your head.");
-				}
-			}
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You take off your safety goggles.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] takes off [npc.her] safety goggles.");
-			else {
-				if (rough) {
-					if (clothingOwner.isPlayer())
-						return "[npc.Name] grabs your safety goggles and pulls them off.";
-					else
-						return "You grab [npc.namePos] safety goggles and pull them off.";
-				} else {
-					if (clothingOwner.isPlayer())
-						return "[npc.Name] takes your safety goggles off.";
-					else
-						return "You take off [npc.namePos] safety goggles.";
-				}
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your safety goggles up onto your forehead.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls [npc.her] safety goggles up onto [npc.her] forehead.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls up your safety goggles.";
-				else
-					return UtilText.parse(clothingOwner, "You pull up [npc.namePos] safety goggles.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your safety goggles back down over your eyes.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] pulls [npc.her] safety goggles back down over [npc.her] eyes.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] pulls your safety goggles down over your eyes.";
-				else
-					return UtilText.parse(clothingOwner, "You pull [npc.namePos] safety goggles down over [npc.her] eyes.");
-			}
-		}
-	};
-	
 	public static AbstractClothingType AMBERS_BITCH_CHOKER = new AbstractClothingType(1250,
 			"an",
 			false,
@@ -6773,6 +6445,7 @@ public class ClothingType {
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.MAJOR_BOOST, 0),
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_DRAIN, 0),
+					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SERVITUDE, TFPotency.MINOR_DRAIN, 0),
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0),
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
@@ -6955,7 +6628,11 @@ public class ClothingType {
 		oldIdConversionMap.put("WITCH_BOOTS", "innoxia_witch_witch_boots");
 		oldIdConversionMap.put("WITCH_BOOTS_THIGH_HIGH", "innoxia_witch_witch_boots_thigh_high");
 
-		oldIdConversionMap.put("EYES_SAFETY_GOGGLES", "SCIENTIST_EYES_SAFETY_GOGGLES");
+		oldIdConversionMap.put("EYES_SAFETY_GOGGLES", "innoxia_scientist_safety_goggles");
+		oldIdConversionMap.put("SCIENTIST_EYES_SAFETY_GOGGLES", "innoxia_scientist_safety_goggles");
+		oldIdConversionMap.put("SCIENTIST_TORSO_OVER_LAB_COAT", "innoxia_scientist_lab_coat");
+		
+		
 		
 		// Standard items:
 		oldIdConversionMap.put("kobolds_belt_leather_belt", "innoxia_hips_leather_belt");
@@ -6973,6 +6650,10 @@ public class ClothingType {
 		oldIdConversionMap.put("PIERCING_NAVEL_GEM", "innoxia_piercing_gemstone_barbell");
 		oldIdConversionMap.put("PIERCING_VAGINA_BARBELL_RING", "innoxia_piercing_ringed_barbell");
 		oldIdConversionMap.put("PIERCING_PENIS_RING", "innoxia_piercing_penis_ring");
+
+		oldIdConversionMap.put("EYES_GLASSES", "innoxia_eye_glasses");
+		oldIdConversionMap.put("EYES_AVIATORS", "innoxia_eye_aviators");
+		oldIdConversionMap.put("EYES_PATCH", "innoxia_eye_patch");
 		
 		oldIdConversionMap.put("HEAD_CHEATERS_CIRCLET", "innoxia_head_circlet");
 		oldIdConversionMap.put("HEAD_CIRCLET", "innoxia_head_circlet");
@@ -7237,7 +6918,7 @@ public class ClothingType {
 						ClothingType.CHEST_LACY_PLUNGE_BRA,
 						ClothingType.CHEST_OPEN_CUP_BRA,
 						ClothingType.CHEST_PLUNGE_BRA,
-						ClothingType.EYES_AVIATORS,
+						ClothingType.getClothingTypeFromId("innoxia_eye_aviators"),
 						ClothingType.getClothingTypeFromId("innoxia_finger_ring"),
 						ClothingType.getClothingTypeFromId("innoxia_foot_chelsea_boots"),
 						ClothingType.getClothingTypeFromId("innoxia_foot_ankle_boots"),

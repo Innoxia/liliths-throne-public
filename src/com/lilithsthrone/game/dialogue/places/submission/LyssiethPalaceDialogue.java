@@ -960,7 +960,7 @@ public class LyssiethPalaceDialogue {
 				return new Response("Meraxis's office", "Step out of Lyssieth's office and into her daughter's office-cum-waiting room.", AFTER_DEMON_TF_SIREN_OFFICE_LEAVE) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Lyssieth.class).cleanAllDirtySlots();
+						Main.game.getNpc(Lyssieth.class).cleanAllDirtySlots(true);
 						Main.game.getNpc(Lyssieth.class).cleanAllClothing(true);
 						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE);
 					}

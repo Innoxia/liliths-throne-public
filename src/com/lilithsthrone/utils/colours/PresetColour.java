@@ -121,7 +121,7 @@ public class PresetColour {
 	public static Colour STATUS_EFFECT_TIME_LOW = new Colour(false, BaseColour.RED, "red") {};
 
 	public static Colour RACE_BESTIAL = new Colour(false, BaseColour.TAN, "tan", Util.newArrayListOfValues("bestial", "animal", "feral")) {};
-	public static Colour RACE_UNKNOWN = new Colour(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("unknown")) {};
+	public static Colour RACE_UNKNOWN = new Colour(false, BaseColour.GREY, "grey", Util.newArrayListOfValues("unknown")) {};
 	public static Colour RACE_HUMAN = new Colour(false, BaseColour.BLUE_STEEL, "pale blue", Util.newArrayListOfValues("human")) {};
 	public static Colour RACE_HALF_DEMON = new Colour(false, BaseColour.INDIGO, "indigo", Util.newArrayListOfValues("halfDemon")) {};
 	public static Colour RACE_DEMON = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("demon")) {};

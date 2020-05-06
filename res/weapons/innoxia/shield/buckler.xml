@@ -2,7 +2,7 @@
 <weapon>
 	<coreAttributes>
 	
-		<value>1000</value> 
+		<value>1500</value> 
 		<melee>true</melee>
 		<twoHanded>false</twoHanded>
 		<determiner><![CDATA[a]]></determiner>
@@ -21,8 +21,8 @@
 		<imageName>buckler.svg</imageName> 
 		<imageEquippedName>buckler.svg</imageEquippedName>
 		
-		<physicalResistance>1</physicalResistance> 
-		<damage>6</damage> 
+		<physicalResistance>5</physicalResistance> 
+		<damage>10</damage> 
 		<arcaneCost>0</arcaneCost>
 		<damageVariance>HIGH</damageVariance> 
 		

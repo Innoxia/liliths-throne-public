@@ -44,6 +44,8 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
+import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.OffspringMapDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -621,6 +623,21 @@ public class ItemEffectType {
 						+ "[npc.Name] immediately [npc.verb(feel)] the positive effects of the aura-boosting supplements added to the Starr Cigarette."
 						+ " As the smoke fills [npc.her] lungs, however, [npc.she] also [npc.verb(feel)] slightly less healthy..."
 					+ "</p>");
+		}
+	};
+
+	public static AbstractItemEffectType MAKEUP_SET = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"[style.boldGood(Opens cosmetics screen)]"),
+			PresetColour.BASE_PURPLE) {
+		@Override
+		public boolean isBreakOutOfInventory() {
+			return true;
+		}
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			BodyChanging.setTarget(target);
+			Main.game.setContent(new Response("", "", MiscDialogue.BODY_CHANGING_MAKEUP));
+			return "";
 		}
 	};
 	

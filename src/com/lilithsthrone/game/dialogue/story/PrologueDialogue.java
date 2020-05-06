@@ -711,7 +711,7 @@ public class PrologueDialogue {
 						List<AbstractClothing> tempList = new ArrayList<>(Main.game.getPlayerCell().getInventory().getAllClothingInInventory().keySet());
 
 						for(AbstractClothing c : tempList) {
-							if(!c.getClothingType().equals(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES)) {
+							if(!c.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_scientist_safety_goggles"))) {
 								Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
 							}
 						}

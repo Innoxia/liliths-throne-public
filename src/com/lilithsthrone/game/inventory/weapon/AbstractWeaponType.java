@@ -53,7 +53,7 @@ import com.lilithsthrone.utils.colours.ColourListPresets;
  * @author Innoxia
  */
 public abstract class AbstractWeaponType extends AbstractCoreType {
-
+	
 	private int baseValue;
 	private boolean isMod;
 	
@@ -615,6 +615,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		};
 	}
 
+	public static AbstractWeapon generateWeapon(String id) {
+		return generateWeapon(WeaponType.getWeaponTypeFromId(id));
+	}
+	
 	public static AbstractWeapon generateWeapon(AbstractWeapon weapon) {
 		return new AbstractWeapon(weapon) {
 			@Override

@@ -28,7 +28,6 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
@@ -45,9 +44,7 @@ import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortress
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
@@ -57,8 +54,6 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -181,56 +176,8 @@ public class ImpAttacker extends NPC {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
 		CharacterUtils.generateItemsInInventory(this);
-		
-		CharacterUtils.equipPiercings(this, true);
-		
-		if(!this.getAllSpells().isEmpty()) {
-			if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-				this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_arcanistStaff_arcanist_staff")));
-			}
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_impArcanist_arcanist_hat"), false), true, this);
-		}
-		
-		if(this.isFeminine()) {
-			AbstractClothing skirt = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_ragged_skirt"), false);
-			this.equipClothingFromNowhere(skirt, true, this);
-			
-			// Imps are flying, and don't wear anything on their feet.
-			// Alpha-imps also wear accessories as symbols of status.
-			if(this.getSubspecies()==Subspecies.IMP_ALPHA) {
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_foot_wraps"), false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_finger_ring", false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(
-						Util.randomItemFrom(new AbstractClothingType[] {ClothingType.getClothingTypeFromId("innoxia_neck_ankh_necklace"), ClothingType.getClothingTypeFromId("innoxia_neck_heart_necklace")}), false), true, this);
-			}
-			
-			if(!this.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-				List<AbstractClothingType> underwear = Util.newArrayListOfValues(
-						ClothingType.GROIN_THONG,
-						ClothingType.GROIN_VSTRING,
-						ClothingType.GROIN_PANTIES,
-						ClothingType.GROIN_CROTCHLESS_THONG,
-						ClothingType.GROIN_CROTCHLESS_PANTIES);
-				this.equipClothingFromNowhere(
-						AbstractClothingType.generateClothing(Util.randomItemFrom(underwear), false), true, this);
 
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_ragged_chest_wrap"), skirt.getColour(), false), true, this);
-			}
-			
-		} else {
-			this.equipClothingFromNowhere(
-					AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_loin_cloth"), false), true, this);
-
-			// Imps are flying, and don't wear anything on their feet.
-			// Alpha-imps also wear accessories as symbols of status.
-			if(this.getSubspecies()==Subspecies.IMP_ALPHA) {
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_foot_wraps"), false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_wraps", false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_SARASHI, false), true, this);
-			}
-		}
-	
+		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 	}
 	
 	@Override

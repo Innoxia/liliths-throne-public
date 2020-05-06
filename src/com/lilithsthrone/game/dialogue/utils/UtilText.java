@@ -62,6 +62,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
+import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
@@ -391,6 +392,10 @@ public class UtilText {
 	
 	public static String getPentagramSymbol() {
 		return "&#9737;"; // Java doesn't support unicode 6 ;_;   No pentagram for me... ;_;  "&#9956";
+	}
+	
+	public static String getShieldSymbol() {
+		return "&#9930;";
 	}
 	
 	public static String applyGlow(String input, Colour colour) {
@@ -4107,7 +4112,25 @@ public class UtilText {
 		
 		// Styles & non-character parsing:
 		
-
+		for(Gender gender : Gender.values()) {
+			commandsList.add(new ParserCommand(
+					Util.newArrayListOfValues(
+							gender.getType()==PronounType.FEMININE
+								?gender.getGenderName().getFeminine()
+								:(gender.getType()==PronounType.MASCULINE
+									?gender.getGenderName().getMasculine()
+									:gender.getGenderName().getNeutral())),
+					true,
+					true,
+					"",
+					"Returns this gender name (based on user settings)."){
+				@Override
+				public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+					return gender.getName();
+				}
+			});
+		}
+		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"evening",
@@ -7864,6 +7887,9 @@ public class UtilText {
 		}
 		
 		// Enums:
+		for(Colour colour : PresetColour.getAllPresetColours()) {
+			engine.put("COLOUR_"+PresetColour.getIdFromColour(colour), colour);
+		}
 		for(Race race : Race.values()) {
 			engine.put("RACE_"+race.toString(), race);
 		}

@@ -164,7 +164,7 @@ public class RacialBody {
 			SkinType.DEMON_COMMON,
 			BodyMaterial.FLESH,
 			HornLength.ONE_SMALL, HornLength.TWO_LONG, Util.newArrayListOfValues(HornType.CURLED, HornType.SPIRAL, HornType.SWEPT_BACK, HornType.CURVED, HornType.STRAIGHT),
-			PenisType.DEMON_COMMON, 25, PenetrationGirth.THREE_THICK, TesticleSize.FOUR_HUGE, 4, CumProduction.SIX_EXTREME,
+			PenisType.DEMON_COMMON, 25, PenetrationGirth.THREE_THICK, TesticleSize.FOUR_HUGE, 2, CumProduction.SIX_EXTREME,
 			Util.newArrayListOfValues(TailType.DEMON_COMMON, TailType.DEMON_HAIR_TIP, TailType.DEMON_HORSE),
 			TentacleType.NONE, 
 			VaginaType.DEMON_COMMON, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, OrificeDepth.FOUR_DEEP, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,

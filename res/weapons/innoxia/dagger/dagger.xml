@@ -6,7 +6,7 @@
 		<!-- <authorTag><![CDATA[A discreet inscription at the base of the dagger's blade informs you that it was made by 'Innoxia'.]]></authorTag> -->
 		
 		<!-- How much this weapon is worth. -->
-		<value>1500</value> 
+		<value>3000</value> 
 		
 		<!-- Use "true" if this is a melee weapon, and "false" if it's ranged. (Without quotation marks.) -->
 		<melee>true</melee>
@@ -62,7 +62,7 @@
 		<physicalResistance>0</physicalResistance> 
 		
 		<!-- The base damage that this weapon deals. -->
-		<damage>12</damage> 
+		<damage>20</damage> 
 		
 		<!-- How many arcane essences are required, and drained, by firing this weapon. Ranged weapons should usually use the value 1, while melee weapons should usually be 0. -->
 		<arcaneCost>0</arcaneCost> 

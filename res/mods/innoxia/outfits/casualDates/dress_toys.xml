@@ -40,9 +40,9 @@
 	</coreAttributes>
 	
 	<generationAttributes>
-		<!-- You can define up to 20 conditional statements to use elsewhere in this file. They must be enclosed in CDATA tags, and must use a consecutively-numbered format of "clothingConditionalX". If they have the attribute: 'constant="true"', then they are evaluated once at the start of clothing generation. If not, they are re-evaluated every time. -->
-		<clothingConditional1 constant="true"><![CDATA[RND.nextInt(100)<=50]]></clothingConditional1>
-		<clothingConditional2 constant="true"><![CDATA[RND.nextInt(100)<=75]]></clothingConditional2>
+		<!-- You can define any number of conditional statements to use elsewhere in this file. They must be enclosed in CDATA tags, and must use a format of "clothingConditionalX" or "condX", where X is a unique String (e.g. "cond1", "condUnderwear", "clothingConditionalMeleeWeapons" are all valid tags). If they have the attribute: 'constant="true"', then they are evaluated once at the start of clothing generation. If not, they are re-evaluated every time. -->
+		<cond1 constant="true"><![CDATA[RND.nextInt(100)<=50]]></cond1>
+		<cond2 constant="true"><![CDATA[RND.nextInt(100)<=75]]></cond2>
 		
 		<!-- "presetColourGroupX" groups have one of their defined "randomColour"s randomly chosen for further use in this XML file. You can have up to 20 "presetColourGroupX"s, but the numbers must be consecutive. (i.e. You can have "presetColourGroup1", "presetColourGroup2", and "presetColourGroup3", but NOT "presetColourGroup1", "presetColourGroup2", and "presetColourGroup4", as that skips out a "3".)
 		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->
@@ -165,7 +165,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[clothingConditional1]]></conditional>
+			<conditional><![CDATA[cond1]]></conditional>
 			<types>
 				<type>FINGER_RING</type>
 			</types>
@@ -177,7 +177,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[!clothingConditional1 || clothingConditional2]]></conditional>
+			<conditional><![CDATA[!cond1 || cond2]]></conditional>
 			<types>
 				<type>NECK_HEART_NECKLACE</type>
 			</types>

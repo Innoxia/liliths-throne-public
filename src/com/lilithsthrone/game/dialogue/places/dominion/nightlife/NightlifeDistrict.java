@@ -3462,7 +3462,7 @@ public class NightlifeDistrict {
 						@Override
 						public void effects() {
 							for(InventorySlot slot : washSlots) {
-								Main.game.getPlayer().removeDirtySlot(slot);
+								Main.game.getPlayer().removeDirtySlot(slot, true);
 								AbstractClothing c = Main.game.getPlayer().getClothingInSlot(slot);
 								if(c!=null) {
 									c.setDirty(Main.game.getPlayer(), false);

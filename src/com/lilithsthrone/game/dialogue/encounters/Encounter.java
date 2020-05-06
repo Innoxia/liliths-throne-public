@@ -13,7 +13,6 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -31,7 +30,6 @@ import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -43,7 +41,6 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -638,17 +635,12 @@ public enum Encounter {
 						imp.setLevel(8+Util.random.nextInt(5)); // 8-12
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
-						AbstractWeapon pipe = AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe"));
-						imp.equipMainWeaponFromNowhere(pipe);
-						imp.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_crudeShield_crude_shield"), pipe.getDamageType()));
 						
 						// Alpha imp:
 						imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
 						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
-						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BOW_AND_ARROW, Util.randomItemFrom(new DamageType[] {DamageType.POISON, DamageType.FIRE})));
-						imp.setEssenceCount(TFEssence.ARCANE, 25);
 						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
@@ -735,7 +727,7 @@ public enum Encounter {
 						imp.setLevel(12+Util.random.nextInt(7)); // 12-18
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
-						imp.setBreastSize(CupSize.M);
+						imp.setBreastSize(imp.getBreastSize().getMeasurement()+4);
 						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
@@ -780,9 +772,6 @@ public enum Encounter {
 						imp.setLevel(12+Util.random.nextInt(7)); // 12-18
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
-						AbstractWeapon pipe = AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe"));
-						imp.equipMainWeaponFromNowhere(pipe);
-						imp.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_crudeShield_crude_shield"), pipe.getDamageType()));
 						
 						// Alpha imp:
 						imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE, false);
@@ -790,23 +779,20 @@ public enum Encounter {
 						imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
-						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
-
+						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE, false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
 						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
-						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
-
+						
 						// Normal imp:
 						imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE, false);
 						impAdjectives.add(CharacterUtils.setGenericName(imp, impAdjectives));
 						imp.setLevel(4+Util.random.nextInt(3)); // 4-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
-						imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
 						
 						for(GameCharacter impGangMember : impGroup) {
 							((NPC) impGangMember).equipClothing(EquipClothingSetting.getAllClothingSettings());
@@ -1035,7 +1021,9 @@ public enum Encounter {
 		Main.game.getOffspringSpawned().add(offspring);
 
 		offspring.setLocation(Main.game.getPlayer(), true);
-
+		
+		offspring.equipClothing(EquipClothingSetting.getAllClothingSettings());
+		
 		Main.game.setActiveNPC(offspring);
 
 		return Main.game.getActiveNPC().getEncounterDialogue();

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>15000</value>
+		<melee>false</melee>
+		<twoHanded>true</twoHanded>
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[arcane musket]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[arcane muskets]]></namePlural>
+		<description><![CDATA[Thanks to the efforts of you and Meraxis, the township of Elis is producing as many of these arcane muskets as they possibly can. Instead of bullets, these smoothbore long guns fire bolts of arcane energy, and give even the most inexperienced member of the militia a fighting chance against Lunette's demonic centaurs.]]></description>
+		<attackDescriptor>fire</attackDescriptor>
+		<attackTooltipDescription>Point your musket at [npc.name] and fire!</attackTooltipDescription>
+		<rarity>LEGENDARY</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(ready)] [npc.her] arcane musket.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] arcane musket away.]]></unequipText>
+		<imageName>arcane_musket.svg</imageName>
+		<imageEquippedName/>
+		<damage>150</damage>
+		<arcaneCost>10</arcaneCost> 
+		<damageVariance>LOW</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		<enchantmentLimit>10</enchantmentLimit>
+		<effects/>
+		
+		<primaryColours/> 
+		<primaryColoursDye/>
+		<secondaryColours/> 
+		<secondaryColoursDye/>
+		
+		<itemTags/>
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Aiming and firing [npc.her] arcane musket, [npc.name] [npc.verb(manage)] to hit [npc2.name] with a powerful arcane bullet!
+		]]></hitText>
+		<hitText><![CDATA[
+		Taking aim at [npc2.name] with [npc.her] arcane musket, [npc.name] [npc.verb(pull)] the trigger, unleashing a powerful blast of arcane energy that slams into [npc2.namePos] torso!
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(aim)] at [npc2.name] with [npc.her] arcane musket, and, pulling the trigger, [npc.she] [npc.verb(manage)] to hit [npc2.herHim] right in the chest!
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		Aiming and firing [npc.her] arcane musket, [npc.name] [npc.verb(miss)] [npc2.name]!
+		]]></missText>
+		<missText><![CDATA[
+		Taking aim at [npc2.name] with [npc.her] arcane musket, [npc.name] [npc.verb(pull)] the trigger, letting out a frustrated cry as [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(aim)] at [npc2.name] with [npc.her] arcane musket and [npc.verb(pull)] the trigger, but [npc.she] [npc.verb(end)] up missing [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

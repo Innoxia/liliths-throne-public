@@ -391,77 +391,79 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		
 		
 		// Try to load colours:
-		if((clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("BDSM_CHOKER")) && Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.6"))
-				|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_ankle_shin_guards")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6"))
-				|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("FOOT_TRAINERS")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.2"))
-				|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_sock_toeless_striped_stockings")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.2"))) {
-			try {
-				clothing.setColour(PresetColour.getColourFromId(parentElement.getAttribute("colourSecondary")));
-				clothing.setSecondaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colour")));
-			} catch(Exception ex) {
-			}
-			
-		} else if(clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("FOOT_LOW_TOP_SKATER_SHOES")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.2")){
-			try {
-				clothing.setSecondaryColour(PresetColour.CLOTHING_WHITE);
-				if(!parentElement.getAttribute("colour").isEmpty()) {
-					clothing.setColour(PresetColour.getColourFromId(parentElement.getAttribute("colour")));
-				} else {
-					clothing.setColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
+		if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.4") || !clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_scientist_safety_goggles"))){
+			if((clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("BDSM_CHOKER")) && Main.isVersionOlderThan(Game.loadingVersion, "0.2.12.6"))
+					|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_ankle_shin_guards")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.6"))
+					|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("FOOT_TRAINERS")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.2"))
+					|| (clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_sock_toeless_striped_stockings")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.2"))) {
+				try {
+					clothing.setColour(PresetColour.getColourFromId(parentElement.getAttribute("colourSecondary")));
+					clothing.setSecondaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colour")));
+				} catch(Exception ex) {
 				}
-			} catch(Exception ex) {
-			}
-			
-		} else {
-			try {
-				if(!parentElement.getAttribute("colour").isEmpty()) {
-					clothing.setColour(PresetColour.getColourFromId(parentElement.getAttribute("colour")));
-				} else {
-					clothing.setColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
+				
+			} else if(clothing.getClothingType().equals(ClothingType.getClothingTypeFromId("FOOT_LOW_TOP_SKATER_SHOES")) && Main.isVersionOlderThan(Game.loadingVersion, "0.3.1.2")){
+				try {
+					clothing.setSecondaryColour(PresetColour.CLOTHING_WHITE);
+					if(!parentElement.getAttribute("colour").isEmpty()) {
+						clothing.setColour(PresetColour.getColourFromId(parentElement.getAttribute("colour")));
+					} else {
+						clothing.setColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
+					}
+				} catch(Exception ex) {
 				}
-			} catch(Exception ex) {
+				
+			} else {
+				try {
+					if(!parentElement.getAttribute("colour").isEmpty()) {
+						clothing.setColour(PresetColour.getColourFromId(parentElement.getAttribute("colour")));
+					} else {
+						clothing.setColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
+					}
+				} catch(Exception ex) {
+				}
+				
+				try {
+					if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
+						Colour secColour = PresetColour.getColourFromId(parentElement.getAttribute("colourSecondary"));
+						if(clothing.getClothingType().getAllAvailableSecondaryColours().contains(secColour)) {
+							clothing.setSecondaryColour(secColour);
+						}
+					} else {
+						clothing.setSecondaryColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
+						if(!clothing.getClothingType().getAllAvailableSecondaryColours().contains(AbstractClothingType.DEFAULT_COLOUR_VALUE)) {
+							if(!clothing.getClothingType().getAvailableSecondaryColours().isEmpty()) {
+								clothing.setSecondaryColour(clothing.getClothingType().getAvailableSecondaryColours().get(0));
+								
+							} else if(!clothing.getClothingType().getAvailableSecondaryDyeColours().isEmpty()) {
+								clothing.setSecondaryColour(clothing.getClothingType().getAvailableSecondaryDyeColours().get(0));
+							}
+						}
+					}
+				} catch(Exception ex) {
+				}
 			}
-			
 			try {
-				if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
-					Colour secColour = PresetColour.getColourFromId(parentElement.getAttribute("colourSecondary"));
-					if(clothing.getClothingType().getAllAvailableSecondaryColours().contains(secColour)) {
-						clothing.setSecondaryColour(secColour);
+				if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
+					Colour terColour = PresetColour.getColourFromId(parentElement.getAttribute("colourTertiary"));
+					if(clothing.getClothingType().getAllAvailableTertiaryColours().contains(terColour)) {
+						clothing.setTertiaryColour(terColour);
 					}
 				} else {
-					clothing.setSecondaryColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
-					if(!clothing.getClothingType().getAllAvailableSecondaryColours().contains(AbstractClothingType.DEFAULT_COLOUR_VALUE)) {
-						if(!clothing.getClothingType().getAvailableSecondaryColours().isEmpty()) {
-							clothing.setSecondaryColour(clothing.getClothingType().getAvailableSecondaryColours().get(0));
+					clothing.setTertiaryColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
+					if(!clothing.getClothingType().getAllAvailableTertiaryColours().contains(AbstractClothingType.DEFAULT_COLOUR_VALUE)) {
+						if(!clothing.getClothingType().getAvailableTertiaryColours().isEmpty()) {
+							clothing.setTertiaryColour(clothing.getClothingType().getAvailableTertiaryColours().get(0));
 							
-						} else if(!clothing.getClothingType().getAvailableSecondaryDyeColours().isEmpty()) {
-							clothing.setSecondaryColour(clothing.getClothingType().getAvailableSecondaryDyeColours().get(0));
+						} else if(!clothing.getClothingType().getAvailableTertiaryDyeColours().isEmpty()) {
+							clothing.setTertiaryColour(clothing.getClothingType().getAvailableTertiaryDyeColours().get(0));
 						}
 					}
 				}
 			} catch(Exception ex) {
 			}
 		}
-		try {
-			if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
-				Colour terColour = PresetColour.getColourFromId(parentElement.getAttribute("colourTertiary"));
-				if(clothing.getClothingType().getAllAvailableTertiaryColours().contains(terColour)) {
-					clothing.setTertiaryColour(terColour);
-				}
-			} else {
-				clothing.setTertiaryColour(AbstractClothingType.DEFAULT_COLOUR_VALUE);
-				if(!clothing.getClothingType().getAllAvailableTertiaryColours().contains(AbstractClothingType.DEFAULT_COLOUR_VALUE)) {
-					if(!clothing.getClothingType().getAvailableTertiaryColours().isEmpty()) {
-						clothing.setTertiaryColour(clothing.getClothingType().getAvailableTertiaryColours().get(0));
-						
-					} else if(!clothing.getClothingType().getAvailableTertiaryDyeColours().isEmpty()) {
-						clothing.setTertiaryColour(clothing.getClothingType().getAvailableTertiaryDyeColours().get(0));
-					}
-				}
-			}
-		} catch(Exception ex) {
-		}
-
+		
 		// Try to load patterns:
 		try {
 			if(!parentElement.getAttribute("pattern").isEmpty()) {

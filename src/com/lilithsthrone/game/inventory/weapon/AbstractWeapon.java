@@ -279,9 +279,11 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		
 		// Try to load colour:
 		try {
-			weapon.setPrimaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colourPrimary")));
-			weapon.setSecondaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colourSecondary")));
-			weapon.setTertiaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colourTertiary")));
+			if(!Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.4") || !weapon.getWeaponType().equals(WeaponType.getWeaponTypeFromId("innoxia_bow_shortbow"))){
+				weapon.setPrimaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colourPrimary")));
+				weapon.setSecondaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colourSecondary")));
+				weapon.setTertiaryColour(PresetColour.getColourFromId(parentElement.getAttribute("colourTertiary")));
+			}
 		} catch(Exception ex) {
 		}
 

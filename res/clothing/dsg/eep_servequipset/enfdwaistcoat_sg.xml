@@ -27,7 +27,7 @@
 		<description><![CDATA[A waistcoat with two pockets that serves as the regulation alternative for Enforcers whose arms cannot fit into the regular dress uniform coat. It has the insignia of an Enforcer Sergeant attached to it.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties. -->
 		<femininity>ANDROGYNOUS</femininity> 

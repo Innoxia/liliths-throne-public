@@ -280,10 +280,11 @@ public enum Subspecies {
 		
 		@Override
 		public void applySpeciesChanges(Body body) {
-			if(Math.random()<0.25f) { //TODO shouldn't this be handled in Body generation as a random chance from all available leg races?
-				if(body.getLeg().getType().equals(LegType.DEMON_COMMON)) {
-					body.getLeg().setType(null, LegType.DEMON_HOOFED);
-				}
+			if(Math.random()<0.25f && body.getLeg().getType().equals(LegType.DEMON_COMMON)) {
+				body.getLeg().setType(null, LegType.DEMON_HOOFED);
+			}
+			if(Math.random()<0.2f && body.getPenis().getType()!=PenisType.NONE) {
+				body.getPenis().getTesticle().setTesticleCount(null, 4);
 			}
 		}
 		
@@ -3609,7 +3610,7 @@ public enum Subspecies {
 		}
 	}
 
-	public void applySpeciesChanges(Body body) {	
+	public void applySpeciesChanges(Body body) {
 	}
 
 	/**
@@ -3849,7 +3850,8 @@ public enum Subspecies {
 				subspecies = Subspecies.DOG_MORPH;
 				BodyCoveringType canineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.SLIME:BodyCoveringType.CANINE_FUR;
 				
-				if(body.getCoverings().get(canineFur).getPrimaryColour()==PresetColour.COVERING_BLACK
+				if((body.getCoverings().get(canineFur).getPrimaryColour()==PresetColour.COVERING_BLACK
+						|| body.getCoverings().get(canineFur).getPrimaryColour()==PresetColour.COVERING_JET_BLACK)
 					&& (body.getCoverings().get(canineFur).getSecondaryColour()==PresetColour.COVERING_BROWN
 							|| body.getCoverings().get(canineFur).getSecondaryColour()==PresetColour.COVERING_BROWN_DARK
 							|| body.getCoverings().get(canineFur).getSecondaryColour()==PresetColour.COVERING_TAN)

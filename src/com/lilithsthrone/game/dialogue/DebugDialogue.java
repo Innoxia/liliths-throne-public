@@ -913,7 +913,9 @@ public class DebugDialogue {
 											+"</div>"
 											+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
 										+ "</div>"
-										+ ClothingType.getIdFromClothingType(clothingType)
+										+ (clothingType.getPhysicalResistance()>0
+												?"[style.boldPhysical("+UtilText.getShieldSymbol()+clothingType.getPhysicalResistance()+")] [style.colourGreenLight("+ClothingType.getIdFromClothingType(clothingType)+")]"
+												:ClothingType.getIdFromClothingType(clothingType))
 									+ "</div>");
 				}
 				inventorySB.append("</div>");
@@ -1032,7 +1034,7 @@ public class DebugDialogue {
 							Main.game.getPlayer().setBody(
 									CharacterUtils.generateHalfDemonBody(Main.game.getPlayer(), Main.game.getPlayer().getGender(), Subspecies.HUMAN, false),
 									false);
-							System.out.println(Main.game.getPlayer().getSubspeciesOverride());
+//							System.out.println("Subspecies override: "+Main.game.getPlayer().getSubspeciesOverride());
 							
 						} else {
 							Main.game.getPlayer().setSubspeciesOverride(null);

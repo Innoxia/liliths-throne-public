@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <weapon>
 	<coreAttributes>
-		<value>1500</value>
+		<value>2800</value>
 		<melee>false</melee>
 		<twoHanded>false</twoHanded>
 		<determiner><![CDATA[a]]></determiner>
@@ -18,7 +18,7 @@
 		<imageName>pistol_crossbow.svg</imageName> 
 		<imageEquippedName>pistol_crossbow_equipped.svg</imageEquippedName>
 		
-		<damage>14</damage> 
+		<damage>20</damage> 
 		
 		<arcaneCost>1</arcaneCost> 
 		

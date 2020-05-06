@@ -2,7 +2,7 @@
 <weapon>
 	<coreAttributes>
 	
-		<value>2500</value> 
+		<value>5000</value> 
 		
 		<melee>true</melee>
 		
@@ -32,7 +32,7 @@
 		
 		<imageEquippedName>arming_sword.svg</imageEquippedName> 
 		
-		<damage>18</damage> 
+		<damage>35</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		
@@ -50,8 +50,8 @@
 		<enchantmentLimit>5</enchantmentLimit>
 		
 		<effects> 
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_DAMAGE" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_DAMAGE" timer="0"/>
 		</effects>
 		
 		<primaryColours>

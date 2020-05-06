@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -234,6 +235,8 @@ public class Sex {
 	private Map<GameCharacter, SexControl> forcedSexControlMap;
 
 	private Set<GameCharacter> charactersGrewCock;
+	private Set<GameCharacter> heavyLipstickUsedCharacter;
+	
 
 	private Value<GameCharacter, Class<? extends BodyPartInterface>> creampieLockedBy;
 	
@@ -425,6 +428,7 @@ public class Sex {
 		charactersSelfActionsBlocked = new HashSet<>();
 		charactersDeniedOrgasm = new HashSet<>();
 		charactersGrewCock = new HashSet<>();
+		heavyLipstickUsedCharacter = new HashSet<>();
 		
 		removeEndSexAffection = new HashSet<>();
 		forcedSexControlMap = new HashMap<>();
@@ -756,6 +760,13 @@ public class Sex {
 		
 		sexInitFinished = true;
 		
+		return SEX_DIALOGUE;
+	}
+	
+	/**
+	 * Called after initialiseSex(). Handles any effects which are dependent upon SEX_DIALOGUE being the active DialogueNode.
+	 */
+	public void postSexInitSetup() {
 		if(Main.sex.isMasturbation()) {
 			Main.game.setResponseTab(1);
 		} else {
@@ -767,8 +778,7 @@ public class Sex {
 				Main.game.setResponseTab(0);
 			}
 		}
-		
-		return SEX_DIALOGUE;
+		Main.game.updateResponses();
 	}
 
 	private void endSex() {
@@ -1173,7 +1183,12 @@ public class Sex {
 //								+ "</p>");
 				// Stretching effects:
 				endSexSB.append(getEndSexStretchingDescription(participant));
-
+				
+				if(getHeavyLipstickUsedCharacter().contains(participant)) {
+					participant.removeHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+					endSexSB.append("<p style='text-align:center'><i>Your [style.italicsPinkDeep(heavy layer)] of lipstick has [style.italicsBad(worn off)]!</i></p>");
+				}
+				
 				if((participant.getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue() || Main.sex.getNumberOfDeniedOrgasms(participant)>0) && getNumberOfOrgasms(participant) == 0) {
 					participant.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, (240*60)+(postSexDialogue.getSecondsPassed()));
 					if(Main.sex.getNumberOfDeniedOrgasms(participant)>0) {
@@ -1275,6 +1290,11 @@ public class Sex {
 //								+ "</p>");
 				// Stretching effects:
 				endSexSB.append(getEndSexStretchingDescription(participant));
+
+				if(getHeavyLipstickUsedCharacter().contains(participant)) {
+					participant.removeHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+					endSexSB.append("<p style='text-align:center'><i>[npc.NamePos] [style.italicsPinkDeep(heavy layer)] of lipstick has [style.italicsBad(worn off)]!</i></p>");
+				}
 				
 				// Extra effects:
 				if((participant.getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue() || Main.sex.getNumberOfDeniedOrgasms(participant)>0) && getNumberOfOrgasms(participant) == 0) {
@@ -1750,7 +1770,7 @@ public class Sex {
 					
 								endString = sexActionPartner.baseEffects();
 								lastUsedSexAction.put(character, sexActionPartner);
-								
+
 								sexSB.append(applyGenericDescriptionsAndEffects(character, Main.sex.getTargetedPartner(character), sexActionPartner));
 								
 								endsSex = sexActionPartner.endsSex();
@@ -2601,21 +2621,21 @@ public class Sex {
 			if(!Main.sex.getCharacterPerformingAction().isImmuneToLevelDrain()) {
 				if(Main.sex.isDom(Main.sex.getCharacterPerformingAction())) {
 					for(GameCharacter sub : Main.sex.getSubmissiveParticipants(false).keySet()) {
-						if(sub.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && (!sub.isPlayer() || Main.sex.playerLevelDrain)) {
+						if(sub.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && ((!sub.isPlayer() && sub.isWantingToLevelDrain(Main.sex.getCharacterPerformingAction())) || Main.sex.playerLevelDrain)) {
 							levelDrains.add(sub);
 						}
 					}
 					
 				} else {
 					for(GameCharacter dom : Main.sex.getDominantParticipants(false).keySet()) {
-						if(dom.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && (!dom.isPlayer() || Main.sex.playerLevelDrain)) {
+						if(dom.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true) && ((!dom.isPlayer() && dom.isWantingToLevelDrain(Main.sex.getCharacterPerformingAction())) || Main.sex.playerLevelDrain)) {
 							levelDrains.add(dom);
 						}
 					}
 				}
 			}
 			for(GameCharacter drainer : levelDrains) {
-				if(drainer.isLevelDrainAvailableToUse() && drainer.isWantingToLevelDrain(Main.sex.getCharacterPerformingAction())) {
+				if(drainer.isLevelDrainAvailableToUse()) {
 					stringBuilderForAppendingDescriptions.append(drainer.applyLevelDrain(Main.sex.getCharacterPerformingAction()));
 				}
 			}
@@ -5507,6 +5527,14 @@ public class Sex {
 
 	public void setCharactersGrewCock(Set<GameCharacter> charactersGrewCock) {
 		Main.sex.charactersGrewCock = charactersGrewCock;
+	}
+
+	public Set<GameCharacter> getHeavyLipstickUsedCharacter() {
+		return heavyLipstickUsedCharacter;
+	}
+	
+	public void addHeavyLipstickUsedCharacter(GameCharacter character) {
+		heavyLipstickUsedCharacter.add(character);
 	}
 	
 	public boolean isRemoveEndSexAffection(GameCharacter character) {

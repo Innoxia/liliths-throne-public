@@ -262,23 +262,6 @@ public enum BodyCoveringType {
 	
 	SLIME_PENIS(BodyCoveringTemplateFactory.createSlime(CoveringPattern.NONE, CoveringPattern.allStandardCoveringPatterns)),
 
-	FEATHERS("a layer of",
-			true,
-			"feathers",
-			"feather",
-			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
-			null,
-			Util.newHashMapOfValues(
-					new Value<>(CoveringPattern.NONE, 10),
-					new Value<>(CoveringPattern.MARKED, 10),
-					new Value<>(CoveringPattern.SPOTTED, 5),
-					new Value<>(CoveringPattern.MOTTLED, 2),
-					new Value<>(CoveringPattern.STRIPED, 1)),
-			CoveringPattern.allHairCoveringPatterns,
-			PresetColour.naturalFeatherColours,
-			PresetColour.dyeFeatherColours,
-			PresetColour.naturalFeatherColours,
-			PresetColour.dyeFeatherColours),
 
 	ALLIGATOR_SCALES("a layer of",
 			true,
@@ -340,6 +323,37 @@ public enum BodyCoveringType {
 			Util.newArrayListOfValues(PresetColour.ORIFICE_INTERIOR),
 			PresetColour.allSkinColours),
 
+	FEATHERS("a layer of",
+			true,
+			"feathers",
+			"feather",
+			Util.newArrayListOfValues(CoveringModifier.SMOOTH),
+			null,
+			Util.newHashMapOfValues(
+					new Value<>(CoveringPattern.NONE, 10),
+					new Value<>(CoveringPattern.MARKED, 10),
+					new Value<>(CoveringPattern.SPOTTED, 5),
+					new Value<>(CoveringPattern.MOTTLED, 2),
+					new Value<>(CoveringPattern.STRIPED, 1)),
+			CoveringPattern.allHairCoveringPatterns,
+			PresetColour.naturalFeatherColours,
+			PresetColour.dyeFeatherColours,
+			PresetColour.naturalFeatherColours,
+			PresetColour.dyeFeatherColours),
+
+	WING_LEATHER("a layer of",
+			false,
+			"skin",
+			"skin",
+			Util.newArrayListOfValues(CoveringModifier.LEATHERY),
+			null,
+			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
+			CoveringPattern.allStandardCoveringPatterns,
+			Util.newArrayListOfValues(PresetColour.COVERING_BLACK),
+			PresetColour.allCoveringColours,
+			Util.newArrayListOfValues(PresetColour.COVERING_BLACK),
+			PresetColour.allCoveringColours),
+	
 	// HAIR:
 
 	HAIR_HUMAN(BodyCoveringTemplateFactory.createHeadHair(CoveringModifier.SMOOTH)),

@@ -12,6 +12,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -346,6 +347,25 @@ public interface SexActionInterface {
 						+ "[style.colourBad([npc2.Name] [npc2.verb(find)] this sadistic action to be a huge turn-off!)]"
 						+ Main.sex.getCharacterTargetedForSexAction(this).incrementLust(-15, false)
 					+"</p>");
+			}
+		}
+		
+		if(Main.game.isLipstickMarkingEnabled()) {
+			if(Main.sex.getCharacterPerformingAction().isWearingLipstick()
+					&& Main.sex.getCharacterPerformingAction().isHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK)
+					&& (this.getPerformingCharacterAreas().contains(SexAreaOrifice.MOUTH) || this.getPerformingCharacterAreas().contains(SexAreaPenetration.TONGUE))) {
+				for(SexAreaInterface areaTargeted : this.getTargetedCharacterAreas()) {
+					sb.append(Main.sex.getCharacterTargetedForSexAction(this).addLipstickMarking(Main.sex.getCharacterPerformingAction(), areaTargeted.getRelatedInventorySlot(), Main.sex.getCharacterPerformingAction().getLipstick()));
+				}
+				Main.sex.addHeavyLipstickUsedCharacter(Main.sex.getCharacterPerformingAction());
+			}
+			if(Main.sex.getCharacterTargetedForSexAction(this).isWearingLipstick()
+					&& Main.sex.getCharacterTargetedForSexAction(this).isHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK)
+					&& (this.getTargetedCharacterAreas().contains(SexAreaOrifice.MOUTH) || this.getTargetedCharacterAreas().contains(SexAreaPenetration.TONGUE))) {
+				for(SexAreaInterface areaTargeted : this.getPerformingCharacterAreas()) {
+					sb.append(Main.sex.getCharacterPerformingAction().addLipstickMarking(Main.sex.getCharacterTargetedForSexAction(this), areaTargeted.getRelatedInventorySlot(), Main.sex.getCharacterTargetedForSexAction(this).getLipstick()));
+				}
+				Main.sex.addHeavyLipstickUsedCharacter(Main.sex.getCharacterTargetedForSexAction(this));
 			}
 		}
 		

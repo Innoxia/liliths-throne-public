@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -136,7 +137,8 @@ public class Body implements XMLSaving {
 	private int bodySize;
 	private int muscle;
 	private BodyHair pubicHair;
-	
+
+	private Set<BodyCoveringType> heavyMakeup;
 	private Map<BodyCoveringType, Covering> coverings;
 	private Set<BodyCoveringType> coveringsDiscovered;
 
@@ -279,6 +281,7 @@ public class Body implements XMLSaving {
 		handleAllBodyPartsList();
 		
 		coverings = new EnumMap<>(BodyCoveringType.class);
+		heavyMakeup = new HashSet<>();
 
 		applyStartingCoveringValues();
 		
@@ -453,9 +456,6 @@ public class Body implements XMLSaving {
 		updateCoverings(true, true, true, true);
 	}
 	
-	
-	
-	
 	@Override
 	public Element saveAsXML(Element parentElement, Document doc) {
 		// Core:
@@ -506,6 +506,16 @@ public class Body implements XMLSaving {
 				if(this.getBodyCoveringTypesDiscovered().contains(bct)) {
 					CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.getBodyCoveringTypesDiscovered().contains(bct)));
 				}
+			}
+		}
+		
+		if(!heavyMakeup.isEmpty()) {
+			Element element = doc.createElement("heavyMakeup");
+			bodyCore.appendChild(element);
+			for(BodyCoveringType bct : heavyMakeup) {
+				Element bctElement = doc.createElement("type");
+				element.appendChild(bctElement);
+				bctElement.setTextContent(bct.toString());
 			}
 		}
 		
@@ -841,7 +851,6 @@ public class Body implements XMLSaving {
 			}
 		} catch(Exception ex) {	
 		}
-		
 		
 		
 		// **************** Antenna **************** //
@@ -1816,6 +1825,18 @@ public class Body implements XMLSaving {
 			}
 		}
 		
+
+		try {
+			Element heavyMakeupElement = (Element)element.getElementsByTagName("heavyMakeup").item(0);
+			
+			NodeList bodyTypes = heavyMakeupElement.getElementsByTagName("type");
+			for(int i = 0; i < bodyTypes.getLength(); i++){
+				Element e = ((Element)bodyTypes.item(i));
+				body.addHeavyMakeup(BodyCoveringType.valueOf(e.getTextContent()));
+			}
+		} catch(Exception ex) {	
+		}
+		
 		body.calculateRace(null);
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5")) {
@@ -2326,7 +2347,7 @@ public class Body implements XMLSaving {
 //				}
 
 				sb.append(" It is "+Capacity.getCapacityFromValue(face.getMouth().getOrificeMouth().getStretchedCapacity()).getDescriptor(true)
-						+", can comfortably accommodate objects of up to [style.colourSex("+ Units.size(Capacity.getCapacityFromValue(face.getMouth().getOrificeMouth().getStretchedCapacity()).getMaximumValue(true)) + ")] in diameter.");
+						+", and can comfortably accommodate objects of up to [style.colourSex("+ Units.size(Capacity.getCapacityFromValue(face.getMouth().getOrificeMouth().getStretchedCapacity()).getMaximumValue(true)) + ")] in diameter.");
 				
 				if(Main.game.isPenetrationLimitationsEnabled()) {
 					switch(owner.getFaceDepth()) {
@@ -2743,6 +2764,9 @@ public class Body implements XMLSaving {
 					break;
 				case NONE:
 					break;
+				case LEATHERY:
+					sb.append("[npc.sheHasFull] a pair of [npc.wingSize] wings, which are covered in [npc.wingFullDescription(true)].");
+					break;
 				case FEATHERED:
 					sb.append("[npc.sheHasFull] a pair of [npc.wingSize] wings, which are covered in [npc.wingFullDescription(true)].");
 					break;
@@ -2993,6 +3017,7 @@ public class Body implements XMLSaving {
 		addRaceWeight(raceWeightMap, hair.getType().getRace(), 1);
 		addRaceWeight(raceWeightMap, tail.getType().getRace(), 1);
 		addRaceWeight(raceWeightMap, wing.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, horn.getType().getRace(), 1);
 		
 		// Not using breast, ass, penis, or vagina
 		
@@ -3016,12 +3041,16 @@ public class Body implements XMLSaving {
 	}
 	
 	public RaceStage getRaceStageFromPartWeighting() {
+		if(raceWeightMap.containsKey(Race.DEMON) && !raceWeightMap.containsKey(Race.HUMAN)) {
+			return RaceStage.GREATER;
+		}
 		if(raceWeightMap.size()==1) {
 			if(raceWeightMap.containsKey(Race.HUMAN)) {
 				return RaceStage.HUMAN;
 			} else {
 				return RaceStage.GREATER;
 			}
+			
 		} else {
 			return RaceStage.LESSER;
 		}
@@ -5447,6 +5476,22 @@ public class Body implements XMLSaving {
 
 	public void setPiercedStomach(boolean piercedStomach) {
 		this.piercedStomach = piercedStomach;
+	}
+
+	public Set<BodyCoveringType> getHeavyMakeup() {
+		return heavyMakeup;
+	}
+
+	public boolean isHeavyMakeup(BodyCoveringType type) {
+		return heavyMakeup.contains(type);
+	}
+	
+	public void addHeavyMakeup(BodyCoveringType type) {
+		heavyMakeup.add(type);
+	}
+	
+	public boolean removeHeavyMakeup(BodyCoveringType type) {
+		return heavyMakeup.remove(type);
 	}
 
 	public Map<BodyCoveringType, Covering> getCoverings() {

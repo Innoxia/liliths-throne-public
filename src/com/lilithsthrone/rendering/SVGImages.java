@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -15,7 +16,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.6.5
+ * @version 0.3.7.5
  * @author Innoxia
  */
 public enum SVGImages {
@@ -23,7 +24,7 @@ public enum SVGImages {
 
 	private String
 
-			displacedIcon, concealedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon, tattooSwitchTattoo, tattooSwitchClothing, scarIcon,
+			displacedIcon, concealedIcon, dirtyIcon, lipstickIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon, tattooSwitchTattoo, tattooSwitchClothing, scarIcon,
 
 			menuIcon,
 			inventoryIcon, inventoryIconDisabled,
@@ -120,9 +121,12 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/concealed.svg");
 			concealedIcon = Util.inputStreamToString(is);
 			
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/cummedInWarningIcon.svg");
-			cummedInIcon = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/dirtyIcon.svg");
+			dirtyIcon = Util.inputStreamToString(is);
 
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/lipstickIcon.svg");
+			lipstickIcon = Util.inputStreamToString(is);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/feminineWarningIcon.svg");
 			feminineWarningIcon = Util.inputStreamToString(is);
 			feminineWarningIcon = setColour(feminineWarningIcon, PresetColour.FEMININE);
@@ -790,8 +794,12 @@ public enum SVGImages {
 		return concealedIcon;
 	}
 	
-	public String getCummedInIcon() {
-		return cummedInIcon;
+	public String getDirtyIcon() {
+		return dirtyIcon;
+	}
+	
+	public String getLipstickIcon(Covering covering) {
+		return setColour(lipstickIcon, covering.getPrimaryColour());
 	}
 
 	public String getFeminineWarningIcon() {

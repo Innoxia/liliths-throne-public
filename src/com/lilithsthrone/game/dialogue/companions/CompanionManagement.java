@@ -320,7 +320,7 @@ public class CompanionManagement {
 							null);
 					
 				} else {
-					if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterSelected().isElementalSummoned())) {
+					if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterSelected().isElementalSummoned() && !Main.game.getPlayer().isElementalSummoned())) {
 						return new ResponseEffectsOnly(
 								characterSelected().isElemental()
 									?"Dispel"
@@ -360,7 +360,7 @@ public class CompanionManagement {
 								}
 								Main.game.getPlayer().removeCompanion(characterSelected());
 								characterSelected().returnToHome();
-
+								
 								Main.game.setResponseTab(0);
 								CharactersPresentDialogue.resetContent(Main.game.getCharactersPresent().get(0));
 							}

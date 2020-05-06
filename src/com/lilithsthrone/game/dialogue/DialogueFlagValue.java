@@ -191,6 +191,13 @@ public enum DialogueFlagValue {
 	natalyaDemandedFacial,
 	playerReceivedNatalyaFacial,
 	
+	natalyaVisited,
+	natalyaInterviewFailed,
+	
+	natalyaBusy(true),
+	natalyaDailySex(true),
+	
+	
 	// Zaranix:
 	zaranixDiscoveredHome,
 	zaranixMaidsHostile,

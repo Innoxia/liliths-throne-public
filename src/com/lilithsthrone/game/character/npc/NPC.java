@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -142,7 +143,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			boolean addedToContacts,
 			NPCGenerationFlag... generationFlags) {
 		super(nameTriplet, surname, description, level,
-				LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, birthDay, 12, 0),
+				age<MINIMUM_AGE
+					?LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, birthDay, 12, 0)
+					:LocalDateTime.of(Main.game.getStartingDate().getYear()-(age-MINIMUM_AGE), birthMonth, birthDay, 12, 0),
 				startingGender, startingSubspecies, stage, inventory, worldLocation, startingPlace);
 		
 		List<NPCGenerationFlag> flags = Arrays.asList(generationFlags);
@@ -1310,7 +1313,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isUsingForcedTransform(GameCharacter target) {
-		return (hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) || hasFetish(Fetish.FETISH_KINK_GIVING))
+		return hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)
 				&& target.getRace()!=Race.ELEMENTAL // Do not try to transform elementals
 				&& target.getSubspeciesOverride()==null; // Do not try to transform demons
 	}
@@ -1475,12 +1478,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		boolean skipGenitalsTF = false;
 		
 		Body body;
+		Util.random = new Random((this.getId()).hashCode()); // Set random with seed of this cahracter's id hash so that it's consistent across multiple calls (as some methods inside generateBody() use random).
 		if(cannotTransformPreference) { // As demons and angels cannot be created via transformation, use the target's current body as Subspecies preference (so that gender changes use that Subspecies' body parts) 
 			body = CharacterUtils.generateBody(null, this.getGenderPreference(), target.getSubspecies(), target.getRaceStage());
 			
 		} else {
 			body = CharacterUtils.generateBody(null, this.getGenderPreference(), this.getSubspeciesPreference(), this.getRaceStagePreference());
 		}
+		Util.random = new Random();
 
 		boolean vaginaSet = target.getVaginaType()==body.getVagina().getType();
 		boolean penisSet = target.getPenisType()==body.getPenis().getType();
@@ -3347,7 +3352,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				} else if(target.hasFetish(Fetish.FETISH_KINK_RECEIVING)) {
 					sb.append(UtilText.parse(user, target, 
 							" Seeing what it is that [npc.nameIs] offering [npc2.herHim], [npc2.she] [npc2.verb(let)] out a delighted cry and [npc2.verb(ask)], "
-							+ " [npc2.speech(Is that "+UtilText.generateSingularDeterminer(item.getName())+" "+item.getName()+"?! Please, let me drink it!)]"
+							+ " [npc2.speech(Is that going to give me a new fetish?! Please, let me drink it!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Smiling as [npc.she] [npc.verb(hear)] [npc2.namePos] enthusiastic response, [npc.name] quickly [npc.verb(remove)] the bottle's stopper, before bringing the potion up to the eager [npc2.race]'s mouth."

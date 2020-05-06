@@ -132,10 +132,13 @@ public class ScarlettsShop {
 			npc.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 			npc.clearFetishes();
 			npc.clearFetishDesires();
-			npc.addFetish(Fetish.FETISH_SUBMISSIVE);
+			
 			npc.addFetish(Fetish.FETISH_ANAL_GIVING);
-			npc.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
+			
+			npc.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
 			npc.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.THREE_LIKE);
+			npc.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
+			
 			npc.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.ZERO_HATE);
 			npc.setFetishDesire(Fetish.FETISH_IMPREGNATION, FetishDesire.ZERO_HATE);
 			
@@ -956,7 +959,10 @@ public class ScarlettsShop {
 			
 			sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "ROMANCE_SHOP_CORE"));
 			
-			if(getSlaveForCustomisation()!=null) {
+			if(Main.game.getDayOfWeek()==DayOfWeek.FRIDAY && Main.game.getHourOfDay()>=17) {
+				sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "ROMANCE_SHOP_CORE_END_DATE"));
+				
+			} else if(getSlaveForCustomisation()!=null) {
 				int daysToGo = 7-(Main.game.getDayNumber()-Main.game.getDialogueFlags().helenaSlaveOrderDay);
 				if(daysToGo>0) {
 					UtilText.addSpecialParsingString(Util.intToString(daysToGo), true);
@@ -1741,7 +1747,7 @@ public class ScarlettsShop {
 										return OrgasmCumTarget.FLOOR;
 									}
 								}
-								return null;
+								return super.getCharacterPullOutOrgasmCumTarget(character, target);
 							}
 						},
 						null,
@@ -3710,7 +3716,7 @@ public class ScarlettsShop {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getNpc(Helena.class).cleanAllClothing(true);
-			Main.game.getNpc(Helena.class).cleanAllDirtySlots();
+			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -4536,9 +4542,9 @@ public class ScarlettsShop {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getNpc(Helena.class).cleanAllClothing(true);
-			Main.game.getNpc(Helena.class).cleanAllDirtySlots();
+			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 			Main.game.getNpc(Scarlett.class).cleanAllClothing(true);
-			Main.game.getNpc(Scarlett.class).cleanAllDirtySlots();
+			Main.game.getNpc(Scarlett.class).cleanAllDirtySlots(true);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -4597,6 +4603,10 @@ public class ScarlettsShop {
 				return new Response(Main.game.getNpc(Scarlett.class).hasPenis()?"Blowjob":"Cunnilingus",
 						"Kneel down beneath the shop's counter and give Scarlett "+(Main.game.getNpc(Scarlett.class).hasPenis()?"a quick blowjob":"some quick cunnilingus")+".",
 						HELENAS_SHOP_SCARLETT_COUNTER_ORAL) {
+					@Override
+					public boolean isSexHighlight() {
+						return true;
+					}
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaShopScarlettCounterOral, true);

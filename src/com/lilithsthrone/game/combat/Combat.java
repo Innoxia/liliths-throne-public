@@ -226,10 +226,6 @@ public enum Combat {
 			combatContent.get(combatant).add(startingEffect);
 		}
 		
-		if(Main.game.getPlayer().getEquippedMoves().isEmpty()) {
-			Main.game.getPlayer().equipBasicCombatMoves();
-		}
-		
 		Main.game.getPlayer().resetSelectedMoves();
 		Main.game.getPlayer().resetMoveCooldowns();
 		applyNewTurnShielding(Main.game.getPlayer());
@@ -1415,7 +1411,7 @@ public enum Combat {
 		if(shields!=0) {
 			shieldsFound = true;
 			sb.append("<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
-							+"<span style='color:"+DamageType.HEALTH.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
+							+"<span style='color:"+DamageType.HEALTH.getColour().toWebHexString()+";'>"+UtilText.getShieldSymbol()+"</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
 							+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+DamageType.HEALTH+"' style='cursor:default;'></div>"
 						+ "</div>");
 		}
@@ -1430,7 +1426,7 @@ public enum Combat {
 				shieldsFound = true;
 				sb.append(
 						"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
-							+"<span style='color:"+dt.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
+							+"<span style='color:"+dt.getColour().toWebHexString()+";'>"+UtilText.getShieldSymbol()+"</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
 							+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+dt+"' style='cursor:default;'></div>"
 						+ "</div>");
 			}
@@ -1444,7 +1440,7 @@ public enum Combat {
 			shieldsFound = true;
 			sb.append(
 					"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
-						+"<span style='color:"+DamageType.LUST.getColour().toWebHexString()+";'>&#9930;</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
+						+"<span style='color:"+DamageType.LUST.getColour().toWebHexString()+";'>"+UtilText.getShieldSymbol()+"</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
 						+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+DamageType.LUST+"' style='cursor:default;'></div>"
 					+ "</div>");
 		}
