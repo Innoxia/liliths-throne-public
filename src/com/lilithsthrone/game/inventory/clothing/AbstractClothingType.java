@@ -2768,12 +2768,12 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		int defEndIndex;
 		if (defIndex > 0) {
 			// Replace defs
-			returnable = s.substring(0, defIndex) + "<defs>" + newClipMask;
 			defEndIndex = s.indexOf("</defs>");
+			returnable = s.substring(0, defEndIndex) + newClipMask;
 		} else {
 			// Insert defs
-			returnable = s.substring(0, s.indexOf('>')) + "><defs>" + newClipMask + "</defs>";
 			defEndIndex = s.indexOf('>') + 1;
+			returnable = s.substring(0, defEndIndex) + "<defs>" + newClipMask + "</defs>";
 		}
 		
 		// Loading pattern
