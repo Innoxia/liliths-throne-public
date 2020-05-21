@@ -3314,7 +3314,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							+ "<p>"
 								+ "Not liking the start of [npc2.her] response, [npc.name] quickly [npc.verb(remove)] the bottle's stopper, before rather unceremoniously shoving the neck down [npc2.her] throat."
 								+ " Pinching [npc2.her] nose and holding [npc2.herHim] still, [npc.name] [npc.verb(make)] sure to force [npc2.name] to down all of the liquid before finally letting [npc2.herHim] go."
-								+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a surprised cry as [npc.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] body..."
+								+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a surprised cry as [npc2.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] body..."
 							+ "</p>"));
 						
 					} else {
@@ -3325,7 +3325,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							+ "<p>"
 								+ "Hearing [npc2.namePos] willing response, [npc.name] [npc.verb(remove)] the bottle's stopper, before handing it over to [npc2.herHim]."
 								+ " Eager to please, [npc2.she] happily [npc2.verb(wrap)] [npc2.her] [npc2.lips] around the bottle's opening, before gulping down all of the liquid in one huge swig."
-								+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a startled cry as [npc.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] body..."
+								+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a startled cry as [npc2.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] body..."
 							+ "</p>"));
 					}
 				}
@@ -3382,7 +3382,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								+ "<p>"
 									+ "Not liking the start of [npc2.her] response, [npc.name] quickly [npc.verb(remove)] the bottle's stopper, before rather unceremoniously shoving the neck down [npc2.her] throat."
 									+ " Pinching [npc2.her] nose and holding [npc2.herHim] still, [npc.name] [npc.verb(make)] sure to force [npc2.name] to down all of the liquid before finally letting [npc2.herHim] go."
-									+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a surprised cry as [npc.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] mind..."
+									+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a surprised cry as [npc2.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] mind..."
 								+ "</p>"));
 							
 						} else {
@@ -3393,7 +3393,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								+ "<p>"
 									+ "Hearing [npc2.namePos] willing response, [npc.name] [npc.verb(remove)] the bottle's stopper, before handing it over to [npc2.herHim]."
 									+ " Eager to please, [npc2.she] happily [npc2.verb(wrap)] [npc2.her] [npc2.lips] around the bottle's opening, before gulping down all of the liquid in one huge swig."
-									+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a startled cry as [npc.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] mind..."
+									+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a startled cry as [npc2.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] mind..."
 								+ "</p>"));
 						}
 					}
@@ -3425,7 +3425,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							+ "<p>"
 								+ "Not liking the start of [npc2.her] response, [npc.name] quickly [npc.verb(remove)] the bottle's stopper, before rather unceremoniously shoving the neck down [npc2.her] throat."
 								+ " Pinching [npc2.her] nose and holding [npc2.herHim] still, [npc.name] [npc.verb(make)] sure to force [npc2.name] to down all of the liquid before finally letting [npc2.herHim] go."
-								+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a surprised cry as [npc.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] mind..."
+								+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a surprised cry as [npc2.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] mind..."
 							+ "</p>"));
 				}
 				sb.append(itemOwner.useItem(item, target, false, true));
