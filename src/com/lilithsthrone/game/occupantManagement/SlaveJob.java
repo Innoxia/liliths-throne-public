@@ -264,10 +264,11 @@ public enum SlaveJob {
 			return Main.game.getOccupancyUtil().getMilkingRooms().size()*8;
 		}
 		
+		// Gives affection bonus for those with a fetish for being milked while assigned to milking room. Either Lactation or cum stud fetishes.
 		@Override
 		public float getAffectionGain(int hour, GameCharacter slave) {
 			float aff = this.affectionGain;
-			if(slave.hasFetish(Fetish.FETISH_LACTATION_SELF)) {
+			if(slave.hasFetish(Fetish.FETISH_LACTATION_SELF) || slave.hasFetish(Fetish.FETISH_CUM_STUD)) {
 				aff = 2f;
 			}
 			Cell c = this.getWorkDestinationCell(hour, slave);
