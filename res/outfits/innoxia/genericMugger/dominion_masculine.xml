@@ -61,6 +61,11 @@
 				</damageTypes>
 				<primaryColours/>
 				<secondaryColours/>
+				<!-- 'colours' element can be used in addition to, or as a replacement of, the primary/secondary/tertiary colours elements. It is defined as follows:
+				<colours>
+					<colour>presetColourGroup1</colour> Individual colours or presetColourGroups can be used.
+				</colours>
+				-->
 			</weapon>
 			<weapon>
 				<conditional><![CDATA[cond4 && cond2]]></conditional>

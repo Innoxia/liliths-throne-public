@@ -11,8 +11,6 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaConversationTopic;
-import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.DominionExpress;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -65,7 +63,7 @@ public class DialogueFlags implements XMLSaving {
 	
 	private Colour natalyaCollarColour;
 	private int natalyaPoints;
-	private int natalyaWages;
+	private String sadistNatalyaSlave;
 	
 	// --- Sets: --- //
 	
@@ -78,7 +76,7 @@ public class DialogueFlags implements XMLSaving {
 	
 	// Enforcer warehouse guards defeated:
 	public Set<String> warehouseDefeatedIDs = new HashSet<>();
-	
+
 	// Storage tiles checked:
 	public Set<Vector2i> supplierStorageRoomsChecked = new HashSet<>();
 	
@@ -117,7 +115,7 @@ public class DialogueFlags implements XMLSaving {
 		
 		natalyaCollarColour = PresetColour.CLOTHING_STEEL;
 		natalyaPoints = 0;
-		natalyaWages = 0;
+		sadistNatalyaSlave = "";
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -148,7 +146,8 @@ public class DialogueFlags implements XMLSaving {
 
 		CharacterUtils.createXMLElementWithValue(doc, element, "natalyaCollarColour", PresetColour.getIdFromColour(natalyaCollarColour));
 		CharacterUtils.createXMLElementWithValue(doc, element, "natalyaPoints", String.valueOf(natalyaPoints));
-		CharacterUtils.createXMLElementWithValue(doc, element, "natalyaWages", String.valueOf(natalyaWages));
+		CharacterUtils.createXMLElementWithValue(doc, element, "sadistNatalyaSlave", sadistNatalyaSlave);
+		
 		
 		
 		Element valuesElement = doc.createElement("dialogueValues");
@@ -234,7 +233,7 @@ public class DialogueFlags implements XMLSaving {
 		try {
 			newFlags.natalyaCollarColour = PresetColour.getColourFromId(((Element)parentElement.getElementsByTagName("natalyaCollarColour").item(0)).getAttribute("value"));
 			newFlags.natalyaPoints = Integer.valueOf(((Element)parentElement.getElementsByTagName("natalyaPoints").item(0)).getAttribute("value"));
-			newFlags.natalyaWages = Integer.valueOf(((Element)parentElement.getElementsByTagName("natalyaWages").item(0)).getAttribute("value"));
+			newFlags.sadistNatalyaSlave = ((Element)parentElement.getElementsByTagName("sadistNatalyaSlave").item(0)).getAttribute("value");
 		} catch(Exception ex) {
 		}
 		
@@ -470,30 +469,20 @@ public class DialogueFlags implements XMLSaving {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<p style='text-align:center;'>");
 			if(increment>0) {
-				sb.append("You [style.colourGood(gained "+increment+")] filly point"+(plural?"s":"")+"!");
+				sb.append("You [style.colourGood(gained)] [style.boldPink("+increment+")] [style.colourPinkLight(filly point"+(plural?"s":"")+")]!");
 			} else {
-				sb.append("You [style.colourBad(lost "+increment+")] filly point"+(plural?"s":"")+"!");
+				sb.append("You [style.colourBad(lost)] [style.boldPink("+(-increment)+")] [style.colourPinkLight(filly point"+(plural?"s":"")+")]!");
 			}
-			sb.append("<br/>");
-			Colour colour = DominionExpress.getColourFromPoints();
-			sb.append("You now have "+getNatalyaPoints()+" filly points, qualifying you for "+UtilText.generateSingularDeterminer(colour.getName())+" <span style='color:"+colour.toWebHexString()+";'>"+colour.getName()+"</span> choker!");
+			sb.append("<br/>You now have [style.boldPink("+getNatalyaPoints()+")] [style.colourPinkLight(filly points)]!");
 		sb.append("</p>");
 		return sb.toString();
 	}
 	
-
-	public int getNatalyaWages() {
-		return natalyaWages;
+	public String getSadistNatalyaSlave() {
+		return sadistNatalyaSlave;
 	}
 
-	public void setNatalyaWages(int natalyaWages) {
-		this.natalyaWages = natalyaWages;
-		if(this.natalyaWages<0) {
-			this.natalyaWages = 0;
-		}
-	}
-	
-	public void incrementNatalyaWages(int increment) {
-		setNatalyaWages(getNatalyaWages()+increment);
+	public void setSadistNatalyaSlave(String sadistNatalyaSlave) {
+		this.sadistNatalyaSlave = sadistNatalyaSlave;
 	}
 }

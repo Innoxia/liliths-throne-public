@@ -8,7 +8,7 @@
 		<name><![CDATA[arcane musket]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[arcane muskets]]></namePlural>
 		<description><![CDATA[Thanks to the efforts of you and Meraxis, the township of Elis is producing as many of these arcane muskets as they possibly can. Instead of bullets, these smoothbore long guns fire bolts of arcane energy, and give even the most inexperienced member of the militia a fighting chance against Lunette's demonic centaurs.]]></description>
-		<attackDescriptor>fire</attackDescriptor>
+		<attackDescriptor>shoot</attackDescriptor>
 		<attackTooltipDescription>Point your musket at [npc.name] and fire!</attackTooltipDescription>
 		<rarity>LEGENDARY</rarity>
 		<weaponSet/>

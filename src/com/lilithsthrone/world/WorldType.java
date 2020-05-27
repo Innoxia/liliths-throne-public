@@ -523,6 +523,7 @@ public class WorldType {
 					new Value<>(new Color(0xff0000), PlaceType.DOMINION_EXPRESS_EXIT),
 					new Value<>(new Color(0xff00ff), PlaceType.DOMINION_EXPRESS_STORAGE),
 					new Value<>(new Color(0x00ffff), PlaceType.DOMINION_EXPRESS_OFFICE),
+					new Value<>(new Color(0x0000ff), PlaceType.DOMINION_EXPRESS_FILLY_STATION),
 					new Value<>(new Color(0xffff00), PlaceType.DOMINION_EXPRESS_OFFICE_STABLE),
 					new Value<>(new Color(0xff8000), PlaceType.DOMINION_EXPRESS_STABLES))) {
 		@Override

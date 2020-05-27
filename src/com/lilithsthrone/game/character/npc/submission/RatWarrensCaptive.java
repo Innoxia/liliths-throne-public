@@ -111,8 +111,8 @@ public class RatWarrensCaptive extends NPC {
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
-			this.setVaginaCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
-			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
+			this.setVaginaCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FIVE_FAT), true);
+			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FIVE_FAT), true);
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
 		}
@@ -145,14 +145,14 @@ public class RatWarrensCaptive extends NPC {
 		
 		// From anal sex:
 		if(Main.game.isAnalContentEnabled()) {
-			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
+			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FIVE_FAT), true);
 			this.setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 			this.setAssPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		}
 
 		// From vaginal sex:
 		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
-		this.setVaginaCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FOUR_FAT), true);
+		this.setVaginaCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FIVE_FAT), true);
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		
@@ -212,7 +212,7 @@ public class RatWarrensCaptive extends NPC {
 	@Override
 	public void hourlyUpdate() {
 		// If the player is not a captive, and Murk has not been enslaved, then keep rolling for sex effects:
-		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive) && !Main.game.getNpc(Murk.class).isSlave()) {
+		if(!Main.game.getPlayer().isCaptive() && !Main.game.getNpc(Murk.class).isSlave()) {
 			float rnd = (float) Math.random();
 			if(rnd<0.005f && Main.game.isAnalContentEnabled()) { // Average fucked once every week
 				this.ingestFluid(null, Subspecies.RAT_MORPH, Subspecies.RAT_MORPH, new FluidCum(FluidType.CUM_RAT_MORPH), SexAreaOrifice.ANUS, 20+Util.random.nextInt(100));

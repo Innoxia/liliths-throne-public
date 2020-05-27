@@ -24,10 +24,10 @@
 		<namePlural pluralByDefault="false"><![CDATA[SWORD berets]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
-		<description><![CDATA[A flat-crowned hat made from woolen felt attached to a rigid leather band. This one is adnorned with the insignia of the Enforcers' elite armed task force: the Special Weapons and Operations Response Group.<br/><span style='font-style:italic;'><span style='color:#777777;'>The Real is our Reach.</span></span>]]></description> 
+		<description><![CDATA[A flat-crowned hat made from woolen felt attached to a rigid leather band. This one is adnorned with the insignia of the Enforcers' elite armed task force: the Special Weapons and Operations Response Group.<br/><span style='font-style:italic;'><span style='color:#777777;'>The Realm is our Reach.</span></span>]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
-		<physicalResistance>0</physicalResistance> 
+		<physicalResistance>1</physicalResistance> 
 		
 		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties. -->
 		<femininity>ANDROGYNOUS</femininity> 

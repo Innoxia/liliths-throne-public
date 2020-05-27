@@ -28,6 +28,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.markings.TattooType;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
@@ -293,7 +294,7 @@ public class EnchantmentDialogue {
 				inventorySB.append("<b>Input</b>"
 						+ "<div class='enchanting-ingredient' style='background-color:"+ingredient.getRarity().getBackgroundColour().toWebHexString()+";'>"
 						+ "<div class='enchanting-ingredient-content'>"+ingredient.getSVGString()+"</div>"
-						+ "<div class='overlay' id='INGREDIENT_ENCHANTING'></div>"
+						+ "<div class='overlay' id='INGREDIENT_ENCHANTING'  style='cursor:default;'></div>"
 						+ "<div class='enchanting-ingredient-count'><b>x" + count+ "</b></div>"
 						+ "</div>");
 			inventorySB.append("</div>");
@@ -375,7 +376,7 @@ public class EnchantmentDialogue {
 				inventorySB.append("<b>Output</b>"
 						+ "<div class='enchanting-ingredient' style='background-color:"+ingredient.getRarity().getBackgroundColour().toWebHexString()+";'>"
 						+ "<div class='enchanting-ingredient-content'>"+EnchantingUtils.getSVGString(ingredient, effects)+"</div>"
-						+ "<div class='overlay' id='OUTPUT_ENCHANTING'></div>"
+						+ "<div class='overlay' id='OUTPUT_ENCHANTING' style='cursor:default;'></div>"
 						+ "</div>");
 			inventorySB.append("</div>");
 		
@@ -404,22 +405,27 @@ public class EnchantmentDialogue {
 	 * Use getEnchantmentMenu() to get this DialogueNodeOld when initially opening the Enchantment menu, as it resets all variables for you.
 	 */
 	public static final DialogueNode ENCHANTMENT_MENU = new DialogueNode("Enchantments", "", true) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			InventoryDialogue.setNPCInventoryInteraction(InventoryInteraction.FULL_MANAGEMENT);
+			if(tattooBearer instanceof NPC) {
+				InventoryDialogue.setInventoryNPC((NPC) tattooBearer);
+			} else {
+				InventoryDialogue.setInventoryNPC(null);
+			}
+		}
 		@Override
 		public String getLabel() {
 			return "Enchanting";
 		}
-
 		@Override
 		public String getHeaderContent() {
 			return inventoryView();
 		}
-
 		@Override
 		public String getContent() {
 			return "";
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
@@ -555,7 +561,6 @@ public class EnchantmentDialogue {
 	}
 	
 	public static AbstractCoreItem craftItem(AbstractCoreItem ingredient, List<ItemEffect> effects) {
-		
 		if(ingredient instanceof AbstractItem) {
 			Main.game.getPlayer().removeItem((AbstractItem) ingredient);
 			AbstractItem craftedItem = EnchantingUtils.craftItem(ingredient, effects);

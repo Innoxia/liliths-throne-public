@@ -50,6 +50,8 @@ public enum BaseColour {
 	GOLD(Util.newColour(0xFFCC00), Util.newColour(0xCCA300)),
 	YELLOW(Util.newColour(0xECEC5B), Util.newColour(0xC4C700)),
 	YELLOW_LIGHT(Util.newColour(0xF8F8B9), Util.newColour(0xC1A42F)),
+	YELLOW_PALE(Util.newColour(0xf8f8d9), Util.newColour(0xd9bb41)),
+	
 	
 	GREEN_LIME(Util.newColour(0xB4D987), Util.newColour(0x83BE3C)),
 	GREEN_LIGHT(Util.newColour(0x8fefbf), Util.newColour(0x1DB96B)),

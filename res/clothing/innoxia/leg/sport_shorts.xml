@@ -50,7 +50,7 @@
 		<primaryColours values="ALL"/>
 		<primaryColoursDye/>
 		<secondaryColours>
-			<colour>CLOTHING_GREY</colour>
+			<colour>CLOTHING_GREY_LIGHT</colour>
 		</secondaryColours>
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours/>

@@ -298,14 +298,38 @@
 	</htmlContent>
 	
 	
-	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_FACE -->
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES -->
 	
-	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_FACE"><![CDATA[
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES"><![CDATA[
+	<p>
+		The form in front of you is titled 'Transformation: Eyes', and as you start reading through it, Helena says, [helena.speech(You can choose whatever colour combinations you'd like.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR"><![CDATA[
 	<p>
 		#IF(helena.isSlutty())
-			The form in front of you is titled 'Transformation: Face & Hair', and as you start reading through it, Helena lewdly adds, [helena.speech(With all these mouth and tongue options, I bet you could make a slave that's great at performing oral...)]
+			The form in front of you is titled 'Transformation: Hair', and as you start reading through it, Helena lewdly adds, [helena.speech(You could give your slave long hair and pigtails, so that you've got something to hold onto while they're performing oral on you...)]
 		#ELSE
-			The form in front of you is titled 'Transformation: Face & Hair', and as you start reading through it, Helena says, [helena.speech(There really are quite a lot of options on this form. Please do take your time; there's no rush.)]
+			The form in front of you is titled 'Transformation: Hair', and as you start reading through it, Helena says, [helena.speech(Please take your time in choosing the length, colour, and style of your slave's hair.)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			The form in front of you is titled 'Transformation: Head & Face', and as you start reading through it, Helena lewdly adds, [helena.speech(With all these mouth and tongue options, I bet you could make a slave that's great at performing oral...)]
+		#ELSE
+			The form in front of you is titled 'Transformation: Head & Face', and as you start reading through it, Helena says, [helena.speech(There really are quite a lot of options on this form. Please do take your time; there's no rush.)]
 		#ENDIF
 	</p>
 	]]>
@@ -405,7 +429,7 @@
 	
 	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS"><![CDATA[
 	<p>
-			The form in front of you is titled 'Miscellaneous: Piercings', and as you start reading through it, Helena says, [helena.speech(Mark down all the parts of your slave that you want us to pierce for you.)]
+		The form in front of you is titled 'Miscellaneous: Piercings', and as you start reading through it, Helena says, [helena.speech(Mark down all the parts of your slave that you want us to pierce for you.)]
 	</p>
 	]]>
 	</htmlContent>

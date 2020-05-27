@@ -172,6 +172,7 @@ public class RalphsSnacks {
 				return new Response("Leave", "Leave Ralph's shop.", EXTERIOR){
 					@Override
 					public void effects() {
+						Main.game.setResponseTab(0);
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
 						resetDiscountCheck();
 					}

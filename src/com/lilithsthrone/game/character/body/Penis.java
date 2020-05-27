@@ -50,7 +50,7 @@ public class Penis implements BodyPartInterface {
 		} else {
 			this.length = Math.min(PenisLength.SEVEN_STALLION.getMaximumValue(), length);
 		}
-		this.girth = Math.min(PenetrationGirth.FOUR_FAT.getValue(), girth);
+		this.girth = Math.min(PenetrationGirth.getMaximum(), girth);
 		pierced = false;
 		virgin = true;
 		
@@ -412,14 +412,14 @@ public class Penis implements BodyPartInterface {
 					UtilText.transformationContentSB.append(
 							"Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as your shaft grows wider and the head flattens down.<br/>"
 							+ "You now have a [style.boldReindeerMorph(reindeer-like penis)], covered in [pc.penisFullDescription(true)].<br/>"
-							+ "You have [style.boldReindeerMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" rangiferine balls)],"
-									+ " covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldReindeerMorph(rangiferine cum)].");
+							+ "You have [style.boldReindeerMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" reindeer balls)],"
+									+ " covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldReindeerMorph(reindeer cum)].");
 				} else {
 					UtilText.transformationContentSB.append(
 							"Letting out an involuntary moan, [npc.name] feels [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as [npc.her] shaft grows wider and the head flattens down.<br/>"
 							+ "[npc.She] now has an [style.boldReindeerMorph(reindeer-like penis)], covered in [npc.penisFullDescription(true)].<br/>"
-							+ "[npc.She] has [style.boldReindeerMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" rangiferine balls)],"
-									+ " covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldReindeerMorph(rangiferine cum)].");
+							+ "[npc.She] has [style.boldReindeerMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" reindeer balls)],"
+									+ " covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldReindeerMorph(reindeer cum)].");
 				}
 				break;
 			case BOVINE:
@@ -565,7 +565,7 @@ public class Penis implements BodyPartInterface {
 	 */
 	public String setPenisGirth(GameCharacter owner, int girth) {
 		if(owner==null) {
-			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.FOUR_FAT.getValue()));
+			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.getMaximum()));
 			return "";
 		}
 		
@@ -580,10 +580,10 @@ public class Penis implements BodyPartInterface {
 				girthChange = 0 - this.girth;
 				this.girth = 0;
 			}
-		} else if (girth >= PenetrationGirth.FOUR_FAT.getValue()) {
-			if (this.girth != PenetrationGirth.FOUR_FAT.getValue()) {
-				girthChange = PenetrationGirth.FOUR_FAT.getValue() - this.girth;
-				this.girth = PenetrationGirth.FOUR_FAT.getValue();
+		} else if (girth >= PenetrationGirth.getMaximum()) {
+			if (this.girth != PenetrationGirth.getMaximum()) {
+				girthChange = PenetrationGirth.getMaximum() - this.girth;
+				this.girth = PenetrationGirth.getMaximum();
 			}
 		} else {
 			if (this.girth != girth) {

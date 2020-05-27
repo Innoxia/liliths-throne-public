@@ -63,8 +63,8 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -485,7 +485,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		// Sex:
-		if(this.getSexPartners().containsKey(Main.game.getPlayer().getId())) {
+		if(this.hasSexCountWith(Main.game.getPlayer())) {
 			tileSB.append("<p style='text-align:center;'>");
 					
 			tileSB.append(
@@ -926,6 +926,29 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return true;
 	}
 
+	public int getProstitutePrice() {
+		float prostitutePrice = 1f;
+
+		if(this.isFeminine()) {
+			prostitutePrice += 0.5f;
+		}
+		prostitutePrice += (this.getBody().getBreast().getRawSizeValue() - 7) * 0.02f; // Breast size.
+		if(this.hasVagina()) {
+			prostitutePrice += 0.15f; // More expensive if prostitute has a vagina.
+		}
+		if(this.hasPenis()) {
+			prostitutePrice += Math.min((this.getBody().getPenis().getRawLengthValue() - 5) * 0.01f, 0.10f); // Penalises small penises, but adds price if penis is large.
+		}
+		if(this.isBreastFuckableNipplePenetration()) {
+			prostitutePrice += 0.15f;  // Fuckable nipples add to price.
+		}
+		if(this.isVisiblyPregnant()) {
+			prostitutePrice = prostitutePrice * 0.5f; // Pregnant prostitutes charge 50% of their usual price.
+		}
+
+		return Math.max(150, ((int) (prostitutePrice*50))*10); // Minimum value is 150 flames.
+	}
+	
 	// Post-combat:
 
 	public int getExperienceFromVictory() {
@@ -1298,6 +1321,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				this.setVaginaType(VaginaType.NONE);
 			}
 		}
+	}
+
+	public boolean hasEncounteredBefore() {
+		return lastTimeEncountered!=-1;
 	}
 	
 	public long getLastTimeEncountered() {

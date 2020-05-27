@@ -6,8 +6,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.colours.Colour;
-import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -41,20 +39,16 @@ public class Warehouses {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR)) {
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR) && !Main.game.getPlayer().isQuestFailed(QuestLine.ROMANCE_NATALYA)) {
 				if(index==1) {
-					if(!Main.game.isExtendedWorkTime()) {
+					if(!Main.game.isExtendedWorkTime() && !Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)) {
 						return new Response("Dominion Express",
 								"Dominion Express is currently closed to visiting members of the public. If you wanted to meet with Natalya again, you'll have to return here between the hours of [unit.time(6)]-[unit.time(22)].",
 								null);
 					}
 					return new Response("Dominion Express",
-							"Enter the main warehouse of Natalya's delivery company, Dominion Express.<br/>[style.italicsBad(Natalya's content is very rough in this version! I advise you to wait until v0.3.8 to play it!)]",
+							"Enter the main warehouse of Natalya's delivery company, Dominion Express.",
 							DominionExpress.INITIAL_ENTRANCE) {
-						@Override
-						public Colour getHighlightColour() {
-							return PresetColour.GENERIC_BAD;
-						}
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_EXIT);

@@ -345,7 +345,7 @@ public class OccupantDialogue {
 									OCCUPANT_KICK_OUT) {
 								@Override
 								public Colour getHighlightColour() {
-									return PresetColour.GENERIC_BAD;
+									return PresetColour.GENERIC_NPC_REMOVAL;
 								}
 								@Override
 								public void effects() {
@@ -1201,7 +1201,7 @@ public class OccupantDialogue {
 							OCCUPANT_KICK_OUT) {
 						@Override
 						public Colour getHighlightColour() {
-							return PresetColour.GENERIC_BAD;
+							return PresetColour.GENERIC_NPC_REMOVAL;
 						}
 						@Override
 						public void effects() {
@@ -1460,7 +1460,7 @@ public class OccupantDialogue {
 								OCCUPANT_APARTMENT_REMOVE) {
 							@Override
 							public Colour getHighlightColour() {
-								return PresetColour.GENERIC_BAD;
+								return PresetColour.GENERIC_NPC_REMOVAL;
 							}
 							@Override
 							public void effects() {

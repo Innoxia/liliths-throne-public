@@ -33,6 +33,8 @@
 		<imageEquippedName>lightning_globe.svg</imageEquippedName>
 		
 		<damage>25</damage> 
+		<aoe chance="50">10</aoe>
+		<aoe chance="25">5</aoe>
 		
 		<arcaneCost>1</arcaneCost> 
 		

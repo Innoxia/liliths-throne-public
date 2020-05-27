@@ -8,8 +8,8 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -232,7 +232,7 @@ public class ItemEffect implements XMLSaving {
 	public String applyEffect(GameCharacter user, GameCharacter target, int secondsPassed) {
 		this.timer.incrementSecondsPassed(secondsPassed);
 		if(target!=null) {
-			if(target.getRace()==Race.DEMON
+			if((target.getRace()==Race.DEMON || target.getRace()==Race.ANGEL)
 					&& (getSecondaryModifier()==TFModifier.TF_TYPE_1
 							|| getSecondaryModifier()==TFModifier.TF_TYPE_2
 							|| getSecondaryModifier()==TFModifier.TF_TYPE_3
@@ -245,11 +245,40 @@ public class ItemEffect implements XMLSaving {
 							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG
 							|| getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAUR
 							|| getSecondaryModifier()==TFModifier.REMOVAL)) {
-				return UtilText.parse(target,
-						"<p style='text-align:center;'>"
-							+ "As [npc.nameIsFull] [style.boldDemon([npc.a_race])], the transformation has [style.boldBad(no effect)]!"
-						+ "</p>");
+				
+				if(getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_ARACHNID && (target.getLegType().isLegConfigurationAvailable(LegConfiguration.ARACHNID) || target.getLegType().getRace()==Race.DEMON)) {
+					return AbstractItemEffectType.getRacialEffect(target.getLegType().getRace(), getPrimaryModifier(), getSecondaryModifier(), getPotency(), user, target).applyEffect();
+				}
+				if(getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_BIPEDAL && (target.getLegType().isLegConfigurationAvailable(LegConfiguration.BIPEDAL) || target.getLegType().getRace()==Race.DEMON)) {
+					return AbstractItemEffectType.getRacialEffect(target.getLegType().getRace(), getPrimaryModifier(), getSecondaryModifier(), getPotency(), user, target).applyEffect();
+				}
+				if(getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_CEPHALOPOD && (target.getLegType().isLegConfigurationAvailable(LegConfiguration.CEPHALOPOD) || target.getLegType().getRace()==Race.DEMON)) {
+					return AbstractItemEffectType.getRacialEffect(target.getLegType().getRace(), getPrimaryModifier(), getSecondaryModifier(), getPotency(), user, target).applyEffect();
+				}
+				if(getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL && (target.getLegType().isLegConfigurationAvailable(LegConfiguration.TAIL) || target.getLegType().getRace()==Race.DEMON)) {
+					return AbstractItemEffectType.getRacialEffect(target.getLegType().getRace(), getPrimaryModifier(), getSecondaryModifier(), getPotency(), user, target).applyEffect();
+				}
+				if(getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAIL_LONG && (target.getLegType().isLegConfigurationAvailable(LegConfiguration.TAIL_LONG) || target.getLegType().getRace()==Race.DEMON)) {
+					return AbstractItemEffectType.getRacialEffect(target.getLegType().getRace(), getPrimaryModifier(), getSecondaryModifier(), getPotency(), user, target).applyEffect();
+				}
+				if(getSecondaryModifier()==TFModifier.TF_MOD_LEG_CONFIG_TAUR && (target.getLegType().isLegConfigurationAvailable(LegConfiguration.TAUR) || target.getLegType().getRace()==Race.DEMON)) {
+					return AbstractItemEffectType.getRacialEffect(target.getLegType().getRace(), getPrimaryModifier(), getSecondaryModifier(), getPotency(), user, target).applyEffect();
+				}
+				TFModifier secondaryMod = getSecondaryModifier();
+				if(secondaryMod==TFModifier.TF_TYPE_2
+						|| secondaryMod==TFModifier.TF_TYPE_3
+						|| secondaryMod==TFModifier.TF_TYPE_4
+						|| secondaryMod==TFModifier.TF_TYPE_5) {
+					secondaryMod = TFModifier.TF_TYPE_1;
+				}
+				return AbstractItemEffectType.getRacialEffect(target.getRace(), getPrimaryModifier(), secondaryMod, getPotency(), user, target).applyEffect();
 			}
+//			if(!target.isAbleToHaveRaceTransformed()) {
+//				return UtilText.parse(target,
+//						"<p style='text-align:center;'>"
+//							+ "As [npc.nameIsFull] <b style='color:"+target.getRace().getColour().toWebHexString()+";'>[npc.a_race]</b>, the transformation has [style.boldBad(no effect)]!"
+//						+ "</p>");
+//			}
 		}
 		return getItemEffectType().applyEffect(getPrimaryModifier(), getSecondaryModifier(), getPotency(), getLimit(), user, target, this.timer);
 	}

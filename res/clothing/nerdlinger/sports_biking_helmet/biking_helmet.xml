@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+	<authorTag><![CDATA[You find a tag printed on the inner wall, "Envisionned for high-performing athletes, by GLIDE.".]]></authorTag>
+		<value>800</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[bike racing helmet]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[bike racing helmets]]></namePlural>
+		<description><![CDATA[Designed for increased ventilation and optimal aerodynamics, this helmet also features proprietary technology for improved comfort and unrivalled protection.]]></description>
+		<physicalResistance>3.0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>HEAD</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>biking_helmet.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_BLACK"/> 
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="ALL"/> 
+		<tertiaryColoursDye values="ALL"/>
+	
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	
+</clothing>

@@ -49,7 +49,6 @@ import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
 import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.FootStructure;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -73,6 +72,7 @@ import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
@@ -125,12 +125,13 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.combat.SpellUpgrade;
+import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
@@ -142,7 +143,6 @@ import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePoker;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
@@ -157,12 +157,14 @@ import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.SpellManagement;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.LoadedEnchantment;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
@@ -198,7 +200,6 @@ import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
-import com.lilithsthrone.utils.colours.ColourListPresets;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
@@ -418,7 +419,7 @@ public class MainControllerInitMethod {
 					MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 					
-					TooltipInventoryEventListener el = new TooltipInventoryEventListener().setGenericClothing(clothingType, clothingType.getAvailablePrimaryColours().get(0));
+					TooltipInventoryEventListener el = new TooltipInventoryEventListener().setGenericClothing(clothingType, clothingType.getColourReplacement(0).getFirstOfDefaultColours());
 					MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 				}
 			}
@@ -502,7 +503,7 @@ public class MainControllerInitMethod {
 			if (((EventTarget) MainController.document.getElementById(id)) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 					DebugDialogue.activeSlot = null;
-					DebugDialogue.itemTag = ItemTag.HIDDEN_IN_DEBUG_SPAWNER;
+					DebugDialogue.itemTag = ItemTag.CHEAT_ITEM;
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
@@ -1059,43 +1060,43 @@ public class MainControllerInitMethod {
 				// Ingredient icon:
 				if (((EventTarget) MainController.document.getElementById("INGREDIENT_ENCHANTING")) != null) {
 
-					((EventTarget) MainController.document.getElementById("INGREDIENT_ENCHANTING")).addEventListener("click", e -> {
-						Main.game.setResponseTab(1);
-						if(EnchantmentDialogue.getIngredient() instanceof AbstractItem) {
-							Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
-								@Override
-								public void effects() {
-									EnchantmentDialogue.resetEnchantmentVariables();
-								}
-							});
-
-						} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
-							Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.CLOTHING_INVENTORY){
-								@Override
-								public void effects() {
-									EnchantmentDialogue.resetEnchantmentVariables();
-								}
-							});
-
-						} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
-							Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.WEAPON_INVENTORY){
-								@Override
-								public void effects() {
-									EnchantmentDialogue.resetEnchantmentVariables();
-								}
-							});
-
-						} else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
-							Main.game.setContent(new Response("Back", "Stop enchanting.", BodyChanging.getTarget().isPlayer()?SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS:CompanionManagement.SLAVE_MANAGEMENT_TATTOOS){
-								@Override
-								public void effects() {
-									EnchantmentDialogue.resetEnchantmentVariables();
-								}
-							});
-
-						}
-
-					}, false);
+//					((EventTarget) MainController.document.getElementById("INGREDIENT_ENCHANTING")).addEventListener("click", e -> {
+//						Main.game.setResponseTab(1);
+//						if(EnchantmentDialogue.getIngredient() instanceof AbstractItem) {
+//							Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
+//								@Override
+//								public void effects() {
+//									EnchantmentDialogue.resetEnchantmentVariables();
+//								}
+//							});
+//
+//						} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
+//							Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.CLOTHING_INVENTORY){
+//								@Override
+//								public void effects() {
+//									EnchantmentDialogue.resetEnchantmentVariables();
+//								}
+//							});
+//
+//						} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
+//							Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.WEAPON_INVENTORY){
+//								@Override
+//								public void effects() {
+//									EnchantmentDialogue.resetEnchantmentVariables();
+//								}
+//							});
+//
+//						} else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
+//							Main.game.setContent(new Response("Back", "Stop enchanting.", BodyChanging.getTarget().isPlayer()?SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS:CompanionManagement.SLAVE_MANAGEMENT_TATTOOS){
+//								@Override
+//								public void effects() {
+//									EnchantmentDialogue.resetEnchantmentVariables();
+//								}
+//							});
+//
+//						}
+//
+//					}, false);
 
 					MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, "INGREDIENT_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
@@ -1120,34 +1121,53 @@ public class MainControllerInitMethod {
 				// Output icon:
 				if (((EventTarget) MainController.document.getElementById("OUTPUT_ENCHANTING")) != null) {
 
-					((EventTarget) MainController.document.getElementById("OUTPUT_ENCHANTING")).addEventListener("click", e -> {
-						if(EnchantmentDialogue.getEffects().isEmpty()) {
-
-						} else if(EnchantmentDialogue.canAffordCost(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getEffects())) {
-							Main.game.setContent(new ResponseEffectsOnly("Craft", "Craft '"+EnchantmentDialogue.getOutputName()+"'."){
-								@Override
-								public void effects() {
-
-									EnchantmentDialogue.craftItem(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getEffects());
-
-									if((EnchantmentDialogue.getPreviousIngredient() instanceof AbstractItem?Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.getPreviousIngredient()):true)
-											&& (EnchantmentDialogue.getPreviousIngredient() instanceof AbstractClothing?Main.game.getPlayer().hasClothing((AbstractClothing) EnchantmentDialogue.getPreviousIngredient()):true)
-											&& (EnchantmentDialogue.getPreviousIngredient() instanceof AbstractWeapon?Main.game.getPlayer().hasWeapon((AbstractWeapon) EnchantmentDialogue.getPreviousIngredient()):true)) {
-										EnchantmentDialogue.setIngredient(EnchantmentDialogue.getPreviousIngredient());
-										Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
-									} else {
-										Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
-									}
-								}
-							});
-
-						}
-					}, false);
+//					((EventTarget) MainController.document.getElementById("OUTPUT_ENCHANTING")).addEventListener("click", e -> {
+//						if(EnchantmentDialogue.getEffects().isEmpty()) {
+//
+//						} else if(EnchantmentDialogue.canAffordCost(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getEffects())) {
+//							Main.game.setContent(new ResponseEffectsOnly("Craft", "Craft '"+EnchantmentDialogue.getOutputName()+"'."){
+//								@Override
+//								public void effects() {
+//									EnchantmentDialogue.craftItem(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getEffects());
+//
+//									if((EnchantmentDialogue.getPreviousIngredient() instanceof AbstractItem?Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.getPreviousIngredient()):true)
+//											&& (EnchantmentDialogue.getPreviousIngredient() instanceof AbstractClothing?Main.game.getPlayer().hasClothing((AbstractClothing) EnchantmentDialogue.getPreviousIngredient()):true)
+//											&& (EnchantmentDialogue.getPreviousIngredient() instanceof AbstractWeapon?Main.game.getPlayer().hasWeapon((AbstractWeapon) EnchantmentDialogue.getPreviousIngredient()):true)) {
+//										EnchantmentDialogue.setIngredient(EnchantmentDialogue.getPreviousIngredient());
+//										Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
+//									} else {
+//										Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+//									}
+//								}
+//							});
+//
+//						}
+//					}, false);
 
 					MainController.addEventListener(MainController.document, "OUTPUT_ENCHANTING", "mousemove", MainController.moveTooltipListener, false);
 					MainController.addEventListener(MainController.document, "OUTPUT_ENCHANTING", "mouseleave", MainController.hideTooltipListener, false);
 
-					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Craft", "Click to craft this item!");
+//					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Craft", "Click to craft this item!");
+//					MainController.addEventListener(MainController.document, "OUTPUT_ENCHANTING", "mouseenter", el2, false);
+
+					TooltipInventoryEventListener el2 = null;
+					if(EnchantmentDialogue.getIngredient() instanceof AbstractItem) {
+						AbstractItem preview = EnchantingUtils.craftItem(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getEffects());
+						el2 = new TooltipInventoryEventListener().setItem(preview, Main.game.getPlayer(), null);
+
+					} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
+						AbstractClothing preview = EnchantingUtils.craftClothing(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getEffects());
+						el2 = new TooltipInventoryEventListener().setClothing(preview, Main.game.getPlayer(), null);
+
+					} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
+						AbstractWeapon preview = EnchantingUtils.craftWeapon(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getEffects());
+						el2 = new TooltipInventoryEventListener().setWeapon(preview, Main.game.getPlayer(), false);
+
+					}  else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
+						Tattoo preview = EnchantingUtils.craftTattoo(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getEffects());
+						el2 = new TooltipInventoryEventListener().setTattoo(EnchantmentDialogue.getTattooSlot(), preview, EnchantmentDialogue.getTattooBearer(), EnchantmentDialogue.getTattooBearer());
+					}
+
 					MainController.addEventListener(MainController.document, "OUTPUT_ENCHANTING", "mouseenter", el2, false);
 				}
 
@@ -2468,7 +2488,9 @@ public class MainControllerInitMethod {
 			
 			if(!Main.game.isInNewWorld()
 					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_CORE)
-					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_FACE)
+					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_EYES)
+					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_HAIR)
+					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_HEAD)
 					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_ASS)
 					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_BREASTS)
 					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_VAGINA)
@@ -3602,7 +3624,7 @@ public class MainControllerInitMethod {
 				for(int i=1; i <= Breast.MAXIMUM_BREAST_ROWS; i++) {
 					MainController.setBreastCountListener(i);
 				}
-				for(int i=1; i <= BreastCrotch.MAXIMUM_BREAST_ROWS; i++) {
+				for(int i=0; i <= BreastCrotch.MAXIMUM_BREAST_ROWS; i++) {
 					MainController.setBreastCrotchCountListener(i);
 				}
 				
@@ -4388,116 +4410,69 @@ public class MainControllerInitMethod {
 			
 			// -------------------- Cosmetics -------------------- //
 			
-			
+
 			boolean noCost = !Main.game.isInNewWorld()
 								|| ScarlettsShop.isSlaveCustomisationMenu()
 								|| Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.PHONE;
 			
-			for(BodyCoveringType bct : BodyCoveringType.values()) {
-				
-				id = "APPLY_COVERING_"+bct;
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getBodyCoveringTypeCost(bct) || noCost) {
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
-								@Override
-								public void effects() {
-									if(CharacterModificationUtils.getCoveringsToBeApplied().containsKey(bct)) {
-										if(!noCost) {
-											Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
-										}
-										
-										BodyChanging.getTarget().setSkinCovering(new Covering(CharacterModificationUtils.getCoveringsToBeApplied().get(bct)), false);
-										
-										if(noCost) {
-											if(bct == BodyCoveringType.HUMAN) {
-												BodyChanging.getTarget().getBody().updateCoverings(false, false, false, true);
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.coveringChangeListenersRequired)) {
+				for(BodyCoveringType bct : BodyCoveringType.values()) {
+					id = "APPLY_COVERING_"+bct;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getBodyCoveringTypeCost(bct) || noCost) {
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										if(CharacterModificationUtils.getCoveringsToBeApplied().containsKey(bct)) {
+											if(!noCost) {
+												Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+											}
+											
+											BodyChanging.getTarget().setSkinCovering(new Covering(CharacterModificationUtils.getCoveringsToBeApplied().get(bct)), false);
+											
+											if(noCost) {
+												if(bct == BodyCoveringType.HUMAN) {
+													BodyChanging.getTarget().getBody().updateCoverings(false, false, false, true);
+												}
 											}
 										}
 									}
-								}
-							});
-						}
-					}, false);
-				}
-				id = "RESET_COVERING_"+bct;
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getBodyCoveringTypeCost(bct) || noCost) {
+								});
+							}
+						}, false);
+					}
+					id = "RESET_COVERING_"+bct;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.getBodyCoveringTypeCost(bct) || noCost) {
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										CharacterModificationUtils.getCoveringsToBeApplied().remove(bct);
+									}
+								});
+							}
+						}, false);
+					}
+					
+					
+					
+					id = bct+"_PRIMARY_GLOW_OFF";
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									CharacterModificationUtils.getCoveringsToBeApplied().remove(bct);
+									CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
+									CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPrimaryGlowing(false);
 								}
 							});
-						}
-					}, false);
-				}
-				
-				
-				
-				id = bct+"_PRIMARY_GLOW_OFF";
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						}, false);
+					}
 					
-					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
-							@Override
-							public void effects() {
-								CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
-								CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPrimaryGlowing(false);
-							}
-						});
-					}, false);
-				}
-				
-				id = bct+"_PRIMARY_GLOW_ON";
-				
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					
-					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
-							@Override
-							public void effects() {
-								CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
-								CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPrimaryGlowing(true);
-								
-							}
-						});
-					}, false);
-				}
-				
-				id = bct+"_SECONDARY_GLOW_OFF";
-				
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					
-					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
-							@Override
-							public void effects() {
-								CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
-								CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setSecondaryGlowing(false);
-							}
-						});
-					}, false);
-				}
-				
-				id = bct+"_SECONDARY_GLOW_ON";
-				
-				if (((EventTarget) MainController.document.getElementById(id)) != null) {
-					
-					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
-							@Override
-							public void effects() {
-								CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
-								CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setSecondaryGlowing(true);
-							}
-						});
-					}, false);
-				}
-				
-				for(CoveringPattern pattern : CoveringPattern.values()) {
-					id = bct+"_PATTERN_"+pattern;
+					id = bct+"_PRIMARY_GLOW_ON";
 					
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						
@@ -4506,15 +4481,14 @@ public class MainControllerInitMethod {
 								@Override
 								public void effects() {
 									CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
-									CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPattern(pattern);
+									CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPrimaryGlowing(true);
+									
 								}
 							});
 						}, false);
 					}
-				}
-				
-				for(CoveringModifier modifier : CoveringModifier.values()) {
-					id = bct+"_MODIFIER_"+modifier;
+					
+					id = bct+"_SECONDARY_GLOW_OFF";
 					
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						
@@ -4523,69 +4497,117 @@ public class MainControllerInitMethod {
 								@Override
 								public void effects() {
 									CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
-									CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setModifier(modifier);
+									CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setSecondaryGlowing(false);
 								}
 							});
 						}, false);
 					}
-				}
-
-				for(Colour colour : bct.getAllPrimaryColours()) {
-					id = bct+"_PRIMARY_"+colour.getId();
+					
+					id = bct+"_SECONDARY_GLOW_ON";
 					
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
 									CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
-									CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPrimaryColour(colour);
-									CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPrimaryGlowing((colour != PresetColour.COVERING_NONE && BodyChanging.getTarget().getCovering(bct).isPrimaryGlowing()));
+									CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setSecondaryGlowing(true);
 								}
 							});
 						}, false);
 					}
-				}
-				for(Colour colour : bct.getAllSecondaryColours()) {
-					id = bct+"_SECONDARY_"+colour.getId();
 					
-					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
-								@Override
-								public void effects() {
-									CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
-									CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setSecondaryColour(colour);
-									CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setSecondaryGlowing(colour != PresetColour.COVERING_NONE && BodyChanging.getTarget().getCovering(bct).isSecondaryGlowing());
-								}
-							});
-						}, false);
+					for(CoveringPattern pattern : CoveringPattern.values()) {
+						id = bct+"_PATTERN_"+pattern;
+						
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
+										CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPattern(pattern);
+									}
+								});
+							}, false);
+						}
+					}
+					
+					for(CoveringModifier modifier : CoveringModifier.values()) {
+						id = bct+"_MODIFIER_"+modifier;
+						
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
+										CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setModifier(modifier);
+									}
+								});
+							}, false);
+						}
+					}
+	
+					for(Colour colour : bct.getAllPrimaryColours()) {
+						id = bct+"_PRIMARY_"+colour.getId();
+						
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
+										CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPrimaryColour(colour);
+										CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setPrimaryGlowing((colour != PresetColour.COVERING_NONE && BodyChanging.getTarget().getCovering(bct).isPrimaryGlowing()));
+									}
+								});
+							}, false);
+						}
+					}
+					for(Colour colour : bct.getAllSecondaryColours()) {
+						id = bct+"_SECONDARY_"+colour.getId();
+						
+						if (((EventTarget) MainController.document.getElementById(id)) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
+										CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setSecondaryColour(colour);
+										CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setSecondaryGlowing(colour != PresetColour.COVERING_NONE && BodyChanging.getTarget().getCovering(bct).isSecondaryGlowing());
+									}
+								});
+							}, false);
+						}
 					}
 				}
-			}
-			
-			
-			id = "MAKEUP_LIPSTICK_HEAVY_ON";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
-						@Override
-						public void effects() {
-							BodyChanging.getTarget().addHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
-						}
-					});
-				}, false);
-			}
-			id = "MAKEUP_LIPSTICK_HEAVY_OFF";
-			if (((EventTarget) MainController.document.getElementById(id)) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
-						@Override
-						public void effects() {
-							BodyChanging.getTarget().removeHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
-						}
-					});
-				}, false);
+				
+				id = "MAKEUP_LIPSTICK_HEAVY_ON";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								BodyChanging.getTarget().addHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+							}
+						});
+					}, false);
+				}
+				id = "MAKEUP_LIPSTICK_HEAVY_OFF";
+				if (((EventTarget) MainController.document.getElementById(id)) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+							@Override
+							public void effects() {
+								BodyChanging.getTarget().removeHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
+							}
+						});
+					}, false);
+				}
 			}
 			
 			for(HairLength hairLength : HairLength.values()) {
@@ -4720,7 +4742,6 @@ public class MainControllerInitMethod {
 			}
 			
 			if (((EventTarget) MainController.document.getElementById("BLEACHING_OFF")) != null) {
-				
 				((EventTarget) MainController.document.getElementById("BLEACHING_OFF")).addEventListener("click", e -> {
 					if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_ANAL_BLEACHING_COST || noCost) {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
@@ -4737,7 +4758,6 @@ public class MainControllerInitMethod {
 			}
 			
 			if (((EventTarget) MainController.document.getElementById("BLEACHING_ON")) != null) {
-				
 				((EventTarget) MainController.document.getElementById("BLEACHING_ON")).addEventListener("click", e -> {
 					if(Main.game.getPlayer().getMoney() >= SuccubisSecrets.BASE_ANAL_BLEACHING_COST || noCost) {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
@@ -4754,7 +4774,6 @@ public class MainControllerInitMethod {
 			}
 			
 			for(BodyHair bodyHair: BodyHair.values()) {
-				
 				id = "ASS_HAIR_"+bodyHair;
 				if (((EventTarget) MainController.document.getElementById(id)) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -5144,52 +5163,28 @@ public class MainControllerInitMethod {
 					|| Main.game.getCurrentDialogueNode()==InventoryDialogue.DYE_EQUIPPED_CLOTHING_CHARACTER_CREATION) {
 //				for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
 				AbstractClothingType clothing = InventoryDialogue.getClothing().getClothingType();
-				for (Colour c : clothing.getAllAvailablePrimaryColours()) {
-					id = "PRIMARY_"+clothing.hashCode() + "_" + c.getId();
-					if ((EventTarget) MainController.document.getElementById(id) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							InventoryDialogue.dyePreviewPrimary = c;
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}, false);
-						
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeClothingPrimary(InventoryDialogue.getClothing(), c);
-						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-					}
-				}
-				if(!clothing.getAllAvailableSecondaryColours().isEmpty()) {
-					for (Colour c : clothing.getAllAvailableSecondaryColours()) {
-						id = "SECONDARY_"+clothing.hashCode() + "_" + c.getId();
+				for(int i=0; i<clothing.getColourReplacements().size(); i++) {
+					int index = i;
+					ColourReplacement cr = clothing.getColourReplacement(i);
+					for(Colour c : cr.getAllColours()) {
+						id = "DYE_CLOTHING_"+i+"_"+c.getId();
 						if ((EventTarget) MainController.document.getElementById(id) != null) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								InventoryDialogue.dyePreviewSecondary = c;
+								if(cr.isRecolouringAllowed()) {
+									InventoryDialogue.dyePreviews.remove(index);
+									InventoryDialogue.dyePreviews.add(index, c);
+								}
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}, false);
 							
 							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-							TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeClothingSecondary(InventoryDialogue.getClothing(), c);
+							TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeClothing(InventoryDialogue.getClothing(), i, c);
 							MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 						}
 					}
 				}
-				if(!clothing.getAllAvailableTertiaryColours().isEmpty()) {
-					for (Colour c : clothing.getAllAvailableTertiaryColours()) {
-						id = "TERTIARY_"+clothing.hashCode() + "_" + c.getId();
-						if ((EventTarget) MainController.document.getElementById(id) != null) {
-							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								InventoryDialogue.dyePreviewTertiary = c;
-								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-							}, false);
-							
-							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-							TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeClothingTertiary(InventoryDialogue.getClothing(), c);
-							MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-						}
-					}
-				}
+				
 				for(Pattern pattern : Pattern.getAllPatterns().values()) {
 					id = "ITEM_PATTERN_"+pattern.getName();
 					
@@ -5212,36 +5207,23 @@ public class MainControllerInitMethod {
 						}*/
 					}
 				}
-				if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isPrimaryRecolourAvailable()) {
-					for (Colour c : ColourListPresets.ALL) {
-						id = "PATTERN_PRIMARY_"+clothing.hashCode() + "_" + c.getId();
+				for(int i=0; i<clothing.getPatternColourReplacements().size(); i++) {
+					int index = i;
+					ColourReplacement cr = clothing.getPatternColourReplacement(i);
+					for(Colour c : cr.getAllColours()) {
+						id = "DYE_CLOTHING_PATTERN_"+i+"_"+c.getId();
 						if ((EventTarget) MainController.document.getElementById(id) != null) {
 							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								InventoryDialogue.dyePreviewPatternPrimary = c;
+								InventoryDialogue.dyePreviewPatterns.remove(index);
+								InventoryDialogue.dyePreviewPatterns.add(index, c);
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 							}, false);
-						}
-					}
-				}
-				if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isSecondaryRecolourAvailable()) {
-					for (Colour c : ColourListPresets.ALL) {
-						id = "PATTERN_SECONDARY_"+clothing.hashCode() + "_" + c.getId();
-						if ((EventTarget) MainController.document.getElementById(id) != null) {
-							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								InventoryDialogue.dyePreviewPatternSecondary = c;
-								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-							}, false);
-						}
-					}
-				}
-				if(Pattern.getPattern(InventoryDialogue.dyePreviewPattern)!=null && Pattern.getPattern(InventoryDialogue.dyePreviewPattern).isTertiaryRecolourAvailable()) {
-					for (Colour c : ColourListPresets.ALL) {
-						id = "PATTERN_TERTIARY_"+clothing.hashCode() + "_" + c.getId();
-						if ((EventTarget) MainController.document.getElementById(id) != null) {
-							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-								InventoryDialogue.dyePreviewPatternTertiary = c;
-								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-							}, false);
+							
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+//							TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeClothingPattern(InventoryDialogue.getClothing(), Pattern.getPattern(InventoryDialogue.dyePreviewPattern));
+							TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeClothingPattern(InventoryDialogue.getClothing(), i, c);
+							MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
 						}
 					}
 				}
@@ -5250,50 +5232,29 @@ public class MainControllerInitMethod {
 			if(Main.game.getCurrentDialogueNode()==InventoryDialogue.DYE_WEAPON
 					|| Main.game.getCurrentDialogueNode()==InventoryDialogue.DYE_EQUIPPED_WEAPON) {
 				AbstractWeaponType weapon = InventoryDialogue.getWeapon().getWeaponType();
-				for (Colour c : weapon.getAllAvailablePrimaryColours()) {
-					id = "PRIMARY_"+weapon.hashCode() + "_" + c.getId();
-					if ((EventTarget) MainController.document.getElementById(id) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							InventoryDialogue.dyePreviewPrimary = c;
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}, false);
-						
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeWeaponPrimary(InventoryDialogue.getWeapon(), c);
-						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-					}
-				}
-				for (Colour c : weapon.getAllAvailableSecondaryColours()) {
-					id = "SECONDARY_"+weapon.hashCode() + "_" + c.getId();
-					if ((EventTarget) MainController.document.getElementById(id) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							InventoryDialogue.dyePreviewSecondary = c;
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}, false);
-						
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeWeaponSecondary(InventoryDialogue.getWeapon(), c);
-						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
-					}
-				}
-				for (Colour c : weapon.getAllAvailableTertiaryColours()) {
-					id = "TERTIARY_"+weapon.hashCode() + "_" + c.getId();
-					if ((EventTarget) MainController.document.getElementById(id) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							InventoryDialogue.dyePreviewTertiary = c;
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}, false);
-						
-						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeWeaponTertiary(InventoryDialogue.getWeapon(), c);
-						MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+				for(int i=0; i<weapon.getColourReplacements(false).size(); i++) {
+					int index = i;
+					ColourReplacement cr = weapon.getColourReplacement(false, i);
+					for(Colour c : cr.getAllColours()) {
+						id = "DYE_WEAPON_"+i+"_"+c.getId();
+						if ((EventTarget) MainController.document.getElementById(id) != null) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								if(cr.isRecolouringAllowed()) {
+									InventoryDialogue.dyePreviews.remove(index);
+									InventoryDialogue.dyePreviews.add(index, c);
+								}
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}, false);
+							
+							MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+							MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+							TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setDyeWeapon(InventoryDialogue.getWeapon(), i, c);
+							MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+						}
 					}
 				}
 				for (DamageType dt : weapon.getAvailableDamageTypes()) {
-					id = "DAMAGE_TYPE_"+weapon.hashCode() + "_" + dt.toString();
+					id = "DAMAGE_TYPE_"+dt.toString();
 					if ((EventTarget) MainController.document.getElementById(id) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							InventoryDialogue.damageTypePreview = dt;
@@ -5309,13 +5270,11 @@ public class MainControllerInitMethod {
 			}
 			
 			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
-				for (Colour colour : clothing.getAllAvailablePrimaryColours()) {
-					if ((EventTarget) MainController.document.getElementById(clothing.hashCode() + "_" + colour.getId()) != null) {
-						MainController.addEventListener(MainController.document, clothing.hashCode() + "_" + colour.getId(), "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, clothing.hashCode() + "_" + colour.getId(), "mouseleave", MainController.hideTooltipListener, false);
-						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setGenericClothing(clothing, colour);
-						MainController.addEventListener(MainController.document, clothing.hashCode() + "_" + colour.getId(), "mouseenter", el2, false);
-					}
+				if ((EventTarget) MainController.document.getElementById(clothing.getId()) != null) {
+					MainController.addEventListener(MainController.document, clothing.getId(), "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, clothing.getId(), "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setGenericClothing(clothing);
+					MainController.addEventListener(MainController.document, clothing.getId(), "mouseenter", el2, false);
 				}
 			}
 			
@@ -5330,12 +5289,18 @@ public class MainControllerInitMethod {
 			}
 			
 			for (AbstractWeaponType weapon : WeaponType.getAllWeapons()) {
+				if ((EventTarget) MainController.document.getElementById(weapon.getId()) != null) {
+					MainController.addEventListener(MainController.document, weapon.getId(), "mousemove", MainController.moveTooltipListener, false);
+					MainController.addEventListener(MainController.document, weapon.getId(), "mouseleave", MainController.hideTooltipListener, false);
+					TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setGenericWeapon(weapon, weapon.getAvailableDamageTypes().get(0));
+					MainController.addEventListener(MainController.document, weapon.getId(), "mouseenter", el2, false);
+				}
 				for (DamageType dt : weapon.getAvailableDamageTypes()) {
-					if ((EventTarget) MainController.document.getElementById(weapon.hashCode() + "_" + dt.toString()) != null) {
-						MainController.addEventListener(MainController.document, weapon.hashCode() + "_" + dt.toString(), "mousemove", MainController.moveTooltipListener, false);
-						MainController.addEventListener(MainController.document, weapon.hashCode() + "_" + dt.toString(), "mouseleave", MainController.hideTooltipListener, false);
+					if ((EventTarget) MainController.document.getElementById(weapon.getId() + "_" + dt.toString()) != null) {
+						MainController.addEventListener(MainController.document, weapon.getId() + "_" + dt.toString(), "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, weapon.getId() + "_" + dt.toString(), "mouseleave", MainController.hideTooltipListener, false);
 						TooltipInventoryEventListener el2 = new TooltipInventoryEventListener().setGenericWeapon(weapon, dt);
-						MainController.addEventListener(MainController.document, weapon.hashCode() + "_" + dt.toString(), "mouseenter", el2, false);
+						MainController.addEventListener(MainController.document, weapon.getId() + "_" + dt.toString(), "mouseenter", el2, false);
 					}
 				}
 			}
@@ -5350,8 +5315,25 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setSpell(s, SpellManagement.getTarget()), false);
-						
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setSpell(s, SpellManagement.getSpellOwner()), false);
+					}
+					id = "SPELL_TREE_CAST_" + s;
+					if (((EventTarget) MainController.document.getElementById(id)) != null) {
+						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+						Value<Boolean, String> useDec = s.getSpellCastOutOfCombatDescription(SpellManagement.getSpellOwner(), SpellManagement.getSpellTarget());
+						MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+								"Cast "+s.getName(),
+								useDec.getKey()
+									?useDec.getValue()
+									:"[style.italicsBad("+useDec.getValue()+")]"),
+								false);
+
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", event -> {
+							if(s.getSpellCastOutOfCombatDescription(SpellManagement.getSpellOwner(), SpellManagement.getSpellTarget()).getKey()) {
+								Main.game.setContent(new Response("", "", SpellManagement.castSpell(s)));
+							}
+						}, false);
 					}
 					for(List<TreeEntry<SpellSchool, SpellUpgrade>> upgradeList : s.getSpellUpgradeTree().values()) {
 						for(TreeEntry<SpellSchool, SpellUpgrade> upgrade : upgradeList) {
@@ -5359,12 +5341,12 @@ public class MainControllerInitMethod {
 							if (((EventTarget) MainController.document.getElementById(id)) != null) {
 								MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 								MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-								MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setSpellUpgrade(upgrade.getEntry(), SpellManagement.getTarget()), false);
+								MainController.addEventListener(MainController.document, id, "mouseenter", new TooltipInformationEventListener().setSpellUpgrade(upgrade.getEntry(), SpellManagement.getSpellOwner()), false);
 								
 								((EventTarget) MainController.document.getElementById(id)).addEventListener("click", event -> {
-									if(Spell.isSpellUpgradeAvailable(SpellManagement.getTarget(), s, upgrade) && SpellManagement.getTarget().getSpellUpgradePoints(upgrade.getCategory())>=upgrade.getEntry().getPointCost()) {
-										SpellManagement.getTarget().addSpellUpgrade(upgrade.getEntry());
-										SpellManagement.getTarget().incrementSpellUpgradePoints(upgrade.getCategory(), -upgrade.getEntry().getPointCost());
+									if(Spell.isSpellUpgradeAvailable(SpellManagement.getSpellOwner(), s, upgrade) && SpellManagement.getSpellOwner().getSpellUpgradePoints(upgrade.getCategory())>=upgrade.getEntry().getPointCost()) {
+										SpellManagement.getSpellOwner().addSpellUpgrade(upgrade.getEntry());
+										SpellManagement.getSpellOwner().incrementSpellUpgradePoints(upgrade.getCategory(), -upgrade.getEntry().getPointCost());
 										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 									}
 								}, false);
@@ -6159,6 +6141,7 @@ public class MainControllerInitMethod {
 					new Value<>("ARTWORK", PropertyValue.artwork),
 					new Value<>("THUMBNAIL", PropertyValue.thumbnail),
 					new Value<>("SILLY", PropertyValue.sillyMode),
+					new Value<>("WEATHER_INTERRUPTION", PropertyValue.weatherInterruptions),
 					new Value<>("AUTO_SEX_CLOTHING_MANAGEMENT", PropertyValue.autoSexClothingManagement),
 					new Value<>("NON_CON", PropertyValue.nonConContent),
 					new Value<>("SADISTIC_SEX", PropertyValue.sadisticSexContent),
@@ -6188,7 +6171,9 @@ public class MainControllerInitMethod {
 					new Value<>("INFLATION_CONTENT", PropertyValue.inflationContent),
 					new Value<>("SPITTING_ENABLED", PropertyValue.spittingEnabled),
 					new Value<>("OPPORTUNISTIC_ATTACKERS", PropertyValue.opportunisticAttackers),
-					new Value<>("BYPASS_SEX_ACTIONS", PropertyValue.bypassSexActions));
+					new Value<>("BYPASS_SEX_ACTIONS", PropertyValue.bypassSexActions),
+					new Value<>("SHARED_ENCYCLOPEDIA", PropertyValue.sharedEncyclopedia)
+					);
 			
 			for(Entry<String, PropertyValue> entry : settingsMap.entrySet()) {
 				createToggleListener(entry.getKey()+"_ON", entry.getValue(), true);

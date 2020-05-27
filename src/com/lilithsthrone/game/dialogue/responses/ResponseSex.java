@@ -367,7 +367,7 @@ public class ResponseSex extends Response {
 	
 	@Override
 	public Colour getHighlightColour() {
-		if(isPlayerDom()) {
+		if(isPlayerInDominantSlot()) {
 			return PresetColour.GENERIC_SEX_AS_DOM;
 		} else {
 			return PresetColour.GENERIC_SEX;
@@ -379,8 +379,8 @@ public class ResponseSex extends Response {
 		return false;
 	}
 	
-	public boolean isPlayerDom() {
-		return sexManager!=null && sexManager.isPlayerDom();
+	public boolean isPlayerInDominantSlot() {
+		return (sexManager!=null && sexManager.isPlayerDom()) || dominantSpectators.contains(Main.game.getPlayer());
 	}
 	
 	public List<InitialSexActionInformation> getInitialSexActions() {

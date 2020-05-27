@@ -15,7 +15,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -449,8 +449,10 @@ public class PrologueDialogue {
 					@Override
 					public void effects(){
 						for(Subspecies r : Subspecies.values()) {
-							Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
-							Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
+							if(!r.isNonBiped()) {
+								Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
+								Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
+							}
 						}
 						Main.saveProperties();
 					}
@@ -465,8 +467,10 @@ public class PrologueDialogue {
 					@Override
 					public void effects(){
 						for(Subspecies r : Subspecies.values()) {
-							Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
-							Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);
+							if(!r.isNonBiped()) {
+								Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
+								Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);
+							}
 						}
 						Main.saveProperties();
 					}

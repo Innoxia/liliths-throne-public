@@ -199,7 +199,7 @@ public class FluidStored implements XMLSaving {
 			girlCum.saveAsXML(fluidStoredElement, doc);
 		}
 		
-		return parentElement;
+		return fluidStoredElement;
 	}
 	
 	public static FluidStored loadFromXML(StringBuilder log, Element parentElement, Document doc) {

@@ -64,6 +64,21 @@
 		<secondaryColours values="JUST_STEEL"/> 
 		<secondaryColoursDye values="ALL_METAL"/>
 		
+		<customColours>
+			<customColour copyColourIndex="0" c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB">
+				<defaultColours>
+					<colour>CLOTHING_DESATURATED_BROWN</colour>
+				</defaultColours> 
+				<extraColours values="ALL_WITH_METALS"/>
+			</customColour>
+			<customColour copyColourIndex="1" c0="#6C5D53" c1="#917C6F" c2="#AC9D93" c3="#C8BEB7" c4="#E3DEDB">
+				<defaultColours>
+					<colour>CLOTHING_STEEL</colour>
+				</defaultColours> 
+				<extraColours values="ALL_METAL"/>
+			</customColour>
+		</customColours>
+		
 		<itemTags> 
 			<tag>SOLD_BY_VICKY</tag>
 			<tag>WEAPON_BLADE</tag>

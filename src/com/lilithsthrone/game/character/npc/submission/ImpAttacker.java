@@ -283,7 +283,9 @@ public class ImpAttacker extends NPC {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addSpecialPerk(Perk.IMP_SLAYER));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonImpsDefeated, true);
 							if(ImpCitadelDialogue.isCompanionDialogue()) {
-								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().addSpecialPerk(Perk.IMP_SLAYER));
+								for(GameCharacter companion : Main.game.getPlayer().getParty()) {
+									Main.game.getTextEndStringBuilder().append(companion.addSpecialPerk(Perk.IMP_SLAYER));
+								}
 							}
 						}
 					};
@@ -463,7 +465,7 @@ public class ImpAttacker extends NPC {
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
 					""));
 			}
-			if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {
+			if(target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()) {
 				effects.add(new PossibleItemEffect(
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
 					"Let's get yer cock nice an' thick!"));
@@ -515,7 +517,7 @@ public class ImpAttacker extends NPC {
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
 					""));
 			}
-			if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {
+			if(target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()) {
 				effects.add(new PossibleItemEffect(
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
 					"Let's get yer cock nice an' thick!"));

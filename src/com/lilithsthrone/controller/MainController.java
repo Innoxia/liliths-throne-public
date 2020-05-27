@@ -42,24 +42,18 @@ import com.lilithsthrone.game.character.CharacterChangeEventListener;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
-import com.lilithsthrone.game.character.markings.Scar;
-import com.lilithsthrone.game.character.markings.ScarType;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.CombatMove;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -120,7 +114,7 @@ import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
-import com.lilithsthrone.world.places.Population;
+import com.lilithsthrone.world.population.Population;
 
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
@@ -498,18 +492,21 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-//							for(AbstractWeaponType ct : WeaponType.getAllWeapons()) {
-//								System.out.println(ct.getName()+": "+ct.getDamage());
+//							for(AbstractClothingType ct : ClothingType.getAllClothing()) {
+//								if(ct.isPatternAvailable()) {
+//									Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ct));
+//								}
 //							}
-							Main.game.getPlayer().setScar(InventorySlot.HIPS, new Scar(ScarType.STRAIGHT_SCAR, false));
-							System.out.println(Main.game.getNpc(Nyan.class).addLipstickMarking(
-									Main.game.getNpc(Nyan.class), InventorySlot.FOOT, new Covering(BodyCoveringType.MAKEUP_LIPSTICK, CoveringPattern.NONE, PresetColour.COVERING_RED_DARK, false, PresetColour.COVERING_RED_DARK, true)));
-							System.out.println(Main.game.getPlayer().addLipstickMarking(
-									Main.game.getNpc(Nyan.class), InventorySlot.HIPS, new Covering(BodyCoveringType.MAKEUP_LIPSTICK, CoveringPattern.STRIPED, PresetColour.COVERING_BLUE_DARK, false, PresetColour.COVERING_BLUE, false)));
-							System.out.println(Main.game.getPlayer().addLipstickMarking(
-									Main.game.getNpc(Nyan.class), InventorySlot.PENIS, new Covering(BodyCoveringType.MAKEUP_LIPSTICK, CoveringPattern.NONE, PresetColour.COVERING_PINK, false, PresetColour.COVERING_PINK, false)));
-							System.out.println(Main.game.getPlayer().addLipstickMarking(
-									Main.game.getNpc(Nyan.class), InventorySlot.PENIS, new Covering(BodyCoveringType.MAKEUP_LIPSTICK, CoveringPattern.NONE, PresetColour.COVERING_GREEN, true, PresetColour.COVERING_GREEN, true)));
+//							for(int i=0; i<20; i++) {
+//								NPC n = new DominionExpressCentaur();
+//								n.setLocation(Main.game.getPlayer(), false);
+//								try {
+//									Main.game.addNPC(n, false);
+//								} catch (Exception e) {
+//									e.printStackTrace();
+//								}
+//							}
+							Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).setColour(0, PresetColour.CLOTHING_GOLD);
 						}
 						 
 
@@ -1989,6 +1986,16 @@ public class MainController implements Initializable {
 		}
 		
 		if(Main.game.getPlayer()!=null) {
+			// Money on floor:
+			id = "MONEY_ON_FLOOR";
+			if (((EventTarget) documentRight.getElementById(id)) != null) {
+				if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {
+					addEventListener(documentRight, id, "click", e -> {
+						Main.mainController.openInventory();
+					}, false);
+				}
+			}
+
 			// Weapons on floor:
 			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
 				id = "WEAPON_FLOOR_" + entry.getKey().hashCode();

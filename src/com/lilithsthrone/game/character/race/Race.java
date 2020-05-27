@@ -4,6 +4,13 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.types.AssType;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.utils.Util;
@@ -34,13 +41,10 @@ public enum Race {
 	HUMAN("human",
 			"human",
 			PresetColour.RACE_HUMAN,
-			
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
-			
 			0.5f,
 			1,
-			
 			1,
 			Attribute.DAMAGE_HUMAN,
 			FurryPreference.NORMAL,
@@ -62,7 +66,6 @@ public enum Race {
 					Attack.SPELL),
 			0.25f,
 			1,
-
 			1,
 			Attribute.DAMAGE_ANGEL,
 			FurryPreference.NORMAL,
@@ -71,7 +74,7 @@ public enum Race {
 
 	// DEMON:
 	DEMON("demon",
-			"demon",
+			"demonic-horse",
 			PresetColour.RACE_DEMON,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
@@ -80,7 +83,6 @@ public enum Race {
 					Attack.SPELL),
 			0.75f,
 			2,
-
 			3,
 			Attribute.DAMAGE_DEMON,
 			FurryPreference.MAXIMUM,
@@ -113,7 +115,6 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
-
 			1,
 			Attribute.DAMAGE_COW_MORPH,
 			FurryPreference.NORMAL,
@@ -128,12 +129,17 @@ public enum Race {
 			Util.newArrayListOfValues(Attack.MAIN),
 			0.5f,
 			1,
-
 			2,
 			Attribute.DAMAGE_DOG_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true) {
+		public void applyRaceChanges(Body body) {
+			if(body.getPenis().getType()==PenisType.CANINE) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
+			}
+		}
+	},
 
 	WOLF_MORPH("wolf-morph",
 			"wolf",
@@ -144,12 +150,17 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
-			
 			2,
 			Attribute.DAMAGE_WOLF_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true) {
+		public void applyRaceChanges(Body body) {
+			if(body.getPenis().getType()==PenisType.LUPINE) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
+			}
+		}
+	},
 	
 	FOX_MORPH("fox-morph",
 			"fox",
@@ -161,12 +172,18 @@ public enum Race {
 					Attack.SPELL),
 			0.5f,
 			1,
-			
 			2,
 			Attribute.DAMAGE_FOX_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true) {
+		public void applyRaceChanges(Body body) {
+			if(body.getPenis().getType()==PenisType.VULPINE) {
+				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
+			}
+		}
+	},
+	
 
 	// FELINES:
 	CAT_MORPH("cat-morph",
@@ -178,7 +195,6 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
-
 			2,
 			Attribute.DAMAGE_CAT_MORPH,
 			FurryPreference.NORMAL,
@@ -210,12 +226,37 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
-			
 			1,
 			Attribute.DAMAGE_HORSE_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL,
-			true),
+			true) {
+		public void applyRaceChanges(Body body) {
+			// 75% chance for genitals to be dark:
+			if(Math.random()<0.75f) {
+				Colour lightColour = Util.randomItemFrom(Util.newArrayListOfValues(
+						PresetColour.SKIN_PALE,
+						PresetColour.SKIN_LIGHT));
+				Colour darkColour = Util.randomItemFrom(Util.newArrayListOfValues(
+						PresetColour.SKIN_DARK,
+						PresetColour.SKIN_CHOCOLATE,
+						PresetColour.SKIN_EBONY));
+				if(body.getPenis().getType()==PenisType.EQUINE) {
+					if(Math.random()<0.66f) {
+						body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, darkColour));
+					} else {
+						body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.MOTTLED, darkColour, false, lightColour, false));
+					}
+				}
+				if(body.getVagina().getType()==VaginaType.HORSE_MORPH) {
+					body.getCoverings().put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, darkColour, PresetColour.ORIFICE_INTERIOR));
+				}
+				if(body.getAss().getType()==AssType.HORSE_MORPH) {
+					body.getCoverings().put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, darkColour, PresetColour.ORIFICE_INTERIOR));
+				}
+			}
+		}
+	},
 
 	
 	 REINDEER_MORPH("reindeer-morph",
@@ -227,7 +268,6 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
-		 
 			2,
 			Attribute.DAMAGE_REINDEER_MORPH,
 			FurryPreference.NORMAL,
@@ -243,7 +283,6 @@ public enum Race {
 					Attack.MAIN),
 			0.5f,
 			1,
-
 			2,
 			Attribute.DAMAGE_SQUIRREL_MORPH,
 			FurryPreference.NORMAL,
@@ -259,7 +298,6 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
-
 			4,
 			Attribute.DAMAGE_RAT_MORPH,
 			FurryPreference.NORMAL,
@@ -275,7 +313,6 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			2,
-
 			8,
 			Attribute.DAMAGE_RABBIT_MORPH,
 			FurryPreference.NORMAL,
@@ -291,7 +328,6 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
-
 			2,
 			Attribute.DAMAGE_BAT_MORPH,
 			FurryPreference.NORMAL,
@@ -307,7 +343,6 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			1,
-
 			4,
 			Attribute.DAMAGE_ALLIGATOR_MORPH,
 			FurryPreference.NORMAL,
@@ -322,7 +357,6 @@ public enum Race {
 			Util.newArrayListOfValues(Attack.SEDUCTION),
 			0.5f,
 			1,
-
 			1,
 			Attribute.DAMAGE_SLIME,
 			FurryPreference.MAXIMUM,
@@ -339,7 +373,6 @@ public enum Race {
 					Attack.SPECIAL_ATTACK),
 			0.5f,
 			3,
-			
 			4,
 			Attribute.DAMAGE_HARPY,
 			FurryPreference.NORMAL,
@@ -464,7 +497,6 @@ public enum Race {
 					Attack.SPELL),
 			0.5f,
 			1,
-
 			1,
 			Attribute.DAMAGE_ELEMENTAL,
 			FurryPreference.MAXIMUM,
@@ -1183,6 +1215,12 @@ public enum Race {
 
 	public boolean isBestialPartsAvailable() {
 		return true;
+	}
+
+	/**
+	 * Applies any special racial changes to the body which is passed in. This is called before Subspecies.applySpeciesChanges()
+	 */
+	public void applyRaceChanges(Body body) {
 	}
 	
 	public String getName(GameCharacter character, boolean bestial) {

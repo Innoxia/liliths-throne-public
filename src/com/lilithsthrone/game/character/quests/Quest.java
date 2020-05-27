@@ -1441,6 +1441,36 @@ public enum Quest {
 	
 	
 
+	ROMANCE_NATALYA_FAILED_INTERVIEW(QuestType.RELATIONSHIP, 1, 0) {
+		@Override
+		public String getName() {
+			return "Interview Failed";
+		}
+		@Override
+		public String getDescription() {
+			return "Having refused to do as Natalya asked during her interview, you were thrown out of Dominion Express and told never to return...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+
+	ROMANCE_NATALYA_FAILED_CONTRACT(QuestType.RELATIONSHIP, 1, 0) {
+		@Override
+		public String getName() {
+			return "Contract Refused";
+		}
+		@Override
+		public String getDescription() {
+			return "Having refused to sign the contract which Natalya offered to you, you were thrown out of Dominion Express and told never to return...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+	
 	ROMANCE_NATALYA_1_INTERVIEW_START(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
@@ -1482,7 +1512,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "After being transformed into [style.a_shemale] taur, you dropped to your knees and sucked the cock of one of Dominion Express's more unruly centaur slaves.";
+			return "After being transformed into [style.a_shemale] taur, you began your filly training by sucking the cock of one of Dominion Express's more unruly centaur slaves.";
 		}
 	},
 

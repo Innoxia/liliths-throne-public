@@ -35,6 +35,8 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
+import com.lilithsthrone.game.inventory.AbstractCoreType;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -211,8 +213,8 @@ public class Properties {
 		subspeciesFeminineFurryPreferencesMap = new EnumMap<>(Subspecies.class);
 		subspeciesMasculineFurryPreferencesMap = new EnumMap<>(Subspecies.class);
 		for(Subspecies s : Subspecies.values()) {
-			subspeciesFeminineFurryPreferencesMap.put(s, s.getRace().getDefaultFemininePreference());
-			subspeciesMasculineFurryPreferencesMap.put(s, s.getRace().getDefaultMasculinePreference());
+			subspeciesFeminineFurryPreferencesMap.put(s, s.getDefaultFemininePreference());
+			subspeciesMasculineFurryPreferencesMap.put(s, s.getDefaultMasculinePreference());
 		}
 		
 		subspeciesFemininePreferencesMap = new EnumMap<>(Subspecies.class);
@@ -487,12 +489,9 @@ public class Properties {
 			for (AbstractItemType itemType : this.itemsDiscovered) {
 				try {
 					if(itemType!=null) {
-						Element element = doc.createElement("itemType");
+						Element element = doc.createElement("type");
 						itemsDiscovered.appendChild(element);
-						
-						Attr hash = doc.createAttribute("id");
-						hash.setValue(itemType.getId());
-						element.setAttributeNode(hash);
+						element.setTextContent(itemType.getId());
 					}
 				} catch(Exception ex) {
 					// Catch errors from modded items being removed
@@ -504,12 +503,9 @@ public class Properties {
 			for (AbstractWeaponType weaponType : this.weaponsDiscovered) {
 				try {
 					if(weaponType!=null) {
-						Element element = doc.createElement("weaponType");
+						Element element = doc.createElement("type");
 						weaponsDiscovered.appendChild(element);
-						
-						Attr hash = doc.createAttribute("id");
-						hash.setValue(weaponType.getId());
-						element.setAttributeNode(hash);
+						element.setTextContent(weaponType.getId());
 					}
 				} catch(Exception ex) {
 					// Catch errors from modded weapons being removed
@@ -521,12 +517,9 @@ public class Properties {
 			for (AbstractClothingType clothingType : this.clothingDiscovered) {
 				try {
 					if(clothingType!=null) {
-						Element element = doc.createElement("clothingType");
+						Element element = doc.createElement("type");
 						clothingDiscovered.appendChild(element);
-						
-						Attr hash = doc.createAttribute("id");
-						hash.setValue(clothingType.getId());
-						element.setAttributeNode(hash);
+						element.setTextContent(clothingType.getId());
 					}
 				} catch(Exception ex) {
 					// Catch errors from modded items being removed
@@ -535,21 +528,19 @@ public class Properties {
 			
 			Element racesDiscovered = doc.createElement("racesDiscovered");
 			properties.appendChild(racesDiscovered);
-			for (Subspecies subspecies : Subspecies.values()) {
-				Element element = doc.createElement("raceDiscovery");
-				racesDiscovered.appendChild(element);
-				
-				Attr discovered = doc.createAttribute("race");
-				discovered.setValue(subspecies.toString());
-				element.setAttributeNode(discovered);
-				
-				discovered = doc.createAttribute("discovered");
-				discovered.setValue(String.valueOf(this.subspeciesDiscovered.contains(subspecies)));
-				element.setAttributeNode(discovered);
-				
-				discovered = doc.createAttribute("advancedKnowledge");
-				discovered.setValue(String.valueOf(this.subspeciesAdvancedKnowledge.contains(subspecies)));
-				element.setAttributeNode(discovered);
+			for(Subspecies subspecies : this.subspeciesDiscovered) {
+				if(!this.subspeciesAdvancedKnowledge.contains(subspecies)) {
+					Element element = doc.createElement("race");
+					racesDiscovered.appendChild(element);
+					element.setTextContent(subspecies.toString());
+				}
+			}
+			Element racesDiscoveredAdvanced = doc.createElement("racesDiscoveredAdvanced");
+			properties.appendChild(racesDiscoveredAdvanced);
+			for(Subspecies subspecies : this.subspeciesAdvancedKnowledge) {
+				Element element = doc.createElement("race");
+				racesDiscoveredAdvanced.appendChild(element);
+				element.setTextContent(subspecies.toString());
 			}
 			
 			
@@ -644,6 +635,9 @@ public class Properties {
 					}
 					if(Main.isVersionOlderThan(versionNumber, "0.3.7.5")) {
 						values.add(PropertyValue.lipstickMarkingContent);
+					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.7.7")) {
+						values.add(PropertyValue.weatherInterruptions);
 					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
@@ -955,65 +949,128 @@ public class Properties {
 					}
 				}
 				
-				// Discoveries:
-				nodes = doc.getElementsByTagName("itemsDiscovered");
-				element = (Element) nodes.item(0);
-				if(element!=null && element.getElementsByTagName("itemType")!=null) {
-					for(int i=0; i<element.getElementsByTagName("itemType").getLength(); i++){
-						Element e = ((Element)element.getElementsByTagName("itemType").item(i));
-						
-						if(!e.getAttribute("id").isEmpty()) {
-							if(ItemType.getIdToItemMap().get(e.getAttribute("id"))!=null) {
-								itemsDiscovered.add(ItemType.getIdToItemMap().get(e.getAttribute("id")));
-							}
-						}
-					}
-				}
-				
-				nodes = doc.getElementsByTagName("weaponsDiscovered");
-				element = (Element) nodes.item(0);
-				if(element!=null && element.getElementsByTagName("weaponType")!=null) {
-					for(int i=0; i<element.getElementsByTagName("weaponType").getLength(); i++){
-						Element e = ((Element)element.getElementsByTagName("weaponType").item(i));
-						
-						if(!e.getAttribute("id").isEmpty()) {
-							weaponsDiscovered.add(WeaponType.getWeaponTypeFromId(e.getAttribute("id")));
-						}
-					}
-				}
-				
-				nodes = doc.getElementsByTagName("clothingDiscovered");
-				element = (Element) nodes.item(0);
-				if(element!=null && element.getElementsByTagName("clothingType")!=null) {
-					for(int i=0; i<element.getElementsByTagName("clothingType").getLength(); i++){
-						Element e = ((Element)element.getElementsByTagName("clothingType").item(i));
-						
-						if(!e.getAttribute("id").isEmpty()) {
-							clothingDiscovered.add(ClothingType.getClothingTypeFromId(e.getAttribute("id")));
-						}
-					}
-				}
-				
-				nodes = doc.getElementsByTagName("racesDiscovered");
-				element = (Element) nodes.item(0);
-				if(element!=null && element.getElementsByTagName("raceDiscovery")!=null) {
-					for(int i=0; i<element.getElementsByTagName("raceDiscovery").getLength(); i++){
-						Element e = ((Element)element.getElementsByTagName("raceDiscovery").item(i));
-						
-						if(!e.getAttribute("discovered").isEmpty()) {
-							if(Boolean.valueOf(e.getAttribute("discovered"))) {
-								try {
-									this.subspeciesDiscovered.add(Subspecies.valueOf(e.getAttribute("race")));
-								} catch(Exception ex) {
+				// Item Discoveries:
+				if(Main.isVersionOlderThan(versionNumber, "0.3.7.7")) {
+					nodes = doc.getElementsByTagName("itemsDiscovered");
+					element = (Element) nodes.item(0);
+					if(element!=null && element.getElementsByTagName("itemType")!=null) {
+						for(int i=0; i<element.getElementsByTagName("itemType").getLength(); i++){
+							Element e = ((Element)element.getElementsByTagName("itemType").item(i));
+							
+							if(!e.getAttribute("id").isEmpty()) {
+								if(ItemType.getIdToItemMap().get(e.getAttribute("id"))!=null) {
+									itemsDiscovered.add(ItemType.getIdToItemMap().get(e.getAttribute("id")));
 								}
 							}
 						}
-						if(!e.getAttribute("advancedKnowledge").isEmpty()) {
-							if(Boolean.valueOf(e.getAttribute("advancedKnowledge"))) {
-								try {
-									this.subspeciesAdvancedKnowledge.add(Subspecies.valueOf(e.getAttribute("race")));
-								} catch(Exception ex) {
+					}
+					
+					nodes = doc.getElementsByTagName("weaponsDiscovered");
+					element = (Element) nodes.item(0);
+					if(element!=null && element.getElementsByTagName("weaponType")!=null) {
+						for(int i=0; i<element.getElementsByTagName("weaponType").getLength(); i++){
+							Element e = ((Element)element.getElementsByTagName("weaponType").item(i));
+							
+							if(!e.getAttribute("id").isEmpty()) {
+								weaponsDiscovered.add(WeaponType.getWeaponTypeFromId(e.getAttribute("id")));
+							}
+						}
+					}
+					
+					nodes = doc.getElementsByTagName("clothingDiscovered");
+					element = (Element) nodes.item(0);
+					if(element!=null && element.getElementsByTagName("clothingType")!=null) {
+						for(int i=0; i<element.getElementsByTagName("clothingType").getLength(); i++){
+							Element e = ((Element)element.getElementsByTagName("clothingType").item(i));
+							
+							if(!e.getAttribute("id").isEmpty()) {
+								clothingDiscovered.add(ClothingType.getClothingTypeFromId(e.getAttribute("id")));
+							}
+						}
+					}
+					
+				} else {
+					nodes = doc.getElementsByTagName("itemsDiscovered");
+					element = (Element) nodes.item(0);
+					nodes = element.getElementsByTagName("type");
+					if(element!=null && nodes!=null) {
+						for(int i=0; i<nodes.getLength(); i++){
+							Element e = ((Element)nodes.item(i));
+							itemsDiscovered.add(ItemType.getItemTypeFromId(e.getTextContent()));
+						}
+					}
+					
+					nodes = doc.getElementsByTagName("weaponsDiscovered");
+					element = (Element) nodes.item(0);
+					nodes = element.getElementsByTagName("type");
+					if(element!=null && nodes!=null) {
+						for(int i=0; i<nodes.getLength(); i++){
+							Element e = ((Element)nodes.item(i));
+							weaponsDiscovered.add(WeaponType.getWeaponTypeFromId(e.getTextContent()));
+						}
+					}
+					
+					nodes = doc.getElementsByTagName("clothingDiscovered");
+					element = (Element) nodes.item(0);
+					nodes = element.getElementsByTagName("type");
+					if(element!=null && nodes!=null) {
+						for(int i=0; i<nodes.getLength(); i++){
+							Element e = ((Element)nodes.item(i));
+							clothingDiscovered.add(ClothingType.getClothingTypeFromId(e.getTextContent()));
+						}
+					}
+				}
+
+				// Subspecies Discoveries:
+				if(Main.isVersionOlderThan(versionNumber, "0.3.7.7")) {
+					nodes = doc.getElementsByTagName("racesDiscovered");
+					element = (Element) nodes.item(0);
+					if(element!=null && element.getElementsByTagName("raceDiscovery")!=null) {
+						for(int i=0; i<element.getElementsByTagName("raceDiscovery").getLength(); i++){
+							Element e = ((Element)element.getElementsByTagName("raceDiscovery").item(i));
+							
+							if(!e.getAttribute("discovered").isEmpty()) {
+								if(Boolean.valueOf(e.getAttribute("discovered"))) {
+									try {
+										this.subspeciesDiscovered.add(Subspecies.valueOf(e.getAttribute("race")));
+									} catch(Exception ex) {
+									}
 								}
+							}
+							if(!e.getAttribute("advancedKnowledge").isEmpty()) {
+								if(Boolean.valueOf(e.getAttribute("advancedKnowledge"))) {
+									try {
+										this.subspeciesAdvancedKnowledge.add(Subspecies.valueOf(e.getAttribute("race")));
+									} catch(Exception ex) {
+									}
+								}
+							}
+						}
+					}
+					
+				} else {
+					nodes = doc.getElementsByTagName("racesDiscovered");
+					element = (Element) nodes.item(0);
+					NodeList races = element.getElementsByTagName("race");
+					if(element!=null && races!=null) {
+						for(int i=0; i<races.getLength(); i++){
+							Element e = ((Element)races.item(i));
+							try {
+								this.subspeciesDiscovered.add(Subspecies.valueOf(e.getTextContent()));
+							} catch(Exception ex) {
+							}
+						}
+					}
+					nodes = doc.getElementsByTagName("racesDiscoveredAdvanced");
+					element = (Element) nodes.item(0);
+					races = element.getElementsByTagName("race");
+					if(element!=null && races!=null) {
+						for(int i=0; i<races.getLength(); i++){
+							Element e = ((Element)races.item(i));
+							try {
+								this.subspeciesDiscovered.add(Subspecies.valueOf(e.getTextContent()));
+								this.subspeciesAdvancedKnowledge.add(Subspecies.valueOf(e.getTextContent()));
+							} catch(Exception ex) {
 							}
 						}
 					}
@@ -1069,90 +1126,201 @@ public class Properties {
 	
 	// Add discoveries:
 	
-	public boolean addItemDiscovered(AbstractItemType itemType) {
-		if(itemsDiscovered.add(itemType)) {
-			setValue(PropertyValue.newItemDiscovered, true);
-			return true;
+	private void applyAdditionalDiscoveries(AbstractCoreType itemType) {
+		for(AbstractCoreType it : itemType.getAdditionalDiscoveryTypes()) {
+			if(it instanceof AbstractWeaponType) {
+				Main.game.getPlayer().addWeaponDiscovered((AbstractWeaponType)it);
+				weaponsDiscovered.add((AbstractWeaponType)it);
+			}
+			if(it instanceof AbstractClothingType) {
+				Main.game.getPlayer().addClothingDiscovered((AbstractClothingType)it);
+				clothingDiscovered.add((AbstractClothingType)it);
+			}
+			if(it instanceof AbstractItemType) {
+				Main.game.getPlayer().addItemDiscovered((AbstractItemType)it);
+				itemsDiscovered.add((AbstractItemType)it);
+			}
 		}
-		return false;
 	}
 	
+	public void completeSharedEncyclopedia() {
+		for(Subspecies subspecies : Subspecies.values()) {
+			subspeciesDiscovered.add(subspecies);
+			subspeciesAdvancedKnowledge.add(subspecies);
+		}
+		for(AbstractItemType itemType : ItemType.getAllItems()) {
+			itemsDiscovered.add(itemType);
+		}
+		for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
+			clothingDiscovered.add(clothingType);
+		}
+		for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
+			weaponsDiscovered.add(weaponType);
+		}
+	}
+	
+	public int getItemsDiscoveredCount() {
+		if(!this.hasValue(PropertyValue.sharedEncyclopedia)) {
+			return Main.game.getPlayer().getItemsDiscoveredCount();
+		}
+		return itemsDiscovered.size();
+	}
+	
+	public boolean addItemDiscovered(AbstractItemType itemType) {
+		if(itemType.getItemTags().contains(ItemTag.CHEAT_ITEM)) {
+			return false;
+		}
+		boolean returnDiscovered = false;
+		boolean playerDiscovered = Main.game.getPlayer().addItemDiscovered(itemType);
+		if(itemsDiscovered.add(itemType) || (!this.hasValue(PropertyValue.sharedEncyclopedia) && playerDiscovered)) {
+			setValue(PropertyValue.newItemDiscovered, true);
+			returnDiscovered = true;
+		}
+		applyAdditionalDiscoveries(itemType);
+		
+		return returnDiscovered;
+	}
+
+	/** This method <b>takes into account</b> the 'shared Encyclopedia' content setting. */
 	public boolean isItemDiscovered(AbstractItemType itemType) {
-		return itemsDiscovered.contains(itemType);
+		if(this.hasValue(PropertyValue.sharedEncyclopedia)) {
+			return itemsDiscovered.contains(itemType);
+		}
+		return Main.game.getPlayer().isItemDiscovered(itemType);
 	}
 
 	public void resetItemDiscovered() {
 		itemsDiscovered.clear();
 	}
-	
-	public boolean addClothingDiscovered(AbstractClothingType clothingType) {
-		if(clothingDiscovered.add(clothingType)) {
-			setValue(PropertyValue.newClothingDiscovered, true);
-			return true;
+
+	public int getClothingDiscoveredCount() {
+		if(!this.hasValue(PropertyValue.sharedEncyclopedia)) {
+			return Main.game.getPlayer().getClothingDiscoveredCount();
 		}
-		return false;
+		return clothingDiscovered.size();
 	}
 	
+	public boolean addClothingDiscovered(AbstractClothingType clothingType) {
+		if(clothingType.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM)) {
+			return false;
+		}
+		boolean returnDiscovered = false;
+		boolean playerDiscovered = Main.game.getPlayer().addClothingDiscovered(clothingType);
+		if(clothingDiscovered.add(clothingType) || (!this.hasValue(PropertyValue.sharedEncyclopedia) && playerDiscovered)) {
+			setValue(PropertyValue.newClothingDiscovered, true);
+			returnDiscovered = true;
+		}
+		applyAdditionalDiscoveries(clothingType);
+		
+		return returnDiscovered;
+	}
+
+	/** This method <b>takes into account</b> the 'shared Encyclopedia' content setting. */
 	public boolean isClothingDiscovered(AbstractClothingType clothingType) {
-		return clothingDiscovered.contains(clothingType);
+		if(this.hasValue(PropertyValue.sharedEncyclopedia)) {
+			return clothingDiscovered.contains(clothingType);
+		}
+		return Main.game.getPlayer().isClothingDiscovered(clothingType);
 	}
 
 	public void resetClothingDiscovered() {
 		clothingDiscovered.clear();
 	}
-	
-	public boolean addWeaponDiscovered(AbstractWeaponType weaponType) {
-		if(weaponsDiscovered.add(weaponType)) {
-			setValue(PropertyValue.newWeaponDiscovered, true);
-			return true;
+
+	public int getWeaponsDiscoveredCount() {
+		if(!this.hasValue(PropertyValue.sharedEncyclopedia)) {
+			return Main.game.getPlayer().getWeaponsDiscoveredCount();
 		}
-		return false;
+		return weaponsDiscovered.size();
 	}
 	
+	public boolean addWeaponDiscovered(AbstractWeaponType weaponType) {
+		if(weaponType.getItemTags().contains(ItemTag.CHEAT_ITEM)) {
+			return false;
+		}
+		boolean returnDiscovered = false;
+		boolean playerDiscovered = Main.game.getPlayer().addWeaponDiscovered(weaponType);
+		if(weaponsDiscovered.add(weaponType) || (!this.hasValue(PropertyValue.sharedEncyclopedia) && playerDiscovered)) {
+			setValue(PropertyValue.newWeaponDiscovered, true);
+			returnDiscovered = true;
+		}
+		applyAdditionalDiscoveries(weaponType);
+		
+		return returnDiscovered;
+	}
+
+	/** This method <b>takes into account</b> the 'shared Encyclopedia' content setting. */
 	public boolean isWeaponDiscovered(AbstractWeaponType weaponType) {
-		return weaponsDiscovered.contains(weaponType);
+		if(this.hasValue(PropertyValue.sharedEncyclopedia)) {
+			return weaponsDiscovered.contains(weaponType);
+		}
+		return Main.game.getPlayer().isWeaponDiscovered(weaponType);
 	}
 
 	public void resetWeaponDiscovered() {
 		weaponsDiscovered.clear();
 	}
+
+	public int getSubspeciesDiscoveredCount() {
+		if(!this.hasValue(PropertyValue.sharedEncyclopedia)) {
+			return Main.game.getPlayer().getSubspeciesDiscoveredCount();
+		}
+		return subspeciesDiscovered.size();
+	}
 	
 	public boolean addRaceDiscovered(Subspecies subspecies) {
-		if(subspeciesDiscovered.add(subspecies)) {
+		boolean playerDiscovered = Main.game.getPlayer().addRaceDiscovered(subspecies);
+		if(subspeciesDiscovered.add(subspecies) || (!this.hasValue(PropertyValue.sharedEncyclopedia) && playerDiscovered)) {
 			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(subspecies.getName(null), subspecies.getColour(null)), true);
 			setValue(PropertyValue.newRaceDiscovered, true);
 			return true;
 		}
 		return false;
 	}
-	
+
+	/** This method <b>takes into account</b> the 'shared Encyclopedia' content setting. */
 	public boolean isRaceDiscovered(Subspecies subspecies) {
-		return subspeciesDiscovered.contains(subspecies);
+		if(this.hasValue(PropertyValue.sharedEncyclopedia)) {
+			return subspeciesDiscovered.contains(subspecies);
+		}
+		return Main.game.getPlayer().isRaceDiscovered(subspecies);
 	}
 
 	public void resetRaceDiscovered() {
 		subspeciesDiscovered.clear();
 	}
-	
-	public boolean addAdvancedRaceKnowledge(Subspecies subspecies) {
-		boolean added = subspeciesAdvancedKnowledge.add(subspecies);
-		if(added) {
-			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(subspecies.getName(null)+" (Advanced)", subspecies.getColour(null)), true);
+
+	public int getSubspeciesAdvancedDiscoveredCount() {
+		if(!this.hasValue(PropertyValue.sharedEncyclopedia)) {
+			return Main.game.getPlayer().getSubspeciesAdvancedDiscoveredCount();
 		}
-		return added;
+		return subspeciesAdvancedKnowledge.size();
 	}
 	
-	public boolean isAdvancedRaceKnowledgeDiscovered(Subspecies subspecies) {
-		if(subspeciesAdvancedKnowledge.contains(subspecies)) {
+	public boolean addAdvancedRaceKnowledge(Subspecies subspecies) {
+		boolean playerDiscovered = Main.game.getPlayer().addAdvancedRaceKnowledge(subspecies);
+		if(subspeciesAdvancedKnowledge.add(subspecies) || (!this.hasValue(PropertyValue.sharedEncyclopedia) && playerDiscovered)) {
+			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(subspecies.getName(null)+" (Advanced)", subspecies.getColour(null)), true);
 			return true;
 		}
-		// If this subspecies shares a lore book with the parent subspecies, and that parent subspecies is unlocked, then return true:
-		Subspecies coreSubspecies = Subspecies.getMainSubspeciesOfRace(subspecies.getRace());
-		if(ItemType.getLoreBook(subspecies).equals(ItemType.getLoreBook(coreSubspecies))) {
-			return subspeciesAdvancedKnowledge.contains(coreSubspecies);
-		}
-		
 		return false;
+	}
+
+	/** This method <b>takes into account</b> the 'shared Encyclopedia' content setting. */
+	public boolean isAdvancedRaceKnowledgeDiscovered(Subspecies subspecies) {
+		if(this.hasValue(PropertyValue.sharedEncyclopedia)) {
+			if(subspeciesAdvancedKnowledge.contains(subspecies)) {
+				return true;
+			}
+			// If this subspecies shares a lore book with the parent subspecies, and that parent subspecies is unlocked, then return true:
+			Subspecies coreSubspecies = Subspecies.getMainSubspeciesOfRace(subspecies.getRace());
+			if(ItemType.getLoreBook(subspecies).equals(ItemType.getLoreBook(coreSubspecies))) {
+				return subspeciesAdvancedKnowledge.contains(coreSubspecies);
+			}
+			
+			return false;
+		}
+		return Main.game.getPlayer().isAdvancedRaceKnowledgeDiscovered(subspecies);
 	}
 
 	public void resetAdvancedRaceKnowledge() {

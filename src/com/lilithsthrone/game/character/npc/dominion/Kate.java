@@ -124,7 +124,7 @@ public class Kate extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
-			this.setTailGirth(PenetrationGirth.ONE_SLENDER);
+			this.setTailGirth(PenetrationGirth.TWO_NARROW);
 		}
 	}
 
@@ -165,7 +165,7 @@ public class Kate extends NPC {
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setWingSize(WingSize.ONE_SMALL.getValue());
 		this.setTailType(TailType.DEMON_COMMON);
-		this.setTailGirth(PenetrationGirth.ONE_SLENDER);
+		this.setTailGirth(PenetrationGirth.TWO_NARROW);
 
 		if(this.getTattooInSlot(InventorySlot.GROIN)==null) {
 			try {
@@ -275,7 +275,7 @@ public class Kate extends NPC {
 		// Penis:
 		// (For when she grows one)
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.THREE_THICK);
+		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
 		this.setPenisSize(15);
 //		this.setInternalTesticles(true); Use player preferences
 		this.setTesticleSize(TesticleSize.THREE_LARGE);

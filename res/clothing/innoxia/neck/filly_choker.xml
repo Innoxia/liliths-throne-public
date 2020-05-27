@@ -12,7 +12,7 @@
 		<equipSlots>
 		  <slot>NECK</slot>
 		</equipSlots>
-		<rarity>EPIC</rarity>
+		<rarity>QUEST</rarity>
 		<clothingSet/>
 		<imageName>filly_choker.svg</imageName>
 		<imageEquippedName/>
@@ -20,7 +20,7 @@
 		
 		<effects>
 			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>
-			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_ANTI_SELF_TRANSFORMATION" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SERVITUDE" timer="0"/>
 			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_SUBMISSIVE" timer="0"/>
 			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_ANAL_RECEIVING" timer="0"/>
 			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_ANAL_GIVING" timer="0"/>
@@ -39,10 +39,13 @@
 			
 		<incompatibleSlots/>
 			
-		<primaryColours>
-			<colour>CLOTHING_STEEL</colour>
+		<primaryColours recolouringAllowed="false">
+			<colour>CLOTHING_BRONZE</colour>
 		</primaryColours>
-		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<primaryColoursDye>
+			<colour>CLOTHING_SILVER</colour>
+			<colour>CLOTHING_GOLD</colour>
+		</primaryColoursDye>
 		<secondaryColours>
 			<colour>CLOTHING_BLACK</colour>
 		</secondaryColours>

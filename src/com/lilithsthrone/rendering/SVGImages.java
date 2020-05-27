@@ -167,7 +167,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/itemsOnFloor.svg");
 			itemsOnFloorIcon = Util.inputStreamToString(is);
-			itemsOnFloorIcon = setColour(itemsOnFloorIcon, PresetColour.BASE_BLACK);
+			itemsOnFloorIcon = setColour(itemsOnFloorIcon, PresetColour.BASE_BLACK, PresetColour.BASE_YELLOW, PresetColour.BASE_BLACK);
 
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/cornerGlow.svg");
@@ -783,6 +783,12 @@ public enum SVGImages {
 	private String setColour(String stringSVG, Colour colourShade) {
 		String s = stringSVG;
 		s = SvgUtil.colourReplacement(null, colourShade, s);
+		return s;
+	}
+
+	private String setColour(String stringSVG, Colour colour1, Colour colour2, Colour colour3) {
+		String s = stringSVG;
+		s = SvgUtil.colourReplacement(null, colour1, colour2, colour3, s);
 		return s;
 	}
 	

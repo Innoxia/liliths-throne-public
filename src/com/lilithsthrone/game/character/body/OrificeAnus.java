@@ -385,7 +385,7 @@ public class OrificeAnus implements OrificeInterface {
 			case PUFFY:
 				return UtilText.parse(owner,
 						"<p>"
-							+ "[npc.Name] can't help but let out a cry as [npc.she] feels a tingling sensation running over [npc.her] [npc.ass],"
+							+ "[npc.Name] can't help but let out a cry as [npc.she] [npc.verb(feel)] a tingling sensation running over [npc.her] [npc.ass],"
 								+ " before the puffy rim of [npc.her] [npc.asshole] [style.boldShrink(deflates)] into a more normal-looking shape.<br/>"
 							+ "[style.boldSex(The rim of [npc.namePos] asshole is no longer swollen and puffy!)]"
 						+ "</p>");

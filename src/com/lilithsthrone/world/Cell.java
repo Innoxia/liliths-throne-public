@@ -32,6 +32,8 @@ public class Cell implements XMLSaving {
 
 	public static final int CELL_MAXIMUM_INVENTORY_SPACE = 48;
 	
+	public static int refundMoney = 0;
+	
 	private AbstractWorldType type;
 
 	private Vector2i location;
@@ -107,6 +109,10 @@ public class Cell implements XMLSaving {
 			Node invNode = parentElement.getElementsByTagName("characterInventory").item(0);
 			if(invNode!=null) {
 				cell.setInventory(CharacterInventory.loadFromXML(((Element)invNode), doc));
+			}
+			if(refundMoney>0) {
+				cell.getInventory().incrementMoney(refundMoney);
+				refundMoney = 0;
 			}
 		} catch(Exception ex) {	
 			System.err.println("Cell import error 1");
