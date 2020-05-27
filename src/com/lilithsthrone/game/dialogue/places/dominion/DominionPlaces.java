@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
 import com.lilithsthrone.game.character.npc.submission.Claire;
-import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -26,6 +26,8 @@ import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
@@ -103,7 +105,27 @@ public class DominionPlaces {
 			}
 		}
 		
-		return mommySB.append(cultistSB.toString()).append(occupantSB.toString()).append(reindeerSB.toString()).toString();
+		mommySB.append(cultistSB.toString()).append(occupantSB.toString()).append(reindeerSB.toString());
+		
+		AbstractClothing collar = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
+		if(collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker")) {
+			mommySB.append("<p>");
+				mommySB.append("[style.boldPinkLight(Filly Choker:)]<br/>");
+				mommySB.append("By wearing your filly choker, you're signalling to any passing centaur slaves from Dominion Express that you're available to sexually service them.");
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					mommySB.append(" As there's an ongoing arcane storm, however, there's [style.colourMinorBad(zero chance)] that you'll encounter any of them...");
+				} else if(!Main.game.isExtendedWorkTime()) {
+					mommySB.append(" As they're not out at work at this time, however, there's [style.colourMinorBad(zero chance)] that you'll encounter any of them...");
+				} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+					mommySB.append(" As you aren't able to access your mouth, however, there's [style.colourMinorBad(zero chance)] that any of them will approach you...");
+				} else {
+					mommySB.append(" Although Dominion is a huge city, there are a significant number of centaur slaves who work at Dominion Express, meaning that there's at least a [style.colourMinorGood(small chance)] that you'll run into one...");
+				}
+			mommySB.append("</p>");
+		}
+		
+		
+		return mommySB.toString();
 	}
 	
 	private static List<Response> getExtraStreetResponses() {
@@ -283,7 +305,7 @@ public class DominionPlaces {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "BACK_ALLEYS", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(Main.game.getCurrentWeather()==Weather.MAGIC_STORM));
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -367,7 +389,7 @@ public class DominionPlaces {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "BACK_ALLEYS_CANAL", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(Main.game.getCurrentWeather()==Weather.MAGIC_STORM));
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -644,50 +666,6 @@ public class DominionPlaces {
 		}
 	};
 	
-	public static final DialogueNode WAREHOUSE_DISTRICT = new DialogueNode("", "", false) {
-		@Override
-		public int getSecondsPassed() {
-			return 2*60;
-		}
-
-		@Override
-		public String getContent() {
-			StringBuilder sb = new StringBuilder();
-			
-			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "WAREHOUSE_DISTRICT"));
-			
-			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR)) {
-				sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "WAREHOUSE_DISTRICT_DOMINION_EXPRESS"));
-			} else {
-				sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "WAREHOUSE_DISTRICT_NO_BUSINESS"));
-			}
-			
-			return sb.toString();
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR)) {
-				if(index==1) {
-					//TODO
-					return new Response("Dominion Express", "[style.italicsBad(This will be added soon!)]", null);
-//					if(!Main.game.isExtendedWorkTime()) {
-//						return new Response("Dominion Express",
-//								"Dominion Express is currently closed to visiting members of the public. If you wanted to meet with Natalya again, you'll have to return here between the hours of [unit.time(6)]-[unit.time(22)].",
-//								null);
-//					}
-//					return new Response("Dominion Express", "Head over to where Natalya's delivery company, Dominion Express, has its main warehouse.", DominionExpress.ENTRANCE) {
-//						@Override
-//						public void effects() {
-//							Main.game.getPlayer().setLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_EXIT);
-//						}
-//					};
-				}
-			}
-			return null;
-		}
-	};
-	
 	public static final DialogueNode HELENAS_HOTEL = new DialogueNode("", "", false) {
 		@Override
 		public int getSecondsPassed() {
@@ -703,14 +681,23 @@ public class DominionPlaces {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
+			List<Response> responses = getExtraStreetResponses();
+			
+			if(index == 0) {
+				return null;
+				
+			} else if(index==1) {
 				return new Response("Helena's Nest", "Use the elevator in the hotel to travel directly up to Helena's nest.", HelenaHotel.HOTEL_TRAVEL_TO_NEST) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST);
 					}
 				};
+					
+			} else if(index-2 < responses.size()) {
+				return responses.get(index-2);
 			}
+			
 			return null;
 		}
 	};
@@ -756,7 +743,7 @@ public class DominionPlaces {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CANAL", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(Main.game.getCurrentWeather()==Weather.MAGIC_STORM));
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -798,7 +785,7 @@ public class DominionPlaces {
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "CANAL_END", new ArrayList<GameCharacter>(Main.game.getNonCompanionCharactersPresent())));
 			
 			for(GameCharacter npc : Main.game.getNonCompanionCharactersPresent()) {
-				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(Main.game.getCurrentWeather()==Weather.MAGIC_STORM));
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription());
 			}
 			
 			return UtilText.nodeContentSB.toString();

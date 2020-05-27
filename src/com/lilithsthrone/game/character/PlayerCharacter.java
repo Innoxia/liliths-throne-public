@@ -59,7 +59,12 @@ import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ShopTransaction;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.CondomFailure;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -85,7 +90,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.7.3
+ * @version 0.3.7.7
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
@@ -97,18 +102,27 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	private Map<QuestLine, List<Quest>> quests;
 	private Map<QuestLine, Quest> questsFailed;
 
-	private boolean mainQuestUpdated, sideQuestUpdated, relationshipQuestUpdated;
+	private boolean mainQuestUpdated;
+	private boolean sideQuestUpdated;
+	private boolean relationshipQuestUpdated;
 
+	protected List<String> friendlyOccupants;
+	
+	//Discoveries:
+	private List<String> charactersEncountered;
+	private Set<AbstractWorldType> worldsVisited;
+	
 	private Set<Subspecies> racesDiscoveredFromBook;
 	
-	protected List<String> friendlyOccupants;
+	private Set<AbstractItemType> itemsDiscovered;
+	private Set<AbstractWeaponType> weaponsDiscovered;
+	private Set<AbstractClothingType> clothingDiscovered;
+	private Set<Subspecies> subspeciesDiscovered;
+	private Set<Subspecies> subspeciesAdvancedKnowledge;
 	
 	// Trader buy-back:
 	private SizedStack<ShopTransaction> buybackStack;
 
-	private List<String> charactersEncountered;
-
-	private Set<AbstractWorldType> worldsVisited;
 	
 	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, AbstractWorldType startingWorld, AbstractPlaceType startingPlace) {
 		super(nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
@@ -130,6 +144,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		racesDiscoveredFromBook = new HashSet<>();
 
+		itemsDiscovered = new HashSet<>();
+		weaponsDiscovered = new HashSet<>();
+		clothingDiscovered = new HashSet<>();
+		subspeciesDiscovered = new HashSet<>();
+		subspeciesAdvancedKnowledge = new HashSet<>();
+		
 		buybackStack = new SizedStack<>(24);
 
 		charactersEncountered = new ArrayList<>();
@@ -141,6 +161,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 0f, false);
 		this.setAttribute(Attribute.MAJOR_ARCANE, 0f, false);
 		this.setAttribute(Attribute.MAJOR_CORRUPTION, 0f, false);
+		
+		equipBasicCombatMoves();
 	}
 	
 	@Override
@@ -150,10 +172,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	@Override
 	public Element saveAsXML(Element parentElement, Document doc) {
-		Element properties = super.saveAsXML(parentElement, doc);
+		Element playerElement = super.saveAsXML(parentElement, doc);
 		
 		Element playerSpecific = doc.createElement("playerSpecific");
-		properties.appendChild(playerSpecific);
+		playerElement.appendChild(playerSpecific);
 		
 		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "title", this.getTitle());
 		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "karma", String.valueOf(this.getKarma()));
@@ -164,11 +186,13 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "sideQuestUpdated", String.valueOf(this.sideQuestUpdated));
 		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "relationshipQuestUpdated", String.valueOf(this.relationshipQuestUpdated));
 		
-		Element innerElement = doc.createElement("racesDiscovered");
+		Element innerElement = doc.createElement("raceBooksDiscovered");
 		playerSpecific.appendChild(innerElement);
 		for(Subspecies subspecies : racesDiscoveredFromBook) {
 			if(subspecies != null) {
-				CharacterUtils.createXMLElementWithValue(doc, innerElement, "race", subspecies.toString());
+				Element e = doc.createElement("race");
+				innerElement.appendChild(e);
+				e.setTextContent(subspecies.toString());
 			}
 		}
 		
@@ -215,7 +239,66 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			
 			CharacterUtils.addAttribute(doc, element, "id", WorldType.getIdFromWorldType(world));
 		}
+
+		// Discoveries:
+		Element itemsDiscovered = doc.createElement("itemsDiscovered");
+		playerSpecific.appendChild(itemsDiscovered);
+		for (AbstractItemType itemType : this.itemsDiscovered) {
+			try {
+				if(itemType!=null) {
+					Element element = doc.createElement("type");
+					itemsDiscovered.appendChild(element);
+					element.setTextContent(itemType.getId());
+				}
+			} catch(Exception ex) {
+				// Catch errors from modded items being removed
+			}
+		}
 		
+		Element weaponsDiscovered = doc.createElement("weaponsDiscovered");
+		playerSpecific.appendChild(weaponsDiscovered);
+		for (AbstractWeaponType weaponType : this.weaponsDiscovered) {
+			try {
+				if(weaponType!=null) {
+					Element element = doc.createElement("type");
+					weaponsDiscovered.appendChild(element);
+					element.setTextContent(weaponType.getId());
+				}
+			} catch(Exception ex) {
+				// Catch errors from modded weapons being removed
+			}
+		}
+		
+		Element clothingDiscovered = doc.createElement("clothingDiscovered");
+		playerSpecific.appendChild(clothingDiscovered);
+		for (AbstractClothingType clothingType : this.clothingDiscovered) {
+			try {
+				if(clothingType!=null) {
+					Element element = doc.createElement("type");
+					clothingDiscovered.appendChild(element);
+					element.setTextContent(clothingType.getId());
+				}
+			} catch(Exception ex) {
+				// Catch errors from modded items being removed
+			}
+		}
+		
+		Element racesDiscovered = doc.createElement("racesDiscovered");
+		playerSpecific.appendChild(racesDiscovered);
+		for(Subspecies subspecies : this.subspeciesDiscovered) {
+			if(!this.subspeciesAdvancedKnowledge.contains(subspecies)) {
+				Element element = doc.createElement("race");
+				racesDiscovered.appendChild(element);
+				element.setTextContent(subspecies.toString());
+			}
+		}
+		Element racesDiscoveredAdvanced = doc.createElement("racesDiscoveredAdvanced");
+		playerSpecific.appendChild(racesDiscoveredAdvanced);
+		for(Subspecies subspecies : this.subspeciesAdvancedKnowledge) {
+			Element element = doc.createElement("race");
+			racesDiscoveredAdvanced.appendChild(element);
+			element.setTextContent(subspecies.toString());
+		}
 		
 		
 //		private SizedStack<ShopTransaction> buybackStack; TODO
@@ -226,7 +309,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 //			Main.game.getNPCById(id).saveAsXML(slavesOwned, doc);
 //		}
 		
-		return properties;
+		return playerElement;
 	}
 	
 	public static PlayerCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
@@ -276,15 +359,28 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				}
 		
 				try {
-					Element racesDiscoveredElement = (Element) playerSpecificElement.getElementsByTagName("racesDiscovered").item(0);
-					if(racesDiscoveredElement != null) {
-						
-						NodeList races = racesDiscoveredElement.getElementsByTagName("race");
-						for(int i=0; i < races.getLength(); i++){
-							Element e = (Element) races.item(i);
-							try {
-								character.addRaceDiscoveredFromBook(Subspecies.valueOf(e.getAttribute("value")));
-							} catch(Exception ex) {
+					if(Main.isVersionOlderThan(version, "0.3.7.7")) {
+						Element racesDiscoveredElement = (Element) playerSpecificElement.getElementsByTagName("racesDiscovered").item(0);
+						if(racesDiscoveredElement != null) {
+							NodeList races = racesDiscoveredElement.getElementsByTagName("race");
+							for(int i=0; i < races.getLength(); i++){
+								Element e = (Element) races.item(i);
+								try {
+									character.addRaceDiscoveredFromBook(Subspecies.valueOf(e.getAttribute("value")));
+								} catch(Exception ex) {
+								}
+							}
+						}
+					} else {
+						Element racesDiscoveredElement = (Element) playerSpecificElement.getElementsByTagName("raceBooksDiscovered").item(0);
+						if(racesDiscoveredElement != null) {
+							NodeList races = racesDiscoveredElement.getElementsByTagName("race");
+							for(int i=0; i < races.getLength(); i++){
+								Element e = (Element) races.item(i);
+								try {
+									character.addRaceDiscoveredFromBook(Subspecies.valueOf(e.getTextContent()));
+								} catch(Exception ex) {
+								}
 							}
 						}
 					}
@@ -450,7 +546,65 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 		}
 		
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.0.5")) {
+		if(!Main.isVersionOlderThan(version, "0.3.7.7")) {
+			nodes = playerSpecificElement.getElementsByTagName("itemsDiscovered");
+			element = (Element) nodes.item(0);
+			nodes = element.getElementsByTagName("type");
+			if(element!=null && nodes!=null) {
+				for(int i=0; i<nodes.getLength(); i++){
+					Element e = ((Element)nodes.item(i));
+					character.itemsDiscovered.add(ItemType.getItemTypeFromId(e.getTextContent()));
+				}
+			}
+			
+			nodes = playerSpecificElement.getElementsByTagName("weaponsDiscovered");
+			element = (Element) nodes.item(0);
+			nodes = element.getElementsByTagName("type");
+			if(element!=null && nodes!=null) {
+				for(int i=0; i<nodes.getLength(); i++){
+					Element e = ((Element)nodes.item(i));
+					character.weaponsDiscovered.add(WeaponType.getWeaponTypeFromId(e.getTextContent()));
+				}
+			}
+			
+			nodes = playerSpecificElement.getElementsByTagName("clothingDiscovered");
+			element = (Element) nodes.item(0);
+			nodes = element.getElementsByTagName("type");
+			if(element!=null && nodes!=null) {
+				for(int i=0; i<nodes.getLength(); i++){
+					Element e = ((Element)nodes.item(i));
+					character.clothingDiscovered.add(ClothingType.getClothingTypeFromId(e.getTextContent()));
+				}
+			}
+			
+			nodes = playerSpecificElement.getElementsByTagName("racesDiscovered");
+			element = (Element) nodes.item(0);
+			NodeList races = element.getElementsByTagName("race");
+			if(element!=null && races!=null) {
+				for(int i=0; i<races.getLength(); i++){
+					Element e = ((Element)races.item(i));
+					try {
+						character.subspeciesDiscovered.add(Subspecies.valueOf(e.getTextContent()));
+					} catch(Exception ex) {
+					}
+				}
+			}
+			nodes = playerSpecificElement.getElementsByTagName("racesDiscoveredAdvanced");
+			element = (Element) nodes.item(0);
+			races = element.getElementsByTagName("race");
+			if(element!=null && races!=null) {
+				for(int i=0; i<races.getLength(); i++){
+					Element e = ((Element)races.item(i));
+					try {
+						character.subspeciesDiscovered.add(Subspecies.valueOf(e.getTextContent()));
+						character.subspeciesAdvancedKnowledge.add(Subspecies.valueOf(e.getTextContent()));
+					} catch(Exception ex) {
+					}
+				}
+			}
+		}
+		
+		if(Main.isVersionOlderThan(version, "0.3.0.5")) {
 			// Reset player's demon parts to human if prior to 0.3.0.5:
 			if(character.getArmType().getRace()==Race.DEMON) {
 				character.setArmType(ArmType.HUMAN);
@@ -498,12 +652,32 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			character.getBody().calculateRace(character);
 		}
 
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.5")) {
+		if(Main.isVersionOlderThan(version, "0.3.3.5")) {
 			character.equipBasicCombatMoves();
 		}
 		
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.4")) {
+		if(Main.isVersionOlderThan(version, "0.3.4")) {
 			character.ageAppearanceDifference = -Game.TIME_SKIP_YEARS;
+		}
+		
+		if(Main.isVersionOlderThan(version, "0.3.7.9") && character.hasQuest(QuestLine.ROMANCE_NATALYA)) {
+			character.removeQuest(QuestLine.ROMANCE_NATALYA);
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaVisited, false);
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaInterviewOffered, false);
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaBusy, false);
+			
+//			if(!character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
+//				character.addItem(AbstractItemType.generateItem(ItemType.NATALYA_BUSINESS_CARD_STAMPED), false);
+//			}
+//			character.removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
+		}
+		if(character.isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR)
+				&& !character.hasItemType(ItemType.NATALYA_BUSINESS_CARD)) {
+			character.addItem(AbstractItemType.generateItem(ItemType.NATALYA_BUSINESS_CARD), false);
+		}
+		
+		if(Main.isVersionOlderThan(version, "0.3.8") && character.isHasSlaverLicense()) {
+			character.addItem(AbstractItemType.generateItem(ItemType.SLAVER_LICENSE), false);
 		}
 		
 		return character;
@@ -933,7 +1107,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		
 		if(expansiveSearch) {
-			for(String id : this.getSexPartners().keySet()) {
+			for(String id : this.sexCount.keySet()) {
 				try {
 					GameCharacter npc = Main.game.getNPCById(id);
 					npcsEncountered.add(npc);
@@ -972,7 +1146,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	public SizedStack<ShopTransaction> getBuybackStack() {
 		return buybackStack;
 	}
-
+	
+	// Discoveries:
+	
 	public boolean addRaceDiscoveredFromBook(Subspecies subspecies) {
 		return racesDiscoveredFromBook.add(subspecies);
 	}
@@ -981,6 +1157,90 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return racesDiscoveredFromBook;
 	}
 
+	/** <b>You should be using the Properties class to access this!</b> */
+	public int getItemsDiscoveredCount() {
+		return itemsDiscovered.size();
+	}
+	
+	/** <b>You should be using the Properties class to add this!</b> */
+	public boolean addItemDiscovered(AbstractItemType itemType) {
+		return itemsDiscovered.add(itemType);
+	}
+
+	/** <b>You should be using the Properties class to access this!</b> */
+	public boolean isItemDiscovered(AbstractItemType itemType) {
+		return itemsDiscovered.contains(itemType);
+	}
+
+	/** <b>You should be using the Properties class to access this!</b> */
+	public int getClothingDiscoveredCount() {
+		return clothingDiscovered.size();
+	}
+	
+	/** <b>You should be using the Properties class to add this!</b> */
+	public boolean addClothingDiscovered(AbstractClothingType clothingType) {
+		return clothingDiscovered.add(clothingType);
+	}
+
+	/** <b>You should be using the Properties class to access this!</b> */
+	public boolean isClothingDiscovered(AbstractClothingType clothingType) {
+		return clothingDiscovered.contains(clothingType);
+	}
+
+	/** <b>You should be using the Properties class to access this!</b> */
+	public int getWeaponsDiscoveredCount() {
+		return weaponsDiscovered.size();
+	}
+	
+	/** <b>You should be using the Properties class to add this!</b> */
+	public boolean addWeaponDiscovered(AbstractWeaponType weaponType) {
+		return weaponsDiscovered.add(weaponType);
+	}
+
+	/** <b>You should be using the Properties class to access this!</b> */
+	public boolean isWeaponDiscovered(AbstractWeaponType weaponType) {
+		return weaponsDiscovered.contains(weaponType);
+	}
+
+	/** <b>You should be using the Properties class to access this!</b> */
+	public int getSubspeciesDiscoveredCount() {
+		return subspeciesDiscovered.size();
+	}
+
+	/** <b>You should be using the Properties class to add this!</b> */
+	public boolean addRaceDiscovered(Subspecies subspecies) {
+		return subspeciesDiscovered.add(subspecies);
+	}
+
+	/** <b>You should be using the Properties class to access this!</b> */
+	public boolean isRaceDiscovered(Subspecies subspecies) {
+		return subspeciesDiscovered.contains(subspecies);
+	}
+
+	/** <b>You should be using the Properties class to access this!</b> */
+	public int getSubspeciesAdvancedDiscoveredCount() {
+		return subspeciesAdvancedKnowledge.size();
+	}
+
+	/** <b>You should be using the Properties class to add this!</b> */
+	public boolean addAdvancedRaceKnowledge(Subspecies subspecies) {
+		return subspeciesAdvancedKnowledge.add(subspecies);
+	}
+
+	/** <b>You should be using the Properties class to access this!</b> */
+	public boolean isAdvancedRaceKnowledgeDiscovered(Subspecies subspecies) {
+		if(subspeciesAdvancedKnowledge.contains(subspecies)) {
+			return true;
+		}
+		// If this subspecies shares a lore book with the parent subspecies, and that parent subspecies is unlocked, then return true:
+		Subspecies coreSubspecies = Subspecies.getMainSubspeciesOfRace(subspecies.getRace());
+		if(ItemType.getLoreBook(subspecies).equals(ItemType.getLoreBook(coreSubspecies))) {
+			return subspeciesAdvancedKnowledge.contains(coreSubspecies);
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
 		if(this.getMainWeapon(armRow)!=null) {

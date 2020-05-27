@@ -525,8 +525,8 @@ public class PixsPlayground {
 							GYM_PIX_ASSAULT) {
 						@Override
 						public void effects() {
-							Main.game.getPlayer().cleanAllDirtySlots();
-							Main.game.getNpc(Pix.class).cleanAllDirtySlots();
+							Main.game.getPlayer().cleanAllDirtySlots(true);
+							Main.game.getNpc(Pix.class).cleanAllDirtySlots(true);
 						}
 					};
 				} else {
@@ -535,8 +535,8 @@ public class PixsPlayground {
 							GYM_PIX_ASSAULT_CONSENSUAL) {
 						@Override
 						public void effects() {
-							Main.game.getPlayer().cleanAllDirtySlots();
-							Main.game.getNpc(Pix.class).cleanAllDirtySlots();
+							Main.game.getPlayer().cleanAllDirtySlots(true);
+							Main.game.getNpc(Pix.class).cleanAllDirtySlots(true);
 						}
 					};
 				}

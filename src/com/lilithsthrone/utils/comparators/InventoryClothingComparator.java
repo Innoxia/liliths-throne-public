@@ -32,7 +32,7 @@ public class InventoryClothingComparator implements Comparator<AbstractClothing>
 			if(result!=0) {
 				return result;
 			} else {
-				return first.getColour().getName().compareTo(second.getColour().getName());
+				return first.getColour(0).getName().compareTo(second.getColour(0).getName());
 			}
 		}
 	}

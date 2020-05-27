@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>400</value> 
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[utility jacket]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[utility jackets]]></namePlural> 
+		
+		<description><![CDATA[A sleeveless jacket made from a thick, wear-resistant fabric. It's lined with multiple pockets, making it any handyman's favourite.]]></description> 
+		
+		<physicalResistance>0.5</physicalResistance> 
+		
+		<femininity>MASCULINE</femininity> 
+		
+		<slot>TORSO_OVER</slot> 
+		
+		<rarity>COMMON</rarity> 
+		
+		<clothingSet/>
+		
+		<imageName>utility_jacket.svg</imageName> 
+		
+		<imageEquippedName/> 
+		
+		<enchantmentLimit/>
+		
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+			
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_ORANGE_DARK"/> 
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/> 
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	
+</clothing>

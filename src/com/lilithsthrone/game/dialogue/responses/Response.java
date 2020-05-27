@@ -14,7 +14,7 @@ import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.combat.CombatMove;
+import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexAreaInterface;
@@ -244,7 +244,7 @@ public class Response {
 	
 	/**
 	 * These are the effects to be applied after the endTurn() has been called. (So effects in here happen after time has passed in the new scene.)
-	 * <br/><b>Note:</b> endTurn(0) is called after this, so that effects are refreshed absed on what heppens within this method.
+	 * <br/><b>Note:</b> endTurn(0) is called after this, so that effects are refreshed based on what happens within this method.
 	 * @return true if effects were applied.
 	 */
 	public boolean postEndTurnEffects() {
@@ -273,7 +273,7 @@ public class Response {
 		if(!hasRequirements()) {
 			return true;
 		}
-		if(!Main.game.isBypassSexActions() && !isCorruptionWithinRange() && !isAvailableFromFetishes()) {
+		if(sexActionType!=null && !Main.game.isBypassSexActions() && !isCorruptionWithinRange() && !isAvailableFromFetishes()) {
 			return false;
 		}
 		
@@ -640,7 +640,7 @@ public class Response {
 	}
 
 	public boolean isCorruptionWithinRange() {
-		return corruptionBypass != null && corruptionBypass.getMinimumValue() <= Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION);
+		return corruptionBypass!=null && corruptionBypass.getMinimumValue() <= Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION);
 	}
 	
 	public boolean isAvailableFromFetishes() {

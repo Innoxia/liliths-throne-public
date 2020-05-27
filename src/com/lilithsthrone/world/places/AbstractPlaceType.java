@@ -21,6 +21,7 @@ import com.lilithsthrone.world.EntranceType;
 import com.lilithsthrone.world.TeleportPermissions;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.population.Population;
 
 /**
  * @since 0.3.1
@@ -285,6 +286,7 @@ public class AbstractPlaceType {
 		return new ArrayList<>();
 	}
 
+	//TODO This should be in PlaceUpgrade...
 	public static ArrayList<PlaceUpgrade> getAvailableLilayaRoomPlaceUpgrades(Set<PlaceUpgrade> upgrades) {
 		if(upgrades.contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
 			return PlaceUpgrade.getGuestRoomUpgrades();
@@ -303,14 +305,21 @@ public class AbstractPlaceType {
 			
 		} else if(upgrades.contains(PlaceUpgrade.LILAYA_OFFICE)) {
 			return PlaceUpgrade.getOfficeUpgrades();
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SPA)) {
+			return PlaceUpgrade.getSpaUpgrades();
 		}
 		
 		return PlaceUpgrade.getCoreRoomUpgrades();
 	}
-	
+
+	//TODO This should be in PlaceUpgrade...
 	public String getLilayaRoomSVGString(Set<PlaceUpgrade> upgrades) {
 		if(upgrades.contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
 			return getSVGOverride("dominion/lilayasHome/roomGuest", PresetColour.BASE_GREEN_LIGHT);
+			
+		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SPA)) {
+			return getSVGOverride("dominion/lilayasHome/roomSpa", PresetColour.BASE_AQUA);
 			
 		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
 			return getSVGOverride("dominion/lilayasHome/roomSlave", PresetColour.BASE_CRIMSON);

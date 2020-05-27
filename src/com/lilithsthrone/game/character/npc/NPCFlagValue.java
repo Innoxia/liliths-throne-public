@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @since 0.1.89
- * @version 0.2.10
+ * @version 0.3.7.8
  * @author Innoxia
  */
 public enum NPCFlagValue {
@@ -15,6 +15,7 @@ public enum NPCFlagValue {
 	knowsPlayerGender,
 	introducedToPlayer,
 	pendingClothingDressing,
+	prostituteQuestioned,
 //	pendingTransformationToGenderIdentity,
 	
 	flagSlaveBackground,
@@ -52,7 +53,6 @@ public enum NPCFlagValue {
 		slaveFlags.add(flagSlaveSpanking);
 		slaveFlags.add(flagSlaveMolest);
 		
-
 		occupantFlags.add(occupantTalkLife);
 		occupantFlags.add(occupantTalkJob);
 		occupantFlags.add(occupantTalkLilaya);

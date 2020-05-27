@@ -3,44 +3,27 @@ package com.lilithsthrone.game.inventory.clothing;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.3.1
- * @version 0.3.1
+ * @version 0.3.7.7
  * @author Innoxia
  */
 public class OutfitPotential {
 
 	private List<AbstractClothingType> types;
 
-	private List<Colour> primaryColours;
-
-	private List<Colour> secondaryColours;
-
-	private List<Colour> tertiaryColours;
+	private List<List<Colour>> colours;
 	
-	public OutfitPotential(List<AbstractClothingType> types, List<Colour> primaryColours, List<Colour> secondaryColours, List<Colour> tertiaryColours) {
+	public OutfitPotential(List<AbstractClothingType> types, List<List<Colour>> colours) {
 		if(types!=null) {
 			this.types = types;
 		} else {
 			types = new ArrayList<>();
 		}
-		if(primaryColours!=null) {
-			this.primaryColours = primaryColours;
-		} else {
-			primaryColours = new ArrayList<>();
-		}
-		if(secondaryColours!=null) {
-			this.secondaryColours = secondaryColours;
-		} else {
-			secondaryColours = new ArrayList<>();
-		}
-		if(tertiaryColours!=null) {
-			this.tertiaryColours = tertiaryColours;
-		} else {
-			tertiaryColours = new ArrayList<>();
-		}
+		this.colours = colours;
 	}
 	
 
@@ -48,15 +31,23 @@ public class OutfitPotential {
 		return types;
 	}
 
-	public List<Colour> getPrimaryColours() {
-		return primaryColours;
+	public List<Colour> getColoursForClothingGeneration() {
+		List<Colour> coloursForGeneration = new ArrayList<>();
+		for(List<Colour> c : colours) {
+			coloursForGeneration.add(Util.randomItemFrom(c));
+		}
+		return coloursForGeneration;
+	}
+	
+	public List<List<Colour>> getColourLists() {
+		return colours;
 	}
 
-	public List<Colour> getSecondaryColours() {
-		return secondaryColours;
-	}
-
-	public List<Colour> getTertiaryColours() {
-		return tertiaryColours;
+	public List<Colour> getColours(int index) {
+		try {
+			return colours.get(index);
+		} catch(Exception ex) {
+			return new ArrayList<>();
+		}
 	}
 }

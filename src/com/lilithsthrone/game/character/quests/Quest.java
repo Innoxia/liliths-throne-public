@@ -1424,7 +1424,7 @@ public enum Quest {
 	ROMANCE_HELENA_8_FINISH(QuestType.RELATIONSHIP, 1, 100) {
 		@Override
 		public String getName() {
-			return "Preparing drinks";
+			return "Preparing Drinks";
 		}
 
 		@Override
@@ -1439,6 +1439,112 @@ public enum Quest {
 		}
 	},
 	
+	
+
+	ROMANCE_NATALYA_FAILED_INTERVIEW(QuestType.RELATIONSHIP, 1, 0) {
+		@Override
+		public String getName() {
+			return "Interview Failed";
+		}
+		@Override
+		public String getDescription() {
+			return "Having refused to do as Natalya asked during her interview, you were thrown out of Dominion Express and told never to return...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+
+	ROMANCE_NATALYA_FAILED_CONTRACT(QuestType.RELATIONSHIP, 1, 0) {
+		@Override
+		public String getName() {
+			return "Contract Refused";
+		}
+		@Override
+		public String getDescription() {
+			return "Having refused to sign the contract which Natalya offered to you, you were thrown out of Dominion Express and told never to return...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return getDescription();
+		}
+	},
+	
+	ROMANCE_NATALYA_1_INTERVIEW_START(QuestType.RELATIONSHIP, 1, 5) {
+		@Override
+		public String getName() {
+			return "Interviewed";
+		}
+		@Override
+		public String getDescription() {
+			return "Natalya, the Stable Mistress at the company Dominion Express, has offered you the opportunity to be interviewed for the position of 'filly'.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You accepted Natalya's offer of an interview for the position of 'filly' at Dominion Express.";
+		}
+	},
+
+	ROMANCE_NATALYA_2_CONTRACT_SIGNED(QuestType.RELATIONSHIP, 1, 5) {
+		@Override
+		public String getName() {
+			return "Natalya's Filly";
+		}
+		@Override
+		public String getDescription() {
+			return "Having accepted the offer of an interview for the position of 'filly', you now need to successfully pass it and sign the contract.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You successfully passed Natalya's interview, and after you'd signed the contract, you were told that you now need to be transformed into [style.a_shemale] taur.";
+		}
+	},
+	
+	ROMANCE_NATALYA_3_TRAINING_1(QuestType.RELATIONSHIP, 1, 5) {
+		@Override
+		public String getName() {
+			return "Filly Training";
+		}
+		@Override
+		public String getDescription() {
+			return "You were told by Natalya that the first part of your training will involve repeating your oral performance on one of the centaur slaves.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "After being transformed into [style.a_shemale] taur, you began your filly training by sucking the cock of one of Dominion Express's more unruly centaur slaves.";
+		}
+	},
+
+	ROMANCE_NATALYA_4_TRAINING_2(QuestType.RELATIONSHIP, 1, 5) {
+		@Override
+		public String getName() {
+			return "More Training";
+		}
+		@Override
+		public String getDescription() {
+			return "Once again, you were told by Natalya to return the following day to continue your training, which will involve learning to love giving rimjobs.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "The second stage of your training involved wearing colourful lipstick and performing anilingus on Mistress Natalya.";
+		}
+	},
+
+	ROMANCE_NATALYA_5_TRAINING_3(QuestType.RELATIONSHIP, 1, 5) {
+		@Override
+		public String getName() {
+			return "Final Training";
+		}
+		@Override
+		public String getDescription() {
+			return "Natalya instructed you to return the following day to finish your training, which will involve giving a rimjob to a centaur slave, and being mounted and anally fucked by both Natalya and the slave whose ass you service.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "After performing anilingus on a centaur slave and then being mounted and anally fucked by them, Natalya declared that your filly training is complete.";
+		}
+	},
 	;
 
 	private int level, experienceReward;

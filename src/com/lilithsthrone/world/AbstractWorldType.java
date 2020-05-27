@@ -185,11 +185,11 @@ public abstract class AbstractWorldType {
 		return flightEnabled;
 	}
 	
-	public boolean isCompanionSexBlocked(GameCharacter companion) {
-		return getCompanionSexBlockedReason(companion)!=null || getCompanionSexBlockedReason(companion).isEmpty();
+	public boolean isSexBlocked(GameCharacter character) {
+		return getSexBlockedReason(character)!=null && !getSexBlockedReason(character).isEmpty();
 	}
 	
-	public String getCompanionSexBlockedReason(GameCharacter companion) {
+	public String getSexBlockedReason(GameCharacter character) {
 		return "";
 	}
 

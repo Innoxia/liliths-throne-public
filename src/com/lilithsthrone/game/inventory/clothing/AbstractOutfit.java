@@ -3,7 +3,10 @@ package com.lilithsthrone.game.inventory.clothing;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -33,7 +36,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.3.1
- * @version 0.3.2
+ * @version 0.3.7.4
  * @author Innoxia
  */
 public abstract class AbstractOutfit {
@@ -52,7 +55,8 @@ public abstract class AbstractOutfit {
 	
 	// For use when reading:
 	
-	private List<String> innerConditionals;
+	/** Mapping tags to conditionals. */
+	private Map<String, String> innerConditionals;
 	private List<List<Colour>> presetColourGroups;
 	
 	public AbstractOutfit(File outfitXMLFile) throws XMLLoadException {
@@ -112,9 +116,7 @@ public abstract class AbstractOutfit {
 		switch(this.getFemininity()) {
 			case FEMININE:
 			case FEMININE_STRONG:
-				if(character.isFeminine()
-						?character.hasFetish(Fetish.FETISH_CROSS_DRESSER)
-						:!character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) {
+				if(!character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) {
 					return false;
 				}
 				break;
@@ -122,9 +124,7 @@ public abstract class AbstractOutfit {
 				break;
 			case MASCULINE:
 			case MASCULINE_STRONG:
-				if(character.isFeminine()
-						?!character.hasFetish(Fetish.FETISH_CROSS_DRESSER)
-						:character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) {
+				if(character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) {
 					return false;
 				}
 				break;
@@ -175,17 +175,20 @@ public abstract class AbstractOutfit {
 				Element outfitElement = Element.getDocumentRootElement(outfitXMLFile); // Loads the document and returns the root element - in outfit mods it's <outfit>
 				Element generationAttributes = outfitElement.getMandatoryFirstOf("generationAttributes");
 				
-				innerConditionals = new ArrayList<>();
+				innerConditionals = new HashMap<>();
 				try {
-					for(int i=1; i<20; i++) {
-						Element innerConditional = generationAttributes.getMandatoryFirstOf("clothingConditional"+i);
-						if(Boolean.valueOf(innerConditional.getAttribute("constant"))) {
-							innerConditionals.add(String.valueOf(evalConditional(character, innerConditional.getTextContent())));
-						} else {
-							innerConditionals.add(innerConditional.getTextContent());
+					for(Element el: generationAttributes.getAll()) {
+						String tagName = el.getTagName();
+						if(tagName.startsWith("clothingConditional") || tagName.startsWith("cond")) {
+							if(Boolean.valueOf(el.getAttribute("constant"))) {
+								innerConditionals.put(tagName, String.valueOf(evalConditional(character, el.getTextContent())));
+							} else {
+								innerConditionals.put(tagName, el.getTextContent());
+							}
 						}
 					}
 				} catch(Exception ex) {
+					ex.printStackTrace();
 					// Just catch and continue when there are no more clothingConditional elements.
 				}
 				
@@ -249,7 +252,7 @@ public abstract class AbstractOutfit {
 							AbstractWeapon wep = Util.randomItemFrom(weapons);
 							character.equipMainWeaponFromNowhere(wep);
 							if(wep.getWeaponType().getArcaneCost()>0) {
-								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(2+Util.random.nextInt(9)), false); // GIve them enough essences for 2-10 shots
+								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(10+Util.random.nextInt(21)), false); // Give them enough essences for 10-20 shots
 							}
 						}
 					} catch(Exception e){
@@ -273,7 +276,7 @@ public abstract class AbstractOutfit {
 							AbstractWeapon wep = Util.randomItemFrom(weapons);
 							character.equipOffhandWeaponFromNowhere(wep);
 							if(wep.getWeaponType().getArcaneCost()>0) {
-								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(2+Util.random.nextInt(9)), false); // GIve them enough essences for 2-10 shots
+								character.incrementEssenceCount(TFEssence.ARCANE, wep.getWeaponType().getArcaneCost()*(10+Util.random.nextInt(21)), false); // Give them enough essences for 10-20 shots
 							}
 						}
 					} catch(Exception e){
@@ -309,21 +312,21 @@ public abstract class AbstractOutfit {
 									if(colourText.startsWith("presetColourGroup")) {
 										int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
 										List<Colour> colours = presetColourGroups.get(index);
-										ac.setColour(Util.randomItemFrom(colours));
+										ac.setColour(0, Util.randomItemFrom(colours));
 									}
 	
 									colourText = e.getAttribute("colourSecondary");
 									if(colourText.startsWith("presetColourGroup")) {
 										int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
 										List<Colour> colours = presetColourGroups.get(index);
-										ac.setSecondaryColour(Util.randomItemFrom(colours));
+										ac.setColour(1, Util.randomItemFrom(colours));
 									}
 	
 									colourText = e.getAttribute("colourTertiary");
 									if(colourText.startsWith("presetColourGroup")) {
 										int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
 										List<Colour> colours = presetColourGroups.get(index);
-										ac.setTertiaryColour(Util.randomItemFrom(colours));
+										ac.setColour(2, Util.randomItemFrom(colours));
 									}
 									
 									return ac;
@@ -537,11 +540,7 @@ public abstract class AbstractOutfit {
 						if(character.getClothingInSlot(ct.getEquipSlots().get(0))==null
 								&& (ct.getEquipSlots().get(0).isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES))) {
 							if(!character.isSlotIncompatible(ct.getEquipSlots().get(0))) {
-								AbstractClothing clothing = AbstractClothingType.generateClothing(
-										ct,
-										ot.getPrimaryColours().isEmpty()?null:Util.randomItemFrom(ot.getPrimaryColours()),
-										ot.getSecondaryColours().isEmpty()?null:Util.randomItemFrom(ot.getSecondaryColours()),
-										ot.getTertiaryColours().isEmpty()?null:Util.randomItemFrom(ot.getTertiaryColours()), false);
+								AbstractClothing clothing = AbstractClothingType.generateClothing(ct, ot.getColoursForClothingGeneration(), null);
 								
 								character.equipClothingOverride(
 										clothing,
@@ -563,6 +562,7 @@ public abstract class AbstractOutfit {
 				
 			} catch(Exception e){
 				System.out.println(e);
+//				e.printStackTrace();
 				throw new XMLLoadException(e, outfitXMLFile);
 			}
 		}
@@ -572,8 +572,8 @@ public abstract class AbstractOutfit {
 	
 	private boolean evalConditional(GameCharacter character, String conditional) {
 		if(innerConditionals!=null) {
-			for(int i=1; i<=innerConditionals.size(); i++) {
-				conditional = conditional.replaceAll("clothingConditional"+String.valueOf(i), innerConditionals.get(i-1));
+			for(Entry<String, String> entry : innerConditionals.entrySet()) {
+				conditional = conditional.replaceAll(entry.getKey(), entry.getValue());
 			}
 		}
 		try {
@@ -585,6 +585,8 @@ public abstract class AbstractOutfit {
 	}
 	
 	private OutfitPotential getOutfitPotential(List<AbstractClothingType> ctList, Element baseElement) {
+		List<List<Colour>> coloursList = new ArrayList<>();
+		
 		List<Colour> primaryColours = new ArrayList<>();
 		try {
 			if(baseElement.getOptionalFirstOf("primaryColours").isPresent()) {
@@ -606,12 +608,15 @@ public abstract class AbstractOutfit {
 			ex.printStackTrace();
 			System.err.println("AbstractOutfit error: primary fail 1");
 		}
+		if(!primaryColours.isEmpty()) {
+			coloursList.add(primaryColours);
+		}
 		
 		List<Colour> secondaryColours = new ArrayList<>();
 		try {
 			if(baseElement.getOptionalFirstOf("secondaryColours").isPresent()) {
 				if(!baseElement.getMandatoryFirstOf("secondaryColours").getAttribute("values").isEmpty()) {
-					primaryColours.addAll(ColourListPresets.getColourListFromId(baseElement.getMandatoryFirstOf("secondaryColours").getAttribute("values")));
+					secondaryColours.addAll(ColourListPresets.getColourListFromId(baseElement.getMandatoryFirstOf("secondaryColours").getAttribute("values")));
 					
 				} else {
 					for(Element colour : baseElement.getMandatoryFirstOf("secondaryColours").getAllOf("colour")) {
@@ -628,12 +633,15 @@ public abstract class AbstractOutfit {
 			ex.printStackTrace();
 			System.err.println("AbstractOutfit error: secondary fail 1");
 		}
+		if(!secondaryColours.isEmpty()) {
+			coloursList.add(secondaryColours);
+		}
 		
 		List<Colour> tertiaryColours = new ArrayList<>();
 		try {
 			if(baseElement.getOptionalFirstOf("tertiaryColours").isPresent()) {
 				if(!baseElement.getMandatoryFirstOf("tertiaryColours").getAttribute("values").isEmpty()) {
-					primaryColours.addAll(ColourListPresets.getColourListFromId(baseElement.getMandatoryFirstOf("tertiaryColours").getAttribute("values")));
+					tertiaryColours.addAll(ColourListPresets.getColourListFromId(baseElement.getMandatoryFirstOf("tertiaryColours").getAttribute("values")));
 					
 				} else {
 					for(Element colour : baseElement.getMandatoryFirstOf("tertiaryColours").getAllOf("colour")) {
@@ -650,19 +658,61 @@ public abstract class AbstractOutfit {
 			ex.printStackTrace();
 			System.err.println("AbstractOutfit error: tertiary fail 1");
 		}
+		if(!tertiaryColours.isEmpty()) {
+			coloursList.add(tertiaryColours);
+		}
 		
-		return new OutfitPotential(ctList, primaryColours, secondaryColours, tertiaryColours);
+		try {
+			if(baseElement.getOptionalFirstOf("colours").isPresent()) {
+				for(Element e : baseElement.getAllOf("colours")) {
+					List<Colour> colourList = new ArrayList<>();
+					if(!e.getAttribute("values").isEmpty()) {
+						colourList.addAll(ColourListPresets.getColourListFromId(e.getAttribute("values")));
+						
+					} else {
+						for(Element colour : e.getAllOf("colour")) {
+							String text = colour.getTextContent();
+							if(text.startsWith("presetColourGroup")) {
+								colourList.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
+							} else {
+								colourList.add(PresetColour.getColourFromId(text));
+							}
+						}
+					}
+					if(!colourList.isEmpty()) {
+						coloursList.add(colourList);
+					}
+				}
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			System.err.println("AbstractOutfit error: colours fail 1");
+		}
+		
+		return new OutfitPotential(ctList, coloursList);
 	}
 	
-	private AbstractWeapon getWeapon(Element e) {
+	private AbstractWeapon getWeapon(Element baseElement) {
 		try {
 			AbstractWeaponType wt;
 			List<DamageType> dtList;
 			DamageType dt = null;
 			
-			wt = WeaponType.getWeaponTypeFromId(e.getMandatoryFirstOf("type").getTextContent());
+			if(baseElement.getOptionalFirstOf("types").isPresent()) {
+				wt = Util.randomItemFrom(baseElement
+						.getMandatoryFirstOf("types")
+						.getAllOf("type")
+						.stream()
+						.map( el -> {
+							return WeaponType.getWeaponTypeFromId(el.getTextContent());
+						})
+						.filter(Objects::nonNull)
+						.collect(Collectors.toList()));
+			} else {
+				wt = WeaponType.getWeaponTypeFromId(baseElement.getMandatoryFirstOf("type").getTextContent());
+			}
 			
-			dtList = e
+			dtList = baseElement
 					.getMandatoryFirstOf("damageTypes") 
 					.getAllOf("damage")
 					.stream()
@@ -674,9 +724,11 @@ public abstract class AbstractOutfit {
 				dt = Util.randomItemFrom(dtList);
 			}
 			
+			List<List<Colour>> coloursList = new ArrayList<>();
+			
 			List<Colour> primaryColours = new ArrayList<>();
 			try {
-				for(Element colour : e.getMandatoryFirstOf("primaryColours").getAllOf("colour")) {
+				for(Element colour : baseElement.getMandatoryFirstOf("primaryColours").getAllOf("colour")) {
 					String text = colour.getTextContent();
 					if(text.startsWith("presetColourGroup")) {
 						primaryColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
@@ -687,10 +739,13 @@ public abstract class AbstractOutfit {
 			} catch(Exception ex) {
 				System.err.println("AbstractOutfit error: main weapon primary fail 1");
 			}
+			if(!primaryColours.isEmpty()) {
+				coloursList.add(primaryColours);
+			}
 			
 			List<Colour> secondaryColours = new ArrayList<>();
 			try {
-				for(Element colour : e.getMandatoryFirstOf("secondaryColours").getAllOf("colour")) {
+				for(Element colour : baseElement.getMandatoryFirstOf("secondaryColours").getAllOf("colour")) {
 					String text = colour.getTextContent();
 					if(text.startsWith("presetColourGroup")) {
 						secondaryColours.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
@@ -701,21 +756,56 @@ public abstract class AbstractOutfit {
 			} catch(Exception ex) {
 				System.err.println("AbstractOutfit error: main weapon secondary fail 1");
 			}
+			if(!secondaryColours.isEmpty()) {
+				coloursList.add(secondaryColours);
+			}
+			
+			try {
+				if(baseElement.getOptionalFirstOf("colours").isPresent()) {
+					for(Element e : baseElement.getAllOf("colours")) {
+						List<Colour> colourList = new ArrayList<>();
+						if(!e.getAttribute("values").isEmpty()) {
+							colourList.addAll(ColourListPresets.getColourListFromId(e.getAttribute("values")));
+							
+						} else {
+							for(Element colour : e.getAllOf("colour")) {
+								String text = colour.getTextContent();
+								if(text.startsWith("presetColourGroup")) {
+									colourList.addAll(presetColourGroups.get(Integer.valueOf(text.substring(text.length()-1))-1));
+								} else {
+									colourList.add(PresetColour.getColourFromId(text));
+								}
+							}
+						}
+						if(!colourList.isEmpty()) {
+							coloursList.add(colourList);
+						}
+					}
+				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				System.err.println("AbstractOutfit error: colours fail 1");
+			}
+
+			List<Colour> coloursForGeneration = new ArrayList<>();
+			for(List<Colour> c : coloursList) {
+				coloursForGeneration.add(Util.randomItemFrom(c));
+			}
 			
 			AbstractWeapon weapon;
 			if(dt!=null) {
-				weapon = AbstractWeaponType.generateWeapon(wt, dt);
+				weapon = AbstractWeaponType.generateWeapon(wt, dt, coloursForGeneration);
 			} else {
-				weapon = AbstractWeaponType.generateWeapon(wt);
+				weapon = AbstractWeaponType.generateWeapon(wt, Util.randomItemFrom(wt.getAvailableDamageTypes()), coloursForGeneration);
 			}
 			
-			if(!primaryColours.isEmpty()) {
-				weapon.setPrimaryColour(Util.randomItemFrom(primaryColours));
-			}
-			
-			if(!secondaryColours.isEmpty()) {
-				weapon.setSecondaryColour(Util.randomItemFrom(secondaryColours));
-			}
+//			if(!primaryColours.isEmpty()) {
+//				weapon.setColour(0, Util.randomItemFrom(primaryColours));
+//			}
+//			
+//			if(!secondaryColours.isEmpty()) {
+//				weapon.setColour(1, Util.randomItemFrom(secondaryColours));
+//			}
 			
 			return weapon;
 

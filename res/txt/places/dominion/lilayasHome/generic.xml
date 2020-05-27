@@ -68,9 +68,9 @@
 	<p>
 		The sight of the numerous arcane instruments and beakers of bubbling, brightly-coloured liquid that are scattered over every surface fills you with curiosity, and you can't help but ask,
 		#IF(pc.getName(false).equals("Eru") && pc.getSurname().equals("Chitanda"))
-			 [pc.speech(What sort of experiments are you working on?)]
-		#ELSE
 			 [pc.speech(What sort of experiments are you working on? Watashi ki ni narimasu!)]
+		#ELSE
+			 [pc.speech(What sort of experiments are you working on?)]
 		#ENDIF
 	</p>
 	<p>

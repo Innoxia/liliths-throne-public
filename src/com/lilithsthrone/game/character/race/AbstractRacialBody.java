@@ -438,9 +438,16 @@ public abstract class AbstractRacialBody {
 	}
 
 	public AbstractLegType getLegType() {
+		return getLegType(getLegConfiguration());
+	}
+	
+	/**
+	 * @return The default legType for this body when its LegConfiguration is the passed in configuration argument.
+	 */
+	public AbstractLegType getLegType(LegConfiguration configuration) {
 		return legType;
 	}
-
+	
 	public LegConfiguration getLegConfiguration() {
 		return legConfiguration;
 	}

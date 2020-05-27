@@ -270,6 +270,40 @@ public enum TattooCounterType {
 			return count; 
 		}
 	},
+	
+	VIRGINITIES_TAKEN_PENIS("penile deflowerments", "Keeps a count of how many penile virginities the bearer has taken.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			int count = 0;
+			
+			for(GameCharacter character : Main.game.getAllNPCs()) {
+				if(!character.equals(bearer)) {
+					for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+						if(orifice.isInternalOrifice()
+								&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, orifice))!=null
+								&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, orifice)).getKey().equals(bearer.getId())) {
+							count++;
+							break;
+						}
+					}
+				}
+			}
+			
+			GameCharacter character = Main.game.getPlayer();
+			if(!character.equals(bearer)) {
+				for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+					if(orifice.isInternalOrifice()
+							&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, orifice))!=null
+							&& character.getVirginityLoss(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, orifice)).getKey().equals(bearer.getId())) {
+						count++;
+						break;
+					}
+				}
+			}
+			
+			return count; 
+		}
+	},
 
 	CURRENT_PREGNANCY("litter size", "Counts how many children the bearer is currently pregnant with.") {
 		@Override

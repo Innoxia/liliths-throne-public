@@ -348,6 +348,12 @@ public enum Attribute {
 			return "Increases damage vs cat-morphs.";
 		}
 	},
+//	DAMAGE_PANTHER_MORPH(0, -100, 100, "panther-morph damage", "Panther-morph damage", "swordIcon", PresetColour.RACE_PANTHER_MORPH, "panther-morph-obliteration", "panther-morph-mercy", null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return "Increases damage vs panther-morphs.";
+//		}
+//	},
 	DAMAGE_COW_MORPH(0, -100, 100, "cow-morph damage", "Cow-morph damage", "swordIcon", PresetColour.RACE_COW_MORPH, "cow-morph-obliteration", "cow-morph-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {

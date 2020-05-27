@@ -16,6 +16,8 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.utils.colours.Colour;
+import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
@@ -23,7 +25,10 @@ import com.lilithsthrone.utils.XMLSaving;
  * @author Innoxia
  */
 public class DialogueFlags implements XMLSaving {
-
+	
+	public static int MUGGER_DEMAND_1 = 250;
+	public static int MUGGER_DEMAND_2 = 500;
+	
 	public Set<DialogueFlagValue> values;
 	
 	public int ralphDiscount;
@@ -47,8 +52,21 @@ public class DialogueFlags implements XMLSaving {
 	// Amount of dialogue choices you can make before offspring interaction ends:
 	public int offspringDialogueTokens = 2;
 	
-	// Sets:
-
+	// Murk transformation stage tracking:
+	private int murkPlayerTfStage;
+	private int murkCompanionTfStage;
+	
+	private String slaveTrader;
+	
+	private String managementCompanion;
+	private SlaveJob slaveryManagerJobSelected;
+	
+	private Colour natalyaCollarColour;
+	private int natalyaPoints;
+	private String sadistNatalyaSlave;
+	
+	// --- Sets: --- //
+	
 	private Set<String> helenaConversationTopics = new HashSet<>();
 	
 	// Reindeer event related flags:
@@ -58,19 +76,10 @@ public class DialogueFlags implements XMLSaving {
 	
 	// Enforcer warehouse guards defeated:
 	public Set<String> warehouseDefeatedIDs = new HashSet<>();
-	
+
 	// Storage tiles checked:
 	public Set<Vector2i> supplierStorageRoomsChecked = new HashSet<>();
 	
-	// Murk transformation stage tracking:
-	private int murkPlayerTfStage;
-	private int murkCompanionTfStage;
-	
-	
-	private String slaveTrader;
-	
-	private String managementCompanion;
-	private SlaveJob slaveryManagerJobSelected;
 	
 	public DialogueFlags() {
 		values = new HashSet<>();
@@ -103,6 +112,10 @@ public class DialogueFlags implements XMLSaving {
 		
 		murkPlayerTfStage = 0;
 		murkCompanionTfStage = 0;
+		
+		natalyaCollarColour = PresetColour.CLOTHING_STEEL;
+		natalyaPoints = 0;
+		sadistNatalyaSlave = "";
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -130,6 +143,12 @@ public class DialogueFlags implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveryManagerSlaveSelected", managementCompanion);
+
+		CharacterUtils.createXMLElementWithValue(doc, element, "natalyaCollarColour", PresetColour.getIdFromColour(natalyaCollarColour));
+		CharacterUtils.createXMLElementWithValue(doc, element, "natalyaPoints", String.valueOf(natalyaPoints));
+		CharacterUtils.createXMLElementWithValue(doc, element, "sadistNatalyaSlave", sadistNatalyaSlave);
+		
+		
 		
 		Element valuesElement = doc.createElement("dialogueValues");
 		element.appendChild(valuesElement);
@@ -208,6 +227,13 @@ public class DialogueFlags implements XMLSaving {
 		try {
 			newFlags.murkPlayerTfStage = Integer.valueOf(((Element)parentElement.getElementsByTagName("murkPlayerTfStage").item(0)).getAttribute("value"));
 			newFlags.murkCompanionTfStage = Integer.valueOf(((Element)parentElement.getElementsByTagName("murkCompanionTfStage").item(0)).getAttribute("value"));
+		} catch(Exception ex) {
+		}
+
+		try {
+			newFlags.natalyaCollarColour = PresetColour.getColourFromId(((Element)parentElement.getElementsByTagName("natalyaCollarColour").item(0)).getAttribute("value"));
+			newFlags.natalyaPoints = Integer.valueOf(((Element)parentElement.getElementsByTagName("natalyaPoints").item(0)).getAttribute("value"));
+			newFlags.sadistNatalyaSlave = ((Element)parentElement.getElementsByTagName("sadistNatalyaSlave").item(0)).getAttribute("value");
 		} catch(Exception ex) {
 		}
 		
@@ -416,5 +442,47 @@ public class DialogueFlags implements XMLSaving {
 		} else {
 			this.murkCompanionTfStage = stage;
 		}
+	}
+
+	public Colour getNatalyaCollarColour() {
+		return natalyaCollarColour;
+	}
+
+	public void setNatalyaCollarColour(Colour natalyaCollarColour) {
+		this.natalyaCollarColour = natalyaCollarColour;
+	}
+
+	public int getNatalyaPoints() {
+		return natalyaPoints;
+	}
+
+	public void setNatalyaPoints(int natalyaPoints) {
+		this.natalyaPoints = natalyaPoints;
+		if(this.natalyaPoints<0) {
+			this.natalyaPoints = 0;
+		}
+	}
+	
+	public String incrementNatalyaPoints(int increment) {
+		setNatalyaPoints(getNatalyaPoints()+increment);
+		boolean plural = increment!=1;
+		StringBuilder sb = new StringBuilder();
+		sb.append("<p style='text-align:center;'>");
+			if(increment>0) {
+				sb.append("You [style.colourGood(gained)] [style.boldPink("+increment+")] [style.colourPinkLight(filly point"+(plural?"s":"")+")]!");
+			} else {
+				sb.append("You [style.colourBad(lost)] [style.boldPink("+(-increment)+")] [style.colourPinkLight(filly point"+(plural?"s":"")+")]!");
+			}
+			sb.append("<br/>You now have [style.boldPink("+getNatalyaPoints()+")] [style.colourPinkLight(filly points)]!");
+		sb.append("</p>");
+		return sb.toString();
+	}
+	
+	public String getSadistNatalyaSlave() {
+		return sadistNatalyaSlave;
+	}
+
+	public void setSadistNatalyaSlave(String sadistNatalyaSlave) {
+		this.sadistNatalyaSlave = sadistNatalyaSlave;
 	}
 }

@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import com.lilithsthrone.utils.Util;
+
 /**
  * Sizes in cm.
  * 
@@ -39,7 +41,11 @@ public enum HornLength {
 	}
 
 	public int getMedianValue() {
-		return minimumValue + ((maximumValue - minimumValue) / 2);
+		return (minimumValue + maximumValue) / 2;
+	}
+
+	public int getRandomValue() {
+		return minimumValue + Util.random.nextInt(maximumValue - minimumValue);
 	}
 
 	public static HornLength getHornLengthFromInt(int cm) {

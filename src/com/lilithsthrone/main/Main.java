@@ -53,7 +53,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.3.7.1
+ * @version 0.3.8
  * @author Innoxia
  */
 public class Main extends Application {
@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.7.3";
+	public static final String VERSION_NUMBER = "0.3.8";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -90,13 +90,12 @@ public class Main extends Application {
 		+ "</p>"
 		
 		+ "<p>"
-			+ "This is a more polished version of v0.3.7.2, and contains the final piece of Scarlett's content in Helena's nest for after you've completed Helena's romance quest."
+			+ "After a couple of changes which ended up delaying this release, I've finally got Natalya's content added."
+			+ " There are also several other minor bug fixes, additions, and changes included in this update."
 		+ "</p>"
 			
 		+ "<p>"
-			+ "For the next version, I'll aim to get Natalya's scenes in the warehouse district and some Enforcer content added."
-			+ " I'll also get some PRs merged and bugs fixed."
-			+ " After that, I'll aim to finally move on to adding content for the Fields area."
+			+ "I think that there might be some bugs hiding here and there in this version, so I'm currently planning on having a hotfix out on the night of Friday, 29th May."
 		+ "</p>"
 		
 		+ "<br/>"
@@ -106,6 +105,221 @@ public class Main extends Application {
 			+ " If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"
 
+		+ "<br/>"
+		
+
+		+ "<list>"
+		+ "<h6>v0.3.8</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed issue with SVGs using both gradients and patterns not being able to be rendered at the same time. (PR#1324 by CognitiveMist)</ul>"
+			+"<ul>Added 9 new items of clothing: utility jacket, roller skating helmet, bike racing helmet, roller skating elbow pads, roller skating knee pads, nose guard, joggers, high-top skater shoes, tabi socks. (by Nerdlinger)</ul>"
+			+"<ul>Added an item to represent the 'Slaver License' which you obtain during the main quest. This is retroactively added to your inventory if your character has already completed the associated quest. (by DSG)</ul>"
+			+"<ul>Updated Enforcer beret images, fixed a typo in the SWORD beret description, added 'Enforcer academy' beret, changed the 'civilian' version of the sweatervest to be the same as the regular sweater. (by DSG)</ul>"
+			
+			+"<li>Engine:</li>"
+			+"<ul>Improved sex stat-tracking.</ul>"
+			+"<ul>Weapons can now unlock combat moves (but as there's no way to add modded combat moves yet, it's not that useful).</ul>"
+			+"<ul>Refactored handling of item/weapon/clothing colours & patterns.</ul>"
+			+"<ul>Tidied up and reformatted alleyway/harpy nest attacker dialogue xml files and associated code.</ul>"
+			+"<ul>Moved cultist dialogue out into external res .txt file.</ul>"
+			
+			+"<li>Modding:</li>"
+			+"<ul>You can now define any number of colours for recolouring weapon & clothing images. Look at 'res/weapons/innoxia/dagger.xml' and 'res/mods/innoxia/items/clothing/template/socks.xml' for examples of how this is done.</ul>"
+			+"<ul>Outfits xmls can now also define more than primary/secondary/tertiary colours for weapons/clothing. (Look in res/mods/innoxia/outfits/casualDates.dress_toys.xml for an example.)</ul>"
+			+"<ul>You can now set whether items of clothing are described by their colour via an attribute called 'appendColourName' in the 'name' element of clothing XML files. (See 'res/mods/innoxia/items/clothing/template/socks.xml' for an example.)</ul>"
+			+"<ul>You can now set whether weapons are described by their damage type via an attribute called 'appendDamageName' in the 'name' element of weapon XML files. (See 'res/weapons/innoxia/dagger/dagger.xml' for an example.)</ul>"
+			+"<ul>You can now define colours to copy another randomly-generated colour in weapon and clothing xml files. (i.e. Setting tertiary colour to copy index 0 will mean that the tertiary colour will always spawn as the same colour as the primary. See the same 'dagger.xml' and 'socks.xml' files as above for examples.)</ul>"
+			+"<ul>Weapons can now be defined as applying AoE damage. (See 'res/weapons/innoxia/dagger/dagger.xml' for an example.) </ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul>Added all content and filled in all placeholders for Natalya in Dominion Express (the requirement of being a taur to see her content has been removed). If you'd started this quest in v0.3.7.5, your quest progress will be reset. You will also have a business card in your inventory if you have seen Natalya during Helena's romance quest.</ul>"
+			+"<ul>Randomly-spawned NPCs now spawn into the game with sexual histories, the generation of which is based on their corruption and generated-virginities. Muggers who are pure virgins are less likely to still be in possession of their virginity.</ul>"
+			+"<ul>You can now change your (and your slaves') hairstyle and makeup in your room's 'Bathroom' tab.</ul>"
+			+"<ul>Added a content option in the 'Misc.' category to turn off arcane storm status effect interruptions.</ul>"
+			+"<ul>Added another content option in the 'Misc.' category to toggle the usage of the 'shared encyclopedia', which is turned off by default. (i.e. The default setting is now for each of your saved characters to have their own Encyclopedias.)</ul>"
+			+"<ul>Demons (and angels) are now affected by all transformative potions, but their transformative effects are automatically converted into demonic (or angelic) versions. (i.e. A TF potion which gives the drinker a horse-cock will give a demon a demonic cock instead.)</ul>"
+			+"<ul>Improved alleyway prostitute encounter dialogue, added a way to get rid of prostitutes without having to fight them or first have sex with them, and added companion interaction options with them.</ul>"
+			+"<ul>Re-enabled alleyway and harpy nest encounters during arcane storms. The associated encounter dialogue now correctly reflects the fact that there's an arcane storm going on.</ul>"
+			+"<ul>The bathroom/spa room upgrade has been removed from the player's room (if you had already purchased this upgrade, there will be 300,000 flames in your room's inventory as a refund). (The spa room upgrade will be added fully into the next version.)</ul>"
+			
+			+"<li>Balance:</li>"
+			+"<ul>Increased base damage of 'Fireball', 'Ice Shard', DoT of 'Poison Vapours', 'Slam', and DoT of 'Telekinetic Shower'.</ul>"
+			+"<ul>'Flash', 'Witch's Seal', and the upgraded effect of 'Ice Shard' no longer stun a target, but instead apply effects which reduce the target's action points.</ul>"
+			+"<ul>Reduced mana cost of flash (with upgrade) from 75 (40) to 50 (25).</ul>"
+			+"<ul>Adjusted value calculations for clothing and weapons. Enchantments now have a bigger effect on increasing the value of the item, while special item colourings (platinum, gold, rose gold, silver) have less of an impact on price.</ul>"
+			+"<ul>The 'shattered enchantments' status effect now additionally sets all shielding attributes to 0.</ul>"
+			
+			+"<li>Sex:</li>"
+			+"<ul>Added ongoing suckle/breastfeed actions for crotch-boobs.</ul>"
+			+"<ul>Added 'all fours' slot to 'stocks' and 'milking stall' sex positions.</ul>"
+			+"<ul>When using the 'Quick sex' action, if you are a dom and are engaged in a significant penetrative action, then that action is now counted as your preferred sex type during the quick sex generation. (e.g. If you start vaginally riding your partner's cock and then use 'Quick sex', a 'pussy-cock' event will now always be generated.)</ul>"
+			+"<ul>Kissing (mouth-to-mouth) is no longer counted as triggering the oral fetishes. (So NPCs who dislike/hate the oral fetishes will no longer lose a huge amount of lust when being kissed.)</ul>"
+			+"<ul>Switching positions during sex no longer stops ongoing actions which are occurring between participants whose position did not change.</ul>"
+			
+			+"<li>Items:</li>"
+			+"<ul>Added: 'Riding crop' (1-handed melee weapon, sold by Finch).</ul>"
+			+"<ul>You can now recolour the rainbow gloves and stockings.</ul>"
+			+"<ul>The three lollipops in the game now apply a 'sucking lollipop' status effect when used.</ul>"
+			+"<ul>The arming sword, zweihander, demon's dagger, katana, and wakazashi now have more colouring options. (You may need to dye your katana and wakazashi, as their file changes will most likely have resulted in colours which you don't want.)</ul>"
+			+"<ul>The lightning globe now has a chance to apply AoE damage to two additional targets.</ul>"
+			+"<ul>Added 'iron' as a metallic colour.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Improved weapon, clothing, and item Encyclopedia pages.</ul>"
+			+"<ul>Updated the spell management screen to allow you to cast spells out of combat. (Only elemental summoning spells and 'Soothing Waters' can be cast out of combat at the moment.)</ul>"
+			+"<ul>Added a couple more penetration girth values, so there are 7 to choose from instead of 5.</ul>"
+			+"<ul>Reduced length of buttplugs from 15m to 10cm.</ul>"
+			+"<ul>Characters can now be set as having a single udder, and cow-morphs now spawn with a single udder + 4 nipples by default.</ul>"
+			+"<ul>Added dates to yearly event descriptions on your room's calendar.</ul>"
+			+"<ul>Separated self-transformation menu's 'head' category into 'eyes', 'hair', and 'head'. Added throat wetness to self-transformation options.</ul>"
+			+"<ul>Added separate colour for slime tongues, allowing it to be set to a colour other than that of the rest of their body.</ul>"
+			+"<ul>Body transformation enchantments are now free to remove from clothing/tattoos.</ul>"
+			+"<ul>After giving Scarlett a vagina during Helena's quest, she now only has a 20% chance of being creampied by a random harpy every night, instead of the previous 100% chance. (She still has a 0% chance to be creampied if she likes the player.)</ul>"
+			+"<ul>Prostitutes now apply heavy lipstick.</ul>"
+			+"<ul>Horse-morphs now have a 75% chance to spawn with dark genitals/anus. If this chance is encountered, there is a further 33% chance for horse-morph penises to be mottled in colour.</ul>"
+			+"<ul>Brax now has one of his wolf-girl transformative potions in his inventory (so you can obtain it after purchasing Brax as a slave).</ul>"
+			+"<ul>Randomly-generated NPCs will now only spawn wearing chastity cages if they have the self-denial fetish (or if a 5% chance is rolled for randomly-spawned harpies).</ul>"
+			+"<ul>Added indication of a race's base litter size in the phone's racial Encyclopedia entries.</ul>"
+			+"<ul>You now unlock weapon, clothing, and item encyclopedia entries just by clicking on them in an inventory screen, instead of having to equip/use them.</ul>"
+			+"<ul>Demons and half-demons are now affected by leg configuration changes from potions, although the type of leg which they end up with is converted to 'demonic horse' for demons.</ul>"
+			+"<ul>Centaurs (and other taur subspecies) now have a default furry preference of 'minimum'.</ul>"
+			+"<ul>When characters lose their horns, wings, tail, penis, or vagina, they now permanently lose any scars or tattoos in that slot. (Meaning that if they re-grow that part later on, they will no longer regain their old tattoo.)</ul>"
+			+"<ul>Exiting the inventory screen now correctly restores the tab index which you were on when you entered it. (Should be most noticeable when trading with Nyan, as you will now always correctly return to her trading options.)</ul>"
+			+"<ul>The item output tooltip in the enchantment screen now shows you the full details of the item which will be crafted. Clicking on the input/output icons no longer exits the enchantment screen/crafts the item.</ul>"
+			+"<ul>When dying a weapon, a preview of the equipped image is now shown beneath the unequipped one. (Only shown if the weapon has a different icon when equipped.)</ul>"
+			+"<ul>Saved characters which you can re-encounter in 'The Watering Hole' no longer have their affection reset to 5 if you've had sex with them before.</ul>"
+			+"<ul>Slightly improved transformations which your slave experiences when assigned to work as a 'test subject' with either or both of the TF permissions selected.</ul>"
+			+"<ul>Slaves working as prostitutes or in the public stocks now have a 50% chance of having sex every hour, instead of 5%. Similarly, slaves working as a 'test subject' now have a 50% chance to be transformed every hour, instead of 5%.</ul>"
+			+"<ul>Replaced instances of 'rangiferine' with 'reindeer'.</ul>"
+			+"<ul>Added slight variations of Amber's foot-related scenes for if you're got foot content disabled in your content options.</ul>"
+			+"<ul>Money on the floor in tiles now shows up at the top of the 'Items Present' list on the right-hand side of the screen.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Parsing and typo fixes.</ul>"
+			+"<ul>'Blonde' and 'bleach blonde' no longer share the same colour.</ul>"
+			+"<ul>Fixed bug where race resets in debug menu would not give the correct configuration of crotch-boobs.</ul>"
+			+"<ul>Fixed bug where entering the tattoo enchantment screen would sometimes incorrectly display you as interacting with the last NPC you encountered.</ul>"
+			+"<ul>When starting a new game, you now correctly start with basic combat moves already equipped.</ul>"
+			+"<ul>NPCs should no longer take their own virginities during sex.</ul>"
+			+"<ul>Fixed bug where offspring in an apartment on the tile which becomes 'The Golden Feather' would no longer be able to be interacted with.</ul>"
+			+"<ul>The effects of Takahashi's fox-transformative potion is now correctly based on your 'Forced TF Racial Limits' setting.</ul>"
+			+"<ul>Fixed bug where half-demons of any subspecies could spawn in the harpy nests, instead of just furies (half-demon harpies).</ul>"
+			+"<ul>Fixed issue with harpy subspecies being far more commonly-encountered than intended.</ul>"
+			+"<ul>Fixed another issue with ages not being displayed correctly, including a reversion of the player's birth year change caused by v0.3.7.5.</ul>"
+			+"<ul>All companions, including elementals, now correctly get the imp slayer perk for defeating all the imp waves in Submission's Imp Citadel.</ul>"
+			+"<ul>Fixed bug where the 'International date' setting was reversed (displaying shortened date formats as 'international' when disabled instead of when enabled).</ul>"
+			+"<ul>Fixed bug in the Watering Hole where submissive clubbers were incorrectly being treated as though they were dominant in some scenes.</ul>"
+			+"<ul>Fixed issue where modded icons would sometimes render in-game as being far too big.</ul>"
+			+"<ul>The 'Strike' combat move description in combat now correctly uses your equipped weapon's attack descriptor.</ul>"
+			+"<ul>Fixed bug where cargo trousers weren't able to be dyed with a pattern.</ul>"
+			+"<ul>Fixed minor UI bug where the dialogue's title wouldn't be displayed immediately after loading a saved game.</ul>"
+			+"<ul>Fixed parsing bug where if a capital 'I' (which was not part of an 'IF') immediately followed an 'ELSE' conditional, it would not parse correctly.</ul>"
+			+"<ul>Fixed bug where you couldn't finalise the order of a custom slave in Helena's Boutique (after completing her romance quest).</ul>"
+			+"<ul>The makeup kit can no longer be used on characters who are unable to apply makeup (due to having a slime body).</ul>"
+			+"<ul>Cumming into a character's hair now correctly describes their horns getting too (if they have any).</ul>"
+			+"<ul>The 'Bath time' action now correctly cleans all clothes in your inventory as its tooltip says it will.</ul>"
+			+"<ul>Removing or pulling up the 'tube top' is now correctly blocked by clothing being worn over the top of it.</ul>"
+			+"<ul>Fixed bug where importing characters would not load their body correctly.</ul>"
+			+"<ul>Fixed bug in combat, where attacking with lust damage would sometimes incorrectly describe you as having dealt health/mana damage. (Occurred when your target was not at maximum lust when your attack hit, but your attack caused them to reach max lust.)</ul>"
+			+"<ul>Fixed bug where equipped dildos wouldn't be described by their correct colour.</ul>"
+			+"<ul>Vicky no longer fucks your ass if you have anal content disabled.</ul>"
+		+"</list>"
+		
+		+ "<br/>"
+		
+		+ "<list>"
+		+ "<h6>v0.3.7.5</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Refactored and cleaned up code handling forced transformations. This fixed a few issues with forced transformations, such as your leg configuration never being transformed into that of a centaur. (PR#1255 by Stadler76)</ul>"
+			+"<ul>Fixed bug where the phone menu wouldn't work in the SHopping Arcade. (PR#1328 by zR1OQicz)</ul>"
+			
+			+"<li>Engine:</li>"
+			+"<ul>Moved all eye clothing and final hard-coded weapons into external res folders.</ul>"
+			+"<ul>Outfit files no longer require clothing conditionals to be numbered, and can be called anything, so long as they start with 'clothingConditional' or 'cond'. (e.g. 'clothingConditionalMelee' or 'condDress' are now both valid conditional tags.)</ul>"
+			+"<ul>You can now define multiple weapon types to be drawn from at random in one weapon element in outfit files (see mugger files for examples).</ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul>Added framework of Natalya's content. It's all still placeholder dialogue at the moment, so only play through if you want to see the sort of content it has. The dialogue will be completely filled in for v0.3.8.</ul>"
+			+"<ul>Random storm attackers will no longer force transformation potions on you if you lose to them. (As they are non-persistent, it didn't make much sense to have them apply partial transformations to you when they'd never get the chance to complete them.)</ul>"
+			+"<ul>You can no longer pay off demon attackers in dark alleyway tiles (as they are only interested in sex, not money).</ul>"
+			+"<ul>Characters can now have a 'heavy layer' of lipstick applied, which causes lipstick marks to be left on kissed body parts during sex. There is a content option to disable this feature in the 'sex' category.</ul>"
+			
+			+"<li>Balance:</li>"
+			+"<ul>Dominion alleyway muggers will now only spawn with physical damage weapons, and will no longer spawn with pistol crossbows.</ul>"
+			+"<ul>Submission tunnel attackers can now spawn with kerambits, opaque demonstones, and rough arcane feathers.</ul>"
+			+"<ul>All imps in Submission now wear rags and carry weapons, not just the ones in the imp fortress tunnels.</ul>"
+			+"<ul>Dominion dark alleyway demons now have their own outfit files and spawn with weapons.</ul>"
+			+"<ul>Increased natural physical shielding of all non-Enforcer clothing items.</ul>"
+			+"<ul>Buffed damage of most weapons (swords in particular have had their damage increased a lot). Increased value of most weapons.</ul>"
+			+"<ul>Submission enemies now demand 500 flames instead of 250.</ul>"
+			+"<ul>The +15 physical damage on the 'Daisho' set bonus has been replaced by +15 melee weapon damage.</ul>"
+			
+			+"<li>Items:</li>"
+			+"<ul>Added clothing: 'Filly choker' (neck slot, feminine). Can only be obtained during Natalya's content (or spawned from the debug menu).</ul>"
+			+"<ul>Added item: 'Arcane makeup set'. Can be bought from Ralph or Kate, and when used, opens the makeup application screen.</ul>"
+			+"<ul>Renamed old Enforcer's shirt, shorts, and skirt to 'fancy-dress' items, to make it clearer that they aren't official Enforcer uniform items.</ul>"
+			+"<ul>Added a sheathed icon for the Zweihander.</ul>"
+			+"<ul>Added recolouring options for the shortbow.</ul>"
+			+"<ul>'Amber's bitch collar' now spawns with the servitude enchantment (so you can't self-transform or unjinx it while worn).</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Reduced reindeer and rabbit tail lengths from 15% and 10% of body height, respectively, to 5% and 7.5%.</ul>"
+			+"<ul>Added an option under the 'Bodies' tab in the content settings to set how much smaller (or bigger) trap penises should be than normal.</ul>"
+			+"<ul>The debug menu now enables you to change the number of your tails if you are a youko (which is also only possible via the debug menu at the moment).</ul>"
+			+"<ul>Improved clothing/weapon/item tooltips in debug menu's item view screens.</ul>"
+			+"<ul>Offspring encountered will now spawn with correct clothing for their background/race/location.</ul>"
+			+"<ul>Increased number of essences NPCs will spawn with when they spawn with a weapon which requires essences to fire.</ul>"
+			+"<ul>Added a 'Wiki' button to the main menu, which, like the github and blog buttons, opens a page in your default web-browser to display the game's wiki.</ul>"
+			+"<ul>Spell efficiency is now listed under combat stats instead of miscellaneous stats in the phone's stats menu.</ul>"
+			+"<ul>Improved demon alleyway encounter dialogue.</ul>"
+			+"<ul>Added 'penile deflowerments' as a tattoo counter.</ul>"
+			+"<ul>Added crit requirements to spell tooltips in the phone menu.</ul>"
+			+"<ul>Characters who have their cum or girlcum milked in a milking room are now considered to have orgasmed, and so have their 'Frustrated' or 'Pent-up' status effects removed.</ul>"
+			+"<ul>Half-demons with no human body parts are now counted as having a race-stage of 'greater' instead of 'lesser'.</ul>"
+			+"<ul>Made some very minor improvements and fixes to Helena's date content.</ul>"
+			+"<ul>Added generic 'leathery' wings as a counterpart to generic 'feathered' wings.</ul>"
+			+"<ul>Demons now have a 20% chance to spawn with 4 testicles instead of 2, instead of 100%.</ul>"
+			+"<ul>Slightly adjusted clothing slot positions in the UI (by swapping mouth-neck slots and moving wrists-hands-stomach slots around).</ul>"
+			+"<ul>Increased Ralph's penis size from 20cm to 30cm.</ul>"
+			+"<ul>Added 'makeup' screen to the debug menu's self-transformation menu.</ul>"
+			+"<ul>The primary colour requirement for being classed as a Dobermann-morph is now either 'black' or 'pitch black', instead of just 'black'.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Parsing and typo fixes.</ul>"
+			+"<ul>Fixed some incorrect paragraph formatting in some transformation descriptions.</ul>"
+			+"<ul>Fixed bug where imps and demons would sometimes say they were trying to forcibly transform you into a demon, even though that's not possible.</ul>"
+			+"<ul>Fixed bug where imp gangs in Submission would try to force-feed you transformation potions even if all the effects did nothing.</ul>"
+			+"<ul>Fixed bug where masturbate action would always be greyed-out.</ul>"
+			+"<ul>Fixed bug where a saved game would fail to load if it was saved in a state where an item of clean, sealed clothing was about to be dirtied on the next turn. (This was most apparent in the autosave immediately after losing to any of the imp fortress bosses.)</ul>"
+			+"<ul>NPCs will no longer refer to fetish endowment potions by whatever name you've given it (as they logically wouldn't know what you've called the potion).</ul>"
+			+"<ul>Fixed missing descriptions in quick sex for fingering someone's ass.</ul>"
+			+"<ul>Fixed bug where 'Orgasmic Level Drain' was not working for the player character.</ul>"
+			+"<ul>Fixed issue where NPCs would sometimes reset their combat moves to the basic starter moves without being told to do so.</ul>"
+			+"<ul>Fixed bug in slave management where navigating from any of a slave's management screens to a sex scene would cause a background error to be thrown.</ul>"
+			+"<ul>Fixed bug where slaves created using Helena's custom slave designer would not be able to have their age changed.</ul>"
+			+"<ul>Fixed bug where NPC birthdays would end up being incorrect after saving/loading a few times. As part of fixing this bug, all NPC birthdays have been reset to what should be accurate values.</ul>"
+			+"<ul>Fixed bug where newly-spawned NPCs would be a lot older than they should have been.</ul>"
+			+"<ul>Fixed bug where setting forced transformations to 0% would still result in being forcibly transformed if you had forced fetishes turned on as well.</ul>"
+			+"<ul>Fixed bug where if you tried to send a companion home while you had an elemental summoned you'd get stuck in the phone menu.</ul>"
+			+"<ul>Fixed tails being treated as plural in parsing, even if the character with the tail only had one.</ul>"
+			+"<ul>Fixed bug where if you failed to be chosen by Scarlett after acting as her servant (in Helena's nest after completing Helena's romance quest), you were placed in Scarlett's room and got stuck in Helena's apartment.</ul>"
+			+"<ul>Fixed missing descriptions for receiving a blowjob from Helena in her store's back room.</ul>"
+			+"<ul>Fixed rare bug during Lyssieth's demon transformation sex scene where the game could freeze when she orgasms. (Was being triggered by having her orgasm while fucking her and giving her a handjob at the same time.)</ul>"
+			+"<ul>Characters no longer lose their penile virginity if they penetrate someone using a dildo in quick sex.</ul>"
+			+"<ul>Being transformed into a demon now sets your horn length to 10cm, instead of leaving it as 0cm.</ul>"
+			+"<ul>Fixed bug where actions outside of sex which had perk, fetish, race, or femininity requirements would not be available to choose if you had the 'Sex action bypass' content option disabled.</ul>"
+			+"<ul>Fixed bug where speech would not parse correctly in tooltip descriptions.</ul>"
+			+"<ul>Fixed bug where outfits files marked as being 'feminine' would sometimes be applied to masculine characters.</ul>"
+			+"<ul>Fixed bug where randomly-generated NPCs would sometimes have a date of conception many years before their birthday.</ul>"
+			+"<ul>Fixed issue where NPC forced-TF potion generation would be based on a slightly different body preference each time you met them.</ul>"
+			+"<ul>Choosing 'Unequip all' during character creation now correctly puts the clothing into storage, not your inventory.</ul>"
+			+"<ul>Fixed bug where you could clone earrings and other piercing clothing during character creation.</ul>"
+			+"<ul>Fixed bug where horn type wasn't being factored in when calculating a character's race (so characters with just a unicorn horn, for example were not being identified as being a unicorn).</ul>"
+			+"<ul>Fixed bug where if non-con content was turned off, you couldn't manually milk your slaves who were being milked in a milking room.</ul>"
+			+"<ul>Taking a shower in Helena's room after sex will no longer clean all clothes in your inventory.</ul>"
+			+"<ul>Kate now correctly sells items marked as being 'SOLD_BY_KATE'.</ul>"
+		+"</list>"
+			
 		+ "<br/>"
 
 		+ "<list>"
@@ -358,7 +572,9 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Master Isami", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Valeiya", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Bubbleeey", "", 0, 0, 0, 0, Subspecies.DEMON));
-		 
+		credits.add(new CreditsSlot("RatKing", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("H3adShotB33otch", "", 0, 0, 0, 0, Subspecies.DEMON));
+		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Akira", "", 0, 0, 0, 2));

@@ -23,18 +23,18 @@ import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.7.7
  * @author Innoxia
  */
 public abstract class AbstractCoreItem implements XMLSaving {
 
-
 	protected String name;
 	protected String namePlural;
 	protected String SVGString;
-	protected Colour colourShade;
 	protected Rarity rarity;
 
+	protected List<Colour> colours;
+	
 	protected Map<Attribute, Integer> attributeModifiers;
 	protected TFEssence relatedEssence;
 	
@@ -65,7 +65,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		super();
 		this.name = name;
 		this.namePlural = namePlural;
-		this.colourShade = colour;
+		this.colours = Util.newArrayListOfValues(colour);
 		this.rarity = rarity;
 		this.SVGString = SVGString;
 
@@ -131,7 +131,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	public boolean equals(Object o) {
 		if(o instanceof AbstractCoreItem){
 			if(((AbstractCoreItem)o).getName().equals(this.getName())
-				&& ((AbstractCoreItem)o).getColour() == this.getColour()
+				&& ((AbstractCoreItem)o).getColours().equals(this.getColours())
 				&& ((AbstractCoreItem)o).getRarity() == this.getRarity()
 				&& ((AbstractCoreItem)o).getAttributeModifiers().equals(this.getAttributeModifiers())
 				&& ((AbstractCoreItem)o).getEnchantmentEffect() == getEnchantmentEffect()
@@ -148,7 +148,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	public int hashCode() {
 		int result = 17;
 		result = 31 * result + this.getName().hashCode();
-		result = 31 * result + this.getColour().hashCode();
+		result = 31 * result + this.getColours().hashCode();
 		result = 31 * result + this.getRarity().hashCode();
 		result = 31 * result + this.getAttributeModifiers().hashCode();
 		if(getEnchantmentEffect()!=null) {
@@ -210,12 +210,27 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		return rarity;
 	}
 
-	public Colour getColour() {
-		return colourShade;
+	public Colour getColour(int index) {
+		try {
+			return colours.get(index);
+		} catch(Exception ex) {
+			return null;
+		}
+	}
+	
+	public List<Colour> getColours() {
+		return colours;
 	}
 
-	public void setColour(Colour Colour) {
-		this.colourShade = Colour;
+	public void setColours(List<Colour> colours) {
+		this.colours = new ArrayList<>(colours);
+	}
+	
+	public void setColour(int index, Colour colour) {
+		if(colours.size()>index) {
+			colours.remove(index);
+		}
+		colours.add(index, colour);
 	}
 
 	public Map<Attribute, Integer> getAttributeModifiers() {

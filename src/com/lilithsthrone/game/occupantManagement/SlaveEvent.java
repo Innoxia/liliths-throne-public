@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.2.2
- * @version 0.3.6.8
+ * @version 0.3.7.5
  * @author Innoxia
  */
 public enum SlaveEvent {
@@ -12,14 +12,14 @@ public enum SlaveEvent {
 	WASHED_BODY("Washed Body", "[npc.Name] had a wash and cleaned [npc.her] body.") {
 		public void applyEffects(GameCharacter character) {
 			character.washAllOrifices(true);
-			character.cleanAllDirtySlots();
+			character.cleanAllDirtySlots(true);
 			character.calculateStatusEffects(0);
 		}
 	},
 	
 	WASHED_CLOTHES("Washed Clothes", "[npc.Name] washed [npc.her] clothes.") {
 		public void applyEffects(GameCharacter character) {
-			character.cleanAllDirtySlots();
+			character.cleanAllDirtySlots(false); //TODO should they be cleaning slots?
 			character.cleanAllClothing(true);
 			character.calculateStatusEffects(0);
 		}

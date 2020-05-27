@@ -215,7 +215,7 @@ public class Daddy extends NPC {
 			
 			// Penis:
 			this.setPenisVirgin(false);
-			this.setPenisGirth(PenetrationGirth.FOUR_FAT);
+			this.setPenisGirth(PenetrationGirth.FIVE_FAT);
 			this.setPenisSize(25);
 			this.setTesticleSize(TesticleSize.FOUR_HUGE);
 			this.setPenisCumStorage(250);
@@ -288,7 +288,7 @@ public class Daddy extends NPC {
 			
 			// Penis:
 			this.setPenisVirgin(false);
-			this.setPenisGirth(PenetrationGirth.FOUR_FAT);
+			this.setPenisGirth(PenetrationGirth.FIVE_FAT);
 			this.setPenisSize(25);
 			this.setTesticleSize(TesticleSize.FOUR_HUGE);
 			this.setPenisCumStorage(250);
