@@ -2544,6 +2544,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		if(!this.isPatternAvailable) {
 			this.isPatternAvailable = true;
 		}
+		
 		return SvgUtil.getSVGWithHandledPattern("Clothing causing error: "+this.getName(), s, pattern, patternColours, this.getPatternColourReplacements());
 	}
 
