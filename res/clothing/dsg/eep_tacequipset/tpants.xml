@@ -27,7 +27,7 @@
 		<description><![CDATA[A pair of boot-cut cargo trousers made from breathable cotton rip-stop and reinforced knees and seat. The drawstrings around the ankles allow the legs to be easily bloused into a pair of boots.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
-		<physicalResistance>2</physicalResistance> 
+		<physicalResistance>1</physicalResistance> 
 		
 		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties. -->
 		<femininity>ANDROGYNOUS</femininity> 

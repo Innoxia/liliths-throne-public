@@ -273,7 +273,7 @@
 		</clothingType>
 		
 		<clothingType> <!-- Chastity. -->
-			<conditional><![CDATA[npc.hasPenisIgnoreDildo() && npc.getFetishDesire(FETISH_DENIAL_SELF).isPositive()]]></conditional>
+			<conditional><![CDATA[npc.hasPenisIgnoreDildo() && npc.hasFetish(FETISH_DENIAL_SELF)]]></conditional>
 			<types>
 				<type>innoxia_bdsm_chastity_cage</type>
 				<type>innoxia_bdsm_ornate_chastity_cage</type>

@@ -151,11 +151,14 @@ public class SuccubisSecrets {
 				return new Response("Watch", "Wait for the sleeping demon to wake up.", SHOP_BEAUTY_SALON_WATCH);
 
 			} else if (index == 0) {
-				return new Response("Back", "Head back out to the Shopping Arcade.", EXTERIOR);
-
-			} else {
-				return null;
+				return new Response("Leave", "Head back out to the Shopping Arcade.", EXTERIOR) {
+					@Override
+					public void effects() {
+						Main.game.setResponseTab(0);
+					}
+				};
 			}
+			return null;
 		}
 	};
 	public static final DialogueNode SHOP_BEAUTY_SALON_WAKE = new DialogueNode("Succubi's Secrets", "-", true, true) {
@@ -168,6 +171,9 @@ public class SuccubisSecrets {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
+				return new Response("No thanks", "Tell her that you're not the sort of person who just has sex with random shopkeepers.", SHOP_BEAUTY_SALON_NO_THANKS);
+				
+			} else if (index == 2) {
 				return new ResponseSex("Sex", "You can't resist the horny succubus's request...",
 						true, true,
 						new SMSitting(
@@ -177,13 +183,8 @@ public class SuccubisSecrets {
 						null,
 						Kate.AFTER_SEX,
 						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_WAKE_START_SEX"));
-				
-			} else if (index == 2) {
-				return new Response("No thanks", "Tell her that you're not the sort of person who just has sex with random shopkeepers.", SHOP_BEAUTY_SALON_NO_THANKS);
-
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	public static final DialogueNode SHOP_BEAUTY_SALON_WATCH = new DialogueNode("Succubi's Secrets", "-", true, true) {
@@ -196,6 +197,9 @@ public class SuccubisSecrets {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
+				return new Response("No thanks", "Tell her that you're not the sort of person who just has sex with random shopkeepers.", SHOP_BEAUTY_SALON_NO_THANKS);
+				
+			} else if (index == 2) {
 				return new ResponseSex("Fuck her", "Do as she says and start having sex with her.",
 						true, true,
 						new SMSitting(
@@ -205,13 +209,8 @@ public class SuccubisSecrets {
 						null,
 						Kate.AFTER_SEX,
 						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_WATCH_START_SEX"));
-				
-			} else if (index == 2) {
-				return new Response("No thanks", "Tell her that you're not the sort of person who just has sex with random shopkeepers.", SHOP_BEAUTY_SALON_NO_THANKS);
-
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
@@ -277,7 +276,7 @@ public class SuccubisSecrets {
 			};
 			
 		} else if (index == 2) {
-			if(!Main.game.getPlayer().getBodyMaterial().isAbleToWearMakeup()) {
+			if(!Main.game.getPlayer().isAbleToWearMakeup()) {
 				return new Response("Makeup", "As your body is made of "+Main.game.getPlayer().getBodyMaterial().getName()+", Kate is unable to apply any makeup!", null);
 				
 			} else {
@@ -448,6 +447,7 @@ public class SuccubisSecrets {
 			return new Response("Leave", "Leave Kate's shop, heading back out into the Shopping Arcade.", EXTERIOR){
 				@Override
 				public void effects() {
+					Main.game.setResponseTab(0);
 					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
 					}
@@ -458,7 +458,7 @@ public class SuccubisSecrets {
 			return null;
 		}
 	}
-
+	
 	public static final DialogueNode SHOP_BEAUTY_SALON_CANDI_PERFUME = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
@@ -824,6 +824,7 @@ public class SuccubisSecrets {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 8) {
 				return new Response("Tattoos", "You are already looking at the tattoos available...", null);
+				
 			} else if(index==11) {
 				return new Response("Confirmations: ",
 						"Toggle tattoo removal confirmations."

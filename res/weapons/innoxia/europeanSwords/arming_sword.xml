@@ -2,7 +2,7 @@
 <weapon>
 	<coreAttributes>
 	
-		<value>2500</value> 
+		<value>5000</value> 
 		
 		<melee>true</melee>
 		
@@ -32,7 +32,7 @@
 		
 		<imageEquippedName>arming_sword.svg</imageEquippedName> 
 		
-		<damage>18</damage> 
+		<damage>35</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		
@@ -50,8 +50,8 @@
 		<enchantmentLimit>5</enchantmentLimit>
 		
 		<effects> 
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_DAMAGE" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
+              <effect itemEffectType="WEAPON" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_DAMAGE" timer="0"/>
 		</effects>
 		
 		<primaryColours>
@@ -63,6 +63,21 @@
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_STEEL"/> 
 		<secondaryColoursDye values="ALL_METAL"/>
+		
+		<customColours>
+			<customColour copyColourIndex="0" c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB">
+				<defaultColours>
+					<colour>CLOTHING_DESATURATED_BROWN</colour>
+				</defaultColours> 
+				<extraColours values="ALL_WITH_METALS"/>
+			</customColour>
+			<customColour copyColourIndex="1" c0="#6C5D53" c1="#917C6F" c2="#AC9D93" c3="#C8BEB7" c4="#E3DEDB">
+				<defaultColours>
+					<colour>CLOTHING_STEEL</colour>
+				</defaultColours> 
+				<extraColours values="ALL_METAL"/>
+			</customColour>
+		</customColours>
 		
 		<itemTags> 
 			<tag>SOLD_BY_VICKY</tag>

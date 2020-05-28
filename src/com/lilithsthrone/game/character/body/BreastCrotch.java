@@ -84,6 +84,12 @@ public class BreastCrotch implements BodyPartInterface {
 		}
 		
 		this.shape = shape;
+		if(shape!=BreastShape.UDDERS && this.getRows()==0) {
+			this.rows = 1;
+		}
+		if(shape==BreastShape.UDDERS && this.getRows()==0 && this.getNippleCountPerBreast()==1) {
+			this.nippleCountPerBreast = 2;
+		}
 		
 		if(!owner.hasBreastsCrotch()) {
 			return UtilText.parse(owner,
@@ -114,6 +120,9 @@ public class BreastCrotch implements BodyPartInterface {
 
 	@Override
 	public String getName(GameCharacter gc) {
+		if(getShape()==BreastShape.UDDERS && this.getRows()==0) {
+			return getNameSingular(gc);
+		}
 		return getNamePlural(gc);
 	}
 	
@@ -413,7 +422,15 @@ public class BreastCrotch implements BodyPartInterface {
 	}
 
 	public String setRows(GameCharacter owner, int rows) {
-		rows = Math.max(1, Math.min(rows, MAXIMUM_BREAST_ROWS));
+		if(this.getShape()==BreastShape.UDDERS) { // Udders can be configured into one single udder (as '0' rows):
+			rows = Math.max(0, Math.min(rows, MAXIMUM_BREAST_ROWS));
+		} else {
+			rows = Math.max(1, Math.min(rows, MAXIMUM_BREAST_ROWS));
+		}
+		
+		if(rows==0 && this.nippleCountPerBreast==1) {
+			this.nippleCountPerBreast = 2;
+		}
 		
 		if(owner==null) {
 			this.rows = rows;
@@ -464,8 +481,13 @@ public class BreastCrotch implements BodyPartInterface {
 		}
 
 		if(this.getShape()==BreastShape.UDDERS) {
-			sb.append("[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(rows) + " pair"+(rows > 1 ? "s" : "")+" of [npc.crotchNipples])] on [npc.her] udders!" 
-				+ "</p>");
+			if(rows==0) {
+				sb.append("[npc.Name] now [npc.has] [style.boldSex(a single udder)]!" 
+						+ "</p>");
+			} else {
+				sb.append("[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(rows) + " pair"+(rows > 1 ? "s" : "")+" of udders)]!" 
+						+ "</p>");
+			}
 		} else {
 			sb.append("[npc.Name] now [npc.has] [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of [npc.crotchBoobs])]!" 
 					+ "</p>");
@@ -489,8 +511,12 @@ public class BreastCrotch implements BodyPartInterface {
 	 * Minimum 1, maximum MAXIMUM_NIPPLES_PER_BREAST
 	 */
 	public String setNippleCountPerBreast(GameCharacter owner, int nippleCountPerBreast) {
-		nippleCountPerBreast = Math.max(1, Math.min(nippleCountPerBreast, MAXIMUM_NIPPLES_PER_BREAST));
-
+		if(this.getShape()==BreastShape.UDDERS && this.getRows()==0) {
+			nippleCountPerBreast = Math.max(2, Math.min(nippleCountPerBreast, MAXIMUM_NIPPLES_PER_BREAST));
+		} else {
+			nippleCountPerBreast = Math.max(1, Math.min(nippleCountPerBreast, MAXIMUM_NIPPLES_PER_BREAST));
+		}
+		
 		if(owner==null) {
 			this.nippleCountPerBreast = nippleCountPerBreast;
 			return "";

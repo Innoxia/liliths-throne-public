@@ -247,7 +247,7 @@ public class WorldType {
 					new Value<>(new Color(0xff00ff), PlaceType.ZARANIX_FF_ROOM),
 					new Value<>(new Color(0x8000ff), PlaceType.ZARANIX_FF_MAID))) {
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "You can't have sex while in Zaranix's house!";
 		}
 		@Override
@@ -274,7 +274,7 @@ public class WorldType {
 					new Value<>(new Color(0x008000), PlaceType.ZARANIX_GF_GARDEN),
 					new Value<>(new Color(0xff8000), PlaceType.ZARANIX_GF_GARDEN_ENTRY))) {
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "You can't have sex while in Zaranix's house!";
 		}
 		@Override
@@ -359,8 +359,8 @@ public class WorldType {
 			return true;
 		}
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
-			if((companion != null) && !companion.getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_PATH)) {
+		public String getSexBlockedReason(GameCharacter character) {
+			if((character != null) && !character.getLocationPlace().getPlaceType().equals(PlaceType.SHOPPING_ARCADE_PATH)) {
 				return "This isn't a suitable place in which to be having sex!";
 			}
 			return "";
@@ -385,7 +385,7 @@ public class WorldType {
 					new Value<>(new Color(0xff00ff), PlaceType.SUPPLIER_DEPOT_STORAGE_ROOM),
 					new Value<>(new Color(0x00ff00), PlaceType.SUPPLIER_DEPOT_OFFICE))) {
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
 		}
 		@Override
@@ -419,7 +419,7 @@ public class WorldType {
 					new Value<>(new Color(0xff8080), PlaceType.ENFORCER_HQ_CELLS_OFFICE),
 					new Value<>(new Color(0x3b3b3b), PlaceType.ENFORCER_HQ_CELL))) {
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "You can't have sex in the Enforcer HQ!";
 		}
 		@Override
@@ -452,7 +452,7 @@ public class WorldType {
 					new Value<>(new Color(0xff00ff), PlaceType.ENFORCER_WAREHOUSE_CRATES_LUST_WEAPON),
 					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_WAREHOUSE_CRATES_SPELL_BOOK))) {
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "You can't have sex in such a dangerous place!";
 		}
 		@Override
@@ -479,7 +479,7 @@ public class WorldType {
 					new Value<>(new Color(0xff00ff), PlaceType.CITY_HALL_ARCHIVES),
 					new Value<>(new Color(0xffff80), PlaceType.CITY_HALL_BUREAU_OF_PROPERTY_RIGHTS_AND_COMMERCE))) {
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
 		}
 		@Override
@@ -505,7 +505,7 @@ public class WorldType {
 					new Value<>(new Color(0xff0080), PlaceType.HOME_IMPROVEMENTS_OFFICE),
 					new Value<>(new Color(0x00ffff), PlaceType.HOME_IMPROVEMENTS_TOILETS))) {
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
 		}
 	};
@@ -523,10 +523,11 @@ public class WorldType {
 					new Value<>(new Color(0xff0000), PlaceType.DOMINION_EXPRESS_EXIT),
 					new Value<>(new Color(0xff00ff), PlaceType.DOMINION_EXPRESS_STORAGE),
 					new Value<>(new Color(0x00ffff), PlaceType.DOMINION_EXPRESS_OFFICE),
+					new Value<>(new Color(0x0000ff), PlaceType.DOMINION_EXPRESS_FILLY_STATION),
 					new Value<>(new Color(0xffff00), PlaceType.DOMINION_EXPRESS_OFFICE_STABLE),
 					new Value<>(new Color(0xff8000), PlaceType.DOMINION_EXPRESS_STABLES))) {
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
 		}
 		@Override
@@ -622,7 +623,7 @@ public class WorldType {
 			return true;
 		}
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "You can't have sex while in [daddy.namePos] apartment!";
 		}
 		@Override
@@ -659,7 +660,7 @@ public class WorldType {
 			return true;
 		}
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "You can't have sex while in Helena's apartment!";
 		}
 		@Override
@@ -726,7 +727,7 @@ public class WorldType {
 					new Value<>(new Color(0xff0000), PlaceType.LYSSIETH_PALACE_STAIRS_1),
 					new Value<>(new Color(0x0000ff), PlaceType.LYSSIETH_PALACE_STAIRS_2))) {
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "You can't have sex while in Lyssieth's Palace!";
 		}
 		@Override
@@ -751,7 +752,7 @@ public class WorldType {
 			return true;
 		}
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
 		}
 	};
@@ -778,7 +779,7 @@ public class WorldType {
 			return true;
 		}
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
 		}
 	};
@@ -799,7 +800,7 @@ public class WorldType {
 			return true;
 		}
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
 		}
 	};
@@ -820,7 +821,7 @@ public class WorldType {
 			return true;
 		}
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
 		}
 	};
@@ -867,7 +868,7 @@ public class WorldType {
 					
 					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))) {
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
 		}
 	};
@@ -890,7 +891,7 @@ public class WorldType {
 					new Value<>(new Color(0xff00ff), PlaceType.SLIME_QUEENS_LAIR_ROYAL_GUARD),
 					new Value<>(new Color(0xffff00), PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN))) {
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
 		}
 	};
@@ -922,7 +923,7 @@ public class WorldType {
 			return true;
 		}
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
 		}
 		@Override
@@ -958,7 +959,7 @@ public class WorldType {
 					new Value<>(new Color(0x8000ff), PlaceType.RAT_WARRENS_VENGARS_HALL),
 					new Value<>(new Color(0x800080), PlaceType.RAT_WARRENS_PRIVATE_BEDCHAMBERS))) {
 		@Override
-		public String getCompanionSexBlockedReason(GameCharacter companion) {
+		public String getSexBlockedReason(GameCharacter character) {
 			return "This isn't a suitable place in which to be having sex!";
 		}
 		@Override

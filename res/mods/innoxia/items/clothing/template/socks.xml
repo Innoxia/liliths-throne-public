@@ -25,7 +25,7 @@
 		
 		<!-- The *singular* name of this clothing.
 			- Example: I've named this "template sock", as the singular for "template socks" is of course "sock"... -->
-		<name><![CDATA[template sock]]></name>
+		<name appendColourName="true"><![CDATA[template sock]]></name> <!-- You can leave out the 'appendColourName' attribute, but if you never want this clothing to be described by its colour, then set it as false. (i.e. If set to false, this clothing would always be called 'template socks' instead of, for example, 'white template socks')-->
 		
 		<!-- The plural form of the name. The attribute 'pluralByDefault' determines whether this item is naturally referred to as a plural (use true for things like socks or gloves).
 			- Example: I've named the plural as "template socks", and defined pluralByDefault as true, so that this item will be referred to by this plural name in all but extremely exceptional circumstances.-->
@@ -154,7 +154,7 @@
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
 		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
-		<primaryColours values="JUST_WHITE"/> 
+		<primaryColours recolouringAllowed="true" values="JUST_WHITE"/> <!-- You can leave the attribute 'recolouringAllowed' out of colour definitions. If you want the player to be unable to change this colour, then set it as false. This is only used in very niche situations (such as for the filly choker).-->
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_BLACK"/>
 		<secondaryColoursDye values="ALL"/>
@@ -190,6 +190,25 @@
 			<colour>CLOTHING_PINK_LIGHT</colour>
 		</tertiaryColoursDye>
 		
+		<!-- You can define any number of custom colours to replace the shades you've coloured your svg with.
+		If you have used the primary/secondary/tertiary elements up above, then do not use their associated colour hexes.
+		(i.e. If you've defined a primaryColours element, do not use #ff2a2a, #ff5555, #ff8080, #ffaaaa, or #ffd5d5 in the customColour attributes.)
+		
+		You should also NOT use any of the following, as they are reserved for pattern colours:
+		"#f4d7d7", "#e9afaf", "#de8787", "#d35f5f", "#c83737"
+		"#f4e3d7", "#e9c6af", "#deaa87", "#d38d5f", "#c87137"
+		"#f4eed7", "#e9ddaf", "#decd87", "#d3bc5f", "#c8ab37"
+		-->
+		<customColours>
+			<!-- The 'copyColourIndex' attribute defines which colour index should be copied into this colour slot on weapon generation. This particular colour, having an index of 0, will always be coloured the same as the primary colour when generated. Indexes go from 0->X, where X is the number of defined colours. i.e. If you only define primary and secondary, the first custom colour will have an index of 2. -->
+			<customColour copyColourIndex="0" c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB"> <!-- These are the colours which you've used in your svg and would like replaced with the colours you define below. c0 is the darkest shade. Shades can go up to any number, but setting just 5 shades should work best. -->
+				<defaultColours>
+					<colour>CLOTHING_GREY</colour> <!-- The colours which this clothing should spawn in with. -->
+				</defaultColours> 
+				<extraColours values="ALL"/> <!-- The colours which this clothing can be dyed to. -->
+			</customColour>
+		</customColours>
+		
 		<!--This section details how to define patterns. If your svg file does not have a 'patternLayer' defined, you can safely delete this whole section:-->
 		
 		<!-- "defaultPatterns" lists the patterns that this clothing can spawn with. -->
@@ -206,7 +225,9 @@
 		</patternPrimaryColours>
 		<patternSecondaryColours values="ALL"/>
 		<patternTertiaryColours/>
-
+		
+		<!-- Custom pattern colours can be defined just like the customColours up above. -->
+		<customPatternColours/>
 		
 		<!-- These tags determine where in the world your clothing can be found, and what special attributes your clothing should have. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> <!-- itemTags without a 'slot' defined will have these tags added to every equippable slot. SHould only be used for generic tags like those related to which vendors sell it. -->
@@ -224,7 +245,7 @@
 		<!-- If you want an item to be able to be used as a self-insertable sex-toy, use this format:
 		<penetration>
 			<length>15</length> cm value
-			<girth>4</girth> 0-4 corresponding to PenetrationGirth Enum values
+			<girth>5</girth> 0-6 corresponding to PenetrationGirth Enum values
 			<modifiers> For adding modifiers, use this format below:
 				<mod>VEINY</mod> Drawn from PenetrationModifier Enum values
 			</modifiers>

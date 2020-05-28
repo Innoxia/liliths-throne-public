@@ -41,9 +41,9 @@ import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.combat.CombatMove;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellUpgrade;
+import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
@@ -556,7 +556,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 			int yIncrease = (spell.getModifiersAsStringList().size() > 5 ? spell.getModifiersAsStringList().size() - 5 : 0);
 
-			Main.mainController.setTooltipSize(360, 332 + (yIncrease * LINE_HEIGHT));
+			Main.mainController.setTooltipSize(360, 312 + (yIncrease * LINE_HEIGHT));
 
 			// Title:
 			tooltipSB.setLength(0);
@@ -593,7 +593,11 @@ public class TooltipInformationEventListener implements EventListener {
 					"<div class='description'>"
 							+ (spell.isForbiddenSpell() && !owner.hasSpell(spell)?"[style.italicsArcane(This is a forbidden spell, and can only be discovered through a special quest!)]<br/>":"")
 							+ spell.getDescription(owner)
-					+ "</div>"
+							+ "<br/>[style.colourExcellent(Crit requirements)]: ");
+			for(String s : spell.getCritRequirements(owner, null, null, null)) {
+				tooltipSB.append(s);
+			}
+			tooltipSB.append("</div>"
 					+ "<div class='subTitle'>"
 						+ "<b style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Costs</b> <b>" + (spell.getModifiedCost(owner)) + "</b> <b style='color:" + PresetColour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura</b>"
 					+ "</div>");
@@ -764,8 +768,13 @@ public class TooltipInformationEventListener implements EventListener {
 								owner.getBreastCrotchRace(),
 								owner.getNippleCrotchCovering(),
 								owner.isNippleCrotchBestial(),
-								Util.capitaliseSentence(Util.intToString(owner.getBreastCrotchRows()*2))+" "
-										+(owner.getBreastRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"udders":"crotch-boobs")));
+								Util.capitaliseSentence(Util.intToString(Math.max(1, owner.getBreastCrotchRows()*2)))+" "
+										+(owner.getBreastRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")
+										+(owner.getBreastCrotchShape()==BreastShape.UDDERS
+											?(owner.getBreastCrotchRows()==0
+												?"udder"
+												:"udders")
+											:"crotch-boobs")));
 					}
 					if(Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.PENIS, owner)) {
 						knownAreas++;
@@ -953,15 +962,25 @@ public class TooltipInformationEventListener implements EventListener {
 						if(!owner.isAreaKnownByCharacter(CoverableArea.NIPPLES_CROTCH, Main.game.getPlayer())) {
 							tooltipSB.append(getEmptyBodyPartDiv("Nipples",
 									"Unknown!",
-									Util.capitaliseSentence(Util.intToString(owner.getBreastCrotchRows()*2))+" "
-											+(owner.getBreastRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"udders":"crotch-boobs")));
+									Util.capitaliseSentence(Util.intToString(Math.max(1, owner.getBreastCrotchRows()*2)))+" "
+											+(owner.getBreastRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")
+											+(owner.getBreastCrotchShape()==BreastShape.UDDERS
+												?(owner.getBreastCrotchRows()==0
+													?"udder"
+													:"udders")
+												:"crotch-boobs")));
 						} else {
 							tooltipSB.append(getBodyPartDiv(owner, "Nipples",
 									owner.getBreastCrotchRace(),
 									owner.getNippleCrotchCovering(),
 									owner.isNippleCrotchBestial(),
-									Util.capitaliseSentence(Util.intToString(owner.getBreastCrotchRows()*2))+" "
-											+(owner.getBreastRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")+(owner.getBreastCrotchShape()==BreastShape.UDDERS?"udders":"crotch-boobs")));
+									Util.capitaliseSentence(Util.intToString(Math.max(1, owner.getBreastCrotchRows()*2)))+" "
+											+(owner.getBreastRawSizeValue()>0?(owner.getBreastCrotchSize().getCupSizeName() + "-cup "):"flat ")
+											+(owner.getBreastCrotchShape()==BreastShape.UDDERS
+												?(owner.getBreastCrotchRows()==0
+													?"udder"
+													:"udders")
+												:"crotch-boobs")));
 						}
 					}
 					
@@ -1386,7 +1405,7 @@ public class TooltipInformationEventListener implements EventListener {
 		}
 		Colour primaryColour = covering.getPrimaryColour();
 		Colour secondaryColour = covering.getSecondaryColour();
-		boolean displaySecondary = covering.getPattern().isNaturalSecondColour(owner);
+		boolean displaySecondary = covering.getPattern().isNaturalSecondColour(character);
 		
 		//  background-image:linear-gradient(to right bottom, " + primaryColour.toWebHexString() + " 50%, " + secondaryColour.toWebHexString() + " 50%);
 		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"
@@ -1416,7 +1435,7 @@ public class TooltipInformationEventListener implements EventListener {
 						:"<span style='color:" + PresetColour.BASE_PINK_DEEP.toWebHexString() + ";'>"
 								+"Dildo")
 					+ "</span> - "
-					+ covering.getColourDescriptor(owner, true, true) + " " + covering.getName(owner)
+					+ covering.getColourDescriptor(character, true, true) + " " + covering.getName(character)
 				+"</div>";
 	}
 	

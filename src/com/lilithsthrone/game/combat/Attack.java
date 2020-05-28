@@ -104,6 +104,19 @@ public enum Attack {
 
 		return Math.round(damage);
 	}
+
+	public static int calculateDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, int damage, boolean critical) {
+		float finalDamage = getMinimumDamage(attacker, defender, attackType, weapon, damage);
+
+		// Add variation:
+		if (getMaximumDamage(attacker, defender, attackType, weapon, damage) - getMinimumDamage(attacker, defender, attackType, weapon, damage) > 0) {
+			float difference = getMaximumDamage(attacker, defender, attackType, weapon, damage) - getMinimumDamage(attacker, defender, attackType, weapon, damage);
+			
+			finalDamage += Math.random()*difference;
+		}
+
+		return applyFinalDamageModifiers(attacker, defender, finalDamage, critical);
+	}
 	
 	public static int calculateDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, boolean critical) {
 		float damage = getMinimumDamage(attacker, defender, attackType, weapon);
@@ -198,25 +211,26 @@ public enum Attack {
 	}
 
 	/**
-	 * Returns a value that represents the minimum possible damage done to the
-	 * defender. The only mechanic not taken into consideration is critical
-	 * chance/damage, which is handled in the calculateDamage() method.
-	 * 
-	 * @param attacker
-	 *            The attacking character.
-	 * @param defender
-	 *            The defending character.
-	 * @param attackType
-	 *            Type of this attack.
-	 * @param weapon
-	 *            The weapon being used. Pass in null if this attack type is not MAIN or OFFHAND.
-	 * @return Minimum damage possible for this attack.
+	 * @see Attack.getMinimumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, float baseDamage)
 	 */
 	public static int getMinimumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon) {
+		return getMinimumDamage(attacker, defender, attackType, weapon, getBaseWeaponDamage(attacker, weapon));
+	}
+	
+	/**
+	 * Returns a value that represents the minimum possible damage done to the defender. The only mechanic not taken into consideration is critical chance/damage, which is handled in the calculateDamage() method.
+	 * 
+	 * @param attacker The attacking character.
+	 * @param defender The defending character.
+	 * @param attackType Type of this attack.
+	 * @param weapon The weapon being used. Pass in null if this attack type is not MAIN or OFFHAND.
+	 * @param baseDamage Optional argument to define the amount of damage which should be considered to be the base damage. If this argument is not used, then getBaseWeaponDamage(attacker, weapon) is used as the base damage.
+	 * @return Minimum damage possible for this attack.
+	 */
+	public static int getMinimumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, float baseDamage) {
 		float damage = 0;
 		
-		if (attackType == MAIN
-				|| attackType == OFFHAND) {
+		if(attackType == MAIN || attackType == OFFHAND) {
 			damage = getModifiedDamage(attacker,
 					defender,
 					attackType,
@@ -224,9 +238,9 @@ public enum Attack {
 					(weapon == null
 						? attacker.getBodyMaterial().getUnarmedDamageType()
 						: weapon.getDamageType()),
-					getBaseWeaponDamage(attacker, weapon) * (weapon == null
-																? 1f - DamageVariance.MEDIUM.getPercentage()
-																: 1f - weapon.getWeaponType().getDamageVariance().getPercentage()));
+					baseDamage * (weapon == null
+										? 1f - DamageVariance.MEDIUM.getPercentage()
+										: 1f - weapon.getWeaponType().getDamageVariance().getPercentage()));
 			
 		} else {
 			damage = (getModifiedDamage(attacker, defender, attackType, weapon, DamageType.LUST, getSeductionDamage(attacker) * 0.9f)); // TODO why is it 90%?
@@ -236,28 +250,28 @@ public enum Attack {
 	}
 
 	/**
-	 * Returns a value that represents the maximum possible damage done to the
-	 * defender. The only mechanic not taken into consideration is critical
-	 * chance/damage, which is handled in the calculateDamage() method.
-	 * 
-	 * @param attacker
-	 *            The attacking character.
-	 * @param defender
-	 *            The defending character.
-	 * @param attackType
-	 *            Type of this attack.
-	 * @param weapon
-	 *            The weapon being used. Pass in null if this attack type is not MAIN or OFFHAND.
-	 * @return Minimum damage possible for this attack.
+	 * @see Attack.getMaximumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, float baseDamage)
 	 */
 	public static int getMaximumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon) {
+		return getMaximumDamage(attacker, defender, attackType, weapon, getBaseWeaponDamage(attacker, weapon));
+	}
 
+	/**
+	 * Returns a value that represents the maximum possible damage done to the defender. The only mechanic not taken into consideration is critical chance/damage, which is handled in the calculateDamage() method.
+	 * 
+	 * @param attacker The attacking character.
+	 * @param defender The defending character.
+	 * @param attackType Type of this attack.
+	 * @param weapon The weapon being used. Pass in null if this attack type is not MAIN or OFFHAND.
+	 * @param baseDamage Optional argument to define the amount of damage which should be considered to be the base damage. If this argument is not used, then getBaseWeaponDamage(attacker, weapon) is used as the base damage.
+	 * @return Maximum damage possible for this attack.
+	 */
+	public static int getMaximumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, AbstractWeapon weapon, float baseDamage) {
 		float damage = 0;
 		
-		if (attackType == MAIN
-				|| attackType == OFFHAND) {
+		if(attackType == MAIN || attackType == OFFHAND) {
 			damage = getModifiedDamage(attacker, defender, attackType, weapon, (weapon == null ? attacker.getBodyMaterial().getUnarmedDamageType() : weapon.getDamageType()),
-					getBaseWeaponDamage(attacker, weapon) * (weapon == null ? 1f + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage()));
+					baseDamage * (weapon == null ? 1f + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage()));
 			
 		} else {
 			damage = (getModifiedDamage(attacker, defender, attackType, weapon, DamageType.LUST, getSeductionDamage(attacker) * 1.1f));

@@ -6,7 +6,7 @@
 		<name><![CDATA[work boot]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[work boots]]></namePlural>
 		<description><![CDATA[A pair of heavy work boots, with thick rubber soles and steel-capped toes.]]></description>
-		<physicalResistance>0.2</physicalResistance>
+		<physicalResistance>1</physicalResistance>
 		<femininity>MASCULINE</femininity>
 		<slot>FOOT</slot> 
 		<rarity>COMMON</rarity>

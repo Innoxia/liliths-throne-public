@@ -184,7 +184,7 @@ public class HarpyDominantCompanion extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.TWO_AVERAGE);
+		this.setPenisGirth(PenetrationGirth.THREE_AVERAGE);
 		this.setPenisSize(12);
 		this.setTesticleSize(TesticleSize.ONE_TINY);
 		// Leave cum as normal value

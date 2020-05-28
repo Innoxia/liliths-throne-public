@@ -203,7 +203,7 @@ public class Vengar extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.THREE_THICK);
+		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
 		this.setPenisSize(20);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
@@ -276,7 +276,7 @@ public class Vengar extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.TWO_AVERAGE);
+		this.setPenisGirth(PenetrationGirth.THREE_AVERAGE);
 		this.setPenisSize(6);
 		this.setTesticleSize(TesticleSize.ONE_TINY);
 		this.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue());
@@ -312,9 +312,9 @@ public class Vengar extends NPC {
 		
 		AbstractClothing cargo = AbstractClothingType.generateClothing("innoxia_leg_cargo_trousers", PresetColour.CLOTHING_BLACK, false);
 		cargo.setPattern("multi_camo");
-		cargo.setPatternColour(PresetColour.CLOTHING_BLACK);
-		cargo.setPatternSecondaryColour(PresetColour.CLOTHING_BLACK_JET);
-		cargo.setPatternTertiaryColour(PresetColour.CLOTHING_GREY);
+		cargo.setPatternColour(0, PresetColour.CLOTHING_BLACK);
+		cargo.setPatternColour(1, PresetColour.CLOTHING_BLACK_JET);
+		cargo.setPatternColour(2, PresetColour.CLOTHING_GREY);
 		this.equipClothingFromNowhere(cargo, true, this);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_BLACK_STEEL, false), true, this);

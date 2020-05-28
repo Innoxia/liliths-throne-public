@@ -7,15 +7,14 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.1
- * @version 0.3.6
+ * @version 0.3.7.7
  * @author Innoxia
  */
 public enum ItemTag {
 
-	HIDDEN_IN_DEBUG_SPAWNER(false),
+	CHEAT_ITEM(false), // Cheat items are hidden in the debug spawner, and are also not added to the Encyclopedia.
 	
 	REMOVE_FROM_DEBUG_SPAWNER(false),
-
 	NOT_FOR_SALE(false),
 	
 	REINDEER_GIFT(false), // Can be found in the presents that the reindeer sell (who appear in Dominion during winter months).

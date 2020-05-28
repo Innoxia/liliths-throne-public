@@ -76,7 +76,7 @@ public enum Units {
     public void updateDateFormat(boolean autoLocale) {
         Locale.setDefault(autoLocale ? defaultLocale : Locale.ENGLISH);
         shortDate = (autoLocale ? DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)
-                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.internationalDate) ? "MM/dd/yy" : "dd.MM.yy"))
+                : DateTimeFormatter.ofPattern(Main.getProperties().hasValue(PropertyValue.internationalDate) ? "dd.MM.yy" : "MM/dd/yy"))
                 .withZone(ZoneId.systemDefault());
         longDate = DateTimeFormatter.ofPattern("d'%o %m' yyyy")
                 .withZone(ZoneId.systemDefault());

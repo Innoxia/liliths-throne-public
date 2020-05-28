@@ -1,32 +1,12 @@
 package com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ;
 
+import java.util.stream.Collectors;
+
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
-import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
-import com.lilithsthrone.game.character.body.valueEnums.AssSize;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.body.valueEnums.HairLength;
-import com.lilithsthrone.game.character.body.valueEnums.HipSize;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
@@ -42,6 +22,10 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.sex.managers.dominion.SMBraxDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMStanding;
@@ -89,6 +73,13 @@ public class BraxOffice {
 			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_tacequipset_cboots", PresetColour.CLOTHING_BLACK, false), false));
 			sb.append(Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_pcap", PresetColour.CLOTHING_BLACK, false), false));
 		}
+
+		TransformativePotion tfPotion = Main.game.getNpc(Brax.class).generateTransformativePotion(Main.game.getPlayer());
+		AbstractItem potion = EnchantingUtils.craftItem(
+			AbstractItemType.generateItem(tfPotion.getItemType()),
+			tfPotion.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+		potion.setName("Brax's Surprise");
+		sb.append(Main.game.getPlayer().addItem(potion, false));
 	}
 	
 	public static final DialogueNode INTERIOR_BRAX = new DialogueNode("[brax.namePos] Office", "-", true) {
@@ -504,101 +495,23 @@ public class BraxOffice {
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxTransformedPlayer);
 						
-						if(Main.getProperties().forcedFetishPercentage != 0) {
-							Main.game.getPlayer().addFetish(Fetish.FETISH_SUBMISSIVE);
-						}
+						TransformativePotion tfPotion = Main.game.getNpc(Brax.class).generateTransformativePotion(Main.game.getPlayer());
+						AbstractItem potion = EnchantingUtils.craftItem(
+							AbstractItemType.generateItem(tfPotion.getItemType()),
+							tfPotion.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+						potion.setName("Brax's Surprise");
 						
-						switch(Main.getProperties().getForcedTFPreference()) {
-							case HUMAN:
-								Main.game.getPlayer().setPenisType(PenisType.NONE);
-								if(!Main.game.getPlayer().hasVagina()) {
-									Main.game.getPlayer().setVaginaType(VaginaType.HUMAN);
-								}
-								break;
-								
-							case MINIMUM: // ears, eyes, tails, horns, antenna, and wings
-								Main.game.getPlayer().setPenisType(PenisType.NONE);
-								if(!Main.game.getPlayer().hasVagina()) {
-									Main.game.getPlayer().setVaginaType(VaginaType.HUMAN);
-								}
-								Main.game.getPlayer().setEarType(EarType.WOLF_MORPH);
-								Main.game.getPlayer().setEyeType(EyeType.WOLF_MORPH);
-								Main.game.getPlayer().setTailType(TailType.WOLF_MORPH);
-								Main.game.getPlayer().setHornType(HornType.NONE);
-								Main.game.getPlayer().setAntennaType(AntennaType.NONE);
-								Main.game.getPlayer().setWingType(WingType.NONE);
-								Main.game.getPlayer().setHairType(HairType.LYCAN);
-								break;
-								
-							case REDUCED:
-								Main.game.getPlayer().setPenisType(PenisType.NONE);
-								Main.game.getPlayer().setVaginaType(VaginaType.WOLF_MORPH);
-								
-								Main.game.getPlayer().setEarType(EarType.WOLF_MORPH);
-								Main.game.getPlayer().setEyeType(EyeType.WOLF_MORPH);
-								Main.game.getPlayer().setTailType(TailType.WOLF_MORPH);
-								Main.game.getPlayer().setHornType(HornType.NONE);
-								Main.game.getPlayer().setAntennaType(AntennaType.NONE);
-								Main.game.getPlayer().setWingType(WingType.NONE);
-								Main.game.getPlayer().setHairType(HairType.LYCAN);
-								
-								Main.game.getPlayer().setBreastType(BreastType.WOLF_MORPH);
-								Main.game.getPlayer().setAssType(AssType.WOLF_MORPH);
-								Main.game.getPlayer().setArmType(ArmType.WOLF_MORPH);
-								Main.game.getPlayer().setLegType(LegType.WOLF_MORPH);
-								
-								Main.game.getPlayer().setBreastRows(3);
-								break;
-								
-							case NORMAL: case MAXIMUM:
-								Main.game.getPlayer().setPenisType(PenisType.NONE);
-								Main.game.getPlayer().setVaginaType(VaginaType.WOLF_MORPH);
-								
-								Main.game.getPlayer().setEarType(EarType.WOLF_MORPH);
-								Main.game.getPlayer().setEyeType(EyeType.WOLF_MORPH);
-								Main.game.getPlayer().setTailType(TailType.WOLF_MORPH);
-								Main.game.getPlayer().setHornType(HornType.NONE);
-								Main.game.getPlayer().setAntennaType(AntennaType.NONE);
-								Main.game.getPlayer().setWingType(WingType.NONE);
-								Main.game.getPlayer().setHairType(HairType.LYCAN);
-								
-								Main.game.getPlayer().setBreastType(BreastType.WOLF_MORPH);
-								Main.game.getPlayer().setAssType(AssType.WOLF_MORPH);
-								Main.game.getPlayer().setArmType(ArmType.WOLF_MORPH);
-								Main.game.getPlayer().setLegType(LegType.WOLF_MORPH);
-								
-								Main.game.getPlayer().setSkinType(SkinType.LYCAN);
-								Main.game.getPlayer().setFaceType(FaceType.WOLF_MORPH);
-								
-								Main.game.getPlayer().setBreastRows(3);
-								break;
-						}
-						
-						Main.game.getPlayer().setFemininity(Femininity.FEMININE_STRONG.getMinimumFemininity());
-						Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-						if(Main.game.getPlayer().getVaginaWetness().getValue()<Wetness.THREE_WET.getValue()) {
-							Main.game.getPlayer().setVaginaWetness(Wetness.THREE_WET.getValue());
-						}
+						Main.game.getNpc(Brax.class).useItem(potion, Main.game.getPlayer(), false);
 						
 						Main.game.getPlayer().setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, PresetColour.EYE_YELLOW));
 						Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, PresetColour.COVERING_BLACK), true);
 						Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, PresetColour.COVERING_WHITE), true);
 						
-						if(Main.game.getPlayer().getBreastRawSizeValue()<CupSize.E.getMeasurement()) {
-							Main.game.getPlayer().setBreastSize(CupSize.E.getMeasurement());
+						if(Main.getProperties().forcedFetishPercentage!=0 && !Main.game.getPlayer().hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addFetish(Fetish.FETISH_SUBMISSIVE));
 						}
-						if(Main.game.getPlayer().getHipSize().getValue()<HipSize.FOUR_WOMANLY.getValue()) {
-							Main.game.getPlayer().setHipSize(HipSize.FOUR_WOMANLY.getValue());
-						}
-						if(Main.game.getPlayer().getAssSize().getValue()<AssSize.FOUR_LARGE.getValue()) {
-							Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE.getValue());
-						}
-						Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-						Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
-						
-						
 						if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION)<CorruptionLevel.TWO_HORNY.getMinimumValue()) {
-							Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, CorruptionLevel.TWO_HORNY.getMinimumValue());
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, CorruptionLevel.TWO_HORNY.getMinimumValue()));
 						}
 					}
 				};

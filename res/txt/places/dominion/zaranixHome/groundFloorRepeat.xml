@@ -549,14 +549,23 @@
 		 in front of her.
 	</p>
 	<p>
-		[amber.speech(Good bitch,)] Amber says, collapsing down onto the sofa. Lifting her legs up, she then roughly drops her feet down onto your back. [amber.speech(Now stay still while I relax.)]
+		[amber.speech(Good bitch,)] Amber says, collapsing down onto the sofa. Lifting her legs up, she then roughly drops her feet down onto your back, before commanding, [amber.speech(Now stay still while I relax.)]
 	</p>
 	<p>
 		[pc.speech(Yes, Mistress Amber,)] you reply once more, holding yourself steady as the sadistic succubus uses you as her foot rest.
 	</p>
-	<p>
-		After a few minutes of relative peace, Mistress Amber moves her feet off your back, and, dropping them down in front of your face, she snarls, [amber.speech(That's enough easy work for you. Take my shoes off and give me a foot massage, bitch.)]
-	</p>
+	#IF(game.isFootContentEnabled())
+		<p>
+			After a few minutes of relative peace, Mistress Amber moves her feet off your back, and, dropping them down in front of your face, she snarls, [amber.speech(That's enough easy work for you. Take my shoes off and give me a foot massage, bitch.)]
+		</p>
+	#ELSE
+		<p>
+			After a few minutes of relative peace, Mistress Amber moves her feet off your back, and after quickly standing up, she triumphantly sneers, [amber.speech(Good bitch. Come back when the weather's nice, and I'll take you for a little walk outside. For now, however, get out of my sight.)]
+		</p>
+		<p>
+			[pc.speech(Yes, Mistress Amber! Thank you, Mistress Amber!)] you say, quickly standing up and moving towards the door. Glancing back at the fiery-haired succubus, you see her picking up her feather duster as she resumes her cleaning. Having pleased your Mistress, you wonder what you should do next.
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

@@ -24,11 +24,10 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.86
- * @version 0.1.88
+ * @version 0.3.7.7
  * @author Innoxia
  */
 public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
-	
 	
 	private String cumProvider;
 	private FluidCum cum;
@@ -43,7 +42,7 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 		for(FluidModifier fm : cum.getFluidModifiers()) {
 			this.cum.addFluidModifier(cumProvider, fm);
 		}
-		this.colourShade = colour;
+		this.setColour(0, colour);
 		SVGString = getSVGString(itemType.getPathName(), colour);
 		this.millilitresStored = millilitresStored;
 	}
@@ -57,7 +56,7 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 		for(FluidModifier fm : cum.getFluidModifiers()) {
 			this.cum.addFluidModifier(null, fm);
 		}
-		this.colourShade = colour;
+		this.setColour(0, colour);
 		SVGString = getSVGString(itemType.getPathName(), colour);
 		this.millilitresStored = millilitresStored;
 	}
@@ -87,7 +86,7 @@ public class AbstractFilledCondom extends AbstractItem implements XMLSaving {
 		parentElement.appendChild(element);
 		
 		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
-		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().getId());
+		CharacterUtils.addAttribute(doc, element, "colour", this.getColour(0).getId());
 		CharacterUtils.addAttribute(doc, element, "cumProvider", this.getCumProviderId());
 		CharacterUtils.addAttribute(doc, element, "millilitresStored", String.valueOf(this.getMillilitresStored()));
 		

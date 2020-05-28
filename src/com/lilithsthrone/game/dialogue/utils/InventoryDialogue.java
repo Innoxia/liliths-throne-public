@@ -14,17 +14,19 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
+import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
+import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.ShopTransaction;
@@ -53,7 +55,7 @@ import com.lilithsthrone.utils.comparators.ClothingZLayerComparator;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.5
+ * @version 0.3.7.8
  * @author Innoxia
  */
 public class InventoryDialogue {
@@ -116,7 +118,11 @@ public class InventoryDialogue {
 		
 		for(AbstractClothing c : zlayerClothing) { 
 			if(!Main.game.isInSex() || !c.getSlotEquippedTo().isJewellery()) {
-				character.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+				if(Main.game.isInNewWorld()) {
+					character.unequipClothingIntoInventory(c, true, Main.game.getPlayer());
+				} else {
+					character.unequipClothingOntoFloor(c, true, Main.game.getPlayer());
+				}
 				sb.append("<p style='text-align:center;'>"+character.getUnequipDescription()+"</p>");
 			}
 		}
@@ -1124,19 +1130,7 @@ public class InventoryDialogue {
 									
 								} else {
 									if(item.isBreakOutOfInventory()) {
-										return new ResponseEffectsOnly(
-												Util.capitaliseSentence(item.getItemType().getUseName()) +" all (Self)",
-												item.getItemType().getUseTooltipDescription(owner, owner)
-													+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in your inventory.)]"){
-											@Override
-											public void effects(){
-												int itemCount = Main.game.getPlayer().getItemCount(item);
-												for(int i=0;i<itemCount;i++) {
-													Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false);
-												}
-												resetPostAction();
-											}
-										};
+										return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)", "As this item has special effects, you can only use one at a time!", null);
 									}
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)",
@@ -1394,19 +1388,7 @@ public class InventoryDialogue {
 									
 								} else {
 									if(item.isBreakOutOfInventory()) {
-										return new ResponseEffectsOnly(
-											Util.capitaliseSentence(item.getItemType().getUseName()) +" (Self)",
-											item.getItemType().getUseTooltipDescription(owner, owner)
-												+"<br/>[style.italicsMinorGood(Repeat this for all of the " + item.getNamePlural() + " which are in your inventory.)]"){
-											@Override
-											public void effects(){
-												int itemCount = Main.game.getPlayer().getItemCount(item);
-												for(int i=0;i<itemCount;i++) {
-													Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false);
-												}
-												resetPostAction();
-											}
-										};
+										return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)", "As this item has special effects, you can only use one at a time!", null);
 									}
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)",
@@ -1495,18 +1477,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"), item.getUnableToBeUsedDescription(inventoryNPC), null);
 									
 								} else if(item.isBreakOutOfInventory()) {
-									return new ResponseEffectsOnly(
-											Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"),
-											item.getItemType().getUseTooltipDescription(owner, owner)){
-										@Override
-										public void effects(){
-											int itemCount = Main.game.getPlayer().getItemCount(item);
-											for(int i=0;i<itemCount;i++) {
-												Main.game.getPlayer().useItem(item, inventoryNPC, false);
-											}
-											resetPostAction();
-										}
-									};
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"), "As this item has special effects, you can only use one at a time!", null);
 									
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"),
@@ -1796,18 +1767,7 @@ public class InventoryDialogue {
 									
 								} else {
 									if(item.isBreakOutOfInventory()) {
-										return new ResponseEffectsOnly(
-												Util.capitaliseSentence(item.getItemType().getUseName()) +" (Self)",
-												item.getItemType().getUseTooltipDescription(owner, owner)){
-											@Override
-											public void effects(){
-												int itemCount = Main.game.getPlayer().getItemCount(item);
-												for(int i=0;i<itemCount;i++) {
-													Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false);
-												}
-												resetPostAction();
-											}
-										};
+										return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)", "As this item has special effects, you can only use one at a time!", null);
 									}
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)",
@@ -1981,18 +1941,7 @@ public class InventoryDialogue {
 									
 								} else {
 									if(item.isBreakOutOfInventory()) {
-										return new ResponseEffectsOnly(
-												Util.capitaliseSentence(item.getItemType().getUseName()) +" (Self)",
-												item.getItemType().getUseTooltipDescription(owner, owner)){
-											@Override
-											public void effects(){
-												int itemCount = Main.game.getPlayerCell().getInventory().getItemCount(item);
-												for(int i=0;i<itemCount;i++) {
-													Main.game.getPlayer().useItem(item, Main.game.getPlayer(), true);
-												}
-												resetPostAction();
-											}
-										};
+										return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (Self)", "As this item has special effects, you can only use one at a time!", null);
 									}
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName())+" all (Self)",
@@ -2216,18 +2165,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"), item.getUnableToBeUsedDescription(inventoryNPC), null);
 									
 								} else if(item.isBreakOutOfInventory()) {
-									return new ResponseEffectsOnly(
-											Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"),
-											item.getItemType().getUseTooltipDescription(owner, owner)){
-										@Override
-										public void effects(){
-											int itemCount = Main.game.getPlayer().getItemCount(item);
-											for(int i=0;i<itemCount;i++) {
-												Main.game.getPlayer().useItem(item, inventoryNPC, false);
-											}
-											resetPostAction();
-										}
-									};
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+UtilText.parse(inventoryNPC, " all ([npc.HerHim])"), "As this item has special effects, you can only use one at a time!", null);
 									
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(
@@ -6371,28 +6309,23 @@ public class InventoryDialogue {
 
 	public static DamageType damageTypePreview;
 	
-	public static Colour dyePreviewPrimary;
-	public static Colour dyePreviewSecondary;
-	public static Colour dyePreviewTertiary;
+	public static List<Colour> dyePreviews;
 	public static String dyePreviewPattern;
-	public static Colour dyePreviewPatternPrimary;
-	public static Colour dyePreviewPatternSecondary;
-	public static Colour dyePreviewPatternTertiary;
+	public static List<Colour> dyePreviewPatterns;
 	
 	private static void resetClothingDyeColours() {
-		dyePreviewPrimary = clothing.getColour();
-		dyePreviewSecondary = clothing.getSecondaryColour();
-		dyePreviewTertiary = clothing.getTertiaryColour();
+		dyePreviews = new ArrayList<>();
+		dyePreviews.addAll(clothing.getColours());
+		
 		dyePreviewPattern = clothing.getPattern();
-		dyePreviewPatternPrimary = clothing.getPatternColour();
-		dyePreviewPatternSecondary = clothing.getPatternSecondaryColour();
-		dyePreviewPatternTertiary = clothing.getPatternTertiaryColour();
+
+		dyePreviewPatterns = new ArrayList<>();
+		dyePreviewPatterns.addAll(clothing.getPatternColours());
 	}
 
 	private static void resetWeaponDyeColours() {
-		dyePreviewPrimary = weapon.getPrimaryColour();
-		dyePreviewSecondary = weapon.getSecondaryColour();
-		dyePreviewTertiary = weapon.getTertiaryColour();
+		dyePreviews = new ArrayList<>();
+		dyePreviews.addAll(weapon.getColours());
 		
 		damageTypePreview = weapon.getDamageType();
 	}
@@ -6421,56 +6354,29 @@ public class InventoryDialogue {
 				+ "<div class='container-full-width'>"
 					+ "<div class='inventoryImage'>"
 						+ "<div class='inventoryImage-content'>"
-							+ clothing.getClothingType().getSVGImage(slotEquippedTo, dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary, dyePreviewPattern, dyePreviewPatternPrimary, dyePreviewPatternSecondary, dyePreviewPatternTertiary)
+							+ clothing.getClothingType().getSVGImage(slotEquippedTo, dyePreviews, dyePreviewPattern, dyePreviewPatterns)
 						+ "</div>"
 					+ "</div>"
-					+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
-					+ "<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
-					+ "Primary Colour:<br/>");
+					+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>");
 
-		for (Colour c : clothing.getClothingType().getAllAvailablePrimaryColours()) {
-			inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.getId()) + "'"
-									+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-								+ "<div class='phone-item-colour' style='"
-									+ (c.isMetallic()
-											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-											:"background-color:" + c.toWebHexString() + ";")
-									+ "'></div>"
-							+ "</div>");
-		}
-		
-		inventorySB.append("</div>");
-		
-		if(!clothing.getClothingType().getAllAvailableSecondaryColours().isEmpty()) {
-			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
-					+ "Secondary Colour:<br/>");
-			for (Colour c : clothing.getClothingType().getAllAvailableSecondaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.getId()) + "'"
-									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-								+ "<div class='phone-item-colour' style='"
-									+ (c.isMetallic()
-											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-											:"background-color:" + c.toWebHexString() + ";")
-									+ "'></div>"
-					+ "</div>");
+		for(int i=0; i<clothing.getClothingType().getColourReplacements().size(); i++) {
+			ColourReplacement cr = clothing.getClothingType().getColourReplacement(i);
+			if(!cr.getAllColours().isEmpty()) {
+				inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
+							+ Util.capitaliseSentence(Util.intToPrimarySequence(i+1))+" Colour"+(cr.isRecolouringAllowed()?"":" ([style.italicsBad(cannot be changed)])")+":<br/>");
+				
+				for(Colour c : cr.getAllColours()) {
+					inventorySB.append("<div class='normal-button"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" selected":"")+"' id='DYE_CLOTHING_"+i+"_"+c.getId()+"'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+									+ "<div class='phone-item-colour' style='"
+										+ (c.isMetallic()
+												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+												:"background-color:" + c.toWebHexString() + ";")
+										+ "'></div>"
+						+ "</div>");
+				}
+				inventorySB.append("</div>");
 			}
-			inventorySB.append("</div>");
-		}
-
-		if(!clothing.getClothingType().getAllAvailableTertiaryColours().isEmpty()) {
-			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
-					+ "Tertiary Colour:<br/>");
-			for (Colour c : clothing.getClothingType().getAllAvailableTertiaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.getId()) + "'"
-									+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-								+ "<div class='phone-item-colour' style='"
-									+ (c.isMetallic()
-											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-											:"background-color:" + c.toWebHexString() + ";")
-									+ "'></div>"
-					+ "</div>");
-			}
-			inventorySB.append("</div>");
 		}
 		
 		if(clothing.getClothingType().isPatternAvailable()){
@@ -6494,55 +6400,25 @@ public class InventoryDialogue {
 			}
 			inventorySB.append("</div>");
 
-			
-			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isPrimaryRecolourAvailable()) {
-				inventorySB.append("<div class='container-full-width'>"
-						+ "Pattern Primary Colour:<br/>");
-				for (Colour c : clothing.getClothingType().getAllAvailablePatternPrimaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewPatternPrimary==c?" selected":"")+"' id='PATTERN_PRIMARY_" + (clothing.getClothingType().hashCode() + "_" + c.getId()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternPrimary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-									+ "<div class='phone-item-colour' style='"
-										+ (c.isMetallic()
-												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-												:"background-color:" + c.toWebHexString() + ";")
-										+ "'></div>"
-						+ "</div>");
+			for(int i=0; i<clothing.getClothingType().getPatternColourReplacements().size(); i++) {
+				ColourReplacement cr = clothing.getClothingType().getPatternColourReplacement(i);
+				if(!cr.getAllColours().isEmpty() && Pattern.getPattern(dyePreviewPattern).isRecolourAvailable(cr)) {
+					inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
+								+ "Pattern "+Util.capitaliseSentence(Util.intToPrimarySequence(i+1))+" Colour:<br/>");
+					
+					for (Colour c : cr.getAllColours()) {
+						inventorySB.append("<div class='normal-button"+(dyePreviewPatterns.size()>i && dyePreviewPatterns.get(i)==c?" selected":"")+"' id='DYE_CLOTHING_PATTERN_"+i+"_"+c.getId()+"'"
+											+ " style='width:auto; margin-right:4px;"+(dyePreviewPatterns.size()>i && dyePreviewPatterns.get(i)==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+										+ "<div class='phone-item-colour' style='"
+											+ (c.isMetallic()
+													?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+													:"background-color:" + c.toWebHexString() + ";")
+											+ "'></div>"
+							+ "</div>");
+					}
+					inventorySB.append("</div>");
 				}
-				inventorySB.append("</div>");
 			}
-			
-			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isSecondaryRecolourAvailable()) {
-				inventorySB.append("<div class='container-full-width'>"
-						+ "Pattern Secondary Colour:<br/>");
-				for (Colour c : clothing.getClothingType().getAllAvailablePatternSecondaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewPatternSecondary==c?" selected":"")+"' id='PATTERN_SECONDARY_" + (clothing.getClothingType().hashCode() + "_" + c.getId()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternSecondary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-									+ "<div class='phone-item-colour' style='"
-										+ (c.isMetallic()
-												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-												:"background-color:" + c.toWebHexString() + ";")
-										+ "'></div>"
-						+ "</div>");
-				}
-				inventorySB.append("</div>");
-			}
-			
-			if(Pattern.getPattern(dyePreviewPattern)!=null && Pattern.getPattern(dyePreviewPattern).isTertiaryRecolourAvailable()) {
-				inventorySB.append("<div class='container-full-width'>"
-						+ "Pattern Tertiary Colour:<br/>");
-				for (Colour c : clothing.getClothingType().getAllAvailablePatternTertiaryColours()) {
-					inventorySB.append("<div class='normal-button"+(dyePreviewPatternTertiary==c?" selected":"")+"' id='PATTERN_TERTIARY_" + (clothing.getClothingType().hashCode() + "_" + c.getId()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewPatternTertiary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-									+ "<div class='phone-item-colour' style='"
-										+ (c.isMetallic()
-												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-												:"background-color:" + c.toWebHexString() + ";")
-										+ "'></div>"
-						+ "</div>");
-				}
-				inventorySB.append("</div>");
-			}
-			
 		}
 		inventorySB.append("</div>");
 		
@@ -6564,10 +6440,23 @@ public class InventoryDialogue {
 				+ "</div>"
 				+ "<br/>"
 				+ "<div class='container-full-width'>"
-					+ "<div class='inventoryImage'>"
-						+ "<div class='inventoryImage-content'>"
-							+ weapon.getWeaponType().getSVGImage(damageTypePreview, dyePreviewPrimary, dyePreviewSecondary, dyePreviewTertiary)
+					+ "<div class='container-full-width' style='text-align:center; width:calc(25% - 16px); float:right;'>"
+						+ "<div class='inventoryImage' style='width:100%;'>"
+							+ (weapon.getWeaponType().isEquippedSVGImageDifferent()
+								?"Unequipped"
+								:"")
+							+ "<div class='inventoryImage-content'>"
+								+ weapon.getWeaponType().getSVGImage(damageTypePreview, dyePreviews)
+							+ "</div>"
 						+ "</div>"
+						+(weapon.getWeaponType().isEquippedSVGImageDifferent()
+							?"<div class='inventoryImage' style='width:100%;'>"
+								+ "Equipped"
+									+ "<div class='inventoryImage-content'>"
+										+ weapon.getWeaponType().getSVGEquippedImage(damageTypePreview, dyePreviews)
+									+ "</div>"
+								+ "</div>"
+							:"")
 					+ "</div>"
 					+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>");
 		
@@ -6575,7 +6464,7 @@ public class InventoryDialogue {
 		inventorySB.append("<div class='container-quarter-width' style='text-align:center;width:calc(75% - 16px);'>"
 				+ "<b>Damage type:</b><br/>");
 		for(DamageType dt : weapon.getWeaponType().getAvailableDamageTypes()) {
-			inventorySB.append("<div class='normal-button"+(damageTypePreview==dt?" selected":"")+"' id='DAMAGE_TYPE_" + weapon.getWeaponType().hashCode() + "_" + dt.toString() + "'"
+			inventorySB.append("<div class='normal-button"+(damageTypePreview==dt?" selected":"")+"' id='DAMAGE_TYPE_"+dt.toString()+"'"
 							+ "style='width:20%; margin:0 2.5%; color:"+(damageTypePreview==dt?dt.getColour().toWebHexString():dt.getColour().getShades(8)[0])+";'>"
 						+ Util.capitaliseSentence(dt.getName())
 					+ "</div>");
@@ -6583,57 +6472,26 @@ public class InventoryDialogue {
 		inventorySB.append("</div>");
 
 		boolean colourOptions = false;
-		if(!weapon.getWeaponType().getAllAvailablePrimaryColours().isEmpty()) {
+
+		for(int i=0; i<weapon.getWeaponType().getColourReplacements(false).size(); i++) {
 			colourOptions = true;
-			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
-					+ "Primary:<br/>");
-			
-			for (Colour c : weapon.getWeaponType().getAllAvailablePrimaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewPrimary==c?" selected":"")+"' id='PRIMARY_" + (weapon.getWeaponType().hashCode() + "_" + c.getId()) + "'"
-										+ " style='width:auto; margin-right:4px;"+(dyePreviewPrimary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+			ColourReplacement cr = weapon.getWeaponType().getColourReplacement(false, i);
+			if(!cr.getAllColours().isEmpty()) {
+				inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
+						+ Util.capitaliseSentence(Util.intToPrimarySequence(i+1))+" Colour"+(cr.isRecolouringAllowed()?"":" ([style.italicsBad(cannot be changed)])")+":<br/>");
+				
+				for(Colour c : cr.getAllColours()) {
+					inventorySB.append("<div class='normal-button"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" selected":"")+"' id='DYE_WEAPON_"+i+"_"+c.getId()+"'"
+										+ " style='width:auto; margin-right:4px;"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
 									+ "<div class='phone-item-colour' style='"
 										+ (c.isMetallic()
 												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
 												:"background-color:" + c.toWebHexString() + ";")
 										+ "'></div>"
-								+ "</div>");
+						+ "</div>");
+				}
+				inventorySB.append("</div>");
 			}
-			
-			inventorySB.append("</div>");
-		}
-		
-		if(!weapon.getWeaponType().getAllAvailableSecondaryColours().isEmpty()) {
-			colourOptions = true;
-			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
-					+ "Secondary:<br/>");
-			for (Colour c : weapon.getWeaponType().getAllAvailableSecondaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewSecondary==c?" selected":"")+"' id='SECONDARY_" + (weapon.getWeaponType().hashCode() + "_" + c.getId()) + "'"
-									+ " style='width:auto; margin-right:4px;"+(dyePreviewSecondary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-								+ "<div class='phone-item-colour' style='"
-									+ (c.isMetallic()
-											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-											:"background-color:" + c.toWebHexString() + ";")
-									+ "'></div>"
-					+ "</div>");
-			}
-			inventorySB.append("</div>");
-		}
-
-		if(!weapon.getWeaponType().getAllAvailableTertiaryColours().isEmpty()) {
-			colourOptions = true;
-			inventorySB.append("<div class='container-quarter-width' style='width:calc(75% - 16px);'>"
-					+ "Tertiary:<br/>");
-			for (Colour c : weapon.getWeaponType().getAllAvailableTertiaryColours()) {
-				inventorySB.append("<div class='normal-button"+(dyePreviewTertiary==c?" selected":"")+"' id='TERTIARY_" + (weapon.getWeaponType().hashCode() + "_" + c.getId()) + "'"
-									+ " style='width:auto; margin-right:4px;"+(dyePreviewTertiary==c?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-								+ "<div class='phone-item-colour' style='"
-									+ (c.isMetallic()
-											?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-											:"background-color:" + c.toWebHexString() + ";")
-									+ "'></div>"
-					+ "</div>");
-			}
-			inventorySB.append("</div>");
 		}
 		
 		if(!colourOptions) {
@@ -6660,13 +6518,9 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
 
 			} else if (index == 1) {
-				if(dyePreviewPrimary == clothing.getColour()
-						&& dyePreviewSecondary == clothing.getSecondaryColour()
-						&& dyePreviewTertiary == clothing.getTertiaryColour()
+				if(dyePreviews.equals(clothing.getColours())
 						&& dyePreviewPattern.equals(clothing.getPattern())
-						&& dyePreviewPatternPrimary == clothing.getPatternColour()
-						&& dyePreviewPatternSecondary == clothing.getPatternSecondaryColour()
-						&& dyePreviewPatternTertiary == clothing.getPatternTertiaryColour()) {
+						&& dyePreviewPatterns.equals(clothing.getPatternColours())) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -6684,7 +6538,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), owner, false);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviewPrimary)
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The " + clothing.getName() + " " + (clothing.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b>!"
@@ -6706,26 +6560,18 @@ public class InventoryDialogue {
 						if(owner!=null) {
 							owner.removeClothing(clothing);
 							AbstractClothing dyedClothing = new AbstractClothing(clothing) {};
-							dyedClothing.setColour(dyePreviewPrimary);
-							dyedClothing.setSecondaryColour(dyePreviewSecondary);
-							dyedClothing.setTertiaryColour(dyePreviewTertiary);
+							dyedClothing.setColours(dyePreviews);
 							dyedClothing.setPattern(dyePreviewPattern);
-							dyedClothing.setPatternColour(dyePreviewPatternPrimary);
-							dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
-							dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+							dyedClothing.setPatternColours(dyePreviewPatterns);
 							owner.addClothing(dyedClothing, false);
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeClothing(clothing);
 							AbstractClothing dyedClothing = new AbstractClothing(clothing) {};
-							dyedClothing.setColour(dyePreviewPrimary);
-							dyedClothing.setSecondaryColour(dyePreviewSecondary);
-							dyedClothing.setTertiaryColour(dyePreviewTertiary);
+							dyedClothing.setColours(dyePreviews);
 							dyedClothing.setPattern(dyePreviewPattern);
-							dyedClothing.setPatternColour(dyePreviewPatternPrimary);
-							dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
-							dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+							dyedClothing.setPatternColours(dyePreviewPatterns);
 							Main.game.getPlayerCell().getInventory().addClothing(dyedClothing);
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
 						}
@@ -6734,13 +6580,9 @@ public class InventoryDialogue {
 				};
 
 			} else if (index == 6) {
-				if(dyePreviewPrimary == clothing.getColour()
-						&& dyePreviewSecondary == clothing.getSecondaryColour()
-						&& dyePreviewTertiary == clothing.getTertiaryColour()
+				if(dyePreviews.equals(clothing.getColours())
 						&& dyePreviewPattern.equals(clothing.getPattern())
-						&& dyePreviewPatternPrimary == clothing.getPatternColour()
-						&& dyePreviewPatternSecondary == clothing.getPatternSecondaryColour()
-						&& dyePreviewPatternTertiary == clothing.getPatternTertiaryColour()) {
+						&& dyePreviewPatterns.equals(clothing.getPatternColours())) {
 					return new Response("Dye all (stack)",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -6783,7 +6625,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviewPrimary)
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The "+clothing.getName()+(clothing.getClothingType().isPlural()?"have":"has")+" been dyed</b>!"
@@ -6812,26 +6654,18 @@ public class InventoryDialogue {
 						if(owner!=null) {
 							owner.removeClothing(clothing, finalCount);
 							AbstractClothing dyedClothing = new AbstractClothing(clothing) {};
-							dyedClothing.setColour(dyePreviewPrimary);
-							dyedClothing.setSecondaryColour(dyePreviewSecondary);
-							dyedClothing.setTertiaryColour(dyePreviewTertiary);
+							dyedClothing.setColours(dyePreviews);
 							dyedClothing.setPattern(dyePreviewPattern);
-							dyedClothing.setPatternColour(dyePreviewPatternPrimary);
-							dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
-							dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+							dyedClothing.setPatternColours(dyePreviewPatterns);
 							owner.addClothing(dyedClothing, finalCount, false, false);
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeClothing(clothing);
 							AbstractClothing dyedClothing = new AbstractClothing(clothing) {};
-							dyedClothing.setColour(dyePreviewPrimary);
-							dyedClothing.setSecondaryColour(dyePreviewSecondary);
-							dyedClothing.setTertiaryColour(dyePreviewTertiary);
+							dyedClothing.setColours(dyePreviews);
 							dyedClothing.setPattern(dyePreviewPattern);
-							dyedClothing.setPatternColour(dyePreviewPatternPrimary);
-							dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
-							dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+							dyedClothing.setPatternColours(dyePreviewPatterns);
 							Main.game.getPlayerCell().getInventory().addClothing(dyedClothing, finalCount);
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
 						}
@@ -6839,13 +6673,9 @@ public class InventoryDialogue {
 				};
 
 			} else if (index == 11) {
-				if(dyePreviewPrimary == clothing.getColour()
-						&& dyePreviewSecondary == clothing.getSecondaryColour()
-						&& dyePreviewTertiary == clothing.getTertiaryColour()
+				if(dyePreviews.equals(clothing.getColours())
 						&& dyePreviewPattern.equals(clothing.getPattern())
-						&& dyePreviewPatternPrimary == clothing.getPatternColour()
-						&& dyePreviewPatternSecondary == clothing.getPatternSecondaryColour()
-						&& dyePreviewPatternTertiary == clothing.getPatternTertiaryColour()) {
+						&& dyePreviewPatterns.equals(clothing.getPatternColours())) {
 					return new Response("Dye all",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -6899,7 +6729,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviewPrimary)
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 									+ "<b>The "+clothing.getName()+(clothing.getClothingType().isPlural()?"have":"has")+" been dyed</b>!"
@@ -6930,13 +6760,9 @@ public class InventoryDialogue {
 								int clothingCount = owner.getAllClothingInInventory().get(c);
 								owner.removeClothing(c, clothingCount);
 								AbstractClothing dyedClothing = new AbstractClothing(c) {};
-								dyedClothing.setColour(dyePreviewPrimary);
-								dyedClothing.setSecondaryColour(dyePreviewSecondary);
-								dyedClothing.setTertiaryColour(dyePreviewTertiary);
+								dyedClothing.setColours(dyePreviews);
 								dyedClothing.setPattern(dyePreviewPattern);
-								dyedClothing.setPatternColour(dyePreviewPatternPrimary);
-								dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
-								dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+								dyedClothing.setPatternColours(dyePreviewPatterns);
 								owner.addClothing(dyedClothing, clothingCount, false, false);
 								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
 							}
@@ -6946,18 +6772,13 @@ public class InventoryDialogue {
 								int clothingCount = Main.game.getPlayerCell().getInventory().getAllClothingInInventory().get(c);
 								Main.game.getPlayerCell().getInventory().removeClothing(c, clothingCount);
 								AbstractClothing dyedClothing = new AbstractClothing(c) {};
-								dyedClothing.setColour(dyePreviewPrimary);
-								dyedClothing.setSecondaryColour(dyePreviewSecondary);
-								dyedClothing.setTertiaryColour(dyePreviewTertiary);
+								dyedClothing.setColours(dyePreviews);
 								dyedClothing.setPattern(dyePreviewPattern);
-								dyedClothing.setPatternColour(dyePreviewPatternPrimary);
-								dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
-								dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+								dyedClothing.setPatternColours(dyePreviewPatterns);
 								Main.game.getPlayerCell().getInventory().addClothing(dyedClothing, clothingCount);
 								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedClothing.getDisplayName(true)), false);
 							}
 						}
-						
 					}
 				};
 
@@ -6985,13 +6806,9 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", INVENTORY_MENU);
 
 			} else if (index == 1) {
-				if(dyePreviewPrimary == clothing.getColour()
-						&& dyePreviewSecondary == clothing.getSecondaryColour()
-						&& dyePreviewTertiary == clothing.getTertiaryColour()
+				if(dyePreviews.equals(clothing.getColours())
 						&& dyePreviewPattern.equals(clothing.getPattern())
-						&& dyePreviewPatternPrimary == clothing.getPatternColour()
-						&& dyePreviewPatternSecondary == clothing.getPatternSecondaryColour()
-						&& dyePreviewPatternTertiary == clothing.getPatternTertiaryColour()) {
+						&& dyePreviewPatterns.equals(clothing.getPatternColours())) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -7009,7 +6826,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), owner, false);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviewPrimary)
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(clothing, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The " + clothing.getName() + " " + (clothing.getClothingType().isPlural() ? "have been" : "has been") + " dyed</b>!"
@@ -7028,13 +6845,10 @@ public class InventoryDialogue {
 										+ "</p>");
 						}
 						
-						clothing.setColour(dyePreviewPrimary);
-						clothing.setSecondaryColour(dyePreviewSecondary);
-						clothing.setTertiaryColour(dyePreviewTertiary);
+						clothing.setColours(dyePreviews);
 						clothing.setPattern(dyePreviewPattern);
-						clothing.setPatternColour(dyePreviewPatternPrimary);
-						clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
-						clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+						clothing.setPatternColours(dyePreviewPatterns);
+						
 						Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", clothing.getDisplayName(true)), false);
 					}
 				};
@@ -7063,10 +6877,9 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", CLOTHING_INVENTORY);
 
 			} else if (index == 1) {
-				if(dyePreviewPrimary == clothing.getColour()
-						&& dyePreviewSecondary == clothing.getSecondaryColour()
-						&& dyePreviewTertiary == clothing.getTertiaryColour()
-						&& dyePreviewPattern.equals(clothing.getPattern())) {
+				if(dyePreviews.equals(clothing.getColours())
+						&& dyePreviewPattern.equals(clothing.getPattern())
+						&& dyePreviewPatterns.equals(clothing.getPatternColours())) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -7079,13 +6892,9 @@ public class InventoryDialogue {
 					public void effects(){
 						Main.game.getPlayerCell().getInventory().removeClothing(clothing);
 						AbstractClothing dyedClothing = new AbstractClothing(clothing) {};
-						dyedClothing.setColour(dyePreviewPrimary);
-						dyedClothing.setSecondaryColour(dyePreviewSecondary);
-						dyedClothing.setTertiaryColour(dyePreviewTertiary);
+						dyedClothing.setColours(dyePreviews);
 						dyedClothing.setPattern(dyePreviewPattern);
-						dyedClothing.setPatternColour(dyePreviewPatternPrimary);
-						dyedClothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
-						dyedClothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+						dyedClothing.setPatternColours(dyePreviewPatterns);
 						clothing = dyedClothing;
 						Main.game.getPlayerCell().getInventory().addClothing(dyedClothing);
 					}
@@ -7114,10 +6923,9 @@ public class InventoryDialogue {
 				return new Response("Back", "Return to the previous menu.", CLOTHING_EQUIPPED);
 
 			} else if (index  == 1) {
-				if(dyePreviewPrimary == clothing.getColour()
-						&& dyePreviewSecondary == clothing.getSecondaryColour()
-						&& dyePreviewTertiary == clothing.getTertiaryColour()
-						&& dyePreviewPattern.equals(clothing.getPattern())) {
+				if(dyePreviews.equals(clothing.getColours())
+						&& dyePreviewPattern.equals(clothing.getPattern())
+						&& dyePreviewPatterns.equals(clothing.getPatternColours())) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + clothing.getName() + "!",
 							null); 
@@ -7128,13 +6936,9 @@ public class InventoryDialogue {
 						CLOTHING_EQUIPPED){
 					@Override
 					public void effects(){
-						clothing.setColour(dyePreviewPrimary);
-						clothing.setSecondaryColour(dyePreviewSecondary);
-						clothing.setTertiaryColour(dyePreviewTertiary);
+						clothing.setColours(dyePreviews);
 						clothing.setPattern(dyePreviewPattern);
-						clothing.setPatternColour(dyePreviewPatternPrimary);
-						clothing.setPatternSecondaryColour(dyePreviewPatternSecondary);
-						clothing.setPatternTertiaryColour(dyePreviewPatternTertiary);
+						clothing.setPatternColours(dyePreviewPatterns);
 					}
 				};
 
@@ -7168,9 +6972,7 @@ public class InventoryDialogue {
 							null); 
 				}
 				
-				if(dyePreviewPrimary == weapon.getPrimaryColour()
-						&& dyePreviewSecondary == weapon.getSecondaryColour()
-						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
+				if(dyePreviews.equals(weapon.getColours())) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -7188,7 +6990,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), owner, false);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " dyed</b>!"
@@ -7203,25 +7005,21 @@ public class InventoryDialogue {
 						} else {
 							Main.game.getTextEndStringBuilder().append(
 									"<p>"
-											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye the " + weapon.getName() + " without needing to use a dye-brush!"
-										+ "</p>");
+										+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye the " + weapon.getName() + " without needing to use a dye-brush!"
+									+ "</p>");
 						}
 						 
 						if(owner!=null) {
 							owner.removeWeapon(weapon);
 							AbstractWeapon dyedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							dyedWeapon.setPrimaryColour(dyePreviewPrimary);
-							dyedWeapon.setSecondaryColour(dyePreviewSecondary);
-							dyedWeapon.setTertiaryColour(dyePreviewTertiary);
+							dyedWeapon.setColours(dyePreviews);
 							owner.addWeapon(dyedWeapon, false);
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
 							AbstractWeapon dyedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							dyedWeapon.setPrimaryColour(dyePreviewPrimary);
-							dyedWeapon.setSecondaryColour(dyePreviewSecondary);
-							dyedWeapon.setTertiaryColour(dyePreviewTertiary);
+							dyedWeapon.setColours(dyePreviews);
 							Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon);
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
 						}
@@ -7307,9 +7105,7 @@ public class InventoryDialogue {
 							null); 
 				}
 				
-				if(dyePreviewPrimary == weapon.getPrimaryColour()
-						&& dyePreviewSecondary == weapon.getSecondaryColour()
-						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
+				if(dyePreviews.equals(weapon.getColours())) {
 					return new Response("Dye & reforge",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -7328,7 +7124,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), owner, false);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
 										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
@@ -7359,8 +7155,7 @@ public class InventoryDialogue {
 							owner.removeWeapon(weapon);
 							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							modifiedWeapon.setDamageType(damageTypePreview);
-							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+							modifiedWeapon.setColours(dyePreviews);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), false);
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
@@ -7369,8 +7164,7 @@ public class InventoryDialogue {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
 							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							modifiedWeapon.setDamageType(damageTypePreview);
-							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+							modifiedWeapon.setColours(dyePreviews);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon));
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
@@ -7379,9 +7173,7 @@ public class InventoryDialogue {
 				};
 
 			} else if (index == 6) {
-				if(dyePreviewPrimary == weapon.getPrimaryColour()
-						&& dyePreviewSecondary == weapon.getSecondaryColour()
-						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
+				if(dyePreviews.equals(weapon.getColours())) {
 					return new Response("Dye all (stack)",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -7424,7 +7216,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been dyed</b>!"
@@ -7453,16 +7245,14 @@ public class InventoryDialogue {
 						if(owner!=null) {
 							owner.removeWeapon(weapon, finalCount);
 							AbstractWeapon dyedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							dyedWeapon.setPrimaryColour(dyePreviewPrimary);
-							dyedWeapon.setSecondaryColour(dyePreviewSecondary);
+							dyedWeapon.setColours(dyePreviews);
 							owner.addWeapon(dyedWeapon, finalCount, false, false);
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
 
 						} else {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon, finalCount);
 							AbstractWeapon dyedWeapon = AbstractWeaponType.generateWeapon(weapon);
-							dyedWeapon.setPrimaryColour(dyePreviewPrimary);
-							dyedWeapon.setSecondaryColour(dyePreviewSecondary);
+							dyedWeapon.setColours(dyePreviews);
 							Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon, finalCount);
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
 						}
@@ -7565,9 +7355,7 @@ public class InventoryDialogue {
 							null); 
 				}
 				
-				if(dyePreviewPrimary == weapon.getPrimaryColour()
-						&& dyePreviewSecondary == weapon.getSecondaryColour()
-						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
+				if(dyePreviews.equals(weapon.getColours())) {
 					return new Response("Dye & reforge all (stack)",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -7612,7 +7400,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
 										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
@@ -7652,8 +7440,7 @@ public class InventoryDialogue {
 							owner.removeWeapon(weapon, finalCount);
 							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							modifiedWeapon.setDamageType(damageTypePreview);
-							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+							modifiedWeapon.setColours(dyePreviews);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							owner.addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), finalCount, false, false);
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
@@ -7662,8 +7449,7 @@ public class InventoryDialogue {
 							Main.game.getPlayerCell().getInventory().removeWeapon(weapon, finalCount);
 							AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
 							modifiedWeapon.setDamageType(damageTypePreview);
-							modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-							modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+							modifiedWeapon.setColours(dyePreviews);
 							// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 							Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), finalCount);
 							Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
@@ -7672,9 +7458,7 @@ public class InventoryDialogue {
 				};
 
 			} else if (index == 11) {
-				if(dyePreviewPrimary == weapon.getPrimaryColour()
-						&& dyePreviewSecondary == weapon.getSecondaryColour()
-						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
+				if(dyePreviews.equals(weapon.getColours())) {
 					return new Response("Dye all",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -7728,7 +7512,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 									+ "<b>The "+weapon.getName()+(weapon.getWeaponType().isPlural()?"have":"has")+" been dyed</b>!"
@@ -7760,8 +7544,7 @@ public class InventoryDialogue {
 								int weaponCount = owner.getAllWeaponsInInventory().get(w);
 								owner.removeWeapon(w, weaponCount);
 								AbstractWeapon dyedWeapon = AbstractWeaponType.generateWeapon(w);
-								dyedWeapon.setPrimaryColour(dyePreviewPrimary);
-								dyedWeapon.setSecondaryColour(dyePreviewSecondary);
+								dyedWeapon.setColours(dyePreviews);
 								owner.addWeapon(dyedWeapon, weaponCount, false, false);
 								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
 							}
@@ -7771,8 +7554,7 @@ public class InventoryDialogue {
 								int weaponCount = Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().get(w);
 								Main.game.getPlayerCell().getInventory().removeWeapon(w, weaponCount);
 								AbstractWeapon dyedWeapon = AbstractWeaponType.generateWeapon(w);
-								dyedWeapon.setPrimaryColour(dyePreviewPrimary);
-								dyedWeapon.setSecondaryColour(dyePreviewSecondary);
+								dyedWeapon.setColours(dyePreviews);
 								Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon, weaponCount);
 								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed", dyedWeapon.getDisplayName(true)), false);
 							}
@@ -7893,9 +7675,7 @@ public class InventoryDialogue {
 							null); 
 				}
 				
-				if(dyePreviewPrimary == weapon.getPrimaryColour()
-						&& dyePreviewSecondary == weapon.getSecondaryColour()
-						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
+				if(dyePreviews.equals(weapon.getColours())) {
 					return new Response("Dye & reforge all",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -7950,7 +7730,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), finalCount);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
 										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
@@ -7992,8 +7772,7 @@ public class InventoryDialogue {
 								owner.removeWeapon(w, weaponCount);
 								AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(w);
 								modifiedWeapon.setDamageType(damageTypePreview);
-								modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-								modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+								modifiedWeapon.setColours(dyePreviews);
 								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 								owner.addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), weaponCount, false, false);
 								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
@@ -8005,8 +7784,7 @@ public class InventoryDialogue {
 								Main.game.getPlayerCell().getInventory().removeWeapon(w, weaponCount);
 								AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(w);
 								modifiedWeapon.setDamageType(damageTypePreview);
-								modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-								modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+								modifiedWeapon.setColours(dyePreviews);
 								// For some reason, if you add the modifiedWeapon directly, it won't stack with other identical weapons... Have to generateWeapon(modifiedWeapon) again to get it to start stacking properly:
 								Main.game.getPlayerCell().getInventory().addWeapon(AbstractWeaponType.generateWeapon(modifiedWeapon), weaponCount);
 								Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "Dyed & Reforged", modifiedWeapon.getDisplayName(true)), false);
@@ -8046,9 +7824,7 @@ public class InventoryDialogue {
 							null); 
 				}
 				
-				if(dyePreviewPrimary == weapon.getPrimaryColour()
-						&& dyePreviewSecondary == weapon.getSecondaryColour()
-						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
+				if(dyePreviews.equals(weapon.getColours())) {
 					return new Response("Dye",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -8066,7 +7842,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), owner, false);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p>"
 										+ "<b>The " + weapon.getName() + " " + (weapon.getWeaponType().isPlural() ? "have been" : "has been") + " dyed</b>!"
@@ -8089,9 +7865,7 @@ public class InventoryDialogue {
 
 						owner.unequipWeaponIntoVoid(weaponSlot, weapon, true);
 						AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-						modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-						modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
-						modifiedWeapon.setTertiaryColour(dyePreviewTertiary);
+						modifiedWeapon.setColours(dyePreviews);
 						
 						if(weaponSlot==InventorySlot.WEAPON_MAIN_1
 								|| weaponSlot==InventorySlot.WEAPON_MAIN_2
@@ -8188,9 +7962,7 @@ public class InventoryDialogue {
 							null); 
 				}
 				
-				if(dyePreviewPrimary == weapon.getPrimaryColour()
-						&& dyePreviewSecondary == weapon.getSecondaryColour()
-						&& dyePreviewTertiary == weapon.getTertiaryColour()) {
+				if(dyePreviews.equals(weapon.getColours())) {
 					return new Response("Dye & reforge",
 							"You need to choose different colours before being able to dye the " + weapon.getName() + "!",
 							null); 
@@ -8209,7 +7981,7 @@ public class InventoryDialogue {
 							Main.game.getPlayer().useItem(AbstractItemType.generateItem(ItemType.REFORGE_HAMMER), owner, false);
 							Main.game.getTextEndStringBuilder().append(
 									"<p style='text-align:center;'>"
-										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviewPrimary)
+										+ ItemType.DYE_BRUSH.getDyeBrushEffects(weapon, dyePreviews.get(0))
 									+ "</p>"
 									+ "<p style='text-align:center;'>"
 										+ ItemType.REFORGE_HAMMER.getReforgeHammerEffects(weapon, damageTypePreview)
@@ -8238,8 +8010,7 @@ public class InventoryDialogue {
 
 						owner.unequipWeaponIntoVoid(weaponSlot, weapon, true);
 						AbstractWeapon modifiedWeapon = AbstractWeaponType.generateWeapon(weapon);
-						modifiedWeapon.setPrimaryColour(dyePreviewPrimary);
-						modifiedWeapon.setSecondaryColour(dyePreviewSecondary);
+						modifiedWeapon.setColours(dyePreviews);
 						modifiedWeapon.setDamageType(damageTypePreview);
 						
 						if(weaponSlot==InventorySlot.WEAPON_MAIN_1
@@ -8736,7 +8507,7 @@ public class InventoryDialogue {
 								+ "<p style='text-align:center;'>"
 									+ "Repairing the condom has cost you [style.boldBad(1)] [style.boldArcane(Arcane Essence)]!"
 								+ "</p>");
-						AbstractClothing c = (AbstractClothing) EnchantmentDialogue.craftItem(clothing, clothing.getClothingType().getEffects());
+						AbstractClothing c = (AbstractClothing) EnchantmentDialogue.craftAndApplyFullInventoryEffects(clothing, clothing.getClothingType().getEffects());
 
 						Main.game.getPlayer().removeClothing(c);
 						c.setName(c.getClothingType().getName());
@@ -8754,7 +8525,7 @@ public class InventoryDialogue {
 			return new Response("Sabotage", "By making a small tear in the end of this condom, you can ensure that it will break at the moment of orgasm!", CLOTHING_INVENTORY) {
 				@Override
 				public void effects(){
-					AbstractClothing c = (AbstractClothing) EnchantmentDialogue.craftItem(clothing, Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_CONDOM, TFModifier.ARCANE_BOOST, TFPotency.MAJOR_DRAIN, 0)));
+					AbstractClothing c = (AbstractClothing) EnchantmentDialogue.craftAndApplyFullInventoryEffects(clothing, Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_CONDOM, TFModifier.ARCANE_BOOST, TFPotency.MAJOR_DRAIN, 0)));
 					
 					Main.game.getPlayer().removeClothing(c);
 					c.setName(c.getClothingType().getName());
@@ -8792,6 +8563,9 @@ public class InventoryDialogue {
 	public static void setItem(AbstractItem item) {
 		resetItems();
 		InventoryDialogue.item = item;
+		if(Main.getProperties().addItemDiscovered(item.getItemType())) {
+			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(item.getItemType().getName(false), item.getRarity().getColour()), true);
+		}
 	}
 
 	public static AbstractWeapon getWeapon() {
@@ -8802,6 +8576,9 @@ public class InventoryDialogue {
 		resetItems();
 		InventoryDialogue.weaponSlot = slot;
 		InventoryDialogue.weapon = weapon;
+		if (Main.getProperties().addWeaponDiscovered(weapon.getWeaponType())) {
+			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(weapon.getWeaponType().getName(), weapon.getWeaponType().getRarity().getColour()), true);
+		}
 	}
 
 	public static AbstractClothing getClothing() {
@@ -8811,6 +8588,9 @@ public class InventoryDialogue {
 	public static void setClothing(AbstractClothing clothing) {
 		resetItems();
 		InventoryDialogue.clothing = clothing;
+		if(Main.getProperties().addClothingDiscovered(clothing.getClothingType())) {
+			Main.game.addEvent(new EventLogEntryEncyclopediaUnlock(clothing.getClothingType().getName(), clothing.getClothingType().getRarity().getColour()), true);
+		}
 	}
 
 	public static boolean isBuyback() {
@@ -8857,8 +8637,8 @@ public class InventoryDialogue {
 		return interactionType;
 	}
 
-	public static void setNPCInventoryInteraction(InventoryInteraction nPCInventoryInteraction) {
-		interactionType = nPCInventoryInteraction;
+	public static void setNPCInventoryInteraction(InventoryInteraction npcInventoryInteraction) {
+		interactionType = npcInventoryInteraction;
 	}
 
 }
