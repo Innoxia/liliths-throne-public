@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -27,7 +28,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -41,10 +42,10 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexPace;
@@ -195,7 +196,7 @@ public class ImpCitadelDialogue {
 					
 				} else if(i==1) {
 					imp.setGenericName("alpha-imp archer");
-					imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BOW_AND_ARROW));
+					imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_bow_shortbow"));
 					
 				} else if(i==2) {
 					imp.setGenericName("alpha-imp arcanist");
@@ -1233,14 +1234,18 @@ public class ImpCitadelDialogue {
 
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(1000));
 
-							Value<AbstractItemType, Map<ItemEffect, String>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
-							AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+							TransformativePotion effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+							AbstractItem potion = EnchantingUtils.craftItem(
+								AbstractItemType.generateItem(effects.getItemType()),
+								effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 							potion.setName("Foxy Fuck");
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(potion, 1, false, true));
 							
 							if(isCompanionDialogue()) {
 								effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer().getMainCompanion());
-								potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+								potion = EnchantingUtils.craftItem(
+									AbstractItemType.generateItem(effects.getItemType()),
+									effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 								potion.setName("Foxy Fuck");
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(potion, 1, false, true));
 							}
@@ -1340,8 +1345,10 @@ public class ImpCitadelDialogue {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
 
-						Value<AbstractItemType, Map<ItemEffect, String>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
-						AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+						TransformativePotion effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+						AbstractItem potion = EnchantingUtils.craftItem(
+							AbstractItemType.generateItem(effects.getItemType()),
+							effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, Main.game.getPlayer(), false));
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_SOLO_TF_OFFER_SEX", getAllCharacters()));
@@ -1421,8 +1428,10 @@ public class ImpCitadelDialogue {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
 						
-						Value<AbstractItemType, Map<ItemEffect, String>> effects = ((NPC)getArcanist()).generateTransformativePotion(getMainCompanion());
-						AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+						TransformativePotion effects = ((NPC)getArcanist()).generateTransformativePotion(getMainCompanion());
+						AbstractItem potion = EnchantingUtils.craftItem(
+							AbstractItemType.generateItem(effects.getItemType()),
+							effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, getMainCompanion(), false));
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_COMPANION_TF_OFFER_SEX", getAllCharacters()));
@@ -1516,14 +1525,18 @@ public class ImpCitadelDialogue {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impCitadelArcanistEncountered, true);
 
-						Value<AbstractItemType, Map<ItemEffect, String>> effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
-						AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+						TransformativePotion effects = ((NPC)getArcanist()).generateTransformativePotion(Main.game.getPlayer());
+						AbstractItem potion = EnchantingUtils.craftItem(
+							AbstractItemType.generateItem(effects.getItemType()),
+							effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, Main.game.getPlayer(), false));
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "ARCANIST_BOTH_TF", getAllCharacters()));
 
 						effects = ((NPC)getArcanist()).generateTransformativePotion(getMainCompanion());
-						potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+						potion = EnchantingUtils.craftItem(
+							AbstractItemType.generateItem(effects.getItemType()),
+							effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						Main.game.getTextEndStringBuilder().append(getArcanist().useItem(potion, getMainCompanion(), false));
 						
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "LABORATORY_ARCANIST_BOTH_TF_OFFER_SEX", getAllCharacters()));
@@ -1792,7 +1805,7 @@ public class ImpCitadelDialogue {
 								false));
 
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(
-								AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.PHYSICAL, PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_RED_DARK),
+								AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.PHYSICAL, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_RED_DARK)),
 								false));
 					}
 				};

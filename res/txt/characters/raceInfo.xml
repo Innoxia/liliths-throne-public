@@ -320,6 +320,28 @@
 	]]>
 	</htmlContent>
 
+	<!-- PANTHER-MORPHS -->
+
+	<htmlContent tag="PANTHER_MORPH_BASIC"><![CDATA[
+	<p>
+		The larger and more powerful cousins of regular cat-morphs, panther-morphs come in several varieties, most of which are found in jungle or savannah regions. A long, fluffy tail, upright ears, and a heavy-set, cat-like face identify a panther-morph.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="PANTHER_MORPH_ADVANCED"><![CDATA[
+	<p>
+		While panther-morphs' personalities vary wildly from person to person, they do have some typical characteristics. They are usually quite dominant in their mannerisms, and although they often try to hide it, they can get extremely curious about things they haven't encountered before. Most panther-morphs will not back away from a fight, and will use their strong bodies to quickly settle arguments by force, if necessary.
+	</p>
+	<p>
+		Panther-morphs, like the other common races, get heavily affected by arcane storms. Being exposed to arcane thunder will make panther-boys seek out a partner to mate with, while panther-girls will go into heat.
+	</p>
+	<p>
+		A panther-morph's offspring will be a mixture of panther-morphs and offspring of their partner's race.
+	</p>
+	]]>
+	</htmlContent>
+
 	<!-- HORSE-MORPHS -->
 
 	<htmlContent tag="HORSE_MORPH_BASIC"><![CDATA[

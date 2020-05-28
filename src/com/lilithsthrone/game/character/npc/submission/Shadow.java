@@ -49,8 +49,8 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.CombatBehaviour;
-import com.lilithsthrone.game.combat.CombatMove;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
@@ -242,8 +242,8 @@ public class Shadow extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		if(settings!=null && settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL));
-			this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL));
+			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL)));
+			this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL)));
 		}
 		
 		if(settings!=null && settings.contains(EquipClothingSetting.ADD_TATTOOS)) {

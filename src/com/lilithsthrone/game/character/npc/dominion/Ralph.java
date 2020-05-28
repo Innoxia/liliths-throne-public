@@ -95,6 +95,9 @@ public class Ralph extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.5")) {
+			this.setPenisSize(30);
+		}
 	}
 
 	@Override
@@ -184,8 +187,8 @@ public class Ralph extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FOUR_FAT);
-		this.setPenisSize(20);
+		this.setPenisGirth(PenetrationGirth.FIVE_FAT);
+		this.setPenisSize(30);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(65);
 		this.fillCumToMaxStorage();
@@ -234,22 +237,22 @@ public class Ralph extends NPC {
 		
 		for(AbstractItemType item : ItemType.getAllItems()) {
 			if(item.getItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
-				this.addItem(AbstractItemType.generateItem(item), 6+Util.random.nextInt(12), false, false);
+				this.addItem(AbstractItemType.generateItem(item), !item.isConsumedOnUse()?1:(6+Util.random.nextInt(12)), false, false);
 			}
 		}
 		
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_RALPH)) {
 				if(clothing.isCondom(clothing.getEquipSlots().get(0))) {
-					Colour condomColour = Util.randomItemFrom(clothing.getAvailablePrimaryColours());
+					Colour condomColour = clothing.getColourReplacement(0).getRandomOfDefaultColours();
 					Colour condomColourSec = PresetColour.CLOTHING_BLACK;
 					Colour condomColourTer = PresetColour.CLOTHING_BLACK;
 					
-					if(!clothing.getAvailableSecondaryColours().isEmpty()) {
-						condomColourSec = Util.randomItemFrom(clothing.getAvailableSecondaryColours());
+					if(clothing.getColourReplacement(1)!=null) {
+						condomColourSec = clothing.getColourReplacement(1).getRandomOfDefaultColours();
 					}
-					if(!clothing.getAvailableTertiaryColours().isEmpty()) {
-						condomColourTer = Util.randomItemFrom(clothing.getAvailableTertiaryColours());
+					if(clothing.getColourReplacement(2)!=null) {
+						condomColourTer = clothing.getColourReplacement(2).getRandomOfDefaultColours();
 					}
 					for (int i = 0; i < (3+(Util.random.nextInt(4)))*(clothing.getRarity()==Rarity.COMMON?3:(clothing.getRarity()==Rarity.UNCOMMON?2:1)); i++) {
 						this.addClothing(AbstractClothingType.generateClothing(clothing, condomColour, condomColourSec, condomColourTer, false), false);

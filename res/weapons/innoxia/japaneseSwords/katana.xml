@@ -2,7 +2,7 @@
 <weapon>
 	<coreAttributes>
 	
-		<value>5000</value> 
+		<value>10000</value> 
 		
 		<melee>true</melee>
 		
@@ -32,7 +32,7 @@
 		
 		<imageEquippedName>katana.svg</imageEquippedName> 
 		
-		<damage>16</damage> 
+		<damage>35</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		
@@ -61,9 +61,24 @@
 		</primaryColours> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours> 
-			<colour>CLOTHING_GREEN_VERY_DARK</colour>
+			<colour>CLOTHING_BLACK</colour>
 		</secondaryColours> 
 		<secondaryColoursDye values="ALL"/>
+		
+		<customColours>
+			<customColour c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB">
+				<defaultColours>
+					<colour>CLOTHING_GREEN_VERY_DARK</colour>
+				</defaultColours> 
+				<extraColours values="ALL"/>
+			</customColour>
+			<customColour c0="#6C5D53" c1="#917C6F" c2="#AC9D93" c3="#C8BEB7" c4="#E3DEDB">
+				<defaultColours>
+					<colour>CLOTHING_TAN</colour>
+				</defaultColours> 
+				<extraColours values="ALL"/>
+			</customColour>
+		</customColours>
 		
 		<itemTags> 
 			<tag>SOLD_BY_VICKY</tag>

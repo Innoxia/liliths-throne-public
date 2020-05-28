@@ -31,7 +31,7 @@
 		
 		<imageEquippedName>riotshield.svg</imageEquippedName>
 		
-		<damage>2</damage> 
+		<damage>10</damage> 
 		
 		<arcaneCost>0</arcaneCost> 
 		

@@ -308,7 +308,7 @@ public class Vanessa extends NPC {
 	@Override
 	public void endSex() {
 		if(!(Main.sex.getSexManager() instanceof SMVanessaOral) || !Main.sex.isDom(Main.game.getNpc(Vanessa.class))) {
-			Main.game.getNpc(Vanessa.class).cleanAllDirtySlots();
+			Main.game.getNpc(Vanessa.class).cleanAllDirtySlots(true);
 			Main.game.getNpc(Vanessa.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_ACCESSORIES));
 		}
 	}

@@ -8,9 +8,11 @@ import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.FaceStructure;
+import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.NoseType;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -158,6 +160,11 @@ public abstract class AbstractFaceType implements BodyPartTypeInterface {
 //	@Override
 	public String getTransformationDescription(GameCharacter owner) {
 		return UtilText.parse(owner, faceTransformationDescription);
+	}
+
+	@Override
+	public TFModifier getTFModifier() {
+		return getTFTypeModifier(FaceType.getFaceTypes(race));
 	}
 
 	public List<FaceTypeTag> getTags() {

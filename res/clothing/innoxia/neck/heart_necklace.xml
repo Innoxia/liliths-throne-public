@@ -9,95 +9,94 @@
 		<description><![CDATA[A necklace consisting of a thin chain with a heart-shaped pendant threaded onto it. As an alternative to being worn around the neck, it would be possible to wrap the chain around your wrist.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
-    <equipSlots>
-      <slot>NECK</slot>
-      <slot>WRIST</slot>
-    </equipSlots>
-
-    <rarity>COMMON</rarity>
-	<clothingSet/>
-	<imageName>heart_necklace.svg</imageName>
-    <imageEquippedName/>
-	<enchantmentLimit>5</enchantmentLimit>
-	<effects/>
-	
-	<blockedPartsList slot="NECK">
-		<blockedParts>
+		<equipSlots>
+		  <slot>NECK</slot>
+		  <slot>WRIST</slot>
+		</equipSlots>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>heart_necklace.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit>5</enchantmentLimit>
+		<effects/>
+		
+		<blockedPartsList slot="NECK">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<blockedPartsList slot="WRIST">
+		  <blockedParts>
 			<displacementType>REMOVE_OR_EQUIP</displacementType>
 			<clothingAccessRequired/>
 			<blockedBodyParts/>
 			<clothingAccessBlocked/>
 			<concealedSlots/>
-		</blockedParts>
-	</blockedPartsList>
-    <blockedPartsList slot="WRIST">
-      <blockedParts>
-        <displacementType>REMOVE_OR_EQUIP</displacementType>
-        <clothingAccessRequired/>
-        <blockedBodyParts/>
-        <clothingAccessBlocked/>
-        <concealedSlots/>
-      </blockedParts>
-    </blockedPartsList>
-		
-	<incompatibleSlots slot="NECK"/>
-    <incompatibleSlots slot="WRIST"/>
-		
-	<primaryColours values="ALL_METAL"/>
-	<primaryColoursDye values="ALL_WITH_METALS"/>
-	<secondaryColours values="JUST_STEEL"/>
-	<secondaryColoursDye values="ALL_WITH_METALS"/>
-	<tertiaryColours/>
-	<tertiaryColoursDye/>
+		  </blockedParts>
+		</blockedPartsList>
+			
+		<incompatibleSlots slot="NECK"/>
+		<incompatibleSlots slot="WRIST"/>
+			
+		<primaryColours values="ALL_METAL"/>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
 
-	<itemTags>
-		<tag>SOLD_BY_NYAN</tag>
-	</itemTags>
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
 	</coreAttributes>
 
-  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(fasten)] the heart necklace around [npc.her] neck.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(fasten)] the heart necklace around [npc2.namePos] neck.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before fastening the heart necklace around [npc2.her] neck.]]>
-    </otherRough>
-  </replacementText>
-  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc.her] heart necklace, before taking it off from around [npc.her] neck.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc2.namePos] heart necklace, before taking it off from around [npc2.her] neck.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] [npc2.namePos] heart necklace, before yanking it off from around [npc2.her] neck.]]>
-    </otherRough>
-  </displacementText>
-	
-  <replacementText slot="WRIST" type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(wrap)] [npc.her] heart necklace around [npc.her] wrist and then [npc.verb(fasten)] it in place.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(wrap)] the heart necklace around [npc2.namePos] wrist and then [npc.verb(fasten)] it in place.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(wrap)] the heart necklace around [npc2.namePos] wrist and then tightly [npc.verb(fasten)] it in place.]]>
-    </otherRough>
-  </replacementText>
-  <displacementText slot="WRIST" type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc.her] heart necklace, before unwrapping it from around [npc.her] wrist.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc2.namePos] heart necklace, before unwrapping it from around [npc2.her] wrist.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] [npc2.namePos] heart necklace, before snatching it off [npc2.her] wrist.]]>
-    </otherRough>
-  </displacementText>
+	  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(fasten)] the heart necklace around [npc.her] neck.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(fasten)] the heart necklace around [npc2.namePos] neck.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before fastening the heart necklace around [npc2.her] neck.]]>
+		</otherRough>
+	  </replacementText>
+	  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc.her] heart necklace, before taking it off from around [npc.her] neck.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc2.namePos] heart necklace, before taking it off from around [npc2.her] neck.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] [npc2.namePos] heart necklace, before yanking it off from around [npc2.her] neck.]]>
+		</otherRough>
+	  </displacementText>
+		
+	  <replacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(wrap)] [npc.her] heart necklace around [npc.her] wrist and then [npc.verb(fasten)] it in place.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(wrap)] the heart necklace around [npc2.namePos] wrist and then [npc.verb(fasten)] it in place.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(wrap)] the heart necklace around [npc2.namePos] wrist and then tightly [npc.verb(fasten)] it in place.]]>
+		</otherRough>
+	  </replacementText>
+	  <displacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc.her] heart necklace, before unwrapping it from around [npc.her] wrist.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unfasten)] [npc2.namePos] heart necklace, before unwrapping it from around [npc2.her] wrist.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] [npc2.namePos] heart necklace, before snatching it off [npc2.her] wrist.]]>
+		</otherRough>
+	  </displacementText>
 </clothing>

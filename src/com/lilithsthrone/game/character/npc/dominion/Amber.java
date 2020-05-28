@@ -246,7 +246,7 @@ public class Amber extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FOUR_FAT);
+		this.setPenisGirth(PenetrationGirth.FIVE_FAT);
 		this.setPenisSize(25);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(550);
@@ -620,7 +620,7 @@ public class Amber extends NPC {
 		AbstractClothing neckClothing = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
 		return Main.game.isLevelDrainContentEnabled()
 				&& neckClothing!=null
-				&& neckClothing.getClothingType()==ClothingType.AMBERS_BITCH_CHOKER;
+				&& neckClothing.getClothingType().getId().equals("innoxia_neck_ambers_bitch_collar");
 	}
 
 	@Override
@@ -641,7 +641,7 @@ public class Amber extends NPC {
 		sb.append(UtilText.returnStringAtRandom(
 				"[npc.speech(I'm going to drain all of your power! You'll be nothing but my worthless pet by the time I'm done with you!)]",
 				"[npc.speech(You pathetic bitch! All of your power will be mine!)]",
-				"[npc.speech(What a pathetic bitch you are! Having your power drained away like this!)]"));
+				"[npc.speech(What a pathetic bitch you are to be having your power drained away like this!)]"));
 		
 		return UtilText.parse(this, target, sb.toString());
 	}

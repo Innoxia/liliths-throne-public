@@ -15,7 +15,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -449,8 +449,10 @@ public class PrologueDialogue {
 					@Override
 					public void effects(){
 						for(Subspecies r : Subspecies.values()) {
-							Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
-							Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
+							if(!r.isNonBiped()) {
+								Main.getProperties().setFeminineFurryPreference(r, FurryPreference.MAXIMUM);
+								Main.getProperties().setMasculineFurryPreference(r, FurryPreference.MAXIMUM);
+							}
 						}
 						Main.saveProperties();
 					}
@@ -465,8 +467,10 @@ public class PrologueDialogue {
 					@Override
 					public void effects(){
 						for(Subspecies r : Subspecies.values()) {
-							Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
-							Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);
+							if(!r.isNonBiped()) {
+								Main.getProperties().setFeminineFurryPreference(r, FurryPreference.HUMAN);
+								Main.getProperties().setMasculineFurryPreference(r, FurryPreference.HUMAN);
+							}
 						}
 						Main.saveProperties();
 					}
@@ -711,7 +715,7 @@ public class PrologueDialogue {
 						List<AbstractClothing> tempList = new ArrayList<>(Main.game.getPlayerCell().getInventory().getAllClothingInInventory().keySet());
 
 						for(AbstractClothing c : tempList) {
-							if(!c.getClothingType().equals(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES)) {
+							if(!c.getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_scientist_safety_goggles"))) {
 								Main.game.getPlayer().equipClothingFromGround(c, true, Main.game.getPlayer());
 							}
 						}

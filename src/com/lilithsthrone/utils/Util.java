@@ -475,6 +475,27 @@ public class Util {
 		
 		return intToString;
 	}
+	
+	private static String[] primarySequence = {
+			"primary",
+			"secondary",
+			"tertiary",
+			"quaternary",
+			"quinary",
+			"senary",
+			"septenary",
+			"octonary",
+			"nonary",
+			"denary"
+	};
+	
+	public static String intToPrimarySequence(int integer) {
+		if(integer>0 && integer<=primarySequence.length) {
+			return primarySequence[integer-1];
+		}
+		return intToString(integer);
+	}
+	
 
 	public static String intToDate(int integer) {
 		int remainderHundred = integer%100;
@@ -503,7 +524,11 @@ public class Util {
 		
 		return intToString(integer)+" times";
 	}
-		
+
+	/**
+	 * @param integer Input number to convert.
+	 * @return 'first', 'second', etc.
+	 */
 	public static String intToPosition(int integer) {
 		String intToString = "";
 		
@@ -1209,7 +1234,7 @@ public class Util {
 		return Util.toStringList(list, (String o) -> capitalise?Util.capitaliseSentence(o):o, "or");
 	}
 
-	public static String colourSetToStringList(Set<Colour> colourSet) {
+	public static String coloursToStringList(Collection<Colour> colourSet) {
 		return Util.toStringList(colourSet, Colour::getName, "and");
 	}
 

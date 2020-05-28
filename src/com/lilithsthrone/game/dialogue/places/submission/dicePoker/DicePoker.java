@@ -381,8 +381,8 @@ public class DicePoker {
 						rollRice();
 						
 						if(Hand.compareHands(playerDice, gamblerDice)==0) {
-							String moneyChange = Main.game.getPlayer().incrementMoney(moneyPool/2);
-							UtilText.addSpecialParsingString(moneyChange, true);
+							UtilText.addSpecialParsingString(UtilText.formatAsMoney(moneyPool), true);
+							UtilText.addSpecialParsingString(Main.game.getPlayer().incrementMoney(moneyPool/2), false);
 							if(diceRerolled) {
 								responseContent = UtilText.parseFromXMLFile(dialoguePath, "REROLL_DRAW_WITH_ROLL", gambler);
 							} else {

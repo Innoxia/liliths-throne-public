@@ -76,11 +76,7 @@ public class Arm implements BodyPartInterface {
 		}
 		
 		if (type == getType()) {
-			if (owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(You already have the [pc.arms] of [pc.a_armRace], so nothing happens...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already has the [npc.arms] of [npc.a_armRace], so nothing happens...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.arms] of [npc.a_armRace], so nothing happens...)]</p>");
 			
 		} else {
 			UtilText.transformationContentSB.setLength(0);

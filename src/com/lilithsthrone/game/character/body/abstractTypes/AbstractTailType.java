@@ -8,9 +8,11 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.tags.TailTypeTag;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -144,7 +146,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	
 	@Override
 	public boolean isDefaultPlural() {
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -220,16 +222,22 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					sb.append(UtilText.parse(owner, " very thin in proportion to the rest of [npc.her] body."));
 					break;
 				case ONE_SLENDER:
-					sb.append(UtilText.parse(owner, " quite slender in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " slender in proportion to the rest of [npc.her] body."));
 					break;
-				case TWO_AVERAGE:
+				case TWO_NARROW:
+					sb.append(UtilText.parse(owner, " quite narrow in proportion to the rest of [npc.her] body."));
+					break;
+				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average thickness in proportion to the rest of [npc.her] body."));
 					break;
-				case THREE_THICK:
+				case FOUR_THICK:
 					sb.append(UtilText.parse(owner, " quite thick in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_FAT:
+				case FIVE_FAT:
 					sb.append(UtilText.parse(owner, " very thick in proportion to the rest of [npc.her] body."));
+					break;
+				case SIX_GIRTHY:
+					sb.append(UtilText.parse(owner, " incredibly thick and girthy in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -244,16 +252,22 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					sb.append(UtilText.parse(owner, " very thin and severely lacking in fluffiness in proportion to the rest of [npc.her] body."));
 					break;
 				case ONE_SLENDER:
-					sb.append(UtilText.parse(owner, " quite slender and lacking in fluffiness in proportion to the rest of [npc.her] body."));
+					sb.append(UtilText.parse(owner, " slender and lacking in fluffiness in proportion to the rest of [npc.her] body."));
 					break;
-				case TWO_AVERAGE:
+				case TWO_NARROW:
+					sb.append(UtilText.parse(owner, " quite narrow and a little lacking in fluffiness in proportion to the rest of [npc.her] body."));
+					break;
+				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average thickness and fluffiness in proportion to the rest of [npc.her] body."));
 					break;
-				case THREE_THICK:
+				case FOUR_THICK:
 					sb.append(UtilText.parse(owner, " quite big and very fluffy in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_FAT:
+				case FIVE_FAT:
 					sb.append(UtilText.parse(owner, " very big and extremely fluffy in proportion to the rest of [npc.her] body."));
+					break;
+				case SIX_GIRTHY:
+					sb.append(UtilText.parse(owner, " incredibly thick and fluffy in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -270,14 +284,20 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 				case ONE_SLENDER:
 					sb.append(UtilText.parse(owner, " quite small and lacking in fluffiness in proportion to the rest of [npc.her] body."));
 					break;
-				case TWO_AVERAGE:
+				case TWO_NARROW:
+					sb.append(UtilText.parse(owner, " a little small and lacking in fluffiness in proportion to the rest of [npc.her] body."));
+					break;
+				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average size and fluffiness in proportion to the rest of [npc.her] body."));
 					break;
-				case THREE_THICK:
+				case FOUR_THICK:
 					sb.append(UtilText.parse(owner, " quite big and very fluffy in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_FAT:
+				case FIVE_FAT:
 					sb.append(UtilText.parse(owner, " very big and extremely fluffy in proportion to the rest of [npc.her] body."));
+					break;
+				case SIX_GIRTHY:
+					sb.append(UtilText.parse(owner, " incredibly thick and fluffy in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -294,14 +314,20 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 				case ONE_SLENDER:
 					sb.append(UtilText.parse(owner, " lacking in volume in proportion to the rest of [npc.her] body."));
 					break;
-				case TWO_AVERAGE:
+				case TWO_NARROW:
+					sb.append(UtilText.parse(owner, " a little lacking in volume in proportion to the rest of [npc.her] body."));
+					break;
+				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average volume in proportion to the rest of [npc.her] body."));
 					break;
-				case THREE_THICK:
+				case FOUR_THICK:
 					sb.append(UtilText.parse(owner, " quite voluminous in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_FAT:
+				case FIVE_FAT:
 					sb.append(UtilText.parse(owner, " very voluminous in proportion to the rest of [npc.her] body."));
+					break;
+				case SIX_GIRTHY:
+					sb.append(UtilText.parse(owner, " incredibly voluminous in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -318,14 +344,20 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 				case ONE_SLENDER:
 					sb.append(UtilText.parse(owner, " small and somewhat lacking in volume in proportion to the rest of [npc.her] body."));
 					break;
-				case TWO_AVERAGE:
+				case TWO_NARROW:
+					sb.append(UtilText.parse(owner, " a little narrow and lacking in volume in proportion to the rest of [npc.her] body."));
+					break;
+				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average size and volume in proportion to the rest of [npc.her] body."));
 					break;
-				case THREE_THICK:
+				case FOUR_THICK:
 					sb.append(UtilText.parse(owner, " quite large and voluminous in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_FAT:
+				case FIVE_FAT:
 					sb.append(UtilText.parse(owner, " very large and voluminous in proportion to the rest of [npc.her] body."));
+					break;
+				case SIX_GIRTHY:
+					sb.append(UtilText.parse(owner, " incredibly voluminous in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -342,14 +374,20 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 				case ONE_SLENDER:
 					sb.append(UtilText.parse(owner, " somewhat small in proportion to the rest of [npc.her] body."));
 					break;
-				case TWO_AVERAGE:
+				case TWO_NARROW:
+					sb.append(UtilText.parse(owner, " a little narrow in proportion to the rest of [npc.her] body."));
+					break;
+				case THREE_AVERAGE:
 					sb.append(UtilText.parse(owner, " of an average size in proportion to the rest of [npc.her] body."));
 					break;
-				case THREE_THICK:
+				case FOUR_THICK:
 					sb.append(UtilText.parse(owner, " quite large in proportion to the rest of [npc.her] body."));
 					break;
-				case FOUR_FAT:
+				case FIVE_FAT:
 					sb.append(UtilText.parse(owner, " very large in proportion to the rest of [npc.her] body."));
+					break;
+				case SIX_GIRTHY:
+					sb.append(UtilText.parse(owner, " incredibly thick and girthy in proportion to the rest of [npc.her] body."));
 					break;
 			}
 		}
@@ -367,12 +405,16 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "thin";
 				case ONE_SLENDER:
 					return "slender";
-				case TWO_AVERAGE:
+				case TWO_NARROW:
+					return "narrow";
+				case THREE_AVERAGE:
 					return "average";
-				case THREE_THICK:
+				case FOUR_THICK:
 					return "thick";
-				case FOUR_FAT:
+				case FIVE_FAT:
 					return "extra-thick";
+				case SIX_GIRTHY:
+					return "extremely-thick";
 			}
 		}
 		if(this.getTags().contains(TailTypeTag.TYPE_FUR)) {
@@ -381,12 +423,16 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "thin";
 				case ONE_SLENDER:
 					return "slender";
-				case TWO_AVERAGE:
+				case TWO_NARROW:
+					return "narrow";
+				case THREE_AVERAGE:
 					return "fluffy";
-				case THREE_THICK:
+				case FOUR_THICK:
+					return "very-fluffy";
+				case FIVE_FAT:
 					return "extra-fluffy";
-				case FOUR_FAT:
-					return "super-fluffy";
+				case SIX_GIRTHY:
+					return "extremely-fluffy";
 			}
 		}
 		if(this.getTags().contains(TailTypeTag.TYPE_TUFT)) {
@@ -395,12 +441,16 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "tiny";
 				case ONE_SLENDER:
 					return "small";
-				case TWO_AVERAGE:
+				case TWO_NARROW:
+					return "narrow";
+				case THREE_AVERAGE:
 					return "fluffy";
-				case THREE_THICK:
+				case FOUR_THICK:
+					return "very-fluffy";
+				case FIVE_FAT:
 					return "extra-fluffy";
-				case FOUR_FAT:
-					return "super-fluffy";
+				case SIX_GIRTHY:
+					return "extremely-fluffy";
 			}
 		}
 		if(this.getTags().contains(TailTypeTag.TYPE_HAIR)) {
@@ -409,12 +459,16 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "thin";
 				case ONE_SLENDER:
 					return "small";
-				case TWO_AVERAGE:
+				case TWO_NARROW:
+					return "narrow";
+				case THREE_AVERAGE:
 					return "average";
-				case THREE_THICK:
+				case FOUR_THICK:
 					return "voluminous";
-				case FOUR_FAT:
+				case FIVE_FAT:
 					return "extra-voluminous";
+				case SIX_GIRTHY:
+					return "extremely-voluminous";
 			}
 		}
 
@@ -424,12 +478,16 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "thin";
 				case ONE_SLENDER:
 					return "small";
-				case TWO_AVERAGE:
+				case TWO_NARROW:
+					return "narrow";
+				case THREE_AVERAGE:
 					return "average";
-				case THREE_THICK:
+				case FOUR_THICK:
 					return "voluminous";
-				case FOUR_FAT:
+				case FIVE_FAT:
 					return "extra-voluminous";
+				case SIX_GIRTHY:
+					return "extremely-voluminous";
 			}
 		}
 		if(this.getTags().contains(TailTypeTag.TYPE_GENERIC)) {
@@ -438,12 +496,16 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 					return "tiny";
 				case ONE_SLENDER:
 					return "small";
-				case TWO_AVERAGE:
+				case TWO_NARROW:
+					return "narrow";
+				case THREE_AVERAGE:
 					return "average";
-				case THREE_THICK:
+				case FOUR_THICK:
 					return "large";
-				case FOUR_FAT:
+				case FIVE_FAT:
 					return "huge";
+				case SIX_GIRTHY:
+					return "massive";
 			}
 		}
 		
@@ -461,7 +523,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(grow thicker)]."
 									:" [npc.tail] suddenly [style.boldGrow(grows thicker)].")
 							+ "<br/>"
-							+ "[npc.She] now has [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 					
 			} else {
@@ -473,7 +535,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down)].")
 								+ "<br/>"
-							+ "[npc.She] now has [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 			}
 		}
@@ -487,7 +549,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(fluff up and grow bigger)]."
 									:" [npc.tail] suddenly [style.boldGrow(fluffs up and grows bigger)].")
 							+ "<br/>"
-							+ "[npc.She] now has [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 					
 			} else {
@@ -499,7 +561,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down)].")
 								+ "<br/>"
-							+ "[npc.She] now has [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 			}
 		}
@@ -513,7 +575,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(fill out and expand in volume)]."
 									:" [npc.tail] suddenly [style.boldGrow(fills out and expands in volume)].")
 							+ "<br/>"
-							+ "[npc.She] now has [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 					
 			} else {
@@ -525,7 +587,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down and lose volume)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down and loses volume)].")
 								+ "<br/>"
-							+ "[npc.She] now has [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 			}
 		}
@@ -539,7 +601,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(fill out and expand in volume)]."
 									:" [npc.tail] suddenly [style.boldGrow(fills out and expands in volume)].")
 							+ "<br/>"
-							+ "[npc.She] now has [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 					
 			} else {
@@ -551,7 +613,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down and lose volume)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down and loses volume)].")
 								+ "<br/>"
-							+ "[npc.She] now has [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 			}
 		}
@@ -565,7 +627,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 									?" [npc.tails] suddenly [style.boldGrow(grow larger)]."
 									:" [npc.tail] suddenly [style.boldGrow(grows larger)].")
 							+ "<br/>"
-							+ "[npc.She] now has [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 					
 			} else {
@@ -577,7 +639,7 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 										?" [npc.tails] suddenly [style.boldShrink(shrink down)]."
 										:" [npc.tail] suddenly [style.boldShrink(shrinks down)].")
 								+ "<br/>"
-							+ "[npc.She] now has [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
+							+ "[npc.She] now [npc.has] [style.boldSex([npc.a_tailGirth] [npc.tail])]!"
 						+ "</p>");
 			}
 		}
@@ -597,5 +659,10 @@ public abstract class AbstractTailType implements BodyPartTypeInterface {
 	
 	public boolean isSuitableForSleepHugging() {
 		return tags.contains(TailTypeTag.SLEEP_HUGGING);
+	}
+
+	@Override
+	public TFModifier getTFModifier() {
+		return this == TailType.NONE ? TFModifier.REMOVAL : getTFTypeModifier(TailType.getTailTypes(race));
 	}
 }

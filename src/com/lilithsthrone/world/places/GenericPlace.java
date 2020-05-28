@@ -135,12 +135,18 @@ public class GenericPlace implements XMLSaving {
 				List<PlaceUpgrade> upgrades = new ArrayList<>();
 				for(int i=0; i<((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength(); i++){
 					Element e = (Element) ((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").item(i);
-					PlaceUpgrade upgrade = PlaceUpgrade.valueOf(e.getAttribute("type"));
-					
-					if(upgrade.isCoreRoomUpgrade()) {
-						coreUpgrades.add(upgrade);
+					String placeUpgradeId = e.getAttribute("type");
+					if(placeUpgradeId.equals("LILAYA_PLAYER_ROOM_BATH")) {
+						Cell.refundMoney += 300_000;
+						
 					} else {
-						upgrades.add(upgrade);
+						PlaceUpgrade upgrade = PlaceUpgrade.valueOf(placeUpgradeId);
+						
+						if(upgrade.isCoreRoomUpgrade()) {
+							coreUpgrades.add(upgrade);
+						} else {
+							upgrades.add(upgrade);
+						}
 					}
 				}
 				

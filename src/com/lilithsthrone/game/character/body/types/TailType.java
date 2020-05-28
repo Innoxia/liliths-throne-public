@@ -22,7 +22,7 @@ public class TailType {
 	public static final AbstractTailType NONE = new AbstractTailType(
 			null,
 			Race.NONE,
-			PenetrationGirth.TWO_AVERAGE,
+			PenetrationGirth.THREE_AVERAGE,
 			0f,
 			"none",
 			"",
@@ -49,7 +49,7 @@ public class TailType {
 	public static final AbstractTailType DEMON_COMMON = new AbstractTailType(
 			BodyCoveringType.DEMON_COMMON,
 			Race.DEMON,
-			PenetrationGirth.ZERO_THIN,
+			PenetrationGirth.ONE_SLENDER,
 			1f,
 			"demonic spaded",
 			"",
@@ -102,7 +102,7 @@ public class TailType {
 	public static final AbstractTailType DEMON_HAIR_TIP = new AbstractTailType(
 			BodyCoveringType.DEMON_COMMON,
 			Race.DEMON,
-			PenetrationGirth.ZERO_THIN,
+			PenetrationGirth.ONE_SLENDER,
 			0.5f,
 			"demonic hair-tipped",
 			"",
@@ -156,7 +156,7 @@ public class TailType {
 	public static final AbstractTailType DEMON_HORSE = new AbstractTailType(
 			BodyCoveringType.DEMON_HORSE_HAIR,
 			Race.DEMON,
-			PenetrationGirth.TWO_AVERAGE,
+			PenetrationGirth.THREE_AVERAGE,
 			0.3f,
 			"demonic horse",
 			"",
@@ -208,7 +208,7 @@ public class TailType {
 	public static final AbstractTailType ALLIGATOR_MORPH = new AbstractTailType(
 			BodyCoveringType.ALLIGATOR_SCALES,
 			Race.ALLIGATOR_MORPH,
-			PenetrationGirth.FOUR_FAT,
+			PenetrationGirth.FIVE_FAT,
 			0.6f,
 			"alligator",
 			"",
@@ -249,7 +249,7 @@ public class TailType {
 	public static final AbstractTailType BAT_MORPH = new AbstractTailType(
 			BodyCoveringType.BAT_SKIN,
 			Race.BAT_MORPH,
-			PenetrationGirth.ZERO_THIN,
+			PenetrationGirth.ONE_SLENDER,
 			0.2f,
 			"bat",
 			"",
@@ -289,7 +289,7 @@ public class TailType {
 	public static final AbstractTailType CAT_MORPH = new AbstractTailType(
 			BodyCoveringType.FELINE_FUR,
 			Race.CAT_MORPH,
-			PenetrationGirth.ONE_SLENDER,
+			PenetrationGirth.TWO_NARROW,
 			0.8f,
 			"feline",
 			"",
@@ -329,7 +329,7 @@ public class TailType {
 	public static final AbstractTailType CAT_MORPH_SHORT = new AbstractTailType(
 			BodyCoveringType.FELINE_FUR,
 			Race.CAT_MORPH,
-			PenetrationGirth.ONE_SLENDER,
+			PenetrationGirth.TWO_NARROW,
 			0.2f,
 			"short feline",
 			"",
@@ -368,7 +368,7 @@ public class TailType {
 	public static final AbstractTailType CAT_MORPH_TUFTED = new AbstractTailType(
 			BodyCoveringType.FELINE_FUR,
 			Race.CAT_MORPH,
-			PenetrationGirth.TWO_AVERAGE,
+			PenetrationGirth.THREE_AVERAGE,
 			0.4f,
 			"tufted feline",
 			"",
@@ -409,7 +409,7 @@ public class TailType {
 	public static final AbstractTailType COW_MORPH = new AbstractTailType(
 			BodyCoveringType.BOVINE_FUR,
 			Race.COW_MORPH,
-			PenetrationGirth.ONE_SLENDER,
+			PenetrationGirth.TWO_NARROW,
 			0.35f,
 			"cow",
 			"",
@@ -447,7 +447,7 @@ public class TailType {
 	public static final AbstractTailType DOG_MORPH = new AbstractTailType(
 			BodyCoveringType.CANINE_FUR,
 			Race.DOG_MORPH,
-			PenetrationGirth.TWO_AVERAGE,
+			PenetrationGirth.THREE_AVERAGE,
 			0.4f,
 			"dog",
 			"",
@@ -485,7 +485,7 @@ public class TailType {
 	public static final AbstractTailType DOG_MORPH_STUBBY = new AbstractTailType(
 			BodyCoveringType.CANINE_FUR,
 			Race.DOG_MORPH,
-			PenetrationGirth.TWO_AVERAGE,
+			PenetrationGirth.THREE_AVERAGE,
 			0.1f,
 			"stubby dog",
 			"",
@@ -523,7 +523,7 @@ public class TailType {
 	public static final AbstractTailType FOX_MORPH = new AbstractTailType(
 			BodyCoveringType.FOX_FUR,
 			Race.FOX_MORPH,
-			PenetrationGirth.THREE_THICK,
+			PenetrationGirth.FOUR_THICK,
 			0.6f,
 			"fox",
 			"",
@@ -562,7 +562,7 @@ public class TailType {
 	public static final AbstractTailType FOX_MORPH_MAGIC = new AbstractTailType(
 			BodyCoveringType.FOX_FUR,
 			Race.FOX_MORPH,
-			PenetrationGirth.THREE_THICK,
+			PenetrationGirth.FOUR_THICK,
 			1f,
 			"arcane fox",
 			"",
@@ -613,7 +613,7 @@ public class TailType {
 	public static final AbstractTailType HARPY = new AbstractTailType(
 			BodyCoveringType.FEATHERS,
 			Race.HARPY,
-			PenetrationGirth.THREE_THICK,
+			PenetrationGirth.FOUR_THICK,
 			0.5f,
 			"harpy plume",
 			"a plume of",
@@ -654,7 +654,7 @@ public class TailType {
 	public static final AbstractTailType HORSE_MORPH = new AbstractTailType(
 			BodyCoveringType.HAIR_HORSE_HAIR,
 			Race.HORSE_MORPH,
-			PenetrationGirth.TWO_AVERAGE,
+			PenetrationGirth.THREE_AVERAGE,
 			0.3f,
 			"horse",
 			"",
@@ -692,7 +692,7 @@ public class TailType {
 	public static final AbstractTailType HORSE_MORPH_ZEBRA = new AbstractTailType(
 			BodyCoveringType.HAIR_HORSE_HAIR,
 			Race.HORSE_MORPH,
-			PenetrationGirth.ONE_SLENDER,
+			PenetrationGirth.TWO_NARROW,
 			0.3f,
 			"zebra",
 			"",
@@ -730,7 +730,7 @@ public class TailType {
 	public static final AbstractTailType RAT_MORPH = new AbstractTailType(
 			BodyCoveringType.RAT_SKIN,
 			Race.RAT_MORPH,
-			PenetrationGirth.TWO_AVERAGE,
+			PenetrationGirth.THREE_AVERAGE,
 			0.75f,
 			"rat",
 			"",
@@ -771,8 +771,8 @@ public class TailType {
 	public static final AbstractTailType RABBIT_MORPH = new AbstractTailType(
 			BodyCoveringType.RABBIT_FUR,
 			Race.RABBIT_MORPH,
-			PenetrationGirth.FOUR_FAT,
-			0.1f,
+			PenetrationGirth.FIVE_FAT,
+			0.075f,
 			"rabbit",
 			"",
 			"",
@@ -809,8 +809,8 @@ public class TailType {
 	public static final AbstractTailType REINDEER_MORPH = new AbstractTailType(
 			BodyCoveringType.REINDEER_FUR,
 			Race.REINDEER_MORPH,
-			PenetrationGirth.THREE_THICK,
-			0.15f,
+			PenetrationGirth.FOUR_THICK,
+			0.05f,
 			"reindeer",
 			"",
 			"",
@@ -847,7 +847,7 @@ public class TailType {
 	public static final AbstractTailType SQUIRREL_MORPH = new AbstractTailType(
 			BodyCoveringType.SQUIRREL_FUR,
 			Race.SQUIRREL_MORPH,
-			PenetrationGirth.FOUR_FAT,
+			PenetrationGirth.FIVE_FAT,
 			1f,
 			"squirrel",
 			"",
@@ -886,7 +886,7 @@ public class TailType {
 	public static final AbstractTailType WOLF_MORPH = new AbstractTailType(
 			BodyCoveringType.LYCAN_FUR,
 			Race.WOLF_MORPH,
-			PenetrationGirth.THREE_THICK,
+			PenetrationGirth.FOUR_THICK,
 			0.4f,
 			"wolf",
 			"",
@@ -983,6 +983,9 @@ public class TailType {
 			if(type.getRace()==r && type!=TailType.FOX_MORPH_MAGIC) {
 				types.add(type);
 			}
+		}
+		if(types.isEmpty()) {
+			types.add(TailType.NONE);
 		}
 		typesMap.put(r, types);
 		return types;

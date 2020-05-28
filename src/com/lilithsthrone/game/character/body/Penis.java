@@ -50,7 +50,7 @@ public class Penis implements BodyPartInterface {
 		} else {
 			this.length = Math.min(PenisLength.SEVEN_STALLION.getMaximumValue(), length);
 		}
-		this.girth = Math.min(PenetrationGirth.FOUR_FAT.getValue(), girth);
+		this.girth = Math.min(PenetrationGirth.getMaximum(), girth);
 		pierced = false;
 		virgin = true;
 		
@@ -217,8 +217,7 @@ public class Penis implements BodyPartInterface {
 					length = 1;
 				}
 				UtilText.transformationContentSB.append(
-						"<p>"
-							+ "[npc.Name] [npc.verb(feel)] an intense heat building up in [npc.her] groin, and [npc.she] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] the [npc.skin] "
+						"[npc.Name] [npc.verb(feel)] an intense heat building up in [npc.her] groin, and [npc.she] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] the [npc.skin] "
 									+ (owner.hasVagina()
 											? (!owner.isTaur()
 												?"above [npc.her] pussy"
@@ -255,13 +254,9 @@ public class Penis implements BodyPartInterface {
 				
 			} else {
 				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							"<p>"
-								+ "You let out a gasp as you feel your [pc.cock] suddenly stand to attention, and, trying to get your unexpected erection under control, your gasp soon turns into [pc.a_moan+] as it transforms.<br/>");
+					UtilText.transformationContentSB.append("You let out a gasp as you feel your [pc.cock] suddenly stand to attention, and, trying to get your unexpected erection under control, your gasp soon turns into [pc.a_moan+] as it transforms.");
 				} else {
-					UtilText.transformationContentSB.append(
-							"<p>"
-								+ "[npc.Name] suddenly blushes and lets out [npc.a_moan+], squeezing [npc.her] thighs together as [npc.her] [npc.cock] transforms.<br/>");
+					UtilText.transformationContentSB.append("[npc.Name] suddenly blushes and lets out [npc.a_moan+], squeezing [npc.her] thighs together as [npc.her] [npc.cock] transforms.");
 				}
 			}
 		}
@@ -269,6 +264,7 @@ public class Penis implements BodyPartInterface {
 		// Parse existing content before transformation:
 		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
 		UtilText.transformationContentSB.setLength(0);
+		UtilText.transformationContentSB.append("<p>");
 		UtilText.transformationContentSB.append(s);
 		this.type = type;
 		testicle.setType(owner, type.getTesticleType());
@@ -281,14 +277,14 @@ public class Penis implements BodyPartInterface {
 			case NONE:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-							"You squirm and moan as your cock and balls rapidly shrink away, and within seconds, nothing's left to remind you of your manhood.<br/>"
-							+ "You now have [style.boldSex(no penis)]."
-							+ "</p>");
+							"<br/>"
+							+ "You squirm and moan as your cock and balls rapidly shrink away, and within seconds, nothing's left to remind you of your manhood.<br/>"
+							+ "You now have [style.boldSex(no penis)].");
 				} else {
 					UtilText.transformationContentSB.append(
-							"[npc.She] squirms and moans as [npc.her] cock and balls rapidly shrink away, and within seconds, nothing's left to remind [npc.herHim] of [npc.her] manhood.<br/>"
-							+ "[npc.Name] now has [style.boldSex(no penis)]."
-							+ "</p>");
+							"<br/>"
+							+ "[npc.She] squirms and moans as [npc.her] cock and balls rapidly shrink away, and within seconds, nothing's left to remind [npc.herHim] of [npc.her] manhood.<br/>"
+							+ "[npc.Name] now has [style.boldSex(no penis)].");
 				}
 				owner.setPiercedPenis(false);
 				break;
@@ -416,14 +412,14 @@ public class Penis implements BodyPartInterface {
 					UtilText.transformationContentSB.append(
 							"Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as your shaft grows wider and the head flattens down.<br/>"
 							+ "You now have a [style.boldReindeerMorph(reindeer-like penis)], covered in [pc.penisFullDescription(true)].<br/>"
-							+ "You have [style.boldReindeerMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" rangiferine balls)],"
-									+ " covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldReindeerMorph(rangiferine cum)].");
+							+ "You have [style.boldReindeerMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" reindeer balls)],"
+									+ " covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldReindeerMorph(reindeer cum)].");
 				} else {
 					UtilText.transformationContentSB.append(
 							"Letting out an involuntary moan, [npc.name] feels [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as [npc.her] shaft grows wider and the head flattens down.<br/>"
 							+ "[npc.She] now has an [style.boldReindeerMorph(reindeer-like penis)], covered in [npc.penisFullDescription(true)].<br/>"
-							+ "[npc.She] has [style.boldReindeerMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" rangiferine balls)],"
-									+ " covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldReindeerMorph(rangiferine cum)].");
+							+ "[npc.She] has [style.boldReindeerMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" reindeer balls)],"
+									+ " covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldReindeerMorph(reindeer cum)].");
 				}
 				break;
 			case BOVINE:
@@ -520,17 +516,16 @@ public class Penis implements BodyPartInterface {
 				}
 				break;
 		}
-
+		UtilText.transformationContentSB.append("</p>");
+		
 		penisModifiers.clear();
 		penisModifiers.addAll(type.getDefaultPenisModifiers());
 
 		UtilText.transformationContentSB.append(
-				"<br/>"
+				"<p>"
 				+ "Any old modifiers which [npc.her] penis might have had have [style.boldShrink(transformed away)]!");
 		
-		if(penisModifiers.isEmpty()) {
-			UtilText.transformationContentSB.append("</p>");
-		} else {
+		if(!penisModifiers.isEmpty()) {
 			if (owner.isPlayer()) {
 				UtilText.transformationContentSB.append(
 						"<br/>"
@@ -544,8 +539,8 @@ public class Penis implements BodyPartInterface {
 			for(PenetrationModifier pm : penisModifiers) {
 				UtilText.transformationContentSB.append("<br/>[style.boldGrow("+Util.capitaliseSentence(pm.getName())+")]");
 			}
-			UtilText.transformationContentSB.append("</p>");
 		}
+		UtilText.transformationContentSB.append("</p>");
 		
 		String postTF = owner.postTransformationCalculation(false); // Calculate this before parsing, as it updates covering colours
 		
@@ -570,7 +565,7 @@ public class Penis implements BodyPartInterface {
 	 */
 	public String setPenisGirth(GameCharacter owner, int girth) {
 		if(owner==null) {
-			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.FOUR_FAT.getValue()));
+			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.getMaximum()));
 			return "";
 		}
 		
@@ -585,10 +580,10 @@ public class Penis implements BodyPartInterface {
 				girthChange = 0 - this.girth;
 				this.girth = 0;
 			}
-		} else if (girth >= PenetrationGirth.FOUR_FAT.getValue()) {
-			if (this.girth != PenetrationGirth.FOUR_FAT.getValue()) {
-				girthChange = PenetrationGirth.FOUR_FAT.getValue() - this.girth;
-				this.girth = PenetrationGirth.FOUR_FAT.getValue();
+		} else if (girth >= PenetrationGirth.getMaximum()) {
+			if (this.girth != PenetrationGirth.getMaximum()) {
+				girthChange = PenetrationGirth.getMaximum() - this.girth;
+				this.girth = PenetrationGirth.getMaximum();
 			}
 		} else {
 			if (this.girth != girth) {

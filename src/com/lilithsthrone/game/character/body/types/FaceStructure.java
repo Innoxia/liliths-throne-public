@@ -25,7 +25,7 @@ public enum FaceStructure {
 	HORSE_MORPH(Util.newArrayListOfValues("anthropomorphic horse-like", "horse-like", "equine")),
 	RABBIT_MORPH(Util.newArrayListOfValues("anthropomorphic rabbit-like", "rabbit-like")),
 	RAT_MORPH(Util.newArrayListOfValues("anthropomorphic rat-like", "rat-like", "rodent")),
-	REINDEER_MORPH(Util.newArrayListOfValues("anthropomorphic reindeer-like", "reindeer-like", "rangiferine")),
+	REINDEER_MORPH(Util.newArrayListOfValues("anthropomorphic reindeer-like", "reindeer-like", "reindeer")),
 	SQUIRREL_MORPH(Util.newArrayListOfValues("anthropomorphic squirrel-like", "squirrel-like", "rodent")),
 	WOLF_MORPH(Util.newArrayListOfValues("anthropomorphic wolf-like", "wolf-like")),
 	;

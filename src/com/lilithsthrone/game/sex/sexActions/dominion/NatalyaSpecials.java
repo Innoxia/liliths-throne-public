@@ -10,6 +10,7 @@ import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3.7
@@ -27,7 +28,8 @@ public class NatalyaSpecials {
 			SexParticipantType.NORMAL) {
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.getCharacterPerformingAction().isPlayer()
+			return Main.game.getNpc(Natalya.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP
+					&& !Main.sex.getCharacterPerformingAction().isPlayer()
 					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.natalyaDemandedFacial)
 					&& Main.game.getNpc(Natalya.class).getArousal()>=ArousalLevel.FOUR_PASSIONATE.getMinimumValue();
 		}
@@ -63,7 +65,8 @@ public class NatalyaSpecials {
 			SexParticipantType.NORMAL) {
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getCharacterPerformingAction().isPlayer();
+			return Main.game.getNpc(Natalya.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP
+					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		@Override
 		public SexActionPriority getPriority() {
@@ -103,7 +106,8 @@ public class NatalyaSpecials {
 			SexParticipantType.NORMAL) {
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.sex.getCharacterPerformingAction().isPlayer();
+			return Main.game.getNpc(Natalya.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP
+					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		@Override
 		public SexActionPriority getPriority() {

@@ -176,7 +176,7 @@ public class HarpyNymphoCompanion extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.THREE_THICK);
+		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
 		this.setPenisSize(18);
 		this.setPenisCumStorage(40);
 		this.fillCumToMaxStorage();

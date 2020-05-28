@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.1
- * @version 0.2.10
+ * @version 0.3.7.5
  * @author Innoxia
  */
 public enum QuestLine {
@@ -78,6 +78,10 @@ public enum QuestLine {
 	ROMANCE_HELENA("Her Highness's Helper", "You successfully completed every task which Helena gave to you, and as a reward, you can both order custom slaves from her an take her on a date each Friday evening.",
 			QuestType.RELATIONSHIP,
 			QuestTree.helenaTree),
+
+	ROMANCE_NATALYA("Filly Training", "Having completed Mistress Natalya's training, you are now a qualified filly and are expected to sexually service Dominion Express's centaur slaves.",
+			QuestType.RELATIONSHIP,
+			QuestTree.natalyaTree),
 	;
 
 	private String name, completedDescription;

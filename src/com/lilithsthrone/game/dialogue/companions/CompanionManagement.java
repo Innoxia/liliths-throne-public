@@ -320,7 +320,7 @@ public class CompanionManagement {
 							null);
 					
 				} else {
-					if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterSelected().isElementalSummoned())) {
+					if(charactersPresent.size()==1 || (charactersPresent.size()==2 && characterSelected().isElementalSummoned() && !Main.game.getPlayer().isElementalSummoned())) {
 						return new ResponseEffectsOnly(
 								characterSelected().isElemental()
 									?"Dispel"
@@ -360,7 +360,7 @@ public class CompanionManagement {
 								}
 								Main.game.getPlayer().removeCompanion(characterSelected());
 								characterSelected().returnToHome();
-
+								
 								Main.game.setResponseTab(0);
 								CharactersPresentDialogue.resetContent(Main.game.getCharactersPresent().get(0));
 							}
@@ -385,7 +385,7 @@ public class CompanionManagement {
 					return new Response("Spells", UtilText.parse(characterSelected(), "Manage [npc.namePos] spells."), SpellManagement.CHARACTER_SPELLS_EARTH) {
 						@Override
 						public void effects() {
-							SpellManagement.setTarget(characterSelected(), coreNode);
+							SpellManagement.setSpellOwner(characterSelected(), coreNode);
 						}
 					};
 					
@@ -529,7 +529,7 @@ public class CompanionManagement {
 				return new Response("Spells", UtilText.parse(characterSelected(), "Manage [npc.namePos] spells."), SpellManagement.CHARACTER_SPELLS_EARTH) {
 					@Override
 					public void effects() {
-						SpellManagement.setTarget(characterSelected(), coreNode);
+						SpellManagement.setSpellOwner(characterSelected(), coreNode);
 					}
 				};
 				
@@ -683,7 +683,7 @@ public class CompanionManagement {
 				return new Response("Spells", UtilText.parse(characterSelected(), "Manage [npc.namePos] spells."), SpellManagement.CHARACTER_SPELLS_EARTH) {
 					@Override
 					public void effects() {
-						SpellManagement.setTarget(characterSelected(), coreNode);
+						SpellManagement.setSpellOwner(characterSelected(), coreNode);
 					}
 				};
 				
@@ -1055,7 +1055,7 @@ public class CompanionManagement {
 	
 	private static Response getCosmeticsResponse(int responseTab, int index) {
 		if (index == 1) {
-			if(!BodyChanging.getTarget().getBodyMaterial().isAbleToWearMakeup()) {
+			if(!BodyChanging.getTarget().isAbleToWearMakeup()) {
 				return new Response("Makeup", UtilText.parse(BodyChanging.getTarget(), "As [npc.namePos] body is made of "+Main.game.getPlayer().getBodyMaterial().getName()+", Kate is unable to apply any makeup!"), null);
 				
 			} else {

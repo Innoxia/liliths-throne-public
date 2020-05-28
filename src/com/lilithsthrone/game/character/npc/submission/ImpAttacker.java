@@ -2,10 +2,8 @@ package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -24,8 +22,12 @@ import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
@@ -42,22 +44,19 @@ import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortress
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
+import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.inventory.item.TransformativePotion;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -177,56 +176,8 @@ public class ImpAttacker extends NPC {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
 		CharacterUtils.generateItemsInInventory(this);
-		
-		CharacterUtils.equipPiercings(this, true);
-		
-		if(!this.getAllSpells().isEmpty()) {
-			if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-				this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_arcanistStaff_arcanist_staff")));
-			}
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_impArcanist_arcanist_hat"), false), true, this);
-		}
-		
-		if(this.isFeminine()) {
-			AbstractClothing skirt = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_ragged_skirt"), false);
-			this.equipClothingFromNowhere(skirt, true, this);
-			
-			// Imps are flying, and don't wear anything on their feet.
-			// Alpha-imps also wear accessories as symbols of status.
-			if(this.getSubspecies()==Subspecies.IMP_ALPHA) {
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_foot_wraps"), false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_finger_ring", false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(
-						Util.randomItemFrom(new AbstractClothingType[] {ClothingType.getClothingTypeFromId("innoxia_neck_ankh_necklace"), ClothingType.getClothingTypeFromId("innoxia_neck_heart_necklace")}), false), true, this);
-			}
-			
-			if(!this.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-				List<AbstractClothingType> underwear = Util.newArrayListOfValues(
-						ClothingType.GROIN_THONG,
-						ClothingType.GROIN_VSTRING,
-						ClothingType.GROIN_PANTIES,
-						ClothingType.GROIN_CROTCHLESS_THONG,
-						ClothingType.GROIN_CROTCHLESS_PANTIES);
-				this.equipClothingFromNowhere(
-						AbstractClothingType.generateClothing(Util.randomItemFrom(underwear), false), true, this);
 
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_ragged_chest_wrap"), skirt.getColour(), false), true, this);
-			}
-			
-		} else {
-			this.equipClothingFromNowhere(
-					AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_loin_cloth"), false), true, this);
-
-			// Imps are flying, and don't wear anything on their feet.
-			// Alpha-imps also wear accessories as symbols of status.
-			if(this.getSubspecies()==Subspecies.IMP_ALPHA) {
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_loinCloth_foot_wraps"), false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_wraps", false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_SARASHI, false), true, this);
-			}
-		}
-	
+		CharacterUtils.equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
 	}
 	
 	@Override
@@ -332,7 +283,9 @@ public class ImpAttacker extends NPC {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addSpecialPerk(Perk.IMP_SLAYER));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressDemonImpsDefeated, true);
 							if(ImpCitadelDialogue.isCompanionDialogue()) {
-								Main.game.getTextEndStringBuilder().append(ImpCitadelDialogue.getMainCompanion().addSpecialPerk(Perk.IMP_SLAYER));
+								for(GameCharacter companion : Main.game.getPlayer().getParty()) {
+									Main.game.getTextEndStringBuilder().append(companion.addSpecialPerk(Perk.IMP_SLAYER));
+								}
 							}
 						}
 					};
@@ -362,16 +315,20 @@ public class ImpAttacker extends NPC {
 			
 		} else {
 			if (victory) {
-				Value<AbstractItemType, Map<ItemEffect, String>> effects = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer());
+				TransformativePotion effects = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer());
 				if(effects!=null) {
-					AbstractItem potion = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects.getKey()), new ArrayList<>(effects.getValue().keySet()));
+					AbstractItem potion = EnchantingUtils.craftItem(
+						AbstractItemType.generateItem(effects.getItemType()),
+						effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 					potion.setName("Imp's Elixir");
 					TunnelImpsDialogue.getImpGroup().get(1).addItem(potion, false);
 				}
 				if(!Main.game.getPlayer().getNonElementalCompanions().isEmpty()) {
-					Value<AbstractItemType, Map<ItemEffect, String>> effects2 = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer().getMainCompanion());
+					TransformativePotion effects2 = TunnelImpsDialogue.getImpLeader().generateTransformativePotion(Main.game.getPlayer().getMainCompanion());
 					if(effects2!=null) {
-						AbstractItem potion2 = EnchantingUtils.craftItem(AbstractItemType.generateItem(effects2.getKey()), new ArrayList<>(effects2.getValue().keySet()));
+						AbstractItem potion2 = EnchantingUtils.craftItem(
+							AbstractItemType.generateItem(effects2.getItemType()),
+							effects2.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
 						potion2.setName("Imp's Elixir");
 						TunnelImpsDialogue.getImpGroup().get(1).addItem(potion2, false);
 					}
@@ -388,7 +345,7 @@ public class ImpAttacker extends NPC {
 	// TF potion:
 	
 	@Override
-	public Value<AbstractItemType,Map<ItemEffect,String>> generateTransformativePotion(GameCharacter target) {
+	public TransformativePotion generateTransformativePotion(GameCharacter target) {
 		AbstractItemType itemType = ItemType.RACE_INGREDIENT_HUMAN;
 		switch(target.getRace()) {
 			case ALLIGATOR_MORPH:
@@ -439,224 +396,295 @@ public class ImpAttacker extends NPC {
 				break;
 		}
 		
-		Map<ItemEffect, String> effects = new HashMap<>();
+		List<PossibleItemEffect> effects = new ArrayList<>();
 //		int numberOfTransformations = (2+Util.random.nextInt(4)) * (target.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)?2:1);
 		
 		if(target.getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA)) {
 			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE
 					|| Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE_HEAVY) {
-				for(Entry<ItemEffect, String> e : getFeminineEffects(target, itemType).entrySet()) {
-					effects.put(e.getKey(), e.getValue());
-				}
+				effects.addAll(getFeminineEffects(target, itemType));
 			}
 			
 			// Add wet vagina:
 			if(!target.hasVagina()) {
-				effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
-						"Let's give yer a nice new cunt!");
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+					"Let's give yer a nice new cunt!"));
 			}
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"Yer pussy needs ta be soppin' wet an ready ta get fucked!");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"");
+			if(target.getVaginaWetness().getValue()<Wetness.SIX_SOPPING_WET.getValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Yer pussy needs ta be soppin' wet an ready ta get fucked!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
 			
 			// Add penis:
 			if(!target.hasPenisIgnoreDildo()) {
-				effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
-						"Yer gonna need a cock to satisfy us!");
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+					"Yer gonna need a cock to satisfy us!"));
 			}
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-					"Yer cock's gonna need ta be bigger'n than!");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-					"");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"Ready ta be cummin' buckets fer us?");
+			if(target.getPenisRawSizeValue()<PenisLength.THREE_LARGE.getMedianValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					"Yer cock's gonna need ta be bigger'n than!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
+			if(target.getPenisRawCumStorageValue()<100) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Yer gonna be cummin' all over the place!"));
+			}
 			
 		} else if(target.getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_DEMON)) {
 			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE
 					|| Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE_HEAVY) {
-				for(Entry<ItemEffect, String> e : getMasculineEffects(target, itemType).entrySet()) {
-					effects.put(e.getKey(), e.getValue());
-				}
-				
+				effects.addAll(getMasculineEffects(target, itemType));
 			} else {
-				for(Entry<ItemEffect, String> e : getFeminineEffects(target, itemType).entrySet()) {
-					effects.put(e.getKey(), e.getValue());
-				}
+				effects.addAll(getFeminineEffects(target, itemType));
 			}
 
 			// Add penis:
 			if(!target.hasPenisIgnoreDildo()) {
-				effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
-						"Yer gonna need a cock to satisfy us!");
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+					"Yer gonna need a cock to satisfy us!"));
 			}
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-					"Yer cock's gonna need ta be bigger'n than!");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-					"");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
-					"Let's get yer cock nice an' fat!");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"Ready ta be cummin' buckets fer us?");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"");
+			if(target.getPenisRawSizeValue()<PenisLength.THREE_LARGE.getMedianValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					"Yer cock's gonna need ta be bigger'n than!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
+			if(target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
+					"Let's get yer cock nice an' thick!"));
+			}
+			if(target.getPenisRawCumStorageValue()<250) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Ready ta be cummin' buckets fer us?"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
 			
 			// Add wet vagina:
 			if(!target.hasVagina()) {
-				effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
-						"Let's give yer a nice new cunt!");
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+					"Let's give yer a nice new cunt!"));
 			}
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"Yer pussy needs ta be soppin' wet an ready ta get fucked!");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"");
+			if(target.getVaginaWetness().getValue()<Wetness.SIX_SOPPING_WET.getValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Yer pussy needs ta be soppin' wet an ready ta get fucked!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
 			
 		} else if(target.getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)) {
 			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE
 					|| Main.getProperties().getForcedTFTendency()==ForcedTFTendency.MASCULINE_HEAVY) {
-				for(Entry<ItemEffect, String> e : getMasculineEffects(target, itemType).entrySet()) {
-					effects.put(e.getKey(), e.getValue());
-				}
+				effects.addAll(getMasculineEffects(target, itemType));
 			}
 			
 			// Add penis:
 			if(!target.hasPenisIgnoreDildo()) {
-				effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
-						"Yer gonna need a cock to satisfy us!");
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+					"Yer gonna need a cock to satisfy us!"));
 			}
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-					"Yer cock's gonna need ta be bigger'n than!");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-					"");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
-					"Let's get yer cock nice an' fat!");
+			if(target.getPenisRawSizeValue()<PenisLength.THREE_LARGE.getMedianValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					"Yer cock's gonna need ta be bigger'n than!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
+			if(target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
+					"Let's get yer cock nice an' thick!"));
+			}
 
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
-					"Gonna make yer balls big an' heavy!");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
-					"");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
-					"");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"Ready ta be cummin' buckets fer us?");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"");
+			if(target.getTesticleSize().getValue()<TesticleSize.FOUR_HUGE.getValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
+					"Gonna make yer balls big an' heavy!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
+					""));
+			}
+			if(target.getPenisRawCumStorageValue()<250) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Ready ta be cummin' buckets fer us?"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
 			
 			// Add long tongue (for cunnilingus):
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1),
-					"Yer tongue's betta off being nice an' long, so that yer can give us a special time when eatin' us out!");
+			if(target.getTongueLengthValue()<TongueLength.TWO_VERY_LONG.getMedianValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1),
+					"Yer tongue's betta off being nice an' long, so that yer can give us a special time when eatin' us out!"));
+			}
 			
 		} else if(target.getLocationPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_MALES)) {
 			if(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE
 					|| Main.getProperties().getForcedTFTendency()==ForcedTFTendency.FEMININE_HEAVY) {
-				for(Entry<ItemEffect, String> e : getFeminineEffects(target, itemType).entrySet()) {
-					effects.put(e.getKey(), e.getValue());
-				}
+				effects.addAll(getFeminineEffects(target, itemType));
 			}
 			
 			// Add wet vagina:
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"Yer pussy needs ta be soppin' wet an ready ta get fucked!");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"");
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"");
+			if(!target.hasVagina()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+					"Let's give yer a cunt ta fuck!"));
+			}
+			if(target.getVaginaWetness().getValue()<Wetness.SIX_SOPPING_WET.getValue()) {
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Yer pussy needs ta be soppin' wet an ready ta get fucked!"));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					""));
+			}
+		}
+
+		if(effects.isEmpty()) {
+			return null;
 		}
 		
-		return new Value<>(itemType, effects);
+		return new TransformativePotion(itemType, effects);
 	}
 	
-	private static Map<ItemEffect, String> getMasculineEffects(GameCharacter target, AbstractItemType itemType) {
-		Map<ItemEffect, String> effects = new HashMap<>();
+	private static List<PossibleItemEffect> getMasculineEffects(GameCharacter target, AbstractItemType itemType) {
+		List<PossibleItemEffect> effects = new ArrayList<>();
 		
 		for(int i=target.getFemininityValue(); i>Femininity.MASCULINE.getMinimumFemininity(); i-=15) { // Turn masculine:
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_DRAIN, 1),
-					"Yer gonna need ta be more manly!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_DRAIN, 1),
+				"Yer gonna need ta be more manly!"));
 		}
 		if(target.getMuscleValue()<Muscle.THREE_MUSCULAR.getMaximumValue()) {
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
-					"I want yer bein' more muscly!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
+				"I want yer bein' more muscly!"));
 		}
 		if(target.getBodySizeValue()<BodySize.TWO_AVERAGE.getMinimumValue()) {
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_BOOST, 1),
-					"Yer gonna get more bigger!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_BOOST, 1),
+				"Yer gonna get more bigger!"));
 		}
 		if(target.getHeightValue()<183) { // 6'
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-					"That's it; get nice an' tall!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+				"That's it; get nice an' tall!"));
 		}
 		for(int i=target.getBreastSize().getMeasurement(); i>0; i-=3) {
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
-					"Let's get rid o' them titties of yours!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+				"Let's get rid o' them titties of yours!"));
 		}
 		if(target.getHipSize().getValue()>HipSize.TWO_NARROW.getValue()) {
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1),
-					"Gotta get them hips lookin' less wide!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1),
+				"Gotta get them hips lookin' less wide!"));
 		}
 		if(target.getAssSize().getValue()>AssSize.THREE_NORMAL.getValue()) {
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
-					"Yer ass is far too fat!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+				"Yer ass is far too fat!"));
 		}
 		if(target.getHairRawLengthValue()>0) { // If bald, leave bald.
 			for(int i=target.getHairRawLengthValue(); i>HairLength.TWO_SHORT.getMaximumValue(); i-=15) {
-				effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
-						"Yer gonna have ta get a more manly hair-do!");
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+					"Yer gonna have ta get a more manly hair-do!"));
 			}
 		}
 		for(int i=target.getLipSizeValue(); i>LipSize.TWO_FULL.getValue(); i-=2) {
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
-					"Let's red rid o' them cock-suckin' lips o' yers!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
+				"Let's red rid o' them cock-suckin' lips o' yers!"));
 		}
 		
 		return effects;
 	}
 	
-	private static Map<ItemEffect, String> getFeminineEffects(GameCharacter target, AbstractItemType itemType) {
-		Map<ItemEffect, String> effects = new HashMap<>();
+	private static List<PossibleItemEffect> getFeminineEffects(GameCharacter target, AbstractItemType itemType) {
+		List<PossibleItemEffect> effects = new ArrayList<>();
 		
 		for(int i=target.getFemininityValue(); i<Femininity.FEMININE.getMinimumFemininity(); i+=15) { // Turn feminine:
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_BOOST, 1),
-					"Yer gonna get lookin' far more girly afta this!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_BOOST, 1),
+				"Yer gonna get lookin' far more girly afta this!"));
 		}
 		if(target.getMuscleValue()>Muscle.THREE_MUSCULAR.getMedianValue()) {
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1),
-					"Let's get rid o' all that manly muscle ya got goin' on!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1),
+				"Let's get rid o' all that manly muscle ya got goin' on!"));
 		}
 		if(target.getBodySizeValue()>BodySize.TWO_AVERAGE.getMinimumValue()) {
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_DRAIN, 1),
-					"Yer gonna need ta get slimmer!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_DRAIN, 1),
+				"Yer gonna need ta get slimmer!"));
 		}
 		if(target.getHeightValue()>167) { // 5'6"
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
-					"Yer far too tall fer my tastes!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+				"Yer far too tall fer my tastes!"));
 		}
 		for(int i=target.getBreastSize().getMeasurement(); i<CupSize.E.getMeasurement(); i+=3) {
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-					"Let's give yer some massive titties for me ta play with!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+				"Let's give yer some massive titties for me ta play with!"));
 		}
 		if(target.getHipSize().getValue()<HipSize.THREE_GIRLY.getValue()) {
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
-					"Yer hips are gonna need ta be nice an' wide; all tha better fer carrying the broods o' imps yer gonna get knocked up with!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
+				"Yer hips are gonna need ta be nice an' wide; all tha better fer carrying the broods o' imps yer gonna get knocked up with!"));
 		}
 		if(target.getAssSize().getValue()<AssSize.THREE_NORMAL.getValue()) {
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-					"Yer gonna need a fatta ass than that!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+				"Yer gonna need a fatta ass than that!"));
 		}
 		if(target.getHairRawLengthValue()>0) { // If bald, leave bald.
 			for(int i=target.getHairRawLengthValue(); i<HairLength.THREE_SHOULDER_LENGTH.getMaximumValue(); i+=15) {
-				effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-						"Gonna need yer to have longa hair than that!");
+				effects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					"Gonna need yer to have longa hair than that!"));
 			}
 		}
 		for(int i=target.getLipSizeValue(); i<LipSize.TWO_FULL.getValue(); i+=2) {
-			effects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
-					"Time ta give yer some nice an' juicy cock-suckin' lips!");
+			effects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
+				"Time ta give yer some nice an' juicy cock-suckin' lips!"));
 		}
 		
 		return effects;

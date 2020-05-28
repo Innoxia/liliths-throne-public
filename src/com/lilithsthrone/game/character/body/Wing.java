@@ -155,6 +155,17 @@ public class Wing implements BodyPartInterface {
 							+ "[npc.Name] now [npc.has] [style.boldPegataur(feathered wings)].");
 				}
 				break;
+			case LEATHERY:
+				if(owner.getLegConfiguration().isWingsOnLegConfiguration()) {
+					UtilText.transformationContentSB.append(
+							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], leathery wings push out from the sides of [npc.her] [npc.legConfiguration] body.<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldDemon(leathery wings)].");
+				} else {
+					UtilText.transformationContentSB.append(
+							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], leathery wings push out from [npc.her] shoulder blades.<br/>"
+							+ "[npc.Name] now [npc.has] [style.boldDemon(leathery wings)].");
+				}
+				break;
 		}
 		
 		if(type!=WingType.NONE) {

@@ -15,8 +15,11 @@ import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.HipSize;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -350,8 +353,7 @@ public class OccupancyUtil implements XMLSaving {
 					}
 				}
 				
-				if(Math.random()<0.05f || currentJob==SlaveJob.MILKING) {
-//						|| (Math.random()<0.5f && (currentJob==SlaveJob.PUBLIC_STOCKS || currentJob==SlaveJob.PROSTITUTE))) {
+				if(Math.random()<=currentJob.getHourlyEventChance()) {
 					List<SlaveryEventLogEntry> entries = generateEvents(hour, slave);
 					for(SlaveryEventLogEntry e : entries) {
 						Main.game.addSlaveryEvent(day, e);
@@ -566,7 +568,7 @@ public class OccupancyUtil implements XMLSaving {
 						}
 						if(slave.hasPenisIgnoreDildo() && slave.getPenisRawStoredCumValue()>0 && !slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_CUM_DISABLE)) {
 							int milked = MilkingRoom.getActualCumPerHour(slave);
-	
+							
 							if(milked>0) {
 								if(slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_CUM_AUTO_SELL)) {
 									income += Math.max(1, (int) (milked * slave.getCum().getValuePerMl()));
@@ -576,6 +578,8 @@ public class OccupancyUtil implements XMLSaving {
 									room.incrementFluidStored(new FluidStored(slave, slave.getCum(), milked), milked);
 									milkingStored.add("[style.colourCum("+ Units.fluid(milked) +")] [npc.cum] stored.");
 								}
+								slave.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
+								slave.setLastTimeOrgasmed(((Main.game.getDayNumber()*24)+hour)*60);
 							}
 						}
 						if(slave.hasVagina() && !slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {
@@ -590,6 +594,8 @@ public class OccupancyUtil implements XMLSaving {
 									room.incrementFluidStored(new FluidStored(slave.getId(), slave.getGirlcum(), milked), milked);
 									milkingStored.add("[style.colourGirlCum("+ Units.fluid(milked) +")] [npc.girlcum] stored.");
 								}
+								slave.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
+								slave.setLastTimeOrgasmed(((Main.game.getDayNumber()*24)+hour)*60);
 							}
 						}
 						generatedIncome += income;
@@ -658,7 +664,7 @@ public class OccupancyUtil implements XMLSaving {
 									list.add("[style.boldBad(-1)] [style.boldAffection(Affection)]");
 									list.add("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]");
 								}
-
+								
 								String tf = "";
 								SlaveEventTag tag = SlaveEventTag.JOB_LILAYA_FEMININE_TF;
 								if(slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)) {
@@ -1103,91 +1109,252 @@ public class OccupancyUtil implements XMLSaving {
 	}
 	
 	private String getTestSubjectFeminineTransformation(NPC slave) {
-		if(slave.hasPenis()) {
-			slave.setPenisType(PenisType.NONE);
-			if(!slave.hasVagina()) {
-				slave.setVaginaType(RacialBody.valueOfRace(slave.getRace()).getVaginaType());
-			}
-			return "[style.boldShrink(Lost penis)], [style.boldGrow(gained vagina)]";
+		List<TestSubjectTransformation> effects = new ArrayList<>(); 
+		
+		if(slave.hasPenis() || !slave.hasVagina()) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					List<String> effects = new ArrayList<>();
+					if(slave.hasPenis()) {
+						slave.setPenisType(PenisType.NONE);
+						effects.add("[style.boldShrink(Lost penis)]");
+						
+					}
+					if(!slave.hasVagina()) {
+						slave.setVaginaType(RacialBody.valueOfRace(slave.getRace()).getVaginaType());
+						effects.add(UtilText.parse(slave, "[style.boldGrow(Gained [npc.vaginaRace] vagina)]"));
+					}
+					return Util.stringsToStringList(effects, false);
+				}
+			});
 		}
 		
-		if(!slave.hasVagina()) {
-			slave.setVaginaType(RacialBody.valueOfRace(slave.getRace()).getVaginaType());
-			return "[style.boldGrow(Gained vagina)]";
-		}
-		
-		if(Math.random()>0.5f) {
-			if(slave.getFemininityValue()<100) {
-				int increment = Util.random.nextInt(5)+1;
-				slave.incrementFemininity(increment);
-				return "[style.boldGrow(+"+increment+")] [style.boldFeminine(Femininity)]";
-			}
+		if(slave.getFemininityValue()<100) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					int increment = Util.random.nextInt(5)+1;
+					slave.incrementFemininity(increment);
+					return "[style.boldGrow(+"+increment+")] [style.boldFeminine(Femininity)]";
+				}
+			});
 		}
 		
 		if(slave.getBreastSize().getMeasurement() < CupSize.GG.getMeasurement()) {
-			int increment = Util.random.nextInt(1)+1;
-			slave.incrementBreastSize(increment);
-			return "[style.boldGrow(Gained "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cup breasts)]";
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					int increment = Util.random.nextInt(1)+1;
+					slave.incrementBreastSize(increment);
+					return "[style.boldGrow(Gained "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cup breasts)]";
+				}
+			});
+		}
+		
+		if(slave.getHipSize().getValue()<HipSize.FOUR_WOMANLY.getValue()) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					int increment = Util.random.nextInt(1)+1;
+					slave.incrementHipSize(increment);
+					return UtilText.parse(slave, "[style.boldGrow(Hips expanded to '[npc.hipSize]')]");
+				}
+			});
+		}
+		
+		if(slave.getAssSize().getValue()<AssSize.FOUR_LARGE.getValue()) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					int increment = Util.random.nextInt(1)+1;
+					slave.incrementAssSize(increment);
+					return UtilText.parse(slave, "[style.boldGrow(Ass expanded to '[npc.assSize]')]");
+				}
+			});
+		}
+		
+		if(slave.getLipSize().getValue()<LipSize.THREE_PLUMP.getValue()) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					slave.incrementLipSize(1);
+					return UtilText.parse(slave, "[style.boldGrow([npc.Lips] grown to '[npc.lipSize]')]");
+				}
+			});
+		}
+		
+		if(!effects.isEmpty()) {
+			TestSubjectTransformation tst = Util.randomItemFrom(effects);
+			return tst.applyEffects();
 		}
 		
 		return "";
 	}
 	
 	private String getTestSubjectMasculineTransformation(NPC slave) {
-		if(slave.hasVagina()) {
-			slave.setVaginaType(VaginaType.NONE);
-			if(!slave.hasPenis()) {
-				slave.setPenisType(RacialBody.valueOfRace(slave.getRace()).getPenisType());
-			}
-			return "[style.boldShrink(Lost vagina)], [style.boldGrow(gained penis)]";
+		List<TestSubjectTransformation> effects = new ArrayList<>(); 
+		
+		if(!slave.hasPenis() || slave.hasVagina()) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					List<String> effects = new ArrayList<>();
+					if(slave.hasVagina()) {
+						slave.setVaginaType(VaginaType.NONE);
+						effects.add("[style.boldShrink(Lost vagina)]");
+						
+					}
+					if(!slave.hasPenis()) {
+						slave.setPenisType(RacialBody.valueOfRace(slave.getRace()).getPenisType());
+						effects.add(UtilText.parse(slave, "[style.boldGrow(Gained [npc.penisRace] penis)]"));
+					}
+					return Util.stringsToStringList(effects, false);
+				}
+			});
 		}
 		
-		if(!slave.hasPenis()) {
-			slave.setPenisType(RacialBody.valueOfRace(slave.getRace()).getPenisType());
-			return "[style.boldGrow(Gained penis)]";
-		}
-		
-		if(Math.random()>0.5f) {
-			if(slave.getFemininityValue()>0) {
-				int increment = Util.random.nextInt(5)+1;
-				slave.incrementFemininity(-increment);
-				return "[style.boldShrink(-"+increment+")] [style.boldFeminine(Femininity)]";
-			}
+		if(slave.getFemininityValue()>0) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					int increment = Util.random.nextInt(5)+1;
+					slave.incrementFemininity(-increment);
+					return "[style.boldShrink("+increment+")] [style.boldFeminine(Femininity)]";
+				}
+			});
 		}
 		
 		if(slave.getBreastSize().getMeasurement() > 0) {
-			int increment = Util.random.nextInt(1)+1;
-			slave.incrementBreastSize(-increment);
-			return "[style.boldShrink(Breasts shrunk to "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cups)]";
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					int increment = Util.random.nextInt(1)+1;
+					slave.incrementBreastSize(-increment);
+					return "[style.boldShrink(Shrunk breasts to "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cup)]";
+				}
+			});
+		}
+		
+		if(slave.getHipSize().getValue()>HipSize.TWO_NARROW.getValue()) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					int increment = Util.random.nextInt(1)+1;
+					slave.incrementHipSize(-increment);
+					return UtilText.parse(slave, "[style.boldShrink(Hips shrunk to '[npc.hipSize]')]");
+				}
+			});
+		}
+		
+		if(slave.getAssSize().getValue()<AssSize.FOUR_LARGE.getValue()) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					int increment = Util.random.nextInt(1)+1;
+					slave.incrementAssSize(-increment);
+					return UtilText.parse(slave, "[style.boldShrink(Ass shrunk to '[npc.assSize]')]");
+				}
+			});
+		}
+		
+		if(slave.getLipSize().getValue()>LipSize.ONE_AVERAGE.getValue()) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					slave.incrementLipSize(-1);
+					return UtilText.parse(slave, "[style.boldGrow([npc.Lips] shrunk to '[npc.lipSize]')]");
+				}
+			});
+		}
+		
+		if(!effects.isEmpty()) {
+			TestSubjectTransformation tst = Util.randomItemFrom(effects);
+			return tst.applyEffects();
 		}
 		
 		return "";
 	}
 	
 	private String getTestSubjectFutanariTransformation(NPC slave) {
+		List<TestSubjectTransformation> effects = new ArrayList<>(); 
 		
-		if(!slave.hasVagina()) {
-			slave.setVaginaType(RacialBody.valueOfRace(slave.getRace()).getVaginaType());
-			return "[style.boldGrow(Gained vagina)]";
+		if(!slave.hasPenis() || !slave.hasVagina()) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					List<String> effects = new ArrayList<>();
+					if(!slave.hasPenis()) {
+						slave.setPenisType(RacialBody.valueOfRace(slave.getRace()).getPenisType());
+						effects.add("[style.boldGrow(Gained [npc.penisRace] penis)]");
+						
+					}
+					if(!slave.hasVagina()) {
+						slave.setVaginaType(RacialBody.valueOfRace(slave.getRace()).getVaginaType());
+						effects.add(UtilText.parse(slave, "[style.boldGrow(Gained [npc.vaginaRace] vagina)]"));
+					}
+					return Util.stringsToStringList(effects, false);
+				}
+			});
 		}
 		
-		if(!slave.hasPenis()) {
-			slave.setPenisType(RacialBody.valueOfRace(slave.getRace()).getPenisType());
-			return "[style.boldGrow(Gained penis)]";
-		}
-		
-		if(Math.random()>0.5f) {
-			if(slave.getFemininityValue()<100) {
-				int increment = Util.random.nextInt(5)+1;
-				slave.incrementFemininity(increment);
-				return "[style.boldGrow(+"+increment+")] [style.boldFeminine(Femininity)]";
-			}
+		if(slave.getFemininityValue()<100) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					int increment = Util.random.nextInt(5)+1;
+					slave.incrementFemininity(increment);
+					return "[style.boldGrow(+"+increment+")] [style.boldFeminine(Femininity)]";
+				}
+			});
 		}
 		
 		if(slave.getBreastSize().getMeasurement() < CupSize.GG.getMeasurement()) {
-			int increment = Util.random.nextInt(1)+1;
-			slave.incrementBreastSize(increment);
-			return "[style.boldGrow(Gained "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cup breasts)]";
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					int increment = Util.random.nextInt(1)+1;
+					slave.incrementBreastSize(increment);
+					return "[style.boldGrow(Gained "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cup breasts)]";
+				}
+			});
+		}
+		
+		if(slave.getHipSize().getValue()<HipSize.FOUR_WOMANLY.getValue()) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					int increment = Util.random.nextInt(1)+1;
+					slave.incrementHipSize(increment);
+					return UtilText.parse(slave, "[style.boldGrow(Hips expanded to '[npc.hipSize]')]");
+				}
+			});
+		}
+		
+		if(slave.getAssSize().getValue()<AssSize.FOUR_LARGE.getValue()) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					int increment = Util.random.nextInt(1)+1;
+					slave.incrementAssSize(increment);
+					return UtilText.parse(slave, "[style.boldGrow(Ass expanded to '[npc.assSize]')]");
+				}
+			});
+		}
+		
+		if(slave.getLipSize().getValue()<LipSize.THREE_PLUMP.getValue()) {
+			effects.add(new TestSubjectTransformation() {
+				@Override
+				public String applyEffects() {
+					slave.incrementLipSize(1);
+					return UtilText.parse(slave, "[style.boldGrow([npc.Lips] grown to '[npc.lipSize]')]");
+				}
+			});
+		}
+		
+		if(!effects.isEmpty()) {
+			TestSubjectTransformation tst = Util.randomItemFrom(effects);
+			return tst.applyEffects();
 		}
 		
 		return "";

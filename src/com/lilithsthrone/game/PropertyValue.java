@@ -2,7 +2,7 @@ package com.lilithsthrone.game;
 
 /**
  * @since 0.2.2
- * @version 0.3.5.5
+ * @version 0.3.7.7
  * @author Innoxia
  */
 public enum PropertyValue {
@@ -23,6 +23,7 @@ public enum PropertyValue {
 	calendarDisplay(true),
 	tattooRemovalConfirmations(true),
 	sillyMode(false),
+	weatherInterruptions(true),
 
 	autoLocale(true),
 	metricSizes(true),
@@ -39,7 +40,8 @@ public enum PropertyValue {
 	sadisticSexContent(false),
 	incestContent(false),
 	inflationContent(true),
-	
+
+	lipstickMarkingContent(true),
 	facialHairContent(true),
 	pubicHairContent(true),
 	bodyHairContent(false),
@@ -70,6 +72,7 @@ public enum PropertyValue {
 	bypassSexActions(true),
 
 	levelUpHightlight(false),
+	sharedEncyclopedia(false),
 	newWeaponDiscovered(false),
 	newClothingDiscovered(false),
 	newItemDiscovered(false),

@@ -52,8 +52,8 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.CombatMove;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -114,7 +114,7 @@ import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
-import com.lilithsthrone.world.places.Population;
+import com.lilithsthrone.world.population.Population;
 
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
@@ -492,21 +492,21 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-//							System.out.println(Main.isVersionOlderThan("0.3.5.9", "0.3.5.10"));
-//							for(NPC npc : Main.game.getAllNPCs()) {
-//								if(npc.isUnique()) {
-//									System.out.println(npc.getNameIgnoresPlayerKnowledge()+": "+npc.getAttributeValue(Attribute.MAJOR_CORRUPTION));
+//							for(AbstractClothingType ct : ClothingType.getAllClothing()) {
+//								if(ct.isPatternAvailable()) {
+//									Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ct));
 //								}
 //							}
-//							Main.game.getNpc(Lyssieth.class).getSubspecies();
-							
-//							Main.game.getPlayer().setInventory(Main.game.getSavedInventories().get(Main.game.getPlayer().getId()));
-//							for(SolarElevationAngle sea : SolarElevationAngle.values()) {
-//								LocalDateTime[] ldt = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), sea, Game.DOMINION_LONGITUDE, Game.DOMINION_LATITUDE);
-//								System.out.println(sea+": "+ ldt[0] + " | " + ldt[1]);
+//							for(int i=0; i<20; i++) {
+//								NPC n = new DominionExpressCentaur();
+//								n.setLocation(Main.game.getPlayer(), false);
+//								try {
+//									Main.game.addNPC(n, false);
+//								} catch (Exception e) {
+//									e.printStackTrace();
+//								}
 //							}
-//							
-//							System.out.println(DateAndTime.getDayPeriod(Main.game.getDateNow(), Game.DOMINION_LONGITUDE, Game.DOMINION_LATITUDE));
+							Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).setColour(0, PresetColour.CLOTHING_GOLD);
 						}
 						 
 
@@ -1424,7 +1424,7 @@ public class MainController implements Initializable {
 		String id = "TAIL_COUNT_"+i;
 		if (((EventTarget) document.getElementById(id)) != null) {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				BodyChanging.getTarget().setTailCount(i, false);
+				BodyChanging.getTarget().setTailCount(i, BodyChanging.isDebugMenu());
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
@@ -1986,6 +1986,16 @@ public class MainController implements Initializable {
 		}
 		
 		if(Main.game.getPlayer()!=null) {
+			// Money on floor:
+			id = "MONEY_ON_FLOOR";
+			if (((EventTarget) documentRight.getElementById(id)) != null) {
+				if(!Main.game.getCurrentDialogueNode().isInventoryDisabled() || Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY) {
+					addEventListener(documentRight, id, "click", e -> {
+						Main.mainController.openInventory();
+					}, false);
+				}
+			}
+
 			// Weapons on floor:
 			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
 				id = "WEAPON_FLOOR_" + entry.getKey().hashCode();
