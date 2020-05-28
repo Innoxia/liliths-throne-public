@@ -671,9 +671,15 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 //			}
 //			character.removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
 		}
-		if(character.isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR)
-				&& !character.hasItemType(ItemType.NATALYA_BUSINESS_CARD)) {
-			character.addItem(AbstractItemType.generateItem(ItemType.NATALYA_BUSINESS_CARD), false);
+		if(Main.isVersionOlderThan(version, "0.3.8.1")) {
+			if(character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
+				character.removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
+				
+			} else if(character.isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR)
+					&& !character.hasItemType(ItemType.NATALYA_BUSINESS_CARD)
+					&& !character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
+				character.addItem(AbstractItemType.generateItem(ItemType.NATALYA_BUSINESS_CARD), false);
+			}
 		}
 		
 		if(Main.isVersionOlderThan(version, "0.3.8") && character.isHasSlaverLicense()) {

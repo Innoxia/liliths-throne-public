@@ -8507,7 +8507,7 @@ public class InventoryDialogue {
 								+ "<p style='text-align:center;'>"
 									+ "Repairing the condom has cost you [style.boldBad(1)] [style.boldArcane(Arcane Essence)]!"
 								+ "</p>");
-						AbstractClothing c = (AbstractClothing) EnchantmentDialogue.craftItem(clothing, clothing.getClothingType().getEffects());
+						AbstractClothing c = (AbstractClothing) EnchantmentDialogue.craftAndApplyFullInventoryEffects(clothing, clothing.getClothingType().getEffects());
 
 						Main.game.getPlayer().removeClothing(c);
 						c.setName(c.getClothingType().getName());
@@ -8525,7 +8525,7 @@ public class InventoryDialogue {
 			return new Response("Sabotage", "By making a small tear in the end of this condom, you can ensure that it will break at the moment of orgasm!", CLOTHING_INVENTORY) {
 				@Override
 				public void effects(){
-					AbstractClothing c = (AbstractClothing) EnchantmentDialogue.craftItem(clothing, Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_CONDOM, TFModifier.ARCANE_BOOST, TFPotency.MAJOR_DRAIN, 0)));
+					AbstractClothing c = (AbstractClothing) EnchantmentDialogue.craftAndApplyFullInventoryEffects(clothing, Util.newArrayListOfValues(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_CONDOM, TFModifier.ARCANE_BOOST, TFPotency.MAJOR_DRAIN, 0)));
 					
 					Main.game.getPlayer().removeClothing(c);
 					c.setName(c.getClothingType().getName());

@@ -1434,12 +1434,6 @@ public class DominionExpress {
 						}
 						return super.getHighlightColour();
 					}
-					@Override
-					public void effects() {
-						if(!Main.game.getPlayer().hasQuest(QuestLine.ROMANCE_NATALYA)) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.ROMANCE_NATALYA));
-						}
-					}
 				};
 			}
 			return null;
@@ -1456,6 +1450,9 @@ public class DominionExpress {
 		@Override
 		public void applyPreParsingEffects() {
 			if(!isOfficeEntryDenied()) {
+				if(!Main.game.getPlayer().hasQuest(QuestLine.ROMANCE_NATALYA)) {
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.ROMANCE_NATALYA));
+				}
 				if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_NATALYA)==Quest.ROMANCE_NATALYA_1_INTERVIEW_START) {
 					Main.game.getPlayer().removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
 					Main.getProperties().addItemDiscovered(ItemType.NATALYA_BUSINESS_CARD);
@@ -2959,7 +2956,12 @@ public class DominionExpress {
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getNpc(Natalya.class), Util.newArrayListOfValues(CoverableArea.MOUTH)),
-										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))),
+										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))) {
+							@Override
+							public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
+								return true;
+							}
+						},
 						null,
 						null,
 						OFFICE_STABLE_FILLY_AFTER_SEX_AS_DOM,
@@ -2997,7 +2999,12 @@ public class DominionExpress {
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS))),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getNpc(Natalya.class), Util.newArrayListOfValues(CoverableArea.MOUTH)),
-										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS)))),
+										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS)))) {
+							@Override
+							public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
+								return true;
+							}
+						},
 						null,
 						null,
 						OFFICE_STABLE_FILLY_AFTER_SEX_AS_DOM,
@@ -3029,13 +3036,18 @@ public class DominionExpress {
 						"Dominate Mistress Natalya by thrusting your [pc.cock+] into her [natalya.asshole+].",
 						true,
 						false,
-						new SMDominionExpress(SexPosition.STANDING,
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), SexSlotStanding.PERFORMING_ORAL_BEHIND)),
+						new SMDominionExpress(SexPosition.ALL_FOURS,
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), SexSlotAllFours.ALL_FOURS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS))),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getNpc(Natalya.class), Util.newArrayListOfValues(CoverableArea.MOUTH)),
-										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS)))),
+										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.ANUS)))) {
+							@Override
+							public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing){
+								return true;
+							}
+						},
 						null,
 						null,
 						OFFICE_STABLE_FILLY_AFTER_SEX_AS_DOM,

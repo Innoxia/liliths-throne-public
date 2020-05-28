@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.8";
+	public static final String VERSION_NUMBER = "0.3.8.1";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -95,7 +95,7 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I think that there might be some bugs hiding here and there in this version, so I'm currently planning on having a hotfix out on the night of Friday, 29th May."
+			+ "This is the hotfixed version of v0.3.8, which ended up having several major bugs in it..."
 		+ "</p>"
 		
 		+ "<br/>"
@@ -107,6 +107,36 @@ public class Main extends Application {
 
 		+ "<br/>"
 		
+
+		+ "<list>"
+		+ "<h6>v0.3.8.1</h6>"
+			+"<li>Other:</li>"
+			+"<ul>Demons (and imps) have had their chance to spawn with the 'lewd' personality trait increased from 75% to 80%, and their chance to spawn as 'innocent' or 'prudish' lowered from 2% to 1%.</ul>"
+			+"<ul>Newly-generated NPCs who have the 'pure virgin' fetish and the 'lewd' personality trait will now have a higher chance (75% instead of 50%) to spawn in having lost their virginity.</ul>"
+			
+			+"<li>Items:</li>"
+			+"<ul>You can now recolour the 'Witch's Broom' and 'Feather Duster' weapons.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Minor parsing & incorrect description fixes.</ul>"
+			+"<ul>Fixed major bug in weapon/clothing/item comparator code which was resulting in the game's inventory breaking in odd places and causing the game to sometimes freeze or become unresponsive.</ul>"
+			+"<ul>Fixed another major bug which was causing the game to freeze when you tried to enchant certain weapons or items of clothing.</ul>"
+			+"<ul>Fixed bug where all clothing equipped by newly-spawned NPCs was unidentified.</ul>"
+			+"<ul>Fixed bug where fluid absorption rates for all orifices were 60 times lower than they should have been. (Fluids in characters' orifices will now be depleted quicker than before, especially when in the stomach.)</ul>"
+			+"<ul>Fixed minor UI issue when enchanting items, where the output image would not always show the correct icon of the item which was going to be created.</ul>"
+			+"<ul>Fixed issues where tattoo effects were being applied just by clicking the add button.</ul>"
+			+"<ul>The 'Secondary Sparks' upgrade to the 'Flash' spell now correctly drains 2 AP from the target, instead of making the effect last for 2 turns (as it was in previous versions of Flash).</ul>"
+			+"<ul>NPCs' status effect updates will no longer spam your event log.</ul>"
+			+"<ul>Fixed issue with no sex actions being available in the milking stall's 'all fours' position.</ul>"
+			+"<ul>The 'Object to rough' sex action is now correctly available to use when the performing character's mouth is blocked. The associated corruption is also now 'pure' instead of 'horny'. </ul>"
+			+"<ul>Scarlett now correctly starts sex with her clothing displaced in the sleepover sex scenes during Helena's romance quest.</ul>"
+			+"<ul>Kate no longer takes your money for daring to change your hairstyle or makeup in your own room.</ul>"
+			+"<ul>Fixed issue with incorrect positioning and no actions being available when dominating Natalya in the 'Mount her' scene. You can now also remove her clothing in sex scenes in which you dominate her.</ul>"
+			+"<ul>Fixed bug where both Natalya's business card and her stamped business card would be in your inventory at once.</ul>"
+			+"<ul>Fixed bug where when wearing the filly collar, Dominion Streets text would incorrectly describe your mouth as being blocked when it wasn't, and vice versa.</ul>"
+		+"</list>"
+		
+		+ "<br/>"
 
 		+ "<list>"
 		+ "<h6>v0.3.8</h6>"

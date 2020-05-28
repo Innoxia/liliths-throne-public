@@ -1922,12 +1922,19 @@ public class SexPosition {
 
 			List<SexSlot> inStocks = Util.newArrayListOfValues(SexSlotMilkingStall.LOCKED_IN_MILKING_STALL, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_TWO, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_THREE, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_FOUR);
 			List<SexSlot> standing = Util.newArrayListOfValues(SexSlotMilkingStall.BEHIND_MILKING_STALL, SexSlotMilkingStall.BEHIND_MILKING_STALL_TWO, SexSlotMilkingStall.BEHIND_MILKING_STALL_THREE, SexSlotMilkingStall.BEHIND_MILKING_STALL_FOUR);
+			List<SexSlot> beneath = Util.newArrayListOfValues(SexSlotMilkingStall.BENEATH_MILKING_STALL, SexSlotMilkingStall.BENEATH_MILKING_STALL_TWO, SexSlotMilkingStall.BENEATH_MILKING_STALL_THREE, SexSlotMilkingStall.BENEATH_MILKING_STALL_FOUR);
 			List<SexSlot> performingOral = Util.newArrayListOfValues(SexSlotMilkingStall.PERFORMING_ORAL, SexSlotMilkingStall.PERFORMING_ORAL_TWO, SexSlotMilkingStall.PERFORMING_ORAL_THREE, SexSlotMilkingStall.PERFORMING_ORAL_FOUR);
 			List<SexSlot> receivingOral = Util.newArrayListOfValues(SexSlotMilkingStall.RECEIVING_ORAL, SexSlotMilkingStall.RECEIVING_ORAL_TWO, SexSlotMilkingStall.RECEIVING_ORAL_THREE, SexSlotMilkingStall.RECEIVING_ORAL_FOUR);
 
 			for(SexSlot slotStanding : standing) {
 				for(SexSlot stockSlot : inStocks) {
 					interactions.add(StandardSexActionInteractions.fuckingCharacterInStocks.getSexActionInteractions(slotStanding, stockSlot));
+				}
+			}
+
+			for(SexSlot slotBeneath: beneath) {
+				for(SexSlot stockSlot : inStocks) {
+					interactions.add(StandardSexActionInteractions.fuckedByCharacterInStocks.getSexActionInteractions(slotBeneath, stockSlot));
 				}
 			}
 

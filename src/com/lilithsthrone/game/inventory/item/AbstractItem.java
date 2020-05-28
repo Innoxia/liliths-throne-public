@@ -62,7 +62,9 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 
 		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
 		CharacterUtils.addAttribute(doc, element, "name", this.getName());
-		CharacterUtils.addAttribute(doc, element, "colour", this.getColour(0).getId());
+		if(this.getColour(0)!=null) {
+			CharacterUtils.addAttribute(doc, element, "colour", this.getColour(0).getId());
+		}
 		
 		Element innerElement = doc.createElement("itemEffects");
 		element.appendChild(innerElement);

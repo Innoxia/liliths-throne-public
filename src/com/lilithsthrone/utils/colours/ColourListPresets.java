@@ -319,6 +319,7 @@ public class ColourListPresets {
 		// Fix inconsistent naming:
 		if(id.equals("ALL_METALS")) {
 			id = "ALL_METAL";
+			
 		} else if(id.equals("ALL_WITH_METAL")) {
 			id = "ALL_WITH_METALS";
 		}

@@ -466,6 +466,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	public static AbstractWeapon generateWeapon(AbstractWeaponType wt, DamageType dt, List<Colour> colours) {
 		if(colours==null) {
 			colours = new ArrayList<>();
+			
+		} else {
+			colours = new ArrayList<>(colours);
 		}
 		
 		int index = 0;

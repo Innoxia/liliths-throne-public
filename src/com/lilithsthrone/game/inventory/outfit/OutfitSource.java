@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.inventory.clothing;
+package com.lilithsthrone.game.inventory.outfit;
 
 /**
  * @since 0.3.3.10

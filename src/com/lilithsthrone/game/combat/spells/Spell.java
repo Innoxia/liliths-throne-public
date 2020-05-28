@@ -176,7 +176,7 @@ public enum Spell {
 		@Override
 		public Map<StatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
 			if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.FLASH_1)) {
-				return Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.FLASH, 2));
+				return Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.FLASH_1, 1));
 			} else {
 				return Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.FLASH, 1));
 			}
@@ -193,6 +193,9 @@ public enum Spell {
 		
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+			if(caster!=null && caster.hasSpellUpgrade(SpellUpgrade.FLASH_1)) {
+				return "Dazzles for [style.colourTerrible(-2)] action points!";
+			}
 			return "Dazzles for [style.colourTerrible(-1)] action points!";
 		}
 		

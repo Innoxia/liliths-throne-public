@@ -15,7 +15,6 @@
 		<imageEquippedName/>
 		<enchantmentLimit/>
 		<effects/>
-		
 		<blockedPartsList>
 			<blockedParts>
 				<displacementType>REMOVE_OR_EQUIP</displacementType> 
@@ -31,16 +30,13 @@
 				<concealedSlots/>
 			</blockedParts>
 		</blockedPartsList>
-		
 		<incompatibleSlots/> 
-		
 		<primaryColours values="LEATHER"/> 
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours values="JUST_BLACK"/>
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
-		
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>

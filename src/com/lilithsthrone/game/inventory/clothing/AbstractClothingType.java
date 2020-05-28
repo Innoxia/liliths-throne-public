@@ -614,14 +614,22 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			Function< Element, List<Colour> > getColoursFromElement = (colorsElement) -> { //Helper function to get the colors depending on if it's a specified group or a list of individual colors
 				String values = colorsElement.getAttribute("values");
 				try {
-					if(values.isEmpty()) {
-						return colorsElement.getAllOf("colour").stream()
-								.map(Element::getTextContent).map(PresetColour::getColourFromId)
-								.collect(Collectors.toList());
+					if(values.isEmpty()) { //TODO this is causing issues in enchanting for some reason...
+						List<Colour> colours = new ArrayList<>();
+						for(Element element : colorsElement.getAllOf("colour")) {
+							colours.add(PresetColour.getColourFromId(element.getTextContent()));
+						}
+						return colours;
+//						return colorsElement.getAllOf("colour").stream()
+//								.map(Element::getTextContent).map(PresetColour::getColourFromId)
+//								.collect(Collectors.toList());
+//						return ColourListPresets.getColourListFromId("ALL_WITH_METALS");
 					} else {
 						return ColourListPresets.getColourListFromId(values);
 					}
+					
 				} catch (Exception e) {
+					System.err.println("AAAAAAAAAAAAA");
 					printHelpfulErrorForEnumValueMismatches(e);
 					throw new IllegalStateException("Colour tag reading failure: "+colorsElement.getTagName()+" " + e.getMessage(), e);
 				}
@@ -1190,6 +1198,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, List<Colour> colours, List<ItemEffect> effects) {
 		if(colours==null) {
 			colours = new ArrayList<>();
+			
+		} else {
+			colours = new ArrayList<>(colours);
 		}
 		
 		int index = 0;

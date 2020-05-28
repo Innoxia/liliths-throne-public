@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.inventory.clothing;
+package com.lilithsthrone.game.inventory.outfit;
 
 import java.io.File;
 import java.util.ArrayList;

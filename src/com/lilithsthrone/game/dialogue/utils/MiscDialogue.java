@@ -62,6 +62,10 @@ public class MiscDialogue {
 
 	private static boolean withHairStyle;
 	private static String makeupOpeningDescription;
+
+	public static DialogueNode getMakeupDialogueForEqualityCheck() {
+		return BODY_CHANGING_MAKEUP;
+	}
 	
 	public static DialogueNode getMakeupDialogue(boolean withHairStyle, String makeupOpeningDescription) {
 		MiscDialogue.withHairStyle = withHairStyle;

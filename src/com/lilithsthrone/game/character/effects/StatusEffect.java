@@ -79,7 +79,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.8
  * @author Innoxia
  */
 public enum StatusEffect {
@@ -7745,6 +7745,28 @@ public enum StatusEffect {
 		}
 	},
 
+	FLASH_1(10,
+			"Blinded (Secondary Sparks)",
+			null,
+			PresetColour.DAMAGE_TYPE_FIRE,
+			false,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ACTION_POINTS, -2f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+						"After the initial, blinding flash of light, a series of secondary sparks are continuing to  dazzle [npc.name], making it incredibly difficult for [npc.herHim] to perform any actions!");
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.FLASH_1.getSVGString();
+		}
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
+	
 	CLOAK_OF_FLAMES(10,
 			"Cloak of Flames",
 			null,

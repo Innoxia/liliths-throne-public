@@ -116,7 +116,7 @@ public class DominionPlaces {
 					mommySB.append(" As there's an ongoing arcane storm, however, there's [style.colourMinorBad(zero chance)] that you'll encounter any of them...");
 				} else if(!Main.game.isExtendedWorkTime()) {
 					mommySB.append(" As they're not out at work at this time, however, there's [style.colourMinorBad(zero chance)] that you'll encounter any of them...");
-				} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+				} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 					mommySB.append(" As you aren't able to access your mouth, however, there's [style.colourMinorBad(zero chance)] that any of them will approach you...");
 				} else {
 					mommySB.append(" Although Dominion is a huge city, there are a significant number of centaur slaves who work at Dominion Express, meaning that there's at least a [style.colourMinorGood(small chance)] that you'll run into one...");

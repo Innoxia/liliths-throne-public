@@ -112,7 +112,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			TFModifier rndMod2 = attributeMods.get(Util.random.nextInt(attributeMods.size()));
 			
 			if(chance <= 20) { // Jinxed:
-				
 				if(chance <= 1) {
 					effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_DRAIN, 0));
 				} else if(chance <= 4) {
@@ -173,11 +172,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		displacedList = new ArrayList<>();
 		if(effects!=null) {
 			this.effects = new ArrayList<>(effects);
+			enchantmentKnown = false;
+			
 		} else {
 			this.effects = new ArrayList<>();
 		}
-
-		enchantmentKnown = false;
 	}
 
 	public AbstractClothing(AbstractClothing clothing) {
@@ -815,10 +814,15 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 	
 	public String getColourName() {
-		if(this.getClothingType().isColourDerivedFromPattern() && this.getPattern()!="none") {
-			return this.getPatternColour(0).getName();
+		try {
+			if(this.getClothingType().isColourDerivedFromPattern() && this.getPattern()!="none") {
+				return this.getPatternColour(0).getName();
+			}
+			return getColour(0).getName();
+		} catch(Exception ex) {
+			System.err.println("Warning: AbstractClothing.getColourName() returning null!");
+			return "";
 		}
-		return getColour(0).getName();
 	}
 	
 	/**
@@ -1165,169 +1169,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	private static List<String> incompatibleClothing = new ArrayList<>();
-
-//	/**
-//	 * Returns a formatted description of if this clothing is sealed, cummedIn, too feminine/masculine and what slots it is blocking.
-//	 */
-//	public String clothingExtraInformation(GameCharacter equippedToCharacter, InventorySlot slotToBeEquippedTo) {
-//		StringBuilder extraInformationSB = new StringBuilder();
-//		
-//		if(equippedToCharacter == null) { // The clothing is not currently equipped by anyone:
-//			incompatibleClothing.clear();
-//			if(!getClothingType().getIncompatibleSlots(null, slotToBeEquippedTo).isEmpty()) {
-//				for (InventorySlot invSlot : getClothingType().getIncompatibleSlots(null, slotToBeEquippedTo))
-//					if(Main.game.getPlayer().getClothingInSlot(invSlot) != null)
-//						incompatibleClothing.add(Main.game.getPlayer().getClothingInSlot(invSlot).getClothingType().getName());
-//			}
-//			for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped())
-//				for (InventorySlot invSlot : c.getClothingType().getIncompatibleSlots(null, c.getSlotEquippedTo()))
-//					if(slotToBeEquippedTo == invSlot)
-//						incompatibleClothing.add(c.getClothingType().getName());
-//			
-//			if(!getClothingType().getIncompatibleSlots(null, slotToBeEquippedTo).isEmpty()) {
-//				extraInformationSB.append("Equipping "+(getClothingType().isPlural()?"them":"it")+" will [style.boldBad(block)] your "+ Util.inventorySlotsToStringList(getClothingType().getIncompatibleSlots(null, slotToBeEquippedTo))+".<br/>");
-//			}
-//			
-//			if(Main.game.getPlayer().getClothingInSlot(slotToBeEquippedTo)!=null && Main.game.getPlayer().getClothingInSlot(slotToBeEquippedTo).getClothingType().isDiscardedOnUnequip(slotToBeEquippedTo)) {
-//				extraInformationSB.append("[style.boldBad(Equipping this will cause the "+Main.game.getPlayer().getClothingInSlot(slotToBeEquippedTo).getName()+" you're already wearing to be discarded!)]<br/>");
-//			}
-//			
-//			if(this.isSealed() && enchantmentKnown) {
-//				extraInformationSB.append((getClothingType().isPlural() ? "They" : "It") + " will [style.boldJinx(jinx)] " + (getClothingType().isPlural() ? "themselves" : "itself") + " onto you!<br/>");
-//			}
-//			
-//			if(!enchantmentKnown) {
-//				extraInformationSB.append("You can either take " + (getClothingType().isPlural() ? "them" : "it") + " to a suitable vendor, or equip " + (getClothingType().isPlural() ? "them" : "it") + " now to identify the"
-//						+ " <b style='color: "+ PresetColour.RARITY_UNKNOWN.toWebHexString() + ";'>unknown enchantment</b>!<br/>");
-//			}
-//			
-//		} else {
-//			if(slotToBeEquippedTo!=null) {
-//				if(!getClothingType().getIncompatibleSlots(equippedToCharacter, slotToBeEquippedTo).isEmpty()) {
-//					extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldBad(blocking)] [npc.her] "
-//							+ Util.inventorySlotsToStringList(getClothingType().getIncompatibleSlots(equippedToCharacter, slotToBeEquippedTo)) + "!<br/>");
-//				}
-//			}
-//			
-//			if(this.isSealed()) {
-//				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " [style.boldCorruption(sealed)] and can't be removed!<br/>");
-//				
-//			} else if(this.getClothingType().isDiscardedOnUnequip(this.getSlotEquippedTo())) {
-//				extraInformationSB.append("[style.boldBad(Removing [npc.namePos] "+this.getName()+" will cause "+(getClothingType().isPlural() ? "them" : "it")+" to be discarded!)]<br/>");
-//			}
-//		}
-//
-//		if(dirty) {
-//			extraInformationSB.append((getClothingType().isPlural() ? "They have" : "It has") + " been <b style='color: " + PresetColour.CUM.toWebHexString() + ";'>covered in sexual fluids</b>!<br/>");
-//		}
-//		
-//		if(equippedToCharacter == null) {
-//			if(getClothingType().getFemininityMaximum() < Main.game.getPlayer().getFemininityValue()) {
-//				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + PresetColour.MASCULINE.toWebHexString() + ";'>too masculine</b> for [npc.herHim].<br/>");
-//			}
-//
-//			if(getClothingType().getFemininityMinimum() > Main.game.getPlayer().getFemininityValue()) {
-//				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + PresetColour.FEMININE.toWebHexString() + ";'>too feminine</b> for [npc.herHim].<br/>");
-//			}
-//			if(!incompatibleClothing.isEmpty()) {
-//				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>incompatible</b> with your "
-//						+ Util.stringsToStringList(incompatibleClothing, false) + ".<br/>");
-//			}
-//			
-//		} else {
-//			if(getClothingType().getFemininityMaximum() < equippedToCharacter.getFemininityValue()) {
-//				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + PresetColour.MASCULINE.toWebHexString() + ";'>too masculine</b> for [npc.herHim].<br/>");
-//			}
-//
-//			if(getClothingType().getFemininityMinimum() > equippedToCharacter.getFemininityValue()) {
-//				extraInformationSB.append((getClothingType().isPlural() ? "They are" : "It is") + " <b style='color: " + PresetColour.FEMININE.toWebHexString() + ";'>too feminine</b> for [npc.herHim].<br/>");
-//			}
-//			if(!displacedList.isEmpty()) {
-//				extraInformationSB.append((getClothingType().isPlural() ? "They have been" : "It has been") 
-//						+ " <b style='color: " + PresetColour.GENERIC_BAD.toWebHexString() + ";'>"+ Util.displacementTypesToStringList(displacedList) + "</b>!<br/>");
-//			}
-//		}
-//
-////		List<ItemTag> universalTags = new ArrayList<>();
-////		for(int i=0; i<this.getClothingType().getEquipSlots().size();i++) {
-////			if(i==0) {
-////				universalTags.addAll(this.getClothingType().getItemTags(this.getClothingType().getEquipSlots().get(0)));
-////				
-////			} else {
-////				List<ItemTag> tags = this.getClothingType().getItemTags(this.getClothingType().getEquipSlots().get(i));
-////				universalTags.removeIf((it) -> !tags.contains(it));
-////			}
-////		}
-////		List<ItemTag> tagsToBeDescribed= new ArrayList<>(universalTags);
-////		if(slotToBeEquippedTo==null) {
-////			tagsToBeDescribed = new ArrayList<>(universalTags);
-////			
-////		} else {
-////			tagsToBeDescribed = new ArrayList<>(this.getClothingType().getItemTags(slotToBeEquippedTo));
-////			tagsToBeDescribed.removeAll(universalTags);
-////		}
-////		for(ItemTag tag : tagsToBeDescribed) {
-////			if(tag.getClothingTooltipAdditions()!=null) {
-////				for(String description : tag.getClothingTooltipAdditions()) {
-////					if(tag==ItemTag.DILDO_SELF) {
-////						extraInformationSB.append(description
-////								+ ": Length: "+Units.size(this.getClothingType().getPenetrationSelfLength())
-////								+ " Diameter: "+Units.size(Penis.getGenericDiameter(
-////																this.getClothingType().getPenetrationSelfLength(),
-////																PenetrationGirth.getGirthFromInt(this.getClothingType().getPenetrationSelfGirth()),
-////																this.getClothingType().getPenetrationSelfModifiers())));
-////						
-////					} else if(tag==ItemTag.DILDO_OTHER) {
-////						extraInformationSB.append(description
-////								+ ": Length: "+Units.size(this.getClothingType().getPenetrationOtherLength())
-////								+ " Diameter: "+Units.size(Penis.getGenericDiameter(
-////																this.getClothingType().getPenetrationOtherLength(),
-////																PenetrationGirth.getGirthFromInt(this.getClothingType().getPenetrationOtherGirth()),
-////																this.getClothingType().getPenetrationOtherModifiers())));
-////						
-////					} else if(tag==ItemTag.ONAHOLE_SELF) {//TODO requires testing
-////						OrificeElasticity elasticity = OrificeElasticity.getElasticityFromInt(this.getClothingType().getOrificeSelfElasticity());
-////						OrificePlasticity plasticity = OrificePlasticity.getElasticityFromInt(this.getClothingType().getOrificeSelfPlasticity());
-////						Wetness wetness = Wetness.valueOf(this.getClothingType().getOrificeSelfWetness());
-////						extraInformationSB.append(description
-////								+ ": Capacity: "+Units.size(this.getClothingType().getPenetrationOtherLength())
-////								+ " Depth: "+Units.size(this.getClothingType().getOrificeSelfDepth()));
-////						extraInformationSB.append(
-////								"Elasticity: <span style='color:"+elasticity.getColour().toWebHexString()+";'>"+elasticity.getDescriptor()+"</span>"
-////								+ " Plasticity: <span style='color:"+plasticity.getColour().toWebHexString()+";'>"+plasticity.getDescriptor()+"</span>"
-////								+ " Wetness: <span style='color:"+wetness.getColour().toWebHexString()+";'>"+wetness.getDescriptor()+"</span>"
-////								);
-////						
-////					} else if(tag==ItemTag.ONAHOLE_OTHER) {//TODO requires testing
-////						OrificeElasticity elasticity = OrificeElasticity.getElasticityFromInt(this.getClothingType().getOrificeOtherElasticity());
-////						OrificePlasticity plasticity = OrificePlasticity.getElasticityFromInt(this.getClothingType().getOrificeOtherPlasticity());
-////						Wetness wetness = Wetness.valueOf(this.getClothingType().getOrificeOtherWetness());
-////						extraInformationSB.append(description
-////								+ ": Capacity: "+Units.size(this.getClothingType().getPenetrationOtherLength())
-////								+ " Depth: "+Units.size(this.getClothingType().getOrificeOtherDepth())
-////								+ " Elasticity: <span style='color:"+elasticity.getColour().toWebHexString()+";'>"+elasticity.getDescriptor()+"</span>"
-////								+ " Plasticity: <span style='color:"+plasticity.getColour().toWebHexString()+";'>"+plasticity.getDescriptor()+"</span>"
-////								+ " Wetness: <span style='color:"+wetness.getColour().toWebHexString()+";'>"+wetness.getDescriptor()+"</span>"
-////								);
-////						
-////					} else {
-////						extraInformationSB.append(description);
-////					}
-////					extraInformationSB.append("<br/>");
-////				}
-////			}
-////		}
-//
-//		if(extraInformationSB.length()==0) {
-//			return "";
-//		}
-//		
-//		return "<p>"
-//					+UtilText.parse(equippedToCharacter==null?Main.game.getPlayer():equippedToCharacter,
-//						extraInformationSB.toString().substring(0, extraInformationSB.length()-5))
-//				+"</p>";
-//		
-//	}
 	
 	public String getDisplacementBlockingDescriptions(GameCharacter equippedToCharacter){
 		descriptionSB = new StringBuilder("<p><b>Displacement types:</b>");

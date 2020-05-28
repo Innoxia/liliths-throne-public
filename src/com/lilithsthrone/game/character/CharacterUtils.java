@@ -112,14 +112,14 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.AbstractOutfit;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.outfit.AbstractOutfit;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -1941,6 +1941,7 @@ public class CharacterUtils {
 		if(character.hasVagina()) {
 			if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN)
 					&& character.getHistory()!=Occupation.NPC_PROSTITUTE
+					&& !character.hasPersonalityTrait(PersonalityTrait.LEWD)
 					&& (!character.getHistory().isLowlife() || character.getAgeValue()==18)) {
 				character.setVaginaVirgin(true);
 				if(Math.random()<0.33f) {
@@ -1951,7 +1952,11 @@ public class CharacterUtils {
 				
 			} else {
 				double random = Math.random();
-				if((character.hasFetish(Fetish.FETISH_PURE_VIRGIN)?random<0.65f:random<0.95f) || character.getHistory()==Occupation.NPC_PROSTITUTE) {
+				float chanceToBeDeflowered = character.hasFetish(Fetish.FETISH_PURE_VIRGIN)
+						?(0.5f+(character.hasPersonalityTrait(PersonalityTrait.LEWD)?0.25f:0))
+						:0.95f;
+				if(random<chanceToBeDeflowered
+						|| character.getHistory()==Occupation.NPC_PROSTITUTE) {
 					character.setVaginaVirgin(false);
 					character.setVaginaCapacity(character.getVaginaRawCapacityValue()*1.2f, true);
 					

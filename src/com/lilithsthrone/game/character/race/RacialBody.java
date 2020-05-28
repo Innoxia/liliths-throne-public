@@ -174,7 +174,9 @@ public class RacialBody {
 		@Override
 		public Map<PersonalityTrait, Float> getPersonalityTraitChances() {
 			Map<PersonalityTrait, Float> map = super.getPersonalityTraitChances();
-			map.put(PersonalityTrait.LEWD, 0.75f);// Demons are lewd
+			map.put(PersonalityTrait.LEWD, 0.8f);// Demons are lewd
+			map.put(PersonalityTrait.INNOCENT, 0.01f);// Demons are very rarely innocent
+			map.put(PersonalityTrait.PRUDE, 0.01f);// Demons are very rarely prudes
 			return map;
 		}
 		@Override

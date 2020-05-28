@@ -138,6 +138,7 @@ import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
@@ -153,6 +154,7 @@ import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.MapTravelType;
+import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.SpellManagement;
@@ -1177,9 +1179,7 @@ public class MainControllerInitMethod {
 
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 						if(EnchantmentDialogue.getIngredient().getEnchantmentEffect().getEffectsDescription(
-								EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod(), EnchantmentDialogue.getPotency(), EnchantmentDialogue.getLimit(), Main.game.getPlayer(), Main.game.getPlayer())==null) {
-
-						} else {
+								EnchantmentDialogue.getPrimaryMod(), EnchantmentDialogue.getSecondaryMod(), EnchantmentDialogue.getPotency(), EnchantmentDialogue.getLimit(), Main.game.getPlayer(), Main.game.getPlayer())!=null) {
 							Main.game.setContent(new Response("Add", "Add the effect.", EnchantmentDialogue.ENCHANTMENT_MENU){
 								@Override
 								public void effects() {
@@ -4413,6 +4413,8 @@ public class MainControllerInitMethod {
 
 			boolean noCost = !Main.game.isInNewWorld()
 								|| ScarlettsShop.isSlaveCustomisationMenu()
+								|| Main.game.getCurrentDialogueNode()==MiscDialogue.getMakeupDialogueForEqualityCheck()
+								|| Main.game.getCurrentDialogueNode()==RoomPlayer.AUNT_HOME_PLAYERS_ROOM_MAKEUP
 								|| Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.PHONE;
 			
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.coveringChangeListenersRequired)) {

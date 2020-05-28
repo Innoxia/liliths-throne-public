@@ -82,12 +82,14 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "Arthur has been arrested by Dominion's Enforcers, and has been taken to the Enforcer's HQ." + " It looks like you'll have to inquire further there and find out a way to save Arthur.";
+			return "Arthur has been arrested by Dominion's Enforcers, and has been taken to the Enforcer's HQ."
+					+ " It looks like you'll have to inquire further there and find out a way to save Arthur.";
 		}
 
 		@Override
 		public String getCompletedDescription() {
-			return "You were forced into a fight with the Enforcer's Chief, Brax." + " Thankfully, you were able to beat him, but you then found out that Arthur has been sold into slavery!";
+			return "You were forced to confront the Enforcer Inspector, Brax."
+					+ " Thankfully, you were able to deal with him, but you then found out that Arthur has been sold into slavery!";
 		}
 	},
 

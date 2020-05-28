@@ -593,7 +593,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	}
 	
 	public void setEffects(List<ItemEffect> effects) {
-		this.effects = effects;
+		this.effects = new ArrayList<>(effects);
 	}
 
 	public void addEffect(ItemEffect effect) {

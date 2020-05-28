@@ -213,13 +213,13 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
-import com.lilithsthrone.game.inventory.clothing.Outfit;
-import com.lilithsthrone.game.inventory.clothing.OutfitSource;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.outfit.Outfit;
+import com.lilithsthrone.game.inventory.outfit.OutfitSource;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
@@ -6145,7 +6145,7 @@ public abstract class GameCharacter implements XMLSaving {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			for(ItemEffect ie : c.getEffects()) {
 				String clothingEffectDescription = ie.applyEffect(this, this, secondsPassed);
-				if(this.isPlayer() && !clothingEffectDescription.isEmpty()) {
+				if(!clothingEffectDescription.isEmpty()) {
 					addStatusEffectDescription(StatusEffect.CLOTHING_EFFECT,
 							"<p style='margin:0 auto;padding:0 auto;color:"+c.getRarity().getColour().toWebHexString()+";'><b>"+ Util.capitaliseSentence(c.getName())+":</b></p>"
 							+ clothingEffectDescription);
@@ -6157,7 +6157,7 @@ public abstract class GameCharacter implements XMLSaving {
 		for(Tattoo tattoo : tattoos.values()) {
 			for(ItemEffect ie : tattoo.getEffects()) {
 				String tattooEffectDescription = ie.applyEffect(this, this, secondsPassed);
-				if (this.isPlayer() && !tattooEffectDescription.isEmpty()) {
+				if (!tattooEffectDescription.isEmpty()) {
 					addStatusEffectDescription(StatusEffect.CLOTHING_EFFECT,
 							"<p style='margin:0 auto;padding:0 auto;'><b>"+ Util.capitaliseSentence(tattoo.getName())+" tattoo:</b></p>"
 							+ tattooEffectDescription);
@@ -6280,6 +6280,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public void addStatusEffectDescription(StatusEffect statusEffect, String description) {
+		if(!this.isPlayer()) {
+			return; // Only the player should ever have their status effect descriptions updated, as NPC logs are never able to be viewed.
+		}
 		long seconds = Main.game.getSecondsPassed();
 		statusEffectDescriptions.putIfAbsent(seconds, new HashMap<>());
 		statusEffectDescriptions.get(seconds).putIfAbsent(statusEffect, "");
@@ -19268,7 +19271,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 
 		if(this.getClothingCurrentlyEquipped().contains(newClothing)) { // If this has been removed in getCondomEquipEffects(), don't go through it.
-			if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(this)) {
+			if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(this)) { //TODO what even is this?
 				switch(newClothing.getSlotEquippedTo()) {
 					case ANKLE:
 					case ANUS:
@@ -19482,6 +19485,8 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		inventory.getClothingCurrentlyEquipped().add(newClothing);
 		newClothing.setSlotEquippedTo(slotToEquipInto);
+		
+		newClothing.onEquipApplyEffects(this, this, false);
 		
 		applyEquipClothingEffects(newClothing, slotToEquipInto, null, false);
 		
@@ -19829,7 +19834,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void forceUnequipClothingIntoVoid(GameCharacter characterRemovingClothing, AbstractClothing clothing) {
-		applyUnequipClothingEffects(clothing, clothing.getSlotEquippedTo(), false);
+		clothing.onUnequipApplyEffects(this, characterRemovingClothing, false);
 		inventory.forceUnequipClothingIntoVoid(this, characterRemovingClothing, clothing);
 	}
 	

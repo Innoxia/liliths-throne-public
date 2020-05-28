@@ -874,7 +874,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[natalya.speech(Show her in at once!)] the voice of Natalya blares out from the speaker.
+		[natalya.speech(Show [pc.herHim] in at once!)] the voice of Natalya blares out from the speaker.
 		#IF(pc.hasCompanions())
 			 Informing you that your companion will have to remain behind and wait in here, the horse-girl secretary gestures for you to head through the door on the far side of the room. Telling [com.name] to stay behind, you [pc.walk] over to the door to Natalya's office and push it open, before quickly [pc.stepping] inside and closing it after you.
 		#ELSE
