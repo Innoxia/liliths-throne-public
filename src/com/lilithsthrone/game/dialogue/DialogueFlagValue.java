@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.3.7
+ * @version 0.3.7.5
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -30,7 +30,7 @@ public enum DialogueFlagValue {
 	talkedWithDaddy,
 	daddySendingReward,
 	
-	playerCaptive,
+	coveringChangeListenersRequired, // Set to false on every Response preparsing, and only set to true in getKatesDivCoveringsNew(). Used for setting up listeners in MainControllerInitMethod.
 	
 	
 	// Gym:
@@ -135,6 +135,7 @@ public enum DialogueFlagValue {
 	nymphoEncountered,
 	nymphoPacified,
 	punishedByHelena,
+	scarlettRelaxed(true),
 	
 	// Slaver Alley:
 	finchIntroduced,
@@ -177,8 +178,8 @@ public enum DialogueFlagValue {
 	helenaDateApartmentSeen,
 	helenaDateFirstDateComplete,
 	helenaDateRomanticSetup,
-	helenaDateRomanticSetupEatenOut(true),
-	helenaGift,
+	helenaDateRomanticSetupEatenOut,
+	helenaGift(true),
 	helenaDateSexLifeTalk,
 	helenaDateVirginityTalk,
 	helenaScarlettThreesome,
@@ -189,6 +190,13 @@ public enum DialogueFlagValue {
 	playerSubmittedToNatalya,
 	natalyaDemandedFacial,
 	playerReceivedNatalyaFacial,
+	
+	natalyaVisited,
+	natalyaInterviewOffered,
+	natalyaBusy(true),
+	natalyaDailySexAsSub(true),
+	natalyaDailySexAsDom(true),
+	
 	
 	// Zaranix:
 	zaranixDiscoveredHome,

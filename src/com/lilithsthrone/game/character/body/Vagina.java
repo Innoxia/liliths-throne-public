@@ -44,7 +44,7 @@ public class Vagina implements BodyPartInterface {
 	public Vagina(VaginaType type, int labiaSize, int clitSize, int wetness, float capacity, int depth, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.labiaSize = labiaSize;
-		this.clitoris = new Clitoris(clitSize, PenetrationGirth.TWO_AVERAGE.getValue());
+		this.clitoris = new Clitoris(clitSize, PenetrationGirth.THREE_AVERAGE.getValue());
 		pierced = false;
 		
 		orificeVagina = new OrificeVagina(wetness, capacity, depth, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
@@ -218,9 +218,11 @@ public class Vagina implements BodyPartInterface {
 						+ "<br/>"));
 			
 			if(owner.isVaginaVirgin()) {
-				UtilText.transformationContentSB.append("[npc.Name] now [npc.has] a [style.colourExcellent(virgin)] [style.boldTfSex(vagina)], complete with an [style.colourExcellent(unbroken hymen)]!");
+				UtilText.transformationContentSB.append(UtilText.parse(owner,
+						"[npc.Name] now [npc.has] a [style.colourExcellent(virgin)] [style.boldTfSex(vagina)], complete with an [style.colourExcellent(unbroken hymen)]!"));
 			} else {
-				UtilText.transformationContentSB.append("[npc.Name] now [npc.has] a new [style.boldTfSex(vagina)], and although [npc.she] can't consider [npc.herself] a virgin, [npc.she] at least [npc.has] an [style.colourExcellent(unbroken hymen)]!");
+				UtilText.transformationContentSB.append(UtilText.parse(owner,
+						"[npc.Name] now [npc.has] a new [style.boldTfSex(vagina)], and although [npc.she] can't consider [npc.herself] a virgin, [npc.she] at least [npc.has] an [style.colourExcellent(unbroken hymen)]!"));
 			}
 					
 			UtilText.transformationContentSB.append("</p>");
@@ -709,10 +711,10 @@ public class Vagina implements BodyPartInterface {
 						+ "<p>"
 							+ "Just as you think that the transformation has come to an end, your pussy involuntarily clenches down,"
 								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
-							+ " Images of huge, flared reindeer-cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their hot seed deep into your rangiferine womb."
+							+ " Images of huge, flared reindeer-cocks slamming deep into your new pussy flash before your eyes, and your squeal turns into a satisfied moan as you imagine them pumping their hot seed deep into your reindeer womb."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
 							+ "<br/>"
-							+ "You now have a [style.boldReindeerMorph(rangiferine vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
+							+ "You now have a [style.boldReindeerMorph(reindeer vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
 						+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner, 
@@ -724,11 +726,11 @@ public class Vagina implements BodyPartInterface {
 							+ "Just as [npc.she] starts think that the transformation has come to an end, [npc.her] pussy involuntarily clenches down,"
 								+ " and a desperate squeal escapes from between [npc.her] [npc.lips+] as a warm, tingling feeling spreads up through [npc.her] lower abdomen."
 							+ " Images of huge, flared reindeer-cocks slamming deep into [npc.her] new pussy flash before [npc.her] eyes,"
-								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] rangiferine womb."
+								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them pumping their potent seed deep into [npc.her] reindeer womb."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
 							+ "<br/>"
-							+ "[npc.Name] now has a [style.boldReindeerMorph(rangiferine vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
+							+ "[npc.Name] now has a [style.boldReindeerMorph(reindeer vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
 						+ "</p>"));
 				}
 				break;
@@ -846,15 +848,9 @@ public class Vagina implements BodyPartInterface {
 			orificeVagina.addOrificeModifier(owner, om);
 		}
 
-		if (owner.isPlayer()) {
-			UtilText.transformationContentSB.append(
-					"<p>"
-					+ "Any old modifiers that your pussy might have had have [style.boldShrink(transformed away)]!");
-		} else {
-			UtilText.transformationContentSB.append(
-					"<p>"
-					+ "Any old modifiers that [npc.her] pussy might have had have [style.boldShrink(transformed away)]!");
-		}
+		UtilText.transformationContentSB.append(
+				"<p>"
+				+ "Any old modifiers which [npc.her] pussy might have had have [style.boldShrink(transformed away)]!");
 		
 		if(orificeVagina.getOrificeModifiers().isEmpty()) {
 			UtilText.transformationContentSB.append("</p>");

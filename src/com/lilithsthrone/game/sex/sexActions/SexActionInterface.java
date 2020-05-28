@@ -12,6 +12,7 @@ import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -200,6 +201,68 @@ public interface SexActionInterface {
 		}
 		return penetrationTakesVirginity && orificeHasVirginity;
 	}
+
+	public default boolean isTakesPerformerVirginity(boolean includeForeplayOrifices, GameCharacter performer, GameCharacter target) {
+		if(!isTakesVirginity(includeForeplayOrifices)) {
+			return false;
+		}
+		if(performer.isAssVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.ANUS)) {
+			return true;
+		}
+		if(includeForeplayOrifices && performer.isFaceVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.MOUTH)) {
+			return true;
+		}
+		if(performer.isNippleCrotchVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.NIPPLE_CROTCH)) {
+			return true;
+		}
+		if(performer.isNippleVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.NIPPLE)) {
+			return true;
+		}
+		if(performer.isPenisVirgin() && this.getPerformingCharacterAreas().contains(SexAreaPenetration.PENIS)) {
+			return true;
+		}
+		if(performer.isUrethraVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.URETHRA_PENIS)) {
+			return true;
+		}
+		if(performer.isVaginaUrethraVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.URETHRA_VAGINA)) {
+			return true;
+		}
+		if(performer.isVaginaVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.VAGINA)) {
+			return true;
+		}
+		return false;
+	}
+
+	public default boolean isTakesTargetVirginity(boolean includeForeplayOrifices, GameCharacter performer, GameCharacter target) {
+		if(!isTakesVirginity(includeForeplayOrifices)) {
+			return false;
+		}
+		if(target.isAssVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.ANUS)) {
+			return true;
+		}
+		if(includeForeplayOrifices && target.isFaceVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.MOUTH)) {
+			return true;
+		}
+		if(target.isNippleCrotchVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.NIPPLE_CROTCH)) {
+			return true;
+		}
+		if(target.isNippleVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.NIPPLE)) {
+			return true;
+		}
+		if(target.isPenisVirgin() && this.getTargetedCharacterAreas().contains(SexAreaPenetration.PENIS)) {
+			return true;
+		}
+		if(target.isUrethraVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.URETHRA_PENIS)) {
+			return true;
+		}
+		if(target.isVaginaUrethraVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.URETHRA_VAGINA)) {
+			return true;
+		}
+		if(target.isVaginaVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.VAGINA)) {
+			return true;
+		}
+		return false;
+	}
 	
 	public abstract SexParticipantType getParticipantType();
 	
@@ -346,6 +409,25 @@ public interface SexActionInterface {
 						+ "[style.colourBad([npc2.Name] [npc2.verb(find)] this sadistic action to be a huge turn-off!)]"
 						+ Main.sex.getCharacterTargetedForSexAction(this).incrementLust(-15, false)
 					+"</p>");
+			}
+		}
+		
+		if(Main.game.isLipstickMarkingEnabled()) {
+			if(Main.sex.getCharacterPerformingAction().isWearingLipstick()
+					&& Main.sex.getCharacterPerformingAction().isHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK)
+					&& (this.getPerformingCharacterAreas().contains(SexAreaOrifice.MOUTH) || this.getPerformingCharacterAreas().contains(SexAreaPenetration.TONGUE))) {
+				for(SexAreaInterface areaTargeted : this.getTargetedCharacterAreas()) {
+					sb.append(Main.sex.getCharacterTargetedForSexAction(this).addLipstickMarking(Main.sex.getCharacterPerformingAction(), areaTargeted.getRelatedInventorySlot(), Main.sex.getCharacterPerformingAction().getLipstick()));
+				}
+				Main.sex.addHeavyLipstickUsedCharacter(Main.sex.getCharacterPerformingAction());
+			}
+			if(Main.sex.getCharacterTargetedForSexAction(this).isWearingLipstick()
+					&& Main.sex.getCharacterTargetedForSexAction(this).isHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK)
+					&& (this.getTargetedCharacterAreas().contains(SexAreaOrifice.MOUTH) || this.getTargetedCharacterAreas().contains(SexAreaPenetration.TONGUE))) {
+				for(SexAreaInterface areaTargeted : this.getPerformingCharacterAreas()) {
+					sb.append(Main.sex.getCharacterPerformingAction().addLipstickMarking(Main.sex.getCharacterTargetedForSexAction(this), areaTargeted.getRelatedInventorySlot(), Main.sex.getCharacterTargetedForSexAction(this).getLipstick()));
+				}
+				Main.sex.addHeavyLipstickUsedCharacter(Main.sex.getCharacterTargetedForSexAction(this));
 			}
 		}
 		
@@ -944,7 +1026,7 @@ public interface SexActionInterface {
 				
 				return convertToResponse();
 				
-			} else {
+			} else { // ONGOING (and others?):
 				if(!this.getSexAreaInteractions().isEmpty()) {
 					boolean ongoingFound = false;
 					// TODO check

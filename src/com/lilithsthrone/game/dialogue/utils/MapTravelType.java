@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -68,6 +68,9 @@ public enum MapTravelType {
 					}
 					if(!character.isAbleToFly()) {
 						return "You are not able to fly!";
+					}
+					if(!character.getWorldLocation().isFlightEnabled()) {
+						return "You cannot fly in this area!";
 					}
 					return "Not all of your companions are able to fly!";
 				}

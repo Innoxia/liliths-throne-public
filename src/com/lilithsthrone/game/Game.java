@@ -10,7 +10,6 @@ import java.time.Month;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -131,7 +130,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -186,6 +185,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.DayPeriod;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.Season;
@@ -198,7 +198,7 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.5
+ * @version 0.3.7.3
  * @author Innoxia, AlacoGit
  */
 public class Game implements XMLSaving {
@@ -226,7 +226,7 @@ public class Game implements XMLSaving {
 	//Note : this is a ConcurrentHashMap
 	private Map<String, NPC> NPCMap;
 	
-	private Map<WorldType, World> worlds;
+	private Map<AbstractWorldType, World> worlds;
 	private long lastAutoSaveTime = 0;
 	private long secondsPassed; // Seconds passed since the start of the game
 	private LocalDateTime startingDate;
@@ -264,6 +264,7 @@ public class Game implements XMLSaving {
 	private int initialPositionAnchor = 0;
 	private int responsePage = 0;
 	private int responseTab = 0;
+	private int savedResponseTab = 0;
 	
 	private StringBuilder pastDialogueSB = new StringBuilder();
 	private StringBuilder choicesDialogueSB = new StringBuilder();
@@ -280,8 +281,8 @@ public class Game implements XMLSaving {
 	private OccupancyUtil occupancyUtil = new OccupancyUtil();
 
 	public Game() {
-		worlds = new EnumMap<>(WorldType.class);
-		for (WorldType type : WorldType.values()) {
+		worlds = new HashMap<>();
+		for(AbstractWorldType type : WorldType.getAllWorldTypes()) {
 			worlds.put(type, null);
 		}
 		OccupantManagementDialogue.resetImportantCells();
@@ -756,6 +757,7 @@ public class Game implements XMLSaving {
 //							&& (!worldType.equals("GAMBLING_DEN") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.4"))
 							&& (!worldType.equals("RAT_WARRENS") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.6"))
 							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.6"))
+							&& (!worldType.equals("DOMINION_EXPRESS") || !Main.isVersionOlderThan(loadingVersion, "0.3.7.9"))
 							&& !worldType.equals("JUNGLE")
 							) {
 						World world = World.loadFromXML(e, doc);
@@ -764,7 +766,7 @@ public class Game implements XMLSaving {
 				}
 				
 				// Add missing world types:
-				for(WorldType wt : WorldType.values()) {
+				for(AbstractWorldType wt : WorldType.getAllWorldTypes()) {
 					Generation gen = new Generation();
 					if(Main.isVersionOlderThan(loadingVersion, "0.1.99.5")) {
 						gen.worldGeneration(WorldType.SHOPPING_ARCADE);
@@ -817,12 +819,11 @@ public class Game implements XMLSaving {
 						gen.worldGeneration(WorldType.RAT_WARRENS);
 						gen.worldGeneration(WorldType.SLAVER_ALLEY);
 					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.5.9")) {
-						gen.worldGeneration(WorldType.DOMINION_EXPRESS);
-					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.3.7")) {
-						gen.worldGeneration(WorldType.DOMINION_EXPRESS);
 						gen.worldGeneration(WorldType.HELENAS_APARTMENT);
+					}
+					if(Main.isVersionOlderThan(loadingVersion, "0.3.7.9")) {
+						gen.worldGeneration(WorldType.DOMINION_EXPRESS);
 					}
 					if(Main.game.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
@@ -1277,6 +1278,18 @@ public class Game implements XMLSaving {
 						character.setLocation(WorldType.DOMINION, vec, true);
 					}
 				}
+
+				// Catch for pre-v0.3.7.3 versions where characters could end up not having their pregnancy possibilities cleared upon PREGNANT_0 removal:
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.7.3")) {
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(!npc.isPregnant() && !npc.hasStatusEffect(StatusEffect.PREGNANT_0)) {
+							npc.endPregnancy(false);
+						}
+					}
+					if(!Main.game.getPlayer().isPregnant() && !Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_0)) {
+						Main.game.getPlayer().endPregnancy(false);
+					}
+				}
 				
 				Main.game.pendingSlaveInStocksReset = false;
 				
@@ -1303,15 +1316,11 @@ public class Game implements XMLSaving {
 		Main.game.setRenderMap(true);
 		Main.game.setRenderAttributesSection(true);
 		
-//		Main.game.started = true;
-		
 		Main.game.setRequestAutosave(false);
 		
 		DialogueNode startingDialogueNode = Main.game.getPlayerCell().getPlace().getDialogue(false);
 		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+Util.getFileName(file)+".xml"), false);
-		Main.game.setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode), false);
-		
-//		System.out.println(Main.isVersionOlderThan(loadingVersion, "0.2.12.95"));
+		Main.game.setContent(new Response("", startingDialogueNode.getDescription(), startingDialogueNode), false);
 		
 		// Test enchantments over limits:
 //		for(NPC npc : Main.game.getAllNPCs()) {
@@ -1802,7 +1811,7 @@ public class Game implements XMLSaving {
 						npc.cleanAllClothing(true);
 					}
 					if(!npc.isSlave() || npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_BODY)) {
-						npc.cleanAllDirtySlots();
+						npc.cleanAllDirtySlots(true);
 					}
 				}
 			}
@@ -2197,6 +2206,7 @@ public class Game implements XMLSaving {
 			DialogueNode node = response.getNextDialogue();
 			response.applyEffects();
 			if(node!=null) {
+				node.specialPreParsingEffects();
 				node.applyPreParsingEffects();
 			}
 			
@@ -2206,6 +2216,7 @@ public class Game implements XMLSaving {
 				
 			} else if(response instanceof ResponseSex) {
 				setContent(new Response("", "", ((ResponseSex)response).initSex()));
+				Main.sex.postSexInitSetup();
 				((ResponseSex)response).postSexInitEffects();
 				Main.mainController.updateUILeftPanel();
 				return;
@@ -2231,8 +2242,8 @@ public class Game implements XMLSaving {
 					if (!getCharactersPresent().isEmpty()) {
 						for (GameCharacter character : getCharactersPresent()) {
 							if (!Main.game.getPlayer().getCharactersEncountered().contains(character.getId())) {
-								if (character instanceof NPC) {
-									if (((NPC) character).isAddedToContacts()) {
+								if ((character instanceof NPC)) {
+									if (((NPC) character).isAddedToContacts() && character.isPlayerKnowsName()) {
 										Main.game.getPlayer().addCharacterEncountered(character);
 									}
 									if(!character.isRaceConcealed()) {
@@ -2299,6 +2310,7 @@ public class Game implements XMLSaving {
 									+ textEndStringBuilder.toString()
 								));
 					}
+					
 				} else {
 					dialogueTitle = UtilText.parse(node.getLabel());
 				}
@@ -2413,6 +2425,7 @@ public class Game implements XMLSaving {
 		DialogueNode node = response.getNextDialogue();
 		response.applyEffects();
 		if(node!=null) {
+			node.specialPreParsingEffects();
 			node.applyPreParsingEffects();
 		}
 		
@@ -2422,6 +2435,7 @@ public class Game implements XMLSaving {
 			
 		} else if(response instanceof ResponseSex) {
 			setContent(new Response("", "", ((ResponseSex)response).initSex()));
+			Main.sex.postSexInitSetup();
 			((ResponseSex)response).postSexInitEffects();
 			Main.mainController.updateUILeftPanel();
 			return;
@@ -2473,7 +2487,7 @@ public class Game implements XMLSaving {
 			if (!getCharactersPresent().isEmpty()) {
 				for (GameCharacter character : getCharactersPresent()) {
 					if (character instanceof NPC) {
-						if (((NPC) character).isAddedToContacts()) {
+						if (((NPC) character).isAddedToContacts() && character.isPlayerKnowsName()) {
 							Main.game.getPlayer().addCharacterEncountered(character);
 						}
 						if(!character.isRaceConcealed()) {
@@ -2499,7 +2513,11 @@ public class Game implements XMLSaving {
 					pastDialogueSB.append(UtilText.parse("<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + currentDialogueNode.getLabel() + "</p>"));
 				}
 				
-				pastDialogueSB.append(content);
+//				pastDialogueSB.append(content);
+				pastDialogueSB.append(UtilText.parse(
+							textStartStringBuilder.toString()
+							+ content
+							 + textEndStringBuilder.toString()));
 					
 			} else {
 				dialogueTitle = UtilText.parse(node.getLabel());
@@ -2508,23 +2526,20 @@ public class Game implements XMLSaving {
 				}
 				
 				pastDialogueSB.setLength(0);
-				pastDialogueSB.append(
-						UtilText.parse(
+				pastDialogueSB.append(UtilText.parse(
 							"<b id='position" + positionAnchor + "'></b>"
 							+ textStartStringBuilder.toString()
 							+ content
-							 + textEndStringBuilder.toString()
-						));
+							 + textEndStringBuilder.toString()));
 			}
+			
 		} else {
 			dialogueTitle = UtilText.parse(node.getLabel());
 			pastDialogueSB.setLength(0);
-			pastDialogueSB.append(
-					UtilText.parse(
+			pastDialogueSB.append(UtilText.parse(
 						textStartStringBuilder.toString()
 						+ content
-						 + textEndStringBuilder.toString()
-					));
+						 + textEndStringBuilder.toString()));
 		}
 		
 		if(node != currentDialogueNode) {
@@ -2657,7 +2672,9 @@ public class Game implements XMLSaving {
 				|| node.equals(BodyChanging.BODY_CHANGING_ASS)
 				|| node.equals(BodyChanging.BODY_CHANGING_BREASTS)
 				|| node.equals(BodyChanging.BODY_CHANGING_CORE)
-				|| node.equals(BodyChanging.BODY_CHANGING_FACE)
+				|| node.equals(BodyChanging.BODY_CHANGING_EYES)
+				|| node.equals(BodyChanging.BODY_CHANGING_HAIR)
+				|| node.equals(BodyChanging.BODY_CHANGING_HEAD)
 				|| node.equals(BodyChanging.BODY_CHANGING_PENIS)
 				|| node.equals(BodyChanging.BODY_CHANGING_VAGINA)
 				|| node.equals(InventoryDialogue.DYE_CLOTHING)
@@ -2669,7 +2686,7 @@ public class Game implements XMLSaving {
 	}
 	
 	private String getTitleDiv(String title) {
-		if(dialogueTitle.isEmpty()) {
+		if(title.isEmpty()) {
 			return "";
 		}
 		
@@ -2680,7 +2697,7 @@ public class Game implements XMLSaving {
 							|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER)
 							?"<div class='title-button' id='export-character-button' style='left:auto;right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getExportIcon()+"</div>"
 							:"")
-					+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
+					+ "<h4 style='text-align:center;'>" + title + "</h4>"
 				+ "</div>";
 	}
 	
@@ -3128,6 +3145,7 @@ public class Game implements XMLSaving {
 		savedDialogue = currentDialogue;
 		savedDialogueNode = currentDialogueNode;
 		previousPastDialogueSBContents = pastDialogueSB.toString();
+		savedResponseTab = responseTab;
 	}
 	
 	
@@ -3162,16 +3180,15 @@ public class Game implements XMLSaving {
 	public void restoreSavedContent(boolean regenerateSceneDialogue) {
 		positionAnchor = initialPositionAnchor;
 		dialogueTitle = UtilText.parse(savedDialogueNode.getLabel());
+		responseTab = savedResponseTab;
 		
 		currentDialogueNode = savedDialogueNode;
 		
 		if(Main.game.isInSex()) {
 			Main.sex.recalculateSexActions();
 		}
-		//TODO
-		if (currentDialogueNode.reloadOnRestore() || regenerateSceneDialogue) {
-//			System.out.println("restored with regenerated text");
-			
+		
+		if(currentDialogueNode.reloadOnRestore() || regenerateSceneDialogue) {
 			String headerContent = currentDialogueNode.getHeaderContent();
 			String content;
 			try {
@@ -3300,7 +3317,7 @@ public class Game implements XMLSaving {
 		return charactersHome;
 	}
 	
-	public List<NPC> getCharactersPresent(WorldType worldType, AbstractPlaceType placeType) {
+	public List<NPC> getCharactersPresent(AbstractWorldType worldType, AbstractPlaceType placeType) {
 		Cell cell = worlds.get(worldType).getCell(placeType);
 		
 		return getCharactersPresent(cell);
@@ -3310,7 +3327,7 @@ public class Game implements XMLSaving {
 		return getCharactersPresent(cell.getType(), cell.getLocation());
 	}
 	
-	public List<NPC> getCharactersPresent(WorldType worldType, Vector2i location) {
+	public List<NPC> getCharactersPresent(AbstractWorldType worldType, Vector2i location) {
 		List<NPC> charactersPresent = new ArrayList<>();
 		
 		if(getWorlds().get(worldType).getCell(location).getCharactersPresentIds()!=null) {
@@ -3420,7 +3437,7 @@ public class Game implements XMLSaving {
 		return worlds.get(player.getWorldLocation());
 	}
 
-	public Map<WorldType, World> getWorlds() {
+	public Map<AbstractWorldType, World> getWorlds() {
 		return worlds;
 	}
 
@@ -3505,22 +3522,21 @@ public class Game implements XMLSaving {
 	}
 
 	public String getDisplayDate(boolean withYear) {
-		if(isInNewWorld()) {
-			if(getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)) {
-				if(withYear) {
-					return Units.date(getDateNow(), Units.DateType.LONG);
-				} else {
-					String date = Units.date(getDateNow(), Units.DateType.LONG);
-					return date.substring(0, date.length()-5);
-				}
-			}
+		String date = Units.date(getDateNow(), Units.DateType.LONG);
+		
+		if(isInNewWorld() && !getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)) {
 			return UtilText.parse("[style.colourMinorBad(Unknown date)]");
 		}
 		
+//		if(withYear) {
+//			return Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
+//		} else {
+//			String date = Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
+//			return date.substring(0, date.length()-5);
+//		}
 		if(withYear) {
-			return Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
+			return Units.date(getDateNow(), Units.DateType.LONG);
 		} else {
-			String date = Units.date(getDateNow().minusYears(TIME_SKIP_YEARS), Units.DateType.LONG);
 			return date.substring(0, date.length()-5);
 		}
 	}
@@ -3808,7 +3824,8 @@ public class Game implements XMLSaving {
 			npc.getOwner().removeSlave(npc);
 		}
 		
-		if(Main.game.getPlayer().getSexPartners().containsKey(npc.getId())
+		//TODO why are you saving these?!
+		if(Main.game.getPlayer().hasSexCountWith(npc)
 				|| npc.getPregnantLitter()!=null
 				|| npc.getLastLitterBirthed()!=null
 				|| npc.getMother()!=null
@@ -3922,11 +3939,15 @@ public class Game implements XMLSaving {
 		return currentDialogueNode;
 	}
 
+	public String getCurrentDialogue() {
+		return currentDialogue;
+	}
+
 	public DialogueNodeType getMapDisplay() {
-		if (currentDialogueNode != null)
+		if(currentDialogueNode != null) {
 			return currentDialogueNode.getDialogueNodeType();
-		else
-			return null;
+		}
+		return null;
 	}
 
 	public boolean isRenderAttributesSection() {
@@ -3988,7 +4009,6 @@ public class Game implements XMLSaving {
 	public boolean isPlayerTileFull() {
 		return getActiveWorld().getCell(getPlayer().getLocation()).getInventory().isInventoryFull();
 	}
-
 	
 	public String runXmlTest(String pathName) {
 		return UtilText.runXmlTest(pathName);
@@ -4048,6 +4068,14 @@ public class Game implements XMLSaving {
 	
 	public boolean isSadisticSexContent() {
 		return Main.getProperties().hasValue(PropertyValue.sadisticSexContent);
+	}
+	
+	public boolean isLipstickMarkingEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.lipstickMarkingContent);
+	}
+	
+	public boolean isWeatherInterruptionsEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.weatherInterruptions);
 	}
 	
 	public boolean isFacialHairEnabled() {

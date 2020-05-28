@@ -6,7 +6,7 @@
 		<!-- <authorTag><![CDATA[A discreet inscription at the base of the dagger's blade informs you that it was made by 'Innoxia'.]]></authorTag> -->
 		
 		<!-- How much this weapon is worth. -->
-		<value>1500</value> 
+		<value>3000</value> 
 		
 		<!-- Use "true" if this is a melee weapon, and "false" if it's ranged. (Without quotation marks.) -->
 		<melee>true</melee>
@@ -19,7 +19,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		
 		<!-- The name of this weapon. -->
-		<name><![CDATA[Demon's Dagger]]></name>
+		<name appendDamageName="true"><![CDATA[Demon's Dagger]]></name> <!-- You can leave out the 'appendDamageName' attribute, but if you never want this weapon to be described by its damage type, then set it as false. (i.e. If set to false, this dagger would always be called 'Demon's Dagger' instead of, for example, 'Forceful Demon's Dagger')-->
 		
 		<!-- The plural name of this weapon. If pluralByDefault's "false" is changed to "true", then the game will always the plural name when referring to this weapon. -->
 		<namePlural pluralByDefault="false"><![CDATA[Demon's Daggers]]></namePlural> 
@@ -62,7 +62,11 @@
 		<physicalResistance>0</physicalResistance> 
 		
 		<!-- The base damage that this weapon deals. -->
-		<damage>12</damage> 
+		<damage>20</damage>
+		<!-- If you want to define additional AoE damages, use this format (an example of it in use can be found in 'res/weapons/innoxia/lightningGlobe/lightning_globe.xml'):
+		<aoe chance="50">10</aoe> 50% chance of hitting an additional enemy (who has not been hit yet) for 10 damage
+		<aoe chance="25">5</aoe> 25% chance of hitting an additional enemy (who has not been hit yet) for 5 damage
+		-->
 		
 		<!-- How many arcane essences are required, and drained, by firing this weapon. Ranged weapons should usually use the value 1, while melee weapons should usually be 0. -->
 		<arcaneCost>0</arcaneCost> 
@@ -100,6 +104,25 @@
 		
 		Values for spells can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/Spell.java -->
 		<spells/>
+		
+		<!-- The combat moves that are unlocked when equipping this weapon. IF you want to add any, use the format:
+		<combatMoves changeOnReforge="true">
+			<move damageType="PHYSICAL">ASSAULT_RIFLE_MAG_DUMP</move>
+		</combatMoves>
+		
+		The 'changeOnReforge' variable determines whether this weapon should regenerate combat moves whenever the player changes the damage type. (i.e. If they reforge a PHYSICAL dagger to an ICE dagger, if 'changeOnReforge' is true, then the granted combat move ASSAULT_RIFLE_MAG_DUMP will be lost).
+		
+		The 'damageType' variable corresponds to the damageType which causes the spell to be unlocked when this weapon is spawned in. You can have multiple entries of the same damageType, like so:
+		...
+			<spell damageType="FIRE">FIREBALL</spell>
+			<spell damageType="FIRE">FLASH</spell>
+			<spell damageType="FIRE">ICE_SHARD</spell>
+			<spell damageType="FIRE">STEAL</spell>
+		...
+		
+		Values for combat moves can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/CMWeaponSpecials.java
+		There will be a way to add modded combat moves soon! -->
+		<combatMoves/>
 		
 		<!-- How many effects this weapon can be enchanted with. Should usually be left at 5. -->
 		<enchantmentLimit>5</enchantmentLimit>
@@ -143,12 +166,34 @@
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours (as used in clothing) here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
 		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/ColourListPresets.java -->
-		<primaryColours values="JUST_STEEL"/> 
+		<primaryColours recolouringAllowed="true" values="JUST_STEEL"/> <!-- You can leave the attribute 'recolouringAllowed' out of colour definitions. If you want the player to be unable to change this colour, then set it as false. This is only used in very niche situations (such as for the filly choker).-->
 		<primaryColoursDye values="ALL_METAL"/>
 		<secondaryColours values="JUST_BLACK"/> 
 		<secondaryColoursDye values="ALL"/>
-		<tertiaryColours/> 
-		<tertiaryColoursDye/>
+		
+		<!-- You can define any number of custom colours to replace the shades you've coloured your svg with.
+		If you have used the primary/secondary/tertiary elements up above, then do not use their associated colour hexes.
+		(i.e. If you've defined a primaryColours element, do not use #ff7f2a, #ff9955, #ffb380, #ffccaa, or #ffe6d5 in the customColour attributes.)
+		
+		You should NEVER use the primary recolouring shades, as they are always reserved for the damage type's colour:
+		#ff2a2a, #ff5555, #ff8080, #ffaaaa, or #ffd5d5
+		-->
+		<customColours>
+			<!-- The 'copyColourIndex' attribute defines which colour index should be copied into this colour slot on weapon generation. This particular colour, having an index of 0, will always be coloured the same as the primary colour when generated. Indexes go from 0->X, where X is the number of defined colours. i.e. If you only define primary and secondary, the first custom colour (i.e. this one) will have an index of 2. -->
+			<customColour copyColourIndex="0" c0="#6C5D53" c1="#917C6F" c2="#AC9D93" c3="#C8BEB7" c4="#E3DEDB">
+				<defaultColours>
+					<colour>CLOTHING_STEEL</colour>
+				</defaultColours> 
+				<extraColours values="ALL_METAL"/>
+			</customColour>
+			 <!-- This particular copyColourIndex, having an index of 1, will always be coloured the same as the secondary colour when generated -->
+			<customColour copyColourIndex="1" recolouringAllowed="true" c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB"> <!-- These are the colours which you've used in your svg and would like replaced with the colours you define below. c0 is the darkest shade. Shades can go up to any number, but setting just 5 shades should work best. -->
+				<defaultColours>
+					<colour>CLOTHING_BLACK</colour> <!-- The colours which this clothing should spawn in with. -->
+				</defaultColours> 
+				<extraColours values="ALL"/> <!-- The colours which this weapon can be dyed to. -->
+			</customColour>
+		</customColours>
 		
 		<!-- Special item tags that apply to this weapon. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 

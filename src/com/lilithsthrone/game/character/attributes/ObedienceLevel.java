@@ -47,88 +47,54 @@ public enum ObedienceLevel {
 		this.colour = colour;
 	}
 	
-	private static StringBuilder sb = new StringBuilder();
+	private static String getObedienceName(ObedienceLevel affectionLevel, boolean withColour) {
+		if(withColour) {
+			return "<span style='color:"+affectionLevel.getColour().toWebHexString()+";'>"+affectionLevel.getName()+"</span>";
+		} else {
+			return affectionLevel.getName();
+		}
+	}
+	
 	public static String getDescription(GameCharacter character, ObedienceLevel affectionLevel, boolean withColour, boolean longDescription) {
-		sb.setLength(0);
+		StringBuilder sb = new StringBuilder();
+		
+		String obedienceName = getObedienceName(affectionLevel, withColour);
 		
 		switch(affectionLevel) {
 			case NEGATIVE_FIVE_REBELLIOUS:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>rebellious</span>"+(longDescription?", and outright [npc.verb(refuse)] to obey any command.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] rebellious"+(longDescription?", and outright [npc.verb(refuse)] to obey any command.":".")));
-				}
+				sb.append(UtilText.parse(character, "[npc.Name] [npc.is] "+obedienceName+(longDescription?", and outright [npc.verb(refuse)] to obey any command.":".")));
 				break;
 			case NEGATIVE_FOUR_DEFIANT:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>defiant</span>"+(longDescription?", and only [npc.verb(obey)] commands when [npc.sheIs] physically forced to.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] defiant"+(longDescription?", and only [npc.verb(obey)] commands when [npc.sheIs] physically forced to.":".")));
-				}
+				sb.append(UtilText.parse(character, "[npc.Name] [npc.is] "+obedienceName+(longDescription?", and only [npc.verb(obey)] commands when "+(character.isRaceConcealed()?"they are":"[npc.sheIs]")+" physically forced to.":".")));
 				break;
 			case NEGATIVE_THREE_STRONG_INSUBORDINATE:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>insubordinate</span>"+(longDescription?", and sometimes [npc.verb(refuse)] to obey commands.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] insubordinate"+(longDescription?", and sometimes [npc.verb(refuse)] to obey commands.":".")));
-				}
+				sb.append(UtilText.parse(character, "[npc.Name] [npc.is] "+obedienceName+(longDescription?", and sometimes [npc.verb(refuse)] to obey commands.":".")));
 				break;
 			case NEGATIVE_TWO_UNRULY:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>unruly</span>"
-							+(longDescription?", and will refuse to obey commands if [npc.she] [npc.verb(think)] that [npc.she] can get away with it.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] unruly"+(longDescription?", and will refuse to obey commands if [npc.she] [npc.verb(think)] that [npc.she] can get away with it.":".")));
-				}
+				sb.append(UtilText.parse(character, "[npc.Name] [npc.is] "+obedienceName+(longDescription?", and will refuse to obey commands if"
+						+(character.isRaceConcealed()?" they think that they":" [npc.she] [npc.verb(think)] that [npc.she]")
+						+ " can get away with it.":".")));
 				break;
 			case NEGATIVE_ONE_DISOBEDIENT:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>disobedient</span>"+(longDescription?", and will often complain about having to follow orders.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] disobedient"+(longDescription?", and will often complain about having to follow orders.":".")));
-				}
+				sb.append(UtilText.parse(character, "[npc.Name] [npc.is] "+obedienceName+(longDescription?", and will often complain about having to follow orders.":".")));
 				break;
 			case ZERO_FREE_WILLED:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>free-willed</span>"+(longDescription?", and will do whatever [npc.she] [npc.verb(want)].":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] free-willed"+(longDescription?" and will do whatever [npc.she] [npc.verb(want)].":".")));
-				}
+				sb.append(UtilText.parse(character, "[npc.Name] [npc.is] "+obedienceName+(longDescription?" and will do whatever "+(character.isRaceConcealed()?"they want.":"[npc.she] [npc.verb(want)]."):".")));
 				break;
 			case POSITIVE_ONE_AGREEABLE:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>agreeable</span>"+(longDescription?", and will carry out most orders without complaint.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] agreeable"+(longDescription?", and will carry out most orders without complaint.":".")));
-				}
+				sb.append(UtilText.parse(character, "[npc.Name] [npc.is] "+obedienceName+(longDescription?", and will carry out most orders without complaint.":".")));
 				break;
 			case POSITIVE_TWO_OBEDIENT:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>obedient</span>"+(longDescription?", and will do almost anything that [npc.sheIs] told.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] obedient"+(longDescription?", and will do almost anything that [npc.sheIs] told.":".")));
-				}
+				sb.append(UtilText.parse(character, "[npc.Name] [npc.is] "+obedienceName+(longDescription?", and will do almost anything that "+(character.isRaceConcealed()?"they are":"[npc.sheIs]")+" told.":".")));
 				break;
 			case POSITIVE_THREE_DISCIPLINED:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>disciplined</span>"+(longDescription?", and will carry out any order without complaint.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] disciplined"+(longDescription?", and will carry out any order without complaint.":".")));
-				}
+				sb.append(UtilText.parse(character, "[npc.Name] [npc.is] "+obedienceName+(longDescription?", and will carry out any order without complaint.":".")));
 				break;
 			case POSITIVE_FOUR_DUTIFUL:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>dutiful</span>"+(longDescription?", and will often go above and beyond whatever's asked of [npc.herHim].":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] dutiful"+(longDescription?", and will often go above and beyond whatever's asked of [npc.herHim].":".")));
-				}
+				sb.append(UtilText.parse(character, "[npc.Name] [npc.is] "+obedienceName+(longDescription?", and will often go above and beyond whatever's asked of [npc.herHim].":".")));
 				break;
 			case POSITIVE_FIVE_SUBSERVIENT:
-				if(withColour) {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] <span style='color:"+affectionLevel.getColour().toWebHexString()+";'>subservient</span>"+(longDescription?", and will do absolutely anything that [npc.sheIs] ordered to do.":".")));
-				} else {
-					sb.append(UtilText.parse(character, "[npc.Name] [npc.is] subservient"+(longDescription?", and will do absolutely anything that [npc.sheIs] ordered to do.":".")));
-				}
+				sb.append(UtilText.parse(character, "[npc.Name] [npc.is] "+obedienceName+(longDescription?", and will do absolutely anything that "+(character.isRaceConcealed()?"they are":"[npc.sheIs]")+" ordered to do.":".")));
 				break;
 		}
 		

@@ -8,7 +8,6 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
-import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -388,6 +387,7 @@ public class HelenaHotel {
 			Main.game.getPlayer().removeAllCompanions(true);
 			// Reset date flags:
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateRomanticSetup, false);
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateRomanticSetupEatenOut, false);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -526,7 +526,7 @@ public class HelenaHotel {
 		}
 		@Override
 		public String getContent() {
-			if(Main.game.getNpc(Scarlett.class).getAffectionLevelBasic(Main.game.getPlayer())==AffectionLevelBasic.LIKE) {
+			if(((Scarlett)Main.game.getNpc(Scarlett.class)).isLikesPlayer()) {
 				return UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_ROMANTIC_SETUP_AGREED");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_RESTAURANT_ROMANTIC_SETUP_DECLINED");
@@ -534,7 +534,7 @@ public class HelenaHotel {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getNpc(Scarlett.class).getAffectionLevelBasic(Main.game.getPlayer())==AffectionLevelBasic.LIKE) {
+			if(((Scarlett)Main.game.getNpc(Scarlett.class)).isLikesPlayer()) {
 				if(index==1) {
 					return new Response("Thank her", "Thank Scarlett for agreeing to do as you've asked.", DATE_RESTAURANT_START) {
 						@Override
@@ -638,11 +638,11 @@ public class HelenaHotel {
 		public void applyPreParsingEffects() { //TODO test
 			Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.GIFT_ROSE_BOUQUET), 3, true);
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateRomanticSetup, true);
-			Main.game.getPlayer().removeDirtySlot(InventorySlot.MOUTH);
-			Main.game.getPlayer().removeDirtySlot(InventorySlot.EYES);
-			Main.game.getPlayer().removeDirtySlot(InventorySlot.HAIR);
-			Main.game.getPlayer().removeDirtySlot(InventorySlot.HEAD);
-			Main.game.getPlayer().removeDirtySlot(InventorySlot.NECK);
+			Main.game.getPlayer().removeDirtySlot(InventorySlot.MOUTH, true);
+			Main.game.getPlayer().removeDirtySlot(InventorySlot.EYES, true);
+			Main.game.getPlayer().removeDirtySlot(InventorySlot.HAIR, true);
+			Main.game.getPlayer().removeDirtySlot(InventorySlot.HEAD, true);
+			Main.game.getPlayer().removeDirtySlot(InventorySlot.NECK, true);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -970,7 +970,7 @@ public class HelenaHotel {
 							DATE_RESTAURANT_PLAYER_TOPIC) {
 						@Override
 						public DialogueNode getNextDialogue() {
-							return GiftDialogue.getGiftDialogue(Main.game.getNpc(Helena.class), DATE_RESTAURANT_PLAYER_TOPIC, 0, DATE_RESTAURANT_GIFT, 0); //TODO test
+							return GiftDialogue.getGiftDialogue(Main.game.getNpc(Helena.class), DATE_RESTAURANT_GIFT, 0);
 						}
 					};
 				}
@@ -979,7 +979,7 @@ public class HelenaHotel {
 		}
 	};
 	
-	public static final DialogueNode DATE_RESTAURANT_GIFT = new DialogueNode("", "", true) {
+	public static final DialogueNode DATE_RESTAURANT_GIFT = new DialogueNode("", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
@@ -1244,7 +1244,7 @@ public class HelenaHotel {
 			Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_HELENA_HOTEL);
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateFirstDateComplete, true);
 			Main.game.getNpc(Helena.class).cleanAllClothing(true);
-			Main.game.getNpc(Helena.class).cleanAllDirtySlots();
+			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 			Main.game.getNpc(Helena.class).equipClothing();
 		}
 		@Override
@@ -1403,7 +1403,7 @@ public class HelenaHotel {
 						null,
 						null,
 						DATE_APARTMENT_BEDROOM_AFTER_SEX,
-						(Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.TONGUE))==0
+						(Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.TONGUE))==0
 							?UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_FINGERING_FIRST_TIME")
 							:UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_FINGERING_EXPERIENCED"))) {
 					@Override
@@ -1445,7 +1445,7 @@ public class HelenaHotel {
 								null,
 								null,
 								DATE_APARTMENT_BEDROOM_AFTER_SEX,
-								(Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.PENIS))==0
+								(Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.PENIS))==0
 									?UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_PAIZURI_FIRST_TIME")
 									:UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_PAIZURI_EXPERIENCED"))) {
 							@Override
@@ -1483,7 +1483,7 @@ public class HelenaHotel {
 							null,
 							null,
 							DATE_APARTMENT_BEDROOM_AFTER_SEX,
-							(Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE))==0
+							(Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE))==0
 								?UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_PERFORM_CUNNILINGUS_FIRST_TIME")
 								:UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_PERFORM_CUNNILINGUS_EXPERIENCED"))) {
 						@Override
@@ -1531,7 +1531,7 @@ public class HelenaHotel {
 								null,
 								null,
 								DATE_APARTMENT_BEDROOM_AFTER_SEX,
-								(Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))==0
+								(Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))==0
 									?UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_RECEIVE_CUNNILINGUS_FIRST_TIME")
 									:UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_RECEIVE_CUNNILINGUS_EXPERIENCED"))) {
 							@Override
@@ -1580,7 +1580,7 @@ public class HelenaHotel {
 								null,
 								null,
 								DATE_APARTMENT_BEDROOM_AFTER_SEX,
-								(Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))==0
+								(Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))==0
 									?UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_RECEIVE_BLOWJOB_FIRST_TIME")
 									:UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_RECEIVE_BLOWJOB_EXPERIENCED"))) {
 							@Override
@@ -1705,7 +1705,7 @@ public class HelenaHotel {
 								null,
 								null,
 								DATE_APARTMENT_BEDROOM_AFTER_SEX,
-								(Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.CLIT, SexAreaPenetration.CLIT))==0
+								(Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.CLIT, SexAreaPenetration.CLIT))==0
 										?UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_SCISSORING_DOM_FIRST_TIME")
 										:UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_SCISSORING_DOM_EXPERIENCED"))) {
 							@Override
@@ -1737,7 +1737,7 @@ public class HelenaHotel {
 								null,
 								null,
 								DATE_APARTMENT_BEDROOM_AFTER_SEX,
-								(Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.CLIT, SexAreaPenetration.CLIT))==0
+								(Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.CLIT, SexAreaPenetration.CLIT))==0
 									?UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_SCISSORING_FIRST_TIME")
 									:UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_SCISSORING_EXPERIENCED"))) {
 							@Override
@@ -1924,7 +1924,7 @@ public class HelenaHotel {
 								null,
 								null,
 								DATE_APARTMENT_BEDROOM_AFTER_SEX,
-								(Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE))==0
+								(Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE))==0
 									?UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_ANILINGUS_DOM_FIRST_TIME") // She makes it clear that she will never return the favour
 									:UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_ANILINGUS_DOM_EXPERIENCED"))) {
 							@Override
@@ -1953,7 +1953,7 @@ public class HelenaHotel {
 								null,
 								null,
 								DATE_APARTMENT_BEDROOM_AFTER_SEX,
-								(Main.game.getNpc(Helena.class).getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE))==0
+								(Main.game.getNpc(Helena.class).getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE))==0
 									?UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_ANILINGUS_FIRST_TIME")
 									:UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_ANILINGUS_EXPERIENCED"))) {
 							@Override
@@ -2280,8 +2280,7 @@ public class HelenaHotel {
 					};
 				}
 				
-			} else { // Player has no penis:
-				//TODO test (need to reset romance or something...)
+			} else {
 				return DATE_APARTMENT_BEDROOM.getResponse(responseTab, index-1);
 			}
 			return null;
@@ -2313,7 +2312,7 @@ public class HelenaHotel {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_AFTER_SEX_LEAVE_NEST"));
 							
 							Main.game.getNpc(Helena.class).cleanAllClothing(true);
-							Main.game.getNpc(Helena.class).cleanAllDirtySlots();
+							Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 							Main.game.getNpc(Helena.class).equipClothing();
 							
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaBedroomFromNest, false);
@@ -2348,10 +2347,10 @@ public class HelenaHotel {
 	public static final DialogueNode DATE_APARTMENT_BEDROOM_AFTER_SEX_SLEEP = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getPlayer().cleanAllClothing(true);
-			Main.game.getPlayer().cleanAllDirtySlots();
+			Main.game.getPlayer().cleanAllClothing(false);
+			Main.game.getPlayer().cleanAllDirtySlots(true);
 			Main.game.getNpc(Helena.class).cleanAllClothing(true);
-			Main.game.getNpc(Helena.class).cleanAllDirtySlots();
+			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 			((Helena)Main.game.getNpc(Helena.class)).applyDressForMorning();
 		}
 		@Override
@@ -2455,11 +2454,11 @@ public class HelenaHotel {
 	
 	public static final DialogueNode DATE_APARTMENT_BEDROOM_AFTER_SEX_MORNING = new DialogueNode("Finished", "Helena seems to have had enough and pulls away...", true) {
 		@Override
-		public void applyPreParsingEffects() { //TODO test
-			Main.game.getPlayer().cleanAllClothing(true);
-			Main.game.getPlayer().cleanAllDirtySlots();
+		public void applyPreParsingEffects() {
+			Main.game.getPlayer().cleanAllClothing(false);
+			Main.game.getPlayer().cleanAllDirtySlots(true);
 			Main.game.getNpc(Helena.class).cleanAllClothing(true);
-			Main.game.getNpc(Helena.class).cleanAllDirtySlots();
+			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 		}
 		@Override
 		public int getSecondsPassed() {

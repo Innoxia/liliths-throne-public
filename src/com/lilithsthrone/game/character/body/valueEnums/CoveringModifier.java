@@ -4,7 +4,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.99
- * @version 0.1.99
+ * @version 0.3.7.4
  * @author Innoxia
  */
 public enum CoveringModifier {
@@ -31,6 +31,10 @@ public enum CoveringModifier {
 		}
 	},
 	
+	//Skin:
+	LEATHERY("leathery"),
+	
+	// Fur/hair:
 	SHORT("short"),
 	SILKEN("silken"),
 	SMOOTH("smooth"),

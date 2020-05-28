@@ -104,7 +104,7 @@
 	</p>
 	<p>
 		Sure enough, you see Scarlett moodily slouched down on one of the many sofas which are positioned on the far side of the foyer, and as Helena strides over to a nearby elevator and disappears from sight, you decide to head over and say hello to the black-feathered harpy. As you approach, she looks up and
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			 says, [scarlett.speech(Hi, [pc.name]. It looks like both of us are having to wait for Helena's return, huh?)]
 		#ELSE
 			 mutters, [scarlett.speech(What the fuck do you want, [pc.name]? It's your fault that I'm having to hang around here and wait for Helena instead of finding some harpy slut to fuck...)]
@@ -123,7 +123,7 @@
 	<htmlContent tag="DATE_TRAVEL_SMALL_TALK"><![CDATA[
 	<p>
 		Deciding that it would be best to pass the time by engaging in conversation with Scarlett, you ask her how she is and if she visits this hotel often.
-		#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
+		#IF(scarlett.isLikesPlayer())
 			 Although she tries to hide it, the raven-harpy is clearly happy to be getting a chance to talk with you, and after telling you that she's well, she goes on to explain, [scarlett.speech(I never used to visit this place, but since I became Helena's PA, I've been staying in one of the guest bedrooms in her apartment, so I pretty much live here now. I don't know if she's told you yet, but Helena actually owns this entire hotel, and seeing as I'm so close to her, all the hotel staff let me do pretty much anything I want in here.)]
 		#ELSE
 			 Although at first she tries to dismiss your questioning with a barrage of her usual foul language, she eventually relents and reluctantly tells you that she's well. Once she starts talking, she can't seem to stop, and quickly goes on to explain, [scarlett.speech(I never used to visit this fucking place, but since I became Helena's PA, I've been staying in one of the guest bedrooms in her apartment, so I pretty much live here now. I don't know if she's told you yet, but Helena actually owns this entire hotel, and seeing as I'm so close to her, all the hotel staff let me do whatever the fuck I want in here.)]
@@ -744,7 +744,7 @@
 		Having a lot more to say on the matter, Helena continues to open up to you about her non-existent sex life. Although she continues to blush and occasionally trips over her words in her embarrassment, she seems almost desperate in her haste to tell you how she's still a virgin, and that until she met you, she's never had the time nor inclination to have a romantic relationship with anyone. After lamenting upon the fact that she's the only one out of all the harpies in her inner-circle who's never had sex, she lets out a deep sigh and finally falls silent.
 	</p>
 	<p>
-		Before you're able to strike up any further conversation with Helena, the harpy waitress returns to clear your empty dessert dishes away, before smiling at the beautiful matriarch seated opposite to you and saying, [style.speechFeminine(Thank you for dining here tonight with us, Ms. [helena.surname]. Needless to say, the meal is on the house. I hope you have a most enjoyable evening!)]
+		Before you're able to strike up any further conversation with Helena, the harpy waitress returns to clear your empty dessert dishes away, before smiling at the beautiful matriarch seated opposite to you and saying, [style.speechFeminine(Thank you for dining with us tonight, Ms. [helena.surname]. All of the staff are honoured to have served the owner of this hotel, and, needless to say, the meal is on the house. I hope you have a most enjoyable evening!)]
 	</p>
 	<p>
 		With that, the waitress skips away, leaving you and Helena alone together again. A huge weight seems to have been lifted off of the beautiful matriarch's chest, and after standing up, she warmly smiles at you and says, [helena.speech(I think I shall retire to my apartment for the remainder of the evening.)]
@@ -1692,7 +1692,7 @@
 		 [helena.speechNoEffects(Go on then! Get started and show me that this can feel good...)]
 	</p>
 	<p>
-		Eagerly obeying, you start planting a series of passionate kisses on Helena's [helena.asshole], before starting to trace the tip of your [pc.tongue+] around her rear entrance. Letting out a surprisingly-erotic moan, the harpy breathlessly pants, [helena.speechNoEffect(~Ooh!~ K-Keep going, [pc.name]! That actually does feel pretty good...)]
+		Eagerly obeying, you start planting a series of passionate kisses on Helena's [helena.asshole], before starting to trace the tip of your [pc.tongue+] around her rear entrance. Letting out a surprisingly-erotic moan, the harpy breathlessly pants, [helena.speechNoEffects(~Ooh!~ K-Keep going, [pc.name]! That actually does feel pretty good...)]
 	</p>
 	<p>
 		Showing Helena what you can really do, you plant one last big, wet kiss on her [helena.asshole+], before pushing your [pc.tongue+] inside and starting to enthusiastically perform anilingus on her. Just as you hoped she would, the gorgeous matriarch turns out to love the feeling of having her asshole orally pleasured, and as she desperately grinds her [helena.asshole+] down against your [pc.lips+], she lewdly moans, [helena.speechNoEffects(~Aah!~ Yes, [pc.name], keep on doing it just like that! ~Ooh!~ Don't stop, I want more!)]
@@ -1720,7 +1720,7 @@
 		 [helena.speechNoEffects(Go on, [pc.name]! Worship my ass!)]
 	</p>
 	<p>
-		Eagerly obeying, you start planting a series of passionate kisses on Helena's [helena.asshole], before starting to trace the tip of your [pc.tongue+] around her rear entrance. Letting out a deeply erotic moan, the harpy breathlessly pants, [helena.speechNoEffect(~Ooh!~ That's it! Give me more!)]
+		Eagerly obeying, you start planting a series of passionate kisses on Helena's [helena.asshole], before starting to trace the tip of your [pc.tongue+] around her rear entrance. Letting out a deeply erotic moan, the harpy breathlessly pants, [helena.speechNoEffects(~Ooh!~ That's it! Give me more!)]
 	</p>
 	<p>
 		Showing Helena what you can really do, you plant one last big, wet kiss on her [helena.asshole+], before pushing your [pc.tongue+] inside and starting to enthusiastically perform anilingus on her. Just like the last time you did this to her, the gorgeous matriarch turns soon starts desperately grinding her [helena.asshole+] down against your [pc.lips+], before lewdly moaning, [helena.speechNoEffects(~Aah!~ Yes, [pc.name], keep on doing it just like that! ~Ooh!~ Don't stop, I want more!)]
@@ -1754,7 +1754,7 @@
 		 [helena.speechNoEffects(G-Go on then! Show me that this can feel good...)]
 	</p>
 	<p>
-		Eagerly obeying, you start planting a series of passionate kisses on Helena's [helena.asshole], before starting to trace the tip of your [pc.tongue+] around her rear entrance. Letting out a surprisingly-erotic moan, the harpy breathlessly pants, [helena.speechNoEffect(~Ooh!~ K-Keep going, [pc.name]! That actually does feel pretty good...)]
+		Eagerly obeying, you start planting a series of passionate kisses on Helena's [helena.asshole], before starting to trace the tip of your [pc.tongue+] around her rear entrance. Letting out a surprisingly-erotic moan, the harpy breathlessly pants, [helena.speechNoEffects(~Ooh!~ K-Keep going, [pc.name]! That actually does feel pretty good...)]
 	</p>
 	<p>
 		Showing Helena what you can really do, you plant one last big, wet kiss on her [helena.asshole+], before pushing your [pc.tongue+] inside and starting to enthusiastically perform anilingus on her. Just as you hoped she would, the gorgeous matriarch turns out to love the feeling of having her asshole orally pleasured, and as she desperately grinds her [helena.asshole+] back against your [pc.lips+], she lewdly moans, [helena.speechNoEffects(~Aah!~ Yes, [pc.name], keep on doing it just like that! ~Ooh!~ Don't stop, I want more!)]
@@ -1784,7 +1784,7 @@
 		 [helena.speechNoEffects(~Mmm!~ Yes, that's it, [pc.name]! Now get started!)]
 	</p>
 	<p>
-		Eagerly obeying, you plant a series of passionate kisses on Helena's [helena.asshole], before starting to trace the tip of your [pc.tongue+] around her rear entrance. Letting out a deeply erotic moan, the harpy breathlessly pants, [helena.speechNoEffect(~Ooh!~ That's it! Give me more!)]
+		Eagerly obeying, you plant a series of passionate kisses on Helena's [helena.asshole], before starting to trace the tip of your [pc.tongue+] around her rear entrance. Letting out a deeply erotic moan, the harpy breathlessly pants, [helena.speechNoEffects(~Ooh!~ That's it! Give me more!)]
 	</p>
 	<p>
 		Showing Helena what you can really do, you plant one last big, wet kiss on her [helena.asshole+], before pushing your [pc.tongue+] inside and starting to enthusiastically perform anilingus on her. Just like the last time you did this to her, the gorgeous matriarch turns soon starts desperately grinding her [helena.asshole+] back against your [pc.lips+], before lewdly moaning, [helena.speechNoEffects(~Aah!~ Yes, [pc.name], keep on doing it just like that! ~Ooh!~ Don't stop, I want more!)]

@@ -1,9 +1,11 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,9 +47,9 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
@@ -60,16 +62,13 @@ import com.lilithsthrone.game.sex.managers.dominion.SMMasturbation;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMasturbation;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
-import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Pathing;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
-import com.lilithsthrone.utils.comparators.ClothingTypeRarityComparator;
-import com.lilithsthrone.utils.comparators.ItemTypeRarityComparator;
-import com.lilithsthrone.utils.comparators.WeaponTypeRarityComparator;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldType;
 
 /**
@@ -137,7 +136,7 @@ public class PhoneDialogue {
 				return new Response("Spells", "View your spells page.", SpellManagement.CHARACTER_SPELLS_EARTH) {
 					@Override
 					public void effects() {
-						SpellManagement.setTarget(Main.game.getPlayer(), MENU);
+						SpellManagement.setSpellOwner(Main.game.getPlayer(), MENU);
 					}
 				};
 				
@@ -721,8 +720,6 @@ public class PhoneDialogue {
 							"<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit()))+"</b> Fertility Factor")
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.VIRILITY,
 							"<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit()))+"</b> Virility Factor")
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.SPELL_COST_MODIFIER,
-							"<b>-"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.SPELL_COST_MODIFIER), Attribute.SPELL_COST_MODIFIER.getUpperLimit()))+"%</b> Spell cost")
 
 					+ "<div class='container-full-width' style='text-align:center; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>"
 						+ "<b style='color:"+PresetColour.BASE_PINK_LIGHT.toWebHexString()+";'>Pregnancy calculation:</b> <i>"+GameCharacter.PREGNANCY_CALCULATION+"</i>"
@@ -738,15 +735,17 @@ public class PhoneDialogue {
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.ENERGY_SHIELDING,
 							"<b>"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.ENERGY_SHIELDING), Attribute.ENERGY_SHIELDING.getUpperLimit()))+"</b> Health Block/Turn",
 							true)
-					
 
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.SPELL_COST_MODIFIER,
+							"<b>-"+Units.number(Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.SPELL_COST_MODIFIER), Attribute.SPELL_COST_MODIFIER.getUpperLimit()))+"%</b> Spell cost")
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS,
+							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit())))+"%</b> Spell Damage",
+							true)
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_UNARMED,
 							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED), Attribute.DAMAGE_UNARMED.getUpperLimit())))+"%</b> Unarmed Damage",
 							true)
-					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS,
-							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit())))+"%</b> Spell Damage",
-							true)
+					
 
 					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_MELEE_WEAPON,
 							"<b>"+Units.number((100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_MELEE_WEAPON), Attribute.DAMAGE_MELEE_WEAPON.getUpperLimit())))+"%</b> Melee Damage",
@@ -1014,7 +1013,12 @@ public class PhoneDialogue {
 										:Util.capitaliseSentence(character.getBreastCrotchSize().getCupSizeName())))
 						+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Count",
 								PresetColour.TEXT, !knowsCrotchNipples?"Unknown":String.valueOf(character.getBreastCrotchRows()),
-								PresetColour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(Util.intToString(character.getBreastCrotchRows()))+" pair"+(character.getBreastCrotchRows()==1?"":"s"))
+								PresetColour.GENERIC_SEX,
+								!knowsCrotchNipples
+									?"Unknown"
+									:(character.getBreastCrotchRows()==0
+										?"A single udder"
+										:Util.capitaliseSentence(Util.intToString(character.getBreastCrotchRows()))+" pair"+(character.getBreastCrotchRows()==1?"":"s")))
 						+ statRow(PresetColour.TRANSFORMATION_GENERIC, "Milk Storage",
 								PresetColour.TEXT, !knowsCrotchNipples?"Unknown":Units.fluid(character.getBreastCrotchRawMilkStorageValue()),
 								PresetColour.GENERIC_SEX, !knowsCrotchNipples?"Unknown":Util.capitaliseSentence(character.getBreastCrotchMilkStorage().getDescriptor()))
@@ -1259,103 +1263,103 @@ public class PhoneDialogue {
 					+ sexStatHeader()
 					
 					+ sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Fingering",
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
+							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
 							-1,
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER)),
+							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER)),
 							-1,
 							true)
 
 					+ (Main.game.isAnalContentEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Anal Fingering",
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.ANUS)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.ANUS)),
 									-1,
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.FINGER)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.FINGER)),
 									-1,
 									false)
 							:"")
 					
 					+ sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Blowjobs",
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+							Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+							Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
 							true)
 					
 					+ sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Cunnilingus",
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
 							-1,
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)),
+							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)),
 							-1,
 							false)
 					
 					+ (Main.game.isAnalContentEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Anilingus",
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS)),
 									-1,
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE)),
 									-1,
 									true)
 							:"")
 					
 					+ (Main.game.isFootContentEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_ONE, "Footjobs",
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS)),
-									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FOOT)),
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FOOT)),
-									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FOOT)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FOOT)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FOOT, SexAreaPenetration.PENIS)),
 									true)
 							:"")
 					
 					+ sexStatRow(PresetColour.AROUSAL_STAGE_TWO, "Vaginal sex",
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+							Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+							Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+							Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
 							false)
 
 					
 					+ (Main.game.isAnalContentEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_TWO, "Anal sex",
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
-									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
-									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
 									true)
 							:"")
 
 					+ (Main.game.isNipplePenEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_TWO, "Nipple penetration",
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
-									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS)),
-									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS)),
 									false)
 							:"")
 
 					+ (Main.game.isNipplePenEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_TWO, "Crotch Nipple penetration",
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE_CROTCH)),
-									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE_CROTCH)),
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, SexAreaPenetration.PENIS)),
-									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE_CROTCH)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE_CROTCH)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.NIPPLE_CROTCH, SexAreaPenetration.PENIS)),
 									true)
 							:"")
 					
 					+ (Main.game.isUrethraEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_TWO, "Penis Urethra penetration",
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
-									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
-									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_PENIS)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_PENIS, SexAreaPenetration.PENIS)),
 									false)
 							:"")
 
 					+ (Main.game.isUrethraEnabled()
 							?sexStatRow(PresetColour.AROUSAL_STAGE_TWO, "Vagina Urethra penetration",
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
-									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
-									Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
-									Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.URETHRA_VAGINA)),
+									Main.game.getPlayer().getTotalSexCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
+									Main.game.getPlayer().getTotalCumCount(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.URETHRA_VAGINA, SexAreaPenetration.PENIS)),
 									true)
 							:"");
 		}
@@ -1606,7 +1610,7 @@ public class PhoneDialogue {
 					+ "<br/>"
 					+ "[style.bold(Possible partners:)]");
 			
-			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsMother()){
+			for(PregnancyPossibility pp : new ArrayList<>(Main.game.getPlayer().getPotentialPartnersAsMother())){
 				if(pp.getFather()!=null) {
 					contentSB.append(UtilText.parse(pp.getFather(),
 							"<br/><b>[npc.Name(A)] (</b>"
@@ -1679,7 +1683,7 @@ public class PhoneDialogue {
 		contentSB.append("<span style='height:16px;width:100%;float:left;'></span>"
 				+ "<div class='subTitle'>Fathered children</div>");
 		
-		for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsFather()){
+		for(PregnancyPossibility pp : new ArrayList<>(Main.game.getPlayer().getPotentialPartnersAsFather())) {
 			if(pp.getMother()!=null) {
 				contentSB.append(UtilText.parse(pp.getMother(),
 						"<div class='container-full-width' style='text-align:center;'>"
@@ -1708,6 +1712,7 @@ public class PhoneDialogue {
 					} else {
 						contentSB.append("Certainty");
 					}
+					
 				} else {
 					if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_1)) {
 						contentSB.append("<br/>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_1.getName(pp.getMother()))+")]");
@@ -1979,14 +1984,52 @@ public class PhoneDialogue {
 		}
 	};
 	
+	private static String getSubspeciesDiscoveredIndication() {
+		return Main.getProperties().getSubspeciesDiscoveredCount()+"/"+Subspecies.values().length;
+	}
+
+	private static String getWeaponsDiscoveredIndication() {
+		return Main.getProperties().getWeaponsDiscoveredCount()+"/"+weaponsDiscoveredList.size();
+	}
+	
+	private static String getClothingDiscoveredIndication() {
+		return Main.getProperties().getClothingDiscoveredCount()+"/"+clothingDiscoveredList.size();
+	}
+	
+	private static String getItemsDiscoveredIndication() {
+		return Main.getProperties().getItemsDiscoveredCount()+"/"+itemsDiscoveredList.size();
+	}
 	
 	public static final DialogueNode ENCYCLOPEDIA = new DialogueNode("Encyclopedia", "", true) {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-					+ "You have collected information on all the races, weapons, clothing, and items that you've encountered in your travels."
-					+ "</p>";
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<p>"
+						+ "You have collected information on all the races, weapons, clothing, and items that you've encountered in your travels."
+					+ "</p>");
+			
+			sb.append("<p style='text-align:center;'>");
+				sb.append("You have discovered:");
+				sb.append((Main.getProperties().getSubspeciesDiscoveredCount()==Subspecies.values().length
+								?"<br/>[style.colourGood(Subspecies: "+getSubspeciesDiscoveredIndication()+")]"
+								:"<br/>Subspecies: "+getSubspeciesDiscoveredIndication()));
+	
+				sb.append((Main.getProperties().getWeaponsDiscoveredCount()==weaponsDiscoveredList.size()
+								?"<br/>[style.colourGood(Weapons: "+getWeaponsDiscoveredIndication()+")]"
+								:"<br/>Weapons: "+getWeaponsDiscoveredIndication()));
+	
+				sb.append((Main.getProperties().getClothingDiscoveredCount()==clothingDiscoveredList.size()
+								?"<br/>[style.colourGood(Clothing: "+getClothingDiscoveredIndication()+")]"
+								:"<br/>Clothing: "+getClothingDiscoveredIndication()));
+	
+				sb.append((Main.getProperties().getItemsDiscoveredCount()==itemsDiscoveredList.size()
+								?"<br/>[style.colourGood(Items: "+getItemsDiscoveredIndication()+")]"
+								:"<br/>Items: "+getItemsDiscoveredIndication()));
+			sb.append("</p>");
+			
+			return sb.toString();
 		}
 
 		@Override
@@ -2015,6 +2058,7 @@ public class PhoneDialogue {
 					@Override
 					public void effects() {
 						Main.getProperties().setValue(PropertyValue.newClothingDiscovered, false);
+						clothingSlotKey = clothingSlotCategories.keySet().iterator().next();
 					}
 				};
 			
@@ -2044,53 +2088,158 @@ public class PhoneDialogue {
 	private static List<AbstractItemType> itemsDiscoveredList = new ArrayList<>();
 	private static List<AbstractClothingType> clothingDiscoveredList = new ArrayList<>();
 	private static List<AbstractWeaponType> weaponsDiscoveredList = new ArrayList<>();
+
+	
+	private static Map<String, List<InventorySlot>> clothingSlotCategories;
+	private static String clothingSlotKey;
 	
 	static {
-		
 		itemsDiscoveredList.addAll(ItemType.getAllItems());
-		itemsDiscoveredList.sort(new ItemTypeRarityComparator());
+		itemsDiscoveredList.removeIf((it) -> it.getItemTags().contains(ItemTag.CHEAT_ITEM));
+		Collections.sort(itemsDiscoveredList, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 		
 		weaponsDiscoveredList.addAll(WeaponType.getAllWeapons());
-		weaponsDiscoveredList.sort(new WeaponTypeRarityComparator());
+		weaponsDiscoveredList.removeIf((wt) -> wt.getItemTags().contains(ItemTag.CHEAT_ITEM));
+		Collections.sort(weaponsDiscoveredList, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 		
 		clothingDiscoveredList.addAll(ClothingType.getAllClothing());
-		clothingDiscoveredList.sort(new ClothingTypeRarityComparator());
+		clothingDiscoveredList.removeIf((ct) -> ct.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM));
+		Collections.sort(clothingDiscoveredList, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
+		
+		clothingSlotCategories = new LinkedHashMap<>();
+		
+		clothingSlotCategories.put("Head",
+				Util.newArrayListOfValues(
+				InventorySlot.HEAD,
+				InventorySlot.EYES,
+				InventorySlot.HAIR,
+				InventorySlot.MOUTH,
+				InventorySlot.NECK));
+		
+		clothingSlotCategories.put("Torso",
+				Util.newArrayListOfValues(
+				InventorySlot.TORSO_OVER,
+				InventorySlot.TORSO_UNDER));
+		
+		clothingSlotCategories.put("Chest",
+				Util.newArrayListOfValues(
+				InventorySlot.CHEST,
+				InventorySlot.NIPPLE));
+		
+		clothingSlotCategories.put("Arms",
+				Util.newArrayListOfValues(
+				InventorySlot.HAND,
+				InventorySlot.WRIST,
+				InventorySlot.FINGER));
+		
+		clothingSlotCategories.put("Waist",
+				Util.newArrayListOfValues(
+				InventorySlot.STOMACH,
+				InventorySlot.HIPS));
+		
+		clothingSlotCategories.put("Groin",
+				Util.newArrayListOfValues(
+				InventorySlot.GROIN,
+				InventorySlot.PENIS,
+				InventorySlot.VAGINA,
+				InventorySlot.ANUS));
+		
+		clothingSlotCategories.put("Legs",
+				Util.newArrayListOfValues(
+				InventorySlot.LEG,
+				InventorySlot.SOCK));
+		
+		clothingSlotCategories.put("Feet",
+				Util.newArrayListOfValues(
+				InventorySlot.FOOT,
+				InventorySlot.ANKLE));
+		
+		clothingSlotCategories.put("Extra",
+				Util.newArrayListOfValues(
+				InventorySlot.HORNS,
+				InventorySlot.WINGS,
+				InventorySlot.TAIL));
+		
+		clothingSlotCategories.put("Piercings",
+				Util.newArrayListOfValues(
+				InventorySlot.PIERCING_EAR,
+				InventorySlot.PIERCING_LIP,
+				InventorySlot.PIERCING_NOSE,
+				InventorySlot.PIERCING_TONGUE,
+				InventorySlot.PIERCING_NIPPLE,
+				InventorySlot.PIERCING_STOMACH,
+				InventorySlot.PIERCING_PENIS,
+				InventorySlot.PIERCING_VAGINA));
 	}
-	public static final DialogueNode WEAPON_CATALOGUE = new DialogueNode("Discovered Weapons", "", true) {
-
+	
+	public static final DialogueNode WEAPON_CATALOGUE = new DialogueNode("", "", true) {
+		@Override
+		public String getLabel() {
+			return "Discovered Weapons ("+getWeaponsDiscoveredIndication()+")";
+		}
 		@Override
 		public String getContent() {
-			journalSB = new StringBuilder();
+			StringBuilder sb = new StringBuilder();
+			StringBuilder sbMelee = new StringBuilder();
+			StringBuilder sbRanged = new StringBuilder();
+			StringBuilder sbDamageTypes = new StringBuilder();
 
-			journalSB.append("<div class='container-full-width' style='text-align:center;'>"
-					+ "<i>Hover over the coloured icons to see preview pictures of each weapon.</i>"
-					+ "</div>");
+			int meleeCount = 0;
+			int meleeKnownCount = 0;
+			int rangedCount = 0;
+			int rangedKnownCount = 0;
 			
-			for (AbstractWeaponType weapon : weaponsDiscoveredList) {
-				if (Main.getProperties().isWeaponDiscovered(weapon)) {
-					journalSB.append(
-							"<div class='container-full-width' style='margin-bottom:0;'>"
-							+ "<div class='container-full-width' style='width:calc(60% - 16px)'>"
-									+ "<b style='color:" + weapon.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(weapon.getName()) + "</b> ("+(weapon.isMelee()?"Melee":"Ranged")+")"
-							+ "</div>"
-							+ "<div class='container-full-width' style='width:calc(40% - 16px)'>");
-					
-					for (DamageType dt : weapon.getAvailableDamageTypes()) {
-						journalSB.append("<div class='phone-item-colour' id='" + (weapon.hashCode() + "_" + dt.toString()) + "' style='background-color:" + dt.getMultiplierAttribute().getColour().toWebHexString() + ";'></div>");
+			for(AbstractWeaponType weaponType : weaponsDiscoveredList) {
+				boolean discovered = Main.getProperties().isWeaponDiscovered(weaponType);
+				String entry = "<div class='inventory-item-slot unequipped' style='background-color:"+weaponType.getRarity().getBackgroundColour().toWebHexString()+"; width:78%; margin:1%; padding:0; '>"
+									+ "<div class='inventory-icon-content'>"+(discovered?weaponType.getSVGImage():"")+"</div>"
+									+ "<div class='overlay"+(discovered?"' id='"+weaponType.getId()+"'":" disabled-dark'")+" style='cursor:default;'></div>"
+								+ "</div>";
+				sbDamageTypes.setLength(0);
+				if(discovered) {
+					for(DamageType dt : weaponType.getAvailableDamageTypes()) {
+						sbDamageTypes.append("<div class='square-button' "+(discovered?"id='"+(weaponType.getId()+"_"+dt.toString())+"'":"")
+												+ " style='cursor:default; width:18%; margin:1%; padding:0; background-color:"+dt.getMultiplierAttribute().getColour().toWebHexString()+";'>"
+											+ "</div>");
 					}
-					
-					journalSB.append("</div>"
-							+ "</div>");
+				}
+				if(weaponType.isMelee()) {
+					meleeCount++;
+					if(discovered) {
+						meleeKnownCount++;
+					}
+					sbMelee.append("<div class='container-full-width' style='width:11.5%; padding:0; margin:0.5%;'>");
+						sbMelee.append(entry);
+						sbMelee.append(sbDamageTypes.toString());
+					sbMelee.append("</div>");
 					
 				} else {
-					journalSB.append(
-						"<div class='container-full-width' style='text-align:center; margin-bottom:0;'>"
-								+ "[style.boldDisabled(Undiscovered)]"
-						+ "</div>");
+					rangedCount++;
+					if(discovered) {
+						rangedKnownCount++;
+					}
+					sbRanged.append("<div class='container-full-width' style='width:11.5%; padding:0; margin:0.5%;'>");
+						sbRanged.append(entry);
+						sbRanged.append(sbDamageTypes.toString());
+					sbRanged.append("</div>");
 				}
 			}
-
-			return journalSB.toString();
+			
+			sb.append("<div class='container-full-width'>");
+				sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
+					sb.append("[style.boldBlue(Melee Weapons ("+meleeKnownCount+"/"+meleeCount+"))]");
+				sb.append("</p>");
+				sb.append(sbMelee.toString());
+			sb.append("</div>");
+			
+			sb.append("<div class='container-full-width'>");
+				sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
+					sb.append("[style.boldYellow(Ranged Weapons ("+rangedKnownCount+"/"+rangedCount+"))]");
+				sb.append("</p>");
+				sb.append(sbRanged.toString());
+			sb.append("</div>");
+			
+			return sb.toString();
 		}
 
 		@Override
@@ -2108,54 +2257,52 @@ public class PhoneDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
-	public static final DialogueNode CLOTHING_CATALOGUE = new DialogueNode("Discovered Clothing", "", true) {
-
+	
+	public static final DialogueNode CLOTHING_CATALOGUE = new DialogueNode("", "", true) {
+		@Override
+		public String getLabel() {
+			return "Discovered Clothing ("+getClothingDiscoveredIndication()+")";
+		}
 		@Override
 		public String getContent() {
-			journalSB = new StringBuilder();
-
-			journalSB.append("<div class='container-full-width' style='text-align:center;'>"
-					+ "<i>Hover over the coloured icons to see preview pictures of each item of clothing.</i>"
-					+ "</div>");
+			StringBuilder sb = new StringBuilder();
 			
-			for (AbstractClothingType clothing : clothingDiscoveredList) {
-				if (Main.getProperties().isClothingDiscovered(clothing)) {
-					journalSB.append(
-							"<div class='container-full-width' style='margin-bottom:0;'>"
-							+ "<div class='container-full-width' style='width:calc(40% - 16px)'>"
-									+ "<b style='color:" + clothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</b> (");
-					
-					for(int i=0; i<clothing.getEquipSlots().size(); i++) {
-						InventorySlot slot = clothing.getEquipSlots().get(i);
-						journalSB.append(Util.capitaliseSentence(slot.getName())+(i==clothing.getEquipSlots().size()-1?"":"/"));
+			List<InventorySlot> slots = clothingSlotCategories.get(clothingSlotKey);
+			Map<InventorySlot, StringBuilder> sbMap = new LinkedHashMap<>();
+			Map<InventorySlot, Value<Integer, Integer>> discoveredMap = new HashMap<>();
+			for(InventorySlot slot : slots) {
+				sbMap.put(slot, new StringBuilder());
+				discoveredMap.put(slot, new Value<>(0, 0));
+			}
+			
+			for(AbstractClothingType clothingType : clothingDiscoveredList) {
+				if(Collections.disjoint(clothingType.getEquipSlots(), slots)) {
+					continue;
+				}
+				boolean discovered = Main.getProperties().isClothingDiscovered(clothingType);
+				String entry = "<div class='inventory-item-slot unequipped' style='background-color:"+clothingType.getRarity().getBackgroundColour().toWebHexString()+"; width:8%;'>"
+									+ "<div class='inventory-icon-content'>"+(discovered?clothingType.getSVGImageRandomColour(true, false, false):"")+"</div>"
+									+ "<div class='overlay"+(discovered?"' id='"+clothingType.getId()+"'":" disabled-dark'")+" style='cursor:default;'></div>"
+								+ "</div>";
+				
+				for(InventorySlot slot : clothingType.getEquipSlots()) {
+					if(slots.contains(slot)) {
+						sbMap.get(slot).append(entry);
+						discoveredMap.put(slot, new Value<>(discoveredMap.get(slot).getKey()+(discovered?1:0), discoveredMap.get(slot).getValue()+1));
 					}
-					
-					journalSB.append(")</div>"
-							+ "<div class='container-full-width' style='width:calc(60% - 16px)'>");
-					
-					for (Colour c : clothing.getAllAvailablePrimaryColours()) {
-						journalSB.append("<div class='phone-item-colour' id='" + (clothing.hashCode() + "_" + c.getId()) + "' style='background-color:" + c.toWebHexString() + ";'></div>");
-					}
-					
-					journalSB.append("</div>"
-							+ "</div>");
-					
-				} else {
-					journalSB.append(
-						"<div class='container-full-width' style='text-align:center; margin-bottom:0;'>"
-								+ "[style.boldDisabled(Undiscovered (");
-
-					for(int i=0; i<clothing.getEquipSlots().size(); i++) {
-						InventorySlot slot = clothing.getEquipSlots().get(i);
-						journalSB.append(Util.capitaliseSentence(slot.getName())+(i==clothing.getEquipSlots().size()-1?"":"/"));
-					}
-					
-					journalSB.append("))]"
-						+ "</div>");
 				}
 			}
 
-			return journalSB.toString();
+			for(InventorySlot slot : slots) {
+				sb.append("<div class='container-full-width'>");
+					sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
+						sb.append("[style.boldYellowLight("+Util.capitaliseSentence(slot.getName())+" ("+discoveredMap.get(slot).getKey()+"/"+discoveredMap.get(slot).getValue()+"))]");
+					sb.append("</p>");
+					sb.append(sbMap.get(slot).toString());
+				sb.append("</div>");
+			}
+			
+			return sb.toString();
 		}
 
 		@Override
@@ -2164,61 +2311,120 @@ public class PhoneDialogue {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
 			
 			} else {
-				return null;
-			}
-		}
-
-		@Override
-		public DialogueNodeType getDialogueNodeType() {
-			return DialogueNodeType.PHONE;
-		}
-	};
-	public static final DialogueNode ITEM_CATALOGUE = new DialogueNode("Discovered items", "View discovered items", true) {
-
-		@Override
-		public String getContent() {
-			journalSB = new StringBuilder();
-			
-			journalSB.append("<div class='container-full-width' style='text-align:center;'>"
-					+ "<i>Hover over the 'i' icons to see preview pictures of each item.</i>"
-					+ "</div>");
-			
-			for (AbstractItemType item : itemsDiscoveredList) {
-				if (Main.getProperties().isItemDiscovered(item)) {
-					journalSB.append(
-							"<div class='container-full-width' style='margin-bottom:0;'>"
-							+ "<div class='container-full-width' style='width:calc(40% - 16px)'>"
-									+ "<div class='title-button' id='"+ItemType.getItemToIdMap().get(item)+"' style='background:transparent; position:relative; top:0; left:0; float:left; margin:0 8px 0 0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getInformationIcon()+"</div>"
-									+ " <b style='color:" + item.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(item.getName(false)) + "</b>"
-							+ "</div>"
-							+ "<div class='container-full-width' style='width:calc(60% - 16px)'>");
-					
-					if (item.getEffects().isEmpty()) {
-						journalSB.append("-");
+				List<Response> responses = new ArrayList<>();
+				for(Entry<String, List<InventorySlot>> entry : clothingSlotCategories.entrySet()) {
+					if(clothingSlotKey==entry.getKey()) {
+						responses.add(new Response(entry.getKey(), "You are already viewing this category!", null));
+						
 					} else {
-						int i=1;
-						for(ItemEffect ie : item.getEffects()) {
-							for(String s : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
-								journalSB.append(s);
-								if(i != ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size())
-									journalSB.append("<br/>");
-								i++;
+						responses.add(new Response(entry.getKey(), "View all clothing which fits into the following slots:<br/><i>"+Util.capitaliseSentence(Util.inventorySlotsToStringList(entry.getValue()))+".</i>", CLOTHING_CATALOGUE) {
+							@Override
+							public void effects() {
+								clothingSlotKey = entry.getKey();
 							}
-						}
+						});
+					}
+				}
+				if(index-1<responses.size()) {
+					return responses.get(index-1);
+				}
+				return null;
+			}
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.PHONE;
+		}
+	};
+	public static final DialogueNode ITEM_CATALOGUE = new DialogueNode("", "View discovered items", true) {
+		@Override
+		public String getLabel() {
+			return "Discovered Items ("+getItemsDiscoveredIndication()+")";
+		}
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			StringBuilder sbItems = new StringBuilder();
+			StringBuilder sbBooks = new StringBuilder();
+			StringBuilder sbEssences = new StringBuilder();
+			StringBuilder sbSpells = new StringBuilder();
+			
+			int itemCount = 0;
+			int itemKnownCount = 0;
+			int bookCount = 0;
+			int bookKnownCount = 0;
+			int essenceCount = 0;
+			int essenceKnownCount = 0;
+			int spellCount = 0;
+			int spellKnownCount = 0;
+			
+			for(AbstractItemType itemType : itemsDiscoveredList) {
+				boolean discovered = Main.getProperties().isItemDiscovered(itemType);
+				String entry = "<div class='inventory-item-slot unequipped' style='background-color:"+itemType.getRarity().getBackgroundColour().toWebHexString()+"; width:8%;'>"
+									+ "<div class='inventory-icon-content'>"+(discovered?itemType.getSVGString():"")+"</div>"
+									+ "<div class='overlay"+(discovered?"' id='"+itemType.getId()+"'":" disabled-dark'")+" style='cursor:default;'></div>"
+								+ "</div>";
+				
+				if(itemType.getItemTags().contains(ItemTag.BOOK)) {
+					sbBooks.append(entry);
+					bookCount++;
+					if(discovered) {
+						bookKnownCount++;
 					}
 					
-					journalSB.append("</div>"
-							+ "</div>");
+				} else if(itemType.getItemTags().contains(ItemTag.ESSENCE)) {
+					sbEssences.append(entry);
+					essenceCount++;
+					if(discovered) {
+						essenceKnownCount++;
+					}
+					
+				} else if(itemType.getItemTags().contains(ItemTag.SPELL_BOOK) || itemType.getItemTags().contains(ItemTag.SPELL_SCROLL)) {
+					sbSpells.append(entry);
+					spellCount++;
+					if(discovered) {
+						spellKnownCount++;
+					}
 					
 				} else {
-					journalSB.append(
-						"<div class='container-full-width' style='text-align:center; margin-bottom:0;'>"
-								+ "[style.boldDisabled(Undiscovered)]"
-						+ "</div>");
+					sbItems.append(entry);
+					itemCount++;
+					if(discovered) {
+						itemKnownCount++;
+					}
 				}
 			}
 			
-			return journalSB.toString();
+			sb.append("<div class='container-full-width'>");
+				sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
+					sb.append("[style.boldBlueLight(Items ("+itemKnownCount+"/"+itemCount+"))]");
+				sb.append("</p>");
+				sb.append(sbItems.toString());
+			sb.append("</div>");
+
+			sb.append("<div class='container-full-width'>");
+				sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
+					sb.append("[style.boldOrange(Books ("+bookKnownCount+"/"+bookCount+"))]");
+				sb.append("</p>");
+				sb.append(sbBooks.toString());
+			sb.append("</div>");
+
+			sb.append("<div class='container-full-width'>");
+				sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
+					sb.append("[style.boldArcane(Essences ("+essenceKnownCount+"/"+essenceCount+"))]");
+				sb.append("</p>");
+				sb.append(sbEssences.toString());
+			sb.append("</div>");
+
+			sb.append("<div class='container-full-width'>");
+				sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
+					sb.append("[style.boldSpells(Spells ("+spellKnownCount+"/"+spellCount+"))]");
+				sb.append("</p>");
+				sb.append(sbSpells.toString());
+			sb.append("</div>");
+			
+			return sb.toString();
 		}
 
 		@Override
@@ -2262,8 +2468,11 @@ public class PhoneDialogue {
 		
 	}
 
-	public static final DialogueNode RACES = new DialogueNode("Discovered races", "View discovered races", true) {
-
+	public static final DialogueNode RACES = new DialogueNode("", "", true) {
+		@Override
+		public String getLabel() {
+			return "Discovered Races ("+getSubspeciesDiscoveredIndication()+")";
+		}
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -2325,13 +2534,11 @@ public class PhoneDialogue {
 		}
 	};
 	
-	public static final DialogueNode SUBSPECIES = new DialogueNode("Discovered races", "View discovered races", true) {
-
+	public static final DialogueNode SUBSPECIES = new DialogueNode("", "", true) {
 		@Override
 		public String getLabel() {
 			return Util.capitaliseSentence(subspeciesSelected.getName(null));
 		}
-
 		@Override
 		public String getContent() {
 			subspeciesSB.setLength(0);
@@ -2340,10 +2547,16 @@ public class PhoneDialogue {
 			Body maleBody = CharacterUtils.generateBody(null, Gender.M_P_MALE, subspeciesSelected, RaceStage.GREATER);
 			
 			subspeciesSB.append(
-				"<div class='container-full-width' style='width:calc(40% - 16px); float:right;'>"
+				"<div class='container-full-width' style='width:40%; float:right;'>"
+					
 					+ "<p style='width:100%; text-align:center;'><b style='color:"+subspeciesSelected.getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(subspeciesSelected.getName(null))+"</b><br/>"
 							+ "Average stats</p>"
 					+ "<table align='center'>"
+						+ "<tr>"
+							+ "<td></td>"
+							+ "<td>[style.colourFeminine("+Util.capitaliseSentence(subspeciesSelected.getSingularFemaleName(null))+")]</td>"
+							+ "<td>[style.colourMasculine("+Util.capitaliseSentence(subspeciesSelected.getSingularMaleName(null))+")]</td>"
+						+ "</tr>"
 						+ "<tr>"
 							+ "<td>Height</td>"
 							+ "<td>"+Units.size(femaleBody.getHeightValue())+"</td>"
@@ -2371,6 +2584,11 @@ public class PhoneDialogue {
 						+ "<tr>"
 							+ "<td>Vagina capacity</td>"
 							+ "<td>"+Util.capitaliseSentence(femaleBody.getVagina().getOrificeVagina().getCapacity().getDescriptor())+"</td>"
+							+ "<td>-</td>"
+						+ "</tr>"
+						+ "<tr>"
+							+ "<td>Litter size</td>"
+							+ "<td>"+subspeciesSelected.getRace().getNumberOfOffspringLow()+"-"+subspeciesSelected.getRace().getNumberOfOffspringHigh()+"</td>"
 							+ "<td>-</td>"
 						+ "</tr>"
 					+ "</table>"
@@ -2684,7 +2902,7 @@ public class PhoneDialogue {
 			+ "</div>";
 	}
 	
-	public static WorldType worldTypeMap = WorldType.DOMINION;
+	public static AbstractWorldType worldTypeMap = WorldType.DOMINION;
 
 	public static final DialogueNode MAP = new DialogueNode("Maps", "", true) {
 		@Override
@@ -2705,8 +2923,8 @@ public class PhoneDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			int i=2;
-			List<WorldType> worldTypes = Main.getProperties().hasValue(PropertyValue.mapReveal)?Arrays.asList(WorldType.values()):new ArrayList<>(Main.game.getPlayer().getWorldsVisited());
-			for(WorldType world : worldTypes) {//WorldType.values()) {
+			List<AbstractWorldType> worldTypes = Main.getProperties().hasValue(PropertyValue.mapReveal)?WorldType.getAllWorldTypes():new ArrayList<>(Main.game.getPlayer().getWorldsVisited());
+			for(AbstractWorldType world : worldTypes) {//WorldType.values()) {
 				if(world != WorldType.WORLD_MAP
 						&& world != WorldType.EMPTY
 						&& world != WorldType.MUSEUM

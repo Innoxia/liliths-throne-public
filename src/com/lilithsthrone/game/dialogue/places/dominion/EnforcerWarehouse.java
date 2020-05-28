@@ -21,7 +21,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
@@ -1222,7 +1222,7 @@ public class EnforcerWarehouse {
 	public static final DialogueNode AFTER_COMBAT_DEFEAT_SENT_TO_STOCKS = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, true);
+			Main.game.getPlayer().setCaptive(true);
 			Main.game.getPlayer().unequipAllClothingIntoHoldingInventory(Main.game.getNpc(Sean.class), false, false);
 		}
 		@Override
@@ -1448,7 +1448,7 @@ public class EnforcerWarehouse {
 				return new Response("Continue", "Continue on your way...", Main.game.getDefaultDialogue()) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, false);
+						Main.game.getPlayer().setCaptive(false);
 						Main.game.getPlayer().equipAllClothingFromHoldingInventory();
 					}
 				};
@@ -1461,7 +1461,7 @@ public class EnforcerWarehouse {
 	public static final DialogueNode AFTER_COMBAT_DEFEAT_SENT_TO_CELLS = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, true);
+			Main.game.getPlayer().setCaptive(true);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1507,7 +1507,7 @@ public class EnforcerWarehouse {
 						Main.game.getNpc(Claire.class).returnToHome();
 						Main.game.getNpc(Claire.class).setLust(Main.game.getNpc(Claire.class).getRestingLust());
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_TELEPORTATION, Quest.SIDE_UTIL_COMPLETE));
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, false);
+						Main.game.getPlayer().setCaptive(false);
 						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_ENFORCER_HQ, false);
 					}
 				};

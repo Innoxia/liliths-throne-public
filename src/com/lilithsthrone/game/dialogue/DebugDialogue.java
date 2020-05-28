@@ -24,7 +24,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -51,7 +51,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.7.3
  * @author Innoxia
  */
 public class DebugDialogue {
@@ -196,15 +196,27 @@ public class DebugDialogue {
 				
 			} else if(responseTab==1) {
 				if (index == 1) {
-					return new Response("<span style='color:"+PresetColour.GENERIC_EXPERIENCE.toWebHexString()+";'>+500 xp</span>", "Give yourself 500xp.", DEBUG_MENU){
+					return new Response("<span style='color:"+PresetColour.GENERIC_EXPERIENCE.toWebHexString()+";'>+500 xp</span> (self)", "Give yourself 500xp.", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementExperience(500, false);
-							
 						}
 					};
 					
-				} else if(index==2) {
+				} else if (index == 2) {
+					if(!Main.game.getPlayer().hasCompanions()) {
+						return new Response("+500 xp (party)", "You do not have any companions, so there's nobody to give experience to...", null);
+					}
+					return new Response("<span style='color:"+PresetColour.GENERIC_EXPERIENCE.toWebHexString()+";'>+500 xp</span> (party)", "Give each of your party members 500xp.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							for(GameCharacter character : Main.game.getPlayer().getParty()) {
+								character.incrementExperience(500, false);
+							}
+						}
+					};
+					
+				} else if(index==3) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+PresetColour.ATTRIBUTE_PHYSIQUE.toWebHexString()+";'>Physique</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -212,7 +224,7 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==3) {
+				} else if(index==4) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+PresetColour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Arcane</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -220,7 +232,7 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==4) {
+				} else if(index==5) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString()+";'>Corruption</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -228,7 +240,7 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==5) {
+				} else if(index==6) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>Max all attributes</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -238,7 +250,7 @@ public class DebugDialogue {
 						}
 					};
 					
-				}  else if(index==6) {
+				}  else if(index==7) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>+1</span> <span style='color:"+PresetColour.PERK.toWebHexString()+";'>Perk point</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -246,21 +258,21 @@ public class DebugDialogue {
 						}
 					};
 					
-				} else if(index==7) {
+				} else if(index==8) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+PresetColour.ATTRIBUTE_PHYSIQUE.toWebHexString()+";'>Physique</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_PHYSIQUE, -5);
 						}
 					};
-				} else if(index==8) {
+				} else if(index==9) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+PresetColour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Arcane</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, -5);
 						}
 					};
-				} else if(index==9) {
+				} else if(index==10) {
 					return new Response("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString()+";'>Corruption</span>", "", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -289,28 +301,16 @@ public class DebugDialogue {
 					};
 					
 				} else if (index == 13) {
-					return new Response("[style.colourGood(Complete)] Encyclopedia", "Unlock every entry in your encyclopedia.", DEBUG_MENU){
+					return new Response("[style.colourGood(Complete)] Shared Encyclopedia", "Unlock every entry in your shared encyclopedia.", DEBUG_MENU){
 						@Override
 						public void effects() {
-							for(Subspecies subspecies : Subspecies.values()) {
-								Main.getProperties().addRaceDiscovered(subspecies);
-								Main.getProperties().addAdvancedRaceKnowledge(subspecies);
-							}
-							for(AbstractItemType itemType : ItemType.getAllItems()) {
-								Main.getProperties().addItemDiscovered(itemType);
-							}
-							for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
-								Main.getProperties().addClothingDiscovered(clothingType);
-							}
-							for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
-								Main.getProperties().addWeaponDiscovered(weaponType);
-							}
+							Main.getProperties().completeSharedEncyclopedia();
 							Main.saveProperties();
 						}
 					};
 					
 				} else if (index == 14) {
-					return new Response("[style.colourBad(Reset)] Encyclopedia", "Delete every entry in your encyclopedia.", DEBUG_MENU){
+					return new Response("[style.colourBad(Reset)] Shared Encyclopedia", "Delete every entry in your shared encyclopedia.", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.getProperties().resetRaceDiscovered();
@@ -467,6 +467,13 @@ public class DebugDialogue {
 							}
 						};
 						
+				} else if (index == 14) {
+					return new Response("+1000 filly points", "Gives you the maximum amount of filly points (can be used after qualifying as a filly in Dominion Express).", DEBUG_MENU){
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getDialogueFlags().incrementNatalyaPoints(1000));
+						}
+					};
 				}
 				
 			} else if(responseTab == 3) {
@@ -598,7 +605,8 @@ public class DebugDialogue {
 				if(npc.getMother().getPregnantLitter()!=null && npc.getMother().getPregnantLitter().getOffspring().contains(npc.getId())) {
 					isBorn = false;
 				}
-				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span> ("+npc.getSubspecies().getName(npc)+")"
+				UtilText.nodeContentSB.append((isBorn?"":"(Not born yet) ")+"<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+npc.getName(true)+"</span>"
+						+ " ("+npc.getSubspecies().getName(npc)+" | "+npc.getHalfDemonSubspecies()+")"
 						+ " M:"+npc.getMother().getName(true)+" F:"+npc.getFather().getName(true)+"<br/>");
 			}
 			if(activeOffspring!=null) {
@@ -643,15 +651,15 @@ public class DebugDialogue {
 	public static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
 	static {
 		clothingTotal.addAll(ClothingType.getAllClothing());
-		clothingTotal.removeIf((c) -> c.getDefaultItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || c.getDefaultItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
+		clothingTotal.removeIf((c) -> c.getDefaultItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || c.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM));
 		Collections.sort(clothingTotal, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 		
 		weaponsTotal.addAll(WeaponType.getAllWeapons());
-		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || w.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
+		weaponsTotal.removeIf((w) -> w.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || w.getItemTags().contains(ItemTag.CHEAT_ITEM));
 		Collections.sort(weaponsTotal, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 
 		itemsTotal.addAll(ItemType.getAllItems());
-		itemsTotal.removeIf((i) -> i.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || i.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER));
+		itemsTotal.removeIf((i) -> i.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER) || i.getItemTags().contains(ItemTag.CHEAT_ITEM));
 		Collections.sort(itemsTotal, (i1, i2) -> i1.getRarity().compareTo(i2.getRarity()));
 		
 	}
@@ -666,8 +674,8 @@ public class DebugDialogue {
 
 			inventorySB.append(
 					"<p style='width:100%; text-align:center; padding:0 margin:0;'>"
-						+ (itemTag==ItemTag.HIDDEN_IN_DEBUG_SPAWNER
-							?"[style.boldExcellent(Hidden Spawn Menu)]"
+						+ (itemTag==ItemTag.CHEAT_ITEM
+							?"[style.boldGreenDark(Cheat Items)]"
 							:(activeSlot==null
 								?"<b style='color:"+PresetColour.BASE_BLUE_LIGHT.toWebHexString()+";'>Spawn Item</b>"
 								:(activeSlot.isWeapon()
@@ -677,37 +685,28 @@ public class DebugDialogue {
 			
 			int count=0;
 			inventorySB.append("<div class='inventory-not-equipped'>");
-			if(itemTag==ItemTag.HIDDEN_IN_DEBUG_SPAWNER) {
+			if(itemTag==ItemTag.CHEAT_ITEM) {
 				for(AbstractClothingType c : ClothingType.getAllClothing()) {
-					if(c.getDefaultItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER)) {
+					if(c.getDefaultItemTags().contains(ItemTag.CHEAT_ITEM)) {
 						inventorySB.append("<div class='inventory-item-slot unequipped' style='background-color:"+c.getRarity().getBackgroundColour().toWebHexString()+";'>"
 								+ "<div class='inventory-icon-content'>"
-									+c.getSVGImage(
-											c.getEquipSlots().get(0),
-											c.getAvailablePrimaryColours().get(0),
-											c.getAvailableSecondaryColours().isEmpty()?null:c.getAvailableSecondaryColours().get(0),
-											c.getAvailableTertiaryColours().isEmpty()?null:c.getAvailableTertiaryColours().get(0),
-											null, null, null, null)
+									+c.getSVGImage()
 								+"</div>"
 								+ "<div class='overlay' id='" + c.getId() + "_SPAWN'></div>"
 							+ "</div>");
 					}
 				}
 				for(AbstractWeaponType weaponType : WeaponType.getAllWeapons()) {
-					if(weaponType.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER)) {
+					if(weaponType.getItemTags().contains(ItemTag.CHEAT_ITEM)) {
 						inventorySB.append("<div class='inventory-item-slot unequipped' style='background-color:"+weaponType.getRarity().getBackgroundColour().toWebHexString()+";'>"
-								+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
-										weaponType.getAvailableDamageTypes().get(0),
-										weaponType.getAvailablePrimaryColours().isEmpty()?null:weaponType.getAvailablePrimaryColours().get(0),
-										weaponType.getAvailableSecondaryColours().isEmpty()?null:weaponType.getAvailableSecondaryColours().get(0),
-										weaponType.getAvailableTertiaryColours().isEmpty()?null:weaponType.getAvailableTertiaryColours().get(0))
+								+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage()
 								+"</div>"
 								+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
 							+ "</div>");
 					}
 				}
 				for(AbstractItemType itemType : ItemType.getAllItems()) {
-					if(itemType.getItemTags().contains(ItemTag.HIDDEN_IN_DEBUG_SPAWNER)) {
+					if(itemType.getItemTags().contains(ItemTag.CHEAT_ITEM)) {
 						inventorySB.append("<div class='inventory-item-slot unequipped' style='background-color:"+itemType.getRarity().getBackgroundColour().toWebHexString()+";'>"
 								+ "<div class='inventory-icon-content'>"+itemType.getSVGString()+"</div>"
 								+ "<div class='overlay' id='" + itemType.getId() + "_SPAWN'></div>"
@@ -738,11 +737,7 @@ public class DebugDialogue {
 					if((weaponType.isMelee() && activeSlot==InventorySlot.WEAPON_MAIN_1)
 							|| (!weaponType.isMelee() && activeSlot==InventorySlot.WEAPON_OFFHAND_1)) {
 						inventorySB.append("<div class='inventory-item-slot unequipped' style='background-color:"+weaponType.getRarity().getBackgroundColour().toWebHexString()+";'>"
-												+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
-														weaponType.getAvailableDamageTypes().get(0),
-														weaponType.getAvailablePrimaryColours().isEmpty()?null:weaponType.getAvailablePrimaryColours().get(0),
-														weaponType.getAvailableSecondaryColours().isEmpty()?null:weaponType.getAvailableSecondaryColours().get(0),
-														weaponType.getAvailableTertiaryColours().isEmpty()?null:weaponType.getAvailableTertiaryColours().get(0))
+												+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage()
 												+"</div>"
 												+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
 											+ "</div>");
@@ -755,12 +750,7 @@ public class DebugDialogue {
 					if(clothingType.getEquipSlots().contains(activeSlot)) {
 						inventorySB.append("<div class='inventory-item-slot unequipped' style='background-color:"+clothingType.getRarity().getBackgroundColour().toWebHexString()+";'>"
 												+ "<div class='inventory-icon-content'>"
-													+clothingType.getSVGImage(
-															clothingType.getEquipSlots().get(0),
-															clothingType.getAvailablePrimaryColours().get(0),
-															clothingType.getAvailableSecondaryColours().isEmpty()?null:clothingType.getAvailableSecondaryColours().get(0),
-															clothingType.getAvailableTertiaryColours().isEmpty()?null:clothingType.getAvailableTertiaryColours().get(0),
-															null, null, null, null)
+													+clothingType.getSVGImage()
 												+"</div>"
 												+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
 											+ "</div>");
@@ -796,7 +786,7 @@ public class DebugDialogue {
 			inventorySB.append("<div class='normal-button' id='ESSENCE_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Essences</div>");
 			inventorySB.append("<div class='normal-button' id='BOOK_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.BASE_ORANGE.toWebHexString()+";'>Books</div>");
 			inventorySB.append("<div class='normal-button' id='SPELL_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Spells</div>");
-			inventorySB.append("<div class='normal-button' id='HIDDEN_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; opacity:0; cursor:default; font-size:0.9em; color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>Hidden</div>");
+			inventorySB.append("<div class='normal-button' id='HIDDEN_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; opacity:0; cursor:default; color:"+PresetColour.BASE_GREEN_DARK.toWebHexString()+";'>Cheats</div>");
 			inventorySB.append("</div>");
 			
 			return inventorySB.toString();
@@ -870,11 +860,7 @@ public class DebugDialogue {
 				for(AbstractWeaponType weaponType : weaponsTotal) {
 					inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
 											+ "<div class='inventory-item-slot unequipped' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0; background-color:"+weaponType.getRarity().getBackgroundColour().toWebHexString()+";'>"
-												+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage(
-														weaponType.getAvailableDamageTypes().get(0),
-														weaponType.getAvailablePrimaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailablePrimaryColours()),
-														weaponType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(weaponType.getAvailableSecondaryColours()),
-														weaponType.getAvailableTertiaryColours().isEmpty()?null:weaponType.getAvailableTertiaryColours().get(0))
+												+ "<div class='inventory-icon-content'>"+weaponType.getSVGImage()
 												+"</div>"
 												+ "<div class='overlay' id='" + weaponType.getId() + "_SPAWN'></div>"
 											+ "</div>"
@@ -891,16 +877,13 @@ public class DebugDialogue {
 					inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
 										+ "<div class='inventory-item-slot unequipped' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0; background-color:"+clothingType.getRarity().getBackgroundColour().toWebHexString()+";'>"
 											+ "<div class='inventory-icon-content'>"
-												+clothingType.getSVGImage(
-														clothingType.getEquipSlots().get(0),
-														clothingType.getAvailablePrimaryColours().get(0),
-														clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
-														clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
-														null, null, null, null)
+												+clothingType.getSVGImage()
 											+"</div>"
 											+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
 										+ "</div>"
-										+ ClothingType.getIdFromClothingType(clothingType)
+										+ (clothingType.getPhysicalResistance()>0
+												?"[style.boldPhysical("+UtilText.getShieldSymbol()+clothingType.getPhysicalResistance()+")] [style.colourGreenLight("+ClothingType.getIdFromClothingType(clothingType)+")]"
+												:ClothingType.getIdFromClothingType(clothingType))
 									+ "</div>");
 				}
 				inventorySB.append("</div>");
@@ -913,12 +896,7 @@ public class DebugDialogue {
 					inventorySB.append("<div class='container-full-width' style='width:"+width+"%; white-space: nowrap; word-wrap: break-word; font-size:0.75em; -webkit-user-select:auto; padding:0; margin:0;'>"
 							+ "<div class='inventory-item-slot unequipped' style='width:"+imgWidth+"%; box-sizing: border-box; padding:0; margin:0; background-color:"+clothingType.getRarity().getBackgroundColour().toWebHexString()+";'>"
 								+ "<div class='inventory-icon-content'>"
-									+clothingType.getSVGImage(
-											clothingType.getEquipSlots().get(0),
-											clothingType.getAvailablePrimaryColours().get(0),
-											clothingType.getAvailableSecondaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableSecondaryColours()),
-											clothingType.getAvailableTertiaryColours().isEmpty()?null:Util.randomItemFrom(clothingType.getAvailableTertiaryColours()),
-											null, null, null, null)
+									+clothingType.getSVGImage()
 								+"</div>"
 								+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
 							+ "</div>"
@@ -1019,7 +997,7 @@ public class DebugDialogue {
 							Main.game.getPlayer().setBody(
 									CharacterUtils.generateHalfDemonBody(Main.game.getPlayer(), Main.game.getPlayer().getGender(), Subspecies.HUMAN, false),
 									false);
-							System.out.println(Main.game.getPlayer().getSubspeciesOverride());
+//							System.out.println("Subspecies override: "+Main.game.getPlayer().getSubspeciesOverride());
 							
 						} else {
 							Main.game.getPlayer().setSubspeciesOverride(null);
@@ -1185,10 +1163,14 @@ public class DebugDialogue {
 				
 			} else if (index == 11) {
 				return new Response("Xml test",
-						"Parse every dialogue entry in the file whose path you've specified in order to check for errors. Lilaya, Brax, Rose, Ralph, Nyan, and Zaranix, are passed in as parser targets.",
+						"Parse every dialogue entry in the file whose path you've specified in order to check for errors. Lilaya, Brax, Rose, Ralph, Nyan, and Zaranix, are passed in as parser targets."
+						+ " Special parsing is formtted as 'SP1' and runs up to 10.",
 						PARSER){
 					@Override
 					public void effects() {
+						for(int i=1;i<=10;i++) {
+							UtilText.addSpecialParsingString("SP"+i, i==1);
+						}
 						xmlFileText = ((String) Main.mainController.getWebEngine().executeScript("document.getElementById('xmlTest').value")).replaceAll("\u200b", "");
 						parsedText = Main.game.runXmlTest(xmlFileText);
 					}

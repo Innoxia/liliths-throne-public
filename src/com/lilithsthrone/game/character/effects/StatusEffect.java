@@ -47,9 +47,9 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
-import com.lilithsthrone.game.combat.SpellUpgrade;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
+import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -79,7 +79,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3
+ * @version 0.3.8
  * @author Innoxia
  */
 public enum StatusEffect {
@@ -407,11 +407,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "Your natural arcane ability is little weaker than it was when first entering this world.";
-			} else {
-				return UtilText.parse(target, "[npc.Name] is proficient at harnessing the arcane, and [npc.her] spells are not only easier to cast, but also do more damage.");
-			}
+			return UtilText.parse(target, "[npc.NameIsFull] proficient at harnessing the arcane, and [npc.her] spells are not only easier to cast, but also do more damage.");
 		}
 
 		@Override
@@ -1515,6 +1511,10 @@ public enum StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
+				if(!Main.game.isWeatherInterruptionsEnabled()) {
+					return "";
+				}
+				
 				StringBuilder sb = new StringBuilder();
 				
 				sb.append("<p>"
@@ -1631,6 +1631,10 @@ public enum StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
+				if(!Main.game.isWeatherInterruptionsEnabled()) {
+					return "";
+				}
+				
 				return "<p>"
 							+ "A bright-pink flash suddenly illuminates the entire city of Dominion, causing those few residents still prowling the streets to look skywards."
 							+ " High up above them, the threatening storm clouds have finally broken, and a roiling mass of arcane energy finally crackles into life."
@@ -1702,6 +1706,10 @@ public enum StatusEffect {
 		public String applyEffect(GameCharacter target, int secondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
+				if(!Main.game.isWeatherInterruptionsEnabled()) {
+					return "";
+				}
+				
 				return "<p>"
 							+ "A bright-pink flash suddenly illuminates the entire city of Dominion, causing those few residents still prowling the streets to look skywards."
 							+ " High up above them, the threatening storm clouds have finally broken, and a roiling mass of arcane energy finally crackles into life."
@@ -1953,28 +1961,26 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -15f)),
 			null) {
-
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "Some of your clothes are too feminine for your masculine figure."
-					+ " You find yourself incredibly embarrassed by wearing such clothing, causing you to struggle to think clearly.";
+			return UtilText.parse(target,
+					"Some of [npc.namePos] clothes are too feminine for [npc.her] masculine figure."
+						+ " [npc.She] [npc.verb(find)] [npc.herself] incredibly embarrassed by wearing such clothing and [npc.is] struggling to think clearly.");
 		}
-
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(target.hasFetish(Fetish.FETISH_CROSS_DRESSER) || target.hasPerkAnywhereInTree(Perk.SPECIAL_CLOTHING_FEMININITY_INDIFFERENCE)) {
 				return false;
 			}
-			
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-				if (c.getClothingType().getFemininityMinimum() > target.getFemininityValue()) {
+			for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+				if(c.getClothingType().getFemininityMinimum() > target.getFemininityValue()) {
 					return true;
 				}
 			}
-			
 			return false;
 		}
 	},
+	
 	CLOTHING_MASCULINITY(
 			85,
 			"clothing too masculine",
@@ -1986,22 +1992,20 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "Some of your clothes are too masculine for your feminine figure."
-					+ " You find yourself incredibly embarrassed by wearing such clothing, causing you to struggle to think clearly.";
+			return UtilText.parse(target,
+					"Some of [npc.namePos] clothes are too masculine for [npc.her] feminine figure."
+						+ " [npc.She] [npc.verb(find)] [npc.herself] incredibly embarrassed by wearing such clothing and [npc.is] struggling to think clearly.");
 		}
-
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(target.hasFetish(Fetish.FETISH_CROSS_DRESSER) || target.hasPerkAnywhereInTree(Perk.SPECIAL_CLOTHING_MASCULINITY_INDIFFERENCE)) {
 				return false;
 			}
-			
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-				if (c.getClothingType().getFemininityMaximum() < target.getFemininityValue()) {
+			for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+				if(c.getClothingType().getFemininityMaximum() < target.getFemininityValue()) {
 					return true;
 				}
 			}
-			
 			return false;
 		}
 	},
@@ -2022,12 +2026,9 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer())
-				return "Some of your clothes have been covered in cum, milk or other sexual fluids."
-						+ " You find yourself incredibly embarrassed to be walking around in such filthy clothing.";
-			else
-				return "Some of "+target.getName("the")+"'s clothes have been covered in cum, milk or other sexual fluids."
-						+ " [npc.sheIs] feeling incredibly embarrassed to be walking around in such filthy clothing.";
+			return UtilText.parse(target,
+					"Some of [npc.namePos] clothes have been covered in cum, milk or other sexual fluids."
+						+ " [npc.SheIs] feeling incredibly embarrassed to be walking around in such filthy clothing.");
 		}
 
 		@Override
@@ -2162,7 +2163,7 @@ public enum StatusEffect {
 				}
 			}
 			for(InventorySlot slotToClean : slotsToClean) {
-				target.removeDirtySlot(slotToClean);
+				target.removeDirtySlot(slotToClean, false);
 			}
 			
 			if(target.isPlayer()) {
@@ -2306,7 +2307,8 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 100f)),
 			Util.newArrayListOfValues(
 					"[style.boldHealth(Maximum "+Attribute.HEALTH_MAXIMUM.getName()+")] [style.boldTerrible(set to 1)]",
-					"[style.boldMana(Maximum "+Attribute.MANA_MAXIMUM.getName()+")] [style.boldTerrible(set to 1)]")) {
+					"[style.boldMana(Maximum "+Attribute.MANA_MAXIMUM.getName()+")] [style.boldTerrible(set to 1)]",
+					"[style.boldTerrible(All shielding set to 0)]")) {
 
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -2775,6 +2777,24 @@ public enum StatusEffect {
 			return "";
 		}
 		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	
+	LOLLIPOP_SUCKING(
+			80,
+			"sucking lollipop",
+			"lollipop",
+			PresetColour.CLOTHING_PINK,
+			true,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.NameIsFull] playfully sucking on a lollipop, and every time someone looks at [npc.herHim], [npc.she] purses [npc.her] [npc.lips] and [npc.verb(make)] a show of kissing it.");
+		}
 		@Override
 		public boolean isSexEffect() {
 			return true;
@@ -4145,7 +4165,7 @@ public enum StatusEffect {
 			
 			return UtilText.parse(target,
 					"[npc.NamePos] [npc.crotchBoobs] are producing [npc.crotchMilk] at an individual rate of "+Units.fluid(milkRegenRate)+"/minute,"
-							+ " totalling [style.colourGood("+Units.fluid(milkRegenRate * target.getBreastCrotchRows() * 2)+"/minute)] (as [npc.sheHasFull] [npc.totalCrotchBoobs] [npc.crotchBoobs])."
+							+ " totalling [style.colourGood("+Units.fluid(milkRegenRate * Math.max(1, target.getBreastCrotchRows()*2))+"/minute)] (as [npc.sheHasFull] [npc.totalCrotchBoobs] [npc.crotchBoobs])."
 					+ " They have stored "+Units.fluid(target.getBreastCrotchRawStoredMilkValue())+", out of a maximum of "+Units.fluid(target.getBreastCrotchRawMilkStorageValue())+".");
 		}
 
@@ -4192,7 +4212,7 @@ public enum StatusEffect {
 			return UtilText.parse(target,
 					"[npc.NamePos] [npc.crotchBoobs] are filled with "+Units.fluid(target.getBreastCrotchRawMilkStorageValue())+" of [npc.crotchMilk].<br/>"
 							+ " They produce more [npc.crotchMilk] at an individual rate of "+Units.fluid(milkRegenRate)+"/minute,"
-							+ " totalling [style.colourGood("+Units.fluid(milkRegenRate * target.getBreastCrotchRows() * 2)+"/minute)] (as [npc.sheHasFull] [npc.totalCrotchBoobs] [npc.crotchBoobs]).");
+							+ " totalling [style.colourGood("+Units.fluid(milkRegenRate * Math.max(1, target.getBreastCrotchRows()*2))+"/minute)] (as [npc.sheHasFull] [npc.totalCrotchBoobs] [npc.crotchBoobs]).");
 		}
 
 		@Override
@@ -5743,13 +5763,8 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer()) {
-				return "You've recently had a sexual encounter in which you didn't manage to cum."
-						+ " As a result, you're feeling extremely horny and frustrated...";
-			} else {
-				return UtilText.parse(target, "[npc.Name] recently had a sexual encounter in which [npc.she] didn't manage to cum."
-						+ " As a result, [npc.sheIs] feeling extremely horny and frustrated...");
-			}
+			return UtilText.parse(target, "[npc.Name] recently had a sexual encounter in which [npc.she] didn't manage to cum."
+					+ " As a result, [npc.sheIs] feeling extremely horny and frustrated...");
 		}
 		
 		@Override
@@ -5757,8 +5772,6 @@ public enum StatusEffect {
 			return "";
 		}
 
-		
-		
 		@Override
 		public boolean isSexEffect() {
 			return true;
@@ -5788,7 +5801,7 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return !target.isPlayer()
 					&& target.isSlave()
-					&& (target.getOwner()!=null && target.getOwner().isPlayer())
+//					&& (target.getOwner()!=null && target.getOwner().isPlayer())
 					&& ((NPC)target).getLastTimeOrgasmed()+60*24<Main.game.getMinutesPassed();
 		}
 	},
@@ -6127,6 +6140,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	FETISH_PURE_VIRGIN_NO_HYMEN(
 			80,
 			"'Pure' Virgin",
@@ -6155,6 +6169,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	FETISH_PURE_VIRGIN_ONLY_HYMEN(
 			80,
 			"Pure 'Virgin'",
@@ -6182,6 +6197,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	FETISH_BROKEN_VIRGIN(
 			80,
 			"Broken Virgin",
@@ -6200,7 +6216,11 @@ public enum StatusEffect {
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN) && !target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN) && target.hasVagina() && !target.isVaginaVirgin();
+			return target.hasFetish(Fetish.FETISH_PURE_VIRGIN)
+					&& !target.hasFetish(Fetish.FETISH_LUSTY_MAIDEN)
+					&& target.hasVagina()
+					&& !target.isVaginaVirgin()
+					&& !target.hasHymen();
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -6236,6 +6256,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	FETISH_LUSTY_MAIDEN_NO_HYMEN(
 			80,
 			"Lusty 'Maiden'",
@@ -6264,6 +6285,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	FETISH_LUSTY_MAIDEN_ONLY_HYMEN(
 			80,
 			"Lusty 'Maiden'",
@@ -6291,6 +6313,7 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
 	FETISH_LUSTY_MAIDEN_BROKEN(
 			80,
 			"Broken Maiden",
@@ -6620,7 +6643,7 @@ public enum StatusEffect {
 			70,
 			"double rainbow",
 			"clothingSets/rainbow",
-			PresetColour.CLOTHING_MULTICOLOURED,
+			PresetColour.CLOTHING_RED,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
@@ -6861,7 +6884,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_MELEE_WEAPON, 15f)),
 			null) {
 
 		@Override
@@ -6870,9 +6893,8 @@ public enum StatusEffect {
 				return UtilText.parse(target,
 						"The Japanese term 'Daisho', meaning 'big-little', is used to describe the simultaneous wearing of a katana (the big) and wakizashi (the little)."
 						+ " Wearing both of these swords at once marks the wielder as a member of the samurai class.");
-			} else {
-				return "";
 			}
+			return "";
 		}
 
 		@Override
@@ -7542,39 +7564,19 @@ public enum StatusEffect {
 	},
 	
 	WITCH_SEAL(
-		10,
-		"Witch's Seal",
-		"combat_witch_seal",
-		PresetColour.GENERIC_ARCANE,
-		false,
-		null,
-		null) {
-		@Override
-		public String applyEffect(GameCharacter target, int secondsPassed) {
-			if (target.isPlayer()) {
-				return "The <b style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Witch's Seal</b> is preventing you from making a move!";
-				
-			} else {
-				return UtilText.parse(target,
-						"The <b style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Witch's Seal</b> is preventing [npc.name] from making a move!");
-			}
-		}
+			10,
+			"Witch's Seal",
+			"combat_witch_seal",
+			PresetColour.GENERIC_ARCANE,
+			false,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ACTION_POINTS, -3f)),
+			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "A powerful arcane seal is holding you firmly in place, preventing you from taking any action!";
-				
-			} else {
-				return UtilText.parse(target, "A powerful arcane seal is holding [npc.name] firmly in place, preventing [npc.herHim] from taking any action!");
-			}
+			return UtilText.parse(target, "A powerful arcane seal is holding [npc.name] firmly in place, preventing [npc.herHim] from taking any action!");
 		}
-		
 		@Override
 		public boolean isCombatEffect() {
-			return true;
-		}
-		@Override
-		public boolean isStun() {
 			return true;
 		}
 	},
@@ -7726,45 +7728,45 @@ public enum StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_FIRE,
 			false,
-			null,
-			Util.newArrayListOfValues("[style.boldTerrible(Stunned!)]")) {
-		
-		@Override
-		public String applyEffect(GameCharacter target, int secondsPassed) {
-			if (target.isPlayer()) {
-				return "You are [style.boldTerrible(stunned)] from the blinding flash!";
-				
-			} else {
-				return "[npc.Name] is [style.boldTerrible(stunned)] from the blinding flash!";
-			}
-		}
-
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ACTION_POINTS, -1f)),
+			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "The blinding flash of light has left you temporarily stunned, and you're unable to make any sort of move as you struggle to regain control of your senses.";
-			} else {
-				return UtilText.parse(target,
-						"The blinding flash of light has left [npc.name] temporarily stunned, and [npc.sheIs] unable to make any sort of move as [npc.she] struggles to regain control of [npc.her] senses.");
-			}
+			return UtilText.parse(target,
+						"The blinding flash of light has left [npc.name] temporarily dazzled, and [npc.sheIsFull] struggling to regain control of [npc.her] senses!");
 		}
-		
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			return Spell.FLASH.getSVGString();
 		}
-
 		@Override
 		public boolean isCombatEffect() {
 			return true;
 		}
-		
+	},
+
+	FLASH_1(10,
+			"Blinded (Secondary Sparks)",
+			null,
+			PresetColour.DAMAGE_TYPE_FIRE,
+			false,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ACTION_POINTS, -2f)),
+			null) {
 		@Override
-		public boolean isStun() {
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+						"After the initial, blinding flash of light, a series of secondary sparks are continuing to  dazzle [npc.name], making it incredibly difficult for [npc.herHim] to perform any actions!");
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return SpellUpgrade.FLASH_1.getSVGString();
+		}
+		@Override
+		public boolean isCombatEffect() {
 			return true;
 		}
 	},
-
+	
 	CLOAK_OF_FLAMES(10,
 			"Cloak of Flames",
 			null,
@@ -7777,12 +7779,8 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You have been shrouded in a cloak of arcane flames that improve your unarmed attacks at a cost of burning your aura proportionally.";
-			} else {
-				return UtilText.parse(target,
-						"[npc.Name] has been shrouded in a cloak of arcane flames that improve [npc.her] unarmed attacks at a cost of burning [npc.her] aura proportionally.");
-			}
+			return UtilText.parse(target,
+						"[npc.NameHasFull] been shrouded in a cloak of arcane flames which is increasing [npc.her] fire and cold resistances!");
 		}
 
 		@Override
@@ -7807,16 +7805,10 @@ public enum StatusEffect {
 			Util.newArrayListOfValues(
 					"Unarmed attacks deal +1 damage per caster level",
 					"Unarmed attacks deal [style.boldFire(Fire Damage)]")) {
-
-		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You have been shrouded in a cloak of arcane flames that improve your unarmed attacks at a cost of burning your aura proportionally.";
-			} else {
-				return UtilText.parse(target,
-						"[npc.Name] has been shrouded in a cloak of arcane flames that improve [npc.her] unarmed attacks at a cost of burning [npc.her] aura proportionally.");
-			}
+			return UtilText.parse(target,
+						"[npc.NameHasFull] been shrouded in a cloak of arcane flames, which is not only increasing [npc.her] resistances, but is also imbuing [npc.her] unarmed attacks with fire damage!");
 		}
 		
 		@Override
@@ -7845,14 +7837,8 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You have been shrouded in a cloak of arcane flames, granting you significant bonuses to your ice and fire resistances, as well as to fire damage."
-						+ " You are also dealing extra fire damage each time you attack.";
-			} else {
 				return UtilText.parse(target,
-						"[npc.Name] has been shrouded in a cloak of arcane flames, granting [npc.herHim] significant bonuses to [npc.her] ice and fire resistances, as well as to fire damage."
-						+ " [npc.She] is also dealing extra fire damage each time [npc.she] attacks.");
-			}
+						"[npc.NameHasFull] been shrouded in a cloak of arcane flames, which is not only increasing [npc.her] resistances and fire damage, but is also imbuing [npc.her] unarmed attacks with fire damage!");
 		}
 		
 		@Override
@@ -7882,14 +7868,9 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "You have been shrouded in a cloak of arcane flames, granting you significant bonuses to your ice and fire resistances, as well as to fire damage."
-						+ " You are also dealing extra fire damage each time you attack, as well as to any enemies that strike you in melee!";
-			} else {
-				return UtilText.parse(target,
-						"[npc.Name] has been shrouded in a cloak of arcane flames, granting [npc.herHim] significant bonuses to [npc.her] ice and fire resistances, as well as to fire damage."
-						+ " [npc.She] is also dealing extra fire damage each time [npc.she] attacks, as well as to any enemies that strike [npc.herHim] in melee!");
-			}
+			return UtilText.parse(target,
+						"[npc.NameHasFull] been shrouded in a cloak of arcane flames, which is not only increasing [npc.her] resistances and fire damage, but is also imbuing [npc.her] unarmed attacks with fire damage!"
+						+ " Any enemies foolish enough to strike [npc.herHim] in melee are taking retaliatory fire damage!");
 		}
 		
 		@Override
@@ -8139,41 +8120,18 @@ public enum StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_COLD,
 			false,
-			null,
-			Util.newArrayListOfValues("[style.boldTerrible(Stunned!)]")) {
-		
-		@Override
-		public String applyEffect(GameCharacter target, int secondsPassed) {
-			if (target.isPlayer()) {
-				return "You are [style.boldTerrible(stunned)] from freezing fog's detonation!";
-				
-			} else {
-				return "[npc.Name] is [style.boldTerrible(stunned)] from freezing fog's detonation!";
-			}
-		}
-
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.ACTION_POINTS, -1f)),
+			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "The freezing fog lingering around you has exploded, covering you in a thin sheet of ice and leaving you temporarily stunned!";
-				
-			} else {
-				return UtilText.parse(target, "The freezing fog lingering around [npc.name] has exploded, covering [npc.herHim] in a thin sheet of ice and leaving [npc.herHim] temporarily stunned!");
-			}
+			return UtilText.parse(target, "The freezing fog lingering around [npc.name] has exploded, covering [npc.herHim] in a thin sheet of ice and slowing [npc.her] movements!");
 		}
-		
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			return SpellUpgrade.ICE_SHARD_3.getSVGString();
 		}
-
 		@Override
 		public boolean isCombatEffect() {
-			return true;
-		}
-		
-		@Override
-		public boolean isStun() {
 			return true;
 		}
 	},
@@ -8555,11 +8513,11 @@ public enum StatusEffect {
 			PresetColour.DAMAGE_TYPE_POISON,
 			false,
 			null,
-			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
+			Util.newArrayListOfValues("<b>25</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			Value<String, Integer> damageValue = DamageType.POISON.damageTarget(null, target, 10);
+			Value<String, Integer> damageValue = DamageType.POISON.damageTarget(null, target, 25);
 
 			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damageValue.getValue() + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!")+damageValue.getKey();
 		}
@@ -8593,11 +8551,11 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
-			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
+			Util.newArrayListOfValues("<b>25</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>")) {
 				
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			Value<String, Integer> damageValue = DamageType.POISON.damageTarget(null, target, 10);
+			Value<String, Integer> damageValue = DamageType.POISON.damageTarget(null, target, 25);
 
 			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damageValue.getValue() + "</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+"!")+damageValue.getKey();
 		}
@@ -8632,12 +8590,12 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.ENERGY_SHIELDING, -5f)),
 			Util.newArrayListOfValues(
-					"<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>",
+					"<b>25</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>",
 					"<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>")) {
 				
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			Value<String, Integer> damageValue = DamageType.POISON.damageTarget(null, target, 10);
+			Value<String, Integer> damageValue = DamageType.POISON.damageTarget(null, target, 25);
 
 			int lustDamage = 10;
 			target.incrementMana(-lustDamage);
@@ -8679,12 +8637,12 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -25f)),
 			Util.newArrayListOfValues(
-					"<b>10</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>",
+					"<b>25</b> "+Attribute.DAMAGE_POISON.getColouredName("b")+" per turn</b>",
 					"<b>10</b> "+Attribute.MANA_MAXIMUM.getColouredName("b")+" [style.boldTerrible(drained)] per turn</b>")) {
 				
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			Value<String, Integer> damageValue = DamageType.POISON.damageTarget(null, target, 10);
+			Value<String, Integer> damageValue = DamageType.POISON.damageTarget(null, target, 25);
 
 			int lustDamage = 10;
 			target.incrementMana(-lustDamage);
@@ -9265,11 +9223,11 @@ public enum StatusEffect {
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
 			null,
-			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
+			Util.newArrayListOfValues("<b>25</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			Value<String, Integer> damageValue = DamageType.PHYSICAL.damageTarget(null, target, 10);
+			Value<String, Integer> damageValue = DamageType.PHYSICAL.damageTarget(null, target, 25);
 
 			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damageValue.getValue() + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!")+damageValue.getKey();
 		}
@@ -9303,11 +9261,11 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -20f)),
-			Util.newArrayListOfValues("<b>10</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
+			Util.newArrayListOfValues("<b>25</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			Value<String, Integer> damageValue = DamageType.PHYSICAL.damageTarget(null, target, 10);
+			Value<String, Integer> damageValue = DamageType.PHYSICAL.damageTarget(null, target, 25);
 
 			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damageValue.getValue() + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!")+damageValue.getKey();
 		}
@@ -9341,11 +9299,11 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -20f)),
-			Util.newArrayListOfValues("<b>20</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
+			Util.newArrayListOfValues("<b>50</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+" per turn</b>")) {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed) {
-			Value<String, Integer> damageValue = DamageType.PHYSICAL.damageTarget(null, target, 20);
+			Value<String, Integer> damageValue = DamageType.PHYSICAL.damageTarget(null, target, 50);
 
 			return UtilText.parse(target, "[npc.Name] [npc.verb(take)] <b>" + damageValue.getValue() + "</b> "+Attribute.DAMAGE_PHYSICAL.getColouredName("b")+"!")+damageValue.getKey();
 		}

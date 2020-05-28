@@ -27,7 +27,6 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving {
 
-	
 	protected AbstractItemType itemType;
 	protected List<ItemEffect> itemEffects;
 
@@ -63,7 +62,9 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 
 		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
 		CharacterUtils.addAttribute(doc, element, "name", this.getName());
-		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().getId());
+		if(this.getColour(0)!=null) {
+			CharacterUtils.addAttribute(doc, element, "colour", this.getColour(0).getId());
+		}
 		
 		Element innerElement = doc.createElement("itemEffects");
 		element.appendChild(innerElement);
@@ -77,7 +78,12 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	
 	public static AbstractItem loadFromXML(Element parentElement, Document doc) {
 		try {
-			AbstractItem item = AbstractItemType.generateItem(ItemType.getIdToItemMap().get(parentElement.getAttribute("id")));
+			AbstractItemType it = ItemType.getIdToItemMap().get(parentElement.getAttribute("id"));
+			if(it==null) {
+				System.err.println("Warning: An instance of AbstractItem was unable to be imported, due to AbstractItemType not existing. ("+parentElement.getAttribute("id")+")");
+				return null;
+			}
+			AbstractItem item = AbstractItemType.generateItem(it);
 			
 			if(!parentElement.getAttribute("name").isEmpty()) {
 				item.setName(parentElement.getAttribute("name"));
@@ -171,7 +177,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 				: "")
 				+ " "+(withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
 	}
-	
+
+	@Override
 	public String getDisplayName(boolean withRarityColour) {
 		return Util.capitaliseSentence(
 				(!itemType.getDeterminer().equalsIgnoreCase("a") && !itemType.getDeterminer().equalsIgnoreCase("an")
@@ -179,7 +186,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 						: UtilText.generateSingularDeterminer(name))
 				+ " "+ (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
 	}
-	
+
+	@Override
 	public String getDisplayNamePlural(boolean withRarityColour) {
 		return Util.capitaliseSentence((withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>") : namePlural));
 	}

@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.combat.CombatMove;
+import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;

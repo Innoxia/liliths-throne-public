@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.utils;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -10,6 +11,7 @@ import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldType;
 
 /**
@@ -20,7 +22,7 @@ import com.lilithsthrone.world.WorldType;
 public class OffspringMapDialogue {
 	
 	private static List<NPC> getOffspringList() {
-		WorldType worldType = Main.game.getPlayer().getWorldLocation();
+		AbstractWorldType worldType = Main.game.getPlayer().getWorldLocation();
 		
 		return Main.game.getOffspringNotSpawned(npc->
 			npc.getSubspecies().getWorldLocations().keySet().contains(worldType)
@@ -105,7 +107,9 @@ public class OffspringMapDialogue {
 						Main.game.getOffspringSpawned().add(offspring);
 
 						offspring.setLocation(Main.game.getPlayer(), true);
-
+						
+						offspring.equipClothing(EquipClothingSetting.getAllClothingSettings());
+						
 						Main.game.setActiveNPC(offspring);
 						
 						Main.game.getTextStartStringBuilder().append(

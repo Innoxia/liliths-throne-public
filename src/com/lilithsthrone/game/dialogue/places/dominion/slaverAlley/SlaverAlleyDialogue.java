@@ -407,7 +407,7 @@ public class SlaverAlleyDialogue {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyCompanionInStocks, false);
 		}
 		
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, true);
+		Main.game.getPlayer().setCaptive(true);
 		Main.game.getPlayer().unequipAllClothingIntoHoldingInventory(Main.game.getNpc(Sean.class), false, false);
 	}
 	
@@ -1426,12 +1426,7 @@ public class SlaverAlleyDialogue {
 						Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slaverAlleyComplained)
 							?"You see [sean.name] watching over the area, so perhaps you could go and talk to [sean.herHim] again..."
 							:"There appears to be an Enforcer watching over the area. Perhaps you could go and talk to him...",
-							PUBLIC_STOCKS_SEAN) {
-					@Override
-					public void effects() {
-						Main.game.getNpc(Sean.class).setGenericName("Constable "+Main.game.getNpc(Sean.class).getSurname());
-					}
-				};
+							PUBLIC_STOCKS_SEAN);
 			}
 			
 			if(index>1) {
@@ -1540,6 +1535,8 @@ public class SlaverAlleyDialogue {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getNpc(Sean.class).setGenericName(UtilText.parse("Constable [sean.surname]"));
+			Main.game.getPlayer().addCharacterEncountered(Main.game.getNpc(Sean.class));
+			
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1801,7 +1798,7 @@ public class SlaverAlleyDialogue {
 						Main.game.getPlayer().clearFluidsStored(SexAreaOrifice.VAGINA);
 						Main.game.getNpc(Sean.class).useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), Main.game.getPlayer(), false);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyCompanionAcceptedDeal, false);
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, true);
+						Main.game.getPlayer().setCaptive(true);
 						Main.game.getPlayer().unequipAllClothingIntoHoldingInventory(Main.game.getNpc(Sean.class), false, false);
 					}
 				};
@@ -1968,7 +1965,7 @@ public class SlaverAlleyDialogue {
 						getMainCompanion().clearFluidsStored(SexAreaOrifice.VAGINA);
 						Main.game.getNpc(Sean.class).useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), getMainCompanion(), false);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyCompanionAcceptedDeal, true);
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, true);
+						Main.game.getPlayer().setCaptive(true);
 						Main.game.getPlayer().unequipAllClothingIntoHoldingInventory(Main.game.getNpc(Sean.class), false, false);
 						getMainCompanion().unequipAllClothingIntoHoldingInventory(Main.game.getNpc(Sean.class), false, false);
 					}
@@ -2116,7 +2113,7 @@ public class SlaverAlleyDialogue {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "AFTER_SEAN_SEDUCE_STOCKS_BREEDING_THREESOME_FINISHED_END"));
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, false);
+							Main.game.getPlayer().setCaptive(false);
 							Main.game.getPlayer().equipAllClothingFromHoldingInventory();
 							getMainCompanion().equipAllClothingFromHoldingInventory();
 						}
@@ -2126,7 +2123,7 @@ public class SlaverAlleyDialogue {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "AFTER_SEAN_SEDUCE_STOCKS_BREEDING_FINISHED_END"));
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, false);
+							Main.game.getPlayer().setCaptive(false);
 							Main.game.getPlayer().equipAllClothingFromHoldingInventory();
 							if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slaverAlleyCompanionInStocks)) {
 								getMainCompanion().equipAllClothingFromHoldingInventory();
@@ -3246,7 +3243,7 @@ public class SlaverAlleyDialogue {
 					@Override
 					public void effects() {
 						banishRandomSexPartners();
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.playerCaptive, false);
+						Main.game.getPlayer().setCaptive(false);
 						Main.game.getPlayer().equipAllClothingFromHoldingInventory();
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slaverAlleyCompanionInStocks)) {
 							getMainCompanion().equipAllClothingFromHoldingInventory();

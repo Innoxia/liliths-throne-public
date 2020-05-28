@@ -159,11 +159,11 @@ public enum CaptiveTransformation {
 							target.setPenisSize(PenisLength.ONE_TINY.getMedianValue()));
 				}
 
-				if(target.getPenisRawGirthValue()>PenetrationGirth.TWO_AVERAGE.getValue()) {
+				if(target.getPenisRawGirthValue()>PenetrationGirth.THREE_AVERAGE.getValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("I don't want no sissy cock bein' as thick as mine!"
 							+(!selfTransform?"":" Go on, I wanna see yer slim yer cock down!"),
-							target.setPenisGirth(PenetrationGirth.TWO_AVERAGE));
+							target.setPenisGirth(PenetrationGirth.THREE_AVERAGE));
 				}
 				
 			} else {
@@ -174,11 +174,11 @@ public enum CaptiveTransformation {
 							target.setPenisSize(PenisLength.FIVE_ENORMOUS.getMedianValue()));
 				}
 
-				if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {
+				if(target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("Let's make yer cock nice an' thick!"
 							+(!selfTransform?"":" Go on, I wanna see yer fatten it up!"),
-							target.setPenisGirth(PenetrationGirth.THREE_THICK));
+							target.setPenisGirth(PenetrationGirth.FOUR_THICK));
 				}
 			}
 			
@@ -467,11 +467,11 @@ public enum CaptiveTransformation {
 							target.setPenisSize(PenisLength.FIVE_ENORMOUS.getMedianValue()));
 				}
 				
-				if(target.getPenisRawGirthValue()<PenetrationGirth.THREE_THICK.getValue()) {
+				if(target.getPenisRawGirthValue()<PenetrationGirth.FOUR_THICK.getValue()) {
 					if(!applyEffects) { return Util.newHashMapOfValues(new Value<>("", "")); }
 					map.put("Let's make yer cock nice an' thick!"
 							+(!selfTransform?"":" Go on, I wanna see yer fatten it up!"),
-							target.setPenisGirth(PenetrationGirth.THREE_THICK));
+							target.setPenisGirth(PenetrationGirth.FOUR_THICK));
 				}
 				
 				if(Main.game.isFutanariTesticlesEnabled() && target.isInternalTesticles()) {

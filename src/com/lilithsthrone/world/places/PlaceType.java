@@ -18,7 +18,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
-import com.lilithsthrone.game.dialogue.places.dominion.DominionExpress;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.dialogue.places.dominion.HomeImprovements;
@@ -52,6 +51,8 @@ import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SupplierDe
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaveryAdministration;
+import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.DominionExpress;
+import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.Warehouses;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloorRepeat;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
@@ -72,7 +73,6 @@ import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiv
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
@@ -80,10 +80,14 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Bearing;
 import com.lilithsthrone.world.TeleportPermissions;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.population.Population;
+import com.lilithsthrone.world.population.PopulationDensity;
+import com.lilithsthrone.world.population.PopulationType;
 
 /**
  * @since 0.1.0
@@ -637,7 +641,7 @@ public class PlaceType {
 			"While there are countless industrial buildings scattered throughout Dominion, the area with the largest concentration of them is in this dedicated warehouse district.",
 			"dominion/warehouse",
 			PresetColour.BASE_BROWN,
-			DominionPlaces.WAREHOUSE_DISTRICT,
+			Warehouses.WAREHOUSE_DISTRICT,
 			Encounter.DOMINION_STREET,
 			"in the streets of Dominion") {
 		@Override
@@ -837,7 +841,7 @@ public class PlaceType {
 			"This particular corridor doesn't have any distinguishing features to it.",
 			null,
 			PresetColour.BASE_BLACK,
-			EnforcerHQDialogue.CORRIDOR,//TODO
+			EnforcerHQDialogue.CELLS_CORRIDOR,
 			null,
 			"in the Enforcer HQ")
 			.initWeatherImmune();
@@ -1311,23 +1315,33 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			DominionExpress.CORRIDOR,
-			null,
-			"in the 'Dominion Express' warehouse")  {
+			Encounter.DOMINION_EXPRESS,
+			"in the 'Dominion Express' warehouse") {
 		@Override
-		public List<Population> getPopulation() {//TODO
-			return Util.newArrayListOfValues(new Population(true, PopulationType.OFFICE_WORKER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+		public List<Population> getPopulation() {
+			if(Main.game.isExtendedWorkTime()) {
+				return Util.newArrayListOfValues(new Population(true, PopulationType.SLAVE, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+			}
+			return Util.newArrayListOfValues(new Population(true, PopulationType.SLAVE, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
 		}
 	}.initWeatherImmune();
 
 	public static final AbstractPlaceType DOMINION_EXPRESS_EXIT = new AbstractPlaceType(
 			"Entrance",
-			"A solitary reception desk is positioned to one side of the warehouse's entrance, with the secretary sitting behind it making sure that any visitors have a reason to be in here.",
+			"A solitary reception desk is positioned to one side of the warehouse's entrance, with the secretaries sitting behind it making sure that any visitors have a reason to be in here.",
 			"dominion/dominionExpress/exit",
 			PresetColour.BASE_RED,
 			DominionExpress.ENTRANCE,
 			null,
-			"in the 'Dominion Express' warehouse")
-	.initWeatherImmune();
+			"in the 'Dominion Express' warehouse") {
+		@Override
+		public List<Population> getPopulation() {
+			if(Main.game.isExtendedWorkTime()) {
+				return Util.newArrayListOfValues(new Population(true, PopulationType.RECEPTIONIST, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+			}
+			return Util.newArrayListOfValues(new Population(false, PopulationType.RECEPTIONIST, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+		}
+	}.initWeatherImmune();
 
 	public static final AbstractPlaceType DOMINION_EXPRESS_STORAGE = new AbstractPlaceType(
 			"Storage",
@@ -1335,23 +1349,41 @@ public class PlaceType {
 			"dominion/dominionExpress/crates",
 			PresetColour.BASE_ORANGE,
 			DominionExpress.STORAGE,
-			null,
-			"in the 'Dominion Express' warehouse")
-	.initWeatherImmune();
+			Encounter.DOMINION_EXPRESS,
+			"in the 'Dominion Express' warehouse") {
+		@Override
+		public List<Population> getPopulation() {
+			return DOMINION_EXPRESS_CORRIDOR.getPopulation();
+		}
+	}.initWeatherImmune();
 
 	public static final AbstractPlaceType DOMINION_EXPRESS_OFFICE = new AbstractPlaceType(
 			"Office",
-			"The day-to-day running of 'Dominion Express' is handled within the offices which line one side of the warehouse's corridor.",
+			"The day-to-day running of 'Dominion Express' is handled within these offices.",
 			"dominion/dominionExpress/office",
 			PresetColour.BASE_BLUE_LIGHT,
 			DominionExpress.OFFICE,
 			null,
-			"in the 'Dominion Express' warehouse")
-	.initWeatherImmune();
+			"in the 'Dominion Express' warehouse") {
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(true, PopulationType.OFFICE_WORKER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, true)));
+		}
+	}.initWeatherImmune();
 
+	public static final AbstractPlaceType DOMINION_EXPRESS_FILLY_STATION = new AbstractPlaceType(
+			"Filly Rewards Station",
+			"Set into a small alcove on one side of the warehouse corridor, there's a curious-looking arcane vending machine, which is clearly marked as a 'Filly Rewards Station'.",
+			"dominion/dominionExpress/fillyStation",
+			PresetColour.BASE_PINK_LIGHT,
+			DominionExpress.FILLY_STATION,
+			null,
+			"in the 'Dominion Express' warehouse")
+		.initWeatherImmune();
+	
 	public static final AbstractPlaceType DOMINION_EXPRESS_OFFICE_STABLE = new AbstractPlaceType(
 			"Stable Mistress's office",
-			"The office responsible for the care and management of the centaur slaves is, quite logically, located adjacent to their stables.",
+			"The office responsible for the care and management of the centaur slaves is located at the far end of the warehouse's corridor.",
 			"dominion/dominionExpress/officeStable",
 			PresetColour.BASE_TAN,
 			DominionExpress.OFFICE_STABLE,
@@ -1366,8 +1398,12 @@ public class PlaceType {
 			PresetColour.BASE_BROWN,
 			DominionExpress.STABLES,
 			null,
-			"in the stables at the 'Dominion Express' warehouse")
-	.initWeatherImmune();
+			"in the stables at the 'Dominion Express' warehouse") {
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(true, PopulationType.SLAVE, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+		}
+	}.initWeatherImmune();
 	
 	
 	
@@ -1701,7 +1737,7 @@ public class PlaceType {
 			"in Lilaya's lab") {
 		@Override
 		public void applyInventoryInit(CharacterInventory inventory) {
-			inventory.addClothing(AbstractClothingType.generateClothing(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES, PresetColour.CLOTHING_BLACK, false));
+			inventory.addClothing(AbstractClothingType.generateClothing("innoxia_scientist_safety_goggles", false));
 		}
 	}.initItemsPersistInTile()
 			.initWeatherImmune();
@@ -1765,8 +1801,7 @@ public class PlaceType {
 				@Override
 				public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
 					return Util.newArrayListOfValues(
-							PlaceUpgrade.LILAYA_PLAYER_ROOM_BED,
-							PlaceUpgrade.LILAYA_PLAYER_ROOM_BATH);
+							PlaceUpgrade.LILAYA_PLAYER_ROOM_BED);
 				}
 				@Override
 				public boolean isAbleToBeUpgraded() {
@@ -4033,7 +4068,7 @@ public class PlaceType {
 			"in the Rat Warrens") {
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+			if(Main.game.getPlayer().isCaptive()) {
 				return VengarCaptiveDialogue.CORRIDOR;
 			}
 			return super.getDialogue(withRandomEncounter, forceEncounter);
@@ -4158,7 +4193,7 @@ public class PlaceType {
 			"in the Rat Warrens") {
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+			if(Main.game.getPlayer().isCaptive()) {
 				dialogue = RatWarrensCaptiveDialogue.STOCKS_NIGHT;
 			} else {
 				dialogue = RatWarrensDialogue.MILKING_ROOM;
@@ -4195,14 +4230,14 @@ public class PlaceType {
 			"in the Rat Warrens") {
 		@Override
 		public Encounter getEncounterType() {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+			if(Main.game.getPlayer().isCaptive()) {
 				return Encounter.VENGAR_CAPTIVE_HALL;
 			}
 			return null;
 		}
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+			if(Main.game.getPlayer().isCaptive()) {
 				dialogue = VengarCaptiveDialogue.VENGARS_HALL;
 			} else {
 				dialogue = RatWarrensDialogue.VENGARS_HALL;
@@ -4232,14 +4267,14 @@ public class PlaceType {
 			"in the Rat Warrens") {
 		@Override
 		public Encounter getEncounterType() {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+			if(Main.game.getPlayer().isCaptive()) {
 				return Encounter.VENGAR_CAPTIVE_BEDROOM;
 			}
 			return null;
 		}
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+			if(Main.game.getPlayer().isCaptive()) {
 				dialogue = VengarCaptiveDialogue.VENGARS_BEDROOM;
 			} else {
 				dialogue = RatWarrensDialogue.VENGARS_BEDROOM;
@@ -4264,7 +4299,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0x6b8f7e)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4276,7 +4311,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0x8fbfa8)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4288,7 +4323,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xb377b0)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	};
@@ -4300,7 +4335,7 @@ public class PlaceType {
 			PresetColour.BASE_BLACK,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4312,7 +4347,7 @@ public class PlaceType {
 			PresetColour.BASE_GREY_DARK,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4324,7 +4359,7 @@ public class PlaceType {
 			PresetColour.BASE_GREY_LIGHT,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4336,7 +4371,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xeeeeee)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4348,7 +4383,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xbbf0f1)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4363,7 +4398,7 @@ public class PlaceType {
 			null,
 			"in the outskirts of Dominion") {
 		@Override
-		public WorldType getGlobalLinkedWorldType() {
+		public AbstractWorldType getGlobalLinkedWorldType() {
 			return WorldType.DOMINION;
 		}
 	};
@@ -4377,7 +4412,7 @@ public class PlaceType {
 			null,
 			"") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4391,7 +4426,7 @@ public class PlaceType {
 			null,
 			"") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	};
@@ -4406,7 +4441,7 @@ public class PlaceType {
 			null,
 			"") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4421,7 +4456,7 @@ public class PlaceType {
 			null,
 			"") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	};
@@ -4436,7 +4471,7 @@ public class PlaceType {
 			null,
 			"") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	};
@@ -4448,7 +4483,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xc1f1ee)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4460,7 +4495,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0x6ccc74)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4471,7 +4506,7 @@ public class PlaceType {
 			PresetColour.BASE_BLUE_DARK,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4483,7 +4518,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0x8264b0)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	};
@@ -4495,7 +4530,7 @@ public class PlaceType {
 			PresetColour.BASE_YELLOW_LIGHT,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4507,7 +4542,7 @@ public class PlaceType {
 			PresetColour.BASE_TAN,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4519,7 +4554,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xffe7a7)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4531,7 +4566,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xffdb7a)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4543,7 +4578,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xd5445e)),
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	};
@@ -4555,7 +4590,7 @@ public class PlaceType {
 			PresetColour.BASE_ORANGE,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();
@@ -4567,7 +4602,7 @@ public class PlaceType {
 			PresetColour.BASE_BLACK,
 			null, null, "") {
 				@Override
-				public WorldType getGlobalLinkedWorldType() {
+				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
 				}
 	}.initDangerous();

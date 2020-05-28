@@ -47,7 +47,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
@@ -56,7 +56,6 @@ import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -107,6 +106,9 @@ public class SlimeRoyalGuard extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
 			this.setSurname("Lunettemartu");
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.7")) {
+			this.setStartingBody(false);
 		}
 		setStartingCombatMoves();
 	}
@@ -177,6 +179,7 @@ public class SlimeRoyalGuard extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_ANUS, CoveringPattern.ORIFICE_ANUS, PresetColour.COVERING_PURPLE_DARK, false, PresetColour.COVERING_PURPLE_DARK, true), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_HAIR, PresetColour.COVERING_PURPLE_DARK), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_MOUTH, CoveringPattern.ORIFICE_MOUTH, PresetColour.COVERING_PURPLE_DARK, false, PresetColour.COVERING_PURPLE_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_TONGUE, CoveringPattern.NONE, PresetColour.COVERING_PURPLE_DARK, true, PresetColour.COVERING_PURPLE_DARK, true), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_NIPPLES, PresetColour.COVERING_PURPLE_DARK), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_VAGINA, CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_PURPLE_DARK, false, PresetColour.COVERING_PURPLE_DARK, true), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PENIS, CoveringPattern.NONE, PresetColour.COVERING_PURPLE_DARK, false, PresetColour.COVERING_PURPLE_DARK, true), false);
@@ -226,7 +229,7 @@ public class SlimeRoyalGuard extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FOUR_FAT.getValue());
+		this.setPenisGirth(PenetrationGirth.FIVE_FAT.getValue());
 		this.setPenisSize(25);
 		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
 		this.fillCumToMaxStorage();
@@ -247,7 +250,7 @@ public class SlimeRoyalGuard extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		CharacterUtils.generateItemsInInventory(this);
 		
-		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_ZWEIHANDER, DamageType.PHYSICAL));
+		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_europeanSwords_zweihander", DamageType.PHYSICAL));
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_crotchless_chaps", PresetColour.CLOTHING_BLACK, false), true, this);

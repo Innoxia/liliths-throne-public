@@ -6,7 +6,7 @@
 		<name><![CDATA[shin guard]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[shin guards]]></namePlural>
 		<description><![CDATA[A pair of protective shin guards, designed to protect the lower half of the wearer's legs from physical blows.]]></description>
-		<physicalResistance>0.2</physicalResistance> 
+		<physicalResistance>1</physicalResistance> 
 		<femininity>ANDROGYNOUS</femininity> 
 		<slot>ANKLE</slot> 
 		<rarity>COMMON</rarity> 

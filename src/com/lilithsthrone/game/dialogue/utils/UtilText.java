@@ -41,13 +41,13 @@ import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
-import com.lilithsthrone.game.character.body.types.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
@@ -62,6 +62,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
+import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
@@ -82,7 +83,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -107,6 +108,7 @@ import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
@@ -434,6 +436,10 @@ public class UtilText {
 	
 	public static String getPentagramSymbol() {
 		return "&#9737;"; // Java doesn't support unicode 6 ;_;   No pentagram for me... ;_;  "&#9956";
+	}
+	
+	public static String getShieldSymbol() {
+		return "&#9930;";
 	}
 	
 	public static String applyGlow(String input, Colour colour) {
@@ -854,7 +860,10 @@ public class UtilText {
 								
 								sb.setLength(0);
 								
-							} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i) && (i+1==input.length()||input.charAt(i+1)!='I') && openBrackets-1==closeBrackets && conditionalStatement!=null) {
+							} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i)
+									&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!='I'||input.charAt(i+2)!='F')
+									&& openBrackets-1==closeBrackets
+									&& conditionalStatement!=null) {
 								conditionalElseFound = true;
 								conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-4)); // Cut off the '#ELSE' at the end of this section.
 								sb.setLength(0);
@@ -900,7 +909,9 @@ public class UtilText {
 								
 								sb.setLength(0);
 								
-							} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i) && (i+1==input.length()||input.charAt(i+1)!='I') && openBrackets-1==closeBrackets) {
+							} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i)
+									&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!='I'||input.charAt(i+2)!='F')
+									&& openBrackets-1==closeBrackets) {
 								conditionalElseFound = true;
 	//							conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the end of this section.
 								conditionals.put(conditionalStatement, sb.toString().substring(1, sb.length()-4)); // Cut off the '#ELSE' at the end of this section.
@@ -4150,7 +4161,25 @@ public class UtilText {
 		
 		// Styles & non-character parsing:
 		
-
+		for(Gender gender : Gender.values()) {
+			commandsList.add(new ParserCommand(
+					Util.newArrayListOfValues(
+							gender.getType()==PronounType.FEMININE
+								?gender.getGenderName().getFeminine()
+								:(gender.getType()==PronounType.MASCULINE
+									?gender.getGenderName().getMasculine()
+									:gender.getGenderName().getNeutral())),
+					true,
+					true,
+					"",
+					"Returns this gender name (based on user settings)."){
+				@Override
+				public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+					return gender.getName();
+				}
+			});
+		}
+		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
 						"evening",
@@ -6385,7 +6414,7 @@ public class UtilText {
 				}
 
 				// Girth:
-				if(character.getPenisGirth()!=PenetrationGirth.TWO_AVERAGE) {
+				if(character.getPenisGirth()!=PenetrationGirth.THREE_AVERAGE) {
 					if(sb.length()>0) {
 						sb.append(", ");	
 					}
@@ -7137,7 +7166,7 @@ public class UtilText {
 				if(toy==null) {
 					return UtilText.returnStringAtRandom("head", "tip");
 				}
-				String descriptor = toy.getColour().getName();
+				String descriptor = toy.getColour(0).getName();
 				return applyDescriptor(descriptor, UtilText.returnStringAtRandom("head", "tip"));
 			}
 		});
@@ -7178,7 +7207,7 @@ public class UtilText {
 
 				// Girth:
 				PenetrationGirth girth = PenetrationGirth.getGirthFromInt(toyType.getPenetrationSelfGirth());
-				if(character.getPenisGirth()!=PenetrationGirth.TWO_AVERAGE) {
+				if(character.getPenisGirth()!=PenetrationGirth.THREE_AVERAGE) {
 					if(sb.length()>0) {
 						sb.append(", ");	
 					}
@@ -7907,6 +7936,9 @@ public class UtilText {
 		}
 		
 		// Enums:
+		for(Colour colour : PresetColour.getAllPresetColours()) {
+			engine.put("COLOUR_"+PresetColour.getIdFromColour(colour), colour);
+		}
 		for(Race race : Race.values()) {
 			engine.put("RACE_"+race.toString(), race);
 		}
@@ -8033,8 +8065,8 @@ public class UtilText {
 		for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
 			engine.put("PENETRATION_"+penetration.toString(), penetration);
 		}
-		for(WorldType worldType : WorldType.values()) {
-			engine.put("WORLD_TYPE_"+worldType.toString(), worldType);
+		for(AbstractWorldType worldType : WorldType.getAllWorldTypes()) {
+			engine.put("WORLD_TYPE_"+WorldType.getIdFromWorldType(worldType), worldType);
 		}
 		for(AbstractPlaceType placeType : PlaceType.getAllPlaceTypes()) {
 			engine.put("PLACE_TYPE_"+PlaceType.getIdFromPlaceType(placeType), placeType);
@@ -8423,13 +8455,14 @@ public class UtilText {
 				tags,
 				true,
 				true,
-				"",
-				"Returns the basic, singular name for this body part.",
+				"(automaticAdjustment)",
+				"Returns the basic, singular name for this body part. Pass in true as an argument to automatically adjust this name to its plural equivalent, if applicable."
+						+ " (e.g. A character with two horns would have the command 'horn(true)' output 'horns')",
 				bodyPart){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				if(bodyPart==BodyPartType.SKIN) {
-					return getBodyPartFromType(bodyPart,character).getName(character); // Skin replacements (such as scales, feathers, fur), should use the default plurality.
+				if((arguments!=null && Boolean.valueOf(arguments)) || bodyPart==BodyPartType.SKIN) {
+					return getBodyPartFromType(bodyPart,character).getName(character); // Skin replacements (such as scales, feathers, fur), should always use the default plurality.
 				}
 				return getBodyPartFromType(bodyPart,character).getNameSingular(character);
 			}
@@ -8439,11 +8472,15 @@ public class UtilText {
 				tagsPlural,
 				true,
 				true,
-				"",
-				"Returns the basic, plural name for this body part.",
+				"(automaticAdjustment)",
+				"Returns the basic, plural name for this body part. Pass in true as an argument to automatically adjust this name to its plural equivalent, if applicable."
+						+ " (e.g. A character with a single udder would have the command 'crotchBoobs(true)' output 'udder')",
 				bodyPart){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					return getBodyPartFromType(bodyPart,character).getName(character);
+				}
 				if(parseAddPronoun) {
 					parseAddPronoun = false;
 					return applyDeterminer(getBodyPartFromType(bodyPart,character).getDeterminer(character), getBodyPartFromType(bodyPart,character).getNamePlural(character));
@@ -8458,12 +8495,20 @@ public class UtilText {
 				getModifiedTags(tags, null, "+", "D"),
 				true,
 				true,
-				"",
-				"Returns the singular name for this body part, with a descriptor appended to the start (if one is available).",
+				"(automaticAdjustment)",
+				"Returns the singular name for this body part, with a descriptor appended to the start (if one is available)."
+						+ " Pass in true as an argument to automatically adjust this name to its plural equivalent, if applicable."
+						+ " (e.g. A character with two horns would have the command 'horn+(true)' output 'curved horns')",
 				bodyPart){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return applyDescriptor(getBodyPartFromType(bodyPart,character).getDescriptor(character), getBodyPartFromType(bodyPart,character).getNameSingular(character));
+				String name;
+				if((arguments!=null && Boolean.valueOf(arguments)) || bodyPart==BodyPartType.SKIN) { // Skin replacements (such as scales, feathers, fur), should always use the default plurality.
+					name = getBodyPartFromType(bodyPart,character).getName(character);
+				} else {
+					name = getBodyPartFromType(bodyPart,character).getNameSingular(character);
+				}
+				return applyDescriptor(getBodyPartFromType(bodyPart,character).getDescriptor(character), name);
 			}
 		});
 
@@ -8471,17 +8516,26 @@ public class UtilText {
 				getModifiedTags(null, tagsPlural, "+", "D"),
 				true,
 				true,
-				"",
-				"Returns the plural name for this body part, with a descriptor appended to the start (if one is available).",
+				"(automaticAdjustment)",
+				"Returns the plural name for this body part, with a descriptor appended to the start (if one is available)."
+						+ " Pass in true as an argument to automatically adjust this name to its plural equivalent, if applicable."
+						+ " (e.g. A character with a single udder would have the command 'crotchBoobs+(true)' output 'big udder')",
 				bodyPart){
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				String name;
+				if((arguments!=null && Boolean.valueOf(arguments))) {
+					name = getBodyPartFromType(bodyPart,character).getName(character);
+				} else {
+					name = getBodyPartFromType(bodyPart,character).getNamePlural(character);
+				}
+				
 				if(parseAddPronoun) {
 					parseAddPronoun = false;
-					return applyDeterminer(getBodyPartFromType(bodyPart,character).getDeterminer(character), applyDescriptor(getBodyPartFromType(bodyPart,character).getDescriptor(character), getBodyPartFromType(bodyPart,character).getNamePlural(character)));
+					return applyDeterminer(getBodyPartFromType(bodyPart,character).getDeterminer(character), applyDescriptor(getBodyPartFromType(bodyPart,character).getDescriptor(character), name));
 					
 				} else {
-					return applyDescriptor(getBodyPartFromType(bodyPart,character).getDescriptor(character), getBodyPartFromType(bodyPart,character).getNamePlural(character));
+					return applyDescriptor(getBodyPartFromType(bodyPart,character).getDescriptor(character), name);
 				}
 			}
 		});

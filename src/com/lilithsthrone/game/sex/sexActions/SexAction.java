@@ -24,7 +24,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.8
+ * @version 0.3.7.3
  * @author Innoxia
  */
 public abstract class SexAction implements SexActionInterface {
@@ -485,7 +485,6 @@ public abstract class SexAction implements SexActionInterface {
 					}
 				}
 			}
-			
 			
 			List<SexAreaInterface> cummedInList = this.getAreasCummedIn(characterPerformingAction, characterTarget);
 			if(cummedInList != null) {

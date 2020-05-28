@@ -455,8 +455,8 @@ public class SexPosition {
 				}
 				if(!names.isEmpty()) {
 					sizeDifferenceAdditions.add(UtilText.parse(sub,
-							"As [npc.nameIs] considerably shorter than "+Util.stringsToStringList(names, false)
-								+", [npc.she] [npc.is] in a position to perform oral on "+(names.size()>1?(playerInDoms?"you":"them"):UtilText.parse(mainDom, "[npc.herHim]"))+", even though [npc.sheIs] standing fully upright."));
+							"As [npc.nameIsFull] considerably shorter than "+Util.stringsToStringList(names, false)
+								+", [npc.sheIs] in a position to perform oral on "+(names.size()>1?(playerInDoms?"you":"them"):UtilText.parse(mainDom, "[npc.herHim]"))+", even though [npc.sheIs] standing fully upright."));
 				}
 			}
 			for(GameCharacter sub : subsStandingBehind) {
@@ -472,8 +472,8 @@ public class SexPosition {
 				}
 				if(!names.isEmpty()) {
 					sizeDifferenceAdditions.add(UtilText.parse(sub,
-							"As [npc.nameIs] considerably shorter than "+Util.stringsToStringList(names, false)
-								+", [npc.she] [npc.is] in a position to perform oral on "
+							"As [npc.nameIsFull] considerably shorter than "+Util.stringsToStringList(names, false)
+								+", [npc.sheIs] in a position to perform oral on "
 									+(names.size()>1?(playerInDoms?"your rear end":"their rear ends"):UtilText.parse(mainDom, "[npc.namePos] [npc.ass+]"))+", even though [npc.sheIs] standing fully upright."));
 				}
 			}
@@ -489,8 +489,8 @@ public class SexPosition {
 				}
 				if(!names.isEmpty()) {
 					sizeDifferenceAdditions.add(UtilText.parse(dom,
-							"As [npc.nameIs] considerably shorter than "+Util.stringsToStringList(names, false)
-								+", [npc.she] [npc.is] in a position to perform oral on "+(names.size()>1?(playerInSubs?"you":"them"):UtilText.parse(mainSub, "[npc.herHim]"))+", even though [npc.sheIs] standing fully upright."));
+							"As [npc.nameIsFull] considerably shorter than "+Util.stringsToStringList(names, false)
+								+", [npc.sheIs] in a position to perform oral on "+(names.size()>1?(playerInSubs?"you":"them"):UtilText.parse(mainSub, "[npc.herHim]"))+", even though [npc.sheIs] standing fully upright."));
 				}
 			}
 			for(String s : sizeDifferenceAdditions) {
@@ -1323,10 +1323,10 @@ public class SexPosition {
 			}
 			
 			List<List<SexSlot>> mutuallyExclusiveSlots = new ArrayList<>();
-			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotStocks.BEHIND_STOCKS, SexSlotStocks.PERFORMING_ORAL));
-			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotStocks.BEHIND_STOCKS_TWO, SexSlotStocks.PERFORMING_ORAL_TWO));
-			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotStocks.BEHIND_STOCKS_THREE, SexSlotStocks.PERFORMING_ORAL_THREE));
-			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotStocks.BEHIND_STOCKS_FOUR, SexSlotStocks.PERFORMING_ORAL_FOUR));
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotStocks.BENEATH_STOCKS, SexSlotStocks.PERFORMING_ORAL));
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotStocks.BENEATH_STOCKS_TWO, SexSlotStocks.PERFORMING_ORAL_TWO));
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotStocks.BENEATH_STOCKS_THREE, SexSlotStocks.PERFORMING_ORAL_THREE));
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotStocks.BENEATH_STOCKS_FOUR, SexSlotStocks.PERFORMING_ORAL_FOUR));
 			
 			for(List<SexSlot> entry : mutuallyExclusiveSlots) {
 				for(SexSlot s : entry) {
@@ -1370,6 +1370,7 @@ public class SexPosition {
 			List<String> stocksTaurNames = new ArrayList<>();
 			List<String> standingNames = new ArrayList<>();
 			List<String> standingNamesTaur = new ArrayList<>();
+			List<String> beneathNames = new ArrayList<>();
 			List<String> performingOralNames = new ArrayList<>();
 			List<String> receivingOralNames = new ArrayList<>();
 
@@ -1377,6 +1378,7 @@ public class SexPosition {
 			GameCharacter mainStocksTaur = null;
 			GameCharacter mainStanding = null;
 			GameCharacter mainStandingTaur = null;
+			GameCharacter mainBeneath = null;
 			GameCharacter mainPerformingOral = null;
 			GameCharacter mainReceivingOral = null;
 			
@@ -1430,6 +1432,19 @@ public class SexPosition {
 							} else {
 								standingNamesTaur.add(UtilText.parse(e.getKey(), "[npc.name]"));
 							}
+						}
+						
+					} else if(e.getValue()==SexSlotStocks.BENEATH_STOCKS
+							|| e.getValue()==SexSlotStocks.BENEATH_STOCKS_TWO
+							|| e.getValue()==SexSlotStocks.BENEATH_STOCKS_THREE
+							|| e.getValue()==SexSlotStocks.BENEATH_STOCKS_FOUR) {
+						if(mainBeneath==null) {
+							mainBeneath=e.getKey();
+						}
+						if(e.getKey().isPlayer()) {
+							beneathNames.add(0, UtilText.parse(e.getKey(), "[npc.name]"));
+						} else {
+							beneathNames.add(UtilText.parse(e.getKey(), "[npc.name]"));
 						}
 						
 					} else if(e.getValue()==SexSlotStocks.PERFORMING_ORAL
@@ -1532,7 +1547,22 @@ public class SexPosition {
 									:UtilText.parse(soloStocks, "[npc.namePos] [npc.legs], ready to perform oral on [npc.herHim]. ")));
 			}
 			
-			boolean additionalDoms = !standingNames.isEmpty() || !standingNamesTaur.isEmpty() || !performingOralNames.isEmpty();
+
+			if(beneathNames.size()>=2) {
+					sb.append(Util.capitaliseSentence(Util.stringsToStringList(beneathNames, false))+" have dropped down beneath "
+							+(stocksCount>1
+									?(playerStocks?"you":"them")+", ready to get fucked. "
+									:UtilText.parse(soloStocks, "[npc.name], ready to get fucked by [npc.herHim]. ")));
+				
+				
+			} else if(beneathNames.size()==1) {
+					sb.append(Util.capitaliseSentence(Util.stringsToStringList(beneathNames, false))+UtilText.parse(mainBeneath," [npc.has] dropped down beneath ")
+							+(stocksCount>1
+									?(playerStocks?"you":"them")+", ready to get fucked. "
+									:UtilText.parse(soloStocks, "[npc.name], ready to get fucked by [npc.herHim]. ")));
+			}
+			
+			boolean additionalDoms = !standingNames.isEmpty() || !standingNamesTaur.isEmpty() || !performingOralNames.isEmpty() || !beneathNames.isEmpty();
 			if(receivingOralNames.size()>=2) {
 				sb.append(Util.capitaliseSentence(Util.stringsToStringList(receivingOralNames, false))+(additionalDoms?", meanwhile,":"")+" are positioned around the other side of the stocks, next to "
 							+(stocksCount>1
@@ -1555,6 +1585,7 @@ public class SexPosition {
 
 			List<SexSlot> inStocks = Util.newArrayListOfValues(SexSlotStocks.LOCKED_IN_STOCKS, SexSlotStocks.LOCKED_IN_STOCKS_TWO, SexSlotStocks.LOCKED_IN_STOCKS_THREE, SexSlotStocks.LOCKED_IN_STOCKS_FOUR);
 			List<SexSlot> standing = Util.newArrayListOfValues(SexSlotStocks.BEHIND_STOCKS, SexSlotStocks.BEHIND_STOCKS_TWO, SexSlotStocks.BEHIND_STOCKS_THREE, SexSlotStocks.BEHIND_STOCKS_FOUR);
+			List<SexSlot> beneath = Util.newArrayListOfValues(SexSlotStocks.BENEATH_STOCKS, SexSlotStocks.BENEATH_STOCKS_TWO, SexSlotStocks.BENEATH_STOCKS_THREE, SexSlotStocks.BENEATH_STOCKS_FOUR);
 			List<SexSlot> performingOral = Util.newArrayListOfValues(SexSlotStocks.PERFORMING_ORAL, SexSlotStocks.PERFORMING_ORAL_TWO, SexSlotStocks.PERFORMING_ORAL_THREE, SexSlotStocks.PERFORMING_ORAL_FOUR);
 			List<SexSlot> receivingOral = Util.newArrayListOfValues(SexSlotStocks.RECEIVING_ORAL, SexSlotStocks.RECEIVING_ORAL_TWO, SexSlotStocks.RECEIVING_ORAL_THREE, SexSlotStocks.RECEIVING_ORAL_FOUR);
 
@@ -1564,6 +1595,12 @@ public class SexPosition {
 				}
 			}
 
+			for(SexSlot slotBeneath: beneath) {
+				for(SexSlot stockSlot : inStocks) {
+					interactions.add(StandardSexActionInteractions.fuckedByCharacterInStocks.getSexActionInteractions(slotBeneath, stockSlot));
+				}
+			}
+			
 			for(SexSlot slotOral : performingOral) {
 				for(SexSlot stockSlot : inStocks) {
 					interactions.add(StandardSexActionInteractions.performingOralOnStocks.getSexActionInteractions(slotOral, stockSlot));
@@ -1885,12 +1922,19 @@ public class SexPosition {
 
 			List<SexSlot> inStocks = Util.newArrayListOfValues(SexSlotMilkingStall.LOCKED_IN_MILKING_STALL, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_TWO, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_THREE, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL_FOUR);
 			List<SexSlot> standing = Util.newArrayListOfValues(SexSlotMilkingStall.BEHIND_MILKING_STALL, SexSlotMilkingStall.BEHIND_MILKING_STALL_TWO, SexSlotMilkingStall.BEHIND_MILKING_STALL_THREE, SexSlotMilkingStall.BEHIND_MILKING_STALL_FOUR);
+			List<SexSlot> beneath = Util.newArrayListOfValues(SexSlotMilkingStall.BENEATH_MILKING_STALL, SexSlotMilkingStall.BENEATH_MILKING_STALL_TWO, SexSlotMilkingStall.BENEATH_MILKING_STALL_THREE, SexSlotMilkingStall.BENEATH_MILKING_STALL_FOUR);
 			List<SexSlot> performingOral = Util.newArrayListOfValues(SexSlotMilkingStall.PERFORMING_ORAL, SexSlotMilkingStall.PERFORMING_ORAL_TWO, SexSlotMilkingStall.PERFORMING_ORAL_THREE, SexSlotMilkingStall.PERFORMING_ORAL_FOUR);
 			List<SexSlot> receivingOral = Util.newArrayListOfValues(SexSlotMilkingStall.RECEIVING_ORAL, SexSlotMilkingStall.RECEIVING_ORAL_TWO, SexSlotMilkingStall.RECEIVING_ORAL_THREE, SexSlotMilkingStall.RECEIVING_ORAL_FOUR);
 
 			for(SexSlot slotStanding : standing) {
 				for(SexSlot stockSlot : inStocks) {
 					interactions.add(StandardSexActionInteractions.fuckingCharacterInStocks.getSexActionInteractions(slotStanding, stockSlot));
+				}
+			}
+
+			for(SexSlot slotBeneath: beneath) {
+				for(SexSlot stockSlot : inStocks) {
+					interactions.add(StandardSexActionInteractions.fuckedByCharacterInStocks.getSexActionInteractions(slotBeneath, stockSlot));
 				}
 			}
 

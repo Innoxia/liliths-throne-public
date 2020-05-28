@@ -11,6 +11,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -107,7 +108,7 @@ public class Scarlett extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.9") && !this.isSlave()) {
 			this.equipClothing();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.3")) {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN)) {
 				this.setHomeLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_SCARLETT_BEDROOM);
 			}
@@ -116,12 +117,17 @@ public class Scarlett extends NPC {
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
-		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(),
-				Util.newHashMapOfValues(
-						new Value<>(PerkCategory.PHYSICAL, 5),
-						new Value<>(PerkCategory.LUST, 1),
-						new Value<>(PerkCategory.ARCANE, 0)));
+		if(this.isSlave() && this.getOwner().isPlayer()) {
+			super.setupPerks(autoSelectPerks);
+			
+		} else {
+			PerkManager.initialisePerks(this,
+					Util.newArrayListOfValues(),
+					Util.newHashMapOfValues(
+							new Value<>(PerkCategory.PHYSICAL, 5),
+							new Value<>(PerkCategory.LUST, 1),
+							new Value<>(PerkCategory.ARCANE, 0)));
+		}
 	}
 	
 	@Override
@@ -293,7 +299,7 @@ public class Scarlett extends NPC {
 			if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 				return "#fa2ca7";
 			} else {
-				return "#ff85cc";
+				return "#ff94d6";
 			}
 		}
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
@@ -321,7 +327,13 @@ public class Scarlett extends NPC {
 	public void dailyUpdate() {
 		if(!this.isSlave() && this.hasVagina() && !Main.game.getCharactersPresent().contains(this)) { // Female Scarlett:
 			if(this.getMinutesSinceLastTimeHadSex()>(60*22) || this.isVaginaVirgin()) {// Scarlett has sex with one of her followers every night (if she is horny or is a virgin):
-				this.calculateGenericSexEffects(true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+				if(this.isLikesPlayer() || Math.random()<0.8f) { // If Scarlett likes the player, she won't let anyone else get her pregnant. Also 80% chance for her to force her followers to pull out or use a condom.
+					this.calculateGenericSexEffects(
+							true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_CREAMPIE);
+				} else {
+					this.calculateGenericSexEffects(
+							true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+				}
 			}
 			this.applyMakeup();
 		}
@@ -354,11 +366,10 @@ public class Scarlett extends NPC {
 			return;
 		}
 
-		boolean nestHours = Main.game.isDayTime() || (Main.game.getHourOfDay()>8 && Main.game.getHourOfDay()<21);
+		boolean nestHours = Main.game.isDayTime() || (Main.game.getHourOfDay()>9 && Main.game.getHourOfDay()<21);
 		
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaScarlettToldToReturn)) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaGoneHome)
-					|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.scarlettGoneHome)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaGoneHome) || Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.scarlettGoneHome)) {
 				goHome(); // If Helena is home on special business, Scarlett is with her.
 				
 			} else if((Main.game.isWorkTime() || (Main.game.getDateNow().getDayOfWeek()==DayOfWeek.FRIDAY && Main.game.getHourOfDay()>12 && Main.game.getHourOfDay()<21))
@@ -368,6 +379,7 @@ public class Scarlett extends NPC {
 				
 			} else if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						&& nestHours
+						&& Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA)!=Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN // Once Scarlett goes to meet Helena, she stays with her until player progresses to next stage of quest
 						&& (Main.game.isWeekend() || Main.game.getHourOfDay()>12)) { // Do not appear in nest before work
 				this.setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST, false);
 				this.equipClothing();
@@ -428,8 +440,8 @@ public class Scarlett extends NPC {
 	}
 
 	public void applyMakeup() {
-//		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_BLACK));
-//		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_BLACK));
+		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_NONE));
+		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_NONE));
 //		this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_RED));
 		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, PresetColour.COVERING_RED_LIGHT));
 		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, PresetColour.COVERING_BLACK));
@@ -439,6 +451,10 @@ public class Scarlett extends NPC {
 	@Override
 	public List<Class<?>> getUniqueSexClasses() {
 		return Util.newArrayListOfValues(SAScarlett.class);
+	}
+	
+	public boolean isLikesPlayer() {
+		return this.getAffectionLevelBasic(Main.game.getPlayer())==AffectionLevelBasic.LIKE;
 	}
 	
 }

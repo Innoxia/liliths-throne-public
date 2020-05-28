@@ -5,8 +5,8 @@
 		<value>750</value>
 		<determiner><![CDATA[a pair of]]></determiner>
 		<name><![CDATA[half-moon reading glasses]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[half-moon reading glasses]]></namePlural>
-		<description><![CDATA[A pair of unisex half-moon glasses. They're designed to help overcome any long-sightedness the wearer may suffer from, allowing them to read documents and focus on up-close objects.]]></description>
+		<namePlural pluralByDefault="true"><![CDATA[half-moon reading glasses]]></namePlural>
+		<description><![CDATA[A pair of unisex, half-moon glasses. They're designed to help overcome any long-sightedness the wearer may suffer from, allowing them to read documents and focus on up-close objects.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>EYES</slot>
@@ -48,4 +48,29 @@
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] on the glasses.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the glasses onto [npc2.namePos] face.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(push)] the glasses onto [npc2.namePos] face.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] glasses.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] glasses.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(grabs)] [npc2.namePos] glasses and roughly [npc.verb(pull)] them off.]]>
+		</otherRough>
+	</displacementText>
+	
 </clothing>

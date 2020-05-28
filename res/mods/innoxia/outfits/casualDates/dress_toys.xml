@@ -40,9 +40,9 @@
 	</coreAttributes>
 	
 	<generationAttributes>
-		<!-- You can define up to 20 conditional statements to use elsewhere in this file. They must be enclosed in CDATA tags, and must use a consecutively-numbered format of "clothingConditionalX". If they have the attribute: 'constant="true"', then they are evaluated once at the start of clothing generation. If not, they are re-evaluated every time. -->
-		<clothingConditional1 constant="true"><![CDATA[RND.nextInt(100)<=50]]></clothingConditional1>
-		<clothingConditional2 constant="true"><![CDATA[RND.nextInt(100)<=75]]></clothingConditional2>
+		<!-- You can define any number of conditional statements to use elsewhere in this file. They must be enclosed in CDATA tags, and must use a format of "clothingConditionalX" or "condX", where X is a unique String (e.g. "cond1", "condUnderwear", "clothingConditionalMeleeWeapons" are all valid tags). If they have the attribute: 'constant="true"', then they are evaluated once at the start of clothing generation. If not, they are re-evaluated every time. -->
+		<cond1 constant="true"><![CDATA[RND.nextInt(100)<=50]]></cond1>
+		<cond2 constant="true"><![CDATA[RND.nextInt(100)<=75]]></cond2>
 		
 		<!-- "presetColourGroupX" groups have one of their defined "randomColour"s randomly chosen for further use in this XML file. You can have up to 20 "presetColourGroupX"s, but the numbers must be consecutive. (i.e. You can have "presetColourGroup1", "presetColourGroup2", and "presetColourGroup3", but NOT "presetColourGroup1", "presetColourGroup2", and "presetColourGroup4", as that skips out a "3".)
 		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->
@@ -67,7 +67,7 @@
 			<randomColour>CLOTHING_PINK_LIGHT</randomColour>
 		</presetColourGroup4>
 		
-		<!-- Weapons can be added in a similar (although more limited) manner to clothing. This file doesn't use any weapons. Look at res/outfits/innoxia/mugger_masculine.xml for a weapon example. -->
+		<!-- Weapons can be added in a similar (although more limited) manner to clothing. This file doesn't use any weapons. Look at res/outfits/innoxia/genericMugger/dominion_masculine.xml for a weapon example. -->
 		<mainWeapons/>
 		
 		<offhandWeapons/>
@@ -109,6 +109,11 @@
 			</primaryColours>
 			<secondaryColours/>
 			<tertiaryColours/>
+			<!-- 'colours' element can be used in addition to, or as a replacement of, the primary/secondary/tertiary colours elements. It is defined as follows:
+			<colours>
+				<colour>presetColourGroup1</colour> Individual colours or presetColourGroups can be used.
+			</colours>
+			-->
 		</genericClothingType>
 		
 		<genericClothingType> <!-- Generic jewellery. This should probably be used in all outfits, unless you want to manually define your own jewellery. -->
@@ -118,8 +123,8 @@
 				<femininity>ANDROGYNOUS</femininity>
 			</acceptableFemininities>
 			<slot/>
-			<rarity>COMMON</rarity> <!-- 25% chance for every item of jewellery to be added, unless it's earrings, then 100%. These items are automatically not added if the character doesn't have the related slot pierced. -->
-			<conditional><![CDATA[clothing.getSlot().isJewellery() && (RND.nextInt(100)<=25 || clothing.getSlot()==IS_PIERCING_EAR)]]></conditional>
+			<rarity>COMMON</rarity>
+			<conditional><![CDATA[clothing.getSlot().isJewellery() && (RND.nextInt(100)<=25 || clothing.getSlot()==IS_PIERCING_EAR)]]></conditional> <!-- 25% chance for every item of jewellery to be added, unless it's earrings, then 100%. These items are automatically not added if the character doesn't have the related slot pierced. -->
 			<primaryColours>
 				<colour>presetColourGroup2</colour>
 			</primaryColours>
@@ -165,7 +170,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[clothingConditional1]]></conditional>
+			<conditional><![CDATA[cond1]]></conditional>
 			<types>
 				<type>FINGER_RING</type>
 			</types>
@@ -177,7 +182,7 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[!clothingConditional1 || clothingConditional2]]></conditional>
+			<conditional><![CDATA[!cond1 || cond2]]></conditional>
 			<types>
 				<type>NECK_HEART_NECKLACE</type>
 			</types>

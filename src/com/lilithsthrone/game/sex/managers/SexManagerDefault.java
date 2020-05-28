@@ -38,7 +38,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFeet;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFoot;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueNipple;
-import com.lilithsthrone.game.sex.sexActions.baseActions.TongueNippleCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
@@ -584,13 +583,6 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		if(!targetedCharacter.hasBreasts()) {
 			bannedActions.add(TongueNipple.SUCKLE_START);
 		}
-		
-		if(!performingCharacter.hasBreastsCrotch()) {
-			bannedActions.add(TongueNippleCrotch.BREASTFEED);
-		}
-		if(!targetedCharacter.hasBreastsCrotch()) {
-			bannedActions.add(TongueNippleCrotch.SUCKLE);
-		}
 	}
 	
 	/**
@@ -659,7 +651,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			if((action.getActionType() == SexActionType.START_ONGOING || action.getActionType()==SexActionType.START_ADDITIONAL_ONGOING || Main.sex.isCharacterEngagedInOngoingAction(performingCharacter, targetedCharacter))
 					&& action.getActionType() != SexActionType.STOP_ONGOING
 					&& action.getParticipantType()!=SexParticipantType.SELF) {
-				if(!action.isTakesVirginity(false)) { // Do not want to take any virginity in foreplay TODO?
+				if(!action.isTakesVirginity(false)) { // Do not want to use full penetrative sex in foreplay
 					highPriorityList.add(action);
 				}
 				mediumPriorityList.add(action);
@@ -674,10 +666,14 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			return (SexAction) mediumPriorityList.get(Util.random.nextInt(mediumPriorityList.size()));
 		}
 		
-		// --- Ban stop penetration actions ---
+		// --- Banning actions ---
 		
 		for(SexActionInterface action : availableActions) {
-			if(action.getActionType() == SexActionType.STOP_ONGOING) {
+			if(action.getActionType()==SexActionType.STOP_ONGOING) { // Ban stop penetration actions
+				bannedActions.add(action);
+			}
+			if(action.isTakesPerformerVirginity(true, performingCharacter, targetedCharacter) && action.getParticipantType()==SexParticipantType.SELF) { // Ban taking own virginity
+				if(performingCharacter.isAssVirgin())
 				bannedActions.add(action);
 			}
 		}
@@ -998,6 +994,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 //						}
 //					}
 				}
+			}
+			if(action.isTakesPerformerVirginity(true, performingCharacter, targetedCharacter) && action.getParticipantType()==SexParticipantType.SELF) { // Ban taking own virginity
+				bannedActions.add(action);
 			}
 		}
 		

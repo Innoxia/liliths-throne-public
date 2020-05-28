@@ -27,7 +27,7 @@
 		<description><![CDATA[A heavy duty belt with a codpiece and a set of ballistic fiber thigh panels attached to it. The odd shape of the thigh panels give you the impression that there may be metallic inserts in them.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
-		<physicalResistance>20</physicalResistance> 
+		<physicalResistance>10</physicalResistance> 
 		
 		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties. -->
 		<femininity>ANDROGYNOUS</femininity> 

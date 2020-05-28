@@ -25,7 +25,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -63,6 +63,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
@@ -195,7 +196,7 @@ public class ImpFortressDialogue {
 		clearBossGuards(Main.game.getPlayer().getWorldLocation());
 	}
 	
-	private static void clearBossGuards(WorldType fortress) {
+	private static void clearBossGuards(AbstractWorldType fortress) {
 		for(GameCharacter character : getImpBossGroup(fortress, true)) {
 			if(!character.equals(getBoss(fortress))) {
 				Main.game.banishNPC(character.getId());
@@ -207,7 +208,7 @@ public class ImpFortressDialogue {
 		clearFortress(Main.game.getPlayer().getWorldLocation());
 	}
 	
-	public static void clearFortress(WorldType fortress) {
+	public static void clearFortress(AbstractWorldType fortress) {
 		
 		banishImpGuards(fortress);
 		
@@ -257,7 +258,7 @@ public class ImpFortressDialogue {
 		}
 	}
 	
-	public static void resetFortress(WorldType fortress) {
+	public static void resetFortress(AbstractWorldType fortress) {
 		if(fortress==WorldType.IMP_FORTRESS_ALPHA) {
 			// Make sure everything is reset:
 			clearFortress(fortress);
@@ -293,7 +294,7 @@ public class ImpFortressDialogue {
 				imp.setGenericName("alpha-imp archer");
 				imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 				Main.game.addNPC(imp, false);
-				imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BOW_AND_ARROW, Util.randomItemFrom(new DamageType[] {DamageType.POISON, DamageType.FIRE})));
+				imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_bow_shortbow", Util.randomItemFrom(new DamageType[] {DamageType.POISON, DamageType.FIRE})));
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
@@ -360,7 +361,7 @@ public class ImpFortressDialogue {
 				imp.setGenericName("alpha-imp archer");
 				imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 				Main.game.addNPC(imp, false);
-				imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BOW_AND_ARROW, Util.randomItemFrom(new DamageType[] {DamageType.POISON, DamageType.FIRE})));
+				imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_bow_shortbow", Util.randomItemFrom(new DamageType[] {DamageType.POISON, DamageType.FIRE})));
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {
@@ -467,7 +468,7 @@ public class ImpFortressDialogue {
 		return getImpBossGroup(Main.game.getPlayer().getWorldLocation(), includeBoss);
 	}
 	
-	public static List<GameCharacter> getImpBossGroup(WorldType fortress, boolean includeBoss) {
+	public static List<GameCharacter> getImpBossGroup(AbstractWorldType fortress, boolean includeBoss) {
 		List<GameCharacter> bossGroup = new ArrayList<>();
 		
 		if(fortress==WorldType.IMP_FORTRESS_ALPHA) {
@@ -500,7 +501,7 @@ public class ImpFortressDialogue {
 		return getImpGuards(Main.game.getPlayer().getWorldLocation());
 	}
 		
-	public static List<GameCharacter> getImpGuards(WorldType fortress) {
+	public static List<GameCharacter> getImpGuards(AbstractWorldType fortress) {
 		
 		List<GameCharacter> impGuards = new ArrayList<>();
 
@@ -534,7 +535,7 @@ public class ImpFortressDialogue {
 		return getBoss(Main.game.getPlayer().getWorldLocation());
 	}
 	
-	public static GameCharacter getBoss(WorldType fortress) {
+	public static GameCharacter getBoss(AbstractWorldType fortress) {
 		if(fortress==WorldType.IMP_FORTRESS_ALPHA) {
 			return Main.game.getNpc(FortressAlphaLeader.class);
 
@@ -552,7 +553,7 @@ public class ImpFortressDialogue {
 		return getImpGuardLeader(Main.game.getPlayer().getWorldLocation());
 	}
 	
-	public static ImpAttacker getImpGuardLeader(WorldType fortress) {
+	public static ImpAttacker getImpGuardLeader(AbstractWorldType fortress) {
 		return (ImpAttacker) getImpGuards(fortress).get(0);
 	}
 
@@ -560,7 +561,7 @@ public class ImpFortressDialogue {
 		banishImpGuards(Main.game.getPlayer().getWorldLocation());
 	}
 
-	public static void banishImpGuards(WorldType fortress) {
+	public static void banishImpGuards(AbstractWorldType fortress) {
 		for(GameCharacter imp : getImpGuards(fortress)) {
 			if(!imp.isSlave() && imp.getPartyLeader()==null) {
 				Main.game.banishNPC(imp.getId());
@@ -607,7 +608,7 @@ public class ImpFortressDialogue {
 		return allCharacters;
 	}
 	
-	public static void resetGuards(WorldType fortress) {
+	public static void resetGuards(AbstractWorldType fortress) {
 		List<String> impAdjectives = new ArrayList<>();
 		List<GameCharacter> impGroup = new ArrayList<>();
 
@@ -624,7 +625,7 @@ public class ImpFortressDialogue {
 				imp.setGenericName("alpha-imp archer");
 				imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 				Main.game.addNPC(imp, false);
-				imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BOW_AND_ARROW, Util.randomItemFrom(new DamageType[] {DamageType.POISON, DamageType.FIRE})));
+				imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_bow_shortbow", Util.randomItemFrom(new DamageType[] {DamageType.POISON, DamageType.FIRE})));
 				impGroup.add(imp);
 				
 				for(GameCharacter impCharacter : impGroup) {

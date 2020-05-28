@@ -1303,22 +1303,17 @@ public class GenericOrgasms {
 					return getClothingCummedOnText(characterOrgasming, target, CoverableArea.HAIR, targetAreaClothingCummedOn);
 					
 				} else {
-					if(!target.isPlayer()) {
-						if(characterOrgasming.isPlayer()) {
-							return UtilText.parse(target,
-									" all over [npc.namePos] head"+(target.getHairRawLengthValue()>0?" and [npc.hair]":"")+"."
-									+ " You grin as your [pc.cum+] splatters onto [npc.herHim].");
-						} else {
-							return UtilText.parse(characterOrgasming, target,
-									" all over [npc2.namePos] head"+(target.getHairRawLengthValue()>0?" and [npc2.hair]":"")+"."
-									+ " [npc.Name] grins as [npc.her] [npc.cum+] splatters onto [npc2.herHim].");
-							
-						}
-					} else {
-						return UtilText.parse(characterOrgasming,
-								" all over your head"+(target.getHairRawLengthValue()>0?" and [pc.hair]":"")+"."
-								+ " [npc.Name] grins as [npc.her] [npc.cum+] splatters onto you.");
+					List<String> areas = new ArrayList<>();
+					areas.add("head");
+					if(target.hasHair()) {
+						areas.add("[npc2.hair]");
 					}
+					if(target.hasHorns()) {
+						areas.add("[npc2.horns]");
+					}
+					return UtilText.parse(characterOrgasming, target,
+							" all over [npc2.namePos] "+Util.stringsToStringList(areas, false)+"."
+							+ " [npc.Name] [npc.verb(grin)] as [npc.she] [npc.verb(watch)] [npc.her] [npc.cum+] splatter onto [npc2.herHim].");
 				}
 			case LEGS:
 				target = Main.sex.getTargetedPartner(characterOrgasming);
@@ -1677,8 +1672,8 @@ public class GenericOrgasms {
 					}
 					switch (characterOrgasming.getPenisOrgasmCumQuantity()) {
 						case SIX_EXTREME: case SEVEN_MONSTROUS:
-							cumTargetSB.append(" After a few seconds, [npc2.name] [npc2.verb(realise)] that [npc.nameIs] not even close to stopping, and as [npc.her]"
-									+" [npc.cum+] backs up and starts drooling out of the corners of [npc2.her] mouth, [npc2.she] [npc2.verb(let)] out a desperate, muffled [npc2.moan]."
+							cumTargetSB.append(" After a few seconds, [npc2.name] [npc2.verb(realise)] that [npc.nameIs] not even close to stopping,"
+												+ " and [npc2.she] [npc2.verb(let)] out a desperate, gargled [npc2.moan] as [npc.namePos] [npc.cum+] backs up and starts drooling out of the corners of [npc2.her] mouth."
 											+ " [npc.Name] [npc.verb(keep)] [npc.her] [npc.cock] hilted deep down [npc2.her] throat, [npc.moaning+] as [npc.she] [npc.verb(wait)] for [npc.her] [npc.balls] to run dry.");
 							break;
 						default:

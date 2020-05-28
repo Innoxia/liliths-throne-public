@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -46,6 +47,9 @@ public class OccupantDialogue {
 	private static boolean initFromCharactersPresent;
 	
 	public static void initDialogue(NPC targetedOccupant, boolean isApartment, boolean initFromCharactersPresent) {
+		if(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL) {
+			Main.game.saveDialogueNode();
+		}
 		CompanionManagement.initManagement(OCCUPANT_START, 2, targetedOccupant);
 		occupant = targetedOccupant;
 		characterForSex = targetedOccupant;
@@ -341,7 +345,7 @@ public class OccupantDialogue {
 									OCCUPANT_KICK_OUT) {
 								@Override
 								public Colour getHighlightColour() {
-									return PresetColour.GENERIC_BAD;
+									return PresetColour.GENERIC_NPC_REMOVAL;
 								}
 								@Override
 								public void effects() {
@@ -1197,7 +1201,7 @@ public class OccupantDialogue {
 							OCCUPANT_KICK_OUT) {
 						@Override
 						public Colour getHighlightColour() {
-							return PresetColour.GENERIC_BAD;
+							return PresetColour.GENERIC_NPC_REMOVAL;
 						}
 						@Override
 						public void effects() {
@@ -1456,7 +1460,7 @@ public class OccupantDialogue {
 								OCCUPANT_APARTMENT_REMOVE) {
 							@Override
 							public Colour getHighlightColour() {
-								return PresetColour.GENERIC_BAD;
+								return PresetColour.GENERIC_NPC_REMOVAL;
 							}
 							@Override
 							public void effects() {
