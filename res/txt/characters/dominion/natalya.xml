@@ -3,6 +3,7 @@
 
 	<!-- Dirty talk -->
 	
+	<!-- Alleyway beside Helena's shop: -->
 	<htmlContent tag="HELENA_ALLEYWAY_DIRTY_TALK"><![CDATA[[natalya.speech(Good slave! Keep on stroking your Mistress's cock!)]]]></htmlContent>
 	<htmlContent tag="HELENA_ALLEYWAY_DIRTY_TALK"><![CDATA[[natalya.speech(That's it! Keep on stroking my cock, slave!)]]]></htmlContent>
 	<htmlContent tag="HELENA_ALLEYWAY_DIRTY_TALK"><![CDATA[[natalya.speech(What a good submissive slave you are! Keep on stroking my cock!)]]]></htmlContent>
@@ -11,6 +12,42 @@
 	<htmlContent tag="HELENA_ALLEYWAY_DIRTY_TALK"><![CDATA[[natalya.speech(Keep going, slave! Stroke your Mistress's cock!)]]]></htmlContent>
 	<htmlContent tag="HELENA_ALLEYWAY_DIRTY_TALK"><![CDATA[[natalya.speech(Remember, slave, you're only to use your [pc.hands]!)]]]></htmlContent>
 	<htmlContent tag="HELENA_ALLEYWAY_DIRTY_TALK"><![CDATA[[natalya.speech(You're forbidden from using anything but your [pc.hands], slave! Keep on stroking!)]]]></htmlContent>
+	
+	<!-- Receiving blowjob: -->
+	<htmlContent tag="DIRTY_TALK_RECEIVING_BLOWJOB"><![CDATA[[natalya.speech(Yes, filly! Keep on sucking your Mistress's cock!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_RECEIVING_BLOWJOB"><![CDATA[[natalya.speech(That's it, filly! Suck my cock!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_RECEIVING_BLOWJOB"><![CDATA[[natalya.speech(That's my good little filly slut! Take my cock deep!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_RECEIVING_BLOWJOB"><![CDATA[[natalya.speech(Yes! Suck my cock, you dirty little filly!)]]]></htmlContent>
+	
+	<!-- Receiving rimjob: -->
+	<htmlContent tag="DIRTY_TALK_RECEIVING_RIMJOB"><![CDATA[[natalya.speech(Yes, filly! Get your tongue in there!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_RECEIVING_RIMJOB"><![CDATA[[natalya.speech(That's it, filly! Eat my ass!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_RECEIVING_RIMJOB"><![CDATA[[natalya.speech(That's my good little filly slut! Worship your Mistress's ass!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_RECEIVING_RIMJOB"><![CDATA[[natalya.speech(Yes! Eat my ass, you dirty little filly!)]]]></htmlContent>
+	
+	<!-- Giving anal: -->
+	<htmlContent tag="DIRTY_TALK_GIVING_ANAL"><![CDATA[[natalya.speech(Yes, filly! Take my cock!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_GIVING_ANAL"><![CDATA[[natalya.speech(That's it, filly! Take my cock deep in your slutty ass!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_GIVING_ANAL"><![CDATA[[natalya.speech(That's my good little filly slut! Let your Mistress rut your ass!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_GIVING_ANAL"><![CDATA[[natalya.speech(Yes! Your ass feels so good to fuck, you dirty little filly!)]]]></htmlContent>
+	
+	<!-- Giving blowjob: -->
+	<htmlContent tag="DIRTY_TALK_GIVING_BLOWJOB"><![CDATA[[natalya.speech(You like having your Mistress giving you a blowjob, filly?)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_GIVING_BLOWJOB"><![CDATA[[natalya.speech(I'll make you cum in no time!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_GIVING_BLOWJOB"><![CDATA[[natalya.speech(You like the feeling of my lips wrapped around your cock, filly?)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_GIVING_BLOWJOB"><![CDATA[[natalya.speech(You'd better appreciate this, you bad little filly!)]]]></htmlContent>
+	
+	<!-- Giving rimjob: -->
+	<htmlContent tag="DIRTY_TALK_GIVING_RIMJOB"><![CDATA[[natalya.speech(You like having your Mistress giving you a rimjob, filly?)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_GIVING_RIMJOB"><![CDATA[[natalya.speech(I'll make you cum in no time!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_GIVING_RIMJOB"><![CDATA[[natalya.speech(You like the feeling of my lips pressing against your ass, filly?)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_GIVING_RIMJOB"><![CDATA[[natalya.speech(You'd better appreciate this, you bad little filly!)]]]></htmlContent>
+	
+	<!-- Receiving anal: -->
+	<htmlContent tag="DIRTY_TALK_RECEIVING_ANAL"><![CDATA[[natalya.speech(You like the feeling of rutting your Mistress's ass, filly?!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_RECEIVING_ANAL"><![CDATA[[natalya.speech(My ass will make you cum in no time!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_RECEIVING_ANAL"><![CDATA[[natalya.speech(Go on, filly, get your cock in deep!)]]]></htmlContent>
+	<htmlContent tag="DIRTY_TALK_RECEIVING_ANAL"><![CDATA[[natalya.speech(You'd better appreciate this, you bad little filly!)]]]></htmlContent>
 	
 	
 	<!-- Orgasm reactions behind Helena's shop -->

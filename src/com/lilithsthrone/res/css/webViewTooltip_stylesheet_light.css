@@ -76,6 +76,15 @@ h6{
 /******************************************************/
 /*GENERIC FOR ALL*/
 
+.speech{
+}
+.speech:before {
+    content: '"';
+}
+.speech:after {
+    content: '"';
+}
+
 .title{
 	font-size:20px;
 	font-weight: bold;

@@ -27,7 +27,7 @@
 		<description><![CDATA[A flat-crowned hat made from woolen felt attached to a rigid leather band that is sometimes worn by Enforcers. The beret flash is that of the Enforcers' elite all-demon secret police: the Office of Realm Intelligence, Counterespionage, and Logistics.<br/><span style='font-style:italic;'><span style='color:#A382D3;'>Peace through Prescience</span></span>]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
-		<physicalResistance>1</physicalResistance> 
+		<physicalResistance>0</physicalResistance> 
 		
 		<!-- Use FEMININE for if this clothing is intended for feminine characters, MASCULINE for masculine, and ANDROGYNOUS if it's able to be worn by anyone without penalties. -->
 		<femininity>ANDROGYNOUS</femininity> 

@@ -12,7 +12,7 @@
 		
 		<description><![CDATA[A pair of feminine knee-high boots, made from high-quality leather. A series of straps and buckles, while having their functionality made redundant by means of a zip running up the inner sides, give these boots a very 'gothic' look.]]></description> 
 		
-		<physicalResistance>0.1</physicalResistance> 
+		<physicalResistance>1</physicalResistance> 
 		
 		<femininity>FEMININE</femininity> 
 		

@@ -180,6 +180,24 @@ public class EnforcerHQDialogue {
 			return null;
 		}
 	};
+
+	public static final DialogueNode CELLS_CORRIDOR = new DialogueNode("Cells corridor", "-", false) {
+		
+		@Override
+		public int getSecondsPassed() {
+			return 30;
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
 	
 	public static final DialogueNode CELLS_OFFICE = new DialogueNode("Cells office", "-", false) {
 		

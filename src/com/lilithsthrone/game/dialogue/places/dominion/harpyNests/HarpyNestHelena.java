@@ -1484,7 +1484,6 @@ public class HarpyNestHelena {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Scarlett.class).returnToHome();
-						Main.game.getPlayer().setLocation(Main.game.getNpc(Scarlett.class), false);
 					}
 				};
 			}

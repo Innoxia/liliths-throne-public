@@ -128,7 +128,7 @@ public enum PenisType implements BodyPartTypeInterface {
 					case EQUINE:
 						return UtilText.returnStringAtRandom("equine", "horse-like", "bestial");
 					case REINDEER_MORPH:
-						return UtilText.returnStringAtRandom("rangiferine", "reindeer-like", "bestial");
+						return UtilText.returnStringAtRandom("reindeer", "reindeer-like", "bestial");
 					case FELINE:
 						return UtilText.returnStringAtRandom("feline", "cat-like", "bestial");
 					case ALLIGATOR_MORPH:
@@ -156,14 +156,14 @@ public enum PenisType implements BodyPartTypeInterface {
 			case 1:
 				return UtilText.returnStringAtRandom(
 						gc.getPenisSize()==PenisLength.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
-						gc.getPenisGirth()==PenetrationGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
+						gc.getPenisGirth()==PenetrationGirth.THREE_AVERAGE?"":gc.getPenisGirth().getName());
 			default:
 				if(Main.game.isInSex() && this!=PenisType.DILDO) {
 					return UtilText.returnStringAtRandom("hard", "throbbing");
 				} else {
 					return UtilText.returnStringAtRandom(
 							gc.getPenisSize()==PenisLength.TWO_AVERAGE?"":gc.getPenisSize().getDescriptor(),
-							gc.getPenisGirth()==PenetrationGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
+							gc.getPenisGirth()==PenetrationGirth.THREE_AVERAGE?"":gc.getPenisGirth().getName());
 				}
 		}
 		return "";

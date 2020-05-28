@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+	<authorTag><![CDATA[A tag discreetly printed on the inside reads, "Safer Play brought to you by the Friendly Neighbourhood Co.".]]></authorTag>
+		<value>350</value> 
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[roller skating knee pad]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[roller skating knee pads]]></namePlural>
+		<description><![CDATA[A pair of plastic shells riveted to knee pads designed to protect the wearer when roller skating. They attach to the wearer's knees via velcro straps.]]></description>
+		<physicalResistance>2.0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>ANKLE</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>rollerskating_kneepads.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_PURPLE_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_STEEL"/> 
+		<tertiaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+	
+</clothing>

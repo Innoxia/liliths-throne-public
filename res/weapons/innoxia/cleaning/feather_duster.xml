@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+	
+		<value>500</value> 
+		<melee>true</melee>
+		<twoHanded>false</twoHanded>
+		<determiner><![CDATA[]]></determiner>
+		<name><![CDATA[feather duster]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[feather dusters]]></namePlural>
+		<description><![CDATA[
+		#IF(pc.getLocationPlace().getPlaceType().equals(PLACE_TYPE_SHOPPING_ARCADE_ASHLEYS_SHOP))
+			A short-handled feather duster, ideal for keeping a house clean, but not much use in combat. [ashley.speech(A feather duster: the epitome of romance, at least for those who don't know anything about their lover, other than that they're the person who keeps the house clean.)]
+		#ELSE
+			A short-handled feather duster, ideal for keeping a house clean, but not much use in combat...
+		#ENDIF]]></description>
+		<attackDescriptor>Duster tickle</attackDescriptor>
+		<attackTooltipDescription><![CDATA[Tickle [npc.name] with your feather duster!]]></attackTooltipDescription>
+		<rarity>EPIC</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(ready)] [npc.her] feather duster.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] feather duster away.]]></unequipText>
+		<imageName>feather_duster.svg</imageName> 
+		<imageEquippedName/> 
+		<damage>2</damage> 
+		<arcaneCost>0</arcaneCost> 
+		<damageVariance>LOW</damageVariance> 
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<enchantmentLimit>5</enchantmentLimit>
+		
+		<effects/>
+		
+		<primaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BROWN_VERY_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_STEEL</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_VICKY</tag>
+		</itemTags>
+		
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(tickle)] [npc2.namePos] [npc2.arm] with [npc.her] feather duster!
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(swipe)] [npc.her] feather duster at [npc2.name] and [npc.verb(manage)] to tickle [npc2.her] [npc2.face].
+		]]></hitText>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(swing)] [npc.her] feather duster at [npc2.name], grinning as [npc.she] [npc.verb(tickle)] [npc2.her] torso.
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(swipe)] [npc.her] feather duster at [npc2.name], but [npc.verb(end)] up missing [npc2.herHim]!
+		]]></missText>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(swing)] [npc.her] feather duster at [npc2.name], but [npc.she] [npc.verb(miss)] [npc.her] target!
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

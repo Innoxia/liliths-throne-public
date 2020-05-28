@@ -160,6 +160,11 @@ public class Testicle implements BodyPartInterface {
 	public String setTesticleCount(GameCharacter owner, int testicleCount) {
 		testicleCount = Math.max(MIN_TESTICLE_COUNT, Math.min(testicleCount, MAX_TESTICLE_COUNT));
 		
+		if(owner==null) {
+			this.testicleCount = testicleCount;
+			return "";
+		}
+		
 		if(owner.getTesticleCount() == testicleCount || !owner.hasPenisIgnoreDildo()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}

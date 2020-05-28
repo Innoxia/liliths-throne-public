@@ -356,6 +356,7 @@ public class ClothingEmporium {
 					return new Response("Leave", "Tell Nyan that you've got to get going.", EXTERIOR) {
 						@Override
 						public void effects() {
+							Main.game.setResponseTab(0);
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_EXIT"));
 							if(Main.game.getNpc(Nyan.class).isVisiblyPregnant()) {
 								Main.game.getNpc(Nyan.class).setCharacterReactedToPregnancy(Main.game.getPlayer(), true);

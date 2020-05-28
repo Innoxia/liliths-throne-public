@@ -486,7 +486,6 @@ public abstract class SexAction implements SexActionInterface {
 				}
 			}
 			
-			
 			List<SexAreaInterface> cummedInList = this.getAreasCummedIn(characterPerformingAction, characterTarget);
 			if(cummedInList != null) {
 				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_CUM_STUD);

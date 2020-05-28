@@ -164,7 +164,7 @@ public class Lyssieth extends NPC {
 					PersonalityTrait.LEWD);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.setTailGirth(PenetrationGirth.THREE_THICK);
+			this.setTailGirth(PenetrationGirth.FOUR_THICK);
 		}
 	}
 
@@ -221,7 +221,7 @@ public class Lyssieth extends NPC {
 //		this.setTailType(TailType.DEMON_COMMON);
 //		this.setWingType(WingType.DEMON_COMMON);
 //		this.setHornType(HornType.CURLED);
-		this.setTailGirth(PenetrationGirth.THREE_THICK);
+		this.setTailGirth(PenetrationGirth.FOUR_THICK);
 
 		// Core:
 		this.setHeight(184);
@@ -396,8 +396,9 @@ public class Lyssieth extends NPC {
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_RED), true);
 		
 		Main.game.getPlayer().setTailType(TailType.DEMON_COMMON);
-		Main.game.getPlayer().setTailGirth(PenetrationGirth.THREE_THICK);
+		Main.game.getPlayer().setTailGirth(PenetrationGirth.FOUR_THICK);
 		Main.game.getPlayer().setHornType(HornType.SWEPT_BACK);
+		Main.game.getPlayer().setHornLength(HornLength.ONE_SMALL.getMedianValue());
 		Main.game.getPlayer().setMinimumHornsPerRow(2);
 		Main.game.getPlayer().getLegConfiguration().setWingsToDemon(Main.game.getPlayer());
 		Main.game.getPlayer().setEarType(EarType.DEMON_COMMON);
@@ -570,10 +571,15 @@ public class Lyssieth extends NPC {
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
-								Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
 								Main.game.getPlayer().setArmType(ArmType.DEMON_COMMON);
 								Main.game.getPlayer().getLegConfiguration().setLegsToDemon(Main.game.getPlayer());
 								Main.game.getPlayer().setArousal(100, true);
+							}
+						}
+						@Override
+						public void applyEndEffects() {
+							if(applyExtraEffects) {
+								Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
 							}
 						}
 					};
@@ -592,12 +598,17 @@ public class Lyssieth extends NPC {
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
+								setPlayerToFullDemon();
+							}
+						}
+						@Override
+						public void applyEndEffects() {
+							if(applyExtraEffects) {
 								if(Main.sex.getSexPositionSlot(Main.game.getPlayer())==SexSlotLyingDown.MATING_PRESS) {
 									Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Leg.class));
 								} else {
 									Main.sex.setCreampieLockedBy(new Value<>(Main.game.getNpc(Lyssieth.class), Tail.class));
 								}
-								setPlayerToFullDemon();
 							}
 						}
 					};
@@ -763,12 +774,12 @@ public class Lyssieth extends NPC {
 		this.setPenisType(type);
 		this.setPenisVirgin(false);
 		if(type.getRace()==Race.HUMAN) {
-			this.setPenisGirth(PenetrationGirth.THREE_THICK);
+			this.setPenisGirth(PenetrationGirth.FOUR_THICK);
 			this.setPenisSize(18);
 			this.setTesticleSize(TesticleSize.THREE_LARGE);
 			this.setPenisCumStorage(500);
 		} else {
-			this.setPenisGirth(PenetrationGirth.FOUR_FAT);
+			this.setPenisGirth(PenetrationGirth.FIVE_FAT);
 			this.setPenisSize(30);
 			this.setTesticleSize(TesticleSize.FOUR_HUGE);
 			this.setPenisCumStorage(2500);
@@ -794,7 +805,7 @@ public class Lyssieth extends NPC {
 		this.setSubspeciesOverride(Subspecies.ELDER_LILIN);
 		this.setAgeAppearanceDifferenceToAppearAsAge(45);
 		this.setTailType(TailType.DEMON_COMMON);
-		this.setTailGirth(PenetrationGirth.THREE_THICK);
+		this.setTailGirth(PenetrationGirth.FOUR_THICK);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setWingSize(WingSize.FOUR_HUGE.getValue());
 		this.setHornType(HornType.SWEPT_BACK);

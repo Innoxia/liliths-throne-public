@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -57,21 +58,39 @@ public class SexType implements XMLSaving {
 	
 	@Override
 	public Element saveAsXML(Element parentElement, Document doc) {
-		Element effect = doc.createElement("sexType");
-		parentElement.appendChild(effect);
+		Element sexTypeElement = doc.createElement("sexType");
+		parentElement.appendChild(sexTypeElement);
 		
-		CharacterUtils.addAttribute(doc, effect, "SexParticipantType", asParticipant.toString());
-		CharacterUtils.addAttribute(doc, effect, "penetrationType", performingSexArea.toString());
-		CharacterUtils.addAttribute(doc, effect, "orificeType", targetedSexArea.toString());
+		CharacterUtils.addAttribute(doc, sexTypeElement, "participant", asParticipant.toString());
+		CharacterUtils.addAttribute(doc, sexTypeElement, "self", performingSexArea.toString());
+		CharacterUtils.addAttribute(doc, sexTypeElement, "other", targetedSexArea.toString());
 		
-		return effect;
+		return sexTypeElement;
 	}
 	
 	public static SexType loadFromXML(Element parentElement, Document doc) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.6")) {
+			return new SexType(
+					SexParticipantType.valueOf(parentElement.getAttribute("SexParticipantType")),
+					SexAreaPenetration.valueOf(parentElement.getAttribute("penetrationType")),
+					SexAreaOrifice.valueOf(parentElement.getAttribute("orificeType")));
+		}
+		SexAreaInterface selfArea;
+		SexAreaInterface otherArea;
+		try {
+			selfArea = SexAreaPenetration.valueOf(parentElement.getAttribute("self"));
+		} catch(Exception ex) {
+			selfArea = SexAreaOrifice.valueOf(parentElement.getAttribute("self"));
+		}
+		try {
+			otherArea = SexAreaPenetration.valueOf(parentElement.getAttribute("other"));
+		} catch(Exception ex) {
+			otherArea = SexAreaOrifice.valueOf(parentElement.getAttribute("other"));
+		}
 		return new SexType(
-				SexParticipantType.valueOf(parentElement.getAttribute("SexParticipantType")),
-				SexAreaPenetration.valueOf(parentElement.getAttribute("penetrationType")),
-				SexAreaOrifice.valueOf(parentElement.getAttribute("orificeType")));
+				SexParticipantType.valueOf(parentElement.getAttribute("participant")),
+				selfArea,
+				otherArea);
 	}
 	
 	public String getName() {
@@ -177,7 +196,9 @@ public class SexType implements XMLSaving {
 					fetishes.add(Fetish.FETISH_FOOT_GIVING);
 					break;
 				case TONGUE:
-					fetishes.add(Fetish.FETISH_ORAL_GIVING);
+					if(getTargetedSexArea()!=SexAreaOrifice.MOUTH) { // Kissing should not be associated with oral fetish.
+						fetishes.add(Fetish.FETISH_ORAL_GIVING);
+					}
 					break;
 			}
 		}
@@ -193,7 +214,9 @@ public class SexType implements XMLSaving {
 					fetishes.add(Fetish.FETISH_BREASTS_SELF);
 					break;
 				case MOUTH:
-					fetishes.add(Fetish.FETISH_ORAL_GIVING);
+					if(getTargetedSexArea()!=SexAreaPenetration.TONGUE) { // Kissing should not be associated with oral fetish.
+						fetishes.add(Fetish.FETISH_ORAL_GIVING);
+					}
 					break;
 				case NIPPLE:
 					if(characterPerforming.getBreastRawStoredMilkValue()>0) {
@@ -248,7 +271,9 @@ public class SexType implements XMLSaving {
 					fetishes.add(Fetish.FETISH_FOOT_RECEIVING);
 					break;
 				case TONGUE:
-					fetishes.add(Fetish.FETISH_ORAL_RECEIVING);
+					if(getPerformingSexArea()!=SexAreaOrifice.MOUTH) { // Kissing should not be associated with oral fetish.
+						fetishes.add(Fetish.FETISH_ORAL_RECEIVING);
+					}
 					break;
 			}
 		}
@@ -270,7 +295,9 @@ public class SexType implements XMLSaving {
 					fetishes.add(Fetish.FETISH_BREASTS_OTHERS);
 					break;
 				case MOUTH:
-					fetishes.add(Fetish.FETISH_ORAL_RECEIVING);
+					if(getPerformingSexArea()!=SexAreaPenetration.TONGUE) { // Kissing should not be associated with oral fetish.
+						fetishes.add(Fetish.FETISH_ORAL_RECEIVING);
+					}
 					if(getPerformingSexArea()!=null && isPenetration && getPerformingSexArea().isPenetration() && ((SexAreaPenetration)getPerformingSexArea()).isTakesVirginity() &&  characterTargeted.isFaceVirgin()) {
 						fetishes.add(Fetish.FETISH_DEFLOWERING);
 					}

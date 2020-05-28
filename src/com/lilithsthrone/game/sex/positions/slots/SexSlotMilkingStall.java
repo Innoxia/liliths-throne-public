@@ -64,6 +64,32 @@ public class SexSlotMilkingStall {
 	};
 
 	
+	public static final SexSlot BENEATH_MILKING_STALL = new SexSlot(
+			"All fours",
+			"all fours",
+			"[npc1.Name] [npc1.verb(buck)] [npc.her] hips back, thrusting into [npc2.namePos] groin and letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
+			false,
+			SexSlotTag.ALL_FOURS);
+	public static final SexSlot BENEATH_MILKING_STALL_TWO = new SexSlot(BENEATH_MILKING_STALL) {
+		@Override
+		public String getDescription() {
+			return "all fours (2nd)";
+		}
+	};
+	public static final SexSlot BENEATH_MILKING_STALL_THREE = new SexSlot(BENEATH_MILKING_STALL) {
+		@Override
+		public String getDescription() {
+			return "all fours (3rd)";
+		}
+	};
+	public static final SexSlot BENEATH_MILKING_STALL_FOUR = new SexSlot(BENEATH_MILKING_STALL) {
+		@Override
+		public String getDescription() {
+			return "all fours (4th)";
+		}
+	};
+
+	
 	public static final SexSlot PERFORMING_ORAL = new SexSlot(
 			"Performing oral",
 			"performing oral",

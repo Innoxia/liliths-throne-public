@@ -18,7 +18,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.88
- * @version 0.3.5.5
+ * @version 0.3.7.8
  * @author Innoxia
  */
 public class TongueNipple {
@@ -30,16 +30,14 @@ public class TongueNipple {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.NIPPLE)),
 			SexParticipantType.NORMAL) {
-
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return true;
 		}
 		@Override
 		public boolean isPhysicallyPossible() {
-			return true;
+			return true; // Need this to override detection of whether nipples are penetrable or not.
 		}
-		
 		@Override
 		public String getActionTitle() {
 			switch(Main.sex.getCharacterTargetedForSexAction(this).getNippleShape()) {
@@ -65,7 +63,6 @@ public class TongueNipple {
 			}
 			return "";
 		}
-
 		@Override
 		public String getActionDescription() {
 			StringBuilder sb = new StringBuilder();
