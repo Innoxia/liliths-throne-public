@@ -28,7 +28,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -196,7 +196,7 @@ public class ImpCitadelDialogue {
 					
 				} else if(i==1) {
 					imp.setGenericName("alpha-imp archer");
-					imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_BOW_AND_ARROW));
+					imp.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_bow_shortbow"));
 					
 				} else if(i==2) {
 					imp.setGenericName("alpha-imp arcanist");
@@ -1805,7 +1805,7 @@ public class ImpCitadelDialogue {
 								false));
 
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addWeapon(
-								AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.PHYSICAL, PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_RED_DARK),
+								AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_scythe_scythe"), DamageType.PHYSICAL, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_RED_DARK)),
 								false));
 					}
 				};

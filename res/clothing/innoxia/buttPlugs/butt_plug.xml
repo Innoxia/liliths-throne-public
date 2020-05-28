@@ -51,8 +51,8 @@
 	
 	<sexAttributesSelf> <!-- These are the sex attributes applicable to the wearer (i.e. when inserted in the wearer's orifices or when the wearer is penetrating this clothing type. Mainly used for insertable dildos.) -->
 		<penetration>
-			<length>15</length> <!-- cm value -->
-			<girth>4</girth> <!-- 0-4 corresponding to PenetrationGirth Enum values -->
+			<length>10</length> <!-- cm value -->
+			<girth>6</girth> <!-- 0-6 corresponding to PenetrationGirth Enum values -->
 			<modifiers/> <!-- This item has no modifiers, but if they are needed, use the format below: -->
 			<!--
 			<modifiers>

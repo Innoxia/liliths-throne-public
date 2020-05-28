@@ -327,7 +327,7 @@ public class Scarlett extends NPC {
 	public void dailyUpdate() {
 		if(!this.isSlave() && this.hasVagina() && !Main.game.getCharactersPresent().contains(this)) { // Female Scarlett:
 			if(this.getMinutesSinceLastTimeHadSex()>(60*22) || this.isVaginaVirgin()) {// Scarlett has sex with one of her followers every night (if she is horny or is a virgin):
-				if(this.isLikesPlayer()) { // If Scarlett likes the player, she won't let anyone else get her pregnant.
+				if(this.isLikesPlayer() || Math.random()<0.8f) { // If Scarlett likes the player, she won't let anyone else get her pregnant. Also 80% chance for her to force her followers to pull out or use a condom.
 					this.calculateGenericSexEffects(
 							true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_CREAMPIE);
 				} else {

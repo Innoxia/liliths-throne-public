@@ -56,8 +56,8 @@
 
 	<sexAttributesSelf>
 		<penetration>
-			<length>15</length>
-			<girth>4</girth>
+			<length>10</length>
+			<girth>6</girth>
 			<modifiers/>
 		</penetration>
 		<orifice/>

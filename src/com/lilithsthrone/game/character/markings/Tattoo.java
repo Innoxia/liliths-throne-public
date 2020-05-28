@@ -274,13 +274,11 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		}
 		
 		return Util.capitaliseSentence(this.getPrimaryColour().getName()) + " "
-				+ (withRarityColour
-					?" <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>"
-						+ (this.getType()==TattooType.NONE
-							?"tattoo"
-							:this.getName() + " tattoo")
-						+ "</span>"
-					: this.getName()+" tattoo")
+				+ (withRarityColour?" <span style='color: " + this.getRarity().getColour().toWebHexString() + ";'>":"")
+					+ (this.getType()==TattooType.NONE
+						?"tattoo"
+						:this.getName() + " tattoo")
+				+ (withRarityColour?"</span>":"")
 				+(!this.getEffects().isEmpty()
 						? " "+getEnchantmentPostfix(withRarityColour, "b")
 						: "");
@@ -379,7 +377,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	}
 	
 	public void setEffects(List<ItemEffect> effects) {
-		this.effects = effects;
+		this.effects = new ArrayList<>(effects);
 	}
 
 	public void addEffect(ItemEffect effect) {

@@ -125,9 +125,28 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="ROMANCE_SHOP_CORE_END_DATE"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			#IF(!game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
+				Telling Scarlett to step back, Helena once again teases, [helena.speech(So, [pc.name], are you here to take me out on a date? Or perhaps before we get to that, you'd like to spend some time in the back room with me?)]
+			#ELSE
+				Telling Scarlett to step back, Helena once again teases, [helena.speech(So, [pc.name], are you here to take me out on a date?)]
+			#ENDIF
+		#ELSE
+			#IF(scarlett.isLikesPlayer())
+				Letting another gentle smile settle on her beautiful face, Helena gently asks again,
+			#ELSE
+				[helena.speech(Scarlett! Behave yourself!)] Helena icily warns her companion, before letting another gentle smile settle on her beautiful face and asking,
+			#ENDIF
+			 [helena.speech(So, [pc.name], are you here to take me out on a date?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="ROMANCE_SHOP_CORE_END_CUSTOM_SLAVE_PROGRESS"><![CDATA[
 	<p>
-		Helena tells you that it will be another [#SPECIAL_PARSE_0] days until your slave is ready for collection, which will be on [#SPECIAL_PARSE_1].
 		#IF(helena.isSlutty())
 			#IF(game.getDialogueFlags().hasFlag(FLAG_helenaScarlettThreesome) && !game.getDialogueFlags().hasFlag(FLAG_helenaShopFucked))
 				Brushing one of her flawless wings up against Scarlett's body, Helena once again teases, [helena.speech(Just to remind you, [pc.name], it will be another [#SPECIAL_PARSE_0] days until your slave is ready for collection, which will be on [#SPECIAL_PARSE_1]. Perhaps you're not here about that though? Maybe you're here to spend some time in the back room with the two of us, hmm?)]
@@ -279,14 +298,38 @@
 	</htmlContent>
 	
 	
-	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_FACE -->
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES -->
 	
-	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_FACE"><![CDATA[
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES"><![CDATA[
+	<p>
+		The form in front of you is titled 'Transformation: Eyes', and as you start reading through it, Helena says, [helena.speech(You can choose whatever colour combinations you'd like.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR"><![CDATA[
 	<p>
 		#IF(helena.isSlutty())
-			The form in front of you is titled 'Transformation: Face & Hair', and as you start reading through it, Helena lewdly adds, [helena.speech(With all these mouth and tongue options, I bet you could make a slave that's great at performing oral...)]
+			The form in front of you is titled 'Transformation: Hair', and as you start reading through it, Helena lewdly adds, [helena.speech(You could give your slave long hair and pigtails, so that you've got something to hold onto while they're performing oral on you...)]
 		#ELSE
-			The form in front of you is titled 'Transformation: Face & Hair', and as you start reading through it, Helena says, [helena.speech(There really are quite a lot of options on this form. Please do take your time; there's no rush.)]
+			The form in front of you is titled 'Transformation: Hair', and as you start reading through it, Helena says, [helena.speech(Please take your time in choosing the length, colour, and style of your slave's hair.)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD -->
+	
+	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD"><![CDATA[
+	<p>
+		#IF(helena.isSlutty())
+			The form in front of you is titled 'Transformation: Head & Face', and as you start reading through it, Helena lewdly adds, [helena.speech(With all these mouth and tongue options, I bet you could make a slave that's great at performing oral...)]
+		#ELSE
+			The form in front of you is titled 'Transformation: Head & Face', and as you start reading through it, Helena says, [helena.speech(There really are quite a lot of options on this form. Please do take your time; there's no rush.)]
 		#ENDIF
 	</p>
 	]]>
@@ -386,7 +429,7 @@
 	
 	<htmlContent tag="HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS"><![CDATA[
 	<p>
-			The form in front of you is titled 'Miscellaneous: Piercings', and as you start reading through it, Helena says, [helena.speech(Mark down all the parts of your slave that you want us to pierce for you.)]
+		The form in front of you is titled 'Miscellaneous: Piercings', and as you start reading through it, Helena says, [helena.speech(Mark down all the parts of your slave that you want us to pierce for you.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -660,7 +703,7 @@
 	</htmlContent>
 	
 	<!-- Blowjob -->
-	<htmlContent tag="BLOWJOB_FIRST_TIME"><![CDATA[
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM_RECEIVE_BLOWJOB_FIRST_TIME"><![CDATA[
 	<p>
 		Thinking that you should give Helena her first experience of what it's like to suck cock, you tell her that you want her to drop to her knees and give you a blowjob. Although she's eager to engage in other lewd acts, the thought of having a cock in her mouth causes the harpy matriarch to nervously ask, [helena.speechNoEffects(Y-You really want me to... Suck your cock?)]
 	</p>
@@ -682,7 +725,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="BLOWJOB_EXPERIENCED"><![CDATA[
+	<htmlContent tag="HELENAS_SHOP_BACK_ROOM_RECEIVE_BLOWJOB_EXPERIENCED"><![CDATA[
 	<p>
 		Thinking that it would be good to get Helena to suck your cock again, you tell her that you want her to drop to her knees and give you a blowjob. Flashing you a cheeky smile as you say this, the lewd harpy matriarch blows you a wet kiss and teases, [helena.speechNoEffects(You want these lips wrapped around your cock again, hmm?)]
 	</p>

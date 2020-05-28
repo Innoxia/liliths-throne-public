@@ -94,6 +94,7 @@ public interface BodyPartTypeInterface {
 //	/** @return The description of this body part being changed. */
 //	public String getTransformationDescription(GameCharacter owner);
 
+	//TODO move to Race
 	/** @return The name that should be used when describing this body part in the context of transformations. */
 	public default String getTransformName() {
 		if(getRace()==null) {

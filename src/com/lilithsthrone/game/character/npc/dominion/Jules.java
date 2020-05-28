@@ -203,7 +203,7 @@ public class Jules extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.THREE_THICK);
+		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
 		this.setPenisSize(25);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(40);
@@ -227,7 +227,7 @@ public class Jules extends NPC {
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
+		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_eye_aviators", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
 
 	}
 

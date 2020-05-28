@@ -22,11 +22,10 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.1
- * @version 0.2.1
+ * @version 0.3.7.7
  * @author Innoxia
  */
 public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving {
-	
 	
 	private String milkProvider;
 	private FluidMilk milk;
@@ -41,7 +40,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving 
 		for(FluidModifier fm : milk.getFluidModifiers()) {
 			this.milk.addFluidModifier(milkProvider, fm);
 		}
-		this.colourShade = colour;
+		this.setColour(0, colour);
 		SVGString = getSVGString(itemType.getPathName(), colour);
 		this.millilitresStored = millilitresStored;
 	}
@@ -55,7 +54,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving 
 		for(FluidModifier fm : milk.getFluidModifiers()) {
 			this.milk.addFluidModifier(null, fm);
 		}
-		this.colourShade = colour;
+		this.setColour(0, colour);
 		SVGString = getSVGString(itemType.getPathName(), colour);
 		this.millilitresStored = millilitresStored;
 	}
@@ -85,7 +84,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving 
 		parentElement.appendChild(element);
 		
 		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
-		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().getId());
+		CharacterUtils.addAttribute(doc, element, "colour", this.getColour(0).getId());
 		CharacterUtils.addAttribute(doc, element, "milkProvider", this.getMilkProviderId());
 		CharacterUtils.addAttribute(doc, element, "millilitresStored", String.valueOf(this.getMillilitresStored()));
 		

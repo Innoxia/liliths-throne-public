@@ -1,5 +1,9 @@
 package com.lilithsthrone.game.character.body;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -7,15 +11,16 @@ import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
- * @version 0.2.1
+ * @version 0.3.7.5
  * @author Innoxia
  */
-public class Covering  {
+public class Covering implements XMLSaving {
 	
 	protected BodyCoveringType type;
 	protected CoveringPattern pattern;
@@ -94,6 +99,46 @@ public class Covering  {
 		this.primaryGlowing = coveringToClone.isPrimaryGlowing();
 		this.secondaryColour = coveringToClone.getSecondaryColour();
 		this.secondaryGlowing = coveringToClone.isSecondaryGlowing();
+	}
+	
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element element = doc.createElement("covering");
+		parentElement.appendChild(element);
+		
+		CharacterUtils.addAttribute(doc, element, "type", this.type.toString());
+		CharacterUtils.addAttribute(doc, element, "pat", this.pattern.toString());
+		CharacterUtils.addAttribute(doc, element, "mod", this.modifier.toString());
+		CharacterUtils.addAttribute(doc, element, "c1", this.primaryColour.getId());
+		if(this.primaryGlowing) {
+			CharacterUtils.addAttribute(doc, element, "g1", String.valueOf(this.primaryGlowing));
+		}
+		CharacterUtils.addAttribute(doc, element, "c2", this.secondaryColour.getId());
+		if(this.secondaryGlowing) {
+			CharacterUtils.addAttribute(doc, element, "g2", String.valueOf(this.secondaryGlowing));
+		}
+		return element;
+	}
+
+	public static Covering loadFromXML(StringBuilder log, Element parentElement, Document doc) {
+		try {
+			return new Covering(
+					BodyCoveringType.getTypeFromString(parentElement.getAttribute("type")),
+					CoveringPattern.valueOf(parentElement.getAttribute("pat")),
+					CoveringModifier.valueOf(parentElement.getAttribute("mod")),
+					PresetColour.getColourFromId(parentElement.getAttribute("c1")),
+					!parentElement.getAttribute("g1").isEmpty()
+						?Boolean.valueOf(parentElement.getAttribute("g1"))
+						:false,
+					PresetColour.getColourFromId(parentElement.getAttribute("c2")),
+					!parentElement.getAttribute("g2").isEmpty()
+						?Boolean.valueOf(parentElement.getAttribute("g2"))
+						:false);
+			
+		} catch(Exception ex) {
+			System.err.println(ex.getMessage());
+			return new Covering(BodyCoveringType.getTypeFromString(parentElement.getAttribute("type")));
+		}
 	}
 	
 	public String getDeterminer(GameCharacter gc) {

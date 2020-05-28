@@ -64,7 +64,7 @@ public class Tail implements BodyPartInterface {
 		
 		descriptors.add(type.getDescriptor(gc));
 		
-		if(gc.getTailGirth()!=PenetrationGirth.TWO_AVERAGE) {
+		if(gc.getTailGirth()!=PenetrationGirth.THREE_AVERAGE) {
 			descriptors.add(gc.getTailGirth().getName());
 		}
 		
@@ -195,7 +195,7 @@ public class Tail implements BodyPartInterface {
 	 */
 	public String setTailGirth(GameCharacter owner, int girth) {
 		if(owner==null) {
-			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.FOUR_FAT.getValue()));
+			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.getMaximum()));
 			return "";
 		}
 		
@@ -210,10 +210,10 @@ public class Tail implements BodyPartInterface {
 				girthChange = 0 - this.girth;
 				this.girth = 0;
 			}
-		} else if (girth >= PenetrationGirth.FOUR_FAT.getValue()) {
-			if (this.girth != PenetrationGirth.FOUR_FAT.getValue()) {
-				girthChange = PenetrationGirth.FOUR_FAT.getValue() - this.girth;
-				this.girth = PenetrationGirth.FOUR_FAT.getValue();
+		} else if (girth >= PenetrationGirth.getMaximum()) {
+			if (this.girth != PenetrationGirth.getMaximum()) {
+				girthChange = PenetrationGirth.getMaximum() - this.girth;
+				this.girth = PenetrationGirth.getMaximum();
 			}
 		} else {
 			if (this.girth != girth) {

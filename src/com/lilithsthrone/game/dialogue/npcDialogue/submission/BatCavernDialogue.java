@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.QuickTransformations;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -34,6 +35,7 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 
@@ -255,14 +257,16 @@ public class BatCavernDialogue {
 					};
 					
 				} else if (index == 2) {
-					if(Main.game.getPlayer().getMoney()<250) {
-						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
+					if(Main.game.getPlayer().getMoney()<DialogueFlags.MUGGER_DEMAND_2) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(DialogueFlags.MUGGER_DEMAND_2, "span")+")",
+								"You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
 					} else {
-						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogue(false)) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(DialogueFlags.MUGGER_DEMAND_2, "span")+")",
+								"Offer to pay [npc.name] "+Util.intToString(DialogueFlags.MUGGER_DEMAND_2)+" flames to leave you alone.", Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
-								Main.game.getPlayer().incrementMoney(-250);
+								Main.game.getPlayer().incrementMoney(-DialogueFlags.MUGGER_DEMAND_2);
 								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "CAVERN_ATTACK_PAY_OFF", getAllCharacters()));
 							}
 						};
@@ -407,16 +411,16 @@ public class BatCavernDialogue {
 					};
 					
 				} else if (index == 2) {
-					if(Main.game.getPlayer().getMoney()<250) {
-						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")",
+					if(Main.game.getPlayer().getMoney()<DialogueFlags.MUGGER_DEMAND_2) {
+						return new Response("Offer money ("+UtilText.formatAsMoney(DialogueFlags.MUGGER_DEMAND_2, "span")+")",
 								"You don't have enough money to offer [npc.name] any.", null);
 					} else {
-						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")",
+						return new Response("Offer money ("+UtilText.formatAsMoney(DialogueFlags.MUGGER_DEMAND_2, "span")+")",
 								"Offer [npc.name] some money to help [npc.herHim] buy food and clothing.", CAVERN_PEACEFUL_OFFER_MONEY) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-250));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-DialogueFlags.MUGGER_DEMAND_2));
 								Main.game.getTextEndStringBuilder().append(getMugger().incrementAffection(Main.game.getPlayer(), 10));
 
 								if(getMugger().isAffectionHighEnoughToInviteHome() && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION)) {
@@ -968,8 +972,13 @@ public class BatCavernDialogue {
 			} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
-						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+						UtilText.parse(getMugger(), "Scare [npc.name] away."
+								+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 						Main.game.getDefaultDialogue(false)){
+					@Override
+					public Colour getHighlightColour() {
+						return PresetColour.GENERIC_NPC_REMOVAL;
+					}
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/submission/batCavern/"+getDialogueId(), "AFTER_COMBAT_VICTORY_BANISH_NPC", getAllCharacters()));
@@ -1870,8 +1879,13 @@ public class BatCavernDialogue {
 			} else if (index == 10 && !getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
-						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+						UtilText.parse(getMugger(), "Scare [npc.name] away."
+								+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 						AFTER_COMBAT_VICTORY){
+					@Override
+					public Colour getHighlightColour() {
+						return PresetColour.GENERIC_NPC_REMOVAL;
+					}
 					@Override
 					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogue(false);

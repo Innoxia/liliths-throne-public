@@ -112,6 +112,9 @@ public class SlimeGuardIce extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.7")) {
+			this.setStartingBody(false);
+		}
 		setStartingCombatMoves();
 	}
 
@@ -176,6 +179,7 @@ public class SlimeGuardIce extends NPC {
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_ANUS, CoveringPattern.ORIFICE_ANUS, PresetColour.COVERING_BLUE_DARK, false, PresetColour.COVERING_BLUE_DARK, true), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_HAIR, PresetColour.COVERING_BLUE_DARK), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_MOUTH, CoveringPattern.ORIFICE_MOUTH, PresetColour.COVERING_BLUE_DARK, false, PresetColour.COVERING_BLUE_DARK, true), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_TONGUE, CoveringPattern.NONE, PresetColour.COVERING_BLUE_DARK, true, PresetColour.COVERING_BLUE_DARK, true), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_NIPPLES, PresetColour.COVERING_BLUE_DARK), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_VAGINA, CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_BLUE_DARK, false, PresetColour.COVERING_BLUE_DARK, true), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.SLIME_PENIS, CoveringPattern.NONE, PresetColour.COVERING_BLUE_DARK, false, PresetColour.COVERING_BLUE_DARK, true), false);

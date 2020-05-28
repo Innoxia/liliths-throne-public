@@ -94,10 +94,6 @@ public class BasicSlave extends NPC {
 			
 			// MISC.:
 			
-//			initPerkTreeAndBackgroundPerks();
-			
-			equipBasicCombatMoves();
-			
 			initHealthAndManaToMax();
 		}
 	}

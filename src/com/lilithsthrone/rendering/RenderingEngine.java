@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
+import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -27,8 +28,8 @@ import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.CombatMove;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.moves.CombatMove;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
@@ -56,6 +57,7 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Pathing;
+import com.lilithsthrone.utils.SizedStack;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
@@ -69,7 +71,7 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractGlobalPlaceType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
-import com.lilithsthrone.world.places.Population;
+import com.lilithsthrone.world.population.Population;
 
 /**
  * @since 0.1.0
@@ -102,9 +104,9 @@ public enum RenderingEngine {
 	
 	public static InventorySlot[] mainInventorySlots = {
 			InventorySlot.EYES,			InventorySlot.HEAD,			InventorySlot.HAIR,		InventorySlot.HORNS,
-			InventorySlot.NECK,			InventorySlot.TORSO_OVER,	InventorySlot.MOUTH,	InventorySlot.WINGS,
-			InventorySlot.STOMACH,		InventorySlot.TORSO_UNDER,	InventorySlot.CHEST,	InventorySlot.NIPPLE,
-			InventorySlot.WRIST,		InventorySlot.HIPS,			InventorySlot.HAND,		InventorySlot.FINGER,
+			InventorySlot.MOUTH,		InventorySlot.TORSO_OVER,	InventorySlot.NECK,	InventorySlot.WINGS,
+			InventorySlot.WRIST,		InventorySlot.TORSO_UNDER,	InventorySlot.CHEST,	InventorySlot.NIPPLE,
+			InventorySlot.HAND,			InventorySlot.HIPS,			InventorySlot.STOMACH,		InventorySlot.FINGER,
 			InventorySlot.ANKLE,		InventorySlot.LEG,			InventorySlot.GROIN,	InventorySlot.TAIL};
 
 	public static InventorySlot[] secondaryInventorySlots = {InventorySlot.SOCK, InventorySlot.FOOT, InventorySlot.ANUS, InventorySlot.PENIS, InventorySlot.VAGINA};
@@ -306,14 +308,14 @@ public enum RenderingEngine {
 										? "style='"+piercingStyle+" border-width:2px; border-color:" + PresetColour.SEALED.toWebHexString() + "; border-style:solid;'"
 										: "style='"+piercingStyle+"'")
 								+ ">");
-								
+						
 						equippedPanelSB.append("<div class='inventory-icon-content'>"+clothing.getSVGEquippedString(charactersInventoryToRender)+"</div>");
-									
+						
 						equippedPanelSB.append((!clothing.getDisplacedList().isEmpty() ? "<div class='displacedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDisplacedIcon() + "</div>" : ""));
-						equippedPanelSB.append((clothing.isDirty() ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : ""));
+						equippedPanelSB.append((clothing.isDirty() ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDirtyIcon() + "</div>" : ""));
 						equippedPanelSB.append((clothing.getClothingType().getFemininityMaximum() < charactersInventoryToRender.getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getMasculineWarningIcon() + "</div>" : ""));
 						equippedPanelSB.append((clothing.getClothingType().getFemininityMinimum() > charactersInventoryToRender.getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getFeminineWarningIcon() + "</div>" : ""));
-
+						
 						// Only append the most important of these effects:
 						if(charactersInventoryToRender.getSexToyOrificeStretching().containsValue(clothing)) {
 							equippedPanelSB.append("<div class='stretchIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretching() + "</div>");
@@ -459,7 +461,7 @@ public enum RenderingEngine {
 						equippedPanelSB.append("<div class='inventory-icon-content'>"+clothing.getSVGEquippedString(charactersInventoryToRender)+"</div>");
 	
 						equippedPanelSB.append((!clothing.getDisplacedList().isEmpty() ? "<div class='displacedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDisplacedIcon() + "</div>" : ""));
-						equippedPanelSB.append((clothing.isDirty() ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : ""));
+						equippedPanelSB.append((clothing.isDirty() ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDirtyIcon() + "</div>" : ""));
 						equippedPanelSB.append((clothing.getClothingType().getFemininityMaximum() < charactersInventoryToRender.getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getMasculineWarningIcon() + "</div>" : ""));
 						equippedPanelSB.append((clothing.getClothingType().getFemininityMinimum() > charactersInventoryToRender.getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getFeminineWarningIcon() + "</div>" : ""));
 						
@@ -479,14 +481,14 @@ public enum RenderingEngine {
 					// add to content:
 					if (blockedSlots.contains(invSlot)) {
 						equippedPanelSB.append("<div class='"+inventorySlotId+" disabled'>"
-													+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : "")
+													+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDirtyIcon() + "</div>" : "")
 													+ "<div class='overlay' id='" + invSlot.toString() + "Slot'></div>"
 												+ "</div>");
 						
 					} else if (block != null) {
 						equippedPanelSB.append(
 								"<div class='"+inventorySlotId+" disabled-light'>"
-									+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : "")
+									+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDirtyIcon() + "</div>" : "")
 									+ "<div class='overlay' id='" + invSlot.toString() + "Slot'></div>"
 									+ "<div class='raceBlockIcon' style='opacity:0.5;'>" + Subspecies.getMainSubspeciesOfRace(block.getRace()).getSVGStringDesaturated(charactersInventoryToRender) + "</div>"
 								+ "</div>");
@@ -514,68 +516,85 @@ public enum RenderingEngine {
 						}
 						
 						equippedPanelSB.append("<div class='"+inventorySlotId+""+(disabled?" disabled":"")+"' id='" + invSlot.toString() + "Slot'>"
-								+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : "")
+								+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDirtyIcon() + "</div>" : "")
 								+ "</div>");
 					}
 				}
 				
-			} else {
-				// Tattoos:
-				
-				Tattoo tattoo = charactersInventoryToRender.getTattooInSlot(invSlot);
-				
-				if (tattoo != null) {
-					// add to content:
-					equippedPanelSB.append(
-							// If slot is sealed:
-							"<div class='"+inventorySlotId + getClassRarityIdentifier(tattoo.getRarity()) +"'>"
-								// Picture:
-								+ "<div class='inventory-icon-content'>"+tattoo.getSVGImage(charactersInventoryToRender)+"</div>"
-								
-								// If scarred:
-								+ (charactersInventoryToRender.getScarInSlot(invSlot)!=null ? "<div class='displacedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getScarIcon() + "</div>" : "")
-								
-								+ "<div class='overlay-inventory no-pointer' id='" + invSlot.toString() + "Slot'>" + "</div>"
-							+ "</div>");
+			} else { // Tattoos:
+				boolean disabled = false;
+				switch(invSlot){
+					case HORNS:
+						disabled = charactersInventoryToRender.getHornType().equals(HornType.NONE);
+						break;
+					case PENIS:
+						disabled = !charactersInventoryToRender.hasPenisIgnoreDildo();
+						break;
+					case TAIL:
+						disabled = charactersInventoryToRender.getTailType()==TailType.NONE;
+						break;
+					case VAGINA:
+						disabled = !charactersInventoryToRender.hasVagina();
+						break;
+					case WINGS:
+						disabled = charactersInventoryToRender.getWingType()==WingType.NONE;
+						break;
+					default:
+						break;
+				}
+				if(disabled) {
+					equippedPanelSB.append("<div class='"+inventorySlotId+" disabled' id='" + invSlot.toString() + "Slot'></div>");
 					
 				} else {
-					// add to content:
-					if (blockedSlots.contains(invSlot)) {
-						equippedPanelSB.append("<div class='"+inventorySlotId+" disabled'>"
-													+ (charactersInventoryToRender.getScarInSlot(invSlot)!=null ? "<div class='scarIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getScarIcon() + "</div>" : "")
-													+ "<div class='overlay' id='" + invSlot.toString() + "Slot'></div>"
-												+ "</div>");
+					Tattoo tattoo = charactersInventoryToRender.getTattooInSlot(invSlot);
+					
+					if(tattoo != null) {
+						equippedPanelSB.append("<div class='"+inventorySlotId + getClassRarityIdentifier(tattoo.getRarity()) +"'>");
+						equippedPanelSB.append("<div class='inventory-icon-content'>"+tattoo.getSVGImage(charactersInventoryToRender)+"</div>");
+						if(charactersInventoryToRender.getScarInSlot(invSlot)!=null) {
+							equippedPanelSB.append("<div class='scarIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getScarIcon() + "</div>");
+						}
+						equippedPanelSB.append(lipstickMarkingsString(charactersInventoryToRender, invSlot));
+						equippedPanelSB.append("<div class='overlay-inventory no-pointer' id='" + invSlot.toString() + "Slot'></div>");
+						equippedPanelSB.append("</div>");
 						
 					} else {
-						boolean disabled = false;
-						switch(invSlot){
-							case HORNS:
-								disabled = charactersInventoryToRender.getHornType().equals(HornType.NONE);
-								break;
-							case PENIS:
-								disabled = !charactersInventoryToRender.hasPenisIgnoreDildo();
-								break;
-							case TAIL:
-								disabled = charactersInventoryToRender.getTailType()==TailType.NONE;
-								break;
-							case VAGINA:
-								disabled = !charactersInventoryToRender.hasVagina();
-								break;
-							case WINGS:
-								disabled = charactersInventoryToRender.getWingType()==WingType.NONE;
-								break;
-							default:
-								break;
+						if(blockedSlots.contains(invSlot)) {
+							equippedPanelSB.append("<div class='"+inventorySlotId+" disabled'>");
+							if(charactersInventoryToRender.getScarInSlot(invSlot)!=null) {
+								equippedPanelSB.append("<div class='scarIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getScarIcon() + "</div>");
+							}
+							equippedPanelSB.append(lipstickMarkingsString(charactersInventoryToRender, invSlot));
+							equippedPanelSB.append("<div class='overlay' id='" + invSlot.toString() + "Slot'></div>");
+							equippedPanelSB.append("</div>");
+							
+						} else {
+							equippedPanelSB.append("<div class='"+inventorySlotId+"' id='" + invSlot.toString() + "Slot'>");
+							if(charactersInventoryToRender.getScarInSlot(invSlot)!=null) {
+								equippedPanelSB.append("<div class='scarIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getScarIcon() + "</div>");
+							}
+							equippedPanelSB.append(lipstickMarkingsString(charactersInventoryToRender, invSlot));
+							equippedPanelSB.append("</div>");
 						}
-						
-						equippedPanelSB.append("<div class='"+inventorySlotId+""+(disabled?" disabled":"")+"' id='" + invSlot.toString() + "Slot'>"
-								+ (charactersInventoryToRender.getScarInSlot(invSlot)!=null ? "<div class='scarIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getScarIcon() + "</div>" : "")
-								+ "</div>");
 					}
 				}
 				
 			}
 		}
+	}
+	
+	private static String lipstickMarkingsString(GameCharacter character, InventorySlot slot) {
+		SizedStack<Covering> lipstickMarkings = character.getLipstickMarkingsInSlot(slot);
+		StringBuilder sb = new StringBuilder();
+		if(lipstickMarkings!=null) {
+			int lipstickMarkingCount = lipstickMarkings.size();
+			for(int i=0; i<lipstickMarkingCount; i++) {
+				sb.append("<div class='lipstickIcon' style='width:calc(40 - "+(lipstickMarkingCount*10)+")%; height:calc(40 - "+(lipstickMarkingCount*10)+")%; right:"+(i*10)+"%;'>");
+				sb.append(SVGImages.SVG_IMAGE_PROVIDER.getLipstickIcon(lipstickMarkings.get(i)));
+				sb.append("</div>");
+			}
+		}
+		return sb.toString();
 	}
 	
 	private String getInventoryDiv(GameCharacter charactersInventoryToRender, boolean buyback) {
@@ -892,7 +911,7 @@ public enum RenderingEngine {
 						+ "<div class='inventory-icon-content'>"+item.getSVGString()+"</div>");
 
 		if (item instanceof AbstractClothing && ((AbstractClothing)item).isDirty()) {
-			itemSB.append("<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>");
+			itemSB.append("<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDirtyIcon() + "</div>");
 		}
 		String overlay = "<div class='overlay";
 		String last_layer = "";
@@ -960,7 +979,7 @@ public enum RenderingEngine {
 						+ "<div class='inventory-icon-content'>"+item.getSVGString()+"</div>");
 
 		if (item instanceof AbstractClothing && ((AbstractClothing)item).isDirty()) {
-			itemSB.append("<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>");
+			itemSB.append("<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDirtyIcon() + "</div>");
 		}
 		String overlay = "<div class='overlay";
 		String last_layer = "";
@@ -1504,6 +1523,15 @@ public enum RenderingEngine {
 			
 			int count = 0;
 			if(Main.game.isInNewWorld()) {
+				if(Main.game.getPlayerCell().getInventory().getMoney()>0) {
+					uiAttributeSB.append(
+							"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"
+									+ UtilText.formatAsMoney(Main.game.getPlayerCell().getInventory().getMoney(), "span")
+									+ "<div class='overlay-inventory' id='MONEY_ON_FLOOR'></div>"
+							+"</div>");
+					count++;
+				}
+				
 				for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
 					if(count%2==0) {
 						uiAttributeSB.append(

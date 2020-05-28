@@ -114,6 +114,9 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG -->
+	
 	<htmlContent tag="KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG"><![CDATA[
 	<p>
 		Doing the first thing that comes to your mind, you drop down onto your knees and look up at the inhospitable maid. The amber glow of her hair and eyes seems to grow even fiercer as her face contorts into one of rage, but before she can open her mouth, you blurt out an apology, [pc.speech(I'm sorry for wasting your time! Please, <i>please</i> can I see Arthur? I've been searching for him for forever! Please!)]
@@ -126,9 +129,14 @@
 		#IF(pc.isTaur())
 			 Lie down
 		#ELSE
-			 Get down on all fours 
+			 Get down on all fours
 		#ENDIF
-		 and lick my shoes like the dog you are.)]
+		#IF(game.isFootContentEnabled())
+			 and lick my shoes like the dog you are!
+		#ELSE
+			 before me and tell me that you're going to be a good doggy!
+		#ENDIF
+		)]
 	</p>
 	<p>
 		Still looking up at the sadistic maid, you see a wicked snarl break out across her face. She snaps her fingers at you and points to her feet, clearly serious about the demand that she's making. It's not too late to stand up and take your leave, but if you wanted to see Arthur without resorting to a more clandestine or violent approach, it looks like you'll have to do as the succubus asks.
@@ -138,10 +146,54 @@
 	
 	<htmlContent tag="KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG_REFUSE"><![CDATA[
 	<p>
-		The thought of licking someone else's shoes is too much for you. Standing up, you see the maid's expression turn into one of furious disgust, and you're only just able to step back in time to avoid the door slamming into your face. With such a rude and unwelcoming maid in charge of receiving visitors, you're sure that you'll have to think of another way to get into Zaranix's home and find Arthur.
+		#IF(game.isFootContentEnabled())
+			The thought of licking someone else's shoes is too much for you. Standing up, you see the maid's expression turn into one of furious disgust, and you're only just able to step back in time to avoid the door slamming into your face. With such a rude and unwelcoming maid in charge of receiving visitors, you're sure that you'll have to think of another way to get into Zaranix's home and find Arthur.
+		#ELSE
+			The thought of submitting to this dominant succubus and acting like a dog is too much for you. Standing up, you see the maid's expression turn into one of furious disgust, and you're only just able to step back in time to avoid the door slamming into your face. With such a rude and unwelcoming maid in charge of receiving visitors, you're sure that you'll have to think of another way to get into Zaranix's home and find Arthur.
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
+	
+	
+	<!-- OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_GOOD_DOGGY -->
+	
+	<htmlContent tag="OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_GOOD_DOGGY"><![CDATA[
+	<p>
+		Not seeing any alternative, you do as this dominant maid demands and
+		#IF(pc.isTaur())
+			 lie down on your lower [pc.legRace]'s body
+		#ELSE
+			 drop down onto all fours
+		#ENDIF
+		, before calling out, [pc.speech(I'm a good doggy...)]
+	</p>
+	<p>
+		[amber.speech(Is that all you've got?!)] the succubus angrily shouts, [amber.speech(You're to repeat after me; 'I'm a good doggy, Mistress Amber!', and put some damn effort into it!)]
+	</p>
+	<p>
+		You let out a humiliated whimper as Mistress Amber scolds you in full view of the public street behind you, before enthusiastically calling out, [pc.speech(I'm a good doggy, Mistress Amber!)]
+	</p>
+	<p>
+		[amber.speech(Ha-ha-ha! How pathetic!)] Mistress Amber laughs, before commanding, [amber.speech(Stay there, bitch. I'll be back shortly. Oh, and don't even <i>think</i> about standing up, or else the deal's off!)]
+	</p>
+	<p>
+		With that, the fiery-haired succubus steps back and slams the door in your face, leaving you down on the doorstep of Zaranix's home.
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			 Despite the ongoing arcane-storm, it appears as though your display has attracted the attention of a group of passing succubi, and as you find yourself shut out on the doorstep, a cacophony of giggles and mocking comments bursts out behind you. Looking to the floor as you do your best to ignore their words, you remind yourself that you're doing all of this in order to finally get hold of Arthur.
+		#ELSE
+			It appears as though your display has attracted the attention of several passersby, and as you find yourself shut out on the doorstep, a cacophony of giggles and mocking comments bursts out behind you. Looking to the floor as you do your best to ignore their words, you remind yourself that you're doing all of this in order to finally get hold of Arthur.
+		#ENDIF
+		 Thankfully, you're not subjected to this humiliation for long, as after just a few moments the door swings open again; the sight of Mistress Amber quickly dispelling your tormentors.
+	</p>
+	<p>
+		[amber.speech(Heel,)] Amber commands, snapping her fingers and pointing to the floor. Having already come this far, you obey the succubus and crawl forwards to her side. Reaching over the top of you, Amber then grabs the edge of the door and slams it shut behind you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG_RELUCTANT_LICK -->
 	
 	<htmlContent tag="KNOCK_ON_DOOR_ASK_FOR_ARTHUR_BEG_RELUCTANT_LICK"><![CDATA[
 	<p>
@@ -491,7 +543,7 @@
 		 Instead of his usual tweed suit, this Arthur is wearing a lab coat and a pair of safety goggles, revealing the fact that, just like Lilaya, he's not a historian in this world, but an arcane researcher.
 	</p>
 	<p>
-		[arthur.speech(Well, here I am, summoned at your convenience! And, I might add, not at all to mine! How am I ever going to prove to you that making a demonic transformative is impossible if I'm going to be interrupted on a whim?!)]
+		[arthur.speech(Well, here I am, summoned at your convenience! And, I might add, not at all to mine! How am I ever going to prove to you that demonic transformation potions are impossible to make if I'm going to be interrupted on a whim?!)]
 		 Arthur exclaims, very much in tone that would never suggest he was Zaranix's slave.
 	</p>
 	<p>

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.dominion;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,6 +29,7 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.places.AbstractPlaceType;
@@ -37,11 +37,12 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.10
- * @version 0.3.5.5
+ * @version 0.3.7.4
  * @author Innoxia
  */
 public class AlleywayDemonDialogue {
-	
+
+	private static boolean talked = false;
 	private static boolean transformationsApplied = false;
 	
 	private static boolean isCanal() {
@@ -59,27 +60,12 @@ public class AlleywayDemonDialogue {
 		return Main.game.getPlayer().hasCompanions();
 	}
 	
-	private static String getDialogueId() {
-		if(isCompanionDialogue()) {
-			return "alleywayDemonAttackCompanions";
-		}
-		return "alleywayDemonAttack";
-	}
-	
 	private static GameCharacter getMainCompanion() {
 		return Main.game.getPlayer().getMainCompanion();
 	}
 	
 	private static NPC getDemon() {
 		return Main.game.getActiveNPC();
-	}
-	
-	private static List<GameCharacter> getAllCharacters() {
-		List<GameCharacter> allCharacters = new ArrayList<>();
-		allCharacters.add(getDemon());
-		allCharacters.addAll(Main.game.getPlayer().getCompanions());
-		Collections.sort(allCharacters, (c1, c2) -> c1.isElemental()?(c2.isElemental()?0:1):(c2.isElemental()?-1:0));
-		return allCharacters;
 	}
 	
 	private static void applyPregnancyReactions() {
@@ -149,7 +135,14 @@ public class AlleywayDemonDialogue {
 	}
 	
 	public static final DialogueNode DEMON_ATTACK = new DialogueNode("Assaulted!", "A figure jumps out from the shadows!", true) {
-		
+		@Override
+		public void applyPreParsingEffects() {
+			talked = false;
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -159,20 +152,20 @@ public class AlleywayDemonDialogue {
 			if(getDemon().getLastTimeEncountered() != -1) {
 				if(isWantsToFight()) {
 					if(isCanal()) {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_CANAL_REPEAT_INTRO", getAllCharacters()));
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_CANAL_REPEAT_INTRO", getDemon()));
 						
 					} else {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_REPEAT_INTRO", getAllCharacters()));
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_INTRO", getDemon()));
 					}
 					
 					if(getDemon().isVisiblyPregnant()) {
 						pregnancyReaction = true;
 						
 						if(!getDemon().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_REPEAT_PREGNANCY_REVEAL", getAllCharacters()));
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_PREGNANCY_REVEAL", getDemon()));
 						
 						} else {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_REPEAT_STILL_PREGNANT", getAllCharacters()));
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_STILL_PREGNANT", getDemon()));
 						}
 					}
 					
@@ -181,36 +174,36 @@ public class AlleywayDemonDialogue {
 						
 						if((Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getPlayer().isCharacterReactedToPregnancy(getDemon()))
 								|| (isCompanionDialogue() && getMainCompanion().isVisiblyPregnant() && !getMainCompanion().isCharacterReactedToPregnancy(getDemon()))) {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_REPEAT_PLAYER_PREGNANCY", getAllCharacters()));
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_PLAYER_PREGNANCY", getDemon()));
 						
 						} else {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_REPEAT_CONTINUED_PLAYER_PREGNANCY", getAllCharacters()));
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_CONTINUED_PLAYER_PREGNANCY", getDemon()));
 						}
 					}
 
 					if(!pregnancyReaction) {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_REPEAT", getAllCharacters()));
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT", getDemon()));
 					}
 					
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_REPEAT_END", getAllCharacters()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_REPEAT_END", getDemon()));
 
 					
 				} else { // The mugger doesn't want to attack the player:
 					if(isCanal()) {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_PEACEFUL_CANAL_INTRO", getAllCharacters()));
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_PEACEFUL_CANAL_INTRO", getDemon()));
 						
 					} else {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_PEACEFUL_INTRO", getAllCharacters()));
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_PEACEFUL_INTRO", getDemon()));
 					}
 					
 					if(getDemon().isVisiblyPregnant()) {
 						pregnancyReaction = true;
 						
 						if(!getDemon().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_PEACEFUL_PREGNANCY_REVEAL", getAllCharacters()));
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_PEACEFUL_PREGNANCY_REVEAL", getDemon()));
 						
 						} else {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_PEACEFUL_STILL_PREGNANT", getAllCharacters()));
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_PEACEFUL_STILL_PREGNANT", getDemon()));
 						}
 					}
 					
@@ -219,31 +212,31 @@ public class AlleywayDemonDialogue {
 						
 						if((Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getPlayer().isCharacterReactedToPregnancy(getDemon()))
 								|| (isCompanionDialogue() && getMainCompanion().isVisiblyPregnant() && !getMainCompanion().isCharacterReactedToPregnancy(getDemon()))) {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_PEACEFUL_PLAYER_PREGNANCY", getAllCharacters()));
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_PEACEFUL_PLAYER_PREGNANCY", getDemon()));
 						
 						} else {
-							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_PEACEFUL_CONTINUED_PLAYER_PREGNANCY", getAllCharacters()));
+							UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_PEACEFUL_CONTINUED_PLAYER_PREGNANCY", getDemon()));
 						}
 					}
 					
 					if(!pregnancyReaction) {
-						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_PEACEFUL", getAllCharacters()));
+						UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_PEACEFUL", getDemon()));
 					}
 					
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_PEACEFUL_END", getAllCharacters()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_PEACEFUL_END", getDemon()));
 
 					UtilText.nodeContentSB.append(getStatus());
 				}
 				
 			} else {
 				if(isCanal()) {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_CANAL_INTRO", getAllCharacters()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_CANAL_INTRO", getDemon()));
 					
 				} else {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_INTRO", getAllCharacters()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_INTRO", getDemon()));
 				}
 
-				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK", getAllCharacters()));
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK", getDemon()));
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -261,18 +254,7 @@ public class AlleywayDemonDialogue {
 					};
 					
 				} else if (index == 2) {
-					if(Main.game.getPlayer().getMoney()<250) {
-						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
-					} else {
-						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", Main.game.getDefaultDialogue(false)) {
-							@Override
-							public void effects() {
-								applyPregnancyReactions();
-								Main.game.getPlayer().incrementMoney(-250);
-								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_PAY_OFF", getAllCharacters()));
-							}
-						};
-					}
+					return new Response("Offer money", UtilText.parse(getDemon(), "Unlike common muggers, [npc.Name] isn't interested in your money!"), null);
 					
 				} else if (index == 3) {
 					if(getDemon().isAttractedTo(Main.game.getPlayer())) {
@@ -294,7 +276,7 @@ public class AlleywayDemonDialogue {
 									}
 								},
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), isCompanionDialogue()?"DEMON_ATTACK_OFFER_BODY_SOLO_WITH_COMPANION":"DEMON_ATTACK_OFFER_BODY", getAllCharacters())) {
+								UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_OFFER_BODY", getDemon())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -335,7 +317,7 @@ public class AlleywayDemonDialogue {
 										null,
 										ResponseTag.PREFER_DOGGY),
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_OFFER_BODY_WITH_COMPANION", getDemon(), companion)) {
+								UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_OFFER_BODY_THREESOME", getDemon(), companion)) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -365,7 +347,8 @@ public class AlleywayDemonDialogue {
 										Util.newArrayListOfValues(companion),
 										null,
 										Util.newArrayListOfValues(Main.game.getPlayer())),
-								AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_OFFER_COMPANION", getDemon(), companion)) {
+								AFTER_SEX_DEFEAT,
+								UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_OFFER_COMPANION", getDemon(), companion)) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -382,6 +365,9 @@ public class AlleywayDemonDialogue {
 			
 			} else {
 				if (index == 1) {
+					if(talked) {
+						return new Response("Talk", "You've already spent time talking with [npc.name]...", null);
+					}
 					return new Response("Talk", "Talk to [npc.name] for a while in order to get to know [npc.herHim] a little better.", DEMON_PEACEFUL_TALK) {
 						@Override
 						public void effects() {
@@ -395,24 +381,7 @@ public class AlleywayDemonDialogue {
 					};
 					
 				} else if (index == 2) {
-					if(Main.game.getPlayer().getMoney()<250) {
-						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")",
-								"You don't have enough money to offer [npc.name] any.", null);
-					} else {
-						return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")",
-								"Offer [npc.name] some money to help [npc.herHim] buy food and clothing.", DEMON_PEACEFUL_OFFER_MONEY) {
-							@Override
-							public void effects() {
-								applyPregnancyReactions();
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-250));
-								Main.game.getTextEndStringBuilder().append(getDemon().incrementAffection(Main.game.getPlayer(), 10));
-
-								if(getDemon().isAffectionHighEnoughToInviteHome() && !Main.game.getPlayer().hasQuest(QuestLine.SIDE_ACCOMMODATION)) {
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ACCOMMODATION));
-								}
-							}
-						};
-					}
+					return new Response("Offer money", UtilText.parse(getDemon(), "Unlike common muggers, [npc.name] has no need for your money!"), null);
 					
 				} else if (index == 3) {
 					if(getDemon().isAttractedTo(Main.game.getPlayer())) {
@@ -425,7 +394,7 @@ public class AlleywayDemonDialogue {
 										Util.newArrayListOfValues(getDemon()),
 										Main.game.getPlayer().getCompanions(),
 										null),
-								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_PEACEFUL_SEX_AS_DOM", getAllCharacters())) {
+								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_PEACEFUL_SEX_AS_DOM", getDemon())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -447,7 +416,7 @@ public class AlleywayDemonDialogue {
 										Util.newArrayListOfValues(Main.game.getPlayer()),
 										null,
 										Main.game.getPlayer().getCompanions()),
-								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_PEACEFUL_SEX_AS_SUB", getAllCharacters())) {
+								AFTER_SEX_PEACEFUL, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_PEACEFUL_SEX_AS_SUB", getDemon())) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -513,7 +482,7 @@ public class AlleywayDemonDialogue {
 										null,
 										null,
 										ResponseTag.PREFER_DOGGY),
-								AFTER_SEX_PEACEFUL_THREESOME, UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_PEACEFUL_OFFER_BODY_WITH_COMPANION", getDemon(), companion)) {
+								AFTER_SEX_PEACEFUL_THREESOME, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_PEACEFUL_OFFER_BODY_THREESOME", getDemon(), companion)) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -543,7 +512,7 @@ public class AlleywayDemonDialogue {
 										Util.newArrayListOfValues(companion),
 										null,
 										Util.newArrayListOfValues(Main.game.getPlayer())),
-								AFTER_SEX_PEACEFUL_OFFERED_COMPANION, UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_ATTACK_PEACEFUL_OFFER_COMPANION", getDemon(), companion)) {
+								AFTER_SEX_PEACEFUL_OFFERED_COMPANION, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_ATTACK_PEACEFUL_OFFER_COMPANION", getDemon(), companion)) {
 							@Override
 							public void effects() {
 								applyPregnancyReactions();
@@ -579,76 +548,47 @@ public class AlleywayDemonDialogue {
 	};
 	
 	public static final DialogueNode DEMON_PEACEFUL_TALK = new DialogueNode("Talk", "", true, true) {
-		
+		@Override
+		public void applyPreParsingEffects() {
+			talked = true;
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 20*60;
+		}
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_PEACEFUL_TALK", getAllCharacters()));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_PEACEFUL_TALK", getDemon()));
 
 			UtilText.nodeContentSB.append(getStatus());
 			
 			if(getDemon().isAffectionHighEnoughToInviteHome()) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_PEACEFUL_CAN_INVITE_HOME", getAllCharacters()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_PEACEFUL_CAN_INVITE_HOME", getDemon()));
 				} else {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION", getAllCharacters()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION", getDemon()));
 				}
 			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Continue", "Let [npc.name] go.", Main.game.getDefaultDialogue(false));
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNode DEMON_PEACEFUL_OFFER_MONEY = new DialogueNode("Offer money", "", true, true) {
-		
-		@Override
-		public String getContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_PEACEFUL_OFFER_MONEY", getAllCharacters()));
-
-			UtilText.nodeContentSB.append(getStatus());
-			
-			if(getDemon().isAffectionHighEnoughToInviteHome()) {
-				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_PEACEFUL_CAN_INVITE_HOME", getAllCharacters()));
-				} else {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION", getAllCharacters()));
-				}
-			}
-			
-			return UtilText.nodeContentSB.toString();
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Continue", "Let [npc.name] go and buy food.", Main.game.getDefaultDialogue(false));
-				
-			} else {
-				return null;
-			}
+			return DEMON_ATTACK.getResponse(responseTab, index);
 		}
 	};
 	
 	public static final DialogueNode DEMON_PEACEFUL_OFFER_ROOM = new DialogueNode("Offer room", "", true, true) {
-		
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_PEACEFUL_OFFER_ROOM", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_PEACEFUL_OFFER_ROOM", getDemon());
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -659,41 +599,42 @@ public class AlleywayDemonDialogue {
 						getDemon().setLocation(c.getType(), c.getLocation(), true);
 						Main.game.getPlayer().setLocation(c.getType(), c.getLocation(), false);
 						Main.game.getPlayer().addFriendlyOccupant(getDemon());
-						Main.game.getTextEndStringBuilder().append(getDemon().incrementAffection(Main.game.getPlayer(), 50));
+						Main.game.getTextEndStringBuilder().append(getDemon().incrementAffection(Main.game.getPlayer(), 10));
 					}
 				};
 				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode DEMON_PEACEFUL_OFFER_ROOM_BACK_HOME = new DialogueNode("New Room", "", true) {
-		
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_PEACEFUL_OFFER_ROOM_BACK_HOME", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_PEACEFUL_OFFER_ROOM_BACK_HOME", getDemon());
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Let [npc.name] get settled in.", Main.game.getDefaultDialogue(false));
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode DEMON_PEACEFUL_ATTACK = new DialogueNode("Attack", "", true, true) {
-		
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEMON_PEACEFUL_ATTACK", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEMON_PEACEFUL_ATTACK", getDemon());
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -706,89 +647,90 @@ public class AlleywayDemonDialogue {
 	};
 	
 	public static final DialogueNode AFTER_SEX_PEACEFUL = new DialogueNode("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
-		
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
 		@Override
 		public String getContent() {
 			if(getDemon().isSatisfiedFromLastSex()) {
-				return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_SEX_PEACEFUL", getAllCharacters());
+				return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_SEX_PEACEFUL", getDemon());
 			} else {
-				return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_SEX_PEACEFUL_NO_ORGASM", getAllCharacters());
+				return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_SEX_PEACEFUL_NO_ORGASM", getDemon());
 			}
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false));
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode AFTER_SEX_PEACEFUL_THREESOME = new DialogueNode("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
-		
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_SEX_PEACEFUL_THREESOME", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_SEX_PEACEFUL_THREESOME", getDemon());
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false));
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode AFTER_SEX_PEACEFUL_OFFERED_COMPANION = new DialogueNode("Continue", "Step away from [npc.name] and prepare to continue on your way.", true) {
-		
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
 		@Override
 		public String getContent() {
 			if(getMainCompanion().isAttractedTo(getDemon())) {
-				return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_SEX_PEACEFUL_OFFERED_COMPANION", getAllCharacters());
+				return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_SEX_PEACEFUL_OFFERED_COMPANION", getDemon());
 			} else {
-				return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_SEX_PEACEFUL_OFFERED_COMPANION_RELUCTANT", getAllCharacters());
+				return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_SEX_PEACEFUL_OFFERED_COMPANION_RELUCTANT", getDemon());
 			}
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false));
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode AFTER_COMBAT_VICTORY = new DialogueNode("Victory", "", true) {
-
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
 		@Override
 		public String getDescription() {
 			return "You have defeated [npc.name]!";
 		}
-
 		@Override
 		public String getContent() {
 			if(getDemon().isAttractedTo(Main.game.getPlayer())
 					&& !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-				return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_ATTRACTION", getDemon());
+				return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_ATTRACTION", getDemon());
 				
 			} else {
 				if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-					return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_BETRAYED", getDemon());
+					return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_BETRAYED", getDemon());
 				} else {
-					return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_NO_ATTRACTION", getDemon());
+					return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_NO_ATTRACTION", getDemon());
 				}
 			}
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -815,7 +757,7 @@ public class AlleywayDemonDialogue {
 									Main.game.getPlayer().getCompanions(),
 									null),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_SEX", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX", getDemon()));
 				} else {
 					return new ResponseSex(
 							"Rape [npc.herHim]",
@@ -828,7 +770,7 @@ public class AlleywayDemonDialogue {
 									Main.game.getPlayer().getCompanions(),
 									null),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_RAPE", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_RAPE", getDemon()));
 				}
 				
 			} else if (index == 3) {
@@ -846,7 +788,7 @@ public class AlleywayDemonDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getDemon()));
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (gentle)",
@@ -860,7 +802,7 @@ public class AlleywayDemonDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getDemon()));
 				}
 				
 			} else if (index == 4) {
@@ -878,7 +820,7 @@ public class AlleywayDemonDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getDemon()));
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (rough)",
@@ -892,7 +834,7 @@ public class AlleywayDemonDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getDemon()));
 				}
 				
 			} else if (index == 5) {
@@ -911,7 +853,7 @@ public class AlleywayDemonDialogue {
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									null,
 									Util.newArrayListOfValues(getMainCompanion())),
-							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getDemon()));
 				}
 				
 			} else if (index == 6) {
@@ -923,7 +865,10 @@ public class AlleywayDemonDialogue {
 				};
 				
 			} else if (index == 7) {
-				if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+				if(Main.game.getCurrentDialogueNode()==AFTER_COMBAT_VICTORY_TALK) {
+					return new Response("Talk", "You are already talking to [npc.name]...", null);
+					
+				} else if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response("Talk", "After betraying [npc.namePos] trust, [npc.she] will never want to talk to you again.", null);
 					
 				} else {
@@ -951,16 +896,21 @@ public class AlleywayDemonDialogue {
 				return new Response("Quick transformations",
 						"If all [npc.she] wants is sex, then you're more than happy to oblige. Besides, if [npc.sheIs] able to transform [npc.herself], you have a few ideas in mind..."
 								+ "(You'll return to these options once finished transforming [npc.herHim].)",
-						QuickTransformations.initQuickTransformations("encounters/dominion/"+getDialogueId(), getDemon(), AFTER_COMBAT_VICTORY));
+						QuickTransformations.initQuickTransformations("misc/quickTransformations", getDemon(), AFTER_COMBAT_VICTORY));
 			
 			} else if (index == 10 && !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
-						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+						UtilText.parse(getDemon(), "Scare [npc.name] away."
+								+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 						Main.game.getDefaultDialogue(false)){
 					@Override
+					public Colour getHighlightColour() {
+						return PresetColour.GENERIC_NPC_REMOVAL;
+					}
+					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_BANISH_NPC", getAllCharacters()));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_BANISH_NPC", getDemon()));
 						Main.game.banishNPC(getDemon());
 					}
 				};
@@ -984,7 +934,7 @@ public class AlleywayDemonDialogue {
 									null,
 									null,
 									ResponseTag.PREFER_DOGGY),
-							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_THREESOME", getDemon(), companion));
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_THREESOME", getDemon(), companion));
 				}
 				
 			} else if (index == 12 && isCompanionDialogue()) {
@@ -1005,7 +955,7 @@ public class AlleywayDemonDialogue {
 									Util.newArrayListOfValues(getDemon()),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer())),
-							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getDemon(), companion));
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getDemon(), companion));
 				}
 				
 			} else if (index == 13 && isCompanionDialogue() && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
@@ -1031,7 +981,7 @@ public class AlleywayDemonDialogue {
 									Util.newArrayListOfValues(companion),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer())),
-							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_OFFER_COMPANION", getDemon(), companion)) {
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_OFFER_COMPANION", getDemon(), companion)) {
 						@Override
 						public void effects() {
 							if(!companion.isAttractedTo(getDemon()) && Main.game.isNonConEnabled()) {
@@ -1047,22 +997,17 @@ public class AlleywayDemonDialogue {
 	};
 	
 	public static final DialogueNode AFTER_COMBAT_VICTORY_TALK = new DialogueNode("Talk", "", true) {
-		
+		@Override
+		public int getSecondsPassed() {
+			return 10*60;
+		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_VICTORY_TALK", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_VICTORY_TALK", getDemon());
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Continue",
-						"Let [npc.name] go.",
-						Main.game.getDefaultDialogue(false));
-				
-			} else {
-				return null;
-			}
+			return AFTER_COMBAT_VICTORY.getResponse(responseTab, index);
 		}
 	};
 
@@ -1120,20 +1065,22 @@ public class AlleywayDemonDialogue {
 				}
 			}
 		}
-		
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
 		@Override
 		public String getDescription() {
 			return "You have been defeated by [npc.name]!";
 		}
-
 		@Override
 		public String getContent() {
 			if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-				return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_BETRAYED", getAllCharacters());
+				return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_BETRAYED", getDemon());
 			}
 			
 			StringBuilder sb = new StringBuilder();
-			sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_GENERIC_START", getAllCharacters()));
+			sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_GENERIC_START", getDemon()));
 			
 			boolean forcedTF = getDemon().isUsingForcedTransform(Main.game.getPlayer());
 			boolean forcedFetish = getDemon().isUsingForcedFetish(Main.game.getPlayer());
@@ -1148,22 +1095,22 @@ public class AlleywayDemonDialogue {
 					
 					if(fetishPotion!=null && forcedFetish) {
 						if(potion!=null && forcedTF) {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_TF_AND_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_TF_AND_FETISH", getDemon()));
 						} else {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_FETISH", getDemon()));
 						}
 					} else {
-						sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_TF", getAllCharacters()));
+						sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_TF", getDemon()));
 					}
 	
 					if(companionFetishPotion!=null && companionForcedFetish) {
 						if(companionPotion!=null && companionForcedTF) {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_COMPANION_TF_AND_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_COMPANION_TF_AND_FETISH", getDemon()));
 						} else {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_COMPANION_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_COMPANION_FETISH", getDemon()));
 						}
 					} else {
-						sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_COMPANION_TF", getAllCharacters()));
+						sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_COMPANION_TF", getDemon()));
 					}
 					
 					return sb.toString();
@@ -1171,24 +1118,24 @@ public class AlleywayDemonDialogue {
 				} else if((forcedTF && potion!=null) || (forcedFetish && fetishPotion!=null)) { // Player TF:
 					if(fetishPotion!=null && forcedFetish) {
 						if(potion!=null && forcedTF) {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_TF_AND_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_TF_AND_FETISH", getDemon()));
 						} else {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_FETISH", getDemon()));
 						}
 					} else {
-						sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_TF", getAllCharacters()));
+						sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_TF", getDemon()));
 					}
 					return sb.toString();
 					
 				} else if(isCompanionDialogue()) { // Companion TF:
 					if(companionFetishPotion!=null && companionForcedFetish) {
 						if(potion!=null && forcedTF) {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_COMPANION_SOLO_TF_AND_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_COMPANION_SOLO_TF_AND_FETISH", getDemon()));
 						} else {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_COMPANION_SOLO_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_COMPANION_SOLO_FETISH", getDemon()));
 						}
 					} else {
-						sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_COMBAT_DEFEAT_COMPANION_SOLO_TF", getAllCharacters()));
+						sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_COMBAT_DEFEAT_COMPANION_SOLO_TF", getDemon()));
 					}
 					return sb.toString();
 				}
@@ -1264,12 +1211,12 @@ public class AlleywayDemonDialogue {
 							public void effects(){
 								transformationsApplied = true;
 								if(getMainCompanion().getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isPositive()) {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_SPIT", getAllCharacters()));
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_COMPANION_SWALLOW", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_SPIT", getDemon()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_COMPANION_SWALLOW", getDemon()));
 									Main.game.getTextStartStringBuilder().append(applyTransformation(getMainCompanion(), companionPotion, companionForcedTF, companionFetishPotion, companionForcedFetish));
 									
 								} else {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_BOTH_SPIT", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_BOTH_SPIT", getDemon()));
 								}
 							}
 						};
@@ -1291,15 +1238,15 @@ public class AlleywayDemonDialogue {
 						@Override
 						public void effects(){
 							transformationsApplied = true;
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_SWALLOW", getAllCharacters()));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_SWALLOW", getDemon()));
 							Main.game.getTextStartStringBuilder().append(applyTransformation(Main.game.getPlayer(), potion, forcedTF, fetishPotion, forcedFetish));
 							
 							if(getMainCompanion().getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isPositive()) {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_COMPANION_SWALLOW", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_COMPANION_SWALLOW", getDemon()));
 								Main.game.getTextStartStringBuilder().append(applyTransformation(getMainCompanion(), companionPotion, companionForcedTF, companionFetishPotion, companionForcedFetish));
 								
 							} else {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_COMPANION_SPIT", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_COMPANION_SPIT", getDemon()));
 							}
 						}
 					};
@@ -1327,14 +1274,14 @@ public class AlleywayDemonDialogue {
 							public void effects(){
 								transformationsApplied = true;
 								if(getMainCompanion().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_SPIT", getAllCharacters()));
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "ORDER_SPIT_REFUSED", getAllCharacters()));
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_COMPANION_SWALLOW", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_SPIT", getDemon()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ORDER_SPIT_REFUSED", getDemon()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_COMPANION_SWALLOW", getDemon()));
 									Main.game.getTextStartStringBuilder().append(applyTransformation(getMainCompanion(), companionPotion, companionForcedTF, companionFetishPotion, companionForcedFetish));
 									
 								} else {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_SPIT", getAllCharacters()));
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "ORDER_SPIT", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_SPIT", getDemon()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ORDER_SPIT", getDemon()));
 								}
 							}
 						};
@@ -1358,16 +1305,16 @@ public class AlleywayDemonDialogue {
 						public void effects(){
 							transformationsApplied = true;
 							if(!getMainCompanion().getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isNegative()) {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_SWALLOW", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_SWALLOW", getDemon()));
 								Main.game.getTextStartStringBuilder().append(applyTransformation(Main.game.getPlayer(), potion, forcedTF, fetishPotion, forcedFetish));
 								
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "ORDER_SWALLOW", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ORDER_SWALLOW", getDemon()));
 								Main.game.getTextStartStringBuilder().append(applyTransformation(getMainCompanion(), companionPotion, companionForcedTF, companionFetishPotion, companionForcedFetish));
 								
 							} else {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_SWALLOW", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_SWALLOW", getDemon()));
 								Main.game.getTextStartStringBuilder().append(applyTransformation(Main.game.getPlayer(), potion, forcedTF, fetishPotion, forcedFetish));
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "ORDER_SWALLOW_REFUSED", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ORDER_SWALLOW_REFUSED", getDemon()));
 							}
 						}
 					};
@@ -1388,7 +1335,7 @@ public class AlleywayDemonDialogue {
 							@Override
 							public void effects() {
 								transformationsApplied = true;
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_SPIT", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_SPIT", getDemon()));
 							}
 						};
 					}
@@ -1405,7 +1352,7 @@ public class AlleywayDemonDialogue {
 						@Override
 						public void effects(){
 							transformationsApplied = true;
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_SWALLOW", getAllCharacters()));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_SWALLOW", getDemon()));
 							Main.game.getTextStartStringBuilder().append(applyTransformation(Main.game.getPlayer(), potion, forcedTF, fetishPotion, forcedFetish));
 						}
 					};
@@ -1461,12 +1408,12 @@ public class AlleywayDemonDialogue {
 						public void effects(){
 							transformationsApplied = true;
 							if(getMainCompanion().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "ORDER_SPIT_REFUSED", getAllCharacters()));
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "TF_COMPANION_SWALLOW", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ORDER_SPIT_REFUSED", getDemon()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "TF_COMPANION_SWALLOW", getDemon()));
 								Main.game.getTextStartStringBuilder().append(applyTransformation(getMainCompanion(), companionPotion, companionForcedTF, companionFetishPotion, companionForcedFetish));
 								
 							} else {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "ORDER_SPIT", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ORDER_SPIT", getDemon()));
 							}
 						}
 					};
@@ -1488,11 +1435,11 @@ public class AlleywayDemonDialogue {
 						public void effects(){
 							transformationsApplied = true;
 							if(!getMainCompanion().getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isNegative()) {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "ORDER_SWALLOW", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ORDER_SWALLOW", getDemon()));
 								Main.game.getTextStartStringBuilder().append(applyTransformation(getMainCompanion(), companionPotion, companionForcedTF, companionFetishPotion, companionForcedFetish));
 								
 							} else {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "ORDER_SWALLOW_REFUSED", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "ORDER_SWALLOW_REFUSED", getDemon()));
 							}
 						}
 					};
@@ -1505,50 +1452,53 @@ public class AlleywayDemonDialogue {
 	
 	public static final DialogueNode AFTER_COMBAT_TRANSFORMATION = new DialogueNode("Transformed", "", true) {
 		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
 		public String getContent() {
 			if(isCompanionDialogue()) {
 				if(getDemon().isAttractedTo(Main.game.getPlayer())) {
 					if(getDemon().isAttractedTo(getMainCompanion())) {
 						if(getDemon().isWillingToRape()) {
-							return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "RAPE_BOTH", getAllCharacters());
+							return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "RAPE_BOTH", getDemon());
 						} else {
-							return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "OFFER_SEX_BOTH", getAllCharacters());
+							return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "OFFER_SEX_BOTH", getDemon());
 						}
 						
 					} else {
 						if(getDemon().isWillingToRape()) {
-							return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "RAPE_PLAYER_SOLO", getAllCharacters());
+							return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "RAPE_PLAYER", getDemon());
 						} else {
-							return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "OFFER_SEX_SOLO", getAllCharacters());
+							return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "OFFER_SEX", getDemon());
 						}
 					}
 					
 				} else if(getDemon().isAttractedTo(getMainCompanion()) && Main.getProperties().hasValue(PropertyValue.involuntaryNTR)) {
 					if(getDemon().isWillingToRape()) {
-						return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "RAPE_COMPANION", getAllCharacters());
+						return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "RAPE_COMPANION", getDemon());
 					} else {
-						return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "OFFER_SEX_COMPANION", getAllCharacters());
+						return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "OFFER_SEX_COMPANION", getDemon());
 					}
 				}
 				
 			} else {
 				if(getDemon().isAttractedTo(Main.game.getPlayer())) {
 					if(getDemon().isWillingToRape()) {
-						return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "RAPE_PLAYER", getAllCharacters());
+						return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "RAPE_PLAYER", getDemon());
 					} else {
-						return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "OFFER_SEX", getAllCharacters());
+						return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "OFFER_SEX", getDemon());
 					}
 				}
 			}
 
 			if(transformationsApplied) {
-				return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "NO_SEX_POST_TRANSFORM", getAllCharacters());
+				return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "NO_SEX_POST_TRANSFORM", getDemon());
 			}
-			return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "NO_SEX", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "NO_SEX", getDemon());
 		}
-		
 		@Override
-		public Response getResponse(int responseTab, int index) { //TODO grow cock
+		public Response getResponse(int responseTab, int index) {
 			if(isCompanionDialogue()) {
 				boolean companionHappyToHaveSex = getMainCompanion().isAttractedTo(getDemon()) || getMainCompanion().isAttractedTo(Main.game.getPlayer());
 				boolean companionSex = getDemon().isAttractedTo(getMainCompanion()) && (companionHappyToHaveSex || getDemon().isWillingToRape());
@@ -1576,7 +1526,7 @@ public class AlleywayDemonDialogue {
 													?null
 													:getMainCompanion())),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "START_DEFEATED_SEX_THREESOME", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "START_DEFEATED_SEX_THREESOME", getDemon()));
 							
 						} else if (index == 2) {
 							return new ResponseSex("Eager Sex",
@@ -1599,7 +1549,7 @@ public class AlleywayDemonDialogue {
 													:getMainCompanion()),
 											ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "START_DEFEATED_SEX_THREESOME", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "START_DEFEATED_SEX_THREESOME", getDemon()));
 							
 						} else if (index == 3 && Main.game.isNonConEnabled()) {
 							return new ResponseSex("Resist Sex",
@@ -1619,7 +1569,7 @@ public class AlleywayDemonDialogue {
 													:getMainCompanion()),
 											ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "START_DEFEATED_SEX_THREESOME_RESIST", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "START_DEFEATED_SEX_THREESOME_RESIST", getDemon()));
 							
 						} else if (index == 4 && !getDemon().isWillingToRape()) {
 							return new Response("Refuse",
@@ -1627,7 +1577,7 @@ public class AlleywayDemonDialogue {
 									Main.game.getDefaultDialogue(false)) {
 								@Override
 								public void effects() {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_REFUSE_THREESOME", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEFEATED_REFUSE_THREESOME", getDemon()));
 								}
 							};
 						}
@@ -1647,7 +1597,7 @@ public class AlleywayDemonDialogue {
 											null,
 											Util.newArrayListOfValues(getMainCompanion())),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "START_DEFEATED_SEX_SOLO", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "START_DEFEATED_SEX", getDemon()));
 							
 						} else if (index == 2) {
 							return new ResponseSex("Eager Sex",
@@ -1663,7 +1613,7 @@ public class AlleywayDemonDialogue {
 											Util.newArrayListOfValues(getMainCompanion()),
 											ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "START_DEFEATED_SEX_SOLO", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "START_DEFEATED_SEX", getDemon()));
 							
 						} else if (index == 3 && Main.game.isNonConEnabled()) {
 							return new ResponseSex("Resist Sex",
@@ -1676,7 +1626,7 @@ public class AlleywayDemonDialogue {
 											Util.newArrayListOfValues(getMainCompanion()),
 											ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "START_DEFEATED_SEX_SOLO_RESIST", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "START_DEFEATED_SEX_RESIST", getDemon()));
 							
 						} else if (index == 4 && !getDemon().isWillingToRape()) {
 							return new Response("Refuse",
@@ -1684,7 +1634,7 @@ public class AlleywayDemonDialogue {
 									Main.game.getDefaultDialogue(false)) {
 								@Override
 								public void effects() {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_REFUSE_SEX_SOLO", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEFEATED_REFUSE_SEX", getDemon()));
 								}
 							};
 						}
@@ -1705,7 +1655,7 @@ public class AlleywayDemonDialogue {
 											null,
 											Util.newArrayListOfValues(Main.game.getPlayer())),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "START_DEFEATED_SEX_SOLO_COMPANION_RAPE", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "START_DEFEATED_SEX_SOLO_COMPANION_RAPE", getDemon()));
 						}
 						
 					} else if(companionHappyToHaveSex) {
@@ -1720,7 +1670,7 @@ public class AlleywayDemonDialogue {
 											null,
 											Util.newArrayListOfValues(Main.game.getPlayer())),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "START_DEFEATED_SEX_SOLO_COMPANION", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "START_DEFEATED_SEX_SOLO_COMPANION", getDemon()));
 						}
 						
 					} else if (index == 1) {
@@ -1730,7 +1680,7 @@ public class AlleywayDemonDialogue {
 								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_REFUSE_SEX_SOLO_COMPANION", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEFEATED_REFUSE_SEX_SOLO_COMPANION", getDemon()));
 							}
 						};
 					}
@@ -1751,7 +1701,7 @@ public class AlleywayDemonDialogue {
 										null,
 										Util.newArrayListOfValues(getMainCompanion())),
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "START_DEFEATED_SEX", getAllCharacters()));
+								UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "START_DEFEATED_SEX", getDemon()));
 						
 					} else if (index == 2) {
 						return new ResponseSex("Eager Sex",
@@ -1767,7 +1717,7 @@ public class AlleywayDemonDialogue {
 										Util.newArrayListOfValues(getMainCompanion()),
 										ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "START_DEFEATED_SEX", getAllCharacters()));
+								UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "START_DEFEATED_SEX", getDemon()));
 						
 					} else if (index == 3 && Main.game.isNonConEnabled()) {
 						return new ResponseSex("Resist Sex",
@@ -1780,7 +1730,7 @@ public class AlleywayDemonDialogue {
 										Util.newArrayListOfValues(getMainCompanion()),
 										ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "START_DEFEATED_SEX_RESIST", getAllCharacters()));
+								UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "START_DEFEATED_SEX_RESIST", getDemon()));
 						
 					} else if (index == 4 && !getDemon().isWillingToRape()) {
 						return new Response("Refuse",
@@ -1788,7 +1738,7 @@ public class AlleywayDemonDialogue {
 								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_REFUSE_SEX", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEFEATED_REFUSE_SEX", getDemon()));
 							}
 						};
 					}
@@ -1799,7 +1749,7 @@ public class AlleywayDemonDialogue {
 				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "DEFEATED_NO_SEX", getAllCharacters()));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "DEFEATED_NO_SEX", getDemon()));
 					}
 				};
 				
@@ -1810,31 +1760,32 @@ public class AlleywayDemonDialogue {
 	};
 	
 	public static final DialogueNode AFTER_SEX_VICTORY = new DialogueNode("Step back", "", true) {
-		
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
 		@Override
 		public String getDescription(){
 			return "Now that you've had your fun, you can step back and leave [npc.name] to recover.";
 		}
-
 		@Override
 		public String getContent() {
 			if((getDemon().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
 					&& !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				if(Main.sex.getNumberOfOrgasms(getDemon()) >= getDemon().getOrgasmsBeforeSatisfied()) {
-					return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_SEX_VICTORY", getAllCharacters());
+					return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_SEX_VICTORY", getDemon());
 				} else {
-					return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_SEX_VICTORY_NO_ORGASM", getAllCharacters());
+					return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_SEX_VICTORY_NO_ORGASM", getDemon());
 				}
 				
 			} else {
 				if(getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-					return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_SEX_VICTORY_RAPE_BETRAYED", getAllCharacters());
+					return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_SEX_VICTORY_RAPE_BETRAYED", getDemon());
 				} else {
-					return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_SEX_VICTORY_RAPE", getAllCharacters());
+					return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_SEX_VICTORY_RAPE", getDemon());
 				}
 			}
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -1858,8 +1809,13 @@ public class AlleywayDemonDialogue {
 			} else if (index == 10 && !getDemon().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				return new Response(
 						"Remove character",
-						"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
+						UtilText.parse(getDemon(), "Scare [npc.name] away."
+								+ "<br/>[style.italicsBad(This will permanently remove [npc.herHim] from the game!)]"),
 						AFTER_COMBAT_VICTORY){
+					@Override
+					public Colour getHighlightColour() {
+						return PresetColour.GENERIC_NPC_REMOVAL;
+					}
 					@Override
 					public DialogueNode getNextDialogue() {
 						return Main.game.getDefaultDialogue(false);
@@ -1869,30 +1825,24 @@ public class AlleywayDemonDialogue {
 						Main.game.banishNPC(getDemon());
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode AFTER_SEX_DEFEAT = new DialogueNode("Collapse", "", true) {
-		
 		@Override
 		public int getSecondsPassed() {
 			return 15*60;
 		}
-		
 		@Override
 		public String getDescription(){
 			return "You're completely worn out from [npc.namePos] dominant treatment, and need a while to recover.";
 		}
-
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/"+getDialogueId(), "AFTER_SEX_DEFEAT", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/alleywayDemonAttack", "AFTER_SEX_DEFEAT", getDemon());
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -1908,10 +1858,8 @@ public class AlleywayDemonDialogue {
 						return Main.game.getDefaultDialogue(false);
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	

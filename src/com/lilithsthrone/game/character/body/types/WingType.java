@@ -13,7 +13,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 
 /**
  * @since 0.1.0
- * @version 0.3.7.1
+ * @version 0.3.7.4
  * @author Innoxia
  */
 public enum WingType implements BodyPartTypeInterface {
@@ -27,6 +27,8 @@ public enum WingType implements BodyPartTypeInterface {
 	ANGEL(BodyCoveringType.ANGEL_FEATHER, Race.ANGEL, true),
 
 	FEATHERED(BodyCoveringType.FEATHERS, Race.NONE, true),
+	
+	LEATHERY(BodyCoveringType.WING_LEATHER, Race.NONE, true),
 	;
 
 	private BodyCoveringType skinType;
@@ -88,6 +90,8 @@ public enum WingType implements BodyPartTypeInterface {
 				return "";
 			case FEATHERED:
 				return UtilText.returnStringAtRandom("feathered");
+			case LEATHERY:
+				return UtilText.returnStringAtRandom("leathery");
 		}
 		return "";
 	}
@@ -105,6 +109,8 @@ public enum WingType implements BodyPartTypeInterface {
 				return "none";
 			case FEATHERED:
 				return "feathered";
+			case LEATHERY:
+				return "leathery";
 		}
 		return "";
 	}

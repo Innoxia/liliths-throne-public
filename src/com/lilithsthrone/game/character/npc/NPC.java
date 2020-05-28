@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -62,8 +63,8 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -142,7 +143,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			boolean addedToContacts,
 			NPCGenerationFlag... generationFlags) {
 		super(nameTriplet, surname, description, level,
-				LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, birthDay, 12, 0),
+				age<MINIMUM_AGE
+					?LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, birthDay, 12, 0)
+					:LocalDateTime.of(Main.game.getStartingDate().getYear()-(age-MINIMUM_AGE), birthMonth, birthDay, 12, 0),
 				startingGender, startingSubspecies, stage, inventory, worldLocation, startingPlace);
 		
 		List<NPCGenerationFlag> flags = Arrays.asList(generationFlags);
@@ -482,7 +485,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		// Sex:
-		if(this.getSexPartners().containsKey(Main.game.getPlayer().getId())) {
+		if(this.hasSexCountWith(Main.game.getPlayer())) {
 			tileSB.append("<p style='text-align:center;'>");
 					
 			tileSB.append(
@@ -923,6 +926,29 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return true;
 	}
 
+	public int getProstitutePrice() {
+		float prostitutePrice = 1f;
+
+		if(this.isFeminine()) {
+			prostitutePrice += 0.5f;
+		}
+		prostitutePrice += (this.getBody().getBreast().getRawSizeValue() - 7) * 0.02f; // Breast size.
+		if(this.hasVagina()) {
+			prostitutePrice += 0.15f; // More expensive if prostitute has a vagina.
+		}
+		if(this.hasPenis()) {
+			prostitutePrice += Math.min((this.getBody().getPenis().getRawLengthValue() - 5) * 0.01f, 0.10f); // Penalises small penises, but adds price if penis is large.
+		}
+		if(this.isBreastFuckableNipplePenetration()) {
+			prostitutePrice += 0.15f;  // Fuckable nipples add to price.
+		}
+		if(this.isVisiblyPregnant()) {
+			prostitutePrice = prostitutePrice * 0.5f; // Pregnant prostitutes charge 50% of their usual price.
+		}
+
+		return Math.max(150, ((int) (prostitutePrice*50))*10); // Minimum value is 150 flames.
+	}
+	
 	// Post-combat:
 
 	public int getExperienceFromVictory() {
@@ -1296,6 +1322,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 		}
 	}
+
+	public boolean hasEncounteredBefore() {
+		return lastTimeEncountered!=-1;
+	}
 	
 	public long getLastTimeEncountered() {
 		return lastTimeEncountered;
@@ -1310,7 +1340,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isUsingForcedTransform(GameCharacter target) {
-		return (hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) || hasFetish(Fetish.FETISH_KINK_GIVING))
+		return hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)
 				&& target.getRace()!=Race.ELEMENTAL // Do not try to transform elementals
 				&& target.getSubspeciesOverride()==null; // Do not try to transform demons
 	}
@@ -1475,12 +1505,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		boolean skipGenitalsTF = false;
 		
 		Body body;
+		Util.random = new Random((this.getId()).hashCode()); // Set random with seed of this cahracter's id hash so that it's consistent across multiple calls (as some methods inside generateBody() use random).
 		if(cannotTransformPreference) { // As demons and angels cannot be created via transformation, use the target's current body as Subspecies preference (so that gender changes use that Subspecies' body parts) 
 			body = CharacterUtils.generateBody(null, this.getGenderPreference(), target.getSubspecies(), target.getRaceStage());
 			
 		} else {
 			body = CharacterUtils.generateBody(null, this.getGenderPreference(), this.getSubspeciesPreference(), this.getRaceStagePreference());
 		}
+		Util.random = new Random();
 
 		boolean vaginaSet = target.getVaginaType()==body.getVagina().getType();
 		boolean penisSet = target.getPenisType()==body.getPenis().getType();
@@ -3311,7 +3343,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							+ "<p>"
 								+ "Not liking the start of [npc2.her] response, [npc.name] quickly [npc.verb(remove)] the bottle's stopper, before rather unceremoniously shoving the neck down [npc2.her] throat."
 								+ " Pinching [npc2.her] nose and holding [npc2.herHim] still, [npc.name] [npc.verb(make)] sure to force [npc2.name] to down all of the liquid before finally letting [npc2.herHim] go."
-								+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a surprised cry as [npc.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] body..."
+								+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a surprised cry as [npc2.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] body..."
 							+ "</p>"));
 						
 					} else {
@@ -3349,7 +3381,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				} else if(target.hasFetish(Fetish.FETISH_KINK_RECEIVING)) {
 					sb.append(UtilText.parse(user, target, 
 							" Seeing what it is that [npc.nameIs] offering [npc2.herHim], [npc2.she] [npc2.verb(let)] out a delighted cry and [npc2.verb(ask)], "
-							+ " [npc2.speech(Is that "+UtilText.generateSingularDeterminer(item.getName())+" "+item.getName()+"?! Please, let me drink it!)]"
+							+ " [npc2.speech(Is that going to give me a new fetish?! Please, let me drink it!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "Smiling as [npc.she] [npc.verb(hear)] [npc2.namePos] enthusiastic response, [npc.name] quickly [npc.verb(remove)] the bottle's stopper, before bringing the potion up to the eager [npc2.race]'s mouth."
@@ -3379,7 +3411,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								+ "<p>"
 									+ "Not liking the start of [npc2.her] response, [npc.name] quickly [npc.verb(remove)] the bottle's stopper, before rather unceremoniously shoving the neck down [npc2.her] throat."
 									+ " Pinching [npc2.her] nose and holding [npc2.herHim] still, [npc.name] [npc.verb(make)] sure to force [npc2.name] to down all of the liquid before finally letting [npc2.herHim] go."
-									+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a surprised cry as [npc.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] mind..."
+									+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a surprised cry as [npc2.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] mind..."
 								+ "</p>"));
 							
 						} else {
@@ -3422,7 +3454,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							+ "<p>"
 								+ "Not liking the start of [npc2.her] response, [npc.name] quickly [npc.verb(remove)] the bottle's stopper, before rather unceremoniously shoving the neck down [npc2.her] throat."
 								+ " Pinching [npc2.her] nose and holding [npc2.herHim] still, [npc.name] [npc.verb(make)] sure to force [npc2.name] to down all of the liquid before finally letting [npc2.herHim] go."
-								+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a surprised cry as [npc.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] mind..."
+								+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a surprised cry as [npc2.she] [npc2.verb(start)] to feel the liquid's effects taking effect..."
 							+ "</p>"));
 				}
 				sb.append(itemOwner.useItem(item, target, false, true));

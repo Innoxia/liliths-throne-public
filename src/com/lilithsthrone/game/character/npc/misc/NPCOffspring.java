@@ -28,7 +28,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDia
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.OutfitType;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
@@ -118,10 +118,10 @@ public class NPCOffspring extends NPC {
 		
 		// INVENTORY:
 		
+		// Offspring does not call equipClothing() until spawned in Encounter!
+		
 		resetInventory(true);
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-		
-		equipClothing(EquipClothingSetting.getAllClothingSettings());
 		
 		CharacterUtils.applyMakeup(this, true);
 
@@ -152,6 +152,10 @@ public class NPCOffspring extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
+		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
+		this.clearNonEquippedInventory(false);
+		CharacterUtils.generateItemsInInventory(this);
+
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
 			CharacterUtils.equipClothingFromOutfitType(this, OutfitType.PROSTITUTE, settings);
 		} else {

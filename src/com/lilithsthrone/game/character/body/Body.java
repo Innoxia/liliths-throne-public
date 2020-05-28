@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -32,7 +33,6 @@ import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
 import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.FootStructure;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -57,6 +57,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
+import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
@@ -136,7 +137,8 @@ public class Body implements XMLSaving {
 	private int bodySize;
 	private int muscle;
 	private BodyHair pubicHair;
-	
+
+	private Set<BodyCoveringType> heavyMakeup;
 	private Map<BodyCoveringType, Covering> coverings;
 	private Set<BodyCoveringType> coveringsDiscovered;
 
@@ -279,6 +281,7 @@ public class Body implements XMLSaving {
 		handleAllBodyPartsList();
 		
 		coverings = new EnumMap<>(BodyCoveringType.class);
+		heavyMakeup = new HashSet<>();
 
 		applyStartingCoveringValues();
 		
@@ -327,9 +330,11 @@ public class Body implements XMLSaving {
 			coveringsDiscovered.add(BodyCoveringType.SLIME_NIPPLES);
 			coveringsDiscovered.add(BodyCoveringType.SLIME_NIPPLES_CROTCH);
 			coveringsDiscovered.add(BodyCoveringType.SLIME_MOUTH);
+			coveringsDiscovered.add(BodyCoveringType.SLIME_TONGUE);
 			coveringsDiscovered.add(BodyCoveringType.SLIME_ANUS);
 			coveringsDiscovered.add(BodyCoveringType.SLIME_VAGINA);
 			coveringsDiscovered.add(BodyCoveringType.SLIME_PENIS);
+			
 		} else {
 			coveringsDiscovered.add(BodyCoveringType.EYE_SCLERA);
 			coveringsDiscovered.add(BodyCoveringType.NIPPLES);
@@ -337,6 +342,8 @@ public class Body implements XMLSaving {
 			coveringsDiscovered.add(BodyCoveringType.TONGUE);
 			coveringsDiscovered.add(BodyCoveringType.MOUTH);
 			coveringsDiscovered.add(BodyCoveringType.ANUS);
+			coveringsDiscovered.add(BodyCoveringType.VAGINA);
+			coveringsDiscovered.add(BodyCoveringType.PENIS);
 		}
 	}
 	
@@ -389,7 +396,7 @@ public class Body implements XMLSaving {
 		// Everything is based on human skin value:
 		StartingSkinTone tone = StartingSkinTone.values()[Util.random.nextInt(StartingSkinTone.values().length)];
 		
-		for (BodyCoveringType s : BodyCoveringType.values()) {
+		for(BodyCoveringType s : BodyCoveringType.values()) {
 			// Specials:
 			// orifice exterior/interior
 			// makeup
@@ -453,9 +460,6 @@ public class Body implements XMLSaving {
 		updateCoverings(true, true, true, true);
 	}
 	
-	
-	
-	
 	@Override
 	public Element saveAsXML(Element parentElement, Document doc) {
 		// Core:
@@ -479,7 +483,7 @@ public class Body implements XMLSaving {
 		CharacterUtils.addAttribute(doc, bodyCore, "takesAfterMother", String.valueOf(this.isTakesAfterMother()));
 		
 		for(BodyCoveringType bct : BodyCoveringType.values()) {
-			if(this.getBodyCoveringTypesDiscovered().contains(bct)
+			if(this.isBodyCoveringTypesDiscovered(bct)
 					|| ((bct == BodyCoveringType.MAKEUP_BLUSHER
 							|| bct == BodyCoveringType.MAKEUP_EYE_LINER
 							|| bct == BodyCoveringType.MAKEUP_EYE_SHADOW
@@ -503,9 +507,19 @@ public class Body implements XMLSaving {
 				if(this.coverings.get(bct).isSecondaryGlowing()) {
 					CharacterUtils.addAttribute(doc, element, "g2", String.valueOf(this.coverings.get(bct).isSecondaryGlowing()));
 				}
-				if(this.getBodyCoveringTypesDiscovered().contains(bct)) {
-					CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.getBodyCoveringTypesDiscovered().contains(bct)));
+				if(this.isBodyCoveringTypesDiscovered(bct)) {
+					CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.isBodyCoveringTypesDiscovered(bct)));
 				}
+			}
+		}
+		
+		if(!heavyMakeup.isEmpty()) {
+			Element element = doc.createElement("heavyMakeup");
+			bodyCore.appendChild(element);
+			for(BodyCoveringType bct : heavyMakeup) {
+				Element bctElement = doc.createElement("type");
+				element.appendChild(bctElement);
+				bctElement.setTextContent(bct.toString());
 			}
 		}
 		
@@ -841,7 +855,6 @@ public class Body implements XMLSaving {
 			}
 		} catch(Exception ex) {	
 		}
-		
 		
 		
 		// **************** Antenna **************** //
@@ -1275,6 +1288,9 @@ public class Body implements XMLSaving {
 		int girth = 2;
 		if(penis.getAttribute("girth") != null && !penis.getAttribute("girth").isEmpty()) {
 			girth = Integer.valueOf(penis.getAttribute("girth"));
+			if(Main.isVersionOlderThan(version, "0.3.7.6")) {// An extra level was added in 0.3.7.6, so +1 if the version is older than that
+				girth+=1;
+			}
 		}
 		
 		int cumStorage = 0;
@@ -1406,9 +1422,13 @@ public class Body implements XMLSaving {
 		Tail importedTail = new Tail(TailType.getTailTypeFromId(tail.getAttribute("type")));
 		
 		importedTail.tailCount = (Integer.valueOf(tail.getAttribute("count")));
-
+		
 		if(tail.getAttribute("girth") != null && !tail.getAttribute("girth").isEmpty()) {
-			importedTail.girth = Integer.valueOf(tail.getAttribute("girth"));
+			int tailGirth = Integer.valueOf(tail.getAttribute("girth"));
+			if(Main.isVersionOlderThan(version, "0.3.7.6")) {// An extra level was added in 0.3.7.6, so +1 if the version is older than that
+				tailGirth+=1;
+			}
+			importedTail.girth = tailGirth;
 		}
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Tail: "
@@ -1805,7 +1825,7 @@ public class Body implements XMLSaving {
 				}
 				
 				if(!e.getAttribute("discovered").isEmpty() && Boolean.valueOf(e.getAttribute("discovered"))) {
-					body.getBodyCoveringTypesDiscovered().add(BodyCoveringType.getTypeFromString(type));
+					body.addBodyCoveringTypesDiscovered(BodyCoveringType.getTypeFromString(type));
 				}
 				
 				CharacterUtils.appendToImportLog(log, "<br/>Body: Set bodyCovering: "+e.getAttribute("type") +" pattern:"+CoveringPattern.valueOf(e.getAttribute("pattern"))
@@ -1814,6 +1834,18 @@ public class Body implements XMLSaving {
 					+" (discovered: "+e.getAttribute("discovered")+")");
 			} catch(Exception ex) {
 			}
+		}
+		
+
+		try {
+			Element heavyMakeupElement = (Element)element.getElementsByTagName("heavyMakeup").item(0);
+			
+			NodeList bodyTypes = heavyMakeupElement.getElementsByTagName("type");
+			for(int i = 0; i < bodyTypes.getLength(); i++){
+				Element e = ((Element)bodyTypes.item(i));
+				body.addHeavyMakeup(BodyCoveringType.valueOf(e.getTextContent()));
+			}
+		} catch(Exception ex) {	
 		}
 		
 		body.calculateRace(null);
@@ -1853,7 +1885,7 @@ public class Body implements XMLSaving {
 	private static float handleCapacityLoading(float input) {
 		float loadedCapacity = input;
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6.7")) {
-			loadedCapacity = Penis.getGenericDiameter((int)loadedCapacity, PenetrationGirth.TWO_AVERAGE);
+			loadedCapacity = Penis.getGenericDiameter((int)loadedCapacity, PenetrationGirth.THREE_AVERAGE);
 		}
 		return loadedCapacity;
 	}
@@ -2326,7 +2358,7 @@ public class Body implements XMLSaving {
 //				}
 
 				sb.append(" It is "+Capacity.getCapacityFromValue(face.getMouth().getOrificeMouth().getStretchedCapacity()).getDescriptor(true)
-						+", can comfortably accommodate objects of up to [style.colourSex("+ Units.size(Capacity.getCapacityFromValue(face.getMouth().getOrificeMouth().getStretchedCapacity()).getMaximumValue(true)) + ")] in diameter.");
+						+", and can comfortably accommodate objects of up to [style.colourSex("+ Units.size(Capacity.getCapacityFromValue(face.getMouth().getOrificeMouth().getStretchedCapacity()).getMaximumValue(true)) + ")] in diameter.");
 				
 				if(Main.game.isPenetrationLimitationsEnabled()) {
 					switch(owner.getFaceDepth()) {
@@ -2541,13 +2573,13 @@ public class Body implements XMLSaving {
 		if(Main.getProperties().udders>0) {
 			if(owner.isAreaKnownByCharacter(CoverableArea.BREASTS_CROTCH, Main.game.getPlayer())) {
 				if(owner.hasBreastsCrotch()) {
-					sb.append(getHeader("Crotch-boobs"));
+					sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
 					sb.append(getBreastCrotchDescription(owner, breastCrotch));
 					sb.append("</p>");
 				} else {
 					if(this.leg.getLegConfiguration()!=LegConfiguration.BIPEDAL
 							|| (this.getRaceStage()==RaceStage.GREATER && RacialBody.valueOfRace(this.getRace()).getBreastCrotchType()!=BreastType.NONE && Main.getProperties().udders==2)) {
-						sb.append(getHeader("Crotch-boobs"));
+						sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
 						sb.append("[style.colourDisabled([npc.She] [npc.do] not have any crotch-boobs or udders.)]");
 						sb.append("</p>");
 					}
@@ -2556,7 +2588,7 @@ public class Body implements XMLSaving {
 			} else {
 				if(leg.getLegConfiguration()!=LegConfiguration.BIPEDAL
 						|| (this.getRaceStage()==RaceStage.GREATER && Main.getProperties().udders==2)) {
-					sb.append(getHeader("Crotch-boobs"));
+					sb.append(getHeader(owner.getBreastCrotchShape()==BreastShape.UDDERS?"Udders":"Crotch-boobs"));
 					if(owner.hasBreastsCrotch() && owner.isBreastsCrotchVisibleThroughClothing() && leg.getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
 						sb.append("Although you haven't seen [npc.her] exposed stomach before, [npc.her] [npc.crotchBoobsSize], [npc.crotchBoobsCups]-cup [npc.crotchBoobs] quite clearly bulge out from beneath [npc.her] [npc.topClothing(STOMACH)].");
 					} else {
@@ -2742,6 +2774,9 @@ public class Body implements XMLSaving {
 					sb.append("[npc.sheHasFull] a pair of [npc.wingSize], demonic wings, which are covered in [npc.wingFullDescription(true)].");
 					break;
 				case NONE:
+					break;
+				case LEATHERY:
+					sb.append("[npc.sheHasFull] a pair of [npc.wingSize] wings, which are covered in [npc.wingFullDescription(true)].");
 					break;
 				case FEATHERED:
 					sb.append("[npc.sheHasFull] a pair of [npc.wingSize] wings, which are covered in [npc.wingFullDescription(true)].");
@@ -2993,6 +3028,7 @@ public class Body implements XMLSaving {
 		addRaceWeight(raceWeightMap, hair.getType().getRace(), 1);
 		addRaceWeight(raceWeightMap, tail.getType().getRace(), 1);
 		addRaceWeight(raceWeightMap, wing.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, horn.getType().getRace(), 1);
 		
 		// Not using breast, ass, penis, or vagina
 		
@@ -3016,12 +3052,16 @@ public class Body implements XMLSaving {
 	}
 	
 	public RaceStage getRaceStageFromPartWeighting() {
+		if(raceWeightMap.containsKey(Race.DEMON) && !raceWeightMap.containsKey(Race.HUMAN)) {
+			return RaceStage.GREATER;
+		}
 		if(raceWeightMap.size()==1) {
 			if(raceWeightMap.containsKey(Race.HUMAN)) {
 				return RaceStage.HUMAN;
 			} else {
 				return RaceStage.GREATER;
 			}
+			
 		} else {
 			return RaceStage.LESSER;
 		}
@@ -3663,18 +3703,15 @@ public class Body implements XMLSaving {
 			descriptionSB.append(leg.getLegConfiguration().getCrotchBoobLocationDescription());
 			if(breastCrotch.getShape()==BreastShape.UDDERS) {
 				if(breastCrotch.getRawSizeValue()>0){
-					descriptionSB.append(" [npc.she] [npc.has] [npc.a_crotchBoobsSize] set of udders");
+					descriptionSB.append(" [npc.she] [npc.has] [npc.a_crotchBoobsSize]");
 				} else {
-					descriptionSB.append(" [npc.she] [npc.has] a completely flat set of udders");
+					descriptionSB.append(" [npc.she] [npc.has] a completely flat");
 				}
-				if(leg.getLegConfiguration().isBipedalPositionedCrotchBoobs() && breastCrotch.getRows()>1) {
-					descriptionSB.append(", which, due to the fact that it needs to be large enough to accommodate [npc.her] [npc.crotchBoobsRows] of [npc.crotchNipples], covers most of [npc.her] stomach.");
-					
-				} else if(breastCrotch.getRows()>1) {
-					descriptionSB.append(", which, due to the fact that it needs to be large enough to accommodate [npc.her] [npc.crotchBoobsRows] of [npc.crotchNipples], covers a large portion of [npc.her] underbelly.");
+				if(breastCrotch.getRows()>0) {
+					descriptionSB.append((breastCrotch.getRows()>1?" pairs":" pair")+" of udders.");
 					
 				} else {
-					descriptionSB.append(".");
+					descriptionSB.append(" udder,");
 				}
 				
 			} else {
@@ -3695,7 +3732,11 @@ public class Body implements XMLSaving {
 			}
 			
 			if(viewedBreastCrotch.getShape()==BreastShape.UDDERS) {
-				descriptionSB.append(" They are formed into [npc.totalCrotchBoobs] protrusions, upon each of which [npc.she] [npc.has] [npc.crotchBoobsNipplesPerBreast] [npc.crotchNippleSize], ");
+				if(breastCrotch.getRows()>0) {
+					descriptionSB.append(" They are formed into [npc.totalCrotchBoobs] protrusions, upon each of which [npc.she] [npc.has] [npc.crotchBoobsNipplesPerBreast] [npc.crotchNippleSize], ");
+				} else {
+					descriptionSB.append(" upon which [npc.sheHasFull] [npc.crotchBoobsNipplesPerBreast] [npc.crotchNippleSize], ");
+				}
 			} else {
 				descriptionSB.append(" On each of [npc.her] [npc.totalCrotchBoobs] [npc.crotchBoobs], [npc.she] [npc.has] [npc.crotchBoobsNipplesPerBreast] [npc.crotchNippleSize], ");
 			}
@@ -3947,7 +3988,7 @@ public class Body implements XMLSaving {
 			viewedPenis = new Penis(penis.getType(),
 					(int) (penis.getRawLengthValue() * 2.25f),
 					false,
-					PenetrationGirth.FOUR_FAT.getValue(),
+					PenetrationGirth.FIVE_FAT.getValue(),
 					penis.getTesticle().getTesticleSize().getValue()*2,
 					(int) ((penis.getTesticle().getRawCumStorageValue()+100) * 3.25f),
 					penis.getTesticle().getTesticleCount());
@@ -3973,7 +4014,7 @@ public class Body implements XMLSaving {
 		}
 
 		descriptionSB.append(UtilText.generateSingularDeterminer(viewedPenis.getLength().getDescriptor())+" "+viewedPenis.getLength().getDescriptor()
-				+", "+(viewedPenis.getGirth()==PenetrationGirth.TWO_AVERAGE?"":viewedPenis.getGirth().getName()
+				+", "+(viewedPenis.getGirth()==PenetrationGirth.THREE_AVERAGE?"":viewedPenis.getGirth().getName()
 				+", ")+Units.size(viewedPenis.getRawLengthValue(), Units.UnitType.LONG_SINGULAR));
 		
 		switch (viewedPenis.getType()) {
@@ -4545,7 +4586,7 @@ public class Body implements XMLSaving {
 			descriptionSB.append(" [style.colourBestial(As it is located on the lower, animalistic part of [npc.her] body, [npc.her] [npc.pussy] is no different to that of a feral [npc.vaginaRace]'s.)]");
 		}
 		
-		descriptionSB.append(" [npc.She] [npc.has] [npc.a_clitSize]"+(owner.getClitorisGirth()==PenetrationGirth.TWO_AVERAGE?"":", [npc.clitGirth]")
+		descriptionSB.append(" [npc.She] [npc.has] [npc.a_clitSize]"+(owner.getClitorisGirth()==PenetrationGirth.THREE_AVERAGE?"":", [npc.clitGirth]")
 				+" clit, which measures [npc.clitSizeValue] in length.");
 		
 		for(PenetrationModifier pm : PenetrationModifier.values()) {
@@ -4682,7 +4723,7 @@ public class Body implements XMLSaving {
 		}
 		
 		if(viewedVagina.getOrificeVagina().isSquirter()) {
-			descriptionSB.append(" [npc.She] [npc.is] a [style.colourArcane(squirter)], and [style.colourWetness([npc.verb(produce)] a considerable amount of female ejaculate)] each time [npc.she] orgasms.");
+			descriptionSB.append(" [npc.She] [npc.is] a [style.colourArcane(squirter)], and [style.colourWetness([npc.verb(produce)] a considerable amount of female ejaculate)] each time [npc.she] [npc.verb(orgasm)].");
 		}
 		
 		// Elasticity & plasticity:
@@ -5269,9 +5310,9 @@ public class Body implements XMLSaving {
 		// Weight = 0.4 * height
 		int weight = (int) (height * 0.4f);
 
-		// If harpy wings, your bones & muscles are really light, so *0.75
+		// If harpy wings, your bones & muscles are really light, so *0.5
 		if (arm.getType().equals(ArmType.HARPY)) {
-			weight *= 0.75;
+			weight *= 0.5;
 		}
 
 		// If centaur, you have a horse body, so weight*0.6 + 250 (horses are 400kg at lightest and centaur bodies are smaller than horse's)
@@ -5449,13 +5490,37 @@ public class Body implements XMLSaving {
 		this.piercedStomach = piercedStomach;
 	}
 
+	public Set<BodyCoveringType> getHeavyMakeup() {
+		return heavyMakeup;
+	}
+
+	public boolean isHeavyMakeup(BodyCoveringType type) {
+		return heavyMakeup.contains(type);
+	}
+	
+	public void addHeavyMakeup(BodyCoveringType type) {
+		heavyMakeup.add(type);
+	}
+	
+	public boolean removeHeavyMakeup(BodyCoveringType type) {
+		return heavyMakeup.remove(type);
+	}
+
 	public Map<BodyCoveringType, Covering> getCoverings() {
 		return coverings;
 	}
 
-	public Set<BodyCoveringType> getBodyCoveringTypesDiscovered() {
-		return coveringsDiscovered;
+	public boolean isBodyCoveringTypesDiscovered(BodyCoveringType bct) {
+		return coveringsDiscovered.contains(bct);
 	}
+
+	public boolean addBodyCoveringTypesDiscovered(BodyCoveringType bct) {
+		return coveringsDiscovered.add(bct);
+	}
+	
+//	public Set<BodyCoveringType> getBodyCoveringTypesDiscovered() {
+//		return coveringsDiscovered;
+//	}
 	
 	/**
 	 * Updates this body's covering to more realistic values.
@@ -5562,6 +5627,9 @@ public class Body implements XMLSaving {
 						coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
 				
 				coverings.put(BodyCoveringType.SLIME_MOUTH, new Covering(BodyCoveringType.SLIME_MOUTH, CoveringPattern.ORIFICE_MOUTH,
+						coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
+
+				coverings.put(BodyCoveringType.SLIME_TONGUE, new Covering(BodyCoveringType.SLIME_TONGUE, CoveringPattern.NONE,
 						coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
 				
 				coverings.put(BodyCoveringType.SLIME_VAGINA, new Covering(BodyCoveringType.SLIME_VAGINA, CoveringPattern.ORIFICE_VAGINA,
