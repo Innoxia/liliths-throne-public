@@ -6,7 +6,7 @@ import org.w3c.dom.events.MouseEvent;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
-import com.lilithsthrone.game.combat.CombatMove;
+import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -98,7 +98,7 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				
 				if(!response.hasRequirements()) {
 					if(response instanceof ResponseSex) {
-						if(((ResponseSex)response).isPlayerDom()) {
+						if(((ResponseSex)response).isPlayerInDominantSlot()) {
 							tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span></div>");
 						} else {
 							tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>Submissive Sex</span></div>");
@@ -153,7 +153,7 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 				} else {
 					if(response.isAvailable()) {
 						if(response instanceof ResponseSex) {
-							if(((ResponseSex)response).isPlayerDom()) {
+							if(((ResponseSex)response).isPlayerInDominantSlot()) {
 								tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span> (<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Available</span>)</div>");
 							} else {
 								tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>Submissive Sex</span> (<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Available</span>)</div>");
@@ -175,7 +175,7 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 						
 					} else if(response.isAbleToBypass()) {
 						if(response instanceof ResponseSex) {
-							if(((ResponseSex)response).isPlayerDom()) {
+							if(((ResponseSex)response).isPlayerInDominantSlot()) {
 								tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span>"
 										+ " (<span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Corruptive</span>)</div>");
 							} else {
@@ -199,7 +199,7 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 						
 					} else {
 						if(response instanceof ResponseSex) {
-							if(((ResponseSex)response).isPlayerDom()) {
+							if(((ResponseSex)response).isPlayerInDominantSlot()) {
 								tooltipSB.append("<div class='title'><span style='color:" + PresetColour.GENERIC_SEX_AS_DOM.toWebHexString() + ";'>Dominant Sex</span>"
 										+ " (<span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Unavailable</span>)</div>");
 							} else {

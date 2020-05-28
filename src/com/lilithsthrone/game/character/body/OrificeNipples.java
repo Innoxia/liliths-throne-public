@@ -352,7 +352,7 @@ public class OrificeNipples implements OrificeInterface {
 			case PUFFY:
 				return UtilText.parse(owner,
 						"<p>"
-							+ "[npc.Name] lets out a little cry as [npc.she] feels a tingling sensation running over [npc.her] "+nipplesString+", before they suddenly swell out and [style.boldGrow(puff up)].<br/>"
+							+ "[npc.Name] [npc.verb(let)] out a little cry as [npc.she] [npc.verb(feel)] a tingling sensation running over [npc.her] "+nipplesString+", before they suddenly swell out and [style.boldGrow(puff up)].<br/>"
 							+ "[style.boldSex([npc.NamePos] "+nipplesString+" are now extremely puffy!)]"
 						+ "</p>");
 		}

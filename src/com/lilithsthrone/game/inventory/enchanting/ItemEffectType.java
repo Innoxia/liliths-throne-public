@@ -636,7 +636,13 @@ public class ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			BodyChanging.setTarget(target);
-			Main.game.setContent(new Response("", "", MiscDialogue.BODY_CHANGING_MAKEUP));
+			Main.game.setContent(new Response(
+					"",
+					"",
+					MiscDialogue.getMakeupDialogue(false,
+							(BodyChanging.getTarget().isPlayer()
+								?"You open the arcane makeup set and prepare to get started..."
+								:"You open the arcane makeup set and prepare to get started on applying makeup to [npc.name]..."))));
 			return "";
 		}
 	};
@@ -1113,6 +1119,9 @@ public class ItemEffectType {
 					target.getCovering(BodyCoveringType.SLIME_MOUTH).setPrimaryGlowing(true);
 					target.getCovering(BodyCoveringType.SLIME_MOUTH).setSecondaryGlowing(true);
 
+					target.getCovering(BodyCoveringType.SLIME_TONGUE).setPrimaryGlowing(true);
+					target.getCovering(BodyCoveringType.SLIME_TONGUE).setSecondaryGlowing(true);
+					
 					target.getCovering(BodyCoveringType.SLIME_NIPPLES).setPrimaryGlowing(true);
 					target.getCovering(BodyCoveringType.SLIME_NIPPLES).setSecondaryGlowing(true);
 
@@ -1594,7 +1603,7 @@ public class ItemEffectType {
 
 		@Override
 		public String getPotionDescriptor() {
-			return "rangiferine";
+			return "reindeer";
 		}
 		
 		@Override
@@ -1665,7 +1674,8 @@ public class ItemEffectType {
 	
 	public static AbstractItemEffectType RACE_LOLLIPOP = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(+5)] [style.boldPhysique(physique)] to 'potion effects'",
-			"[style.boldSex(+3)] [style.boldFeminine(femininity)]"),
+			"[style.boldSex(+3)] [style.boldFeminine(femininity)]",
+			"Applies [style.boldSex('Sucking lollipop')] status effect"),
 			PresetColour.RACE_HARPY) {
 
 		@Override
@@ -1675,6 +1685,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			target.addStatusEffect(StatusEffect.LOLLIPOP_SUCKING, 60*20);
 			return "<p style='text-align:center;'>"
 						+ UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel more feminine...")
 					+ "</p>"
@@ -1988,11 +1999,14 @@ public class ItemEffectType {
 	// Specials:
 	
 	public static AbstractItemEffectType BIMBO_LOLLIPOP = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"<b style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Bimbo</b> <b style='color:"+PresetColour.RACE_HARPY.toWebHexString()+";'>harpy</b> <b style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>transformation</b>"),
+			"<b style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Bimbo</b> <b style='color:"+PresetColour.RACE_HARPY.toWebHexString()+";'>harpy</b> <b style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>transformation</b>",
+			"Applies [style.boldSex('Sucking lollipop')] status effect"),
 			PresetColour.RACE_HARPY) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			target.addStatusEffect(StatusEffect.LOLLIPOP_SUCKING, 60*20);
+			
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append("<p>"
@@ -2083,11 +2097,14 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType NYMPHO_LOLLIPOP = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"<b style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Nympho</b> <b style='color:"+PresetColour.RACE_HARPY.toWebHexString()+";'>harpy</b> <b style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>transformation</b>"),
+			"<b style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Nympho</b> <b style='color:"+PresetColour.RACE_HARPY.toWebHexString()+";'>harpy</b> <b style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>transformation</b>",
+			"Applies [style.boldSex('Sucking lollipop')] status effect"),
 			PresetColour.RACE_HARPY) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			target.addStatusEffect(StatusEffect.LOLLIPOP_SUCKING, 60*20);
+			
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append("<p>"

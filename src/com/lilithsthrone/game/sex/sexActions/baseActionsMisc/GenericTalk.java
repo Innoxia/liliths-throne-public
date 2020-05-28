@@ -281,10 +281,10 @@ public class GenericTalk {
 	};
 	
 	public static final SexAction ASKING_FOR_GENTLE_SEX = new SexAction(
-			SexActionType.SPEECH,
+			SexActionType.SPEECH_WITH_ALTERNATIVE,
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
-			CorruptionLevel.TWO_HORNY,
+			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
 		

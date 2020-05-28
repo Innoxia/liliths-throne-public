@@ -183,6 +183,7 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_BLACK_STEEL,
 			PresetColour.CLOTHING_GUNMETAL,
 			PresetColour.CLOTHING_STEEL,
+			PresetColour.CLOTHING_IRON,
 			PresetColour.CLOTHING_BRASS,
 			PresetColour.CLOTHING_COPPER,
 			PresetColour.CLOTHING_BRONZE,
@@ -243,6 +244,7 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_BLACK_STEEL,
 			PresetColour.CLOTHING_GUNMETAL,
 			PresetColour.CLOTHING_STEEL,
+			PresetColour.CLOTHING_IRON,
 			PresetColour.CLOTHING_BRASS,
 			PresetColour.CLOTHING_COPPER,
 			PresetColour.CLOTHING_BRONZE,
@@ -317,6 +319,7 @@ public class ColourListPresets {
 		// Fix inconsistent naming:
 		if(id.equals("ALL_METALS")) {
 			id = "ALL_METAL";
+			
 		} else if(id.equals("ALL_WITH_METAL")) {
 			id = "ALL_WITH_METALS";
 		}

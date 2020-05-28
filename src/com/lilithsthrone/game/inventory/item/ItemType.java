@@ -14,11 +14,13 @@ import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
@@ -3926,6 +3928,17 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return "";
 		}
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return super.isAbleToBeUsed(target) && target.isAbleToWearMakeup();
+		}
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			if(!target.isAbleToWearMakeup()) {
+				return UtilText.parse(target, "<i>As [npc.namePos] body is made of "+BodyChanging.getTarget().getBodyMaterial().getName()+", [npc.sheIsFull] [style.colourBad(unable to wear any makeup)]!</i>");
+			}
+			return "This item cannot be used in this way!";
+		}
 	};
 	
 	public static AbstractItemType PRESENT = new AbstractItemType(250,
@@ -4630,6 +4643,10 @@ public class ItemType {
 		public boolean isConsumedOnUse() {
 			return false;
 		}
+		@Override
+		public List<AbstractCoreType> getAdditionalDiscoveryTypes() {
+			return Util.newArrayListOfValues(PAINT_CAN);
+		}
 	};
 
 	public static AbstractItemType PAINT_CAN = new AbstractItemType(250,
@@ -4658,6 +4675,10 @@ public class ItemType {
 		@Override
 		public boolean isConsumedOnUse() {
 			return false;
+		}
+		@Override
+		public List<AbstractCoreType> getAdditionalDiscoveryTypes() {
+			return Util.newArrayListOfValues(PAINT_CAN_PREMIUM);
 		}
 	};
 
@@ -4692,15 +4713,44 @@ public class ItemType {
 		}
 	};
 
-	public static AbstractItemType BUSINESS_CARDS = new AbstractItemType(0,
-			"a",
+//	public static AbstractItemType BUSINESS_CARDS = new AbstractItemType(0,
+//			"a",
+//			false,
+//			"pack of business cards",
+//			"packs of business cards",
+//			"A pack of Helena's business cards, given to you by Scarlett along with the instructions to hand them out at the auction block in Slaver Alley."
+//					+ " The pack itself has a fancy heart-shaped cut-out in the middle of its protective sleeve.",
+//			"business_card_box_1",
+//			PresetColour.CLOTHING_GOLD,
+//			null,
+//			null,
+//			Rarity.QUEST,
+//			null,
+//			null,
+//			null) {
+//		@Override
+//		public String getUseName() {
+//			return "inspect";
+//		}
+//		@Override
+//		public String getUseDescription(GameCharacter user, GameCharacter target) {
+//			return "Carefully taking them out of their protective packaging, you see that Helena's business cards are very well designed, and clearly display both her name and the address of her store in Slaver Alley.";
+//		}
+//		@Override
+//		public boolean isConsumedOnUse() {
+//			return false;
+//		}
+//	};
+
+	public static AbstractItemType NATALYA_BUSINESS_CARD = new AbstractItemType(0,
+			"",
 			false,
-			"pack of business cards",
-			"packs of business cards",
-			"A pack of Helena's business cards, given to you by Scarlett along with the instructions to hand them out at the auction block in Slaver Alley."
-					+ " The pack itself has a fancy heart-shaped cut-out in the middle of its protective sleeve.",
-			"business_card_box_1",
-			PresetColour.CLOTHING_GOLD,
+			"Natalya's Business Card",
+			"Natalya's Business Cards",
+			"A business card given to you by Natalya, the dominant succutaur who holds the position of 'Stable Mistress' at the delivery company 'Dominion Express'."
+					+ " The address printed on the card directs you to Dominion's Warehouse District.",
+			"natalya_business_card",
+			PresetColour.CLOTHING_WHITE,
 			null,
 			null,
 			Rarity.QUEST,
@@ -4713,7 +4763,69 @@ public class ItemType {
 		}
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return "Carefully taking them out of their protective packaging, you see that Helena's business cards are very well designed, and clearly display both her name and the address of her store in Slaver Alley.";
+			return "Natalya's business card clearly displays her name and title of 'Stable Mistress'."
+					+ " The address of the company at which she works, 'Dominion Express', is also clearly displayed as being in Dominion's Warehouse District.";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType NATALYA_BUSINESS_CARD_STAMPED = new AbstractItemType(0,
+			"",
+			false,
+			"Natalya's Business Card (Stamped)",
+			"Natalya's Business Cards (Stamped)",
+			"A business card given to you by Natalya, the dominant succutaur who holds the position of 'Stable Mistress' at the delivery company 'Dominion Express'."
+					+ " The address printed on the card directs you to Dominion's Warehouse District.",
+			"natalya_business_card_stamped",
+			PresetColour.CLOTHING_WHITE,
+			null,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "Natalya's business card clearly displays her name and title of 'Stable Mistress'."
+					+ " The address of the company at which she works, 'Dominion Express', is also clearly displayed as being in Dominion's Warehouse District."
+					+ " This particular card has been stamped by Natalya herself, and grants you instant access to Dominion Express's warehouse.";
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+	};
+
+	public static AbstractItemType SLAVER_LICENSE = new AbstractItemType(5000,
+			"",
+			false,
+			"Slaver License",
+			"Slaver Licenses",
+			"An official document declaring that you're legally entitled to own, purchase, sell, and even capture slaves."
+					+ " Although Slaver Licenses are extremely difficult to obtain, they only really have any value to their rightful owner...",
+			"slaver_license",
+			PresetColour.CLOTHING_WHITE,
+			null,
+			null,
+			Rarity.QUEST,
+			null,
+			null,
+			null) {
+		@Override
+		public String getUseName() {
+			return "inspect";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "This Slaver License consists of a single piece of thick, high-quality paper."
+					+ " It has your name clearly printed near to the top, and has been signed by Finch.";
 		}
 		@Override
 		public boolean isConsumedOnUse() {
@@ -5057,7 +5169,6 @@ public class ItemType {
 
 	public static AbstractItemType getItemTypeFromId(String id) {
 		id = Util.getClosestStringMatch(id, idToItemMap.keySet());
-		
 		return idToItemMap.get(id);
 	}
 	

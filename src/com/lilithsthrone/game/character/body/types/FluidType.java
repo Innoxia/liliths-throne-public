@@ -141,7 +141,7 @@ public enum FluidType implements BodyPartTypeInterface {
 	CUM_REINDEER_MORPH(FluidTypeBase.CUM,
 			BodyCoveringType.CUM,
 			FluidFlavour.CUM,
-			Util.newArrayListOfValues("rangiferine"),
+			Util.newArrayListOfValues("reindeer"),
 			Util.newArrayListOfValues(
 					FluidModifier.MUSKY,
 					FluidModifier.STICKY,
@@ -276,7 +276,7 @@ public enum FluidType implements BodyPartTypeInterface {
 	GIRL_CUM_REINDEER_MORPH(FluidTypeBase.GIRLCUM,
 			BodyCoveringType.GIRL_CUM,
 			FluidFlavour.GIRL_CUM,
-			Util.newArrayListOfValues("rangiferine"),
+			Util.newArrayListOfValues("reindeer"),
 			Util.newArrayListOfValues(
 					FluidModifier.SLIMY),
 			Race.REINDEER_MORPH),
@@ -400,7 +400,7 @@ public enum FluidType implements BodyPartTypeInterface {
 	MILK_REINDEER_MORPH(FluidTypeBase.MILK,
 			BodyCoveringType.MILK,
 			FluidFlavour.MILK,
-			Util.newArrayListOfValues("rangiferine"),
+			Util.newArrayListOfValues("reindeer"),
 			Util.newArrayListOfValues(),
 			Race.REINDEER_MORPH),
 	

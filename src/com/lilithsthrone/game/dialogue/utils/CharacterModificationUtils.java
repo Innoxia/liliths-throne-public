@@ -45,7 +45,6 @@ import com.lilithsthrone.game.character.body.types.BreastType;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.EyeType;
 import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.FootStructure;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -70,6 +69,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
+import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
@@ -111,6 +111,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -129,7 +130,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.7?
- * @version 0.3.7
+ * @version 0.3.7.5
  * @author Innoxia
  */
 public class CharacterModificationUtils {
@@ -691,7 +692,7 @@ public class CharacterModificationUtils {
 	}
 	
 	public static void setSexExperience(SexType type, int index) {
-		int count = BodyChanging.getTarget().getSexCount(type);
+		int count = BodyChanging.getTarget().getTotalSexCount(type);
 		
 		for(int i =0; i<normalSexExperienceValues.length; i++) {
 			if(count == normalSexExperienceValues[i]) {
@@ -702,7 +703,7 @@ public class CharacterModificationUtils {
 
 		BodyChanging.getTarget().incrementAttribute(Attribute.MAJOR_CORRUPTION, index);
 		
-		BodyChanging.getTarget().setSexCount(type, CharacterModificationUtils.normalSexExperienceValues[index]);
+		BodyChanging.getTarget().setSexCount(null, type, CharacterModificationUtils.normalSexExperienceValues[index]);
 		
 		if(index!=0) {
 			if(BodyChanging.getTarget().getSexualOrientation()==SexualOrientation.GYNEPHILIC
@@ -771,7 +772,7 @@ public class CharacterModificationUtils {
 	private static String getSexExperienceEntry(String id, String title, SexType associatedSexType, int[] values, String[] names) {
 		int index = 0;
 		for(int i=0; i<5; i++ ) {
-			if(values[i] == BodyChanging.getTarget().getSexCount(associatedSexType)) {
+			if(values[i] == BodyChanging.getTarget().getTotalSexCount(associatedSexType)) {
 				index = i;
 				break;
 			}
@@ -1159,7 +1160,7 @@ public class CharacterModificationUtils {
 						+ "<br/><i>Horns of a sufficient length can be used as handles for some sex actions, and are also used for subspecies identification.</i>"),
 				"HORN_TYPE",
 				contentSB.toString(),
-				true);
+				false);
 	}
 
 	public static String getSelfTransformHornSizeDiv() {
@@ -1708,7 +1709,7 @@ public class CharacterModificationUtils {
 						+ "<br/><i>This is mostly used for cosmetics and subspecies identification, but some ear types are long enough to be pulled in some sex actions (marked by an asterisk where available).</i>"),
 				"EAR_TYPE",
 				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformEyeChoiceDiv(List<Race> availableRaces) {
@@ -1840,7 +1841,7 @@ public class CharacterModificationUtils {
 						+ "<br/><i>While mostly a cosmetic transformation, very large lip sizes (marked by an asterisk) will also cause [npc.name] to speak with a lisp.</i>"),
 				"LIP_SIZE",
 				contentSB.toString(),
-				true);
+				false);
 	}
 	
 	public static String getSelfTransformThroatModifiersDiv() {
@@ -1868,7 +1869,46 @@ public class CharacterModificationUtils {
 				contentSB.toString(),
 				true);
 	}
+	
+	public static String getSelfTransformThroatWetnessDiv() {
+		contentSB.setLength(0);
+		
+		for(Wetness value : Wetness.values()) {
+			if(BodyChanging.getTarget().getFaceWetness() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+				
+			} else {
+				if(BodyChanging.getTarget().getBodyMaterial().isOrificesAlwaysMaximumWetness()) {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
+									+Util.capitaliseSentence(value.getDescriptor())
+								+"</span>"
+							+ "</div>");
+					
+				} else {
+					contentSB.append(
+							"<div id='THROAT_WETNESS_"+value+"' class='cosmetics-button'>"
+								+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+							+ "</div>");
+				}
+			}
+		}
 
+		return applyWrapper("Throat Wetness",
+				UtilText.parse(BodyChanging.getTarget(), "Change the wetness of [npc.namePos] throat."
+							+ "<br/><i>This affects pleasure in sex, as non-lubricated orifices negatively affect arousal gains.</i>"
+							+(BodyChanging.getTarget().getBodyMaterial().isOrificesAlwaysMaximumWetness()
+									?"<br/>[style.italicsWetness8(As [npc.namePos] body is made out of [npc.bodyMaterial], [npc.her] orifices can never be less than '"+Util.capitaliseSentence(Wetness.SEVEN_DROOLING.getDescriptor())+"'!)]"
+									:"")),
+				"THROAT_WETNESS",
+				contentSB.toString(),
+				true);
+	}
+	
 	public static String getSelfTransformThroatCapacityDiv() {
 		contentSB.setLength(0);
 		
@@ -2381,8 +2421,8 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyWrapper("Breast Rows",
-				UtilText.parse(BodyChanging.getTarget(), "Change the number of breast rows [npc.name] [npc.has]."
+		return applyWrapper("Breast Pairs",
+				UtilText.parse(BodyChanging.getTarget(), "Change how many pairs of breasts [npc.name] [npc.has]."
 						+ "<br/><i>This is a mostly a cosmetic change, but is also taken into account when determining if there are any free nipples for use in sex.</i>"),
 				"BREAST_ROWS",
 				contentSB.toString(),
@@ -2392,24 +2432,33 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformBreastCrotchRowsDiv() {
 		contentSB.setLength(0);
 		
-		for(int i=1; i <= BreastCrotch.MAXIMUM_BREAST_ROWS; i++) {
-			if(BodyChanging.getTarget().getBreastCrotchRows() == i) {
+		int minimum = 1;
+		if(BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS) {
+			minimum = 0;
+		}
+		
+		for(int i=minimum; i <= BreastCrotch.MAXIMUM_BREAST_ROWS; i++) {
+			String name = Util.capitaliseSentence(Util.intToString(i));
+			if(i==0) {
+				name = "(Single)";
+			}
+			if(BodyChanging.getTarget().getBreastCrotchRows()==i) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.toWebHexString()+";'>"+name+"</span>"
 						+ "</div>");
 				
 			} else {
 				contentSB.append(
 						"<div id='CROTCH_BOOB_COUNT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+Util.capitaliseSentence(Util.intToString(i))+"</span>"
+							+ "<span style='color:"+PresetColour.TRANSFORMATION_SEXUAL.getShades()[0]+";'>"+name+"</span>"
 						+ "</div>");
 			}
 		}
 
 		return applyWrapper(
-				UtilText.parse(BodyChanging.getTarget(), Util.capitaliseSentence(getCrotchBoobName(false))+" Rows"),
-				UtilText.parse(BodyChanging.getTarget(), "Change the number of "+getCrotchBoobName(false)+" rows [npc.name] [npc.has]."
+				UtilText.parse(BodyChanging.getTarget(), Util.capitaliseSentence(getCrotchBoobName(false))+" Pairs"),
+				UtilText.parse(BodyChanging.getTarget(), "Change how many pairs of "+getCrotchBoobName(false)+" [npc.name] [npc.has]."
 						+ "<br/><i>This is a mostly a cosmetic change, but is also taken into account when determining if there are any free crotch-nipples for use in sex.</i>"),
 				"BREAST_CROTCH_ROWS",
 				contentSB.toString(),
@@ -2418,8 +2467,10 @@ public class CharacterModificationUtils {
 
 	public static String getSelfTransformNippleCountDiv() {
 		contentSB.setLength(0);
+
+		int minimum = 1;
 		
-		for(int i=1; i <= Breast.MAXIMUM_NIPPLES_PER_BREAST; i++) {
+		for(int i=minimum; i <= Breast.MAXIMUM_NIPPLES_PER_BREAST; i++) {
 			if(BodyChanging.getTarget().getNippleCountPerBreast() == i) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
@@ -2443,8 +2494,13 @@ public class CharacterModificationUtils {
 
 	public static String getSelfTransformNippleCrotchCountDiv() {
 		contentSB.setLength(0);
+
+		int minimum = 1;
+		if(BodyChanging.getTarget().getBreastCrotchShape()==BreastShape.UDDERS && BodyChanging.getTarget().getBreastCrotchRows()==0) {
+			minimum = 2;
+		}
 		
-		for(int i=1; i <= BreastCrotch.MAXIMUM_NIPPLES_PER_BREAST; i++) {
+		for(int i=minimum; i <= BreastCrotch.MAXIMUM_NIPPLES_PER_BREAST; i++) {
 			if(BodyChanging.getTarget().getNippleCrotchCountPerBreast() == i) {
 				contentSB.append(
 						"<div class='cosmetics-button active'>"
@@ -4948,6 +5004,8 @@ public class CharacterModificationUtils {
 	}
 	
 	public static String getKatesDivCoveringsNew(boolean withCost, BodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow, boolean withDyeAndExtraPatterns) {
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.coveringChangeListenersRequired, true);
+		
 		boolean disabledButton = !coveringsToBeApplied.containsKey(coveringType) || coveringsToBeApplied.get(coveringType).equals(BodyChanging.getTarget().getCovering(coveringType));
 		
 		StringBuilder sb = new StringBuilder();

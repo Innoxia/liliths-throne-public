@@ -6,7 +6,7 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 
 /**
  * @since 0.1.66
- * @version 0.2.5
+ * @version 0.3.8
  * @author Innoxia
  */
 public class InventoryWeaponComparator implements Comparator<AbstractWeapon> {
@@ -24,7 +24,14 @@ public class InventoryWeaponComparator implements Comparator<AbstractWeapon> {
 			if(result!=0) {
 				return result;
 			} else {
-				return first.getColour().getName().compareTo(second.getColour().getName());
+				if(first.getColour(0)!=null) {
+					if(second.getColour(0)!=null) {
+						return first.getColour(0).getName().compareTo(second.getColour(0).getName());
+					} else {
+						return 1;
+					}
+				}
+				return 0;
 			}
 		}
 	}

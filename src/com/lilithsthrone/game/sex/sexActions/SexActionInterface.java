@@ -201,6 +201,68 @@ public interface SexActionInterface {
 		}
 		return penetrationTakesVirginity && orificeHasVirginity;
 	}
+
+	public default boolean isTakesPerformerVirginity(boolean includeForeplayOrifices, GameCharacter performer, GameCharacter target) {
+		if(!isTakesVirginity(includeForeplayOrifices)) {
+			return false;
+		}
+		if(performer.isAssVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.ANUS)) {
+			return true;
+		}
+		if(includeForeplayOrifices && performer.isFaceVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.MOUTH)) {
+			return true;
+		}
+		if(performer.isNippleCrotchVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.NIPPLE_CROTCH)) {
+			return true;
+		}
+		if(performer.isNippleVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.NIPPLE)) {
+			return true;
+		}
+		if(performer.isPenisVirgin() && this.getPerformingCharacterAreas().contains(SexAreaPenetration.PENIS)) {
+			return true;
+		}
+		if(performer.isUrethraVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.URETHRA_PENIS)) {
+			return true;
+		}
+		if(performer.isVaginaUrethraVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.URETHRA_VAGINA)) {
+			return true;
+		}
+		if(performer.isVaginaVirgin() && this.getPerformingCharacterAreas().contains(SexAreaOrifice.VAGINA)) {
+			return true;
+		}
+		return false;
+	}
+
+	public default boolean isTakesTargetVirginity(boolean includeForeplayOrifices, GameCharacter performer, GameCharacter target) {
+		if(!isTakesVirginity(includeForeplayOrifices)) {
+			return false;
+		}
+		if(target.isAssVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.ANUS)) {
+			return true;
+		}
+		if(includeForeplayOrifices && target.isFaceVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.MOUTH)) {
+			return true;
+		}
+		if(target.isNippleCrotchVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.NIPPLE_CROTCH)) {
+			return true;
+		}
+		if(target.isNippleVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.NIPPLE)) {
+			return true;
+		}
+		if(target.isPenisVirgin() && this.getTargetedCharacterAreas().contains(SexAreaPenetration.PENIS)) {
+			return true;
+		}
+		if(target.isUrethraVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.URETHRA_PENIS)) {
+			return true;
+		}
+		if(target.isVaginaUrethraVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.URETHRA_VAGINA)) {
+			return true;
+		}
+		if(target.isVaginaVirgin() && this.getTargetedCharacterAreas().contains(SexAreaOrifice.VAGINA)) {
+			return true;
+		}
+		return false;
+	}
 	
 	public abstract SexParticipantType getParticipantType();
 	

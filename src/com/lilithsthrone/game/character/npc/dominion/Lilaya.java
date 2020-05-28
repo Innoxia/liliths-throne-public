@@ -154,7 +154,7 @@ public class Lilaya extends NPC {
 					PersonalityTrait.SHY);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7")) {
-			this.setTailGirth(PenetrationGirth.FOUR_FAT);
+			this.setTailGirth(PenetrationGirth.FIVE_FAT);
 		}
 	}
 
@@ -223,7 +223,7 @@ public class Lilaya extends NPC {
 		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		this.setHornType(HornType.SWEPT_BACK);
 		this.setTailType(TailType.DEMON_COMMON);
-		this.setTailGirth(PenetrationGirth.FOUR_FAT);
+		this.setTailGirth(PenetrationGirth.FIVE_FAT);
 
 		this.setHeight(180);
 		this.setFemininity(85);
@@ -267,7 +267,7 @@ public class Lilaya extends NPC {
 		// Penis:
 		// For when she grows one:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.TWO_AVERAGE);
+		this.setPenisGirth(PenetrationGirth.THREE_AVERAGE);
 		this.setPenisSize(15);
 		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
 		this.setPenisCumStorage(65);

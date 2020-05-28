@@ -1003,7 +1003,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public void cleanAllClothing(boolean includeNotEquippedClothing) {
-		if(!isAnyClothingDirty()) {
+		if(!isAnyClothingDirty() && !includeNotEquippedClothing) {
 			return;
 		}
 		

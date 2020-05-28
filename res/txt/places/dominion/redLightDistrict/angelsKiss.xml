@@ -279,7 +279,7 @@
 	<p>
 		The [npc.fullRace], [npc.name], is currently working in this room, and [npc.she] smiles at you as you step through the open door.
 		 [npc.speech([pc.Name]! I can never thank you enough for saving me from those alleyways...
-		 Angel insists that I charge everyone I sleep with, but I can still give you a huge discount out of my own takings!
+		 Angel insists that I charge everyone I sleep with, so I can't offer you a free ride, but I can still give you a huge discount!
 		 Instead of the usual two-thousand flames, I'll only charge you three-hundred.
 		 That is, if you wanted to have sex with me...)]
 	</p>

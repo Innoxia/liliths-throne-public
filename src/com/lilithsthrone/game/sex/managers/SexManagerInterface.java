@@ -34,8 +34,8 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
-import com.lilithsthrone.world.places.Population;
-import com.lilithsthrone.world.places.PopulationType;
+import com.lilithsthrone.world.population.Population;
+import com.lilithsthrone.world.population.PopulationType;
 
 /**
  * @since 0.1.0

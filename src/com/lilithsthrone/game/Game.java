@@ -130,7 +130,7 @@ import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -264,6 +264,7 @@ public class Game implements XMLSaving {
 	private int initialPositionAnchor = 0;
 	private int responsePage = 0;
 	private int responseTab = 0;
+	private int savedResponseTab = 0;
 	
 	private StringBuilder pastDialogueSB = new StringBuilder();
 	private StringBuilder choicesDialogueSB = new StringBuilder();
@@ -756,6 +757,7 @@ public class Game implements XMLSaving {
 //							&& (!worldType.equals("GAMBLING_DEN") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.4"))
 							&& (!worldType.equals("RAT_WARRENS") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.6"))
 							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.3.5.6"))
+							&& (!worldType.equals("DOMINION_EXPRESS") || !Main.isVersionOlderThan(loadingVersion, "0.3.7.9"))
 							&& !worldType.equals("JUNGLE")
 							) {
 						World world = World.loadFromXML(e, doc);
@@ -817,13 +819,10 @@ public class Game implements XMLSaving {
 						gen.worldGeneration(WorldType.RAT_WARRENS);
 						gen.worldGeneration(WorldType.SLAVER_ALLEY);
 					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.5.9")) {
-						gen.worldGeneration(WorldType.DOMINION_EXPRESS);
-					}
 					if(Main.isVersionOlderThan(loadingVersion, "0.3.7")) {
 						gen.worldGeneration(WorldType.HELENAS_APARTMENT);
 					}
-					if(Main.isVersionOlderThan(loadingVersion, "0.3.7.5")) {
+					if(Main.isVersionOlderThan(loadingVersion, "0.3.7.9")) {
 						gen.worldGeneration(WorldType.DOMINION_EXPRESS);
 					}
 					if(Main.game.worlds.get(wt)==null) {
@@ -1317,15 +1316,11 @@ public class Game implements XMLSaving {
 		Main.game.setRenderMap(true);
 		Main.game.setRenderAttributesSection(true);
 		
-//		Main.game.started = true;
-		
 		Main.game.setRequestAutosave(false);
 		
 		DialogueNode startingDialogueNode = Main.game.getPlayerCell().getPlace().getDialogue(false);
 		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+Util.getFileName(file)+".xml"), false);
-		Main.game.setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode), false);
-		
-//		System.out.println(Main.isVersionOlderThan(loadingVersion, "0.2.12.95"));
+		Main.game.setContent(new Response("", startingDialogueNode.getDescription(), startingDialogueNode), false);
 		
 		// Test enchantments over limits:
 //		for(NPC npc : Main.game.getAllNPCs()) {
@@ -2211,6 +2206,7 @@ public class Game implements XMLSaving {
 			DialogueNode node = response.getNextDialogue();
 			response.applyEffects();
 			if(node!=null) {
+				node.specialPreParsingEffects();
 				node.applyPreParsingEffects();
 			}
 			
@@ -2429,6 +2425,7 @@ public class Game implements XMLSaving {
 		DialogueNode node = response.getNextDialogue();
 		response.applyEffects();
 		if(node!=null) {
+			node.specialPreParsingEffects();
 			node.applyPreParsingEffects();
 		}
 		
@@ -2675,7 +2672,9 @@ public class Game implements XMLSaving {
 				|| node.equals(BodyChanging.BODY_CHANGING_ASS)
 				|| node.equals(BodyChanging.BODY_CHANGING_BREASTS)
 				|| node.equals(BodyChanging.BODY_CHANGING_CORE)
-				|| node.equals(BodyChanging.BODY_CHANGING_FACE)
+				|| node.equals(BodyChanging.BODY_CHANGING_EYES)
+				|| node.equals(BodyChanging.BODY_CHANGING_HAIR)
+				|| node.equals(BodyChanging.BODY_CHANGING_HEAD)
 				|| node.equals(BodyChanging.BODY_CHANGING_PENIS)
 				|| node.equals(BodyChanging.BODY_CHANGING_VAGINA)
 				|| node.equals(InventoryDialogue.DYE_CLOTHING)
@@ -2687,7 +2686,7 @@ public class Game implements XMLSaving {
 	}
 	
 	private String getTitleDiv(String title) {
-		if(dialogueTitle.isEmpty()) {
+		if(title.isEmpty()) {
 			return "";
 		}
 		
@@ -2698,7 +2697,7 @@ public class Game implements XMLSaving {
 							|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER)
 							?"<div class='title-button' id='export-character-button' style='left:auto;right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getExportIcon()+"</div>"
 							:"")
-					+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
+					+ "<h4 style='text-align:center;'>" + title + "</h4>"
 				+ "</div>";
 	}
 	
@@ -3146,6 +3145,7 @@ public class Game implements XMLSaving {
 		savedDialogue = currentDialogue;
 		savedDialogueNode = currentDialogueNode;
 		previousPastDialogueSBContents = pastDialogueSB.toString();
+		savedResponseTab = responseTab;
 	}
 	
 	
@@ -3180,16 +3180,15 @@ public class Game implements XMLSaving {
 	public void restoreSavedContent(boolean regenerateSceneDialogue) {
 		positionAnchor = initialPositionAnchor;
 		dialogueTitle = UtilText.parse(savedDialogueNode.getLabel());
+		responseTab = savedResponseTab;
 		
 		currentDialogueNode = savedDialogueNode;
 		
 		if(Main.game.isInSex()) {
 			Main.sex.recalculateSexActions();
 		}
-		//TODO
-		if (currentDialogueNode.reloadOnRestore() || regenerateSceneDialogue) {
-//			System.out.println("restored with regenerated text");
-			
+		
+		if(currentDialogueNode.reloadOnRestore() || regenerateSceneDialogue) {
 			String headerContent = currentDialogueNode.getHeaderContent();
 			String content;
 			try {
@@ -3825,7 +3824,8 @@ public class Game implements XMLSaving {
 			npc.getOwner().removeSlave(npc);
 		}
 		
-		if(Main.game.getPlayer().getSexPartners().containsKey(npc.getId())
+		//TODO why are you saving these?!
+		if(Main.game.getPlayer().hasSexCountWith(npc)
 				|| npc.getPregnantLitter()!=null
 				|| npc.getLastLitterBirthed()!=null
 				|| npc.getMother()!=null
@@ -4072,6 +4072,10 @@ public class Game implements XMLSaving {
 	
 	public boolean isLipstickMarkingEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.lipstickMarkingContent);
+	}
+	
+	public boolean isWeatherInterruptionsEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.weatherInterruptions);
 	}
 	
 	public boolean isFacialHairEnabled() {

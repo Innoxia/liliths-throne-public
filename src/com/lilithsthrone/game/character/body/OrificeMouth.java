@@ -330,7 +330,7 @@ public class OrificeMouth implements OrificeInterface {
 			case PUFFY:
 					return UtilText.parse(owner,
 							"<p>"
-								+ "[npc.Name] can't help but let out a little cry as [npc.she] feels a tingling sensation running over [npc.her] mouth, before [npc.her] lips swell out and [style.boldGrow(puff up)].<br/>"
+								+ "[npc.Name] can't help but let out a little cry as [npc.she] [npc.verb(feel)] a tingling sensation running over [npc.her] mouth, before [npc.her] lips swell out and [style.boldGrow(puff up)].<br/>"
 								+ "[style.boldSex([npc.NamePos] lips are now extremely puffy!)]"
 							+ "</p>");
 		}
@@ -376,7 +376,7 @@ public class OrificeMouth implements OrificeInterface {
 			case PUFFY:
 					return UtilText.parse(owner,
 							"<p>"
-								+ "[npc.Name] can't help but let out a little cry as [npc.she] feels a tingling sensation running over [npc.her] lips, before they suddenly [style.boldShrink(deflate)] into a more normal-looking size.<br/>"
+								+ "[npc.Name] can't help but let out a little cry as [npc.she] [npc.verb(feel)] a tingling sensation running over [npc.her] lips, before they suddenly [style.boldShrink(deflate)] into a more normal-looking size.<br/>"
 								+ "[style.boldSex([npc.NamePos] lips are no longer extremely puffy!)]"
 							+ "</p>");
 		}

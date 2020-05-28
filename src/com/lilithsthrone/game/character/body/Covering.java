@@ -117,7 +117,7 @@ public class Covering implements XMLSaving {
 		if(this.secondaryGlowing) {
 			CharacterUtils.addAttribute(doc, element, "g2", String.valueOf(this.secondaryGlowing));
 		}
-		return parentElement;
+		return element;
 	}
 
 	public static Covering loadFromXML(StringBuilder log, Element parentElement, Document doc) {

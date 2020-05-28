@@ -3,20 +3,15 @@
 	<coreAttributes>
 	
 		<value>25000</value> 
-		
 		<melee>false</melee>
-		
 		<twoHanded>false</twoHanded>
-		
 		<determiner><![CDATA[an]]></determiner>
-		
 		<name><![CDATA[arcane revolver]]></name>
-		
 		<namePlural pluralByDefault="false"><![CDATA[arcane revolvers]]></namePlural> 
 		
 		<description><![CDATA[Although this revolver appears to be of the top-break variety, there's actually no way to open and reload it, as instead of bullets, it fires concentrated arcane essences. This weapon is only seen being carried by Lyssieth's elite guards.]]></description> 
 		
-		<attackDescriptor>fire</attackDescriptor>
+		<attackDescriptor>shoot</attackDescriptor>
 		
 		<attackTooltipDescription>Shoot [npc2.name] with your arcane revolver.</attackTooltipDescription>
 		

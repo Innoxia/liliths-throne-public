@@ -6,6 +6,7 @@ import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.FluidStored;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -19,8 +20,9 @@ import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
@@ -38,6 +40,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.game.occupantManagement.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
 import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
@@ -404,67 +407,6 @@ public class LilayaHomeGeneric {
 		} else if(coreUpgrade==PlaceUpgrade.LILAYA_MILKING_ROOM) {
 			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(Main.game.getPlayerCell().getType(), Main.game.getPlayerCell().getLocation());
 			
-//			if(index==3) {
-//				if(room.isAutoSellMilk()) {
-//					return new ResponseEffectsOnly("Milk: [style.colourGold(Selling)]", "Any milk that's collected in this room is being automatically sold.") {
-//						@Override
-//						public void effects() {
-//							room.setAutoSellMilk(false);
-//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-//						}
-//					};
-//					
-//				} else {
-//					return new ResponseEffectsOnly("Milk: [style.colourOrange(Storing)]", "Any milk that's collected in this room is being stored.") {
-//						@Override
-//						public void effects() {
-//							room.setAutoSellMilk(true);
-//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-//						}
-//					};
-//				}
-//				
-//			} else if(index==4) {
-//				if(room.isAutoSellCum()) {
-//					return new ResponseEffectsOnly("Cum: [style.colourGold(Selling)]", "Any cum that's collected in this room is being automatically sold.") {
-//						@Override
-//						public void effects() {
-//							room.setAutoSellCum(false);
-//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-//						}
-//					};
-//					
-//				} else {
-//					return new ResponseEffectsOnly("Cum: [style.colourOrange(Storing)]", "Any cum that's collected in this room is being stored.") {
-//						@Override
-//						public void effects() {
-//							room.setAutoSellCum(true);
-//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-//						}
-//					};
-//				}
-//				
-//			} else if(index==5) {
-//				if(room.isAutoSellGirlcum()) {
-//					return new ResponseEffectsOnly("Girlcum: [style.colourGold(Selling)]", "Any girlcum that's collected in this room is being automatically sold.") {
-//						@Override
-//						public void effects() {
-//							room.setAutoSellGirlcum(false);
-//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-//						}
-//					};
-//					
-//				} else {
-//					return new ResponseEffectsOnly("Girlcum: [style.colourOrange(Storing)]", "Any girlcum that's collected in this room is being stored.") {
-//						@Override
-//						public void effects() {
-//							room.setAutoSellGirlcum(true);
-//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-//						}
-//					};
-//				}
-//				
-//			} else 
 			if(index>=3 && index<6) {
 				return null;
 				
@@ -890,6 +832,34 @@ public class LilayaHomeGeneric {
 			}
 		}
 		
+		if(coreUpgrade==PlaceUpgrade.LILAYA_SPA) {
+			indexPresentStart = 4;
+			if(index==3) {
+				return new Response("Spa time",
+						"Take some time out from your busy day in which to relax in the spa. Rose will clean your clothes while you wash yourself."
+								+ "<br/>[style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]"
+								+ "<br/>[style.italicsExcellent(This will clean <b>all</b> clothing in your inventory.)]"
+								+ "<br/>[style.italicsMinorGood(This <b>does</b> clean companions.)]",
+								SPA_CORE){
+					@Override
+					public void effects() {
+						List<GameCharacter> charactersPresent = new ArrayList<>(LilayaHomeGeneric.getSlavesAndOccupantsPresent());
+						List<GameCharacter> slavesWashing = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_HELP_WASH)).collect(Collectors.toList());
+						slavesWashing.addAll(Main.game.getPlayer().getCompanions());
+						for(GameCharacter npc : slavesWashing) {
+							RoomPlayer.applyWash(npc, true, true, StatusEffect.BATH_BOOSTED, 10);
+						}
+						Main.game.getTextEndStringBuilder().append(RoomPlayer.applyWash(Main.game.getPlayer(), true, true, StatusEffect.BATH_BOOSTED, 10));
+					}
+					@Override
+					public int getSecondsPassed() {
+						return 10*60;//TODO
+					}
+				};
+			}
+		}
+		
+		//TODO Milking room takes more than 4?!
 		if(index-indexPresentStart<slavesAssignedToRoom.size()) {
 			NPC character = slavesAssignedToRoom.get(index-indexPresentStart);
 			if(charactersPresent.contains(character) || (character.getHomeCell().equals(Main.game.getPlayerCell()) && Main.game.getPlayer().getCompanions().contains(character))) {
@@ -998,6 +968,40 @@ public class LilayaHomeGeneric {
 			} else {
 				return null;
 			}
+		}
+	};
+
+	
+	public static final DialogueNode SPA_CORE = new DialogueNode("", "", true) {
+		
+		@Override
+		public String getContent() { //TODO
+			UtilText.nodeContentSB.setLength(0);
+			UtilText.nodeContentSB.append("<p>"
+						+ "TODO You relax in the spa."
+					+ "</p>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			List<GameCharacter> slaves = new ArrayList<>(getSlavesAndOccupantsPresent());
+			//TODO re-apply bath SE
+			if(index==1) {
+				return new Response("Continue", "Finish relaxing in your spa and get dressed.", Main.game.getDefaultDialogue(false));
+				
+			} else if(index==2) { //TODO
+				return new Response("Sex", "TODO", null);
+				
+			} else if(index==3) { //TODO
+				if(slaves.stream().anyMatch(c -> c.getRace()==Race.SLIME)) {
+					return new Response("Slime soak", "TODO", null);
+				}
+				return new Response("Slime soak", "TODO", null);
+			}
+			
+			return null;
 		}
 	};
 	

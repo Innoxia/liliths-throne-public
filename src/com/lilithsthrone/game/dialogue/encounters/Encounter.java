@@ -28,14 +28,15 @@ import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionExpressCentaurDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -119,12 +120,14 @@ public enum Encounter {
 				return Util.newHashMapOfValues(
 						new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f),
 						new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f),
+						new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
 						new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f),
 						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f));
 			} else {
 				return Util.newHashMapOfValues(
 						new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f),
 						new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f),
+						new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
 						new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f));
 			}
 		}
@@ -141,14 +144,6 @@ public enum Encounter {
 				Main.game.setActiveNPC(npc);
 				return Main.game.getActiveNPC().getEncounterDialogue();
 			}
-
-//			System.out.println(node);
-//			if(node == EncounterType.SPECIAL_DOMINION_CULTIST) {
-//				System.out.println(Main.game.getCurrentWeather() != Weather.MAGIC_STORM);
-//				System.out.println(Main.game.getDateNow().getMonth().equals(Month.OCTOBER));
-//				System.out.println(Main.game.getNumberOfWitches()<4);
-//				System.out.println(Main.game.getPlayerCell().getPlace().getPlaceType().equals(PlaceType.DOMINION_STREET));
-//			}
 			
 			if(node == EncounterType.SPECIAL_DOMINION_CULTIST
 					&& Main.game.getCurrentWeather() != Weather.MAGIC_STORM
@@ -176,6 +171,14 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 			}
+
+			if(node==EncounterType.DOMINION_EXPRESS_CENTAUR
+					&& Main.game.getCurrentWeather() != Weather.MAGIC_STORM) {
+				AbstractClothing collar = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
+				if(collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker")) { // When wearing filly choker, get approached by horny centaurs:
+					return DominionExpressCentaurDialogue.initEncounter(); // Can return null if player cannot access mouth or anus.
+				}
+			}
 			
 			if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS
 					&& Main.game.getPlayer().getName(false).equalsIgnoreCase("Kinariu")
@@ -201,19 +204,20 @@ public enum Encounter {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
-					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
-						?new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f)
-						:null,
-					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
-						?new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_PILL_HANDOUT, 5f)
-						:null,
-					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM && getSlaveWantingToUseYouInDominion()!=null
+					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_RENTAL_MOMMY, 10f),
+					new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_PILL_HANDOUT, 5f),
+					new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 1f),
+					getSlaveWantingToUseYouInDominion()!=null
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
 		}
 		
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
+			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) { // None of these encounters work during a storm
+				return null;
+			}
+			
 			LocalDateTime time = Main.game.getDateNow();
 			
 			if(time.getMonth().equals(Month.MAY) && time.getDayOfMonth()>7 && time.getDayOfMonth()<=14) { // Mother's day timing, 2nd week of May
@@ -242,6 +246,13 @@ public enum Encounter {
 					return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
 				}
 			}
+
+			if(node==EncounterType.DOMINION_EXPRESS_CENTAUR) {
+				AbstractClothing collar = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
+				if(collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker")) { // When wearing filly choker, get approached by horny centaurs:
+					return DominionExpressCentaurDialogue.initEncounter(); // Can return null if player cannot access mouth or anus.
+				}
+			}
 			
 			if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
@@ -259,9 +270,7 @@ public enum Encounter {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
-					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
-						?new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ATTACK, 15f)
-						:null,
+					new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ATTACK, 15f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
@@ -284,12 +293,13 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc-> ((npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
-								|| npc.getSubspecies()==Subspecies.ANGEL
-								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
-								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
-								|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)
-							|| (npc.getSubspecies()==Subspecies.HALF_DEMON && npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION))));
+						npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
+								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION))
+								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+										|| npc.getSubspecies()==Subspecies.ANGEL
+										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
+										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
+										|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC)));
 					
 					if(!offspringAvailable.isEmpty()) {
 //						for(NPC npc : offspringAvailable) {
@@ -390,9 +400,7 @@ public enum Encounter {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
-					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
-						?new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ATTACK, 10f)
-						:null,
+					new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ATTACK, 10f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
@@ -414,15 +422,15 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc -> ((npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
-									|| npc.getSubspecies()==Subspecies.SLIME
-									|| npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
-									|| npc.getSubspecies()==Subspecies.RAT_MORPH)
-								|| (npc.getSubspecies()==Subspecies.HALF_DEMON
-										&& (npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
-												|| npc.getHalfDemonSubspecies()==Subspecies.SLIME
-												|| npc.getHalfDemonSubspecies()==Subspecies.ALLIGATOR_MORPH
-												|| npc.getHalfDemonSubspecies()==Subspecies.RAT_MORPH))));
+							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
+								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+										|| npc.getHalfDemonSubspecies()==Subspecies.SLIME
+										|| npc.getHalfDemonSubspecies()==Subspecies.ALLIGATOR_MORPH
+										|| npc.getHalfDemonSubspecies()==Subspecies.RAT_MORPH)
+								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.DOMINION)
+										|| npc.getSubspecies()==Subspecies.SLIME
+										|| npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
+										|| npc.getSubspecies()==Subspecies.RAT_MORPH)));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -490,13 +498,28 @@ public enum Encounter {
 		}
 	},
 	
+	DOMINION_EXPRESS(null) {
+		@Override
+		public Map<EncounterType, Float> getDialogues() {
+			return Util.newHashMapOfValues(new Value<EncounterType, Float>(EncounterType.DOMINION_EXPRESS_CENTAUR, 10f));
+		}
+		@Override
+		protected DialogueNode initialiseEncounter(EncounterType node) {
+			if(node==EncounterType.DOMINION_EXPRESS_CENTAUR) {
+				AbstractClothing collar = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
+				if(collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker")) { // When wearing filly choker, get approached by horny centaurs:
+					return DominionExpressCentaurDialogue.initEncounter(); // Can return null if player cannot access mouth or anus.
+				}
+			}
+			return null;
+		}
+	},
+	
 	HARPY_NEST_WALKWAYS(null) {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
-					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
-						?new Value<EncounterType, Float>(EncounterType.HARPY_NEST_ATTACK, 12f)
-						:null,
+					new Value<EncounterType, Float>(EncounterType.HARPY_NEST_ATTACK, 12f),
 					new Value<EncounterType, Float>(EncounterType.HARPY_NEST_FIND_ITEM, 4f));
 		}
 		
@@ -513,8 +536,9 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc -> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST)
-								|| (npc.getSubspecies()==Subspecies.HALF_DEMON && npc.getHalfDemonSubspecies().getRace()==Race.HARPY)));
+							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
+								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST))
+								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST))));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -555,9 +579,7 @@ public enum Encounter {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
 			return Util.newHashMapOfValues(
-					Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
-						?new Value<EncounterType, Float>(EncounterType.HARPY_NEST_ATTACK, 12f)
-						:null,
+					new Value<EncounterType, Float>(EncounterType.HARPY_NEST_ATTACK, 12f),
 					new Value<EncounterType, Float>(EncounterType.HARPY_NEST_FIND_ITEM, 4f));
 		}
 
@@ -574,8 +596,9 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) { // Incest
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc -> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST)
-								|| (npc.getSubspecies()==Subspecies.HALF_DEMON && npc.getHalfDemonSubspecies().getRace()==Race.HARPY)));
+							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
+								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST))
+								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.HARPY_NEST))));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);
@@ -816,8 +839,9 @@ public enum Encounter {
 				
 				if(Math.random()<IncestEncounterRate()) {
 					List<NPC> offspringAvailable = Main.game.getOffspringNotSpawned(
-						npc -> (npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION)
-								|| (npc.getHalfDemonSubspecies()!=null && npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION))));
+							npc-> (npc.getSubspecies()==Subspecies.HALF_DEMON
+								?(npc.getHalfDemonSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION))
+								:(npc.getSubspecies().getWorldLocations().keySet().contains(WorldType.SUBMISSION))));
 					
 					if(!offspringAvailable.isEmpty()) {
 						return SpawnAndStartChildHere(offspringAvailable);

@@ -70,6 +70,7 @@
 		<tertiaryColoursDye/>
 		
 		<itemTags>
+			<tag>CHEAT_ITEM</tag>
 			<tag>FITS_ARM_WINGS</tag>
 		</itemTags>
 	</coreAttributes>

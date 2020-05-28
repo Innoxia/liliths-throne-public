@@ -182,7 +182,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("hot", "equine");
 			case REINDEER_MORPH:
-				return UtilText.returnStringAtRandom("hot", "reindeer-like", "rangiferine");
+				return UtilText.returnStringAtRandom("hot", "reindeer-like", "reindeer");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("hot");
 			case NONE:

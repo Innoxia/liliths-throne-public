@@ -235,7 +235,7 @@ public class Sex {
 	private Map<GameCharacter, SexControl> forcedSexControlMap;
 
 	private Set<GameCharacter> charactersGrewCock;
-	private Set<GameCharacter> heavyLipstickUsedCharacter;
+	private Set<GameCharacter> heavyLipstickUsedCharacter; // For tracking which characters have their 'heavy' lipstick removed at the end of sex.
 	
 
 	private Value<GameCharacter, Class<? extends BodyPartInterface>> creampieLockedBy;
@@ -386,11 +386,11 @@ public class Sex {
 			}
 		}
 		
-		for(GameCharacter character : Main.sex.getAllParticipants(false)) {
-			for(GameCharacter character2 : Main.sex.getAllParticipants(false)) {
-				character.addSexPartner(character2);
-			}
-		}
+//		for(GameCharacter character : Main.sex.getAllParticipants(false)) {
+//			for(GameCharacter character2 : Main.sex.getAllParticipants(false)) {
+//				character.addSexPartner(character2);
+//			}
+//		}
 		
 		for(GameCharacter character : Main.sex.getAllParticipants(false)) {
 			for(GameCharacter partner : Main.sex.getAllParticipants(false)) {
@@ -2509,10 +2509,8 @@ public class Sex {
 				List<SexAreaInterface> cummedInAreas = sexAction.getAreasCummedIn(cumProvider, cumTarget);
 				if(cummedInAreas != null) {
 					for (SexAreaInterface area : cummedInAreas) {
-						cumTarget.incrementCumCount(
-								new SexType(SexParticipantType.NORMAL, area, SexAreaPenetration.PENIS));
-						cumProvider.incrementCumCount(
-								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, area));
+						cumTarget.incrementCumCount(cumProvider, new SexType(SexParticipantType.NORMAL, area, SexAreaPenetration.PENIS));
+						cumProvider.incrementCumCount(cumTarget, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, area));
 						if(area.isOrifice() && ((SexAreaOrifice) area).isInternalOrifice()) {
 							if(sexAction==GenericOrgasms.GENERIC_ORGASM_DOUBLE_CREAMPIE) {
 								stringBuilderForAppendingDescriptions.append(cumTarget.ingestFluid(cumProvider, cumProvider.getCum(), (SexAreaOrifice) area, cumProvider.getPenisRawOrgasmCumQuantity()/2));
@@ -2556,7 +2554,7 @@ public class Sex {
 					if(Main.sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()>0) {
 						stringBuilderForAppendingDescriptions.append(Main.game.getPlayer().addItem(
 								AbstractItemType.generateFilledCondom(
-										Main.sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS).getColour(),
+										Main.sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS).getColour(0),
 										Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterPerformingAction().getCum(), Main.sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()),
 								false, true));
 					}
@@ -3134,11 +3132,8 @@ public class Sex {
 			incrementSexTypeCount(characterPerformingAction, characterTargeted, relatedSexTypePerformer);
 			incrementSexTypeCount(characterTargeted, characterPerformingAction, relatedSexTypeTargeted);
 			
-			characterPerformingAction.incrementSexCount(relatedSexTypePerformer);
-			characterTargeted.incrementSexCount(relatedSexTypeTargeted);
-
-			characterPerformingAction.addSexPartner(characterTargeted, relatedSexTypePerformer);
-			characterTargeted.addSexPartner(characterPerformingAction, relatedSexTypeTargeted);
+			characterPerformingAction.incrementSexCount(characterTargeted, relatedSexTypePerformer);
+			characterTargeted.incrementSexCount(characterPerformingAction, relatedSexTypeTargeted);
 			
 			if(performerArea==SexAreaPenetration.TONGUE && targetedArea==SexAreaOrifice.MOUTH
 					&& !Main.sex.getOngoingCharactersUsingAreas(characterTargeted, performerArea, targetedArea).contains(characterPerformingAction)) {
@@ -4633,7 +4628,24 @@ public class Sex {
 		Main.sex.dominantSpectators = new ArrayList<>(dominantSpectators);
 		Main.sex.submissiveSpectators = new ArrayList<>(submissiveSpectators);
 		
-		Main.sex.resetAllOngoingActions(!sexInitFinished);
+		if(!sexInitFinished) {
+			Main.sex.resetAllOngoingActions(true);
+			
+		} else {
+			for(GameCharacter character : this.getAllParticipants(true)) {
+				for(GameCharacter interactingCharacter : this.getAllParticipants(true)) {
+					if(sexManager.getDominants().containsKey(character)) {
+						if(this.getSexPositionSlot(character)!=sexManager.getDominants().get(character)) {
+							stopAllOngoingActions(character, interactingCharacter);
+						}
+					} else if(sexManager.getSubmissives().containsKey(character)){
+						if(this.getSexPositionSlot(character)!=sexManager.getSubmissives().get(character)) {
+							stopAllOngoingActions(character, interactingCharacter);
+						}
+					}
+				}
+			}
+		}
 		
 		// Add dominants to map, with the leader as the first entry:
 		List<GameCharacter> tempCharacterList = new ArrayList<>(sexManager.getDominants().keySet());
@@ -4996,6 +5008,7 @@ public class Sex {
 //		return mutualOrgasmActions;
 //	}
 	
+	//TODO is this needed in addition to the getActionsAvailablePlayer() method up above?
 	public List<SexActionInterface> getAvailableSexActionsPlayer() {
 		return availableSexActionsPlayer;
 	}
@@ -5087,7 +5100,11 @@ public class Sex {
 			Main.sex.submissives.put(character2, characterSlot1);
 		}
 		
-		Main.sex.resetAllOngoingActions(false);
+//		Main.sex.resetAllOngoingActions(false);
+		for(GameCharacter character : this.getAllParticipants(true)) {
+			stopAllOngoingActions(character1, character);
+			stopAllOngoingActions(character2, character);
+		}
 		
 		updateAvailableActions();
 	}

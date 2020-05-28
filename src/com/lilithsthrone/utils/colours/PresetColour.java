@@ -87,12 +87,13 @@ public class PresetColour {
 	public static Colour MAP_BACKGROUND_DARK = new Colour(false, Util.newColour(0x888888), Util.newColour(0x8f8f8f), "dark grey") {};
 	public static Colour MAP_BACKGROUND_DANGEROUS = new Colour(false, Util.newColour(0x303030), Util.newColour(0xaaaaaa), "dark grey") {};
 	public static Colour MAP_BACKGROUND_BLUE = new Colour(false,  Util.newColour(0xbbbbdd), Util.newColour(0xbbbbdd), "light blue") {};
-	
+
+	public static Colour GENERIC_NPC_REMOVAL = new Colour(false, BaseColour.RED_LIGHT, "red") {};
 	public static Colour GENERIC_SEX = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("sex", "sexSub", "subSex", "sub", "submissive")) {};
 	public static Colour GENERIC_SEX_AS_DOM = new Colour(false, Util.newColour(0xFF75BA), Util.newColour(0xD82C8B), "pink", Util.newArrayListOfValues("sexDom", "domSex", "dom", "dominant")) {};
 //	public static AbstractColour DOMINANT = new AbstractColour(false, BaseColour.PINK_DEEP, "deep pink", Util.newArrayListOfValues("dom", "dominant")) {};
 //	public static AbstractColour SUBMISSIVE = new AbstractColour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("sub", "submissive")) {};
-	public static Colour GENERIC_COMBAT = new Colour(false, BaseColour.CRIMSON, "crimson") {};
+	public static Colour GENERIC_COMBAT = new Colour(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("combat")) {};
 	public static Colour GENERIC_ARCANE = new Colour(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("arcane")) {};
 	public static Colour GENERIC_TERRIBLE = new Colour(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("terrible")) {};
 	public static Colour GENERIC_MINOR_BAD = new Colour(false, BaseColour.RED_LIGHT, "red", Util.newArrayListOfValues("minorBad", "badMinor")) {};
@@ -107,13 +108,13 @@ public class PresetColour {
 	public static Colour COOLDOWN = new Colour(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("cooldown")) {};
 	public static Colour CRIT = new Colour(false, BaseColour.GOLD, "gold", Util.newArrayListOfValues("crit")) {};
 
-	public static Colour SCAR = new Colour(false, BaseColour.TAN, "tan") {};
-	public static Colour TATTOO = new Colour(false, BaseColour.GREY, "grey") {};
+	public static Colour SCAR = new Colour(false, BaseColour.TAN, "tan", Util.newArrayListOfValues("scar")) {};
+	public static Colour TATTOO = new Colour(false, BaseColour.GREY, "grey", Util.newArrayListOfValues("tattoo")) {};
 	
 	public static Colour PERK = new Colour(false, BaseColour.AQUA, "aqua", Util.newArrayListOfValues("perk")) {};
 	public static Colour TRAIT = new Colour(false, BaseColour.GREEN_LIGHT, "green", Util.newArrayListOfValues("trait")) {};
 	public static Colour FETISH = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("fetish")) {};
-	public static Colour STATUS_EFFECT = new Colour(false, BaseColour.YELLOW, "yellow") {};
+	public static Colour STATUS_EFFECT = new Colour(false, BaseColour.YELLOW, "yellow", Util.newArrayListOfValues("statusEffect", "statusEffects")) {};
 	public static Colour SPECIAL_ATTACK = new Colour(false, BaseColour.CRIMSON, "crimson") {};
 	public static Colour STATUS_EFFECT_TIME_OVERFLOW = new Colour(false, BaseColour.BLUE, "aqua") {};
 	public static Colour STATUS_EFFECT_TIME_HIGH = new Colour(false, BaseColour.GREEN_LIGHT, "green") {};
@@ -321,7 +322,7 @@ public class PresetColour {
 	public static Colour DAMAGE_TYPE_PHYSICAL = new Colour(false, Util.newColour(0xA79E90), Util.newColour(0x5C4D42), "grey-brown", Util.newArrayListOfValues("dmgPhysical", "resPhysical", "physical")) {};
 	public static Colour DAMAGE_TYPE_MANA = new Colour(false, BaseColour.PURPLE_LIGHT, "purple", Util.newArrayListOfValues("dmgMana", "resMana")) {};
 	public static Colour DAMAGE_TYPE_LUST = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("dmgLust", "resLust")) {};
-	public static Colour DAMAGE_TYPE_SPELL = new Colour(false, Util.newColour(0xFF6BDA), Util.newColour(0xFF6BDA), "pink", Util.newArrayListOfValues("dmgSpell", "resSpell", "spell")) {};
+	public static Colour DAMAGE_TYPE_SPELL = new Colour(false, Util.newColour(0xFF6BDA), Util.newColour(0xFF6BDA), "pink", Util.newArrayListOfValues("dmgSpell", "resSpell", "spell", "spells")) {};
 	public static Colour DAMAGE_TYPE_FIRE = new Colour(false, Util.newColour(0xff9955), Util.newColour(0xff9955), "orange", Util.newArrayListOfValues("dmgFire", "resFire", "fire")) {};
 	public static Colour DAMAGE_TYPE_COLD = new Colour(false, Util.newColour(0x85C6FF), Util.newColour(0x85C6FF), "blue", Util.newArrayListOfValues("dmgCold", "resCold", "cold", "ice")) {};
 	public static Colour DAMAGE_TYPE_POISON = new Colour(false, Util.newColour(0x85FF8B), Util.newColour(0x85FF8B), "green", Util.newArrayListOfValues("dmgPoison", "resPoison", "poison")) {};
@@ -433,6 +434,7 @@ public class PresetColour {
 	public static Colour CLOTHING_BLACK_STEEL = new Colour(true, Util.newColour(0x333333), Util.newColour(0x333333), "black steel") {};
 	public static Colour CLOTHING_GUNMETAL = new Colour(true, Util.newColour(0x555555), Util.newColour(0x555555), "gunmetal gray") {};
 	public static Colour CLOTHING_STEEL = new Colour(true, Util.newColour(0x969696), Util.newColour(0x969696), "steel") {};
+	public static Colour CLOTHING_IRON = new Colour(true, Util.newColour(0xa9a39b), Util.newColour(0xa9a39b), "iron") {};
 	public static Colour CLOTHING_BRASS = new Colour(true, BaseColour.BRASS, "brass") {};
 	public static Colour CLOTHING_COPPER = new Colour(true, Util.newColour(0xD46F2B), Util.newColour(0xD46F2B), "copper", Util.newArrayListOfValues("copper")) {};
 	public static Colour CLOTHING_SILVER = new Colour(true, Util.newColour(0xC4C4C4), Util.newColour(0xC4C4C4), "silver", Util.newArrayListOfValues("silver")) {};
@@ -441,9 +443,6 @@ public class PresetColour {
 	public static Colour CLOTHING_ROSE_GOLD = new Colour(true, BaseColour.ROSE_GOLD, "rose gold") {};
 	public static Colour CLOTHING_PLATINUM = new Colour(true, BaseColour.PLATINUM, "platinum") {};
 	
-	// For special use with rainbow clothing:
-	public static Colour CLOTHING_MULTICOLOURED = new Colour(false, Util.newColour(0xff3030), Util.newColour(0xccffff), "multicoloured") {};
-
 	
 	// Body parts:
 
@@ -556,7 +555,7 @@ public class PresetColour {
 	public static Colour COVERING_BROWN_DARK = new Colour(false, BaseColour.BROWN_DARK, "dark brown") {};
 	public static Colour COVERING_DIRTY_BLONDE = new Colour(false, BaseColour.TAN, "dirty-blonde") {};
 	public static Colour COVERING_BLONDE = new Colour(false, BaseColour.YELLOW_LIGHT, "blonde") {};
-	public static Colour COVERING_BLEACH_BLONDE = new Colour(false, BaseColour.YELLOW_LIGHT, "bleach-blonde") {};
+	public static Colour COVERING_BLEACH_BLONDE = new Colour(false, BaseColour.YELLOW_PALE, "bleach-blonde") {};
 	public static Colour COVERING_SANDY = new Colour(false, Util.newColour(0xddc48b), Util.newColour(0xddc48b), "sandy") {};
 	public static Colour COVERING_YELLOW = new Colour(false, BaseColour.YELLOW, "yellow") {};
 	public static Colour COVERING_GINGER = new Colour(false, BaseColour.GINGER, "ginger") {};
@@ -1146,6 +1145,9 @@ public class PresetColour {
 	public static Colour getColourFromId(String id) {
 		if(id.equals("HORN_DARK_BROWN")) {
 			return PresetColour.COVERING_BROWN_DARK;
+		}
+		if(id.equals("CLOTHING_MULTICOLOURED")) {
+			return PresetColour.CLOTHING_RED;
 		}
 		String modId = id.replaceAll("SLIME_", "COVERING_");
 		modId = modId.replaceAll("HORN_", "COVERING_");

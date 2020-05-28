@@ -840,24 +840,47 @@ public enum PlaceUpgrade {
 		}
 	},
 
-	LILAYA_PLAYER_ROOM_BATH(false,
-			PresetColour.BASE_BLUE_LIGHT,
-			"Bathroom Extension",
-			"By knocking through into an adjacent storage room, it would be possible to greatly extend the size of your bathroom."
-					+ " With this extra space, you could turn it into a private spa, installing not only a huge new bathtub, but also a sauna and self-contained steam room.",
-			"By knocking through into an adjacent storage room, you have greatly extended the size of your bathroom."
-					+ " With this extra space, you've turned it into a private spa, having installed not only a huge new bathtub, but also a sauna and self-contained steam room.",
-			"By knocking through into an adjacent storage room, your old bathroom has been greatly extended and converted into a private spa."
-					+ " A massive bathtub, able to hold at least ten people at once, stretches across the entire right-hand side of the room, while to the left, both an enclosed sauna and a self-contained steam room have been constructed.",
+	LILAYA_SPA(true,
+			PresetColour.BASE_AQUA,
+			"Spa",
+			"By completely stripping and repurposing this room, it would be possible to transform it into a private spa."
+					+ " While it would no doubt make an excellent addition to the mansion, the installation of a huge, pool-like bath, sauna, and steam room is going to be extremely expensive..."
+					+ "<br/>[style.italicsbad(Only one spa can be installed, so make sure that you want it in this tile before installing it!)]",
+			"This room has been completely renovated and transformed into a luxurious, private spa."
+					+ " In the middle of the marble floor, there's huge, pool-like bath, while behind a trio of doors set into the left-hand wall, there's a changing room, sauna, and steam room.",
+			"This room has been completely renovated and transformed into a luxurious, private spa."
+					+ " In the middle of the marble floor, there's huge, pool-like bath, which is easily large enough to hold a dozen people at once."
+					+ " Behind a trio of doors set into the left-hand wall, there's also a changing room, sauna, and steam room.",
 			300000,
-			100000,
+			0,
+			250,
 			0,
 			0,
-			0.5f,
-			-0.25f,
+			0,
 			null) {
-		public Value<Boolean, String> getAvailability(Cell cell) {
-			return new Value<>(true, "");
+		@Override
+		public boolean isSlaverUpgrade() {
+			return false;
+		}
+		@Override
+		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
+			if(!Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCells(LILAYA_SPA).isEmpty()
+					|| !Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCells(LILAYA_SPA).isEmpty()) {
+				return new Value<>(false, "You can only have one spa!");
+			}
+			if(!Main.game.getCharactersTreatingCellAsHome(cell).isEmpty()) {
+				return new Value<>(false, "This room needs to be unoccupied in order to purchase this modification.");
+			}
+			return super.getExtraConditionalAvailability(cell);
+		}
+		@Override
+		public void applyInstallationEffects(Cell c) {
+			GenericPlace place = c.getPlace();
+			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
+				if(upgrade != LILAYA_SPA) {
+					place.removePlaceUpgrade(c, upgrade);
+				}
+			}
 		}
 	},
 	;
@@ -870,6 +893,7 @@ public enum PlaceUpgrade {
 	private static ArrayList<PlaceUpgrade> slaveQuartersUpgradesQuadruple;
 	private static ArrayList<PlaceUpgrade> milkingRoomUpgrades;
 	private static ArrayList<PlaceUpgrade> officeUpgrades;
+	private static ArrayList<PlaceUpgrade> spaUpgrades;
 	
 	public static ArrayList<PlaceUpgrade> getCoreRoomUpgrades() {
 		return coreRoomUpgrades;
@@ -898,10 +922,16 @@ public enum PlaceUpgrade {
 	public static ArrayList<PlaceUpgrade> getOfficeUpgrades() {
 		return officeUpgrades;
 	}
+
+	public static ArrayList<PlaceUpgrade> getSpaUpgrades() {
+		return spaUpgrades;
+	}
+	
 	
 	static {
 		coreRoomUpgrades = Util.newArrayListOfValues(
 				PlaceUpgrade.LILAYA_GUEST_ROOM,
+//				PlaceUpgrade.LILAYA_SPA, //TODO
 				
 				PlaceUpgrade.LILAYA_SLAVE_ROOM,
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE,
@@ -973,6 +1003,9 @@ public enum PlaceUpgrade {
 				PlaceUpgrade.LILAYA_OFFICE_COFFEE_MACHINE,
 				PlaceUpgrade.LILAYA_OFFICE_PARTITIONING_WALLS,
 				
+				PlaceUpgrade.LILAYA_EMPTY_ROOM);
+		
+		spaUpgrades = Util.newArrayListOfValues(
 				PlaceUpgrade.LILAYA_EMPTY_ROOM);
 	}
 	

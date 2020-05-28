@@ -2085,7 +2085,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 	}
 	
 	public float getCumAbsorptionPerSecond() {
-		return cumAbsorptionPerSecond/60f;
+		return cumAbsorptionPerSecond;
 	}
 	
 	/**

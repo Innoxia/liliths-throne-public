@@ -1706,8 +1706,8 @@ public class OptionsDialogue {
 					@Override
 					public void effects() {
 						for(Subspecies subspecies : Subspecies.values()) {
-							Main.getProperties().setFeminineFurryPreference(subspecies, FurryPreference.NORMAL);
-							Main.getProperties().setMasculineFurryPreference(subspecies, FurryPreference.NORMAL);
+							Main.getProperties().setFeminineFurryPreference(subspecies, subspecies.getDefaultFemininePreference());
+							Main.getProperties().setMasculineFurryPreference(subspecies, subspecies.getDefaultMasculinePreference());
 
 							Main.getProperties().setFeminineSubspeciesPreference(subspecies, subspecies.getSubspeciesPreferenceDefault());
 							Main.getProperties().setMasculineSubspeciesPreference(subspecies, subspecies.getSubspeciesPreferenceDefault());
@@ -1992,6 +1992,20 @@ public class OptionsDialogue {
 							"Lipstick marking",
 							"This enables lipstick marking of bodyparts via kisses during sex.",
 							Main.getProperties().hasValue(PropertyValue.lipstickMarkingContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
+							"SHARED_ENCYCLOPEDIA",
+							PresetColour.GENERIC_EXCELLENT,
+							"Shared Encyclopedia",
+							"When enabled, your character will use the shared Encyclopedia (whose entries are unlocked across any playthrough). If disabled, unlocked Encyclopedia entries are only shown if your current character has discovered them.",
+							Main.getProperties().hasValue(PropertyValue.sharedEncyclopedia)));
+
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
+							"WEATHER_INTERRUPTION",
+							PresetColour.GENERIC_ARCANE,
+							"Storm interruptions",
+							"When enabled, arcane storms will interrupt dialogue to let you know that they've started.",
+							Main.getProperties().hasValue(PropertyValue.weatherInterruptions)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.MISC,
 							"SILLY",

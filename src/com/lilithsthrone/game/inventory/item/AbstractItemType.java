@@ -28,12 +28,16 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.84
- * @version 0.3
+ * @version 0.3.7.7
  * @author Innoxia
  */
 public abstract class AbstractItemType extends AbstractCoreType {
 	
-	private String determiner, name, namePlural, description, pathName;
+	private String determiner;
+	private String name;
+	private String namePlural;
+	private String description;
+	private String pathName;
 	private boolean plural;
 	private Colour colourPrimary;
 	private Colour colourSecondary;
@@ -348,4 +352,5 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	public Set<ItemTag> getItemTags() {
 		return itemTags;
 	}
+
 }

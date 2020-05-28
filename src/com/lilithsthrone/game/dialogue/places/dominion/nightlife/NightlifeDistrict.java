@@ -60,7 +60,7 @@ import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
-import com.lilithsthrone.world.places.Population;
+import com.lilithsthrone.world.population.Population;
 
 /**
  * @since 0.1.0
@@ -111,7 +111,7 @@ public class NightlifeDistrict {
 	}
 	
 	public static boolean isPartnerSub() {
-		return getPartner().hasPersonalityTrait(PersonalityTrait.CONFIDENT);
+		return !getPartner().hasPersonalityTrait(PersonalityTrait.CONFIDENT);
 	}
 	
 	public static void saveClubbers() {
@@ -1061,7 +1061,9 @@ public class NightlifeDistrict {
 						@Override
 						public void effects() {
 							character.setLocation(WorldType.NIGHTLIFE_CLUB, Main.game.getPlayer().getLocation(), false);
-							character.setAffection(Main.game.getPlayer(), 5);
+							if(!character.hasSexCountWith(Main.game.getPlayer())) {
+								character.setAffection(Main.game.getPlayer(), 5);
+							}
 						}
 					};
 				}

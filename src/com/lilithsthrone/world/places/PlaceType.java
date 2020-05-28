@@ -85,6 +85,9 @@ import com.lilithsthrone.world.Bearing;
 import com.lilithsthrone.world.TeleportPermissions;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.population.Population;
+import com.lilithsthrone.world.population.PopulationDensity;
+import com.lilithsthrone.world.population.PopulationType;
 
 /**
  * @since 0.1.0
@@ -838,7 +841,7 @@ public class PlaceType {
 			"This particular corridor doesn't have any distinguishing features to it.",
 			null,
 			PresetColour.BASE_BLACK,
-			EnforcerHQDialogue.CORRIDOR,//TODO
+			EnforcerHQDialogue.CELLS_CORRIDOR,
 			null,
 			"in the Enforcer HQ")
 			.initWeatherImmune();
@@ -1312,17 +1315,20 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_BLACK,
 			DominionExpress.CORRIDOR,
-			null,
+			Encounter.DOMINION_EXPRESS,
 			"in the 'Dominion Express' warehouse") {
 		@Override
 		public List<Population> getPopulation() {
+			if(Main.game.isExtendedWorkTime()) {
+				return Util.newArrayListOfValues(new Population(true, PopulationType.SLAVE, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+			}
 			return Util.newArrayListOfValues(new Population(true, PopulationType.SLAVE, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
 		}
 	}.initWeatherImmune();
 
 	public static final AbstractPlaceType DOMINION_EXPRESS_EXIT = new AbstractPlaceType(
 			"Entrance",
-			"A solitary reception desk is positioned to one side of the warehouse's entrance, with the secretary sitting behind it making sure that any visitors have a reason to be in here.",
+			"A solitary reception desk is positioned to one side of the warehouse's entrance, with the secretaries sitting behind it making sure that any visitors have a reason to be in here.",
 			"dominion/dominionExpress/exit",
 			PresetColour.BASE_RED,
 			DominionExpress.ENTRANCE,
@@ -1330,7 +1336,10 @@ public class PlaceType {
 			"in the 'Dominion Express' warehouse") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.RECEPTIONIST, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+			if(Main.game.isExtendedWorkTime()) {
+				return Util.newArrayListOfValues(new Population(true, PopulationType.RECEPTIONIST, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+			}
+			return Util.newArrayListOfValues(new Population(false, PopulationType.RECEPTIONIST, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
 		}
 	}.initWeatherImmune();
 
@@ -1340,7 +1349,7 @@ public class PlaceType {
 			"dominion/dominionExpress/crates",
 			PresetColour.BASE_ORANGE,
 			DominionExpress.STORAGE,
-			null,
+			Encounter.DOMINION_EXPRESS,
 			"in the 'Dominion Express' warehouse") {
 		@Override
 		public List<Population> getPopulation() {
@@ -1362,6 +1371,16 @@ public class PlaceType {
 		}
 	}.initWeatherImmune();
 
+	public static final AbstractPlaceType DOMINION_EXPRESS_FILLY_STATION = new AbstractPlaceType(
+			"Filly Rewards Station",
+			"Set into a small alcove on one side of the warehouse corridor, there's a curious-looking arcane vending machine, which is clearly marked as a 'Filly Rewards Station'.",
+			"dominion/dominionExpress/fillyStation",
+			PresetColour.BASE_PINK_LIGHT,
+			DominionExpress.FILLY_STATION,
+			null,
+			"in the 'Dominion Express' warehouse")
+		.initWeatherImmune();
+	
 	public static final AbstractPlaceType DOMINION_EXPRESS_OFFICE_STABLE = new AbstractPlaceType(
 			"Stable Mistress's office",
 			"The office responsible for the care and management of the centaur slaves is located at the far end of the warehouse's corridor.",
@@ -1782,8 +1801,7 @@ public class PlaceType {
 				@Override
 				public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
 					return Util.newArrayListOfValues(
-							PlaceUpgrade.LILAYA_PLAYER_ROOM_BED,
-							PlaceUpgrade.LILAYA_PLAYER_ROOM_BATH);
+							PlaceUpgrade.LILAYA_PLAYER_ROOM_BED);
 				}
 				@Override
 				public boolean isAbleToBeUpgraded() {
@@ -4050,7 +4068,7 @@ public class PlaceType {
 			"in the Rat Warrens") {
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+			if(Main.game.getPlayer().isCaptive()) {
 				return VengarCaptiveDialogue.CORRIDOR;
 			}
 			return super.getDialogue(withRandomEncounter, forceEncounter);
@@ -4175,7 +4193,7 @@ public class PlaceType {
 			"in the Rat Warrens") {
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+			if(Main.game.getPlayer().isCaptive()) {
 				dialogue = RatWarrensCaptiveDialogue.STOCKS_NIGHT;
 			} else {
 				dialogue = RatWarrensDialogue.MILKING_ROOM;
@@ -4212,14 +4230,14 @@ public class PlaceType {
 			"in the Rat Warrens") {
 		@Override
 		public Encounter getEncounterType() {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+			if(Main.game.getPlayer().isCaptive()) {
 				return Encounter.VENGAR_CAPTIVE_HALL;
 			}
 			return null;
 		}
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+			if(Main.game.getPlayer().isCaptive()) {
 				dialogue = VengarCaptiveDialogue.VENGARS_HALL;
 			} else {
 				dialogue = RatWarrensDialogue.VENGARS_HALL;
@@ -4249,14 +4267,14 @@ public class PlaceType {
 			"in the Rat Warrens") {
 		@Override
 		public Encounter getEncounterType() {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+			if(Main.game.getPlayer().isCaptive()) {
 				return Encounter.VENGAR_CAPTIVE_BEDROOM;
 			}
 			return null;
 		}
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerCaptive)) {
+			if(Main.game.getPlayer().isCaptive()) {
 				dialogue = VengarCaptiveDialogue.VENGARS_BEDROOM;
 			} else {
 				dialogue = RatWarrensDialogue.VENGARS_BEDROOM;

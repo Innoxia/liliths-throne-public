@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character.body.abstractTypes;
 
 import java.util.List;
 
-import com.lilithsthrone.game.character.body.types.FootStructure;
+import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 
 /**
  * @since 0.3.1

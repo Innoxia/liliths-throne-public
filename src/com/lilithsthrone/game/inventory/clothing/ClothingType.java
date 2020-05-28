@@ -2155,12 +2155,14 @@ public class ClothingType {
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
 									ClothingAccess.ARMS_UP_TO_SHOULDER,
-									ClothingAccess.HEAD),
+									ClothingAccess.HEAD,
+									ClothingAccess.CHEST),
 							null,
-							null, null),
+							null,
+							null),
 					new BlockedParts(
 							DisplacementType.PULLS_UP,
-							null,
+							Util.newArrayListOfValues(ClothingAccess.CHEST),
 							Util.newArrayListOfValues(
 									CoverableArea.BREASTS,
 									CoverableArea.NIPPLES),
@@ -6428,67 +6430,6 @@ public class ClothingType {
 					"[npc.Name] grabs your [pc.feet] and pulls your boots off.", null, null);
 		}
 	};
-	
-	
-	public static AbstractClothingType AMBERS_BITCH_CHOKER = new AbstractClothingType(1250,
-			"an",
-			false,
-			"'Amber's Bitch' collar",
-			"'Amber's Bitch' collars",
-			"A special collar that Mistress Amber clasped around your neck. The metal tag reads 'Amber's Bitch', and you feel a lot more submissive while wearing it...",
-			0,
-			null,
-			InventorySlot.NECK,
-			Rarity.LEGENDARY,
-			null,
-			"clothing/ambers_bitch_choker",
-			Util.newArrayListOfValues(
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.MAJOR_BOOST, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_DRAIN, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SERVITUDE, TFPotency.MINOR_DRAIN, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0),
-					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0)),
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							null,
-							null,
-							null, null)),
-			null,
-			Util.newArrayListOfValues(PresetColour.CLOTHING_PINK_LIGHT),
-			ColourListPresets.ALL,
-			ColourListPresets.JUST_STEEL,
-			ColourListPresets.ALL_METAL,
-			null,
-			null,
-			null){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You wrap the choker around your neck and fasten the buckle.",
-					"You wrap the choker around [npc.namePos] neck and fasten the buckle.",
-					null,
-					"[npc.Name] wraps the choker around [npc.her] neck and fastens the buckle.",
-					"[npc.Name] wraps the choker around your neck and fastens the buckle.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You unfasten the choker's buckle and remove it from around your neck.",
-					"You unfasten the choker's buckle and remove it from around [npc.namePos] neck.",
-					null,
-					"[npc.Name] unfastens the choker's buckle and removes it from around [npc.her] neck.",
-					"[npc.Name] unfastens the choker's buckle and removes it from around your neck.",
-					null, null, null);
-		}
-	};
 
 	public static AbstractClothingType FINGER_LYSSIETHS_RING = new AbstractClothingType(50000,
 			"",
@@ -6631,7 +6572,8 @@ public class ClothingType {
 		oldIdConversionMap.put("EYES_SAFETY_GOGGLES", "innoxia_scientist_safety_goggles");
 		oldIdConversionMap.put("SCIENTIST_EYES_SAFETY_GOGGLES", "innoxia_scientist_safety_goggles");
 		oldIdConversionMap.put("SCIENTIST_TORSO_OVER_LAB_COAT", "innoxia_scientist_lab_coat");
-		
+
+		oldIdConversionMap.put("AMBERS_BITCH_CHOKER", "innoxia_neck_ambers_bitch_collar");
 		
 		
 		// Standard items:
