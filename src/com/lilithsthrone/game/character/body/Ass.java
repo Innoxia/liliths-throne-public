@@ -133,11 +133,7 @@ public class Ass implements BodyPartInterface {
 		int sizeChange = this.assSize - oldSize;
 		
 		if (sizeChange == 0) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(The size of your ass doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] ass doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] ass doesn't change...)]</p>");
 		}
 		
 		String sizeDescriptor = getAssSize().getDescriptor();
@@ -206,7 +202,7 @@ public class Ass implements BodyPartInterface {
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
-						+ "[pc.Name] [npc.verb(inhale)] sharply in surprise as [npc.she] [npc.verb(feel)] [npc.her] hips collapse inwards and reshape themselves as they get [style.boldShrink(narrower)].<br/>"
+						+ "[npc.Name] [npc.verb(inhale)] sharply in surprise as [npc.she] [npc.verb(feel)] [npc.her] hips collapse inwards and reshape themselves as they get [style.boldShrink(narrower)].<br/>"
 						+ "[npc.She] now [npc.has] " + styledSizeDescriptor + "!"
 					+ "</p>");
 		}

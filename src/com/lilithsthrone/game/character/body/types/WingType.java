@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 
 /**
  * @since 0.1.0
@@ -118,6 +119,11 @@ public enum WingType implements BodyPartTypeInterface {
 		return race;
 	}
 	
+	@Override
+	public TFModifier getTFModifier() {
+		return this == NONE ? TFModifier.REMOVAL : getTFTypeModifier(getWingTypes(race));
+	}
+
 	private static Map<Race, List<WingType>> typesMap = new HashMap<>();
 	public static List<WingType> getWingTypes(Race r) {
 		if(typesMap.containsKey(r)) {
@@ -126,14 +132,17 @@ public enum WingType implements BodyPartTypeInterface {
 		
 		List<WingType> types = new ArrayList<>();
 		for(WingType type : WingType.values()) {
-			if(type.getRace()==r) {
+			if(type.getRace()==r && type!=WingType.NONE) {
 				types.add(type);
 			}
-			if(r!=Race.DEMON && r!=Race.ANGEL) { // All normal races have access to the generic wing types for transformations:
+			if(r!=Race.DEMON && r!=Race.ANGEL && r!=Race.NONE) { // All normal races have access to the generic wing types for transformations:
 				if(type.getRace()==Race.NONE && type!=WingType.NONE) {
 					types.add(type);
 				}
 			}
+		}
+		if(types.isEmpty()) {
+			types.add(WingType.NONE);
 		}
 		typesMap.put(r, types);
 		return types;

@@ -615,23 +615,23 @@ public class GenericActions {
 			CorruptionLevel.THREE_DIRTY,
 			null,
 			SexParticipantType.NORMAL) {
-		
+		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.PSYCHOACTIVE;
+		}
 		@Override
 		public String getActionTitle() {
-			return "[style.colourPsychoactive(Calming suggestion)]";
+			return "Calming suggestion";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "[npc2.Name] is under the effect of a psychoactive substance. Use this to your advantage and hypnotically suggest that [npc2.she] doesn't like having sex with you.";
 		}
-
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.getCharacterTargetedForSexAction(this).getPsychoactiveFluidsIngested().isEmpty()
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || (Main.sex.getCharacterTargetedForSexAction(this).getLust()>25 && Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_DOM)));
 		}
-
 		@Override
 		public String getDescription() {
 			return "<p>"
@@ -654,7 +654,6 @@ public class GenericActions {
 							+ " [npc2.speech(Wait, w-why is this happening?! Please, stop it! Get away from me!)]")
 					+ "</p>";
 		}
-
 		@Override
 		public void applyEffects() {
 			Main.sex.getCharacterTargetedForSexAction(this).incrementLust(-50, false);
@@ -668,23 +667,23 @@ public class GenericActions {
 			CorruptionLevel.THREE_DIRTY,
 			null,
 			SexParticipantType.NORMAL) {
-		
+		@Override
+		public Colour getHighlightColour() {
+			return PresetColour.PSYCHOACTIVE;
+		}
 		@Override
 		public String getActionTitle() {
-			return "[style.colourPsychoactive(Lustful suggestion)]";
+			return "Lustful suggestion";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "[npc2.Name] is under the effect of a psychoactive substance. Use this to your advantage and hypnotically suggest that [npc2.she] loves to have sex with you.";
 		}
-
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.getCharacterTargetedForSexAction(this).getPsychoactiveFluidsIngested().isEmpty()
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || (Main.sex.getCharacterTargetedForSexAction(this).getLust()<75 && !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_DOM)));
 		}
-
 		@Override
 		public String getDescription() {
 			StringBuilder sb = new StringBuilder();
@@ -728,7 +727,6 @@ public class GenericActions {
 			
 			return sb.toString();
 		}
-
 		@Override
 		public void applyEffects() {
 			Main.sex.getCharacterTargetedForSexAction(this).incrementLust(50, false);

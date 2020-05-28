@@ -512,6 +512,9 @@ public class SpellManagement {
 					} else if(dialogueReturn.getDialogueNodeType()!=DialogueNodeType.OCCUPANT_MANAGEMENT && !Main.game.isSavedDialogueNeutral()) {
 						return new Response("Fire Elemental", "Elementals can only be summoned in a neutral scene!", null);
 						
+					} else if(target.getMana()<Spell.ELEMENTAL_FIRE.getModifiedCost(target) && !target.isSpellSchoolSpecialAbilityUnlocked(SpellSchool.FIRE)) {
+						return new Response("Fire Elemental", UtilText.parse(getTarget(), "[npc.Name] [npc.verb(need)] at least <b>"+Spell.ELEMENTAL_FIRE.getModifiedCost(target)+"</b> [style.boldMana(aura)] in order to cast this spell!"), null);
+						
 					} else {
 						String description =(getTarget().isPlayer()
 								?"Summon your elemental by binding it to the school of Arcane!"

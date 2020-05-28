@@ -3431,7 +3431,7 @@ public class ItemType {
 			false,
 			"used condom",
 			"used condoms",
-			"A used condom, tied at the top and filled with someone's cum. You'd have to be pretty dirty-minded to think of a use for this... <b>(Currently not implemented...)</b>",
+			"A used condom, tied at the top and filled with someone's cum. While most people would simply throw this away, those with a particularly dirty mind might find a use for it...",
 			"condomUsed",
 			PresetColour.CLOTHING_WHITE,
 			null,

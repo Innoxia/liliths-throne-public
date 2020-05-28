@@ -69,6 +69,9 @@ public enum MapTravelType {
 					if(!character.isAbleToFly()) {
 						return "You are not able to fly!";
 					}
+					if(!character.getWorldLocation().isFlightEnabled()) {
+						return "You cannot fly in this area!";
+					}
 					return "Not all of your companions are able to fly!";
 				}
 			},

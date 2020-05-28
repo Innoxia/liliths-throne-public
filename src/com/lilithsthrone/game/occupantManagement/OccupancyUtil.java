@@ -43,6 +43,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -1311,7 +1312,7 @@ public class OccupancyUtil implements XMLSaving {
 	}
 	
 	
-	public MilkingRoom getMilkingRoom(WorldType worldType, Vector2i location) {
+	public MilkingRoom getMilkingRoom(AbstractWorldType worldType, Vector2i location) {
 		for(MilkingRoom room : getMilkingRooms()) {
 			if(room.getWorldType() == worldType && room.getLocation().equals(location)) {
 				return room;

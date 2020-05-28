@@ -1857,10 +1857,10 @@ public class CharacterUtils {
 			character.setFaceVirgin(false);
 			
 		} else {
-			if(Math.random()>0.15f) {
-				character.setFaceVirgin(true);
-			} else {
+			if(Math.random()<0.85f) {
 				character.setFaceVirgin(false);
+			} else {
+				character.setFaceVirgin(true);
 			}
 		}
 		
@@ -1886,7 +1886,7 @@ public class CharacterUtils {
 		
 		// Penis:
 		if(character.hasPenis() || character.getRace()==Race.DEMON) {
-			if(Math.random()<0.9f
+			if(Math.random()<0.95f
 					|| character.getHistory()==Occupation.NPC_PROSTITUTE
 					|| character.hasFetish(Fetish.FETISH_CUM_STUD)
 					|| character.hasFetish(Fetish.FETISH_VAGINAL_GIVING)
@@ -1934,7 +1934,7 @@ public class CharacterUtils {
 				character.setVaginaCapacity(capacity, true);
 				
 			} else {
-				if(Math.random()<0.9f || character.getHistory()==Occupation.NPC_PROSTITUTE) {
+				if(Math.random()<0.95f || character.getHistory()==Occupation.NPC_PROSTITUTE) {
 					character.setVaginaVirgin(false);
 					character.setVaginaCapacity(character.getVaginaRawCapacityValue()*1.2f, true);
 					
@@ -2084,7 +2084,7 @@ public class CharacterUtils {
 		
 		for(Fetish f : Fetish.values()) {
 			if (f==Fetish.FETISH_PURE_VIRGIN) {
-				if(character.hasVagina() && (character.getHistory()!=Occupation.NPC_PROSTITUTE?Math.random()<=0.25f:true)) // 25% chance for prostitutes, as when drawn from amongst all the other fetishes, the actual chance will be much lower.
+				if(character.hasVagina() && (character.getHistory()==Occupation.NPC_PROSTITUTE?Math.random()<=0.25f:true)) // 25% chance for prostitutes, as when drawn from amongst all the other fetishes, the actual chance will be much lower.
 					allowedFetishes.add(f);
 				
 			} else if (f==Fetish.FETISH_BIMBO) {

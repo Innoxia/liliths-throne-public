@@ -14,6 +14,19 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="CANAL_FIND_PACKAGE"><![CDATA[
+	<p>
+		As you continue [pc.walking] down the side of the canal, you suddenly spot a small, plastic-wrapped cardboard box floating in the water. Due to the fact that it hasn't sunk to the bottom of the canal, you realise that it must still be fully sealed, and even from a casual glance you can tell that it isn't any old rubbish. You can't see any signs of a trap, and as the package looks to be completely abandoned, you decide to fish it out of the water and take a closer look at it.
+	</p>
+	<p>
+		Pulling it up onto the shore, you bend down to see that while the plastic wrap has protected the package's contents from being water-damaged, the label fixed to the side has not been so lucky, and has been smeared to the point of being rendered totally illegible. With no sign of its owner, nor any clue as to who it was originally intended for, you decide that the best thing to do it to take it for yourself. Pulling off the plastic wrapper, you open the cardboard box to reveal: 
+	</p>
+	<p style='text-align:center;'>
+		<b>[#SPECIAL_PARSE_0]</b>
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="HARPY_NESTS_FIND_ITEM"><![CDATA[
 	<p>
 		As you travel down the winding walkways, you suddenly catch sight of a flash of pink on the path ahead. Walking up to the splash of colour, you look down to see:

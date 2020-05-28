@@ -38,23 +38,33 @@
 		#IF(pc.getQuest(QUEST_LINE_MAIN)==QUEST_MAIN_1_E_REPORT_TO_HELENA)
 			Stepping back, you wonder if you should call over one of the nearby harpies. After all, you do have business with [helena.name], and you're sure that she'd want to hear about Scarlett as soon as possible...
 		#ELSE
-			Stepping back, you decide against calling over one of the nearby harpies.
-			#IF(pc.isQuestFailed(QUEST_LINE_ROMANCE_HELENA))
-				 After all, Helena is so furious with you that she'd never agree to meeting with you...
-			#ELSEIF(pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_E_REPORT_TO_HELENA))
-				 After all, Helena isn't even here at the moment.
+			#IF(!game.getNonCompanionCharactersPresent().contains(helena))
+				As Helena isn't even here at the moment, there's no point in trying to meet with her...
+			#ELSEIF(pc.isQuestFailed(QUEST_LINE_ROMANCE_HELENA))
+				Stepping back, you decide against calling over one of the nearby harpies. After all, Helena is so furious with you that she'd never agree to meeting with you...
+			#ELSEIF(pc.isQuestCompleted(QUEST_LINE_ROMANCE_HELENA))
+				As Helena is now on such good terms with you, you're sure that you could simply walk up to her and say hello without causing too much hassle...
 			#ELSE
-				 After all, you don't have any business with Helena.
+				Stepping back, you decide against calling over one of the nearby harpies. After all, you don't have any business with Helena.
 			#ENDIF
 		#ENDIF
 	</p>
 	#IF(game.getNonCompanionCharactersPresent().contains(scarlett))
 		<p>
-			Over in a nearby corner of the nest, you see the familiar figure of Scarlett sitting next to a couple of brightly-coloured harpies.
-			#IF(pc.getQuest(QUEST_LINE_ROMANCE_HELENA) == QUEST_ROMANCE_HELENA_4_SCARLETTS_RETURN)
-				 Although you doubt that you'll get an amicable response from her, you need to go over to Scarlett and tell her that Helena wants to see her...
+			#IF(pc.isQuestCompleted(QUEST_LINE_ROMANCE_HELENA))
+				Over on the far side of the nest, near to the stairs which lead up to Helena's platform, you spot the familiar figure of Scarlett relaxing on a sun-lounger in the middle of a dozen-or-so brightly-coloured harpies.
+				#IF(scarlett.isLikesPlayer())
+					 Knowing that she likes you far more than she does other people, you're sure that you'll receive a warm welcome if you were to head over and say hello to her...
+				#ELSE
+					 You could always head over and say hello, but you doubt that you'll get an amicable response from her...
+				#ENDIF
 			#ELSE
-				 You could always head over and say hello, but you doubt that you'll get an amicable response from her...
+				Over in a nearby corner of the nest, you see the familiar figure of Scarlett sitting next to a couple of brightly-coloured harpies.
+				#IF(pc.getQuest(QUEST_LINE_ROMANCE_HELENA) == QUEST_ROMANCE_HELENA_4_SCARLETTS_RETURN)
+					 Although you doubt that you'll get an amicable response from her, you need to go over to Scarlett and tell her that Helena wants to see her...
+				#ELSE
+					 You could always head over and say hello, but you doubt that you'll get an amicable response from her...
+				#ENDIF
 			#ENDIF
 		</p>
 	#ENDIF
@@ -481,13 +491,6 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="HELENAS_NEST_RETURN_AFTER_SEX"><![CDATA[
-	<p>
-		
-	</p>
-	]]>
-	</htmlContent>
-	
 	
 	<!-- Meeting Scarlett in the nest: -->
 	
@@ -495,40 +498,148 @@
 	
 	<htmlContent tag="HELENAS_NEST_MEETING_SCARLETT_HELENA_QUEST_COMPLETE"><![CDATA[
 	<p>
-		TODO
-		#IF(scarlett.isVisiblyPregnant())
-			Scarlett is now sitting in the middle of the nest, and is surrounded by a dozen harpies who are all fawning over her.
-			#IF(!scarlett.isCharacterReactedToPregnancy(pc))
-				 She is sporting a clearly-pregnant belly.
-				#IF(scarlett.getPregnantLitter().isFatherId(pc.getId()))
-					 Tells you that you got her pregnant.
-				#ELSE
-					 Tells you that she got pregnant from some harpy.
-				#ENDIF
-			#ELSE
-				 She is still sporting a clearly-pregnant belly.
-				#IF(scarlett.getPregnantLitter().isFatherId(pc.getId()))
-					 Tells you that she's still carrying around your kids.
-				#ELSE
-					 Tells you that she's still carrying around some harpy's kids.
-				#ENDIF
-			#ENDIF
+		Wanting to talk to Scarlett, you move forwards onto the nest's wooden platform, before starting to make your way over to where the raven-harpy is relaxing on a sun-lounger. Before you've managed to cover even a quarter of the distance, however, a flustered-looking harpy suddenly dashes forwards and blocks your way. Being one of the harpies who works in Helena's Boutique, she immediately recognises you and
+		#IF(game.getNonCompanionCharactersPresent().contains(helena))
+			 asks, [style.speechFeminineStrong(Oh, are you here to see Helena? Please, allow me to accompany you!)]
 		#ELSE
-			Scarlett is now sitting in the middle of the nest, and is surrounded by a dozen harpies who are all fawning over her.
+			 exclaims, [style.speechFeminineStrong(Oh, sorry, but Helena's not here at the moment! You'll have to come back at another time!)]
 		#ENDIF
 	</p>
 	<p>
-		#IF(scarlett.hasPenis())
-			As you approach, you hear the harpies saying things like they want Scarlett to fuck them so that they can be known as her mate (and thus be closer to Helena).
-			(Mention how this is unusual for 'male' harpies to be in this position.)
-			If she likes you, she suggests going down to her apartment for a while, or else have to work for her. Both require your companions to get lost.
-			If she doesn't like you, suggests that you can work as her slave for the rest of the day/evening in exchange for getting her cock.
+		After you've informed this overzealous harpy that you're not here to see Helena, but are actually here to talk to Scarlett, she apologetically steps to one side and bows her head, before stuttering, [style.speechFeminineStrong(S-Sorry for the misunderstanding!)]
+	</p>
+	<p>
+		With your way to zScarlett now clear, you advance towards the small crowd of brightly-coloured harpies who are currently surrounding her.
+		#IF(scarlett.isVisiblyPregnant())
+			 As you approach the raven-harpy and get a closer look at her, you see that her belly is visibly swollen, making it immediately obvious that she's pregnant. Noticing your approach, Scarlett absently-mindedly strokes one of her wing-like arms over her rounded tummy, while using the other to beckon you forwards as she
+			#IF(!scarlett.isCharacterReactedToPregnancy(pc))
+				#IF(scarlett.getPregnantLitter().isFatherId(pc.getId()))
+					#IF(scarlett.isLikesPlayer())
+						 calls out, [scarlett.speech(Look what you did, [pc.name]! You got me pregnant...)]
+					#ELSE
+						 shouts out, [scarlett.speech(Look what you fucking did, [pc.name]! You got me pregnant! Do you know how fucking annoying this is?!)]
+					#ENDIF
+				#ELSE
+					#IF(scarlett.isLikesPlayer())
+						 calls out, [scarlett.speech(Hi, [pc.name]! Look at this; one of my harpy friends got me pregnant...)]
+					#ELSE
+						 shouts out, [scarlett.speech(What the fuck do you want, [pc.name]?! Can't you see I'm trying to relax after one of these harpy fucks went and got me pregnant?!)]
+					#ENDIF
+				#ENDIF
+			#ELSE
+				#IF(scarlett.getPregnantLitter().isFatherId(pc.getId()))
+					#IF(scarlett.isLikesPlayer())
+						 calls out, [scarlett.speech(Hey, [pc.name]! I'm still pregnant with our kids...)]
+					#ELSE
+						 shouts out, [scarlett.speech(Yes, [pc.name], before you ask, I'm still pregnant with our kids, and it's fucking annoying!)]
+					#ENDIF
+				#ELSE
+					#IF(scarlett.isLikesPlayer())
+						 calls out, [scarlett.speech(Hey, [pc.name]! As you can see, I'm still pregnant...)]
+					#ELSE
+						 and shouts, [scarlett.speech(What the fuck do you want, [pc.name]?! Can't you see I'm trying to relax?!)]
+					#ENDIF
+				#ENDIF
+			#ENDIF
 		#ELSE
-			As you approach, several more harpies swoop down to deliver chocolates and flowers to Scarlett.
-			If she likes you, she suggests going down to her apartment for a while, or else have to work for her. Both require your companions to get lost.
-			If she doesn't like you, suggests that you can work as her slave for the rest of the day/evening in exchange for getting her pussy.
+			 Noticing your approach, Scarlett uses one of her huge, black-feathered arm-wings to beckon you forwards as she
+			#IF(scarlett.isLikesPlayer())
+				#IF(game.getDialogueFlags().hasFlag(FLAG_scarlettRelaxed))
+					 calls out, [scarlett.speech(Hey, [pc.name]! What's up?)]
+				#ELSE
+					 calls out, [scarlett.speech(Hey, [pc.name]! You want to come and relax with me for a while?)]
+				#ENDIF
+			#ELSE
+				 shouts, [scarlett.speech(Come on then, [pc.name], tell me what you fucking want!)]
+			#ENDIF
 		#ENDIF
 	</p>
+	#IF(scarlett.hasPenis())
+		<p>
+			Before you're able to reply, one of the harpies sitting on the floor next to Scarlett's sun-lounger interrupts by loudly whining, [style.speechFeminine(Scarlett! You said you'd mention my name to Helena if I let you fuck me today! Stop giving other people so much attention and just pound my little pussy already!)]
+		</p>
+		<p>
+			Pushing this harpy out of the way, one of the other members of the small crowd shouts, [scarlett.speech(You'd rather fuck my ass, wouldn't you, Scarlett?! Come on, make me your butt-slut cock-sleeve!)]
+		</p>
+		<p>
+			[scarlett.speech(Shut the fuck up!)] Scarlett shouts, which is enough to immediately silence the horny harpies. Aggressively snarling at the small crowd, she continues,
+			#IF(scarlett.isLikesPlayer())
+				#IF(game.getDayMinutes()<19*60)
+					 [scarlett.speech(Nobody's going to be getting a fucking unless they're willing to be my servant for the day. Now shut the fuck up so I can hear what [pc.name] wants to say!)]
+				#ELSE
+					 [scarlett.speech(I'm too fucking tired to be doing any fucking today! If you're good girls, I might choose one of you to fuck tomorrow. Now shut the fuck up so I can hear what [pc.name] wants to say!)]
+				#ENDIF
+			#ELSE
+				#IF(game.getDayMinutes()<19*60)
+					#IF(scarlett.isAttractedTo(pc))
+						 [scarlett.speech(Nobody's going to be getting a fucking unless they're willing to be my servant for the day. That goes for you too, [pc.name], so if you want a taste of my cock, you're gonna have to submit!)]
+					#ELSE
+						 [scarlett.speech(Nobody's going to be getting a fucking unless they're willing to be my servant for the day. Oh, and don't you get any fucking ideas about asking to serve me, [pc.name]; I'm not fucking interested in you!)]
+					#ENDIF
+				#ELSE
+					#IF(scarlett.isAttractedTo(pc))
+						 [scarlett.speech(I'm too fucking tired to be doing any fucking today! If you're good girls, I might choose one of you to fuck tomorrow. The same goes for you, [pc.name]; come back tomorrow if you want a taste of my cock!)]
+					#ELSE
+						 [scarlett.speech(I'm too fucking tired to be doing any fucking today! If you're good girls, I might choose one of you to fuck tomorrow. Oh, and don't you get any fucking ideas about asking to serve me, [pc.name]; I'm not fucking interested in you!)]
+					#ENDIF
+				#ENDIF
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Before you're able to reply, one of the harpies sitting on the floor next to Scarlett's sun-lounger interrupts by loudly whining, [style.speechFeminine(Scarlett! You said I'd be allowed to fuck you today! Please, I promise I'll make you feel good!)]
+		</p>
+		<p>
+			Pushing this harpy out of the way, one of the other members of the small crowd shouts, [scarlett.speech(You'd rather have me eat you out, wouldn't you, mistress?! Please, let me worship your pussy!)]
+		</p>
+		<p>
+			[scarlett.speech(Shut the fuck up!)] Scarlett shouts, which is enough to immediately silence the horny harpies. Aggressively snarling at the small crowd, she continues,
+			#IF(scarlett.isLikesPlayer())
+				#IF(game.getDayMinutes()<19*60)
+					 [scarlett.speech(Nobody's going to be fucking me unless they're willing to be my servant for the day. Now shut the fuck up so I can hear what [pc.name] wants to say!)]
+				#ELSE
+					 [scarlett.speech(I'm too fucking tired to be fucked today! If you're good girls, I might choose one of you to pound my cunt tomorrow. Now shut the fuck up so I can hear what [pc.name] wants to say!)]
+				#ENDIF
+			#ELSE
+				#IF(game.getDayMinutes()<19*60)
+					#IF(scarlett.isAttractedTo(pc))
+						 [scarlett.speech(Nobody's going to be fucking me unless they're willing to be my servant for the day. That goes for you too, [pc.name], so if you want a taste of my cunt, you're gonna have to submit!)]
+					#ELSE
+						 [scarlett.speech(Nobody's going to be fucking me unless they're willing to be my servant for the day.  Oh, and don't you get any fucking ideas about asking to serve me, [pc.name]; I'm not fucking interested in you!)]
+					#ENDIF
+				#ELSE
+					#IF(scarlett.isAttractedTo(pc))
+						 [scarlett.speech(I'm too fucking tired to be fucked today! If you're good girls, I might choose one of you to pound my cunt tomorrow. The same goes for you, [pc.name]; come back tomorrow if you want a taste of my cunt!)]
+					#ELSE
+						 [scarlett.speech(I'm too fucking tired to be fucked today! If you're good girls, I might choose one of you to pound my cunt tomorrow.  Oh, and don't you get any fucking ideas about asking to serve me, [pc.name]; I'm not fucking interested in you!)]
+					#ENDIF
+				#ENDIF
+			#ENDIF
+		</p>
+	#ENDIF
+	<p>
+		#IF(scarlett.isLikesPlayer())
+			Having silenced her group of harpy followers, Scarlett waits to hear if you'd like to sit down and relax with her for an hour or so.
+			#IF(game.getDayMinutes()<19*60 && scarlett.isAttractedTo(pc))
+				 You could always take her up on the offer, or if you really wanted to, you could ask to submit and serve her for the day instead...
+			#ELSE
+				 You could always take her up on the offer, or instead tell the raven-harpy that you need to be leaving right away...
+			#ENDIF
+		#ELSE
+			#IF(!scarlett.isAttractedTo(pc))
+				As Scarlett is not attracted to you, there doesn't seem to be any hope of getting to have sex with her. There doesn't seem to be much for you to do here except turn around and leave...
+			#ELSEIF(game.getDayMinutes()<19*60)
+				It looks like if you wanted to have sex with Scarlett, you'll have to join the other harpies in acting as her servant for the day. Then again, you could always simply turn around and leave...
+			#ELSE
+				As it's too late in the evening for Scarlett to be interested in having you act as her servant, there's very little for you to do except turn around and leave...
+			#ENDIF
+		#ENDIF
+	</p>
+	#IF(game.getDayMinutes()>=19*60 && scarlett.isAttractedTo(pc))
+		<p>
+			[style.minorBad(If you wanted to act as Scarlett's servant, you'll have to come back and visit her another day before [units.time(19)]!)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -561,6 +672,25 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="HELENAS_NEST_MEETING_SCARLETT_STEP_BACK_POST_QUEST"><![CDATA[
+	#IF(scarlett.isLikesPlayer())
+		<p>
+			Thinking that it would be best to continue on your way as quickly as possible, you tell Scarlett that you only dropped by to say hello, and that you need to leave straight away. Although a look of disappointment flashes across the raven-harpy's face, she refuses to show any sign of weakness in front of her harpy followers, and with a dismissive wave of her wing, she snaps, [scarlett.speech(Fine! Fuck off then!)]
+		</p>
+		<p>
+			As you turn around and set about doing just that, Scarlett betrays the fact that she likes you by shouting out after you, [scarlett.speech(Come and visit me again whenever you're in the area!)]
+		</p>
+	#ELSE
+		<p>
+			Not wanting to remain in this rude harpy's presence for a single moment longer, you tell Scarlett that you only dropped by to say hello, and that you need to leave straight away. A disgruntled sneer flashes across the raven-harpy's face, and with a dismissive wave of her wing, she snaps, [scarlett.speech(Fine! Fuck off then!)]
+		</p>
+		<p>
+			As you turn around and set about doing just that, Scarlett can't resist shouting out after you, [scarlett.speech(Don't fucking bother coming back, cunt!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="HELENAS_NEST_MEETING_SCARLETT_STEP_BACK"><![CDATA[
 	<p>
 		#IF(scarlett.isAttractedTo(pc) && game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
@@ -571,14 +701,6 @@
 	</p>
 	]]>
 	</htmlContent>
-	
-	<htmlContent tag="HELENAS_NEST_MEETING_SCARLETT_APARTMENT"><![CDATA[
-	<p>
-		You tell Scarlett that you'd like to spend some time with her in her room. Go down to Helena's apartment and into Scarlett's room.
-	</p>
-	]]>
-	</htmlContent>
-	
 	
 	<htmlContent tag="START_SCARLETT_SEX"><![CDATA[
 	<p>
@@ -598,14 +720,32 @@
 	
 	<htmlContent tag="START_SCARLETT_SEX_VAGINA"><![CDATA[
 	<p>
-		You let Scarlett fuck your pussy.
+		Desperate to get fucked by this rude raven-harpy, you step up to her and playfully run your [pc.fingers] down the length of one of her black-feathered wings, while seductively offering to let her fuck your pussy.
+	</p>
+	<p>
+		Clearly not expecting you to be interested in having sex with her, Scarlett is momentarily thrown off-guard, and blankly stares at you for a couple of seconds before recovering and sneering, [scarlett.speech(Of course I want to fuck your cunt, you dumb slut!)]
+	</p>
+	<p>
+		Telling her two friends that she'll catch up with them later, Scarlett roughly grabs you by the [pc.hand], before impatiently leading you over to a nearby downwards staircase. Continuing to pull you along after her, she quickly descends this flight of stairs, which turns out to lead to a small, shaded sub-platform. Now that the two of you are concealed from the prying eyes of the rest of the nest's inhabitants, Scarlett quickly strips naked, presenting you with her tiny boobs and small, pale-skinned cock. Seeing what it is you're looking at, the harpy scowls, [scarlett.speech(You'll be getting a feel of it soon enough! Now get down on all fours and show me your dirty little pussy, bitch!)]
+	</p>
+	<p>
+		Doing as you're told, you drop down onto all fours and present your naked pussy to Scarlett. Dropping down behind you, the impatient harpy instantly thrusts forwards, sinking her hard cock into your [pc.pussy+] and moaning, [scarlett.speechNoEffects(~Mmm!~ That's right, slut! Your cunt is mine now!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="START_SCARLETT_SEX_ORAL"><![CDATA[
 	<p>
-		You suck Scarlett's cock.
+		Desperate to get a taste of this rude raven-harpy's cock, you step up to her and playfully run your [pc.fingers] down the length of one of her black-feathered wings, while seductively offering to let her fuck your throat.
+	</p>
+	<p>
+		Clearly not expecting you to be interested in having sex with her, Scarlett is momentarily thrown off-guard, and blankly stares at you for a couple of seconds before recovering and sneering, [scarlett.speech(Of course I want you to suck my cock, you dumb slut!)]
+	</p>
+	<p>
+		Telling her two friends that she'll catch up with them later, Scarlett roughly grabs you by the [pc.hand], before impatiently leading you over to a nearby downwards staircase. Continuing to pull you along after her, she quickly descends this flight of stairs, which turns out to lead to a small, shaded sub-platform. Now that the two of you are concealed from the prying eyes of the rest of the nest's inhabitants, Scarlett quickly strips naked, presenting you with her tiny boobs and small, pale-skinned cock. Seeing what it is you're looking at, the harpy scowls, [scarlett.speech(You'll be getting a taste of it soon enough! Now get down and open wide, bitch!)]
+	</p>
+	<p>
+		Doing as you're told, you drop in front of Scarlett and open your mouth for her. Stepping forwards, the impatient harpy instantly thrusts forwards, pushing her hard cock past your [pc.lips+] and moaning, [scarlett.speechNoEffects(~Mmm!~ That's right, slut! Suck my fucking cock!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -640,24 +780,36 @@
 	
 	<htmlContent tag="AFTER_SCARLETT_SEX_VAGINA"><![CDATA[
 	<p>
-		Post-sex scene vaginal sex.
+		Having had her fun, Scarlett takes a step back, before looking down at your quivering pussy and sneering, [scarlett.speech(You were a good fuck, you dirty little whore! Come back and see me again if you get hungry for my cock!)]
+	</p>
+	<p>
+		Quickly getting dressed again, Scarlett waits until you're ready to go, before leading you back up the stairs, pointing to the nest's exit, and commanding, [scarlett.speech(Go on, get out of here! I've got more stuff to do today than fucking some slut's dirty cunt.)]
+	</p>
+	<p>
+		With little else to do in Helena's nest, you do as Scarlett orders and quickly take your leave...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_SCARLETT_SEX_ORAL"><![CDATA[
 	<p>
-		Post-sex scene oral sex.
+		Having had her fun, Scarlett takes a step back, before looking down at you and sneering, [scarlett.speech(You're good at sucking cock, you dirty little whore! Come back and see me again if you ever want more!)]
+	</p>
+	<p>
+		Quickly getting dressed again, Scarlett waits until you're ready to go, before leading you back up the stairs, pointing to the nest's exit, and commanding, [scarlett.speech(Go on, get out of here! I've got more stuff to do today than having some slut suck my cock!)]
+	</p>
+	<p>
+		With little else to do in Helena's nest, you do as Scarlett orders and quickly take your leave...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_SCARLETT_SEX"><![CDATA[
 	<p>
-		Having had her fun, Scarlett takes a step back, looking down at your ass and sneering, [scarlett.speech(You were a good fuck, you dirty little buttslut! Come back and see me again if you get hungry for my cock!)]
+		Having had her fun, Scarlett takes a step back, before looking down at your ass and sneering, [scarlett.speech(You were a good fuck, you dirty little buttslut! Come back and see me again if you get hungry for my cock!)]
 	</p>
 	<p>
-		Quickly getting dressed again, Scarlett waits until you're ready to go, before leading you back up the stairs and pointing to the nest's exit. [scarlett.speech(Go on, get out of here! I've got more stuff to do today than fucking some slut's ass.)]
+		Quickly getting dressed again, Scarlett waits until you're ready to go, before leading you back up the stairs, pointing to the nest's exit, and commanding, [scarlett.speech(Go on, get out of here! I've got more stuff to do today than fucking some slut's ass.)]
 	</p>
 	<p>
 		With little else to do in Helena's nest, you do as Scarlett orders and quickly take your leave...
@@ -666,14 +818,108 @@
 	</htmlContent>
 	
 	
+	<!-- HELENAS_NEST_SCARLETT_RELAX -->
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETT_RELAX"><![CDATA[
+	<p>
+		Deciding to accept Scarlett's offer, you tell her that you'd love to spend some time relaxing in her company. The raven-harpy's face lights up as she hears you saying this, and she quickly turns to one of her followers to snap, [scarlett.speech(Hurry up and get another lounger for [pc.name]!)]
+	</p>
+	<p>
+		Rushing off to do as she's told, the harpy quickly returns carrying another sun-lounger in her wing-like arms. Unfolding it and placing it down beside Scarlett, she throws a colourful beach-towel over the top of it, before gesturing for you to come and sit down on it. Seeing no reason not to comply,
+		#IF(pc.isTaur())
+			 you step over the top of the lounger with your lower [pc.legRace]'s body, before lowering yourself down into a comfortable position.
+		#ELSE
+			 you sit down and lie back on the lounger.
+		#ENDIF
+	</p>
+	<p>
+		[scarlett.speech(If there's anything you want, just tell one of these sluts to get it for you,)] Scarlett says, before propping herself up on one wing and asking you how your day's been. Thankful for this opportunity to sit down and relax for a while, you happily engage Scarlett in conversation, and before you know it, you've spent almost an hour making small talk with her.
+	</p>
+	<p>
+		Eventually realising the time, Scarlett stretches her wings and sits up on her lounger, before saying,
+		#IF(scarlett.isAttractedTo(pc))
+			 [scarlett.speech(I was thinking that I might head down to my room and relax on my bed for a while. How about you join me, [pc.name]? I'm sure we could find all sorts of fun things to do in private...)]
+		#ELSE
+			 [scarlett.speech(Sorry, [pc.name], but I just remembered that I've got to go and sort some stuff out for Helena. IF you'd like, you could drop by so we could hang out again tomorrow...)]
+		#ENDIF
+	</p>
+	#IF(scarlett.isAttractedTo(pc))
+		<p>
+			Realising that following Scarlett down to her room will undoubtedly result in having sex with her,
+			#IF(pc.hasCompanions())
+				 you wonder if you should dismiss [com.name] and take her up on her offer,
+			#ELSE
+				 you wonder if you should take her up on her offer,
+			#ENDIF
+			 or instead tell her that you need to leave...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETT_RELAX_APARTMENT"><![CDATA[
+	<p>
+		#IF(pc.hasCompanions())
+			Liking the sound of spending some private time with Scarlett, you tell [com.name] to go home, before telling the raven-harpy that you'd love to accompany her down to her room.
+		#ELSE
+			Liking the sound of spending some private time with Scarlett, you tell her that you'd love to accompany her down to her room.
+		#ENDIF
+		 Realising that they're going to miss out on the opportunity to have sex with Scarlett, the crowd of colourful harpies instantly start whining and pleading for her to fuck them instead of you. Not being one to put up with this sort of behaviour, Scarlett's cheeks flush bright red as she screams, [scarlett.speech(Shut the fuck up! I'm never going to fuck any of you if you keep on acting like a bunch of annoying fucking cunts!)]
+	</p>
+	<p>
+		Cowed into silence by the raven-harpy's foul-mouthed outburst, the harpies submissively cast their gaze to the floor as Scarlett takes you by the [pc.hand] and leads you over to the nest's elevator. Pulling you inside, Scarlett tells you that as part of her duties as Helena's personal assistant, she's staying in one of the guest rooms in the matriarch's apartment, and that this elevator will take the two of you down to the correct floor. Clearly starting to get aroused at the thought of having sex with you, the raven-harpy turns to face you, and before you know what's happening, she's dominantly pinning you up against the wall and forcefully pulling you into a rough, passionate kiss.
+	</p>
+	<p>
+		After a few moments of having Scarlett's tongue thrust into your mouth, the elevator doors suddenly ping and slide open, and you suddenly find yourself being pulled along behind the raven-harpy as she strides down the corridor towards the door to Helena's apartment. Just a couple of minutes later, the two of you are entering the guest bedroom which is serving as Scarlett's residence, and after turning to lock the door behind her, the raven-harpy roughly pushes you down onto her bed and states, [scarlett.speech(Just because I like you, don't expect me to go easy on you, [pc.name]! I'm going to give you a good, rough fucking! Now, how do you want it?!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETT_RELAX_LEAVE"><![CDATA[
+	#IF(scarlett.isAttractedTo(pc))
+		<p>
+			Not liking the sound of spending some time alone with Scarlett in her room, you tell the raven-harpy that you have other urgent matters to attend to today, and so you're going to have to immediately depart. Letting out a disappointed sigh, Scarlett leans back on her sun-lounger and says, [scarlett.speech(Fine... I didn't really want to go down to my bedroom anyway... See you later, [pc.name]!)]
+		</p>
+		<p>
+			Saying farewell to her, you leave Scarlett in the company of her colourful harpy followers, before making your way back to the entrance of Helena's nest...
+		</p>
+	#ELSE
+		<p>
+			With nothing else left for you to do except make your exit, you say farewell to Scarlett and leave her in the company of her colourful harpy followers, before making your way back to the entrance of Helena's nest...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
 	<!-- HELENAS_NEST_SCARLETTS_SERVANT -->
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT"><![CDATA[
+	#IF(scarlett.isLikesPlayer())
+		<p>
+			Wanting to show Scarlett how much you appreciate the kindness she's shown towards you, you turn down her generous offer of being allowed to relax beside her as her equal and instead ask if she'd allow you to act as her servant for the day. Raising her eyebrows in surprise, the raven-harpy exclaims, [scarlett.speech(You want to act as my servant?! Well, I'm not going to say or anything, but if you're choosing to do that, I'm going to have to treat you like all these other harpy sluts.)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to earn the chance to have sex with her, you tell Scarlett that you want to act as her servant for the day. Raising her eyebrows in surprise, the raven-harpy exclaims, [scarlett.speech(You want to act as my servant?! Fine, but don't expect me to treat you any fucking differently than the rest of these harpy sluts!)]
+		</p>
+	#ENDIF
 	<p>
-		You agree to act as Scarlett's servant for the day. If player has companion, they return home.
+		#IF(pc.hasCompanions())
+			Telling [com.name] to go home, you kneel down beside Scarlett and tell her that you've got no problem with her treating you like all her other servants, before asking how you can assist her.
+		#ELSE
+			Telling Scarlett that you've got no problem with her treating you like all her other servants, you kneel down beside her and ask how you can assist her.
+		#ENDIF
+		 Letting an evil smirk settle on her face, the raven-harpy uses one of her black-feathered wings to point over to the far side of the nest and sneers, [scarlett.speech(Seeing as you're so eager to act as my bitch, you can start by fetching me a drink!)]
 	</p>
 	<p>
-		She gets you and a couple of harpy males to serve her drinks and food, before declaring that she wants to be pampered.
+		Looking over in the direction the raven-harpy gestured towards, you see a number of tables and chairs clustered around a circular open-air bar. A significant number of harpies are crowded around this counter, and as you head over towards it, several of these harpies start throwing scathing insults your way. Not wanting to cause a disturbance for Scarlett or Helena to have to deal with, you ignore these rude harpies and focus on your task of getting a drink from one of the barmaids behind the counter.
+	</p>
+	<p>
+		Much to your relief, the harpy who ends up serving you turns out to be relatively friendly, and after you've told her that you're here to get a drink for Scarlett, she gives you a glass of pink lemonade, along with the assurance that it's one of her favourite beverages. Quickly returning to where Scarlett is seated, you hand her the lemonade, and are relieved to hear her say, [scarlett.speech(Good job, bitch! Now get down and stay quiet!)]
+	</p>
+	<p>
+		Kneeling down beside her, you join Scarlett's harpy followers in waiting to hear what it is she's ask for next. After about twenty minutes of simply relaxing on her sun-lounger, Scarlett eventually finishes her lemonade. Carelessly throwing the empty glass to one side, she declares to nobody in particular, [scarlett.speech(I deserve to be pampered! Get off your fucking knees and treat me like a princess!)] 
 	</p>
 	]]>
 	</htmlContent>
@@ -683,44 +929,76 @@
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE"><![CDATA[
 	<p>
-		You pamper Scarlett and give her a back massage.
+		Being one of the first to react to Scarlett's demand, you stand up and offer to give the raven-harpy a back massage. Letting out an approving hum, Scarlett shamelessly strips out of her [scarlett.topClothing(BACK)] and rolls over to lie face-down on the sun-lounger. Spreading her wings and letting a couple of other harpies start to preen her black feathers, she snaps, [scarlett.speech(Come on then, bitch! Give me a fucking back massage!)]
+	</p>
+	<p>
+		Quickly doing as you're ordered, you set about massaging Scarlett's back. Running your [pc.fingers+] up and down over her soft skin, you gently, but firmly, press down and begin to knead her stiff muscles. Soon enough, your touch is causing the raven-harpy to groan in pleasure, and after almost an hour of being pampered in this manner, she pushes you away and rolls over onto her back to state,
 		#IF(scarlett.hasPenis())
-			#IF(game.isAnalContentEnabled())
-				After an hour of being treated like a princess, Scarlett offers to sit on your face and let you perform anilingus on her.
-			#ELSE
-				After an hour of being treated like a princess, Scarlett offers to let you suck her cock.
-			#ENDIF
+			 [scarlett.speech(You know, you're pretty fucking good at that massaging shit. If you'd like, you can have your reward now instead of waiting. Just get your fucking head down between my legs and suck my cock!)]
 		#ELSE
-			After an hour of being treated like a princess, Scarlett offers to sit on your face and use you as her throne.
+			 [scarlett.speech(You know, you're pretty fucking good at that massaging shit. If you'd like, you can have your reward now instead of waiting. Just get your fucking head down between my legs and service my cunt!)]
 		#ENDIF
+	</p>
+	<p>
+		Watching as Scarlett drops her hand down between her bird-like legs to tease her feathered fingers over her groin, you wonder if you should accept her offer and take your reward now, or decline and wait for an opportunity to have more than just oral sex with her later on...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE_HOLD_BACK"><![CDATA[
 	<p>
-		You hold back and continue to massage Scarlett's back. One of the other harpies instead asks if Scarlett will sit on her face, and she does.
+		Thanking Scarlett for the opportunity, you tell her that you'd like to wait and receive your reward from her later on. Letting out a dismissive grunt, she extends her offer to the rest of harpies. Almost instantly, the harpy nearest to Scarlett's groin drops her head down between her legs, and after pulling off her
+		#IF(scarlett.hasPenis())
+			 [scarlett.topClothing(PENIS)], she starts greedily sucking the raven-harpy's cock.
+		#ELSE
+			 [scarlett.topClothing(VAGINA)], she starts greedily licking and kissing the raven-harpy's pussy.
+		#ENDIF
 	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE_ANILINGUS"><![CDATA[
 	<p>
-		Scarlett sits on your face and makes you beg for her ass. You start licking it and she plants herself down on your face.
+		While still receiving oral from this submissive harpy, Scarlett turns towards you and snaps, [scarlett.speech(Give me more of your massaging! ~Mmm!~ Do my shoulders now!)]
+	</p>
+	<p>
+		While most of the nearby harpies take turns performing oral on her, you proceed to first massage Scarlett's shoulders, then each of her wings, and finally her head. By the time you've finished, the raven-harpy's
+		#IF(scarlett.hasPenis())
+			 cock has been sucked by no less than ten different harpies, and is covered in a slimy mixture of saliva and cum.
+		#ELSE
+			 pussy has been serviced by no less than ten different harpies, and is covered in a slimy mixture of saliva and girlcum.
+		#ENDIF
+	</p>
+	<p>
+		Noticing that the harpies in the rest of Helena's nest are starting to retire for the evening, Scarlett rudely uses the nearest harpy's skirt to wipe herself clean, before declaring that she's had enough for one day. Pulling her clothes back on, she states that it's time for her to choose who's going to be the one to spend the night with her. Immediately, the couple of harpies who didn't perform oral on Scarlett start to make their case for being the one to be chosen, and you wonder what you should say or do to get chosen over them...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE_BLOWJOB"><![CDATA[
 	<p>
-		Scarlett positions your face between her legs and makes you beg for her cock. You start sucking it.
+		Not being able to resist the offer of getting to suck Scarlett's cock, you sink down onto your knees before her and prepare to get started. Smirking down at you, the raven-harpy sneers, [scarlett.speechNoEffects(Go on then, bitch! Take my underwear off and suck my fucking cock!)]
+	</p>
+	<p>
+		Hurrying to obey, you slide Scarlett's boy-shorts down the length of her
+		#IF(scarlett.getGenitalArrangement()==GENITALS_CLOACA)
+			 smooth legs, revealing her bird-like cloaca. Leaning forwards to plant a passionate kiss on it, you're delighted to see the harpy's cock respond to your touch by pushing out of its pussy-like slit and quickly rising to full erection.
+		#ELSE
+			 bird-like legs, revealing her [scarlett.cock+]. Leaning forwards to plant a passionate kiss on it, you're delighted to see the harpy's cock respond to your touch by quickly rising to full erection.
+		#ENDIF
+		 Sticking out your [pc.tongue+], you deliver a slow, wet lick up the length of Scarlett's [scarlett.cock+], before parting your [pc.lips+] and taking her into your mouth. As you start to give her an enthusiastic blowjob, she moans, [scarlett.speechNoEffects(~Mmm!~ That's it, bitch! ~Aah!~ Keep on sucking my fucking cock until I blow a load down your throat!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_BACK_MASSAGE_CUNNILINGUS"><![CDATA[
 	<p>
-		Scarlett sits on your face and makes you beg for her pussy. You start licking it and she plants herself down on your face.
+		Not being able to resist the offer of getting to service Scarlett's pussy, you sink down onto your knees before her and prepare to get started. Smirking down at you, the raven-harpy sneers, [scarlett.speechNoEffects(Go on then, bitch! Take my underwear off and lick my fucking cunt!)]
+	</p>
+	<p>
+		Hurrying to obey, you slide Scarlett's boy-shorts down the length of her
+		#IF(scarlett.getGenitalArrangement()==GENITALS_CLOACA)
+			 smooth legs, revealing her bird-like cloaca.
+		#ELSE
+			 bird-like legs, revealing her [scarlett.pussy+].
+		#ENDIF
+		 Leaning forwards to plant a passionate kiss on her sensitive little clit, you quickly proceed to use your [pc.tongue+] to deliver a slow, wet lick up the length of Scarlett's [scarlett.labia+]. Burying your head between the raven-harpy's legs, you start enthusiastically eating her out, causing her to moan, [scarlett.speechNoEffects(~Mmm!~ That's it, bitch! ~Aah!~ Keep on licking my fucking pussy until I squirt all over your face!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -730,67 +1008,94 @@
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS"><![CDATA[
 	<p>
-		You pamper Scarlett and groom her wings.
+		Being one of the first to react to Scarlett's demand, you stand up and offer to groom the raven-harpy's wings. Letting out an approving hum, Scarlett spreads her wings and relaxes back on the sun-lounger. Taking hold of the wing nearest to you, you start to stroke and clean her black feathers, while a harpy opposite to you does the same with her other one. As several other harpies move forwards to start massaging her shoulders and feet, Scarlett snaps, [scarlett.speech(Come on then, bitches! Make me feel good!)]
+	</p>
+	<p>
+		Wanting to make Scarlett happy, you put all of your focus into grooming her huge wing-like arm. Running your [pc.fingers+] over her black feathers, you slowly work your way up the entire length of her wing. Soon enough, your touch is causing the raven-harpy to groan in pleasure, and after almost an hour of being pampered in this manner, she turns her head to look up at you and state,
 		#IF(scarlett.hasPenis())
-			 After an hour of being treated like a princess, Scarlett offers to let you jerk her off.
+			 [scarlett.speech(You know, you're pretty fucking good with your [pc.hands]. If you'd like, you can have your reward now instead of waiting. Just get your fucking [pc.fingers] down between my legs and jerk me off!)]
 		#ELSE
-			 After an hour of being treated like a princess, Scarlett offers to let you finger her.
+			 [scarlett.speech(You know, you're pretty fucking good with your [pc.hands]. If you'd like, you can have your reward now instead of waiting. Just get your fucking [pc.fingers] down between my legs and finger my cunt!)]
 		#ENDIF
+	</p>
+	<p>
+		Watching as Scarlett drops her hand down between her bird-like legs to tease her feathered fingers over her groin, you wonder if you should accept her offer and take your reward now, or decline and wait for an opportunity to have full, penetrative sex with her later on...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS_HOLD_BACK"><![CDATA[
 	<p>
-		You hold back and continue to groom Scarlett's wings.
+		Thanking Scarlett for the opportunity, you tell her that you'd like to wait and receive your reward from her later on. Letting out a dismissive grunt, she extends her offer to the rest of harpies. Almost instantly, the harpy nearest to Scarlett's groin shuffles forwards between her legs, and after pulling off her
 		#IF(scarlett.hasPenis())
-			 One of the other harpies instead jerks off Scarlett.
+			 [scarlett.topClothing(PENIS)], she starts enthusiastically stroking the raven-harpy's cock.
 		#ELSE
-			 One of the other harpies instead fingers Scarlett.
+			 [scarlett.topClothing(VAGINA)], she starts enthusiastically fingering the raven-harpy's pussy.
 		#ENDIF
+	</p>
+	<p>
+		With this submissive harpy's fingers continuing to work their way
+		#IF(scarlett.hasPenis())
+			 up and down her shaft,
+		#ELSE
+			 in and out of her wet cunt,
+		#ENDIF
+		 Scarlett turns towards you and snaps, [scarlett.speech(Do my other wing! ~Mmm!~ This harpy slut didn't do as good a job as you!)]
+	</p>
+	<p>
+		While most of the nearby harpies take turns to 
+		#IF(scarlett.hasPenis())
+			 jerk her off,
+		#ELSE
+			 finger her,
+		#ENDIF
+		 you proceed to groom Scarlett's other wing, before being instructed to turn your attention to her head feathers. By the time you've finished, the raven-harpy's
+		#IF(scarlett.hasPenis())
+			 cock has been milked by no less than ten different harpies, and is covered in a slimy layer of cum.
+		#ELSE
+			 pussy has been serviced by no less than ten different harpies, and is covered in a slimy layer of girlcum.
+		#ENDIF
+	</p>
+	<p>
+		Noticing that the harpies in the rest of Helena's nest are starting to retire for the evening, Scarlett rudely uses the nearest harpy's skirt to wipe herself clean, before declaring that she's had enough for one day. Pulling her clothes back on, she states that it's time for her to choose who's going to be the one to spend the night with her. Immediately, the couple of harpies who didn't
+		#IF(scarlett.hasPenis())
+			 jerk Scarlett off
+		#ELSE
+			 finger Scarlett
+		#ENDIF
+		 start to make their case for being the one to be chosen, and you wonder what you should say or do to get chosen over them...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS_HANDJOB"><![CDATA[
 	<p>
-		You kneel down in front of Scarlett and start jerking her off.
+		Not being able to resist the offer of getting to service Scarlett's cock, you sink down onto your knees before her and prepare to get started. Smirking down at you, the raven-harpy sneers, [scarlett.speechNoEffects(Go on then, bitch! Take my underwear off and start stroking my fucking cock!)]
+	</p>
+	<p>
+		Hurrying to obey, you slide Scarlett's boy-shorts down the length of her
+		#IF(scarlett.getGenitalArrangement()==GENITALS_CLOACA)
+			 smooth legs, revealing her bird-like cloaca. Teasing your [pc.fingers+] up and down the length of it, you're delighted to see the harpy's cock respond to your touch by pushing out of its pussy-like slit and quickly rising to full erection.
+		#ELSE
+			 bird-like legs, revealing her [scarlett.cock+]. Teasing your [pc.fingers+] up and down the length of it, you're delighted to see the harpy's cock respond to your touch by quickly rising to full erection.
+		#ENDIF
+		 Wrapping your [pc.hand] around Scarlett's [scarlett.cock+], you immediately start to give her an enthusiastic handjob, causing her to moan, [scarlett.speechNoEffects(~Mmm!~ That's it, bitch! ~Aah!~ Keep on jerking me off until I blow a load all over your fucking face!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_GROOM_WINGS_FINGERING"><![CDATA[
 	<p>
-		You kneel down in front of Scarlett and start fingering her.
+		Not being able to resist the offer of getting to service Scarlett's pussy, you sink down onto your knees before her and prepare to get started. Smirking down at you, the raven-harpy sneers, [scarlett.speechNoEffects(Go on then, bitch! Take my underwear off and stuff your fingers into my fucking cunt!)]
 	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- HELENAS_NEST_SCARLETTS_SERVANT_APPLY_MAKEUP -->
-	
-	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_APPLY_MAKEUP"><![CDATA[
 	<p>
-		#IF(scarlett.hasPenis())
-			You apply some very subtle makeup to Scarlett.
+		Hurrying to obey, you slide Scarlett's boy-shorts down the length of her
+		#IF(scarlett.getGenitalArrangement()==GENITALS_CLOACA)
+			 smooth legs, revealing her bird-like cloaca.
 		#ELSE
-			You apply slutty makeup to Scarlett.
+			 bird-like legs, revealing her [scarlett.pussy+].
 		#ENDIF
-		 After an hour of being treated like a princess, Scarlett offers to let you kiss her.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_APPLY_MAKEUP_HOLD_BACK"><![CDATA[
-	<p>
-		You hold back and apply nail polish to Scarlett's claw-like fingers while one of the other harpies instead makes out with her.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_APPLY_MAKEUP_MAKEOUT"><![CDATA[
-	<p>
-		You get Scarlett to slide into your lap and start to make out with her.
+		 Teasing your [pc.fingers+] up and down the length of her [scarlett.labia+], you home in on her sensitive little clit and give it a few delicate rubs. Moving your touch down, you then slide your [pc.fingers+] into the raven-harpy's wet pussy and start to enthusiastically finger her, causing her to moan, [scarlett.speechNoEffects(~Mmm!~ That's it, bitch! ~Aah!~ Keep on fingering my fucking pussy until I squirt all over your face!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -800,13 +1105,23 @@
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE"><![CDATA[
 	<p>
-		You give Scarlett a foot massage.
+		Being one of the first to react to Scarlett's demand, you stand up and offer to give the raven-harpy a foot massage. Letting out an approving hum, Scarlett lies back on her sun-lounger and pointedly flexes her bird-like talons. Spreading her wings and letting a couple of other harpies start to preen her black feathers, she snaps, [scarlett.speech(Come on then, bitch! Get to work on my feet!)]
+	</p>
+	<p>
+		Wanting to make Scarlett happy, you quickly drop down onto your knees and put all of your focus into massaging her bird-like feet. Running your [pc.fingers+] over her sharp talons, you slowly work your way up the length of her claw-like toes and begin kneading the muscles in her feet. Soon enough, your touch is causing the raven-harpy to groan in pleasure, and after almost an hour of being pampered in this manner, she tilts her head to look down at you and states,
 		#IF(pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
-			 After an hour of being treated like a princess, Scarlett offers to jerk you off with her feet.
+			 [scarlett.speech(You know, you're pretty fucking good at this massaging shit. If you'd like, you can have your reward now instead of waiting. Seeing as you like my fucking feet so much, how about you whip out your cock and let me jerk you off using my talons!)]
 		#ELSEIF(scarlett.hasPenis())
-			 After an hour of being treated like a princess, Scarlett offers to let you jerk her off.
+			 [scarlett.speech(You know, you're pretty fucking good at this massaging shit. If you'd like, you can have your reward now instead of waiting. Just get your fucking head between my legs and suck my cock!)]
 		#ELSE
-			 After an hour of being treated like a princess, Scarlett offers to let you finger her.
+			 [scarlett.speech(You know, you're pretty fucking good at this massaging shit. If you'd like, you can have your reward now instead of waiting. Just get your fucking head between my legs and service my cunt!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+			Doing your best to suppress an excited [pc.moan] as Scarlett lifts her feet and pushes them into your groin, you wonder if you should accept her offer and take your reward now, or decline and wait for an opportunity to have full, penetrative sex with her later on...
+		#ELSE
+			Watching as Scarlett spreads her legs and teases her feathered fingers over her groin, you wonder if you should accept her offer and take your reward now, or decline and wait for an opportunity to have full, penetrative sex with her later on...
 		#ENDIF
 	</p>
 	]]>
@@ -814,33 +1129,68 @@
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_HOLD_BACK"><![CDATA[
 	<p>
-		You hold back and apply nail polish to Scarlett's talons.
+		Thanking Scarlett for the opportunity, you tell her that you'd like to wait and receive your reward from her later on. Letting out a dismissive grunt, she extends her offer to the rest of harpies. Almost instantly, the harpy nearest to Scarlett's groin drops her head down between her legs, and after pulling off her
 		#IF(scarlett.hasPenis())
-			 One of the other harpies instead jerks off Scarlett.
+			 [scarlett.topClothing(PENIS)], she starts greedily sucking the raven-harpy's cock.
 		#ELSE
-			 One of the other harpies instead fingers Scarlett.
+			 [scarlett.topClothing(VAGINA)], she starts greedily licking and kissing the raven-harpy's pussy.
 		#ENDIF
+	</p>
+	<p>
+		While still receiving oral from this submissive harpy, Scarlett throws you a small bottle of clear nail polish, before snapping, [scarlett.speech(Paint my fucking talons, bitch! ~Mmm!~ And then give me some more of that fucking massaging!)]
+	</p>
+	<p>
+		While most of the nearby harpies take turns performing oral on her, you proceed to carefully paint Scarlett's talons, before continuing to massage her bird-like feet. By the time you've finished, the raven-harpy's
+		#IF(scarlett.hasPenis())
+			 cock has been sucked by no less than ten different harpies, and is covered in a slimy mixture of saliva and cum.
+		#ELSE
+			 pussy has been serviced by no less than ten different harpies, and is covered in a slimy mixture of saliva and girlcum.
+		#ENDIF
+	</p>
+	<p>
+		Noticing that the harpies in the rest of Helena's nest are starting to retire for the evening, Scarlett rudely uses the nearest harpy's skirt to wipe herself clean, before declaring that she's had enough for one day. Pulling her clothes back on, she states that it's time for her to choose who's going to be the one to spend the night with her. Immediately, the couple of harpies who didn't perform oral on Scarlett start to make their case for being the one to be chosen, and you wonder what you should say or do to get chosen over them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_BLOWJOB"><![CDATA[
+	<p>
+		Not being able to resist the offer of getting to suck Scarlett's cock, you gently lower Scarlett's feet to the floor and shuffle forwards between her bird-like legs. Smirking down at you, the raven-harpy sneers, [scarlett.speechNoEffects(Go on then, bitch! Take my underwear off and suck my fucking cock!)]
+	</p>
+	<p>
+		Hurrying to obey, you slide Scarlett's boy-shorts down the length of her
+		#IF(scarlett.getGenitalArrangement()==GENITALS_CLOACA)
+			 smooth legs, revealing her bird-like cloaca. Leaning forwards to plant a passionate kiss on it, you're delighted to see the harpy's cock respond to your touch by pushing out of its pussy-like slit and quickly rising to full erection.
+		#ELSE
+			 bird-like legs, revealing her [scarlett.cock+]. Leaning forwards to plant a passionate kiss on it, you're delighted to see the harpy's cock respond to your touch by quickly rising to full erection.
+		#ENDIF
+		 Sticking out your [pc.tongue+], you deliver a slow, wet lick up the length of Scarlett's [scarlett.cock+], before parting your [pc.lips+] and taking her into your mouth. As you start to give her an enthusiastic blowjob, she moans, [scarlett.speechNoEffects(~Mmm!~ That's it, bitch! ~Aah!~ Keep on sucking my fucking cock until I blow a load down your throat!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_CUNNILINGUS"><![CDATA[
+	<p>
+		Not being able to resist the offer of getting to service Scarlett's pussy, you gently lower Scarlett's feet to the floor and shuffle forwards between her bird-like legs. Smirking down at you, the raven-harpy sneers, [scarlett.speechNoEffects(Go on then, bitch! Take my underwear off and lick my fucking cunt!)]
+	</p>
+	<p>
+		Hurrying to obey, you slide Scarlett's boy-shorts down the length of her
+		#IF(scarlett.getGenitalArrangement()==GENITALS_CLOACA)
+			 smooth legs, revealing her bird-like cloaca.
+		#ELSE
+			 bird-like legs, revealing her [scarlett.pussy+].
+		#ENDIF
+		 Leaning forwards to plant a passionate kiss on her sensitive little clit, you quickly proceed to use your [pc.tongue+] to deliver a slow, wet lick up the length of Scarlett's [scarlett.labia+]. Burying your head between the raven-harpy's legs, you start enthusiastically eating her out, causing her to moan, [scarlett.speechNoEffects(~Mmm!~ That's it, bitch! ~Aah!~ Keep on licking my fucking pussy until I squirt all over your face!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_TALONJOB"><![CDATA[
 	<p>
-		You kneel down in front of Scarlett and let her use her talons to jerk you off.
+		Not being able to resist the offer of having Scarlett use her bird-like feet to jerk you off, you quickly expose your rapidly-hardening cock to her and plead for her to give you a talon-job. Smirking down at you, the raven-harpy cruelly grinds one of her feet down against your shaft and sneers, [scarlett.speechNoEffects(You like that, bitch?! Go on, stick your cock up between my talons and I'll give you what you want!)]
 	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_HANDJOB"><![CDATA[
 	<p>
-		You kneel down in front of Scarlett and start jerking her off.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FOOT_MASSAGE_FINGERING"><![CDATA[
-	<p>
-		You kneel down in front of Scarlett and start fingering her.
+		Hurrying to obey, you take hold of Scarlett's feet and get her to clench her talons around your throbbing shaft. Satisfied that she's in a suitable position, you start to push your cock up and down between the harpy's talons. Letting out a delighted chuckle, Scarlett starts enthusiastically jerking you off and cries out, [scarlett.speechNoEffects(~Mmm!~ That's it, bitch! You like my fucking feet, don't you?! I'm gonna make you cum all over them!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -849,8 +1199,23 @@
 	<!-- AFTER_SCARLETT_SERVANT_SEX -->
 	
 	<htmlContent tag="AFTER_SCARLETT_SERVANT_SEX"><![CDATA[
+	#IF(scarlett.isLikesPlayer())
+		<p>
+			Having let you have your fun with her, Scarlett pushes you away and firmly says, [scarlett.speech(Ok, [pc.name], that's enough!)]
+		</p>
+		<p>
+			Letting her feelings for you get the better of her, she quickly follows this up by explaining, [scarlett.speech(I've got to give the rest of these harpy sluts some fun, so I can't do anything else with you today. Come back and see me tomorrow if you want to do this again!)]
+		</p>
+	#ELSE
+		<p>
+			Having let you have your fun with her, Scarlett pushes you away and snaps, [scarlett.speech(Ok, bitch, you've had enough!)]
+		</p>
+		<p>
+			Seemingly feeling the need to explain herself to you, the rude harpy continues, [scarlett.speech(I've got to give the rest of these harpy sluts some fun, so I can't do anything else with you today, bitch. Come back and see me tomorrow if you want to do this again!)]
+		</p>
+	#ENDIF
 	<p>
-		Scarlett is done with you and tells you to leave. She chooses one of the other harpies to get her full reward and goes off with them...
+		Having already received your reward from Scarlett, there's nothing much left for you to do except gather up your things and take your leave. As you set off towards the exit of Helena's nest, you can't help but overhear the rude raven-harpy ordering one of her followers to accompany her down to her room, letting you know that she's not going to be present in Helena's nest until tomorrow...
 	</p>
 	]]>
 	</htmlContent>
@@ -858,73 +1223,70 @@
 	
 	<!-- HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD -->
 	
-	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD"><![CDATA[
-	#IF(scarlett.getAffectionLevelBasic(pc)==AFFECTION_BASIC_LIKE)
-		<p>
-			You continue pampering Scarlett until late in the evening, when she finally stands up and declares that
-			#IF(scarlett.hasPenis())
-				 she'll fuck you.
-			#ELSE
-				 you get to fuck her pussy.
-			#ENDIF
-		</p>
-	#ELSE
-		<p>
-			You continue pampering Scarlett until late in the evening, when she finally stands up and declares that
-			#IF(scarlett.hasPenis())
-				 she'll fuck one of you.
-			#ELSE
-				 one of you will get to fuck her pussy.
-			#ENDIF
-			 Asks which one of you is the most deserving. You'd better do something to show her that you're the one she should take with her back to her room...
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_CHOSEN"><![CDATA[
-	<p>
-		Scarlett leads you down to Helena's apartment, where she's being allowed to stay as a guest.
-		#IF(scarlett.hasPenis())
-			 Asks how you want her to fuck you.
-		#ELSE
-			 Asks how you want to fuck her pussy.
-		#ENDIF
-	</p>
-	]]>
-	</htmlContent>
-	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_KISS_FEET"><![CDATA[
 	<p>
-		You kiss Scarlett's feet, which causes her to choose you.
+		Willing to do whatever it takes to be chosen over the other two harpies, you tell Scarlett that she should reward the most loyal and submissive of her followers, before dropping down in front of her and kissing her bird-like feet. Taken by surprise at your sudden move, the raven-harpy lets out a startled cry, before quickly getting a hold of herself and sadistically pushing one of her feet into your face. Forcing you to kiss the soles of her feet, she laughs, [scarlett.speech(Oh yes! You're a good bitch, aren't you, [pc.name]?!)]
+	</p>
+	<p>
+		Submissively replying in the affirmative, you continue to kiss Scarlett's bird-like talons until she eventually pulls away and declares, [scarlett.speech(Very well, [pc.name]! You have shown your obedience, so I shall choose you to accompany me to my room!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BOW_DOWN"><![CDATA[
 	<p>
-		You bow down at Scarlett's feet, which causes her to choose you.
+		Desperate to be chosen over the other two harpies, you tell Scarlett that she should reward the most loyal and submissive of her followers, before dropping to the floor and bowing down in front of her. Taken by surprise at your sudden move, the raven-harpy lets out a startled cry, before quickly getting a hold of herself and sadistically using one of her feet to push your face down against the ground. Cruelly continuing to grind her foot down on the back of your head, she laughs, [scarlett.speech(Oh yes! You're a good bitch, aren't you, [pc.name]?!)]
+	</p>
+	<p>
+		Submissively replying in the affirmative, you continue to bow down before Scarlett until she eventually pulls away and declares, [scarlett.speech(Very well, [pc.name]! You have shown your obedience, so I shall choose you to accompany me to my room!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BOW_DOWN_NOT_CHOSEN"><![CDATA[
 	<p>
-		You bow down at Scarlett's feet, but she chooses another harpy. Tells you and others to try harder next time if you're serious about wanting to fuck her.
+		Desperate to be chosen over the other two harpies, you tell Scarlett that she should reward the most loyal and submissive of her followers, before dropping to the floor and bowing down in front of her. Although your submissive move might have ordinarily been enough to impress Scarlett, one of the other harpies quickly one-ups you by dropping down and starting to kiss the raven-harpy's feet. With her attention quickly shifting to focus on this grovelling harpy, Scarlett dismisses you with a wave of her wing and says, [scarlett.speech(You'll have to do better next time if you want to impress me, [pc.name]! Now get out of my sight!)]
+	</p>
+	<p>
+		Snapping at the grovelling harpy to stand up, Scarlett grabs hold of her wing-like arm and leads her off in the direction of the nest's elevator. Not having done enough to impress the raven-harpy, you let out a disappointed sigh, and after standing up and getting your things in order, you head back over to the nest's entrance...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_FLATTER"><![CDATA[
 	<p>
-		You flatter Scarlett, which causes her to choose you.
+		Desperate to be chosen over the other two harpies, you start to flatter Scarlett and compliment her on her appearance. Not expecting you to say such nice things about her, the raven-harpy is momentarily stunned, but quickly gets a hold of herself and orders you to keep on going. Expressing your admiration for how pretty her feathers are, you move on to say how Scarlett is easily the most attractive harpy you've seen all day, causing her to triumphantly laugh, [scarlett.speech(That's right, suck up to me like the submissive bitch you are! You love acting like my servant, don't you, [pc.name]?!)]
+	</p>
+	<p>
+		Submissively replying in the affirmative, you continue to flatter Scarlett until she eventually holds up her wing to silence you and declare, [scarlett.speech(Very well, [pc.name]! You have shown your obedience, so I shall choose you to accompany me to my room!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_FLATTER_NOT_CHOSEN"><![CDATA[
 	<p>
-		You flatter Scarlett, but she chooses another harpy. Tells you and others to try harder next time if you're serious about wanting to fuck her.
+		Desperate to be chosen over the other two harpies, you start to flatter Scarlett and compliment her on her appearance. Although your submissive move might have ordinarily been enough to impress her, one of the other harpies quickly one-ups you by dropping to floor and bowing down to the raven-harpy. With her attention quickly shifting to focus on this grovelling harpy, Scarlett dismisses you with a wave of her wing and says, [scarlett.speech(You'll have to do better next time if you want to impress me, [pc.name]! Now get out of my sight!)]
+	</p>
+	<p>
+		Snapping at the grovelling harpy to stand up, Scarlett grabs hold of her wing-like arm and leads her off in the direction of the nest's elevator. Not having done enough to impress the raven-harpy, you let out a disappointed sigh, and after standing up and getting your things in order, you head back over to the nest's entrance...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_CHOSEN"><![CDATA[
+	<p>
+		Realising that they've missed out on the opportunity to have sex with Scarlett, the other harpies instantly start whining and pleading for her to fuck them instead of you. Not being one to put up with this sort of behaviour, Scarlett's cheeks flush bright red as she screams, [scarlett.speech(Shut the fuck up! You can try and impress me again tomorrow, but for now, fuck off!)]
+	</p>
+	<p>
+		Cowed into silence by the raven-harpy's foul-mouthed outburst, the harpies submissively cast their gaze to the floor as Scarlett takes you by the [pc.hand] and leads you over to the nest's elevator. Pulling you inside, Scarlett tells you that as part of her duties as Helena's personal assistant, she's staying in one of the guest rooms in the matriarch's apartment, and that this elevator will take the two of you down to the correct floor. Clearly starting to get aroused at the thought of having sex with you, the raven-harpy turns to face you, and before you know what's happening, she's dominantly pinning you up against the wall and forcefully pulling you into a rough, passionate kiss.
+	</p>
+	<p>
+		After a few moments of having Scarlett's tongue thrust into your mouth, the elevator doors suddenly ping and slide open, and you suddenly find yourself being pulled along behind the raven-harpy as she strides down the corridor towards the door to Helena's apartment. Just a couple of minutes later, the two of you are entering the guest bedroom which is serving as Scarlett's residence, and after turning to lock the door behind her, the raven-harpy roughly pushes you down onto her bed and states,
+		#IF(scarlett.isLikesPlayer())
+			 [scarlett.speech(Just because I like you, don't expect me to go easy on you, [pc.name]! I'm going to give you a good, rough fucking! Now, how do you want it?!)]
+		#ELSE
+			 [scarlett.speech(Just because I've chosen you to be my partner, don't think that I like you, [pc.name]! I'm going to give you a good, rough fucking! Now, how do you want it?!)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -934,7 +1296,10 @@
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_LEAVE"><![CDATA[
 	<p>
-		You back out of this and say you don't want to have sex with her anymore. She tells you to get lost.
+		Having second thoughts about having sex with Scarlett, you tell the raven-harpy that you have other urgent matters to attend to today, and so you're going to have to immediately depart. Letting out an annoyed tut, Scarlett frowns at you and exclaims, [scarlett.speech(Fine! It's not like I wanted to fuck you anyway, [pc.name]! Get out of here!)]
+	</p>
+	<p>
+		Saying farewell to her, you leave Scarlett in the company of her colourful harpy followers and set off towards the exit of the nest. As you leave, you can't help but overhear the rude raven-harpy ordering one of her followers to accompany her down to her room, letting you know that she's not going to be present in Helena's nest until tomorrow...
 	</p>
 	]]>
 	</htmlContent>
@@ -944,42 +1309,75 @@
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_BLOWJOB"><![CDATA[
 	<p>
-		You ask to suck Scarlett's cock. She sits on her bed and gets you to kneel down and do it.
+		Wanting to perform oral on Scarlett, you tell her that you'd like to suck her cock. Smirking as she hears you say this, the raven-harpy strips off her clothing and sits down on the edge of her bed, before snapping, [scarlett.speech(Come on then! Get down and suck my cock!)]
+	</p>
+	<p>
+		Hurrying to obey, you drop down in front of Scarlett and shuffle forwards to bring your mouth right up next to her
+		#IF(scarlett.getGenitalArrangement()==GENITALS_CLOACA)
+			 bird-like cloaca. Leaning forwards to plant a passionate kiss on it, you're delighted to see the harpy's cock respond to your touch by pushing out of its pussy-like slit and quickly rising to full erection.
+		#ELSE
+			 [scarlett.cock+]. Leaning forwards to plant a passionate kiss on it, you're delighted to see the harpy's cock respond to your touch by quickly rising to full erection.
+		#ENDIF
+		 Sticking out your [pc.tongue+], you deliver a slow, wet lick up the length of Scarlett's [scarlett.cock+], before parting your [pc.lips+] and taking her into your mouth. As you start to give her an enthusiastic blowjob, she moans, [scarlett.speechNoEffects(~Mmm!~ That's it, bitch! ~Aah!~ Keep on sucking my fucking cock until I blow a load down your throat!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_ANAL"><![CDATA[
 	<p>
-		You ask for Scarlett to fuck your ass. She pushes you down onto all fours and penetrates you.
+		Wanting to get anally fucked by Scarlett, you drop down onto all fours and shuffle around to expose yourself to her, before asking her to come and pound your ass. Smirking as she hears you say this, the raven-harpy strips off her clothing and jumps up onto her bed, before dropping down behind you and sneering, [scarlett.speech(Go on then, [pc.name]! Beg for my cock!)]
+	</p>
+	<p>
+		Doing as the dominant harpy asks, you beg for her to penetrate you and start fucking your ass. Satisfied by your submissive display, Scarlett suddenly grabs hold of your [pc.hips+], and without any form of foreplay, she instantly slams her [scarlett.cock+] into your [pc.asshole+], before starting to roughly fuck you and moan, [scarlett.speech(That's it, bitch! ~Aah!~ Take my fucking cock!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_VAGINAL"><![CDATA[
 	<p>
-		You ask for Scarlett to fuck your pussy. She pushes you down onto all fours and penetrates you.
+		Wanting to get fucked by Scarlett, you drop down onto all fours and shuffle around to expose yourself to her, before asking her to come and pound your pussy. Smirking as she hears you say this, the raven-harpy strips off her clothing and jumps up onto her bed, before dropping down behind you and sneering, [scarlett.speech(Go on then, [pc.name]! Beg for my cock!)]
+	</p>
+	<p>
+		Doing as the dominant harpy asks, you beg for her to sink her cock into your hot cunt and start fucking you. Satisfied by your submissive display, Scarlett suddenly grabs hold of your [pc.hips+], and without any form of foreplay, she instantly slams her [scarlett.cock+] into your [pc.pussy+], before starting to roughly fuck you and moan, [scarlett.speech(That's it, bitch! ~Aah!~ Take my fucking cock!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_CUNNILINGUS"><![CDATA[
 	<p>
-		You tell Scarlett that you want to eat her out. She pushes you down and sits on your face.
+		Wanting to perform oral on Scarlett, you tell her that you'd like to eat her out. Smirking as she hears you say this, the raven-harpy quickly strips off her clothing and orders, [scarlett.speech(Get down on your back, bitch! I'm going to sit on your fucking face!)]
+	</p>
+	<p>
+		Hurrying to obey, you lie down on Scarlett's bed, and the instant your head hits the mattress, you find yourself looking up at the raven-harpy's
+		#IF(scarlett.getGenitalArrangement()==GENITALS_CLOACA)
+			 bird-like cloaca
+		#ELSE
+			 [scarlett.pussy+]
+		#ENDIF
+		 as she steps over the top of you and plants herself down on your face. Grinding her [scarlett.labia+] down against your [pc.lips+], Scarlett demands that you get started, and seeing no reason to disobey, you immediately start enthusiastically licking and kissing her wet cunt, causing her to moan, [scarlett.speechNoEffects(~Mmm!~ That's it, bitch! ~Aah!~ Keep on licking my fucking pussy until I squirt all over your face!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SCISSORING"><![CDATA[
 	<p>
-		You tell Scarlett that you want to scissor with her. She pushes you down onto the bed and slides into position, before starting to rub her clit against your pussy.
+		Wanting to rub your pussy against Scarlett's, you tell her that you'd like to scissor with her on her bed. Smirking as she hears you say this, the raven-harpy quickly strips off her clothing and orders, [scarlett.speech(Get down on your back, bitch! I'm taking charge!)]
+	</p>
+	<p>
+		Hurrying to obey, you lie down on Scarlett's bed, and the instant your head hits the mattress, the raven-harpy leaps up and kneels down next to your groin. Grabbing one of your legs, she lifts it up and shuffles forwards to get into a comfortable position, before starting to roughly grind her pussy against yours. Focusing on bumping her sensitive little clit up and down over your own [pc.clit+], the horny harpy is soon moaning, [scarlett.speechNoEffects(~Mmm!~ That's it, bitch! ~Aah!~ Fuck, move those fucking hips! Oh yeah, just like that!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_FUCK_HER"><![CDATA[
 	<p>
-		You tell Scarlett that you want to fuck her. She lies back and spreads her legs. Gets you to start fucking her in the missionary position.
+		Wanting more than just oral sex with Scarlett, you tell her that you'd like to fuck her pussy. Smirking as she hears you say this, the raven-harpy quickly strips off her clothing, before jumping up to lie down on her bed and ordering you, [scarlett.speech(Come on then, bitch! Get your fucking cock out!)]
+	</p>
+	<p>
+		Hurrying to obey, you expose your rapidly-hardening cock to Scarlett, before shuffling forwards between her bird-like legs and rubbing the [pc.cockHead+] up and down over her [scarlett.labia+]. Bucking her hips a little, the dominant harpy snaps, [scarlett.speechNoEffects(Come on, bitch! Give me your fucking cock!)]
+	</p>
+	<p>
+		Once again doing as you're told, you thrust your hips forwards, sinking your [pc.cock+] into Scarlet's [scarlett.pussy+] and causing her to let out [scarlett.a_moan+]. Pulling back, you start thrusting in and out of her [scarlett.pussy+] as she lewdly screams, [scarlett.speechNoEffects(~Aah!~ Fuck! Yes, fuck me, [pc.name]! ~Ooh!~ Pound my hot little cunt!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -987,29 +1385,28 @@
 	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_SEX_FUCK_HER_ASS"><![CDATA[
 	#IF(scarlett.isAssVirgin())
 		<p>
-			You ask Scarlett if you can fuck her ass. She says she isn't precious about keeping her virginity, it's just that everyone so far has preferred to fuck her pussy. Gets down on all fours and tells you to give her ass a good pounding.
+			Wanting more than just oral sex with Scarlett, you tell her that you'd like to fuck her ass. Smirking as she hears you say this, the raven-harpy quickly strips off her clothing, before asking, [scarlett.speech(You know I'm still an anal virgin, right? You want to be the first one to pound my virgin butt?)]
 		</p>
 		<p>
-			You obey, and she is soon crying out in pleasure.
+			Eagerly replying in the affirmative, you feel your cock getting hard at the thought of being the first one to fuck Scarlett's ass. Seeing your growing erection, Scarlett lets out an uncharacteristic giggle before leaping up onto her bed and dropping down on all fours. Lifting her tail-feathers to present herself to you, she looks back over her shoulder and reveals, [scarlett.speech(It's not like I'm precious about my virginity or anything, it's just that everyone's preferred to fuck my pussy so far. Come on then, show me how it feels to have a cock buries in my asshole!)]
+		</p>
+		<p>
+			Hurrying to obey, you drop down behind Scarlett, before shuffling forwards and rubbing the [pc.cockHead+] up and down over her exposed asshole. Bucking her hips a little, the dominant harpy snaps, [scarlett.speechNoEffects(Come on, bitch! Give me your fucking cock already!)]
+		</p>
+		<p>
+			Once again doing as you're told, you thrust your hips forwards, sinking your [pc.cock+] into Scarlet's virgin asshole and causing her to let out [scarlett.a_moan+]. Pulling back, you start thrusting in and out of her [scarlett.asshole+] as she lewdly screams, [scarlett.speechNoEffects(~Aah!~ Fuck! That feels so fucking good! ~Ooh!~ Yes, fuck me, [pc.name]! ~Ooh!~ Pound my fucking ass!)]
 		</p>
 	#ELSE
 		<p>
-			You ask Scarlett if you can fuck her ass. She gets down on all fours and tells you to give her ass a good pounding.
+			Wanting more than just oral sex with Scarlett, you tell her that you'd like to fuck her ass again. Smirking as she hears you say this, the raven-harpy quickly strips off her clothing, before leaping up onto her bed and dropping down on all fours. Lifting her tail-feathers to present herself to you, she looks back over her shoulder and orders, [scarlett.speech(Come on then, bitch! Get your fucking cock out!)]
 		</p>
 		<p>
-			You obey, and she is soon crying out in pleasure.
+			Hurrying to obey, you expose your rapidly-hardening cock to Scarlett, before dropping down behind her and rubbing the [pc.cockHead+] up and down over her exposed asshole. Bucking her hips a little, the dominant harpy snaps, [scarlett.speechNoEffects(Come on, bitch! Give me your fucking cock already!)]
+		</p>
+		<p>
+			Once again doing as you're told, you thrust your hips forwards, sinking your [pc.cock+] into Scarlet's [scarlett.asshole+] and causing her to let out [scarlett.a_moan+]. Pulling back, you start thrusting in and out of her [scarlett.asshole+] as she lewdly screams, [scarlett.speechNoEffects(~Aah!~ Fuck! Yes, fuck me, [pc.name]! ~Ooh!~ Pound my fucking ass!)]
 		</p>
 	#ENDIF
-	]]>
-	</htmlContent>
-	
-	
-	<!-- HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BEDROOM_LEAVE -->
-	
-	<htmlContent tag="HELENAS_NEST_SCARLETTS_SERVANT_FINAL_REWARD_BEDROOM_LEAVE"><![CDATA[
-	<p>
-		You back out of this and say you don't want to have sex with her anymore. She is pissed off and tells you to get lost.
-	</p>
 	]]>
 	</htmlContent>
 	
@@ -1018,7 +1415,46 @@
 	
 	<htmlContent tag="AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX"><![CDATA[
 	<p>
-		Scarlett is satisfied. Tells you that you can leave now. Maid escorts you out.
+		Letting out a deeply-satisfied sigh, Scarlett collapses down on her bed, panting for breath. Lying down next to her, you also take this opportunity to catch your breath, and as you do so, the raven-harpy unexpectedly rolls over to throw one of her big wing-like arms over you. Flashing you a playful grin, she asks, [scarlett.speech(So, [pc.name], you're going to sleep over, aren't you?)]
+	</p>
+	<p>
+		#IF(game.isDayTime())
+			As it's still light outside, you're taken a little by surprise at Scarlett's willingness to spend the rest of the day in bed. Sensing your hesitation in offering an answer, the raven-harpy smugly states, [scarlett.speech(I like lazing around after a good, hard fuck. If you get hungry, one of the maids can bring us some fucking food. Come on, it wouldn't kill you to spend the night with me, would it?)]
+		#ELSE
+			Caught a little off guard, you take a moment to think of what to say. Before you can offer a reply, however, the raven-harpy smugly states, [scarlett.speech(I like lazing around after a good, hard fuck. If you get hungry, one of the maids can bring us some fucking food. Come on, it wouldn't kill you to spend the night with me, would it?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX_LEAVE"><![CDATA[
+	<p>
+		Telling Scarlett that you have other pressing matters to attend to, you gather your things and get ready to leave. Propping herself up on one wing, the raven-harpy whines, [scarlett.speech(Fine... I guess if you've got other stuff that's more important than me, you can fuck off then...)]
+	</p>
+	<p>
+		Despite her words, you surprisingly don't sense any malice in Scarlett's tone of voice, and so not having to worry about offending her, you gather up your things and prepare to leave. Before you're shown to the door by one of the apartment's harpy maids, Scarlett calls out, [scarlett.speech(Come back and visit again any time, [pc.name]!)]
+	</p>
+	<p>
+		Telling the uncharacteristically-friendly harpy that you'll do just that, you swiftly exit Helena's apartment, before making use of the elevator to travel back up to her nest...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX_SLEEP_OVER -->
+	
+	<htmlContent tag="AFTER_SCARLETT_SERVANT_FINAL_REWARD_SEX_SLEEP_OVER"><![CDATA[
+	<p>
+		After you've told Scarlett that of course you'll spend the night with her, she lets out a happy little exclamation and, rather curiously, suddenly starts pushing the edges of her duvet up against your body. As you start to move to slip under the covers and get comfortable, the raven-harpy snaps, [scarlett.speech(Stop fidgeting and stay still! I'm getting my bed ready!)]
+	</p>
+	<p>
+		Not wanting to anger her, you do as Scarlett says and remain lying down on top of the covers. As the raven-harpy continues to push the edges of her fluffy duvet up all around you, you suddenly realise that she's forming a makeshift nest, with you in the very middle of it. Quickly finishing her task, Scarlett suddenly steps over the top of you, before perching down and sitting on you. Thankfully, she's far lighter than a human of an equivalent size would be, and as she spreads her wings out to cover your body, she sighs, [scarlett.speech(This is how I like to sleep... Just stay still, ok?)]
+	</p>
+	<p>
+		Scarlett's unusual sleeping arrangement turns out to be surprisingly comfortable, and you soon find yourself drifting off to sleep beneath the cover of her huge, black-feathered wings...
+	</p>
+	<p>
+		The next thing you know, you're waking up the next morning in Scarlett's bed, and as you sit up and stretch your arms, you see that the raven-harpy is nowhere to be seen. A small, hastily-written note lying on a nearby bedside cabinet tells you that she had to leave early to help Helena with some business. With nothing else to be done here, you gather your things and swiftly exit Helena's apartment, before making use of the elevator to travel back up to her nest...
 	</p>
 	]]>
 	</htmlContent>

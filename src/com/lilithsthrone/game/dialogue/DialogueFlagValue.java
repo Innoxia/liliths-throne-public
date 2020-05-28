@@ -135,6 +135,7 @@ public enum DialogueFlagValue {
 	nymphoEncountered,
 	nymphoPacified,
 	punishedByHelena,
+	scarlettRelaxed(true),
 	
 	// Slaver Alley:
 	finchIntroduced,
@@ -177,8 +178,8 @@ public enum DialogueFlagValue {
 	helenaDateApartmentSeen,
 	helenaDateFirstDateComplete,
 	helenaDateRomanticSetup,
-	helenaDateRomanticSetupEatenOut(true),
-	helenaGift,
+	helenaDateRomanticSetupEatenOut,
+	helenaGift(true),
 	helenaDateSexLifeTalk,
 	helenaDateVirginityTalk,
 	helenaScarlettThreesome,

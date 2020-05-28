@@ -23,81 +23,84 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	
 	
-	Writing:
-		[x] Helena Shop scenes
-		[x] Improve back room descriptions
-		[x] Dominion streets to reference centaur carts
-		[x] Check Scarlett getting dressed before/after work
-		
-		[x] Helena Nest scenes
-		[] Helena date scenes
-			[x] Date
-			[x] Sex dialogue
-			[x] Remove innocent personality when losing virginity
-			[] Need Helena dirty talk override
-		[x] Test all dating scenes
-			[x] XML test
-			[x] XML duplication test
-			[x] Full play through
-				[x] Gifts not working
-				[x] Post-date exit leaves player in apartment
-				[x] Dialogue titles not correct
-				[x] Coffee infinite response bug
-				[x] Bugs in Helena sex manager
-		[] Need Hotel restaurant tile
-		[] Scarlett Nest scenes
-		[] Helena-Scarlett threesome option?
-	
-	Gift dialogue should restore previous dialogue upon exit
-	
-	Kissing nipple dirty talk makes reference to tongue being deep in nipple, even if non-penetrable
-	
-	Arcane storm doesn't affect Harpy nest encounters
-	
-	Scarlett is still fingering her ass when pc is eating her out...
-	
-	Scarlett Jam image pussy/penis
-		
-	
-	
 	Patch notes:
 	
-	Gameplay:
-		Added Helena's date content. (Unlocked after completing her romance quest, and requires you to visit her in her store between 17:00-21:00 on a Friday.)
-	
-	Other:
-		The 'Unequip all' action in the inventory overview no longer unequips weapons.
-		Added 'offspring fathered' as a tattoo counter type.
-		Increased the installation cost of room service from 100 to 500 flames.
-		Added 'Dog Bowls' as an affection-negative, obedience-positive room upgrade counterpart to the affection-positive, obedience-negative 'Room Service'.
-		The 'XML test' in the debug's parser menu now outputs a warning at the top of the parsed dialogues to let you know if any tags are being repeated.
-	
-	Sex:
-		Orifices with the 'internally-muscled' modifier are now immune to the negative 'too loose' effect when being penetrated, no matter how slender the insertion nor how loose its capacity might be.
+	Contributors:
+		Refactored and cleaned up code handling forced transformations. (PR#1255 by Stadler76)
 	
 	Bugs:
 		Parsing fixes.
-		Fixed some grammatical errors in displacing/replacing clothing descriptions.
-		Fixed bug where sealed clothing which was unsealed and removed during sex would be duplicated in the wearer's inventory when sex ended.
-		Unjinxing clothing during sex will no longer return an incorrect description or just 'null'.
-		Fixed fluffy tails not being described as being fluffy in character view screen.
-		Fixed bug where your clothing unequipped by NPCs during sex would always cause an instance of that clothing to be removed from your inventory. (e.g. If an NPC unequipped your white bra, and you had a second white bra in your inventory, the bra in your inventory was being deleted after sex.)
-		Fixed bug where clothing with a secondary or tertiary colour of 'black' would have that colour reset to the first available colour (usually white) every time your game was loaded.
-		Fixed issue with player pregnancy not being able to be resolved while being Vengar's captive.
-		Fixed incorrect tooltip description for 'Quick shower' in your room.
+		Fixed some incorrect paragraph formatting in some transformation descriptions.
+		Fixed bug where imps and demons would sometimes say they were trying to forcibly transform you into a demon, even though that's not possible.
+		Fixed bug where imp gangs in Submission would try to force-feed you transformation potions even if all the effects did nothing.
 	
 	
 	
+	[x] Test normal attacker forced potion
+	[x] Test imps forced potion
+		[x] Imps with preferred body as demon say they'll give demon parts, but actually give player's current parts.
+		[x] Imp gang forced TF applying effects which do nothing
+	[x] Test arcanist fox potion
+	
+	
+	
+	
+	masturbation is broken
+	
+	add an option to remove the circular bloom on the map? I honestly prefer the map to have the same amount of lighting across its entirety
+	
+	Angels nectar being able to be enchanted into a potion that restores hymens
+	
+	Can quick-sex imp fortress bosses? (Does it bypass clothing equips?)
+	
+	SexType.getPerformanceDescription() error: No description found for ANUS targeting FINGER!
+	
+	set slaves to be given Mother's Milk, so that we don't have to wait days until they give birth? I remember us talking at one point about changing the pregnancy length in the settings, but I imagine that's a way off, so having the option to speed it up through an item in the world would be nice
+	
+	THE SLAVE SCREEN IS BROKEN AGAIN
+	I'm not sure what caused it, but I couldn't back out of one of my slave's screens, and I couldn't revert to another save because the main menu buttons wouldn't respond
+	
+	[] Scarlett handjob cafe scene and shop oral scene needs to be locked by attraction
+	[] Need Helena dirty talk override
+	[] you should probably tell the user they can't take Helena's virginity if they don't have a penis (as I usually grow one during the scene), cuz it only told me I should set up the roses and all which I had already done
+	[] Need Hotel restaurant tile?
+	[] Helena-Scarlett threesome option?
+	
+	Bathroom placeholders
+	
+	PRs:
+		Add difficulty in bottom-right (merge difficulty PR)
+		If I set Forced TF to 0% and Forced Fetishes to 100%, any NPC that beats me in combat still forcibly transforms me. (PR should fix?)
+			Storm attacks shouldn't transform
+	
+	
+	
+	- Mute attackers need dialogue variations
+	- Roxy recognize if you've consumed a bottle of Angel's Nectar to cure the addiction to her at the very least
+	- You can instantly re-encounter clubbing partners...
+	
+	make tattoos an object we can save, too? Having to apply the same shapes, colors, and text to nearly 100 slaves is a nightmare
+	
+	bring back a way to have dom sex with your partner and the loser as both subs?
+		I used to do it by fucking partner, then changing position so that the mugger is forced to join, but now it's only possible to have dominant sex with one or the either
+	
+	Clothing:
+		little spherical bell on a thin bit of ribbon for the tail slot
+		Cuff (like Vanilla has for her tail)
+	
+	Give Arcane Instrucments upgrade another effect
 	
 	Add way to become demon without penises being involved
 	
-	Lactation makes you "leak milk everywhere"?
+	You can still enslave house guest even if they're reformed because @Innoxia never added a way to clear their name from being criminal scum. So you helped them get a job but didn't help them not be vulnerable to slavery
 	
 	improve speed of autosaving
 	
 	add direct value adjustment for girth and depth
 	
 	Add fluid colouring
+	
+	Repeated stomach bulge text to be moved into sex descriptions
 	
 	we can't touch our own clits -> add clit play as self action
 	
@@ -561,8 +564,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Wing bindings
 	
 	
-	The characters in the alleys (were the muggers and illegal prostitutes are) act completely normal when there is an arcane storm.
-	
 	Selling slaves should give them to the trader you sell them to
 	
 	The option for companions to join in reward sex after combat with a dark alley demon is missing
@@ -708,8 +709,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	the slave event log lags my game, so i don't have slaves anymore
 	
 	BTW it would be great to drop a line in the error.log whenever a modded item is loaded with an outdated xml.
-	
-	Need to add unique encounter for alleyway attacks during storm - at the moment you can't submit and they act normal...
 	
 	succubus/incubus attackers need outfit files
 	
@@ -866,7 +865,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Add option to get Arthur to move out
 	
-	Something that might be a bug or an oversight but when you go into the alleyways during an arcane storm and someone walks up to you, they still accept money as an option to leave you alone
 	
 	need toy-fuck and toy-fuck (anal) sex actions, where you use the toy in the orifice to fuck them
 	
@@ -1479,8 +1477,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 
 	fetish removal potions not working?
 	
-	Prostitutes don't seem to respond at all to arcane storms, perhaps they should offer their services for free or try to rape you depending on their attitude
-	
 	Need weapon AoE parameter:
 		Splash percentages e.g. "10, 5, 5" (so max 3 targets)
 	
@@ -1620,8 +1616,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Also to go with that I'm assuming the description for climaxing in clothing or just leakage will eventually get some flavor text eventually?
 	
 	Add double-creampie action (if knot, knot second one)
-	
-	People in normal streets during an arcane storm use the "I'm doing it for money" thing of regular alleyway encounters if you tell them to leave
 	
 	add a method at some point which would append related dialogue to each action that an NPC performs during sex
 	
@@ -2473,8 +2467,6 @@ Enchantment Suggestion: Emotion Mask - Enchanted clothing piece changes the pers
 	
 	Demon names
 	
-	when out during an arcane storm then defeated by some naughty and very lewd people the TF/fetish potions aren't being forced on the player
-	
 	add orange to the covering colors
 	
 	the transform menu for demons doesn't say anything about which tail  is which
@@ -2818,8 +2810,6 @@ It'd be even better if this could be extended to potions as well, allowing us to
 	
 	Tooltips: his message isn't correct i've already taken off mah pants, also i can still unzip my pants and the description is "This will expose your cock" when i've already had it exposed
 	
-	Prostitutes are unaffected by arcane storms
-	
 	Could we get ability to spend an arcane essense to trigger clothing transformations on demand
 	
 	Slime lges: A leg type to merge their legs together into one slimy mass. It should block off the foot slot like harpy feet do.
@@ -3034,7 +3024,6 @@ It'd be even better if this could be extended to potions as well, allowing us to
 	
 	if you have trap andro or trap feminine selected in gender preferences or both. You get human spawns in alleyways even if human spawns are disabled.
 	An NPC who "likes" "being raped", but doesn't have a fetish for it, still stays right at zero lust even if you aren't doing anything they dislike/hate. Is this intended?
-	There's an interrupting event for when a storm starts, but when it reaches the end it just stops with no fanfare. There really should be something to indicate that the storm has passed.
 	If you cum while giving an NPC doggy oral, you can cum on their back. You couldn't possibly do this while actually eating them out, of course, you'd have to stand up first.
 		There's no real reason why this shouldn't be allowed, really, you could for example be fucking someone against a wall, then when you're done turn them around and push them down to give them a facial.
 		 It might be nice to be able to do this without having to switch position manually, in fact. Based on how most positions work, however, this is a bug.
@@ -4564,9 +4553,6 @@ I'm guessing this one is a "WONTFIX", but for completeness sake: When you start 
 	
 	While I'm at it, NPCs don't seem to have any kind of preference for body weight - would be nice if they did and adjusted body weight to suit their tastes when force TFing you. :)
 	
-	
-	During an arcane storm, people are sex-crazed in the streets with appropriate dialogue and you only get the 'Fight' option when you encounter them. If you head into the alleys, however, they are seemingly unaffected. The dialogue is the same as when the weather is clear and you get the regular Fight/Offer Money/Offer Body options, or meet prostitutes who likewise ply their trade as usual. Shouldn't people in the alleys be behaving identical to those in the streets?
-	
 	I'll add a way to reset each of the reindeer overseers (for if you don't like their generated fetishes). :3
 
 I'll try and add in some way to deal with the overcrowding of Dominion's squares at some point.
@@ -4578,8 +4564,6 @@ I'll also add a way to change NPC's sexuality soon, as that seems to be a heavil
 	add the "self-insemination" action to sex scenes soon (the one that used to be present in Brax's sex scene), so I'll get virgins with pregnancy/broodmother fetishes to use that
 	
 	Slaves without the "Exhibitionist" fetish should probably lose affection if you make them go naked.
-	
-	Likewise, alley encounters don't react to storm conditions. Not such a big deal with muggers, since all they do is attack you anyway, but prostitutes probably shouldn't still be working.
 	
 	
 	I'll see about adding a small variation to NPC's levels when using a level-scaling difficulty (+/- 3 sounds good).
@@ -8575,8 +8559,6 @@ Also noticed the Stop partner self action option disappears.
 	Add penetrating sex effects for penis
 	
 	balance attribute modifiers
-	
-	add "safe from storm" effect, to make it clear there is a storm going on outside
 	
 	-----------------
 	

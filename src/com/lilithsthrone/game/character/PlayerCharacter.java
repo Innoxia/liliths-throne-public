@@ -78,13 +78,14 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.3.5
+ * @version 0.3.7.3
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
@@ -107,9 +108,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	private List<String> charactersEncountered;
 
-	private Set<WorldType> worldsVisited;
+	private Set<AbstractWorldType> worldsVisited;
 	
-	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, WorldType startingWorld, AbstractPlaceType startingPlace) {
+	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, Subspecies startingSubspecies, RaceStage stage, AbstractWorldType startingWorld, AbstractPlaceType startingPlace) {
 		super(nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -208,11 +209,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		Element worldsVisitedElement = doc.createElement("worldsVisited");
 		playerSpecific.appendChild(worldsVisitedElement);
-		for(WorldType world : this.getWorldsVisited()) {
+		for(AbstractWorldType world : this.getWorldsVisited()) {
 			Element element = doc.createElement("world");
 			worldsVisitedElement.appendChild(element);
 			
-			CharacterUtils.addAttribute(doc, element, "id", world.toString());
+			CharacterUtils.addAttribute(doc, element, "id", WorldType.getIdFromWorldType(world));
 		}
 		
 		
@@ -442,7 +443,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("worldsVisited").item(0)).getElementsByTagName("world").getLength(); i++){
 					Element e = ((Element)playerSpecificElement.getElementsByTagName("world").item(i));
 					
-					character.getWorldsVisited().add(WorldType.valueOf(e.getAttribute("id")));
+					character.getWorldsVisited().add(WorldType.getWorldTypeFromId(e.getAttribute("id")));
 					CharacterUtils.appendToImportLog(log, "<br/>Added world visited: "+e.getAttribute("id"));
 				}
 			} catch(Exception ex) {	
@@ -556,7 +557,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 	
 	@Override
-	public void setLocation(WorldType worldLocation, Vector2i location, boolean setAsHomeLocation) {
+	public void setLocation(AbstractWorldType worldLocation, Vector2i location, boolean setAsHomeLocation) {
 		if(this.getWorldsVisited()!=null && !this.getWorldsVisited().contains(worldLocation)) {
 			this.getWorldsVisited().add(worldLocation);
 			if(Main.game.isStarted()) {
@@ -572,7 +573,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			List<GameCharacter> clubbers = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
 			clubbers.removeIf((npc) -> !(npc instanceof DominionClubNPC));
 			
-			WorldType worldLocationInitial = this.getWorldLocation();
+			AbstractWorldType worldLocationInitial = this.getWorldLocation();
 			Vector2i locationInitial = this.getLocation();
 			
 			super.setLocation(worldLocation, location, setAsHomeLocation);
@@ -1327,7 +1328,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return friendlyOccupants.remove(occupant.getId());
 	}
 
-	public Set<WorldType> getWorldsVisited() {
+	public Set<AbstractWorldType> getWorldsVisited() {
 		return worldsVisited;
 	}
 	

@@ -1280,7 +1280,7 @@ public enum Quest {
 			return "Helena revealed that the first thing she wants done is to have the entire exterior of her shop repainted."
 					+ " Having provided you with no money for expenses, the harpy is expecting you to travel to 'Argus's DIY Depot' and buy a can of 'Purple-star' branded golden paint."
 					+ " Once you've bought it, you need to return to Helena."
-					+ "<br/><i>('Argus's DIY Depot' can be found a short way to the north of Slaver Alley, next to the canal.)</i>";
+					+ "<br/><i>('Argus's DIY Depot' can be found a fair way to the south of Slaver Alley, next to the canal.)</i>";
 		}
 
 		@Override

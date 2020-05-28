@@ -1443,7 +1443,7 @@ public class SlaveDialogue {
 		return "<p><i>"
 				+ (getSlave().isAttractedTo(Main.game.getPlayer())
 						?"From the way [npc.she] keeps on glancing hungrily at your body, you can tell that [npc.sheIs] attracted to you..."
-						:"[npc.She] doesn't show any interest in being attracted to you...")
+						:"[npc.She] doesn't seem to be attracted to you...")
 					+ "</i></p>";
 	}
 	
