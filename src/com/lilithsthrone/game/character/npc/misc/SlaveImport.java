@@ -97,7 +97,7 @@ public class SlaveImport extends NPC {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getSpecializedDescription() {
 		return UtilText.parse(this, "As a slave, [npc.name] is no more than someone's property. The first time you saw [npc.herHim], [npc.she] was being sold in Slaver Alley.");
 	}
 	

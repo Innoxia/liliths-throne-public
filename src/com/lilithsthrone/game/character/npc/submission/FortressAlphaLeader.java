@@ -340,7 +340,7 @@ public class FortressAlphaLeader extends NPC {
 	}
 
 	@Override
-	public String getDescription() {
+	public String getSpecializedDescription() {
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
 					"[npc.NamePos] days of ruling over [npc.her] imp fortress are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));

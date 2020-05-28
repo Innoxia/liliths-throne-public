@@ -256,7 +256,7 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getSpecializedDescription() {
 		return UtilText.parse(this, getSummoner(), "");
 	}
 	

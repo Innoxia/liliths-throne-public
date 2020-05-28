@@ -138,7 +138,7 @@ public class SlimeCavernAttacker extends NPC {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getSpecializedDescription() {
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
 					"[npc.NamePos] days of getting high on mushrooms and attacking innocent travellers in the Bat Caverns are now over."

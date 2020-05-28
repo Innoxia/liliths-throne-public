@@ -471,7 +471,11 @@ public class GenericActions {
 			if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) {
 				return Util.newArrayListOfValues(Fetish.FETISH_NON_CON_DOM);
 			} else {
-				return Util.newArrayListOfValues(Fetish.FETISH_NON_CON_SUB);
+				if(character.getNonConAlwaysActing()) {
+					return Util.newArrayListOfValues(Fetish.FETISH_NON_CON_SUB);
+				} else {
+					return Util.newArrayListOfValues();
+				}
 			}
 		}
 	};

@@ -264,7 +264,7 @@ public class SubmissionCitadelArcanist extends NPC {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getSpecializedDescription() {
 		if(ImpCitadelDialogue.isDefeated() || ImpCitadelDialogue.isImpsDefeated()) {
 			return UtilText.parse(this,
 					"[npc.Name] is a rude, three-tailed youko, who treats others with very little respect."

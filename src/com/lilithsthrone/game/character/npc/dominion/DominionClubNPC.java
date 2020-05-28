@@ -70,7 +70,9 @@ public class DominionClubNPC extends NPC {
 			this.setPlayerKnowsName(true);
 			setDescription(UtilText.parse(this,
 					"[npc.Name] is a resident of Dominion, who you met in one of Nightlife's clubs."));
-			
+			setCustomDescription(true);
+
+
 			// PERSONALITY & BACKGROUND:
 			
 			CharacterUtils.setHistoryAndPersonality(this, false);
@@ -125,6 +127,11 @@ public class DominionClubNPC extends NPC {
 		return false;
 	}
 	
+	@Override
+	public String getSpecializedDescription() {
+		return (UtilText.parse(this, "[npc.Name] is a resident of Dominion, who you met in one of Nightlife's clubs."));
+	}
+
 	@Override
 	public Vector2i getLocation() {
 		if(this.getWorldLocation()==WorldType.NIGHTLIFE_CLUB

@@ -387,7 +387,7 @@ public class DarkSiren extends NPC {
 	}
 
 	@Override
-	public String getDescription() {
+	public String getSpecializedDescription() {
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
 					"[npc.NamePos] days of ruling over [npc.her] imp citadel as the 'Dark Siren' are now over."

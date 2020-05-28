@@ -313,6 +313,50 @@ public class UtilText {
 		return parseNPCSpeech(text, femininity, false, false);
 	}
 
+	public static boolean parseConditional(GameCharacter specialNPC1, String conditionalStatement) {
+		return parseConditional(Util.newArrayListOfValues(specialNPC1), conditionalStatement);
+	}
+	
+	public static boolean parseConditional(GameCharacter specialNPC1, GameCharacter specialNPC2, String conditionalStatement) {
+		return parseConditional(Util.newArrayListOfValues(specialNPC1, specialNPC2), conditionalStatement);
+	}
+	
+	public static boolean parseConditional(List<GameCharacter> specialNPCList, String conditionalStatement) {
+		if(engine==null) {
+			initScriptEngine();
+		}
+		
+		if(!specialNPCList.isEmpty()) {
+//			System.out.println("List size: "+specialNPCList.size());
+			for(int i = 0; i<specialNPCList.size(); i++) {
+				if(i==0) {
+					engine.put("npc", specialNPCList.get(i));
+				}
+				engine.put("npc"+(i+1), specialNPCList.get(i));
+//				System.out.println("Added: npc"+(i+1));
+			}
+		} else {
+			try { // Getting the target NPC can throw a NullPointerException, so if it does (i.e., there's no NPC suitable for parsing), just catch it and carry on.
+				engine.put("npc", ParserTarget.NPC.getCharacter("npc",null));
+//				System.out.println("specialNPCList is empty");
+			} catch(Exception ex) {
+//				System.err.println("Parsing error 2: Could not initialise npc");
+			}
+		}
+
+		try {
+			if((boolean) engine.eval(conditionalStatement)){
+				return true;
+			}
+		} catch (ScriptException e) {
+			System.err.println("Conditional parsing (from function) error: "+conditionalStatement);
+			System.err.println(e.getMessage());
+			return false;
+		}
+		
+		return false;
+	}
+	
 	public static String parseNPCSpeech(String text, Femininity femininity, boolean bimbo, boolean stutter) {
 		modifiedSentence = text;
 		if (bimbo) {

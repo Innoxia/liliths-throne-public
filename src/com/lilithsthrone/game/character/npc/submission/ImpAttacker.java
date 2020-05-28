@@ -186,7 +186,7 @@ public class ImpAttacker extends NPC {
 	}
 	
 	@Override
-	public String getDescription() {
+	public String getSpecializedDescription() {
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
 					"[npc.NamePos] days of prowling the tunnels of Submission and assaulting innocent travellers are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
