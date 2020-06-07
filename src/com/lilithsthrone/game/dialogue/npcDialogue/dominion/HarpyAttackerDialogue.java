@@ -195,7 +195,7 @@ public class HarpyAttackerDialogue {
 							public void effects() {
 								applyPregnancyReactions();
 								Main.game.getPlayer().incrementMoney(-DialogueFlags.MUGGER_DEMAND_1);
-								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "HARPY_ATTACK_PAY_OFF", getAllCharacters()));
+								UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "HARPY_ATTACK_PAY_OFF", getAllCharacters()));
 							}
 						};
 					}
@@ -526,15 +526,15 @@ public class HarpyAttackerDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "HARPY_PEACEFUL_TALK", getAllCharacters()));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "HARPY_PEACEFUL_TALK", getAllCharacters()));
 
 			UtilText.nodeContentSB.append(getStatus());
 			
 			if(getHarpy().isAffectionHighEnoughToInviteHome()) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "HARPY_PEACEFUL_CAN_INVITE_HOME", getAllCharacters()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "HARPY_PEACEFUL_CAN_INVITE_HOME", getAllCharacters()));
 				} else {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "HARPY_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION", getAllCharacters()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "HARPY_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION", getAllCharacters()));
 				}
 			}
 			
@@ -556,15 +556,15 @@ public class HarpyAttackerDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "HARPY_PEACEFUL_OFFER_MONEY", getAllCharacters()));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "HARPY_PEACEFUL_OFFER_MONEY", getAllCharacters()));
 
 			UtilText.nodeContentSB.append(getStatus());
 			
 			if(getHarpy().isAffectionHighEnoughToInviteHome()) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)) {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "HARPY_PEACEFUL_CAN_INVITE_HOME", getAllCharacters()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "HARPY_PEACEFUL_CAN_INVITE_HOME", getAllCharacters()));
 				} else {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "HARPY_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION", getAllCharacters()));
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "HARPY_PEACEFUL_CAN_INVITE_HOME_REQUIRES_LILAYA_PERMISSION", getAllCharacters()));
 				}
 			}
 			
@@ -584,7 +584,7 @@ public class HarpyAttackerDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "HARPY_PEACEFUL_OFFER_ROOM", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "HARPY_PEACEFUL_OFFER_ROOM", getAllCharacters());
 		}
 		
 		@Override
@@ -609,7 +609,7 @@ public class HarpyAttackerDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "HARPY_PEACEFUL_OFFER_ROOM_BACK_HOME", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "HARPY_PEACEFUL_OFFER_ROOM_BACK_HOME", getAllCharacters());
 		}
 		
 		@Override
@@ -625,7 +625,7 @@ public class HarpyAttackerDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "HARPY_PEACEFUL_ATTACK", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "HARPY_PEACEFUL_ATTACK", getAllCharacters());
 		}
 		
 		@Override
@@ -642,9 +642,9 @@ public class HarpyAttackerDialogue {
 		@Override
 		public String getContent() {
 			if(getHarpy().isSatisfiedFromLastSex()) {
-				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_SEX_PEACEFUL", getAllCharacters());
+				return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_SEX_PEACEFUL", getAllCharacters());
 			} else {
-				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_SEX_PEACEFUL_NO_ORGASM", getAllCharacters());
+				return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_SEX_PEACEFUL_NO_ORGASM", getAllCharacters());
 			}
 		}
 		
@@ -661,7 +661,7 @@ public class HarpyAttackerDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_SEX_PEACEFUL_THREESOME", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_SEX_PEACEFUL_THREESOME", getAllCharacters());
 		}
 		
 		@Override
@@ -678,9 +678,9 @@ public class HarpyAttackerDialogue {
 		@Override
 		public String getContent() {
 			if(getMainCompanion().isAttractedTo(getHarpy())) {
-				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_SEX_PEACEFUL_OFFERED_COMPANION", getAllCharacters());
+				return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_SEX_PEACEFUL_OFFERED_COMPANION", getAllCharacters());
 			} else {
-				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_SEX_PEACEFUL_OFFERED_COMPANION_RELUCTANT", getAllCharacters());
+				return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_SEX_PEACEFUL_OFFERED_COMPANION_RELUCTANT", getAllCharacters());
 			}
 		}
 		
@@ -701,13 +701,13 @@ public class HarpyAttackerDialogue {
 		@Override
 		public String getContent() {
 			if(getHarpy().isAttractedTo(Main.game.getPlayer()) && !getHarpy().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_ATTRACTION", getHarpy());
+				return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_ATTRACTION", getHarpy());
 				
 			} else {
 				if(getHarpy().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-					return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_BETRAYED", getHarpy());
+					return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_BETRAYED", getHarpy());
 				} else {
-					return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_NO_ATTRACTION", getHarpy());
+					return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_NO_ATTRACTION", getHarpy());
 				}
 			}
 		}
@@ -738,7 +738,7 @@ public class HarpyAttackerDialogue {
 									Main.game.getPlayer().getCompanions(),
 									null),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_SEX", getAllCharacters()));
 				} else {
 					return new ResponseSex(
 							"Rape [npc.herHim]",
@@ -751,7 +751,7 @@ public class HarpyAttackerDialogue {
 									Main.game.getPlayer().getCompanions(),
 									null),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_RAPE", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_RAPE", getAllCharacters()));
 				}
 				
 			} else if (index == 3) {
@@ -769,7 +769,7 @@ public class HarpyAttackerDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()));
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (gentle)",
@@ -783,7 +783,7 @@ public class HarpyAttackerDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_RAPE_GENTLE", getAllCharacters()));
 				}
 				
 			} else if (index == 4) {
@@ -801,7 +801,7 @@ public class HarpyAttackerDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()));
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (rough)",
@@ -815,7 +815,7 @@ public class HarpyAttackerDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_RAPE_ROUGH", getAllCharacters()));
 				}
 				
 			} else if (index == 5) {
@@ -834,7 +834,7 @@ public class HarpyAttackerDialogue {
 									Util.newArrayListOfValues(Main.game.getPlayer()),
 									null,
 									Util.newArrayListOfValues(getMainCompanion())),
-							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
+							AFTER_SEX_DEFEAT, UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_SEX_SUBMIT", getAllCharacters()));
 				}
 				
 			} else if (index == 6) {
@@ -893,7 +893,7 @@ public class HarpyAttackerDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_BANISH_NPC", getAllCharacters()));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_BANISH_NPC", getAllCharacters()));
 						Main.game.banishNPC(getHarpy());
 					}
 				};
@@ -917,7 +917,7 @@ public class HarpyAttackerDialogue {
 									null,
 									null,
 									ResponseTag.PREFER_DOGGY),
-							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_THREESOME", getHarpy(), companion));
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_THREESOME", getHarpy(), companion));
 				}
 				
 			} else if (index == 12 && isCompanionDialogue()) {
@@ -938,7 +938,7 @@ public class HarpyAttackerDialogue {
 									Util.newArrayListOfValues(getHarpy()),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer())),
-							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getHarpy(), companion));
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getHarpy(), companion));
 				}
 				
 			} else if (index == 13 && isCompanionDialogue() && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {
@@ -964,7 +964,7 @@ public class HarpyAttackerDialogue {
 									Util.newArrayListOfValues(companion),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer())),
-							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_OFFER_COMPANION", getHarpy(), companion)) {
+							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_OFFER_COMPANION", getHarpy(), companion)) {
 						@Override
 						public void effects() {
 							if(!companion.isAttractedTo(getHarpy()) && Main.game.isNonConEnabled()) {
@@ -982,7 +982,7 @@ public class HarpyAttackerDialogue {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_TALK", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_VICTORY_TALK", getAllCharacters());
 		}
 		
 		@Override
@@ -1059,11 +1059,11 @@ public class HarpyAttackerDialogue {
 		@Override
 		public String getContent() {
 			if(getHarpy().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_BETRAYED", getAllCharacters());
+				return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_BETRAYED", getAllCharacters());
 			}
 			
 			StringBuilder sb = new StringBuilder();
-			sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_GENERIC_START", getAllCharacters()));
+			sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_GENERIC_START", getAllCharacters()));
 			
 			boolean forcedTF = getHarpy().isUsingForcedTransform(Main.game.getPlayer());
 			boolean forcedFetish = getHarpy().isUsingForcedFetish(Main.game.getPlayer());
@@ -1078,22 +1078,22 @@ public class HarpyAttackerDialogue {
 					
 					if(fetishPotion!=null && forcedFetish) {
 						if(potion!=null && forcedTF) {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_TF_AND_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_TF_AND_FETISH", getAllCharacters()));
 						} else {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_FETISH", getAllCharacters()));
 						}
 					} else {
-						sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_TF", getAllCharacters()));
+						sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_TF", getAllCharacters()));
 					}
 	
 					if(companionFetishPotion!=null && companionForcedFetish) {
 						if(companionPotion!=null && companionForcedTF) {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_COMPANION_TF_AND_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_COMPANION_TF_AND_FETISH", getAllCharacters()));
 						} else {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_COMPANION_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_COMPANION_FETISH", getAllCharacters()));
 						}
 					} else {
-						sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_COMPANION_TF", getAllCharacters()));
+						sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_COMPANION_TF", getAllCharacters()));
 					}
 					
 					return sb.toString();
@@ -1101,24 +1101,24 @@ public class HarpyAttackerDialogue {
 				} else if((forcedTF && potion!=null) || (forcedFetish && fetishPotion!=null)) { // Player TF:
 					if(fetishPotion!=null && forcedFetish) {
 						if(potion!=null && forcedTF) {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_TF_AND_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_TF_AND_FETISH", getAllCharacters()));
 						} else {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_FETISH", getAllCharacters()));
 						}
 					} else {
-						sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_TF", getAllCharacters()));
+						sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_TF", getAllCharacters()));
 					}
 					return sb.toString();
 					
 				} else if(isCompanionDialogue()) { // Companion TF:
 					if(companionFetishPotion!=null && companionForcedFetish) {
 						if(potion!=null && forcedTF) {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_COMPANION_SOLO_TF_AND_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_COMPANION_SOLO_TF_AND_FETISH", getAllCharacters()));
 						} else {
-							sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_COMPANION_SOLO_FETISH", getAllCharacters()));
+							sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_COMPANION_SOLO_FETISH", getAllCharacters()));
 						}
 					} else {
-						sb.append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_DEFEAT_COMPANION_SOLO_TF", getAllCharacters()));
+						sb.append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_COMBAT_DEFEAT_COMPANION_SOLO_TF", getAllCharacters()));
 					}
 					return sb.toString();
 				}
@@ -1194,12 +1194,12 @@ public class HarpyAttackerDialogue {
 							public void effects(){
 								transformationsApplied = true;
 								if(getMainCompanion().getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isPositive()) {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_SPIT", getAllCharacters()));
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_COMPANION_SWALLOW", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_SPIT", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_COMPANION_SWALLOW", getAllCharacters()));
 									Main.game.getTextStartStringBuilder().append(applyTransformation(getMainCompanion(), companionPotion, companionForcedTF, companionFetishPotion, companionForcedFetish));
 									
 								} else {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_BOTH_SPIT", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_BOTH_SPIT", getAllCharacters()));
 								}
 							}
 						};
@@ -1221,15 +1221,15 @@ public class HarpyAttackerDialogue {
 						@Override
 						public void effects(){
 							transformationsApplied = true;
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_SWALLOW", getAllCharacters()));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_SWALLOW", getAllCharacters()));
 							Main.game.getTextStartStringBuilder().append(applyTransformation(Main.game.getPlayer(), potion, forcedTF, fetishPotion, forcedFetish));
 							
 							if(getMainCompanion().getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isPositive()) {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_COMPANION_SWALLOW", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_COMPANION_SWALLOW", getAllCharacters()));
 								Main.game.getTextStartStringBuilder().append(applyTransformation(getMainCompanion(), companionPotion, companionForcedTF, companionFetishPotion, companionForcedFetish));
 								
 							} else {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_COMPANION_SPIT", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_COMPANION_SPIT", getAllCharacters()));
 							}
 						}
 					};
@@ -1257,14 +1257,14 @@ public class HarpyAttackerDialogue {
 							public void effects(){
 								transformationsApplied = true;
 								if(getMainCompanion().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_SPIT", getAllCharacters()));
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ORDER_SPIT_REFUSED", getAllCharacters()));
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_COMPANION_SWALLOW", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_SPIT", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "ORDER_SPIT_REFUSED", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_COMPANION_SWALLOW", getAllCharacters()));
 									Main.game.getTextStartStringBuilder().append(applyTransformation(getMainCompanion(), companionPotion, companionForcedTF, companionFetishPotion, companionForcedFetish));
 									
 								} else {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_SPIT", getAllCharacters()));
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ORDER_SPIT", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_SPIT", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "ORDER_SPIT", getAllCharacters()));
 								}
 							}
 						};
@@ -1288,16 +1288,16 @@ public class HarpyAttackerDialogue {
 						public void effects(){
 							transformationsApplied = true;
 							if(!getMainCompanion().getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isNegative()) {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_SWALLOW", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_SWALLOW", getAllCharacters()));
 								Main.game.getTextStartStringBuilder().append(applyTransformation(Main.game.getPlayer(), potion, forcedTF, fetishPotion, forcedFetish));
 								
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ORDER_SWALLOW", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "ORDER_SWALLOW", getAllCharacters()));
 								Main.game.getTextStartStringBuilder().append(applyTransformation(getMainCompanion(), companionPotion, companionForcedTF, companionFetishPotion, companionForcedFetish));
 								
 							} else {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_SWALLOW", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_SWALLOW", getAllCharacters()));
 								Main.game.getTextStartStringBuilder().append(applyTransformation(Main.game.getPlayer(), potion, forcedTF, fetishPotion, forcedFetish));
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ORDER_SWALLOW_REFUSED", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "ORDER_SWALLOW_REFUSED", getAllCharacters()));
 							}
 						}
 					};
@@ -1318,7 +1318,7 @@ public class HarpyAttackerDialogue {
 							@Override
 							public void effects() {
 								transformationsApplied = true;
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_SPIT", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_SPIT", getAllCharacters()));
 							}
 						};
 					}
@@ -1335,7 +1335,7 @@ public class HarpyAttackerDialogue {
 						@Override
 						public void effects(){
 							transformationsApplied = true;
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_SWALLOW", getAllCharacters()));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_SWALLOW", getAllCharacters()));
 							Main.game.getTextStartStringBuilder().append(applyTransformation(Main.game.getPlayer(), potion, forcedTF, fetishPotion, forcedFetish));
 						}
 					};
@@ -1391,12 +1391,12 @@ public class HarpyAttackerDialogue {
 						public void effects(){
 							transformationsApplied = true;
 							if(getMainCompanion().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ORDER_SPIT_REFUSED", getAllCharacters()));
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "TF_COMPANION_SWALLOW", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "ORDER_SPIT_REFUSED", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "TF_COMPANION_SWALLOW", getAllCharacters()));
 								Main.game.getTextStartStringBuilder().append(applyTransformation(getMainCompanion(), companionPotion, companionForcedTF, companionFetishPotion, companionForcedFetish));
 								
 							} else {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ORDER_SPIT", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "ORDER_SPIT", getAllCharacters()));
 							}
 						}
 					};
@@ -1418,11 +1418,11 @@ public class HarpyAttackerDialogue {
 						public void effects(){
 							transformationsApplied = true;
 							if(!getMainCompanion().getFetishDesire(Fetish.FETISH_TRANSFORMATION_RECEIVING).isNegative()) {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ORDER_SWALLOW", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "ORDER_SWALLOW", getAllCharacters()));
 								Main.game.getTextStartStringBuilder().append(applyTransformation(getMainCompanion(), companionPotion, companionForcedTF, companionFetishPotion, companionForcedFetish));
 								
 							} else {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "ORDER_SWALLOW_REFUSED", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "ORDER_SWALLOW_REFUSED", getAllCharacters()));
 							}
 						}
 					};
@@ -1439,41 +1439,41 @@ public class HarpyAttackerDialogue {
 				if(getHarpy().isAttractedTo(Main.game.getPlayer())) {
 					if(getHarpy().isAttractedTo(getMainCompanion())) {
 						if(getHarpy().isWillingToRape()) {
-							return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "RAPE_BOTH", getAllCharacters());
+							return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "RAPE_BOTH", getAllCharacters());
 						} else {
-							return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "OFFER_SEX_BOTH", getAllCharacters());
+							return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "OFFER_SEX_BOTH", getAllCharacters());
 						}
 						
 					} else {
 						if(getHarpy().isWillingToRape()) {
-							return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "RAPE_PLAYER_SOLO", getAllCharacters());
+							return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "RAPE_PLAYER_SOLO", getAllCharacters());
 						} else {
-							return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "OFFER_SEX_SOLO", getAllCharacters());
+							return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "OFFER_SEX_SOLO", getAllCharacters());
 						}
 					}
 					
 				} else if(getHarpy().isAttractedTo(getMainCompanion()) && Main.getProperties().hasValue(PropertyValue.involuntaryNTR)) {
 					if(getHarpy().isWillingToRape()) {
-						return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "RAPE_COMPANION", getAllCharacters());
+						return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "RAPE_COMPANION", getAllCharacters());
 					} else {
-						return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "OFFER_SEX_COMPANION", getAllCharacters());
+						return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "OFFER_SEX_COMPANION", getAllCharacters());
 					}
 				}
 				
 			} else {
 				if(getHarpy().isAttractedTo(Main.game.getPlayer())) {
 					if(getHarpy().isWillingToRape()) {
-						return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "RAPE_PLAYER", getAllCharacters());
+						return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "RAPE_PLAYER", getAllCharacters());
 					} else {
-						return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "OFFER_SEX", getAllCharacters());
+						return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "OFFER_SEX", getAllCharacters());
 					}
 				}
 			}
 
 			if(transformationsApplied) {
-				return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "NO_SEX_POST_TRANSFORM", getAllCharacters());
+				return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "NO_SEX_POST_TRANSFORM", getAllCharacters());
 			}
-			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "NO_SEX", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "NO_SEX", getAllCharacters());
 		}
 		
 		@Override
@@ -1504,7 +1504,7 @@ public class HarpyAttackerDialogue {
 													?null
 													:getMainCompanion())),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "START_DEFEATED_SEX_THREESOME", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "START_DEFEATED_SEX_THREESOME", getAllCharacters()));
 							
 						} else if (index == 2) {
 							return new ResponseSex("Eager Sex",
@@ -1527,7 +1527,7 @@ public class HarpyAttackerDialogue {
 													:getMainCompanion()),
 											ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "START_DEFEATED_SEX_THREESOME", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "START_DEFEATED_SEX_THREESOME", getAllCharacters()));
 							
 						} else if (index == 3 && Main.game.isNonConEnabled()) {
 							return new ResponseSex("Resist Sex",
@@ -1547,7 +1547,7 @@ public class HarpyAttackerDialogue {
 													:getMainCompanion()),
 											ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "START_DEFEATED_SEX_THREESOME_RESIST", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "START_DEFEATED_SEX_THREESOME_RESIST", getAllCharacters()));
 							
 						} else if (index == 4 && !getHarpy().isWillingToRape()) {
 							return new Response("Refuse",
@@ -1555,7 +1555,7 @@ public class HarpyAttackerDialogue {
 									Main.game.getDefaultDialogue(false)) {
 								@Override
 								public void effects() {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "DEFEATED_REFUSE_THREESOME", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "DEFEATED_REFUSE_THREESOME", getAllCharacters()));
 								}
 							};
 						}
@@ -1575,7 +1575,7 @@ public class HarpyAttackerDialogue {
 											null,
 											Util.newArrayListOfValues(getMainCompanion())),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "START_DEFEATED_SEX_SOLO", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "START_DEFEATED_SEX_SOLO", getAllCharacters()));
 							
 						} else if (index == 2) {
 							return new ResponseSex("Eager Sex",
@@ -1591,7 +1591,7 @@ public class HarpyAttackerDialogue {
 											Util.newArrayListOfValues(getMainCompanion()),
 											ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "START_DEFEATED_SEX_SOLO", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "START_DEFEATED_SEX_SOLO", getAllCharacters()));
 							
 						} else if (index == 3 && Main.game.isNonConEnabled()) {
 							return new ResponseSex("Resist Sex",
@@ -1604,7 +1604,7 @@ public class HarpyAttackerDialogue {
 											Util.newArrayListOfValues(getMainCompanion()),
 											ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "START_DEFEATED_SEX_SOLO_RESIST", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "START_DEFEATED_SEX_SOLO_RESIST", getAllCharacters()));
 							
 						} else if (index == 4 && !getHarpy().isWillingToRape()) {
 							return new Response("Refuse",
@@ -1612,7 +1612,7 @@ public class HarpyAttackerDialogue {
 									Main.game.getDefaultDialogue(false)) {
 								@Override
 								public void effects() {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "DEFEATED_REFUSE_SEX_SOLO", getAllCharacters()));
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "DEFEATED_REFUSE_SEX_SOLO", getAllCharacters()));
 								}
 							};
 						}
@@ -1633,7 +1633,7 @@ public class HarpyAttackerDialogue {
 											null,
 											Util.newArrayListOfValues(Main.game.getPlayer())),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "START_DEFEATED_SEX_SOLO_COMPANION_RAPE", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "START_DEFEATED_SEX_SOLO_COMPANION_RAPE", getAllCharacters()));
 						}
 						
 					} else if(companionHappyToHaveSex) {
@@ -1648,7 +1648,7 @@ public class HarpyAttackerDialogue {
 											null,
 											Util.newArrayListOfValues(Main.game.getPlayer())),
 									AFTER_SEX_DEFEAT,
-									UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "START_DEFEATED_SEX_SOLO_COMPANION", getAllCharacters()));
+									UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "START_DEFEATED_SEX_SOLO_COMPANION", getAllCharacters()));
 						}
 						
 					} else if (index == 1) {
@@ -1658,7 +1658,7 @@ public class HarpyAttackerDialogue {
 								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "DEFEATED_REFUSE_SEX_SOLO_COMPANION", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "DEFEATED_REFUSE_SEX_SOLO_COMPANION", getAllCharacters()));
 							}
 						};
 					}
@@ -1679,7 +1679,7 @@ public class HarpyAttackerDialogue {
 										null,
 										Util.newArrayListOfValues(getMainCompanion())),
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "START_DEFEATED_SEX", getAllCharacters()));
+								UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "START_DEFEATED_SEX", getAllCharacters()));
 						
 					} else if (index == 2) {
 						return new ResponseSex("Eager Sex",
@@ -1695,7 +1695,7 @@ public class HarpyAttackerDialogue {
 										Util.newArrayListOfValues(getMainCompanion()),
 										ResponseTag.START_PACE_PLAYER_SUB_EAGER),
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "START_DEFEATED_SEX", getAllCharacters()));
+								UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "START_DEFEATED_SEX", getAllCharacters()));
 						
 					} else if (index == 3 && Main.game.isNonConEnabled()) {
 						return new ResponseSex("Resist Sex",
@@ -1708,7 +1708,7 @@ public class HarpyAttackerDialogue {
 										Util.newArrayListOfValues(getMainCompanion()),
 										ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 								AFTER_SEX_DEFEAT,
-								UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "START_DEFEATED_SEX_RESIST", getAllCharacters()));
+								UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "START_DEFEATED_SEX_RESIST", getAllCharacters()));
 						
 					} else if (index == 4 && !getHarpy().isWillingToRape()) {
 						return new Response("Refuse",
@@ -1716,7 +1716,7 @@ public class HarpyAttackerDialogue {
 								Main.game.getDefaultDialogue(false)) {
 							@Override
 							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "DEFEATED_REFUSE_SEX", getAllCharacters()));
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "DEFEATED_REFUSE_SEX", getAllCharacters()));
 							}
 						};
 					}
@@ -1727,7 +1727,7 @@ public class HarpyAttackerDialogue {
 				return new Response("Continue", "Carry on your way.", Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "DEFEATED_NO_SEX", getAllCharacters()));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "DEFEATED_NO_SEX", getAllCharacters()));
 					}
 				};
 			}
@@ -1747,16 +1747,16 @@ public class HarpyAttackerDialogue {
 			if((getHarpy().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled())
 					&& !getHarpy().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 				if(Main.sex.getNumberOfOrgasms(getHarpy()) >= getHarpy().getOrgasmsBeforeSatisfied()) {
-					return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_SEX_VICTORY", getAllCharacters());
+					return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_SEX_VICTORY", getAllCharacters());
 				} else {
-					return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_SEX_VICTORY_NO_ORGASM", getAllCharacters());
+					return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_SEX_VICTORY_NO_ORGASM", getAllCharacters());
 				}
 				
 			} else {
 				if(getHarpy().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
-					return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_SEX_VICTORY_RAPE_BETRAYED", getAllCharacters());
+					return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_SEX_VICTORY_RAPE_BETRAYED", getAllCharacters());
 				} else {
-					return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_SEX_VICTORY_RAPE", getAllCharacters());
+					return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_SEX_VICTORY_RAPE", getAllCharacters());
 				}
 			}
 		}
@@ -1819,7 +1819,7 @@ public class HarpyAttackerDialogue {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_SEX_DEFEAT", getAllCharacters());
+			return UtilText.parseFromXMLFile("encounters/dominion/"+getFileLocation(), "AFTER_SEX_DEFEAT", getAllCharacters());
 		}
 
 		@Override
