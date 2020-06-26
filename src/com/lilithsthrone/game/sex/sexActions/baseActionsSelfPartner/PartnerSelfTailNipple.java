@@ -49,11 +49,11 @@ public class PartnerSelfTailNipple {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Snaking [npc.her] [npc.tail] up to [npc.her] [npc.breasts+], [npc.name] teases the tip over [npc.her] [npc.nipples], [npc.moaning] in delight before thrusting it deep inside.",
 					
-					"[npc.Name] snakes [npc.her] [npc.tail] up to [npc.her] [npc.breasts+], [npc.moaning] in delight as [npc.she] forces it deep into an inviting [npc.nipple].",
+					"[npc.Name] snakes [npc.her] [npc.tail] up to [npc.her] [npc.breasts+], [npc.moaning] in delight as [npc.she] forces it deep into an inviting [npc.nipple(true)].",
 					
-					"Sliding the tip of [npc.her] [npc.tail+] up to [npc.her] [npc.breasts+], [npc.name] thrusts it deep inside an inviting [npc.nipple], letting out [npc.a_moan+] as [npc.she] starts tail-fucking [npc.her] own [npc.breasts].",
+					"Sliding the tip of [npc.her] [npc.tail+] up to [npc.her] [npc.breasts+], [npc.name] thrusts it deep inside an inviting [npc.nipple(true)], letting out [npc.a_moan+] as [npc.she] starts tail-fucking [npc.her] own [npc.breasts].",
 					
-					"[npc.Name] eagerly thrusts [npc.her] [npc.tail+] deep into a needy [npc.nipple], letting out a series of [npc.moans+] as [npc.she] starts tail-fucking [npc.her] own [npc.breasts]."));
+					"[npc.Name] eagerly thrusts [npc.her] [npc.tail+] deep into a needy [npc.nipple(true)], letting out a series of [npc.moans+] as [npc.she] starts tail-fucking [npc.her] own [npc.breasts]."));
 			
 		
 			switch (Main.sex.getCharacterPerformingAction().getBreastStoredMilk()) {
@@ -122,7 +122,7 @@ public class PartnerSelfTailNipple {
 					
 					"Gently pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.nipple+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] rhythmically fucks [npc.her] [npc.breast+].",
 					
-					"Slowly driving [npc.her] [npc.tail] deep inside [npc.her] [npc.nipple], [npc.name] lets out a little whimper as [npc.she] starts gently sliding it in and out of [npc.her] [npc.breast+].",
+					"Slowly driving [npc.her] [npc.tail] deep inside [npc.her] [npc.nipple(true)], [npc.name] lets out a little whimper as [npc.she] starts gently sliding it in and out of [npc.her] [npc.breast+].",
 					
 					"Focusing on pleasuring [npc.her] fuckable [npc.breasts], [npc.name] starts gently pumping [npc.her] [npc.tail] in and out of one of [npc.her] [npc.nipples+].");
 		}
@@ -159,7 +159,7 @@ public class PartnerSelfTailNipple {
 					
 					"Pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.nipple+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] rhythmically fucks [npc.her] [npc.breast+].",
 					
-					"Driving [npc.her] [npc.tail] deep inside [npc.her] fuckable [npc.nipple], [npc.name] lets out [npc.a_moan] as [npc.she] starts pumping it in and out of [npc.her] [npc.breast+].",
+					"Driving [npc.her] [npc.tail] deep inside [npc.her] fuckable [npc.nipple(true)], [npc.name] lets out [npc.a_moan] as [npc.she] starts pumping it in and out of [npc.her] [npc.breast+].",
 					
 					"Focusing on pleasuring [npc.her] [npc.breasts+], [npc.name] starts pumping [npc.her] [npc.tail] in and out of one of [npc.her] [npc.nipples+].");
 		}
@@ -192,11 +192,11 @@ public class PartnerSelfTailNipple {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"[npc.A_moan+] escapes from between [npc.namePos] [npc.lips+] as [npc.she] roughly [npc.verb(slam)] [npc.her] [npc.tail] deep inside [npc.her] [npc.nipple+], before starting to rapidly fuck [npc.her] [npc.breast].",
+					"[npc.A_moan+] escapes from between [npc.namePos] [npc.lips+] as [npc.she] roughly [npc.verb(slam)] [npc.her] [npc.tail] deep inside [npc.her] [npc.nipple+], before starting to rapidly fuck [npc.her] [npc.breast(true)].",
 					
 					"Roughly pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.nipple+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] rhythmically fucks [npc.her] [npc.breast+].",
 					
-					"Forcefully driving [npc.her] [npc.tail] deep inside [npc.her] fuckable [npc.nipple], [npc.name] lets out [npc.a_moan] as [npc.she] starts roughly grinding it in and out of [npc.her] [npc.breast+].",
+					"Forcefully driving [npc.her] [npc.tail] deep inside [npc.her] fuckable [npc.nipple(true)], [npc.name] lets out [npc.a_moan] as [npc.she] starts roughly grinding it in and out of [npc.her] [npc.breast+].",
 					
 					"Focusing on pleasuring [npc.her] [npc.breasts+], [npc.name] starts roughly slamming [npc.her] [npc.tail] in and out of one of [npc.her] [npc.nipples+].");
 		}
@@ -233,7 +233,7 @@ public class PartnerSelfTailNipple {
 					
 					"Pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.nipple+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] rhythmically fucks [npc.her] [npc.breast+].",
 					
-					"Driving [npc.her] [npc.tail] deep inside [npc.her] fuckable [npc.nipple], [npc.name] lets out [npc.a_moan] as [npc.she] starts pumping it in and out of [npc.her] [npc.breast+].",
+					"Driving [npc.her] [npc.tail] deep inside [npc.her] fuckable [npc.nipple(true)], [npc.name] lets out [npc.a_moan] as [npc.she] starts pumping it in and out of [npc.her] [npc.breast+].",
 					
 					"Focusing on pleasuring [npc.her] [npc.breasts+], [npc.name] starts pumping [npc.her] [npc.tail] in and out of one of [npc.her] [npc.nipples+].");
 		}
@@ -266,11 +266,11 @@ public class PartnerSelfTailNipple {
 		@Override
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
-					"[npc.A_moan+] escapes from between [npc.namePos] [npc.lips+] as [npc.she] eagerly slams [npc.her] [npc.tail] deep inside [npc.her] [npc.nipple+], before starting to desperately fuck [npc.her] [npc.breast].",
+					"[npc.A_moan+] escapes from between [npc.namePos] [npc.lips+] as [npc.she] eagerly slams [npc.her] [npc.tail] deep inside [npc.her] [npc.nipple+], before starting to desperately fuck [npc.her] [npc.breast(true)].",
 					
 					"Enthusiastically pumping [npc.her] [npc.tail] in and out of [npc.her] [npc.nipple+], [npc.name] starts letting out a series of delighted [npc.moans] as [npc.she] frantically fucks [npc.her] [npc.breast+].",
 					
-					"Desperately driving [npc.her] [npc.tail] deep inside [npc.her] fuckable [npc.nipple], [npc.name] lets out [npc.a_moan] as [npc.she] starts eagerly grinding it in and out of [npc.her] [npc.breast+].",
+					"Desperately driving [npc.her] [npc.tail] deep inside [npc.her] fuckable [npc.nipple(true)], [npc.name] lets out [npc.a_moan] as [npc.she] starts eagerly grinding it in and out of [npc.her] [npc.breast+].",
 					
 					"Focusing on pleasuring [npc.her] [npc.breasts+], [npc.name] eagerly starts slamming [npc.her] [npc.tail] in and out of one of [npc.her] [npc.nipples+].");
 		}

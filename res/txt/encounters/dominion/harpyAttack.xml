@@ -1197,37 +1197,37 @@
 		As you look down at the defeated form of the [npc.race] before you, you can't help but feel sorry for [npc.herHim]. After all, [npc.she] must really have been desperate to have attacked you like this, and is undoubtedly the victim of unfortunate circumstances. Taking a step back to show [npc.herHim] that you're no further threat, you say, [pc.speech(Don't worry, I'm not going to do anything to you. I just want to know why you attacked me like that.)]
 	</p>
 	<p>
-		[npc.speech(W-What?)] the [npc.race] stammers, caught off guard by the amicable tone of your voice. [npc.speech(Y-You're not going to punish me?)]
+		[npc.speech(W-What?)] the [npc.race] stammers, caught off guard by the amicable tone of your voice. [npc.speech(You're not going to punish me?)]
 	</p>
 	<p>
-		[pc.speech(No, I just want to find out why you're attempting to mug innocent travellers.)]
+		[pc.speech(No, I just want to find out why you're attempting to assault innocent travellers.)]
 	</p>
 	<p>
-		[npc.speech(W-Well...)] the [npc.race] stammers. [npc.speech(I-I don't have a job, or anything, and no way to get food without doing this...)]
+		[npc.speech(Well, my matriarch said we need to keep outsiders away from the nest, so I was just doing as I was told... She said there'd be extra punishments if she's disturbed by strangers...)]
 	</p>
 	<p>
-		You let out a sigh as you hear [npc.her] reason for attacking you. [pc.speech(So you need to steal in order to survive... What's your name?)]
+		You let out a sigh as you hear [npc.namePos] reason for attacking you. [pc.speech(So you're just following orders, huh? What's your name?)]
 	</p>
 	<p>
-		The [npc.race] looks a little uncomfortable at answering your question at first, but after simply waiting a moment and giving [npc.herHim] time to think, you're rewarded with an answer, [npc.speech(M-My name's [npc.name]... Why do you want to know?)]
+		The [npc.race] looks a little uncomfortable at answering your question at first, but after simply waiting a moment and giving [npc.herHim] time to think, you're rewarded with an answer, [npc.speech(My name's [npc.name]... Why do you want to know?)]
 	</p>
 	<p>
-		[pc.speech(Well, because if I bump into you down here again, I'd like to greet you properly. My name's [pc.name], I hope I didn't hurt you too much back there,)] you reply, standing back upright as [npc.name] pushes [npc.herself] to [npc.her] [npc.feet].
+		[pc.speech(Well, because if I pass by your nest again, I'd like to greet you properly. My name's [pc.name], I hope I didn't hurt you too much back there,)] you reply, standing back upright as [npc.name] pushes [npc.herself] to [npc.her] [npc.feet].
 	</p>
 	<p>
-		[npc.speech(You're going to come back here? A-After I attacked you like that?)] [npc.name] nervously asks, looking as though [npc.sheIs] on the verge of turning and running away.
+		[npc.speech(You're going to come back here? After I attacked you like that?)] [npc.name] nervously asks, looking as though [npc.sheIs] on the verge of turning and running away.
 	</p>
 	<p>
-		[pc.speech(Sure I will. This is a nice shortcut, and besides, I'd like to get to know you a little more in the future,)] you reply, smiling at [npc.name] to try and reassure [npc.herHim].
+		[pc.speech(Sure I will. There aren't many other routes I can take up here, I'd like to get to know you a little more in the future,)] you reply, smiling at [npc.name] to try and reassure [npc.herHim].
 	</p>
 	<p>
-		[npc.speech(Y-You want to get to know... m-me?)] [npc.name] asks, not quite believing what it is you've just said.
+		[npc.speech(You want to get to know <i>me</i>?)] [npc.name] asks, not quite believing what it is you've just said.
 	</p>
 	<p>
 		[pc.speech(That's right. Look, I need to be on my way now, and I'm sure you'd like to take a moment to think all of this over, but I'll come and find you here some other time, alright?)]
 	</p>
 	<p>
-		[npc.speech(O-Ok... That would be good... I-I'll see you another time... [pc.name]...)] [npc.name] stammers. You see [npc.herHim] starting to blush as [npc.she] says your name, but before you can say anything else, [npc.she] turns around and sprints off, leaving you alone once again.
+		[npc.speech(Ok... That would be good... I'll see you another time, [pc.name]...)] [npc.name] says. You see [npc.herHim] starting to blush as [npc.she] says your name, but before you can say anything else, [npc.she] turns around and sprints off up a nearby staircase to [npc.her] nest, leaving you alone once again.
 	</p>
 	<p>
 		Smiling to yourself as you think that you might have just made a new friend, you set off and continue on your way...

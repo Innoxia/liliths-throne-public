@@ -238,6 +238,11 @@ public class RatWarrensDialogue {
 		}
 	}
 	
+	private static void banishTwoGuards() {
+		Main.game.banishNPC((NPC) getGuards(false).get(getGuards(false).size()-1));
+		Main.game.banishNPC((NPC) getGuards(false).get(getGuards(false).size()-1));
+	}
+	
 	public static void banishMilkers() {
 		for(GameCharacter milker : getMilkers()) {
 			Main.game.banishNPC((NPC) milker);
@@ -601,6 +606,7 @@ public class RatWarrensDialogue {
 					|| Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_CORRIDOR_LEFT) {
 				Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 			}
+			banishTwoGuards();
 		}
 		
 		@Override
@@ -611,7 +617,7 @@ public class RatWarrensDialogue {
 			} else if(getGuards(false).isEmpty()) {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_ENSLAVED_ALL");
 				
-			} else if(getGuards(false).size()<6) {
+			} else if(getGuards(false).size()<4) {
 				return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY_ENSLAVED_ONE", getGuards(false));
 			}
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_VICTORY", getGuards(true));
@@ -621,7 +627,7 @@ public class RatWarrensDialogue {
 		public String getResponseTabTitle(int index) {
 			if(!getGuards(false).isEmpty()) {
 				if(index==0) {
-					return "Standard";
+					return "Interactions";
 					
 				} else if(index==1) {
 					return "Inventories";
@@ -3359,6 +3365,7 @@ public class RatWarrensDialogue {
 				
 			} else if(Main.game.getPlayer().getRace()==Race.DEMON) {
 				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN_DEMON", getGuards(true)));
+				
 			} else {
 				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "VENGARS_HALL_APPROACH_THREATEN", getGuards(true)));
 			}

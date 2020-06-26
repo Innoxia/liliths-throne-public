@@ -18,7 +18,7 @@ import com.lilithsthrone.utils.Util;
  */
 public class HornType {
 	
-	//TODO If any more horn types are added, check to see that the potion TFs still work. (5 types is currently the maximum.)
+	// If any more horn types are added, check to see that the potion TFs still work. (5 types is currently the maximum.)
 	
 	public static final AbstractHornType NONE = new AbstractHornType(
 			BodyCoveringType.HORN,

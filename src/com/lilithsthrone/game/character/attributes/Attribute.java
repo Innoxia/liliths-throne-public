@@ -694,33 +694,6 @@ public enum Attribute {
 		return colour;
 	}
 
-	public String getAttributeChangeText(GameCharacter target, float value) {
-		if(target==null) {
-			return "";
-		}
-		
-		if (value > 0) {
-			return UtilText.parse(target,
-					"<p style='text-align:center;'>"
-						+ "[npc.Name] [npc.verb(gain)] <b>" + value + "</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
-					+ "</p>");
-
-		} else if (value < 0) {
-			return UtilText.parse(target,
-					"<p style='text-align:center;'>"
-						+ "[npc.Name] [npc.verb(lose)] <b>" + value + "</b> <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b>!"
-					+ "</p>");
-			
-
-		} else {
-			return UtilText.parse(target,
-					"<p style='text-align:center;'>"
-						+ "[npc.NamePos] <b style='color:" + this.getColour().toWebHexString() + ";'>" + this.getName() + "</b> remains unchanged..."
-					+ "</p>");
-		}
-		
-	}
-
 	private StringBuilder descriptionSB = new StringBuilder();
 
 	public String getEffectsAsStringList() {

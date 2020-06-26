@@ -1,0 +1,8 @@
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <ellipse cx="31.861" cy="32.81" rx="23.947" ry="23.608" fill="#ff8080" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="m33.183 12.326c8.462 1.116 16.427 3.742 20.246 18.98-11.69-16.704-13.196-13.754-20.246-18.98z" fill="#f9f9f9" fill-rule="evenodd"/>
+ <path d="m24.179 31.339-9.3504 0.78132 0.76051-2.582-5.596 4.2112 5.5226 4.1625-0.63004-2.6734 9.3971 0.94719z" fill="#f55" stroke="#000" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".5"/>
+ <path d="m42.087 53.714c-21.988 9.273-40.585-11.535-31.666-30.378 0.168 16.137 12.616 31.992 31.666 30.378z" fill-opacity=".449" fill-rule="evenodd"/>
+ <path d="m35.524 26.556c0.16068-0.68779-7.0756-0.51825-7.2883 0.01283-1.8705 4.6705-1.743 9.6003-0.02071 14.121 0.28387 0.74514 7.3126 0.5786 7.2211-0.12695 1.1757-3.8785 1.7563-8.5348 0.0879-14.007z" fill="#ff2a2a" stroke="#000" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".5"/>
+ <path d="m39.125 36.139 9.3583-0.67966-0.78852 2.5736 5.6414-4.1501-5.477-4.2223 0.60095 2.68-9.3863-1.0493z" fill="#f55" stroke="#000" stroke-linecap="round" stroke-linejoin="bevel" stroke-width=".5"/>
+</svg>

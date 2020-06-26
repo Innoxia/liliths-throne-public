@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.race.Race;
@@ -10,22 +11,22 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public class Wing implements BodyPartInterface {
 
 	
-	protected WingType type;
+	protected AbstractWingType type;
 	protected int size;
 	
-	public Wing(WingType type, int size) {
+	public Wing(AbstractWingType type, int size) {
 		this.type = type;
 		this.size = size;
 	}
 
 	@Override
-	public WingType getType() {
+	public AbstractWingType getType() {
 		return type;
 	}
 
@@ -54,7 +55,7 @@ public class Wing implements BodyPartInterface {
 		return type.getDescriptor(gc);
 	}
 
-	public String setType(GameCharacter owner, WingType type) {
+	public String setType(GameCharacter owner, AbstractWingType type) {
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
 			if(owner!=null) {
@@ -89,84 +90,7 @@ public class Wing implements BodyPartInterface {
 			}
 		}
 		
-		switch (type) {
-			case ANGEL:
-				if(owner.getLegConfiguration().isWingsOnLegConfiguration()) {
-					UtilText.transformationContentSB.append(
-							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], feathered wings push out from the sides of [npc.her] [npc.legConfiguration] body.<br/>"
-							+ "[npc.Name] now [npc.has] [style.boldAngel(angelic, feathered wings)].");
-				} else {
-					UtilText.transformationContentSB.append(
-							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], feathered wings push out from [npc.her] shoulder blades.<br/>"
-							+ "[npc.Name] now [npc.has] [style.boldAngel(angelic, feathered wings)].");
-				}
-				break;
-			case DEMON_COMMON:
-				if(owner.getLegConfiguration().isWingsOnLegConfiguration()) {
-					UtilText.transformationContentSB.append(
-							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], bat-like wings push out from the sides of [npc.her] [npc.legConfiguration] body.<br/>"
-							+ (!owner.isShortStature()
-									?"[npc.Name] now [npc.has] [style.boldDemon(demonic bat-like wings)]."
-									:"[npc.Name] now [npc.has] [style.boldImp(impish bat-like wings)]."));
-				} else {
-					UtilText.transformationContentSB.append(
-							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], bat-like wings push out from [npc.her] shoulder blades.<br/>"
-							+ (!owner.isShortStature()
-									?"[npc.Name] now [npc.has] [style.boldDemon(demonic bat-like wings)]."
-									:"[npc.Name] now [npc.has] [style.boldImp(impish bat-like wings)]."));
-				}
-				break;
-			case DEMON_FEATHERED:
-				if(owner.getLegConfiguration().isWingsOnLegConfiguration()) {
-					UtilText.transformationContentSB.append(
-							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], feathered wings push out from the sides of [npc.her] [npc.legConfiguration] body.<br/>"
-							+ (!owner.isShortStature()
-									?"[npc.Name] now [npc.has] [style.boldDemon(demonic feathered wings)]."
-									:"[npc.Name] now [npc.has] [style.boldImp(impish feathered wings)]."));
-				} else {
-					UtilText.transformationContentSB.append(
-								" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], feathered wings push out from [npc.her] shoulder blades.<br/>"
-								+ (!owner.isShortStature()
-										?"[npc.Name] now [npc.has] [style.boldDemon(demonic feathered wings)]."
-										:"[npc.Name] now [npc.has] [style.boldImp(impish feathered wings)]."));
-				}
-				break;
-			case NONE:
-				if(owner.getLegConfiguration().isWingsOnLegConfiguration()) {
-					UtilText.transformationContentSB.append(
-							" With a strong tugging sensation, [npc.her] [npc.wings] shrink away and disappear into the sides of [npc.her] [npc.legConfiguration] body."
-							+ "<br/>"
-							+ "[npc.Name] now [npc.has] [style.boldTfGeneric(no wings)].");
-				} else {
-					UtilText.transformationContentSB.append(
-							" With a strong tugging sensation, [npc.her] [npc.wings] shrink away and disappear into [npc.her] back."
-							+ "<br/>"
-							+ "[npc.Name] now [npc.has] [style.boldTfGeneric(no wings)].");
-				}
-				break;
-			case FEATHERED:
-				if(owner.getLegConfiguration().isWingsOnLegConfiguration()) {
-					UtilText.transformationContentSB.append(
-							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], feathered wings push out from the sides of [npc.her] [npc.legConfiguration] body.<br/>"
-							+ "[npc.Name] now [npc.has] [style.boldPegataur(feathered wings)].");
-				} else {
-					UtilText.transformationContentSB.append(
-							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], feathered wings push out from [npc.her] shoulder blades.<br/>"
-							+ "[npc.Name] now [npc.has] [style.boldPegataur(feathered wings)].");
-				}
-				break;
-			case LEATHERY:
-				if(owner.getLegConfiguration().isWingsOnLegConfiguration()) {
-					UtilText.transformationContentSB.append(
-							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], leathery wings push out from the sides of [npc.her] [npc.legConfiguration] body.<br/>"
-							+ "[npc.Name] now [npc.has] [style.boldDemon(leathery wings)].");
-				} else {
-					UtilText.transformationContentSB.append(
-							" [npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], leathery wings push out from [npc.her] shoulder blades.<br/>"
-							+ "[npc.Name] now [npc.has] [style.boldDemon(leathery wings)].");
-				}
-				break;
-		}
+		UtilText.transformationContentSB.append(" "+type.getTransformationDescription(owner));
 		
 		if(type!=WingType.NONE) {
 			if(this.getSize().getValue() >= owner.getLegConfiguration().getMinimumWingSizeForFlight().getValue()) {
@@ -206,7 +130,7 @@ public class Wing implements BodyPartInterface {
 			return "";
 		}
 		
-		if(owner.getWingType()==WingType.NONE) {
+		if(this.getType()==WingType.NONE) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.NamePos] [npc.do]n't have any wings, so nothing happens...)]</p>");
 		}
 		

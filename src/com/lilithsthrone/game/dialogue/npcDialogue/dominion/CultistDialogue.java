@@ -105,7 +105,7 @@ public class CultistDialogue {
 						UtilText.parseFromXMLFile("encounters/dominion/cultist", "ENCOUNTER_CHAPEL_ORAL_SEX", getCultist())) {
 					@Override
 					public void effects() {
-						// Remove jinxes so that player can get access to mouth:
+						// Remove seals so that player can get access to mouth:
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 							AbstractClothing clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.MOUTH, true);
 							while (clothing != null) {
@@ -138,7 +138,7 @@ public class CultistDialogue {
 						public void effects() {
 							((Cultist)getCultist()).setRequestedAnal(false);
 							
-							// Remove jinxes so that player can get access to vagina:
+							// Remove seals so that player can get access to vagina:
 							if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 								AbstractClothing clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 								while (clothing != null) {
@@ -174,7 +174,7 @@ public class CultistDialogue {
 					public void effects() {
 						((Cultist)getCultist()).setRequestedAnal(true);
 						
-						// Remove jinxes so that player can get access to vagina:
+						// Remove seals so that player can get access to vagina:
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
 							AbstractClothing clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.ANUS, true);
 							while (clothing != null) {
@@ -192,7 +192,11 @@ public class CultistDialogue {
 	};
 	
 	public static final DialogueNode ENCOUNTER_CHAPEL_REPEAT = new DialogueNode("The Witch's Chapel", "", true) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			// Pull up dress:
+			getCultist().displaceClothingForAccess(CoverableArea.PENIS, null);
+		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("encounters/dominion/cultist", "ENCOUNTER_CHAPEL_REPEAT", getCultist());
@@ -366,7 +370,7 @@ public class CultistDialogue {
 					public void effects() {
 						((Cultist)getCultist()).setRequestedAnal(false);
 						
-						// Remove jinxes so that player can get access to vagina:
+						// Remove seals so that player can get access to vagina:
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 							AbstractClothing clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 							while (clothing != null) {
@@ -375,7 +379,7 @@ public class CultistDialogue {
 								clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.VAGINA, true);
 							}
 						}
-						// Remove jinxes so that player can get access to anus:
+						// Remove seals so that player can get access to anus:
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
 							AbstractClothing clothing = Main.game.getPlayer().getClothingBlockingCoverableAreaAccess(CoverableArea.ANUS, true);
 							while (clothing != null) {

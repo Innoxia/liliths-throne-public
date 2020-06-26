@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	
+	<coreAttributes>
+		<authorTag><![CDATA[Metallic embroidery on the inside of the wrist reads 'MFD by DSG Costume Supply Co, Ltd'.]]></authorTag>
+		<value>150</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name appendColourName="true"><![CDATA[kitty gloves]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[kitty gloves]]></namePlural>
+		<description><![CDATA[A pair of plush gloves in the shape of stylized cat paws.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>HAND</slot>
+		</equipSlots>
+		<rarity>EPIC</rarity>
+		<clothingSet>innoxia_kitty</clothingSet>
+		<imageName>ckls_gloves.svg</imageName>
+		<enchantmentLimit/>
+		
+		<effects>
+              <effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+		</effects>
+		
+		<blockedPartsList slot="HAND">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>FINGERS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="HAND"/>
+		
+		<primaryColours values="BLACK_OR_WHITE"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText slot="HAND" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] on gloves on over [npc.her] [npc.hands].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the gloves on over [npc2.namePos] [npc2.hands].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] the gloves on over [npc2.namePos] [npc2.hands].]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText slot="HAND" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the glove off of [npc.her] [npc.hands].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the glove off of [npc2.namePos] [npc2.hands].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(rip)] the gloves from [npc2.namePos] [npc2.hands].]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

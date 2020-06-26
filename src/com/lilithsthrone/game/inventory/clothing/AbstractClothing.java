@@ -44,6 +44,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -254,6 +255,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 						&& ((AbstractClothing)o).isEnchantmentKnown()==this.isEnchantmentKnown()
 						&& ((AbstractClothing)o).isBadEnchantment()==this.isBadEnchantment()
 						&& ((AbstractClothing)o).getEffects().equals(this.getEffects())
+						&& ((AbstractClothing)o).getSlotEquippedTo()==this.getSlotEquippedTo()
 						){
 					return true;
 				}
@@ -276,6 +278,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		result = 31 * result + (this.isEnchantmentKnown() ? 1 : 0);
 		result = 31 * result + (this.isBadEnchantment() ? 1 : 0);
 		result = 31 * result + this.getEffects().hashCode();
+		if(this.getSlotEquippedTo()!=null) {
+			result = 31 * result + this.getSlotEquippedTo().hashCode();
+		}
 		return result;
 	}
 	
@@ -945,35 +950,23 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		
 		if(!enchantmentKnown) {
 			this.setEnchantmentKnown(clothingOwner, true);
+
+			sb.append(getClothingType().equipText(clothingOwner, clothingEquipper, this.getSlotEquippedTo(), rough, this, true));
 			
 			if(this.isBadEnchantment()) {
-				sb.append(getClothingType().equipText(clothingOwner, clothingEquipper, this.getSlotEquippedTo(), rough, this, true));
-				
-				clothingOwner.incrementAttribute(Attribute.MAJOR_CORRUPTION, 1);
 				sb.append("<p style='text-align:center;'>"
-								+ "<b style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Jinx revealed:</b> "+getDisplayName(true));
-				
-				for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
-					sb.append("<br/><b>(" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
-				}
-				
-				sb.append("<br/>"
-						+ "<b>"+(clothingOwner.isPlayer()?"You gain":UtilText.parse(clothingOwner, "[npc.Name] gains"))
-								+" +1</b> <b style='color:" + PresetColour.GENERIC_TERRIBLE.toWebHexString()+ ";'>core</b> <b style='color:" + PresetColour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>corruption</b> <b>from discovering their jinx...</b>"
-						+ "</p>");
+								+ "<b style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Negative Enchantment Revealed:</b><br/>"+getDisplayName(true));
 				
 			} else {
-				sb.append(getClothingType().equipText(clothingOwner, clothingEquipper, this.getSlotEquippedTo(), rough, this, true));
-				
 				sb.append("<p style='text-align:center;'>"
-								+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment revealed:</b> "+getDisplayName(true));
-				
-				for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
-					sb.append("<br/><b>(+" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
-				}
-				
-				sb.append("</p>");
+								+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment Revealed:</b><br/>"+getDisplayName(true));
 			}
+
+			for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
+				sb.append("<br/><b>("+(att.getValue()>=0?"+":"")+att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
+			}
+			
+			sb.append("</p>");
 			
 		} else {
 			sb.append(getClothingType().equipText(clothingOwner, clothingEquipper, this.getSlotEquippedTo(), rough, this, true));
@@ -1076,15 +1069,15 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				if(Main.game.isPenetrationLimitationsEnabled()) {
 					if(length<=clothingOwner.getNippleMaximumPenetrationDepthComfortable() || clothingOwner.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
 						sb.append(UtilText.parse(clothingOwner,
-								"The full length of the "+formattedName+" [style.colourMinorGood(comfortably fits)] inside of [npc.namePos] [npc.nipple]!"));
+								"The full length of the "+formattedName+" [style.colourMinorGood(comfortably fits)] inside of [npc.namePos] [npc.nipple(true)]!"));
 						
 					} else {
 						if(clothingOwner.hasFetish(Fetish.FETISH_MASOCHIST)) {
 							sb.append(UtilText.parse(clothingOwner,
-									"The "+formattedName+" is [style.colourBad(too long)] to fit comfortably inside of [npc.namePos] [npc.nipple], but as [npc.sheIs] a masochist, [style.colourGood([npc.she] [npc.do]n't mind the discomfort)]!"));
+									"The "+formattedName+" is [style.colourBad(too long)] to fit comfortably inside of [npc.namePos] [npc.nipple(true)], but as [npc.sheIs] a masochist, [style.colourGood([npc.she] [npc.do]n't mind the discomfort)]!"));
 						} else {
 							sb.append(UtilText.parse(clothingOwner,
-									"The "+formattedName+" is [style.colourBad(too long)] to fit comfortably inside of [npc.namePos] [npc.nipple], and is causing [npc.herHim] [style.colourBad(discomfort)]!"));
+									"The "+formattedName+" is [style.colourBad(too long)] to fit comfortably inside of [npc.namePos] [npc.nipple(true)], and is causing [npc.herHim] [style.colourBad(discomfort)]!"));
 						}
 					}
 				}
@@ -1095,7 +1088,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 					}
 					sb.append(UtilText.parse(clothingOwner,
 							(plural?"Their":"Its")+" <span style='color:"+girth.getColour().toWebHexString()+";'>[style.sizeShort("+diameter+")]</span>"
-									+ " diameter is [style.colourMinorBad(too wide)] for [npc.namePos] [npc.nipple], and is [style.colourBad(stretching)] [npc.herHim] out!"));
+									+ " diameter is [style.colourMinorBad(too wide)] for [npc.namePos] [npc.nipple(true)], and is [style.colourBad(stretching)] [npc.herHim] out!"));
 				}
 				
 			} else if(this.getSlotEquippedTo()==InventorySlot.MOUTH) {
@@ -1769,10 +1762,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		return enchantmentKnown;
 	}
 
-	private StringBuilder pointlessSB = new StringBuilder();
 	public static AbstractClothing enchantmentRemovedClothing;
 	public String setEnchantmentKnown(GameCharacter owner, boolean enchantmentKnown) {
-		pointlessSB.setLength(0);
+		StringBuilder sb = new StringBuilder();
 		
 		if(owner!=null) {
 			if(owner.removeClothing(this)) {
@@ -1789,30 +1781,30 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		
 		if(enchantmentKnown && !attributeModifiers.isEmpty()){
 			if(isBadEnchantment()) {
-				pointlessSB.append(
+				sb.append(
 						"<p style='text-align:center;'>"
-								+ "<b style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Jinx revealed:</b><br/>"
+								+ "<b style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>Negative Enchantment Revealed revealed:</b><br/>"
 										+ "<b>"+Util.capitaliseSentence(getDisplayName(true))+"</b>");
 				
 			} else {
-				pointlessSB.append(
+				sb.append(
 						"<p style='text-align:center;'>"
-								+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment revealed:</b><br/>"
+								+ "<b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment Revealed:</b><br/>"
 										+ "<b>"+Util.capitaliseSentence(getDisplayName(true))+"</b>");
 			}
 			
 			for(ItemEffect ie : this.getEffects()) {
 				for(String s : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
-					pointlessSB.append("<br/>"+s);
+					sb.append("<br/>"+s);
 				}
 			}
-			pointlessSB.append("</p>");
+			sb.append("</p>");
 			
 		} else {
 			return "";
 		}
 		
-		return pointlessSB.toString();
+		return sb.toString();
 	}
 
 	public Attribute getCoreEnchantment() {
@@ -1844,7 +1836,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 					return "of "+(coloured?"<"+tag+" style='color:"+PresetColour.FETISH.toWebHexString()+";'>"+ie.getSecondaryModifier().getDescriptor()+"</"+tag+">":ie.getSecondaryModifier().getDescriptor());
 					
 				} else if(ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || ie.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
-					String name = (this.isBadEnchantment()?this.getCoreEnchantment().getNegativeEnchantment():this.getCoreEnchantment().getPositiveEnchantment());
+					String name = (this.isBadEnchantment()&&this.getCoreEnchantment()!=Attribute.MAJOR_CORRUPTION?this.getCoreEnchantment().getNegativeEnchantment():this.getCoreEnchantment().getPositiveEnchantment());
 					return "of "+(coloured?"<"+tag+" style='color:"+this.getCoreEnchantment().getColour().toWebHexString()+";'>"+name+"</"+tag+">":name);
 					
 				} else if(ie.getSecondaryModifier() == TFModifier.CLOTHING_SEALING) {
@@ -1859,11 +1851,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	public boolean isBadEnchantment() {
-		return this.getEffects().stream().mapToInt(e -> (
+		return this.getEffects().stream().mapToInt(e ->
+		(
 				((e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || e.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE))
 					?e.getPotency().getClothingBonusValue()*(e.getSecondaryModifier()==TFModifier.CORRUPTION?-1:1)
 					:0)
-				+ (e.getSecondaryModifier()==TFModifier.CLOTHING_SEALING?-10:0)
+				+ 
+				(e.getSecondaryModifier()==TFModifier.CLOTHING_SEALING?-10:0)
 				+ (e.getSecondaryModifier()==TFModifier.CLOTHING_SERVITUDE?-10:0)
 			).sum()<0;
 	}
@@ -1878,6 +1872,19 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 
 	public boolean isJinxRemovalInhibiting() {
 		return this.getEffects().stream().anyMatch(e -> e.getSecondaryModifier() == TFModifier.CLOTHING_SERVITUDE);
+	}
+
+	/**
+	 * @return A Value whose key is true if this clothing can be equipped during sex. If false, the Value's value is a description of why it cannot be equipped
+	 */
+	public Value<Boolean, String> isAbleToBeEquippedDuringSex(InventorySlot slotEquippedTo) {
+		if(this.getClothingType().isAbleToBeEquippedDuringSex(slotEquippedTo)) {
+			if(isEnslavementClothing()) {
+				return new Value<>(false, "Clothing with enslavement enchantments cannot be equipped during sex!");
+			}
+			return new Value<>(true, "");
+		}
+		return new Value<>(false, "This item of clothing cannot be equipped during sex!");
 	}
 	
 	@Override

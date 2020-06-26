@@ -237,17 +237,35 @@ public class PenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
+			boolean canReachPenis = false;
+			try {
+				if(Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaPenetration.PENIS)) {
+					canReachPenis = true;
+				}
+			} catch(Exception ex) {
+			}
+			try {
+				if(Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()))
+						.getInteractions().get(SexAreaPenetration.PENIS).contains(SexAreaPenetration.FINGER)) {
+					canReachPenis = true;
+				}
+			} catch(Exception ex) {
+			}
+			if(!canReachPenis) { // No available finger-penis actions, so can't reach penis
+				return false;
+			}
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()) != SexPace.SUB_RESISTING;
 		}
 
 		@Override
 		public String getDescription() {
-				
 			UtilText.nodeContentSB.setLength(0);
 			if(!getOngoingCharacters(Main.sex.getCharacterPerformingAction()).isEmpty()) {
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
-						UtilText.nodeContentSB.append(UtilText.parse(Util.newArrayListOfValues(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getPrimaryDPPerformer(Main.sex.getCharacterTargetedForSexAction(this))),
+						UtilText.nodeContentSB.append(
+								UtilText.parse(Util.newArrayListOfValues(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getPrimaryDPPerformer(Main.sex.getCharacterTargetedForSexAction(this))),
 								UtilText.returnStringAtRandom(
 								"Not satisfied with having just [npc3.namePos] [npc3.cock] penetrating [npc.herHim], [npc.name] [npc.verb(take)] hold of [npc2.namePos] [npc2.cock+],"
 										+ " before guiding it up to an exposed part of [npc.her] [npc.pussy] and gently teasing the [npc.cockHead] between [npc.her] [npc.labia+].",
@@ -257,7 +275,8 @@ public class PenisVagina {
 										+ " [npc.name] [npc.verb(grab)] [npc2.namePos] [npc2.cock+], before gently sliding the [npc2.cockTip+] over an exposed part of [npc.her] [npc.labia+].")));
 						break;
 					case DOM_ROUGH:
-						UtilText.nodeContentSB.append(UtilText.parse(Util.newArrayListOfValues(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getPrimaryDPPerformer(Main.sex.getCharacterTargetedForSexAction(this))),
+						UtilText.nodeContentSB.append
+						(UtilText.parse(Util.newArrayListOfValues(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getPrimaryDPPerformer(Main.sex.getCharacterTargetedForSexAction(this))),
 								UtilText.returnStringAtRandom(
 								"Not satisfied with having just [npc3.namePos] [npc3.cock] penetrating [npc.herHim], [npc.name] roughly [npc.verb(grab)] hold of [npc2.namePos] [npc2.cock+],"
 										+ " before guiding it up to an exposed part of [npc.her] [npc.pussy] and forcefully rubbing the [npc.cockHead] between [npc.her] [npc.labia+].",
@@ -267,7 +286,8 @@ public class PenisVagina {
 										+ " [npc.name] forcefully [npc.verb(grab)] [npc2.namePos] [npc2.cock+], before roughly rubbing the [npc2.cockTip+] over an exposed part of [npc.her] [npc.labia+].")));
 						break;
 					case SUB_NORMAL:
-						UtilText.nodeContentSB.append(UtilText.parse(Util.newArrayListOfValues(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getPrimaryDPPerformer(Main.sex.getCharacterTargetedForSexAction(this))),
+						UtilText.nodeContentSB.append(
+								UtilText.parse(Util.newArrayListOfValues(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getPrimaryDPPerformer(Main.sex.getCharacterTargetedForSexAction(this))),
 								UtilText.returnStringAtRandom(
 								"Not satisfied with having just [npc3.namePos] [npc3.cock] penetrating [npc.herHim], [npc.name] [npc.verb(take)] hold of [npc2.namePos] [npc2.cock+],"
 										+ " before guiding it up to an exposed part of [npc.her] [npc.pussy] and rubbing the [npc.cockHead] between [npc.her] [npc.labia+].",
@@ -277,7 +297,8 @@ public class PenisVagina {
 										+ " [npc.name] [npc.verb(grab)] [npc2.namePos] [npc2.cock+], before rubbing the [npc2.cockTip+] over an exposed part of [npc.her] [npc.labia+].")));
 						break;
 					default:
-						UtilText.nodeContentSB.append(UtilText.parse(Util.newArrayListOfValues(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getPrimaryDPPerformer(Main.sex.getCharacterTargetedForSexAction(this))),
+						UtilText.nodeContentSB.append(
+								UtilText.parse(Util.newArrayListOfValues(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getPrimaryDPPerformer(Main.sex.getCharacterTargetedForSexAction(this))),
 								UtilText.returnStringAtRandom(
 								"Not satisfied with having just [npc3.namePos] [npc3.cock] penetrating [npc.herHim], [npc.name] eagerly [npc.verb(grab)] hold of [npc2.namePos] [npc2.cock+],"
 										+ " before guiding it up to an exposed part of [npc.her] [npc.pussy] and desperately rubbing the [npc.cockHead] between [npc.her] [npc.labia+].",

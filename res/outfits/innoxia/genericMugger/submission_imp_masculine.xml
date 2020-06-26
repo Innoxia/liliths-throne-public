@@ -10,6 +10,10 @@
 		
 		<worldTypes>
 			<world>SUBMISSION</world>
+			<world>IMP_FORTRESS_ALPHA</world>
+			<world>IMP_FORTRESS_DEMON</world>
+			<world>IMP_FORTRESS_FEMALES</world>
+			<world>IMP_FORTRESS_MALES</world>
 			<world>RAT_WARRENS</world>
 		</worldTypes>
 		

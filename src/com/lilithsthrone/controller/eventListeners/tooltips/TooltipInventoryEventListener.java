@@ -882,7 +882,7 @@ public class TooltipInventoryEventListener implements EventListener {
 
 		String author = absWep.getWeaponType().getAuthorDescription();
 		if(!author.isEmpty()) {
-			yIncrease+=5;
+			yIncrease+=4;
 		}
 		
 		// Title:
@@ -976,7 +976,7 @@ public class TooltipInventoryEventListener implements EventListener {
 			}
 		
 			for(Spell s : absWep.getSpells()) {
-				tooltipSB.append("<br/><b style='color:"+PresetColour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Spell</b><b>:</b> <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(s.getName())+"</b>");
+				tooltipSB.append("<br/>[style.boldSpell(Spell)]<b>:</b> <b style='color:"+s.getSpellSchool().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(s.getName())+"</b>");
 			}
 		
 			for(CombatMove cm : absWep.getCombatMoves()) {

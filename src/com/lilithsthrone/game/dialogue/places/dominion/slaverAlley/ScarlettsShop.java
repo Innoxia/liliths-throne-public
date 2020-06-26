@@ -4681,6 +4681,11 @@ public class ScarlettsShop {
 							"You've already given Scarlett oral today...",
 							null);
 				}
+				if(!Main.game.getNpc(Scarlett.class).isAttractedTo(Main.game.getPlayer())) {
+					return new Response(Main.game.getNpc(Scarlett.class).hasPenis()?"Blowjob":"Cunnilingus",
+							"Scarlett isn't attracted to you, so she'd be unwilling to let you give her "+(Main.game.getNpc(Scarlett.class).hasPenis()?"a quick blowjob":"some quick cunnilingus")+".",
+							null);
+				}
 				return new Response(Main.game.getNpc(Scarlett.class).hasPenis()?"Blowjob":"Cunnilingus",
 						"Kneel down beneath the shop's counter and give Scarlett "+(Main.game.getNpc(Scarlett.class).hasPenis()?"a quick blowjob":"some quick cunnilingus")+".",
 						HELENAS_SHOP_SCARLETT_COUNTER_ORAL) {
@@ -4696,7 +4701,15 @@ public class ScarlettsShop {
 				};
 				
 			} else if(index==5) {
-				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafe)) {
+				if(!Main.game.getNpc(Scarlett.class).isAttractedTo(Main.game.getPlayer())) {
+					return new Response(
+							Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafeRevealed)
+								?"Cafe"
+								:"Lunch break",
+							"Scarlett is only willing to spend her lunch break with people she's attracted to, and as you're not feminine enough for her liking, she's unwilling to spend it with you...",
+							null);
+					
+				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafe)) {
 					return new Response("Cafe", "You've already been out to the cafe with Scarlett today...", null);
 					
 				} else if(Main.game.getHourOfDay()<11) {
@@ -4718,7 +4731,9 @@ public class ScarlettsShop {
 								?"Scarlett has already taken her lunch break, and so she can't go out to a cafe with you. Try again another day between [units.time(11)] and [units.time(15)]."
 								:"Scarlett has already taken her lunch break, and so can't spend it with you. Try again another day between [units.time(11)] and [units.time(15)].",
 							null);
+					
 				}
+				
 				return new Response(
 						Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.helenaShopScarlettCafeRevealed)
 							?"Cafe"

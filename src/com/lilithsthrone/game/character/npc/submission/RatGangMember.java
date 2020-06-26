@@ -103,10 +103,6 @@ public class RatGangMember extends NPC {
 				}
 			}
 			
-//			if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
-//				this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
-//			}
-	
 			setName(Name.getRandomTriplet(this.getRace()));
 			this.setPlayerKnowsName(false);
 			this.setGenericName("gang-member");

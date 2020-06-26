@@ -51,7 +51,7 @@ public enum ItemTag {
 	
 	DRESS(false), // For helping to generate clothing in CharacterUtils
 
-	PROVIDES_KEY( // The person whi equips this clothing will get an unlock key, making the removal cost for jinxes equal to 0
+	PROVIDES_KEY( // The person who equips this clothing will get an unlock key, making the unsealing cost 0
 			Util.newArrayListOfValues(
 					"[style.colourGood(Provides equipper with key)]"),
 			false),

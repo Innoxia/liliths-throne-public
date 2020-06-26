@@ -214,7 +214,7 @@
 				#ENDIF
 			#ELSE
 				 Tucking a loose strand of her wavy, dark-brown hair behind one ear, she pushes her stylish half-rim glasses up onto the bridge of her nose,
-				#IF pc.getRace()==RACE_DEMON
+				#IF pc.getSubspeciesOverrideRace()==RACE_DEMON
 				#THEN
 					#IF pc.hasFetish(FETISH_INCEST)
 					#THEN before striding over to you and pulling you into a loving hug. [lyssieth.speech(Aww, you came to visit your mommy again! How sweet of you!)]
@@ -315,7 +315,7 @@
 		Wanting to know how Lyssieth regards her sister, you ask, [pc.speech(What can you tell me about Lunette?)]
 	</p>
 	<p>
-		#IF pc.getRace()==RACE_DEMON
+		#IF pc.getSubspeciesOverrideRace()==RACE_DEMON
 		#THEN
 			#IF pc.hasFetish(FETISH_INCEST)
 			#THEN [lyssieth.speech(Oh, you want to know a little more about mommy's little sister? I suppose now that I'm your mommy, she's technically your aunt,)]
@@ -346,7 +346,7 @@
 	
 	<htmlContent tag="LYSSIETH_OFFICE_TALK_FAMILY"><![CDATA[
 	<p>
-		#IF pc.getRace()==RACE_DEMON
+		#IF pc.getSubspeciesOverrideRace()==RACE_DEMON
 		#THEN
 			#IF pc.hasFetish(FETISH_INCEST)
 			#THEN [pc.speech(Mommy, I want to know more about my new family,)] you say, eager to hear more about Lyssieth's daughters, sisters and mother.
@@ -470,7 +470,7 @@
 	<htmlContent tag="SEX_PUSSY"><![CDATA[
 	<p>
 		Noticing that Lyssieth keeps on hungrily eyeing you up and flashing you seductive glances, you step up to her and take hold of her arms, before leaning in and saying,
-		#IF(pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
+		#IF(pc.getSubspeciesOverrideRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
 			 [pc.speech(Mommy, I can tell that you want me to fuck your pussy, so go on, lie back over your desk and spread your legs. I'll be your good [pc.girl] and give you what you want!)]
 		#ELSE
 			 [pc.speech(I can tell that you want me to fuck your pussy, so go on, lie back over your desk and spread your legs for me.)]
@@ -478,7 +478,7 @@
 	</p>
 	<p>
 		[lyssieth.speech(Mmm, yes,)] Lyssieth softly moans, taking a step back and lying down over the top of her desk.
-		#IF(pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
+		#IF(pc.getSubspeciesOverrideRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
 			 [lyssieth.speech(Mommy's pussy is all yours!)]
 		#ELSE
 			 [lyssieth.speech(My pussy's all yours!)]
@@ -493,7 +493,7 @@
 	<htmlContent tag="SEX_COCK"><![CDATA[
 	<p>
 		Noticing that Lyssieth keeps on hungrily eyeing you up and flashing you seductive glances, you step up to her and softly moan,
-		#IF(pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
+		#IF(pc.getSubspeciesOverrideRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
 			 [pc.speech(Mommy, I can tell that you want to fuck me, so go on, grow a nice big cock for me. I'll be your good [pc.girl] and take it!)]
 		#ELSE
 			 [pc.speech(I can tell that you want to fuck me, so go on, grow a nice big cock and come take me!)]
@@ -501,7 +501,7 @@
 	</p>
 	<p>
 		[lyssieth.speech(Mmm, yes,)] Lyssieth eagerly replies, grabbing hold of your [pc.arms] and spinning you around. With a quick step forwards, she pushes you down so that you're lying back over the top of her desk. Looking down between her legs, you see a thick bulge start to press out against the fabric of her skirt, and, biting her lip, she softly moans, 
-		#IF(pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
+		#IF(pc.getSubspeciesOverrideRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
 			 [lyssieth.speech(Mommy's big cock's aching to be inside of her good [pc.girl]... Spread your legs for her now...)]
 		#ELSE
 			 [lyssieth.speech(My big cock's aching to be inside of you... Spread your legs for me now...)]
@@ -569,7 +569,7 @@
 	<htmlContent tag="SEX_LILIN_COCK"><![CDATA[
 	<p>
 		Noticing that Lyssieth keeps on hungrily eyeing you up and flashing you seductive glances, you step up to her and softly moan,
-		#IF(pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
+		#IF(pc.getSubspeciesOverrideRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
 			 [pc.speech(Mommy, I can tell that you want to fuck me, so go on, grow a nice big cock for me. I'll be your good [pc.girl] and take it!)]
 		#ELSE
 			 [pc.speech(I can tell that you want to fuck me, so go on, grow a nice big cock and come take me!)]
@@ -577,7 +577,7 @@
 	</p>
 	<p>
 		[lyssieth.speech(Mmm, yes,)] Lyssieth eagerly replies, grabbing hold of your [pc.arms] and spinning you around. With a quick step forwards, she pushes you down so that you're lying back over the top of her desk. Looking down between her legs, you see a thick bulge start to press out against the fabric of her skirt, and, biting her lip, she softly moans, 
-		#IF(pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
+		#IF(pc.getSubspeciesOverrideRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST))
 			 [lyssieth.speech(Mommy's big cock's aching to be inside of her good [pc.girl]... Spread your legs for her now...)]
 		#ELSE
 			 [lyssieth.speech(My big cock's aching to be inside of you... Spread your legs for me now...)]
@@ -622,7 +622,7 @@
 	<htmlContent tag="AFTER_SEX"><![CDATA[
 	<p>
 		Lyssieth lets out a deeply satisfied moan, and, disentangling herself from your clutches, steps away to get her clothes in order. Looking across at you and biting her lip, she winks and sighs,
-		#IF pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
+		#IF pc.getSubspeciesOverrideRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
 		#THEN [lyssieth.speech(Mommy liked that very much... Not everyone's able to satisfy her, but you managed it. Good [pc.girl]...)]
 		#ELSE [lyssieth.speech(~Mmm!~ I liked that very much... Not everyone's able to satisfy me, but you managed it...)]
 		#ENDIF
@@ -639,7 +639,7 @@
 	<htmlContent tag="AFTER_SEX_NOT_SATISFIED"><![CDATA[
 	<p>
 		Lyssieth lets out a frustrated moan, and, disentangling herself from your clutches, steps away to get her clothes in order. Looking across at you and pouting, she tuts,
-		#IF pc.getRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
+		#IF pc.getSubspeciesOverrideRace()==RACE_DEMON && pc.hasFetish(FETISH_INCEST)
 		#THEN [lyssieth.speech(~Tsk!~ Mommy wasn't satisfied by that... Naughty [pc.girl]...)]
 		#ELSE [lyssieth.speech(~Tsk!~ I wasn't exactly satisfied by that, you know...)]
 		#ENDIF

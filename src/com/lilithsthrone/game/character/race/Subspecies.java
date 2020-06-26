@@ -3666,31 +3666,22 @@ public enum Subspecies {
 				break;
 		}
 		
-		Subspecies subOverride = body.getSubspeciesOverride();
-		
-		if(!ignoreOverride && subOverride!=null) {
-			if(subOverride==Subspecies.DEMON
-					|| subOverride==Subspecies.HALF_DEMON
-					|| subOverride==Subspecies.IMP
-					|| subOverride==Subspecies.IMP_ALPHA) {
-//				if(character!=null && character.isPlayer()) { // The player is a special case, as they are the only 'demon' that can take on any form.
-//					return Subspecies.DEMON;
+//		Subspecies subOverride = body.getSubspeciesOverride();
+//		
+//		if(!ignoreOverride && subOverride!=null) {
+//			if(subOverride==Subspecies.DEMON
+//					|| subOverride==Subspecies.HALF_DEMON
+//					|| subOverride==Subspecies.IMP
+//					|| subOverride==Subspecies.IMP_ALPHA) {
+//				if(body.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
+//					return Subspecies.IMP;
+//				} else if(body.getHeight()==Height.NEGATIVE_ONE_TINY) {
+//					return Subspecies.IMP_ALPHA;
 //				}
-//				if(body.getRaceStage()!=RaceStage.GREATER) {// || body.getRaceFromPartWeighting(true)!=Race.DEMON) {
-//					return Subspecies.HALF_DEMON;
-//				} else 
-				if(body.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
-					return Subspecies.IMP;
-				} else if(body.getHeight()==Height.NEGATIVE_ONE_TINY) {
-					return Subspecies.IMP_ALPHA;
-				}
-//				else {
-//					return Subspecies.DEMON;
-//				}
-			}
-			
-			return subOverride;
-		}
+//			}
+//			
+//			return subOverride;
+//		}
 		
 		switch(body.getLeg().getLegConfiguration()) {
 			case ARACHNID:
@@ -3704,18 +3695,20 @@ public enum Subspecies {
 			case TAIL_LONG:
 				break;
 			case TAUR:
-				if(body.getLeg().getType().getRace()==Race.HORSE_MORPH) {
-					if(body.getHorn().getType().equals(HornType.HORSE_STRAIGHT) && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
-						if(body.getWing().getType()!=WingType.NONE) {
-							return Subspecies.ALITAUR;
+				if(body.getSubspeciesOverride()==null) {
+					if(body.getLeg().getType().getRace()==Race.HORSE_MORPH) {
+						if(body.getHorn().getType().equals(HornType.HORSE_STRAIGHT) && body.getHorn().getHornRows()==1 && body.getHorn().getHornsPerRow()==1) {
+							if(body.getWing().getType()!=WingType.NONE) {
+								return Subspecies.ALITAUR;
+							}
+							return Subspecies.UNITAUR;
 						}
-						return Subspecies.UNITAUR;
-					}
-					if(body.getWing().getType()!=WingType.NONE) {
-						return Subspecies.PEGATAUR;
-					}
-					if(body.getTail().getType()!=TailType.HORSE_MORPH_ZEBRA) {
-						return Subspecies.CENTAUR;
+						if(body.getWing().getType()!=WingType.NONE) {
+							return Subspecies.PEGATAUR;
+						}
+						if(body.getTail().getType()!=TailType.HORSE_MORPH_ZEBRA) {
+							return Subspecies.CENTAUR;
+						}
 					}
 				}
 				break;
@@ -3780,7 +3773,7 @@ public enum Subspecies {
 				break;
 			case DEMON:
 				subspecies = Subspecies.DEMON;
-				if(body.getRaceStage()!=RaceStage.GREATER) {
+				if(body.getRaceWeightMap().size()>1) {
 					subspecies = Subspecies.HALF_DEMON;
 				} else if(body.getHeight()==Height.NEGATIVE_TWO_MIMIMUM) {
 					subspecies = Subspecies.IMP;

@@ -145,6 +145,9 @@ public class Amber extends NPC {
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, CoveringPattern.NONE, PresetColour.EYE_AMBER, true, PresetColour.EYE_AMBER, true));
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, CoveringPattern.NONE, PresetColour.COVERING_AMBER, true, PresetColour.COVERING_AMBER, true), true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
+		}
 	}
 
 	@Override
@@ -251,6 +254,7 @@ public class Amber extends NPC {
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(550);
 		this.fillCumToMaxStorage();
+		this.setTesticleCount(2);
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -583,7 +587,7 @@ public class Amber extends NPC {
 						+ " [amber.speech(That's all bitches like you are good for! Now get the fuck out of this house!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "Reaching down to grab "+(Main.game.getPlayer().getHairRawLengthValue()>4?"a fistful of your [pc.hair]":"you by the back of the neck")+", Amber mercilessly drags you to the front door."
+						+ "Reaching down to grab "+(Main.game.getPlayer().getHairRawLengthValue()>4?"a fistful of your [pc.hair(true)]":"you by the back of the neck")+", Amber mercilessly drags you to the front door."
 						+ " Yanking it open, she spits one last hateful remark your way, before literally kicking you out into the street and slamming the door behind you."
 					+ "</p>";
 		}

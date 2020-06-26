@@ -33,6 +33,7 @@ public class Testicle implements BodyPartInterface {
 	protected int testicleSize;
 	protected int cumStorage;
 	protected float cumStored;
+	/** Measured in mL/day */
 	protected int cumRegeneration;
 	protected int testicleCount;
 	protected int cumExpulsion;
@@ -379,7 +380,7 @@ public class Testicle implements BodyPartInterface {
 						+ "[npc.Name] [npc.verb(feel)] an alarming bubbling and churning taking place deep within [npc.her] [npc.balls],"
 							+ " and [npc.she] can't help but let out [npc.a_moan+] as a small squirt of precum suddenly drools out from [npc.her] [npc.cock];"
 								+ " clear evidence that that [npc.her] [npc.cum] regeneration has [style.boldGrow(increased)].<br/>"
-						+ "[npc.Her] rate of [npc.cum] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
+						+ "[npc.Her] rate of [npc.cum] regeneration is now [style.boldSex(" + regenerationDescriptor + " ("+Units.fluid(cumRegeneration)+"/day)!"
 					+ "</p>");
 			
 		} else {
@@ -387,7 +388,7 @@ public class Testicle implements BodyPartInterface {
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] strange sucking sensation taking place deep within [npc.her] [npc.balls],"
 							+ " and [npc.she] can't help but let out a shocked gasp as [npc.she] [npc.verb(realise)] that [npc.sheIs] feeling [npc.her] [npc.cum] regeneration [style.boldShrink(decreasing)].<br/>"
-						+ "[npc.Her] rate of [npc.cum] regeneration is now [style.boldSex(" + regenerationDescriptor + ")]!"
+						+ "[npc.Her] rate of [npc.cum] regeneration is now [style.boldSex(" + regenerationDescriptor + " ("+Units.fluid(cumRegeneration)+"/day)!"
 					+ "</p>");
 		}
 	}

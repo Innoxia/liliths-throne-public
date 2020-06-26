@@ -1090,7 +1090,7 @@ public class RatWarrensCaptiveDialogue {
 					return new Response("Pussy",
 							"Do as Murk commands and worship his cock, begging for him to fuck your pussy again..."
 							+ (Main.game.isAnalContentEnabled()
-									?"<br/>[style.italicsSex(Murk will put a jinxed butt-plug in your ass, preventing you from receiving anal from random rats in the future...)]"
+									?"<br/>[style.italicsSex(Murk will put a sealed butt-plug in your ass, preventing you from receiving anal from random rats in the future...)]"
 									:""),
 							FIRST_FUCK_AFTER_SEX_NEXT) {
 						@Override

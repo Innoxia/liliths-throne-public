@@ -992,9 +992,17 @@
 				#ENDIF
 			#ELSE
 				#IF(scarlett.hasPenis())
-					 [scarlett.speech(So, what did you want, [pc.name]? You know, I haven't had my cock sucked all day; how about you help me change that?)]
+					 [scarlett.speech(So, what did you want, [pc.name]?
+					#IF(scarlett.isAttractedTo(pc))
+						 You know, I haven't had my cock sucked all day; how about you help me change that?
+					#ENDIF
+					)]
 				#ELSE
-					 [scarlett.speech(So, what did you want, [pc.name]? You know, I haven't had my cunt licked today; how about you help me change that?)]
+					 [scarlett.speech(So, what did you want, [pc.name]?
+					#IF(scarlett.isAttractedTo(pc))
+						 You know, I haven't been eaten out yet today; how about you help me change that?
+					#ENDIF
+					)]
 				#ENDIF
 			#ENDIF
 		#ELSE
@@ -1007,9 +1015,17 @@
 				#ENDIF
 			#ELSE
 				#IF(scarlett.hasPenis())
-					 [scarlett.speech(What the fuck do you want now, [pc.name]? If you're not here to suck my cock, then you can fuck off.)]
+					 [scarlett.speech(What the fuck do you want now, [pc.name]?
+					#IF(scarlett.isAttractedTo(pc))
+						 If you're not here to suck my cock, then you can fuck off.
+					#ENDIF
+					)]
 				#ELSE
-					 [scarlett.speech(What the fuck do you want now, [pc.name]? If you're not here to lick my cunt, then you can fuck off.)]
+					 [scarlett.speech(What the fuck do you want now, [pc.name]?
+					#IF(scarlett.isAttractedTo(pc))
+						 If you're not here to lick my cunt, then you can fuck off.
+					#ENDIF
+					)]
 				#ENDIF
 			#ENDIF
 		#ENDIF
@@ -1357,9 +1373,9 @@
 	<p>
 		Soon enough, Scarlett's completely cleared her plate, and after leaning back in her chair a letting out a huge burp, she flashes you a cheeky grin and comments,
 		#IF(scarlett.hasPenis())
-			 [scarlett.speech(You know, [pc.name], since you convinced me to take that potion, my big cock's always desperate for attention. How about you take responsibility for getting me to transform myself and give me a quick handjob?)]
+			 [scarlett.speech(You know, [pc.name], ever since you convinced me to take that potion, my big cock's always desperate for attention. How about you take responsibility for getting me to transform myself and give me a quick handjob?)]
 		#ELSE
-			 [scarlett.speech(You know, [pc.name], since you convinced me to take that potion, my horny little cunt's always wet and hungry for attention. How about you take responsibility for getting me to transform myself and give me a quick fingering?)]
+			 [scarlett.speech(You know, [pc.name], ever since you convinced me to take that potion, my horny little cunt's always wet and hungry for attention. How about you take responsibility for getting me to transform myself and give me a quick fingering?)]
 		#ENDIF
 	</p>
 	<p>

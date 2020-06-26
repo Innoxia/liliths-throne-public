@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -259,6 +260,9 @@ public abstract class AbstractItemEffectType {
 						TFModifier.TF_MOD_TONGUE_RIBBED,
 						TFModifier.TF_MOD_TONGUE_TENTACLED,
 						TFModifier.TF_MOD_TONGUE_BIFURCATED,
+						TFModifier.TF_MOD_TONGUE_WIDE,
+						TFModifier.TF_MOD_TONGUE_FLAT,
+						TFModifier.TF_MOD_TONGUE_STRONG,
 						
 						Main.game.isFacialHairEnabled()
 							?TFModifier.TF_MOD_BODY_HAIR
@@ -689,6 +693,15 @@ public abstract class AbstractItemEffectType {
 						break;
 					case TF_MOD_TONGUE_BIFURCATED:
 						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "bifurcated tongue", "tongue bifurcation"));
+						break;
+					case TF_MOD_TONGUE_WIDE:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "wide tongue", "tongue widening"));
+						break;
+					case TF_MOD_TONGUE_FLAT:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "flat tongue", "tongue flattening"));
+						break;
+					case TF_MOD_TONGUE_STRONG:
+						descriptions.add(getClothingOrificeTFChangeDescriptionEntry(potency, "strong tongue", "tongue strengthening"));
 						break;
 					case TF_MOD_BODY_HAIR:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "beard length", BodyHair.getBodyHairFromValue(limit).getName()));
@@ -1411,6 +1424,39 @@ public abstract class AbstractItemEffectType {
 								}
 							}
 							break;
+						case TF_MOD_TONGUE_WIDE:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasTongueModifier(TongueModifier.WIDE)) {
+									sb.append(target.addTongueModifier(TongueModifier.WIDE));
+								}
+							} else {
+								if(target.hasTongueModifier(TongueModifier.WIDE)) {
+									sb.append(target.removeTongueModifier(TongueModifier.WIDE));
+								}
+							}
+							break;
+						case TF_MOD_TONGUE_FLAT:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasTongueModifier(TongueModifier.FLAT)) {
+									sb.append(target.addTongueModifier(TongueModifier.FLAT));
+								}
+							} else {
+								if(target.hasTongueModifier(TongueModifier.FLAT)) {
+									sb.append(target.removeTongueModifier(TongueModifier.FLAT));
+								}
+							}
+							break;
+						case TF_MOD_TONGUE_STRONG:
+							if(potency == TFPotency.MINOR_BOOST || potency == TFPotency.BOOST || potency == TFPotency.MAJOR_BOOST) {
+								if(!target.hasTongueModifier(TongueModifier.STRONG)) {
+									sb.append(target.addTongueModifier(TongueModifier.STRONG));
+								}
+							} else {
+								if(target.hasTongueModifier(TongueModifier.STRONG)) {
+									sb.append(target.removeTongueModifier(TongueModifier.STRONG));
+								}
+							}
+							break;
 						case TF_MOD_BODY_HAIR:
 							if(isWithinLimits(bodyHairIncrement, target.getFacialHair().getValue(), limit)) {
 								sb.append(target.incrementFacialHair(bodyHairIncrement));
@@ -1901,80 +1947,80 @@ public abstract class AbstractItemEffectType {
 	}
 	
 	protected static String genericAttributeEffect(ResourceRestoration restorationType, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-		switch(secondaryModifier) {
-			default:
-				switch(potency) {
-					case MAJOR_DRAIN:
-						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-							return applyRestoration(target, restorationType, -0.6f);
-						} else {
-							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
-										+ "<br/>"
-										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -15);
-							}
-						}
-						break;
-					case DRAIN:
-						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-							return applyRestoration(target, restorationType, -0.4f);
-						} else {
-							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
-										+ "<br/>"
-										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -10);
-							}
-						}
-						break;
-					case MINOR_DRAIN:
-						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-							return applyRestoration(target, restorationType, -0.2f);
-						} else {
-							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
-										+ "<br/>"
-										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -5);
-							}
-						}
-						break;
-					case MINOR_BOOST:
-						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-							return applyRestoration(target, restorationType, 0.2f);
-						} else {
-							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
-										+ "<br/>"
-										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 5);
-							}
-						}
-						break;
-					case BOOST:
-						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-							return applyRestoration(target, restorationType, 0.4f);
-						} else {
-							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
-										+ "<br/>"
-										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 10);
-							}
-						}
-						break;
-					case MAJOR_BOOST:
-						if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
-							return applyRestoration(target, restorationType, 0.6f);
-						} else {
-							if(primaryModifier.getAssociatedAttribute()!=null) {
-								return UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
-										+ "<br/>"
-										+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 15);
-							}
-						}
-						break;
-				}
-				break;
-		}
+		StringBuilder sb = new StringBuilder();
 		
-		return "";
+		sb.append("<p>");
+			switch(potency) {
+				case MAJOR_DRAIN:
+					if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
+						sb.append(applyRestoration(target, restorationType, -0.6f));
+					} else {
+						if(primaryModifier.getAssociatedAttribute()!=null) {
+							sb.append(UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
+									+ "<br/>"
+									+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -15));
+						}
+					}
+					break;
+				case DRAIN:
+					if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
+						sb.append(applyRestoration(target, restorationType, -0.4f));
+					} else {
+						if(primaryModifier.getAssociatedAttribute()!=null) {
+							sb.append(UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
+									+ "<br/>"
+									+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -10));
+						}
+					}
+					break;
+				case MINOR_DRAIN:
+					if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
+						sb.append(applyRestoration(target, restorationType, -0.2f));
+					} else {
+						if(primaryModifier.getAssociatedAttribute()!=null) {
+							sb.append(UtilText.parse(target, "A sickly wave of arcane energy washes over [npc.name]...")
+									+ "<br/>"
+									+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), -5));
+						}
+					}
+					break;
+				case MINOR_BOOST:
+					if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
+						sb.append(applyRestoration(target, restorationType, 0.2f));
+					} else {
+						if(primaryModifier.getAssociatedAttribute()!=null) {
+							sb.append(UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
+									+ "<br/>"
+									+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 5));
+						}
+					}
+					break;
+				case BOOST:
+					if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
+						sb.append(applyRestoration(target, restorationType, 0.4f));
+					} else {
+						if(primaryModifier.getAssociatedAttribute()!=null) {
+							sb.append(UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
+									+ "<br/>"
+									+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 10));
+						}
+					}
+					break;
+				case MAJOR_BOOST:
+					if(primaryModifier==null || primaryModifier==TFModifier.NONE) {
+						sb.append(applyRestoration(target, restorationType, 0.6f));
+					} else {
+						if(primaryModifier.getAssociatedAttribute()!=null) {
+							sb.append(UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]...")
+									+ "<br/>"
+									+ target.addPotionEffect(primaryModifier.getAssociatedAttribute(), 15));
+						}
+					}
+					break;
+			}
+		sb.append("</p>");
+		
+		return sb.toString();
 	}
 	
 	// Caching:
@@ -2153,6 +2199,9 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_RIBBED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_TENTACLED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_BIFURCATED, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_WIDE, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_FLAT, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_STRONG, Util.newArrayListOfValues(TFPotency.MINOR_DRAIN, TFPotency.MINOR_BOOST));
 				
 				if(Main.game.isFacialHairEnabled()) {
 					secondaryModPotencyMap.put(TFModifier.TF_MOD_BODY_HAIR, TFPotency.getAllPotencies());
@@ -3510,6 +3559,27 @@ public abstract class AbstractItemEffectType {
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds bifurcation to tongue.") { @Override public String applyEffect() { return target.addTongueModifier(TongueModifier.BIFURCATED); } };
 						}
+					case TF_MOD_TONGUE_WIDE:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Reverts tongue widening.") { @Override public String applyEffect() { return target.removeTongueModifier(TongueModifier.WIDE); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Widens tongue.") { @Override public String applyEffect() { return target.addTongueModifier(TongueModifier.WIDE); } };
+						}
+					case TF_MOD_TONGUE_FLAT:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Reverts tongue flattening.") { @Override public String applyEffect() { return target.removeTongueModifier(TongueModifier.FLAT); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Flattens tongue.") { @Override public String applyEffect() { return target.addTongueModifier(TongueModifier.FLAT); } };
+						}
+					case TF_MOD_TONGUE_STRONG:
+						switch(potency) {
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Removes extra strength from tongue.") { @Override public String applyEffect() { return target.removeTongueModifier(TongueModifier.STRONG); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Makes tongue extra strong.") { @Override public String applyEffect() { return target.addTongueModifier(TongueModifier.STRONG); } };
+						}
 						
 					case TF_MOD_BODY_HAIR:
 						switch(potency) {
@@ -4475,7 +4545,7 @@ public abstract class AbstractItemEffectType {
 								return new RacialEffectUtil("Huge increase in wing size. (+" + smallChangeMajorBoost + " wing size)") { @Override public String applyEffect() { return target.incrementWingSize(smallChangeMajorBoost); } };
 						}
 					default:
-						WingType wingType = RacialBody.valueOfRace(race).getRandomWingType(false);
+						AbstractWingType wingType = RacialBody.valueOfRace(race).getRandomWingType(false);
 						return new RacialEffectUtil(wingType==WingType.NONE?"Removes wings.":Util.capitaliseSentence(race.getName(false))+" wings transformation.") {
 							@Override public String applyEffect() { return target.setWingType(wingType); } };
 				}

@@ -52,7 +52,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public class Properties {
@@ -70,9 +70,26 @@ public class Properties {
 	public int level = 1;
 	public int money = 0;
 	public int arcaneEssences = 0;
-	public int humanEncountersLevel = 1;
-	public int taurFurryLevel = 1;
 	
+	public static final String[] taurFurryLevelName = new String[] {
+			"Untouched",
+			"Human",
+			"Minimum",
+			"Lesser",
+			"Greater",
+			"Maximum"};
+	public static final String[] taurFurryLevelDescription = new String[] {
+			"If an NPC is generated as a taur, their upper body's furriness will be based on your furry preferences for their race.",
+			"If an NPC is generated as a taur, their upper body will always be completely human.",
+			"If an NPC is generated as a taur, they will always have the upper-body of a partial morph (so eyes, ears, horns, and antenna will be non-human).",
+			"If an NPC is generated as a taur, they will always have the upper-body of a partial morph (so eyes, ears, horns, and antenna will be non-human). They also have the chance to spawn with furry breasts and arms.",
+			"If an NPC is generated as a taur, they will always have the upper-body of a partial morph (so eyes, ears, horns, and antenna will be non-human). They also have the chance to spawn with furry breasts, arms, skin/fur, and faces.",
+			"If an NPC is generated as a taur, they will always have the upper-body of a greater morph, spawning in with furry ears, eyes, horns, antenna, breasts, arms, skin/fur, and face."};
+	public int taurFurryLevel = 2;
+
+	public int humanSpawnRate = 5;
+	public int taurSpawnRate = 5;
+	public int halfDemonSpawnRate = 5;
 	
 	public int multiBreasts = 1;
 	public static String[] multiBreastsLabels = new String[] {"Off", "Furry-only", "On"};
@@ -89,7 +106,6 @@ public class Properties {
 			"Randomly-generated NPCs will only have udders or crotch-boobs if they have a non-bipedal body. (Default setting.)",
 			"Randomly-generated greater-anthro-morphs, as well as taurs, will have udders and crotch boobs."};
 	
-
 	public int autoSaveFrequency = 0;
 	public static String[] autoSaveLabels = new String[] {"Always", "Daily", "Weekly"};
 	public static String[] autoSaveDescriptions = new String[] {
@@ -273,7 +289,9 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "preferredArtist", preferredArtist);
 			
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
-			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
+			createXMLElementWithValue(doc, settings, "humanSpawnRate", String.valueOf(humanSpawnRate));
+			createXMLElementWithValue(doc, settings, "taurSpawnRate", String.valueOf(taurSpawnRate));
+			createXMLElementWithValue(doc, settings, "halfDemonSpawnRate", String.valueOf(halfDemonSpawnRate));
 			createXMLElementWithValue(doc, settings, "taurFurryLevel", String.valueOf(taurFurryLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "udders", String.valueOf(udders));
@@ -714,17 +732,42 @@ public class Properties {
 				if(element.getElementsByTagName("androgynousIdentification").item(0)!=null) {
 					androgynousIdentification = AndrogynousIdentification.valueOf(((Element)element.getElementsByTagName("androgynousIdentification").item(0)).getAttribute("value"));
 				}
-				
-				if(element.getElementsByTagName("humanEncountersLevel").item(0)!=null) {
-					humanEncountersLevel = Integer.valueOf(((Element)element.getElementsByTagName("humanEncountersLevel").item(0)).getAttribute("value"));
-				} else {
-					humanEncountersLevel = 1;
+
+				if(!Main.isVersionOlderThan(versionNumber, "0.3.8.3")) { // Reset taur furry preference after v0.3.8.2
+					if(element.getElementsByTagName("taurFurryLevel").item(0)!=null) {
+						taurFurryLevel = Integer.valueOf(((Element)element.getElementsByTagName("taurFurryLevel").item(0)).getAttribute("value"));
+					} else {
+						taurFurryLevel = 2;
+					}
 				}
 				
-				if(element.getElementsByTagName("taurFurryLevel").item(0)!=null) {
-					taurFurryLevel = Integer.valueOf(((Element)element.getElementsByTagName("taurFurryLevel").item(0)).getAttribute("value"));
+				if(element.getElementsByTagName("humanEncountersLevel").item(0)!=null) { // Old version support:
+					humanSpawnRate = Integer.valueOf(((Element)element.getElementsByTagName("humanEncountersLevel").item(0)).getAttribute("value"));
+					if(humanSpawnRate==1) {
+						humanSpawnRate = 5;
+					} else if(humanSpawnRate==2) {
+						humanSpawnRate = 25;
+					} else if(humanSpawnRate==3) {
+						humanSpawnRate = 50;
+					} else if(humanSpawnRate==4) {
+						humanSpawnRate = 75;
+					}
+				} else if(element.getElementsByTagName("humanSpawnRate").item(0)!=null) {
+					humanSpawnRate = Integer.valueOf(((Element)element.getElementsByTagName("humanSpawnRate").item(0)).getAttribute("value"));
 				} else {
-					taurFurryLevel = 1;
+					humanSpawnRate = 5;
+				}
+				
+				if(element.getElementsByTagName("taurSpawnRate").item(0)!=null) {
+					taurSpawnRate = Integer.valueOf(((Element)element.getElementsByTagName("taurSpawnRate").item(0)).getAttribute("value"));
+				} else {
+					taurSpawnRate = 5;
+				}
+				
+				if(element.getElementsByTagName("halfDemonSpawnRate").item(0)!=null) {
+					halfDemonSpawnRate = Integer.valueOf(((Element)element.getElementsByTagName("halfDemonSpawnRate").item(0)).getAttribute("value"));
+				} else {
+					halfDemonSpawnRate = 5;
 				}
 				
 				if(element.getElementsByTagName("multiBreasts").item(0)!=null) {

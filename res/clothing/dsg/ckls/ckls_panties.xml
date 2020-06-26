@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	
+	
+	<coreAttributes>
+		<clothingAuthorTag><![CDATA[Printed on the inside, a small tag reads 'MFD by DSG Costume Supply Co, Ltd'.]]></clothingAuthorTag>
+	<value>250</value> 
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[kitty panties]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[kitty panties]]></namePlural> 
+		<description><![CDATA[A pair of tie-up, very low riding panties with a pair of stylized cat ears attached to the front.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity> 
+		<slot>GROIN</slot> 
+		<rarity>EPIC</rarity> 
+		<clothingSet>innoxia_kitty</clothingSet>
+		<imageName>ckls_panties.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		
+		<effects>
+              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+		</effects>
+		
+		<blockedPartsList> 	
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>LEGS_UP_TO_GROIN_LOW_LEVEL</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/> 
+				<clothingAccessBlocked/> <concealedSlots/> 
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>SHIFTS_ASIDE</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots>
+					<slot>VAGINA</slot>
+					<slot>ANUS</slot>
+					<slot>PENIS</slot>
+					<slot>PIERCING_PENIS</slot>
+					<slot>PIERCING_VAGINA</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		<incompatibleSlots/> 
+		<primaryColours values="BLACK_OR_WHITE"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="BLACK_OR_WHITE"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_GOLD</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		 <itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(untie)] [npc.her] panties and [npc.verb(let)] them fall from [npc.her] waist.]]>
+    </self>
+    <other>
+	  <![CDATA[[npc.Name] [npc.verb(untie)] [npc2.namePos] panties and [npc.verb(let)] them fall from [npc2.her] waist.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(rip)] off [npc2.namePos] panties.]]>
+    </otherRough>
+  </replacementText>
+  
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the panties up to [npc.her] groin and [npc.verb(tie)] it up on either side of [npc.her] waist.]]>
+    </self>
+    <other>
+	  <![CDATA[[npc.Name] [npc.verb(pull)] the panties up to [npc2.namePos] groin and [npc.verb(tie)] it up on either side of [npc2.her] waist.]]>
+    </other>
+    <otherRough>
+	  <![CDATA[[npc.Name] [npc.verb(pull)] the panties up to [npc2.namePos] groin so hard it practically gives [npc2.her] a wedgie and [npc.verb(tie)] it up on either side of [npc2.namePos] waist as tightly as possible.]]>
+    </otherRough>
+  </displacementText>
+	
+  <replacementText type="SHIFTS_ASIDE">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(shift)] [npc.her] panties back into place, covering [npc.her] groin.]]>
+    </self>
+    <other>
+	  <![CDATA[[npc.Name] [npc.verb(shift)] [npc2.namePos] panties back into place, covering [npc2.her] groin.]]>
+    </other>
+    <otherRough>
+	  <![CDATA[[npc.Name] [npc.verb(snap)] [npc2.namePos] panties back into place, covering [npc2.her] groin.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="SHIFTS_ASIDE">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(shift)] [npc.her] panties aside, exposing [npc.her] groin.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(shift)] [npc2.namePos] panties aside, exposing [npc2.her] groin.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(yank)] [npc2.namePos] panties aside, exposing [npc2.her] groin.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Cattle]]></name>
+	
+	<statusEffect>SET_CATTLE</statusEffect>
+	
+	<numberRequiredForCompleteSet>3</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>PIERCING_EAR</slot>
+		<slot>PIERCING_NOSE</slot>
+		<slot>NECK</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

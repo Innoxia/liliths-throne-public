@@ -1358,7 +1358,7 @@ public class ImpFortressDialogue {
 		public String getResponseTabTitle(int index) {
 			if(!getImpGuards().isEmpty()) {
 				if(index==0) {
-					return "Standard";
+					return "Interactions";
 					
 				} else if(index==1) {
 					return "Inventories";
@@ -3102,7 +3102,7 @@ public class ImpFortressDialogue {
 		@Override
 		public String getResponseTabTitle(int index) {
 			if(index==0) {
-				return "Standard";
+				return "Interactions";
 				
 			} else if(index==1) {
 				return "Inventories";

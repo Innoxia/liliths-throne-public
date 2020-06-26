@@ -1624,7 +1624,7 @@ public interface SexActionInterface {
 				case BREAST:
 					break;
 				case NIPPLE_CROTCH:
-					if(!performingCharacter.hasBreastsCrotch() || (this.getActionType()==SexActionType.START_ONGOING && !performingCharacter.isBreastCrotchFuckableNipplePenetration())) {
+					if(!performingCharacter.hasBreastsCrotch() || (interactingWithArea!=SexAreaPenetration.TONGUE && this.getActionType()==SexActionType.START_ONGOING && !performingCharacter.isBreastCrotchFuckableNipplePenetration())) {
 						return false;
 					}
 					break;

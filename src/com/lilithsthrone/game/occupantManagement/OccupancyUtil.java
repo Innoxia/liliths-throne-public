@@ -331,7 +331,7 @@ public class OccupancyUtil implements XMLSaving {
 			SlaveryEventLogEntry entry = null;
 			// Interaction events:
 			if(slavesAtJob.get(currentJob).size()>1 || currentJob==SlaveJob.IDLE) {
-				if(Math.random()<0.25f) {
+				if(Math.random()<0.25f && !Main.game.getCharactersPresent().contains(slave)) { // Do not generate sex events if the player is present.
 					entry = generateNPCInteractionEvent(day, hour, slave, slavesAtJob.get(currentJob));
 					if(entry!=null) {
 						Main.game.addSlaveryEvent(day, entry);

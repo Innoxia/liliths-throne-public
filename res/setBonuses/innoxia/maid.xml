@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Hard-working Maid]]></name>
+	
+	<statusEffect>SET_MAID</statusEffect>
+	
+	<numberRequiredForCompleteSet>5</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>HEAD</slot>
+		<slot>TORSO_UNDER</slot>
+		<slot>SOCK</slot>
+		<slot>FOOT</slot>
+		<slot>HAND</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

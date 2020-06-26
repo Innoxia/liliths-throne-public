@@ -163,10 +163,10 @@ public class Lab {
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 				if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-					generatedResponses.add(new Response("Essences & Jinxes", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null));
+					generatedResponses.add(new Response("Essences & Enchantments", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null));
 					
 				} else {
-					generatedResponses.add(new Response("Essences & Jinxes", "Ask Lilaya about that strange energy you absorbed.", LILAYA_EXPLAINS_ESSENCES){
+					generatedResponses.add(new Response("Essences & Enchantments", "Ask Lilaya about that strange energy you absorbed.", LILAYA_EXPLAINS_ESSENCES){
 						@Override
 						public void effects() {
 							setEntryFlags();
@@ -333,9 +333,9 @@ public class Lab {
 		if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)
 				&& Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSelfTransformationInhibiting())
 				&& Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSealed())) {
-			generatedResponses.add(new Response("Jinxed problem",
-					"Tell Lilaya that you have some jinxed clothing sealed onto you, and that due to an enchantment on some of your clothing, you cannot remove it."
-							+ "<br/>[style.italicsMinorGood(Lilaya will remove all jinxes on all your clothing!)]",
+			generatedResponses.add(new Response("Sealed problem",
+					"Tell Lilaya that you have some enchanted clothing sealed onto you, and that due to another enchantment on some of your clothing, you cannot remove it."
+							+ "<br/>[style.italicsMinorGood(Lilaya will unseal all your clothing!)]",
 						LAB_JINX_REMOVAL){
 				@Override
 				public void effects() {
@@ -932,7 +932,7 @@ public class Lab {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Enchantments & Jinxes", "Let Lilaya show you how to use your stored essences in order to enchant items or remove jinxes.", LILAYA_EXPLAINS_ESSENCES_3);
+				return new Response("Listen", "Listen as Lilaya shows you how to use your stored essences in order to enchant items.", LILAYA_EXPLAINS_ESSENCES_3);
 
 			} else {
 				return null;
