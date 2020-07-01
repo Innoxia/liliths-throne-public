@@ -56,7 +56,7 @@
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java
 			- Example: These socks have no set. If you want to define one, just use the name of the set like: <clothingSet>BUTLER</clothingSet> -->
-		<clothingSet/> 
+		<clothingSet>innoxia_template</clothingSet>
 		
 		<!-- The file paths for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images. .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).
 			- Example: I've defined this as "sock.svg", which should be placed in the same folder location alongside this xml file. -->

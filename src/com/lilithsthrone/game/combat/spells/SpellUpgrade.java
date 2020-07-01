@@ -219,7 +219,7 @@ public enum SpellUpgrade {
 	SOOTHING_WATERS_3(10,
 			SpellSchool.WATER,
 			"soothing_waters_bouncing_orb",
-			"Bouncing Orb",
+			"Bouncing Orbs",
 			"Once cast, Soothing Waters now splits into several orbs, each one seeking out an ally to heal.",
 			null, Util.newArrayListOfValues(
 					"Soothing Waters heals [style.boldExcellent(all allies)] for <b>10%</b> "+Attribute.HEALTH_MAXIMUM.getColouredName("b")+" and <b>10%</b> "+Attribute.MANA_MAXIMUM.getColouredName("b"))),

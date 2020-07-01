@@ -6,13 +6,14 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.5
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public enum VaginaType implements BodyPartTypeInterface {
@@ -25,11 +26,11 @@ public enum VaginaType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DEMON, Race.DEMON, false, OrificeModifier.MUSCLE_CONTROL),
 
-	DOG_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DOG_MORPH, Race.DOG_MORPH, false),
+	DOG_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DOG_MORPH, Race.DOG_MORPH, false, OrificeModifier.PUFFY),
 
-	WOLF_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_WOLF_MORPH, Race.WOLF_MORPH, false),
+	WOLF_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_WOLF_MORPH, Race.WOLF_MORPH, false, OrificeModifier.PUFFY),
 	
-	FOX_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_FOX_MORPH, Race.FOX_MORPH, false),
+	FOX_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_FOX_MORPH, Race.FOX_MORPH, false, OrificeModifier.PUFFY),
 
 	SQUIRREL_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH, false),
 
@@ -52,12 +53,12 @@ public enum VaginaType implements BodyPartTypeInterface {
 	HARPY(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HARPY, Race.HARPY, true);
 
 	private BodyCoveringType skinType;
-	private FluidType fluidType;
+	private AbstractFluidType fluidType;
 	private Race race;
 	private List<OrificeModifier> defaultRacialOrificeModifiers;
 	private boolean eggLayer;
 
-	private VaginaType(BodyCoveringType skinType, FluidType fluidType, Race race, boolean eggLayer, OrificeModifier... defaultRacialOrificeModifiers) {
+	private VaginaType(BodyCoveringType skinType, AbstractFluidType fluidType, Race race, boolean eggLayer, OrificeModifier... defaultRacialOrificeModifiers) {
 		this.skinType = skinType;
 		this.fluidType = fluidType;
 		this.race = race;
@@ -252,7 +253,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 		return race;
 	}
 
-	public FluidType getFluidType() {
+	public AbstractFluidType getFluidType() {
 		return fluidType;
 	}
 

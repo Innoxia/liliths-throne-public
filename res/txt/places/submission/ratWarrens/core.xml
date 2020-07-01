@@ -454,15 +454,13 @@
 	</htmlContent>
 	
 	<htmlContent tag="GUARD_COMBAT_VICTORY"><![CDATA[
-	#IF(pc.hasCompanions())
-		<p>
-			You and [npc.name] watch as the last of the rats staggers back, before collapsing to the floor alongside the other five. First making sure that there are no other combatants ready to spring a trap, you and your [npc.companion] lower your guard and step forwards towards your vanquished foes.
-		</p>
-	#ELSE
-		<p>
-			You watch as the last of the rats staggers back, before collapsing to the floor alongside the other five. First making sure that there are no other combatants ready to spring a trap, you lower your guard and step forwards towards your vanquished foes.
-		</p>
-	#ENDIF
+	<p>
+		#IF(pc.hasCompanions())
+			You and [npc.name] watch as the last of the rats staggers back, before collapsing to the floor alongside the others. Having taken their opportunity to escape during the chaos, you realise that two of the defeated rats have disappeared, leaving just four down on the floor in front of you. First making sure that there are no other combatants ready to spring a trap, you and your [npc.companion] lower your guard and step forwards towards your vanquished foes.
+		#ELSE
+			You watch as the last of the rats staggers back, before collapsing to the floor alongside the others. Having taken their opportunity to escape during the chaos, you realise that two of the defeated rats have disappeared, leaving just four down on the floor in front of you. First making sure that there are no other combatants ready to spring a trap, you lower your guard and step forwards towards your vanquished foes.
+		#ENDIF
+	</p>
 	<p>
 		[npc2.speech(Eugh...)] [npc2.name] groans, before raising [npc2.her] [npc2.ass] and whining, [npc2.speech(What ya waitin' for? Come an' fuck us already!)]
 	</p>
@@ -969,7 +967,7 @@
 				[npc2.speech(If ya write off me debt, then sure,)] [npc2.name] responds, [npc2.speech(or else I'll go throw 'em out into Submission an' ya can miss out on gettin' this pair o' new toys.)]
 			</p>
 			<p>
-				Spitting on the ground, Murk sneers once again, [murk.speechNoEffects(Let's get 'em stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
+				Spitting on the ground, Murk sneers once again, [murk.speechNoEffects(Let's get 'em stripped an' I'll consider it. Y'know I's trained ta remove any sealed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
 			</p>
 		#ELSE
 			<p>
@@ -991,7 +989,7 @@
 				[npc2.speech(If ya write off me debt, then sure,)] [npc2.name] responds, [npc2.speech(or else I'll go throw 'em out into Submission an' ya can miss out on gettin' this pair o' new toys.)]
 			</p>
 			<p>
-				Spitting on the ground, Murk sneers once again, [murk.speechNoEffects(Let's get 'em stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
+				Spitting on the ground, Murk sneers once again, [murk.speechNoEffects(Let's get 'em stripped an' I'll consider it. Y'know I's trained ta remove any sealed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
 			</p>
 		#ENDIF
 	#ELSE
@@ -1012,7 +1010,7 @@
 				[npc.speech(If ya write off me debt, then sure,)] [npc.name] responds, [npc.speech(or else I'll go throw [pc.herHim] out into Submission an' ya can miss out on gettin' yerself a new toy.)]
 			</p>
 			<p>
-				Spitting on the ground, Murk sneers once again, [murk.speechNoEffects(Let's get [pc.herHim] stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
+				Spitting on the ground, Murk sneers once again, [murk.speechNoEffects(Let's get [pc.herHim] stripped an' I'll consider it. Y'know I's trained ta remove any sealed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
 			</p>
 		#ELSE
 			<p>
@@ -1034,7 +1032,7 @@
 				[npc2.speech(If ya write off me debt, then sure,)] [npc2.name] responds, [npc2.speech(or else I'll go throw [pc.herHim] out into Submission an' ya can miss out on gettin' yerself a new toy.)]
 			</p>
 			<p>
-				Spitting on the ground, Murk sneers once again, [murk.speechNoEffects(Let's get [pc.herHim] stripped an' I'll consider it. Y'know I's trained ta remove any jinxed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
+				Spitting on the ground, Murk sneers once again, [murk.speechNoEffects(Let's get [pc.herHim] stripped an' I'll consider it. Y'know I's trained ta remove any sealed clothin', but you're gonna owe me fer the cost o' any essences I 'ave ta spend!)]
 			</p>
 		#ENDIF
 	#ENDIF
@@ -1056,7 +1054,7 @@
 			Chuckling to himself, Murk walks off to the other crates stacked up against the far side of the room, before opening the nearest one and starting to rummage about inside of it. After a moment of being forced to wait down on your knees beside the four rats, you watch as Murk pulls something out of the crate, and as he starts walking back over towards you and [npc.name], you're able to see that he's holding a matching pair of heavy metal collars, each of which is coloured in a very feminine shade of light pink.
 		</p>
 		<p>
-			Dealing with your [npc.companion] first, the chubby rat-boy locks one of these collars in place around [npc.namePos] neck, before stepping over to you and doing the same. As the jinxed item of clothing locks into place, you feel the effects of the collar's powerful enchantment seeping into your mind and making you unable to bring yourself to either attempt to unjinx it, or use any self-transformative powers you might possess in order to slip out of it.
+			Dealing with your [npc.companion] first, the chubby rat-boy locks one of these collars in place around [npc.namePos] neck, before stepping over to you and doing the same. As the sealed item of clothing locks into place, you feel the effects of the collar's powerful enchantment seeping into your mind and making you unable to bring yourself to either attempt to unseal it, or use any self-transformative powers you might possess in order to slip out of it.
 		</p>
 		<p>
 			[murk.speechNoEffects(Hmm, yeah, these two are gonna do nicely,)] Murk muses to himself, before addressing [npc2.name] and continuing, [murk.speechNoEffects(I'll write off yer debts if ya let me keep the two o' 'em. I'm doin' ya a favour 'ere; I'm sure I don't need ta remind ya 'ow much ya owe me!)]
@@ -1084,7 +1082,7 @@
 			Chuckling to himself, Murk walks off to the other crates stacked up against the far side of the room, before opening the nearest one and starting to rummage about inside of it. After a moment of being forced to wait down on your knees beside [npc.name], you watch as Murk pulls something out of the crate, and as he starts walking back over towards you, you're able to see that he's holding a heavy metal collar, which is coloured in a very feminine shade of light pink.
 		</p>
 		<p>
-			Stepping up to you, the chubby rat-boy reaches down and roughly locks the heavy collar into place around your neck. The very moment that it seals shut, you feel the effects of the collar's powerful enchantment seeping into your mind and making you unable to bring yourself to either attempt to unjinx it, or use any self-transformative powers you might possess in order to slip out of it.
+			Stepping up to you, the chubby rat-boy reaches down and roughly locks the heavy collar into place around your neck. The very moment that it seals shut, you feel the effects of the collar's powerful enchantment seeping into your mind and making you unable to bring yourself to either attempt to unseal it, or use any self-transformative powers you might possess in order to slip out of it.
 		</p>
 		<p>
 			[murk.speechNoEffects(Hmm, yeah, this 'un's gonna do nicely,)] Murk muses to himself, before addressing [npc.name] and continuing, [murk.speechNoEffects(I'll write off yer debts if ya let me keep [pc.herHim]. I'm doin' ya a favour 'ere; I'm sure I don't need ta remind ya 'ow much ya owe me!)]

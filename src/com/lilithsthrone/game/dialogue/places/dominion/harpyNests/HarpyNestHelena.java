@@ -170,8 +170,13 @@ public class HarpyNestHelena {
 		Main.game.getNpc(Scarlett.class).equipClothing();
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.scarlettGoneHome, true);
 		if(Main.game.getNpc(Scarlett.class).hasVagina()) {
-			Main.game.getNpc(Scarlett.class).calculateGenericSexEffects(
-					true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+			if(((Scarlett)Main.game.getNpc(Scarlett.class)).isLikesPlayer() || Math.random()<0.8f) { // If Scarlett likes the player, she won't let anyone else get her pregnant. Also 80% chance for her to force her followers to pull out or use a condom.
+				Main.game.getNpc(Scarlett.class).calculateGenericSexEffects(
+						true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_CREAMPIE);
+			} else {
+				Main.game.getNpc(Scarlett.class).calculateGenericSexEffects(
+						true, true, null, Subspecies.HARPY, Subspecies.HARPY, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+			}
 		}
 	}
 	

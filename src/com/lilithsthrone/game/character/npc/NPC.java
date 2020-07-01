@@ -857,7 +857,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				// Stuns:
 				case FLASH:
 				case WITCH_SEAL:
-					if(Combat.isOpponent(this, target) && !target.isStunned()) {
+					if(Combat.isOpponent(this, target) && target.getAttributeValue(Attribute.ACTION_POINTS)>=3) {
 						weightedSpellMap.put(spell, 1);
 					}
 					break;
@@ -1893,13 +1893,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(target.getHairRawLengthValue() < body.getHair().getRawLengthValue()) {
 			possibleEffects.add(new PossibleItemEffect(
 				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-				"Your [pc.hair] "+(target.getHairType().isDefaultPlural()?"are":"is")+" too short!"));
+				"Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural()?"are":"is")+" too short!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 			
 		} else if(target.getHairRawLengthValue() > body.getHair().getRawLengthValue()) {
 			possibleEffects.add(new PossibleItemEffect(
 				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
-				"Your [pc.hair] "+(target.getHairType().isDefaultPlural()?"are":"is")+" too long!"));
+				"Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural()?"are":"is")+" too long!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 		}
 
@@ -2828,6 +2828,26 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public void endSex() {
 	}
+
+	public Value<AbstractClothing, String> getSexClothingToSelfEquip(GameCharacter partner, boolean inQuickSex) {
+		if(Main.game.isInSex()) {
+			if(this.hasPenisIgnoreDildo()
+					&& this.getClothingInSlot(InventorySlot.PENIS)==null
+					&& (this.getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative() || (partner.hasVagina() && !this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive()))) {
+				AbstractClothing condom = null;
+				for(AbstractClothing clothing : this.getAllClothingInInventory().keySet()) {
+					if(clothing.isCondom()) {
+						condom = clothing;
+						break;
+					}
+				}
+				if(condom!=null && this.isAbleToEquip(condom, inQuickSex, this)) {
+					return new Value<>(condom, UtilText.parse(this, "[npc.Name] grabs a "+condom.getName()+" from out of [npc.her] inventory..."));
+				}
+			}
+		}
+		return null;
+	}
 	
 	public Value<AbstractItem, String> getSexItemToUse(GameCharacter partner) {
 		if(Main.game.isInSex()) {
@@ -3019,18 +3039,20 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return null;
 	}
 	
-	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
-		boolean isConvincing = Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS);
-		
-		if(Main.game.isInSex() && !isConvincing) {
-			if(Main.sex.getSexControl(Main.game.getPlayer()).getValue()<=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue() && Main.sex.getSexPace(this)==SexPace.DOM_ROUGH) {
-				return true;
-			}
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
+		if(requestingCharacter.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
+			return false;
 		}
 		
-		int weight = calculateSexTypeWeighting(sexTypeRequest, Main.game.getPlayer(), null);
+		if(Main.game.isInSex()
+				&& Main.sex.getSexControl(requestingCharacter).getValue()<=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()
+				&& Main.sex.getSexPace(this)==SexPace.DOM_ROUGH) {
+			return true;
+		}
 		
-		return weight<0 || (!isConvincing && this.hasFetish(Fetish.FETISH_SADIST));
+		int weight = calculateSexTypeWeighting(sexTypeRequest, requestingCharacter, null);
+		
+		return weight<0 || this.hasFetish(Fetish.FETISH_SADIST);
 	}
 	
 
@@ -3077,7 +3099,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 				}
 				
-				if (getHistory() == Occupation.NPC_PROSTITUTE) {
+				if(getHistory() == Occupation.NPC_PROSTITUTE) {
 					if(Main.sex.isConsensual()) {
 						return SexPace.SUB_NORMAL;
 					}
@@ -3306,7 +3328,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before taking a deep gasp as [npc2.she] [npc2.verb(start)] to feel the liquid's effects taking root deep in [npc2.her] body..."
 							+ "</p>"));
 					
-				} else if(target.getRace()==Race.DEMON) {
+				} else if(target.getSubspeciesOverrideRace()==Race.DEMON) {
 					sb.append(UtilText.parse(user, target,
 						"<p>"
 							+ "Taking [npc.her] "+item.getName()+" from out of [npc.her] inventory, [npc.name] [npc.verb(hold)] it out to [npc2.name]."
@@ -3388,7 +3410,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						+ "</p>"));
 					
 				} else {
-					if(target.getRace()==Race.DEMON) {
+					if(target.getSubspeciesOverrideRace()==Race.DEMON) {
 						sb.append(UtilText.parse(user, target, 
 								" Seeing what it is that [npc.nameIs] offering [npc2.herHim], [npc2.she] [npc2.verb(let)] out a mocking laugh, "
 								+ " [npc2.speech(Hah! Don't you know demons can't be transfo- ~Mrph!~)]"

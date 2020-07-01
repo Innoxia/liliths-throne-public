@@ -25,7 +25,7 @@ public enum QuestLine {
 //			QuestType.SIDE,
 //			Quest.SIDE_DISCOVER_ALL_RACES),
 
-	SIDE_ENCHANTMENT_DISCOVERY("Enchantments, Essences, and Jinxes", "You now know how to create enchanted items and remove jinxes!",
+	SIDE_ENCHANTMENT_DISCOVERY("Essences and Enchantments", "You now know how to use essences in order to create and modify enchanted items!",
 			QuestType.SIDE,
 			QuestTree.enchantmentTree),
 

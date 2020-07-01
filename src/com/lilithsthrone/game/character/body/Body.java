@@ -680,7 +680,7 @@ public class Body implements XMLSaving {
 		// Hair:
 		Element bodyHair = doc.createElement("hair");
 		parentElement.appendChild(bodyHair);
-			CharacterUtils.addAttribute(doc, bodyHair, "type", this.hair.type.toString());
+			CharacterUtils.addAttribute(doc, bodyHair, "type", HairType.getIdFromHairType(this.hair.type));
 			CharacterUtils.addAttribute(doc, bodyHair, "length", String.valueOf(this.hair.length));
 			CharacterUtils.addAttribute(doc, bodyHair, "hairStyle", this.hair.style.toString());
 		
@@ -802,7 +802,7 @@ public class Body implements XMLSaving {
 		// Wing:
 		Element bodyWing = doc.createElement("wing");
 		parentElement.appendChild(bodyWing);
-		CharacterUtils.addAttribute(doc, bodyWing, "type", this.wing.type.toString());
+		CharacterUtils.addAttribute(doc, bodyWing, "type", WingType.getIdFromWingType(this.wing.type));
 		CharacterUtils.addAttribute(doc, bodyWing, "size", String.valueOf(this.wing.size));
 
 //		System.out.println("Difference1: "+(System.nanoTime()-timeStart)/1000000000f);
@@ -1192,7 +1192,7 @@ public class Body implements XMLSaving {
 			hairTypeFromSave = hairTypeConverterMap.get(hairTypeFromSave);
 		}
 		
-		Hair importedHair = new Hair(HairType.getTypeFromString(hairTypeFromSave), Integer.valueOf(hair.getAttribute("length")), HairStyle.valueOf(hair.getAttribute("hairStyle")));
+		Hair importedHair = new Hair(HairType.getHairTypeFromId(hairTypeFromSave), Integer.valueOf(hair.getAttribute("length")), HairStyle.valueOf(hair.getAttribute("hairStyle")));
 		
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Hair: "
 				+ "<br/>type: "+importedHair.getType()
@@ -1560,7 +1560,7 @@ public class Body implements XMLSaving {
 		if(!wing.getAttribute("size").isEmpty()) {
 			wingSize = Integer.valueOf(wing.getAttribute("size"));
 		}
-		Wing importedWing = new Wing(WingType.getTypeFromString(wing.getAttribute("type")), wingSize);
+		Wing importedWing = new Wing(WingType.getWingTypeFromId(wing.getAttribute("type")), wingSize);
 		CharacterUtils.appendToImportLog(log, "<br/><br/>Body: Wing: "
 				+ "<br/>type: "+importedWing.getType()+"<br/>"
 				+ "<br/>size: "+importedWing.getSizeValue()+"<br/>");
@@ -1828,10 +1828,7 @@ public class Body implements XMLSaving {
 					body.addBodyCoveringTypesDiscovered(BodyCoveringType.getTypeFromString(type));
 				}
 				
-				CharacterUtils.appendToImportLog(log, "<br/>Body: Set bodyCovering: "+e.getAttribute("type") +" pattern:"+CoveringPattern.valueOf(e.getAttribute("pattern"))
-					+" "+PresetColour.getColourFromId(e.getAttribute("colourPrimary")).getId() +" glow:"+Boolean.valueOf(e.getAttribute("glowPrimary"))
-					+" | "+PresetColour.getColourFromId(e.getAttribute("colourSecondary")).getId() +" glow:"+Boolean.valueOf(e.getAttribute("glowSecondary"))
-					+" (discovered: "+e.getAttribute("discovered")+")");
+				CharacterUtils.appendToImportLog(log, "<br/>Body: Set bodyCovering: "+colourPrimary+", "+colourSecondary);
 			} catch(Exception ex) {
 			}
 		}
@@ -2005,18 +2002,13 @@ public class Body implements XMLSaving {
 //						+Covering.getFormattedColour(faceCovering.getSecondaryColour(), "", faceCovering.isSecondaryGlowing(), false)
 //						+" freckles on [npc.her] cheeks.");
 //		}
-		
-		// Lynx side fluff
-		if(hair.getType() == HairType.CAT_MORPH_SIDEFLUFF) {
-			sb.append(" On the sides of [npc.her] face [npc.sheHasFull] some soft, fuzzy fur.");
-		}
 
 		if(owner.getBlusher().getPrimaryColour()!=PresetColour.COVERING_NONE) {
 			sb.append(" [npc.SheIsFull] wearing "+owner.getBlusher().getColourDescriptor(owner, true, false)+" blusher.");
 		}
 		
 		// Hair:
-		
+
 		if (hair.getRawLengthValue() == 0) {
 			if (face.isBaldnessNatural()) {
 				sb.append(" [npc.Her] head is covered in [npc.faceFullDescription(true)].");
@@ -2025,62 +2017,8 @@ public class Body implements XMLSaving {
 			}
 			
 		} else {
-			sb.append(" [npc.SheHasFull] [npc.hairLength], [npc.hairColour(true)]");
+			sb.append(" "+hair.getType().getBodyDescription(owner));
 			
-			switch (hair.getType()) {
-				case HUMAN:
-					sb.append("");
-					break;
-				case DEMON_COMMON:
-					sb.append(", silken");
-					break;
-				case ANGEL:
-					sb.append(", silken");
-					break;
-				case DOG_MORPH:
-					sb.append(", fur-like");
-					break;
-				case FOX_MORPH:
-					sb.append(", fur-like");
-					break;
-				case LYCAN:
-					sb.append(", fur-like");
-					break;
-				case CAT_MORPH:
-					sb.append(", fur-like");
-					break;
-				case CAT_MORPH_SIDEFLUFF:
-					sb.append(", fur-like");
-					break;
-				case COW_MORPH:
-					sb.append(", fur-like");
-					break;
-				case ALLIGATOR_MORPH:
-					sb.append(", coarse");
-					break;
-				case SQUIRREL_MORPH:
-					sb.append(", fur-like");
-					break;
-				case RAT_MORPH:
-					sb.append(", fur-like");
-					break;
-				case RABBIT_MORPH:
-					sb.append(", fur-like");
-					break;
-				case BAT_MORPH:
-					sb.append(", fur-like");
-					break;
-				case HORSE_MORPH:
-					sb.append(", horse-like");
-					break;
-				case REINDEER_MORPH:
-					sb.append(", reindeer-like");
-					break;
-				case HARPY:
-					sb.append(", beautiful");
-					break;
-			}
-			sb.append(" [npc.hair]");
 			switch (hair.getStyle()) {
 				case NONE:
 					if(owner.getFaceType()==FaceType.HORSE_MORPH) {
@@ -2763,26 +2701,8 @@ public class Body implements XMLSaving {
 			} else {
 				sb.append("Growing from [npc.her] shoulder-blades, ");
 			}
-			switch (wing.getType()) {
-				case ANGEL:
-					sb.append("[npc.sheHasFull] a pair of [npc.wingSize], angelic wings, which are covered in [npc.wingFullDescription(true)].");
-					break;
-				case DEMON_COMMON:
-					sb.append("[npc.sheHasFull] a pair of [npc.wingSize], bat-like wings, which are covered in [npc.wingFullDescription(true)].");
-					break;
-				case DEMON_FEATHERED:
-					sb.append("[npc.sheHasFull] a pair of [npc.wingSize], demonic wings, which are covered in [npc.wingFullDescription(true)].");
-					break;
-				case NONE:
-					break;
-				case LEATHERY:
-					sb.append("[npc.sheHasFull] a pair of [npc.wingSize] wings, which are covered in [npc.wingFullDescription(true)].");
-					break;
-				case FEATHERED:
-					sb.append("[npc.sheHasFull] a pair of [npc.wingSize] wings, which are covered in [npc.wingFullDescription(true)].");
-					break;
-			}
-			if (wing.getType().allowsFlight()) {
+			sb.append(wing.getType().getBodyDescription(owner));
+			if(wing.getType().allowsFlight()) {
 				if(this.getBodyMaterial() == BodyMaterial.SLIME) {
 					sb.append(" [style.colourSlime(As they're made out of slime, flight is rendered impossible...)]");
 				} else if(wing.getSizeValue()>=owner.getLegConfiguration().getMinimumWingSizeForFlight().getValue()) {
@@ -2790,7 +2710,8 @@ public class Body implements XMLSaving {
 				} else {
 					sb.append(" They aren't large enough to allow [npc.herHim] to fly.");
 				}
-			} else if (wing.getType()!=WingType.NONE) {
+				
+			} else {
 				sb.append(" They are entirely incapable of flight.");
 			}
 			sb.append("</p>");
@@ -2988,18 +2909,40 @@ public class Body implements XMLSaving {
 		}
 		
 		subspecies = Subspecies.getSubspeciesFromBody(target, this, race);
+		boolean overrideSubspecies = false;
 		
 		switch(subspecies) {
-			case HALF_DEMON:
 			case IMP:
+				overrideSubspecies = this.getSubspeciesOverride()!=Subspecies.IMP_ALPHA
+						&& this.getSubspeciesOverride()!=Subspecies.HALF_DEMON
+						&& this.getSubspeciesOverride()!=Subspecies.DEMON
+						&& this.getSubspeciesOverride()!=Subspecies.LILIN
+						&& this.getSubspeciesOverride()!=Subspecies.ELDER_LILIN;
+				break;
 			case IMP_ALPHA:
+				overrideSubspecies = this.getSubspeciesOverride()!=Subspecies.HALF_DEMON
+						&& this.getSubspeciesOverride()!=Subspecies.DEMON
+						&& this.getSubspeciesOverride()!=Subspecies.LILIN
+						&& this.getSubspeciesOverride()!=Subspecies.ELDER_LILIN;
+				break;
+			case HALF_DEMON:
+				overrideSubspecies = this.getSubspeciesOverride()!=Subspecies.DEMON
+						&& this.getSubspeciesOverride()!=Subspecies.LILIN
+						&& this.getSubspeciesOverride()!=Subspecies.ELDER_LILIN;
+				break;
 			case DEMON:
+				overrideSubspecies = this.getSubspeciesOverride()!=Subspecies.LILIN
+						&& this.getSubspeciesOverride()!=Subspecies.ELDER_LILIN;
+				break;
 			case ELDER_LILIN:
 			case LILIN:
-				this.setSubspeciesOverride(subspecies);
+				overrideSubspecies = true;
 				break;
 			default:
 				break;
+		}
+		if(overrideSubspecies) {
+			this.setSubspeciesOverride(subspecies);
 		}
 		
 		if(target!=null && target.getBody()!=null && Main.game.isStarted()) { // Apparently this is needed to stop Lyssieth from losing her status effect???
@@ -3016,21 +2959,29 @@ public class Body implements XMLSaving {
 		
 		raceWeightMap.clear();
 		
-		addRaceWeight(raceWeightMap, skin.getType().getRace(), 4);
-		addRaceWeight(raceWeightMap, face.getType().getRace(), 4);
+		addRaceWeight(raceWeightMap, skin.getType().getRace(), 40);
+		addRaceWeight(raceWeightMap, face.getType().getRace(), 40);
 		
-		addRaceWeight(raceWeightMap, arm.getType().getRace(), 3);
-		addRaceWeight(raceWeightMap, leg.getType().getRace(), 3);
+		addRaceWeight(raceWeightMap, arm.getType().getRace(), 30);
+		addRaceWeight(raceWeightMap, leg.getType().getRace(), 30);
 
-		addRaceWeight(raceWeightMap, antenna.getType().getRace(), 1);
-		addRaceWeight(raceWeightMap, eye.getType().getRace(), 1);
-		addRaceWeight(raceWeightMap, ear.getType().getRace(), 1);
-		addRaceWeight(raceWeightMap, hair.getType().getRace(), 1);
-		addRaceWeight(raceWeightMap, tail.getType().getRace(), 1);
-		addRaceWeight(raceWeightMap, wing.getType().getRace(), 1);
-		addRaceWeight(raceWeightMap, horn.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, antenna.getType().getRace(), 10);
+		addRaceWeight(raceWeightMap, eye.getType().getRace(), 10);
+		addRaceWeight(raceWeightMap, ear.getType().getRace(), 10);
+		addRaceWeight(raceWeightMap, hair.getType().getRace(), 10);
+		addRaceWeight(raceWeightMap, tail.getType().getRace(), 10);
+		addRaceWeight(raceWeightMap, wing.getType().getRace(), 10);
+		addRaceWeight(raceWeightMap, horn.getType().getRace(), 10);
 		
-		// Not using breast, ass, penis, or vagina
+		// Best to leave this out...
+		// Breast, ass, penis, and vagina have very low weighting so that the more visible parts of a character's body are counted more towards their subspecies
+//		addRaceWeight(raceWeightMap, breast.getType().getRace(), 1);
+//		addRaceWeight(raceWeightMap, breastCrotch.getType().getRace(), 1);
+//		addRaceWeight(raceWeightMap, ass.getType().getRace(), 1);
+//		addRaceWeight(raceWeightMap, penis.getType().getRace(), 1);
+//		addRaceWeight(raceWeightMap, vagina.getType().getRace(), 1);
+		
+		raceWeightMap.remove(Race.NONE);
 		
 		int max = 0;
 		boolean demonPartFound = false;
@@ -3052,7 +3003,7 @@ public class Body implements XMLSaving {
 	}
 	
 	public RaceStage getRaceStageFromPartWeighting() {
-		if(raceWeightMap.containsKey(Race.DEMON) && !raceWeightMap.containsKey(Race.HUMAN)) {
+		if(raceWeightMap.containsKey(Race.DEMON) && !raceWeightMap.containsKey(Race.HUMAN) && raceWeightMap.size()==2) {
 			return RaceStage.GREATER;
 		}
 		if(raceWeightMap.size()==1) {
@@ -3081,7 +3032,7 @@ public class Body implements XMLSaving {
 	public Subspecies getSubspecies() {
 		return subspecies;
 	}
-
+	
 	public RaceStage getRaceStage() {
 		return raceStage;
 	}
@@ -3469,7 +3420,7 @@ public class Body implements XMLSaving {
 			if(owner.getNippleCountPerBreast()>1) {
 				descriptionSB.append(" [npc.nipples],");
 			} else {
-				descriptionSB.append(" [npc.nipple],");
+				descriptionSB.append(" [npc.nipple(true)],");
 			}
 			
 			switch(owner.getAreolaeShape()) {

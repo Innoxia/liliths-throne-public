@@ -531,7 +531,7 @@ public class DominionPlaces {
 											+UtilText.returnStringAtRandom(
 													"A rough-looking "+randomMalePerson+" unrolls a large scroll, before clearing his throat and calling out,"
 														+ " [maleNPC.speech(By decree of Lilith, and in the interests of Dominion's security,"
-															+ " any human found walking the streets between the hours of ten at night and five in the morning will be subject to a full body search from any passing Enforcer without warrant.)]",
+															+ " any human seen walking the streets outside of daylight hours may legally be subjected to a full body search from any Enforcer.)]",
 													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" holds up an official-looking piece of paper, complete with a red wax seal, and declares,"
 														+ " [femaleNPC.speech(A reward of two-hundred-thousand flames has been issued for any information leading to the arrest of the person or persons responsible"
 															+ " for distributing illegal newspapers in the districts beneath the Harpy Nests!)]",

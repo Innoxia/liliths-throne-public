@@ -54,7 +54,11 @@
 		<enchantmentLimit/>
 		
 		<!-- The default effects that this clothing spawns in with. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file. -->
-		<effects/> 
+		<effects>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_FIRE" potency="MINOR_BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_ICE" potency="MINOR_BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MINOR_BOOST" timer="397" type="CLOTHING"/>	
+		</effects> 
 		
 		<!-- This section determines how the clothing interacts with other clothing and the wearer's body.-->
 		<blockedPartsList> 
@@ -111,6 +115,10 @@
 		
 		<!-- Inventory slots that are incompatible with this clothing. The game's swimsuit makes use of this, and, while fitting into the 'CHEST' slot, also blocks 'GROIN' and 'STOMACH'. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
 		<incompatibleSlots/> 
+		
+		<defaultPatterns patternChance="1.0f" colourNameDerivedFromPattern="false"> 
+			<pattern>urban_splinter_camo</pattern><!-- Pattern values can be found as svg file names in the folder "res/patterns" -->
+		</defaultPatterns>
 		
 		<!-- Your clothing can be coloured any way you like, but if you'd like the player to be able to dye your clothing, you can specify available colours here. primaryColours, secondaryColours, and tertiaryColours can all spawn in as a default colour, while their 'Dye' counterparts are only available if the player chooses to dye the clothing in that colour. The game detects specific colour values, and recolours them to the value chosen by the player. These values are as follows:
 		Red is used as base colour for changing the primary colour of the graphic in-game, and the game will only recognise and change the following colours:

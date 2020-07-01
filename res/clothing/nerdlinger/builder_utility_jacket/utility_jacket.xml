@@ -51,7 +51,9 @@
 		
 		<primaryColours values="ALL"/> 
 		<primaryColoursDye values="ALL"/>
-		<secondaryColours values="JUST_ORANGE_DARK"/> 
+		<secondaryColours>
+			<colour>CLOTHING_ORANGE_DARK</colour>
+		</secondaryColours>
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours/> 
 		<tertiaryColoursDye/>

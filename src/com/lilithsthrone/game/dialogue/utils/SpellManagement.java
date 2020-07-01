@@ -55,6 +55,8 @@ public class SpellManagement {
     	SpellManagement.spellScreenAfterCasting = Main.game.getCurrentDialogueNode();
     	SpellManagement.spell = spell;
     	
+    	spell.performOnSelection(0, getSpellOwner(), getSpellTarget(), null, getSpellOwner().getParty()); // Handles aura cost
+    	
 		Main.game.getTextStartStringBuilder().append(
 				"<p style='text-align:center;'>"
 					+ "<b>Casting '<span style='color:"+spell.getSpellSchool().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(spell.getName())+"</span>':</b>"

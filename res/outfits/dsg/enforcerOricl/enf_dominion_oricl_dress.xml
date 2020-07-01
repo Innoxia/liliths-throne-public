@@ -42,7 +42,7 @@
 		<clothingConditional3 constant="false"><![CDATA[game.getSeason() == SEASON_WINTER]]></clothingConditional3>
 		<clothingConditional4 constant="false"><![CDATA[game.getCurrentWeather()==WEATHER_SNOW]]></clothingConditional4>
 		
-		<clothingConditional5 constant="true"><![CDATA[npc.getFemininity() == FEMININITY_FEMININE]]></clothingConditional5>
+		<clothingConditional5 constant="true"><![CDATA[npc.isFeminine()]]></clothingConditional5>
 		
 		<clothingConditional6 constant="true"><![CDATA[RND.nextInt(100)<=66]]></clothingConditional6>
 		
@@ -131,13 +131,13 @@
 			
 			<!--Feminine long sleeved shirt -->
 			<uniqueClothing>
-				<conditional><![CDATA[((clothingConditional1 || clothingConditional3) && clothingConditional5]]></conditional>
+				<conditional><![CDATA[(clothingConditional1 || clothingConditional3) && clothingConditional5]]></conditional>
 				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_flsldshirt" isDirty="false"></clothing>
 			</uniqueClothing>
 			
 			<!--Masculine long sleeved shirt-->
 			<uniqueClothing>
-				<conditional><![CDATA[((clothingConditional1 || clothingConditional3) && (!clothingConditional5)]]></conditional>
+				<conditional><![CDATA[(clothingConditional1 || clothingConditional3) && (!clothingConditional5)]]></conditional>
 				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_lsldshirt" isDirty="false"></clothing>
 			</uniqueClothing>
 			
@@ -149,7 +149,7 @@
 			
 			<!--Masculine short sleeved shirt -->
 			<uniqueClothing>
-				<conditional><![CDATA[(clothingConditional2 && (!clothingConditional5)]]></conditional>
+				<conditional><![CDATA[clothingConditional2 && (!clothingConditional5)]]></conditional>
 				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_ssldshirt" isDirty="false"></clothing>
 			</uniqueClothing>
 			

@@ -36,6 +36,7 @@ import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -164,8 +165,11 @@ public class Sex {
 	private Value<Integer, GameCharacter> preOrgasmTargeting;
 	private GameCharacter characterPerformingAction;
 	private GameCharacter characterOrgasming;
+	
+	private Value<GameCharacter, Value<GameCharacter, AbstractClothing>> clothingSelfEquipInformation; // The character self-equipping clothing, the character targeted, and the clothing being equipped.
 	private Value<GameCharacter, Value<GameCharacter, AbstractItem>> itemUseInformation; // The character using an item, the character targeted, and the item being used.
 	private Map<GameCharacter, Map<GameCharacter, List<AbstractItemType>>> itemUseDenials; // A map of item-using NPCs to a map of characters who they've tried, and failed, to use items on. This second map has the failed items in a List as its Value.
+	
 	private SexManagerInterface sexManager;
 	private SexManagerInterface initialSexManager;
 	private String sexDescription;
@@ -1452,6 +1456,18 @@ public class Sex {
 		
 		@Override
 		public int getSecondsPassed() {
+			if(lastUsedSexAction.get(Main.game.getPlayer())==GenericActions.PLAYER_SKIP_SEX) {
+				int seconds = 0;
+				 // 3 minutes per character orgasm (always limited to 1 orgasm for unequal control subs) if 'Quick sex' is used:
+				for(GameCharacter participant : getAllParticipants(false)) {
+					if(Main.sex.isDom(participant) || Main.sex.isSubHasEqualControl()) {
+						seconds+=Math.max(1, participant.getOrgasmsBeforeSatisfied()-Main.sex.getNumberOfOrgasms(participant))*3*60;
+					} else {
+						seconds+=3*60;
+					}
+				}
+				return seconds;
+			}
 			return 20;
 		}
 		
@@ -2311,7 +2327,7 @@ public class Sex {
 
 		
 		// Arousal increments for related status effects:
-		for(StatusEffect se : activeCharacter.getStatusEffects()) {
+		for(AbstractStatusEffect se : activeCharacter.getStatusEffects()) {
 			if(se.isSexEffect()) {
 				arousalIncrements.put(activeCharacter, arousalIncrements.get(activeCharacter) + se.getArousalPerTurnSelf(activeCharacter));
 				for(GameCharacter penetratingCharacter : Main.sex.getAllParticipants()) {
@@ -2677,6 +2693,9 @@ public class Sex {
 							if(entry.getValue().containsKey(characterTarget)) {
 								for(SexAreaInterface sArea : entry.getValue().get(characterTarget)) {
 									if(entry.getKey().isPenetration()) {
+										if(activeCharacter.equals(targetCharacter)) {
+											System.out.println(activeCharacter.getNameIgnoresPlayerKnowledge());
+										}
 										stringBuilderForAppendingDescriptions.append(applyPenetrationEffects(sexAction, character, (SexAreaPenetration)entry.getKey(), characterTarget, sArea));
 									}
 									
@@ -3955,8 +3974,8 @@ public class Sex {
 		}
 		if(isCharacterBannedFromPositioning(characterWantingToChangePosition)
 				|| Main.sex.isCharacterForbiddenByOthersFromPositioning(characterWantingToChangePosition)
-				|| Main.sex.isDom(characterWantingToChangePosition)==Main.sex.isDom(Main.sex.getTargetedPartner(characterWantingToChangePosition))) { // Don't allow position changing if the character/target are sub/sub or dom/dom as it can break positioning
-			return false;
+				|| Main.sex.isDom(characterWantingToChangePosition)==Main.sex.isDom(Main.sex.getTargetedPartner(characterWantingToChangePosition))) {
+			return false; // Don't allow position changing if the character/target are sub/sub or dom/dom, as it can break positioning.
 		}
 		
 		return Main.sex.getInitialSexManager().isPositionChangingAllowed(characterWantingToChangePosition);
@@ -4073,6 +4092,7 @@ public class Sex {
 	public Map<GameCharacter, SexSlot> getDominantParticipants(boolean includeSpectators) {
 		if(includeSpectators) {
 			return dominants;
+			
 		} else {
 			Map<GameCharacter, SexSlot> map = new HashMap<>(dominants);
 			for(GameCharacter character : Main.sex.getDominantSpectators()) {
@@ -4085,6 +4105,7 @@ public class Sex {
 	public Map<GameCharacter, SexSlot> getSubmissiveParticipants(boolean includeSpectators) {
 		if(includeSpectators) {
 			return submissives;
+			
 		} else {
 			Map<GameCharacter, SexSlot> map = new HashMap<>(submissives);
 			for(GameCharacter character : Main.sex.getSubmissiveSpectators()) {
@@ -4157,7 +4178,7 @@ public class Sex {
 	public void setJinxRemovalClothingText(AbstractClothing clothing, String unequipClothingText) {
 		Main.sex.unequipClothingText = 
 				"<p style='text-align:center;'>"
-						+ "<i style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Jinx removal</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
+						+ "<i style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Seal removal</i>"+(clothing==null?"":": "+Util.capitaliseSentence(clothing.getName()))
 						+"<br/>"
 						+ unequipClothingText
 				+ "</p>";
@@ -4349,13 +4370,29 @@ public class Sex {
 	}
 
 	
-	// Item use methods:
-
+	// Item and clothing use methods:
+	
+	
+	public boolean isItemUseAvailable() {
+		return getInitialSexManager().isItemUseAvailable();
+	}
+	
 	/**
 	 * @return true if the user is willing to force the target to use items during sex (such as pills).
 	 */
 	public boolean isForcingItemUse(GameCharacter user, GameCharacter target) {
 		return !Main.sex.isConsensual() && Main.sex.isDom(user) && !Main.sex.isDom(target);
+	}
+
+	public void setClothingSelfEquipInformation(GameCharacter clothingSelfEquipper, GameCharacter target, AbstractClothing clothing) {
+		this.clothingSelfEquipInformation = new Value<>(clothingSelfEquipper, new Value<>(target, clothing));
+	}
+	
+	/**
+	 * @return Value<> Key is character who is self-equipping, to Value of character targeted and clothing being equipped.
+	 */
+	public Value<GameCharacter, Value<GameCharacter, AbstractClothing>> getClothingSelfEquipInformation() {
+		return clothingSelfEquipInformation;
 	}
 	
 	public void setItemUseInformation(GameCharacter itemUser, GameCharacter itemTarget, AbstractItem item) {
@@ -5571,8 +5608,15 @@ public class Sex {
 	}
 	
 	public boolean isCharacterObeyingTarget(GameCharacter character, GameCharacter target) {
-		if(Main.sex.isMasturbation()
-				|| (character.isSlave() && character.getObedienceValue()<ObedienceLevel.POSITIVE_ONE_AGREEABLE.getMinimumValue())) { // Unruly slaves do what they want
+		if(Main.sex.isMasturbation()) { // Special catch for masturbation.
+			return false;
+		}
+		
+		if(target.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) { // If the target is convincing, then they always obey.
+			return true;
+		}
+		
+		if((character.isSlave() && character.getObedienceValue()<ObedienceLevel.POSITIVE_ONE_AGREEABLE.getMinimumValue())) { // Unruly slaves do what they want
 			return false;
 		}
 		
@@ -5590,7 +5634,7 @@ public class Sex {
 		for(GameCharacter pulloutRequester : Main.sex.getCharactersRequestingPullout()) {
 			if(isCharacterObeyingTarget(character, pulloutRequester)) {
 				if(pulloutRequester.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
-					weighting+=20;
+					weighting+=50;
 				} else {
 					weighting+=5;
 				}
@@ -5599,7 +5643,7 @@ public class Sex {
 		for(GameCharacter creampieRequester : Main.sex.getCharactersRequestingCreampie()) {
 			if(isCharacterObeyingTarget(character, creampieRequester)) {
 				if(creampieRequester.hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
-					weighting-=20;
+					weighting-=50;
 				} else {
 					weighting-=5;
 				}

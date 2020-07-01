@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.inventory.weapon;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,8 +23,6 @@ public class WeaponType {
 	
 	public static AbstractWeaponType getWeaponTypeFromId(String id) {
 //		System.out.print("ID: "+id);
-		
-
 		
 		if(id.equals("RANGED_MUSKET")) {	
 			id = "innoxia_gun_arcane_musket";
@@ -112,7 +109,7 @@ public class WeaponType {
 									for (File innerChild : innerDirectoryListing) {
 										try {
 											String id = modAuthorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-											AbstractWeaponType ct = new AbstractWeaponType(innerChild, modAuthorDirectory.getName()) {};
+											AbstractWeaponType ct = new AbstractWeaponType(innerChild, modAuthorDirectory.getName(), true) {};
 											moddedWeapons.add(ct);
 											weaponToIdMap.put(ct, id);
 											idToWeaponMap.put(id, ct);
@@ -131,7 +128,7 @@ public class WeaponType {
 		allWeapons.addAll(moddedWeapons);
 		
 		
-		// Add in external res clothing:
+		// Add in external res weapons:
 		
 		dir = new File("res/weapons");
 		
@@ -147,7 +144,7 @@ public class WeaponType {
 									for (File innerChild : innerDirectoryListing) {
 										try {
 											String id = authorDirectory.getName()+"_"+innerChild.getParentFile().getName()+"_"+innerChild.getName().split("\\.")[0];
-											AbstractWeaponType ct = new AbstractWeaponType(innerChild, authorDirectory.getName()) {};
+											AbstractWeaponType ct = new AbstractWeaponType(innerChild, authorDirectory.getName(), false) {};
 											allWeapons.add(ct);
 											weaponToIdMap.put(ct, id);
 											idToWeaponMap.put(id, ct);
@@ -163,28 +160,27 @@ public class WeaponType {
 			}
 		}
 		
-		Field[] fields = WeaponType.class.getFields();
-		
-		for(Field f : fields){
-			
-			if (AbstractWeaponType.class.isAssignableFrom(f.getType())) {
-				
-				AbstractWeaponType weapon;
-				
-				try {
-					weapon = ((AbstractWeaponType) f.get(null));
-
-					// I feel like this is stupid :thinking:
-					weaponToIdMap.put(weapon, f.getName());
-					idToWeaponMap.put(f.getName(), weapon);
-					
-					allWeapons.add(weapon);
-					
-				} catch (IllegalArgumentException | IllegalAccessException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+//		Field[] fields = WeaponType.class.getFields();
+//		
+//		for(Field f : fields){
+//			if (AbstractWeaponType.class.isAssignableFrom(f.getType())) {
+//				
+//				AbstractWeaponType weapon;
+//				
+//				try {
+//					weapon = ((AbstractWeaponType) f.get(null));
+//
+//					// I feel like this is stupid :thinking:
+//					weaponToIdMap.put(weapon, f.getName());
+//					idToWeaponMap.put(f.getName(), weapon);
+//					
+//					allWeapons.add(weapon);
+//					
+//				} catch (IllegalArgumentException | IllegalAccessException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
 	}
 
 	public static List<AbstractWeaponType> getAllWeapons() {

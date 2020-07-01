@@ -8,34 +8,35 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.2.0
- * @version 0.3.1
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public class Addiction implements XMLSaving {
 
-	private FluidType fluid;
+	private AbstractFluidType fluid;
 	private long lastTimeSatisfied;
 	private Set<String> providerIDs;
 	
-	public Addiction(FluidType fluid, long lastTimeSatisfied) {
+	public Addiction(AbstractFluidType fluid, long lastTimeSatisfied) {
 		this.fluid = fluid;
 		this.lastTimeSatisfied = lastTimeSatisfied;
 		this.providerIDs = new HashSet<>();
 	}
 	
-	public Addiction(FluidType fluid, long lastTimeSatisfied, String providerID) {
+	public Addiction(AbstractFluidType fluid, long lastTimeSatisfied, String providerID) {
 		this.fluid = fluid;
 		this.lastTimeSatisfied = lastTimeSatisfied;
 		this.providerIDs = new HashSet<>();
 		this.providerIDs.add(providerID);
 	}
 	
-	public Addiction(FluidType fluid, long lastTimeSatisfied, Set<String> providerIDs) {
+	public Addiction(AbstractFluidType fluid, long lastTimeSatisfied, Set<String> providerIDs) {
 		this.fluid = fluid;
 		this.lastTimeSatisfied = lastTimeSatisfied;
 		this.providerIDs = providerIDs;
@@ -67,7 +68,7 @@ public class Addiction implements XMLSaving {
 		Element element = doc.createElement("addiction");
 		parentElement.appendChild(element);
 
-		CharacterUtils.addAttribute(doc, element, "fluid", this.getFluid().toString());
+		CharacterUtils.addAttribute(doc, element, "fluid", FluidType.getIdFromFluidType(this.getFluid()));
 		CharacterUtils.addAttribute(doc, element, "lastTimeSatisfied", String.valueOf(this.getLastTimeSatisfied()));
 		
 		Element innerElement = doc.createElement("providerIDs");
@@ -88,16 +89,16 @@ public class Addiction implements XMLSaving {
 			IDs.add(((Element)idList.item(i)).getAttribute("value"));
 		}
 		
-		return new Addiction(FluidType.getTypeFromString(parentElement.getAttribute("fluid")),
+		return new Addiction(FluidType.getFluidTypeFromId(parentElement.getAttribute("fluid")),
 				Long.valueOf(parentElement.getAttribute("lastTimeSatisfied")),
 				IDs);
 	}
 	
-	public FluidType getFluid() {
+	public AbstractFluidType getFluid() {
 		return fluid;
 	}
 	
-	public void setFluid(FluidType fluid) {
+	public void setFluid(AbstractFluidType fluid) {
 		this.fluid = fluid;
 	}
 	

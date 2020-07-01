@@ -13,6 +13,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -58,7 +59,13 @@ public class Artwork {
 						Element artistElement = (Element) doc.getElementsByTagName("artist").item(0);
 						
 						String artistName = artistElement.getAttribute("name");
-						Colour colour = PresetColour.getColourFromId(artistElement.getAttribute("colour"));
+						String colourId = artistElement.getAttribute("colour");
+						Colour colour;
+						if(colourId.startsWith("#")) {
+							colour = new Colour(false, Util.newColour(colourId), Util.newColour(colourId), "");
+						} else {
+							colour = PresetColour.getColourFromId(colourId);
+						}
 						String folderName = artistElement.getAttribute("folderName");
 								
 						List<ArtistWebsite> websites = new ArrayList<>();
@@ -72,6 +79,7 @@ public class Artwork {
 						allArtists.add(new Artist(artistName, colour, folderName, websites));
 						
 					} catch(Exception ex) {
+						ex.printStackTrace();
 					}
 				}
 			}

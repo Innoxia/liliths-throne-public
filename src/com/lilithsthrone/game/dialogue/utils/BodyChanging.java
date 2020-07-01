@@ -324,12 +324,12 @@ public class BodyChanging {
 	private static boolean isDemonTFMenu() {
 		return !debugMenu
 				&& (BodyChanging.getTarget().getRace()==Race.DEMON
-					|| BodyChanging.getTarget().getSubspecies()==Subspecies.DEMON
+					|| BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.DEMON
 					|| BodyChanging.getTarget().isElemental());
 	}
 	
 	private static boolean isHalfDemon() {
-		return BodyChanging.getTarget().getSubspecies()==Subspecies.HALF_DEMON;
+		return BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.HALF_DEMON;
 	}
 	
 	private static Map<BodyCoveringType, List<String>> getMainCoveringsMap() {

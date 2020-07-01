@@ -6,8 +6,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
-import com.lilithsthrone.game.character.body.types.FluidType;
-import com.lilithsthrone.game.character.body.types.NippleType;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -15,15 +13,15 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3
- * @version 0.3.1
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public abstract class AbstractBreastType implements BodyPartTypeInterface {
 
 	private BodyCoveringType skinType;
 	private Race race;
-	private NippleType nippleType;
-	private FluidType fluidType;
+	private AbstractNippleType nippleType;
+	private AbstractFluidType fluidType;
 	
 	private List<String> namesFlat;
 	private List<String> namesFlatPlural;
@@ -56,8 +54,8 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 	 */
 	public AbstractBreastType(BodyCoveringType skinType,
 			Race race,
-			NippleType nippleType,
-			FluidType fluidType, //Should probably be linked to nipples, but as nipples are always the same as breast type, it doesn't make a difference.
+			AbstractNippleType nippleType,
+			AbstractFluidType fluidType,
 			List<String> namesFlat,
 			List<String> namesFlatPlural,
 			List<String> descriptorsFlat,
@@ -91,8 +89,8 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 	
 	public AbstractBreastType(BodyCoveringType skinType,
 			Race race,
-			NippleType nippleType,
-			FluidType fluidType,
+			AbstractNippleType nippleType,
+			AbstractFluidType fluidType,
 			String breastsTransformationDescription,
 			String breastsBodyDescription,
 			String breastsCrotchTransformationDescription,
@@ -108,11 +106,11 @@ public abstract class AbstractBreastType implements BodyPartTypeInterface {
 				breastsCrotchBodyDescription);
 	}
 	
-	public NippleType getNippleType() {
+	public AbstractNippleType getNippleType() {
 		return nippleType;
 	}
 
-	public FluidType getFluidType() {
+	public AbstractFluidType getFluidType() {
 		return fluidType;
 	}
 

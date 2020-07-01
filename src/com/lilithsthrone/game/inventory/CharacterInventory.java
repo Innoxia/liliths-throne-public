@@ -85,7 +85,7 @@ public class CharacterInventory implements XMLSaving {
 	private List<AbstractClothing> clothingCurrentlyEquipped;
 
 	// ClothingSets being worn:
-	private final Map<SetBonus, Integer> clothingSetCount;
+	private final Map<AbstractSetBonus, Integer> clothingSetCount;
 
 	private int maxInventorySpace;
 
@@ -115,7 +115,7 @@ public class CharacterInventory implements XMLSaving {
 		
 		clothingCurrentlyEquipped = new ArrayList<>();
 		clothingSetCount = new HashMap<>();
-		for(SetBonus clothingSet : SetBonus.values()) {
+		for(AbstractSetBonus clothingSet : SetBonus.getAllSetBonuses()) {
 			clothingSetCount.put(clothingSet, 0);
 		}
 		
@@ -1144,7 +1144,7 @@ public class CharacterInventory implements XMLSaving {
 	 * @return The number of clothes being worn that belong to the specified
 	 *         ClothingSet.
 	 */
-	public int getClothingSetCount(SetBonus clothingSet) {
+	public int getClothingSetCount(AbstractSetBonus clothingSet) {
 		return clothingSetCount.get(clothingSet);
 	}
 
@@ -1193,16 +1193,9 @@ public class CharacterInventory implements XMLSaving {
 		}
 		tempSB.append("<br/><span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>"+UtilText.parse(character, description)+"</span>");
 		
-//		if (isInventoryFull() && !hasClothing(c)) {
-//			Main.game.getWorlds().get(character.getWorldLocation()).getCell(character.getLocation()).getInventory().addClothing(c);
-//			tempSB.append("<br/>" + character.droppedItemText(c));
-//			
-//		} else {
-//			character.addClothing(c, false);
-//			tempSB.append("<br/>" + character.addedItemToInventoryText(c));
-//		}
-		tempSB.append(character.unequipClothingIntoInventory(c, true, character));
+		c.setSealed(false);
 		
+		tempSB.append(character.unequipClothingIntoInventory(c, true, character));
 		
 		clothingRemovalList.add(c);	
 	}
@@ -1507,7 +1500,7 @@ public class CharacterInventory implements XMLSaving {
 				}
 				
 				// Check for clothing sets:
-				SetBonus clothingSetOfNewClothing = newClothing.getClothingType().getClothingSet();
+				AbstractSetBonus clothingSetOfNewClothing = newClothing.getClothingType().getClothingSet();
 				if (clothingSetOfNewClothing != null) {
 					clothingSetCount.merge(clothingSetOfNewClothing, 1, Integer::sum);
 				}

@@ -97,6 +97,13 @@ public class CompanionManagement {
 		return CompanionManagement.SLAVE_MANAGEMENT_PERMISSIONS;
 	}
 	
+	public static DialogueNode getSlaveryManagementSlaveCosmeticsDialogue(NPC slave) {
+		Main.game.getDialogueFlags().setManagementCompanion(slave);
+		CharactersPresentDialogue.resetContent(slave);
+//		coreNode = Main.game.getCurrentDialogueNode();
+		return CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_MAKEUP;
+	}
+	
 	public static NPC characterSelected() {
 		return Main.game.getDialogueFlags().getManagementCompanion();
 	}
@@ -557,7 +564,13 @@ public class CompanionManagement {
 						}
 					};
 				}
-				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue());
+				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+						coreNode = null;
+					}
+				};
 			}
 		
 		} else { // Friendly occupant or null character not currently in the player's party:
@@ -714,7 +727,13 @@ public class CompanionManagement {
 						}
 					};
 				}
-				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue());
+				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue(false)) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+						coreNode = null;
+					}
+				};
 			}
 		}
 		
@@ -1130,6 +1149,16 @@ public class CompanionManagement {
 					+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...", SLAVE_MANAGEMENT_TATTOOS);
 
 		} else if (index == 0) {
+			if(coreNode==OccupantManagementDialogue.SLAVE_LIST) {
+				return new Response("Back", "Return to the occupant list overview.", coreNode) {
+					@Override
+					public void effects() {
+						Main.game.setResponseTab(defaultResponseTab);
+						Main.game.getDialogueFlags().setManagementCompanion(null);
+						coreNode = null;
+					}
+				};
+			}
 			return new Response("Back", "Return to the slave management screen.", coreNode) {
 				@Override
 				public void effects() {
@@ -1218,9 +1247,9 @@ public class CompanionManagement {
 					"<h6 style='text-align:center;'>"
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
-					+CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles [npc.namePos] able to have. The longer [npc.her] [npc.hair], the more styles are available.")
+					+CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles [npc.namePos] able to have. The longer [npc.her] [npc.hair(true)], the more styles are available.")
 
-					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by [npc.namePos] [npc.hair] length.")
+					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by [npc.namePos] [npc.hair(true)] length.")
 					
 					+(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
 						?CharacterModificationUtils.getKatesDivCoveringsNew(

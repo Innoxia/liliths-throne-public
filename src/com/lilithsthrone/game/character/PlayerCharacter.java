@@ -546,7 +546,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 		}
 		
-		if(!Main.isVersionOlderThan(version, "0.3.7.7")) {
+		if(playerSpecificElement!=null && !Main.isVersionOlderThan(version, "0.3.7.7")) {
 			nodes = playerSpecificElement.getElementsByTagName("itemsDiscovered");
 			element = (Element) nodes.item(0);
 			nodes = element.getElementsByTagName("type");
@@ -1400,8 +1400,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				}
 				@Override
 				public boolean isEndsSex() {
-					return Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
-							&& !Main.game.getNpc(Lilaya.class).isVisiblyPregnant()
+					return Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)
 							&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative();
 				}
 			};

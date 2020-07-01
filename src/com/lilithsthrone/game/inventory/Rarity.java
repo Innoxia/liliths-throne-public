@@ -5,7 +5,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.5.1
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public enum Rarity {
@@ -22,7 +22,7 @@ public enum Rarity {
 	
 	QUEST("unique", PresetColour.RARITY_QUEST, PresetColour.RARITY_QUEST_BACKGROUND),
 	
-	JINXED("jinxed", PresetColour.RARITY_JINXED, PresetColour.RARITY_JINXED_BACKGROUND);
+	JINXED("detrimental", PresetColour.RARITY_JINXED, PresetColour.RARITY_JINXED_BACKGROUND);
 
 	private String name;
 	private Colour colour;

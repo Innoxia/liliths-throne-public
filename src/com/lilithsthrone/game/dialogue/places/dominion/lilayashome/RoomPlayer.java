@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -83,7 +84,7 @@ public class RoomPlayer {
 			
 			boolean neet = character.hasTrait(Perk.JOB_UNEMPLOYED, true);
 			boolean emperorBed = Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_PLAYER_ROOM_BED);
-			StatusEffect restedEffect = StatusEffect.WELL_RESTED;
+			AbstractStatusEffect restedEffect = StatusEffect.WELL_RESTED;
 			if(neet) {
 				if(emperorBed) {
 					restedEffect = StatusEffect.WELL_RESTED_BOOSTED_EXTRA;
@@ -97,7 +98,7 @@ public class RoomPlayer {
 		}
 	}
 	
-	public static String applyWash(GameCharacter character, boolean washAllOrifices, boolean cleanAllClothing, StatusEffect effect, int additionalMinutes) {
+	public static String applyWash(GameCharacter character, boolean washAllOrifices, boolean cleanAllClothing, AbstractStatusEffect effect, int additionalMinutes) {
 		StringBuilder sb = new StringBuilder();
 		
 		character.setHealth(character.getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -1144,7 +1145,7 @@ public class RoomPlayer {
 			if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_PROFESSIONAL)) {
 				if(firstWashing) {
 					if(Main.game.getPlayer().hasHair()) {
-						start.add("Turning on the taps, [npc.name] dutifully starts to help you in washing your [pc.hair] and body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
+						start.add("Turning on the taps, [npc.name] dutifully starts to help you in washing your [pc.hair(true)] and body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
 					} else {
 						start.add("Turning on the taps, [npc.name] dutifully starts to help you in washing your body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
 					}
@@ -1211,7 +1212,7 @@ public class RoomPlayer {
 				if(npc.isShy()) {
 					if(firstWashing) {
 						if(Main.game.getPlayer().hasHair()) {
-							start.add("Turning on the taps, [npc.name] nervously shuffles forwards, before starting to help you wash your [pc.hair] and body."
+							start.add("Turning on the taps, [npc.name] nervously shuffles forwards, before starting to help you wash your [pc.hair(true)] and body."
 									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice a little and says,");
 						} else {
 							start.add("Turning on the taps, [npc.name] nervously shuffles forwards, before starting to help you wash your body."
@@ -1235,7 +1236,7 @@ public class RoomPlayer {
 				} else if(npc.isKind()) {
 					if(firstWashing) {
 						if(Main.game.getPlayer().hasHair()) {
-							start.add("Turning on the taps, [npc.name] happily steps forwards, before gently starting to help you wash your [pc.hair] and body."
+							start.add("Turning on the taps, [npc.name] happily steps forwards, before gently starting to help you wash your [pc.hair(true)] and body."
 									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
 						} else {
 							start.add("Turning on the taps, [npc.name] happily steps forwards, before gently starting to help you wash your body."
@@ -1259,7 +1260,7 @@ public class RoomPlayer {
 				} else {
 					if(firstWashing) {
 						if(Main.game.getPlayer().hasHair()) {
-							start.add("Turning on the taps, [npc.name] steps forwards, before starting to help you wash your [pc.hair] and body."
+							start.add("Turning on the taps, [npc.name] steps forwards, before starting to help you wash your [pc.hair(true)] and body."
 									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
 						} else {
 							start.add("Turning on the taps, [npc.name] steps forwards, before starting to help you wash your body."
@@ -1484,7 +1485,7 @@ public class RoomPlayer {
 			if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_PROFESSIONAL)) {
 				if(firstWashing) {
 					if(Main.game.getPlayer().hasHair()) {
-						start.add("Turning on the taps and running you a bath, [npc.name] dutifully starts to help you in washing your [pc.hair] and body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
+						start.add("Turning on the taps and running you a bath, [npc.name] dutifully starts to help you in washing your [pc.hair(true)] and body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
 					} else {
 						start.add("Turning on the taps and running you a bath, [npc.name] dutifully starts to help you in washing your body. Raising [npc.her] voice so as to be heard over the sound of running water, [npc.she] says,");
 					}
@@ -1551,7 +1552,7 @@ public class RoomPlayer {
 				if(npc.isShy()) {
 					if(firstWashing) {
 						if(Main.game.getPlayer().hasHair()) {
-							start.add("Turning on the taps and running you a bath, [npc.name] nervously shuffles forwards, before starting to help you wash your [pc.hair] and body."
+							start.add("Turning on the taps and running you a bath, [npc.name] nervously shuffles forwards, before starting to help you wash your [pc.hair(true)] and body."
 									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice a little and says,");
 						} else {
 							start.add("Turning on the taps and running you a bath, [npc.name] nervously shuffles forwards, before starting to help you wash your body."
@@ -1575,7 +1576,7 @@ public class RoomPlayer {
 				} else if(npc.isKind()) {
 					if(firstWashing) {
 						if(Main.game.getPlayer().hasHair()) {
-							start.add("Turning on the taps and running you a bath, [npc.name] happily steps forwards, before gently starting to help you wash your [pc.hair] and body."
+							start.add("Turning on the taps and running you a bath, [npc.name] happily steps forwards, before gently starting to help you wash your [pc.hair(true)] and body."
 									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
 						} else {
 							start.add("Turning on the taps and running you a bath, [npc.name] happily steps forwards, before gently starting to help you wash your body."
@@ -1599,7 +1600,7 @@ public class RoomPlayer {
 				} else {
 					if(firstWashing) {
 						if(Main.game.getPlayer().hasHair()) {
-							start.add("Turning on the taps and running you a bath, [npc.name] steps forwards, before starting to help you wash your [pc.hair] and body."
+							start.add("Turning on the taps and running you a bath, [npc.name] steps forwards, before starting to help you wash your [pc.hair(true)] and body."
 									+ " Doing [npc.her] best to be heard over the sound of running water, [npc.she] raises [npc.her] voice and says,");
 						} else {
 							start.add("Turning on the taps and running you a bath, [npc.name] steps forwards, before starting to help you wash your body."

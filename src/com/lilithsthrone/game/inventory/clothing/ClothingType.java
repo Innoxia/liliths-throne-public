@@ -75,61 +75,6 @@ public class ClothingType {
 	
 	// Special:
 	
-//	public static AbstractClothingType HEAD_CHEATERS_CIRCLET = new AbstractClothingType(1000,
-//			"a",
-//			false,
-//			"cheater's circlet",
-//			"cheater's circlets",
-//			"A thin band of metal that sits on top of your head. On the inside, an engraved message reads: 'FOR INTERNAL TESTING ONLY!'",
-//			0,
-//			null,
-//			InventorySlot.HEAD,
-//			Rarity.LEGENDARY,
-//			null,
-//			"clothing/head_circlet",
-//			Util.newArrayListOfValues(
-//					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_DRAIN, 0),
-//					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.INTELLIGENCE, TFPotency.MAJOR_DRAIN, 0)),
-//			Util.newArrayListOfValues(
-//					new BlockedParts(
-//							DisplacementType.REMOVE_OR_EQUIP,
-//							Util.newArrayListOfValues(
-//									ClothingAccess.HEAD),
-//							null,
-//							null, null)),
-//			null,
-//			ColourListPresets.JUST_GOLD,
-//			null,
-//			null,
-//			null,
-//			null,
-//			null,
-//			null){
-//		
-//		@Override
-//		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-//					"You place the circlet on your head.",
-//					"You place the circlet on [npc.namePos] head.",
-//					"You force the circlet onto [npc.namePos] head.",
-//					"[npc.Name] places the circlet on [npc.her] head.",
-//					"[npc.Name] places the circlet on your head.",
-//					"[npc.Name] forces the circlet onto your head.", null, null);
-//		}
-//
-//		@Override
-//		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-//			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-//					"You take off your circlet.",
-//					"You take off [npc.namePos] circlet.",
-//					"You grab [npc.namePos] circlet and throw it to the floor.",
-//					"[npc.Name] takes off [npc.her] circlet.",
-//					"[npc.Name] takes off your circlet.",
-//					"[npc.Name] grabs your circlet and throws it to the floor.", null, null);
-//		}
-//	};
-	
-
 	// MOUTH
 	public static AbstractClothingType MOUTH_BANDANA = new AbstractClothingType(80,
 			"a",
@@ -4509,7 +4454,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.HEAD,
 			Rarity.EPIC,
-			SetBonus.MAID,
+			SetBonus.getSetBonusFromId("innoxia_maid"),
 			"clothing/maidHeadband",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0)),
@@ -4564,7 +4509,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.TORSO_UNDER,
 			Rarity.EPIC,
-			SetBonus.MAID,
+			SetBonus.getSetBonusFromId("innoxia_maid"),
 			"clothing/maidDress",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0)),
@@ -4678,7 +4623,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.SOCK,
 			Rarity.EPIC,
-			SetBonus.MAID,
+			SetBonus.getSetBonusFromId("innoxia_maid"),
 			"clothing/maidStockings",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0)),
@@ -4731,7 +4676,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.FOOT,
 			Rarity.EPIC,
-			SetBonus.MAID,
+			SetBonus.getSetBonusFromId("innoxia_maid"),
 			"clothing/maidHeels",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0)),
@@ -4784,7 +4729,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.HAND,
 			Rarity.EPIC,
-			SetBonus.MAID,
+			SetBonus.getSetBonusFromId("innoxia_maid"),
 			"clothing/maidGloves",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0)),
@@ -4838,7 +4783,7 @@ public class ClothingType {
 			null,
 			InventorySlot.MOUTH,
 			Rarity.EPIC,
-			SetBonus.BDSM,
+			SetBonus.getSetBonusFromId("innoxia_bdsm"),
 			"clothing/bdsm_mouth_ballgag",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.BOOST, 0),
@@ -4863,15 +4808,11 @@ public class ClothingType {
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You open your mouth wide and slide in the ball gag, before reaching back and fastening the buckles to keep it in place.<br/>"
-							+ "[style.colourArcane(The ball gag glows with arcane energy as it reveals its jinx!)]",
-					"You push the ball gag into [npc.namePos] mouth, before reaching back and fastening the buckles to keep it in place.<br/>"
-							+ "[style.colourArcane(The ball gag glows with arcane energy as it reveals its jinx!)]",
+					"You open your mouth wide and slide in the ball gag, before reaching back and fastening the buckles to keep it in place.",
+					"You push the ball gag into [npc.namePos] mouth, before reaching back and fastening the buckles to keep it in place.",
 					null,
-					"[npc.Name] opens [npc.her] mouth wide and slides in the ball gag, before reaching back and fastening the buckles to keep it in place.<br/>"
-							+ "[style.colourArcane(The ball gag glows with arcane energy as it reveals its jinx!)]",
-					"[npc.Name] pushes the ball gag into your mouth, before reaching back and fastening the buckles to keep it in place.<br/>"
-							+ "[style.colourArcane(The ball gag glows with arcane energy as it reveals its jinx!)]",
+					"[npc.Name] opens [npc.her] mouth wide and slides in the ball gag, before reaching back and fastening the buckles to keep it in place.",
+					"[npc.Name] pushes the ball gag into your mouth, before reaching back and fastening the buckles to keep it in place.",
 					null, null, null);
 		}
 
@@ -4897,7 +4838,7 @@ public class ClothingType {
 			null,
 			InventorySlot.MOUTH,
 			Rarity.EPIC,
-			SetBonus.BDSM,
+			SetBonus.getSetBonusFromId("innoxia_bdsm"),
 			"clothing/bdsm_mouth_ringgag",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.BOOST, 0),
@@ -4952,7 +4893,7 @@ public class ClothingType {
 			null,
 			InventorySlot.NECK,
 			Rarity.EPIC,
-			SetBonus.BDSM,
+			SetBonus.getSetBonusFromId("innoxia_bdsm"),
 			"clothing/bdsm_neck_choker",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.BOOST, 0),
@@ -5001,12 +4942,12 @@ public class ClothingType {
 			true,
 			"wrist restraints",
 			"wrist restraints",
-			"A pair of leather wrist restraints.",
+			"A pair of leather wrist restraints, which are linked by a metal chain. The straps can be adjusted to fit even the thickest of limbs, which even enable them to be fastened around a harpy's wing-like arms.",
 			0,
 			null,
 			InventorySlot.WRIST,
 			Rarity.EPIC,
-			SetBonus.BDSM,
+			SetBonus.getSetBonusFromId("innoxia_bdsm"),
 			"clothing/bdsm_wrist_restraints",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.BOOST, 0),
@@ -5026,6 +4967,7 @@ public class ClothingType {
 			null,
 			Util.newArrayListOfValues(
 					ItemTag.HINDERS_ARM_MOVEMENT,
+					ItemTag.FITS_ARM_WINGS,
 					ItemTag.SOLD_BY_FINCH,
 					ItemTag.PROVIDES_KEY)){
 		
@@ -5063,7 +5005,7 @@ public class ClothingType {
 			null,
 			InventorySlot.ANKLE,
 			Rarity.EPIC,
-			SetBonus.BDSM,
+			SetBonus.getSetBonusFromId("innoxia_bdsm"),
 			"clothing/bdsm_ankle_spreaderbar",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.BOOST, 0),
@@ -5125,7 +5067,7 @@ public class ClothingType {
 			null,
 			InventorySlot.GROIN,
 			Rarity.EPIC,
-			SetBonus.BDSM,
+			SetBonus.getSetBonusFromId("innoxia_bdsm"),
 			"clothing/bdsm_groin_chastity_belt",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.BOOST, 0),
@@ -5184,7 +5126,7 @@ public class ClothingType {
 			null,
 			InventorySlot.GROIN,
 			Rarity.EPIC,
-			SetBonus.BDSM,
+			SetBonus.getSetBonusFromId("innoxia_bdsm"),
 			"clothing/bdsm_groin_chastity_belt_full",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.BOOST, 0),
@@ -5247,7 +5189,7 @@ public class ClothingType {
 			null,
 			InventorySlot.STOMACH,
 			Rarity.EPIC,
-			SetBonus.BDSM,
+			SetBonus.getSetBonusFromId("innoxia_bdsm"),
 			"clothing/bdsm_stomach_karada",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.BOOST, 0),
@@ -5307,7 +5249,7 @@ public class ClothingType {
 			null,
 			InventorySlot.TORSO_UNDER,
 			Rarity.EPIC,
-			SetBonus.SLUTTY_ENFORCER,
+			SetBonus.getSetBonusFromId("innoxia_slutty_enforcer"),
 			"clothing/enforcerShirt",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0),
@@ -5374,7 +5316,7 @@ public class ClothingType {
 			null,
 			InventorySlot.LEG,
 			Rarity.EPIC,
-			SetBonus.SLUTTY_ENFORCER,
+			SetBonus.getSetBonusFromId("innoxia_slutty_enforcer"),
 			"clothing/enforcerShorts",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0)),
@@ -5447,7 +5389,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.LEG,
 			Rarity.EPIC,
-			SetBonus.SLUTTY_ENFORCER,
+			SetBonus.getSetBonusFromId("innoxia_slutty_enforcer"),
 			"clothing/enforcer_miniskirt",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0)),
@@ -5509,7 +5451,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.TORSO_UNDER,
 			Rarity.EPIC,
-			SetBonus.MILK_MAID,
+			SetBonus.getSetBonusFromId("innoxia_milk_maid"),
 			"clothing/milk_maid_dress",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0)),
@@ -5566,7 +5508,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.HEAD,
 			Rarity.EPIC,
-			SetBonus.MILK_MAID,
+			SetBonus.getSetBonusFromId("innoxia_milk_maid"),
 			"clothing/milk_maid_headband",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0)),
@@ -5617,7 +5559,7 @@ public class ClothingType {
 			null,
 			InventorySlot.HEAD,
 			Rarity.EPIC,
-			SetBonus.MILK_MAID,
+			SetBonus.getSetBonusFromId("innoxia_milk_maid"),
 			"clothing/milk_maid_kerchief",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.BOOST, 0)),
@@ -5736,7 +5678,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.HAIR,
 			Rarity.EPIC,
-			SetBonus.GEISHA,
+			SetBonus.getSetBonusFromId("innoxia_geisha"),
 			"clothing/kimono_hair_kanzashi",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0)),
@@ -5753,11 +5695,11 @@ public class ClothingType {
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You tie up your [pc.hair] and fasten the kanzashi in place.",
-					"You tie up [npc.namePos] [npc.hair] and fasten the kanzashi in place.",
+					"You tie up your [pc.hair(true)] and fasten the kanzashi in place.",
+					"You tie up [npc.namePos] [npc.hair(true)] and fasten the kanzashi in place.",
 					null,
-					"[npc.Name] ties up [npc.her] [npc.hair] and fastens the kanzashi in place.",
-					"[npc.Name] ties up your [pc.hair] and fastens the kanzashi in place.",
+					"[npc.Name] ties up [npc.her] [npc.hair(true)] and fastens the kanzashi in place.",
+					"[npc.Name] ties up your [pc.hair(true)] and fastens the kanzashi in place.",
 					null, null, null);
 		}
 
@@ -5784,7 +5726,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.TORSO_UNDER,
 			Rarity.EPIC,
-			SetBonus.GEISHA,
+			SetBonus.getSetBonusFromId("innoxia_geisha"),
 			"clothing/kimono_torso_kimono",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0),
@@ -5872,7 +5814,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.FOOT,
 			Rarity.EPIC,
-			SetBonus.GEISHA,
+			SetBonus.getSetBonusFromId("innoxia_geisha"),
 			"clothing/kimono_foot_geta",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.BOOST, 0)),
@@ -5925,7 +5867,7 @@ public class ClothingType {
 			Femininity.MASCULINE,
 			InventorySlot.TORSO_UNDER,
 			Rarity.EPIC,
-			SetBonus.RONIN,
+			SetBonus.getSetBonusFromId("innoxia_ronin"),
 			"clothing/kimono_torso_mens_kimono",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0),
@@ -6018,7 +5960,7 @@ public class ClothingType {
 			Femininity.MASCULINE,
 			InventorySlot.TORSO_OVER,
 			Rarity.EPIC,
-			SetBonus.RONIN,
+			SetBonus.getSetBonusFromId("innoxia_ronin"),
 			"clothing/kimono_torso_over_haori",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0)),
@@ -6074,7 +6016,7 @@ public class ClothingType {
 			Femininity.MASCULINE,
 			InventorySlot.FOOT,
 			Rarity.EPIC,
-			SetBonus.RONIN,
+			SetBonus.getSetBonusFromId("innoxia_ronin"),
 			"clothing/kimono_foot_mens_geta",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.BOOST, 0)),
@@ -6130,7 +6072,7 @@ public class ClothingType {
 			null,
 			InventorySlot.HEAD,
 			Rarity.EPIC,
-			SetBonus.JOLNIR,
+			SetBonus.getSetBonusFromId("innoxia_jolnir"),
 			"clothing/jolnir_head_hat",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.MAJOR_BOOST, 0)),
@@ -6182,7 +6124,7 @@ public class ClothingType {
 			null,
 			InventorySlot.TORSO_OVER,
 			Rarity.EPIC,
-			SetBonus.JOLNIR,
+			SetBonus.getSetBonusFromId("innoxia_jolnir"),
 			"clothing/jolnir_torso_over_coat",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_BOOST, 0), 
@@ -6240,7 +6182,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.TORSO_UNDER,
 			Rarity.EPIC,
-			SetBonus.JOLNIR,
+			SetBonus.getSetBonusFromId("innoxia_jolnir"),
 			"clothing/jolnir_torso_dress",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.SPELL_COST_MODIFIER, TFPotency.MAJOR_BOOST, 0), 
@@ -6335,7 +6277,7 @@ public class ClothingType {
 			Femininity.MASCULINE,
 			InventorySlot.FOOT,
 			Rarity.EPIC,
-			SetBonus.JOLNIR,
+			SetBonus.getSetBonusFromId("innoxia_jolnir"),
 			"clothing/jolnir_foot_boots",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.MAJOR_BOOST, 0)),
@@ -6388,7 +6330,7 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.FOOT,
 			Rarity.EPIC,
-			SetBonus.JOLNIR,
+			SetBonus.getSetBonusFromId("innoxia_jolnir"),
 			"clothing/jolnir_foot_boots_feminine",
 			Util.newArrayListOfValues(
 					new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.MAJOR_BOOST, 0)),
@@ -6563,6 +6505,7 @@ public class ClothingType {
 
 		oldIdConversionMap.put("BDSM_CHASTITY_CAGE", "innoxia_bdsm_chastity_cage");
 		oldIdConversionMap.put("BDSM_PENIS_STRAPON", "innoxia_bdsm_penis_strapon");
+		oldIdConversionMap.put("innoxia_bdsmBracelets_wrist_bracelets", "innoxia_bdsm_wrist_bracelets");
 		
 		oldIdConversionMap.put("WITCH_HAT", "innoxia_witch_witch_hat");
 		oldIdConversionMap.put("WITCH_DRESS", "innoxia_witch_witch_dress");
@@ -6582,7 +6525,8 @@ public class ClothingType {
 		
 		oldIdConversionMap.put("ANKLE_BRACELET", "innoxia_ankle_anklet");
 		oldIdConversionMap.put("ANKLE_SHIN_GUARDS", "innoxia_ankle_shin_guards");
-
+		
+		oldIdConversionMap.put("PIERCING_EAR_RING", "innoxia_piercing_ear_ring");
 		oldIdConversionMap.put("PIERCING_EAR_BASIC_RING", "innoxia_piercing_ear_ring");
 		oldIdConversionMap.put("PIERCING_EAR_HOOPS", "innoxia_piercing_ear_hoops");
 		oldIdConversionMap.put("PIERCING_NOSE_BASIC_RING", "innoxia_piercing_nose_ring");

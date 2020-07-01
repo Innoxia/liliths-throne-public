@@ -139,7 +139,7 @@
 		</otherRough>
 	</displacementText>
 
-	<replacementText type="PULLS_DOWN">
+	<displacementText type="PULLS_DOWN">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(untie)] the straps of [npc.her] clubbing dress and [npc.verb(allow)] the top half to fall down around [npc.her] waist.]]>
 		</self>
@@ -149,9 +149,9 @@
 		<otherRough>
 		  <![CDATA[[npc.Name] roughly [npc.verb(untie)] the straps of [npc2.namePos] clubbing dress and [npc.verb(yank)] the top half down around [npc2.her] waist.]]>
 	  </otherRough>
-	</replacementText>
+	</displacementText>
 
-	<displacementText type="PULLS_DOWN">
+	<replacementText type="PULLS_DOWN">
 		<self>
 		  <![CDATA[[npc.Name] [npc.verb(pull)] up the top half of [npc.her] clubbing dress and [npc.verb(tie)] the straps into a loose bow behind [npc.her] neck.]]>
 		</self>
@@ -161,7 +161,7 @@
 		<otherRough>
 		  <![CDATA[[npc.Name] roughly [npc.verb(yank)] up the top half of [npc2.namePos] clubbing dress and [npc.verb(tie)] the straps into a loose bow behind [npc2.her] neck.]]>
 		</otherRough>
-	</displacementText>
+	</replacementText>
 
 	
 </clothing>

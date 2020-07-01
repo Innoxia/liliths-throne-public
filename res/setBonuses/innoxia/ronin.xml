@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Ronin]]></name>
+	
+	<statusEffect>SET_RONIN</statusEffect>
+	
+	<numberRequiredForCompleteSet>3</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>TORSO_OVER</slot>
+		<slot>TORSO_UNDER</slot>
+		<slot>LEG</slot>
+		<slot>SOCK</slot>
+		<slot>FOOT</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

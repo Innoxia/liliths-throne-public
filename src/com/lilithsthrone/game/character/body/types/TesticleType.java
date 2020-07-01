@@ -2,12 +2,13 @@ package com.lilithsthrone.game.character.body.types;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.2.5
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public enum TesticleType implements BodyPartTypeInterface {
@@ -50,11 +51,11 @@ public enum TesticleType implements BodyPartTypeInterface {
 
 	
 	private BodyCoveringType skinType;
-	private FluidType fluidType;
+	private AbstractFluidType fluidType;
 	private Race race;
 	private boolean internal;
 
-	private TesticleType(BodyCoveringType skinType, FluidType fluidType, Race race, boolean internal) {
+	private TesticleType(BodyCoveringType skinType, AbstractFluidType fluidType, Race race, boolean internal) {
 		this.skinType = skinType;
 		this.fluidType = fluidType;
 		this.race = race;
@@ -106,7 +107,7 @@ public enum TesticleType implements BodyPartTypeInterface {
 		return race;
 	}
 
-	public FluidType getFluidType() {
+	public AbstractFluidType getFluidType() {
 		return fluidType;
 	}
 
