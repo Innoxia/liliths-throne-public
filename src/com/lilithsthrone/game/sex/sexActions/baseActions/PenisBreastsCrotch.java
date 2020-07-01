@@ -1187,7 +1187,7 @@ public class PenisBreastsCrotch {
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, desperately thrusting into [npc.namePos] lower abdomen as [npc2.she] enthusiastically [npc.verb(encourage)] [npc.herHim] to keep going."));
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, desperately thrusting into [npc.namePos] lower abdomen as [npc2.she] enthusiastically [npc2.verb(encourage)] [npc.herHim] to keep going."));
 						break;
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1195,7 +1195,7 @@ public class PenisBreastsCrotch {
 						break;
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, eagerly thrusting into [npc.namePos] lower abdomen as [npc2.she] enthusiastically [npc.verb(encourage)] [npc.herHim] to keep going."));
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, eagerly thrusting into [npc.namePos] lower abdomen as [npc2.she] enthusiastically [npc2.verb(encourage)] [npc.herHim] to keep going."));
 						break;
 					case SUB_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1246,7 +1246,7 @@ public class PenisBreastsCrotch {
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, desperately thrusting into [npc.namePos] lower abdomen as [npc2.she] enthusiastically [npc.verb(encourage)] [npc.herHim] to keep going."));
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, desperately thrusting into [npc.namePos] lower abdomen as [npc2.she] enthusiastically [npc2.verb(encourage)] [npc.herHim] to keep going."));
 						break;
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1254,7 +1254,7 @@ public class PenisBreastsCrotch {
 						break;
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, eagerly thrusting into [npc.namePos] lower abdomen as [npc2.she] enthusiastically [npc.verb(encourage)] [npc.herHim] to keep going."));
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] in response, eagerly thrusting into [npc.namePos] lower abdomen as [npc2.she] enthusiastically [npc2.verb(encourage)] [npc.herHim] to keep going."));
 						break;
 					case SUB_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(

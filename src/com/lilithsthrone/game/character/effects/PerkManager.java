@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.utils.Pathing;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -456,7 +457,16 @@ public enum PerkManager {
 
 		// Add a unique background perk based on weighting:
 		if(!character.isUnique() && !(character.isElemental()) && rnd.nextInt(100)<=50) {
-			Map<PerkCategory, Integer> perkWeightingMap = new HashMap<>(character.getSubspecies().getPerkWeighting(character));
+			Map<PerkCategory, Integer> perkWeightingMap;
+			
+			if(character.getBody()!=null && character.getSubspecies()!=null) {
+				perkWeightingMap = new HashMap<>(character.getSubspecies().getPerkWeighting(character));
+			} else {
+				perkWeightingMap = Util.newHashMapOfValues(
+						new Value<>(PerkCategory.PHYSICAL, 1),
+						new Value<>(PerkCategory.LUST, 1),
+						new Value<>(PerkCategory.ARCANE, 1));
+			}
 			
 			PerkCategory pc = Util.getRandomObjectFromWeightedMap(perkWeightingMap, rnd);
 			
@@ -567,8 +577,13 @@ public enum PerkManager {
 				Map<PerkCategory, Integer> perkWeightingMap;
 				if(perkWeightingOverride!=null) {
 					perkWeightingMap = new HashMap<>(perkWeightingOverride);
-				} else {
+				} else if(character.getBody()!=null && character.getSubspecies()!=null) {
 					perkWeightingMap = new HashMap<>(character.getSubspecies().getPerkWeighting(character));
+				} else {
+					perkWeightingMap = Util.newHashMapOfValues(
+							new Value<>(PerkCategory.PHYSICAL, 1),
+							new Value<>(PerkCategory.LUST, 1),
+							new Value<>(PerkCategory.ARCANE, 1));
 				}
 				
 				perkWeightingMap.entrySet().removeIf((entry)->entry.getValue()<=0);

@@ -1273,7 +1273,7 @@ public class ItemEffectType {
 				case MINOR_BOOST:
 					return "<p style='text-align:center;'>"
 								+ "For a moment, it looks as though nothing is going to happen,"
-									+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purify energy rushes through [npc.herHim]."
+									+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purifying energy rushes through [npc.herHim]."
 								+ " Accompanied by a faint, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
 									+ " where it quickly gets to work purifying [npc.her] thoughts and calming [npc.her] libido..."
 							+"</p>"
@@ -1281,7 +1281,7 @@ public class ItemEffectType {
 				case BOOST:
 					return "<p style='text-align:center;'>"
 							+ "For a moment, it looks as though nothing is going to happen,"
-								+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purify energy rushes through [npc.herHim]."
+								+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purifying energy rushes through [npc.herHim]."
 							+ " Accompanied by a bright, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
 								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [npc.her] libido..."
 						+"</p>"
@@ -1289,7 +1289,7 @@ public class ItemEffectType {
 				case MAJOR_BOOST:
 					return "<p style='text-align:center;'>"
 							+ "For a moment, it looks as though nothing is going to happen,"
-								+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purify energy rushes through [npc.herHim]."
+								+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purifying energy rushes through [npc.herHim]."
 							+ " Accompanied by a blinding, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
 								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [npc.her] libido..."
 						+"</p>"
@@ -3255,7 +3255,7 @@ public class ItemEffectType {
 				
 			} else if(secondaryModifier == TFModifier.CLOTHING_SERVITUDE) {
 				effectsList.add("[style.boldBad(Inhibits)] [style.boldTfGeneric(self-transformations)]");
-				effectsList.add("[style.boldBad(Prevents)] [style.boldArcane(removal of jinxes)]");
+				effectsList.add("[style.boldBad(Prevents)] [style.boldArcane(removal of seals)]");
 				
 			} else if(secondaryModifier == TFModifier.CLOTHING_ENSLAVEMENT) {
 				effectsList.add("[style.boldCrimson(Enslaves the wearer)]");

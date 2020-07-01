@@ -166,6 +166,9 @@ public class DarkSiren extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.setTailGirth(PenetrationGirth.FOUR_THICK);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
+		}
 	}
 
 	@Override
@@ -317,6 +320,7 @@ public class DarkSiren extends NPC {
 		
 		// Penis:
 		// n/a
+		this.setTesticleCount(2); // For if she grows one
 		
 		// Vagina:
 		this.setVaginaVirgin(true);
@@ -433,7 +437,7 @@ public class DarkSiren extends NPC {
 
 	@Override
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
-		if(character.isPlayer() && character.getRace()==Race.DEMON) {
+		if(character.isPlayer() && character.getSubspeciesOverrideRace()==Race.DEMON) {
 			return Util.newHashSetOfValues(Relationship.HalfSibling);
 		}
 		return super.getRelationshipsTo(character, excludedRelationships);

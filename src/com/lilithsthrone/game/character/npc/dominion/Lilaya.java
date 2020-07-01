@@ -13,6 +13,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -60,6 +61,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -155,6 +157,9 @@ public class Lilaya extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7")) {
 			this.setTailGirth(PenetrationGirth.FIVE_FAT);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
 		}
 	}
 
@@ -272,6 +277,7 @@ public class Lilaya extends NPC {
 		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
 		this.setPenisCumStorage(65);
 		this.fillCumToMaxStorage();
+		this.setTesticleCount(2);
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -411,7 +417,7 @@ public class Lilaya extends NPC {
 	@Override
 	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
 		if(character.isPlayer()) {
-			if(character.getRace()==Race.DEMON) {
+			if(character.getSubspeciesOverrideRace()==Race.DEMON) {
 				Set<Relationship> rSet = new LinkedHashSet<>();
 				rSet.add(Relationship.HalfSibling);
 				rSet.add(Relationship.Pibling);
@@ -464,6 +470,62 @@ public class Lilaya extends NPC {
 		return super.getItemUseEffects(item, itemOwner, user, target);
 	}
 	
+	@Override
+	public String getAttributeChangeText(Attribute att, float value) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(super.getAttributeChangeText(att, value));
+		
+		if(this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+			if(att==Attribute.FERTILITY && value>0) {
+				sb.append(UtilText.parse(this,
+						"<p>"
+							+ "[lilaya.speech(Wait... That made me more fertile?! What were you thinking?!)]"
+							+ " Lilaya angrily exclaims, before letting out a deep sigh and muttering,"
+							+ " [lilaya.speech(Whatever... It's not like it's ever going to make a difference...)]"
+						+ "</p>"));
+				
+			} else if(att==Attribute.FERTILITY && value<0) {
+				sb.append(UtilText.parse(this,
+						"<p>"
+							+ "[lilaya.speech(Wait... That made me less fertile?! Thank you, [pc.name]!)]"
+							+ " Lilaya happily exclaims, before sighing,"
+							+ " [lilaya.speech(It's not like it's ever going to make a difference anyway, but the thought is nice...)]"
+						+ "</p>"));
+			}
+		}
+		
+		return sb.toString();
+	}
+	
+	@Override
+	public String getPotionAttributeChangeText(Attribute att, float value) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(super.getPotionAttributeChangeText(att, value));
+		
+		if(this.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+			if(att==Attribute.FERTILITY && value>0) {
+				sb.append(UtilText.parse(this,
+						"<p>"
+							+ "[lilaya.speech(Wait... That made me more fertile?! What were you thinking?!)]"
+							+ " Lilaya angrily exclaims, before letting out a deep sigh and muttering,"
+							+ " [lilaya.speech(Whatever... It's not like it's ever going to make a difference...)]"
+						+ "</p>"));
+				
+			} else if(att==Attribute.FERTILITY && value<0) {
+				sb.append(UtilText.parse(this,
+						"<p>"
+							+ "[lilaya.speech(Wait... That made me less fertile?! Thank you, [pc.name]!)]"
+							+ " Lilaya happily exclaims, before sighing,"
+							+ " [lilaya.speech(It's not like it's ever going to make a difference anyway, but the thought is nice...)]"
+						+ "</p>"));
+			}
+		}
+		
+		return sb.toString();
+	}
+	
 	// Sex:
 	
 	@Override
@@ -479,7 +541,7 @@ public class Lilaya extends NPC {
 
 		speech.add("Fuck, why do demons always have to feel so horny?! All I ever think about is fucking you or Rose!");
 		speech.add("I'm sure I can collect some valuable data from this...");
-		if(Main.game.getPlayer().getRace()==Race.DEMON) {
+		if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 			speech.add("Horny for your new half-sister, hmm?");
 			speech.add("There's nothing wrong with demonic siblings fucking one another...");
 		} else {

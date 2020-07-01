@@ -642,7 +642,7 @@ public class Vicky extends NPC {
 	// Sex:
 	
 	@Override
-	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
 		return true;
 	}
 	

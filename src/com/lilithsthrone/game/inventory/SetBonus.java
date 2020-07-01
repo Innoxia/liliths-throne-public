@@ -1,272 +1,173 @@
 package com.lilithsthrone.game.inventory;
 
+import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.effects.StatusEffect;
-import com.lilithsthrone.game.combat.moves.CombatMove;
-import com.lilithsthrone.game.combat.spells.Spell;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.6.6
+ * @version 0.3.8.2
  * @author Innoxia
  */
-public enum SetBonus {
-
-	ENFORCER("Commanding Enforcer",
-			StatusEffect.SET_ENFORCER,
-			2,
-			Util.newArrayListOfValues(
-					InventorySlot.TORSO_UNDER,
-					InventorySlot.LEG),
-			null,
-			null),
-
-	SLUTTY_ENFORCER("Slutty Enforcer",
-			StatusEffect.SET_SLUTTY_ENFORCER,
-			2,
-			Util.newArrayListOfValues(
-					InventorySlot.TORSO_UNDER,
-					InventorySlot.LEG),
-			null,
-			null),
+public class SetBonus {
 	
-	MAID("Hard-working Maid",
-			StatusEffect.SET_MAID,
-			5,
-			Util.newArrayListOfValues(
-					InventorySlot.HEAD,
-					InventorySlot.TORSO_UNDER,
-					InventorySlot.SOCK,
-					InventorySlot.FOOT,
-					InventorySlot.HAND),
-			null,
-			null),
-
-	BUTLER("Butler",
-			StatusEffect.SET_BUTLER,
-			5,
-			Util.newArrayListOfValues(
-					InventorySlot.TORSO_OVER,
-					InventorySlot.TORSO_UNDER,
-					InventorySlot.LEG,
-					InventorySlot.FOOT,
-					InventorySlot.HAND),
-			null,
-			null),
-
-	WITCH("Witch",
-			StatusEffect.SET_WITCH,
-			3,
-			Util.newArrayListOfValues(
-					InventorySlot.TORSO_UNDER,
-					InventorySlot.FOOT,
-					InventorySlot.HEAD),
-			null,
-			null),
-
-	SCIENTIST("Brilliant Scientist",
-			StatusEffect.SET_SCIENTIST,
-			2,
-			Util.newArrayListOfValues(
-					InventorySlot.TORSO_OVER,
-					InventorySlot.EYES),
-			null,
-			null),
-
-	MILK_MAID("Milk Maid",
-			StatusEffect.SET_MILK_MAID,
-			2,
-			Util.newArrayListOfValues(
-					InventorySlot.TORSO_UNDER,
-					InventorySlot.HEAD),
-			null,
-			null),
-
-	BDSM("Locked in Bondage",
-			StatusEffect.SET_BDSM,
-			3,
-			null,
-			null,
-			null),
-
-	CATTLE("Cattle",
-			StatusEffect.SET_CATTLE,
-			3,
-			Util.newArrayListOfValues(
-					InventorySlot.PIERCING_EAR,
-					InventorySlot.PIERCING_NOSE,
-					InventorySlot.NECK),
-			null,
-			null),
-
-	GEISHA("Geisha",
-			StatusEffect.SET_GEISHA,
-			3,
-			Util.newArrayListOfValues(
-					InventorySlot.HAIR,
-					InventorySlot.TORSO_UNDER,
-					InventorySlot.FOOT),
-			null,
-			null), // "We want the /jp/ audience." - Innoxia, probably.
-
-	RONIN("Ronin",
-			StatusEffect.SET_RONIN,
-			3,
-			Util.newArrayListOfValues(
-					InventorySlot.TORSO_OVER,
-					InventorySlot.TORSO_UNDER,
-					InventorySlot.LEG,
-					InventorySlot.FOOT),
-			null,
-			null),
-
-	WEAPON_DAISHO("Daisho",
-			StatusEffect.SET_DAISHO,
-			2,
-			null,
-			null,
-			null),
-
-	JOLNIR("J&oacute;lnir",
-			StatusEffect.SET_JOLNIR,
-			3,
-			Util.newArrayListOfValues(
-					InventorySlot.TORSO_OVER,
-					InventorySlot.TORSO_UNDER,
-					InventorySlot.FOOT,
-					InventorySlot.HEAD),
-			null,
-			null),
-
-	SUN("Solar Power",
-			StatusEffect.SET_SUN,
-			3,
-			null,
-			null,
-			null),
-
-	SNOWFLAKE("Blizzard",
-			StatusEffect.SET_SNOWFLAKE,
-			3,
-			null,
-			null,
-			null),
-
-	RAINBOW("Rainbow",
-			StatusEffect.SET_RAINBOW,
-			2,
-			null,
-			null,
-			null),
-
-	DARK_SIREN("Dark Siren",
-			StatusEffect.SET_DARK_SIREN,
-			3,
-			Util.newArrayListOfValues(
-					InventorySlot.TORSO_OVER,
-					InventorySlot.NECK,
-					InventorySlot.EYES),
-			null,
-			null),
-
-	LYSSIETH_GUARD("Lyssieth's Guard",
-			StatusEffect.SET_LYSSIETH_GUARD,
-			4,
-			Util.newArrayListOfValues(
-					InventorySlot.FOOT,
-					InventorySlot.TORSO_OVER,
-					InventorySlot.LEG,
-					InventorySlot.HEAD),
-			null,
-			null)
+	public static List<AbstractSetBonus> allSetBonuses;
 	
-	;
-
-	private String name;
-	private int numberRequiredForCompleteSet;
-	private List<InventorySlot> blockedSlotsCountingTowardsFullSet;
-	private List<CombatMove> combatMoves;
-	private List<Spell> spells;
-	private StatusEffect associatedStatusEffect;
-
-	private SetBonus(String name, StatusEffect associatedStatusEffect, int numberRequiredForCompleteSet, List<InventorySlot> blockedSlotsCountingTowardsFullSet, List<CombatMove> combatMoves, List<Spell> spells) {
-		this.name = name;
-		this.numberRequiredForCompleteSet = numberRequiredForCompleteSet;
-		
-		if(blockedSlotsCountingTowardsFullSet==null) {
-			this.blockedSlotsCountingTowardsFullSet = new ArrayList<>();
-		} else {
-			this.blockedSlotsCountingTowardsFullSet = blockedSlotsCountingTowardsFullSet;
+	public static Map<AbstractSetBonus, String> setBonusToIdMap = new HashMap<>();
+	public static Map<String, AbstractSetBonus> idToSetBonusMap = new HashMap<>();
+	
+	/**
+	 * @param id Will be in the format of: 'innoxia_enforcer'.
+	 */
+	public static AbstractSetBonus getSetBonusFromId(String id) {
+		if(id.equals("ENFORCER")) {
+			id = "innoxia_enforcer";
+		}
+		if(id.equals("SLUTTY_ENFORCER")) {
+			id = "innoxia_slutty_enforcer";
+		}
+		if(id.equals("MAID")) {
+			id = "innoxia_maid";
+		}
+		if(id.equals("BUTLER")) {
+			id = "innoxia_butler";
+		}
+		if(id.equals("WITCH")) {
+			id = "innoxia_witch";
+		}
+		if(id.equals("SCIENTIST")) {
+			id = "innoxia_scientist";
+		}
+		if(id.equals("MILK_MAID")) {
+			id = "innoxia_milk_maid";
+		}
+		if(id.equals("BDSM")) {
+			id = "innoxia_bdsm";
+		}
+		if(id.equals("CATTLE")) {
+			id = "innoxia_cattle";
+		}
+		if(id.equals("GEISHA")) {
+			id = "innoxia_geisha";
+		}
+		if(id.equals("RONIN")) {
+			id = "innoxia_ronin";
+		}
+		if(id.equals("WEAPON_DAISHO")) {
+			id = "innoxia_daisho";
+		}
+		if(id.equals("JOLNIR")) {
+			id = "innoxia_jolnir";
+		}
+		if(id.equals("SUN")) {
+			id = "innoxia_sun";
+		}
+		if(id.equals("SNOWFLAKE")) {
+			id = "innoxia_snowflake";
+		}
+		if(id.equals("RAINBOW")) {
+			id = "innoxia_rainbow";
+		}
+		if(id.equals("DARK_SIREN")) {
+			id = "innoxia_dark_siren";
+		}
+		if(id.equals("LYSSIETH_GUARD")) {
+			id = "innoxia_lyssieth_guard";
 		}
 		
-		this.combatMoves = combatMoves;
-		this.spells = spells;
-		this.associatedStatusEffect = associatedStatusEffect;
+		id = Util.getClosestStringMatch(id, idToSetBonusMap.keySet());
+		return idToSetBonusMap.get(id);
 	}
 	
-	public boolean isCharacterWearingCompleteSet(GameCharacter target) {
-		int setCount = 0;
+	public static String getIdFromSetBonus(AbstractSetBonus setBonus) {
+		return setBonusToIdMap.get(setBonus);
+	}
+
+	static {
+		allSetBonuses = new ArrayList<>();
 		
-		for(InventorySlot slot : this.getBlockedSlotsCountingTowardsFullSet()) {
-			if(slot.getBodyPartClothingBlock(target) != null) {
-				setCount++;
+		File dir = new File("res/mods");
+		
+		if (dir.exists() && dir.isDirectory()) {
+			File[] modDirectoryListing = dir.listFiles();
+			if (modDirectoryListing != null) {
+				for (File modAuthorDirectory : modDirectoryListing) {
+					File modAuthorClothingDirectory = new File(modAuthorDirectory.getAbsolutePath()+"/setBonuses");
+					File[] innerDirectoryListing = modAuthorClothingDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
+					if (innerDirectoryListing != null) {
+						for (File innerChild : innerDirectoryListing) {
+							try {
+								String id = modAuthorDirectory.getName()+"_"+innerChild.getName().split("\\.")[0];
+								AbstractSetBonus setBonus = new AbstractSetBonus(innerChild, modAuthorDirectory.getName(), true) {};
+								allSetBonuses.add(setBonus);
+								setBonusToIdMap.put(setBonus, id);
+								idToSetBonusMap.put(id, setBonus);
+							} catch(Exception ex) {
+								System.err.println("Loading modded set bonus failed at 'SetBonus' Code 1. File path: "+innerChild.getAbsolutePath());
+							}
+						}
+					}
+				}
 			}
 		}
 		
-		boolean atLeastOneClothingFound = false;
-		for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-			if (c.getClothingType().getClothingSet() == this) {
-				setCount++;
-				atLeastOneClothingFound = true;
+		// Add in external res set bonuses:
+		
+		dir = new File("res/setBonuses");
+		
+		if (dir.exists() && dir.isDirectory()) {
+			File[] authorDirectoriesListing = dir.listFiles();
+			if (authorDirectoriesListing != null) {
+				for (File authorDirectory : authorDirectoriesListing) {
+					if (authorDirectory.isDirectory()){
+						File[] innerDirectoryListing = authorDirectory.listFiles((path, filename) -> filename.endsWith(".xml"));
+						if (innerDirectoryListing != null) {
+							for (File innerChild : innerDirectoryListing) {
+								try {
+									String id = authorDirectory.getName()+"_"+innerChild.getName().split("\\.")[0];
+									AbstractSetBonus setBonus = new AbstractSetBonus(innerChild, authorDirectory.getName(), true) {};
+									allSetBonuses.add(setBonus);
+									setBonusToIdMap.put(setBonus, id);
+									idToSetBonusMap.put(id, setBonus);
+								} catch(Exception ex) {
+									System.err.println("Loading modded set bonus failed at 'SetBonus' Code 2. File path: "+innerChild.getAbsolutePath());
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 		
-		int weaponSetCount = 0;
-		for(AbstractWeapon weapon : target.getMainWeaponArray()) {
-			if(weapon!=null && weapon.getWeaponType().getClothingSet() == this) {
-				weaponSetCount++;
-				atLeastOneClothingFound = true;
+		
+		Field[] fields = SetBonus.class.getFields();
+		
+		for(Field f : fields){
+			if (AbstractSetBonus.class.isAssignableFrom(f.getType())) {
+				
+				AbstractSetBonus setBonus;
+				
+				try {
+					setBonus = ((AbstractSetBonus) f.get(null));
+
+					setBonusToIdMap.put(setBonus, f.getName());
+					idToSetBonusMap.put(f.getName(), setBonus);
+					allSetBonuses.add(setBonus);
+					
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		for(AbstractWeapon weapon : target.getOffhandWeaponArray()) {
-			if(weapon!=null && weapon.getWeaponType().getClothingSet() == this) {
-				weaponSetCount++;
-				atLeastOneClothingFound = true;
-			}
-		}
-		
-		setCount += Math.min(2, weaponSetCount);
-		
-		return atLeastOneClothingFound && setCount >= this.getNumberRequiredForCompleteSet();
+	}
+	
+	public static List<AbstractSetBonus> getAllSetBonuses() {
+		return allSetBonuses;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public int getNumberRequiredForCompleteSet() {
-		return numberRequiredForCompleteSet;
-	}
-
-	public List<CombatMove> getCombatMoves() {
-		return combatMoves;
-	}
-
-	public List<Spell> getSpells() {
-		return spells;
-	}
-
-	public StatusEffect getAssociatedStatusEffect() {
-		return associatedStatusEffect;
-	}
-
-	public List<InventorySlot> getBlockedSlotsCountingTowardsFullSet() {
-		return blockedSlotsCountingTowardsFullSet;
-	}
 }

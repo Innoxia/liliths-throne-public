@@ -293,7 +293,7 @@ public enum TFModifier {
 	
 	//CLOTHING_ANTI_SELF_TRANSFORMATION
 	CLOTHING_SERVITUDE("servitude",
-			"Makes the wearer unable to self-transform or unjinx clothing.",
+			"Makes the wearer unable to self-transform or unseal clothing.",
 			"servitude",
 			"modifier_circle_servitude",
 			PresetColour.BASE_PINK_LIGHT,
@@ -933,6 +933,7 @@ public enum TFModifier {
 			PresetColour.BASE_YELLOW,
 			Rarity.COMMON),
 	
+	
 	// tongue modifiers:
 	
 	TF_MOD_TONGUE_RIBBED("ribbing",
@@ -955,6 +956,28 @@ public enum TFModifier {
 			"modifier_circle_tongue_bifurcated",
 			PresetColour.BASE_CRIMSON,
 			Rarity.COMMON),
+	
+	TF_MOD_TONGUE_WIDE("wide",
+			"Applies an effect related to making a tongue wide.",
+			"wide",
+			"modifier_circle_tongue_wide",
+			PresetColour.BASE_PURPLE,
+			Rarity.COMMON),
+	
+	TF_MOD_TONGUE_FLAT("flat",
+			"Applies an effect related to making a tongue flat.",
+			"flat",
+			"modifier_circle_tongue_flat",
+			PresetColour.BASE_PURPLE_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_TONGUE_STRONG("strong",
+			"Applies an effect related to making a tongue strong.",
+			"strong",
+			"modifier_circle_orifice_muscled",
+			PresetColour.BASE_MAGENTA,
+			Rarity.COMMON),
+	
 	
 	// penis & clit modifiers:
 	

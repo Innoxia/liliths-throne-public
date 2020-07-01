@@ -1316,7 +1316,7 @@ public class EnforcerWarehouse {
 						STOCKS_RANDOMS) {
 					@Override
 					public void effects() {
-						randomSexPartners = SlaverAlleyDialogue.generateRandomStocksPartners(true);
+						randomSexPartners = SlaverAlleyDialogue.generateRandomStocksPartners(Main.game.getPlayer(), true);
 					}
 				};
 			}

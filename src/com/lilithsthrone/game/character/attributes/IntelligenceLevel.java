@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.attributes;
 
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.colours.Colour;
@@ -7,14 +8,14 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.65
- * @version 0.2.1
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public enum IntelligenceLevel {
 	
 	ZERO_AIRHEAD("arcane impotence", 0, 5, PresetColour.INTELLIGENCE_STAGE_ZERO) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			if(Main.game.isInNewWorld()) {
 				return StatusEffect.INTELLIGENCE_PERK_0;
 			} else {
@@ -25,35 +26,35 @@ public enum IntelligenceLevel {
 	
 	ONE_AVERAGE("arcane potential", 5, 15, PresetColour.INTELLIGENCE_STAGE_ONE) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.INTELLIGENCE_PERK_1;
 		}
 	},
 	
 	TWO_SMART("arcane proficiency", 15, 35, PresetColour.INTELLIGENCE_STAGE_TWO) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.INTELLIGENCE_PERK_2;
 		}
 	},
 	
 	THREE_BRAINY("arcane prowess", 35, 65, PresetColour.INTELLIGENCE_STAGE_THREE) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.INTELLIGENCE_PERK_3;
 		}
 	},
 	
 	FOUR_GENIUS("arcane mastery", 65, 95, PresetColour.INTELLIGENCE_STAGE_FOUR) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.INTELLIGENCE_PERK_4;
 		}
 	},
 	
 	FIVE_POLYMATH("arcane brilliance", 95, 100, PresetColour.INTELLIGENCE_STAGE_FIVE) {
 		@Override
-		public StatusEffect getRelatedStatusEffect() {
+		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.INTELLIGENCE_PERK_5;
 		}
 	};
@@ -69,7 +70,7 @@ public enum IntelligenceLevel {
 		this.colour = colour;
 	}
 	
-	public abstract StatusEffect getRelatedStatusEffect();
+	public abstract AbstractStatusEffect getRelatedStatusEffect();
 
 	public String getName() {
 		return name;

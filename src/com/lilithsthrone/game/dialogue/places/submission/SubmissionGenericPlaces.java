@@ -408,7 +408,7 @@ public class SubmissionGenericPlaces {
 			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
 				if (index == 1) {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutUniforms)) {
-						return new Response("Uniforms", "You've just asked ELizabeth about her uniforms...", null);
+						return new Response("Uniforms", "You've just asked Elizabeth about her uniforms...", null);
 					}
 					return new Response("Uniforms", "Ask Elizabeth why she and her troops are wearing historical uniforms.", LILIN_PALACE_GATE_GENERIC_TALK) {
 						@Override
@@ -420,7 +420,7 @@ public class SubmissionGenericPlaces {
 					
 				} else if (index == 2) {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutSurname)) {
-						return new Response("Surname", "You've just asked ELizabeth about her surname...", null);
+						return new Response("Surname", "You've just asked Elizabeth about her surname...", null);
 					}
 					return new Response("Surname", "Ask Elizabeth why she didn't want to be addressed by her surname.", LILIN_PALACE_GATE_GENERIC_TALK) {
 						@Override
@@ -469,7 +469,7 @@ public class SubmissionGenericPlaces {
 
 			} else if (index == 2) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutUniforms)) {
-					return new Response("Uniforms", "You've just asked ELizabeth about her uniforms...", null);
+					return new Response("Uniforms", "You've just asked Elizabeth about her uniforms...", null);
 				}
 				return new Response("Uniforms", "Ask Elizabeth why she and her troops are wearing historical uniforms.", LILIN_PALACE_GATE_GENERIC_TALK) {
 					@Override
@@ -481,7 +481,7 @@ public class SubmissionGenericPlaces {
 
 			} else if (index == 3) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.elizabethAskedAboutSurname)) {
-					return new Response("Surname", "You've just asked ELizabeth about her surname...", null);
+					return new Response("Surname", "You've just asked Elizabeth about her surname...", null);
 				}
 				return new Response("Surname", "Ask Elizabeth why she didn't want to be addressed by her surname.", LILIN_PALACE_GATE_GENERIC_TALK) {
 					@Override

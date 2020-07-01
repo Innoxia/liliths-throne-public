@@ -101,7 +101,7 @@
 
   <displacementText type="REMOVE_OR_EQUIP">
     <self>
-      <![CDATA[[npc.Name] [npc.verb(take)] hold of [npc.her] taur-skirt, before pulling it up and over [npc2.her] head.]]>
+      <![CDATA[[npc.Name] [npc.verb(take)] hold of [npc.her] taur-skirt, before pulling it up and over [npc.her] head.]]>
     </self>
     <other>
       <![CDATA[[npc.Name] [npc.verb(take)] hold of [npc2.namePos] taur-skirt, before pulling it up and over [npc2.her] head.]]>

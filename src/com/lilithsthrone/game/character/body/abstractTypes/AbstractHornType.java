@@ -113,6 +113,15 @@ public abstract class AbstractHornType implements BodyPartTypeInterface {
 	public boolean isDefaultPlural() {
 		return true;
 	}
+
+	@Override
+	public String getName(GameCharacter gc){
+		if(isDefaultPlural() && (gc.getHornsPerRow()>1 || gc.getHornRows()>1)) {
+			return getNamePlural(gc);
+		} else {
+			return getNameSingular(gc);
+		}
+	}
 	
 	@Override
 	public String getNameSingular(GameCharacter gc) {

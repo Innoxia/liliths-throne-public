@@ -773,7 +773,7 @@ public class TunnelImpsDialogue {
 		public String getResponseTabTitle(int index) {
 			if(!getImpGroup().isEmpty()) {
 				if(index==0) {
-					return "Standard";
+					return "Interactions";
 					
 				} else if(index==1) {
 					return "Inventories";

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Rainbow]]></name>
+	
+	<statusEffect>SET_RAINBOW</statusEffect>
+	
+	<numberRequiredForCompleteSet>2</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet/>
+	
+</setBonus>

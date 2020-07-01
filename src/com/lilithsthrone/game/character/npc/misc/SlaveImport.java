@@ -36,7 +36,7 @@ public class SlaveImport extends NPC {
 	}
 	
 	public SlaveImport(boolean isImported) {
-		super(isImported, new NameTriplet("Slave"), null, "Generic slave.",
+		super(isImported, new NameTriplet("Slave"), "", "-",
 				18, Month.JUNE, 10,
 				1, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);

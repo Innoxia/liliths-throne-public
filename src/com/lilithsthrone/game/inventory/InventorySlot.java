@@ -46,7 +46,7 @@ public enum InventorySlot {
 
 		@Override
 		protected String getNameForParsing() {
-			return "[npc.hair]";
+			return "[npc.hair(true)]";
 		}
 	},
 

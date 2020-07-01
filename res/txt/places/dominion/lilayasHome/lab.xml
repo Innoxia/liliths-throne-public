@@ -807,16 +807,16 @@
 	
 	<htmlContent tag="LAB_JINX_REMOVAL"><![CDATA[
 	<p>
-		[pc.speech(I was wondering if you could help me with my clothes,)] you say, before explaining to Lilaya how you're unable to unjinx your clothing due to a 'servitude' enchantment being present on them. 
+		[pc.speech(I was wondering if you could help me with my clothes,)] you say, before explaining to Lilaya how you're unable to unseal your clothing due to a 'servitude' enchantment being present on them. 
 	</p>
 	<p>
 		As she hears you explaining your dilemma, your [lilaya.relation(pc)] crosses her arms and tuts in disapproval. Shaking her head as you finish talking, she asks, [lilaya.speech(How did you end up in such a ridiculous situation? Were you just going around Dominion putting on any old piece of clothing you found lying on the ground? No, wait, don't answer. I feel as though I'd regret finding out.)]
 	</p>
 	<p>
-		Asking Lilaya if she can help, you're pleased to see the annoyed expression on her face quickly soften as she replies, [lilaya.speech(Yes, I can help. Ordinarily, I'd refuse to unjinx any of your clothing to teach you a lesson about being so careless, but seeing as you're completely unable to get yourself out of this mess, I'll remove the jinxes from all of your clothing. Just come and stand over here, please.)]
+		Asking Lilaya if she can help, you're pleased to see the annoyed expression on her face quickly soften as she replies, [lilaya.speech(Yes, I can help. Ordinarily, I'd refuse to unseal any of your clothing to teach you a lesson about being so careless, but seeing as you're completely unable to get yourself out of this mess, I'll remove the seals from all of your clothing. Just come and stand over here, please.)]
 	</p>
 	<p>
-		Moving up next to Lilaya, you hold still as she unjinxes your clothing. After just a few moments she's done, and after you've thanked her and stepped back, she asks you if there was anything else you needed.
+		Moving up next to Lilaya, you hold still as she unseals your clothing. After just a few moments she's done, and after you've thanked her and stepped back, she asks you if there was anything else you needed.
 	</p>
 	]]>
 	</htmlContent>
@@ -989,7 +989,7 @@
 			[pc.speech(Wait, I absorbed their <i>essence</i>? What does that mean?)]
 		</p>
 		<p>
-			[lilaya.speech(Well, basically, you absorbed a fragment of someone's aura. Extracting essences isn't harmful to either you or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but you can <i>somehow</i> absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]
+			[lilaya.speech(Well, basically, you absorbed a fragment of someone's aura. Extracting essences isn't harmful to either you or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but you can <i>somehow</i> absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove seals... Look, it's better if I show you...)]
 		</p>
 		<p>
 			Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight. Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus. Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface. Coming to a halt in front of the workspace, Lilaya turns to face you. [lilaya.speech(Right, I can explain as we go...)]
@@ -1009,7 +1009,7 @@
 			[pc.speech(Wait, what does all of this mean?)] you ask.
 		</p>
 		<p>
-			[lilaya.speech(Well, basically, you've absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled. Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]
+			[lilaya.speech(Well, basically, you've absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled. Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove seals... Look, it's better if I show you...)]
 		</p>
 		<p>
 			Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight. Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus. Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface. Coming to a halt in front of the workspace, Lilaya turns to face you. [lilaya.speech(Right, I can explain as we go...)]
@@ -1035,7 +1035,7 @@
 			[pc.speech(Wait, what does all of this mean?)] you ask.
 		</p>
 		<p>
-			[lilaya.speech(Well, basically, you just absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled. Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove jinxes... Look, it's better if I show you...)]
+			[lilaya.speech(Well, basically, you just absorbed an essence, which had been collected directly from someone's aura by a Lilin, and then bottled. Extracting essences isn't harmful to either the Lilin or to the other person, and all auras replenish their natural strength very quickly, so don't worry about anything like that,)] Lilaya explains, pacing back and forth. [lilaya.speech(You see, using absorbed essences is the way in which enchantments are infused into objects. Normally, demons have to buy bottled essences in order to absorb them into their aura, but <i>somehow</i> you'll be able to absorb them directly from a person, just like a Lilin can! After absorbing an essence, you'll be able to use it to enchant items or remove seals... Look, it's better if I show you...)]
 		</p>
 		<p>
 			Lilaya flicks a switch on one of the instruments, and the shimmering pink aura instantly vanishes from sight. Stepping forwards, she takes you by the [pc.arm] once more, and quickly leads you over to another corner of the lab, where a long, sturdy table is covered in all sorts of alchemical-looking apparatus. Large glass bottles filled with brightly coloured liquids bubble away without any apparent source of heat, and all manner of strange looking ingredients lie scattered over the table's surface. Coming to a halt in front of the workspace, Lilaya turns to face you. [lilaya.speech(Right, I can explain as we go...)]
@@ -1049,7 +1049,7 @@
 	
 	<htmlContent tag="LILAYA_EXPLAINS_ESSENCES_3"><![CDATA[
 	<p>
-		[lilaya.speech(Ok, so, first thing to know is that these essences are no longer part of the person that they originally came from. It's not as though you're trapping a part of their soul into enchanted items or anything like that!)] Lilaya starts explaining, [lilaya.speech(So don't have any qualms about using these essences to enchant or unjinx anything!)]
+		[lilaya.speech(Ok, so, first thing to know is that these essences are no longer part of the person that they originally came from. It's not as though you're trapping a part of their soul into enchanted items or anything like that!)] Lilaya starts explaining, [lilaya.speech(So don't have any qualms about using these essences to enchant or unseal anything!)]
 	</p>
 	<p>
 		As she speaks, Lilaya reaches down under the table and produces a bottle of Feline's Fancy, putting it down on the desk before turning back towards you.
@@ -1094,7 +1094,7 @@
 	</p>
 	<div class='container-full-width' style='text-align:center;'>
 		<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i><br/>
-		<i>In the same way, you're now able to remove jinxes from clothing. Simply select the clothing in your inventory, then press the 'Remove jinx' button.</i>
+		<i>In the same way, you're now able to unseal clothing. Simply select the clothing in your inventory, then press the 'Unseal' button.</i>
 	</div>
 	]]>
 	</htmlContent>

@@ -64,7 +64,7 @@
 		</p>
 	#ELSE
 		<p>
-			[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save that potion for the next one we catch. Let's just see what fun we can have with this one as [pc.she] is.)]
+			[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save that potion for the next one we catch. Let's just see what fun we can have with this one as [pc.she] is.)]
 		</p>
 		<p>
 			With no further warning, [npc2.name] reaches forwards and grabs your shoulders, before pushing you down onto your back. [npc2.speech(That's right, lie back and relax! Time to be a good fuck-toy!)]
@@ -121,7 +121,7 @@
 		</p>
 	#ELSE
 		<p>
-			[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save that potion for the next one we catch. Let's just see what fun we can have with this one as [npc.she] is.)]
+			[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save that potion for the next one we catch. Let's just see what fun we can have with this one as [npc.she] is.)]
 		</p>
 		<p>
 			With no further warning, [npc2.name] reaches forwards and grabs the back of [npc.namePos] head, before pushing [npc.herHim] down onto the floor. [npc2.speech(Get down, [npc.insult]! Time to be a good fuck-toy for us!)]
@@ -278,7 +278,7 @@
 			</p>
 		#ELSE
 			<p>
-				[npc3.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc3.name] tuts. Turning towards you and [npc2.name], [npc3.she] sighs, [npc3.speech(At least you're gonna get to transform [pc.herHim].)]
+				[npc3.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc3.name] tuts. Turning towards you and [npc2.name], [npc3.she] sighs, [npc3.speech(At least you're gonna get to transform [pc.herHim].)]
 			</p>
 			<p>
 				[npc2.speech(Yeah, just save your potion for the next one,)] [npc2.name] replies.#IF properties.getForcedTFTendency()==FORCED_TF_MASCULINE || properties.getForcedTFTendency()==FORCED_TF_MASCULINE_HEAVY
@@ -296,7 +296,7 @@
 		#IF npc.isAbleToAccessCoverableArea(CA_MOUTH, true)
 		#THEN
 			<p>
-				[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc2.name] tuts, before turning towards [npc2.her] partner. [npc3.she] sighs, [npc3.speech(Just use the other potion we've got on [pc.herHim].)]
+				[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc2.name] tuts, before turning towards [npc2.her] partner. [npc3.she] sighs, [npc3.speech(Just use the other potion we've got on [pc.herHim].)]
 			</p>
 			<p>
 				Quickly producing a bottle of strange liquid, [npc3.name] does as [npc3.her] superior commands, and, pulling the stopper out, [npc3.she] steps forwards, before grabbing [npc.namePos] chin and squeezing [npc.her] cheeks. 
@@ -312,7 +312,7 @@
 			</p>
 		#ELSE
 			<p>
-				[npc2.speech(Aww... You've both got your mouths blocked! If only the boss was here, she could get rid of those jinxes! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save the potions for the next ones we catch. Let's just see what fun we can have with these ones as they are.)]
+				[npc2.speech(Aww... You've both got your mouths blocked! If only the boss was here, she could get rid of those seal enchantments! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save the potions for the next ones we catch. Let's just see what fun we can have with these ones as they are.)]
 			</p>
 			<p>
 				With no further warning, [npc2.name] reaches forwards and grabs the back of your head, before pushing you down onto the floor. [npc2.speech(Get down, [pc.insult]! Time to be a good fuck-toy for us!)]
@@ -446,7 +446,7 @@
 			</p>
 		#ELSE
 			<p>
-				[npc3.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc3.name] tuts. Turning towards you and [npc2.name], [npc3.she] sighs, [npc3.speech(At least you're gonna get to transform [pc.herHim].)]
+				[npc3.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc3.name] tuts. Turning towards you and [npc2.name], [npc3.she] sighs, [npc3.speech(At least you're gonna get to transform [pc.herHim].)]
 			</p>
 			<p>
 				[npc2.speech(Yeah, just save yer potion for the next cunt we find,)] [npc2.name] snaps.
@@ -465,7 +465,7 @@
 		#IF npc.isAbleToAccessCoverableArea(CA_MOUTH, true)
 		#THEN
 			<p>
-				[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc3.name] tuts, before turning towards [npc2.her] partner. [npc3.speech(At least you're gonna get to transform [npc.herHim].)]
+				[npc2.speech(Aww... You've got your mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc3.name] tuts, before turning towards [npc2.her] partner. [npc3.speech(At least you're gonna get to transform [npc.herHim].)]
 			</p>
 			<p>
 				Quickly producing a bottle of strange liquid, [npc3.name] does as [npc3.her] superior commands, and, pulling the stopper out, [npc3.she] steps forwards, before grabbing [npc.namePos] chin and squeezing [npc.her] cheeks. 
@@ -481,7 +481,7 @@
 			</p>
 		#ELSE
 			<p>
-				[npc2.speech(Aww... You've both got your mouths blocked! If only the boss was here, she could get rid of those jinxes! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save the potions for the next ones we catch. Let's just see what fun we can have with these ones as they are.)]
+				[npc2.speech(Aww... You've both got your mouths blocked! If only the boss was here, she could get rid of those seal enchantments! Eugh!)] [npc2.name] tuts. Turning to [npc2.her] subordinate, [npc2.she] sighs, [npc2.speech(Save the potions for the next ones we catch. Let's just see what fun we can have with these ones as they are.)]
 			</p>
 			<p>
 				With no further warning, [npc2.name] reaches forwards and grabs your chin, before forcing you to look [npc2.herHim] in the eye as [npc2.she] snarls, [npc2.speech(Stupid [pc.insultPlural]! You're gonna love being our fuck-toys!)]

@@ -70,7 +70,7 @@
 		</p>
 	#ELSE
 		<p>
-			[npc2.speech(This [pc.insult]'s got [pc.her] mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc2.name] spits in disgust. Turning to [npc2.her] subordinate, [npc2.she] snaps, [npc2.speech(Save that potion for the next one we catch! Let's just fuck whatever holes we can with this [pc.insult].)]
+			[npc2.speech(This [pc.insult]'s got [pc.her] mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc2.name] spits in disgust. Turning to [npc2.her] subordinate, [npc2.she] snaps, [npc2.speech(Save that potion for the next one we catch! Let's just fuck whatever holes we can with this [pc.insult].)]
 		</p>
 		<p>
 			With no further warning, [npc2.name] reaches forwards and grabs the back of your head, before pushing you down onto the floor. [npc2.speech(Get down, [pc.insult]! Time to be a good fuck-toy for us!)]

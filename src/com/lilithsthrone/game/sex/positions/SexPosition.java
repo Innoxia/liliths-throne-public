@@ -2257,8 +2257,10 @@ public class SexPosition {
 				if(inFront!=null) {
 					sb.append(UtilText.parse(inFront, allFours,
 							continuation
-							?" Meanwhile, around the other side of [npc2.name], [npc.nameHasFull] "+(positions.get(5).isStanding(inFront)?"stepped up":"knelt down")
-									+" in front of [npc2.her] [npc2.face], ready to receive oral from [npc2.herHim]."
+							?" Meanwhile, around the other side of [npc2.name], [npc.nameHasFull] "+(positions.get(5).isStanding(inFront)?"stepped":"knelt down")
+									+(inFront.isTaur()
+										?" over the top of [npc2.herHim], before pushing [npc.her] animalistic groin towards [npc2.her] [npc2.face] so that [npc.she] can receive oral from [npc2.herHim]."
+										:" up in front of [npc2.her] [npc2.face], ready to receive oral from [npc2.herHim].")
 							:" Instead of taking advantage of [npc2.herHim] from behind, [npc.nameHasFull] "+(positions.get(5).isStanding(inFront)?"stepped up":"knelt down")
 								+" right in front of [npc2.her] [npc2.face], ready to receive oral from [npc2.herHim]."));
 				}

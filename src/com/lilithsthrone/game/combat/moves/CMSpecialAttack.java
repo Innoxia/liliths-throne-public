@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.body.types.FootType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.combat.Attack;
@@ -41,7 +42,7 @@ public class CMSpecialAttack {
             false,
             true,
             false,
-			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 1))) {
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 1))) {
 
         private int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, (source.getUnarmedDamage() * 2 * (source.isLegMovementHindered()?0.1f:1)));
@@ -123,7 +124,7 @@ public class CMSpecialAttack {
             false,
             true,
             false,
-			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.VULNERABLE, 2))) {
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.VULNERABLE, 2))) {
 
         private int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, ((source.getUnarmedDamage()*1.5f) * (source.isArmMovementHindered()?0.5f:1)));
@@ -190,7 +191,7 @@ public class CMSpecialAttack {
             false,
             true,
             false,
-			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 3))) {
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 3))) {
 
         private int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage()*3;
@@ -253,7 +254,7 @@ public class CMSpecialAttack {
             false,
             true,
             false,
-			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.VULNERABLE, 1))) {
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.VULNERABLE, 1))) {
 
         private int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, source.getUnarmedDamage() * (source.isArmMovementHindered()?0.5f:1));
@@ -321,7 +322,7 @@ public class CMSpecialAttack {
             false,
             true,
             false,
-			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 3))) {
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.CRIPPLE, 3))) {
 
         private int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, source.getUnarmedDamage() * 4 * (source.isArmMovementHindered()?0.5f:1));
@@ -399,7 +400,7 @@ public class CMSpecialAttack {
             false,
             true,
             false,
-			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 3))) {
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 3))) {
 
         private int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage()*2;
@@ -462,7 +463,7 @@ public class CMSpecialAttack {
             false,
             true,
             false,
-			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 3))) {
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 3))) {
 
         private int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage()*2;
@@ -525,7 +526,7 @@ public class CMSpecialAttack {
             false,
             true,
             false,
-			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 2))) {
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.CRIPPLE, 2))) {
 
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {

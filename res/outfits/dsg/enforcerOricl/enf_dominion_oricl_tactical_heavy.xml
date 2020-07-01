@@ -42,7 +42,7 @@
 		<clothingConditional3 constant="true"><![CDATA[!clothingConditional2 && RND.nextInt(100)<=50]]></clothingConditional3>
 		<clothingConditional4 constant="true"><![CDATA[!clothingConditional2 && !clothingConditional3]]></clothingConditional4>
 		
-		<clothingConditional5 constant="true"><![CDATA[npc.getFemininity() == FEMININITY_FEMININE]]></clothingConditional5>
+		<clothingConditional5 constant="true"><![CDATA[npc.isFeminine()]]></clothingConditional5>
 		
 		<clothingConditional6 constant="true"><![CDATA[RND.nextInt(100)<=66]]></clothingConditional6>
 		<clothingConditional7 constant="true"><![CDATA[RND.nextInt(100)<=50]]></clothingConditional7>
@@ -135,30 +135,30 @@
 			
 			<!-- Combat shirt always-->
 			<uniqueClothing>
-				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_eep_tacequipset_enf_cbtshirt" isDirty="false"></clothing>
+				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_tacequipset_enf_cbtshirt" isDirty="false"></clothing>
 			</uniqueClothing>
 			
 			<!-- Heavy battle belt always -->
 			<uniqueClothing>
-				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_eep_tacequipset_hbattlebelt" isDirty="false">
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_tacequipset_hbattlebelt" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			
 			<!-- Tactical pants always -->
 			<uniqueClothing>
-				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_eep_tacequipset_tpants" isDirty="false">
+				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_tacequipset_tpants" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			
 			<!-- Elbow pads always-->
 			<uniqueClothing>
-				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_eep_tacequipset_tkneepads" isDirty="false">
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_tacequipset_tkneepads" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			
 			<!--Knee pads always-->
 			<uniqueClothing>
-				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_eep_tacequipset_telbowpads" isDirty="false">
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_tacequipset_telbowpads" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			

@@ -112,12 +112,12 @@
 		
 		The 'changeOnReforge' variable determines whether this weapon should regenerate combat moves whenever the player changes the damage type. (i.e. If they reforge a PHYSICAL dagger to an ICE dagger, if 'changeOnReforge' is true, then the granted combat move ASSAULT_RIFLE_MAG_DUMP will be lost).
 		
-		The 'damageType' variable corresponds to the damageType which causes the spell to be unlocked when this weapon is spawned in. You can have multiple entries of the same damageType, like so:
+		The 'damageType' variable corresponds to the damageType which causes the move to be unlocked when this weapon is spawned in. You can have multiple entries of the same damageType, like so:
 		...
-			<spell damageType="FIRE">FIREBALL</spell>
-			<spell damageType="FIRE">FLASH</spell>
-			<spell damageType="FIRE">ICE_SHARD</spell>
-			<spell damageType="FIRE">STEAL</spell>
+			<move damageType="FIRE">EXAMPLE_MOVE_1</move>
+			<move damageType="FIRE">EXAMPLE_MOVE_2</move>
+			<move damageType="FIRE">EXAMPLE_MOVE_3</move>
+			<move damageType="FIRE">EXAMPLE_MOVE_4</move>
 		...
 		
 		Values for combat moves can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/combat/CMWeaponSpecials.java
@@ -206,7 +206,7 @@
 	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
-		Thrusting out with [npc.her] Demon's Dagger, [npc.name] [npc.verb(manage)] to stab [npc2.name] in the chest; the ethereal arcane blade passing through [npc2.her] torso to drain [npc.her] energy!
+		Thrusting out with [npc.her] Demon's Dagger, [npc.name] [npc.verb(manage)] to stab [npc2.name] in the chest; the ethereal arcane blade passing through [npc2.her] torso to drain [npc2.her] energy!
 		]]></hitText>
 		<hitText><![CDATA[
 		Striking out at [npc2.name] with [npc.her] Demon's Dagger, [npc.name] [npc.verb(manage)] to slash through [npc2.her] [npc2.arm] with the ethereal blade and drain [npc2.her] energy!
