@@ -64,10 +64,13 @@
 	<!-- Descriptions that are used when hitting an enemy. One of the hitText values will be randomly selected each time the attacker hits their target. Follow the same guidelines as equipText. -->
 	<hitDescriptions>
 		<hitText><![CDATA[
-		Charging forward with [npc.her] riot shield, [npc.name] [npc.verb(manage)] to hit [npc2.name] dead on. The enchanted polycarbonate bounces off [npc2.her] aura and knocks [npc2.her] back, draining [npc.her] energy!
+		Charging forward with [npc.her] riot shield, [npc.name] [npc.verb(manage)] to hit [npc2.name] dead on. The enchanted polycarbonate bounces off [npc2.her] aura and knocks [npc2.herHim] back, draining [npc.her] energy!
 		]]></hitText>
 		<hitText><![CDATA[
-		With a quick step forwards, [npc.name] [npc.verb(swings)] [npc.her] riot shield out at [npc2.name], bodying [npc2.her] to the ground, causing [npc2.herHim] to lose some energy!
+		With a quick step forwards, [npc.name] [npc.verb(swings)] [npc.her] riot shield out at [npc2.name], bodying [npc2.herHim] to the ground, causing [npc2.herHim] to lose some energy!
+		#IF !npc2.hasStatusEffect(SE_DAZED)
+		#THEN [##npc2.addStatusEffect(SE_DAZED, 4)] [npc2.NamePos] <span style='color:#5C4D42;'><b>[npc2.verb(feel)] unsteady</b></span> as [npc2.she] gets up. 
+		#ENDIF
 		]]></hitText>
 	</hitDescriptions>
 

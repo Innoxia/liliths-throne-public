@@ -15,7 +15,7 @@ public enum TongueModifier {
 	
 	WIDE("wide"),
 	
-	FLAT("thin"),
+	FLAT("flat"),
 	
 	STRONG("strong");
 	

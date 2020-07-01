@@ -270,7 +270,7 @@ public class GenericSexualPartner extends NPC {
 			
 			sb.append("<p>"
 						+ "As your wail turns into a shuddering cry, you hear the [npc.race] on the other side of the wall let out a surprised shout,"
-						+ " [npc.speech(Holy shit! This slut was a virgin!)]"
+						+ " [npc.speechNoExtraEffects(Holy shit! This slut was a virgin!)]"
 					+ "</p>");
 			
 			sb.append("<p>");
@@ -287,7 +287,7 @@ public class GenericSexualPartner extends NPC {
 					+ "</p>"
 					+ "<p>"
 						+ "As [npc.she] fills your freshly popped cherry with [npc.her] [npc.cock+], you hear [npc.herHim] taunting you from the other side of the wall."
-						+ " [npc.speech(What a fucking slut! Choosing to lose your virginity to a game of pregnancy roulette! Hah! Glad I'll never be the one who has to tell our kids how they were conceived!)]"
+						+ " [npc.speechNoExtraEffects(What a fucking slut! Choosing to lose your virginity to a game of pregnancy roulette! Hah! Glad I'll never be the one who has to tell our kids how they were conceived!)]"
 					+ "</p>");
 			sb.append(UtilText.formatVirginityLoss("Your hymen has been torn; you have lost your virginity!"));
 			
@@ -307,7 +307,7 @@ public class GenericSexualPartner extends NPC {
 			sb.append("<p>"
 						+ "Thanks to the fact that you'd previously lost your hymen, the only indication that you were a virgin is your intense reaction to being fucked,"
 							+ " which is apparently enough for the [npc.race] on the other side of the wall, as [npc.she] lets out a surprised shout,"
-						+ " [npc.speech(Holy shit! I think this slut was a virgin!)]"
+						+ " [npc.speechNoExtraEffects(Holy shit! I think this slut was a virgin!)]"
 					+ "</p>");
 			
 			sb.append("<p>");
@@ -324,7 +324,7 @@ public class GenericSexualPartner extends NPC {
 					+ "</p>"
 					+ "<p>"
 						+ "As [npc.she] fills your freshly popped cherry with [npc.her] [npc.cock+], you hear [npc.herHim] taunting you from the other side of the wall."
-						+ " [npc.speech(What a fucking slut! Choosing to lose your virginity to a game of pregnancy roulette! Hah! Glad I'll never be the one who has to tell our kids how they were conceived!)]"
+						+ " [npc.speechNoExtraEffects(What a fucking slut! Choosing to lose your virginity to a game of pregnancy roulette! Hah! Glad I'll never be the one who has to tell our kids how they were conceived!)]"
 					+ "</p>");
 			sb.append(UtilText.formatVirginityLoss("Although your hymen had already been torn, you've now officially lost your virginity!"));
 		}

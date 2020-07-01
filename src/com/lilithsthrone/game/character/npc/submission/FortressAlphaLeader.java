@@ -135,6 +135,9 @@ public class FortressAlphaLeader extends NPC {
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.BRAVE);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
+		}
 	}
 
 	@Override
@@ -245,6 +248,7 @@ public class FortressAlphaLeader extends NPC {
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(250);
 		this.fillCumToMaxStorage();
+		this.setTesticleCount(2);
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -345,7 +349,7 @@ public class FortressAlphaLeader extends NPC {
 			return (UtilText.parse(this,
 					"[npc.NamePos] days of ruling over [npc.her] imp fortress are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
 		} else {
-			return (UtilText.parse(this, description));
+			return (UtilText.parse(this, "The leader of one of Submission's imp fortresses, [npc.name] rules over [npc.her] followers with an iron fist, and shows very little respect towards anyone but [npc.her] boss, 'The Dark Siren'..."));
 		}
 	}
 	

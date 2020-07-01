@@ -94,54 +94,12 @@ public interface BodyPartTypeInterface {
 //	/** @return The description of this body part being changed. */
 //	public String getTransformationDescription(GameCharacter owner);
 
-	//TODO move to Race
 	/** @return The name that should be used when describing this body part in the context of transformations. */
 	public default String getTransformName() {
 		if(getRace()==null) {
 			return "";
 		}
-		
-		switch(getRace()){
-			case ANGEL:
-				return "angelic";
-			case CAT_MORPH:
-				return "feline";
-			case DEMON:
-				return "demonic";
-			case DOG_MORPH:
-				return "canine";
-			case COW_MORPH:
-				return "bovine";
-			case SQUIRREL_MORPH:
-				return "squirrel";
-			case ALLIGATOR_MORPH:
-				return "alligator";
-			case HARPY:
-				return "harpy";
-			case HORSE_MORPH:
-				return "equine";
-			case REINDEER_MORPH:
-				return "reindeer";
-			case HUMAN:
-				return "human";
-			case WOLF_MORPH:
-				return "wolf";
-			case FOX_MORPH:
-				return "fox";
-			case BAT_MORPH:
-				return "bat";
-			case RAT_MORPH:
-				return "rat";
-			case RABBIT_MORPH:
-				return "rabbit";
-			case ELEMENTAL:
-				return "elemental";
-			case NONE:
-				return "none";
-			case SLIME:
-				return "slime";
-		}
-		return "";
+		return getRace().getDefaultTransformName();
 	}
 	
 	/**

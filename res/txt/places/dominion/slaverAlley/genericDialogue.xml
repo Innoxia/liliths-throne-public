@@ -2335,20 +2335,48 @@
 	<p>
 		With [sean.name] having returned to his post, and being locked securely into the stocks, you're left feeling extremely exposed and vulnerable. Knowing that you're completely at the mercy of any passing stranger who wants to use you, you remain still and wait to see what will happen next...
 	</p>
-	<p>
-		About ten minutes later, and having already heard several members of the public comment on your situation as they pass by, a pair of strangers decide that you're just what they're looking for, and quickly step up in front of you before starting to comment on your appearance.
-		#IF(npc.isFeminine()==npc2.isFeminine() && npc.getRaceStage()==npc2.getRaceStage() && npc.getRace()==npc2.getRace())
-			 Looking up, you see that both of these strangers are [npc.fullRaces(true)].
-		#ELSE
-			 Looking up, you see that the one making most of the lewd comments is [npc.a_fullRace(true)], while the other is [npc2.a_fullRace(true)].
-		#ENDIF
-	</p>
-	<p>
-		[npc.speech(You ready for a good fucking, slut?)] [npc.name] asks as [npc.she] sees you looking up at [npc.herHim]. Not waiting for an answer, [npc.she] moves around behind you and slaps your [pc.ass+], causing you to let out an involuntary [pc.moan].
-	</p>
-	<p>
-		[npc2.speech(Oh yeah, this one's ready to go!)] [npc2.name] excitedly exclaims, stepping up in front of you.
-	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyTwoPartners))
+		<p>
+			About ten minutes later, and having already heard several members of the public comment on your situation as they pass by, a pair of strangers decide that you're just what they're looking for, and quickly step up in front of you before starting to comment on your appearance.
+			#IF(npc.isFeminine()==npc2.isFeminine() && npc.getRaceStage()==npc2.getRaceStage() && npc.getRace()==npc2.getRace())
+				 Looking up, you see that both of these strangers are [npc.fullRaces(true)].
+			#ELSE
+				 Looking up, you see that the one making most of the lewd comments is [npc.a_fullRace(true)], while the other is [npc2.a_fullRace(true)].
+			#ENDIF
+		</p>
+		<p>
+			[npc.speech(You ready for a good fucking, slut?)] [npc.name] asks as [npc.she] sees you looking up at [npc.herHim]. Not waiting for an answer, [npc.she] moves around behind you and slaps your [pc.ass+], causing you to let out an involuntary [pc.moan].
+		</p>
+		<p>
+			[npc2.speech(Oh yeah, this one's ready to go!)] [npc2.name] excitedly exclaims, stepping up in front of you.
+		</p>
+	#ELSE
+		<p>
+			About ten minutes later, and having already heard several members of the public comment on your situation as they pass by, [npc.a_fullRace(true)] decides that you're just what they're looking for, and quickly [npc.steps] up in front of you to declare, [npc.speech(You look like you'll be a good fuck, you dirty slut!)]
+		</p>
+		<p>
+			Not waiting for a response,
+			#IF(npc.hasFetish(FETISH_ORAL_RECEIVING))
+				 [npc.she] [npc.steps] forwards and pushes [npc.her] groin into your face, before sneering,
+				#IF(npc.hasVagina())
+					 [npc.speech(Oh yeah, you're going to love eating me out!)]
+				#ELSE
+					 [npc.speech(Oh yeah, you're going to love sucking my cock!)]
+				#ENDIF
+			#ELSEIF(npc.hasFetish(FETISH_ANAL_GIVING))
+				 [npc.she] moves around behind you and slaps your [pc.ass+], causing you to let out an involuntary [pc.moan]. Laughing at your reaction, [npc.she] then sneers, [npc.speech(Oh yeah, I'm going to fuck your ass so good!)]
+			#ELSEIF(npc.hasFetish(FETISH_VAGINAL_GIVING))
+				 [npc.she] moves around behind you and slaps your [pc.ass+], causing you to let out an involuntary [pc.moan]. Laughing at your reaction, [npc.she] then sneers, [npc.speech(Oh yeah, I'm going to fuck your pussy so good!)]
+			#ELSE
+				 [npc.she] [npc.steps] forwards and pushes [npc.her] groin against one of your [pc.hands], before sneering,
+				#IF(npc.hasVagina())
+					 [npc.speech(Oh yeah, you're going to love fingering my cunt!)]
+				#ELSE
+					 [npc.speech(Oh yeah, you're going to love stroking my cock!)]
+				#ENDIF
+			#ENDIF
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -2386,26 +2414,51 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_FIRST_SEX_START_RANDOMS"><![CDATA[
-	<p>
-		From behind, you hear [npc.name] shuffling around to displace [npc.her] clothing, before suddenly feeling the [npc.cockHead+] of [npc.her] cock rubbing up and down over your [pc.ass+]. Shifting your [pc.hips] a little in response, you can't help but whine as [npc.name] teases, [npc.speech(Looking forwards to being fucked, slut?)]
-	</p>
-	<p>
-		Copying [npc2.her] friend's lead, [npc2.name] similarly displaces [npc2.her] clothing, presenting you with [npc2.her]
-		#IF(npc2.hasPenis())
-			#IF(npc2.hasVagina())
-				 [npc2.cock+] and [npc2.pussy+].
+	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_RANDOMS_START_SEX"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyTwoPartners))
+		<p>
+			From behind, you hear [npc.name] shuffling around to displace [npc.her] clothing, and then just a moment later you suddenly feel the [npc.cockHead+] of [npc.her] cock rubbing up and down over your [pc.ass+]. Shifting your [pc.hips] a little in response, you can't help but whine as [npc.name] teases, [npc.speech(Looking forwards to being fucked, slut?)]
+		</p>
+		<p>
+			Copying [npc2.her] friend's lead, [npc2.name] similarly displaces [npc2.her] clothing, presenting you with [npc2.her]
+			#IF(npc2.hasPenis())
+				#IF(npc2.hasVagina())
+					 [npc2.cock+] and [npc2.pussy+].
+				#ELSE
+					 [npc2.cock+].
+				#ENDIF
 			#ELSE
-				 [npc2.cock+].
+				 [npc2.pussy+].
 			#ENDIF
-		#ELSE
-			 [npc2.pussy+].
-		#ENDIF
-		 Letting out an excited [npc2.moan], [npc2.she] joins [npc.name] in teasing you, [npc2.speech(I hope you're ready to have some fun!)]
-	</p>
-	<p>
-		With no way to free yourself, you realise that there's absolutely nothing you can do to stop these two strangers from fucking you...
-	</p>
+			 Letting out an excited [npc2.moan], [npc2.she] joins [npc.name] in teasing you, [npc2.speech(I hope you're ready to have some fun!)]
+		</p>
+		<p>
+			With no way to free yourself, you realise that there's absolutely nothing you can do to stop these two strangers from fucking you...
+		</p>
+	#ELSE
+		<p>
+			#IF(npc.hasFetish(FETISH_ORAL_RECEIVING))
+				Eager to get started, [npc.name] displaces [npc.her] clothing, presenting you with [npc.her]
+				#IF(npc.hasPenis())
+					#IF(npc.hasVagina())
+						 [npc.cock+] and [npc.pussy+].
+					#ELSE
+						 [npc.cock+].
+					#ENDIF
+				#ELSE
+					 [npc.pussy+].
+				#ENDIF
+				 Letting out an excited [npc.moan], [npc.she] bucks [npc.her] [npc.hips] forwards and teases, [npc.speech(Let's see what that mouth of yours can do!)]
+			#ELSEIF(npc.hasFetish(FETISH_ANAL_GIVING))
+				Over the noise of the small crowd which rapidly starts to form around you, you hear the [npc.race] quickly moving to displace [npc.her] clothing, and then just a moment later, you suddenly feel the [npc.cockHead+] of [npc.her] [npc.cock+] start to rub up and down over your [pc.asshole+]. Letting out a hungry [npc.moan], the [npc.race] teases, [npc.speech(I hope you're ready for this, you dirty little buttslut!)]
+			#ELSE
+				Over the noise of the small crowd which rapidly starts to form around you, you hear the [npc.race] quickly moving to displace [npc.her] clothing, and then just a moment later, you suddenly feel the [npc.cockHead+] of [npc.her] [npc.cock+] start to rub up and down between your [pc.labia+]. Letting out a hungry [npc.moan], the [npc.race] teases, [npc.speech(I hope you're ready for this, you dirty little slut!)]
+			#ENDIF
+		</p>
+		<p>
+			With no way to free yourself, you realise that there's absolutely nothing you can do to stop this stranger from using you...
+		<p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -2465,12 +2518,21 @@
 	</htmlContent>
 	
 	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_AFTER_FIRST_SEX_RANDOMS"><![CDATA[
-	<p>
-		Having had their fun, the two strangers step back and start making lewd comments on your performance to one another. Although you're too tired from the double fucking you just received to fully pay attention to what it is they're saying, you're still vaguely aware that they're talking about you as though you're nothing but a worthless sex toy, which, combined with the lewd comments from the crowd that gathered to watch your performance, makes you feel more humiliated than ever.
-	</p>
-	<p>
-		Delivering one last swift slap to your [pc.ass+], the [npc.race] steps around to where [npc.her] [npc2.race] companion is still standing in front of you, and without giving you even one last look, they walk off together.
-	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyTwoPartners))
+		<p>
+			Having had their fun, the two strangers step back and start making lewd comments on your performance to one another. Although you're too tired from the double fucking you just received to fully pay attention to what it is they're saying, you're still vaguely aware that they're talking about you as though you're nothing but a worthless sex toy, which, combined with the mocking comments from the crowd that gathered to watch your performance, makes you feel more humiliated than ever.
+		</p>
+		<p>
+			Delivering one last swift slap to your [pc.ass+], the [npc.race] steps around to where [npc.her] [npc2.race] companion is still standing in front of you, and without giving you even one last look, they walk off together.
+		</p>
+	#ELSE
+		<p>
+			Having had [npc.her] fun, the stranger steps back and starts making lewd comments on your performance. Although you're too tired from the fucking you just received to fully pay attention to what it is [npc.sheIs] saying, you're still vaguely aware that [npc.sheIs] talking about you as though you're nothing but a worthless sex toy, which, combined with the mocking comments from the crowd that gathered to watch your performance, makes you feel more humiliated than ever.
+		</p>
+		<p>
+			Delivering one last swift slap to your [pc.ass+], the [npc.race] makes one last disparaging comment, before [npc.walking] off into the crowd.
+		</p>
+	#ENDIF
 	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyCompanionInStocks))
 		#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyCompanionAcceptedDeal))
 			#IF(com.equals(brax))
@@ -2585,25 +2647,64 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_AFTER_FIRST_SEX_COMPANION_RANDOMS"><![CDATA[
-	<p>
-		While the sight of you being fucked proved to be entertaining enough to draw a moderately-sized crowd, the members of the public who gathered to watch quickly start to lose interest. As they start to wander off, one of them suddenly notices that your [com.companion] is not only marked for public use, but is also currently not being used by anyone. As they walk around to inspect [com.name] from every angle, you're able to look across and see that they're [npc.a_raceFull(true)].
-	</p>
-	<p>
-		Although you can't see [npc.herHim] from your position in the stocks, you're still able to hear the [npc.race] as [npc.she] steps around behind [com.name] and slaps ass, before teasing, [npc.speech(Come on, slut, beg me to fuck you! I'll keep this going until you do it!)]
-	</p>
-	<p>
-		As the sound of another slap rings out, you hear your [com.companion] relent and beg, [com.speech(Please, fuck me! I need you to fuck me!)]
-	</p>
-	<p>
-		A small crowd quickly gathers to watch the upcoming entertainment, and as they start to loudly comment on your [com.companion]'s display of submission, the [npc.race] lets out an excited [npc.moan] and prepares to start fucking [com.herHim]...
-	</p>
-	<p>
-		[#SPECIAL_PARSE_0]
-	</p>
-	<p>
-		Having had [npc.her] fun, [npc.name] steps away from [com.name], and without so much as a backwards glance, walks off and leaves your [com.companion] panting and quietly [npc.moaning] in the stocks. The crowd which gathered to watch the lewd display quickly dissipates, leaving both you and [com.name] with little else to do but wait and see what will happen to you next...
-	</p>
+	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_RANDOMS_START_SEX_COMPANION"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyTwoPartners))
+		<p>
+			As the crowd which gathered to watch you starts to dissipate, several members of the public start to look for some other form of entertainment, and it's not long before one of them  points out that your [com.companion] is available for public use. A couple of members of the crowd quickly rush forwards to take advantage of the fact that nobody's currently using [com.herHim], and as they walk around to inspect [com.name] from every angle, you're able to look across and see that
+			#IF(npc.isFeminine()==npc2.isFeminine() && npc.getRaceStage()==npc2.getRaceStage() && npc.getRace()==npc2.getRace())
+				 they're both [npc.fullRaces(true)].
+			#ELSE
+				 Looking up, you see that the more dominant-looking of the two is [npc.a_fullRace(true)], while the other is [npc2.a_fullRace(true)].
+			#ENDIF
+		</p>
+		<p>
+			Finishing [npc.her] inspection, the more dominant [npc.race] steps around behind [com.name] and teases, [npc.speech(I'm going to enjoy fucking you, slut!)]
+		</p>
+		<p>
+			[npc2.speech(Oh yeah, this is going to be fun!)] the [npc2.race] [npc2.moansVerb] as [npc2.she] steps up in front of [com.name], before quickly displacing [npc2.her] clothing and presenting your [com.companion] with [npc2.her]
+			#IF(npc2.hasPenis())
+				#IF(npc2.hasVagina())
+					 [npc2.cock+] and [npc2.pussy+].
+				#ELSE
+					 [npc2.cock+].
+				#ENDIF
+			#ELSE
+				 [npc2.pussy+].
+			#ENDIF
+			 Letting out an excited [npc2.moan], [npc2.she] doesn't hesitate for a moment longer, and instantly starts to use [com.name]...
+		</p>
+		<p>
+			[#SPECIAL_PARSE_0]
+		</p>
+		<p>
+			While this is happening, you hear [npc.name] shuffling around behind [com.name] as [npc.she] quickly seeks to displace [com.her] clothing. As soon as [npc.sheIs] done, [npc.she] steps forwards and teases the [npc.cockHead+] of [npc.her] cock up and down over your [com.companion]'s [com.ass+]. Shifting [npc.her] [com.hips] a little in response, [com.name] can't help but whine as [npc.name] teases, [npc.speech(Time to give you a good fucking, slut!)]
+		</p>
+		<p>
+			[#SPECIAL_PARSE_1]
+		</p>
+		<p>
+			Eventually having had enough fun with [com.name], the two strangers get their clothing back in order and walk off, leaving your [com.companion] panting and quietly moaning as [com.she] recovers from the experience...
+		</p>
+	#ELSE
+		<p>
+			While the sight of you being fucked proved to be entertaining enough to draw a moderately-sized crowd, the members of the public who gathered to watch quickly start to lose interest. As they start to wander off, one of them suddenly notices that your [com.companion] is not only marked for public use, but is also currently not being used by anyone. As they walk around to inspect [com.name] from every angle, you're able to look across and see that they're [npc.a_raceFull(true)].
+		</p>
+		<p>
+			Although you can't see [npc.herHim] from your position in the stocks, you're still able to hear the [npc.race] as [npc.she] steps around behind [com.name] and slaps ass, before teasing, [npc.speech(Come on, slut, beg me to fuck you! I'll keep this going until you do it!)]
+		</p>
+		<p>
+			As the sound of another slap rings out, you hear your [com.companion] relent and beg, [com.speech(Please, fuck me! I need you to fuck me!)]
+		</p>
+		<p>
+			A small crowd quickly gathers to watch the upcoming entertainment, and as they start to loudly comment on your [com.companion]'s display of submission, the [npc.race] lets out an excited [npc.moan] and prepares to start fucking [com.herHim]...
+		</p>
+		<p>
+			[#SPECIAL_PARSE_0]
+		</p>
+		<p>
+			Having had [npc.her] fun, [npc.name] steps away from [com.name], and without so much as a backwards glance, walks off and leaves your [com.companion] panting and quietly [npc.moaning] in the stocks. The crowd which gathered to watch the lewd display quickly dissipates, leaving both you and [com.name] with little else to do but wait and see what will happen to you next...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -2624,15 +2725,51 @@
 	</htmlContent>
 	
 	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_SECOND_SEX_RANDOMS"><![CDATA[
-	<p>
-		For the next couple of hours, you're left locked up in the stocks with nothing to do except think about how you were publicly fucked by those two strangers. Except for the occasional member of the public who stops in their tracks to make a degrading comment on your appearance, nothing of interest happens during your time in captivity, but then, just as you're wondering if anyone will stop and use you again, you hear someone approaching from behind.
-	</p>
-	<p>
-		[npc.speech(You look like a horny slut,)] the stranger rudely remarks, slapping your [pc.ass+] before walking around in front of you to reveal that [npc.sheIs] [npc.a_raceFull(true)]. Grinning down at you, [npc.she] declares, [npc.speech(Yeah, I think you'll do. I hope you're looking forwards to getting fucked, bitch!)]
-	</p>
-	<p>
-		Stepping around behind you, the [npc.race] delivers another slap to your exposed ass, before getting ready to start fucking you...
-	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyTwoPartners))
+		<p>
+			For the next couple of hours, you're left locked up in the stocks with nothing to do except think about how you were publicly fucked by those two strangers. Except for the occasional member of the public who stops in their tracks to make a degrading comment on your appearance, nothing of interest happens during your time in captivity, but then, just as you're wondering if anyone will stop and use you again, a couple of strangers move forwards to stand in front of you.
+			#IF(npc.isFeminine()==npc2.isFeminine() && npc.getRaceStage()==npc2.getRaceStage() && npc.getRace()==npc2.getRace())
+				 Looking up, you see that both of them are [npc.fullRaces(true)].
+			#ELSE
+				 Looking up, you see that the more dominant-looking of the pair is [npc.a_fullRace(true)], while the other is [npc2.a_fullRace(true)].
+			#ENDIF
+		</p>
+		<p>
+			[npc.speech(This slut's used goods; you sure you don't want to wait for a fresh slave to be locked up?)] [npc.name] asks [npc.her] companion.
+		</p>
+		<p>
+			[npc2.speech(Yeah, I want some action right now!)] [npc2.name] excitedly replies, before [npc2.stepping] forwards and dominantly rubbing [npc2.her] groin over your face.
+		</p>
+		<p>
+			[npc.speech(Fine. I guess I'll just have to make do with sloppy seconds,)] [npc.name] says, before moving around behind you and slapping your [pc.ass+], which causes you to let out an involuntary [pc.moan].
+		</p>
+	#ELSE
+		<p>
+			For the next couple of hours, you're left locked up in the stocks with nothing to do except think about how you were publicly fucked by those two strangers. Except for the occasional member of the public who stops in their tracks to make a degrading comment on your appearance, nothing of interest happens during your time in captivity, but then, just as you're wondering if anyone will stop and use you again, [npc.a_fullRace(true)] suddenly [npc.steps] up in front of you and declares, [npc.speech(You're just what I was looking for!)]
+		</p>
+		<p>
+			Not waiting for a response,
+			#IF(npc.hasFetish(FETISH_ORAL_RECEIVING))
+				 [npc.she] [npc.steps] forwards and pushes [npc.her] groin into your face, before sneering,
+				#IF(npc.hasVagina())
+					 [npc.speech(Oh yeah, you're going to love eating me out!)]
+				#ELSE
+					 [npc.speech(Oh yeah, you're going to love sucking my cock!)]
+				#ENDIF
+			#ELSEIF(npc.hasFetish(FETISH_ANAL_GIVING))
+				 [npc.she] moves around behind you and slaps your [pc.ass+], causing you to let out an involuntary [pc.moan]. Laughing at your reaction, [npc.she] then sneers, [npc.speech(Oh yeah, I'm going to fuck your ass so good!)]
+			#ELSEIF(npc.hasFetish(FETISH_VAGINAL_GIVING))
+				 [npc.she] moves around behind you and slaps your [pc.ass+], causing you to let out an involuntary [pc.moan]. Laughing at your reaction, [npc.she] then sneers, [npc.speech(Oh yeah, I'm going to fuck your pussy so good!)]
+			#ELSE
+				 [npc.she] [npc.steps] forwards and pushes [npc.her] groin against one of your [pc.hands], before sneering,
+				#IF(npc.hasVagina())
+					 [npc.speech(Oh yeah, you're going to love fingering my cunt!)]
+				#ELSE
+					 [npc.speech(Oh yeah, you're going to love stroking my cock!)]
+				#ENDIF
+			#ENDIF
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -2651,19 +2788,6 @@
 	</p>
 	<p>
 		Attracted by the loud, lewd noises which you're making, a small crowd starts to form around you, and as [sean.name] continues to drive his cock in and out of your cunt, the members of the public start commenting on your performance...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_SECOND_SEX_START_RANDOMS"><![CDATA[
-	<p>
-		Over the noise of the small crowd which rapidly starts to form around you, you hear the [npc.race] quickly moving to displace [npc.her] clothing, before suddenly feeling something rubbing up and down over your [pc.ass+]. Letting out a hungry [npc.moan], the [npc.race] tease, [npc.speech(Go on, tell me you're a slut and I'll give it to you!)]
-	</p>
-	<p>
-		Feeling extremely turned on by what's happening, and not having much choice except to do as you're told, you admit, [pc.speech(I'm a slut! Please, fuck me!)]
-	</p>
-	<p>
-		With one more hungry [npc.moan], the [npc.race] prepares to do as you ask...
 	</p>
 	]]>
 	</htmlContent>
@@ -2732,12 +2856,21 @@
 	</htmlContent>
 	
 	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_AFTER_SECOND_SEX_RANDOMS"><![CDATA[
-	<p>
-		Having had [npc.his] fun, the [npc.race] steps back and delivers one final slap to your [pc.ass+]. As you let out a startled [pc.moan], [npc.she] rudely comments, [npc.speech(You were an ok fuck, you dumb slut! See you around!)]
-	</p>
-	<p>
-		You can't but feel extremely humiliated as the stranger tells you this, and as [npc.she] walks off without even a backwards glance, you hear several members of the public loudly commenting on what a dirty slut you are. Feeling your cheeks burning in shame, you wonder how long it's going to be before you're released from the stocks...
-	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyTwoPartners))
+		<p>
+			Having had their fun, the two strangers step back, and as you start to let out a satisfied sigh, the [npc.race] behind you delivers one final slap to your [pc.ass+]. As you let out a startled [pc.moan], [npc.she] rudely comments, [npc.speech(You were an ok fuck, you dumb slut! See you around!)]
+		</p>
+		<p>
+			You can't but feel extremely humiliated as the stranger tells you this, and as [npc.she] joins [npc.her] companion in walking off without even a backwards glance, you hear several members of the public loudly commenting on what a dirty slut you are. Feeling your cheeks burning in shame, you wonder how long it's going to be before you're released from the stocks...
+		</p>
+	#ELSE
+		<p>
+			Having had [npc.his] fun, the [npc.race] steps back and delivers one final slap to your [pc.ass+]. As you let out a startled [pc.moan], [npc.she] rudely comments, [npc.speech(You were an ok fuck, you dumb slut! See you around!)]
+		</p>
+		<p>
+			You can't but feel extremely humiliated as the stranger tells you this, and as [npc.she] walks off without even a backwards glance, you hear several members of the public loudly commenting on what a dirty slut you are. Feeling your cheeks burning in shame, you wonder how long it's going to be before you're released from the stocks...
+		</p>
+	#ENDIF
 	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyCompanionInStocks))
 		#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyCompanionAcceptedDeal))
 			#IF(com.equals(brax))
@@ -2854,46 +2987,6 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_AFTER_SECOND_SEX_COMPANION_RANDOMS"><![CDATA[
-	<p>
-		Just like the last time you were used, the crowd which gathered to watch you starts to dissipate, and as the members of the public look for some other form of entertainment, someone points out that your [com.companion] is available for public use. A couple of members of the crowd quickly rush forwards to take advantage of the fact that nobody's currently using [com.herHim], and as they walk around to inspect [com.name] from every angle, you're able to look across and see that
-		#IF(npc.isFeminine()==npc2.isFeminine() && npc.getRaceStage()==npc2.getRaceStage() && npc.getRace()==npc2.getRace())
-			 they're both [npc.fullRaces(true)].
-		#ELSE
-			 Looking up, you see that the more dominant-looking of the two is [npc.a_fullRace(true)], while the other is [npc2.a_fullRace(true)].
-		#ENDIF
-	</p>
-	<p>
-		Finishing [npc.her] inspection, the more dominant [npc.race] steps around behind [com.name] and teases, [npc.speech(I'm going to enjoy fucking you, slut!)]
-	</p>
-	<p>
-		[npc.speech(Oh yeah, this is going to be fun!)] the [npc2.race] [npc2.moansVerb] as [npc2.she] steps up in front of [com.name], before quickly displacing [npc2.her] clothing and presenting your [com.companion] with [npc2.her]
-		#IF(npc2.hasPenis())
-			#IF(npc2.hasVagina())
-				 [npc2.cock+] and [npc2.pussy+].
-			#ELSE
-				 [npc2.cock+].
-			#ENDIF
-		#ELSE
-			 [npc2.pussy+].
-		#ENDIF
-		 Letting out an excited [npc2.moan], [npc2.she] doesn't hesitate for a moment longer, and instantly starts to use [com.name]...
-	</p>
-	<p>
-		[#SPECIAL_PARSE_0]
-	</p>
-	<p>
-		While this is happening, you hear [npc.name] shuffling around behind [com.name] as [npc.she] quickly seeks to displace [com.her] clothing. As soon as [npc.sheIs] done, [npc.she] steps forwards and teases the [npc.cockHead+] of [npc.her] cock up and down over your [com.companion]'s [com.ass+]. Shifting [npc.her] [com.hips] a little in response, [com.name] can't help but whine as [npc.name] teases, [npc.speech(Time to give you a good fucking, slut!)]
-	</p>
-	<p>
-		[#SPECIAL_PARSE_1]
-	</p>
-	<p>
-		Eventually having had enough fun with [com.name], the two strangers get their clothing back in order and walk off, leaving your [com.companion] panting and quietly moaning as [com.she] recovers from the experience...
-	</p>
-	]]>
-	</htmlContent>
-	
 	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_FINISHED_BREEDING"><![CDATA[
 	<p>
 		Having been left locked up in the stocks, there's nothing you can do but wait for [sean.namePos] return. As you wonder to yourself how long he'll be, you realise that the sight of the [sean.race]'s cum slowly dripping out of your creampied pussy is attracting the attention of an occasional passer-by. While most of these strangers soon move on without passing comment, one of them stops and loudly remarks, 
@@ -2951,10 +3044,7 @@
 		After enduring several more similarly lewd comments over the next half an hour, you eventually hear [sean.name] walking up behind you. Stepping around in front of the stocks, he grins down at you and declares, [sean.speech(I think you've had enough for one day!)]
 	</p>
 	<p>
-		With a smile on his face, [sean.name] quickly unlocks your stocks, allowing you to stand upright once again. Handing you your clothes, he says, [sean.speech(Come and see me again soon! You're the only interesting thing that ever happens to me here!)]
-	</p>
-	<p>
-		With that, the [sean.race] walks back over to his post, leaving you to get dressed and continue on your way...
+		With a smile on his face, [sean.name] steps forwards and prepares to unlock your stocks...
 	</p>
 	]]>
 	</htmlContent>
@@ -3041,10 +3131,7 @@
 		#ENDIF
 	#ENDIF
 	<p>
-		Moving quickly between you and [com.name], [sean.name] quickly unlocks your stocks, allowing the two of you to stand upright once again. Handing you your clothes, he says, [sean.speech(I hope you'll come and see me again soon! You're the only interesting thing that ever happens to me here.)]
-	</p>
-	<p>
-		With that, the [sean.race] walks back over to his post, leaving you and [com.name] to get dressed and continue on your way...
+		Stepping forwards, [sean.name] prepares to unlock your stocks and set you and [com.name] free...
 	</p>
 	]]>
 	</htmlContent>
@@ -3115,12 +3202,169 @@
 		</p>
 	#ENDIF
 	<p>
-		Moving quickly between you and [com.name], [sean.name] quickly unlocks your stocks, allowing the two of you to stand upright once again. Handing you your clothes, he says, [sean.speech(I hope you'll come and see me again soon! You're the only interesting thing that ever happens to me here.)]
-	</p>
-	<p>
-		With that, the [sean.race] walks back over to his post, leaving you and [com.name] to get dressed and continue on your way...
+		Stepping forwards, [sean.name] prepares to unlock your stocks and set you and [com.name] free...
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_FINISHED_END"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyCompanionInStocks))
+		<p>
+			Moving quickly between you and [com.name], [sean.name] quickly unlocks your stocks, allowing the two of you to stand upright once again. Handing you your clothes, he says, [sean.speech(I hope you'll come and see me again soon! You're the only interesting thing that ever happens to me here.)]
+		</p>
+		<p>
+			With that, the [sean.race] walks back over to his post, leaving you and [com.name] to get dressed and continue on your way...
+		</p>
+	#ELSE
+		<p>
+			Now that you've finished being used, [sean.name] steps forwards and quickly unlocks your stocks, allowing you to stand upright once again. Handing you your clothes, he says, [sean.speech(Come and see me again soon! You're the only interesting thing that ever happens to me here!)]
+		</p>
+		<p>
+			With that, the [sean.race] walks back over to his post, leaving you to get dressed and continue on your way...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PUBLIC_STOCKS_LOCKED_UP_FINISHED_REPEAT -->
+	
+	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_FINISHED_REPEAT"><![CDATA[
+	<p>
+		Not yet satisfied by the public fucking you've received so far, you tell [sean.name] to leave you locked up in the stocks for a little while longer. Letting out an amused laugh, he turns and marches off back to his post, calling over his shoulder as he goes, [sean.speech(Fine, I'll be back later to see if you've had enough!)]
+	</p>
+	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyTwoPartners))
+		<p>
+			About fifteen minutes later, and having already heard several members of the public comment on your situation as they pass by, a pair of strangers decide that you're just what they're looking for, and quickly step up in front of you before starting to comment on your appearance.
+			#IF(npc.isFeminine()==npc2.isFeminine() && npc.getRaceStage()==npc2.getRaceStage() && npc.getRace()==npc2.getRace())
+				 Looking up, you see that both of these strangers are [npc.fullRaces(true)].
+			#ELSE
+				 Looking up, you see that the one making most of the lewd comments is [npc.a_fullRace(true)], while the other is [npc2.a_fullRace(true)].
+			#ENDIF
+		</p>
+		<p>
+			[npc.speech(You ready for a good fucking, slut?)] [npc.name] asks as [npc.she] sees you looking up at [npc.herHim]. Not waiting for an answer, [npc.she] moves around behind you and slaps your [pc.ass+], causing you to let out an involuntary [pc.moan].
+		</p>
+		<p>
+			[npc2.speech(Oh yeah, this one's ready to go!)] [npc2.name] excitedly exclaims, stepping up in front of you.
+		</p>
+	#ELSE
+		<p>
+			About fifteen minutes later, and having already heard several members of the public comment on your situation as they pass by, [npc.a_fullRace(true)] decides that you're just what they're looking for, and quickly [npc.steps] up in front of you to declare, [npc.speech(You look like you'll be a good fuck, you dirty slut!)]
+		</p>
+		<p>
+			Not waiting for a response,
+			#IF(npc.hasFetish(FETISH_ORAL_RECEIVING))
+				 [npc.she] [npc.steps] forwards and pushes [npc.her] groin into your face, before sneering,
+				#IF(npc.hasVagina())
+					 [npc.speech(Oh yeah, you're going to love eating me out!)]
+				#ELSE
+					 [npc.speech(Oh yeah, you're going to love sucking my cock!)]
+				#ENDIF
+			#ELSEIF(npc.hasFetish(FETISH_ANAL_GIVING))
+				 [npc.she] moves around behind you and slaps your [pc.ass+], causing you to let out an involuntary [pc.moan]. Laughing at your reaction, [npc.she] then sneers, [npc.speech(Oh yeah, I'm going to fuck your ass so good!)]
+			#ELSEIF(npc.hasFetish(FETISH_VAGINAL_GIVING))
+				 [npc.she] moves around behind you and slaps your [pc.ass+], causing you to let out an involuntary [pc.moan]. Laughing at your reaction, [npc.she] then sneers, [npc.speech(Oh yeah, I'm going to fuck your pussy so good!)]
+			#ELSE
+				 [npc.she] [npc.steps] forwards and pushes [npc.her] groin against one of your [pc.hands], before sneering,
+				#IF(npc.hasVagina())
+					 [npc.speech(Oh yeah, you're going to love fingering my cunt!)]
+				#ELSE
+					 [npc.speech(Oh yeah, you're going to love stroking my cock!)]
+				#ENDIF
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- PUBLIC_STOCKS_LOCKED_UP_FINISHED_REPEAT_AFTER_SEX -->
+	
+	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_FINISHED_REPEAT_AFTER_SEX"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyTwoPartners))
+		<p>
+			Having had their fun, the two strangers step back and start making lewd comments on your performance to one another. Although you're too tired from the double fucking you just received to fully pay attention to what it is they're saying, you're still vaguely aware that they're talking about you as though you're nothing but a worthless sex toy, which, combined with the mocking comments from the crowd that gathered to watch your performance, makes you feel more humiliated than ever.
+		</p>
+		<p>
+			Delivering one last swift slap to your [pc.ass+], the [npc.race] steps around to where [npc.her] [npc2.race] companion is still standing in front of you, and without giving you even one last look, they walk off together.
+		</p>
+	#ELSE
+		<p>
+			Having had [npc.her] fun, the stranger steps back and starts making lewd comments on your performance. Although you're too tired from the fucking you just received to fully pay attention to what it is [npc.sheIs] saying, you're still vaguely aware that [npc.sheIs] talking about you as though you're nothing but a worthless sex toy, which, combined with the mocking comments from the crowd that gathered to watch your performance, makes you feel more humiliated than ever.
+		</p>
+		<p>
+			Delivering one last swift slap to your [pc.ass+], the [npc.race] makes one last disparaging comment, before [npc.walking] off into the crowd.
+		</p>
+	#ENDIF
+	#IF(!game.getDialogueFlags().hasFlag(FLAG_slaverAlleyCompanionInStocks) || !game.getDialogueFlags().hasFlag(FLAG_slaverAlleyCompanionAcceptedDeal))
+		<p>
+			While the sight of you being fucked proved to be entertaining enough to draw a moderately-sized crowd, the members of the public who gathered to watch quickly start to lose interest. As they quickly wander off, you find yourself with little else to do but wait for [sean.name] to return and offer to set you free once again...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="PUBLIC_STOCKS_LOCKED_UP_FINISHED_REPEAT_AFTER_SEX_START_SEX_COMPANION"><![CDATA[
+	#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyTwoPartners))
+		<p>
+			As the crowd which gathered to watch you starts to dissipate, several members of the public start to look for some other form of entertainment, and it's not long before one of them  points out that your [com.companion] is available for public use. A couple of members of the crowd quickly rush forwards to take advantage of the fact that nobody's currently using [com.herHim], and as they walk around to inspect [com.name] from every angle, you're able to look across and see that
+			#IF(npc.isFeminine()==npc2.isFeminine() && npc.getRaceStage()==npc2.getRaceStage() && npc.getRace()==npc2.getRace())
+				 they're both [npc.fullRaces(true)].
+			#ELSE
+				 Looking up, you see that the more dominant-looking of the two is [npc.a_fullRace(true)], while the other is [npc2.a_fullRace(true)].
+			#ENDIF
+		</p>
+		<p>
+			Finishing [npc.her] inspection, the more dominant [npc.race] steps around behind [com.name] and teases, [npc.speech(I'm going to enjoy fucking you, slut!)]
+		</p>
+		<p>
+			[npc2.speech(Oh yeah, this is going to be fun!)] the [npc2.race] [npc2.moansVerb] as [npc2.she] steps up in front of [com.name], before quickly displacing [npc2.her] clothing and presenting your [com.companion] with [npc2.her]
+			#IF(npc2.hasPenis())
+				#IF(npc2.hasVagina())
+					 [npc2.cock+] and [npc2.pussy+].
+				#ELSE
+					 [npc2.cock+].
+				#ENDIF
+			#ELSE
+				 [npc2.pussy+].
+			#ENDIF
+			 Letting out an excited [npc2.moan], [npc2.she] doesn't hesitate for a moment longer, and instantly starts to use [com.name]...
+		</p>
+		<p>
+			[#SPECIAL_PARSE_0]
+		</p>
+		<p>
+			While this is happening, you hear [npc.name] shuffling around behind [com.name] as [npc.she] quickly seeks to displace [com.her] clothing. As soon as [npc.sheIs] done, [npc.she] steps forwards and teases the [npc.cockHead+] of [npc.her] cock up and down over your [com.companion]'s [com.ass+]. Shifting [npc.her] [com.hips] a little in response, [com.name] can't help but whine as [npc.name] teases, [npc.speech(Time to give you a good fucking, slut!)]
+		</p>
+		<p>
+			[#SPECIAL_PARSE_1]
+		</p>
+		<p>
+			Eventually having had enough fun with [com.name], the two strangers get their clothing back in order and walk off, leaving your [com.companion] panting and quietly moaning as [com.she] recovers from the experience...
+		</p>
+	#ELSE
+		<p>
+			While the sight of you being fucked proved to be entertaining enough to draw a moderately-sized crowd, the members of the public who gathered to watch quickly start to lose interest. As they start to wander off, one of them suddenly notices that your [com.companion] is not only marked for public use, but is also currently not being used by anyone. As they walk around to inspect [com.name] from every angle, you're able to look across and see that they're [npc.a_raceFull(true)].
+		</p>
+		<p>
+			Although you can't see [npc.herHim] from your position in the stocks, you're still able to hear the [npc.race] as [npc.she] steps around behind [com.name] and slaps ass, before teasing, [npc.speech(Come on, slut, beg me to fuck you! I'll keep this going until you do it!)]
+		</p>
+		<p>
+			As the sound of another slap rings out, you hear your [com.companion] relent and beg, [com.speech(Please, fuck me! I need you to fuck me!)]
+		</p>
+		<p>
+			A small crowd quickly gathers to watch the upcoming entertainment, and as they start to loudly comment on your [com.companion]'s display of submission, the [npc.race] lets out an excited [npc.moan] and prepares to start fucking [com.herHim]...
+		</p>
+		<p>
+			[#SPECIAL_PARSE_0]
+		</p>
+		<p>
+			Having had [npc.her] fun, [npc.name] steps away from [com.name], and without so much as a backwards glance, walks off and leaves your [com.companion] panting and quietly [npc.moaning] in the stocks. The crowd which gathered to watch the lewd display quickly dissipates, leaving both you and [com.name] with little else to do but wait and see what will happen to you next...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
 	
 </dialogue>

@@ -22,10 +22,12 @@ import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.moves.CombatMove;
@@ -948,7 +950,7 @@ public enum RenderingEngine {
 			if (item instanceof AbstractItem) {
 				AbstractItem abItem = (AbstractItem)item;
 				if ((nonPlayerInv && InventoryDialogue.getNPCInventoryInteraction()!=InventoryInteraction.FULL_MANAGEMENT)
-						|| (Main.game.isInSex() && (isTraderInv || !abItem.isAbleToBeUsedInSex()))
+						|| (Main.game.isInSex() && (isTraderInv || !abItem.isAbleToBeUsedInSex() || !Main.sex.isItemUseAvailable()))
 						|| (Main.game.isInCombat() && (!abItem.isAbleToBeUsedInCombat() || Main.game.getPlayer().isStunned() || Combat.isCombatantDefeated(Main.game.getPlayer())))) {
 					overlay += " disabled";
 				}
@@ -956,7 +958,8 @@ public enum RenderingEngine {
 			} else if (item instanceof AbstractClothing) {
 				AbstractClothing clothing = (AbstractClothing)item;
 				if (Main.game.isInCombat()
-						|| (Main.game.isInSex() && (isTraderInv || !clothing.getClothingType().isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0))))) {
+						|| (Main.game.isInSex()
+								&& (isTraderInv || !clothing.isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0)).getKey() || !Main.sex.getInitialSexManager().isAbleToEquipSexClothing(Main.game.getPlayer())))) {
 					overlay += " disabled";
 				}
 				
@@ -993,7 +996,7 @@ public enum RenderingEngine {
 			
 		} else if (item instanceof AbstractClothing) {
 			AbstractClothing clothing = (AbstractClothing)item;
-			if (Main.game.isInCombat() || (Main.game.isInSex() && !clothing.getClothingType().isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0)))) {
+			if (Main.game.isInCombat() || (Main.game.isInSex() && !clothing.isAbleToBeEquippedDuringSex(clothing.getClothingType().getEquipSlots().get(0)).getKey())) {
 				overlay += " disabled";
 			}
 			
@@ -2362,6 +2365,11 @@ public enum RenderingEngine {
 												:"border:1px solid "+PresetColour.TEXT_GREY_DARK.toWebHexString()+";"))
 								:"border:1px solid "+PresetColour.TEXT_GREY_DARK.toWebHexString()+";")
 							+ "'>"
+					+ (character.getHistory()==Occupation.TOURIST
+						?"<div class='full-width-container' style='position:absolute; width:12%; padding:0; right:2%; opacity:0.75;'>"
+							+ SVGImages.SVG_IMAGE_PROVIDER.getFlagUs()
+						+ "</div>"
+						:"")
 					+ "<div class='full-width-container' style='margin-bottom:4px;'>"
 						+ "<div class='icon' style='width:12%'>"
 							+ "<div class='icon-content'>"
@@ -2481,7 +2489,7 @@ public enum RenderingEngine {
 		
 		if(!Main.game.isInCombat()) {
 			// Infinite duration:
-			for (StatusEffect se : character.getStatusEffects()) {
+			for (AbstractStatusEffect se : character.getStatusEffects()) {
 				if (!se.isCombatEffect() && character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel())
 					panelSB.append(
 							"<div class='icon effect'>"
@@ -2492,7 +2500,7 @@ public enum RenderingEngine {
 							+ "</div>");
 			}
 			// Timed:
-			for (StatusEffect se : character.getStatusEffects()) {
+			for (AbstractStatusEffect se : character.getStatusEffects()) {
 				if (!se.isCombatEffect() && character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
 					int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*60*6f))*100);
 	
@@ -2532,10 +2540,10 @@ public enum RenderingEngine {
 		
 		} else {
 			// Infinite duration:
-			for (StatusEffect se : character.getStatusEffects()) {
+			for (AbstractStatusEffect se : character.getStatusEffects()) {
 				if (character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel())
 					panelSB.append(
-							"<div class='icon effect' "+(se.isCombatEffect()?"style='border:1px solid "+(se.isBeneficial()?PresetColour.GENERIC_GOOD:PresetColour.GENERIC_BAD).toWebHexString()+";":"")+"'>"
+							"<div class='icon effect' "+(se.isCombatEffect()?"style='border:1px solid "+se.getBeneficialStatus().getColour().toWebHexString()+";":"")+"'>"
 									+ "<div class='icon-content'>"
 										+ se.getSVGString(character)
 										+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
@@ -2543,7 +2551,7 @@ public enum RenderingEngine {
 							+ "</div>");
 			}
 			// Timed:
-			for (StatusEffect se : character.getStatusEffects()) {
+			for (AbstractStatusEffect se : character.getStatusEffects()) {
 				if (character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel() && se.isCombatEffect()) {
 					int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*60*6f))*100);
 
@@ -2559,7 +2567,7 @@ public enum RenderingEngine {
 					}
 					
 					panelSB.append(
-							"<div class='icon effect' style='border:1px solid "+(se.isBeneficial()?PresetColour.GENERIC_GOOD:PresetColour.GENERIC_BAD).toWebHexString()+";'>"
+							"<div class='icon effect' style='border:1px solid "+se.getBeneficialStatus().getColour().toWebHexString()+";'>"
 									+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
 									+ "<div class='icon-content'>"
 										+ se.getSVGString(character)
@@ -2705,42 +2713,29 @@ public enum RenderingEngine {
 	//		}
 			
 			// Infinite duration:
-			for (StatusEffect se : character.getStatusEffects()) {
+			for (AbstractStatusEffect se : character.getStatusEffects()) {
 				boolean pointer = false;
 				SexAreaInterface si = null;
-				switch(se) {
-					case PENIS_STATUS:
-						si = SexAreaPenetration.PENIS;
-						break;
-					case ANUS_STATUS:
-						si = SexAreaOrifice.ANUS;
-						break;
-					case ASS_STATUS:
-						si = SexAreaOrifice.ASS;
-						break;
-					case MOUTH_STATUS:
-						si = SexAreaOrifice.MOUTH;
-						break;
-					case BREAST_STATUS:
-						si = SexAreaOrifice.BREAST;
-						break;
-					case NIPPLE_STATUS:
-						si = SexAreaOrifice.NIPPLE;
-						break;
-					case THIGH_STATUS:
-						si = SexAreaOrifice.THIGHS;
-						break;
-					case URETHRA_PENIS_STATUS:
-						si = SexAreaOrifice.URETHRA_PENIS;
-						break;
-					case URETHRA_VAGINA_STATUS:
-						si = SexAreaOrifice.URETHRA_VAGINA;
-						break;
-					case VAGINA_STATUS:
-						si = SexAreaOrifice.VAGINA;
-						break;
-					default:
-						break;
+				if(se==StatusEffect.PENIS_STATUS) {
+					si = SexAreaPenetration.PENIS;
+				} else if(se==StatusEffect.ANUS_STATUS) {
+					si = SexAreaOrifice.ANUS;
+				} else if(se==StatusEffect.ASS_STATUS) {
+					si = SexAreaOrifice.ASS;
+				} else if(se==StatusEffect.MOUTH_STATUS) {
+					si = SexAreaOrifice.MOUTH;
+				} else if(se==StatusEffect.BREAST_STATUS) {
+					si = SexAreaOrifice.BREAST;
+				} else if(se==StatusEffect.NIPPLE_STATUS) {
+					si = SexAreaOrifice.NIPPLE;
+				} else if(se==StatusEffect.THIGH_STATUS) {
+					si = SexAreaOrifice.THIGHS;
+				} else if(se==StatusEffect.URETHRA_PENIS_STATUS) {
+					si = SexAreaOrifice.URETHRA_PENIS;
+				} else if(se==StatusEffect.URETHRA_VAGINA_STATUS) {
+					si = SexAreaOrifice.URETHRA_VAGINA;
+				} else if(se==StatusEffect.VAGINA_STATUS) {
+					si = SexAreaOrifice.VAGINA;
 				}
 				if(Main.game.isInSex() && si!=null) {
 					if(!Main.sex.getCharactersHavingOngoingActionWith(character, si).isEmpty()) {
@@ -2759,7 +2754,7 @@ public enum RenderingEngine {
 				}
 			}
 			// Timed:
-			for (StatusEffect se : character.getStatusEffects()) {
+			for (AbstractStatusEffect se : character.getStatusEffects()) {
 				if (se.isSexEffect() && character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
 					int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*60*6f))*100);
 	

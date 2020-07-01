@@ -22,6 +22,7 @@
 		<!-- WhatWhich leg configurations can equip this outfit. For a list of legConfigurations, see: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LegConfiguration.java -->
 		<acceptableLegConfigurations>
 			<legConfiguration>BIPEDAL</legConfiguration>
+			<legConfiguration>TAUR</legConfiguration>
 		</acceptableLegConfigurations>
 		
 		<!-- The condition that needs to be satisfied for someone to generate this outfit. "npc.hasFetish(FETISH_EXHIBITIONIST)" should probably always be taken into account. This conditional instance does NOT support the "clothingConditionalX" elements.
@@ -42,10 +43,12 @@
 		<clothingConditional3 constant="false"><![CDATA[game.getSeason() == SEASON_WINTER]]></clothingConditional3>
 		<clothingConditional4 constant="false"><![CDATA[game.getCurrentWeather()==WEATHER_SNOW]]></clothingConditional4>
 		
-		<clothingConditional5 constant="true"><![CDATA[npc.getFemininity() == FEMININITY_FEMININE]]></clothingConditional5>
+		<clothingConditional5 constant="true"><![CDATA[npc.isFeminine()]]></clothingConditional5>
 		
 		<clothingConditional6 constant="true"><![CDATA[RND.nextInt(100)<=66]]></clothingConditional6>
 		<clothingConditional7 constant="true"><![CDATA[RND.nextInt(100)<=50]]></clothingConditional7>
+		
+		<condTaur constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL]]></condTaur>
 		
 		<!-- "presetColourGroupX" groups have one of their defined "randomColour"s randomly chosen for further use in this XML file. You can have up to 20 "presetColourGroupX"s, but the numbers must be consecutive. (i.e. You can have "presetColourGroup1", "presetColourGroup2", and "presetColourGroup3", but NOT "presetColourGroup1", "presetColourGroup2", and "presetColourGroup4", as that skips out a "3".)
 		Accepted values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/utils/Colour.java -->
@@ -135,13 +138,13 @@
 			</uniqueClothing>
 			
 			<uniqueClothing>
-				<conditional><![CDATA[((clothingConditional1 || clothingConditional3) && clothingConditional5]]></conditional>
+				<conditional><![CDATA[(clothingConditional1 || clothingConditional3) && clothingConditional5]]></conditional>
 				<clothing colour="CLOTHING_PINK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_flsldshirt" isDirty="false"></clothing>
 			</uniqueClothing>
 			
 			<!--Masculine long sleeved shirt-->
 			<uniqueClothing>
-				<conditional><![CDATA[((clothingConditional1 || clothingConditional3) && (!clothingConditional5)]]></conditional>
+				<conditional><![CDATA[(clothingConditional1 || clothingConditional3) && (!clothingConditional5)]]></conditional>
 				<clothing colour="CLOTHING_BLUE" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_lsldshirt" isDirty="false"></clothing>
 			</uniqueClothing>
 			
@@ -153,7 +156,7 @@
 			
 			<!--Masculine short sleeved shirt -->
 			<uniqueClothing>
-				<conditional><![CDATA[(clothingConditional2 && (!clothingConditional5)]]></conditional>
+				<conditional><![CDATA[clothingConditional2 && (!clothingConditional5)]]></conditional>
 				<clothing colour="CLOTHING_BLUE" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_ssldshirt" isDirty="false"></clothing>
 			</uniqueClothing>
 			
@@ -165,18 +168,20 @@
 			
 			<!--Slacks always -->
 			<uniqueClothing>
-				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_ptrlequipset_enflsacks" isDirty="false">
+				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_ptrlequipset_enfslacks" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			
-			<!--Socks always -->
+			<!--Socks always (if plantigrade feet) -->
 			<uniqueClothing>
+				<conditional><![CDATA[condTaur]]></conditional>
 				<clothing colour="CLOTHING_BLACK" enchantmentKnown="true" id="innoxia_sock_socks" isDirty="false">
 				</clothing>
 			</uniqueClothing>
 			
-			<!--Boots always -->
+			<!--Boots always (if plantigrade feet) -->
 			<uniqueClothing>
+				<conditional><![CDATA[condTaur]]></conditional>
 				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_tacequipset_cboots" isDirty="false">
 				</clothing>
 			</uniqueClothing>

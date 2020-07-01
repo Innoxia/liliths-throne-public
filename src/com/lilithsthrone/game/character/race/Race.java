@@ -26,6 +26,7 @@ public enum Race {
 
 	NONE("no race",
 			"no race",
+			"none",
 			PresetColour.RACE_UNKNOWN,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(Attack.MAIN),
@@ -39,6 +40,7 @@ public enum Race {
 	
 	// HUMAN:
 	HUMAN("human",
+			"human",
 			"human",
 			PresetColour.RACE_HUMAN,
 			Disposition.CIVILIZED,
@@ -59,6 +61,7 @@ public enum Race {
 	// ANGEL:
 	ANGEL("angel",
 			"angel",
+			"angelic",
 			PresetColour.CLOTHING_WHITE,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
@@ -75,6 +78,7 @@ public enum Race {
 	// DEMON:
 	DEMON("demon",
 			"demonic-horse",
+			"demonic",
 			PresetColour.RACE_DEMON,
 			Disposition.CIVILIZED,
 			Util.newArrayListOfValues(
@@ -107,33 +111,35 @@ public enum Race {
 
 	// BOVINES:
 	COW_MORPH("cow-morph",
-			"cow",
-			PresetColour.RACE_COW_MORPH,
-			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-			1,
-			Attribute.DAMAGE_COW_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
+				"cow",
+				"cow",
+				PresetColour.RACE_COW_MORPH,
+				Disposition.CIVILIZED,
+				Util.newArrayListOfValues(
+						Attack.MAIN,
+						Attack.SPECIAL_ATTACK),
+				0.5f,
+				1,
+				1,
+				Attribute.DAMAGE_COW_MORPH,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true),
 
 	// CANINES:
 	DOG_MORPH("dog-morph",
-			"dog",
-			PresetColour.RACE_DOG_MORPH,
-			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(Attack.MAIN),
-			0.5f,
-			1,
-			2,
-			Attribute.DAMAGE_DOG_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true) {
+				"dog",
+				"dog",
+				PresetColour.RACE_DOG_MORPH,
+				Disposition.CIVILIZED,
+				Util.newArrayListOfValues(Attack.MAIN),
+				0.5f,
+				1,
+				2,
+				Attribute.DAMAGE_DOG_MORPH,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
 		public void applyRaceChanges(Body body) {
 			if(body.getPenis().getType()==PenisType.CANINE) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
@@ -142,19 +148,20 @@ public enum Race {
 	},
 
 	WOLF_MORPH("wolf-morph",
-			"wolf",
-			PresetColour.RACE_WOLF_MORPH,
-			Disposition.SAVAGE,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-			2,
-			Attribute.DAMAGE_WOLF_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true) {
+				"wolf",
+				"wolf",
+				PresetColour.RACE_WOLF_MORPH,
+				Disposition.SAVAGE,
+				Util.newArrayListOfValues(
+						Attack.MAIN,
+						Attack.SPECIAL_ATTACK),
+				0.5f,
+				1,
+				2,
+				Attribute.DAMAGE_WOLF_MORPH,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
 		public void applyRaceChanges(Body body) {
 			if(body.getPenis().getType()==PenisType.LUPINE) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
@@ -163,20 +170,21 @@ public enum Race {
 	},
 	
 	FOX_MORPH("fox-morph",
-			"fox",
-			PresetColour.RACE_FOX_MORPH,
-			Disposition.UNPREDICTABLE,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SEDUCTION,
-					Attack.SPELL),
-			0.5f,
-			1,
-			2,
-			Attribute.DAMAGE_FOX_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true) {
+				"fox",
+				"fox",
+				PresetColour.RACE_FOX_MORPH,
+				Disposition.UNPREDICTABLE,
+				Util.newArrayListOfValues(
+						Attack.MAIN,
+						Attack.SEDUCTION,
+						Attack.SPELL),
+				0.5f,
+				1,
+				2,
+				Attribute.DAMAGE_FOX_MORPH,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
 		public void applyRaceChanges(Body body) {
 			if(body.getPenis().getType()==PenisType.VULPINE) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
@@ -187,19 +195,20 @@ public enum Race {
 
 	// FELINES:
 	CAT_MORPH("cat-morph",
-			"cat",
-			PresetColour.RACE_CAT_MORPH,
-			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(
-					Attack.SEDUCTION,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-			2,
-			Attribute.DAMAGE_CAT_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
+				"cat",
+				"cat",
+				PresetColour.RACE_CAT_MORPH,
+				Disposition.CIVILIZED,
+				Util.newArrayListOfValues(
+						Attack.SEDUCTION,
+						Attack.SPECIAL_ATTACK),
+				0.5f,
+				1,
+				2,
+				Attribute.DAMAGE_CAT_MORPH,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true),
 	
 //	PANTHER_MORPH("panther-morph",
 //			"panther",
@@ -218,19 +227,20 @@ public enum Race {
 	
 	// EQUINE:
 	HORSE_MORPH("horse-morph",
-			"horse",
-			PresetColour.RACE_HORSE_MORPH,
-			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-			1,
-			Attribute.DAMAGE_HORSE_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true) {
+				"horse",
+				"horse",
+				PresetColour.RACE_HORSE_MORPH,
+				Disposition.CIVILIZED,
+				Util.newArrayListOfValues(
+						Attack.MAIN,
+						Attack.SPECIAL_ATTACK),
+				0.5f,
+				1,
+				1,
+				Attribute.DAMAGE_HORSE_MORPH,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true) {
 		public void applyRaceChanges(Body body) {
 			// 75% chance for genitals to be dark:
 			if(Math.random()<0.75f) {
@@ -260,97 +270,104 @@ public enum Race {
 
 	
 	 REINDEER_MORPH("reindeer-morph",
-			"reindeer",
-			PresetColour.RACE_REINDEER_MORPH,
-			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-			2,
-			Attribute.DAMAGE_REINDEER_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
+				"reindeer",
+				"reindeer",
+				PresetColour.RACE_REINDEER_MORPH,
+				Disposition.CIVILIZED,
+				Util.newArrayListOfValues(
+						Attack.MAIN,
+						Attack.SPECIAL_ATTACK),
+				0.5f,
+				1,
+				2,
+				Attribute.DAMAGE_REINDEER_MORPH,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true),
 			
 
 	SQUIRREL_MORPH("squirrel-morph",
-			"squirrel",
-			PresetColour.RACE_SQUIRREL_MORPH,
-			Disposition.CIVILIZED,
-			Util.newArrayListOfValues(
-					Attack.MAIN),
-			0.5f,
-			1,
-			2,
-			Attribute.DAMAGE_SQUIRREL_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
+				"squirrel",
+				"squirrel",
+				PresetColour.RACE_SQUIRREL_MORPH,
+				Disposition.CIVILIZED,
+				Util.newArrayListOfValues(
+						Attack.MAIN),
+				0.5f,
+				1,
+				2,
+				Attribute.DAMAGE_SQUIRREL_MORPH,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true),
 
 	RAT_MORPH("rat-morph",
-			"rat",
-			PresetColour.RACE_RAT_MORPH,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-			4,
-			Attribute.DAMAGE_RAT_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
+				"rat",
+				"rat",
+				PresetColour.RACE_RAT_MORPH,
+				Disposition.NEUTRAL,
+				Util.newArrayListOfValues(
+						Attack.MAIN,
+						Attack.SPECIAL_ATTACK),
+				0.5f,
+				1,
+				4,
+				Attribute.DAMAGE_RAT_MORPH,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true),
 
 	RABBIT_MORPH("rabbit-morph",
-			"rabbit",
-			PresetColour.RACE_RABBIT_MORPH,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.SEDUCTION,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			2,
-			8,
-			Attribute.DAMAGE_RABBIT_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
+				"rabbit",
+				"rabbit",
+				PresetColour.RACE_RABBIT_MORPH,
+				Disposition.NEUTRAL,
+				Util.newArrayListOfValues(
+						Attack.SEDUCTION,
+						Attack.SPECIAL_ATTACK),
+				0.5f,
+				2,
+				8,
+				Attribute.DAMAGE_RABBIT_MORPH,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true),
 	
 	BAT_MORPH("bat-morph",
-			"bat",
-			PresetColour.RACE_BAT_MORPH,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-			2,
-			Attribute.DAMAGE_BAT_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
+				"bat",
+				"bat",
+				PresetColour.RACE_BAT_MORPH,
+				Disposition.NEUTRAL,
+				Util.newArrayListOfValues(
+						Attack.MAIN,
+						Attack.SPECIAL_ATTACK),
+				0.5f,
+				1,
+				2,
+				Attribute.DAMAGE_BAT_MORPH,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true),
 	
 	ALLIGATOR_MORPH("alligator-morph",
-			"alligator",
-			PresetColour.RACE_ALLIGATOR_MORPH,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SPECIAL_ATTACK),
-			0.5f,
-			1,
-			4,
-			Attribute.DAMAGE_ALLIGATOR_MORPH,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
-			true),
+				"alligator",
+				"alligator",
+				PresetColour.RACE_ALLIGATOR_MORPH,
+				Disposition.NEUTRAL,
+				Util.newArrayListOfValues(
+						Attack.MAIN,
+						Attack.SPECIAL_ATTACK),
+				0.5f,
+				1,
+				4,
+				Attribute.DAMAGE_ALLIGATOR_MORPH,
+				FurryPreference.NORMAL,
+				FurryPreference.NORMAL,
+				true),
 
 	// SLIME:
 	SLIME("slime",
+			"slime",
 			"slime",
 			PresetColour.RACE_SLIME,
 			Disposition.NEUTRAL,
@@ -365,7 +382,8 @@ public enum Race {
 
 	// AVIAN:
 	HARPY("harpy",
-			"avian",
+			"bird",
+			"harpy",
 			PresetColour.RACE_HARPY,
 			Disposition.NEUTRAL,
 			Util.newArrayListOfValues(
@@ -488,21 +506,21 @@ public enum Race {
 //			false),
 
 	ELEMENTAL("elemental",
-			"elemental",
-			PresetColour.SPELL_SCHOOL_ARCANE,
-			Disposition.NEUTRAL,
-			Util.newArrayListOfValues(
-					Attack.MAIN,
-					Attack.SEDUCTION,
-					Attack.SPELL),
-			0.5f,
-			1,
-			1,
-			Attribute.DAMAGE_ELEMENTAL,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false),
-	;
+				"elemental",
+				"elemental",
+				PresetColour.SPELL_SCHOOL_ARCANE,
+				Disposition.NEUTRAL,
+				Util.newArrayListOfValues(
+						Attack.MAIN,
+						Attack.SEDUCTION,
+						Attack.SPELL),
+				0.5f,
+				1,
+				1,
+				Attribute.DAMAGE_ELEMENTAL,
+				FurryPreference.MAXIMUM,
+				FurryPreference.MAXIMUM,
+				false);
 
 	/*
 	 * // INSECTS: BEE_MORPH("bee-morph",
@@ -1168,6 +1186,7 @@ public enum Race {
 
 	private String name;
 	private String nameBestial;
+	private String defaultTransformName;
 	private Colour colour;
 	private Disposition disposition;
 	private List<Attack> preferredAttacks;
@@ -1181,6 +1200,7 @@ public enum Race {
 	
 	private Race(String name,
 			String nameBestial,
+			String defaultTransformName,
 			Colour colour,
 			Disposition disposition,
 			List<Attack> preferredAttacks,
@@ -1194,6 +1214,7 @@ public enum Race {
 		
 		this.name = name;
 		this.nameBestial = nameBestial;
+		this.defaultTransformName = defaultTransformName;
 		
 		this.colour = colour;
 		this.disposition = disposition;
@@ -1235,6 +1256,10 @@ public enum Race {
 			return nameBestial;
 		}
 		return name;
+	}
+
+	public String getDefaultTransformName() {
+		return defaultTransformName;
 	}
 
 	public Disposition getDisposition() {

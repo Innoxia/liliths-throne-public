@@ -99,6 +99,7 @@ public class PresetColour {
 	public static Colour GENERIC_MINOR_BAD = new Colour(false, BaseColour.RED_LIGHT, "red", Util.newArrayListOfValues("minorBad", "badMinor")) {};
 	public static Colour GENERIC_MINOR_GOOD = new Colour(false, BaseColour.GREEN_LIGHT, "light green", Util.newArrayListOfValues("minorGood", "goodMinor")) {};
 	public static Colour GENERIC_BAD = new Colour(false, BaseColour.RED, "red", Util.newArrayListOfValues("bad")) {};
+	public static Colour GENERIC_NEUTRAL = new Colour(false, BaseColour.BLUE, "blue", Util.newArrayListOfValues("neutral")) {};
 	public static Colour GENERIC_GOOD = new Colour(false, BaseColour.GREEN, "green", Util.newArrayListOfValues("good")) {};
 	public static Colour GENERIC_EXCELLENT = new Colour(false, BaseColour.GOLD, "gold", Util.newArrayListOfValues("excellent")) {};
 	public static Colour GENERIC_ATTRIBUTE = new Colour(false, BaseColour.MAGENTA, "magenta") {};
@@ -264,7 +265,7 @@ public class PresetColour {
 
 	public static Colour AGE_TEENS = new Colour(false, Util.newColour(0xE1F0C1), Util.newColour(0x73A112), "green", Util.newArrayListOfValues("ageTeens")) {};
 	public static Colour AGE_TWENTIES = new Colour(false, Util.newColour(0xCCE698), Util.newColour(0x638A0F), "green", Util.newArrayListOfValues("ageTwenties")) {};
-	public static Colour AGE_THIRTIES = new Colour(false, Util.newColour(0xB8DC6F), Util.newColour(0x52730D), "green", Util.newArrayListOfValues("ageThirties")) {};
+	public static Colour AGE_THIRTIES = new Colour(false, Util.newColour(0xB8DC6F), Util.newColour(0x52730D), "green", Util.newArrayListOfValues("age", "ageThirties")) {}; // This is the 'default' age colour
 	public static Colour AGE_FORTIES = new Colour(false, Util.newColour(0xA4D246), Util.newColour(0x41590D), "green", Util.newArrayListOfValues("ageForties")) {};
 	public static Colour AGE_FIFTIES = new Colour(false, Util.newColour(0x8AB92D), Util.newColour(0x334408), "green", Util.newArrayListOfValues("ageFifties")) {};
 	public static Colour AGE_SIXTIES = new Colour(false, Util.newColour(0x6B9023), Util.newColour(0x232E05), "green", Util.newArrayListOfValues("ageSixties")) {};
@@ -372,7 +373,7 @@ public class PresetColour {
 	public static Colour MOUTH = new Colour(false, BaseColour.LILAC_LIGHT, "pale lilac", Util.newArrayListOfValues("mouth", "throat")) {};
 
 	public static Colour DIRTY = new Colour(false, BaseColour.YELLOW_LIGHT, "light yellow", Util.newArrayListOfValues("dirty")) {};
-	public static Colour SEALED = new Colour(false, BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues("sealed")) {};
+	public static Colour SEALED = new Colour(false, BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues("seal", "sealed")) {};
 	public static Colour DISPLACED = new Colour(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("displaced")) {};
 
 	// Text colours:

@@ -67,7 +67,7 @@
 		</p>
 	#ELSE
 		<p>
-			[npc.speech(This [pc.insult]'s got [pc.her] mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc.name] spits in disgust. Turning to [npc.her] subordinate, [npc.she] snaps, [npc.speech(Save that potion for the next one we catch! Let's just fuck whatever holes we can with this [pc.insult].)]
+			[npc.speech(This [pc.insult]'s got [pc.her] mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc.name] spits in disgust. Turning to [npc.her] subordinate, [npc.she] snaps, [npc.speech(Save that potion for the next one we catch! Let's just fuck whatever holes we can with this [pc.insult].)]
 		</p>
 		<p>
 			With no further warning, [npc.name] reaches forwards and grabs the back of your head, before pushing you down onto the floor. [npc.speech(Get down, [pc.insult]! Time to be a good fuck-toy for us!)]
@@ -358,7 +358,7 @@
 		</p>
 	#ELSE
 		<p>
-			[npc.speech(This [pc.insult]'s got [pc.her] mouth blocked! If only the boss was here, she could get rid of that jinx! Eugh!)] [npc.name] spits in disgust. Turning to [npc.her] subordinate, [npc.she] snaps, [npc.speech(Save that potion for the next one we catch! Let's just fuck whatever holes we can with this [pc.insult].)]
+			[npc.speech(This [pc.insult]'s got [pc.her] mouth blocked! If only the boss was here, she could get rid of that seal enchantment! Eugh!)] [npc.name] spits in disgust. Turning to [npc.her] subordinate, [npc.she] snaps, [npc.speech(Save that potion for the next one we catch! Let's just fuck whatever holes we can with this [pc.insult].)]
 		</p>
 		<p>
 			With no further warning, [npc.name] reaches forwards and grabs the back of your head, before pushing you down onto the floor. [npc.speech(Get down, [pc.insult]! Time to be a good fuck-toy for us!)]

@@ -202,7 +202,7 @@
 		#IF(pc.hasHorns())
 			 your [pc.horns]
 		#ELSEIF(pc.hasHair())
-			 your [pc.hair]
+			 your [pc.hair(true)]
 		#ELSE
 			 the back of your head
 		#ENDIF
@@ -223,7 +223,7 @@
 		#IF(pc.hasHorns())
 			 your [pc.horns]
 		#ELSEIF(pc.hasHair())
-			 your [pc.hair]
+			 your [pc.hair(true)]
 		#ELSE
 			 the back of your head
 		#ENDIF

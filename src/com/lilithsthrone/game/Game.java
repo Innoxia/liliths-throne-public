@@ -141,6 +141,7 @@ import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.EnforcerHQDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict.DominionExpress;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
@@ -408,6 +409,12 @@ public class Game implements XMLSaving {
 						CharacterImportSetting.CLEAR_COMBAT_HISTORY,
 						CharacterImportSetting.CLEAR_SEX_HISTORY,
 						CharacterImportSetting.REMOVE_RACE_CONCEALED);
+				try {
+					if(((Element)((Element)((Element)characterElement.getElementsByTagName("character").item(0)).getElementsByTagName("core").item(0)).getElementsByTagName("id").item(0)).getAttribute("value").equals("PlayerCharacter")) {
+						importedSlave.setBirthday(importedSlave.getBirthday().plusYears(18)); // If the imported character is a player character, they need to have their age adjusted to fit with the fact that NPCs start at age 18
+					}
+				} catch(Exception ex) {	
+				}
 				Main.game.addNPC(importedSlave, false);
 				importedSlave.applyNewlyImportedSlaveVariables();
 				
@@ -1291,6 +1298,19 @@ public class Game implements XMLSaving {
 					}
 				}
 				
+				// Catch for pre-v0.3.8.2 versions where Thunder could have been deleted:
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.8.2") && Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)) {
+					try {
+						GameCharacter thunder = Main.game.getNPCById(Main.game.getDialogueFlags().getSadistNatalyaSlave());
+						thunder.setHomeLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_STABLES);
+					} catch (Exception e) {
+						Main.game.getNpc(Natalya.class).getSlavesOwned().remove(Main.game.getDialogueFlags().getSadistNatalyaSlave()); // Make sure that she doesn't still count the deleted slave as hers.
+						GameCharacter thunder = DominionExpress.spawnSlave(Main.game.getPlayer().getSexualOrientation().isAttractedToFeminine(), PresetColour.CLOTHING_BRONZE);
+						DominionExpress.applySadistSlave(thunder);
+						thunder.returnToHome();
+					}
+				}
+				
 				Main.game.pendingSlaveInStocksReset = false;
 				
 				
@@ -1403,6 +1423,8 @@ public class Game implements XMLSaving {
 		Main.game.getActiveWorld().getCell(0, 1).setDiscovered(false);
 		Main.game.getActiveWorld().getCell(1, 0).setDiscovered(false);
 		
+
+		started = false;
 		
 		SlaverAlleyDialogue.dailyReset();
 		
@@ -1845,19 +1867,17 @@ public class Game implements XMLSaving {
 			
 			// Clothing and item management:
 			if(inGame) {
-				if(getCharactersPresent().contains(npc) && !npc.isUnique() && !npc.isSlave()) {
-					npc.setPendingClothingDressing(true);
-				}
-
+				//TODO Not sure why this was here... Commented out in v0.3.8.2
+//				if(getCharactersPresent().contains(npc) && !npc.isUnique() && !npc.isSlave()) {
+//					npc.setPendingClothingDressing(true);
+//				}
+				
 				// Replace clothing if not in player's tile:
 				if(!Main.game.isInCombat()
 						&& !Main.game.isInSex()
 						&& !npc.isAllowingPlayerToManageInventory()
 						&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false)) || !(getCharactersPresent().contains(npc)))) {
 					if(hoursPassed>0 && npc.isPendingClothingDressing()) {
-						if(!npc.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-							npc.replaceAllClothing(); // Not sure why this is here, if clothing is getting replaced anyway...
-						}
 						npc.equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS));
 						npc.setPendingClothingDressing(false);
 						

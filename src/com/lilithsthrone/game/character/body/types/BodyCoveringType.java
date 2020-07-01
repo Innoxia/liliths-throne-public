@@ -411,7 +411,7 @@ public enum BodyCoveringType {
 			PresetColour.naturalFeatherColours,
 			PresetColour.dyeFeatherColours),
 	
-	HAIR_SCALES_ALLIGATOR(BodyCoveringTemplateFactory.createFurHeadHair(CoveringModifier.COARSE)), //Why do alligators have hair?!
+	HAIR_SCALES_ALLIGATOR(BodyCoveringTemplateFactory.createFurHeadHair(CoveringModifier.COARSE)),
 	
 	
 	// BODY HAIR:

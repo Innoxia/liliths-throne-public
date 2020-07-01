@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- PARTNER_INTERRUPTED  -->
+	
+	<htmlContent tag="PARTNER_INTERRUPTED"><![CDATA[
+		[claire.speechNoEffects(~Mmm!~ Yes!)] Claire moans, before suddenly opening her eyes wide and hissing, [claire.speechNoEffects(I think I hear someone coming!)]
+	</p>
+	<p>
+		Sure enough, as you look over towards the door to the storeroom, you see the handle beginning to turn.
+		#IF(sex.getSexPositionSlot(pc).isStanding(pc))
+			Before you can make a move, Claire frantically grabs hold of you and pulls you behind a nearby filing cabinet. With her hot breath falling on your bare [pc.skin], [npc.she] hisses, [claire.speech(Don't make a sound!)]
+		#ELSE
+			Before you can make a move, Claire frantically grabs hold of you and pulls you down onto the carpeted floor behind a stack of papers. With her hot breath falling on your bare [pc.skin], [npc.she] hisses, [claire.speech(Don't make a sound!)]
+		#ENDIF
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsBad(There is an Enforcer entering the stockroom!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- PLAYER_STAY_QUIET and PLAYER_KEEP_GOING -->
+	
+	<htmlContent tag="ENFORCER_ENTERING"><![CDATA[
+		From your hiding place, you and Claire are only just concealed from the angle of the doorway, and as you hear it swing open, you wonder if the two of you are about to be discovered. Turning to look back over their shoulder, the Enforcer who's entering the room shouts,
+	#IF(RND.nextInt(100)<50)
+		[style.speechFeminine(
+	#ELSE
+		[style.speechMasculine(
+	#ENDIF
+	[style.random(
+		What?! Just one box?!
+		|
+		Yeah, I know, I'm getting it now!
+		|
+		Did you say you were after the red ones?! ... Ok!
+		|
+		I think I know where they're kept by now! I <i>have</i> been working here for two years, remember?!
+		|
+		Yeah, I'll grab you some pencils as well, hold on!)]
+	)]
+	]]>
+	</htmlContent>
+	
+</dialogue>

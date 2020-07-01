@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -16,6 +17,7 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -86,6 +88,8 @@ public class DominionExpressCentaur extends NPC {
 			// PERSONALITY & BACKGROUND:
 			
 			CharacterUtils.setHistoryAndPersonality(this, false);
+			
+			this.setHistory(Occupation.NPC_SLAVE);
 			
 			// ADDING FETISHES:
 
@@ -158,6 +162,9 @@ public class DominionExpressCentaur extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.2")) {
+			this.setHistory(Occupation.NPC_SLAVE);
+		}
 	}
 
 	@Override
@@ -210,6 +217,8 @@ public class DominionExpressCentaur extends NPC {
 			} else {
 				this.returnToHome();
 			}
+		} else {
+			this.returnToHome();
 		}
 	}
 	

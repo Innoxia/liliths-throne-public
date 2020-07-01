@@ -25,34 +25,250 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	Other:
-		Demons (and imps) have had their chance to spawn with the 'lewd' personality trait increased from 75% to 80%, and their chance to spawn as 'innocent' or 'prudish' lowered from 2% to 1%.
-		Newly-generated NPCs who have the 'pure virgin' fetish and the 'lewd' personality trait will now have a higher chance (75% instead of 50%) to spawn in having lost their virginity.
+	Artwork:
+		Added artwork of Rose, by UltraBondageFairy.
+	
+	DSG clothing contributions:
+		DSG's Enforcer items update:
+			Added pattern support to the following items: Short-sleeved combat shirt; Enforcer's short-sleeved combat shirt.
+			Restored pattern support to the following items: Combat shirt; Enforcer's combat shirt; Enforcer's combat helmet; Enforcer's plate carrier; Enforcer's heavy plate carrier; Enforcer's tactical  trousers.
+			Added a new fixed color pattern: 'urban splinter camo'. This new pattern is set as the default at 100% chance for the following items: Enforcer's combat shirt; Enforcer's short-sleeved combat shirt; Enforcer's tactical  trousers.
+			Changed rarity and set bonus of the 'civilian' version of the short-sleeved combat shirt to be the same as the long-sleeved.
+			Changed cryoprism artwork to have less HK G-11 in it
+			Added three color support to the following weapons; Cryoprism gun; Liquid stun gun; Pepper grenade launcher; Pepperball rifle; Revolving tranquilizer rifle.
+			Added AoE support to the following weapons:
+			    Liquid stun gun (4 additional targets, 85/85/10/10% chance, 50/50/20/20% damage)
+			    Pepper grenade launcher (8 additional targets, 100% chance all around, 90/90/70/70/40/40/10/10% damage)
+			    Pepperball rifle (2 additional targets, 25/25% chance, 20/20% damage)
+			Updated equiptext of the pepper grenade launcher.
+			Updated description of the pepperball rifle to not overflow the tooltip.
+			Updated the hittext of the revolving tranquilizer rifle to be more lore friendly.
+		DSG's second Enforcer items update:
+			Changed the name of the LSG-9000 Stun Gun to Arcane Stun Gun in normal mode and LSG-9000 Coom Gun in silly mode.
+			Changed the hit/missText of the Enforcer's Baton and Arcane Taser to be more consistent with the other weapons.
+			Fixed several typos and incorrect parser tags in the hit/missText of the Riot Shield, Enforcer's Baton, and the Arcane Liquid Stun Gun.
+			Fixed several formatting issues introduced by IF/ELSE statements.
+			The following weapons now apply various status effects to enemies:
+				The Enforcer's Baton has a 33% chance to apply Dazed for 5 turns.
+				The Riot Shield has a 50% chance to apply Dazed for 3 turns.
+				The Arcane Taser applies Lustful Distraction for 3 turns.
+				The Arcane Liquid Stun Gun applies Lustful Distraction for 5 turns.
+				The Revolving Tranquilizer Rifle applies Arcane Duality (Negative) for 5 turns.
+				The Cyroprism Gun applies Freezing Fog for 3 turns and Frozen for 1 turn if the enemy already has Freezing Fog.
+		DSG's third Enforcer items update:
+			Buffed the following items' default fire/poison/freeze resistance:
+				The Enforcer's Stabproof Vest and Claire's unique variant: 5/3/3
+				The Enforcer's Riot Helmet: 3/2/2
+				The Enforcer's Riot Armor: 10/6/6
+				The Enforcer's Combat Shirt and Enforcer's Short-Sleeved Combat Shirt: 1/1/1
+				The Enforcer's Tactical Trousers: 1/1/1 
+				The Enforcer's Combat Helmet: 5/3/3
+				The Enforcer's Plate Carrier: 15/10/10
+				The Enforcer's Heavy Place Carrier: 20/12/12
+		DSG's Kitty Lingerie:
+			Added 'kitty lingerie' clothing, which includes: bra, panties, stockings, headband, and gloves. All sold by Nyan. (All created by DSG)
+	
+	Contributors:
+		Added 'Slavery Administration' shirt, which is worn by Finch. (by Rfpnj)
+		Fixed bug where empty 'defaultPatterns' elements in clothing xml files would throw unhelpful errors. (by CognitiveMist)
+	
+	Engine:
+		Converted FluidType, HairType, NippleType, WingType enums into abstract classes.
+		Changed parsing command of 'character.bodypart(boolean)' to have the boolean argument force the singular form, instead of forcing an automatic adjustment. (In other words, all body part commands now use the correct default plurality of the chararacter's part. e.g. 'horn' on a character with two horns would return 'horns'.)
+		Added modding support for adding clothing/weapon sets (look in 'res/mods/innoxia/setBonuses/template.xml' and 'res/setBonuses/innoxia/enforcer.xml' for examples).
+		Added modding support for adding status effects (look in 'res/mods/innoxia/statusEffects/set_template.xml' and 'res/statusEffects/innoxia/set_kitty.xml' for examples).
+		
+	Gameplay:
+		Added framework for Enforcer Dominion alleyway encounter (1% chance of it triggering). Most of the dialogue is still placeholder, but it should be functionally complete.
+		In the 'locked in stocks' scene in Slaver Alley (from Sean's content), the number of strangers using you or your partner is now randomised each time (to be either one or two). You can now also choose to stay in the stocks for another round at the end.
+		Characters no longer gain +1 corruption from discovering negatively-enchanted clothing (by equipping clothing which has an unknown enchantment).
+		After becoming a demon, if you fully self-transform all of your body parts into human parts, then you are treated by the game as being a human. (You retain your demonic status effect and ability to transform back into a demon at any time.)
 	
 	Items:
-		You can now recolour the 'Witch's Broom' and 'Feather Duster' weapons.
+		Added 'feminine apron'. (Over-torso slot, feminine, sold by Nyan).
+		You can now fit wrist restraints onto arm-wings.
+	
+	Sex:
+		The 'Irresistible Appeals' perk now makes it so that all of your requests are granted during standard sex scenes, and you are also able to access the positioning menu in standard sex scenes where you otherwise wouldn't be allowed to.
+		The 'Cock tease', 'Cock tease (anal)', and 'Hotdogging tease' actions (performed by the character who is taking hold of their partner's cock) are now correctly disabled if that character can't reach their partner's cock. (Such as in the pregnancy roulette scenes.)
+		When using the 'Quick Sex' action, and a character's condom breaks, that character now correctly cums inside whatever orifice they were penetrating.
+		More than only 20 seconds now passes when using the 'Quick sex' action. (5 minutes pass per character orgasm.)
+		'Quick sex' now has a chance to use crotch-boobs/nipples as one of the actions performed.
+		Non-taurs in the 'humping' slot in the 'all fours' sex position can now perform finger-groin interactions.
+		Added 'Keep going' action to Claire's risky sex scene (so you can ignore her request to stay quiet when an Enforcer enters the store room).
+		NPCs who either have a negative fetish desire towards the 'cum stud' fetish, or who have a non-positive desire towards impregnation and who are having sex with someone with a vagina, will now self-equip condoms from out of their inventory.
+	
+	Other:
+		Removed instances of 'jinxes/jinxed' in the game, and replaced them with 'seals/sealed'.
+		The 'jinxed clothing' status effect has been renamed to 'sealed clothing', and now applies -5 maximum aura instead of +10 corruption.
+		You now have five choices as to how long you wish to loiter in an area for: 15 minutes, 1 hour, 4 hours, 8 hours, or 12 hours.
+		Defeating the groups of six rats in the Rat Warrens now proceeds into post-combat victory scenes in which two of them have escaped (as having 6 rats during sex and management was causing numerous issues).
+		Lilaya now has a small reaction when you get her to drink fertility-altering potions during sex.
+		If Scarlett has a vagina and ends up having sex up in Helena's nest, she will no longer allow other harpies to get her pregnant if she likes you.
+		Next to a character's age in their description page, a small reminder has been added that everyone in the world of LT starts out as being 18 from the date of their birth.
+		Added 'wide', 'flat', and 'strong' tongue modifiers to the transformative options when crafting potions and clothing.
+		You can no longer equip clothing during sex which would ordinarily enslave the person it is equipped onto.
+		Improved flow of dialogue after Kalahari's sex scene.
+		When you've unlocked the special ability of the school of fire, casting spells at a cost of health now uses up whatever aura you have left before calculating health cost. (e.g. If a spell costs 100 aura, and you have 80 aura left, the 80 aura will be spent first, then health cost will be 25% of 20 aura, so 5 health.)
+		If she's not attracted to you, Scarlett will no longer want to receive oral from you in Helena's shop, nor spend her lunch break with you.
+		Transformation description of fluid regeneration changes now tells you exactly how much fluid is being regenerated per day.
+		Moved 'Forced TF Racial Limits' option out of the Furry Preferences menu and into the gameplay content settings menu (so that it's beside the other forced TF settings).
+		Added finer control in the 'Furry preferences' menu for how often you want humans, taurs, and half-demons to spawn.
+		Changed the way the tauric upper-body furriness setting (found in the 'Furry preferences' menu) works. <b>Your tauric upper-body furry preference will have been reset when you load into this version.</b>
+		Added a new background occupation for silly mode.
+		Dog, wolf, and fox vaginas now have the 'puffy' orifice modifier by default.
+		Half-demons and imps now have access to the 'Grow cock' sex action.
 	
 	Bugs:
-		Minor parsing & incorrect description fixes.
-		Fixed major bug in weapon/clothing/item comparator code which was resulting in the game's inventory breaking in odd places and causing the game to sometimes freeze or become unresponsive.
-		Fixed another major bug which was causing the game to freeze when you tried to enchant certain weapons or items of clothing.
-		Fixed bug where all clothing equipped by newly-spawned NPCs was unidentified.
-		Fixed bug where fluid absorption rates for all orifices were 60 times lower than they should have been. (Fluids in characters' orifices will now be depleted quicker than before, especially when in the stomach.)
-		Fixed minor UI issue when enchanting items, where the output image would not always show the correct icon of the item which was going to be created.
-		Fixed issues where tattoo effects were being applied just by clicking the add button.
-		The 'Secondary Sparks' upgrade to the 'Flash' spell now correctly drains 2 AP from the target, instead of making the effect last for 2 turns (as it was in previous versions of Flash).
-		NPCs' status effect updates will no longer spam your event log.
-		Fixed issue with no sex actions being available in the milking stall's 'all fours' position.
-		The 'Object to rough' sex action is now correctly available to use when the performing character's mouth is blocked. The associated corruption is also now 'pure' instead of 'horny'. 
-		Scarlett now correctly starts sex with her clothing displaced in the sleepover sex scenes during Helena's romance quest.
-		Kate no longer takes your money for daring to change your hairstyle or makeup in your own room.
-		Fixed issue with incorrect positioning and no actions being available when dominating Natalya in the 'Mount her' scene. You can now also remove her clothing in sex scenes in which you dominate her.
-		Fixed bug where both Natalya's business card and her stamped business card would be in your inventory at once.
-		Fixed bug where when wearing the filly collar, Dominion Streets text would incorrectly describe your mouth as being blocked when it wasn't, and vice versa.
+		Multiple parsing and typo fixes.
+		Added a check to remove old slaves which weren't being cleared from the shops in Slaver Alley.
+		Fixed parsing error in taur skirt's removal text.
+		All unique demon characters now have 2 testicles instead of having a random chance to spawn with 4.
+		Fixed issue with non-unique NPCs continuously replacing their clothing every hour.
+		Kate's sex scenes now correctly start with her clothing being displaced to expose her vagina.
+		Fixed bug where NPCs with non-plantigrade feet would spawn wearing no legwear or underwear.
+		Fixed bug where the knotting orgasm action would sometimes throw an error in group sex scenes.
+		Fixed issue where orgasm descriptions wouldn't describe all of the clothing & areas which were cummed on.
+		Clothing with an enchantment that gives an increase to corruption is no longer given the naming postfix of 'of purity'.
+		Fixed issue where enchanting items while in slavery or occupant management would return you to an inventory screen in which you were no longer interacting with the NPC.
+		Fixed bug where selecting the 'Leave' action in a slave's management screen would leave their inventory being rendered in the right UI panel.
+		Fixed issue where accessing the cosmetics screen via the slave management list would result in the slave's inventory continuing to be rendered in the right UI panel even after exiting that menu.
+		Fixed issue with the 'loiter' action not updating the responses in the tile which you loiter in.
+		Fixed issue with given/received creampie stats being reversed (so 'creampies given' was being counted as 'creampies taken' and vice versa).
+		If you have age content turned off, the age of a character is no longer displayed in their character description page.
+		Fixed issue where some NPCs (most notably the custom slave you can order from Helena) would spawn without any base perks, making it impossible to ever assign any perks to them. (This has been retroactively fixed for any perkless NPCs in your save.)
+		Fixed cause of several bugs when having sex with more than 4 characters in either the 'submissives' or 'dominants' category.
+		Fixed some issues with Lilaya not reacting correctly when you came inside of her, and sometimes not asking you to pull out.
+		When choosing to be 'Male Bred' in the pregnancy roulette, feminine harpies no longer have a chance to spawn.
+		You can no longer get your partner to use items or equip clothing (such as condoms) in the pregnancy roulette sex scenes.
+		Fixed issue where you could use items during Pix's shower sex scene and during Rose's hand-holding scene.
+		Clothing and item icons are now correctly greyed-out in your inventory when they are not available for use during sex.
+		Fixed issue where exported NPCs were failing to load correctly when selected to be your imported playable character at the start of a new game.
+		Fixed issue with a character's singular horn in the 'Grab horns' sex action being described as though there were two of them.
+		Fixed bug where dying all clothing in a stack (which was on the floor) would clone the original stack of clothing.
+		Fixed issue in Combat's getAllies method, which was returning a list that incorrectly included the character whose allies were to be found.
+		Fixed Soothing Water's 'Bouncing Orbs' upgrade not working correctly.
+		Fixed availability of several sex actions when a taur is receiving oral from a character who is down on all fours.
+		Fixed bug where characters couldn't start the ongoing sex action where they had their partner start to kiss/suckle their crotch-nipples.
+		Fixed bug where characters with a knotted penis would cause the game to freeze if they orgasmed while not having their penis interact with anything.
+		Transformations which make it impossible to wear certain items of equipped, sealed clothing now correctly remove them (breaking the seal in the process).
+		Fixed issue in enchanting screen, where adding corruption modifying enchantments would not display the correct projected capacity cost.
+		Fixed issue with the descriptions of Meraxis's demon lieutenants having their names incorrectly parsed.
+		Imps in Submission's fortresses no longer spawn with completely random outfits.
+		Fixed issue with Lilaya being older than intended when starting a new game.
+		The error log should no longer produce a spam of 'Failed to load character present' warnings when starting a new game via using an imported character.
+		Fixed bug where importing a previously-exported player character as a slave would increase their age by 18 years.
+		Fixed issue where having two items of identical clothing equipped in two slots (such as the ribbon being equipped to hair & tail) would throw background errors when you tried to unequip one of them.
+		Fixed bug where the descriptions generated from clothing transformations would sometimes be filled with parser errors.
+		Fixed issue with mute characters sometimes being able to speak during some sex actions.
+		When using the 'Quick sex' action, the 'Orgasmic level drain' perk now works even if you are a submissive partner.
+		Fixed bug in pregnancy stats screen where pregnancy possibilities could be displayed as 'Certainty' even if they were not a certainty.
+		Cultists now correctly pull up their dress as the scene describes when you return to their chapel.
+		Fixed tongue modifier addition/removal descriptions not being parsed correctly (if at all).
+		Casting spells out of combat now correctly costs mana (or health for fire spells when fire school ability is unlocked).
+		Fixed bug where forgetting centaurs in Dominion Express would sometimes delete the wrong centaur (which could cause Thunder to be deleted). If Thunder has been deleted in your save, they are respawned when loading into this version.
+		Fixed bug where saved centaurs in Dominion Express would not correctly return to the stables during the night.
+		Fixed bug where Natalya would act as though you'd upgraded your collar from bronze to silver the first time you visit her office after completing your training.
+		Fixed issue where sleeping in the stables of Dominion Express after having sex with a centaur would advance time to 00:06, instead of to 06:00.
+		Fixed dialogue for talking to harpies up in the Harpy Nests throwing 'dialogue not found' errors.
+		NPCs no longer have a chance to desire nipple-penetration actions if you have nipple-penetration content turned off (which was also affecting generated descriptions in the 'Quick sex' action).
+		Slaves will no longer have a sex event generated for them if you are in their tile (which should fix the issue of slaves somehow having sex with other slaves while you're having sex with them).
+		Fixed incorrect description when using the 'calming suggestion' sex action on a submissive partner.
+		Fixed bug in quick sex description for paizuri actions, where the target's suitability for performing paizuri was checked, instead of the performer.
+		Fixed issue with the special 'arcane allergy' perk throwing background errors when it was attempted to be added to a randomly-generated NPC.
+		Fixed issue with attributes sometimes being inadvertently permanently changed (which was due to status effects' attribute modifiers changing while you were under the effect of them).
+		Fixed broken formatting of all tooltips which displayed a small picture next to the effects list (the spacing around the icon was far too big).
+		Using quick sex during breeding roulette (as the breeder) now correctly results in penis-vagina actions being performed.
+		Fixed issue where self-transforming some of your demonic body parts into human would give you the half-demon status effect attribute modifiers, instead of retaining the demon status effect.
+		Fixed issue with demonic centaurs, pegataurs, unitaurs, and alitaurs not being recognised as half-demons.
+		Fixed bug where half-demons could be transformed into full demons by feeding them racial transformative potions (which would incorrectly be converted to demon transformations).
+		Fixed incorrect availability of hair/horn/ear pull in doggy-style sex.
+		Fixed issue with parser breaking when using the VAR/ENDVAR functionality.
+	
+	
+	[x] Need in-sex demon TF reaction
+	[x] Enforcers shouldn't use pills
+	[x] Enforcers should just use weapons (not teases)
+	
+	[] Enforcer encounter
+		[x] framework
+		[] fill in placeholders
+			
+	[] Street interruption (only if night curfew as human):
+		[] They tell you that you're to be taken to the cells. Can offer sex instead (go down nearby alleyway and fuck).
+		
+		
+		
+		
+		
+	It's a crime that rabbits with horns/ half demon rabbits aren't Jackalopes
+		
+	 I'd like to enable hot-dogging without enabling anal
+		
+	Amber artwork
+		
+	Bathroom placeholders
+		[] bath companions clean
+		
+	Spa dialogue
+		[] assigning slaves
+			[] job
+			[] permissions
+		[] bath
+		[] slime soak
+	
+	more bug reports...
+	
+	Amber: add a scene where she commands the player to drink her cum from a pet bowl while she puts her foot on their head and forces them to drink the whole thing
+	
+	clothing sticker system
+	
+	When changing clit size in transformation menus it says "All non-zero values enable your clitoris to be used as a penetrative object in sex." But it doesn't actually do anything sadly
+	
+	you should add a perk at the end of both the virility and fertility branches that guarantees pregnancy/impregnation
+	
+	Surrendering should trigger TF
+	
+	Have vampyric perk unlock a 'vampyric bite' sex action (and an option to bite after combat victory)
+	
+	Enable weapon equip/unequip in combat
+	
+	Need to go over all Rose scenes to make sure she acts in the correct manner
+	
+	Make knotting persist for several turns
+	
+	Should bump up priority on making used condoms do something, if it's not too much work.
+	
+	finally this is a UI thing, but I think that players should be notified when certain stats have hit their limit of 100 or something, took me a while to realise that I was over boosting certain stats
+	Remove dropoff, make them percentages for easier comprehension
+	
+	I think my save is messed up since some of my kids have [MyCharacter'sName]martu
 	
 	
 	
+	Convert:
+		[x] fluid
+		[x] BodyPartTypeInterface getTransformName() change
+		[x] hair
+		[x] nipple
+		[] penis
+			[] testicle
+		[] skin
+		[] tentacle
+		[] vagina
+		[x] wing
+	[] All from file
 	
+	Panther
+	
+	add a repeat-descriptor exclusion variable
+	
+	Being fucked while self milking would be great especially if @Innoxia ever makes it an actual scene instead of a "you liked x from yourself," text box
+	We have "use you" but what about "ask you" so slaves will walk up to the player and ask to be fucked maybe beg so Dom players can have their equivalent? getting fucked/masturbating while self milking when?
+	
+	100% alcohol should cause event
+	
+	Skipping weeks spawns loads of slaves?
 	
 	Look into use of getId() in AbstractClothing and AbstractWeapon
 	
@@ -63,21 +279,26 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	 
 	encyclopedia entries should have a description of a morphs genitals, as well as their typical sizes/depth
 	
-	you should add a perk at the end of both the virility and fertility branches that guarantees pregnancy/impregnation
+	please implement just the tiniest event that allows you to raise the affection between companions/slaves! They all start to hate each other, even the siblings
 	
 	you should have an option to let party members fuck stocks slaves without participating yourself
 	
+	-All-out Strike should stay at 2AP but Crit if it's the only action being used: Turns it from being useless to being surprisingly a powerful high-damage single target option for multi-armed characters.
+	-With's Broom should be 2-handed and With's Seal should be 2AP: I don't mind the Seal being strong but if it's going to be THAT STRONG still it should be locked behind a specialized build and setup.
+	-Stone Shell's Explosive Finish damage should scale with the number of turn Stone Shell lasts: if it's gonna take somewhere between 3 to 12 turns to trigger, it better ends with a satisfying BANG.
+	-Slam's Aftershock damage should scale as well with the number of turn Ground Shake lasts: same reasoning as above.
+	-With Flash is now, it seems that Secondary Spark is the most powerful upgrade of the line and Efficient Burn the weakest, maybe it's best to swap them around.
+	-Have you considered making Stone Shell the cheapest of the Earth school spells, Slam the second cheapest and Telekinetic Shower the most expensive (not counting the Elemental) making the Earth school clearer as the Turtle-playstyle, the Fire school being the most offensive one, the Water school the most balanced and the Air school the Status-based playstyle.
+	-I think Rain Cloud's Downpour should also apply a Fire damage debuff and a minor Poison damage debuff to the target (because the heavy rain would wash some of the poison away and dissipate the toxic gases).
+
+	Block should be a little more effective when equipping a type Shield.
 	
+	Imps spawning with normal clothing...
 	
-	Bathroom placeholders
-		[] bath companions clean
 		
-	Spa dialogue
-		[] assigning slaves
-			[] job
-			[] permissions
-		[] bath
-		[] slime soak
+	
+	
+	
 	
 	Unarmed damage:
 		[] was the Martial Artist perk supposed to not apply to brass knuckles and demonstones
@@ -106,9 +327,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	when wearing rental mommy/daddy t-shirts, give chance of encounter
 		Randomly spawned NPC approaches and asks to hire you
 	
-	Convert:
-		fluid, hair, nipple
-	
 	still saving characters had sex with?!
 		bloating save files
 	
@@ -124,8 +342,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	you get jumped and ur catgirl gf is just jacking off in the corner
 	
 	Kate's womb tattoo should either have an offspring birthed counter, or a litter size counter
-	
-	loitering should have a bit more optional variety to it. I get that four hours is a good base, but sometimes I only need 2
 	
 	allow hypno watch usage on non-unique NPCs
 	
@@ -172,6 +388,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Add difficulty in bottom-right
 	
+	Expand clothing modding possibilities by adding hooks for:
+	equip/use Initial time
+	equip/use Total time
+	Trigger @specific time
 	
 	
 	Lyssieth TF player speech needs feminine shift

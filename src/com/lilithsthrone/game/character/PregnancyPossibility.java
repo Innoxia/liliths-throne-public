@@ -15,7 +15,8 @@ import com.lilithsthrone.utils.XMLSaving;
  */
 public class PregnancyPossibility implements XMLSaving {
 	
-	private String motherId, fatherId;
+	private String motherId;
+	private String fatherId;
 	private float probability;
 	
 	public PregnancyPossibility(String motherId, String fatherId, float probability) {

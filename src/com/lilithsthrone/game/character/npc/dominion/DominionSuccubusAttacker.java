@@ -159,16 +159,6 @@ public class DominionSuccubusAttacker extends NPC {
 				"Although all demons have an extremely powerful libido, some suffer from it far more than others."
 				+ " While most are able to control their sexual desires, others, such as this [npc.race], struggle to think of anything but how to secure their next sexual conquest.");
 	}
-	
-	@Override
-	public void endSex() {
-		if(!isSlave()) {
-//			if(this.getGender()!=this.getGenderIdentity() && !this.isPregnant()) {
-//				this.setPendingTransformationToGenderIdentity(true);
-//			}
-			setPendingClothingDressing(true);
-		}
-	}
 
 	@Override
 	public boolean isClothingStealable() {

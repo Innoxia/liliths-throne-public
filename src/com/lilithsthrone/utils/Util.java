@@ -139,6 +139,15 @@ public class Util {
 //		System.out.println(c);
 		return "#"+c;
 	}
+
+	public static Color newColour(String colourString) {
+		int hex = Integer.valueOf(colourString.substring(1), 16);
+		return newColour((hex & 0xFF0000) >> 16, (hex & 0xFF00) >> 8, (hex & 0xFF));
+//		return Color.color(
+//				Integer.valueOf(colourString.substring(1, 3), 16) / 255,
+//				Integer.valueOf(colourString.substring(3, 5), 16) / 255,
+//				Integer.valueOf(colourString.substring(5, 7), 16) / 255);
+	}
 	
 	public static Color newColour(double r, double g, double b) {
 		return Color.color(r / 255, g / 255, b / 255);
@@ -1291,6 +1300,8 @@ public class Util {
 				distance = newDistance;
 			}
 		}
+		System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead.");
+//		throw new IllegalArgumentException();
 		return closestString;
 	}
 	

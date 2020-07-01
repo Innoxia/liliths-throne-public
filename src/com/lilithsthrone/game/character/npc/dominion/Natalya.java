@@ -127,6 +127,9 @@ public class Natalya extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8")) {
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_bdsm_riding_crop", DamageType.PHYSICAL));
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
+		}
 	}
 
 	@Override
@@ -241,6 +244,7 @@ public class Natalya extends NPC {
 		this.setPenisCumStorage(500);
 		this.setPenisCumExpulsion(85);
 		this.fillCumToMaxStorage();
+		this.setTesticleCount(2);
 		// Horse-like modifiers:
 		this.clearPenisModifiers();
 		this.addPenisModifier(PenetrationModifier.FLARED);
@@ -344,7 +348,7 @@ public class Natalya extends NPC {
 	}
 	
 	@Override
-	public boolean getSexBehaviourDeniesRequests(SexType sexTypeRequest) {
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
 		return true;
 	}
 	

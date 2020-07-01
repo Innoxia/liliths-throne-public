@@ -252,77 +252,11 @@ public enum PenisType implements BodyPartTypeInterface {
 	}
 	
 	public String getCumName(GameCharacter gc) {
-		String prefix = "";
-		switch(this){
-			case BOVINE:
-				prefix = UtilText.returnStringAtRandom("bull-", "cow-", "bovine-");
-				break;
-			case CANINE:
-				prefix = UtilText.returnStringAtRandom("dog-", "canine-");
-				break;
-			case EQUINE:
-				prefix = UtilText.returnStringAtRandom("horse-", "equine-");
-				break;
-			case FELINE:
-				prefix = UtilText.returnStringAtRandom("cat-", "feline-");
-				break;
-			case NONE:
-				return UtilText.returnStringAtRandom("");
-			case ALLIGATOR_MORPH:
-				prefix = UtilText.returnStringAtRandom("alligator-");
-				break;
-			case ANGEL:
-				prefix = UtilText.returnStringAtRandom("angel-");
-				break;
-			case AVIAN:
-				prefix = UtilText.returnStringAtRandom("harpy-", "avian-");
-				break;
-			case BAT_MORPH:
-				prefix = UtilText.returnStringAtRandom("bat-");
-				break;
-			case DEMON_COMMON:
-				prefix = UtilText.returnStringAtRandom("demon-");
-				break;
-			case HUMAN:
-				break;
-			case LUPINE:
-				prefix = UtilText.returnStringAtRandom("wolf-", "lupine-");
-				break;
-			case VULPINE:
-				prefix = UtilText.returnStringAtRandom("fox-", "vulpine-");
-				break;
-			case RAT_MORPH:
-				prefix = UtilText.returnStringAtRandom("rat-", "rodent-");
-				break;
-			case RABBIT_MORPH:
-				prefix = UtilText.returnStringAtRandom("rabbit-");
-				break;
-			case REINDEER_MORPH:
-				prefix = UtilText.returnStringAtRandom("reindeer-");
-				break;
-			case SQUIRREL:
-				prefix = UtilText.returnStringAtRandom("squirrel-", "rodent-");
-				break;
-			case DILDO:
-				prefix = UtilText.returnStringAtRandom("stored", "preserved");
-				break;
-		}
-		if(Math.random()>0.5f && !prefix.isEmpty()) {
-			return prefix + UtilText.returnStringAtRandom("cum", "cream", "jism", "jizz", "seed", "spooge");
-		} else {
-			return UtilText.returnStringAtRandom("cum", "cream", "jism", "jizz", "load", "seed", "spooge");
-		}
+		return this.getTesticleType().getFluidType().getName(gc);
 	}
 	
-	public String getCumDescriptor() {
-		switch(this){
-			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("corruptive", "corrupted", "potent", "thick", "hot");
-			case NONE:
-				return UtilText.returnStringAtRandom("");
-			default:
-				return UtilText.returnStringAtRandom("potent", "thick", "hot");
-		}
+	public String getCumDescriptor(GameCharacter gc) {
+		return this.getTesticleType().getFluidType().getDescriptor(gc);
 	}
 
 

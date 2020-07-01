@@ -13,10 +13,11 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
-import com.lilithsthrone.game.character.body.types.HairType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.SkinType;
@@ -57,7 +58,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.3.1
- * @version 0.3.7
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public abstract class AbstractRacialBody {
@@ -133,7 +134,7 @@ public abstract class AbstractRacialBody {
 	private int femaleMuscle;
 	
 	// Hair:
-	private HairType hairType;
+	private AbstractHairType hairType;
 	private int maleHairLength;
 	private int femaleHairLength;
 
@@ -177,7 +178,7 @@ public abstract class AbstractRacialBody {
 	private int testicleQuantity;
 
 	// Wings:
-	private List<WingType> wingTypes;
+	private List<AbstractWingType> wingTypes;
 	private int maleWingSize;
 	private int femaleWingSize;
 
@@ -197,7 +198,7 @@ public abstract class AbstractRacialBody {
 			AbstractEarType earType,
 			AbstractEyeType eyeType,
 			AbstractFaceType faceType, LipSize maleLipSize, LipSize femaleLipSize,
-			HairType hairType, HairLength maleHairLength, HairLength femaleHairLength,
+			AbstractHairType hairType, HairLength maleHairLength, HairLength femaleHairLength,
 			AbstractLegType legType, LegConfiguration legConfiguration,
 			SkinType skinType,
 			BodyMaterial bodyMaterial,
@@ -206,7 +207,7 @@ public abstract class AbstractRacialBody {
 			List<AbstractTailType> tailTypes,
 			TentacleType tentacleType,
 			VaginaType vaginaType, Wetness vaginaWetness, Capacity vaginaCapacity, OrificeDepth vaginaDepth, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity,
-			List<WingType> wingTypes, WingSize maleWingSize, WingSize femaleWingSize,
+			List<AbstractWingType> wingTypes, WingSize maleWingSize, WingSize femaleWingSize,
 			GenitalArrangement genitalArrangement) {
 
 		// Antenna:
@@ -433,7 +434,7 @@ public abstract class AbstractRacialBody {
 		return earType;
 	}
 
-	public HairType getHairType() {
+	public AbstractHairType getHairType() {
 		return hairType;
 	}
 
@@ -519,8 +520,8 @@ public abstract class AbstractRacialBody {
 	 * @param includeTypeNONE Set as true if you want the returned TailType to possibly include TailType.NONE. (Will include NONE anyway if the list is empty.)
 	 * @return A random TailType from this race's possible tailTypes.
 	 */
-	public WingType getRandomWingType(boolean includeTypeNONE) {
-		List<WingType> wingList = new ArrayList<>(wingTypes);
+	public AbstractWingType getRandomWingType(boolean includeTypeNONE) {
+		List<AbstractWingType> wingList = new ArrayList<>(wingTypes);
 		
 		if(includeTypeNONE || wingTypes.size()==1) {
 			return wingTypes.get(Util.random.nextInt(wingTypes.size()));
@@ -530,7 +531,7 @@ public abstract class AbstractRacialBody {
 		}
 	}
 	
-	public List<WingType> getWingTypes() {
+	public List<AbstractWingType> getWingTypes() {
 		return wingTypes;
 	}
 	

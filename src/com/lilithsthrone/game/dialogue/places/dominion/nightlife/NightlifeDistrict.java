@@ -2697,26 +2697,6 @@ public class NightlifeDistrict {
 					}
 					
 				}
-				// Kalahari is too submissive to want to be the dom. This shouldn't have been added...
-//				else if(index==7) {
-//					if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kalahariWantsSex)) {
-//						return new Response("Sex (sub)", "You need to get Kalahari fully into the mood before having sex with her.", null);
-//					} else {
-//						return new ResponseSex("Sex (sub)", "Slide into Kalahari's lap and start having submissive sex with her.",
-//								true, true,
-//								new SMChair(
-//										Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kalahari.class), SexSlotSitting.SITTING)),
-//										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_IN_LAP))) {
-//									@Override
-//									public boolean isPublicSex() {
-//										return false;
-//									}
-//								},
-//								null,
-//								null, WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX, UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_BAR_KALAHARI_BREAK_SEX_AS_SUB"));
-//					}
-//					
-//				}
 				//TODO requires several improvements to sex AI and positioning first
 //				else if(index==6) {
 //					if(!Main.game.getPlayer().isFeminine()) {
@@ -2850,7 +2830,7 @@ public class NightlifeDistrict {
 		}
 	};
 	
-	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX = new DialogueNode("The Watering Hole", "", false) {
+	public static final DialogueNode WATERING_HOLE_BAR_KALAHARI_BREAK_AFTER_SEX = new DialogueNode("Finished", "Kalahari needs to get back to work...", true) {
 		
 		@Override
 		public String getContent() {
@@ -2863,7 +2843,15 @@ public class NightlifeDistrict {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return WATERING_HOLE_VIP.getResponse(responseTab, index);
+			if(index==1) {
+				return new Response("Continue", "Head back out into the main area of the club.", WATERING_HOLE_MAIN) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setNearestLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_MAIN_AREA, false);
+					}
+				};
+			}
+			return null;
 		}
 	};
 	

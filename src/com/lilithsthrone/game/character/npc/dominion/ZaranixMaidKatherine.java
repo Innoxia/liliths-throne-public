@@ -111,6 +111,9 @@ public class ZaranixMaidKatherine extends NPC {
 					PersonalityTrait.KIND,
 					PersonalityTrait.LEWD);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
+		}
 	}
 
 	@Override
@@ -211,6 +214,7 @@ public class ZaranixMaidKatherine extends NPC {
 		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
 		this.setPenisCumStorage(100);
 		this.fillCumToMaxStorage();
+		this.setTesticleCount(2);
 		
 		// Vagina:
 		this.setVaginaVirgin(false);

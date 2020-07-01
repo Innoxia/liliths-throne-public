@@ -138,13 +138,13 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			
-			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
-				if(Math.random()<0.05) { //5% chance for the NPC to be a half-demon
+			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM || canalSpecies || pt==PlaceType.DOMINION_BACK_ALLEYS) {
+				if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
 					this.setBody(CharacterUtils.generateHalfDemonBody(this, gender, Subspecies.getFleshSubspecies(this), true), true);
 				}
 			}
 			
-			if(Main.getProperties().taurFurryLevel>0 && Math.random()<0.05 && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { //5% chance for the NPC to be a taur
+			if(Math.random()<Main.getProperties().taurSpawnRate/100f && this.isLegConfigurationAvailable(LegConfiguration.TAUR)) { // Taur spawn rate
 				CharacterUtils.applyTaurConversion(this);
 			}
 			
@@ -191,7 +191,7 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			this.setLocation(Main.game.getPlayer(), true);
 			if(this.isStormAttacker() && !this.isVulnerableToArcaneStorm()) { // NPCs spawned during a storm should be vulnerable to it.
-				this.addPerk(Perk.SPECIAL_ARCANE_ALLERGY);
+				this.addSpecialPerk(Perk.SPECIAL_ARCANE_ALLERGY);
 			}
 		}
 
@@ -285,13 +285,6 @@ public class DominionAlleywayAttacker extends NPC {
 				return (UtilText.parse(this,
 						"[npc.Name] is a resident of Dominion, who prowls the back alleys in search of innocent travellers to mug and rape."));
 			}
-		}
-	}
-	
-	@Override
-	public void endSex() {
-		if(!isSlave()) {
-			setPendingClothingDressing(true);
 		}
 	}
 

@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue.encounters;
 
 /**
  * @since 0.1.69.9
- * @version 0.3.7.7
+ * @version 0.3.8.3
  * @author Innoxia
  */
 public enum EncounterType {
@@ -21,6 +21,7 @@ public enum EncounterType {
 	DOMINION_FIND_CLOTHING,
 	DOMINION_FIND_WEAPON,
 
+	DOMINION_ALLEY_ENFORCERS,
 	DOMINION_ALLEY_ATTACK(true),
 	DOMINION_STORM_ATTACK(true),
 	

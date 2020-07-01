@@ -938,7 +938,8 @@ public class AlleywayAttackerDialogue {
 									Util.newArrayListOfValues(getMugger()),
 									null,
 									Util.newArrayListOfValues(Main.game.getPlayer())),
-							AFTER_SEX_VICTORY, UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getMugger(), companion));
+							AFTER_SEX_VICTORY,
+							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_GIVE_TO_COMPANION", getMugger(), companion));
 				}
 				
 			} else if (index == 13 && isCompanionDialogue() && Main.getProperties().hasValue(PropertyValue.voluntaryNTR)) {

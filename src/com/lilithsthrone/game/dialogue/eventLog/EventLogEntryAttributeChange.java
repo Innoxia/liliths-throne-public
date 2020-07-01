@@ -39,6 +39,6 @@ public class EventLogEntryAttributeChange extends EventLogEntry {
 	
 	@Override
 	public String getMainDialogueDescription() {
-		return attribute.getAttributeChangeText(Main.game.getPlayer(), change);
+		return Main.game.getPlayer().getAttributeChangeText(attribute, change);
 	}
 }
