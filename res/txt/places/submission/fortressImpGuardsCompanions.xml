@@ -2208,7 +2208,7 @@
 		#THEN your [pc.horns]
 		#ELSE
 			#IF pc.hasHair()
-			#THEN your [pc.hair]
+			#THEN your [pc.hair(true)]
 			#ELSE your head
 			#ENDIF
 		#ENDIF

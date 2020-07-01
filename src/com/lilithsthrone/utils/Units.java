@@ -13,10 +13,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.lilithsthrone.game.PropertyValue;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.main.Main;
-
-import javafx.application.Platform;
 
 /**
  * Collection of utility functions for date, time and number format conversion.
@@ -102,7 +99,7 @@ public enum Units {
         number.setRoundingMode(RoundingMode.HALF_UP);
         number.setMinimumFractionDigits(MIN_PRECISION);
         number.setMaximumFractionDigits(MAX_PRECISION);
-        Platform.runLater(StatusEffect::updateAttributeModifiers);
+//        Platform.runLater(AbstractStatusEffect::updateAttributeModifiers);
     }
 
     /**

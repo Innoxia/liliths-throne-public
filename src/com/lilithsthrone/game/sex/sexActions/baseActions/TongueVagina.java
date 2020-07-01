@@ -324,31 +324,31 @@ public class TongueVagina {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Muffling [npc2.her] [npc2.moans+] into [npc.namePos] groin, [npc2.name] gently [npc.verb(lick)] and [npc.verb(kiss)] [npc.her] [npc.pussy+],"
-									+ " before eventually pulling back and [npc2.verb(gasp)] for air as [npc.name] momentarily [npc.verb(release)] [npc.her] grip on [npc2.her] [npc2.hair].",
+									+ " before eventually pulling back and [npc2.verb(gasp)] for air as [npc.name] momentarily [npc.verb(release)] [npc.her] grip on [npc2.her] [npc2.hair(true)].",
 							" Gently humming and [npc2.moaning] in delight, [npc2.name] [npc2.verb(use)] [npc2.her] [npc2.tongue] to lick and lap at [npc.namePos] [npc.pussy+],"
-									+ " obediently eating [npc.herHim] out until [npc.she] eventually [npc.verb(release)] [npc.her] grip on [npc2.her] [npc2.hair]."));
+									+ " obediently eating [npc.herHim] out until [npc.she] eventually [npc.verb(release)] [npc.her] grip on [npc2.her] [npc2.hair(true)]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Narrowing [npc2.her] [npc2.eyes], [npc2.name] [npc2.verb(put)] up with [npc.namePos] daring move for just a moment,"
 									+ " before jerking [npc2.her] head back and pointedly reminding [npc.herHim] who's in charge.",
 							" The rumbling vibrations of [npc2.namePos] threatening growls, while serving to provide some extra pleasure,"
-									+ " nonetheless intimidate [npc.name] into quickly letting go of [npc2.her] [npc2.hair] and allowing [npc2.herHim] to pull back from [npc.her] [npc.pussy+]."));
+									+ " nonetheless intimidate [npc.name] into quickly letting go of [npc2.her] [npc2.hair(true)] and allowing [npc2.herHim] to pull back from [npc.her] [npc.pussy+]."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Scrunching [npc2.her] [npc2.eyes] shut, [npc2.name] [npc2.verb(beat)] against #IF(npc.isPlayer())your#ELSE[npc.her] tormentor's#ENDIF thighs in a futile gesture of resistance,"
-									+ " before finally being able to cry and gasp for air as [npc.name] momentarily [npc.verb(release)] [npc.her] grip on [npc2.her] [npc2.hair].",
+									+ " before finally being able to cry and gasp for air as [npc.name] momentarily [npc.verb(release)] [npc.her] grip on [npc2.her] [npc2.hair(true)].",
 							" The vibrations of [npc2.namePos] muffled cries and sobs only serve to give #IF(npc.isPlayer())you#ELSE[npc.her] tormentor#ENDIF some extra pleasure,"
 									+ " but, after spending several seconds punching and pushing against [npc.namePos] thighs,"
-									+ " [npc2.she] finally [npc2.verb(achieve)] a small victory as [npc2.her] [npc2.hair] is released."));
+									+ " [npc2.she] finally [npc2.verb(achieve)] a small victory as [npc2.her] [npc2.hair(true)] is released."));
 					break;
 				default: // For dom normal, sub normal, and sub eager:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Muffling [npc2.her] [npc2.moans+] into [npc.namePos] groin, [npc2.name] eagerly [npc.verb(lick)] and [npc.verb(kiss)] [npc.her] [npc.pussy+],"
-									+ " before eventually pulling back and [npc2.verb(gasp)] for air as [npc.name] momentarily [npc.verb(release)] [npc.her] grip on [npc2.her] [npc2.hair].",
+									+ " before eventually pulling back and [npc2.verb(gasp)] for air as [npc.name] momentarily [npc.verb(release)] [npc.her] grip on [npc2.her] [npc2.hair(true)].",
 							" Happily humming and [npc2.moaning] in delight, [npc2.name] [npc2.verb(use)] [npc2.her] [npc2.tongue] to lick and lap at [npc.namePos] [npc.pussy+],"
-									+ " obediently eating [npc.herHim] out until [npc.she] eventually [npc.verb(release)] [npc.her] grip on [npc2.her] [npc2.hair]."));
+									+ " obediently eating [npc.herHim] out until [npc.she] eventually [npc.verb(release)] [npc.her] grip on [npc2.her] [npc2.hair(true)]."));
 					break;
 			}
 			
@@ -486,7 +486,7 @@ public class TongueVagina {
 			SexParticipantType.NORMAL) {
 		@Override
 		public String getActionTitle() {
-			return "Grab horns";
+			return "Grab [npc2.horns]";
 		}
 		@Override
 		public String getActionDescription() {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[Lyssieth's Guard]]></name>
+	
+	<statusEffect>SET_LYSSIETH_GUARD</statusEffect>
+	
+	<numberRequiredForCompleteSet>4</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>HEAD</slot>
+		<slot>TORSO_OVER</slot>
+		<slot>LEG</slot>
+		<slot>FOOT</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

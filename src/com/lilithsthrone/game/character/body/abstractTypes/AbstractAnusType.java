@@ -36,6 +36,7 @@ public abstract class AbstractAnusType implements BodyPartTypeInterface {
 	 * @param namesPlural A list of plural names for this ass type. Pass in null to use generic names.
 	 * @param descriptorsMasculine The descriptors that can be used to describe a masculine form of this ass type.
 	 * @param descriptorsFeminine The descriptors that can be used to describe a feminine form of this ass type.
+	 * @param defaultRacialOrificeModifiers Which modifiers this anus naturally spawns with.
 	 */
 	public AbstractAnusType(BodyCoveringType skinType,
 			Race race,

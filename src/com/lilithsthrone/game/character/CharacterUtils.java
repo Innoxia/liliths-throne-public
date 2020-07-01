@@ -1003,7 +1003,6 @@ public class CharacterUtils {
 					linkedCharacter.setAttribute(Attribute.MAJOR_ARCANE, 25+Util.random.nextInt(11));
 				}
 			}
-			
 		}
 		
 		switch(stage) {
@@ -1078,7 +1077,7 @@ public class CharacterUtils {
 		body.setEye(new Eye(EyeType.DEMON_COMMON));
 		
 		if(halfSubspecies==Subspecies.HUMAN) {
-			body.setHair(new Hair(HairType.DEMON_COMMON,
+			body.setHair(new Hair(HairType.DEMON,
 					(startingGender.isFeminine() ? demonBody.getFemaleHairLength() : demonBody.getMaleHairLength()),
 					HairStyle.getRandomHairStyle(body.isFeminine(), (startingGender.isFeminine() ? demonBody.getFemaleHairLength() : demonBody.getMaleHairLength()))));
 		}
@@ -1485,8 +1484,6 @@ public class CharacterUtils {
 		
 		body.setWing(new Wing((stage.isWingFurry()?startingBodyType.getRandomWingType(false):WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())));
 		
-
-		
 		if(body.getPenis().getType()!=PenisType.NONE
 				&& body.getPenis().getType()!=PenisType.DILDO
 				&& body.getVagina().getType()!=VaginaType.NONE
@@ -1518,12 +1515,39 @@ public class CharacterUtils {
 	
 	public static void applyTaurConversion(GameCharacter character) {
 		int taurLevel = Main.getProperties().taurFurryLevel;
-		if(character.getRace()==Race.DEMON) {
-			taurLevel = 3; // Demons should always be untouched
+		if(character.getRace()==Race.DEMON && character.getSubspeciesOverride()!=Subspecies.HALF_DEMON) {
+			taurLevel = 0; // Demons and imps should always be untouched
 		}
+		RaceStage raceStage = null;
+
 		switch(taurLevel) {
+			case 0: // Untouched
+				break;
 			case 1:
-				character.setLegConfiguration(LegConfiguration.TAUR, true);
+				raceStage = RaceStage.HUMAN;
+				break;
+			case 2:
+				raceStage = RaceStage.PARTIAL;
+				break;
+			case 3:
+				raceStage = Util.randomItemFrom(Util.newArrayListOfValues(RaceStage.PARTIAL, RaceStage.LESSER));
+				break;
+			case 4:
+				raceStage = Util.randomItemFrom(Util.newArrayListOfValues(RaceStage.PARTIAL, RaceStage.LESSER, RaceStage.GREATER));
+				break;
+			case 5:
+				raceStage = RaceStage.GREATER;
+				break;
+		}
+		
+		character.setLegConfiguration(LegConfiguration.TAUR, true);
+		
+		if(raceStage==null) {
+			return;
+		}
+		
+		switch(raceStage) {
+			case HUMAN:
 				character.setAntennaType(AntennaType.NONE);
 				character.setArmType(ArmType.HUMAN);
 				character.setBreastType(BreastType.HUMAN);
@@ -1538,8 +1562,8 @@ public class CharacterUtils {
 						? RacialBody.valueOfRace(character.getRace()).getFemaleHairLength()
 						: RacialBody.valueOfRace(character.getRace()).getMaleHairLength()));
 				break;
-			case 2:
-				character.setLegConfiguration(LegConfiguration.TAUR, true);
+			case PARTIAL:
+			case PARTIAL_FULL:
 				character.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(character.getLegRace())));
 				character.setArmType(ArmType.HUMAN);
 				character.setBreastType(BreastType.HUMAN);
@@ -1554,15 +1578,26 @@ public class CharacterUtils {
 						? RacialBody.valueOfRace(character.getRace()).getFemaleHairLength()
 						: RacialBody.valueOfRace(character.getRace()).getMaleHairLength()));
 				break;
-			case 3:
-				character.setLegConfiguration(LegConfiguration.TAUR, true);
+			case LESSER:
+				character.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(character.getLegRace())));
+				character.setArmType(Util.randomItemFrom(ArmType.getArmTypes(character.getLegRace())));
+				character.setBreastType(Util.randomItemFrom(BreastType.getBreastTypes(character.getLegRace())));
+				character.setEarType(Util.randomItemFrom(EarType.getEarTypes(character.getLegRace())));
+				character.setEyeType(Util.randomItemFrom(EyeType.getEyeTypes(character.getLegRace())));
+				character.setFaceType(FaceType.HUMAN);
+				character.setHairType(Util.randomItemFrom(HairType.getHairTypes(character.getLegRace())));
+				character.setHornType(Util.randomItemFrom(HornType.getHornTypes(character.getLegRace())));
+				character.setSkinType(SkinType.HUMAN);
+				// Reset hair length:
+				character.setHairLength((character.isFeminine()
+						? RacialBody.valueOfRace(character.getRace()).getFemaleHairLength()
+						: RacialBody.valueOfRace(character.getRace()).getMaleHairLength()));
 				break;
-			case 4:
+			case GREATER:  // Always greater:
 				AbstractFaceType faceType = Util.randomItemFrom(FaceType.getFaceTypes(character.getLegRace()));
 				boolean furryHairCheck = faceType.getTags().contains(FaceTypeTag.NATURAL_BALDNESS_FURRY);
 				boolean scalyHairCheck = faceType.getTags().contains(FaceTypeTag.NATURAL_BALDNESS_SCALY);
 				
-				character.setLegConfiguration(LegConfiguration.TAUR, true);
 				character.setAntennaType(Util.randomItemFrom(AntennaType.getAntennaTypes(character.getLegRace())));
 				character.setArmType(Util.randomItemFrom(ArmType.getArmTypes(character.getLegRace())));
 				character.setBreastType(Util.randomItemFrom(BreastType.getBreastTypes(character.getLegRace())));
@@ -1580,8 +1615,6 @@ public class CharacterUtils {
 								? RacialBody.valueOfRace(character.getRace()).getFemaleHairLength()
 								: RacialBody.valueOfRace(character.getRace()).getMaleHairLength()));
 				}
-				break;
-			default:
 				break;
 		}
 	}
@@ -1761,7 +1794,7 @@ public class CharacterUtils {
 			character.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear()-(AgeCategory.getAgeFromPreferences(character.getGender())-GameCharacter.MINIMUM_AGE), character.getBirthMonth(), dayOfMonth, 12, 0));
 			character.setConceptionDate(character.getBirthday().minusDays(15+Util.random.nextInt(30)));
 			
-			if(character.getRace()==Race.DEMON || character.getRace()==Race.HARPY) {
+			if(character.getSubspeciesOverrideRace()==Race.DEMON || character.getRace()==Race.HARPY) {
 				character.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(9));
 			}
 		}
@@ -1892,7 +1925,7 @@ public class CharacterUtils {
 		}
 		
 		// Penis:
-		if(character.hasPenis() || character.getRace()==Race.DEMON) {
+		if(character.hasPenis() || character.getSubspeciesOverrideRace()==Race.DEMON) {
 			if(Math.random()<0.95f
 					|| character.getHistory()==Occupation.NPC_PROSTITUTE
 					|| character.hasFetish(Fetish.FETISH_CUM_STUD)

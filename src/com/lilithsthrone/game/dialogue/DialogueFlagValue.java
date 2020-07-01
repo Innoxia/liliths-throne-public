@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.3.7.5
+ * @version 0.3.8.2
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -152,6 +152,7 @@ public enum DialogueFlagValue {
 	slaverAlleyCompanionInStocks,
 	slaverAlleyAcceptedDeal,
 	slaverAlleyCompanionAcceptedDeal,
+	slaverAlleyTwoPartners,
 	slaverAlleySlavesFreed, // Reset every day at midnight (as part of stocks reset method)
 	
 	// Helena (romance quest):

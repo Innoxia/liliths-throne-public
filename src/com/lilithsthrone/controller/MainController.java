@@ -43,6 +43,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -1799,7 +1800,7 @@ public class MainController implements Initializable {
 			}
 			
 			// For status effect slots:
-			for (StatusEffect se : character.getStatusEffects()) {
+			for (AbstractStatusEffect se : character.getStatusEffects()) {
 				id = "SE_"+idModifier + se;
 				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
@@ -1808,45 +1809,30 @@ public class MainController implements Initializable {
 					// Set target to whoever is interacting with this area:
 					if(Main.game.isInSex()) { //TODO add click helper text
 						SexAreaInterface si = null;
-						switch(se) {
-							case PENIS_STATUS:
-								si = SexAreaPenetration.PENIS;
-								break;
-							case ANUS_STATUS:
-								si = SexAreaOrifice.ANUS;
-								break;
-							case ASS_STATUS:
-								si = SexAreaOrifice.ASS;
-								break;
-							case MOUTH_STATUS:
-								si = SexAreaOrifice.MOUTH;
-								break;
-							case BREAST_STATUS:
-								si = SexAreaOrifice.BREAST;
-								break;
-							case BREAST_CROTCH_STATUS:
-								si = SexAreaOrifice.BREAST_CROTCH;
-								break;
-							case NIPPLE_STATUS:
-								si = SexAreaOrifice.NIPPLE;
-								break;
-							case NIPPLE_CROTCH_STATUS:
-								si = SexAreaOrifice.NIPPLE_CROTCH;
-								break;
-							case THIGH_STATUS:
-								si = SexAreaOrifice.THIGHS;
-								break;
-							case URETHRA_PENIS_STATUS:
-								si = SexAreaOrifice.URETHRA_PENIS;
-								break;
-							case URETHRA_VAGINA_STATUS:
-								si = SexAreaOrifice.URETHRA_VAGINA;
-								break;
-							case VAGINA_STATUS:
-								si = SexAreaOrifice.VAGINA;
-								break;
-							default:
-								break;
+						if(se==StatusEffect.PENIS_STATUS) {
+							si = SexAreaPenetration.PENIS;
+						} else if(se==StatusEffect.ANUS_STATUS) {
+							si = SexAreaOrifice.ANUS;
+						} else if(se==StatusEffect.ASS_STATUS) {
+							si = SexAreaOrifice.ASS;
+						} else if(se==StatusEffect.MOUTH_STATUS) {
+							si = SexAreaOrifice.MOUTH;
+						} else if(se==StatusEffect.BREAST_STATUS) {
+							si = SexAreaOrifice.BREAST;
+						} else if(se==StatusEffect.BREAST_CROTCH_STATUS) {
+							si = SexAreaOrifice.BREAST_CROTCH;
+						} else if(se==StatusEffect.NIPPLE_STATUS) {
+							si = SexAreaOrifice.NIPPLE;
+						} else if(se==StatusEffect.NIPPLE_CROTCH_STATUS) {
+							si = SexAreaOrifice.NIPPLE_CROTCH;
+						} else if(se==StatusEffect.THIGH_STATUS) {
+							si = SexAreaOrifice.THIGHS;
+						} else if(se==StatusEffect.URETHRA_PENIS_STATUS) {
+							si = SexAreaOrifice.URETHRA_PENIS;
+						} else if(se==StatusEffect.URETHRA_VAGINA_STATUS) {
+							si = SexAreaOrifice.URETHRA_VAGINA;
+						} else if(se==StatusEffect.VAGINA_STATUS) {
+							si = SexAreaOrifice.VAGINA;
 						}
 						if(si!=null) {
 							setStatusEffectSexTargetChangeListener(documentAttributes, id, character, si);
@@ -2141,7 +2127,7 @@ public class MainController implements Initializable {
 			
 			if(RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
 				// For status effect slots:
-				for (StatusEffect se : character.getStatusEffects()) {
+				for (AbstractStatusEffect se : character.getStatusEffects()) {
 					id = "SE_NPC_"+idModifier + se;
 					if (((EventTarget) documentRight.getElementById(id)) != null) {
 						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
@@ -2150,41 +2136,30 @@ public class MainController implements Initializable {
 						// Set target to whoever is interacting with this area:
 						if(Main.game.isInSex()) { //TODO add click helper text
 							SexAreaInterface si = null;
-							switch(se) {
-								case PENIS_STATUS:
-									si = SexAreaPenetration.PENIS;
-									break;
-								case ANUS_STATUS:
-									si = SexAreaOrifice.ANUS;
-									break;
-								case ASS_STATUS:
-									si = SexAreaOrifice.ASS;
-									break;
-								case MOUTH_STATUS:
-									si = SexAreaOrifice.MOUTH;
-									break;
-								case BREAST_STATUS:
-									si = SexAreaOrifice.BREAST;
-									break;
-								case NIPPLE_STATUS:
-									si = SexAreaOrifice.NIPPLE;
-									break;
-								case THIGH_STATUS:
-									si = SexAreaOrifice.THIGHS;
-									break;
-								case URETHRA_PENIS_STATUS:
-									si = SexAreaOrifice.URETHRA_PENIS;
-									break;
-								case URETHRA_VAGINA_STATUS:
-									si = SexAreaOrifice.URETHRA_VAGINA;
-									break;
-								case VAGINA_STATUS:
-									si = SexAreaOrifice.VAGINA;
-									break;
-								default:
-									break;
+							if(se==StatusEffect.PENIS_STATUS) {
+								si = SexAreaPenetration.PENIS;
+							} else if(se==StatusEffect.ANUS_STATUS) {
+								si = SexAreaOrifice.ANUS;
+							} else if(se==StatusEffect.ASS_STATUS) {
+								si = SexAreaOrifice.ASS;
+							} else if(se==StatusEffect.MOUTH_STATUS) {
+								si = SexAreaOrifice.MOUTH;
+							} else if(se==StatusEffect.BREAST_STATUS) {
+								si = SexAreaOrifice.BREAST;
+							} else if(se==StatusEffect.NIPPLE_STATUS) {
+								si = SexAreaOrifice.NIPPLE;
+							} else if(se==StatusEffect.THIGH_STATUS) {
+								si = SexAreaOrifice.THIGHS;
+							} else if(se==StatusEffect.URETHRA_PENIS_STATUS) {
+								si = SexAreaOrifice.URETHRA_PENIS;
+							} else if(se==StatusEffect.URETHRA_VAGINA_STATUS) {
+								si = SexAreaOrifice.URETHRA_VAGINA;
+							} else if(se==StatusEffect.VAGINA_STATUS) {
+								si = SexAreaOrifice.VAGINA;
 							}
-							setStatusEffectSexTargetChangeListener(documentRight, id, character, si);
+							if(si!=null) {
+								setStatusEffectSexTargetChangeListener(documentRight, id, character, si);
+							}
 						}
 						
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(se, character);

@@ -1029,8 +1029,24 @@ public class Perk {
 					"[style.boldExcellent(Double)] slave income from maids and butlers")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.name] [npc.is] the perfect example of a hard-working butler, and while wearing a complete set of butler's clothes, the bonus that [npc.she] [npc.verb(receive)] is considerably boosted."
+			return UtilText.parse(owner, "[npc.Name] [npc.is] the perfect example of a hard-working butler, and while wearing a complete set of butler's clothes, the bonus that [npc.she] [npc.verb(receive)] is considerably boosted."
 					+ " [npc.She] also [npc.verb(know)] how to train maids and other butlers to be exceptional at their jobs.");
+		}
+	};
+
+	public static AbstractPerk JOB_TOURIST = new AbstractPerk(20,
+			true,
+			"I'm an American!",
+			PerkCategory.JOB,
+			"perks/jobs/tourist",
+			PresetColour.BASE_BLUE_DARK,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)),
+			Util.newArrayListOfValues(
+					"All incorrect English spellings are [style.boldExcellent(automatically fixed)]")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "[npc.speech(Excuse me! I'm an American! Do you speak English?! My visa expires in four days, where's the embassy?!)]");
 		}
 	};
 	
@@ -1594,7 +1610,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NamePos] body is very fertile, increasing the chance that any sexual partner of [npc.hers] manages to get [npc.her] pregnant.");
+			return UtilText.parse(owner, "[npc.NamePos] body is very fertile, increasing the chance that any sexual partner of [npc.hers] manages to get [npc.herHim] pregnant.");
 		}
 	};
 
@@ -1608,7 +1624,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NamePos] body is incredibly fertile, increasing the chance that any sexual partner of [npc.hers] manages to get [npc.her] pregnant.");
+			return UtilText.parse(owner, "[npc.NamePos] body is incredibly fertile, increasing the chance that any sexual partner of [npc.hers] manages to get [npc.herHim] pregnant.");
 		}
 	};
 	
@@ -2059,7 +2075,9 @@ public class Perk {
 			Util.newArrayListOfValues(PresetColour.GENERIC_SEX, PresetColour.BASE_GOLD),
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)),
-			Util.newArrayListOfValues("Requests during sex are no longer denied by sadists or rough dominants"),
+			Util.newArrayListOfValues(
+					"Requests made during normal sex scenes are always granted",
+					"Unlocks positioning actions in all normal sex scenes"),
 			null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {

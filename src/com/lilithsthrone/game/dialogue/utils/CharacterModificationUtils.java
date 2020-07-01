@@ -34,9 +34,11 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -1089,7 +1091,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformWingChoiceDiv(List<Race> availableRaces, boolean removeNone) {
 		contentSB.setLength(0);
 		
-		for(WingType wing : WingType.values()) {
+		for(AbstractWingType wing : WingType.getAllWingTypes()) {
 			if((wing.getRace() !=null && availableRaces.contains(wing.getRace()))
 					|| (!removeNone && wing==WingType.NONE)) {
 				
@@ -1107,7 +1109,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_WING_"+wing+"' class='cosmetics-button'>"
+							"<div id='CHANGE_WING_"+WingType.getIdFromWingType(wing)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(wing.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1279,10 +1281,9 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformHairChoiceDiv(List<Race> availableRaces) {
 		contentSB.setLength(0);
 		
-		for(HairType hair : HairType.values()) {
+		for(AbstractHairType hair : HairType.getAllHairTypes()) {
 			if((hair.getRace() !=null && availableRaces.contains(hair.getRace()))) {
-				
-				if(BodyChanging.getTarget().getHairType() == hair) {
+				if(BodyChanging.getTarget().getHairType()==hair) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
 								+ "<span style='color:"+hair.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(hair.getTransformName())+"</span>"
@@ -1290,7 +1291,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_HAIR_"+hair+"' class='cosmetics-button'>"
+							"<div id='CHANGE_HAIR_"+HairType.getIdFromHairType(hair)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+hair.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(hair.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -1324,7 +1325,7 @@ public class CharacterModificationUtils {
 		}
 
 		return applyWrapper("Hair Length",
-				UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.namePos] [npc.hair]."
+				UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.namePos] [npc.hair(true)]."
 						+ "<br/><i>Hair of a sufficient length (marked by an asterisk) can be pulled in some sex actions.</i>"),
 				"HAIR_LENGTH",
 				contentSB.toString(),
@@ -4815,7 +4816,7 @@ public class CharacterModificationUtils {
 					:" "+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_LENGTH_COST
 							? UtilText.formatAsMoney(SuccubisSecrets.BASE_HAIR_LENGTH_COST, "b")
 							: UtilText.formatAsMoney(SuccubisSecrets.BASE_HAIR_LENGTH_COST, "b", PresetColour.GENERIC_BAD))),
-				UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.namePos] [npc.hair]."
+				UtilText.parse(BodyChanging.getTarget(), "Change the length of [npc.namePos] [npc.hair(true)]."
 						+ "<br/><i>Hair of a sufficient length (marked by an asterisk) can be pulled in some sex actions.</i>"),
 				"HAIR_LENGTH",
 				contentSB.toString(),

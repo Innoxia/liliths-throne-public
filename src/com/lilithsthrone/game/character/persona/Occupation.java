@@ -283,6 +283,16 @@ public enum Occupation {
 		public boolean isAvailable(GameCharacter character) {
 			return !character.isFeminine();
 		}
+	},
+	
+	TOURIST(Perk.JOB_TOURIST,
+			"American tourist",
+			"For your vacation this year, you've decided to visit England.",
+			OccupationTag.PLAYER_ONLY) {
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			return Main.game.isSillyModeEnabled();
+		}
 	};
 	
 	

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>350</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[feminine apron]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[feminine aprons]]></namePlural> 
+		<description><![CDATA[A distinctly feminine apron, which covers the front of the wearer's body in order to protect their clothes and skin from stains and marks. It provides no cover to the wearer's back, leaving their rear completely exposed.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity> 
+		<slot>TORSO_OVER</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>apron.svg</imageName> 
+		<imageEquippedName/> 
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList> 	
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts> 
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>WAIST</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"> 
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_WHITE</colour> 
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_WHITE</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		
+		<defaultPatterns patternChance="1" colourNameDerivedFromPattern="false">
+			<pattern>polka_dots_small</pattern>
+		</defaultPatterns>
+		<patternPrimaryColours>
+			<colour>CLOTHING_RED</colour>
+		</patternPrimaryColours>
+		<patternPrimaryColoursDye values="ALL"/>
+		<patternSecondaryColours>
+			<colour>CLOTHING_WHITE</colour>
+		</patternSecondaryColours>
+		<patternSecondaryColoursDye values="ALL"/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slip)] the apron down over [npc.her] head and torso, before securely tying up the band around [npc.her] waist.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slip)] the apron down over [npc2.namePos] head and torso, before securely tying up the band around [npc2.her] waist.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] the apron down over [npc2.namePos] head and torso, before securely tying up the band around [npc2.her] waist.]]>
+		</otherRough>
+	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the apron's band, before pulling it off over [npc.her] head.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the band on [npc2.namePos] apron, before pulling it off over [npc2.her] head.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the band on [npc2.namePos] apron, before roughly pulling it off over [npc2.her] head.]]>
+		</otherRough>
+	</displacementText>
+</clothing>

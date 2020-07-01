@@ -104,6 +104,9 @@ public class Daddy extends NPC {
 					PersonalityTrait.KIND,
 					PersonalityTrait.BRAVE);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
+		}
 	}
 
 	@Override
@@ -221,6 +224,7 @@ public class Daddy extends NPC {
 			this.setPenisCumStorage(250);
 			this.fillCumToMaxStorage();
 			this.clearPenisModifiers();
+			this.setTesticleCount(2);
 			
 			// Vagina:
 			// No vagina

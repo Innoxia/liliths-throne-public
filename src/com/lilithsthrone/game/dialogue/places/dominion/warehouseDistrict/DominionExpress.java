@@ -144,7 +144,7 @@ public class DominionExpress {
 						UtilText.addSpecialParsingString(Util.intToString(this.getCost()), false);
 						StringBuilder sb = new StringBuilder(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "FILLY_STATION_REWARD_TRANSFORMATION_TAUR"));
 						sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "FILLY_STATION_REWARD_TRANSFORMATION_GENERIC_END"));
-						if(Main.game.getPlayer().getRace()==Race.DEMON) {
+						if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 							if(Main.game.getPlayer().getLegType()!=LegType.DEMON_HORSE_HOOFED) {
 								sb.append(Main.game.getPlayer().setLegType(LegType.DEMON_HORSE_HOOFED));
 							}
@@ -497,7 +497,7 @@ public class DominionExpress {
 		return npc;
 	}
 	
-	private static void applySadistSlave(GameCharacter slave) {
+	public static void applySadistSlave(GameCharacter slave) {
 		slave.addFetish(Fetish.FETISH_SADIST);
 		
 		slave.setName(new NameTriplet("Thunder"));
@@ -550,15 +550,11 @@ public class DominionExpress {
 	
 	private static void banishSlave(GameCharacter slave, boolean delete) {
 		if(delete) {
-			for(GameCharacter npc : getSlaves()) {
-				Main.game.banishNPC((NPC) npc);
-			}
+			Main.game.banishNPC((NPC) slave);
 			
 		} else {
-			for(GameCharacter npc : getSlaves()) {
-				npc.setHomeLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_STABLES);
-				npc.returnToHome();
-			}
+			slave.setHomeLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_STABLES);
+			slave.returnToHome();
 		}
 		activeSlave = null;
 	}
@@ -1179,7 +1175,7 @@ public class DominionExpress {
 		}
 		@Override
 		public int getSecondsPassed() {
-			return Main.game.getMinutesUntilTimeInMinutes(6)*60;
+			return Main.game.getMinutesUntilTimeInMinutes(6*60)*60;
 		}
 		@Override
 		public String getContent() {

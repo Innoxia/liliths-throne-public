@@ -559,7 +559,7 @@ public class FingerNipple {
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] fingering [npc2.namePos] [npc2.breast],"
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] fingering [npc2.namePos] [npc2.breast(true)],"
 									+ " eagerly pushing [npc2.her] chest out as [npc2.she] [npc2.verb(help)] [npc.name] sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.nipple+].",
 
 							" With [npc.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.her] chest out,"
@@ -583,7 +583,7 @@ public class FingerNipple {
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] fingering [npc2.namePos] [npc2.breast],"
+							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc.name] [npc.verb(start)] fingering [npc2.namePos] [npc2.breast(true)],"
 									+ " eagerly pushing [npc2.her] chest out as [npc2.name] [npc2.verb(help)] [npc.name] sink [npc.her] [npc.fingers] even deeper into [npc2.her] [npc2.nipple+].",
 
 							" With [npc.a_moan+], [npc2.name] eagerly [npc2.verb(push)] [npc2.her] chest out,"
@@ -687,7 +687,7 @@ public class FingerNipple {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Gently sinking [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.nipple+], [npc.name] slowly [npc.verb(start)] to slide [npc.her] digits in and out of [npc2.her] [npc2.breast].",
+					"Gently sinking [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.nipple+], [npc.name] slowly [npc.verb(start)] to slide [npc.her] digits in and out of [npc2.her] [npc2.breast(true)].",
 
 					"[npc.Name] gently [npc.verb(lean)] in against [npc2.name], causing [npc2.herHim] to inhale [npc.her] [npc.scent+] as [npc.she] gently [npc.verb(pump)] [npc.her] [npc.fingers+] in and out of [npc2.her] [npc2.nipple+].",
 
@@ -766,7 +766,7 @@ public class FingerNipple {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Greedily plunging [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.nipple+],"
-							+ " [npc.name] [npc.verb(start)] roughly slamming [npc.her] digits in and out, rapidly fingering [npc2.namePos] [npc2.breast] as [npc.she] grinds [npc.herself] up against [npc2.herHim].",
+							+ " [npc.name] [npc.verb(start)] roughly slamming [npc.her] digits in and out, rapidly fingering [npc2.namePos] [npc2.breast(true)] as [npc.she] grinds [npc.herself] up against [npc2.herHim].",
 
 					"[npc.Name] grinds [npc.herself] against [npc2.name],"
 							+ " forcing [npc2.herHim] to inhale [npc.her] [npc.scent+] as [npc.she] [npc.verb(start)] roughly slamming [npc.her] [npc.fingers+] in and out of [npc2.namePos] [npc2.nipple+].",
@@ -806,7 +806,7 @@ public class FingerNipple {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Sinking [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.nipple+],"
-							+ " [npc.name] [npc.verb(start)] sliding [npc.her] digits in and out, fingering [npc2.namePos] [npc2.breast] as [npc.she] [npc.verb(press)] [npc.herself] up against [npc2.herHim].",
+							+ " [npc.name] [npc.verb(start)] sliding [npc.her] digits in and out, fingering [npc2.namePos] [npc2.breast(true)] as [npc.she] [npc.verb(press)] [npc.herself] up against [npc2.herHim].",
 
 					"[npc.Name] [npc.verb(lean)] in against [npc2.name], causing [npc2.herHim] to inhale [npc.her] [npc.scent+] as [npc.she] [npc.verb(start)] pumping [npc.her] [npc.fingers+] in and out of [npc2.her] [npc2.nipple+].",
 
@@ -845,7 +845,7 @@ public class FingerNipple {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Sinking [npc.her] [npc.fingers+] deep into [npc2.namePos] [npc2.nipple+],"
-							+ " [npc.name] [npc.verb(start)] sliding [npc.her] digits in and out, eagerly fingering [npc2.her] [npc2.breast] as [npc.she] [npc.verb(press)] [npc.herself] up against [npc2.herHim].",
+							+ " [npc.name] [npc.verb(start)] sliding [npc.her] digits in and out, eagerly fingering [npc2.her] [npc2.breast(true)] as [npc.she] [npc.verb(press)] [npc.herself] up against [npc2.herHim].",
 
 					"[npc.Name] [npc.verb(lean)] in against [npc2.name],"
 							+ " causing [npc2.herHim] to breathe in [npc.her] [npc.scent+] as [npc.she] [npc.verb(start)] eagerly pumping [npc.her] [npc.fingers+] in and out of [npc2.her] [npc2.nipple+].",
@@ -893,7 +893,7 @@ public class FingerNipple {
 
 							"Trying desperately to pull [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.nipple+],"
 									+ " [npc.name] [npc.sob] in distress as [npc2.namePos] [npc2.verb(hold)] [npc.her] [npc.hand] in position,"
-									+ " before gently thrusting [npc2.her] chest out and forcing [npc.namePos] [npc.fingers] deep into [npc2.her] [npc2.breast]."));
+									+ " before gently thrusting [npc2.her] chest out and forcing [npc.namePos] [npc.fingers] deep into [npc2.her] [npc2.breast(true)]."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -904,7 +904,7 @@ public class FingerNipple {
 
 							"Trying desperately to pull [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.nipple+],"
 									+ " [npc.name] [npc.sob] in distress as [npc2.namePos] [npc2.verb(hold)] [npc.her] [npc.hand] in position,"
-									+ " before eagerly thrusting [npc2.her] chest out and forcing [npc.namePos] [npc.fingers] deep into [npc2.her] [npc2.breast]."));
+									+ " before eagerly thrusting [npc2.her] chest out and forcing [npc.namePos] [npc.fingers] deep into [npc2.her] [npc2.breast(true)]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -915,7 +915,7 @@ public class FingerNipple {
 
 							"Trying desperately to pull [npc.her] [npc.fingers+] out of [npc2.namePos] [npc2.nipple+],"
 									+ " [npc.name] [npc.sob] in distress as [npc2.namePos] [npc2.verb(hold)] [npc.her] [npc.hand] in position,"
-									+ " before roughly thrusting [npc2.her] chest out and forcing [npc.namePos] [npc.fingers] deep into [npc2.her] [npc2.breast]."));
+									+ " before roughly thrusting [npc2.her] chest out and forcing [npc.namePos] [npc.fingers] deep into [npc2.her] [npc2.breast(true)]."));
 					break;
 				default:
 					break;
@@ -951,15 +951,15 @@ public class FingerNipple {
 			switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Yanking [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.nipple+], [npc.name] [npc.verb(give)] [npc2.namePos] [npc2.breast] one last rough squeeze as [npc.she] stops fingering [npc2.her] chest.",
+							"Yanking [npc.her] [npc.fingers] out of [npc2.namePos] [npc2.nipple+], [npc.name] [npc.verb(give)] [npc2.namePos] [npc2.breast(true)] one last rough squeeze as [npc.she] stops fingering [npc2.her] chest.",
 
-							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc2.namePos] [npc2.scent+] before roughly yanking [npc.her] [npc.fingers] out of [npc2.her] [npc2.nipple]."));
+							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc2.namePos] [npc2.scent+] before roughly yanking [npc.her] [npc.fingers] out of [npc2.her] [npc2.nipple(true)]."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Sliding [npc.her] [npc.fingers] out of [npc2.namePos] nipple, [npc.name] [npc.verb(give)] [npc2.namePos] [npc2.breast] one last squeeze as [npc.she] stops fingering [npc2.her] chest.",
+							"Sliding [npc.her] [npc.fingers] out of [npc2.namePos] nipple, [npc.name] [npc.verb(give)] [npc2.namePos] [npc2.breast(true)] one last squeeze as [npc.she] stops fingering [npc2.her] chest.",
 
-							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc.namePos] [npc.scent+] as before sliding [npc.her] [npc.fingers] out of [npc2.her] [npc2.nipple]."));
+							"[npc.Name] sharply [npc.verb(inhale)], breathing in [npc.namePos] [npc.scent+] as before sliding [npc.her] [npc.fingers] out of [npc2.her] [npc2.nipple(true)]."));
 					break;
 			}
 			
@@ -1058,14 +1058,14 @@ public class FingerNipple {
 							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as [npc2.she] [npc2.verb(enter)] [npc.herHim], curling [npc2.her] [npc2.fingers] up before gently starting to finger [npc.her] [npc.nipple+].",
 
 							" With a soft [npc2.moan], [npc2.name] [npc2.verb(curl)] [npc2.her] [npc2.fingers+] up inside of [npc.name],"
-									+ " gently pushing [npc2.her] [npc2.hand] into the soft flesh of [npc.her] [npc.breast] as [npc2.she] [npc2.verb(set)] about fingering [npc.her] [npc.nipple+]."));
+									+ " gently pushing [npc2.her] [npc2.hand] into the soft flesh of [npc.her] [npc.breast(true)] as [npc2.she] [npc2.verb(set)] about fingering [npc.her] [npc.nipple+]."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(enter)] [npc.herHim], curling [npc2.her] [npc2.fingers] up before eagerly starting to finger [npc.her] [npc.nipple+].",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(curl)] [npc2.her] [npc2.fingers+] up inside of [npc.name],"
-									+ " eagerly pushing [npc2.her] [npc2.hand] into the soft flesh of [npc.her] [npc.breast] as [npc2.she] [npc2.verb(set)] about fingering [npc.her] [npc.nipple+]."));
+									+ " eagerly pushing [npc2.her] [npc2.hand] into the soft flesh of [npc.her] [npc.breast(true)] as [npc2.she] [npc2.verb(set)] about fingering [npc.her] [npc.nipple+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1080,14 +1080,14 @@ public class FingerNipple {
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(enter)] [npc.herHim], curling [npc2.her] [npc2.fingers] up before eagerly starting to finger [npc.her] [npc.nipple+].",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(curl)] [npc2.her] [npc2.fingers+] up inside of [npc.name],"
-									+ " eagerly pushing [npc2.her] [npc2.hand] into the soft flesh of [npc.her] [npc.breast] as [npc2.she] [npc2.verb(set)] about fingering [npc.her] [npc.nipple+]."));
+									+ " eagerly pushing [npc2.her] [npc2.hand] into the soft flesh of [npc.her] [npc.breast(true)] as [npc2.she] [npc2.verb(set)] about fingering [npc.her] [npc.nipple+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(enter)] [npc.herHim], curling [npc2.her] [npc2.fingers] up before starting to finger [npc.her] [npc.nipple+].",
 
 							" With [npc2.a_moan+], [npc2.name] [npc2.verb(curl)] [npc2.her] [npc2.fingers+] up inside of [npc.name],"
-									+ " pushing [npc2.her] [npc2.hand] into the soft flesh of [npc.her] [npc.breast] as [npc2.she] [npc2.verb(set)] about fingering [npc.her] [npc.nipple+]."));
+									+ " pushing [npc2.her] [npc2.hand] into the soft flesh of [npc.her] [npc.breast(true)] as [npc2.she] [npc2.verb(set)] about fingering [npc.her] [npc.nipple+]."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -1130,12 +1130,12 @@ public class FingerNipple {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Gently pushing [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand],"
+					"Gently pushing [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand],"
 							+ " [npc.name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(help)] to sink [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.nipple+].",
 
-					"With a soft [npc.moan], [npc.name] gently [npc.verb(start)] thrusting [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand], forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.nipple+].",
+					"With a soft [npc.moan], [npc.name] gently [npc.verb(start)] thrusting [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand], forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.nipple+].",
 
-					"Slowly thrusting [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand],"
+					"Slowly thrusting [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand],"
 							+ " a soft [npc.moan] drifts out from between [npc.namePos] [npc.lips+] as [npc.her] movements force [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.nipple+]."));
 
 			return UtilText.nodeContentSB.toString();
@@ -1167,12 +1167,12 @@ public class FingerNipple {
 			UtilText.nodeContentSB.setLength(0);
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly pushing [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand],"
+					"Eagerly pushing [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand],"
 							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.nipple+].",
 
-					"With [npc.a_moan+], [npc.name] energetically [npc.verb(start)] thrusting [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand], forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.nipple+].",
+					"With [npc.a_moan+], [npc.name] energetically [npc.verb(start)] thrusting [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand], forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.nipple+].",
 
-					"Enthusiastically thrusting [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand],"
+					"Enthusiastically thrusting [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand],"
 							+ " [npc.a_moan+] drifts out from between [npc.her] [npc.lips+] as [npc.her] movements force [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.nipple+]."));
 
 			return UtilText.nodeContentSB.toString();
@@ -1204,12 +1204,12 @@ public class FingerNipple {
 			UtilText.nodeContentSB.setLength(0);
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Violently slamming [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand],"
+					"Violently slamming [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand],"
 							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] roughly [npc.verb(force)] [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.nipple+].",
 
-					"With [npc.a_moan+], [npc.name] [npc.verb(start)] aggressively thrusting [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand], forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.nipple+].",
+					"With [npc.a_moan+], [npc.name] [npc.verb(start)] aggressively thrusting [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand], forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.nipple+].",
 
-					"Roughly thrusting [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand],"
+					"Roughly thrusting [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand],"
 							+ " [npc.a_moan+] bursts out from between [npc.her] [npc.lips+] as [npc.her] forceful movements drive [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.nipple+]."));
 
 			return UtilText.nodeContentSB.toString();
@@ -1241,12 +1241,12 @@ public class FingerNipple {
 			UtilText.nodeContentSB.setLength(0);
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Pushing [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand],"
+					"Pushing [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand],"
 							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.nipple+].",
 
-					"With [npc.a_moan+], [npc.name] [npc.verb(start)] thrusting [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand], forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.nipple+].",
+					"With [npc.a_moan+], [npc.name] [npc.verb(start)] thrusting [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand], forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.nipple+].",
 
-					"Thrusting [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand],"
+					"Thrusting [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand],"
 							+ " [npc.a_moan+] drifts out from between [npc.her] [npc.lips+] as [npc.her] movements force [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.nipple+]."));
 
 			return UtilText.nodeContentSB.toString();
@@ -1278,12 +1278,12 @@ public class FingerNipple {
 			UtilText.nodeContentSB.setLength(0);
 
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-					"Eagerly pushing [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand],"
+					"Eagerly pushing [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand],"
 							+ " [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(help)] to sink [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.nipple+].",
 
-					"With [npc.a_moan+], [npc.name] energetically [npc.verb(start)] thrusting [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand], forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.nipple+].",
+					"With [npc.a_moan+], [npc.name] energetically [npc.verb(start)] thrusting [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand], forcing [npc2.her] [npc2.fingers+] ever deeper into [npc.her] [npc.nipple+].",
 
-					"Enthusiastically thrusting [npc.her] [npc.breast] out against [npc2.namePos] [npc2.hand],"
+					"Enthusiastically thrusting [npc.her] [npc.breast(true)] out against [npc2.namePos] [npc2.hand],"
 							+ " [npc.a_moan+] drifts out from between [npc.her] [npc.lips+] as [npc.her] movements force [npc2.namePos] [npc2.fingers+] deep into [npc.her] [npc.nipple+]."));
 
 			return UtilText.nodeContentSB.toString();
@@ -1321,10 +1321,10 @@ public class FingerNipple {
 							"[npc.Name] [npc.verb(feel)] tears starting to well up in [npc.namePos] [npc.eyes], and, unable to keep it in any longer,"
 									+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc2.namePos] gently-pumping [npc2.fingers] out of [npc.her] [npc.nipple+].",
 
-							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.breast] away from [npc2.namePos] unwanted touch,"
+							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.breast(true)] away from [npc2.namePos] unwanted touch,"
 									+ " struggling in desperation as [npc2.namePos] [npc2.fingers+] continue gently sliding in and out of [npc.her] [npc.nipple+].",
 
-							"Trying desperately to pull [npc.her] [npc.breast] away from [npc2.namePos] [npc2.hand],"
+							"Trying desperately to pull [npc.her] [npc.breast(true)] away from [npc2.namePos] [npc2.hand],"
 									+ " [npc.name] [npc.sob] in distress as [npc2.namePos] [npc2.fingers+] continue gently sliding deep into [npc.her] [npc.nipple+]."));
 					break;
 				case DOM_NORMAL:
@@ -1333,11 +1333,11 @@ public class FingerNipple {
 									+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc2.namePos] greedily-thrusting [npc2.fingers] out of [npc.her] [npc.nipple+].",
 
 
-							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.breast] away from [npc2.namePos] unwanted touch,"
+							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.breast(true)] away from [npc2.namePos] unwanted touch,"
 									+ " struggling in desperation as [npc2.namePos] [npc2.fingers+] continue eagerly sliding in and out of [npc.her] [npc.nipple+].",
 
 
-							"Trying desperately to pull [npc.her] [npc.breast] away from [npc2.namePos] [npc2.hand],"
+							"Trying desperately to pull [npc.her] [npc.breast(true)] away from [npc2.namePos] [npc2.hand],"
 									+ " [npc.name] [npc.sob] in distress as [npc2.namePos] [npc2.fingers+] continue eagerly pumping deep into [npc.her] [npc.nipple+]."));
 					break;
 				case DOM_ROUGH:
@@ -1346,11 +1346,11 @@ public class FingerNipple {
 									+ " [npc.a_sob+] bursts out from [npc.her] mouth as [npc.she] weakly [npc.verb(try)] to pull [npc2.namePos] roughly-thrusting [npc2.fingers] out of [npc.her] [npc.nipple+].",
 
 
-							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.breast] away from [npc2.namePos] unwanted touch,"
+							"[npc.A_sob+] bursts out from [npc.namePos] mouth as [npc.she] frantically [npc.verb(try)] to pull [npc.her] [npc.breast(true)] away from [npc2.namePos] unwanted touch,"
 									+ " struggling in desperation as [npc2.namePos] [npc2.fingers+] continue roughly slamming in and out of [npc.her] [npc.nipple+].",
 
 
-							"Trying desperately to pull [npc.her] [npc.breast] away from [npc2.namePos] [npc2.hand],"
+							"Trying desperately to pull [npc.her] [npc.breast(true)] away from [npc2.namePos] [npc2.hand],"
 									+ " [npc.name] [npc.sob] in distress as [npc2.namePos] [npc2.fingers+] continue roughly slamming deep into [npc.her] [npc.nipple+]."));
 					break;
 				default:

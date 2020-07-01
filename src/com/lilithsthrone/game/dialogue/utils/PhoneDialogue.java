@@ -26,6 +26,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -246,23 +247,9 @@ public class PhoneDialogue {
 					return new Response("Loiter", "You can only loiter to pass the time when in a safe area!", null);
 				}
 				if(!Main.game.getPlayerCell().getType().isLoiteringEnabled()) {
-					return new Response("Loiter", "This is not a suitable place in which to loiter about for four hours!", null);
+					return new Response("Loiter", "This is not a suitable place in which to be loitering about!", null);
 				}
-				return new ResponseEffectsOnly("Loiter", "Loiter in this area for the next four hours.") {
-					@Override
-					public int getSecondsPassed() {
-						return 60*60*4;
-					}
-					@Override
-					public void effects() {
-						Main.mainController.openPhone();
-						Main.game.getTextStartStringBuilder().append(
-								"<p style='text-align:center;'>"
-								+ "<i>You spend the next four hours loitering about, doing nothing in particular...</i>"
-								+ "</p>");
-						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
-					}
-				};
+				return new Response("Loiter", "THink about loitering in this area for an as-yet undetermined length of time.", LOITER_SELECTION);
 				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
@@ -673,9 +660,9 @@ public class PhoneDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			StatusEffect physiqueSE = PhysiqueLevel.getPhysiqueLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getRelatedStatusEffect();
-			StatusEffect arcaneSE = IntelligenceLevel.getIntelligenceLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_ARCANE)).getRelatedStatusEffect();
-			StatusEffect corruptionSE = CorruptionLevel.getCorruptionLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION)).getRelatedStatusEffect();
+			AbstractStatusEffect physiqueSE = PhysiqueLevel.getPhysiqueLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getRelatedStatusEffect();
+			AbstractStatusEffect arcaneSE = IntelligenceLevel.getIntelligenceLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_ARCANE)).getRelatedStatusEffect();
+			AbstractStatusEffect corruptionSE = CorruptionLevel.getCorruptionLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION)).getRelatedStatusEffect();
 					
 			UtilText.nodeContentSB.append(
 					
@@ -2987,6 +2974,109 @@ public class PhoneDialogue {
 			} else {
 				return null;
 			}
+		}
+
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.PHONE;
+		}
+	};
+	
+	public static final DialogueNode LOITER_SELECTION = new DialogueNode("", "", true) {
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "You think about how long you'd like to spend loitering in the area..."
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 0) {
+				return new Response("Back", "Decide against loitering in this area.", MENU);
+			}
+			if(index == 1) {
+				return new Response("15 minutes", "Loiter in this area for the next fifteen minutes.", Main.game.getDefaultDialogue()) {
+					@Override
+					public int getSecondsPassed() {
+						return 60*15;
+					}
+					@Override
+					public void effects() {
+						Main.mainController.openPhone();
+						Main.game.getTextStartStringBuilder().append(
+								"<p style='text-align:center;'>"
+										+ "<i>You spend the next fifteen minutes loitering about, doing nothing in particular...</i>"
+								+ "</p>");
+					}
+				};
+				
+			} else if(index == 2) {
+				return new Response("1 hour", "Loiter in this area for the next hour.", Main.game.getDefaultDialogue()) {
+					@Override
+					public int getSecondsPassed() {
+						return 60*60;
+					}
+					@Override
+					public void effects() {
+						Main.mainController.openPhone();
+						Main.game.getTextStartStringBuilder().append(
+								"<p style='text-align:center;'>"
+										+ "<i>You spend the next hour loitering about, doing nothing in particular...</i>"
+								+ "</p>");
+					}
+				};
+				
+			} else if(index == 3) {
+				return new Response("4 hours", "Loiter in this area for the next four hours.", Main.game.getDefaultDialogue()) {
+					@Override
+					public int getSecondsPassed() {
+						return 60*60*4;
+					}
+					@Override
+					public void effects() {
+						Main.mainController.openPhone();
+						Main.game.getTextStartStringBuilder().append(
+								"<p style='text-align:center;'>"
+										+ "<i>You spend the next four hours loitering about, doing nothing in particular...</i>"
+								+ "</p>");
+					}
+				};
+				
+			} else if(index == 4) {
+				return new Response("8 hours", "Loiter in this area for the next eight hours.", Main.game.getDefaultDialogue()) {
+					@Override
+					public int getSecondsPassed() {
+						return 60*60*4;
+					}
+					@Override
+					public void effects() {
+						Main.mainController.openPhone();
+						Main.game.getTextStartStringBuilder().append(
+								"<p style='text-align:center;'>"
+										+ "<i>You spend the next eight hours loitering about, doing nothing in particular...</i>"
+								+ "</p>");
+					}
+				};
+				
+			} else if(index == 5) {
+				return new Response("12 hours", "Loiter in this area for the next twelve hours.", Main.game.getDefaultDialogue()) {
+					@Override
+					public int getSecondsPassed() {
+						return 60*60*12;
+					}
+					@Override
+					public void effects() {
+						Main.mainController.openPhone();
+						Main.game.getTextStartStringBuilder().append(
+								"<p style='text-align:center;'>"
+										+ "<i>You spend the next twelve hours loitering about, doing nothing in particular...</i>"
+								+ "</p>");
+					}
+				};
+			}
+			return null;
 		}
 
 		@Override

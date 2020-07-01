@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +38,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
+import com.lilithsthrone.game.inventory.AbstractSetBonus;
 import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
@@ -64,7 +64,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.84
- * @version 0.3.7.9
+ * @version 0.3.8.2
  * @author Innoxia, BlazingMagpie@gmail.com (or ping BlazingMagpie in Discord), Pimgd
  */
 public abstract class AbstractClothingType extends AbstractCoreType {
@@ -131,7 +131,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private Map<InventorySlot, List<BlockedParts>> blockedPartsMap;
 	private Map<InventorySlot, List<InventorySlot>> incompatibleSlotsMap;
 	
-	private SetBonus clothingSet;
+	private AbstractSetBonus clothingSet;
 	private Rarity rarity;
 	private List<ColourReplacement> colourReplacements;
 	/** Key is the colour index which should copy another colour upon weapon generation. Value is the colour index which should be copied. */
@@ -166,7 +166,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			Femininity femininityRestriction,
 			InventorySlot equipSlot,
 			Rarity rarity,
-			SetBonus clothingSet,
+			AbstractSetBonus clothingSet,
 			String pathName,
 			List<ItemEffect> effects,
 			List<BlockedParts> blockedPartsList,
@@ -214,7 +214,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			Femininity femininityRestriction,
 			List<InventorySlot> equipSlots,
 			Rarity rarity,
-			SetBonus clothingSet,
+			AbstractSetBonus clothingSet,
 			String pathName,
 			Map<InventorySlot, String> pathNameEquipped,
 			List<ItemEffect> effects,
@@ -586,7 +586,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 
 			this.clothingSet = coreAttributes.getOptionalFirstOf("clothingSet")
 				.filter(filterEmptyElements)
-				.map(Element::getTextContent).map(SetBonus::valueOf)
+				.map(Element::getTextContent).map(SetBonus::getSetBonusFromId)
 				.orElse(null);
 
 			
@@ -728,7 +728,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 			
 			if(coreAttributes.getOptionalFirstOf("defaultPatterns").isPresent()) {
-				patternChance = Float.valueOf(coreAttributes.getMandatoryFirstOf("defaultPatterns").getAttribute("patternChance"));
+				String patternChanceStr = coreAttributes.getMandatoryFirstOf("defaultPatterns").getAttribute("patternChance");
+				patternChance = patternChanceStr.length() > 0 ? Float.valueOf(patternChanceStr) : 0;
 				isColourDerivedFromPattern = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("defaultPatterns").getAttribute("colourNameDerivedFromPattern"));
 				
 			} else {
@@ -1306,17 +1307,20 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return baseValue;
 	}
 
-	static Map<SetBonus, List<AbstractClothingType>> clothingSetMap = new EnumMap<>(SetBonus.class);
+	static Map<AbstractSetBonus, List<AbstractClothingType>> clothingSetMap = new HashMap<>();
 
-	public static List<AbstractClothingType> getClothingInSet(SetBonus set) {
-		if (clothingSetMap.get(set) != null)
+	public static List<AbstractClothingType> getClothingInSet(AbstractSetBonus set) {
+		if (clothingSetMap.get(set) != null) {
 			return clothingSetMap.get(set);
+		}
 
 		List<AbstractClothingType> setOfClothing = new ArrayList<>();
 
-		for (AbstractClothingType c : ClothingType.getAllClothing())
-			if (c.getClothingSet() == set)
+		for (AbstractClothingType c : ClothingType.getAllClothing()) {
+			if (c.getClothingSet() == set) {
 				setOfClothing.add(c);
+			}
+		}
 
 		clothingSetMap.put(set, setOfClothing);
 
@@ -2263,7 +2267,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return pathNameEquipped.get(invSlot);
 	}
 	
-	public SetBonus getClothingSet() {
+	public AbstractSetBonus getClothingSet() {
 		return clothingSet;
 	}
 

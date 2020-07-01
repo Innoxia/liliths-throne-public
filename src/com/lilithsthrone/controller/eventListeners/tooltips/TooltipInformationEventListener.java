@@ -31,10 +31,10 @@ import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
@@ -82,7 +82,7 @@ public class TooltipInformationEventListener implements EventListener {
 	private boolean availableForSelection = false;
 	
 	private GameCharacter owner;
-	private StatusEffect statusEffect;
+	private AbstractStatusEffect statusEffect;
 	private AbstractPerk perk;
 	private AbstractPerk levelUpPerk;
 	private int perkRow;
@@ -114,7 +114,7 @@ public class TooltipInformationEventListener implements EventListener {
 		if (statusEffect != null) {
 
 			// I hate this. If only JavaFX's height detection and resizing methods actually worked...
-			int size = statusEffect.getModifiersAsStringList(owner).size();
+			int size = statusEffect.getModifiersAsStringList(owner).size() + statusEffect.getCombatMoves().size() + statusEffect.getSpells().size();
 			int yIncrease = (size > 4 ? size - 4 : 0)
 								+ (owner.hasStatusEffect(statusEffect)?(owner.getStatusEffectDuration(statusEffect) == -1 ? 0 : 2):0);
 			int spacingHeight = 0;
@@ -135,14 +135,23 @@ public class TooltipInformationEventListener implements EventListener {
 
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");// style='white-space: nowrap'>");
-				if (!statusEffect.getModifiersAsStringList(owner).isEmpty()) {
-					int i=0;
+				boolean effectsFound = false;
+				if(!statusEffect.getModifiersAsStringList(owner).isEmpty()) {
 					for (String s : statusEffect.getModifiersAsStringList(owner)) {
-						tooltipSB.append((i!=0?"<br/>":"") + s);
-						i++;
+						tooltipSB.append((effectsFound?"<br/>":"") + UtilText.parse(owner, s));
+						effectsFound =true;
 					}
-					
-				} else {
+				}
+				for (CombatMove cm : statusEffect.getCombatMoves()) {
+					tooltipSB.append((effectsFound?"<br/>":"")+"[style.boldExcellent(Grants)] [style.boldCombat(Move)]: "+Util.capitaliseSentence(cm.getName(0, owner)));
+					effectsFound =true;
+				}
+				for (Spell spell : statusEffect.getSpells()) {
+					tooltipSB.append((effectsFound?"<br/>":"")+"[style.boldExcellent(Grants)] [style.boldSpell(Spell)]<b>:</b> <b style='color:"+spell.getSpellSchool().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(spell.getName())+"</b>");
+					effectsFound =true;
+				}
+				
+				if(!effectsFound) {
 					tooltipSB.append("<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>No bonuses</span>");
 				}
 			tooltipSB.append("</div>");
@@ -392,7 +401,7 @@ public class TooltipInformationEventListener implements EventListener {
 //			tooltipSB.append("<br/>Cooldown: "+"<span style='color:"+(cooldown==0?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_MINOR_BAD).toWebHexString()+";'>"+cooldown+(cooldown==1?" turn":" turns")+"</span>");
 			
 			if(move.getStatusEffects(owner, owner, false)!=null) {
-				for(Entry<StatusEffect, Integer> entry : move.getStatusEffects(owner, owner, false).entrySet()) {
+				for(Entry<AbstractStatusEffect, Integer> entry : move.getStatusEffects(owner, owner, false).entrySet()) {
 					tooltipSB.append("<br/>Applies: <span style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName(null))+"</span> for "+entry.getValue()+(entry.getValue()==1?" turn":" turns"));
 				}
 			}
@@ -652,7 +661,7 @@ public class TooltipInformationEventListener implements EventListener {
 					|| attribute == Attribute.MAJOR_CORRUPTION
 					|| attribute == Attribute.AROUSAL
 					|| attribute == Attribute.LUST) {
-				StatusEffect currentAttributeStatusEffect=null;
+				AbstractStatusEffect currentAttributeStatusEffect=null;
 				int minimumLevelValue=0, maximumLevelValue=0;
 				
 				if(attribute == Attribute.MAJOR_PHYSIQUE) {
@@ -1513,7 +1522,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 		return this;
 	}
-	public TooltipInformationEventListener setStatusEffect(StatusEffect statusEffect, GameCharacter owner) {
+	public TooltipInformationEventListener setStatusEffect(AbstractStatusEffect statusEffect, GameCharacter owner) {
 		resetFields();
 		this.statusEffect = statusEffect;
 		this.owner = owner;

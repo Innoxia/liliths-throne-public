@@ -20,6 +20,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
+import com.lilithsthrone.game.character.npc.dominion.EnforcerPatrol;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
 import com.lilithsthrone.game.character.npc.dominion.Lumi;
 import com.lilithsthrone.game.character.npc.dominion.RentalMommy;
@@ -27,6 +28,7 @@ import com.lilithsthrone.game.character.npc.submission.BatMorphCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.ImpAttacker;
 import com.lilithsthrone.game.character.npc.submission.SlimeCavernAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
@@ -34,6 +36,7 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionExpressCentaurDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -274,6 +277,7 @@ public enum Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
+					new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 1f),
 					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
@@ -358,6 +362,24 @@ public enum Encounter {
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon((AbstractWeapon) randomItem);
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
+				
+			} else if(node == EncounterType.DOMINION_ALLEY_ENFORCERS && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+				try {
+					EnforcerPatrol npc = new EnforcerPatrol(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.getGenderFromUserPreferences(false, false));
+					Main.game.addNPC(npc, false);
+					npc.setLevel(9+Util.random.nextInt(4)); // 9-12
+					((EnforcerPatrol)npc).setWeapons("dsg_eep_pbweap_pbpistol");
+					
+					EnforcerPatrol npc2 = new EnforcerPatrol(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.getGenderFromUserPreferences(false, false));
+					Main.game.addNPC(npc2, false);
+					npc2.setLevel(4+Util.random.nextInt(5)); // 4-8
+					((EnforcerPatrol)npc2).setWeapons("dsg_eep_taser_taser");
+					npc2.setSexualOrientation(npc.getSexualOrientation()); // This is to simplify post-combat sex.
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return EnforcerAlleywayDialogue.ENFORCER_ALLEYWAY_START;
 				
 			} else if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
 				NPC slave = getSlaveWantingToUseYouInDominion();

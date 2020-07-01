@@ -28,7 +28,7 @@
 		<condDagger constant="true"><![CDATA[RND.nextInt(100)<=50]]></condDagger>
 		<condDualWielding constant="true"><![CDATA[RND.nextInt(100)<=50]]></condDualWielding>
 		
-		<condBiped constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></condBiped>
+		<condPlantigrade constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></condPlantigrade>
 		<condGoth constant="true"><![CDATA[RND.nextInt(100)<=15]]></condGoth>
 		<condExhibitionist constant="true"><![CDATA[npc.hasFetish(FETISH_EXHIBITIONIST)]]></condExhibitionist>
 		<condFishnetTop constant="true"><![CDATA[RND.nextInt(100)<=50]]></condFishnetTop>
@@ -151,7 +151,7 @@
 		
 		<!-- Socks: -->
 		<clothingType>
-			<conditional><![CDATA[!condGoth && condBiped]]></conditional>
+			<conditional><![CDATA[!condGoth && condPlantigrade]]></conditional>
 			<types>
 				<type>innoxia_sock_fishnets</type>
 			</types>
@@ -162,7 +162,7 @@
 			<tertiaryColours/>
 		</clothingType>
 		<clothingType>
-			<conditional><![CDATA[condGoth && condBiped && RND.nextInt(100)<=50]]></conditional>
+			<conditional><![CDATA[condGoth && condPlantigrade && RND.nextInt(100)<=50]]></conditional>
 			<types>
 				<type>innoxia_sock_stockings</type>
 				<type>innoxia_sock_kneehigh_socks</type>
@@ -176,7 +176,7 @@
 		
 		<!-- Shoes: -->
 		<clothingType>
-			<conditional><![CDATA[!condGoth && condBiped]]></conditional>
+			<conditional><![CDATA[!condGoth && condPlantigrade]]></conditional>
 			<types>
 				<type>innoxia_foot_thigh_high_boots</type>
 				<type>innoxia_foot_stiletto_heels</type>
@@ -190,7 +190,7 @@
 			<tertiaryColours/>
 		</clothingType>
 		<clothingType>
-			<conditional><![CDATA[condGoth && condBiped]]></conditional>
+			<conditional><![CDATA[condGoth && condPlantigrade]]></conditional>
 			<types>
 				<type>innoxia_foot_goth_boots_fem</type>
 			</types>

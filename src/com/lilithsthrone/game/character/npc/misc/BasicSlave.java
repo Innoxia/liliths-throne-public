@@ -57,7 +57,6 @@ public class BasicSlave extends NPC {
 				false);
 
 		if(!isImported) {
-
 			this.setBody(gender, Subspecies.HUMAN, RaceStage.HUMAN, false);
 			
 			setSexualOrientation(SexualOrientation.AMBIPHILIC);

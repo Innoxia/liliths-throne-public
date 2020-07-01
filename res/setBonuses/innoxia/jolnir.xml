@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<name><![CDATA[J&oacute;lnir]]></name>
+	
+	<statusEffect>SET_JOLNIR</statusEffect>
+	
+	<numberRequiredForCompleteSet>3</numberRequiredForCompleteSet>
+	
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>HEAD</slot>
+		<slot>TORSO_OVER</slot>
+		<slot>TORSO_UNDER</slot>
+		<slot>FOOT</slot>
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>

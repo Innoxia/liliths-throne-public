@@ -54,7 +54,12 @@
 		<enchantmentLimit/>
 		
 		<!-- The default effects that this clothing spawns in with. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file. -->
-		<effects/>
+		<effects>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_FIRE" potency="MAJOR_BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_FIRE" potency="BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_ICE" potency="MAJOR_BOOST" timer="397" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="397" type="CLOTHING"/>	
+		</effects>
 		
 		<!-- This section determines how the clothing interacts with other clothing and the wearer's body.-->
 		<blockedPartsList> 

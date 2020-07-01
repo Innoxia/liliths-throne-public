@@ -166,6 +166,9 @@ public class Lyssieth extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.setTailGirth(PenetrationGirth.FOUR_THICK);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
+		}
 	}
 
 	@Override
@@ -284,6 +287,7 @@ public class Lyssieth extends NPC {
 		// Penis:
 		this.setPenisType(PenisType.NONE);
 		this.clearPenisModifiers();
+		this.setTesticleCount(2);
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -352,7 +356,7 @@ public class Lyssieth extends NPC {
 		
 		children.add(Main.game.getNpc(Lilaya.class));
 		children.add(Main.game.getNpc(DarkSiren.class));
-		if(Main.game.getPlayer().getRace()==Race.DEMON) {
+		if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 			children.add(Main.game.getPlayer());
 		}
 		
@@ -403,7 +407,7 @@ public class Lyssieth extends NPC {
 		Main.game.getPlayer().getLegConfiguration().setWingsToDemon(Main.game.getPlayer());
 		Main.game.getPlayer().setEarType(EarType.DEMON_COMMON);
 		Main.game.getPlayer().setEyeType(EyeType.DEMON_COMMON);
-		Main.game.getPlayer().setHairType(HairType.DEMON_COMMON);
+		Main.game.getPlayer().setHairType(HairType.DEMON);
 	}
 	
 	private void setPlayerToFullDemon() {
@@ -905,7 +909,7 @@ public class Lyssieth extends NPC {
 	
 	public static boolean isPlayersMommy() {
 		return Main.game.getPlayer().hasFetish(Fetish.FETISH_INCEST)
-				&& (Main.game.getPlayer().getRace()==Race.DEMON || (Main.game.isInSex() && Main.sex.getSexManager() instanceof SMLyssiethDemonTF));
+				&& (Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON || (Main.game.isInSex() && Main.sex.getSexManager() instanceof SMLyssiethDemonTF));
 	}
 	
 	@Override

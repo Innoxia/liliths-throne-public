@@ -281,12 +281,12 @@ public class SexSlotAllFours {
 		@Override
 		public String getName(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS);
-			return (this.isStanding(target)?"Standing":"Kneeling")+" before "+UtilText.parse(partner, "[npc.name]");
+			return (this.isStanding(target)?"Standing":"Kneeling")+(target.isTaur()?" over ":" before ")+UtilText.parse(partner, "[npc.name]");
 		}
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS);
-			return partner.isSizeDifferenceTallerThan(target);
+			return partner.isSizeDifferenceTallerThan(target) || target.isTaur();
 		}
 	};
 	public static final SexSlot IN_FRONT_TWO = new SexSlot(
@@ -298,13 +298,13 @@ public class SexSlotAllFours {
 		public String getName(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS_TWO);
 			if(partner==null) {partner = getCharacterInSlot(ALL_FOURS);}
-			return (this.isStanding(target)?"Standing":"Kneeling")+" before "+UtilText.parse(partner, "[npc.name]");
+			return (this.isStanding(target)?"Standing":"Kneeling")+(target.isTaur()?" over ":" before ")+UtilText.parse(partner, "[npc.name]");
 		}
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS_TWO);
 			if(partner==null) {partner = getCharacterInSlot(ALL_FOURS);}
-			return partner.isSizeDifferenceTallerThan(target);
+			return partner.isSizeDifferenceTallerThan(target) || target.isTaur();
 		}
 	};
 	public static final SexSlot IN_FRONT_THREE = new SexSlot(
@@ -316,13 +316,13 @@ public class SexSlotAllFours {
 		public String getName(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS_THREE);
 			if(partner==null) {partner = getCharacterInSlot(ALL_FOURS);}
-			return (this.isStanding(target)?"Standing":"Kneeling")+" before "+UtilText.parse(partner, "[npc.name]");
+			return (this.isStanding(target)?"Standing":"Kneeling")+(target.isTaur()?" over ":" before ")+UtilText.parse(partner, "[npc.name]");
 		}
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS_THREE);
 			if(partner==null) {partner = getCharacterInSlot(ALL_FOURS);}
-			return partner.isSizeDifferenceTallerThan(target);
+			return partner.isSizeDifferenceTallerThan(target) || target.isTaur();
 		}
 	};
 	public static final SexSlot IN_FRONT_FOUR = new SexSlot(
@@ -334,13 +334,13 @@ public class SexSlotAllFours {
 		public String getName(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS_FOUR);
 			if(partner==null) {partner = getCharacterInSlot(ALL_FOURS);}
-			return (this.isStanding(target)?"Standing":"Kneeling")+" before "+UtilText.parse(partner, "[npc.name]");
+			return (this.isStanding(target)?"Standing":"Kneeling")+(target.isTaur()?" over ":" before ")+UtilText.parse(partner, "[npc.name]");
 		}
 		@Override
 		public boolean isStanding(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS_FOUR);
 			if(partner==null) {partner = getCharacterInSlot(ALL_FOURS);}
-			return partner.isSizeDifferenceTallerThan(target);
+			return partner.isSizeDifferenceTallerThan(target) || target.isTaur();
 		}
 	};
 

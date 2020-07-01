@@ -104,6 +104,9 @@ public class FortressFemalesLeader extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.LEWD);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
+			this.setTesticleCount(2);
+		}
 	}
 
 	@Override
@@ -204,6 +207,7 @@ public class FortressFemalesLeader extends NPC {
 		
 		// Penis:
 		// n/a
+		this.setTesticleCount(2); // For if she grows one
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -254,7 +258,7 @@ public class FortressFemalesLeader extends NPC {
 			return (UtilText.parse(this,
 					"[npc.NamePos] days of ruling over [npc.her] imp fortress are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
 		} else {
-			return (UtilText.parse(this, description));
+			return (UtilText.parse(this, "The leader of one of Submission's imp fortresses, [npc.name] has a loyal following of female imps, who love nothing more than to join [npc.herHim] in having dominant sex with those who oppose their ruler, 'The Dark Siren'..."));
 		}
 	}
 	
