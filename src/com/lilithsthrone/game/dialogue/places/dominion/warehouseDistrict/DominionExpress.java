@@ -1377,7 +1377,7 @@ public class DominionExpress {
 		public void applyPreParsingEffects() {
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().washAllOrifices(false));
 			Main.game.getPlayer().calculateStatusEffects(0);
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing(false));
+			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().cleanAllClothing(false, true));
 			Main.game.getPlayer().cleanAllDirtySlots(true);
 		}
 		@Override

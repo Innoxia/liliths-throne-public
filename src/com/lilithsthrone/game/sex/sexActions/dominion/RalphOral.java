@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -325,19 +326,16 @@ public class RalphOral {
 		public String getActionTitle() {
 			return "Big discount";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Ask Ralph if there's a way to earn an even bigger discount. <i style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>This is an offer for Ralph to fuck your pussy!</i>";
 		}
-
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.game.getPlayer().hasVagina()
 					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)
 					&& !SexFlags.askedForBigDiscount;
 		}
-
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
@@ -354,7 +352,6 @@ public class RalphOral {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
 		@Override
 		public void applyEffects() {
 			if(SexFlags.customerAtCounter)
@@ -369,7 +366,6 @@ public class RalphOral {
 				}
 			}
 		}
-		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
@@ -395,19 +391,16 @@ public class RalphOral {
 		public String getActionTitle() {
 			return "Big discount";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Ask Ralph if there's a way to earn an even bigger discount. <i style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>This is an offer for Ralph to fuck your ass!</i>";
 		}
-
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.game.getPlayer().hasVagina()
 					&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 					&& !SexFlags.askedForBigDiscount;
 		}
-
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
@@ -424,7 +417,6 @@ public class RalphOral {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
 		@Override
 		public void applyEffects() {
 			if(SexFlags.customerAtCounter) {
@@ -440,7 +432,6 @@ public class RalphOral {
 				}
 			}
 		}
-		
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
@@ -951,7 +942,10 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			if(SexFlags.customerAtCounter) {
+				return "Deal with customer (Receive blowjob)";
+			}
+			return "Receive blowjob";
 		}
 
 		@Override
@@ -963,11 +957,12 @@ public class RalphOral {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(SexFlags.customerAtCounter)
+			if(SexFlags.customerAtCounter) {
 				UtilText.nodeContentSB.append("Ralph quickly finishes up with the customer, and as you hear them start to walk away, you realise that by staying quiet, they didn't find out that you were here!"
 						+ "<br/><br/>"
 						+ "<b>There are now</b> <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
 								+ "<br/><br/>");
+			}
 			
 			UtilText.nodeContentSB.append("Ralph remains all but motionless, watching over the shop as you diligently continue sucking his cock."
 						+ " Now and then, he gently pushes his hips forwards, helping you to take his massive shaft down your throat, but other than that, you're left with little assistance as you work on pleasing his cock.");
@@ -995,7 +990,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Sheathe cock";
 		}
 
 		@Override
@@ -1038,7 +1033,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Sheathe cock";
 		}
 
 		@Override
@@ -1081,7 +1076,10 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			if(SexFlags.customerAtCounter) {
+				return "Deal with customer (Deepthroat)";
+			}
+			return "Deepthroat";
 		}
 
 		@Override
@@ -1239,7 +1237,8 @@ public class RalphOral {
 						:"Pushing your top-half down onto the counter top, Ralph wastes no time in lining his massive cock up to your waiting cunt, and as he starts to push forwards, you let out a desperate squeal.")
 					+ " His wide, flared head slowly pushes its way into you, and you pant and squirm as your folds lewdly spread around his animalistic horse-cock."
 					+ " With a quick step forwards, Ralph suddenly rams his impatient member deep into your hungry snatch, and you gasp and moan as he starts fucking you on the shop's counter-top."
-					+ "<br/><br/>"
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
 					+ "<b>You will now earn a</b> <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>"
 							+(SexFlags.ralphDiscount+(Main.sex.getCharacterPerformingAction().isWearingCondom()||Main.game.getPlayer().isVisiblyPregnant()?20:25)-(SexFlags.alertedCustomer?5:0))
 					+"%</b> <b>discount.</b>");
@@ -1249,10 +1248,14 @@ public class RalphOral {
 
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.VAGINA, new ArrayList<>());
+			
 			SexFlags.customerAtCounter=false;
-			if(SexFlags.alertedCustomer)
-				if(SexFlags.ralphDiscount>0)
+			if(SexFlags.alertedCustomer) {
+				if(SexFlags.ralphDiscount>0) {
 					SexFlags.ralphDiscount-=5;
+				}
+			}
 			
 			SexFlags.alertedCustomer=false;
 			if(Main.sex.getCharacterPerformingAction().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE) {
@@ -1331,7 +1334,8 @@ public class RalphOral {
 					+ " Even before Ralph's finished giving you his offer, you're crying out in agreement, and he wastes no time in lining his massive cock up to your waiting asshole."
 					+ " You feel the wide, flared head rubbing all over your slutty hole, and as he starts to slowly push his animalistic horse-cock into you, you begin to squirm and squeal."
 					+ " With a quick step forwards, Ralph suddenly rams his impatient member deep into your hungry back door, and you let out an ear-splitting cry as he starts fucking you on the shop's counter-top."
-					+ "<br/><br/>"
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
 					+ "<b>You will now earn a</b> <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>"
 						+(SexFlags.ralphDiscount+20-(SexFlags.alertedCustomer?5:0))
 						+"%</b> <b>discount.</b>");
@@ -1341,16 +1345,21 @@ public class RalphOral {
 
 		@Override
 		public void applyEffects() {
+			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.ANUS, new ArrayList<>());
+			
 			SexFlags.customerAtCounter=false;
-			if(SexFlags.alertedCustomer)
-				if(SexFlags.ralphDiscount>0)
+			if(SexFlags.alertedCustomer) {
+				if(SexFlags.ralphDiscount>0) {
 					SexFlags.ralphDiscount-=5;
+				}
+			}
 			
 			SexFlags.alertedCustomer=false;
-			if(Main.sex.getCharacterPerformingAction().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE)
+			if(Main.sex.getCharacterPerformingAction().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE) {
 				SexFlags.ralphDiscount+=20;
-			else
+			} else {
 				SexFlags.ralphDiscount+=25;
+			}
 
 		}
 		
@@ -1369,7 +1378,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Pound [pc.herHim]";
 		}
 
 		@Override
@@ -1406,7 +1415,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Pound [pc.herHim]";
 		}
 
 		@Override
@@ -1438,7 +1447,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Fuck [pc.herHim]";
 		}
 
 		@Override
@@ -1472,7 +1481,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Fuck [pc.herHim]";
 		}
 
 		@Override

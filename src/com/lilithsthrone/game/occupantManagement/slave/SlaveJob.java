@@ -1,6 +1,7 @@
-package com.lilithsthrone.game.occupantManagement;
+package com.lilithsthrone.game.occupantManagement.slave;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
+import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -41,7 +43,7 @@ public enum SlaveJob {
 	IDLE(PresetColour.BASE_GREY_DARK,
 			0.05f,
 			-1,
-			-1f,
+			-0,
 			"Idle",
 			"Idle",
 			"Do not assign any job to this slave.",
@@ -51,6 +53,9 @@ public enum SlaveJob {
 			null,
 			null,
 			null,
+			Util.newArrayListOfValues(
+					SlaveJobFlag.INTERACTION_SEX,
+					SlaveJobFlag.INTERACTION_BONDING),
 			null, null) {
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
@@ -71,6 +76,10 @@ public enum SlaveJob {
 			null,
 			null,
 			null,
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.INTERACTION_SEX,
+					SlaveJobFlag.INTERACTION_BONDING),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_CORRIDOR) {
 		@Override
 		public EventLogEntry getHourlyEvent(long hour, NPC slave, List<NPC> otherNPCsPresent) {
@@ -107,6 +116,10 @@ public enum SlaveJob {
 			null,
 			null,
 			null,
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.INTERACTION_SEX,
+					SlaveJobFlag.INTERACTION_BONDING),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LIBRARY),
 	
 	KITCHEN(PresetColour.BASE_TAN,
@@ -122,6 +135,10 @@ public enum SlaveJob {
 			null,
 			null,
 			null,
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.INTERACTION_SEX,
+					SlaveJobFlag.INTERACTION_BONDING),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_KITCHEN),
 	
 	LAB_ASSISTANT(PresetColour.BASE_GREEN_LIME,
@@ -137,6 +154,9 @@ public enum SlaveJob {
 			null,
 			null,
 			null,
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.INTERACTION_BONDING),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB) {
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
@@ -169,6 +189,8 @@ public enum SlaveJob {
 					SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE),
 			null,
 			null,
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB) {
 		@Override
 		public float getAffectionGain(int hour, GameCharacter slave) {
@@ -211,6 +233,8 @@ public enum SlaveJob {
 					SlaveJobSetting.SEX_NIPPLES),
 			null,
 			null,
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS),
 			WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS) {
 		@Override
 		public float getAffectionGain(int hour, GameCharacter slave) {
@@ -239,6 +263,9 @@ public enum SlaveJob {
 					SlaveJobSetting.SEX_NIPPLES),
 			null,
 			null,
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.INTERACTION_BONDING),
 			WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM) {
 		
 		@Override
@@ -281,7 +308,7 @@ public enum SlaveJob {
 			2f,
 			"Dairy Cow",
 			"Dairy Bull",
-			"Assign this slave to the cow stalls, ready for milking or breeding (or perhaps both). Income is based off of the assigned slave's milk, cum, and girlcum production.",
+			"Assign this slave to the milking stalls, ready to have their milk, cum, and/or girlcum milked from them.",
 			-0.25f, 1f,
 			0,
 			0, 0,
@@ -302,6 +329,9 @@ public enum SlaveJob {
 							SlaveJobSetting.MILKING_NO_PREFERENCE))),
 			Util.newArrayListOfValues(
 					SlaveJobSetting.MILKING_NO_PREFERENCE),
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.INTERACTION_BONDING),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
 
@@ -386,6 +416,10 @@ public enum SlaveJob {
 			0, 1f,
 			null, null,
 			null,
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.INTERACTION_SEX,
+					SlaveJobFlag.INTERACTION_BONDING),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
 		
 		private Cell getOfficeCell() {
@@ -463,7 +497,7 @@ public enum SlaveJob {
 	BEDROOM(PresetColour.BASE_PERIWINKLE,
 			0.05f,
 			4,
-			-1f,
+			0,
 			"bedroom",
 			"bedroom",
 			"Assign this slave to wait upon you in your bedroom.",
@@ -483,14 +517,20 @@ public enum SlaveJob {
 							SlaveJobSetting.BEDROOM_SLEEP_IN_BED))),
 			Util.newArrayListOfValues(
 					SlaveJobSetting.BEDROOM_SLEEP_ON_BED),
+			Util.newArrayListOfValues(
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.INTERACTION_SEX,
+					SlaveJobFlag.INTERACTION_BONDING),
 			WorldType.LILAYAS_HOUSE_FIRST_FLOOR,
 			PlaceType.LILAYA_HOME_ROOM_PLAYER),
 	;
 	
+	public static final float BASE_STAMINA = 24f;
+	
 	private Colour colour;
 	private float hourlyEventChance;
 	private int slaveLimit;
-	private float hourlyFatigue;
+	private float hourlyStaminaDrain;
 	private String nameFeminine;
 	private String nameMasculine;
 	private String description;
@@ -502,6 +542,7 @@ public enum SlaveJob {
 	private List<SlaveJobSetting> mutualSettings;
 	private Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings;
 	private List<SlaveJobSetting> defaultMutuallyExclusiveSettings;
+	private List<SlaveJobFlag> flags;
 	private AbstractWorldType worldLocation;
 	private AbstractPlaceType placeLocation;
 	
@@ -509,7 +550,7 @@ public enum SlaveJob {
 			Colour colour,
 			float hourlyEventChance,
 			int slaveLimit,
-			float hourlyFatigue,
+			float hourlyStaminaDrain,
 			String nameFeminine,
 			String nameMasculine,
 			String description,
@@ -521,12 +562,13 @@ public enum SlaveJob {
 			List<SlaveJobSetting> mutualSettings,
 			Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings,
 			List<SlaveJobSetting> defaultMutuallyExclusiveSettings,
+			List<SlaveJobFlag> flags,
 			AbstractWorldType worldLocation,
 			AbstractPlaceType placeLocation) {
 		this.colour = colour;
 		this.hourlyEventChance = hourlyEventChance;
 		this.slaveLimit = slaveLimit;
-		this.hourlyFatigue = hourlyFatigue;
+		this.hourlyStaminaDrain = hourlyStaminaDrain;
 		this.nameFeminine = nameFeminine;
 		this.nameMasculine = nameMasculine;
 		this.description = description;
@@ -553,6 +595,13 @@ public enum SlaveJob {
 		} else {
 			this.defaultMutuallyExclusiveSettings = defaultMutuallyExclusiveSettings;
 		}
+
+		if(flags == null) {
+			this.flags = new ArrayList<>();
+		} else {
+			this.flags = flags;
+		}
+		Collections.sort(this.flags);
 		
 		this.worldLocation = worldLocation;
 		this.placeLocation = placeLocation;
@@ -570,8 +619,8 @@ public enum SlaveJob {
 		return slaveLimit;
 	}
 	
-	public float getHourlyFatigue() {
-		return hourlyFatigue;
+	public float getHourlyStaminaDrain() {
+		return hourlyStaminaDrain;
 	}
 
 	public String getName(GameCharacter character) {
@@ -672,6 +721,14 @@ public enum SlaveJob {
 		return defaultMutuallyExclusiveSettings;
 	}
 
+	public List<SlaveJobFlag> getFlags() {
+		return flags;
+	}
+
+	public boolean hasFlag(SlaveJobFlag flag) {
+		return flags.contains(flag);
+	}
+	
 	public AbstractWorldType getWorldLocation(GameCharacter character) {
 		return worldLocation;
 	}

@@ -35,6 +35,14 @@ import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveEvent;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveEventTag;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobFlag;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.slave.TestSubjectTransformation;
 import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -245,43 +253,38 @@ public class OccupancyUtil implements XMLSaving {
 			
 			// If at work:
 			if(isAtWork) {
-				float workQuality = 0f;
+				float workQuality = 1f;
 				
 				// Get paid for hour's work:
-				if(currentJob!=SlaveJob.MILKING) {
+				if(currentJob!=SlaveJob.IDLE) {
 					int income = currentJob.getFinalHourlyIncomeAfterModifiers(slave);
 					generatedIncome += income;
 					incrementSlaveDailyIncome(slave, income);
-					
-					if(currentJob.getIncome()>0) { // Some jobs have 0 income
-						workQuality += (float)income / (float)currentJob.getIncome();
-					}
-					
-				} else {
-					workQuality = 0.1f; // Small chance to gain experience by being milked
 				}
+				
 				// Overworked effect:
 				if(slave.hasStatusEffect(StatusEffect.OVERWORKED_1)) {
 					slave.incrementAffection(slave.getOwner(), -0.05f);
-					workQuality *= 0.75; // If overworked, they have a a lowered chance to gain experience.
+					workQuality *= 0.75f; // If overworked, they have a a lowered chance to gain experience.
 					
 				} else if(slave.hasStatusEffect(StatusEffect.OVERWORKED_2)) {
 					slave.incrementAffection(slave.getOwner(), -0.1f);
-					workQuality *= 0.5; // If overworked, they have a a lowered chance to gain experience.
+					workQuality *= 0.5f; // If overworked, they have a a lowered chance to gain experience.
 					
 				} else if(slave.hasStatusEffect(StatusEffect.OVERWORKED_3)) {
 					slave.incrementAffection(slave.getOwner(), -0.15f);
-					workQuality *= 0.25; // If overworked, they have a a lowered chance to gain experience.
+					workQuality *= 0.25f; // If overworked, they have a a lowered chance to gain experience.
 				}
 				
 				// chance to gain experience based on profits
-				if(workQuality > (float)Math.random() * 2) {
-					slave.incrementExperience(3, false);
+				if(currentJob.hasFlag(SlaveJobFlag.EXPERIENCE_GAINS)
+						&& workQuality>Math.random()*4) {
+					slave.incrementExperience(5, false);
 				}
 				
 			} else {
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_MASTURBATE)
-						&& (slave.getLastTimeOrgasmed()+(60*(24+6))<Main.game.getMinutesPassed())) { // Give them a 6-hour period of pent up, so they will have the chance to ambush the player
+						&& (slave.getLastTimeOrgasmed()+(60*(24+12))<Main.game.getMinutesPassed())) { // Give them a 12-hour period of pent up, so they will have the chance to ambush the player or have sex with other slaves
 					slave.setLastTimeHadSex((day*24*60l) + hour*60l, true);
 				}
 			}
@@ -487,7 +490,7 @@ public class OccupancyUtil implements XMLSaving {
 		List<SlaveJobSetting> settingsEnabled = new ArrayList<>();
 		
 		List<SlaveryEventLogEntry> events = new ArrayList<>();
-		
+		//TODO this should be handled in the job itself
 		if(slavesAtJob.get(currentJob).contains(slave) && currentJob != SlaveJob.IDLE) { // Slave is working:
 			switch (currentJob) {
 				case CLEANING:
@@ -1370,18 +1373,16 @@ public class OccupancyUtil implements XMLSaving {
 	public static SlaveryEventLogEntry generateNPCInteractionEvent(int day, int hour, NPC slave, List<NPC> otherSlavesPresent) {
 		SlaveJob currentJob = slave.getSlaveJob(hour);
 		
-		// The slave cannot initiate sex while working here:
-		if(currentJob==SlaveJob.PUBLIC_STOCKS
-				|| currentJob==SlaveJob.MILKING
-				|| currentJob==SlaveJob.PROSTITUTE) {
-			return null;
-		}
-		
 		Collections.shuffle(otherSlavesPresent);
 		for(NPC npc : otherSlavesPresent) {
 			if(!npc.equals(slave)) {
-				if(slave.getLastTimeHadSex()+24*60<Main.game.getMinutesPassed()) { // They only want sex once a day, to stop the logs from being flooded
-					if(slave.isAttractedTo(npc) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES) && slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)) {
+				List<String> descriptions = null;
+				if(slave.hasStatusEffect(StatusEffect.PENT_UP_SLAVE)) { // They only want sex once a day, to stop the logs from being flooded
+					if(currentJob.hasFlag(SlaveJobFlag.INTERACTION_SEX)
+							&& slave.isAttractedTo(npc)
+							&& (npc.isAttractedTo(slave) || slave.isWillingToRape(npc))
+							&& npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES)
+							&& slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)) {
 						
 						// Can reach each other:
 						if(npc.getSlaveJob(hour)==SlaveJob.IDLE) {
@@ -1410,15 +1411,14 @@ public class OccupancyUtil implements XMLSaving {
 							}
 						}
 						
-						List<String> descriptions = null;
 						switch(currentJob) {
 							case CLEANING:
-								descriptions =Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
 												"While dusting one of the first-floor corridors, [npc1.name] caught sight of [npc2.name],"
 												+ " and couldn't resist pulling [npc2.herHim] into an empty room for some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun.")
 												+ "<br/>[style.italicsSex("+sexDescription+")]");
 								break;
-							case IDLE: //TODO
+							case IDLE:
 								descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
 												"[npc1.name] had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" fun with [npc2.name].")
 												+ "<br/>[style.italicsSex("+sexDescription+")]");
@@ -1451,14 +1451,24 @@ public class OccupancyUtil implements XMLSaving {
 												+ "<br/>[style.italicsSex("+sexDescription+")]");
 								break;
 							case PUBLIC_STOCKS:
-								//TODO 
 							case MILKING:
-								//TODO 
 							case PROSTITUTE:
-								//TODO 
 								break;
 						}
 						if(descriptions!=null) {
+							if(npc.isAttractedTo(slave)) {
+								descriptions.add(slave.incrementAffection(npc, 10));
+								descriptions.add(npc.incrementAffection(slave, 10));
+								
+							} else if(npc.getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
+								descriptions.add(slave.incrementAffection(npc, 10));
+								descriptions.add("Due to the fact that [npc2.name] enjoys being raped, [npc2.she] gained some affection towards [npc.name]!"
+										+ "<br/>"+npc.incrementAffection(slave, 25));
+								
+							} else {
+								descriptions.add("[npc2.Name] despises [npc.name] for having raped [npc2.herHim]!"
+										+ "<br/>"+npc.incrementAffection(slave, -200));
+							}
 							return new SlaveryEventLogEntry(hour,
 									slave,
 									SlaveEvent.SLAVE_SEX,
@@ -1468,7 +1478,68 @@ public class OccupancyUtil implements XMLSaving {
 						}
 					}
 				}
+				
+				if(currentJob.hasFlag(SlaveJobFlag.INTERACTION_BONDING)) { // Slaves cannot bond here
+					// Generic affection event:
+					descriptions = new ArrayList<>();
+					
+					float chanceToBond = 1f;
+					// Negative modifiers:
+					if(slave.isShy()) {
+						chanceToBond -= 0.25f;
+					}
+					if(npc.isShy()) {
+						chanceToBond -= 0.25f;
+					}
+					// Positive modifiers:
+					if(slave.isConfident()) {
+						chanceToBond += 0.25f;
+					}
+					if(npc.isConfident()) {
+						chanceToBond += 0.25f;
+					}
+					if(slave.isRelatedTo(npc)) {
+						chanceToBond += 0.25f;
+					}
+					float chanceForPositiveOutcome = 1f;
+					// Negative modifiers:
+					if(slave.isSelfish()) {
+						chanceForPositiveOutcome -= 0.5f;
+					}
+					if(npc.isSelfish()) {
+						chanceForPositiveOutcome -= 0.5f;
+					}
+					// Positive modifiers:
+					if(slave.isKind()) {
+						chanceForPositiveOutcome += 0.5f;
+					}
+					if(npc.isKind()) {
+						chanceForPositiveOutcome += 0.5f;
+					}
+					if(slave.isRelatedTo(npc)) {
+						chanceForPositiveOutcome += 0.25f;
+					}
+					
+					if(Math.random()<chanceToBond) {
+						if(Math.random()<chanceForPositiveOutcome) {
+							descriptions.add("[npc.Name] and [npc2.name] spent some time getting to know one another a little better.");
+							descriptions.add(slave.incrementAffection(npc, 5));
+							descriptions.add(npc.incrementAffection(slave, 5));
+						} else {
+							descriptions.add("[npc.Name] and [npc2.name] spent some time arguing with one another.");
+							descriptions.add(slave.incrementAffection(npc, -5));
+							descriptions.add(npc.incrementAffection(slave, -5));
+						}
+						return new SlaveryEventLogEntry(hour,
+								slave,
+								SlaveEvent.SLAVE_BONDING,
+								null,
+								descriptions,
+								true);
+					}
+				}
 			}
+			
 		}
 		
 //		TODO

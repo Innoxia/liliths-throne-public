@@ -2959,19 +2959,19 @@ public class Body implements XMLSaving {
 		
 		raceWeightMap.clear();
 		
-		addRaceWeight(raceWeightMap, skin.getType().getRace(), 40);
-		addRaceWeight(raceWeightMap, face.getType().getRace(), 40);
+		addRaceWeight(raceWeightMap, skin.getType().getRace(), 4);
+		addRaceWeight(raceWeightMap, face.getType().getRace(), 4);
 		
-		addRaceWeight(raceWeightMap, arm.getType().getRace(), 30);
-		addRaceWeight(raceWeightMap, leg.getType().getRace(), 30);
+		addRaceWeight(raceWeightMap, arm.getType().getRace(), 3);
+		addRaceWeight(raceWeightMap, leg.getType().getRace(), 3);
 
-		addRaceWeight(raceWeightMap, antenna.getType().getRace(), 10);
-		addRaceWeight(raceWeightMap, eye.getType().getRace(), 10);
-		addRaceWeight(raceWeightMap, ear.getType().getRace(), 10);
-		addRaceWeight(raceWeightMap, hair.getType().getRace(), 10);
-		addRaceWeight(raceWeightMap, tail.getType().getRace(), 10);
-		addRaceWeight(raceWeightMap, wing.getType().getRace(), 10);
-		addRaceWeight(raceWeightMap, horn.getType().getRace(), 10);
+		addRaceWeight(raceWeightMap, antenna.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, eye.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, ear.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, hair.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, tail.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, wing.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, horn.getType().getRace(), 1);
 		
 		// Best to leave this out...
 		// Breast, ass, penis, and vagina have very low weighting so that the more visible parts of a character's body are counted more towards their subspecies

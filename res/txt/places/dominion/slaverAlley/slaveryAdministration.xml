@@ -6,7 +6,7 @@
 		A large metal sign, bearing the words 'Slavery Administration', is prominently displayed above the entrance to the building before you. Its clean, white-washed walls and heavy oak doors set this particular establishment apart from the rest of the stores in Slaver Alley.
 	</p>
 	<p>
-		Noticing a little information board attached to one side of the entrance, you walk up and read what it says. From what you can gather, it appears as though this is an official government building, in which all matters relating to the ownership of slaves, licenses, and businesses dealing in slave-trading are handled. A little piece of paper has been stuck to the bottom of the board, which reads; <i>'Slaver Licenses are not being issued!'</i>
+		Noticing a little information board attached to one side of the entrance, you walk up and read what it says. From what you can gather, it appears as though this is an official government building, in which all matters relating to the ownership of slaves, licenses, and businesses dealing in slave-trading are handled. A little piece of paper has been stuck to the bottom of the board, which reads; <i>'Slaver licenses are not being issued!'</i>
 	</p>
 	<p>
 		#IF(pc.isHasSlaverLicense())

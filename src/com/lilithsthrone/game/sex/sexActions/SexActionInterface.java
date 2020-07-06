@@ -460,13 +460,7 @@ public interface SexActionInterface {
 			return false;
 		}
 		
-		boolean analAllowed = true;
-		try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
-			analAllowed = Main.game.isAnalContentEnabled()
-					|| Collections.disjoint(Util.mergeLists(this.getFetishes(Main.sex.getCharacterPerformingAction()), this.getFetishesForTargetedPartner(Main.sex.getCharacterPerformingAction())),
-						Util.newArrayListOfValues(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING));
-		} catch(Exception ex) {
-		}
+		boolean analAllowed = Main.game.isAnalContentEnabled() || (!this.getPerformingCharacterOrifices().contains(SexAreaOrifice.ANUS) && !this.getTargetedCharacterOrifices().contains(SexAreaOrifice.ANUS));
 		
 		boolean footAllowed = true;
 		try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet

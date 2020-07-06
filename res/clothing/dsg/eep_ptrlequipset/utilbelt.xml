@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet>
+		<clothingSet>dsg_enforcer_patrol</clothingSet>
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -130,59 +130,30 @@
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
+	<!-- 'replacementText' is used for equipping and replacements. -->
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(tighten)] the utility belt around [npc.her] waist and [npc.verb(snap)] the buckle together.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(tighten)] the utility belt around [npc2.namePos] waist and [npc.verb(snap)] the buckle together.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(tighten)] the utility belt around [npc2.namePos] waist as much as possible and forcibly [npc.verb(snap)] the buckle together.]]>
+		</otherRough>
+	</replacementText>
+	
 	<!-- 'displacementText' is used for removal and displacement. -->
 	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf>
-		  <![CDATA[You unbuckle the utility belt.]]>
-		</playerSelf>
-		<playerNPC>
-		  <![CDATA[You unbuckle [npc.Name]'s utility belt.]]>
-		</playerNPC>
-		<playerNPCRough>
-		  <![CDATA[You rip the utility belt from [npc.Name]'s waist.]]>
-		</playerNPCRough>
-		<NPCSelf>
-		  <![CDATA[[npc.Name] unbuckles [npc.herHis] utility belt.]]>
-		</NPCSelf>
-		<NPCPlayer>
-		  <![CDATA[[npc.Name] unbuckles your utility belt.]]>
-		</NPCPlayer>
-		<NPCPlayerRough>
-		  <![CDATA[[npc.Name] rips the utility belt off your waist.]]>
-		</NPCPlayerRough>
-		<NPCOtherNPC>
-		  <![CDATA[[npc1.Name] unbuckles [npc2.name]'s utility belt.]]>
-		</NPCOtherNPC>
-		<NPCOtherNPCRough>
-		  <![CDATA[[npc.Name] rips the utility belt off [npc2.name]'s waist.]]>
-		</NPCOtherNPCRough>
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc.her] utility belt.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc2.namePos] utility belt.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(rip)] the utility belt off [npc2.namePos] waist.]]>
+		</otherRough>
 	</displacementText>
-
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf>
-		  <![CDATA[You tighten the utility belt around your waist and snap the buckle together.]]>
-		</playerSelf>
-		<playerNPC>
-		  <![CDATA[You tighten the utility belt around [npc.Name]'s waist and snap the buckle together.]]>
-		</playerNPC>
-		<playerNPCRough>
-		  <![CDATA[You tighten the utility belt as much as possible around [npc.Name]'s waist and force the buckle together.]]>
-		</playerNPCRough>
-		<NPCSelf>
-		  <![CDATA[[npc.Name] tightens the utility belt around [npc.her] waist and snaps the buckle together.]]>
-		</NPCSelf>
-		<NPCPlayer>
-		  <![CDATA[[npc.Name] tightens the utility belt around your waist and snaps the buckle together.]]>
-		</NPCPlayer>
-		<NPCPlayerRough>
-		  <![CDATA[[npc.Name] tightens the utility belt as much as possible around your waist and forces the buckle together.]]>
-		</NPCPlayerRough>
-		<NPCOtherNPC>
-		  <![CDATA[[npc1.Name] tightens the utility belt around [npc2.Name]'s waist and snaps the buckle together.]]>
-		</NPCOtherNPC>
-		<NPCOtherNPCRough>
-		  <![CDATA[[npc1.Name] tightens the utility belt as much as possible around [npc2.name]'s waist and forces the buckle together.]]>
-		</NPCOtherNPCRough>
-	</replacementText>
 	
 </clothing>

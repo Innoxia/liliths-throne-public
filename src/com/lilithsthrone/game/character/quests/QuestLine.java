@@ -33,7 +33,7 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.pregnancyTree),
 
-	SIDE_SLAVERY("Slaver", "Thanks to Lilaya's letter of recommendation, you managed to obtain a coveted Slaver License!",
+	SIDE_SLAVERY("Slaver", "Thanks to Lilaya's letter of recommendation, you managed to obtain a coveted slaver license!",
 			QuestType.SIDE,
 			QuestTree.slaveryTree),
 

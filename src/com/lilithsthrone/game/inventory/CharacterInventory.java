@@ -424,14 +424,17 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public boolean isEmpty() {
+		for(int i=0; i<Arm.MAXIMUM_ROWS; i++) {
+			if(mainWeapon[i]!=null || offhandWeapon[i]!=null) {
+				return false;
+			}
+		}
 		return money == 0
 				&& clothingSubInventory.isEmpty()
 				&& weaponSubInventory.isEmpty()
 				&& itemSubInventory.isEmpty()
 				&& essenceMap.get(TFEssence.ARCANE) == 0
 				&& dirtySlots.isEmpty()
-				&& mainWeapon == null
-				&& offhandWeapon == null
 				&& clothingCurrentlyEquipped.isEmpty();
 	}
 

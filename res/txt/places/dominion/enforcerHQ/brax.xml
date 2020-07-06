@@ -27,15 +27,21 @@
 	<!-- INTERIOR_BRAX_REPEAT -->
 
 	<htmlContent tag="INTERIOR_BRAX_REPEAT"><![CDATA[
-	<p>
-		As he sees that it's you who's entering his office once again, [brax.namePos] jaw drops and he exclaims, [brax.speech(What the hell are you doing back here?! Did that braindead bimbo give you <i>another</i> pass?!)]
-	</p>
-	<p>
-		As you enter his office, ready for another fight, [brax.name] stands up, and you see the familiar sight of arcane fire being summoned around his right hand, while with the other he grabs his pistol.
-	</p>
-	<p>
-		[brax.speech(I guess you've just got a craving for wolf dick!)] [brax.name] laughs, and you realise that if you lose again, you're going to be getting another taste of his cock...
-	</p>
+	#IF(!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_1_C_WOLFS_DEN))
+		<p>
+			As he sees that it's you who's entering his office once again, [brax.namePos] jaw drops and he exclaims, [brax.speech(What the hell are you doing back here?! Did that braindead bimbo give you <i>another</i> pass?!)]
+		</p>
+		<p>
+			As you enter his office, ready for another fight, [brax.name] stands up, and you see the familiar sight of arcane fire being summoned around his right hand, while with the other he grabs his pistol.
+		</p>
+		<p>
+			[brax.speech(I guess you've just got a craving for wolf dick!)] [brax.name] laughs, and you realise that if you lose again, you're going to be getting another taste of his cock...
+		</p>
+	#ELSE
+		<p>
+			The door to the office which used to be [brax.namePos] is securely shut and locked. There's really nothing more for you to do here except turn around and leave...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

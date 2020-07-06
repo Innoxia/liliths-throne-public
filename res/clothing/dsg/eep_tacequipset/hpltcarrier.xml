@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet> 
+		<clothingSet>dsg_enforcer_tactical_heavy</clothingSet> 
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -176,112 +176,55 @@
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
 	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You undo the cummerbund on either side of your plate carrier, withdraw your [pc.arms] from the deltoid protectors, and slide your head through the neck hole.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You undo the cummerbund on either side of [npc.name]'s plate carrier, guide [npc.her] [npc.arms] from the deltoid protectors, and slide [npc.her] head through the neck hole.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You rip open the cummerbund on either side of [npc.name]'s plate carrier, push [npc.her] [npc.arms] from the deltoid protectors, and yank the rest over [npc.her] head .
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] undoes the cummerbund on either side of [npc.her] plate carrier, withdraws [npc.her] [npc.arms] from the deltoid protectors, and slides [npc.her] head through the neck hole.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] undoes the cummerbund on either side of your plate carrier, guides your [pc.arms] from the deltoid protectors, and slides head through the neck hole.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] rips open the cummerbund on either side of your plate carrier, forces your [pc.arms] from the deltoid protectors, and yanks the rest over your head.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] undoes the cummerbund on either side of [npc2.name]'s plate carrier, guides [npc2.her] [npc2.arms] from the deltoid protectors, and slides [npc2.her] head through the neck hole.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] rips open the cummerbund on either side of [npc2.name]'s plate carrier, forces [npc.her] [npc.arms] from the deltoid protectors, and yanks the rest over [npc2.her] head.
-		]]></NPCOtherNPCRough>
-	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] head through the plate carrier's neck hole and [npc.verb(secure)] the cummerbund on either side of [npc.her] torso.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] head through the plate carrier's neck hole and [npc.verb(secure)] the cummerbund on either side of [npc2.her] torso.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.Name] [npc.verb(shove)] [npc2.namePos] head through the plate carrier's neck hole and hastily [npc.verb(secure)] the cummerbund on either side of [npc2.her] torso.]]>
+		</otherRough>
+	</replacementText>
 
 	<!-- 'replacementText' is used for equipping and replacements. -->
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You slide the plate carrier over your head and tighten the cummerbund on either side of your torso before sticking your [pc.arms] through the deltoid protectors.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You slide the plate carrier over [npc.name]'s head and tighten the cummerbund on either side of [npc.her] torso before guiding [npc.her] [npc.arms] through the deltoid protectors.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You shove the plate carrier over [npc.name]'s head and tighten the cummerbund on either side of [npc.her] torso as much as possible before pulling [npc.her] [npc.arms] through the deltoid protectors.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] slides the plate carrier over [npc.her] head and tightens the cummerbund on either side of [npc.her] torso before sticking [npc.her] [npc.arms] through the deltoid protectors.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] slides the plate carrier over your head and tightens the cummerbund on either side of your torso before guiding your [pc.arms] through the deltoid protectors.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] shoves the plate carrier over your head and tightens the cummerbund on either side of your torso as much as possible before pulling your [pc.arms] through the deltoid protectors.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] slides the plate carrier over [npc2.Name]'s head and tightens the cummerbund on either side of [npc2.her] torso before guiding [npc2.her] [npc2.arms] through the deltoid protectors.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] shoves the plate carrier over [npc2.Name]'s head and tightens the cummerbund on either side of [npc2.her] torso as much as possible before pulling [npc2.her] [npc2.arms] through the deltoid protectors.
-		]]></NPCOtherNPCRough>
-	</replacementText>
-	
-	<displacementText type="PULLS_UP">
-		<playerSelf><![CDATA[
-			You pull the groin protector on your plate carrier up.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull the groin protector on [npc.name]'s plate carrier up.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You flip the groin protector on [npc.name]'s plate carrier up.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] pulls the groin protector on [npc.her] plate carrier up.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls the groin protector on your plate carrier up.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] flips the groin protector on your plate carrier up.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls the groin protector on [npc2.name]'s plate carrier up.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] flips the groin protector on [npc2.name]'s plate carrier up.
-		]]></NPCOtherNPCRough>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] un[npc.do] the cummerbund on either side of [npc.her] plate carrier, [npc.verb(withdraw)] [npc.her] [npc.arms] from the deltoid protectors, and [npc.verb(slide)] [npc.her] head through the neck hole.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] un[npc.do] the cummerbund on either side of [npc2.name] plate carrier, [npc.verb(guide)] [npc.her] [npc.arms] from the deltoid protectors, and [npc.verb(slide)] [npc2.her] head through the neck hole.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(rip)] open the cummerbund either side of [npc2.namePos] plate carrier, [npc.verb(force)] [npc.her] [npc.arms] from the deltoid protectors, and [npc.verb(yank)] the rest over [npc2.her] head.]]>
+		</otherRough>
 	</displacementText>
 	
+	<!-- 'displacementText' is used for removal and displacement. -->
 	<replacementText type="PULLS_DOWN">
-		<playerSelf><![CDATA[
-			You lower the groin protector on your plate carrier back down.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You lower the groin protector on [npc.name]'s plate carrier back down.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You flip the groin protector on [npc.name]'s plate carrier back down, ignoring the wince on [npc.her] [npc.face].
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] lowers the groin protector on [npc.her] plate carrier back down.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] lowers the groin protector on your plate carrier back down.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] flips the groin protector on your plate carrier back down, ignoring the wince on your [pc.face].
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] lowers the groin protector on [npc2.name] plate carrier back down.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] flips the groin protector on [npc2.name] plate carrier back down, ignoring the wince on [npc2.name] [npc2.face].
-		]]></NPCOtherNPCRough>
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(lower)] the groin protector on [npc.her] heavy plate carrier back down.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(lower)] the groin protector on [npc.her] heavy plate carrier back down.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(flip)] the groin protector on [npc.her] heavy plate carrier back down.]]>
+		</otherRough>
 	</replacementText>
+
+	<!-- 'replacementText' is used for equipping and replacements. -->
+	<displacementText type="PULLS_UP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(lift)] the groin protector on [npc.her] heavy plate carrier up.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(lift)] the groin protector on [npc2.namePos] heavy plate carrier up.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(flip)] the groin protector on [npc2.namePos] heavy plate carrier up.]]>
+		</otherRough>
+	</displacementText>
+	
 </clothing>

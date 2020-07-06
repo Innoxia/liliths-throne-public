@@ -53,6 +53,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.LoadedEnchantment;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobFlag;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.CachedImage;
 import com.lilithsthrone.rendering.ImageCache;
@@ -68,7 +70,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.3.4
+ * @version 0.3.8.6
  * @author Innoxia
  */
 public class TooltipInformationEventListener implements EventListener {
@@ -98,6 +100,7 @@ public class TooltipInformationEventListener implements EventListener {
 	private Cell cell;
 	private GameCharacter moneyTransferTarget;
 	private int moneyTransferPercentage;
+	private SlaveJob slaveJob;
 	
 	private static StringBuilder tooltipSB  = new StringBuilder();
 	
@@ -119,13 +122,15 @@ public class TooltipInformationEventListener implements EventListener {
 								+ (owner.hasStatusEffect(statusEffect)?(owner.getStatusEffectDuration(statusEffect) == -1 ? 0 : 2):0);
 			int spacingHeight = 0;
 			
-			List<String> additionalDescriptions = statusEffect.getAdditionalDescriptions(owner);
+			List<Value<Integer, String>> additionalDescriptions = statusEffect.getAdditionalDescriptions(owner);
 			if(additionalDescriptions!=null && !additionalDescriptions.isEmpty()) {
-				yIncrease += 4 * additionalDescriptions.size();
-				spacingHeight += additionalDescriptions.size() * 8;
+				for(Value<Integer, String> value : additionalDescriptions) {
+					yIncrease += 1 + value.getKey();
+				}
+				spacingHeight += additionalDescriptions.size() * 4;
 			}
 				
-			Main.mainController.setTooltipSize(360, 284 + spacingHeight + (yIncrease * LINE_HEIGHT));
+			Main.mainController.setTooltipSize(360, 278 + spacingHeight + (yIncrease * LINE_HEIGHT));
 			
 			
 			// Title:
@@ -165,9 +170,9 @@ public class TooltipInformationEventListener implements EventListener {
 							+ "</div>");
 			
 			if(additionalDescriptions!=null && !additionalDescriptions.isEmpty()) {
-				for(String desc : additionalDescriptions) {
-					tooltipSB.append("<div class='description' style='height:64px'>"
-							+ desc
+				for(Value<Integer, String> desc : additionalDescriptions) {
+					tooltipSB.append("<div class='description' style='text-align:center; line-height:"+LINE_HEIGHT+"px; height:"+(16+(desc.getKey()*LINE_HEIGHT))+"px'>"
+							+ desc.getValue()
 						+ "</div>");
 				}
 			}
@@ -1180,8 +1185,7 @@ public class TooltipInformationEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if(concealedSlot!=null) {
-
-			Map<InventorySlot, List<AbstractClothing>> concealedSlots = RenderingEngine.getCharacterToRender().getInventorySlotsConcealed();
+			Map<InventorySlot, List<AbstractClothing>> concealedSlots = RenderingEngine.getCharacterToRender().getInventorySlotsConcealed(Main.game.getPlayer());
 			
 			List<AbstractClothing> clothingVisible = concealedSlots.get(concealedSlot).stream().filter(clothing -> !concealedSlots.containsKey(clothing.getSlotEquippedTo())).collect(Collectors.toList());
 			
@@ -1198,9 +1202,38 @@ public class TooltipInformationEventListener implements EventListener {
 										:"This slot is currently hidden from view by [npc.namePos] <b>"+Util.clothesToStringList(clothingVisible, false)+"</b>.")))
 					+ "</div>"));
 			
-		} else if(loadedEnchantment!=null) {
-			//TODO
+		} else if(slaveJob!=null) {
+			int yIncrease = 0;
+
+			// Title:
+			tooltipSB.setLength(0);
+			tooltipSB.append("<div class='title'>"
+								+ Util.capitaliseSentence(slaveJob.getName(owner))
+							+ "</div>");
+
+			tooltipSB.append("<div class='description' style='height:28px; text-align:center;'>"
+								+ "[style.boldStamina(Hourly Stamina Cost:)]"
+								+ (slaveJob.getHourlyStaminaDrain()>0
+										?" [style.boldBad("
+										:" [style.boldGood(")+slaveJob.getHourlyStaminaDrain()+")]"
+							+ "</div>");
 			
+			tooltipSB.append("<div class='description' style='height:64px'>"
+								+ slaveJob.getDescription()
+							+ "</div>");
+
+			for(SlaveJobFlag flag : slaveJob.getFlags()) {
+				tooltipSB.append("<div class='description' style='height:48px'>"
+									+ "<b style='color:"+flag.getColour().toWebHexString()+";'>"+flag.getName()+":</b> "+flag.getDescription()
+								+ "</div>");
+				yIncrease++;
+			}
+			
+			Main.mainController.setTooltipSize(360, 172+(yIncrease*(48+8)));
+			
+			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+			
+		} else if(loadedEnchantment!=null) {
 			int yIncrease = 0;
 
 			// Title:
@@ -1497,21 +1530,18 @@ public class TooltipInformationEventListener implements EventListener {
 		resetFields();
 		this.title = title;
 		this.description = description;
-
 		return this;
 	}
 
 	public TooltipInformationEventListener setInformation(String title, String description, int descriptionHeightOverride) {
 		setInformation(title, description);
 		this.descriptionHeightOverride = descriptionHeightOverride;
-
 		return this;
 	}
 
 	public TooltipInformationEventListener setWeather() {
 		resetFields();
 		weather = true;
-
 		return this;
 	}
 
@@ -1519,14 +1549,12 @@ public class TooltipInformationEventListener implements EventListener {
 		resetFields();
 		extraAttributes = true;
 		this.owner = owner;
-
 		return this;
 	}
 	public TooltipInformationEventListener setStatusEffect(AbstractStatusEffect statusEffect, GameCharacter owner) {
 		resetFields();
 		this.statusEffect = statusEffect;
 		this.owner = owner;
-
 		return this;
 	}
 
@@ -1534,7 +1562,6 @@ public class TooltipInformationEventListener implements EventListener {
 		resetFields();
 		this.perk = perk;
 		this.owner = owner;
-
 		return this;
 	}
 	
@@ -1542,7 +1569,6 @@ public class TooltipInformationEventListener implements EventListener {
 		resetFields();
 		this.fetish = fetish;
 		this.owner = owner;
-
 		return this;
 	}
 
@@ -1551,7 +1577,6 @@ public class TooltipInformationEventListener implements EventListener {
 		fetishExperience = true;
 		this.fetish = fetish;
 		this.owner = owner;
-
 		return this;
 	}
 	
@@ -1560,7 +1585,6 @@ public class TooltipInformationEventListener implements EventListener {
 		this.desire = desire;
 		this.fetish = fetish;
 		this.owner = owner;
-
 		return this;
 	}
 
@@ -1570,7 +1594,6 @@ public class TooltipInformationEventListener implements EventListener {
 		this.perkRow = perkRow;
 		this.owner = owner;
 		this.availableForSelection = availableForSelection;
-
 		return this;
 	}
 
@@ -1578,7 +1601,6 @@ public class TooltipInformationEventListener implements EventListener {
 		resetFields();
 		this.spell = spell;
 		this.owner = owner;
-
 		return this;
 	}
 
@@ -1586,7 +1608,6 @@ public class TooltipInformationEventListener implements EventListener {
 		resetFields();
 		this.spellUpgrade = spellUpgrade;
 		this.owner = owner;
-
 		return this;
 	}
 
@@ -1594,7 +1615,6 @@ public class TooltipInformationEventListener implements EventListener {
 		resetFields();
 		this.attribute = attribute;
 		this.owner = owner;
-
 		return this;
 	}
 	
@@ -1602,28 +1622,24 @@ public class TooltipInformationEventListener implements EventListener {
 		resetFields();
 		this.owner = owner;
 		protection=true;
-
 		return this;
 	}
 	
 	public TooltipInformationEventListener setCopyInformation() {
 		resetFields();
 		copyInformation = true;
-
 		return this;
 	}
 
 	public TooltipInformationEventListener setConcealedSlot(InventorySlot concealedSlot) {
 		resetFields();
 		this.concealedSlot = concealedSlot;
-
 		return this;
 	}
 
 	public TooltipInformationEventListener setLoadedEnchantment(LoadedEnchantment loadedEnchantment) {
 		resetFields();
 		this.loadedEnchantment = loadedEnchantment;
-
 		return this;
 	}
 
@@ -1631,14 +1647,12 @@ public class TooltipInformationEventListener implements EventListener {
 		resetFields();
 		this.owner = owner;
 		this.move = move;
-		
 		return this;
 	}
 	
 	public TooltipInformationEventListener setCell(Cell cell) {
 		resetFields();
 		this.cell = cell;
-
 		return this;
 	}
 	
@@ -1647,6 +1661,13 @@ public class TooltipInformationEventListener implements EventListener {
 		this.owner = from;
 		this.moneyTransferTarget = to;
 		this.moneyTransferPercentage = moneyTransferPercentage;
+		return this;
+	}
+
+	public TooltipInformationEventListener setSlaveJob(SlaveJob slaveJob, GameCharacter owner) {
+		resetFields();
+		this.owner = owner;
+		this.slaveJob = slaveJob;
 		return this;
 	}
 	
@@ -1674,5 +1695,6 @@ public class TooltipInformationEventListener implements EventListener {
 		cell = null;
 		moneyTransferTarget = null;
 		moneyTransferPercentage = 0;
+		slaveJob = null;
 	}
 }

@@ -338,7 +338,7 @@ public class ScarlettsShop {
 		int value = 25_000;
 		for(Entry<Race, Integer> entry : getSlaveForCustomisation().getBody().getRaceWeightMap().entrySet()) { // Add value for non-human parts:
 			if(entry.getKey()!=Race.HUMAN) {
-				value += 1_000 * entry.getValue();
+				value += Math.min(5_000, 1_000*entry.getValue());
 			}
 		}
 		
@@ -918,7 +918,7 @@ public class ScarlettsShop {
 				
 			} else if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA) == Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN) {
 				if(Main.game.getNpc(Scarlett.class).isSlave() && Main.game.getNpc(Scarlett.class).getOwner().isPlayer()) {
-					if(Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+					if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 						UtilText.addSpecialParsingString(Util.intToString(getScarlettPrice()), true);
 						return UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "ROMANCE_SHOP_CORE_4_SCARLETT_OWNED_PRESENT"); // Helena demands you sell Scarlett to her
 						
@@ -1190,7 +1190,7 @@ public class ScarlettsShop {
 
 			if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA) == Quest.ROMANCE_HELENA_4_SCARLETTS_RETURN) {
 				if(Main.game.getNpc(Scarlett.class).isSlave() && Main.game.getNpc(Scarlett.class).getOwner().isPlayer()) {
-					if(!Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+					if(!Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 						if(index==1) {
 							return new Response("Leave", "Do as Helena says and leave her shop.", SlaverAlleyDialogue.ALLEYWAY) {
 								@Override
@@ -1915,13 +1915,13 @@ public class ScarlettsShop {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getNpc(Scarlett.class).isSlave() && Main.game.getNpc(Scarlett.class).getOwner().isPlayer()) {
-				if(!Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+				if(!Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 					if(index==1) {
 						return new Response("Agree", "Agree to go and fetch Scarlett and bring [scarlett.herHim] back here.", ROMANCE_SCARLETT_OWNED_FETCH);
 					}
 				} else {
 					if(index==1) {
-						if(Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+						if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 							return new Response("Sell Scarlett ("+UtilText.formatAsMoney(getScarlettPrice(), "span", PresetColour.GENERIC_GOOD)+")",
 									"Sell Scarlett back to Helena for "+UtilText.formatAsMoney(getScarlettPrice())+".",
 									ROMANCE_SCARLETT_DELIVERED_EMPTY) {
@@ -1959,7 +1959,7 @@ public class ScarlettsShop {
 						}
 						
 					} else if(index==2) {
-						if(Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+						if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Scarlett.class))) {
 							return new Response("Give Scarlett",
 									"Give Scarlett back to Helena and do not accept the "+UtilText.formatAsMoney(getScarlettPrice())+" she's offering you.",
 									ROMANCE_SCARLETT_DELIVERED_EMPTY) {
@@ -2009,6 +2009,10 @@ public class ScarlettsShop {
 							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).setAffection(Main.game.getPlayer(), -100));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestFailed(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_FAILED));
 							Main.game.getNpc(Helena.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST, true);
+							if(!Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
+								Main.game.getNpc(Scarlett.class).returnToHome();
+								Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'><i>You order [scarlett.name] to return to [scarlett.her] room...</i></p>");
+							}
 						}
 					};
 				}
@@ -3382,6 +3386,11 @@ public class ScarlettsShop {
 				return new Response("Back", "Go back and make some changes...", HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY);
 				
 			} else if(index==1) {
+				if(Main.game.getPlayer().getMoney()<getSlaveValue(false)) {
+					return new Response("Order ("+UtilText.formatAsMoneyUncoloured(getSlaveValue(false), "span")+")",
+							"You cannot afford to order the slave, as you only have "+Util.intToString(Main.game.getPlayer().getMoney())+" flames.",
+							null);
+				}
 				return new Response("Order ("+UtilText.formatAsMoney(getSlaveValue(false), "span")+")",
 						"Tell Helena that you'd like to order the slave for "+Util.intToString(getSlaveValue(false))+" flames.",
 						HELENAS_SHOP_CUSTOM_SLAVE_ORDER) {
@@ -3396,6 +3405,11 @@ public class ScarlettsShop {
 				};
 				
 			} else if(index==2) {
+				if(Main.game.getPlayer().getMoney()<getSlaveValue(true)) {
+					return new Response("Slime special ("+UtilText.formatAsMoneyUncoloured(getSlaveValue(true), "span")+")",
+							"You cannot afford to order the slime special, as you only have "+Util.intToString(Main.game.getPlayer().getMoney())+" flames.",
+							null);
+				}
 				return new Response("Slime special ("+UtilText.formatAsMoney(getSlaveValue(true), "span")+")",
 						"Tell Helena that you'd like to order the slave, with the 'slime special' treatment, for "+Util.intToString(getSlaveValue(true))+" flames.",
 						HELENAS_SHOP_CUSTOM_SLAVE_ORDER) {
@@ -3796,7 +3810,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_BACK_ROOM_AFTER_SEX = new DialogueNode("Finished", "Helena is done and need to return to work.", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getNpc(Helena.class).cleanAllClothing(true);
+			Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 		}
 		@Override
@@ -4622,9 +4636,9 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_BACK_ROOM_AFTER_SEX_THREESOME = new DialogueNode("Finished", "Helena is done and need to return to work.", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getNpc(Helena.class).cleanAllClothing(true);
+			Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
-			Main.game.getNpc(Scarlett.class).cleanAllClothing(true);
+			Main.game.getNpc(Scarlett.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Scarlett.class).cleanAllDirtySlots(true);
 		}
 		@Override

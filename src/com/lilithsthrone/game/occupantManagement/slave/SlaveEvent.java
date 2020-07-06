@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.occupantManagement;
+package com.lilithsthrone.game.occupantManagement.slave;
 
 import com.lilithsthrone.game.character.GameCharacter;
 
@@ -20,7 +20,7 @@ public enum SlaveEvent {
 	WASHED_CLOTHES("Washed Clothes", "[npc.Name] washed [npc.her] clothes.") {
 		public void applyEffects(GameCharacter character) {
 			character.cleanAllDirtySlots(false); //TODO should they be cleaning slots?
-			character.cleanAllClothing(true);
+			character.cleanAllClothing(true, false);
 			character.calculateStatusEffects(0);
 		}
 	},
@@ -28,6 +28,8 @@ public enum SlaveEvent {
 	DAILY_UPDATE("Daily Update", ""),
 
 	SLAVE_SEX("[style.boldSex(Sex)]", "[npc.Name] had sex with another slave..."),
+	
+	SLAVE_BONDING("[style.boldAffection(Bonding)]", "[npc.Name] spent some time bonding with another slave..."),
 	
 	GAVE_BIRTH("[style.boldExcellent(Gave birth)]", "Lilaya helped [npc.name] to give birth."),
 	
