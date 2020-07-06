@@ -1162,7 +1162,7 @@ public class Util {
 			if(openingCurly==closingCurly && openingAngular==closingAngular && openingSquare==closingSquare) {
 				if(sentence.charAt(i)=='s' || sentence.charAt(i)=='z') {
 					modifiedSentence.append(">i/<ht>i<");
-				} else if(sentence.charAt(i)=='S' || sentence.charAt(i)=='Z') {
+				} else if((sentence.charAt(i)=='S' && (i-1>=0 && sentence.charAt(i-1)!='L')) || sentence.charAt(i)=='Z') {
 					modifiedSentence.append(">i/<hT>i<");
 				} else {
 					modifiedSentence.append(sentence.charAt(i));

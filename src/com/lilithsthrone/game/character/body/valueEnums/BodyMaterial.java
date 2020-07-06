@@ -1,6 +1,13 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import java.util.List;
+import java.util.Map;
+
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -33,33 +40,137 @@ public enum BodyMaterial {
 			DamageType.PHYSICAL,
 			true,
 			false,
-			true),
+			true) {
+		@Override
+		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+			return null;
+		}
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			return null;
+		}
+	},
 	
-	SLIME("slime", PresetColour.RACE_SLIME, DamageType.PHYSICAL, false, true, false),
+	SLIME("slime", PresetColour.RACE_SLIME, DamageType.PHYSICAL, false, true, false) {
+		@Override
+		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+			return Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f));
+		}
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			return Util.newArrayListOfValues(
+					"<b>[style.boldBad(-75%)] base [style.colourUnarmed(unarmed damage)]</b>",
+					"<b style='color: "+ PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>",
+					"<b style='color: "+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>Impregnated through any orifice</b>");
+		}
+	},
 
 	// Fire elementals:
 	
-	FIRE("fire", "burning", PresetColour.BASE_ORANGE, DamageType.FIRE, false, false, false),
+	FIRE("fire", "burning", PresetColour.BASE_ORANGE, DamageType.FIRE, false, false, false) {
+		@Override
+		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+			return Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 100f));
+		}
+
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			return null;
+		}
+	},
 
 	// Water elementals:
 
-	WATER("water", "cool", PresetColour.BASE_AQUA, DamageType.ICE, false, true, false),
+	WATER("water", "cool", PresetColour.BASE_AQUA, DamageType.ICE, false, true, false) {
+		@Override
+		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+			return Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f));
+		}
+
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			return null;
+		}
+	},
 	
-	ICE("ice", "freezing", PresetColour.BASE_BLUE_LIGHT, DamageType.ICE, true, true, true),
+	ICE("ice", "freezing", PresetColour.BASE_BLUE_LIGHT, DamageType.ICE, true, true, true) {
+		@Override
+		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+			return Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 100f));
+		}
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			return null;
+		}
+	},
 
 	// Air elementals:
 
-	AIR("storm-clouds", "swirling", PresetColour.BASE_BLUE_STEEL, DamageType.POISON, false, false, false),
+	AIR("storm-clouds", "swirling", PresetColour.BASE_BLUE_STEEL, DamageType.POISON, false, false, false) {
+		@Override
+		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+			return Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -100f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f));
+		}
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			return null;
+		}
+	},
 
 	// Earth elementals:
 	
-	STONE("stone", "hard", PresetColour.BASE_GREY, DamageType.PHYSICAL, true, false, true),
+	STONE("stone", "hard", PresetColour.BASE_GREY, DamageType.PHYSICAL, true, false, true) {
+		@Override
+		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+			return Util.newHashMapOfValues(
+						new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
+						new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f));
+		}
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			return null;
+		}
+	},
 	
-	RUBBER("rubber", PresetColour.BASE_BLACK, DamageType.PHYSICAL, true, false, true),
+	RUBBER("rubber", PresetColour.BASE_BLACK, DamageType.PHYSICAL, true, false, true) {
+		@Override
+		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+			return Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f));
+		}
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			return null;
+		}
+	},
 	
 	// Arcane elementals:
 	
-	ARCANE("energy", PresetColour.GENERIC_ARCANE, DamageType.PHYSICAL, false, false, false),
+	ARCANE("energy", PresetColour.GENERIC_ARCANE, DamageType.PHYSICAL, false, false, false) {
+		@Override
+		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
+			return Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 50f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 50f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f));
+		}
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			return null;
+		}
+	},
 	;
 
 	private String name;
@@ -236,7 +347,12 @@ public enum BodyMaterial {
 		this.orificesAlwaysMaximumWetness = orificesAlwaysMaximumWetness;
 		this.ableToWearMakeup = ableToWearMakeup;
 	}
+	
 
+	public abstract Map<Attribute, Float> getAttributeModifiers(GameCharacter target);
+	
+	public abstract List<String> getExtraEffects(GameCharacter target);
+	
 	public String getName() {
 		return name;
 	}

@@ -63,8 +63,7 @@ public enum FluidModifier {
 			"Addictive fluids will make anyone who consumes them become addicted to that particular type of fluid.") {
 		@Override
 		public String applyEffects(GameCharacter target, GameCharacter fluidProvider, float millilitres, FluidInterface fluid) {
-			if(target.getAddiction(fluid.getType()) == null) {
-				target.addAddiction(new Addiction(fluid.getType(), Main.game.getMinutesPassed(), fluidProvider.getId()));
+			if(target.addAddiction(new Addiction(fluid.getType(), Main.game.getMinutesPassed(), fluidProvider.getId()))) {
 				return UtilText.parse(target,
 						"<p style='padding:0; margin:0; text-align:center;'>"
 							+ "Due to the addictive properties of "+(fluidProvider==null?"":(fluidProvider.equals(target)?"[npc.her]":UtilText.parse(fluidProvider, "[npc.namePos]")))+" "+fluid.getName(fluidProvider)

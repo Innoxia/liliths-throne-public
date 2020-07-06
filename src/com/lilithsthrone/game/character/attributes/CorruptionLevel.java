@@ -13,7 +13,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 public enum CorruptionLevel {
 
 	/**A character at this level: Will not want any sexual relations with anyone but the person they love.*/
-	ZERO_PURE("pure", 0, 5, PresetColour.CORRUPTION_STAGE_ZERO, 0) {
+	ZERO_PURE("pure", 0, 10, PresetColour.CORRUPTION_STAGE_ZERO, 0) {
 		@Override
 		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.CORRUPTION_PERK_0;
@@ -23,24 +23,19 @@ public enum CorruptionLevel {
 		public boolean isAbleToPerformCorruptiveAction(CorruptionLevel action) {
 			switch(action){
 				case ZERO_PURE:
-						return true;
 				case ONE_VANILLA:
-						return true;
+					return true;
 				case TWO_HORNY:
-						return true;
 				case THREE_DIRTY:
-						return false;
 				case FOUR_LUSTFUL:
-						return false;
 				case FIVE_CORRUPT:
-						return false;
-				default:
-						return false;
+					return false;
 			}
+			return false;
 		}
 	},
 	/**A character at this level: Will be open to the idea of having multiple sexual partners, and will be willing to have sex with defeated enemies. Their in-sex options will be limited, however, to quite vanilla acts.*/
-	ONE_VANILLA("vanilla", 5, 15, PresetColour.CORRUPTION_STAGE_ONE, 0.1f) {
+	ONE_VANILLA("vanilla", 10, 30, PresetColour.CORRUPTION_STAGE_ONE, 0.1f) {
 		@Override
 		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.CORRUPTION_PERK_1;
@@ -50,24 +45,19 @@ public enum CorruptionLevel {
 		public boolean isAbleToPerformCorruptiveAction(CorruptionLevel action) {
 			switch(action){
 				case ZERO_PURE:
-						return true;
 				case ONE_VANILLA:
-						return true;
 				case TWO_HORNY:
-						return true;
+					return true;
 				case THREE_DIRTY:
-						return true;
 				case FOUR_LUSTFUL:
-						return false;
 				case FIVE_CORRUPT:
-						return false;
-				default:
-						return false;
+					return false;
 			}
+			return false;
 		}
 	},
 	/**A character at this level: Will have sex with pretty much anything, but won't do anything too crazy.*/
-	TWO_HORNY("horny", 15, 35, PresetColour.CORRUPTION_STAGE_TWO, 0.25f) {
+	TWO_HORNY("horny", 30, 50, PresetColour.CORRUPTION_STAGE_TWO, 0.25f) {
 		@Override
 		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.CORRUPTION_PERK_2;
@@ -77,24 +67,19 @@ public enum CorruptionLevel {
 		public boolean isAbleToPerformCorruptiveAction(CorruptionLevel action) {
 			switch(action){
 				case ZERO_PURE:
-						return true;
 				case ONE_VANILLA:
-						return true;
 				case TWO_HORNY:
-						return true;
 				case THREE_DIRTY:
-						return true;
+					return true;
 				case FOUR_LUSTFUL:
-						return true;
 				case FIVE_CORRUPT:
-						return false;
-				default:
-						return false;
+					return false;
 			}
+			return false;
 		}
 	},
 	/**A character at this level: This is where the character starts to really lose themselves to corruption. Rough sex.*/
-	THREE_DIRTY("dirty", 35, 65, PresetColour.CORRUPTION_STAGE_THREE, 0.5f) {
+	THREE_DIRTY("dirty", 50, 70, PresetColour.CORRUPTION_STAGE_THREE, 0.5f) {
 		@Override
 		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.CORRUPTION_PERK_3;
@@ -102,11 +87,21 @@ public enum CorruptionLevel {
 
 		@Override
 		public boolean isAbleToPerformCorruptiveAction(CorruptionLevel action) {
-			return true;
+			switch(action){
+				case ZERO_PURE:
+				case ONE_VANILLA:
+				case TWO_HORNY:
+				case THREE_DIRTY:
+				case FOUR_LUSTFUL:
+					return true;
+				case FIVE_CORRUPT:
+					return false;
+			}
+			return false;
 		}
 	},
 	/**A character at this level: A complete sex fiend. Will do anything, with anyone, anywhere and anyhow.*/
-	FOUR_LUSTFUL("lustful", 65, 95, PresetColour.CORRUPTION_STAGE_FOUR, 1f) {
+	FOUR_LUSTFUL("lustful", 70, 90, PresetColour.CORRUPTION_STAGE_FOUR, 1f) {
 		@Override
 		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.CORRUPTION_PERK_4;
@@ -118,7 +113,7 @@ public enum CorruptionLevel {
 		}
 	},
 	/**A character at this level: Is completely lost to corruption.*/
-	FIVE_CORRUPT("corrupt", 95, 100, PresetColour.CORRUPTION_STAGE_FIVE, 2f) {
+	FIVE_CORRUPT("corrupt", 90, 100, PresetColour.CORRUPTION_STAGE_FIVE, 2f) {
 		@Override
 		public AbstractStatusEffect getRelatedStatusEffect() {
 			return StatusEffect.CORRUPTION_PERK_5;

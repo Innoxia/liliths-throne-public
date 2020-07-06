@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+	
+		<authorTag><![CDATA["Official Enforcer Issue, MFD by DSG Threadworks" has been stamped into the left cuff.]]></authorTag>
+		
+		<value>450</value> 
+		
+		<determiner><![CDATA[a pair of]]></determiner>
+		
+		<name><![CDATA[handcuffs]]></name>
+		
+		<namePlural pluralByDefault="true"><![CDATA[handcuffs]]></namePlural> 
+		
+		<description><![CDATA[A pair of nickel-plated steel handcuffs linked together with a short, sturdy chain commonly issued to Enforcers. Although relatively compact, they are enchanted to fit a variety of wrist sizes and types.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>ANDROGYNOUS</femininity>
+		
+		<equipSlots>
+		  <slot>WRIST</slot>
+		</equipSlots>
+		
+		<rarity>EPIC</rarity> 
+		<clothingSet/>
+			
+		<imageName>hndcuffs_uneq.svg</imageName>
+
+		<imageEquippedName>hndcuffs.svg</imageEquippedName>
+			
+		<enchantmentLimit/>
+		
+		<effects> 
+			<effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="MINOR_DRAIN" timer="0" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SERVITUDE" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+			<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		</effects>
+		
+		<blockedPartsList slot="WRIST"> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired>
+					<clothingAccess>WRISTS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked>
+					<clothingAccess>WRISTS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+			
+		<incompatibleSlots slot="WRIST"/>
+
+		<primaryColours values="JUST_STEEL"/> 
+		<primaryColoursDye/>
+		
+		<itemTags>
+			<tag>HINDERS_ARM_MOVEMENT</tag>
+			<tag>FITS_ARM_WINGS</tag>
+			<tag>PROVIDES_KEY</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the handcuffs around [npc.her] wrists.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(place)] the handcuffs around [npc2.namePos] wrists.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] the handcuffs around [npc2.namePos] wrists.]]>
+	  </otherRough>
+	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unfasten)] the handcuffs from around [npc.her] wrists.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unfasten)] the handcuffs from around [npc2.namePos] wrists.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unfasten)] the handcuffs from around [npc2.namePos] wrists.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

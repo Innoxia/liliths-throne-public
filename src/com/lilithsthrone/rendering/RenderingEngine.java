@@ -77,7 +77,7 @@ import com.lilithsthrone.world.population.Population;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
+ * @version 0.3.8.6
  * @author Innoxia
  */
 public enum RenderingEngine {
@@ -189,7 +189,7 @@ public enum RenderingEngine {
 		// EQUIPPED:
 		equippedPanelSB.append("<div class='inventory-equipped'>");
 		
-		Map<InventorySlot, List<AbstractClothing>> concealedSlots = charactersInventoryToRender.getInventorySlotsConcealed();
+		Map<InventorySlot, List<AbstractClothing>> concealedSlots = charactersInventoryToRender.getInventorySlotsConcealed(Main.game.getPlayer());
 		
 		for (InventorySlot invSlot : mainInventorySlots) {
 			appendEquippedClothingSlot(charactersInventoryToRender, invSlot, blockedSlots, concealedSlots, false);
@@ -220,7 +220,7 @@ public enum RenderingEngine {
 						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_1.toString() + "Slot'></div>"
 					+ "</div>");
 		} else {
-			equippedPanelSB.append("<div class='inventory-item-slot' style='"+weaponStyle+"' id='" + InventorySlot.WEAPON_MAIN_1.toString() + "Slot'></div>");
+			equippedPanelSB.append(getEmptyWeaponDiv(false, InventorySlot.WEAPON_MAIN_1, weaponStyle));
 		}
 		// Multiple arms:
 		if(charactersInventoryToRender.getArmRows()>1) {
@@ -232,7 +232,7 @@ public enum RenderingEngine {
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_2.toString() + "Slot'></div>"
 						+ "</div>");
 			} else {
-				equippedPanelSB.append("<div class='inventory-item-slot' style='"+weaponStyle+"' id='" + InventorySlot.WEAPON_MAIN_2.toString() + "Slot'></div>");
+				equippedPanelSB.append(getEmptyWeaponDiv(false, InventorySlot.WEAPON_MAIN_2, weaponStyle));
 			}
 			weaponInSlot = charactersInventoryToRender.getMainWeapon(2);
 			if (weaponInSlot != null) {
@@ -243,10 +243,10 @@ public enum RenderingEngine {
 						+ "</div>");
 				
 			} else if (charactersInventoryToRender.getArmRows()==2) {
-				equippedPanelSB.append("<div class='inventory-item-slot disabled' style='"+weaponStyle+"' id='" + InventorySlot.WEAPON_MAIN_3.toString() + "Slot'></div>");
+				equippedPanelSB.append(getEmptyWeaponDiv(true, InventorySlot.WEAPON_MAIN_3, weaponStyle));
 				
 			} else {
-				equippedPanelSB.append("<div class='inventory-item-slot' style='"+weaponStyle+"' id='" + InventorySlot.WEAPON_MAIN_3.toString() + "Slot'></div>");
+				equippedPanelSB.append(getEmptyWeaponDiv(false, InventorySlot.WEAPON_MAIN_3, weaponStyle));
 			}
 		}
 		
@@ -258,10 +258,10 @@ public enum RenderingEngine {
 						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_1.toString() + "Slot'></div>"
 					+ "</div>");
 		} else if (charactersInventoryToRender.getMainWeapon(0) != null && charactersInventoryToRender.getMainWeapon(0).getWeaponType().isTwoHanded()) {
-			equippedPanelSB.append("<div class='inventory-item-slot disabled' style='"+weaponStyle+"' id='" + InventorySlot.WEAPON_OFFHAND_1.toString() + "Slot'></div>");
+			equippedPanelSB.append(getEmptyWeaponDiv(true, InventorySlot.WEAPON_OFFHAND_1, weaponStyle));
 			
 		} else {
-			equippedPanelSB.append("<div class='inventory-item-slot' style='"+weaponStyle+"' id='" + InventorySlot.WEAPON_OFFHAND_1.toString() + "Slot'></div>");
+			equippedPanelSB.append(getEmptyWeaponDiv(false, InventorySlot.WEAPON_OFFHAND_1, weaponStyle));
 		}
 		// Multiple arms:
 		if(charactersInventoryToRender.getArmRows()>1) {
@@ -272,10 +272,10 @@ public enum RenderingEngine {
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_2.toString() + "Slot'></div>"
 						+ "</div>");
 			} else if (charactersInventoryToRender.getMainWeapon(1) != null && charactersInventoryToRender.getMainWeapon(1).getWeaponType().isTwoHanded()) {
-				equippedPanelSB.append("<div class='inventory-item-slot disabled' style='"+weaponStyle+"' id='" + InventorySlot.WEAPON_OFFHAND_2.toString() + "Slot'></div>");
+				equippedPanelSB.append(getEmptyWeaponDiv(true, InventorySlot.WEAPON_OFFHAND_2, weaponStyle));
 				
 			} else {
-				equippedPanelSB.append("<div class='inventory-item-slot' style='"+weaponStyle+"' id='" + InventorySlot.WEAPON_OFFHAND_2.toString() + "Slot'></div>");
+				equippedPanelSB.append(getEmptyWeaponDiv(false, InventorySlot.WEAPON_OFFHAND_2, weaponStyle));
 			}
 			weaponInSlot = charactersInventoryToRender.getOffhandWeapon(2);
 			if (weaponInSlot != null) {
@@ -284,10 +284,10 @@ public enum RenderingEngine {
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_3.toString() + "Slot'></div>"
 						+ "</div>");
 			} else if (charactersInventoryToRender.getArmRows()==2 || (charactersInventoryToRender.getMainWeapon(2) != null && charactersInventoryToRender.getMainWeapon(2).getWeaponType().isTwoHanded())) {
-				equippedPanelSB.append("<div class='inventory-item-slot disabled' style='"+weaponStyle+"' id='" + InventorySlot.WEAPON_OFFHAND_3.toString() + "Slot'></div>");
+				equippedPanelSB.append(getEmptyWeaponDiv(true, InventorySlot.WEAPON_OFFHAND_3, weaponStyle));
 				
 			} else {
-				equippedPanelSB.append("<div class='inventory-item-slot' style='"+weaponStyle+"' id='" + InventorySlot.WEAPON_OFFHAND_3.toString() + "Slot'></div>");
+				equippedPanelSB.append(getEmptyWeaponDiv(false, InventorySlot.WEAPON_OFFHAND_3, weaponStyle));
 			}
 		}
 		
@@ -436,6 +436,15 @@ public enum RenderingEngine {
 		equippedPanelSB.append("</div>");
 		
 		return equippedPanelSB.toString();
+	}
+	
+	private static String getEmptyWeaponDiv(boolean disabled, InventorySlot slot, String weaponStyle) {
+		return "<div class='inventory-item-slot"+(disabled?" disabled":"")+"' "+(disabled?"id='" + slot.toString() + "Slot'":"")+" style='"+weaponStyle+"'>"
+						+ (!disabled
+							?"<div class='inventory-icon-content' style='width:75%; margin:12.5%;'>"+SVGImages.SVG_IMAGE_PROVIDER.getFist()+"</div>"
+								+ "<div class='overlay-inventory' id='" + slot.toString() + "Slot' style='cursor:default;'></div>"
+							:"")
+					+ "</div>";
 	}
 	
 	private void appendEquippedClothingSlot(GameCharacter charactersInventoryToRender, InventorySlot invSlot, Set<InventorySlot> blockedSlots, Map<InventorySlot, List<AbstractClothing>> concealedSlots, boolean isSecondary) {
@@ -1336,11 +1345,6 @@ public enum RenderingEngine {
 					+ "</script>");
 			
 		if(isRenderingCharactersRightPanel()) {
-//			System.out.println("1: "+(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.CHARACTERS_PRESENT));
-//			System.out.println("2: "+(Main.game.getCurrentDialogueNode()==PhoneDialogue.CONTACTS_CHARACTER));
-//			System.out.println("3: "+(Main.game.getDialogueFlags().getManagementCompanion()!=null));
-//			System.out.println("4: "+(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY && InventoryDialogue.getInventoryNPC()!=null));
-			
 			if(Main.game.isInSex()) {
 				// Name box:
 				uiAttributeSB.append(
@@ -1710,8 +1714,8 @@ public enum RenderingEngine {
 					
 				} else {
 					String border = (c.getPlace()!=null && placeType.getColour()!=null
-										?"border:1px solid; border-color:"+placeType.getColour().toWebHexString()+";"
-										:"border:1px solid; border-color:#ffffff;")
+										?"border:1px solid "+placeType.getColour().getShadesRgbaFormat(0.5f)[2]+";"
+										:"border:1px solid #ffffff;")
 									+ (grid.length>25
 											?"width:"+(width)+"%; margin:0; border-radius:0; border-width:0.5px 0.5px 0.5px 0.5px; border-style:solid; border-color:"
 //												+(dangerousTile
@@ -1753,6 +1757,7 @@ public enum RenderingEngine {
 
 					if(withNPCIcons) {
 						appendNPCIcon(Main.game.getWorlds().get(world), j, i, width);
+						appendItemsInAreaIcon(Main.game.getWorlds().get(world), j, i);
 					}
 //					appendNotVisitedLayer(Main.game.getWorlds().get(world), j, i);
 					
@@ -1981,7 +1986,7 @@ public enum RenderingEngine {
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_NORTH).getFullName()) + "</b>");
 								
 								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
-								appendItemsInAreaIcon(x, y);
+								appendItemsInAreaIcon(Main.game.getActiveWorld(), x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
 								// Close the tile's div:
@@ -2010,7 +2015,7 @@ public enum RenderingEngine {
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_SOUTH).getFullName()) + "</b>");
 
 								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
-								appendItemsInAreaIcon(x, y);
+								appendItemsInAreaIcon(Main.game.getActiveWorld(), x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
 								// Close the tile's div:
@@ -2039,7 +2044,7 @@ public enum RenderingEngine {
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_WEST).getFullName()) + "</b>");
 
 								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
-								appendItemsInAreaIcon(x, y);
+								appendItemsInAreaIcon(Main.game.getActiveWorld(), x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
 								// Close the tile's div:
@@ -2068,7 +2073,7 @@ public enum RenderingEngine {
 										+ (Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST) == null ? "" : Main.getProperties().hotkeyMapPrimary.get(KeyboardAction.MOVE_EAST).getFullName()) + "</b>");
 
 								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
-								appendItemsInAreaIcon(x, y);
+								appendItemsInAreaIcon(Main.game.getActiveWorld(), x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 								
 								// Close the tile's div:
@@ -2111,7 +2116,7 @@ public enum RenderingEngine {
 								}
 								
 								appendNPCIcon(Main.game.getActiveWorld(), x, y, unit);
-								appendItemsInAreaIcon(x, y);
+								appendItemsInAreaIcon(Main.game.getActiveWorld(), x, y);
 								appendNotVisitedLayer(Main.game.getActiveWorld(), x, y);
 
 								// Close the tile's div:
@@ -2185,15 +2190,11 @@ public enum RenderingEngine {
 		}
 	}
 	
-	private void appendItemsInAreaIcon(int x, int y) {
+	private void appendItemsInAreaIcon(World world, int x, int y) {
 		if(!Main.game.isInNewWorld()) {
 			return;
 		}
-		if(Main.game.getActiveWorld().getCell(x, y).getInventory().getInventorySlotsTaken()>0
-				|| Main.game.getActiveWorld().getCell(x, y).getInventory().getUniqueQuestWeaponCount()>0
-				|| Main.game.getActiveWorld().getCell(x, y).getInventory().getUniqueQuestClothingCount()>0
-				|| Main.game.getActiveWorld().getCell(x, y).getInventory().getUniqueQuestItemCount()>0
-				|| Main.game.getActiveWorld().getCell(x, y).getInventory().getMoney()>0) {
+		if(!world.getCell(x, y).getInventory().isEmpty()) {
 			mapSB.append("<div class='item-icon'>"+SVGImages.SVG_IMAGE_PROVIDER.getItemsOnFloorIcon()+"</div>");
 		}
 	}
@@ -2232,7 +2233,7 @@ public enum RenderingEngine {
 				+ "</div>"
 
 				+ "<div class='quarterContainer'>"
-					+ "<div class='button" + (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().getInventorySlotsTaken()>0 ? " highlight" : "")
+					+ "<div class='button" + (!Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().isEmpty() ? " highlight" : "")
 					+ (Main.mainController.isInventoryDisabled() ? " disabled" : "") + "' id='inventory'>"
 						+ SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon()
 						+ (Main.mainController.isInventoryDisabled() ? "<div class='disabledLayer'></div>" : "")
@@ -2255,8 +2256,13 @@ public enum RenderingEngine {
 	}
 
 	public void renderButtonsRight() {
+		boolean exportAvailable = Main.game.isStarted()
+									&& (Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU)
+										|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)
+										|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER));
+		
 		Main.mainController.setButtonsRightContent(
-				 "<div class='quarterContainer' style='float:right;'>"
+				 "<div class='quarterContainer' style='width:25%; float:right;'>"
 					+ "<div class='button" + (Main.isLoadGameAvailable(Main.getQuickSaveName())?"":" disabled")+ "' id='quickLoad'>"
 						+ (Main.isLoadGameAvailable(Main.getQuickSaveName())
 								?SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadQuick()
@@ -2265,14 +2271,34 @@ public enum RenderingEngine {
 					+ "</div>"
 				+ "</div>"
 					
-				+ "<div class='quarterContainer' style='float:right;'>"
+				+ "<div class='quarterContainer' style='width:25%; float:right;'>"
 					+ "<div class='button" + (Main.isQuickSaveAvailable()?"":" disabled")+ "' id='quickSave'>"
 						+ (Main.isQuickSaveAvailable()
 								?SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()
 								:SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled())
 						+ (!Main.isQuickSaveAvailable() ? "<div class='disabledLayer'></div>" : "")
 					+ "</div>"
-				+ "</div>");
+				+ "</div>"
+					
+				+ "<div class='quarterContainer' style='width:25%; float:left;'>"
+					+ "<div class='button"+(exportAvailable?"":" disabled")+"' id='exportCharacter'>"
+						+ SVGImages.SVG_IMAGE_PROVIDER.getExportIcon()
+						+ (!exportAvailable ? "<div class='disabledLayer'></div>" : "")
+					+ "</div>"
+				+ "</div>"
+					
+				+ "<div class='quarterContainer' style='width:25%; float:left;'>"
+					+ "<div class='button' id='copyContent'>"
+						+ SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()
+					+ "</div>"
+				+ "</div>"
+					
+//				+ "<div class='quarterContainer' style='text-align:center; width:60%; font-size:0.8em; float:right; color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"
+//					+ "Difficulty: <span style='color:"+Main.getProperties().difficultyLevel.getColour().getShades()[1]+";'>"+Main.getProperties().difficultyLevel.getName()+"</span>"
+//					+ "<br/>"
+//					+ "Author: "+Main.game.getCurrentDialogueNode().getAuthor()
+//				+ "</div>"
+			);
 	}
 
 	public static boolean isZoomedIn() {
@@ -2291,7 +2317,7 @@ public enum RenderingEngine {
 		RenderingEngine.renderedDisabledMap = renderedDisabledMap;
 	}
 	
-	private String getClassRarityIdentifier(Rarity rarity) {
+	private static String getClassRarityIdentifier(Rarity rarity) {
 		return (rarity == Rarity.COMMON ? " common" : "")
 				+ (rarity == Rarity.UNCOMMON ? " uncommon" : "")
 				+ (rarity == Rarity.RARE ? " rare" : "")

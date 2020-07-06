@@ -22,12 +22,9 @@ public class SetBonus {
 	public static Map<String, AbstractSetBonus> idToSetBonusMap = new HashMap<>();
 	
 	/**
-	 * @param id Will be in the format of: 'innoxia_enforcer'.
+	 * @param id Will be in the format of: 'innoxia_maid'.
 	 */
 	public static AbstractSetBonus getSetBonusFromId(String id) {
-		if(id.equals("ENFORCER")) {
-			id = "innoxia_enforcer";
-		}
 		if(id.equals("SLUTTY_ENFORCER")) {
 			id = "innoxia_slutty_enforcer";
 		}

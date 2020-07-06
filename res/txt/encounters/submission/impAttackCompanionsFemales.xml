@@ -347,10 +347,10 @@
 	
 	<htmlContent tag="IMP_ATTACK_OFFER_THREESOME_BOTH_SPIT"><![CDATA[
 	<p>
-		Neither you nor [npc.name] have any intention of swallowing the imps' transformative potion, and, almost simultaneously, you each jerk your heads back, before spitting the liquid out all over the floor. Your displays of resistance are immediately met by sharp slaps to the face, accompanied by furious screeching as [npc2.name] and [npc3.name] hurl their now-empty bottles to one side. [npc.speech(You [pc.insultPlural]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?!)]
+		Neither you nor [npc.name] have any intention of swallowing the imps' transformative potion, and, almost simultaneously, you each jerk your heads back, before spitting the liquid out all over the floor. Your displays of resistance are immediately met by sharp slaps to the face, accompanied by furious screeching as [npc2.name] and [npc3.name] hurl their now-empty bottles to one side. [npc2.speech(You [pc.insultPlural]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?!)]
 	</p>
 	<p>
-		Knowing what the alternative was, [npc.namePos] insults are easy for the two of you to weather, and you both cast your gazes to the floor as you wait for [npc.herHim] to calm down. As you do this, however, the two imps suddenly reach forwards, and, grabbing you each by the back of the neck, they force the two of you down onto the floor. [npc.speech(Get down, you [pc.insultPlural]! If you can't do something so simple as drinking a potion, all you're good for is being fuck-toys for us to use!)]
+		Knowing what the alternative was, [npc2.namePos] insults are easy for the two of you to weather, and you both cast your gazes to the floor as you wait for [npc2.herHim] to calm down. As you do this, however, the two imps suddenly reach forwards, and, grabbing you each by the back of the neck, they force the two of you down onto the floor. [npc2.speech(Get down, you [pc.insultPlural]! If you can't do something so simple as drinking a potion, all you're good for is being fuck-toys for us to use!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -373,10 +373,10 @@
 		Much to your relief, [npc.name] seems willing to do as you say, and as you glance across at [npc.herHim], you see [npc.herHim] turn [npc.her] head to one side, before spitting [npc3.namePos] potion onto the floor.
 	</p>
 	<p>
-		Your displays of resistance are immediately met by sharp slaps to the face, accompanied by furious screeching as [npc2.name] and [npc3.name] hurl their now-empty bottles to one side. [npc.speech(You fucking [pc.insultPlural]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?!)]
+		Your displays of resistance are immediately met by sharp slaps to the face, accompanied by furious screeching as [npc2.name] and [npc3.name] hurl their now-empty bottles to one side. [npc2.speech(You fucking [pc.insultPlural]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?!)]
 	</p>
 	<p>
-		Knowing what the alternative was, [npc.namePos] insults are easy for the two of you to weather, and you both cast your gazes to the floor as you wait for [npc.herHim] to calm down. As you do this, however, the two imps suddenly reach forwards, and, grabbing you each by the back of the neck, they force the two of you down onto the floor. [npc.speech(Get down, you [pc.insultPlural]! If you can't do something so simple as drinking a potion, all you're good for is being fuck-toys for us to use!)]
+		Knowing what the alternative was, [npc2.namePos] insults are easy for the two of you to weather, and you both cast your gazes to the floor as you wait for [npc2.herHim] to calm down. As you do this, however, the two imps suddenly reach forwards, and, grabbing you each by the back of the neck, they force the two of you down onto the floor. [npc2.speech(Get down, you [pc.insultPlural]! If you can't do something so simple as drinking a potion, all you're good for is being fuck-toys for us to use!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -571,10 +571,10 @@
 	
 	<htmlContent tag="COMBAT_DEFEAT_TF_REFUSED"><![CDATA[
 	<p>
-		You have no intention of swallowing the imps' transformative potion, and, jerking your head back, you spit the liquid out all over the floor. Your resistance is immediately met by a sharp slap to the face, accompanied by a loud screech as [npc.name] hurls the bottle to one side. [npc.speech(You fucking [pc.insult]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?!)]
+		You have no intention of swallowing the imps' transformative potion, and, jerking your head back, you spit the liquid out all over the floor. Your resistance is immediately met by a sharp slap to the face, accompanied by a loud screech as [npc2.name] hurls the bottle to one side. [npc2.speech(You fucking [pc.insult]! Fuck! Do you know how much trouble the boss goes through to get these potions for us?!)]
 	</p>
 	<p>
-		[npc.NamePos] insults are easy to weather, knowing what the alternative was, and you simply cast your gaze to the floor as you wait for [npc.herHim] to calm down. As you do this, however, [npc.she] suddenly reaches forwards, and, grabbing you by the back of the neck, forces you down onto the floor. [npc.speech(Get down, [pc.insult]! If you can't do something so simple as drinking a potion, all you're good for is being a fuck-toy for us to use!)]
+		[npc2.NamePos] insults are easy to weather, knowing what the alternative was, and you simply cast your gaze to the floor as you wait for [npc2.herHim] to calm down. As you do this, however, [npc2.she] suddenly reaches forwards, and, grabbing you by the back of the neck, forces you down onto the floor. [npc2.speech(Get down, [pc.insult]! If you can't do something so simple as drinking a potion, all you're good for is being a fuck-toy for us to use!)]
 	</p>
 	]]>
 	</htmlContent>

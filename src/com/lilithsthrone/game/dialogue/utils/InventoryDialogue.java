@@ -2471,7 +2471,7 @@ public class InventoryDialogue {
 		public String getContent() {
 			return getItemDisplayPanel(weapon.getSVGString(),
 					weapon.getDisplayName(true),
-					weapon.getDescription()
+					weapon.getDescription(owner)
 					+ (owner!=null && owner.isPlayer()
 							? (inventoryNPC != null && interactionType == InventoryInteraction.TRADING
 									? inventoryNPC.willBuy(weapon)
@@ -4111,7 +4111,10 @@ public class InventoryDialogue {
 											}
 											@Override
 											public void effects() {
-												if(Main.game.getNonCompanionCharactersPresent().size()==1) {
+												List<NPC> enslavementTargets = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+//												enslavementTargets.removeIf((npc) -> Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId()));
+												enslavementTargets.removeIf((npc) -> !Combat.getEnemies(Main.game.getPlayer()).contains(npc));
+												if(enslavementTargets.size()==1) {
 													SlaveDialogue.setFollowupEnslavementDialogue(Main.game.getDefaultDialogue(false));
 												} else {
 													SlaveDialogue.setFollowupEnslavementDialogue(Main.game.getSavedDialogueNode());
@@ -4845,7 +4848,10 @@ public class InventoryDialogue {
 											}
 											@Override
 											public void effects() {
-												if(Main.game.getNonCompanionCharactersPresent().size()==1) {
+												List<NPC> enslavementTargets = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
+//												enslavementTargets.removeIf((npc) -> Main.game.getPlayer().getFriendlyOccupants().contains(npc.getId()));
+												enslavementTargets.removeIf((npc) -> !Combat.getEnemies(Main.game.getPlayer()).contains(npc));
+												if(enslavementTargets.size()==1) {
 													SlaveDialogue.setFollowupEnslavementDialogue(Main.game.getDefaultDialogue(false));
 												} else {
 													SlaveDialogue.setFollowupEnslavementDialogue(Main.game.getSavedDialogueNode());
@@ -5118,7 +5124,7 @@ public class InventoryDialogue {
 		public String getContent() {
 			return getItemDisplayPanel(weapon.getSVGEquippedString(owner),
 					weapon.getDisplayName(true),
-					 weapon.getDescription());
+					 weapon.getDescription(owner));
 		}
 
 		public String getResponseTabTitle(int index) {

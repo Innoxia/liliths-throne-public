@@ -24,7 +24,7 @@
 		<namePlural pluralByDefault="false"><![CDATA[Enforcer's stabproof vests]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
-		<description><![CDATA[A low-profile pocketed vest made from ballistic fiber. Ubiquitous among Enforcers on patrol duty, it tips the scale towards mobility and discreetness against protection.]]></description>
+		<description><![CDATA[A low-profile pocketed vest made from ballistic fibres. Ubiquitous among Enforcers on patrol duty, it tips the scale towards mobility and discreetness against protection.]]></description>
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
 		<physicalResistance>10</physicalResistance> 
@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet>
+		<clothingSet>dsg_enforcer_patrol</clothingSet>
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -141,60 +141,30 @@
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
-	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You undo the cummerbund on either side of your vest and slide your head through the neck hole.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You undo the cummerbund on either side of [npc.name]'s vest and slide [npc.her] head through the neck hole.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You rip open the cummerbund on either side of [npc.name]'s vest and yank the rest over [npc.her] head .
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] undoes the cummerbund on either side of [npc.her] vest and slides [npc.her] head through the neck hole.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] undoes the cummerbund on either side of your vest and slides head through the neck hole.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] rips open the cummerbund on either side of your vest and yanks the rest over your head.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] undoes the cummerbund on either side of [npc2.name]'s vest and slides [npc2.her] head through the neck hole.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] rips open the cummerbund on either side of [npc2.name]'s vest aside and yanks the rest over [npc2.her] head.
-		]]></NPCOtherNPCRough>
-	</displacementText>
-
 	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You slide the vest over your head and tighten the cummerbund on either side of your torso.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You slide the vest over [npc.name]'s head and tighten the cummerbund on either side of [npc.her] torso.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You shove the vest over [npc.name]'s head and tighten the cummerbund on either side of [npc.her] torso as much as possible.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] slides the vest over [npc.her] head and tightens the cummerbund on either side of [npc.her] torso.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] slides the vest over your head and tightens the cummerbund on either side of your torso.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] shoves the vest over your head and tightens the cummerbund on either side of your torso as much as possible.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] slides the vest over [npc2.Name]'s head and tightens the cummerbund on either side of [npc2.her] torso.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] shoves the vest over [npc2.Name]'s head and tightens the cummerbund on either side of [npc2.her] torso as much as possible.
-		]]></NPCOtherNPCRough>
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the vest over [npc.her] head and [npc.verb(tighten)] the cummerbund on either side of [npc.her] torso.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slide)] the vest over [npc2.namePos] head and [npc.verb(tighten)] the cummerbund on either side of [npc2.her] torso.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(shove)] the vest over [npc2.namePos] head and [npc.verb(tighten)] the cummerbund on either side of [npc2.her] torso as much as possible.]]>
+		</otherRough>
 	</replacementText>
+	
+	<!-- 'displacementText' is used for removal and displacement. -->
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] un[npc.do] the cummerbund on either side of [npc.her] vest and slide [npc.her] head through the neck hole.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] un[npc.do] the cummerbund on either side of [npc2.namePos] vest and slide [npc2.her] head through the neck hole.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(rip)] open the cummerbund on either side of [npc2.namePos] vest and [npc.verb(yank)] the rest over [npc2.her] head.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

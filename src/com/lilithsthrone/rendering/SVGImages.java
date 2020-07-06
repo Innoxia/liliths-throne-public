@@ -25,7 +25,9 @@ public enum SVGImages {
 	private String
 	
 			flagUs,
-	
+			
+			fist,
+			
 			displacedIcon, concealedIcon, dirtyIcon, lipstickIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon, tattooSwitchTattoo, tattooSwitchClothing, scarIcon,
 
 			menuIcon,
@@ -119,6 +121,9 @@ public enum SVGImages {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/flag_us.svg");
 			flagUs = Util.inputStreamToString(is);
 			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/fist.svg");
+			fist = Util.inputStreamToString(is);
+			fist = setColour(fist, PresetColour.BASE_BLACK);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/displacedWarningIcon.svg");
 			displacedIcon = Util.inputStreamToString(is);
@@ -797,9 +802,12 @@ public enum SVGImages {
 		return s;
 	}
 	
-	
 	public String getFlagUs() {
 		return flagUs;
+	}
+	
+	public String getFist() {
+		return fist;
 	}
 	
 	public String getDisplacedIcon() {

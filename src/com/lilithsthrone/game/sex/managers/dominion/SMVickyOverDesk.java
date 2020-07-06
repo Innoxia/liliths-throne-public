@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPosition;
@@ -13,7 +12,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.97
- * @version 0.3.4
+ * @version 0.3.8.6
  * @author Innoxia
  */
 public class SMVickyOverDesk extends SexManagerDefault {
@@ -43,13 +42,5 @@ public class SMVickyOverDesk extends SexManagerDefault {
 	@Override
 	public boolean isPositionChangingAllowed(GameCharacter character) {
 		return false;
-	}
-	
-	@Override
-	public SexPace getForcedSexPace(GameCharacter character) {
-		if(!character.isPlayer()) {
-			return SexPace.DOM_ROUGH;
-		}
-		return null;
 	}
 }

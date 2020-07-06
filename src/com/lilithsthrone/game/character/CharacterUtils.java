@@ -2635,7 +2635,7 @@ public class CharacterUtils {
 											|| character.getLegConfiguration()==LegConfiguration.TAUR  // Taurs crotch boobs are not concealed by stomach clothing, so don't bother
 											|| c.isConcealsSlot(character, c.getEquipSlots().get(0), InventorySlot.STOMACH)
 											|| c.getEquipSlots().get(0)!=InventorySlot.TORSO_UNDER || c.getEquipSlots().get(0)!=InventorySlot.TORSO_OVER
-											|| character.getInventorySlotsConcealed().containsKey(InventorySlot.STOMACH))
+											|| character.getInventorySlotsConcealed(Main.game.getPlayer()).containsKey(InventorySlot.STOMACH))
 								).collect(Collectors.toList());
 							
 							
@@ -2688,7 +2688,7 @@ public class CharacterUtils {
 											|| character.getLegConfiguration()==LegConfiguration.TAUR  // Taurs crotch boobs are not concealed by stomach clothing, so don't bother
 											|| c.isConcealsSlot(character, c.getEquipSlots().get(0), InventorySlot.STOMACH)
 											|| c.getEquipSlots().get(0)!=InventorySlot.TORSO_UNDER || c.getEquipSlots().get(0)!=InventorySlot.TORSO_OVER
-											|| character.getInventorySlotsConcealed().containsKey(InventorySlot.STOMACH))
+											|| character.getInventorySlotsConcealed(Main.game.getPlayer()).containsKey(InventorySlot.STOMACH))
 								).collect(Collectors.toList());
 							
 							if(!clothingToUse.isEmpty()) {

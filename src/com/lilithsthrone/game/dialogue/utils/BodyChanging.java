@@ -323,6 +323,7 @@ public class BodyChanging {
 	
 	private static boolean isDemonTFMenu() {
 		return !debugMenu
+				&& BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
 				&& (BodyChanging.getTarget().getRace()==Race.DEMON
 					|| BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.DEMON
 					|| BodyChanging.getTarget().isElemental());
@@ -937,11 +938,6 @@ public class BodyChanging {
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformHairChoiceDiv(allRaces)
 							+ CharacterModificationUtils.getSelfTransformHairLengthDiv()
-						+"</div>"
-						
-						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(allRaces)
-							+ CharacterModificationUtils.getSelfTransformHornSizeDiv()
 						+"</div>"
 						
 						+ CharacterModificationUtils.getSelfDivHairStyles("Hair Style", UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] hair style."))

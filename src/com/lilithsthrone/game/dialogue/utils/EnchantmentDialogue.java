@@ -65,6 +65,8 @@ public class EnchantmentDialogue {
 	
 	private static StringBuilder inventorySB = new StringBuilder("");
 	
+	private static InventoryInteraction interactionInit;
+	
 	private static AbstractCoreItem ingredient = null;
 	private static AbstractCoreItem previousIngredient = null;
 	
@@ -418,6 +420,8 @@ public class EnchantmentDialogue {
 	}
 	
 	public static DialogueNode getEnchantmentMenu(AbstractCoreItem item, GameCharacter tattooBearer, InventorySlot tattooSlot) {
+		interactionInit = InventoryDialogue.getNPCInventoryInteraction();
+		
 		EnchantmentDialogue.effects.clear();
 		EnchantmentDialogue.resetEnchantmentVariables();
 		EnchantmentDialogue.initModifiers(item, tattooBearer, tattooSlot);
@@ -437,9 +441,6 @@ public class EnchantmentDialogue {
 			if(tattooBearer instanceof NPC) {
 				InventoryDialogue.setInventoryNPC((NPC) tattooBearer);
 			}
-//			else {
-//				InventoryDialogue.setInventoryNPC(null);
-//			}
 		}
 		@Override
 		public String getLabel() {
@@ -500,6 +501,7 @@ public class EnchantmentDialogue {
 					public void effects() {
 						Main.game.setResponseTab(1);
 						EnchantmentDialogue.resetEnchantmentVariables();
+						InventoryDialogue.setNPCInventoryInteraction(interactionInit);
 					}
 				};
 				

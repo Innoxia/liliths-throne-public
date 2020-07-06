@@ -152,6 +152,59 @@ public class TailType {
 					TailTypeTag.TYPE_SKIN,
 					TailTypeTag.TAPERING_NONE)) {
 	};
+
+	public static final AbstractTailType DEMON_TAPERED = new AbstractTailType(
+			BodyCoveringType.DEMON_COMMON,
+			Race.DEMON,
+			PenetrationGirth.THREE_AVERAGE,
+			0.75f,
+			"demonic tapered",
+			"",
+			"",
+			"tail",
+			"tails",
+			Util.newArrayListOfValues("tapered", "demonic"),
+			Util.newArrayListOfValues("tapered", "demonic"),
+			"tip",
+			"tips",
+			Util.newArrayListOfValues("tapered"),
+			Util.newArrayListOfValues("tapered"),
+			"#IF(npc.getTailCount()==1)"
+				+ " A demonic, tapered tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long."
+				+ " [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over where it goes, allowing [npc.herHim] to use it like a third limb."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has]"
+				+ "#IF(npc.isShortStature())"
+					+ " an [style.boldImp(impish, tapered tail)]"
+				+ "#ELSE"
+					+ " a [style.boldDemon(demonic, tapered tail)]"
+				+ "#ENDIF"
+				+ ", covered in [npc.tailFullDescription(true)]."
+			+ "#ELSE"
+				+ " [npc.TailCount] demonic, tapered tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about [npc.tailLength] long."
+				+ " [npc.She] quickly [npc.verb(realise)] that [npc.she] [npc.has] complete control over where they go, allowing [npc.herHim] to use them like extra limbs."
+				+ "<br/>"
+				+ "[npc.Name] now [npc.has] [npc.tailCount]"
+				+ "#IF(npc.isShortStature())"
+					+ " [style.boldImp(impish, tapered tails)]"
+				+ "#ELSE"
+					+ " [style.boldDemon(demonic, tapered tails)]"
+				+ "#ENDIF"
+				+ ", covered in [npc.tailFullDescription(true)]."
+			+ "#ENDIF",
+			"Growing out from just above [npc.her] ass, [npc.sheHasFull]"
+				+ "#IF(npc.getTailCount()==1)"
+					+ " a tapered, [npc.tailColour(true)] #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF tail, over which [npc.sheHasFull] complete control, allowing [npc.herHim] to use it to grip and hold objects."
+				+ "#ELSE"
+					+ " [npc.tailCount] tapered, [npc.tailColour(true)] #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF tails, over which [npc.sheHasFull] complete control, allowing [npc.herHim] to use them to grip and hold objects."
+				+ "#ENDIF",
+			Util.newArrayListOfValues(
+					TailTypeTag.PREHENSILE,
+					TailTypeTag.SUTABLE_FOR_PENETRATION,
+					TailTypeTag.SLEEP_HUGGING,
+					TailTypeTag.TYPE_SKIN,
+					TailTypeTag.TAPERING_LINEAR)) {
+	};
 	
 	public static final AbstractTailType DEMON_HORSE = new AbstractTailType(
 			BodyCoveringType.DEMON_HORSE_HAIR,
@@ -765,7 +818,7 @@ public class TailType {
 					TailTypeTag.SUTABLE_FOR_PENETRATION,
 					TailTypeTag.SLEEP_HUGGING,
 					TailTypeTag.TYPE_SKIN,
-					TailTypeTag.TAPERING_NONE)) {
+					TailTypeTag.TAPERING_LINEAR)) {
 	};
 	
 	public static final AbstractTailType RABBIT_MORPH = new AbstractTailType(

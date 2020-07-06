@@ -77,42 +77,59 @@ public class SMGloryHole extends SexManagerDefault {
 	}
 	
 	@Override
-	public List<InventorySlot> getSlotsConcealed(GameCharacter character) {
+	public boolean isCharactersReactingToExposedAreas() {
+		return false;
+	}
+	
+	@Override
+	public List<InventorySlot> getSlotsConcealed(GameCharacter characterBeingExposed, GameCharacter characterViewing) {
 		List<InventorySlot> concealedSlots = new ArrayList<>();
 		
-		if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_KNEELING)) {
+		if(Main.sex.getSexPositionSlot(characterBeingExposed).equals(SexSlotUnique.GLORY_HOLE_KNEELING)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.MOUTH);
+			return concealedSlots;
 			
-		} else if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKED)) {
+		} else if(Main.sex.getSexPositionSlot(characterBeingExposed).equals(SexSlotUnique.GLORY_HOLE_FUCKED)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.MOUTH);
 			concealedSlots.remove(InventorySlot.PENIS);
 			concealedSlots.remove(InventorySlot.VAGINA);
 			concealedSlots.remove(InventorySlot.GROIN);
+			return concealedSlots;
 			
-		} else if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_ANALLY_FUCKED)) {
+		} else if(Main.sex.getSexPositionSlot(characterBeingExposed).equals(SexSlotUnique.GLORY_HOLE_ANALLY_FUCKED)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			concealedSlots.remove(InventorySlot.MOUTH);
 			concealedSlots.remove(InventorySlot.ANUS);
 			concealedSlots.remove(InventorySlot.GROIN);
-			
-		} else if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_FUCKING)) {
+			return concealedSlots;
+		}
+		
+		// The ones on the other side of the hole cannot see one another
+		if(Main.sex.getSexPositionSlot(characterViewing).equals(SexSlotUnique.GLORY_HOLE_FUCKING)
+				|| Main.sex.getSexPositionSlot(characterViewing).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)
+				|| Main.sex.getSexPositionSlot(characterViewing).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
-			if(!character.isTaur()) {
+			return concealedSlots;
+		}
+		
+		if(Main.sex.getSexPositionSlot(characterBeingExposed).equals(SexSlotUnique.GLORY_HOLE_FUCKING)) {
+			Collections.addAll(concealedSlots, InventorySlot.values());
+			if(!characterBeingExposed.isTaur()) {
 				concealedSlots.remove(InventorySlot.PENIS);
 			}
 			concealedSlots.remove(InventorySlot.VAGINA);
 			concealedSlots.remove(InventorySlot.GROIN);
 			
-		} else if(Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)
-					|| Main.sex.getSexPositionSlot(character).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO)) {
+		} else if(Main.sex.getSexPositionSlot(characterBeingExposed).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE)
+					|| Main.sex.getSexPositionSlot(characterBeingExposed).equals(SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_TWO)) {
 			Collections.addAll(concealedSlots, InventorySlot.values());
 			
-			if(!character.isTaur()) {
+			if(!characterBeingExposed.isTaur()) {
 				concealedSlots.remove(InventorySlot.PENIS);
 			}
-			if(character.getGenitalArrangement()==GenitalArrangement.CLOACA) {
+			if(characterBeingExposed.getGenitalArrangement()==GenitalArrangement.CLOACA) {
 				concealedSlots.remove(InventorySlot.ANUS);
 			}
 			concealedSlots.remove(InventorySlot.VAGINA);

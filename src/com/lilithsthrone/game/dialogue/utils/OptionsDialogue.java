@@ -2247,7 +2247,6 @@ public class OptionsDialogue {
 								Main.getProperties().forcedTFPercentage,
 								0,
 								100));
-			}
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_GREEN, "Forced TF Racial Limits", "This allows you to set the maximum furry limit of what an NPC will forcibly transform you into."));
 			UtilText.nodeContentSB.append(
@@ -2288,7 +2287,6 @@ public class OptionsDialogue {
 							+ "</div>"));
 			UtilText.nodeContentSB.append("</div></div>");
 			
-			if(contentOptionsPage==ContentOptionsPage.GAMEPLAY) {
 				UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_GREEN, "Forced TF Gender Tendency", "This allows you to override NPC tastes when a forced transformation will alter your gender presentation."));
 				UtilText.nodeContentSB.append(
 						(Main.getProperties().getForcedTFTendency()==ForcedTFTendency.NEUTRAL
@@ -2379,6 +2377,14 @@ public class OptionsDialogue {
 									+ "</div>"));
 				UtilText.nodeContentSB.append("</div></div>");
 			}
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
+					"COMPANION",
+					PresetColour.BASE_GREEN_LIGHT,
+					"Companions",
+					"Enable the ability to add slaves or friendly occupants as your companion."
+						+ "<br/>[style.boldBad(Warning:)] This is an experimental feature, and support for companions was dropped in v0.3.9, so there will be no special dialogue or actions involving your companions outside of Dominion.",
+					Main.getProperties().hasValue(PropertyValue.companionContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.SEX,
 							"FURRY_TAIL_PENETRATION",
@@ -2575,7 +2581,7 @@ public class OptionsDialogue {
 		StringBuilder contentSB = new StringBuilder();
 		
 		contentSB.append(
-				"<div class='container-full-width' style='padding:0; margin-top:2px; margin-bottom:2px;'>"
+				"<div class='container-full-width' style='padding:0; margin:2px 0;'>"
 					+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
 						+ "<b style='text-align:center; color:"+colour.toWebHexString()+";'>"+title+"</b><b>:</b> "
 						+ description
