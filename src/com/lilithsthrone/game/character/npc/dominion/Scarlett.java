@@ -113,6 +113,9 @@ public class Scarlett extends NPC {
 				this.setHomeLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_SCARLETT_BEDROOM);
 			}
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.6") && !this.isSlave()) {
+			this.getPetNameMap().remove(Main.game.getPlayer().getId());
+		}
 	}
 
 	@Override
@@ -337,6 +340,9 @@ public class Scarlett extends NPC {
 			}
 			this.applyMakeup();
 		}
+		if(Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA) && this.getAffection(Main.game.getNpc(Helena.class))<0) {
+			this.incrementAffection(Main.game.getNpc(Helena.class), 5);
+		}
 	}
 	
 	private void goHome() {
@@ -409,10 +415,11 @@ public class Scarlett extends NPC {
 	}
 	
 	public void completeBodyReset() {
-		Main.game.getNpc(Scarlett.class).setBody(Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER, false);
-		Main.game.getNpc(Scarlett.class).setStartingBody(true);
-		Main.game.getNpc(Scarlett.class).endPregnancy(true);
-		Main.game.getNpc(Scarlett.class).equipClothing();
+		this.setBody(Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER, false);
+		this.setStartingBody(true);
+		this.endPregnancy(true);
+		this.equipClothing();
+		this.getPetNameMap().remove(Main.game.getPlayer().getId());
 	}
 	
 	public void applyFeminisation() {

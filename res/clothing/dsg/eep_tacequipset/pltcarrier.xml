@@ -24,7 +24,7 @@
 		<namePlural pluralByDefault="false"><![CDATA[Enforcer's plate carriers]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
-		<description><![CDATA[A three piece ballistic fiber vest with ceramic inserts that cover the wearer's vitals. The modular pouches in front are sized to for drums of pepperball ammunition.]]></description>
+		<description><![CDATA[A three piece ballistic fibre vest with ceramic inserts that cover the wearer's vitals. The modular pouches in front can hold a variety of ammunition.]]></description>
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
 		<physicalResistance>20</physicalResistance> 
@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet> 
+		<clothingSet>dsg_enforcer_tactical_light</clothingSet> 
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -154,59 +154,29 @@
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
 	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You undo the cummerbund on either side of your plate carrier and slide your head through the neck hole.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You undo the cummerbund on either side of [npc.name]'s plate carrier and slide [npc.her] head through the neck hole.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You rip open the cummerbund on either side of [npc.name]'s plate carrier and yank the rest over [npc.her] head .
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] undoes the cummerbund on either side of [npc.her] plate carrier and slides [npc.her] head through the neck hole.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] undoes the cummerbund on either side of your plate carrier and slides head through the neck hole.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] rips open the cummerbund on either side of your plate carrier and yanks the rest over your head.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] undoes the cummerbund on either side of [npc2.name]'s plate carrier and slides [npc2.her] head through the neck hole.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] rips open the cummerbund on either side of [npc2.name]'s plate carrier and yanks the rest over [npc2.her] head.
-		]]></NPCOtherNPCRough>
-	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] head through the plate carrier's neck hole and [npc.verb(secure)] the cummerbund on either side of [npc.her] torso.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] head through the plate carrier's neck hole and [npc.verb(secure)] the cummerbund on either side of [npc2.her] torso.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.Name] [npc.verb(shove)] [npc2.namePos] head through the plate carrier's neck hole and hastily [npc.verb(secure)] the cummerbund on either side of [npc2.her] torso.]]>
+		</otherRough>
+	</replacementText>
 
 	<!-- 'replacementText' is used for equipping and replacements. -->
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You slide the plate carrier over your head and tighten the cummerbund on either side of your torso.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You slide the plate carrier over [npc.name]'s head and tighten the cummerbund on either side of [npc.her] torso.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You shove the plate carrier over [npc.name]'s head and tighten the cummerbund on either side of [npc.her] torso as much as possible.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] slides the plate carrier over [npc.her] head and tightens the cummerbund on either side of [npc.her] torso.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] slides the plate carrier over your head and tightens the cummerbund on either side of your torso.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] shoves the plate carrier over your head and tightens the cummerbund on either side of your torso as much as possible.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] slides the plate carrier over [npc2.Name]'s head and tightens the cummerbund on either side of [npc2.her] torso.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] shoves the plate carrier over [npc2.Name]'s head and tightens the cummerbund on either side of [npc2.her] torso as much as possible.
-		]]></NPCOtherNPCRough>
-	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] un[npc.do] the cummerbund on either side of [npc.her] plate carrier and [npc.verb(slide)] [npc.her] head through the neck hole.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] un[npc.do] the cummerbund on either side of [npc2.namePos] plate carrier and [npc.verb(slide)] [npc2.her] head through the neck hole.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(rip)] open the cummerbund either side of [npc2.namePos] plate carrier and [npc.verb(yank)] the rest over [npc2.her] head.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

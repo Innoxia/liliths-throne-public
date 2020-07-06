@@ -24,7 +24,7 @@
 		<namePlural pluralByDefault="false"><![CDATA[sets of Enforcer's riot armour]]></namePlural> 
 		
 		<!-- The description that's shown in tooltips and on the item's inspection page. -->
-		<description><![CDATA[A set of metallic panels attached to a sleeved vest made from ballistic fibers, it offers the most protection of any Enforcer-issue gear. Despite its bulk, the two-piece design allows the wearer to put the armour on or take it off without needing to remove any headgear.]]></description> 
+		<description><![CDATA[A set of metallic panels attached to a sleeved vest made from ballistic fibres, it is the best protection available to an ordinary Enforcer. Despite its bulk, the two-piece design allows the wearer to put the armour on or take it off without needing to remove any headgear.]]></description> 
 		
 		<!-- The default physical resistance for this piece of clothing. Usually use 0 or 1, but if it's armour, then values up to 5 would be fitting (any more than that might be very OP). -->
 		<physicalResistance>30</physicalResistance> 
@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet>
+		<clothingSet>dsg_enforcer_riot</clothingSet>
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -149,59 +149,29 @@
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
 	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You loosen the adjustment straps and unbuckle them, letting the two halves of your armour fall away.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You loosen the adjustment straps and unbuckle them, letting the two halves of [npc.name]'s armour fall away.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You tear at the adjustment straps until it's loose enough and pop open the buckles, flinging the two halves of [npc.name]'s armour aside.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] loosens the adjustment straps and unbuckles the them, letting the two halves of [npc.her] armour fall away.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] loosens the adjustment straps and unbuckle them, letting the two halves of your armour fall away.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] tears at the adjustment straps until it's loose enough and pops open the buckles, flinging the two halves of your armour aside.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name]  loosens the adjustment straps and unbuckles the them, letting the two halves of [npc2.name]'s armour fall away.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] tears at the adjustment straps until it's loose enough and pops open the buckles, flinging [npc2.name]'s armour aside.
-		]]></NPCOtherNPCRough>
-	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(buckle)] the armour together around [npc.her] torso and [npc.verb(tighten)] the adjustment straps.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(buckle)] the armour together around [npc2.namePos] torso and [npc.verb(tighten)] the adjustment straps.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] hastily [npc.verb(buckle)] the armour together around [npc2.namePos] torso and [npc.verb(tighten)] the adjustment straps.]]>
+		</otherRough>
+	</replacementText>
 
 	<!-- 'replacementText' is used for equipping and replacements. -->
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You buckle the two halves of the armour together around your torso and tighten the adjustment straps.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You buckle the two halves of the armour together around [npc.name]'s torso and tighten the adjustment straps.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You forcefully buckle the two halves of the armour together around [npc.name]'s torso and roughly tighten the adjustment straps.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] buckles the two halves of the armour together around [npc.her] torso and tightens the adjustment straps.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] buckles the two halves of the armour together around your torso and tightens the adjustment straps.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] forcefully buckles the two halves of the armour together around your torso and roughly tightens the adjustment straps.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] buckles the two halves of the armour together around [npc2.name]'s torso and tightens the adjustment straps.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] forcefully buckles the two halves of the armour together around [npc2.name]'s torso and roughly tightens the adjustment straps.
-		]]></NPCOtherNPCRough>
-	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(loosen)] the adjustment straps on [npc.her] armour and [npc.verb(unbuckles)] them, letting the two halves fall away.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(loosen)] the adjustment straps on [npc2.namePos] armour and [npc.verb(unbuckles)] them, letting the two halves fall away.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(tear)] at the adjustment straps on [npc2.namePos] armour until they're loose enough and [npc.verb(pop)] open the buckles, flinging the two halves away.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

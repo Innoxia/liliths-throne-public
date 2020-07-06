@@ -281,8 +281,8 @@ public class TongueVagina {
 			
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Main.sex.getPenetrationTypeFreeCount(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
-					&& !Main.sex.getSexManager().getSlotsConcealed(Main.sex.getCharacterTargetedForSexAction(this)).contains(InventorySlot.HAIR)
-					&& !Main.sex.getSexManager().getSlotsConcealed(Main.sex.getCharacterPerformingAction()).contains(InventorySlot.HAND)
+					&& !Main.sex.getCharacterTargetedForSexAction(this).getInventorySlotsConcealed(Main.sex.getCharacterPerformingAction()).containsKey(InventorySlot.HAIR)
+					&& !Main.sex.getCharacterPerformingAction().getInventorySlotsConcealed(Main.sex.getCharacterTargetedForSexAction(this)).containsKey(InventorySlot.HAND)
 					&& (Main.sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_TAILS
 							|| Main.sex.getCharacterTargetedForSexAction(this).getHairStyle()==HairStyle.TWIN_BRAIDS);
 		}
@@ -403,8 +403,8 @@ public class TongueVagina {
 			
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Main.sex.getPenetrationTypeFreeCount(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
-					&& !Main.sex.getSexManager().getSlotsConcealed(Main.sex.getCharacterTargetedForSexAction(this)).contains(InventorySlot.HEAD)
-					&& !Main.sex.getSexManager().getSlotsConcealed(Main.sex.getCharacterPerformingAction()).contains(InventorySlot.HAND)
+							&& !Main.sex.getCharacterTargetedForSexAction(this).getInventorySlotsConcealed(Main.sex.getCharacterPerformingAction()).containsKey(InventorySlot.HEAD)
+							&& !Main.sex.getCharacterPerformingAction().getInventorySlotsConcealed(Main.sex.getCharacterTargetedForSexAction(this)).containsKey(InventorySlot.HAND)
 					&& (Main.sex.getCharacterTargetedForSexAction(this).getEarType().isAbleToBeUsedAsHandlesInSex());
 		}
 		@Override
@@ -522,8 +522,8 @@ public class TongueVagina {
 			
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& Main.sex.getPenetrationTypeFreeCount(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.FINGER)>=2
-					&& !Main.sex.getSexManager().getSlotsConcealed(Main.sex.getCharacterTargetedForSexAction(this)).contains(InventorySlot.HORNS)
-					&& !Main.sex.getSexManager().getSlotsConcealed(Main.sex.getCharacterPerformingAction()).contains(InventorySlot.HAND)
+							&& !Main.sex.getCharacterTargetedForSexAction(this).getInventorySlotsConcealed(Main.sex.getCharacterPerformingAction()).containsKey(InventorySlot.HORNS)
+							&& !Main.sex.getCharacterPerformingAction().getInventorySlotsConcealed(Main.sex.getCharacterTargetedForSexAction(this)).containsKey(InventorySlot.HAND)
 					&& Main.sex.getCharacterTargetedForSexAction(this).isHornsAbleToBeUsedAsHandlesInSex();
 		}
 		@Override

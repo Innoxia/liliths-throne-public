@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet> 
+		<clothingSet>dsg_enforcer_tactical_light</clothingSet> 
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -132,58 +132,29 @@
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
 	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf>
-		  <![CDATA[You release the leg rig and unbuckle the battle belt.]]>
-		</playerSelf>
-		<playerNPC>
-		  <![CDATA[You release [npc.Name]'s leg rig and unbuckle [npc.her] battle belt.]]>
-		</playerNPC>
-		<playerNPCRough>
-		  <![CDATA[You tear [npc.Name]'s leg rig loose and rip the battle belt from [npc.her] waist.]]>
-		</playerNPCRough>
-		<NPCSelf>
-		  <![CDATA[[npc.Name] releases [npc.her] leg rig and unbuckles [npc.herHis] battle belt.]]>
-		</NPCSelf>
-		<NPCPlayer>
-		  <![CDATA[[npc.Name] releases your leg rig and unbuckles your battle belt.]]>
-		</NPCPlayer>
-		<NPCPlayerRough>
-		  <![CDATA[[npc.Name] tears your leg rig loose and rips the battle belt off your waist.]]>
-		</NPCPlayerRough>
-		<NPCOtherNPC>
-		  <![CDATA[[npc1.Name] releases [npc.Name]'s leg rig and unbuckles [npc2.her] battle belt.]]>
-		</NPCOtherNPC>
-		<NPCOtherNPCRough>
-		  <![CDATA[[npc.Name] tears [npc2.name]'s leg rig loose and rips the battle belt off [npc2.her] waist.]]>
-		</NPCOtherNPCRough>
-	</displacementText>
-
-  <replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf>
-		  <![CDATA[You tighten the battle belt around your waist and snap the buckle together before clipping on the leg rig.]]>
-		</playerSelf>
-		<playerNPC>
-		  <![CDATA[You tighten the battle belt around [npc.Name]'s waist and snap the buckle together before clipping on the leg rig.]]>
-		</playerNPC>
-		<playerNPCRough>
-		  <![CDATA[You tighten the battle belt as much as possible around [npc.Name]'s waist and force the buckle together before clipping on the leg rig.]]>
-		</playerNPCRough>
-		<NPCSelf>
-		  <![CDATA[[npc.Name] tightens the battle belt around [npc.her] waist and snaps the buckle together before clipping on the leg rig.]]>
-		</NPCSelf>
-		<NPCPlayer>
-		  <![CDATA[[npc.Name] tightens the battle belt around your waist and snaps the buckle together before clipping on the leg rig.]]>
-		</NPCPlayer>
-		<NPCPlayerRough>
-		  <![CDATA[[npc.Name] tightens the battle belt as much as possible around your waist and forces the buckle together before clipping on the leg rig.]]>
-		</NPCPlayerRough>
-		<NPCOtherNPC>
-		  <![CDATA[[npc1.Name] tightens the battle belt around [npc2.Name]'s waist and snaps the buckle together before clipping on the leg rig.]]>
-		</NPCOtherNPC>
-		<NPCOtherNPCRough>
-		  <![CDATA[[npc1.Name] tightens the battle belt as much as possible around [npc2.name]'s waist and forces the buckle together before clipping on the leg rig.]]>
-		</NPCOtherNPCRough>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(buckle)] the battle belt up around [npc.her] waist.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(buckle)] the battle belt up around [npc2.namePos] waist.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] the battle belt around [npc2.namePos] waist.]]>
+		</otherRough>
 	</replacementText>
+
+	<!-- 'displacementText' is used for removal and displacement. -->
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc.her] battle belt.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc2.namePos] battle belt.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(rip)] the battle belt off [npc2.namePos] waist.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

@@ -49,7 +49,7 @@ public class NPCOffspring extends NPC {
 	public NPCOffspring(boolean isImported) {
 		super(isImported, null, null, "",
 				18, Month.JUNE, 15,
-				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 	}
 	
 
@@ -62,7 +62,7 @@ public class NPCOffspring extends NPC {
 				0, Main.game.getDateNow().getMonth(), Main.game.getDateNow().getDayOfMonth(),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
 		if(mother.getSubspecies()==Subspecies.LILIN || mother.getSubspecies()==Subspecies.ELDER_LILIN) {
 			this.setSurname(mother.getName(false)+"martuilani");
@@ -199,7 +199,7 @@ public class NPCOffspring extends NPC {
 		}
 		return (UtilText.parse(this,
 				"[npc.Name] is your [npc.daughter], who you "+
-						(this.getMother().isPlayer()
+						(this.getMother()!=null && this.getMother().isPlayer()
 								? getMatingDescription(getMother(), getFather(), "mothered")
 								: getMatingDescription(getFather(), getMother(), "fathered")
 						)+"."
@@ -208,7 +208,7 @@ public class NPCOffspring extends NPC {
 						+(daysToBirth==0
 							?"later that same day"
 							:daysToBirth>1?Util.intToString(daysToBirth)+" days later":Util.intToString(daysToBirth)+" day later")
-						+(this.getMother().isPlayer()
+						+(this.getMother()!=null && this.getMother().isPlayer()
 							?" you gave birth to [npc.herHim]."
 							:" [npc.she] was born.")
 						+ " You first encountered [npc.herHim] prowling the alleyways of Dominion, and, through some arcane-influenced instinct, you both recognised your relationship at first sight."));

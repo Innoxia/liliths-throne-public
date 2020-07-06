@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet> 
+		<clothingSet/> 
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -129,59 +129,29 @@
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
 	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You loosen the straps on your tactical elbow pads and slip them off.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You loosen the straps on [npc.name]'s tactical elbow pads and slip them off.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You rip the straps on [npc.name]'s tactical elbow pads off and toss them aside.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] loosens the straps on [npc.her] tactical elbow pads and slips them off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] loosens the straps on your tactical elbow pads and slips them off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] rips the straps on your tactical elbow pads off and tosses them aside.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] loosens the straps on [npc2.name]'s tactical elbow pads and slips them off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] rips the straps on [npc2.name]'s tactical elbow pads off and tosses them aside.
-		]]></NPCOtherNPCRough>
-	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slip)] the tactical elbow pads over [npc.her] elbows and [npc.verb(tighten)] the straps.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slip)] the tactical elbow pads over [npc2.namePos] elbows and [npc.verb(tighten)] the straps.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(stuff)] [npc2.namePos] legs through the tactical elbow pads and hastily [npc.verb(tighten)] the straps.]]>
+		</otherRough>
+	</replacementText>
 
 	<!-- 'replacementText' is used for equipping and replacements. -->
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You slip the tactical elbow pads over your forearms and tighten the straps.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You guide [npc.name]'s forearms through the tactical elbow pads and tighten the straps.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You stuff [npc.name]'s forearms through the tactical elbow pads and tighten the straps as much as possible.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] slips the tactical elbow pads over [npc.her] forearms and tighten the straps.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] guides your forearms through the tactical elbow pads and tightens the straps.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] stuffs your forearms through the tactical elbow pads and tightens the straps as much as possible..
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] guides [npc2.name]'s forearms through the tactical elbow pads and tightens the straps.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] stuffs [npc2.name]'s forearms through the tactical elbow pads and tighten the straps as much as possible.
-		]]></NPCOtherNPCRough>
-	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(loosen)] the straps on [npc.her] tactical elbow pads and [npc.verb(slip)] them off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(loosen)] the straps on [npc2.namePos] tactical elbow pads and [npc.verb(slip)] them off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(tear)] at the straps on [npc2.namePos] tactical elbow pads until they're loose enough and [npc.verb(toss)] them aside.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

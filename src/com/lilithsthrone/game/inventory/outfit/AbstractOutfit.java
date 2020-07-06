@@ -298,7 +298,7 @@ public abstract class AbstractOutfit {
 							.getMandatoryFirstOf("guaranteedClothingEquips")
 							.getAllOf("uniqueClothing")
 							.stream()
-							.map( e -> {
+							.map(e -> {
 								try {
 									AbstractClothing ac = AbstractClothing.loadFromXML(e.getMandatoryFirstOf("clothing").getInnerElement(), e.getDocument());
 									
@@ -315,21 +315,30 @@ public abstract class AbstractOutfit {
 									if(colourText.startsWith("presetColourGroup")) {
 										int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
 										List<Colour> colours = presetColourGroups.get(index);
-										ac.setColour(0, Util.randomItemFrom(colours));
+										colours.removeIf(c->!ac.getClothingType().getColourReplacement(0).getAllColours().contains(c));
+										if(!colours.isEmpty()) {
+											ac.setColour(0, Util.randomItemFrom(colours));
+										}
 									}
 	
 									colourText = e.getAttribute("colourSecondary");
 									if(colourText.startsWith("presetColourGroup")) {
 										int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
 										List<Colour> colours = presetColourGroups.get(index);
-										ac.setColour(1, Util.randomItemFrom(colours));
+										colours.removeIf(c->!ac.getClothingType().getColourReplacement(1).getAllColours().contains(c));
+										if(!colours.isEmpty()) {
+											ac.setColour(1, Util.randomItemFrom(colours));
+										}
 									}
 	
 									colourText = e.getAttribute("colourTertiary");
 									if(colourText.startsWith("presetColourGroup")) {
 										int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
 										List<Colour> colours = presetColourGroups.get(index);
-										ac.setColour(2, Util.randomItemFrom(colours));
+										colours.removeIf(c->!ac.getClothingType().getColourReplacement(2).getAllColours().contains(c));
+										if(!colours.isEmpty()) {
+											ac.setColour(2, Util.randomItemFrom(colours));
+										}
 									}
 									
 									return ac;
@@ -801,14 +810,6 @@ public abstract class AbstractOutfit {
 			} else {
 				weapon = AbstractWeaponType.generateWeapon(wt, Util.randomItemFrom(wt.getAvailableDamageTypes()), coloursForGeneration);
 			}
-			
-//			if(!primaryColours.isEmpty()) {
-//				weapon.setColour(0, Util.randomItemFrom(primaryColours));
-//			}
-//			
-//			if(!secondaryColours.isEmpty()) {
-//				weapon.setColour(1, Util.randomItemFrom(secondaryColours));
-//			}
 			
 			return weapon;
 

@@ -271,21 +271,21 @@ public enum Attribute {
 	
 	// Damages:
 
-	DAMAGE_UNARMED(0, -100, 100, "unarmed damage", "Unarmed damage", "swordIcon", PresetColour.ATTRIBUTE_HEALTH, "martial arts", "martial incompetence", null) {
+	DAMAGE_UNARMED(0, -100, 100, "unarmed damage", "Unarmed damage", "swordIcon", PresetColour.DAMAGE_TYPE_UNARMED, "martial arts", "martial incompetence", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Increases damage dealt from unarmed attacks, including special attacks obtained from non-human bodyparts.";
 		}
 	},
 	
-	DAMAGE_MELEE_WEAPON(0, -100, 100, "melee weapon damage", "Melee Weapon damage", "swordIcon", PresetColour.ATTRIBUTE_HEALTH, "melee mastery", "melee incompetence", null) {
+	DAMAGE_MELEE_WEAPON(0, -100, 100, "melee weapon damage", "Melee Weapon damage", "swordIcon", PresetColour.DAMAGE_TYPE_MELEE, "melee mastery", "melee incompetence", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Increases damage dealt from attacks by melee weapons.";
 		}
 	},
 	
-	DAMAGE_RANGED_WEAPON(0, -100, 100, "ranged weapon damage", "Ranged weapon damage", "swordIcon", PresetColour.ATTRIBUTE_HEALTH, "ranged mastery", "ranged incompetence", null) {
+	DAMAGE_RANGED_WEAPON(0, -100, 100, "ranged weapon damage", "Ranged weapon damage", "swordIcon", PresetColour.DAMAGE_TYPE_RANGED, "ranged mastery", "ranged incompetence", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Increases damage dealt from attacks by ranged weapons.";

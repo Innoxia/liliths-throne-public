@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.occupantManagement;
+package com.lilithsthrone.game.occupantManagement.slave;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.utils.colours.PresetColour;

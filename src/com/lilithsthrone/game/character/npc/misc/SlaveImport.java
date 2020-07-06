@@ -39,7 +39,7 @@ public class SlaveImport extends NPC {
 		super(isImported, new NameTriplet("Slave"), "", "-",
 				18, Month.JUNE, 10,
 				1, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
+				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 	}
 	
 	@Override
@@ -74,7 +74,7 @@ public class SlaveImport extends NPC {
 			this.washAllOrifices(true);
 			this.calculateStatusEffects(0);
 			this.cleanAllDirtySlots(true);
-			this.cleanAllClothing(true);
+			this.cleanAllClothing(true, false);
 			
 			this.clearNonEquippedInventory(true);
 			if(this.getClothingInSlot(InventorySlot.NECK)!=null) {

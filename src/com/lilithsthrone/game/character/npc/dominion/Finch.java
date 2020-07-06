@@ -50,6 +50,10 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -229,6 +233,17 @@ public class Finch extends NPC {
 		// Always at least 4 slave collars:
 		for(int i = 0; i<4; i++) {
 			this.addClothing(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", false), false);
+		}
+
+		for(AbstractWeaponType wt : WeaponType.getAllWeapons()) {
+			if(wt.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+				this.addWeapon(AbstractWeaponType.generateWeapon(wt), false);
+			}
+		}
+		for(AbstractItemType item : ItemType.getAllItems()) {
+			if(item.getItemTags().contains(ItemTag.SOLD_BY_FINCH)) {
+				this.addItem(AbstractItemType.generateItem(item), false);
+			}
 		}
 		
 		List<AbstractClothing> clothingToSell = new ArrayList<>();

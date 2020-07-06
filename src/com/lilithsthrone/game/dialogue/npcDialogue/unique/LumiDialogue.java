@@ -222,7 +222,7 @@ public class LumiDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getNpc(Lumi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
+						Main.game.getNpc(Lumi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 					}
 				};
 				
@@ -305,7 +305,7 @@ public class LumiDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getNpc(Lumi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
+						Main.game.getNpc(Lumi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 					}
 				};
 				
@@ -337,7 +337,7 @@ public class LumiDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getNpc(Lumi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
+						Main.game.getNpc(Lumi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 					}
 				};
 				
@@ -369,7 +369,7 @@ public class LumiDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getNpc(Lumi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
+						Main.game.getNpc(Lumi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 					}
 				};
 				
@@ -505,7 +505,7 @@ public class LumiDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getNpc(Lumi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
+						Main.game.getNpc(Lumi.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 					}
 				};
 				

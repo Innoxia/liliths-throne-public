@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.moves.CombatMove;
@@ -79,9 +80,8 @@ public enum Combat {
 	private static Map<GameCharacter, List<String>> combatContent;
 	private static Map<GameCharacter, List<String>> predictionContent;
 	
-
 	private static Map<GameCharacter, List<Value<GameCharacter, AbstractItem>>> itemsToBeUsed;
-
+	
 	private Combat() {
 	}
 
@@ -297,8 +297,7 @@ public enum Combat {
 	}
 	
 	/**
-	 * Ends combat, removing status effects and handling post-combat experience
-	 * gains and loot drops.
+	 * Ends combat, removing status effects and handling post-combat experience gains and loot drops.
 	 * 
 	 * @param playerVictory
 	 */
@@ -307,6 +306,10 @@ public enum Combat {
 		postCombatStringBuilder.setLength(0);
 		
 		Combat.playerVictory = playerVictory;
+
+		for(NPC enemy : enemies) {
+			enemy.removeFlag(NPCFlagValue.playerEscapedLastCombat);
+		}
 		
 		if (playerVictory) {
 			// Give the player experience and money if they won:
@@ -664,6 +667,7 @@ public enum Combat {
 					@Override
 					public void effects() {
 						endCombat(false);
+						Main.game.setResponseTab(0);
 						Main.game.setContent(enemyLeader.endCombat(true, false));
 					}
 				};
@@ -748,7 +752,11 @@ public enum Combat {
 						@Override
 						public void effects() {
 							enemyLeader.applyEscapeCombatEffects();
+							for(NPC enemy : enemies) {
+								enemy.addFlag(NPCFlagValue.playerEscapedLastCombat);
+							}
 							Main.game.setInCombat(false);
+							Main.game.setResponseTab(0);
 							Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue(false)));
 						}
 					};
@@ -762,6 +770,7 @@ public enum Combat {
 						@Override
 						public void effects() {
 							endCombat(true);
+							Main.game.setResponseTab(0);
 							Main.game.setContent(enemyLeader.endCombat(true, true));
 						}
 					};
@@ -774,6 +783,7 @@ public enum Combat {
 						@Override
 						public void effects() {
 							endCombat(false);
+							Main.game.setResponseTab(0);
 							Main.game.setContent(enemyLeader.endCombat(true, false));
 						}
 					};

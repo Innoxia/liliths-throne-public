@@ -476,10 +476,10 @@ public class CharacterModificationUtils {
 					+ "</p>"
 					+ "<div class='container-half-width' style='width:30%; margin:0; padding:0; text-align:center;'>"
 						+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:48%; margin:0 1%;'>"
-							+ (decreaseDisabled?"[style.boldDisabled(-5"+measurementPlural+")]":"[style.boldBad(--)]")
+							+ (decreaseDisabled?"[style.boldDisabled(--"+measurementPlural+")]":"[style.boldBad(--)]")
 						+ "</div>"
 						+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:48%; margin:0 1%;'>"
-							+ (decreaseDisabled?"[style.boldDisabled(-1"+measurement+")]":"[style.boldMinorBad(-)]")
+							+ (decreaseDisabled?"[style.boldDisabled(-"+measurement+")]":"[style.boldMinorBad(-)]")
 						+ "</div>"
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:40%; margin:0; padding:0; text-align:center;'>"
@@ -487,10 +487,10 @@ public class CharacterModificationUtils {
 					+ "</div>"
 					+ "<div class='container-half-width' style='width:30%; margin:0; padding:0; text-align:center;'>"
 						+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:48%; margin:0 1%;'>"
-							+ (increaseDisabled?"[style.boldDisabled(+1"+measurement+")]":"[style.boldMinorGood(+)]")
+							+ (increaseDisabled?"[style.boldDisabled(+"+measurement+")]":"[style.boldMinorGood(+)]")
 						+ "</div>"
 						+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:48%; margin:0 1%;'>"
-							+ (increaseDisabled?"[style.boldDisabled(+5"+measurementPlural+")]":"[style.boldGood(++)]")
+							+ (increaseDisabled?"[style.boldDisabled(++"+measurementPlural+")]":"[style.boldGood(++)]")
 						+ "</div>"
 					+ "</div>";
 	}

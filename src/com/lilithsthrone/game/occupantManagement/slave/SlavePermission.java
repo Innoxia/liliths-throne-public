@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.occupantManagement;
+package com.lilithsthrone.game.occupantManagement.slave;
 
 import java.util.List;
 
