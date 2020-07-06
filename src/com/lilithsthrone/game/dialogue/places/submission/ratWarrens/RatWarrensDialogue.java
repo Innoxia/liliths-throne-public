@@ -111,7 +111,7 @@ public class RatWarrensDialogue {
 				rat.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE, true);
 				CharacterUtils.setGenericName(rat, "lieutenant", null);
 				rat.unequipOffhandWeaponIntoVoid(0, false);
-				rat.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_pistolCrossbow_pistol_crossbow", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GREEN_DRAB, PresetColour.CLOTHING_GUNMETAL)));
+				rat.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_bow_pistol_crossbow", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GREEN_DRAB, PresetColour.CLOTHING_GUNMETAL)));
 				rat.incrementEssenceCount(TFEssence.ARCANE, 8, false);
 				
 				rat = new RatGangMember(Gender.getGenderFromUserPreferences(false, false));
@@ -120,7 +120,7 @@ public class RatWarrensDialogue {
 				rat.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE, true);
 				CharacterUtils.setGenericName(rat, "sidekick", null);
 				rat.unequipOffhandWeaponIntoVoid(0, false);
-				rat.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_pistolCrossbow_pistol_crossbow", DamageType.PHYSICAL, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_KHAKI, PresetColour.CLOTHING_STEEL)));
+				rat.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_bow_pistol_crossbow", DamageType.PHYSICAL, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_KHAKI, PresetColour.CLOTHING_STEEL)));
 				rat.incrementEssenceCount(TFEssence.ARCANE, 3, false);
 				
 			} catch (Exception e) {
@@ -682,8 +682,8 @@ public class RatWarrensDialogue {
 								?"Solo sex (Gentle)"
 								:"Sex (Gentle)",
 							isCompanionDialogue()
-								?UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the gang members. (Start sex in the gentle pace.)")
-								:"Have sex with the gang members. (Start sex in the gentle pace.)",
+								?UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the gang members.")
+								:"Have sex with the gang members.",
 							true,
 							false,
 							Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -700,8 +700,8 @@ public class RatWarrensDialogue {
 								?"Solo sex (Rough)"
 								:"Sex (Rough)",
 							isCompanionDialogue()
-								?UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the gang members. (Start sex in the rough pace.)")
-								:"Have sex with the gang members. (Start sex in the rough pace.)",
+								?UtilText.parse(getMainCompanion(), "Tell [npc.name] to stand to one side and watch as you have sex with the gang members.")
+								:"Have sex with the gang members.",
 							true,
 							false,
 							Util.newArrayListOfValues(Main.game.getPlayer()),

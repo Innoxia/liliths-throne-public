@@ -579,7 +579,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		// Ban some annoying/nonsensical actions:
 		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
-		if(!performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
+		if(!performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING) && !performingCharacter.hasFetish(Fetish.FETISH_ORAL_GIVING)) {
 			bannedActions.add(PartnerSelfTailMouth.PARTNER_SELF_TAIL_MOUTH_PENETRATION);
 		}
 		
@@ -823,65 +823,62 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				if(debug) {
 					System.out.println("isSexPenetrationPossible");
 				}
-				// --- Stop foreplay actions: ---
-				for(SexActionInterface action : availableActions) {
-					if(action.getActionType() == SexActionType.STOP_ONGOING) {
-						// Don't stop kissing or fetishised oral actions:
-						if(Main.sex.getMainSexPreference(performingCharacter, targetedCharacter)==null) { //TODO More testing
-							if(!((action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE)
-									|| action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH))
-									&& (action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.TONGUE)
-											|| action.getTargetedCharacterOrifices().contains(SexAreaOrifice.MOUTH)))
-									&& !(performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING)
-											&& (action.getTargetedCharacterOrifices().contains(SexAreaOrifice.MOUTH) || action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.TONGUE)))
-									&& !(performingCharacter.hasFetish(Fetish.FETISH_ORAL_GIVING)
-											&& (action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH) || action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE)))) {
-								returnableActions.add(action);
-							}
-						} else {
-							returnableActions.add(action);
-						}
-					}
-				}
-				if(returnableActions.size()<=1) {
-					Main.sex.removeCharacterBannedFromPositioning(performingCharacter);
-	//				SexFlags.positioningBlockedPartner = false;
-				}
-				if(!returnableActions.isEmpty()) {
-					return (SexAction) returnableActions.get(Util.random.nextInt(returnableActions.size()));
-				}
 
 				SexType mainSexPreference = Main.sex.getMainSexPreference(performingCharacter, targetedCharacter);
-				
-				// If the NPC has a preference, they are more likely to choose actions related to that:
-				List<SexActionInterface> penetrativeActionList = new ArrayList<>();
-				if(mainSexPreference!=null) {
-					List<SexActionInterface> highPriorityList = new ArrayList<>();
+				// --- If the NPC has a preference, they are more likely to choose actions related to that: ---
+					List<SexActionInterface> penetrativeActionList = new ArrayList<>();
+					if(mainSexPreference!=null) {
+						List<SexActionInterface> highPriorityList = new ArrayList<>();
+						for(SexActionInterface action : availableActions) {
+							if((action.getPerformingCharacterAreas().contains(mainSexPreference.getPerformingSexArea()) && action.getTargetedCharacterAreas().contains(mainSexPreference.getTargetedSexArea()))
+									&& action.getParticipantType()!=SexParticipantType.SELF
+									&& action.getActionType() != SexActionType.STOP_ONGOING) {
+								highPriorityList.add(action);
+								if(action.getActionType() == SexActionType.START_ONGOING
+										|| action.getActionType()==SexActionType.START_ADDITIONAL_ONGOING) { // If a penetrative action is in the list, always return that first.
+									penetrativeActionList.add(action);
+								}
+							}
+						}
+						
+						if(!penetrativeActionList.isEmpty()) {
+							return (SexAction) penetrativeActionList.get(Util.random.nextInt(penetrativeActionList.size()));
+						}
+						
+						if(penetrativeActionList.isEmpty() && !highPriorityList.isEmpty() && Math.random()<0.66f) { // 2/3 chance, so that there is some chance of using other actions as well:
+							return (SexAction) highPriorityList.get(Util.random.nextInt(highPriorityList.size()));
+						}
+					}
+				// -------
+
+				// --- Stop foreplay actions: ---
 					for(SexActionInterface action : availableActions) {
-						if(
-//								((action.getPerformingCharacterPenetrations().contains(Main.sex.getMainSexPreference(performingCharacter, targetedCharacter).getPerformingSexArea())
-//								&& action.getTargetedCharacterOrifices().contains(Main.sex.getMainSexPreference(performingCharacter, targetedCharacter).getTargetedSexArea()))
-//								|| (action.getTargetedCharacterPenetrations().contains(Main.sex.getMainSexPreference(performingCharacter, targetedCharacter).getTargetedSexArea())
-//										&& action.getPerformingCharacterOrifices().contains(Main.sex.getMainSexPreference(performingCharacter, targetedCharacter).getPerformingSexArea())))
-							(action.getPerformingCharacterAreas().contains(mainSexPreference.getPerformingSexArea()) && action.getTargetedCharacterAreas().contains(mainSexPreference.getTargetedSexArea()))
-								&& action.getParticipantType()!=SexParticipantType.SELF
-								&& action.getActionType() != SexActionType.STOP_ONGOING) {
-							highPriorityList.add(action);
-							if(action.getActionType() == SexActionType.START_ONGOING
-									|| action.getActionType()==SexActionType.START_ADDITIONAL_ONGOING) { // If a penetrative action is in the list, always return that first.
-								penetrativeActionList.add(action);
+						if(action.getActionType() == SexActionType.STOP_ONGOING) {
+							// Don't stop kissing or fetishised oral actions:
+							if(Main.sex.getMainSexPreference(performingCharacter, targetedCharacter)==null) { //TODO More testing
+								if(!((action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE)
+										|| action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH))
+										&& (action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.TONGUE)
+												|| action.getTargetedCharacterOrifices().contains(SexAreaOrifice.MOUTH)))
+										&& !(performingCharacter.hasFetish(Fetish.FETISH_ORAL_RECEIVING)
+												&& (action.getTargetedCharacterOrifices().contains(SexAreaOrifice.MOUTH) || action.getTargetedCharacterPenetrations().contains(SexAreaPenetration.TONGUE)))
+										&& !(performingCharacter.hasFetish(Fetish.FETISH_ORAL_GIVING)
+												&& (action.getPerformingCharacterOrifices().contains(SexAreaOrifice.MOUTH) || action.getPerformingCharacterPenetrations().contains(SexAreaPenetration.TONGUE)))) {
+									returnableActions.add(action);
+								}
+							} else {
+								returnableActions.add(action);
 							}
 						}
 					}
-					
-					if(!penetrativeActionList.isEmpty()) {
-						return (SexAction) penetrativeActionList.get(Util.random.nextInt(penetrativeActionList.size()));
+					if(returnableActions.size()<=1) {
+						Main.sex.removeCharacterBannedFromPositioning(performingCharacter);
 					}
-					
-					if(penetrativeActionList.isEmpty() && !highPriorityList.isEmpty() && Math.random()<0.66f) { // 2/3 chance, so that there is some chance of using other actions as well:
-						return (SexAction) highPriorityList.get(Util.random.nextInt(highPriorityList.size()));
+					if(!returnableActions.isEmpty()) {
+						return (SexAction) returnableActions.get(Util.random.nextInt(returnableActions.size()));
 					}
-				}
+				// -------
+				
 				
 				// --- Start penetrating: ---
 				if(debug) {

@@ -71,7 +71,7 @@ public class PrologueMale extends NPC {
 				RaceStage.HUMAN,
 				new CharacterInventory(10),
 				WorldType.EMPTY,
-				PlaceType.GENERIC_EMPTY_TILE,
+				PlaceType.GENERIC_HOLDING_CELL,
 				false);
 
 	}

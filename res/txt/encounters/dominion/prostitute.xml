@@ -467,13 +467,13 @@
 		As you lie back on [npc.namePos] bed, you find yourself wondering why [npc.she] is choosing to work in these dangerous alleyways, and so you look over and ask [npc.herHim] why [npc.she] doesn't try to attract customers out in the safety of Dominion's main streets, or, even better, in the city's red light district.
 	</p>
 	<p>
-		[npc.speech(Hey, what business is it of yours where I choose to work?)] [npc.name] defensively asks, before starting to panic and exclaim, [npc.speech(Wait, you're not an Enforcer, are you?! I can't afford to pay that fucking twenty-thousand flame fine!)]
+		[npc.speech(Hey, what business is it of yours where I choose to work?)] [npc.name] defensively asks, before starting to panic and exclaim, [npc.speech(Wait, you're not an Enforcer, are you?! I can't afford to pay that fucking [#SPECIAL_PARSE_0] flame fine!)]
 	</p>
 	<p>
 		As you confirm to [npc.name] that you're not an Enforcer, you can't help but notice how [npc.she] lets out a sigh of relief. Turning [npc.her] attention back to getting [npc.her] clothes in order, [npc.she] admits, [npc.speech(Look, let's just say that I prefer to work in places where I'm not likely to be found. Anyway, your time's almost up, so please get ready to leave...)]
 	</p>
 	<p>
-		From the manner in which [npc.she] reacted, it's obvious that [npc.name] is wanted by the Enforcers for some sort of crime, and needs to pay a twenty-thousand flame fine in order to get out of it. If you really felt like it, you could use this knowledge to clear [npc.herHim] out of this area
+		From the manner in which [npc.she] reacted, it's obvious that [npc.name] is wanted by the Enforcers for some sort of crime, and needs to pay a [#SPECIAL_PARSE_0] flame fine in order to get out of it. If you really felt like it, you could use this knowledge to clear [npc.herHim] out of this area
 		#IF(game.getDialogueFlags().hasFlag(FLAG_prostitutionLicenseObtained))
 			, or if you wanted to help, you could offer [npc.herHim] a job at Angel's Kiss...
 		#ELSE
@@ -491,7 +491,7 @@
 		Wondering why [npc.name] is choosing to work in these dangerous alleyways, you ask [npc.herHim] why [npc.she] isn't trying to attract customers out in the safety of Dominion's main streets, or, even better, in the city's red light district.
 	</p>
 	<p>
-		[npc.speech(Hey, what business is it of yours where I choose to work?)] [npc.name] defensively asks, before starting to panic and exclaim, [npc.speech(Wait, you're not an Enforcer, are you?! I can't afford to pay that fucking twenty-thousand flame fine!)]
+		[npc.speech(Hey, what business is it of yours where I choose to work?)] [npc.name] defensively asks, before starting to panic and exclaim, [npc.speech(Wait, you're not an Enforcer, are you?! I can't afford to pay that fucking [#SPECIAL_PARSE_0] flame fine!)]
 	</p>
 	<p>
 		As you confirm to [npc.name] that you're not an Enforcer, you can't help but notice how [npc.she] lets out a sigh of relief. Placing [npc.her] [npc.hands] on [npc.her] [npc.hips+], [npc.she] admits,
@@ -502,7 +502,7 @@
 		#ENDIF
 	</p>
 	<p>
-		From the manner in which [npc.she] reacted, it's obvious that [npc.name] is wanted by the Enforcers for some sort of crime, and needs to pay a twenty-thousand flame fine in order to get out of it. If you really felt like it, you could use this knowledge to clear [npc.herHim] out of this area
+		From the manner in which [npc.she] reacted, it's obvious that [npc.name] is wanted by the Enforcers for some sort of crime, and needs to pay a [#SPECIAL_PARSE_0] flame fine in order to get out of it. If you really felt like it, you could use this knowledge to clear [npc.herHim] out of this area
 		#IF(game.getDialogueFlags().hasFlag(FLAG_prostitutionLicenseObtained))
 			, or if you wanted to help, you could offer [npc.herHim] a job at Angel's Kiss...
 		#ELSE
@@ -552,7 +552,7 @@
 	
 	<htmlContent tag="PROSTITUTE_REMOVAL_THREATENED_APARTMENT"><![CDATA[
 	<p>
-		Getting up off [npc.namePos] bed, you turn to face [npc.herHim] and pointedly ask what [npc.she] did in order to have earned a twenty-thousand flame fine from the Enforcers. Letting out an exasperated sigh, the [npc.race] prostitute snaps, [npc.speech(That's none of your business! I should never have mentioned that...)]
+		Getting up off [npc.namePos] bed, you turn to face [npc.herHim] and pointedly ask what [npc.she] did in order to have earned a [#SPECIAL_PARSE_0] flame fine from the Enforcers. Letting out an exasperated sigh, the [npc.race] prostitute snaps, [npc.speech(That's none of your business! I should never have mentioned that...)]
 	</p>
 	<p>
 		Having already got what you wanted from [npc.herHim], you continue with your plan to get rid of [npc.name], and casually wonder out loud what what the Enforcers would do to [npc.herHim] if they knew where [npc.she] was living. As the [npc.race] turns to look at you with a shocked expression on [npc.her] face, you tell [npc.herHim] that you're looking forwards to finding out, before heading towards the door and stating your intention to report [npc.herHim] to the nearest constable.
@@ -573,7 +573,7 @@
 	
 	<htmlContent tag="PROSTITUTE_REMOVAL_THREATENED"><![CDATA[
 	<p>
-		Not wanting this lowlife hanging around in this area for any longer, you pointedly ask what [npc.she] did in order to have earned a twenty-thousand flame fine from the Enforcers. Letting out an exasperated sigh, the [npc.race] prostitute snaps, [npc.speech(That's none of your business! I should never have mentioned that...)]
+		Not wanting this lowlife hanging around in this area for any longer, you pointedly ask what [npc.she] did in order to have earned a [#SPECIAL_PARSE_0] flame fine from the Enforcers. Letting out an exasperated sigh, the [npc.race] prostitute snaps, [npc.speech(That's none of your business! I should never have mentioned that...)]
 	</p>
 	<p>
 		Continuing with your plan to get rid of [npc.name], you casually wonder out loud what what the Enforcers would do to [npc.herHim] if they knew where [npc.she] was living. As a shocked expression quickly settles on the [npc.race]'s face, you tell [npc.herHim] that you're looking forwards to finding out, before starting to walk off and call out your intention to report [npc.herHim] to the nearest constable.
@@ -597,10 +597,10 @@
 	
 	<htmlContent tag="PROSTITUTE_REMOVAL_PAID_APARTMENT"><![CDATA[
 	<p>
-		Not wanting to leave [npc.name] trapped in such a dangerous place, you ask [npc.herHim] if paying off the twenty-thousand flame fine [npc.she] mentioned earlier would be enough for [npc.herHim] to escape from these alleyways. Letting out an exasperated sigh, the [npc.race] prostitute snaps, [npc.speech(Yes, but that's really none of your business! I should never have mentioned that...)]
+		Not wanting to leave [npc.name] trapped in such a dangerous place, you ask [npc.herHim] if paying off the [#SPECIAL_PARSE_1] flame fine [npc.she] mentioned earlier would be enough for [npc.herHim] to escape from these alleyways. Letting out an exasperated sigh, the [npc.race] prostitute snaps, [npc.speech(Yes, but that's really none of your business! I should never have mentioned that...)]
 	</p>
 	<p>
-		Clearly on-edge about the fact that [npc.she] has such a huge fine to pay off, you don't let [npc.namePos] hostile reaction put you off from continuing with your plan. Getting up from off of [npc.her] bed, you [pc.step] over to the [npc.race] and offer [npc.herHim] the twenty-thousand flames [npc.she] needs to pay off [npc.her] fine.
+		Clearly on-edge about the fact that [npc.she] has such a huge fine to pay off, you don't let [npc.namePos] hostile reaction put you off from continuing with your plan. Getting up from off of [npc.her] bed, you [pc.step] over to the [npc.race] and offer [npc.herHim] the [#SPECIAL_PARSE_1] flames [npc.she] needs to pay off [npc.her] fine.
 	</p>
 	<p>
 		[npc.speech(Are you serious?!)] [npc.name] cries out in shock, before clasping [npc.her] [npc.hands] over [npc.her] mouth as [npc.she] sees the amount of flames which you're giving [npc.herHim]. After a moment, [npc.she] tentatively reaches out to take the money, almost as if [npc.she] expects you to pull it away a the last moment. No such thing is on your mind, however, and you let [npc.name] take the flames from you.
@@ -618,10 +618,10 @@
 	
 	<htmlContent tag="PROSTITUTE_REMOVAL_PAID"><![CDATA[
 	<p>
-		Not wanting to leave [npc.name] trapped in such a dangerous place, you ask [npc.herHim] if paying off the twenty-thousand flame fine [npc.she] mentioned earlier would be enough for [npc.herHim] to escape from these alleyways. Letting out an exasperated sigh, the [npc.race] prostitute snaps, [npc.speech(Yes, but that's really none of your business! I should never have mentioned that...)]
+		Not wanting to leave [npc.name] trapped in such a dangerous place, you ask [npc.herHim] if paying off the [#SPECIAL_PARSE_1] flame fine [npc.she] mentioned earlier would be enough for [npc.herHim] to escape from these alleyways. Letting out an exasperated sigh, the [npc.race] prostitute snaps, [npc.speech(Yes, but that's really none of your business! I should never have mentioned that...)]
 	</p>
 	<p>
-		Clearly on-edge about the fact that [npc.she] has such a huge fine to pay off, you don't let [npc.namePos] hostile reaction put you off from continuing with your plan. [pc.Stepping] towards the [npc.race], you offer [npc.herHim] the twenty-thousand flames [npc.she] needs to pay off [npc.her] fine.
+		Clearly on-edge about the fact that [npc.she] has such a huge fine to pay off, you don't let [npc.namePos] hostile reaction put you off from continuing with your plan. [pc.Stepping] towards the [npc.race], you offer [npc.herHim] the [#SPECIAL_PARSE_1] flames [npc.she] needs to pay off [npc.her] fine.
 	</p>
 	<p>
 		[npc.speech(Are you serious?!)] [npc.name] cries out in shock, before clasping [npc.her] [npc.hands] over [npc.her] mouth as [npc.she] sees the amount of flames which you're giving [npc.herHim]. After a moment, [npc.she] tentatively reaches out to take the money, almost as if [npc.she] expects you to pull it away a the last moment. No such thing is on your mind, however, and you let [npc.name] take the flames from you.

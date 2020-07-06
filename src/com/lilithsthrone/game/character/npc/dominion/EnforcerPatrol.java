@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.CombatBehaviour;
@@ -127,7 +128,6 @@ public class EnforcerPatrol extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 			
-			
 			setName(Name.getRandomTriplet(this.getRace()));
 			
 			this.setPlayerKnowsName(false);
@@ -140,6 +140,7 @@ public class EnforcerPatrol extends NPC {
 					Fetish.FETISH_ANAL_GIVING,
 					Fetish.FETISH_ORAL_RECEIVING,
 					Fetish.FETISH_VAGINAL_GIVING,
+					Fetish.FETISH_VAGINAL_RECEIVING,
 					Fetish.FETISH_PENIS_GIVING,
 					Fetish.FETISH_PENIS_RECEIVING,
 					Fetish.FETISH_DOMINANT);
@@ -162,6 +163,8 @@ public class EnforcerPatrol extends NPC {
 			CharacterUtils.applyMakeup(this, true);
 			
 			initPerkTreeAndBackgroundPerks(); // Set starting perks based on the character's race
+			
+			this.removePersonalityTrait(PersonalityTrait.MUTE);
 			
 			this.setEssenceCount(TFEssence.ARCANE, 100);
 
@@ -263,7 +266,7 @@ public class EnforcerPatrol extends NPC {
 	
 	@Override
 	public void applyEscapeCombatEffects() {
-		EnforcerAlleywayDialogue.banishEnforcers();
+		EnforcerAlleywayDialogue.banishEnforcers(false);
 	}
 	
 	@Override
@@ -287,22 +290,22 @@ public class EnforcerPatrol extends NPC {
 		return null; // Do not want Enforcers using items during sex
 	}
 	
-	@Override
-	public Value<AbstractClothing, String> getSexClothingToSelfEquip(GameCharacter partner, boolean inQuickSex) {
-		if(Main.game.isInSex()) {
-			if(this.hasPenisIgnoreDildo() && this.getClothingInSlot(InventorySlot.PENIS)==null) {
-				AbstractClothing condom = null;
-				for(AbstractClothing clothing : this.getAllClothingInInventory().keySet()) {
-					if(clothing.isCondom()) {
-						condom = clothing;
-						break;
-					}
-				}
-				if(condom!=null && this.isAbleToEquip(condom, inQuickSex, this)) {
-					return new Value<>(condom, UtilText.parse(this, "[npc.Name] grabs a "+condom.getName()+" from out of [npc.her] inventory..."));
-				}
-			}
-		}
-		return null;
-	}
+//	@Override
+//	public Value<AbstractClothing, String> getSexClothingToSelfEquip(GameCharacter partner, boolean inQuickSex) {
+//		if(Main.game.isInSex() && (inQuickSex || !Main.sex.getInitialSexManager().isPartnerWantingToStopSex(this))) {
+//			if(this.hasPenisIgnoreDildo() && this.getClothingInSlot(InventorySlot.PENIS)==null) {
+//				AbstractClothing condom = null;
+//				for(AbstractClothing clothing : this.getAllClothingInInventory().keySet()) {
+//					if(clothing.isCondom()) {
+//						condom = clothing;
+//						break;
+//					}
+//				}
+//				if(condom!=null && this.isAbleToEquip(condom, inQuickSex, this)) {
+//					return new Value<>(condom, UtilText.parse(this, "[npc.Name] grabs a "+condom.getName()+" from out of [npc.her] inventory..."));
+//				}
+//			}
+//		}
+//		return null;
+//	}
 }

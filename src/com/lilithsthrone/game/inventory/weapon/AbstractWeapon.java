@@ -367,31 +367,50 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	public abstract String onEquip(GameCharacter character);
 
 	public abstract String onUnequip(GameCharacter character);
-	
+
+	@Override
 	public String getDescription() {
+		return getDescription(null);
+	}
+	
+	public String getDescription(GameCharacter character) {
 		StringBuilder descriptionSB = new StringBuilder();
 		
+		if(character==null || !character.hasWeaponEquipped(this)) {
+			character = Main.game.getPlayer();
+		}
+		
 		int essenceCost = this.getWeaponType().getArcaneCost();
-		String damageName = "<b style='color:"+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"+ Util.capitaliseSentence(damageType.getName()) +"</b> <b>damage</b>";
-		descriptionSB.append("<p>");
-			descriptionSB.append("<b>"+Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN, this) + "-" + Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, this)+"</b> "
-							+ damageName);
+		String damageName = "<b style='color:"+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>";
+		descriptionSB.append("<p><b>");
+			descriptionSB.append("<span style='color:" + this.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(this.getRarity().getName())+"</span>"
+								+" | "
+								+(this.getWeaponType().isUsingUnarmedCalculation()
+									?"[style.colourUnarmed(Unarmed)]"
+									:(this.getWeaponType().isMelee()
+										?"[style.colourMelee(Melee)]"
+										:"[style.colourRanged(Ranged)]"))
+								+"<br/>");
+			descriptionSB.append((this.getWeaponType().isTwoHanded()?"Two-handed":"One-handed")+"<br/>");
+			if(essenceCost>0) {
+				descriptionSB.append("Costs [style.colourArcane("+essenceCost+" arcane essence"+(essenceCost==1?"":"s")+")] "+(this.getWeaponType().isMelee()?"per attack":"to fire")+"<br/>");
+			}
+			if(this.getWeaponType().isUsingUnarmedCalculation()) {
+				descriptionSB.append("Includes [style.boldUnarmed("+character.getUnarmedDamage()+" unarmed damage)]<br/>");
+			}
+			descriptionSB.append(Attack.getMinimumDamage(character, null, Attack.MAIN, this) + "-" + Attack.getMaximumDamage(character, null, Attack.MAIN, this)+" "+ damageName+"<br/>");
 			int targetNumber=2;
 			for(Value<Integer, Integer> aoe : this.getWeaponType().getAoeDamage()) {
 				int aoeChance = aoe.getKey();
 				String position = Util.intToPosition(targetNumber);
-				descriptionSB.append("<br/>[style.boldAqua(AoE)]: "
+				descriptionSB.append("[style.boldAqua(AoE)]: "
 						+ "<b style='color:"+(aoeChance<=25?PresetColour.GENERIC_BAD:(aoeChance<=50?PresetColour.GENERIC_MINOR_BAD:(aoeChance<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()+";'>"+aoeChance+"%</b>"
 						+ " chance to deal "
-						+ "<b>"+ Attack.getMinimumDamage(Main.game.getPlayer(), null, Attack.MAIN, this, aoe.getValue())+" - "+Attack.getMaximumDamage(Main.game.getPlayer(), null, Attack.MAIN, this, aoe.getValue())+ "</b> "
-						+ damageName+" to "+UtilText.generateSingularDeterminer(position)+" "+position+" enemy!");
+						+ "<b>"+ Attack.getMinimumDamage(character, null, Attack.MAIN, this, aoe.getValue())+" - "+Attack.getMaximumDamage(character, null, Attack.MAIN, this, aoe.getValue())+ "</b> "
+						+ damageName+" to "+UtilText.generateSingularDeterminer(position)+" "+position+" enemy!<br/>");
 				targetNumber++;
 			}
-			descriptionSB.append("</br><b>"+(this.getWeaponType().isMelee()?"Melee":"Ranged")+" | "+(this.getWeaponType().isTwoHanded()?"Two-handed":"One-handed")+"</b>");
-			if(essenceCost>0) {
-				descriptionSB.append("<br/><b>Costs [style.colourArcane("+essenceCost+" arcane essence"+(essenceCost==1?"":"s")+")] "+(this.getWeaponType().isMelee()?"per attack":"to fire")+"</b>");
-			}
-		descriptionSB.append("</p>");
+		descriptionSB.append("</b></p>");
 		descriptionSB.append("<p>");
 			descriptionSB.append(weaponType.getDescription());
 		descriptionSB.append("</p>");
@@ -447,7 +466,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 			List<String> combatMoveNames = new ArrayList<>();
 			descriptionSB.append("[style.italicsCombat(");
 			for(CombatMove cm : combatMoves) {
-				combatMoveNames.add(cm.getName(0, Main.game.getPlayer()));
+				combatMoveNames.add(cm.getName(0, character));
 			}
 			descriptionSB.append(Util.stringsToStringList(combatMoveNames, true));
 			descriptionSB.append(")]</p>");

@@ -9,7 +9,6 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
@@ -1043,7 +1042,8 @@ public class Perk {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)),
 			Util.newArrayListOfValues(
-					"All incorrect English spellings are [style.boldExcellent(automatically fixed)]")) {
+					"All incorrect English spellings are [style.boldExcellent(automatically fixed)]",
+					"Enemies are blinded by your [style.colourFreedom(freedom)] for [style.colourExcellent(-1)] <span style='color:"+Attribute.ACTION_POINTS.getColour().toWebHexString()+";'>"+Attribute.ACTION_POINTS.getName()+"</span>")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.speech(Excuse me! I'm an American! Do you speak English?! My visa expires in four days, where's the embassy?!)]");
@@ -2011,7 +2011,7 @@ public class Perk {
 			"perks/unarmed_training",
 			PresetColour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(),
-			Util.newArrayListOfValues("Base unarmed damage value is <span style='color:"+ PresetColour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>boosted to 8</span>")) {
+			Util.newArrayListOfValues("Base unarmed damage value is [style.boldExcellent(tripled)]")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner, "[npc.NameHasFull] received formal training in martial arts, allowing [npc.herHim] to deal just as much damage in unarmed combat as [npc.her] strongest foe.");
@@ -2880,132 +2880,135 @@ public class Perk {
 
 	// SPECIFIC TO ELEMENTAL PERK TREE:
 	
-	public static AbstractPerk ELEMENTAL_BOUND_EARTH = new AbstractPerk(20,
-			true,
-			"Bound to Earth",
-			PerkCategory.JOB,
-			"combat/spell/elemental_earth",
-			PresetColour.SPELL_SCHOOL_EARTH,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 50),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 50),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 50)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "By being bound to the school of Earth, [npc.name] has gained a strong, tough body that is extremely resilient to physical damage."
-					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using physical attacks.");
-		}
-	};
+//	public static AbstractPerk ELEMENTAL_BOUND_EARTH = new AbstractPerk(20,
+//			true,
+//			"Bound to Earth",
+//			PerkCategory.JOB,
+//			"combat/spell/elemental_earth",
+//			PresetColour.SPELL_SCHOOL_EARTH,
+//			Util.newHashMapOfValues(
+//					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 50),
+//					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 50),
+//					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 50)),
+//			null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return UtilText.parse(owner, "By being bound to the school of Earth, [npc.name] has gained a strong, tough body that is extremely resilient to physical damage."
+//					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using physical attacks.");
+//		}
+//	};
+//
+//	public static AbstractPerk ELEMENTAL_BOUND_FIRE = new AbstractPerk(20,
+//			true,
+//			"Bound to Fire",
+//			PerkCategory.JOB,
+//			"combat/spell/elemental_fire",
+//			PresetColour.SPELL_SCHOOL_FIRE,
+//			Util.newHashMapOfValues(
+//					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10),
+//					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 50),
+//					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 50)),
+//			null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return UtilText.parse(owner, "By being bound to the school of Fire, [npc.name] has gained an ethereal body that is extremely resilient to fire damage."
+//					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using fire-based attacks.");
+//		}
+//	};
+//
+//	public static AbstractPerk ELEMENTAL_BOUND_WATER = new AbstractPerk(20,
+//			true,
+//			"Bound to Water",
+//			PerkCategory.JOB,
+//			"combat/spell/elemental_water",
+//			PresetColour.SPELL_SCHOOL_WATER,
+//			Util.newHashMapOfValues(
+//					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 20),
+//					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 50),
+//					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 50)),
+//			null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return UtilText.parse(owner, "By being bound to the school of Water, [npc.name] has gained "+(owner.getBodyMaterial()==BodyMaterial.WATER?"a liquid-like ":"an ice-like ")+"body that is extremely resilient to ice damage."
+//					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using ice-based attacks.");
+//		}
+//	};
+//
+//	public static AbstractPerk ELEMENTAL_BOUND_AIR = new AbstractPerk(20,
+//			true,
+//			"Bound to Air",
+//			PerkCategory.JOB,
+//			"combat/spell/elemental_air",
+//			PresetColour.SPELL_SCHOOL_AIR,
+//			Util.newHashMapOfValues(
+//					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
+//					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 50),
+//					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 50)),
+//			null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return UtilText.parse(owner, "By being bound to the school of Air, [npc.name] has gained an ethereal body that is extremely resilient to poison damage."
+//					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using poison-based attacks.");
+//		}
+//	};
+//
+//	public static AbstractPerk ELEMENTAL_BOUND_ARCANE = new AbstractPerk(20,
+//			true,
+//			"Bound to Arcane",
+//			PerkCategory.JOB,
+//			"combat/spell/elemental_arcane",
+//			PresetColour.SPELL_SCHOOL_AIR,
+//			Util.newHashMapOfValues(
+//					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
+//					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50),
+//					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25),
+//					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 25),
+//					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -50)),
+//			null) {
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return UtilText.parse(owner, "By being bound to the school of Arcane, [npc.name] has gained an ethereal body that capable of inflicting great damage by using lust-based attacks."
+//					+ " [npc.She] has also become more adept at casting spells, but the arcane's arousing power has left [npc.herHim] more susceptible to lust-based attacks.");
+//		}
+//	};
 
-	public static AbstractPerk ELEMENTAL_BOUND_FIRE = new AbstractPerk(20,
+	public static AbstractPerk ELEMENTAL_CORE_OCCUPATION = new AbstractPerk(20,
 			true,
-			"Bound to Fire",
-			PerkCategory.JOB,
-			"combat/spell/elemental_fire",
-			PresetColour.SPELL_SCHOOL_FIRE,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 50),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 50)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "By being bound to the school of Fire, [npc.name] has gained an ethereal body that is extremely resilient to fire damage."
-					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using fire-based attacks.");
-		}
-	};
-
-	public static AbstractPerk ELEMENTAL_BOUND_WATER = new AbstractPerk(20,
-			true,
-			"Bound to Water",
-			PerkCategory.JOB,
-			"combat/spell/elemental_water",
-			PresetColour.SPELL_SCHOOL_WATER,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 20),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 50),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 50)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "By being bound to the school of Water, [npc.name] has gained "+(owner.getBodyMaterial()==BodyMaterial.WATER?"a liquid-like ":"an ice-like ")+"body that is extremely resilient to ice damage."
-					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using ice-based attacks.");
-		}
-	};
-
-	public static AbstractPerk ELEMENTAL_BOUND_AIR = new AbstractPerk(20,
-			true,
-			"Bound to Air",
-			PerkCategory.JOB,
-			"combat/spell/elemental_air",
-			PresetColour.SPELL_SCHOOL_AIR,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 50),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 50)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "By being bound to the school of Air, [npc.name] has gained an ethereal body that is extremely resilient to poison damage."
-					+ " As well as this, [npc.sheIs] now capable of inflicting great damage by using poison-based attacks.");
-		}
-	};
-
-	public static AbstractPerk ELEMENTAL_BOUND_ARCANE = new AbstractPerk(20,
-			true,
-			"Bound to Arcane",
-			PerkCategory.JOB,
-			"combat/spell/elemental_arcane",
-			PresetColour.SPELL_SCHOOL_AIR,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 50),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 25),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -50)),
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "By being bound to the school of Arcane, [npc.name] has gained an ethereal body that capable of inflicting great damage by using lust-based attacks."
-					+ " [npc.She] has also become more adept at casting spells, but the arcane's arousing power has left [npc.herHim] more susceptible to lust-based attacks.");
-		}
-	};
-
-	public static AbstractPerk ELEMENTAL_CORE = new AbstractPerk(20,
-			false,
 			"elemental",
-			PerkCategory.LUST,
-			"perks/elemental/core",
+			PerkCategory.JOB,
+			"perks/elemental/coreOccupation",
 			PresetColour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 50),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25),
-					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 100)
-					), null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "As beings of pure arcane energy, all elementals are very competent spell casters, and rival even the most powerful of demons in their ability to harness the arcane.");
-		}
-	};
-
-	public static AbstractPerk ELEMENTAL_CORRUPTION = new AbstractPerk(20,
-			false,
-			"elemental",
-			PerkCategory.LUST,
-			"perks/elemental/coreCorruption",
-			PresetColour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 100),
 					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 100)
 					), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "Even if their summoner is completely pure and innocent, the lustful nature of the arcane causes all elementals to be incredibly perverted."
-					+ " If nothing else, they can always be relied upon to be willing and ready to have sex with anyone or anything...");
+			return UtilText.parse(owner,
+					"As beings of pure arcane energy, elementals are able to effortlessly harness the arcane in order to cast spells."
+					+ " Due to the lustful nature of the arcane, they are also incredibly perverted, and are always willing and ready to have sex...");
 		}
 	};
+
+//	public static AbstractPerk ELEMENTAL_CORRUPTION = new AbstractPerk(20,
+//			false,
+//			"elemental",
+//			PerkCategory.LUST,
+//			"perks/elemental/coreCorruption",
+//			PresetColour.GENERIC_ARCANE,
+//			Util.newHashMapOfValues(
+//					new Value<Attribute, Integer>(Attribute.MAJOR_CORRUPTION, 100)
+//					), null) {
+//
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			return UtilText.parse(owner, "Even if their summoner is completely pure and innocent, the lustful nature of the arcane causes all elementals to be incredibly perverted."
+//					+ " If nothing else, they can always be relied upon to be willing and ready to have sex with anyone or anything...");
+//		}
+//	};
 	
 	// ELEMENTAL FIRE
 

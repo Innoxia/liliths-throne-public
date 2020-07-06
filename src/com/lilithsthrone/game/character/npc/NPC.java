@@ -85,7 +85,7 @@ import com.lilithsthrone.game.inventory.item.AbstractPotion;
 import com.lilithsthrone.game.inventory.item.FetishPotion;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -424,99 +424,63 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 	public String getPresentInTileDescription(boolean inHiding) {
 		StringBuilder tileSB = new StringBuilder();
+
+		tileSB.append("<p style='text-align:center;'><i>");
 		
-		if(!this.isRaceConcealed()) {		
-			tileSB.append(
-					UtilText.parse(this,
-							"<p style='text-align:center;'>"
-								+ "<i>"
-									+ (this.isPlayerKnowsName()
-											?"[npc.Name], [npc.a_femininity(true)] [npc.raceStage(true)] [npc.race(true)],"
-											:"[npc.A_femininity(true)] [npc.raceStage(true)] [npc.race(true)]")
-									+ " is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!"
-								+ "</i>"
-							+ "</p>"));
+		if(!this.isRaceConcealed()) {
+			tileSB.append((this.isPlayerKnowsName()
+								?"[npc.Name], [npc.a_femininity(true)] [npc.raceStage(true)] [npc.race(true)],"
+								:"[npc.A_femininity(true)] [npc.raceStage(true)] [npc.race(true)]")
+							+ " is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!");
 		} else {
-			tileSB.append(
-					UtilText.parse(this,
-							"<p style='text-align:center;'>"
-									+"<i>Someone, or something, is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!</i>"
-							+ "</p>"
-				));
+			tileSB.append("Someone, or something, is "+(inHiding?"[style.boldBad(hiding)] in":"prowling")+" this area!");
 		}
 		
 		// Combat:
-		tileSB.append("<p style='text-align:center;'>");
 		if(this.getFoughtPlayerCount()>0) {
-			tileSB.append(
-					UtilText.parse(this,"You have <b style='color:"+PresetColour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
-					
-					if(this.getFoughtPlayerCount()==1) {
-						tileSB.append("once.");
-					} else if(this.getFoughtPlayerCount()==2) {
-						tileSB.append("twice.");
-					} else {
-						tileSB.append(Util.intToString(this.getFoughtPlayerCount())+" times.");
-					}
-					
-			tileSB.append("</b>"
-							+ "<br/>"
-							+ "You have <b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>");
-					
-					if(this.getLostCombatCount()==1) {
-						tileSB.append("once.");
-					} else if(this.getLostCombatCount()==2) {
-						tileSB.append("twice.");
-					} else {
-						tileSB.append(Util.intToString(this.getLostCombatCount())+" times.");
-					}
-							
-			tileSB.append("</b>"
-					+ "<br/>"
-					+ "You have <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
-					if(this.getWonCombatCount()==1) {
-						tileSB.append("once.");
-					} else if(this.getWonCombatCount()==2) {
-						tileSB.append("twice.");
-					} else {
-						tileSB.append(Util.intToString(this.getWonCombatCount())+" times.");
-					}
-					tileSB.append("</b></p>");
+			tileSB.append("<br/>");
+			tileSB.append("You have [style.colourCombat(fought [npc.herHim] "+Util.intToCount(this.getFoughtPlayerCount())+")]");
+			if(this.getFoughtPlayerCount()==this.getLostCombatCount()) {
+				if(this.getLostCombatCount()==1) {
+					tileSB.append(", and managed to [style.colourGood(win)].");
+				} else if(this.getLostCombatCount()==2) {
+					tileSB.append(", of which you've [style.colourGood(won)] [style.colourMinorGood(both times)].");
+				} else {
+					tileSB.append(", of which you've [style.colourGood(won)] [style.colourMinorGood(every time)].");
+				}
+			} else if(this.getFoughtPlayerCount()==this.getWonCombatCount()) {
+				if(this.getWonCombatCount()==1) {
+					tileSB.append(" and [style.colourBad(lost)].");
+				} else if(this.getWonCombatCount()==2) {
+					tileSB.append(" and [style.colourBad(lost)] [style.colourMinorBad(both times)].");
+				}  else {
+					tileSB.append(" and [style.colourBad(lost)] [style.colourMinorBad(every time)].");
+				}
+			} else {
+				tileSB.append(", of which you've [style.colourGood(won)] [style.colourMinorGood("+Util.intToCount(this.getLostCombatCount())+")] ");
+				tileSB.append(" and [style.colourBad(lost)] [style.colourMinorBad("+Util.intToCount(this.getWonCombatCount())+")].");
+			}
 		}
 		
 		// Sex:
 		if(this.hasSexCountWith(Main.game.getPlayer())) {
-			tileSB.append("<p style='text-align:center;'>");
-					
-			tileSB.append(
-					UtilText.parse(this,
-							"You have had <b style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with [npc.herHim]<b> "));
 			
-					if(this.getSexAsDomCount(Main.game.getPlayer())==1) {
-						tileSB.append("once.");
-					} else if(this.getSexAsDomCount(Main.game.getPlayer())==2) {
-						tileSB.append("twice.");
-					} else {
-						tileSB.append(Util.intToString(this.getSexAsDomCount(Main.game.getPlayer()))+" times.");
-					}
-					
-			tileSB.append(
-					UtilText.parse(this,
-							"</b>"
-							+ "<br/>"
-							+ "You have had <b style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with  [npc.herHim]<b> "));
-			
-					if(this.getSexAsSubCount(Main.game.getPlayer())==1) {
-						tileSB.append("once.");
-					} else if(this.getSexAsSubCount(Main.game.getPlayer())==2) {
-						tileSB.append("twice.");
-					} else {
-						tileSB.append(Util.intToString(this.getSexAsSubCount(Main.game.getPlayer()))+" times.");
-					}
-					tileSB.append("</b></p>");
+			if(this.getSexAsDomCount(Main.game.getPlayer())>0) {
+				tileSB.append("<br/>");
+				tileSB.append("You have had <span style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>submissive sex</span> with [npc.herHim] ");
+				tileSB.append(Util.intToCount(this.getSexAsDomCount(Main.game.getPlayer()))+".");
+			}
+
+			if(this.getSexAsSubCount(Main.game.getPlayer())>0) {
+				tileSB.append("<br/>");
+				tileSB.append("You have had <span style='color:"+PresetColour.GENERIC_SEX_AS_DOM.toWebHexString()+";'>dominant sex</span> with  [npc.herHim] ");
+				tileSB.append(Util.intToCount(this.getSexAsSubCount(Main.game.getPlayer()))+".");
+			}
 		}
+
+		tileSB.append("</i></p>");
 		
-		return tileSB.toString();
+		return UtilText.parse(this, tileSB.toString());
 	}
 	
 	public String getPresentInTileDescription() {
@@ -2830,12 +2794,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public void endSex() {
 	}
+	
+	public boolean isWantingToEquipCondom(GameCharacter partner) {
+		return this.getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative() || (partner.hasVagina() && !partner.isVisiblyPregnant() && !this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive());
+	}
 
 	public Value<AbstractClothing, String> getSexClothingToSelfEquip(GameCharacter partner, boolean inQuickSex) {
-		if(Main.game.isInSex()) {
+		if(Main.game.isInSex() && (inQuickSex || !Main.sex.getInitialSexManager().isPartnerWantingToStopSex(this))) {
 			if(this.hasPenisIgnoreDildo()
 					&& this.getClothingInSlot(InventorySlot.PENIS)==null
-					&& (this.getFetishDesire(Fetish.FETISH_CUM_STUD).isNegative() || (partner.hasVagina() && !this.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive()))) {
+					&& isWantingToEquipCondom(partner)) {
 				AbstractClothing condom = null;
 				for(AbstractClothing clothing : this.getAllClothingInInventory().keySet()) {
 					if(clothing.isCondom()) {
@@ -3421,7 +3389,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								+ "Not liking the start of [npc2.namePos] response, [npc.name] quickly [npc.verb(remove)] the bottle's stopper, before rather unceremoniously shoving the neck down [npc2.her] throat."
 								+ " Pinching [npc2.her] nose and holding [npc2.herHim] still, [npc.name] [npc.verb(make)] sure to force [npc2.name] to down all of the liquid before finally letting [npc2.herHim] go."
 								+ " [npc2.She] [npc2.verb(cough)] and [npc2.verb(splutter)] for a moment, before letting out a lewd [npc2.moan] as [npc2.she] [npc2.verb(wipe)] the liquid from [npc2.her] mouth,"
-								+ " [npc.speech(~Aah!~ Hey, that was a fetish transformative, wasn't it?! ~Ooh!~ I feel hot...)]"
+								+ " [npc2.speech(~Aah!~ Hey, that was a fetish transformative, wasn't it?! ~Ooh!~ I feel hot...)]"
 							+ "</p>"));
 						
 					} else {

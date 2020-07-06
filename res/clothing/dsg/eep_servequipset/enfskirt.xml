@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet>
+		<clothingSet>dsg_enforcer_service</clothingSet>
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -127,27 +127,30 @@
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
-	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="PULLS_DOWN">
-		<playerSelf><![CDATA[You pull down your skirt.]]></playerSelf>
-		<playerNPC><![CDATA[You pull down [npc.Name]'s skirt.]]></playerNPC>
-		<playerNPCRough><![CDATA[You forcefully pull down [npc.Name]'s skirt.]]></playerNPCRough>
-		<NPCSelf><![CDATA[[npc.Name] pulls down [npc.her] skirt.]]></NPCSelf>
-		<NPCPlayer><![CDATA[[npc.Name] pulls down your skirt.]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[[npc.Name] forcefully pulls down your skirt.]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[[npc1.Name] pulls down [npc2.name]'s skirt.]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[[npc1.Name] forcefully pulls down [npc2.name]'s skirt.]]></NPCOtherNPCRough>
-	</displacementText>
-	
-	<replacementText type="PULLS_UP">
-		<playerSelf><![CDATA[You pull up your skirt.]]></playerSelf>
-		<playerNPC><![CDATA[You pull up [npc.Name]'s skirt.]]></playerNPC>
-		<playerNPCRough><![CDATA[You forcefully pull up [npc.Name]'s skirt.]]></playerNPCRough>
-		<NPCSelf><![CDATA[[npc.Name] pulls up [npc.her] skirt.]]></NPCSelf>
-		<NPCPlayer><![CDATA[[npc.Name] pulls up your skirt.]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[[npc.Name] forcefully pulls up your skirt.]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[[npc1.Name] pulls up [npc2.name]'s skirt.]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[[npc1.Name] forcefully pulls up [npc2.name]'s skirt.]]></NPCOtherNPCRough>
+	<!-- 'replacementText' is used for equipping and replacements. -->
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(step)] into the uniform skirt and [npc.verb(pull)] them up to [npc.her] waist before buttoning up the front.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the uniform skirt up around [npc2.namePos] legs up to [npc2.her] waist before buttoning up the front.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(yank)] the uniform skirt up around [npc2.namePos] legs up to [npc2.her] waist before roughly buttoning up the front.]]>
+		</otherRough>
 	</replacementText>
+	
+	<!-- 'displacementText' is used for removal and displacement. -->
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc.her] uniform skirt and [npc.verb(pull)] them down before kicking them from [npc.her] [npc.feet].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc2.name] uniform skirt and [npc.verb(pull)] them down before sliding them from [npc2.her] [npc2.feet].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] forcibly [npc.verb(unbutton)] [npc2.name] uniform skirt and [npc.verb(yank)] them off.]]>
+		</otherRough>
+	</displacementText>	
 	
 </clothing>

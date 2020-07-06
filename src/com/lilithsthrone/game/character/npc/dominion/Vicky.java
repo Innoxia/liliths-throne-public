@@ -76,6 +76,7 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
@@ -640,6 +641,11 @@ public class Vicky extends NPC {
 	}
 	
 	// Sex:
+
+	@Override
+	public SexPace getSexPaceDomPreference(){
+		return SexPace.DOM_ROUGH;
+	}
 	
 	@Override
 	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {

@@ -37,9 +37,9 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
@@ -107,7 +107,7 @@ public class RoomPlayer {
 		sb.append(character.washAllOrifices(washAllOrifices));
 		character.calculateStatusEffects(0);
 		character.cleanAllDirtySlots(true);
-		sb.append(character.cleanAllClothing(cleanAllClothing));
+		sb.append(character.cleanAllClothing(cleanAllClothing, true));
 
 		character.removeStatusEffect(StatusEffect.BATH);
 		character.removeStatusEffect(StatusEffect.BATH_BOOSTED);
@@ -160,17 +160,19 @@ public class RoomPlayer {
 				};
 	
 			} else if (index == 4) {
-				int timeUntilChange = Main.game.getMinutesUntilNextMorningOrEvening();
+				int timeUntilChange = Main.game.getMinutesUntilNextMorningOrEvening() + 5; // Add 5 minutes so that if the days are drawing in, you don't get stuck in a loop of always sleeping to sunset/sunrise
 				LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
 				return new Response("Rest until " + (Main.game.isDayTime() ? "Sunset" : "Sunrise"),
 						"Rest for " + (timeUntilChange >= 60 ?timeUntilChange / 60 + " hours " : " ")
 							+ (timeUntilChange % 60 != 0 ? timeUntilChange % 60 + " minutes" : "")
-							+ " until " + (Main.game.isDayTime() ? "evening ("+Units.time(sunriseSunset[1])+")." : "morning ("+Units.time(sunriseSunset[0])+").")
+							+ (Main.game.isDayTime()
+									? " until five minutes past sunset ("+Units.time(sunriseSunset[1].plusMinutes(5))+")."
+									: " until five minutes past sunrise ("+Units.time(sunriseSunset[0].plusMinutes(5))+").")
 							+ " As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
 							AUNT_HOME_PLAYERS_ROOM_SLEEP){
 					@Override
 					public void effects() {
-						sleepTimeInMinutes = Main.game.getMinutesUntilNextMorningOrEvening();
+						sleepTimeInMinutes = timeUntilChange;
 						applySleep(sleepTimeInMinutes);
 					}
 				};
@@ -407,7 +409,7 @@ public class RoomPlayer {
 						
 						if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_PROFESSIONAL)) {
 							speechGreetings.add("[npc.speech(Welcome back, [pc.name],)]");
-							speechGreetings.add("[npc.speech(Good [game.morning], [pc.name],)]");
+							speechGreetings.add("[npc.speech(Good [style.morning], [pc.name],)]");
 							speechGreetings.add("[npc.speech(Welcome home, [pc.name],)]");
 							
 							if(npc.isFeminine()) {
@@ -456,7 +458,7 @@ public class RoomPlayer {
 							
 						} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_STANDARD)) {
 							speechGreetings.add("[npc.speech(Hello, [pc.name],)]");
-							speechGreetings.add("[npc.speech(Good [game.morning], [pc.name],)]");
+							speechGreetings.add("[npc.speech(Good [style.morning], [pc.name],)]");
 							speechGreetings.add("[npc.speech(Welcome back, [pc.name],)]");
 							
 							if(npc.isShy()) {
@@ -470,7 +472,7 @@ public class RoomPlayer {
 								endGreetings.add("[npc.name] happily greets you in a loving tone,");
 								
 								endSpeechGreetings.add("[npc.speech(Is there anything I can do for you?)]");
-								endSpeechGreetings.add("[npc.speech(How are you this [game.morning]?)]");
+								endSpeechGreetings.add("[npc.speech(How are you this [style.morning]?)]");
 								endSpeechGreetings.add("[npc.speech(Please let me know if there's anything I can do for you!)]");
 								
 							} else {
@@ -484,7 +486,7 @@ public class RoomPlayer {
 							
 						} else if(npc.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
 							speechGreetings.add("[npc.speech(Hello, [pc.name],)]");
-							speechGreetings.add("[npc.speech(Good [game.morning], [pc.name],)]");
+							speechGreetings.add("[npc.speech(Good [style.morning], [pc.name],)]");
 							speechGreetings.add("[npc.speech(Welcome home, [pc.name],)]");
 							
 							if(npc.isShy()) {

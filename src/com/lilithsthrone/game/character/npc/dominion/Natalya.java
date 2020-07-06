@@ -339,7 +339,7 @@ public class Natalya extends NPC {
 	}
 	
 	public void insertDildo() {
-		AbstractClothing dildo = AbstractClothingType.generateClothing("innoxia_clothing_anus_ribbed_dildo", PresetColour.CLOTHING_BLACK, false);
+		AbstractClothing dildo = AbstractClothingType.generateClothing("innoxia_anus_ribbed_dildo", PresetColour.CLOTHING_BLACK, false);
 		
 		dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
 		dildo.setName("Natalya's "+UtilText.applyVibration("vibrating", dildo.getRarity().getColour())+" dildo");
@@ -372,7 +372,11 @@ public class Natalya extends NPC {
 				sb.append(UtilText.parseFromXMLFile("characters/dominion/natalya", "HELENA_ALLEYWAY_ORGASM_NO_FACIAL"));
 			}
 			
-			return new SexActionOrgasmOverride(true, sb.toString()) {
+			return new SexActionOrgasmOverride(true) {
+				@Override
+				public String getDescription() {
+					return sb.toString();
+				}
 				@Override
 				public void applyEffects() {
 					if(applyExtraEffects) {
@@ -419,12 +423,12 @@ public class Natalya extends NPC {
 	}
 
 	@Override
-	public String getVaginaRevealDescription(GameCharacter characterBeingRevealed, List<GameCharacter> charactersReacting) {
+	public String getVaginaRevealDescription(GameCharacter characterBeingRevealed, GameCharacter characterReacting) {
 		if(characterBeingRevealed.isPlayer()) {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append("<p>");
-				sb.append(UtilText.parse(characterBeingRevealed, charactersReacting.get(0),
+				sb.append(UtilText.parse(characterBeingRevealed, characterReacting,
 						"[npc2.Name] [npc2.verb(sneer)] when [npc2.she] [npc2.verb(see)] "
 								+ (Main.sex.hasLubricationTypeFromAnyone(characterBeingRevealed, SexAreaOrifice.VAGINA, LubricationType.GIRLCUM)
 										? "[npc.namePos] wet [npc.pussy] betraying [npc.her] arousal, and in a tone of absolute disgust, [npc2.she] snaps, "
@@ -435,7 +439,7 @@ public class Natalya extends NPC {
 			return sb.toString();
 		}
 		
-		return super.getVaginaRevealDescription(characterBeingRevealed, charactersReacting);
+		return super.getVaginaRevealDescription(characterBeingRevealed, characterReacting);
 	}
 	
 	@Override

@@ -4806,10 +4806,10 @@ public class ItemType {
 	public static AbstractItemType SLAVER_LICENSE = new AbstractItemType(5000,
 			"",
 			false,
-			"Slaver License",
-			"Slaver Licenses",
+			"Slaver license",
+			"Slaver licenses",
 			"An official document declaring that you're legally entitled to own, purchase, sell, and even capture slaves."
-					+ " Although Slaver Licenses are extremely difficult to obtain, they only really have any value to their rightful owner...",
+					+ " Although slaver licenses are extremely difficult to obtain, they only really have any value to their rightful owner...",
 			"slaver_license",
 			PresetColour.CLOTHING_WHITE,
 			null,
@@ -4824,7 +4824,7 @@ public class ItemType {
 		}
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return "This Slaver License consists of a single piece of thick, high-quality paper."
+			return "This slaver license consists of a single piece of thick, high-quality paper."
 					+ " It has your name clearly printed near to the top, and has been signed by Finch.";
 		}
 		@Override

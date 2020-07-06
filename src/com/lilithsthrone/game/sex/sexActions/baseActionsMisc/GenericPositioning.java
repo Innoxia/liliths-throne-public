@@ -997,12 +997,14 @@ public class GenericPositioning {
 		@Override
 		public String getActionDescription() {
 			if(!Main.sex.getCharacterTargetedForSexAction(this).isTaur()) {
-				return "Get [npc2.name] to switch position so that [npc2.sheIsFull] in front of you, and so able to perform oral on your genitals.";
+				return "Move around in front of [npc2.name] so that you're able to perform oral on [npc2.her] genitals.";
 			} else {
 				if(Main.sex.getCharacterTargetedForSexAction(this).hasPenis()) {
-					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you, and so able to perform oral on your [npc.cock]"+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?" and [npc.crotchBoobs]":"")+".";
+					return "Kneel down and shuffle forwards beneath [npc2.namePos] feral [npc2.legRaceFeral] body so that you're able to perform oral on [npc2.her] [npc2.cock]"
+								+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?" and [npc2.crotchBoobs]":"")+".";
 				} else {
-					return "Get [npc2.name] to switch position so that [npc2.sheIsFull] kneeling beneath you"+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?", and so able to perform oral on your [npc.crotchBoobs]":"")+".";
+					return "Kneel down and shuffle forwards beneath [npc2.namePos] feral [npc2.legRaceFeral] body"
+								+(Main.sex.getCharacterTargetedForSexAction(this).hasBreastsCrotch()?" so that you're able to perform oral on [npc2.her] [npc2.crotchBoobs]":"")+".";
 				}
 			}
 		}

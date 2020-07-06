@@ -64,6 +64,8 @@ public class RoxysShop {
 				sb.append(UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "TRADER_VENGAR_INTRO_START"));
 				if(isAddictedToRoxy()) {
 					sb.append(UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "TRADER_VENGAR_INTRO_ADDICTED"));
+				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roxyAddicted)) {
+					sb.append(UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "TRADER_VENGAR_INTRO_BEATEN_ADDICTION"));
 				} else {
 					sb.append(UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "TRADER_VENGAR_INTRO_NOT_ADDICTED"));
 				}
@@ -71,7 +73,6 @@ public class RoxysShop {
 				return sb.toString();
 				
 			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.roxyIntroduced)) {
-				
 				if(isAddictedToRoxy()) {
 					return UtilText.parseFromXMLFile("places/submission/gamblingDen/roxysShop", "TRADER_REPEAT_ADDICT");
 					

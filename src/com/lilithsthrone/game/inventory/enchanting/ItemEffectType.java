@@ -2695,9 +2695,9 @@ public class ItemEffectType {
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			List<String> effectsDescription = new ArrayList<>();
 			
-			effectsDescription.add("[style.boldBad(Does not affect player or unique characters)]");
+			effectsDescription.add("[style.boldBad(Does not affect unique characters)]");
 			
-			effectsDescription.add("[style.boldTfGeneric(Transforms)] non-youko into [style.boldDemon(youko)]");
+			effectsDescription.add("[style.boldTfGeneric(Transforms)] non-youko into [style.boldFox(youko)]");
 
 			effectsDescription.add("[style.boldTfGeneric(Grants)] youko an extra tail");
 			
@@ -2706,16 +2706,16 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			if(target.isPlayer()) {
-				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on you...)]</p>";
-			}
-			if(target.isUnique() && (!target.isSlave() || target.getOwner().isPlayer())) {
+//			if(target.isPlayer()) {
+//				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on you...)]</p>";
+//			}
+			if(!target.isPlayer() && target.isUnique() && (!target.isSlave() || target.getOwner().isPlayer())) {
 				return "<p style='text-align:center'>[style.italicsDisabled(This item does not work on non-slave unique characters...)]</p>";
 			}
 			
 			if(target.getSubspecies()!=Subspecies.FOX_ASCENDANT && target.getSubspecies()!=Subspecies.FOX_ASCENDANT_ARCTIC && target.getSubspecies()!=Subspecies.FOX_ASCENDANT_FENNEC) {
 				CharacterUtils.reassignBody(target, target.getBody(), target.getGender(), Subspecies.FOX_ASCENDANT, RaceStage.PARTIAL_FULL, true);
-				return UtilText.parse(target, "<p style='text-align:center; color:"+PresetColour.RACE_FOX_MORPH.toWebHexString()+";'><i>[npc.Name] is now [npc.a_race]!</i></p>");
+				return UtilText.parse(target, "<p style='text-align:center; color:"+PresetColour.RACE_FOX_MORPH.toWebHexString()+";'><i>[npc.NameIsFull] now [npc.a_race]!</i></p>");
 				
 			} else {
 				return UtilText.parse(target, target.incrementTailCount(1, true));

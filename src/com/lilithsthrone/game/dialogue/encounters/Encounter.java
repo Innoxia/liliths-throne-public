@@ -51,8 +51,8 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -277,7 +277,7 @@ public enum Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
-					new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 1f),
+					new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2f),
 					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
@@ -364,21 +364,7 @@ public enum Encounter {
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
 				
 			} else if(node == EncounterType.DOMINION_ALLEY_ENFORCERS && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
-				try {
-					EnforcerPatrol npc = new EnforcerPatrol(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.getGenderFromUserPreferences(false, false));
-					Main.game.addNPC(npc, false);
-					npc.setLevel(9+Util.random.nextInt(4)); // 9-12
-					((EnforcerPatrol)npc).setWeapons("dsg_eep_pbweap_pbpistol");
-					
-					EnforcerPatrol npc2 = new EnforcerPatrol(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.getGenderFromUserPreferences(false, false));
-					Main.game.addNPC(npc2, false);
-					npc2.setLevel(4+Util.random.nextInt(5)); // 4-8
-					((EnforcerPatrol)npc2).setWeapons("dsg_eep_taser_taser");
-					npc2.setSexualOrientation(npc.getSexualOrientation()); // This is to simplify post-combat sex.
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				spawnEnforcers();
 				return EnforcerAlleywayDialogue.ENFORCER_ALLEYWAY_START;
 				
 			} else if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
@@ -426,6 +412,7 @@ public enum Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
+					new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2f),
 					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
@@ -507,6 +494,10 @@ public enum Encounter {
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon((AbstractWeapon) randomItem);
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
+				
+			} else if(node == EncounterType.DOMINION_ALLEY_ENFORCERS && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+				spawnEnforcers();
+				return EnforcerAlleywayDialogue.ENFORCER_ALLEYWAY_START;
 				
 			} else if(node == EncounterType.SLAVE_USES_YOU && Main.game.getCharactersPresent().isEmpty()) {
 				NPC slave = getSlaveWantingToUseYouInDominion();
@@ -1061,6 +1052,44 @@ public enum Encounter {
 	},
 	
 	;
+	
+	private static void spawnEnforcers() {
+		List<List<String>> savedEnforcerIds = Main.game.getSavedEnforcers(WorldType.DOMINION);
+		
+		// Keep 4 sets of Enforcers saved
+		float chanceOfNewEnforcers = 1f - (0.25f * savedEnforcerIds.size());
+		if(Math.random()<chanceOfNewEnforcers) {
+			try {
+				List<String> enforcerIds = new ArrayList<>();
+				EnforcerPatrol npc = new EnforcerPatrol(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.getGenderFromUserPreferences(false, false));
+				Main.game.addNPC(npc, false);
+				npc.setLevel(9+Util.random.nextInt(4)); // 9-12
+				((EnforcerPatrol)npc).setWeapons("dsg_eep_pbweap_pbpistol");
+				enforcerIds.add(npc.getId());
+				
+				EnforcerPatrol npc2 = new EnforcerPatrol(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.getGenderFromUserPreferences(false, false));
+				Main.game.addNPC(npc2, false);
+				npc2.setLevel(4+Util.random.nextInt(5)); // 4-8
+				((EnforcerPatrol)npc2).setWeapons("dsg_eep_taser_taser");
+				enforcerIds.add(npc2.getId());
+				
+				Main.game.addSavedEnforcers(WorldType.DOMINION, enforcerIds);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			List<String> enforcerIds = Util.randomItemFrom(savedEnforcerIds);
+			for(String id : enforcerIds) {
+				try {
+					Main.game.getNPCById(id).setLocation(Main.game.getPlayer(), false);
+				} catch (Exception e) {
+					System.err.println("Error in Encounter.spawnEnforcers()");
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 	
 	private static DialogueNode SpawnAndStartChildHere(List<NPC> offspringAvailable) {
 		NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));

@@ -181,11 +181,11 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
-import com.lilithsthrone.game.occupantManagement.SlaveJobHours;
-import com.lilithsthrone.game.occupantManagement.SlaveJobSetting;
-import com.lilithsthrone.game.occupantManagement.SlavePermission;
-import com.lilithsthrone.game.occupantManagement.SlavePermissionSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobHours;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.ContentPreferenceValue;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
@@ -236,29 +236,29 @@ public class MainControllerInitMethod {
 			MainController.flashMessageText = null;
 		}
 		
-		if (((EventTarget) MainController.document.getElementById("copy-content-button")) != null) {
-			MainController.addEventListener(MainController.document, "copy-content-button", "click", MainController.copyDialogueButtonListener, false);
-			MainController.addEventListener(MainController.document, "copy-content-button", "mousemove", MainController.moveTooltipListener, false);
-			MainController.addEventListener(MainController.document, "copy-content-button", "mouseleave", MainController.hideTooltipListener, false);
-			MainController.addEventListener(MainController.document, "copy-content-button", "mouseenter", MainController.copyInfoListener, false);
-		}
-		
-		if (((EventTarget) MainController.document.getElementById("export-character-button")) != null) {
-			MainController.addEventListener(MainController.document, "export-character-button", "click", e -> {
-				if(Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)) {
-					Game.exportCharacter(Main.game.getPlayer());
-				} else {
-					Game.exportCharacter(CharactersPresentDialogue.characterViewed);
-				}
-				
-				Main.game.flashMessage(PresetColour.GENERIC_EXCELLENT, "Character Exported!");
-			}, false);
-			MainController.addEventListener(MainController.document, "export-character-button", "mousemove", MainController.moveTooltipListener, false);
-			MainController.addEventListener(MainController.document, "export-character-button", "mouseleave", MainController.hideTooltipListener, false);
-			MainController.addEventListener(MainController.document, "export-character-button", "mouseenter", new TooltipInformationEventListener().setInformation(
-					"Export Character",
-					"Export the currently displayed character to the 'data/characters' folder. Exported characters can be imported at the auction block in Slaver Alley."), false);
-		}
+//		if (((EventTarget) MainController.document.getElementById("copy-content-button")) != null) {
+//			MainController.addEventListener(MainController.document, "copy-content-button", "click", MainController.copyDialogueButtonListener, false);
+//			MainController.addEventListener(MainController.document, "copy-content-button", "mousemove", MainController.moveTooltipListener, false);
+//			MainController.addEventListener(MainController.document, "copy-content-button", "mouseleave", MainController.hideTooltipListener, false);
+//			MainController.addEventListener(MainController.document, "copy-content-button", "mouseenter", MainController.copyInfoListener, false);
+//		}
+//		
+//		if (((EventTarget) MainController.document.getElementById("export-character-button")) != null) {
+//			MainController.addEventListener(MainController.document, "export-character-button", "click", e -> {
+//				if(Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)) {
+//					Game.exportCharacter(Main.game.getPlayer());
+//				} else {
+//					Game.exportCharacter(CharactersPresentDialogue.characterViewed);
+//				}
+//				
+//				Main.game.flashMessage(PresetColour.GENERIC_EXCELLENT, "Character Exported!");
+//			}, false);
+//			MainController.addEventListener(MainController.document, "export-character-button", "mousemove", MainController.moveTooltipListener, false);
+//			MainController.addEventListener(MainController.document, "export-character-button", "mouseleave", MainController.hideTooltipListener, false);
+//			MainController.addEventListener(MainController.document, "export-character-button", "mouseenter", new TooltipInformationEventListener().setInformation(
+//					"Export Character",
+//					"Export the currently displayed character to the 'data/characters' folder. Exported characters can be imported at the auction block in Slaver Alley."), false);
+//		}
 		
 		if(Main.game.isInCombat()) {
 			for(GameCharacter combatant : Combat.getAllCombatants(true)) {
@@ -1628,9 +1628,13 @@ public class MainControllerInitMethod {
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
-								Util.capitaliseSentence(job.getName(Main.game.getDialogueFlags().getManagementCompanion())),
-								UtilText.parse(Main.game.getDialogueFlags().getManagementCompanion(), job.getDescription()));
+
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setSlaveJob(job, Main.game.getDialogueFlags().getManagementCompanion());
+						
+//						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+//								Util.capitaliseSentence(job.getName(Main.game.getDialogueFlags().getManagementCompanion())),
+//								UtilText.parse(Main.game.getDialogueFlags().getManagementCompanion(), job.getDescription()));
+						
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 					
@@ -1643,10 +1647,13 @@ public class MainControllerInitMethod {
 						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
-								Util.capitaliseSentence(job.getName(Main.game.getDialogueFlags().getManagementCompanion())),
-								job.getDescription()
-								+"<br/>[style.boldOrange(Hourly Fatigue:)] "+(job.getHourlyFatigue()>0?"[style.boldBad(":"[style.boldGood(")+job.getHourlyFatigue()+")]");
+
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setSlaveJob(job, Main.game.getDialogueFlags().getManagementCompanion());
+//						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+//								Util.capitaliseSentence(job.getName(Main.game.getDialogueFlags().getManagementCompanion())),
+//								job.getDescription()
+//								+"<br/>[style.boldOrange(Hourly Fatigue:)] "+(job.getHourlyFatigue()>0?"[style.boldBad(":"[style.boldGood(")+job.getHourlyFatigue()+")]");
+						
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 					
@@ -6199,6 +6206,7 @@ public class MainControllerInitMethod {
 					new Value<>("FOOT", PropertyValue.footContent),
 					new Value<>("FUTA_BALLS", PropertyValue.futanariTesticles),
 					new Value<>("CLOACA", PropertyValue.bipedalCloaca),
+					new Value<>("COMPANION", PropertyValue.companionContent),
 					new Value<>("AGE", PropertyValue.ageContent),
 					new Value<>("LIPSTICK_MARKING", PropertyValue.lipstickMarkingContent),
 					new Value<>("HAIR_PUBIC", PropertyValue.pubicHairContent),

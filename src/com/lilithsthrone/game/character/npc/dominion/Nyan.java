@@ -426,21 +426,25 @@ public class Nyan extends NPC {
 		List<AbstractClothingType> typesToAdd = new ArrayList<>();
 		List<AbstractClothing> generatedClothing = new ArrayList<>();
 		
-		for(int i=0;i<4;i++) {
-			typesToAdd.add(Util.randomItemFrom(clothingList).getClothingType());
-		}
-		
-		for(int i=0; i<typesToAdd.size(); i++) {
-			if(i==typesToAdd.size()-1) {
-				generatedClothing.add(AbstractClothingType.generateRareClothing(typesToAdd.get(i)));
-			} else {
-				generatedClothing.add(AbstractClothingType.generateClothingWithEnchantment(typesToAdd.get(i)));
+		List<AbstractClothing> clothingListMinusEnchanteds = new ArrayList<>(clothingList);
+		clothingListMinusEnchanteds.removeIf(c->!c.getClothingType().getEffects().isEmpty());
+		if(!clothingListMinusEnchanteds.isEmpty()) {
+			for(int i=0;i<4;i++) {
+				typesToAdd.add(Util.randomItemFrom(clothingListMinusEnchanteds).getClothingType());
 			}
-		}
-
-		for(AbstractClothing c : generatedClothing) {
-			c.setEnchantmentKnown(this, true);
-			clothingList.add(c);
+			
+			for(int i=0; i<typesToAdd.size(); i++) {
+				if(i==typesToAdd.size()-1) {
+					generatedClothing.add(AbstractClothingType.generateRareClothing(typesToAdd.get(i)));
+				} else {
+					generatedClothing.add(AbstractClothingType.generateClothingWithEnchantment(typesToAdd.get(i)));
+				}
+			}
+	
+			for(AbstractClothing c : generatedClothing) {
+				c.setEnchantmentKnown(this, true);
+				clothingList.add(c);
+			}
 		}
 	}
 	
