@@ -1243,7 +1243,7 @@ public class HelenaHotel {
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_HELENA_HOTEL);
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.helenaDateFirstDateComplete, true);
-			Main.game.getNpc(Helena.class).cleanAllClothing(true);
+			Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 			Main.game.getNpc(Helena.class).equipClothing();
 		}
@@ -2311,7 +2311,7 @@ public class HelenaHotel {
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/helenaHotel/hotelDate", "DATE_APARTMENT_BEDROOM_AFTER_SEX_LEAVE_NEST"));
 							
-							Main.game.getNpc(Helena.class).cleanAllClothing(true);
+							Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 							Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 							Main.game.getNpc(Helena.class).equipClothing();
 							
@@ -2347,9 +2347,9 @@ public class HelenaHotel {
 	public static final DialogueNode DATE_APARTMENT_BEDROOM_AFTER_SEX_SLEEP = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getPlayer().cleanAllClothing(false);
+			Main.game.getPlayer().cleanAllClothing(false, false);
 			Main.game.getPlayer().cleanAllDirtySlots(true);
-			Main.game.getNpc(Helena.class).cleanAllClothing(true);
+			Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 			((Helena)Main.game.getNpc(Helena.class)).applyDressForMorning();
 		}
@@ -2455,9 +2455,9 @@ public class HelenaHotel {
 	public static final DialogueNode DATE_APARTMENT_BEDROOM_AFTER_SEX_MORNING = new DialogueNode("Finished", "Helena seems to have had enough and pulls away...", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getPlayer().cleanAllClothing(false);
+			Main.game.getPlayer().cleanAllClothing(false, false);
 			Main.game.getPlayer().cleanAllDirtySlots(true);
-			Main.game.getNpc(Helena.class).cleanAllClothing(true);
+			Main.game.getNpc(Helena.class).cleanAllClothing(true, false);
 			Main.game.getNpc(Helena.class).cleanAllDirtySlots(true);
 		}
 		@Override

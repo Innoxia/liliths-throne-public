@@ -97,7 +97,7 @@
 	]]></applicationCondition>
 	<!--The above example is meant to show that you can use the parser to create more "complex" conditionals, but an alternate, simpler example to achieve the same effect would be to just do:
 	<applicationCondition><![CDATA[
-		SET_BONUS_innoxia_kitty.isCharacterWearingCompleteSet(npc)
+		[#SET_BONUS_innoxia_kitty.isCharacterWearingCompleteSet(npc)]
 	]]></applicationCondition>
 	-->
 	

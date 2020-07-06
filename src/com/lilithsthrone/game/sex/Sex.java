@@ -690,7 +690,7 @@ public class Sex {
 					for(CoverableArea ca : CoverableArea.values()) {
 						boolean concealed = false;
 						for(InventorySlot slot : ca.getAssociatedInventorySlots(character)) {
-							if(Main.sex.getInitialSexManager().getSlotsConcealed(character).contains(slot)) {
+							if(Main.sex.getInitialSexManager().getSlotsConcealed(character, character2).contains(slot)) {
 								concealed = true;
 								break;
 							}
@@ -2574,6 +2574,7 @@ public class Sex {
 										Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterPerformingAction().getCum(), Main.sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()),
 								false, true));
 					}
+					Main.sex.stopAllOngoingActions(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS);
 				}
 				Main.sex.getCharacterPerformingAction().unequipClothingIntoVoid(Main.sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS), true, Main.sex.getCharacterPerformingAction());
 			}
@@ -2766,13 +2767,22 @@ public class Sex {
 		return stringBuilderForAppendingDescriptions.toString();
 	}
 	
+	private static boolean isAnyCharacterAbleToSeeArea(GameCharacter target, List<GameCharacter> charactersReacting, InventorySlot area) {
+		for(GameCharacter reacting : charactersReacting) {
+			if(!Main.sex.initialSexManager.getSlotsConcealed(target, reacting).contains(area)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	private String handleExposedDescriptions(GameCharacter characterBeingExposed, boolean atStartOfSex) {
 		StringBuilder exposedSB = new StringBuilder();
 		
 		List<GameCharacter> charactersReacting = new ArrayList<>(Main.sex.getAllParticipants());
 		charactersReacting.remove(characterBeingExposed);
 		
-		if(!areasExposed.get(characterBeingExposed).contains(CoverableArea.ANUS) && !Main.sex.initialSexManager.getSlotsConcealed(characterBeingExposed).contains(InventorySlot.ANUS)) {
+		if(!areasExposed.get(characterBeingExposed).contains(CoverableArea.ANUS) && isAnyCharacterAbleToSeeArea(characterBeingExposed, charactersReacting, InventorySlot.ANUS)) {
 			if(characterBeingExposed.getGenitalArrangement()==GenitalArrangement.CLOACA) {
 				if(characterBeingExposed.isCoverableAreaVisible(CoverableArea.ANUS)) {
 					exposedSB.append(UtilText.parse(characterBeingExposed,
@@ -2799,7 +2809,7 @@ public class Sex {
 		}
 		//TODO test cloaca asshole description is working
 		boolean cloacaToBeRevealed = false;
-		if(!areasExposed.get(characterBeingExposed).contains(CoverableArea.PENIS) && !Main.sex.initialSexManager.getSlotsConcealed(characterBeingExposed).contains(InventorySlot.PENIS)) {
+		if(!areasExposed.get(characterBeingExposed).contains(CoverableArea.PENIS) && isAnyCharacterAbleToSeeArea(characterBeingExposed, charactersReacting, InventorySlot.PENIS)) {
 			if(characterBeingExposed.isCoverableAreaVisible(CoverableArea.PENIS)) {
 				if(characterBeingExposed.getGenitalArrangement()==GenitalArrangement.CLOACA && !areasExposed.get(characterBeingExposed).contains(CoverableArea.MOUND)) {
 					cloacaToBeRevealed = true;
@@ -2816,7 +2826,7 @@ public class Sex {
 				areasExposed.get(characterBeingExposed).add(CoverableArea.PENIS);
 			}
 		}
-		if(!areasExposed.get(characterBeingExposed).contains(CoverableArea.VAGINA) && !Main.sex.initialSexManager.getSlotsConcealed(characterBeingExposed).contains(InventorySlot.VAGINA)) {
+		if(!areasExposed.get(characterBeingExposed).contains(CoverableArea.VAGINA) && isAnyCharacterAbleToSeeArea(characterBeingExposed, charactersReacting, InventorySlot.VAGINA)) {
 			if(characterBeingExposed.isCoverableAreaVisible(CoverableArea.VAGINA)) {
 				if(characterBeingExposed.getGenitalArrangement()==GenitalArrangement.CLOACA && !areasExposed.get(characterBeingExposed).contains(CoverableArea.MOUND)) {
 					cloacaToBeRevealed = true;
@@ -2852,7 +2862,7 @@ public class Sex {
 					+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, SexAreaOrifice.ANUS)));
 			areasExposed.get(characterBeingExposed).add(CoverableArea.MOUND);
 		}
-		if(!areasExposed.get(characterBeingExposed).contains(CoverableArea.NIPPLES) && !Main.sex.initialSexManager.getSlotsConcealed(characterBeingExposed).contains(InventorySlot.NIPPLE)) {
+		if(!areasExposed.get(characterBeingExposed).contains(CoverableArea.NIPPLES) && isAnyCharacterAbleToSeeArea(characterBeingExposed, charactersReacting, InventorySlot.NIPPLE)) {
 			if(characterBeingExposed.isCoverableAreaVisible(CoverableArea.NIPPLES)) {
 				exposedSB.append(UtilText.parse(characterBeingExposed,
 						formatCoverableAreaBecomingExposed(
@@ -2864,7 +2874,7 @@ public class Sex {
 				areasExposed.get(characterBeingExposed).add(CoverableArea.NIPPLES);
 			}
 		}
-		if(!areasExposed.get(characterBeingExposed).contains(CoverableArea.BREASTS_CROTCH) && characterBeingExposed.hasBreastsCrotch() && !Main.sex.initialSexManager.getSlotsConcealed(characterBeingExposed).contains(InventorySlot.STOMACH)) {
+		if(!areasExposed.get(characterBeingExposed).contains(CoverableArea.BREASTS_CROTCH) && characterBeingExposed.hasBreastsCrotch() && isAnyCharacterAbleToSeeArea(characterBeingExposed, charactersReacting, InventorySlot.STOMACH)) {
 			if(characterBeingExposed.isCoverableAreaVisible(CoverableArea.BREASTS_CROTCH)) {
 				exposedSB.append(UtilText.parse(characterBeingExposed,
 						formatCoverableAreaBecomingExposed(

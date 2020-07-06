@@ -29,7 +29,6 @@ import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveNorthEventL
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveSouthEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveWestEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonZoomEventListener;
-import com.lilithsthrone.controller.eventListeners.tooltips.TooltipCopyInfoEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipHideEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInventoryEventListener;
@@ -78,12 +77,11 @@ import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
-import com.lilithsthrone.game.occupantManagement.SlaveJob;
+import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
@@ -960,9 +958,6 @@ public class MainController implements Initializable {
 	private ButtonMoveEastEventListener moveEastListener = new ButtonMoveEastEventListener();
 	private ButtonMoveWestEventListener moveWestListener = new ButtonMoveWestEventListener();
 	
-	// Information:
-	static TooltipCopyInfoEventListener copyInfoListener = new TooltipCopyInfoEventListener();
-	
 	// Responses:
 	static TooltipResponseMoveEventListener responseTooltipListener = new TooltipResponseMoveEventListener();
 	static SetContentEventListener nextResponsePageListener = new SetContentEventListener().nextPage();
@@ -1151,7 +1146,7 @@ public class MainController implements Initializable {
 		}
 	}
 	
-	static void setMapLocationListeners(Cell c, int i, int j) { //TODO
+	static void setMapLocationListeners(Cell c, int i, int j) {
 		String id = "MAP_NODE_" + i + "_" + j;
 
 		if (((EventTarget) document.getElementById(id)) != null) {
@@ -1535,6 +1530,52 @@ public class MainController implements Initializable {
 							:"<br/>[style.italicsBad(No quick save file detected for this character!)]")),
 					false);
 		}
+		
+		String id = "copyContent";
+		if(((EventTarget) documentButtonsRight.getElementById(id))!=null) {
+			MainController.addEventListener(documentButtonsRight, id, "click", copyDialogueButtonListener, false);
+			MainController.addEventListener(documentButtonsRight, id, "mousemove", moveTooltipListener, false);
+			MainController.addEventListener(documentButtonsRight, id, "mouseleave", hideTooltipListener, false);
+			
+
+			MainController.addEventListener(documentButtonsRight, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+					Main.game.getCurrentDialogueNode().getLabel() == "" || Main.game.getCurrentDialogueNode().getLabel() == null ? "-" : Main.game.getCurrentDialogueNode().getLabel(),
+					"Click to copy the currently displayed dialogue to your clipboard.<br/>"
+					+ "This scene was written by: <b>"+Main.game.getCurrentDialogueNode().getAuthor()+"</b>",
+					48), false);
+			
+		}
+		
+		id = "exportCharacter";
+		if(((EventTarget) documentButtonsRight.getElementById(id))!=null) {
+			boolean exportAvailable = Main.game.isStarted()
+					&& (Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU)
+						|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)
+						|| Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CONTACTS_CHARACTER));
+			
+
+			MainController.addEventListener(documentButtonsRight, id, "mousemove", MainController.moveTooltipListener, false);
+			MainController.addEventListener(documentButtonsRight, id, "mouseleave", MainController.hideTooltipListener, false);
+			
+			if(exportAvailable) {
+				GameCharacter exportCharacter = Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)?Main.game.getPlayer():CharactersPresentDialogue.characterViewed;
+				String name = "<span style='color:"+exportCharacter.getFemininity().getColour().toWebHexString()+";'>"+exportCharacter.getName(false)+"</span>";
+				MainController.addEventListener(documentButtonsRight, id, "click", e -> {
+					Game.exportCharacter(exportCharacter);
+					Main.game.flashMessage(PresetColour.GENERIC_EXCELLENT, "Character Exported!");
+				}, false);
+				MainController.addEventListener(documentButtonsRight, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+						"Export Character",
+						"Export "+name+" to the 'data/characters' folder. Exported characters can be imported at the auction block in Slaver Alley.",
+						48), false);
+				
+			} else {
+				MainController.addEventListener(documentButtonsRight, id, "mouseenter", new TooltipInformationEventListener().setInformation(
+						"Export Character",
+						"To export any character, including your own, you need to be viewing them in your phone's 'Characters Present' screen.",
+						48), false);
+			}
+		}
 	}
 	
 	private void manageAttributeListeners() {
@@ -1914,7 +1955,7 @@ public class MainController implements Initializable {
 		Map<InventorySlot, List<AbstractClothing>> concealedSlots = new HashMap<>();
 		
 		if(RenderingEngine.getCharacterToRender()!=null) {
-			concealedSlots = RenderingEngine.getCharacterToRender().getInventorySlotsConcealed();
+			concealedSlots = RenderingEngine.getCharacterToRender().getInventorySlotsConcealed(Main.game.getPlayer());
 		}
 		
 		// Inventory:
@@ -2550,10 +2591,6 @@ public class MainController implements Initializable {
 					Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot travel here!");
 					
 				} else {
-					if (Main.game.getActiveWorld().getCell(location).getPlace().isItemsDisappear()) {
-						Main.game.getActiveWorld().getCell(location).resetInventory(Util.newArrayListOfValues(Rarity.LEGENDARY));
-					}
-
 					if(Main.game.isInGlobalMap()) {
 						Main.game.getPlayer().setGlobalLocation(new Vector2i(location.getX() + xOffset, location.getY() + yOffset));
 					}

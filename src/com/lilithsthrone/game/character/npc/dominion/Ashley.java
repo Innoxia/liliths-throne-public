@@ -224,10 +224,7 @@ public class Ashley extends NPC {
 		
 		infoScreenSB.append("<br/><br/>"
 					+ "[style.boldObedience(Obedience:)]<br/>"
-					+ UtilText.parse(this,
-							(this.isSlave()
-								?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(this.getOwner().isPlayer()?"you!":this.getOwner().getName("a")+".")
-								:"[npc.Name] [style.boldGood(is not a slave)]."))
+					+ UtilText.parse(this, "[npc.Name] [style.boldGood(is not a slave)].")
 					+ "<br/>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true)
 				+"</p>"
 				+ "<br/>"

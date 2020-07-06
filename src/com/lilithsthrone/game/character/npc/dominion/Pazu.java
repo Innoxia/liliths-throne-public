@@ -54,7 +54,7 @@ public class Pazu extends NPC {
 				 */
 				25, Month.JUNE, 1, //TODO
 				1, Gender.M_P_MALE, Subspecies.HARPY, RaceStage.LESSER,
-				new CharacterInventory(1), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				new CharacterInventory(1), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);

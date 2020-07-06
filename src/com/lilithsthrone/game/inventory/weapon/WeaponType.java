@@ -21,7 +21,15 @@ public class WeaponType {
 	public static Map<AbstractWeaponType, String> weaponToIdMap = new HashMap<>();
 	public static Map<String, AbstractWeaponType> idToWeaponMap = new HashMap<>();
 	
+
 	public static AbstractWeaponType getWeaponTypeFromId(String id) {
+		return getWeaponTypeFromId(id, true);
+	}
+	
+	/**
+	 * @param closestMatch Pass in true if you want to get whatever WeaponType has the closest match to the provided id, even if it's not exactly the same.
+	 */
+	public static AbstractWeaponType getWeaponTypeFromId(String id, boolean closestMatch) {
 //		System.out.print("ID: "+id);
 		
 		if(id.equals("RANGED_MUSKET")) {	
@@ -80,8 +88,10 @@ public class WeaponType {
 			id = "innoxia_crystal_legendary";
 		}
 		
-		id = Util.getClosestStringMatch(id, idToWeaponMap.keySet());
-//		System.out.println("  set to: "+id);
+		if(closestMatch) {
+			id = Util.getClosestStringMatch(id, idToWeaponMap.keySet());
+		}
+		
 		return idToWeaponMap.get(id);
 	}
 	

@@ -125,6 +125,7 @@ public class DebugDialogue {
 						@Override
 						public void effects() {
 							Main.getProperties().setValue(PropertyValue.debugMode, !Main.game.isDebugMode());
+							Main.getProperties().savePropertiesAsXML();
 						}
 					};
 					
@@ -138,6 +139,7 @@ public class DebugDialogue {
 						@Override
 						public void effects() {
 							Main.getProperties().setValue(PropertyValue.mapReveal, !Main.game.isMapReveal());
+							Main.getProperties().savePropertiesAsXML();
 						}
 					};
 					
@@ -151,6 +153,7 @@ public class DebugDialogue {
 						@Override
 						public void effects() {
 							Main.getProperties().setValue(PropertyValue.concealedSlotsReveal, !Main.game.isConcealedSlotsReveal());
+							Main.getProperties().savePropertiesAsXML();
 						}
 					};
 					
@@ -787,6 +790,15 @@ public class DebugDialogue {
 			inventorySB.append("<div class='normal-button' id='BOOK_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.BASE_ORANGE.toWebHexString()+";'>Books</div>");
 			inventorySB.append("<div class='normal-button' id='SPELL_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+PresetColour.DAMAGE_TYPE_SPELL.toWebHexString()+";'>Spells</div>");
 			inventorySB.append("<div class='normal-button' id='HIDDEN_SPAWN_SELECT' style='width:18%; margin:1%; padding:2px; font-size:0.9em; opacity:0; cursor:default; color:"+PresetColour.BASE_GREEN_DARK.toWebHexString()+";'>Cheats</div>");
+
+//			inventorySB.append("<hr/>");
+//			
+//			for(AbstractSetBonus sb : SetBonus.allSetBonuses) {
+//				inventorySB.append("<div class='normal-button' id='SET_BONUS_"+SetBonus.getIdFromSetBonus(sb)+"' style='width:18%; margin:1%; padding:2px; font-size:0.9em; color:"+sb.getAssociatedStatusEffect().getColour().toWebHexString()+";'>");
+//				inventorySB.append(sb.getName());
+//				inventorySB.append("</div>");
+//			}
+			
 			inventorySB.append("</div>");
 			
 			return inventorySB.toString();

@@ -445,7 +445,7 @@ public enum Quest {
 		}
 	},
 	
-	// Getting a Slaver License:
+	// Getting a slaver license:
 	
 	SIDE_SLAVER_NEED_RECOMMENDATION(QuestType.SIDE, 1, 10) {
 		@Override
@@ -455,7 +455,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "After asking how to obtain a Slaver License at the Slavery Administration building, you discovered that you'll need a letter of recommendation first. Lilaya should be able to help with that.";
+			return "After asking how to obtain a slaver license at the Slavery Administration building, you discovered that you'll need a letter of recommendation first. Lilaya should be able to help with that.";
 		}
 
 		@Override

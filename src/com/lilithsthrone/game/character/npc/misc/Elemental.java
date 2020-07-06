@@ -57,7 +57,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.4
- * @version 0.3.4
+ * @version 0.3.8.6
  * @author Innoxia
  */
 public class Elemental extends NPC {
@@ -69,7 +69,7 @@ public class Elemental extends NPC {
 	
 	public Elemental(Gender gender, GameCharacter summoner, boolean isImported) {
 		super(isImported, null, null, "", summoner==null?18:summoner.getAgeValue(), summoner==null?Month.JANUARY:summoner.getBirthMonth(), summoner==null?1:summoner.getDayOfBirth(), 20, gender, Subspecies.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 
 		if(!isImported) {
 			this.setLocation(summoner, false);
@@ -81,7 +81,7 @@ public class Elemental extends NPC {
 			
 			this.setLegType(LegType.DEMON_COMMON);
 			
-			this.setHistory(Occupation.ELEMENTAL_ARCANE);
+			this.setHistory(Occupation.ELEMENTAL);
 			
 			// RACE & NAME:
 			
@@ -127,10 +127,13 @@ public class Elemental extends NPC {
 			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 0);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 0);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
-			this.resetPerksMap(true);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12")) {
 			this.setElementalSchool(this.getCurrentSchool());
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.6")) {
+			this.resetPerksMap(false);
+			this.setHistory(Occupation.ELEMENTAL);
 		}
 	}
 
@@ -285,7 +288,9 @@ public class Elemental extends NPC {
 	@Override
 	public String rollForPregnancy(GameCharacter partner, float cum, boolean directSexInsemination) {
 		return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination)
-				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]</p>";
+				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]"
+//				+ "<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]"
+				+ "</p>";
 	}
 
 	@Override
@@ -360,12 +365,10 @@ public class Elemental extends NPC {
 		switch(school) {
 			case AIR:
 				this.setBodyMaterial(BodyMaterial.AIR);
-				this.setHistory(Occupation.ELEMENTAL_AIR);
 				break;
 				
 			case ARCANE:
 				this.setBodyMaterial(BodyMaterial.ARCANE);
-				this.setHistory(Occupation.ELEMENTAL_ARCANE);
 				break;
 				
 			case EARTH:
@@ -374,12 +377,10 @@ public class Elemental extends NPC {
 				} else {
 					this.setBodyMaterial(BodyMaterial.STONE);
 				}
-				this.setHistory(Occupation.ELEMENTAL_EARTH);
 				break;
 				
 			case FIRE:
 				this.setBodyMaterial(BodyMaterial.FIRE);
-				this.setHistory(Occupation.ELEMENTAL_FIRE);
 				break;
 				
 			case WATER:
@@ -388,7 +389,6 @@ public class Elemental extends NPC {
 				} else {
 					this.setBodyMaterial(BodyMaterial.WATER);
 				}
-				this.setHistory(Occupation.ELEMENTAL_WATER);
 				break;
 		}
 		calculateSpells(school);

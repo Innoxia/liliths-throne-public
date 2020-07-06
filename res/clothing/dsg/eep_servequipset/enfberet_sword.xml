@@ -39,7 +39,7 @@
 		<rarity>EPIC</rarity> 
 		
 		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
-		<clothingSet>ENFORCER</clothingSet> 
+		<clothingSet/> 
 		
 		<!-- The file path for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images.
 		 .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).-->
@@ -130,59 +130,29 @@
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
 	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take the beret off.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You take [npc.name]'s beret off.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You slap [npc.name]'s beret off.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes [npc.her] beret off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] takes your beret off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] slaps your beret off.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] takes [npc2.name]'s beret off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] slaps [npc2.name]'s beret off.
-		]]></NPCOtherNPCRough>
-	</displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(put)] the beret on, ensuring that the right side adheres to [npc.her] head before rotating it until the flash is over [npc.her] left [npc.eye].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(put)] the beret on [npc2.namePos] head, ensuring that the right side adheres to [npc2.her] head before rotating it until the flash is over [npc2.her] left [npc2.eye].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] the beret down on [npc2.namePos] head and don't bother adjusting it, leaving [npc2.her] looking terribly unprofessional.]]>
+		</otherRough>
+  </replacementText>
 
 	<!-- 'replacementText' is used for equipping and replacements. -->
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You put the beret on and slide the cap over until the right side adheres to your head. You then rotate the beret until the flash is over your left [pc.eye].
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You put the beret on [npc.name]'s head and slide the cap over until the right side adheres to [npc.her] head. You then rotate the flash until it's over [npc.her] left [npc.eye].
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You force the beret down on [npc.name]'s head and don't bother adjusting it, leaving [npc.her] looking terribly unprofessional.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] puts the beret on [npc.her] head and slides the cap over until the right side adheres to [npc.her] head. [npc.She] then rotates the beret until the flash is over [npc.her] left [npc.eye].
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] puts the beret on your head and slides the cap over until the right side adheres to your head. [npc.She] then rotates the beret until the flash is over your left [pc.eye].
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] forces the beret down on your head and doesn't bother adjusting it, leaving you looking terribly unprofessional.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] puts the beret on [npc2.name]'s head and slides the cap over until the right side adheres to [npc2.her] head. [npc1.Name] then rotates the beret until the flash is over [npc2.her] left [npc2.eye].
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] forces the beret down on [npc2.name]'s head and doesn't bother adjusting it, leaving [npc2.her] looking terribly unprofessional.
-		]]></NPCOtherNPCRough>
-	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(take)] [npc.her] beret off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(take)] [npc2.namePos] beret off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(slap)] [npc2.namePos] beret off [npc2.her] head.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

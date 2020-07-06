@@ -66,13 +66,16 @@ public enum Attack {
 	 * @return
 	 */
 	public static float getBaseWeaponDamage(GameCharacter attacker, AbstractWeapon weapon) {
-		if (attacker == null) {
+		if(attacker == null) {
 			return 0;
 		}
-		if (weapon == null) {
+		if(weapon == null) {
 			return attacker.getUnarmedDamage();
 			
 		} else {
+			if(weapon.getWeaponType().isUsingUnarmedCalculation()) {
+				return weapon.getWeaponType().getDamage() + attacker.getUnarmedDamage();
+			}
 			return weapon.getWeaponType().getDamage();
 		}
 	}

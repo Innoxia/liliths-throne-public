@@ -37,6 +37,7 @@ import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -61,6 +62,7 @@ public abstract class AbstractStatusEffect {
 	private String pathName;
 	private List<Colour> colourShades;
 
+	private boolean requiresApplicationCheck;
 	private int effectInterval;
 	private String applicationCondition;
 	private String applyEffectString;
@@ -124,6 +126,7 @@ public abstract class AbstractStatusEffect {
 			this.beneficial = EffectBenefit.DETRIMENTAL;
 		}
 		
+		this.requiresApplicationCheck = true;
 		this.renderInEffectsPanel = true;
 		this.combatEffect = false;
 		this.sexEffect = false;
@@ -217,6 +220,11 @@ public abstract class AbstractStatusEffect {
 				// Logic:
 				
 				this.applicationCondition = coreElement.getMandatoryFirstOf("applicationCondition").getTextContent();
+				if(this.applicationCondition.trim().equals("false")) {
+					requiresApplicationCheck = false;
+				} else {
+					requiresApplicationCheck = true;
+				}
 				
 				if(!coreElement.getMandatoryFirstOf("applyEffect").getAttribute("interval").isEmpty()) {
 					this.effectInterval = Integer.valueOf(coreElement.getMandatoryFirstOf("applyEffect").getAttribute("interval"));
@@ -233,15 +241,6 @@ public abstract class AbstractStatusEffect {
 			}
 		}
 	}
-	
-//	/**
-//	 * Called when units are changed, so that metric is converted to imperial and vice versa.
-//	 */
-//	public static void updateAttributeModifiers() {
-//		for(AbstractStatusEffect s : StatusEffect.getAllStatusEffects()) {
-//			s.modifiersList = s.attributeModifiersToStringList(s.attributeModifiers);
-//		}
-//	}
 
 	public String getId() {
 		return StatusEffect.getIdFromStatusEffect(this);
@@ -252,11 +251,17 @@ public abstract class AbstractStatusEffect {
 		
 		if (attributeMap != null) {
 			for (Entry<Attribute, Float> e : attributeMap.entrySet()) {
-				attributeModifiersList.add("<b>" + (e.getValue() > 0 ? "+" : "") + Units.number(e.getValue(), 1, 1) + "</b>" + " <b style='color: " + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getAbbreviatedName()) + "</b>");
+				attributeModifiersList.add(
+						"<b>"+(e.getValue()>0?"+":"")+Units.number(e.getValue(), 1, 1)+"</b>"
+						+ " <b style='color:"+e.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(e.getKey().getAbbreviatedName())+"</b>");
 			}
 		}
 		
 		return attributeModifiersList;
+	}
+
+	public boolean isRequiresApplicationCheck() {
+		return requiresApplicationCheck;
 	}
 
 	/**
@@ -269,6 +274,9 @@ public abstract class AbstractStatusEffect {
 			String parsedResult = UtilText.parse(target, applicationCondition);
 			parsedResult = parsedResult.replaceAll("\\s", "");
 			return Boolean.valueOf(parsedResult);
+		}
+		if(!this.isFromExternalFile()) { // Easiest way to make sure that this status effect doens't need to be checked on every update is to see whether or not isConditionsMet has been overridden (in which case requiresApplicationCheck remains true)
+			requiresApplicationCheck = false;
 		}
 		return false;
 	}
@@ -351,13 +359,20 @@ public abstract class AbstractStatusEffect {
 		return "";
 	}
 
-	// For any extra effects, such as ongoing sex descriptions.
-	protected String getAdditionalDescription(GameCharacter target) {
+	/**
+	 * Used to display extra effects in its own description box, such as ongoing sex descriptions.
+	 * @return A Value whose key is the line height and whose value is the String to be displayed.
+	 */
+	protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
 		return null;
 	}
 	
-	public List<String> getAdditionalDescriptions(GameCharacter target) {
-		String additional = getAdditionalDescription(target);
+	/**
+	 * Used to display multiple extra effects in their own description boxes, such as ongoing sex descriptions.
+	 * @return A List of Values whose key is the line height and whose value is the String to be displayed.
+	 */
+	public List<Value<Integer, String>> getAdditionalDescriptions(GameCharacter target) {
+		Value<Integer, String> additional = getAdditionalDescription(target);
 		if(additional!=null) {
 			return Util.newArrayListOfValues(additional);
 		}
@@ -634,7 +649,7 @@ public abstract class AbstractStatusEffect {
 		return modifiersList;
 	}
 	
-	protected static List<String> getInternalOrificeExtraDescriptions(GameCharacter target, SexAreaOrifice orifice) {
+	protected static List<Value<Integer, String>> getInternalOrificeExtraDescriptions(GameCharacter target, SexAreaOrifice orifice) {
 		if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
 			return null;
 		}
@@ -642,14 +657,16 @@ public abstract class AbstractStatusEffect {
 		List<GameCharacter> ongoingCharacters = Main.sex.getCharactersHavingOngoingActionWith(target, orifice);
 		GameCharacter partner = ongoingCharacters.get(Util.random.nextInt(ongoingCharacters.size()));
 		
-		List<String> additionalDescriptions = new ArrayList<>();
+		List<Value<Integer, String>> additionalDescriptions = new ArrayList<>();
 		
-		additionalDescriptions.add(Main.sex.formatPenetration(
-				target.getPenetrationDescription(false,
-						partner,
-						(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-						target,
-						orifice)));
+		additionalDescriptions.add(
+				new Value<>(3,
+						Main.sex.formatPenetration(
+						target.getPenetrationDescription(false,
+								partner,
+								(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+								target,
+								orifice))));
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append(UtilText.parse(target,
@@ -660,7 +677,7 @@ public abstract class AbstractStatusEffect {
 						?"<br/>Depth Comfortable / Uncomfortable: "+Units.size(Units.round(orifice.getMaximumPenetrationDepthComfortable(target), 1))+" / "+Units.size(Units.round(orifice.getMaximumPenetrationDepthUncomfortable(target), 1))
 						:"")
 				+ "</p>"));
-		additionalDescriptions.add(sb.toString());
+		additionalDescriptions.add(new Value<>(3, sb.toString()));
 		
 		for(GameCharacter character : ongoingCharacters) {
 			SexAreaPenetration penetration = (SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next();
@@ -677,7 +694,7 @@ public abstract class AbstractStatusEffect {
 									?"<br/>Inserted / Total length: "+Units.size(length)+" / "+Units.size(penetration.getLength(character, true))
 									:"")
 						+ "</p>"));
-				additionalDescriptions.add(sb.toString());
+				additionalDescriptions.add(new Value<>(3, sb.toString()));
 			}
 		}
 		

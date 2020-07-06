@@ -14,7 +14,7 @@
 	<p style='text-align:center;'>
 		[style.italicsArcane(Slave Registered.
 		<br/>Identification: [npc.nameFull(true)]
-		<br/>Race: [npc.race])]
+		<br/>Race: [npc.Race])]
 	</p>
 	]]>
 	</htmlContent>
@@ -32,7 +32,7 @@
 	<p style='text-align:center;'>
 		[style.italicsArcane(Slave Registered.
 		<br/>Identification: [npc.nameFull(true)]
-		<br/>Race: [npc.race])]
+		<br/>Race: [npc.Race])]
 	</p>
 	]]>
 	</htmlContent>

@@ -465,7 +465,11 @@ public class Lyssieth extends NPC {
 				sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "SEX_ORGASM_GAINING_POWER"));
 			}
 			
-			return new SexActionOrgasmOverride(true, sb.toString()) {
+			return new SexActionOrgasmOverride(true) {
+				@Override
+				public String getDescription() {
+					return sb.toString();
+				}
 				@Override
 				public void applyEffects() {
 					if(applyExtraEffects) {
@@ -485,7 +489,11 @@ public class Lyssieth extends NPC {
 				if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getPlayer()).contains(SexAreaOrifice.MOUTH)) {
 					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_PC_GIVING_LYSSIETH_BLOWJOB"));
 					
-					return new SexActionOrgasmOverride(false, sb.toString()) {
+					return new SexActionOrgasmOverride(false) {
+						@Override
+						public String getDescription() {
+							return sb.toString();
+						}
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
@@ -506,7 +514,11 @@ public class Lyssieth extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(this, SexAreaOrifice.MOUTH, Main.game.getPlayer()).contains(SexAreaPenetration.PENIS)) {
 					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_PC_GETTING_BLOWJOB_FROM_LYSSIETH"));
 					
-					return new SexActionOrgasmOverride(false, sb.toString()) {
+					return new SexActionOrgasmOverride(false) {
+						@Override
+						public String getDescription() {
+							return sb.toString();
+						}
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
@@ -525,7 +537,11 @@ public class Lyssieth extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.TONGUE, Main.game.getPlayer()).contains(SexAreaOrifice.VAGINA)) {
 					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_1_PC_GETTING_CUNNILINGUS_FROM_LYSSIETH"));
 					
-					return new SexActionOrgasmOverride(false, sb.toString()) {
+					return new SexActionOrgasmOverride(false) {
+						@Override
+						public String getDescription() {
+							return sb.toString();
+						}
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
@@ -541,7 +557,11 @@ public class Lyssieth extends NPC {
 				if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getPlayer()).contains(SexAreaOrifice.VAGINA)) {
 					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_PC_PUSSY_FUCKED_BY_LYSSIETH"));
 					
-					return new SexActionOrgasmOverride(false, sb.toString()) {
+					return new SexActionOrgasmOverride(false) {
+						@Override
+						public String getDescription() {
+							return sb.toString();
+						}
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
@@ -556,7 +576,11 @@ public class Lyssieth extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getPlayer()).contains(SexAreaOrifice.ANUS)) {
 					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_PC_ASS_FUCKED_BY_LYSSIETH"));
 					
-					return new SexActionOrgasmOverride(false, sb.toString()) {
+					return new SexActionOrgasmOverride(false) {
+						@Override
+						public String getDescription() {
+							return sb.toString();
+						}
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
@@ -571,7 +595,11 @@ public class Lyssieth extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(this, SexAreaOrifice.VAGINA, Main.game.getPlayer()).contains(SexAreaPenetration.PENIS)) {
 					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_STAGE_2_PC_FUCKING_LYSSIETH"));
 					
-					return new SexActionOrgasmOverride(false, sb.toString()) {
+					return new SexActionOrgasmOverride(false) {
+						@Override
+						public String getDescription() {
+							return sb.toString();
+						}
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
@@ -598,7 +626,11 @@ public class Lyssieth extends NPC {
 						sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_FUCKING_LYSSIETH"));
 					}
 					
-					return new SexActionOrgasmOverride(false, sb.toString()) {
+					return new SexActionOrgasmOverride(false) {
+						@Override
+						public String getDescription() {
+							return sb.toString();
+						}
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
@@ -621,7 +653,11 @@ public class Lyssieth extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getPlayer()).contains(SexAreaOrifice.VAGINA)) {
 					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_PUSSY_FUCKED_BY_LYSSIETH"));
 					
-					return new SexActionOrgasmOverride(false, sb.toString()) {
+					return new SexActionOrgasmOverride(false) {
+						@Override
+						public String getDescription() {
+							return sb.toString();
+						}
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
@@ -634,7 +670,11 @@ public class Lyssieth extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getPlayer()).contains(SexAreaOrifice.ANUS)) {
 					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_ASS_FUCKED_BY_LYSSIETH"));
 					
-					return new SexActionOrgasmOverride(false, sb.toString()) {
+					return new SexActionOrgasmOverride(false) {
+						@Override
+						public String getDescription() {
+							return sb.toString();
+						}
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
@@ -647,7 +687,11 @@ public class Lyssieth extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(this, SexAreaOrifice.MOUTH, Main.game.getPlayer()).contains(SexAreaPenetration.PENIS)) {
 					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_GETTING_BLOWJOB_FROM_LYSSIETH"));
 					
-					return new SexActionOrgasmOverride(false, sb.toString()) {
+					return new SexActionOrgasmOverride(false) {
+						@Override
+						public String getDescription() {
+							return sb.toString();
+						}
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
@@ -660,7 +704,11 @@ public class Lyssieth extends NPC {
 				} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.TONGUE, Main.game.getPlayer()).contains(SexAreaOrifice.VAGINA)) {
 					sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "DEMON_TF_FINAL_PC_GETTING_CUNNILINGUS_FROM_LYSSIETH"));
 					
-					return new SexActionOrgasmOverride(false, sb.toString()) {
+					return new SexActionOrgasmOverride(false) {
+						@Override
+						public String getDescription() {
+							return sb.toString();
+						}
 						@Override
 						public void applyEffects() {
 							if(applyExtraEffects) {
@@ -681,7 +729,11 @@ public class Lyssieth extends NPC {
 			if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(Lilaya.class)).contains(SexAreaOrifice.VAGINA) && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
 				sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "LILAYA_DEMON_TF_VAGINA"));
 				
-				return new SexActionOrgasmOverride(false, sb.toString()) {
+				return new SexActionOrgasmOverride(false) {
+					@Override
+					public String getDescription() {
+						return sb.toString();
+					}
 					@Override
 					public void applyEffects() {
 						if(applyExtraEffects) {
@@ -694,7 +746,11 @@ public class Lyssieth extends NPC {
 			} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(Lilaya.class)).contains(SexAreaOrifice.ANUS) && Main.game.getNpc(Lilaya.class).getRaceStage()!=RaceStage.GREATER) {
 				sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "LILAYA_DEMON_TF_ANUS"));
 				
-				return new SexActionOrgasmOverride(false, sb.toString()) {
+				return new SexActionOrgasmOverride(false) {
+					@Override
+					public String getDescription() {
+						return sb.toString();
+					}
 					@Override
 					public void applyEffects() {
 						if(applyExtraEffects) {
@@ -707,7 +763,11 @@ public class Lyssieth extends NPC {
 			} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(DarkSiren.class)).contains(SexAreaOrifice.VAGINA) && Main.game.getNpc(DarkSiren.class).getRaceStage()!=RaceStage.GREATER) {
 				sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "MERAXIS_DEMON_TF_VAGINA"));
 				
-				return new SexActionOrgasmOverride(false, sb.toString()) {
+				return new SexActionOrgasmOverride(false) {
+					@Override
+					public String getDescription() {
+						return sb.toString();
+					}
 					@Override
 					public void applyEffects() {
 						if(applyExtraEffects) {
@@ -719,7 +779,11 @@ public class Lyssieth extends NPC {
 			} else if(Main.sex.getOngoingSexAreas(this, SexAreaPenetration.PENIS, Main.game.getNpc(DarkSiren.class)).contains(SexAreaOrifice.ANUS) && Main.game.getNpc(DarkSiren.class).getRaceStage()!=RaceStage.GREATER) {
 				sb.append(UtilText.parseFromXMLFile("characters/submission/lyssieth", "MERAXIS_DEMON_TF_ANUS"));
 				
-				return new SexActionOrgasmOverride(false, sb.toString()) {
+				return new SexActionOrgasmOverride(false) {
+					@Override
+					public String getDescription() {
+						return sb.toString();
+					}
 					@Override
 					public void applyEffects() {
 						if(applyExtraEffects) {

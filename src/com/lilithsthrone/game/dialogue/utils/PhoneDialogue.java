@@ -1947,7 +1947,7 @@ public class PhoneDialogue {
 				try {
 					GameCharacter npc = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
 					return new Response(Util.capitaliseSentence(npc.getName(true)),
-							"Take a detailed look at what " + npc.getName("the") + " looks like.",
+							UtilText.parse(npc, "Take a detailed look at what [npc.name] looks like."),
 							CONTACTS_CHARACTER){
 						@Override
 						public void effects() {
@@ -2997,82 +2997,72 @@ public class PhoneDialogue {
 				return new Response("Back", "Decide against loitering in this area.", MENU);
 			}
 			if(index == 1) {
-				return new Response("15 minutes", "Loiter in this area for the next fifteen minutes.", Main.game.getDefaultDialogue()) {
-					@Override
-					public int getSecondsPassed() {
-						return 60*15;
-					}
+				return new ResponseEffectsOnly("15 minutes", "Loiter in this area for the next fifteen minutes.") {
 					@Override
 					public void effects() {
-						Main.mainController.openPhone();
+//						Main.mainController.openPhone();
 						Main.game.getTextStartStringBuilder().append(
 								"<p style='text-align:center;'>"
 										+ "<i>You spend the next fifteen minutes loitering about, doing nothing in particular...</i>"
 								+ "</p>");
+						Main.game.endTurn(60*15);
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
 					}
 				};
 				
 			} else if(index == 2) {
-				return new Response("1 hour", "Loiter in this area for the next hour.", Main.game.getDefaultDialogue()) {
-					@Override
-					public int getSecondsPassed() {
-						return 60*60;
-					}
+				return new ResponseEffectsOnly("1 hour", "Loiter in this area for the next hour.") {
 					@Override
 					public void effects() {
-						Main.mainController.openPhone();
+//						Main.mainController.openPhone();
 						Main.game.getTextStartStringBuilder().append(
 								"<p style='text-align:center;'>"
 										+ "<i>You spend the next hour loitering about, doing nothing in particular...</i>"
 								+ "</p>");
+						Main.game.endTurn(60*60);
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
 					}
 				};
 				
 			} else if(index == 3) {
-				return new Response("4 hours", "Loiter in this area for the next four hours.", Main.game.getDefaultDialogue()) {
-					@Override
-					public int getSecondsPassed() {
-						return 60*60*4;
-					}
+				return new ResponseEffectsOnly("4 hours", "Loiter in this area for the next four hours.") {
 					@Override
 					public void effects() {
-						Main.mainController.openPhone();
+//						Main.mainController.openPhone();
 						Main.game.getTextStartStringBuilder().append(
 								"<p style='text-align:center;'>"
 										+ "<i>You spend the next four hours loitering about, doing nothing in particular...</i>"
 								+ "</p>");
+						Main.game.endTurn(60*60*4);
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
 					}
 				};
 				
 			} else if(index == 4) {
-				return new Response("8 hours", "Loiter in this area for the next eight hours.", Main.game.getDefaultDialogue()) {
-					@Override
-					public int getSecondsPassed() {
-						return 60*60*4;
-					}
+				return new ResponseEffectsOnly("8 hours", "Loiter in this area for the next eight hours.") {
 					@Override
 					public void effects() {
-						Main.mainController.openPhone();
+//						Main.mainController.openPhone();
 						Main.game.getTextStartStringBuilder().append(
 								"<p style='text-align:center;'>"
 										+ "<i>You spend the next eight hours loitering about, doing nothing in particular...</i>"
 								+ "</p>");
+						Main.game.endTurn(60*60*8);
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
 					}
 				};
 				
 			} else if(index == 5) {
-				return new Response("12 hours", "Loiter in this area for the next twelve hours.", Main.game.getDefaultDialogue()) {
-					@Override
-					public int getSecondsPassed() {
-						return 60*60*12;
-					}
+				return new ResponseEffectsOnly("12 hours", "Loiter in this area for the next twelve hours.") {
 					@Override
 					public void effects() {
-						Main.mainController.openPhone();
+//						Main.mainController.openPhone();
 						Main.game.getTextStartStringBuilder().append(
 								"<p style='text-align:center;'>"
 										+ "<i>You spend the next twelve hours loitering about, doing nothing in particular...</i>"
 								+ "</p>");
+						Main.game.endTurn(60*60*12);
+						Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
 					}
 				};
 			}

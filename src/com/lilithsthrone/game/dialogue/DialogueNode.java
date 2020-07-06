@@ -147,7 +147,7 @@ public abstract class DialogueNode {
 	/**
 	 * @return The author of the scene.
 	 */
-	public String getAuthor(){
+	public String getAuthor() {
 		return "Innoxia";
 	}
 

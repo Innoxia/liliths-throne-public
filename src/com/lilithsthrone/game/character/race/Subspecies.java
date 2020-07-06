@@ -2532,17 +2532,13 @@ public enum Subspecies {
 			"slime-boys",
 			"slime-girls",
 			"slime",
-			"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any serious unarmed damage."
+			"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any significant damage while unarmed."
 					+ " [npc.She] can also morph [npc.her] body at will, allowing [npc.herHim] to take on any form that [npc.she] [npc.verb(desire)].",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 0f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 0f),
-					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_UNARMED, -100f)),
-			Util.newArrayListOfValues(
-					"<b style='color: "+ PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>",
-					"<b style='color: "+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>Impregnated through any orifice</b>"),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 25f)),
+			Util.newArrayListOfValues(),
 			"Slimy Fun",
 			"Slimy Funs",
 			"SLIME_BASIC",
@@ -2813,7 +2809,18 @@ public enum Subspecies {
 			"An anthropomorphic rabbit, known as a 'rabbit-morph' when bipedal, and a 'rabbit-taur' when the lower body is that of an oversized feral rabbit.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.DOMINION, SubspeciesSpawnRarity.FOUR_COMMON),
-					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON))), //TODO move to fields
+					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON))) { //TODO move to fields
+		@Override
+		public String[] getHalfDemonName(GameCharacter character) {
+			return new String[] {
+					"jackalope",
+					"jackalopes",
+					"jackalope",
+					"jackalope",
+					"jackalopes",
+					"jackalopes"};
+		}
+	},
 
 	RABBIT_MORPH_LOP("statusEffects/race/raceRabbitLopMorph",
 			"statusEffects/race/raceBackground",
@@ -2858,6 +2865,16 @@ public enum Subspecies {
 			if(body.getEar().getType()==EarType.RABBIT_MORPH) {
 				body.getEar().setType(null, EarType.RABBIT_MORPH_FLOPPY);
 			}
+		}
+		@Override
+		public String[] getHalfDemonName(GameCharacter character) {
+			return new String[] {
+					"jackalope",
+					"jackalopes",
+					"jackalope",
+					"jackalope",
+					"jackalopes",
+					"jackalopes"};
 		}
 	},
 	
@@ -3118,6 +3135,45 @@ public enum Subspecies {
 	
 	// ELEMENTALS:
 
+
+	ELEMENTAL_FIRE("combat/spell/elemental_fire",
+			"",
+			"fire elemental",
+			"fire elementals",
+			"fire elemental",
+			"fire elemental",
+			"fire elementals",
+			"fire elementals",
+			"fire",
+			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Fire.",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 50f)),
+			null,
+			"Fire Elementals",
+			"Fire Elementals'",
+			"ELEMENTAL_FIRE_BASIC",
+			"ELEMENTAL_FIRE_ADVANCED",
+			Race.ELEMENTAL,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 5),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 5)),
+			PresetColour.SPELL_SCHOOL_FIRE,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"An arcane elemental bound to the school of Fire.",
+			Util.newHashMapOfValues()) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			body.setBodyMaterial(BodyMaterial.FIRE);
+		}
+	},
+	
 	ELEMENTAL_EARTH("combat/spell/elemental_earth",
 			"",
 			"earth elemental",
@@ -3129,7 +3185,9 @@ public enum Subspecies {
 			"earth",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Earth.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 50f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f)),
 			null,
 			"Earth Elementals",
 			"Earth Elementals'",
@@ -3165,7 +3223,9 @@ public enum Subspecies {
 			"water",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Water.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
 			null,
 			"Water Elementals",
 			"Water Elementals'",
@@ -3201,7 +3261,9 @@ public enum Subspecies {
 			"air",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Air.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 50f)),
 			null,
 			"Air Elementals",
 			"Air Elementals'",
@@ -3226,42 +3288,6 @@ public enum Subspecies {
 		}
 	},
 
-	ELEMENTAL_FIRE("combat/spell/elemental_fire",
-			"",
-			"fire elemental",
-			"fire elementals",
-			"fire elemental",
-			"fire elemental",
-			"fire elementals",
-			"fire elementals",
-			"fire",
-			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Fire.",
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f)),
-			null,
-			"Fire Elementals",
-			"Fire Elementals'",
-			"ELEMENTAL_FIRE_BASIC",
-			"ELEMENTAL_FIRE_ADVANCED",
-			Race.ELEMENTAL,
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 5),
-					new Value<>(PerkCategory.LUST, 1),
-					new Value<>(PerkCategory.ARCANE, 5)),
-			Util.newHashMapOfValues(
-					new Value<>(PerkCategory.PHYSICAL, 5),
-					new Value<>(PerkCategory.LUST, 1),
-					new Value<>(PerkCategory.ARCANE, 5)),
-			PresetColour.SPELL_SCHOOL_FIRE,
-			SubspeciesPreference.FOUR_ABUNDANT,
-			"An arcane elemental bound to the school of Fire.",
-			Util.newHashMapOfValues()) {
-		@Override
-		public void applySpeciesChanges(Body body) {
-			body.setBodyMaterial(BodyMaterial.FIRE);
-		}
-	},
-
 	ELEMENTAL_ARCANE("combat/spell/elemental_arcane",
 			"",
 			"arcane elemental",
@@ -3273,7 +3299,9 @@ public enum Subspecies {
 			"arcane",
 			"[npc.NameIsFull] a summoned elemental, currently bound to the school of Arcane.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 50f)),
 			null,
 			"Arcane Elementals",
 			"Arcane Elementals'",

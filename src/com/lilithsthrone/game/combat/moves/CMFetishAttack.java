@@ -365,7 +365,7 @@ public class CMFetishAttack {
         
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
-            return new Value<>(source.hasFetish(associatedFetish) && source.hasVagina(), "Available to characters who have the "+associatedFetish.getName(source)+" fetish.");
+            return new Value<>(source.hasFetish(associatedFetish), "Available to characters who have the "+associatedFetish.getName(source)+" fetish.");
         }
 
         @Override
@@ -467,7 +467,7 @@ public class CMFetishAttack {
         
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
-            return new Value<>(source.hasFetish(associatedFetish) && source.hasVagina(), "Available to characters who have the "+associatedFetish.getName(source)+" fetish.");
+            return new Value<>(source.hasFetish(associatedFetish), "Available to characters who have the "+associatedFetish.getName(source)+" fetish.");
         }
 
         @Override

@@ -311,8 +311,8 @@ public enum PerkManager {
 		physical1 = addPerkEntry(elementalPerkTree, PerkCategory.PHYSICAL, 12, Perk.ELEMENTAL_WATER_BOOST_ULTIMATE, physical2);
 		
 		// Arcane:
-		both1 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 0, Perk.ELEMENTAL_CORE);
-		elementalStartingPerks.add(both1);
+//		both1 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 0, Perk.ELEMENTAL_CORE);
+//		elementalStartingPerks.add(both1);
 		both1 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 0, Perk.ELEMENTAL_ARCANE_SPELL_1);
 		elementalStartingPerks.add(both1);
 
@@ -341,8 +341,8 @@ public enum PerkManager {
 		both1 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 10, Perk.ELEMENTAL_ARCANE_BOOST, both2);
 		both2 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 11, Perk.ELEMENTAL_ARCANE_BOOST_MAJOR, both1);
 		both1 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 12, Perk.ELEMENTAL_ARCANE_BOOST_ULTIMATE, both2);
-		both1 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 0, Perk.ELEMENTAL_CORRUPTION);
-		elementalStartingPerks.add(both1);
+//		both1 = addPerkEntry(elementalPerkTree, PerkCategory.LUST, 0, Perk.ELEMENTAL_CORRUPTION);
+//		elementalStartingPerks.add(both1);
 
 
 		// Fire:

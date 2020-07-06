@@ -2207,7 +2207,7 @@ public class SexPosition {
 						case 1:
 							sb.append(UtilText.parse(allFours, fallBackAllFours3,
 									(!allFours.isTaur()
-											?"In a similar manner to [npc2.name], [npc.nameHas] dropped down on all fours, presenting [npc.herself] in order to be fucked like an animal. "
+											?"In a similar manner to [npc2.name], [npc.nameHasFull] dropped down on all fours, presenting [npc.herself] in order to be fucked like an animal. "
 											:"In a similar manner to [npc2.name], [npc.nameHasFull] knelt down with the front half of [npc.her] [npc.legRace] body, while raising [npc.her] [npc.ass+] up in order to be fucked like an animal.")));
 							break;
 						case 2:
@@ -2718,12 +2718,12 @@ public class SexPosition {
 							sb.append(UtilText.parse(lyingDown,
 									(!lyingDown.isTaur()
 											?"[npc.NameIsFull] lying down on [npc.her] back, submissively exposing [npc.her] stomach, [npc.face], and groin. "
-											:"[npc.NameHasFull] lay down on [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back in order to submissively expose [npc.her] stomach.")));// floofy tummy for strokings and pats.")));
+											:"[npc.NameHasFull] lay down on [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back in order to submissively expose [npc.her] stomach.")));
 							break;
 						case 1:
 							sb.append(UtilText.parse(lyingDown, fallBackLyingDown3,
 									(!lyingDown.isTaur()
-											?"In a similar manner to [npc2.name], [npc.nameHas] dropped down to lie on [npc.her] back. "
+											?"In a similar manner to [npc2.name], [npc.nameHasFull] dropped down to lie on [npc.her] back. "
 											:"In a similar manner to [npc2.name], [npc.nameHasFull] knelt down onto [npc.her] feral [npc.legRace]'s body, before rolling over and presenting [npc.her] underside.")));
 							break;
 						case 2:
@@ -2739,6 +2739,7 @@ public class SexPosition {
 											:"Finishing off the group of four, [npc.nameIsFull] lying down beside [npc2.name], [npc3.name], and [npc4.name], and [npc.has] rolled over to present the underside of [npc.her] feral [npc.legRace]'s body.")));
 							break;
 					}
+					count++;
 				}
 				
 				boolean continuation = false;
@@ -2766,12 +2767,12 @@ public class SexPosition {
 				if(matingPress!=null) {
 					if(!matingPress.isTaur()) {
 						sb.append(UtilText.parse(matingPress, lyingDown,
-								" [npc.nameHasFull] pushed [npc2.namePos] [npc2.legs] apart and back up towards [npc2.her] head, before lying down on top of [npc2.herHim] with [npc.her] groin hovering just over [npc2.hers]."
+								" [npc.NameHasFull] pushed [npc2.namePos] [npc2.legs] apart and back up towards [npc2.her] head, before lying down on top of [npc2.herHim] with [npc.her] groin hovering just over [npc2.hers]."
 									+ " [npc.SheIs] dominantly using [npc.her] [npc.hands] to pin [npc2.namePos] wrists to the floor on either side of [npc2.her] head,"
 										+ " thereby fully locking [npc2.herHim] down beneath [npc.herHim] in a position suitable for being bred."));
 					} else {
 						sb.append(UtilText.parse(matingPress, lyingDown,
-								" [npc.nameHasFull] pushed [npc2.namePos] [npc2.legs] apart and back up towards [npc2.her] head, before dropping [npc.her] feral [npc.legRace]'s body down on top of [npc2.herHim],"
+								" [npc.NameHasFull] pushed [npc2.namePos] [npc2.legs] apart and back up towards [npc2.her] head, before dropping [npc.her] feral [npc.legRace]'s body down on top of [npc2.herHim],"
 										+ " with [npc.her] animalistic groin hovering just over [npc2.hers]."
 									+ " [npc.SheIs] dominantly using [npc.her] front [npc.legs] to pin [npc2.name] wrists to the floor on either side of [npc2.her] head,"
 										+ " thereby fully locking [npc2.herHim] down beneath [npc.herHim] in a position suitable for being bred."));
@@ -2844,8 +2845,6 @@ public class SexPosition {
 							" Wanting to perform oral on [npc2.name], [npc.nameHasFull] laid down between [npc2.her] [npc2.legs], bringing [npc.her] [npc.face] right down to [npc2.her] groin."));
 				}
 				
-				
-				count++;
 			}
 			
 			if(besideNames.size()>=2) {

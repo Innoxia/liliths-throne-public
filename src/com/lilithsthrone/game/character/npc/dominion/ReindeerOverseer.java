@@ -161,7 +161,7 @@ public class ReindeerOverseer extends NPC {
 			if(Main.game.getCurrentWeather()!=Weather.SNOW && Main.game.getSeason()!=Season.WINTER) {
 				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.hasSnowedThisWinter);
 				if(this.getLocation()!=Main.game.getPlayer().getLocation()) {
-					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 				}
 			}
 			
