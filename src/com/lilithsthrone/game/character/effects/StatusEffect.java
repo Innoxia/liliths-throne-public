@@ -293,7 +293,7 @@ public class StatusEffect {
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -75f)),
 			Util.newArrayListOfValues("<b style='color: " + PresetColour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>",
 					"[style.boldMana(Maximum "+Attribute.MANA_MAXIMUM.getName()+")] [style.boldBad(limited to 5)]",
-					"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + "'>Vulnerable to arcane storms</b>")) {
+					"[style.boldBad(Vulnerable)] to [style.boldArcane(arcane storms)]")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(IntelligenceLevel.ZERO_AIRHEAD.getName());
@@ -323,10 +323,11 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			null,
-			Util.newArrayListOfValues("<b style='color: " + PresetColour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>",
-					"[style.boldMana(Maximum "+Attribute.MANA_MAXIMUM.getName()+")] [style.boldBad(limited to 5)]",
-					"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + "'>Vulnerable to arcane storms</b>")) {
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Immune)] to [style.boldArcane(arcane storms)]")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(IntelligenceLevel.ONE_AVERAGE.getName());
@@ -356,9 +357,11 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 5f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 5f)),
-			null) {
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Immune)] to [style.boldArcane(arcane storms)]")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(IntelligenceLevel.TWO_SMART.getName());
@@ -384,12 +387,13 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 15f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 5f)),
-			null) {
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Immune)] to [style.boldArcane(arcane storms)]")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(IntelligenceLevel.THREE_BRAINY.getName());
@@ -419,12 +423,13 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 15f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 15f),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 20f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 10f)),
-			null) {
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Immune)] to [style.boldArcane(arcane storms)]")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(IntelligenceLevel.FOUR_GENIUS.getName());
@@ -455,12 +460,13 @@ public class StatusEffect {
 			PresetColour.BASE_BLACK,
 			PresetColour.BASE_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 20f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 25f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 25f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f)),
-			null) {
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Immune)] to [style.boldArcane(arcane storms)]")) {
 		@Override
 		public String getName(GameCharacter target) {
 			return Util.capitaliseSentence(IntelligenceLevel.FIVE_POLYMATH.getName());
@@ -2810,7 +2816,7 @@ public class StatusEffect {
 				long timeLeft = oneDayLater - now;
 				long hoursLeft = timeLeft / 60;
 				long minutesLeft = timeLeft % 60;
-				extraEffects.add("<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
+				extraEffects.add("<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(true))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
 						+ (timeLeft > 0
 								?" [style.colourGood("+hoursLeft+":"+String.format("%02d", minutesLeft)+")]"
 								:" [style.boldArcane(Withdrawal!)]"));
@@ -2876,7 +2882,7 @@ public class StatusEffect {
 						long hoursLeft = timeLeft / 60;
 						long minutesLeft = timeLeft % 60;
 						sb.append("<br/>"
-								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
+								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(true))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
 								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
@@ -2937,7 +2943,7 @@ public class StatusEffect {
 						long hoursLeft = timeLeft / 60;
 						long minutesLeft = timeLeft % 60;
 						sb.append("<br/>"
-								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
+								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(true))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
 								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
@@ -2998,7 +3004,7 @@ public class StatusEffect {
 						long hoursLeft = timeLeft / 60;
 						long minutesLeft = timeLeft % 60;
 						sb.append("<br/>"
-								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
+								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(true))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
 								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
@@ -3059,7 +3065,7 @@ public class StatusEffect {
 						long hoursLeft = timeLeft / 60;
 						long minutesLeft = timeLeft % 60;
 						sb.append("<br/>"
-								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
+								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(true))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>: "
 								+ " [style.boldArcane(worsens in)] "+hoursLeft+":"+String.format("%02d", minutesLeft));
 					}
 				}
@@ -3116,7 +3122,7 @@ public class StatusEffect {
 					
 					if (fiveDaysLater <= now) {
 						sb.append("<br/>"
-								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>.");
+								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getRace().getName(true))+" "+addiction.getFluid().getBaseType().getNames().get(0)+"</b>.");
 					}
 				}
 				

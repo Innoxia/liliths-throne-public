@@ -459,8 +459,29 @@ public class OrificeVagina implements OrificeInterface {
 		return hymen;
 	}
 
-	public void setHymen(boolean hymen) {
+	public String setHymen(GameCharacter owner, boolean hymen) {
+		if(owner == null) {
+			this.hymen = hymen;
+			return "";
+		}
+		if(this.hymen == hymen || !owner.hasVagina()) {
+			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+		}
+		
 		this.hymen = hymen;
+		
+		if(hymen) {
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [style.verb(feel)] an intense tightening sensation shooting down into [npc.her] [npc.pussy+], and [npc.she] can't help but let out a high-pitched whine as [npc.her] [style.boldGrow(hymen regenerates)]!"
+					+ "</p>");
+			
+		} else {
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.NamePos] [npc.pussy+] suddenly starts to ache, and [npc.she] can't help but let out a high-pitched whine as [npc.her] [style.boldShrink(hymen disappears)]!"
+					+ "</p>");
+		}
 	}
 
 }

@@ -1371,7 +1371,7 @@ public class Sex {
 
 				}
 
-				if(Main.sex.getSexPositionSlot(participant)!=SexSlotGeneric.MISC_WATCHING) {
+				if(Main.sex.getSexPositionSlot(participant)!=SexSlotGeneric.MISC_WATCHING && !Main.sex.isRemoveEndSexAffection(participant)) {
 					if(Main.sex.getAllParticipants().contains(Main.game.getPlayer())) {
 						if((Main.sex.getSexPace(participant)==SexPace.SUB_RESISTING && !participant.getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive())) {
 							for(GameCharacter domParticipant : Main.sex.getDominantParticipants(false).keySet()) {
@@ -1379,31 +1379,28 @@ public class Sex {
 							}
 							
 						} else {
-							if(!Main.sex.isRemoveEndSexAffection(participant)) {
-								if(!Main.sex.isDom(participant)) {
-									boolean denialAffectionChange = false;
-									if(participant.getFetishDesire(Fetish.FETISH_DENIAL_SELF).isPositive()) {
-										if(Main.sex.getNumberOfDeniedOrgasms(participant)==0 && Main.sex.getNumberOfOrgasms(participant)==0) {
-											for(GameCharacter domParticipant : Main.sex.getDominantParticipants(false).keySet()) {
-												endSexSB.append(
-														participant.incrementAffection(domParticipant, -10f, "[npc.Name] is angry at [npc2.name] for failing to give or deny [npc.herHim] a single orgasm."));
-											}
-											denialAffectionChange = true;
+							if(!Main.sex.isDom(participant)) {
+								boolean denialAffectionChange = false;
+								if(participant.getFetishDesire(Fetish.FETISH_DENIAL_SELF).isPositive()) {
+									if(Main.sex.getNumberOfDeniedOrgasms(participant)==0 && Main.sex.getNumberOfOrgasms(participant)==0) {
+										for(GameCharacter domParticipant : Main.sex.getDominantParticipants(false).keySet()) {
+											endSexSB.append(participant.incrementAffection(domParticipant, -10f, "[npc.Name] is angry at [npc2.name] for failing to give or deny [npc.herHim] a single orgasm."));
 										}
-									
+										denialAffectionChange = true;
 									}
-									if(!denialAffectionChange) {
-										int orgasms = Main.sex.getNumberOfOrgasms(participant);
-										if(Main.sex.getNumberOfOrgasms(participant)==0) {
-											for(GameCharacter domParticipant : Main.sex.getDominantParticipants(false).keySet()) {
-												endSexSB.append(participant.incrementAffection(domParticipant, -10f, "[npc.Name] is angry at [npc2.name] for failing to give [npc.herHim] a single orgasm."));
-											}
-										} else if(orgasms < participant.getOrgasmsBeforeSatisfied()){
-											for(GameCharacter domParticipant : Main.sex.getDominantParticipants(false).keySet()) {
-												endSexSB.append(participant.incrementAffection(domParticipant, -5f,
-														"[npc.Name] is annoyed at [npc2.name] for only giving [npc.herHim] "+Util.intToString(orgasms)+" orgasm"+(orgasms==1?"":"s")
-															+", when [npc.she] really wanted at least "+Util.intToString(participant.getOrgasmsBeforeSatisfied())+"."));
-											}
+								
+								}
+								if(!denialAffectionChange) {
+									int orgasms = Main.sex.getNumberOfOrgasms(participant);
+									if(Main.sex.getNumberOfOrgasms(participant)==0) {
+										for(GameCharacter domParticipant : Main.sex.getDominantParticipants(false).keySet()) {
+											endSexSB.append(participant.incrementAffection(domParticipant, -10f, "[npc.Name] is angry at [npc2.name] for failing to give [npc.herHim] a single orgasm."));
+										}
+									} else if(orgasms < participant.getOrgasmsBeforeSatisfied()){
+										for(GameCharacter domParticipant : Main.sex.getDominantParticipants(false).keySet()) {
+											endSexSB.append(participant.incrementAffection(domParticipant, -5f,
+													"[npc.Name] is annoyed at [npc2.name] for only giving [npc.herHim] "+Util.intToString(orgasms)+" orgasm"+(orgasms==1?"":"s")
+														+", when [npc.she] really wanted at least "+Util.intToString(participant.getOrgasmsBeforeSatisfied())+"."));
 										}
 									}
 								}
@@ -3417,14 +3414,20 @@ public class Sex {
 					
 			} else if(actualOrifice == SexAreaOrifice.VAGINA) {
 				if(initialPenetrations.get(characterPenetrated).contains(SexAreaOrifice.VAGINA)) {
-					if(characterPenetrated.isVaginaVirgin() && penetrationType.isTakesVirginity()) {
-						penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.VAGINA));
-						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingVaginalVirginity(characterPenetrating), true);
+					if(penetrationType.isTakesVirginity()) {
+						if(characterPenetrated.isVaginaVirgin()) {
+							penetrationSB.append(characterPenetrated.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, SexAreaOrifice.VAGINA));
+							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
+								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingVaginalVirginity(characterPenetrating), true);
+							}
+							characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
+							characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating, characterPenetrating.getLostVirginityDescriptor());
+							characterPenetrated.setVaginaVirgin(false);
+							
+						} else if(characterPenetrated.hasHymen()){
+							characterPenetrated.setHymen(false);
+							penetrationSB.append(UtilText.formatVirginityLoss(UtilText.parse(characterPenetrating, "[npc.NamePos] hymen was torn!")));
 						}
-						characterPenetrating.incrementFetishExperience(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_DEFLOWERING.getExperienceGainFromSexAction());
-						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating, characterPenetrating.getLostVirginityDescriptor());
-						characterPenetrated.setVaginaVirgin(false);
 					}
 					
 					penetrationSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, actualOrifice)));

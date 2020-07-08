@@ -202,7 +202,12 @@ public enum DamageType {
 			damageAmount = this.getParentDamageType(source, target).shieldCheckNoDamage(source, target, damageAmount);
 		}
 		if(target.getShields(this) > 0) {
-			damageAmount -= target.getShields(this);
+			Attribute resist = this.getResistAttribute();
+			if(target.getAttributeValue(resist)>=resist.getUpperLimit() && resist.isInfiniteAtUpperLimit()) {
+				damageAmount = 0;
+			} else {
+				damageAmount -= target.getShields(this);
+			}
 			if(damageAmount < 0) {
 				damageAmount = 0;
 			}
@@ -220,9 +225,14 @@ public enum DamageType {
 				damageAmount = this.getParentDamageType(source, target).shieldCheck(source, target, damageAmount);
 			}
 			if(target.getShields(this) > 0) {
-				int oldShields = target.getShields(this);
-				target.setShields(this, target.getShields(this) - damageAmount);
-				damageAmount -= oldShields;
+				Attribute resist = this.getResistAttribute();
+				if(target.getAttributeValue(resist)>=resist.getUpperLimit() && resist.isInfiniteAtUpperLimit()) {
+					damageAmount = 0;
+				} else {
+					int oldShields = target.getShields(this);
+					target.setShields(this, target.getShields(this) - damageAmount);
+					damageAmount -= oldShields;
+				}
 				if(damageAmount < 0) {
 					damageAmount = 0;
 				}

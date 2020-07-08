@@ -214,6 +214,11 @@
 		<hitText><![CDATA[
 		With a quick step forwards, [npc.name] [npc.verb(lunge)] out at [npc2.name] with [npc.her] Demon's Dagger, sinking the ethereal blade into [npc2.her] shoulder and causing [npc2.herHim] to lose some energy!
 		]]></hitText>
+		<!-- You can add hit descriptions which will only be shown on a critical hit by using the 'criticalHitText' element.
+			This is optional, and you don't need to define any critical hit descriptions (in which case just a regular 'hitText' will be used instead.)-->
+		<criticalHitText><![CDATA[
+		Expertly sidestepping around [npc2.namePos] attempt to block [npc.her] attack, [npc.name] [npc.verb(deal)] a devastating strike with [npc.her] Demon's Dagger!
+		]]></criticalHitText>
 	</hitDescriptions>
 
 	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->

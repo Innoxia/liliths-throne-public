@@ -10,8 +10,10 @@ import java.util.Random;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Pathing;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -532,9 +534,7 @@ public enum PerkManager {
 			character.addPerk(perk.getRow(), perk.getEntry());
 		}
 		
-		if(character.isElemental()) {
-			
-		} else {
+		if(!character.isElemental()) { // Elementals always start with an empty perk tree
 			if(!character.isPlayer() && autoSelectPerks) {
 				// For each required perk, add it (along with all the perks on the path):
 				if(requiredPerks!=null) {
@@ -555,8 +555,10 @@ public enum PerkManager {
 				deniedPerks.add(Perk.CHUUNI);
 				deniedPerks.add(Perk.BARREN);
 				deniedPerks.add(Perk.FIRING_BLANKS);
-				deniedPerks.add(Perk.ENCHANTMENT_STABILITY);
-				deniedPerks.add(Perk.ENCHANTMENT_STABILITY_ALT);
+				if(character.getEnchantmentPointsUsedTotal()<=character.getAttributeValue(Attribute.ENCHANTMENT_LIMIT) || !Main.game.isEnchantmentCapacityEnabled()) {
+					deniedPerks.add(Perk.ENCHANTMENT_STABILITY);
+					deniedPerks.add(Perk.ENCHANTMENT_STABILITY_ALT);
+				}
 				if(character.getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
 					deniedPerks.add(Perk.MALE_ATTRACTION);
 				}
@@ -592,15 +594,22 @@ public enum PerkManager {
 				while(character.getPerkPoints()>0) {
 					PerkCategory category;
 					category = Util.getRandomObjectFromWeightedMap(perkWeightingMap, rnd);
-					
 					Map<TreeEntry<PerkCategory, AbstractPerk>, Integer> weightedAvailabilityMap = new HashMap<>();
+					
 					for(Map<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>> map : MANAGER.perkTree.values()) {
 						for(TreeEntry<PerkCategory, AbstractPerk> perkEntry : map.get(category)) {
 							if(perkEntry.getRow()>0 && MANAGER.isPerkAvailable(character, perkEntry) && !deniedPerks.contains(perkEntry.getEntry())) {
-								weightedAvailabilityMap.put(perkEntry, 1);
+								if((perkEntry.getEntry().equals(Perk.ENCHANTMENT_STABILITY) || perkEntry.getEntry().equals(Perk.ENCHANTMENT_STABILITY_ALT))
+										&& character.getEnchantmentPointsUsedTotal()>character.getAttributeValue(Attribute.ENCHANTMENT_LIMIT)) {
+									weightedAvailabilityMap.put(perkEntry, 1000); // If this character needs more enchantment stability, prioritise giving them the perks for it.
+									
+								} else {
+									weightedAvailabilityMap.put(perkEntry, 1);
+								}
 							}
 						}
 					}
+					
 					if(weightedAvailabilityMap.isEmpty()) {
 						perkWeightingMap.remove(category);
 						if(perkWeightingMap.isEmpty()) {

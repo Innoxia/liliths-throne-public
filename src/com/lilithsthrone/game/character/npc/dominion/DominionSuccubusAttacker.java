@@ -191,7 +191,7 @@ public class DominionSuccubusAttacker extends NPC {
 	// Combat:
 
 	@Override
-	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
+	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
 		if(!this.isSlave() && this.getMainWeapon(0)==null) {
 			if(this.isFeminine()) {
 				return UtilText.parse(this, target,
@@ -207,7 +207,7 @@ public class DominionSuccubusAttacker extends NPC {
 								"With a frustrated cry, [npc.Name] kicks out at [npc2.namePos] shins."));
 			}
 		}
-		return super.getMainAttackDescription(armRow, target, isHit);
+		return super.getMainAttackDescription(armRow, target, isHit, critical);
 	}
 
 	@Override

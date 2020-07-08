@@ -1564,9 +1564,9 @@ public class OptionsDialogue {
 						+ " The 'Human encounters' option determines what the chance is for random NPCs to be fully human."
 						+ " <b>These options only affect random NPCs at the moment, but I'll do my best to add reduced-furry versions of each major NPC as well!</b>"
 						
-						+ "<br/><br/>[style.boldGood(Hover over the buttons to see what each option means!)]"
+						+ "<br/>[style.italicsGood(Hover over the buttons to see what each option means!)]"
 						
-						+ "<br/><br/>Please note that mythological and demonic races, such as harpies and demons, are not affected by furry preferences."
+						+ "<br/>Please note that some races, such as demons and harpies, are limited in their available furry preference options."
 					+ "</div>"
 							
 					+ "<span style='height:16px;width:800px;float:left;'></span>");
@@ -1798,8 +1798,8 @@ public class OptionsDialogue {
 				sb.append("</div>");
 				sb.append("<div class='container-full-width' style='text-align:center; width:30%; background:transparent; margin:2px 0; padding:0;'>");
 				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
-					sb.append("<div id='FEMININE_SPAWN_"+preference+"_"+s+"' class='square-button small"
-								+(Main.getProperties().getSubspeciesFemininePreferencesMap().get(s)==preference
+					sb.append("<div id='FEMININE_SPAWN_"+preference+"_"+s+"' class='square-button small"+(!s.isSpawnPreferencesEnabled()?" disabled":"")
+								+(Main.getProperties().getSubspeciesFemininePreferencesMap().get(s)==preference && s.isSpawnPreferencesEnabled()
 									?" selected' style='"+baseStyle+" border-color:"+PresetColour.FEMININE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
 									:"' style='"+baseStyle+"'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
 				}
@@ -1822,8 +1822,8 @@ public class OptionsDialogue {
 			sb.append("</div>");
 			sb.append("<div class='container-full-width' style='text-align:center; width:30%; background:transparent; margin:2px 0; padding:0;'>");
 				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
-					sb.append("<div id='MASCULINE_SPAWN_"+preference+"_"+s+"' class='square-button small"
-								+(Main.getProperties().getSubspeciesMasculinePreferencesMap().get(s)==preference
+					sb.append("<div id='MASCULINE_SPAWN_"+preference+"_"+s+"' class='square-button small"+(!s.isSpawnPreferencesEnabled()?" disabled":"")
+								+(Main.getProperties().getSubspeciesMasculinePreferencesMap().get(s)==preference && s.isSpawnPreferencesEnabled()
 									?" selected' style='"+baseStyle+" border-color:"+PresetColour.MASCULINE_PLUS.toWebHexString()+";'><div class='square-button-content'>"+preference.getSVGImage(false)+"</div></div>"
 									:"' style='"+baseStyle+"'><div class='square-button-content'>"+preference.getSVGImage(true)+"</div></div>"));
 				}

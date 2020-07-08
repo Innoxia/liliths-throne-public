@@ -120,7 +120,7 @@ public class WorldType {
 					new Value<>(new Color(0xff0080), PlaceType.DOMINION_WAREHOUSES))) {
 	};
 	
-	public static AbstractWorldType EMPTY = new AbstractWorldType("City",
+	public static AbstractWorldType EMPTY = new AbstractWorldType("Empty (Holding world)",
 			PresetColour.BASE_BROWN,
 			1,
 			false,

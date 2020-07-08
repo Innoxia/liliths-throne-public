@@ -156,6 +156,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
@@ -3369,8 +3370,12 @@ public class Game implements XMLSaving {
 
 	}
 	
-	private static void setMainContentRegex(String prefix, String currentDialogue) {
-		Main.mainController.setMainContent(prefix + currentDialogue.replaceAll("\\.\\.\\.", "&hellip;").replaceAll("\\.([\\D])", ".\u200b$1").replaceAll("\\[", "\u200b[\u200b"));
+	private void setMainContentRegex(String prefix, String currentDialogue) {
+		String sanitizedDialogue = currentDialogue.replaceAll("\\.\\.\\.", "&hellip;");
+		if(currentDialogueNode!=DebugDialogue.PARSER) {
+			sanitizedDialogue = sanitizedDialogue.replaceAll("\\.([\\D])", ".\u200b$1").replaceAll("\\[", "\u200b[\u200b");
+		}
+		Main.mainController.setMainContent(prefix + sanitizedDialogue);
 	}
 	
 	public List<NPC> getCharactersPresent() {
@@ -4054,6 +4059,14 @@ public class Game implements XMLSaving {
 	public StringBuilder getTextStartStringBuilder() {
 		return textStartStringBuilder;
 	}
+	
+	public void appendToTextStartStringBuilder(GameCharacter npc, String text) {
+		textStartStringBuilder.append(UtilText.parse(npc, text));
+	}
+	
+	public void appendToTextStartStringBuilder(List<GameCharacter> npcs, String text) {
+		textStartStringBuilder.append(UtilText.parse(npcs, text));
+	}
 
 	public void clearTextStartStringBuilder() {
 		textStartStringBuilder.setLength(0);
@@ -4061,6 +4074,14 @@ public class Game implements XMLSaving {
 
 	public StringBuilder getTextEndStringBuilder() {
 		return textEndStringBuilder;
+	}
+	
+	public void appendToTextEndStringBuilder(GameCharacter npc, String text) {
+		textEndStringBuilder.append(UtilText.parse(npc, text));
+	}
+	
+	public void appendToTextEndStringBuilder(List<GameCharacter> npcs, String text) {
+		textEndStringBuilder.append(UtilText.parse(npcs, text));
 	}
 
 	public void clearTextEndStringBuilder() {

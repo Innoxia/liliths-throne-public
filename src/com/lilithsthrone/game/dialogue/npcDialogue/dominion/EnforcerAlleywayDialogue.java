@@ -466,15 +466,16 @@ public class EnforcerAlleywayDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(((NPC)getEnforcerLeader()).hasFlag(NPCFlagValue.playerEscapedLastCombat)) {
-				return new ResponseCombat("Defend yourself",
-						"The Enforcers are determined to beat you!"
-								+ "<br/>[style.italicsBad(Beating the Enforcers in combat will result in them being removed from the game!)]",
-						(NPC)getEnforcerLeader(),
-						getEnforcers(),
-						Util.newHashMapOfValues(
-								new Value<>(getEnforcerLeader(), UtilText.parse(getEnforcerLeader(), "[npc.speech(You won't escape this time!)] [npc.name] shouts.")),
-								new Value<>(getEnforcerSubordinate(), UtilText.parse(getEnforcerSubordinate(), "[npc.speech(Now we've got you!)] [npc.name] exclaims."))));
-
+				if(index==1) {
+					return new ResponseCombat("Defend yourself",
+							"The Enforcers are determined to beat you!"
+									+ "<br/>[style.italicsBad(Beating the Enforcers in combat will result in them being removed from the game!)]",
+							(NPC)getEnforcerLeader(),
+							getEnforcers(),
+							Util.newHashMapOfValues(
+									new Value<>(getEnforcerLeader(), UtilText.parse(getEnforcerLeader(), "[npc.speech(You won't escape this time!)] [npc.name] shouts.")),
+									new Value<>(getEnforcerSubordinate(), UtilText.parse(getEnforcerSubordinate(), "[npc.speech(Now we've got you!)] [npc.name] exclaims."))));
+				}
 				
 			} else {
 				boolean foughtBefore = ((NPC)getEnforcerLeader()).getFoughtPlayerCount()>0;

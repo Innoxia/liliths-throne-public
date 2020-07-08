@@ -1238,8 +1238,12 @@ public enum Race {
 		return true;
 	}
 
+	public AbstractRacialBody getRacialBody() {
+		return RacialBody.valueOfRace(this);
+	}
+	
 	/**
-	 * Applies any special racial changes to the body which is passed in. This is called before Subspecies.applySpeciesChanges()
+	 * Applies any special racial changes to the body which is passed in. This is called <b>before</b> Subspecies.applySpeciesChanges()
 	 */
 	public void applyRaceChanges(Body body) {
 	}

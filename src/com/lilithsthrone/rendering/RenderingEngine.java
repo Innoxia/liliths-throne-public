@@ -2177,7 +2177,7 @@ public enum RenderingEngine {
 			
 			for(NPC gc : charactersHome) {
 				if(!charactersPresent.contains(gc) && (charactersHome.size()==1 || x!=0 || y!=0)) {
-					mapIcons.add(gc.getHomeMapIcon());
+					mapIcons.add("<span style='opacity:0.5;'>"+gc.getHomeMapIcon()+"</span>");
 				}
 			}
 			

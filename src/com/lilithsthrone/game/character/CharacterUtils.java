@@ -110,6 +110,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
@@ -1150,6 +1151,9 @@ public class CharacterUtils {
 		body.setMuscle((startingGender.isFeminine() ? demonBody.getFemaleMuscle() : demonBody.getMaleMuscle()));
 
 		body.updateCoverings(true, true, true, true);
+
+		halfSubspecies.getRace().applyRaceChanges(body);
+		halfSubspecies.applySpeciesChanges(body);
 		
 		setBodyHair(body);
 		
@@ -2824,27 +2828,37 @@ public class CharacterUtils {
 			// Masculine characters
 		}
 	}
-
 	
-//	private static void equipPreset(GameCharacter character, boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
-//		boolean feminineClothing = (character.isFeminine() && !character.hasFetish(Fetish.FETISH_CROSS_DRESSER)) || (!character.isFeminine() && character.hasFetish(Fetish.FETISH_CROSS_DRESSER));
-//		
-//		switch(character.getHistory()) {
-//			case PROSTITUTE:
-//				if(feminineClothing) {
-//					equipIfNothingInSlot(character, );
-//				} else {
-//					
-//				}
-//				break;
-//			default:
-//				break;
-//		}
-//	}
-//	
-//	private static void equipIfNothingInSlot(GameCharacter character, AbstractClothing clothing) {
-//		if(character.getClothingInSlot(clothing.getClothingType().getSlot()) == null) {
-//			character.equipClothingFromNowhere(clothing, true, character);
-//		}
-//	}
+	public static List<AbstractClothing> generateEnchantedClothingForTrader(GameCharacter trader, List<AbstractClothing> clothingToSell, int numberOfUncommonsToGenerate, int numberofRaresToGenerate) {
+
+		List<AbstractClothing> clothingGenerated = new ArrayList<>();
+		List<AbstractClothingType> enchantedClothingTypes = new ArrayList<>();
+		
+		clothingToSell.forEach(c -> {
+			if(c.getClothingType().getEffects().isEmpty() && c.getClothingType().getRarity()==Rarity.COMMON)
+				enchantedClothingTypes.add(c.getClothingType());
+			});
+		for(int i=0; i<numberOfUncommonsToGenerate; i++) { // Add 'numberOfUncommonsToGenerate' items of enchanted clothing:
+			if(enchantedClothingTypes.isEmpty()) {
+				break;
+			}
+			AbstractClothingType type = Util.randomItemFrom(enchantedClothingTypes);
+			enchantedClothingTypes.remove(type);
+			AbstractClothing c = AbstractClothingType.generateClothingWithEnchantment(type);
+			c.setEnchantmentKnown(trader, true);
+			clothingGenerated.add(c);
+		}
+		for(int i=0; i<numberofRaresToGenerate; i++) { // Add 'numberofRaresToGenerate' items of extra-enchanted clothing:
+			if(enchantedClothingTypes.isEmpty()) {
+				break;
+			}
+			AbstractClothingType type = Util.randomItemFrom(enchantedClothingTypes);
+			enchantedClothingTypes.remove(type);
+			AbstractClothing c = AbstractClothingType.generateRareClothing(type);
+			c.setEnchantmentKnown(trader, true);
+			clothingGenerated.add(c);
+		}
+		
+		return clothingGenerated;
+	}
 }

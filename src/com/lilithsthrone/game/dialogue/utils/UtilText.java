@@ -79,15 +79,16 @@ import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
+import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.inventory.AbstractSetBonus;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -155,7 +156,7 @@ public class UtilText {
 			new Value<>("behaviour", "behavior"),
 			new Value<>("candour", "candor"),
 			new Value<>("clamour", "clamor"),
-			new Value<>("colour(\\s|\\.|,|s|e|i)", "color($1)"),
+			new Value<>("colour(\\s|\\.|,|s|e|i)", "color$1"),
 			new Value<>("demeanour", "demeanor"),
 			new Value<>("endeavour", "endeavor"),
 			new Value<>("favourite", "favourite"),
@@ -568,6 +569,12 @@ public class UtilText {
 	
 	public static String getShieldSymbol() {
 		return "&#9930;";
+	}
+
+	public static String getInfinitySymbol(boolean largerFont) {
+		//"&#9854;";
+//		return "<span style='font-family:serif; font-weight:normal; font-size:1.25em;'>&#8734;</span>";
+		return "<span style='font-weight:normal; color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; "+(largerFont?"font-size:28px;":"")+"'>&#8734;</span>";
 	}
 	
 	public static String applyGlow(String input, Colour colour) {
@@ -8152,6 +8159,9 @@ public class UtilText {
 		}
 		for(Race race : Race.values()) {
 			engine.put("RACE_"+race.toString(), race);
+		}
+		for(AbstractRacialBody racialBody : RacialBody.getAllRacialBodies()) {
+			engine.put("RACIAL_BODY_"+RacialBody.getIdFromRacialBody(racialBody), racialBody);
 		}
 		for(RaceStage raceStage : RaceStage.values()) {
 			engine.put("RACE_STAGE_"+raceStage.toString(), raceStage);

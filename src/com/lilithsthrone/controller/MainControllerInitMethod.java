@@ -132,7 +132,6 @@ import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
@@ -151,6 +150,7 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
+import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
@@ -6032,85 +6032,47 @@ public class MainControllerInitMethod {
 				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
 					id = "FEMININE_SPAWN_" + preference+"_"+s;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.getProperties().setFeminineSubspeciesPreference(s, preference);
-							Main.saveProperties();
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}, false);
+						if(s.isSpawnPreferencesEnabled()) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.getProperties().setFeminineSubspeciesPreference(s, preference);
+								Main.saveProperties();
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}, false);
+						}
 	
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
 								Util.capitaliseSentence(preference.getName()),
-								"Set the weighted chance for feminine genders of this subspecies to spawn. The spawn frequency of '"+preference.getName()+"' has a weight of: <b>"+preference.getValue()+"</b><br/>"
-										+ "<i>This weighting is further affected by map-specific spawn frequencies.</i>");
+								s.isSpawnPreferencesEnabled()
+									?"Set the weighted chance for feminine genders of this subspecies to spawn. The spawn frequency of '"+preference.getName()+"' has a weight of: <b>"+preference.getValue()+"</b><br/>"
+										+ "<i>This weighting is further affected by map-specific spawn frequencies.</i>"
+									:"This subspecies cannot have its spawn preference changed!");
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 					id = "MASCULINE_SPAWN_" + preference+"_"+s;
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							Main.getProperties().setMasculineSubspeciesPreference(s, preference);
-							Main.saveProperties();
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}, false);
-	
+						if(s.isSpawnPreferencesEnabled()) {
+							((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+								Main.getProperties().setMasculineSubspeciesPreference(s, preference);
+								Main.saveProperties();
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}, false);
+						}
+						
 						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
 						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
 								Util.capitaliseSentence(preference.getName()),
-								"Set the weighted chance for masculine genders of this subspecies to spawn. The spawn frequency of '"+preference.getName()+"' has a weight of: <b>"+preference.getValue()+"</b><br/>"
-									+ "<i>This weighting is further affected by map-specific spawn frequencies.</i>");
+								s.isSpawnPreferencesEnabled()
+									?"Set the weighted chance for masculine genders of this subspecies to spawn. The spawn frequency of '"+preference.getName()+"' has a weight of: <b>"+preference.getValue()+"</b><br/>"
+										+ "<i>This weighting is further affected by map-specific spawn frequencies.</i>"
+									:"This subspecies cannot have its spawn preference changed!");
 						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 					}
 				}
 			}
-			
-//			for (Subspecies s : Subspecies.values()) {
-//				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
-//					id = "FEMININE_" + preference+"_"+s;
-//					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-//						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-//							Main.getProperties().subspeciesFemininePreferencesMap.put(s, preference);
-//							Main.saveProperties();
-//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-//						}, false);
-//
-//						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-//						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-//						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(preference.getName(), "");
-//						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-//					}
-//					id = "MASCULINE_" + preference+"_"+s;
-//					if (((EventTarget) MainController.document.getElementById(id)) != null) {
-//						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-//							Main.getProperties().subspeciesFemininePreferencesMap.put(s, preference);
-//							Main.saveProperties();
-//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-//						}, false);
-//
-//						MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
-//						MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-//						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(preference.getName(), "");
-//						MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
-//					}
-//				}
-//			}
 		}
-		
-//		// Race preferences:
-//		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SPECIES_PREFERENCE) {
-//			for (Subspecies s : Subspecies.values()) {
-//				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
-//					if (((EventTarget) MainController.document.getElementById(preference+"_"+s)) != null) {
-//						((EventTarget) MainController.document.getElementById(preference+"_"+s)).addEventListener("click", e -> {
-//							Main.getProperties().subspeciesPreferencesMap.put(s, preference);
-//							Main.saveProperties();
-//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-//						}, false);
-//					}
-//				}
-//			}
-//		}
 
 		// Unit preferences:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.UNIT_PREFERENCE) {

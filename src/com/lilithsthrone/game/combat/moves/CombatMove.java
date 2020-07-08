@@ -238,7 +238,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true, maxLust));
         				
@@ -265,7 +265,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true, maxLust));
         			}
@@ -509,7 +509,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true, maxLust));
         				
@@ -536,7 +536,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true, maxLust));
         			}
@@ -797,7 +797,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true, maxLust));
         				
@@ -824,7 +824,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getMainAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true, maxLust));
         			}
@@ -837,7 +837,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = weapon.getDamageType().damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(weapon.getDamageType(), inflictedDamage, target, true, maxLust));
         				
@@ -864,7 +864,7 @@ public class CombatMove {
         				boolean maxLust = isTargetAtMaximumLust(target);
         				Value<String, Integer> damageValue = DamageType.UNARMED.getParentDamageType(source, null).damageTarget(source, target, damage);
         				int inflictedDamage = damageValue.getValue();
-        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true)+damageValue.getKey());
+        				weaponAttacksStringBuilder.append((i>0?"<br/>":"")+source.getOffhandAttackDescription(i, target, true, isCrit)+damageValue.getKey());
         				weaponDamages.putIfAbsent(target, new ArrayList<>());
         				weaponDamages.get(target).add(getFormattedDamage(DamageType.UNARMED.getParentDamageType(source, null), inflictedDamage, target, true, maxLust));
         			}

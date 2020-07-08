@@ -1,6 +1,9 @@
 package com.lilithsthrone.game.character.race;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
@@ -656,5 +659,50 @@ public class RacialBody {
 		}
 		return RacialBody.HUMAN;
 	}
+	
 
+	public static List<AbstractRacialBody> allRacialBodies;
+	
+	public static Map<AbstractRacialBody, String> RacialBodyToIdMap = new HashMap<>();
+	public static Map<String, AbstractRacialBody> idToRacialBodyMap = new HashMap<>();
+	
+	/**
+	 * @param id Will be in the format of: 'innoxia_maid'.
+	 */
+	public static AbstractRacialBody getRacialBodyFromId(String id) {
+		id = Util.getClosestStringMatch(id, idToRacialBodyMap.keySet());
+		return idToRacialBodyMap.get(id);
+	}
+	
+	public static String getIdFromRacialBody(AbstractRacialBody perk) {
+		return RacialBodyToIdMap.get(perk);
+	}
+
+	static {
+		allRacialBodies = new ArrayList<>();
+		
+		Field[] fields = RacialBody.class.getFields();
+		
+		for(Field f : fields){
+			if (AbstractRacialBody.class.isAssignableFrom(f.getType())) {
+				
+				AbstractRacialBody RacialBody;
+				
+				try {
+					RacialBody = ((AbstractRacialBody) f.get(null));
+
+					RacialBodyToIdMap.put(RacialBody, f.getName());
+					idToRacialBodyMap.put(f.getName(), RacialBody);
+					allRacialBodies.add(RacialBody);
+					
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public static List<AbstractRacialBody> getAllRacialBodies() {
+		return allRacialBodies;
+	}
 }

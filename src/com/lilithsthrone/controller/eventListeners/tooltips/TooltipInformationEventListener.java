@@ -660,14 +660,14 @@ public class TooltipInformationEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (attribute != null) {
-			
 			if (attribute == Attribute.MAJOR_PHYSIQUE
 					|| attribute == Attribute.MAJOR_ARCANE
 					|| attribute == Attribute.MAJOR_CORRUPTION
 					|| attribute == Attribute.AROUSAL
 					|| attribute == Attribute.LUST) {
 				AbstractStatusEffect currentAttributeStatusEffect=null;
-				int minimumLevelValue=0, maximumLevelValue=0;
+				int minimumLevelValue=0;
+				int maximumLevelValue=0;
 				
 				if(attribute == Attribute.MAJOR_PHYSIQUE) {
 					currentAttributeStatusEffect = PhysiqueLevel.getPhysiqueLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getRelatedStatusEffect();
@@ -694,7 +694,6 @@ public class TooltipInformationEventListener implements EventListener {
 					minimumLevelValue = LustLevel.getLustLevelFromValue(owner.getAttributeValue(Attribute.LUST)).getMinimumValue();
 					maximumLevelValue = LustLevel.getLustLevelFromValue(owner.getAttributeValue(Attribute.LUST)).getMaximumValue();
 				}
-				
 				
 				int yIncrease = (currentAttributeStatusEffect.getModifiersAsStringList(owner).size() > 4 ? currentAttributeStatusEffect.getModifiersAsStringList(owner).size() - 4 : 0)
 						+ (owner.hasStatusEffect(currentAttributeStatusEffect)?(owner.getStatusEffectDuration(currentAttributeStatusEffect) == -1 ? 0 : 2):0);
@@ -757,7 +756,6 @@ public class TooltipInformationEventListener implements EventListener {
 				// Special tooltip for experience/transformation combo:
 
 				if(owner.isRaceConcealed()) {
-					
 					tooltipSB.setLength(0);
 					tooltipSB.append("<div class='title' style='color:" + PresetColour.RACE_UNKNOWN.toWebHexString() + ";'>"
 							+ "Unknown Race!"
@@ -1013,7 +1011,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 			} else {
 				Main.mainController.setTooltipSize(360, 234);
-
+				
 				Main.mainController.setTooltipContent(UtilText.parse(
 						"<div class='title' style='color:" + attribute.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(attribute.getName()) + "</div>"
 
@@ -1094,19 +1092,19 @@ public class TooltipInformationEventListener implements EventListener {
 							+ owner.getEssenceCount(TFEssence.ARCANE)
 						+ "</div>"
 						
-						+ extraAttributeBonus(owner, Attribute.MAJOR_PHYSIQUE)
-						+ extraAttributeBonus(owner, Attribute.MAJOR_ARCANE)
-						+ extraAttributeBonus(owner, Attribute.MAJOR_CORRUPTION)
-						+ extraAttributeBonus(owner, Attribute.CRITICAL_DAMAGE)
+						+ getAttributeDiv(owner, Attribute.MAJOR_PHYSIQUE)
+						+ getAttributeDiv(owner, Attribute.MAJOR_ARCANE)
+						+ getAttributeDiv(owner, Attribute.MAJOR_CORRUPTION)
+						+ getAttributeDiv(owner, Attribute.CRITICAL_DAMAGE)
 						
-						+ extraAttributeBonus(owner, Attribute.SPELL_COST_MODIFIER)
-						+ extraAttributeBonus(owner, Attribute.DAMAGE_SPELLS)
+						+ getAttributeDiv(owner, Attribute.SPELL_COST_MODIFIER)
+						+ getAttributeDiv(owner, Attribute.DAMAGE_SPELLS)
 						
-						+ extraAttributeBonus(owner, Attribute.DAMAGE_UNARMED)
-						+ extraAttributeBonus(owner, Attribute.DAMAGE_MELEE_WEAPON)
-						+ extraAttributeBonus(owner, Attribute.DAMAGE_RANGED_WEAPON)
+						+ getAttributeDiv(owner, Attribute.DAMAGE_UNARMED)
+						+ getAttributeDiv(owner, Attribute.DAMAGE_MELEE_WEAPON)
+						+ getAttributeDiv(owner, Attribute.DAMAGE_RANGED_WEAPON)
 						
-						+ extraAttributeBonus(owner, Attribute.ENERGY_SHIELDING)
+						+ getAttributeDiv(owner, Attribute.ENERGY_SHIELDING)
 	
 						// Header:
 						+ "<div class='subTitle-third combatValue' style='padding:2px; margin:2px 1%; width:31%;'>"
@@ -1120,14 +1118,14 @@ public class TooltipInformationEventListener implements EventListener {
 						+ "</div>"
 	
 						// Values:
-						+ extraAttributeTableRow(owner, "Physical", Attribute.DAMAGE_PHYSICAL, Attribute.RESISTANCE_PHYSICAL)
-						+ extraAttributeTableRow(owner, "Fire", Attribute.DAMAGE_FIRE, Attribute.RESISTANCE_FIRE)
-						+ extraAttributeTableRow(owner, "Cold", Attribute.DAMAGE_ICE, Attribute.RESISTANCE_ICE)
-						+ extraAttributeTableRow(owner, "Poison", Attribute.DAMAGE_POISON, Attribute.RESISTANCE_POISON)
-						+ extraAttributeTableRow(owner, "Seduction", Attribute.DAMAGE_LUST, Attribute.RESISTANCE_LUST)
+						+ getAttributeTableRowDiv(owner, "Physical", Attribute.DAMAGE_PHYSICAL, Attribute.RESISTANCE_PHYSICAL)
+						+ getAttributeTableRowDiv(owner, "Fire", Attribute.DAMAGE_FIRE, Attribute.RESISTANCE_FIRE)
+						+ getAttributeTableRowDiv(owner, "Cold", Attribute.DAMAGE_ICE, Attribute.RESISTANCE_ICE)
+						+ getAttributeTableRowDiv(owner, "Poison", Attribute.DAMAGE_POISON, Attribute.RESISTANCE_POISON)
+						+ getAttributeTableRowDiv(owner, "Seduction", Attribute.DAMAGE_LUST, Attribute.RESISTANCE_LUST)
 						
-						+ extraAttributeBonus(owner, Attribute.FERTILITY)
-						+ extraAttributeBonus(owner, Attribute.VIRILITY)));
+						+ getAttributeDiv(owner, Attribute.FERTILITY)
+						+ getAttributeDiv(owner, Attribute.VIRILITY)));
 //			}
 			
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
@@ -1491,39 +1489,90 @@ public class TooltipInformationEventListener implements EventListener {
 			+ "</div>";
 	}
 
-	private String extraAttributeTableRow(GameCharacter owner, String type, Attribute damage, Attribute resist) {
+	private String getAttributeDiv(GameCharacter owner, Attribute attribute) {
+		float value = owner.getAttributeValue(attribute);
+		
+		String valueForDisplay;
+		if(((int)value)==value) {
+			valueForDisplay = String.valueOf(((int)value));
+		} else {
+			valueForDisplay = String.valueOf(value);
+		}
+		if(attribute.isInfiniteAtUpperLimit() && value>=attribute.getUpperLimit()) {
+			valueForDisplay = UtilText.getInfinitySymbol(true);
+		}
+		if(attribute.isPercentage()){
+			valueForDisplay = (value>=0?"+":"")+valueForDisplay+"%";
+		}
+		
+		return "<div class='subTitle-half' style='padding:2px; margin:2px 1%; width:48%;'>"
+					+ "<span style='color:"+ attribute.getColour().toWebHexString() + ";'>"
+						+ Util.capitaliseSentence(attribute.getName())
+					+ "</span>"
+					+ "<br/>"
+					+ (value > attribute.getBaseValue()
+						? "<span style='color:" + (value==attribute.getUpperLimit()?PresetColour.GENERIC_GOOD:PresetColour.GENERIC_MINOR_GOOD).toWebHexString() + ";'>"
+						: (value < attribute.getBaseValue()
+								? "<span style='color:"+(value==attribute.getLowerLimit()?PresetColour.GENERIC_BAD:PresetColour.GENERIC_MINOR_BAD).toWebHexString()+";'>"
+								: "<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"))
+						+ valueForDisplay
+					+ "</span>"
+				+ "</div>";
+	}
+
+	private String getAttributeTableRowDiv(GameCharacter owner, String type, Attribute damage, Attribute resist) {
+		float damageValue = owner.getAttributeValue(damage);
+		float resistValue = owner.getAttributeValue(resist);
+		
+		String damageValueForDisplay;
+		if(((int)damageValue)==damageValue) {
+			damageValueForDisplay = String.valueOf(((int)damageValue));
+		} else {
+			damageValueForDisplay = String.valueOf(damageValue);
+		}
+		if(damage.isInfiniteAtUpperLimit() && damageValue>=damage.getUpperLimit()) {
+			damageValueForDisplay = UtilText.getInfinitySymbol(true);
+		}
+		if(damage.isPercentage()){
+			damageValueForDisplay = (damageValue>=0?"+":"")+damageValueForDisplay+"%";
+		}
+		
+		String resistValueForDisplay;
+		if(((int)resistValue)==resistValue) {
+			resistValueForDisplay = String.valueOf(((int)resistValue));
+		} else {
+			resistValueForDisplay = String.valueOf(resistValue);
+		}
+		if(resist.isInfiniteAtUpperLimit() && resistValue>=resist.getUpperLimit()) {
+			resistValueForDisplay = UtilText.getInfinitySymbol(true);
+		}
+		if(resist.isPercentage()){
+			resistValueForDisplay = (resistValue>=0?"+":"")+resistValueForDisplay+"%";
+		}
+		
 		return "<div class='subTitle-third combatValue' style='padding:2px; margin:2px 1%; width:31%;'>"
 				+ "<span style='color:" + damage.getColour().toWebHexString() + ";'>" + type + "</span>"
 				+ "</div>"
 				+ "<div class='subTitle-third combatValue' style='padding:2px; margin:2px 1%; width:31%;'>"
-					+ (owner.getAttributeValue(damage) > damage.getBaseValue()
-										? "<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>"
-										: (owner.getAttributeValue(damage) < damage.getBaseValue()
-												? "<span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>"
-												: ""))
-						+ owner.getAttributeValue(damage)
+					+ (damageValue > damage.getBaseValue()
+							? "<span style='color:" + (damageValue==damage.getUpperLimit()?PresetColour.GENERIC_GOOD:PresetColour.GENERIC_MINOR_GOOD).toWebHexString() + ";'>"
+							: (damageValue < damage.getBaseValue()
+									? "<span style='color:" + (damageValue==damage.getLowerLimit()?PresetColour.GENERIC_BAD:PresetColour.GENERIC_MINOR_BAD).toWebHexString() + ";'>"
+									: "<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"))
+						+ damageValueForDisplay
 					+ "</span>"
 				+ "</div>"
 				+ "<div class='subTitle-third combatValue' style='padding:2px; margin:2px 1%; width:31%;'>"
 					+ (resist == null
 							? "0.0"
-							: (owner.getAttributeValue(resist) > 0
-									? "<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>"
-									: (owner.getAttributeValue(resist) < 0
-											? "<span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>"
-											: ""))
-						+ owner.getAttributeValue(resist)
+							: (resistValue > 0
+									? "<span style='color:" + (resistValue==resist.getUpperLimit()?PresetColour.GENERIC_GOOD:PresetColour.GENERIC_MINOR_GOOD).toWebHexString() + ";'>"
+									: (resistValue < 0
+											? "<span style='color:" + (resistValue==resist.getLowerLimit()?PresetColour.GENERIC_BAD:PresetColour.GENERIC_MINOR_BAD).toWebHexString() + ";'>"
+											: "<span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>"))
+						+ resistValueForDisplay
 					+ "</span>")
 				+ "</div>";
-	}
-
-	private String extraAttributeBonus(GameCharacter owner, Attribute bonus) {
-		return "<div class='subTitle-half' style='padding:2px; margin:2px 1%; width:48%;'>"
-				+ "<span style='color:"+ bonus.getColour().toWebHexString() + ";'>"
-					+ Util.capitaliseSentence(bonus.getName())
-				+ "</span><br/>" + (owner.getAttributeValue(bonus) > bonus.getBaseValue()
-						? "<span style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>" : (owner.getAttributeValue(bonus) < bonus.getBaseValue() ? "<span style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";'>" : ""))
-				+ owner.getAttributeValue(bonus) + "</span>" + "</div>";
 	}
 
 	public TooltipInformationEventListener setInformation(String title, String description) {

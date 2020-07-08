@@ -507,9 +507,9 @@ public class Body implements XMLSaving {
 				if(this.coverings.get(bct).isSecondaryGlowing()) {
 					CharacterUtils.addAttribute(doc, element, "g2", String.valueOf(this.coverings.get(bct).isSecondaryGlowing()));
 				}
-				if(this.isBodyCoveringTypesDiscovered(bct)) {
-					CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.isBodyCoveringTypesDiscovered(bct)));
-				}
+//				if(this.isBodyCoveringTypesDiscovered(bct)) {
+//					CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.isBodyCoveringTypesDiscovered(bct)));
+//				}
 			}
 		}
 		
@@ -1824,9 +1824,9 @@ public class Body implements XMLSaving {
 							!e.getAttribute("g2").isEmpty()?Boolean.valueOf(e.getAttribute("g2")):false);
 				}
 				
-				if(!e.getAttribute("discovered").isEmpty() && Boolean.valueOf(e.getAttribute("discovered"))) {
+//				if(!e.getAttribute("discovered").isEmpty() && Boolean.valueOf(e.getAttribute("discovered"))) {
 					body.addBodyCoveringTypesDiscovered(BodyCoveringType.getTypeFromString(type));
-				}
+//				}
 				
 				CharacterUtils.appendToImportLog(log, "<br/>Body: Set bodyCovering: "+colourPrimary+", "+colourSecondary);
 			} catch(Exception ex) {
@@ -2870,9 +2870,9 @@ public class Body implements XMLSaving {
 		// Every time race is calculated, it's because parts have changed, so reset the body parts list:
 		handleAllBodyPartsList();
 		
-		if(target!=null) {
-			target.removeStatusEffect(StatusEffect.SUBSPECIES_BONUS);
-		}
+//		if(target!=null) {
+//			target.removeStatusEffect(StatusEffect.SUBSPECIES_BONUS);
+//		}
 		
 		Race race = Race.HUMAN;
 		switch(this.getBodyMaterial()) {
@@ -2945,9 +2945,9 @@ public class Body implements XMLSaving {
 			this.setSubspeciesOverride(subspecies);
 		}
 		
-		if(target!=null && target.getBody()!=null && Main.game.isStarted()) { // Apparently this is needed to stop Lyssieth from losing her status effect???
-			target.addStatusEffect(StatusEffect.SUBSPECIES_BONUS, -1);
-		}
+//		if(target!=null && target.getBody()!=null && Main.game.isStarted()) { // Apparently this is needed to stop Lyssieth from losing her status effect???
+//			target.addStatusEffect(StatusEffect.SUBSPECIES_BONUS, -1);
+//		}
 	}
 
 	public Race getRaceFromPartWeighting() {

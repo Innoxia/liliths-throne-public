@@ -251,9 +251,29 @@ public abstract class AbstractStatusEffect {
 		
 		if (attributeMap != null) {
 			for (Entry<Attribute, Float> e : attributeMap.entrySet()) {
-				attributeModifiersList.add(
-						"<b>"+(e.getValue()>0?"+":"")+Units.number(e.getValue(), 1, 1)+"</b>"
-						+ " <b style='color:"+e.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(e.getKey().getAbbreviatedName())+"</b>");
+				float value = e.getValue();
+
+				String valueForDisplay;
+				if(((int)value)==value) {
+					valueForDisplay = String.valueOf(((int)value));
+				} else {
+					valueForDisplay = String.valueOf(value);
+				}
+				if(e.getKey().isInfiniteAtUpperLimit() && value>=e.getKey().getUpperLimit()) {
+					if(!e.getKey().getInfiniteDescription().isEmpty()) {
+						attributeModifiersList.add(e.getKey().getInfiniteDescription());
+					} else {
+						attributeModifiersList.add("[style.colourExcellent(Infinite)] <span style='color: "+ e.getKey().getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(e.getKey().getAbbreviatedName())+ "</span>");
+					}
+					
+				} else {
+					if(e.getKey().isPercentage()){
+						valueForDisplay = valueForDisplay+"%";
+					}
+					attributeModifiersList.add(
+							(value>0?"+":"")+valueForDisplay
+							+ " <span style='color:"+e.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(e.getKey().getAbbreviatedName())+"</span>");
+				}
 			}
 		}
 		

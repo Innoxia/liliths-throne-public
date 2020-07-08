@@ -43,7 +43,6 @@ import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.AlcoholLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
@@ -6497,17 +6496,17 @@ public abstract class GameCharacter implements XMLSaving {
 		wonCombatCount = count;
 	}
 	
-	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
+	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
 		if(this.getMainWeapon(armRow)!=null) {
-			return this.getMainWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit);
+			return this.getMainWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit, critical);
 		} else {
 			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}
 	}
 	
-	public String getOffhandAttackDescription(int armRow, GameCharacter target, boolean isHit) {
+	public String getOffhandAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
 		if(this.getOffhandWeapon(armRow)!=null) {
-			return this.getOffhandWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit);
+			return this.getOffhandWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit, critical);
 		} else {
 			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}
@@ -7615,6 +7614,11 @@ public abstract class GameCharacter implements XMLSaving {
 								} else {
 									this.setVirginityLoss(sexType, "", "");
 								}
+							} else if(this.hasHymen()) {
+								this.setHymen(false);
+								if(descriptionNeeded) {
+									sexDescriptionSB.append(UtilText.parse(this, "<p class='centre noPad'>[style.italicsTerrible([npc.NamePos] hymen was torn!)]</p>"));
+								}
 							}
 							if(partnerCummed && !partnerCondom && !partnerCummedInside) {
 								if(this.hasPenis()) {
@@ -8071,6 +8075,11 @@ public abstract class GameCharacter implements XMLSaving {
 											sexDescriptionSB.append(UtilText.parse(this, "<p class='centre noPad'>[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
 												+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(this)+")] [style.italicsArcane(experience!)]</p>"));
 										}
+									}
+								} else if(partner.hasHymen()) {
+									partner.setHymen(false);
+									if(descriptionNeeded) {
+										sexDescriptionSB.append(UtilText.parse(partner, "<p class='centre noPad'>[style.italicsTerrible([npc.NamePos] hymen was torn!)]</p>"));
 									}
 								}
 								if(thisCummed && !thisCondom && !thisCummedInside) {
@@ -16085,7 +16094,9 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		for(FluidModifier mod : modifiers) {
-			fluidIngestionSB.append(mod.applyEffects(this, charactersFluid, millilitres, fluid));
+			String s = mod.applyEffects(this, charactersFluid, millilitres, fluid);
+//			System.out.println(s);
+			fluidIngestionSB.append(s);
 		}
 		
 		return fluidIngestionSB.toString();
@@ -16170,6 +16181,9 @@ public abstract class GameCharacter implements XMLSaving {
 		return addictions.remove(addiction);
 	}
 	
+	/**
+	 * <b>You should probably just be using addAddiction() instead!</b>
+	 */
 	public void setLastTimeSatisfiedAddiction(AbstractFluidType fluid, long minutes) {
 		for(Addiction add : addictions) {
 			if(add.getFluid() == fluid) {
@@ -16805,7 +16819,7 @@ public abstract class GameCharacter implements XMLSaving {
 			totalDamage *= 3;
 		}
 		
-		totalDamage += totalDamage * (Util.getModifiedDropoffValue(this.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f);
+		totalDamage += totalDamage * (this.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f);
 
 		if(this.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1)
 				|| this.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2)
@@ -17092,13 +17106,14 @@ public abstract class GameCharacter implements XMLSaving {
 
 
 	public void setHealth(float health) {
-		if (health < 0)
+		if (health < 0) {
 			this.health = 0;
-		else if (health > getAttributeValue(Attribute.HEALTH_MAXIMUM))
+		} else if (health > getAttributeValue(Attribute.HEALTH_MAXIMUM)) {
 			this.health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
-		else
+		} else {
 			this.health = health;
-
+		}
+		
 		updateAttributeListeners();
 	}
 
@@ -17294,11 +17309,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isVulnerableToLustLoss() {
-		return this.getAttributeValue(Attribute.MAJOR_ARCANE) < IntelligenceLevel.TWO_SMART.getMinimumValue();
+		return this.hasStatusEffect(StatusEffect.INTELLIGENCE_PERK_0);
 	}
 
 	public boolean isVulnerableToArcaneStorm() {
-		return this.getAttributeValue(Attribute.MAJOR_ARCANE) < IntelligenceLevel.TWO_SMART.getMinimumValue();
+		return this.hasStatusEffect(StatusEffect.INTELLIGENCE_PERK_0);
 	}
 	
 	public boolean isWearingCondom() {
@@ -17343,8 +17358,6 @@ public abstract class GameCharacter implements XMLSaving {
 		pregnancyReactions.clear();
 	}
 	
-	public static final String PREGNANCY_CALCULATION = "((Virility Factor * Cum Production Modifier) + Fertility Factor) / 3";
-
 	public void performHourlyFluidsCheck() {
 		for(Entry<SexAreaOrifice, List<FluidStored>> entry : this.fluidsStoredMap.entrySet()) {
 			for(FluidStored fs : entry.getValue()) {
@@ -17396,7 +17409,9 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 	}
-	
+
+	public static final String PREGNANCY_CALCULATION = "10% + (Cum-character's Virility% / 2) + (Womb-character's Fertility% / 2)";
+
 	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination) {
 		if(partner.isElemental()) {
 			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination)
@@ -17407,15 +17422,15 @@ public abstract class GameCharacter implements XMLSaving {
 			return PregnancyDescriptor.ALREADY_PREGNANT.getDescriptor(this, partner, directSexInsemination);
 		}
 		
-		float pregnancyChance = 0;
+		float pregnancyChance = 0.1f;
 		
 		boolean partnerVirile = partner.getAttributeValue(Attribute.VIRILITY) > 0 || !partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS);
 		boolean selfFertile = (getAttributeValue(Attribute.FERTILITY) > 0 || !hasPerkAnywhereInTree(Perk.BARREN)) && !this.hasStatusEffect(StatusEffect.MENOPAUSE);
 		
 		if (partnerVirile && selfFertile && isAbleToBeImpregnated()) {
-			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())/100f) * CumProduction.getCumProductionFromInt((int) cumQuantity).getPregnancyModifier();
-			pregnancyChance += (Util.getModifiedDropoffValue(getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
-			pregnancyChance = Math.max(0, Math.min(pregnancyChance/3, 1));
+			pregnancyChance += (partner.getAttributeValue(Attribute.VIRILITY)/100f)/2f;
+			pregnancyChance += (getAttributeValue(Attribute.FERTILITY)/100f)/2f;
+			pregnancyChance = Math.max(0, Math.min(pregnancyChance, 1));
 		}
 		
 		PregnancyPossibility pregPoss = new PregnancyPossibility(this.getId(), partner.getId(), pregnancyChance);
@@ -17497,14 +17512,14 @@ public abstract class GameCharacter implements XMLSaving {
 			return PregnancyDescriptor.ALREADY_PREGNANT.getDescriptor(this, null, directSexInsemination);
 		}
 		
-		float pregnancyChance = 0;
+		float pregnancyChance = 0.1f;
 		int baseVirility = 25;
 		boolean selfFertile = (getAttributeValue(Attribute.FERTILITY) > 0 || !hasPerkAnywhereInTree(Perk.BARREN)) && !this.hasStatusEffect(StatusEffect.MENOPAUSE);
 		
 		if(selfFertile && isAbleToBeImpregnated()) {
-			pregnancyChance += (Util.getModifiedDropoffValue(baseVirility, Attribute.VIRILITY.getUpperLimit())/100f) * CumProduction.getCumProductionFromInt((int) cumQuantity).getPregnancyModifier();
-			pregnancyChance += (Util.getModifiedDropoffValue(getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
-			pregnancyChance = Math.max(0, Math.min(pregnancyChance/3, 1));
+			pregnancyChance += (baseVirility/100f)/2f;
+			pregnancyChance += (getAttributeValue(Attribute.FERTILITY)/100f)/2f;
+			pregnancyChance = Math.max(0, Math.min(pregnancyChance, 1));
 		}
 		
 		String partnerId = partnerSubspecies.toString()+Main.game.getSecondsPassed();
@@ -21314,12 +21329,38 @@ public abstract class GameCharacter implements XMLSaving {
 		return isFeminine;
 	}
 
+	/**
+	 * @return The race which this character appears to be. Use getTrueRace() or do some checks with getSubspeciesOverride() to get their true race, but for 99.9% of the time, that won't be necessary and this method is fine to use.
+	 */
 	public Race getRace() {
 		return getSubspecies().getRace();
 	}
+
+	/**
+	 * @return This character's true race. If this character does not have a subspecies override, this will be the same as getRace(). If they do have an override, however, it will return the race of that override.
+	 */
+	public Race getTrueRace() {
+		if(this.getSubspeciesOverride()!=null) {
+			return this.getSubspeciesOverride().getRace();
+		}
+		return getRace();
+	}
 	
+	/**
+	 * @return The subspecies which this character appears to be. Use getTrueSubspecies() or do some checks with getSubspeciesOverride() to get their true Subspecies, but for 99.9% of the time, that won't be necessary and this method is fine to use.
+	 */
 	public Subspecies getSubspecies() {
 		return body.getSubspecies();
+	}
+
+	/**
+	 * @return This character's true subspecies. If this character does not have a subspecies override, this will be the same as getSubspecies(). If they do have an override, however, it will return that override.
+	 */
+	public Subspecies getTrueSubspecies() {
+		if(this.getSubspeciesOverride()!=null) {
+			return this.getSubspeciesOverride();
+		}
+		return getSubspecies();
 	}
 	
 	/**
@@ -21491,13 +21532,12 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
-		
 		body.calculateRace(this);
 		recalculateCombatMoves();
 
 		postTFSB.append(inventory.calculateClothingAndWeaponsPostTransformation(this));
 		postTFSB.append(this.calculateMarkingsPostTransformation());
-		
+
 		updateInventoryListeners();
 		updateAttributeListeners();
 		
@@ -25935,8 +25975,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasHymen() {
 		return body.getVagina().getOrificeVagina().hasHymen();
 	}
-	public void setHymen(boolean hymen) {
-		body.getVagina().getOrificeVagina().setHymen(hymen);
+	public String setHymen(boolean hymen) {
+		return body.getVagina().getOrificeVagina().setHymen(this, hymen);
 	}
 	// Squirter:
 	public boolean isVaginaSquirter() {

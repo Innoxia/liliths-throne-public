@@ -1251,15 +1251,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		return false;
 	}
-	
-	@Override
-	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
-		if(this.getMainWeapon(armRow)!=null) {
-			return this.getMainWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit);
-		} else {
-			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
-		}
-	}
 
 	@Override
 	public String getSpellDescription() {

@@ -13,6 +13,7 @@ import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -394,17 +395,17 @@ public class Nyan extends NPC {
 		}
 		
 		if(Main.game.getPlayer().isQuestCompleted(QuestLine.RELATIONSHIP_NYAN_HELP)) {
-			addEnchantedClothing(commonFemaleClothing);
-			addEnchantedClothing(commonFemaleUnderwear);
-			addEnchantedClothing(commonFemaleAccessories);
-	
-			addEnchantedClothing(commonMaleClothing);
-			addEnchantedClothing(commonMaleLingerie);
-			addEnchantedClothing(commonMaleAccessories);
-	
-			addEnchantedClothing(commonAndrogynousClothing);
-			addEnchantedClothing(commonAndrogynousLingerie);
-			addEnchantedClothing(commonAndrogynousAccessories);
+			commonFemaleClothing.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonFemaleClothing, 3, 1));
+			commonFemaleUnderwear.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonFemaleUnderwear, 3, 1));
+			commonFemaleAccessories.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonFemaleAccessories, 3, 1));
+
+			commonMaleClothing.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonMaleClothing, 3, 1));
+			commonMaleLingerie.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonMaleLingerie, 3, 1));
+			commonMaleAccessories.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonMaleAccessories, 3, 1));
+
+			commonAndrogynousClothing.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonAndrogynousClothing, 3, 1));
+			commonAndrogynousLingerie.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonAndrogynousLingerie, 3, 1));
+			commonAndrogynousAccessories.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, commonAndrogynousAccessories, 3, 1));
 		}
 	}
 	
@@ -415,35 +416,6 @@ public class Nyan extends NPC {
 				this.returnToHome();
 			} else {
 				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
-			}
-		}
-	}
-	
-	/**
-	 * Adds three uncommon clothing items to the list, and one rare item.
-	 */
-	private void addEnchantedClothing(List<AbstractClothing> clothingList) {
-		List<AbstractClothingType> typesToAdd = new ArrayList<>();
-		List<AbstractClothing> generatedClothing = new ArrayList<>();
-		
-		List<AbstractClothing> clothingListMinusEnchanteds = new ArrayList<>(clothingList);
-		clothingListMinusEnchanteds.removeIf(c->!c.getClothingType().getEffects().isEmpty());
-		if(!clothingListMinusEnchanteds.isEmpty()) {
-			for(int i=0;i<4;i++) {
-				typesToAdd.add(Util.randomItemFrom(clothingListMinusEnchanteds).getClothingType());
-			}
-			
-			for(int i=0; i<typesToAdd.size(); i++) {
-				if(i==typesToAdd.size()-1) {
-					generatedClothing.add(AbstractClothingType.generateRareClothing(typesToAdd.get(i)));
-				} else {
-					generatedClothing.add(AbstractClothingType.generateClothingWithEnchantment(typesToAdd.get(i)));
-				}
-			}
-	
-			for(AbstractClothing c : generatedClothing) {
-				c.setEnchantmentKnown(this, true);
-				clothingList.add(c);
 			}
 		}
 	}

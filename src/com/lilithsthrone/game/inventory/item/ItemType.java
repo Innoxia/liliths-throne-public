@@ -39,15 +39,10 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
- * @version 0.3.7.1
+ * @version 0.3.8.7
  * @author Innoxia
  */
 public class ItemType {
-
-	/*
-	 * Common: Restore resources Rare: Apply status effect Epic: Transformation
-	 * Legendary: Uniques
-	 */
 
 	// EPIC:
 
@@ -1292,33 +1287,26 @@ public class ItemType {
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.SOLD_BY_RALPH)) {
-
-
 		@Override
 		public boolean isAbleToBeUsedInSex() {
 			return true;
 		}
-
 		@Override
 		public boolean isAbleToBeUsedInCombat() {
 			return true;
 		}
-
 		@Override
 		public String getUseName() {
 			return "drink";
 		}
-
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
 			return ItemEffectType.ADDICTION_REMOVAL_REFINEMENT;
 		}
-
 		@Override
 		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
 			return ADDICTION_REMOVAL_REFINED;
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getGenericUseDescription(user, target,
@@ -2438,24 +2426,13 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ARCANE)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.GENERIC_ARCANE, user, target);
-		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2485,14 +2462,6 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_CAT_MORPH, user, target);
-		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2524,14 +2493,6 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_COW_MORPH, user, target);
 		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
-		}
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_DEMON = new AbstractItemType(
@@ -2561,14 +2522,6 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_DEMON, user, target);
 		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
-		}
 	};
 
 	public static AbstractItemType BOTTLED_ESSENCE_IMP = new AbstractItemType(
@@ -2597,14 +2550,6 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_IMP, user, target);
-		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2665,14 +2610,6 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_SQUIRREL_MORPH, user, target);
 		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
-		}
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_RAT_MORPH = new AbstractItemType(
@@ -2701,14 +2638,6 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_RAT_MORPH, user, target);
-		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2739,14 +2668,6 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_RABBIT_MORPH, user, target);
 		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
-		}
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_BAT_MORPH = new AbstractItemType(
@@ -2775,14 +2696,6 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_BAT_MORPH, user, target);
-		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2813,14 +2726,6 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_DOG_MORPH, user, target);
 		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
-		}
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_HARPY = new AbstractItemType(
@@ -2849,14 +2754,6 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_HARPY, user, target);
-		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2887,14 +2784,6 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_HORSE_MORPH, user, target);
 		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
-		}
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_REINDEER_MORPH = new AbstractItemType(
@@ -2923,14 +2812,6 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_REINDEER_MORPH, user, target);
-		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -2961,14 +2842,6 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_HUMAN, user, target);
 		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
-		}
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_WOLF_MORPH = new AbstractItemType(
@@ -2997,14 +2870,6 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_WOLF_MORPH, user, target);
-		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -3035,14 +2900,6 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_FOX_MORPH, user, target);
 		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
-		}
 	};
 
 	public static AbstractItemType BOTTLED_ESSENCE_SLIME = new AbstractItemType(
@@ -3071,14 +2928,6 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_SLIME, user, target);
-		}
-		
-		public boolean isAbleToBeUsed(GameCharacter target) {
-			return target.getAttributeValue(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue() || target.isPlayer();
-		}
-		
-		public String getUnableToBeUsedDescription(GameCharacter target) {
-			return "Only people who are at least proficient in the use of the arcane are able to absorb essences!";
 		}
 	};
 	
@@ -5442,7 +5291,7 @@ public class ItemType {
 								+ " (Elementals gain new spells via the perk tree.)");
 						
 					} else {
-						return UtilText.parse(target, "[npc.Name] does not have enough arcane skill to know how to learn this spell! (Requires arcane to be 5 or greater.)");
+						return UtilText.parse(target, "[npc.Name] does not have enough arcane skill to know how to learn this spell! (Requires arcane to be at least "+IntelligenceLevel.ONE_AVERAGE.getMinimumValue()+".)");
 					}
 				}
 				
@@ -5517,7 +5366,7 @@ public class ItemType {
 		
 				@Override
 				public String getUnableToBeUsedDescription(GameCharacter target) {
-					return UtilText.parse(target, "[npc.Name] does not have enough arcane skill to know how to absorb the power of this scroll! (Requires arcane to be 5 or greater.)");
+					return UtilText.parse(target, "[npc.Name] does not have enough arcane skill to know how to absorb the power of this scroll! (Requires arcane to be at least "+IntelligenceLevel.ONE_AVERAGE.getMinimumValue()+".)");
 				}
 				
 				@Override
