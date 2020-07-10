@@ -341,9 +341,11 @@ public class Kate extends NPC {
 			}
 		}
 
-		clothingToSell.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, clothingToSell, 6, 2));
-		
 		for(AbstractClothing c : clothingToSell) {
+			this.addClothing(c, 2+Util.random.nextInt(5), false, false);
+		}
+		
+		for(AbstractClothing c : CharacterUtils.generateEnchantedClothingForTrader(this, clothingToSell, 6, 2)) {
 			this.addClothing(c, false);
 		}
 	}

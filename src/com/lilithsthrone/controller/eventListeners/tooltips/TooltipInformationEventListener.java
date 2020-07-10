@@ -315,7 +315,12 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='picture'>" + levelUpPerk.getSVGString(owner) + "</div>");
 
 			// Description:
-			tooltipSB.append("<div class='description'>" + UtilText.parse(owner, levelUpPerk.getDescription(owner)) + "</div>");
+//			boolean booly1 = PerkManager.MANAGER.isPerkEndOfTreeBranch(owner, perkRow, levelUpPerk, true);
+//			boolean booly2 = PerkManager.MANAGER.isPerkEndOfTreeBranch(owner, perkRow, levelUpPerk, false);
+			tooltipSB.append("<div class='description'>"
+//					+ booly1+", "+booly2+"<br/>"
+					+ UtilText.parse(owner, levelUpPerk.getDescription(owner))
+			+ "</div>");
 			
 			if(availableForSelection) {
 				if(levelUpPerk.isEquippableTrait()) {

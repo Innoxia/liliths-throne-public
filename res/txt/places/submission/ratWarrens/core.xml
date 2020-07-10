@@ -3854,7 +3854,11 @@
 	<p>
 		Thanking the SWORD Enforcer, Claire places her hands on her hips and sighs,
 		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_VENGAR, QUEST_VENGAR_OPTIONAL_CLAIRE))
-			 [claire.speech(I don't know why you didn't use the Resonance Stone I gave to you, but at least you're safe... Anyway, hand it over to me and we can get out of here.)]
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensUsedResonanceStone))
+				 [claire.speech(Thank goodness I gave you that Resonance Stone to use! Thanks to that, you're safe... Anyway, hand it over to me and we can get out of here.)]
+			#ELSE
+				 [claire.speech(I don't know why you didn't use the Resonance Stone I gave to you, but at least you're safe... Anyway, hand it over to me and we can get out of here.)]
+			#ENDIF
 		#ELSE
 			 [claire.speech(I don't know what you were thinking being in here, but at least you're safe... Anyway, let's get out of here.)]
 		#ENDIF

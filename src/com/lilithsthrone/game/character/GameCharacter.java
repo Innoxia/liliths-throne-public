@@ -5317,8 +5317,9 @@ public abstract class GameCharacter implements XMLSaving {
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Gained)]", increment+" [style.colourExperience(experience)]"), false);
 		}
 		
+		String levelUpDescription = "";
 		if (experience >= getExperienceNeededForNextLevel()) {
-			levelUp();
+			levelUpDescription = levelUp();
 			if(Main.game.isStarted() && this.isPlayer()) {
 				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Level up)]", "To level "+this.getLevel()), false);
 				if(LEVEL_CAP == this.getLevel()) {
@@ -5329,34 +5330,80 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this.getBody()==null) {
 			return "";
 		}
+		
 		return UtilText.parse(this, 
 				"<p style='text-align:center; padding:0; margin:0;'>"
-					+ "[npc.Name] [style.colourGood(gained)] <b style='color:" + PresetColour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + xpIncrement + " xp</b>!"
+					+ "[npc.Name] [style.italicsGood(gained)] [style.boldExperience("+xpIncrement+" xp)]!"
 					+(withExtraModifiers && this.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true)
 							?"<br/>[style.italicsBad(Experience gain was reduced by 95% due to having the '"+Perk.ORGASMIC_LEVEL_DRAIN.getName(this)+"' trait!)]"
 							:"")
-				+"</p>");
+				+"</p>")
+				+ levelUpDescription;
 	}
 
-	public void levelDown() {
+	public String levelDown(int levels) {
 		float experiencePercentage = experience/getExperienceNeededForNextLevel();
 		
 		experience = 0;
-		
-		level--;
-		
+		level-=levels;
 		experience = (int) (getExperienceNeededForNextLevel() * experiencePercentage);
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<p style='text-align:center; padding:0; margin:0;'>");
+			sb.append("[npc.Name] [style.italicsTerrible(lost)] [style.italicsExperience("+levels+" level"+(levels==1?"":"s")+")]!");
+			// Get list of perks which are at the end of the tree's branches, and remove a random one, preferring to remove non-traits first
+			while(this.getPerkPoints()<0) {
+				Map<Integer, Set<AbstractPerk>> removalPerks = new HashMap<>();
+				Map<Integer, Set<AbstractPerk>> removalTraits = new HashMap<>();
+				
+				for(Entry<Integer, Set<AbstractPerk>> entry : this.getPerksMap().entrySet()) {
+					for(AbstractPerk perk : entry.getValue()) {
+						if(PerkManager.MANAGER.isPerkEndOfTreeBranch(this, entry.getKey(), perk, true)) {
+							if(perk.isEquippableTrait()) {
+								removalTraits.putIfAbsent(entry.getKey(), new HashSet<>());
+								removalTraits.get(entry.getKey()).add(perk);
+							} else {
+								removalPerks.putIfAbsent(entry.getKey(), new HashSet<>());
+								removalPerks.get(entry.getKey()).add(perk);
+							}
+						}
+					}
+				}
+				
+				// Remove perk/trait and return description of losing it
+				if(!removalPerks.isEmpty()) {
+					int rndKey = Util.randomItemFrom(removalPerks.keySet());
+					AbstractPerk rndPerk = Util.randomItemFrom(removalPerks.get(rndKey));
+					this.removePerk(rndKey, rndPerk);
+					sb.append("<br/>[npc.She] [style.italicsTerrible(lost)] [npc.her] '<i style='color:"+rndPerk.getColour().toWebHexString()+";'>"+rndPerk.getName(this)+"</i>' [style.italicsPerk(perk)]!");
+					
+				} else if(!removalTraits.isEmpty()) {
+					int rndKey = Util.randomItemFrom(removalTraits.keySet());
+					AbstractPerk rndPerk = Util.randomItemFrom(removalTraits.get(rndKey));
+					this.removeTrait(rndPerk);
+					this.removePerk(rndKey, rndPerk);
+					sb.append("<br/>[npc.She] [style.italicsTerrible(lost)] [npc.her] '<i style='color:"+rndPerk.getColour().toWebHexString()+";'>"+rndPerk.getName(this)+"</i>' [style.italicsTrait(trait)]!");
+					
+				} else {
+					break;
+				}
+			}
+		sb.append("</p>");
+		
+		return UtilText.parse(this, sb.toString());
 	}
 	
-	protected void levelUp() {
-		// For handling health, mana and stamina changes as a result of an attribute being changed:
+	protected String levelUp() {
+		StringBuilder sb = new StringBuilder();
 		float healthPercentage = getHealthPercentage();
 		float manaPercentage = getManaPercentage();
+		int levelsGained = 0;
 		
 		while (experience >= getExperienceNeededForNextLevel() && getLevel() < LEVEL_CAP) {
 			experience -= getExperienceNeededForNextLevel();
-
 			level++;
+			levelsGained++;
 		}
 		if(getLevel() == LEVEL_CAP) {
 			experience = 0;
@@ -5365,20 +5412,36 @@ public abstract class GameCharacter implements XMLSaving {
 		// Increment health, mana and stamina based on the change:
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercentage);
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM) * manaPercentage);
-		
-		if(isPlayer()) {
-			Main.getProperties().setValue(PropertyValue.levelUpHightlight, true);
-		} else {
-			//TODO NPC level up
-		}
-		
-		// Elementals don't gain experience, but instead automatically level up alongside their summoner.
-		if(this.hasDiscoveredElemental()) {
-			try {
-				this.getElemental().levelUp();
-			} catch(Exception ex) {
+
+		sb.append("<p style='text-align:center; padding:0; margin:0;'>");
+			sb.append("[npc.Name] [style.italicsGood(gained)] [style.italicsExperience("+levelsGained+" level"+(levelsGained==1?"":"s")+")]!");
+			if(isPlayer()) {
+				Main.getProperties().setValue(PropertyValue.levelUpHightlight, true);
+				
+			} else if((!this.isSlave() || !this.getOwner().isPlayer())
+					&& (!this.isElemental() || !((Elemental)this).getSummoner().isPlayer())
+					&& !Main.game.getPlayer().getFriendlyOccupants().contains(this.id)){
+				// NPCs who are not 'controlled' by the player automatically level up their perks:
+				Set<AbstractPerk> perksAdded = PerkManager.initialisePerks(this, true);
+				for(AbstractPerk perk : perksAdded) {
+					sb.append("<br/>[npc.She] [style.italicsExcellent(gained)] the '<i style='color:"+perk.getColour().toWebHexString()+";'>"+perk.getName(this)+"</i>'"
+							+ (perk.isEquippableTrait()
+									?" [style.italicsTrait(trait)]!"
+									:" [style.italicsPerk(perk)]!"));
+				}
 			}
-		}
+			
+			// Elementals don't gain experience, but instead automatically level up alongside their summoner.
+			if(this.hasDiscoveredElemental()) {
+				try {
+					this.getElemental().levelUp();
+				} catch(Exception ex) {
+				}
+			}
+			
+		sb.append("</p>");
+		
+		return UtilText.parse(this, sb.toString());
 	}
 
 	// Attributes:
@@ -7093,7 +7156,7 @@ public abstract class GameCharacter implements XMLSaving {
 				&& (this.isVaginaVirgin() || this.hasHymen())
 				&& type.getPerformingSexArea()==SexAreaOrifice.VAGINA
 				&& (type.getTargetedSexArea().isPenetration() && ((SexAreaPenetration)type.getTargetedSexArea()).isTakesVirginity())) {
-			weight-=100;
+			weight-=1000;
 		}
 		
 		return weight;
@@ -7109,6 +7172,19 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public String calculateGenericSexEffects(boolean isDom, boolean includesOrgasm, GameCharacter partner, SexType sexType, GenericSexFlag... flagsInput) {
 		return calculateGenericSexEffects(isDom, includesOrgasm, partner, null, null, sexType, flagsInput);
+	}
+	
+
+	public String calculateGenericSexEffects(boolean isDom,
+			boolean includesOrgasm,
+			GameCharacter partner,
+			Subspecies subspeciesBackup,
+			Subspecies halfDemonSubspeciesBackup,
+			SexParticipantType asParticipant,
+			SexAreaInterface performingSexArea,
+			SexAreaInterface targetedSexArea,
+			GenericSexFlag... flagsInput) {
+		return calculateGenericSexEffects(isDom, includesOrgasm, partner, subspeciesBackup, halfDemonSubspeciesBackup, new SexType(asParticipant, performingSexArea, targetedSexArea), flagsInput);
 	}
 	
 	/**
@@ -7191,6 +7267,9 @@ public abstract class GameCharacter implements XMLSaving {
 				case PENIS:
 					if(flags.contains(GenericSexFlag.PREVENT_CREAMPIE)) {
 						partnerCummedInside = false;
+						
+					} else if(flags.contains(GenericSexFlag.FORCE_CREAMPIE)) {
+						partnerCummedInside = true;
 						
 					} else if(partnerPresent) {
 						if((Main.sex.getSexManager() != null && Main.sex.getSexManager().getCharacterOrgasmBehaviour(partner)==OrgasmBehaviour.CREAMPIE)
@@ -7285,12 +7364,12 @@ public abstract class GameCharacter implements XMLSaving {
 								AbstractRacialBody body = RacialBody.valueOfRace(subspeciesBackup.getRace());
 								getStretchDescription(null, Penis.getGenericDiameter(body.getPenisSize(), PenetrationGirth.getGirthFromInt(body.getPenisGirth())), this, (SexAreaOrifice)performingArea);
 								if(partnerCummedInside) {
-									this.ingestFluid(null,
+									ingestFluidSB.append(this.ingestFluid(null,
 											subspeciesBackup,
 											halfDemonSubspeciesBackup,
 											new FluidCum(body.getPenisType().getTesticleType().getFluidType()),
 											(SexAreaOrifice)performingArea,
-											(float) (body.getCumProduction()*(0.5+Math.random())));
+											(float) (body.getCumProduction()*(0.5+Math.random()))));
 								}
 							}
 						}
@@ -7657,6 +7736,9 @@ public abstract class GameCharacter implements XMLSaving {
 				case PENIS:
 					if(flags.contains(GenericSexFlag.PREVENT_CREAMPIE)) {
 						thisCummedInside = false;
+						
+					} else if(flags.contains(GenericSexFlag.FORCE_CREAMPIE)) {
+						thisCummedInside = true;
 						
 					} else {
 						if((Main.sex.getSexManager() != null && Main.sex.getSexManager().getCharacterOrgasmBehaviour(this)==OrgasmBehaviour.CREAMPIE)
@@ -8826,13 +8908,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public String applyLevelDrain(GameCharacter target) {
 		if(target.getTrueLevel()>1) {
 			int exp = target.getExperienceNeededForNextLevel();
-			target.levelDown();
 			return UtilText.parse(target, this,
 					"<p style='text-align:center; margin:0;'>"
 						+ this.getLevelDrainDescription(target)
 						+ "<br/>[style.italicsBad(As [npc.she] [npc.verb(orgasm)], [npc.name] [npc.verb(feel)] [npc.herself] getting weaker...)]"
-						+ "<br/>[style.italicsTerrible([npc.Name] [npc.verb(lose)] 1 level!)]"
 					+ "</p>"
+					+ target.levelDown(1)
 					+ this.incrementExperience(exp, false));
 			
 		} else {
@@ -15106,6 +15187,7 @@ public abstract class GameCharacter implements XMLSaving {
 								:10_000;
 		boolean penetratingDeep = characterPenetrating.isWantingToFullyPenetrate(characterPenetrated);
 		
+		boolean orificePlural = orifice.isPlural();
 		String orificeName = orifice.getName(characterPenetrated);
 		String orificeNameStandard = orifice.getName(characterPenetrated, true);
 		
@@ -15176,7 +15258,7 @@ public abstract class GameCharacter implements XMLSaving {
 				if(Main.sex.getSexPace(characterPenetrated)!=SexPace.SUB_RESISTING) {
 					sb.append("[npc.Name] [npc.verb(let)] out a disappointed [npc.moan] as [npc.she] [npc.verb(feel)] that");
 					sb.append("[style.italicsBad(");
-						sb.append(" [npc2.namePos] "+orificeName+" isn't deep enough");
+						sb.append(" [npc2.namePos] "+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
 					sb.append(")]");
 					sb.append(" to comfortably accommodate the full length of [npc.her] "+nameLength+".");
 				}
@@ -15282,7 +15364,7 @@ public abstract class GameCharacter implements XMLSaving {
 					sb.append("<br/>");
 					sb.append("[npc.Name] [npc.verb(let)] out a disappointed "+(characterPenetrating.isFeminine()?"whine":"growl")+" as [npc.she] [npc.verb(feel)] that");
 					sb.append("[style.italicsBad(");
-						sb.append(" [npc2.namePos] "+orificeName+" isn't deep enough");
+						sb.append(" [npc2.namePos] "+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
 					sb.append(")]");
 					sb.append(" to accommodate the full length of [npc.her] "+nameLength+".");
 					
@@ -15347,7 +15429,7 @@ public abstract class GameCharacter implements XMLSaving {
 			} else if(!penetratingDeep) {
 				sb.append("[npc.Name] [npc.verb(let)] out a disappointed [npc.moan] as [npc.she] [npc.verb(feel)] that");
 				sb.append("[style.italicsBad(");
-					sb.append(" [npc2.namePos] "+orificeName+" isn't deep enough");
+					sb.append(" [npc2.namePos] "+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
 				sb.append(")]");
 				sb.append(" to comfortably accommodate the full length of [npc.her] "+nameLength+".");
 
@@ -15409,7 +15491,7 @@ public abstract class GameCharacter implements XMLSaving {
 						sb.append("<br/>");
 						sb.append("[npc.Name] [npc.verb(let)] out a disappointed "+(characterPenetrating.isFeminine()?"whine":"growl")+" as [npc.she] [npc.verb(feel)] that");
 						sb.append("[style.italicsBad(");
-							sb.append(" [npc2.namePos] "+orificeName+" isn't deep enough");
+							sb.append(" [npc2.namePos] "+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
 						sb.append(")]");
 						sb.append(" to accommodate the full length of [npc.her] "+nameLength+".");
 					}
@@ -15931,6 +16013,22 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public String ingestFluid(GameCharacter charactersFluid, FluidInterface fluid, SexAreaOrifice orificeIngestedThrough, float millilitres) {
 		return ingestFluid(charactersFluid, charactersFluid.getSubspecies(), charactersFluid.getHalfDemonSubspecies(), fluid, orificeIngestedThrough, millilitres);
+	}
+
+	public String ingestFluid(GameCharacter charactersFluid, Subspecies subspecies, Subspecies halfDemonSubspecies, AbstractFluidType fluidType, SexAreaOrifice orificeIngestedThrough, float millilitres) {
+		FluidInterface fluid = null;
+		switch(fluidType.getBaseType()) {
+			case CUM:
+				fluid = new FluidCum(fluidType);
+				break;
+			case GIRLCUM:
+				fluid = new FluidGirlCum(fluidType);
+				break;
+			case MILK:
+				fluid = new FluidMilk(fluidType, false);
+				break;
+		}
+		return ingestFluid(charactersFluid, subspecies, halfDemonSubspecies, fluid, orificeIngestedThrough, millilitres);
 	}
 	
 	/**
@@ -17909,11 +18007,16 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
+		if(washingSB.length()==0) {
+			washingSB.append(formatWashingArea(true,
+					"[npc.NamePos] body is now clean!"));
+		}
+		
 		return UtilText.parse(this, washingSB.toString());
 	}
 	
 	private static String formatWashingArea(boolean isFullyCleaned, String input) {
-		return "<p style='color:"+(isFullyCleaned?PresetColour.GENERIC_GOOD.toWebHexString():PresetColour.CUM.toWebHexString())+";'><i>"
+		return "<p style='text-align:center; color:"+(isFullyCleaned?PresetColour.BASE_AQUA.toWebHexString():PresetColour.CUM.toWebHexString())+";'><i>"
 					+ input
 				+ "</i></p>";
 	}
@@ -19364,8 +19467,11 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!withDescription) {
 			return "";
 		}
-		return "<p>"
-					+ UtilText.parse(this, "[style.italicsGood([npc.NamePos] clothes have been cleaned!)]")
+		return "<p style='text-align:center;'>"
+					+ UtilText.parse(this,
+							includeNotEquippedClothing
+								?"[style.italicsExcellent(All of the clothes in [npc.namePos] inventory have been cleaned!)]"
+								:"[style.italicsGood([npc.NamePos] equipped clothes have been cleaned!)]")
 				+ "</p>";
 	}
 

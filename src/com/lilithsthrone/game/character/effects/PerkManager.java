@@ -513,25 +513,32 @@ public enum PerkManager {
 		}
 	}
 
-	public static void initialisePerks(GameCharacter character) {
-		initialisePerks(character, true, null, null);
+	public static Set<AbstractPerk> initialisePerks(GameCharacter character) {
+		return initialisePerks(character, true, null, null);
 	}
 	
-	public static void initialisePerks(GameCharacter character, boolean autoSelectPerks) {
-		initialisePerks(character, autoSelectPerks, null, null);
+	public static Set<AbstractPerk> initialisePerks(GameCharacter character, boolean autoSelectPerks) {
+		return initialisePerks(character, autoSelectPerks, null, null);
 	}
 	
-	public static void initialisePerks(GameCharacter character, boolean autoSelectPerks, List<AbstractPerk> requiredPerks) {
-		initialisePerks(character, autoSelectPerks, requiredPerks, null);
+	public static Set<AbstractPerk> initialisePerks(GameCharacter character, boolean autoSelectPerks, List<AbstractPerk> requiredPerks) {
+		return initialisePerks(character, autoSelectPerks, requiredPerks, null);
 	}
 
-	public static void initialisePerks(GameCharacter character, List<AbstractPerk> requiredPerks, Map<PerkCategory, Integer> perkWeightingOverride) {
-		initialisePerks(character, true, requiredPerks, perkWeightingOverride);
+	public static Set<AbstractPerk> initialisePerks(GameCharacter character, List<AbstractPerk> requiredPerks, Map<PerkCategory, Integer> perkWeightingOverride) {
+		return initialisePerks(character, true, requiredPerks, perkWeightingOverride);
 	}
 	
-	public static void initialisePerks(GameCharacter character, boolean autoSelectPerks, List<AbstractPerk> requiredPerks, Map<PerkCategory, Integer> perkWeightingOverride) {
+	/**
+	 * @return A Set of perks which were added.
+	 */
+	public static Set<AbstractPerk> initialisePerks(GameCharacter character, boolean autoSelectPerks, List<AbstractPerk> requiredPerks, Map<PerkCategory, Integer> perkWeightingOverride) {
+		Set<AbstractPerk> perksAdded = new HashSet<>();
+		
 		for(TreeEntry<PerkCategory, AbstractPerk> perk : getStartingPerks(character)) {
-			character.addPerk(perk.getRow(), perk.getEntry());
+			if(character.addPerk(perk.getRow(), perk.getEntry())) {
+				perksAdded.add(perk.getEntry());
+			}
 		}
 		
 		if(!character.isElemental()) { // Elementals always start with an empty perk tree
@@ -540,7 +547,9 @@ public enum PerkManager {
 				if(requiredPerks!=null) {
 					for(AbstractPerk requiredPerk : requiredPerks) {
 						for(TreeEntry<PerkCategory, AbstractPerk> entry : Pathing.aStarPathingPerkTree(character, MANAGER.getFirstPerkEntry(character, requiredPerk))) {
-							character.addPerk(entry.getRow(), entry.getEntry());
+							if(character.addPerk(entry.getRow(), entry.getEntry())) {
+								perksAdded.add(entry.getEntry());
+							}
 							if(entry.getEntry().isEquippableTrait()) {
 								character.addTrait(entry.getEntry());
 							}
@@ -555,6 +564,7 @@ public enum PerkManager {
 				deniedPerks.add(Perk.CHUUNI);
 				deniedPerks.add(Perk.BARREN);
 				deniedPerks.add(Perk.FIRING_BLANKS);
+				deniedPerks.add(Perk.UNARMED_TRAINING);
 				if(character.getEnchantmentPointsUsedTotal()<=character.getAttributeValue(Attribute.ENCHANTMENT_LIMIT) || !Main.game.isEnchantmentCapacityEnabled()) {
 					deniedPerks.add(Perk.ENCHANTMENT_STABILITY);
 					deniedPerks.add(Perk.ENCHANTMENT_STABILITY_ALT);
@@ -571,7 +581,6 @@ public enum PerkManager {
 				if(!character.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()) {
 					deniedPerks.add(Perk.FERTILITY_BOOST);
 				}
-				
 				
 				// Add seed based on name so that it's always the same for uniques randomly generating perks:
 				Random rnd = new Random((character.getId()).hashCode());
@@ -617,7 +626,9 @@ public enum PerkManager {
 						}
 					} else {
 						TreeEntry<PerkCategory, AbstractPerk> entryToAdd = Util.getRandomObjectFromWeightedMap(weightedAvailabilityMap, rnd);
-						character.addPerk(entryToAdd.getRow(), entryToAdd.getEntry());
+						if(character.addPerk(entryToAdd.getRow(), entryToAdd.getEntry())) {
+							perksAdded.add(entryToAdd.getEntry());
+						}
 						if(entryToAdd.getEntry().isEquippableTrait()) {
 							traits.add(entryToAdd);
 						}
@@ -631,6 +642,8 @@ public enum PerkManager {
 				}
 			}
 		}
+		
+		return perksAdded;
 	}
 	
 	public String getPerkTreeDisplay(GameCharacter character, boolean includePointsRemaining) {
@@ -883,6 +896,50 @@ public enum PerkManager {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * @param onlyCheckOwnedPerks true if you want to completely ignore all unselected perks.
+	 * @return true if the character's perk at the specified row is at the end of a tree's branch.
+	 */
+	public boolean isPerkEndOfTreeBranch(GameCharacter character, int row, AbstractPerk perk, boolean onlyCheckOwnedPerks) {
+		if(perk.isAlwaysAvailable()) {
+			return true;
+		}
+		TreeEntry<PerkCategory, AbstractPerk> perkEntry = null;
+		loopy:
+		for(Entry<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>> entry : getPerkTree(character).get(row).entrySet()) {
+			for(TreeEntry<PerkCategory, AbstractPerk> pe : entry.getValue()) {
+				if(pe.getEntry()==perk) {
+					perkEntry = pe;
+					break loopy;
+				}
+			}
+		}
+		if(perkEntry==null) {
+			System.err.println("PerkManager.isPerkEndOfTreeBranch() cannot find an entry for: "+character.getId()+", "+row+", "+perk.getName(character));
+			return false;
+		}
+		
+		if(perkEntry.getLinks().size()==1) {
+			return true;
+		}
+		
+		int siblingLinks = 0;
+		for(TreeEntry<PerkCategory, AbstractPerk> linkedEntry : perkEntry.getLinks()) {
+			if(!onlyCheckOwnedPerks || character.hasPerkInTree(linkedEntry.getRow(), linkedEntry.getEntry())) {
+				if(perkEntry.getRow()<linkedEntry.getRow()) {
+					return false;
+				}
+				if(linkedEntry.getLinks().size()==1) {
+					return false;
+				}
+				if(perkEntry.getRow()==linkedEntry.getRow()) {
+					siblingLinks++;
+				}
+			}
+		}
+		return siblingLinks<=1;
 	}
 	
 	private Colour getPerkLineParentColour(GameCharacter character, TreeEntry<PerkCategory, AbstractPerk> entry) {

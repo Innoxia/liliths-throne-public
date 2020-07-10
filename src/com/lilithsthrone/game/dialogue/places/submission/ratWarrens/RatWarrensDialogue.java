@@ -2403,7 +2403,12 @@ public class RatWarrensDialogue {
 				
 			} else {
 				if(index==2 && Main.game.getPlayer().hasItemType(ItemType.RESONANCE_STONE)) {
-					return new Response("Resonance stone", "Use the resonance stone to signal the SWORD Enforcers to start their raid.", VENGARS_HALL_RESONANCE_STONE);
+					return new Response("Resonance stone", "Use the resonance stone to signal the SWORD Enforcers to start their raid.", VENGARS_HALL_RESONANCE_STONE) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensUsedResonanceStone, true);
+						}
+					};
 				}
 			}
 			return null;

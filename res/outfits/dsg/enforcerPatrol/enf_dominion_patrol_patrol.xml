@@ -166,8 +166,9 @@
 				</clothing>
 			</uniqueClothing>
 			
-			<!--Slacks always -->
+			<!--Slacks always (if not a taur) -->
 			<uniqueClothing>
+				<conditional><![CDATA[!npc.isTaur()]]></conditional>
 				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_STEEL" enchantmentKnown="true" id="dsg_eep_ptrlequipset_enfslacks" isDirty="false">
 				</clothing>
 			</uniqueClothing>

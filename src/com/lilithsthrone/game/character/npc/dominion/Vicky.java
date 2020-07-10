@@ -319,6 +319,10 @@ public class Vicky extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
 			this.resetPerksMap(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.8")) {
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_EBONY), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED), false);
+		}
 	}
 
 	@Override
@@ -367,6 +371,8 @@ public class Vicky extends NPC {
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, PresetColour.EYE_YELLOW));
 		this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, PresetColour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_EBONY), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, PresetColour.COVERING_BLACK), true);
 		this.setHairLength(0);
@@ -488,13 +494,13 @@ public class Vicky extends NPC {
 		int count=0;
 		for(AbstractCoreType type : types) {
 			if(type instanceof AbstractWeaponType) {
-				weaponsForSale.put(AbstractWeaponType.generateWeapon((AbstractWeaponType) type), 1+Util.random.nextInt(3));
+				weaponsForSale.put(AbstractWeaponType.generateWeapon((AbstractWeaponType) type), 2+Util.random.nextInt(5));
 				
 			} else if(type instanceof AbstractItemType) {
-				itemsForSale.put(AbstractItemType.generateItem((AbstractItemType) type), 1);
+				itemsForSale.put(AbstractItemType.generateItem((AbstractItemType) type), 2+Util.random.nextInt(5));
 				
 			} else if(type instanceof AbstractClothingType) {
-				clothingForSale.put(AbstractClothingType.generateClothing((AbstractClothingType) type), 1);
+				clothingForSale.put(AbstractClothingType.generateClothing((AbstractClothingType) type), 2+Util.random.nextInt(5));
 			}
 			count++;
 			if(count>=this.getMaximumInventorySpace()-requiredRoomForMiscItems) {

@@ -253,10 +253,12 @@ public class Finch extends NPC {
 				clothingToSell.add(AbstractClothingType.generateClothing(clothing, false));
 			}
 		}
-		
-		clothingToSell.addAll(CharacterUtils.generateEnchantedClothingForTrader(this, clothingToSell, 4, 2));
-		
+
 		for(AbstractClothing c : clothingToSell) {
+			this.addClothing(c, 2+Util.random.nextInt(5), false, false);
+		}
+		
+		for(AbstractClothing c : CharacterUtils.generateEnchantedClothingForTrader(this, clothingToSell, 4, 2)) {
 			this.addClothing(c, false);
 		}
 	}

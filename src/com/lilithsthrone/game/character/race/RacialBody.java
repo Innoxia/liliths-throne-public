@@ -406,7 +406,7 @@ public class RacialBody {
 			PenisType.REINDEER_MORPH, 20, PenetrationGirth.FOUR_THICK, TesticleSize.THREE_LARGE, 2, CumProduction.THREE_AVERAGE,
 			Util.newArrayListOfValues(TailType.REINDEER_MORPH),
 			TentacleType.NONE,
-			VaginaType.REINDEER_MORPH, Wetness.TWO_MOIST, Capacity.FOUR_LOOSE, OrificeDepth.THREE_SPACIOUS, ClitorisSize.ONE_BIG, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			VaginaType.REINDEER_MORPH, Wetness.TWO_MOIST, Capacity.THREE_SLIGHTLY_LOOSE, OrificeDepth.THREE_SPACIOUS, ClitorisSize.ONE_BIG, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 	};
@@ -498,7 +498,7 @@ public class RacialBody {
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
 			Util.newArrayListOfValues(TailType.RAT_MORPH),
 			TentacleType.NONE,
-			VaginaType.RAT_MORPH, Wetness.TWO_MOIST, Capacity.THREE_SLIGHTLY_LOOSE, OrificeDepth.TWO_AVERAGE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			VaginaType.RAT_MORPH, Wetness.TWO_MOIST, Capacity.TWO_TIGHT, OrificeDepth.TWO_AVERAGE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 		@Override
@@ -535,7 +535,7 @@ public class RacialBody {
 			PenisType.RABBIT_MORPH, 18, PenetrationGirth.THREE_AVERAGE, TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
 			Util.newArrayListOfValues(TailType.RABBIT_MORPH),
 			TentacleType.NONE,
-			VaginaType.RABBIT_MORPH, Wetness.TWO_MOIST, Capacity.THREE_SLIGHTLY_LOOSE, OrificeDepth.TWO_AVERAGE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			VaginaType.RABBIT_MORPH, Wetness.TWO_MOIST, Capacity.TWO_TIGHT, OrificeDepth.TWO_AVERAGE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 	};
@@ -565,7 +565,7 @@ public class RacialBody {
 			PenisType.BAT_MORPH, 13, PenetrationGirth.THREE_AVERAGE, TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
 			Util.newArrayListOfValues(TailType.BAT_MORPH),
 			TentacleType.NONE,
-			VaginaType.BAT_MORPH, Wetness.TWO_MOIST, Capacity.THREE_SLIGHTLY_LOOSE, OrificeDepth.TWO_AVERAGE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			VaginaType.BAT_MORPH, Wetness.TWO_MOIST, Capacity.ONE_EXTREMELY_TIGHT, OrificeDepth.TWO_AVERAGE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 		@Override
@@ -601,7 +601,7 @@ public class RacialBody {
 			PenisType.AVIAN, 5, PenetrationGirth.TWO_NARROW, TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.ONE_TRICKLE,
 			Util.newArrayListOfValues(TailType.HARPY),
 			TentacleType.NONE,
-			VaginaType.HARPY, Wetness.THREE_WET, Capacity.TWO_TIGHT, OrificeDepth.TWO_AVERAGE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			VaginaType.HARPY, Wetness.THREE_WET, Capacity.ONE_EXTREMELY_TIGHT, OrificeDepth.TWO_AVERAGE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			Util.newArrayListOfValues(WingType.NONE), WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.CLOACA) {
 		@Override

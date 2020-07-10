@@ -152,6 +152,7 @@ public class Vagina implements BodyPartInterface {
 		if(this.type==VaginaType.NONE) {
 			this.orificeVagina.setStretchedCapacity(this.orificeVagina.getRawCapacityValue());
 			this.orificeUrethra.setStretchedCapacity(this.orificeUrethra.getRawCapacityValue());
+			this.orificeVagina.hymen=true;
 		}
 		
 		if(!Main.game.isStarted() || owner==null) {// This always overrides pregnancy prevention, as the only times where this is true are for utility methods:

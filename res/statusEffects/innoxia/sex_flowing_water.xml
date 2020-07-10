@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	<renderingPriority>70</renderingPriority>
+	
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	
+	<beneficial>NEUTRAL</beneficial>
+	
+	<combatEffect>false</combatEffect>
+	
+	<sexEffect>true</sexEffect>
+	
+	<name><![CDATA[Flowing Water]]></name>
+	
+	<description><![CDATA[
+		The water flowing over [npc.namePos] body is preventing [npc.herHim] from getting dirty during this sex scene!
+	]]></description>
+	
+	<imageName>sex_flowing_water.svg</imageName>
+	
+	<colourPrimary>BASE_BLUE_LIGHT</colourPrimary>
+	<colourSecondary>BASE_AQUA</colourSecondary>
+	<colourTertiary/>
+	
+	<attributeModifiers/>
+	
+	<combatMoves/>
+	
+	<spells/>
+	<extraEffects>
+		<effect><![CDATA[[style.colourDirty(Dirty body parts)] are [style.colourAqua(quickly cleaned)]]]></effect>
+	</extraEffects>
+	
+	
+	<!-- Effect logic -->
+	
+	<applicationCondition><![CDATA[
+		[#game.isInSex() && sex.getInitialSexManager().isWashingScene()]
+	]]></applicationCondition>
+	
+	<applyEffect/>
+	
+	<applyRemovalEffect/>
+	
+	<applyPostRemovalEffect/>
+	
+</statusEffect>

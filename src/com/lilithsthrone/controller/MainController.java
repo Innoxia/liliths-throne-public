@@ -505,7 +505,8 @@ public class MainController implements Initializable {
 //									e.printStackTrace();
 //								}
 //							}
-							Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).setColour(0, PresetColour.CLOTHING_GOLD);
+//							Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).setColour(0, PresetColour.CLOTHING_GOLD);
+							System.out.println(Main.game.getPlayer().getLocation());
 						}
 						 
 

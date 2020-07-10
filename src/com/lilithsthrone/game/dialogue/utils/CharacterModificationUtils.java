@@ -4804,8 +4804,8 @@ public class CharacterModificationUtils {
 				contentSB.append(
 						"<div id='HAIR_LENGTH_"+hairLength+"' class='cosmetics-button'>"
 								+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_LENGTH_COST || noCost
-									? "<span style='color:"+hairLength.getColour().getShades()[0]+";'>" + Util.capitaliseSentence(hairLength.getDescriptor()) + "</span>"
-									: "[style.colourDisabled(" + Util.capitaliseSentence(hairLength.getDescriptor()) + ")]")
+									? "<span style='color:"+hairLength.getColour().getShades()[0]+";'>" + Util.capitaliseSentence(hairLength.getDescriptor())+(hairLength.isSuitableForPulling()?"*":"") + "</span>"
+									: "[style.colourDisabled(" + Util.capitaliseSentence(hairLength.getDescriptor())+(hairLength.isSuitableForPulling()?"*":"") + ")]")
 						+ "</div>");
 			}
 		}

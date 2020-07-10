@@ -140,13 +140,26 @@ public enum Subspecies {
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES)) {
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"fallen angel",
 					"fallen angels",
 					"fallen angel",
 					"fallen angel",
 					"fallen angels",
 					"fallen angels"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "fallen angel", false, false),
+					applyNonBipedNameChange(character, "fallen angel", false, true),
+					applyNonBipedNameChange(character, "fallen angel", false, false),
+					applyNonBipedNameChange(character, "fallen angel", true, false),
+					applyNonBipedNameChange(character, "fallen angel", false, true),
+					applyNonBipedNameChange(character, "fallen angel", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 
@@ -713,13 +726,26 @@ public enum Subspecies {
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) {
 				@Override
 				public String[] getHalfDemonName(GameCharacter character) {
-					return new String[] {
+					String[] names = new String[] {
 							"hellhound",
 							"hellhounds",
 							"hellhound",
 							"hellhound",
 							"hellhounds",
 							"hellhounds"};
+					
+					if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+						names = new String[] {
+							applyNonBipedNameChange(character, "hellhound", false, false),
+							applyNonBipedNameChange(character, "hellhound", false, true),
+							applyNonBipedNameChange(character, "hellhound", false, false),
+							applyNonBipedNameChange(character, "hellhound", true, false),
+							applyNonBipedNameChange(character, "hellhound", false, true),
+							applyNonBipedNameChange(character, "hellhound", true, true)
+						};
+					}
+					
+					return names;
 				}
 			},
 	
@@ -775,13 +801,26 @@ public enum Subspecies {
 				}
 				@Override
 				public String[] getHalfDemonName(GameCharacter character) {
-					return new String[] {
+					String[] names = new String[] {
 							"hellhound",
 							"hellhounds",
 							"hellhound",
 							"hellhound",
 							"hellhounds",
 							"hellhounds"};
+					
+					if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+						names = new String[] {
+							applyNonBipedNameChange(character, "hellhound", false, false),
+							applyNonBipedNameChange(character, "hellhound", false, true),
+							applyNonBipedNameChange(character, "hellhound", false, false),
+							applyNonBipedNameChange(character, "hellhound", true, false),
+							applyNonBipedNameChange(character, "hellhound", false, true),
+							applyNonBipedNameChange(character, "hellhound", true, true)
+						};
+					}
+					
+					return names;
 				}
 			},
 	
@@ -849,13 +888,26 @@ public enum Subspecies {
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"hellhound",
 					"hellhounds",
 					"hellhound",
 					"hellhound",
 					"hellhounds",
 					"hellhounds"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "hellhound", false, false),
+					applyNonBipedNameChange(character, "hellhound", false, true),
+					applyNonBipedNameChange(character, "hellhound", false, false),
+					applyNonBipedNameChange(character, "hellhound", true, false),
+					applyNonBipedNameChange(character, "hellhound", false, true),
+					applyNonBipedNameChange(character, "hellhound", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 	
@@ -908,13 +960,26 @@ public enum Subspecies {
 				}
 				@Override
 				public String[] getHalfDemonName(GameCharacter character) {
-					return new String[] {
+					String[] names = new String[] {
 							"hellhound",
 							"hellhounds",
 							"hellhound",
 							"hellhound",
 							"hellhounds",
 							"hellhounds"};
+					
+					if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+						names = new String[] {
+							applyNonBipedNameChange(character, "hellhound", false, false),
+							applyNonBipedNameChange(character, "hellhound", false, true),
+							applyNonBipedNameChange(character, "hellhound", false, false),
+							applyNonBipedNameChange(character, "hellhound", true, false),
+							applyNonBipedNameChange(character, "hellhound", false, true),
+							applyNonBipedNameChange(character, "hellhound", true, true)
+						};
+					}
+					
+					return names;
 				}
 			},
 	
@@ -967,15 +1032,27 @@ public enum Subspecies {
 			body.getCoverings().put(BodyCoveringType.HAIR_LYCAN_FUR, new Covering(BodyCoveringType.HAIR_LYCAN_FUR, c));
 			body.getCoverings().put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, c));
 		}
-		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"vargr",
 					"vargar",
 					"vargr",
 					"vargr",
 					"vargar",
 					"vargar"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "vargr", false, false),
+					applyNonBipedNameChange(character, "vargr", false, true),
+					applyNonBipedNameChange(character, "vargr", false, false),
+					applyNonBipedNameChange(character, "vargr", true, false),
+					applyNonBipedNameChange(character, "vargr", false, true),
+					applyNonBipedNameChange(character, "vargr", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 	
@@ -1951,13 +2028,26 @@ public enum Subspecies {
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"nightmare",
 					"nightmares",
 					"nightmare",
 					"nightmare",
 					"nightmares",
 					"nightmares"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "nightmare", false, false),
+					applyNonBipedNameChange(character, "nightmare", false, true),
+					applyNonBipedNameChange(character, "nightmare", false, false),
+					applyNonBipedNameChange(character, "nightmare", true, false),
+					applyNonBipedNameChange(character, "nightmare", false, true),
+					applyNonBipedNameChange(character, "nightmare", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 	HORSE_MORPH_UNICORN("statusEffects/race/raceHorseMorph",
@@ -2010,13 +2100,26 @@ public enum Subspecies {
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"unicorn-nightmare",
 					"unicorn-nightmares",
 					"unicorn-nightmare",
 					"unicorn-nightmare",
 					"unicorn-nightmares",
 					"unicorn-nightmares"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "unicorn-nightmare", false, false),
+					applyNonBipedNameChange(character, "unicorn-nightmare", false, true),
+					applyNonBipedNameChange(character, "unicorn-nightmare", false, false),
+					applyNonBipedNameChange(character, "unicorn-nightmare", true, false),
+					applyNonBipedNameChange(character, "unicorn-nightmare", false, true),
+					applyNonBipedNameChange(character, "unicorn-nightmare", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 	HORSE_MORPH_PEGASUS("statusEffects/race/raceHorseMorph",
@@ -2065,13 +2168,26 @@ public enum Subspecies {
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"pegasus-nightmare",
 					"pegasus-nightmares",
 					"pegasus-nightmare",
 					"pegasus-nightmare",
 					"pegasus-nightmares",
 					"pegasus-nightmares"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "pegasus-nightmare", false, false),
+					applyNonBipedNameChange(character, "pegasus-nightmare", false, true),
+					applyNonBipedNameChange(character, "pegasus-nightmare", false, false),
+					applyNonBipedNameChange(character, "pegasus-nightmare", true, false),
+					applyNonBipedNameChange(character, "pegasus-nightmare", false, true),
+					applyNonBipedNameChange(character, "pegasus-nightmare", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 	HORSE_MORPH_ALICORN("statusEffects/race/raceHorseMorph",
@@ -2124,13 +2240,26 @@ public enum Subspecies {
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"alicorn-nightmare",
 					"alicorn-nightmares",
 					"alicorn-nightmare",
 					"alicorn-nightmare",
 					"alicorn-nightmares",
 					"alicorn-nightmares"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "alicorn-nightmare", false, false),
+					applyNonBipedNameChange(character, "alicorn-nightmare", false, true),
+					applyNonBipedNameChange(character, "alicorn-nightmare", false, false),
+					applyNonBipedNameChange(character, "alicorn-nightmare", true, false),
+					applyNonBipedNameChange(character, "alicorn-nightmare", false, true),
+					applyNonBipedNameChange(character, "alicorn-nightmare", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 	
@@ -2447,13 +2576,26 @@ public enum Subspecies {
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"nightmare",
 					"nightmares",
 					"nightmare",
 					"nightmare",
 					"nightmares",
 					"nightmares"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "nightmare", false, false),
+					applyNonBipedNameChange(character, "nightmare", false, true),
+					applyNonBipedNameChange(character, "nightmare", false, false),
+					applyNonBipedNameChange(character, "nightmare", true, false),
+					applyNonBipedNameChange(character, "nightmare", false, true),
+					applyNonBipedNameChange(character, "nightmare", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 
@@ -2861,13 +3003,26 @@ public enum Subspecies {
 					new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.FOUR_COMMON)), null) { //TODO move to fields
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"jackalope",
 					"jackalopes",
 					"jackalope",
 					"jackalope",
 					"jackalopes",
 					"jackalopes"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "jackalope", false, false),
+					applyNonBipedNameChange(character, "jackalope", false, true),
+					applyNonBipedNameChange(character, "jackalope", false, false),
+					applyNonBipedNameChange(character, "jackalope", true, false),
+					applyNonBipedNameChange(character, "jackalope", false, true),
+					applyNonBipedNameChange(character, "jackalope", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 
@@ -2917,13 +3072,26 @@ public enum Subspecies {
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"jackalope",
 					"jackalopes",
 					"jackalope",
 					"jackalope",
 					"jackalopes",
 					"jackalopes"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "jackalope", false, false),
+					applyNonBipedNameChange(character, "jackalope", false, true),
+					applyNonBipedNameChange(character, "jackalope", false, false),
+					applyNonBipedNameChange(character, "jackalope", true, false),
+					applyNonBipedNameChange(character, "jackalope", false, true),
+					applyNonBipedNameChange(character, "jackalope", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 	
@@ -3006,13 +3174,26 @@ public enum Subspecies {
 					SubspeciesFlag.DISBALE_FURRY_PREFERENCE)) {
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"fury",
 					"furies",
 					"fury",
 					"fury",
 					"furies",
 					"furies"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "fury", false, false),
+					applyNonBipedNameChange(character, "fury", false, true),
+					applyNonBipedNameChange(character, "fury", false, false),
+					applyNonBipedNameChange(character, "fury", true, false),
+					applyNonBipedNameChange(character, "fury", false, true),
+					applyNonBipedNameChange(character, "fury", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 	
@@ -3065,13 +3246,26 @@ public enum Subspecies {
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"fury",
 					"furies",
 					"fury",
 					"fury",
 					"furies",
 					"furies"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "fury", false, false),
+					applyNonBipedNameChange(character, "fury", false, true),
+					applyNonBipedNameChange(character, "fury", false, false),
+					applyNonBipedNameChange(character, "fury", true, false),
+					applyNonBipedNameChange(character, "fury", false, true),
+					applyNonBipedNameChange(character, "fury", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 
@@ -3120,13 +3314,26 @@ public enum Subspecies {
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"fury",
 					"furies",
 					"fury",
 					"fury",
 					"furies",
 					"furies"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "fury", false, false),
+					applyNonBipedNameChange(character, "fury", false, true),
+					applyNonBipedNameChange(character, "fury", false, false),
+					applyNonBipedNameChange(character, "fury", true, false),
+					applyNonBipedNameChange(character, "fury", false, true),
+					applyNonBipedNameChange(character, "fury", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 
@@ -3181,13 +3388,26 @@ public enum Subspecies {
 		}
 		@Override
 		public String[] getHalfDemonName(GameCharacter character) {
-			return new String[] {
+			String[] names = new String[] {
 					"phoenix-fury",
 					"phoenix-furies",
 					"phoenix-fury",
 					"phoenix-fury",
 					"phoenix-furies",
 					"phoenix-furies"};
+			
+			if(character!=null && !character.getHalfDemonSubspecies().isNonBiped()) {
+				names = new String[] {
+					applyNonBipedNameChange(character, "phoenix-fury", false, false),
+					applyNonBipedNameChange(character, "phoenix-fury", false, true),
+					applyNonBipedNameChange(character, "phoenix-fury", false, false),
+					applyNonBipedNameChange(character, "phoenix-fury", true, false),
+					applyNonBipedNameChange(character, "phoenix-fury", false, true),
+					applyNonBipedNameChange(character, "phoenix-fury", true, true)
+				};
+			}
+			
+			return names;
 		}
 	},
 	
@@ -4245,26 +4465,31 @@ public enum Subspecies {
 		return feralName.charAt(feralName.length()-1)=='t'?"-taur":"taur";
 	}
 	
+	protected String applyNonBipedNameChange(GameCharacter character, String baseName, boolean applyFeminineForm, boolean plural) {
+		switch(character.getLegConfiguration()) {
+			case ARACHNID:
+				return baseName+"-arachne"+(plural?"s":"");
+			case BIPEDAL:
+				break;
+			case CEPHALOPOD:
+				return baseName+"-kraken"+(plural?"s":"");
+			case TAIL:
+				return "mer"+baseName+(plural?"s":"");
+			case TAIL_LONG:
+				return baseName+"-lamia"+(plural?"s":"");
+			case TAUR:
+				return baseName+getTaurEnding()+(applyFeminineForm?"ess"+(plural?"es":""):(plural?"s":""));
+		}
+		return baseName;
+	}
+	
 	/**
 	 * @param   The character whose subspecies's name is to be returned. Can pass in null.
 	 * @return  The singular name of this character's subspecies.
 	 */
 	public String getName(GameCharacter character) {
-		if(!isNonBiped() && character!=null) {
-			switch(character.getLegConfiguration()) {
-				case ARACHNID:
-					return getFeralName(character)+"-arachne";
-				case BIPEDAL:
-					break;
-				case CEPHALOPOD:
-					return getFeralName(character)+"-kraken";
-				case TAIL:
-					return "mer"+getFeralName(character);
-				case TAIL_LONG:
-					return getFeralName(character)+"-lamia";
-				case TAUR:
-					return getFeralName(character)+getTaurEnding();
-			}
+		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+			return applyNonBipedNameChange(character, getFeralName(character), false, false);
 		}
 		return name;
 	}
@@ -4274,21 +4499,8 @@ public enum Subspecies {
 	 * @return  The plural name of this character's subspecies.
 	 */
 	public String getNamePlural(GameCharacter character) {
-		if(!isNonBiped() && character!=null) {
-			switch(character.getLegConfiguration()) {
-				case ARACHNID:
-					return getFeralName(character)+"-arachnes";
-				case BIPEDAL:
-					break;
-				case CEPHALOPOD:
-					return getFeralName(character)+"-krakens";
-				case TAIL:
-					return "mer"+getFeralName(character);
-				case TAIL_LONG:
-					return getFeralName(character)+"-lamias";
-				case TAUR:
-					return getFeralName(character)+getTaurEnding()+"s";
-			}
+		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+			return applyNonBipedNameChange(character, getFeralName(character), false, true);
 		}
 		return namePlural;
 	}
@@ -4298,21 +4510,8 @@ public enum Subspecies {
 	 * @return  The singular male name of this character's subspecies.
 	 */
 	public String getSingularMaleName(GameCharacter character) {
-		if(!isNonBiped() && character!=null) {
-			switch(character.getLegConfiguration()) {
-				case ARACHNID:
-					return getFeralName(character)+"-arachne";
-				case BIPEDAL:
-					break;
-				case CEPHALOPOD:
-					return getFeralName(character)+"-kraken";
-				case TAIL:
-					return "mer"+getFeralName(character);
-				case TAIL_LONG:
-					return getFeralName(character)+"-lamia";
-				case TAUR:
-					return getFeralName(character)+getTaurEnding();
-			}
+		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+			return applyNonBipedNameChange(character, getFeralName(character), false, false);
 		}
 
 		if(Main.game.isSillyModeEnabled() && character!=null) {
@@ -4332,21 +4531,8 @@ public enum Subspecies {
 	 * @return  The singular female name of this character's subspecies.
 	 */
 	public String getSingularFemaleName(GameCharacter character) {
-		if(!isNonBiped() && character!=null) {
-			switch(character.getLegConfiguration()) {
-				case ARACHNID:
-					return getFeralName(character)+"-arachne";
-				case BIPEDAL:
-					break;
-				case CEPHALOPOD:
-					return getFeralName(character)+"-kraken";
-				case TAIL:
-					return "mer"+getFeralName(character);
-				case TAIL_LONG:
-					return getFeralName(character)+"-lamia";
-				case TAUR:
-					return getFeralName(character)+getTaurEnding()+"ess";
-			}
+		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+			return applyNonBipedNameChange(character, getFeralName(character), true, false);
 		}
 		
 		if(Main.game.isSillyModeEnabled() && character!=null) {
@@ -4367,21 +4553,8 @@ public enum Subspecies {
 	 * @return  The plural male name of this character's subspecies.
 	 */
 	public String getPluralMaleName(GameCharacter character) {
-		if(!isNonBiped() && character!=null) {
-			switch(character.getLegConfiguration()) {
-				case ARACHNID:
-					return getFeralName(character)+"-arachnes";
-				case BIPEDAL:
-					break;
-				case CEPHALOPOD:
-					return getFeralName(character)+"-krakens";
-				case TAIL:
-					return "mer"+getFeralName(character);
-				case TAIL_LONG:
-					return getFeralName(character)+"-lamias";
-				case TAUR:
-					return getFeralName(character)+getTaurEnding()+"s";
-			}
+		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+			return applyNonBipedNameChange(character, getFeralName(character), false, true);
 		}
 		return pluralMaleName;
 	}
@@ -4391,21 +4564,8 @@ public enum Subspecies {
 	 * @return  The plural female name of this character's subspecies.
 	 */
 	public String getPluralFemaleName(GameCharacter character) {
-		if(!isNonBiped() && character!=null) {
-			switch(character.getLegConfiguration()) {
-				case ARACHNID:
-					return getFeralName(character)+"-arachnes";
-				case BIPEDAL:
-					break;
-				case CEPHALOPOD:
-					return getFeralName(character)+"-krakens";
-				case TAIL:
-					return "mer"+getFeralName(character);
-				case TAIL_LONG:
-					return getFeralName(character)+"-lamias";
-				case TAUR:
-					return getFeralName(character)+getTaurEnding()+"esses";
-			}
+		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL && !isNonBiped()) {
+			return applyNonBipedNameChange(character, getFeralName(character), false, true);
 		}
 		return pluralFemaleName;
 	}

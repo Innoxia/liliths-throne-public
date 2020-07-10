@@ -1172,7 +1172,7 @@ public interface SexActionInterface {
 				}
 				@Override
 				public boolean isSexPenetrationHighlight() {
-					return getActionType()==SexActionType.START_ONGOING || getActionType()==SexActionType.START_ADDITIONAL_ONGOING || getActionType()==SexActionType.STOP_ONGOING;
+					return getActionType()==SexActionType.START_ONGOING || getActionType()==SexActionType.START_ADDITIONAL_ONGOING;
 				}
 				@Override
 				public boolean isSexPositioningHighlight() {
@@ -1198,6 +1198,9 @@ public interface SexActionInterface {
 						} else {
 							return PresetColour.GENERIC_SEX;
 						}
+					}
+					if(getActionType()==SexActionType.STOP_ONGOING) {
+						return PresetColour.BASE_RED;
 					}
 					return super.getHighlightColour();
 				}

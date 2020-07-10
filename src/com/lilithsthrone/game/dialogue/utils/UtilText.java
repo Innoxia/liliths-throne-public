@@ -38,9 +38,11 @@ import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Penis;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
@@ -105,9 +107,11 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
+import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ToyVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
@@ -871,8 +875,11 @@ public class UtilText {
 		if(Main.game!=null && Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER) {
 			input = input.replaceAll("\u200b", "");
 		}
-		input = input.replaceAll("", "");
-
+//		input = input.replaceAll("", ""); //???
+		for(int i=0; i<specialParsingStrings.size(); i++) {
+			input = input.replaceAll("\\[#SPECIAL_PARSE_"+i+"\\]", specialParsingStrings.get(i));
+		}
+		
 		if(xmlParsing) {
 			if(input.contains("#VAR")) { // Set variables to be parsed on each conditional:
 				speechTarget = "";
@@ -1181,6 +1188,7 @@ public class UtilText {
 			if(Main.game.isStarted() && Main.game.getPlayer().getHistory()==Occupation.TOURIST) {
 				for(Entry<String, String> entry : americanEnglishConversions.entrySet()) {
 					result = result.replaceAll(entry.getKey(), entry.getValue());
+					result = result.replaceAll(Util.capitaliseSentence(entry.getKey()), Util.capitaliseSentence(entry.getValue()));
 				}
 			}
 			
@@ -8124,9 +8132,9 @@ public class UtilText {
 				}
 			}
 		}
-		for(int i=0; i<specialParsingStrings.size(); i++) {
-			engine.put("SPECIAL_PARSE_"+i, specialParsingStrings.get(i));
-		}
+//		for(int i=0; i<specialParsingStrings.size(); i++) {
+//			engine.put("SPECIAL_PARSE_"+i, specialParsingStrings.get(i));
+//		}
 		
 		// Core classes:
 		engine.put("game", Main.game);
@@ -8145,6 +8153,7 @@ public class UtilText {
 		}
 		for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
 			engine.put("CLOTHING_"+ClothingType.getIdFromClothingType(clothingType), clothingType);
+			engine.put("CT_"+ClothingType.getIdFromClothingType(clothingType), clothingType);
 		}
 		for(AbstractItemType itemType : ItemType.getAllItems()) {
 			engine.put("ITEM_"+ItemType.getIdFromItemType(itemType), itemType);
@@ -8152,11 +8161,22 @@ public class UtilText {
 		for(AbstractSetBonus setBonus : SetBonus.getAllSetBonuses()) {
 			engine.put("SET_BONUS_"+SetBonus.getIdFromSetBonus(setBonus), setBonus);
 		}
+		for(ItemTag it : ItemTag.values()) {
+			engine.put("ITEM_TAG_"+it.toString(), it);
+		}
+		for(CoverableArea ca : CoverableArea.values()) {
+			engine.put("CA_"+ca.toString(), ca);
+		}
+		for(InventorySlot is : InventorySlot.values()) {
+			engine.put("IS_"+is.toString(), is);
+		}
 		
-		// Enums:
+		// Misc.:
 		for(Colour colour : PresetColour.getAllPresetColours()) {
 			engine.put("COLOUR_"+PresetColour.getIdFromColour(colour), colour);
 		}
+		
+		// Bodies:
 		for(Race race : Race.values()) {
 			engine.put("RACE_"+race.toString(), race);
 		}
@@ -8187,6 +8207,11 @@ public class UtilText {
 		for(NippleShape nippleShape : NippleShape.values()) {
 			engine.put("NIPPLE_SHAPE_"+nippleShape.toString(), nippleShape);
 		}
+		for(AbstractFluidType fluidType : FluidType.getAllFluidTypes()) {
+			engine.put("FLUID_TYPE_"+FluidType.getIdFromFluidType(fluidType), fluidType);
+		}
+		
+		// Effects & persona:
 		for(Fetish f : Fetish.values()) {
 			engine.put(f.toString(), f);
 		}
@@ -8211,15 +8236,8 @@ public class UtilText {
 		for(Attribute att : Attribute.values()) {
 			engine.put("ATTRIBUTE_"+att.toString(), att);
 		}
-		for(AbstractClothingType ct : ClothingType.getAllClothing()) {
-			engine.put("CT_"+ClothingType.getIdFromClothingType(ct), ct);
-		}
-		for(CoverableArea ca : CoverableArea.values()) {
-			engine.put("CA_"+ca.toString(), ca);
-		}
-		for(InventorySlot is : InventorySlot.values()) {
-			engine.put("IS_"+is.toString(), is);
-		}
+		
+		// Combat:
 		for(DamageType damageType : DamageType.values()) {
 			engine.put("DAMAGE_TYPE_"+damageType.toString(), damageType);
 		}
@@ -8232,9 +8250,22 @@ public class UtilText {
 		for(SpellUpgrade spellUpgrade: SpellUpgrade.values()) {
 			engine.put("SPELL_UPGRADE_"+spellUpgrade.toString(), spellUpgrade);
 		}
-		for(ItemTag it : ItemTag.values()) {
-			engine.put("ITEM_TAG_"+it.toString(), it);
+		
+		// Sex:
+		for(SexParticipantType particiantType : SexParticipantType.values()) {
+			engine.put("SEX_PT_"+particiantType.toString(), particiantType);
 		}
+		for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+			engine.put("ORIFICE_"+orifice.toString(), orifice);
+		}
+		for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
+			engine.put("PENETRATION_"+penetration.toString(), penetration);
+		}
+		for(GenericSexFlag flag : GenericSexFlag.values()) {
+			engine.put("SEX_FLAG_"+flag.toString(), flag);
+		}
+		
+		// Other:
 		for(Season season : Season.values()) {
 			engine.put("SEASON_"+season.toString(), season);
 		}
@@ -8285,12 +8316,6 @@ public class UtilText {
 		}
 		for(ForcedFetishTendency fetishTendency : ForcedFetishTendency.values()) {
 			engine.put("FORCED_FETISH_"+fetishTendency.toString(), fetishTendency);
-		}
-		for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
-			engine.put("ORIFICE_"+orifice.toString(), orifice);
-		}
-		for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
-			engine.put("PENETRATION_"+penetration.toString(), penetration);
 		}
 		for(AbstractWorldType worldType : WorldType.getAllWorldTypes()) {
 			engine.put("WORLD_TYPE_"+WorldType.getIdFromWorldType(worldType), worldType);

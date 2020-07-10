@@ -277,28 +277,25 @@ public class Name {
 					//new NameTriplet("Urleen", "Urleen", "Urleen") // supplanted by the Arlo/Arden/Arleen triplet - "Urleen" seems much rarer
 	));
 	
-	;
-	
-//	HUMAN_MALE(Race.HUMAN,
-//			new String[] { "Alexander", "Al", "Alex", "Bartholomew", "Bart", "Brett", "Charles", "Carl", "Charlie", "Daniel", "Dan", "Dale", "Edward", "Ed", "Eli", "Fredrick", "Fred", "Frankie", "George", "Garry", "Gray", "Harry", "Hank", "Iago",
-//					"Ian", "James", "Jack", "Jean", "Kevin", "Ken", "Kai", "Leonard", "Len", "Lee", "Micheal", "Mike", "Nicholas", "Nick", "Oliver", "Oli", "Peter", "Pete", "Quentin", "Quintin", "Richard", "Rick", "Stanley", "Stan", "Thomas", "Tom",
-//					"Ulysses", "Ulfred", "Vincent", "Vinn", "William", "Will" }),
-//
-//	HUMAN_NEUTRAL(Race.HUMAN,
-//			new String[] { "Ashley", "Alex", "Beverly", "Carol", "Danny", "Ed", "Fran", "Frankie", "Georgie", "Izzy", "Jackie", "Jay", "Jess", "Kel", "Louie", "Maddy", "Max", "Nat", "Nicky", "Oli", "Robby", "Sacha", "Sam", "Toni", "Tony", "Val",
-//					"Vic" }),
-//
-//	HUMAN_FEMALE(Race.HUMAN,
-//			new String[] { "Alice", "Alicia", "Alli", "Alex", "Amber", "Anna", "Audrey", "Bella", "Bridget", "Brooklyn", "Charlie", "Cadence", "Cathy", "Cyndi", "Dale", "Diana", "Dani", "Elaine", "Elizabeth", "Ellen", "Elli", "Emily", "Evelyn",
-//					"Felicity", "Faye", "Grace", "Gia", "Hailey", "Harley", "Heidi", "Holly", "Isabelle", "Izzy", "Jackie", "Jane", "Jasmine", "Jennifer", "Jessica", "Jynx", "Kai", "Katie", "Katherine", "Katrina", "Kiara", "Kitty", "Laura", "Lauren",
-//					"Leah", "Lexi", "Maria", "Mikah", "Miranda", "Missy", "Natalia", "Natasha", "Naomi", "Nicole", "Nikki", "Ola", "Olivia", "Onyx", "Paige", "Penelope", "Penny", "Quin", "Quinta", "Qi", "Raine", "Rachel", "Roxy", "Scarlett", "Stacy",
-//					"Stephanie", "Summer", "Tracy", "Trixie", "Ursula", "Uma", "Val", "Violet", "Vixen", "Whitney", "Wendy", "Willow" }),
-//	
-//	HORSE_MORPH_MALE(Race.HORSE_MORPH,
-//			new String[] { "Alex", "Colt", "Dale", "Franklin", "Jacob", "Marcus", "Sylvester" }),
-//	
-//	HORSE_MORPH_FEMALE(Race.HORSE_MORPH,
-//			new String[] { "Alex", "Brooke", "Holly", "Moon", "Raine", "Sable", "Summer", "Vale" });
+	public static List<NameTriplet> petNames = Util.newArrayListOfValues(
+			new NameTriplet("Ace", "Abby", "Abbie"),
+			new NameTriplet("Bandit", "Babe", "Bambi"),
+			new NameTriplet("Champ", "Casey", "Candy"),
+			new NameTriplet("Duke", "Dottie", "Duchess"),
+			new NameTriplet("Ember", "Ember", "Ember"),
+			new NameTriplet("Felix", "Ferris", "Foxy"),
+			new NameTriplet("Gunner", "Goldie", "Goldie"),
+			new NameTriplet("Indy", "Indie", "Ivy"),
+			new NameTriplet("Jet", "Jewel", "Joy"),
+			new NameTriplet("King", "Kipper", "Kitty"),
+			new NameTriplet("Leo", "Lou", "Lola"),
+			new NameTriplet("Maxwell", "Max", "Maxine"),
+			new NameTriplet("Oli", "Ollie", "Olivia"),
+			new NameTriplet("Pepper", "Penny", "Peaches"),
+			new NameTriplet("Scout", "Sandy", "Sandy"),
+			new NameTriplet("Spot", "Socks", "Sox"),
+			new NameTriplet("Tex", "Tess", "Tessie"),
+			new NameTriplet("Whiskey", "Whiskers", "Willow"));
 	
 	private static final String[] surnames = new String[] {
 			"Adams", "Ali", "Allen", "Anderson",
