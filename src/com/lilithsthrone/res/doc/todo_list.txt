@@ -96,16 +96,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		The Slime Queen's bath and Pix's shower scene now correctly clean your body & clothes.
 	
 	
-	Elemental UI
-		[] Clicking on NPCs' names should always open their perk tree
-		[] Add name plate below main name plate for familiars
-	
 	[] Elemental rework
-		[] Do not summon as companion
-		[] Add as status effect
-		[] Combat
-			[] Make them appear when combat starts
-			[] disappear when combat ends
+		[] Combat, sex, and interaction is when they assume physical form
 		[] Lore is that they can only use powers for a limited time, so they expend their energy in combat and need time to recharge
 		[] Two forms
 			[] Humanoid form
@@ -123,11 +115,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[] Being in their full demonic state all the time is too draining on both of you
 			[] Sex
 			[] Transform
-		[] In all sex scenes, can use 'elemental assistance' to make elemental appear and join in
-			[] End sex they vanish
-	
-	--- 21:00 ---
-		
+			
+			
 	Spa dialogue
 		[] Adding spa
 		[] assigning slaves
@@ -140,8 +129,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] bath
 			[] slime soak
 		
-	--- 0:00 ---
-	
 	remove steal/vaccum succ
 	add arcane webbing
 	make vaccum upgrades do -1AP
