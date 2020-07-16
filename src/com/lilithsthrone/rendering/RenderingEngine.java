@@ -32,6 +32,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
@@ -1066,38 +1067,51 @@ public enum RenderingEngine {
 
 	private DialogueNode renderedDialogueNode = null;
 	
-	private String getDefaultAttributeColumnHeader() {
-		String mainTitle = Main.game.getPlayer().getWorldLocation().getName();
-		String mainTitleColour = Main.game.getPlayer().getWorldLocation().getColour().toWebHexString();
-
-		AbstractPlaceType place = Main.game.getPlayer().getWorldLocation().getStandardPlace();
-		
-		if(Main.game.getPlayer().getLocationPlace()!=null) {
-			place = Main.game.getPlayer().getLocationPlace().getPlaceType();
-		}
-		
-		String placeTitle = place.getName();
-		String placeColour = place.getColour().toWebHexString();
-		
-		if(Main.game.isInGlobalMap()) {
-			mainTitle = place.getName();
-			mainTitleColour = place.getColour().toWebHexString();
+	private String getDefaultAttributeColumnHeader(boolean accountForBadEnd) {
+		if(accountForBadEnd && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.badEnd)) {
+			return "<div class='full-width-container'>"
+						+ "<p class='character-name' style='color:"+ PresetColour.GENERIC_BAD_END.toWebHexString() + ";'>"
+							+ "Bad End"
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='full-width-container' style='margin:0;padding:0;'>"
+						+ "<p style='text-align:center;'>"
+							+ "<i>"+Main.getProperties().badEndTitle+"</i>"
+						+"</p>"
+					+ "</div>";
 			
-			placeTitle = place.isLand()?"Terrestrial":"Aquatic";
-			placeColour = place.isLand()?PresetColour.SPELL_SCHOOL_EARTH.toWebHexString():PresetColour.SPELL_SCHOOL_WATER.toWebHexString();
+		} else {
+			String mainTitle = Main.game.getPlayer().getWorldLocation().getName();
+			String mainTitleColour = Main.game.getPlayer().getWorldLocation().getColour().toWebHexString();
+	
+			AbstractPlaceType place = Main.game.getPlayer().getWorldLocation().getStandardPlace();
+			
+			if(Main.game.getPlayer().getLocationPlace()!=null) {
+				place = Main.game.getPlayer().getLocationPlace().getPlaceType();
+			}
+			
+			String placeTitle = place.getName();
+			String placeColour = place.getColour().toWebHexString();
+			
+			if(Main.game.isInGlobalMap()) {
+				mainTitle = place.getName();
+				mainTitleColour = place.getColour().toWebHexString();
+				
+				placeTitle = place.isLand()?"Terrestrial":"Aquatic";
+				placeColour = place.isLand()?PresetColour.SPELL_SCHOOL_EARTH.toWebHexString():PresetColour.SPELL_SCHOOL_WATER.toWebHexString();
+			}
+			
+			return "<div class='full-width-container'>"
+						+ "<p class='character-name' style='color:"+ mainTitleColour + ";'>"
+							+ Util.capitaliseSentence(mainTitle)
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='full-width-container' style='margin:0;padding:0;'>"
+						+ "<p style='text-align:center;"+ (placeColour.isEmpty()?"":" color:"+placeColour+";")+ "'>"
+							+ Util.capitaliseSentence(placeTitle)
+						+"</p>"
+					+ "</div>";
 		}
-		
-		
-		return "<div class='full-width-container'>"
-					+ "<p class='character-name' style='color:"+ mainTitleColour + ";'>"
-						+ Util.capitaliseSentence(mainTitle)
-					+ "</p>"
-				+ "</div>"
-				+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-					+ "<p style='text-align:center;"+ (placeColour.isEmpty()?"":" color:"+placeColour+";")+ "'>"
-						+ Util.capitaliseSentence(placeTitle)
-					+"</p>"
-				+ "</div>";
 	}
 	
 	public void renderAttributesPanelLeft() {
@@ -1163,7 +1177,7 @@ public enum RenderingEngine {
 		} else {
 			// Default place name box:
 			uiAttributeSB.append("<div class='full-width-container' style='background-color:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; border-radius:5px; margin-bottom:8px;'>"
-									+ getDefaultAttributeColumnHeader()
+									+ getDefaultAttributeColumnHeader(false)
 									+"</div>"
 							+ "<div class='full-width-container' style='height:calc(100% - "
 									+(Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY && Main.game.isEnchantmentCapacityEnabled()
@@ -1395,7 +1409,7 @@ public enum RenderingEngine {
 			} else {
 				// Default place name box:
 				uiAttributeSB.append("<div class='full-width-container' style='background-color:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; border-radius:5px; margin-bottom:8px;'>"
-										+ getDefaultAttributeColumnHeader()
+										+ getDefaultAttributeColumnHeader(true)
 									+"</div>"
 									+ "<div class='full-width-container' style='height: calc(100% - 138vw); overflow-y: auto;'>");
 				
@@ -1445,7 +1459,7 @@ public enum RenderingEngine {
 			// Default place name box:
 			uiAttributeSB.append(
 					"<div class='full-width-container' style='background-color:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; border-radius:5px; margin-bottom:8px;'>"
-						+ getDefaultAttributeColumnHeader()
+						+ getDefaultAttributeColumnHeader(true)
 					+ "</div>");
 			
 			// Characters Present:

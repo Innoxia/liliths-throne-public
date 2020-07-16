@@ -67,30 +67,30 @@ public class Antenna implements BodyPartInterface {
 			}
 		}
 		
-		UtilText.transformationContentSB.setLength(0);
+		StringBuilder sb = new StringBuilder();
 		
 		if(this.type.equals(AntennaType.NONE)) {
-			UtilText.transformationContentSB.append(UtilText.parse(owner, 
+			sb.append(UtilText.parse(owner, 
 					"<p>"
 						+ "[npc.Name] [npc.verb(let)] out a surprised gasp and [npc.verb(rub)] at [npc.her] forehead as [npc.she] [npc.verb(feel)] it growing hot and sensitive."
 						+ " After just a moment, [npc.her] [npc.eyes] widen in shock as something starts pushing out from under the [npc.faceSkin] of [npc.her] forehead."));
 		} else {
-			UtilText.transformationContentSB.append(UtilText.parse(owner, 
+			sb.append(UtilText.parse(owner, 
 					"<p>"
 						+ "[npc.Name] [npc.verb(let)] out a surprised gasp as [npc.she] [npc.verb(feel)] an odd tingling sensation at the base of [npc.her] [npc.antennae]."
 						+ " Before [npc.she] [npc.has] any time in which to react, they rapidly crumble away, and within moments they've completely disappeared. "));
 		}
 		
 		if(type!=AntennaType.NONE) {
-			UtilText.transformationContentSB.append(UtilText.parse(owner, 
+			sb.append(UtilText.parse(owner, 
 					" Hard nubs suddenly push out from the sides of [npc.her] head, and [npc.she] [npc.verb(gasp)] as [npc.she] [npc.verb(feel)] them quickly grow out into "));
 		}
 		
 		this.type = type;
 		
-		UtilText.transformationContentSB.append(type.getTransformationDescription(owner));
+		sb.append(type.getTransformationDescription(owner));
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 					+ owner.postTransformationCalculation()
 				+ "</p>";

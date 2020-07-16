@@ -1953,7 +1953,14 @@ public class OptionsDialogue {
 								"Enchantment Capacity",
 								"Toggle the 'enchantment capacity' mechanic, which restricts how many enchanted items you can wear. This is on by default, and you will potentially break the balance of the game's combat by turning it off.",
 								Main.getProperties().hasValue(PropertyValue.enchantmentLimits)));
-
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
+								"BAD_END",
+								PresetColour.GENERIC_TERRIBLE,
+								"Bad Ends",
+								"Toggle the ability to trigger 'bad ends', which effectively end the game for your character when encountered.",
+								Main.getProperties().hasValue(PropertyValue.badEndContent)));
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv(ContentOptionsPage.GAMEPLAY,
 								"LEVEL_DRAIN",
 								PresetColour.GENERIC_TERRIBLE,

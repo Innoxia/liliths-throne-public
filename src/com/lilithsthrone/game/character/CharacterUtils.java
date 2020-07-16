@@ -47,7 +47,7 @@ import com.lilithsthrone.game.character.body.Hair;
 import com.lilithsthrone.game.character.body.Horn;
 import com.lilithsthrone.game.character.body.Leg;
 import com.lilithsthrone.game.character.body.Penis;
-import com.lilithsthrone.game.character.body.Skin;
+import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Vagina;
@@ -67,7 +67,7 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -1098,7 +1098,7 @@ public class CharacterUtils {
 		// If non-human, set modifiers to be the same as the default race modifiers:
 		if(halfSubspecies!=Subspecies.HUMAN) {
 			body.getPenis().clearPenisModifiers();
-			for(PenetrationModifier mod : RacialBody.valueOfRace(halfSubspecies.getRace()).getPenisType().getDefaultPenisModifiers()) {
+			for(PenetrationModifier mod : RacialBody.valueOfRace(halfSubspecies.getRace()).getPenisType().getDefaultRacialPenetrationModifiers()) {
 				body.getPenis().addPenisModifier(linkedCharacter, mod);
 			}
 		}
@@ -1279,7 +1279,7 @@ public class CharacterUtils {
 								: startingBodyType.getMaleHairLength())),
 						HairStyle.getRandomHairStyle(startingGender.isFeminine(), (startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))),
 				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN, startingBodyType.getLegConfiguration()),
-				new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN),
+				new Torso(stage.isSkinFurry()?startingBodyType.getSkinType():TorsoType.HUMAN),
 						startingBodyType.getBodyMaterial(),
 						startingBodyType.getGenitalArrangement(),
 						(startingGender.isFeminine() ? startingBodyType.getFemaleHeight() : startingBodyType.getMaleHeight()),
@@ -1440,7 +1440,7 @@ public class CharacterUtils {
 		
 		body.setLeg(new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN, startingBodyType.getLegConfiguration()));
 		
-		body.setSkin(new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN));
+		body.setTorso(new Torso(stage.isSkinFurry()?startingBodyType.getSkinType():TorsoType.HUMAN));
 		
 		body.setBodyMaterial(startingBodyType.getBodyMaterial());
 
@@ -1560,7 +1560,7 @@ public class CharacterUtils {
 				character.setFaceType(FaceType.HUMAN);
 				character.setHairType(HairType.HUMAN);
 				character.setHornType(HornType.NONE);
-				character.setSkinType(SkinType.HUMAN);
+				character.setTorsoType(TorsoType.HUMAN);
 				// Reset hair length:
 				character.setHairLength((character.isFeminine()
 						? RacialBody.valueOfRace(character.getRace()).getFemaleHairLength()
@@ -1576,7 +1576,7 @@ public class CharacterUtils {
 				character.setFaceType(FaceType.HUMAN);
 				character.setHairType(Util.randomItemFrom(HairType.getHairTypes(character.getLegRace())));
 				character.setHornType(Util.randomItemFrom(HornType.getHornTypes(character.getLegRace())));
-				character.setSkinType(SkinType.HUMAN);
+				character.setTorsoType(TorsoType.HUMAN);
 				// Reset hair length:
 				character.setHairLength((character.isFeminine()
 						? RacialBody.valueOfRace(character.getRace()).getFemaleHairLength()
@@ -1591,7 +1591,7 @@ public class CharacterUtils {
 				character.setFaceType(FaceType.HUMAN);
 				character.setHairType(Util.randomItemFrom(HairType.getHairTypes(character.getLegRace())));
 				character.setHornType(Util.randomItemFrom(HornType.getHornTypes(character.getLegRace())));
-				character.setSkinType(SkinType.HUMAN);
+				character.setTorsoType(TorsoType.HUMAN);
 				// Reset hair length:
 				character.setHairLength((character.isFeminine()
 						? RacialBody.valueOfRace(character.getRace()).getFemaleHairLength()
@@ -1610,7 +1610,7 @@ public class CharacterUtils {
 				character.setFaceType(faceType);
 				character.setHairType(Util.randomItemFrom(HairType.getHairTypes(character.getLegRace())));
 				character.setHornType(Util.randomItemFrom(HornType.getHornTypes(character.getLegRace())));
-				character.setSkinType(Util.randomItemFrom(SkinType.getSkinTypes(character.getLegRace())));
+				character.setTorsoType(Util.randomItemFrom(TorsoType.getTorsoTypes(character.getLegRace())));
 				// Reset hair length:
 				if((scalyHairCheck && !Main.game.isScalyHairEnabled()) || (furryHairCheck && !Main.game.isFurryHairEnabled())) {
 					character.setHairLength(0);

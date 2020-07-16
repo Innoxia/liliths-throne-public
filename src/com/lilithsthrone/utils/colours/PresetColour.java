@@ -174,6 +174,8 @@ public class PresetColour {
 	public static Colour RACE_RABBIT_MORPH = new Colour(false, BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues("rabbitMorph", "rabbit")) {};
 	public static Colour RACE_BAT_MORPH = new Colour(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("batMorph", "bat")) {};
 	public static Colour RACE_ALLIGATOR_MORPH = new Colour(false, BaseColour.GREEN_DARK, "dark green", Util.newArrayListOfValues("alligatorMorph", "alligator", "gatorMorph", "gator")) {};
+
+	public static Colour GENERIC_BAD_END = new Colour(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("badEnd")) {};
 	
 	public static Colour QUEST_MAIN = new Colour(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("questMain", "mainQuest")) {};
 	public static Colour QUEST_SIDE = new Colour(false, BaseColour.BLUE, "blue", Util.newArrayListOfValues("questSide", "sideQuest")) {};

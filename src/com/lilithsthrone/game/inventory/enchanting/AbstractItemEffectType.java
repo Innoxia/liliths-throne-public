@@ -4085,7 +4085,7 @@ public abstract class AbstractItemEffectType {
 				}
 				
 			case TF_SKIN:
-				return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" skin transformation.") { @Override public String applyEffect() { return target.setSkinType(RacialBody.valueOfRace(race).getSkinType()); } };
+				return new RacialEffectUtil(Util.capitaliseSentence(race.getName(false))+" skin transformation.") { @Override public String applyEffect() { return target.setTorsoType(RacialBody.valueOfRace(race).getSkinType()); } };
 				
 			case TF_TAIL:
 				switch(secondaryModifier) {

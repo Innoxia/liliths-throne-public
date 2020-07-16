@@ -530,7 +530,7 @@ public class Helena extends NPC {
 			}
 
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_WHITE, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, PresetColour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_WHITE, false), true, this);
 		}
 	}
 	

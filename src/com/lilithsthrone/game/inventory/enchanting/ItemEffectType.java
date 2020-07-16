@@ -22,7 +22,7 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -2068,7 +2068,7 @@ public class ItemEffectType {
 			if(target.getHairType()!=HairType.HARPY) {
 				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BLEACH_BLONDE, false, PresetColour.COVERING_BLEACH_BLONDE, false), true));
 			}
-			if(target.getSkinType()!=SkinType.HARPY) {
+			if(target.getTorsoType()!=TorsoType.HARPY) {
 				sb.append("<br/>" + target.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BLEACH_BLONDE, false, PresetColour.COVERING_BLEACH_BLONDE, false), true));
 			}
 			
@@ -2081,8 +2081,8 @@ public class ItemEffectType {
 				sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
 			if(target.getHairType()!=HairType.HARPY)
 				sb.append("<br/>" + target.setHairType(HairType.HARPY));
-			if(target.getSkinType()!=SkinType.HUMAN)
-				sb.append("<br/>" + target.setSkinType(SkinType.HUMAN));
+			if(target.getTorsoType()!=TorsoType.HUMAN)
+				sb.append("<br/>" + target.setTorsoType(TorsoType.HUMAN));
 
 			if(target.getWingType()!=WingType.NONE)
 				sb.append("<br/>" + target.setWingType(WingType.NONE));
@@ -2102,7 +2102,7 @@ public class ItemEffectType {
 				sb.append("<br/>" + target.setAssType(AssType.HARPY));
 
 			if(target.hasPenisIgnoreDildo()) {
-				sb.append("<br/>" + target.setPenisType(PenisType.AVIAN));
+				sb.append("<br/>" + target.setPenisType(PenisType.HARPY));
 
 				if(target.getPenisRawCumStorageValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue()) {
 					sb.append("<br/>" + target.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
@@ -2165,7 +2165,7 @@ public class ItemEffectType {
 			if(target.getHairType()!=HairType.HARPY) {
 				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_PINK, false, PresetColour.COVERING_PINK, false), true));
 			}
-			if(target.getSkinType()!=SkinType.HARPY) {
+			if(target.getTorsoType()!=TorsoType.HARPY) {
 				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_PINK, false, PresetColour.COVERING_PINK, false), true));
 			}
 			
@@ -2178,8 +2178,8 @@ public class ItemEffectType {
 				sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
 			if(target.getHairType()!=HairType.HARPY)
 				sb.append("<br/>" + target.setHairType(HairType.HARPY));
-			if(target.getSkinType()!=SkinType.HUMAN)
-				sb.append("<br/>" + target.setSkinType(SkinType.HUMAN));
+			if(target.getTorsoType()!=TorsoType.HUMAN)
+				sb.append("<br/>" + target.setTorsoType(TorsoType.HUMAN));
 
 			if(target.getWingType()!=WingType.NONE)
 				sb.append("<br/>" + target.setWingType(WingType.NONE));
@@ -2202,7 +2202,7 @@ public class ItemEffectType {
 				
 
 			if(target.hasPenisIgnoreDildo()) {
-				sb.append("<br/>" + target.setPenisType(PenisType.AVIAN));
+				sb.append("<br/>" + target.setPenisType(PenisType.HARPY));
 
 				if(target.getPenisRawCumStorageValue()<CumProduction.THREE_AVERAGE.getMedianValue()) {
 					sb.append("<br/>" + target.setPenisCumStorage(CumProduction.THREE_AVERAGE.getMedianValue()));
@@ -2265,7 +2265,7 @@ public class ItemEffectType {
 			if(target.getHairType()!=HairType.HARPY) {
 				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_BLACK, false), true));
 			}
-			if(target.getSkinType()!=SkinType.HARPY) {
+			if(target.getTorsoType()!=TorsoType.HARPY) {
 				sb.append("<br/>" + target.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_RED, false, PresetColour.COVERING_RED, false), true));
 			}
 			
@@ -2278,8 +2278,8 @@ public class ItemEffectType {
 				sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
 			if(target.getHairType()!=HairType.HARPY)
 				sb.append("<br/>" + target.setHairType(HairType.HARPY));
-			if(target.getSkinType()!=SkinType.HUMAN)
-				sb.append("<br/>" + target.setSkinType(SkinType.HUMAN));
+			if(target.getTorsoType()!=TorsoType.HUMAN)
+				sb.append("<br/>" + target.setTorsoType(TorsoType.HUMAN));
 
 			if(target.getWingType()!=WingType.NONE)
 				sb.append("<br/>" + target.setWingType(WingType.NONE));
@@ -2300,7 +2300,7 @@ public class ItemEffectType {
 				
 
 			if(target.hasPenisIgnoreDildo()) {
-				sb.append("<br/>" + target.setPenisType(PenisType.AVIAN));
+				sb.append("<br/>" + target.setPenisType(PenisType.HARPY));
 
 				if(target.getPenisRawCumStorageValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue()) {
 					sb.append("<br/>" + target.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));

@@ -37,7 +37,10 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -51,7 +54,7 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -1592,9 +1595,9 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformBodyChoiceDiv(List<Race> availableRaces) {
 		contentSB.setLength(0);
 		
-		for(SkinType skin : SkinType.values()) {
+		for(AbstractTorsoType skin : TorsoType.getAllTorsoTypes()) {
 			if(availableRaces.contains(skin.getRace())) {
-				if(BodyChanging.getTarget().getSkinType() == skin) {
+				if(BodyChanging.getTarget().getTorsoType() == skin) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
 								+ "<span style='color:"+skin.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(skin.getTransformName())+"</span>"
@@ -1602,7 +1605,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_SKIN_"+skin+"' class='cosmetics-button'>"
+							"<div id='CHANGE_SKIN_"+TorsoType.getIdFromTorsoType(skin)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+skin.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(skin.getTransformName())+"</span>"
 							+ "</div>");
 				}
@@ -3143,7 +3146,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformVaginaChoiceDiv(List<Race> availableRaces) {
 		contentSB.setLength(0);
 		
-		for(VaginaType vagina : VaginaType.values()) {
+		for(AbstractVaginaType vagina : VaginaType.getAllVaginaTypes()) {
 			if((vagina.getRace() !=null && availableRaces.contains(vagina.getRace()))
 					|| vagina==VaginaType.NONE) {
 				
@@ -3163,7 +3166,7 @@ public class CharacterModificationUtils {
 				} else {
 					boolean cannotChoose = vagina==VaginaType.NONE && BodyChanging.getTarget().isPregnant();
 					contentSB.append(
-							"<div "+(cannotChoose?"":"id='CHANGE_VAGINA_"+vagina+"'")+" class='cosmetics-button"+(cannotChoose?" disabled":"")+"'>"
+							"<div "+(cannotChoose?"":"id='CHANGE_VAGINA_"+VaginaType.getIdFromVaginaType(vagina)+"'")+" class='cosmetics-button"+(cannotChoose?" disabled":"")+"'>"
 								+ "<span style='color:"+(cannotChoose?PresetColour.TEXT_GREY.toWebHexString():c.getShades()[0])+";'>"
 									+Util.capitaliseSentence(vagina.getTransformName())
 								+"</span>"
@@ -3673,7 +3676,7 @@ public class CharacterModificationUtils {
 	public static String getSelfTransformPenisChoiceDiv(List<Race> availableRaces, boolean halfWidth) {
 		contentSB.setLength(0);
 		
-		for(PenisType penis : PenisType.values()) {
+		for(AbstractPenisType penis : PenisType.getAllPenisTypes()) {
 			if(((penis.getRace() !=null && availableRaces.contains(penis.getRace()))
 					|| penis==PenisType.NONE)
 					&& penis!=PenisType.DILDO) {
@@ -3692,7 +3695,7 @@ public class CharacterModificationUtils {
 					
 				} else {
 					contentSB.append(
-							"<div id='CHANGE_PENIS_"+penis+"' class='cosmetics-button'>"
+							"<div id='CHANGE_PENIS_"+PenisType.getIdFromPenisType(penis)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+c.getShades()[0]+";'>"+Util.capitaliseSentence(penis.getTransformName())+"</span>"
 							+ "</div>");
 				}

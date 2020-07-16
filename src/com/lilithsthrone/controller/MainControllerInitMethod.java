@@ -41,7 +41,10 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -55,7 +58,7 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -3203,11 +3206,11 @@ public class MainControllerInitMethod {
 					}
 				}
 				
-				for(SkinType skinType: SkinType.values()) {
-					id = "CHANGE_SKIN_"+skinType;
+				for(AbstractTorsoType skinType: TorsoType.getAllTorsoTypes()) {
+					id = "CHANGE_SKIN_"+TorsoType.getIdFromTorsoType(skinType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-							BodyChanging.getTarget().setSkinType(skinType);
+							BodyChanging.getTarget().setTorsoType(skinType);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -4024,8 +4027,8 @@ public class MainControllerInitMethod {
 				
 				// Vagina:
 				
-				for(VaginaType vaginaType: VaginaType.values()) {
-					id = "CHANGE_VAGINA_"+vaginaType;
+				for(AbstractVaginaType vaginaType: VaginaType.getAllVaginaTypes()) {
+					id = "CHANGE_VAGINA_"+VaginaType.getIdFromVaginaType(vaginaType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setVaginaType(vaginaType);
@@ -4120,8 +4123,8 @@ public class MainControllerInitMethod {
 				
 				// Penis:
 				
-				for(PenisType penisType: PenisType.values()) {
-					id = "CHANGE_PENIS_"+penisType;
+				for(AbstractPenisType penisType: PenisType.getAllPenisTypes()) {
+					id = "CHANGE_PENIS_"+PenisType.getIdFromPenisType(penisType);
 					if (((EventTarget) MainController.document.getElementById(id)) != null) {
 						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setPenisType(penisType);
@@ -6169,6 +6172,7 @@ public class MainControllerInitMethod {
 					new Value<>("FUTA_BALLS", PropertyValue.futanariTesticles),
 					new Value<>("CLOACA", PropertyValue.bipedalCloaca),
 					new Value<>("COMPANION", PropertyValue.companionContent),
+					new Value<>("BAD_END", PropertyValue.badEndContent),
 					new Value<>("AGE", PropertyValue.ageContent),
 					new Value<>("LIPSTICK_MARKING", PropertyValue.lipstickMarkingContent),
 					new Value<>("HAIR_PUBIC", PropertyValue.pubicHairContent),

@@ -4220,7 +4220,7 @@ public class PlaceType {
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isCaptive()) {
-				dialogue = RatWarrensCaptiveDialogue.STOCKS_NIGHT;
+				dialogue = RatWarrensCaptiveDialogue.CAPTIVE_NIGHT;
 			} else {
 				dialogue = RatWarrensDialogue.MILKING_ROOM;
 			}

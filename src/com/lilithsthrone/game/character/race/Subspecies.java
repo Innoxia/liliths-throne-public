@@ -876,7 +876,7 @@ public enum Subspecies {
 			body.getCoverings().put(BodyCoveringType.HAIR_CANINE_FUR, new Covering(BodyCoveringType.HAIR_CANINE_FUR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, secondaryColour, false));
 			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false));
 			body.updateCoverings(true, true, true, true);
-			if(body.getPenis().getType()==PenisType.CANINE) {
+			if(body.getPenis().getType()==PenisType.DOG_MORPH) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
 			}
 			if(body.getEar().getType()==EarType.DOG_MORPH) {
@@ -1190,7 +1190,7 @@ public enum Subspecies {
 			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false));
 			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_OLIVE, false, PresetColour.SKIN_OLIVE, false));
 			body.updateCoverings(true, true, true, true);
-			if(body.getPenis().getType()==PenisType.CANINE) {
+			if(body.getPenis().getType()==PenisType.FOX_MORPH) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
 			}
 			if(body.getEar().getType()==EarType.FOX_MORPH) {
@@ -1412,7 +1412,7 @@ public enum Subspecies {
 			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false));
 			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_OLIVE, false, PresetColour.SKIN_OLIVE, false));
 			body.updateCoverings(true, true, true, true);
-			if(body.getPenis().getType()==PenisType.CANINE) {
+			if(body.getPenis().getType()==PenisType.FOX_MORPH) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
 			}
 			if(body.getEar().getType()==EarType.FOX_MORPH) {

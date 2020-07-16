@@ -19,6 +19,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Contributors:
+		Updated the lacy plunge bra icon. (by DSG)
+		Fixed typos in plate carrier, heavy plate carrier, and combat helmet descriptions. (by DSG)
+	
 	Engine/Modding:
 		Slightly decreased size of save files.
 		Added accessor for RacialBody in parsing, using the 'RACIAL_BODY_' prefix. Also added 'getRacialBody()' method to Race class for access to RacialBodies.
@@ -27,9 +31,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added accessor for AbstractFluidTypes, using the 'FLUID_TYPE_' prefix. Added a version of the GameCharacter.ingestFluid() method which takes an AbstractFluidType instead of a FluidInterface (so it can be called via parsing). 
 		Added a version of GameCharacter.calculateGenericSexEffects() which can be called from the parser. Added accessors for SexParticipantType ('SEX_PT_') and GenericSexFlag ('SEX_FLAG_') for use in this method.
 		The 'SPECIAL_PARSE' command should now work correctly as logic in conditional statements (it gets parsed before the conditional is checked).
+		Converted last of the body type enums to abstract classes and added accessors for use in the parser for all of them.
 	
 	Gameplay:
 		Added options to have sex with slaves who help you to wash when taking a shower or bath in your room. The Slime Queen's bath sex scene and Pix's shower sex scene also now use the ongoing-cleaning and water lubrication mechanics of having sex in a bath/shower.
+		Axel's quest (involving the Rat Warrens) is under construction again, and as such, I've disabled the ability to start his quest in this version. If you've already started it, then please wait until the next release before continuing with it!
 	
 	Balance:
 		Characters are now only vulnerable to arcane storms and combat loss at maximum lust while they have the 'arcane impotence' status effect. (i.e. Only if their arcane stat is less than 10.)
@@ -65,6 +71,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Sex scenes no longer start with a spam of 'X area was already lubricated by Y' messages.
 		Added more staircases to Lilaya's house.
 		The 'begin slave interaction' actions in Lilaya's house are now coloured according to the slave's femininity.
+		Added setting to enable bad ends in gameplay content option (on by default). (There are no bad ends in the game just yet, but I may start adding some alongside new content in the future.)
 	
 	Bugs:
 		Parsing fixes.
@@ -94,9 +101,179 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where not all of the intended enslavement effects were applied when getting Enforcers to enslave a criminal for you. (i.e. They now correctly have their true name revealed and their starting obedience is set to -100.)
 		Removing and regrowing a character's vagina now correctly regrows their hymen.
 		The Slime Queen's bath and Pix's shower scene now correctly clean your body & clothes.
+		Fixed issue with incrementing health and mana not working when called from within status effects.
 	
+	
+	
+	
+	--- RAT WARRENS ---
+	
+	
+	Rat Warrens:
+		Companions now manage to escape after losing to any fight which leads into Murk or Vengar captivity.
+		Reduced size of hostile rat gangs from 6 to 4.
+		Fixed issue where if non-content content was disabled, the Rat Warrens would enter into a bugged state if you lost combat and were thrown out.
+	
+	
+	[x] Add lunch as obedience event (one meal per day, Murk says how it's packed full of good stuff so you don't need more than one)
+	[x] When obedience is high, can't resist Murk's demands
+	[x] Need better reveal of Murk's cock after his first fuck
+	[x] Fix Murk's request denying behaviour
+	[x] no pregnancy for milker 4 when captive
+	[] Add warning to start of Murk's content that continuing to obey him will turn you into an obedient milker
+		[] Add warning to obedience increases that 100/100 will be a bad end
+	[] Need virginity reaction when he first fingers the player
+	[] Need lust/arousal increases when transformed
+	[] make sure that full refusal on every option prevents obedience lock-out
+	[x] Full day 1 (fetish TF)
+		[] Generic night: (say how milkers aren't interested in each other and sleep quickly)
+			[] allow movement
+			[] check disable loiter
+			[] check disable spells
+			[] Escape sex needs to be oral unless transformations finished
+	[x] Full day 2 (body TFs)
+	[] Full day 3 (fluid TF and milked/fucked)
+	[] Full day 4+ repeats
+	
+	
+	[] Need better description of the milking stalls
+	[] Remove description/behaviour of Murk fucking milker after you pay to fuck them
+	[] Virginity reaction: he says how your virginity isn't anything special, and that you're just another sleeve for his cock
+		
+	// Day 3:
+	// Fluids TF potion (removes ring-gag once finished)
+	// Murk attaches you to milking machine
+	// Fucks you
+	// Lunch (dessert option)
+	// Fucks you again (ass or pussy again) while milkers get rented out, stretching your holes
+	// Says tomorrow you'll be rented as well
+	End of day check for full capitulation
+	
+	[] Add 'clothing' for milking gear?
+		[] Suction cups
+		[] Cock milker
+		[] Vibrating dildo pump
+	
+	// Day repeats: (CaptiveInteractionType might not be needed...)
+	// milking morning (obey or disobey)
+	// Murk fucks one (beg or not)
+	// Lunch (dessert option)
+	// renting & murk fuck (resist or not)
+	End of day check for full capitulation
+	// sleep
+	
+	
+	
+	[] Do not make player be milked if isLactationContentEnabled()==false
+		[x] Transformations
+		[] Dialogue
+	[x] Milkers should spawn in with deep orifices
+	[x] Make Silence resolve pregnancy before first day sleep
+	[x] Make fetish transformations evening of first day
+	[x] Body transformations day 2 (morning & evening)
+	[x] Fluids day 3 before fuck
+	
+	I must be missing something because I still can't free the milk slaves @Innoxia They're still calling for Murk even though he's gone and I've beaten up all the rats except Vinegar. 
+	How can I liberate the humans if they won't let me?
+	Can't even tell them I have milkers at home and they can be mine
+	You're supposed to be able to free the milk slaves, or at least there's the option to.
+	 But whenever I try they start screaming for Murk to come save them and it says I need to clear out the warrens.
+	  But the only thing left to do is fight vinegar which seals the warrens and won't let me free them. So either I'm missing something or it's bugged still
+	
+		When captive, Milkers updates needed:
+		Getting used by randoms
+		Getting used by Murk
+		Having pregnancy resolved
+		
+		[] Need virginity loss special text
+		[] Add text variations to events for if TFs are not finished yet
+		[] add Murk tease cumming in gaping hole if player refuses to beg
+			[] tease and inspection should be different
+		[] remove pregnancy status effect update when delivered (as otherwise it triggers at night even though pregnancy has ended)
+		[] Murk teasing dialogue is not working correctly
+		[] Fetish application needs better dialogue
+	
+	
+	Vengar sex slave
+		[x] Make defeat result in companions escaping
+			[x] Shadow TF potions
+			[x] new unique character descriptions
+			[x] Disable fast travel while captive
+			For both captive scenes:
+				[x] Pregnancy handling (companion blocked)
+				[x] Companion cannot leave for work when captive
+				[x] Companion does not follow when captive
+			[x] Make spawned rats have correct fetish preferences
+		[] Adding an option to not get transformed (not drink the potion) when you lose and stay a human slave with no morphs/submissive kinks
+	
+	Rat Warrens content
+			[] Add interaction with rats in dorms
+			[] Vengar full fem option
+			[] Need non-violent post-quest Vengar rum discussion. Also need Warrens to be converted
+			[] Need non-violent post-quest Murk removal option
+			[] Make Vengar hall repeat scenes based on persuasion, threatened, or seduced
+		[] Check through other bugs.
+		[x] Inverted nipple chance
+		[] Writing -make sure parsing targets are passed in correctly.
+		[] Roxy's shop enter variations for Vengar slave.
+		End-state for Axel
+			[x] Axel sissy TF
+			[x] Lexa fuck
+		[] Murk at gambling den
+			Epona hates him after finding out what he had been doing. Tells you that she's got a helping hand in rehabilitating slave girls.
+			You can suggest that he be given a taste of his own medicine. Epona transforms & trains him into female (Minx), taking a week, and then offers her as a prize for new game.
+		[] Vengar at gambling den
+			Roxy is abusive (tells you that she broke up with him after she caught him fucking Shadow/Silence)
+			Has Vengar addicted to her pussy.
+			You can buy an hour with Vengar.
+		[] Shadow & Silence in Slaver Alley
+			[] Add hint at quest
+		[x] Regen NPCs on load
+		
+		[x] Skip sex
+			[x] Apply non-skippable to Lyssieth, Ralph, cultist sealed, masturbation, rose hands
+			[] Restrict for some others? (Jhortrax need it?)
+			[] Need to also pass in sex manager so can calculate which actions are available? Take into account which positions are available as well.
+				[] SexManager needs to also be used to get preferences
+	
+	When you activate the resonance stone, there's no mention of Shadow activating hers, but she acts as though she did later on
+	
+	If you use the stone to call SWORD are they supposed to give the same response and get lectured by Claire as if you just storm the place
+	
+	Tried the non violent, not walk in and kick everyone's ass way. Seduced the rat boi, dominated him, can't end sex because the button's gone, have to click the quick option
+	
+	Need full dialogue change for Rat Warrens post-quest completion (become a Rum Distillery)
+	
+	[] After sex threesome, quick-sexing when Vengar is fucking companion makes him fuck you.
+		Define target preferences for SexManagers via a getPreferredSexTarget() method and make sure quick sex uses them.
+		Also make quick sex subs get each other off if consensual
+		
+	The whole Vendar's path seems broken time-wise, as sleeping doesn't progress time more than a few minutes.
+	Sleeping as Vengar's slave only makes 5 minutes pass and it resets when you're sent back to the hall.
+	
+	Very rarely it seems like Silence spams the protective gusts spell on herself...
+	
+	Vengar captive
+	
+	
+	Rat warrens
+		Roxy full sex
+	
+	
+	-------------
+	
+	Enforcer sex starts in wrong stance if they are taurs
+	
+	Starting receive oral says it will stop some ongoing actions, even though none are ongoing...
+		Immediately after switching position
+	
+	Bramble losing lust every turn...
+	
+	Slaves being milked should have their breasts exposed
 	
 	[] Elemental rework
+		[] Keep them as they are now, but just display their stat box differently
+		[] Give them unique options in characters present screen
 		[] Combat, sex, and interaction is when they assume physical form
 		[] Lore is that they can only use powers for a limited time, so they expend their energy in combat and need time to recharge
 		[] Two forms
@@ -116,6 +293,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Sex
 			[] Transform
 			
+	Add nice way to lose virginity for Helena (and other pure virgins?)
 			
 	Spa dialogue
 		[] Adding spa
@@ -153,154 +331,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	think of some way to still have Brax+Sean encounter
 	
+	-----------------
 	
-	--- WEEKEND ---
-	
-	Rat warrens
-		Roxy full sex
-	
-	[x] If involuntary NTR is off, give optional (non-elemental) companion escape option at the end of combat losses (warning the player that they will be used)
-	[-][x][x] Add Shadow/Silence end scenes
-		[] Captive route
-		[] Captive route solo
-			[x] foursome on you + companion stocks targeting is broken (They all target you)
-			[x] remove lust gain text when punished
-			[x] add flag for each TF stage, so that they aren't repeated
-			[x] no sex until TFs are done; Murk fucks you first.
-			[x] No end combat escape dialogue.
-			[x] Murk needs a weapon
-			[x] do not remove collar on escape attempts, only afterwards
-			[x] add special (long) scene for first fuck - he stretches you out and makes you call him master
-			[x] Murk sucks own tail...
-			[x] Non-stocks sex NONE sex control restriction is too much
-			[x] Labia size TF needs to be inserted mid dialogue (use special parsing)
-			[x] Cannot save at night
-			[x] Murk sex is public for some reason
-			[x] Pussy needs to be tightened after giving birth in Murk
-			[x] Issues in sex control for second initial sex
-			[x] Disable quick sex for stretching scene
-			[x] Bugs in stretching out
-				[x] Murk only stretches you out to slightly loose (20.2?)
-				[x] Need to factor in elasticity for size too big.
-				[x] Need girth to factor in
-				[x] Update elasticity hint text
-				[x] Use capacity colours for descriptions
-				[x] Murk to keep fucking until stretched out
-				[x] Stretching out happens too quickly
-			[x] Add special dirty talk
-			[] Add musk to cum. Include in dialogue
-			[] Need virginity loss special text
-			[x] TF maps are not preserving order
-			[x] Need a new dialogue for companion's TF effects, as otherwise it's confusing
-			[x] TF speech is using self-TF dialogue incorrectly
-			[x] Make time advance more if TFs are not finished yet
-			[] Add text variations to events for if TFs are not finished yet
-			[] add Murk tease cumming in gaping hole if player refuses to beg
-				[] tease and inspection should be different
-			[x] check TODOs
-			[] remove pregnancy status effect update when delivered (as otherwise it triggers at night even though pregnancy has ended)
-			[x] add gape content checks for TF content
-			[x] escape sex content should be oral if Murk isn't ready to fuck you yet
-				[x] need to add flag for sex, as player could have had oral with Murk from this
-			[x] Remove Silence tattoos
-			[x] Murk getting stuck in tile
-			[x] Murk milks you even if you aren't lactating yet
-			[] Murk teasing dialogue is not working correctly
-			[x] Break out fight needs to be without companion
-			[] Fetish application needs better dialogue
-			[x] sex ends up using your companion as the dom...
-			[x] day ends too late. Should end at 10
-			[x] Sleep sometimes fires late, and maybe can be missed?
-			[x] Flow needs general improvement
-			[x] 'Step back' dialogue leads into incorrect scene
-			[x] retain essences on enslavement/escape
-	[] Add content
-		[] Add interaction with rats in dorms
-		[] Vengar full fem option
-		[] Need non-violent post-quest Vengar rum discussion. Also need Warrens to be converted
-		[] Need non-violent post-quest Murk removal option
-		[] Make Vengar hall repeat scenes based on persuasion, threatened, or seduced
-	[] Check through other bugs.
-	[] Tail chonk TF (use PenisGirth)
-		[] stretch effects
-	[x] Inverted nipple chance
-	[] Writing -make sure parsing targets are passed in correctly.
-	[] Roxy's shop enter variations for Vengar slave.
-	
-	
-	[x] Test leg clothing
-		Fix all physicalResistance>0.X
-	
-	Vengar sex slave
-		[x] Shadow TF potions
-		[x] new unique character descriptions
-		[x] Disable fast travel while captive
-		For both captive scenes:
-			[x] Pregnancy handling (companion blocked)
-			[x] Companion cannot leave for work when captive
-			[x] Companion does not follow when captive
-		[x] Make spawned rats have correct fetish preferences
-	End-state for Axel
-		[x] Axel sissy TF
-		[x] Lexa fuck
-	[] Murk at gambling den
-		Epona hates him after finding out what he had been doing. Tells you that she's got a helping hand in rehabilitating slave girls.
-		You can suggest that he be given a taste of his own medicine. Epona transforms & trains him into female (Minx), taking a week, and then offers her as a prize for new game.
-	[] Vengar at gambling den
-		Roxy is abusive (tells you that she broke up with him after she caught him fucking Shadow/Silence)
-		Has Vengar addicted to her pussy.
-		You can buy an hour with Vengar.
-	[] Shadow & Silence in Slaver Alley
-		[] Add hint at quest
-	[x] Regen NPCs on load
-	
-	[x] Skip sex
-		[x] Apply non-skippable to Lyssieth, Ralph, cultist sealed, masturbation, rose hands
-		[] Restrict for some others? (Jhortrax need it?)
-		[] Need to also pass in sex manager so can calculate which actions are available? Take into account which positions are available as well.
-			[] SexManager needs to also be used to get preferences
-	
-	[] Adding an option to not get transformed (not drink the potion) when you lose and stay a human slave with no morphs/submissive kinks
-	
-	
-	When you activate the resonance stone, there's no mention of Shadow activating hers, but she acts as though she did later on
-	
-	Is it a bug that when you use the resonance stone that when Claire comes and gets you out of SWORD hands she claims you didn't use
-	
-	If you use the stone to call SWORD are they supposed to give the same response and get lectured by Claire as if you just storm the place
-	
-	Tried the non violent, not walk in and kick everyone's ass way. Seduced the rat boi, dominated him, can't end sex because the button's gone, have to click the quick option
-	
-	 I must be missing something because I still can't free the milk slaves @Innoxia They're still calling for Murk even though he's gone and I've beaten up all the rats except Vinegar. How can I liberate the humans if they won't let me? Can't even tell them I have milkers at home and they can be mine
-	You're supposed to be able to free the milk slaves, or at least there's the option to. But whenever I try they start screaming for Murk to come save them and it says I need to clear out the warrens. But the only thing left to do is fight vinegar which seals the warrens and won't let me free them. So either I'm missing something or it's bugged still
-	
-	Add Murk's and Vengar's post-quest completion placeholders
-	
-	Need full dialogue change for Rat Warrens post-quest completion (become a Rum Distillery)
-	
-	 masc tfs don't seem to proc when captured by murk, you get the fetishes but no tfs after that
-	
-	
-	[] After sex threesome, quick-sexing when Vengar is fucking companion makes him fuck you.
-		Define target preferences for SexManagers via a getPreferredSexTarget() method and make sure quick sex uses them.
-		Also make quick sex subs get each other off if consensual
-		
-	The whole Vendar's path seems broken time-wise, as sleeping doesn't progress time more than a few minutes.
-	Sleeping as Vengar's slave only makes 5 minutes pass and it resets when you're sent back to the hall.
-	
-	Very rarely it seems like Silence spams the protective gusts spell on herself...
-	
-	Vengar captive
-	
-	Murk captive
-		there is no sex scene during the player "stay" in Murk's rat cave???
-	When captive, Milkers updates needed:
-		Getting used by randoms
-		Getting used by Murk
-		Having pregnancy resolved
-	
-	
-	--- MON-WED ---
+	The tooltip for the enforcer "search" say they fuck me in the ass, but that seems to be a figure of speech as they don't use the ass.
 	
 	bug_reports (make sure you go all the way back)
 	
@@ -322,6 +355,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	--- RELEASE ---
 	
 	
+	
+	"She was literally just sitting there on the sidlines rubbing her crotch and shoving her tail down her throat"
+	
+	Self-tail sucking is displaying nonsensical depth text
 	
 	Delete saved non-unique NPCs who have been removed from the game
 		What will this affect...
@@ -355,25 +392,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Sort out character creation menus & formatting
 	
+	Make support for editing exports to make cahracters siblings
+	
 	Make flat values a separate thing
 		Make them gems which can be inserted into weapons
 		
 	Throwable weapon
 		% chance to recover after thrown
 		% chance to recover after combat
-	
-	Convert:
-		[x] fluid
-		[x] BodyPartTypeInterface getTransformName() change
-		[x] hair
-		[x] nipple
-		[] penis
-			[] testicle
-		[] skin
-		[] tentacle
-		[] vagina
-		[x] wing
-	[] All from file
 	
 	Panther
 	

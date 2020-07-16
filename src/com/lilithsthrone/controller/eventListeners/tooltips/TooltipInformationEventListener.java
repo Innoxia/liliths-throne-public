@@ -877,7 +877,7 @@ public class TooltipInformationEventListener implements EventListener {
 					} else {
 						tooltipSB.append(getBodyPartDiv(owner, "Face", owner.getFaceRace(), owner.getFaceCovering(), owner.isFaceBestial()));
 					}
-					tooltipSB.append(getBodyPartDiv(owner, "Torso", owner.getSkinRace(), owner.getSkinCovering(), owner.isSkinBestial(),
+					tooltipSB.append(getBodyPartDiv(owner, "Torso", owner.getSkinRace(), owner.getTorsoCovering(), owner.isTorsoBestial(),
 							(owner.isSizeDifferenceShorterThan(Main.game.getPlayer())
 							?"<span style='color:"+PresetColour.BODY_SIZE_ONE.toWebHexString()+";'>"
 							:(owner.isSizeDifferenceTallerThan(Main.game.getPlayer())

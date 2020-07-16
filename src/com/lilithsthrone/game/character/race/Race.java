@@ -141,7 +141,7 @@ public enum Race {
 				FurryPreference.NORMAL,
 				true) {
 		public void applyRaceChanges(Body body) {
-			if(body.getPenis().getType()==PenisType.CANINE) {
+			if(body.getPenis().getType()==PenisType.DOG_MORPH) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
 			}
 		}
@@ -163,7 +163,7 @@ public enum Race {
 				FurryPreference.NORMAL,
 				true) {
 		public void applyRaceChanges(Body body) {
-			if(body.getPenis().getType()==PenisType.LUPINE) {
+			if(body.getPenis().getType()==PenisType.WOLF_MORPH) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
 			}
 		}
@@ -186,7 +186,7 @@ public enum Race {
 				FurryPreference.NORMAL,
 				true) {
 		public void applyRaceChanges(Body body) {
-			if(body.getPenis().getType()==PenisType.VULPINE) {
+			if(body.getPenis().getType()==PenisType.FOX_MORPH) {
 				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
 			}
 		}

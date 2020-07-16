@@ -1095,7 +1095,7 @@ public class Game implements XMLSaving {
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.5.1")) { //Reset ass/nipple/lip colours
 					for(NPC npc : Main.game.getAllNPCs()) {
 						if(!npc.isSlave() || (npc.getOwner()!=null && !npc.getOwner().isPlayer()))
-						npc.setSkinCovering(new Covering(npc.getSkinCovering(), npc.getCovering(npc.getSkinCovering()).getPrimaryColour()), true);
+						npc.setSkinCovering(new Covering(npc.getTorsoCovering(), npc.getCovering(npc.getTorsoCovering()).getPrimaryColour()), true);
 					}
 				}
 				
@@ -4309,6 +4309,10 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent);
 	}
 
+	public boolean isBadEndsEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.badEndContent);
+	}
+	
 	public boolean isCompanionContentEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.companionContent);
 	}
@@ -4393,6 +4397,9 @@ public class Game implements XMLSaving {
 	}
 
 	public boolean isRequestAutosave() {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.badEnd)) { // Do not autosave during a bad end (as otherwise it could overwrite an important autosave before the bad end was encountered)
+			return false;
+		}
 		if(Main.getProperties().autoSaveFrequency==2 && lastAutoSaveTime+(7*24*60*60)>Main.game.getSecondsPassed()) {
 			return false;
 		} else if(Main.getProperties().autoSaveFrequency==1 && lastAutoSaveTime+(24*60*60)>Main.game.getSecondsPassed()) {

@@ -14,7 +14,7 @@ import java.util.List;
  * @author Innoxia
  */
 public interface BodyPartTypeInterface {
-
+	
 	public boolean isDefaultPlural();
 
 	/** @return Pronoun for this body part. (They, it) */

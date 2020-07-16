@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
@@ -67,6 +68,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -123,6 +125,9 @@ public class Murk extends NPC {
 			if(this.isFeminine()) {
 				this.setVaginaType(VaginaType.RAT_MORPH);
 			}
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.9")) {
+			this.addCumModifier(FluidModifier.MUSKY);
 		}
 	}
 
@@ -222,6 +227,7 @@ public class Murk extends NPC {
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(350);
 		this.fillCumToMaxStorage();
+		this.addCumModifier(FluidModifier.MUSKY);
 		
 		// Vagina:
 		// No vagina
@@ -392,11 +398,20 @@ public class Murk extends NPC {
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if(victory) {
-			return new Response("", "", RatWarrensCaptiveDialogue.STOCKS_ESCAPE_FIGHT_VICTORY);
+			return new Response("", "", RatWarrensCaptiveDialogue.CAPTIVE_ESCAPE_FIGHT_VICTORY);
 			
 		} else {
-			return new Response("", "", RatWarrensCaptiveDialogue.STOCKS_ESCAPE_FIGHT_DEFEAT);
+			return new Response("", "", RatWarrensCaptiveDialogue.CAPTIVE_ESCAPE_FIGHT_DEFEAT);
 		}
+	}
+	
+	// Sex:
+
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
+		if(Main.game.getPlayer().isCaptive() && !RatWarrensCaptiveDialogue.isTransformationFinished()) {
+			return true; // Always deny requests before transformations are finished.
+		}
+		return super.getSexBehaviourDeniesRequests(requestingCharacter, sexTypeRequest);
 	}
 	
 	// Dirty talk:
@@ -470,5 +485,15 @@ public class Murk extends NPC {
 			return UtilText.parse(this, target, availableLines.get(Util.random.nextInt(availableLines.size())));
 		}
 		return super.getDirtyTalkPenisPenetrating(target, isPlayerDom);
+	}
+	
+
+	@Override
+	public String getSpecialPlayerVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating, GameCharacter receivingCharacter, SexAreaOrifice penetrated) {
+		if(receivingCharacter.isPlayer()) {
+			return "";
+		}
+		
+		return super.getSpecialPlayerVirginityLoss(penetratingCharacter, penetrating, receivingCharacter, penetrated);
 	}
 }
