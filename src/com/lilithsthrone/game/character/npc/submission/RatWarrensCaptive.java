@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.Lactation;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
@@ -28,6 +29,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
+import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -90,16 +92,15 @@ public class RatWarrensCaptive extends NPC {
 	
 //			CharacterUtils.applyMakeup(this, true);
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
-
-
-			// Set starting attributes based on the character's race
-			initPerkTreeAndBackgroundPerks();
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
-			this.setStartingCombatMoves();
-			loadImages();
-
-			initHealthAndManaToMax();
 			
+			initPerkTreeAndBackgroundPerks();
+			this.removePersonalityTrait(PersonalityTrait.MUTE);
+			
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
+			
+			this.setStartingCombatMoves();
+			
+			initHealthAndManaToMax();
 		}
 		
 //		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
@@ -115,6 +116,9 @@ public class RatWarrensCaptive extends NPC {
 			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FIVE_FAT), true);
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.9")) {
+			this.removePersonalityTrait(PersonalityTrait.MUTE);
 		}
 	}
 
@@ -145,12 +149,14 @@ public class RatWarrensCaptive extends NPC {
 		
 		// From anal sex:
 		if(Main.game.isAnalContentEnabled()) {
+			this.setAssDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
 			this.setAssCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FIVE_FAT), true);
 			this.setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 			this.setAssPlasticity(OrificePlasticity.SIX_MALLEABLE.getValue());
 		}
 
 		// From vaginal sex:
+		this.setVaginaDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
 		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
 		this.setVaginaCapacity(Penis.getGenericDiameter(32, PenetrationGirth.FIVE_FAT), true);
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());

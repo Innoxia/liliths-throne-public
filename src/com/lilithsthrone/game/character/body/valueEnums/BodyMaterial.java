@@ -74,7 +74,7 @@ public enum BodyMaterial {
 			return Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 100f));
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 500f));
 		}
 
 		@Override
@@ -105,7 +105,7 @@ public enum BodyMaterial {
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
 			return Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 100f));
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 500f));
 		}
 		@Override
 		public List<String> getExtraEffects(GameCharacter target) {

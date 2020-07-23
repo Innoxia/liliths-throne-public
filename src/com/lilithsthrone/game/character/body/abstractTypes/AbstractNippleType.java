@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.abstractTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -45,8 +46,12 @@ public abstract class AbstractNippleType implements BodyPartTypeInterface {
 		
 		this.descriptorsMasculine = descriptorsMasculine;
 		this.descriptorsFeminine = descriptorsFeminine;
-		
-		this.defaultRacialOrificeModifiers = defaultRacialOrificeModifiers;
+
+		if(defaultRacialOrificeModifiers==null) {
+			this.defaultRacialOrificeModifiers = new ArrayList<>();
+		} else {
+			this.defaultRacialOrificeModifiers = defaultRacialOrificeModifiers;
+		}
 	}
 	
 	@Override

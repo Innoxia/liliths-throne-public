@@ -1,789 +1,1486 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
 	
-	<!-- STOCKS_INITIAL -->
+	<!-- CAPTIVE_DAY_0 -->
 	
-	<htmlContent tag="STOCKS_INITIAL"><![CDATA[
+	<htmlContent tag="CAPTIVE_DAY_0"><![CDATA[
 	<p>
-		You (and your companion) are exhausted from your defeat and the subsequent fucking. After they've left, Murk appears and attaches a heavy metal chain to your collar, before unlocking the stocks and telling you that you can sleep on the straw bedding behind you.
+		[murk.speech(So, 'ain't ya got somethin' ta say ta me?!)] Murk demands as he swaggers around to stand before you and grin down at your restrained body.
 	</p>
 	<p>
-		With no strength left in your body, you do just that, and despite the discomfort, you soon fall asleep on the straw...
+		Still recovering from both your defeat and the oral sex that you were just forced to perform on [npc.name], you're unable to muster a response to Murk's question. Turning his head to spit on the floor, the vile rat-boy sneers, [murk.speech(If it weren't fer me insistin' that yer only ta be used fer oral, then yer pretty little
+		#IF(pc.hasVagina())
+			 cunt
+		#ELSE
+			 ass
+		#ENDIF
+		#IF(npc.hasPenis())
+			 would 'ave been stuffed full o' that [npc.race]'s stinkin' cock!
+		#ELSE
+			 would 'ave been well an' truly molested by that [npc.race] slut!
+		#ENDIF
+		 So, ya gonna thank me fer saving yer from that or wot?)]
+	</p>
+	<p>
+		As the chubby rat-boy grins down at you, you realise that he actually expects you to thank him...
 	</p>
 	]]>
 	</htmlContent>
 	
 	
-	<!-- STOCKS_SLEEP -->
+	<!-- CAPTIVE_DAY_0_THANKS -->
 	
-	<htmlContent tag="STOCKS_SLEEP"><![CDATA[
+	<htmlContent tag="CAPTIVE_DAY_0_THANKS_QUIET"><![CDATA[
 	<p>
-		You (and companion) curl up on your respective straw bedding and drift off to sleep...
+		Too exhausted to give Murk a piece of your mind, and definitely not prepared to thank him, you simply let out a defeated groan and then remain quiet. Angrily spitting on the floor once again, the short rat-boy moves around to your rear-end, before giving your exposed ass a sharp slap.
 	</p>
 	<p>
-		...
+		Letting out an amused grunt as he hears you cry out in shock, the sadistic rat-boy raises his hand and forcefully slaps your ass once again, before sneering, [murk.speech(Ya dumb slut! When I tells ya ta do somethin', ya fuckin' do it!)]
 	</p>
 	<p>
-		The next morning, you find yourself being woken by Murk tugging on your chain. He tells you to get back in the milking stocks, and you have little option but to do as he says.
+		Waddling around to stand in front of you again, he muses out loud, [murk.speech(At least ya ain't complainin' an' cussin' me out! I's can tell that yer gonna make a real obedient milker with some trainin'! I'll 'ave ya callin' me Master an' beggin' fer me cock soon enough!)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_INTRO_FEMININE"><![CDATA[
+	<htmlContent tag="CAPTIVE_DAY_0_THANKS_THANK_HIM"><![CDATA[
 	<p>
-		Murk says that he's going to turn you into another one of his milkers. Rat-girl enters and overhears, saying that Murk should do something more fun with you (and companion).
+		Considering your current circumstances, you decide that it would be best to obey this foul-mannered rat-boy, and so you
+		#IF(pc.isShy())
+			 meekly gaze down at the floor 
+		#ELSE
+			 look up into his eyes 
+		#ENDIF
+		 and tell him that you're thankful for preventing the gang-member from molesting you.
 	</p>
 	<p>
-		They argue, but when the rat-girl threatens Murk, you sense that he's afraid. Running out of options, he passes the choice onto you, asking if you want him to turn you into a female. The rat-girl says that you want to be a futa so she can come and milk your cock. 
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_INTRO_MASCULINE"><![CDATA[
-	<p>
-		Murk says that he's got enough female milkers, and that he's going to turn you and your companion into masculine cum milkers. To see how docile you are, he steps up behind you and presses his cock against your ass.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_SLEEP_SELF_TF_DEMAND"><![CDATA[
-	<p>
-		Murk says that you're going to perform some self-transformations for him. As you've gained the transformation fetish, you're happy to oblige.
-	</p>
-	<p>
-		He unclasps your collar, and warns you that if you do anything other than exactly what he says, you'll be in serious trouble.
+		[murk.speech(That's me good little slut!)] Murk happily exclaims, [murk.speech(I's can tell that yer gonna make a real obedient milker with some trainin'! I'll 'ave ya callin' me Master an' beggin' fer me cock soon enough!)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_SLEEP_POTION"><![CDATA[
+	<htmlContent tag="CAPTIVE_DAY_0_THANKS_INSULT"><![CDATA[
 	<p>
-		Murk produces a potion and says that you need some more adjustments. If ring-gag, you cannot spit. If no ring-gag, you can spit.
+		Despite your current circumstances, you refuse to listen to this foul-mannered rat-boy's demands, and so you angrily tell him to fuck off and leave you alone. Angrily spitting on the floor once again, the short rat-boy moves around to your rear-end, before giving your exposed ass a sharp slap.
+	</p>
+	<p>
+		Letting out an amused grunt as he hears you cry out in shock, the sadistic rat-boy continues to repeatedly raise his hand and forcefully slap your ass again and again, while sneering, [murk.speech(Ya dumb slut! When I tells ya ta do somethin', ya fuckin' do it! Don't ya ever speak ta me like that again!)]
+	</p>
+	<p>
+		After spending a good while spanking your exposed butt, Murk eventually waddles around to stand in front of you again, before angrily spitting, [murk.speech(You's can try and resista ll ya like, but I's can tell that yer gonna make a real obedient milker after some trainin'! I'll 'ave ya callin' me Master an' beggin' fer me cock soon enough, ya fuckin' bitch!)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_SLEEP_MILKING_FIRST_FUCK"><![CDATA[
+	<htmlContent tag="CAPTIVE_DAY_0_THANKS_END"><![CDATA[
 	<p>
-		Murk has finished transforming you. Comments on your new form.
+		Grabbing a heavy metal chain that's fixed to the wall in front of you, the rat-boy roughly locks to the ring that's attached to the front of your collar, before releasing your stock's restraints and grunting,
+		#IF(pc.isPregnant())
+			#IF(pc.isVisiblyPregnant())
+				 [murk.speech(I ain't gonna be able ta 'ave me fun with ya 'til we've got yer fuckin' pregnancy sorted out! You's wait 'ere while I go an' get that slut Silence ta come an' 'elp ya give birth.)]
+			#ELSE
+				 [murk.speech(While ya were servicin' that [npc.race] with ya mouth, I ran one o' those pregnancy detectors over ya belly, an' congratulations, yer fuckin' pregnant! I ain't gonna be able ta 'ave me fun with ya 'til we've got that sorted out, so you's wait 'ere while I go an' get that slut Silence ta come an' 'elp ya give birth.)]
+			#ENDIF
+		#ELSE
+			 [murk.speech(I ain't gonna keep ya locked up while yer in this fuckin' state! Get some rest on yer straw beddin'; I's gonna want yer fully awake fer all the fun I's got planned fer ya tomorrow!)]
+		#ENDIF
+	</p>
+	#IF(!pc.isPregnant())
+		<p>
+			With no strength left in your body, you do as the rat-boy says, and after clambering out of the stocks, you sink down onto the nearby pile of straw. Despite the discomfort of your new bed, your exhaustion gets the better of you, and you soon fall asleep on the floor of Murk's milking room...
+		</p>
+	#ELSE
+		<p>
+			With no strength left in your body, you clamber out of the stocks and sink down onto a nearby pile of straw. Stroking your [pc.hands] over your pregnant belly, you're left with nothing to do except wait for Murk's return...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_WAKE_START"><![CDATA[
+	<p>
+		Some time later, you're awoken by the sounds of activity in the milking room, and, sitting up on your straw bedding, you yawn and look around to see that Murk has just finished locking the last of his milkers back into their stalls. Turnign his attention towards you, the chubby rat-boy swaggers over and sneers, [murk.speech(Good mornin', me pretty little thing! Ooh, I'm gonna 'ave a lot o' fun with you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_1_WAKE -->
+	
+	<!-- Either 'CAPTIVE_DAY_1_WAKE_START' or 'CAPTIVE_GIVE_BIRTH_INITIAL_FINISHED' are appended before this scene: -->
+	<htmlContent tag="CAPTIVE_DAY_1_WAKE_PREP"><![CDATA[
+	<p>
+		Grabbing hold of the chain that's attached to your heavy metal slave collar, Murk cruelly gives it a sharp yank, which causes you to let out a distressed cry and rise to your [pc.feet]. Continuing to use his leverage to pull you forwards, Murk guides you into the same milking stall as the one you were locked in last time, before quickly moving around to securely strap you into it.
+	</p>
+	<p>
+		[murk.speech(That's betta! I can take yer chain off now,)] the rat-boy declares, before unlocking your chain and hanging it up on a hook that's attached to the wall in front of you. Swaggering around behind you, the rat-boy delivers a sharp slap to your exposed ass, before grabbing hold of your [pc.assSize] cheeks and pulling them apart, chuckling, [murk.speech(Let's see wot I's got ta work with 'ere...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_WAKE"><![CDATA[
+	#IF(pc.hasVagina())
+		<p>
+			#IF(pc.hasFetish(FETISH_SUBMISSIVE) || pc.hasFetish(FETISH_MASOCHIST))
+				Thanks to your submissive nature, the rough manner in which this rat-boy is treating you is massively turning you on, and you can't help but let out an aroused, high-pitched moan as he unceremoniously stuffs two of his fat fingers into your exposed cunt. Chuckling in amusement at your reaction, Murk sneers, [murk.speech(What an 'orny slut! Yer moanin' already an' ya ain't even 'ad a feel o' me fat cock poundin' yer dirty twat!)]
+			#ELSEIF(pc.hasFetish(FETISH_DOMINANT))
+				Thanks to your dominant nature, you find yourself scowling and pulling away from the rat-boy as he starts groping your rear-end, but any protestations which you were about to make are cut short as you feel Murk unceremoniously stuff two of his fat fingers into your exposed cunt. Chuckling in amusement as you let out a shocked cry, Murk sneers, [murk.speech(Settle down, ya dumb slut! You's just wait until ya get a feel o' me fat cock poundin' yer dirty cunt, an' <i>then</i> you'll be havin' somethin' ta moan about!)]
+			#ELSE
+				Being restrained in your stall, you're powerless to resist as the rough rat-boy runs his fat fingers over your [pc.labia+], and you can't help but let out a high-pitched cry as he unceremoniously stuffs two of them into your exposed cunt. Chuckling in amusement at your reaction, Murk sneers, [murk.speech(What an 'orny slut! Yer moanin' already an' ya ain't even 'ad a feel o' me fat cock poundin' yer dirty twat!)]
+			#ENDIF
+		</p>
+		<p>
+			Just as quickly as he stuffed them in, Murk pulls his fingers out of your pussy, before giving it a little slap
+			#IF(pc.hasPenis())
+				 and moving his attention down to your [pc.cock+]. Grabbing hold of it, the rat-boy gives it a few strokes as he wonders out loud, [murk.speech(I's been thinkin' about gettin' a futa milker fer some time now. You'd love havin' yer cock milked, wouldn't ya, slut?!)]
+			#ELSE
+				 and moving his attention down to your [pc.clit+]. Giving it a quick pinch, the rat-boy starts roughly stroking it as he wonders out loud, [murk.speech(I's been thinkin' about gettin' a futa milker fer some time now. You'd love ta 'ave a nice big cock between yer legs, wouldn't ya, slut?!)]
+			#ENDIF
+		</p>
+	#ELSEIF(pc.hasPenis())
+		<p>
+			#IF(pc.hasFetish(FETISH_SUBMISSIVE) || pc.hasFetish(FETISH_MASOCHIST))
+				Thanks to your submissive nature, the rough manner in which this rat-boy is treating you is massively turning you on, and you can't help but let out an aroused, high-pitched moan as he unceremoniously wraps his fat fingers around your exposed cock and gives it a rough stroke. Chuckling in amusement at your reaction, Murk sneers, [murk.speech(What an 'orny slut! You's just wait 'til I give yer a nice tight twat an' stuff me fat cock into it! <i>Then</i> you'll be havin' somethin' ta moan about!)]
+			#ELSEIF(pc.hasFetish(FETISH_DOMINANT))
+				Thanks to your dominant nature, you find yourself scowling and pulling away from the rat-boy as he starts groping your rear-end, but any protestations which you were about to make are cut short as you feel Murk unceremoniously wrap his fat fingers around your exposed cock and give it a rough stroke. Chuckling in amusement as you let out a shocked cry, Murk sneers, [murk.speech(Settle down, ya dumb slut! You's just wait 'til I give yer a nice tight twat an' stuff me fat cock into it! <i>Then</i> you'll be havin' somethin' ta moan about!)]
+			#ELSE
+				Being restrained in your stall, you're powerless to resist as the rough rat-boy unceremoniously wraps his fat fingers around your exposed cock and gives it a rough stroke. Chuckling in amusement at the surprised gasp which you let out in response to this, Murk sneers, [murk.speech(What an 'orny slut! You's just wait 'til I give yer a nice tight twat an' stuff me fat cock into it! <i>Then</i> you'll be havin' somethin' ta moan about!)]
+			#ENDIF
+		</p>
+		<p>
+			Continuing to stroke your rapidly-hardening cock, the chubby rat-boy wonders out loud, [murk.speech(I's been thinkin' about gettin' a futa milker fer some time now. You's gonna want ta keep yer cock, slut, or shall I get rid o' it an' turn ya into a woman like the rest o' these milkers?!)]
+		</p>
+	#ELSE
+		<p>
+			Letting out a disappointed grunt as he sees that you've got no genitalia at all between your legs, the chubby rat-boy starts running his fingers over your genderless mound as he wonders out loud, [murk.speech(I's been thinkin' about gettin' a futa milker fer some time now. You's gonna want a cock, slut, or shall I just give yer a cunt an' turn ya into a woman like the rest o' these milkers?!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_WAKE_MASCULINE"><![CDATA[
+	#IF(pc.hasVagina())
+		<p>
+			#IF(pc.hasFetish(FETISH_SUBMISSIVE) || pc.hasFetish(FETISH_MASOCHIST))
+				Thanks to your submissive nature, the rough manner in which this rat-boy is treating you is massively turning you on, and you can't help but let out an aroused, high-pitched moan as he unceremoniously stuffs two of his fat fingers into your exposed cunt. Chuckling in amusement at your reaction, Murk sneers,
+			#ELSEIF(pc.hasFetish(FETISH_DOMINANT))
+				Thanks to your dominant nature, you find yourself scowling and pulling away from the rat-boy as he starts groping your rear-end, but any protestations which you were about to make are cut short as you feel Murk unceremoniously stuff two of his fat fingers into your exposed cunt. Chuckling in amusement as you let out a shocked cry, Murk sneers,
+			#ELSE
+				Being restrained in your stall, you're powerless to resist as the rough rat-boy runs his fat fingers over your [pc.labia+], and you can't help but let out a high-pitched cry as he unceremoniously stuffs two of them into your exposed cunt. Chuckling in amusement at your reaction, Murk sneers,
+			#ENDIF
+			 [murk.speech(I's got enough cunts ta milk, so I's gonna be gettin' rid o' this dirty little twat o' yours!)]
+		</p>
+		<p>
+			Just as quickly as he stuffed them in, Murk pulls his fingers out of your pussy, before giving it a sharp slap and walking off to the other side of the room. Although you're unable to turn and see what's going on behind you, the sound of a wooden chair being dragged across the room lets you know what Murk is doing.
+		</p>
+		<p>
+			Placing this chair right behind you, the short rat-boy climbs up on top of it, and then, just a moment later, you feel the head of his cock prodding at your exposed asshole. Letting out an amused chuckle, the rat-boy gives your ass a sharp slap and wonders out loud, [murk.speech(So, are ya gonna try an' show me that ya ain't no slut, or are ya gonna reveal ya true nature an' try an' get me ta stuff me fat cock in yer sissy fuck-hole?!)]
+		</p>
+	#ELSEIF(pc.hasPenis())
+		<p>
+			#IF(pc.hasFetish(FETISH_SUBMISSIVE) || pc.hasFetish(FETISH_MASOCHIST))
+				Thanks to your submissive nature, the rough manner in which this rat-boy is treating you is massively turning you on, and you can't help but let out an aroused, high-pitched moan as he unceremoniously wraps his fat fingers around your exposed cock and gives it a rough stroke. Chuckling in amusement at your reaction, Murk sneers, [murk.speech(What an 'orny slut! You's just wait 'til ya get a feel o' me fat cock stuffed into yer ass! <i>Then</i> you'll be havin' somethin' ta moan about!)]
+			#ELSEIF(pc.hasFetish(FETISH_DOMINANT))
+				Thanks to your dominant nature, you find yourself scowling and pulling away from the rat-boy as he starts groping your rear-end, but any protestations which you were about to make are cut short as you feel Murk unceremoniously wrap his fat fingers around your exposed cock and give it a rough stroke. Chuckling in amusement as you let out a shocked cry, Murk sneers, [murk.speech(Settle down, ya dumb slut! You's just wait 'til ya get a feel o' me fat cock stuffed into yer ass! <i>Then</i> you'll be havin' somethin' ta moan about!)]
+			#ELSE
+				Being restrained in your stall, you're powerless to resist as the rough rat-boy unceremoniously wraps his fat fingers around your exposed cock and gives it a rough stroke. Chuckling in amusement at the surprised gasp which you let out in response to this, Murk sneers, [murk.speech(What an 'orny slut! You's just wait 'til ya get a feel o' me fat cock stuffed into yer ass! <i>Then</i> you'll be havin' somethin' ta moan about!)]
+			#ENDIF
+		</p>
+		<p>
+			Just as quickly as he started, Murk releases his grip on your cock, before giving your ass a sharp slap and walking off to the other side of the room. Although you're unable to turn and see what's going on behind you, the sound of a wooden chair being dragged across the room lets you know what Murk is doing.
+		</p>
+		<p>
+			Placing this chair right behind you, the short rat-boy climbs up on top of it, and then, just a moment later, you feel the head of his cock prodding at your exposed asshole. Letting out an amused chuckle, the rat-boy gives your ass another sharp slap and wonders out loud, [murk.speech(So, are ya gonna try an' show me that ya ain't no slut, or are ya gonna reveal ya true nature an' try an' get me ta stuff me fat cock in yer sissy fuck-hole?!)]
+		</p>
+	#ELSE
+		<p>
+			Letting out a disappointed grunt as he sees that you've got no genitalia at all between your legs, the chubby rat-boy gives your ass a sharp slap before walking off to the other side of the room. Although you're unable to turn and see what's going on behind you, the sound of a wooden chair being dragged across the room lets you know what Murk is doing.
+		</p>
+		<p>
+			Placing this chair right behind you, the short rat-boy climbs up on top of it, and then, just a moment later, you feel the head of his cock prodding at your exposed asshole. Letting out an amused chuckle, the rat-boy gives your ass another sharp slap and wonders out loud, [murk.speech(So, are ya gonna try an' show me that ya ain't no slut, or are ya gonna reveal ya true nature an' try an' get me ta stuff me fat cock in yer sissy fuck-hole?!)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_TF_CHOICE_TF_FEMALE"><![CDATA[
+	<p>
+		#IF(pc.hasPenis())
+			Not liking the sound of keeping your penis only to have it milked by Murk, you buck your hips back in a desperate attempt to pull away from his fat fingers.
+		#ELSE
+			Not liking the sound of becoming a futa and having your cock milked by Murk, you buck your hips back in a desperate attempt to pull away from his fat fingers.
+		#ENDIF
+		 Letting out an amused sneer, the chubby rat-boy withdraws his hand from your groin, before swiping it down once again to deliver a sharp slap to your [pc.ass+]. Groping your exposed rear-end for a moment, he grunts, [murk.speech(Fine! I'll turn ya inta a female milker like the rest! You's just enjoy yer time in yer stall today; ya ain't gonna be fucked or milked 'til I've finished transformin' ya.)]
+	</p>
+	<p>
+		With that, Murk steps away from your stall, and after checking that the milking machines are turned on and draining the fluid from his other four captives, the rat-boy exits the milking room, leaving you with no other choice but to remain still and wait for something to happen...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_TF_CHOICE_TF_FUTA"><![CDATA[
+	<p>
+		#IF(pc.hasPenis())
+			Not wanting to have your penis transformed away, you buck your hips down into Murk's hand in a desperate attempt to show him that you want your cock milked.
+		#ELSE
+			Liking the sound of being transformed into a futa, you buck your hips down into Murk's hand in a desperate attempt to show him that you'd like to have a cock and for it to be milked.
+		#ENDIF
+		 Letting out an amused sneer, the chubby rat-boy withdraws his hand from your groin, before swiping it down once again to deliver a sharp slap to your [pc.ass+]. Groping your exposed rear-end for a moment, he grunts, [murk.speech(That's me good little slut! I'll turn ya inta a futa milker with a big fat cock! You's just enjoy yer time in yer stall today; ya ain't gonna be fucked or milked 'til I've finished transformin' ya.)]
+	</p>
+	<p>
+		With that, Murk steps away from your stall, and after checking that the milking machines are turned on and draining the fluid from his other four captives, the rat-boy exits the milking room, leaving you with no other choice but to remain still and wait for something to happen...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_TF_CHOICE_TF_MASCULINE"><![CDATA[
+	<p>
+		Resenting the idea of being called a 'sissy' by this foul rat-boy, you do your best to pull away from the fat cock that's continuing to prod at your exposed asshole. Letting out a deep chuckle as he sees you try to resist, Murk delivers yet another sharp slap to your ass, before climbing down off of his chair and sneering, [murk.speech(Don't worry, bitch, I ain't gonna fuck yer ass until I'm done transformin' ya! It's gonna be real fun ta make ya all manly, only ta break ya spirit by poundin' yer ass with me fat fuckin' cock! Heh-heh-heh!)]
+	</p>
+	<p>
+		With that, Murk steps away from your stall, and after checking that the milking machines are turned on and draining the fluid from his other four captives, the rat-boy exits the milking room, leaving you with no other choice but to remain still and wait for something to happen...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_TF_CHOICE_TF_SISSY"><![CDATA[
+	<p>
+		Not being able to resist, you push your ass back against Murk's cock in a desperate attempt to get him to penetrate you. Letting out a deep chuckle as he sees that you're horny for his cock, Murk delivers yet another sharp slap to your ass, before climbing down off of his chair and sneering, [murk.speech(I ain't gonna fuck yer ass until I'm done transformin' ya! I's gonna turn ya into a me slutty sissy fuck-toy, then break yer ass in with me fat fuckin' cock! Heh-heh-heh!)]
+	</p>
+	<p>
+		With that, Murk steps away from your stall, and after checking that the milking machines are turned on and draining the fluid from his other four captives, the rat-boy exits the milking room, leaving you with no other choice but to remain still and wait for something to happen...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_1_MORNING -->
+	
+	<htmlContent tag="CAPTIVE_DAY_1_MORNING"><![CDATA[
+	<p>
+		For the next several hours, you're left alone in your milking stall with just the moans and relentless pumping noises from the other milking stalls to keep you company. Eventually, however, you hear the door open once again, which is immediately followed by one of Murk's loud belches.
+	</p>
+	<p>
+		Immediately, the four milkers all start crying out for the short rat-boy's attention, with one in particular crying louder than the others, [npc2.speech(Master! Please, master! My pussy's so wet for you! Come and stuff my cunt full of your yummy cum!)]
+	</p>
+	<p>
+		By turning your head to one side, you're just about to see the chubby rat-boy as he swaggers over to the milkers, and, choosing the one who's calling out the loudest, he pulls the fat, vibrating dildo out of her drooling pussy and sneers, [murk.speech(Come on then, slut! Keep on beggin' fer me fat cock! Tell me that yer want me ta ruin ya dirty pussy!)]
+	</p>
+	<p>
+		[npc2.speech(Yes, Master! Please, Master! Fuck my dirty pussy and stretch it out with your big, fat cock! Please, I need you- ~Ooh!~ Yes! ~Aah!~)]
+	</p>
+	<p>
+		[npc2.NamePos] begging is suddenly interrupted as Murk clambers up onto her lower back, before roughly stuffing his cock into her pussy. The rhythmic pumping noise of the milking machines is quickly drowned out by a combination of high-pitched moans and deep grunts as Murk rapidly humps his mind-broken milker. The lewd, wet slapping sounds of his rat cock hammering into the milker's drooling cunt seem to go on forever, but eventually, the chubby rat-boy lets out a particularly loud grunt, before hilting his cock fully in the milker's pussy and flooding
+		#IF(npc2.isVisiblyPregnant())
+			 her waiting womb with his hot rat-jizz.
+		#ELSE
+			 [npc2.her] absued orifice with his hot rat-jizz.
+		#ENDIF
+	</p>
+	<p>
+		Just moments later, Murk climbs down off of his partner's back, and after roughly shoving the vibrating dildo back into her cum-stuffed pussy, he swaggers over to stand in front of you. For the first time, you're able to fully see just how huge the rat-boy's cock really is, and you find yourself staring in shock at its [murk.penisGirth], [murk.cockLengthValue] length. With his cum and the milker's juices dripping off of his gigantic cock, the brown-furred rat-boy smirks down at you and sneers, [murk.speech(It ain't gonna be long 'til I's turned ya into a submissive slut just like 'er! I'll 'ave ya beggin' fer me fat cock within a few days! I's already ordered some transformation potions, an' you's gonna be gettin' a taste o' the first this evening!)] 
+	</p>
+	<p>
+		Letting out another chuckle, Murk steps back, before suddenly seeming to realise that his cock is still coated in sexual fluids. Flashing you an evil smirk, he grabs hold of the back of your head with one hand, while with the other, he quickly shoves his massive, cum-coated cock up against your [pc.lips+], laughing, [murk.speech(That's it, get a nice taste o' me fuckin' cock! Heh-heh-heh! Yer gonna be fallin' in love with it before I's finished with ya!)]
+	</p>
+	<p>
+		As the potent, heady stench of the rat-boy's musky cum overwhelms your senses, you wonder whether you should try to stay still and endure this, or attempt to pull away...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_MORNING_ENDURE"><![CDATA[
+	<p>
+		Thinking it best to just stay still and endure this humiliation, you try not to react as Murk smears his musky cum all over your [pc.lips+]. Letting out an amused grunt as he sees that you're trying not to react, the rat-boy demands, [murk.speech(Give me fat cock a kiss an' I'll be on me way! Heh!)]
+	</p>
+	<p>
+		Wanting this experience to be over as quickly as possible, and not being in a situation where you can do much to resist, you obey Murk's command and plant a quick kiss on the head of his fat cock. As the taste of his musky, salty cum fills your mouth, the crude rat-boy sneers, [murk.speech(That's me good obedient milker bitch! You's betta get used ta the taste o' me cock; you's gonna be gettin' a lot more o' it soon enough!)]
+	</p>
+	<p>
+		Continuing to chuckle to himself, the chubby rat-boy waddles over to the door and quickly exits the milking room. Once again left locked up in your stall, there's nothing for you to do but breathe in the heady scent of Murk's cum as you wait for his eventual return...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_MORNING_CLEAN"><![CDATA[
+	<p>
+		The heady, musky scent of Murk's cum is too much for you to resist, and as the rat-boy pushes his fat, slimy cock against your [pc.lips+], you open your mouth and greedily run your tongue over his bulbous head. Letting out an amused grunt as he discovers that you're hungry for his cock, the rat-boy demands, [murk.speech(Go on then, slut, seein' as yer so eager, 'ow about ya give me fat cock a big kiss! Heh!)]
+	</p>
+	<p>
+		Immediately doing as you're told, you wrap your [pc.lips+] around the head of Murk's cock and start passionately kissing and sucking on it. Much to your delight, the rat-boy's flaccid shaft very quickly rises to full erection, and after quickly lining it up to your waiting [pc.lips], he sneers, [murk.speech(I'll give ya what ya want, ya dirty slut! Open wide! I's gonna give yer face a good fuckin'!)] 
+	</p>
+	<p>
+		Obediently doing as you're told, you open your mouth for Murk, who wastes no time in thrusting forwards and stuffing his fat, throbbing cock as deep as he possibly can down your throat. With the potent, musky scent of his cum-coated shaft overwhelming your senses, you do your best to relax your throat and let the rat-boy roughly fuck your face...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_MORNING_RESIST"><![CDATA[
+	<p>
+		Not at all willing to put up with this sort of humiliation, you do your best to turn your face away and resist as Murk continues to smear his musky cum all over your [pc.lips+]. Letting out an angry grunt in response to your resistance, the rat-boy scowls, [murk.speech(You dumb slut! You's ain't gonna be able ta resist me cock ferever! I'll get ya beggin' fer it soon enough!)]
+	</p>
+	<p>
+		Slapping his heavy, flaccid shaft against your face a couple of times, the crude rat-boy sneers, [murk.speech(I's gonna make ya inta one o' me obedient milker bitches! You's betta get used ta the taste o' me cock; you's gonna be gettin' a lot more o' it soon enough!)]
+	</p>
+	<p>
+		Leaving your face covered in his slimy, musky cum, the chubby rat-boy waddles over to give your ass a few sharp slaps, before heading over to the door and quickly exiting the milking room. Once again left locked up in your stall, there's nothing for you to do but breathe in the heady scent of Murk's cum as you wait for his eventual return...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_1_MORNING_AFTER_CLEAN -->
+	
+	<htmlContent tag="CAPTIVE_DAY_1_MORNING_AFTER_CLEAN"><![CDATA[
+	<p>
+		Having emptied his balls into your stomach, Murk steps back, and with a wet squelch, slides his massive, throbbing cock out of your throat. Smirking down at you as you desperately pant for breath, he slaps his softening shaft against your face a couple of times, before positioning the head in front of your [pc.lips+] and demanding, [murk.speech(Give it one last kiss, slut!)]
+	</p>
+	<p>
+		Doing as you're told, you crane your neck forwards and obediently plant a big kiss on Murk's cock. Letting out an amused grunt, he sneers, [murk.speech(That's me good obedient milker bitch! You's betta get used ta the taste o' me cock; you's gonna be gettin' a lot more o' it soon enough!)]
+	</p>
+	<p>
+		Leaving a pool of his slimy, musky cum on the floor beneath your face, the chubby rat-boy waddles over to the door and quickly exits the milking room. Once again left locked up in your stall, there's nothing for you to do but breathe in the heady scent of Murk's cum as you wait for his eventual return...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_1_LUNCH -->
+	
+	<htmlContent tag="CAPTIVE_DAY_1_LUNCH"><![CDATA[
+	<p>
+		For the next couple of hours, you're left once again with nothing to do except listen to the moans of the milkers and the steady pumping of the machines that rhythmically drain them of their milk and girlcum. Although at first you found the restrained position in your stall to be uncomfortable, you've somehow got used to it by now, and you start to worry that you'll become accustomed to being in this situation.
+	</p>
+	<p>
+		Before you're able to give it too much thought, however, you hear the door to the milking room open behind you. Just as the milkers start to desperately call out for Murk to come and fuck them, you hear the rat-boy sharply shout out, [murk.speech(Fuckin' shut it! I'll be fuckin' ya later, but first it's lunch time!)]
+	</p>
+	<p>
+		Turning your head as you hear the sudden sound of shaky wheels rumbling over the uneven floor, you see the chubby rat-boy pulling a battered trolley after him as he waddles over to your stall. Grabbing a hinged metal frame that's attached to your stall, he pulls it down so that it's locking in place just in front of your face. Letting out an amused chuckle, Murk grabs a metallic bowl from his trolley and places it into this frame, and you look down to see that it's filled with a bland, grey gruel.
+	</p>
+	<p>
+		[murk.speech(Eat up, bitch!)] Murk sneers, [murk.speech(This gruel's full o' goodness, so ya ain't gonna need any meals other than this 'un! If ya ain't got started by the time I's finished servin' the others, ya gonna be in big trouble!)]
+	</p>
+	<p>
+		Grabbing hold of his trolley, Murk prepares to go and serve the other milkers, leaving you to decide whether to eat this unappetising gruel or not...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_LUNCH_EAT"><![CDATA[
+	<p>
+		Deciding that it's best to just do as you're told, you lower your head down into the bowl and start eating the gruel. Although it's every bit as bland in taste as it is in appearance, you suddenly realise just how hungry you are, and have no trouble at all in quickly finishing off the entire bowl.
+	</p>
+	<p>
+		[murk.speech(That's me good milker!)] the distinctive voice of Murk suddenly calls out from behind you. Stepping forwards to take away your empty bowl and fold the metal frame back into its previous position, the chubby rat-boy chuckles, [murk.speech(Once yer fully transformed inta me milker slut, I'll see 'bout givin' ya some <i>dessert</i> afta yer meals. Heh-heh-heh!)]
+	</p>
+	<p>
+		Pointedly groping his exposed balls, the rat-boy leaves you with little doubt as to what he means by 'dessert'. Flashing you one last evil grin, Murk then wheels away his trolley and exits the milking room, leaving you alone once again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_LUNCH_REFUSE"><![CDATA[
+	<p>
+		Imagining what sort of disgusting things were put into this gruel, you refuse to touch it and keep your head held up high as Murk serves lunch to the other milkers. Although you're extremely hungry, you can't imagine eating such disgusting food, and so you wait for the rat-boy to return and take it away.
+	</p>
+	<p>
+		[murk.speech(You dumb bitch!)] the distinctive, angry voice of Murk calls out as he sees that you haven't touched your gruel. Stepping around behind you, he delivers a sharp slap to your exposed ass, before clambering up on top of the stall's frame and heavily sitting down on your back. Placing one of his rat-like feet on the back of your head, he roughly pushes down, forcing your face into the gruel as he shouts, [murk.speech(Eat up, ya fuckin' bitch! Come on! Eat!)]
+	</p>
+	<p>
+		Leaning back, the sadistic rat-boy starts violently slapping your ass as he grinds his foot into the back of your head. Left with little option but to do as you're told, you start gulping down the flavourless gruel, but Murk's abusive treatment doesn't end up until he sees that you've swallowed down every last drop. With one last grind of his foot into the back of your head, the chubby rat-boy slides down off your back, before delivering one last sharp slap to your sore ass.
+	</p>
+	<p>
+		Stepping forwards to take away your empty bowl and fold the metal frame back into its previous position, the chubby rat-boy snaps, [murk.speech(You's gonna learn ta eat when I say ta eat, ya dumb bitch! Unless ya want me filthy feet stomping down on yer 'ead again, ya gonna eat up next time!)]
+	</p>
+	<p>
+		Still cursing and muttering under his breath about what a disobedient bitch you are, Murk wheels away his trolley and exits the milking room, leaving you alone once again...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_1_AFTERNOON -->
+	
+	<htmlContent tag="CAPTIVE_DAY_1_AFTERNOON"><![CDATA[
+	<p>
+		In stark contrast to the morning's focus of quiet milking, the milking room is opened to the rest of Vengar's gang once lunch has been served, and for the entire afternoon, a continuous flow of horny rat-morphs pay Murk for a fuck with one of his  milkers. As you haven't yet been transformed and broken in by him, Murk prohibits any of the rats from using you, but your afternoon is far from uneventful, as every chance he gets, Murk takes the time to 'train' you.
+	</p>
+	<p>
+		Your first experience with this training of his is when the chubby rat-boy climbs up onto a stool in front of you, and, cackling in sadistic delight, he roughly grinds his fat, furry balls all over your face.
+		#IF(pc.getObedienceValue()<20)
+			 Every time you try and pull away or voice your objections, he pulls back and delivers a stinging slap to your cheek, and it doesn't take long before you're conditioned into silently enduring his dominant treatment.
+		#ELSE
+			 Knowing that any resistance will result in punishment, you not only endure Murk's dominant treatment, but also eagerly nuzzle into his heavy ballsack to show him that you're happy to act as his submissive bitch.
+		#ENDIF
+	</p>
+	<p>
+		After being interrupted by a stream of rat-morphs who want to use one of his milkers, Murk later returns to continue your training. This time, he stands behind your exposed ass and demands that you repeat a series of degrading statements about yourself out loud for everyone to hear.
+		#IF(pc.getObedienceValue()<20)
+			 Whenever you try to refuse, the sadistic rat-boy starts violently slapping your exposed ass, and, not being able to endure his sadistic punishment, you soon find yourself shouting out that you're Murk's bitch and are only fit for being milked and acting as his cock-sleeve.
+		#ELSE
+			 Already finding yourself willing to obey the sadistic rat-boy's commands, you soon find yourself shouting out that you're Murk's bitch and are only fit for being milked and acting as his cock-sleeve.
+		#ENDIF
+	</p>
+	<p>
+		Most of your afternoon and early evening is spent being trained by Murk in this manner, and by the time that the day's drawing to a close, you can't help but feel a lot more willing to do whatever it is that Murk asks of you. Knowing that his training has been successful, the brown-furred rat-boy walks around in front of you and sneers, [murk.speech(Yer gonna make a real good milker! As I told ya earlier, I's got the first o' ya transformative potions delivered this evenin'!)]
+	</p>
+	<p>
+		Producing a small bottle from out of one of his pockets, Murk pulls the stopper out and brings the neck up to your [pc.lips+]. Grinning in sadistic delight, he grabs hold of your jaw with his free hand and snarls, [murk.speech(Open wide, bitch! This un's gonna give ya the right mindset fer bein' one o' me milker sluts!)]
+	</p>
+	<p>
+		As the rat-boy brings the bottle ever closer to your waiting [pc.lips], you wonder if you should do as you're told and open wide, or instead try to resist and keep your mouth shut...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_AFTERNOON_SWALLOW"><![CDATA[
+	<p>
+		Doing as you're told, you part your [pc.lips] and open wide for Murk, who wastes no time in shoving the long neck of the bottle into your mouth, before quickly tilting the bottom up and pouring the sweet liquid down your throat. With Murk's hand still squeezing your cheeks, you find yourself spluttering and choking as you desperately gulp down the transformative fluid. Once the bottle is completely empty, the chubby rat-boy carelessly tosses it to one side, before evilly grinning down at you and sneering, [murk.speech(That's me good milker bitch! I's done this several times already, so I can tell ya exactly 'ow this is gonna be fuckin' yer mind! Heh-heh-heh!)]
+	</p>
+	<p>
+		Clearly getting turned on by this excellent start to his process of transforming you into another one of his obedient milkers, Murk's cock quickly pushes out of its sheath, and as you feel the fuzzy, mind-altering effects of the transformative potion seeping into your head, you're vaguely aware of the chubby rat-boy eagerly stoking his fat, throbbing shaft...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_AFTERNOON_RESIST"><![CDATA[
+	<p>
+		Not at all willing to be transformed by this foul rat-boy, you keep your [pc.lips] tightly shut and turn your head to one side. Letting out an angry growl, Murk sharply slaps you across the face, before Snarling, [murk.speech(Ya wants ta do this the 'ard way?! Fine! I'll fuckin' give ya the 'ard way!)]
+	</p>
+	<p>
+		With that, the furious rat-boy storms out of the milking room, only to return just a minute later. As he steps around in front of you, you're able to see that he's retrieved a length of plastic tubing and a metallic funnel. Not liking the look of what Murk has planned, you try to keep your [pc.lips] tightly sealed, but after several sharp slaps to your face, and by roughly squeezing your cheeks, the sadistic rat-boy manages to force the pipe into your mouth. With absolutely no concern for your comfort, he shoves the tube deep down your throat, before using the funnel to pour the contents of the bottle directly down into your stomach.
+	</p>
+	<p>
+		[murk.speech(Ya dumb bitch! This is wot ya deserve fer disobeyin' me!)] he snarls as you choke and splutter on the tube. Thankfully, it only takes a moment for the ordeal to come to an end, as after completely emptying the bottle, the chubby rat-boy carelessly tosses it to one side and pulls the tube back out from your throat. Ignoring your coughing and desperate gasps for breath, Murk evilly grins down at you and sneers, [murk.speech(That'll teach ya, ya dumb slut! Now, I's done this several times already, so I can tell ya exactly 'ow this is gonna be fuckin' yer mind! Heh-heh-heh!)]
+	</p>
+	<p>
+		Clearly getting turned on by this start to his process of transforming you into another one of his obedient milkers, Murk's cock quickly pushes out of its sheath, and as you feel the fuzzy, mind-altering effects of the transformative potion seeping into your head, you're vaguely aware of the short rat-boy eagerly stoking his fat, throbbing shaft...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_1_AFTER_TRANSFORMATION -->
+	
+	<htmlContent tag="CAPTIVE_DAY_1_AFTER_TRANSFORMATION"><![CDATA[
+	<p>
+		With the last of the transformative effects having taken root deep in your mind, you find yourself letting out an exhausted [pc.moan]. Slumping down in the frame which you're securely fastened into, you pant for breath and start to recover your senses...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_1_AFTER_TRANSFORMATION_MURK_COCK -->
+	
+	<htmlContent tag="CAPTIVE_DAY_1_AFTER_TRANSFORMATION_MURK_COCK"><![CDATA[
+	<p>
+		The first thing that you become aware of is the fact that Murk is standing right in front of you, and not only is his massive, delicious-looking cock throbbing at full erection, but there's a heady, musky stream of slimy precum drooling out of the tip. Unable to look away from the chubby rat-boy's fat shaft, you realise that you're no longer panting from exhaustion, but instead from an overwhelming desire to wrap your [pc.lips] around his hot cock and milk his balls into your stomach.
+	</p>
+	<p>
+		[murk.speech(Heh-heh-heh! You's startin' ta feel like a real milker, are ya?!)] Murk sneers, before stepping forwards and bringing the head of his massive cock closer to your waiting [pc.lips]. The thick scent of his musky precum overwhelmes your senses, and you can't help but drool as you see a dollop of it run down the length of his hot [murk.penisColour] shaft. Using this slimy precum as lubricant, the rat-boy strokes his cock several times, before teasing, [murk.speech(Kiss me fuckin' cock an' ask nicely, an' I'll give yer a real good face-fuckin'!)]
+	</p>
+	<p>
+		Feeling incredibly turned on by your submissive, exposed state, and with an intense desire to have a taste of Murk's fat cock, you can't help but do as you're told...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_1_AFTER_TRANSFORMATION_MURK_COCK_BLOWJOB"><![CDATA[
+	<p>
+		Unable to stop yourself, you crane your neck forwards, before pressing your [pc.lips+] against the tip of Murk's cock and delivering a loud, wet kiss to it. The potent, musky taste of the chubby rat-boy's precum instantly fills your mouth and leaves you hungering for more, but, much to your distress, Murk pulls back a little, taking his cock out of your reach.
+	</p>
+	<p>
+		[murk.speech(What did I say, slut? Beg fer me cock nicely, an' I'll give ya the full package!)] he sneers.
+	</p>
+	<p>
+		Far too turned on to stop now, you desperately beg, [pc.speech(Please! Give me your cock! Come on, I need it! Fuck my face!)]
+	</p>
+	<p>
+		[murk.speech(Heh-heh-heh! That'll do fer now!)] Murk chuckles, before stepping forwards and using one hand to guide his fat cock into your open mouth. Not caring at all about your pleasure, he instantly thrusts his hips forwards, and soon the milking room is echoing with lewd wet slapping sounds as the chubby rat-boy roughly fucks your face...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_1_END -->
+	
+	<htmlContent tag="CAPTIVE_DAY_1_END"><![CDATA[
+	<p>
+		Now that he's had his fun, and having emptied his fat balls deep down your throat, Murk steps back, and with a wet squelching noise, slides his softening cock out of your mouth. With your throat feeling well and truly abused, you desperately pant for breath as the chubby rat-boy grabs the chain from off of the wall in front of you and locks it to the ring on the front of your slave collar.
+	</p>
+	<p>
+		Moving around to unfasten your restraints, Murk delivers a sharp slap to your exposed ass, before chuckling, [murk.speech(You's better get some sleep now, bitch! There's gonna be plenty more trainin' fer ya tomorrow, an' I's expectin' more transformation potions, too! I'll 'ave ya broken an' turned inta one o' me slutty milkers sooner than I thought! Heh-heh-heh!)]
+	</p>
+	<p>
+		With that, Murk quickly chains up the other milkers, and after releasing them from their stocks, he waddles out of the milking room and locks the door behind him, leaving you still panting for breath as you try to summon the strength to stand up...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- END OF DAY 1 -->
+	
+	
+	<!-- START OF DAY 2 -->
+	
+	
+	<!-- CAPTIVE_DAY_2_WAKE -->
+	
+	<htmlContent tag="CAPTIVE_DAY_2_WAKE"><![CDATA[
+	<p>
+		The next morning, you're awoken by the familiar voice of Murk shouting out as he enters the milking room, [murk.speech(Time fer ya milkin'! Come on, I ain't got all day! Get inta yer stalls, ya sluts!)]
+	</p>
+	<p>
+		Sitting up on your straw bedding and rubbing the sleep out of your weary eyes, you look across to see that the other four milkers are obediently clambering into their milking stalls and getting ready for Murk to come and strap them in. Looking back towards the chubby rat-boy, you see him finishing off the last bite of a greasy burger which must have served as his breakfast. Letting out a loud belch and tossing the wrapper to the floor, Murk glares down at you, and with his mouth still full of food, he snaps, [murk.speech(Wot ya waitin' for?! Get in yer stall, bitch!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_2_WAKE_OBEY"><![CDATA[
+	<p>
+		Hurrying to do as you're told, you follow the example of the other four milkers and clamber into the padded metal framework which serves as your milking stall. Letting out an approving grunt, Murk moves forwards and straps you down, before unlocking the chain from your metal collar and hanging it up on the wall in front of you.
+	</p>
+	<p>
+		Dragging his feet and letting out a big yawn, the rat-boy then walks around behind you,
+		#IF(pc.hasVagina())
+			 before grabbing one of your [pc.assSize] ass cheeks and pulling it to one side. Finding yourself getting uncontrollably aroused by this dominant behaviour, you can't help but let out [pc.a_moan+] as Murk suddenly stuffs two of his greasy fingers into your exposed cunt and cackles,
+		#ELSEIF(pc.hasPenis())
+			 before grabbing one of your [pc.assSize] ass cheeks and pulling it to one side. Finding yourself getting uncontrollably aroused by this dominant behaviour, you can't help but let out [pc.a_moan+] as Murk wraps his greasy fingers around your exposed cock and cackles,
+		#ELSE
+			 before grabbing your [pc.ass+] with his greasy fingers and giving you a good grope. Finding yourself getting uncontrollably aroused by this dominant behaviour, you can't help but let out [pc.a_moan+] as Murk pulls your cheeks apart and cackles,
+		#ENDIF
+		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveFeminine))
+			 [murk.speech(Heh-heh-heh! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be lookin' like the rest o' me milkers, with big fat tis an' a droolin' cunt!)]
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveFuta))
+			 [murk.speech(Heh-heh-heh! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be havin' big fat tis, a droolin' cunt, an' a big ol' futa cock!)]
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveMasculine))
+			 [murk.speech(Heh-heh-heh! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be lookin' real manly, with a big ol' cock between yer legs!)]
+		#ELSE
+			 [murk.speech(Heh-heh-heh! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be lookin' like a pathetic sissy, with a tiny little cock an' a big fuckable ass!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasVagina())
+			Pulling his fingers out of your pussy, Murk gives your ass a sharp slap, before walking off to strap the rest of the milkers into their stalls.
+		#ELSEIF(pc.hasPenis())
+			After giving your cock a quick stroke, Murk releases his grip and gives your ass a sharp slap, before walking off to strap the rest of the milkers into their stalls.
+		#ELSE
+			Letting out another chuckle, Murk releases his grip on your ass, before giving it a sharp slap and then walking off to strap the rest of the milkers into their stalls.
+		#ENDIF
+		 Once he's finished turning on all of the milking machines, the chubby rat-boy swiftly exits the room, leaving you to wait for his return...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_2_WAKE_RESIST"><![CDATA[
+	<p>
+		Dreading being locked into the milking stall and being fully at the mercy of Murk once again, you pull away from the rat-boy and try to resist being restrained. Unfortunately, the chain attached to your collar is all the leverage Murk needs, and with an angry scowl, he roughly pulls on it to force you up onto your [pc.feet]. Once you're standing, the sadistic rat-boy gives your chain another violent tug, causing you to stumble forwards and collapse down into padded metal framework which serves as your milking stall.
+	</p>
+	<p>
+		Spitting and cursing, Murk moves to quickly strap you down, and once he's satisfied that you're fully locked into the milking stall, he roughly removes the chain from your collar and hangs it up on the wall in front of you. Letting out an angry grunt, he waddles around behind you,
+		#IF(pc.hasVagina())
+			 before grabbing one of your [pc.assSize] ass cheeks and forcefully pulling it to one side. Thanks to the mind-altering potion which you were forced to swallow yesterday, you find yourself getting uncontrollably aroused by this dominant behaviour, and you can't help but let out [pc.a_moan+] as Murk suddenly stuffs two of his greasy fingers into your exposed cunt and growls,
+		#ELSEIF(pc.hasPenis())
+			 before grabbing one of your [pc.assSize] ass cheeks and forcefully pulling it to one side. Thanks to the mind-altering potion which you were forced to swallow yesterday, you find yourself getting uncontrollably aroused by this dominant behaviour, and you can't help but let out [pc.a_moan+] as Murk wraps his greasy fingers around your exposed cock and growls,
+		#ELSE
+			 before grabbing your [pc.ass+] with his greasy fingers and giving you a forceful grope. Thanks to the mind-altering potion which you were forced to swallow yesterday, you find yourself getting uncontrollably aroused by this dominant behaviour, and you can't help but let out [pc.a_moan+] as Murk pulls your cheeks apart and growls,
+		#ENDIF
+		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveFeminine))
+			 [murk.speech(There ain't no point in ya tryin' ta resist, ya dumb bitch! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be lookin' like the rest o' me milkers, with big fat tis an' a droolin' cunt!)]
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveFuta))
+			 [murk.speech(There ain't no point in ya tryin' ta resist, ya dumb bitch! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be havin' big fat tis, a droolin' cunt, an' a big ol' futa cock!)]
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveMasculine))
+			 [murk.speech(There ain't no point in ya tryin' ta resist, ya dumb bitch! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be lookin' real manly, with a big ol' cock between yer legs!)]
+		#ELSE
+			 [murk.speech(There ain't no point in ya tryin' ta resist, ya dumb bitch! I's gonna be givin' ya all da real good transformations today! By tonight, you's gonna be lookin' like a pathetic sissy, with a tiny little cock an' a big fuckable ass!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasVagina())
+			Pulling his fingers out of your pussy, Murk gives your ass a series of sharp slaps to put you in your place, before walking off to strap the rest of the milkers into their stalls.
+		#ELSEIF(pc.hasPenis())
+			After giving your cock a quick stroke, Murk releases his grip and gives your ass a series of sharp slaps to put you in your place, before walking off to strap the rest of the milkers into their stalls.
+		#ELSE
+			Letting out another grunt, Murk releases his grip on your ass, before giving it a series of sharp slaps to put you in your place and then walking off to strap the rest of the milkers into their stalls.
+		#ENDIF
+		 Once he's finished turning on all of the milking machines, the chubby rat-boy swiftly exits the room, leaving you to wait for his return...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_2_BLOWJOB -->
+	
+	<htmlContent tag="CAPTIVE_DAY_2_BLOWJOB"><![CDATA[
+	<p>
+		Just like yesterday, Murk returns after a couple of hours, and as the milkers hear the door creaking open on its hinges, they all start desperately calling out for the rat-boy to come and fuck them. Ignoring their pleas, he swaggers over to stand in front of you, and you look up to see that he's holding a small bottle of what must be your next does of transformative potion. Cackling in delight, he reveals this to be the case, and sneers, [murk.speech(This arrived just a few minutes ago! I's lookin' forwards ta seein' ya take on yer new form, but first, I's needin' ta empty me fat ball! Heh!)]
+	</p>
+	<p>
+		Placing the bottle down on the ground, the rat-boy walks over to the other milkers, and, after seeming to choose one at random, he pulls the vibrating dildo out of her [npc3.pussy+] and clambers up onto her lower back. Turning your head to watch, you see Murk's cock push out of its sheath, before rapidly growing into a massive erection. Wasting no time on foreplay, the rat-boy violently slams his fat dick into the milker's drooling cunt, which causes her to let out an ecstatic squeal.
+	</p>
+	<p>
+		One again, the milking room is filled with the wet, echoing slaps of Murk's heavy balls swinging up to smack against the milker's body as he repeatedly slams deep into her squirting, spasming pussy. Eventually, the panting rat-boy's grunts get deeper and louder, and with a rumbling growl, he hilts his fat cock into his partner's [npc3.pussyCapacity] cunt and unloads his potent, musky cum
+		#IF(npc3.isVisiblyPregnant())
+			 deep into her waiting womb.
+		#ELSE
+			 deep into her abused orifice.
+		#ENDIF
+	</p>
+	<p>
+		Having satisfied his carnal urges, the short rat-boy slides down from the milker's back, before unceremoniously shoving the vibrating dildo back into her well-fucked pussy. Sauntering on over to stand in front of you, Murk lets out a satisfied sigh, before suddenly stepping forwards and pushing his still-hard cock against your lips and commanding, [murk.speech(Clean me fuckin' cock off, slut, an' then we's can get ya transformed!)]
+	</p>
+	<p>
+		Already feeling extremely turned on due to your submissive, exposed position, you feel the effects of yesterday's potion kicking in, and before you know what you're doing, you're hungrily opening wide to get a taste of Murk's delicious, fat cock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_2_BLOWJOB_START"><![CDATA[
+	<p>
+		Still dripping with cum and the juices of the milker that he's just fucked, you find the heady, musky scent of Murk's fat cock to be irresistibly intoxicating, and you although you try not to give in to your new desires, you're unable to stop yourself from craning your neck forwards and delivering a loving kiss to the slimy head of the rat-boy's throbbing cock.
+	</p>
+	<p>
+		[murk.speech(Heh-heh-heh! That's why I's start off me new milkers with the mind-fuckin' shit!)] Murk cackles as he sees your lustful reaction to being presented with his fat cock. Grabbing the back of your head with both hands, the chubby rat-boy slams his hips forwards, driving his cum-coated cock deep down your throat. With absolutely no regard to your comfort, he immediately starts roughly fucking your face, which causes you to gag and splutter as his massive shaft hammers its way deep down your throat...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_2_BLOWJOB_START_EAGER"><![CDATA[
+	<p>
+		Still dripping with cum and the juices of the milker that he's just fucked, you find the heady, musky scent of Murk's fat cock to be irresistibly intoxicating, and you can't help but let out an eager [pc.moan] as you crane your neck forwards to delivering a loving kiss to the slimy head of the rat-boy's throbbing cock.
+	</p>
+	<p>
+		[murk.speech(Heh-heh-heh! That's why I's start off me new milkers with the mind-fuckin' shit!)] Murk cackles as he sees your lustful reaction to being presented with his fat cock. Grabbing the back of your head with both hands, the chubby rat-boy slams his hips forwards, driving his cum-coated cock deep down your throat. With absolutely no regard to your comfort, he immediately starts roughly fucking your face, which causes you to happily gag and splutter as his massive shaft hammers its way deep down your throat...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_2_POTION -->
+	
+	<htmlContent tag="CAPTIVE_DAY_2_POTION_EAGER"><![CDATA[
+	<p>
+		Having used your mouth to clean his cock, and pumped your belly full of his potent, musky cum in the process, Murk steps back and withdraws his thick shaft from your throat. A slick stream of cum and saliva drools out of your mouth as you gasp for breath, and the rat-boy lets out an amused grunt as he sneers, [murk.speech(Yer gettin' ta be a real obedient milker bitch, ain't ya?! I'll 'ave ya beggin fer more o' me cock before the end o' today, you's see if I don't!)]
+	</p>
+	<p>
+		bending down to pick up the transformation potion he'd placed on the floor earlier, Murk pulls out the stopper and brings the neck up to your waiting lips. Once again, you find the mind-altering effects of yesterday's potion too strong to resist, and at the thought of being transformed into Murk's milker, you find yourself obediently parting your [pc.lips] and letting out a pleading whimper.
+	</p>
+	<p>
+		[murk.speech(That's it, slut! Beg fer me ta transform ya into me milker!)] the chubby rat-boy demands, [murk.speech(Go on! Fuckin' beg fer it!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_2_POTION_EAGER"><![CDATA[
+	<p>
+		[pc.speech(Please, Murk! Transform me into your milker!)] you desperately beg, before opening your mouth and sticking out your [pc.tongue+].
+	</p>
+	<p>
+		[murk.speech(You's wantin' this, are ya?)] Murk sneers, [murk.speech(Tell me that yer gonna be me good milker slut an' I'll give it to ya!)]
+	</p>
+	<p>
+		[pc.speech(Yes, I'll be your good milker slut!)] your frantically beg, before desperately whining, [pc.speech(Please! I <i>need</i> it!)]
+	</p>
+	<p>
+		Chuckling at your enthusiasm, Murk roughly shoves the neck of the bottle into your open mouth, before tilting it up and letting the sweet liquid drain out down your throat. Happily gulping down every last drop of the transformative liquid, you let out a deeply satisfied [pc.moan] as you feel a delightful tingling start to spread throughout your body.
+	</p>
+	<p>
+		[murk.speech(This is gonna be good!)] Murk growls, before tossing the empty bottle to one side and sneering, [murk.speech(I's gonna tell ya what's happenin' ta ya, so you's just relax an' fully accept the fact that yer becomin' one o' me milker sluts!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_2_POTION_RELUCTANT"><![CDATA[
+	<p>
+		Overwhelmed by the burning desire to be transformed by Murk, you can't bring yourself to completely resist, but you also don't feel as though you need to completely submit to him. Trying your best not to lose control of yourself, you let out a low whine and you simply beg, [pc.speech(Please, Murk, give me the potion...)]
+	</p>
+	<p>
+		[murk.speech(You's wantin' this, are ya?)] Murk sneers, [murk.speech(Tell me that yer gonna be me good milker slut an' I'll give it to ya!)]
+	</p>
+	<p>
+		Feeling increasingly frustrated at being denied a taste of the transformative fluid, you hastily reply, [pc.speech(Yes, I'll be your good milker slut, now please, give it to me!)]
+	</p>
+	<p>
+		Chuckling at your response, Murk roughly shoves the neck of the bottle into your open mouth, before tilting it up and letting the sweet liquid drain out down your throat. Happily gulping down every last drop of the transformative liquid, you let out a deeply satisfied [pc.moan] as you feel a delightful tingling start to spread throughout your body.
+	</p>
+	<p>
+		[murk.speech(This is gonna be good!)] Murk growls, before tossing the empty bottle to one side and sneering, [murk.speech(I's gonna tell ya what's happenin' ta ya, so you's just relax an' fully accept the fact that yer becomin' one o' me milker sluts!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_2_AFTER_POTION -->
+	
+	<htmlContent tag="CAPTIVE_DAY_2_AFTER_POTION"><![CDATA[
+	<p>
+		Panting and [pc.moaning] as the transformations come to an end, you look up at Murk to see a wicked grin plastered across his chubby face. Stepping around to one side of you, he greedily gropes your new body, before revealing, [murk.speech(You's startin' ta look the part, slut! I's got another potion arrivin' later today, an' once that's 'ere, I's gonna get yer body finished off! Afta that, it'll be one quick transformation tomorrow mornin', then you's gonna be ready fer milkin' and fuckin'! heh-heh-heh!)]
+	</p>
+	<p>
+		After moving around to your rear end and giving your [pc.ass+] a quick grope, the chubby rat-boy swaggers off towards the door to the milking room and makes his exit. Left panting and quietly [pc.moaning] in your milking stall, there's little else for you to do except wait for Murk's return...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_2_LUNCH -->
+	
+	<htmlContent tag="CAPTIVE_DAY_2_LUNCH"><![CDATA[
+	<p>
+		Once again, you're left with nothing to do for the next couple of hours, but unlike yesterday, you find that the combination of the milkers' background moans and the lingering taste of Murk's musky cum in the back of your throat keeps you in a state of perpetual arousal. Your desire for exposing yourself also helps to contribute to your horniness, and you spend most of the remainder of the morning fantasising about the many gang-members who are sure to get a good look at your naked body later this afternoon.
+	</p>
+	<p>
+		While in the middle of one of these fantasies, you suddenly hear the door to the milking room swing open behind you. Before you know what you're doing, you're lifting your hips and pushing your ass out as much as possible in the hopes that Murk will take a moment to lustfully stare at your exposed
+		#IF(pc.hasVagina())
+			#IF(pc.hasPenis())
+				 cock, pussy, and asshole.
+			#ELSE
+				 pussy and asshole.
+			#ENDIF
+		#ELSEIF(pc.hasPenis())
+			 cock and asshole.
+		#ELSE
+			 asshole.
+		#ENDIF
+		 Much to your delight, the rat-boy seems to be drawn in by your shameless display, and, ignoring the other milkers' cries for him to come and fuck them, Murk wheels his trolley over to you and sneers, [murk.speech(Gettin' 'orny at the thought o' havin' people stare at yer slutty body? Don't ya worry, bitch, yer gonna be gettin' plenty o' looks from the rats 'o'll be comin' later today!)]
+	</p>
+	<p>
+		Stepping around in front of you, Murk grabs the hinged metal frame that's attached to your stall, before pulling it down and locking it in place just in front of your face. Grabbing one of the metallic bowls which are sitting on top of his battered trolley, he places it into this frame, and you look down to see that it's filled with same bland, grey gruel which you were served yesterday.
+	</p>
+	<p>
+		[murk.speech(Enjoy yer meal, bitch!)] Murk sneers, before grabbing hold of his trolley and wheeling it over to the next stall, leaving you to tuck in to your bowl of unappetising mush...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_2_LUNCH_EAT"><![CDATA[
+	<p>
+		Not wanting to make Murk angry, you drop your head down and start eating the bland, grey gruel which serves as your breakfast, lunch, and dinner all rolled into one. As you gulp down the mostly-tasteless mush, you find yourself thinking that meals here could be a lot worse, and that Murk must actually be quite kind to go to the trouble of procuring this nourishing food for all five of you milkers.
+	</p>
+	<p>
+		Soon enough, you've polished off he entire bowl, and look up just in time to see Murk waddling back over towards you. Seeing that you've eaten every last bite of your meal, the chubby rat-boy grins and declares, [murk.speech(You's a good milker bitch, ain't ya?! Once I's got yer fully transformed, you's gonna be earnin' a hot dessert straight from me fat balls fer finishin' yer meals like this!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_2_LUNCH_REFUSE"><![CDATA[
+	<p>
+		Despite knowing that you're going to anger Murk, you can't bring yourself to willingly eat the tasteless gruel, and so keep your head held up high as you wait for the rat-boy to finish serving the other milkers and return to you. Sure enough, after a short while, you suddenly hear Murk shout out as he approaches you, [murk.speech(Wot ya doin', ya dumb bitch?! I fuckin' told ya ta eat yer lunch!)]
+	</p>
+	<p>
+		Quickly moving around behind you, the angry rat-boy delivers a series of sharp, stinging slaps to your exposed ass, which causes you to squeal and squirm about in your restraints. After delivering a dozen of these forceful smacks to your cheeks, the chubby rat-boy clambers up onto your back, before forcefully shoving both of his feet down against the back of your head and grinding your face down into the bowl of gruel. Letting out an angry grunt, he shouts, [murk.speech(Eat it, bitch! Go on! Fuckin' eat it all!)]
+	</p>
+	<p>
+		With little option but to do as you're told, you start obediently gulping down the grey mush, but despite your obvious compliance with his demands, Murk refuses to stop pushing his rat-like feet into the back of your head until you've polished off every last bit of your lunch. Only after you've completely finished your meal does the brown-furred rat-boy slide down from off of your back, and with an angry tone still in his voice, he delivers a final sharp slap to your ass, before walking around in front of you and spitting, [murk.speech(You's eat when I tell ya ta fuckin' eat in da future! You stupid slut!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_2_LUNCH_END"><![CDATA[
+	<p>
+		After picking up your empty bowl and placing it back on his trolley, Murk folds up your stall's metal frame, before sneering, [murk.speech(I's gonna be back in fifteen minutes ta continue with yer trainin'. You's just keep on fantasisin' about showin' yerself off until I return! Heh-heh-heh!)]
+	</p>
+	<p>
+		With that, Murk sets about collecting the empty bowls from all of the other milkers, and once he's done, he wheels his trolley out of the room and shuts the door behind him, leaving you yet again with nothing to do but wait for his return and daydream about showing off your naked body to the visiting gang members...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_2_AFTERNOON -->
+	
+	<htmlContent tag="CAPTIVE_DAY_2_AFTERNOON"><![CDATA[
+	<p>
+		Sure enough, just fifteen minutes later, Murk returns to the milking room, and is once again greeted by the desperate moans of the other milkers calling out for him to come and fuck them.
+		#IF(game.isAnalContentEnabled())
+			 Swaggering over to the one closest to you, he turns up the dial on the the vibrating dildo shoved deep into her [npc.pussy+], before climbing up onto her back and instantly sinking his fat, throbbing cock deep into her puffy, naturally-lubricating asshole. Reaching down beneath her body to fondle her massive tits, the chubby rat-boy violently pounds [npc.namePos] [npc.assholeCapacity] asshole, and it only takes him a few minutes before he's pumping a hot load of his musky cum deep into her ass.
+		#ELSE
+			 Swaggering over to the one closest to you, he pulls the vibrating dildo out of her [npc.pussy+], before climbing up onto her back and instantly sinking his fat, throbbing cock deep into her sloppy cunt. Reaching down beneath her body to fondle her massive tits, the chubby rat-boy violently pounds [npc.namePos] [npc.pussyCapacity] pussy, and it only takes him a few minutes before he's pumping a hot load of his musky rat-cum deep into her
+			#IF(npc.isPregnant())
+				 squirting, spasming cunt.
+			#ELSE
+				 waiting womb.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Letting out a deeply satisfied sigh, Murk clambers off of [npc.namePos] back,
+		#IF(game.isAnalContentEnabled())
+			 before turning the vibrating dildo's dial back down and then sauntering over to stand behind you.
+		#ELSE
+			 before roughly shoving the vibrating dildo back into her cunt and sauntering over to stand behind you.
+		#ENDIF
+		 Reaching forwards to grab a handful of your [pc.ass+], he sniggers, [murk.speech(That's wot's gonna be happenin' ta you tomorrow! I's gonna be fuckin' ya non-stop all day! Heh-heh-heh!)]
+	</p>
+	<p>
+		At that moment, there's a loud knock on the door to the milking room, and Murk's attention is drawn away by a steady stream of gang members who arrive to pay him in exchange for a good fuck with one of the other milkers. Just as you'd fantasised about earlier, you find yourself getting increasingly aroused as the rats cast their lustful gazes over your exposed body. You overhear a couple of them specifically asking to fuck you, but Murk angrily tells them that you're not ready for public use just yet.
+	</p>
+	<p>
+		The next couple of hours pass in this manner, before finally Murk declares that his business is closed for the rest of the day. Escorting the last of the gang-members out of the milking room, he's finally able to turn his attention back to you, and he saunters up behind you to give your [pc.ass+] a good grope and sneer, [murk.speech(Now I's got the rest o' the day ta finish yer trainin'!)]
+	</p>
+	<p>
+		Walking around in front of you, the chubby rat-boy forcefully pushes his furry balls into your face, and, already madly turned-on by your fetish for submissive exhibitionism, you find yourself lustfully nuzzling into them and willingly repeating Murk's demands to tell him that you're his good little milker slut. After he's had enough of this, Murk moves around to your rear-end, and, just like yesterday, he demands that you repeat a series of degrading statements about yourself out loud for the other milkers to hear. If he's not satisfied with your speed or enthusiasm, the sadistic rat-boy delivers a series of sharp slaps to your exposed cheeks, and despite your best efforts to do as you're told, your ass is soon feeling extremely sore and tender.
+	</p>
+	<p>
+		Just as you think that you can't take any more of Murk's abuse, a sharp knock at the door interrupts your training, and the chubby rat-boy gives you a few moments in which to recover while he sees to his visitor. After just a few minutes, you hear the door swing open and shut once again, and Murk waddles around in front of you to show off yet another small bottle of transformative liquid. Taking a bite out of a greasy burger which he's holding in his other hand, the rat-boy sneers with his mouth full of food, [murk.speech(I's got yer next transformation in this 'ere bottle! This 'un's gonna finish transformin' ya body, an' then all that's gonna be left is yer fluids transformation tomorrow mornin'! Afta that you's gonna be ready fer fuckin' an' milkin'! Heh-heh-heh!)]
+	</p>
+	<p>
+		Pulling out the stopper with his teeth, Murk brings the bottle up towards your waiting [pc.lips], and just like he did earlier in the day, he demands, [murk.speech(Beg fer me ta transform ya inta me milker slut! Go on, slut, beg fer it!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_2_AFTERNOON_EAGER"><![CDATA[
+	<p>
+		Thanks to the effects of the mind-altering potion which you were made to drink yesterday, you find yourself getting madly turned on at the prospect of being transformed. Letting Murk's obedience training take over, you look up at the smirking rat-boy and beg, [pc.speech(Please, Murk, transform me into your milker bitch! I <i>need</i> it! Please!)]
+	</p>
+	<p>
+		Sniggering in delight, the chubby rat-boy takes another bite out of his greasy burger, before stepping forwards and roughly pushing his sheathed cock against your mouth. Once again talking with his mouth full of food, he demands, [murk.speech(Kiss me fuckin' cock an' tell me that yer love it, then ya can get wot ya want!)]
+	</p>
+	<p>
+		Desperate to do anything for a taste of the transformation potion, you passionately kiss Murk's musky cock and balls, before looking up into his eyes and obediently [pc.moaning], [pc.speech(I love your cock!)]
+	</p>
+	<p>
+		Letting out a triumphant cackle, the rat-boy finally gives you what you want, and roughly shoves the neck of the bottle past your [pc.lips+] and into your mouth. Tilting the bottom up, he pours the sweet fluid down your throat, and you make sure to greedily swallow down every last drop.
+	</p>
+	<p>
+		[murk.speech(You's gonna love this!)] Murk sneers, [murk.speech(I's gonna tell ya wot's happenin' ta ya body, so just relax an' accept ya fate as becomin' one o' me milker sluts!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_2_AFTERNOON_RELUCTANT"><![CDATA[
+	<p>
+		Thanks to the effects of the mind-altering potion which you were made to drink yesterday, you find yourself getting madly turned on at the prospect of being transformed, but despite this, you're still able to hold back from fully surrendering to Murk's demands. Trying to do the bare minimum possible in order to get a taste of the liquid you find yourself craving, you simply beg, [pc.speech(Please, Murk, transform me into your milker slut...)]
+	</p>
+	<p>
+		Sniggering in delight, the chubby rat-boy takes another bite out of his greasy burger, before stepping forwards and roughly pushing his sheathed cock against your mouth. Once again talking with his mouth full of food, he demands, [murk.speech(Kiss me fuckin' cock an' tell me that yer love it, then ya can get wot ya want!)]
+	</p>
+	<p>
+		Knowing that you'll have to do as he says, you quickly kiss Murk's musky cock, before looking up into his eyes and obediently telling him, [pc.speech(I love your cock...)]
+	</p>
+	<p>
+		Letting out a triumphant cackle, the rat-boy finally gives you what you want, and roughly shoves the neck of the bottle past your [pc.lips+] and into your mouth. Tilting the bottom up, he pours the sweet fluid down your throat, and you make sure to greedily swallow down every last drop.
+	</p>
+	<p>
+		[murk.speech(You's gonna love this!)] Murk sneers, [murk.speech(I's gonna tell ya wot's happenin' ta ya body, so just relax an' accept ya fate as becomin' one o' me milker sluts!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_2_AFTERNOON_AFTER_TRANSFORMATION -->
+	
+	<htmlContent tag="CAPTIVE_DAY_2_AFTERNOON_AFTER_TRANSFORMATION"><![CDATA[
+	<p>
+		[murk.speech(Heh-heh-heh! Now yer lookin' like a real milker slut!)] Murk laughs, before finishing off the last bite of his burger and carelessly throwing the paper wrapper to the floor. Looking back down at you with a big grin on his face, he steps forwards and sneers, [murk.speech(Let's see wot we's got ta work with...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_2_AFTERNOON_AFTER_TRANSFORMATION_GROPED -->
+	
+	<htmlContent tag="CAPTIVE_DAY_2_AFTERNOON_AFTER_TRANSFORMATION_GROPED"><![CDATA[
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveFeminine) || game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveFuta))
+			Swaggering around to one side of your milking stall, Murk lets out a happy grunt as he looks down at your [pc.breastSize] tits. Not being able to help himself, he reaches down and gives them a good squeeze, and you can't help but let out a submissive whine as you feel his greasy fingers roughly digging in to your pillowy mounds of flesh. Moving his touch down, the chubby rat-boy grabs hold of your [pc.nippleSize] nipples, before giving them a firm squeeze and grunting,
+			#IF(game.isLactationContentEnabled())
+				 [murk.speech(We's gonna make these fuckers even bigger tomorrow! They's gonna be swaying back an' forth an' spurtin' out milk as I pound yer cunt! Heh-heh-heh!)]
+			#ELSE
+				 [murk.speech(We's gonna make these fuckers even bigger tomorrow! They's gonna be swaying back an' forth as I pound yer cunt! Heh-heh-heh!)]
+			#ENDIF
+		#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveMasculine))
+			Swaggering around to one side of your milking stall, Murk lets out a happy grunt as he looks down at your masculine body. Not being able to help himself, he reaches down and gives your pecs a good grope, and you can't help but let out a deep groan as you feel his greasy fingers roughly pinching your nipples. Grunting in amusement, the rat-boy teases, [murk.speech(Yer lookin' real manly, ain't ya! I's lookin' forwards ta breakin' ya an' makin' ya moan when I's fuckin ya tomorrow! Heh-heh-heh!)]
+		#ELSE
+			Swaggering around to one side of your milking stall, Murk lets out a happy grunt as he looks down at your androgynous body. Not being able to help himself, he reaches down and gives your [pc.nippleSize] nipples a good squeeze, and you can't help but let out a submissive whine as you feel his greasy fingers roughly pinching your girly teats. Grunting in amusement, the rat-boy teases, [murk.speech(Yer lookin' like a real sissy slut! I's lookin' forwards ta hearin' 'ow ya moan when I's fuckin ya tomorrow! Heh-heh-heh!)]
+		#ENDIF
 	</p>
 	#IF(pc.hasVagina())
 		<p>
-			He moves around behind you and starts stroking your pussy. Gets you turned on and desperate for sex.
+			Moving around to your rear end, the chubby rat-boy roughly grabs one of your [pc.assSize] ass cheeks with his greasy hand, before pulling it to one side and getting a good look at your pussy. Massively turned on by what's happening to you, you feel that your drooling pussy is already dripping from excitement, but despite this, Murk still feels the need to loudly spit on his greasy, fat fingers, before roughly pushing them between your massive labia and forcefully shoving them inside your exposed twat. Not being able to hold back any longer, you let out a desperate squeal as you feel Murk's digits pushing into your vice-like cunt, [pc.speechNoExtraEffects(~Aah!~ Yes! Fuck! ~Ooh!~)]
 		</p>
-		<p>
-			Starts teasing his cock over your labia. Says you have to beg for it if you want it.
-		</p>
-	#ELSEIF(game.isAnalContentEnabled())
-		<p>
-			He moves around behind you and starts stroking your cock. Gets you turned on and desperate for sex.
-		</p>
-		<p>
-			Starts teasing his cock over your asshole. Says you have to beg for it if you want it.
-		</p>
-	#ELSE
-		<p>
-			He moves around in front of you and makes you kiss his cock. Gets you turned on and desperate for sex.
-		</p>
-		<p>
-			Starts teasing his cock over your lips. Says you have to beg for it if you want it.
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_SLEEP_MILKING_CHECK_FIRST"><![CDATA[
-	<p>
-		Murk says that now you've been broken in, it's time for your first day of milking.
-	</p>
-	<p>
-		If producing milk, he attaches the milking equipment, before going around behind you. If player has pussy, inserts arcane-powered vibrator (turned off). If player has only cock (and anal content on), he inserts it into ass instead. If gape content, Murk comments on player's capacity.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_SLEEP_MILKING_CHECK"><![CDATA[
-	<p>
-		If producing milk, he attaches the milking equipment, before going around behind you. If player has pussy, inserts enchanted insertable dildo. If player has only cock, he inserts enchanted butt-plug. Murk comments on player's capacity.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_TF_FEMALE"><![CDATA[
-	<p>
-		You look up at Murk, signalling that you'd prefer not to become a futa. The rat-girl storms off.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_TF_FUTA"><![CDATA[
-	<p>
-		You look up at the rat-girl, signalling that you'd prefer to become a futa. Murk seems annoyed, but the rat-girl insists.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_TF_MASCULINE"><![CDATA[
-	<p>
-		You pull away from Murk's cock, making him laugh. He says it's more fun to break you in, and that he's going to make you really manly so that you feel ashamed at being owned and dominated by him.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_TF_SISSY"><![CDATA[
-	<p>
-		You push your ass back against Murk's cock. He laughs and says he was thinking about turning you into his sissy fucktoy, and your behaviour has decided your fate.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_SLEEP_FIRST_DAY_ALREADY_TF_COMPLETE"><![CDATA[
-	<p>
-		Murk says taht you're already perfect the way you are, and he won't need to transform you at all.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_TRANSFORM_SELF"><![CDATA[
-	<p>
-		You do as Murk says, and prepare to transform yourself for him...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_NEXT"><![CDATA[
-	<p>
-		Murk heads over to [npc.name], saying that [npc.she] needs to be transformed...
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<htmlContent tag="STOCKS_TRANSFORM_SWALLOW"><![CDATA[
-	<p>
-		You swallow the potion. If ring-gag, you have no choice.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_TRANSFORM_REFUSE"><![CDATA[
-	<p>
-		You spit out the potion. Ring-gag fitted.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_TRANSFORM_MILKING_FIRST_TIME"><![CDATA[
-	<p>
-		Murk fondles you and makes you beg to have the machine turned on. Teases you that this is the last moment before you get addicted to the pleasure of being milked.
-	</p>
-	<p>
-		He turns it on and it starts milking you of milk/cum.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_TRANSFORM_MILKING"><![CDATA[
-	<p>
-		Murk fondles you and makes you beg to have the machine turned on.
-	</p>
-	<p>
-		He turns it on and it starts milking you of milk/cum.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_SELF"><![CDATA[
-	<p>
-		Your companion self-transforms...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_SWALLOW"><![CDATA[
-	<p>
-		Your companion swallows the potion. If ring-gag, they have no choice.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_REFUSE"><![CDATA[
-	<p>
-		Your companion spits out the potion. Ring-gag fitted.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_FIRST_FUCK"><![CDATA[
-	<p>
-		Murk has finished transforming your companion. You hear Murk saying that it's time to break [npc.herHim] in...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_MILKING"><![CDATA[
-	<p>
-		Murk hooks your companion up to the milking machine. Gropes them while doing it.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_MILKING_START"><![CDATA[
-	<p>
-		Murk hooks your companion up to the milking machine for the first time. Gropes them while doing it.
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- STOCKS_FIRST_FUCK -->
-	
-	<htmlContent tag="STOCKS_FIRST_FUCK"><![CDATA[
-	#IF(pc.hasVagina())
-		<p>
-			You beg for Murk to fuck your pussy. He makes you call him master.
-		</p>
-		#IF(game.isGapeContentEnabled())
+		#IF([#SPECIAL_PARSE_0])
 			<p>
-				He tells you that his fat cock is going to ruin your pussy so that only he can satisfy you. Walks around in front of you and says he likes his broken-in cock-sleeves to look well-used. Forces you to drink one last potion.
+				[murk.speech(You's grown a real nice cunt 'ere!)] Murk sniggers, before leaning in over your back and grunting, [murk.speech(I's gonna enjoy ruinin' it with me fat fuckin' cock! Heh-heh-heh!)]
 			</p>
-			[#SPECIAL_PARSE_0]
+		#ELSEIF(pc.hasHymen())
 			<p>
-				Murk steps back behind you to say that your huge labia have grown in nicely; your tight cunt will soon be gaping and only fit for his massive cock.
-			</p>
-			<p>
-				Makes you beg for him to make you his. He tells you to raise your ass.
+				[murk.speech(You's got a real nice cunt 'ere!)] Murk sniggers, before leaning in over your back and grunting, [murk.speech(You's still got yer hymen?! Ooh, I's gonna enjoy ruinin' yer virgin cunt with me fat fuckin' cock! Heh-heh-heh!)]
 			</p>
 		#ELSE
 			<p>
-				He tells you that once you've had a feel of his fat cock, no other rat is going to satisfy you. Makes you beg for him to make you his. He tells you to raise your ass.
+				[murk.speech(You's got a real nice cunt 'ere!)] Murk sniggers, before leaning in over your back and grunting, [murk.speech(I's gonna enjoy ruinin' it with me fat fuckin' cock! Heh-heh-heh!)]
 			</p>
 		#ENDIF
-	#ELSEIF(game.isAnalContentEnabled())
 		<p>
-			You beg for Murk to fuck your ass. He makes you call him master.
+			Madly turned on at the thought of being fucked by Murk, you push your hips back and let out another desperate moan. Much to your disappointment, however, the rat-boy pulls his fat, greasy fingers out of your tight cunt, and after giving your puffy pussy a sharp slap, he sneers, [murk.speech(You's a real 'orny slut, ain't ya! Well, you's gotta wait 'til tomorrow fer yer first fuck! We's not finished with yer trainin' an' transformations yet!)]
 		</p>
-		#IF(game.isGapeContentEnabled())
+		#IF(pc.hasPenis())
 			<p>
-				He tells you that his fat cock is going to ruin your ass so that only he can satisfy you. Makes you beg for him to make you his. He tells you to raise your ass.
+				Reaching down to grab your [pc.cock+], the rat-boy gives it a few strokes, before fondling your [pc.balls+] and chuckling, [murk.speech(You's gonna be spurtin' plenty o' cum inta me milking machine tomorrow!)]
 			</p>
+		#ENDIF
+	#ELSEIF(pc.hasPenis())
+		<p>
+			Moving around to your rear end, the chubby rat-boy reaches down to grab your [pc.cock+], and after giving it a few strokes with his greasy fingers, he fondles your [pc.balls+] and chuckles, [murk.speech(You's gonna be spurtin' plenty o' cum inta me milking machine tomorrow!)]
+		</p>
+	#ENDIF
+	#IF(game.isAnalContentEnabled())
+		<p>
+			Grabbing your ass cheeks and spreading them apart, Murk suddenly leans down and spits on your puffy asshole. Rubbing his saliva over your rear entrance, he pushes one of his fat fingers inside, which causes you to let out a desperate, horny [pc.moan]. Letting out an amused grunt, the chubby rat-boy continues fingering your asshole for a few moments, before pulling his digit out and sneering, [murk.speech(I's gonna be poundin' this tight little butt o' yours tomorrow! I's can tell from yer hot little moans that you's gonna be a dirty little butt-slut! Heh!)]
+		</p>
+	#ENDIF
+	<p>
+		With that, Murk delivers a final sharp slap to your [pc.ass+], before declaring, [murk.speech(Right! It's time ta finish yer trainin'! By the end o' today, you's gonna be lustin' afta me fat cock an' beggin fer me ta fuck ya senseless!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_2_EVENING_TRAINING -->
+	
+	<htmlContent tag="CAPTIVE_DAY_2_EVENING_TRAINING"><![CDATA[
+	<p>
+		Turning your head to one side, you're able to watch as Murk swaggers over to the far end of the room, before unstrapping the one milker you haven't seen him fuck yet. Although you can't hear what he says to her over the noise of the other milkers crying out to be fucked, you see the chubby rat-bot pointing over towards you and giving [npc4.name] a command. Hurrying to obey her master, this milker walks over to your milking stall, and, not even bothering to say anything to you, she climbs up on top of you and lies down flat on your back.
+	</p>
+	<p>
+		With her [npc4.breastSize] tits pressing down into your upper back, the milker shuffles around until finally getting into a comfortable position where her exposed rear-end is hanging over your ass. While she's not particularly heavy, you're still annoyed at this girl's decision to use you as a bed, but just as you open your mouth to object, she clasps one of her hands over your  mouth and drawls, [npc4.speech(Master hasn't given you permission to speak... You have to wait and do only what he says... Then you get to receive his reward...)]
+	</p>
+	<p>
+		From somewhere behind you, you hear the sound of a wooden chair being dragged across the floor, and after it's been placed right behind your stall, the familiar voice of Murk calls out, [murk.speech(Spread yer legs, ya dumb bitch! I's gonna give ya a real good fuckin' today!)]
+	</p>
+	<p>
+		Letting out a delighted moan, the milker obediently spreads her legs, and you hear Murk climbing up onto the chair behind you so that he can penetrate her exposed pussy. Instead of doing this, however, you suddenly feel the slimy, precum-covered head of Murk's fat cock tease
+		#IF(pc.hasVagina())
+			 up and down between your massive labia. Letting out a deep grunt, the rat-boy calls out, [murk.speech(You's wantin' this, slut?! All I's gotta do is push forwards an' I'll be stuffin' me fat cock deep in yer dirty little cunt!)]
 		#ELSE
-			<p>
-				He tells you that once you've had a feel of his fat cock, no other rat is going to satisfy you. Makes you beg for him to make you his. He tells you to raise your ass.
-			</p>
+			 up and down over your puffy asshole. Letting out a deep grunt, the rat-boy calls out, [murk.speech(You's wantin' this, slut?! All I's gotta do is push forwards an' I'll be stuffin' me fat cock deep in yer dirty little asshole!)]
 		#ENDIF
-	#ELSE
-		<p>
-			You beg for Murk's cock. He makes you call him master.
-		</p>
-		<p>
-			He tells you that once you've had a taste of his fat cock, no other rat is going to satisfy you. Makes you beg for him to make you his. He tells you to open your mouth.
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="FIRST_FUCK_SEX_START"><![CDATA[
-	#IF(pc.hasVagina())
-		#IF(game.isGapeContentEnabled())
-			<p>
-				Murk penetrates your tight pussy, stretching it out around his fat cock. He says he can feel your pussy moulding to the shape of his cock, making you his. Pulls back and thrusts in again, telling you to savour every moment of having your cunt ruined.
-			</p>
+	</p>
+	<p>
+		Finding yourself madly aroused by the prospect of being fucked by Murk, you try to call out for him to do it, but the milker on top of you keeps her hands clasped firmly over your mouth and squeals, [npc4.speech(Please, Master! Fuck me instead!)]
+	</p>
+	<p>
+		[murk.speech(Heh-heh-heh! Well, if ya insist!)] Murk laughs, before sliding his cock up and sinking it into [npc4.namePos] dripping cunt. Not wasting a single moment, the chubby rat-boy immediately starts hammering his fat cock in and out of her [npc4.pussyCapacity] pussy. Thanks to the fact that she's lying on top of you, you're able to feel each and every thrust of Murk's hips, and you soon feel your
+		#IF(pc.hasVagina())
+			 own cunt uncontrollably drooling from excitement as you imagine that it's you being fucked instead of the girl on top of you.
 		#ELSE
-			<p>
-				Murk penetrates your tight pussy, stretching it out around his fat cock. Starts thrusting and telling you that you're his now.
-			</p>
+			 cock rise to full erection and start to uncontrollably drool precum as you imagine that it's you being fucked instead of the girl on top of you.
 		#ENDIF
-	#ELSEIF(game.isAnalContentEnabled())
-		#IF(game.isGapeContentEnabled())
-			<p>
-				Murk penetrates your tight ass, stretching it out around his fat cock. He says he can feel your asshole moulding to the shape of his cock, making you his. Pulls back and thrusts in again, telling you to savour every moment of having your ass ruined.
-			</p>
+	</p>
+	<p>
+		After a while, the grunts and moans of Murk and his milker increase in intensity, and with a deep, rumbling growl, the rat-boy slams his hips forwards and pumps a massive amount of hot, musky cum deep into her waiting womb. The sheer amount of slimy rat-cum which Murk unloads from his fat balls is enough to make a significant amount ooze out around his throbbing cock and drool out of the milker's well-fucked twat. Due to the fact that your ass is positioned just beneath her cunt, you soon feel this stream of hot jizz drooling down onto your butt, before running down over your
+		#IF(pc.hasVagina())
+			 fat, drooling cunt to drip onto the cold floor beneath you.
 		#ELSE
-			<p>
-				Murk penetrates your tight ass, stretching it out around his fat cock. Starts thrusting and telling you that you're his now.
-			</p>
+			 puffy asshole and down the length of your hard cock to drip onto the cold floor beneath you.
 		#ENDIF
-	#ELSE
-		<p>
-			Murk pushes his cock into your mouth, stretching your lips out around his fat cock. Starts thrusting down your throat and telling you that you're his now.
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	
-	<!-- FIRST_FUCK_AFTER_SEX -->
-	
-	<htmlContent tag="FIRST_FUCK_AFTER_SEX"><![CDATA[
-	<p>
-		Murk pulls back, drawing his fat cock out of your cum-stuffed cunt. As it slides free, you find yourself feeling extremely empty, and let out a pleading moan for the rat-boy to fill you again.
 	</p>
 	<p>
-		#IF(game.isGapeContentEnabled())
-			Murk laughs and says that you now know your place; you're nothing more than his horny cock-sleeve. He says that your huge labia have helped to make your gaping cunt look well and truly ruined. He says how you need to worship his cock if you want to be filled again...
+		Sliding his massive, fat shaft out of the milker's spasming cunt,
+		#IF(pc.hasVagina())
+			 Murk drops down and starts to tease the slimy, cum-coated head up and down between your huge labia once again.
 		#ELSE
-			Murk laughs and says that you now know your place; you're nothing more than his horny cock-sleeve. He says how you need to worship his cock if you want to be filled again...
+			 puffy asshole and down the length of your hard cock to drip onto the cold floor beneath you.
+		#ENDIF
+		 Still unable to make a noise due to the milker's hands being clasped over your mouth, all you can do is frantically buck your hips back against Murk's touch as you hear him gulp down a potion and tease, [murk.speech(Ooh! That's betta! Me balls are nice an' full again afta drinkin' that shit! If ya want, I could just push forwards right now an' give yer a creamy fillin' as well...)]
+	</p>
+	<p>
+		With that, Murk starts to push forwards, and you let out an ecstatic, muffled [pc.moan] as you feel your
+		#IF(pc.hasVagina())
+			 fat, dangling labia start to obscenely spread out to receive him.
+		#ELSE
+			 fat, puffy asshole start to obscenely spread out to receive him.
+		#ENDIF
+		 Just at that moment, however, the milker on top of you squeals,
+		#IF(game.isAnalContentEnabled())
+			 [npc4.speech(Master! Please, you haven't fucked my ass yet! Please, Master, stuff my asshole with your big, fat cock and give me more of your cum!)]
+		#ELSE
+			 [npc4.speech(Master! Please, my pussy needs more! Please, Master, stuff my cunt with your big, fat cock and give me even more of your cum!)]
+		#ENDIF
+	</p>
+	<p>
+		Pulling his cock away from your
+		#IF(pc.hasVagina())
+			 drooling cunt
+		#ELSE
+			 slimy asshole
+		#ENDIF
+		, Murk sneers, [murk.speech(Shut yer face, bitch! I'll give yer a real rough fuckin' fer darin' ta interrupt me!)]
+	</p>
+	<p>
+		#IF(game.isAnalContentEnabled())
+			Once again, you're able to feel each and every one of Murk's violent thrusts as he sinks his fat cock into [npc4.namePos] asshole and starts roughly pounding her.
+		#ELSE
+			Once again, you're able to feel each and every one of Murk's violent thrusts as he sinks his fat cock into [npc4.namePos] cum-stuffed cunt and starts roughly pounding her.
+		#ENDIF
+		 With her hands still clasped firmly over your mouth, the milker drops her head down beside yours and screams in ecstasy, [npc4.speech(~Ooh!~ Yes, Master! ~Aah!~ Give me your fat cock! ~Aah!~ Yes, yes, yes!)]
+	</p>
+	<p>
+		With the milker's hot body rocking back and forth on top of you, and with the sound of Murk's deep grunts in your ears, you soon feel yourself starting to reach a climax of your own. Just a few seconds after coming to this realisation, you hear the rat-boy letting out a deep, rumbling growl, and half-way through giving the milker
+		#IF(game.isAnalContentEnabled())
+			 an anal creampie,
+		#ELSE
+			 a second creampie,
+		#ENDIF
+		 he suddenly pulls out and unloads several heavy spurts of hot, musky rat-cum all over your
+		#IF(pc.hasVagina())
+			 ass and drooling cunt. This sudden sensation pushes you over the edge, and as Murk continues coating your fat labia in powerful squirts of his slimy cum, you let out a desperate scream and reach your own orgasm. As an intense heat washes through your groin, you feel your pussy spasm and clench,
+			#IF(pc.hasPenis())
+				 before your hard cock suddenly spurts a massive amount of cum all over the floor beneath you.
+			#ELSE
+				 and you absent-mindedly buck your hips back in a futile attempt to get Murk to sink his cock into your needy cunt.
+			#ENDIF
+		#ELSE
+			 exposed asshole. This sudden sensation pushes you over the edge, and as Murk continues coating your ass and balls in powerful squirts of his slimy cum, you let out a desperate [pc.moan] and reach your own orgasm. As an intense heat washes through your groin, you feel your hard cock suddenly spurt a massive amount of cum all over the floor beneath you, and you absent-mindedly buck your hips back in a futile attempt to get Murk to sink his cock into your quivering asshole.
+		#ENDIF
+	</p>
+	<p>
+		Sliding down off of the milker's back, Murk lets out an amused chuckle as he sees that you've just orgasmed, and after roughly shoving two of his fat fingers into your
+		#IF(pc.hasVagina())
+			 quivering, cum-coated cunt, he teases, [murk.speech(Wot a filthy slut! You's came just from havin' me stinkin' cum spurted all over ya dirty cunt?! Heh-heh-heh! By now you's gotta 'ave realised that you's fallen in love with me fat cock, so go on, tell me that yer me submissive milker bitch!)]
+		#ELSE
+			 cum-coated asshole, he teases, [murk.speech(Wot a filthy slut! You's came just from havin' me stinkin' cum spurted all over ya butt?! Heh-heh-heh! By now you's gotta 'ave realised that you's fallen in love with me fat cock, so go on, tell me that yer me submissive milker bitch!)]
+		#ENDIF
+	</p>
+	<p>
+		Using his free hand to deliver a sharp slap to [npc4.namePos] ass, Murk orders her to return to her stall. With your mouth finally freed from her grip, you wonder what to say in response to Murk's demand that you submit and admit that you're his milker bitch...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_2_EVENING_TRAINING_BEG"><![CDATA[
+	<p>
+		With Murk's fat fingers still roughly playing with your
+		#IF(pc.hasVagina())
+			 drooling, cum-covered pussy,
+		#ELSE
+			 puffy, cum-covered asshole,
+		#ENDIF
+		 you let out a desperate [pc.moan] and admit, [pc.speech(Yes, Murk! ~Aah!~ I'm your submissive milker bitch!)]
+	</p>
+	<p>
+		Chuckling in delight, the chubby rat-boy pulls his fingers out of your slimy orifice and delivers a sharp slap to your [pc.ass+]. Walking around in front of you, he roughly grinds his flaccid cock against your [pc.lips+], before grunting, [murk.speech(Show me that yer a good bitch! Lick me clean, ya filthy slut!)]
+	</p>
+	<p>
+		Desperate to please Murk, you dart out your [pc.tongue+] and greedily lick every last drop of slimy, musky cum from off of his fat cock. Flashing you an evil smirk, the rat-boy retrieves the chain from off of the wall in front of you, and after locking it to your collar, he grunts, [murk.speech(Ya lookin' forwards ta tomorrow, slut? I's gonna get yer transformations finished in the mornin', an' then I's gonna spend all day breakin' ya in! Heh-heh-heh!)]
+	</p>
+	<p>
+		[pc.speech(Yes, Murk,)] you pant as the rat-boy unfastens your restraints, [pc.speech(I can't wait until tomorrow...)]
+	</p>
+	<p>
+		[murk.speech(Good bitch!)] Murk grunts, before moving over to his other milkers and releasing them from their restraints. With the day's milking now finished, the chubby rat-boy waddles over to the door and makes his exit, leaving all of you to sleep until morning...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_2_EVENING_TRAINING_REFUSE"><![CDATA[
+	<p>
+		Even with the stimulation of Murk's fat fingers roughly playing with your
+		#IF(pc.hasVagina())
+			 drooling, cum-covered pussy,
+		#ELSE
+			 puffy, cum-covered asshole,
+		#ENDIF
+		 you refuse to admit that you're his submissive milker bitch, and instead simply continue to quietly [pc.moan] to yourself.
+	</p>
+	<p>
+		Grunting in annoyance, the chubby rat-boy pulls his fingers out of your slimy orifice and delivers a sharp, stinging slap to your [pc.ass+]. Walking around in front of you, he roughly grinds his flaccid cock against your [pc.lips+], before grunting, [murk.speech(You's still thinkin' you's ain't gonna be me slutty milker bitch?! You fuckin' filthy slut! Clean me fuckin' cock off!)]
+	</p>
+	<p>
+		Although you were able to resist Murk's previous demand, the heady, intoxicating scent of his musky, fat cock as it grinds up against your face is too much for you to endure, and before you know what you're doing, you're darting out your [pc.tongue+] and greedily licking every last drop of slimy, salty cum from off of his flaccid shaft. Flashing you an evil smirk, the rat-boy retrieves the chain from off of the wall in front of you, and after locking it to your collar, he grunts, [murk.speech(I's gonna put ya in yer place tomorrow, ya dumb bitch! You's gonna get yet final transformation in the mornin', an' then I's gonna spend all day breakin' ya in! Heh-heh-heh!)]
+	</p>
+	<p>
+		Still panting from your experience with Murk's final training, you lie still as the rat-boy unfastens your restraints. Looking down at you and letting out a deep grunt, he then moves over to his other milkers and similarly releases them from their stalls. With the day's milking now finished, the chubby rat-boy waddles over to the door and makes his exit, leaving all of you to sleep until morning...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- END OF DAY 2 -->
+	
+	
+	<!-- START OF DAY 3 -->
+	
+	<htmlContent tag="CAPTIVE_DAY_3_WAKE"><![CDATA[
+	<p>
+		Once again, you're woken by the familiar voice of Murk as he enters the milking room and shouts out, [murk.speech(Get up, sluts! Yer fuckin' tits ain't gonna milk themselves!)]
+	</p>
+	<p>
+		Quickly rising to their feet, the other four milkers obediently lie down in their milking stalls, before staring to desperately call out for Murk to come and fuck them. Ignoring their pleas, the chubby rat-boy turns his attention towards you, and after stuffing the last bite of a doughnut into his mouth, he grunts, [murk.speech(What are ya waitin' for, ya dumb slut?! Get in yer fuckin' stall!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_3_WAKE_OBEY"><![CDATA[
+	<p>
+		Obediently doing as you're told, you quickly move over to your milking stall, before lying down on the padded bench and lifting your exposed ass up towards Murk. The brown-furred rat-boy lets out a deep chuckle as he sees you showing off to him, and after quickly strapping you to the frame, he unlocks your chain and hangs it up on the wall in front you. Turning around to face you, he flashes you an evil smirk and sneers, [murk.speech(I's expectin' yer final potion ta arrive any minute. Once it's 'ere, I'll get ya drinkin' it an' then we's can hook yer up ta the milking machine!)]
+	</p>
+	<p>
+		Stepping around behind you, the rat-boy rubs his greasy, sugar-coated fingers over your
+		#IF(pc.hasVagina())
+			 massive, dangling labia, before roughly stuffing them into your vice-like twat and grunting,
+			#IF(game.isGapeContentEnabled())
+				 [murk.speech(Afta that, I's gonna be stuffin' this tight little cunt o' yours full o' me fat cock! Yer dirty pussy's gonna be a gapin', ruined fuck-'ole by the time I's finished with ya! Heh-heh-heh!)]
+			#ELSE
+				 [murk.speech(Afta that, I's gonna be stuffin' this tight little cunt o' yours full o' me fat cock! Yer dirty pussy's gonna be stuffed full o' me stinkin' cum by the time I's finished with ya! Heh-heh-heh!)]
+			#ENDIF
+		#ELSE
+			 puffy, wet asshole, before roughly stuffing them inside and grunting,
+			#IF(game.isGapeContentEnabled())
+				 [murk.speech(Afta that, I's gonna be stuffin' this tight little ass o' yours full o' me fat cock! Yer asshole's gonna be a gapin', ruined fuck-'ole by the time I's finished with ya! Heh-heh-heh!)]
+			#ELSE
+				 [murk.speech(Afta that, I's gonna be stuffin' this tight little ass o' yours full o' me fat cock! Yer asshole's gonna be stuffed full o' me stinkin' cum by the time I's finished with ya! Heh-heh-heh!)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Letting out a submissive, horny [pc.moan] as you hear what it is that Murk has planned for you today, you push your [pc.hips+] back and try to get the rat-boy to give you some more attention. Much to your disappointment, however, he pulls his fingers out of your needy orifice, before giving your [pc.ass+] a sharp slap and walking over to strap the other milkers into their stalls. Once he's finished, the chubby rat-boy waddles back over to you and sneers, [murk.speech(I's gonna be back as soon as yer potion's delivered. You's just keep on fantasisin' about finally gettin' ta be fucked by me fat cock! Heh-heh-heh!)]
+	</p>
+	<p>
+		With that, Murk saunters out of the room, leaving you alone with the other four milkers. Their steady background moans serve to create an incredibly erotic atmosphere, and you soon feel your
+		#IF(pc.hasVagina())
+			 drooling cunt dripping from excitement as you imagine Murk's fat cock slamming into it...
+		#ELSE
+			 cock rising to attention as you imagine Murk's fat cock slamming into your ass...
 		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="FIRST_FUCK_AFTER_SEX_ANAL"><![CDATA[
-	#IF(game.isGapeContentEnabled())
-		<p>
-			Murk pulls back, drawing his fat cock out of your cum-stuffed asshole. As it slides free, you find yourself feeling extremely empty, and let out a pleading moan for the rat-boy to fill you again.
-		</p>
-		<p>
-			Murk laughs and says that you now know your place; you're nothing more than his horny cock-sleeve. He comments on how your asshole is ruined and that you'll only get pleasure from his cock filling you. He says how you need to worship his cock if you want to be filled again...
-		</p>
-	#ELSE
-		<p>
-			Murk pulls back, drawing his fat cock out of your cum-stuffed cunt. As it slides free, you find yourself feeling extremely empty, and let out a pleading moan for the rat-boy to fill you again.
-		</p>
-		<p>
-			Murk laughs and says that you now know your place; you're nothing more than his horny cock-sleeve. He says how you need to worship his cock if you want to be filled again...
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="FIRST_FUCK_AFTER_SEX_BLOWJOB"><![CDATA[
+	<htmlContent tag="CAPTIVE_DAY_3_WAKE_RESIST"><![CDATA[
 	<p>
-		Murk pulls back, drawing his fat cock out of your throat. As it slides free, you find yourself feeling extremely empty, and let out a pleading moan for the rat-boy to fill you again.
+		Determined to resist until the very end, you refuse to willingly get into your milking stall, which causes Murk to angrily curse and move around to give your chain a short, sharp yank. The sudden pressure on your metal collar causes you to stumble forwards, and after a series of rough tugs similar to the first, you're quickly dragged forwards into the milking stall.
 	</p>
 	<p>
-		Murk laughs and says that you now know your place; you're nothing more than his horny cock-sleeve. He says how you need to worship his cock if you want to be filled again...
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- FIRST_FUCK_AFTER_SEX_NEXT -->
-	
-	<htmlContent tag="FIRST_FUCK_SECOND_SEX_MORE_VAGINAL"><![CDATA[
-	#IF(game.isGapeContentEnabled())
-		<p>
-			You beg Murk to fill your gaping pussy again. He says that he's happy to fuck your ruined cunt, but that nobody else will be stretching your ass out. Inserts sealed buttplug.
-		</p>
-		<p>
-			Comments again on how your ruined pussy is only good for his cock now. Tells you to tell him that you submit to his cock.
-		</p>
-	#ELSE
-		<p>
-			You beg Murk to fill your pussy again. He says that he's happy to fuck your cunt, but that first you need to tell him that you submit to his cock.
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="FIRST_FUCK_SECOND_SEX_ANAL"><![CDATA[
-	#IF(game.isGapeContentEnabled())
-		<p>
-			You beg Murk to fill your ass. He says that he's happy to stretch your ass out as well, so that both of your holes will only be good for his cock. Tells you to tell him that you submit to his cock.
-		</p>
-	#ELSE
-		<p>
-			You beg Murk to fill your ass. He says that he's happy to fuck your asshole, but that first you need to tell him that you submit to his cock.
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="FIRST_FUCK_SECOND_SEX_ORAL"><![CDATA[
-	<p>
-		You beg Murk to fuck your throat. He says that he's happy to receive a blowjob from you, but that first you need to tell him that you submit to his cock.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="FIRST_FUCK_SECOND_SEX_MORE_ANAL"><![CDATA[
-	#IF(game.isGapeContentEnabled())
-		<p>
-			You beg Murk to fill your gaping ass again. He says that he's happy to fuck your ruined asshole, but that first you need to tell him that you submit to his cock.
-		</p>
-	#ELSE
-		<p>
-			You beg Murk to fill your ass again. He says that he's happy to fuck your asshole, but that first you need to tell him that you submit to his cock.
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="FIRST_FUCK_SECOND_SEX_MORE_BLOWJOB"><![CDATA[
-	<p>
-		You beg Murk for another taste of his cock. He says that he's happy to fuck your face again, but that first you need to tell him that you submit to his cock.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="FIRST_FUCK_SECOND_SEX_START"><![CDATA[
-	#IF(game.isGapeContentEnabled())
-		<p>
-			You tell Murk that you submit to his cock. He fills you again and starts fucking your ruined cunt...
-		</p>
-	#ELSE
-		<p>
-			You tell Murk that you submit to his cock. He fills you again and starts fucking your cunt...
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="FIRST_FUCK_SECOND_SEX_ANUS_START"><![CDATA[
-	#IF(game.isGapeContentEnabled())
-		<p>
-			You tell Murk that you submit to his cock. He fills you again and starts fucking your ruined asshole...
-		</p>
-	#ELSE
-		<p>
-			You tell Murk that you submit to his cock. He fills you again and starts fucking your asshole...
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="FIRST_FUCK_SECOND_SEX_ORAL_START"><![CDATA[
-	<p>
-		You tell Murk that you submit to his cock. He makes you kiss his cock before starting to fuck your throat...
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- FIRST_FUCK_END -->
-	
-	<htmlContent tag="FIRST_FUCK_END"><![CDATA[
-	#IF(game.isGapeContentEnabled())
-		<p>
-			Pulling out of your thoroughly-fucked cunt, Murk again remarks on how he's ruined it. Rubbing his fingers over your fat labia and gaping hole, he tells you that now he's marked you as his, you're going to be whored out to other rats looking for a quick fuck.
-		</p>
-		<p>
-			Tells you that tomorrow he'll get you hooked up to the milking machines for the first time. Gives your ruined pussy a little slap, before walking off... 
-		</p>
-	#ELSE
-		<p>
-			Pulling out of your thoroughly-fucked cunt, Murk remarks on how full of cum it is. Rubbing his fingers over your dripping hole, he tells you that now he's marked you as his, you're going to be whored out to other rats looking for a quick fuck.
-		</p>
-		<p>
-			Tells you that tomorrow he'll get you hooked up to the milking machines for the first time. Gives your pussy a little slap, before walking off... 
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="FIRST_FUCK_END_ANAL"><![CDATA[
-	#IF(game.isGapeContentEnabled())
-		<p>
-			Pulling out of your thoroughly-fucked ass, Murk again remarks on how he's ruined it. Rubbing his fingers over your puffy rim and gaping hole, he tells you that now he's marked you as his, you're going to be whored out to other rats looking for a quick fuck.
-		</p>
-		<p>
-			Tells you that tomorrow he'll get you hooked up to the milking machines for the first time. Gives your ruined asshole a little slap, before walking off... 
-		</p>
-	#ELSE
-		<p>
-			Pulling out of your thoroughly-fucked ass, Murk remarks on how full of cum it is. Rubbing his fingers over your dripping hole, he tells you that now he's marked you as his, you're going to be whored out to other rats looking for a quick fuck.
-		</p>
-		<p>
-			Tells you that tomorrow he'll get you hooked up to the milking machines for the first time. Gives your ass a little slap, before walking off... 
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="FIRST_FUCK_END_ORAL"><![CDATA[
-	<p>
-		Pulling out of your thoroughly-fucked throat, Murk remarks on how hungry for his cum you are. Rubbing his fingers over your lips, he tells you that now he's marked you as his, you're going to be whored out to other rats looking for a quick fuck.
+		The brown-furred rat-boy wastes no time in quickly strapping you to the frame, and after he's done, he unlocks your chain and hangs it up on the wall in front you. Turning around to face you, he flashes you a furious scowl and spits, [murk.speech(You's a real dumb bitch, ain't ya?! Yer final potion's gonna arrive any minute, an' once it's 'ere, I'll get ya drinkin' it an' then we's can hook yer up ta the milking machine! We's gonna see how much resistance ya can muster then!)]
 	</p>
 	<p>
-		Tells you that tomorrow he'll get you hooked up to the milking machines for the first time. Gives your ass a little slap, before walking off... 
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- STOCKS_TRANSFORM -->
-	
-	<htmlContent tag="STOCKS_TRANSFORM_COMPANION_TRANSFORM"><![CDATA[
-	<p>
-		You listen as Murk tells [npc.name] that it's time to be transformed...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_FIRST_FUCK_COMPANION_START"><![CDATA[
-	#IF(game.isGapeContentEnabled())
-		<p>
-			You overhear Murk teasing [npc.namePos] pussy. He makes [npc.herHim] drink one last potion, which gives [npc.herHim] huge labia.
-		</p>
-		[#SPECIAL_PARSE_0]
-		<p>
-			[npc.Name] begs to be fucked, and after Murk makes [npc.herHim] call [npc.herHim] master, he penetrates [npc.herHim]. He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim]. He steps back and comments about [npc.her] pussy's fat labia helping to make [npc.her] gaping hole look well and truly ruined.
-		</p>
-		<p>
-			He then makes [npc.herHim] worship his cock and beg for more sex...
-		</p>
-	#ELSE
-		<p>
-			You overhear Murk teasing [npc.namePos] pussy. [npc.Name] begs to be fucked, and after Murk makes [npc.herHim] call [npc.herHim] master, he penetrates [npc.herHim].
-		</p>
-		<p>
-			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim]. He then makes [npc.herHim] worship his cock and beg for more sex...
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_FIRST_FUCK_COMPANION_START_ANAL"><![CDATA[
-	#IF(game.isGapeContentEnabled())
-		<p>
-			You overhear Murk teasing [npc.namePos] ass. [npc.Name] begs to be fucked, and after Murk makes [npc.herHim] call [npc.herHim] master, he penetrates [npc.herHim].
-		</p>
-		<p>
-			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim]. He then comments about [npc.her] asshole has been stretched out and ruined by his fat cock.
-		</p>
-		<p>
-			He then makes [npc.herHim] worship his cock and beg for more sex...
-		</p>
-	#ELSE
-		<p>
-			You overhear Murk teasing [npc.namePos] ass. [npc.Name] begs to be fucked, and after Murk makes [npc.herHim] call [npc.herHim] master, he penetrates [npc.herHim].
-		</p>
-		<p>
-			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim]. He then makes [npc.herHim] worship his cock and beg for more sex...
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_FIRST_FUCK_COMPANION_START_BLOWJOB"><![CDATA[
-	<p>
-		You overhear Murk teasing [npc.name] with the promise of getting to suck his cock. [npc.Name] begs for it, and after Murk makes [npc.herHim] call [npc.herHim] master, he starts fucking [npc.her] face.
-	</p>
-	<p>
-		He fucks [npc.herHim] for a while, before cumming down [npc.her] throat. He then makes [npc.herHim] worship his cock and beg for more sex...
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- STOCKS_FIRST_FUCK_COMPANION -->
-	
-	<htmlContent tag="STOCKS_FIRST_FUCK_COMPANION_SECOND_FUCK_ANAL"><![CDATA[
-	#IF(game.isGapeContentEnabled())
-		<p>
-			After a while of [npc.name] begging or more sex, Murk makes [npc.herHim] submit to his cock before penetrating [npc.her] ass.
-		</p>
-		<p>
-			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim]. He then comments about [npc.her] asshole has been stretched out and ruined by his fat cock.
-		</p>
-		<p>
-			He says that that now he's marked [npc.name] as his, [npc.sheIs] going to be whored out to other rats looking for a quick fuck. Tomorrow he'll get [npc.herHim] hooked up to the milking machines for the first time. Gives [npc.her] ass a little slap, before walking off... 
-		</p>
-	#ELSE
-		<p>
-			After a while of [npc.name] begging or more sex, Murk makes [npc.herHim] submit to his cock before penetrating [npc.her] ass.
-		</p>
-		<p>
-			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim].
-		</p>
-		<p>
-			He says that that now he's marked [npc.name] as his, [npc.sheIs] going to be whored out to other rats looking for a quick fuck. Tomorrow he'll get [npc.herHim] hooked up to the milking machines for the first time. Gives [npc.her] ass a little slap, before walking off... 
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_FIRST_FUCK_COMPANION_SECOND_FUCK_MORE_ANAL"><![CDATA[
-	#IF(game.isGapeContentEnabled())
-		<p>
-			After a while of [npc.name] begging or more sex, Murk makes [npc.herHim] submit to his cock before penetrating [npc.her] ass.
-		</p>
-		<p>
-			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim]. He then comments about [npc.her] asshole has been stretched out and ruined by his fat cock.
-		</p>
-		<p>
-			He says that that now he's marked [npc.name] as his, [npc.sheIs] going to be whored out to other rats looking for a quick fuck. Tomorrow he'll get [npc.herHim] hooked up to the milking machines for the first time. Gives [npc.her] ass a little slap, before walking off... 
-		</p>
-	#ELSE
-		<p>
-			After a while of [npc.name] begging or more sex, Murk makes [npc.herHim] submit to his cock before penetrating [npc.her] ass.
-		</p>
-		<p>
-			He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim].
-		</p>
-		<p>
-			He says that that now he's marked [npc.name] as his, [npc.sheIs] going to be whored out to other rats looking for a quick fuck. Tomorrow he'll get [npc.herHim] hooked up to the milking machines for the first time. Gives [npc.her] ass a little slap, before walking off... 
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_FIRST_FUCK_COMPANION_SECOND_FUCK_BLOWJOB"><![CDATA[
-	<p>
-		After a while of [npc.name] begging or more sex, Murk makes [npc.herHim] submit to his cock before fucking [npc.her] throat.
-	</p>
-	<p>
-		He fucks [npc.herHim] for a while, before cumming inside of [npc.herHim].
-	</p>
-	<p>
-		He says that that now he's marked [npc.name] as his, [npc.sheIs] going to be whored out to other rats looking for a quick fuck. Tomorrow he'll get [npc.herHim] hooked up to the milking machines for the first time. Gives [npc.her] ass a little slap, before walking off... 
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- STOCKS_GIVE_BIRTH -->
-	
-	<htmlContent tag="STOCKS_GIVE_BIRTH_EGGS"><![CDATA[
-	<p>
-		Murk fetches Silence, who helps you to deliver. Laying eggs and then guard on bedding.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_GIVE_BIRTH"><![CDATA[
-	<p>
-		Murk fetches Silence, who helps you to deliver. You pass out.
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- STOCKS_GIVE_BIRTH_PROTECT_THE_EGGS -->
-	
-	<htmlContent tag="STOCKS_GIVE_BIRTH_PROTECT_THE_EGGS"><![CDATA[
-	<p>
-		You guard your eggs. Eggs hatch. You pass out.
-	</p>
-	]]>
-	</htmlContent>
-	
-	
-	<!-- STOCKS_GIVE_BIRTH_FINISHED -->
-	
-	<htmlContent tag="STOCKS_GIVE_BIRTH_FINISHED_EGGS"><![CDATA[
-	<p>
-		Wake up later and get locked back into milking stall.
-		#IF(game.getDialogueFlags().getMurkTfStage(pc)>=3)
-			 Murk gives you a potion to tighten your pussy back up again.
+		Stepping around behind you, Murk roughly rubs his greasy, sugar-coated fingers over your
+		#IF(pc.hasVagina())
+			 massive, dangling labia, before suddenly stuffing them into your vice-like twat and angrily grunting,
+			#IF(game.isGapeContentEnabled())
+				 [murk.speech(Afta that, I's gonna be stuffin' this tight little cunt o' yours full o' me fat cock! Yer dirty pussy's gonna be a gapin', ruined fuck-'ole by the time I's finished with ya! Then you's gonna accept ya fate as me submissive milker slut!)]
+			#ELSE
+				 [murk.speech(Afta that, I's gonna be stuffin' this tight little cunt o' yours full o' me fat cock! Yer dirty pussy's gonna be stuffed full o' me stinkin' cum by the time I's finished with ya! Then you's gonna accept ya fate as me submissive milker slut!)]
+			#ENDIF
+		#ELSE
+			 puffy, wet asshole, before roughly stuffing them inside and angrily grunting,
+			#IF(game.isGapeContentEnabled())
+				 [murk.speech(Afta that, I's gonna be stuffin' this tight little ass o' yours full o' me fat cock! Yer asshole's gonna be a gapin', ruined fuck-'ole by the time I's finished with ya! Then you's gonna accept ya fate as me submissive milker slut!)]
+			#ELSE
+				 [murk.speech(Afta that, I's gonna be stuffin' this tight little ass o' yours full o' me fat cock! Yer asshole's gonna be stuffed full o' me stinkin' cum by the time I's finished with ya! Then you's gonna accept ya fate as me submissive milker slut!)]
+			#ENDIF
 		#ENDIF
 	</p>
+	<p>
+		The mind-altering effets of the first potion Murk fed to you start to make themselves known once again, and you can't stop yourself from letting out a submissive, horny [pc.moan] as you hear what it is that Murk has planned for you today. Pushing your [pc.hips+] back, you try to get the rat-boy to give you some more attention, but much to your disappointment, he pulls his fingers out of your needy orifice, before giving your [pc.ass+] a series of sharp slaps.
+	</p>
+	<p>
+		[murk.speech(Dat's more like it! You's just keep on fantasisin' about finally gettin' ta be fucked by me fat cock! I's gonna be back as soon as yer potion's delivered,)] he sneers, before walking over to strap the other milkers into their stalls. Once he's finished, the chubby rat-boy waddles out of the room, leaving you alone with the other four milkers...
+	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_GIVE_BIRTH_FINISHED"><![CDATA[
+	
+	<!-- CAPTIVE_DAY_3_LOCKED_IN_STALL_WAIT -->
+	
+	<htmlContent tag="CAPTIVE_DAY_3_LOCKED_IN_STALL_WAIT"><![CDATA[
 	<p>
-		Wake up later and get locked back into milking stall.
-		#IF(game.getDialogueFlags().getMurkTfStage(pc)>=3)
-			 Murk gives you a potion to tighten your pussy back up again.
+		For the next half an hour, you find yourself getting more and more turned on at the prospect of being mounted and fucked by Murk. The mind-altering effects of the potion which you were made to drink on your first night as Murk's captive seem to be more keenly felt than ever before, and to the background noise of the milkers' steady moans, you soon feel your
+		#IF(pc.hasVagina())
+			 drooling cunt dripping from excitement as you imagine Murk's fat cock slamming into it.
+		#ELSE
+			 cock rising to attention as you imagine Murk's fat cock slamming into your ass.
+		#ENDIF
+	</p>
+	<p>
+		By the time you hear the door swing open behind you, you're in such a horny state that you immediately react by raising your ass and pushing your exposed rear-end out towards Murk. A depraved sense of selfish delight runs through your body as you hear the other milkers' desperate pleas for Murk to come and fuck them go unanswered, and you can't help but let out a long, horny [pc.moan] as you suddenly feel the chubby rat-boy's fingers
+		#IF(pc.hasVagina())
+			 once again roughly rubbing up and down over your fat, drooling cunt.
+		#ELSE
+			 once again roughly rubbing up and down over your slimy, puffy asshole.
+		#ENDIF
+		 Letting out a deep chuckle as you push your [pc.hips+] back out against him, Murk grunts,
+		#IF(pc.hasVagina())
+			 [murk.speech(Not long ta wait now, slut! You's feelin' desperate fer me fat cock ta be stuffed deep in yer filthy pussy? Heh-heh-heh!)]
+		#ELSE
+			 [murk.speech(Not long ta wait now, slut! You's feelin' desperate fer me fat cock ta be stuffed deep in yer 'ungry asshole? Heh-heh-heh!)]
+		#ENDIF
+	</p>
+	<p>
+		After [pc.moaning] in the affirmative, you find yourself loudly panting from anticipation as the short rat-boy swaggers around in front of you and holds up your final bottle of transformative potion. In his free hand, you see that he's got a greasy, half-eaten burger, and after taking a big bite of it, he sprays crumbs everywhere as he steps forwards and demands, [murk.speech(Kiss me cock an' tell me dat you's fallen in love with it, an' then ya can 'ave yer final transformation!)]
+	</p>
+	<p>
+		Bucking his hips forwards, the chubby rat-boy bumps his musky, sheathed cock against your [pc.lips+] and waits for your response...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_3_LOCKED_IN_STALL_WAIT_EAGER"><![CDATA[
+	<p>
+		Eagerly pressing your [pc.lips+] against Murk's groin, you deliver a series of loud, wet kisses to his sheathed cock, before looking up at him and submissively [pc.moaning], [pc.speech(I've fallen in love with your cock! Please, give it to me!)]
+	</p>
+	<p>
+		The rat-boy's chubby belly rumbles as he lets out a triumphant laugh, and after roughly grinding his sheathed cock against your face for a few more moments, he pulls out the bottle's stopper with his teeth and lowers the vial towards your parted [pc.lips]. Pushing the bottle's neck into your mouth, he tilts it up, allowing you to greedily gulp down the sweet fluid which flows out.
+	</p>
+	<p>
+		Stuffing his mouth full of the last quarter of his greasy burger, Murk tosses both the paper wrapper and the now-empty bottle to the floor, before quickly chewing and swallowing the junk food and then declaring, [murk.speech(That's me good milker bitch! Seein' as yer gone an' fallen in love with it, I's gonna let ya make out with me fat cock while I tells ya wot's happenin' ta yer body! Go on, slut, give yer love a nice big kiss! Heh-heh-heh!)]
+	</p>
+	<p>
+		Stepping forwards again, Murk pushes his sheathed cock against your [pc.lips+], and even if he hadn't told you to make out with it, you don't think that you could have resisted its delicious, musky scent for long. Passionately planting kiss after kiss on its fat head, you watch in delight as the massive rat-dick starts to push out of its sheathe and rise into a throbbing erection. Starting to supplement your kisses with long, wet licks, you listen to the cock's owner as he tells you what's happening to your body...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_3_LOCKED_IN_STALL_WAIT_RELUCTANT"><![CDATA[
+	<p>
+		While you're desperate for a taste of the last of Murk's transformative potions, you somehow manage to avoid fully submitting to the rat-boy's demands. While you're not opposed to planting a series of loud, wet kisses on his sheathed cock, you can't quite bring yourself to say that you've fallen in love with it. Sensing your reluctance, the sadistic rat-boy roughly grinds his groin into your face and sneers, [murk.speech(I's can do this all day, slut! You's ain't foolin' anyone; from da way yer kissin' it, anyone can see that you's fallen in love with me fat cock!)]
+	</p>
+	<p>
+		As Murk continues to grind his sheathed rat-cock against your [pc.lips+], you find yourself getting increasingly aroused at the prospect of admitting you've fallen in love with it. With the heady, intoxicating scent of his musky dick overwhelming your senses, you continue planting kiss after kiss on Murk's sheathe, before finally letting out a submissive [pc.moan] and admitting, [pc.speech(I think... I've fallen in love with your cock...)]
+	</p>
+	<p>
+		The rat-boy's chubby belly rumbles as he lets out a triumphant laugh, and after roughly grinding his sheathed cock against your face for a few more moments, he pulls out the bottle's stopper with his teeth and lowers the vial towards your parted [pc.lips]. Pushing the bottle's neck into your mouth, he tilts it up, allowing you to greedily gulp down the sweet fluid which flows out.
+	</p>
+	<p>
+		Stuffing his mouth full of the last quarter of his greasy burger, Murk tosses both the paper wrapper and the now-empty bottle to the floor, before quickly chewing and swallowing the junk food and then declaring, [murk.speech(That's me good milker bitch! Seein' as yer gone an' fallen in love with it, I's gonna let ya make out with me fat cock while I tells ya wot's happenin' ta yer body! Go on, slut, give yer love a nice big kiss! Heh-heh-heh!)]
+	</p>
+	<p>
+		Stepping forwards again, Murk pushes his sheathed cock against your [pc.lips+], and even if he hadn't told you to make out with it, you don't think that you could have resisted its delicious, musky scent for long. Passionately planting kiss after kiss on its fat head, you watch in delight as the massive rat-dick starts to push out of its sheathe and rise into a throbbing erection. Starting to supplement your kisses with long, wet licks, you listen to the cock's owner as he tells you what's happening to your body...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_3_AFTER_POTION -->
+	
+	<htmlContent tag="CAPTIVE_DAY_3_AFTER_POTION"><![CDATA[
+	<p>
+		As your transformations come to an end, you find yourself with your [pc.lips+] wrapped around the tip of Murk's massive, fully-erect cock. Greedily licking up every last drop of salty, musky precum which oozes out of it swollen head, you can't help but let out a continuous stream of muffled, submissive [pc.moans].
+	</p>
+	<p>
+		[murk.speech(Heh-heh-heh!)] Murk cackles in glee as he watches you desperately sucking on the tip of his cock. Pulling away and leaving you to let out a frantic, disappointed whine, the rat-boy sneers, [murk.speech(You's well an' truly fallen in love with me fat cock, ain't ya, slut?! Give us a minute ta get yer hooked up ta the milkin' machine, an' then I'll give ya yer first real date with it! Heh-heh-heh!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_DAY_3_MILKING -->
+	
+	<htmlContent tag="CAPTIVE_DAY_3_MILKING"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_3_WAKE"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_3_WAKE"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_3_WAKE"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_3_WAKE"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_3_WAKE"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_DAY_3_WAKE"><![CDATA[
+	<p>
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- END OF DAY 2 -->
+	
+	
+	<!-- CAPTIVE_GIVE_BIRTH -->
+	
+	<htmlContent tag="CAPTIVE_GIVE_BIRTH"><![CDATA[
+	<p>
+		Thankfully, you're not left waiting for too long, as just five minutes after leaving the milking room, Murk returns with
+		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSilenceIntroduced))
+			 the familiar figure of the white-furred rat-girl, Silence, trailing behind him.
+		#ELSE
+			 a beautiful, white-furred rat-girl, who you assume to be 'Silence', trailing behind him.
+		#ENDIF
+		 Upon seeing you chained up on the floor, the rat-girl angrily scowls at Murk, before delivering a sharp, forceful smack to the back of his head.
+	</p>
+	<p>
+		[murk.speech('Ey! Wot da fuck were dat for, ya dumb bitch?!)] Murk shouts, but he instantly backs off and apologises as he sees the furious look in Silence's glowing pink eyes, [murk.speech(Sorry! I weren't meanin' ta treat this pregnant bitch poorly, but if I don't chain 'em up, dey could escape an' cause all sorts o' trouble! Anyway, go on then, take 'er away an' do yer thing!)]
+	</p>
+	<p>
+		Sweeping past the foul-mouthed rat-boy, Silence lives up to her name by not uttering a single sound as she unlocks your chain and helps you to stand up. Thankful for her kindness, you allow the rat-girl to help support you as she leads you out of the milking room and into the rat-warrens.
+	</p>
+	<p>
+		[shadow.speech(Don't ya worry, hun, Silence 'ere will take good car o' ya,)] a feminine voice suddenly calls out from somewhere behind you. Turning to look back, you see
+		#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensSilenceIntroduced))
+			 the black-furred rat-girl, Shadow, stepping out from a dark recess. Flashing you a wicked grin, she continues, [shadow.speech(We's got a room near 'ere where ya can give birth in peace. Don't ya worry 'bout yer kids; I's gonna make sure they's shown safely up inta Dominion.)]
+		#ELSE
+			 a black-furred rat-girl stepping out from a dark recess. Flashing you a wicked grin, she continues, [shadow.speech(We's got a room near 'ere where ya can give birth in peace. Don't ya worry 'bout yer kids; I's gonna make sure they's shown safely up inta Dominion. Oh, an' the name's Shadow, by the way..)]
+		#ENDIF
+	</p>
+	<p>
+		Sure enough, after turning the next corner, you're shown into a surprisingly spacious and well-furnished room, with a clean bed sitting in the middle of it. With the rat-girls by your side, you're led over to this bed, and after getting you to lie back on it, Shadow
+		#IF(pc.hasStatusEffect(SE_PREGNANT_3))
+			 runs one of her padded rat-like hands over your swollen belly and says,
+		#ELSE
+			 makes you drink several bottles of 'Mother's Milk', which causes your pregnancy to rapidly advance to the stage where you're ready to give birth. Running one of her padded rat-like hands over your swollen belly, she says,
+		#ENDIF
+		 [shadow.speech(Silence 'ere is more skilled with arcane shit than a fuckin' demon, so ya in good hands. Just lie back an' relax as she channels 'er arcane power inta yer belly, an' before ya know it, ya gonna be givin' birth!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_GIVE_BIRTH_END"><![CDATA[
+	<p>
+		Doing as you're told, you lie back and relax as the white-furred rat-girl steps forwards and begins to focus her arcane energy into your pregnant belly. Reassured by Silence's gentle nature, you allow yourself to relax as you spread your legs and prepare to give birth.
+	</p>
+	<p>
+		Although you try to stay awake for this, the power of the arcane energy being transferred into your body very quickly drains your energy, and you find yourself losing consciousness... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_GIVE_BIRTH_END_EGGS"><![CDATA[
+	<p>
+		Doing as you're told, you lie back and relax as the white-furred rat-girl steps forwards and begins to focus her arcane energy into your pregnant belly. Reassured by Silence's gentle nature you allow yourself to relax as you spread your legs and prepare to lay your eggs.
+	</p>
+	<p>
+		Although you try to stay awake for this, the power of the arcane energy being transferred into your body very quickly drains your energy, and you find yourself losing consciousness... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_GIVE_BIRTH_PROTECT_THE_EGGS -->
+	
+	<htmlContent tag="CAPTIVE_GIVE_BIRTH_PROTECT_THE_EGGS"><![CDATA[
+	<p>
+		A short time later, you awake to discover that there's a freshly-laid clutch of your eggs between your legs. Overwhelmed by a burning need to protect them at all costs, you throw your body over them and shout for the nearby rat-girls, Shadow and Silence, to get away from you.
+	</p>
+	<p>
+		Smirking as she leads Silence over towards the door, Shadow calls out, [shadow.speech(Yeah, yeah, don't worry, we's leavin'. We'll be back tomorrow once yer eggs 'ave all hatched!)]
+	</p>
+	<p>
+		Having driven off the only possible threat to your nest, you shuffle around into a more comfortable position, pressing the heat of your body up against your eggs as you cover them with your [pc.arms]. You make sure to position yourself so that you're looking at the only entrance to the room, and, once satisfied that you're in a good position, you settle down to your vigilant watch...
+	</p>
+	<p>
+		For the next twenty hours, you barely move a muscle, but despite the fact that you're lying on a warm, comfortable bed, you don't even consider for a moment to get any rest. Your eyes only occasionally drift away from the door, but only to check your surroundings for any sign of danger.
+	</p>
+	<p>
+		As you enter the twenty-first hour of your incubation, you feel one of your eggs start to move. Letting out a delighted cry, you shift position slightly to look down at your clutch. A feeling of overwhelming joy rushes through you as you see each and every one of your eggs trembling and shifting about.
+	</p>
+	<p>
+		Having succeeded in defending your eggs, you feel your tiredness catching up with you, and as your head collapses down onto the bed, you vaguely see Silence entering the room. A delighted smile breaks out across her face as she sees that your eggs are hatching, and just before you pass out, you see her bending down in order to start taking care of your children.
+	</p>
+	<p>
+		#IF(pc.getBreastRawMilkStorageValue()>0 && pc.isAbleToAccessCoverableArea(CA_NIPPLES, true) && pc.getNippleShape()==NIPPLE_SHAPE_NORMAL && game.isLactationContentEnabled())
+			Some time later, you drift back into consciousness for a moment as you feel a desperate suckling at your nipples, and you're vaguely aware that it's your children who are eagerly drinking down mouthfuls of your [pc.milk]. Letting your eyelids close again, you soon drift off into an exhausted sleep.
+		#ELSE
+			Some time later, you drift back into consciousness for a moment as you feel a weight on your chest, and you're vaguely aware of cradling your children in your arms as they eagerly drink down bottle after bottle of the milk that Lilaya has provided for you. Letting your eyelids close again, you soon drift off into an exhausted sleep.
 		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	
-	<!-- STOCKS_WAITING -->
+	<!-- CAPTIVE_GIVE_BIRTH_FINISHED -->
 	
-	<htmlContent tag="STOCKS_WAITING_START"><![CDATA[
+	<htmlContent tag="CAPTIVE_GIVE_BIRTH_FINISHED"><![CDATA[
+	<p>
+		You wake up some time later to discover that you've been carried back to Murk's milking room, and, judging from the fact that the other milkers are sleepily moaning in their stocks, it must be morning. With a groan, you sit up on your straw bedding and rub the sleep from your eyes. You immediately notice is how easy it is to move, and your groan turns into a gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
+	</p>
+	<p>
+		As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling between your legs. Quickly moving your fingers down to your groin, you discover that your vagina has been stretched out considerably, and you let out an uncomfortable groan as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
+	</p>
+	<p>
+		[murk.speech(Feelin' empty down there?)] you hear the familiar voice of Murk call out from behind you. As you turn to face the chubby rat-boy, he smirks down at you and continues, [murk.speech(Don't ya worry; me fat cock's gonna be fillin' yer dirty little cunt soon enough!)]
+	</p>
+	<p>
+		Before you can respond to this, the chubby rat-boy grabs hold of the chain that's attached to your collar and gives it a sharp yank. Being forced to stand up by this rough move, you very quickly find yourself being pushed down into your milking stall and securely strapped into position.
+	</p>
+	<p>
+		[murk.speech(There we go; yer back where ya belong! Heh-heh-heh!)] Murk chuckles as he walks around behind you and gives your [pc.ass+] a sharp slap. Clearly liking the sight of your [pc.vaginaCapacity] pussy, the rat-boy suddenly shoves his fingers into your exposed cunt, before curling them up and roughly fingering you. You can't help but let out a delighted moan as you feel your Master's fingers slide deep into your hungry pussy, but, much to your dismay, he quickly pulls them back out, before sneering, [murk.speech(Yer dirty little twat's feelin' real good this mornin'! I's gonna enjoy fuckin' ya later, but first, let's get ya hooked up to yer milker!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_GIVE_BIRTH_INITIAL_FINISHED"><![CDATA[
+	<p>
+		You wake up some time later to discover that you've been carried back to Murk's milking room, and with a groan, you sit up on your straw bedding and rub the sleep from your eyes. You immediately notice is how easy it is to move, and your groan turns into a gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
+	</p>
+	<p>
+		As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling between your legs. Quickly moving your fingers down to your groin, you discover that your vagina has been stretched out considerably, and you let out an uncomfortable groan as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
+	</p>
+	<p>
+		[murk.speech(Feelin' empty down there?)] you hear the familiar voice of Murk call out from behind you. As you turn to face the chubby rat-boy, he smirks down at you and continues, [murk.speech(Don't ya worry; me fat cock's gonna be fillin' yer dirty little cunt da moment I's finished transformin' ya!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_WAITING -->
+	
+	<htmlContent tag="CAPTIVE_WAITING_START"><![CDATA[
 	<p>
 		Being locked into the milking stall, there's nothing to do but wait and see what happens to you next...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_COMPANION_END_PREGNANACY"><![CDATA[
-	<p>
-		Your companion, having been impregnated, is taken away by Silence and helped to give birth. After an hour or so, she returns...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_WAITING_COMPANION_MILKING"><![CDATA[
-	<p>
-		Your companion is milked by Murk.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_WAITING_COMPANION_PUNISHMENT"><![CDATA[
-	<p>
-		Murk punishes your companion.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_WAITING_COMPANION_SEX"><![CDATA[
-	<p>
-		A rat pays Murk to fuck one of the milkers. They step up to your companion and fuck them.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_WAITING_COMPANION_SEX_THREESOME"><![CDATA[
-	<p>
-		A couple of rats pay Murk to fuck one of the milkers. They step up to your companion and fuck them.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_WAITING_COMPANION_TEASE"><![CDATA[
-	<p>
-		Murk teases your companion with his cock.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_WAITING_COMPANION_INSPECTION"><![CDATA[
-	<p>
-		Murk inspects your companion, commenting on [npc.her] appearance.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_WAITING_COMPANION_MURK_SEX"><![CDATA[
-	<p>
-		Murk decides to fuck your companion. Mounts [npc.herHim] and starts fucking [npc.herHim]...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_WAITING_COMPANION_MURK_SEX_AFTER_OTHER"><![CDATA[
-	<p>
-		Murk gets your companion to beg for his cock, then fucks [npc.herHim].
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="STOCKS_WAITING_MILKING"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_MILKING"><![CDATA[
 	<p>
 		Murk milks you.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_PUNISHMENT"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_PUNISHMENT"><![CDATA[
 	<p>
 		Murk punishes you. If player does not have masochist fetish, it's quite tame.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_SEX"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_SEX"><![CDATA[
 	<p>
 		A rat pays Murk to fuck you.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_SEX_THREESOME"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_SEX_THREESOME"><![CDATA[
 	<p>
 		A couple of rats pay Murk to fuck you.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_TEASE_VAGINA"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_TEASE_VAGINA"><![CDATA[
 	#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveFuckedByMurk))
 		<p>
 			#IF(game.isGapeContentEnabled())
@@ -804,7 +1501,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_TEASE_ANUS"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_TEASE_ANUS"><![CDATA[
 	#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensCaptiveFuckedByMurk))
 		<p>
 			#IF(game.isGapeContentEnabled())
@@ -825,14 +1522,14 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_TEASE"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_TEASE"><![CDATA[
 	<p>
 		Murk teases your lips with his cock. Makes you kiss it before leaving.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_TEASE_VAGINA_SEX"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_TEASE_VAGINA_SEX"><![CDATA[
 	<p>
 		#IF(game.isGapeContentEnabled())
 			Murk teases your gaping pussy with his cock. Comments on how he's ruined your cunt and makes you call him master, before telling you to beg for him to fuck you.
@@ -843,7 +1540,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_TEASE_ANUS_SEX"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_TEASE_ANUS_SEX"><![CDATA[
 	<p>
 		#IF(game.isGapeContentEnabled())
 			Murk teases your gaping ass with his cock. Comments on how he's ruined your asshole and makes you call him master, before telling you to beg for him to fuck you.
@@ -854,42 +1551,42 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_TEASE_SEX"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_TEASE_SEX"><![CDATA[
 	<p>
 		Murk teases your lips with his cock. Makes you kiss it before telling you to beg for him to fuck your throat.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_INSPECTION"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_INSPECTION"><![CDATA[
 	<p>
 		Murk inspects you and comments on your appearance.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_MURK_SEX"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_MURK_SEX"><![CDATA[
 	<p>
 		Murk makes you beg for his cock and then moves to fuck you.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_MURK_LEAVES"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_MURK_LEAVES"><![CDATA[
 	<p>
 		Having had his fun, Murk departs, leaving you with little else to do but wait...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_REFUSE_TO_BEG"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_REFUSE_TO_BEG"><![CDATA[
 	<p>
 		You refuse to beg for Murk to fuck you. Annoyed, he says that he's going to give a discount to anyone else who wants to fuck you, before leaving.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_MURK_LEAVES"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_MURK_LEAVES"><![CDATA[
 	<p>
 		Having finished with you, Murk leaves.
 	</p>
@@ -959,14 +1656,14 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_SOLO_SEX"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_SOLO_SEX"><![CDATA[
 	<p>
 		The rat steps up behind you, slapping your ass before wondering aloud how to fuck you...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_WAITING_THREESOME_SEX"><![CDATA[
+	<htmlContent tag="CAPTIVE_WAITING_THREESOME_SEX"><![CDATA[
 	<p>
 		[npc.Name] steps up behind you, slapping your ass before wondering aloud how to fuck you...
 	</p>
@@ -977,23 +1674,23 @@
 	</htmlContent>
 	
 	
-	<!-- STOCKS_AFTER_SEX -->
+	<!-- CAPTIVE_AFTER_SEX -->
 	
-	<htmlContent tag="STOCKS_AFTER_SEX_MURK"><![CDATA[
+	<htmlContent tag="CAPTIVE_AFTER_SEX_MURK"><![CDATA[
 	<p>
 		Murk has finished with you. Comments on gape.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_AFTER_SEX_THREESOME"><![CDATA[
+	<htmlContent tag="CAPTIVE_AFTER_SEX_THREESOME"><![CDATA[
 	<p>
 		The rats have finished with you.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_AFTER_SEX_SOLO"><![CDATA[
+	<htmlContent tag="CAPTIVE_AFTER_SEX_SOLO"><![CDATA[
 	<p>
 		[npc.Name] has finished with you.
 	</p>
@@ -1001,23 +1698,37 @@
 	</htmlContent>
 	
 	
-	<!-- STOCKS_NIGHT -->
+	<!-- CAPTIVE_NIGHT -->
 	
-	<htmlContent tag="STOCKS_NIGHT"><![CDATA[
+	<htmlContent tag="CAPTIVE_NIGHT"><![CDATA[
 	<p>
-		Murk unlocks you all from milking stalls and tells you to sleep. Chain linked to collar prevents you from moving far, but as your stall is closest to the milking storage room, you think you could step inside if you wanted to...
+		The chain which Murk has securely locked to your collar prevents you from moving even far enough to make contact with any of the other milkers. In fact, all that's within your reach is your straw bedding and milking stall, which leaves you with only a few options of how to spend your night. You could either curl up on your bedding and go to sleep, attempt to break your lock, or, if you really wanted to, you could move over as close to the door as possible and shout out for Murk. If he hears you, he's likely to be extremely annoyed at being disturbed, however...
 	</p>
+	#IF(game.getDialogueFlags().getMurkTfStage(pc)==1)
+		<p style='text-align:center;'><i>
+			If you are unable to escape tonight, Murk is sure to [style.italicsTfGeneric(significantly transform you)] tomorrow!
+		</i></p>
+	#ELSEIF(game.getDialogueFlags().getMurkTfStage(pc)==3)
+		<p style='text-align:center;'><i>
+			If you are unable to escape tonight, Murk is sure to [style.italicsTfGeneric(finish transforming you)] tomorrow, after which [style.italicsMilk(you'll be hooked up to the milking machine)] and [style.italicsSex(fucked all day)]!
+		</i></p>
+	#ENDIF
+	#IF(game.getDialogueFlags().getMurkTfStage(pc)>=3 && !game.getDialogueFlags().hasFlag(FLAG_badEnd) && game.isBadEndsEnabled())
+		<p style='text-align:center;'><i>
+			You currently have <b>[#pc.getObedienceValue()]</b> obedience, and if you end the day tomorrow at [style.boldExcellent(100)], you will [style.boldBadEnd(completely capitulate to Murk)]!
+		</i></p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_NIGHT_BREAK_LOCK"><![CDATA[
+	<htmlContent tag="CAPTIVE_NIGHT_BREAK_LOCK"><![CDATA[
 	<p>
 		You use your raw strength to rip the chain out of the wall.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_NIGHT_BREAK_LOCK_SPELL"><![CDATA[
+	<htmlContent tag="CAPTIVE_NIGHT_BREAK_LOCK_SPELL"><![CDATA[
 	<p>
 		You use a spell to break the chain out of the wall. 
 	</p>
@@ -1025,16 +1736,16 @@
 	</htmlContent>
 	
 	
-	<!-- STOCKS_BROKEN_FREE -->
+	<!-- CAPTIVE_BROKEN_FREE -->
 	
-	<htmlContent tag="STOCKS_BROKEN_FREE"><![CDATA[
+	<htmlContent tag="CAPTIVE_BROKEN_FREE"><![CDATA[
 	<p>
 		Murk comes in and sees what's happened. He tells you that if you submit to him, he'll forget about it.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_BROKEN_FREE_SUBMIT_ORAL"><![CDATA[
+	<htmlContent tag="CAPTIVE_BROKEN_FREE_SUBMIT_ORAL"><![CDATA[
 	<p>
 		You decide that fighting Murk would be a bad idea, so you do as he says and submit to him.
 	</p>
@@ -1044,7 +1755,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_BROKEN_FREE_SUBMIT_SEX"><![CDATA[
+	<htmlContent tag="CAPTIVE_BROKEN_FREE_SUBMIT_SEX"><![CDATA[
 	<p>
 		You decide that fighting Murk would be a bad idea, so you do as he says and submit to him.
 	</p>
@@ -1068,23 +1779,23 @@
 	</htmlContent>
 	
 	
-	<!-- STOCKS_CALL_OUT -->
+	<!-- CAPTIVE_CALL_OUT -->
 	
-	<htmlContent tag="STOCKS_CALL_OUT"><![CDATA[
+	<htmlContent tag="CAPTIVE_CALL_OUT"><![CDATA[
 	<p>
 		You shout out for Murk. He comes and is annoyed.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_CALL_OUT_CHOKE"><![CDATA[
+	<htmlContent tag="CAPTIVE_CALL_OUT_CHOKE"><![CDATA[
 	<p>
 		You pretend to be choking. Murk reluctantly unlocks the chain from your collar and gives you a bottle of water. He then says that he expects something in return for his help...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_CALL_OUT_SEDUCE"><![CDATA[
+	<htmlContent tag="CAPTIVE_CALL_OUT_SEDUCE"><![CDATA[
 	<p>
 		You tell Murk that you're desperate for his cock. Say that if he unchains you, you can really show him what you're capable of. Blinded by lust, he unlocks the chain from your collar and then demands sex...
 	</p>
@@ -1092,16 +1803,16 @@
 	</htmlContent>
 	
 	
-	<!-- STOCKS_CALL_OUT_RELEASED -->
+	<!-- CAPTIVE_CALL_OUT_RELEASED -->
 	
-	<htmlContent tag="STOCKS_CALL_OUT_RELEASED_ORAL"><![CDATA[
+	<htmlContent tag="CAPTIVE_CALL_OUT_RELEASED_ORAL"><![CDATA[
 	<p>
 		You submit to Murk and get down on all fours, before he moves around in front of you and makes you kiss his cock. He then starts fucking your throat.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_CALL_OUT_RELEASED_SEX"><![CDATA[
+	<htmlContent tag="CAPTIVE_CALL_OUT_RELEASED_SEX"><![CDATA[
 	<p>
 		#IF(game.isGapeContentEnabled())
 			#IF(pc.hasVagina())
@@ -1122,16 +1833,16 @@
 	</htmlContent>
 	
 	
-	<!-- STOCKS_RELEASED_AFTER_SEX -->
+	<!-- CAPTIVE_RELEASED_AFTER_SEX -->
 	
-	<htmlContent tag="STOCKS_RELEASED_AFTER_SEX"><![CDATA[
+	<htmlContent tag="CAPTIVE_RELEASED_AFTER_SEX"><![CDATA[
 	<p>
 		Murk says it's time to lock you up again.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_RELEASED_AFTER_SEX_LOCKED_UP"><![CDATA[
+	<htmlContent tag="CAPTIVE_RELEASED_AFTER_SEX_LOCKED_UP"><![CDATA[
 	<p>
 		You allow Murk to lock you back up.
 	</p>
@@ -1139,18 +1850,18 @@
 	</htmlContent>
 	
 	
-	<!-- STOCKS_RELEASED_OFFER_COMPANY -->
+	<!-- CAPTIVE_RELEASED_OFFER_COMPANY -->
 	
-	<htmlContent tag="STOCKS_RELEASED_OFFER_COMPANY"><![CDATA[
+	<htmlContent tag="CAPTIVE_RELEASED_OFFER_COMPANY"><![CDATA[
 	<p>
 		You offer to spend the night with Murk. He accepts and fondles you before sleeping.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_RELEASED_OFFER_COMPANY_SLIP_AWAY"><![CDATA[
+	<htmlContent tag="CAPTIVE_RELEASED_OFFER_COMPANY_SLIP_AWAY"><![CDATA[
 	<p>
-		You take the opportunity to escape, and release your companion and get your gear back.
+		You take the opportunity to escape and get your gear back.
 	</p>
 	<p>
 		You travel through the tunnels.
@@ -1158,7 +1869,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_RELEASED_OFFER_COMPANY_LOCKED_UP"><![CDATA[
+	<htmlContent tag="CAPTIVE_RELEASED_OFFER_COMPANY_LOCKED_UP"><![CDATA[
 	<p>
 		You stay with Murk. After a while he wakes back up and then locks you back up again.
 	</p>
@@ -1166,16 +1877,16 @@
 	</htmlContent>
 	
 	
-	<!-- STOCKS_ESCAPE_FIGHT_VICTORY -->
+	<!-- CAPTIVE_ESCAPE_FIGHT_VICTORY -->
 	
-	<htmlContent tag="STOCKS_ESCAPE_FIGHT_VICTORY"><![CDATA[
+	<htmlContent tag="CAPTIVE_ESCAPE_FIGHT_VICTORY"><![CDATA[
 	<p>
-		You beat Murk. No time to do anything, as guards will arrive soon. Get gear, free companion, and escape.
+		You beat Murk. No time to do anything, as guards will arrive soon. Get gear and escape.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STOCKS_ESCAPE_FIGHT_VICTORY_ESCAPING"><![CDATA[
+	<htmlContent tag="CAPTIVE_ESCAPE_FIGHT_VICTORY_ESCAPING"><![CDATA[
 	<p>
 		You travel through the tunnels.
 	</p>
@@ -1183,9 +1894,9 @@
 	</htmlContent>
 	
 	
-	<!-- STOCKS_ESCAPE_FIGHT_DEFEAT -->
+	<!-- CAPTIVE_ESCAPE_FIGHT_DEFEAT -->
 	
-	<htmlContent tag="STOCKS_ESCAPE_FIGHT_DEFEAT"><![CDATA[
+	<htmlContent tag="CAPTIVE_ESCAPE_FIGHT_DEFEAT"><![CDATA[
 	<p>
 		You are defeated. Murk says you're going to pay. Orders you to submit.
 	</p>
@@ -1218,9 +1929,9 @@
 	]]>
 	</htmlContent>
 	
-	<!-- STOCKS_AFTER_DEFEAT_SEX -->
+	<!-- CAPTIVE_AFTER_DEFEAT_SEX -->
 	
-	<htmlContent tag="STOCKS_AFTER_DEFEAT_SEX"><![CDATA[
+	<htmlContent tag="CAPTIVE_AFTER_DEFEAT_SEX"><![CDATA[
 	<p>
 		Murk attaches the chain to your collar, before letting you sleep on the straw again.
 	</p>
@@ -1228,11 +1939,11 @@
 	</htmlContent>
 	
 	
-	<!-- STOCKS_INITIAL -->
+	<!-- CAPTIVE_INITIAL -->
 	
-	<htmlContent tag="STOCKS_INITIAL"><![CDATA[
+	<htmlContent tag="CAPTIVE_INITIAL"><![CDATA[
 	<p>
-		Murk attaches a chain to your collar, before freeing you from the stocks. Tells you (and companion) to sleep on the straw near your stocks. He'll get transformative potions prepared for you tomorrow...
+		Murk attaches a chain to your collar, before freeing you from the stocks. Tells you to sleep on the straw near your stocks. He'll get transformative potions prepared for you tomorrow...
 	</p>
 	]]>
 	</htmlContent>
@@ -1242,7 +1953,7 @@
 	
 	<htmlContent tag="ESCAPING"><![CDATA[
 	<p>
-		Shadow and Silence lead you (and companion) down tunnels.
+		Shadow and Silence lead you down tunnels.
 	</p>
 	]]>
 	</htmlContent>

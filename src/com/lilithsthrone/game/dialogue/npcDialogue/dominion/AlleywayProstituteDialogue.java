@@ -421,6 +421,9 @@ public class AlleywayProstituteDialogue {
 			} else {
 				sb.append(UtilText.parseFromXMLFile("encounters/dominion/prostitute", "ALLEY_PROSTITUTE_QUESTION", getProstitute()));
 			}
+			// Reset special parsing so that ALLEY_PROSTITUTE.getResponse() parsing is correct:
+			UtilText.addSpecialParsingString(Util.intToString(prostitutePrice(false)), true);
+			UtilText.addSpecialParsingString(Util.intToString(prostitutePrice(true)), false);
 			return sb.toString();
 		}
 		@Override

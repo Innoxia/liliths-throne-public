@@ -37,6 +37,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DominionExpressCentaurDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.EnforcerAlleywayDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -272,15 +273,23 @@ public enum Encounter {
 	DOMINION_ALLEY(null) {
 		@Override
 		public Map<EncounterType, Float> getDialogues() {
-			return Util.newHashMapOfValues(
-					new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ATTACK, 15f),
+			Map<EncounterType, Float> map = Util.newHashMapOfValues(
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
-					new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2f),
 					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
+			
+			if(Main.game.isStarted() && DominionPlaces.isCloseToEnforcerHQ()) {
+				map.put(EncounterType.DOMINION_ALLEY_ATTACK, 10f);
+				map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 15f);
+			} else {
+				map.put(EncounterType.DOMINION_ALLEY_ATTACK, 15f);
+				map.put(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f);
+			}
+			
+			return map;
 		}
 		
 		@Override
@@ -412,7 +421,7 @@ public enum Encounter {
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_ITEM, 3f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_CLOTHING, 2f),
 					new Value<EncounterType, Float>(EncounterType.DOMINION_FIND_WEAPON, 1f),
-					new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2f),
+					new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ENFORCERS, 2.5f),
 					getSlaveWantingToUseYouInDominion()!=null && Main.game.getCurrentWeather()!=Weather.MAGIC_STORM
 						?new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f)
 						:null);
@@ -1175,17 +1184,6 @@ public enum Encounter {
 	}
 
 	protected DialogueNode getBaseRandomEncounter(boolean forceEncounter) {
-		float r = (float) (Math.random() * 100);
-		float total = 0;
-		
-		if(forceEncounter) {
-			r = 0;
-			for (Entry<EncounterType, Float> e : getDialogues().entrySet()) {
-				r += e.getValue();
-			}
-			r *= Math.random();
-		}
-
 		float opportunisticMultiplier = 1;
 		if(Main.game.isOpportunisticAttackersEnabled()) {
 			// lust: linear boost; 25% max
@@ -1193,51 +1191,59 @@ public enum Encounter {
 			// health: linear boost; 25% (theoretical) max
 			opportunisticMultiplier += 0.25f - Main.game.getPlayer().getHealthPercentage() * 0.25f;
 			// smelly body: 25% boost
-			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.BODY_CUM)
-					|| Main.game.getPlayer().hasStatusEffect(StatusEffect.BODY_CUM_MASOCHIST))
+			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.BODY_CUM) || Main.game.getPlayer().hasStatusEffect(StatusEffect.BODY_CUM_MASOCHIST)) {
 				opportunisticMultiplier += 0.25f;
+			}
 			// smelly clothes: 25% boost
-			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_CUM)
-					|| Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_CUM_MASOCHIST))
+			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_CUM) || Main.game.getPlayer().hasStatusEffect(StatusEffect.CLOTHING_CUM_MASOCHIST)) {
 				opportunisticMultiplier += 0.25f;
+			}
 			// exposure: 50% or 75% boost
-			if(!Collections.disjoint(Util.newArrayListOfValues(
-					StatusEffect.EXPOSED,
-					StatusEffect.EXPOSED_BREASTS,
-					StatusEffect.FETISH_EXHIBITIONIST,
-					StatusEffect.FETISH_EXHIBITIONIST_BREASTS
-			), Main.game.getPlayer().getStatusEffects()))
-				opportunisticMultiplier += 0.5f;
-			if(!Collections.disjoint(Util.newArrayListOfValues(
-					StatusEffect.EXPOSED_PLUS_BREASTS,
-					StatusEffect.FETISH_EXHIBITIONIST_PLUS_BREASTS
-			), Main.game.getPlayer().getStatusEffects()))
+			if(!Collections.disjoint(
+					Util.newArrayListOfValues(
+						StatusEffect.EXPOSED_PLUS_BREASTS,
+						StatusEffect.FETISH_EXHIBITIONIST_PLUS_BREASTS),
+					Main.game.getPlayer().getStatusEffects())) {
 				opportunisticMultiplier += 0.75f;
-			// drunk: 50% boost
-			if(!Collections.disjoint(Util.newArrayListOfValues(
-					StatusEffect.DRUNK_3,
-					StatusEffect.DRUNK_4,
-					StatusEffect.DRUNK_5
-			), Main.game.getPlayer().getStatusEffects()))
+				
+			} else if(!Collections.disjoint(
+					Util.newArrayListOfValues(
+						StatusEffect.EXPOSED,
+						StatusEffect.EXPOSED_BREASTS,
+						StatusEffect.FETISH_EXHIBITIONIST,
+						StatusEffect.FETISH_EXHIBITIONIST_BREASTS),
+					Main.game.getPlayer().getStatusEffects())) {
 				opportunisticMultiplier += 0.5f;
-		}
-
-		for (Entry<EncounterType, Float> e : getDialogues().entrySet()) {
-			EncounterType encounter = e.getKey();
-			float encounterChance = e.getValue();
-			// opportunistic attackers: compare with amplified chance
-			if(encounter.isOpportunistic()) {
-				encounterChance *= opportunisticMultiplier;
 			}
-			if (r <= total + encounterChance) {
-				return initialiseEncounter(encounter);
-			}
-			// add unmodified chance
-			total += e.getValue();
-			if (r <= total) {
-				return initialiseEncounter(e.getKey());
+			// drunk: 50% boost
+			if(!Collections.disjoint(
+					Util.newArrayListOfValues(
+						StatusEffect.DRUNK_3,
+						StatusEffect.DRUNK_4,
+						StatusEffect.DRUNK_5),
+					Main.game.getPlayer().getStatusEffects())) {
+				opportunisticMultiplier += 0.5f;
 			}
 		}
+		
+		float total = 0;
+		float opportunisticIncrease = 0;
+		Map<EncounterType, Float> finalMap = new HashMap<>();
+		for(Entry<EncounterType, Float> e : getDialogues().entrySet()) { // Iterate through the base encounter map, apply opportunisticMultiplier if applicable, and create a new 'finalMap' of these weighted chances.
+			float weighting = e.getValue();
+			if(e.getKey().isOpportunistic()) {
+				weighting *= opportunisticMultiplier;
+				opportunisticIncrease+=opportunisticMultiplier;
+			}
+			total+=weighting;
+			finalMap.put(e.getKey(), weighting);
+		}
+		
+		if(forceEncounter || Math.random()*(100+opportunisticIncrease)<total) {
+			EncounterType encounter = Util.getRandomObjectFromWeightedFloatMap(finalMap);
+			return initialiseEncounter(encounter);
+		}
+		
 
 		return null;
 	}

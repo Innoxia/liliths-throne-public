@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -1593,19 +1594,15 @@ public class RalphOral {
 
 				UtilText.nodeContentSB.append("<br/><br/>");
 				
-				switch(Main.game.getPlayer().getPenisType()){
-					case CANINE:
-						UtilText.nodeContentSB.append("You let out a deep groan as you feel the knot at the base of your [pc.cock+] swelling up as you prepare to cum.");
-						break;
-					case EQUINE:
-						UtilText.nodeContentSB.append("You let out a deep groan as you feel the wide head of your [pc.cock+] swelling up as you prepare to cum.");
-						break;
-					case FELINE:
-						UtilText.nodeContentSB.append("You let out a deep groan as you feel your [pc.cock+] twitch and throb as you prepare to cum.");
-						break;
-					default:
-						UtilText.nodeContentSB.append("You let out a deep groan as you feel your [pc.cock+] twitch and throb as you prepare to cum.");
-						break;
+				if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.KNOTTED)) {
+					UtilText.nodeContentSB.append("You let out a deep groan as you feel the knot at the base of your [pc.cock+] swelling up as you prepare to cum.");
+					
+				} else if(Main.game.getPlayer().hasPenisModifier(PenetrationModifier.FLARED)) {
+					UtilText.nodeContentSB.append("You let out a deep groan as you feel the wide head of your [pc.cock+] swelling up as you prepare to cum.");
+					
+				} else {
+					UtilText.nodeContentSB.append("You let out a deep groan as you feel your [pc.cock+] twitch and throb as you prepare to cum.");
+					
 				}
 				
 				// Describe cum amount:

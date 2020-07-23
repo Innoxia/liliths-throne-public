@@ -1721,6 +1721,17 @@ public class PlaceType {
 			).initItemsPersistInTile()
 			.initWeatherImmune();
 	
+	public static final AbstractPlaceType LILAYA_HOME_STAIR_UP_SECONDARY = new AbstractPlaceType(
+			"Staircase",
+			"This staircase, while smaller than the main one near the mansion's entrance, performs the same purpose of connecting the ground and first floor of Lilaya's home.",
+			"dominion/lilayasHome/stairsUpSecondary",
+			PresetColour.BASE_GREEN_LIME,
+			LilayaHomeGeneric.STAIRCASE_UP_SECONDARY,
+			null,
+			"in Lilaya's Home"
+			).initItemsPersistInTile()
+			.initWeatherImmune();
+	
 	public static final AbstractPlaceType LILAYA_HOME_ENTRANCE_HALL = new AbstractPlaceType(
 			"Entrance Hall",
 			"Fine paintings and marble busts line the walls of this grand entrance hall, while a huge crystal chandelier hangs from the double-height ceiling overhead.",
@@ -1825,7 +1836,17 @@ public class PlaceType {
 			"in Lilaya's Home"
 			).initItemsPersistInTile()
 			.initWeatherImmune();
-	
+
+	public static final AbstractPlaceType LILAYA_HOME_STAIR_DOWN_SECONDARY = new AbstractPlaceType(
+			"Staircase",
+			"This staircase, while smaller than the main one near the mansion's entrance, performs the same purpose of connecting the ground and first floor of Lilaya's home.",
+			"dominion/lilayasHome/stairsDownSecondary",
+			PresetColour.BASE_RED_LIGHT,
+			LilayaHomeGeneric.STAIRCASE_DOWN_SECONDARY,
+			null,
+			"in Lilaya's Home"
+			).initItemsPersistInTile()
+			.initWeatherImmune();
 	
 
 	
@@ -4199,7 +4220,7 @@ public class PlaceType {
 		@Override
 		public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
 			if(Main.game.getPlayer().isCaptive()) {
-				dialogue = RatWarrensCaptiveDialogue.STOCKS_NIGHT;
+				dialogue = RatWarrensCaptiveDialogue.CAPTIVE_NIGHT;
 			} else {
 				dialogue = RatWarrensDialogue.MILKING_ROOM;
 			}

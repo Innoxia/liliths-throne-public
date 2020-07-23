@@ -52,7 +52,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.3.8.2
+ * @version 0.3.8.9
  * @author Innoxia
  */
 public class Properties {
@@ -66,6 +66,8 @@ public class Properties {
 	public String versionNumber = "";
 	public String preferredArtist = "jam";
 
+	public String badEndTitle = "";
+	
 	public int fontSize = 18;
 	public int level = 1;
 	public int money = 0;
@@ -287,7 +289,9 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "fontSize", String.valueOf(fontSize));
 			
 			createXMLElementWithValue(doc, settings, "preferredArtist", preferredArtist);
-			
+			if(!badEndTitle.isEmpty()) {
+				createXMLElementWithValue(doc, settings, "badEndTitle", badEndTitle);
+			}
 			createXMLElementWithValue(doc, settings, "androgynousIdentification", String.valueOf(androgynousIdentification));
 			createXMLElementWithValue(doc, settings, "humanSpawnRate", String.valueOf(humanSpawnRate));
 			createXMLElementWithValue(doc, settings, "taurSpawnRate", String.valueOf(taurSpawnRate));
@@ -657,6 +661,9 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.3.7.7")) {
 						values.add(PropertyValue.weatherInterruptions);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.3.8.9")) {
+						values.add(PropertyValue.badEndContent);
+					}
 					for(int i=0; i < element.getElementsByTagName("propertyValue").getLength(); i++){
 						Element e = (Element) element.getElementsByTagName("propertyValue").item(i);
 						
@@ -719,6 +726,10 @@ public class Properties {
 				
 				if(element.getElementsByTagName("preferredArtist").item(0)!=null) {
 					preferredArtist =((Element)element.getElementsByTagName("preferredArtist").item(0)).getAttribute("value");
+				}
+
+				if(element.getElementsByTagName("badEndTitle").item(0)!=null) {
+					badEndTitle =((Element)element.getElementsByTagName("badEndTitle").item(0)).getAttribute("value");
 				}
 				
 				if(element.getElementsByTagName("difficultyLevel").item(0)!=null) {

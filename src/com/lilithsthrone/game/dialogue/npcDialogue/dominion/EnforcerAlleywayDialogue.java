@@ -260,9 +260,8 @@ public class EnforcerAlleywayDialogue {
 		if(target.hasVagina() && target.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 			sexTypeMap.put(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA), 5);
 		}
-		if(Main.game.isAnalContentEnabled() && target.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
-				&& target.hasPenisIgnoreDildo() && target.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
-			sexTypeMap.put(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.ANUS), 5);
+		if(target.hasPenisIgnoreDildo() && target.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+			sexTypeMap.put(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaPenetration.PENIS), 5);
 		}
 		
 		if(!sexTypeMap.isEmpty()) {
@@ -405,7 +404,7 @@ public class EnforcerAlleywayDialogue {
 				}
 			};
 			
-		} else if(sexType.equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.ANUS))) {
+		} else if(sexType.equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaPenetration.PENIS))) {
 			return new ResponseSex(title,
 					description,
 					consensual,
@@ -430,11 +429,13 @@ public class EnforcerAlleywayDialogue {
 					Util.newArrayListOfValues(spectator),
 					Main.game.getPlayer().getCompanions(),
 					postSexNode,
-					UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEX_START_FINGER_ASSHOLE"+(threesome?"_THREESOME":""), enforcersParsingOrdered)) {
+					UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_SEX_START_FINGER_PENIS"+(threesome?"_THREESOME":""), enforcersParsingOrdered)) {
 				@Override
 				public List<InitialSexActionInformation> getInitialSexActions() {
 					List<InitialSexActionInformation> list = new ArrayList<>();
-					list.add(new InitialSexActionInformation(partner, Main.game.getPlayer(), FingerAnus.ANAL_FINGERING_START, false, true));
+					if(partner.getFetishDesire(Fetish.FETISH_ANAL_GIVING).isPositive() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Main.game.isAnalContentEnabled()) {
+						list.add(new InitialSexActionInformation(partner, Main.game.getPlayer(), FingerAnus.ANAL_FINGERING_START, false, true));
+					}
 					list.add(new InitialSexActionInformation(partner, Main.game.getPlayer(), FingerPenis.COCK_MASTURBATING_START, false, true));
 					if(threesome) {
 						list.add(new InitialSexActionInformation(spectator, Main.game.getPlayer(), spectator.hasPenis()?PenisMouth.BLOWJOB_START:TongueVagina.RECEIVING_CUNNILINGUS_START, false, true));
@@ -466,15 +467,16 @@ public class EnforcerAlleywayDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(((NPC)getEnforcerLeader()).hasFlag(NPCFlagValue.playerEscapedLastCombat)) {
-				return new ResponseCombat("Defend yourself",
-						"The Enforcers are determined to beat you!"
-								+ "<br/>[style.italicsBad(Beating the Enforcers in combat will result in them being removed from the game!)]",
-						(NPC)getEnforcerLeader(),
-						getEnforcers(),
-						Util.newHashMapOfValues(
-								new Value<>(getEnforcerLeader(), UtilText.parse(getEnforcerLeader(), "[npc.speech(You won't escape this time!)] [npc.name] shouts.")),
-								new Value<>(getEnforcerSubordinate(), UtilText.parse(getEnforcerSubordinate(), "[npc.speech(Now we've got you!)] [npc.name] exclaims."))));
-
+				if(index==1) {
+					return new ResponseCombat("Defend yourself",
+							"The Enforcers are determined to beat you!"
+									+ "<br/>[style.italicsBad(Beating the Enforcers in combat will result in them being removed from the game!)]",
+							(NPC)getEnforcerLeader(),
+							getEnforcers(),
+							Util.newHashMapOfValues(
+									new Value<>(getEnforcerLeader(), UtilText.parse(getEnforcerLeader(), "[npc.speech(You won't escape this time!)] [npc.name] shouts.")),
+									new Value<>(getEnforcerSubordinate(), UtilText.parse(getEnforcerSubordinate(), "[npc.speech(Now we've got you!)] [npc.name] exclaims."))));
+				}
 				
 			} else {
 				boolean foughtBefore = ((NPC)getEnforcerLeader()).getFoughtPlayerCount()>0;
@@ -1070,6 +1072,7 @@ public class EnforcerAlleywayDialogue {
 								getCriminalInTile().equipClothingFromNowhere(collar, true, Main.game.getPlayer()),
 								true);
 						Main.game.getPlayer().addSlave((NPC) getCriminalInTile());
+						getCriminalInTile().applyEnslavementEffects(Main.game.getPlayer());
 						getCriminalInTile().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("encounters/dominion/enforcerAlleyway", "ENFORCER_ALLEYWAY_REPORT_HELP_REWARD", parsingCharacters));
 						banishEnforcers(false);

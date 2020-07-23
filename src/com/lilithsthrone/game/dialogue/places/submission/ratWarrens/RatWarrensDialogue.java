@@ -327,7 +327,7 @@ public class RatWarrensDialogue {
 		return getMainCompanion()!=null;
 	}
 	
-	private static String applyCaptivity(GameCharacter character, Colour collarColour) {
+	private static String applyCaptivity(GameCharacter character, GameCharacter equipper, Colour collarColour) {
 		Main.game.addSavedInventory(character);
 		
 		int essences = character.getEssenceCount(TFEssence.ARCANE);
@@ -337,7 +337,7 @@ public class RatWarrensDialogue {
 		Main.game.getPlayer().setCaptive(true);
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, false);
 		
-		return RatWarrensCaptiveDialogue.equipCollar(character, collarColour);
+		return RatWarrensCaptiveDialogue.equipCollar(character, equipper, collarColour);
 	}
 	
 	private static int getRumPrice() {
@@ -412,7 +412,7 @@ public class RatWarrensDialogue {
 				return new Response("Challenge", "Tell the gang members that you're here to fight.<br/>[style.italicsBad(This will undoubtedly result in a significant amount of gang members arriving as backup!)]", ENTRANCE_FIGHT) {
 					@Override
 					public void effects() {
-						spawnGuards(false, 3);
+						spawnGuards(false, 1);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, true);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "ENTRANCE_INTITIAL_ENTRY_FIGHT", getGuards(true)));
 					}
@@ -910,9 +910,10 @@ public class RatWarrensDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(!Main.game.isNonConEnabled()) {
+//			if(!Main.game.isNonConEnabled()) {
+				//TODO re-enable
 				if(index==1) {
-					return new Response("Thrown out", "The gang members unceremoniously throw you back out into Submission's tunnels.", Main.game.getDefaultDialogue(false)) {
+					return new Response("Thrown out", "The gang members unceremoniously throw you back out into Submission's tunnels.", PlaceType.SUBMISSION_RAT_WARREN.getDialogue(false)) {
 						@Override
 						public int getSecondsPassed() {
 							return 30*60;
@@ -920,68 +921,72 @@ public class RatWarrensDialogue {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_DEFEAT_THROWN_OUT", getGuards(true)));
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, false);
+							applyCombatDefeatFlagsReset();
+							List<GameCharacter> guards = getGuards(false);
+							for(GameCharacter npc : guards) {
+								Main.game.banishNPC((NPC) npc);
+							}
 							exit();
+							
 						}
 					};
 				}
 				
-			} else {
-				if(index == 1) {
-					return new Response("Dragged away",
-							isCompanionDialogue()
-								?UtilText.parse(getMainCompanion(), "You and [npc.name] are powerless to resist as the gang members drag you off deeper into their lair...")
-								:"You are powerless to resist as the gang members drag you off deeper into their lair...",
-							GUARD_COMBAT_DEFEAT_STOCKS) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_DEFEAT_STOCKS", getGuards(true)));
-							List<GameCharacter> guards = getGuards(false);
-							int count=0;
-							for(GameCharacter npc : guards) {
-								count++;
-								if((isCompanionDialogue() && count>2) || (!isCompanionDialogue() && count>1)) {
-									Main.game.banishNPC((NPC) npc);
-									continue;
-								}
-								npc.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
-							}
-							Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
-							
-						}
-					};
-					
-				} else if(index==2
-						&& isCompanionDialogue()
-						&& !Main.game.isInvoluntaryNTREnabled()) {
-					return new Response(UtilText.parse(getMainCompanion(), "Save [npc.name]"),
-							UtilText.parse(getMainCompanion(), "Use the last of your energy to hold off the rats long enough for [npc.name] to escape."
-									+ "<br/>[style.italicsMinorGood(Unlocked having the 'Involuntary NTR' content setting turned off."
-										+ " [npc.Name] will safely return home, but the rest of the loss route will proceed as normal.)]"),
-							GUARD_COMBAT_DEFEAT_STOCKS) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_DEFEAT_STOCKS_COMPANION_ESCAPE", getGuards(true)));
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_DEFEAT_STOCKS", getGuards(true)));
-							
-							GameCharacter companion = getMainCompanion();
-							Main.game.getPlayer().removeCompanion(companion);
-							companion.returnToHome();
-							
-							List<GameCharacter> guards = getGuards(false);
-							int count=0;
-							for(GameCharacter npc : guards) {
-								count++;
-								if(count>1) {
-									Main.game.banishNPC((NPC) npc);
-									continue;
-								}
-								npc.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
-							}
-							Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
-						}
-					};
-				}
-			}
+//			} else {
+//				if(index == 1) {
+//					if(isCompanionDialogue()) {
+//						return new Response(UtilText.parse(getMainCompanion(), "Save [npc.name]"),
+//								UtilText.parse(getMainCompanion(), "Use the last of your energy to hold off the rats long enough for [npc.name] to escape."
+//										+ "<br/>[style.italicsMinorGood([npc.Name] will safely return home.)]"),
+//								GUARD_COMBAT_DEFEAT_STOCKS) {
+//							@Override
+//							public void effects() {
+//								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_DEFEAT_STOCKS_COMPANION_ESCAPE", getGuards(true)));
+//								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_DEFEAT_STOCKS", getGuards(true)));
+//								
+//								GameCharacter companion = getMainCompanion();
+//								Main.game.getPlayer().removeCompanion(companion);
+//								companion.returnToHome();
+//								
+//								List<GameCharacter> guards = getGuards(false);
+//								int count=0;
+//								for(GameCharacter npc : guards) {
+//									count++;
+//									if(count>1) {
+//										Main.game.banishNPC((NPC) npc);
+//										continue;
+//									}
+//									npc.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
+//								}
+//								Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
+//							}
+//						};
+//						
+//					} else {
+//						return new Response("Dragged away",
+//								UtilText.parse(getGuards(false), "You are powerless to resist as the gang members drag you off deeper into their lair..."),
+//								GUARD_COMBAT_DEFEAT_STOCKS) {
+//							@Override
+//							public void effects() {
+//								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "GUARD_COMBAT_DEFEAT_STOCKS", getGuards(true)));
+//								List<GameCharacter> guards = getGuards(false);
+//								int count=0;
+//								for(GameCharacter npc : guards) {
+//									count++;
+//									if(count>1) {
+//										Main.game.banishNPC((NPC) npc);
+//										continue;
+//									}
+//									npc.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
+//								}
+//								Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
+//								
+//							}
+//						};
+//					}
+//				}
+//			}
 			
 			return null;
 		}
@@ -1094,19 +1099,13 @@ public class RatWarrensDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Stripped",
-						isCompanionDialogue()
-							?UtilText.parse(getMainCompanion(), "Murk and the gang members start stripping you and [npc.name]...")
-							:"Murk and the gang members start stripping you...",
+						UtilText.parse(getGuards(false), "Murk and [npc.name] set about stripping you naked..."),
 						GUARD_COMBAT_DEFEAT_STOCKS_STRIPPED) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(applyCaptivity(Main.game.getPlayer(), PresetColour.CLOTHING_PINK_LIGHT));
-						if(isCompanionDialogue()) {
-							Main.game.getTextEndStringBuilder().append(applyCaptivity(getMainCompanion(), PresetColour.CLOTHING_PINK_LIGHT));
-						}
+						Main.game.getTextEndStringBuilder().append(applyCaptivity(Main.game.getPlayer(), Main.game.getNpc(Murk.class), PresetColour.CLOTHING_PINK_LIGHT));
 					}
 				};
-				
 			}
 			return null;
 		}
@@ -1125,9 +1124,7 @@ public class RatWarrensDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("New home",
-						isCompanionDialogue()
-							?UtilText.parse(getMainCompanion(), "Murk and the gang members lead you and [npc.name] into the adjoining room to introduce you to your 'new home'...")
-							:"Murk and the gang members lead you into the adjoining room to introduce you to your 'new home'...",
+						UtilText.parse(getGuards(false), "Murk and [npc.name] lead you into the adjoining room to introduce you to your 'new home'..."),
 						GUARD_COMBAT_DEFEAT_STOCKS_STRIPPED_END) {
 					@Override
 					public void effects() {
@@ -1265,9 +1262,10 @@ public class RatWarrensDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Murk", "Murk reappears to tell you what's in store for you next...", RatWarrensCaptiveDialogue.STOCKS_INITIAL) {
+				return new Response("Murk", "Murk reappears to tell you what's in store for you next...", RatWarrensCaptiveDialogue.CAPTIVE_DAY_0) {
 					@Override
 					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0", getGuards(false)));
 						banishGuards(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensEntranceGuardsFight));
 					}
 				};
@@ -1331,7 +1329,7 @@ public class RatWarrensDialogue {
 				return new Response("Challenge", "Tell the gang members that you're here to fight.<br/>[style.italicsBad(This will undoubtedly result in a significant amount of gang members arriving as backup!)]", ENTRANCE_FIGHT) {
 					@Override
 					public void effects() {
-						spawnGuards(false, 3);
+						spawnGuards(false, 1);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, true);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "ENTRANCE_INTITIAL_ENTRY_FIGHT", getGuards(true)));
 					}
@@ -1351,19 +1349,19 @@ public class RatWarrensDialogue {
 			if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_CHECKPOINT_LEFT
 					&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)!=Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
-					spawnGuards(false, 3);
+					spawnGuards(false, 1);
 					
 				} else {
-					spawnGuards(true, 6);
+					spawnGuards(true, 4);
 				}
 				
 			} else if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.RAT_WARRENS_CHECKPOINT_RIGHT
 					&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)!=Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
-					spawnGuards(false, 3);
+					spawnGuards(false, 1);
 					
 				} else {
-					spawnGuards(true, 6);
+					spawnGuards(true, 4);
 				}
 			}
 		}
@@ -1463,7 +1461,7 @@ public class RatWarrensDialogue {
 				return new Response("Challenge", "Tell the gang members that you're here to fight.<br/>[style.italicsBad(This will undoubtedly result in a significant amount of gang members arriving as backup!)]", ENTRANCE_FIGHT) {
 					@Override
 					public void effects() {
-						spawnGuards(true, 6);
+						spawnGuards(true, 4);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, true);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "DORMITORY_FIGHT", getGuards(true)));
 					}
@@ -1605,7 +1603,7 @@ public class RatWarrensDialogue {
 					return new Response("Challenge", "Tell the gang members that you're here to fight.<br/>[style.italicsBad(This will undoubtedly result in a significant amount of gang members arriving as backup!)]", ENTRANCE_FIGHT) {
 						@Override
 						public void effects() {
-							spawnGuards(false, 3); // Set to 3 as the bar-tender makes the 4th, and the entrance guards make 5th and 6th
+							spawnGuards(false, 1); // Set to 1 as the bar-tender makes the 2nd, and the entrance guards make 3rd and 4th
 							for(GameCharacter rat : Main.game.getCharactersPresent(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE)) {
 								rat.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_DICE_DEN);
 							}
@@ -1927,7 +1925,7 @@ public class RatWarrensDialogue {
 			}
 			if(Main.game.getPlayer().isCaptive()) {
 				if(index==1) {
-					return new Response("Step back", "You can't get very far with the chain restricting your movements...", RatWarrensCaptiveDialogue.STOCKS_NIGHT) {
+					return new Response("Step back", "You can't get very far with the chain restricting your movements...", RatWarrensCaptiveDialogue.CAPTIVE_NIGHT) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.murkIntroduced, true);
@@ -1966,7 +1964,7 @@ public class RatWarrensDialogue {
 							Main.game.getPlayer().setNearestLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CORRIDOR_LEFT, false);
 							Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.murkIntroduced, true);
-							spawnGuards(true, 6);
+							spawnGuards(true, 4);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, true);
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_STORAGE_CHALLENGE", getGuards(true)));
 						}
@@ -2198,7 +2196,7 @@ public class RatWarrensDialogue {
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSeenMilkers, true);
 						Main.game.getPlayer().setNearestLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_CORRIDOR_LEFT, false);
-						spawnGuards(true, 6);
+						spawnGuards(true, 4);
 						Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, true);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "MILKING_ROOM_CHALLENGE", getGuards(true)));
@@ -2298,7 +2296,7 @@ public class RatWarrensDialogue {
 							ENTRANCE_FIGHT) {
 						@Override
 						public void effects() {
-							spawnGuards(true, 6);
+							spawnGuards(true, 4);
 							Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensHostile, true);
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "AFTER_MILKER_SEX_CHALLENGE", getGuards(true)));
@@ -2403,7 +2401,12 @@ public class RatWarrensDialogue {
 				
 			} else {
 				if(index==2 && Main.game.getPlayer().hasItemType(ItemType.RESONANCE_STONE)) {
-					return new Response("Resonance stone", "Use the resonance stone to signal the SWORD Enforcers to start their raid.", VENGARS_HALL_RESONANCE_STONE);
+					return new Response("Resonance stone", "Use the resonance stone to signal the SWORD Enforcers to start their raid.", VENGARS_HALL_RESONANCE_STONE) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensUsedResonanceStone, true);
+						}
+					};
 				}
 			}
 			return null;
@@ -3792,37 +3795,34 @@ public class RatWarrensDialogue {
 				
 			} else {
 				if(index==1) {
-					return new Response("Stripped", "Shadow unceremoniously strips you in front of everyone in the hall...", VengarCaptiveDialogue.FINAL_COMBAT_DEFEAT_STRIPPED) {
-						@Override
-						public void effects() {
-							Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
-							applyCaptivity(Main.game.getPlayer(), PresetColour.CLOTHING_PINK_HOT);
-							if(isCompanionDialogue()) {
-								applyCaptivity(getMainCompanion(), PresetColour.CLOTHING_PINK_HOT);
-							}
-						}
-					};
-					
-				} else if(index==2
-						&& isCompanionDialogue()
-						&& !Main.game.isInvoluntaryNTREnabled()) {
-					return new Response(UtilText.parse(getMainCompanion(), "Save [npc.name]"),
-							UtilText.parse(getMainCompanion(), "Use the last of your energy to hold off the rats long enough for [npc.name] to escape."
-									+ "<br/>[style.italicsMinorGood(Unlocked by having the 'Involuntary NTR' content setting turned off."
-										+ " [npc.Name] will safely return home, but the rest of the loss route will proceed as normal.)]"),
-							VengarCaptiveDialogue.FINAL_COMBAT_DEFEAT_STRIPPED) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_DEFEAT_COMPANION_ESCAPE", getGuards(true)));
-							
-							GameCharacter companion = getMainCompanion();
-							Main.game.getPlayer().removeCompanion(companion);
-							companion.returnToHome();
+					if(isCompanionDialogue()) {
+						return new Response(UtilText.parse(getMainCompanion(), "Save [npc.name]"),
+								UtilText.parse(getMainCompanion(), "Use the last of your energy to hold off the rats long enough for [npc.name] to escape."
+										+ "<br/>[style.italicsMinorGood(Unlocked by having the 'Involuntary NTR' content setting turned off."
+											+ " [npc.Name] will safely return home, but the rest of the loss route will proceed as normal.)]"),
+								VengarCaptiveDialogue.FINAL_COMBAT_DEFEAT_STRIPPED) {
+							@Override
+							public void effects() {
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/core", "BODYGUARDS_COMBAT_DEFEAT_COMPANION_ESCAPE", getGuards(true)));
+								
+								GameCharacter companion = getMainCompanion();
+								Main.game.getPlayer().removeCompanion(companion);
+								companion.returnToHome();
 
-							Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
-							applyCaptivity(Main.game.getPlayer(), PresetColour.CLOTHING_PINK_HOT);
-						}
-					};
+								Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
+								applyCaptivity(Main.game.getPlayer(), Main.game.getNpc(Shadow.class), PresetColour.CLOTHING_PINK_HOT);
+							}
+						};
+						
+					} else {
+						return new Response("Stripped", "Shadow unceremoniously strips you in front of everyone in the hall...", VengarCaptiveDialogue.FINAL_COMBAT_DEFEAT_STRIPPED) {
+							@Override
+							public void effects() {
+								Main.game.getNpc(Murk.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_STORAGE);
+								applyCaptivity(Main.game.getPlayer(), Main.game.getNpc(Shadow.class), PresetColour.CLOTHING_PINK_HOT);
+							}
+						};
+					}
 				}
 			}
 			return null;

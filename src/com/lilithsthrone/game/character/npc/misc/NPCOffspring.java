@@ -54,7 +54,7 @@ public class NPCOffspring extends NPC {
 	
 
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
-		this(mother, father, father.getSubspecies(), father.getHalfDemonSubspecies());
+		this(mother, father, father.getTrueSubspecies(), father.getHalfDemonSubspecies());
 	}
 	
 	public NPCOffspring(GameCharacter mother, GameCharacter father, Subspecies fatherSubspecies, Subspecies fatherHalfDemonSubspecies) {
@@ -64,10 +64,10 @@ public class NPCOffspring extends NPC {
 				null, null, null,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
-		if(mother.getSubspecies()==Subspecies.LILIN || mother.getSubspecies()==Subspecies.ELDER_LILIN) {
+		if(mother.getTrueSubspecies()==Subspecies.LILIN || mother.getTrueSubspecies()==Subspecies.ELDER_LILIN) {
 			this.setSurname(mother.getName(false)+"martuilani");
 			
-		} else if(father!=null && (father.getSubspecies()==Subspecies.LILIN || father.getSubspecies()==Subspecies.ELDER_LILIN)) {
+		} else if(father!=null && (father.getTrueSubspecies()==Subspecies.LILIN || father.getTrueSubspecies()==Subspecies.ELDER_LILIN)) {
 			this.setSurname(father.getName(false)+"martuilani");
 				
 		} else if(mother.getSurname()!=null && !mother.getSurname().isEmpty()) {
@@ -84,7 +84,7 @@ public class NPCOffspring extends NPC {
 		if(father!=null) {
 			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother, father);
 		} else {
-			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother.getSubspecies(), mother.getHalfDemonSubspecies(), fatherSubspecies, fatherHalfDemonSubspecies);
+			preGeneratedBody = Subspecies.getPreGeneratedBody(this, gender, mother.getTrueSubspecies(), mother.getHalfDemonSubspecies(), fatherSubspecies, fatherHalfDemonSubspecies);
 		}
 		if(preGeneratedBody!=null) {
 			setBody(preGeneratedBody, true);

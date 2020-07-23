@@ -359,6 +359,11 @@ public class Scarlett extends NPC {
 			this.returnToHome();
 			return;
 		}
+		if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==Quest.MAIN_1_G_SLAVERY) {
+			Main.game.getNpc(Helena.class).turnUpdate();
+			this.setLocation(Main.game.getNpc(Helena.class), false);
+			return;
+		}
 		if(this.isSlave() || Main.game.getCharactersPresent().contains(this) || this.getLocationPlace().getPlaceType()==PlaceType.GENERIC_EMPTY_TILE) {
 			return; // Do not move if a slave, if the player is present in her tile, or if banished to the empty tile.
 		}

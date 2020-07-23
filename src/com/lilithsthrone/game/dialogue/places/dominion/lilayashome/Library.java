@@ -17,6 +17,7 @@ import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -188,12 +189,15 @@ public class Library {
 					};
 	
 				} else if(index>=6 && index-6<charactersPresent.size()) {
-					NPC character = charactersPresent.get(index-6);
-					
-					return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+					NPC slave = charactersPresent.get(index-6);
+					return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+						@Override
+						public Colour getHighlightColour() {
+							return slave.getFemininity().getColour();
+						}
 						@Override
 						public void effects() {
-							SlaveDialogue.initDialogue(character, false);
+							SlaveDialogue.initDialogue(slave, false);
 						}
 					};
 				}

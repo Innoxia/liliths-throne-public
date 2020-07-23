@@ -399,6 +399,8 @@ public class PositioningMenu {
 
 		slots.add(SexSlotGeneric.MISC_WATCHING);
 		
+		slots.removeIf(s -> !Main.sex.getInitialSexManager().isSlotAvailable(s));
+		
 		return slots;
 	}
 	

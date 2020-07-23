@@ -115,29 +115,28 @@ public class Face implements BodyPartInterface {
 		
 		if (type == getType()) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.face] of [npc.a_faceRace], so nothing happens...)]</p>");
-			
-		} else {
-			UtilText.transformationContentSB.setLength(0);
-
-			UtilText.transformationContentSB.append("<p>");
-			UtilText.transformationContentSB.append(
-					 "An intense tingling sensation suddenly sweeps across [npc.namePos] [npc.face], and [npc.she] [npc.verb(scrunch)] up [npc.her] [npc.eyes] as [npc.she] [npc.verb(feel)] it start to transform."
-						+ " With an audible crunch, [npc.her] facial bones start to restructure themselves, and although the feeling isn't painful, it's enough of a shock to cause [npc.herHim] to let out an involuntary cry. ");
 		}
+		
+		StringBuilder sb = new StringBuilder();
 
+		sb.append("<p>");
+		sb.append(
+				 "An intense tingling sensation suddenly sweeps across [npc.namePos] [npc.face], and [npc.she] [npc.verb(scrunch)] up [npc.her] [npc.eyes] as [npc.she] [npc.verb(feel)] it start to transform."
+					+ " With an audible crunch, [npc.her] facial bones start to restructure themselves, and although the feeling isn't painful, it's enough of a shock to cause [npc.herHim] to let out an involuntary cry. ");
+		
 		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
-		UtilText.transformationContentSB.setLength(0);
-		UtilText.transformationContentSB.append(s);
+		String s = UtilText.parse(owner, sb.toString());
+		sb.setLength(0);
+		sb.append(s);
 		this.type = type;
 
 		mouth.setType(type.getMouthType());
 		tongue.setType(type.getMouthType().getTongueType());
 		
-		UtilText.transformationContentSB.append(type.getTransformationDescription(owner));
-		UtilText.transformationContentSB.append("</p>");
+		sb.append(type.getTransformationDescription(owner));
+		sb.append("</p>");
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<br/><br/>"
 				+ owner.postTransformationCalculation()
 				+ "</p>";
@@ -198,41 +197,40 @@ public class Face implements BodyPartInterface {
 		
 		if(getFacialHair() == facialHair) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
-			
-		} else {
-			UtilText.transformationContentSB.setLength(0);
-			
-			switch(facialHair) {
-				case ZERO_NONE:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>There is no longer any trace of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
-					break;
-				case ONE_STUBBLE:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a stubbly layer of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
-					break;
-				case TWO_MANICURED:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a small amount of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
-					break;
-				case THREE_TRIMMED:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a well-trimmed beard of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
-					break;
-				case FOUR_NATURAL:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
-					break;
-				case FIVE_UNKEMPT:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] an unkempt, bushy beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
-					break;
-				case SIX_BUSHY:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a large, bushy beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
-					break;
-				case SEVEN_WILD:
-					UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a wild, thick beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
-					break;
-			}
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		switch(facialHair) {
+			case ZERO_NONE:
+				sb.append(UtilText.parse(owner, "<p>There is no longer any trace of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
+				break;
+			case ONE_STUBBLE:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a stubbly layer of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
+				break;
+			case TWO_MANICURED:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a small amount of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
+				break;
+			case THREE_TRIMMED:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a well-trimmed beard of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
+				break;
+			case FOUR_NATURAL:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
+				break;
+			case FIVE_UNKEMPT:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] an unkempt, bushy beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
+				break;
+			case SIX_BUSHY:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a large, bushy beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
+				break;
+			case SEVEN_WILD:
+				sb.append(UtilText.parse(owner, "<p>[npc.Name] now [npc.has] a wild, thick beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
+				break;
 		}
 		
 		this.facialHair = facialHair;
 		
-		return UtilText.transformationContentSB.toString();
+		return sb.toString();
 	}
 
 	@Override

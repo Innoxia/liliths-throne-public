@@ -45,7 +45,7 @@
 		#IF(npc.isMute())
 			Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes] and lets out an almost inaudible whine.
 		#ELSE
-			Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes] and exclaims in shock, [npc.speech(Wait, [npc.pcName]! This isn't a slave collar is it?!)]
+			Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes] and exclaims in shock, [npc.speech(Wait, [npc.pcName]! You're not enslaving me, are you?!)]
 		#ENDIF
 	</p>
 	<p>

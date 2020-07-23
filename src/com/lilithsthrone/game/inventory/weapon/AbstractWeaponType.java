@@ -51,7 +51,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.84
- * @version 0.3.8.2
+ * @version 0.3.8.7
  * @author Innoxia
  */
 public abstract class AbstractWeaponType extends AbstractCoreType {
@@ -78,6 +78,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	private String equipText;
 	private String unequipText;
 	private List<String> hitDescriptions;
+	private List<String> hitCriticalDescriptions;
 	private List<String> missDescriptions;
 	
 	private String pathName;
@@ -265,8 +266,15 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 							.getAllOf("hitText").stream()
 							.map(o -> o.getTextContent())
 							.collect(Collectors.toList());
+					this.hitCriticalDescriptions = weaponElement
+							.getMandatoryFirstOf("hitDescriptions")
+							.getAllOf("criticalHitText").stream()
+							.map(o -> o.getTextContent())
+							.collect(Collectors.toList());
+					
 				} else {
 					this.hitDescriptions = new ArrayList<>();
+					this.hitCriticalDescriptions = new ArrayList<>();
 				}
 				
 				if(weaponElement.getOptionalFirstOf("missDescriptions").isPresent()) {
@@ -579,16 +587,20 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return UtilText.parse(character, unequipText);
 	}
 	
-	public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+	public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit, boolean critical) {
 		if(isHit) {
-			return UtilText.parse(character, target, getHitText(character, target));
+			return UtilText.parse(character, target, getHitText(character, target, critical));
 		} else {
 			return UtilText.parse(character, target, getMissText(character, target));
 		}
 	}
 
-	public String getHitText(GameCharacter character, GameCharacter target) {
-		return UtilText.parse(character, target, Util.randomItemFrom(hitDescriptions));
+	public String getHitText(GameCharacter character, GameCharacter target, boolean critical) {
+		if(critical && !hitCriticalDescriptions.isEmpty()) {
+			return UtilText.parse(character, target, Util.randomItemFrom(hitCriticalDescriptions));
+		} else {
+			return UtilText.parse(character, target, Util.randomItemFrom(hitDescriptions));
+		}
 	}
 
 	public String getMissText(GameCharacter character, GameCharacter target) {

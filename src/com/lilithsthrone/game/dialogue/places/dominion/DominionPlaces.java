@@ -32,6 +32,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
@@ -46,6 +47,10 @@ import com.lilithsthrone.world.places.PlaceType;
 public class DominionPlaces {
 
 	public static final int TRAVEL_TIME_STREET = 2*60;
+	
+	public static boolean isCloseToEnforcerHQ() {
+		return Vector2i.getDistance(Main.game.getPlayerCell().getLocation(), Main.game.getWorlds().get(WorldType.DOMINION).getCell(PlaceType.DOMINION_ENFORCER_HQ).getLocation())<4f;
+	}
 	
 	private static String getExtraStreetFeatures() {
 		StringBuilder mommySB = new StringBuilder();
@@ -235,6 +240,12 @@ public class DominionPlaces {
 	
 	private static String getEnforcersPresent() {
 		StringBuilder sb = new StringBuilder();
+
+		if(isCloseToEnforcerHQ()) {
+			sb.append("<p style='text-align:center;'><i>");
+				sb.append("Due to the close proximity of Dominion's [style.colourBlueDark(Enforcer HQ)], there is a [style.italicsBad(high chance)] of encountering [style.colourBlueDark(Enforcer patrols)] in this area!");
+			sb.append("</i></p>");
+		}
 		
 		if(!Main.game.getSavedEnforcers(WorldType.DOMINION).isEmpty()) {
 			sb.append("<p style='text-align:center;'><i>");

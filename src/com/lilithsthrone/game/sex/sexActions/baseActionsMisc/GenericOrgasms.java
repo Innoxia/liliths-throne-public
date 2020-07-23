@@ -17,7 +17,7 @@ import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Leg;
-import com.lilithsthrone.game.character.body.Skin;
+import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Wing;
@@ -123,7 +123,7 @@ public class GenericOrgasms {
 			if(Main.sex.getCreampieLockedBy()!=null) {
 				GameCharacter lockingCharacter = Main.sex.getCreampieLockedBy().getKey();
 				Class<? extends BodyPartInterface> bodypart = Main.sex.getCreampieLockedBy().getValue();
-				if(bodypart == Skin.class) {
+				if(bodypart == Torso.class) {
 					genericOrgasmSB.append(UtilText.parse(characterOrgasming, lockingCharacter,
 							"With [npc2.name] pressing [npc2.herself] tightly against [npc.herHim], [npc.nameIsFull] unable to pull out, and [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to orgasm."));
 					
@@ -2388,7 +2388,7 @@ public class GenericOrgasms {
 		public String getActionTitle() {
 			if(Main.sex.getCreampieLockedBy()!=null) {
 				Class<? extends BodyPartInterface> bodypart = Main.sex.getCreampieLockedBy().getValue();
-				if(bodypart == Skin.class) {
+				if(bodypart == Torso.class) {
 					return "Forced creampie!";
 					
 				} else if(bodypart == Arm.class) {
@@ -2463,7 +2463,7 @@ public class GenericOrgasms {
 			if(Main.sex.getCreampieLockedBy()!=null) {
 				GameCharacter character = Main.sex.getCreampieLockedBy().getKey();
 				Class<? extends BodyPartInterface> bodypart = Main.sex.getCreampieLockedBy().getValue();
-				if(bodypart == Skin.class) {
+				if(bodypart == Torso.class) {
 					return UtilText.parse(character,
 							"[npc.NameIsFull] using [npc.her] advantageous position to force you to cum inside of [npc.herHim]! As you're on the very brink of orgasm, you have no time to try and push [npc.herHim] away!");
 					
@@ -2775,7 +2775,7 @@ public class GenericOrgasms {
 		public String getActionTitle() {
 			if(Main.sex.getCreampieLockedBy()!=null) {
 				Class<? extends BodyPartInterface> bodypart = Main.sex.getCreampieLockedBy().getValue();
-				if(bodypart == Skin.class) {
+				if(bodypart == Torso.class) {
 					return "Forced creampie (Knot!)";
 					
 				} else if(bodypart == Arm.class) {
@@ -2803,7 +2803,7 @@ public class GenericOrgasms {
 			if(Main.sex.getCreampieLockedBy()!=null) {
 				GameCharacter character = Main.sex.getCreampieLockedBy().getKey();
 				Class<? extends BodyPartInterface> bodypart = Main.sex.getCreampieLockedBy().getValue();
-				if(bodypart == Skin.class) {
+				if(bodypart == Torso.class) {
 					return UtilText.parse(character,
 							"[npc.NameIsFull] using [npc.her] advantageous position to force you to cum inside of [npc.herHim]!"
 							+ " Give [npc.herHim] what [npc.she] wants and knot [npc.herHim]!");
@@ -4896,7 +4896,7 @@ public class GenericOrgasms {
 							Main.sex.getCharacterPerformingAction(),
 							Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0))
 					&& Main.sex.getPosition().isForcedCreampieEnabled(
-							Skin.class,
+							Torso.class,
 							(SexAreaOrifice) Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()).get(0),
 							Main.sex.getCharacterPerformingAction(),
 							Main.sex.getCharacterTargetedForSexAction(this))
@@ -4964,7 +4964,7 @@ public class GenericOrgasms {
 		@Override
 		public void applyEffects() {
 			applyBasePenisOrgasmRequestsReset();
-			Main.sex.setCreampieLockedBy(new Value<>(Main.sex.getCharacterPerformingAction(), Skin.class));
+			Main.sex.setCreampieLockedBy(new Value<>(Main.sex.getCharacterPerformingAction(), Torso.class));
 		}
 		
 		@Override

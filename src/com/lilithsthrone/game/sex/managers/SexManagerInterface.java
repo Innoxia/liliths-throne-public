@@ -44,6 +44,14 @@ import com.lilithsthrone.world.population.PopulationType;
  */
 public interface SexManagerInterface {
 
+	public default String getSexTitle() {
+		return (!Main.sex.isConsensual() && Main.getProperties().hasValue(PropertyValue.nonConContent)?"Non-consensual ":"")
+				+(Main.sex.isPublicSex()?"Public ":"")
+				+(getPosition().getName().isEmpty()
+						?(Main.sex.getAllParticipants(false).size()>1?"Sex":"Masturbation")
+						:(Main.sex.getAllParticipants(false).size()>1?"Sex: ":"Masturbation: ")+getPosition().getName());
+	}
+	
 	public AbstractSexPosition getPosition();
 
 	public void assignNPCTarget(GameCharacter targeter);
@@ -92,6 +100,13 @@ public interface SexManagerInterface {
 		return null;
 	}
 	
+	/**
+	 * @return true if this sex scene takes place in a shower, bath, or other place where running water makes it impossible for areas to be dirtied. When true, dirtied InventorySlots and clothing will be instantly cleaned.
+	 */
+	public default boolean isWashingScene() {
+		return false;
+	}
+	
 	public default SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 		return character.getForeplayPreference(targetedCharacter);
 	}
@@ -127,7 +142,11 @@ public interface SexManagerInterface {
 	public default boolean isSelfTransformDisabled(GameCharacter character) {
 		return false;
 	}
-
+	
+	public default boolean isSlotAvailable(SexSlot slot) {
+		return true;
+	}
+	
 	public default List<AbstractSexPosition> getAllowedSexPositions() {
 		List<AbstractSexPosition> positions = Util.newArrayListOfValues(
 				SexPosition.AGAINST_WALL,
@@ -475,8 +494,11 @@ public interface SexManagerInterface {
 		return true;
 	}
 
+	/**
+	 * @return false by default, as the 'X was already lubricated by Y' messages are extremely annoying in multiple-partner sex scenes...
+	 */
 	public default boolean isAppendStartingWetDescriptions() {
-		return true;
+		return false;
 	}
 
 	public default boolean isCharactersReactingToExposedAreas() {

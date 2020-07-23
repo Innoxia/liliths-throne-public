@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Leg;
 import com.lilithsthrone.game.character.body.Tail;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -28,7 +29,7 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -321,7 +322,7 @@ public class Lyssieth extends NPC {
 
 	@Override
 	public Colour getSpeechGlowColour() {
-		if(this.getSkinType().getRace()==Race.DEMON) {
+		if(this.getTorsoType().getRace()==Race.DEMON) {
 			return PresetColour.BASE_PINK_LIGHT;
 		}
 		return null;
@@ -332,7 +333,7 @@ public class Lyssieth extends NPC {
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			return "#71009E";
 		}
-		if(this.getSkinType().getRace()==Race.DEMON) {
+		if(this.getTorsoType().getRace()==Race.DEMON) {
 			return "#FF99F8";
 		}
 		return "#E194FF";
@@ -365,7 +366,7 @@ public class Lyssieth extends NPC {
 
 	@Override
 	public String getArtworkFolderName() {
-		if(this.getSkinType().getRace()==Race.HUMAN) {
+		if(this.getTorsoType().getRace()==Race.HUMAN) {
 			if(this.isVisiblyPregnant()) {
 				return "LyssiethHumanPregnant";
 			}
@@ -411,7 +412,7 @@ public class Lyssieth extends NPC {
 	}
 	
 	private void setPlayerToFullDemon() {
-		Main.game.getPlayer().setSkinType(SkinType.DEMON_COMMON);
+		Main.game.getPlayer().setTorsoType(TorsoType.DEMON_COMMON);
 		Main.game.getPlayer().setFaceType(FaceType.DEMON_COMMON);
 		Main.game.getPlayer().setSubspeciesOverride(Subspecies.DEMON);
 		Main.game.getPlayer().setArousal(100, true);
@@ -432,7 +433,7 @@ public class Lyssieth extends NPC {
 		Main.game.getNpc(daughterClass).setBreastType(BreastType.DEMON_COMMON);
 		Main.game.getNpc(daughterClass).setArmType(ArmType.DEMON_COMMON);
 		Main.game.getNpc(daughterClass).getLegConfiguration().setLegsToDemon(Main.game.getNpc(daughterClass));
-		Main.game.getNpc(daughterClass).setSkinType(SkinType.DEMON_COMMON);
+		Main.game.getNpc(daughterClass).setTorsoType(TorsoType.DEMON_COMMON);
 		Main.game.getNpc(daughterClass).setFaceType(FaceType.DEMON_COMMON);
 		Main.game.getNpc(daughterClass).setSubspeciesOverride(Subspecies.DEMON);
 
@@ -838,7 +839,7 @@ public class Lyssieth extends NPC {
 		return true;
 	}
 	
-	public void growCock(PenisType type) {
+	public void growCock(AbstractPenisType type) {
 		this.setPenisType(type);
 		this.setPenisVirgin(false);
 		if(type.getRace()==Race.HUMAN) {

@@ -49,6 +49,7 @@ import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.BaseColour;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -249,15 +250,7 @@ public class LilayaHomeGeneric {
 			UtilText.nodeContentSB.setLength(0);
 			List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 			
-			UtilText.nodeContentSB.append("<p>"
-						+ "The many corridors running through Lilaya's house are, while extremely impressive, all much of the same."
-						+ " Immaculately-clean red carpet runs down the centre of each one, while fine paintings and masterfully-carved marble busts line the walls."
-					+ "</p>"
-					+ "<p>"
-						+ (Main.game.isDayTime()
-							?"Delicate glass windows provide a good amount of natural daylight, and Rose seems to be taking care to leave some of them open every now and again, making sure that the air in the house always feels fresh."
-							:"The curtains are currently drawn over the corridor's delicate glass windows, but during the day, they're able to provide a good amount of natural daylight.")
-					+ "</p>");
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "CORRIDOR"));
 			
 			if(charactersPresent.isEmpty()) {
 				UtilText.nodeContentSB.append("<p>"
@@ -327,10 +320,15 @@ public class LilayaHomeGeneric {
 				return null;
 				
 			} else if(index-1<charactersPresent.size()) {
-				return new Response(UtilText.parse(charactersPresent.get(index-1), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+				GameCharacter slave = charactersPresent.get(index-1);
+				return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+					@Override
+					public Colour getHighlightColour() {
+						return slave.getFemininity().getColour();
+					}
 					@Override
 					public void effects() {
-						SlaveDialogue.initDialogue(charactersPresent.get(index-1), false);
+						SlaveDialogue.initDialogue((NPC) slave, false);
 					}
 				};
 					
@@ -798,11 +796,15 @@ public class LilayaHomeGeneric {
 				}
 				
 			} else if(index-11<charactersPresent.size()) {
-				GameCharacter character = charactersPresent.get(index-11);
-				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+				GameCharacter slave = charactersPresent.get(index-11);
+				return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+					@Override
+					public Colour getHighlightColour() {
+						return slave.getFemininity().getColour();
+					}
 					@Override
 					public void effects() {
-						SlaveDialogue.initDialogue((NPC) character, false);
+						SlaveDialogue.initDialogue((NPC) slave, false);
 					}
 				};
 				
@@ -869,6 +871,10 @@ public class LilayaHomeGeneric {
 						character.isSlave()
 							?SlaveDialogue.SLAVE_START
 							:OccupantDialogue.OCCUPANT_START) {
+					@Override
+					public Colour getHighlightColour() {
+						return character.getFemininity().getColour();
+					}
 					@Override
 					public void effects() {
 						if(character.isSlave()) {
@@ -1712,10 +1718,15 @@ public class LilayaHomeGeneric {
 				return null;
 				
 			} else if(index-1<charactersPresent.size()) {
-				return new Response(UtilText.parse(charactersPresent.get(index-1), "[npc.Name]"), UtilText.parse(charactersPresent.get(index-1), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+				GameCharacter slave = charactersPresent.get(index-1);
+				return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+					@Override
+					public Colour getHighlightColour() {
+						return slave.getFemininity().getColour();
+					}
 					@Override
 					public void effects() {
-						SlaveDialogue.initDialogue(charactersPresent.get(index-1), false);
+						SlaveDialogue.initDialogue((NPC) slave, false);
 					}
 				};
 					
@@ -1999,22 +2010,18 @@ public class LilayaHomeGeneric {
 	};
 	
 	public static final DialogueNode STAIRCASE_UP = new DialogueNode("Staircase up", ".", false) {
-
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 20;
 		}
-
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "STAIRCASE_UP");
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==1) {
@@ -2027,30 +2034,55 @@ public class LilayaHomeGeneric {
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_STAIR_DOWN, true);
 					}
 				};
-
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
-	public static final DialogueNode STAIRCASE_DOWN = new DialogueNode("Staircase down", ".", false) {
-
+	public static final DialogueNode STAIRCASE_UP_SECONDARY = new DialogueNode("Staircase up", ".", false) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 20;
 		}
-
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "STAIRCASE_DOWN");
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "CORRIDOR")
+					+ UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "STAIRCASE_UP_SECONDARY");
 		}
-
 		@Override
 		public String getResponseTabTitle(int index) {
 			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
 		}
-		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
+			if (index == 1) {
+				return new Response("Upstairs", "Go upstairs to the first floor.", STAIRCASE_DOWN_SECONDARY){
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, Main.game.getPlayer().getLocation(), false);
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode STAIRCASE_DOWN = new DialogueNode("Staircase down", ".", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 20;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "STAIRCASE_DOWN");
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==1) {
@@ -2063,10 +2095,39 @@ public class LilayaHomeGeneric {
 						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_STAIR_UP, true);
 					}
 				};
-
-			} else {
-				return null;
 			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode STAIRCASE_DOWN_SECONDARY = new DialogueNode("Staircase down", ".", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 20;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "CORRIDOR")
+					+ UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "STAIRCASE_DOWN_SECONDARY");
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(responseTab==1) {
+				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
+			}
+			if (index == 1) {
+				return new Response("Downstairs", "Go back downstairs to the ground floor.", STAIRCASE_UP_SECONDARY){
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, Main.game.getPlayer().getLocation(), false);
+					}
+				};
+			}
+			return null;
 		}
 	};
 }

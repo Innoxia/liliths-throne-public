@@ -74,42 +74,41 @@ public class Wing implements BodyPartInterface {
 			} else {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] "+type.getTransformName()+" [npc.wings], so nothing happens...)]</p>");
 			}
-			
-		} else {
-			UtilText.transformationContentSB.setLength(0);
-
-			if(type != WingType.NONE) {
-				UtilText.transformationContentSB.append(
-						"<p>"
-							+ "[npc.Name] [npc.verb(try)] to look behind [npc.herHim] as [npc.she] [npc.verb(feel)] a strange bubbling sensation rising up in [npc.her] back, before something starts pushing out from under [npc.her] [npc.skin].");
-				
-			} else {
-				UtilText.transformationContentSB.append(
-						"<p>"
-							+ "[npc.NamePos] [npc.wings] suddenly start to twitch and flap with a mind of their own, and [npc.she] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)] them start to transform.");
-			}
 		}
 		
-		UtilText.transformationContentSB.append(" "+type.getTransformationDescription(owner));
+		StringBuilder sb = new StringBuilder();
+
+		if(type != WingType.NONE) {
+			sb.append(
+					"<p>"
+						+ "[npc.Name] [npc.verb(try)] to look behind [npc.herHim] as [npc.she] [npc.verb(feel)] a strange bubbling sensation rising up in [npc.her] back, before something starts pushing out from under [npc.her] [npc.skin].");
+			
+		} else {
+			sb.append(
+					"<p>"
+						+ "[npc.NamePos] [npc.wings] suddenly start to twitch and flap with a mind of their own, and [npc.she] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)] them start to transform.");
+		}
+		
+		sb.append(" "+type.getTransformationDescription(owner));
 		
 		if(type!=WingType.NONE) {
 			if(this.getSize().getValue() >= owner.getLegConfiguration().getMinimumWingSizeForFlight().getValue()) {
-				UtilText.transformationContentSB.append("</br>"
+				sb.append("</br>"
 						+ "Giving them an experimental flap, [npc.sheIs] delighted to discover that they're [style.colourGood(powerful enough to enable [npc.herHim] to fly)]!"
 						+ "<br/>"
 						+ "[style.italics("+Util.capitaliseSentence(owner.getLegConfiguration().getName())+" bodies require wings to be at least '"+owner.getLegConfiguration().getMinimumWingSizeForFlight().getName()+"' to enable flight.)]");
 			} else {
-				UtilText.transformationContentSB.append("</br>"
+				sb.append("</br>"
 						+ "Giving them an experimental flap, [npc.sheIs] disappointed to discover that they're [style.colourBad(not powerful enough to enable [npc.herHim] to fly)]..."
 						+ "<br/>"
 						+ "[style.italics("+Util.capitaliseSentence(owner.getLegConfiguration().getName())+" bodies require wings to be at least '"+owner.getLegConfiguration().getMinimumWingSizeForFlight().getName()+"' to enable flight.)]");
 			}
 		}
-		UtilText.transformationContentSB.append("</p>");
+		sb.append("</p>");
 
 		this.type = type;
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 				+ owner.postTransformationCalculation()
 				+ "</p>";
@@ -139,37 +138,37 @@ public class Wing implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.wings] doesn't change...)]</p>");
 		}
 
-		UtilText.transformationContentSB.setLength(0);
+		StringBuilder sb = new StringBuilder();
 		
 		if(this.size > effectiveSize) {
-			UtilText.transformationContentSB.append(
+			sb.append(
 					UtilText.parse(owner, "<p>[npc.Name] [npc.verb(let)] out an alarmed cry as [npc.she] [npc.verb(feel)] a soothing coolness rise up into [npc.her] [npc.wings+], before they suddenly [style.boldShrink(shrink)].<br/>"));
 			
 		} else {
-			UtilText.transformationContentSB.append(
+			sb.append(
 					UtilText.parse(owner, "<p>[npc.Name] [npc.verb(let)] out an alarmed gasp as [npc.she] [npc.verb(feel)] a pulsating warmth rise up into [npc.her] [npc.wings+], before they suddenly [style.boldGrow(grow larger)].<br/>"));
 		}
 		
 		this.size = effectiveSize;
 
-		UtilText.transformationContentSB.append(UtilText.parse(owner, "[npc.Name] now [npc.has] [style.boldSex([npc.wingSize] [npc.wings])]!"));
+		sb.append(UtilText.parse(owner, "[npc.Name] now [npc.has] [style.boldSex([npc.wingSize] [npc.wings])]!"));
 
 		if(type!=WingType.NONE) {
 			if(this.getSize().getValue() >= owner.getLegConfiguration().getMinimumWingSizeForFlight().getValue()) {
-				UtilText.transformationContentSB.append("</br>"
+				sb.append("</br>"
 						+ "Giving them an experimental flap, [npc.sheIs] delighted to discover that they're [style.colourGood(powerful enough to enable [npc.herHim] to fly)]!"
 						+ "<br/>"
 						+ "[style.italics("+Util.capitaliseSentence(owner.getLegConfiguration().getName())+" bodies require wings to be at least '"+owner.getLegConfiguration().getMinimumWingSizeForFlight().getName()+"' to enable flight.)]");
 			} else {
-				UtilText.transformationContentSB.append("</br>"
+				sb.append("</br>"
 						+ "Giving them an experimental flap, [npc.sheIs] disappointed to discover that they're [style.colourBad(not powerful enough to enable [npc.herHim] to fly)]..."
 						+ "<br/>"
 						+ "[style.italics("+Util.capitaliseSentence(owner.getLegConfiguration().getName())+" bodies require wings to be at least '"+owner.getLegConfiguration().getMinimumWingSizeForFlight().getName()+"' to enable flight.)]");
 			}
 		}
-		UtilText.transformationContentSB.append("</p>");
+		sb.append("</p>");
 		
-		return UtilText.transformationContentSB.toString();
+		return sb.toString();
 	}
 
 	@Override

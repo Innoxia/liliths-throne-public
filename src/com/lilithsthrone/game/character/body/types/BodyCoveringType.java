@@ -24,12 +24,14 @@ public enum BodyCoveringType {
 
 	// Skin shades go light->dark
 
-	HUMAN(BodyCoveringTemplateFactory.createTopSkin(
+	HUMAN(BodyCoveringTemplateFactory.createSkin(
 			Util.newHashMapOfValues(
 					new Value<>(CoveringPattern.NONE, 30),
 					new Value<>(CoveringPattern.FRECKLED_FACE, 2),
 					new Value<>(CoveringPattern.FRECKLED, 1)),
-			PresetColour.humanSkinColours)),
+			PresetColour.humanSkinColours,
+			PresetColour.humanSkinColours,
+			PresetColour.allSkinColours)),
 	
 	FOX_FUR("a layer of",
 			false,

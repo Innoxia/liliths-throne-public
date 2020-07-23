@@ -2259,63 +2259,6 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType CHEST_LACY_PLUNGE_BRA = new AbstractClothingType(200,
-			"a",
-			false,
-			"lacy plunge bra",
-			"lacy plunge bras",
-			"A low-cut bra that reveals a lot of the wearer's cleavage. This particular design is made from a soft, thin fabric, and has a lot of lace trimmings.",
-			0,
-			Femininity.FEMININE,
-			InventorySlot.CHEST,
-			Rarity.COMMON,
-			null,
-			"clothing/chest_lacy_plunge_bra",
-			null,
-
-			Util.newArrayListOfValues(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.ARMS_UP_TO_SHOULDER,
-									ClothingAccess.CHEST),
-							null,
-							null,
-							null),
-					new BlockedParts(DisplacementType.PULLS_DOWN,
-							Util.newArrayListOfValues(ClothingAccess.CHEST),
-							Util.newArrayListOfValues(CoverableArea.NIPPLES),
-							Util.newArrayListOfValues(ClothingAccess.CHEST),
-							PresetConcealmentLists.CONCEALED_BREASTS.getPresetInventorySlotList())
-					),
-			null,
-			ColourListPresets.LINGERIE,
-			ColourListPresets.ALL,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return braEquipText(clothingOwner, clothingRemover, slotToEquipInto, rough, clothing, applyEffects);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return braUnequipText(clothingOwner, clothingRemover, slotToEquipInto, rough, clothing, applyEffects);
-		}
-		
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, DisplacementType dt, boolean rough) {
-			return braDisplaceText(clothingOwner, clothingRemover, slotToEquipInto, dt, rough);
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, DisplacementType dt, boolean rough) {
-			return braReplaceText(clothingOwner, clothingRemover, slotToEquipInto, dt, rough);
-		}
-	};
-	
 	public static AbstractClothingType CHEST_OPEN_CUP_BRA = new AbstractClothingType(120,
 			"an",
 			false,
@@ -6568,6 +6511,8 @@ public class ClothingType {
 		oldIdConversionMap.put("NECK_TIE", "innoxia_neck_tie");
 		oldIdConversionMap.put("NECK_BREEDER_COLLAR", "innoxia_neck_breeder_collar");
 		oldIdConversionMap.put("NECK_SLAVE_COLLAR", "innoxia_bdsm_metal_collar");
+
+		oldIdConversionMap.put("CHEST_LACY_PLUNGE_BRA", "innoxia_chest_lacy_plunge_bra");
 		
 		oldIdConversionMap.put("LEG_SKIRT", "innoxia_leg_skirt");
 		oldIdConversionMap.put("LEG_PENCIL_SKIRT", "innoxia_leg_pencil_skirt");
@@ -6801,7 +6746,8 @@ public class ClothingType {
 		suitableFeminineClothing.put(Occupation.NPC_PROSTITUTE,
 				Util.newArrayListOfValues(
 						ClothingType.getClothingTypeFromId("innoxia_ankle_anklet"),
-						ClothingType.CHEST_LACY_PLUNGE_BRA,
+						ClothingType.getClothingTypeFromId("innoxia_chest_lacy_plunge_bra"),
+						
 						ClothingType.CHEST_OPEN_CUP_BRA,
 						ClothingType.CHEST_PLUNGE_BRA,
 						ClothingType.getClothingTypeFromId("innoxia_eye_aviators"),
