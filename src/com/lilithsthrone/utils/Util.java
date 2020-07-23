@@ -1052,6 +1052,8 @@ public class Util {
 
 		slovenlySpeechReplacementMap.put("Have not", "'Aven't");
 		slovenlySpeechReplacementMap.put("have not", "'aven't");
+		slovenlySpeechReplacementMap.put("Haven't", "'Aven't");
+		slovenlySpeechReplacementMap.put("haven't", "'aven't");
 		slovenlySpeechReplacementMap.put("Have", "'Ave");
 		slovenlySpeechReplacementMap.put("have", "'ave");
 
@@ -1105,6 +1107,7 @@ public class Util {
 			<br/>We're -> We's
 			<br/>So that -> so's
 			<br/>Have not -> 'aven't
+			<br/>Haven't -> 'aven't
 			<br/>Have -> 'ave
 			<br/>My -> Me
 			<br/>That -> Dat

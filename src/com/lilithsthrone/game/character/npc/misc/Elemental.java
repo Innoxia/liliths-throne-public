@@ -68,7 +68,19 @@ public class Elemental extends NPC {
 	}
 	
 	public Elemental(Gender gender, GameCharacter summoner, boolean isImported) {
-		super(isImported, null, null, "", summoner==null?18:summoner.getAgeValue(), summoner==null?Month.JANUARY:summoner.getBirthMonth(), summoner==null?1:summoner.getDayOfBirth(), 20, gender, Subspecies.DEMON, RaceStage.GREATER,
+		super(isImported, null, null, "",
+				summoner==null
+					?18
+					:summoner.getAgeValue(),
+				summoner==null
+					?Month.JANUARY
+					:summoner.getBirthMonth(),
+				summoner==null
+					?1
+					:summoner.getDayOfBirth(),
+				20,
+				gender,
+				Subspecies.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 
 		if(!isImported) {

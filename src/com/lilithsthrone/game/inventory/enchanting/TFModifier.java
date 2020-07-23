@@ -1059,15 +1059,24 @@ public enum TFModifier {
 			PresetColour.BASE_AQUA,
 			Rarity.COMMON),
 	
-	// vagina:
 	
-
+	// Vagina:
+	
 	TF_MOD_VAGINA_SQUIRTER("squirter",
 			"Applies an effect related to making someone a squirter.",
 			"squirting",
 			"modifier_circle_squirter",
 			PresetColour.BASE_AQUA,
 			Rarity.COMMON),
+
+	
+	TF_MOD_HYMEN("hymen",
+			"Applies an effect related to growing or removing a hymen.",
+			"hymen",
+			"modifier_circle_tf_vagina",
+			PresetColour.BASE_PINK_LIGHT,
+			Rarity.COMMON),
+	
 	
 	// fluid modifiers:
 	

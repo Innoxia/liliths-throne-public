@@ -11,7 +11,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.Leg;
-import com.lilithsthrone.game.character.body.Skin;
+import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -835,7 +835,7 @@ public class SexPosition {
 						|| Main.sex.getSexPositionSlot(cumProvider)==SexSlotAgainstWall.BACK_TO_WALL_THREE
 						|| Main.sex.getSexPositionSlot(cumProvider)==SexSlotAgainstWall.BACK_TO_WALL_FOUR)) {
 				return Util.newHashMapOfValues(
-						new Value<>(Skin.class, genericGroinForceCreampieAreas));
+						new Value<>(Torso.class, genericGroinForceCreampieAreas));
 			}
 			return null;
 		}
@@ -1277,7 +1277,7 @@ public class SexPosition {
 						|| Main.sex.getSexPositionSlot(cumProvider)==SexSlotDesk.OVER_DESK_ON_BACK_THREE
 						|| Main.sex.getSexPositionSlot(cumProvider)==SexSlotDesk.OVER_DESK_ON_BACK_FOUR)) {
 				return Util.newHashMapOfValues(
-						new Value<>(Skin.class, genericGroinForceCreampieAreas));
+						new Value<>(Torso.class, genericGroinForceCreampieAreas));
 			}
 			// The character lying back or on front can use their arms to force a facial creampie on characters receiving oral from them:
 			if((Main.sex.getSexPositionSlot(cumTarget)==SexSlotDesk.OVER_DESK_ON_BACK
@@ -2960,7 +2960,7 @@ public class SexPosition {
 							|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotLyingDown.MATING_PRESS_THREE
 							|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotLyingDown.MATING_PRESS_FOUR) {
 						return Util.newHashMapOfValues(
-								new Value<>(Skin.class, genericGroinForceCreampieAreas));
+								new Value<>(Torso.class, genericGroinForceCreampieAreas));
 					}
 			}
 			// Characters performing sixty-nine or lying down oral can use weight to force a facial creampie:
@@ -2977,7 +2977,7 @@ public class SexPosition {
 						|| Main.sex.getSexPositionSlot(cumProvider)==SexSlotLyingDown.LYING_DOWN_THREE
 						|| Main.sex.getSexPositionSlot(cumProvider)==SexSlotLyingDown.LYING_DOWN_FOUR) {
 					return Util.newHashMapOfValues(
-							new Value<>(Skin.class, genericFaceForceCreampieAreas));
+							new Value<>(Torso.class, genericFaceForceCreampieAreas));
 				}
 			}
 			// Characters lying down can use their legs to force a creampie:
@@ -3537,7 +3537,7 @@ public class SexPosition {
 					|| Main.sex.getSexPositionSlot(cumProvider)==SexSlotSitting.SITTING_THREE
 					|| Main.sex.getSexPositionSlot(cumProvider)==SexSlotSitting.SITTING_FOUR)) {
 				return Util.newHashMapOfValues(
-						new Value<>(Skin.class, genericGroinForceCreampieAreas));
+						new Value<>(Torso.class, genericGroinForceCreampieAreas));
 			}
 			// The character sitting getting fucked can use their legs, tail, or tentacles to force a creampie:
 			if((Main.sex.getSexPositionSlot(cumTarget)==SexSlotSitting.SITTING

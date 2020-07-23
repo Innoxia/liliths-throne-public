@@ -16,14 +16,14 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.TentacleType;
-import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
@@ -121,7 +121,7 @@ public abstract class AbstractRacialBody {
 	private int breastCrotchCount;
 
 	// Core:
-	private SkinType skinType;
+	private AbstractTorsoType skinType;
 	private BodyMaterial bodyMaterial;
 	private GenitalArrangement genitalArrangement;
 	private int maleHeight;
@@ -155,7 +155,7 @@ public abstract class AbstractRacialBody {
 	private LegConfiguration legConfiguration;
 
 	// Penis:
-	private PenisType penisType;
+	private AbstractPenisType penisType;
 	private int penisSize;
 	private int penisGirth;
 	private int testicleSize;
@@ -165,10 +165,10 @@ public abstract class AbstractRacialBody {
 	private List<AbstractTailType> tailTypes;
 	
 	// Tentacle:
-	private TentacleType tentacleType;
+	private AbstractTentacleType tentacleType;
 	
 	// Vagina:
-	private VaginaType vaginaType;
+	private AbstractVaginaType vaginaType;
 	private float vaginaCapacity;
 	private int vaginaDepth;
 	private int vaginaWetness;
@@ -200,13 +200,13 @@ public abstract class AbstractRacialBody {
 			AbstractFaceType faceType, LipSize maleLipSize, LipSize femaleLipSize,
 			AbstractHairType hairType, HairLength maleHairLength, HairLength femaleHairLength,
 			AbstractLegType legType, LegConfiguration legConfiguration,
-			SkinType skinType,
+			AbstractTorsoType skinType,
 			BodyMaterial bodyMaterial,
 			HornLength maleHornLength, HornLength femaleHornLength, List<AbstractHornType> hornTypes,
-			PenisType penisType, int penisSize, PenetrationGirth penisGirth, TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction,
+			AbstractPenisType penisType, int penisSize, PenetrationGirth penisGirth, TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction,
 			List<AbstractTailType> tailTypes,
-			TentacleType tentacleType,
-			VaginaType vaginaType, Wetness vaginaWetness, Capacity vaginaCapacity, OrificeDepth vaginaDepth, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity,
+			AbstractTentacleType tentacleType,
+			AbstractVaginaType vaginaType, Wetness vaginaWetness, Capacity vaginaCapacity, OrificeDepth vaginaDepth, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity,
 			List<AbstractWingType> wingTypes, WingSize maleWingSize, WingSize femaleWingSize,
 			GenitalArrangement genitalArrangement) {
 
@@ -453,7 +453,7 @@ public abstract class AbstractRacialBody {
 		return legConfiguration;
 	}
 
-	public SkinType getSkinType() {
+	public AbstractTorsoType getSkinType() {
 		return skinType;
 	}
 	
@@ -485,7 +485,7 @@ public abstract class AbstractRacialBody {
 		return hornTypes;
 	}
 	
-	public PenisType getPenisType() {
+	public AbstractPenisType getPenisType() {
 		return penisType;
 	}
 	
@@ -508,11 +508,11 @@ public abstract class AbstractRacialBody {
 		return tailTypes;
 	}
 
-	public TentacleType getTentacleType() {
+	public AbstractTentacleType getTentacleType() {
 		return tentacleType;
 	}
 	
-	public VaginaType getVaginaType() {
+	public AbstractVaginaType getVaginaType() {
 		return vaginaType;
 	}
 

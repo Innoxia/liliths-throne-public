@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.abstractTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -27,7 +28,7 @@ public abstract class AbstractAnusType implements BodyPartTypeInterface {
 	private List<String> descriptorsMasculine;
 	private List<String> descriptorsFeminine;
 	
-	List<OrificeModifier> defaultRacialOrificeModifiers;
+	private List<OrificeModifier> defaultRacialOrificeModifiers;
 	
 	/**
 	 * @param skinType What covers this anus.
@@ -54,8 +55,12 @@ public abstract class AbstractAnusType implements BodyPartTypeInterface {
 		
 		this.descriptorsMasculine = descriptorsMasculine;
 		this.descriptorsFeminine = descriptorsFeminine;
-		
-		this.defaultRacialOrificeModifiers = defaultRacialOrificeModifiers;
+
+		if(defaultRacialOrificeModifiers==null) {
+			this.defaultRacialOrificeModifiers = new ArrayList<>();
+		} else {
+			this.defaultRacialOrificeModifiers = defaultRacialOrificeModifiers;
+		}
 	}
 	
 	@Override

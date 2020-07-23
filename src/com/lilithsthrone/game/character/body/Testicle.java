@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.TesticleType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTesticleType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.FluidExpulsion;
 import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.83
- * @version 0.3.1
+ * @version 0.3.8.8
  * @author Innoxia
  */
 public class Testicle implements BodyPartInterface {
@@ -29,7 +29,7 @@ public class Testicle implements BodyPartInterface {
 	public static final int MINIMUM_VALUE_FOR_ALL_CUM_TO_BE_EXPELLED = 5; //ml
 	
 	
-	protected TesticleType type;
+	protected AbstractTesticleType type;
 	protected int testicleSize;
 	protected int cumStorage;
 	protected float cumStored;
@@ -41,7 +41,7 @@ public class Testicle implements BodyPartInterface {
 	
 	protected FluidCum cum;
 
-	public Testicle(TesticleType type, int testicleSize, int cumStorage, int testicleCount) {
+	public Testicle(AbstractTesticleType type, int testicleSize, int cumStorage, int testicleCount) {
 		this.type = type;
 		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.SEVEN_ABSURD.getValue()));
 		this.cumStorage = cumStorage;
@@ -61,19 +61,13 @@ public class Testicle implements BodyPartInterface {
 	}
 
 	@Override
-	public TesticleType getType() {
+	public AbstractTesticleType getType() {
 		return type;
 	}
 	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
-		if(gc.getTesticleCount()==2) {
-			return "a pair of";
-		} else if(gc.getTesticleCount()==3) {
-			return "a trio of";
-		} else {
-			return Util.intToString(gc.getTesticleCount());
-		}
+		return type.getDeterminer(gc);
 	}
 
 	@Override
@@ -102,7 +96,7 @@ public class Testicle implements BodyPartInterface {
 		return Util.randomItemFrom(list);
 	}
 	
-	public void setType(GameCharacter owner, TesticleType type) {
+	public void setType(GameCharacter owner, AbstractTesticleType type) {
 		this.type = type;
 		cum.setType(type.getFluidType());
 	}
@@ -125,11 +119,7 @@ public class Testicle implements BodyPartInterface {
 		}
 		
 		if (sizeChange == 0) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.balls] doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.balls] doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.namePos] [npc.balls] [npc.do]n't change...)]</p>");
 			
 		} else if (sizeChange > 0) {
 			return UtilText.parse(owner,
@@ -139,18 +129,11 @@ public class Testicle implements BodyPartInterface {
 					+ "</p>");
 			
 		} else {
-			if (owner.isPlayer()) {
-				return "<p>"
-							+ "You let out a surprised gasp as you feel your [pc.balls] suddenly [style.boldShrink(shrink)].<br/>"
-							+ "You now have [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [pc.balls])]!"
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner,
-						"<p>"
-							+ "[npc.Name] lets out a surprised gasp as [npc.she] feels [npc.her] [npc.balls] suddenly [style.boldShrink(shrink)].<br/>"
-							+ "[npc.She] now has [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [npc.balls])]!"
-						+ "</p>");
-			}
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(let)] out a surprised gasp as [npc.she] [npc.verb(feel)] [npc.her] [npc.balls] suddenly [style.boldShrink(shrink)].<br/>"
+						+ "[npc.She] now has [style.boldSex(" +owner.getTesticleSize().getDescriptor()+ " [npc.balls])]!"
+					+ "</p>");
 		}
 	}
 
@@ -174,32 +157,18 @@ public class Testicle implements BodyPartInterface {
 		this.testicleCount = testicleCount;
 		
 		if(removingTesticles) {
-			if(owner.isPlayer()) {
-				return UtilText.parse(owner, "<p>"
-							+ "A tingling feeling spreads down into your [pc.balls], and you let out a little cry as you feel some of them shrinking away and [style.boldShrink(disappearing)].<br/>"
-							+ "After a few moments, you're left with [style.boldTfGeneric([pc.a_balls])]."
-						+ "</p>");
-			} else {
-				return UtilText.parse(owner,
-						"<p>"
-							+ "A tingling feeling spreads down into [npc.namePos] [npc.balls], and [npc.she] lets out a little cry as [npc.she] feels some of them shrinking away and [style.boldShrink(disappearing)].<br/>"
-							+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric([npc.a_balls])]."
-						+ "</p>");
-			}
+			return UtilText.parse(owner,
+					"<p>"
+						+ "A tingling feeling spreads down into [npc.namePos] [npc.balls], and [npc.she] [npc.verb(let)] out a shocked cry as [npc.she] [npc.verb(feel)] some of them shrinking away and [style.boldShrink(disappearing)].<br/>"
+						+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric([npc.a_balls])]."
+					+ "</p>");
 			
 		} else {
-			if(owner.isPlayer()) {
-				return UtilText.parse(owner, "<p>"
-							+ "A tingling feeling spreads down into your [pc.balls], and you let out a little cry as you feel them [style.boldGrow(multiplying)].<br/>"
-							+ "After a few moments, you're left with [style.boldTfGeneric([pc.a_balls])]."
-						+ "</p>");
-			} else {
-				return UtilText.parse(owner,
-						"<p>"
-							+ "A tingling feeling spreads down into [npc.namePos] [npc.balls], and [npc.she] lets out a little cry as [npc.she] feels them [style.boldGrow(multiplying)].<br/>"
-							+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric([npc.a_balls])]."
-						+ "</p>");
-			}
+			return UtilText.parse(owner,
+					"<p>"
+						+ "A tingling feeling spreads down into [npc.namePos] [npc.balls], and [npc.she] [npc.verb(let)] out a little cry as [npc.she] [npc.verb(feel)] them [style.boldGrow(multiplying)].<br/>"
+						+ "After a few moments, [npc.sheIs] left with [style.boldTfGeneric([npc.a_balls])]."
+					+ "</p>");
 		}
 	}
 
@@ -223,38 +192,22 @@ public class Testicle implements BodyPartInterface {
 		this.internal = internal;
 		
 		if(internal) {
-			if(owner.isPlayer()) {
-				return "<p>"
-							+ "You feel your [pc.balls] tightening and [style.boldShrink(withdrawing)] up into your groin, and you let out a little cry as you feel them shift up inside your body.<br/>"
-							+ "Your [pc.balls+] [style.boldTfGeneric(are now internal)]."
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner,
-						"<p>"
-							+ "[npc.Name] feels [npc.her] [npc.balls] tightening and [style.boldShrink(withdrawing)] up into [npc.her] groin, and [npc.she] lets out a little cry as [npc.she] feels them shift up inside [npc.her] body.<br/>"
-							+ "[npc.Her] [npc.balls+] [style.boldTfGeneric(are now internal)]."
-						+ "</p>");
-			}
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(feel)] [npc.her] [npc.balls] tightening and [style.boldShrink(withdrawing)] up into [npc.her] groin,"
+							+ " and [npc.she] [npc.verb(let)] out a shocked cry as [npc.she] [npc.verb(feel)] them shift up to sit inside [npc.her] body.<br/>"
+						+ "[npc.Her] [npc.balls+] [style.boldTfGeneric(are now internal)]."
+					+ "</p>");
 			
 		} else {
-			if(owner.isPlayer()) {
-				return "<p>"
-							+ "You feel your internal [pc.balls] slackening and [style.boldGrow(dropping down)], and you let out a little cry as they settle down into an external sack.<br/>"
-							+ "Your [pc.balls+] [style.boldTfGeneric(are now external)]."
-						+ "</p>";
-			} else {
-				return UtilText.parse(owner,
-						"<p>"
-							+ "[npc.Name] feels [npc.her] internal [npc.balls] slackening and [style.boldGrow(dropping down)], and [npc.she] lets out a little cry as they settle down into an external sack.<br/>"
-							+ "[npc.Her] [npc.balls+] [style.boldTfGeneric(are now external)]."
-						+ "</p>");
-			}
+			return UtilText.parse(owner,
+					"<p>"
+						+ "[npc.Name] [npc.verb(feel)] [npc.her] internal [npc.balls] slackening and [style.boldGrow(dropping down)], and [npc.she] [npc.verb(let)] out a deep [npc.moan] as they settle down into an external sack.<br/>"
+						+ "[npc.Her] [npc.balls+] [style.boldTfGeneric(are now external)]."
+					+ "</p>");
 		}
 	}
 	
-	// Cum storage and regeneration:
-	
-
 	// CumProduction:
 
 	public CumProduction getCumStorage() {
@@ -277,16 +230,12 @@ public class Testicle implements BodyPartInterface {
 			return "";
 		}
 		
-		if (cumChange == 0) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(The amount of [pc.cum] that you're able to produce doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The amount of [npc.cum] that [npc.name] is able to produce doesn't change...)]</p>");
-			}
+		if(cumChange == 0) {
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The amount of [npc.cum] which [npc.name] [npc.is] able to produce doesn't change...)]</p>");
 		}
 		
 		String cumDescriptor = getCumStorage().getDescriptor();
-		if (cumChange > 0) {
+		if(cumChange > 0) {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] a strange bubbling and churning taking place deep within [npc.her] [npc.balls],"
@@ -366,11 +315,7 @@ public class Testicle implements BodyPartInterface {
 		}
 		
 		if (regenerationChange == 0) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(Your rate of [pc.cum] regeneration doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.namePos] rate of [npc.cum] regeneration doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.namePos] rate of [npc.cum] regeneration doesn't change...)]</p>");
 		}
 		
 		String regenerationDescriptor = getCumProductionRegeneration().getName();
@@ -413,11 +358,7 @@ public class Testicle implements BodyPartInterface {
 		}
 		
 		if (expulsionChange == 0) {
-			if(owner.isPlayer()) {
-				return "<p style='text-align:center;'>[style.colourDisabled(Your rate of [pc.cum] expulsion doesn't change...)]</p>";
-			} else {
-				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.namePos] rate of [npc.cum] expulsion doesn't change...)]</p>");
-			}
+			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.namePos] rate of [npc.cum] expulsion doesn't change...)]</p>");
 		}
 		
 		String expulsionDescriptor = getCumExpulsion().getDescriptor();

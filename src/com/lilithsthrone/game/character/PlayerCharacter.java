@@ -29,7 +29,7 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -637,8 +637,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			if(character.getPenisType().getRace()==Race.DEMON) {
 				character.setPenisType(PenisType.HUMAN);
 			}
-			if(character.getSkinType().getRace()==Race.DEMON) {
-				character.setSkinType(SkinType.HUMAN);
+			if(character.getTorsoType().getRace()==Race.DEMON) {
+				character.setTorsoType(TorsoType.HUMAN);
 			}
 			if(character.getTailType().getRace()==Race.DEMON) {
 				character.setTailType(TailType.NONE);
@@ -1250,15 +1250,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		
 		return false;
-	}
-	
-	@Override
-	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
-		if(this.getMainWeapon(armRow)!=null) {
-			return this.getMainWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit);
-		} else {
-			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
-		}
 	}
 
 	@Override

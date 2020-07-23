@@ -173,7 +173,7 @@
 			[npc2.speech(You's 'ere ta do wot?!)] [npc2.name] exclaims, before turning [npc2.her] head back to the tunnels behind [npc2.herHim] and bellowing at the top of [npc2.her] voice, [npc2.speech(Everyone! Get in 'ere! We need 'elp!)]
 		</p>
 		<p>
-			Within seconds, half a dozen rat-morphs are dashing into the area as backup, but as they see that there's a fight afoot, a couple of them turn around and run off, abandoning their comrades. Looking around, you count six gang members in front of you and [npc.name], including the two who granted you entry.
+			Within seconds, half a dozen rat-morphs are dashing into the area as backup, but as they see that there's a fight afoot, a couple of them turn around and run off, abandoning their comrades. Looking around, you count four gang members in front of you and [npc.name], including the two who granted you entry.
 		</p>
 		<p>
 			Caught up in the moment, [npc2.name] yanks on a nearby lever so hard that it breaks off in [npc2.her] hand. Behind you, you hear a heavy lock slam shut, sealing the doors and dashing any hopes you might have had of attempting to escape. With a wild grin on [npc2.her] face, [npc2.name] gleefully shouts, [npc2.speech(There ain't no escape fer ya now! Let's do this!)]
@@ -190,7 +190,7 @@
 			[npc.speech(You's 'ere ta do wot?!)] [npc.name] exclaims, before turning [npc.her] head back to the tunnels behind [npc.herHim] and bellowing at the top of [npc.her] voice, [npc.speech(Everyone! Get in 'ere! We need 'elp!)]
 		</p>
 		<p>
-			Within seconds, half a dozen rat-morphs are dashing into the area as backup, but as they see that there's a fight afoot, a couple of them turn around and run off, abandoning their comrades. Looking around, you count six gang members in front of you, including the two who granted you entry.
+			Within seconds, half a dozen rat-morphs are dashing into the area as backup, but as they see that there's a fight afoot, a couple of them turn around and run off, abandoning their comrades. Looking around, you count four gang members in front of you, including the two who granted you entry.
 		</p>
 		<p>
 			Caught up in the moment, [npc.name] yanks on a nearby lever so hard that it breaks off in [npc.her] hand. Behind you, you hear a heavy lock slam shut, sealing the doors and dashing any hopes you might have had of attempting to escape. With a wild grin on [npc.her] face, [npc.name] gleefully shouts, [npc.speech(There ain't no escape fer ya now! Let's do this!)]
@@ -465,7 +465,7 @@
 		[npc2.speech(Eugh...)] [npc2.name] groans, before raising [npc2.her] [npc2.ass] and whining, [npc2.speech(What ya waitin' for? Come an' fuck us already!)]
 	</p>
 	<p>
-		Ignoring [npc2.her] moans for a moment, you reflect on the fact that the surrounding tunnels will most likely now be clear of hostile rats, but you can be sure that the areas deeper into the Rat Warrens will be alert and getting ready to fight you. Before you can deal with that situation, however, you need to decide what to do with the six defeated, horny gang members in front of you...
+		Ignoring [npc2.her] moans for a moment, you reflect on the fact that the surrounding tunnels will most likely now be clear of hostile rats, but you can be sure that the areas deeper into the Rat Warrens will be alert and getting ready to fight you. Before you can deal with that situation, however, you need to decide what to do with the defeated, horny gang members in front of you...
 	</p>
 	]]>
 	</htmlContent>
@@ -473,9 +473,9 @@
 	<htmlContent tag="GUARD_COMBAT_VICTORY_ALL_ENSLAVED"><![CDATA[
 	<p>
 		#IF(pc.hasCompanions())
-			Having enslaved each of the six rats who dared stand in your way, there's little else to do now but continue on your way. Telling [npc.name] to be ready for another fight, you prepare to head further into the Rat Warrens...
+			Having enslaved each of the rats who dared stand in your way, there's little else to do now but continue on your way. Telling [npc.name] to be ready for another fight, you prepare to head further into the Rat Warrens...
 		#ELSE
-			Having enslaved each of the six rats who dared stand in your way, there's little else to do now but continue on your way. Staying alert and ready for another fight, you prepare to head further into the Rat Warrens...
+			Having enslaved each of the rats who dared stand in your way, there's little else to do now but continue on your way. Staying alert and ready for another fight, you prepare to head further into the Rat Warrens...
 		#ENDIF
 	</p>
 	]]>
@@ -861,7 +861,7 @@
 	<htmlContent tag="GUARD_COMBAT_DEFEAT_NO_NON_CON"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Unable to continue fighting any longer, you and [npc.name] slump to the ground, utterly defeated. A chorus of mocking laughter causes you to wearily look up, only to see the six rats looming over you with wicked grins on their faces.
+			Unable to continue fighting any longer, you and [npc.name] slump to the ground, utterly defeated. A chorus of mocking laughter causes you to wearily look up, only to see the four rats looming over you with wicked grins on their faces.
 		</p>
 		<p>
 			[npc2.speech(Ya fucked with the wrong gang!)] [npc2.name] sneers, [npc2.speech(There ain't no chance a couple as pathetic as the two o' ya could ever beat us!)]
@@ -871,7 +871,7 @@
 		</p>
 	#ELSE
 		<p>
-			Unable to continue fighting any longer, you slump to the ground, utterly defeated. A chorus of mocking laughter causes you to wearily look up, only to see the six rats looming over you with wicked grins on their faces.
+			Unable to continue fighting any longer, you slump to the ground, utterly defeated. A chorus of mocking laughter causes you to wearily look up, only to see the four rats looming over you with wicked grins on their faces.
 		</p>
 		<p>
 			[npc.speech(Ya fucked with the wrong gang!)] [npc.name] sneers, [npc.speech(There ain't no chance someone as pathetic as ya could ever beat us!)]
@@ -886,7 +886,7 @@
 	<htmlContent tag="GUARD_COMBAT_DEFEAT"><![CDATA[
 	#IF(pc.hasCompanions())
 		<p>
-			Unable to continue fighting any longer, you and [npc.name] slump to the ground, utterly defeated. A chorus of mocking laughter causes you to wearily look up, only to see the six rats looming over you with wicked grins on their faces.
+			Unable to continue fighting any longer, you and [npc.name] slump to the ground, utterly defeated. A chorus of mocking laughter causes you to wearily look up, only to see the four rats looming over you with wicked grins on their faces.
 		</p>
 		<p>
 			[npc2.speech(Ya fucked with the wrong gang!)] [npc2.name] sneers, [npc2.speech(There ain't no chance a couple as pathetic as the two o' ya could ever beat us, an' ya ain't ever gonna get the chance ta try again!)]
@@ -901,7 +901,7 @@
 		#ENDIF
 	#ELSE
 		<p>
-			Unable to continue fighting any longer, you slump to the ground, utterly defeated. A chorus of mocking laughter causes you to wearily look up, only to see the six rats looming over you with wicked grins on their faces.
+			Unable to continue fighting any longer, you slump to the ground, utterly defeated. A chorus of mocking laughter causes you to wearily look up, only to see the four rats looming over you with wicked grins on their faces.
 		</p>
 		<p>
 			[npc.speech(Ya fucked with the wrong gang!)] [npc.name] sneers, [npc.speech(There ain't no chance someone as pathetic as ya could ever beat us, an' ya ain't ever gonna get the chance ta try again!)]
@@ -1524,7 +1524,7 @@
 	
 	<htmlContent tag="CHECKPOINT_FIGHT"><![CDATA[
 	<p>
-		Knowing that the inhabitants of the Rat Warrens must be alerted to your hostile presence by now, you make sure to stay alert as you travel down the twisting passageways. Just as you expected, when you turn the next corner, you see six rat-morphs waiting to confront you.
+		Knowing that the inhabitants of the Rat Warrens must be alerted to your hostile presence by now, you make sure to stay alert as you travel down the twisting passageways. Just as you expected, when you turn the next corner, you see four rat-morphs waiting to confront you.
 	</p>
 	<p>
 		#IF(pc.hasCompanions())
@@ -1609,7 +1609,7 @@
 				[npc2.speech(You's 'ere ta do wot?!)] [npc2.name] exclaims, before bellowing at the top of [npc2.her] voice, [npc2.speech(Everyone! Get in 'ere! We need 'elp!)]
 			</p>
 			<p>
-				Within seconds, more than half a dozen rat-morphs are dashing into the dormitory as backup, but as they see that there's a fight afoot, a few of them turn around and run off, abandoning their comrades. At the end of all this, you count six gang members left in front of you and [npc.name].
+				Within seconds, more than half a dozen rat-morphs are dashing into the dormitory as backup, but as they see that there's a fight afoot, a few of them turn around and run off, abandoning their comrades. At the end of all this, you count four gang members left in front of you and [npc.name].
 			</p>
 		#ELSE
 			<p>
@@ -1619,7 +1619,7 @@
 				[npc2.speech(You's 'ere ta do wot?!)] the nearest gang member exclaims, [npc2.speech(Come on you's lot! 'Elp me give these two a beatin'!)]
 			</p>
 			<p>
-				Although they greatly outnumber you, a few of the rats don't seem to like their odds, and quickly dash past you and run off into the tunnels, abandoning their comrades. Once they're gone, you count six gang members left in front of you and [npc.name].
+				Although they greatly outnumber you, a few of the rats don't seem to like their odds, and quickly dash past you and run off into the tunnels, abandoning their comrades. Once they're gone, you count four gang members left in front of you and [npc.name].
 			</p>
 		#ENDIF
 		<p>
@@ -1634,7 +1634,7 @@
 				[npc.speech(You's 'ere ta do wot?!)] [npc.name] exclaims, before bellowing at the top of [npc.her] voice, [npc.speech(Everyone! Get in 'ere! We need 'elp!)]
 			</p>
 			<p>
-				Within seconds, more than half a dozen rat-morphs are dashing into the dormitory as backup, but as they see that there's a fight afoot, a few of them turn around and run off, abandoning their comrades. At the end of all this, you count six gang members left in front of you.
+				Within seconds, more than half a dozen rat-morphs are dashing into the dormitory as backup, but as they see that there's a fight afoot, a few of them turn around and run off, abandoning their comrades. At the end of all this, you count four gang members left in front of you.
 			</p>
 		#ELSE
 			<p>
@@ -1644,7 +1644,7 @@
 				[npc.speech(You's 'ere ta do wot?!)] the nearest gang member exclaims, [npc.speech(Come on you's lot! 'Elp me give this 'un a beatin'!)]
 			</p>
 			<p>
-				Although they greatly outnumber you, a few of the rats don't seem to like their odds, and quickly dash past you and run off into the tunnels, abandoning their comrades. Once they're gone, you count six gang members left in front of you.
+				Although they greatly outnumber you, a few of the rats don't seem to like their odds, and quickly dash past you and run off into the tunnels, abandoning their comrades. Once they're gone, you count four gang members left in front of you.
 			</p>
 		#ENDIF
 		<p>
@@ -1698,10 +1698,10 @@
 			Deciding that this is the right time to get started on clearing out the Rat Warrens, you step step forwards and call out to the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you and [npc.name] ready yourselves for combat.
 		</p>
 		<p>
-			[npc7.speech(You's 'ere ta do wot?!)] [npc7.name] exclaims, before rushing around from behind the bar and calling out, [npc7.speech(Come on everyone! Let's show 'em wot we do ta troublemakers!)]
+			[npc5.speech(You's 'ere ta do wot?!)] [npc5.name] exclaims, before rushing around from behind the bar and calling out, [npc5.speech(Come on everyone! Let's show 'em wot we do ta troublemakers!)]
 		</p>
 		<p>
-			Although many of the gang members join [npc7.name] in getting ready to fight you, many more of them dash past you and run off into the tunnels, abandoning their comrades. All in all, you count six gang members, including [npc7.name], left in front of you and [npc.name].
+			Although many of the gang members join [npc5.name] in getting ready to fight you, many more of them dash past you and run off into the tunnels, abandoning their comrades. All in all, you count four gang members, including [npc5.name], left in front of you and [npc.name].
 		</p>
 		<p>
 			With a wild snarl, [npc2.name] makes [npc2.herself] known as the leader of this group, and shouts to the remaining rats, [npc2.speech(We'll deal with them cowardly scum later! Fer now, let's give these two a real good beatin'!)]
@@ -1711,10 +1711,10 @@
 			Deciding that this is the right time to get started on clearing out the Rat Warrens, you step step forwards and call out to the gambling rats that you're here to put an end to their criminal activities. As the gang members jump to their feet, you ready yourself for combat.
 		</p>
 		<p>
-			[npc6.speech(You's 'ere ta do wot?!)] [npc6.name] exclaims, before rushing around from behind the bar and calling out, [npc6.speech(Come on everyone! Let's show 'em wot we do ta troublemakers!)]
+			[npc4.speech(You's 'ere ta do wot?!)] [npc4.name] exclaims, before rushing around from behind the bar and calling out, [npc4.speech(Come on everyone! Let's show 'em wot we do ta troublemakers!)]
 		</p>
 		<p>
-			Although many of the gang members join [npc6.name] in getting ready to fight you, many more of them dash past you and run off into the tunnels, abandoning their comrades. All in all, you count six gang members, including [npc6.name], left in front of you.
+			Although many of the gang members join [npc4.name] in getting ready to fight you, many more of them dash past you and run off into the tunnels, abandoning their comrades. All in all, you count four gang members, including [npc4.name], left in front of you.
 		</p>
 		<p>
 			With a wild snarl, [npc.name] makes [npc.herself] known as the leader of this group, and shouts to the remaining rats, [npc.speech(We'll deal with them cowardly scum later! Fer now, let's give this 'un a real good beatin'!)]
@@ -3854,7 +3854,11 @@
 	<p>
 		Thanking the SWORD Enforcer, Claire places her hands on her hips and sighs,
 		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_VENGAR, QUEST_VENGAR_OPTIONAL_CLAIRE))
-			 [claire.speech(I don't know why you didn't use the Resonance Stone I gave to you, but at least you're safe... Anyway, hand it over to me and we can get out of here.)]
+			#IF(game.getDialogueFlags().hasFlag(FLAG_ratWarrensUsedResonanceStone))
+				 [claire.speech(Thank goodness I gave you that Resonance Stone to use! Thanks to that, you're safe... Anyway, hand it over to me and we can get out of here.)]
+			#ELSE
+				 [claire.speech(I don't know why you didn't use the Resonance Stone I gave to you, but at least you're safe... Anyway, hand it over to me and we can get out of here.)]
+			#ENDIF
 		#ELSE
 			 [claire.speech(I don't know what you were thinking being in here, but at least you're safe... Anyway, let's get out of here.)]
 		#ENDIF

@@ -73,29 +73,29 @@ public class Eye implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.eyes] of [npc.a_eyeRace], so nothing happens...)]</p>");
 		}
 		
-		UtilText.transformationContentSB.setLength(0);
+		StringBuilder sb = new StringBuilder();
 
-		UtilText.transformationContentSB.append("<p>");
+		sb.append("<p>");
 		if(owner.isArmMovementHindered()) {
-			UtilText.transformationContentSB.append("[npc.NamePos] [npc.eyes] suddenly grow hot and itchy, causing [npc.herHim] to instinctively scrunch them up tight. ");
+			sb.append("[npc.NamePos] [npc.eyes] suddenly grow hot and itchy, causing [npc.herHim] to instinctively scrunch them up tight. ");
 		} else {
-			UtilText.transformationContentSB.append("[npc.NamePos] [npc.eyes] suddenly grow hot and itchy, and [npc.she] instinctively [npc.verb(scrunch)] them up tight as [npc.she] [npc.verb(reach)] up to rub at them. ");
+			sb.append("[npc.NamePos] [npc.eyes] suddenly grow hot and itchy, and [npc.she] instinctively [npc.verb(scrunch)] them up tight as [npc.she] [npc.verb(reach)] up to rub at them. ");
 		}
 
 		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
-		UtilText.transformationContentSB.setLength(0);
-		UtilText.transformationContentSB.append(s);
+		String s = UtilText.parse(owner, sb.toString());
+		sb.setLength(0);
+		sb.append(s);
 		
 		this.type = type;
 		irisShape = type.getDefaultIrisShape();
 		pupilShape = type.getDefaultPupilShape();
 
-		UtilText.transformationContentSB.append(type.getTransformationDescription(owner));
+		sb.append(type.getTransformationDescription(owner));
 		
-		UtilText.transformationContentSB.append("</p>");
+		sb.append("</p>");
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 					+ owner.postTransformationCalculation()
 				+ "</p>";
@@ -177,32 +177,32 @@ public class Eye implements BodyPartInterface {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		UtilText.transformationContentSB.setLength(0);
+		StringBuilder sb = new StringBuilder();
 		
 		owner.getBody().getCoverings().put(covering.getType(), covering);
 		
-		UtilText.transformationContentSB.append(
+		sb.append(
 				"<p>"
 					+ "[npc.NamePos] vision goes blurry for just a moment, and after blinking a few times, [npc.her] [npc.eyes] suddenly shift and change colour.<br/>"
 					+ "[npc.She] now [npc.has] ");
 		
 		if(covering.getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
-			UtilText.transformationContentSB.append("heterochromatic [npc.irisPrimaryColour(true)]-and-[npc.irisSecondaryColour(true)] [npc.irisShape] irises, ");
+			sb.append("heterochromatic [npc.irisPrimaryColour(true)]-and-[npc.irisSecondaryColour(true)] [npc.irisShape] irises, ");
 		} else {
-			UtilText.transformationContentSB.append("[npc.irisPrimaryColour(true)] [npc.irisShape] irises ");
+			sb.append("[npc.irisPrimaryColour(true)] [npc.irisShape] irises ");
 		}
 		if(covering.getPattern() == CoveringPattern.EYE_PUPILS_HETEROCHROMATIC) {
-			UtilText.transformationContentSB.append("with heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] [npc.pupilShape] pupils ");
+			sb.append("with heterochromatic [npc.pupilPrimaryColour(true)]-and-[npc.pupilSecondaryColour(true)] [npc.pupilShape] pupils ");
 		} else {
-			UtilText.transformationContentSB.append("with [npc.pupilPrimaryColour(true)] [npc.pupilShape] pupils ");
+			sb.append("with [npc.pupilPrimaryColour(true)] [npc.pupilShape] pupils ");
 		}
 		if(covering.getPattern() == CoveringPattern.EYE_SCLERA_HETEROCHROMATIC) {
-			UtilText.transformationContentSB.append("and heterochromatic [npc.scleraPrimaryColour(true)]-and-[npc.scleraSecondaryColour(true)] sclerae.</p>");
+			sb.append("and heterochromatic [npc.scleraPrimaryColour(true)]-and-[npc.scleraSecondaryColour(true)] sclerae.</p>");
 		} else {
-			UtilText.transformationContentSB.append("and [npc.scleraPrimaryColour(true)] sclerae.</p>");
+			sb.append("and [npc.scleraPrimaryColour(true)] sclerae.</p>");
 		}
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString());
+		return UtilText.parse(owner, sb.toString());
 	}
 
 	@Override

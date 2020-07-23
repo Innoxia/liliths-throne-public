@@ -1,27 +1,49 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import java.util.List;
+
+import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.3.8.9
  * @author Innoxia
  */
 public enum Femininity {
-	MASCULINE_STRONG(0, 19, PresetColour.MASCULINE_PLUS),
-	MASCULINE(20, 39, PresetColour.MASCULINE),
-	ANDROGYNOUS(40, 59, PresetColour.ANDROGYNOUS),
-	FEMININE(60, 79, PresetColour.FEMININE),
-	FEMININE_STRONG(80, 100, PresetColour.FEMININE_PLUS);
+	
+	MASCULINE_STRONG(Util.newArrayListOfValues("very masculine", "manly"), 0, 19, PresetColour.MASCULINE_PLUS),
+	
+	MASCULINE(Util.newArrayListOfValues("masculine", "boyish"), 20, 39, PresetColour.MASCULINE),
+	
+	ANDROGYNOUS(Util.newArrayListOfValues("androgynous"), 40, 59, PresetColour.ANDROGYNOUS),
+	
+	FEMININE(Util.newArrayListOfValues("feminine", "girly"), 60, 79, PresetColour.FEMININE),
+	
+	FEMININE_STRONG(Util.newArrayListOfValues("very masculine", "womanly"), 80, 100, PresetColour.FEMININE_PLUS);
 
-	private int minimumFemininity, maximumFemininity;
+	private List<String> names;
+	private int minimumFemininity;
+	private int maximumFemininity;
 	private Colour colour;
 
-	private Femininity(int minimumFemininity, int maximumFemininity, Colour colour) {
+	private Femininity(List<String> names, int minimumFemininity, int maximumFemininity, Colour colour) {
+		this.names = names;
 		this.minimumFemininity = minimumFemininity;
 		this.maximumFemininity = maximumFemininity;
 		this.colour = colour;
+	}
+	
+	public String getName(boolean withDeterminer) {
+		String name = Util.randomItemFrom(names);
+		
+		if(withDeterminer) {
+			return UtilText.generateSingularDeterminer(name)+" "+name;
+		} else {
+			return name;
+		}
 	}
 
 	public int getMinimumFemininity() {
@@ -36,6 +58,10 @@ public enum Femininity {
 		return minimumFemininity + ((maximumFemininity - minimumFemininity)/2);
 	}
 
+	public Colour getColour() {
+		return colour;
+	}
+
 	public static Femininity valueOf(int femininity) {
 		for(Femininity f : Femininity.values()) {
 			if(femininity>=f.getMinimumFemininity() && femininity<=f.getMaximumFemininity()) {
@@ -44,37 +70,9 @@ public enum Femininity {
 		}
 		return FEMININE_STRONG;
 	}
-	
-	public String getName(boolean withDeterminer) {
-
-		if (this == MASCULINE_STRONG)
-			return (withDeterminer ? "a " : "") + "very masculine";
-		else if (this == MASCULINE)
-			return (withDeterminer ? "a " : "") + "masculine";
-		else if (this == ANDROGYNOUS)
-			return (withDeterminer ? "an " : "") + "androgynous";
-		else if (this == FEMININE)
-			return (withDeterminer ? "a " : "") + "feminine";
-		else
-			return (withDeterminer ? "a " : "") + "very feminine";
-	}
 
 	public static String getFemininityName(int femininity, boolean withDeterminer) {
-
-		if (femininity < MASCULINE_STRONG.maximumFemininity)
-			return (withDeterminer ? "a " : "") + "very masculine";
-		else if (femininity < MASCULINE.maximumFemininity)
-			return (withDeterminer ? "a " : "") + "masculine";
-		else if (femininity < ANDROGYNOUS.maximumFemininity)
-			return (withDeterminer ? "an " : "") + "androgynous";
-		else if (femininity < FEMININE.maximumFemininity)
-			return (withDeterminer ? "a " : "") + "feminine";
-		else
-			return (withDeterminer ? "a " : "") + "very feminine";
-	}
-
-	public Colour getColour() {
-		return colour;
+		return valueOf(femininity).getName(withDeterminer);
 	}
 	
 	public boolean isFeminine() {
