@@ -22,7 +22,7 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -1052,38 +1052,41 @@ public class ItemEffectType {
 	};
 	
 	public static AbstractItemEffectType ADDICTION_REMOVAL = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldExcellent(Removes all addictions)]"),
+			"[style.boldMinorGood(Removes)] [style.boldExcellent(all)] [style.colourBad(addictions)]",
+			"[style.boldMinorGood(Removes)] [style.colourAlcohol(alcohol intoxication)]",
+			"[style.boldMinorGood(Removes)] [style.colourPsychoactive(psychoactive effects)]"),
 			PresetColour.BASE_GOLD) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			boolean hadAddictions = !target.getAddictions().isEmpty();
 			target.clearAddictions();
-			target.setAlcoholLevel(0);
-			target.removeStatusEffect(StatusEffect.PSYCHOACTIVE);
 			
-			if(target.isPlayer()) {
+			boolean drunk = target.getIntoxicationPercentage()>0;
+			target.setAlcoholLevel(0);
+			
+			boolean psychoactive = target.removeStatusEffect(StatusEffect.PSYCHOACTIVE);
+			
+			
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<p style='text-align:center;'>");
+				sb.append("[npc.Name] [npc.verb(feel)] a blissful sense of inner-peace wash over [npc.herHim]...");
 				if(hadAddictions) {
-					return "<p style='text-align:center;'>"
-							+"You feel a deep sense of calm wash over you, and, letting out a deep sigh, you find that you no longer have any addictions!"
-							+"</p>";
-				} else {
-					return "<p style='text-align:center;'>"
-							+"You feel a deep sense of calm wash over you, but other than causing you to let out a deep sigh, you find that the potion doesn't do anything..."
-							+"</p>";
+					sb.append("<i>[npc.SheIsFull] no longer addicted to any substances!</i>");
 				}
-				
-			} else {
-				if(hadAddictions) {
-					return "<p style='text-align:center;'>"
-							+UtilText.parse(target, "[npc.Name] feels a deep sense of calm wash over [npc.herHim], and, letting out a deep sigh, [npc.she] finds that [npc.she] no longer has any addictions!")
-							+"</p>";
-				} else {
-					return "<p style='text-align:center;'>"
-							+UtilText.parse(target, "[npc.Name] feels a deep sense of calm wash over [npc.herHim], but other than causing [npc.herHim] to let out a deep sigh, [npc.she] finds that the potion doesn't do anything...")
-							+"</p>";
+				if(drunk) {
+					sb.append("<i>The alcohol still in [npc.her] system instantly metabolises!</i>");
 				}
-			}
+				if(psychoactive) {
+					sb.append("<i>The psychoactive trip which [npc.she] [npc.was] experiencing suddenly comes to an end!</i>");
+				}
+				if(!hadAddictions && !drunk && !psychoactive) {
+					sb.append("[style.italicsDisabled(Other than experiencing this pleasant feeling, nothing happens...)]");
+				}
+			sb.append("</p>");
+			
+			return UtilText.parse(target, sb.toString());
 		}
 	};
 	
@@ -1234,7 +1237,9 @@ public class ItemEffectType {
 
 		@Override
 		public List<TFModifier> getPrimaryModifiers() {
-			return Util.newArrayListOfValues(TFModifier.CORRUPTION);
+			return Util.newArrayListOfValues(
+					TFModifier.CORRUPTION,
+					TFModifier.TF_MOD_HYMEN);
 		}
 
 		@Override
@@ -1244,62 +1249,78 @@ public class ItemEffectType {
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return Util.newArrayListOfValues(
-					TFPotency.MINOR_BOOST,
-					TFPotency.BOOST,
-					TFPotency.MAJOR_BOOST);
+			if(primaryModifier==TFModifier.CORRUPTION) {
+				return Util.newArrayListOfValues(
+						TFPotency.MINOR_BOOST,
+						TFPotency.BOOST,
+						TFPotency.MAJOR_BOOST);
+			} else {
+				return Util.newArrayListOfValues(
+						TFPotency.MINOR_DRAIN,
+						TFPotency.MINOR_BOOST);
+			}
 		}
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			switch(potency) {
-				case MINOR_BOOST:
-					return Util.newArrayListOfValues("[style.boldMinorGood(-5)] [style.boldCorruption(Corruption)]");
-				case BOOST:
-					return Util.newArrayListOfValues("[style.boldGood(-10)] [style.boldCorruption(Corruption)]");
-				case MAJOR_BOOST:
-					return Util.newArrayListOfValues("[style.boldExcellent(-15)] [style.boldCorruption(Corruption)]");
-				case MINOR_DRAIN:
-				case DRAIN:
-				case MAJOR_DRAIN:
-					break;
+			if(primaryModifier==TFModifier.CORRUPTION) {
+				switch(potency) {
+					case MINOR_BOOST:
+						return Util.newArrayListOfValues("[style.boldMinorGood(-5)] [style.boldCorruption(Corruption)]");
+					case BOOST:
+						return Util.newArrayListOfValues("[style.boldGood(-10)] [style.boldCorruption(Corruption)]");
+					case MAJOR_BOOST:
+						return Util.newArrayListOfValues("[style.boldExcellent(-15)] [style.boldCorruption(Corruption)]");
+					case MINOR_DRAIN:
+					case DRAIN:
+					case MAJOR_DRAIN:
+						break;
+				}
+				return Util.newArrayListOfValues("");
+				
+			} else {
+				if(potency.isNegative()) {
+					return Util.newArrayListOfValues("[style.boldMinorBad(Removes)] [style.boldSex(hymen)]");
+				} else {
+					return Util.newArrayListOfValues("[style.boldMinorGood(Regenerates)] [style.boldSex(hymen)]");
+				}
 			}
-			return Util.newArrayListOfValues("");
 		}
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			switch(potency) {
-				case MINOR_BOOST:
-					return "<p style='text-align:center;'>"
+			if(primaryModifier==TFModifier.CORRUPTION) {
+				String purifyingDescription =
+						"<p style='text-align:center;'>"
 								+ "For a moment, it looks as though nothing is going to happen,"
-									+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purifying energy rushes through [npc.herHim]."
-								+ " Accompanied by a faint, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
-									+ " where it quickly gets to work purifying [npc.her] thoughts and calming [npc.her] libido..."
-							+"</p>"
-							+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -5);
-				case BOOST:
-					return "<p style='text-align:center;'>"
-							+ "For a moment, it looks as though nothing is going to happen,"
 								+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purifying energy rushes through [npc.herHim]."
-							+ " Accompanied by a bright, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
+							+ " Accompanied by a faint, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
 								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [npc.her] libido..."
-						+"</p>"
-						+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -10);
-				case MAJOR_BOOST:
-					return "<p style='text-align:center;'>"
-							+ "For a moment, it looks as though nothing is going to happen,"
-								+ " but as [npc.name] [npc.verb(swallow)] down the last couple of drops remaining in [npc.her] mouth, a sudden, cascading wave of purifying energy rushes through [npc.herHim]."
-							+ " Accompanied by a blinding, light-blue flash which seems to radiate from every visible part of [npc.her] body, this energy rises up into [npc.her] head,"
-								+ " where it quickly gets to work purifying [npc.her] thoughts and calming [npc.her] libido..."
-						+"</p>"
-						+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -15);
-				case MINOR_DRAIN:
-				case DRAIN:
-				case MAJOR_DRAIN:
-					break;
+						+"</p>";
+				switch(potency) {
+					case MINOR_BOOST:
+						return purifyingDescription
+								+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -5);
+					case BOOST:
+						return purifyingDescription
+							+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -10);
+					case MAJOR_BOOST:
+						return purifyingDescription
+							+ target.incrementAttribute(Attribute.MAJOR_CORRUPTION, -15);
+					case MINOR_DRAIN:
+					case DRAIN:
+					case MAJOR_DRAIN:
+						break;
+				}
+				return "";
+				
+			} else {
+				if(potency.isNegative()) {
+					return target.setHymen(false);
+				} else {
+					return target.setHymen(true);
+				}
 			}
-			return "";
 		}
 	};
 	
@@ -2047,7 +2068,7 @@ public class ItemEffectType {
 			if(target.getHairType()!=HairType.HARPY) {
 				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BLEACH_BLONDE, false, PresetColour.COVERING_BLEACH_BLONDE, false), true));
 			}
-			if(target.getSkinType()!=SkinType.HARPY) {
+			if(target.getTorsoType()!=TorsoType.HARPY) {
 				sb.append("<br/>" + target.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BLEACH_BLONDE, false, PresetColour.COVERING_BLEACH_BLONDE, false), true));
 			}
 			
@@ -2060,8 +2081,8 @@ public class ItemEffectType {
 				sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
 			if(target.getHairType()!=HairType.HARPY)
 				sb.append("<br/>" + target.setHairType(HairType.HARPY));
-			if(target.getSkinType()!=SkinType.HUMAN)
-				sb.append("<br/>" + target.setSkinType(SkinType.HUMAN));
+			if(target.getTorsoType()!=TorsoType.HUMAN)
+				sb.append("<br/>" + target.setTorsoType(TorsoType.HUMAN));
 
 			if(target.getWingType()!=WingType.NONE)
 				sb.append("<br/>" + target.setWingType(WingType.NONE));
@@ -2081,7 +2102,7 @@ public class ItemEffectType {
 				sb.append("<br/>" + target.setAssType(AssType.HARPY));
 
 			if(target.hasPenisIgnoreDildo()) {
-				sb.append("<br/>" + target.setPenisType(PenisType.AVIAN));
+				sb.append("<br/>" + target.setPenisType(PenisType.HARPY));
 
 				if(target.getPenisRawCumStorageValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue()) {
 					sb.append("<br/>" + target.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));
@@ -2144,7 +2165,7 @@ public class ItemEffectType {
 			if(target.getHairType()!=HairType.HARPY) {
 				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_PINK, false, PresetColour.COVERING_PINK, false), true));
 			}
-			if(target.getSkinType()!=SkinType.HARPY) {
+			if(target.getTorsoType()!=TorsoType.HARPY) {
 				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_PINK, false, PresetColour.COVERING_PINK, false), true));
 			}
 			
@@ -2157,8 +2178,8 @@ public class ItemEffectType {
 				sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
 			if(target.getHairType()!=HairType.HARPY)
 				sb.append("<br/>" + target.setHairType(HairType.HARPY));
-			if(target.getSkinType()!=SkinType.HUMAN)
-				sb.append("<br/>" + target.setSkinType(SkinType.HUMAN));
+			if(target.getTorsoType()!=TorsoType.HUMAN)
+				sb.append("<br/>" + target.setTorsoType(TorsoType.HUMAN));
 
 			if(target.getWingType()!=WingType.NONE)
 				sb.append("<br/>" + target.setWingType(WingType.NONE));
@@ -2181,7 +2202,7 @@ public class ItemEffectType {
 				
 
 			if(target.hasPenisIgnoreDildo()) {
-				sb.append("<br/>" + target.setPenisType(PenisType.AVIAN));
+				sb.append("<br/>" + target.setPenisType(PenisType.HARPY));
 
 				if(target.getPenisRawCumStorageValue()<CumProduction.THREE_AVERAGE.getMedianValue()) {
 					sb.append("<br/>" + target.setPenisCumStorage(CumProduction.THREE_AVERAGE.getMedianValue()));
@@ -2244,7 +2265,7 @@ public class ItemEffectType {
 			if(target.getHairType()!=HairType.HARPY) {
 				sb.append("<br/>" + target.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_BLACK, false), true));
 			}
-			if(target.getSkinType()!=SkinType.HARPY) {
+			if(target.getTorsoType()!=TorsoType.HARPY) {
 				sb.append("<br/>" + target.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_RED, false, PresetColour.COVERING_RED, false), true));
 			}
 			
@@ -2257,8 +2278,8 @@ public class ItemEffectType {
 				sb.append("<br/>" + target.setEyeType(EyeType.HARPY));
 			if(target.getHairType()!=HairType.HARPY)
 				sb.append("<br/>" + target.setHairType(HairType.HARPY));
-			if(target.getSkinType()!=SkinType.HUMAN)
-				sb.append("<br/>" + target.setSkinType(SkinType.HUMAN));
+			if(target.getTorsoType()!=TorsoType.HUMAN)
+				sb.append("<br/>" + target.setTorsoType(TorsoType.HUMAN));
 
 			if(target.getWingType()!=WingType.NONE)
 				sb.append("<br/>" + target.setWingType(WingType.NONE));
@@ -2279,7 +2300,7 @@ public class ItemEffectType {
 				
 
 			if(target.hasPenisIgnoreDildo()) {
-				sb.append("<br/>" + target.setPenisType(PenisType.AVIAN));
+				sb.append("<br/>" + target.setPenisType(PenisType.HARPY));
 
 				if(target.getPenisRawCumStorageValue()<CumProduction.TWO_SMALL_AMOUNT.getMedianValue()) {
 					sb.append("<br/>" + target.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue()));

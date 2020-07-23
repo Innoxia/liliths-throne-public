@@ -4,6 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.submission.SlimeGuardFire;
 import com.lilithsthrone.game.character.npc.submission.SlimeGuardIce;
@@ -14,6 +15,7 @@ import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -23,16 +25,18 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.sex.managers.universal.SMAllFours;
+import com.lilithsthrone.game.sex.managers.universal.SMBath;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.game.sex.managers.universal.SMLyingDown;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -1175,10 +1179,19 @@ public class SlimeQueensLair {
 				
 			} else if(index==3) {
 				if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
-					return new Response("Slime Bath", "Have a bath with [slimeQueen.Name].", SLIME_QUEEN_BATH);
+					return new Response("Slime Bath",
+							"Have a bath with [slimeQueen.Name]."
+									+ "<br/>[style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]"
+									+ "<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]",
+							SLIME_QUEEN_BATH);
 					
 				} else {
-					return new Response("Slime Bath", "Have a bath with [slimeQueen.name]. <b>This will transform you into a slime!</b>", SLIME_QUEEN_BATH_TRANSFORM) {
+					return new Response("Slime Bath",
+							"Have a bath with [slimeQueen.name]."
+								+ "<br/>[style.boldTerrible(Warning:)] [style.boldSlime(This will transform you into a slime!)]"
+								+ "<br/>[style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]"
+								+ "<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]",
+							SLIME_QUEEN_BATH_TRANSFORM) {
 						@Override
 						public Colour getHighlightColour() {
 							return PresetColour.TRANSFORMATION_GENERIC;
@@ -1224,12 +1237,14 @@ public class SlimeQueensLair {
 	};
 	
 	public static final DialogueNode SLIME_QUEEN_BATH = new DialogueNode("Bed Chamber", "", true, true) {
-		
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextEndStringBuilder().append(RoomPlayer.applyWash(Main.game.getPlayer(), true, false, StatusEffect.BATH, 30));
+		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_BATH");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
@@ -1240,12 +1255,14 @@ public class SlimeQueensLair {
 						UtilText.parse(Main.game.getNpc(SlimeQueen.class), "Play along with [slimeQueen.namePos] fantasies and force yourself on her."),
 						null, null, null, null, null, null,
 						true, false,
-						new SMAllFours(
+						new SMBath(SexPosition.ALL_FOURS,
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.BEHIND)),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getNpc(SlimeQueen.class), SexSlotAllFours.ALL_FOURS))),
 						null,
-						null, AFTER_SLIME_QUEEN_SEX, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_BATH_SEX_START"));
+						null,
+						AFTER_SLIME_QUEEN_SEX_BATH,
+						UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_BATH_SEX_START"));
 				
 			} else {
 				return null;
@@ -1267,7 +1284,10 @@ public class SlimeQueensLair {
 	};
 	
 	public static final DialogueNode SLIME_QUEEN_LEAVE = new DialogueNode("Bed Chamber", "", false, true) {
-		
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getPlayer().setNearestLocation(WorldType.SLIME_QUEENS_LAIR_FIRST_FLOOR, PlaceType.SLIME_QUEENS_LAIR_CORRIDOR, false);
+		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_LEAVE");
@@ -1292,8 +1312,32 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNode AFTER_SLIME_QUEEN_SEX = new DialogueNode("Bed Chamber", "", true) {
-		
+	
+	public static final DialogueNode AFTER_SLIME_QUEEN_SEX_BATH = new DialogueNode("Finished", "", true) {
+		@Override
+		public String getDescription() {
+			return "Having had your fun, it's time to put an end to this...";
+		}
+		@Override
+		public String getContent() {
+			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(SlimeQueen.class))>=Main.game.getNpc(SlimeQueen.class).getOrgasmsBeforeSatisfied()) {
+				return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "AFTER_SLIME_QUEEN_SEX_BATH");
+			} else {
+				return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "AFTER_SLIME_QUEEN_SEX_BATH_NO_ORGASM");
+			}
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return BED_CHAMBER.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode AFTER_SLIME_QUEEN_SEX = new DialogueNode("Finished", "", true) {
+		@Override
+		public String getDescription() {
+			return "Having had your fun, it's time to put an end to this...";
+		}
 		@Override
 		public String getContent() {
 			if(Main.sex.getNumberOfOrgasms(Main.game.getNpc(SlimeQueen.class))>=Main.game.getNpc(SlimeQueen.class).getOrgasmsBeforeSatisfied()) {

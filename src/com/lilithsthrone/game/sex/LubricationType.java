@@ -7,7 +7,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.6?
- * @version 0.3.7
+ * @version 0.3.8.8
  * @author Innoxia
  */
 public enum LubricationType {
@@ -25,6 +25,8 @@ public enum LubricationType {
 	ANAL_LUBE("anal lubricant", "anal lubricant", false, PresetColour.BASE_BLUE_LIGHT), // This is only present if the anus has been transformed to be 'wetter' than usual
 
 	SLIME("slime", "slime", false, PresetColour.RACE_SLIME),
+	
+	WATER("water", "water", false, PresetColour.BASE_AQUA),
 	
 	OTHER("lubrication", "lubrication", false, PresetColour.BASE_BLUE_LIGHT);
 	

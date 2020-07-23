@@ -12,7 +12,7 @@
     <physicalResistance>0</physicalResistance>
     <femininity>ANDROGYNOUS</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
     <slot>PIERCING_STOMACH</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
-    <rarity>RARE</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+    <rarity>COMMON</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
     
     <imageName>piercing_pentagram_navel.svg</imageName>
     

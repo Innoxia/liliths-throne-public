@@ -64,9 +64,9 @@
 			#THEN [npc.verb(shouts)] [npc.speech(Stop right there, criminal scum!)] before pulling the trigger. 
 			#ELSE [npc.verb(pull)] the trigger. 
 			#ENDIF 
-			The metal darts embed themselves in [npc2.nameHas] aura while pink and purple lightning course through the wires, draining [npc2.her] energy! The spent cartridge ejects itself and dissolves into thin air. [npc.Name] suddenly [npc.verb(find)] another cartridge in [npc.her] [npc.hand] and [npc.verb(insert)] it into the business end of the taser.
+			The metal darts embed themselves in [npc2.namePos] aura while pink and purple lightning course through the wires, draining [npc2.her] energy! The spent cartridge ejects itself and dissolves into thin air. [npc.Name] suddenly [npc.verb(find)] another cartridge in [npc.her] [npc.hand] and [npc.verb(insert)] it into the business end of the taser.
 			#IF !npc2.hasStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION)
-			#THEN [##npc2.addStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 4)] [npc2.Name] is <span style='color:#F4B3F4;'><b>feeling the lingering effects of the arcane lightning</b></span>.
+			#THEN [##npc2.addStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 4)] [npc2.Name] [npc.is] <span style='color:#F4B3F4;'><b>feeling the lingering effects of the arcane lightning</b></span>.
 			#ENDIF
 		]]></hitText>
 		<hitText><![CDATA[
@@ -75,15 +75,15 @@
 			#THEN taser with a shout of [npc.speech(I am the law!)] 
 			#ELSE taser.
 			#ENDIF
-			There is a loud bang and then a brilliant pink and purple flash as [npc2.nameHas] energy is drained! The spent catridge pops out and [npc.name] [npc.verb(insert)] another one into the taser.
+			There is a loud bang and then a brilliant pink and purple flash as [npc2.namePos] energy is drained! The spent cartridge pops out and [npc.name] [npc.verb(insert)] another one into the taser.
 			#IF !npc2.hasStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION)
-			#THEN [##npc2.addStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 4)] [npc2.Name] is <span style='color:#F4B3F4;'><b>feeling the lingering effects of the arcane lightning</b></span>.
+			#THEN [##npc2.addStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 4)] [npc2.Name] [npc.is] <span style='color:#F4B3F4;'><b>feeling the lingering effects of the arcane lightning</b></span>.
 			#ENDIF
 		]]></hitText>
 		<hitText><![CDATA[
 			[npc.Name] [npc.verb(fire)] [npc.her] taser. [npc2.Name] suddenly [npc.verb(find)] metal darts embedded in [npc2.her] aura before being surrounded by pulsating streams of arcane lightning! [npc2.she] has lost some energy! The spent cartridge clatters on the ground and [npc.name] [npc.verb(insert)] another one into the taser.
 			#IF !npc2.hasStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION)
-			#THEN [##npc2.addStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 4)] [npc2.Name] is <span style='color:#F4B3F4;'><b>feeling the lingering effects of the arcane lightning</b></span>.
+			#THEN [##npc2.addStatusEffect(SE_ARCANE_AROUSAL_LUSTFUL_DISTRACTION, 4)] [npc2.Name] [npc.is] <span style='color:#F4B3F4;'><b>feeling the lingering effects of the arcane lightning</b></span>.
 			#ENDIF
 		]]></hitText>
 	</hitDescriptions>
@@ -99,7 +99,7 @@
 			With an annoyed huff, [npc.name] [npc.verb(eject)] the spent cartridge and [npc.verb(insert)] a new one into the business end of the taser.
 		]]></missText>
 		<missText><![CDATA[
-			[npc.Name] shoot [npc2.name] with [npc.her] taser. There is a loud snapping sound but the metal darts fail to embed themselves in [npc2.nameHas] aura! [npc.name] [npc.verb(insert)] another cartridge into the taser.
+			[npc.Name] shoot [npc2.name] with [npc.her] taser. There is a loud snapping sound but the metal darts fail to embed themselves in [npc2.namePos] aura! [npc.name] [npc.verb(insert)] another cartridge into the taser.
 		]]></missText>
 	</missDescriptions>
 	

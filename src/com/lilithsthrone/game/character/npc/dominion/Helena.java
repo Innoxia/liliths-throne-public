@@ -141,11 +141,13 @@ public class Helena extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7")) {
 			this.equipClothing();
 			this.setFetishDesire(Fetish.FETISH_KINK_RECEIVING, FetishDesire.THREE_LIKE);
-			this.setHomeLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_HELENA_BEDROOM);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.1")) {
 			this.setDescription("Helena is an extremely powerful harpy matriarch, and is in control of one of the largest harpy flocks in Dominion."
 						+ " Her beauty rivals that of even the most gorgeous of succubi, which, combined with her sharp mind and regal personality, makes her somewhat of an idol in harpy society.");
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.7")) {
+			this.setHomeLocation(WorldType.HELENAS_APARTMENT, PlaceType.HELENA_APARTMENT_HELENA_BEDROOM);
 		}
 	}
 
@@ -305,8 +307,7 @@ public class Helena extends NPC {
 	
 	@Override
 	public void dailyUpdate() {
-		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA)
-				&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
+		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_HELENA) && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
 			for(String id : new ArrayList<>(this.getSlavesOwned())) {
 				if(Main.game.isCharacterExisting(id)) {
 					Main.game.banishNPC(id);
@@ -444,8 +445,12 @@ public class Helena extends NPC {
 	
 	public void sellOffRemainingSlaves() {
 		for(String id : new ArrayList<>(this.getSlavesOwned())) {
-			if(Main.game.isCharacterExisting(id)) {
-				Main.game.banishNPC(id);
+			try {
+				if(Main.game.isCharacterExisting(id) && !Main.game.getNPCById(id).isUnique()) {
+					Main.game.banishNPC(id);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		this.removeAllSlaves();
@@ -525,7 +530,7 @@ public class Helena extends NPC {
 			}
 
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_WHITE, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, PresetColour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_WHITE, false), true, this);
 		}
 	}
 	

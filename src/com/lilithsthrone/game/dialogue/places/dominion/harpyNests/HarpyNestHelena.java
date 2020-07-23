@@ -303,8 +303,9 @@ public class HarpyNestHelena {
 				return new Response("No punishment", "Don't take Scarlett's punishment for her.", HELENAS_NEST_MAIN_QUEST_NO_PUNISHMENT) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
+						Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 					}
 				};
 				
@@ -379,8 +380,9 @@ public class HarpyNestHelena {
 				return new Response("Endure it", "Try and keep quiet and endure your punishment.", HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT_ENDURE) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
+						Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 					}
 				};
 				
@@ -388,8 +390,9 @@ public class HarpyNestHelena {
 				return new Response("Struggle", "Start struggling and crying out in discomfort.", HELENAS_NEST_MAIN_QUEST_TAKE_PUNISHMENT_STRUGGLE) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
+						Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 					}
 				};
 				
@@ -402,8 +405,9 @@ public class HarpyNestHelena {
 						null) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+						Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
+						Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 					}
 				};
 			}

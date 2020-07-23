@@ -252,7 +252,7 @@ public class Zaranix extends NPC {
 	// Combat:
 
 	@Override
-	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
+	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
 		return "<p>"
 				+ UtilText.parse(target,
 						UtilText.returnStringAtRandom(

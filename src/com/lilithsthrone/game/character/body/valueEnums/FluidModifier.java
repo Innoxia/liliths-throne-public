@@ -63,6 +63,8 @@ public enum FluidModifier {
 			"Addictive fluids will make anyone who consumes them become addicted to that particular type of fluid.") {
 		@Override
 		public String applyEffects(GameCharacter target, GameCharacter fluidProvider, float millilitres, FluidInterface fluid) {
+			boolean curedWithdrawal = target.getAddiction(fluid.getType())!=null && Main.game.getMinutesPassed()-target.getAddiction(fluid.getType()).getLastTimeSatisfied()>=24*60;
+			boolean appendAddiction = !Main.game.isInSex() || curedWithdrawal;
 			if(target.addAddiction(new Addiction(fluid.getType(), Main.game.getMinutesPassed(), fluidProvider.getId()))) {
 				return UtilText.parse(target,
 						"<p style='padding:0; margin:0; text-align:center;'>"
@@ -73,8 +75,6 @@ public enum FluidModifier {
 				
 				
 			} else {
-				boolean curedWithdrawal = Main.game.getMinutesPassed()-target.getAddiction(fluid.getType()).getLastTimeSatisfied()>=24*60;
-				boolean appendAddiction = !Main.game.isInSex() || curedWithdrawal;
 				target.setLastTimeSatisfiedAddiction(fluid.getType(), Main.game.getMinutesPassed());
 				if(appendAddiction) {
 					return UtilText.parse(target, fluidProvider,
@@ -84,7 +84,7 @@ public enum FluidModifier {
 								+"</span> "+fluid.getName(fluidProvider)
 									+" has been satisfied!"
 								+ (curedWithdrawal
-									?" [npc.She] [npc.verb(feel)] deeply grateful to "+(fluidProvider==null?"":UtilText.parse(fluidProvider, "[npc.namePos]"))+" for providing [npc.herHim] with what [npc.she] needed most..."
+									?" [npc.She] [npc.verb(feel)] deeply grateful to "+(fluidProvider==null?"":UtilText.parse(fluidProvider, "[npc.name]"))+" for providing [npc.herHim] with what [npc.she] needed most..."
 											+ (target.isSlave()?target.incrementObedience(5):"")
 									:" [npc.She] [npc.was]n't suffering from withdrawal, but [npc.she] still [npc.verb(feel)] thankful to "
 											+(fluidProvider==null?"":UtilText.parse(fluidProvider, "[npc.name]"))+" for feeding [npc.her] addiction...")

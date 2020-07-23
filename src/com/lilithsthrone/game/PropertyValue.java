@@ -2,7 +2,7 @@ package com.lilithsthrone.game;
 
 /**
  * @since 0.2.2
- * @version 0.3.8.6
+ * @version 0.3.8.9
  * @author Innoxia
  */
 public enum PropertyValue {
@@ -35,7 +35,8 @@ public enum PropertyValue {
 	autoSexClothingManagement(true),
 
 	companionContent(false),
-	
+
+	badEndContent(true),
 	ageContent(true),
 	furryTailPenetrationContent(false),
 	nonConContent(false),

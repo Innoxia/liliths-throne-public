@@ -532,12 +532,13 @@ public class Perk {
 					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 100),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 100),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 100),
-					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 100),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 100),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 100),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 100),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 100),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 100)),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 100),
+					new Value<Attribute, Integer>(Attribute.ENERGY_SHIELDING, 250),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 250),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 250),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 250),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 250),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 250)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2242,15 +2243,12 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/barren",
 			PresetColour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -200)), null) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -200)),
+			Util.newArrayListOfValues("While "+Attribute.FERTILITY.getName()+" value is 0 or less, pregnancy is [style.colourTerible(impossible)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You are very infertile, and are highly unlikely to ever get pregnant.";
-			} else {
-				return UtilText.parse(owner, "[npc.Name] is highly unlikely to get pregnant.");
-			}
+			return UtilText.parse(owner, "[npc.NameIsFull] very infertile, and as a result, is highly unlikely to ever get pregnant.");
 		}
 	};
 	
@@ -2260,7 +2258,8 @@ public class Perk {
 			PerkCategory.PHYSICAL,
 			"perks/firing_blanks",
 			PresetColour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, -200)), null) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, -200)),
+			Util.newArrayListOfValues("While "+Attribute.VIRILITY.getName()+" value is 0 or less, impregnation is [style.colourTerible(impossible)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {

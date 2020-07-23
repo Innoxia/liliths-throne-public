@@ -38,9 +38,55 @@ import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Penis;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAntennaType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAnusType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractAssType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEarType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractEyeType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractFootType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractMouthType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractNippleType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTesticleType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
+import com.lilithsthrone.game.character.body.types.AntennaType;
+import com.lilithsthrone.game.character.body.types.AnusType;
+import com.lilithsthrone.game.character.body.types.ArmType;
+import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.EyeType;
+import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.FluidType;
+import com.lilithsthrone.game.character.body.types.FootType;
+import com.lilithsthrone.game.character.body.types.HairType;
+import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.types.MouthType;
+import com.lilithsthrone.game.character.body.types.NippleType;
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.TentacleType;
+import com.lilithsthrone.game.character.body.types.TesticleType;
+import com.lilithsthrone.game.character.body.types.TongueType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
@@ -79,15 +125,16 @@ import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
+import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.inventory.AbstractSetBonus;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -104,9 +151,11 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
+import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ToyVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
@@ -126,13 +175,12 @@ import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.8.9
  * @author Innoxia, Pimvgd, AlacoGit
  */
 public class UtilText {
 
 	private static String modifiedSentence;
-	public static StringBuilder transformationContentSB = new StringBuilder(4096);
 	public static StringBuilder nodeContentSB = new StringBuilder(4096);
 	private static StringBuilder descriptionSB = new StringBuilder();
 	private static List<ParserTag> parserTags;
@@ -155,7 +203,7 @@ public class UtilText {
 			new Value<>("behaviour", "behavior"),
 			new Value<>("candour", "candor"),
 			new Value<>("clamour", "clamor"),
-			new Value<>("colour(\\s|\\.|,|s|e|i)", "color($1)"),
+			new Value<>("colour(\\s|\\.|,|s|e|i)", "color$1"),
 			new Value<>("demeanour", "demeanor"),
 			new Value<>("endeavour", "endeavor"),
 			new Value<>("favourite", "favourite"),
@@ -573,6 +621,12 @@ public class UtilText {
 	public static String getShieldSymbol() {
 		return "&#9930;";
 	}
+
+	public static String getInfinitySymbol(boolean largerFont) {
+		//"&#9854;";
+//		return "<span style='font-family:serif; font-weight:normal; font-size:1.25em;'>&#8734;</span>";
+		return "<span style='font-weight:normal; color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; "+(largerFont?"font-size:28px;":"")+"'>&#8734;</span>";
+	}
 	
 	public static String applyGlow(String input, Colour colour) {
 		return "<span style='color:"+colour.toWebHexString()+"; text-shadow: 0px 0px 4px "+colour.getShades()[4]+";'>"+input+"</span>";
@@ -868,8 +922,11 @@ public class UtilText {
 		if(Main.game!=null && Main.game.getCurrentDialogueNode()==DebugDialogue.PARSER) {
 			input = input.replaceAll("\u200b", "");
 		}
-		input = input.replaceAll("", "");
-
+//		input = input.replaceAll("", ""); //???
+		for(int i=0; i<specialParsingStrings.size(); i++) {
+			input = input.replaceAll("\\[#SPECIAL_PARSE_"+i+"\\]", specialParsingStrings.get(i));
+		}
+		
 		if(xmlParsing) {
 			if(input.contains("#VAR")) { // Set variables to be parsed on each conditional:
 				speechTarget = "";
@@ -1178,6 +1235,7 @@ public class UtilText {
 			if(Main.game.isStarted() && Main.game.getPlayer().getHistory()==Occupation.TOURIST) {
 				for(Entry<String, String> entry : americanEnglishConversions.entrySet()) {
 					result = result.replaceAll(entry.getKey(), entry.getValue());
+					result = result.replaceAll(Util.capitaliseSentence(entry.getKey()), Util.capitaliseSentence(entry.getValue()));
 				}
 			}
 			
@@ -5199,7 +5257,7 @@ public class UtilText {
 				BodyPartType.ASS){//TODO
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return getSkinName(character.getSkinType(), character);
+				return getSkinName(character.getTorsoType(), character);
 			}
 		});
 		
@@ -5214,7 +5272,7 @@ public class UtilText {
 				BodyPartType.ASS){//TODO
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return getSkinNameWithDescriptor(character.getSkinType(), character.getCovering(character.getSkinType().getBodyCoveringType(character)), character);
+				return getSkinNameWithDescriptor(character.getTorsoType(), character.getCovering(character.getTorsoType().getBodyCoveringType(character)), character);
 			}
 		});
 		
@@ -8121,9 +8179,9 @@ public class UtilText {
 				}
 			}
 		}
-		for(int i=0; i<specialParsingStrings.size(); i++) {
-			engine.put("SPECIAL_PARSE_"+i, specialParsingStrings.get(i));
-		}
+//		for(int i=0; i<specialParsingStrings.size(); i++) {
+//			engine.put("SPECIAL_PARSE_"+i, specialParsingStrings.get(i));
+//		}
 		
 		// Core classes:
 		engine.put("game", Main.game);
@@ -8142,6 +8200,7 @@ public class UtilText {
 		}
 		for(AbstractClothingType clothingType : ClothingType.getAllClothing()) {
 			engine.put("CLOTHING_"+ClothingType.getIdFromClothingType(clothingType), clothingType);
+			engine.put("CT_"+ClothingType.getIdFromClothingType(clothingType), clothingType);
 		}
 		for(AbstractItemType itemType : ItemType.getAllItems()) {
 			engine.put("ITEM_"+ItemType.getIdFromItemType(itemType), itemType);
@@ -8149,13 +8208,27 @@ public class UtilText {
 		for(AbstractSetBonus setBonus : SetBonus.getAllSetBonuses()) {
 			engine.put("SET_BONUS_"+SetBonus.getIdFromSetBonus(setBonus), setBonus);
 		}
+		for(ItemTag it : ItemTag.values()) {
+			engine.put("ITEM_TAG_"+it.toString(), it);
+		}
+		for(CoverableArea ca : CoverableArea.values()) {
+			engine.put("CA_"+ca.toString(), ca);
+		}
+		for(InventorySlot is : InventorySlot.values()) {
+			engine.put("IS_"+is.toString(), is);
+		}
 		
-		// Enums:
+		// Misc.:
 		for(Colour colour : PresetColour.getAllPresetColours()) {
 			engine.put("COLOUR_"+PresetColour.getIdFromColour(colour), colour);
 		}
+		
+		// Bodies:
 		for(Race race : Race.values()) {
 			engine.put("RACE_"+race.toString(), race);
+		}
+		for(AbstractRacialBody racialBody : RacialBody.getAllRacialBodies()) {
+			engine.put("RACIAL_BODY_"+RacialBody.getIdFromRacialBody(racialBody), racialBody);
 		}
 		for(RaceStage raceStage : RaceStage.values()) {
 			engine.put("RACE_STAGE_"+raceStage.toString(), raceStage);
@@ -8181,6 +8254,79 @@ public class UtilText {
 		for(NippleShape nippleShape : NippleShape.values()) {
 			engine.put("NIPPLE_SHAPE_"+nippleShape.toString(), nippleShape);
 		}
+		// Types:
+		for(AbstractFluidType fluidType : FluidType.getAllFluidTypes()) {
+			engine.put("FLUID_TYPE_"+FluidType.getIdFromFluidType(fluidType), fluidType);
+		}
+		for(AbstractAntennaType type : AntennaType.getAllAntennaTypes()) {
+			engine.put("ANTENNA_TYPE_"+AntennaType.getIdFromAntennaType(type), type);
+		}
+		for(AbstractAnusType type : AnusType.getAllAnusTypes()) {
+			engine.put("ANUS_TYPE_"+AnusType.getIdFromAnusType(type), type);
+		}
+		for(AbstractArmType type : ArmType.getAllArmTypes()) {
+			engine.put("ARM_TYPE_"+ArmType.getIdFromArmType(type), type);
+		}
+		for(AbstractAssType type : AssType.getAllAssTypes()) {
+			engine.put("ASS_TYPE_"+AssType.getIdFromAssType(type), type);
+		}
+		for(AbstractBreastType type : BreastType.getAllBreastTypes()) {
+			engine.put("BREAST_TYPE_"+BreastType.getIdFromBreastType(type), type);
+		}
+		for(AbstractEarType type : EarType.getAllEarTypes()) {
+			engine.put("EAR_TYPE_"+EarType.getIdFromEarType(type), type);
+		}
+		for(AbstractEyeType type : EyeType.getAllEyeTypes()) {
+			engine.put("EYE_TYPE_"+EyeType.getIdFromEyeType(type), type);
+		}
+		for(AbstractFaceType type : FaceType.getAllFaceTypes()) {
+			engine.put("FACE_TYPE_"+FaceType.getIdFromFaceType(type), type);
+		}
+		for(AbstractFootType type : FootType.getAllFootTypes()) {
+			engine.put("FOOT_TYPE_"+FootType.getIdFromFootType(type), type);
+		}
+		for(AbstractHairType type : HairType.getAllHairTypes()) {
+			engine.put("HAIR_TYPE_"+HairType.getIdFromHairType(type), type);
+		}
+		for(AbstractHornType type : HornType.getAllHornTypes()) {
+			engine.put("HORN_TYPE_"+HornType.getIdFromHornType(type), type);
+		}
+		for(AbstractLegType type : LegType.getAllLegTypes()) {
+			engine.put("LEG_TYPE_"+LegType.getIdFromLegType(type), type);
+		}
+		for(AbstractMouthType type : MouthType.getAllMouthTypes()) {
+			engine.put("MOUTH_TYPE_"+MouthType.getIdFromMouthType(type), type);
+		}
+		for(AbstractNippleType type : NippleType.getAllNippleTypes()) {
+			engine.put("NIPPLE_TYPE_"+NippleType.getIdFromNippleType(type), type);
+		}
+		for(AbstractPenisType type : PenisType.getAllPenisTypes()) {
+			engine.put("PENIS_TYPE_"+PenisType.getIdFromPenisType(type), type);
+		}
+		for(AbstractTorsoType type : TorsoType.getAllTorsoTypes()) {
+			engine.put("TORSO_TYPE_"+TorsoType.getIdFromTorsoType(type), type);
+		}
+		for(AbstractTailType type : TailType.getAllTailTypes()) {
+			engine.put("TAIL_TYPE_"+TailType.getIdFromTailType(type), type);
+		}
+		for(AbstractTentacleType type : TentacleType.getAllTentacleTypes()) {
+			engine.put("TENTACLE_TYPE_"+TentacleType.getIdFromTentacleType(type), type);
+		}
+		for(AbstractTesticleType type : TesticleType.getAllTesticleTypes()) {
+			engine.put("TESTICLE_TYPE_"+TesticleType.getIdFromTesticleType(type), type);
+		}
+		for(AbstractTongueType type : TongueType.getAllTongueTypes()) {
+			engine.put("TONGUE_TYPE_"+TongueType.getIdFromTongueType(type), type);
+		}
+		for(AbstractVaginaType type : VaginaType.getAllVaginaTypes()) {
+			engine.put("VAGINA_TYPE_"+VaginaType.getIdFromVaginaType(type), type);
+		}
+		for(AbstractWingType type : WingType.getAllWingTypes()) {
+			engine.put("WING_TYPE_"+WingType.getIdFromWingType(type), type);
+		}
+		
+		
+		// Effects & persona:
 		for(Fetish f : Fetish.values()) {
 			engine.put(f.toString(), f);
 		}
@@ -8205,15 +8351,8 @@ public class UtilText {
 		for(Attribute att : Attribute.values()) {
 			engine.put("ATTRIBUTE_"+att.toString(), att);
 		}
-		for(AbstractClothingType ct : ClothingType.getAllClothing()) {
-			engine.put("CT_"+ClothingType.getIdFromClothingType(ct), ct);
-		}
-		for(CoverableArea ca : CoverableArea.values()) {
-			engine.put("CA_"+ca.toString(), ca);
-		}
-		for(InventorySlot is : InventorySlot.values()) {
-			engine.put("IS_"+is.toString(), is);
-		}
+		
+		// Combat:
 		for(DamageType damageType : DamageType.values()) {
 			engine.put("DAMAGE_TYPE_"+damageType.toString(), damageType);
 		}
@@ -8226,9 +8365,22 @@ public class UtilText {
 		for(SpellUpgrade spellUpgrade: SpellUpgrade.values()) {
 			engine.put("SPELL_UPGRADE_"+spellUpgrade.toString(), spellUpgrade);
 		}
-		for(ItemTag it : ItemTag.values()) {
-			engine.put("ITEM_TAG_"+it.toString(), it);
+		
+		// Sex:
+		for(SexParticipantType particiantType : SexParticipantType.values()) {
+			engine.put("SEX_PT_"+particiantType.toString(), particiantType);
 		}
+		for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
+			engine.put("ORIFICE_"+orifice.toString(), orifice);
+		}
+		for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
+			engine.put("PENETRATION_"+penetration.toString(), penetration);
+		}
+		for(GenericSexFlag flag : GenericSexFlag.values()) {
+			engine.put("SEX_FLAG_"+flag.toString(), flag);
+		}
+		
+		// Other:
 		for(Season season : Season.values()) {
 			engine.put("SEASON_"+season.toString(), season);
 		}
@@ -8279,12 +8431,6 @@ public class UtilText {
 		}
 		for(ForcedFetishTendency fetishTendency : ForcedFetishTendency.values()) {
 			engine.put("FORCED_FETISH_"+fetishTendency.toString(), fetishTendency);
-		}
-		for(SexAreaOrifice orifice : SexAreaOrifice.values()) {
-			engine.put("ORIFICE_"+orifice.toString(), orifice);
-		}
-		for(SexAreaPenetration penetration : SexAreaPenetration.values()) {
-			engine.put("PENETRATION_"+penetration.toString(), penetration);
 		}
 		for(AbstractWorldType worldType : WorldType.getAllWorldTypes()) {
 			engine.put("WORLD_TYPE_"+WorldType.getIdFromWorldType(worldType), worldType);
@@ -8788,7 +8934,7 @@ public class UtilText {
 			case CUM:
 				return character.getCurrentPenis().getTesticle().getCum();
 			case SKIN:
-				return character.getBody().getSkin();
+				return character.getBody().getTorso();
 			case TAIL:
 				return character.getBody().getTail();
 			case TENTACLE:

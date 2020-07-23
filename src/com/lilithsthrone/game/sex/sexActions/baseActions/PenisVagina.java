@@ -8,6 +8,7 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -22,7 +23,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.82
- * @version 0.3.4.5
+ * @version 0.3.8.8
  * @author Innoxia
  */
 public class PenisVagina {
@@ -158,53 +159,76 @@ public class PenisVagina {
 						break;
 				}
 			}
-			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
-				case DOM_GENTLE:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.pussy+] being stimulated,"
-									+ " and [npc2.she] gently [npc2.verb(push)] [npc2.her] [npc2.pussy+] out against [npc.namePos] [npc.cock].",
-							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan], before gently pushing [npc2.her] [npc2.pussy+] out against [npc.namePos] [npc.cock].",
-							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.pussy+], and gently [npc2.verb(push)] [npc2.her] [npc2.hips+] out in response."));
-					break;
-				case DOM_NORMAL:
-				case SUB_EAGER:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.pussy+] being stimulated,"
-									+ " and [npc2.she] eagerly [npc2.verb(push)] [npc2.her] [npc2.labia+] out against [npc.namePos] [npc.cock].",
-							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before eagerly thrusting [npc2.her] [npc2.pussy+] out against [npc.namePos] [npc.cock].",
-							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.pussy+], and desperately [npc2.verb(buck)] [npc2.her] [npc2.hips+] out in response."));
-					break;
-				case DOM_ROUGH:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.pussy+] being stimulated,"
-									+ " and [npc2.she] forcefully [npc2.verb(thrust)] [npc2.her] [npc2.labia+] out against [npc.namePos] [npc.cock].",
-							" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before roughly thrusting [npc2.her] [npc2.pussy+] out against [npc.namePos] [npc.cock].",
-							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.pussy+], and violently [npc2.verb(buck)] [npc2.her] [npc2.hips+] out in response."));
-					break;
-				case SUB_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.pussy+] being stimulated,"
-									+ " and [npc2.she] [npc2.verb(push)] [npc2.her] [npc2.labia+] out against [npc.namePos] [npc.cock].",
-							" [npc2.Name] [npc2.verb(let)] out a [npc2.moan], before thrusting [npc2.her] [npc2.pussy+] out against [npc.namePos] [npc.cock].",
-							" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.pussy+], and [npc2.verb(buck)] [npc2.her] [npc2.hips+] out in response."));
-					break;
-				case SUB_RESISTING:
-					if(Main.sex.getCharacterTargetedForSexAction(this).isVaginaVirgin()) {
+			if((Main.sex.getCharacterTargetedForSexAction(this).isVaginaVirgin() || Main.sex.getCharacterTargetedForSexAction(this).hasHymen()) && Main.sex.getCharacterTargetedForSexAction(this).hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of what's about to happen, [npc2.speech(No! Don't! Please! I-I'm a virgin! You can't do this!)]",
 								" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! I'm still a virgin!)]",
 								" [npc2.Name] [npc2.sobsVerb] in distress at the thought of what's about to happen, before desperately begging, [npc2.speech(No! Stop! I don't want to lose my virginity!)]"));
-						
-					} else {
+						break;
+					default:
+						if(Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))) {
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" Treasuring [npc2.her] virginity above all else, [npc2.name] [npc2.verb(order)], [npc2.speech(Don't go any further than that! I'm not prepared to lose my virginity!)]",
+									" Horrified at the prospect of losing [npc2.her] precious virginity, [npc2.name] [npc2.verb(snap)], [npc2.speech(Don't do it! I'm not losing my virginity like this!)]",
+									" Recoiling from [npc.namePos] touch, [npc2.name] [npc2.verb(warn)], [npc2.speech(Don't you dare go any further than that! I'm not losing my virginity here!)]"));
+						} else {
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" Treasuring [npc2.her] virginity above all else, [npc2.name] frantically [npc2.verb(plead)], [npc2.speech(Don't go any further! Please, I don't want to lose my virginity!)]",
+									" Horrified at the prospect of losing [npc2.her] precious virginity, [npc2.name] desperately [npc2.verb(cry)] out, [npc2.speech(Stop! Don't do it! I don't want to lose my virginity!)]",
+									" Recoiling from [npc.namePos] touch, [npc2.name] desperately [npc2.verb(beg)], [npc2.speech(No! Stop! I don't want to lose my virginity!)]"));
+						}
+						break;
+				}
+				
+			} else {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(try)] to pull [npc2.her] [npc2.pussy] away from [npc.namePos] [npc.cock],"
-										+ " [npc2.speech(No! Don't! Please, get away from me!)]",
-								" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! Leave me alone!)]",
-								" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
-					}
-					break;
-				default:
-					break;
+								" A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.pussy+] being stimulated,"
+										+ " and [npc2.she] gently [npc2.verb(push)] [npc2.her] [npc2.pussy+] out against [npc.namePos] [npc.cock].",
+								" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan], before gently pushing [npc2.her] [npc2.pussy+] out against [npc.namePos] [npc.cock].",
+								" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.pussy+], and gently [npc2.verb(push)] [npc2.her] [npc2.hips+] out in response."));
+						break;
+					case DOM_NORMAL:
+					case SUB_EAGER:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.pussy+] being stimulated,"
+										+ " and [npc2.she] eagerly [npc2.verb(push)] [npc2.her] [npc2.labia+] out against [npc.namePos] [npc.cock].",
+								" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before eagerly thrusting [npc2.her] [npc2.pussy+] out against [npc.namePos] [npc.cock].",
+								" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.pussy+], and desperately [npc2.verb(buck)] [npc2.her] [npc2.hips+] out in response."));
+						break;
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.pussy+] being stimulated,"
+										+ " and [npc2.she] forcefully [npc2.verb(thrust)] [npc2.her] [npc2.labia+] out against [npc.namePos] [npc.cock].",
+								" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before roughly thrusting [npc2.her] [npc2.pussy+] out against [npc.namePos] [npc.cock].",
+								" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.pussy+], and violently [npc2.verb(buck)] [npc2.her] [npc2.hips+] out in response."));
+						break;
+					case SUB_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] feels [npc2.her] [npc2.pussy+] being stimulated,"
+										+ " and [npc2.she] [npc2.verb(push)] [npc2.her] [npc2.labia+] out against [npc.namePos] [npc.cock].",
+								" [npc2.Name] [npc2.verb(let)] out a [npc2.moan], before thrusting [npc2.her] [npc2.pussy+] out against [npc.namePos] [npc.cock].",
+								" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock] stimulating [npc2.her] [npc2.pussy+], and [npc2.verb(buck)] [npc2.her] [npc2.hips+] out in response."));
+						break;
+					case SUB_RESISTING:
+						if(Main.sex.getCharacterTargetedForSexAction(this).isVaginaVirgin()) {
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of what's about to happen, [npc2.speech(No! Don't! Please! I-I'm a virgin! You can't do this!)]",
+									" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! I'm still a virgin!)]",
+									" [npc2.Name] [npc2.sobsVerb] in distress at the thought of what's about to happen, before desperately begging, [npc2.speech(No! Stop! I don't want to lose my virginity!)]"));
+							
+						} else {
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(try)] to pull [npc2.her] [npc2.pussy] away from [npc.namePos] [npc.cock],"
+											+ " [npc2.speech(No! Don't! Please, get away from me!)]",
+									" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! Leave me alone!)]",
+									" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
+						}
+						break;
+				}
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -396,6 +420,22 @@ public class PenisVagina {
 							" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(beg)] [npc.name] to let go of [npc2.her] [npc2.cock]."));
 					break;
 			}
+			if((Main.sex.getCharacterPerformingAction().isVaginaVirgin() || Main.sex.getCharacterPerformingAction().hasHymen()) && Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+						" As [npc.she] [npc.verb(treasure)] [npc.her] precious virginity above all else, [npc.name] [npc.verb(make)] it very clear that [npc.she] [npc.do]n't want [npc2.name] to actually penetrate [npc.herHim] by [npc.moaning],",
+						" Not at all ready to lose [npc.her] precious virginity, [npc.name] [npc.verb(make)] it very clear that [npc.she] [npc.do]n't want to be penetrated by [npc.moaning],"));
+				if(Main.sex.isDom(Main.sex.getCharacterPerformingAction())) {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" [npc.speech(You like the feel of that? Well, it's all that you're going to get; I'm not losing my virginity like this!)]",
+							" [npc.speech(This is all you're going to get! I'm not going to let you actually take my virginity!)]",
+							" [npc.speech(You're going to have to make do with just this! I'm not going to let you actually take my virginity!)]"));
+				} else {
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" [npc.speech(You're satisfied with just the feel of my pussy, aren't you?! I don't want to actually lose my virginity!)]",
+							" [npc.speech(This is enough for you, isn't it? Please don't take my virginity...)]",
+							" [npc.speech(You can make do with just this, can't you! I don't want you to actually take my virginity!)]"));
+				}
+			}
 			
 			return UtilText.nodeContentSB.toString();
 				
@@ -525,50 +565,70 @@ public class PenisVagina {
 				default:
 					break;
 			}
-			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
-				case DOM_GENTLE:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as the [npc.cock+] enters [npc2.herHim],"
-									+ " before gently thrusting out [npc2.her] [npc2.hips] in order to sink it even deeper into [npc2.her] [npc2.pussy+].",
-
-							" With a soft [npc2.moan], [npc2.name] [npc2.verb(start)] gently bucking [npc2.her] [npc2.hips],"
-									+ " sinking [npc.namePos] [npc.cock+] even deeper into [npc2.her] [npc2.pussy+]."));
-					break;
-				case DOM_ROUGH:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as the [npc.cock+] enters [npc2.herHim],"
-									+ " before violently thrusting out [npc2.her] [npc2.hips] in order to force it even deeper into [npc2.her] [npc2.pussy+].",
-
-							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] violently bucking [npc2.her] [npc2.hips],"
-									+ " roughly forcing [npc.name] to sink [npc.her] [npc.cock+] even deeper into [npc2.her] [npc2.pussy+]."));
-					break;
-				case DOM_NORMAL:
-				case SUB_EAGER:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as the [npc.cock+] enters [npc2.herHim],"
-									+ " before eagerly bucking [npc2.her] [npc2.hips] in order to sink it even deeper into [npc2.her] [npc2.pussy+].",
-
-							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] eagerly bucking [npc2.her] [npc2.hips],"
-									+ " desperately helping to sink [npc.namePos] [npc.cock+] even deeper into [npc2.her] [npc2.pussy+]."));
-					break;
-				case SUB_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as the [npc.cock+] enters [npc2.herHim],"
-									+ " before bucking [npc2.her] [npc2.hips] in order to sink it even deeper into [npc2.her] [npc2.pussy+].",
-
-							" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] bucking [npc2.her] [npc2.hips],"
-									+ " helping to sink [npc.namePos] [npc.cock+] even deeper into [npc2.her] [npc2.pussy+]."));
-					break;
-				case SUB_RESISTING:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as the [npc.cock+] enters [npc2.herHim],"
-									+ " and, with tears running down [npc2.her] [npc2.face], [npc2.she] [npc2.verb(beg)] for [npc.name] to pull out.",
-
-							" With [npc2.a_sob+], [npc2.name] [npc2.verb(try)], in vain, to pull away from the unwanted penetration,"
-									+ " tears running down [npc2.her] [npc2.face] as [npc.namePos] unwelcome [npc.cock] pushes deep into [npc2.her] [npc2.pussy+]."));
-					break;
-				default:
-					break;
+			if(Main.sex.getCharacterTargetedForSexAction(this).isVaginaVirgin()) {
+				if(Main.sex.getCharacterTargetedForSexAction(this).hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+					UtilText.nodeContentSB.append(" As [npc2.she] [npc2.verb(prize)] [npc2.her] virginity above all else,"
+							+ " [npc2.name] can't help but let out a frantic, shocked cry as [npc2.she] experiences the feeling of being penetrated for the first time.");
+					
+				} else if(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))==SexPace.SUB_RESISTING) {
+					UtilText.nodeContentSB.append(" As [npc2.sheIs] a virgin, [npc2.name] can't help but let out a frantic wail as [npc2.she] experiences the feeling of being penetrated for the first time.");
+					
+				} else {
+					UtilText.nodeContentSB.append(" As [npc2.sheIs] a virgin, [npc2.name] can't help but let out a shocked [npc2.moan] as [npc2.she] experiences the feeling of being penetrated for the first time.");
+				}
+				
+			} else if(Main.sex.getCharacterTargetedForSexAction(this).hasHymen()) {
+				if(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))==SexPace.SUB_RESISTING) {
+					UtilText.nodeContentSB.append(" As [npc2.her] hymen is still intact, [npc2.name] can't help but let out a frantic wail as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock+] tearing through it.");
+					
+				} else {
+					UtilText.nodeContentSB.append(" As [npc2.her] hymen is still intact, [npc2.name] can't help but let out a shocked [npc2.moan] as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cock+] tearing through it.");
+				}
+				
+			} else {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+					case DOM_GENTLE:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.Name] [npc2.verb(let)] out a soft [npc2.moan] as the [npc.cock+] enters [npc2.herHim],"
+										+ " before gently thrusting out [npc2.her] [npc2.hips] in order to sink it even deeper into [npc2.her] [npc2.pussy+].",
+	
+								" With a soft [npc2.moan], [npc2.name] [npc2.verb(start)] gently bucking [npc2.her] [npc2.hips],"
+										+ " sinking [npc.namePos] [npc.cock+] even deeper into [npc2.her] [npc2.pussy+]."));
+						break;
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as the [npc.cock+] enters [npc2.herHim],"
+										+ " before violently thrusting out [npc2.her] [npc2.hips] in order to force it even deeper into [npc2.her] [npc2.pussy+].",
+	
+								" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] violently bucking [npc2.her] [npc2.hips],"
+										+ " roughly forcing [npc.name] to sink [npc.her] [npc.cock+] even deeper into [npc2.her] [npc2.pussy+]."));
+						break;
+					case DOM_NORMAL:
+					case SUB_EAGER:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as the [npc.cock+] enters [npc2.herHim],"
+										+ " before eagerly bucking [npc2.her] [npc2.hips] in order to sink it even deeper into [npc2.her] [npc2.pussy+].",
+	
+								" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] eagerly bucking [npc2.her] [npc2.hips],"
+										+ " desperately helping to sink [npc.namePos] [npc.cock+] even deeper into [npc2.her] [npc2.pussy+]."));
+						break;
+					case SUB_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as the [npc.cock+] enters [npc2.herHim],"
+										+ " before bucking [npc2.her] [npc2.hips] in order to sink it even deeper into [npc2.her] [npc2.pussy+].",
+	
+								" With [npc2.a_moan+], [npc2.name] [npc2.verb(start)] bucking [npc2.her] [npc2.hips],"
+										+ " helping to sink [npc.namePos] [npc.cock+] even deeper into [npc2.her] [npc2.pussy+]."));
+						break;
+					case SUB_RESISTING:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as the [npc.cock+] enters [npc2.herHim],"
+										+ " and, with tears running down [npc2.her] [npc2.face], [npc2.she] [npc2.verb(beg)] for [npc.name] to pull out.",
+	
+								" With [npc2.a_sob+], [npc2.name] [npc2.verb(try)], in vain, to pull away from the unwanted penetration,"
+										+ " tears running down [npc2.her] [npc2.face] as [npc.namePos] unwelcome [npc.cock] pushes deep into [npc2.her] [npc2.pussy+]."));
+						break;
+				}
 			}
 			
 			return UtilText.nodeContentSB.toString();
@@ -1220,6 +1280,14 @@ public class PenisVagina {
 		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
+
+			if(Main.sex.getCharacterPerformingAction().isVaginaVirgin()) {
+				if(Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+					UtilText.nodeContentSB.append("Despite the fact that [npc.she] [npc.verb(prize)] [npc.her] virginity above all else, [npc.name] [npc.verb(decide)] that now's the time to finally lose it. ");
+				} else {
+					UtilText.nodeContentSB.append("Although [npc.sheHas] managed to retain [npc.her] virginity up until this moment, [npc.name] [npc.verb(decide)] that now's the time to finally lose it. ");
+				}
+			}
 			
 			if(!Main.sex.getCharacterPerformingAction().isTaur()) {
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
@@ -1324,8 +1392,6 @@ public class PenisVagina {
 									+ " and, struggling against [npc.herHim], [npc2.she] desperately [npc2.verb(try)] to pull [npc2.her] [npc2.cock+] free from [npc.her] [npc.pussy+].",
 
 							" With [npc2.a_sob+], [npc2.name] struggles against [npc.name] as [npc.she] [npc.verb(force)] [npc2.her] [npc2.cock] deep into [npc.her] [npc.pussy+]."));
-					break;
-				default:
 					break;
 			}
 			

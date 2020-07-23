@@ -24,7 +24,7 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -227,7 +227,7 @@ public class VengarCaptiveDialogue {
 				case NORMAL:
 				case MAXIMUM:
 					// face, skin
-					target.setSkinType(SkinType.RAT_MORPH);
+					target.setTorsoType(TorsoType.RAT_MORPH);
 					target.setFaceType(FaceType.RAT_MORPH);
 				//$FALL-THROUGH$
 				case REDUCED:

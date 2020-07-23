@@ -1,8 +1,12 @@
 package com.lilithsthrone.game.dialogue;
 
+import java.util.List;
+
+import com.lilithsthrone.utils.Util;
+
 /**
  * @since 0.1.89
- * @version 0.3.8.2
+ * @version 0.3.8.9
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -31,7 +35,8 @@ public enum DialogueFlagValue {
 	daddySendingReward,
 	
 	coveringChangeListenersRequired, // Set to false on every Response preparsing, and only set to true in getKatesDivCoveringsNew(). Used for setting up listeners in MainControllerInitMethod.
-	
+
+	badEnd, // When the game is in a state of a bad end (meaning that the player is in an inescapable gameplay loop)
 	
 	// Gym:
 	gymIntroduced,
@@ -314,6 +319,7 @@ public enum DialogueFlagValue {
 	ratWarrensEntranceGuardsFight,
 	ratWarrensSeenMilkers,
 	ratWarrensMilkersBackground,
+	ratWarrensSilenceIntroduced,
 	
 	ratWarrensClearedLeft,
 	ratWarrensClearedCentre,
@@ -325,6 +331,7 @@ public enum DialogueFlagValue {
 	vengarPersuaded,
 	vengarSeduced,
 	ratWarrensRaid,
+	ratWarrensUsedResonanceStone,
 
 	vengarCaptiveRoomCleaned(true),
 	vengarCaptiveVengarSatisfied(true),
@@ -332,22 +339,23 @@ public enum DialogueFlagValue {
 	vengarCaptiveSilenceSatisfied(true),
 	vengarCaptiveCompanionGivenBirth(true),
 	vengarCaptiveGangBanged(true),
-
+	
 	ratWarrensCaptiveAttemptingEscape,
 	ratWarrensCaptiveEscaped,
-	ratWarrensCaptiveTransformationsStarted,
+//	ratWarrensCaptiveTransformationsStarted,
 	
 	ratWarrensCaptiveFeminine,
 	ratWarrensCaptiveFuta,
 	ratWarrensCaptiveMasculine,
 	ratWarrensCaptiveSissy,
-
+	
+	murkMaster,
+	murkSir,
+	murkDaddy,
+	
 	ratWarrensCaptiveFuckedByMurk,
 	ratWarrensCaptiveCompanionFuckedByMurk,
 	
-	ratWarrensCaptiveMilkingStarted,
-	ratWarrensCaptiveMilkingStartedCompanion,
-
 	ratWarrensCaptiveCalledOut, // Reset to false when sleep
 	
 	ratWarrensCaptiveCompanionGivenBirth(true),
@@ -368,6 +376,58 @@ public enum DialogueFlagValue {
 
 	public boolean isDailyReset() {
 		return dailyReset;
+	}
+	
+	public static List<DialogueFlagValue> getRatWarrensFlags() {
+		return Util.newArrayListOfValues(
+				ratWarrensEntry,
+				ratWarrensEntryWhore,
+				ratWarrensHostile,
+				ratWarrensEntranceGuardsFight,
+				ratWarrensSeenMilkers,
+				ratWarrensMilkersBackground,
+				ratWarrensSilenceIntroduced,
+				
+				ratWarrensClearedLeft,
+				ratWarrensClearedCentre,
+				ratWarrensClearedRight,
+				
+				ratWarrensLootedDiceDen,
+				
+				vengarThreatened,
+				vengarPersuaded,
+				vengarSeduced,
+				ratWarrensRaid,
+				ratWarrensUsedResonanceStone,
+
+				vengarCaptiveRoomCleaned,
+				vengarCaptiveVengarSatisfied,
+				vengarCaptiveShadowSatisfied,
+				vengarCaptiveSilenceSatisfied,
+				vengarCaptiveCompanionGivenBirth,
+				vengarCaptiveGangBanged,
+				
+				ratWarrensCaptiveAttemptingEscape,
+				ratWarrensCaptiveEscaped,
+				
+				ratWarrensCaptiveFeminine,
+				ratWarrensCaptiveFuta,
+				ratWarrensCaptiveMasculine,
+				ratWarrensCaptiveSissy,
+				
+				murkMaster,
+				murkSir,
+				murkDaddy,
+				
+				ratWarrensCaptiveFuckedByMurk,
+				ratWarrensCaptiveCompanionFuckedByMurk,
+				
+				ratWarrensCaptiveCalledOut,
+				
+				ratWarrensCaptiveCompanionGivenBirth,
+				ratWarrensCaptiveOwnerSex,
+				ratWarrensCaptiveOwnerCompanionSex,
+				ratWarrensCaptiveDailyTransformed);
 	}
 	
 }

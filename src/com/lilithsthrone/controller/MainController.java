@@ -54,7 +54,6 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.moves.CombatMove;
 import com.lilithsthrone.game.combat.spells.Spell;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
@@ -69,6 +68,7 @@ import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
@@ -505,7 +505,8 @@ public class MainController implements Initializable {
 //									e.printStackTrace();
 //								}
 //							}
-							Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).setColour(0, PresetColour.CLOTHING_GOLD);
+//							Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK).setColour(0, PresetColour.CLOTHING_GOLD);
+							System.out.println(Main.game.getPlayer().getLocation());
 						}
 						 
 

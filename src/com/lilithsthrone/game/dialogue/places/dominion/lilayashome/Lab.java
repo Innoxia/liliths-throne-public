@@ -42,13 +42,13 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.3.5.5
+ * @version 0.3.8.7
  * @author Innoxia
  */
 public class Lab {
 	
 	private static boolean isLilayaAngryAtPlayerDemonTF() {
-		return Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON
+		return Main.game.getPlayer().getTrueRace()==Race.DEMON
 				&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN);
 	}
 	

@@ -2008,7 +2008,7 @@ public class ScarlettsShop {
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Helena.class).setAffection(Main.game.getPlayer(), -100));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestFailed(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_FAILED));
-							Main.game.getNpc(Helena.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST, true);
+							Main.game.getNpc(Helena.class).setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HELENAS_NEST);
 							if(!Main.game.getPlayer().hasCompanion(Main.game.getNpc(Scarlett.class))) {
 								Main.game.getNpc(Scarlett.class).returnToHome();
 								Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'><i>You order [scarlett.name] to return to [scarlett.her] room...</i></p>");

@@ -156,6 +156,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
@@ -925,6 +926,20 @@ public class Game implements XMLSaving {
 					AbstractItem spellBook = AbstractItemType.generateItem(ItemType.getSpellBookType(Spell.ICE_SHARD));
 					Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(PlaceType.LILAYA_HOME_ROOM_PLAYER).getInventory().addItem(spellBook);
 				}
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.8.8")) {
+					List<Vector2i> vecs = Util.newArrayListOfValues(
+							new Vector2i(2, 5),
+							new Vector2i(5, 8),
+							new Vector2i(8, 5));
+					for(Vector2i vec : vecs) {
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(vec).getPlace().setPlaceType(PlaceType.LILAYA_HOME_STAIR_UP_SECONDARY);
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(vec).getPlace().setName(PlaceType.LILAYA_HOME_STAIR_UP_SECONDARY.getName());
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(vec).setDiscovered(true);
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(vec).getPlace().setPlaceType(PlaceType.LILAYA_HOME_STAIR_DOWN_SECONDARY);
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(vec).getPlace().setName(PlaceType.LILAYA_HOME_STAIR_DOWN_SECONDARY.getName());
+						Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getCell(vec).setDiscovered(true);
+					}
+				}
 				
 				if(debug) {
 					System.out.println("Maps finished: "+ (System.nanoTime()-time)/1000000000d);
@@ -1080,7 +1095,7 @@ public class Game implements XMLSaving {
 				if(Main.isVersionOlderThan(loadingVersion, "0.2.5.1")) { //Reset ass/nipple/lip colours
 					for(NPC npc : Main.game.getAllNPCs()) {
 						if(!npc.isSlave() || (npc.getOwner()!=null && !npc.getOwner().isPlayer()))
-						npc.setSkinCovering(new Covering(npc.getSkinCovering(), npc.getCovering(npc.getSkinCovering()).getPrimaryColour()), true);
+						npc.setSkinCovering(new Covering(npc.getTorsoCovering(), npc.getCovering(npc.getTorsoCovering()).getPrimaryColour()), true);
 					}
 				}
 				
@@ -3369,8 +3384,12 @@ public class Game implements XMLSaving {
 
 	}
 	
-	private static void setMainContentRegex(String prefix, String currentDialogue) {
-		Main.mainController.setMainContent(prefix + currentDialogue.replaceAll("\\.\\.\\.", "&hellip;").replaceAll("\\.([\\D])", ".\u200b$1").replaceAll("\\[", "\u200b[\u200b"));
+	private void setMainContentRegex(String prefix, String currentDialogue) {
+		String sanitizedDialogue = currentDialogue.replaceAll("\\.\\.\\.", "&hellip;");
+		if(currentDialogueNode!=DebugDialogue.PARSER) {
+			sanitizedDialogue = sanitizedDialogue.replaceAll("\\.([\\D])", ".\u200b$1").replaceAll("\\[", "\u200b[\u200b");
+		}
+		Main.mainController.setMainContent(prefix + sanitizedDialogue);
 	}
 	
 	public List<NPC> getCharactersPresent() {
@@ -4054,6 +4073,14 @@ public class Game implements XMLSaving {
 	public StringBuilder getTextStartStringBuilder() {
 		return textStartStringBuilder;
 	}
+	
+	public void appendToTextStartStringBuilder(GameCharacter npc, String text) {
+		textStartStringBuilder.append(UtilText.parse(npc, text));
+	}
+	
+	public void appendToTextStartStringBuilder(List<GameCharacter> npcs, String text) {
+		textStartStringBuilder.append(UtilText.parse(npcs, text));
+	}
 
 	public void clearTextStartStringBuilder() {
 		textStartStringBuilder.setLength(0);
@@ -4061,6 +4088,14 @@ public class Game implements XMLSaving {
 
 	public StringBuilder getTextEndStringBuilder() {
 		return textEndStringBuilder;
+	}
+	
+	public void appendToTextEndStringBuilder(GameCharacter npc, String text) {
+		textEndStringBuilder.append(UtilText.parse(npc, text));
+	}
+	
+	public void appendToTextEndStringBuilder(List<GameCharacter> npcs, String text) {
+		textEndStringBuilder.append(UtilText.parse(npcs, text));
 	}
 
 	public void clearTextEndStringBuilder() {
@@ -4274,6 +4309,10 @@ public class Game implements XMLSaving {
 		return Main.getProperties().hasValue(PropertyValue.cumRegenerationContent);
 	}
 
+	public boolean isBadEndsEnabled() {
+		return Main.getProperties().hasValue(PropertyValue.badEndContent);
+	}
+	
 	public boolean isCompanionContentEnabled() {
 		return Main.getProperties().hasValue(PropertyValue.companionContent);
 	}
@@ -4358,6 +4397,9 @@ public class Game implements XMLSaving {
 	}
 
 	public boolean isRequestAutosave() {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.badEnd)) { // Do not autosave during a bad end (as otherwise it could overwrite an important autosave before the bad end was encountered)
+			return false;
+		}
 		if(Main.getProperties().autoSaveFrequency==2 && lastAutoSaveTime+(7*24*60*60)>Main.game.getSecondsPassed()) {
 			return false;
 		} else if(Main.getProperties().autoSaveFrequency==1 && lastAutoSaveTime+(24*60*60)>Main.game.getSecondsPassed()) {

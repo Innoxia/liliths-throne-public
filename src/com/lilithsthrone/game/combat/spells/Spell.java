@@ -3016,7 +3016,7 @@ public enum Spell {
 	public float getModifiedCost(GameCharacter caster) {
 		float calculatedCost = getBaseCost(caster);
 		
-		calculatedCost *= ((100 - Util.getModifiedDropoffValue(caster.getAttributeValue(Attribute.SPELL_COST_MODIFIER), 100)) / 100f);
+		calculatedCost *= ((100 - caster.getAttributeValue(Attribute.SPELL_COST_MODIFIER)) / 100f);
 		
 		// Round float value to nearest 1 decimal place:
 		return (Math.round(calculatedCost*10))/10f;

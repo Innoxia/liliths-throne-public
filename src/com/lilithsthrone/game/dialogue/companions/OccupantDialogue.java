@@ -1590,10 +1590,10 @@ public class OccupantDialogue {
 	
 	public static final DialogueNode OCCUPANT_APARTMENT_SLEEP_OVER = new DialogueNode("", "", true) {
 
-		@Override
-		public int getSecondsPassed() {
-			return sleepTimeInMinutes*60;
-		}
+//		@Override
+//		public int getSecondsPassed() {
+//			return sleepTimeInMinutes*60;
+//		}
 		
 		@Override
 		public String getLabel(){

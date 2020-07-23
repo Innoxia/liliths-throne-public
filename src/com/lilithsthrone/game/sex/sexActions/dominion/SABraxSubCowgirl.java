@@ -1875,18 +1875,8 @@ public class SABraxSubCowgirl {
 
 			// Penis:
 			if (Main.game.getPlayer().hasPenis()) {
-				if (Main.game.getPlayer().getPenisType() == PenisType.CANINE)
-					UtilText.nodeContentSB.append("Your red dog-cock suddenly starts violently throbbing, and you know that you're about to cum."
-							+ " Grabbing your hard member in one hand, you point it towards Brax's face, furiously masturbating as your thick knot swells up.");
-				else if (Main.game.getPlayer().getPenisType() == PenisType.FELINE)
-					UtilText.nodeContentSB.append("Your barbed cat-dick suddenly starts violently throbbing, and you know that you're about to cum."
-							+ " Grabbing your hard member in one hand, you point it towards Brax's face, furiously masturbating as your hand slides up and down over your sensitive little barbs.");
-				else if (Main.game.getPlayer().getPenisType() == PenisType.EQUINE)
-					UtilText.nodeContentSB.append("Your flared horse-cock suddenly starts violently throbbing, and you know that you're about to cum."
-							+ " Grabbing your hard member in one hand, you point it towards Brax's face, furiously masturbating as your hand slides up and down over the flared head of your horse-like dick.");
-				else
 					UtilText.nodeContentSB.append(
-							"Your hard cock suddenly starts violently throbbing, and you know that you're about to cum."
+							"Your [pc.cock+] suddenly starts violently throbbing, and you know that you're about to cum."
 					+ " Grabbing your hard member in one hand, you point it towards Brax's face, furiously masturbating as you prepare to cum.");
 
 				UtilText.nodeContentSB.append(" Letting out a desperate groan, you feel your cock twitching as your orgasm washes over you. ");

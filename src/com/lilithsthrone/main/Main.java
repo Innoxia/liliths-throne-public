@@ -69,7 +69,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.8.6";
+	public static final String VERSION_NUMBER = "0.3.8.9";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -90,23 +90,15 @@ public class Main extends Application {
 		+ "</p>"
 		
 		+ "<p>"
-			+ "I've managed to completely finish off the alleyway Enforcer encounter, as well as get several bugs fix for this hotfix."
-			+ " There are also numerous updates to DSG's Enforcer clothing, as well as some minor balance changes and other small things."
+			+ "Here's another public update for you all!"
+			+ " While it should be mostly stable, I ran out of time in which to do thorough testing for this version, which,"
+				+ " combined with the fact that the Rat Warrens are still in a state of 'under construction', means that I've decided to label this version as v0.3.8.9 instead of v0.3.9."
 		+ "</p>"
 			
 		+ "<p>"
-			+ "The other big change in this version is that the ability to have companions in your party is now locked behind a content toggle in the gameplay settings."
-			+ " Accounting for companion content was proving to be too much for me to handle in a reasonable timeframe, so no more dialogue variations or support for companions will be added from now on."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "I am planning on reworking the way Elementals function for v0.3.9, but for now, they will continue to function like they always have done (as a persistent companion)."
-			+ " I will also be adding more interactions with slaves & friendly occupants in the future (including dating content) to make up for the fact that companion support is being dropped."
-		+ "</p>"
-		
-		+"<p>"
-			+ "There may still be some bugs in this version, but I'm pretty sure that I've caught all of the major ones."
-			+ " The next update will be the full release of v0.3.9, which will be out on the 15th July at the very latest."
+			+ "There will be a further public update this time next week (Wednesday, 21st) which will get all of the loose ends and bugs sorted out."
+			+ " Sorry about this version not including the finished Rat Warrens content, but I decided to do a big rework of parts of it, and so it's taking a little longer than expected to get completed."
+			+ " It will definitely be finished by v0.3.9 (along with the 'spa' room upgrade content and the Elemental rework)!"
 		+ "</p>"
 		
 		+ "<br/>"
@@ -118,6 +110,95 @@ public class Main extends Application {
 
 		+ "<br/>"
 
+		+ "<list>"
+		+ "<h6>v0.3.8.9</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Updated the lacy plunge bra icon. (by DSG)</ul>"
+			+"<ul>Fixed typos in plate carrier, heavy plate carrier, and combat helmet descriptions. (by DSG)</ul>"
+			
+			+"<li>Engine/Modding:</li>"
+			+"<ul>Slightly decreased size of save files.</ul>"
+			+"<ul>Added accessor for RacialBody in parsing, using the 'RACIAL_BODY_' prefix. Also added 'getRacialBody()' method to Race class for access to RacialBodies.</ul>"
+			+"<ul>Added 'appendToTextStartStringBuilder' and 'appendToTextEndStringBuilder' methods to correctly parse text to the game's 'start' and 'end' StringBuilders (for use in mods that apply effects).</ul>"
+			+"<ul>You can now define 'criticalHitText' values in weapon mods, which allow you to define hit descriptions which are only shown when critically hitting. (For an example, see 'res/weapons/innoxia/dagger/dagger.xml'.)</ul>"
+			+"<ul>Added accessor for AbstractFluidTypes, using the 'FLUID_TYPE_' prefix. Added a version of the GameCharacter.ingestFluid() method which takes an AbstractFluidType instead of a FluidInterface (so it can be called via parsing). </ul>"
+			+"<ul>Added a version of GameCharacter.calculateGenericSexEffects() which can be called from the parser. Added accessors for SexParticipantType ('SEX_PT_') and GenericSexFlag ('SEX_FLAG_') for use in this method.</ul>"
+			+"<ul>The 'SPECIAL_PARSE' command should now work correctly as logic in conditional statements (it gets parsed before the conditional is checked).</ul>"
+			+"<ul>Converted last of the body type enums to abstract classes and added accessors for use in the parser for all of them.</ul>"
+			
+			+"<li>Gameplay:</li>"
+			+"<ul>Added options to have sex with slaves who help you to wash when taking a shower or bath in your room. The Slime Queen's bath sex scene and Pix's shower sex scene also now use the ongoing-cleaning and water lubrication mechanics of having sex in a bath/shower.</ul>"
+			+"<ul>Axel's quest (involving the Rat Warrens) is under construction again, and as such, I've disabled the ability to start his quest in this version. If you've already started it, then please wait until the next release before continuing with it!</ul>"
+			
+			+"<li>Balance:</li>"
+			+"<ul>Characters are now only vulnerable to arcane storms and combat loss at maximum lust while they have the 'arcane impotence' status effect. (i.e. Only if their arcane stat is less than 10.)</ul>"
+			+"<ul>The chance for an Enforcer encounter to trigger in alleyway tiles has been increased from 2% to 2.5%.</ul>"
+			+"<ul>The 5 alleyway tiles closest to Dominion's Enforcer HQ now have a significantly higher chance of generating Enforcer encounters than normal alleyway tiles (15% instead of 2.5%), while also having a lesser chance of generating a generic attacker encounter (10% instead of 15%).</ul>"
+			+"<ul>Increased maximum shielding values from 100 to 500, and made it so that a value of 500 in any shielding category grants complete immunity from the related damage type. (Only used for fire and ice elementals being immune to fire/ice damage.)</ul>"
+			+"<ul>Removed the diminishing returns factor from all damage attributes and made it clear that these are referring to percentage increases wherever they're displayed (in tooltips and stats screen).</ul>"
+			+"<ul>The 'spell efficiency' attribute is now capped at 80 instead of 100, and all damage attributes have a lower cap of -80 instead of -100.</ul>"
+			+"<ul>Removed the 'cum quantity pregnancy modifier' from the game. (Now that cum quantity has a more direct impact of higher volumes staying in a character's orifices for longer, this modifier was no longer needed.)</ul>"
+			+"<ul>Slightly altered the pregnancy calculation to be: 10% + (Cum-character's Virility% / 2) + (Womb-character's Fertility% / 2)</ul>"
+			+"<ul>Randomly-spawned NPCs will no longer have the 'martial artist' trait.</ul>"
+			
+			+"<li>Items:</li>"
+			+"<ul>Changed the 'pentagram piercing' rarity to 'common'.</ul>"
+			+"<ul>Improved description of 'Angel's Nectar' to correctly state that it removes intoxication and psychoactive effects. You can now also enchant it to create a potion that regenerates or removes hymens.</ul>"
+			+"<ul>There is no longer an arcane stat requirement for NPCs to absorb bottled essences.</ul>"
+			
+			+"<li>Sex:</li>"
+			+"<ul>Added some flavour text for characters with the 'pure virgin' fetish (and who are either still vaginal virgins or have a regrown hymen) performing or receiving the 'pussy tease' sex action (with both penis or tail).</ul>"
+			+"<ul>Added some variation in the tail/penis-vagina penetration sex action descriptions for when the character being penetrated is still a virgin.</ul>"
+			+"<ul>'Stop ongoing' actions are now coloured differently than the 'start ongoing' actions.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>You can now recolour human skin to any colour, just like with other covering types. (Humans will still only ever spawn with natural colours.)</ul>"
+			+"<ul>NPCs' 'home' icons on the minimap are now semi-transparent to make it clearer that they aren't actually there.</ul>"
+			+"<ul>Improved 'barren' and 'firing blanks' tooltip descriptions to make it clearer how those perks work.</ul>"
+			+"<ul>NPCs who are not your slave, elemental, or one of your friendly occupants will now automatically spend their perk points when they level up (via draining your levels or gaining experience from beating you in combat).</ul>"
+			+"<ul>When losing a level (from orgasmic level drain), characters now additionally lose a random perk if their perk points are reduced to below 0 in the process.</ul>"
+			+"<ul>The clothing & weapons sold by Finch, Nyan, Kate, and Vicky are now generated in stacks of 2-6 instead of just 1.</ul>"
+			+"<ul>Added some pet names for use in Amber's scene where she walks you and you run into her friend & their pet.</ul>"
+			+"<ul>Reduced the default capacity for several races' (reindeer, squirrel, rat, rabbit, and bat) vaginas, as they were still using values from before the penetration girth/depth rework.</ul>"
+			+"<ul>Enforcers who choose to give you a handjob after the strip search will now only finger your asshole at the same time if they have a positive desire towards the anal-giving fetish.</ul>"
+			+"<ul>Sex scenes no longer start with a spam of 'X area was already lubricated by Y' messages.</ul>"
+			+"<ul>Added more staircases to Lilaya's house.</ul>"
+			+"<ul>The 'begin slave interaction' actions in Lilaya's house are now coloured according to the slave's femininity.</ul>"
+			+"<ul>Added setting to enable bad ends in gameplay content option (on by default). (There are no bad ends in the game just yet, but I may start adding some alongside new content in the future.)</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Parsing fixes.</ul>"
+			+"<ul>Fixed a minor issue where Finch, Kate, and Nyan would sometimes not generate the correct number/type of enchanted clothing for sale.</ul>"
+			+"<ul>Fixed issue where having the 'opportunistic attackers' content setting turned on would cause some Encounters to never trigger.</ul>"
+			+"<ul>Fixed bug where two human half-demons would create half-demon offspring instead of imps.</ul>"
+			+"<ul>Fixed issue where demons/lilin who had transformed to look like a different race would create offspring of a subspecies based on their appearance, instead of their true demonic race.</ul>"
+			+"<ul>Fixed bug where if you had the American tourist background perk, the conversion of colour to color was followed by a random pair of parentheses.</ul>"
+			+"<ul>(Finally) Fixed issue where Scarlett would sometimes not appear in Helena's shop after sending her there during Helena's romance quest.</ul>"
+			+"<ul>Fixed related issue where Scarlett's location was not being set properly during the stage of the main quest where you need to buy her from Helena.</ul>"
+			+"<ul>Characters who have lost their vaginal virginity and then regown their hymen now correctly have their new hymen torn in situations where they should be losing their virginity.</ul>"
+			+"<ul>Fixed bug where the 'Defend yourself' action in the Enforcer encounter would be on every button instead of just one.</ul>"
+			+"<ul>NPCs who spawn with enchanted clothing/weapons that pushes them over their enchantment stability limit will now automatically take perks to give themselves more enchantment stability.</ul>"
+			+"<ul>Fixed issue where ingesting addictive fluids during sex would not display a message about the ingesting cahracter's addiction being satisfied.</ul>"
+			+"<ul>Fixed issue with the name of fluids not being parsed correctly in the tooltip for the addiction status effect.</ul>"
+			+"<ul>Formatting of attribute numbers in status effect tooltips no longer always has a trailing '.0'.</ul>"
+			+"<ul>Fixed issue with the flow of dialogue in Amber's 'Insult her' scene.</ul>"
+			+"<ul>Vargrs, hellhounds, and demonic-fox-morphs now correctly spawn in with red canine-like cocks.</ul>"
+			+"<ul>Fixed bug where your character's health would sometimes keep on dropping during character creation.</ul>"
+			+"<ul>Fixed issue where Claire would react as though you hadn't used the resonance stone in the Rat Warrens quest even when you had.</ul>"
+			+"<ul>Fixed a parsing error with the description of crotch nipples recovering from being stretched after sex.</ul>"
+			+"<ul>Fixed the asterisk denoting whether hair is long enough to be pulled in sex not being displayed in the character creation's hair length choice box.</ul>"
+			+"<ul>Fixed issue with half-demons who have a unique name not gaining any name variation when they were taurs.</ul>"
+			+"<ul>Fixed bug where offspring would react as though you're enslaving them with a collar even if you used a different item of clothing.</ul>"
+			+"<ul>Tauric Enforcers will no longer spawn wearing slacks (which should have been impossible to fit onto their tauric bodies).</ul>"
+			+"<ul>Fixed issue where the description of slaves initiating sex with you after sleeping in your room would be missing unless you went to sleep with your slaves already having the 'pent up' status effect.</ul>"
+			+"<ul>Fixed issue where not all of the intended enslavement effects were applied when getting Enforcers to enslave a criminal for you. (i.e. They now correctly have their true name revealed and their starting obedience is set to -100.)</ul>"
+			+"<ul>Removing and regrowing a character's vagina now correctly regrows their hymen.</ul>"
+			+"<ul>The Slime Queen's bath and Pix's shower scene now correctly clean your body & clothes.</ul>"
+			+"<ul>Fixed issue with incrementing health and mana not working when called from within status effects.</ul>"
+		+"</list>"
+
+		+ "<br/>"
+		
 		+ "<list>"
 		+ "<h6>v0.3.8.6</h6>"
 			+"<li>DSG Enforcer Clothing update:</li>"

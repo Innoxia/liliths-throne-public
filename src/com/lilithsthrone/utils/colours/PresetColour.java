@@ -174,6 +174,8 @@ public class PresetColour {
 	public static Colour RACE_RABBIT_MORPH = new Colour(false, BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues("rabbitMorph", "rabbit")) {};
 	public static Colour RACE_BAT_MORPH = new Colour(false, BaseColour.BLACK, "black", Util.newArrayListOfValues("batMorph", "bat")) {};
 	public static Colour RACE_ALLIGATOR_MORPH = new Colour(false, BaseColour.GREEN_DARK, "dark green", Util.newArrayListOfValues("alligatorMorph", "alligator", "gatorMorph", "gator")) {};
+
+	public static Colour GENERIC_BAD_END = new Colour(false, BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues("badEnd")) {};
 	
 	public static Colour QUEST_MAIN = new Colour(false, BaseColour.PINK, "pink", Util.newArrayListOfValues("questMain", "mainQuest")) {};
 	public static Colour QUEST_SIDE = new Colour(false, BaseColour.BLUE, "blue", Util.newArrayListOfValues("questSide", "sideQuest")) {};
@@ -393,7 +395,7 @@ public class PresetColour {
 	public static Colour ANUS = new Colour(false, BaseColour.PINK_DEEP, "deep pink", Util.newArrayListOfValues("asshole", "anus", "ass")) {};
 	public static Colour PENIS = new Colour(false, BaseColour.PURPLE, "purple", Util.newArrayListOfValues("penis", "cock")) {};
 	public static Colour NIPPLES = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("nipples", "nipple")) {};
-	public static Colour NIPPLES_CROTCH = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("nipplesCrotch", "crotchNipples")) {};
+	public static Colour NIPPLES_CROTCH = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues("nipplesCrotch", "crotchNipples", "nippleCrotch", "crotchNipple")) {};
 	public static Colour URETHRA_PENIS = new Colour(false, BaseColour.PINK_SALMON, "salmon-pink", Util.newArrayListOfValues("penisUrethra", "urethraPenis", "urethra")) {};
 	public static Colour UREHTRA_VAGINA = new Colour(false, BaseColour.LILAC, "lilac", Util.newArrayListOfValues("vaginaUrethra", "urethraVagina")) {};
 	public static Colour MOUTH = new Colour(false, BaseColour.LILAC_LIGHT, "pale lilac", Util.newArrayListOfValues("mouth", "throat")) {};
@@ -789,6 +791,7 @@ public class PresetColour {
 			PresetColour.COVERING_GREY,
 			PresetColour.COVERING_BLACK,
 			PresetColour.COVERING_JET_BLACK,
+			PresetColour.COVERING_SCARLET,
 			PresetColour.COVERING_RED_LIGHT,
 			PresetColour.COVERING_RED,
 			PresetColour.COVERING_RED_DARK,
@@ -834,6 +837,7 @@ public class PresetColour {
 			PresetColour.COVERING_GREY,
 			PresetColour.COVERING_BLACK,
 			PresetColour.COVERING_JET_BLACK,
+			PresetColour.COVERING_SCARLET,
 			PresetColour.COVERING_RED_LIGHT,
 			PresetColour.COVERING_RED,
 			PresetColour.COVERING_RED_DARK,
@@ -907,6 +911,7 @@ public class PresetColour {
 			PresetColour.COVERING_GREY,
 			PresetColour.COVERING_BLACK,
 			PresetColour.COVERING_JET_BLACK,
+			PresetColour.COVERING_SCARLET,
 			PresetColour.COVERING_RED_LIGHT,
 			PresetColour.COVERING_RED,
 			PresetColour.COVERING_RED_DARK,

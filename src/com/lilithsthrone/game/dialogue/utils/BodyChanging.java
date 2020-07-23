@@ -18,7 +18,7 @@ import com.lilithsthrone.game.character.body.Horn;
 import com.lilithsthrone.game.character.body.Mouth;
 import com.lilithsthrone.game.character.body.Nipples;
 import com.lilithsthrone.game.character.body.Penis;
-import com.lilithsthrone.game.character.body.Skin;
+import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
@@ -31,7 +31,6 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
@@ -382,7 +381,7 @@ public class BodyChanging {
 						&& !(bp instanceof Antenna)
 						&& !(bp instanceof Horn)) {
 					String name = bp.getName(getTarget());
-					if(bp instanceof Skin) {
+					if(bp instanceof Torso) {
 						name = "torso";
 					}
 					

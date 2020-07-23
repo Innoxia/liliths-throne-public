@@ -43,7 +43,6 @@ import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.AlcoholLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
@@ -69,8 +68,12 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractNippleType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
 import com.lilithsthrone.game.character.body.tags.FaceTypeTag;
@@ -87,7 +90,7 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -4140,17 +4143,27 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		this.obedience = Math.max(-100, Math.min(100, obedience+increment));
 		
-		return UtilText.parse(this,
-				"<p style='text-align:center'>"
-						+ "[npc.Name] "+(increment>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!<br/>"
-						+ "[npc.She] now [npc.has] <b>"+(obedience>0?"+":"")+Units.round(obedience, 1)+"</b> [style.boldObedience(obedience)].<br/>"
-						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
-					+ "</p>"
-					+ (teacherPerkGain
-						?"<p style='text-align:center'>"
-							+ UtilText.parse(this.getOwner(), "<i>Obedience gain was [style.colourExcellent(tripled)], as [npc.nameHas] the '"+Perk.JOB_TEACHER.getName(this.getOwner())+"' trait.</i>")
+		if(this.isPlayer()) {
+			return UtilText.parse(this,
+					"<p style='text-align:center'>"
+							+ "[npc.Name] "+(increment>0?"[style.boldGrow(gain)]":"[style.boldShrink(lose)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!<br/>"
+							+ "[npc.She] now [npc.has] <b>"+(obedience>0?"+":"")+Units.round(obedience, 1)+"</b> [style.boldObedience(obedience)],"
+									+ " and feel <b style='color:"+this.getObedience().getColour().toWebHexString()+";'>"+this.getObedience().getName()+"</b>!"
+						+ "</p>");
+			
+		} else {
+			return UtilText.parse(this,
+					"<p style='text-align:center'>"
+							+ "[npc.Name] "+(increment>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!<br/>"
+							+ "[npc.She] now [npc.has] <b>"+(obedience>0?"+":"")+Units.round(obedience, 1)+"</b> [style.boldObedience(obedience)].<br/>"
+							+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
 						+ "</p>"
-						:""));
+						+ (teacherPerkGain
+							?"<p style='text-align:center'>"
+								+ UtilText.parse(this.getOwner(), "<i>Obedience gain was [style.colourExcellent(tripled)], as [npc.nameHas] the '"+Perk.JOB_TEACHER.getName(this.getOwner())+"' trait.</i>")
+							+ "</p>"
+							:""));
+		}
 	}
 	
 	public float getHourlyObedienceChange(int hour) {
@@ -5318,8 +5331,9 @@ public abstract class GameCharacter implements XMLSaving {
 			Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Gained)]", increment+" [style.colourExperience(experience)]"), false);
 		}
 		
+		String levelUpDescription = "";
 		if (experience >= getExperienceNeededForNextLevel()) {
-			levelUp();
+			levelUpDescription = levelUp();
 			if(Main.game.isStarted() && this.isPlayer()) {
 				Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourExcellent(Level up)]", "To level "+this.getLevel()), false);
 				if(LEVEL_CAP == this.getLevel()) {
@@ -5330,34 +5344,80 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this.getBody()==null) {
 			return "";
 		}
+		
 		return UtilText.parse(this, 
 				"<p style='text-align:center; padding:0; margin:0;'>"
-					+ "[npc.Name] [style.colourGood(gained)] <b style='color:" + PresetColour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + xpIncrement + " xp</b>!"
+					+ "[npc.Name] [style.italicsGood(gained)] [style.boldExperience("+xpIncrement+" xp)]!"
 					+(withExtraModifiers && this.hasTrait(Perk.ORGASMIC_LEVEL_DRAIN, true)
 							?"<br/>[style.italicsBad(Experience gain was reduced by 95% due to having the '"+Perk.ORGASMIC_LEVEL_DRAIN.getName(this)+"' trait!)]"
 							:"")
-				+"</p>");
+				+"</p>")
+				+ levelUpDescription;
 	}
 
-	public void levelDown() {
+	public String levelDown(int levels) {
 		float experiencePercentage = experience/getExperienceNeededForNextLevel();
 		
 		experience = 0;
-		
-		level--;
-		
+		level-=levels;
 		experience = (int) (getExperienceNeededForNextLevel() * experiencePercentage);
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<p style='text-align:center; padding:0; margin:0;'>");
+			sb.append("[npc.Name] [style.italicsTerrible(lost)] [style.italicsExperience("+levels+" level"+(levels==1?"":"s")+")]!");
+			// Get list of perks which are at the end of the tree's branches, and remove a random one, preferring to remove non-traits first
+			while(this.getPerkPoints()<0) {
+				Map<Integer, Set<AbstractPerk>> removalPerks = new HashMap<>();
+				Map<Integer, Set<AbstractPerk>> removalTraits = new HashMap<>();
+				
+				for(Entry<Integer, Set<AbstractPerk>> entry : this.getPerksMap().entrySet()) {
+					for(AbstractPerk perk : entry.getValue()) {
+						if(PerkManager.MANAGER.isPerkEndOfTreeBranch(this, entry.getKey(), perk, true)) {
+							if(perk.isEquippableTrait()) {
+								removalTraits.putIfAbsent(entry.getKey(), new HashSet<>());
+								removalTraits.get(entry.getKey()).add(perk);
+							} else {
+								removalPerks.putIfAbsent(entry.getKey(), new HashSet<>());
+								removalPerks.get(entry.getKey()).add(perk);
+							}
+						}
+					}
+				}
+				
+				// Remove perk/trait and return description of losing it
+				if(!removalPerks.isEmpty()) {
+					int rndKey = Util.randomItemFrom(removalPerks.keySet());
+					AbstractPerk rndPerk = Util.randomItemFrom(removalPerks.get(rndKey));
+					this.removePerk(rndKey, rndPerk);
+					sb.append("<br/>[npc.She] [style.italicsTerrible(lost)] [npc.her] '<i style='color:"+rndPerk.getColour().toWebHexString()+";'>"+rndPerk.getName(this)+"</i>' [style.italicsPerk(perk)]!");
+					
+				} else if(!removalTraits.isEmpty()) {
+					int rndKey = Util.randomItemFrom(removalTraits.keySet());
+					AbstractPerk rndPerk = Util.randomItemFrom(removalTraits.get(rndKey));
+					this.removeTrait(rndPerk);
+					this.removePerk(rndKey, rndPerk);
+					sb.append("<br/>[npc.She] [style.italicsTerrible(lost)] [npc.her] '<i style='color:"+rndPerk.getColour().toWebHexString()+";'>"+rndPerk.getName(this)+"</i>' [style.italicsTrait(trait)]!");
+					
+				} else {
+					break;
+				}
+			}
+		sb.append("</p>");
+		
+		return UtilText.parse(this, sb.toString());
 	}
 	
-	protected void levelUp() {
-		// For handling health, mana and stamina changes as a result of an attribute being changed:
+	protected String levelUp() {
+		StringBuilder sb = new StringBuilder();
 		float healthPercentage = getHealthPercentage();
 		float manaPercentage = getManaPercentage();
+		int levelsGained = 0;
 		
 		while (experience >= getExperienceNeededForNextLevel() && getLevel() < LEVEL_CAP) {
 			experience -= getExperienceNeededForNextLevel();
-
 			level++;
+			levelsGained++;
 		}
 		if(getLevel() == LEVEL_CAP) {
 			experience = 0;
@@ -5366,20 +5426,36 @@ public abstract class GameCharacter implements XMLSaving {
 		// Increment health, mana and stamina based on the change:
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercentage);
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM) * manaPercentage);
-		
-		if(isPlayer()) {
-			Main.getProperties().setValue(PropertyValue.levelUpHightlight, true);
-		} else {
-			//TODO NPC level up
-		}
-		
-		// Elementals don't gain experience, but instead automatically level up alongside their summoner.
-		if(this.hasDiscoveredElemental()) {
-			try {
-				this.getElemental().levelUp();
-			} catch(Exception ex) {
+
+		sb.append("<p style='text-align:center; padding:0; margin:0;'>");
+			sb.append("[npc.Name] [style.italicsGood(gained)] [style.italicsExperience("+levelsGained+" level"+(levelsGained==1?"":"s")+")]!");
+			if(isPlayer()) {
+				Main.getProperties().setValue(PropertyValue.levelUpHightlight, true);
+				
+			} else if((!this.isSlave() || !this.getOwner().isPlayer())
+					&& (!this.isElemental() || !((Elemental)this).getSummoner().isPlayer())
+					&& !Main.game.getPlayer().getFriendlyOccupants().contains(this.id)){
+				// NPCs who are not 'controlled' by the player automatically level up their perks:
+				Set<AbstractPerk> perksAdded = PerkManager.initialisePerks(this, true);
+				for(AbstractPerk perk : perksAdded) {
+					sb.append("<br/>[npc.She] [style.italicsExcellent(gained)] the '<i style='color:"+perk.getColour().toWebHexString()+";'>"+perk.getName(this)+"</i>'"
+							+ (perk.isEquippableTrait()
+									?" [style.italicsTrait(trait)]!"
+									:" [style.italicsPerk(perk)]!"));
+				}
 			}
-		}
+			
+			// Elementals don't gain experience, but instead automatically level up alongside their summoner.
+			if(this.hasDiscoveredElemental()) {
+				try {
+					this.getElemental().levelUp();
+				} catch(Exception ex) {
+				}
+			}
+			
+		sb.append("</p>");
+		
+		return UtilText.parse(this, sb.toString());
 	}
 
 	// Attributes:
@@ -6198,27 +6274,32 @@ public abstract class GameCharacter implements XMLSaving {
 		// Count down status effects:
 		float healthPercentage = this.getHealthPercentage();
 		float manaPercentage = this.getManaPercentage();
+		
+		float startHealth = this.getHealth();
+		float startMana = this.getMana();
+		
 		List<AbstractStatusEffect> tempListStatusEffects = new ArrayList<>();
-		for(AppliedStatusEffect appliedSe : statusEffects) {
+		
+		for(AppliedStatusEffect appliedSe : new ArrayList<>(statusEffects)) {
 			AbstractStatusEffect se = appliedSe.getEffect();
 			appliedSe.setSecondsPassed(appliedSe.getSecondsPassed() + secondsPassed);
-			StringBuilder s = new StringBuilder();
+			StringBuilder sb = new StringBuilder();
 			if (!se.isCombatEffect()){
 				if(appliedSe.getEffect().getEffectInterval()<=0 || ((Main.game.getSecondsPassed()-appliedSe.getLastTimeAppliedEffect())>appliedSe.getEffect().getEffectInterval())) {
 					if(appliedSe.getEffect().getEffectInterval()<=0) {
-						s.append(se.applyEffect(this, secondsPassed, appliedSe.getSecondsPassed()));
+						sb.append(se.applyEffect(this, secondsPassed, appliedSe.getSecondsPassed()));
 					} else {
 						for(int i=0; i<((Main.game.getSecondsPassed()-appliedSe.getLastTimeAppliedEffect())/appliedSe.getEffect().getEffectInterval()); i++) {
-							if(s.length()>0) {
-								s.append("<br/>");
+							if(sb.length()>0) {
+								sb.append("<br/>");
 							}
-							s.append(se.applyEffect(this, secondsPassed, appliedSe.getSecondsPassed()));
+							sb.append(se.applyEffect(this, secondsPassed, appliedSe.getSecondsPassed()));
 						}
 					}
 					
 					appliedSe.setLastTimeAppliedEffect(Main.game.getSecondsPassed());
-					if(s.length()!=0) {
-						addStatusEffectDescription(se, s.toString());
+					if(sb.length()!=0) {
+						addStatusEffectDescription(se, sb.toString());
 					}
 				}
 			}
@@ -6269,9 +6350,15 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
+		
+		float healthGain = this.getHealth() - startHealth;
+		float manaGain = this.getMana() - startMana;
 
 		this.setHealthPercentage(healthPercentage);
 		this.setManaPercentage(manaPercentage);
+		
+		this.incrementHealth(healthGain);
+		this.incrementMana(manaGain);
 		
 		updateAttributeListeners();
 	}
@@ -6497,17 +6584,17 @@ public abstract class GameCharacter implements XMLSaving {
 		wonCombatCount = count;
 	}
 	
-	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit) {
+	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
 		if(this.getMainWeapon(armRow)!=null) {
-			return this.getMainWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit);
+			return this.getMainWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit, critical);
 		} else {
 			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}
 	}
 	
-	public String getOffhandAttackDescription(int armRow, GameCharacter target, boolean isHit) {
+	public String getOffhandAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
 		if(this.getOffhandWeapon(armRow)!=null) {
-			return this.getOffhandWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit);
+			return this.getOffhandWeapon(armRow).getWeaponType().getAttackDescription(this, target, isHit, critical);
 		} else {
 			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}
@@ -7094,7 +7181,7 @@ public abstract class GameCharacter implements XMLSaving {
 				&& (this.isVaginaVirgin() || this.hasHymen())
 				&& type.getPerformingSexArea()==SexAreaOrifice.VAGINA
 				&& (type.getTargetedSexArea().isPenetration() && ((SexAreaPenetration)type.getTargetedSexArea()).isTakesVirginity())) {
-			weight-=100;
+			weight-=1000;
 		}
 		
 		return weight;
@@ -7110,6 +7197,19 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public String calculateGenericSexEffects(boolean isDom, boolean includesOrgasm, GameCharacter partner, SexType sexType, GenericSexFlag... flagsInput) {
 		return calculateGenericSexEffects(isDom, includesOrgasm, partner, null, null, sexType, flagsInput);
+	}
+	
+
+	public String calculateGenericSexEffects(boolean isDom,
+			boolean includesOrgasm,
+			GameCharacter partner,
+			Subspecies subspeciesBackup,
+			Subspecies halfDemonSubspeciesBackup,
+			SexParticipantType asParticipant,
+			SexAreaInterface performingSexArea,
+			SexAreaInterface targetedSexArea,
+			GenericSexFlag... flagsInput) {
+		return calculateGenericSexEffects(isDom, includesOrgasm, partner, subspeciesBackup, halfDemonSubspeciesBackup, new SexType(asParticipant, performingSexArea, targetedSexArea), flagsInput);
 	}
 	
 	/**
@@ -7128,6 +7228,8 @@ public abstract class GameCharacter implements XMLSaving {
 		String stretchDescription = "";
 		StringBuilder orgasmSB = new StringBuilder();
 		StringBuilder ingestFluidSB = new StringBuilder();
+		
+		String genericName = partner!=null?UtilText.parse(partner, "[npc.race]"):subspeciesBackup.getName(null);
 		
 		boolean descriptionNeeded = !flags.contains(GenericSexFlag.NO_DESCRIPTION_NEEDED);
 		boolean limitedDescription = flags.contains(GenericSexFlag.LIMITED_DESCRIPTION_NEEDED);
@@ -7192,6 +7294,9 @@ public abstract class GameCharacter implements XMLSaving {
 				case PENIS:
 					if(flags.contains(GenericSexFlag.PREVENT_CREAMPIE)) {
 						partnerCummedInside = false;
+						
+					} else if(flags.contains(GenericSexFlag.FORCE_CREAMPIE)) {
+						partnerCummedInside = true;
 						
 					} else if(partnerPresent) {
 						if((Main.sex.getSexManager() != null && Main.sex.getSexManager().getCharacterOrgasmBehaviour(partner)==OrgasmBehaviour.CREAMPIE)
@@ -7286,12 +7391,12 @@ public abstract class GameCharacter implements XMLSaving {
 								AbstractRacialBody body = RacialBody.valueOfRace(subspeciesBackup.getRace());
 								getStretchDescription(null, Penis.getGenericDiameter(body.getPenisSize(), PenetrationGirth.getGirthFromInt(body.getPenisGirth())), this, (SexAreaOrifice)performingArea);
 								if(partnerCummedInside) {
-									this.ingestFluid(null,
+									ingestFluidSB.append(this.ingestFluid(null,
 											subspeciesBackup,
 											halfDemonSubspeciesBackup,
 											new FluidCum(body.getPenisType().getTesticleType().getFluidType()),
 											(SexAreaOrifice)performingArea,
-											(float) (body.getCumProduction()*(0.5+Math.random())));
+											(float) (body.getCumProduction()*(0.5+Math.random()))));
 								}
 							}
 						}
@@ -7403,7 +7508,7 @@ public abstract class GameCharacter implements XMLSaving {
 										}
 									}
 								} else {
-									this.setVirginityLoss(sexType, "", "");
+									this.setVirginityLoss(sexType, "", UtilText.generateSingularDeterminer(genericName)+" "+genericName);
 								}
 							}
 							if(partnerCummed && !partnerCondom && !partnerCummedInside) {
@@ -7457,7 +7562,7 @@ public abstract class GameCharacter implements XMLSaving {
 										}
 									}
 								} else {
-									this.setVirginityLoss(sexType, "", "");
+									this.setVirginityLoss(sexType, "", UtilText.generateSingularDeterminer(genericName)+" "+genericName);
 								}
 							}
 							if(partnerCummed && !partnerCondom && !partnerCummedInside) {
@@ -7484,7 +7589,7 @@ public abstract class GameCharacter implements XMLSaving {
 										}
 									}
 								} else {
-									this.setVirginityLoss(sexType, "", "");
+									this.setVirginityLoss(sexType, "", UtilText.generateSingularDeterminer(genericName)+" "+genericName);
 								}
 							}
 							if(partnerCummed && !partnerCondom && !partnerCummedInside) {
@@ -7514,7 +7619,7 @@ public abstract class GameCharacter implements XMLSaving {
 										}
 									}
 								} else {
-									this.setVirginityLoss(sexType, "", "");
+									this.setVirginityLoss(sexType, "", UtilText.generateSingularDeterminer(genericName)+" "+genericName);
 								}
 							}
 							if(partnerCummed && !partnerCondom && !partnerCummedInside) {
@@ -7551,7 +7656,7 @@ public abstract class GameCharacter implements XMLSaving {
 										}
 									}
 								} else {
-									this.setVirginityLoss(sexType, "", "");
+									this.setVirginityLoss(sexType, "", UtilText.generateSingularDeterminer(genericName)+" "+genericName);
 								}
 							}
 							if(partnerCummed && !partnerCondom && !partnerCummedInside) {
@@ -7582,7 +7687,7 @@ public abstract class GameCharacter implements XMLSaving {
 										}
 									}
 								} else {
-									this.setVirginityLoss(sexType, "", "");
+									this.setVirginityLoss(sexType, "", UtilText.generateSingularDeterminer(genericName)+" "+genericName);
 								}
 							}
 							if(partnerCummed && !partnerCondom && !partnerCummedInside) {
@@ -7613,7 +7718,12 @@ public abstract class GameCharacter implements XMLSaving {
 										}
 									}
 								} else {
-									this.setVirginityLoss(sexType, "", "");
+									this.setVirginityLoss(sexType, "", UtilText.generateSingularDeterminer(genericName)+" "+genericName);
+								}
+							} else if(this.hasHymen()) {
+								this.setHymen(false);
+								if(descriptionNeeded) {
+									sexDescriptionSB.append(UtilText.parse(this, "<p class='centre noPad'>[style.italicsTerrible([npc.NamePos] hymen was torn!)]</p>"));
 								}
 							}
 							if(partnerCummed && !partnerCondom && !partnerCummedInside) {
@@ -7654,6 +7764,9 @@ public abstract class GameCharacter implements XMLSaving {
 					if(flags.contains(GenericSexFlag.PREVENT_CREAMPIE)) {
 						thisCummedInside = false;
 						
+					} else if(flags.contains(GenericSexFlag.FORCE_CREAMPIE)) {
+						thisCummedInside = true;
+						
 					} else {
 						if((Main.sex.getSexManager() != null && Main.sex.getSexManager().getCharacterOrgasmBehaviour(this)==OrgasmBehaviour.CREAMPIE)
 							|| this.getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive()
@@ -7684,7 +7797,7 @@ public abstract class GameCharacter implements XMLSaving {
 									}
 								}
 							} else {
-								this.setVirginityLoss(sexType, "", "");
+								this.setVirginityLoss(sexType, "", UtilText.generateSingularDeterminer(genericName)+" "+genericName);
 							}
 						}
 						if(partnerPresent) {
@@ -8071,6 +8184,11 @@ public abstract class GameCharacter implements XMLSaving {
 											sexDescriptionSB.append(UtilText.parse(this, "<p class='centre noPad'>[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
 												+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(this)+")] [style.italicsArcane(experience!)]</p>"));
 										}
+									}
+								} else if(partner.hasHymen()) {
+									partner.setHymen(false);
+									if(descriptionNeeded) {
+										sexDescriptionSB.append(UtilText.parse(partner, "<p class='centre noPad'>[style.italicsTerrible([npc.NamePos] hymen was torn!)]</p>"));
 									}
 								}
 								if(thisCummed && !thisCondom && !thisCummedInside) {
@@ -8646,6 +8764,12 @@ public abstract class GameCharacter implements XMLSaving {
 		virginityLossMap.put(sexType, new SimpleEntry<>(characterTakingVirginity.getId(), description));
 	}
 	
+	/**
+	 * @param sexType The SexType of which virginity is to be lost.
+	 * @param characterTakingVirginityId The String id of the character taking the virginity.
+	 *  <b>Special case:</b> If you pass in an empty String, then the description parameter will be used in the phrase: [npc.Name] lost [npc.her] virginity to 'description'.
+	 * @param description The description of virginity loss.
+	 */
 	public void setVirginityLoss(SexType sexType, String characterTakingVirginityId, String description) {
 		virginityLossMap.put(sexType, new SimpleEntry<>(characterTakingVirginityId, description));
 	}
@@ -8669,7 +8793,11 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		if(this.getVirginityLoss(sexType).getKey()!=null && this.getVirginityLoss(sexType).getKey().isEmpty()) { // Support for versions prior to 0.2.10
-			return "[npc.Name] lost [npc.her] virginity to "+virginityLossMap.get(sexType).getValue()+".";
+			if(virginityLossMap.get(sexType).getValue().isEmpty()) { // Catch for if there's no description
+				return UtilText.parse(this, "[npc.Name] lost [npc.her] virginity to someone [npc.she] can't remember.");
+			} else {
+				return UtilText.parse(this, "[npc.Name] lost [npc.her] virginity to "+virginityLossMap.get(sexType).getValue()+".");
+			}
 			
 		} else {
 			try {
@@ -8817,13 +8945,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public String applyLevelDrain(GameCharacter target) {
 		if(target.getTrueLevel()>1) {
 			int exp = target.getExperienceNeededForNextLevel();
-			target.levelDown();
 			return UtilText.parse(target, this,
 					"<p style='text-align:center; margin:0;'>"
 						+ this.getLevelDrainDescription(target)
 						+ "<br/>[style.italicsBad(As [npc.she] [npc.verb(orgasm)], [npc.name] [npc.verb(feel)] [npc.herself] getting weaker...)]"
-						+ "<br/>[style.italicsTerrible([npc.Name] [npc.verb(lose)] 1 level!)]"
 					+ "</p>"
+					+ target.levelDown(1)
 					+ this.incrementExperience(exp, false));
 			
 		} else {
@@ -15097,6 +15224,7 @@ public abstract class GameCharacter implements XMLSaving {
 								:10_000;
 		boolean penetratingDeep = characterPenetrating.isWantingToFullyPenetrate(characterPenetrated);
 		
+		boolean orificePlural = orifice.isPlural();
 		String orificeName = orifice.getName(characterPenetrated);
 		String orificeNameStandard = orifice.getName(characterPenetrated, true);
 		
@@ -15167,7 +15295,7 @@ public abstract class GameCharacter implements XMLSaving {
 				if(Main.sex.getSexPace(characterPenetrated)!=SexPace.SUB_RESISTING) {
 					sb.append("[npc.Name] [npc.verb(let)] out a disappointed [npc.moan] as [npc.she] [npc.verb(feel)] that");
 					sb.append("[style.italicsBad(");
-						sb.append(" [npc2.namePos] "+orificeName+" isn't deep enough");
+						sb.append(" [npc2.namePos] "+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
 					sb.append(")]");
 					sb.append(" to comfortably accommodate the full length of [npc.her] "+nameLength+".");
 				}
@@ -15273,7 +15401,7 @@ public abstract class GameCharacter implements XMLSaving {
 					sb.append("<br/>");
 					sb.append("[npc.Name] [npc.verb(let)] out a disappointed "+(characterPenetrating.isFeminine()?"whine":"growl")+" as [npc.she] [npc.verb(feel)] that");
 					sb.append("[style.italicsBad(");
-						sb.append(" [npc2.namePos] "+orificeName+" isn't deep enough");
+						sb.append(" [npc2.namePos] "+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
 					sb.append(")]");
 					sb.append(" to accommodate the full length of [npc.her] "+nameLength+".");
 					
@@ -15338,7 +15466,7 @@ public abstract class GameCharacter implements XMLSaving {
 			} else if(!penetratingDeep) {
 				sb.append("[npc.Name] [npc.verb(let)] out a disappointed [npc.moan] as [npc.she] [npc.verb(feel)] that");
 				sb.append("[style.italicsBad(");
-					sb.append(" [npc2.namePos] "+orificeName+" isn't deep enough");
+					sb.append(" [npc2.namePos] "+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
 				sb.append(")]");
 				sb.append(" to comfortably accommodate the full length of [npc.her] "+nameLength+".");
 
@@ -15400,7 +15528,7 @@ public abstract class GameCharacter implements XMLSaving {
 						sb.append("<br/>");
 						sb.append("[npc.Name] [npc.verb(let)] out a disappointed "+(characterPenetrating.isFeminine()?"whine":"growl")+" as [npc.she] [npc.verb(feel)] that");
 						sb.append("[style.italicsBad(");
-							sb.append(" [npc2.namePos] "+orificeName+" isn't deep enough");
+							sb.append(" [npc2.namePos] "+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
 						sb.append(")]");
 						sb.append(" to accommodate the full length of [npc.her] "+nameLength+".");
 					}
@@ -15923,6 +16051,22 @@ public abstract class GameCharacter implements XMLSaving {
 	public String ingestFluid(GameCharacter charactersFluid, FluidInterface fluid, SexAreaOrifice orificeIngestedThrough, float millilitres) {
 		return ingestFluid(charactersFluid, charactersFluid.getSubspecies(), charactersFluid.getHalfDemonSubspecies(), fluid, orificeIngestedThrough, millilitres);
 	}
+
+	public String ingestFluid(GameCharacter charactersFluid, Subspecies subspecies, Subspecies halfDemonSubspecies, AbstractFluidType fluidType, SexAreaOrifice orificeIngestedThrough, float millilitres) {
+		FluidInterface fluid = null;
+		switch(fluidType.getBaseType()) {
+			case CUM:
+				fluid = new FluidCum(fluidType);
+				break;
+			case GIRLCUM:
+				fluid = new FluidGirlCum(fluidType);
+				break;
+			case MILK:
+				fluid = new FluidMilk(fluidType, false);
+				break;
+		}
+		return ingestFluid(charactersFluid, subspecies, halfDemonSubspecies, fluid, orificeIngestedThrough, millilitres);
+	}
 	
 	/**
 	 * @param fluid The FluidType to be ingested.
@@ -16085,7 +16229,9 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		for(FluidModifier mod : modifiers) {
-			fluidIngestionSB.append(mod.applyEffects(this, charactersFluid, millilitres, fluid));
+			String s = mod.applyEffects(this, charactersFluid, millilitres, fluid);
+//			System.out.println(s);
+			fluidIngestionSB.append(s);
 		}
 		
 		return fluidIngestionSB.toString();
@@ -16170,6 +16316,9 @@ public abstract class GameCharacter implements XMLSaving {
 		return addictions.remove(addiction);
 	}
 	
+	/**
+	 * <b>You should probably just be using addAddiction() instead!</b>
+	 */
 	public void setLastTimeSatisfiedAddiction(AbstractFluidType fluid, long minutes) {
 		for(Addiction add : addictions) {
 			if(add.getFluid() == fluid) {
@@ -16805,7 +16954,7 @@ public abstract class GameCharacter implements XMLSaving {
 			totalDamage *= 3;
 		}
 		
-		totalDamage += totalDamage * (Util.getModifiedDropoffValue(this.getAttributeValue(Attribute.DAMAGE_UNARMED), 100)/100f);
+		totalDamage += totalDamage * (this.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f);
 
 		if(this.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_1)
 				|| this.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_2)
@@ -17092,13 +17241,14 @@ public abstract class GameCharacter implements XMLSaving {
 
 
 	public void setHealth(float health) {
-		if (health < 0)
+		if (health < 0) {
 			this.health = 0;
-		else if (health > getAttributeValue(Attribute.HEALTH_MAXIMUM))
+		} else if (health > getAttributeValue(Attribute.HEALTH_MAXIMUM)) {
 			this.health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
-		else
+		} else {
 			this.health = health;
-
+		}
+		
 		updateAttributeListeners();
 	}
 
@@ -17294,11 +17444,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isVulnerableToLustLoss() {
-		return this.getAttributeValue(Attribute.MAJOR_ARCANE) < IntelligenceLevel.TWO_SMART.getMinimumValue();
+		return this.hasStatusEffect(StatusEffect.INTELLIGENCE_PERK_0);
 	}
 
 	public boolean isVulnerableToArcaneStorm() {
-		return this.getAttributeValue(Attribute.MAJOR_ARCANE) < IntelligenceLevel.TWO_SMART.getMinimumValue();
+		return this.hasStatusEffect(StatusEffect.INTELLIGENCE_PERK_0);
 	}
 	
 	public boolean isWearingCondom() {
@@ -17343,8 +17493,6 @@ public abstract class GameCharacter implements XMLSaving {
 		pregnancyReactions.clear();
 	}
 	
-	public static final String PREGNANCY_CALCULATION = "((Virility Factor * Cum Production Modifier) + Fertility Factor) / 3";
-
 	public void performHourlyFluidsCheck() {
 		for(Entry<SexAreaOrifice, List<FluidStored>> entry : this.fluidsStoredMap.entrySet()) {
 			for(FluidStored fs : entry.getValue()) {
@@ -17396,26 +17544,31 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 	}
-	
+
+	public static final String PREGNANCY_CALCULATION = "10% + (Cum-character's Virility% / 2) + (Womb-character's Fertility% / 2)";
+
 	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination) {
 		if(partner.isElemental()) {
 			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination)
-					+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot impregnate anyone!)]<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals later on!)]</p>";
+					+"<p style='text-align:center;'>"
+						+ "[style.italicsMinorBad(Elementals cannot impregnate anyone!)]"
+//						+ "<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals later on!)]"
+					+ "</p>";
 		}
 		
 		if(isVisiblyPregnant()) {
 			return PregnancyDescriptor.ALREADY_PREGNANT.getDescriptor(this, partner, directSexInsemination);
 		}
 		
-		float pregnancyChance = 0;
+		float pregnancyChance = 0.1f;
 		
 		boolean partnerVirile = partner.getAttributeValue(Attribute.VIRILITY) > 0 || !partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS);
 		boolean selfFertile = (getAttributeValue(Attribute.FERTILITY) > 0 || !hasPerkAnywhereInTree(Perk.BARREN)) && !this.hasStatusEffect(StatusEffect.MENOPAUSE);
 		
 		if (partnerVirile && selfFertile && isAbleToBeImpregnated()) {
-			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())/100f) * CumProduction.getCumProductionFromInt((int) cumQuantity).getPregnancyModifier();
-			pregnancyChance += (Util.getModifiedDropoffValue(getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
-			pregnancyChance = Math.max(0, Math.min(pregnancyChance/3, 1));
+			pregnancyChance += (partner.getAttributeValue(Attribute.VIRILITY)/100f)/2f;
+			pregnancyChance += (getAttributeValue(Attribute.FERTILITY)/100f)/2f;
+			pregnancyChance = Math.max(0, Math.min(pregnancyChance, 1));
 		}
 		
 		PregnancyPossibility pregPoss = new PregnancyPossibility(this.getId(), partner.getId(), pregnancyChance);
@@ -17436,8 +17589,8 @@ public abstract class GameCharacter implements XMLSaving {
 				if (this.getBodyMaterial() == BodyMaterial.SLIME) {
 					litterSizeBasedOn = Race.SLIME;
 				} else {
-					VaginaType vaginaType = getVaginaType();
-					if (vaginaType == VaginaType.HUMAN) {
+					AbstractVaginaType vaginaType = getVaginaType();
+					if(vaginaType.getRace()==Race.HUMAN) {
 						litterSizeBasedOn = Optional.ofNullable(partner.getPenisType().getRace()).orElseGet(partner::getRace);
 					} else {
 						litterSizeBasedOn = Optional.ofNullable(vaginaType.getRace()).orElseGet(this::getRace);
@@ -17497,14 +17650,14 @@ public abstract class GameCharacter implements XMLSaving {
 			return PregnancyDescriptor.ALREADY_PREGNANT.getDescriptor(this, null, directSexInsemination);
 		}
 		
-		float pregnancyChance = 0;
+		float pregnancyChance = 0.1f;
 		int baseVirility = 25;
 		boolean selfFertile = (getAttributeValue(Attribute.FERTILITY) > 0 || !hasPerkAnywhereInTree(Perk.BARREN)) && !this.hasStatusEffect(StatusEffect.MENOPAUSE);
 		
 		if(selfFertile && isAbleToBeImpregnated()) {
-			pregnancyChance += (Util.getModifiedDropoffValue(baseVirility, Attribute.VIRILITY.getUpperLimit())/100f) * CumProduction.getCumProductionFromInt((int) cumQuantity).getPregnancyModifier();
-			pregnancyChance += (Util.getModifiedDropoffValue(getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
-			pregnancyChance = Math.max(0, Math.min(pregnancyChance/3, 1));
+			pregnancyChance += (baseVirility/100f)/2f;
+			pregnancyChance += (getAttributeValue(Attribute.FERTILITY)/100f)/2f;
+			pregnancyChance = Math.max(0, Math.min(pregnancyChance, 1));
 		}
 		
 		String partnerId = partnerSubspecies.toString()+Main.game.getSecondsPassed();
@@ -17525,8 +17678,8 @@ public abstract class GameCharacter implements XMLSaving {
 				if (this.getBodyMaterial() == BodyMaterial.SLIME) {
 					litterSizeBasedOn = Race.SLIME;
 				} else {
-					VaginaType vaginaType = getVaginaType();
-					if (vaginaType == VaginaType.HUMAN) {
+					AbstractVaginaType vaginaType = getVaginaType();
+					if (vaginaType.getRace()==Race.HUMAN) {
 						litterSizeBasedOn = partnerSubspecies.getRace();
 					} else {
 						litterSizeBasedOn = Optional.ofNullable(vaginaType.getRace()).orElseGet(this::getRace);
@@ -17894,11 +18047,16 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 		
+		if(washingSB.length()==0) {
+			washingSB.append(formatWashingArea(true,
+					"[npc.NamePos] body is now clean!"));
+		}
+		
 		return UtilText.parse(this, washingSB.toString());
 	}
 	
 	private static String formatWashingArea(boolean isFullyCleaned, String input) {
-		return "<p style='color:"+(isFullyCleaned?PresetColour.GENERIC_GOOD.toWebHexString():PresetColour.CUM.toWebHexString())+";'><i>"
+		return "<p style='text-align:center; color:"+(isFullyCleaned?PresetColour.BASE_AQUA.toWebHexString():PresetColour.CUM.toWebHexString())+";'><i>"
 					+ input
 				+ "</i></p>";
 	}
@@ -19349,8 +19507,11 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!withDescription) {
 			return "";
 		}
-		return "<p>"
-					+ UtilText.parse(this, "[style.italicsGood([npc.NamePos] clothes have been cleaned!)]")
+		return "<p style='text-align:center;'>"
+					+ UtilText.parse(this,
+							includeNotEquippedClothing
+								?"[style.italicsExcellent(All of the clothes in [npc.namePos] inventory have been cleaned!)]"
+								:"[style.italicsGood([npc.NamePos] equipped clothes have been cleaned!)]")
 				+ "</p>";
 	}
 
@@ -21314,12 +21475,38 @@ public abstract class GameCharacter implements XMLSaving {
 		return isFeminine;
 	}
 
+	/**
+	 * @return The race which this character appears to be. Use getTrueRace() or do some checks with getSubspeciesOverride() to get their true race, but for 99.9% of the time, that won't be necessary and this method is fine to use.
+	 */
 	public Race getRace() {
 		return getSubspecies().getRace();
 	}
+
+	/**
+	 * @return This character's true race. If this character does not have a subspecies override, this will be the same as getRace(). If they do have an override, however, it will return the race of that override.
+	 */
+	public Race getTrueRace() {
+		if(this.getSubspeciesOverride()!=null) {
+			return this.getSubspeciesOverride().getRace();
+		}
+		return getRace();
+	}
 	
+	/**
+	 * @return The subspecies which this character appears to be. Use getTrueSubspecies() or do some checks with getSubspeciesOverride() to get their true Subspecies, but for 99.9% of the time, that won't be necessary and this method is fine to use.
+	 */
 	public Subspecies getSubspecies() {
 		return body.getSubspecies();
+	}
+
+	/**
+	 * @return This character's true subspecies. If this character does not have a subspecies override, this will be the same as getSubspecies(). If they do have an override, however, it will return that override.
+	 */
+	public Subspecies getTrueSubspecies() {
+		if(this.getSubspeciesOverride()!=null) {
+			return this.getSubspeciesOverride();
+		}
+		return getSubspecies();
 	}
 	
 	/**
@@ -21402,7 +21589,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public Race getSkinRace() {
-		return body.getSkin().getType().getRace();
+		return body.getTorso().getType().getRace();
 	}
 
 	public Race getHornRace() {
@@ -21491,13 +21678,12 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
-		
 		body.calculateRace(this);
 		recalculateCombatMoves();
 
 		postTFSB.append(inventory.calculateClothingAndWeaponsPostTransformation(this));
 		postTFSB.append(this.calculateMarkingsPostTransformation());
-		
+
 		updateInventoryListeners();
 		updateAttributeListeners();
 		
@@ -22096,80 +22282,48 @@ public abstract class GameCharacter implements XMLSaving {
 			return getCovering(getBodyHairCoveringType(getVaginaType().getRace()));
 		}
 		
-		return getCovering(getBodyHairCoveringType(getSkinType().getRace()));
+		return getCovering(getBodyHairCoveringType(getTorsoType().getRace()));
 	}
 	public String setPubicHair(BodyHair pubicHair) {
 		if(getPubicHair() == pubicHair) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 			
 		} else {
-			UtilText.transformationContentSB.setLength(0);
+			StringBuilder sb = new StringBuilder();
 			
 			switch(pubicHair) {
 				case ZERO_NONE:
-					if(this.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>There is no longer any trace of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
-					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>There is no longer any trace of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
-					}
+					sb.append(UtilText.parse(this, "<p>There is no longer any trace of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					break;
 				case ONE_STUBBLE:
-					if(this.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a stubbly patch of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
-					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a stubbly patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
-					}
+					sb.append(UtilText.parse(this, "<p>[npc.Name] now [npc.has] a stubbly patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					break;
 				case TWO_MANICURED:
-					if(this.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a well-manicured patch of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
-					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a well-manicured patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
-					}
+					sb.append(UtilText.parse(this, "<p>[npc.Name] now [npc.has] a well-manicured patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					break;
 				case THREE_TRIMMED:
-					if(this.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a trimmed patch of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
-					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a trimmed patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
-					}
+					sb.append(UtilText.parse(this, "<p>[npc.Name] now [npc.has] a trimmed patch of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					break;
 				case FOUR_NATURAL:
-					if(this.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a natural bush of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
-					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a natural bush of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
-					}
+					sb.append(UtilText.parse(this, "<p>[npc.Name] now [npc.has] a natural bush of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					break;
 				case FIVE_UNKEMPT:
-					if(this.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have an unkempt mass of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
-					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has an unkempt mass of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
-					}
+					sb.append(UtilText.parse(this, "<p>[npc.Name] now [npc.has] an unkempt mass of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					break;
 				case SIX_BUSHY:
-					if(this.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a thick mass of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
-					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a thick mass of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
-					}
+					sb.append(UtilText.parse(this, "<p>[npc.Name] now [npc.has] a thick mass of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					break;
 				case SEVEN_WILD:
-					if(this.isPlayer()) {
-						UtilText.transformationContentSB.append("<p>You now have a wild, bushy mass of "+getPubicHairType().getFullDescription(this, true)+" in your pubic region.</p>");
-					} else {
-						UtilText.transformationContentSB.append(UtilText.parse(this, "<p>[npc.Name] now has a wild, bushy mass of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
-					}
+					sb.append(UtilText.parse(this, "<p>[npc.Name] now [npc.has] a wild, bushy mass of "+getPubicHairType().getFullDescription(this, true)+" in [npc.her] pubic region.</p>"));
 					break;
 			}
+			
+			body.setPubicHair(pubicHair);
+			
+			postTransformationCalculation();
+			
+			return sb.toString();
 		}
-		
-		body.setPubicHair(pubicHair);
-		
-		postTransformationCalculation();
-		
-		return UtilText.transformationContentSB.toString();
 	}
 	public String setPubicHair(int value) {
 		return setPubicHair(BodyHair.getBodyHairFromValue(value));
@@ -22836,8 +22990,8 @@ public abstract class GameCharacter implements XMLSaving {
 					this.setPenisType(PenisType.DEMON_COMMON);
 					resetAreas = true;
 				}
-				if(this.getSkinType().getRace()!=Race.DEMON) {
-					this.setSkinType(SkinType.DEMON_COMMON);
+				if(this.getTorsoType().getRace()!=Race.DEMON) {
+					this.setTorsoType(TorsoType.DEMON_COMMON);
 					resetAreas = true;
 				}
 				if(this.getTailType().getRace()!=Race.DEMON && this.getTailType()!=TailType.NONE) {
@@ -22924,8 +23078,8 @@ public abstract class GameCharacter implements XMLSaving {
 					this.setPenisType(PenisType.DEMON_COMMON);
 					resetAreas = true;
 				}
-				if(this.getSkinType().getRace()!=race && this.getSkinType().getRace()!=Race.HUMAN) {
-					this.setSkinType(Util.randomItemFrom(SkinType.getSkinTypes(race)));
+				if(this.getTorsoType().getRace()!=race && this.getTorsoType().getRace()!=Race.HUMAN) {
+					this.setTorsoType(Util.randomItemFrom(TorsoType.getTorsoTypes(race)));
 					resetAreas = true;
 				}
 				if(race==Race.HUMAN) {
@@ -23018,8 +23172,8 @@ public abstract class GameCharacter implements XMLSaving {
 						this.setPenisType(PenisType.HUMAN);
 						resetAreas = true;
 					}
-					if(this.getSkinType().getRace()==Race.DEMON) {
-						this.setSkinType(SkinType.HUMAN);
+					if(this.getTorsoType().getRace()==Race.DEMON) {
+						this.setTorsoType(TorsoType.HUMAN);
 						resetAreas = true;
 					}
 					if(this.getTailType().getRace()==Race.DEMON) {
@@ -23093,8 +23247,8 @@ public abstract class GameCharacter implements XMLSaving {
 						this.setPenisType(PenisType.HUMAN);
 						resetAreas = true;
 					}
-					if(this.getSkinType().getRace()==Race.ANGEL) {
-						this.setSkinType(SkinType.HUMAN);
+					if(this.getTorsoType().getRace()==Race.ANGEL) {
+						this.setTorsoType(TorsoType.HUMAN);
 						resetAreas = true;
 					}
 					if(this.getTailType().getRace()==Race.ANGEL) {
@@ -23197,7 +23351,7 @@ public abstract class GameCharacter implements XMLSaving {
 			return 1;
 			
 		} else if(Main.getProperties().multiBreasts==1) {
-			if(this.getSkinType()==SkinType.HUMAN) {
+			if(this.getTorsoType()==TorsoType.HUMAN) {
 				return 1;
 			}
 		}
@@ -24783,10 +24937,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	// Type:
-	public PenisType getPenisType() {
+	public AbstractPenisType getPenisType() {
 		return getCurrentPenis().getType();
 	}
-	public String setPenisType(PenisType type) {
+	public String setPenisType(AbstractPenisType type) {
 		String s = body.getPenis().setType(this, type);
 		
 		StringBuilder clothingRemovalSB = new StringBuilder();
@@ -25001,10 +25155,10 @@ public abstract class GameCharacter implements XMLSaving {
 	// ------------------------------ Second Penis: ------------------------------ //
 	
 	// Type:
-	public PenisType getSecondPenisType() {
+	public AbstractPenisType getSecondPenisType() {
 		return body.getSecondPenis().getType();
 	}
-	public String setSecondPenisType(PenisType type) {
+	public String setSecondPenisType(AbstractPenisType type) {
 		return body.getSecondPenis().setType(this, type);
 	}
 	public BodyCoveringType getSecondPenisCovering() {
@@ -25327,36 +25481,36 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	
-	// ------------------------------ Skin: ------------------------------ //
+	// ------------------------------ Torso: ------------------------------ //
 	
 	// Type:
-	public SkinType getSkinType() {
-		return body.getSkin().getType();
+	public AbstractTorsoType getTorsoType() {
+		return body.getTorso().getType();
 	}
-	public String setSkinType(SkinType type) {
-		return body.getSkin().setType(this, type);
+	public String setTorsoType(AbstractTorsoType type) {
+		return body.getTorso().setType(this, type);
 	}
-	public BodyCoveringType getSkinCovering() {
-		return getCovering(body.getSkin());
+	public BodyCoveringType getTorsoCovering() {
+		return getCovering(body.getTorso());
 	}
-	public boolean isSkinBestial() {
-		return body.getSkin().isBestial(this);
+	public boolean isTorsoBestial() {
+		return body.getTorso().isBestial(this);
 	}
 	// Names:
-	public String getSkinName() {
-		return body.getSkin().getName(this);
+	public String getTorsoName() {
+		return body.getTorso().getName(this);
 	}
-	public String getSkinName(boolean withDescriptor) {
-		return body.getSkin().getName(this, withDescriptor);
+	public String getTorsoName(boolean withDescriptor) {
+		return body.getTorso().getName(this, withDescriptor);
 	}
-	public String getSkinDescriptor() {
-		return body.getSkin().getDescriptor(this);
+	public String getTorsoDescriptor() {
+		return body.getTorso().getDescriptor(this);
 	}
-	public String getSkinDeterminer() {
-		return body.getSkin().getDeterminer(this);
+	public String getTorsoDeterminer() {
+		return body.getTorso().getDeterminer(this);
 	}
-	public String getSkinPronoun() {
-		return body.getSkin().getType().getPronoun();
+	public String getTorsoPronoun() {
+		return body.getTorso().getType().getPronoun();
 	}
 	public boolean isAbleToWearMakeup() {
 		return this.getBodyMaterial().isAbleToWearMakeup();
@@ -25612,7 +25766,7 @@ public abstract class GameCharacter implements XMLSaving {
 			
 			List<String> affectedParts = new ArrayList<>();
 			for (BodyPartInterface part : body.getAllBodyParts()) {
-				if (part.getBodyCoveringType(this) == coveringType) {
+				if(part.getBodyCoveringType(this) == coveringType) {
 					affectedParts.add(part.getName(this));
 				}
 			}
@@ -25745,10 +25899,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return getTentacleType() != TentacleType.NONE;
 	}
 	// Type:
-	public TentacleType getTentacleType() {
+	public AbstractTentacleType getTentacleType() {
 		return body.getTentacle().getType();
 	}
-	public String setTentacleType(TentacleType type) {
+	public String setTentacleType(AbstractTentacleType type) {
 		return body.getTentacle().setType(this, type);
 	}
 	public BodyCoveringType getTentacleCovering() {
@@ -25756,6 +25910,50 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public boolean isTentacleBestial() {
 		return body.getTentacle().isBestial(this);
+	}
+	// Tentacle size:
+	/** @param penetrationLength true if you want to know the length of tail that is used in penetrations. It is equal to 80% of total length. */
+	public int getTentacleLength(boolean penetrationLength) {
+		return (int) (body.getTentacle().getLength(this) * (penetrationLength?0.8f:1));
+	}
+	/** The diameter of this character's Tentacle, measured from the base. <b>Diameter, not circumference</b> is the unit of measurement for all Capacity values, and as such, this method should only be used for formatting additional information for the player. */
+	public float getTentacleCircumference(float atLength) {
+		return (float) (getTentacleDiameter(atLength)*Math.PI);
+	}
+	/** The diameter of this character's Tentacle at the base. <b>Diameter, not circumference</b> is the unit of measurement for all Capacity values, and as such, this method should only be used for formatting additional information for the player. */
+	public float getTentacleBaseCircumference() {
+		return getTentacleCircumference(0);
+	}
+	/** The diameter of this character's Tentacle at the length specified, measured from the base. Diameter is the unit of measurement for all Capacity values. */
+	public float getTentacleDiameter(float atLength) {
+		return body.getTentacle().getDiameter(this, atLength);
+	}
+	/** The diameter of this character's Tentacle at the base. Diameter is the unit of measurement for all Capacity values. */
+	public float getTentacleBaseDiameter() {
+		return getTentacleDiameter(0);
+	}
+	// Tentacle girth:
+	public PenetrationGirth getTentacleGirth() {
+		return body.getTentacle().getGirth();
+	}
+	public String getTentacleGirthDescriptor() {
+		return body.getTentacle().getType().getGirthDescriptor(this);
+	}
+	public int getTentacleRawGirthValue() {
+		return body.getTentacle().getRawGirthValue();
+	}
+	public String setTentacleGirth(int size) {
+		return body.getTentacle().setTentacleGirth(this, size);
+	}
+	public String setTentacleGirth(PenetrationGirth size) {
+		return body.getTentacle().setTentacleGirth(this, size.getValue());
+	}
+	public String incrementTentacleGirth(int increment) {
+		return setTentacleGirth(getTentacleRawGirthValue() + increment);
+	}
+	// Misc.:
+	public boolean isTentaclePrehensile(){
+		return body.getTentacle().getType().isPrehensile();
 	}
 	// Names:
 	public String getTentacleName() {
@@ -25789,13 +25987,13 @@ public abstract class GameCharacter implements XMLSaving {
 	// ------------------------------ Vagina: ------------------------------ //
 	
 	// Type:
-	public VaginaType getVaginaType() {
+	public AbstractVaginaType getVaginaType() {
 		return body.getVagina().getType();
 	}
-	public String setVaginaType(VaginaType type, boolean overridePregnancyPrevention) {
+	public String setVaginaType(AbstractVaginaType type, boolean overridePregnancyPrevention) {
 		return body.getVagina().setType(this, type, overridePregnancyPrevention);
 	}
-	public String setVaginaType(VaginaType type) {
+	public String setVaginaType(AbstractVaginaType type) {
 		return body.getVagina().setType(this, type);
 	}
 	public BodyCoveringType getVaginaCovering() {
@@ -25935,8 +26133,8 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasHymen() {
 		return body.getVagina().getOrificeVagina().hasHymen();
 	}
-	public void setHymen(boolean hymen) {
-		body.getVagina().getOrificeVagina().setHymen(hymen);
+	public String setHymen(boolean hymen) {
+		return body.getVagina().getOrificeVagina().setHymen(this, hymen);
 	}
 	// Squirter:
 	public boolean isVaginaSquirter() {

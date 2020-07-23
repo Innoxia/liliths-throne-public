@@ -231,11 +231,6 @@ public class Arthur extends NPC {
 	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
-
-	@Override
-	public boolean isTrader() {
-		return true; // TODO Wait, what?
-	}
 	
 	// Misc.:
 	

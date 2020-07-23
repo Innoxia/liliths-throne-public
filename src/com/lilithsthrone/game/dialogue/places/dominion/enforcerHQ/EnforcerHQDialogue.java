@@ -866,7 +866,7 @@ public class EnforcerHQDialogue {
 						Main.game.getNpc(Brax.class).setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 						Main.game.getNpc(Brax.class).setAssSize(AssSize.SEVEN_GIGANTIC.getValue());
 
-						Main.game.getNpc(Brax.class).setPenisType(PenisType.LUPINE);
+						Main.game.getNpc(Brax.class).setPenisType(PenisType.WOLF_MORPH);
 						Main.game.getNpc(Brax.class).setVaginaWetness(Wetness.SIX_SOPPING_WET.getValue());
 						Main.game.getNpc(Brax.class).setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
 

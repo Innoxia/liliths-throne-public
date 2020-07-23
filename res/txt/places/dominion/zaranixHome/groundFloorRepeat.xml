@@ -812,10 +812,16 @@
 	
 	<htmlContent tag="LOUNGE_AMBER_LOSES_IT"><![CDATA[
 	<p>
-		You <i>really</i> aren't in the mood for this right now, and shake your head at the succubus before you. [pc.speech(Knock it off, Amber. Just because Zaranix doesn't give you the good fucking you need, doesn't mean you get to take it out on me.)]
+		[pc.speech(Well, that's definitely not happening,)] you say, crossing your [pc.arms] and frowning at Amber.
 	</p>
 	<p>
-		Amber's extraordinary hair grows visibly brighter as her eyes burn with an incandescent rage. [amber.speech(You fucking <i>bitch</i>!)]
+		[amber.speech(You worthless, pathetic bitch! You're <i>so</i> fucking lucky you're Lilaya's little bitch,)] Amber snaps, before turning her back to you. [amber.speech(Don't you <i>dare</i> disturb me again, unless you've decided to act like the worthless worm you are.)]
+	</p>
+	<p>
+		You <i>really</i> aren't in the mood for this right now, and shake your head as you scold the rude maid, [pc.speech(Knock it off, Amber. Just because Zaranix doesn't give you the good fucking you need, doesn't mean you get to take it out on me.)]
+	</p>
+	<p>
+		The glow of Amber's extraordinary hair suddenly seems to increase in intensity, and her eyes burn with an incandescent rage as she screeches, [amber.speech(You fucking <i>bitch</i>!)]
 	</p>
 	<p>
 		Barely giving you a moment to react, Amber launches herself at you in a blind fury, determined to beat you into submission.

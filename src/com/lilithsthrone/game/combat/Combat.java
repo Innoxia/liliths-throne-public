@@ -539,22 +539,18 @@ public enum Combat {
 	}
 
 	public static final DialogueNode ITEM_USED = new DialogueNode("Combat", "Use the item.", true) {
-
 		@Override
 		public String getLabel() {
 			return getCombatLabel();
 		}
-
 		@Override
 		public String getHeaderContent() {
 			return npcStatus();
 		}
-
 		@Override
 		public String getContent() {
 			return getCombatContent();
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
@@ -579,7 +575,6 @@ public enum Combat {
 				return null;
 			}
 		}
-
 		@Override
 		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.NORMAL;
@@ -1111,7 +1106,7 @@ public enum Combat {
 		if(target.hasStatusEffect(StatusEffect.CLOAK_OF_FLAMES_3)
 				&& (attackType==Attack.MAIN || attackType==Attack.OFFHAND || attackType==Attack.DUAL)
 				&& (weapon==null || weapon.getWeaponType().isMelee())) {
-			float cloakOfFlamesDamage = Math.round(5 * (1 + (Util.getModifiedDropoffValue(target.getAttributeValue(Attribute.DAMAGE_FIRE), 100)/100f)));
+			float cloakOfFlamesDamage = Math.round(5 * (1 + (target.getAttributeValue(Attribute.DAMAGE_FIRE)/100f)));
 			cloakOfFlamesDamage = (Math.round(cloakOfFlamesDamage*10))/10f;
 			if (cloakOfFlamesDamage < 1) {
 				cloakOfFlamesDamage = 1;
@@ -1414,6 +1409,14 @@ public enum Combat {
 		turn++;
 	}
 
+	private static String getShieldsDisplayValue(Attribute att, int shields) {
+		String valueForDisplay = String.valueOf(shields);
+		if(att.isInfiniteAtUpperLimit() && shields>=att.getUpperLimit()) {
+			valueForDisplay = UtilText.getInfinitySymbol(false);
+		}
+		return valueForDisplay;
+	}
+	
 	private static String getTitleResources(GameCharacter character) {
 		int apRemaining = character.getRemainingAP();
 		StringBuilder sb = new StringBuilder();
@@ -1427,11 +1430,11 @@ public enum Combat {
 		if(shields!=0) {
 			shieldsFound = true;
 			sb.append("<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
-							+"<span style='color:"+DamageType.HEALTH.getColour().toWebHexString()+";'>"+UtilText.getShieldSymbol()+"</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
+							+"<span style='color:"+DamageType.HEALTH.getColour().toWebHexString()+";'>"+UtilText.getShieldSymbol()+"</span> "+(shields<0?"[style.colourDisabled("+shields+")]":getShieldsDisplayValue(Attribute.ENERGY_SHIELDING, shields))
 							+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+DamageType.HEALTH+"' style='cursor:default;'></div>"
 						+ "</div>");
 		}
-		
+
 		DamageType[] damageTypes = new DamageType[] {DamageType.PHYSICAL, DamageType.FIRE, DamageType.ICE, DamageType.POISON};
 		for(DamageType dt : damageTypes) {
 			shields = character.getShields(dt);
@@ -1442,7 +1445,7 @@ public enum Combat {
 				shieldsFound = true;
 				sb.append(
 						"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
-							+"<span style='color:"+dt.getColour().toWebHexString()+";'>"+UtilText.getShieldSymbol()+"</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
+							+"<span style='color:"+dt.getColour().toWebHexString()+";'>"+UtilText.getShieldSymbol()+"</span> "+(shields<0?"[style.colourDisabled("+shields+")]":getShieldsDisplayValue(dt.getResistAttribute(), shields))
 							+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+dt+"' style='cursor:default;'></div>"
 						+ "</div>");
 			}
@@ -1456,7 +1459,7 @@ public enum Combat {
 			shieldsFound = true;
 			sb.append(
 					"<div style='display:inline-block; float:none; margin:auto; padding:0 2px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+"; border-radius:5px; width:auto; position:relative;'>"
-						+"<span style='color:"+DamageType.LUST.getColour().toWebHexString()+";'>"+UtilText.getShieldSymbol()+"</span> "+(shields<0?"[style.colourDisabled("+shields+")]":shields)
+						+"<span style='color:"+DamageType.LUST.getColour().toWebHexString()+";'>"+UtilText.getShieldSymbol()+"</span> "+(shields<0?"[style.colourDisabled("+shields+")]":getShieldsDisplayValue(DamageType.LUST.getResistAttribute(), shields))
 						+ "<div class='overlay' id='"+character.getId()+"_COMBAT_SHIELD_"+DamageType.LUST+"' style='cursor:default;'></div>"
 					+ "</div>");
 		}
