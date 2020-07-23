@@ -92,6 +92,16 @@ public class GenericPositioning {
 	};
 	
 	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
+		for(SexSlot slot : data.getPartnerSlots()) {
+			if(!Main.sex.getInitialSexManager().isSlotAvailable(slot)) {
+				return false;
+			}
+		}
+		for(SexSlot slot : data.getPerformerSlots()) {
+			if(!Main.sex.getInitialSexManager().isSlotAvailable(slot)) {
+				return false;
+			}
+		}
 		return Main.sex.getInitialSexManager().getAllowedSexPositions().contains(data.getPosition())
 				&& Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
 				&& !(Main.sex.getPosition() == data.getPosition()

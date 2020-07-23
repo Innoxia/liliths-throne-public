@@ -74,9 +74,12 @@ public enum CaptiveInteractionType {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(target.isPlayer()) {
-				return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveMilkingStarted);
+				return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveFuckedByMurk)
+						&& (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveMasculine)
+								|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveSissy)
+								|| Main.game.isLactationContentEnabled());
 			}
-			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveMilkingStartedCompanion);
+			return Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveCompanionFuckedByMurk);
 		}
 	}
 	;

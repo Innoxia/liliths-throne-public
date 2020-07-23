@@ -675,9 +675,10 @@
 	
 	<!-- Fingering ass & giving handjob: -->
 	
-	<htmlContent tag="ENFORCER_ALLEYWAY_SEX_START_FINGER_ASSHOLE"><![CDATA[
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEX_START_FINGER_PENIS"><![CDATA[
 	#VAR
 		var kindEncounter = npc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND);
+		var analFingering = game.isAnalContentEnabled() && npc.getFetishDesire(FETISH_ANAL_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_ANUS, true);
 	#ENDVAR
 	
 	<p>
@@ -688,47 +689,82 @@
 		 pushing your [pc.ass+] back out towards [npc.herHim]. Looking back over your shoulder, you can't help but let out an expectant [pc.moan] as you see the [npc.race] [npc.step] forwards and press [npc.herself] up close against you. 
 	</p>
 	<p>
-		#IF(kindEncounter)
-			[npc.speech(I can tell that you're going to enjoy this,)] [npc.she] teases, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.asshole+].
+		#IF(analFingering)
+			#IF(kindEncounter)
+				[npc.speech(I can tell that you're going to enjoy this,)] [npc.she] teases, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.asshole+].
+			#ELSE
+				[npc.speech(Eyes front, slut!)] [npc.she] snaps, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.asshole+].
+			#ENDIF
 		#ELSE
-			[npc.speech(Eyes front, slut!)] [npc.she] snaps, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.asshole+].
+			#IF(kindEncounter)
+				[npc.speech(Now that I'm able to take a closer look at you, I can see that there's no need for a cavity search after all,)] [npc.she] teases, [npc.speech(It would be a shame to stop now, though...)]
+			#ELSE
+				[npc.speech(Eyes front, slut!)] [npc.she] snaps, before teasing, [npc.speech(Now that I'm able to take a closer look at you, I can see that there's no need for a cavity search after all. It would be a shame to stop now, though...)]
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
-		The can't help but feel extremely turned on by the situation you find yourself in, and before you know it, you're letting out [pc.a_moan+] and looking down at your fully-erect, [pc.cock+]. Obviously noticing what it is that's caught your attention, [npc.name] reaches around and takes hold of your [pc.cock+], before starting to slowly jerk you off.
+		You can't help but feel extremely turned on by the situation you find yourself in, and before you know it, you're letting out [pc.a_moan+] and looking down at your fully-erect, [pc.cock+]. Obviously noticing what it is that's caught your attention, [npc.name] reaches around and takes hold of your [pc.cock+], before starting to slowly jerk you off.
 	</p>
 	<p>
-		You open your mouth to say something in response to this unexpected move, but just as you do so, the [npc.race] suddenly pushes [npc.her] [npc.fingers+] into your [pc.asshole+] and starts rapidly fingering your ass. The sudden stimulation causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] focuses on simultaneously giving you a handjob and fingering your [pc.asshole+]...
+		#IF(analFingering)
+			You open your mouth to say something in response to this unexpected move, but just as you do so, the [npc.race] suddenly pushes [npc.her] [npc.fingers+] into your [pc.asshole+] and starts rapidly fingering your ass. The sudden stimulation causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] focuses on simultaneously giving you a handjob and fingering your [pc.asshole+]...
+		#ELSE
+			You open your mouth to say something in response to this unexpected move, but just as you do so, the [npc.race] suddenly delivers a sharp slap to your [pc.ass+]. The sudden stimulation causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] focuses all of [npc.her] attention on giving you a handjob...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="ENFORCER_ALLEYWAY_SEX_START_FINGER_ASSHOLE_THREESOME"><![CDATA[
+	<htmlContent tag="ENFORCER_ALLEYWAY_SEX_START_FINGER_PENIS_THREESOME"><![CDATA[
 	#VAR
 		var kindEncounter = npc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND);
+		var analFingering = game.isAnalContentEnabled() && npc.getFetishDesire(FETISH_ANAL_GIVING).isPositive() && pc.isAbleToAccessCoverableArea(CA_ANUS, true);
 	#ENDVAR
 	
 	<p>
-		Deciding to do as you're told, you strip naked for [npc.name], but instead of placing your [pc.hands] up against the wall, you turn around and seductively ask whether [npc2.name] would like to join in with the search. Clearly eager to get in on the action, the [npc2.race] [npc2.steps] forwards, saying, [npc2.speech(Get down on all fours then! I'll use your mouth while [npc.name] here's having fun with your ass!)]
-	</p>
-	<p>
-		Once again doing as you're told, you drop down onto all fours, before pushing your [pc.ass+] back out towards [npc.name]. Looking back over your shoulder, you can't help but let out an expectant [pc.moan] as you see the [npc.race] drop down behind you before grabbing a handful of your [pc.ass+]. 
-	</p>
-	<p>
-		#IF(kindEncounter)
-			[npc.speech(I can tell that you're going to enjoy this,)] [npc.she] teases, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.asshole+].
+		Deciding to do as you're told, you strip naked for [npc.name], but instead of placing your [pc.hands] up against the wall, you turn around and seductively ask whether [npc2.name] would like to join in with the search. Clearly eager to get in on the action, the [npc2.race] [npc2.steps] forwards, saying,
+		#IF(analFingering)
+			 [npc2.speech(Get down on all fours then! I'll use your mouth while [npc.name] here's having fun with your ass!)]
 		#ELSE
-			[npc.speech(Eyes front, slut!)] [npc.she] snaps, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.asshole+].
+			 [npc2.speech(Get down on all fours then! I'll use your mouth while [npc.name] here's having fun with your cock!)]
 		#ENDIF
 	</p>
 	<p>
-		You open your mouth to say something in response to this unexpected move, but just as you do so, the [npc.race] suddenly pushes [npc.her] [npc.fingers+] into your [pc.asshole+] and starts rapidly fingering your ass. The sudden stimulation causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] focuses on simultaneously giving you a handjob and fingering your [pc.asshole+].
+		Once again doing as you're told, you drop down onto all fours, before pushing your [pc.ass+] back out towards [npc.name]. Looking back over your shoulder, you can't help but let out an expectant [pc.moan] as you see the [npc.race] drop down behind you and eagerly grab a handful of your [pc.ass+]. 
+	</p>
+	<p>
+		#IF(analFingering)
+			#IF(kindEncounter)
+				[npc.speech(I can tell that you're going to enjoy this,)] [npc.she] teases, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.asshole+].
+			#ELSE
+				[npc.speech(Eyes front, slut!)] [npc.she] snaps, before reaching down to rub [npc.her] [npc.fingers+] up and down over your [pc.asshole+].
+			#ENDIF
+		#ELSE
+			#IF(kindEncounter)
+				[npc.speech(Now that I'm able to take a closer look at you, I can see that there's no need for a cavity search after all,)] [npc.she] teases, [npc.speech(It would be a shame to stop now, though...)]
+			#ELSE
+				[npc.speech(Eyes front, slut!)] [npc.she] snaps, before teasing, [npc.speech(Now that I'm able to take a closer look at you, I can see that there's no need for a cavity search after all. It would be a shame to stop now, though...)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF(analFingering)
+			You open your mouth to say something in response to this unexpected move, but just as you do so, the [npc.race] suddenly pushes [npc.her] [npc.fingers+] into your [pc.asshole+] and starts rapidly fingering your ass. The sudden stimulation causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] focuses on simultaneously giving you a handjob and fingering your [pc.asshole+].
+		#ELSE
+			You open your mouth to say something in response to this unexpected move, but just as you do so, the [npc.race] suddenly delivers a sharp slap to your [pc.ass+]. The sudden stimulation causes you to let out [pc.a_moan+], which is followed by several more as [npc.name] focuses all of [npc.her] attention on giving you a handjob.
+		#ENDIF
 	</p>
 	<p>
 		#IF(npc2.hasPenis())
-			While [npc.name] gets started on your rear, [npc2.name] drops down in front of you, before grabbing the back of your head and quickly forcing [npc2.her] [npc2.cock+] into your mouth. With little option put to orally pleasure the horny [npc2.race], you start bobbing your head up and down on [npc2.her] hot, throbbing shaft, while [npc2.her] partner continues stimulating both your [pc.cock+] and [pc.asshole+]...
+			Seeing that [npc2.her] partner has already got started, [npc2.name] drops down in front of you, before grabbing the back of your head and quickly forcing [npc2.her] [npc2.cock+] into your mouth. With little option put to orally pleasure the horny [npc2.race], you start bobbing your head up and down on [npc2.her] hot, throbbing shaft, while [npc2.her] partner continues stimulating both your [pc.cock+] and [pc.asshole+]...
 		#ELSE
-			While [npc.name] gets started on your rear, [npc2.name] drops down in front of you, before grabbing the back of your head and forcefully pushing [npc2.her] [npc2.pussy+] forwards against your mouth. With little option put to orally pleasure the horny [npc2.race], you start licking and kissing [npc2.her] hot, wet cunt, while [npc2.her] partner continues stimulating both your [pc.cock+] and [pc.asshole+]...
+			Seeing that [npc2.her] partner has already got started, [npc2.name] drops down in front of you, before grabbing the back of your head and forcefully pushing [npc2.her] [npc2.pussy+] forwards against your mouth. With little option put to orally pleasure the horny [npc2.race], you start licking and kissing [npc2.her] hot, wet cunt, while [npc2.her] partner continues
+		#ENDIF
+		#IF(analFingering)
+			 stimulating both your [pc.cock+] and [pc.asshole+]...
+		#ELSE
+			 playing with your [pc.cock+]...
 		#ENDIF
 	</p>
 	]]>
@@ -1118,7 +1154,7 @@
 		Grinning at your new slave, you don't have time to say anything to [npc3.herHim], as with a bright purple flash, [npc3.she] suddenly disappears from sight. The last thing you see as [npc3.sheIs] whisked away is a face of absolute disbelief, and you can only imagine how angry [npc.she]'ll be when you see [npc.herHim] next.
 	</p>
 	<p>
-		From Finch's instructions, you know that <b>[npc.sheHas] been teleported to the 'Slave Administration' building in Slaver Alley</b>, where [npc.she]'ll be waiting for you to pick [npc.herHim] up.
+		From Finch's instructions, you know that <b>[npc3.sheHas] been teleported to the 'Slave Administration' building in Slaver Alley</b>, where [npc3.she]'ll be waiting for you to pick [npc3.herHim] up.
 	</p>
 	<p>
 		[npc2.speech(Well, that was easier than I expected,)] [npc2.name] states.

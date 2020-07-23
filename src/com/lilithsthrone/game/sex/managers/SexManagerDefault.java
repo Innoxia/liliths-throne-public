@@ -461,12 +461,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 							}
 							break;
 						case VAGINA:
-							if(Main.sex.getCharacterPerformingAction().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
-									|| Main.sex.getCharacterPerformingAction().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN_NO_HYMEN)
-									|| Main.sex.getCharacterPerformingAction().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN_ONLY_HYMEN)
-									|| Main.sex.getCharacterPerformingAction().hasStatusEffect(StatusEffect.FETISH_LUSTY_MAIDEN)
-									|| Main.sex.getCharacterPerformingAction().hasStatusEffect(StatusEffect.FETISH_LUSTY_MAIDEN_NO_HYMEN)
-									|| Main.sex.getCharacterPerformingAction().hasStatusEffect(StatusEffect.FETISH_LUSTY_MAIDEN_ONLY_HYMEN)
+							if((Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_PURE_VIRGIN) && (Main.sex.getCharacterPerformingAction().isVaginaVirgin() || Main.sex.getCharacterPerformingAction().hasHymen()))
 									|| (Main.sex.getCharacterPerformingAction().isVaginaVirgin() && (Main.sex.getCharacterPerformingAction().getLust()<LustLevel.FOUR_IMPASSIONED.getMinimumValue() || action.getParticipantType()==SexParticipantType.SELF))) {
 								bannedActions.add(action);
 							}

@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex.positions.slots;
 
 /**
  * @since 0.3.4
- * @version 0.3.5.8
+ * @version 0.3.8.8
  * @author Innoxia
  */
 public enum SexSlotTag {
@@ -28,9 +28,14 @@ public enum SexSlotTag {
 	LYING_DOWN,
 	COWGIRL,
 	COWGIRL_REVERSE,
+	FACE_SITTING,
+	FACE_SITTING_REVERSE,
+	LAP_PILLOW,
 	MISSIONARY,
 	MISSIONARY_ORAL,
 	SIXTY_NINE,
+	MATING_PRESS,
+	SCISSORING,
 	
 	LOCKED_IN_STOCKS,
 	BEHIND_STOCKS,

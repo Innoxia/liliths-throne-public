@@ -286,8 +286,16 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		return true;
 	}
 	
+	public String getUnableToBeUsedFromInventoryDescription() {
+		return "This item cannot be used in this way!";
+	}
+	
 	public boolean isAbleToBeUsed(GameCharacter target) {
 		return !Main.game.isInCombat() || target.isPlayer();
+	}
+	
+	public String getUnableToBeUsedDescription(GameCharacter target) {
+		return "This item cannot be used in this way!";
 	}
 	
 	public boolean isAbleToBeUsedInSex() {
@@ -312,14 +320,6 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	
 	public boolean isFetishGiving() {
 		return false;
-	}
-	
-	public String getUnableToBeUsedFromInventoryDescription() {
-		return "This item cannot be used in this way!";
-	}
-	
-	public String getUnableToBeUsedDescription(GameCharacter target) {
-		return "This item cannot be used in this way!";
 	}
 	
 	public String getDyeBrushEffects(AbstractClothing clothing, Colour colour) {

@@ -35,8 +35,14 @@ public abstract class AbstractFluidType implements BodyPartTypeInterface {
 	 * @param baseFluidType The base type of this fluid (milk, cum, or girlcum).
 	 * @param flavour The default flavour for this fluid.
 	 * @param race What race has this fluid type.
-	 * @param names A list of singular names for this fluid type. Pass in null to use generic names. Any name which ends in a dash ("-") will automatically have a generic name appended to it. Empty names will instead return a generic name.
-	 * @param namesPlural A list of plural names for this fluid type. Pass in null to use generic names. Any name which ends in a dash ("-") will automatically have a generic name appended to it. Empty names will instead return a generic name.
+	 * @param names A list of singular names for this fluid type.
+	 *  Pass in null to use generic names.
+	 *  Empty values also use generic names.
+	 *  Names ending in '-' are handled in a special manner by appending a generic fluid name to the end of it before returning.
+	 * @param namesPlural A list of plural names for this fluid type.
+	 *  Pass in null to use generic names.
+	 *  Empty values also use generic names.
+	 *  Names ending in '-' are handled in a special manner by appending a generic fluid name to the end of it before returning.
 	 * @param descriptorsMasculine The descriptors that can be used to describe a masculine form of this fluid type.
 	 * @param descriptorsFeminine The descriptors that can be used to describe a feminine form of this fluid type.
 	 * @param defaultFluidModifiers Which modifiers this fluid naturally spawns with.
@@ -83,26 +89,32 @@ public abstract class AbstractFluidType implements BodyPartTypeInterface {
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
+		String name;
+		
 		if(gc==null || gc.isFeminine()) {
 			if(namesFeminine==null) {
 				return Util.randomItemFrom(baseFluidType.getNames());
 			}
-			String name = Util.randomItemFrom(namesFeminine);
-			if(name.isEmpty() || name.endsWith("-")) {
-				return name + Util.randomItemFrom(baseFluidType.getNames());
-			}
-			return name;
+			name = Util.randomItemFrom(namesFeminine);
 			
 		} else {
 			if(namesMasculine==null) {
 				return Util.randomItemFrom(baseFluidType.getNames());
 			}
-			String name = Util.randomItemFrom(namesMasculine);
-			if(name.isEmpty() || name.endsWith("-")) {
-				return name + Util.randomItemFrom(baseFluidType.getNames());
-			}
-			return name;
+			name = Util.randomItemFrom(namesMasculine);
 		}
+		
+		if(name.isEmpty()) {
+			return Util.randomItemFrom(baseFluidType.getNames());
+		}
+		if(name.endsWith("-")) {
+			if(Math.random()<0.25f) { // 25% chance to return this '-' name.
+				return name + Util.randomItemFrom(baseFluidType.getNames());
+			} else {
+				return  Util.randomItemFrom(baseFluidType.getNames());
+			}
+		}
+		return name;
 	}
 	
 	@Override

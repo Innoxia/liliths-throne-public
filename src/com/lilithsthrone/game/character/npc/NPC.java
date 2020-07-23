@@ -1632,9 +1632,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			// Face & Skin transformations:
 			if(Main.getProperties().getForcedTFPreference() == FurryPreference.NORMAL || Main.getProperties().getForcedTFPreference() == FurryPreference.MAXIMUM) {
 				if(possibleEffects.isEmpty()) {
-					if(target.getSkinType() != body.getSkin().getType()) {
+					if(target.getTorsoType() != body.getTorso().getType()) {
 						possibleEffects.add(new PossibleItemEffect(
-							new ItemEffect(getItemEnchantmentEffect(itemType, body.getSkin()), TFModifier.TF_SKIN, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+							new ItemEffect(getItemEnchantmentEffect(itemType, body.getTorso()), TFModifier.TF_SKIN, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 							"This is going to be good!"));
 					}
 					if(target.getFaceType() != body.getFace().getType()) {

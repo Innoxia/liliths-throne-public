@@ -823,18 +823,21 @@ public class GamblingDenDialogue {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.axelExplainedVengar)) {
 						return new Response("Offer help",
 								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar."
-										+"<br/>[style.italicsBad(This quest is in a very rough state in this version! I advise waiting for the next update before playing through it properly!)]",
-								AXEL_VENGAR) {
-							@Override
-							public Colour getHighlightColour() {
-								return PresetColour.QUEST_SIDE;
-							}
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_OFFER_HELP"));
-								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_VENGAR));
-							}
-						};
+								+ "<br/>[style.italicsBad(This quest is temporarily disabled while work is being done on it. It will be completely finished in the next update!)]",
+								null);
+//						return new Response("Offer help",
+//								"Tell [axel.name] that you'd like to help [axel.herHim] deal with Vengar.",
+//								AXEL_VENGAR) {
+//							@Override
+//							public Colour getHighlightColour() {
+//								return PresetColour.QUEST_SIDE;
+//							}
+//							@Override
+//							public void effects() {
+//								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/gamblingDen/main", "AXEL_VENGAR_OFFER_HELP"));
+//								Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_VENGAR));
+//							}
+//						};
 						
 					} else {
 						return new Response("Vengar", "Ask [axel.name] about Vengar.", AXEL_VENGAR) {

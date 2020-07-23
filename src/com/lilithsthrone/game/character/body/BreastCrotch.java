@@ -189,17 +189,17 @@ public class BreastCrotch implements BodyPartInterface {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.crotchBoobs] of [npc.a_breastRace], so nothing happens...)]</p>");
 		}
 		
-		UtilText.transformationContentSB.setLength(0);
+		StringBuilder sb = new StringBuilder();
 		
 		if(type.equals(BreastType.NONE)) { // Removal:
-			UtilText.transformationContentSB.append(
+			sb.append(
 					"<p>"
 						+ "The area above [npc.namePos] crotch suddenly feels extremely soft and sensitive, and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a transformation start to take place."
 						+" [npc.Her] [npc.crotchBoobs] tingle and soften, and, with [npc.her] nipples and areolae leading the way, they quickly shrink down and disappear back into the [npc.skin] covering [npc.her] lower stomach."
 						+ "<br/>");
 			
 		} else if(this.getType().equals(BreastType.NONE)) { // New addition:
-			UtilText.transformationContentSB.append(
+			sb.append(
 					"<p>"
 						+ "The area above [npc.namePos] crotch suddenly feels extremely soft and sensitive, and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a transformation start to take place."
 						+ " [npc.CrotchBoobsRows] hard little nubs start to grow out of the [npc.skin] covering [npc.her] lower stomach,"
@@ -208,7 +208,7 @@ public class BreastCrotch implements BodyPartInterface {
 			
 			
 		} else {
-			UtilText.transformationContentSB.append(
+			sb.append(
 					"<p>"
 						+ "The area above [npc.namePos] crotch suddenly feels extremely soft and sensitive, and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] [npc.verb(feel)] a transformation start to take place."
 						+" The nipples and areolae on [npc.her] [npc.crotchBoobs] tingle and harden, causing [npc.herHim] to pant and let out a lewd [npc.moan] as the intense transformation runs its course."
@@ -219,18 +219,18 @@ public class BreastCrotch implements BodyPartInterface {
 		
 		
 		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
-		UtilText.transformationContentSB.setLength(0);
-		UtilText.transformationContentSB.append(s);
+		String s = UtilText.parse(owner, sb.toString());
+		sb.setLength(0);
+		sb.append(s);
 		this.type = type;
 		nipples.setType(owner, type.getNippleType());
 		milk.setType(type.getFluidType());
 		owner.resetAreaKnownByCharacters(CoverableArea.BREASTS);
 		owner.resetAreaKnownByCharacters(CoverableArea.NIPPLES);
 
-		UtilText.transformationContentSB.append(type.getTransformationCrotchDescription(owner)+"</p>");
+		sb.append(type.getTransformationCrotchDescription(owner)+"</p>");
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 				+ owner.postTransformationCalculation(false)
 				+ "</p>";

@@ -164,7 +164,7 @@
 			<![CDATA[[npc.Name] un[npc.do] the chinstrap on [npc2.namePos] combat helmet and [npc.verb(ease)] it off.]]>
 		</other>
 		<otherRough>
-			<![CDATA[[npc.Name] [npc.verb(rip)] open the chinstrap on [npc2.namePos] combat helmet and [npc.verb(yank)] it off [npc2.her] neck.]]>
+			<![CDATA[[npc.Name] [npc.verb(rip)] open the chinstrap on [npc2.namePos] combat helmet and [npc.verb(yank)] it off [npc2.her] head.]]>
 		</otherRough>
 	</displacementText>
 	

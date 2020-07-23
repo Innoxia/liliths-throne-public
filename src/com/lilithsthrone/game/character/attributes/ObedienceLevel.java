@@ -7,7 +7,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.82
- * @version 0.1.82
+ * @version 0.3.8.9
  * @author Innoxia
  */
 public enum ObedienceLevel {
@@ -37,7 +37,8 @@ public enum ObedienceLevel {
 	
 	
 	private String name;
-	private int minimumValue, maximumValue;
+	private int minimumValue;
+	private int maximumValue;
 	private Colour colour;
 
 	private ObedienceLevel(String name, int minimumValue, int maximumValue, Colour colour) {
@@ -127,5 +128,13 @@ public enum ObedienceLevel {
 				return al;
 		}
 		return POSITIVE_FIVE_SUBSERVIENT;
+	}
+	
+	public boolean isGreaterThan(ObedienceLevel levelComparison) {
+		return this.getMaximumValue() > levelComparison.getMaximumValue();
+	}
+	
+	public boolean isLessThan(ObedienceLevel levelComparison) {
+		return this.getMaximumValue() < levelComparison.getMaximumValue();
 	}
 }

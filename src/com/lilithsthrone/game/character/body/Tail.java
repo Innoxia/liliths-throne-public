@@ -89,14 +89,14 @@ public class Tail implements BodyPartInterface {
 			}
 		}
 		
-		UtilText.transformationContentSB.setLength(0);
+		StringBuilder sb = new StringBuilder();
 		
 		if(this.type == TailType.NONE) {
-			UtilText.transformationContentSB.append(
+			sb.append(
 					"<p>"
 						+ "[npc.Name] rubs at [npc.her] lower back as [npc.she] [npc.verb(feel)] it growing hot and sensitive, and as [npc.she] [npc.do] so, something starts pushing out from under [npc.her] [npc.skin].");
 		} else {
-			UtilText.transformationContentSB.append(
+			sb.append(
 					"<p>"
 						+ (owner.getTailCount()==1
 							?"[npc.Name] [npc.verb(feel)] [npc.her] [npc.tail] growing hot and itchy, and after just a moment it starts to transform."
@@ -106,17 +106,17 @@ public class Tail implements BodyPartInterface {
 
 		// If NONE, apply type change after. All else, before:
 		if(type == TailType.NONE) {
-			UtilText.transformationContentSB.append(type.getTransformationDescription(owner));
+			sb.append(type.getTransformationDescription(owner));
 			this.type = type;
 			
 		} else {
 			this.type = type;
-			UtilText.transformationContentSB.append(type.getTransformationDescription(owner));
+			sb.append(type.getTransformationDescription(owner));
 		}
 		
-		UtilText.transformationContentSB.append("</p>");
+		sb.append("</p>");
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 					+ owner.postTransformationCalculation()
 				+ "</p>";

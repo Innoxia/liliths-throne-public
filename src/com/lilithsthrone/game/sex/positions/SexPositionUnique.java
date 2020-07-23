@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Leg;
-import com.lilithsthrone.game.character.body.Skin;
+import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -216,7 +216,7 @@ public class SexPositionUnique {
 			} else if(Main.sex.getSexPositionSlot(cumTarget)==SexSlotUnique.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS
 					&& Main.sex.getSexPositionSlot(cumProvider)==SexSlotUnique.MISSIONARY_ALTAR_LYING_ON_ALTAR) {
 					return Util.newHashMapOfValues(
-							new Value<>(Skin.class, genericGroinForceCreampieAreas));
+							new Value<>(Torso.class, genericGroinForceCreampieAreas));
 			}
 			return null;
 		}
@@ -262,7 +262,7 @@ public class SexPositionUnique {
 			if(Main.sex.getSexPositionSlot(cumTarget)==SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS
 					&& Main.sex.getSexPositionSlot(cumProvider)==SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR) {
 					return Util.newHashMapOfValues(
-							new Value<>(Skin.class, genericGroinForceCreampieAreas));
+							new Value<>(Torso.class, genericGroinForceCreampieAreas));
 			}
 			return null;
 		}

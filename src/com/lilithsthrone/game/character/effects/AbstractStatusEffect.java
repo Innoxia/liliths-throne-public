@@ -251,9 +251,29 @@ public abstract class AbstractStatusEffect {
 		
 		if (attributeMap != null) {
 			for (Entry<Attribute, Float> e : attributeMap.entrySet()) {
-				attributeModifiersList.add(
-						"<b>"+(e.getValue()>0?"+":"")+Units.number(e.getValue(), 1, 1)+"</b>"
-						+ " <b style='color:"+e.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(e.getKey().getAbbreviatedName())+"</b>");
+				float value = e.getValue();
+
+				String valueForDisplay;
+				if(((int)value)==value) {
+					valueForDisplay = String.valueOf(((int)value));
+				} else {
+					valueForDisplay = String.valueOf(value);
+				}
+				if(e.getKey().isInfiniteAtUpperLimit() && value>=e.getKey().getUpperLimit()) {
+					if(!e.getKey().getInfiniteDescription().isEmpty()) {
+						attributeModifiersList.add(e.getKey().getInfiniteDescription());
+					} else {
+						attributeModifiersList.add("[style.colourExcellent(Infinite)] <span style='color: "+ e.getKey().getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(e.getKey().getAbbreviatedName())+ "</span>");
+					}
+					
+				} else {
+					if(e.getKey().isPercentage()){
+						valueForDisplay = valueForDisplay+"%";
+					}
+					attributeModifiersList.add(
+							(value>0?"+":"")+valueForDisplay
+							+ " <span style='color:"+e.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(e.getKey().getAbbreviatedName())+"</span>");
+				}
 			}
 		}
 		
@@ -739,19 +759,21 @@ public abstract class AbstractStatusEffect {
 	}
 	
 	public void appendOrificeAdditionGenericDescriptions(GameCharacter owner, SexAreaOrifice orificeType, String orificeName, StringBuilder stringBuilderToAppendTo) {
+		boolean orificePlural = orificeType.isPlural();
+		
 		if(Main.sex.getAreasCurrentlyStretching(owner).contains(orificeType)) {
 			if(Main.sex.getFirstOngoingSexAreaPenetration(owner, orificeType)==null) {
-				stringBuilderToAppendTo.append("<br/>"+orificeName+" has been <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
+				stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"have":"has")+" been <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
 				
 			} else {
-				stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" being <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
+				stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" being <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
 			}
 			
 		} else if(Main.sex.getAreasTooLoose(owner).contains(orificeType)) {
-			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+PresetColour.BASE_RED.toWebHexString()+";'>too loose</b>!");
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" <b style='color:"+PresetColour.BASE_RED.toWebHexString()+";'>too loose</b>!");
 			
 		} else if(Main.sex.getAreasStretched(owner).contains(orificeType)) {
-			stringBuilderToAppendTo.append("<br/>"+orificeName+" has been <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"have":"has")+" been <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
 			
 		} else {
 			stringBuilderToAppendTo.append("<br/><b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
@@ -760,21 +782,21 @@ public abstract class AbstractStatusEffect {
 		if(Main.game.isPenetrationLimitationsEnabled() && orificeType.isInternalOrifice()) {
 			if(!Main.sex.getCharactersPenetratingTooDeep(owner, orificeType).isEmpty()) {
 				if(owner.hasFetish(Fetish.FETISH_MASOCHIST) || owner.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
-					stringBuilderToAppendTo.append("<br/>"+orificeName+" is being penetrated [style.boldSex(too deeply)]!");
+					stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" being penetrated [style.boldSex(too deeply)]!");
 				} else {
-					stringBuilderToAppendTo.append("<br/>"+orificeName+" is being penetrated [style.boldTerrible(too deeply)]!");
+					stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" being penetrated [style.boldTerrible(too deeply)]!");
 				}
 				
 			} else if(!Main.sex.getCharactersPenetratingFarTooShallow(owner, orificeType).isEmpty()) {
-				stringBuilderToAppendTo.append("<br/>"+orificeName+" is [style.boldPinkLight(not being penetrated deep enough)]!");
+				stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" [style.boldPinkLight(not being penetrated deep enough)]!");
 			}
 		}
 		
 		if(!Main.sex.hasLubricationTypeFromAnyone(owner, orificeType)) {
-			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" [style.boldBad(dry)]!");
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" [style.boldBad(dry)]!");
 			
 		} else {
-			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificeType.isPlural()?"have":"has")+" been [style.boldSex(lubricated)] by:<br/>");
+			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"have":"has")+" been [style.boldSex(lubricated)] by:<br/>");
 			int i=0;
 			List<String> lubricants = new ArrayList<>();
 			for(GameCharacter lubricantProvider : Main.sex.getAllParticipants()) {

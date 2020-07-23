@@ -113,7 +113,7 @@
 	'npc' is the parser target for the character affected by this status effect.
 	SECONDS_PASSED is a special tag which is converted into an integer value of the time that passed during the last turn's end (in seconds).
 	TOTAL_SECONDS_PASSED is a special tag which is converted into a long value of the total time that's passed while under the effect of this status effect (in seconds).
-		This can be used with a TOTAL_SECONDS_PASSED==0 check to apply an effect when this status effect is initially added.
+		This can be used with a TOTAL_SECONDS_PASSED==0 check to, for example, only apply an effect when this status effect is initially added.
 	Important note: In combat, 'seconds passed' is actually represented by the number of combat turns passed.
 		So, for example, TOTAL_SECONDS_PASSED would be converted into 2 if the character had been under the status effect's influence for two turns in combat.
 	As a final note, all tabs are stripped from the returned String after it is parsed, so it's safe to use tabs *not spaces* for formatting.

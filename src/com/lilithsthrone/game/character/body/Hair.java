@@ -66,24 +66,23 @@ public class Hair implements BodyPartInterface {
 		
 		if (type == getType()) {
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] the [npc.hair(true)] of [npc.a_hairRace], so nothing happens...)]</p>");
-			
-		} else {
-			UtilText.transformationContentSB.setLength(0);
-			UtilText.transformationContentSB.append(
-					"<p>"
-						+ "[npc.NamePos] scalp tingles and itches, and [npc.she] [npc.verb(rub)] the top of [npc.her] head as [npc.she] [npc.verb(feel)] [npc.her] [npc.hair(true)] start to transform. ");
 		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(
+				"<p>"
+					+ "[npc.NamePos] scalp tingles and itches, and [npc.she] [npc.verb(rub)] the top of [npc.her] head as [npc.she] [npc.verb(feel)] [npc.her] [npc.hair(true)] start to transform. ");
 
 		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, UtilText.transformationContentSB.toString());
-		UtilText.transformationContentSB.setLength(0);
-		UtilText.transformationContentSB.append(s);
+		String s = UtilText.parse(owner, sb.toString());
+		sb.setLength(0);
+		sb.append(s);
 		this.type = type;
 		
-		UtilText.transformationContentSB.append(type.getTransformationDescription(owner));
-		UtilText.transformationContentSB.append("</p>");
+		sb.append(type.getTransformationDescription(owner));
+		sb.append("</p>");
 		
-		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
+		return UtilText.parse(owner, sb.toString())
 				+ "<p>"
 					+ owner.postTransformationCalculation()
 				+ "</p>";

@@ -970,7 +970,7 @@ public class CharacterInventory implements XMLSaving {
 		return clothingSubInventory.hasItemType(type) || (includeEquipped && hasEquippedClothingType(type));
 	}
 
-	private boolean hasEquippedClothingType(AbstractClothingType type) {
+	public boolean hasEquippedClothingType(AbstractClothingType type) {
 		return getClothingCurrentlyEquipped().stream().anyMatch(c -> c.getClothingType().equals(type));
 	}
 	

@@ -15,7 +15,7 @@ import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Hair;
-import com.lilithsthrone.game.character.body.Skin;
+import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
@@ -1116,7 +1116,7 @@ public class CompanionManagement {
 									&& !(bp instanceof Eye)) {
 								
 								String name = bp.getName(BodyChanging.getTarget());
-								if(bp instanceof Skin) {
+								if(bp instanceof Torso) {
 									name = "torso";
 								} else if(bp instanceof Vagina) {
 									name = "vagina";
