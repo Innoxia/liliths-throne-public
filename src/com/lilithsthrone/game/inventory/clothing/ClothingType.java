@@ -7,6 +7,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -6303,7 +6304,7 @@ public class ClothingType {
 			null,
 			ColourListPresets.JUST_ROSE_GOLD,
 			ColourListPresets.ALL_METAL,
-			ColourListPresets.JUST_DARK_RED,
+			ColourListPresets.JUST_RED_DARK,
 			ColourListPresets.ALL,
 			ColourListPresets.JUST_ROSE_GOLD,
 			ColourListPresets.ALL_METAL,
@@ -6358,13 +6359,35 @@ public class ClothingType {
 	private static Map<String, String> oldIdConversionMap = new HashMap<>();
 	
 	public static AbstractClothingType getClothingTypeFromId(String id) {
+		return getClothingTypeFromId(id, null);
+	}
+	
+	public static AbstractClothingType getClothingTypeFromId(String id, String slotHint) {
 //		System.out.print("ID: "+id);
 		
 		if(oldIdConversionMap.containsKey(id)) {
 			id = oldIdConversionMap.get(id);
 		}
 		
-		id = Util.getClosestStringMatch(id, idToClothingMap.keySet());
+		Map<String, AbstractClothingType> choiceMap = idToClothingMap;
+		if (slotHint != null) {
+			try {
+				InventorySlot slot = InventorySlot.valueOf(slotHint);
+				
+				// slotHint is present and valid, so filter the clothing map by items that can be
+				// equipped to that slot
+				choiceMap = idToClothingMap.entrySet().parallelStream()
+						.filter(e -> e.getValue().getEquipSlots().contains(slot))
+						.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+			} catch (Exception ex) {
+				String validSlots = InventorySlot.getClothingSlots().stream()
+						.map(InventorySlot::toString).collect(Collectors.joining(", "));
+				System.err.println("Warning: getClothingTypeFromId() invalid slot hint: "
+						+ slotHint + ". Valid slots are: " + validSlots);
+			}
+		}
+		
+		id = Util.getClosestStringMatch(id, choiceMap.keySet());
 		
 //		System.out.println("  set to: "+id);
 		

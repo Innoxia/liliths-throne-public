@@ -1295,9 +1295,20 @@ public class Util {
 	public static int randomItemFrom(int[] array) {
 		return array[Util.random.nextInt(array.length)];
 	}
-	
+
+	/**
+	 * This method will determine the closest string in {@code choices} to the given {@code input}.
+	 * The Levenshtein edit distance metric is used for this calculation.
+	 *
+	 * @param input String for which to find the closest match.
+	 * @param choices Collection of valid Strings, among which the closest match to {@code input}
+	 *                   will be found.
+	 * @return The closest match.
+	 */
 	public static String getClosestStringMatch(String input, Collection<String> choices) {
-		if (choices.contains(input)) {
+		// If input is empty, just return the empty string. It would make no sense to guess, so hopefully
+		// the caller will handle the case correctly.
+		if (input.isEmpty() || choices.contains(input)) {
 			return input;
 		}
 		int distance = Integer.MAX_VALUE;
@@ -1309,7 +1320,103 @@ public class Util {
 				distance = newDistance;
 			}
 		}
-		System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead.");
+		System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
+//		throw new IllegalArgumentException();
+		return closestString;
+	}
+
+	private static String unordered(String input, int prefix) {
+		// TODO This could be improved if, by some method, the non-prefix words were left as an
+		//      unordered set, rather than rejoining them in alphabetical order, since typos can
+		//      occur in the first letter, too. However, this would require
+		//      com.lilithsthrone.utils.Util.getLevenshteinDistance to handle java.util.Set<E>.
+		//      A harder problem is how to handle the omission or addition of an underscore, for
+		//      which two words should match with one, or vice-versa.
+		String p = "";
+		String r = input;
+		int prefixLen = 0;
+		for (int i = 0; i < prefix; i++) {
+			int idx = input.indexOf('_', prefixLen);
+			if (idx < 0) {
+				// we've ran out of words, the whole thing is prefix
+				p = input;
+				r = "";
+				break;
+			}
+			prefixLen = idx+1;
+			p = input.substring(0, prefixLen);
+			r = input.substring(prefixLen);
+			//System.out.println("len: "+prefixLen+", "+p+"|"+r);
+		}
+		return p + Arrays.stream(r.split("_")).sorted().collect(Collectors.joining("_"));
+	}
+
+	/**
+	 * This method will determine the closest string in {@code choices} to the given {@code input}.
+	 * All strings will be treated as underscore-delimited words that have no order.
+	 * The Levenshtein edit distance metric is used for this calculation.
+	 *
+	 * @param input String for which to find the closest match.
+	 * @param choices Collection of valid Strings, among which the closest match to {@code input}
+	 *                   will be found.
+	 * @return The closest match.
+	 */
+	public static String getClosestStringMatchUnordered(String input, Collection<String> choices) {
+		return getClosestStringMatchUnordered(input, 0, choices);
+	}
+
+	/**
+	 * This method will determine the closest string in {@code choices} to the given {@code input}.
+	 * The first {@code prefix} underscore-delimited words of each string will be preserved, but
+	 * all words after that will be treated as having no order.
+	 * The Levenshtein edit distance metric is used for this calculation.
+	 *
+	 * @param input String for which to find the closest match.
+	 * @param prefix Number of underscore-delimited words for which the ordering should be
+	 *               preserved. If zero or less, the whole string is considered unordered. If it
+	 *               is the number of words or more, the whole string is considered ordered.
+	 * @param choices Collection of valid Strings, among which the closest match to {@code input}
+	 *                will be found.
+	 * @return The closest match.
+	 */
+	public static String getClosestStringMatchUnordered(String inputRaw, int prefix, Collection<String> choices) {
+		// If inputRaw is empty, just return the empty string. It would make no sense to guess, so hopefully
+		// the caller will handle the case correctly.
+		if (inputRaw.isEmpty() || choices.contains(inputRaw)) {
+			return inputRaw;
+		}
+
+		// Util.unordered expects words to be underscore-delimited. However, some misbehaving
+		// mods uses spaces or hyphens instead. We'll fix that for them here, to try to get more
+		// accurate matches. We assume all values in choices are well-behaved.
+		String input = inputRaw.replaceAll("[ -]", "_");
+
+		if (choices.contains(input)) {
+			System.err.println("Warning: getClosestStringMatchUnordered() did not find an exact match for '"+inputRaw+"'; returning '"+input+"' instead. (Invalid word delimiter)");
+			return input;
+		}
+
+		Map<String,String> unorderedChoices = choices.stream().collect(Collectors
+				.toMap(s -> Util.unordered(s, prefix), Function.identity(), (a,b) -> {
+					System.err.println("Warning: keeping " + a + " and discarding " + b + "!");
+					return a;
+				}));
+		String unorderedInput = unordered(input, prefix);
+		if (unorderedChoices.containsKey(unorderedInput)) {
+			String unorderedMatch = unorderedChoices.get(unorderedInput);
+			System.err.println("Warning: getClosestStringMatchUnordered() did not find an exact match for '"+inputRaw+"'; returning '"+unorderedMatch+"' instead. (Reordered words)");
+			return unorderedMatch;
+		}
+		int distance = Integer.MAX_VALUE;
+		String closestString = input;
+		for(String unorderedChoice : unorderedChoices.keySet()) {
+			int newDistance = getLevenshteinDistance(unorderedInput, unorderedChoice);
+			if(newDistance < distance) {
+				closestString = unorderedChoices.get(unorderedChoice);
+				distance = newDistance;
+			}
+		}
+		System.err.println("Warning: getClosestStringMatchUnordered() did not find an exact match for '"+inputRaw+"'; returning '"+closestString+"' instead. (Distance: "+distance+")");
 //		throw new IllegalArgumentException();
 		return closestString;
 	}
