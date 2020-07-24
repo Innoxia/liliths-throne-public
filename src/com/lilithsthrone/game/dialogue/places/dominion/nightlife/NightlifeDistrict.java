@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.npc.dominion.Kruger;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -941,23 +942,25 @@ public class NightlifeDistrict {
 			}
 			int count = 1;
 			for(Gender gender : Gender.values()) {
-				if((responseTab==0 && gender.getType()==PronounType.FEMININE)
-						|| (responseTab==1 && gender.getType()==PronounType.MASCULINE)
-						|| (responseTab==2 && gender.getType()==PronounType.NEUTRAL)) {
-					if(count==index) {
-						return new Response(Util.capitaliseSentence(gender.getName()),
-								"Look for "+UtilText.generateSingularDeterminer(gender.getName())+" "+gender.getName()+" in amongst the crowds of revellers."
-									+ " ("+(gender.getGenderName().isHasBreasts()?"[style.colourGood(Breasts)]":"[style.colourBad(Breasts)]")+", "
-										+(gender.getGenderName().isHasPenis()?"[style.colourGood(Penis)]":"[style.colourBad(Penis)]")+", "
-										+(gender.getGenderName().isHasVagina()?"[style.colourGood(Vagina)]":"[style.colourBad(Vagina)]")+")",
-								WATERING_HOLE_SEARCH_RACE) {
-							@Override
-							public void effects() {
-								clubberGender = gender;
-							}
-						};
+				if (Main.getProperties().genderPreferencesMap.get(gender)>0) {
+					if((responseTab==0 && gender.getType()==PronounType.FEMININE)
+							|| (responseTab==1 && gender.getType()==PronounType.MASCULINE)
+							|| (responseTab==2 && gender.getType()==PronounType.NEUTRAL)) {
+						if (count == index) {
+							return new Response(Util.capitaliseSentence(gender.getName()),
+									"Look for " + UtilText.generateSingularDeterminer(gender.getName()) + " " + gender.getName() + " in amongst the crowds of revellers."
+											+ " (" + (gender.getGenderName().isHasBreasts() ? "[style.colourGood(Breasts)]" : "[style.colourBad(Breasts)]") + ", "
+											+ (gender.getGenderName().isHasPenis() ? "[style.colourGood(Penis)]" : "[style.colourBad(Penis)]") + ", "
+											+ (gender.getGenderName().isHasVagina() ? "[style.colourGood(Vagina)]" : "[style.colourBad(Vagina)]") + ")",
+									WATERING_HOLE_SEARCH_RACE) {
+								@Override
+								public void effects() {
+									clubberGender = gender;
+								}
+							};
+						}
+						count++;
 					}
-					count++;
 				}
 			}
 			
@@ -990,19 +993,24 @@ public class NightlifeDistrict {
 			}
 			if(!subspeciesSet.isEmpty()) {
 				for(Subspecies subspecies : subspeciesSet) {
-					if(count==index) {
-						return new Response(Util.capitaliseSentence(subspecies.getName(null)),
-								"Look for "+UtilText.generateSingularDeterminer(subspecies.getName(null))+" "+subspecies.getName(null)+" in amongst the crowds of revellers.",
-								(isSearchingForASub
-										?WATERING_HOLE_SEARCH_GENERATE
-										:WATERING_HOLE_SEARCH_GENERATE_DOM)) {
-							@Override
-							public void effects() {
-								clubberSubspecies = subspecies;
-								spawnClubbers(isSearchingForASub);
-							}
-						};
-					}
+                    if ((clubberGender.getType() == PronounType.MASCULINE && Main.getProperties().getSubspeciesMasculinePreferencesMap().get(subspecies).getValue() > 0 ) ||
+                        (clubberGender.getType() == PronounType.NEUTRAL && Main.getProperties().getSubspeciesFemininePreferencesMap().get(subspecies).getValue() > 0 ) ||
+                        (clubberGender.getType() == PronounType.FEMININE && Main.getProperties().getSubspeciesFemininePreferencesMap().get(subspecies).getValue() > 0 ) ||
+                        (subspecies.getRace() == Race.HUMAN) ) {
+                        if(count==index) {
+                            return new Response(Util.capitaliseSentence(subspecies.getName(null)),
+                                    "Look for "+UtilText.generateSingularDeterminer(subspecies.getName(null))+" "+subspecies.getName(null)+" in amongst the crowds of revellers.",
+                                    (isSearchingForASub
+                                            ?WATERING_HOLE_SEARCH_GENERATE
+                                            :WATERING_HOLE_SEARCH_GENERATE_DOM)) {
+                                @Override
+                                public void effects() {
+                                    clubberSubspecies = subspecies;
+                                    spawnClubbers(isSearchingForASub);
+                                }
+                            };
+                        }
+                    }
 					count++;
 				}
 			}
