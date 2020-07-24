@@ -850,6 +850,21 @@ public class CharacterUtils {
 					inheritsFromFatherPenis, father.getPenisRawCumStorageValue()));
 		}
 		
+		// Wings:
+		if(!body.getArm().getType().allowsFlight()) { // Do not give back wings to characters who have arm wings.
+			if (Math.random()>=takesAfterMotherChance) {
+				if (mother.getWingType().allowsFlight() && mother.getWingType().getRace().equals(Race.NONE)) {
+					body.getWing().setType(blankNPC, mother.getWingType());
+					body.getWing().setSize(blankNPC, mother.getWingSizeValue());
+				}
+			} else {
+				if (father.getWingType().allowsFlight() && father.getWingType().getRace().equals(Race.NONE)) {
+					body.getWing().setType(blankNPC, father.getWingType());
+					body.getWing().setSize(blankNPC, father.getWingSizeValue());
+				}
+			}
+		}
+
 		// Tail:
 		if(Math.random()>0.75) {
 			if(Math.random()>=takesAfterMotherChance) {
