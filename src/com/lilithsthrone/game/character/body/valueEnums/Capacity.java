@@ -43,7 +43,7 @@ public enum Capacity {
 		}
 	},
 	
-	SIX_STRETCHED_OPEN("stretched open", "gaping", 12.5f, 20f, PresetColour.GENERIC_SIZE_SEVEN) {
+	SIX_STRETCHED_OPEN("stretched open", "gaping", 12.5f, 15f, PresetColour.GENERIC_SIZE_SEVEN) {
 		@Override
 		public String getDescriptor() {
 			if(!Main.game.isGapeContentEnabled()) {
@@ -60,7 +60,7 @@ public enum Capacity {
 		}
 	},
 	
-	SEVEN_GAPING("gaping wide", "gaping", 20f, 25f, PresetColour.GENERIC_SIZE_EIGHT) {
+	SEVEN_GAPING("gaping wide", "gaping", 15f, 25f, PresetColour.GENERIC_SIZE_EIGHT) {
 		@Override
 		public String getDescriptor() {
 			if(!Main.game.isGapeContentEnabled()) {
@@ -137,13 +137,19 @@ public enum Capacity {
 	 * @return true if the penis size (factoring in girth) is larger than the capacity can handle.
 	 */
 	public static boolean isPenetrationDiameterTooBig(OrificeElasticity elasticity, float capacity, float diameter, boolean lubed) {
+		float maximumComfortableDiameter = getMaximumComfortableDiameter(elasticity, capacity, lubed);
+		
+		return diameter > maximumComfortableDiameter;
+	}
+	
+	public static float getMaximumComfortableDiameter(OrificeElasticity elasticity, float capacity, boolean lubed) {
 		float tolerance = 1.01f + elasticity.getSizeTolerancePercentage(); // Base of 1%
 		
-		if(tolerance>0 && lubed) {
+		if(lubed) {
 			tolerance+=0.1f; // Add 10% tolerance if lubed
 		}
 		
-		return diameter > capacity*tolerance;
+		return capacity*tolerance;
 	}
 
 	/**

@@ -138,17 +138,17 @@ public class OrificeNipples implements OrificeInterface {
 	}
 
 	@Override
-	public int getMaximumPenetrationDepthComfortable(GameCharacter owner) {
+	public int getMaximumPenetrationDepthComfortable(GameCharacter owner, OrificeDepth depth) {
 		// Calculate breast depth as simply owner.getBreastSize().getMeasurement()
 		if(this.isCrotchNipples()) {
-			return (int) ((owner.getBreastCrotchSize().getMeasurement()) * 0.5f * this.getDepth(owner).getDepthPercentage());
+			return (int) ((owner.getBreastCrotchSize().getMeasurement()) * 0.5f * depth.getDepthPercentage());
 		}
-		return (int) ((owner.getBreastSize().getMeasurement()) * 0.5f * this.getDepth(owner).getDepthPercentage());
+		return (int) ((owner.getBreastSize().getMeasurement()) * 0.5f * depth.getDepthPercentage());
 	}
 	
 	@Override
-	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner) {
-		return getMaximumPenetrationDepthComfortable(owner) * 2;
+	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner, OrificeDepth depth) {
+		return getMaximumPenetrationDepthComfortable(owner, depth) * 2;
 	}
 	
 	@Override

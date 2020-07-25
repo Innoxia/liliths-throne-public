@@ -99,7 +99,7 @@ public class LilayasRoom {
 					@Override
 					public void effects() {
 						List<AbstractClothingType> panties = new ArrayList<>();
-						panties.add(ClothingType.GROIN_LACY_PANTIES);
+						panties.add(ClothingType.getClothingTypeFromId("innoxia_groin_lacy_panties"));
 						panties.add(ClothingType.GROIN_PANTIES);
 						panties.add(ClothingType.GROIN_SHIMAPAN);
 						panties.add(ClothingType.GROIN_CROTCHLESS_PANTIES);

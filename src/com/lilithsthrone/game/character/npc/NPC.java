@@ -2787,7 +2787,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 * Override this method to set a special virginity loss scene for the player.
 	 */
 	public String getSpecialPlayerVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating, GameCharacter receivingCharacter, SexAreaOrifice penetrated) {
-		return "";
+		return null;
+	}
+	
+	public String getSpecialPlayerPureVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating) {
+		return null;
 	}
 	
 	public void endSex() {

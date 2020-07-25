@@ -968,11 +968,7 @@ public class TooltipInventoryEventListener implements EventListener {
 			}
 
 			for(Entry<Attribute, Integer> entry : absWep.getAttributeModifiers().entrySet()) {
-				tooltipSB.append("<br/>"+ 
-						(entry.getValue()<0
-								?"[style.boldBad("+entry.getValue()+")] "
-								:"[style.boldGood(+"+entry.getValue()+")] ")
-						+ "<b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName())+"</b>");
+				tooltipSB.append("<br/><b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
 			}
 		
 			for(Spell s : absWep.getSpells()) {
@@ -1163,11 +1159,7 @@ public class TooltipInventoryEventListener implements EventListener {
 					}
 				}
 				for(Entry<Attribute, Integer> entry : absClothing.getAttributeModifiers().entrySet()) {
-					tooltipSB.append("<br/>"+ 
-							(entry.getValue()<0
-									?"[style.boldBad("+entry.getValue()+")] "
-									:"[style.boldGood(+"+entry.getValue()+")] ")
-							+ "<b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName())+"</b>");
+					tooltipSB.append("<br/><b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
 				}
 			}
 			
@@ -1383,11 +1375,7 @@ public class TooltipInventoryEventListener implements EventListener {
 				}
 			}
 			for(Entry<Attribute, Integer> entry : tattoo.getAttributeModifiers().entrySet()) {
-				tooltipSB.append((i>0?"<br/>":"")
-						+ (entry.getValue()<0
-								?"[style.boldBad("+entry.getValue()+")] "
-								:"[style.boldGood(+"+entry.getValue()+")] ")
-						+ "<b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName())+"</b>");
+				tooltipSB.append((i>0?"<br/>":"")+"<b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
 				i++;
 			}
 			
@@ -1511,7 +1499,7 @@ public class TooltipInventoryEventListener implements EventListener {
 				"<div class='title'>"+title+" (Unarmed)</div>"
 				+ "<div class='description' style='height:64px; text-align:center;'>"
 						+ UtilText.parse(equippedToCharacter,
-							"[npc.Name] [npc.has] a base unarmed damage value of "+baseDamage+", which, after modifiers are taken into account, results in a final value of:"
+							"[npc.Name] [npc.has] a base unarmed damage value of "+baseDamage+", which is modified from attributes to deal:"
 							+ "<br/>[style.boldUnarmed("+modifiedDamage+" Unarmed damage)]")
 				+ "</div>");
 	}

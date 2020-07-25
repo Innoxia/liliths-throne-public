@@ -70,7 +70,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		this.name = name;
 		this.namePlural = namePlural;
 		this.description = description;
-		this.pathName = pathName;
+		this.pathName = pathName==null?"":pathName;
 
 		this.value = value;
 		this.rarity = rarity;
@@ -105,19 +105,23 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		}
 		
 		// Set this item's file image:
-		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
-			if(is==null) {
-				System.err.println("Error! AbstractItemType icon file does not exist (Trying to read from '"+pathName+"')!");
+		if(pathName!=null) {
+			try {
+				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
+				if(is==null) {
+					System.err.println("Error! AbstractItemType icon file does not exist (Trying to read from '"+pathName+"')!");
+				}
+				String s = Util.inputStreamToString(is);
+	
+				SVGString = colourReplacement(this.getColourPrimary(), this.getColourSecondary(), this.getColourTertiary(), s);
+				
+				is.close();
+	
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
-			String s = Util.inputStreamToString(is);
-
-			SVGString = colourReplacement(this.getColourPrimary(), this.getColourSecondary(), this.getColourTertiary(), s);
-			
-			is.close();
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} else {
+			SVGString = "";
 		}
 	}
 	

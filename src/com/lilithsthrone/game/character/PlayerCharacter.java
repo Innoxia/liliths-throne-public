@@ -1769,7 +1769,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					+ "</p>");
 			
 		} else {
-			if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.ANUS).isEmpty()) {
+			if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.ANUS)!=null) {
 				return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.ANUS);
 				
 			} else {
@@ -1931,8 +1931,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			sb.append("</p>");
 			
 		} else {
-			if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.VAGINA).isEmpty()) {
-				return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.VAGINA);
+			if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.VAGINA)!=null) {
+				sb.append(((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.VAGINA));
 				
 			} else {
 				sb.append("<p>");
@@ -2040,14 +2040,19 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-			sb.append(losingPureVirginity(characterPenetrating, penetration));
+			if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerPureVirginityLoss(characterPenetrating, penetration)!=null) {
+				sb.append(((NPC)characterPenetrating).getSpecialPlayerPureVirginityLoss(characterPenetrating, penetration));
+				
+			} else {
+				sb.append(losingPureVirginity(characterPenetrating, penetration));
+			}
 		}
 		
 		if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
 			sb.append("<p style='text-align:center;'>"
-										+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
-										+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
-								+ "</p>");
+						+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
+						+ " [style.italicsExperience("+Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
+					+ "</p>");
 		}
 		
 		return UtilText.parse(characterPenetrating, sb.toString());
@@ -2055,7 +2060,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	@Override
 	protected String getPenileVirginityLossDescription(GameCharacter characterPenetrated, SexAreaOrifice orifice){
-		if(characterPenetrated instanceof NPC && !((NPC)characterPenetrated).getSpecialPlayerVirginityLoss(this, SexAreaPenetration.PENIS, characterPenetrated, orifice).isEmpty()) {
+		if((characterPenetrated instanceof NPC) && ((NPC)characterPenetrated).getSpecialPlayerVirginityLoss(this, SexAreaPenetration.PENIS, characterPenetrated, orifice)!=null) {
 			return ((NPC)characterPenetrated).getSpecialPlayerVirginityLoss(this, SexAreaPenetration.PENIS, characterPenetrated, orifice);
 		}
 		
@@ -2073,7 +2078,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	@Override
 	protected String getNippleVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.NIPPLE).isEmpty()) {
+		if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.NIPPLE)!=null) {
 			return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.NIPPLE);
 		}
 		
@@ -2091,7 +2096,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	@Override
 	protected String getNippleCrotchVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.NIPPLE_CROTCH).isEmpty()) {
+		if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.NIPPLE_CROTCH)!=null) {
 			return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.NIPPLE_CROTCH);
 		}
 		
@@ -2109,7 +2114,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	@Override
 	protected String getUrethraVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.URETHRA_PENIS).isEmpty()) {
+		if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.URETHRA_PENIS)!=null) {
 			return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.URETHRA_PENIS);
 		}
 		
@@ -2127,7 +2132,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	@Override
 	protected String getVaginalUrethraVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.URETHRA_VAGINA).isEmpty()) {
+		if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.URETHRA_VAGINA)!=null) {
 			return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.URETHRA_VAGINA);
 		}
 		
@@ -2145,7 +2150,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	@Override
 	protected String getMouthVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
-		if(characterPenetrating instanceof NPC && !((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.MOUTH).isEmpty()) {
+		if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.MOUTH)!=null) {
 			return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.MOUTH);
 		}
 		

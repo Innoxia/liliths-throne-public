@@ -2,9 +2,11 @@ package com.lilithsthrone.game.dialogue.places.submission.ratWarrens;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -13,7 +15,7 @@ import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.Murk;
@@ -21,6 +23,7 @@ import com.lilithsthrone.game.character.npc.submission.RatGangMember;
 import com.lilithsthrone.game.character.npc.submission.RatWarrensCaptive;
 import com.lilithsthrone.game.character.npc.submission.Shadow;
 import com.lilithsthrone.game.character.npc.submission.Silence;
+import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -40,6 +43,8 @@ import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
+import com.lilithsthrone.game.sex.LubricationType;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
@@ -54,13 +59,10 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotLyingDown;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotMilkingStall;
-import com.lilithsthrone.game.sex.sexActions.baseActions.FingerPenis;
-import com.lilithsthrone.game.sex.sexActions.baseActions.FingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActions.TongueAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueMouth;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
@@ -74,20 +76,19 @@ import com.lilithsthrone.world.places.PlaceType;
  * Dialogue for when the player is taken captive by the rats in the Rat Warrens.
  * 
  * @since 0.3.5.5
- * @version 0.3.8.9
+ * @version 0.3.9
  * @author Innoxia
  */
 public class RatWarrensCaptiveDialogue {
 	
-	private static CaptiveInteractionType playerInteraction;
-	private static boolean playerMurkSex;
 	private static Value<SexSlot, SexType> playerFuckedSexType;
 	private static boolean playerGrewVagina;
+	public static int murkOrgasmsRequired = 1;
 	
 	private static List<GameCharacter> getCharacters(boolean includeMilkers) {
 		List<GameCharacter> guards = new ArrayList<>();
 		guards.addAll(Main.game.getCharactersPresent());
-		guards.removeIf(npc -> (!includeMilkers && (npc instanceof RatWarrensCaptive)));
+		guards.removeIf(npc -> npc.isUnique() || (!includeMilkers && (npc instanceof RatWarrensCaptive)));
 		Collections.sort(guards, (a, b)->a.getLevel()-b.getLevel());
 		return guards;
 	}
@@ -102,19 +103,17 @@ public class RatWarrensCaptiveDialogue {
 		return milkers;
 	}
 	
-	private static void spawnRats(int count) {
+	private static void spawnRat(boolean vaginaNeeded, boolean penisNeeded) {
 		List<String> adjectives = new ArrayList<>();
-		for(int i=0;i<count;i++) {
-			try {
-				String[] names = new String[] {"thug", "gangster", "gang-member", "mobster"};
-				NPC rat = new RatGangMember(Gender.getGenderFromUserPreferences(false, i==0));
-				Main.game.addNPC(rat, false);
-				rat.setLevel(8-i);
-				rat.setLocation(Main.game.getPlayer(), true);
-				adjectives.add(CharacterUtils.setGenericName(rat, Util.randomItemFrom(names), adjectives));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			String[] names = new String[] {"thug", "gangster", "gang-member", "mobster"};
+			NPC rat = new RatGangMember(Gender.getGenderFromUserPreferences(vaginaNeeded, penisNeeded));
+			Main.game.addNPC(rat, false);
+			rat.setLevel(4+Util.random.nextInt(5));
+			rat.setLocation(Main.game.getPlayer(), true);
+			adjectives.add(CharacterUtils.setGenericName(rat, Util.randomItemFrom(names), adjectives));
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -134,165 +133,6 @@ public class RatWarrensCaptiveDialogue {
 		collar.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MINOR_BOOST, 0));
 		collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_DRAIN, 0));
 		return character.equipClothingFromNowhere(collar, true, equipper);
-	}
-	
-	private static String equipRingGag(GameCharacter character) {
-		AbstractClothing gag = AbstractClothingType.generateClothing(ClothingType.BDSM_RINGGAG, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_STEEL, false);
-		gag.removeEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.BOOST, 0));
-		gag.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.MAJOR_BOOST, 0));
-		return character.equipClothingFromNowhere(gag, true, getMurk());
-	}
-	
-	private static void calculatePlayerSexType(boolean includeForeplayTypes) {
-		List<Value<SexSlot, SexType>> sexTypes = new ArrayList<>();
-		
-		if(Main.game.isAnalContentEnabled()) {
-			sexTypes.add(new Value<>(SexSlotMilkingStall.BEHIND_MILKING_STALL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)));
-		}
-		if(Main.game.getPlayer().hasVagina()) {
-			sexTypes.add(new Value<>(SexSlotMilkingStall.BEHIND_MILKING_STALL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)));
-		}
-		sexTypes.add(new Value<>(SexSlotMilkingStall.RECEIVING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)));
-		
-		if(includeForeplayTypes) {
-			if(Main.game.isAnalContentEnabled()) {
-				sexTypes.add(new Value<>(SexSlotMilkingStall.RECEIVING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE)));
-				sexTypes.add(new Value<>(SexSlotMilkingStall.PERFORMING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS)));
-			}
-			
-			if(Main.game.getPlayer().hasPenis()) {
-				sexTypes.add(new Value<>(SexSlotMilkingStall.PERFORMING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)));
-			}
-			
-			if(Main.game.getPlayer().hasVagina()) {
-				sexTypes.add(new Value<>(SexSlotMilkingStall.PERFORMING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)));
-				sexTypes.add(new Value<>(SexSlotMilkingStall.PERFORMING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)));
-			}
-		}
-		
-		playerFuckedSexType = Util.randomItemFrom(sexTypes);
-	}
-	
-	private static ResponseSex getPlayerOwnerSexResponse(String title, String description, DialogueNode node) {
-		String introDescriptionPath = "BEG_FOR_SEX";
-		if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS))) {
-			introDescriptionPath = "BEG_FOR_SEX_ANAL";
-			
-		} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))) {
-			introDescriptionPath = "BEG_FOR_SEX_VAGINAL";
-			
-		} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))) {
-			introDescriptionPath = "BEG_FOR_SEX_BLOWJOB";
-			
-		} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE))) {
-			introDescriptionPath = "BEG_FOR_SEX_ANILINGUS";
-			
-		} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS))) {
-			introDescriptionPath = "BEG_FOR_SEX_RECEIVE_ANILINGUS";
-			
-		} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaPenetration.PENIS))) {
-			introDescriptionPath = "BEG_FOR_SEX_RECEIVE_HANDJOB";
-			
-		} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA))) {
-			introDescriptionPath = "BEG_FOR_SEX_RECEIVE_FINGERING";
-			
-		} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))) {
-			introDescriptionPath = "BEG_FOR_SEX_RECEIVE_CUNNILINGUS";
-		}
-		
-		return new ResponseSex(title,
-				description,
-				true,
-				false,
-				new SexManagerDefault(
-						SexPosition.MILKING_STALL,
-						Util.newHashMapOfValues(
-								new Value<>(getMurk(), playerFuckedSexType.getKey())),
-						Util.newHashMapOfValues(
-								new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))) {
-					@Override
-					public SexControl getSexControl(GameCharacter character) {
-						if(character.isPlayer()) {
-							return SexControl.NONE;
-						}
-						return super.getSexControl(character);
-					}
-					@Override
-					public boolean isPositionChangingAllowed(GameCharacter character) {
-						return false;
-					}
-					@Override
-					public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
-						if(character.isPlayer()) {
-							return false;
-						}
-						return super.isAbleToRemoveOthersClothing(character, clothing);
-					}
-					@Override
-					public boolean isAbleToEquipSexClothing(GameCharacter character) {
-						return !character.isPlayer();
-					}
-					@Override
-					public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
-						return !character.isPlayer();
-					}
-					@Override
-					public List<CoverableArea> getAdditionalAreasToExposeDuringSex(GameCharacter performer, GameCharacter target) {
-						if(!performer.isPlayer()
-								&& (playerFuckedSexType.getValue().getPerformingSexArea()==SexAreaPenetration.PENIS || playerFuckedSexType.getValue().getPerformingSexArea()==SexAreaOrifice.VAGINA)) {
-							return Util.newArrayListOfValues(CoverableArea.PENIS, CoverableArea.VAGINA);
-						}
-						return new ArrayList<>();
-					}
-					@Override
-					public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
-						if(character.isPlayer()) {
-							return super.getForeplayPreference(character, targetedCharacter);
-						}
-						return playerFuckedSexType.getValue();
-					}
-					@Override
-					public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
-						if(character.isPlayer()) {
-							return super.getMainSexPreference(character, targetedCharacter);
-						}
-						return playerFuckedSexType.getValue();
-					}
-					
-				},
-				null,
-				null,
-				node,
-				UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", introDescriptionPath, getCharacters(false))) {
-			@Override
-			public List<InitialSexActionInformation> getInitialSexActions() {
-				if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS))) {
-					return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), PenisAnus.PENIS_FUCKING_START, false, true));
-					
-				} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))) {
-					return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), PenisVagina.PENIS_FUCKING_START, false, true));
-					
-				} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))) {
-					return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
-					
-				} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE))) {
-					return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), TongueAnus.RECEIVING_ANILINGUS_START, false, true));
-
-				} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS))) {
-					return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), TongueAnus.ANILINGUS_START, false, true));
-					
-				} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaPenetration.PENIS))) {
-					return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), FingerPenis.COCK_MASTURBATING_START, false, true));
-					
-				} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA))) {
-					return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), FingerVagina.FINGERING_START, false, true));
-					
-				} else if(playerFuckedSexType.getValue().equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))) {
-					return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), TongueVagina.CUNNILINGUS_START, false, true));
-				}
-				return super.getInitialSexActions();
-			}
-		};
 	}
 	
 	private static ResponseSex getPlayerOwnerEscapeSexResponse(DialogueNode node, String nodePathOral, String nodePathSex) {
@@ -394,21 +234,31 @@ public class RatWarrensCaptiveDialogue {
 	}
 
 	private static SexManagerDefault getPlayerMurkMilkingStallSM(SexSlot murkSlot, SexType murkSexPreference, int murkOrgasms, SexPace startingSexPace) {
-		return getPlayerMurkSM(SexPosition.MILKING_STALL, murkSlot, SexSlotMilkingStall.LOCKED_IN_MILKING_STALL, murkSexPreference, murkOrgasms, startingSexPace);
+		return getBasicSexManager(SexPosition.MILKING_STALL,
+				Util.newHashMapOfValues(new Value<>(getMurk(), murkSlot)),
+				Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL)),
+				murkSexPreference, murkOrgasms, startingSexPace, false);
 	}
 	
-	private static SexManagerDefault getPlayerMurkSM(AbstractSexPosition position, SexSlot murkSlot, SexSlot playerSlot, SexType murkSexPreference, int murkOrgasms) {
-		return getPlayerMurkSM(position, murkSlot, playerSlot, murkSexPreference, murkOrgasms, null);
-	}
-	
-	private static SexManagerDefault getPlayerMurkSM(AbstractSexPosition position, SexSlot murkSlot, SexSlot playerSlot, SexType murkSexPreference, int murkOrgasms, SexPace startingSexPace) {
-		return new SexManagerDefault(
-				position,
-					Util.newHashMapOfValues(new Value<>(getMurk(), murkSlot)),
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), playerSlot))) {
+	private static SexManagerDefault getBasicSexManager(AbstractSexPosition position,
+			Map<GameCharacter, SexSlot> dominants,
+			Map<GameCharacter, SexSlot> submissives,
+			SexType murkSexPreference,
+			int murkOrgasms,
+			SexPace startingSexPace,
+			boolean spitOnAsshole) {
+		if(murkOrgasms>0) {
+			murkOrgasmsRequired = murkOrgasms;
+		}
+		
+		return new SexManagerDefault(position, dominants, submissives) {
+			@Override
+			public boolean isAppendStartingExposedDescriptions(GameCharacter character) {
+				return false;
+			}
 			@Override
 			public boolean isPartnerWantingToStopSex(GameCharacter partner) {
-				if(murkOrgasms>0) {
+				if(murkOrgasms>0 && partner.equals(getMurk())) {
 					return Main.sex.getNumberOfOrgasms(partner)>=murkOrgasms;
 				}
 				return super.isPartnerWantingToStopSex(partner);
@@ -436,8 +286,30 @@ public class RatWarrensCaptiveDialogue {
 				return false;
 			}
 			@Override
+			public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+				Map<GameCharacter, List<CoverableArea>> map = new HashMap<>();
+				for(GameCharacter dom : dominants.keySet()) {
+					map.put(dom, Util.newArrayListOfValues(CoverableArea.PENIS));
+				}
+				return map;
+			}
+			@Override
 			public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
 				return false;
+			}
+			@Override
+			public boolean isAbleToEquipSexClothing(GameCharacter character) {
+				return false;
+			}
+			@Override
+			public Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> getStartingWetAreas() {
+				if(spitOnAsshole) {
+					Map<GameCharacter, Map<SexAreaInterface, Map<GameCharacter, Set<LubricationType>>>> map = new HashMap<>();
+					map.put(Main.game.getPlayer(), new HashMap<>());
+					map.get(Main.game.getPlayer()).put(SexAreaOrifice.ANUS, Util.newHashMapOfValues(new Value<>(getMurk(), Util.newHashSetOfValues(LubricationType.SALIVA))));
+					return map;
+				}
+				return super.getStartingWetAreas();
 			}
 			@Override
 			public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
@@ -463,111 +335,40 @@ public class RatWarrensCaptiveDialogue {
 		};
 	}
 	
-	private static ResponseSex getPlayerMilkingStallSexResponse(String title, String description, DialogueNode node, Map<GameCharacter, SexSlot> npcSlots, String introDialoguePath) {
-		return new ResponseSex(title,
-				description,
-				true,
-				false,
-				new SexManagerDefault(
-						SexPosition.MILKING_STALL,
-						npcSlots,
-						Util.newHashMapOfValues(
-								new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL))) {
-					@Override
-					public SexControl getSexControl(GameCharacter character) {
-						if(character.isPlayer()) {
-							return SexControl.NONE;
-						}
-						return super.getSexControl(character);
-					}
-					@Override
-					public boolean isPositionChangingAllowed(GameCharacter character) {
-						return false;
-					}
-					@Override
-					public boolean isAbleToRemoveOthersClothing(GameCharacter character, AbstractClothing clothing) {
-						if(character.isPlayer()) {
-							return false;
-						}
-						return super.isAbleToRemoveOthersClothing(character, clothing);
-					}
-					@Override
-					public boolean isAbleToEquipSexClothing(GameCharacter character) {
-						return !character.isPlayer();
-					}
-					@Override
-					public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
-						return !character.isPlayer();
-					}
-				},
-				null,
-				null,
-				node,
-				UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", introDialoguePath, getCharacters(false)));
-	}
-	
-	private static void applyWaitingEffects() {
-		Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_WAITING_START", getCharacters(false)));
-		
-		getMurk().returnToHome();
-
-		calculatePlayerSexType(true);
-		playerInteraction = CaptiveInteractionType.getRandomType(Main.game.getPlayer());
-		playerMurkSex = false;
-		switch(playerInteraction) {
-			case MILKING:
-				getMurk().setLocation(Main.game.getPlayer(), false);
-				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_WAITING_MILKING", getCharacters(false)));
-				break;
-				
-			case PUNISHMENT:
-				getMurk().setLocation(Main.game.getPlayer(), false);
-				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_WAITING_PUNISHMENT", getCharacters(false)));
-				break;
-				
-			case RAT_SEX:
-				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_WAITING_SEX", getCharacters(false)));
-				spawnRats(1);
-				break;
-				
-			case RAT_SEX_THREESOME:
-				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_WAITING_SEX_THREESOME", getCharacters(false)));
-				spawnRats(2);
-				break;
-				
-			case TEASE:
-				calculatePlayerSexType(false);
-				getMurk().setLocation(Main.game.getPlayer(), false);
-				playerMurkSex = Math.random()<0.25f
-						&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveFuckedByMurk)
-						&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveOwnerSex);
-				
-				if(playerFuckedSexType.getValue().getTargetedSexArea()==SexAreaOrifice.VAGINA) {
-					Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_WAITING_TEASE_VAGINA"+(playerMurkSex?"_SEX":""), getCharacters(false)));
-				} else if(playerFuckedSexType.getValue().getTargetedSexArea()==SexAreaOrifice.ANUS) {
-					Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_WAITING_TEASE_ANUS"+(playerMurkSex?"_SEX":""), getCharacters(false)));
-				} else {
-					Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_WAITING_TEASE"+(playerMurkSex?"_SEX":""), getCharacters(false)));
-				}
-				break;
-				
-			case INSPECTION:
-				getMurk().setLocation(Main.game.getPlayer(), false);
-				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_WAITING_INSPECTION", getCharacters(false)));
-				playerMurkSex = Math.random()<0.25f
-						&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveFuckedByMurk)
-						&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveOwnerSex);
-				break;
-				
-			case MURK_SEX:
-				calculatePlayerSexType(false);
-				getMurk().setLocation(Main.game.getPlayer(), false);
-				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_WAITING_MURK_SEX", getCharacters(false)));
-				break;
+	private static void applyWakingEffects() {
+		getMurk().setLocation(Main.game.getPlayer(), false);
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveCalledOut, false);
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveWashed, false);
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveInitialNightDescription, false);
+		for(GameCharacter milker : getMilkers()) {
+			((RatWarrensCaptive)milker).applyMilkingEquipment(true, Util.newArrayListOfValues(InventorySlot.NIPPLE, InventorySlot.VAGINA));
 		}
 	}
-	private static void applyWakingEffects() {
-		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveCalledOut, false);
+	
+	private static void applyPlayerMilkingPumps(boolean equip, List<InventorySlot> slots) {
+		GameCharacter player = Main.game.getPlayer();
+		if(equip) {
+			// It really doens't make any narrative sense for the game's lactation content setting to limit the entire purpose of Murk's milkers. Instead of preventing milking, the lactation content setting jsut limits descriptions of it.
+			if(slots.contains(InventorySlot.NIPPLE) && player.hasBreasts()) {
+				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"), false), InventorySlot.NIPPLE, true, player);
+			}
+			if(slots.contains(InventorySlot.STOMACH) && player.hasBreastsCrotch()) {
+				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"), false), InventorySlot.STOMACH, true, player);
+			}
+			if(slots.contains(InventorySlot.PENIS) && player.hasPenis()) {
+				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_penis_pump"), false), true, player);
+			}
+			if(slots.contains(InventorySlot.VAGINA) && player.hasVagina()) {
+				player.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_vagina_pump"), false), true, player);
+			}
+			
+		} else {
+			for(AbstractClothing c : new ArrayList<>(player.getClothingCurrentlyEquipped())) {
+				if(c.isMilkingEquipment() && slots.contains(c.getSlotEquippedTo())) {
+					player.unequipClothingIntoVoid(c, true, player);
+				}
+			}
+		}
 	}
 	
 	public static void restoreInventories() {
@@ -584,6 +385,9 @@ public class RatWarrensCaptiveDialogue {
 	private static DialogueNode getSleepNode() {
 		if(!isTransformationFinished()) {
 			int stage = Main.game.getDialogueFlags().getMurkTfStage(Main.game.getPlayer());
+			if(stage==0) {
+				return CAPTIVE_DAY_1_WAKE;
+			}
 			if(stage==1) {
 				return CAPTIVE_DAY_2_WAKE;
 			}
@@ -591,54 +395,83 @@ public class RatWarrensCaptiveDialogue {
 				return CAPTIVE_DAY_3_WAKE;
 			}
 		}
-		return CAPTIVE_MILKER_WAKE;
+		return BAD_END;
 	}
 	
 	private static boolean isMasculineTransform() {
 		return Main.getProperties().getForcedTFTendency().isMasculine()
 				&& Main.game.isAnalContentEnabled();
 	}
+
+	private static String getObedienceResponseDescription(float increment) {
+		String descriptor = "";
+		if(increment<-10) {
+			descriptor = "[style.italicsMinorGood(significantly less)]";
+		} else if(increment<5) {
+			descriptor = "[style.italicsBad(less)]";
+		} else if(increment<0) {
+			descriptor = "[style.italicsMinorBad(slightly less)]";
+		} else if(increment<=5) {
+			descriptor = "[style.italicsMinorGood(slightly more)]";
+		} else if(increment<=10) {
+			descriptor = "[style.italicsGood(more)]";
+		} else {
+			descriptor = "[style.italicsExcellent(significantly more)]";
+		}
+		return "<br/>"
+				+ "<i>You will become "+descriptor+" [style.boldObedience(obedient)]!</i>";
+	}
 	
-	private static String incrementPlayerObedience(float increment) {
+	private static String incrementPlayerObedience(int increment) {
 		Main.game.getPlayer().incrementObedience(increment);
 		
-		float obedience = Main.game.getPlayer().getObedienceValue();
+		int obedience = (int) Units.round(Main.game.getPlayer().getObedienceValue(), 0);
 		if(obedience<0) {
 			Main.game.getPlayer().setObedience(0);
+			obedience = 0;
 		}
 		ObedienceLevel level = Main.game.getPlayer().getObedience();
 		
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("<p style='text-align:center;'>");
-			sb.append("You "+(increment>0?"[style.boldGrow(gained)]":"[style.boldShrink(lost)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)], and now have"
-					+ " <b style='color:"+level.getColour().toWebHexString()+";'>"+(obedience>0?"+":"")+Units.round(obedience, 1)+"</b><b>/100</b>!");
-			sb.append("<br/>You are <span style='color:"+level.getColour().toWebHexString()+";'>"+level.getName()+"</span>, ");
-			if(obedience>=100 && Main.game.getDialogueFlags().getMurkTfStage(Main.game.getPlayer())>=4) {
-				sb.append("and if you don't snap yourself out of it, [style.italicsBadEnd(you'll fully capitulate to Murk at the end of the day)]!");
-				
-			} else {
-				switch(level) {
-					case ZERO_FREE_WILLED:
-					case POSITIVE_ONE_AGREEABLE:
-						sb.append("and can refuse or obey any order!");
-						break;
-					case POSITIVE_TWO_OBEDIENT:
-					case POSITIVE_THREE_DISCIPLINED:
-						sb.append("and cannot refuse Murk's orders!");
-						break;
-					case POSITIVE_FOUR_DUTIFUL:
-					case POSITIVE_FIVE_SUBSERVIENT:
-						sb.append("and will do absolutely anything for Murk!");
-						break;
-					default:
-						break;
-				}
+			if(increment!=0) {
+				sb.append("You "+(increment>0?"[style.boldGrow(gained)]":"[style.boldShrink(lost)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!<br/>");
+			}
+			sb.append("You are <span style='color:"+level.getColour().toWebHexString()+";'>"+level.getName()+"</span>"
+					+ " (<span style='color:"+level.getColour().toWebHexString()+";'>"+obedience+"</span>/100), ");
+			switch(level) {
+				case ZERO_FREE_WILLED:
+				case POSITIVE_ONE_AGREEABLE:
+				case POSITIVE_TWO_OBEDIENT:
+					sb.append("and [style.colourMinorGood(can refuse or obey any of Murk's orders)]!");
+					sb.append("<br/><i>At "+ObedienceLevel.POSITIVE_THREE_DISCIPLINED.getMinimumValue()+"/100, you will be unable to refuse Murk's orders!</i>");
+					break;
+				case POSITIVE_THREE_DISCIPLINED:
+				case POSITIVE_FOUR_DUTIFUL:
+					sb.append("and [style.colourMinorBad(cannot bring yourself to refuse Murk's orders)]!");
+					sb.append("<br/><i>At "+ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMinimumValue()+"/100, you will do absolutely anything to please Murk!</i>");
+					break;
+				case POSITIVE_FIVE_SUBSERVIENT:
+					if(obedience>=100) {
+						sb.append("and [style.colourBadEnd(have accepted your fate as one of Murk's milkers)]!");
+					} else {
+						sb.append("and [style.colourBad(will do absolutely anything to please Murk)]!");
+						sb.append("<br/><i>At 100/100, you will willingly accept your fate as one of Murk's milkers!</i>");
+					}
+					break;
+				default:
+					break;
 			}
 		sb.append("</p>");
 		
 		return sb.toString();
 	}
+	
+	private static boolean isPlayerObeyingOrders(boolean extremeSubCheck) {
+		return Main.game.getPlayer().getObedience().isGreaterThan(extremeSubCheck?ObedienceLevel.POSITIVE_FOUR_DUTIFUL:ObedienceLevel.POSITIVE_TWO_OBEDIENT);
+	}
+	
 	
 	// --------- START OF DAY 0 --------- //
 	
@@ -656,37 +489,40 @@ public class RatWarrensCaptiveDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Stay quiet",
-						"Stay quiet and hope that Murk leaves you alone.",
+						"Stay quiet and hope that Murk leaves you alone."
+								+getObedienceResponseDescription(5),
 						CAPTIVE_DAY_0_THANKS) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0_THANKS_QUIET", getCharacters(false)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0_THANKS_QUIET"));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0_THANKS_END", getCharacters(false)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0_THANKS_END"));
 					}
 				};
 				
 			} else if(index==2) {
 				return new Response("Thank him",
-						"Say thank you to Murk.",
+						"Say thank you to Murk."
+								+getObedienceResponseDescription(10),
 						CAPTIVE_DAY_0_THANKS) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0_THANKS_THANK_HIM", getCharacters(false)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0_THANKS_THANK_HIM"));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0_THANKS_END", getCharacters(false)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0_THANKS_END"));
 					}
 				};
 				
 			} else if(index==3) {
 				return new Response("Insult him",
-						"Tell Murk to fuck off.",
+						"Tell Murk to fuck off."
+								+getObedienceResponseDescription(-10),
 						CAPTIVE_DAY_0_THANKS) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0_THANKS_INSULT", getCharacters(false)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0_THANKS_INSULT"));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(-5));
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0_THANKS_END", getCharacters(false)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0_THANKS_END"));
 					}
 				};
 			}
@@ -734,11 +570,11 @@ public class RatWarrensCaptiveDialogue {
 				if(index==1) {
 					return new Response("Sleep",
 							"Completely exhausted, you find yourself drifting off to sleep...",
-							CAPTIVE_DAY_1_WAKE) {
+							CAPTIVE_NIGHT) {
 						@Override
 						public void effects() {
-							// This is needed as CAPTIVE_DAY_1_WAKE can also start as a follow-on to giving birth.
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_WAKE_START", getCharacters(false)));
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveInitialNightDescription, true);
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_0_SLEEP_START"));
 						}
 					};
 				}
@@ -746,7 +582,6 @@ public class RatWarrensCaptiveDialogue {
 			return null;
 		}
 	};
-	
 	
 	// --------- END OF DAY 0 --------- //
 
@@ -768,13 +603,12 @@ public class RatWarrensCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			// Remember that dialogue starts with either CAPTIVE_DAY_1_WAKE_START or CAPTIVE_GIVE_BIRTH_INITIAL_FINISHED
 			StringBuilder sb = new StringBuilder();
-			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_WAKE_PREP", getCharacters(false)));
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_WAKE_PREP"));
 			if(isMasculineTransform()) {
-				sb.append( UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_WAKE_MASCULINE", getCharacters(false)));
+				sb.append( UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_WAKE_MASCULINE"));
 			} else {
-				sb.append( UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_WAKE", getCharacters(false)));
+				sb.append( UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_WAKE"));
 			}
 			return sb.toString();
 		}
@@ -786,9 +620,13 @@ public class RatWarrensCaptiveDialogue {
 							"Pull away from [murk.namePos] cock, which will make him want to transform you into a [style.colourMasculineStrong(masculine)] cum-milker.",
 							CAPTIVE_DAY_1_TF_CHOICE) {
 						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.MASCULINE_PLUS;
+						}
+						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveMasculine, true);
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_TF_CHOICE_TF_MASCULINE", getCharacters(false)));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_TF_CHOICE_TF_MASCULINE"));
 						}
 					};
 					
@@ -797,9 +635,13 @@ public class RatWarrensCaptiveDialogue {
 							"Raise your hips and push your ass back into [murk.namePos] cock, which will make him want to transform you into an [style.colourAndrogynous(androgynous)] sissy cum-milker.",
 							CAPTIVE_DAY_1_TF_CHOICE) {
 						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.ANDROGYNOUS;
+						}
+						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveSissy, true);
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_TF_CHOICE_TF_SISSY", getCharacters(false)));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_TF_CHOICE_TF_SISSY"));
 						}
 					};
 				}
@@ -807,23 +649,31 @@ public class RatWarrensCaptiveDialogue {
 			} else {
 				if(index==1) {
 					return new Response("Pull away",
-							"Pull away from Murk's hand, signalling that you'd prefer to be transformed into a [style.colourFeminine(female)] milker.",
+							"Pull away from Murk's hand, signalling that you'd prefer to be transformed into a [style.colourFeminineStrong(female)] milker.",
 							CAPTIVE_DAY_1_TF_CHOICE) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.FEMININE_PLUS;
+						}
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveFeminine, true);
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_TF_CHOICE_TF_FEMALE", getCharacters(false)));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_TF_CHOICE_TF_FEMALE"));
 						}
 					};
 					
 				} else if(index==2) {
 					return new Response("Hump hand",
-							"Hump Murk's hand, signalling that you'd prefer to be transformed into a [style.colourFeminineStrong(futa)] milker.",
+							"Hump Murk's hand, signalling that you'd prefer to be transformed into a [style.colourFeminine(futa)] milker.",
 							CAPTIVE_DAY_1_TF_CHOICE) {
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.FEMININE;
+						}
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveFuta, true);
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_TF_CHOICE_TF_FUTA", getCharacters(false)));
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_TF_CHOICE_TF_FUTA"));
 						}
 					};
 				}
@@ -832,7 +682,7 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 
-	public static final DialogueNode CAPTIVE_DAY_1_TF_CHOICE = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_1_TF_CHOICE = new DialogueNode("", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
 			return 15*60;
@@ -860,53 +710,46 @@ public class RatWarrensCaptiveDialogue {
 	public static final DialogueNode CAPTIVE_DAY_1_MORNING = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return Main.game.getMinutesUntilTimeInMinutes(11*60)*60;
+			return Main.game.getMinutesUntilTimeInMinutes(11*60 + (Util.random.nextInt(45)))*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING", getCharacters(true));
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING", getMilkers());
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Endure",
-						"Stay still and endure Murk's abuse...",
-						CAPTIVE_DAY_1_LUNCH) {
+				return new Response("Say hello",
+						"Say hello to Murk's cock in the hopes that he'll then leave and end his abuse."
+							+getObedienceResponseDescription(5),
+							CAPTIVE_DAY_1_MORNING_WAIT) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_ENDURE", getCharacters(true)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_ENDURE", getMilkers()));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
 					}
 				};
 				
 			} else if(index==2) {
-				return new ResponseSex(
-						"Clean",
-						"Open your mouth as an offer to clean Murk's cock...",
-						true,
-						false,
-						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), 1),
-						null,
-						null,
-						CAPTIVE_DAY_1_MORNING_AFTER_CLEAN,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_CLEAN", getCharacters(false))) {
-					@Override
-					public List<InitialSexActionInformation> getInitialSexActions() {
-						return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
-					}
+				return new Response("Compliment",
+						"Say hello to Murk's cock and compliment it on its size and potent musk."
+							+getObedienceResponseDescription(10),
+							CAPTIVE_DAY_1_MORNING_WAIT) {
 					@Override
 					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_COMPLIMENT", getMilkers()));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
 					}
 				};
 				
 			} else if(index==3) {
 				return new Response("Resist",
-						"Struggle and try to pull away from Murk's abuse...",
-						CAPTIVE_DAY_1_LUNCH) {
+						"Refuse to play along with Murk's game and try to pull away from his cock."
+							+getObedienceResponseDescription(-10),
+							CAPTIVE_DAY_1_MORNING_WAIT) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_RESIST", getCharacters(true)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_RESIST", getMilkers()));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(-10));
 					}
 				};
@@ -917,25 +760,36 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 	
-	public static final DialogueNode CAPTIVE_DAY_1_MORNING_AFTER_CLEAN = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_1_MORNING_WAIT = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().returnToHome();
+		}
 		@Override
 		public int getSecondsPassed() {
-			return 15*60;
+			return 30*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_AFTER_CLEAN");
+			return "";
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Wait", "You don't have any option other to wait in the stocks...", CAPTIVE_DAY_1_LUNCH);
+				return new Response("Wait",
+						"You have no choice other than to wait for Murk's return...",
+						CAPTIVE_DAY_1_LUNCH);
+				
 			}
 			return null;
 		}
 	};
 	
 	public static final DialogueNode CAPTIVE_DAY_1_LUNCH = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().setLocation(Main.game.getPlayer(), false);
+		}
 		@Override
 		public int getSecondsPassed() {
 			return Main.game.getMinutesUntilTimeInMinutes(13*60)*60;
@@ -948,7 +802,8 @@ public class RatWarrensCaptiveDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Eat",
-						"Do as Murk says and eat the gruel...",
+						"Do as Murk says and eat the gruel..."
+								+getObedienceResponseDescription(5),
 						CAPTIVE_DAY_1_LUNCH_END) {
 					@Override
 					public void effects() {
@@ -959,7 +814,8 @@ public class RatWarrensCaptiveDialogue {
 				
 			} else if(index==2) {
 				return new Response("Refuse",
-						"Refuse to eat the disgusting gruel...",
+						"Refuse to eat the disgusting gruel..."
+								+getObedienceResponseDescription(-10),
 						CAPTIVE_DAY_1_LUNCH_END) {
 					@Override
 					public void effects() {
@@ -972,7 +828,11 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 
-	public static final DialogueNode CAPTIVE_DAY_1_LUNCH_END = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_1_LUNCH_END = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().returnToHome();
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 15*60;
@@ -993,12 +853,13 @@ public class RatWarrensCaptiveDialogue {
 	public static final DialogueNode CAPTIVE_DAY_1_AFTERNOON = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
+			getMurk().setLocation(Main.game.getPlayer(), false);
 			Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_AFTERNOON"));
 			Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
 		}
 		@Override
 		public int getSecondsPassed() {
-			return Main.game.getMinutesUntilTimeInMinutes(19*60)*60;
+			return Main.game.getMinutesUntilTimeInMinutes(21*60)*60;
 		}
 		@Override
 		public String getContent() {
@@ -1009,7 +870,10 @@ public class RatWarrensCaptiveDialogue {
 			CaptiveTransformation playerTf = CaptiveTransformation.getTransformationType(Main.game.getPlayer());
 			
 			if(index==1) {
-				return new Response("Open wide", "Do as Murk says and swallow down the transformative potion...", CAPTIVE_DAY_1_AFTER_TRANSFORMATION) {
+				return new Response("Open wide",
+						"Do as Murk says and swallow down the transformative potion..."
+								+getObedienceResponseDescription(10),
+						CAPTIVE_DAY_1_AFTER_TRANSFORMATION) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_AFTERNOON_SWALLOW"));
@@ -1026,10 +890,12 @@ public class RatWarrensCaptiveDialogue {
 				};
 				
 			} else if(index==2) {
-				return new Response("Resist", "Keep your mouth closed and try to resist drinking down the transformative potion!", CAPTIVE_DAY_1_AFTER_TRANSFORMATION) {
+				return new Response("Resist",
+						"Keep your mouth closed and try to resist drinking down the transformative potion!"
+								+getObedienceResponseDescription(-10),
+						CAPTIVE_DAY_1_AFTER_TRANSFORMATION) {
 					@Override
 					public void effects() {
-						equipRingGag(Main.game.getPlayer());
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_AFTERNOON_RESIST"));
 						Main.game.getTextStartStringBuilder().append(incrementPlayerObedience(-10));
 						Map<String, String> effects = playerTf.getEffects(Main.game.getPlayer());
@@ -1047,7 +913,7 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 	
-	public static final DialogueNode CAPTIVE_DAY_1_AFTER_TRANSFORMATION = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_1_AFTER_TRANSFORMATION = new DialogueNode("", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -1072,21 +938,44 @@ public class RatWarrensCaptiveDialogue {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_AFTER_TRANSFORMATION");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_AFTER_TRANSFORMATION_MURK_COCK");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex(
-						"Suck cock",
-						"After having your mind altered by Murk's transformative potion, you find yourself hungering for a taste of Murk's cock...",
+						"Open wide",
+						"You can't help but want to suck Murk's throbbing cock, but that doesn't mean you have to admit that you're in love with it..."
+								+getObedienceResponseDescription(5),
 						true,
 						false,
 						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), 1),
 						null,
 						null,
 						CAPTIVE_DAY_1_END,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_AFTER_TRANSFORMATION_MURK_COCK_BLOWJOB", getCharacters(false))) {
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_AFTER_TRANSFORMATION_MURK_COCK_BLOWJOB")) {
+					@Override
+					public List<InitialSexActionInformation> getInitialSexActions() {
+						return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
+					}
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
+					}
+				};
+				
+			} else if(index==2) {
+				return new ResponseSex(
+						"Love cock",
+						"Play along with Murk by telling his cock that you've fallen in love with it and are eager to share your first kiss together."
+								+getObedienceResponseDescription(15),
+						true,
+						false,
+						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), 1, SexPace.SUB_EAGER),
+						null,
+						null,
+						CAPTIVE_DAY_1_END,
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_AFTER_TRANSFORMATION_MURK_COCK_BLOWJOB_EAGER")) {
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
 						return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
@@ -1101,10 +990,14 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 	
-	public static final DialogueNode CAPTIVE_DAY_1_END = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_1_END = new DialogueNode("Finished", "Now that he's filled your belly with his hot, musky cum, Murk has had enough...", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().returnToHome();
+		}
 		@Override
 		public int getSecondsPassed() {
-			return Main.game.getMinutesUntilTimeInMinutes(22*60)*60;
+			return 5*60;
 		}
 		@Override
 		public String getContent() {
@@ -1144,22 +1037,28 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Obey", "Get into your milking stall so that Murk can fasten your restraints...", CAPTIVE_DAY_2_LOCKED_IN_STALL) {
+				return new Response("Obey",
+						"Get into your milking stall so that Murk can fasten your restraints..."
+								+getObedienceResponseDescription(5),
+						CAPTIVE_DAY_2_LOCKED_IN_STALL) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_WAKE_OBEY", getCharacters(false)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_WAKE_OBEY"));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
 					}
 				};
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_ONE_AGREEABLE)) {
+				if(isPlayerObeyingOrders(false)) {
 					return new Response("Resist", "You are too obedient to even think about refusing Murk's command!", null);
 				}
-				return new Response("Resist", "Try and resist being locked into your milking stall...", CAPTIVE_DAY_2_LOCKED_IN_STALL) {
+				return new Response("Resist",
+						"Try and resist being locked into your milking stall..."
+								+getObedienceResponseDescription(-10),
+						CAPTIVE_DAY_2_LOCKED_IN_STALL) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_WAKE_RESIST", getCharacters(false)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_WAKE_RESIST"));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(-10));
 					}
 				};
@@ -1168,7 +1067,11 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 	
-	public static final DialogueNode CAPTIVE_DAY_2_LOCKED_IN_STALL = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_2_LOCKED_IN_STALL = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().returnToHome();
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 15*60;
@@ -1180,11 +1083,12 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Wait", "You don't have any option other than to wait in the stocks...", CAPTIVE_DAY_2_BLOWJOB) {
+				return new Response("Wait", "You don't have any option other than to wait in the stocks...", CAPTIVE_DAY_2_MORNING) {
 					@Override
 					public void effects() {
 						GameCharacter milker = getMilkers().get(2);
 						milker.calculateGenericSexEffects(false, true, getMurk(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.FORCE_CREAMPIE);
+						Main.game.getPlayer().addDirtySlot(InventorySlot.MOUTH);
 					}
 				};
 			}
@@ -1192,59 +1096,60 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 	
-	public static final DialogueNode CAPTIVE_DAY_2_BLOWJOB = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_2_MORNING = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().setLocation(Main.game.getPlayer(), false);
+		}
 		@Override
 		public int getSecondsPassed() {
-			return Main.game.getMinutesUntilTimeInMinutes(10*60)*60;
+			return Main.game.getMinutesUntilTimeInMinutes(10*60 + Util.random.nextInt(30))*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_BLOWJOB", getMilkers());
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_MORNING", getMilkers());
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_THREE_DISCIPLINED)) {
-					return new Response("Clean", "By now you're so obedient that you can't consider doing anything but eagerly cleaning Murk's cock!", null);
-				}
-				return new ResponseSex(
-						"Clean",
-						"You can't help but want a taste of Murk's delicious cock...",
-						true,
-						false,
-						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), 1),
-						null,
-						null,
-						CAPTIVE_DAY_2_POTION,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_BLOWJOB_START", getCharacters(false))) {
-					@Override
-					public List<InitialSexActionInformation> getInitialSexActions() {
-						return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
-					}
+				return new Response(
+						"Kiss",
+						"Do as Murk says and kiss his musky, cum-coated cock."
+							+getObedienceResponseDescription(5),
+						CAPTIVE_DAY_2_POTION) {
 					@Override
 					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_MORNING_KISS"));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
 					}
 				};
 				
 			} else if(index==2) {
-				return new ResponseSex(
-						"Eagerly clean",
-						"You're absolutely desperate to get a taste of Murk's delicious cock!",
-						true,
-						false,
-						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), 1, SexPace.SUB_EAGER),
-						null,
-						null,
-						CAPTIVE_DAY_2_POTION,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_BLOWJOB_START_EAGER", getCharacters(false))) {
-					@Override
-					public List<InitialSexActionInformation> getInitialSexActions() {
-						return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
-					}
+				return new Response(
+						"Eagerly kiss",
+						"Tell Murk that you're in love with his cock as you kiss it."
+							+getObedienceResponseDescription(10),
+						CAPTIVE_DAY_2_POTION) {
 					@Override
 					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_MORNING_KISS_EAGER"));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
+					}
+				};
+				
+			} else if(index==3) {
+				if(isPlayerObeyingOrders(false)) {
+					return new Response("Refuse", "You're so obedient that you can't bring yourself to disobey Murk...", null);
+				}
+				return new Response(
+						"Refuse",
+						"Refuse to kiss Murk's stinky cock."
+							+getObedienceResponseDescription(-10),
+						CAPTIVE_DAY_2_POTION) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_MORNING_KISS_REFUSE"));
+						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(-10));
 					}
 				};
 			}
@@ -1266,7 +1171,10 @@ public class RatWarrensCaptiveDialogue {
 			CaptiveTransformation playerTf = CaptiveTransformation.getTransformationType(Main.game.getPlayer());
 			
 			if(index==1) {
-				return new Response("Eagerly beg", "You find yourself desperately wanting to be transformed, and so you eagerly beg to receive a taste of Murk's potion...", CAPTIVE_DAY_2_AFTER_POTION) {
+				return new Response("Eagerly beg",
+						"You find yourself desperately wanting to be transformed, and so you eagerly beg to receive a taste of Murk's potion..."
+								+getObedienceResponseDescription(5),
+						CAPTIVE_DAY_2_AFTER_POTION) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_POTION_EAGER"));
@@ -1283,10 +1191,12 @@ public class RatWarrensCaptiveDialogue {
 				};
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_ONE_AGREEABLE)) {
+				if(isPlayerObeyingOrders(false)) {
 					return new Response("Reluctantly beg", "You are too obedient to do anything other than eagerly beg for the transformation potion!", null);
 				}
-				return new Response("Reluctantly beg", "You find yourself desperately wanting to be transformed, but that doesn't mean you should be too enthusiastic about it...", CAPTIVE_DAY_2_AFTER_POTION) {
+				return new Response("Reluctantly beg",
+						"You find yourself desperately wanting to be transformed, but that doesn't mean you should be too enthusiastic about it...",
+						CAPTIVE_DAY_2_AFTER_POTION) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_POTION_RELUCTANT"));
@@ -1306,14 +1216,80 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 	
-	public static final DialogueNode CAPTIVE_DAY_2_AFTER_POTION = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_2_AFTER_POTION = new DialogueNode("", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
-			return 15*60;
+			return 5*60;
 		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_AFTER_POTION");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if(isPlayerObeyingOrders(true)) {
+					return new Response("Suck cock", "By now you're so obedient that you can't consider doing anything but completely submitting to Murk's cock!", null);
+				}
+				return new ResponseSex(
+						"Suck cock",
+						"While you don't want to admit that you've fallen in love with Murk's cock, you still want to get a taste of it..."
+							+getObedienceResponseDescription(5),
+						true,
+						false,
+						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), 1),
+						null,
+						null,
+						CAPTIVE_DAY_2_AFTER_BLOWJOB,
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_AFTER_POTION_BLOWJOB")) {
+					@Override
+					public List<InitialSexActionInformation> getInitialSexActions() {
+						return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
+					}
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
+					}
+				};
+				
+			} else if(index==2) {
+				return new ResponseSex(
+						"Submit to cock",
+						"Tell Murk that you're madly in love with his delicious cock, and that you want it to dominate your throat!"
+							+getObedienceResponseDescription(10),
+						true,
+						false,
+						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), 1, SexPace.SUB_EAGER),
+						null,
+						null,
+						CAPTIVE_DAY_2_AFTER_BLOWJOB,
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_AFTER_POTION_BLOWJOB_EAGER")) {
+					@Override
+					public List<InitialSexActionInformation> getInitialSexActions() {
+						return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
+					}
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode CAPTIVE_DAY_2_AFTER_BLOWJOB = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().returnToHome();
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_AFTER_BLOWJOB");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -1326,6 +1302,10 @@ public class RatWarrensCaptiveDialogue {
 	
 	public static final DialogueNode CAPTIVE_DAY_2_LUNCH = new DialogueNode("", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			getMurk().setLocation(Main.game.getPlayer(), false);
+		}
+		@Override
 		public int getSecondsPassed() {
 			return Main.game.getMinutesUntilTimeInMinutes(13*60)*60;
 		}
@@ -1337,7 +1317,8 @@ public class RatWarrensCaptiveDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Eat",
-						"Do as Murk says and eat the gruel...",
+						"Do as Murk says and eat the gruel..."
+							+getObedienceResponseDescription(5),
 						CAPTIVE_DAY_2_LUNCH_END) {
 					@Override
 					public void effects() {
@@ -1348,11 +1329,12 @@ public class RatWarrensCaptiveDialogue {
 				};
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_ONE_AGREEABLE)) {
+				if(isPlayerObeyingOrders(false)) {
 					return new Response("Refuse", "You are too obedient to even think about refusing to eat the gruel!", null);
 				}
 				return new Response("Refuse",
-						"Refuse to eat the disgusting gruel...",
+						"Refuse to eat the disgusting gruel..."
+							+getObedienceResponseDescription(-10),
 						CAPTIVE_DAY_2_LUNCH_END) {
 					@Override
 					public void effects() {
@@ -1366,7 +1348,11 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 
-	public static final DialogueNode CAPTIVE_DAY_2_LUNCH_END = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_2_LUNCH_END = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().returnToHome();
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 15*60;
@@ -1397,6 +1383,7 @@ public class RatWarrensCaptiveDialogue {
 	public static final DialogueNode CAPTIVE_DAY_2_AFTERNOON = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
+			getMurk().setLocation(Main.game.getPlayer(), false);
 			Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_AFTERNOON", getMilkers()));
 			Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
 			playerGrewVagina = false;
@@ -1414,7 +1401,10 @@ public class RatWarrensCaptiveDialogue {
 			CaptiveTransformation playerTf = CaptiveTransformation.getTransformationType(Main.game.getPlayer());
 			
 			if(index==1) {
-				return new Response("Eagerly beg", "You find yourself desperately wanting to be transformed, and so you eagerly beg to receive a taste of Murk's potion...", CAPTIVE_DAY_2_AFTER_POTION) {
+				return new Response("Eagerly beg",
+						"You find yourself desperately wanting to be transformed, and so you eagerly beg to receive a taste of Murk's potion..."
+								+getObedienceResponseDescription(5),
+								CAPTIVE_DAY_2_AFTERNOON_AFTER_TRANSFORMATION) {
 					@Override
 					public void effects() {
 						boolean vagina = Main.game.getPlayer().hasVagina();
@@ -1435,10 +1425,12 @@ public class RatWarrensCaptiveDialogue {
 				};
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_ONE_AGREEABLE)) {
+				if(isPlayerObeyingOrders(false)) {
 					return new Response("Reluctantly beg", "You are too obedient to do anything other than eagerly beg for the transformation potion!", null);
 				}
-				return new Response("Reluctantly beg", "You find yourself desperately wanting to be transformed, but that doesn't mean you should be too enthusiastic about it...", CAPTIVE_DAY_2_AFTER_POTION) {
+				return new Response("Reluctantly beg",
+						"You find yourself desperately wanting to be transformed, but that doesn't mean you should be too enthusiastic about it...",
+						CAPTIVE_DAY_2_AFTERNOON_AFTER_TRANSFORMATION) {
 					@Override
 					public void effects() {
 						boolean vagina = Main.game.getPlayer().hasVagina();
@@ -1462,7 +1454,7 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 	
-	public static final DialogueNode CAPTIVE_DAY_2_AFTERNOON_AFTER_TRANSFORMATION = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_2_AFTERNOON_AFTER_TRANSFORMATION = new DialogueNode("", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
@@ -1480,7 +1472,7 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 	
-	public static final DialogueNode CAPTIVE_DAY_2_AFTERNOON_AFTER_TRANSFORMATION_GROPED = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_2_AFTERNOON_AFTER_TRANSFORMATION_GROPED = new DialogueNode("", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
 			return 15*60;
@@ -1493,18 +1485,106 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Training", "Murk continues with the final stage of your obedience training...", CAPTIVE_DAY_2_EVENING_TRAINING);
+				return new Response("Training", "Murk continues with the final stage of your obedience training...", CAPTIVE_DAY_2_EVENING_TRAINING_START);
 			}
 			return null;
 		}
 	};
 	
-	public static final DialogueNode CAPTIVE_DAY_2_EVENING_TRAINING = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_2_EVENING_TRAINING_START = new DialogueNode("", "", true, true) {
+		@Override
+		public int getSecondsPassed() {
+			return Main.game.getMinutesUntilTimeInMinutes(21*60 + Util.random.nextInt(30))*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_EVENING_TRAINING_START", getMilkers());
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Beg for it",
+						"Desperately plead for Murk to fuck you instead of the milker."
+								+getObedienceResponseDescription(10),
+								CAPTIVE_DAY_2_EVENING_TRAINING) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_EVENING_TRAINING_START_BEG"));
+						Main.game.getTextStartStringBuilder().append(incrementPlayerObedience(10));
+					}
+				};
+				
+			} else if(index==2) {
+				if(isPlayerObeyingOrders(false)) {
+					return new Response("Stay silent", "You are too obedient to ignore Murk, and find yourself unable to think of doing anything other than begging for him to fuck you!", null);
+				}
+				return new Response("Stay silent",
+						"Despite your overwhelming lust, you refuse to beg for Murk to fuck you."
+								+getObedienceResponseDescription(-10),
+								CAPTIVE_DAY_2_EVENING_TRAINING) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_EVENING_TRAINING_START_REFUSE"));
+						Main.game.getTextStartStringBuilder().append(incrementPlayerObedience(-5));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode CAPTIVE_DAY_2_EVENING_TRAINING = new DialogueNode("", "", true, true) {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getPlayer().setLastTimeOrgasmed(Main.game.getMinutesPassed()+30);
 			GameCharacter milker = getMilkers().get(3);
 			milker.calculateGenericSexEffects(false, true, getMurk(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.FORCE_CREAMPIE);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 15*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_EVENING_TRAINING", getMilkers());
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Submit",
+						"Agree with Murk that you're a submissive milker slut who needs to be rutted by his fat cock."
+							+getObedienceResponseDescription(10),
+						CAPTIVE_DAY_2_END) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_EVENING_TRAINING_BEG"));
+						Main.game.getTextStartStringBuilder().append(incrementPlayerObedience(10));
+					}
+				};
+				
+			} else if(index==2) {
+				if(isPlayerObeyingOrders(false)) {
+					return new Response("Resist", "You are too obedient to refuse Murk's orders!", null);
+				}
+				return new Response("Resist",
+						"Do your best to resist your urge to submit to Murk and just stay silent."
+								+getObedienceResponseDescription(-10),
+						CAPTIVE_DAY_2_END) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_EVENING_TRAINING_REFUSE"));
+						Main.game.getTextStartStringBuilder().append(incrementPlayerObedience(-10));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode CAPTIVE_DAY_2_END = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			GameCharacter milker = getMilkers().get(3);
 			getMurk().fillCumToMaxStorage();
 			if(Main.game.isAnalContentEnabled()) {
 				milker.calculateGenericSexEffects(false, true, getMurk(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), GenericSexFlag.FORCE_CREAMPIE);
@@ -1519,51 +1599,16 @@ public class RatWarrensCaptiveDialogue {
 			}
 			Main.game.getPlayer().addDirtySlot(InventorySlot.ANUS);
 			Main.game.getPlayer().addDirtySlot(InventorySlot.LEG);
-			Main.game.getTextStartStringBuilder().append(incrementPlayerObedience(10));
+			Main.game.getPlayer().addDirtySlot(InventorySlot.MOUTH);
+			getMurk().returnToHome();
 		}
 		@Override
 		public int getSecondsPassed() {
-			return Main.game.getMinutesUntilTimeInMinutes(21*60)*60;
+			return 15*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_EVENING_TRAINING", getMilkers());
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Submit", "Tell Murk that you're his submissive milker bitch and that you can't wait to be fucked tomorrow.", CAPTIVE_DAY_2_END) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_EVENING_TRAINING_BEG"));
-						Main.game.getTextStartStringBuilder().append(incrementPlayerObedience(10));
-					}
-				};
-				
-			} else if(index==2) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_ONE_AGREEABLE)) {
-					return new Response("Refuse", "You are too obedient to refuse Murk's orders!", null);
-				}
-				return new Response("Refuse", "Despite your overwhelming lust, you refuse to tell Murk that you're his submissive milker bitch.", CAPTIVE_DAY_2_END) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_EVENING_TRAINING_REFUSE"));
-						Main.game.getTextStartStringBuilder().append(incrementPlayerObedience(-10));
-					}
-				};
-			}
-			return null;
-		}
-	};
-	
-	public static final DialogueNode CAPTIVE_DAY_2_END = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return Main.game.getMinutesUntilTimeInMinutes(22*60)*60;
-		}
-		@Override
-		public String getContent() {
-			return "";
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_2_END", getMilkers());
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -1578,10 +1623,12 @@ public class RatWarrensCaptiveDialogue {
 	// --------- END OF DAY 2 (max obedience = 100) --------- //
 	
 	
+	
+	
 	// --------- START OF DAY 3 --------- //
 	
 	
-	public static final DialogueNode CAPTIVE_DAY_3_WAKE = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_3_WAKE = new DialogueNode("", "", true) { //TODO
 		@Override
 		public void applyPreParsingEffects() {
 			applyWakingEffects();
@@ -1597,22 +1644,28 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Obey", "Get into your milking stall so that Murk can fasten your restraints...", CAPTIVE_DAY_3_LOCKED_IN_STALL) {
+				return new Response("Obey",
+						"Get into your milking stall so that Murk can fasten your restraints..."
+							+ getObedienceResponseDescription(5),
+						CAPTIVE_DAY_3_LOCKED_IN_STALL) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_WAKE_OBEY", getCharacters(false)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_WAKE_OBEY"));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
 					}
 				};
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_ONE_AGREEABLE)) {
+				if(isPlayerObeyingOrders(false)) {
 					return new Response("Resist", "You are too obedient to even think about refusing Murk's command!", null);
 				}
-				return new Response("Resist", "Try and resist being locked into your milking stall...", CAPTIVE_DAY_3_LOCKED_IN_STALL) {
+				return new Response("Resist",
+						"Try and resist being locked into your milking stall..."
+								+ getObedienceResponseDescription(-10),
+						CAPTIVE_DAY_3_LOCKED_IN_STALL) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_WAKE_RESIST", getCharacters(false)));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_WAKE_RESIST"));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(-10));
 					}
 				};
@@ -1623,8 +1676,12 @@ public class RatWarrensCaptiveDialogue {
 
 	public static final DialogueNode CAPTIVE_DAY_3_LOCKED_IN_STALL = new DialogueNode("", "", true, true) {
 		@Override
+		public void applyPreParsingEffects() {
+			getMurk().returnToHome();
+		}
+		@Override
 		public int getSecondsPassed() {
-			return 30*60;
+			return 15*60;
 		}
 		@Override
 		public String getContent() {
@@ -1641,8 +1698,12 @@ public class RatWarrensCaptiveDialogue {
 	
 	public static final DialogueNode CAPTIVE_DAY_3_LOCKED_IN_STALL_WAIT = new DialogueNode("", "", true, true) {
 		@Override
+		public void applyPreParsingEffects() {
+			getMurk().setLocation(Main.game.getPlayer(), false);
+		}
+		@Override
 		public int getSecondsPassed() {
-			return 15*60;
+			return 30*60;
 		}
 		@Override
 		public String getContent() {
@@ -1653,7 +1714,10 @@ public class RatWarrensCaptiveDialogue {
 			CaptiveTransformation playerTf = CaptiveTransformation.getTransformationType(Main.game.getPlayer());
 			
 			if(index==1) {
-				return new Response("Eagerly kiss", "You find yourself desperately wanting to be transformed, and so you eagerly kiss Murk's cock and tell him that you've fallen in love with it...", CAPTIVE_DAY_3_AFTER_POTION) {
+				return new Response("Eagerly kiss",
+						"You find yourself desperately wanting to be transformed, and so you eagerly kiss Murk's cock and tell him that you've fallen in love with it..."
+								+ getObedienceResponseDescription(5),
+						CAPTIVE_DAY_3_AFTER_POTION) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LOCKED_IN_STALL_WAIT_EAGER"));
@@ -1670,10 +1734,12 @@ public class RatWarrensCaptiveDialogue {
 				};
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_ONE_AGREEABLE)) {
+				if(isPlayerObeyingOrders(false)) {
 					return new Response("Reluctantly kiss", "You are too obedient to do anything other than eagerly beg for the transformation potion!", null);
 				}
-				return new Response("Reluctantly kiss", "You find yourself desperately wanting to be transformed, but that doesn't mean you should be too enthusiastic about it...", CAPTIVE_DAY_3_AFTER_POTION) {
+				return new Response("Reluctantly kiss",
+						"You find yourself desperately wanting to be transformed, but that doesn't mean you should be too enthusiastic about it...",
+						CAPTIVE_DAY_3_AFTER_POTION) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LOCKED_IN_STALL_WAIT_RELUCTANT"));
@@ -1712,6 +1778,10 @@ public class RatWarrensCaptiveDialogue {
 	
 	public static final DialogueNode CAPTIVE_DAY_3_MILKING = new DialogueNode("", "", true, true) {
 		@Override
+		public void applyPreParsingEffects() {
+			applyPlayerMilkingPumps(true, Util.newArrayListOfValues(InventorySlot.NIPPLE, InventorySlot.STOMACH, InventorySlot.PENIS)); // No vagina as Murk is going to fuck it first
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 15*60;
 		}
@@ -1721,50 +1791,70 @@ public class RatWarrensCaptiveDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_THREE_DISCIPLINED)) {
-					return new Response("Beg", "You're so obedient that you can't bring yourself to do anything but completely submit to Murk!", null);
+			if(Main.game.getPlayer().hasVagina()) {
+				if(index==1) {
+					return new Response("Drink",
+							"You're so turned on that you can't think of doing anything other than gulping down the transformative liquid..."
+								+ getObedienceResponseDescription(10),
+							CAPTIVE_DAY_3_MILKING_VAGINA_FINAL_TF) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_MILKING_DRINK"));
+							Main.game.getTextStartStringBuilder().append(incrementPlayerObedience(10));
+							Map<String, String> effects = CaptiveTransformation.FEMININE_PUSSY_FINAL.getEffects(Main.game.getPlayer());
+							for(Entry<String, String> entry : effects.entrySet()) {
+								Main.game.getTextStartStringBuilder().append(
+										"<p>"
+											+ UtilText.parse(getMurk(), "[npc.speech("+entry.getKey()+")]")
+										+ "</p>"
+										+ entry.getValue());
+							}
+						}
+					};
 				}
+				
+			} else {
+				return CAPTIVE_DAY_3_MILKING_VAGINA_FINAL_TF.getResponse(responseTab, index);
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode CAPTIVE_DAY_3_MILKING_VAGINA_FINAL_TF = new DialogueNode("", "", true, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 15*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_MILKING_VAGINA_FINAL_TF");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
 				return new ResponseSex(
-						"Beg",
-						"You're far too turned on to do anything other than beg for Murk to finally fuck you...",
+						"In love",
+						"Admit to Murk that you've fallen in love with his cock and beg for him to fuck you!"
+							+ getObedienceResponseDescription(25),
 						true,
 						false,
-						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.BEHIND_MILKING_STALL,
+						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.HUMPING,
 								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS), 2),
 						null,
 						null,
 						CAPTIVE_DAY_3_AFTER_FIRST_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_MILKING_FIRST_SEX")) { //TODO include virginity loss (hymen, pure virgin)
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_MILKING_FIRST_SEX")) {
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
 						return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), Main.game.getPlayer().hasVagina()?PenisVagina.PENIS_FUCKING_START:PenisAnus.PENIS_FUCKING_START, false, true));
 					}
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
-					}
-				};
-				
-			} else if(index==2) {
-				return new ResponseSex(
-						"Fully submit",
-						"Tell Murk that you want him to completely break you and turn you into his submissive milker bitch!",
-						true,
-						false,
-						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL,
-								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS), 2, SexPace.SUB_EAGER),
-						null,
-						null,
-						CAPTIVE_DAY_3_AFTER_FIRST_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_MILKING_FIRST_SEX_EAGER")) { //TODO include virginity loss (hymen, pure virgin)
-					@Override
-					public List<InitialSexActionInformation> getInitialSexActions() {
-						return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), Main.game.getPlayer().hasVagina()?PenisVagina.PENIS_FUCKING_START:PenisAnus.PENIS_FUCKING_START, false, true));
+						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(25));
 					}
 					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(15));
+					public void postSexInitEffects() {
+						Main.sex.incrementNumberOfOrgasms(Main.game.getPlayer(), 1);
 					}
 				};
 			}
@@ -1772,7 +1862,14 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 	
-	public static final DialogueNode CAPTIVE_DAY_3_AFTER_FIRST_SEX = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_3_AFTER_FIRST_SEX = new DialogueNode("Finished", "Murk has finished giving you your first real experience with his fat, musky cock...", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			if(Main.game.getPlayer().hasVagina()) {
+				Main.game.getPlayer().clearFluidsStored(SexAreaOrifice.VAGINA);
+				applyPlayerMilkingPumps(true, Util.newArrayListOfValues(InventorySlot.VAGINA));
+			}
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 15*60;
@@ -1784,67 +1881,43 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Manually milked", "Murk spends some time manually milking you...", CAPTIVE_DAY_3_MANUALLY_MILKED);
+				return new Response("Milked", "Murk leaves you to be milked by the machine as he swaggers off to check on the other milkers...", CAPTIVE_DAY_3_AFTER_SEX_MILKED);
 			}
 			return null;
 		}
 	};
 	
-	public static final DialogueNode CAPTIVE_DAY_3_MANUALLY_MILKED = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_3_AFTER_SEX_MILKED = new DialogueNode("", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
 			return 30*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_MANUALLY_MILKED");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTER_SEX_MILKED");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_THREE_DISCIPLINED)) {
-					return new Response("Beg", "You're so obedient that you can't bring yourself to do anything but completely submit to Murk!", null);
-				}
-				return new ResponseSex(
-						"Beg",
-						"You're far too turned on to do anything other than beg for Murk to fuck you...",
-						true,
-						false,
-						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.BEHIND_MILKING_STALL,
-								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina()&&!Main.game.isAnalContentEnabled()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS), 2),
-						null,
-						null,
-						CAPTIVE_DAY_3_AFTER_SECOND_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_MANUALLY_MILKED_SEX")) { //TODO include virginity loss (hymen, pure virgin)
-					@Override
-					public List<InitialSexActionInformation> getInitialSexActions() {
-						return Util.newArrayListOfValues(
-								new InitialSexActionInformation(getMurk(),
-										Main.game.getPlayer(),
-										Main.game.getPlayer().hasVagina() && !Main.game.isAnalContentEnabled()
-											?PenisVagina.PENIS_FUCKING_START
-											:PenisAnus.PENIS_FUCKING_START,
-										false,
-										true));
-					}
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
-					}
-				};
-				
-			} else if(index==2) {
 				return new ResponseSex(
 						"Fully submit",
-						"Tell Murk that you're his submissive milker bitch and that you need him to break you!",
+						Main.game.getPlayer().hasVagina() && !Main.game.isAnalContentEnabled()
+							?"Tell Murk that you're his submissive milker bitch and that you need him to break you!"
+							:"Tell Murk that you're a filthy butt-slut milker and that you love his cock!"
+								+ getObedienceResponseDescription(25),
 						true,
 						false,
-						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL,
-								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina()&&!Main.game.isAnalContentEnabled()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS), 2),
+						getBasicSexManager(SexPosition.MILKING_STALL,
+								Util.newHashMapOfValues(new Value<>(getMurk(), SexSlotMilkingStall.HUMPING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL)),
+								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina() && !Main.game.isAnalContentEnabled()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS),
+								2,
+								null,
+								true),
 						null,
 						null,
 						CAPTIVE_DAY_3_AFTER_SECOND_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_MANUALLY_MILKED_SEX_EAGER")) { //TODO include virginity loss (hymen, pure virgin)
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTER_SEX_MILKED_SEX")) {
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
 						return Util.newArrayListOfValues(
@@ -1858,7 +1931,13 @@ public class RatWarrensCaptiveDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(15));
+						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(25));
+					}
+					@Override
+					public void postSexInitEffects() {
+						if(Main.game.getPlayer().hasVagina() && !Main.game.isAnalContentEnabled()) {
+							Main.sex.incrementNumberOfOrgasms(Main.game.getPlayer(), 1);
+						}
 					}
 				};
 			}
@@ -1866,7 +1945,11 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 	
-	public static final DialogueNode CAPTIVE_DAY_3_AFTER_SECOND_SEX = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_3_AFTER_SECOND_SEX = new DialogueNode("Finished", "Murk has finished giving you your 'second date' with his fat, musky cock...", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().returnToHome();
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 15*60;
@@ -1878,7 +1961,7 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Lunch time", "Murk leaves you to be milked while he goes off to get lunch ready...", CAPTIVE_DAY_3_MANUALLY_MILKED);
+				return new Response("Lunch time", "Murk leaves you to be milked while he goes off to get lunch ready...", CAPTIVE_DAY_3_LUNCH);
 			}
 			return null;
 		}
@@ -1886,8 +1969,12 @@ public class RatWarrensCaptiveDialogue {
 	
 	public static final DialogueNode CAPTIVE_DAY_3_LUNCH = new DialogueNode("", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			getMurk().setLocation(Main.game.getPlayer(), false);
+		}
+		@Override
 		public int getSecondsPassed() {
-			return Main.game.getMinutesUntilTimeInMinutes(13*60)*60; //TODO sex could have gone past this?
+			return Main.game.getMinutesUntilTimeInMinutes(Math.max(Main.game.getHourOfDay()+1, 13)*60)*60;
 		}
 		@Override
 		public String getContent() {
@@ -1896,11 +1983,9 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_THREE_DISCIPLINED)) {
-					return new Response("Eat", "You are so obedient that you can't think of doing anything other than trying to earn some dessert!", null);
-				}
 				return new Response("Eat",
-						"Do as Murk says and eat the gruel...",
+						"Do as Murk says and eat the gruel..."
+								+ getObedienceResponseDescription(5),
 						CAPTIVE_DAY_3_LUNCH_END) {
 					@Override
 					public void effects() {
@@ -1910,47 +1995,34 @@ public class RatWarrensCaptiveDialogue {
 					}
 				};
 				
-			} else if(index==2) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_ONE_AGREEABLE)) {
+			} else if(index==2) { // Should be impossible...
+//				if(isPlayerObeyingOrders(false)) {
 					return new Response("Refuse", "You are too obedient to even think about refusing to eat the gruel!", null);
-				}
-				return new Response("Refuse",
-						"Refuse to eat the disgusting gruel...",
-						CAPTIVE_DAY_3_LUNCH_END) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LUNCH_REFUSE"));
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LUNCH_END"));
-						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(-10));
-					}
-				};
-				
-			} else if(index==3) {
-				return new ResponseSex(
-						"Dessert",
-						"Quickly eat the gruel so that you can earn a delicious dessert from Murk...",
-						true,
-						false,
-						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), 1, SexPace.SUB_EAGER),
-						null,
-						null,
-						CAPTIVE_DAY_3_LUNCH_AFTER_DESSERT,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LUNCH_DESSERT")) {
-					@Override
-					public List<InitialSexActionInformation> getInitialSexActions() {
-						return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
-					}
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
-					}
-				};
+//				}
+//				return new Response("Refuse",
+//						"Refuse to eat the disgusting gruel..."
+//								+ getObedienceResponseDescription(-10),
+//						CAPTIVE_DAY_3_LUNCH_END) {
+//					@Override
+//					public void effects() {
+//						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LUNCH_REFUSE"));
+//						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LUNCH_END"));
+//						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(-10));
+//					}
+//				};
 			}
 			return null;
 		}
 	};
 
-	public static final DialogueNode CAPTIVE_DAY_3_LUNCH_END = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_3_LUNCH_END = new DialogueNode("", "", true, true) {
+		@Override
+		public void applyPreParsingEffects() {
+			GameCharacter milker = Util.randomItemFrom(getMilkers());
+			milker.calculateGenericSexEffects(false, true, getMurk(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.FORCE_CREAMPIE);
+			Main.game.getPlayer().addDirtySlot(InventorySlot.MOUTH);
+			getMurk().returnToHome();
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 15*60;
@@ -1958,24 +2030,6 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public String getContent() {
 			return "";
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Wait", "Enjoy the sensation of being milked as you wait for Murk to return...", CAPTIVE_DAY_3_AFTERNOON);
-			}
-			return null;
-		}
-	};
-
-	public static final DialogueNode CAPTIVE_DAY_3_LUNCH_AFTER_DESSERT = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 15*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LUNCH_AFTER_DESSERT");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -1988,59 +2042,48 @@ public class RatWarrensCaptiveDialogue {
 
 	public static final DialogueNode CAPTIVE_DAY_3_AFTERNOON = new DialogueNode("", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			getMurk().setLocation(Main.game.getPlayer(), false);
+			spawnRat(false, true);
+			getCharacters(false).get(0).setGenericName("gang-member");
+			applyPlayerMilkingPumps(false, Util.newArrayListOfValues(InventorySlot.VAGINA));
+		}
+		@Override
 		public int getSecondsPassed() {
-			return 30*60;
+			return 60*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON", getCharacters(false));
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_THREE_DISCIPLINED)) {
-					return new Response("Beg", "You're so obedient that you can't bring yourself to do anything but completely submit to Murk!", null);
-				}
 				return new ResponseSex(
-						"Beg",
-						"You're far too turned on to do anything other than beg for Murk to fuck you again...",
+						"Beg for cock",
+						UtilText.parse(getCharacters(false), "Beg for [npc.namePos] rat-cock so that [npc.she]'ll start fucking you.")
+								+ getObedienceResponseDescription(10),
 						true,
 						false,
-						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.BEHIND_MILKING_STALL,
-								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS), 2),
+						getBasicSexManager(SexPosition.MILKING_STALL,
+								Util.newHashMapOfValues(new Value<>(getCharacters(false).get(0), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL)),
+								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS),
+								0,
+								null,
+								false),
 						null,
 						null,
 						CAPTIVE_DAY_3_AFTERNOON_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_SEX")) {
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_SEX", getCharacters(false))) {
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
-						return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), Main.game.getPlayer().hasVagina()?PenisVagina.PENIS_FUCKING_START:PenisAnus.PENIS_FUCKING_START, false, true));
+						return Util.newArrayListOfValues(new InitialSexActionInformation(
+								getCharacters(false).get(0), Main.game.getPlayer(), Main.game.getPlayer().hasVagina()?PenisVagina.PENIS_FUCKING_START:PenisAnus.PENIS_FUCKING_START, false, true));
 					}
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
-					}
-				};
-				
-			} else if(index==2) {
-				return new ResponseSex(
-						"Fully submit",
-						"Tell Murk that you're his submissive milker bitch and to use you as his cock-sleeve!",
-						true,
-						false,
-						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL,
-								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS), 2, SexPace.SUB_EAGER),
-						null,
-						null,
-						CAPTIVE_DAY_3_AFTERNOON_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_SEX_EAGER")) {
-					@Override
-					public List<InitialSexActionInformation> getInitialSexActions() {
-						return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), Main.game.getPlayer().hasVagina()?PenisVagina.PENIS_FUCKING_START:PenisAnus.PENIS_FUCKING_START, false, true));
-					}
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(15));
+						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
 					}
 				};
 			}
@@ -2048,14 +2091,106 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 
-	public static final DialogueNode CAPTIVE_DAY_3_AFTERNOON_AFTER_SEX = new DialogueNode("", "", true) {
+	public static final DialogueNode CAPTIVE_DAY_3_AFTERNOON_AFTER_SEX = new DialogueNode("Finished", "", true) {
+		@Override
+		public String getDescription() {
+			return UtilText.parse(getCharacters(false), "[npc.Name] feels as though [npc.sheHas] got [npc.her] money's worth out of you, and so brings an end to the sex...");
+		}
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_AFTER_SEX", getCharacters(false)));
+			banishRats();
+			getMurk().returnToHome();
+			applyPlayerMilkingPumps(true, Util.newArrayListOfValues(InventorySlot.VAGINA));
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 15*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_AFTER_SEX");
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Milked", "Enjoy the sensation of being milked as you wait for Murk to return again...", CAPTIVE_DAY_3_AFTERNOON_SECOND_SEX);
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode CAPTIVE_DAY_3_AFTERNOON_SECOND_SEX = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().setLocation(Main.game.getPlayer(), false);
+			spawnRat(false, true);
+			getCharacters(false).get(0).setGenericName("gang-member");
+			getCharacters(false).get(0).addFetish(Fetish.FETISH_SADIST);
+			applyPlayerMilkingPumps(false, Util.newArrayListOfValues(InventorySlot.VAGINA));
+		}
+		@Override
+		public int getSecondsPassed() {
+			return Main.game.getMinutesUntilTimeInMinutes(19*60)*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_SECOND_SEX", getCharacters(false));
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new ResponseSex(
+						"Fucked again",
+						UtilText.parse(getCharacters(false), "[npc.Name] doesn't seem to care about giving you any foreplay and just starts fucking you...")
+								+ getObedienceResponseDescription(10),
+						true,
+						false,
+						getBasicSexManager(SexPosition.MILKING_STALL,
+								Util.newHashMapOfValues(new Value<>(getCharacters(false).get(0), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotMilkingStall.LOCKED_IN_MILKING_STALL)),
+								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS),
+								0,
+								null,
+								false),
+						null,
+						null,
+						CAPTIVE_DAY_3_AFTERNOON_AFTER_SECOND_SEX,
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_SECOND_SEX_START", getCharacters(false))) {
+					@Override
+					public List<InitialSexActionInformation> getInitialSexActions() {
+						return Util.newArrayListOfValues(
+								new InitialSexActionInformation(getCharacters(false).get(0), Main.game.getPlayer(), Main.game.getPlayer().hasVagina()?PenisVagina.PENIS_FUCKING_START:PenisAnus.PENIS_FUCKING_START, false, true));
+					}
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
+					}
+				};
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode CAPTIVE_DAY_3_AFTERNOON_AFTER_SECOND_SEX = new DialogueNode("Finished", "", true) {
+		@Override
+		public String getDescription() {
+			return UtilText.parse(getCharacters(false), "[npc.Name] [npc.has] had enough of fucking you, and so brings an end to the sex...");
+		}
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_AFTER_SECOND_SEX", getCharacters(false)));
+			banishRats();
+			getMurk().returnToHome();
+			applyPlayerMilkingPumps(true, Util.newArrayListOfValues(InventorySlot.VAGINA));
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 15*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -2068,8 +2203,14 @@ public class RatWarrensCaptiveDialogue {
 
 	public static final DialogueNode CAPTIVE_DAY_3_AFTERNOON_END = new DialogueNode("", "", true) {
 		@Override
+		public void applyPreParsingEffects() {
+			getMurk().setLocation(Main.game.getPlayer(), false);
+			applyPlayerMilkingPumps(false, Util.newArrayListOfValues(InventorySlot.VAGINA, InventorySlot.NIPPLE, InventorySlot.STOMACH, InventorySlot.PENIS));
+			Main.game.getPlayer().addDirtySlot(InventorySlot.MOUTH);
+		}
+		@Override
 		public int getSecondsPassed() {
-			return Main.game.getMinutesUntilTimeInMinutes(20*60)*60;
+			return Main.game.getMinutesUntilTimeInMinutes(Math.max(22, Main.game.getHourOfDay()+1)*60)*60;
 		}
 		@Override
 		public String getContent() {
@@ -2078,523 +2219,59 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_THREE_DISCIPLINED)) {
-					return new Response("Beg", "You're so obedient that you can't bring yourself to do anything but completely submit to Murk!", null);
-				}
-				return new ResponseSex(
-						"Beg",
-						"You're far too turned on to do anything other than beg for Murk to fuck you again...",
-						true,
-						false,
-						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.BEHIND_MILKING_STALL,
-								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina()&&!Main.game.isAnalContentEnabled()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS), 2),
-						null,
-						null,
-						CAPTIVE_DAY_3_AFTERNOON_END_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_END_SEX")) {
-					@Override
-					public List<InitialSexActionInformation> getInitialSexActions() {
-						return Util.newArrayListOfValues(
-								new InitialSexActionInformation(getMurk(),
-										Main.game.getPlayer(),
-										Main.game.getPlayer().hasVagina() && !Main.game.isAnalContentEnabled()
-											?PenisVagina.PENIS_FUCKING_START
-											:PenisAnus.PENIS_FUCKING_START,
-										false,
-										true));
-					}
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
-					}
-				};
+				return new Response("Submit", "Kneel down before Murk and beg for him to fuck you.", CAPTIVE_DAY_3_AFTERNOON_END_SUBMIT);
 				
 			} else if(index==2) {
-				return new ResponseSex(
-						"Fully submit",
-						"Tell Murk that you love being his submissive milker bitch!",
-						true,
-						false,
-						getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL,
-								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina()&&!Main.game.isAnalContentEnabled()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS), 2),
-						null,
-						null,
-						CAPTIVE_DAY_3_AFTERNOON_END_AFTER_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_END_SEX_EAGER")) {
-					@Override
-					public List<InitialSexActionInformation> getInitialSexActions() {
-						return Util.newArrayListOfValues(
-								new InitialSexActionInformation(getMurk(),
-										Main.game.getPlayer(),
-										Main.game.getPlayer().hasVagina() && !Main.game.isAnalContentEnabled()
-											?PenisVagina.PENIS_FUCKING_START
-											:PenisAnus.PENIS_FUCKING_START,
-										false,
-										true));
-					}
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(15));
-					}
-				};
+				return new Response("Escape", "The thought of trying to escape doesn't even cross your obedient milker mind...", null);
 			}
 			return null;
 		}
 	};
 	
-	public static final DialogueNode CAPTIVE_DAY_3_AFTERNOON_END_AFTER_SEX = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 15*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_END_AFTER_SEX");
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Wait", "Wait as Murk releases the other milkers from their stalls...", CAPTIVE_DAY_3_EVENING);
-			}
-			return null;
-		}
-	};
-
-	public static final DialogueNode CAPTIVE_DAY_3_EVENING = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 30*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_EVENING", getMilkers());
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return CAPTIVE_MILKER_EVENING.getResponse(responseTab, index);
-		}
-	};
-	
-	
-	// --------- END OF DAY 3 --------- //
-
-	
-	// --------- GENERIC LOOP FROM DAY 4 ONWARDS --------- //
-	
-	
-	public static final DialogueNode CAPTIVE_MILKER_WAKE = new DialogueNode("", "", true) {
-		@Override
-		public void applyPreParsingEffects() {
-			applyWakingEffects();
-		}
-		@Override
-		public int getSecondsPassed() {
-			return Main.game.getMinutesUntilTimeInMinutes(8*60)*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_MILKER_WAKE");
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.PREGNANT_3)) {
-				// Silence delivers
-				if(index==1) {
-					return new Response("Birthing", "[pc.PetName(murk)] notices that you're ready to give birth...", CAPTIVE_GIVE_BIRTH) {
-						@Override
-						public void effects() {
-							Main.game.getNpc(Silence.class).setLocation(Main.game.getPlayer(), false);
-							Main.game.getNpc(Shadow.class).setLocation(Main.game.getPlayer(), false);
-							
-							Main.game.getPlayer().endPregnancy(true);
-							Main.game.getPlayer().setMana(0);
-							
-							if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
-								Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-								Main.game.getPlayer().incrementVaginaCapacity(
-										(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
-										false);
-							}
-							
-							if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) { // If birthing side quest is not complete, remove it, as otherwise completion (referencing Lily) doesn't make any sense.
-								Main.game.getPlayer().removeQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY);
-							}
-						}
-					};
-				}
-				
-			} else {
-				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.badEnd)) {
-					if(index==1) {
-						return new Response("Obey", "Get into your milking stall so that [pc.petName(murk)] can start milking you.", CAPTIVE_MILKER_LOCKED_IN_STALL) {
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_START_BROKEN"));
-							}
-						};
-					}
-					
-				} else {
-					if(index==1) {
-						return new Response("Obey", "Get into your milking stall so that [pc.petName(murk)] can fasten your restraints and start milking you...", CAPTIVE_MILKER_LOCKED_IN_STALL) {
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_START_OBEY", getCharacters(false)));
-								Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
-							}
-						};
-						
-					} else if(index==2) {
-						if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_ONE_AGREEABLE)) {
-							return new Response("Resist", "You are too obedient to even think about refusing [pc.petName(murk)]'s command!", null);
-						}
-						return new Response("Resist", "Try and resist being locked into your milking stall...", CAPTIVE_MILKER_LOCKED_IN_STALL) {
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_START_RESIST", getCharacters(false)));
-								Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(-10));
-							}
-						};
-					}
-				}
-			}
-			return null;
-		}
-	};
-
-	public static final DialogueNode CAPTIVE_MILKER_LOCKED_IN_STALL = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 15*60;
-		}
-		@Override
-		public String getContent() {
-			return "";
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.badEnd)) {
-				
-			} else {
-				
-			}
-			//TODO Begging for a fuck when Murk returns or not (chcen to be fucked)
-			return null;
-		}
-	};
-
-	public static final DialogueNode CAPTIVE_MILKER_MORNING = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 15*60;
-		}
-		@Override
-		public String getContent() {
-			return "";
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			//TODO random milking event
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.badEnd)) {
-				
-			} else {
-				
-			}
-			return null;
-		}
-	};
-
-	public static final DialogueNode CAPTIVE_MILKER_LUNCH = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return Main.game.getMinutesUntilTimeInMinutes(13*60)*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_MILKER_LUNCH");
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			 //TODO chance to earn dessert, with failed chance resulting in Murk giving you a bowl of leftover 'dessert' from giving it to a different milker
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.badEnd)) {
-				if(index==1) {
-					return new ResponseSex(
-							"Dessert",
-							"Quickly eat the gruel so that you can earn a delicious dessert from [pc.petName(murk)]!",
-							true,
-							false,
-							getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), 1, SexPace.SUB_EAGER),
-							null,
-							null,
-							CAPTIVE_DAY_3_LUNCH_AFTER_DESSERT,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LUNCH_BROKEN")) {
-						@Override
-						public List<InitialSexActionInformation> getInitialSexActions() {
-							return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
-						}
-					};
-				}
-				
-			} else {
-				if(index==1) {
-					if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_THREE_DISCIPLINED)) {
-						return new Response("Eat", "You are so obedient that you can't think of doing anything other than trying to earn some dessert!", null);
-					}
-					return new Response("Eat",
-							"Do as Murk says and eat the gruel...",
-							CAPTIVE_DAY_3_LUNCH_END) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LUNCH_EAT"));
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LUNCH_END"));
-							Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
-						}
-					};
-					
-				} else if(index==2) {
-					if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_ONE_AGREEABLE)) {
-						return new Response("Refuse", "You are too obedient to even think about refusing to eat the gruel!", null);
-					}
-					return new Response("Refuse",
-							"Refuse to eat the disgusting gruel...",
-							CAPTIVE_DAY_3_LUNCH_END) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LUNCH_REFUSE"));
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LUNCH_END"));
-							Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(-10));
-						}
-					};
-					
-				} else if(index==3) {
-					return new ResponseSex(
-							"Dessert",
-							"Quickly eat the gruel so that you can earn a delicious dessert from Murk...",
-							true,
-							false,
-							getPlayerMurkMilkingStallSM(SexSlotMilkingStall.RECEIVING_ORAL, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), 1, SexPace.SUB_EAGER),
-							null,
-							null,
-							CAPTIVE_DAY_3_LUNCH_AFTER_DESSERT,
-							UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_LUNCH_DESSERT")) {
-						@Override
-						public List<InitialSexActionInformation> getInitialSexActions() {
-							return Util.newArrayListOfValues(new InitialSexActionInformation(getMurk(), Main.game.getPlayer(), PenisMouth.BLOWJOB_START, false, true));
-						}
-						@Override
-						public void effects() {
-							Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
-						}
-					};
-				}
-			}
-			return null;
-		}
-	};
-
-	public static final DialogueNode CAPTIVE_MILKER_LUNCH_END = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 15*60;
-		}
-		@Override
-		public String getContent() {
-			return "";
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			//TODO Random event 1
-			return null;
-		}
-	};
-
-	public static final DialogueNode CAPTIVE_MILKER_AFTERNOON_EVENT_END = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 15*60;
-		}
-		@Override
-		public String getContent() {
-			return "";
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			//TODO Random event 2
-			return null;
-		}
-	};
-
-	public static final DialogueNode CAPTIVE_MILKER_AFTERNOON_EVENT_2_END = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 15*60;
-		}
-		@Override
-		public String getContent() {
-			return "";
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			//TODO Waiting
-			return null;
-		}
-	};
-
-	public static final DialogueNode CAPTIVE_MILKER_EVENING = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return Main.game.getMinutesUntilTimeInMinutes(22*60)*60;
-		}
-		@Override
-		public String getContent() {
-			return "";
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.badEnd)) {
-				if(index==1) {
-					return new Response("Kiss cock", "Show your complete devotion to [pc.petName(murk)] by refusing to escape and instead crawling over to kiss his cock.", CAPTIVE_MILKER_DAY_END) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_MILKER_EVENING_BROKEN"));
-						}
-					};
-				}
-				
-			} else {
-				if(index==1) {
-					if(Main.game.getPlayer().getObedienceValue()>=100 && Main.game.isBadEndsEnabled()) {
-						return new Response("Submit", "You are completely broken and cannot think of doing anything other than fully capitulating to Murk...", null);
-					}
-					return new Response("Submit", "Tell Murk that you're his submissive milker bitch and that you can't wait to be fucked tomorrow.", CAPTIVE_MILKER_DAY_END) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_MILKER_EVENING_SUBMIT"));
-							Main.game.getTextStartStringBuilder().append(incrementPlayerObedience(10));
-						}
-					};
-					
-				} else if(index==2) {
-					if(Main.game.getPlayer().getObedienceValue()>=100 && Main.game.isBadEndsEnabled()) {
-						return new Response("Refuse", "You are completely broken and cannot think of doing anything other than fully capitulating to Murk...", null);
-					}
-					if(Main.game.getPlayer().getObedience().isGreaterThan(ObedienceLevel.POSITIVE_ONE_AGREEABLE)) {
-						return new Response("Refuse", "You are too obedient to refuse Murk's orders!", null);
-					}
-					return new Response("Refuse", "Despite your overwhelming lust, you refuse to tell Murk that you're his submissive milker bitch.", CAPTIVE_MILKER_DAY_END) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_MILKER_EVENING_REFUSE"));
-							Main.game.getTextStartStringBuilder().append(incrementPlayerObedience(-10));
-						}
-					};
-					
-				} else if(index==3 && Main.game.isBadEndsEnabled()) {
-					if(Main.game.getPlayer().getObedience().isLessThan(ObedienceLevel.POSITIVE_FOUR_DUTIFUL)) {
-						return new Response("Fully capitulate", "You are not yet obedient enough to fully capitulate to Murk...", null);
-					}
-					return new Response("Fully capitulate",
-							"Tell Murk that you're his submissive milker slut and that you'll do anything for him!"
-								+ "<br/>[style.boldBadEnd(BAD END!)]"
-								+ "<br/>You will be unable to attempt to escape after this!",
-							CAPTIVE_MILKER_FULL_CAPITULATION) {
-						@Override
-						public Colour getHighlightColour() {
-							return PresetColour.GENERIC_BAD_END;
-						}
-						@Override
-						public void effects() {
-							Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(50));
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.badEnd, true);
-							Main.getProperties().badEndTitle = "Murk's Milker";
-						}
-					};
-				}
-			}
-			return null;
-		}
-	};
-
-	public static final DialogueNode CAPTIVE_MILKER_DAY_END = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 15*60;
-		}
-		@Override
-		public String getContent() {
-			return "";
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Chained up", "You once again find yourself chained up...", CAPTIVE_NIGHT);
-			}
-			return null;
-		}
-	};
-	
-	public static final DialogueNode CAPTIVE_MILKER_FULL_CAPITULATION = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			return 10*60;
-		}
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_MILKER_FULL_CAPITULATION");
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Master", "Decide to call Murk your Master from now on...", CAPTIVE_MILKER_FULL_CAPITULATION_FUCKED) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_EVENING_TRAINING_CAPITULATION_MASTER"));
-						Main.game.getTextStartStringBuilder().append(incrementPlayerObedience(50));
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.murkMaster, true);
-						Main.game.getPlayer().setPetName(Main.game.getNpc(Murk.class), "Master");
-					}
-				};
-				
-			} else if(index==2) {
-				return new Response("Daddy", "Decide to call Murk your Daddy from now on...", CAPTIVE_MILKER_FULL_CAPITULATION_FUCKED) {
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_EVENING_TRAINING_CAPITULATION_DADDY"));
-						Main.game.getTextStartStringBuilder().append(incrementPlayerObedience(50));
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.murkDaddy, true);
-						Main.game.getPlayer().setPetName(Main.game.getNpc(Murk.class), "Daddy");
-					}
-				};
-			}
-			return null;
-		}
-	};
-
-	public static final DialogueNode CAPTIVE_MILKER_FULL_CAPITULATION_FUCKED = new DialogueNode("", "", true, true) {
+	public static final DialogueNode CAPTIVE_DAY_3_AFTERNOON_END_SUBMIT = new DialogueNode("", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_MILKER_FULL_CAPITULATION_FUCKED");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_END");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex(
-						"Spread legs",
-						"Spread your legs for [pc.petName(murk)] and let him mating press you.",
+						Main.game.getPlayer().isTaur()
+							?"Present yourself"
+							:"Spread legs",
+						(Main.game.getPlayer().isTaur()
+							?"Present your pussy to your Master and tell him that his cock is your one true love!"
+							:"Spread your legs for your Master and tell him that his cock is your one true love!")
+							+ getObedienceResponseDescription(25),
 						true,
 						false,
-						getPlayerMurkSM(SexPosition.LYING_DOWN,
-								SexSlotLyingDown.MATING_PRESS,
-								SexSlotLyingDown.LYING_DOWN,
-								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS), 2),
+						getBasicSexManager(
+								Main.game.getPlayer().isTaur()
+									?SexPosition.ALL_FOURS
+									:SexPosition.LYING_DOWN,
+								Util.newHashMapOfValues(new Value<>(getMurk(),
+										Main.game.getPlayer().isTaur()
+											?SexSlotAllFours.HUMPING
+											:(Main.game.getPlayer().isVisiblyPregnant()
+												?SexSlotLyingDown.MISSIONARY
+												:SexSlotLyingDown.MATING_PRESS))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(),
+										Main.game.getPlayer().isTaur()
+											?SexSlotAllFours.ALL_FOURS
+											:SexSlotLyingDown.LYING_DOWN)),
+								new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, Main.game.getPlayer().hasVagina()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS),
+								0,
+								null,
+								false),
 						null,
 						null,
-						CAPTIVE_MILKER_AFTER_CAPITULATION_SEX,
-						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_MILKER_FULL_CAPITULATION_FUCKED_START")) {
+						CAPTIVE_DAY_3_END,
+						UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_AFTERNOON_END_SUBMIT_SEX")) {
 					@Override
 					public List<InitialSexActionInformation> getInitialSexActions() {
 						return Util.newArrayListOfValues(
@@ -2604,22 +2281,48 @@ public class RatWarrensCaptiveDialogue {
 											?PenisVagina.PENIS_FUCKING_START
 											:PenisAnus.PENIS_FUCKING_START,
 										false,
-										true));
+										true),
+								Main.game.getPlayer().isTaur()
+									?null
+									:new InitialSexActionInformation(getMurk(),
+											Main.game.getPlayer(),
+											TongueMouth.KISS_START,
+											false,
+											true));
+					}
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.murkMaster, true);
+						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(25));
+					}
+					@Override
+					public void postSexInitEffects() {
+						Main.sex.incrementNumberOfOrgasms(Main.game.getPlayer(), 1);
+						if(Main.game.getPlayer().hasPenis()) {
+							Main.game.getPlayer().applyOrgasmCumEffect();
+							if(!Main.game.getPlayer().isTaur()) {
+								Main.game.getPlayer().addDirtySlot(InventorySlot.CHEST);
+							}
+						}
 					}
 				};
 			}
 			return null;
 		}
 	};
-
-	public static final DialogueNode CAPTIVE_MILKER_AFTER_CAPITULATION_SEX = new DialogueNode("", "", true) {
+	
+	public static final DialogueNode CAPTIVE_DAY_3_END = new DialogueNode("Finished", "Murk has had his fun by stuffing you full of his cum...", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().returnToHome();
+		}
 		@Override
 		public int getSecondsPassed() {
-			return 15*60;
+			return 5*60;
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_MILKER_AFTER_CAPITULATION_SEX");
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_3_END");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -2631,11 +2334,183 @@ public class RatWarrensCaptiveDialogue {
 	};
 	
 	
-	// --------- END OF GENERIC LOOP --------- //
+	// --------- END OF DAY 3 --------- //
+	
+	
+	
+	
+	// --------- NIGHT --------- //
+	
+	
+	public static final DialogueNode CAPTIVE_NIGHT = new DialogueNode("", "", false) {
+		@Override
+		public void applyPreParsingEffects() {
+			getMurk().returnToHome();
+			for(GameCharacter milker : getMilkers()) {
+				((RatWarrensCaptive)milker).applyMilkingEquipment(false, Util.newArrayListOfValues(InventorySlot.NIPPLE, InventorySlot.VAGINA));
+			}
+		}
+		@Override
+		public int getSecondsPassed() {
+			if(Main.game.getDialogueFlags().getMurkTfStage(Main.game.getPlayer())==0) {
+				return Main.game.getMinutesUntilTimeInMinutes(01*60)*60; // First night
+			}
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
 
+			if(Main.game.getDialogueFlags().getMurkTfStage(Main.game.getPlayer())==0
+					&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveInitialNightDescription)) {
+				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "DAY_0_SLEEP"));
+			} else {
+				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_NIGHT"));
+			}
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_NIGHT_WARNING"));
+			sb.append(incrementPlayerObedience(0));
+			
+			return sb.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				int stage = Main.game.getDialogueFlags().getMurkTfStage(Main.game.getPlayer());
+				if(stage>=4) {
+					if(Main.game.isBadEndsEnabled()) {
+						return new Response("Sleep",
+								"Fall asleep..."
+								+ "<br/>[style.boldBadEnd(BAD END:)] By failing to escape for the third night in a row, you will fully capitulate to Murk and accept your new life as one of his milkers!",
+								CAPTIVE_NIGHT_SLEEP) {
+							@Override
+							public Colour getHighlightColour() {
+								return PresetColour.GENERIC_BAD_END;
+							}
+						};
+						
+					} else {
+						return new Response("Sleep", "Fall asleep...", CAPTIVE_NIGHT_SLEEP_RESCUED);
+					}
+				}
+				return new Response("Sleep", "Fall asleep...", CAPTIVE_NIGHT_SLEEP);
+				
+			} else if(index==2) {
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveWashed)) {
+					return new Response("Wash", "You've already washed yourself this evening...", null);
+				}
+				return new Response("Wash", "Use the shallow stream to wash your body.", CAPTIVE_NIGHT) {
+					@Override
+					public int getSecondsPassed() {
+						return 10*60;
+					}
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveWashed, true);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveInitialNightDescription, false);
+						StringBuilder sb = new StringBuilder();
+						GameCharacter player = Main.game.getPlayer();
+						
+						player.setHealth(player.getAttributeValue(Attribute.HEALTH_MAXIMUM));
+						player.setMana(player.getAttributeValue(Attribute.MANA_MAXIMUM));
+						
+						sb.append(player.washAllOrifices(false));
+						player.calculateStatusEffects(0);
+						player.cleanAllDirtySlots(true);
+						player.cleanAllClothing(false, true);
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_NIGHT_WASH", getCharacters(false)));
+						Main.game.getTextStartStringBuilder().append(sb.toString());
+					}
+				};
+				
+			} else if(index==3) {
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveCalledOut)) {
+					return new Response("Call out", "Murk won't pay attention to you if you call out again. You'll have to wait until tomorrow night...", null);
+				}
+				return new Response("Call out", "Call out for Murk...", CAPTIVE_CALL_OUT);
+				
+			} else if(index==4) {
+				if(isPlayerObeyingOrders(true)) {
+					return new Response("Break lock", "You're far too obedient to even consider trying to damage Murk's property!", null);
+				}
+				if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)>=80) {
+					return new Response("Break lock", "Use your raw physical power to break free of the lock...", CAPTIVE_BROKEN_FREE) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_NIGHT_BREAK_LOCK", getCharacters(false)));
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveAttemptingEscape, true);
+						}
+					};
+				}
+				return new Response("Break lock", "You are not strong enough to break the lock...<br/>[style.italicsMinorBad(Required at least 80 "+Attribute.MAJOR_PHYSIQUE.getName()+"...)]", null);
+				
+			} else if(index==5) {
+				if(isPlayerObeyingOrders(true)) {
+					return new Response("Break lock", "You're far too obedient to even consider trying to damage Murk's property!", null);
+				}
+				if(Main.game.getPlayer().hasSpell(Spell.FIREBALL)
+						|| Main.game.getPlayer().hasSpell(Spell.ICE_SHARD)
+						|| Main.game.getPlayer().hasSpell(Spell.SLAM)) {
+					return new Response("Break lock (Spell)",
+							"Spend some time channelling your arcane power in an attempt to overcome your slave collar's enchantment and cast a spell to break the lock on the stocks.",
+							CAPTIVE_BROKEN_FREE) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_NIGHT_BREAK_LOCK_SPELL", getCharacters(false)));
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveAttemptingEscape, true);
+						}
+					};
+				}
+				return new Response("Break lock",
+						"You do not know a spell that would be suitable to break the lock..."
+								+ "<br/>[style.italicsMinorBad(Requires knowing one of the following spells: "+Spell.FIREBALL.getName()+"; "+Spell.ICE_SHARD.getName()+"; "+Spell.SLAM.getName()+".)]",
+						null);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode CAPTIVE_NIGHT_SLEEP = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			if(Main.game.getHourOfDay()>0) {
+				return Main.game.getMinutesUntilTimeInMinutes(Main.game.getHourOfDay()+1*60)*60;
+			}
+			return Main.game.getMinutesUntilTimeInMinutes(01*60)*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_NIGHT_SLEEP", getMilkers());
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Wake up", "You wake up the next morning...", getSleepNode());
+			}
+			return null;
+		}
+	};
+	
+	
 	
 	// --------- MISCELLANEOUS DIALOGUES --------- //
 	
+	
+	public static final DialogueNode BAD_END = new DialogueNode("[style.boldBadEnd(Bad End: Murk's Milker)]", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.badEnd, true);
+			Main.getProperties().badEndTitle = "Murk's Milker";
+			Main.game.getPlayer().setName(new NameTriplet("Horny milker"));
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "BAD_END", getMilkers());
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
 	
 	public static final DialogueNode CAPTIVE_GIVE_BIRTH = new DialogueNode("", "", true) {
 		@Override
@@ -2719,245 +2594,17 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
-			if(isTransformationFinished()) {
-				return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_GIVE_BIRTH_FINISHED", getCharacters(false));
-			} else {
-				sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_GIVE_BIRTH_INITIAL_FINISHED", getCharacters(false)));
-				sb.append(CAPTIVE_DAY_1_WAKE.getContent());
-			}
+			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_GIVE_BIRTH_INITIAL_FINISHED", getCharacters(false)));
+			sb.append(CAPTIVE_NIGHT.getContent());
 			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(isTransformationFinished()) {
-				return CAPTIVE_MILKER_WAKE.getResponse(responseTab, index);
-			} else {
-				return CAPTIVE_DAY_1_WAKE.getResponse(responseTab, index);
-			}
+			return CAPTIVE_NIGHT.getResponse(responseTab, index);
 		}
 	};
 	
-	
-	
-	
-	
-	
-	public static final DialogueNode CAPTIVE_WAITING = new DialogueNode("", "", true) {
-		@Override
-		public int getSecondsPassed() {
-			int hours = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveFuckedByMurk)
-					?1+Util.random.nextInt(4) // 1-4 Hours
-					:3+Util.random.nextInt(4); // 3-7 hours
-			int seconds = (hours)*60*60;
-			int progression = seconds + Main.game.getDaySeconds();
-			if(progression > 22*60*60) { // Do not pass 22:10:
-				seconds = seconds - (progression - 22*60*60);
-				seconds += 10*60;
-			}
-			return seconds; 
-		}
-		@Override
-		public String getContent() {
-			return "";
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			switch(playerInteraction) {
-				case MILKING:
-				case PUNISHMENT:
-					if(index==1) {
-						return new Response("Wait",
-								UtilText.parse(getMurk(), "Having had [npc.her] fun, [npc.name] heads back to the milk storage room, leaving you to wait in the stocks..."),
-								Main.game.isExtendedWorkTime()
-									?CAPTIVE_WAITING
-									:CAPTIVE_NIGHT) {
-							@Override
-							public void effects() {
-								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_WAITING_MURK_LEAVES", getCharacters(false)));
-								getMurk().returnToHome();
-								if(Main.game.isExtendedWorkTime()) {
-									applyWaitingEffects();
-								}
-							}
-						};
-					}
-					break;
-					
-				case TEASE:
-				case INSPECTION: //TODO split with different responses
-					if(index==1) {
-						return new Response(
-								"Continue",
-								playerMurkSex
-									?"Stay quiet and wait for Murk to leave..."
-									:"Murk isn't interested in doing anything else with you right now, and turns around to leave...",
-								Main.game.isExtendedWorkTime()
-									?CAPTIVE_WAITING
-									:CAPTIVE_NIGHT) {
-							@Override
-							public void effects() {
-								if(playerMurkSex) {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_WAITING_REFUSE_TO_BEG", getCharacters(false)));
-								} else {
-									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_WAITING_MURK_LEAVES", getCharacters(false)));
-								}
-								getMurk().returnToHome();
-								if(Main.game.isExtendedWorkTime()) {
-									applyWaitingEffects();
-								}
-							}
-						};
-						
-					} else if(index==2 && playerMurkSex) {
-						return getPlayerOwnerSexResponse("Beg for it",
-								UtilText.parse(getMurk(), "Now that [npc.name] has turned you on so much, you can't help but beg for [npc.herHim] to fuck you!"),
-								CAPTIVE_AFTER_SEX);
-					}
-					break;
-					
-				case RAT_SEX:
-					if(index==1) {
-						return getPlayerMilkingStallSexResponse("Fucked",
-								UtilText.parse(getCharacters(false).get(0), "There's nothing you can do to stop the rat from having [npc.her] way with you..."),
-								CAPTIVE_AFTER_SEX, 
-								Util.newHashMapOfValues(
-										new Value<>(getCharacters(false).get(0), SexSlotMilkingStall.BEHIND_MILKING_STALL)),
-								"CAPTIVE_WAITING_SOLO_SEX");
-					}
-					break;
-					
-				case RAT_SEX_THREESOME:
-					if(index==1) {
-						return getPlayerMilkingStallSexResponse("Fucked",
-								UtilText.parse(getCharacters(false).get(0), "There's nothing you can do to stop the rats from having their way with you..."),
-								CAPTIVE_AFTER_SEX, 
-								Util.newHashMapOfValues(
-										new Value<>(getCharacters(false).get(0), SexSlotMilkingStall.BEHIND_MILKING_STALL),
-										new Value<>(getCharacters(false).get(1), SexSlotMilkingStall.RECEIVING_ORAL)),
-								"CAPTIVE_WAITING_THREESOME_SEX");
-					}
-					break;
-					
-				case MURK_SEX:
-					if(index==1) {
-						return getPlayerOwnerSexResponse("Beg for it",
-								UtilText.parse(getMurk(), "Now that [npc.name] has turned you on so much, you can't help but beg for [npc.herHim] to fuck you!"),
-								CAPTIVE_AFTER_SEX);
-					}
-					break;
-			}
-			return null;
-		}
-	};
-	
-	public static final DialogueNode CAPTIVE_AFTER_SEX = new DialogueNode("Finished", "", true) {
-		@Override
-		public String getDescription() {
-			if(Main.sex.getDominantParticipants(false).containsKey(getMurk())) {
-				return UtilText.parse(getMurk(), "[npc.NameHasFull] finished with you for now...");
-			}
-			if(Main.sex.getDominantParticipants(false).size()>1) {
-				return "The rats have finished with you...";
-			}
-			return UtilText.parse(getCharacters(false), "[npc.Name] has finished with you...");
-		}
-		@Override
-		public int getSecondsPassed() {
-			return 10*60;
-		}
-		@Override
-		public String getContent() {
-			if(Main.sex.getDominantParticipants(false).containsKey(getMurk())) {
-				return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_AFTER_SEX_MURK", getCharacters(false));
-				
-			} else if(Main.sex.getDominantParticipants(false).size()>1) {
-				return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_AFTER_SEX_THREESOME", getCharacters(false));
-				
-			}
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_AFTER_SEX_SOLO", getCharacters(false));
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Wait",
-						"You can't do anything about your situation at the moment, other than wait to see what happens to you next...",
-						Main.game.isExtendedWorkTime()
-							?CAPTIVE_WAITING
-							:CAPTIVE_NIGHT) {
-					@Override
-					public void effects() {
-						banishRats();
-						if(Main.sex.getDominantParticipants(false).containsKey(getMurk())) {
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveOwnerSex, true);
-						}
-						getMurk().returnToHome();
-						if(Main.game.isExtendedWorkTime()) {
-							applyWaitingEffects();
-						}
-					}
-				};
-			}
-			return null;
-		}
-	};
-
-	public static final DialogueNode CAPTIVE_NIGHT = new DialogueNode("", "", false) {
-		@Override
-		public int getSecondsPassed() {
-			return 30*60;
-		}
-		@Override
-		public String getContent() {//TODO clean slots
-			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_NIGHT", getCharacters(false));
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Sleep", "Fall asleep...", getSleepNode());
-				
-			} else if(index==2) {
-				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensCaptiveCalledOut)) {
-					return new Response("Call out", "Murk won't pay attention to you if you call out again. You'll have to wait until tomorrow night...", null);
-				}
-				return new Response("Call out", "Call out for Murk...", CAPTIVE_CALL_OUT);
-				
-			} else if(index==3) {
-				//TODO disable for bad end
-				if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)>=80) {
-					return new Response("Break lock", "Use your raw physical power to break free of the lock...", CAPTIVE_BROKEN_FREE) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_NIGHT_BREAK_LOCK", getCharacters(false)));
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveAttemptingEscape, true);
-						}
-					};
-				}
-				return new Response("Break lock", "You are not strong enough to break the lock...<br/>[style.italicsMinorBad(Required at least 80 "+Attribute.MAJOR_PHYSIQUE.getName()+"...)]", null);
-				
-			} else if(index==4) {
-				//TODO disable for bad end
-				if(Main.game.getPlayer().hasSpell(Spell.FIREBALL)
-						|| Main.game.getPlayer().hasSpell(Spell.ICE_SHARD)
-						|| Main.game.getPlayer().hasSpell(Spell.SLAM)) {
-					return new Response("Break lock (Spell)",
-							"Spend some time channelling your arcane power in an attempt to overcome your slave collar's enchantment and cast a spell to break the lock on the stocks.",
-							CAPTIVE_BROKEN_FREE) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_NIGHT_BREAK_LOCK_SPELL", getCharacters(false)));
-							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveAttemptingEscape, true);
-						}
-					};
-				}
-				return new Response("Break lock",
-						"You do not know a spell that would be suitable to break the lock..."
-								+ "<br/>[style.italicsMinorBad(Requires knowing one of the following spells: "+Spell.FIREBALL.getName()+"; "+Spell.ICE_SHARD.getName()+"; "+Spell.SLAM.getName()+".)]",
-						null);
-			}
-			return null;
-		}
-	};
-	
+	//TODO escapes framework from here
 	public static final DialogueNode CAPTIVE_BROKEN_FREE = new DialogueNode("", "", true) {
 		@Override
 		public int getSecondsPassed() {
@@ -2971,9 +2618,9 @@ public class RatWarrensCaptiveDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseCombat("Fight",
-						"Now that you're free of your chain, you can finally attack [murk.name]!",
+						"Now that you're free of your chain, you can finally attack Murk!",
 						(NPC) getMurk(),
-						Util.newHashMapOfValues(new Value<>(getMurk(), "[murk.speech(Yer gonna pay fer this!)] [murk.name] shouts as [murk.she] prepares to fight you."))) {
+						Util.newHashMapOfValues(new Value<>(getMurk(), "[murk.speech(Yer gonna pay fer this!)] Murk shouts as he prepares to fight you."))) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensCaptiveAttemptingEscape, true);
@@ -2999,7 +2646,9 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				//TODO obedience block
+				if(isPlayerObeyingOrders(false)) {
+					return new Response("Feign choking", "You're too obedient to even consider trying to lie to Murk!", null);
+				}
 				return new Response("Feign choking", "Pretend to be choking in order to trick [murk.name] into releasing you...", CAPTIVE_CALL_OUT_RELEASED) {
 					@Override
 					public void effects() {
@@ -3013,7 +2662,8 @@ public class RatWarrensCaptiveDialogue {
 				
 			} else if(index==2) {
 				//TODO obedience unlock
-				if(!Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)) {
+				if(!Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)
+						&& !isPlayerObeyingOrders(false)) {
 					return new Response("Seduce",
 							UtilText.parse(getMurk(),
 									"You aren't convincing enough at seduction to attempt to trick [npc.name] into taking your collar off..."
@@ -3021,9 +2671,10 @@ public class RatWarrensCaptiveDialogue {
 							null);
 				}
 				return new Response("Seduce",
-						UtilText.parse(getMurk(),
-								"Tell [npc.name] that you're desperate for sex in an attempt to trick [npc.herHim] into taking your collar off..."
-								+ "<br/>[style.italicsMinorGood(Unlocked from having the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' perk.)]"),
+						isPlayerObeyingOrders(false)
+							?"Tell Murk that you're so desperate for sex that you can't sleep..."
+							:"Tell Murk that you're desperate for sex in an attempt to trick him into taking your collar off..."
+								+ "<br/>[style.italicsMinorGood(Unlocked from having the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' perk.)]",
 						CAPTIVE_CALL_OUT_RELEASED) {
 					@Override
 					public void effects() {
@@ -3216,7 +2867,32 @@ public class RatWarrensCaptiveDialogue {
 		}
 	};
 	
+	public static final DialogueNode CAPTIVE_NIGHT_SLEEP_RESCUED = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Shadow.class).setLocation(Main.game.getPlayer(), false);
+			Main.game.getNpc(Silence.class).setLocation(Main.game.getPlayer(), false);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 3*60*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_NIGHT_SLEEP_RESCUED");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return CAPTIVE_ESCAPING.getResponse(responseTab, index);
+		}
+	};
+	
 	public static final DialogueNode CAPTIVE_ESCAPING = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Shadow.class).setLocation(Main.game.getPlayer(), false);
+			Main.game.getNpc(Silence.class).setLocation(Main.game.getPlayer(), false);
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 10*60;

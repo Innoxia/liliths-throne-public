@@ -61,7 +61,7 @@
 		<hitText><![CDATA[
 			Aiming [npc.her] taser at [npc2.name], [npc.she] 
 			#IF game.isSillyModeEnabled()
-			#THEN [npc.verb(shouts)] [npc.speech(Stop right there, criminal scum!)] before pulling the trigger. 
+			#THEN [npc.verb(shout)] [npc.speech(Stop right there, criminal scum!)] before pulling the trigger. 
 			#ELSE [npc.verb(pull)] the trigger. 
 			#ENDIF 
 			The metal darts embed themselves in [npc2.namePos] aura while pink and purple lightning course through the wires, draining [npc2.her] energy! The spent cartridge ejects itself and dissolves into thin air. [npc.Name] suddenly [npc.verb(find)] another cartridge in [npc.her] [npc.hand] and [npc.verb(insert)] it into the business end of the taser.

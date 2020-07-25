@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -35,6 +36,7 @@ import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveEvent;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveEventTag;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
@@ -177,8 +179,14 @@ public class OccupancyUtil implements XMLSaving {
 		
 		
 		// Slaves:
+		Map<NPC, SlaveJob> previousJobs = new HashMap<>();
+		for(Entry<SlaveJob, List<NPC>> entry : slavesAtJob.entrySet()) {
+			for(NPC npc : entry.getValue()) {
+				previousJobs.put(npc, entry.getKey());
+			}
+		}
 		
-		clearSlavesJobTracking();
+		clearSlavesJobTracking(); // Reset slavesAtJob and slavesResting
 		
 		// First need to set correct jobs:
 		List<NPC> slavesToSendToWork = new ArrayList<>();
@@ -208,12 +216,9 @@ public class OccupancyUtil implements XMLSaving {
 					}
 					
 					if(currentJob==SlaveJob.IDLE) {
-						slave.setLocation(slave.getHomeWorldLocation(), slave.getHomeLocation(), false);
 						slavesResting.add(slave);
-						
-					} else {
-						slavesToSendToWork.add(slave);
 					}
+					slavesToSendToWork.add(slave);
 				}
 				if(Main.game.getCurrentDialogueNode()==RoomPlayer.AUNT_HOME_PLAYERS_ROOM_SLEEP) {
 					Main.game.updateResponses();
@@ -226,7 +231,13 @@ public class OccupancyUtil implements XMLSaving {
 		// Send slaves to work after others have left, so that job rooms are emptied before trying to fill them:
 		for(NPC slave : slavesToSendToWork) {
 			SlaveJob currentJob = slave.getSlaveJob(hour);
+			SlaveJob previousJob = previousJobs.get(slave);
+			
+			if(previousJob!=null && previousJob!=currentJob) {
+				previousJob.applyJobEndEffects(slave);
+			}
 			currentJob.sendToWorkLocation(hour, slave);
+			currentJob.applyJobStartEffects(slave);
 		}
 		
 		// Now can apply changes and generate events based on who else is present in the job:
@@ -533,7 +544,8 @@ public class OccupancyUtil implements XMLSaving {
 					if(c!=null) {
 						MilkingRoom room = this.getMilkingRoom(c.getType(), c.getLocation());
 						
-						if(slave.getBreastRawStoredMilkValue()>0 && !slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_MILK_DISABLE)) {
+						if(slave.getClothingInSlot(InventorySlot.NIPPLE)!=null
+								&& slave.getClothingInSlot(InventorySlot.NIPPLE).isMilkingEquipment()) {
 							float milked = MilkingRoom.getActualMilkPerHour(slave);
 							if(milked < slave.getBreastRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(slave)) {
 								milked = Math.min(slave.getBreastRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(slave));
@@ -551,7 +563,8 @@ public class OccupancyUtil implements XMLSaving {
 								}
 							}
 						}
-						if(slave.hasBreastsCrotch() && slave.getBreastCrotchRawStoredMilkValue()>0 && !slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_MILK_CROTCH_DISABLE)) {
+						if(slave.getClothingInSlot(InventorySlot.STOMACH)!=null
+								&& slave.getClothingInSlot(InventorySlot.STOMACH).isMilkingEquipment()) {
 							float milked = MilkingRoom.getActualCrotchMilkPerHour(slave);
 							if(milked < slave.getBreastCrotchRawStoredMilkValue() && milked < MilkingRoom.getMaximumMilkPerHour(slave)) {
 								milked = Math.min(slave.getBreastCrotchRawStoredMilkValue(), MilkingRoom.getMaximumMilkPerHour(slave));
@@ -569,7 +582,8 @@ public class OccupancyUtil implements XMLSaving {
 								}
 							}
 						}
-						if(slave.hasPenisIgnoreDildo() && slave.getPenisRawStoredCumValue()>0 && !slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_CUM_DISABLE)) {
+						if(slave.getClothingInSlot(InventorySlot.PENIS)!=null
+								&& slave.getClothingInSlot(InventorySlot.PENIS).isMilkingEquipment()) {
 							int milked = MilkingRoom.getActualCumPerHour(slave);
 							
 							if(milked>0) {
@@ -585,7 +599,8 @@ public class OccupancyUtil implements XMLSaving {
 								slave.setLastTimeOrgasmed(((Main.game.getDayNumber()*24)+hour)*60);
 							}
 						}
-						if(slave.hasVagina() && !slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.MILKING_GIRLCUM_DISABLE)) {
+						if(slave.getClothingInSlot(InventorySlot.VAGINA)!=null
+								&& slave.getClothingInSlot(InventorySlot.VAGINA).isMilkingEquipment()) {
 							int milked = MilkingRoom.getActualGirlcumPerHour(slave);
 							
 							if(milked>0) {
@@ -1602,11 +1617,7 @@ public class OccupancyUtil implements XMLSaving {
 		dailyIncome.putIfAbsent(slave, 0);
 		dailyIncome.put(slave, dailyIncome.get(slave)+increment);
 	}
-
-	public Map<SlaveJob, List<NPC>> getSlavesAtJob() {
-		return slavesAtJob;
-	}
-
+	
 	public List<NPC> getSlavesResting() {
 		return slavesResting;
 	}

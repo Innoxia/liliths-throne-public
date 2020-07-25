@@ -117,6 +117,7 @@ import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
 import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.npc.submission.Murk;
+import com.lilithsthrone.game.character.npc.submission.RatWarrensCaptive;
 import com.lilithsthrone.game.character.npc.submission.Roxy;
 import com.lilithsthrone.game.character.npc.submission.Shadow;
 import com.lilithsthrone.game.character.npc.submission.Silence;
@@ -1413,6 +1414,15 @@ public class Game implements XMLSaving {
 					for(NPC npc : Main.game.getAllNPCs()) {
 						if(npc instanceof EnforcerPatrol) { 
 							Main.game.banishNPC(npc);
+						}
+					}
+				}
+				
+				// Set Murk's milkers as loving him:
+				if(Main.isVersionOlderThan(loadingVersion, "0.3.9")) {
+					for(NPC npc : Main.game.getAllNPCs()) {
+						if(npc instanceof RatWarrensCaptive) { 
+							npc.setAffection(Main.game.getNpc(Murk.class), 100);
 						}
 					}
 				}

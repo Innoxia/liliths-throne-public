@@ -69,10 +69,10 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractNippleType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.tags.ArmTypeTag;
@@ -90,9 +90,9 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.TentacleType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
@@ -231,6 +231,7 @@ import com.lilithsthrone.game.inventory.outfit.OutfitSource;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
 import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
@@ -3167,8 +3168,9 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			if(append) {
 				infoScreenSB.append(UtilText.parse(this,
-						" which, due to the fact that everyone in this world starts out as being 18 from the date of their birth,"
-								+ " makes [npc.herHim] <span style='color:"+this.getAge().getColour().toWebHexString()+";'>"+Util.intToString(this.getAgeValue())+"</span> years old."));
+						" which"
+						+ (!this.isPlayer()?", due to the fact that everyone in this world starts out as being 18 from the date of their birth,":"")
+						+ " makes [npc.herHim] <span style='color:"+this.getAge().getColour().toWebHexString()+";'>"+Util.intToString(this.getAgeValue())+"</span> years old."));
 			}
 			
 		} else {
@@ -6274,6 +6276,9 @@ public abstract class GameCharacter implements XMLSaving {
 		// Count down status effects:
 		float healthPercentage = this.getHealthPercentage();
 		float manaPercentage = this.getManaPercentage();
+
+		float startMaxHealth = this.getAttributeValue(Attribute.HEALTH_MAXIMUM);
+		float startMaxMana = this.getAttributeValue(Attribute.MANA_MAXIMUM);
 		
 		float startHealth = this.getHealth();
 		float startMana = this.getMana();
@@ -6359,6 +6364,16 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		this.incrementHealth(healthGain);
 		this.incrementMana(manaGain);
+		
+		// Increment health/mana by maximum resource attribute loss to offset the artificial loss applied above
+		float maxHealthChange = this.getAttributeValue(Attribute.HEALTH_MAXIMUM) - startMaxHealth;
+		if(maxHealthChange<0) {
+			this.incrementHealth(Math.abs(maxHealthChange));
+		}
+		float maxManaChange = this.getAttributeValue(Attribute.MANA_MAXIMUM) - startMaxMana;
+		if(maxManaChange<0) {
+			this.incrementMana(Math.abs(maxManaChange));
+		}
 		
 		updateAttributeListeners();
 	}
@@ -8260,7 +8275,9 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	private static String getStretchDescription(GameCharacter characterPenetrating, float diameter, GameCharacter orificeCharacter, SexAreaOrifice orifice) {
 		int stretchCount = 5; // How many times the orifice should be stretched (based on its starting value).
-		// This method doens't simulate diminishing stretching, so while 5 seems small, it should be enough to simulate more like 10 or so 'real' stretches.
+		// This method doesn't simulate diminishing stretching, so while 5 seems small, it should be enough to simulate more like 10 or so 'real' stretches.
+		
+		float minimumStretchPercentage = 0.05f;
 		
 		switch(orifice) {
 			case ASS:
@@ -8272,7 +8289,12 @@ public abstract class GameCharacter implements XMLSaving {
 			case ANUS:
 				if(Capacity.isPenetrationDiameterTooBig(orificeCharacter.getAssElasticity(), orificeCharacter.getAssStretchedCapacity(), diameter, true)) {
 					// Stretch out the orifice by a factor of elasticity's modifier:
-					orificeCharacter.incrementAssStretchedCapacity((diameter-orificeCharacter.getAssStretchedCapacity())*orificeCharacter.getAssElasticity().getStretchModifier() * stretchCount);
+					for(int i=0; i<stretchCount; i++) {
+						orificeCharacter.incrementAssStretchedCapacity(
+								Math.max(
+										diameter*minimumStretchPercentage,
+										(diameter-orificeCharacter.getAssStretchedCapacity())*orificeCharacter.getAssElasticity().getStretchModifier()));
+					}
 					if(orificeCharacter.getAssStretchedCapacity()>diameter) {
 						orificeCharacter.setAssStretchedCapacity(diameter);
 					}
@@ -8283,7 +8305,12 @@ public abstract class GameCharacter implements XMLSaving {
 			case NIPPLE:
 				if(Capacity.isPenetrationDiameterTooBig(orificeCharacter.getNippleElasticity(), orificeCharacter.getNippleStretchedCapacity(), diameter, true)) {
 					// Stretch out the orifice by a factor of elasticity's modifier:
-					orificeCharacter.incrementNippleStretchedCapacity((diameter-orificeCharacter.getNippleStretchedCapacity())*orificeCharacter.getNippleElasticity().getStretchModifier() * stretchCount);
+					for(int i=0; i<stretchCount; i++) {
+						orificeCharacter.incrementNippleStretchedCapacity(
+								Math.max(
+										diameter*minimumStretchPercentage,
+										(diameter-orificeCharacter.getNippleStretchedCapacity())*orificeCharacter.getNippleElasticity().getStretchModifier()));
+					}
 					if(orificeCharacter.getNippleStretchedCapacity()>diameter) {
 						orificeCharacter.setNippleStretchedCapacity(diameter);
 					}
@@ -8294,7 +8321,12 @@ public abstract class GameCharacter implements XMLSaving {
 			case NIPPLE_CROTCH:
 				if(Capacity.isPenetrationDiameterTooBig(orificeCharacter.getNippleCrotchElasticity(), orificeCharacter.getNippleCrotchStretchedCapacity(), diameter, true)) {
 					// Stretch out the orifice by a factor of elasticity's modifier:
-					orificeCharacter.incrementNippleCrotchStretchedCapacity((diameter-orificeCharacter.getNippleCrotchStretchedCapacity())*orificeCharacter.getNippleCrotchElasticity().getStretchModifier() * stretchCount);
+					for(int i=0; i<stretchCount; i++) {
+						orificeCharacter.incrementNippleCrotchStretchedCapacity(
+								Math.max(
+										diameter*minimumStretchPercentage,
+										(diameter-orificeCharacter.getNippleCrotchStretchedCapacity())*orificeCharacter.getNippleCrotchElasticity().getStretchModifier()));
+					}
 					if(orificeCharacter.getNippleCrotchStretchedCapacity()>diameter) {
 						orificeCharacter.setNippleCrotchStretchedCapacity(diameter);
 					}
@@ -8305,7 +8337,12 @@ public abstract class GameCharacter implements XMLSaving {
 			case URETHRA_PENIS:
 				if(Capacity.isPenetrationDiameterTooBig(orificeCharacter.getUrethraElasticity(), orificeCharacter.getPenisStretchedCapacity(), diameter, true)) {
 					// Stretch out the orifice by a factor of elasticity's modifier:
-					orificeCharacter.incrementPenisStretchedCapacity((diameter-orificeCharacter.getPenisStretchedCapacity())*orificeCharacter.getUrethraElasticity().getStretchModifier() * stretchCount);
+					for(int i=0; i<stretchCount; i++) {
+						orificeCharacter.incrementPenisStretchedCapacity(
+								Math.max(
+										diameter*minimumStretchPercentage,
+										(diameter-orificeCharacter.getPenisStretchedCapacity())*orificeCharacter.getUrethraElasticity().getStretchModifier()));
+					}
 					if(orificeCharacter.getPenisStretchedCapacity()>diameter) {
 						orificeCharacter.setPenisStretchedCapacity(diameter);
 					}
@@ -8316,7 +8353,12 @@ public abstract class GameCharacter implements XMLSaving {
 			case URETHRA_VAGINA:
 				if(Capacity.isPenetrationDiameterTooBig(orificeCharacter.getVaginaUrethraElasticity(), orificeCharacter.getVaginaUrethraStretchedCapacity(), diameter, true)) {
 					// Stretch out the orifice by a factor of elasticity's modifier:
-					orificeCharacter.incrementVaginaUrethraStretchedCapacity((diameter-orificeCharacter.getVaginaUrethraStretchedCapacity())*orificeCharacter.getVaginaUrethraElasticity().getStretchModifier() * stretchCount);
+					for(int i=0; i<stretchCount; i++) {
+						orificeCharacter.incrementVaginaUrethraStretchedCapacity(
+								Math.max(
+										diameter*minimumStretchPercentage,
+										(diameter-orificeCharacter.getVaginaUrethraStretchedCapacity())*orificeCharacter.getVaginaUrethraElasticity().getStretchModifier()));
+					}
 					if(orificeCharacter.getVaginaUrethraStretchedCapacity()>diameter) {
 						orificeCharacter.setVaginaUrethraStretchedCapacity(diameter);
 					}
@@ -8327,7 +8369,12 @@ public abstract class GameCharacter implements XMLSaving {
 			case VAGINA:
 				if(Capacity.isPenetrationDiameterTooBig(orificeCharacter.getVaginaElasticity(), orificeCharacter.getVaginaStretchedCapacity(), diameter, true)) {
 					// Stretch out the orifice by a factor of elasticity's modifier:
-					orificeCharacter.incrementVaginaStretchedCapacity(((diameter-orificeCharacter.getVaginaStretchedCapacity())*orificeCharacter.getVaginaElasticity().getStretchModifier()) * stretchCount);
+					for(int i=0; i<stretchCount; i++) {
+						orificeCharacter.incrementVaginaStretchedCapacity(
+								Math.max(
+										diameter*minimumStretchPercentage,
+										(diameter-orificeCharacter.getVaginaStretchedCapacity())*orificeCharacter.getVaginaElasticity().getStretchModifier()));
+					}
 					if(orificeCharacter.getVaginaStretchedCapacity()>diameter) {
 						orificeCharacter.setVaginaStretchedCapacity(diameter);
 					}
@@ -16951,7 +16998,7 @@ public abstract class GameCharacter implements XMLSaving {
 		int totalDamage = getBaseUnarmedDamage();
 		
 		if(this.hasTraitActivated(Perk.UNARMED_TRAINING)) {
-			totalDamage *= 3;
+			totalDamage *= 2;
 		}
 		
 		totalDamage += totalDamage * (this.getAttributeValue(Attribute.DAMAGE_UNARMED)/100f);
@@ -17565,7 +17612,10 @@ public abstract class GameCharacter implements XMLSaving {
 		boolean partnerVirile = partner.getAttributeValue(Attribute.VIRILITY) > 0 || !partner.hasPerkAnywhereInTree(Perk.FIRING_BLANKS);
 		boolean selfFertile = (getAttributeValue(Attribute.FERTILITY) > 0 || !hasPerkAnywhereInTree(Perk.BARREN)) && !this.hasStatusEffect(StatusEffect.MENOPAUSE);
 		
-		if (partnerVirile && selfFertile && isAbleToBeImpregnated()) {
+		if(!partnerVirile || !selfFertile) {
+			pregnancyChance = 0;
+			
+		} else if(isAbleToBeImpregnated()) {
 			pregnancyChance += (partner.getAttributeValue(Attribute.VIRILITY)/100f)/2f;
 			pregnancyChance += (getAttributeValue(Attribute.FERTILITY)/100f)/2f;
 			pregnancyChance = Math.max(0, Math.min(pregnancyChance, 1));
@@ -20174,9 +20224,8 @@ public abstract class GameCharacter implements XMLSaving {
 		InventorySlot slot = clothing.getSlotEquippedTo();
 		
 		boolean wasAbleToUnequip = inventory.isAbleToUnequip(clothing, true, automaticClothingManagement, this, characterClothingUnequipper);
-
-		// If this item was able to be unequipped, and it was unequipped, revert
-		// it's attribute bonuses:
+		
+		// If this item was able to be unequipped, and it was unequipped, revert its attribute bonuses:
 		if (wasAbleToUnequip) {
 			applyUnequipClothingEffects(clothing, slot, Main.game.isStarted() && this.isPlayer());
 			
@@ -23365,13 +23414,13 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Lactation:
 	public Lactation getBreastMilkStorage() {
-		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+		if(!Main.game.isLactationContentEnabled()) {
 			return Lactation.ZERO_NONE;
 		}
 		return body.getBreast().getMilkStorage();
 	}
 	public int getBreastRawMilkStorageValue() {
-		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+		if(!Main.game.isLactationContentEnabled()) {
 			return 0;
 		}
 		return body.getBreast().getRawMilkStorageValue();
@@ -23387,13 +23436,13 @@ public abstract class GameCharacter implements XMLSaving {
 		setBreastStoredMilk(getBreastRawMilkStorageValue());
 	}
 	public Lactation getBreastStoredMilk() {
-		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+		if(!Main.game.isLactationContentEnabled()) {
 			return Lactation.ZERO_NONE;
 		}
 		return body.getBreast().getStoredMilk();
 	}
 	public float getBreastRawStoredMilkValue() {
-		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+		if(!Main.game.isLactationContentEnabled()) {
 			return 0;
 		}
 		if(body.getBreast().getRawMilkStorageValue()<body.getBreast().getRawStoredMilkValue()) {
@@ -23405,7 +23454,24 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getBreast().setStoredMilk(this, lactation);
 	}
 	public String incrementBreastStoredMilk(float increment) {
-		return setBreastStoredMilk(getBreastRawStoredMilkValue() + increment);
+		String milked = "";
+		if(increment<0
+				&& Main.game.isInSex()
+				&& Main.sex.getAllParticipants().contains(this)
+				&& this.getClothingInSlot(InventorySlot.NIPPLE)!=null
+				&& this.getClothingInSlot(InventorySlot.NIPPLE).isMilkingEquipment()
+				&& this.isSlave()
+				&& this.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.MILKING
+				&& this.isAtWork(Main.game.getHourOfDay())) {
+			Cell c = MilkingRoom.getMilkingCell(this, true);
+			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
+			room.incrementFluidStored(new FluidStored(this.getId(), this.getMilk(), -increment), -increment);
+			milked = "<p style='text-align:center; padding:0; margin:0;'>"
+						+ UtilText.parse(this, "[style.italicsMilk([npc.NamePos] [npc.milk] is sucked down into the milking machine's storage vat!)]")
+					+ "</p>";
+		}
+		return setBreastStoredMilk(getBreastRawStoredMilkValue() + increment)
+				+ milked;
 	}
 	// Regen:
 	public FluidRegeneration getBreastLactationRegeneration() {
@@ -23713,13 +23779,13 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	// Lactation:
 	public Lactation getBreastCrotchMilkStorage() {
-		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+		if(!Main.game.isLactationContentEnabled()) {
 			return Lactation.ZERO_NONE;
 		}
 		return body.getBreastCrotch().getMilkStorage();
 	}
 	public int getBreastCrotchRawMilkStorageValue() {
-		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+		if(!Main.game.isLactationContentEnabled()) {
 			return 0;
 		}
 		return body.getBreastCrotch().getRawMilkStorageValue();
@@ -23735,13 +23801,13 @@ public abstract class GameCharacter implements XMLSaving {
 		setBreastCrotchStoredMilk(getBreastCrotchRawMilkStorageValue());
 	}
 	public Lactation getBreastCrotchStoredMilk() {
-		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+		if(!Main.game.isLactationContentEnabled()) {
 			return Lactation.ZERO_NONE;
 		}
 		return body.getBreastCrotch().getStoredMilk();
 	}
 	public float getBreastCrotchRawStoredMilkValue() {
-		if(!Main.getProperties().hasValue(PropertyValue.lactationContent)) {
+		if(!Main.game.isLactationContentEnabled()) {
 			return 0;
 		}
 		if(body.getBreastCrotch().getRawMilkStorageValue()<body.getBreastCrotch().getRawStoredMilkValue()) {
@@ -23753,7 +23819,24 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getBreastCrotch().setStoredMilk(this, lactation);
 	}
 	public String incrementBreastCrotchStoredMilk(float increment) {
-		return setBreastCrotchStoredMilk(getBreastCrotchRawStoredMilkValue() + increment);
+		String milked = "";
+		if(increment<0
+				&& Main.game.isInSex()
+				&& Main.sex.getAllParticipants().contains(this)
+				&& this.getClothingInSlot(InventorySlot.NIPPLE)!=null
+				&& this.getClothingInSlot(InventorySlot.NIPPLE).isMilkingEquipment()
+				&& this.isSlave()
+				&& this.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.MILKING
+				&& this.isAtWork(Main.game.getHourOfDay())) {
+			Cell c = MilkingRoom.getMilkingCell(this, true);
+			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
+			room.incrementFluidStored(new FluidStored(this.getId(), this.getMilkCrotch(), -increment), -increment);
+			milked = "<p style='text-align:center; padding:0; margin:0;'>"
+						+ UtilText.parse(this, "[style.italicsMilk([npc.NamePos] [npc.crotchMilk] is sucked down into the milking machine's storage vat!)]")
+					+ "</p>";
+		}
+		return setBreastCrotchStoredMilk(getBreastCrotchRawStoredMilkValue() + increment)
+				+ milked;
 	}
 	// Regen:
 	public FluidRegeneration getBreastCrotchLactationRegeneration() {
@@ -25350,7 +25433,32 @@ public abstract class GameCharacter implements XMLSaving {
 		return body.getPenis().getTesticle().setStoredCum(this, cum);
 	}
 	public String incrementPenisStoredCum(float increment) {
-		return setPenisStoredCum(getPenisRawStoredCumValue() + increment);
+		String milked = "";
+		if(increment<0
+				&& Main.game.isInSex()
+				&& Main.sex.getAllParticipants().contains(this)
+				&& this.getClothingInSlot(InventorySlot.PENIS)!=null
+				&& this.getClothingInSlot(InventorySlot.PENIS).isMilkingEquipment()
+				&& this.isSlave()
+				&& this.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.MILKING
+				&& this.isAtWork(Main.game.getHourOfDay())) {
+			Cell c = MilkingRoom.getMilkingCell(this, true);
+			MilkingRoom room = Main.game.getOccupancyUtil().getMilkingRoom(c.getType(), c.getLocation());
+			room.incrementFluidStored(new FluidStored(this, this.getCum(), -increment), -increment);
+			milked = "<p style='text-align:center; padding:0; margin:0;'>"
+						+ UtilText.parse(this, "[style.italicsCum("
+								+ (Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)
+										?"[npc.NamePos]"
+										:Units.fluid(increment)+" of [npc.namePos]")
+								+ " [npc.cum] is sucked down into the milking machine's storage vat!)]")
+					+ "</p>";
+		}
+		if(Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
+			return setPenisStoredCum(getPenisRawStoredCumValue() + increment)
+					+ milked;
+		} else {
+			return milked;
+		}
 	}
 	// Orgasm cum amount:
 	public FluidExpulsion getPenisCumExpulsion() {
@@ -25387,10 +25495,11 @@ public abstract class GameCharacter implements XMLSaving {
 	/**
 	 * @param cumQuantityModifier A percentage of the normal cum expulsion that you want to be drained. Should normally be 1.
 	 */
-	public void applyOrgasmCumEffect(float cumQuantityModifier) {
-		if(Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
-			this.incrementPenisStoredCum(-getPenisRawOrgasmCumQuantity() * cumQuantityModifier);
-		}
+	public String applyOrgasmCumEffect(float cumQuantityModifier) {
+//		if(Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)) {
+			return this.incrementPenisStoredCum(-getPenisRawOrgasmCumQuantity() * cumQuantityModifier);
+//		}
+//		return "";
 	}
 	public void applyOrgasmCumEffect() {
 		this.applyOrgasmCumEffect(1);
@@ -25765,7 +25874,11 @@ public abstract class GameCharacter implements XMLSaving {
 			body.updateCoverings(false, false, false, updateAllSkinColours);
 			
 			List<String> affectedParts = new ArrayList<>();
-			for (BodyPartInterface part : body.getAllBodyParts()) {
+			List<BodyPartInterface> allPartsPlusExtras = new ArrayList<>(body.getAllBodyParts());
+			allPartsPlusExtras.add(body.getBreast().getNipples());
+			allPartsPlusExtras.add(body.getBreastCrotch().getNipples());
+			allPartsPlusExtras.add(body.getAss().getAnus());
+			for (BodyPartInterface part : allPartsPlusExtras) {
 				if(part.getBodyCoveringType(this) == coveringType) {
 					affectedParts.add(part.getName(this));
 				}

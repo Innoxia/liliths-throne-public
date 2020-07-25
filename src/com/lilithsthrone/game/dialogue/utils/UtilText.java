@@ -250,10 +250,10 @@ public class UtilText {
 			new Value<>("analogue", "analog"),
 			new Value<>("dialogue", "dialog"),
 			new Value<>("catalogue", "catalog"),
-			new Value<>("epilogue", "epilog"),
-			new Value<>("monologue", "monolog"),
-			new Value<>("prologue", "prolog"),
-			new Value<>("travelogue", "travelog"),
+//			new Value<>("epilogue", "epilog"),
+//			new Value<>("monologue", "monolog"),
+//			new Value<>("prologue", "prolog"),
+//			new Value<>("travelogue", "travelog"),
 			
 			// -l endings are not doubled:
 			new Value<>("cancelled", "canceled"),
@@ -504,29 +504,7 @@ public class UtilText {
 	}
 	
 	public static String parseThought(String text, GameCharacter target) {
-		modifiedSentence = text;
-
-		if (target.hasFetish(Fetish.FETISH_BIMBO))
-			modifiedSentence = Util.addBimbo(modifiedSentence, 6);
-
-		// Apply speech effects:
-		if(Main.game.isInSex()) {
-			if(Main.sex.isCharacterEngagedInOngoingAction(target))
-				modifiedSentence = Util.addSexSounds(modifiedSentence, 5);
-		}
-
-		if (target.getSpeechColour() != null) {
-			return "<span class='thoughts' style='color:" + target.getSpeechColour() + ";'>" + modifiedSentence + "</span>";
-
-		} else {
-			if (Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE_STRONG) {
-				return "<span class='thoughts' style='color:" + PresetColour.MASCULINE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-			} else if (Femininity.valueOf(target.getFemininityValue()) == Femininity.ANDROGYNOUS) {
-				return "<span class='thoughts' style='color:" + PresetColour.ANDROGYNOUS_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-			} else {
-				return "<span class='thoughts' style='color:" + PresetColour.FEMININE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-			}
-		}
+		return "<i>"+parseSpeech(text, target, true, false).replaceAll("class='speech'", "class='thoughts'")+"</i>";
 	}
 
 	public static String parseNPCSpeech(String text, Femininity femininity) {
@@ -5577,6 +5555,21 @@ public class UtilText {
 			}
 		});
 		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"milkFlavour",
+						"flavourMilk"),
+				false,
+				false,
+				"",
+				"Returns the name of the flavour of this character's milk.",
+				BodyPartType.MILK){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getMilk().getFlavour().getName();
+			}
+		});
+		
 		
 		// Crotch Breasts:
 		
@@ -5894,6 +5887,23 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getBreastCrotchLactationRegeneration().getName();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"udderMilkFlavour",
+						"flavourUdderMilk",
+						"crotchMilkFlavour",
+						"flavourCrotchMilk"),
+				false,
+				false,
+				"",
+				"Returns the name of the flavour of this character's milk.",
+				BodyPartType.MILK){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getMilkCrotch().getFlavour().getName();
 			}
 		});
 		
@@ -6542,6 +6552,21 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return Units.fluid(character.getPenisRawCumStorageValue());
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"cumFlavour",
+						"flavourCum"),
+				false,
+				false,
+				"",
+				"Returns the name of the flavour of this character's cum.",
+				BodyPartType.CUM){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getCum().getFlavour().getName();
 			}
 		});
 		
@@ -7256,6 +7281,21 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getVaginaWetness().getDescriptor();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"girlcumFlavour",
+						"flavourGirlcum"),
+				false,
+				false,
+				"",
+				"Returns the name of the flavour of this character's girlcum.",
+				BodyPartType.GIRL_CUM){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getGirlcum().getFlavour().getName();
 			}
 		});
 		

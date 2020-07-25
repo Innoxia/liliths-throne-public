@@ -88,7 +88,7 @@
 			
 			<uniqueClothing>
 				<conditional><![CDATA[npc.hasVagina()]]></conditional>
-				<clothing colour="presetColourGroup2" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="innoxia_insertableVibrator_insertable_vibrator" isDirty="false" name="[npc.NamePos(true)] insertable dildo"></clothing>
+				<clothing colour="presetColourGroup2" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_BLACK" enchantmentKnown="true" id="innoxia_vagina_insertable_dildo" isDirty="false" name="[npc.NamePos(true)] insertable dildo"></clothing>
 			</uniqueClothing>
 		</guaranteedClothingEquips>
 		

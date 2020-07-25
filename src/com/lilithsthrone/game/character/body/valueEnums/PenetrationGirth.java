@@ -5,24 +5,24 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.1
- * @version 0.3.7.5
+ * @version 0.3.9
  * @author Innoxia
  */
 public enum PenetrationGirth {
 
-	ZERO_THIN(0, -0.6f, "thin", PresetColour.GENERIC_SIZE_ONE),
+	ZERO_THIN(0, -0.8f, "thin", PresetColour.GENERIC_SIZE_ONE),
 	
-	ONE_SLENDER(1, -0.3f, "slender", PresetColour.GENERIC_SIZE_TWO),
+	ONE_SLENDER(1, -0.4f, "slender", PresetColour.GENERIC_SIZE_TWO),
 	
-	TWO_NARROW(2, -0.15f, "narrow", PresetColour.GENERIC_SIZE_THREE),
+	TWO_NARROW(2, -0.2f, "narrow", PresetColour.GENERIC_SIZE_THREE),
 	
 	THREE_AVERAGE(3, 0, "averagely-girthed", PresetColour.GENERIC_SIZE_FOUR),
 	
-	FOUR_THICK(4, 0.15f, "thick", PresetColour.GENERIC_SIZE_FIVE),
+	FOUR_THICK(4, 0.2f, "thick", PresetColour.GENERIC_SIZE_FIVE),
 	
-	FIVE_FAT(5, 0.3f, "fat", PresetColour.GENERIC_SIZE_SIX),
+	FIVE_FAT(5, 0.4f, "fat", PresetColour.GENERIC_SIZE_SIX),
 	
-	SIX_GIRTHY(6, 0.6f, "girthy", PresetColour.GENERIC_SIZE_SEVEN);
+	SIX_GIRTHY(6, 0.8f, "girthy", PresetColour.GENERIC_SIZE_SEVEN);
 	
 	
 	private int value;

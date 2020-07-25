@@ -287,7 +287,7 @@ public class FortressMalesLeader extends NPC {
 	}
 	
 	public boolean isAbleToEquipDildo(GameCharacter target) {
-		AbstractClothing dildo = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_insertableVibrator_insertable_vibrator"), PresetColour.CLOTHING_PURPLE_DARK, null);
+		AbstractClothing dildo = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_vagina_insertable_dildo"), PresetColour.CLOTHING_PURPLE_DARK, null);
 		return target.isAbleToEquip(dildo, true, this)
 				&& Main.sex.getSexTypeCount(this, target, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0;
 	}

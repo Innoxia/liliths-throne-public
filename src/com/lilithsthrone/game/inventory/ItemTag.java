@@ -237,6 +237,10 @@ public enum ItemTag {
 					"[style.colourSex(Seals nipples (does not get dirty from creampies))]"),
 			true),
 	
+	MILKING_EQUIPMENT(
+			Util.newArrayListOfValues(
+					"[style.colourMilk(Milking equipment (drains creampies))]"),
+			true),
 	
 	/** <b>This is automatically assigned to items, and should not be manually added to ItemTags!</b> */
 	DILDO_SELF(

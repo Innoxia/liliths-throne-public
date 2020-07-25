@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.inventory.item;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +33,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
@@ -2279,7 +2282,7 @@ public class ItemType {
 //			"Bottled Angel's Essence",
 //			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 //					+ " Inside, there's a swirling  ",
-//			"bottledEssenceAngel",
+//			null,
 //			PresetColour.RARITY_LEGENDARY,
 //			50,
 //			Rarity.LEGENDARY,
@@ -2304,6 +2307,7 @@ public class ItemType {
 //					+ "</p>";
 //			}
 //		}
+//	  override SVG
 //	};
 	
 	private static String getEssenceAbsorptionText(Colour essenceColour, GameCharacter user, GameCharacter target) {
@@ -2418,7 +2422,7 @@ public class ItemType {
 			"Bottled Arcane Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.GENERIC_ARCANE.getName()+" glow of an arcane essence flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceArcane",
+			null,
 			PresetColour.GENERIC_ARCANE,
 			null,
 			null,
@@ -2434,6 +2438,10 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.GENERIC_ARCANE, user, target);
 		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.LILIN);
+		}
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_CAT_MORPH = new AbstractItemType(
@@ -2444,7 +2452,7 @@ public class ItemType {
 			"Bottled Cat-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_CAT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a cat-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceCatMorph",
+			null,
 			PresetColour.RACE_CAT_MORPH,
 			null,
 			null,
@@ -2452,16 +2460,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_CAT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_CAT_MORPH, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.CAT_MORPH);
 		}
 	};
 	
@@ -2474,7 +2483,7 @@ public class ItemType {
 			"Bottled Cow-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_COW_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a cow-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceCowMorph",
+			null,
 			PresetColour.RACE_COW_MORPH,
 			null,
 			null,
@@ -2482,16 +2491,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_COW_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_COW_MORPH, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.COW_MORPH);
 		}
 	};
 	
@@ -2503,7 +2513,7 @@ public class ItemType {
 			"Bottled Demon Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_DEMON.getName()+" glow of an arcane essence, imbued with the energy of a demon, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceDemon",
+			null,
 			PresetColour.RACE_DEMON,
 			null,
 			null,
@@ -2511,16 +2521,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DEMON)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_DEMON, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.DEMON);
 		}
 	};
 
@@ -2532,7 +2543,7 @@ public class ItemType {
 			"Bottled Imp Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_IMP.getName()+" glow of an arcane essence, imbued with the energy of an imp, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceImp",
+			null,
 			PresetColour.RACE_IMP,
 			null,
 			null,
@@ -2540,16 +2551,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_IMP)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_IMP, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.IMP);
 		}
 	};
 	
@@ -2561,7 +2573,7 @@ public class ItemType {
 			"Bottled Alligator-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_ALLIGATOR_MORPH.getName()+" glow of an alligator-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceGatorMorph",
+			null,
 			PresetColour.RACE_ALLIGATOR_MORPH,
 			null,
 			null,
@@ -2569,16 +2581,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ALLIGATOR_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_ALLIGATOR_MORPH, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.ALLIGATOR_MORPH);
 		}
 	};
 	
@@ -2591,7 +2604,7 @@ public class ItemType {
 			"Bottled Squirrel-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_SQUIRREL_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a squirrel-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceSquirrelMorph",
+			null,
 			PresetColour.RACE_SQUIRREL_MORPH,
 			null,
 			null,
@@ -2599,16 +2612,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SQUIRREL_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_SQUIRREL_MORPH, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.SQUIRREL_MORPH);
 		}
 	};
 	
@@ -2620,7 +2634,7 @@ public class ItemType {
 			"Bottled Rat-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_RAT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a rat-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceRatMorph",
+			null,
 			PresetColour.RACE_RAT_MORPH,
 			null,
 			null,
@@ -2628,16 +2642,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RAT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_RAT_MORPH, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.RAT_MORPH);
 		}
 	};
 	
@@ -2649,7 +2664,7 @@ public class ItemType {
 			"Bottled Rabbit-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_RABBIT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a rabbit-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceRabbitMorph",
+			null,
 			PresetColour.RACE_RABBIT_MORPH,
 			null,
 			null,
@@ -2657,16 +2672,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RABBIT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_RABBIT_MORPH, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.RABBIT_MORPH);
 		}
 	};
 	
@@ -2678,7 +2694,7 @@ public class ItemType {
 			"Bottled Bat-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_BAT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a bat-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceBatMorph",
+			null,
 			PresetColour.RACE_BAT_MORPH,
 			null,
 			null,
@@ -2686,16 +2702,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_BAT_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_BAT_MORPH, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.BAT_MORPH);
 		}
 	};
 	
@@ -2707,7 +2724,7 @@ public class ItemType {
 			"Bottled Dog-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_DOG_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a dog-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceDogMorph",
+			null,
 			PresetColour.RACE_DOG_MORPH,
 			null,
 			null,
@@ -2715,16 +2732,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DOG_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_DOG_MORPH, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.DOG_MORPH);
 		}
 	};
 	
@@ -2736,7 +2754,7 @@ public class ItemType {
 			"Bottled Harpy Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_HARPY.getName()+" glow of an arcane essence, imbued with the energy of a harpy, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceHarpy",
+			null,
 			PresetColour.RACE_HARPY,
 			null,
 			null,
@@ -2744,16 +2762,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HARPY)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_HARPY, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.HARPY);
 		}
 	};
 	
@@ -2765,7 +2784,7 @@ public class ItemType {
 			"Bottled Horse-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_HORSE_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a horse-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceHorseMorph",
+			null,
 			PresetColour.RACE_HORSE_MORPH,
 			null,
 			null,
@@ -2773,16 +2792,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HORSE_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_HORSE_MORPH, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.HORSE_MORPH);
 		}
 	};
 	
@@ -2794,7 +2814,7 @@ public class ItemType {
 			"Bottled Reindeer-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_REINDEER_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a reindeer-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceReindeerMorph",
+			null,
 			PresetColour.RACE_REINDEER_MORPH,
 			null,
 			null,
@@ -2802,16 +2822,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_REINDEER_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_REINDEER_MORPH, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.REINDEER_MORPH);
 		}
 	};
 	
@@ -2823,7 +2844,7 @@ public class ItemType {
 			"Bottled Human Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_HUMAN.getName()+" glow of an arcane essence, imbued with the energy of a human, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceHuman",
+			null,
 			PresetColour.RACE_HUMAN,
 			null,
 			null,
@@ -2831,16 +2852,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HUMAN)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_HUMAN, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.HUMAN);
 		}
 	};
 	
@@ -2852,7 +2874,7 @@ public class ItemType {
 			"Bottled Wolf-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_WOLF_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a wolf-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceWolfMorph",
+			null,
 			PresetColour.RACE_WOLF_MORPH,
 			null,
 			null,
@@ -2860,16 +2882,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_WOLF_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_WOLF_MORPH, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.WOLF_MORPH);
 		}
 	};
 	
@@ -2881,7 +2904,7 @@ public class ItemType {
 			"Bottled Fox-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_FOX_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a fox-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceFoxMorph",
+			null,
 			PresetColour.RACE_FOX_MORPH,
 			null,
 			null,
@@ -2889,16 +2912,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_FOX_MORPH)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_FOX_MORPH, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.FOX_MORPH);
 		}
 	};
 
@@ -2910,7 +2934,7 @@ public class ItemType {
 			"Bottled Slime Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
 					+ " Inside, the swirling "+PresetColour.RACE_SLIME.getName()+" glow of an arcane essence, imbued with the energy of a slime, flickers and swirls about in a mesmerising, cyclical pattern.",
-			"bottledEssenceSlime",
+			null,
 			PresetColour.RACE_SLIME,
 			null,
 			null,
@@ -2918,16 +2942,17 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SLIME)),
 			Util.newArrayListOfValues(ItemTag.ESSENCE)) {
-
-
 		@Override
 		public String getUseName() {
 			return "absorb";
 		}
-
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorptionText(PresetColour.RACE_SLIME, user, target);
+		}
+		@Override
+		public String getSVGString() {
+			return getEssenceSvg(Subspecies.SLIME);
 		}
 	};
 	
@@ -5501,6 +5526,54 @@ public class ItemType {
 				return getBookEffect(target, subspecies, true);
 			}
 		};
+	}
+	
+	private static Map<Subspecies, String> essenceMap = new HashMap<>();
+	
+	private static String getEssenceSvg(Subspecies subspecies) {
+		if(essenceMap.containsKey(subspecies)) {
+			return essenceMap.get(subspecies);
+		}
+		String background = "";
+		String bottle = "";
+		Colour colour = subspecies.getColour(null);
+		try {
+			InputStream is = ItemType.class.getResourceAsStream("/com/lilithsthrone/res/items/essenceBackground.svg");
+			String s = Util.inputStreamToString(is);
+			
+			background = SvgUtil.colourReplacement(subspecies.getName(null), colour, s);
+			is.close();
+			
+			is = ItemType.class.getResourceAsStream("/com/lilithsthrone/res/items/essenceBottle.svg");
+			s = Util.inputStreamToString(is);
+			bottle = SvgUtil.colourReplacement(subspecies.getName(null), colour, s);
+			is.close();
+
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		String subspeciesIcon = subspecies.getSVGStringNoBackground();
+		subspeciesIcon = subspeciesIcon.replaceAll("fill=\"#(.*?)\"", "fill=\""+colour.getShades()[1]+"\"");
+//		subspeciesIcon = subspeciesIcon.replaceAll(colour.getShades()[1], colour.getShades()[0]);
+//		subspeciesIcon = subspeciesIcon.replaceAll(colour.getShades()[2], colour.getShades()[1]);
+//		subspeciesIcon = subspeciesIcon.replaceAll(colour.getShades()[3], colour.getShades()[2]);
+//		subspeciesIcon = subspeciesIcon.replaceAll(colour.getShades()[4], colour.getShades()[3]);
+		subspeciesIcon = subspeciesIcon.replaceAll("stroke=\"#(.*?)\"", "stroke=\""+colour.getShades()[1]+"\"");
+		
+		String finalImage = "<div style='width:80%;height:80%;position:absolute;left:10%;top:10%;'>"
+								+ background
+							+ "</div>"
+							+"<div style='width:70%;height:70%;position:absolute;left:15%;top:20%;'>"
+								+ subspeciesIcon
+							+ "</div>"
+							+ "<div style='width:60%;height:60%;position:absolute;left:20%;top:25%;'>"
+								+ bottle
+							+ "</div>";
+		
+		essenceMap.put(subspecies, finalImage);
+		
+		return finalImage;
 	}
 
 	public static List<AbstractItemType> getDominionAlleywayItems() {

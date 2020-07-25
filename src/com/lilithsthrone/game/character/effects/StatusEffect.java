@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -335,9 +336,9 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer()) {
-				return "You are less adept at harnessing the arcane than you were when first entering this world, but are nevertheless still far more powerful than the vast majority of the population.";
+				return "You have an exceptional natural ability to harness the arcane, and as a result, you're far more powerful than the vast majority of Dominion's population.";
 			} else {
-				return UtilText.parse(target, "[npc.Name] has a small amount of ability with the arcane; equal to that of a common race who's undergone extensive training.");
+				return UtilText.parse(target, "[npc.Name] has a respectable knowledge of how to harness the arcane; equal to that of a common race who's undergone extensive training.");
 			}
 		}
 		@Override
@@ -1682,12 +1683,12 @@ public class StatusEffect {
 		}
 		@Override
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
-			Map<Attribute, Float> attMods;
+			LinkedHashMap<Attribute, Float> attMods;
 			
 			if(target.getSubspeciesOverride()!=null && target.getSubspeciesOverride()!=target.getSubspecies()) {
-				attMods = new HashMap<>(target.getSubspeciesOverride().getStatusEffectAttributeModifiers(target));
+				attMods = new LinkedHashMap<>(target.getSubspeciesOverride().getStatusEffectAttributeModifiers(target));
 			} else {
-				attMods = new HashMap<>(target.getSubspecies().getStatusEffectAttributeModifiers(target));
+				attMods = new LinkedHashMap<>(target.getSubspecies().getStatusEffectAttributeModifiers(target));
 			}
 			
 			BodyMaterial material = target.getBodyMaterial();
@@ -1709,12 +1710,12 @@ public class StatusEffect {
 		}
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			Map<Attribute, Float> attMods;
+			LinkedHashMap<Attribute, Float> attMods;
 
 			if(target.getSubspeciesOverride()!=null && target.getSubspeciesOverride()!=target.getSubspecies()) {
-				attMods = new HashMap<>(target.getSubspeciesOverride().getStatusEffectAttributeModifiers(target));
+				attMods = new LinkedHashMap<>(target.getSubspeciesOverride().getStatusEffectAttributeModifiers(target));
 			} else {
-				attMods = new HashMap<>(target.getSubspecies().getStatusEffectAttributeModifiers(target));
+				attMods = new LinkedHashMap<>(target.getSubspecies().getStatusEffectAttributeModifiers(target));
 			}
 			
 			ArrayList<String> fullModList = new ArrayList<>(attributeModifiersToStringList(attMods));
@@ -4393,9 +4394,20 @@ public class StatusEffect {
 		}
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
+			AbstractClothing pump = target.getClothingInSlot(InventorySlot.VAGINA);
+			if(pump!=null && pump.isMilkingEquipment()) {
+				target.clearFluidsStored(SexAreaOrifice.VAGINA);
+				if(!Main.game.isInSex()) {
+					return "<p>"
+								+ "All of the cum from your creampied pussy is quickly sucked away by your "+pump.getName()+"!"
+							+ "</p>";
+				}
+			}
+			
 			if(Main.game.isInSex()) {
 				return "";
 			}
+			
 			float cumLost = SexAreaOrifice.VAGINA.getCharactersCumLossPerSecond(target)*secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
@@ -4617,9 +4629,20 @@ public class StatusEffect {
 		}
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
+			AbstractClothing pump = target.getClothingInSlot(InventorySlot.PENIS);
+			if(pump!=null && pump.isMilkingEquipment()) {
+				target.clearFluidsStored(SexAreaOrifice.URETHRA_PENIS);
+				if(!Main.game.isInSex()) {
+					return "<p>"
+								+ "All of the cum from your cock's creampied urethra is quickly sucked away by your "+pump.getName()+"!"
+							+ "</p>";
+				}
+			}
+			
 			if(Main.game.isInSex()) {
 				return "";
 			}
+			
 			float cumLost = SexAreaOrifice.URETHRA_PENIS.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
@@ -4821,9 +4844,20 @@ public class StatusEffect {
 		}
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
+			AbstractClothing pump = target.getClothingInSlot(InventorySlot.NIPPLE);
+			if(pump!=null && pump.isMilkingEquipment()) {
+				target.clearFluidsStored(SexAreaOrifice.NIPPLE);
+				if(!Main.game.isInSex()) {
+					return "<p>"
+								+ "All of the cum from your creampied nipples is quickly sucked away by your "+pump.getName()+"!"
+							+ "</p>";
+				}
+			}
+			
 			if(Main.game.isInSex()) {
 				return "";
 			}
+			
 			float cumLost = SexAreaOrifice.NIPPLE.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();
@@ -4934,9 +4968,20 @@ public class StatusEffect {
 		}
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
+			AbstractClothing pump = target.getClothingInSlot(InventorySlot.STOMACH);
+			if(pump!=null && pump.isMilkingEquipment()) {
+				target.clearFluidsStored(SexAreaOrifice.NIPPLE_CROTCH);
+				if(!Main.game.isInSex()) {
+					return "<p>"
+								+ "All of the cum from your creampied nipples is quickly sucked away by your "+pump.getName()+"!"
+							+ "</p>";
+				}
+			}
+			
 			if(Main.game.isInSex()) {
 				return "";
 			}
+			
 			float cumLost = SexAreaOrifice.NIPPLE_CROTCH.getCharactersCumLossPerSecond(target) * secondsPassed;
 			
 			StringBuilder sb = new StringBuilder();

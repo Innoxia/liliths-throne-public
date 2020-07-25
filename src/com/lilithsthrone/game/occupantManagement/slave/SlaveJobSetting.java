@@ -5,7 +5,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.87
- * @version 0.3.5.1
+ * @version 0.3.9
  * @author Innoxia
  */
 public enum SlaveJobSetting {
@@ -24,6 +24,8 @@ public enum SlaveJobSetting {
 	MILKING_MILK_CROTCH_DISABLE(PresetColour.BASE_YELLOW_LIGHT, "Forbid Udder-milk", "DU", "Do not allow this slave's udders to be milked."),
 	MILKING_CUM_DISABLE(PresetColour.BASE_BLUE_LIGHT, "Forbid Cum", "DC", "Do not allow this slave's cum to be collected."),
 	MILKING_GIRLCUM_DISABLE(PresetColour.BASE_PINK_LIGHT, "Forbid Girlcum", "DG", "Do not allow this slave's girlcum to be collected."),
+	MILKING_TEAR_HYMEN(PresetColour.BASE_PINK_DEEP, "Tear Hymen", "TH", "If this slave has an intact hymen, allow the 'pussy pump' to be inserted anyway (which will result in it being torn)."
+			+ " If this permission is disabled, slaves with intact hymens will not insert 'pussy pumps', and so will not have their girlcum collected."),
 	
 	MILKING_MILK_AUTO_SELL(PresetColour.CURRENCY_GOLD, "Auto-sell Milk", "SM", "Set this slave's milk to be automatically sold instead of stored."),
 	MILKING_MILK_CROTCH_AUTO_SELL(PresetColour.CURRENCY_GOLD, "Auto-sell Udder-milk", "SCM", "Set this slave's crotch-milk to be automatically sold instead of stored."),

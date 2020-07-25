@@ -572,7 +572,7 @@ public class CharacterCreation {
 				generateClothingOnFloor("innoxia_foot_heels", PresetColour.CLOTHING_BLACK);
 				
 				generateClothingOnFloor(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK);
-				generateClothingOnFloor(ClothingType.GROIN_LACY_PANTIES, PresetColour.CLOTHING_RED);
+				generateClothingOnFloor("innoxia_groin_lacy_panties", PresetColour.CLOTHING_RED);
 				generateClothingOnFloor(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_WHITE);
 
 				generateClothingOnFloor("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_RED);
@@ -609,7 +609,7 @@ public class CharacterCreation {
 			case FEMININE_STRONG:
 				generateClothingOnFloor(ClothingType.GROIN_PANTIES, PresetColour.CLOTHING_WHITE);
 				generateClothingOnFloor(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK);
-				generateClothingOnFloor(ClothingType.GROIN_LACY_PANTIES, PresetColour.CLOTHING_RED);
+				generateClothingOnFloor("innoxia_groin_lacy_panties", PresetColour.CLOTHING_RED);
 				generateClothingOnFloor(ClothingType.GROIN_VSTRING, PresetColour.CLOTHING_BLACK);
 
 				generateClothingOnFloor("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_RED);

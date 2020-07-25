@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -93,11 +94,11 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	// Penetration variables:
 	private int penetrationSelfLength;
 	private int penetrationSelfGirth;
-	private List<PenetrationModifier> penetrationSelfModifiers;
+	private Set<PenetrationModifier> penetrationSelfModifiers;
 	
 	private int penetrationOtherLength;
 	private int penetrationOtherGirth;
-	private List<PenetrationModifier> penetrationOtherModifiers;
+	private Set<PenetrationModifier> penetrationOtherModifiers;
 	
 	// Orifice variables:
 	private int orificeSelfDepth;
@@ -105,14 +106,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private int orificeSelfElasticity;
 	private int orificeSelfPlasticity;
 	private int orificeSelfWetness;
-	private List<OrificeModifier> orificeSelfModifiers;
+	private Set<OrificeModifier> orificeSelfModifiers;
 	
 	private int orificeOtherDepth;
 	private float orificeOtherCapacity;
 	private int orificeOtherElasticity;
 	private int orificeOtherPlasticity;
 	private int orificeOtherWetness;
-	private List<OrificeModifier> orificeOtherModifiers;
+	private Set<OrificeModifier> orificeOtherModifiers;
 
 	// Enchantments:
 	@SuppressWarnings("unused")
@@ -846,7 +847,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								.getMandatoryFirstOf("modifiers")
 								.getAllOf("mod").stream()
 								.map( e -> PenetrationModifier.valueOf(e.getTextContent()))
-								.collect(Collectors.toList());
+								.collect(Collectors.toSet());
 					}
 				}
 				// Self orifice values:
@@ -878,7 +879,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								.getMandatoryFirstOf("modifiers")
 								.getAllOf("mod").stream()
 								.map( e -> OrificeModifier.valueOf(e.getTextContent()))
-								.collect(Collectors.toList());
+								.collect(Collectors.toSet());
 					}
 				}
 			} catch (XMLMissingTagException ex) {
@@ -908,7 +909,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								.getMandatoryFirstOf("modifiers")
 								.getAllOf("mod").stream()
 								.map( e -> PenetrationModifier.valueOf(e.getTextContent()))
-								.collect(Collectors.toList());
+								.collect(Collectors.toSet());
 					}
 				}
 				// Other orifice values:
@@ -940,7 +941,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 								.getMandatoryFirstOf("modifiers")
 								.getAllOf("mod").stream()
 								.map( e -> OrificeModifier.valueOf(e.getTextContent()))
-								.collect(Collectors.toList());
+								.collect(Collectors.toSet());
 					}
 				}
 			} catch (XMLMissingTagException ex) {
@@ -1378,7 +1379,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		
-		if(clothingOwner==null || clothingEquipper==null) {
+		if(clothingOwner==null || clothingEquipper==null || !Main.game.isStarted()) {
 			return "";
 		}
 		
@@ -2668,9 +2669,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return penetrationSelfGirth;
 	}
 
-	public List<PenetrationModifier> getPenetrationSelfModifiers() {
+	public Set<PenetrationModifier> getPenetrationSelfModifiers() {
 		if(penetrationSelfModifiers==null) {
-			return new ArrayList<>();
+			return new HashSet<>();
 		}
 		return penetrationSelfModifiers;
 	}
@@ -2683,9 +2684,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return penetrationOtherGirth;
 	}
 
-	public List<PenetrationModifier> getPenetrationOtherModifiers() {
+	public Set<PenetrationModifier> getPenetrationOtherModifiers() {
 		if(penetrationOtherModifiers==null) {
-			return new ArrayList<>();
+			return new HashSet<>();
 		}
 		return penetrationOtherModifiers;
 	}
@@ -2710,9 +2711,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return orificeSelfWetness;
 	}
 
-	public List<OrificeModifier> getOrificeSelfModifiers() {
+	public Set<OrificeModifier> getOrificeSelfModifiers() {
 		if(orificeSelfModifiers==null) {
-			return new ArrayList<>();
+			return new HashSet<>();
 		}
 		return orificeSelfModifiers;
 	}
@@ -2737,9 +2738,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return orificeOtherWetness;
 	}
 
-	public List<OrificeModifier> getOrificeOtherModifiers() {
+	public Set<OrificeModifier> getOrificeOtherModifiers() {
 		if(orificeOtherModifiers==null) {
-			return new ArrayList<>();
+			return new HashSet<>();
 		}
 		return orificeOtherModifiers;
 	}
