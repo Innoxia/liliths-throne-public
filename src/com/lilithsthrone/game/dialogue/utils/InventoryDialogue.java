@@ -1721,22 +1721,8 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType(null)==null) {
-									return new Response("Enchant", "This item cannot be enchanted!", null);
-									
-								} else if(Main.game.isDebugMode()
-										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									return new Response("Enchant", "Enchant this item.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-										@Override
-										public DialogueNode getNextDialogue() {
-											return EnchantmentDialogue.getEnchantmentMenu(item);
-										}
-									};
-									
-								} else {
-									return new Response("Enchant", "You have not discovered how to enchant items yet...", null);
-								}
-								
+								return new Response("Enchant", "You can't enchant items while trading with someone!", null);
+
 							} else if(index == 6) {
 								if (!item.isAbleToBeUsedFromInventory()) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (Self)", item.getUnableToBeUsedFromInventoryDescription(), null);
@@ -3039,22 +3025,8 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType(null)==null) {
-									return new Response("Enchant", "This weapon cannot be enchanted!", null);
-									
-								} else if(Main.game.isDebugMode()
-										|| (Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY))) {
-									return new Response("Enchant", "Enchant this weapon.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-										@Override
-										public DialogueNode getNextDialogue() {
-											return EnchantmentDialogue.getEnchantmentMenu(weapon);
-										}
-									};
-									
-								} else {
-									return new Response("Enchant", "You have not discovered how to enchant weapons yet...", null);
-								}
-								
+								return new Response("Enchant", "You can't enchant items while trading with someone!", null);
+
 							} else if(index == 6) {
 								return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
 									@Override
@@ -4390,12 +4362,7 @@ public class InventoryDialogue {
 															+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.", null);
 										}
 									}
-									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
-										@Override
-										public DialogueNode getNextDialogue() {
-											return EnchantmentDialogue.getEnchantmentMenu(clothing);
-										}
-									};
+									return new Response("Enchant", "You can't enchant items while trading with someone!", null);
 									
 								} else {
 									return new Response("Enchant", "You have not discovered how to enchant clothing yet...", null);
