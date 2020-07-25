@@ -1010,8 +1010,8 @@ public class NightlifeDistrict {
                                 }
                             };
                         }
+						count++;
                     }
-					count++;
 				}
 			}
 			return null;
