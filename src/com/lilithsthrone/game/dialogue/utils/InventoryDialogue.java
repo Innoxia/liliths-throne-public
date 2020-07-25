@@ -3025,7 +3025,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								return new Response("Enchant", "You can't enchant items while trading with someone!", null);
+								return new Response("Enchant", "You can't enchant weapons while trading with someone!", null);
 
 							} else if(index == 6) {
 								return new Response("Equip Main (Self)", "Equip the " + weapon.getName() + " as your main weapon.", INVENTORY_MENU){
@@ -4362,7 +4362,7 @@ public class InventoryDialogue {
 															+ " or go to a vendor and pay "+IDENTIFICATION_PRICE+" flames to have them do it for you.", null);
 										}
 									}
-									return new Response("Enchant", "You can't enchant items while trading with someone!", null);
+									return new Response("Enchant", "You can't enchant clothing while trading with someone!", null);
 									
 								} else {
 									return new Response("Enchant", "You have not discovered how to enchant clothing yet...", null);
