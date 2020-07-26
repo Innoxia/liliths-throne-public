@@ -83,6 +83,10 @@ public abstract class AbstractWingType implements BodyPartTypeInterface {
 		return allowsFlight;
 	}
 
+	public boolean isGeneric() {
+		return false;
+	}
+
 	@Override
 	public String getTransformName() {
 		return transformationName;

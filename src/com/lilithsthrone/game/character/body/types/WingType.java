@@ -125,6 +125,10 @@ public class WingType {
 			+ "<br/>"
 			+ "[npc.Name] now [npc.has] [style.boldTfGeneric(leathery wings)].",
 			"[npc.sheHasFull] a pair of [npc.wingSize], leathery wings, which are covered in [npc.wingFullDescription(true)].") {
+		@Override
+		public boolean isGeneric() {
+			return true;
+		}
 	};
 
 	public static final AbstractWingType FEATHERED = new AbstractWingType(
@@ -144,6 +148,10 @@ public class WingType {
 			+ "<br/>"
 			+ "[npc.Name] now [npc.has] [style.boldTfGeneric(feathered wings)].",
 			"[npc.sheHasFull] a pair of [npc.wingSize], feathered wings, which are covered in [npc.wingFullDescription(true)].") {
+		@Override
+		public boolean isGeneric() {
+			return true;
+		}
 	};
 
 

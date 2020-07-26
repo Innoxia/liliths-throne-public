@@ -55,6 +55,10 @@ public class Wing implements BodyPartInterface {
 		return type.getDescriptor(gc);
 	}
 
+	public void setType(AbstractWingType type) {
+		this.type = type;
+	}
+
 	public String setType(GameCharacter owner, AbstractWingType type) {
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
@@ -120,6 +124,15 @@ public class Wing implements BodyPartInterface {
 
 	public int getSizeValue() {
 		return size;
+	}
+
+	public void setSize(int wingSize) {
+		this.size = Math.max(0, Math.min(wingSize, WingSize.getLargest()));
+	}
+
+	public void setTypeAndSize(AbstractWingType type, int wingSize) {
+		setType(type);
+		setSize(wingSize);
 	}
 	
 	public String setSize(GameCharacter owner, int wingSize) {

@@ -26347,6 +26347,13 @@ public abstract class GameCharacter implements XMLSaving {
 	public boolean hasWings() {
 		return getWingType() != WingType.NONE;
 	}
+	/**
+	 * Checks, if the NPC has generic wings aka wings that allow flight, but aren't linked to a specific race.
+	 * @return true, if the NPC has generic wings
+	 */
+	public boolean hasGenericWings() {
+		return getWingType().isGeneric();
+	}
 	// Type:
 	public AbstractWingType getWingType() {
 		return body.getWing().getType();
