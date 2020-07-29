@@ -129,19 +129,22 @@ public class Bunny extends NPC {
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
 			this.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_ORAL_GIVING);
+			this.addFetish(Fetish.FETISH_MASOCHIST);
+			this.addFetish(Fetish.FETISH_SADIST);
+			this.addFetish(Fetish.FETISH_SADOMASOCHIST);
 		}
 		
 		// Body:
 
 		// Core:
-		this.setHeight(168);
+		this.setHeight(186;
 		this.setFemininity(85);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
 
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_GREEN));
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_RABBIT, PresetColour.EYE_GREEN));
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_BLUE));
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_RABBIT, PresetColour.EYE_BLUE));
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.RABBIT_FUR, PresetColour.COVERING_BROWN), true);
 
@@ -168,13 +171,14 @@ public class Bunny extends NPC {
 		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.TWO_FULL);
 		this.setFaceCapacity(Capacity.FIVE_ROOMY, true);
+		this.setFaceDepth(6)
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
 		
 		// Chest:
-		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.E.getMeasurement());
+		this.setNippleVirgin(false);
+		this.setBreastSize(CupSize.HH.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
 		this.setNippleSize(NippleSize.TWO_BIG);
 		this.setAreolaeSize(AreolaeSize.TWO_BIG);
@@ -183,16 +187,17 @@ public class Bunny extends NPC {
 		// Ass:
 		this.setAssVirgin(false);
 		this.setAssBleached(true);
-		this.setAssSize(AssSize.FOUR_LARGE);
+		this.setAssSize(AssSize.SIX_MASSIVE);
 		this.setHipSize(HipSize.FOUR_WOMANLY);
 		this.setAssCapacity(Capacity.TWO_TIGHT, true);
-		this.setAssWetness(Wetness.ZERO_DRY);
+		this.setAssWetness(Wetness.FOUR_SLIMY);
 		this.setAssElasticity(OrificeElasticity.SIX_SUPPLE.getValue());
 		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		// Anus modifiers
 		
 		// Penis:
 		// No penis
+		// 000.0% penis	       
 
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -201,6 +206,7 @@ public class Bunny extends NPC {
 		this.setVaginaSquirter(false);
 		this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
 		this.setVaginaWetness(Wetness.THREE_WET);
+		this.setVaginaDepth(6);
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		
