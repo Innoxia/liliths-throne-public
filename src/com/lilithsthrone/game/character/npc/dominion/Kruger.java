@@ -76,7 +76,7 @@ public class Kruger extends NPC {
 	
 	public Kruger(boolean isImported) {
 		super(isImported, new NameTriplet("Kruger", "Kruger", "Kruger"), "Mwangi",
-				"Kruger is the owner of the nightclub, 'The Watering Hole'.",
+				"Kruger is the owner of the nightclub 'The Watering Hole'.",
 				42, Month.JUNE, 12,
 				20,
 				Gender.M_P_MALE,
