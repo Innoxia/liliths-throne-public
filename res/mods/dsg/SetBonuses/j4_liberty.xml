@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setBonus>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help!-->
+	
+	<!-- The name of this set bonus -->
+	<name><![CDATA[Liberty's Outfit]]></name>
+	
+	<!-- The id of the status effect which should be applied when a character is under the effect of this set bonus. -->
+	<statusEffect>dsg_set_j4_liberty</statusEffect>
+	
+	<!-- The number of items of clothing or weapons which a character needs to equip to gain this set bonus. -->
+	<numberRequiredForCompleteSet>3</numberRequiredForCompleteSet>
+	
+	<!-- If any of the slots defined in this section are blocked (due to the character's body not supporting clothing in these slots), then the slot is counted as being equipped with an item of clothing from this set.
+	For example, as the leg slot is defined in this section, a character with a taur's body (which is therefore blocked from wearing leg clothing) would have the 'numberRequiredForCompleteSet' reduced by 1.
+	It's usually best to fill out this section with each slot that can be fitted with an item of this set's clothing.
+	Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java-->
+	<blockedSlotsCountingTowardsFullSet>
+		<slot>HEAD</slot>
+		<slot>CHEST</slot>
+		<slot>LEG</slot> 
+	</blockedSlotsCountingTowardsFullSet>
+	
+</setBonus>
