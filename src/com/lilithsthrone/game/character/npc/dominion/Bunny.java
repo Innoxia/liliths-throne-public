@@ -137,7 +137,7 @@ public class Bunny extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(186;
+		this.setHeight(186);
 		this.setFemininity(85);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
@@ -171,7 +171,7 @@ public class Bunny extends NPC {
 		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.TWO_FULL);
 		this.setFaceCapacity(Capacity.FIVE_ROOMY, true);
-		this.setFaceDepth(6)
+		this.setFaceDepth(6);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
