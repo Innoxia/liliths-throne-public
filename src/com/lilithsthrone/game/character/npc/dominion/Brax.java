@@ -178,7 +178,8 @@ public class Brax extends NPC {
 		if(setPersona) {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
-					PersonalityTrait.BRAVE);
+					PersonalityTrait.BRAVE,
+					PersonalityTrait.SELFISH);
 	
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -186,15 +187,18 @@ public class Brax extends NPC {
 	
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_CUM_STUD);
+			this.addFetish(Fetish.FETISH_SADIST);
+			this.addFetish(Fetish.FETISH_NON_CON_DOM);
 		}
 		
 		// Body:
 
 		// Core:
-		this.setHeight(183);
-		this.setFemininity(25);
+		this.setHeight(283);
+		this.setFemininity(5);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
 		
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, PresetColour.EYE_YELLOW));
@@ -222,6 +226,7 @@ public class Brax extends NPC {
 		this.setFaceVirgin(true);
 		this.setLipSize(LipSize.ONE_AVERAGE);
 		this.setFaceCapacity(Capacity.ZERO_IMPENETRABLE, true);
+		this.setFaceDepth(4);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
@@ -241,19 +246,23 @@ public class Brax extends NPC {
 		this.setHipSize(HipSize.TWO_NARROW);
 		this.setAssCapacity(Capacity.ZERO_IMPENETRABLE, true);
 		this.setAssWetness(Wetness.ZERO_DRY);
+		this.setAssDepth(4);
 		this.setAssElasticity(OrificeElasticity.ONE_RIGID.getValue());
 		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		// Anus modifiers
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
-		this.setPenisSize(20);
-		this.setTesticleSize(TesticleSize.THREE_LARGE);
-		// Leave cum as normal value
+		this.setPenisGirth(PenetrationGirth.FIVE_FAT);
+		this.setPenisSize(60);
+		this.addPenisModifier(PenetrationModifier.VEINY);
+		this.removePenisModifier(PenetrationModifier.TAPERED);
+		this.setTesticleSize(TesticleSize.FIVE_MASSIVE);
+		this.setPenisCumStorage(6000);
+		// Leave cum as normal value? Fuck that shit.
 		
 		// Vagina:
-		// No vagina
+		// No vagina. Not yet
 		
 		// Feet:
 		// Foot shape
@@ -273,8 +282,6 @@ public class Brax extends NPC {
 		
 		if(isFeminine()) {
 			if(hasFetish(Fetish.FETISH_BIMBO)) {
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_PANTIES, PresetColour.CLOTHING_PINK, false), true, this);
-				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NIPPLE_TAPE_CROSSES, PresetColour.CLOTHING_PINK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_FISHNET_TOP, PresetColour.CLOTHING_WHITE, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_micro_skirt_pleated", PresetColour.CLOTHING_PINK, false), true, this);
 				this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_fishnets", PresetColour.CLOTHING_WHITE, false), true, this);
