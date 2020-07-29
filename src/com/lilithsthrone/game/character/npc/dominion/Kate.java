@@ -262,7 +262,7 @@ public class Kate extends NPC {
 		this.setBreastSize(CupSize.FF.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
 		this.setNippleSize(NippleSize.TWO_BIG);
-		this.setNippleDepth(5)
+		this.setNippleDepth(5);
 		this.setAreolaeSize(AreolaeSize.TWO_BIG);
 		// Nipple settings and modifiers
 		
@@ -273,7 +273,7 @@ public class Kate extends NPC {
 		this.setHipSize(HipSize.THREE_GIRLY);
 		this.setAssCapacity(Capacity.TWO_TIGHT, true);
 		this.setAssWetness(Wetness.ZERO_DRY);
-		this.setAssDepth(6)
+		this.setAssDepth(6);
 		this.setAssElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
 		this.setAssPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
 		// Anus modifiers
