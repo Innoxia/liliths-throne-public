@@ -142,7 +142,7 @@ public class HarpyBimbo extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(160);
+		this.setHeight(180);
 		this.setFemininity(95);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -181,19 +181,21 @@ public class HarpyBimbo extends NPC {
 		
 		// Chest:
 		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.G.getMeasurement());
+		this.setBreastSize(CupSize.GG.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
 		this.setNippleSize(NippleSize.THREE_LARGE);
+		this.setNippleDepth(6);
 		this.setAreolaeSize(AreolaeSize.TWO_BIG);
 		// Nipple settings and modifiers
 		
 		// Ass:
 		this.setAssVirgin(false);
 		this.setAssBleached(true);
-		this.setAssSize(AssSize.SIX_MASSIVE);
+		this.setAssSize(AssSize.SEVEN_GIGANTIC);
 		this.setHipSize(HipSize.SIX_EXTREMELY_WIDE);
 		this.setAssCapacity(Capacity.TWO_TIGHT, true);
 		this.setAssWetness(Wetness.ZERO_DRY);
+		this.setAssDepth(6);
 		this.setAssElasticity(OrificeElasticity.TWO_FIRM.getValue());
 		this.setAssPlasticity(OrificePlasticity.FOUR_ACCOMMODATING.getValue());
 		// Anus modifiers
@@ -208,6 +210,7 @@ public class HarpyBimbo extends NPC {
 		this.setVaginaSquirter(false);
 		this.setVaginaCapacity(Capacity.TWO_TIGHT, true);
 		this.setVaginaWetness(Wetness.THREE_WET);
+		this.setVaginaDepth(6);
 		this.setVaginaElasticity(OrificeElasticity.FOUR_LIMBER.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		
