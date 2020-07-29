@@ -193,10 +193,10 @@ public class Amber extends NPC {
 		this.setHornType(HornType.SWEPT_BACK);
 
 		// Core:
-		this.setHeight(180);
+		this.setHeight(350);
 		this.setFemininity(85);
-		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
-		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 		
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, CoveringPattern.NONE, PresetColour.EYE_AMBER, true, PresetColour.EYE_AMBER, true));
@@ -228,6 +228,7 @@ public class Amber extends NPC {
 		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.TWO_FULL);
 		this.setFaceCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+		this.setFaceDepth(7);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
@@ -243,6 +244,7 @@ public class Amber extends NPC {
 		// Ass:
 		this.setAssVirgin(false);
 		this.setAssBleached(false);
+		this.setAssDepth(5);
 		this.setAssSize(AssSize.FOUR_LARGE);
 		this.setHipSize(HipSize.FOUR_WOMANLY);
 		// Anus settings and modifiers
@@ -250,9 +252,12 @@ public class Amber extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenetrationGirth.FIVE_FAT);
-		this.setPenisSize(25);
-		this.setTesticleSize(TesticleSize.FOUR_HUGE);
-		this.setPenisCumStorage(550);
+		this.setPenisSize(75);
+		this.addPenisModifier(PenetrationModifier.VEINY);
+		this.removePenisModifier(PenetrationModifier.PREHENSILE);
+		this.removePenisModifier(PenetrationModifier.TENTACLED);
+		this.setTesticleSize(TesticleSize.SIX_GIGANTIC);
+		this.setPenisCumStorage(7500);
 		this.fillCumToMaxStorage();
 		this.setTesticleCount(2);
 		
@@ -263,6 +268,7 @@ public class Amber extends NPC {
 		this.setVaginaSquirter(true);
 		this.setVaginaCapacity(Capacity.TWO_TIGHT, true);
 		this.setVaginaWetness(Wetness.FOUR_SLIMY);
+		this.setVaginaDepth(5);
 		this.setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
 		
