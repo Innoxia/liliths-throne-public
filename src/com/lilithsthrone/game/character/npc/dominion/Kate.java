@@ -158,6 +158,8 @@ public class Kate extends NPC {
 			
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
 			this.addFetish(Fetish.FETISH_PREGNANCY);
+			this.addFetish(Fetish.FETISH_IMPREGNATION);
+			this.addFetish(Fetish.FETISH_BREEDER);
 		}
 		
 		// Body:
@@ -250,15 +252,17 @@ public class Kate extends NPC {
 		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.TWO_FULL);
 		this.setFaceCapacity(Capacity.FIVE_ROOMY, true);
+		this.setFaceDepth(5);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
 		
 		// Chest:
 		this.setNippleVirgin(false);
-		this.setBreastSize(CupSize.F.getMeasurement());
+		this.setBreastSize(CupSize.FF.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
 		this.setNippleSize(NippleSize.TWO_BIG);
+		this.setNippleDepth(5)
 		this.setAreolaeSize(AreolaeSize.TWO_BIG);
 		// Nipple settings and modifiers
 		
@@ -269,6 +273,7 @@ public class Kate extends NPC {
 		this.setHipSize(HipSize.THREE_GIRLY);
 		this.setAssCapacity(Capacity.TWO_TIGHT, true);
 		this.setAssWetness(Wetness.ZERO_DRY);
+		this.setAssDepth(6)
 		this.setAssElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
 		this.setAssPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
 		// Anus modifiers
@@ -276,11 +281,11 @@ public class Kate extends NPC {
 		// Penis:
 		// (For when she grows one)
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
-		this.setPenisSize(15);
+		this.setPenisGirth(PenetrationGirth.SIX_GIRTHY);
+		this.setPenisSize(83);
 //		this.setInternalTesticles(true); Use player preferences
-		this.setTesticleSize(TesticleSize.THREE_LARGE);
-		this.setPenisCumStorage(150);
+		this.setTesticleSize(TesticleSize.SEVEN_ABSURD);
+		this.setPenisCumStorage(16500);
 		this.fillCumToMaxStorage();
 		
 		// Vagina:
@@ -290,6 +295,7 @@ public class Kate extends NPC {
 		this.setVaginaSquirter(true);
 		this.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
 		this.setVaginaWetness(Wetness.SIX_SOPPING_WET);
+		this.setVaginaDepth(6);
 		this.setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
 		
