@@ -69,7 +69,7 @@ public class Kalahari extends NPC {
 	
 	public Kalahari(boolean isImported) {
 		super(isImported, new NameTriplet("Kalahari", "Kalahari", "Kalahari"), "Mwangi",
-				"Kalahari is a barmaid working at the nightclub, 'The Watering Hole'.",
+				"Kalahari is a barmaid working at her father's nightclub, 'The Watering Hole'.",
 				24, Month.JUNE, 12,
 				10,
 				Gender.F_V_B_FEMALE,
