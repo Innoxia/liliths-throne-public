@@ -127,6 +127,8 @@ public class Kalahari extends NPC {
 			this.setHistory(Occupation.NPC_BAR_TENDER);
 	
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_MASOCHIST);
+			this.addFetish(Fetish.FETISH_INCEST);
 	
 			this.setFetishDesire(Fetish.FETISH_BREASTS_SELF, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ONE_DISLIKE);
@@ -135,7 +137,7 @@ public class Kalahari extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(179);
+		this.setHeight(297);
 		this.setFemininity(85);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -169,13 +171,14 @@ public class Kalahari extends NPC {
 		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.TWO_FULL);
 		this.setFaceCapacity(Capacity.FIVE_ROOMY, true);
+		this.setFaceDepth(7);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
 		
 		// Chest:
-		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.C.getMeasurement());
+		this.setNippleVirgin(false);
+		this.setBreastSize(CupSize.KK.getMeasurement());
 		this.setBreastShape(BreastShape.PERKY);
 		this.setNippleSize(NippleSize.TWO_BIG);
 		this.setAreolaeSize(AreolaeSize.TWO_BIG);
@@ -188,6 +191,7 @@ public class Kalahari extends NPC {
 		this.setHipSize(HipSize.THREE_GIRLY);
 		this.setAssCapacity(Capacity.TWO_TIGHT, true);
 		this.setAssWetness(Wetness.ZERO_DRY);
+		this.setAssDepth(6);
 		this.setAssElasticity(OrificeElasticity.FOUR_LIMBER.getValue());
 		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		// Anus modifiers
@@ -202,6 +206,7 @@ public class Kalahari extends NPC {
 		this.setVaginaSquirter(false);
 		this.setVaginaCapacity(Capacity.ONE_EXTREMELY_TIGHT, true);
 		this.setVaginaWetness(Wetness.THREE_WET);
+		this.setVaginaDepth(6);
 		this.setVaginaElasticity(OrificeElasticity.THREE_FLEXIBLE.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		
