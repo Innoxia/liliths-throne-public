@@ -129,6 +129,8 @@ public class Kruger extends NPC {
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
+			this.addFetish(Fetish.FETISH_IMPREGNATION);
+			this.addFetish(Fetish.FETISH_INCEST);
 			this.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ZERO_HATE);
 		}
@@ -136,10 +138,10 @@ public class Kruger extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(188);
+		this.setHeight(348);
 		this.setFemininity(0);
-		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		this.setMuscle(Muscle.TWO_TONED.getMedianValue());
+		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
 		
 		// Coverings:
 		
@@ -154,9 +156,9 @@ public class Kruger extends NPC {
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BLACK), false);
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_FELINE_FUR, PresetColour.COVERING_BLACK), false);
 		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
-		this.setAssHair(BodyHair.FOUR_NATURAL);
-		this.setPubicHair(BodyHair.FOUR_NATURAL);
-		this.setFacialHair(BodyHair.ZERO_NONE);
+		this.setAssHair(BodyHair.SEVEN_WILD);
+		this.setPubicHair(BodyHair.SEVEN_WILD);
+		this.setFacialHair(BodyHair.SEVEN_WILD);
 
 //		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_RED));
 //		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_RED));
@@ -184,7 +186,7 @@ public class Kruger extends NPC {
 		// Ass:
 		this.setAssVirgin(true);
 		this.setAssBleached(false);
-		this.setAssSize(AssSize.TWO_SMALL);
+		this.setAssSize(AssSize.FOUR_LARGE);
 		this.setHipSize(HipSize.TWO_NARROW);
 		this.setAssCapacity(Capacity.ZERO_IMPENETRABLE, true);
 		this.setAssWetness(Wetness.ZERO_DRY);
@@ -194,10 +196,14 @@ public class Kruger extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.THREE_AVERAGE);
-		this.setPenisSize(20);
-		this.setTesticleSize(TesticleSize.THREE_LARGE);
-		this.setPenisCumStorage(60);
+		this.setPenisGirth(PenetrationGirth.SIX_GIRTHY);
+		this.setPenisSize(100);
+		this.addPenisModifier(PenetrationModifier.VEINY);
+		this.removePenisModifier(PenetrationModifier.SHEATHED);
+		this.setTesticleSize(TesticleSize.SEVEN_ABSURD);
+		this.addCumModifier(FluidModifier.MUSKY);
+		this.addCumModifier(FluidModifier.VISCOUS);
+		this.setPenisCumStorage(10000);
 		this.fillCumToMaxStorage();
 		// Leave cum as normal value
 		
@@ -213,12 +219,9 @@ public class Kruger extends NPC {
 
 		this.unequipAllClothingIntoVoid(true, true);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_mens_smart_shoes", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_trousers", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torsoOver_suit_jacket", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_GOLD, false), true, this);
 
 	}
