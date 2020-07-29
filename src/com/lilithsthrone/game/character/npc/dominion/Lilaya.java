@@ -250,6 +250,7 @@ public class Lilaya extends NPC {
 		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.TWO_FULL);
 		this.setFaceCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+		this.setFaceDepth(5);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
@@ -265,6 +266,7 @@ public class Lilaya extends NPC {
 		// Ass:
 		this.setAssVirgin(false);
 		this.setAssBleached(false);
+		this.setAssDepth(5);
 		this.setAssSize(AssSize.FOUR_LARGE);
 		this.setHipSize(HipSize.FOUR_WOMANLY);
 		// Anus settings and modifiers
@@ -272,10 +274,10 @@ public class Lilaya extends NPC {
 		// Penis:
 		// For when she grows one:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.THREE_AVERAGE);
-		this.setPenisSize(15);
-		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
-		this.setPenisCumStorage(65);
+		this.setPenisGirth(PenetrationGirth.FIVE_FAT);
+		this.setPenisSize(65);
+		this.setTesticleSize(TesticleSize.FIVE_MASSIVE);
+		this.setPenisCumStorage(6500);
 		this.fillCumToMaxStorage();
 		this.setTesticleCount(2);
 		
@@ -286,6 +288,7 @@ public class Lilaya extends NPC {
 		this.setVaginaSquirter(false);
 		this.setVaginaCapacity(Capacity.TWO_TIGHT, true);
 		this.setVaginaWetness(Wetness.FOUR_SLIMY);
+		this.setVaginaDepth(5);
 		this.setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
 		
