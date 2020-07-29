@@ -135,7 +135,7 @@ public class CandiReceptionist extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(167);
+		this.setHeight(276);
 		this.setFemininity(85);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -168,25 +168,28 @@ public class CandiReceptionist extends NPC {
 		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.FOUR_HUGE);
 		this.setFaceCapacity(Capacity.SEVEN_GAPING, true);
+		this.setFaceDepth(7);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
 		
 		// Chest:
 		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.G.getMeasurement());
-		this.setBreastShape(BreastShape.ROUND);
+		this.setBreastSize(CupSize.X_GG.getMeasurement());
+		this.setBreastShape(BreastShape.PERKY);
 		this.setNippleSize(NippleSize.THREE_LARGE);
+		this.setNippleDepth(7);
 		this.setAreolaeSize(AreolaeSize.THREE_LARGE);
 		// Nipple settings and modifiers
 		
 		// Ass:
 		this.setAssVirgin(false);
 		this.setAssBleached(false);
-		this.setAssSize(AssSize.FIVE_HUGE);
+		this.setAssSize(AssSize.SEVEN_GIGANTIC);
 		this.setHipSize(HipSize.SIX_EXTREMELY_WIDE);
-		this.setAssCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
-		this.setAssWetness(Wetness.ZERO_DRY);
+		this.setAssCapacity(Capacity.FIVE_ROOMY, true);
+		this.setAssWetness(Wetness.SIX_SOPPING_WET);
+		this.setAssDepth(7);
 		this.setAssElasticity(OrificeElasticity.SIX_SUPPLE.getValue());
 		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		// Anus modifiers
@@ -200,7 +203,8 @@ public class CandiReceptionist extends NPC {
 		this.setVaginaLabiaSize(LabiaSize.THREE_LARGE);
 		this.setVaginaSquirter(true);
 		this.setVaginaCapacity(Capacity.SIX_STRETCHED_OPEN, true);
-		this.setVaginaWetness(Wetness.FOUR_SLIMY);
+		this.setVaginaWetness(Wetness.SEVEN_DROOLING);
+		this.setVagiNaDepth(7);
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		
