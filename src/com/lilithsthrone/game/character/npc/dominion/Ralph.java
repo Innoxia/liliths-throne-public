@@ -120,6 +120,7 @@ public class Ralph extends NPC {
 			
 			this.setHistory(Occupation.NPC_STORE_OWNER);
 	
+			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_IMPREGNATION);
 		}
@@ -127,10 +128,10 @@ public class Ralph extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(195);
+		this.setHeight(295);
 		this.setFemininity(5);
-		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
-		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
 		
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, PresetColour.EYE_BROWN));
@@ -188,9 +189,11 @@ public class Ralph extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenetrationGirth.FIVE_FAT);
-		this.setPenisSize(30);
-		this.setTesticleSize(TesticleSize.FOUR_HUGE);
-		this.setPenisCumStorage(65);
+		this.setPenisSize(80);
+		this.setTesticleSize(TesticleSize.FIVE_MASSIVE);
+		this.setPenisCumStorage(8000);
+		this.addCumModifier(FluidModifier.ADDICTIVE);
+		this.addCumModifier(FluidModifier.VISCOUS);
 		this.fillCumToMaxStorage();
 		// Leave cum as normal value
 		
