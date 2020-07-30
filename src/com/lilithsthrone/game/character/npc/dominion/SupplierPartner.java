@@ -61,7 +61,7 @@ public class SupplierPartner extends NPC {
 	
 	public SupplierPartner(boolean isImported) {
 		super(isImported, new NameTriplet("Karl", "Karl", "Karla"), "Hummel",
-				"Karl is the one of the two dobermanns who decided to drive out all the clothing suppliers from the Shopping Arcade.",
+				"Karl is the junior of the two dobermanns who decided to drive out all the clothing suppliers from the Shopping Arcade.",
 				28, Month.AUGUST, 8,
 				10,
 				null, null, null,
@@ -125,6 +125,7 @@ public class SupplierPartner extends NPC {
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_BREASTS_OTHERS);
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_SADIST);
 	
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ONE_DISLIKE);
 			this.setFetishDesire(Fetish.FETISH_ORAL_GIVING, FetishDesire.ONE_DISLIKE);
@@ -135,7 +136,7 @@ public class SupplierPartner extends NPC {
 		this.setBody(Gender.M_P_MALE, Subspecies.DOG_MORPH_DOBERMANN, RaceStage.GREATER, false);
 
 		// Core:
-		this.setHeight(185);
+		this.setHeight(257);
 		this.setFemininity(5);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
@@ -163,6 +164,7 @@ public class SupplierPartner extends NPC {
 		
 		// Face:
 		this.setFaceVirgin(true);
+		this.setFaceDepth(5);
 		// Leave as default
 		
 		// Chest:
@@ -171,13 +173,16 @@ public class SupplierPartner extends NPC {
 		
 		// Ass:
 		this.setAssVirgin(true);
+		this.setAssDepth(5);
 		// Leave as default
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisSize(15);
-		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
-		this.setPenisCumStorage(65);
+		this.setPenisSize(76);
+		this.setTesticleSize(TesticleSize.FIVE_MASSIVE);
+		this.setPenisCumStorage(7600);
+		this.removePenisModifier(PenetrationModifier.SHEATHED);
+		this.removePenisModifier(PenetrationModifier.TAPERED);
 		this.fillCumToMaxStorage();
 		// Leave cum as normal value
 		
@@ -193,11 +198,9 @@ public class SupplierPartner extends NPC {
 
 		this.unequipAllClothingIntoVoid(true, true);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_work_boots", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, PresetColour.CLOTHING_BLACK, false), true, this);
 
 	}
 
