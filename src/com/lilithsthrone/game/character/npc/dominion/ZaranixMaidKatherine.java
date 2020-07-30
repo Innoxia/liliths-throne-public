@@ -205,6 +205,7 @@ public class ZaranixMaidKatherine extends NPC {
 		// Ass:
 		this.setAssVirgin(false);
 		this.setAssBleached(false);
+		this.setAssDepth(6);
 		this.setAssSize(AssSize.FOUR_LARGE);
 		this.setHipSize(HipSize.FOUR_WOMANLY);
 		// Anus settings and modifiers
