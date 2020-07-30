@@ -192,9 +192,11 @@ public class Sean extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
-		this.setPenisSize(20);
-		this.setTesticleSize(TesticleSize.THREE_LARGE);
-		this.setPenisCumStorage(300);
+		this.setPenisSize(60);
+		this.addPenisModifier(PenetrationModifier.VEINY);
+		this.removePenisModifier(PenetrationModifier.SHEATHED);
+		this.setTesticleSize(TesticleSize.FOUR_HUGE);
+		this.setPenisCumStorage(8000);
 		this.setPenisCumExpulsion(75);
 	}
 	
