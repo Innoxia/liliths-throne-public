@@ -175,7 +175,7 @@ public class Natalya extends NPC {
 		this.setBreastCrotchType(BreastType.NONE);
 		
 		// Core:
-		this.setHeight(172);
+		this.setHeight(327);
 		this.setFemininity(80);
 		this.setMuscle(Muscle.TWO_TONED.getMedianValue());
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
@@ -218,7 +218,7 @@ public class Natalya extends NPC {
 		
 		// Chest:
 		this.setNippleVirgin(false);
-		this.setBreastSize(CupSize.E.getMeasurement());
+		this.setBreastSize(CupSize.HH.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
 		this.setNippleSize(NippleSize.THREE_LARGE);
 		this.setAreolaeSize(AreolaeSize.THREE_LARGE);
@@ -239,18 +239,19 @@ public class Natalya extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
-		this.setPenisSize(46);
+		this.setPenisSize(90);
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
-		this.setPenisCumStorage(500);
-		this.setPenisCumExpulsion(85);
+		this.setPenisCumStorage(11250);
+		this.setPenisCumExpulsion(80);
 		this.fillCumToMaxStorage();
 		this.setTesticleCount(2);
 		// Horse-like modifiers:
 		this.clearPenisModifiers();
 		this.addPenisModifier(PenetrationModifier.FLARED);
 		this.addPenisModifier(PenetrationModifier.VEINY);
-		this.addPenisModifier(PenetrationModifier.SHEATHED);
+		this.addCumModifier(FluidModifier.ADDICTIVE);
 		this.addCumModifier(FluidModifier.MUSKY);
+		this.addCumModifier(FluidModifier.VISCOUS);
 		
 		// Vagina:
 //		this.setVaginaVirgin(false);
