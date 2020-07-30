@@ -155,7 +155,7 @@ public class ZaranixMaidKatherine extends NPC {
 		this.setHornType(HornType.CURLED);
 
 		// Core:
-		this.setHeight(180);
+		this.setHeight(175);
 		this.setFemininity(85);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -188,15 +188,17 @@ public class ZaranixMaidKatherine extends NPC {
 		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.TWO_FULL);
 		this.setFaceCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+		this.setFaceDepth(6);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
 		
 		// Chest:
 		this.setNippleVirgin(false);
-		this.setBreastSize(CupSize.F.getMeasurement());
-		this.setBreastShape(BreastShape.ROUND);
+		this.setBreastSize(CupSize.FF.getMeasurement());
+		this.setBreastShape(BreastShape.PERKY);
 		this.setNippleSize(NippleSize.THREE_LARGE);
+		this.setNippleDepth(6);
 		this.setAreolaeSize(AreolaeSize.THREE_LARGE);
 		// Nipple settings and modifiers
 		
@@ -209,10 +211,10 @@ public class ZaranixMaidKatherine extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.THREE_AVERAGE);
-		this.setPenisSize(17);
-		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
-		this.setPenisCumStorage(100);
+		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
+		this.setPenisSize(51);
+		this.setTesticleSize(TesticleSize.FOUR_HUGE);
+		this.setPenisCumStorage(5100);
 		this.fillCumToMaxStorage();
 		this.setTesticleCount(2);
 		
@@ -223,6 +225,7 @@ public class ZaranixMaidKatherine extends NPC {
 		this.setVaginaSquirter(true);
 		this.setVaginaCapacity(Capacity.TWO_TIGHT, true);
 		this.setVaginaWetness(Wetness.FOUR_SLIMY);
+		this.setVaginaDepth(6);
 		this.setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
 		
@@ -237,8 +240,6 @@ public class ZaranixMaidKatherine extends NPC {
 
 		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_cleaning_feather_duster"));
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_PINK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_PINK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_HEADPIECE, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_STOCKINGS, PresetColour.CLOTHING_BLACK, false), true, this);
