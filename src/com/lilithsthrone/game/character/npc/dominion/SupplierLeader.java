@@ -125,8 +125,10 @@ public class SupplierLeader extends NPC {
 			this.setHistory(Occupation.NPC_MUGGER);
 	
 			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_CUM_STUD);
 			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
+			this.addFetish(Fetish.FETISH_IMPREGNATION);
 			
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ONE_DISLIKE);
 			this.setFetishDesire(Fetish.FETISH_ORAL_GIVING, FetishDesire.ONE_DISLIKE);
@@ -137,10 +139,10 @@ public class SupplierLeader extends NPC {
 		this.setBody(Gender.M_P_MALE, Subspecies.DOG_MORPH_DOBERMANN, RaceStage.GREATER, false);
 
 		// Core:
-		this.setHeight(190);
+		this.setHeight(270);
 		this.setFemininity(5);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
 		
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DOG_MORPH, PresetColour.EYE_BROWN));
@@ -165,6 +167,7 @@ public class SupplierLeader extends NPC {
 		
 		// Face:
 		this.setFaceVirgin(true);
+		this.setFaceDepth(5);
 		// Leave as default
 		
 		// Chest:
@@ -173,13 +176,16 @@ public class SupplierLeader extends NPC {
 		
 		// Ass:
 		this.setAssVirgin(true);
+		this.setAssDepth(5);
 		// Leave as default
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisSize(18);
-		this.setTesticleSize(TesticleSize.THREE_LARGE);
-		this.setPenisCumStorage(65);
+		this.setPenisSize(81);
+		this.setTesticleSize(TesticleSize.FIVE_MASSIVE);
+		this.setPenisCumStorage(8100);
+		this.removePenisModifier(PenetrationModifier.SHEATHED);
+		this.removePenisModifier(PenetrationModifier.TAPERED);
 		this.fillCumToMaxStorage();
 		// Leave cum as normal value
 		
@@ -196,11 +202,9 @@ public class SupplierLeader extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_eye_aviators", PresetColour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_foot_work_boots", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, PresetColour.CLOTHING_BLACK, false), true, this);
 
 	}
 
