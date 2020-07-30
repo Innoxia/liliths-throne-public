@@ -355,18 +355,21 @@ public class Vicky extends NPC {
 			this.setHistory(Occupation.NPC_STORE_OWNER);
 	
 			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_ANAL_GIVING);
 			this.addFetish(Fetish.FETISH_NON_CON_DOM);
+			this.addFetish(Fetish.FETISH_CUM_STUD);
+			this.addFetish(Fetish.FETISH_PENIS_GIVING);
 		}
 		
 		
 		// Body:
 
 		// Core:
-		this.setHeight(175);
+		this.setHeight(275);
 		this.setFemininity(85);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
 		
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, PresetColour.EYE_YELLOW));
@@ -401,7 +404,7 @@ public class Vicky extends NPC {
 		
 		// Chest:
 		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.C.getMeasurement());
+		this.setBreastSize(CupSize.F.getMeasurement());
 		this.setBreastShape(BreastShape.SIDE_SET);
 		this.setNippleSize(NippleSize.TWO_BIG);
 		this.setAreolaeSize(AreolaeSize.TWO_BIG);
@@ -416,9 +419,17 @@ public class Vicky extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisSize(22);
-		this.setTesticleSize(TesticleSize.THREE_LARGE);
-		this.setPenisCumStorage(65);
+		this.setPenisSize(88);
+		this.setPenisGirth(PenetrationGirth.SIX_GIRTHY);
+		this.addPenisModifier(PenetrationModifier.VEINY);
+		this.removePenisModifier(PenetrationModifier.SHEATHED);
+		this.removePenisModifier(PenetrationModifier.TAPERED);
+		this.setTesticleSize(TesticleSize.SIX_GIGANTIC);
+		this.setPenisCumStorage(8888);
+		this.addCumModifier(FluidModifier.ADDICTIVE);
+		this.addCumModifier(FluidModifier.MINERAL_OIL);
+		this.addCumModifier(FluidModifier.MUSKY);
+		this.addCumModifier(FluidModifier.VISCOUS);
 		this.fillCumToMaxStorage();
 		
 		// Vagina:
@@ -442,7 +453,6 @@ public class Vicky extends NPC {
 
 		this.setMoney(10);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CORSET_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HIPS_SUSPENDER_BELT, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_stockings", PresetColour.CLOTHING_BLACK, false), true, this);
