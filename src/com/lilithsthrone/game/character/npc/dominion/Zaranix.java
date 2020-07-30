@@ -77,7 +77,7 @@ public class Zaranix extends NPC {
 	
 	public Zaranix(boolean isImported) {
 		super(isImported, new NameTriplet("Zaranix", "Zaranix", "Zoelix"), "Lyniximartu",
-				"Zaranix is one of the few demons that feels more comfortable in his incubus, rather than succubus, form."
+				"Zaranix is one of the few demons that feels more comfortable as an incubus rather a succubus."
 						+ " Muscular, tall, and handsome, Zaranix uses both his cunning mind and good looks to get what he wants.",
 				47, Month.JULY, 3,
 				15,
@@ -132,6 +132,7 @@ public class Zaranix extends NPC {
 			this.setHistory(Occupation.NPC_ARCANE_RESEARCHER);
 	
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_SADIST);
 		}
 		
 		
@@ -146,7 +147,7 @@ public class Zaranix extends NPC {
 		this.setHornType(HornType.STRAIGHT);
 
 		// Core:
-		this.setHeight(190);
+		this.setHeight(357);
 		this.setFemininity(15);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -174,6 +175,7 @@ public class Zaranix extends NPC {
 		
 		// Face:
 		this.setFaceVirgin(true);
+		this.setFaceDepth(5);
 		// Leave as default
 		
 		// Chest:
@@ -182,14 +184,15 @@ public class Zaranix extends NPC {
 		
 		// Ass:
 		this.setAssVirgin(true);
+		this.setAssDepth(5);
 		// Leave as default
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
-		this.setPenisSize(25);
-		this.setTesticleSize(TesticleSize.FOUR_HUGE);
-		this.setPenisCumStorage(550);
+		this.setPenisGirth(PenetrationGirth.FIVE_FAT);
+		this.setPenisSize(75);
+		this.setTesticleSize(TesticleSize.FIVE_MASSIVE);
+		this.setPenisCumStorage(75000);
 		this.fillCumToMaxStorage();
 		this.setTesticleCount(2);
 		// Leave cum as normal value
