@@ -137,6 +137,7 @@ public class Vanessa extends NPC {
 			
 			this.addFetish(Fetish.FETISH_FOOT_GIVING);
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_SIZE_QUEEN);
 			
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
@@ -216,8 +217,8 @@ public class Vanessa extends NPC {
 		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
 		this.setVaginaLabiaSize(LabiaSize.THREE_LARGE);
 		this.setVaginaSquirter(true);
-		this.setVaginaCapacity(Capacity.FOUR_LOOSE, true);
-		this.setVaginaWetness(Wetness.THREE_WET);
+		this.setVaginaCapacity(Capacity.SEVEN_GAPING, true);
+		this.setVaginaWetness(Wetness.SEVEN_DROOLING);
 		this.setVaginaElasticity(OrificeElasticity.THREE_FLEXIBLE.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.FIVE_YIELDING.getValue());
 		this.setGirlcumFlavour(FluidFlavour.HONEY);
@@ -232,9 +233,6 @@ public class Vanessa extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_pencil_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_torso_feminine_short_sleeve_shirt", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
