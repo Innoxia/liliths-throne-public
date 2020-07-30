@@ -689,23 +689,35 @@ public class EnforcerHQDialogue {
 						Main.game.getNpc(Brax.class).setName(new NameTriplet("Bree", "Bree", "Bree"));
 						
 						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_DOMINANT);
+						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_CUM_STUD);
+						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_SADIST);
+						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_NON_CON_DOM);
 						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_SUBMISSIVE);
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_CUM_ADDICT);
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_MASOCHIST);
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_NON_CON_SUB);
+
+						Main.game.getNpc(Brax.class).setObedience(60);
+						
+						Main.game.getNpc(Brax.class).setFaceDepth(5);
 						
 						Main.game.getNpc(Brax.class).setFemininity(75);
-						Main.game.getNpc(Brax.class).setBreastSize(CupSize.C.getMeasurement());
+						Main.game.getNpc(Brax.class).setBreastSize(CupSize.F.getMeasurement());
 						
 						Main.game.getNpc(Brax.class).setBreastRows(3);
 						
 						Main.game.getNpc(Brax.class).setHipSize(HipSize.THREE_GIRLY.getValue());
 						Main.game.getNpc(Brax.class).setAssSize(AssSize.FOUR_LARGE.getValue());
+						Main.game.getNpc(Brax.class).setAssDepth(5);
 						Main.game.getNpc(Brax.class).setPenisType(PenisType.NONE);
 						Main.game.getNpc(Brax.class).setVaginaType(VaginaType.WOLF_MORPH);
 						Main.game.getNpc(Brax.class).setVaginaWetness(Wetness.ONE_SLIGHTLY_MOIST.getValue());
+						Main.game.getNpc(Brax.class).setVaginaDepth(5);
 						Main.game.getNpc(Brax.class).setVaginaElasticity(OrificeElasticity.ONE_RIGID.getValue());
 						Main.game.getNpc(Brax.class).setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_OLIVE), false);
 //						Main.game.getNpc(Brax.class).setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 						
-						Main.game.getNpc(Brax.class).setHeight(175);
+						Main.game.getNpc(Brax.class).setHeight(264);
 						
 						Main.game.getNpc(Brax.class).setVaginaVirgin(true);
 
@@ -728,23 +740,44 @@ public class EnforcerHQDialogue {
 						Main.game.getNpc(Brax.class).setName(new NameTriplet("Bree", "Bree", "Bree"));
 						
 						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_DOMINANT);
+						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_SADIST);
+						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_NON_CON_DOM);
 						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_SUBMISSIVE);
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_CUM_ADDICT);
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_MASOCHIST);
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_NON_CON_SUB);
+						
+						Main.game.getNpc(Brax.class).setObedience(60);
+						
+						Main.game.getNpc(Brax.class).setFaceDepth(5);
 						
 						Main.game.getNpc(Brax.class).setFemininity(75);
-						Main.game.getNpc(Brax.class).setBreastSize(CupSize.C.getMeasurement());
+						Main.game.getNpc(Brax.class).setBreastSize(CupSize.F.getMeasurement());
 						
 						Main.game.getNpc(Brax.class).setBreastRows(3);
 						
 						Main.game.getNpc(Brax.class).setHipSize(HipSize.THREE_GIRLY.getValue());
 						Main.game.getNpc(Brax.class).setAssSize(AssSize.FOUR_LARGE.getValue());
+						Main.game.getNpc(Brax.class).setAssDepth(5);
+						
+						Main.game.getNpc(Brax.class).setPenisType(PenisType.WOLF_MORPH);
+						Main.game.getNpc(Brax.class).clearPenisModifiers();
+						Main.game.getNpc(Brax.class).setPenisGirth(PenetrationGirth.FOUR_THICK);
+						Main.game.getNpc(Brax.class).setPenisSize(40);
+						Main.game.getNpc(Brax.class).removePenisModifier(PenetrationModifier.TAPERED);
+						Main.game.getNpc(Brax.class).setTesticleSize(TesticleSize.FOUR_HUGE);
+						Main.game.getNpc(Brax.class).setPenisCumStorage(2000);
+						
+						
 						Main.game.getNpc(Brax.class).setVaginaType(VaginaType.WOLF_MORPH);
 						Main.game.getNpc(Brax.class).setVaginaWetness(Wetness.ONE_SLIGHTLY_MOIST.getValue());
+						Main.game.getNpc(Brax.class).setVaginaDepth(5);
 						Main.game.getNpc(Brax.class).setVaginaElasticity(OrificeElasticity.ONE_RIGID.getValue());
 						Main.game.getNpc(Brax.class).setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_OLIVE), false);
 
 //						Main.game.getNpc(Brax.class).setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 						
-						Main.game.getNpc(Brax.class).setHeight(175);
+						Main.game.getNpc(Brax.class).setHeight(264);
 						
 						Main.game.getNpc(Brax.class).setVaginaVirgin(true);
 
@@ -824,18 +857,27 @@ public class EnforcerHQDialogue {
 						Main.game.getNpc(Brax.class).setName(new NameTriplet("Brandi", "Brandi", "Brandi"));
 						
 						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_BIMBO);
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_PREGNANCY);
+						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_NON_CON_SUB);
+						
+						Main.game.getNpc(Brax.class).setObedience(100);
+						
+						Main.game.getNpc(Brax.class).setFaceDepth(6);
 						
 						Main.game.getNpc(Brax.class).setFemininity(100);
-						Main.game.getNpc(Brax.class).setBreastSize(CupSize.KK.getMeasurement());
+						Main.game.getNpc(Brax.class).setBreastSize(CupSize.X_F.getMeasurement());
+						Main.game.getNpc(Brax.class).setNippleDepth(6);
 						Main.game.getNpc(Brax.class).setHipSize(HipSize.SEVEN_ABSURDLY_WIDE.getValue());
-						Main.game.getNpc(Brax.class).setAssWetness(Wetness.SIX_SOPPING_WET.getValue());
+						Main.game.getNpc(Brax.class).setAssWetness(Wetness.SEVEN_DROOLING.getValue());
+						Main.game.getNpc(Brax.class).setAssDepth(6);
 						Main.game.getNpc(Brax.class).setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 						Main.game.getNpc(Brax.class).setAssSize(AssSize.SEVEN_GIGANTIC.getValue());
 						
-						Main.game.getNpc(Brax.class).setVaginaWetness(Wetness.SIX_SOPPING_WET.getValue());
+						Main.game.getNpc(Brax.class).setVaginaWetness(Wetness.SEVEN_DROOLING.getValue());
 						Main.game.getNpc(Brax.class).setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
+						Main.game.getNpc(Brax.class).setVaginaDepth(6);
 
-						Main.game.getNpc(Brax.class).setHeight(162);
+						Main.game.getNpc(Brax.class).setHeight(258);
 
 //						Main.game.getNpc(Brax.class).setHairLength(HairLength.FIVE_ABOVE_ASS.getMedianValue());
 //						Main.game.getNpc(Brax.class).setSkinCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, CoveringPattern.NONE, PresetColour.COVERING_BLEACH_BLONDE, false, PresetColour.COVERING_BLEACH_BLONDE, false), true);
@@ -857,20 +899,40 @@ public class EnforcerHQDialogue {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimbofiedBrax);
 						Main.game.getNpc(Brax.class).setName(new NameTriplet("Brandi", "Brandi", "Brandi"));
 						
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_PREGNANCY);
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_IMPREGNATION);
+						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_BREEDER);
 						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_BIMBO);
+						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_NON_CON_SUB);
+
+						Main.game.getNpc(Brax.class).setObedience(100);
+						
+						Main.game.getNpc(Brax.class).setFaceDepth(6);
 						
 						Main.game.getNpc(Brax.class).setFemininity(100);
-						Main.game.getNpc(Brax.class).setBreastSize(CupSize.KK.getMeasurement());
+						Main.game.getNpc(Brax.class).setBreastSize(CupSize.X_F.getMeasurement());
+						Main.game.getNpc(Brax.class).setNippleDepth(6);
 						Main.game.getNpc(Brax.class).setHipSize(HipSize.SEVEN_ABSURDLY_WIDE.getValue());
-						Main.game.getNpc(Brax.class).setAssWetness(Wetness.SIX_SOPPING_WET.getValue());
+						Main.game.getNpc(Brax.class).setAssWetness(Wetness.SEVEN_DROOLING.getValue());
+						Main.game.getNpc(Brax.class).setAssDepth(6);
 						Main.game.getNpc(Brax.class).setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 						Main.game.getNpc(Brax.class).setAssSize(AssSize.SEVEN_GIGANTIC.getValue());
 
 						Main.game.getNpc(Brax.class).setPenisType(PenisType.WOLF_MORPH);
-						Main.game.getNpc(Brax.class).setVaginaWetness(Wetness.SIX_SOPPING_WET.getValue());
+						Main.game.getNpc(Brax.class).clearPenisModifiers();
+						Main.game.getNpc(Brax.class).setPenisGirth(PenetrationGirth.SIX_GIRTHY);
+						Main.game.getNpc(Brax.class).setPenisSize(80);
+						Main.game.getNpc(Brax.class).addPenisModifier(PenetrationModifier.VEINY);
+						Main.game.getNpc(Brax.class).removePenisModifier(PenetrationModifier.SHEATHED);
+						Main.game.getNpc(Brax.class).removePenisModifier(PenetrationModifier.TAPERED);
+						Main.game.getNpc(Brax.class).setTesticleSize(TesticleSize.SIX_GIGANTIC);
+						Main.game.getNpc(Brax.class).setPenisCumStorage(16000);
+						
+						Main.game.getNpc(Brax.class).setVaginaWetness(Wetness.SEVEN_DROOLING.getValue());
+						Main.game.getNpc(Brax.class).setVaginaDepth(6);
 						Main.game.getNpc(Brax.class).setVaginaElasticity(OrificeElasticity.SEVEN_ELASTIC.getValue());
 
-						Main.game.getNpc(Brax.class).setHeight(162);
+						Main.game.getNpc(Brax.class).setHeight(258);
 
 //						Main.game.getNpc(Brax.class).setHairLength(HairLength.FIVE_ABOVE_ASS.getMedianValue());
 //						Main.game.getNpc(Brax.class).setSkinCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, CoveringPattern.NONE, PresetColour.COVERING_BLEACH_BLONDE, false, PresetColour.COVERING_BLEACH_BLONDE, false), true);
