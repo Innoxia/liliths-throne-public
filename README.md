@@ -7,3 +7,14 @@ You must agree to the terms of the attached disclaimer and abide by the terms of
 Dev-note: This project is relying on JavaFX which isn't included in the Openjdk, which is often the common choice for Linux enthusiasts. If you're using Linux, please make sure to use the Oracle JDK to build this project or install OpenJFX.
 
 Copyright 2016 Innoxia (innoxia7@gmail.com) all rights reserved.
+
+
+
+
+
+
+A reminder for the motherforker:
+
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+
+do this to everyone you've made changes to.
