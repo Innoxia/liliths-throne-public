@@ -134,29 +134,32 @@ public class Loppy extends NPC {
 			this.addFetish(Fetish.FETISH_DOMINANT);
 			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
 			this.addFetish(Fetish.FETISH_ANAL_GIVING);
+			this.addFetish(Fetish.FETISH_SADIST);
+			this.addFetish(Fetish.FETISH_MASOCHIST);
+			this.addFetish(Fetish.FETISH_SADOMASOCHIST);
 		}
 		
 		// Body:
 
 		// Core:
-		this.setHeight(178);
+		this.setHeight(198);
 		this.setFemininity(80);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_BROWN));
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_RABBIT, PresetColour.EYE_BROWN));
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.RABBIT_FUR, PresetColour.COVERING_BROWN_DARK), true);
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_RED));
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_RABBIT, PresetColour.EYE_RED));
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.RABBIT_FUR, PresetColour.COVERING_WHITE), true);
 
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, PresetColour.COVERING_BROWN_DARK), true);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RABBIT_FUR, PresetColour.COVERING_BROWN_DARK), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, PresetColour.COVERING_WHITE), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_RABBIT_FUR, PresetColour.COVERING_WHITE), true);
 		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 		this.setHairStyle(HairStyle.WAVY);
 
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BLACK), false);
-		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RABBIT_FUR, PresetColour.COVERING_BLACK), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_WHITE), false);
+		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_RABBIT_FUR, PresetColour.COVERING_WHITE), false);
 		this.setUnderarmHair(BodyHair.ZERO_NONE);
 		this.setAssHair(BodyHair.ZERO_NONE);
 		this.setPubicHair(BodyHair.ZERO_NONE);
@@ -173,13 +176,14 @@ public class Loppy extends NPC {
 		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.TWO_FULL);
 		this.setFaceCapacity(Capacity.FIVE_ROOMY, true);
+		this.setFaceDepth(6);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
 		
 		// Chest:
 		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.DD.getMeasurement());
+		this.setBreastSize(CupSize.GG.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
 		this.setNippleSize(NippleSize.TWO_BIG);
 		this.setAreolaeSize(AreolaeSize.TWO_BIG);
@@ -191,16 +195,18 @@ public class Loppy extends NPC {
 		this.setAssSize(AssSize.FOUR_LARGE);
 		this.setHipSize(HipSize.FOUR_WOMANLY);
 		this.setAssCapacity(Capacity.TWO_TIGHT, true);
-		this.setAssWetness(Wetness.ZERO_DRY);
+		this.setAssWetness(Wetness.THREE_WET);
+		this.setAssDepth(6);
 		this.setAssElasticity(OrificeElasticity.SIX_SUPPLE.getValue());
 		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		// Anus modifiers
 		
 		// Penis:
-		this.setPenisSize(22);
-		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
-		this.setTesticleSize(TesticleSize.THREE_LARGE);
-		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMaximumValue());
+		this.setPenisSize(88);
+		this.setPenisGirth(PenetrationGirth.SIX_GIRTHY);
+		this.setTesticleSize(TesticleSize.SIX_GIGANTIC);
+		this.setPenisCumStorage(8800());
+		this.addPenisModifier(PenetrationModifier.VEINY);
 		this.fillCumToMaxStorage();
 
 		// Vagina:
@@ -210,6 +216,7 @@ public class Loppy extends NPC {
 		this.setVaginaSquirter(false);
 		this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
 		this.setVaginaWetness(Wetness.THREE_WET);
+		this.setVaginaDepth(6);
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		
