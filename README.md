@@ -17,4 +17,8 @@ A reminder for the motherforker:
 
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+
 do this to everyone you've made changes to.
+
+You stupid motherfucker.
