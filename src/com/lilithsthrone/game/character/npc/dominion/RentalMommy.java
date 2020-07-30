@@ -140,9 +140,11 @@ public class RentalMommy extends NPC {
 	
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
 			this.addFetish(Fetish.FETISH_PREGNANCY);
+			this.addFetish(Fetish.FETISH_DEFLOWERING);
 			
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_LACTATION_SELF, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_INCEST, FetishDesire.THREE_LIKE);
@@ -154,10 +156,10 @@ public class RentalMommy extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(176);
-		this.setFemininity(85);
+		this.setHeight(366);
+		this.setFemininity(95);
 		this.setMuscle(Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue());
-		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
 
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_HAZEL));
@@ -188,28 +190,31 @@ public class RentalMommy extends NPC {
 		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.TWO_FULL);
 		this.setFaceCapacity(Capacity.SIX_STRETCHED_OPEN, true);
+		this.setFaceDepth(5);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
 		
 		// Chest:
 		this.setNippleVirgin(true);
-		this.setBreastSize(CupSize.GG.getMeasurement());
+		this.setBreastSize(CupSize.X_M.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
-		this.setNippleSize(NippleSize.THREE_LARGE.getValue());
-		this.setAreolaeSize(AreolaeSize.THREE_LARGE.getValue());
+		this.setNippleSize(NippleSize.FOUR_MASSIVE.getValue());
+		this.setAreolaeSize(AreolaeSize.FOUR_MASSIVE.getValue());
 		this.addNippleOrificeModifier(OrificeModifier.PUFFY);
-		this.setBreastLactationRegeneration(FluidRegeneration.TWO_FAST.getMedianRegenerationValuePerDay());
-		this.setBreastMilkStorage(500);
-		this.setBreastStoredMilk(500);
+		this.setNippleDepth(5);
+		this.setBreastLactationRegeneration(FluidRegeneration.FOUR_VERY_RAPID.getMedianRegenerationValuePerDay());
+		this.setBreastMilkStorage(1000000);
+		this.setBreastStoredMilk(1000000);
 		
 		// Ass:
 		this.setAssVirgin(false);
 		this.setAssBleached(false);
-		this.setAssSize(AssSize.FOUR_LARGE.getValue());
-		this.setHipSize(HipSize.FIVE_VERY_WIDE.getValue());
+		this.setAssSize(AssSize.SEVEN_GIGANTIC.getValue());
+		this.setHipSize(HipSize.SEVEN_ABSURDLY_WIDE.getValue());
 		this.setAssCapacity(Capacity.TWO_TIGHT, true);
-		this.setAssWetness(Wetness.ZERO_DRY);
+		this.setAssWetness(Wetness.FOUR_SLIMY);
+		this.setAssDepth(5);
 		this.setAssElasticity(OrificeElasticity.FOUR_LIMBER.getValue());
 		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		// Anus modifiers
@@ -221,9 +226,10 @@ public class RentalMommy extends NPC {
 		this.setVaginaVirgin(false);
 		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
 		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
-		this.setVaginaSquirter(false);
+		this.setVaginaSquirter(true);
 		this.setVaginaCapacity(Capacity.FOUR_LOOSE, true);
-		this.setVaginaWetness(Wetness.THREE_WET);
+		this.setVaginaWetness(Wetness.SEVEN_DROOLING);
+		this.setVaginaDepth(5);
 		this.setVaginaElasticity(OrificeElasticity.THREE_FLEXIBLE.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		
@@ -239,7 +245,6 @@ public class RentalMommy extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_NURSING_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_tight_jeans", PresetColour.CLOTHING_BLUE, false), true, this);
 		try {
 			this.equipClothingFromNowhere(
