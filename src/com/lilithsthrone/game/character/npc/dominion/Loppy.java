@@ -206,7 +206,7 @@ public class Loppy extends NPC {
 		this.setPenisSize(88);
 		this.setPenisGirth(PenetrationGirth.SIX_GIRTHY);
 		this.setTesticleSize(TesticleSize.SIX_GIGANTIC);
-		this.setPenisCumStorage(8800());
+		this.setPenisCumStorage(8800);
 		this.addPenisModifier(PenetrationModifier.VEINY);
 		this.fillCumToMaxStorage();
 
