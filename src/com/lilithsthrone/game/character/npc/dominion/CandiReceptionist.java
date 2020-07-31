@@ -204,7 +204,7 @@ public class CandiReceptionist extends NPC {
 		this.setVaginaSquirter(true);
 		this.setVaginaCapacity(Capacity.SIX_STRETCHED_OPEN, true);
 		this.setVaginaWetness(Wetness.SEVEN_DROOLING);
-		this.setVagiNaDepth(7);
+		this.setVaginaDepth(7);
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		
