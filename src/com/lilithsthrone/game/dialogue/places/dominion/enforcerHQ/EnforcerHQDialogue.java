@@ -55,9 +55,9 @@ public class EnforcerHQDialogue {
 			Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_flsldshirt", PresetColour.CLOTHING_PINK, false), false);
 			Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("innoxia_neck_tie", PresetColour.CLOTHING_BLACK, false), false);
 			
-			Main.game.getNpc(Brax.class).setObedience(50);
+			Main.game.getNpc(Brax.class).setObedience(100);
 		} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feminisedBrax)) {
-			Main.game.getNpc(Brax.class).setObedience(-20);
+			Main.game.getNpc(Brax.class).setObedience(60);
 		} else {
 			Main.game.getNpc(Brax.class).setObedience(-80);
 		}
