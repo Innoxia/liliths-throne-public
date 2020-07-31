@@ -16,6 +16,8 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
@@ -182,6 +184,7 @@ public class SupplierLeader extends NPC {
 		// Penis:
 		this.setPenisVirgin(false);
 		this.setPenisSize(81);
+		this.setPenisGirth(PenetrationGirth.FIVE_FAT);
 		this.setTesticleSize(TesticleSize.FIVE_MASSIVE);
 		this.setPenisCumStorage(8100);
 		this.removePenisModifier(PenetrationModifier.SHEATHED);
