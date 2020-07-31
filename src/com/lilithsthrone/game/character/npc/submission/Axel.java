@@ -300,7 +300,7 @@ public class Axel extends NPC {
 		this.setPenisVirgin(false);
 		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
 		this.setPenisSize(45);
-		this.setTesticleSize(FOUR_HUGE);
+		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(4500);
 		this.fillCumToMaxStorage();
 	}
@@ -370,9 +370,9 @@ public class Axel extends NPC {
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(THREE_AVERAGE);
+		this.setPenisGirth(PenetrationGirth.THREE_AVERAGE);
 		this.setPenisSize(30);
-		this.setTesticleSize(THREE_LARGE);
+		this.setTesticleSize(TesticleSize.THREE_LARGE);
 		this.setPenisCumStorage(3000);
 		this.fillCumToMaxStorage();
 	}
