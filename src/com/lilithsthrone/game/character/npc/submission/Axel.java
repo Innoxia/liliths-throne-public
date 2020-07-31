@@ -141,9 +141,10 @@ public class Axel extends NPC {
 			this.setHistory(Occupation.NPC_CASINO_OWNER);
 	
 			this.addFetish(Fetish.FETISH_ANAL_GIVING);
+			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_SWITCH);
 	
-			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.THREE_LIKE);
 		}
@@ -152,7 +153,7 @@ public class Axel extends NPC {
 		// Body:
 
 		// Core:
-		this.setHeight(211);
+		this.setHeight(322);
 		this.setFemininity(0);
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
@@ -187,6 +188,7 @@ public class Axel extends NPC {
 		this.setFaceVirgin(true);
 		this.setLipSize(LipSize.ONE_AVERAGE);
 		this.setFaceCapacity(Capacity.TWO_TIGHT, true);
+		this.setFaceDepth(5);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
@@ -206,16 +208,18 @@ public class Axel extends NPC {
 		this.setHipSize(HipSize.TWO_NARROW);
 		this.setAssCapacity(Capacity.TWO_TIGHT, true);
 		this.setAssWetness(Wetness.ONE_SLIGHTLY_MOIST);
+		this.setAssDepth(5);
 		this.setAssElasticity(OrificeElasticity.ONE_RIGID.getValue());
 		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		// Anus modifiers
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.FIVE_FAT);
-		this.setPenisSize(PenisLength.FOUR_HUGE);
-		this.setTesticleSize(TesticleSize.FOUR_HUGE);
-		this.setPenisCumStorage(CumProduction.FOUR_LARGE.getMedianValue());
+		this.setPenisGirth(PenetrationGirth.SIX_GIRTHY);
+		this.setPenisSize(70);
+		this.setTesticleSize(TesticleSize.SIX_GIGANTIC);
+		this.setPenisCumStorage(7000);
+		this.addPenisModifier(PenetrationModifier.VEINY);
 		this.fillCumToMaxStorage();
 		// Leave cum as normal value
 		
@@ -238,7 +242,7 @@ public class Axel extends NPC {
 		this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
 		
 		
-		this.setHeight(177);
+		this.setHeight(266);
 		this.setFemininity(50);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -266,6 +270,7 @@ public class Axel extends NPC {
 		this.setFaceVirgin(true);
 		this.setLipSize(LipSize.ONE_AVERAGE);
 		this.setFaceCapacity(Capacity.TWO_TIGHT, true);
+		this.setFaceDepth(6);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
@@ -284,17 +289,18 @@ public class Axel extends NPC {
 		this.setAssSize(AssSize.THREE_NORMAL);
 		this.setHipSize(HipSize.THREE_GIRLY);
 //		this.setAssCapacity(Capacity.TWO_TIGHT, true);
-		this.setAssWetness(Wetness.TWO_MOIST);
+		this.setAssWetness(Wetness.THREE_WET);
+		this.setAssDepth(6);
 		this.setAssElasticity(OrificeElasticity.ONE_RIGID.getValue());
 		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		// Anus modifiers
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(PenetrationGirth.THREE_AVERAGE);
-		this.setPenisSize(PenisLength.TWO_AVERAGE.getMedianValue());
-		this.setTesticleSize(TesticleSize.TWO_AVERAGE);
-		this.setPenisCumStorage(CumProduction.TWO_SMALL_AMOUNT.getMedianValue());
+		this.setPenisGirth(PenetrationGirth.FOUR_THICK);
+		this.setPenisSize(45);
+		this.setTesticleSize(FOUR_HUGE);
+		this.setPenisCumStorage(4500);
 		this.fillCumToMaxStorage();
 	}
 	
@@ -307,7 +313,7 @@ public class Axel extends NPC {
 	}
 
 	public void applyFeminisation(PenetrationGirth penisGirth, PenisLength penisSize, TesticleSize testicleSize, CumProduction cumProduction) {
-		this.setHeight(170);
+		this.setHeight(211);
 		this.setFemininity(80);
 		this.setMuscle(Muscle.TWO_TONED.getMedianValue());
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
@@ -335,6 +341,8 @@ public class Axel extends NPC {
 		this.setFaceVirgin(true);
 		this.setLipSize(LipSize.ONE_AVERAGE);
 //		this.setFaceCapacity(Capacity.ZERO_IMPENETRABLE, true);
+		this.setFaceDepth(6);
+		
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
@@ -353,17 +361,18 @@ public class Axel extends NPC {
 		this.setAssSize(AssSize.FOUR_LARGE);
 		this.setHipSize(HipSize.FOUR_WOMANLY);
 //		this.setAssCapacity(Capacity.ZERO_IMPENETRABLE, true);
-		this.setAssWetness(Wetness.THREE_WET);
+		this.setAssWetness(Wetness.FOUR_SLIMY);
+		this.setAssDepth(6);
 		this.setAssElasticity(OrificeElasticity.ONE_RIGID.getValue());
 		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
 		// Anus modifiers
 		
 		// Penis:
 		this.setPenisVirgin(false);
-		this.setPenisGirth(penisGirth.getValue());
-		this.setPenisSize(penisSize.getMedianValue());
-		this.setTesticleSize(testicleSize.getValue());
-		this.setPenisCumStorage(cumProduction.getMedianValue());
+		this.setPenisGirth(THREE_AVERAGE);
+		this.setPenisSize(30);
+		this.setTesticleSize(THREE_LARGE);
+		this.setPenisCumStorage(3000);
 		this.fillCumToMaxStorage();
 	}
 	
