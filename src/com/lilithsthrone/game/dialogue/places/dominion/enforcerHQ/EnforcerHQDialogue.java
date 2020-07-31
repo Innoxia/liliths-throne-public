@@ -55,11 +55,14 @@ public class EnforcerHQDialogue {
 			Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_ptrlequipset_flsldshirt", PresetColour.CLOTHING_PINK, false), false);
 			Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("innoxia_neck_tie", PresetColour.CLOTHING_BLACK, false), false);
 			
-			Main.game.getNpc(Brax.class).setObedience(50);
+			Main.game.getNpc(Brax.class).setObedience(100);
+			Main.game.getNpc(Brax.class).setAffection(Main.game.getPlayer(), 100);
 		} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.feminisedBrax)) {
-			Main.game.getNpc(Brax.class).setObedience(-20);
+			Main.game.getNpc(Brax.class).setObedience(60);
+			Main.game.getNpc(Brax.class).setAffection(Main.game.getPlayer(), 60);
 		} else {
 			Main.game.getNpc(Brax.class).setObedience(-80);
+			Main.game.getNpc(Brax.class).setAffection(Main.game.getPlayer(), -80);
 		}
 		Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_uniques_enfdjacket_brax", PresetColour.CLOTHING_BLACK, false), false);
 		Main.game.getNpc(Brax.class).addClothing(AbstractClothingType.generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false), false);
@@ -702,6 +705,7 @@ public class EnforcerHQDialogue {
 						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_NON_CON_SUB);
 
 						Main.game.getNpc(Brax.class).setObedience(60);
+						Main.game.getNpc(Brax.class).setAffection(Main.game.getPlayer(), 60);
 						
 						Main.game.getNpc(Brax.class).setFaceDepth(5);
 						
@@ -752,6 +756,7 @@ public class EnforcerHQDialogue {
 						Main.game.getNpc(Brax.class).addFetish(Fetish.FETISH_NON_CON_SUB);
 						
 						Main.game.getNpc(Brax.class).setObedience(60);
+						Main.game.getNpc(Brax.class).setAffection(Main.game.getPlayer(), 600);
 						
 						Main.game.getNpc(Brax.class).setFaceDepth(5);
 						
@@ -865,6 +870,7 @@ public class EnforcerHQDialogue {
 						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_NON_CON_SUB);
 						
 						Main.game.getNpc(Brax.class).setObedience(100);
+						Main.game.getNpc(Brax.class).setAffection(Main.game.getPlayer(), 100);
 						
 						Main.game.getNpc(Brax.class).setFaceDepth(6);
 						
@@ -910,6 +916,7 @@ public class EnforcerHQDialogue {
 						Main.game.getNpc(Brax.class).removeFetish(Fetish.FETISH_NON_CON_SUB);
 
 						Main.game.getNpc(Brax.class).setObedience(100);
+						Main.game.getNpc(Brax.class).setAffection(Main.game.getPlayer(), 100);
 						
 						Main.game.getNpc(Brax.class).setFaceDepth(6);
 						
