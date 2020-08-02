@@ -16,25 +16,25 @@ public enum CumProduction {
 	ZERO_NONE("none", "no", 0, 1, 100, Wetness.ZERO_DRY, PresetColour.GENERIC_SIZE_ONE),
 	
 	/** There's about one or two drops of cum here... */
-	ONE_TRICKLE("drop", "a few drops of", 1, 3, 75, Wetness.ONE_SLIGHTLY_MOIST, PresetColour.GENERIC_SIZE_TWO),
+	ONE_TRICKLE("drop", "a few drops of", 1, 6, 75, Wetness.ONE_SLIGHTLY_MOIST, PresetColour.GENERIC_SIZE_TWO),
 	
 	/** This is significantly less than an average amount of cum that a human male produces when orgasming. */
-	TWO_SMALL_AMOUNT("trickle", "a trickle of", 3, 6, 50, Wetness.TWO_MOIST, PresetColour.GENERIC_SIZE_THREE),
+	TWO_SMALL_AMOUNT("trickle", "a trickle of", 6, 24, 50, Wetness.TWO_MOIST, PresetColour.GENERIC_SIZE_THREE),
 	
 	/** This is an average amount of cum that a human male produces when orgasming. */
-	THREE_AVERAGE("average", "an average amount of", 6, 16, 25, Wetness.THREE_WET, PresetColour.GENERIC_SIZE_FOUR),
+	THREE_AVERAGE("average", "an average amount of", 24, 128, 25, Wetness.THREE_WET, PresetColour.GENERIC_SIZE_FOUR),
 	
 	/** This is a large amount of cum, although relatively speaking, it's not a huge quantity of liquid. */
-	FOUR_LARGE("large", "a large amount of", 16, 30, 5, Wetness.FOUR_SLIMY, PresetColour.GENERIC_SIZE_FIVE),
+	FOUR_LARGE("large", "a large amount of", 128, 480, 5, Wetness.FOUR_SLIMY, PresetColour.GENERIC_SIZE_FIVE),
 	
 	/** This is a very large amount of cum. (About a quarter of a can of coke.)*/
-	FIVE_HUGE("huge", "a huge amount of", 30, 100, 0, Wetness.FIVE_SLOPPY, PresetColour.GENERIC_SIZE_SIX),
+	FIVE_HUGE("huge", "a huge amount of", 480, 3200, 0, Wetness.FIVE_SLOPPY, PresetColour.GENERIC_SIZE_SIX),
 	
 	/** This and SEVEN_MONSTROUS are a bit ridiculous, and should only be used as part of "extreme proportion" content. */
-	SIX_EXTREME("extreme", "an extreme amount of", 100, 1000, 0, Wetness.SIX_SOPPING_WET, PresetColour.GENERIC_SIZE_SEVEN),
+	SIX_EXTREME("extreme", "an extreme amount of", 3200, 64000, 0, Wetness.SIX_SOPPING_WET, PresetColour.GENERIC_SIZE_SEVEN),
 	
 	/** This and SIX_EXTREME are a bit ridiculous, and should only be used as part of "extreme proportion" content. */
-	SEVEN_MONSTROUS("monstrous", "a monstrous amount of", 1000, 10000, 0, Wetness.SEVEN_DROOLING, PresetColour.GENERIC_SIZE_EIGHT);
+	SEVEN_MONSTROUS("monstrous", "a monstrous amount of", 64000, 128000, 0, Wetness.SEVEN_DROOLING, PresetColour.GENERIC_SIZE_EIGHT);
 
 	private String name;
 	private String descriptor;
