@@ -31,10 +31,10 @@ public enum CumProduction {
 	FIVE_HUGE("huge", "a huge amount of", 480, 3200, 0, Wetness.FIVE_SLOPPY, PresetColour.GENERIC_SIZE_SIX),
 	
 	/** This and SEVEN_MONSTROUS are a bit ridiculous, and should only be used as part of "extreme proportion" content. */
-	SIX_EXTREME("extreme", "an extreme amount of", 3200, 64000, 0, Wetness.SIX_SOPPING_WET, PresetColour.GENERIC_SIZE_SEVEN),
+	SIX_EXTREME("extreme", "an extreme amount of", 3200, 6400, 0, Wetness.SIX_SOPPING_WET, PresetColour.GENERIC_SIZE_SEVEN),
 	
 	/** This and SIX_EXTREME are a bit ridiculous, and should only be used as part of "extreme proportion" content. */
-	SEVEN_MONSTROUS("monstrous", "a monstrous amount of", 64000, 128000, 0, Wetness.SEVEN_DROOLING, PresetColour.GENERIC_SIZE_EIGHT);
+	SEVEN_MONSTROUS("monstrous", "a monstrous amount of", 6400, 30000, 0, Wetness.SEVEN_DROOLING, PresetColour.GENERIC_SIZE_EIGHT);
 
 	private String name;
 	private String descriptor;
