@@ -117,7 +117,7 @@ public class Lyssieth extends NPC {
 	public Lyssieth(boolean isImported) {
 		super(isImported,
 				new NameTriplet("Lyssieth"), "Lilithmartuilani",
-				"One of the seven elder Lilin, Lyssieth is one of the most powerful beings in existence.",
+				"As one of the seven elder Lilin, Lyssieth is one of the most powerful beings in existence.",
 				7734, Month.OCTOBER, 13,
 				1000,
 				Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.GREATER,
@@ -228,7 +228,7 @@ public class Lyssieth extends NPC {
 		this.setTailGirth(PenetrationGirth.FOUR_THICK);
 
 		// Core:
-		this.setHeight(184);
+		this.setHeight(183);
 		this.setFemininity(100);
 		this.setMuscle(Muscle.TWO_TONED.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -271,7 +271,7 @@ public class Lyssieth extends NPC {
 		
 		// Chest:
 		this.setNippleVirgin(false);
-		this.setBreastSize(CupSize.GG.getMeasurement());
+		this.setBreastSize(CupSize.H.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
 		this.setNippleSize(NippleSize.THREE_LARGE);
 		this.setAreolaeSize(AreolaeSize.THREE_LARGE);
@@ -843,15 +843,15 @@ public class Lyssieth extends NPC {
 		this.setPenisType(type);
 		this.setPenisVirgin(false);
 		if(type.getRace()==Race.HUMAN) {
-			this.setPenisGirth(PenetrationGirth.FOUR_THICK);
-			this.setPenisSize(18);
-			this.setTesticleSize(TesticleSize.THREE_LARGE);
-			this.setPenisCumStorage(500);
-		} else {
 			this.setPenisGirth(PenetrationGirth.FIVE_FAT);
-			this.setPenisSize(30);
-			this.setTesticleSize(TesticleSize.FOUR_HUGE);
-			this.setPenisCumStorage(2500);
+			this.setPenisSize(50);
+			this.setTesticleSize(TesticleSize.SIX_GIGANTIC);
+			this.setPenisCumStorage(15000);
+		} else {
+			this.setPenisGirth(PenetrationGirth.SIX_GIRTHY);
+			this.setPenisSize(100);
+			this.setTesticleSize(TesticleSize.SEVEN_ABSURD);
+			this.setPenisCumStorage(30000);
 		}
 		this.fillCumToMaxStorage();
 	}
@@ -882,10 +882,10 @@ public class Lyssieth extends NPC {
 		this.setLegType(LegType.DEMON_COMMON);
 
 		// Core:
-		this.setHeight(196);
+		this.setHeight(366);
 		this.setFemininity(100);
-		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
-		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
 		
 		// Coverings:
 
@@ -925,13 +925,14 @@ public class Lyssieth extends NPC {
 		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.THREE_PLUMP);
 		this.setFaceCapacity(Capacity.SEVEN_GAPING, true);
+		this.setFaceDepth(6);
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
 		
 		// Chest:
 		this.setNippleVirgin(false);
-		this.setBreastSize(CupSize.GG.getMeasurement());
+		this.setBreastSize(CupSize.X_D.getMeasurement());
 		this.setBreastShape(BreastShape.ROUND);
 		this.setNippleSize(NippleSize.THREE_LARGE);
 		this.setAreolaeSize(AreolaeSize.THREE_LARGE);
@@ -940,8 +941,9 @@ public class Lyssieth extends NPC {
 		// Ass:
 		this.setAssVirgin(false);
 		this.setAssBleached(true);
-		this.setAssSize(AssSize.FOUR_LARGE);
+		this.setAssSize(AssSize.SIX_MASSIVE);
 		this.setHipSize(HipSize.FIVE_VERY_WIDE);
+		this.setAssDepth(6);
 		this.clearAssOrificeModifier();
 		this.addAssOrificeModifier(OrificeModifier.MUSCLE_CONTROL);
 		this.addAssOrificeModifier(OrificeModifier.RIBBED);
@@ -953,7 +955,7 @@ public class Lyssieth extends NPC {
 		this.clearPenisModifiers();
 		this.addPenisModifier(PenetrationModifier.FLARED);
 		this.addPenisModifier(PenetrationModifier.RIBBED);
-		this.addPenisModifier(PenetrationModifier.PREHENSILE);
+		this.addPenisModifier(PenetrationModifier.VEINY);
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
@@ -961,7 +963,8 @@ public class Lyssieth extends NPC {
 		this.setVaginaLabiaSize(LabiaSize.ONE_SMALL);
 		this.setVaginaSquirter(true);
 		this.setVaginaCapacity(Capacity.TWO_TIGHT, true);
-		this.setVaginaWetness(Wetness.FIVE_SLOPPY);
+		this.setVaginaWetness(Wetness.SEVEN_DROOLING);
+		this.setVaginaDepth(6);
 		this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 		this.setVaginaPlasticity(OrificePlasticity.ONE_SPRINGY.getValue());
 		this.clearVaginaOrificeModifiers();
