@@ -164,12 +164,15 @@ public class SALyssiethSpecials {
 			Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE);
 			Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 			Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-			Main.game.getPlayer().setHeight(168);
+			if(Main.game.GetPlayer().getHeightValue()>168) {
+				Main.game.getPlayer().setHeight(168);
+			} else {}
 			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
 			Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK), false);
 			playerGrowDemonicBreasts(CupSize.DD);
 			Main.game.getPlayer().setPenisType(PenisType.NONE);
 			playerGrowDemonicVagina();
+			Main.game.getPlayer().setVaginaDepth(5);
 			
 			Main.sex.setSexManager(
 					new SMLyssiethDemonTF(
@@ -231,9 +234,12 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
 				Main.game.getPlayer().setHipSize(HipSize.THREE_GIRLY);
 				Main.game.getPlayer().setAssSize(AssSize.THREE_NORMAL);
+				Main.game.getPlayer().setAssDepth(5);
 				Main.game.getPlayer().setMuscle(Muscle.TWO_TONED.getMedianValue());
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-				Main.game.getPlayer().setHeight(168);
+				if(Main.game.GetPlayer().getHeightValue()>168) {
+					Main.game.getPlayer().setHeight(168);
+				} else {}
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
 				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK), false);
 				playerGrowDemonicBreasts(CupSize.AA);
@@ -242,9 +248,12 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 				Main.game.getPlayer().setHipSize(HipSize.FIVE_VERY_WIDE);
 				Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE);
+				Main.game.getPlayer().setAssDepth(5);
 				Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-				Main.game.getPlayer().setHeight(168);
+				if(Main.game.GetPlayer().getHeightValue()>168) {
+					Main.game.getPlayer().setHeight(168);
+				} else {}
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
 				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK), false);
 				playerGrowDemonicBreasts(CupSize.DD);
@@ -255,6 +264,7 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED), false);
 				Main.game.getPlayer().setPenisSize(8);
 				Main.game.getPlayer().setTesticleSize(TesticleSize.ONE_TINY);
+				Main.game.getPlayer().setPenisCumStorage(24);
 				Main.game.getPlayer().fillCumToMaxStorage();
 			}
 			if(Main.game.getPlayer().hasVagina()) {
@@ -324,7 +334,9 @@ public class SALyssiethSpecials {
 			playerGrowDemonicBreasts();
 			
 			if(!Main.game.getPlayer().isFeminine()) {
-				Main.game.getPlayer().setHeight(208);
+				if(Main.game.getPlayer().getHeightValue()<208) {
+					Main.game.getPlayer().setHeight(208);
+				} else {}
 				if(Main.game.getPlayer().getFemininityValue()>25) {
 					Main.game.getPlayer().setFemininity(25);
 				} else {
@@ -550,7 +562,9 @@ public class SALyssiethSpecials {
 			Main.game.getPlayer().setLipSize(LipSize.THREE_PLUMP);
 			Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 			Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-			Main.game.getPlayer().setHeight(168);
+			if(Main.game.getPlayer().getHeightValue()>168) {
+					Main.game.getPlayer().setHeight(168);
+				} else {}
 			Main.game.getPlayer().setBreastSize(CupSize.F);
 			
 			if(Main.game.getNpc(Lyssieth.class).getForeplayPreference(Main.game.getPlayer()).getTargetedSexArea()==SexAreaOrifice.ANUS) {
@@ -654,10 +668,13 @@ public class SALyssiethSpecials {
 			Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 			Main.game.getPlayer().setHipSize(HipSize.FIVE_VERY_WIDE);
 			Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE);
+			Main.game.getPlayer().setVaginaDepth(5);
 			Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 			Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-			Main.game.getPlayer().setHeight(168);
-			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
+			if(Main.game.getPlayer().getHeightValue()>168) {
+					Main.game.getPlayer().setHeight(168);
+				} else {}
+						Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
 			Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK), false);
 			playerGrowDemonicBreasts(CupSize.F);
 			playerGrowDemonicVagina();
@@ -721,9 +738,12 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 				Main.game.getPlayer().setHipSize(HipSize.FIVE_VERY_WIDE);
 				Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE);
+				Main.game.getPlayer().setAssDepth(5);
 				Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-				Main.game.getPlayer().setHeight(168);
+				if(Main.game.getPlayer().getHeightValue()>168) {
+					Main.game.getPlayer().setHeight(168);
+				} else {}
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
 				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK), false);
 				playerGrowDemonicBreasts(CupSize.F);
@@ -733,9 +753,12 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
 				Main.game.getPlayer().setHipSize(HipSize.THREE_GIRLY);
 				Main.game.getPlayer().setAssSize(AssSize.THREE_NORMAL);
+				Main.game.getPlayer().setAssDepth(5);
 				Main.game.getPlayer().setMuscle(Muscle.TWO_TONED.getMedianValue());
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-				Main.game.getPlayer().setHeight(168);
+				if(Main.game.getPlayer().getHeightValue()>168) {
+					Main.game.getPlayer().setHeight(168);
+				} else {}
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
 				Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_RED_DARK), false);
 				playerGrowDemonicBreasts(CupSize.AA);
@@ -807,9 +830,13 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setFemininity(0);
 				Main.game.getPlayer().setMuscle(100);
 				Main.game.getPlayer().setBodySize(BodySize.THREE_LARGE.getMedianValue());
-				Main.game.getPlayer().setPenisSize(35);
-				Main.game.getPlayer().setTesticleSize(TesticleSize.FOUR_HUGE);
-				Main.game.getPlayer().setPenisCumStorage(2000);
+				if(Main.game.getPlayer().getPenisRawSizeValue()<70) {
+					Main.game.getPlayer().setPenisSize(70);
+				} else {}
+				Main.game.getPlayer().setTesticleSize(TesticleSize.SEVEN_ABSURD);
+				if(Main.game.getPlayer().getPenisRawCumStorageValue()<14000) {
+					Main.game.getPlayer().setPenisCumStorage(14000);
+				} else {}
 			}
 
 			Main.game.getNpc(Lyssieth.class).setPenisType(PenisType.NONE);
