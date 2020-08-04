@@ -164,7 +164,7 @@ public class SALyssiethSpecials {
 			Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE);
 			Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 			Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-			if(Main.game.GetPlayer().getHeightValue()>168) {
+			if(Main.game.getPlayer().getHeightValue()>168) {
 				Main.game.getPlayer().setHeight(168);
 			} else {}
 			Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
@@ -237,7 +237,7 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setAssDepth(5);
 				Main.game.getPlayer().setMuscle(Muscle.TWO_TONED.getMedianValue());
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-				if(Main.game.GetPlayer().getHeightValue()>168) {
+				if(Main.game.getPlayer().getHeightValue()>168) {
 					Main.game.getPlayer().setHeight(168);
 				} else {}
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
@@ -251,7 +251,7 @@ public class SALyssiethSpecials {
 				Main.game.getPlayer().setAssDepth(5);
 				Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 				Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-				if(Main.game.GetPlayer().getHeightValue()>168) {
+				if(Main.game.getPlayer().getHeightValue()>168) {
 					Main.game.getPlayer().setHeight(168);
 				} else {}
 				Main.game.getPlayer().setAssType(AssType.DEMON_COMMON);
