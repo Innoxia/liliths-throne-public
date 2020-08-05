@@ -173,13 +173,13 @@ public class ReindeerOverseer extends NPC {
 			}
 			
 			for (int i = 0; i < 10 + (Util.random.nextInt(6)); i++) {
-				this.addItem(AbstractItemType.generateItem(ItemType.PRESENT), false);
+				this.addItem(Main.game.getItemGen().generateItem(ItemType.PRESENT), false);
 			}
 			
 			for (AbstractItemType item : ItemType.getAllItems()) {
 				if(item!=null && item.getItemTags().contains(ItemTag.REINDEER_GIFT)) {
 					for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
-						this.addItem(AbstractItemType.generateItem(item), false);
+						this.addItem(Main.game.getItemGen().generateItem(item), false);
 					}
 				}
 			}
@@ -187,7 +187,7 @@ public class ReindeerOverseer extends NPC {
 			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
 				if(clothing!=null && clothing.getDefaultItemTags().contains(ItemTag.REINDEER_GIFT)) {
 					for (int i = 0; i < 1 + (Util.random.nextInt(2)); i++) {
-						this.addClothing(AbstractClothingType.generateClothing(clothing), false);
+						this.addClothing(Main.game.getItemGen().generateClothing(clothing), false);
 					}
 				}
 			}

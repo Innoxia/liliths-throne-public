@@ -128,6 +128,7 @@ public class RatGangMember extends NPC {
 			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 			this.removePersonalityTrait(PersonalityTrait.LISP);
 			this.removePersonalityTrait(PersonalityTrait.STUTTER);
+			this.removePersonalityTrait(PersonalityTrait.MUTE);
 		}
 		
 		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);

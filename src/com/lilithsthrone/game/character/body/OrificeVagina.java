@@ -157,15 +157,39 @@ public class OrificeVagina implements OrificeInterface {
 		this.stretchedCapacity = Math.max(0, Math.min(stretchedCapacity, Capacity.SEVEN_GAPING.getMaximumValue(false)));
 		return oldStretchedCapacity != this.stretchedCapacity;
 	}
+	
+	@Override
+	public OrificeDepth getMinimumDepthForSizeComfortable(GameCharacter owner, int insertionSize) {
+		OrificeDepth depth = OrificeDepth.ONE_SHALLOW;
+		while((int) (owner.getHeightValue() * 0.1f * depth.getDepthPercentage())<insertionSize) {
+			if(depth == OrificeDepth.SEVEN_FATHOMLESS) {
+				return depth;
+			}
+			depth = OrificeDepth.getDepthFromInt(depth.getValue()+1);
+		}
+		return depth;
+	}
 
 	@Override
-	public int getMaximumPenetrationDepthComfortable(GameCharacter owner) { // 0.08 might be a little more realistic, but give it a little extra so that it's not annoying for people with large cocks
-		return (int) (owner.getHeightValue() * 0.1f * this.getDepth(owner).getDepthPercentage());
+	public OrificeDepth getMinimumDepthForSizeUncomfortable(GameCharacter owner, int insertionSize) {
+		OrificeDepth depth = OrificeDepth.ONE_SHALLOW;
+		while((int) ((owner.getHeightValue() * 0.1f * depth.getDepthPercentage())*1.5f)<insertionSize) {
+			if(depth == OrificeDepth.SEVEN_FATHOMLESS) {
+				return depth;
+			}
+			depth = OrificeDepth.getDepthFromInt(depth.getValue()+1);
+		}
+		return depth;
 	}
 	
 	@Override
-	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner) {
-		return (int) (getMaximumPenetrationDepthComfortable(owner) * 1.5f);
+	public int getMaximumPenetrationDepthComfortable(GameCharacter owner, OrificeDepth depth) { // 0.08 might be a little more realistic, but give it a little extra so that it's not annoying for people with large cocks
+		return (int) (owner.getHeightValue() * 0.1f * depth.getDepthPercentage());
+	}
+	
+	@Override
+	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner, OrificeDepth depth) {
+		return (int) (getMaximumPenetrationDepthComfortable(owner, depth) * 1.5f);
 	}
 
 	@Override

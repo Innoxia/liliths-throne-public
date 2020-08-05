@@ -9,50 +9,50 @@
 		<description><![CDATA[A necklace consisting of a thin chain with an ankh pendant threaded onto it. The ankh itself is an upright cross, which has a loop instead of the top arm. As an alternative to being worn around the neck, it would be possible to wrap the chain around your wrist.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
-    <equipSlots>
-      <slot>NECK</slot>
-      <slot>WRIST</slot>
-    </equipSlots>
+		<equipSlots>
+		  <slot>NECK</slot>
+		  <slot>WRIST</slot>
+		</equipSlots>
 
-    <rarity>COMMON</rarity>
-	<clothingSet/>
-	<imageName>ankh_necklace.svg</imageName>
-    <imageEquippedName slot="WRIST">ankh_necklace.svg</imageEquippedName>
-	<enchantmentLimit>5</enchantmentLimit>
-	<effects/>
-	
-	<blockedPartsList slot="NECK">
-		<blockedParts>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>ankh_necklace.svg</imageName>
+		<imageEquippedName slot="WRIST">ankh_necklace.svg</imageEquippedName>
+		<enchantmentLimit>5</enchantmentLimit>
+		<effects/>
+		
+		<blockedPartsList slot="NECK">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<blockedPartsList slot="WRIST">
+		  <blockedParts>
 			<displacementType>REMOVE_OR_EQUIP</displacementType>
 			<clothingAccessRequired/>
 			<blockedBodyParts/>
 			<clothingAccessBlocked/>
 			<concealedSlots/>
-		</blockedParts>
-	</blockedPartsList>
-    <blockedPartsList slot="WRIST">
-      <blockedParts>
-        <displacementType>REMOVE_OR_EQUIP</displacementType>
-        <clothingAccessRequired/>
-        <blockedBodyParts/>
-        <clothingAccessBlocked/>
-        <concealedSlots/>
-      </blockedParts>
-    </blockedPartsList>
-		
-	<incompatibleSlots slot="NECK"/>
-    <incompatibleSlots slot="WRIST"/>
-		
-	<primaryColours values="ALL_METAL"/>
-	<primaryColoursDye values="ALL_WITH_METALS"/>
-	<secondaryColours values="JUST_STEEL"/>
-	<secondaryColoursDye values="ALL_WITH_METALS"/>
-	<tertiaryColours values="JUST_STEEL"/>
-	<tertiaryColoursDye values="ALL_WITH_METALS"/>
+		  </blockedParts>
+		</blockedPartsList>
+			
+		<incompatibleSlots slot="NECK"/>
+		<incompatibleSlots slot="WRIST"/>
+			
+		<primaryColours values="ALL_METAL"/>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		<tertiaryColours values="JUST_STEEL"/>
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
 
-	<itemTags>
-		<tag>SOLD_BY_NYAN</tag>
-	</itemTags>
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
 	</coreAttributes>
 
   <replacementText slot="NECK" type="REMOVE_OR_EQUIP">

@@ -291,7 +291,7 @@ public class Nipples implements BodyPartInterface {
 		
 		this.areolaeSize = boundAreolaeSize;
 
-		return transformation + UtilText.parse(owner, "[npc.Name] now [npc.has] [style.boldSex([npc.areolaeSize] [npc.nipples])]!</p>");
+		return transformation + UtilText.parse(owner, "[npc.Name] now [npc.has] [style.boldSex([npc.areolaeSize] areolae)]!</p>");
 	}
 
 	public boolean isPierced() {

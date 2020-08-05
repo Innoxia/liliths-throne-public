@@ -17,7 +17,6 @@ import com.lilithsthrone.game.dialogue.responses.ResponseTag;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMGeneric;
 import com.lilithsthrone.main.Main;
@@ -483,11 +482,11 @@ public class AlleywayProstituteDialogue {
 			double rnd = Math.random();
 			AbstractWeapon weapon;
 			if(rnd<0.60f) {
-				weapon = AbstractWeaponType.generateWeapon("dsg_eep_enbaton_enbaton"); // 60% chance of getting a baton
+				weapon = Main.game.getItemGen().generateWeapon("dsg_eep_enbaton_enbaton"); // 60% chance of getting a baton
 			} else if(rnd<0.30f){
-				weapon = AbstractWeaponType.generateWeapon("dsg_eep_pbweap_pbpistol"); // 30% chance of getting a pistol
+				weapon = Main.game.getItemGen().generateWeapon("dsg_eep_pbweap_pbpistol"); // 30% chance of getting a pistol
 			} else {
-				weapon = AbstractWeaponType.generateWeapon("dsg_eep_taser_taser"); // 10% chance of getting a taser
+				weapon = Main.game.getItemGen().generateWeapon("dsg_eep_taser_taser"); // 10% chance of getting a taser
 			}
 			UtilText.addSpecialParsingString(weapon.getName(true, true), true);
 			UtilText.addSpecialParsingString(Util.intToString(FINE_AMOUNT), false);

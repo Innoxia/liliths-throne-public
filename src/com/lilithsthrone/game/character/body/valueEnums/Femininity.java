@@ -22,7 +22,7 @@ public enum Femininity {
 	
 	FEMININE(Util.newArrayListOfValues("feminine", "girly"), 60, 79, PresetColour.FEMININE),
 	
-	FEMININE_STRONG(Util.newArrayListOfValues("very masculine", "womanly"), 80, 100, PresetColour.FEMININE_PLUS);
+	FEMININE_STRONG(Util.newArrayListOfValues("very feminine", "womanly"), 80, 100, PresetColour.FEMININE_PLUS);
 
 	private List<String> names;
 	private int minimumFemininity;

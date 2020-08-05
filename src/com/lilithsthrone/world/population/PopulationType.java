@@ -4,7 +4,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.12
- * @version 0.3.7.7
+ * @version 0.3.9
  * @author Innoxia
  */
 public class PopulationType {
@@ -53,6 +53,8 @@ public class PopulationType {
 	public static AbstractPopulationType SLAVE = new AbstractPopulationType("slave", "slaves") {};
 	
 	public static AbstractPopulationType OFFICE_WORKER = new AbstractPopulationType("office worker", "office workers") {};
+	
+	public static AbstractPopulationType CONSTRUCTION_WORKER = new AbstractPopulationType("construction worker", "construction workers") {};
 	
 	public static AbstractPopulationType RECEPTIONIST = new AbstractPopulationType("receptionist", "receptionists") {};
 

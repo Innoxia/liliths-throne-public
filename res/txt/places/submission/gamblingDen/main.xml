@@ -1014,16 +1014,10 @@
 		It only takes a couple more minutes for the two of you to reach the main entrance to the Rat Warrens. Opening the doors for you and [axel.name], the rats on guard duty make a couple of derogatory comments as they let you back out into the tunnels of Submission. Once out there, [axel.name] turns to you and says, [axel.speech(I suppose we should get back as quickly as possible. I sure hope that 'Shadow' person didn't mean anything when she said something unexpected might happen...)]
 	</p>
 	<p>
-		Agreeing with the [axel.race], you set off on your way back to the Gambling Den, but you aren't even able to get to the first bend in the tunnel before a voice echoes out around you, [style.speechMasculineStrong(Well, well, well, looks like yer walked right inta me trap!)] 
+		Agreeing with the [axel.race], you set off on your way back to the Gambling Den, but you aren't able to get very far at all before the familiar voice of Shadow suddenly echoes out from around the next corner...
 	</p>
 	<p>
-		Up ahead, the figure of a lone rat-boy steps forwards around the corner. Standing at least a head taller than Vengar, and with huge muscles bulging out beneath his shirt, the rat-boy's body lends credibility to his following words, [style.speechMasculineStrong(I's the one who's gonna be the new leader of our gang! You's gonna turn around an' march right back into them Rat Warrens, then yer gonna show yer submission ta <i>me</i>!)]
-	</p>
-	<p>
-		As he says this, at least fifteen or so gang members move up behind this rat-boy, and, turning around, you see that there's another twenty or so rat-morphs approaching from behind. Seeing that you're now completely outnumbered and surrounded, this challenger for the gang's leadership lets out a booming laugh, and says, [style.speechMasculineStrong(Ya ain't got no choice! Do as we say, or else ya gonna feel me fury!)]
-	</p>
-	<p>
-		Stepping closer to you, [axel.name] fearfully asks, [axel.speech(W-What are we going to do, [pc.name]?! This wasn't part of the plan!)]
+		TODO Enforcers show up with Shadow/Silence.
 	</p>
 	]]>
 	</htmlContent>
@@ -1033,31 +1027,7 @@
 	
 	<htmlContent tag="AXEL_VENGAR_VISIT_RETURN_ENFORCERS"><![CDATA[
 	<p>
-		Faced with the possibility of having to fight well over thirty gang-members at once, you tell [axel.name] to stand back as you prepare to defend yourself. Before it comes to that, however, you see some of the rats at the back of the group turn their heads, and immediately afterwards, a series of dazzling flashlights shine out from both ends of the tunnel, before loud shouts ring out, [style.speechMasculineStrong(Get down on the ground! This is SWORD; do not resist! Get down on the fucking ground!)]
-	</p>
-	<p>
-		Not giving the gang members any time in which to react, the trigger-happy Enforcers of the SWORD division start firing their pepperball rifles at anyone in their sights who isn't down on the ground, filling the tunnel with echoing bangs. Deploying their cryoprism guns, streaks of light blue arcane-laser fire are shot out by the Enforcers at any rat foolish enough to try and fight back, and within a matter of moments, every gang member in both groups has been forced down onto the ground.
-	</p>
-	<p>
-		Having grabbed [axel.name] and pulled [axel.herHim] down to one side of the tunnel the moment you realised what was going on, the two of you manage to avoid being caught in the crossfire. As the Enforcers advance to your location, you look up to see a the very familiar pair of Shadow and Silence moving along right behind them. Before the Enforcer at the head of the group can make a move, Shadow clears her throat, before speaking out in a refined accent almost completely unrecognisable from her usual, slovenly voice, [shadow.speechNoEffects(Yes, these are the two. All the others in here are gang members, so you can get started on carting them off right away.)]
-	</p>
-	<p>
-		Lowering their weapons, the SWORD Enforcers turn around and quickly get to work helping their colleagues arrest all of the rats in the tunnel. Stepping up in front of you and [axel.name], Shadow motions you to your feet, before saying, [shadow.speechNoEffects(I told you that you might run into something 'unexpected' out here. This is how Vengar planned to get rid of his competition within the gang, you see. He knew they'd make a move if they felt that he was about to consolidate too much power, and had me inform the Enforcers that he wanted to make a deal with them.)]
-	</p>
-	<p>
-		[axel.speech(So he hands over his lieutenants, and the Enforcers let him off?)] [axel.name] asks, standing up beside you.
-	</p>
-	<p>
-		[shadow.speechNoEffects(Yes, that's right, and he's also handing over that foul 'Murk' fellow,)] Shadow responds, [shadow.speechNoEffects(Of course, he didn't know that Silence and I are, shall we say, 'well connected' with the Enforcers... Anyway, I suppose I must thank you for finally providing a catalyst for putting an end to this gang; these assignments can get somewhat unbearable after the first few months. Oh, and by the way, if it wasn't clear already, you really shouldn't tell anyone about what you've seen of me here. Until next time, farewell!)]
-	</p>
-	<p>
-		With that, Shadow and Silence turn about and swiftly make their exit, leaving you and [axel.name] still surrounded on both sides by SWORD Enforcers. Seeing that the rat-girls have finished with you, one of the senior Enforcers steps forwards and snarls, [style.speechMasculineStrong(They didn't mention the fact that that scum, Vengar, paid off all the right people. I'd love nothing more than to go in there and drag that scum screaming and kicking all the way to a nice little cell of his own, but the higher-ups have said to leave him be... Which is also what we're doing with the two of you, so go on, off you go!)]
-	</p>
-	<p>
-		Doing as the Enforcer says, you and [axel.name] make a swift exit, before continuing on your way to the Gambling Den. Letting out a relieved sigh as you leave the Enforcers behind you, the [axel.race] comments, [axel.speech(Well, I'm glad that's all over with...)]
-	</p>
-	<p>
-		After a short while, the two of you find yourselves entering the Gambling Den, and with yet another sigh of relief, [axel.name] turns towards and says, [axel.speech(I can't thank you enough, [pc.name]! Please, wait here, I need to fetch a reward I've been saving for you!)]
+		TODO You and [axel.name] are taken to the nearest Enforcer post.
 	</p>
 	]]>
 	</htmlContent>

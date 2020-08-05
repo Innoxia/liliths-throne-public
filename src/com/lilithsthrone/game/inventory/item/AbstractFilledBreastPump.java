@@ -139,7 +139,7 @@ public class AbstractFilledBreastPump extends AbstractItem implements XMLSaving 
 	@Override
 	public String applyEffect(GameCharacter user, GameCharacter target) {
 		return target.ingestFluid(getMilkProvider(), milk, SexAreaOrifice.MOUTH, millilitresStored)
-				+ target.addItem(AbstractItemType.generateItem(ItemType.MOO_MILKER_EMPTY), false);
+				+ target.addItem(Main.game.getItemGen().generateItem(ItemType.MOO_MILKER_EMPTY), false);
 	}
 	
 	public String getMilkProviderId() {

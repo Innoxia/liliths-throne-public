@@ -1,0 +1,11 @@
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <g transform="matrix(1.9487 0 0 1.9487 -29.341 -29.964)" stroke="#000">
+  <path d="m36.56 15.785c-1.2348-0.16069-2.4858 0.13596-3.517 0.834-1.0272 0.70448-1.761 1.9284-2.063 3.1368l0.487 0.12c0.27279-1.0885 0.933-2.208 1.857-2.8448 0.9303-0.62718 2.0573-0.89382 3.17-0.75 1.308 0.175 2.522 0.942 3.324 2.004 0.804 1.065 1.214 2.416 1.233 3.762 0.026 1.906-0.693 3.769-1.455 5.582-0.763 1.815-1.592 3.686-1.727 5.71-0.15549 2.5512 0.80797 5.0437 2.639 6.827l0.347-0.36c-1.707-1.642-2.644-4.07-2.486-6.433 0.128-1.909 0.923-3.73 1.688-5.55 0.765-1.822 1.522-3.748 1.494-5.784-0.02-1.442-0.456-2.893-1.332-4.055-0.878-1.163-2.202-2.004-3.658-2.199z" color="#000000" fill="#f9f9f9" font-weight="400" overflow="visible" solid-color="#000000" stroke-width=".25" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
+  <g stroke-width=".5">
+   <path d="m22.51 21.568-4.846 17.327 15.028 4.314 4.966-17.463-2.789-4.918-7.504-2.001z" fill="#ffd5d5" stroke-linecap="round" stroke-linejoin="round"/>
+   <path d="m17.664 38.895 1.381-4.928 16.206 0.078-2.5592 9.164z" fill="#f55" stroke-linecap="round" stroke-linejoin="round"/>
+   <path d="m42.671 39.185 2.07 0.97 1.45 3.98-0.982 2.109-3.956 1.44-2.109-0.985-1.45-3.98 0.968-2.075z" color="#000000" fill="#ff8080" font-weight="400" overflow="visible" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
+  </g>
+  <path d="m25.78 19.864 10 2.7119" fill="#f55" stroke-linecap="round" stroke-linejoin="round" stroke-width=".25"/>
+ </g>
+</svg>
