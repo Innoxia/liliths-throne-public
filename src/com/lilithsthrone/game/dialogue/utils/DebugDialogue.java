@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -362,6 +363,25 @@ public class DebugDialogue {
 							}
 						};
 						
+				} else if(index==5) {
+					return new Response("Bimbos!", "Turn every feminine NPC in the game into a busty, slovenly bimbo.<br/>[style.italicsBad(Warning! This cannot easily be undone!)]", DEBUG_MENU){
+						@Override
+						public Colour getHighlightColour() {
+							return PresetColour.BASE_PINK_DEEP;
+						}
+						@Override
+						public void effects() {
+							for(NPC npc : Main.game.getAllNPCs()) {
+								if(npc.isFeminine()) {
+									npc.addFetish(Fetish.FETISH_BIMBO);
+									npc.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+									if(npc.getBreastSize().getMeasurement()<CupSize.E.getMeasurement()) {
+										npc.setBreastSize(CupSize.E);
+									}
+								}
+							}
+						}
+					};
 				}
 //				else if (index == 5) {
 //					if(!Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.DOMINION_BACK_ALLEYS)) {
@@ -1078,7 +1098,7 @@ public class DebugDialogue {
 		clothingCollageSB = new StringBuilder("<div style='position:inline-block;width:90vw;float:left;'>");
 
 		for (AbstractClothingType c : ClothingType.getAllClothing()) {
-			AbstractClothing ac = AbstractClothingType.generateClothing(c);
+			AbstractClothing ac = Main.game.getItemGen().generateClothing(c);
 			clothingCollageSB.append("<html><div style='width:10vw;height:10vw;float:left;all: unset;'>" + ac.getSVGString() + "</div></html>");
 		}
 

@@ -1073,8 +1073,12 @@ public class Body implements XMLSaving {
 		if(eyeTypeConverterMap.containsKey(eyeTypeFromSave)) {
 			eyeTypeFromSave = eyeTypeConverterMap.get(eyeTypeFromSave);
 		}
-
+		
 		Eye importedEye = new Eye(EyeType.getEyeTypeFromId(eyeTypeFromSave));
+		
+		if(Main.isVersionOlderThan(version, "0.3.9") && importedSubspeciesOverride==Subspecies.HALF_DEMON) { // Fix to taurs spawning with no demon parts at all in v0.3.8.9
+			importedEye = new Eye(EyeType.DEMON_COMMON);
+		}
 		
 		importedEye.eyePairs = (Integer.valueOf(eye.getAttribute("eyePairs")));
 		importedEye.irisShape = (EyeShape.valueOf(eye.getAttribute("irisShape")));
@@ -2001,7 +2005,7 @@ public class Body implements XMLSaving {
 
 		if (hair.getRawLengthValue() == 0) {
 			if (face.isBaldnessNatural()) {
-				sb.append(" [npc.Her] head is covered in [npc.faceFullDescription(true)].");
+				sb.append(" [npc.Her] head is [npc.materialDescriptor] [npc.faceFullDescription(true)].");
 			} else {
 				sb.append(" [npc.SheHasFull] no hair on [npc.her] head, revealing the [npc.faceSkin] that covers [npc.her] scalp.");
 			}
@@ -2285,8 +2289,8 @@ public class Body implements XMLSaving {
 //						break;
 //				}
 
-				sb.append(" It is "+Capacity.getCapacityFromValue(face.getMouth().getOrificeMouth().getStretchedCapacity()).getDescriptor(true)
-						+", and can comfortably accommodate objects of up to [style.colourSex("+ Units.size(Capacity.getCapacityFromValue(face.getMouth().getOrificeMouth().getStretchedCapacity()).getMaximumValue(true)) + ")] in diameter.");
+				sb.append(" It is "+Capacity.getCapacityFromValue(face.getMouth().getOrificeMouth().getStretchedCapacity()).getDescriptor(true)+", and can comfortably accommodate objects of up to"
+						+ " [style.colourSex("+ Units.size(Capacity.getMaximumComfortableDiameter(face.getMouth().getOrificeMouth().getElasticity(), face.getMouth().getOrificeMouth().getRawCapacityValue(), true)) + ")] in diameter.");
 				
 				if(Main.game.isPenetrationLimitationsEnabled()) {
 					switch(owner.getFaceDepth()) {
@@ -3196,8 +3200,8 @@ public class Body implements XMLSaving {
 			descriptionSB.append(" [style.colourBestial(Being a part of [npc.her] bestial lower body, it is entirely feral in form, and is no different to that of a feral [npc.assRace]'s.)]");
 		}
 
-		descriptionSB.append(" It is "+Capacity.getCapacityFromValue(ass.getAnus().getOrificeAnus().getStretchedCapacity()).getDescriptor(true)
-				+", and when lubricated can comfortably accommodate objects of up to [style.colourSex("+ Units.size(Capacity.getCapacityFromValue(ass.getAnus().getOrificeAnus().getStretchedCapacity()).getMaximumValue(true)) + ")] in diameter.");
+		descriptionSB.append(" It is "+Capacity.getCapacityFromValue(ass.getAnus().getOrificeAnus().getStretchedCapacity()).getDescriptor(true)+", and when lubricated can comfortably accommodate objects of up to"
+				+ " [style.colourSex("+ Units.size(Capacity.getMaximumComfortableDiameter(ass.getAnus().getOrificeAnus().getElasticity(), ass.getAnus().getOrificeAnus().getRawCapacityValue(), true)) + ")] in diameter.");
 
 		if(Main.game.isPenetrationLimitationsEnabled()) {
 			switch(owner.getAssDepth()) {
@@ -3525,41 +3529,14 @@ public class Body implements XMLSaving {
 						+ " ("+ Units.fluid(viewedBreast.getRawStoredMilkValue()) + " currently stored) at [npc.a_milkRegen] rate.");
 				
 				switch(viewedBreast.getMilk().getFlavour()) {
-					case CHOCOLATE:
-						descriptionSB.append(" [npc.Her] [npc.milk] tastes of chocolate.");
-						break;
-					case CUM:
-						descriptionSB.append(" [npc.Her] [npc.milk] tastes exactly like cum.");
-						break;
-					case GIRL_CUM:
-						descriptionSB.append(" [npc.Her] [npc.milk] tastes of girl-cum.");
-						break;
-					case HONEY:
-						descriptionSB.append(" [npc.Her] [npc.milk] tastes of honey.");
-						break;
 					case MILK:
 						descriptionSB.append(" [npc.Her] [npc.milk] tastes like regular milk.");
-						break;
-					case MINT:
-						descriptionSB.append(" [npc.Her] [npc.milk] tastes of mint.");
-						break;
-					case PINEAPPLE:
-						descriptionSB.append(" [npc.Her] [npc.milk] tastes of pineapple.");
 						break;
 					case BUBBLEGUM:
 						descriptionSB.append(" [npc.Her] [npc.milk] has the fruity taste of bubblegum.");
 						break;
-					case STRAWBERRY:
-						descriptionSB.append(" [npc.Her] [npc.milk] tastes of strawberries.");
-						break;
-					case BEER:
-						descriptionSB.append(" [npc.Her] [npc.milk] tastes like beer.");
-						break;
-					case VANILLA:
-						descriptionSB.append(" [npc.Her] [npc.milk] tastes of vanilla.");
-						break;
-					case CHERRY:
-						descriptionSB.append(" [npc.Her] [npc.milk] tastes of cherries.");
+					default:
+						descriptionSB.append(" [npc.Her] [npc.milk] tastes exactly like "+viewedBreast.getMilk().getFlavour().getName()+".");
 						break;
 				}
 				
@@ -3813,41 +3790,14 @@ public class Body implements XMLSaving {
 						+ Units.fluid(viewedBreastCrotch.getRawStoredMilkValue(), Units.UnitType.LONG) + " currently stored) at [npc.a_crotchMilkRegen] rate.");
 				
 				switch(viewedBreastCrotch.getMilk().getFlavour()) {
-					case CHOCOLATE:
-						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of chocolate.");
-						break;
-					case CUM:
-						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes exactly like cum.");
-						break;
-					case GIRL_CUM:
-						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of girl-cum.");
-						break;
-					case HONEY:
-						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of honey.");
-						break;
 					case MILK:
 						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes like regular milk.");
-						break;
-					case MINT:
-						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of mint.");
-						break;
-					case PINEAPPLE:
-						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of pineapple.");
 						break;
 					case BUBBLEGUM:
 						descriptionSB.append(" [npc.Her] [npc.crotchMilk] has the fruity taste of bubblegum.");
 						break;
-					case STRAWBERRY:
-						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of strawberries.");
-						break;
-					case BEER:
-						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes like beer.");
-						break;
-					case VANILLA:
-						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of vanilla.");
-						break;
-					case CHERRY:
-						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes of cherries.");
+					default:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilk] tastes exactly like "+viewedBreastCrotch.getMilk().getFlavour().getName()+".");
 						break;
 				}
 				
@@ -4259,41 +4209,14 @@ public class Body implements XMLSaving {
 			descriptionSB.append(" [npc.Her] [npc.cum]");
 			
 			switch(viewedPenis.getTesticle().getCum().getFlavour()) {
-				case CHOCOLATE:
-					descriptionSB.append(" tastes of chocolate.");
-					break;
 				case CUM:
 					descriptionSB.append(", much to nobody's surprise, tastes like cum.");
-					break;
-				case GIRL_CUM:
-					descriptionSB.append(" tastes of girl-cum.");
-					break;
-				case HONEY:
-					descriptionSB.append(" tastes of honey.");
-					break;
-				case MILK:
-					descriptionSB.append(" tastes like milk.");
-					break;
-				case MINT:
-					descriptionSB.append(" tastes of mint.");
-					break;
-				case PINEAPPLE:
-					descriptionSB.append(" tastes of pineapple.");
 					break;
 				case BUBBLEGUM:
 					descriptionSB.append(" has the fruity taste of bubblegum.");
 					break;
-				case STRAWBERRY:
-					descriptionSB.append(" tastes of strawberries.");
-					break;
-				case BEER:
-					descriptionSB.append(" tastes like beer.");
-					break;
-				case VANILLA:
-					descriptionSB.append(" tastes of vanilla.");
-					break;
-				case CHERRY:
-					descriptionSB.append(" tastes of cherries.");
+				default:
+					descriptionSB.append(" tastes exactly like "+viewedPenis.getTesticle().getCum().getFlavour().getName()+".");
 					break;
 			}
 			
@@ -4457,7 +4380,7 @@ public class Body implements XMLSaving {
 		
 		if (isPlayer || !hallucinating) {
 			descriptionSB.append(" [npc.Her] pussy is " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor(true)+" and when lubricated can comfortably accommodate objects of up to"
-					+ " [style.colourSex("+ Units.size(Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getMaximumValue(true)) + ")] in diameter.");
+					+ " [style.colourSex("+ Units.size(Capacity.getMaximumComfortableDiameter(viewedVagina.orificeVagina.getElasticity(), viewedVagina.getOrificeVagina().getRawCapacityValue(), true)) + ")] in diameter.");
 		}
 
 		if(Main.game.isPenetrationLimitationsEnabled()) {
@@ -4572,41 +4495,14 @@ public class Body implements XMLSaving {
 		descriptionSB.append(" [npc.Her] [npc.girlcum]");
 		
 		switch(viewedVagina.getGirlcum().getFlavour()) {
-			case CHOCOLATE:
-				descriptionSB.append(" tastes of chocolate.");
-				break;
-			case CUM:
-				descriptionSB.append(" tastes of salty cum.");
-				break;
 			case GIRL_CUM:
 				descriptionSB.append(", much to nobody's surprise, tastes like ordinary girlcum.");
-				break;
-			case HONEY:
-				descriptionSB.append(" tastes of honey.");
-				break;
-			case MILK:
-				descriptionSB.append(" tastes like milk.");
-				break;
-			case MINT:
-				descriptionSB.append(" tastes of mint.");
-				break;
-			case PINEAPPLE:
-				descriptionSB.append(" tastes of pineapple.");
 				break;
 			case BUBBLEGUM:
 				descriptionSB.append(" has the fruity taste of bubblegum.");
 				break;
-			case STRAWBERRY:
-				descriptionSB.append(" tastes of strawberries.");
-				break;
-			case BEER:
-				descriptionSB.append(" tastes like beer.");
-				break;
-			case VANILLA:
-				descriptionSB.append(" tastes of vanilla.");
-				break;
-			case CHERRY:
-				descriptionSB.append(" tastes of cherries.");
+			default:
+				descriptionSB.append(" tastes exactly like "+viewedVagina.getGirlcum().getFlavour().getName()+".");
 				break;
 		}
 		
@@ -4648,7 +4544,7 @@ public class Body implements XMLSaving {
 		// Urethra:
 		if (Capacity.getCapacityFromValue(viewedVagina.getOrificeUrethra().getStretchedCapacity()) != Capacity.ZERO_IMPENETRABLE) {
 			descriptionSB.append("[npc.Her] vagina's urethra has been loosened enough that it presents a ready orifice for penetration, and when lubricated can comfortably accommodate objects of up to"
-					+ " [style.colourSex("+ Units.size(Capacity.getCapacityFromValue(viewedVagina.getOrificeUrethra().getStretchedCapacity()).getMaximumValue(true)) + ")] in diameter.");
+					+ " [style.colourSex("+ Units.size(Capacity.getMaximumComfortableDiameter(viewedVagina.getOrificeUrethra().getElasticity(), viewedVagina.getOrificeUrethra().getRawCapacityValue(), true)) + ")] in diameter.");
 			
 			if(Main.game.isPenetrationLimitationsEnabled()) {
 				switch(owner.getVaginaUrethraDepth()) {

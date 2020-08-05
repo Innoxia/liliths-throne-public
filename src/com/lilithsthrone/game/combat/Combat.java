@@ -44,7 +44,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
  * Call initialiseCombat() before using.
  *
  * @since 0.1.0
- * @version 0.3.5
+ * @version 0.3.9
  * @author Innoxia, Irbynx
  */
 public enum Combat {
@@ -116,14 +116,26 @@ public enum Combat {
 		statusEffectsToApply.put(Main.game.getPlayer(), new HashMap<>());
 		combatContent.put(Main.game.getPlayer(), new ArrayList<>());
 		activeCombatants.add(Main.game.getPlayer());
-		
+
+		if(Main.game.getPlayer().isElementalSummoned()) {
+			Combat.addAlly(Main.game.getPlayer().getElemental());
+			Main.game.getPlayer().getElemental().setLocation(Main.game.getPlayer(), false);
+		}
 		if(allies!=null){
 			for(NPC ally : allies) {
 				Combat.addAlly(ally);
+				if(ally.isElementalSummoned()) {
+					Combat.addAlly(ally.getElemental());
+					ally.getElemental().setLocation(ally, false);
+				}
 			}
 		}
 		for(NPC enemy : enemies) {
 			Combat.addEnemy(enemy);
+			if(enemy.isElementalSummoned()) {
+				Combat.addEnemy(enemy.getElemental());
+				enemy.getElemental().setLocation(enemy, false);
+			}
 		}
 		enemies.sort((enemy1, enemy2) -> enemy2.getLevel()-enemy1.getLevel());
 		
@@ -350,14 +362,6 @@ public enum Combat {
 						}
 					}
 				}
-				if(enemy.isElementalSummoned()) {
-					enemy.removeCompanion(enemy.getElemental());
-					enemy.getElemental().returnToHome();
-					postCombatStringBuilder.append(UtilText.parse(enemy, enemy.getElemental(),
-							"<div class='container-full-width' style='text-align:center;'>"
-									+ "[npc1.NamePos] elemental, [npc2.name], is [style.boldTerrible(dispelled)]!"
-							+ "</div>"));
-				}
 			}
 
 			List<String> itemsLooted = new ArrayList<>();
@@ -457,27 +461,35 @@ public enum Combat {
 			Main.game.getPlayer().incrementMoney(moneyLoss);
 			postCombatStringBuilder.append("<div class='container-full-width' style='text-align:center;'>You [style.boldBad(lost)] " + UtilText.formatAsMoney(Math.abs(Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</div>");
 			
-			// Remove elementals:
-			if(Main.game.getPlayer().isElementalSummoned()) {
-				Main.game.getPlayer().removeCompanion(Main.game.getPlayer().getElemental());
-				Main.game.getPlayer().getElemental().returnToHome();
-				postCombatStringBuilder.append(UtilText.parse(Main.game.getPlayer().getElemental(), "<div class='container-full-width' style='text-align:center;'>Your elemental, [npc.name], is [style.boldTerrible(dispelled)]!</div>"));
-			}
-			for(NPC ally : allies) {
-				if(ally.isElementalSummoned()) {
-					ally.removeCompanion(ally.getElemental());
-					ally.getElemental().returnToHome();
-					postCombatStringBuilder.append(UtilText.parse(ally, ally.getElemental(), "<div class='container-full-width' style='text-align:center;'>[npc1.NamePos] elemental, [npc2.name], is [style.boldTerrible(dispelled)]!</div>"));
-				}
-			}
-			
 			for(NPC enemy : enemies) {
 				enemy.setWonCombatCount(enemy.getWonCombatCount()+1);
 			}
 		}
-
+		
+		// Remove elementals:
+		for(GameCharacter combatant : getAllCombatants(true)) {
+			if(combatant.isElementalSummoned()) {
+				combatant.getElemental().returnToHome();
+				if((playerVictory && Combat.getEnemies(Main.game.getPlayer()).contains(combatant))
+						 || (!playerVictory && !Combat.getEnemies(Main.game.getPlayer()).contains(combatant))) {
+					combatant.setElementalSummoned(false);
+					postCombatStringBuilder.append(UtilText.parse(combatant, combatant.getElemental(),
+							"<p style='text-align:center;'><i>"
+								+ "[npc.NamePos] elemental, <span style='colour:"+combatant.getElemental().getFemininity().getColour().toWebHexString()+";'>[npc2.name]</span>,"
+									+ " is completely drained of energy and is [style.italicsBad(dispelled)]!"
+							+ "</i></p>"));
+				} else { 
+					postCombatStringBuilder.append(UtilText.parse(combatant, combatant.getElemental(),
+							"<p style='text-align:center;'><i>"
+								+ "[npc.NamePos] elemental, <span style='colour:"+combatant.getElemental().getFemininity().getColour().toWebHexString()+";'>[npc2.name]</span>,"
+									+ " is drained of energy and [style.italicsArcane(returns to [npc2.her] passive form)]!"
+							+ "</i></p>"));
+				}
+			}
+		}
+		
 		Main.game.setInCombat(false);
-
+		
 		// Sort out effects after combat:
 		if (Main.game.getPlayer().getHealth() == 0) {
 			Main.game.getPlayer().setHealth(5);
@@ -491,10 +503,6 @@ public enum Combat {
 			enemy.setMana(enemy.getAttributeValue(Attribute.MANA_MAXIMUM));
 			enemy.setHealth(enemy.getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
-//		for(NPC ally : allies) {
-//			ally.setMana(ally.getAttributeValue(Attribute.MANA_MAXIMUM));
-//			ally.setHealth(ally.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-//		}
 
 		Main.game.getTextStartStringBuilder().append(postCombatStringBuilder.toString());
 	}

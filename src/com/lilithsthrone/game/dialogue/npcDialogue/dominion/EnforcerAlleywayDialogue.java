@@ -31,7 +31,6 @@ import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -319,7 +318,7 @@ public class EnforcerAlleywayDialogue {
 				@Override
 				public void effects() {
 					if(((NPC)partner).isWantingToEquipCondom(Main.game.getPlayer())) {
-						partner.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_PURPLE_DARK, false), InventorySlot.PENIS, true, partner);
+						partner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_PURPLE_DARK, false), InventorySlot.PENIS, true, partner);
 					}
 				}
 			};
@@ -362,7 +361,7 @@ public class EnforcerAlleywayDialogue {
 				@Override
 				public void effects() {
 					if(((NPC)partner).isWantingToEquipCondom(Main.game.getPlayer())) {
-						partner.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_PURPLE_DARK, false), InventorySlot.PENIS, true, partner);
+						partner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_PURPLE_DARK, false), InventorySlot.PENIS, true, partner);
 					}
 				}
 			};
@@ -1061,7 +1060,7 @@ public class EnforcerAlleywayDialogue {
 							getCriminalInTile().forceUnequipClothingIntoVoid(getEnforcerLeader(), neckClothing);
 							getCriminalInTile().addClothing(neckClothing, false);
 						}
-						AbstractClothing collar = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"), PresetColour.CLOTHING_STEEL, false);
+						AbstractClothing collar = Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"), PresetColour.CLOTHING_STEEL, false);
 						if(!getCriminalInTile().isAbleToEquip(collar, true, Main.game.getPlayer())) {
 							for(AbstractClothing c : new ArrayList<>(getCriminalInTile().getClothingCurrentlyEquipped())) {
 								c.setSealed(false);

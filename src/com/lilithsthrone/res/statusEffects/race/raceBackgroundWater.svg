@@ -1,0 +1,14 @@
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient4213" x1="138.32" x2="143.08" y1="102.41" y2="207.56" gradientTransform="matrix(.25419 0 0 .25419 -56.536 -13.471)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#80e5ff" offset="0"/>
+   <stop stop-color="#18d0ff" offset="1"/>
+  </linearGradient>
+ </defs>
+ <circle cx="31.978" cy="31.896" r="29.831" color="#000000" fill="#defbff" fill-rule="evenodd" overflow="visible" solid-color="#000000" stroke="#000" stroke-width="2" style="isolation:auto;mix-blend-mode:normal"/>
+ <g transform="matrix(.729 0 0 .729 49.236 21.324)" stroke-width=".28243">
+  <path d="m-49.282 25.856c-0.52871-15.281 18.242-31.393 24.649-46.584 7.7386 16.635 27.14 28.878 27.01 46.422z" fill="#80e5ff" fill-rule="evenodd"/>
+  <ellipse cx="-23.447" cy="25.61" rx="25.788" ry="24.407" fill="url(#linearGradient4213)"/>
+  <path d="m-21.277-11.346c2.665 5.5808 7.0088 10.346 10.893 15.253a95.03 95.03 0 0 1 1.5912 2.0626c3.5795 3.8303 6.7235 7.9651 8.093 13.147-0.73912-5.3879-3.3564-9.9833-6.5685-14.403a99.472 99.472 0 0 0-1.809-1.9431c-4.3339-4.5443-9.0553-8.8626-12.2-14.116z" fill="#d5f6ff" fill-rule="evenodd"/>
+ </g>
+</svg>

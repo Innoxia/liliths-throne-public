@@ -132,7 +132,7 @@ public class Arm implements BodyPartInterface {
 									? "the lowest of your extra pairs" 
 									: "your extra pair"))
 							+ " of [pc.arms], and before you can react, they rapidly shrink away into the [pc.skin] of your torso.<br/>" 
-							+ "You now have [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [pc.arms])], covered in [pc.armFullDescriptionColour]."
+							+ "You now have [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [pc.arms])], [pc.materialDescriptor] [pc.armFullDescriptionColour]."
 						+ "</p>");
 			} else {
 				sb.append(UtilText.parse(owner,
@@ -144,7 +144,7 @@ public class Arm implements BodyPartInterface {
 									? "the lowest of [npc.her] extra pairs" 
 									: "[npc.her] extra pair"))
 							+ " of [npc.arms], and before [npc.she] can react, they rapidly shrink away into the [npc.skin] of [npc.her] torso.<br/>" 
-							+ "[npc.She] now has [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [npc.arms])], covered in [npc.armFullDescriptionColour]."
+							+ "[npc.She] now has [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [npc.arms])], [npc.materialDescriptor] [npc.armFullDescriptionColour]."
 						+ "</p>"));
 			}
 			
@@ -158,7 +158,7 @@ public class Arm implements BodyPartInterface {
 									? "two extra pairs"
 									: "an extra pair")
 							+ " of [pc.arms] rapidly grow out of the [pc.skin] of your lower torso.<br/>"
-							+ "You now have [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [pc.arms])], covered in [pc.armFullDescriptionColour]."
+							+ "You now have [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [pc.arms])], [pc.materialDescriptor] [pc.armFullDescriptionColour]."
 						+ "</p>");
 			} else {
 				sb.append(UtilText.parse(owner,
@@ -168,7 +168,7 @@ public class Arm implements BodyPartInterface {
 									? "two extra pairs"
 									: "an extra pair")
 							+ " of [npc.arms] rapidly grow out of the [npc.skin] of [npc.her] lower torso.<br/>"
-							+ "[npc.She] now has [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [npc.arms])], covered in [npc.armFullDescriptionColour]."
+							+ "[npc.She] now has [style.boldTfLesser(" + Util.intToString(armRows) + " pair"+ (armRows > 1 ? "s" : "") + " of [npc.arms])], [npc.materialDescriptor] [npc.armFullDescriptionColour]."
 						+ "</p>"));
 			}
 		}

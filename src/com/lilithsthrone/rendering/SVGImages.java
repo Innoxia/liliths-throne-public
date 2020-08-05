@@ -52,7 +52,14 @@ public enum SVGImages {
 			playerMapIconFeminine,
 			playerMapDangerousIcon,
 
-			raceBackground, raceBackgroundHalf, raceBackgroundSlime, raceBackgroundDemon, raceUnknown, raceDobermann, raceDobermannDesaturated,
+			raceBackground,
+			raceBackgroundHalf,
+			raceBackgroundSlime,
+			raceBackgroundDemon,
+			raceUnknown,
+			raceDobermann,
+			raceDobermannDesaturated,
+			raceWisp,
 			
 			perkTreeArrow, spellOverlay,
 
@@ -321,6 +328,9 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceDogMorphDobermann.svg");
 			raceDobermannDesaturated = Util.inputStreamToString(is);
 			raceDobermannDesaturated = setColour(raceDobermannDesaturated, PresetColour.BASE_GREY);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceWisp.svg");
+			raceWisp = Util.inputStreamToString(is);
 			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/perkTreeArrow.svg");
@@ -1449,6 +1459,10 @@ public enum SVGImages {
 		return raceDobermannDesaturated;
 	}
 
+	public String getRaceWisp() {
+		return raceWisp;
+	}
+	
 	public String getCounterZero() {
 		return counterZero;
 	}

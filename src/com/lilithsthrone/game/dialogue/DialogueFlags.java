@@ -1,6 +1,9 @@
 package com.lilithsthrone.game.dialogue;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -10,7 +13,11 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Daddy;
+import com.lilithsthrone.game.character.npc.dominion.Kalahari;
+import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaConversationTopic;
+import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -21,7 +28,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
+ * @version 0.3.9
  * @author Innoxia
  */
 public class DialogueFlags implements XMLSaving {
@@ -36,15 +43,16 @@ public class DialogueFlags implements XMLSaving {
 	public int eponaStamps;
 	
 	// Timers:
-	public long ralphDiscountStartTime;
-	public long kalahariBreakStartTime;
-	public long daddyResetTimer;
-	public long candiSexTimer;
-	public long ralphSexTimer;
-	public long impFortressAlphaDefeatedTime;
-	public long impFortressDemonDefeatedTime;
-	public long impFortressFemalesDefeatedTime;
-	public long impFortressMalesDefeatedTime;
+	public Map<String, Long> savedLongs = new HashMap<>();
+//	public long ralphDiscountStartTime;
+//	public long kalahariBreakStartTime;
+//	public long daddyResetTimer;
+//	public long candiSexTimer;
+//	public long ralphSexTimer;
+//	public long impFortressAlphaDefeatedTime;
+//	public long impFortressDemonDefeatedTime;
+//	public long impFortressFemalesDefeatedTime;
+//	public long impFortressMalesDefeatedTime;
 	public int helenaSlaveOrderDay;
 
 	public int impCitadelImpWave;
@@ -89,11 +97,18 @@ public class DialogueFlags implements XMLSaving {
 		managementCompanion = null;
 		slaveryManagerJobSelected = SlaveJob.IDLE;
 		
-		ralphDiscountStartTime = -1;
-		kalahariBreakStartTime = -1;
-		daddyResetTimer = -1;
-		candiSexTimer = -1;
-		ralphSexTimer = -1;
+//		ralphDiscountStartTime = -1;
+//		kalahariBreakStartTime = -1;
+//		daddyResetTimer = -1;
+//		candiSexTimer = -1;
+//		ralphSexTimer = -1;
+//		
+//		impFortressAlphaDefeatedTime
+//			= impFortressDemonDefeatedTime 
+//			= impFortressFemalesDefeatedTime
+//			= impFortressMalesDefeatedTime
+//			= -50000;
+		
 		helenaSlaveOrderDay = -1;
 				
 		ralphDiscount = 0;
@@ -102,11 +117,6 @@ public class DialogueFlags implements XMLSaving {
 		
 		scarlettPrice = 15000;
 		
-		impFortressAlphaDefeatedTime
-			= impFortressDemonDefeatedTime 
-			= impFortressFemalesDefeatedTime
-			= impFortressMalesDefeatedTime
-			= -50000;
 		
 		impCitadelImpWave = 0;
 		
@@ -122,18 +132,20 @@ public class DialogueFlags implements XMLSaving {
 		Element element = doc.createElement("dialogueFlags");
 		parentElement.appendChild(element);
 		
-		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscountStartTime", String.valueOf(ralphDiscountStartTime));
+//		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscountStartTime", String.valueOf(ralphDiscountStartTime));
+//		CharacterUtils.createXMLElementWithValue(doc, element, "kalahariBreakStartTime", String.valueOf(kalahariBreakStartTime));
+//		CharacterUtils.createXMLElementWithValue(doc, element, "daddyResetTimer", String.valueOf(daddyResetTimer));
+//		
+//		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressAlphaDefeatedTime", String.valueOf(impFortressAlphaDefeatedTime));
+//		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressDemonDefeatedTime", String.valueOf(impFortressDemonDefeatedTime));
+//		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressFemalesDefeatedTime", String.valueOf(impFortressFemalesDefeatedTime));
+//		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressMalesDefeatedTime", String.valueOf(impFortressMalesDefeatedTime));
+		
 		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscount", String.valueOf(ralphDiscount));
 		CharacterUtils.createXMLElementWithValue(doc, element, "scarlettPrice", String.valueOf(scarlettPrice));
 		CharacterUtils.createXMLElementWithValue(doc, element, "eponaStamps", String.valueOf(eponaStamps));
-		CharacterUtils.createXMLElementWithValue(doc, element, "kalahariBreakStartTime", String.valueOf(kalahariBreakStartTime));
-		CharacterUtils.createXMLElementWithValue(doc, element, "daddyResetTimer", String.valueOf(daddyResetTimer));
 		CharacterUtils.createXMLElementWithValue(doc, element, "helenaSlaveOrderDay", String.valueOf(helenaSlaveOrderDay));
 
-		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressAlphaDefeatedTime", String.valueOf(impFortressAlphaDefeatedTime));
-		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressDemonDefeatedTime", String.valueOf(impFortressDemonDefeatedTime));
-		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressFemalesDefeatedTime", String.valueOf(impFortressFemalesDefeatedTime));
-		CharacterUtils.createXMLElementWithValue(doc, element, "impFortressMalesDefeatedTime", String.valueOf(impFortressMalesDefeatedTime));
 
 		CharacterUtils.createXMLElementWithValue(doc, element, "impCitadelImpWave", String.valueOf(impCitadelImpWave));
 
@@ -148,7 +160,14 @@ public class DialogueFlags implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, element, "natalyaPoints", String.valueOf(natalyaPoints));
 		CharacterUtils.createXMLElementWithValue(doc, element, "sadistNatalyaSlave", sadistNatalyaSlave);
 		
-		
+		Element savedLongsElement = doc.createElement("savedLongs");
+		element.appendChild(savedLongsElement);
+		for(Entry<String, Long> savedLong : savedLongs.entrySet()) {
+			Element save = doc.createElement("save");
+			savedLongsElement.appendChild(save);
+			save.setAttribute("id", savedLong.getKey());
+			save.setTextContent(String.valueOf(savedLong.getValue()));
+		}
 		
 		Element valuesElement = doc.createElement("dialogueValues");
 		element.appendChild(valuesElement);
@@ -181,7 +200,7 @@ public class DialogueFlags implements XMLSaving {
 	public static DialogueFlags loadFromXML(Element parentElement, Document doc) {
 		DialogueFlags newFlags = new DialogueFlags();
 		
-		newFlags.ralphDiscountStartTime = Long.valueOf(((Element)parentElement.getElementsByTagName("ralphDiscountStartTime").item(0)).getAttribute("value"));
+		
 		newFlags.ralphDiscount = Integer.valueOf(((Element)parentElement.getElementsByTagName("ralphDiscount").item(0)).getAttribute("value"));
 		newFlags.scarlettPrice = Integer.valueOf(((Element)parentElement.getElementsByTagName("scarlettPrice").item(0)).getAttribute("value"));
 		
@@ -194,30 +213,12 @@ public class DialogueFlags implements XMLSaving {
 		} catch(Exception ex) {
 		}
 		
-		try {
-			newFlags.kalahariBreakStartTime = Long.valueOf(((Element)parentElement.getElementsByTagName("kalahariBreakStartTime").item(0)).getAttribute("value"));
-		} catch(Exception ex) {
-		}
-		
-		try {
-			newFlags.daddyResetTimer = Long.valueOf(((Element)parentElement.getElementsByTagName("daddyResetTimer").item(0)).getAttribute("value"));
-		} catch(Exception ex) {
-		}
 		
 		try {
 			newFlags.helenaSlaveOrderDay = Integer.valueOf(((Element)parentElement.getElementsByTagName("helenaSlaveOrderDay").item(0)).getAttribute("value"));
 		} catch(Exception ex) {
 		}
 		
-		try {
-			if(!Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) {
-				newFlags.impFortressAlphaDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressAlphaDefeatedTime").item(0)).getAttribute("value"));
-				newFlags.impFortressDemonDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressDemonDefeatedTime").item(0)).getAttribute("value"));
-				newFlags.impFortressFemalesDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressFemalesDefeatedTime").item(0)).getAttribute("value"));
-				newFlags.impFortressMalesDefeatedTime = Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressMalesDefeatedTime").item(0)).getAttribute("value"));
-			}
-		} catch(Exception ex) {
-		}
 		
 		try {
 			newFlags.impCitadelImpWave = Integer.valueOf(((Element)parentElement.getElementsByTagName("impCitadelImpWave").item(0)).getAttribute("value"));
@@ -239,7 +240,38 @@ public class DialogueFlags implements XMLSaving {
 			newFlags.sadistNatalyaSlave = ((Element)parentElement.getElementsByTagName("sadistNatalyaSlave").item(0)).getAttribute("value");
 		} catch(Exception ex) {
 		}
+
+		// Load saved longs:
+		if(parentElement.getElementsByTagName("savedLongs").item(0)!=null) {
+			for(int i=0; i<((Element) parentElement.getElementsByTagName("savedLongs").item(0)).getElementsByTagName("save").getLength(); i++){
+				Element e = (Element) ((Element) parentElement.getElementsByTagName("savedLongs").item(0)).getElementsByTagName("save").item(i);
+				
+				String id = e.getAttribute("id");
+				newFlags.setSavedLong(id, Long.valueOf(e.getTextContent()));
+			}
+			
+		} else { // Support for old timers (pre-version 0.3.9):
+			newFlags.setSavedLong(Ralph.RALPH_DISCOUNT_TIMER_ID, Long.valueOf(((Element)parentElement.getElementsByTagName("ralphDiscountStartTime").item(0)).getAttribute("value")));
+			
+			try {
+				newFlags.setSavedLong(Kalahari.KALAHARI_BREAK_TIMER_ID, Long.valueOf(((Element)parentElement.getElementsByTagName("kalahariBreakStartTime").item(0)).getAttribute("value")));
+			} catch(Exception ex) {
+			}
+			try {
+				newFlags.setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Long.valueOf(((Element)parentElement.getElementsByTagName("daddyResetTimer").item(0)).getAttribute("value")));
+			} catch(Exception ex) {
+			}
+			try {
+				if(!Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) {
+					newFlags.setSavedLong(ImpFortressDialogue.FORTRESS_ALPHA_CLEAR_TIMER_ID, Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressAlphaDefeatedTime").item(0)).getAttribute("value")));
+					newFlags.setSavedLong(ImpFortressDialogue.FORTRESS_FEMALES_CLEAR_TIMER_ID, Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressFemalesDefeatedTime").item(0)).getAttribute("value")));
+					newFlags.setSavedLong(ImpFortressDialogue.FORTRESS_MALES_CLEAR_TIMER_ID, Long.valueOf(((Element)parentElement.getElementsByTagName("impFortressMalesDefeatedTime").item(0)).getAttribute("value")));
+				}
+			} catch(Exception ex) {
+			}
+		}
 		
+		// Load flags:
 		for(int i=0; i<((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").getLength(); i++){
 			Element e = (Element) ((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").item(i);
 			
@@ -324,6 +356,26 @@ public class DialogueFlags implements XMLSaving {
 		} else {
 			values.remove(flag);
 		}
+	}
+	
+	public void setSavedLong(String id, long value) {
+		savedLongs.put(id, value);
+	}
+
+	public boolean hasSavedLong(String id) {
+		return savedLongs.containsKey(id);
+	}
+
+	public void removeSavedLong(String id) {
+		savedLongs.remove(id);
+	}
+	
+	/**
+	 * @return The long saved to this id. Sets and returns -1 if there was no entry found.
+	 */
+	public long getSavedLong(String id) {
+		savedLongs.putIfAbsent(id, -1l);
+		return savedLongs.get(id);
 	}
 	
 	public NPC getSlaveTrader() {

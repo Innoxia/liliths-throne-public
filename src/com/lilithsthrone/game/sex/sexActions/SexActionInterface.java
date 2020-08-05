@@ -43,7 +43,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.4.5
+ * @version 0.3.9
  * @author Innoxia
  */
 public interface SexActionInterface {
@@ -63,6 +63,13 @@ public interface SexActionInterface {
 	}
 
 	public default boolean isSadisticAction() {
+		return false;
+	}
+	
+	/**
+	 * @return true if you want this sex action to always be shown in the available list of actions, even if it is unavailable (in which case it will be greyed-out).
+	 */
+	public default boolean isDisplayedAsUnavailable() {
 		return false;
 	}
 	
@@ -1040,6 +1047,9 @@ public interface SexActionInterface {
 			}
 			
 		} else {
+			if(this.isDisplayedAsUnavailable()) {
+				return convertToNullResponse();
+			}
 			return null;
 		}
 	}
@@ -1467,6 +1477,20 @@ public interface SexActionInterface {
 			public SexActionType getSexActionType() {
 				return getActionType();
 			}
+
+//			@Override
+//			public boolean hasRequirements() {
+//				return true;
+//			}
+			@Override
+			public boolean isAvailable(){
+				return false;
+			}
+//			@Override
+//			public boolean isAbleToBypass(){
+//				return false;
+//			}
+			
 			@Override
 			public boolean isSexActionSwitch() {
 				if(getActionType()==SexActionType.START_ONGOING) {

@@ -58,15 +58,12 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -107,7 +104,7 @@ public class Shadow extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")
 				&& !this.hasItemType(ItemType.RESONANCE_STONE)) {
-			this.addItem(AbstractItemType.generateItem(ItemType.RESONANCE_STONE), false);
+			this.addItem(Main.game.getItemGen().generateItem(ItemType.RESONANCE_STONE), false);
 		}
 	}
 
@@ -242,8 +239,8 @@ public class Shadow extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		if(settings!=null && settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL)));
-			this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL)));
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL)));
+			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_kerambit_kerambit", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL)));
 		}
 		
 		if(settings!=null && settings.contains(EquipClothingSetting.ADD_TATTOOS)) {
@@ -254,12 +251,12 @@ public class Shadow extends NPC {
 		this.setPiercedNose(true);
 		this.setPiercedVagina(true);
 		this.setPiercedNavel(true);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_ringed_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_VAGINA, true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_SILVER, false), InventorySlot.PIERCING_STOMACH, true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ringed_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_VAGINA, true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_SILVER, false), InventorySlot.PIERCING_STOMACH, true, this);
 		
-		AbstractClothing ring = AbstractClothingType.generateClothing("innoxia_finger_gemstone_ring", PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GREEN_DARK, null, false);
+		AbstractClothing ring = Main.game.getItemGen().generateClothing("innoxia_finger_gemstone_ring", PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GREEN_DARK, null, false);
 		
 		ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_MELEE_WEAPON, TFPotency.MAJOR_BOOST, 0));
 		ring.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_MELEE_WEAPON, TFPotency.MAJOR_BOOST, 0));
@@ -278,16 +275,16 @@ public class Shadow extends NPC {
 		
 		this.equipClothingFromNowhere(ring, true, this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_leg_micro_skirt_belted", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_TUBE_TOP, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.STOMACH_SARASHI, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_micro_skirt_belted", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_TUBE_TOP, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_SARASHI, PresetColour.CLOTHING_BLACK, false), true, this);
 
-		this.addItem(AbstractItemType.generateItem(ItemType.RESONANCE_STONE), false);
+		this.addItem(Main.game.getItemGen().generateItem(ItemType.RESONANCE_STONE), false);
 		
-//		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_hand_fishnet_gloves", PresetColour.CLOTHING_GREEN_VERY_DARK, false), true, this);
-//		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_sock_fishnets", PresetColour.CLOTHING_GREEN_VERY_DARK, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGeneration().generateClothing("innoxia_hand_fishnet_gloves", PresetColour.CLOTHING_GREEN_VERY_DARK, false), true, this);
+//		this.equipClothingFromNowhere(Main.game.getItemGeneration().generateClothing("innoxia_sock_fishnets", PresetColour.CLOTHING_GREEN_VERY_DARK, false), true, this);
 		
 	}
 
@@ -332,7 +329,7 @@ public class Shadow extends NPC {
 
 	@Override
 	public void hourlyUpdate() {
-		this.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
+		this.useItem(Main.game.getItemGen().generateItem(ItemType.PROMISCUITY_PILL), this, false);
 	}
 	
 	@Override

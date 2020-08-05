@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.FluidCum;
-import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
@@ -70,7 +68,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		this.name = name;
 		this.namePlural = namePlural;
 		this.description = description;
-		this.pathName = pathName;
+		this.pathName = pathName==null?"":pathName;
 
 		this.value = value;
 		this.rarity = rarity;
@@ -105,19 +103,23 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		}
 		
 		// Set this item's file image:
-		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
-			if(is==null) {
-				System.err.println("Error! AbstractItemType icon file does not exist (Trying to read from '"+pathName+"')!");
+		if(pathName!=null) {
+			try {
+				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
+				if(is==null) {
+					System.err.println("Error! AbstractItemType icon file does not exist (Trying to read from '"+pathName+"')!");
+				}
+				String s = Util.inputStreamToString(is);
+	
+				SVGString = colourReplacement(this.getColourPrimary(), this.getColourSecondary(), this.getColourTertiary(), s);
+				
+				is.close();
+	
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
-			String s = Util.inputStreamToString(is);
-
-			SVGString = colourReplacement(this.getColourPrimary(), this.getColourSecondary(), this.getColourTertiary(), s);
-			
-			is.close();
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} else {
+			SVGString = "";
 		}
 	}
 	
@@ -152,18 +154,6 @@ public abstract class AbstractItemType extends AbstractCoreType {
 			result = 31 * result + getRelatedEssence().hashCode();
 		result = 31 * result + getEffects().hashCode();
 		return result;
-	}
-
-	public static AbstractItem generateItem(AbstractItemType itemType) {
-		return new AbstractItem(itemType) {};
-	}
-	
-	public static AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum, int millilitres) {
-		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, millilitres) {};
-	}
-
-	public static AbstractItem generateFilledBreastPump(Colour colour, GameCharacter character, FluidMilk milk, int quantity) {
-		return new AbstractFilledBreastPump(ItemType.MOO_MILKER_FULL, colour, character, milk, quantity) {};
 	}
 	
 	public String getId() {

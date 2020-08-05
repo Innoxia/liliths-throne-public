@@ -23,19 +23,21 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.8.8
- * @version 0.3.8.8
+ * @version 0.3.9
  * @author Innoxia
  */
 public class SMBath extends SexManagerDefault {
 	
 	/**
-	 * @param startingPosition Need to be either SexPosition.LYING_DOWN or SexPosition.ALL_FOURS.
+	 * @param startingPosition Need to be either SexPosition.LYING_DOWN, SexPosition.SITTING, or SexPosition.ALL_FOURS.
 	 */
 	public SMBath(AbstractSexPosition startingPosition, Map<GameCharacter, SexSlot> dominants, Map<GameCharacter, SexSlot> submissives) {
 		super(startingPosition,
 				dominants,
 				submissives);
-		if(startingPosition!=SexPosition.LYING_DOWN && startingPosition!=SexPosition.ALL_FOURS) {
+		if(startingPosition!=SexPosition.LYING_DOWN
+				&& startingPosition!=SexPosition.SITTING
+				&& startingPosition!=SexPosition.ALL_FOURS) {
 			throw new IllegalArgumentException();
 		}
 	}
@@ -55,13 +57,18 @@ public class SMBath extends SexManagerDefault {
 				&& !slot.hasTag(SexSlotTag.LAP_PILLOW)
 				&& !slot.hasTag(SexSlotTag.MATING_PRESS)
 				&& !slot.hasTag(SexSlotTag.SIXTY_NINE)
-				&& !slot.hasTag(SexSlotTag.MISSIONARY_ORAL);
+				&& !slot.hasTag(SexSlotTag.MISSIONARY_ORAL)
+//				&& !slot.hasTag(SexSlotTag.SITTING_BETWEEN_LEGS)
+				&& !slot.hasTag(SexSlotTag.SITTING_PERFORMING_ORAL)
+//				&& !slot.hasTag(SexSlotTag.SITTING_TAUR_PRESENTING_ORAL)
+				;
 	}
 	
 	@Override
 	public List<AbstractSexPosition> getAllowedSexPositions() {
 		List<AbstractSexPosition> positions = Util.newArrayListOfValues(
 				SexPosition.LYING_DOWN,
+				SexPosition.SITTING,
 				SexPosition.ALL_FOURS);
 		
 		return positions;

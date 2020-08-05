@@ -241,10 +241,10 @@ public class SupplierDepot {
 							
 							Main.game.getTextEndStringBuilder().append(
 									UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "STORAGE_ROOM_SEARCHING")
-									+ Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
-									+ Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
-									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):"")
-									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):""));
+									+ Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
+									+ Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false)
+									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):"")
+									+ (Math.random()>0.5?Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(Util.randomItemFrom(clothingToGenerate), false), false):""));
 						}
 					};
 				}

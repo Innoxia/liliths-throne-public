@@ -207,28 +207,7 @@ public abstract class AbstractPerk {
 		
 		if (this.getAttributeModifiers(character) != null) {
 			for (Entry<Attribute, Integer> e : this.getAttributeModifiers(character).entrySet()) {
-				float value = e.getValue();
-
-				String valueForDisplay;
-				if(((int)value)==value) {
-					valueForDisplay = String.valueOf(((int)value));
-				} else {
-					valueForDisplay = String.valueOf(value);
-				}
-				if(e.getKey().isInfiniteAtUpperLimit() && value>=e.getKey().getUpperLimit()) {
-					if(!e.getKey().getInfiniteDescription().isEmpty()) {
-						modifiersList.add(e.getKey().getInfiniteDescription());
-					} else {
-						modifiersList.add("[style.colourExcellent(Infinite)] <span style='color: "+ e.getKey().getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(e.getKey().getAbbreviatedName())+ "</span>");
-					}
-					
-				} else {
-					if(e.getKey().isPercentage()){
-						valueForDisplay = valueForDisplay+"%";
-					}
-					modifiersList.add((e.getValue() > 0 ? "+" : "") + valueForDisplay
-							+ " <span style='color: "+ e.getKey().getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(e.getKey().getAbbreviatedName())+ "</span>");
-				}
+				modifiersList.add(e.getKey().getFormattedValue(e.getValue()));
 			}
 		}
 		

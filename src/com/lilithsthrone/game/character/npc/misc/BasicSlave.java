@@ -19,7 +19,6 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -118,7 +117,7 @@ public class BasicSlave extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_STEEL, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_STEEL, false), true, this);
 	}
 	
 	@Override
