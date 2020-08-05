@@ -1174,7 +1174,56 @@ public enum Quest {
 					+ " Claire gave you a resonance stone to activate if you want them to back you up once inside.";
 		}
 	},
-	
+        
+	//Rebel Base
+        
+        REBEL_BASE_EXPLORATION(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Going Spelunking";
+		}
+		@Override
+		public String getDescription() {
+			return "You've discovered a hidden cave within the Bat Caverns, no telling what it's for or where it goes. Perhaps you can find some answers inside.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You found out that the hidden cave was a hideout for a long gone rebel group. Looks like they didn't win.";
+		}
+                
+	},
+        
+        REBEL_BASE_ESCAPE(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Getting Away With It";
+		}
+		@Override
+		public String getDescription() {
+			return "Time to make your escape, preferably before this cave collapses in on itself.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to get out in one piece.";
+		}
+                
+	},
+        
+        REBEL_BASE_FAILED(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Cold Feet";
+		}
+		@Override
+		public String getDescription() {
+			return "This place is just too creepy, time to get out.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to get out in one piece, but whatever secrets that cave held are now buried forever.";
+		}
+                
+	},
 	
 	// Romance quests:
 

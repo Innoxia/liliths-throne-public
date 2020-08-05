@@ -26,7 +26,7 @@ public class QuestTree {
 	public static TreeNode<Quest> nyanTree = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_STOCK_ISSUES);
 	public static TreeNode<Quest> helenaTree = new TreeNode<Quest>(Quest.ROMANCE_HELENA_1_OFFER_HELP);
 	public static TreeNode<Quest> natalyaTree = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_1_INTERVIEW_START);
-	
+	public static TreeNode<Quest> rebelBaseTree = new TreeNode<Quest>(Quest.REBEL_BASE_EXPLORATION);
 	
 	
 	static {
@@ -189,6 +189,15 @@ public class QuestTree {
 		nodeBranchC.addChild(node2);
 		node2.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 		
+                //Rebel base
+                node1 = new TreeNode<Quest>(Quest.REBEL_BASE_EXPLORATION);
+                rebelBaseTree.addChild(node1);
+                node2 = new TreeNode<Quest>(Quest.REBEL_BASE_ESCAPE);
+                node1.addChild(node2);
+                node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+                node2.addChild(node1);
+                node2 = new TreeNode<Quest>(Quest.REBEL_BASE_FAILED);
+                node1.addChild(node2);
 		
 		// Romance quests:
 

@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -893,7 +894,8 @@ public enum Encounter {
 	BAT_CAVERN(Util.newHashMapOfValues(
 			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_BAT_ATTACK, 8f),
 			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_SLIME_ATTACK, 6f),
-			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_FIND_ITEM, 6f))) {
+			new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_FIND_ITEM, 6f), 
+                        new Value<EncounterType, Float>(EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED, 8f))){
 
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
@@ -945,6 +947,11 @@ public enum Encounter {
 
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
 				return BatCavernsEncounterDialogue.FIND_ITEM;
+                        } else if (node == EncounterType.BAT_CAVERN_REBEL_BASE_DISCOVERED && 
+                                    !(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_REBEL_BASE) || Main.game.getPlayer().isQuestFailed(QuestLine.SIDE_REBEL_BASE)) && 
+                                    !(!Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT) && Math.random()<0.5f)) {
+
+                                return BatCavernsEncounterDialogue.REBEL_BASE_DISCOVERED;
 				
 			} else {
 				return null;

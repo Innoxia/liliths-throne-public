@@ -72,6 +72,8 @@ public class Main extends Application {
 	public static final String GAME_NAME = "Lilith's Throne";
 	public static final String VERSION_NUMBER = "0.3.9";
 	public static final String VERSION_DESCRIPTION = "Alpha";
+        
+        public static final String MOD_VERSION = "DSG HLF MOD 1.0";
 	
 	/**
 	 * To turn it on, just add -Ddebug=true to java's VM options. (You should be able to do this in Eclipse through Run::Run Configurations...::Arguments tab::VM Arguments).
@@ -1051,7 +1053,8 @@ public class Main extends Application {
 				@SuppressWarnings("resource")
 				PrintStream stream = new PrintStream("data/error.log");
 				System.setErr(stream);
-				System.err.println("Version: "+VERSION_NUMBER);
+				System.err.println("Game Version: "+VERSION_NUMBER);
+                                System.err.println("Mod Version: "+MOD_VERSION);
 				System.err.println("Java: "+System.getProperty("java.version"));
 //				System.err.println("OS: "+System.getProperty("os.name"));
 				

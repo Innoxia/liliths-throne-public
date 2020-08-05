@@ -207,5 +207,22 @@
 	</p>
 	]]>
 	</htmlContent>
+        
+        <htmlContent tag="REBEL_BASE_DISCOVERED"><![CDATA[
+	<p>
+		As you walk through the dark caverns, your footsteps causing the bioluminescent lichen underfoot to illuminate your way, you notice a strange shadow the cave wall, seemingly floating in midair. As you approach, you can see that this shadow is actually a well hidden door handle jutting out from the rock.
+	</p>
+	<p>
+		Between the dim light and the thick layer of dust on it, you can't tell how old it is or how long it's been there. Briefly glancing around, you can see no obvious seams or hinges that might suggest the presence of a door. This might be a trap.
+	</p>
+	]]>
+	</htmlContent>
+        
+        <htmlContent tag="REBEL_BASE_DOOR_OPENED"><![CDATA[
+	<p>
+		Taking your chances, you grab the handle and pull it with all your might. To your surprise, seams in the cave wall suddenly appear and a huge rectangular section swings open, revealing the entrance to another cave! Cautiously, you venture in.
+	</p>
+	]]>
+	</htmlContent>
 	
 </dialogue>
