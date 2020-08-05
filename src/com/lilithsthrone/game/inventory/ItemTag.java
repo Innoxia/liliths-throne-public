@@ -7,7 +7,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.1
- * @version 0.3.7.7
+ * @version 0.3.9
  * @author Innoxia
  */
 public enum ItemTag {
@@ -23,7 +23,7 @@ public enum ItemTag {
 	SOLD_BY_KATE(false), // Jewellery
 	SOLD_BY_FINCH(false), // BDSM and sex-related stuff
 	SOLD_BY_VICKY(false), // Weapons
-
+	
 	SPELL_BOOK(false),
 	SPELL_SCROLL(false),
 	ESSENCE(false),
@@ -35,6 +35,7 @@ public enum ItemTag {
 	DOMINION_ALLEYWAY_SPAWN(false),
 	SUBMISSION_TUNNEL_SPAWN(false),
 	BAT_CAVERNS_SPAWN(false),
+	ALCOHOLIC(false), // For easy detection of alcoholic items in some scenes
 	
 	//-------------- WEAPONS & CLOTHING --------------//
 

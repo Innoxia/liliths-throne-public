@@ -27,6 +27,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
+import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.sex.Sex;
@@ -53,7 +54,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.3.8
+ * @version 0.3.9
  * @author Innoxia
  */
 public class Main extends Application {
@@ -69,7 +70,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.3.8.9";
+	public static final String VERSION_NUMBER = "0.3.9";
 	public static final String VERSION_DESCRIPTION = "Alpha";
 	
 	/**
@@ -90,15 +91,7 @@ public class Main extends Application {
 		+ "</p>"
 		
 		+ "<p>"
-			+ "Here's another public update for you all!"
-			+ " While it should be mostly stable, I ran out of time in which to do thorough testing for this version, which,"
-				+ " combined with the fact that the Rat Warrens are still in a state of 'under construction', means that I've decided to label this version as v0.3.8.9 instead of v0.3.9."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "There will be a further public update this time next week (Wednesday, 21st) which will get all of the loose ends and bugs sorted out."
-			+ " Sorry about this version not including the finished Rat Warrens content, but I decided to do a big rework of parts of it, and so it's taking a little longer than expected to get completed."
-			+ " It will definitely be finished by v0.3.9 (along with the 'spa' room upgrade content and the Elemental rework)!"
+			+ "Sorry about how long it took to get this version finished. There will likely be bugs in it, and Axel's quest still isn't finished, so there will likely be a hotfix out soon."
 		+ "</p>"
 		
 		+ "<br/>"
@@ -109,7 +102,87 @@ public class Main extends Application {
 		+ "</p>"
 
 		+ "<br/>"
+		+ "<list>"
+		+ "<h6>v0.3.9</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Added five new fluid flavourings: coffee; tea; cinnamon; lemon; maple. (by 'Charisma is my Dump Stat')</ul>"
+			+"<ul>Added five new fluid flavourings: grape; melon; coconut; blueberry; orange. (by 'DSG')</ul>"
+			+"<ul>Improved the icon for 'lacy panties'. (by DSG)</ul>"
+			+"<ul>Fixed some typos in the taser attack description. (by DSG)</ul>"
+	
+			+"<li>Engine:</li>"
+			+"<ul>Added parser hook ('itemGen') for access to ItemGeneration class, enabling clothing, weapons, and items to be generated as effects via the parser.</ul>"
+			+"<ul>Converted PlaceUgrades from enum to abstract classes.</ul>"
+	
+			+"<li>Gameplay:</li>"
+			+"<ul>Added 'spa' as a new room upgrade in Lilaya's mansion.</ul>"
+	
+			+"<li>Elementals:</li>"
+			+"<ul>Elementals are no longer summoned as companions. Instead, when summoned, they have their name and status effects appended to the bottom of their sumoner's character info.</ul>"
+			+"<ul>Elementals now have an active and passive form. They assume their passive form when out of combat/sex.</ul>"
+			+"<ul>You can initiate dialogue with your elemental via an action in your phone screen, or by clicking on their name at the bottom of their sumoner's character info.</ul>"
+			+"<ul>Fully added several interaction options with your elemental in their interaction screen.</ul>"
+	
+			+"<li>Balance:</li>"
+			+"<ul>The 'martial artist' perk now doubles base unarmed damage instead of tripling it. It additionally grants +25% critical power.</ul>"
+			+"<ul>'Potion effects' are now limited to a maximum value of 25 per attribute. The 'Chef' background doubles this limit to 50.</ul>"
+	
+			+"<li>Items:</li>"
+			+"<ul>Added 'Breast pumps', 'Cock pump', and 'Pussy pump' clothing items. These are not available to buy anywhere, and are instead automatically equipped onto slaves who are being milked.</ul>"
+			+"<ul>Changed essence icons to be automatically generated from subspecies data.</ul>"
+			+"<ul>'Angels Tears' have been replaced by 'Bread Roll' as the human transformative food item.</ul>"
+			+"<ul>'Angels Tears' is now a non-racial consumable which lowers lust when drunk.</ul>"
+	
+			+"<li>Sex:</li>"
+			+"<ul>Characters can now grope the breasts of someone locked in the milking stocks while fucking them from behind.</ul>"
+			+"<ul>All characters now produce girlcum as an ingestable fluid when orgasming, but characters who are squirters produce 5 times as much.</ul>"
+			+"<ul>When having sex with milker slaves in a milking room, for as long as you leave the milking pumps attached to the milker's breasts/cock/pussy, their produced fluids during sex will be added to the room's storage.</ul>"
+			+"<ul>Added an 'attach pumps' sex action in milking stall sex for attaching all possible pumps to a milker.</ul>"
+			+"<ul>Added 'humping' sex slot for the stocks and milking stall sex positions.</ul>"
+			+"<ul>Improved orifice stretching effects when using the 'quick sex' action.</ul>"
+	
+			+"<li>Other:</li>"
+			+"<ul>Slaves will now only be milked of their milk, cum, and girlcum if they are able to automatically equip their milking pumps. This requires access to nipple, penis, and vagina inventory slots (and the stomach slot for udders, if applicable).</ul>"
+			+"<ul>Added a setting for the 'milking' slave job, which is off by default, to allow hymen tearing (which can be caused by the dildo-like 'pussy pump').</ul>"
+			+"<ul>Slightly increased the impact that girth values have on a penetrative body part's diameter. (Values were increased from +/-15%, +/-30%, +/-60% to +/-20%, +/-40%, +/-80%).</ul>"
+			+"<ul>Slightly adjusted values for orifice capacity categories to make the 'gaping' values more in line with the others.</ul>"
+			+"<ul>Added maximum health and maximum aura to the attribute overview tooltip (when hovering over a character's name).</ul>"
+			+"<ul>Added the option to refuse to act as a test subject in Arthur's hypno-watch side-quest.</ul>"
+			+"<ul>Added action to hug Lilaya in her lab.</ul>"
+			+"<ul>Removed Lilaya's garden icons and made tiles green instead. Changed icon for Candi's reception desk.</ul>"
+			+"<ul>Increased hourly fatigue for the slave job 'lab assistant' from 1 to 1.5.</ul>"
+			+"<ul>You now gain a beneficial 'recently showered' status effect whenever taking a shower, which is a slightly weaker version of teh 'recently bathed' status effect.</ul>"
+			+"<ul>Changed the 'milking' slave job permissions from 'forbid X-fluid' to 'Collect X-fluid'. Permissions hould have been converted automatically to this new format, but it may be worth checking your milk slaves' job permissions to be sure.</ul>"
+			+"<ul>Snow-leopard-morphs now spawn with 'very-fluffy' tails instead of 'narrow'.</ul>"
+	
+			+"<li>Bugs:</li>"
+			+"<ul>Parsing fixes.</ul>"
+			+"<ul>Fixed a high femininity sometimes being described as 'very masculine'.</ul>"
+			+"<ul>Fixed issue where slaves were producing a lot less girlcum per hour while being milked than intended.</ul>"
+			+"<ul>Fixed issue with unarmed damage tooltip overflowing out of the tooltip box.</ul>"
+			+"<ul>Fixed incorrect formatting of percentage attribute values in clothing, weapon, tattoo, and item tooltips, as well as in the enchantment screen.</ul>"
+			+"<ul>Fixed bug where penises and vaginas were always appending their race name in front of their randomly-parsed names (e.g. 'cow-pussy') instead of it only being added 25% of the time as intended.</ul>"
+			+"<ul>When giving Jules a blowjob to gain entry to the night club, any clothing which is covering your mouth is now correctly displaced at the start of the sex scene.</ul>"
+			+"<ul>Fixed some incorrect US-English conversions (when using the silly-mode 'American tourist' background).</ul>"
+			+"<ul>Fixed issue where health/aura would sometimes incorrectly drop when a status effect expired.</ul>"
+			+"<ul>Fixed issue where you could discard clothing in sex scenes which shouldn't have allowed it (such as when locked into stocks).</ul>"
+			+"<ul>Fixed issue with player thought parsing not working correctly.</ul>"
+			+"<ul>Fixed incorrect value being displayed as the maximum comfortable penetration diameter of orifices in the selfie screen.</ul>"
+			+"<ul>Fixed selfie describing your age as starting as 18, even though the 'starting at 18' mechanic doesn't apply to the player.</ul>"
+			+"<ul>Fixed issue where equip text that included conditional statements was being parsed during game initialisation or loading, which was throwing background errors.</ul>"
+			+"<ul>Fixed issue where characters could still get pregnant/impregnate others even if they had the 'barren' or 'firing blanks' perks, or the 'menopause' status effect.</ul>"
+			+"<ul>Fixed issue where half-demon centaurs would spawn in without having any demonic parts, which was causing several issues stemming from their resulting incorrect race recognition.</ul>"
+			+"<ul>Fixed issue with slimes and elementals being describes as being 'covered in' slime, stone, flames, etc. instead of being 'made out of' the material.</ul>"
+			+"<ul>Fixed issue where you could only save your save when your location's default dialogue was being displayed. (You can now save whenever your character is free to move.)</ul>"
+			+"<ul>Fixed bug where the spawn rate of taurs in Submission was being influenced by the half-demon spawn rate setting instead of the taur spawn rate setting.</ul>"
+			+"<ul>The 'furry preference' for tauric subspecies is no longer overridden by your global taur furriness settings.</ul>"
+			+"<ul>Elementals now spawn with no speech-modifying personality traits.</ul>"
+			+"<ul>Fixed issue with unique NPC slaves removing sex toys after they've been equipped during sex.</ul>"
+			+"<ul>NPCs now correctly replace their dirtied clothing after sex instead of leaving it lying on the floor.</ul>"
+		+"</list>"
 
+		+ "<br/>"
+		
 		+ "<list>"
 		+ "<h6>v0.3.8.9</h6>"
 			+"<li>Contributors:</li>"
@@ -559,6 +632,8 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Kaas", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("Dark Miros", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("DethEagle666", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Mystic Exarch", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Lucifer", "", 0, 0, 0, 0, Subspecies.DEMON));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
@@ -1097,7 +1172,7 @@ public class Main extends Application {
 				&& !Main.game.isInCombat()
 				&& !Main.game.isInSex()
 				&& Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.NORMAL
-				&& Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogue(false));
+				&& Main.game.isInNeutralDialogue();
 	}
 	
 	public static String getQuickSaveUnavailabilityDescription() {
@@ -1113,7 +1188,7 @@ public class Main extends Application {
 		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.NORMAL) {
 			return "You cannot save the game unless you are in a neutral scene!";
 			
-		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogue(false))) {
+		} else if (!Main.game.isStarted() || !Main.game.isInNeutralDialogue()) {
 			return "You cannot save the game unless you are in a neutral scene!";
 		}
 		
@@ -1137,7 +1212,7 @@ public class Main extends Application {
 		} else if (Main.game.getCurrentDialogueNode().getDialogueNodeType()!=DialogueNodeType.NORMAL) {
 			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Can only quicksave in a normal scene!");
 			
-		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(Main.game.getDefaultDialogue(false))) {
+		} else if (!Main.game.isStarted() || !Main.game.isInNeutralDialogue()) {
 			Main.game.flashMessage(PresetColour.GENERIC_BAD, "Cannot save in this scene!");
 			
 		} else {
@@ -1151,7 +1226,9 @@ public class Main extends Application {
 	}
 
 	public static boolean isSaveGameAvailable() {
-		return Main.game.isStarted() && Main.game.getSavedDialogueNode() == Main.game.getDefaultDialogue(false);
+		return Main.game.isStarted()
+				&& ((!Main.game.getSavedDialogueNode().isTravelDisabled() && MapTravelType.WALK_SAFE.isAvailable(Main.game.getPlayerCell(), Main.game.getPlayer()))
+						|| Main.game.getSavedDialogueNode().equals(Main.game.getDefaultDialogue(false)));
 	}
 	
 	public static void saveGame(String name, boolean allowOverwrite) {

@@ -29,11 +29,9 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -186,7 +184,7 @@ public class Ashley extends NPC {
 		
 		// No tattoos or scars
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_CLOAK, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_SILVER, null, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_OVER_CLOAK, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_SILVER, null, false), true, this);
 
 	}
 
@@ -253,11 +251,11 @@ public class Ashley extends NPC {
 		
 		for (AbstractItemType item : itemsForSale) {
 			for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
-				this.addItem(AbstractItemType.generateItem(item), false);
+				this.addItem(Main.game.getItemGen().generateItem(item), false);
 			}
 		}
 
-		this.addWeapon(AbstractWeaponType.generateWeapon("innoxia_cleaning_feather_duster"), false);
+		this.addWeapon(Main.game.getItemGen().generateWeapon("innoxia_cleaning_feather_duster"), false);
 	}
 	
 	@Override

@@ -44,6 +44,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.npcDialogue.elemental.ElementalDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -74,7 +75,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.3.9
  * @author Innoxia, tukaima
  */
 public class PhoneDialogue {
@@ -250,6 +251,23 @@ public class PhoneDialogue {
 					return new Response("Loiter", "This is not a suitable place in which to be loitering about!", null);
 				}
 				return new Response("Loiter", "THink about loitering in this area for an as-yet undetermined length of time.", LOITER_SELECTION);
+				
+			} else if (index == 14){
+				if(!Main.game.getPlayer().isElementalSummoned()) {
+					if(Main.game.getPlayer().hasDiscoveredElemental()) {
+						return new Response("[el.Name]",
+								"You have not summoned [el.name], so you cannot talk to [el.herHim]!"
+										+ "<br/>[style.italicsMinorGood(You can summon your elemental from your 'Spells' screen!)]",
+								null);
+					}
+					return new Response("Elemental",
+							"You have not summoned your elemental, so you cannot talk to them..."
+									+ "<br/>[style.italicsMinorGood(You can summon your elemental by learning an elemental-summoning spell and casting it from your 'Spells' screen!)]",
+							null);
+				}
+				return new Response("[el.Name]",
+						"Spend some time talking with [el.name].",
+						ElementalDialogue.ELEMENTAL_START);
 				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){

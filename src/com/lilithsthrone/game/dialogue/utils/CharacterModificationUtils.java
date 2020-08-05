@@ -38,8 +38,8 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractHairType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractHornType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -54,13 +54,14 @@ import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -951,6 +952,61 @@ public class CharacterModificationUtils {
 					+"<br/><i style='color:"+BodyChanging.getTarget().getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(BodyChanging.getTarget().getFemininity().getName(false))+"</i>",
 				BodyChanging.getTarget().getFemininityValue()<=0,
 				BodyChanging.getTarget().getFemininityValue()>=100);
+	}
+	
+	public static String getSelfTransformBodyMaterialChoiceDiv(GameCharacter target) {
+		contentSB.setLength(0);
+		
+		List<BodyMaterial> materials = new ArrayList<>();
+		switch(target.getBodyMaterial()) {
+			case AIR:
+				materials.add(BodyMaterial.AIR);
+				break;
+			case ARCANE:
+				materials.add(BodyMaterial.ARCANE);
+				break;
+			case FIRE:
+				materials.add(BodyMaterial.FIRE);
+				break;
+			case FLESH:
+				materials.add(BodyMaterial.FLESH);
+				break;
+			case ICE:
+			case WATER:
+				materials.add(BodyMaterial.WATER);
+				materials.add(BodyMaterial.ICE);
+				break;
+			case SLIME:
+				materials.add(BodyMaterial.SLIME);
+				break;
+			case RUBBER:
+			case STONE:
+				materials.add(BodyMaterial.STONE);
+				materials.add(BodyMaterial.RUBBER);
+				break;
+		}
+		
+		for(BodyMaterial mat : materials) {
+			if(BodyChanging.getTarget().getBodyMaterial() == mat) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<span style='color:"+mat.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(mat.getName())+"</span>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='CHANGE_BODY_MATERIAL_"+mat+"' class='cosmetics-button'>"
+							+ "<span style='color:"+mat.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(mat.getName())+"</span>"
+						+ "</div>");
+			}
+		}
+		
+		return applyWrapper("Body Material",
+				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] body material."
+						+ "<br/><i>Different body material types give different passive bonuses. Hover over this character's racial status effect tooltip to see them!</i>"),
+				"BODY_MATERIAL",
+				contentSB.toString(),
+				false);
 	}
 	
 	public static String getSelfTransformTailChoiceDiv(List<Race> availableRaces, boolean removeNone) {

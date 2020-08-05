@@ -17,6 +17,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Bearing;
+import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.EntranceType;
 import com.lilithsthrone.world.TeleportPermissions;
 import com.lilithsthrone.world.Weather;
@@ -166,20 +167,27 @@ public class AbstractPlaceType {
 	public Encounter getEncounterType() {
 		return encounterType;
 	}
+	
+	protected DialogueNode getBaseDialogue(Cell cell) {
+		return dialogue;
+	}
 
 	public DialogueNode getDialogue(boolean withRandomEncounter) {
-		return getDialogue(withRandomEncounter, false);
+		return getDialogue(null, withRandomEncounter, false);
 	}
 	
-	public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
+	public DialogueNode getDialogue(Cell cell, boolean withRandomEncounter) {
+		return getDialogue(cell, withRandomEncounter, false);
+	}
+	
+	public DialogueNode getDialogue(Cell cell, boolean withRandomEncounter, boolean forceEncounter) {
 		if(getEncounterType()!=null && withRandomEncounter) {
 			DialogueNode dn = getEncounterType().getRandomEncounter(forceEncounter);
 			if (dn != null) {
 				return dn;
 			}
 		}
-
-		return dialogue;
+		return getBaseDialogue(cell);
 	}
 	
 	public List<Population> getPopulation() {
@@ -213,7 +221,7 @@ public class AbstractPlaceType {
 		return itemsDisappear;
 	}
 	
-	protected static String getSVGOverride(String pathName, Colour colour) {
+	public static String getSVGOverride(String pathName, Colour colour) {
 		if(!SVGOverrides.keySet().contains(pathName+colour.getId())) {
 			try {
 				InputStream is = colour.getClass().getResourceAsStream("/com/lilithsthrone/res/map/" + pathName + ".svg");
@@ -244,7 +252,13 @@ public class AbstractPlaceType {
 		return SVGOverrides.get(pathName+colour.getId());
 	}
 	
-	public String getSVGString(Set<PlaceUpgrade> upgrades) {
+	public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
+		for(AbstractPlaceUpgrade upgrade : upgrades) {
+			String s = upgrade.getSVGOverride();
+			if(s!=null) {
+				return s;
+			}
+		}
 		return SVGString;
 	}
 	
@@ -278,67 +292,12 @@ public class AbstractPlaceType {
 		return false;
 	}
 	
-	public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
+	public ArrayList<AbstractPlaceUpgrade> getStartingPlaceUpgrades() {
 		return new ArrayList<>();
 	}
 	
-	public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades(Set<PlaceUpgrade> upgrades) {
+	public ArrayList<AbstractPlaceUpgrade> getAvailablePlaceUpgrades(Set<AbstractPlaceUpgrade> upgrades) {
 		return new ArrayList<>();
-	}
-
-	//TODO This should be in PlaceUpgrade...
-	public static ArrayList<PlaceUpgrade> getAvailableLilayaRoomPlaceUpgrades(Set<PlaceUpgrade> upgrades) {
-		if(upgrades.contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
-			return PlaceUpgrade.getGuestRoomUpgrades();
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-			return PlaceUpgrade.getSlaveQuartersUpgradesSingle();
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-			return PlaceUpgrade.getSlaveQuartersUpgradesDouble();
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_QUADRUPLE)) {
-			return PlaceUpgrade.getSlaveQuartersUpgradesQuadruple();
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-			return PlaceUpgrade.getMilkingUpgrades();
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_OFFICE)) {
-			return PlaceUpgrade.getOfficeUpgrades();
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SPA)) {
-			return PlaceUpgrade.getSpaUpgrades();
-		}
-		
-		return PlaceUpgrade.getCoreRoomUpgrades();
-	}
-
-	//TODO This should be in PlaceUpgrade...
-	public String getLilayaRoomSVGString(Set<PlaceUpgrade> upgrades) {
-		if(upgrades.contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
-			return getSVGOverride("dominion/lilayasHome/roomGuest", PresetColour.BASE_GREEN_LIGHT);
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SPA)) {
-			return getSVGOverride("dominion/lilayasHome/roomSpa", PresetColour.BASE_AQUA);
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM)) {
-			return getSVGOverride("dominion/lilayasHome/roomSlave", PresetColour.BASE_CRIMSON);
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
-			return getSVGOverride("dominion/lilayasHome/roomMilking", PresetColour.BASE_YELLOW_LIGHT);
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_OFFICE)) {
-			return getSVGOverride("dominion/lilayasHome/roomOffice", PresetColour.BASE_LILAC);
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE)) {
-			return getSVGOverride("dominion/lilayasHome/roomSlaveDouble", PresetColour.BASE_MAGENTA);
-			
-		} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_QUADRUPLE)) {
-			return getSVGOverride("dominion/lilayasHome/roomSlaveQuadruple", PresetColour.BASE_MAGENTA);
-			
-		} else {
-			return SVGString;
-		}
 	}
 
 	public String getVirginityLossDescription() {

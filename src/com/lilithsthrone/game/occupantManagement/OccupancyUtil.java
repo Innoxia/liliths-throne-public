@@ -63,20 +63,25 @@ import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
- * A class to handle all occupant-related turn mechanics. Deals with moving slaves to/from jobs and generating events for them. Also sends friendly occupants to/from jobs.
+ * A class to handle all occupant-related turn mechanics and persistent variables. Deals with moving slaves to/from jobs and generating events for them. Also sends friendly occupants to/from jobs.
  * 
  * @since 0.1.87
- * @version 0.3.5.5
+ * @version 0.3.9
  * @author Innoxia
  */
 public class OccupancyUtil implements XMLSaving {
 	
-	private Map<SlaveJob, List<NPC>> slavesAtJob;
+	/** Maps job to ids of slaves who are currently at that job. */
+	private Map<SlaveJob, List<String>> slavesAtJob;
 	private List<NPC> slavesResting;
 	private int generatedIncome;
 	private int generatedUpkeep;
 	
 	private List<MilkingRoom> milkingRooms;
+	
+	// Settings:
+	private List<SlavePermissionSetting> enabledByDefaultPermissionSettings;
+	private Map<SlaveJob, List<SlaveJobSetting>> enabledByDefaultJobSettings;
 	
 	// Slave income:
 	private Map<NPC, Integer> dailyIncome;
@@ -94,6 +99,21 @@ public class OccupancyUtil implements XMLSaving {
 		milkingRooms = new ArrayList<>();
 		
 		dailyIncome = new HashMap<>();
+		
+		enabledByDefaultPermissionSettings = new ArrayList<>();
+		for(SlavePermissionSetting setting : SlavePermissionSetting.values()) {
+			if(setting.isDefaultValue()) {
+				enabledByDefaultPermissionSettings.add(setting);
+			}
+		}
+		
+		enabledByDefaultJobSettings = new HashMap<>();
+		for(SlaveJob job : SlaveJob.values()) {
+			enabledByDefaultJobSettings.put(job, new ArrayList<>());
+			for(SlaveJobSetting setting : job.getDefaultMutualSettings()) {
+				enabledByDefaultJobSettings.get(job).add(setting);
+			}
+		}
 	}
 
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -102,6 +122,21 @@ public class OccupancyUtil implements XMLSaving {
 		
 		CharacterUtils.addAttribute(doc, element, "generatedIncome", String.valueOf(Main.game.getOccupancyUtil().getGeneratedIncome()));
 		CharacterUtils.addAttribute(doc, element, "generatedUpkeep", String.valueOf(Main.game.getOccupancyUtil().getGeneratedUpkeep()));
+		
+		Element slavesAtJobElement = doc.createElement("slavesAtJob");
+		element.appendChild(slavesAtJobElement);
+		for(Entry<SlaveJob, List<String>> entry : slavesAtJob.entrySet()) {
+			if(!entry.getValue().isEmpty()) {
+				Element jobElement = doc.createElement("slaves");
+				CharacterUtils.addAttribute(doc, jobElement, "job", entry.getKey().toString());
+				slavesAtJobElement.appendChild(jobElement);
+				for(String id : entry.getValue()) {
+					Element slaveIdElement = doc.createElement("id");
+					jobElement.appendChild(slaveIdElement);
+					slaveIdElement.setTextContent(id);
+				}
+			}
+		}
 		
 		for(MilkingRoom room : this.getMilkingRooms()) {
 			room.saveAsXML(element, doc);
@@ -116,6 +151,23 @@ public class OccupancyUtil implements XMLSaving {
 			
 			slaveryUtil.setGeneratedIncome(Integer.valueOf(parentElement.getAttribute("generatedIncome")));
 			slaveryUtil.setGeneratedUpkeep(Integer.valueOf(parentElement.getAttribute("generatedUpkeep")));
+			
+			NodeList slavesAtJobElement = parentElement.getElementsByTagName("slavesAtJob");
+			if(slavesAtJobElement.item(0)!=null) {
+				Element e = ((Element)slavesAtJobElement.item(0));
+				
+				NodeList jobs = e.getElementsByTagName("slaves");
+				for(int i=0; i<jobs.getLength(); i++) {
+					Element jobElement = ((Element)jobs.item(i));
+					SlaveJob job = SlaveJob.valueOf(jobElement.getAttribute("job"));
+					slaveryUtil.slavesAtJob.put(job, new ArrayList<>());
+					NodeList slaveIds = jobElement.getElementsByTagName("id");
+					for(int j=0; j<slaveIds.getLength(); j++) {
+						Element slaveId = ((Element)slaveIds.item(j));
+						slaveryUtil.slavesAtJob.get(job).add(slaveId.getTextContent());
+					}
+				}
+			}
 			
 			NodeList milkingRoomElements = parentElement.getElementsByTagName("milkingRoom");
 			for(int i=0; i<milkingRoomElements.getLength(); i++){
@@ -179,10 +231,10 @@ public class OccupancyUtil implements XMLSaving {
 		
 		
 		// Slaves:
-		Map<NPC, SlaveJob> previousJobs = new HashMap<>();
-		for(Entry<SlaveJob, List<NPC>> entry : slavesAtJob.entrySet()) {
-			for(NPC npc : entry.getValue()) {
-				previousJobs.put(npc, entry.getKey());
+		Map<String, SlaveJob> previousJobs = new HashMap<>();
+		for(Entry<SlaveJob, List<String>> entry : slavesAtJob.entrySet()) {
+			for(String npcId : entry.getValue()) {
+				previousJobs.put(npcId, entry.getKey());
 			}
 		}
 		
@@ -202,7 +254,7 @@ public class OccupancyUtil implements XMLSaving {
 				
 				if(!Main.game.getCharactersPresent().contains(slave) // If the player isn't interacting with them, then move them
 						|| Main.game.getCurrentDialogueNode()==RoomPlayer.AUNT_HOME_PLAYERS_ROOM_SLEEP) { // Also move slaves who are in bedroom but have elsewhere to be
-					slavesAtJob.get(currentJob).add(slave);
+					slavesAtJob.get(currentJob).add(slave.getId());
 					
 					if(slave.getSlaveJob((hour-1<0?23:hour-1))==SlaveJob.PROSTITUTE) {
 						// Remove client before leaving:
@@ -231,8 +283,8 @@ public class OccupancyUtil implements XMLSaving {
 		// Send slaves to work after others have left, so that job rooms are emptied before trying to fill them:
 		for(NPC slave : slavesToSendToWork) {
 			SlaveJob currentJob = slave.getSlaveJob(hour);
-			SlaveJob previousJob = previousJobs.get(slave);
-			
+			SlaveJob previousJob = previousJobs.get(slave.getId());
+//			System.out.println(slave.getName()+": "+previousJob+" -> "+currentJob);
 			if(previousJob!=null && previousJob!=currentJob) {
 				previousJob.applyJobEndEffects(slave);
 			}
@@ -346,7 +398,15 @@ public class OccupancyUtil implements XMLSaving {
 			// Interaction events:
 			if(slavesAtJob.get(currentJob).size()>1 || currentJob==SlaveJob.IDLE) {
 				if(Math.random()<0.25f && !Main.game.getCharactersPresent().contains(slave)) { // Do not generate sex events if the player is present.
-					entry = generateNPCInteractionEvent(day, hour, slave, slavesAtJob.get(currentJob));
+					List<NPC> slavesPresent = new ArrayList<>();
+					for(String npcId : slavesAtJob.get(currentJob)) {
+						try {
+							NPC slaveAtJob = (NPC) Main.game.getNPCById(npcId);
+							slavesPresent.add(slaveAtJob);
+						} catch(Exception ex) {
+						}
+					}
+					entry = generateNPCInteractionEvent(day, hour, slave, slavesPresent);
 					if(entry!=null) {
 						Main.game.addSlaveryEvent(day, entry);
 						eventAdded = true;
@@ -502,7 +562,7 @@ public class OccupancyUtil implements XMLSaving {
 		
 		List<SlaveryEventLogEntry> events = new ArrayList<>();
 		//TODO this should be handled in the job itself
-		if(slavesAtJob.get(currentJob).contains(slave) && currentJob != SlaveJob.IDLE) { // Slave is working:
+		if(slavesAtJob.get(currentJob).contains(slave.getId()) && currentJob!=SlaveJob.IDLE) { // Slave is working:
 			switch (currentJob) {
 				case CLEANING:
 					//TODO
@@ -532,6 +592,14 @@ public class OccupancyUtil implements XMLSaving {
 					return events;
 
 				case BEDROOM:
+					//TODO
+					return events;
+
+				case SPA:
+					//TODO
+					return events;
+
+				case SPA_RECEPTIONIST:
 					//TODO
 					return events;
 					
@@ -1465,6 +1533,16 @@ public class OccupancyUtil implements XMLSaving {
 												"[npc1.Name] took advantage of being in your bedroom with [npc2.name], and had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" sex with [npc2.herHim].")
 												+ "<br/>[style.italicsSex("+sexDescription+")]");
 								break;
+							case SPA:
+								descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+												"[npc1.Name] took advantage of being in the spa with [npc2.name], and had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" sex with [npc2.herHim].")
+												+ "<br/>[style.italicsSex("+sexDescription+")]");
+								break;
+							case SPA_RECEPTIONIST:
+								descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+												"[npc1.Name] took advantage of being assigned to the spa's reception desk with [npc2.name], and had some "+slave.getTheoreticalSexPaceDomPreference().getName()+" sex with [npc2.herHim].")
+												+ "<br/>[style.italicsSex("+sexDescription+")]");
+								break;
 							case PUBLIC_STOCKS:
 							case MILKING:
 							case PROSTITUTE:
@@ -1477,11 +1555,11 @@ public class OccupancyUtil implements XMLSaving {
 								
 							} else if(npc.getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive()) {
 								descriptions.add(slave.incrementAffection(npc, 10));
-								descriptions.add("Due to the fact that [npc2.name] enjoys being raped, [npc2.she] gained some affection towards [npc.name]!"
+								descriptions.add(UtilText.parse(slave, npc, "Due to the fact that [npc2.name] enjoys being raped, [npc2.she] gained some affection towards [npc.name]!")
 										+ "<br/>"+npc.incrementAffection(slave, 25));
 								
 							} else {
-								descriptions.add("[npc2.Name] despises [npc.name] for having raped [npc2.herHim]!"
+								descriptions.add(UtilText.parse(slave, npc, "[npc2.Name] despises [npc.name] for having raped [npc2.herHim]!")
 										+ "<br/>"+npc.incrementAffection(slave, -200));
 							}
 							return new SlaveryEventLogEntry(hour,
@@ -1537,11 +1615,11 @@ public class OccupancyUtil implements XMLSaving {
 					
 					if(Math.random()<chanceToBond) {
 						if(Math.random()<chanceForPositiveOutcome) {
-							descriptions.add("[npc.Name] and [npc2.name] spent some time getting to know one another a little better.");
+							descriptions.add(UtilText.parse(slave, npc, "[npc.Name] and [npc2.name] spent some time getting to know one another a little better."));
 							descriptions.add(slave.incrementAffection(npc, 5));
 							descriptions.add(npc.incrementAffection(slave, 5));
 						} else {
-							descriptions.add("[npc.Name] and [npc2.name] spent some time arguing with one another.");
+							descriptions.add(UtilText.parse(slave, npc,"[npc.Name] and [npc2.name] spent some time arguing with one another."));
 							descriptions.add(slave.incrementAffection(npc, -5));
 							descriptions.add(npc.incrementAffection(slave, -5));
 						}
@@ -1650,5 +1728,21 @@ public class OccupancyUtil implements XMLSaving {
 		}
 		
 		return null;
+	}
+
+	public List<SlavePermissionSetting> getEnabledByDefaultPermissionSettings() {
+		return enabledByDefaultPermissionSettings;
+	}
+
+	public void setEnabledByDefaultPermissionSettings(List<SlavePermissionSetting> enabledByDefaultPermissionSettings) {
+		this.enabledByDefaultPermissionSettings = enabledByDefaultPermissionSettings;
+	}
+
+	public Map<SlaveJob, List<SlaveJobSetting>> getEnabledByDefaultJobSettings() {
+		return enabledByDefaultJobSettings;
+	}
+
+	public void setEnabledByDefaultJobSettings(Map<SlaveJob, List<SlaveJobSetting>> enabledByDefaultJobSettings) {
+		this.enabledByDefaultJobSettings = enabledByDefaultJobSettings;
 	}
 }

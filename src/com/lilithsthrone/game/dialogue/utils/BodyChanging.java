@@ -528,6 +528,10 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getHeightChoiceDiv()
 						+"</div>"
 						
+						+ (BodyChanging.getTarget().isElemental()
+								?CharacterModificationUtils.getSelfTransformBodyMaterialChoiceDiv(BodyChanging.getTarget())
+								:"")
+						
 						+ "<div class='cosmetics-container' style='background:transparent;'>"
 							+ CharacterModificationUtils.getBodySizeChoiceDiv()
 							+ CharacterModificationUtils.getMuscleChoiceDiv()

@@ -21,28 +21,39 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Main highlights:
 		Added milking clothing & associated mechanics.
+		Mostly finished Rat Warrens.
+		Changed Elemental mechanics.
+		Added spa room upgrade.
+	
 	
 	Contributors:
-		Added five new fluid flavourings: coffee; tea; cinnamon; lemon; maple. (by 'Charisma is my Dump Stat'.)
-		Added five new fluid flavourings: grape; melon; coconut; blueberry; orange. (by 'DSG'.)
+		Added five new fluid flavourings: coffee; tea; cinnamon; lemon; maple. (by 'Charisma is my Dump Stat')
+		Added five new fluid flavourings: grape; melon; coconut; blueberry; orange. (by 'DSG')
 		Improved the icon for 'lacy panties'. (by DSG)
+		Fixed some typos in the taser attack description. (by DSG)
 	
-	Rat Warrens:
-		Losing to Vengar now leads into the same Murk content as losing to one of the generic gang fights. (I may come back and restore the Vengar sex slave route which I removed for this, but for now, I don't have time to write it all.)
-		Companions now manage to escape after losing to any fight which leads into Murk or Vengar captivity.
-		Reduced size of hostile rat gangs from 6 to 4.
-		Fixed issue where if non-consent content was disabled, the Rat Warrens would enter into a bugged state if you lost combat and were thrown out.
-		Slightly altered and improved descriptions of Murk and his milking storage and milking rooms.
-		Murk now only rents his milkers out between 14:00 and 22:00.
-		Slightly altered Murk's and his milkers' bodies & fetishes.
+	Engine:
+		Added parser hook ('itemGen') for access to ItemGeneration class, enabling clothing, weapons, and items to be generated as effects via the parser.
+		Converted PlaceUgrades from enum to abstract classes.
+	
+	Gameplay:
+		Added 'spa' as a new room upgrade in Lilaya's mansion.
 		
+	Elementals:
+		Elementals are no longer summoned as companions. Instead, when summoned, they have their name and status effects appended to the bottom of their sumoner's character info.
+		Elementals now have an active and passive form. They assume their passive form when out of combat/sex.
+		You can initiate dialogue with your elemental via an action in your phone screen, or by clicking on their name at the bottom of their sumoner's character info.
+		Fully added several interaction options with your elemental in their interaction screen.
 		
 	Balance:
 		The 'martial artist' perk now doubles base unarmed damage instead of tripling it. It additionally grants +25% critical power.
+		'Potion effects' are now limited to a maximum value of 25 per attribute. The 'Chef' background doubles this limit to 50.
 	
 	Items:
 		Added 'Breast pumps', 'Cock pump', and 'Pussy pump' clothing items. These are not available to buy anywhere, and are instead automatically equipped onto slaves who are being milked.
 		Changed essence icons to be automatically generated from subspecies data.
+		'Angels Tears' have been replaced by 'Bread Roll' as the human transformative food item.
+		'Angels Tears' is now a non-racial consumable which lowers lust when drunk.
 	
 	Sex:
 		Characters can now grope the breasts of someone locked in the milking stocks while fucking them from behind.
@@ -57,6 +68,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added a setting for the 'milking' slave job, which is off by default, to allow hymen tearing (which can be caused by the dildo-like 'pussy pump').
 		Slightly increased the impact that girth values have on a penetrative body part's diameter. (Values were increased from +/-15%, +/-30%, +/-60% to +/-20%, +/-40%, +/-80%).
 		Slightly adjusted values for orifice capacity categories to make the 'gaping' values more in line with the others.
+		Added maximum health and maximum aura to the attribute overview tooltip (when hovering over a character's name).
+		Added the option to refuse to act as a test subject in Arthur's hypno-watch side-quest.
+		Added action to hug Lilaya in her lab.
+		Removed Lilaya's garden icons and made tiles green instead. Changed icon for Candi's reception desk.
+		Increased hourly fatigue for the slave job 'lab assistant' from 1 to 1.5.
+		You now gain a beneficial 'recently showered' status effect whenever taking a shower, which is a slightly weaker version of teh 'recently bathed' status effect.
+		Changed the 'milking' slave job permissions from 'forbid X-fluid' to 'Collect X-fluid'. Permissions hould have been converted automatically to this new format, but it may be worth checking your milk slaves' job permissions to be sure.
+		Snow-leopard-morphs now spawn with 'very-fluffy' tails instead of 'narrow'.
 	
 	Bugs:
 		Parsing fixes.
@@ -74,60 +93,157 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed selfie describing your age as starting as 18, even though the 'starting at 18' mechanic doesn't apply to the player.
 		Fixed issue where equip text that included conditional statements was being parsed during game initialisation or loading, which was throwing background errors.
 		Fixed issue where characters could still get pregnant/impregnate others even if they had the 'barren' or 'firing blanks' perks, or the 'menopause' status effect.
+		Fixed issue where half-demon centaurs would spawn in without having any demonic parts, which was causing several issues stemming from their resulting incorrect race recognition.
+		Fixed issue with slimes and elementals being describes as being 'covered in' slime, stone, flames, etc. instead of being 'made out of' the material.
+		Fixed issue where you could only save your save when your location's default dialogue was being displayed. (You can now save whenever your character is free to move.)
+		Fixed bug where the spawn rate of taurs in Submission was being influenced by the half-demon spawn rate setting instead of the taur spawn rate setting.
+		The 'furry preference' for tauric subspecies is no longer overridden by your global taur furriness settings.
+		Elementals now spawn with no speech-modifying personality traits.
+		Fixed issue with unique NPC slaves removing sex toys after they've been equipped during sex.
+		NPCs now correctly replace their dirtied clothing after sex instead of leaving it lying on the floor.
 	
 	
 	
 	
 	
-	Make elemental name under owner name
-		Tooltip is appearance/stats like normal
-	Click to start elemental dialogue (only available in neutral scene)
-		Can also access from phone screen
-	Can tell to assume humanoid form (they can only do it while your emotions are intense - combat or sex)
-		Need time to recover afterwards
+	Rat Warrens:
+		Losing to Vengar now leads into the same Murk content as losing to one of the generic gang fights. (I may come back and restore the Vengar sex slave route which I removed for this, but for now, I don't have time to write it all.)
+		Companions now manage to escape after losing to any fight which leads into Murk or Vengar captivity.
+		Reduced size of hostile rat gangs from 6 to 4.
+		Fixed issue where if non-consent content was disabled, the Rat Warrens would enter into a bugged state if you lost combat and were thrown out.
+		Slightly altered and improved descriptions of Murk and his milking storage and milking rooms.
+		Murk now only rents his milkers out between 14:00 and 22:00.
+		Slightly altered Murk's and his milkers' bodies & fetishes.
 	
+	[x] Elemental rework
+		[x] Make elemental name under owner name
+			[x] Tooltip is appearance/stats like normal
+				[x] Click to start elemental dialogue (only available in neutral scene)
+				[x] Can also access from phone screen
+		[x] Remove companion mechanics
+			[x] Elemental summoned flag
+			[x] Status effect conversions
+			[x] test
+		[x] Add to combat
+			[x] Remove from combat at end
+			[x] end combat append Elementals return to passive form/dispelled
+			[x] test with enemy elementals
+		[x] Add passive form
+			[x] Race feral, null is wisp
+				[x] "element-name" (earth-wisp, air-wisp, fire-wisp, arcane-wisp, water-wisp)
+			[x] feral of every race
+		[x] Humanoid form
+			[x] Full race transformations
+			[x] body materials
+		[x] Interaction dialogue
+			[x] Inspect (display character view data)
+			[x] Talk (they say how they're just an extension of your will, like a familiar)
+				[x] Being in their full demonic state all the time is too draining on both of you
+				[x] Lore is that they can only use powers for a limited time, so they expend their energy in combat and need time to recharge
+			[x] Sex
+				[x] dom
+				[x] sub
+			[x] Perks
+			[x] Transform
+				[x] Passive
+				[x] Active
+			[x] Dispel
+			[x] Names (theirs & call you)
+			[x] Inventory
+		[x] UI
+			[x] Put at bottom with (small?) status effects
+			[x] Enemy tooltips don't work
+			[x] Enemy elementals summon as demons
+			[x] Race tooltip says they are demons (override change)
+		[x] Attribute tooltip needs to show health and aura
+		[x] Write all interaction scenes
+			[x] Servant of X should make Elemental a lot more dominant towards you
+			[x] Lore
+			[x] Sex
+				[x] 'Grow cock' sex action references slime...
+			[x] Check for self-tf menu references
+			[x] Body material is 'covered in' for stone?
+		[x] Only limit saving/elemental in scenes where the player can not move and they cannot fast travel?
+			[x] Make method in Game for it
+			[x] test
+		[x] Make sure elemental checks are working (imp fortresses?)
 	
-	[] Elemental rework
-		[] Keep them as they are now, but just display their stat box differently
-		[] Give them unique options in characters present screen
-		[] Combat, sex, and interaction is when they assume physical form
-		[] Lore is that they can only use powers for a limited time, so they expend their energy in combat and need time to recharge
-		[] Two forms
-			[] Humanoid form
-				[] clothing would get weird
-				[] Full race transformations
-				[] body materials
-			[] Passive form
-				[] Ethereal form
-				[] wisp is default
-					[] "element-name" (earth-wisp, air-wisp, fire-wisp, arcane-wisp, water-wisp)
-				[] feral of every race
-		[] Add option to summon & interact
-			[] click on special icon
-			[] Talk (they say how they're just an extension of your will, like a familiar)
-				[] Being in their full demonic state all the time is too draining on both of you
-			[] Sex
-			[] Transform
+	[x] Essence images are broken...
+	
+	[x] Fix generation
+		[x] Half-demons to be given parts on load (to fix centaurs)
+	
+	---------------------	
+	
+	[x] error npc2 not found in "X spent some time getting to know one another a little better"
+	
+	[x] Test Arthur room installation quest
+	
+	[x] Do testing of places where getDialogue was changed
 			
-	18:00
+	[x] add slave to party from job should first apply job end effects
+		 [x] test with milking room
 	
+	[x] end job effect not working when not going to idle
 	
-			
-	CM PR!!
+	[x] Spa dialogue
+		[x] Construction
+			[x] Take a week to upgrade (extra spa tile)
+			[x] Lilaya interruption scene
+			[x] Construction icon
+			[x] Add as extra tile
+				[x] spa permanent
+			[x] Room dialogue should just be spa reception, not default as well
+			[x] Room dialogue options should not be drawn from LilayaHomeGeneric
+				[x] milking
+				[x] office
+				[x] spa reception
+			[x] Block while Lilaya is angry at player
+		[x] assigning slaves
+			[x] job
+				[x] Split reception and assistant jobs (so can limit to 2/8)?
+			[x] permissions
+				[x] tooltips for permissions are coloured wrong
+				[x] Reception
+				[x] Spa staff
+				[x] No strip in pool
+			[x] Need default permission setting for player to change (with starting defaults)
+				[x] Change no-milking to milking permissions, set to defaults
+					[x] handle loading
+		[x] Adding spa
+			[x] Ground floor only
+			[x] Reception
+				[x] dialogue
+					[x] Test slave dialogue
+				[x] actions
+					[x] Shower
+					[x] Mutes
+			[x] Main pools
+				[x] dialogue
+				[x] Actions
+					[x] Massage
+						[x] Status effect (physical res+damage)
+						[x] Finish writing
+					[x] Spa soak
+					[x] Beneficial 24-hour status effect (recovery time, max health/aura)
+		[x] Upgrades
+			[x] Convert to abstract classes
+			[x] Bar
+				[x] Add descriptions
+				[x] Drinks in tab
+		[x] Take quick or thorough shower before entering
 	
-	[x] Lower martial arts to 2* unarmed damage
-		[] unarmed damage is still ludicrous
-		[] Tail smack doing 964 damage?!
-	[] I feel like feather weapons should get a buff
+	[x] Test spa
+		[x] Construction saving/loading
+		[x] No slaves full test
+			[x] Spa status effect icon colours
+		[x] Slaves full test
+			[x] Naked bathing sex?
 	
-	[] Add accessor to AbstractClothingType so parser can generate clothing
+	[x] Limit potion effects to a max. of +10 of each attribute
+		[x] Chef doubles limit
 	
-	[] is it intentional for slaves to drop their dirty bras after sex?
-	
-	[] When encountering a enforcer patrol, fighting them, defeating them then fucking them. When I end sex then step back. After I go to their inventory tag I have to click on the officer of choice twice to get the inventory to open. 
-		and the first time I click it seems to randomly duplicate one of their underwear and add it to my inventory. I do have the steal spell maxed out if that is somehow affecting it.
-	
-	[] Give choice in orientation watch scene to refuse
+	[x] Elemental pats when in animal form
 	
 	--- RAT WARRENS ---
 	
@@ -135,16 +251,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] After sex actions
 	
 	Writing:
-		[x] Vengar defeat
-			[x] Transition into Murk captivity
-		[x] Improve orgasm " a huge spurt of female ejaculate squirts out from your wet pussy"
-		[x] When Murk fucks you, mention "second date" (anal or another fuck)
-		[x] BAD END
-		[x] (ALT) BAD ENDS OFF
-			[x] Get rescued at day 3 night by Shadow/Silence
-		[] Lose to Vengar when non-con is off?
+		[x] Lose to Vengar when non-con is off
+			[x] Check flow of dialogue
 		[] Full escape dialogues
-			[] Escape sex needs to factor in stage of transformations (spanking, oral, fucked)
+			[x] Escape sex needs to factor in stage of transformations (handjob, oral, fucked)
 		[] Make it so if you do as Vengar asks, SWORD raids as you leave the den with Axel
 			[] Option to make him have sex with Vengar (as f/m & m/m)
 		[] gambling den post-quest content for Murk/Vengar
@@ -158,26 +268,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Bad end
 		[] bad end alt
 	
-	Remove the 'Free milkers' action
-	
-	[] Add SS content dom-focused
-		[] Assist SS in hunting down criminals for bounties
-			Word got out how they betrayed Vengar and now nobody wants to work with them
-			They can't get contracts due to this, so they want you to accept contracts on their behalf
-			They have no respect for people they consider weak (they rape guys who they defeat - taunt their women while doing so)
-		[] Chances to dominate the two of them after successful missions
-	
 	Rat Warrens content
 			[] Add interaction with rats in dorms
 			[] Vengar full fem option
-			[] Make Vengar hall repeat scenes based on persuasion, threatened, or seduced
-		[] Check through other bugs.
-		[x] Inverted nipple chance
 		[] Writing -make sure parsing targets are passed in correctly.
 		[] Roxy's shop enter variations for Vengar slave.
-		End-state for Axel
-			[x] Axel sissy TF
-			[x] Lexa fuck
+		[] Test end-state for Axel
 		[] Murk at gambling den
 			Epona hates him after finding out what he had been doing. Tells you that she's got a helping hand in rehabilitating slave girls.
 			You can suggest that he be given a taste of his own medicine. Epona transforms & trains him into female (Minx), taking a week, and then offers her as a prize for new game.
@@ -185,15 +281,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			Roxy is abusive (tells you that she broke up with him after she caught him fucking Shadow/Silence)
 			Has Vengar addicted to her pussy.
 			You can buy an hour with Vengar.
-		[] Shadow & Silence in Slaver Alley
-			[] Add hint at quest
-		[x] Regen NPCs on load
+		[] Roxy full sex
 		
-		[x] Skip sex
-			[x] Apply non-skippable to Lyssieth, Ralph, cultist sealed, masturbation, rose hands
-			[] Restrict for some others? (Jhortrax need it?)
-			[] Need to also pass in sex manager so can calculate which actions are available? Take into account which positions are available as well.
-				[] SexManager needs to also be used to get preferences
+	Remove the 'Free milkers' action
 	
 	When you activate the resonance stone, there's no mention of Shadow activating hers, but she acts as though she did later on
 	
@@ -201,26 +291,25 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Tried the non violent, not walk in and kick everyone's ass way. Seduced the rat boi, dominated him, can't end sex because the button's gone, have to click the quick option
 	
-	Need full dialogue change for Rat Warrens post-quest completion (become a Rum Distillery)
-	
-	[] After sex threesome, quick-sexing when Vengar is fucking companion makes him fuck you.
-		Define target preferences for SexManagers via a getPreferredSexTarget() method and make sure quick sex uses them.
-		Also make quick sex subs get each other off if consensual
-		
-	The whole Vendar's path seems broken time-wise, as sleeping doesn't progress time more than a few minutes.
-	Sleeping as Vengar's slave only makes 5 minutes pass and it resets when you're sent back to the hall.
-	
 	Very rarely it seems like Silence spams the protective gusts spell on herself...
 	
-	Vengar captive
+	Dobermann-morphs without pointy/stubby
 	
+	PULL REQUESTS!!!
 	
+	---------------------
 	
-	Rat warrens
-		Roxy full sex
+	[] Add Shadow-Silence content dom-focused
+		[] Assist them in hunting down criminals for bounties
+			Word got out how they betrayed Vengar and now nobody wants to work with them
+			They can't get contracts due to this, so they want you to accept contracts on their behalf
+			They have no respect for people they consider weak (they rape guys who they defeat - taunt their women while doing so)
+		[] Chances to dominate the two of them after successful missions
 	
 	
 	-------------
+	
+	Add self-transformation presets (like enchantment saving)
 	
 	 Anyone else showing a glitch wherein bedroom servants show as idle on the jobs tab
 	
@@ -238,18 +327,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Slaves being milked should have their breasts exposed
 	
 	Add nice way to lose virginity for Helena (and other pure virgins?)
-			
-	Spa dialogue
-		[] Adding spa
-		[] assigning slaves
-			[] job
-			[] permissions
-		[] Take quick or thorough shower before entering
-		[] Massage
-		[] steam room
-		[] sauna
-		[] bath
-			[] slime soak
 		
 	remove steal/vaccum succ
 	add arcane webbing
@@ -299,6 +376,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		shrikes suggestions
 		
 	--- RELEASE ---
+	
+	
+	
 	
 	color issues with outfits and the xml. Setting color primary to ALL in outfits has this error; 
 		Warning: getClosestStringMatch() did not find an exact match for 'ALL'; returning 'MILK' instead.
@@ -703,7 +783,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Skull bandana
 	[] vagina ring(s)
-	[] choker
 	
 	Eating out pussy/ass needs to eat cum out of them
 	
@@ -788,28 +867,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			Add to potions
 			Add to clothing
 			NPCs to force equip clothing?
-		
-	Add slave in bedroom content
-		[x] Greeting
-		Rest
-			[x] Sleep with you, description of them in/on bed
-			[x] Use you: wake up to one of them fucking you
-			[x] Add more variations
-				[x] greetings
-				[x] sleeping
-		[x] Add bath
-		[x] Add Quick/Thorough wash descriptions
-		[x] New tab 'Bathroom'
-			[x] Add rest - 1 hour and rest - 8 hours
-			[x] Quick Wash
-			[x] Thorough Wash
-			[] Add shower sex option
-			[x] Bath time (1 hour) - cleans companions as well
-				[x] Add bath SE: doubles out-of-combat regeneration
-				[] dialogue
-			[x] Spa time (4 hours) - requires spa upgrade - cleans companions as well
-				[x] Add spa SE: quadruples out-of-combat regeneration
-				[] dialogue
 	
 	weather based on time of year
 	
@@ -882,9 +939,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Lilaya is recognized by the game as your half-sister and not an aunt, because your kids with her recognize her as their parent and aunt, not a great-aunt as it should be.
 	
 	Make fluid values based on weekly market fluctuations
-	
-	baseball bat
-	handcuffs
 	
 	give lusty maiden a virginity tease
 	

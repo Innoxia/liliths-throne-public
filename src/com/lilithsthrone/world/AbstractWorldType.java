@@ -18,7 +18,6 @@ public abstract class AbstractWorldType {
 	private final String name;
 	private final String fileLocation;
 	private Colour colour;
-	private int worldSize;
 	private int timeToTransition;
 	
 	private boolean loiteringEnabled;
@@ -46,7 +45,8 @@ public abstract class AbstractWorldType {
 			TeleportPermissions teleportPermissions,
 			String fileLocation,
 			AbstractPlaceType globalMapLocation,
-			AbstractPlaceType entryFromGlobalMapLocation, Map<Color, AbstractPlaceType> placesMap) {
+			AbstractPlaceType entryFromGlobalMapLocation,
+			Map<Color, AbstractPlaceType> placesMap) {
 		this.name = name;
 		this.colour = colour;
 		this.timeToTransition=timeToTransition;
@@ -171,10 +171,6 @@ public abstract class AbstractWorldType {
 
 	public Map<Color, AbstractPlaceType> getPlacesMap() {
 		return placesMap;
-	}
-
-	public int getWorldSize() {
-		return worldSize;
 	}
 
 	public TeleportPermissions getTeleportPermissions() {

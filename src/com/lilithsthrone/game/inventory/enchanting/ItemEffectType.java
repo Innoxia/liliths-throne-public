@@ -391,14 +391,14 @@ public class ItemEffectType {
 				return "<p>"
 							+ "It only takes a moment before the beaker is filled with "+ Units.fluid(milkPumped, Units.UnitType.LONG)+" of your [pc.milk]."
 						+ "</p>"
-						+ user.addItem(AbstractItemType.generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true);
+						+ user.addItem(Main.game.getItemGen().generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true);
 			
 			} else {
 				return UtilText.parse(target,
 						"<p>"
 							+ "It only takes a moment before the beaker is filled with "+Units.fluid(milkPumped, Units.UnitType.LONG)+" of [npc.her] [npc.milk]."
 						+ "</p>"
-						+ user.addItem(AbstractItemType.generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true));
+						+ user.addItem(Main.game.getItemGen().generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true));
 			}
 		}
 	};
@@ -608,7 +608,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return target.addItem(AbstractItemType.generateItem(ItemType.CIGARETTE), 20, false, target.isPlayer());
+			return target.addItem(Main.game.getItemGen().generateItem(ItemType.CIGARETTE), 20, false, target.isPlayer());
 		}
 	};
 	
@@ -980,6 +980,27 @@ public class ItemEffectType {
 	};
 	
 	// Corruption:
+
+	public static AbstractItemEffectType COR_ANGELS_TEARS = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"[style.boldGood(Restores)] 25% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
+			"[style.boldExcellent(Lowers)] [style.boldLust(lust)] to resting level",
+			Attribute.RESISTANCE_LUST.getFormattedValue(5)+" to 'potion effects'"),
+			PresetColour.RACE_HUMAN) {
+		@Override
+		public String getPotionDescriptor() {
+			return "angelic";
+		}
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/4);
+			
+			return "<p style='text-align:center;'>"
+						+UtilText.parse(target, "A soothing wave of pure energy washes over [npc.name]...")
+					+ "</p>"
+					+ (target.getLust()>target.getRestingLust()?target.setLust(target.getRestingLust()):"")
+					+ target.addPotionEffect(Attribute.RESISTANCE_LUST, 5);
+		}
+	};
 	
 	public static AbstractItemEffectType COR_LILITHS_GIFT = new AbstractItemEffectType(Util.newArrayListOfValues(
 			"[style.boldGood(Restores)] 5% [style.boldHealth("+Attribute.HEALTH_MAXIMUM.getName()+")]",
@@ -1410,11 +1431,11 @@ public class ItemEffectType {
 				return "<p>"
 							+ "The present contained: <b>"+itemType.getDisplayName(true)+"</b>!"
 						+ "</p>"
-						+ user.addItem(AbstractItemType.generateItem(itemType), false);
+						+ user.addItem(Main.game.getItemGen().generateItem(itemType), false);
 				
 			} else {
 				AbstractClothingType clothingType = Util.getRandomObjectFromWeightedMap(clothingMap);
-				AbstractClothing clothing = AbstractClothingType.generateClothing(clothingType);
+				AbstractClothing clothing = Main.game.getItemGen().generateClothing(clothingType);
 				
 				if(!Main.game.getPlayerCell().getInventory().isInventoryFull()) {
 					Main.game.getPlayerCell().getInventory().addClothing(clothing);
@@ -1458,25 +1479,19 @@ public class ItemEffectType {
 		}
 	};
 	
-	public static AbstractItemEffectType RACE_ANGELS_TEARS = new AbstractItemEffectType(Util.newArrayListOfValues(
-			"[style.boldExcellent(Lowers)] [style.boldLust(lust)] to resting level",
-			Attribute.MAJOR_ARCANE.getFormattedValue(1)+" to 'potion effects'",
+	public static AbstractItemEffectType RACE_BREAD_ROLL = new AbstractItemEffectType(Util.newArrayListOfValues(
 			Attribute.MAJOR_PHYSIQUE.getFormattedValue(1)+" to 'potion effects'"),
 			PresetColour.RACE_HUMAN) {
-
 		@Override
 		public String getPotionDescriptor() {
-			return "angelic";
+			return "human";
 		}
-		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return "<p style='text-align:center;'>"
 						+UtilText.parse(target, "[npc.Name] [npc.verb(start)] to feel a lot healthier...")
 					+ "</p>"
-					+ (target.getLust()>target.getRestingLust()?target.setLust(target.getRestingLust()):"")
-					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
-					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
 		}
 	};
 	
@@ -3654,6 +3669,9 @@ public class ItemEffectType {
 	}
 	
 	public static AbstractItemEffectType getItemEffectTypeFromId(String id) {
+		if(id.equalsIgnoreCase("RACE_ANGELS_TEARS")) {
+			return RACE_BREAD_ROLL;
+		}
 		id = Util.getClosestStringMatch(id, idToItemEffectTypeMap.keySet());
 		return idToItemEffectTypeMap.get(id);
 	}

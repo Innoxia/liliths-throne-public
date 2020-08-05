@@ -9,7 +9,6 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.dominion.Pix;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -530,8 +529,8 @@ public class PixsPlayground {
 							GYM_PIX_ASSAULT) {
 						@Override
 						public void effects() {
-							RoomPlayer.applyWash(Main.game.getNpc(Pix.class), true, true, StatusEffect.BATH, 30);
-							Main.game.getTextEndStringBuilder().append(RoomPlayer.applyWash(Main.game.getPlayer(), true, false, StatusEffect.BATH, 30));
+							Main.game.getNpc(Pix.class).applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30));
 						}
 					};
 				} else {
@@ -542,8 +541,8 @@ public class PixsPlayground {
 							GYM_PIX_ASSAULT_CONSENSUAL) {
 						@Override
 						public void effects() {
-							RoomPlayer.applyWash(Main.game.getNpc(Pix.class), true, true, StatusEffect.BATH, 30);
-							Main.game.getTextEndStringBuilder().append(RoomPlayer.applyWash(Main.game.getPlayer(), true, false, StatusEffect.BATH, 30));
+							Main.game.getNpc(Pix.class).applyWash(true, true, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.getStatusEffectFromId("innoxia_cleaned_shower"), 240+30));
 						}
 					};
 				}

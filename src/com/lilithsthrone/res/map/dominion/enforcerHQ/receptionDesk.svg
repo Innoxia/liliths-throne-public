@@ -1,16 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
     <defs>
-        <linearGradient id="receptionDeskGradient">
+        <linearGradient id="refereeGradient">
             <stop offset="0" stop-color="#f55"/>
             <stop offset="1" stop-color="#ff8080"/>
         </linearGradient>
-        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#receptionDeskGradient"/>
+        <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.487" y2="1003.362" gradientTransform="matrix(1.28844 0 0 1.29051 -9.225 -296.313)" gradientUnits="userSpaceOnUse" xlink:href="#refereeGradient"/>
     </defs>
     <g transform="translate(0 -988.362)">
         <ellipse cx="32" cy="1020.368" fill="url(#linearGradient15)" fill-rule="evenodd" rx="30.383" ry="30.381"/>
-        <ellipse cx="32.355" cy="1020.473" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" rx="19.086" ry="18.943"/>
-        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="5.997" d="M32.355 1031.345l.072-12.352"/>
-        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3" d="M27.932 1017.444c1.094 0 4.625.03 4.625.03"/>
-        <ellipse cx="32.063" cy="1010.216" fill="#fff" rx="3.609" ry="3.594"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2.236" d="M8.864 1035.217h15.768"/>
+        <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-linejoin="round" stroke-width="1.141" d="M9.931 1033.283l-.148-12.856H54.95v12.856l-14.03-.02-.073-9.213-17.092.157.074 9.075z"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2.318" d="M8.87 1018.329h46.983"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2.236" d="M40.197 1035.236h15.768"/>
+        <ellipse cx="32.562" cy="1004.237" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.391" rx="9.129" ry="9.06"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2.868" d="M32.563 1009.437l.034-5.908"/>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.435" d="M30.447 1002.788c.523 0 2.212.015 2.212.015"/>
+        <ellipse cx="32.423" cy="999.331" fill="#fff" rx="1.726" ry="1.719"/>
     </g>
 </svg>

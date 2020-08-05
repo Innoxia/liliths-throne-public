@@ -76,6 +76,7 @@ public enum DialogueFlagValue {
 	
 	// Shopping arcade:
 	ralphAskedAboutHundredKisses,
+	ralphDailyBred(true),
 	
 	nyanTalkedTo(true),
 	nyanComplimented(true),
@@ -106,6 +107,7 @@ public enum DialogueFlagValue {
 	essenceExtractionKnown,
 	roseToldOnYou,
 	lilayaReactedToPlayerAsDemon,
+	lilayaHug(true),
 	
 	readBook1,
 	readBook2,
@@ -347,9 +349,6 @@ public enum DialogueFlagValue {
 	ratWarrensCaptiveSissy,
 	
 	murkMaster,
-	
-	ratWarrensCaptiveFuckedByMurk,
-	ratWarrensCaptiveCompanionFuckedByMurk,
 	
 	ratWarrensCaptiveCalledOut,
 	ratWarrensCaptiveWashed,

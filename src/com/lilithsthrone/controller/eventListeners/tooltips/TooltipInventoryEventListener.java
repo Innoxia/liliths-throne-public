@@ -189,17 +189,17 @@ public class TooltipInventoryEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (genericItem != null) {
-			itemTooltip(AbstractItemType.generateItem(genericItem));
+			itemTooltip(Main.game.getItemGen().generateItem(genericItem));
 			
 		} else if (genericClothing != null) {
 			if(colour!=null) {
-				clothingTooltip(AbstractClothingType.generateClothing(genericClothing, colour, false));
+				clothingTooltip(Main.game.getItemGen().generateClothing(genericClothing, colour, false));
 			} else {
-				clothingTooltip(AbstractClothingType.generateClothing(genericClothing, false));
+				clothingTooltip(Main.game.getItemGen().generateClothing(genericClothing, false));
 			}
 
 		} else if (genericWeapon != null) {
-			weaponTooltip(AbstractWeaponType.generateWeapon(genericWeapon, dt));
+			weaponTooltip(Main.game.getItemGen().generateWeapon(genericWeapon, dt));
 
 		} else if (invSlot != null) {
 			if (invSlot == InventorySlot.WEAPON_MAIN_1) {

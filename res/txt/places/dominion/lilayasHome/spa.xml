@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- SPA_INSTALLATION -->
+
+	<htmlContent tag="SPA_INSTALLATION"><![CDATA[
+	<p>
+		Having acquired a significant amount of flames, you feel as though it would be a good investment to have a part of Lilaya's mansion extended and converted into a private spa. Using the nearby bell-pull to summon Rose, you tell her about your plans, to which she politely curtsies and replies, [rose.speech(This is something which needs to be discussed with my Mistress. Please wait here while I fetch her.)]
+	</p>
+	<p>
+		With that, the cat-girl maid hurries out of the room, and just a few minutes later, she returns at the side of your demonic [lilaya.relation(pc)]. Pushing her glasses up onto the bridge of her nose and letting out an exasperated sigh, Lilaya asks, [lilaya.speech(What's all this about wanting to extend this room? I'm very busy with my experiments!)] 
+	</p>
+	<p>
+		After explaining that you'd like to have an extension constructed in order to house a private spa, Lilaya steps further into the room and lets out a contemplative hum, before turning to you and revealing, [lilaya.speech(You know, I've actually considered having something like that done before... Did you know that there are a series of geothermal springs not far from this location? With the proper application of telekinetic spells, that water could be channelled up into this room! Oh, this is exciting!)]
+	</p>
+	<p>
+		Just as Lilaya starts to get carried away, Rose clears her throat and gives your [lilaya.relation(pc)] a stern look. Remembering the reality of her situation, Lilaya lets out a whimsical sigh and mutters, [lilaya.speech(Oh, that's right... Mommy doesn't give me enough allowance for something like that...)]
+	</p>
+	<p>
+		[rose.speech(When you had me look into this before, I calculated that it would cost no less than one and a half million flames to have a fully-equipped spa extension built,)]  Rose says, before turning to flash you a smile and surmise, [rose.speech(I'm sure that [pc.name] here has a plan to cover such expenses...)]
+	</p>
+	<p>
+		As Lilaya's downcast expression quickly transforms into one of hopeful excitement, you realise that you have this chance to either commit fully to permanently transforming this room into a private spa, or to tell the pair before you that you've changed your mind...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SPA_INSTALLATION_COMMIT"><![CDATA[
+	<p>
+		Having already decided that your accumulated wealth should be spent on having a private spa constructed, you tell Lilaya that you're able to cover the expenses. Excitedly clapping her hands together, your demonic [lilaya.relation(pc)] squeals, [lilaya.speech(Oh! How fun! Thank you, [pc.name]! Mommy would never have given me the funds to build something like this!)]
+	</p>
+	<p>
+		[rose.speech(You may leave the organisation of construction work to me,)] Rose says with a little curtsy, [rose.speech(It should take no more than seven days until the work is completed.)]
+	</p>
+	<p>
+		[lilaya.speech(Oh, yes, thank you, Rose!)] Lilaya thanks her maid, before stepping up to the cat-girl and lowering her voice to a whisper. Despite her attempt at concealing her words, however, you're still able to overhear your [lilaya.relation(pc)] as she excitedly teases, [lilaya.speech(I'll be a good girl for you later tonight...)]
+	</p>
+	#IF(pc.getTrueRace()==RACE_DEMON && lilaya.getSubspeciesOverride()!=SUBSPECIES_DEMON)
+		<p>
+			After flashing a quick smirk at her supposed 'Mistress', Rose makes one last respectful curtsy and hurries out of the room. With the cat-girl having left to get construction of the private spa organised, your half-demon aunt places her hands on her hips and uses this opportunity to once again demand, [lilaya.speech(I'm still expecting you to convince Mommy to turn me into a full demon, you know! I appreciate you spending your money on having this spa built, but I'm not going to let you have sex with me until I'm every bit of a demon as you are!)]
+		</p>
+		<p>
+			After she's heard you make a non-committal response about how you'll do your best to talk to Lyssieth at the earliest possible convenience, Lilaya lets out an exasperated sigh and marches out of the room. With nothing more for you to do in here, you prepare to follow in her footsteps and head back out into the corridor...
+		</p>
+	#ELSE
+		<p>
+			After flashing a quick smirk at her supposed 'Mistress', Rose makes one last respectful curtsy and hurries out of the room. With the cat-girl having left to get construction of the private spa organised, your half-demon aunt turns to smile at you and say, [lilaya.speech(I was in the middle of an important experiment when you called me here, so I've got to get back to it. Even after the spa has been built, I bet I'll get no time in which to use it...)]
+		</p>
+		<p>
+			Letting out an exasperated sigh, your [lilaya.relation(pc)] marches out of the room, leaving you alone. With nothing more for you to do, you prepare to follow in her footsteps and head back out into the corridor...
+		</p>
+	#ENDIF
+	<p style='text-align:center;'><i>
+		[style.italicsGood(Construction of a private spa has started!)]
+		<br/>It will take [style.italicsMinorBad(seven days to build)], and once complete, you will be able to assign slaves to work here and use the spa for a session of relaxation!
+	</i></p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SPA_INSTALLATION_CHANGE_MIND"><![CDATA[
+	<p>
+		Having second thoughts about spending so much money on having this extension constructed, you tell Rose and Lilaya taht you've changed your mind, and that you can't commit to having a private spa built after all. Letting out a disappointed whine, your [lilaya.relation(pc)] sighs, [lilaya.speech(Oh well... I suppose it <i>is</i> rather expensive... I should go and get on with my experiments now...)]
+	</p>
+	<p>
+		With that, both Lilaya and Rose swiftly exit the room, leaving you alone. With nothing more for you to do, you prepare to follow in their footsteps and head back out into the corridor...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SPA_INSTALLATION_COMMIT -->
+
+	<htmlContent tag="SPA_INSTALLATION_COMMIT_LEAVE"><![CDATA[
+	<p>
+		With nothing more to do in the empty room, you [pc.step] back out into the corridor and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SPA_CONSTRUCTION -->
+
+	<htmlContent tag="SPA_CONSTRUCTION"><![CDATA[
+	<p>
+		#IF(game.isWorkTime())
+			Several construction workers are hard at work building the extension which will house your private spa. Thanks to the fact that one of them is a demon, and is using arcane telekinetic powers to effortlessly move materials around the construction site, things seem to be progressing at a rapid pace.
+		#ELSE
+			As it's outside of normal working hours, the construction site is currently deserted. Taking a brief look around, you see that work is progressing very rapidly, and it won't take long at all before the work on building your private spa is completed.
+		#ENDIF
+	</p>
+	<p>
+		Just as Lilaya mentioned, you see that a stream of natural spring water has been tapped into, and while it's currently being channelled away into a nearby drain, it will serve to fill the spa's pools once everything is finished. Dipping your [pc.fingers] into this water, you discover that, thanks to geothermal energy, it's pleasantly warm to the touch, and more than ever you can't help but feel excited at the prospect of having your very own private spa...
+	</p>
+	<p style='text-align:center;'><i>
+		The spa will be ready for use in [style.italicsGood([#SPECIAL_PARSE_0])]!
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SPA_RECEPTION -->
+	
+	<htmlContent tag="SPA_RECEPTION_CONSTRUCTION"><![CDATA[
+	<p>
+		#IF(game.isExtendedWorkTime())
+			This room is being left in its current, empty state until the main extension for your private spa is finished. Looking over some plans which the nearby builders have left on a table, you see that this room is slated for conversion into a combination of reception, changing rooms, and showers.
+		#ELSE
+			This room is being left in its current, empty state until the main extension for your private spa is finished. Looking over some plans which the builders have left on a table, you see that this room is slated for conversion into a combination of reception, changing rooms, and showers.
+		#ENDIF
+	</p>
+	<p style='text-align:center;'><i>
+		The spa will be ready for use in [style.italicsGood([#SPECIAL_PARSE_0])]!
+	</i></p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SPA_RECEPTION"><![CDATA[
+	<p>
+		This room has been converted into the reception area for your private spa. A long counter is positioned in the middle of the marble floor, while to your left and right are entrances to the spa's changing rooms. Within each of these private spaces, there are fully furnished showering facilities, allowing any visitor to clean themselves before heading into the spa proper.
+	</p>
+	<p>
+		#IF(game.getNonCompanionCharactersPresent().isEmpty())
+			There's currently nobody stationed behind this reception area's counter...
+		#ELSEIF(game.getNonCompanionCharactersPresent().size()==1)
+			[npc.Name] is currently stationed behind this reception area's counter, and as you enter the room, [npc.she] catches sight of you...
+		#ELSE
+			Your slaves have been stationed behind this reception area's counter, and as you enter the room, they catch sight of you...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SPA_RECEPTION_END"><![CDATA[
+	<p>
+		From here, you could proceed into one of the changing rooms and either take a quick shower of head straight on through into the spa proper. Then again, you could also head out through the main door and exit back out into the corridor...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SPA_RECEPTION_CLOTHING_CLEAN"><![CDATA[
+	<p style='text-align:center;'><i>
+		Any clothing which you unequip and leave in this area will be [style.italicsGood(automatically cleaned)] when you enter the spa!
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SPA_RECEPTION_SHOWER -->
+	
+	<htmlContent tag="SPA_RECEPTION_SHOWER"><![CDATA[
+	<p>
+		Deciding to use the spa's shower facilities to quickly clean yourself, you enter the changing rooms and quickly disrobe. Leaving your clothing in one of the baskets, you step into one of the luxurious marble-and-glass walk-in showers and turn on the taps.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_RECEPTION_SHOWER_END"><![CDATA[
+	<p>
+		#IF([#SPECIAL_PARSE_0]==0)
+			Just five minutes later, you feel as though you're completely clean and ready to enter the spa...
+		#ELSEIF([#SPECIAL_PARSE_0]==1)
+			Just five minutes later, you feel as though you're completely clean and ready to enter the spa. Then again, if you wanted to, you could have some fun with [npc.name] before that...
+		#ELSE
+			Just five minutes later, you feel as though you're completely clean and ready to enter the spa. Then again, if you wanted to, you could have some fun with your slaves before that...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_SHOWER_SEX_AS_DOM"><![CDATA[
+	<p>
+		#IF([#SPECIAL_PARSE_0]==1)
+			Deciding to make the most of the fact that you're alone with [npc.name], you dominantly take hold of [npc.herHim], and with the shower's warm water flowing over your bodies, you prepare to fuck [npc.herHim]...
+		#ELSE
+			Deciding to make the most of the fact that you're alone with [npc.name] and [npc2.name], you dominantly take hold of them, and with the shower's warm water flowing over your bodies, you prepare to fuck the two of them...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_SHOWER_SEX_AS_SUB"><![CDATA[
+	<p>
+		#IF([#SPECIAL_PARSE_0]==1)
+			Deciding to make the most of the fact that you're alone with [npc.name], you submissively grind your body up against [npc.hers], and with the shower's warm water flowing over your bodies, you ask [npc.herHim] to fuck you...
+		#ELSE
+			Deciding to make the most of the fact that you're alone with [npc.name] and [npc2.name], you submissively grind your body up against them, and with the shower's warm water flowing over your bodies, you ask the two of them to fuck you...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SHOWER_SEX -->
+	
+	<htmlContent tag="AFTER_SHOWER_SEX"><![CDATA[
+	#IF([#SPECIAL_PARSE_0]==1)
+		<p>
+			#IF(sex.isDom(pc))
+				Having had your fun with [npc.name], you turn off the shower and tell [npc.herHim] that you've no further need of [npc.her] assistance. Letting out a deep [npc.moan], [npc.she] quickly dries [npc.herself] off and gets dressed, before returning to stand behind the reception's counter.
+			#ELSE
+				Having had [npc.her] fun with you, [npc.name] turns off the shower and tells you that you don't seem to require any further assistance. With that, [npc.she] quickly dries [npc.herself] off and gets dressed, before returning to stand behind the reception's counter.
+			#ENDIF
+		</p>
+		<p>
+			Following your slave out into the changing room, you wonder whether you should now enter the spa proper...
+		</p>
+	#ELSE
+		<p>
+			#IF(sex.isDom(pc))
+				Having had your fun with [npc.name] and [npc2.name], you turn off the shower and tell them that you've no further need of their assistance. Letting out a pair of deep [npc.moans], the two of them quickly dry themselves off and get dressed, before returning to stand behind the reception's counter.
+			#ELSE
+				Now that [npc.name] and [npc2.name] have had their fun with you, they turn off the shower and tell you that you don't seem to require any further assistance. With that, the two of them quickly dry themselves off and get dressed, before returning to stand behind the reception's counter.
+			#ENDIF
+		</p>
+		<p>
+			Following your slaves out into the changing room, you wonder whether you should now enter the spa proper...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_SHOWER_FINISHED -->
+	
+	<htmlContent tag="AFTER_SHOWER_FINISHED"><![CDATA[
+	#IF([#SPECIAL_PARSE_0]==0)
+		<p>
+			Having thoroughly cleaned yourself, you turn off the shower and [pc.step] back out into the changing room. After using one of the fluffy towels to quickly dry yourself off, you wonder whether you should now enter the spa proper...
+		</p>
+	#ELSEIF([#SPECIAL_PARSE_0]==1)
+		<p>
+			Having had [npc.name] assist you in cleaning yourself, you turn off the shower and [pc.step] back out into the changing room. After getting your slave to use one of the fluffy towels to quickly dry you off, you tell [npc.herHim] to return to [npc.her] post behind the reception's desk.
+		</p>
+		<p>
+			Now that you've had a shower, you feel impatient to enter the spa proper...
+		</p>
+	#ELSE
+		<p>
+			Having had [npc.name] and [npc2.name] assist you in cleaning yourself, you turn off the shower and [pc.step] back out into the changing room. After getting your slaves to use one of the fluffy towels to quickly dry you off, you tell them to return to their post behind the reception's desk.
+		</p>
+		<p>
+			Now that you've had a shower, you feel impatient to enter the spa proper...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SPA_CORE -->
+	
+	<htmlContent tag="SPA_CORE"><![CDATA[
+	<p>
+		The huge extension which has been built to house your private spa is nothing less than absolutely breathtaking. Constructed in an architectural style reminiscent of a Roman bath house, the rectangular room is bordered by a series of large marble pillars, which are holding up a narrow, tiled roof that runs around the entire perimeter of the room. Aside from this covering, the rest of the spa is open to the sky, but thanks to an arcane enchantment, the entire area is shielded from both the elements and the sounds of the busy city.
+	</p>
+	<p>
+		The main feature of this room is, of course, the series of bathing pools, which take up the vast majority of the space in the centre of the room. Surrounded by numerous padded loungers, these pools are filled with natural spring water, which has been heated to a very warm temperature by geothermal energy.
+	</p>
+	<p>
+		[pc.Walking] over the polished marble floor towards these pools, you wonder whether you should slip into one and take some time to relax and unwind...
+	</p>
+	#IF(!game.getWorlds().get(WORLD_TYPE_LILAYAS_HOUSE_GROUND_FLOOR).getCells(PLACE_UPGRADE_LILAYA_SPA_BAR).isEmpty())
+		<p>
+			[style.boldOrange(Bar)]<b>:</b>
+			<br/>A sleek bar has been constructed beside the entrance to the spa, and is stocked full of all sorts of soft and hard drinks. If you wanted to, you could take a moment to make use of this bar and pour out a drink
+			#IF([#SPECIAL_PARSE_0])
+				 for yourself...
+			#ELSE
+				 either for yourself or for one of your slaves...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_CORE_BAR_DRINK"><![CDATA[
+	#IF(npc.equals(lilaya))
+		<p>
+			Lilaya drinks. She doesn't care if she gets drunk.
+		</p>
+	#ELSEIF(npc.equals(rose))
+		<p>
+			Rose drinks if non-alcoholic.
+		</p>
+	#ELSEIF(npc.equals(arthur))
+		<p>
+			Arthur drinks if non-alcoholic.
+		</p>
+	#ELSEIF(npc.isPlayer())
+		<p>
+			Deciding to make use of the bar, you [pc.step] over to it and pour yourself a glass of [#SPECIAL_PARSE_0]. Letting out a deeply-contented sigh, you take a few minutes to relax and enjoy your beverage, and before you know it, you've emptied your glass and are ready to head back into the main area of the spa once more...
+		</p>
+	#ELSE
+		<p>
+			Deciding to make use of the bar, you [pc.step] over to it and call over for [npc.name] to join you. Doing as [npc.sheIs] told, your slave hurries over to stand beside you, and obediently waits while you pour [npc.herHim] a glass of [#SPECIAL_PARSE_0].
+		</p>
+		<p>
+			Handing the drink over to [npc.name], you take a few minutes to relax with [npc.herHim] while [npc.she] enjoys [npc.her] beverage. Before you know it, your slave has emptied [npc.her] glass, and you feel ready to head back into the main area of the spa once more...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SPA_CORE_BATHING -->
+	
+	<htmlContent tag="SPA_CORE_BATHING"><![CDATA[
+	<p>
+		#IF([#SPECIAL_PARSE_0])
+			Wanting to make use of your private spa's main feature, you strip naked and [pc.step] into the warm water of the nearest bathing pool.
+		#ELSE
+			Wanting to make use of your private spa's main feature, you [pc.step] into the warm water of the nearest bathing pool.
+		#ENDIF
+		 Instantly, a deep sense of calm washes over you, and as you sink down to sit in the relatively shallow water, you can't help but let out a long, deep sigh...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_CORE_BATHING_END"><![CDATA[
+	<p>
+		#IF([#SPECIAL_PARSE_0]==0)
+			After half an hour of relaxing in the pool, you feel as though you're completely relaxed and rejuvenated, and are ready to continue on your way...
+		#ELSEIF([#SPECIAL_PARSE_0]==1)
+			After half an hour of relaxing in the pool, you feel as though you're completely relaxed and rejuvenated, and are ready to continue on your way. Then again, if you wanted to, you could have some fun with [npc.name] before that...
+		#ELSE
+			After half an hour of relaxing in the pool, you feel as though you're completely relaxed and rejuvenated, and are ready to continue on your way. Then again, if you wanted to, you could have some fun with your slaves before that...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_CORE_BATHING_SEX_DOM"><![CDATA[
+	<p>
+		#IF([#SPECIAL_PARSE_0]==1)
+			Wanting to take this opportunity to have a little fun with [npc.name], you take hold of [npc.herHim] and pull [npc.herHim] into your lap, before preparing to have sex with [npc.herHim]...
+		#ELSEIF([#SPECIAL_PARSE_0]==2)
+			Wanting to take this opportunity to have a little fun with your slaves, you dominantly take hold of [npc.name] and pull [npc.herHim] into your lap, before preparing to have sex with [npc.herHim] and [npc2.name]...
+		#ELSE
+			Wanting to take this opportunity to have a little fun with your slaves, you dominantly take hold of [npc.name] and pull [npc.herHim] into your lap, before preparing to have sex with [npc.herHim], [npc2.name], and [npc3.name]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_CORE_BATHING_SEX_SUB"><![CDATA[
+	<p>
+		#IF([#SPECIAL_PARSE_0]==1)
+			Wanting to take this opportunity to have a little fun with [npc.name], you submissively encourage [npc.herHim] to slide into your lap, before preparing to let [npc.herHim] fuck you...
+		#ELSEIF([#SPECIAL_PARSE_0]==2)
+			Wanting to take this opportunity to have a little fun with your slaves, you submissively encourage [npc.name] to slide into your lap, before preparing to let [npc.herHim] and [npc2.name] fuck you...
+		#ELSE
+			Wanting to take this opportunity to have a little fun with your slaves, you submissively encourage [npc.name] to slide into your lap, before preparing to let [npc.herHim], [npc2.name], and [npc3.name] fuck you...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BATHING_AFTER_SEX -->
+	
+	<htmlContent tag="BATHING_AFTER_SEX"><![CDATA[
+	<p>
+		#IF([#SPECIAL_PARSE_0]==1)
+			Having had your fun with [npc.name], you sink down into the pool and let out a deeply satisfied sigh. As your slave similarly returns to relaxing in the warm water, you wonder what to do next...
+		#ELSEIF([#SPECIAL_PARSE_0]==2)
+			Having had your fun with your slaves, you sink down into the pool and let out a deeply satisfied sigh. As [npc.name] and [npc2.name] similarly return to relaxing in the warm water, you wonder what to do next...
+		#ELSE
+			Having had your fun with your slaves, you sink down into the pool and let out a deeply satisfied sigh. As [npc.name], [npc2.name], and [npc3.name] similarly return to relaxing in the warm water, you wonder what to do next...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BATHING_FINISHED -->
+	
+	<htmlContent tag="BATHING_FINISHED"><![CDATA[
+	<p>
+		Feeling well and truly relaxed and refreshed, you decide to get out of the pool.
+		#IF([#SPECIAL_PARSE_0]==0)
+			 Quickly drying yourself off, you take a look around the spa as you wonder what to do next...
+		#ELSEIF([#SPECIAL_PARSE_0]==1)
+			 Following your lead, [npc.name] [npc.steps] out of the warm water and helps you to dry off, before moving off to another part of the room as you take a look around the spa...
+		#ELSE
+			 Following your lead, your slaves [npc.step] out of the warm water and help you to dry off, before moving off to another part of the room as you take a look around the spa...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SPA_MASSAGE_SELECTION -->
+	
+	<htmlContent tag="SPA_MASSAGE_SELECTION"><![CDATA[
+	<p>
+		Wanting to spend some time relaxing and having a massage, you head over to a nearby lounger, before wondering who to select to be the one to give you your massage.
+		#IF([#SPECIAL_PARSE_0]==1)
+			 As [#SPECIAL_PARSE_1] is the only slave who you've assigned as being available to give massages, you don't really have much choice other than to select [npc.herHim] or change your mind about the whole thing...
+		#ELSE
+			 As you've assigned [#SPECIAL_PARSE_1] as being available to give massages, you could select
+			#IF([#SPECIAL_PARSE_0]==2)
+				 either one of them
+			#ELSE
+				 any one of them
+			#ENDIF
+			 or change your mind about the whole thing...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_MASSAGE_SELECTION_BACK"><![CDATA[
+	<p>
+		Deciding that you don't want a massage after all, you [pc.step] away from the lounger and take another look around the spa...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SPA_MASSAGE -->
+	
+	<htmlContent tag="SPA_MASSAGE"><![CDATA[
+	<p>
+		Calling [npc.name] over to where you're standing, you tell [npc.herHim] that you want [npc.herHim] to give you a massage, before lying down on the lounger and ordering [npc.herHim] to get started.
+	</p>
+	#IF(npc.getObedienceBasic()!=OBEDIENCE_BASIC_OBEDIENT && npc.getAffectionLevelBasic(pc)!=AFFECTION_BASIC_LIKE)
+		<p>
+			#IF(npc.isMute() || npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_SILENCE))
+				Frowning and letting out an annoyed sigh, [npc.name] makes it clear that [npc.she] doesn't want to be doing this, but nevertheless does as [npc.sheIs] told and starts giving you a rather unenthusiastic massage. Continuing to sigh and whine as [npc.she] presses down on your back and shoulders, [npc.namePos] behaviour makes it obvious that [npc.she] wants to be finished with this as soon as possible.
+			#ELSE
+				Grumbling to [npc.herself] about how [npc.she] really doesn't want to be doing this, [npc.name] nevertheless does as [npc.sheIs] told and starts giving you a rather unenthusiastic massage. Continuing to sigh and whine as [npc.she] presses down on your back and shoulders, [npc.she] mutters, [npc.speech(This sucks... Hurry up and tell me you've had enough already...)]
+			#ENDIF
+		</p>
+		<p>
+			Despite [npc.her] reluctance, [npc.name] is quite skilled at giving massages, and you find yourself tuning out [npc.her] annoyed tuts as you focus on the delightful feeling of [npc.her] [npc.hands+] working the tension out of your muscles.
+			#IF(pc.isTaur())
+				 Thanks to the fact that you have the sizeable lower body of a feral [pc.legRace], it takes your slave quite some time to completely finish working [npc.her] way down to your hindquarters, and by the time [npc.she] finally gets there, you look back to see [npc.herHim]
+			#ELSE
+				 Thanks to the fact that you've demanded a full-body massage from [npc.herHim], it takes your slave quite some time to completely finish working [npc.her] way down all the way to your [pc.feet+], and by the time [npc.she] finally gets there, you look back to see [npc.herHim]
+			#ENDIF
+			#IF(npc.isAttractedTo(pc))
+				#IF(pc.isCoverableAreaVisible(CA_VAGINA) && pc.hasVagina())
+					 hungrily staring at your [pc.pussy+].
+				#ELSEIF(pc.isCoverableAreaVisible(CA_PENIS) && pc.hasPenisIgnoresDildo())
+					 hungrily staring at your [pc.cock+].
+				#ELSEIF(pc.isCoverableAreaVisible(CA_ANUS) && game.isAnalContentEnabled())
+					 hungrily staring at your [pc.asshole+].
+				#ELSE
+					 hungrily staring at your [pc.ass+].
+				#ENDIF
+				 Smirking to yourself, you wonder if you should take the time to have a little extra fun with [npc.name], or, as it's already been half an hour since [npc.she] started, you could bring an end to your session with [npc.herHim]...
+			#ELSE
+				 pouting and waiting for you to dismiss [npc.herHim].
+				#IF(game.isNonConEnabled())
+					 Smirking to yourself, you wonder if you should take the time to force [npc.name] into having a little extra fun with you, or, as it's already been half an hour since [npc.she] started, you could instead simply bring an end to your session with [npc.herHim]...
+				#ELSE
+					 As it's already been half an hour since [npc.she] started, you feel as though it's time to bring an end to your session with [npc.herHim]...
+				#ENDIF
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Doing as [npc.sheIsFull] told, [npc.name] obediently hurries over to stand beside you, before leaning down and starting to give you a massage.
+			#IF(npc.isMute() || npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_SILENCE))
+				#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_PROFESSIONAL))
+					 Acting in a very professional manner, [npc.she] silently starts by massaging your neck and shoulders, before slowly working [npc.her] way down the rest of your body.
+				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_SEDUCTIVE))
+					 Seductively teasing [npc.her] [npc.fingers+] over your back, [npc.she] starts by massaging your neck and shoulders, before silently working [npc.her] way down the rest of your body.
+				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_SLUTTY))
+					 After shamelessly groping your [pc.ass+], [npc.name] moves [npc.her] attention up to your neck and shoulders, and after giving them a good massage, [npc.she] silently works [npc.her] way down the rest of your body.
+				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_WHOLESOME))
+					 Flashing you a loving smile, [npc.name] starts by massaging your neck and shoulders, before silently working [npc.her] way down the rest of your body.
+				#ELSE
+					 Flashing you a quick smile, [npc.name] starts by massaging your neck and shoulders, before silently working [npc.her] way down the rest of your body.
+				#ENDIF
+			#ELSE
+				#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_PROFESSIONAL))
+					 Acting in a very professional manner, [npc.she] starts by massaging your neck and shoulders, before slowly working [npc.her] way down the rest of your body and saying, [npc.speech(I hope this is to your satisfaction, [pc.name]...)]
+				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_SEDUCTIVE))
+					 Seductively tracing [npc.her] [npc.fingers+] over your back, [npc.she] starts by massaging your neck and shoulders, before working [npc.her] way down the rest of your body and teasing, [npc.speech(Perhaps you'd like even more physical content once I've finished...)]
+				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_SLUTTY))
+					 After shamelessly groping your [pc.ass+], [npc.name] moves [npc.her] attention up to your neck and shoulders, and after giving them a good massage, [npc.she] works [npc.her] way down the rest of your body while crudely exclaiming, [npc.speech(I hope you're planning on having a good fuck after this!)]
+				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_WHOLESOME))
+					 Flashing you a loving smile, [npc.name] starts by massaging your neck and shoulders, before working [npc.her] way down the rest of your body and sighing, [npc.speech(Thank you for letting me do this, [pc.name]! I hope it feels good...)]
+				#ELSE
+					 Flashing you a quick smile, [npc.name] starts by massaging your neck and shoulders, before working [npc.her] way down the rest of your body and saying, [npc.speech(I hope this feels good, [pc.name]...)]
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			Much to your delight, [npc.name] is quite skilled at giving massages, and you find yourself letting out a series of happy sighs as you focus on the delightful feeling of [npc.her] [npc.hands+] working the tension out of your muscles.
+			#IF(pc.isTaur())
+				 Thanks to the fact that you have the sizeable lower body of a feral [pc.legRace], it takes your slave quite some time to completely finish working [npc.her] way down to your hindquarters, and by the time [npc.she] finally gets there, you look back to see [npc.herHim]
+			#ELSE
+				 Thanks to the fact that you've demanded a full-body massage from [npc.herHim], it takes your slave quite some time to completely finish working [npc.her] way down all the way to your [pc.feet+], and by the time [npc.she] finally gets there, you look back to see [npc.herHim]
+			#ENDIF
+			#IF(npc.isAttractedTo(pc))
+				#IF(pc.isCoverableAreaVisible(CA_VAGINA) && pc.hasVagina())
+					 hungrily staring at your [pc.pussy+].
+				#ELSEIF(pc.isCoverableAreaVisible(CA_PENIS) && pc.hasPenisIgnoresDildo())
+					 hungrily staring at your [pc.cock+].
+				#ELSEIF(pc.isCoverableAreaVisible(CA_ANUS) && game.isAnalContentEnabled())
+					 hungrily staring at your [pc.asshole+].
+				#ELSE
+					 hungrily staring at your [pc.ass+].
+				#ENDIF
+				 Smirking to yourself, you wonder if you should take the time to have a little extra fun with [npc.name], or, as it's already been half an hour since [npc.she] started, you could bring an end to your session with [npc.herHim]...
+			#ELSE
+				 waiting to hear if you'll ask anything more of [npc.herHim].
+				#IF(game.isNonConEnabled())
+					 Smirking to yourself, you wonder if you should take the time to force [npc.name] into having a little extra fun with you, or, as it's already been half an hour since [npc.she] started, you could instead simply bring an end to your session with [npc.herHim]...
+				#ELSE
+					 As it's already been half an hour since [npc.she] started, you feel as though it's time to bring an end to your session with [npc.herHim]...
+				#ENDIF
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SPA_MASSAGE_SEX"><![CDATA[
+	<p>
+		Calling [npc.name] over to where you're standing, you tell [npc.herHim] that you want [npc.herHim] to give you a massage, before lying down on the lounger and ordering [npc.herHim] to get started.
+	</p>
+	#IF(npc.getObedienceBasic()!=OBEDIENCE_BASIC_OBEDIENT && npc.getAffectionLevelBasic(pc)!=AFFECTION_BASIC_LIKE)
+		<p>
+			Grumbling to [npc.herself] about how [npc.she] really doesn't want to be doing this, [npc.name] nevertheless does as [npc.sheIs] told and starts giving you a rather unenthusiastic massage. As [npc.she] starts pressing [npc.her] [npc.hands+] down against your shoulders, however, [npc.her] attitude slowly starts to shift, and [npc.her] annoyed tuts quickly turn into hungry [npc.moans].
+		</p>
+		<p>
+			#IF(pc.isTaur())
+				Moving [npc.her] way down the length of your feral [pc.legRace]'s body, your slave suddenly gives
+			#ELSE
+				Moving [npc.her] way down the length of your body, your slave suddenly pushes your over onto your back. Smirking down at you, [npc.she] gives
+			#ENDIF
+			#IF(pc.isCoverableAreaVisible(CA_VAGINA) && pc.hasVagina())
+				 your [pc.pussy+] a good grope,
+			#ELSEIF(pc.isCoverableAreaVisible(CA_PENIS) && pc.hasPenisIgnoresDildo())
+				 your [pc.cock+] a good grope,
+			#ELSE
+				 your [pc.ass+] a good grope,
+			#ENDIF
+			#IF(pc.isTaur())
+				#IF(npc.isTaur())
+					 before [npc.stepping] over your hindquarters and mounting you.
+				#ELSE
+					 before dropping down behind your hindquarters and tightly gripping your [pc.hips+].
+				#ENDIF
+			#ELSE
+				#IF(npc.isTaur())
+					 before [npc.stepping] over the top of you and mounting you.
+				#ELSE
+					 before dropping down between your [pc.legs] and tightly gripping your [pc.hips+].
+				#ENDIF
+			#ENDIF
+			#IF(npc.isMute() || npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_SILENCE))
+					 Letting out a chuckle, [npc.she] [npc.moansVerb], [npc.speech(Ready for a good fuck, <i>[pc.name]</i>?)]
+				</p>
+				<p>
+			#ELSE
+				 Remembering that you've previously given [npc.name] permission to use you for sexual relief whenever [npc.she] likes, you realise that you're about to be fucked by your slave...
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Doing as [npc.sheIsFull] told, [npc.name] obediently hurries over to stand beside you, before leaning down and starting to give you a massage.
+			#IF(npc.isMute() || npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_SILENCE))
+				#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_PROFESSIONAL))
+					 Acting in a very professional manner, [npc.she] silently starts by massaging your neck and shoulders, before slowly working [npc.her] way down the rest of your body.
+				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_SEDUCTIVE))
+					 Seductively teasing [npc.her] [npc.fingers+] over your back, [npc.she] starts by massaging your neck and shoulders, before silently working [npc.her] way down the rest of your body.
+				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_SLUTTY))
+					 After shamelessly groping your [pc.ass+], [npc.name] moves [npc.her] attention up to your neck and shoulders, and after giving them a good massage, [npc.she] silently works [npc.her] way down the rest of your body.
+				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_WHOLESOME))
+					 Flashing you a loving smile, [npc.name] starts by massaging your neck and shoulders, before silently working [npc.her] way down the rest of your body.
+				#ELSE
+					 Flashing you a quick smile, [npc.name] starts by massaging your neck and shoulders, before silently working [npc.her] way down the rest of your body.
+				#ENDIF
+			#ELSE
+				#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_PROFESSIONAL))
+					 Acting in a very professional manner, [npc.she] starts by massaging your neck and shoulders, before slowly working [npc.her] way down the rest of your body and saying, [npc.speech(I hope this is to your satisfaction, [pc.name]...)]
+				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_SEDUCTIVE))
+					 Seductively tracing [npc.her] [npc.fingers+] over your back, [npc.she] starts by massaging your neck and shoulders, before working [npc.her] way down the rest of your body and teasing, [npc.speech(Perhaps you'd like even more physical content once I've finished...)]
+				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_SLUTTY))
+					 After shamelessly groping your [pc.ass+], [npc.name] moves [npc.her] attention up to your neck and shoulders, and after giving them a good massage, [npc.she] works [npc.her] way down the rest of your body while crudely exclaiming, [npc.speech(I hope you're planning on having a good fuck after this!)]
+				#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_BEHAVIOUR_WHOLESOME))
+					 Flashing you a loving smile, [npc.name] starts by massaging your neck and shoulders, before working [npc.her] way down the rest of your body and sighing, [npc.speech(Thank you for letting me do this, [pc.name]! I hope it feels good...)]
+				#ELSE
+					 Flashing you a quick smile, [npc.name] starts by massaging your neck and shoulders, before working [npc.her] way down the rest of your body and saying, [npc.speech(I hope this feels good, [pc.name]...)]
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			While [npc.she] manages to hold back for long enough to give you a full massage, [npc.name] eventually starts to show signs of becoming incredibly aroused. Beginning to heavy pant, your slave is soon unable to contain [npc.her] excitement at being given this opportunity to have physical contact with you, and after
+			#IF(pc.isTaur())
+				 moving [npc.her] touch down the length of your feral [pc.legRace]'s body, [npc.she] suddenly gives
+			#ELSE
+				 moving [npc.her] touch down the length of your body, [npc.she] suddenly pushes your over onto your back. Letting out a hungry whine, [npc.she] gives
+			#ENDIF
+			#IF(pc.isCoverableAreaVisible(CA_VAGINA) && pc.hasVagina())
+				 your [pc.pussy+] a good grope,
+			#ELSEIF(pc.isCoverableAreaVisible(CA_PENIS) && pc.hasPenisIgnoresDildo())
+				 your [pc.cock+] a good grope,
+			#ELSE
+				 your [pc.ass+] a good grope,
+			#ENDIF
+			#IF(pc.isTaur())
+				#IF(npc.isTaur())
+					 before [npc.stepping] over your hindquarters and mounting you.
+				#ELSE
+					 before dropping down behind your hindquarters and tightly gripping your [pc.hips+].
+				#ENDIF
+			#ELSE
+				#IF(npc.isTaur())
+					 before [npc.stepping] over the top of you and mounting you.
+				#ELSE
+					 before dropping down between your [pc.legs] and tightly gripping your [pc.hips+].
+				#ENDIF
+			#ENDIF
+			#IF(npc.isMute() || npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_SILENCE))
+					 Letting out [npc.a_moan+], [npc.she] exclaims, [npc.speech(Sorry, [pc.name], I need to fuck you right now!)]
+				</p>
+				<p>
+			#ELSE
+				 Remembering that you've previously given [npc.name] permission to use you for sexual relief whenever [npc.she] likes, you realise that you're about to be fucked by your slave...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SPA_MASSAGE_FUCKED"><![CDATA[
+	<p>
+		With [npc.name] continuing to hold you in place down on the lounger, all you can do is let out [pc.a_moan+] of your own and get ready to take whatever it is that [npc.name] has in store for you...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SPA_MASSAGE_FINISHED"><![CDATA[
+	<p>
+		Having received an excellent massage from [npc.name], you get up off the lounger and take another look around your private spa as you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_MASSAGE_SEX_AS_DOM"><![CDATA[
+	#IF(npc.isTaur())
+		#IF(pc.isTaur())
+			<p>
+				Wanting to have a little extra fun with [npc.name], you take hold of [npc.her] [npc.hand+] and pull [npc.her] down beside you. Cutting off [npc.her] alarmed cry by pressing your [pc.lips+] against [npc.her] mouth, you give your slave a deep, passionate kiss.
+			</p>
+			<p>
+				After making out with one another in this position for a few moments, you break off the kiss, before repositioning yourself so that [npc.name] is lying down on the lounger and you've stepped over the top of [npc.her] hindquarters. Lowering your feral [pc.legRace]'s body down over the top of [npc.herHim],
+				#IF(npc.isAttractedTo(pc))
+					 you prepare to dominantly mount [npc.name]...
+				#ELSE
+					 you ignore [npc.her] protestations and prepare to dominantly mount and rape [npc.name]...
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				Wanting to have a little extra fun with [npc.name], you take hold of [npc.her] [npc.hand+] and pull [npc.her] down beside you. Cutting off [npc.her] alarmed cry by pressing your [pc.lips+] against [npc.her] mouth, you give your slave a deep, passionate kiss.
+			</p>
+			<p>
+				After making out with one another in this position for a few moments, you break off the kiss, before repositioning yourself so that [npc.name] is lying back on the lounger and you've stepped over the top of [npc.her] [npc.legs]. Lowering your feral [pc.legRace]'s body down over the top of [npc.herHim],
+				#IF(npc.isAttractedTo(pc))
+					 you prepare to dominantly mount [npc.name]...
+				#ELSE
+					 you ignore [npc.her] protestations and prepare to dominantly mount and rape [npc.name]...
+				#ENDIF
+			</p>
+		#ENDIF
+	#ELSE
+		#IF(pc.isTaur())
+			<p>
+				Wanting to have a little extra fun with [npc.name], you take hold of [npc.her] [npc.hand+] and pull [npc.her] down beside you. Cutting off [npc.her] alarmed cry by pressing your [pc.lips+] against [npc.her] mouth, you give your slave a deep, passionate kiss.
+			</p>
+			<p>
+				After making out with one another in this position for a few moments, you break off the kiss, before repositioning yourself so that [npc.name] is lying back on the lounger and you've stepped over the top of [npc.her] [npc.legs]. Lowering your feral [pc.legRace]'s body down over the top of [npc.herHim],
+				#IF(npc.isAttractedTo(pc))
+					 you prepare to dominantly fuck [npc.name]...
+				#ELSE
+					 you ignore [npc.her] protestations and prepare to dominantly rape [npc.name]...
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				Wanting to have a little extra fun with [npc.name], you roll over so that you're lying on your back, before taking hold of [npc.her] [npc.hand+] and pulling [npc.her] down on top of you. Cutting off [npc.her] alarmed cry by pressing your [pc.lips+] against [npc.her] mouth, you pull your slave into a deep, passionate kiss.
+			</p>
+			<p>
+				After making out with one another in this position for a few moments, you break off the kiss, before repositioning yourself so that [npc.name] is lying back on the lounger and you're between [npc.her] [npc.legs]. Smiling down at your slave,
+				#IF(npc.isAttractedTo(pc))
+					 you prepare to dominantly fuck [npc.herHim]...
+				#ELSE
+					 you ignore [npc.her] protestations and prepare to dominantly rape [npc.herHim]...
+				#ENDIF
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SPA_MASSAGE_SEX_AS_SUB"><![CDATA[
+	<p>
+		#IF(npc.isTaur())
+			#IF(pc.isTaur())
+				Wanting to have a little extra fun with [npc.name], you submissively push your [pc.ass+] out towards [npc.herHim] and tease [npc.herHim] with the prospect of being allowed to fuck you like this. Clearly desperate to give you what it is you're asking for, [npc.name] quickly [npc.steps] over the top of your hindquarters, before lowering [npc.her] feral [npc.legRace]'s body down and preparing to dominantly fuck you...
+			#ELSE
+				Wanting to have a little extra fun with [npc.name], you submissively roll over onto your back and tease [npc.herHim] with the prospect of being allowed to fuck you like this. Clearly desperate to give you what it is you're asking for, [npc.name] quickly [npc.steps] over the top of you, before lowering [npc.her] feral [npc.legRace]'s body down and preparing to dominantly fuck you...
+			#ENDIF
+		#ELSE
+			#IF(pc.isTaur())
+				Wanting to have a little extra fun with [npc.name], you submissively push your [pc.ass+] out towards [npc.herHim] and tease [npc.herHim] with the prospect of being allowed to fuck you like this. Clearly desperate to give you what it is you're asking for, [npc.name] quickly drops down behind your hindquarters and prepares to dominantly fuck you...
+			#ELSE
+				Wanting to have a little extra fun with [npc.name], you submissively roll over onto your back and tease [npc.herHim] with the prospect of being allowed to fuck you like this. Clearly desperate to give you what it is you're asking for, [npc.name] quickly drops down between your [pc.legs] and prepares to dominantly fuck you...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- AFTER_MASSAGE_SEX -->
+
+	<htmlContent tag="AFTER_MASSAGE_SEX"><![CDATA[
+	<p>
+		#IF(sex.isDom(pc))
+			Having had your fun with [npc.name], you bring an end to the sex by standing up and telling [npc.herHim] that you've got other things to be getting on with.
+			#IF(npc.isSatisfiedFromLastSex())
+				 Letting out a deeply satisfied sigh, [npc.name] sets about getting [npc.her] things in order, before [npc.stepping] back and waiting to hear if there's anything else you'll ask of [npc.herHim]...
+			#ELSE
+				 Letting out a horny whine, [npc.name] sets about getting [npc.her] things in order, before [npc.stepping] back and waiting to hear if there's anything else you'll ask of [npc.herHim]...
+			#ENDIF
+		#ELSE
+			Having had [npc.her] fun with you, [npc.name] brings an end to the sex by standing up and reminding you that you've got other things to be getting on with.
+			#IF(pc.isSatisfiedFromLastSex())
+				 Letting out a deeply satisfied sigh, you set about getting your things in order while [npc.name] [npc.steps] back and waits to hear if there's anything else you'll ask of [npc.herHim]...
+			#ELSE
+				 Letting out a horny whine, you set about getting your things in order while [npc.name] [npc.steps] back and waits to hear if there's anything else you'll ask of [npc.herHim]...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="AFTER_MASSAGE_SEX_FINISHED"><![CDATA[
+	<p>
+		[pc.Stepping] away from the lounger, you take a look around your private spa and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- SAUNA UPGRADE -->
+	
+	<!-- SPA_SAUNA_INSTALLATION -->
+	
+	<htmlContent tag="SPA_SAUNA_INSTALLATION"><![CDATA[
+	<p>
+		Sauna installation.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_SAUNA_INSTALLATION_COMMIT"><![CDATA[
+	<p>
+		Commit to it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_SAUNA_INSTALLATION_CHANGE_MIND"><![CDATA[
+	<p>
+		Change mind.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SPA_SAUNA -->
+	
+	<htmlContent tag="SPA_SAUNA"><![CDATA[
+	<p>
+		Sauna.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- POOL UPGRADE -->
+	
+	<!-- SPA_POOL_INSTALLATION -->
+	
+	<htmlContent tag="SPA_POOL_INSTALLATION"><![CDATA[
+	<p>
+		Sauna installation.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_POOL_INSTALLATION_COMMIT"><![CDATA[
+	<p>
+		Commit to it.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SPA_POOL_INSTALLATION_CHANGE_MIND"><![CDATA[
+	<p>
+		Change mind.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SPA_POOL -->
+	
+	<htmlContent tag="SPA_POOL"><![CDATA[
+	<p>
+		Pool.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

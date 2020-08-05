@@ -232,6 +232,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		sb.append(this.isSealed()?"s":"n");
 		sb.append(this.isDirty()?"d":"n");
 		sb.append(this.isEnchantmentKnown()?"e":"n");
+		sb.append(this.isBadEnchantment()?"b":"n");
+		sb.append(this.getSlotEquippedTo());
 		
 		for(ItemEffect ie : this.getEffects()) {
 			sb.append(ie.getId());
@@ -348,7 +350,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		AbstractClothing clothing = null;
 		
 		try {
-			clothing = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(parentElement.getAttribute("id")), false);
+			clothing = Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId(parentElement.getAttribute("id")), false);
 		} catch(Exception ex) {
 			System.err.println("Warning: An instance of AbstractClothing was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			return null;
@@ -1977,7 +1979,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 	
 	public boolean isMilkingEquipment() {
-		return this.getClothingType().getItemTags(slotEquippedTo).contains(ItemTag.MILKING_EQUIPMENT);
+		if(this.getSlotEquippedTo()==null) {
+			return this.getClothingType().getItemTags(this.getClothingType().getEquipSlots().get(0)).contains(ItemTag.MILKING_EQUIPMENT);
+		}
+		return this.getClothingType().getItemTags(this.getSlotEquippedTo()).contains(ItemTag.MILKING_EQUIPMENT);
 	}
 	
 	@Override

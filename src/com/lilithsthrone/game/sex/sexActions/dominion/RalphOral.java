@@ -1945,7 +1945,7 @@ public class RalphOral {
 				Main.game.getDialogueFlags().ralphDiscount=SexFlags.ralphDiscount;
 			}
 			
-			Main.game.getDialogueFlags().ralphDiscountStartTime=Main.game.getMinutesPassed();
+			Main.game.getDialogueFlags().setSavedLong(Ralph.RALPH_DISCOUNT_TIMER_ID, Main.game.getMinutesPassed());
 		}
 		
 		@Override

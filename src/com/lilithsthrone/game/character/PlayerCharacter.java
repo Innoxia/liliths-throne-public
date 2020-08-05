@@ -668,7 +668,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.natalyaBusy, false);
 			
 //			if(!character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
-//				character.addItem(AbstractItemType.generateItem(ItemType.NATALYA_BUSINESS_CARD_STAMPED), false);
+//				character.addItem(Main.game.getItemGeneration().generateItem(ItemType.NATALYA_BUSINESS_CARD_STAMPED), false);
 //			}
 //			character.removeItemByType(ItemType.NATALYA_BUSINESS_CARD);
 		}
@@ -679,12 +679,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			} else if(character.isQuestProgressGreaterThan(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR)
 					&& !character.hasItemType(ItemType.NATALYA_BUSINESS_CARD)
 					&& !character.hasItemType(ItemType.NATALYA_BUSINESS_CARD_STAMPED)) {
-				character.addItem(AbstractItemType.generateItem(ItemType.NATALYA_BUSINESS_CARD), false);
+				character.addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false);
 			}
 		}
 		
 		if(Main.isVersionOlderThan(version, "0.3.8") && character.isHasSlaverLicense()) {
-			character.addItem(AbstractItemType.generateItem(ItemType.SLAVER_LICENSE), false);
+			character.addItem(Main.game.getItemGen().generateItem(ItemType.SLAVER_LICENSE), false);
 		}
 		
 		return character;

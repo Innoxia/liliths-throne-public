@@ -2689,14 +2689,28 @@
 	
 	<htmlContent tag="CAPTIVE_NIGHT_BREAK_LOCK"><![CDATA[
 	<p>
-		You use your raw strength to rip the chain out of the wall.
+		Deciding that you're going to try and escape from Murk's captivity, you take a closer look at the chain which binds your collar to the wall of the cavern. Much to your delight, you see that it's quite heavily rusted in places, with one of the links near to your neck being so heavily corroded that it looks weak enough for you to try and break.
+	</p>
+	<p>
+		After first looking across at the four milkers to make sure that they're asleep and so not able to raise the alarm, you make your way over to your milking stall and look for some leverage with which to try and break the iron chain. Quickly finding a suitable piece of the stall's metal framework, you wedge the heavily-corroded link into the gap and give the chain a sharp tug. Large chunks of oxidised iron immediately crumble away from the link's surface, and after giving it a couple more sharp yanks, the chain finally snaps!
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="CAPTIVE_NIGHT_BREAK_LOCK_SPELL"><![CDATA[
 	<p>
-		You use a spell to break the chain out of the wall. 
+		Deciding that you're going to try and escape from Murk's captivity, you take a closer look at the chain which binds your collar to the wall of the cavern. Much to your delight, you see that it's quite heavily rusted in places, with one of the links near to your neck being so heavily corroded that it looks weak enough for you to try and break with a spell. After first looking across at the four milkers to make sure that they're asleep and so not able to raise the alarm, you settle down and start to focus your arcane energy in an attempt to overcome your collar's spell-suppressing enchantment.
+	</p>
+	<p>
+		Thirty minutes of meditation later, and you feel as though you've channelled enough arcane power in order to be able to cast a single spell. Looking down at the heavily-corroded link, you cast a concentrated form of
+		#IF(pc.hasSpell(SPELL_FIREBALL))
+			 'fireball'
+		#ELSEIF(pc.hasSpell(SPELL_ICE_SHARD))
+			 'ice shard'
+		#ELSE
+			 'slam'
+		#ENDIF
+		 on it, which is more than enough to shatter it and send large chunks of oxidised iron flying off in all directions!
 	</p>
 	]]>
 	</htmlContent>
@@ -2706,40 +2720,100 @@
 	
 	<htmlContent tag="CAPTIVE_BROKEN_FREE"><![CDATA[
 	<p>
-		Murk comes in and sees what's happened. He tells you that if you submit to him, he'll forget about it.
+		While the noise of your chain being broken isn't enough to rouse the milkers from their slumber, it's somehow enough to attract the attention of your captor, who stumbles into the room and groggily asks, [murks.speech(Wot's dat noise? I were takin' a piss an' 'eard one o' you sluts fidgetin' about!)]
+	</p>
+	<p>
+		Glancing across the room, Murk suddenly notices that not only are you awake, but that you've managed to break free from your chain. Despite the fact that you're unarmed and he's wielding a metal baseball bat, the chubby rat-boy seems visibly shaken by the fact that you've managed to escape from his restraints. With a slight tremble in his voice, he demands, [murk.speech(G-Get down an' beg fer me fergiveness, o-or else I'll give yer a real good beatin'!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_BROKEN_FREE_SUBMIT -->
+	
+	<htmlContent tag="CAPTIVE_BROKEN_FREE_SUBMIT"><![CDATA[
+	<p>
+		You submit to Murk. He crudely fixes up the chain and attaches it to your collar once again.
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().getMurkTfStage(pc)==0)
+			Tells you to kneel down before him and give him a handjob.
+		#ELSEIF(game.getDialogueFlags().getMurkTfStage(pc)>=4)
+			#IF(pc.isTaur())
+				#IF(pc.hasVagina())
+					Tells you to present yourself so that he can give your ugly pussy another good humping.
+				#ELSE
+					Tells you to present yourself so that he can give your ass another good humping.
+				#ENDIF
+			#ELSE
+				#IF(pc.hasVagina())
+					Tells you to lie down and present yourself so that he can give your ugly pussy another good humping.
+				#ELSE
+					Tells you to lie down and present yourself so that he can give your ass another good humping.
+				#ENDIF
+			#ENDIF
+		#ELSE
+			Tells you to get down on all fours before him and give his fat cock a big kiss.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CAPTIVE_BROKEN_FREE_SUBMIT_HANDJOB"><![CDATA[
+	<p>
+		You do as you're told and kneel down before the chubby rat-boy. He makes you give him a handjob.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="CAPTIVE_BROKEN_FREE_SUBMIT_ORAL"><![CDATA[
 	<p>
-		You decide that fighting Murk would be a bad idea, so you do as he says and submit to him.
-	</p>
-	<p>
-		Murk makes you get down on all fours, before moving around in front of you and making you kiss his cock. He then starts fucking your throat.
+		You do as you're told and get down on all fours. Murk moves around in front of you and makes you kiss his cock. He then starts fucking your throat.
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="CAPTIVE_BROKEN_FREE_SUBMIT_SEX"><![CDATA[
 	<p>
-		You decide that fighting Murk would be a bad idea, so you do as he says and submit to him.
-	</p>
-	<p>
-		#IF(game.isGapeContentEnabled())
-			#IF(pc.hasVagina())
-				Murk makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your gaping pussy, he makes you beg to be filled. Slamming down, he starts fucking your ruined cunt...
+		#IF(pc.isTaur())
+			#IF(game.isGapeContentEnabled())
+				#IF(pc.hasVagina())
+					You eagerly present your ugly pussy to your Master, who clambers up onto your hindquarters and prepares to start humping you. Teasing his fat cock over your gaping pussy, he makes you beg to be filled. Slamming down, he starts fucking your ruined cunt...
+				#ELSE
+					You eagerly present your [pc.ass+] to your Master, who clambers up onto your hindquarters and prepares to start humping you. Teasing his fat cock over your gaping asshole, he makes you beg to be filled. Slamming down, he starts fucking your ruined ass...
+				#ENDIF
 			#ELSE
-				Murk makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your gaping asshole, he makes you beg to be filled. Slamming down, he starts fucking your ruined ass...
+				#IF(pc.hasVagina())
+					You eagerly present your ugly pussy to your Master, who clambers up onto your hindquarters and prepares to start humping you. Teasing his fat cock over your wet pussy, he makes you beg to be filled. Slamming down, he starts fucking your cunt...
+				#ELSE
+					You eagerly present your [pc.ass+] to your Master, who clambers up onto your hindquarters and prepares to start humping you. Teasing his fat cock over your asshole, he makes you beg to be filled. Slamming down, he starts fucking your ass...
+				#ENDIF
 			#ENDIF
 		#ELSE
-			#IF(pc.hasVagina())
-				Murk makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your wet pussy, he makes you beg to be filled. Slamming down, he starts fucking your cunt...
+			#IF(game.isGapeContentEnabled())
+				#IF(pc.hasVagina())
+					You lie down on your back and eagerly spread your [pc.legs+] for your Master, who steps over you and pins you down in the mating press position. Teasing his fat cock over your gaping pussy, he makes you beg to be filled. Slamming down, he starts fucking your ugly cunt...
+				#ELSE
+					You lie down on your back and eagerly spread your [pc.legs+] for your Master, who steps over you and pins you down in the mating press position. Teasing his fat cock over your gaping asshole, he makes you beg to be filled. Slamming down, he starts fucking your ruined ass...
+				#ENDIF
 			#ELSE
-				Murk makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your asshole, he makes you beg to be filled. Slamming down, he starts fucking your ass...
+				#IF(pc.hasVagina())
+					You lie down on your back and eagerly spread your [pc.legs+] for your Master, who steps over you and pins you down in the mating press position. Teasing his fat cock over your wet pussy, he makes you beg to be filled. Slamming down, he starts fucking your cunt...
+				#ELSE
+					You lie down on your back and eagerly spread your [pc.legs+] for your Master, who steps over you and pins you down in the mating press position. Teasing his fat cock over your asshole, he makes you beg to be filled. Slamming down, he starts fucking your ass...
+				#ENDIF
 			#ENDIF
-
 		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- CAPTIVE_BROKEN_FREE_AFTER_SEX -->
+	
+	<htmlContent tag="CAPTIVE_BROKEN_FREE_AFTER_SEX"><![CDATA[
+	<p>
+		Murk is finished with you and leaves the room. You're so exhausted that you can't help but quickly fall asleep...
 	</p>
 	]]>
 	</htmlContent>
@@ -2771,6 +2845,13 @@
 	
 	<!-- CAPTIVE_CALL_OUT_RELEASED -->
 	
+	<htmlContent tag="CAPTIVE_CALL_OUT_RELEASED_HANDJOB"><![CDATA[
+	<p>
+		You do as you're told and kneel down before the chubby rat-boy. He makes you give him a handjob.
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="CAPTIVE_CALL_OUT_RELEASED_ORAL"><![CDATA[
 	<p>
 		You submit to Murk and get down on all fours, before he moves around in front of you and makes you kiss his cock. He then starts fucking your throat.
@@ -2780,19 +2861,34 @@
 	
 	<htmlContent tag="CAPTIVE_CALL_OUT_RELEASED_SEX"><![CDATA[
 	<p>
-		#IF(game.isGapeContentEnabled())
-			#IF(pc.hasVagina())
-				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your gaping pussy, he makes you beg to be filled. Slamming down, he starts fucking your ruined cunt...
+		#IF(pc.isTaur())
+			#IF(game.isGapeContentEnabled())
+				#IF(pc.hasVagina())
+					You eagerly present your ugly pussy to your Master, who clambers up onto your hindquarters and prepares to start humping you. Teasing his fat cock over your gaping pussy, he makes you beg to be filled. Slamming down, he starts fucking your ruined cunt...
+				#ELSE
+					You eagerly present your [pc.ass+] to your Master, who clambers up onto your hindquarters and prepares to start humping you. Teasing his fat cock over your gaping asshole, he makes you beg to be filled. Slamming down, he starts fucking your ruined ass...
+				#ENDIF
 			#ELSE
-				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your gaping asshole, he makes you beg to be filled. Slamming down, he starts fucking your ruined ass...
+				#IF(pc.hasVagina())
+					You eagerly present your ugly pussy to your Master, who clambers up onto your hindquarters and prepares to start humping you. Teasing his fat cock over your wet pussy, he makes you beg to be filled. Slamming down, he starts fucking your cunt...
+				#ELSE
+					You eagerly present your [pc.ass+] to your Master, who clambers up onto your hindquarters and prepares to start humping you. Teasing his fat cock over your asshole, he makes you beg to be filled. Slamming down, he starts fucking your ass...
+				#ENDIF
 			#ENDIF
 		#ELSE
-			#IF(pc.hasVagina())
-				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your wet pussy, he makes you beg to be filled. Slamming down, he starts fucking your cunt...
+			#IF(game.isGapeContentEnabled())
+				#IF(pc.hasVagina())
+					You lie down on your back and eagerly spread your [pc.legs+] for your Master, who steps over you and pins you down in the mating press position. Teasing his fat cock over your gaping pussy, he makes you beg to be filled. Slamming down, he starts fucking your ugly cunt...
+				#ELSE
+					You lie down on your back and eagerly spread your [pc.legs+] for your Master, who steps over you and pins you down in the mating press position. Teasing his fat cock over your gaping asshole, he makes you beg to be filled. Slamming down, he starts fucking your ruined ass...
+				#ENDIF
 			#ELSE
-				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your asshole, he makes you beg to be filled. Slamming down, he starts fucking your ass...
+				#IF(pc.hasVagina())
+					You lie down on your back and eagerly spread your [pc.legs+] for your Master, who steps over you and pins you down in the mating press position. Teasing his fat cock over your wet pussy, he makes you beg to be filled. Slamming down, he starts fucking your cunt...
+				#ELSE
+					You lie down on your back and eagerly spread your [pc.legs+] for your Master, who steps over you and pins you down in the mating press position. Teasing his fat cock over your asshole, he makes you beg to be filled. Slamming down, he starts fucking your ass...
+				#ENDIF
 			#ENDIF
-
 		#ENDIF
 	</p>
 	]]>
@@ -2869,6 +2965,13 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="DEFEAT_SEX_HANDJOB"><![CDATA[
+	<p>
+		You do as you're told and kneel down before the chubby rat-boy. He makes you give him a handjob.
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="DEFEAT_SEX_ORAL_START"><![CDATA[
 	<p>
 		You submit to Murk and get down on all fours, before he moves around in front of you and makes you kiss his cock. He then starts fucking your throat.
@@ -2878,22 +2981,39 @@
 	
 	<htmlContent tag="DEFEAT_SEX_START"><![CDATA[
 	<p>
-		#IF(game.isGapeContentEnabled())
-			#IF(pc.hasVagina())
-				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your gaping pussy, he makes you beg to be filled. Slamming down, he starts fucking your ruined cunt...
+		#IF(pc.isTaur())
+			#IF(game.isGapeContentEnabled())
+				#IF(pc.hasVagina())
+					You eagerly present your ugly pussy to your Master, who clambers up onto your hindquarters and prepares to start humping you. Teasing his fat cock over your gaping pussy, he makes you beg to be filled. Slamming down, he starts fucking your ruined cunt...
+				#ELSE
+					You eagerly present your [pc.ass+] to your Master, who clambers up onto your hindquarters and prepares to start humping you. Teasing his fat cock over your gaping asshole, he makes you beg to be filled. Slamming down, he starts fucking your ruined ass...
+				#ENDIF
 			#ELSE
-				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your gaping asshole, he makes you beg to be filled. Slamming down, he starts fucking your ruined ass...
+				#IF(pc.hasVagina())
+					You eagerly present your ugly pussy to your Master, who clambers up onto your hindquarters and prepares to start humping you. Teasing his fat cock over your wet pussy, he makes you beg to be filled. Slamming down, he starts fucking your cunt...
+				#ELSE
+					You eagerly present your [pc.ass+] to your Master, who clambers up onto your hindquarters and prepares to start humping you. Teasing his fat cock over your asshole, he makes you beg to be filled. Slamming down, he starts fucking your ass...
+				#ENDIF
 			#ENDIF
 		#ELSE
-			#IF(pc.hasVagina())
-				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your wet pussy, he makes you beg to be filled. Slamming down, he starts fucking your cunt...
+			#IF(game.isGapeContentEnabled())
+				#IF(pc.hasVagina())
+					You lie down on your back and eagerly spread your [pc.legs+] for your Master, who steps over you and pins you down in the mating press position. Teasing his fat cock over your gaping pussy, he makes you beg to be filled. Slamming down, he starts fucking your ugly cunt...
+				#ELSE
+					You lie down on your back and eagerly spread your [pc.legs+] for your Master, who steps over you and pins you down in the mating press position. Teasing his fat cock over your gaping asshole, he makes you beg to be filled. Slamming down, he starts fucking your ruined ass...
+				#ENDIF
 			#ELSE
-				You submit to Murk, who makes you lie down on you back, before stepping over you and pinning you down in the mating press position. Teasing his fat cock over your asshole, he makes you beg to be filled. Slamming down, he starts fucking your ass...
+				#IF(pc.hasVagina())
+					You lie down on your back and eagerly spread your [pc.legs+] for your Master, who steps over you and pins you down in the mating press position. Teasing his fat cock over your wet pussy, he makes you beg to be filled. Slamming down, he starts fucking your cunt...
+				#ELSE
+					You lie down on your back and eagerly spread your [pc.legs+] for your Master, who steps over you and pins you down in the mating press position. Teasing his fat cock over your asshole, he makes you beg to be filled. Slamming down, he starts fucking your ass...
+				#ENDIF
 			#ENDIF
 		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
+	
 	
 	<!-- CAPTIVE_AFTER_DEFEAT_SEX -->
 	
@@ -2909,7 +3029,10 @@
 	
 	<htmlContent tag="CAPTIVE_NIGHT_SLEEP_RESCUED"><![CDATA[
 	<p>
-		Shadow and Silence lead you down tunnels.
+		Shadow and Silence come to rescue you.
+	</p>
+	<p>
+		Shadow sees that Murk has broken you and roughly orders you to do as she says. Your submissive nature makes you unable to resist, and you let the two rat-girls drag you out of the milking room...
 	</p>
 	]]>
 	</htmlContent>

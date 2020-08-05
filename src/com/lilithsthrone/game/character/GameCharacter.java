@@ -403,6 +403,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	
 	//Companion
+	private boolean elementalSummoned;
 	private String elementalID;
 	private List<String> companions;
 	String partyLeader;
@@ -682,6 +683,7 @@ public abstract class GameCharacter implements XMLSaving {
 		setLustNoText(getRestingLust());
 		
 		//Companion initialization
+		elementalSummoned = false;
 		elementalID = "";
 		companions = new ArrayList<>();
 		setMaxCompanions(1);
@@ -746,6 +748,7 @@ public abstract class GameCharacter implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "elemental", this.getElementalID());
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "elementalSummoned", String.valueOf(elementalSummoned));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "combatBehaviour", this.getCombatBehaviour().toString());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeHadSex", String.valueOf(lastTimeHadSex));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "lastTimeOrgasmed", String.valueOf(lastTimeOrgasmed));
@@ -1489,6 +1492,10 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!noElemental && element.getElementsByTagName("elemental").getLength()!=0) {
 			character.setElementalID(((Element)element.getElementsByTagName("elemental").item(0)).getAttribute("value"));
 		}
+		if(element.getElementsByTagName("elementalSummoned").getLength()!=0) {
+			character.elementalSummoned = Boolean.valueOf(((Element)element.getElementsByTagName("elementalSummoned").item(0)).getAttribute("value"));
+		}
+		
 
 		if(!Main.isVersionOlderThan(version, "0.3.5.6")) {
 			Element lastSexElement = (Element)element.getElementsByTagName("lastTimeHadSex").item(0);
@@ -2472,6 +2479,14 @@ public abstract class GameCharacter implements XMLSaving {
 							}
 						}
 					}
+					
+					if(Main.isVersionOlderThan(version, "0.3.9")) { // Add new spa permissions:
+						character.addSlaveJobSettings(SlaveJob.SPA, SlaveJobSetting.SPA_BATHING);
+						character.addSlaveJobSettings(SlaveJob.SPA, SlaveJobSetting.SPA_STRIP_TO_BATHE);
+						character.addSlaveJobSettings(SlaveJob.SPA, SlaveJobSetting.SPA_MASSAGE);
+						character.addSlaveJobSettings(SlaveJob.SPA_RECEPTIONIST, SlaveJobSetting.SPA_SHOWERING);
+					}
+					
 					if(slaveryElement.getElementsByTagName("slaveJobSettings").item(0)!=null) {
 						NodeList slaveJobSettingElements = ((Element) slaveryElement.getElementsByTagName("slaveJobSettings").item(0)).getElementsByTagName("jobSetting");
 						for(int i=0; i<slaveJobSettingElements.getLength(); i++){
@@ -2479,10 +2494,31 @@ public abstract class GameCharacter implements XMLSaving {
 							
 							try {
 								SlaveJob job = SlaveJob.valueOf(e.getAttribute("job"));
+								if(Main.isVersionOlderThan(version, "0.3.9")) {
+									if(job==SlaveJob.MILKING) { // Handle conversion from old negative permission to new permission:
+										character.addSlaveJobSettings(job, SlaveJobSetting.MILKING_MILK);
+										character.addSlaveJobSettings(job, SlaveJobSetting.MILKING_MILK_CROTCH);
+										character.addSlaveJobSettings(job, SlaveJobSetting.MILKING_CUM);
+										character.addSlaveJobSettings(job, SlaveJobSetting.MILKING_GIRLCUM);
+									}
+								}
 								for(int j=0; j<e.getElementsByTagName("setting").getLength(); j++){
-									SlaveJobSetting setting = SlaveJobSetting.valueOf(e.getElementsByTagName("setting").item(j).getTextContent());
-									character.addSlaveJobSettings(job, setting);
-									CharacterUtils.appendToImportLog(log, "<br/>Added slave job ("+job+") setting: "+setting);
+									String id = e.getElementsByTagName("setting").item(j).getTextContent();
+									if(Main.isVersionOlderThan(version, "0.3.9") && job==SlaveJob.MILKING) {
+										if(id.equalsIgnoreCase("MILKING_MILK_DISABLE")) {
+											character.removeSlaveJobSettings(job, SlaveJobSetting.MILKING_MILK);
+										} else if(id.equalsIgnoreCase("MILKING_MILK_CROTCH_DISABLE")) {
+											character.removeSlaveJobSettings(job, SlaveJobSetting.MILKING_MILK_CROTCH);
+										} else if(id.equalsIgnoreCase("MILKING_CUM_DISABLE")) {
+											character.removeSlaveJobSettings(job, SlaveJobSetting.MILKING_CUM);
+										} else if(id.equalsIgnoreCase("MILKING_GIRLCUM_DISABLE")) {
+											character.removeSlaveJobSettings(job, SlaveJobSetting.MILKING_GIRLCUM);
+										}
+									} else {
+										SlaveJobSetting setting = SlaveJobSetting.valueOf(id);
+										character.addSlaveJobSettings(job, setting);
+										CharacterUtils.appendToImportLog(log, "<br/>Added slave job ("+job+") setting: "+setting);
+									}
 								}
 								
 							} catch(Exception ex) {
@@ -4570,6 +4606,20 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			slave.setOwner(this);
 			slave.setPendingClothingDressing(false);
+			
+			// Set up default permissions:
+			for(SlavePermission permission : SlavePermission.values()) {
+				for(SlavePermissionSetting setting : Main.game.getOccupancyUtil().getEnabledByDefaultPermissionSettings()) {
+					this.addSlavePermissionSetting(permission, setting);
+				}
+			}
+			
+			// Set up default job settings:
+			for(Entry<SlaveJob, List<SlaveJobSetting>> entry : Main.game.getOccupancyUtil().getEnabledByDefaultJobSettings().entrySet()) {
+				for(SlaveJobSetting setting : entry.getValue()) {
+					this.addSlaveJobSettings(entry.getKey(), setting);
+				}
+			}
 		}
 		
 		return added;
@@ -4733,8 +4783,19 @@ public abstract class GameCharacter implements XMLSaving {
 		return Main.game.isCharacterExisting(elementalID);
 	}
 	
+	public void setElementalSummoned(boolean elementalSummoned) {
+		this.elementalSummoned = elementalSummoned;
+	}
+	
 	public boolean isElementalSummoned() {
-		return hasDiscoveredElemental() && this.getCompanions().contains(this.getElemental());
+		return hasDiscoveredElemental() && elementalSummoned;
+	}
+	
+	/**
+	 * @return true if this character's elemental is summoned and if the elemental is in the same tile as this character.
+	 */
+	public boolean isElementalActive() {
+		return isElementalSummoned() && Main.game.getCharactersPresent(this.getCell()).contains(this.getElemental());
 	}
 	
 	/**
@@ -4747,6 +4808,9 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!character.isPlayer() && (getPartyLeader() == null || character.isElemental())) {
 			if(character.getPartyLeader() != null) {
 				character.getPartyLeader().removeCompanion(character);
+			}
+			if(character.isSlave() && character.isAtWork(Main.game.getHourOfDay())) {
+				character.getSlaveJob(Main.game.getHourOfDay()).applyJobEndEffects(character);
 			}
 			character.setPartyLeader(this.getId());
 			character.setLocation(this.getWorldLocation(), this.getLocation(), false);
@@ -5035,7 +5099,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * Override this to see if companion is willing to have sex with player
 	 */
 	public String getCompanionSexRejectionReason(boolean companionIsSub) {
-		if(Main.game.getSavedDialogueNode() != null && !Main.game.getSavedDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))) {
+		if(Main.game.getSavedDialogueNode() != null && !Main.game.getSavedDialogueNode().equals(Main.game.getPlayerCell().getDialogue(false))) {
 			return "You're in the middle of something right now!";
 		}
 		if(this.isElemental()) {
@@ -5679,6 +5743,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public void setPotionAttribute(Attribute att, float value) {
+		if(this.hasTrait(Perk.JOB_CHEF, true)) {
+			value = Math.min(50, value);
+		} else {
+			value = Math.min(25, value);
+		}
 		potionAttributes.put(att, value);
 		
 		for(float v : potionAttributes.values()) {
@@ -6405,6 +6474,10 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		return null;
 	}
+
+	public boolean hasStatusEffect(String statusEffectId) {
+		return hasStatusEffect(StatusEffect.getStatusEffectFromId(statusEffectId));
+	}
 	
 	public boolean hasStatusEffect(AbstractStatusEffect se) {
 		for(AppliedStatusEffect appliedSe : statusEffects) {
@@ -6450,27 +6523,6 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public boolean addStatusEffect(AbstractStatusEffect statusEffect, int secondsRemaining) {
 		return addStatusEffect(statusEffect, Main.game.getSecondsPassed(), 0, secondsRemaining);
-//		if(hasStatusEffect(statusEffect)){ // Refresh effect timer:
-//			getAppliedStatusEffect(statusEffect).setSecondsRemaining(seconds);
-//			return false;
-//		}
-//		
-//		statusEffects.add(new AppliedStatusEffect(statusEffect, Main.game.getSecondsPassed(), 0, seconds));
-//		
-//		// Bonus attributes are not incremented for status effects, as they can vary while a character is under the effects of them.
-//		// Instead, bonus attributes from status effects are calculated at the moment that getBonusAttribute() is called.
-//		
-//		// Apply effect:
-//		if(!statusEffect.isCombatEffect()){
-//			String s = statusEffect.applyEffect(this, 0, 0);
-//			if(s.length()!=0) {
-//				addStatusEffectDescription(statusEffect, s);
-//			}
-//		}
-//		
-//		updateAttributeListeners();
-//
-//		return true;
 	}
 
 	public String removeStatusEffectCombat(AbstractStatusEffect se) {
@@ -6490,6 +6542,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return s;
 	}
 
+	public boolean removeStatusEffect(String statusEffectId) {
+		return removeStatusEffect(StatusEffect.getStatusEffectFromId(statusEffectId));
+	}
+	
 	public boolean removeStatusEffect(AbstractStatusEffect se) {
 		if(!hasStatusEffect(se)) {
 			return false;
@@ -7354,7 +7410,7 @@ public abstract class GameCharacter implements XMLSaving {
 									} else {
 										ingestFluidSB.append(UtilText.parse(partner, "<p class='centre noPad'>[npc.NamePos] [npc.cum] was [style.boldGood(caught in [npc.her] condom)]!</p>"));
 										ingestFluidSB.append(Main.game.getPlayer().addItem(
-												AbstractItemType.generateFilledCondom(
+												Main.game.getItemGen().generateFilledCondom(
 														partner.getClothingInSlot(InventorySlot.PENIS).getColour(0),
 														partner, partner.getCum(), partner.getPenisRawOrgasmCumQuantity()),
 												false, true));
@@ -7827,7 +7883,7 @@ public abstract class GameCharacter implements XMLSaving {
 									} else {
 										ingestFluidSB.append(UtilText.parse(this, "<p class='centre noPad'>[npc.NamePos] [npc.cum] was [style.boldGood(caught in [npc.her] condom)]!</p>"));
 										ingestFluidSB.append(Main.game.getPlayer().addItem(
-												AbstractItemType.generateFilledCondom(
+												Main.game.getItemGen().generateFilledCondom(
 														this.getClothingInSlot(InventorySlot.PENIS).getColour(0),
 														this, this.getCum(), this.getPenisRawOrgasmCumQuantity()),
 												false, true));
@@ -17083,7 +17139,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	
-	/** Spells from weapons and status effects. */
+	/** Spells from weapons, perks, and status effects. */
 	public List<Spell> getExtraSpells() {
 		List<Spell> tempListSpells = new ArrayList<>();
 
@@ -17186,10 +17242,13 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this.isSpellSchoolSpecialAbilityUnlocked(SpellSchool.AIR)) {
 			regenerationRate*=2;
 		}
-		if(this.hasStatusEffect(StatusEffect.BATH)) {
+		if(this.hasStatusEffect("innoxia_cleaned_shower")) {
 			regenerationRate*=2;
 		}
-		if(this.hasStatusEffect(StatusEffect.BATH_BOOSTED)) {
+		if(this.hasStatusEffect("innoxia_cleaned_bath")) {
+			regenerationRate*=3;
+		}
+		if(this.hasStatusEffect("innoxia_cleaned_spa")) {
 			regenerationRate*=4;
 		}
 		return regenerationRate;
@@ -18043,6 +18102,34 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	/**
+	 * @param washAllOrifices
+	 * @param cleanAllClothing
+	 * @param effect Should be SHOWER, BATH, or BATH_BOOSTED
+	 * @param statusEffectMinutes 
+	 * @return A description of the wash.
+	 */
+	public String applyWash(boolean washAllOrifices, boolean cleanAllClothing, AbstractStatusEffect effect, int statusEffectMinutes) {
+		StringBuilder sb = new StringBuilder();
+		
+		this.setHealth(this.getAttributeValue(Attribute.HEALTH_MAXIMUM));
+		this.setMana(this.getAttributeValue(Attribute.MANA_MAXIMUM));
+		
+		sb.append(this.washAllOrifices(washAllOrifices));
+		this.calculateStatusEffects(0);
+		this.cleanAllDirtySlots(true);
+		sb.append(this.cleanAllClothing(cleanAllClothing, true));
+		
+		this.removeStatusEffect("innoxia_cleaned_shower");
+		this.removeStatusEffect("innoxia_cleaned_bath");
+		this.removeStatusEffect("innoxia_cleaned_spa");
+		if(effect!=null) {
+			this.addStatusEffect(effect, statusEffectMinutes*60);
+		}
+		
+		return sb.toString();
+	}
+	
+	/**
 	 * @param drainAllFluids Pass in true to completely drain all fluids from all orifices.
 	 * @return A description of orifices cleaned.
 	 */
@@ -18745,12 +18832,12 @@ public abstract class GameCharacter implements XMLSaving {
 					break;
 				case NOWHERE:
 					if(!mainEquipped) {
-						AbstractWeapon weapon = AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId(entry.getValue()));
+						AbstractWeapon weapon = Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId(entry.getValue()));
 						this.equipMainWeaponFromNowhere(weapon);
 						mainEquipped = true;
 						
 					} else if(!offhandEquipped) {
-						AbstractWeapon weapon = AbstractWeaponType.generateWeapon(WeaponType.getWeaponTypeFromId(entry.getValue()));
+						AbstractWeapon weapon = Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId(entry.getValue()));
 						this.equipOffhandWeaponFromNowhere(weapon);
 						offhandEquipped = true;
 					}
@@ -18799,7 +18886,7 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 					break;
 				case NOWHERE:
-					AbstractClothing c = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(entry.getValue()));
+					AbstractClothing c = Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId(entry.getValue()));
 					this.equipClothingFromNowhere(c, true, this);
 					break;
 			}

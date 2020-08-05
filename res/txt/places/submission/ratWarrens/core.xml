@@ -3503,16 +3503,16 @@
 	<p>
 		Still speaking in her refined accent, Shadow replies,
 		#IF(pc.hasCompanions())
-			 [shadow.speechNoEffects(The white-furred rat-girl is with me, yes. As for the other two, I really have no idea who they actually are, but I can tell you that they're the whole reason I had to call for you in the first place. It seems like they're out to right all the wrongs of this world, and were here to trying to get Vengar to put an end to his criminal activities.)]
+			 [shadow.speechNoEffects(The white-furred rat-girl is with me, yes. As for the other two, I really have no idea who they actually are, but I can tell you that they're the whole reason I had to call for you in the first place. It seems like they're out to right all the wrongs of this world, and were here to try and make Vengar put an end to his criminal activities.)]
 		#ELSE
-			 [shadow.speechNoEffects(The white-furred rat-girl is with me, yes. As for the other one, I really have no idea who [pc.she] actually is, but I can tell you that [pc.sheIs] the whole reason I had to call for you in the first place. It seems like [pc.sheIs] out to right all the wrongs of this world, and was here to trying to get Vengar to put an end to his criminal activities.)]
+			 [shadow.speechNoEffects(The white-furred rat-girl is with me, yes. As for the other one, I really have no idea who [pc.she] actually is, but I can tell you that [pc.sheIs] the whole reason I had to call for you in the first place. It seems like [pc.sheIs] out to right all the wrongs of this world, and was here to try and make Vengar put an end to his criminal activities.)]
 		#ENDIF
 	</p>
 	<p>
-		[style.speechMasculineStrong(Right... Well, I don't suppose you're going to help us clear up this whole mess?)] the Enforcer asks Shadow.
+		[style.speechMasculineStrong(Right, we're just here to get the gang members, so [pc.sheIs] not one we want then. I don't suppose you're going to help us clear up the rest of whole mess?)] the Enforcer asks Shadow.
 	</p>
 	<p>
-		[shadow.speechNoEffects(I'd love to lend you a hand, pet, but I think reporting back to my superiors takes priority, don't you?)] the black-furred rat-girl replies, before leaning down and pulling Silence up to her feet. Holding out her free hand to the Enforcer, she continues, [shadow.speechNoEffects(A pass, if you please? Now that you've rather rudely reclaimed your little signalling device, I've nothing to show your thugs on the way out. Knowing them, they'd be likely to shoot me before I could even start to talk my way past them.)]
+		[shadow.speechNoEffects(I'd love to lend you a hand, pet, but I think reporting back to my superiors takes priority, don't you?)] the black-furred rat-girl replies, before leaning down and pulling Silence up to her feet. Holding out her free hand to the Enforcer, she continues, [shadow.speechNoEffects(A pass, if you please? Now that you've rather rudely reclaimed your little signalling device, I've nothing to show to your thugs on the way out. Knowing them, they'd be likely to shoot me before I could even start to talk my way past them.)]
 	</p>
 	<p>
 		Letting out a growl as Shadow calls him 'pet' for a second time, the Enforcer nevertheless does as the rat-girl asks, and after reaching into one of his pockets to retrieve and hand over a slip of paper, he moves aside as she steps past him. Suddenly remembering your presence, Shadow turns and grins at you, before saying, [shadow.speechNoEffects(I suppose I must thank you for finally giving me an excuse to put an end to this gang. These assignments can get somewhat unbearable after the first few months... Anyway, if it wasn't clear already, you really shouldn't tell anyone about what you've seen of me here. Pet here will let you go after you've been questioned, I'm sure. Until next time, farewell!)]
@@ -3787,7 +3787,7 @@
 		#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_VENGAR, QUEST_VENGAR_OPTIONAL_CLAIRE))
 			 Recognising this sphere to be a resonance stone just like the one Claire gave to you, you listen as Shadow leans down to hiss,
 		#ELSE
-			 Recognising that this sphere's activation marks, you listen as Shadow leans down to hiss,
+			 Recognising that this sphere's activation marks a significant event, you listen as Shadow leans down to hiss,
 		#ENDIF
 		 [shadow.speechNoEffects(I's just wanted ta know I could beat ya; no 'ard feelin's.)]
 	</p>

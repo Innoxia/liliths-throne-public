@@ -33,7 +33,7 @@ public interface BodyPartTypeInterface {
 
 	/** @return The default name of this body part. */
 	public default String getName(GameCharacter gc){
-		if(isDefaultPlural()) {
+		if(isDefaultPlural() || (gc!=null && gc.getTailCount()!=1)) {
 			return getNamePlural(gc);
 		} else {
 			return getNameSingular(gc);

@@ -7,7 +7,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.occupantManagement.MilkingRoom;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
@@ -45,7 +44,7 @@ public class MilkingStall {
 			GameCharacter milker = Main.sex.getCharacterTargetedForSexAction(this);
 			
 			if(MilkingRoom.getActualMilkPerHour(milker)>0
-					&& !milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_MILK_DISABLE)
+					&& milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_MILK)
 					&& milker.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, false)
 					&& Main.sex.isClothingEquipAvailable(milker, InventorySlot.NIPPLE)) {
 				if(milker.getClothingInSlot(InventorySlot.NIPPLE)==null) {
@@ -53,7 +52,7 @@ public class MilkingStall {
 				}
 			}
 			if(MilkingRoom.getActualCrotchMilkPerHour(milker)>0
-					&& !milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_MILK_CROTCH_DISABLE)
+					&& milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_MILK_CROTCH)
 					&& milker.isAbleToAccessCoverableArea(CoverableArea.STOMACH, false)
 					&& Main.sex.isClothingEquipAvailable(milker, InventorySlot.STOMACH)) {
 				if(milker.getClothingInSlot(InventorySlot.STOMACH)==null) {
@@ -61,7 +60,7 @@ public class MilkingStall {
 				}
 			}
 			if(MilkingRoom.getActualCumPerHour(milker)>0
-					&& !milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_CUM_DISABLE)
+					&& milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_CUM)
 					&& milker.isAbleToAccessCoverableArea(CoverableArea.PENIS, false)
 					&& Main.sex.isClothingEquipAvailable(milker, InventorySlot.PENIS)) {
 				if(milker.getClothingInSlot(InventorySlot.PENIS)==null) {
@@ -69,7 +68,7 @@ public class MilkingStall {
 				}
 			}
 			if(MilkingRoom.getActualGirlcumPerHour(milker)>0
-					&& !milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_GIRLCUM_DISABLE)
+					&& milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_GIRLCUM)
 					&& (!milker.hasHymen() || milker.hasSlaveJobSetting(SlaveJob.MILKING, SlaveJobSetting.MILKING_TEAR_HYMEN))
 					&& milker.isAbleToAccessCoverableArea(CoverableArea.VAGINA, false)
 					&& Main.sex.isClothingEquipAvailable(milker, InventorySlot.VAGINA)) {
@@ -135,16 +134,16 @@ public class MilkingStall {
 				sb.append("<p style='text-align:center;padding:0;margin:0;'><i>");
 					switch(slot) {
 						case NIPPLE:
-							sb.append(milker.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"), false), InventorySlot.NIPPLE, true, equipper));
+							sb.append(milker.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"), false), InventorySlot.NIPPLE, true, equipper));
 							break;
 						case STOMACH:
-							sb.append(milker.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"), false), InventorySlot.STOMACH, true, equipper));
+							sb.append(milker.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"), false), InventorySlot.STOMACH, true, equipper));
 							break;
 						case PENIS:
-							sb.append(milker.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_penis_pump"), false), true, equipper));
+							sb.append(milker.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_penis_pump"), false), true, equipper));
 							break;
 						case VAGINA:
-							sb.append(milker.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_vagina_pump"), false), true, equipper));
+							sb.append(milker.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_vagina_pump"), false), true, equipper));
 							break;
 						default:
 							break;
