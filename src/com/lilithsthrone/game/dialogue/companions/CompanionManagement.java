@@ -921,7 +921,11 @@ public class CompanionManagement {
 										?"[style.colourObedience("+job.getObedienceIncomeModifier()+")]"
 										:"[style.colourDisabled("+job.getObedienceIncomeModifier()+")]")
 										+ "*<span style='color:"+obedience.getColour().toWebHexString()+";'>"+character.getObedienceValue()+"</span>)"
-								+ " = "+UtilText.formatAsMoney(income, "b", (income>0?null:PresetColour.GENERIC_BAD))+"/hour"
+								+ " = "
+								+(income>0
+									?UtilText.formatAsMoney(income, "b")
+									:UtilText.formatAsMoney(income, "b", PresetColour.GENERIC_BAD))
+								+"/hour"
 							+"</div>"
 							);
 				

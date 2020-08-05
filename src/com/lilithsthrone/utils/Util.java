@@ -984,8 +984,8 @@ public class Util {
 		slovenlySpeechReplacementMap.put("Are", "Is");
 		slovenlySpeechReplacementMap.put("are", "is");
 
-		slovenlySpeechReplacementMap.put("You're", "Yer");
-		slovenlySpeechReplacementMap.put("you're", "yer");
+		slovenlySpeechReplacementMap.put("You're", "You's");
+		slovenlySpeechReplacementMap.put("you're", "you's");
 		
 		slovenlySpeechReplacementMap.put("Your", "Yer");
 		slovenlySpeechReplacementMap.put("your", "yer");
@@ -1004,6 +1004,8 @@ public class Util {
 		
 		slovenlySpeechReplacementMap.put("To", "Ta");
 		slovenlySpeechReplacementMap.put("to", "ta");
+		slovenlySpeechReplacementMap.put("Into", "Inta");
+		slovenlySpeechReplacementMap.put("into", "inta");
 
 		slovenlySpeechReplacementMap.put("The", "Da");
 		slovenlySpeechReplacementMap.put("the", "da");
@@ -1037,6 +1039,8 @@ public class Util {
 		
 		slovenlySpeechReplacementMap.put("This one", "This 'un");
 		slovenlySpeechReplacementMap.put("this one", "this 'un");
+		slovenlySpeechReplacementMap.put("That one", "That 'un");
+		slovenlySpeechReplacementMap.put("that one", "that 'un");
 		
 		slovenlySpeechReplacementMap.put("Before", "'Afore");
 		slovenlySpeechReplacementMap.put("before", "'afore");
@@ -1084,12 +1088,13 @@ public class Util {
 	/**
 	 * Replaces words in the sentence to give the impression that the speaker is talking in a slovenly manner. The replacements are:
 			<br/>Are -> Is
-			<br/>You're -> Yer
+			<br/>You're -> You's
 			<br/>Your -> Yer
 			<br/>You -> Ya
 			<br/>Yourself - Yerself
 			<br/>You'd -> You's
 			<br/>To -> Ta
+			<br/>Into -> inta
 			<br/>The -> Da
 			<br/>Them -> Dem
 			<br/>And -> An'
@@ -1100,6 +1105,7 @@ public class Util {
 			<br/>Isn't -> ain't
 			<br/>Aren't -> ain't
 			<br/>This one -> This 'un
+			<br/>That one -> That 'un
 			<br/>Before -> 'afore
 			<br/>Give me -> Gimme
 			<br/>Going to -> gonna

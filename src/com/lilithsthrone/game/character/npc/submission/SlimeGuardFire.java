@@ -55,12 +55,10 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.submission.SlimeQueensLair;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -250,10 +248,10 @@ public class SlimeGuardFire extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		CharacterUtils.generateItemsInInventory(this);
 		
-		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_europeanSwords_arming_sword", DamageType.FIRE));
-		this.equipOffhandWeaponFromNowhere(AbstractWeaponType.generateWeapon("innoxia_buckler_buckler", DamageType.FIRE));
+		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword", DamageType.FIRE));
+		this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_buckler_buckler", DamageType.FIRE));
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(
 				"innoxia_finger_ring",
 				PresetColour.CLOTHING_COPPER,
 				Util.newArrayListOfValues(
@@ -265,15 +263,15 @@ public class SlimeGuardFire extends NPC {
 				true,
 				this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_elemental_piercing_nose_sun", PresetColour.CLOTHING_COPPER, false),
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_elemental_piercing_nose_sun", PresetColour.CLOTHING_COPPER, false),
 				true,
 				this);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_elemental_piercing_ear_sun", PresetColour.CLOTHING_COPPER, false),
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_elemental_piercing_ear_sun", PresetColour.CLOTHING_COPPER, false),
 				true,
 				this);
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing("innoxia_elemental_sun_necklace", PresetColour.CLOTHING_COPPER, false),
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_elemental_sun_necklace", PresetColour.CLOTHING_COPPER, false),
 				true,
 				this);
 

@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
@@ -1627,6 +1628,36 @@ public class GenericOrgasms {
 							case CHERRY:
 								cumTargetSB.append(" The sweet taste of [npc.namePos] cherry-flavoured");
 								break;
+							case COFFEE:
+								cumTargetSB.append(" The strong, bitter taste of [npc.namePos] coffee-flavoured");
+								break;
+							case TEA:
+								cumTargetSB.append(" The taste of [npc.namePos] tea-flavoured");
+								break;
+							case MAPLE:
+								cumTargetSB.append(" The sweet taste of [npc.namePos] maple-flavoured");
+								break;
+							case CINNAMON:
+								cumTargetSB.append(" The taste of [npc.namePos] cinnamon-flavoured");
+								break;
+							case LEMON:
+								cumTargetSB.append(" The sour taste of [npc.namePos] lemon-flavoured");
+								break;
+							case ORANGE:
+								cumTargetSB.append(" The citrus taste of [npc.namePos] orange-flavoured");
+								break;
+							case GRAPE:
+								cumTargetSB.append(" The taste of [npc.namePos] grape-flavoured");
+								break;
+							case MELON:
+								cumTargetSB.append(" The taste of [npc.namePos] melon-flavoured");
+								break;
+							case COCONUT:
+								cumTargetSB.append(" The taste of [npc.namePos] coconut-flavoured");
+								break;
+							case BLUEBERRY:
+								cumTargetSB.append(" The taste of [npc.namePos] blueberry-flavoured");
+								break;
 						}
 						cumTargetSB.append(" cum rises up to hit your [npc2.tongue], and you");
 						if(target.hasFetish(Fetish.FETISH_CUM_ADDICT) || Main.sex.getCharactersRequestingCreampie().contains(target)) {
@@ -2132,7 +2163,14 @@ public class GenericOrgasms {
 		}
 		
 		if(characterOrgasming.isVaginaSquirter()) {
-			genericOrgasmSB.append("<br/>As [npc.namePos] inner muscles spasm and quiver with delight, a huge spurt of female ejaculate squirts out from [npc.her] [npc.pussy+].");
+			List<String> ejaculateDescriptors = new ArrayList<>();
+			for(FluidModifier mod : FluidModifier.values()) {
+				if(characterOrgasming.hasGirlcumModifier(mod)) {
+					ejaculateDescriptors.add(mod.getName());
+				}
+			}
+			ejaculateDescriptors.add("wet");
+			genericOrgasmSB.append("<br/>As [npc.namePos] [npc.pussy+] uncontrollably spasms and quivers with delight, it suddenly squirts out a huge amount of hot, "+Util.randomItemFrom(ejaculateDescriptors)+" female ejaculate.");
 			
 			if(targetArea == OrgasmCumTarget.LILAYA_PANTIES) {
 				genericOrgasmSB.append("<br/>You quickly drop Lilaya's panties down between your legs, squirting directly into her underwear as you let out [pc.a_moan+].");
@@ -4426,7 +4464,7 @@ public class GenericOrgasms {
 	
 	
 	
-	// PLAYER:
+	// PREPARATIONS:
 	
 	public static final SexAction GENERIC_PREPARATION_PREPARE = new SexAction(
 			SexActionType.PREPARE_FOR_PARTNER_ORGASM,
@@ -4440,7 +4478,6 @@ public class GenericOrgasms {
 		public boolean isBaseRequirementsMet() {
 			return !isTakingCock(Main.game.getPlayer(), Main.sex.getCharacterTargetedForSexAction(this));
 		}
-
 		@Override
 		public SexActionPriority getPriority() {
 			return SexActionPriority.LOW;

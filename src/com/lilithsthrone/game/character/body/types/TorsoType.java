@@ -23,7 +23,7 @@ public class TorsoType {
 			Util.newArrayListOfValues(""),
 			"After just a few moments, the transformation comes to an end, and [npc.she] [npc.verb(let)] out a deep sigh as the itching finally stops, leaving [npc.her] torso covered with human skin."
 				+ "<br/>[npc.Name] now [npc.has] [style.boldHuman(human)], [npc.skinFullDescription].",
-			"[npc.Her] torso has [npc.a_femininity(true)] appearance[npc.Her] torso has [npc.a_femininity(true)] appearance, and is [npc.materialCompositionDescriptor] [npc.skinFullDescription(true)].") {
+			"[npc.Her] torso has [npc.a_femininity(true)] appearance, and is [npc.materialCompositionDescriptor] [npc.skinFullDescription(true)].") {
 	};
 
 	public static AbstractTorsoType DEMON_COMMON = new AbstractTorsoType(BodyCoveringType.DEMON_COMMON,

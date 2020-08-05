@@ -36,9 +36,11 @@ import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -1668,6 +1670,7 @@ public enum Subspecies {
 			}
 			if(body.getTail().getType().getRace()==Race.CAT_MORPH) {
 				body.getTail().setType(null, TailType.CAT_MORPH);
+				body.getTail().setTailGirth(null, PenetrationGirth.FOUR_THICK.getValue());
 			}
 			
 			body.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -2058,7 +2061,7 @@ public enum Subspecies {
 			"unicorn-girl",
 			"unicorn-boys",
 			"unicorn-girls",
-			"horse",
+			"unicorn",
 			"Although physically weaker than a regular horse-morph, [npc.nameHasFull] a special bond with the arcane, and [npc.is] able to cast many spells before exhausting [npc.her] aura.",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 20f),
@@ -2130,7 +2133,7 @@ public enum Subspecies {
 			"pegasus-girl",
 			"pegasus-boys",
 			"pegasus-girls",
-			"horse",
+			"pegasus",
 			"Although physically weaker than a regular horse-morph, [npc.nameIsFull] a lot more agile, allowing [npc.herHim] to avoid incoming damage.",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f),
@@ -2198,7 +2201,7 @@ public enum Subspecies {
 			"alicorn-girl",
 			"alicorn-boys",
 			"alicorn-girls",
-			"horse",
+			"alicorn",
 			"Possessing both feathered wings and a unicorn horn, [npc.nameIsFull] classified as a powerful alicorn, and [npc.verb(find)] it almost effortlessly trivial to cast spells.",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f),
@@ -3414,8 +3417,8 @@ public enum Subspecies {
 	// ELEMENTALS:
 
 
-	ELEMENTAL_FIRE("combat/spell/elemental_fire",
-			"",
+	ELEMENTAL_FIRE("statusEffects/race/raceElemental",
+			"statusEffects/race/raceBackgroundFire",
 			"fire elemental",
 			"fire elementals",
 			"fire elemental",
@@ -3428,7 +3431,8 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 50f)),
-			null,
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlimited)] <b style='color: "+ PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>"),
 			"Fire Elementals",
 			"Fire Elementals'",
 			"ELEMENTAL_FIRE_BASIC",
@@ -3452,10 +3456,30 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.FIRE);
 		}
+		@Override
+		public String getSVGString(GameCharacter character) {
+			if(!((Elemental)character).getSummoner().isElementalActive()) {
+				if(((Elemental)character).getPassiveForm()==null) {
+					String wispSVG = SvgUtil.colourReplacement(this.toString(),
+									this.getColour(character),
+									this.getColour(character),
+									this.getColour(character),
+									"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceWisp()+"</div>");
+					return wispSVG;
+				}
+				String raceSvg = SvgUtil.colourReplacement(this.toString(),
+						this.getColour(character),
+						this.getColour(character),
+						this.getColour(character),
+						((Elemental)character).getPassiveForm().SVGStringUncoloured);
+				return getBipedBackground(raceSvg, character, this.getColour(character));
+			}
+			return super.getSVGString(character);
+		}
 	},
 	
-	ELEMENTAL_EARTH("combat/spell/elemental_earth",
-			"",
+	ELEMENTAL_EARTH("statusEffects/race/raceElemental",
+			"statusEffects/race/raceBackgroundEarth",
 			"earth elemental",
 			"earth elementals",
 			"earth elemental",
@@ -3468,7 +3492,8 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 50f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 50f)),
-			null,
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlimited)] <b style='color: "+ PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>"),
 			"Earth Elementals",
 			"Earth Elementals'",
 			"ELEMENTAL_EARTH_BASIC",
@@ -3492,10 +3517,30 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.STONE);
 		}
+		@Override
+		public String getSVGString(GameCharacter character) {
+			if(!((Elemental)character).getSummoner().isElementalActive()) {
+				if(((Elemental)character).getPassiveForm()==null) {
+					String wispSVG = SvgUtil.colourReplacement(this.toString(),
+							this.getColour(character),
+							this.getColour(character),
+							this.getColour(character),
+							"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceWisp()+"</div>");
+					return wispSVG;
+				}
+				String raceSvg = SvgUtil.colourReplacement(this.toString(),
+						this.getColour(character),
+						this.getColour(character),
+						this.getColour(character),
+						((Elemental)character).getPassiveForm().SVGStringUncoloured);
+				return getBipedBackground(raceSvg, character, this.getColour(character));
+			}
+			return super.getSVGString(character);
+		}
 	},
 
-	ELEMENTAL_WATER("combat/spell/elemental_water",
-			"",
+	ELEMENTAL_WATER("statusEffects/race/raceElemental",
+			"statusEffects/race/raceBackgroundWater",
 			"water elemental",
 			"water elementals",
 			"water elemental",
@@ -3508,7 +3553,8 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f)),
-			null,
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlimited)] <b style='color: "+ PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>"),
 			"Water Elementals",
 			"Water Elementals'",
 			"ELEMENTAL_WATER_BASIC",
@@ -3532,10 +3578,30 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.WATER);
 		}
+		@Override
+		public String getSVGString(GameCharacter character) {
+			if(!((Elemental)character).getSummoner().isElementalActive()) {
+				if(((Elemental)character).getPassiveForm()==null) {
+					String wispSVG = SvgUtil.colourReplacement(this.toString(),
+									this.getColour(character),
+									this.getColour(character),
+									this.getColour(character),
+									"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceWisp()+"</div>");
+					return wispSVG;
+				}
+				String raceSvg = SvgUtil.colourReplacement(this.toString(),
+						this.getColour(character),
+						this.getColour(character),
+						this.getColour(character),
+						((Elemental)character).getPassiveForm().SVGStringUncoloured);
+				return getBipedBackground(raceSvg, character, this.getColour(character));
+			}
+			return super.getSVGString(character);
+		}
 	},
 
-	ELEMENTAL_AIR("combat/spell/elemental_air",
-			"",
+	ELEMENTAL_AIR("statusEffects/race/raceElemental",
+			"statusEffects/race/raceBackgroundAir",
 			"air elemental",
 			"air elementals",
 			"air elemental",
@@ -3548,7 +3614,8 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 50f)),
-			null,
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlimited)] <b style='color: "+ PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>"),
 			"Air Elementals",
 			"Air Elementals'",
 			"ELEMENTAL_AIR_BASIC",
@@ -3572,10 +3639,30 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.AIR);
 		}
+		@Override
+		public String getSVGString(GameCharacter character) {
+			if(!((Elemental)character).getSummoner().isElementalActive()) {
+				if(((Elemental)character).getPassiveForm()==null) {
+					String wispSVG = SvgUtil.colourReplacement(this.toString(),
+									this.getColour(character),
+									this.getColour(character),
+									this.getColour(character),
+									"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceWisp()+"</div>");
+					return wispSVG;
+				}
+				String raceSvg = SvgUtil.colourReplacement(this.toString(),
+						this.getColour(character),
+						this.getColour(character),
+						this.getColour(character),
+						((Elemental)character).getPassiveForm().SVGStringUncoloured);
+				return getBipedBackground(raceSvg, character, this.getColour(character));
+			}
+			return super.getSVGString(character);
+		}
 	},
 
-	ELEMENTAL_ARCANE("combat/spell/elemental_arcane",
-			"",
+	ELEMENTAL_ARCANE("statusEffects/race/raceElemental",
+			"statusEffects/race/raceBackgroundArcane",
 			"arcane elemental",
 			"arcane elementals",
 			"arcane elemental",
@@ -3588,7 +3675,8 @@ public enum Subspecies {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 50f)),
-			null,
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Unlimited)] <b style='color: "+ PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'> self-transformations</b>"),
 			"Arcane Elementals",
 			"Arcane Elementals'",
 			"ELEMENTAL_ARCANE_BASIC",
@@ -3611,6 +3699,26 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setBodyMaterial(BodyMaterial.ARCANE);
+		}
+		@Override
+		public String getSVGString(GameCharacter character) {
+			if(!((Elemental)character).getSummoner().isElementalActive()) {
+				if(((Elemental)character).getPassiveForm()==null) {
+					String wispSVG = SvgUtil.colourReplacement(this.toString(),
+									this.getColour(character),
+									this.getColour(character),
+									this.getColour(character),
+									"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getRaceWisp()+"</div>");
+					return wispSVG;
+				}
+				String raceSvg = SvgUtil.colourReplacement(this.toString(),
+						this.getColour(character),
+						this.getColour(character),
+						this.getColour(character),
+						((Elemental)character).getPassiveForm().SVGStringUncoloured);
+				return getBipedBackground(raceSvg, character, this.getColour(character));
+			}
+			return super.getSVGString(character);
 		}
 	},
 	
@@ -3644,6 +3752,7 @@ public enum Subspecies {
 	private String description;
 	
 	protected String SVGString;
+	protected String SVGStringUncoloured;
 	protected String SVGStringNoBackground;
 	protected String SVGStringDesaturated;
 	protected String slimeSVGString;
@@ -3833,7 +3942,7 @@ public enum Subspecies {
 				if(is==null) {
 					System.err.println("Error! Subspecies icon file does not exist (Trying to read from '"+iconPathName+"')! (Code 1)");
 				}
-				SVGString = Util.inputStreamToString(is);
+				SVGStringUncoloured = Util.inputStreamToString(is);
 				
 				is.close();
 				
@@ -3848,46 +3957,47 @@ public enum Subspecies {
 					is.close();
 				}
 				
-				String baseSVGString = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGString+"</div>";
-				
+
 				SVGStringNoBackground = SvgUtil.colourReplacement(this.toString(),
 						colour,
 						colour,
 						colour,
-						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGString+"</div>");
+						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>");
+				
+				SVGStringUncoloured = SVGStringBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>";
 				
 				slimeSVGString = SvgUtil.colourReplacement(this.toString(),
 						PresetColour.RACE_SLIME,
 						PresetColour.RACE_SLIME,
 						PresetColour.RACE_SLIME,
 						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundSlime()+"</div>"
-						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGString+"</div>");
+						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>");
 
 				halfDemonSVGString = SvgUtil.colourReplacement(this.toString(),
 						PresetColour.RACE_HALF_DEMON,
 						PresetColour.RACE_HALF_DEMON,
 						PresetColour.RACE_HALF_DEMON,
 						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
-						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGString+"</div>");
+						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>");
 
 				demonSVGString = SvgUtil.colourReplacement(this.toString(),
 						PresetColour.RACE_DEMON,
 						PresetColour.RACE_DEMON,
 						PresetColour.RACE_DEMON,
 						"<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
-						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGString+"</div>");
+						+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGStringUncoloured+"</div>");
 				
 				SVGStringDesaturated = SvgUtil.colourReplacement(this.toString(),
 						PresetColour.BASE_GREY,
 						PresetColour.BASE_GREY,
 						PresetColour.BASE_GREY,
-						baseSVGString);
+						SVGStringUncoloured);
 				
 				SVGString = SvgUtil.colourReplacement(this.toString(),
 						colour,
 						colour,
 						colour,
-						baseSVGString);
+						SVGStringUncoloured);
 				
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -3971,7 +4081,7 @@ public enum Subspecies {
 		
 		switch(body.getBodyMaterial()) {
 			case FIRE:
-				if(race==Race.HARPY) {
+				if((character==null || !character.isElemental()) && race==Race.HARPY) {
 					return Subspecies.HARPY_PHOENIX;
 				}
 				return Subspecies.ELEMENTAL_FIRE;
@@ -4588,7 +4698,7 @@ public enum Subspecies {
 		}
 		return perkWeightingFeminine;
 	}
-
+	
 	public List<String> getExtraEffects(GameCharacter character) {
 		if(character!=null) {
 			List<String> effectsModified = new ArrayList<>(extraEffects);
@@ -4652,10 +4762,11 @@ public enum Subspecies {
 	}
 	
 	protected String getBipedBackground(String svg, GameCharacter character, Colour colour) {//TODO - when support other body types, add different backgrounds
+		String returnString = svg;
 		if(character!=null && character.getLegConfiguration()!=LegConfiguration.BIPEDAL) {
 			try {
 				String SVGStringLegConfigurationBackground = "";
-				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundNonBipedAlt.svg");
+				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundNonBiped.svg");
 				SVGStringLegConfigurationBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
 				is.close();
 				SVGStringLegConfigurationBackground = SvgUtil.colourReplacement(this.toString()+"NBPID",
@@ -4664,12 +4775,29 @@ public enum Subspecies {
 						colour,
 						SVGStringLegConfigurationBackground);
 				
-				return SVGStringLegConfigurationBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + svg +"</div>";
+				returnString = SVGStringLegConfigurationBackground + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + svg +"</div>";
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		return svg;
+		if(character!=null && (character.isTorsoBestial() || (character.isElemental() && !((Elemental)character).getSummoner().isElementalActive()))) {
+			try {
+				String feralBackground = "";
+				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundFeral.svg");
+				feralBackground = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+Util.inputStreamToString(is)+"</div>";
+				is.close();
+				feralBackground = SvgUtil.colourReplacement(this.toString()+"FERAL",
+						colour,
+						colour,
+						colour,
+						feralBackground);
+				
+				returnString = returnString + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>" + feralBackground +"</div>";
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return returnString;
 	}
 	
 	public String getSVGString(GameCharacter character) {

@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.2.11
+ * @version 0.3.9
  * @author Innoxia
  */
 public enum Attribute {
@@ -745,6 +745,42 @@ public enum Attribute {
 	
 	public String getColouredName(String tag) {
 		return "<"+tag+" style='color:"+this.getColour().toWebHexString()+";'>"+name+"</"+tag+">";
+	}
+
+	public String getFormattedValue(float value) {
+		return getFormattedValue(value, null);
+	}
+	
+	public String getFormattedValue(float value, String htmlTag) {
+		String valueForDisplay;
+		if(((int)value)==value) {
+			valueForDisplay = String.valueOf(((int)value));
+		} else {
+			valueForDisplay = String.valueOf(value);
+		}
+		String returnValue = "";
+		if(this.isInfiniteAtUpperLimit() && value>=this.getUpperLimit()) {
+			if(!this.getInfiniteDescription().isEmpty()) {
+				returnValue = this.getInfiniteDescription();
+			} else {
+				returnValue = "[style.colourExcellent(Infinite)] <span style='color: "+ this.getColour().toWebHexString()+ ";'>"+ Util.capitaliseSentence(this.getAbbreviatedName())+ "</span>";
+			}
+			
+		} else {
+			String minorColour = "";
+			if(this.isPercentage()){
+				minorColour = "Minor";
+				valueForDisplay = valueForDisplay+"%";
+			}
+			returnValue = (value>0?"[style.colour"+minorColour+"Good(+":"[style.colour"+minorColour+"Bad(")+valueForDisplay+")]"
+					+ " <span style='color:"+this.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(this.getAbbreviatedName())+"</span>";
+		}
+		
+		if(htmlTag!=null) {
+			return "<"+htmlTag+">"+returnValue+"</"+htmlTag+">";
+		} else {
+			return returnValue;
+		}
 	}
 
 	public String getAbbreviatedName() {

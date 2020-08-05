@@ -55,7 +55,7 @@ public class WingType {
 			+ "#ENDIF"
 			+ "<br/>"
 			+ "[npc.Name] now [npc.has] [style.boldAngel(angelic, feathered wings)].",
-			"[npc.sheHasFull] a pair of [npc.wingSize], feathered, angelic wings, which are covered in [npc.wingFullDescription(true)].") {
+			"[npc.sheHasFull] a pair of [npc.wingSize], feathered, angelic wings, which are [npc.materialDescriptor] [npc.wingFullDescription(true)].") {
 	};
 
 	// Demons:
@@ -80,7 +80,7 @@ public class WingType {
 			+ "#ELSE"
 				+ "[npc.Name] now [npc.has] [style.boldDemon(demonic, leathery wings)]."
 			+ "#ENDIF",
-			"[npc.sheHasFull] a pair of [npc.wingSize], leathery, demonic wings, which are covered in [npc.wingFullDescription(true)].") {
+			"[npc.sheHasFull] a pair of [npc.wingSize], leathery, demonic wings, which are [npc.materialDescriptor] [npc.wingFullDescription(true)].") {
 	};
 
 	public static final AbstractWingType DEMON_FEATHERED = new AbstractWingType(
@@ -103,7 +103,7 @@ public class WingType {
 			+ "#ELSE"
 				+ "[npc.Name] now [npc.has] [style.boldDemon(demonic, feathered wings)]."
 			+ "#ENDIF",
-			"[npc.sheHasFull] a pair of [npc.wingSize], feathered, demonic wings, which are covered in [npc.wingFullDescription(true)].") {
+			"[npc.sheHasFull] a pair of [npc.wingSize], feathered, demonic wings, which are [npc.materialDescriptor] [npc.wingFullDescription(true)].") {
 	};
 	
 	// Generic:
@@ -124,7 +124,7 @@ public class WingType {
 			+ "#ENDIF"
 			+ "<br/>"
 			+ "[npc.Name] now [npc.has] [style.boldTfGeneric(leathery wings)].",
-			"[npc.sheHasFull] a pair of [npc.wingSize], leathery wings, which are covered in [npc.wingFullDescription(true)].") {
+			"[npc.sheHasFull] a pair of [npc.wingSize], leathery wings, which are [npc.materialDescriptor] [npc.wingFullDescription(true)].") {
 	};
 
 	public static final AbstractWingType FEATHERED = new AbstractWingType(
@@ -143,7 +143,7 @@ public class WingType {
 			+ "#ENDIF"
 			+ "<br/>"
 			+ "[npc.Name] now [npc.has] [style.boldTfGeneric(feathered wings)].",
-			"[npc.sheHasFull] a pair of [npc.wingSize], feathered wings, which are covered in [npc.wingFullDescription(true)].") {
+			"[npc.sheHasFull] a pair of [npc.wingSize], feathered wings, which are [npc.materialDescriptor] [npc.wingFullDescription(true)].") {
 	};
 
 

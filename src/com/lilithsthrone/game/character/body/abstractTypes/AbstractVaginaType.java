@@ -162,7 +162,7 @@ public abstract class AbstractVaginaType implements BodyPartTypeInterface {
 			if(Math.random()<0.25f) { // 25% chance to return this '-' name.
 				return name + Util.getRandomObjectFromWeightedMap(returnNames);
 			} else {
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
+				return Util.getRandomObjectFromWeightedMap(returnNames);
 			}
 		}
 		if(name.isEmpty()) {

@@ -27,6 +27,7 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
@@ -2513,19 +2514,8 @@ public enum RenderingEngine {
 		
 		
 		// Status effects:
-		panelSB.append("<hr style='border:1px solid "+PresetColour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>"
-				+"<div class='attribute-container' style='padding:0; overflow-y: auto;'>");
-		
-//		// Traits:
-//		for (Perk trait : character.getTraits()) {
-//			panelSB.append(
-//					"<div class='icon effect' style='border:1px solid "+PresetColour.TRAIT.toWebHexString()+"'>"
-//							+ "<div class='icon-content'>"
-//								+ trait.getSVGString()
-//								+ "<div class='overlay' id='TRAIT_" + idPrefix + trait + "'></div>"
-//							+ "</div>"
-//					+ "</div>");
-//		}
+		panelSB.append("<hr style='border:1px solid "+PresetColour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'/>");
+		panelSB.append("<div class='attribute-container' style='padding:0; overflow-y:auto;'>");
 		
 		if(!Main.game.isInCombat()) {
 			// Infinite duration:
@@ -2647,7 +2637,97 @@ public enum RenderingEngine {
 			}
 		}
 		
-		panelSB.append("</div></div>");
+		panelSB.append("</div>");
+		
+		if(character.isElementalSummoned() && !character.isElementalActive()) {
+			Elemental elemental = character.getElemental();
+			panelSB.append("<hr style='border:1px solid "+PresetColour.TEXT_GREY_DARK.toWebHexString()+"; margin:2px 0;'/>");
+			panelSB.append("<div class='attribute-container' style='padding:0; overflow-y:auto; margin-bottom:4px;'>"
+//					"<div class='full-width-container' style='margin-bottom:4px;'>"
+								+ "<div class='icon' style='width:12%'>"
+									+ "<div class='icon-content'>"
+										+ (elemental.getMapIcon())
+									+ "</div>"
+									+"<div class='overlay' id='"+idPrefix+"ELEMENTAL_"+Attribute.EXPERIENCE.getName()+"' style='cursor:pointer;'></div>"
+								+ "</div>"
+								+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;float:left;width:86%;'>"
+									+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;'>"
+										+ "<b style='color:"+ Femininity.valueOf(elemental.getFemininityValue()).getColour().toWebHexString() + ";'>"
+											+ (elemental.getName(true).length() == 0
+													? Util.capitaliseSentence(elemental.isFeminine()?elemental.getSubspecies().getSingularFemaleName(elemental):elemental.getSubspecies().getSingularMaleName(elemental))
+													: (elemental.isPlayer()
+															?elemental.getName(true)
+															:UtilText.parse(elemental, "[npc.Name]")))
+										+"</b>"
+//										+ " - Level "+ elemental.getLevel()
+									+"</div>"
+									+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+"; border-radius: 2px;'>"
+										+ (elemental.getLevel() != GameCharacter.LEVEL_CAP
+											? "<div style='mix-blend-mode: difference; width:" + (elemental.getExperience() / (elemental.getLevel() * 10f)) * 100 + "%; height:2vw; background:" + PresetColour.CLOTHING_BLUE_LIGHT.toWebHexString()
+													+ "; float:left; border-radius: 2px;'></div>"
+											: "<div style=' mix-blend-mode: difference; width:100%; height:2vw; background:" + PresetColour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2px;'></div>")
+									+"</div>"
+									+"<div class='overlay' id='"+idPrefix+"ELEMENTAL_ATTRIBUTES' style='cursor:pointer;'></div>"
+								+"</div>"
+							+"</div>");
+			
+			// Effects:
+//			panelSB.append("<hr style='border:1px solid "+PresetColour.BASE_PITCH_BLACK.toWebHexString()+"; margin:2px 0;'/>");
+			
+			panelSB.append("<div class='attribute-container' style='padding:0; margin-bottom:0; overflow-y:auto;'>");
+			
+			float iconWidth = 100/9f - 2;  // usual is 12.28 (7 per row)
+			// Infinite duration:
+			for(AbstractStatusEffect se : elemental.getStatusEffects()) {
+				if (!se.isCombatEffect() && elemental.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel())
+					panelSB.append(
+							"<div class='icon effect' style='width:"+iconWidth+"%;'>"
+									+ "<div class='icon-content'>"
+										+ se.getSVGString(elemental)
+										+ "<div class='overlay' id='SE_ELEMENTAL_" + idPrefix + se + "'></div>"
+									+ "</div>"
+							+ "</div>");
+			}
+			// Timed:
+			for(AbstractStatusEffect se : elemental.getStatusEffects()) {
+				if (!se.isCombatEffect() && elemental.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
+					int timerHeight = (int) ((elemental.getStatusEffectDuration(se)/(60*60*6f))*100);
+	
+					Colour timerColour = PresetColour.STATUS_EFFECT_TIME_HIGH;
+					
+					if(timerHeight>100) {
+						timerHeight=100;
+						timerColour = PresetColour.STATUS_EFFECT_TIME_OVERFLOW;
+					} else if(timerHeight<15) {
+						timerColour = PresetColour.STATUS_EFFECT_TIME_LOW;
+					} else if (timerHeight<50) {
+						timerColour = PresetColour.STATUS_EFFECT_TIME_MEDIUM;
+					}
+					
+					panelSB.append(
+							"<div class='icon effect' style='width:"+iconWidth+"%;'>"
+									+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
+									+ "<div class='icon-content'>"
+										+ se.getSVGString(elemental)
+										+ "<div class='overlay' id='SE_ELEMENTAL_" + idPrefix + se + "'></div>"
+									+ "</div>"
+							+ "</div>");
+				}
+			}
+//			for (Fetish f : elemental.getFetishes(true)) {
+//				panelSB.append(
+//					"<div class='icon effect' style='width:"+iconWidth+"%;'>"
+//						+ "<div class='icon-content'>"
+//								+ f.getSVGString(elemental)
+//								+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
+//						+ "</div>"
+//					+ "</div>");
+//			}
+			
+			panelSB.append("</div>");
+		}
+		
+		panelSB.append("</div>");
 		
 		return panelSB.toString();
 	}

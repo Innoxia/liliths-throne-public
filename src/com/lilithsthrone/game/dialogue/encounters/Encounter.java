@@ -47,7 +47,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
@@ -237,7 +236,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 					
 				} else if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT) {
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
 					
 					return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
 				}
@@ -245,7 +244,7 @@ public enum Encounter {
 			
 			if(time.getMonth().equals(Month.JUNE) && time.getDayOfMonth()>14 && time.getDayOfMonth()<=21) { // Father's day timing, 3rd week of June
 				if(node==EncounterType.DOMINION_STREET_PILL_HANDOUT) {
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.VIXENS_VIRILITY), 3+Util.random.nextInt(4), false, true));
 					
 					return DominionEncounterDialogue.DOMINION_STREET_PILL_HANDOUT;
 				}
@@ -333,13 +332,13 @@ public enum Encounter {
 				
 			} else if(node == EncounterType.DOMINION_FIND_ITEM) {
 				if(!Main.game.isSillyModeEnabled() || Math.random()<0.99f) {
-					randomItem = AbstractItemType.generateItem(ItemType.getDominionAlleywayItems().get(Util.random.nextInt(ItemType.getDominionAlleywayItems().size())));
+					randomItem = Main.game.getItemGen().generateItem(ItemType.getDominionAlleywayItems().get(Util.random.nextInt(ItemType.getDominionAlleywayItems().size())));
 					
 				} else {
 					if(Math.random()<0.5f) {
-						randomItem = AbstractItemType.generateItem(ItemType.EGGPLANT);
+						randomItem = Main.game.getItemGen().generateItem(ItemType.EGGPLANT);
 					} else {
-						randomItem = AbstractItemType.generateItem(ItemType.FEMININE_BURGER);
+						randomItem = Main.game.getItemGen().generateItem(ItemType.FEMININE_BURGER);
 					}
 				}
 				
@@ -348,7 +347,7 @@ public enum Encounter {
 				
 			} else if(node == EncounterType.DOMINION_FIND_CLOTHING) {
 				if(Math.random()<0.01f) {
-					randomItem = AbstractClothingType.generateClothing(ClothingType.MEGA_MILK);
+					randomItem = Main.game.getItemGen().generateClothing(ClothingType.MEGA_MILK);
 					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
 					
 				} else {
@@ -359,7 +358,7 @@ public enum Encounter {
 							&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
 							|| clothing.getRarity()==Rarity.EPIC
 							|| clothing.getRarity()==Rarity.LEGENDARY);
-					randomItem = AbstractClothingType.generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
+					randomItem = Main.game.getItemGen().generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
 					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
 				}
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
@@ -367,7 +366,7 @@ public enum Encounter {
 			} else if(node == EncounterType.DOMINION_FIND_WEAPON) {
 				List<AbstractWeaponType> weapons = new ArrayList<>(WeaponType.getAllWeapons());
 				weapons.removeIf(w -> !w.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN));
-				randomItem = AbstractWeaponType.generateWeapon(weapons.get(Util.random.nextInt(weapons.size())));
+				randomItem = Main.game.getItemGen().generateWeapon(weapons.get(Util.random.nextInt(weapons.size())));
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon((AbstractWeapon) randomItem);
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
@@ -465,13 +464,13 @@ public enum Encounter {
 				
 			}else if(node == EncounterType.DOMINION_FIND_ITEM) {
 				if(!Main.game.isSillyModeEnabled() || Math.random()<0.99f) {
-					randomItem = AbstractItemType.generateItem(ItemType.getDominionAlleywayItems().get(Util.random.nextInt(ItemType.getDominionAlleywayItems().size())));
+					randomItem = Main.game.getItemGen().generateItem(ItemType.getDominionAlleywayItems().get(Util.random.nextInt(ItemType.getDominionAlleywayItems().size())));
 					
 				} else {
 					if(Math.random()<0.5f) {
-						randomItem = AbstractItemType.generateItem(ItemType.EGGPLANT);
+						randomItem = Main.game.getItemGen().generateItem(ItemType.EGGPLANT);
 					} else {
-						randomItem = AbstractItemType.generateItem(ItemType.FEMININE_BURGER);
+						randomItem = Main.game.getItemGen().generateItem(ItemType.FEMININE_BURGER);
 					}
 				}
 				
@@ -480,7 +479,7 @@ public enum Encounter {
 				
 			} else if(node == EncounterType.DOMINION_FIND_CLOTHING) {
 				if(Math.random()<0.01f) {
-					randomItem = AbstractClothingType.generateClothing(ClothingType.MEGA_MILK);
+					randomItem = Main.game.getItemGen().generateClothing(ClothingType.MEGA_MILK);
 					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
 					
 				} else {
@@ -491,7 +490,7 @@ public enum Encounter {
 							&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
 							|| clothing.getRarity()==Rarity.EPIC
 							|| clothing.getRarity()==Rarity.LEGENDARY);
-					randomItem = AbstractClothingType.generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
+					randomItem = Main.game.getItemGen().generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
 					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
 				}
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
@@ -499,7 +498,7 @@ public enum Encounter {
 			} else if(node == EncounterType.DOMINION_FIND_WEAPON) {
 				List<AbstractWeaponType> weapons = new ArrayList<>(WeaponType.getAllWeapons());
 				weapons.removeIf(w -> !w.getItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN));
-				randomItem = AbstractWeaponType.generateWeapon(weapons.get(Util.random.nextInt(weapons.size())));
+				randomItem = Main.game.getItemGen().generateWeapon(weapons.get(Util.random.nextInt(weapons.size())));
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addWeapon((AbstractWeapon) randomItem);
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
@@ -582,10 +581,10 @@ public enum Encounter {
 			
 			if(node == EncounterType.HARPY_NEST_FIND_ITEM) {
 				if(Math.random() < 0.66) {
-					randomItem = AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
 					
 				} else {
-					randomItem = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_HARPY);
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
@@ -642,10 +641,10 @@ public enum Encounter {
 			
 			if (node == EncounterType.HARPY_NEST_FIND_ITEM) {
 				if(Math.random() < 0.66) {
-					randomItem = AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME);
 					
 				} else {
-					randomItem = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.RACE_INGREDIENT_HARPY);
 				}
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
@@ -880,7 +879,7 @@ public enum Encounter {
 				
 			} else if (node == EncounterType.SUBMISSION_FIND_ITEM) {
 				
-				randomItem = AbstractItemType.generateItem(ItemType.getSubmissionTunnelItems().get(Util.random.nextInt(ItemType.getSubmissionTunnelItems().size())));
+				randomItem = Main.game.getItemGen().generateItem(ItemType.getSubmissionTunnelItems().get(Util.random.nextInt(ItemType.getSubmissionTunnelItems().size())));
 				
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);
 				return SubmissionEncounterDialogue.FIND_ITEM;
@@ -939,9 +938,9 @@ public enum Encounter {
 			} else if (node == EncounterType.BAT_CAVERN_FIND_ITEM) {
 				
 				if(Main.game.getPlayerCell().getPlace().getPlaceType()==PlaceType.BAT_CAVERN_LIGHT && Math.random()<0.8f) {
-					randomItem = AbstractItemType.generateItem(ItemType.MUSHROOM);
+					randomItem = Main.game.getItemGen().generateItem(ItemType.MUSHROOM);
 				} else {
-					randomItem = AbstractItemType.generateItem(ItemType.getBatCavernItems().get(Util.random.nextInt(ItemType.getBatCavernItems().size())));
+					randomItem = Main.game.getItemGen().generateItem(ItemType.getBatCavernItems().get(Util.random.nextInt(ItemType.getBatCavernItems().size())));
 				}
 
 				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem((AbstractItem) randomItem);

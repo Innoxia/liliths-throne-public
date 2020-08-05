@@ -54,11 +54,11 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractLegType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractMouthType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractNippleType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
-import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTentacleType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTesticleType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTongueType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTorsoType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractWingType;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -80,11 +80,11 @@ import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.MouthType;
 import com.lilithsthrone.game.character.body.types.NippleType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.TentacleType;
 import com.lilithsthrone.game.character.body.types.TesticleType;
 import com.lilithsthrone.game.character.body.types.TongueType;
+import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
@@ -118,6 +118,7 @@ import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.OccupationTag;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -168,6 +169,7 @@ import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
+import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 
@@ -250,10 +252,10 @@ public class UtilText {
 			new Value<>("analogue", "analog"),
 			new Value<>("dialogue", "dialog"),
 			new Value<>("catalogue", "catalog"),
-			new Value<>("epilogue", "epilog"),
-			new Value<>("monologue", "monolog"),
-			new Value<>("prologue", "prolog"),
-			new Value<>("travelogue", "travelog"),
+//			new Value<>("epilogue", "epilog"),
+//			new Value<>("monologue", "monolog"),
+//			new Value<>("prologue", "prolog"),
+//			new Value<>("travelogue", "travelog"),
 			
 			// -l endings are not doubled:
 			new Value<>("cancelled", "canceled"),
@@ -412,7 +414,7 @@ public class UtilText {
 	}
 
 	public static String parseSpeech(String text, GameCharacter target, boolean includePersonalityEffects, boolean includeExtraEffects) {
-		modifiedSentence = text;
+		modifiedSentence = text.trim();
 		
 		String[] splitOnConditional = modifiedSentence.split("#THEN");
 		
@@ -508,29 +510,7 @@ public class UtilText {
 	}
 	
 	public static String parseThought(String text, GameCharacter target) {
-		modifiedSentence = text;
-
-		if (target.hasFetish(Fetish.FETISH_BIMBO))
-			modifiedSentence = Util.addBimbo(modifiedSentence, 6);
-
-		// Apply speech effects:
-		if(Main.game.isInSex()) {
-			if(Main.sex.isCharacterEngagedInOngoingAction(target))
-				modifiedSentence = Util.addSexSounds(modifiedSentence, 5);
-		}
-
-		if (target.getSpeechColour() != null) {
-			return "<span class='thoughts' style='color:" + target.getSpeechColour() + ";'>" + modifiedSentence + "</span>";
-
-		} else {
-			if (Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE_STRONG) {
-				return "<span class='thoughts' style='color:" + PresetColour.MASCULINE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-			} else if (Femininity.valueOf(target.getFemininityValue()) == Femininity.ANDROGYNOUS) {
-				return "<span class='thoughts' style='color:" + PresetColour.ANDROGYNOUS_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-			} else {
-				return "<span class='thoughts' style='color:" + PresetColour.FEMININE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-			}
-		}
+		return "<i>"+parseSpeech(text, target, true, false).replaceAll("class='speech'", "class='thoughts'")+"</i>";
 	}
 
 	public static String parseNPCSpeech(String text, Femininity femininity) {
@@ -2412,6 +2392,66 @@ public class UtilText {
 							+"</span>";
 				}
 				return character.getSubspecies().getFeralName(character);
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"passiveForm",
+						"passiveRace",
+						"racePassive"),
+				true,
+				true,
+				"(coloured)",
+				"Returns the name of this elemental's passive form. Pass in 'true' to colour the text. (Returns an error code if the target is not an Elemental.)"){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(!character.isElemental()) {
+					return "[style.italicsBad(The 'passiveRace' command does not work on non-elementals!)]";
+				}
+				Elemental elemental = ((Elemental)character);
+				String name = elemental.getPassiveForm()==null
+						?"wisp"
+						:elemental.getPassiveForm().getFeralName(elemental);
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					boolean pronoun = parseAddPronoun;
+					parseAddPronoun = false;
+					return "<span style='color:"+(elemental.getPassiveForm()==null?elemental.getCurrentSchool().getColour():elemental.getPassiveForm().getColour(character)).toWebHexString()+";'>"
+							+ (parseCapitalise
+									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
+									:(pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
+							+"</span>";
+				}
+				return name;
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"school",
+						"elementalSchool",
+						"boundSchool"),
+				true,
+				true,
+				"(coloured)",
+				"Returns the name of the arcane school to which this elemental is currently bound. Pass in 'true' to colour the text. (Returns an error code if the target is not an Elemental.)"){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				if(!character.isElemental()) {
+					return "[style.italicsBad(The 'boundSchool' command does not work on non-elementals!)]";
+				}
+				Elemental elemental = ((Elemental)character);
+				String name = elemental.getCurrentSchool().getName();
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					boolean pronoun = parseAddPronoun;
+					parseAddPronoun = false;
+					return "<span style='color:"+elemental.getCurrentSchool().getColour().toWebHexString()+";'>"
+							+ (parseCapitalise
+									?Util.capitaliseSentence((pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
+									:(pronoun?UtilText.generateSingularDeterminer(name)+" ":"")+name)
+							+"</span>";
+				}
+				return name;
 			}
 		});
 		
@@ -5581,6 +5621,21 @@ public class UtilText {
 			}
 		});
 		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"milkFlavour",
+						"flavourMilk"),
+				false,
+				false,
+				"",
+				"Returns the name of the flavour of this character's milk.",
+				BodyPartType.MILK){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getMilk().getFlavour().getName();
+			}
+		});
+		
 		
 		// Crotch Breasts:
 		
@@ -5898,6 +5953,23 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getBreastCrotchLactationRegeneration().getName();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"udderMilkFlavour",
+						"flavourUdderMilk",
+						"crotchMilkFlavour",
+						"flavourCrotchMilk"),
+				false,
+				false,
+				"",
+				"Returns the name of the flavour of this character's milk.",
+				BodyPartType.MILK){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getMilkCrotch().getFlavour().getName();
 			}
 		});
 		
@@ -6546,6 +6618,21 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return Units.fluid(character.getPenisRawCumStorageValue());
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"cumFlavour",
+						"flavourCum"),
+				false,
+				false,
+				"",
+				"Returns the name of the flavour of this character's cum.",
+				BodyPartType.CUM){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getCum().getFlavour().getName();
 			}
 		});
 		
@@ -7260,6 +7347,21 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				return character.getVaginaWetness().getDescriptor();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						"girlcumFlavour",
+						"flavourGirlcum"),
+				false,
+				false,
+				"",
+				"Returns the name of the flavour of this character's girlcum.",
+				BodyPartType.GIRL_CUM){
+			@Override
+			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
+				return character.getGirlcum().getFlavour().getName();
 			}
 		});
 		
@@ -8188,6 +8290,7 @@ public class UtilText {
 		engine.put("sex", Main.sex);
 		engine.put("properties", Main.getProperties());
 		engine.put("RND", Util.random);
+		engine.put("itemGen", Main.game.getItemGen());
 		
 		// Java classes:
 		for(DayOfWeek dayOfWeek : DayOfWeek.values()) {
@@ -8438,8 +8541,8 @@ public class UtilText {
 		for(AbstractPlaceType placeType : PlaceType.getAllPlaceTypes()) {
 			engine.put("PLACE_TYPE_"+PlaceType.getIdFromPlaceType(placeType), placeType);
 		}
-		for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
-			engine.put("PLACE_UPGRADE_"+upgrade.toString(), upgrade);
+		for(AbstractPlaceUpgrade upgrade : PlaceUpgrade.getAllPlaceUpgrades()) {
+			engine.put("PLACE_UPGRADE_"+PlaceUpgrade.getIdFromPlaceUpgrade(upgrade), upgrade);
 		}
 
 		

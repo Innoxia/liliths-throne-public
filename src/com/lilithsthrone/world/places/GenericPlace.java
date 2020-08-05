@@ -21,14 +21,14 @@ import com.lilithsthrone.world.EntranceType;
 
 /**
  * @since 0.1.?
- * @version 0.3.7
+ * @version 0.3.9
  * @author Innoxia
  */
 public class GenericPlace implements XMLSaving {
 	
 	private String name;
 	private AbstractPlaceType placeType;
-	private Set<PlaceUpgrade> placeUpgrades;
+	private Set<AbstractPlaceUpgrade> placeUpgrades;
 	
 	public static Map<AbstractPlaceType, Integer> placeCountMap = new HashMap<>();
 
@@ -46,7 +46,7 @@ public class GenericPlace implements XMLSaving {
 			if(placeType.getPlaceNameAppendFormat(placeCountMap.get(placeType))!=null && !placeType.getPlaceNameAppendFormat(placeCountMap.get(placeType)).isEmpty()) {
 				this.name = placeType.getName() + placeType.getPlaceNameAppendFormat(placeCountMap.get(placeType));
 			}
-			for(PlaceUpgrade pu : placeType.getStartingPlaceUpgrades()) {
+			for(AbstractPlaceUpgrade pu : placeType.getStartingPlaceUpgrades()) {
 				placeUpgrades.add(pu);
 			}
 			
@@ -68,11 +68,11 @@ public class GenericPlace implements XMLSaving {
 		if(!this.getPlaceUpgrades().isEmpty()) {
 			Element innerElement = doc.createElement("placeUpgrades");
 			element.appendChild(innerElement);
-			for(PlaceUpgrade upgrade : this.getPlaceUpgrades()) {
+			for(AbstractPlaceUpgrade upgrade : this.getPlaceUpgrades()) {
 				Element e = doc.createElement("upgrade");
 				innerElement.appendChild(e);
 				
-				CharacterUtils.addAttribute(doc, e, "type", upgrade.toString());
+				CharacterUtils.addAttribute(doc, e, "type", PlaceUpgrade.getIdFromPlaceUpgrade(upgrade));
 			}
 		}
 		return element;
@@ -80,39 +80,6 @@ public class GenericPlace implements XMLSaving {
 	
 	public static GenericPlace loadFromXML(Element parentElement, Document doc, Cell c) {
 		String placeType = parentElement.getAttribute("type");
-		
-		if(placeType.equals("ZARANIX_FF_BEDROOM")) {
-			placeType = "ZARANIX_FF_OFFICE";
-			
-		} else if(placeType.equals("LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE")
-				|| placeType.equals("LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_MILKING")) {
-			placeType = "LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR";
-			
-		} else if(placeType.equals("LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE")
-				|| placeType.equals("LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_MILKING")) {
-			placeType = "LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR";
-			
-		} else if(placeType.equals("LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE")
-				|| placeType.equals("LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_MILKING")) {
-			placeType = "LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR";
-			
-		} else if(placeType.equals("LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE")
-				|| placeType.equals("LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_MILKING")) {
-			placeType = "LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR";
-			
-		}
-		else if(placeType.equals("DOMINION_EXIT_TO_JUNGLE")) {
-			placeType = "DOMINION_EXIT_EAST";
-		}
-		else if(placeType.equals("DOMINION_EXIT_TO_DESERT")) {
-			placeType = "DOMINION_EXIT_SOUTH";
-		}
-		else if(placeType.equals("DOMINION_EXIT_TO_FIELDS")) {
-			placeType = "DOMINION_EXIT_NORTH";
-		}
-		else if(placeType.equals("DOMINION_EXIT_TO_SEA")) {
-			placeType = "DOMINION_EXIT_WEST";
-		}
 		
 		AbstractPlaceType pt = PlaceType.getPlaceTypeFromId(placeType);
 		GenericPlace place = new GenericPlace(pt);
@@ -131,8 +98,8 @@ public class GenericPlace implements XMLSaving {
 		
 		try {
 			if(parentElement.getElementsByTagName("placeUpgrades").getLength()>0 && ((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength()>0) {
-				List<PlaceUpgrade> coreUpgrades = new ArrayList<>();
-				List<PlaceUpgrade> upgrades = new ArrayList<>();
+				List<AbstractPlaceUpgrade> coreUpgrades = new ArrayList<>();
+				List<AbstractPlaceUpgrade> upgrades = new ArrayList<>();
 				for(int i=0; i<((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength(); i++){
 					Element e = (Element) ((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").item(i);
 					String placeUpgradeId = e.getAttribute("type");
@@ -140,7 +107,7 @@ public class GenericPlace implements XMLSaving {
 						Cell.refundMoney += 300_000;
 						
 					} else {
-						PlaceUpgrade upgrade = PlaceUpgrade.valueOf(placeUpgradeId);
+						AbstractPlaceUpgrade upgrade = PlaceUpgrade.getPlaceUpgradeFromId(placeUpgradeId);
 						
 						if(upgrade.isCoreRoomUpgrade()) {
 							coreUpgrades.add(upgrade);
@@ -153,7 +120,7 @@ public class GenericPlace implements XMLSaving {
 				place.getPlaceUpgrades().clear();
 				
 				// Add core upgrades first:
-				for(PlaceUpgrade coreUpgrade : coreUpgrades) {
+				for(AbstractPlaceUpgrade coreUpgrade : coreUpgrades) {
 					if(coreUpgrade==PlaceUpgrade.LILAYA_EMPTY_ROOM && coreUpgrades.size()>1) {
 						continue;
 					}
@@ -165,7 +132,7 @@ public class GenericPlace implements XMLSaving {
 						}
 					}
 				}
-				for(PlaceUpgrade upgrade : upgrades) {
+				for(AbstractPlaceUpgrade upgrade : upgrades) {
 					if(!place.getPlaceUpgrades().contains(upgrade)) {
 						if(!place.addPlaceUpgrade(c, upgrade)) { // This line attempts to add the upgrade
 							System.err.println("WARNING: Import of GenericPlace ("+place.getPlaceType()+") was unable to add upgrade: "+upgrade.getName());
@@ -214,12 +181,12 @@ public class GenericPlace implements XMLSaving {
 		return placeType.getColour();
 	}
 
-	public DialogueNode getDialogue(boolean withRandomEncounter) {
-		return getDialogue(withRandomEncounter, false);
+	public DialogueNode getDialogue(Cell c, boolean withRandomEncounter) {
+		return getDialogue(c, withRandomEncounter, false);
 	}
 	
-	public DialogueNode getDialogue(boolean withRandomEncounter, boolean forceEncounter) {
-		return placeType.getDialogue(withRandomEncounter, forceEncounter);
+	public DialogueNode getDialogue(Cell c, boolean withRandomEncounter, boolean forceEncounter) {
+		return placeType.getDialogue(c, withRandomEncounter, forceEncounter);
 	}
 
 	public boolean isPopulated() {
@@ -253,7 +220,7 @@ public class GenericPlace implements XMLSaving {
 		return placeType.getParentAlignment();
 	}
 	
-	public boolean addPlaceUpgrade(Cell c, PlaceUpgrade upgrade) {
+	public boolean addPlaceUpgrade(Cell c, AbstractPlaceUpgrade upgrade) {
 		if(placeUpgrades.add(upgrade)) {
 			upgrade.applyInstallationEffects(c);
 			return true;
@@ -262,7 +229,7 @@ public class GenericPlace implements XMLSaving {
 		}
 	}
 	
-	public boolean removePlaceUpgrade(Cell c, PlaceUpgrade upgrade) {
+	public boolean removePlaceUpgrade(Cell c, AbstractPlaceUpgrade upgrade) {
 		if(placeUpgrades.remove(upgrade)) {
 			upgrade.applyRemovalEffects(c);
 			return true;
@@ -275,12 +242,12 @@ public class GenericPlace implements XMLSaving {
 		return placeType.isAbleToBeUpgraded();
 	}
 	
-	public Set<PlaceUpgrade> getPlaceUpgrades() {
+	public Set<AbstractPlaceUpgrade> getPlaceUpgrades() {
 		return placeUpgrades;
 	}
 	
 	public boolean isSlaveCell() {
-		for(PlaceUpgrade upgrade : placeUpgrades) {
+		for(AbstractPlaceUpgrade upgrade : placeUpgrades) {
 			if(upgrade.isCoreRoomUpgrade() && upgrade.isSlaverUpgrade()) {
 				return true;
 			}
@@ -290,7 +257,7 @@ public class GenericPlace implements XMLSaving {
 	
 	public int getCapacity() {
 		int c = 0;
-		for(PlaceUpgrade pu : placeUpgrades) {
+		for(AbstractPlaceUpgrade pu : placeUpgrades) {
 			c+=pu.getCapacity();
 		}
 		return c;
@@ -298,7 +265,7 @@ public class GenericPlace implements XMLSaving {
 	
 	public int getUpkeep() {
 		int upkeep = 0;
-		for(PlaceUpgrade pu : placeUpgrades) {
+		for(AbstractPlaceUpgrade pu : placeUpgrades) {
 			upkeep+=pu.getUpkeep();
 		}
 		if(upkeep<0) {
@@ -309,7 +276,7 @@ public class GenericPlace implements XMLSaving {
 	
 	public float getHourlyAffectionChange() {
 		float affectionChange = 0;
-		for(PlaceUpgrade pu : placeUpgrades) {
+		for(AbstractPlaceUpgrade pu : placeUpgrades) {
 			affectionChange+=pu.getHourlyAffectionGain();
 		}
 		return affectionChange;
@@ -317,7 +284,7 @@ public class GenericPlace implements XMLSaving {
 	
 	public float getHourlyObedienceChange() {
 		float obedienceChange = 0;
-		for(PlaceUpgrade pu : placeUpgrades) {
+		for(AbstractPlaceUpgrade pu : placeUpgrades) {
 			obedienceChange+=pu.getHourlyObedienceGain();
 		}
 		return obedienceChange;
